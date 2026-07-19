@@ -6,6 +6,7 @@ import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.Device;
 import com.bitwig.extension.controller.api.DeviceBank;
 import com.bitwig.extension.controller.api.NoteStep;
+import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.Track;
 import com.google.gson.JsonArray;
@@ -94,6 +95,8 @@ public class ProbeHandlers implements Bridge.Dispatcher {
             // --- E3: structural ops & revert ---
             case "device.insertBitwig":
                 return deviceInsertBitwig(params);
+            case "device.insertClap":
+                return deviceInsertClap(params);
             case "device.list":
                 return deviceList(params);
             case "device.delete":
@@ -110,6 +113,24 @@ public class ProbeHandlers implements Bridge.Dispatcher {
                 return appRedo(params);
             case "app.undoState":
                 return appUndoState();
+
+            // --- E4: direct parameters ---
+            case "devcursor.status":
+                return devcursorStatus();
+            case "devcursor.pin":
+                return devcursorPin(params);
+            case "devcursor.selectInChannel":
+                return devcursorSelectInChannel(params);
+            case "devcursor.selectAt":
+                return devcursorSelectAt(params);
+            case "param.list":
+                return paramList();
+            case "param.set":
+                return paramSet(params);
+            case "directparam.list":
+                return directParamList();
+            case "directparam.set":
+                return directParamSet(params);
 
             default:
                 throw new Bridge.MethodNotFoundException(method);
@@ -542,6 +563,14 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         return ok();
     }
 
+    /** Insert a CLAP device by its CLAP id string at end of chain. */
+    private JsonElement deviceInsertClap(JsonObject params) {
+        String ref = params.get("cursor").getAsString();
+        String clapId = params.get("clapId").getAsString();
+        rig.cursorTrack(ref).endOfDeviceChainInsertionPoint().insertCLAPDevice(clapId);
+        return ok();
+    }
+
     /** List devices in a pool cursor's track chain via its DeviceBank. */
     private JsonElement deviceList(JsonObject params) {
         int i = params.get("cursor").getAsInt();
@@ -632,6 +661,126 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         result.addProperty("canUndo", rig.application.canUndo().get());
         result.addProperty("canRedo", rig.application.canRedo().get());
         return result;
+    }
+
+    // ------------------------------------------------ E4: direct parameters
+
+    private JsonElement devcursorStatus() {
+        JsonObject result = new JsonObject();
+        result.addProperty("exists", rig.cursorDevice0.exists().get());
+        result.addProperty("name", rig.cursorDevice0.name().get());
+        result.addProperty("isPinned", rig.cursorDevice0.isPinned().get());
+        return result;
+    }
+
+    private JsonElement devcursorPin(JsonObject params) {
+        rig.cursorDevice0.isPinned().set(params.get("pinned").getAsBoolean());
+        return ok();
+    }
+
+    /** Point the device cursor at the first device of its current track. */
+    private JsonElement devcursorSelectInChannel(JsonObject params) {
+        rig.cursorDevice0.selectFirstInChannel(rig.cursorTracks[0]);
+        return ok();
+    }
+
+    /** Point the device cursor at a specific chain index (via device bank). */
+    private JsonElement devcursorSelectAt(JsonObject params) {
+        int deviceIndex = params.get("deviceIndex").getAsInt();
+        rig.cursorDevice0.selectDevice(rig.cursorDeviceBanks[0].getDevice(deviceIndex));
+        return ok();
+    }
+
+    /**
+     * Read every pre-allocated Polysynth param handle. This is the §6a
+     * "effective enumeration" test: 16 named, valued handles at once.
+     */
+    private JsonElement paramList() {
+        JsonArray params = new JsonArray();
+        int existing = 0;
+        for (int i = 0; i < rig.polysynthParams0.length; i++) {
+            Parameter p = rig.polysynthParams0[i];
+            JsonObject obj = new JsonObject();
+            obj.addProperty("id", Rig.POLYSYNTH_PARAM_IDS[i]);
+            boolean exists = p.exists().get();
+            obj.addProperty("exists", exists);
+            if (exists) {
+                existing++;
+                obj.addProperty("name", p.name().get());
+                obj.addProperty("value", p.value().get());
+                obj.addProperty("displayed", p.value().displayedValue().get());
+            }
+            params.add(obj);
+        }
+        JsonObject result = new JsonObject();
+        result.add("params", params);
+        result.addProperty("total", rig.polysynthParams0.length);
+        result.addProperty("existing", existing);
+        result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
+        result.addProperty("deviceName", rig.cursorDevice0.name().get());
+        return result;
+    }
+
+    /**
+     * Set a Polysynth param by ID to a normalized 0..1 value.
+     * mode "immediate" (default) bypasses the controller take-over strategy
+     * that silently swallows plain set(); "smoothed" uses set().
+     */
+    private JsonElement paramSet(JsonObject params) {
+        String id = params.get("id").getAsString();
+        double value = params.get("value").getAsDouble();
+        String mode = params.has("mode") ? params.get("mode").getAsString() : "immediate";
+        int idx = -1;
+        for (int i = 0; i < Rig.POLYSYNTH_PARAM_IDS.length; i++) {
+            if (Rig.POLYSYNTH_PARAM_IDS[i].equals(id)) {
+                idx = i;
+                break;
+            }
+        }
+        if (idx < 0) {
+            throw new IllegalArgumentException("unknown param id: " + id);
+        }
+        if ("smoothed".equals(mode)) {
+            rig.polysynthParams0[idx].value().set(value);
+        } else {
+            rig.polysynthParams0[idx].value().setImmediately(value);
+        }
+        return ok();
+    }
+
+    /**
+     * Format-agnostic DirectParameter enumeration for cursorDevice0 — the
+     * path that reaches CLAP/VST/Bitwig without a typed specific-device.
+     * Reads observer-populated maps (E4b).
+     */
+    private JsonElement directParamList() {
+        JsonArray params = new JsonArray();
+        for (String id : rig.directParamIds) {
+            JsonObject obj = new JsonObject();
+            obj.addProperty("id", id);
+            obj.addProperty("name", rig.directParamNames.getOrDefault(id, null));
+            Double v = rig.directParamValues.get(id);
+            if (v != null) {
+                obj.addProperty("value", v);
+            }
+            obj.addProperty("displayed", rig.directParamDisplays.getOrDefault(id, null));
+            params.add(obj);
+        }
+        JsonObject result = new JsonObject();
+        result.add("params", params);
+        result.addProperty("count", rig.directParamIds.length);
+        result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
+        result.addProperty("deviceName", rig.cursorDevice0.name().get());
+        return result;
+    }
+
+    /** Write a direct parameter by id (normalized 0..1). */
+    private JsonElement directParamSet(JsonObject params) {
+        String id = params.get("id").getAsString();
+        double value = params.get("value").getAsDouble();
+        double resolution = params.has("resolution") ? params.get("resolution").getAsDouble() : 128.0;
+        rig.cursorDevice0.setDirectParameterValueNormalized(id, value, resolution);
+        return ok();
     }
 
     // ------------------------------------------- E1: UI selection tracking

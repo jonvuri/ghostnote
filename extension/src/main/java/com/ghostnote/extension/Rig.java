@@ -6,9 +6,13 @@ import com.bitwig.extension.controller.api.ClipLauncherSlot;
 import com.bitwig.extension.controller.api.ClipLauncherSlotBank;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.CursorTrack;
+import com.bitwig.extension.controller.api.CursorDeviceFollowMode;
 import com.bitwig.extension.controller.api.Device;
 import com.bitwig.extension.controller.api.DeviceBank;
+import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
+import com.bitwig.extension.controller.api.PinnableCursorDevice;
+import com.bitwig.extension.controller.api.SpecificBitwigDevice;
 import com.bitwig.extension.controller.api.SceneBank;
 import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBank;
@@ -61,6 +65,38 @@ public class Rig {
 
     /** Arrangement cursor clip (follows arranger clip selection). */
     public final Clip arrangerClip;
+
+    // --- E4: direct-parameter apparatus on pool cursor 0 ---
+    /** Polysynth device UUID (harvested from the app bundle, E3). */
+    public static final String POLYSYNTH_UUID = "a9ffacb5-33e9-4fc7-8621-b1af31e410ef";
+    /**
+     * Curated Polysynth parameter IDs (harvested from the device's
+     * Default.bwpreset). 16 handles = proof past the 8-per-remote-page
+     * ceiling (§6a). Section markers (CONTENTS/MODULATORS/FAKE*) excluded.
+     */
+    public static final String[] POLYSYNTH_PARAM_IDS = {
+        "F1FREQ", "F1RESO", "HPFFREQ", "HPF_RESONANCE",
+        "OSCMIX", "OSC1_SHAPE", "OSC2_SHAPE", "OSC1_PITCH",
+        "OSC2PITCH", "OSC1_UNISON_VOICES", "GAIN", "GLIDE_TIME",
+        "NOISE", "FEGDEPTH", "FEEDBACK", "DEPTH",
+    };
+
+    /** Repointable device cursor on pool cursor track 0. */
+    public final PinnableCursorDevice cursorDevice0;
+    public final SpecificBitwigDevice polysynthView0;
+    public final Parameter[] polysynthParams0 = new Parameter[POLYSYNTH_PARAM_IDS.length];
+
+    /**
+     * DirectParameter API state for cursorDevice0 — the format-AGNOSTIC path
+     * (works on VST/CLAP/Bitwig alike, self-enumerating). Maps are written by
+     * observer callbacks and read by handlers, both on the control-surface
+     * thread, so no synchronization is needed. LinkedHashMap preserves the
+     * device's own parameter order.
+     */
+    public volatile String[] directParamIds = new String[0];
+    public final java.util.Map<String, String> directParamNames = new java.util.LinkedHashMap<>();
+    public final java.util.Map<String, Double> directParamValues = new java.util.LinkedHashMap<>();
+    public final java.util.Map<String, String> directParamDisplays = new java.util.LinkedHashMap<>();
 
     // UI selection tracking, updated by observers on the control-surface
     // thread; read by handlers on the same thread.
@@ -140,6 +176,40 @@ public class Rig {
 
         arrangerClip = host.createArrangerCursorClip(GRID_STEPS, GRID_KEYS);
         markClip(arrangerClip);
+
+        // E4: device cursor on pool cursor track 0, auto-following the first
+        // instrument of whatever track cursorTracks[0] is pointed at.
+        cursorDevice0 = cursorTracks[0].createCursorDevice(
+            "GN_DEV_0", "ghostnote device 0", 0, CursorDeviceFollowMode.FIRST_INSTRUMENT);
+        cursorDevice0.exists().markInterested();
+        cursorDevice0.name().markInterested();
+        cursorDevice0.isPinned().markInterested();
+
+        polysynthView0 = cursorDevice0.createSpecificBitwigDevice(
+            java.util.UUID.fromString(POLYSYNTH_UUID));
+        for (int p = 0; p < POLYSYNTH_PARAM_IDS.length; p++) {
+            Parameter param = polysynthView0.createParameter(POLYSYNTH_PARAM_IDS[p]);
+            param.exists().markInterested();
+            param.name().markInterested();
+            param.value().markInterested();
+            param.value().displayedValue().markInterested();
+            polysynthParams0[p] = param;
+        }
+
+        // Format-agnostic DirectParameter observers (E4b — CLAP access test).
+        // Callbacks fire on the control-surface thread.
+        cursorDevice0.addDirectParameterIdObserver(ids -> {
+            directParamIds = ids != null ? ids : new String[0];
+        });
+        cursorDevice0.addDirectParameterNameObserver(48, (id, name) -> {
+            directParamNames.put(id, name);
+        });
+        cursorDevice0.addDirectParameterNormalizedValueObserver((id, value) -> {
+            directParamValues.put(id, value);
+        });
+        cursorDevice0.addDirectParameterValueDisplayObserver(48, (id, display) -> {
+            directParamDisplays.put(id, display);
+        });
     }
 
     private static void markClip(Clip clip) {

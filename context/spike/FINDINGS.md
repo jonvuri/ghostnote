@@ -5,6 +5,171 @@ One section per experiment, appended as run. Verdicts: ● confirmed working /
 
 ---
 
+## E4b — CLAP params via the DirectParameter API (2026-07-19)
+
+**Verdict: ● CLAP direct params ARE accessible — my E4 negative was wrong.**
+Prompted by a challenge to the E4 CLAP claim. The typed specific-device
+path has no CLAP variant, but `Device` carries a second, **format-agnostic
+`DirectParameter` API** (the older one `createParameter` "replaced") that
+works on CLAP, VST, and Bitwig devices alike. Probe `e04b`.
+
+### What works (proven on a real CLAP: Stochas, `org.surge-synth-team.stochas`)
+
+- **Self-enumeration**: `addDirectParameterIdObserver` emits an array of
+  **all** param IDs — no IDs known upfront (unlike `createParameter`).
+  Stochas: 55 params; Polysynth via the same API: 55 params.
+- **Names**: `addDirectParameterNameObserver(maxChars, cb)` → per-id names
+  ("L1 speed", "L1 steps/measure", "OSC1 Pulse Width", "AEG Attack"). All
+  55 named on both devices.
+- **Values**: `addDirectParameterNormalizedValueObserver(cb)` → per-id 0..1
+  (Polysynth reported real defaults: Attack 0.07, Sustain 0.95).
+- **Writes**: `setDirectParameterValueNormalized(id, value, resolution)`
+  works on Bitwig F1FREQ (0.693→0.200). **⚠ resolution matters:**
+  `resolution=1` took; `resolution=128` did NOT within 1.5s. Use
+  `resolution=1` (or investigate the intended semantics). Stochas's own
+  params didn't move on write — plugin-specific (some plugins reject host
+  writes / gate on host-automation state), not an API limit.
+
+### Mechanism comparison — two parameter APIs, pick per case
+
+| | `createParameter` (E4) | `DirectParameter` (E4b) |
+|---|---|---|
+| Devices | VST2/VST3/Bitwig (typed) | **any incl. CLAP** |
+| Discovery | IDs/indices known upfront | **self-enumerates all IDs** |
+| Access | pull (`get()`) | **push (observers, init-time)** |
+| Handles | pre-allocated at init | one observer set per cursor device |
+| Displays | ✅ `displayedValue()` ("2.59 kHz") | ◐ observer didn't populate (below) |
+| Writes | `setImmediately` | `setDirectParameterValueNormalized(…,1)` |
+
+**Implication for the param layer:** DirectParameter is the better
+*discovery/enumeration* primitive (self-listing, format-agnostic, one
+observer set covers any pointed device) and reaches CLAP. `createParameter`
+remains better where displayed values and stable pull-reads matter (Bitwig
+internal, known VST indices). A pool cursor-device can carry BOTH: direct
+observers for enumeration + typed handles for the devices we deeply support.
+
+### Open detail (not blocking)
+
+- **`addDirectParameterValueDisplayObserver` didn't populate** display
+  strings for either device (names/values did). Hypothesis: the display
+  channel is **page-scoped** (the DirectParameter API has
+  `setParameterPage`/`nextParameterPage`/`isParameterPageSectionVisible`),
+  so displays may only stream for the active parameter page, needing page
+  navigation to cover all params. Deferred; displayed values are available
+  anyway via `createParameter` for typed devices, and normalized values
+  suffice for CLAP readback. Revisit in Phase 1 if CLAP display strings are
+  wanted.
+
+### Decision impact (updates E4)
+
+- **CLAP is IN scope for direct params** (enumerate + name + value + write),
+  via DirectParameter. §6a "VST/CLAP" claim restored for CLAP; the
+  differentiator is broader than E4 concluded.
+- Param layer carries two APIs by role: DirectParameter for enumeration/CLAP,
+  createParameter for typed pull-reads + displays.
+- Write via DirectParameter: pass `resolution=1`.
+- **Lesson:** a negative capability claim from a single missing-method grep
+  is unsafe in this API — verify against the whole `Device` surface + a live
+  test before recording an ○. (Good catch by the user.)
+
+---
+
+## E4 — Direct parameter layer (§6a differentiator) (2026-07-19)
+
+**Verdict: ● the differentiating capability WORKS and exceeds the plan.**
+`createParameter` gives named, valued, settable, repointable handles far
+past the 8-per-remote-page ceiling, and the Bitwig-internal param IDs —
+INITIAL_PROMPT's "harder case" needing semi-manual harvesting — turn out
+to be **sitting in the app bundle as plain text**. Probe `e04`, all green.
+
+### Enumeration proof (§6a "effective enumeration")
+
+Pre-allocated 16 `SpecificBitwigDevice.createParameter(String id)` handles
+on a repointable cursor device. Pointed at a freshly-inserted Polysynth,
+14/16 resolved (2 harvested IDs were section markers, not params), each
+**self-describing**: name + normalized value + human displayed value, e.g.
+`F1FREQ="Filter Frequency"=2.59 kHz`, `F1RESO="Filter Resonance"=39.5 %`,
+`OSCMIX="OSC 1/2 Mix"=0.00 %`. This is the WigAI issue-#15 gap closed:
+arbitrary count of named params, not capped at 8. Params became live
+**~194ms after device insert** (device insert itself ~144ms).
+
+### Param ID harvesting — much easier than assumed (§6a upgrade)
+
+Bitwig-internal device param IDs are readable straight from
+`…/Bitwig Studio.app/Contents/Resources/Library/device-settings/<uuid>/
+Default.bwpreset` (`strings | grep -E '^[A-Z][A-Z0-9_]{2,}$'`). Polysynth
+yielded 63 tokens, ~14/16 sampled were valid createParameter IDs (rest are
+section markers: CONTENTS, MODULATORS, FAKE1…). **No `can-copy-device-and-
+param-ids` context-menu workflow needed** — the whole internal-device
+catalog is harvestable offline from the bundle. Promotes §6a's "one-time
+semi-manual harvest, plausibly a community artifact" to "a script over the
+app bundle." (Validity still needs a resolve-check per ID against a live
+device, since presets include non-param tokens.)
+
+### Read/write + the take-over trap
+
+- **`param.value().setImmediately(v)` works** (0..1 normalized); round-trips
+  exactly and the displayed string tracks it (`0.25`→"75.4 Hz",
+  `0.8`→"6.08 kHz").
+- **⚠ `param.value().set(v)` is SILENTLY SWALLOWED** by the controller's
+  take-over strategy (a plain `set` "may not be set immediately if the user
+  configured a take over strategy" — value stayed exactly at the preset
+  default). ⇒ **all agent param writes must use `setImmediately`, never
+  `set`.** This is the param-layer analogue of E2's gain/pressure traps:
+  another silent-no-op write path that only readback verification would
+  catch. → DECISIONS.
+
+### Repointing — the pre-allocation architecture question, ANSWERED
+
+`createParameter` handles bind to the **cursor device**, not a fixed slot,
+and follow it as it repoints:
+- **Within a chain:** `selectDevice(bank.getDevice(i))` moved the cursor
+  across two Polysynths; the same 16 handles read/wrote each independently
+  (device[1] F1FREQ=0.1 vs device[0]=0.8, no cross-talk).
+- **Across tracks:** pointing the parent cursor-track at gn-B moved the
+  device cursor (FIRST_INSTRUMENT follow) to gn-B's device; handles read it.
+- ⇒ **the §3a "pre-allocate a pool, repoint" strategy applies to params
+  exactly as it did to clips (E1).** A modest pool of cursor-devices ×
+  N param handles covers the session; no per-slot allocation explosion.
+
+### Type specificity + pinning subtleties
+
+- **`SpecificBitwigDevice(uuid)` view is device-type-specific:** pointed at
+  a Polymer, all Polysynth param handles report `exists=false`. So a param
+  pool must carry a view **per device type** we want deep access to (the
+  cursor device itself still enumerates any device's name/position). Per-type
+  ID catalogs are the unit of the eventual catalog.
+- **Device-cursor `isPinned` is subordinate to its track cursor:** pinning
+  the device cursor does NOT hold the device when its parent cursor-track is
+  repointed (params jumped to gn-A's device after a track move). **The
+  robust hold is: pin the TRACK cursor (E1) + address the device by
+  `selectDevice(index)`.** With the track pinned, params stayed on gn-B's
+  device (GAIN=0.33) under a selection change. → DECISIONS: device pool
+  addressing = pinned track cursor + explicit device index, not device-pin.
+
+### Scope note (superseded by E4b)
+
+- The **typed** specific-device path is VST2/VST3/Bitwig only — no
+  `createSpecificClapDevice`. My first reading ("CLAP direct params NOT
+  accessible") was **WRONG**: it ruled out one path and missed the
+  format-agnostic `DirectParameter` API. See E4b — CLAP params ARE
+  accessible. VST index-path (`SpecificPluginDevice.createParameter(int)`)
+  still unexercised (needs a known VST id-at-init); deferred.
+
+### Decision impact
+
+- **§6a differentiator confirmed buildable** — named/valued param access at
+  arbitrary count, repointable via the pool model, with an offline-harvestable
+  internal-device catalog. This is the genuinely novel capability and it holds.
+- **Writes: `setImmediately` only** (take-over swallows `set`).
+- **Device addressing model:** pinned track cursor + `selectDevice(index)`;
+  per-device-type `SpecificBitwigDevice` views; pool of cursor-devices ×
+  param handles sized in E5.
+- **Param catalog:** promote to a straightforward Phase-1/2 deliverable
+  (harvest bundle → resolve-check per device). CLAP excluded; VST via index.
+
+---
+
 ## E3 — Structural ops & revert correctness (2026-07-19)
 
 **Verdict: ● the optimistic-application posture is sound — native undo is
