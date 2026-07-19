@@ -51,6 +51,8 @@ public class ProbeHandlers implements Bridge.Dispatcher {
                 return trackList();
             case "track.delete":
                 return trackDelete(params);
+            case "track.resolveByChannelId":
+                return trackResolveByChannelId(params);
             case "clip.create":
                 return clipCreate(params);
             case "slot.status":
@@ -209,6 +211,7 @@ public class ProbeHandlers implements Bridge.Dispatcher {
             obj.addProperty("name", track.name().get());
             obj.addProperty("position", track.position().get());
             obj.addProperty("type", track.trackType().get());
+            obj.addProperty("channelId", track.channelId().get());
             tracks.add(obj);
         }
         JsonObject result = new JsonObject();
@@ -221,6 +224,29 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         Track track = requireTrack(params.get("trackIndex").getAsInt());
         track.deleteObject();
         return ok();
+    }
+
+    /**
+     * Re-resolve a track to its current bank index by stable channel UUID.
+     * This is the candidate stable-addressing primitive: address by UUID,
+     * scan the bank to find the current index/name.
+     */
+    private JsonElement trackResolveByChannelId(JsonObject params) {
+        String wanted = params.get("channelId").getAsString();
+        JsonObject result = new JsonObject();
+        for (int i = 0; i < Rig.TRACKS; i++) {
+            Track track = rig.trackBank.getItemAt(i);
+            if (track.exists().get() && wanted.equals(track.channelId().get())) {
+                result.addProperty("found", true);
+                result.addProperty("index", i);
+                result.addProperty("name", track.name().get());
+                result.addProperty("position", track.position().get());
+                result.addProperty("type", track.trackType().get());
+                return result;
+            }
+        }
+        result.addProperty("found", false);
+        return result;
     }
 
     private JsonElement clipCreate(JsonObject params) {

@@ -121,6 +121,7 @@ public class Rig {
             track.name().markInterested();
             track.position().markInterested();
             track.trackType().markInterested();
+            track.channelId().markInterested();
 
             ClipLauncherSlotBank slots = track.clipLauncherSlotBank();
             for (int j = 0; j < SCENES; j++) {
@@ -146,6 +147,7 @@ public class Rig {
             cursorTracks[i].exists().markInterested();
             cursorTracks[i].name().markInterested();
             cursorTracks[i].position().markInterested();
+            cursorTracks[i].channelId().markInterested();
             cursorTracks[i].isPinned().markInterested();
 
             cursorClips[i] = cursorTracks[i].createLauncherCursorClip(GRID_STEPS, GRID_KEYS);
