@@ -5,6 +5,95 @@ One section per experiment, appended as run. Verdicts: ● confirmed working /
 
 ---
 
+## API surface sweep (2026-07-19)
+
+Systematic pass after the two misses, using both tools. **member-search-index
+(complete recall) is primary** — the DirectParameter core methods we missed
+are API version **1**, invisible to any recent-versions scan; only the full
+member index surfaces old-but-unnoticed capabilities. new-list.html is
+secondary (recent additions only).
+
+### Recent additions (API 19→25, from new-list.html) — design-relevant
+
+- **`DuplicableObject.duplicateObject()` (v19)** + `ControllerHost
+  .duplicateObjects` — clean structural duplication primitive for
+  clips/tracks/scenes; better than copy/paste actions. Feeds the Create
+  column and a cheap "duplicate this clip" op.
+- **`RangedValue.discreteValueCount()` (v20) + `discreteValueNames()`
+  (v23)** — stepped/enum **param introspection**: tells continuous from
+  discrete params and gives enum option names (filter type "LP/HP/BP").
+  Real refinement for the §6a param layer/catalog — a 3-position switch
+  must not take an arbitrary 0..1. Adopt in the param model.
+- **`RangedValue.getOrigin()` (v20)** — a param's default/center (e.g. pan
+  center); useful for reset and relative edits.
+- **`Parameter.hasAutomation()` / `deleteAllAutomation()` (v19)** —
+  **checkpoint-fidelity flag**: an automated param won't hold a static
+  write (automation overrides it). Revert-correctness must check this.
+- **`Track.createTrackBank/createMainTrackBank/createEffectTrackBank`
+  (v25)** — per-track scoped banks for **group-track navigation** (children
+  of a group). Our host-level flat bank covers top level; these reach
+  nested tracks if projects use groups.
+- **`TrackBank.setSupportsDeviceChainChannels` (v24)** — affects whether
+  device-chain channels appear in a bank; awareness flag.
+- Swept, NOT applicable: MasterRecorder (v20), createLastClickedParameter
+  (v20, selection-following — against our model), ScrollbarModel/Timeline
+  zoom (v21), MidiIn.hardwareAddress (v21), audio-hardware I/O matchers
+  (v22), channelIndex (v22, the mutable index).
+
+### Complete-recall concept grep (member-search-index, ALL versions)
+
+- **Modulators — §12 #6 answered ◐ (was "entirely unknown," not ○):**
+  `Device.getModulationSource(int)`, `Macro.getModulationSource()`,
+  `ModulationSource.{isMapped,isMapping,toggleIsMapping,name}`,
+  `Parameter.modulatedValue()` (read post-modulation value). So existing
+  modulation sources are accessible and mapping is togglable (the
+  enter-mapping-mode-then-touch-a-param idiom). **Creation** of a modulator
+  is likely via device insertion (modulators are devices w/ UUIDs) — to
+  verify. Promote §12 #6 from unknown to "partial, probe in E7".
+- **Device layers (nested chains):** `Device.hasLayers()`,
+  `createLayerBank(int)`, `createCursorLayer()`, `DeviceLayerBank
+  .getChannel(int)`, `CursorDevice.selectFirst/LastInLayer(int)`. This is
+  how to address INTO layered instruments / drum machines / FX layers —
+  our device model is top-level-chain only so far. Needed for deep device
+  work (drum pads, instrument layers).
+- **Full browser session API (richer than §6 assumed):** typed sessions —
+  `Browser.get{Preset,Device,Sample,Music,Clip,MultiSample}Session()`,
+  `createSessionBank`, `startBrowsing/commitSelectedResult/cancelBrowsing`,
+  `shouldAudition`; `BrowserColumn.createItemBank/entryCount`. Still modal/
+  stateful, but a real typed content-search surface, not just a popup.
+  Keeps `insertBitwigDevice(UUID)`/`insertFile(path)` as the simple path,
+  browser as the search fallback (as §6 concluded) — but the fallback is
+  more capable than recorded.
+- **Rich duplication primitives:** `Clip.duplicate()`,
+  `Clip.duplicateContent()` (double a pattern in place — nice compositional
+  op), `ClipLauncherSlot.duplicateClip()`, `ClipLauncherSlotBank
+  .duplicateClip(int)`, `Channel.duplicate()`. Multiple clean "copy"
+  routes for structural ops.
+- **Groove engine:** `ControllerHost.createGroove()`, `Groove
+  .{getShuffleAmount,getShuffleRate,getAccentAmount,getAccentPhase,
+  getAccentRate,getEnabled}` — global shuffle/accent; a lever for
+  feel/humanization beyond per-note timing.
+- **Quantize:** `Clip.quantize(double)` (a §8b "clean prior-state, no
+  inverse" op), `Application.recordQuantizationGrid/recordQuantizeNoteLength`.
+- **Remote controls (the 8/page path we superseded):** confirmed present
+  (`Device.createCursorRemoteControlsPage`, `RemoteControlsPage
+  .getParameter(int)`, `pageCount/pageNames`) — deprioritized given
+  createParameter + DirectParameter give unrestricted access.
+
+### Decision impact
+
+- Param model adopts discrete/enum introspection (`discreteValueCount` +
+  `discreteValueNames`) and an `hasAutomation` fidelity check.
+- Structural ops gain `duplicateObject`/`duplicateContent` as first-class
+  primitives (create-with-content, pattern doubling).
+- New scoped experiments to slot into the plan: **device layers** (deep
+  device addressing) and a real **modulators** probe (E7 upgraded from
+  "expect ○" to "partial surface exists").
+- Group-track navigation (`Track.createTrackBank`) noted for projects with
+  groups; our flat host bank remains the default.
+
+---
+
 ## Method: how we verify the API surface
 
 Two misses (CLAP DirectParameter API, `channelId`) traced to the SAME
@@ -22,10 +111,11 @@ suspected to exist. High precision, low recall. Corrected method:
   one grep for a concept ("channelId", "DirectParameter") surfaces every
   match regardless of which class it's on. This catches things a
   Track-scoped grep misses (e.g. identity lives on supertype `Channel`).
-- **Mine `new-list.html` by API version:** capabilities added in API 19→25
-  are exactly what prior art / reference code predates (channelId=20,
-  createParameter=12, DirectParameter display=20). The differentiators
-  cluster in recent versions.
+- **Mine `new-list.html` by API version — but know its limit:** it catches
+  capabilities *recently added* (channelId=20, createParameter=12) that
+  prior art predates. It does NOT catch old-but-missed capabilities — the
+  DirectParameter core is API **1** and invisible here. So new-list is a
+  supplement; member-search-index is the recall backstop.
 - **Read whole class pages incl. "All Superinterfaces" + inherited
   methods** before concluding a capability is absent.
 - **Empirical testing remains essential — the prose does NOT document

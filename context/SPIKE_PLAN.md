@@ -92,6 +92,13 @@ differentiator; the rest refine the plan. Each experiment states the
 whole matrix to roughly two weeks of evenings; individual timeboxes noted
 where a rabbit hole is likely.
 
+> **Status (2026-07-19): E0–E4 COMPLETE** (all ●, see `spike/FINDINGS.md`),
+> plus follow-ups E2c/E2d/E2e/E2f (track identity + channelId), E4b (CLAP
+> params via DirectParameter), and a full API surface sweep. Remaining:
+> **E5–E9 + two new probes folded in below (E4c device layers, E7 upgraded).**
+> Every §12 open question except #5 (scale) now has a verdict. The addressing,
+> checkpoint, differentiator, and revert questions are all answered ●.
+
 ### E0 — Toolchain bring-up *(gates all)*
 - **Q:** What extension-api version and Java target does Bitwig 6.0.6
   accept? Does the daw-mcp-derived Gradle build produce a loadable
@@ -162,12 +169,21 @@ where a rabbit hole is likely.
   handles); feasibility + shape of the param catalog idea; insert-device
   → readback sequencing for batches.
 
-### E5 — Scale limits *(§12 #5)*
+### E5 — Scale limits *(§12 #5 — the last unanswered §12 question)*
 - **Q:** Where does init-time pre-allocation start to hurt?
-- **Method:** Parameterize bank sizes; measure extension init time and
+- **Method:** Parameterize the `Rig` sizes (currently TRACKS=16, SCENES=16,
+  GRID_STEPS=64, CURSOR_POOL=3, DEVICE_BANK=8, plus the E4 param apparatus
+  and E4b DirectParameter observers). Measure extension init time and
   Bitwig project-open lag at e.g. 32/64/128 tracks × 32/64/128 scenes ×
-  full `markInterested`, and N devices × 128 param handles. Find the knee.
-- **Settles:** shipped scaffold sizes and whether they're config-tunable.
+  full `markInterested`, and the cursor-device pool × param-handle counts.
+  Expose sizes via handler params or rebuild-and-measure. Find the knee.
+- **Settles:** shipped scaffold sizes (banks, scenes, cursor pool,
+  param-handle pool) and whether they're config-tunable. **This is the
+  one §12 question still fully open** — prioritize.
+- **Note:** channelId (E2f) means the brain resolves tracks by UUID, so the
+  track bank must be large enough to *contain* the whole project (unresolved
+  tracks outside the bank window are invisible). Scale directly bounds max
+  project size — a real constraint, not just a perf knob.
 
 ### E6 — Named actions escape hatch
 - **Q:** What does `Application.getActions()` actually expose, and how bad
@@ -176,12 +192,41 @@ where a rabbit hole is likely.
   clip, a reorder) with a pinned cursor from E1 active; observe whether
   invocation disturbs pinning or depends on UI selection/focus.
 - **Settles:** policy for the escape hatch (allowed ops, checkpoint
-  treatment given no readback).
+  treatment given no readback). **Reduced urgency:** the sweep found typed
+  primitives for much of what actions were the fallback for —
+  `duplicateObject()`/`duplicateClip()`/`Clip.duplicateContent()` (v19),
+  `deleteObject` (all levels, E1–E3). Named actions now cover a smaller
+  residual; scope the probe to what has NO typed API.
 
-### E7 — Modulators probe *(§12 #6 — strict timebox, expect ○)*
-- **Q:** Any programmatic modulator creation/routing at all?
-- **Method:** API doc search + one attempt if anything surfaces.
-- **Settles:** scope exclusion with evidence (likely joins Grid in §9).
+### E4c — Device layers *(NEW, from the API sweep — device depth)*
+- **Q:** Can we address INTO layered devices (Instrument/FX layers, drum
+  machines, nested chains), and does the E4 pool/repoint/pin model extend
+  to them?
+- **Method:** `Device.hasLayers()`, `createLayerBank(int)`,
+  `createCursorLayer()`, `DeviceLayerBank.getChannel(int)`,
+  `CursorDevice.selectFirstInLayer(int)`. Insert a layered device (e.g. an
+  Instrument Layer or drum machine), enumerate layers, point a cursor into
+  a layer, read/set a param on a device inside it. Reuse the E4 param
+  apparatus one level down.
+- **Settles:** whether deep device addressing (drum pads, layered synths)
+  is in reach for Phase 2, and if the addressing model is uniform across
+  nesting. Timebox: medium.
+
+### E7 — Modulators probe *(§12 #6 — UPGRADED: partial surface exists, not ○)*
+- **Q:** How far does programmatic modulator access/routing go? (The sweep
+  found real surface — no longer "expect ○".)
+- **Method:** Probe `Device.getModulationSource(int)`,
+  `Macro.getModulationSource()`,
+  `ModulationSource.{isMapped,isMapping,toggleIsMapping,name}`,
+  `Parameter.modulatedValue()`. Test: (a) read existing modulation sources
+  on a device that has them; (b) the map idiom — `toggleIsMapping()` then
+  set a target param, see if a modulation route is created; (c) whether a
+  modulator can be *created* by inserting it as a device (modulators are
+  devices w/ UUIDs — harvest a modulator UUID from the bundle like E3/E4).
+  Read post-modulation values via `modulatedValue()`.
+- **Settles:** modulator scope — how much of creation/routing/read is
+  reachable; feeds §6 device matrix (was all ◐/unknown). Timebox: medium;
+  stop if the map idiom proves unreliable.
 
 ### E8 — Concurrency & safety mechanics
 - **Q:** Do the §8 mechanisms behave under load and interference?
@@ -192,13 +237,28 @@ where a rabbit hole is likely.
   (monotonic counter in extension, rejected write) to confirm the
   mechanism has a home on the extension side.
 - **Settles:** batch pacing parameters; where revision state lives;
-  notification UX baseline.
+  notification UX baseline. **Budget device inserts at ~600ms each (E3) and
+  note the two-tick write→verify rule (E2): batches mixing note-writes and
+  structural/device ops need staged pacing.**
 
 ### E9 — MCP smoke test *(last; optional but cheap)*
 - **Q:** Any surprises wiring the TS MCP SDK over the bridge?
 - **Method:** Minimal MCP server exposing two tools (`ping`,
   `read_notes`) backed by `client.ts`; drive it from Claude Code.
 - **Settles:** nothing architectural — pure de-risking of Phase-1 wiring.
+
+### Deferred to Phase 1 (found in the sweep; not spike-gating)
+- **Param introspection:** `RangedValue.discreteValueCount()` /
+  `discreteValueNames()` (stepped/enum params), `getOrigin()` (defaults),
+  `Parameter.hasAutomation()` (checkpoint-fidelity flag). Adopt in the
+  param model; no live probe needed to decide the architecture.
+- **Duplication primitives:** `duplicateObject`, `Clip.duplicateContent`,
+  `duplicateClip` — fold into the structural-op vocabulary.
+- **Group-track navigation:** `Track.createTrackBank/createMainTrackBank`
+  for nested tracks; our flat host bank is the default, revisit if groups
+  matter.
+- **Groove engine, full browser session API** — capability noted, out of
+  spike scope.
 
 ## 5. Exit criteria & deliverables
 
