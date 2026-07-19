@@ -11,7 +11,9 @@
     "probe:e02b": "tsx src/probes/e02b-diag.ts",
     "probe:e02c": "tsx src/probes/e02c-tracks.ts",
     "probe:e02d": "tsx src/probes/e02d-cleanup.ts",
-    "probe:e02e": "tsx src/probes/e02e-pressure.ts"
+    "probe:e02e": "tsx src/probes/e02e-pressure.ts",
+    "probe:e03": "tsx src/probes/e03-structural.ts",
+    "probe:e03b": "tsx src/probes/e03b-scenes.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

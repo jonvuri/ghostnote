@@ -6,6 +6,8 @@ import com.bitwig.extension.controller.api.ClipLauncherSlot;
 import com.bitwig.extension.controller.api.ClipLauncherSlotBank;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.CursorTrack;
+import com.bitwig.extension.controller.api.Device;
+import com.bitwig.extension.controller.api.DeviceBank;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.SceneBank;
 import com.bitwig.extension.controller.api.Track;
@@ -26,6 +28,7 @@ public class Rig {
     public static final int CURSOR_POOL = 3;
 
     public final Application application;
+    public final com.bitwig.extension.controller.api.Project project;
     public final TrackBank trackBank;
     public final SceneBank sceneBank;
 
@@ -36,6 +39,10 @@ public class Rig {
      */
     public final CursorTrack[] cursorTracks = new CursorTrack[CURSOR_POOL];
     public final PinnableCursorClip[] cursorClips = new PinnableCursorClip[CURSOR_POOL];
+
+    /** Device chain view for each pool cursor track (E3/E4). */
+    public static final int DEVICE_BANK = 8;
+    public final DeviceBank[] cursorDeviceBanks = new DeviceBank[CURSOR_POOL];
 
     /** Host-level cursor clip: always follows the user's clip selection. */
     public final Clip followerClip;
@@ -63,6 +70,9 @@ public class Rig {
 
     public Rig(ControllerHost host) {
         application = host.createApplication();
+        application.canUndo().markInterested();
+        application.canRedo().markInterested();
+        project = host.getProject();
 
         // Flat track list so tracks nested in groups are addressable
         trackBank = host.createTrackBank(TRACKS, 0, SCENES, true);
@@ -105,6 +115,14 @@ public class Rig {
             cursorClips[i] = cursorTracks[i].createLauncherCursorClip(GRID_STEPS, GRID_KEYS);
             markClip(cursorClips[i]);
             cursorClips[i].isPinned().markInterested();
+
+            cursorDeviceBanks[i] = cursorTracks[i].createDeviceBank(DEVICE_BANK);
+            cursorDeviceBanks[i].itemCount().markInterested();
+            for (int d = 0; d < DEVICE_BANK; d++) {
+                Device device = cursorDeviceBanks[i].getDevice(d);
+                device.exists().markInterested();
+                device.name().markInterested();
+            }
         }
 
         followerClip = host.createLauncherCursorClip(GRID_STEPS, GRID_KEYS);

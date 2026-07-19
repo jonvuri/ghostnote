@@ -3,6 +3,8 @@ package com.ghostnote.extension;
 import com.bitwig.extension.controller.api.Clip;
 import com.bitwig.extension.controller.api.ClipLauncherSlot;
 import com.bitwig.extension.controller.api.ControllerHost;
+import com.bitwig.extension.controller.api.Device;
+import com.bitwig.extension.controller.api.DeviceBank;
 import com.bitwig.extension.controller.api.NoteStep;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.Track;
@@ -88,6 +90,26 @@ public class ProbeHandlers implements Bridge.Dispatcher {
                 return cursorGetNotesVerbose(params);
             case "slot.delete":
                 return slotDelete(params);
+
+            // --- E3: structural ops & revert ---
+            case "device.insertBitwig":
+                return deviceInsertBitwig(params);
+            case "device.list":
+                return deviceList(params);
+            case "device.delete":
+                return deviceDelete(params);
+            case "scene.create":
+                return sceneCreate(params);
+            case "scene.count":
+                return sceneCount();
+            case "scene.delete":
+                return sceneDelete(params);
+            case "app.undo":
+                return appUndo(params);
+            case "app.redo":
+                return appRedo(params);
+            case "app.undoState":
+                return appUndoState();
 
             default:
                 throw new Bridge.MethodNotFoundException(method);
@@ -504,6 +526,112 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         int slotIndex = params.get("slotIndex").getAsInt();
         track.clipLauncherSlotBank().getItemAt(slotIndex).deleteObject();
         return ok();
+    }
+
+    // ---------------------------------------- E3: structural ops & revert
+
+    /**
+     * Insert a Bitwig device (by UUID) at the end of a pool cursor's track
+     * device chain. The cursor must already be pointed at the target track.
+     */
+    private JsonElement deviceInsertBitwig(JsonObject params) {
+        String ref = params.get("cursor").getAsString();
+        String uuid = params.get("uuid").getAsString();
+        rig.cursorTrack(ref).endOfDeviceChainInsertionPoint()
+            .insertBitwigDevice(java.util.UUID.fromString(uuid));
+        return ok();
+    }
+
+    /** List devices in a pool cursor's track chain via its DeviceBank. */
+    private JsonElement deviceList(JsonObject params) {
+        int i = params.get("cursor").getAsInt();
+        DeviceBank bank = rig.cursorDeviceBanks[i];
+        JsonArray devices = new JsonArray();
+        for (int d = 0; d < Rig.DEVICE_BANK; d++) {
+            Device device = bank.getDevice(d);
+            if (!device.exists().get()) {
+                continue;
+            }
+            JsonObject obj = new JsonObject();
+            obj.addProperty("index", d);
+            obj.addProperty("name", device.name().get());
+            devices.add(obj);
+        }
+        JsonObject result = new JsonObject();
+        result.add("devices", devices);
+        result.addProperty("count", devices.size());
+        result.addProperty("itemCount", bank.itemCount().get());
+        return result;
+    }
+
+    /** Delete a device by chain index on a pool cursor's track. */
+    private JsonElement deviceDelete(JsonObject params) {
+        int i = params.get("cursor").getAsInt();
+        int deviceIndex = params.get("deviceIndex").getAsInt();
+        rig.cursorDeviceBanks[i].getDevice(deviceIndex).deleteObject();
+        return ok();
+    }
+
+    private JsonElement sceneCreate(JsonObject params) {
+        int count = params.has("count") ? params.get("count").getAsInt() : 1;
+        for (int i = 0; i < count; i++) {
+            rig.project.createScene();
+        }
+        JsonObject result = ok();
+        result.addProperty("requested", count);
+        return result;
+    }
+
+    private JsonElement sceneCount() {
+        JsonObject result = new JsonObject();
+        result.addProperty("sceneCount", rig.sceneBank.itemCount().get());
+        return result;
+    }
+
+    private JsonElement sceneDelete(JsonObject params) {
+        int sceneIndex = params.get("sceneIndex").getAsInt();
+        rig.sceneBank.getScene(sceneIndex).deleteObject();
+        return ok();
+    }
+
+    private JsonElement appUndo(JsonObject params) {
+        int times = params.has("times") ? params.get("times").getAsInt() : 1;
+        int did = 0;
+        for (int i = 0; i < times; i++) {
+            if (!rig.application.canUndo().get()) {
+                break;
+            }
+            rig.application.undo();
+            did++;
+        }
+        JsonObject result = ok();
+        result.addProperty("undosRequested", times);
+        result.addProperty("undosPerformed", did);
+        result.addProperty("canUndo", rig.application.canUndo().get());
+        return result;
+    }
+
+    private JsonElement appRedo(JsonObject params) {
+        int times = params.has("times") ? params.get("times").getAsInt() : 1;
+        int did = 0;
+        for (int i = 0; i < times; i++) {
+            if (!rig.application.canRedo().get()) {
+                break;
+            }
+            rig.application.redo();
+            did++;
+        }
+        JsonObject result = ok();
+        result.addProperty("redosPerformed", did);
+        result.addProperty("canRedo", rig.application.canRedo().get());
+        return result;
+    }
+
+    private JsonElement appUndoState() {
+        JsonObject result = new JsonObject();
+        result.addProperty("canUndo", rig.application.canUndo().get());
+        result.addProperty("canRedo", rig.application.canRedo().get());
+        return result;
     }
 
     // ------------------------------------------- E1: UI selection tracking
