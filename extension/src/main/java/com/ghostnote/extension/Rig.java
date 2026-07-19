@@ -21,15 +21,17 @@ import com.bitwig.extension.controller.api.TrackBank;
  * All pre-allocated Bitwig API objects. Everything here must be created
  * during init() (INITIAL_PROMPT §3a); handlers only use these handles.
  *
- * Spike sizes are deliberately modest; E5 probes the real limits.
+ * Sizes come from {@link RigConfig} (E5) so the scale sweep can vary them
+ * via ~/.ghostnote/rig.json + a hot-reload, with no rebuild.
  */
 public class Rig {
-    public static final int TRACKS = 16;
-    public static final int SCENES = 16;
-    public static final int GRID_STEPS = 64;   // 16 beats at 1/16 grid
-    public static final int GRID_KEYS = 128;   // full MIDI range: y == pitch
     public static final double STEP_SIZE = 0.25;
-    public static final int CURSOR_POOL = 3;
+
+    /** Live scaffold sizes for this init. */
+    public final RigConfig config;
+
+    /** Nanos spent inside this constructor — the E5 init-cost measurement. */
+    public final long constructNanos;
 
     public final Application application;
     public final com.bitwig.extension.controller.api.Project project;
@@ -41,20 +43,16 @@ public class Rig {
      * shouldFollowSelection=false, each owning a PinnableCursorClip, can be
      * pointed programmatically and pinned to survive user interaction.
      */
-    public final CursorTrack[] cursorTracks = new CursorTrack[CURSOR_POOL];
-    public final PinnableCursorClip[] cursorClips = new PinnableCursorClip[CURSOR_POOL];
+    public final CursorTrack[] cursorTracks;
+    public final PinnableCursorClip[] cursorClips;
 
     /** Device chain view for each pool cursor track (E3/E4). */
-    public static final int DEVICE_BANK = 8;
-    public final DeviceBank[] cursorDeviceBanks = new DeviceBank[CURSOR_POOL];
+    public final DeviceBank[] cursorDeviceBanks;
 
     /** Host-level cursor clip: always follows the user's clip selection. */
     public final Clip followerClip;
 
     // --- E2 additions ---
-    /** Grid width of the fine-resolution clip cursor. */
-    public static final int FINE_STEPS = 512;
-
     /** Cursor with ZERO markInterested/observer calls: observer-gotcha probe. */
     public final CursorTrack bareTrack;
     public final PinnableCursorClip bareClip;
@@ -84,7 +82,9 @@ public class Rig {
     /** Repointable device cursor on pool cursor track 0. */
     public final PinnableCursorDevice cursorDevice0;
     public final SpecificBitwigDevice polysynthView0;
-    public final Parameter[] polysynthParams0 = new Parameter[POLYSYNTH_PARAM_IDS.length];
+    /** IDs actually bound, index-parallel to {@link #polysynthParams0}. */
+    public final String[] paramIds;
+    public final Parameter[] polysynthParams0;
 
     /**
      * DirectParameter API state for cursorDevice0 — the format-AGNOSTIC path
@@ -104,18 +104,25 @@ public class Rig {
     public int selectedSlotIndex = -1;
     public int selectionChanges = 0;
 
-    public Rig(ControllerHost host) {
+    public Rig(ControllerHost host, RigConfig config) {
+        long start = System.nanoTime();
+        this.config = config;
+
+        cursorTracks = new CursorTrack[config.cursorPool];
+        cursorClips = new PinnableCursorClip[config.cursorPool];
+        cursorDeviceBanks = new DeviceBank[config.cursorPool];
+
         application = host.createApplication();
         application.canUndo().markInterested();
         application.canRedo().markInterested();
         project = host.getProject();
 
         // Flat track list so tracks nested in groups are addressable
-        trackBank = host.createTrackBank(TRACKS, 0, SCENES, true);
+        trackBank = host.createTrackBank(config.tracks, 0, config.scenes, true);
         sceneBank = trackBank.sceneBank();
         sceneBank.itemCount().markInterested();
 
-        for (int i = 0; i < TRACKS; i++) {
+        for (int i = 0; i < config.tracks; i++) {
             Track track = trackBank.getItemAt(i);
             track.exists().markInterested();
             track.name().markInterested();
@@ -124,7 +131,7 @@ public class Rig {
             track.channelId().markInterested();
 
             ClipLauncherSlotBank slots = track.clipLauncherSlotBank();
-            for (int j = 0; j < SCENES; j++) {
+            for (int j = 0; j < config.scenes; j++) {
                 ClipLauncherSlot slot = slots.getItemAt(j);
                 slot.exists().markInterested();
                 slot.hasContent().markInterested();
@@ -141,42 +148,42 @@ public class Rig {
             });
         }
 
-        for (int i = 0; i < CURSOR_POOL; i++) {
+        for (int i = 0; i < config.cursorPool; i++) {
             cursorTracks[i] = host.createCursorTrack(
-                "GN_CT_" + i, "ghostnote cursor " + i, 0, SCENES, /* shouldFollowSelection= */ false);
+                "GN_CT_" + i, "ghostnote cursor " + i, 0, config.scenes, /* shouldFollowSelection= */ false);
             cursorTracks[i].exists().markInterested();
             cursorTracks[i].name().markInterested();
             cursorTracks[i].position().markInterested();
             cursorTracks[i].channelId().markInterested();
             cursorTracks[i].isPinned().markInterested();
 
-            cursorClips[i] = cursorTracks[i].createLauncherCursorClip(GRID_STEPS, GRID_KEYS);
+            cursorClips[i] = cursorTracks[i].createLauncherCursorClip(config.gridSteps, config.gridKeys);
             markClip(cursorClips[i]);
             cursorClips[i].isPinned().markInterested();
 
-            cursorDeviceBanks[i] = cursorTracks[i].createDeviceBank(DEVICE_BANK);
+            cursorDeviceBanks[i] = cursorTracks[i].createDeviceBank(config.deviceBank);
             cursorDeviceBanks[i].itemCount().markInterested();
-            for (int d = 0; d < DEVICE_BANK; d++) {
+            for (int d = 0; d < config.deviceBank; d++) {
                 Device device = cursorDeviceBanks[i].getDevice(d);
                 device.exists().markInterested();
                 device.name().markInterested();
             }
         }
 
-        followerClip = host.createLauncherCursorClip(GRID_STEPS, GRID_KEYS);
+        followerClip = host.createLauncherCursorClip(config.gridSteps, config.gridKeys);
         markClip(followerClip);
 
         // E2: deliberately NO markInterested / setStepSize on the bare pair
-        bareTrack = host.createCursorTrack("GN_CT_BARE", "ghostnote bare cursor", 0, SCENES, false);
-        bareClip = bareTrack.createLauncherCursorClip(GRID_STEPS, GRID_KEYS);
+        bareTrack = host.createCursorTrack("GN_CT_BARE", "ghostnote bare cursor", 0, config.scenes, false);
+        bareClip = bareTrack.createLauncherCursorClip(config.gridSteps, config.gridKeys);
 
-        fineTrack = host.createCursorTrack("GN_CT_FINE", "ghostnote fine cursor", 0, SCENES, false);
+        fineTrack = host.createCursorTrack("GN_CT_FINE", "ghostnote fine cursor", 0, config.scenes, false);
         fineTrack.position().markInterested();
-        fineClip = fineTrack.createLauncherCursorClip(FINE_STEPS, GRID_KEYS);
+        fineClip = fineTrack.createLauncherCursorClip(config.fineSteps, config.gridKeys);
         markClip(fineClip);
         fineClip.isPinned().markInterested();
 
-        arrangerClip = host.createArrangerCursorClip(GRID_STEPS, GRID_KEYS);
+        arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
         markClip(arrangerClip);
 
         // E4: device cursor on pool cursor track 0, auto-following the first
@@ -187,31 +194,42 @@ public class Rig {
         cursorDevice0.name().markInterested();
         cursorDevice0.isPinned().markInterested();
 
+        // Param handles: the curated ID list, cycled if the E5 config asks for
+        // more handles than we have distinct IDs. Duplicates still allocate
+        // distinct handles, which is what the scale measurement is about.
         polysynthView0 = cursorDevice0.createSpecificBitwigDevice(
             java.util.UUID.fromString(POLYSYNTH_UUID));
-        for (int p = 0; p < POLYSYNTH_PARAM_IDS.length; p++) {
-            Parameter param = polysynthView0.createParameter(POLYSYNTH_PARAM_IDS[p]);
+        paramIds = new String[config.paramHandles];
+        polysynthParams0 = new Parameter[config.paramHandles];
+        for (int p = 0; p < config.paramHandles; p++) {
+            String id = POLYSYNTH_PARAM_IDS[p % POLYSYNTH_PARAM_IDS.length];
+            Parameter param = polysynthView0.createParameter(id);
             param.exists().markInterested();
             param.name().markInterested();
             param.value().markInterested();
             param.value().displayedValue().markInterested();
+            paramIds[p] = id;
             polysynthParams0[p] = param;
         }
 
         // Format-agnostic DirectParameter observers (E4b — CLAP access test).
         // Callbacks fire on the control-surface thread.
-        cursorDevice0.addDirectParameterIdObserver(ids -> {
-            directParamIds = ids != null ? ids : new String[0];
-        });
-        cursorDevice0.addDirectParameterNameObserver(48, (id, name) -> {
-            directParamNames.put(id, name);
-        });
-        cursorDevice0.addDirectParameterNormalizedValueObserver((id, value) -> {
-            directParamValues.put(id, value);
-        });
-        cursorDevice0.addDirectParameterValueDisplayObserver(48, (id, display) -> {
-            directParamDisplays.put(id, display);
-        });
+        if (config.directObservers) {
+            cursorDevice0.addDirectParameterIdObserver(ids -> {
+                directParamIds = ids != null ? ids : new String[0];
+            });
+            cursorDevice0.addDirectParameterNameObserver(48, (id, name) -> {
+                directParamNames.put(id, name);
+            });
+            cursorDevice0.addDirectParameterNormalizedValueObserver((id, value) -> {
+                directParamValues.put(id, value);
+            });
+            cursorDevice0.addDirectParameterValueDisplayObserver(48, (id, display) -> {
+                directParamDisplays.put(id, display);
+            });
+        }
+
+        constructNanos = System.nanoTime() - start;
     }
 
     private static void markClip(Clip clip) {
@@ -235,7 +253,7 @@ public class Rig {
             case "arranger": return arrangerClip;
             default:
                 int i = Integer.parseInt(ref);
-                if (i < 0 || i >= CURSOR_POOL) {
+                if (i < 0 || i >= config.cursorPool) {
                     throw new IllegalArgumentException("cursor out of range: " + ref);
                 }
                 return cursorClips[i];
@@ -254,6 +272,6 @@ public class Rig {
 
     /** Grid width of a clip cursor (differs for "fine"). */
     public int gridSteps(String ref) {
-        return "fine".equals(ref) ? FINE_STEPS : GRID_STEPS;
+        return "fine".equals(ref) ? config.fineSteps : config.gridSteps;
     }
 }

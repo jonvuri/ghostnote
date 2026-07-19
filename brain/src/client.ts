@@ -42,6 +42,10 @@ export class BridgeClient {
 
       socket.once('connect', () => resolve());
       socket.once('error', (err) => reject(err));
+      // Post-connect errors (e.g. the bridge going down during an E5
+      // hot-reload) must not surface as an unhandled 'error' event; the
+      // 'close' handler below is what rejects in-flight requests.
+      socket.on('error', () => {});
 
       socket.on('data', (data) => this.handleData(data.toString('utf8')));
       socket.on('close', () => {

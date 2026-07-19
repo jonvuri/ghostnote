@@ -16,7 +16,10 @@
     "probe:e03": "tsx src/probes/e03-structural.ts",
     "probe:e03b": "tsx src/probes/e03b-scenes.ts",
     "probe:e04": "tsx src/probes/e04-params.ts",
-    "probe:e04b": "tsx src/probes/e04b-clap.ts"
+    "probe:e04b": "tsx src/probes/e04b-clap.ts",
+    "probe:e05": "tsx src/probes/e05-scale.ts",
+    "probe:e05b": "tsx src/probes/e05b-populated.ts",
+    "probe:e05c": "tsx src/probes/e05c-openlag.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

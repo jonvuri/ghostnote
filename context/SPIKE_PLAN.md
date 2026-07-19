@@ -169,7 +169,17 @@ where a rabbit hole is likely.
   handles); feasibility + shape of the param catalog idea; insert-device
   → readback sequencing for batches.
 
-### E5 — Scale limits *(§12 #5 — the last unanswered §12 question)*
+### E5 — Scale limits ✅ COMPLETE *(§12 #5 — answered ●, see FINDINGS)*
+> **Result:** no knee below 65 536 slots (512×128 = 81ms init); latency flat
+> at the ~24ms control-surface tick floor in every config, loaded or empty.
+> The binding constraint is not perf but the **bank window**: tracks outside
+> it are unaddressable and their clips unsnapshottable (checkpoint blind
+> spot). Recommended sizes: TRACKS=256, SCENES=128, CURSOR_POOL=8,
+> DEVICE_BANK=16, paramHandles=64 — config-tunable via the new `RigConfig`.
+> Cold-start + project-open lag measured (E5c): cold init 108ms inside a 13.4s
+> Bitwig launch, project-open cost below measurement resolution, zero
+> control-surface stalls at any size. No caveats outstanding.
+
 - **Q:** Where does init-time pre-allocation start to hurt?
 - **Method:** Parameterize the `Rig` sizes (currently TRACKS=16, SCENES=16,
   GRID_STEPS=64, CURSOR_POOL=3, DEVICE_BANK=8, plus the E4 param apparatus

@@ -22,9 +22,18 @@ public class ProbeHandlers implements Bridge.Dispatcher {
     private final ControllerHost host;
     private final Rig rig;
 
+    // E5: filled in by the extension once init() completes.
+    private volatile long initNanos = -1;
+    private volatile long initEpochMs = -1;
+
     public ProbeHandlers(ControllerHost host, Rig rig) {
         this.host = host;
         this.rig = rig;
+    }
+
+    public void setInitStats(long initNanos, long initEpochMs) {
+        this.initNanos = initNanos;
+        this.initEpochMs = initEpochMs;
     }
 
     @Override
@@ -43,6 +52,12 @@ public class ProbeHandlers implements Bridge.Dispatcher {
             // --- E1: fixtures ---
             case "rig.info":
                 return rigInfo();
+
+            // --- E5: scale ---
+            case "rig.stats":
+                return rigStats();
+            case "rig.scanTracks":
+                return rigScanTracks();
             case "track.create":
                 return trackCreate(params);
             case "track.setName":
@@ -177,12 +192,76 @@ public class ProbeHandlers implements Bridge.Dispatcher {
 
     private JsonElement rigInfo() {
         JsonObject result = new JsonObject();
-        result.addProperty("tracks", Rig.TRACKS);
-        result.addProperty("scenes", Rig.SCENES);
-        result.addProperty("gridSteps", Rig.GRID_STEPS);
-        result.addProperty("gridKeys", Rig.GRID_KEYS);
+        result.addProperty("tracks", rig.config.tracks);
+        result.addProperty("scenes", rig.config.scenes);
+        result.addProperty("gridSteps", rig.config.gridSteps);
+        result.addProperty("gridKeys", rig.config.gridKeys);
         result.addProperty("stepSize", Rig.STEP_SIZE);
-        result.addProperty("cursorPool", Rig.CURSOR_POOL);
+        result.addProperty("cursorPool", rig.config.cursorPool);
+        result.addProperty("sceneCount", rig.sceneBank.itemCount().get());
+        return result;
+    }
+
+    // ----------------------------------------------------------- E5: scale
+
+    /**
+     * Init cost + live scaffold sizes. `stamp` proves which config generation
+     * is live, so the sweep can tell a completed hot-reload from a stale
+     * bridge that never went down.
+     */
+    private JsonElement rigStats() {
+        JsonObject result = new JsonObject();
+        result.add("config", rig.config.toJson());
+        result.addProperty("rigConstructMicros", rig.constructNanos / 1000);
+        result.addProperty("initMicros", initNanos < 0 ? -1 : initNanos / 1000);
+        result.addProperty("initEpochMs", initEpochMs);
+        result.addProperty("upMs", initEpochMs < 0 ? -1 : System.currentTimeMillis() - initEpochMs);
+
+        // Derived scaffold volume — the thing that actually scales.
+        long slots = (long) rig.config.tracks * rig.config.scenes;
+        result.addProperty("slotObjects", slots);
+        result.addProperty("markedValues", slots * 3 + (long) rig.config.tracks * 5);
+
+        // Whole-JVM heap (shared with Bitwig): a coarse trend signal only.
+        Runtime runtime = Runtime.getRuntime();
+        result.addProperty("heapUsedMb",
+            (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024));
+        result.addProperty("heapMaxMb", runtime.maxMemory() / (1024 * 1024));
+        return result;
+    }
+
+    /**
+     * Full track-bank scan: the read whose cost grows with TRACKS, and the
+     * warm-up probe (channelId is the last value to stream in after init).
+     */
+    private JsonElement rigScanTracks() {
+        long start = System.nanoTime();
+        int existing = 0;
+        int withChannelId = 0;
+        int slotsWithContent = 0;
+        for (int i = 0; i < rig.config.tracks; i++) {
+            Track track = rig.trackBank.getItemAt(i);
+            if (!track.exists().get()) {
+                continue;
+            }
+            existing++;
+            track.name().get();
+            track.position().get();
+            track.trackType().get();
+            if (!track.channelId().get().isEmpty()) {
+                withChannelId++;
+            }
+            for (int j = 0; j < rig.config.scenes; j++) {
+                if (track.clipLauncherSlotBank().getItemAt(j).hasContent().get()) {
+                    slotsWithContent++;
+                }
+            }
+        }
+        JsonObject result = new JsonObject();
+        result.addProperty("scanMicros", (System.nanoTime() - start) / 1000);
+        result.addProperty("existing", existing);
+        result.addProperty("withChannelId", withChannelId);
+        result.addProperty("slotsWithContent", slotsWithContent);
         result.addProperty("sceneCount", rig.sceneBank.itemCount().get());
         return result;
     }
@@ -201,7 +280,7 @@ public class ProbeHandlers implements Bridge.Dispatcher {
 
     private JsonElement trackList() {
         JsonArray tracks = new JsonArray();
-        for (int i = 0; i < Rig.TRACKS; i++) {
+        for (int i = 0; i < rig.config.tracks; i++) {
             Track track = rig.trackBank.getItemAt(i);
             if (!track.exists().get()) {
                 continue;
@@ -234,7 +313,7 @@ public class ProbeHandlers implements Bridge.Dispatcher {
     private JsonElement trackResolveByChannelId(JsonObject params) {
         String wanted = params.get("channelId").getAsString();
         JsonObject result = new JsonObject();
-        for (int i = 0; i < Rig.TRACKS; i++) {
+        for (int i = 0; i < rig.config.tracks; i++) {
             Track track = rig.trackBank.getItemAt(i);
             if (track.exists().get() && wanted.equals(track.channelId().get())) {
                 result.addProperty("found", true);
@@ -397,7 +476,7 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         long start = System.nanoTime();
         JsonArray notes = new JsonArray();
         for (int x = 0; x < rig.gridSteps(ref); x++) {
-            for (int y = 0; y < Rig.GRID_KEYS; y++) {
+            for (int y = 0; y < rig.config.gridKeys; y++) {
                 NoteStep step = clip.getStep(channel, x, y);
                 if (step.state() == NoteStep.State.NoteOn) {
                     JsonArray note = new JsonArray();
@@ -523,7 +602,7 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         long start = System.nanoTime();
         JsonArray notes = new JsonArray();
         for (int x = 0; x < maxX; x++) {
-            for (int y = 0; y < Rig.GRID_KEYS; y++) {
+            for (int y = 0; y < rig.config.gridKeys; y++) {
                 NoteStep step = clip.getStep(channel, x, y);
                 if (step.state() == NoteStep.State.NoteOn) {
                     notes.add(noteStepToJson(step));
@@ -602,7 +681,7 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         int i = params.get("cursor").getAsInt();
         DeviceBank bank = rig.cursorDeviceBanks[i];
         JsonArray devices = new JsonArray();
-        for (int d = 0; d < Rig.DEVICE_BANK; d++) {
+        for (int d = 0; d < rig.config.deviceBank; d++) {
             Device device = bank.getDevice(d);
             if (!device.exists().get()) {
                 continue;
@@ -727,7 +806,7 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         for (int i = 0; i < rig.polysynthParams0.length; i++) {
             Parameter p = rig.polysynthParams0[i];
             JsonObject obj = new JsonObject();
-            obj.addProperty("id", Rig.POLYSYNTH_PARAM_IDS[i]);
+            obj.addProperty("id", rig.paramIds[i]);
             boolean exists = p.exists().get();
             obj.addProperty("exists", exists);
             if (exists) {
@@ -757,8 +836,8 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         double value = params.get("value").getAsDouble();
         String mode = params.has("mode") ? params.get("mode").getAsString() : "immediate";
         int idx = -1;
-        for (int i = 0; i < Rig.POLYSYNTH_PARAM_IDS.length; i++) {
-            if (Rig.POLYSYNTH_PARAM_IDS[i].equals(id)) {
+        for (int i = 0; i < rig.paramIds.length; i++) {
+            if (rig.paramIds[i].equals(id)) {
                 idx = i;
                 break;
             }
@@ -822,7 +901,7 @@ public class ProbeHandlers implements Bridge.Dispatcher {
     // ---------------------------------------------------------- helpers
 
     private Track requireTrack(int trackIndex) {
-        if (trackIndex < 0 || trackIndex >= Rig.TRACKS) {
+        if (trackIndex < 0 || trackIndex >= rig.config.tracks) {
             throw new IllegalArgumentException("trackIndex out of bank range: " + trackIndex);
         }
         Track track = rig.trackBank.getItemAt(trackIndex);

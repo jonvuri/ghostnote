@@ -19,14 +19,20 @@ public class GhostnoteExtension extends ControllerExtension {
     public void init() {
         final ControllerHost host = getHost();
 
-        final Rig rig = new Rig(host);
+        final long initStart = System.nanoTime();
+        final RigConfig config = RigConfig.load();
+        final Rig rig = new Rig(host, config);
         final ProbeHandlers handlers = new ProbeHandlers(host, rig);
 
         try {
             bridge = new Bridge(PORT, host, handlers);
             bridge.start();
+            handlers.setInitStats(System.nanoTime() - initStart, System.currentTimeMillis());
             host.showPopupNotification("ghostnote bridge listening on 127.0.0.1:" + PORT);
-            host.println("[ghostnote] init complete, port " + PORT);
+            host.println("[ghostnote] init complete, port " + PORT
+                + ", rig=" + config.stamp
+                + " tracks=" + config.tracks + " scenes=" + config.scenes
+                + " rigConstructMs=" + (rig.constructNanos / 1_000_000));
         } catch (Exception e) {
             host.errorln("[ghostnote] failed to start bridge: " + e.getMessage());
             host.showPopupNotification("ghostnote bridge FAILED to start: " + e.getMessage());

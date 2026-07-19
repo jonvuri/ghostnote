@@ -5,6 +5,160 @@ One section per experiment, appended as run. Verdicts: ● confirmed working /
 
 ---
 
+## E5 — Scale limits (§12 #5, the last open question) (2026-07-19)
+
+**Verdict: ● no knee exists in any plausible range — pre-allocation is far
+cheaper than §3a feared, and the binding constraint is not performance but
+the bank WINDOW.** Probes `e05` (12-config sweep) + `e05b` (re-measured
+against a populated 54-track / 387-clip project). All checks green.
+
+### Method: config-driven sizes + hot-reload
+
+`Rig`'s sizes moved from `static final` constants to `RigConfig`, loaded at
+init from `~/.ghostnote/rig.json`. The sweep writes a config, forces a
+re-init, and re-measures — no rebuild per data point. Each config carries a
+`stamp` echoed by `rig.stats`, so the probe can prove it is talking to the
+**new** init rather than a bridge that never went down.
+
+- **⚠ `touch` does NOT trigger the hot-reload.** Bitwig watches for a
+  *content* change, not an mtime bump. The reload primitive is rewriting the
+  deployed file (`cp build/libs/…bwextension "$EXT/…"`). Reload → bridge
+  answering again is **~3.0–3.3s**, flat across every size tested.
+- Instrumentation added: `rig.stats` (construct/init nanos, sizes, stamp,
+  heap) and `rig.scanTracks` (full bank scan cost + warm-up readiness).
+
+### The numbers — empty project (e05, 6 tracks)
+
+| config | slots | construct | init | warm-up | scan | ping p50/p95 |
+|---|---|---|---|---|---|---|
+| 16×16 (E0–E4 baseline) | 256 | 6.4ms | 11.4ms | ~265ms | 869µs | 24.1 / 25.8 |
+| 64×64 | 4 096 | 9.0ms | 12.0ms | ~272ms | 631µs | 24.2 / 25.4 |
+| 128×128 | 16 384 | 29.0ms | 32.4ms | ~270ms | 525µs | 23.9 / 25.0 |
+| 256×128 | 32 768 | 42.9ms | 47.0ms | ~261ms | 611µs | 23.8 / 25.4 |
+| **512×128** | **65 536** | **75.7ms** | **81.0ms** | ~267ms | 853µs | 23.9 / 25.3 |
+| cursorPool=16 | 4 096 | 9.0ms | 16.1ms | ~258ms | 439µs | 23.9 / 25.2 |
+| paramHandles=256 | 4 096 | 23.4ms | 26.7ms | ~260ms | 412µs | 23.9 / 25.3 |
+| gridSteps=512 | 4 096 | 38.9ms | 42.7ms | ~277ms | 548µs | 23.8 / **34.5** |
+
+Init cost is **linear and tiny**: ~1.2µs per slot object. Even 65 536 slots
+costs 81ms of init, once, on a hot-reload nobody watches.
+
+### The numbers that matter — populated project (e05b, 54 tracks / 387 clips)
+
+Built in a scratch project (+48 instrument tracks × 8 clips), measured, then
+torn down by channelId set-difference.
+
+| config | construct | warm-up | **full scan** | ping p50/p95 | visible |
+|---|---|---|---|---|---|
+| 32×32 (undersized) | 5.7ms | 127ms | 748µs | 23.9 / 25.8 | **32 tracks / 227 clips** |
+| 64×64 | 7.8ms | 116ms | 3 261µs | 23.8 / 25.3 | 54 / 387 |
+| 128×128 | 17.2ms | 112ms | **6 235µs** | 24.1 / 25.3 | 54 / 387 |
+| 256×128 | 33.1ms | 115ms | 5 019µs | 23.7 / 25.3 | 54 / 387 |
+
+- **Init/warm-up/latency stayed flat under load.** Loading the bank with real
+  tracks and clips did not change init cost or thread latency at all.
+- **The one cost that DOES scale with content is a full bank scan** — it
+  loops scenes × *existing* tracks: 3.3ms at 64 scenes, 6.2ms at 128. This is
+  a per-*operation* tax, not an init tax, and it is our own handler's shape.
+  Routine addressing (`resolveByChannelId`) only touches track rows, never
+  slots, so it does not pay this.
+- **Ping p50 is pinned at ~24ms in every single configuration.** That is the
+  control-surface tick floor (matching E1's ~25ms settle), not a load signal —
+  it never moved, so we never found load. The only p95 excursion in the whole
+  matrix was gridSteps=512 (34.5ms), the largest single allocation.
+
+### The real constraint: the bank window is a HARD CAP
+
+With a 54-track project and TRACKS=32, **22 tracks and 160 clips were simply
+invisible** — not slow, absent. `channelId` (E2f) resolves only inside the
+window, so:
+
+- **Scaffold size bounds the maximum addressable project size**, exactly as
+  the plan suspected. Tracks past the window cannot be addressed, and their
+  clips cannot be snapshotted — a **checkpoint blind spot**, which is worse
+  than a perf problem: a revert could silently miss state it never saw.
+- ⇒ Phase 1 must **detect** window overflow (compare bank-visible count
+  against the project's true track count) and refuse/flag rather than operate
+  half-blind. Do not treat bank size as a tuning knob.
+
+### Recommended shipped sizes (evidence-backed)
+
+Since cost is linear-and-negligible and undersizing is a correctness failure,
+**size generously**: `TRACKS=256`, `SCENES=128`, `CURSOR_POOL=8`,
+`DEVICE_BANK=16`, `paramHandles=64`, `GRID_STEPS=128` (+ the fine cursor).
+That is ~50ms of init — imperceptible — and covers projects far larger than
+this one will realistically drive. Keep them **config-tunable**; `RigConfig`
+already is exactly that mechanism and is worth carrying into Phase 1.
+
+### Cold start + project-open — measured (E5c), caveat closed
+
+The above was hot-reload init only. Probe `e05c` records a live timeline
+(ping RTT for control-surface stalls + `rig.scanTracks` for bank population),
+detecting project transitions and bridge outages on its own. The same
+48-track project was saved to disk and opened at **256×128** and at **16×16**;
+Bitwig's own load time cancels between the two rounds.
+
+| event | rig | bank settle | max RTT | stalls |
+|---|---|---|---|---|
+| New Project (54→4 tracks) | 256×128 | 28ms | 24ms | 0 |
+| Open saved project (0→54, 387 clips) | 256×128 | <1 sample | 23ms | 0 |
+| **Cold start** (quit + relaunch) | 256×128 | 25ms | 28ms | 0 |
+| Open saved project after relaunch | 256×128 | <1 sample | 23ms | 0 |
+| New Project (16→4) | 16×16 | 15ms | 25ms | 0 |
+| Open saved project (0→16, 99 clips) | 16×16 | <1 sample | 24ms | 0 |
+
+- **Cold-start init = 108.3ms** at 256×128, vs 33–43ms for the same rig on a
+  hot reload — a cold JVM with Bitwig launching around it costs ~3×. It is
+  still 108ms inside a **13.4-second** application launch (~0.8% of it).
+- **Project-open cost is not measurable.** Bank repopulation finished inside
+  one sample period at both rig sizes, and **no ping exceeded 28ms in the
+  entire session — zero stalls** (threshold 100ms). The scaffold never
+  blocked the control-surface thread.
+- ⚠ **Do not read the "0ms/1ms settle" figures as literal.** The recorder's
+  sampling period is ~50–75ms (each iteration pays the ~24ms tick twice), so
+  the honest claim is *below measurement resolution*, not *instant*.
+- ⚠ The 16×16 round is a **floor, not a like-for-like control**: at that size
+  the rig only sees 16 of the 54 tracks, so it has less to populate partly
+  because it is blind to the rest. It confirms nothing pathological happens
+  at small sizes; round 1 is the load-bearing evidence.
+
+**Bonus — E2f re-confirmed at scale.** Teardown resolved and deleted **all 48
+tracks by channelId** using UUIDs captured *before* the project was saved,
+before a full Bitwig quit + relaunch, and before the project was reopened.
+48/48 resolved, 0 absent, 0 pre-existing tracks harmed. channelId persistence
+across save/restart now holds at 48 tracks, not just the 6 of E2f.
+
+### Caveats — what these numbers do NOT cover
+
+- **The populated project was synthetic**: empty instrument tracks with empty
+  clips, no devices/plugins. A real 54-track project has a device chain per
+  track, and `DEVICE_BANK` observers stream per chain. Device-side scale is
+  unmeasured.
+- **Heap figures in the probe output are noise** — whole-JVM, shared with
+  Bitwig, GC-dependent (they swing 282M→1186M between adjacent rows). They
+  are logged for trend only and should not be read as extension cost.
+- The `paramHandles=256` config cycles the 16 curated Polysynth IDs, so it
+  measures *handle allocation* cost, not 256 distinct params.
+
+### Decision impact
+
+- **§12 #5 answered ●.** No knee below 65k slots; pre-allocation is not the
+  scaling risk §3a treated it as. Ship generous sizes (above), config-tunable.
+- **New correctness rule → DECISIONS:** bank-window overflow is a checkpoint
+  hazard. Detect it and fail loudly; never operate on a partially-visible
+  project.
+- **Batch executor:** a full bank scan is ~3–6ms, cheap enough to do freely
+  but not per-op in a tight loop; prefer channelId resolution, which skips
+  slot iteration entirely.
+- **Carry forward:** `RigConfig` + the `rig.stats`/`rig.scanTracks` handlers
+  are Phase-1-quality and worth lifting; the config+hot-reload loop is a
+  reusable measurement rig. `e05c`'s recorder (transition + stall detection
+  tolerant of bridge outages) is the tool for any future latency question.
+- **Cold start costs ~108ms of a ~13s launch** — no reason to lazy-init or
+  tier the scaffold. Allocate everything up front, as §3a intended.
+
+---
+
 ## API surface sweep (2026-07-19)
 
 Systematic pass after the two misses, using both tools. **member-search-index
