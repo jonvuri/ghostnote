@@ -1,0 +1,14 @@
+{
+  "name": "ghostnote-brain",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "probe:e00": "tsx src/probes/e00-ping.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

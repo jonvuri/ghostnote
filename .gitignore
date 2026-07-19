@@ -1,2 +1,10 @@
 # Folder for initial project references
 reference/
+
+# Java / Gradle
+extension/build/
+extension/.gradle/
+
+# Node
+brain/node_modules/
+brain/dist/

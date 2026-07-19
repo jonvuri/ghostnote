@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.ghostnote'
+version = '0.0.1'
+
+// Bitwig 6.0.6 bundles a Java 25 JVM; target 21 (LTS) for headroom.
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://maven.bitwig.com'
+    }
+}
+
+dependencies {
+    // Provided by Bitwig at runtime
+    compileOnly 'com.bitwig:extension-api:25'
+
+    // Bundled into the extension jar
+    implementation 'com.google.code.gson:gson:2.11.0'
+}
+
+jar {
+    archiveBaseName = 'ghostnote'
+    archiveExtension = 'bwextension'
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes(
+            'Extension-Class': 'com.ghostnote.extension.GhostnoteExtensionDefinition'
+        )
+    }
+}
+
+def bitwigExtensionsDir = "${System.getProperty('user.home')}/Documents/Bitwig Studio/Extensions"
+
+tasks.register('copyExtension', Copy) {
+    dependsOn jar
+    from jar.outputs.files
+    into bitwigExtensionsDir
+
+    doLast {
+        println "Copied extension to: ${bitwigExtensionsDir}"
+    }
+}
