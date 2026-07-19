@@ -19,7 +19,8 @@ public class GhostnoteExtension extends ControllerExtension {
     public void init() {
         final ControllerHost host = getHost();
 
-        final ProbeHandlers handlers = new ProbeHandlers(host);
+        final Rig rig = new Rig(host);
+        final ProbeHandlers handlers = new ProbeHandlers(host, rig);
 
         try {
             bridge = new Bridge(PORT, host, handlers);
