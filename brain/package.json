@@ -20,6 +20,7 @@
     "probe:e05": "tsx src/probes/e05-scale.ts",
     "probe:e05b": "tsx src/probes/e05b-populated.ts",
     "probe:e05c": "tsx src/probes/e05c-openlag.ts",
+    "probe:e06": "tsx src/probes/e06-actions.ts",
     "probe:e04c": "tsx src/probes/e04c-layers.ts",
     "probe:e04c-diag": "tsx src/probes/e04c-diag.ts",
     "probe:e04c-diag2": "tsx src/probes/e04c-diag2.ts",

@@ -1204,8 +1204,17 @@ public class ProbeHandlers implements Bridge.Dispatcher {
     }
 
     private JsonElement appInvokeAction(JsonObject params) {
-        rig.application.getAction(params.get("id").getAsString()).invoke();
-        return ok();
+        String id = params.get("id").getAsString();
+        com.bitwig.extension.controller.api.Action action = rig.application.getAction(id);
+        JsonObject result = ok();
+        if (action == null) {
+            result.addProperty("resolved", false);
+            return result;
+        }
+        result.addProperty("resolved", true);
+        result.addProperty("resolvedName", action.getName());
+        action.invoke();
+        return result;
     }
 
     // ------------------------------------------- E1: UI selection tracking

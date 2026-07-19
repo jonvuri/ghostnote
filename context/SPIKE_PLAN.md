@@ -195,7 +195,18 @@ where a rabbit hole is likely.
   tracks outside the bank window are invisible). Scale directly bounds max
   project size — a real constraint, not just a perf knob.
 
-### E6 — Named actions escape hatch
+### E6 — Named actions escape hatch ✅ COMPLETE *(○ unusable + hazardous)*
+> 781 actions enumerate, but `invoke()` is GUI-state dependent: global actions
+> fire only with Bitwig **foregrounded** (backgrounded = silent no-op vs typed
+> API working); editing actions need **panel keyboard focus** the API can't
+> set. Worse, they operate on the UI selection our addressing sets —
+> foreground `Duplicate` duplicated the gn-A fixture **7×** before the
+> mechanism was understood (pointing a cursor selects its track). `void`
+> return + silent no-op = zero readback. **Decision: ghostnote uses NO named
+> actions; the no-typed-API residual (track Group/Ungroup, wrap/unwrap) is an
+> accepted minor gap. There is effectively no action-based escape hatch.**
+> Original plan text below (superseded).
+
 - **Q:** What does `Application.getActions()` actually expose, and how bad
   is the selection coupling?
 - **Method:** Dump the action list to FINDINGS. Invoke 2–3 (e.g. duplicate
