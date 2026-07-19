@@ -208,7 +208,64 @@ where a rabbit hole is likely.
   `deleteObject` (all levels, E1–E3). Named actions now cover a smaller
   residual; scope the probe to what has NO typed API.
 
-### E4c — Device layers *(NEW, from the API sweep — device depth)*
+### E4c — Device layers ✅ COMPLETE *(◐ split verdict — see FINDINGS)*
+> **Result:** nested devices can be **navigated and driven** — `selectFirstInLayer`
+> repoints the same cursor into a nested chain and all E4 param handles follow,
+> recursively (verified at depth 2), with writes landing.
+> **E4c's "cannot be created" was WRONG — see E4d.** Chains CAN be built:
+> drum pads create chains on insert, `insertFile` materialises a whole
+> multi-chain preset in one call, and containers duplicate with their
+> contents. The genuine residual gap is narrow: *layer-type* containers
+> cannot grow new layers.
+
+### E4h — Templates as repo assets ✅ COMPLETE *(●)*
+> Presets ship **with the project**: `insertFile` takes any absolute path,
+> the Library is not involved, and after loading the file can be deleted with
+> no effect (structure + devices unaffected) — a build-time asset, not a
+> runtime dependency. Two silent traps: **relative paths never load** (the
+> extension resolves against Bitwig's cwd, so the brain must send absolute
+> paths) and the **`.bwpreset` extension is required** (dispatch is on
+> filename, not content). Caveat: sample-bearing presets may reference rather
+> than embed audio — unverified.
+
+### E4g — Per-layer substitution ✅ COMPLETE *(● verifies E4f's inference)*
+> Against a user-built 4-chain Instrument Layer template: patching ONE
+> chain's binary GUID changed only that chain; patching two changed both
+> independently; the substituted device is live and param-writable at depth.
+> Stale ASCII `referenced_device_ids` is ignored — the binary GUID alone
+> governs instantiation. **Pipeline (shape → GUID substitution → params via
+> API) is fully evidenced; "boring setup" is solved via a template library.**
+
+### E4f — Runtime preset synthesis ✅ COMPLETE *(◐ templates yes, arbitrary no)*
+> `insertFile` accepts **any path** — files are the unit, so the agent can
+> write a preset at runtime and load it. Device identity is a raw 16-byte
+> GUID that can be patched (the ASCII copies are metadata — patching only
+> those silently loads the WRONG device), and the substituted device is live
+> and param-writable. **Pipeline: shape from a template, identities by GUID
+> substitution, state via the param API.** Novel topologies would require
+> splicing an undocumented binary format (community parsers have crashed
+> Bitwig doing this), and there is **no save/export API**, so templates must
+> come from a human. Multi-layer independent substitution is inferred, not
+> yet verified.
+
+### E4d/E4e — Chain creation ✅ COMPLETE *(● overturns E4c's ○)*
+> **The layer gap is real and now explained, not just observed.** Bitwig's
+> user guide: Drum Machine has a *fixed* 128 note-indexed chain grid, while
+> layer chains are *"newly created"* per added device — so a drum pad has a
+> referent to insert into while an unborn layer does not. `DrumPad
+> .insertionPoint()` was added at API v7; `DeviceLayer` still has none at
+> v25. The javadoc specifies the silent no-op ("some things may not make
+> sense to insert… nothing happens"). E4e exhausted every remaining
+> InsertionPoint source. DrivenByMoss has no layer-creation path either.
+
+> Seven creation routes swept; three work (drum-pad insertion, `insertFile`,
+> container duplication), four don't (layer duplicate/copy/named actions).
+> Drum Machine UUID `8ea97e45-…` recovered — E4c's "absent from the bundle"
+> was a brittle-grep artefact (12-char names carry an invisible `\f` prefix).
+> Pad addressing = `selectFirstInChannel(pad)`; `selectFirstInKeyPad` takes a
+> MIDI key, not an index. **Decision: ship a preset library; prefer Drum
+> Machine when the agent must build N chains.**
+
 - **Q:** Can we address INTO layered devices (Instrument/FX layers, drum
   machines, nested chains), and does the E4 pool/repoint/pin model extend
   to them?

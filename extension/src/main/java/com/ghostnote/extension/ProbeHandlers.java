@@ -5,6 +5,8 @@ import com.bitwig.extension.controller.api.ClipLauncherSlot;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.Device;
 import com.bitwig.extension.controller.api.DeviceBank;
+import com.bitwig.extension.controller.api.DeviceLayer;
+import com.bitwig.extension.controller.api.DrumPad;
 import com.bitwig.extension.controller.api.NoteStep;
 import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
@@ -58,6 +60,8 @@ public class ProbeHandlers implements Bridge.Dispatcher {
                 return rigStats();
             case "rig.scanTracks":
                 return rigScanTracks();
+
+            // --- E1: fixtures (continued) ---
             case "track.create":
                 return trackCreate(params);
             case "track.setName":
@@ -148,6 +152,54 @@ public class ProbeHandlers implements Bridge.Dispatcher {
                 return directParamList();
             case "directparam.set":
                 return directParamSet(params);
+
+            // --- E4c: device nesting ---
+            case "device.nesting":
+                return deviceNesting();
+            case "layer.list":
+                return layerList();
+            case "layer.insertDevice":
+                return layerInsertDevice(params);
+            case "devcursor.selectFirstInLayer":
+                return devcursorSelectFirstInLayer(params);
+            case "devcursor.selectFirstInSlot":
+                return devcursorSelectFirstInSlot(params);
+            case "drumpad.list":
+                return drumPadList();
+            case "chainselector.status":
+                return chainSelectorStatus();
+            case "chainselector.set":
+                return chainSelectorSet(params);
+
+            // --- E4c-2: can nesting structure be CREATED? ---
+            case "layer.duplicate":
+                return layerDuplicate(params);
+            case "layer.duplicateChannel":
+                return layerDuplicateChannel(params);
+            case "layer.copyDeviceInto":
+                return layerCopyDeviceInto(params);
+            case "layer.insertFile":
+                return layerInsertFile(params);
+            case "device.duplicate":
+                return deviceDuplicate(params);
+            case "device.insertFile":
+                return deviceInsertFile(params);
+            case "drumpad.insertDevice":
+                return drumPadInsertDevice(params);
+            case "layer.insertRelative":
+                return layerInsertRelative(params);
+            case "drumpad.duplicate":
+                return drumPadDuplicate(params);
+            case "devcursor.selectFirstInKeyPad":
+                return devcursorSelectFirstInKeyPad(params);
+            case "devcursor.selectFirstInPad":
+                return devcursorSelectFirstInPad(params);
+            case "devcursor.selectParent":
+                return devcursorSelectParent();
+            case "app.actions":
+                return appActions(params);
+            case "app.invokeAction":
+                return appInvokeAction(params);
 
             default:
                 throw new Bridge.MethodNotFoundException(method);
@@ -885,6 +937,274 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         double value = params.get("value").getAsDouble();
         double resolution = params.has("resolution") ? params.get("resolution").getAsDouble() : 128.0;
         rig.cursorDevice0.setDirectParameterValueNormalized(id, value, resolution);
+        return ok();
+    }
+
+    // -------------------------------------------------- E4c: device nesting
+
+    /** Which nesting mechanism (if any) the pointed device offers. */
+    private JsonElement deviceNesting() {
+        JsonObject result = new JsonObject();
+        putGuarded(result, "exists", () -> rig.cursorDevice0.exists().get());
+        putGuarded(result, "name", () -> rig.cursorDevice0.name().get());
+        putGuarded(result, "hasLayers", () -> rig.cursorDevice0.hasLayers().get());
+        putGuarded(result, "hasDrumPads", () -> rig.cursorDevice0.hasDrumPads().get());
+        putGuarded(result, "hasSlots", () -> rig.cursorDevice0.hasSlots().get());
+        putGuarded(result, "isNested", () -> rig.cursorDevice0.isNested().get());
+        JsonArray slots = new JsonArray();
+        try {
+            for (String name : rig.cursorDevice0.slotNames().get()) {
+                slots.add(name);
+            }
+        } catch (Exception e) {
+            result.addProperty("slotNamesError", e.getMessage());
+        }
+        result.add("slotNames", slots);
+        putGuarded(result, "cursorLayerExists", () -> rig.cursorLayer0.exists().get());
+        putGuarded(result, "cursorLayerName", () -> rig.cursorLayer0.name().get());
+        return result;
+    }
+
+    /** Enumerate the layers of the pointed device and the devices inside each. */
+    private JsonElement layerList() {
+        JsonArray layers = new JsonArray();
+        int existing = 0;
+        for (int l = 0; l < Rig.LAYER_BANK; l++) {
+            DeviceLayer layer = rig.layerBank0.getItemAt(l);
+            if (!layer.exists().get()) {
+                continue;
+            }
+            existing++;
+            JsonObject obj = new JsonObject();
+            obj.addProperty("index", l);
+            obj.addProperty("name", layer.name().get());
+
+            JsonArray devices = new JsonArray();
+            for (int d = 0; d < Rig.LAYER_DEVICE_BANK; d++) {
+                Device nested = rig.layerDeviceBanks[l].getDevice(d);
+                if (!nested.exists().get()) {
+                    continue;
+                }
+                JsonObject dev = new JsonObject();
+                dev.addProperty("index", d);
+                dev.addProperty("name", nested.name().get());
+                devices.add(dev);
+            }
+            obj.add("devices", devices);
+            layers.add(obj);
+        }
+        JsonObject result = new JsonObject();
+        result.add("layers", layers);
+        result.addProperty("count", existing);
+        putGuarded(result, "hasLayers", () -> rig.cursorDevice0.hasLayers().get());
+        return result;
+    }
+
+    /**
+     * Insert a Bitwig device INSIDE a layer's device chain. DeviceLayer is a
+     * DeviceChain, so it carries its own insertion point — this is how the
+     * chain one level down gets populated.
+     */
+    private JsonElement layerInsertDevice(JsonObject params) {
+        int layerIndex = params.get("layerIndex").getAsInt();
+        String uuid = params.get("uuid").getAsString();
+        rig.layerBank0.getItemAt(layerIndex).endOfDeviceChainInsertionPoint()
+            .insertBitwigDevice(java.util.UUID.fromString(uuid));
+        return ok();
+    }
+
+    /**
+     * Move the DEVICE CURSOR into a layer. If this works, the whole E4
+     * parameter apparatus follows the cursor down and nested devices need no
+     * new machinery.
+     */
+    private JsonElement devcursorSelectFirstInLayer(JsonObject params) {
+        rig.cursorDevice0.selectFirstInLayer(params.get("layerIndex").getAsInt());
+        return ok();
+    }
+
+    private JsonElement devcursorSelectFirstInSlot(JsonObject params) {
+        rig.cursorDevice0.selectFirstInSlot(params.get("slot").getAsString());
+        return ok();
+    }
+
+    private JsonElement drumPadList() {
+        JsonArray pads = new JsonArray();
+        for (int p = 0; p < Rig.DRUM_PAD_BANK; p++) {
+            DrumPad pad = rig.drumPadBank0.getItemAt(p);
+            if (!pad.exists().get()) {
+                continue;
+            }
+            JsonObject obj = new JsonObject();
+            obj.addProperty("index", p);
+            obj.addProperty("name", pad.name().get());
+            pads.add(obj);
+        }
+        JsonObject result = new JsonObject();
+        result.add("pads", pads);
+        result.addProperty("count", pads.size());
+        putGuarded(result, "hasDrumPads", () -> rig.cursorDevice0.hasDrumPads().get());
+        return result;
+    }
+
+    private JsonElement chainSelectorStatus() {
+        JsonObject result = new JsonObject();
+        putGuarded(result, "exists", () -> rig.chainSelector0.exists().get());
+        putGuarded(result, "chainCount", () -> rig.chainSelector0.chainCount().get());
+        putGuarded(result, "activeChainIndex", () -> rig.chainSelector0.activeChainIndex().get());
+        return result;
+    }
+
+    private JsonElement chainSelectorSet(JsonObject params) {
+        if (params.has("cycle")) {
+            if ("next".equals(params.get("cycle").getAsString())) {
+                rig.chainSelector0.cycleNext();
+            } else {
+                rig.chainSelector0.cyclePrevious();
+            }
+        } else {
+            rig.chainSelector0.activeChainIndex().set(params.get("index").getAsInt());
+        }
+        return ok();
+    }
+
+    // ------------------------- E4c-2: routes to CREATING nesting structure
+
+    /** DeviceLayer implements DuplicableObject — does duplicating make a layer? */
+    private JsonElement layerDuplicate(JsonObject params) {
+        rig.layerBank0.getItemAt(params.get("layerIndex").getAsInt()).duplicateObject();
+        return ok();
+    }
+
+    /** DeviceLayer also implements Channel, which has its own duplicate(). */
+    private JsonElement layerDuplicateChannel(JsonObject params) {
+        rig.layerBank0.getItemAt(params.get("layerIndex").getAsInt()).duplicate();
+        return ok();
+    }
+
+    /** Copy an existing top-level device into a layer's chain. */
+    private JsonElement layerCopyDeviceInto(JsonObject params) {
+        int layerIndex = params.get("layerIndex").getAsInt();
+        int deviceIndex = params.get("deviceIndex").getAsInt();
+        rig.layerBank0.getItemAt(layerIndex).endOfDeviceChainInsertionPoint()
+            .copyDevices(rig.cursorDeviceBanks[0].getDevice(deviceIndex));
+        return ok();
+    }
+
+    /** Insert a file (preset/multisample/etc.) into a layer's chain. */
+    private JsonElement layerInsertFile(JsonObject params) {
+        rig.layerBank0.getItemAt(params.get("layerIndex").getAsInt())
+            .endOfDeviceChainInsertionPoint().insertFile(params.get("path").getAsString());
+        return ok();
+    }
+
+    /** Duplicating a container device — does it bring its layers along? */
+    private JsonElement deviceDuplicate(JsonObject params) {
+        rig.cursorDeviceBanks[0].getDevice(params.get("deviceIndex").getAsInt()).duplicateObject();
+        return ok();
+    }
+
+    /**
+     * Insert a file at the end of the track's device chain. A .bwpreset of a
+     * multi-layer container would create the whole structure in one call.
+     */
+    private JsonElement deviceInsertFile(JsonObject params) {
+        String ref = params.has("cursor") ? params.get("cursor").getAsString() : "0";
+        rig.cursorTrack(ref).endOfDeviceChainInsertionPoint()
+            .insertFile(params.get("path").getAsString());
+        return ok();
+    }
+
+    /**
+     * DrumPad has its OWN insertionPoint() that DeviceLayer lacks — the
+     * asymmetry suggests empty pads can be filled, i.e. chains created.
+     */
+    private JsonElement drumPadInsertDevice(JsonObject params) {
+        int padIndex = params.get("padIndex").getAsInt();
+        String uuid = params.get("uuid").getAsString();
+        rig.drumPadBank0.getItemAt(padIndex).insertionPoint()
+            .insertBitwigDevice(java.util.UUID.fromString(uuid));
+        return ok();
+    }
+
+    /**
+     * The last untested InsertionPoint sources: before/after an EXISTING
+     * nested device. Does inserting relative to a device inside a layer add
+     * to that layer's chain, or spawn a sibling layer?
+     */
+    private JsonElement layerInsertRelative(JsonObject params) {
+        int layerIndex = params.get("layerIndex").getAsInt();
+        int deviceIndex = params.get("deviceIndex").getAsInt();
+        String uuid = params.get("uuid").getAsString();
+        boolean after = !params.has("where") || "after".equals(params.get("where").getAsString());
+        Device anchor = rig.layerDeviceBanks[layerIndex].getDevice(deviceIndex);
+        java.util.UUID id = java.util.UUID.fromString(uuid);
+        if (after) {
+            anchor.afterDeviceInsertionPoint().insertBitwigDevice(id);
+        } else {
+            anchor.beforeDeviceInsertionPoint().insertBitwigDevice(id);
+        }
+        return ok();
+    }
+
+    private JsonElement drumPadDuplicate(JsonObject params) {
+        rig.drumPadBank0.getItemAt(params.get("padIndex").getAsInt()).duplicateObject();
+        return ok();
+    }
+
+    private JsonElement devcursorSelectFirstInKeyPad(JsonObject params) {
+        rig.cursorDevice0.selectFirstInKeyPad(params.get("pad").getAsInt());
+        return ok();
+    }
+
+    /**
+     * DrumPad is a Channel, so the generic selectFirstInChannel works on it —
+     * the same idiom that points the cursor at a track's first device.
+     */
+    private JsonElement devcursorSelectFirstInPad(JsonObject params) {
+        rig.cursorDevice0.selectFirstInChannel(
+            rig.drumPadBank0.getItemAt(params.get("padIndex").getAsInt()));
+        return ok();
+    }
+
+    private JsonElement devcursorSelectParent() {
+        rig.cursorDevice0.selectParent();
+        return ok();
+    }
+
+    /** Dump the named-action list (E6 overlap): is layer creation an action? */
+    private JsonElement appActions(JsonObject params) {
+        String filter = params.has("filter") ? params.get("filter").getAsString().toLowerCase() : "";
+        JsonArray actions = new JsonArray();
+        int total = 0;
+        for (com.bitwig.extension.controller.api.Action action : rig.application.getActions()) {
+            total++;
+            String id = action.getId();
+            String name = action.getName();
+            if (!filter.isEmpty()
+                && !id.toLowerCase().contains(filter)
+                && !(name != null && name.toLowerCase().contains(filter))) {
+                continue;
+            }
+            JsonObject obj = new JsonObject();
+            obj.addProperty("id", id);
+            obj.addProperty("name", name);
+            try {
+                obj.addProperty("category", action.getCategory().getName());
+            } catch (Exception e) {
+                obj.addProperty("category", "?");
+            }
+            actions.add(obj);
+        }
+        JsonObject result = new JsonObject();
+        result.add("actions", actions);
+        result.addProperty("matched", actions.size());
+        result.addProperty("total", total);
+        return result;
+    }
+
+    private JsonElement appInvokeAction(JsonObject params) {
+        rig.application.getAction(params.get("id").getAsString()).invoke();
         return ok();
     }
 

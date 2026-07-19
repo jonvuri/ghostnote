@@ -5,6 +5,467 @@ One section per experiment, appended as run. Verdicts: ● confirmed working /
 
 ---
 
+## E4h — Templates as repo assets, not Library entries (2026-07-19)
+
+**Verdict: ● presets can ship with the project.** The Bitwig Library is not
+involved: `insertFile` takes any filesystem path, and after loading, the file
+is no longer referenced. Probe `e04h`, all green.
+
+| test | result |
+|---|---|
+| absolute path to a repo asset | ● loads all 4 chains |
+| **relative path** | ○ **does not load** |
+| spaces, em dash, parentheses in path | ● fine |
+| **non-`.bwpreset` extension** | ○ **does not load** |
+| missing file | ○ silent no-op, no error |
+| **file deleted after loading** | ● structure + devices unaffected |
+
+### The two operational rules
+
+- **Paths must be ABSOLUTE.** The extension runs inside Bitwig, so a relative
+  path resolves against *Bitwig's* working directory, not the brain's. The
+  brain must resolve repo-relative asset paths before they cross the bridge.
+- **The `.bwpreset` extension is REQUIRED.** Bitwig dispatches on the
+  filename, not the content — byte-identical data named `.template` is
+  ignored. Repo assets must keep the extension.
+
+Both failure modes are **silent**, as is a missing file: `insertFile` gives
+no negative acknowledgement, matching the documented *"some things may not
+make sense to insert… nothing happens"* semantics. ⇒ every insert must be
+confirmed by reading back the resulting chain contents.
+
+### Presets are a build-time asset, not a runtime dependency
+
+After `insertFile`, the preset file was **deleted** and the loaded structure
+was unaffected — all four chains intact, devices still live (55 params
+enumerated, writable). `insertFile` copies content into the project; nothing
+retains a reference.
+
+⇒ **templates belong in the repo** (e.g. `assets/presets/*.bwpreset`),
+version-controlled alongside the code, with no dependency on the user's
+Bitwig Library and no install step. They are inputs to a build, not
+installed content.
+
+⚠ **Caveat:** verified in-session only. A project save + reload would confirm
+it fully, and **sample-bearing** presets are the case to watch — a Sampler
+chain may *reference* audio files rather than embed them, which would
+reintroduce an external dependency the structural devices do not have.
+
+### Decision impact
+
+- **Ship templates in-repo**; no Library installation, no user setup beyond
+  the one-time authoring of each shape.
+- **Contract/executor:** absolute paths only; assert the `.bwpreset`
+  extension at the tool boundary (a wrong name fails silently otherwise);
+  verify every insert by chain readback.
+- Revisit embedding vs. referencing if a template ever contains samples.
+
+---
+
+## E4g — Per-layer substitution VERIFIED on a 4-chain template (2026-07-19)
+
+**Verdict: ● parameterised multi-layer construction works.** E4f's one
+outstanding inference is now a measured result. Probe `e04g`, all green,
+against a template the user built by hand (an Instrument Layer with
+Phase-4 / Polysynth / Organ / Sampler) — the only way to obtain one, since
+there is no save API.
+
+### Template anatomy
+
+Each device's identity appears **exactly once** as a raw 16-byte GUID, at a
+distinct offset, with the container first:
+
+| offset | device | role |
+|---|---|---|
+| 6 346 | Instrument Layer | container |
+| 8 023 | Phase-4 | chain 1 |
+| 14 312 | Polysynth | chain 2 |
+| 19 014 | Organ | chain 3 |
+| 22 174 | Sampler | chain 4 |
+
+25 011 bytes for a 4-chain instrument stack — templates are small.
+
+### Results
+
+- **The untouched template instantiates all four chains in one
+  `insertFile` call**, each holding the device the user placed there.
+- **Single swap (Organ → Polymer): only that chain changed.**
+  `[Phase-4, Polysynth, Organ, Sampler]` → `[Phase-4, Polysynth, Polymer,
+  Sampler]`. The other three chains were untouched. **This is the result the
+  whole templating story rested on.**
+- **Double swap (Phase-4 → Polymer, Sampler → Polysynth) in one file:** both
+  changed independently, the untouched Organ chain survived →
+  `[Polymer, Polysynth, Organ, Polysynth]`.
+- **The substituted device is live at depth:** descended into the patched
+  chain, `isNested=true`, 7 direct params enumerated, and a write landed
+  (`CONTENTS/OUTPUT` → 0.25).
+- **Stale ASCII metadata is ignored.** Only the binary GUID was patched;
+  `referenced_device_ids` still named Organ and instantiation was unaffected.
+  ⇒ that metadata is not consulted when loading — patching the binary GUID
+  alone is sufficient and correct. (E4f gate 3's trap stands: patching *only*
+  the ASCII does nothing.)
+
+### The construction pipeline, now fully evidenced
+
+1. **Shape** — instantiate a template preset via `insertFile` (any path, no
+   Library registration needed; E4f gates 1–2).
+2. **Devices** — patch per-chain binary GUIDs, one occurrence each,
+   length-preserving so no offsets shift (E4g).
+3. **State** — set every parameter through the param API (E4/E4b), at depth
+   via `selectFirstInLayer` (E4c). The preset's stored state is irrelevant.
+
+A template is needed **per shape** (a 4-chain stack, a 3-chain stack…), not
+per sound. Shapes are few and small; devices and parameters are the varying
+part and both are now parameterisable.
+
+### Decision impact
+
+- **"Boring setup" is a solved problem** for layer containers, via templates
+  rather than the absent create-layer API. Promote it to a Phase-2
+  deliverable with a known implementation path.
+- **Ship a template library** — a handful of hand-built shapes, plus a GUID
+  substitution helper and a device-UUID catalog (already harvestable, E4/E4d).
+- **Always verify the loaded structure by readback** (chain contents by
+  name), as everywhere else in this spike — substitution failures are silent.
+- Bootstrapping templates requires a human once per shape; that is a
+  one-time setup cost, not a per-use one.
+
+---
+
+## E4f — Can presets be SYNTHESISED at runtime? (2026-07-19)
+
+**Verdict: ◐ parameterised construction from templates is viable; synthesis
+of novel shapes is not.** Asked whether `insertFile` can build arbitrary
+layer structures on the fly with no presets prepared in advance. Five gates,
+probe `e04f`. The answer is meaningfully better than "ship a preset library"
+but short of "generate anything".
+
+### The format
+
+`.bwpreset` is `BtWg` magic + a tag/length/value record stream with readable
+field names (`device_id`, `device_name`, `referenced_device_ids`,
+`preset_category`). Structural presets are small (FX Layer default 6.6KB);
+sample-bearing ones reach megabytes (a user Drum Machine preset: 5MB).
+
+### The gates
+
+| gate | question | result |
+|---|---|---|
+| 1 | does `insertFile` accept an arbitrary path? | ● loads from the app bundle |
+| 2 | does an unregistered copy in `/tmp` load? | ● **files are the unit, not Library entries** |
+| 3 | does patching the ASCII UUID swap the device? | ○ **silently loads the ORIGINAL** |
+| 4 | does patching the binary GUID swap it? | ● **loads the substituted device** |
+| 5 | is the substituted device functional? | ● enumerates + accepts param writes |
+
+- **Gates 1–2 are the enabling result:** the agent can **write a file at
+  runtime, anywhere on disk, and load it**. Presets need not pre-exist in
+  the Library.
+- **Gate 3 is a new trap.** A preset carries the device UUID **twice in
+  ASCII** (`device_id`, `referenced_device_ids`) — both metadata — and
+  **once as a raw 16-byte big-endian GUID**, which is the real identity.
+  Patching only the ASCII copies loads the **original** device with no error:
+  a silent wrong-result, not a failure.
+- **Gate 4:** patching the binary GUID (length-preserving, no offsets shift)
+  makes Bitwig load the substituted device. Identity is parameterisable.
+- **Gate 5 is what makes it useful:** the substituted device is **live** —
+  it enumerates its own params via DirectParameter and accepts writes
+  (`CONTENTS/OUTPUT` → 0.25). It reported only 7 params, i.e. it loaded in a
+  near-default state rather than faithfully inheriting the donor's payload —
+  **which does not matter**, because state can be set through the API.
+
+⇒ **The pipeline: take the SHAPE from a template preset, substitute device
+identities by GUID, then set every parameter via E4/E4b.** The preset only
+has to be structurally valid; its stored state is irrelevant.
+
+### What is still out of reach
+
+- **No save/export API.** Only `Device.loadPreset(int)` and the browser
+  exist. The agent can never **capture** a structure it or the user built, so
+  every template must originate from a human saving one in the UI (or from
+  synthesis).
+- **Novel shapes require real format work.** Changing a template's *topology*
+  — going from a 2-layer to a 5-layer container — means splicing TLV chain
+  blocks in an undocumented binary format. Prior art exists but is partial
+  and explicitly hazardous: bwEdit-Python's changelog records fixing an
+  "FX chain atom (**no longer crashes Bitwig**)". Treat host crashes as the
+  expected failure mode of malformed structures.
+- ⇒ a **finite template library, one per shape** (2/3/4-layer, etc.), covers
+  the realistic space cheaply. Shapes are few; device choices and parameters
+  are the varying part, and both are parameterisable.
+
+### ⚠ Limit of this evidence — NOW CLOSED by E4g
+
+E4f could only prove substitution on a **single-device** preset and inferred
+the multi-layer case. **E4g verified it directly** against a user-built
+4-chain template: per-layer devices are independently swappable. The
+inference was correct; see E4g below.
+
+### Decision impact
+
+- **Phase 1/2:** ship a small template library + a GUID-substitution helper;
+  never attempt from-scratch preset synthesis.
+- **Contract:** structure creation for layer containers is "instantiate a
+  known shape, then configure", not "compose arbitrary topology".
+- **New trap for the gotcha list:** ASCII-only UUID patching silently loads
+  the wrong device — patch the binary GUID, and always verify the loaded
+  device's name (readback, as everywhere else in this spike).
+
+---
+
+## E4d — Chain CREATION: E4c's ○ was WRONG (2026-07-19)
+
+**Verdict: ● complex device structures CAN be built programmatically — via
+drum pads and via preset files.** E4c concluded "layers can be filled and
+navigated but never created" from a single mechanism. Challenged, swept
+properly, and **overturned**. Probe `e04d` (all green) + `e04d-diag`.
+**Third false negative of this spike from a single-mechanism check** (after
+CLAP params and channelId) — the pattern is now undeniable, see Method.
+
+### Seven routes tested; three work
+
+| # | route | result |
+|---|---|---|
+| 1 | `DeviceLayer.duplicateObject()` | ✗ silent no-op |
+| 2 | `DeviceLayer.duplicate()` (as Channel) | ✗ silent no-op |
+| 3 | `InsertionPoint.copyDevices()` into a layer | ✗ silent no-op |
+| 4 | **`InsertionPoint.insertFile(preset)`** | **● 12-pad structure in 268ms** |
+| 5 | **`DrumPad.insertionPoint().insertBitwigDevice()`** | **● creates chains** |
+| 6 | **`Device.duplicateObject()` on a container** | **● clones WITH contents** |
+| 7 | named actions (`getActions()`, 781 of them) | ✗ none create chains |
+
+### ROUTE 5 — drum pads are fully buildable AND addressable
+
+**`DrumPad` has its own `insertionPoint()` that `DeviceLayer` lacks** — that
+asymmetry is the whole story. Inserting into an *empty* pad **creates the
+chain**: a fresh Drum Machine reports 0 pads, and pads appear as they are
+filled (0→1→2, built entirely programmatically, no UI).
+
+Addressing into them works too, with a gotcha:
+- **`selectFirstInChannel(drumPadBank.getItemAt(i))` is the right idiom** —
+  `DrumPad` is a `Channel`, so the same call used for tracks works. Verified
+  on pads 0 and 3: cursor lands on the nested device, **14/16 params resolve**.
+- ⚠ **`selectFirstInKeyPad(n)` takes a MIDI KEY, not a pad index.** Key 36
+  (C1) = pad 0; passing `0` silently leaves the cursor on the Drum Machine
+  (another silent no-op). Verified across keys 0/36/60 in `e04d-diag`.
+
+⇒ **"Build me a drum kit with N chains, each with its own devices and
+routing" is fully in reach.**
+
+### ROUTE 4 — insertFile materialises arbitrary structure in one call
+
+`insertFile()` with a `.bwpreset` loaded a 12-pad Drum Machine — a complete
+multi-chain structure with all its devices and routing — **in 268ms, one
+call**. This is the general escape hatch for *any* complex structure,
+including the ones with no creation API: build it once in the UI, save it,
+and the agent can materialise it thereafter. Presets are ordinary files, so a
+library of them is a shippable asset.
+
+### ROUTE 6 — containers duplicate wholesale
+
+`Device.duplicateObject()` on a populated FX Layer produced a second FX Layer
+**carrying its nested contents** (1 layer, 1 device inside). So an existing
+structure can be replicated even where it cannot be authored from scratch.
+
+### The residual gap (genuine, but much narrower than E4c claimed)
+
+What remains impossible: **adding a layer to a layer-type container.**
+FX Layer ships with exactly one chain and will not grow; Instrument Layer,
+Note FX Layer and the Selectors ship with **zero** and cannot be seeded — no
+duplicate, copy, or insert route reaches them, and no named action exists.
+So a *multi-layer instrument stack* still cannot be authored from nothing.
+
+### Why — the architectural reason (E4e; positive, not just empirical)
+
+Challenged to prove this is a real API gap rather than another missed
+surface, five independent lines of evidence converge, and they explain
+*why* rather than merely restating the observation:
+
+1. **Primary source — the Bitwig user guide** states the design difference
+   outright. Drum Machine: *"Corresponding with the 128 possible MIDI notes,
+   Drum Machine offers up to 128 device chains, each called a drum chain."*
+   Instrument Layer: *"there is only one Add Device button in the main
+   interface of Instrument Layer, with each added device being placed on a
+   **newly created** instrument chain."*
+   ⇒ **Drum chains are a fixed, pre-addressable grid indexed by MIDI note;
+   layer chains have no predetermined slots and come into existence only as
+   a side effect of adding a device.**
+2. **That is exactly why the API can offer one and not the other.** An
+   `InsertionPoint` must bind to a referent. Pad 36 is well-defined while
+   empty, so `DrumPad.insertionPoint()` — javadoc: *"InsertionPoint that can
+   be used to insert content in this drum pad"* — is meaningful. "Layer 3"
+   has no referent until it exists, so there is nothing to hand back.
+3. **Version history shows deliberateness, not oversight.**
+   `DrumPad.insertionPoint()` was added at **API v7** to a v1 class — a
+   targeted addition. Through **v25**, `DeviceLayer` (v1) still has no
+   equivalent. Bitwig also added creating-insertion-points where a referent
+   exists (`nextSceneInsertionPoint`), so the pattern is consistent.
+4. **The javadoc documents our silent no-op as intended behaviour:**
+   InsertionPoint inserts *"as if the user had dragged and dropped them to
+   this insertion point… **Some things may not make sense to insert in which
+   case nothing happens**."* The no-op is specified, not a bug.
+5. **Ecosystem corroboration.** DrivenByMoss — the most comprehensive Bitwig
+   extension in existence — exposes only read/navigate/select in its
+   `LayerImpl`/`LayerBankImpl`; no creation path, no workaround comment.
+
+**Coverage is now exhaustive (E4e).** Every `InsertionPoint` source in the
+API has been exercised. The last two, `before`/`afterDeviceInsertionPoint`
+anchored on a device *inside* a layer, add to that layer's **own chain**
+(1→2→3 devices) and never spawn a sibling layer.
+
+**Honest limit of this evidence:** no Bitwig document or forum post says
+"the API cannot create device layers" in so many words. What exists is a
+documented architectural reason plus converging structural evidence. This is
+a **reasoned negative**, the strongest available — not merely an empirical
+one, and no longer a bare "we tried and it didn't work".
+
+**But the use case is not blocked**, because: drum machines cover multi-chain
+construction natively (route 5), and any layer structure can be materialised
+from a saved preset (route 4) and then duplicated (route 6) and driven at
+depth (E4c). The practical Phase-1 posture is **a preset library + drum-pad
+construction**, not "structure creation is unavailable".
+
+### Decision impact (supersedes E4c's ○)
+
+- **Chain construction is IN scope.** Rank it as a viable Phase-2 capability,
+  not a blocked one. The boring-setup use case is served.
+- **Ship a preset library.** `insertFile` turns "complex routing" into a data
+  problem; presets are the unit of reusable structure.
+- **Drum pads are the native multi-chain primitive** — prefer a Drum Machine
+  over an Instrument Layer whenever the agent must *build* N chains. This is
+  not a workaround but a consequence of the design: pads are addressable
+  slots, layers are not.
+- **Layer-type containers are user-authored, agent-driven.** The contract
+  should express "work inside the structure you find" for layers, and
+  "build the structure" only for drum machines and preset instantiation.
+  A tool that promises to construct instrument layers would be undeliverable.
+- **Pad addressing = `selectFirstInChannel(pad)`**, never `selectFirstInKeyPad`
+  with an index.
+- Named actions (781) contain **nothing** for chain creation — one less reason
+  to reach for the escape hatch (feeds E6).
+
+---
+
+## E4c — Device nesting: layers, pads, slots, selectors (2026-07-19)
+
+> **⚠ AMENDED BY E4d:** this section's "nesting structure cannot be CREATED"
+> conclusion is **WRONG** — it tested one mechanism. Drum pads, `insertFile`
+> and container duplication all create structure. The claim that survives is
+> narrower: *layer-type containers* cannot grow new layers. Read with E4d.
+> The Drum Machine claim below is also wrong — see the correction there.
+
+**Verdict: ◐ nested devices can be NAVIGATED and DRIVEN perfectly; creation
+is possible by routes this experiment did not test (see E4d).**
+Probes `e04c` (all green) + `e04c-diag` / `e04c-diag2` (the controlled trials
+that corrected the first run's expectations).
+
+### Four mechanisms, not one
+
+The plan said "device layers". The API actually has four distinct nesting
+surfaces, and a device advertises which it offers:
+
+| device | hasLayers | layers shipped | hasDrumPads | slotNames |
+|---|---|---|---|---|
+| Polysynth (flat) | false | 0 | false | FX, Note FX |
+| **FX Layer** | true | **1** | false | — |
+| Note FX Layer | true | **0** | false | — |
+| Instrument Layer | true | **0** | false | FX |
+| Instrument Selector | true | 0 (+ChainSelector, chainCount=1) | false | FX |
+
+### The headline: E4's param apparatus works at depth, unchanged
+
+`CursorDevice.selectFirstInLayer(0)` moves **the same device cursor** into the
+nested chain, and every E4 handle follows it down:
+
+- cursor `"FX Layer"` → `selectFirstInLayer(0)` → cursor `"Polysynth"`,
+  **14/16 param handles resolve**, self-describing exactly as at top level
+  (`F1FREQ="Filter Frequency"=2.59 kHz`).
+- **Writes land at depth**: `F1FREQ` → 0.200, displayed "50.6 Hz".
+- `isNested()` correctly flips true for the nested device.
+- **Nesting is real**: the top-level chain still reports only the container.
+- **The model is RECURSIVE** — FX Layer inside FX Layer, descend twice, and
+  params still resolve 14/16 at depth 2. The layer bank **re-scopes to
+  whatever the cursor points at**, so one pre-allocated bank serves every
+  depth. ⇒ **deep device addressing needs no new machinery** — E4's pool +
+  repoint model extends downward for free.
+- Insert into a layer via `DeviceLayer.endOfDeviceChainInsertionPoint()`
+  (DeviceLayer *is* a DeviceChain), ~143ms — same budget as a top-level
+  insert. A layer **renames itself after its content** ("Layer 1" →
+  "Polysynth"), so layer names are not stable identifiers.
+
+### The gap: layers cannot be created (○)
+
+There is **no create-layer API**. `Device` offers `createLayerBank` /
+`createCursorLayer` — *views*, not constructors. Consequences, all confirmed
+by controlled trial (`e04c-diag2`):
+
+- **FX Layer ships with exactly one chain.** Inserting at layerIndex 1 or 2
+  **silently no-ops** — no error, no new layer, count stays 1.
+- **Note FX Layer / Instrument Layer / Instrument Selector ship with ZERO
+  chains**, so they cannot be populated programmatically *at all*. The
+  container inserts fine and reports `hasLayers=true`, and every insert into
+  it vanishes silently.
+- ⇒ **`hasLayers=true` does NOT imply a layer exists.** Check the layer
+  bank's count, never the capability flag.
+- ⇒ Programmatic multi-layer construction (build an Instrument Layer with 3
+  layered synths) is **out of reach**; only single-chain FX Layer is
+  drivable. Deep work is limited to structures the *user* built.
+
+### Silent no-op traps (the E2 family, now three members)
+
+Both new traps are invisible without readback — same shape as E2's empty-slot
+clip trap and E4's swallowed `set()`:
+
+- **Inserting into a non-existent layer index** — no error, nothing happens.
+- **`selectFirstInSlot("FX")` on an EMPTY slot** leaves the cursor exactly
+  where it was (`exists=true`, same name, `isNested=false`), looking healthy.
+- ⇒ reinforces the standing rule: **verify the cursor's target before every
+  write**; a mis-descend is undetectable from the cursor's own state.
+
+### Not verified: drum pads — ⚠ AND THE STATED REASON WAS FALSE
+
+E4c recorded that **"Drum Machine has no `Default.bwpreset` in the app
+bundle"** and concluded the offline catalog harvest was incomplete. **Both
+claims are wrong.** Drum Machine is present:
+`8ea97e45-0255-40fd-bc7e-94419741e9d1`, and it loads.
+
+**Root cause of the miss — a genuinely nasty search trap.** Preset files
+store names as `<length-byte><name>`. macOS `strings` strips the length byte
+only when it is non-printable; `0x0C` (form feed) survives. So a device whose
+name is **exactly 12 characters** emits `\fDrum Machine`, and an anchored
+grep for `^Drum Machine$` silently fails. Exactly **7 of 151** devices are
+affected — every one with a 12-character name:
+
+> Drum Machine · Freq Shifter · HW Clock Out · Note Repeats · Oscilloscope ·
+> Peak Limiter · Stereo Split
+
+(The tell was visible and ignored: "Stereo Split" sorted out of alphabetical
+order in the container dump, because of its invisible prefix.)
+
+**Correct harvest method:** extract the structured field —
+`strings f | grep -A1 '^device_name$' | sed -n 2p | tr -d '\f'` — never grep
+for an anchored name. The catalog **is** complete (151 devices with presets);
+E3/E4's claim stands and the "hole" recorded here did not exist.
+
+Drum pad *behaviour* is now verified in **E4d** (pads are creatable and
+addressable).
+
+### Decision impact
+
+- **Phase 2 ranking:** deep device work (drum pads, layered synths) is
+  **read/drive-capable but not build-capable**. Sound-design *into* existing
+  user-built layers is viable and cheap; "construct me a layered patch" is
+  not. Rank direct-param sound design above structural device building.
+- **Param model:** unchanged and validated at depth — one cursor-device pool
+  covers arbitrary nesting. No per-depth allocation.
+- **Addressing:** layer *names* are content-derived and unstable; address
+  layers by index within the cursor's current scope, and re-verify after any
+  descend. (No layer equivalent of `channelId` was found — worth the same
+  stable-id question in Phase 1 that E2f settled for tracks.)
+- **Catalog (§6a):** the bundle harvest is incomplete; the catalog builder
+  needs a fallback for devices with no preset (browser enumeration, E6).
+
+---
+
 ## E5 — Scale limits (§12 #5, the last open question) (2026-07-19)
 
 **Verdict: ● no knee exists in any plausible range — pre-allocation is far
@@ -280,6 +741,22 @@ suspected to exist. High precision, low recall. Corrected method:
   driving the live API reveals the behavior.
 - **Rule: never record a capability ○ from a partial pass.** Confirm
   against member-search-index + new-list + a live probe first.
+- **THE RECURRING FAILURE MODE — four instances now.** Every false negative
+  in this spike came from testing *one* mechanism and generalising to "the
+  API cannot do this":
+  1. CLAP params ○ — checked only the typed path, missed DirectParameter.
+  2. Track identity ○ — checked `Track`, missed `channelId` on `Channel`.
+  3. Chain creation ○ (E4c) — checked only layer-index insertion, missed
+     drum pads, `insertFile`, and container duplication (E4d).
+  4. Drum Machine "absent from the bundle" (E4c) — a brittle anchored grep
+     against a binary format, defeated by an invisible length byte.
+  **Countermeasure, now mandatory before any ○:** enumerate *every* type that
+  could carry the capability (walk supertypes: `DrumPad` has an
+  `insertionPoint()` that `DeviceLayer` does not); enumerate *every* verb
+  (`insert*`, `duplicate*`, `copy*`, `move*`, `paste`, `insertFile`, named
+  actions); and prefer structured extraction over text matching when reading
+  Bitwig's binary formats. Three of the four misses were found only because
+  someone pushed back on a confident negative.
 
 ---
 

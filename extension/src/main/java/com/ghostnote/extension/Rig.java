@@ -6,9 +6,15 @@ import com.bitwig.extension.controller.api.ClipLauncherSlot;
 import com.bitwig.extension.controller.api.ClipLauncherSlotBank;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.CursorTrack;
+import com.bitwig.extension.controller.api.ChainSelector;
 import com.bitwig.extension.controller.api.CursorDeviceFollowMode;
+import com.bitwig.extension.controller.api.CursorDeviceLayer;
 import com.bitwig.extension.controller.api.Device;
 import com.bitwig.extension.controller.api.DeviceBank;
+import com.bitwig.extension.controller.api.DeviceLayer;
+import com.bitwig.extension.controller.api.DeviceLayerBank;
+import com.bitwig.extension.controller.api.DrumPad;
+import com.bitwig.extension.controller.api.DrumPadBank;
 import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.PinnableCursorDevice;
@@ -85,6 +91,28 @@ public class Rig {
     /** IDs actually bound, index-parallel to {@link #polysynthParams0}. */
     public final String[] paramIds;
     public final Parameter[] polysynthParams0;
+
+    // --- E4c: device nesting (layers / drum pads / slots / chain selector) ---
+    /** Container-device UUIDs, harvested from the bundle like E3/E4. */
+    public static final String INSTRUMENT_LAYER_UUID = "5024be2e-65d6-4d40-bbfe-8b2ea993c445";
+    public static final String INSTRUMENT_SELECTOR_UUID = "9588fbcf-721a-438b-8555-97e4231f7d2c";
+
+    public static final int LAYER_BANK = 8;
+    public static final int LAYER_DEVICE_BANK = 4;
+    public static final int DRUM_PAD_BANK = 16;
+
+    /**
+     * Nesting views on cursorDevice0. All four Bitwig nesting mechanisms are
+     * distinct API surfaces, so the rig carries one of each:
+     * layers (Instrument/FX Layer), drum pads (Drum Machine), named slots,
+     * and chain selectors (Instrument/FX Selector).
+     */
+    public final DeviceLayerBank layerBank0;
+    /** Device chains INSIDE each layer — how we see/insert one level down. */
+    public final DeviceBank[] layerDeviceBanks = new DeviceBank[LAYER_BANK];
+    public final CursorDeviceLayer cursorLayer0;
+    public final DrumPadBank drumPadBank0;
+    public final ChainSelector chainSelector0;
 
     /**
      * DirectParameter API state for cursorDevice0 — the format-AGNOSTIC path
@@ -193,6 +221,44 @@ public class Rig {
         cursorDevice0.exists().markInterested();
         cursorDevice0.name().markInterested();
         cursorDevice0.isPinned().markInterested();
+        // E4c: nesting introspection on whatever the cursor points at.
+        cursorDevice0.hasLayers().markInterested();
+        cursorDevice0.hasDrumPads().markInterested();
+        cursorDevice0.hasSlots().markInterested();
+        cursorDevice0.slotNames().markInterested();
+        cursorDevice0.isNested().markInterested();
+
+        // E4c: one view per nesting mechanism. These are created against a
+        // cursor device whose type changes as it repoints, so a view that
+        // does not apply to the current device simply reports nothing.
+        layerBank0 = cursorDevice0.createLayerBank(LAYER_BANK);
+        for (int l = 0; l < LAYER_BANK; l++) {
+            DeviceLayer layer = layerBank0.getItemAt(l);
+            layer.exists().markInterested();
+            layer.name().markInterested();
+            layerDeviceBanks[l] = layer.createDeviceBank(LAYER_DEVICE_BANK);
+            for (int d = 0; d < LAYER_DEVICE_BANK; d++) {
+                Device nested = layerDeviceBanks[l].getDevice(d);
+                nested.exists().markInterested();
+                nested.name().markInterested();
+            }
+        }
+
+        cursorLayer0 = cursorDevice0.createCursorLayer();
+        cursorLayer0.exists().markInterested();
+        cursorLayer0.name().markInterested();
+
+        drumPadBank0 = cursorDevice0.createDrumPadBank(DRUM_PAD_BANK);
+        for (int p = 0; p < DRUM_PAD_BANK; p++) {
+            DrumPad pad = drumPadBank0.getItemAt(p);
+            pad.exists().markInterested();
+            pad.name().markInterested();
+        }
+
+        chainSelector0 = cursorDevice0.createChainSelector();
+        chainSelector0.exists().markInterested();
+        chainSelector0.activeChainIndex().markInterested();
+        chainSelector0.chainCount().markInterested();
 
         // Param handles: the curated ID list, cycled if the E5 config asks for
         // more handles than we have distinct IDs. Duplicates still allocate

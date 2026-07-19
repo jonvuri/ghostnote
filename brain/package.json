@@ -19,7 +19,16 @@
     "probe:e04b": "tsx src/probes/e04b-clap.ts",
     "probe:e05": "tsx src/probes/e05-scale.ts",
     "probe:e05b": "tsx src/probes/e05b-populated.ts",
-    "probe:e05c": "tsx src/probes/e05c-openlag.ts"
+    "probe:e05c": "tsx src/probes/e05c-openlag.ts",
+    "probe:e04c": "tsx src/probes/e04c-layers.ts",
+    "probe:e04c-diag": "tsx src/probes/e04c-diag.ts",
+    "probe:e04c-diag2": "tsx src/probes/e04c-diag2.ts",
+    "probe:e04d": "tsx src/probes/e04d-create.ts",
+    "probe:e04d-diag": "tsx src/probes/e04d-diag.ts",
+    "probe:e04e": "tsx src/probes/e04e-lastroutes.ts",
+    "probe:e04f": "tsx src/probes/e04f-presetgen.ts",
+    "probe:e04g": "tsx src/probes/e04g-multilayer.ts",
+    "probe:e04h": "tsx src/probes/e04h-external.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
