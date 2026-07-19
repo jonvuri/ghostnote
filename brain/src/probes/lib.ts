@@ -75,7 +75,7 @@ export async function point(
       await client.request('slot.select', { trackIndex, slotIndex, mechanism: 'slot' });
       break;
     case 'trackThenSlot':
-      await client.request('cursor.pointTrack', { cursor: Number(cursor), trackIndex });
+      await client.request('cursor.pointTrack', { cursor, trackIndex });
       await client.request('slot.select', { trackIndex, slotIndex, mechanism: 'track' });
       break;
   }
@@ -99,29 +99,51 @@ export const FIXTURE_FPS: Pick<Fixture, 'fpA0' | 'fpA1' | 'fpB0'> = {
   fpB0: [[2, 62, 100, 1]],
 };
 
-/** Find gn-A/gn-B tracks if present; create them (at end) if not. */
+type TrackRow = { index: number; name: string; position: number; type: string };
+
+/**
+ * Find gn-A/gn-B tracks if present; create them if not.
+ *
+ * E2c lessons baked in: the flat bank includes FX/Master rows at the tail;
+ * createInstrumentTrack(position) does not honor bank positions; default
+ * names auto-renumber. So: match fixtures by name AND type=Instrument;
+ * after creating, locate the new track as the LAST Instrument-type row
+ * (end-requests land at the end of the regular section); poll-verify the
+ * rename landed there.
+ */
 export async function ensureFixtureTracks(): Promise<{ trackA: number; trackB: number }> {
   const list = async () =>
-    (await client.request('track.list')) as { tracks: { index: number; name: string }[]; count: number };
+    (await client.request('track.list')) as { tracks: TrackRow[]; count: number };
 
-  let { tracks, count } = await list();
-  let a = tracks.find((t) => t.name === 'gn-A')?.index;
-  let b = tracks.find((t) => t.name === 'gn-B')?.index;
+  const findFixture = (tracks: TrackRow[], name: string) =>
+    tracks.find((t) => t.name === name && t.type === 'Instrument')?.index;
 
-  if (a === undefined) {
-    await client.request('track.create', { position: count });
-    await pollUntil(async () => (await list()).count === count + 1);
-    await client.request('track.setName', { trackIndex: count, name: 'gn-A' });
-    a = count;
-    count++;
+  async function createFixtureTrack(name: string): Promise<number> {
+    const before = await list();
+    await client.request('track.create', { position: before.count });
+    await pollUntil(async () => (await list()).count === before.count + 1);
+
+    const after = await list();
+    const instruments = after.tracks.filter((t) => t.type === 'Instrument');
+    const target = instruments[instruments.length - 1];
+    if (!target) throw new Error('created track not found among Instrument rows');
+
+    await client.request('track.setName', { trackIndex: target.index, name });
+    const renamed = await pollUntil(async () => {
+      const l = await list();
+      const row = l.tracks.find((t) => t.index === target.index);
+      return row?.name === name && row.type === 'Instrument';
+    });
+    if (!renamed.ok) throw new Error(`rename of created track to ${name} did not verify`);
+    return target.index;
   }
-  if (b === undefined) {
-    await client.request('track.create', { position: count });
-    await pollUntil(async () => (await list()).count === count + 1);
-    await client.request('track.setName', { trackIndex: count, name: 'gn-B' });
-    b = count;
-    count++;
-  }
+
+  let { tracks } = await list();
+  let a = findFixture(tracks, 'gn-A');
+  let b = findFixture(tracks, 'gn-B');
+
+  if (a === undefined) a = await createFixtureTrack('gn-A');
+  if (b === undefined) b = await createFixtureTrack('gn-B');
 
   for (const [trackIndex, slotIndex] of [[a, 0], [a, 1], [b, 0]] as const) {
     const has = async () =>

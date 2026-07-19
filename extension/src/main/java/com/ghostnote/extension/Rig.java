@@ -40,6 +40,21 @@ public class Rig {
     /** Host-level cursor clip: always follows the user's clip selection. */
     public final Clip followerClip;
 
+    // --- E2 additions ---
+    /** Grid width of the fine-resolution clip cursor. */
+    public static final int FINE_STEPS = 512;
+
+    /** Cursor with ZERO markInterested/observer calls: observer-gotcha probe. */
+    public final CursorTrack bareTrack;
+    public final PinnableCursorClip bareClip;
+
+    /** Large-grid cursor for grid-resolution and scan-cost probing. */
+    public final CursorTrack fineTrack;
+    public final PinnableCursorClip fineClip;
+
+    /** Arrangement cursor clip (follows arranger clip selection). */
+    public final Clip arrangerClip;
+
     // UI selection tracking, updated by observers on the control-surface
     // thread; read by handlers on the same thread.
     public int selectedTrackIndex = -1;
@@ -94,6 +109,19 @@ public class Rig {
 
         followerClip = host.createLauncherCursorClip(GRID_STEPS, GRID_KEYS);
         markClip(followerClip);
+
+        // E2: deliberately NO markInterested / setStepSize on the bare pair
+        bareTrack = host.createCursorTrack("GN_CT_BARE", "ghostnote bare cursor", 0, SCENES, false);
+        bareClip = bareTrack.createLauncherCursorClip(GRID_STEPS, GRID_KEYS);
+
+        fineTrack = host.createCursorTrack("GN_CT_FINE", "ghostnote fine cursor", 0, SCENES, false);
+        fineTrack.position().markInterested();
+        fineClip = fineTrack.createLauncherCursorClip(FINE_STEPS, GRID_KEYS);
+        markClip(fineClip);
+        fineClip.isPinned().markInterested();
+
+        arrangerClip = host.createArrangerCursorClip(GRID_STEPS, GRID_KEYS);
+        markClip(arrangerClip);
     }
 
     private static void markClip(Clip clip) {
@@ -108,15 +136,34 @@ public class Rig {
         clip.clipLauncherSlot().name().markInterested();
     }
 
-    /** Resolve "0".."N-1" to a pool clip, or "follower". */
+    /** Resolve "0".."N-1", "follower", "bare", "fine", or "arranger". */
     public Clip clip(String ref) {
-        if ("follower".equals(ref)) {
-            return followerClip;
+        switch (ref) {
+            case "follower": return followerClip;
+            case "bare": return bareClip;
+            case "fine": return fineClip;
+            case "arranger": return arrangerClip;
+            default:
+                int i = Integer.parseInt(ref);
+                if (i < 0 || i >= CURSOR_POOL) {
+                    throw new IllegalArgumentException("cursor out of range: " + ref);
+                }
+                return cursorClips[i];
         }
-        int i = Integer.parseInt(ref);
-        if (i < 0 || i >= CURSOR_POOL) {
-            throw new IllegalArgumentException("cursor out of range: " + ref);
+    }
+
+    /** Resolve the cursor track that owns a pointable clip cursor. */
+    public CursorTrack cursorTrack(String ref) {
+        switch (ref) {
+            case "bare": return bareTrack;
+            case "fine": return fineTrack;
+            default:
+                return cursorTracks[Integer.parseInt(ref)];
         }
-        return cursorClips[i];
+    }
+
+    /** Grid width of a clip cursor (differs for "fine"). */
+    public int gridSteps(String ref) {
+        return "fine".equals(ref) ? FINE_STEPS : GRID_STEPS;
     }
 }

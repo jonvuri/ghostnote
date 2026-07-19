@@ -6,7 +6,12 @@
   "scripts": {
     "probe:e00": "tsx src/probes/e00-ping.ts",
     "probe:e01a": "tsx src/probes/e01a-pointing.ts",
-    "probe:e01b": "tsx src/probes/e01b-interference.ts"
+    "probe:e01b": "tsx src/probes/e01b-interference.ts",
+    "probe:e02": "tsx src/probes/e02-fidelity.ts",
+    "probe:e02b": "tsx src/probes/e02b-diag.ts",
+    "probe:e02c": "tsx src/probes/e02c-tracks.ts",
+    "probe:e02d": "tsx src/probes/e02d-cleanup.ts",
+    "probe:e02e": "tsx src/probes/e02e-pressure.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

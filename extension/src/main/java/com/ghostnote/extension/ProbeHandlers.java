@@ -77,6 +77,18 @@ public class ProbeHandlers implements Bridge.Dispatcher {
             case "selection.status":
                 return selectionStatus();
 
+            // --- E2: fidelity & grid ---
+            case "cursor.setStepSize":
+                return cursorSetStepSize(params);
+            case "cursor.setAndReadNote":
+                return cursorSetAndReadNote(params);
+            case "cursor.setNoteProps":
+                return cursorSetNoteProps(params);
+            case "cursor.getNotesVerbose":
+                return cursorGetNotesVerbose(params);
+            case "slot.delete":
+                return slotDelete(params);
+
             default:
                 throw new Bridge.MethodNotFoundException(method);
         }
@@ -233,9 +245,9 @@ public class ProbeHandlers implements Bridge.Dispatcher {
     }
 
     private JsonElement cursorPointTrack(JsonObject params) {
-        int i = params.get("cursor").getAsInt();
+        String ref = params.get("cursor").getAsString();
         Track target = requireTrack(params.get("trackIndex").getAsInt());
-        rig.cursorTracks[i].selectChannel(target);
+        rig.cursorTrack(ref).selectChannel(target);
         return ok();
     }
 
@@ -247,24 +259,47 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         return ok();
     }
 
+    /**
+     * Per-field try/catch: on unmarked values this reports the error string
+     * instead of failing the whole request — deliberate, to document which
+     * reads require markInterested (E2 observer-gotcha probe).
+     */
     private JsonElement cursorStatus(JsonObject params) {
-        Clip clip = rig.clip(params.get("cursor").getAsString());
+        String ref = params.get("cursor").getAsString();
+        Clip clip = rig.clip(ref);
         JsonObject result = new JsonObject();
-        result.addProperty("exists", clip.exists().get());
-        result.addProperty("loopLength", clip.getLoopLength().get());
-        result.addProperty("trackExists", clip.getTrack().exists().get());
-        result.addProperty("trackName", clip.getTrack().name().get());
-        result.addProperty("trackPosition", clip.getTrack().position().get());
-        result.addProperty("slotExists", clip.clipLauncherSlot().exists().get());
-        result.addProperty("sceneIndex", clip.clipLauncherSlot().sceneIndex().get());
-        result.addProperty("slotName", clip.clipLauncherSlot().name().get());
+        putGuarded(result, "exists", () -> clip.exists().get());
+        putGuarded(result, "loopLength", () -> clip.getLoopLength().get());
+        putGuarded(result, "trackExists", () -> clip.getTrack().exists().get());
+        putGuarded(result, "trackName", () -> clip.getTrack().name().get());
+        putGuarded(result, "trackPosition", () -> clip.getTrack().position().get());
+        putGuarded(result, "slotExists", () -> clip.clipLauncherSlot().exists().get());
+        putGuarded(result, "sceneIndex", () -> clip.clipLauncherSlot().sceneIndex().get());
+        putGuarded(result, "slotName", () -> clip.clipLauncherSlot().name().get());
         if (clip instanceof PinnableCursorClip pinnable) {
-            result.addProperty("isPinned", pinnable.isPinned().get());
-            int i = Integer.parseInt(params.get("cursor").getAsString());
-            result.addProperty("cursorTrackPosition", rig.cursorTracks[i].position().get());
-            result.addProperty("cursorTrackPinned", rig.cursorTracks[i].isPinned().get());
+            putGuarded(result, "isPinned", () -> pinnable.isPinned().get());
+            putGuarded(result, "cursorTrackPosition", () -> rig.cursorTrack(ref).position().get());
         }
         return result;
+    }
+
+    private interface ValueRead {
+        Object get();
+    }
+
+    private static void putGuarded(JsonObject obj, String key, ValueRead read) {
+        try {
+            Object v = read.get();
+            if (v instanceof Boolean b) {
+                obj.addProperty(key, b);
+            } else if (v instanceof Number n) {
+                obj.addProperty(key, n);
+            } else {
+                obj.addProperty(key, String.valueOf(v));
+            }
+        } catch (Exception e) {
+            obj.addProperty(key, "ERR:" + e.getMessage());
+        }
     }
 
     /** notes: [[x(step), y(pitch), velocity(0-127), duration(beats)], ...] */
@@ -287,10 +322,12 @@ public class ProbeHandlers implements Bridge.Dispatcher {
 
     /** Pull-based scan over the full grid; lean format [x, y, vel, dur]. */
     private JsonElement cursorGetNotes(JsonObject params) {
-        Clip clip = rig.clip(params.get("cursor").getAsString());
+        String ref = params.get("cursor").getAsString();
+        Clip clip = rig.clip(ref);
         int channel = params.has("channel") ? params.get("channel").getAsInt() : 0;
+        long start = System.nanoTime();
         JsonArray notes = new JsonArray();
-        for (int x = 0; x < Rig.GRID_STEPS; x++) {
+        for (int x = 0; x < rig.gridSteps(ref); x++) {
             for (int y = 0; y < Rig.GRID_KEYS; y++) {
                 NoteStep step = clip.getStep(channel, x, y);
                 if (step.state() == NoteStep.State.NoteOn) {
@@ -306,11 +343,166 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         JsonObject result = new JsonObject();
         result.add("notes", notes);
         result.addProperty("count", notes.size());
+        result.addProperty("scanMicros", (System.nanoTime() - start) / 1000);
+        putGuarded(result, "clipExists", () -> clip.exists().get());
         return result;
     }
 
     private JsonElement cursorClearNotes(JsonObject params) {
         rig.clip(params.get("cursor").getAsString()).clearSteps();
+        return ok();
+    }
+
+    // ------------------------------------------------- E2: fidelity & grid
+
+    private JsonElement cursorSetStepSize(JsonObject params) {
+        rig.clip(params.get("cursor").getAsString())
+            .setStepSize(params.get("stepSize").getAsDouble());
+        return ok();
+    }
+
+    /**
+     * setStep, then read the same step back IN THE SAME REQUEST — probes
+     * whether writes are synchronously visible to getStep.
+     */
+    private JsonElement cursorSetAndReadNote(JsonObject params) {
+        Clip clip = rig.clip(params.get("cursor").getAsString());
+        int channel = params.has("channel") ? params.get("channel").getAsInt() : 0;
+        int x = params.get("x").getAsInt();
+        int y = params.get("y").getAsInt();
+        int vel = params.get("vel").getAsInt();
+        double dur = params.get("dur").getAsDouble();
+
+        String preState = clip.getStep(channel, x, y).state().name();
+        clip.setStep(channel, x, y, vel, dur);
+        NoteStep after = clip.getStep(channel, x, y);
+
+        JsonObject result = new JsonObject();
+        result.addProperty("preState", preState);
+        result.addProperty("postState", after.state().name());
+        result.addProperty("postVelocity", after.velocity());
+        result.addProperty("postDuration", after.duration());
+        return result;
+    }
+
+    /** Set arbitrary NoteStep properties on an existing step. */
+    private JsonElement cursorSetNoteProps(JsonObject params) {
+        Clip clip = rig.clip(params.get("cursor").getAsString());
+        int channel = params.has("channel") ? params.get("channel").getAsInt() : 0;
+        NoteStep step = clip.getStep(channel,
+            params.get("x").getAsInt(), params.get("y").getAsInt());
+
+        JsonObject props = params.getAsJsonObject("props");
+        JsonObject applied = new JsonObject();
+        for (String key : props.keySet()) {
+            JsonElement v = props.get(key);
+            try {
+                applyNoteProp(step, key, v);
+                applied.addProperty(key, "ok");
+            } catch (Exception e) {
+                applied.addProperty(key, "ERR:" + e.getMessage());
+            }
+        }
+        JsonObject result = new JsonObject();
+        result.add("applied", applied);
+        return result;
+    }
+
+    private static void applyNoteProp(NoteStep step, String key, JsonElement v) {
+        switch (key) {
+            case "velocity": step.setVelocity(v.getAsDouble()); break;
+            case "releaseVelocity": step.setReleaseVelocity(v.getAsDouble()); break;
+            case "velocitySpread": step.setVelocitySpread(v.getAsDouble()); break;
+            case "duration": step.setDuration(v.getAsDouble()); break;
+            case "gain": step.setGain(v.getAsDouble()); break;
+            case "pan": step.setPan(v.getAsDouble()); break;
+            case "pressure": step.setPressure(v.getAsDouble()); break;
+            case "timbre": step.setTimbre(v.getAsDouble()); break;
+            case "transpose": step.setTranspose(v.getAsDouble()); break;
+            case "chance": step.setChance(v.getAsDouble()); break;
+            case "isChanceEnabled": step.setIsChanceEnabled(v.getAsBoolean()); break;
+            case "isMuted": step.setIsMuted(v.getAsBoolean()); break;
+            case "isOccurrenceEnabled": step.setIsOccurrenceEnabled(v.getAsBoolean()); break;
+            case "occurrence":
+                step.setOccurrence(com.bitwig.extension.controller.api.NoteOccurrence.valueOf(v.getAsString()));
+                break;
+            case "isRecurrenceEnabled": step.setIsRecurrenceEnabled(v.getAsBoolean()); break;
+            case "recurrenceLength":
+                // recurrence needs (length, mask) together; mask passed separately
+                throw new IllegalArgumentException("use 'recurrence': [length, mask]");
+            case "recurrence": {
+                var arr = v.getAsJsonArray();
+                step.setRecurrence(arr.get(0).getAsInt(), arr.get(1).getAsInt());
+                break;
+            }
+            case "isRepeatEnabled": step.setIsRepeatEnabled(v.getAsBoolean()); break;
+            case "repeatCount": step.setRepeatCount(v.getAsInt()); break;
+            case "repeatCurve": step.setRepeatCurve(v.getAsDouble()); break;
+            case "repeatVelocityCurve": step.setRepeatVelocityCurve(v.getAsDouble()); break;
+            case "repeatVelocityEnd": step.setRepeatVelocityEnd(v.getAsDouble()); break;
+            default: throw new IllegalArgumentException("unknown prop: " + key);
+        }
+    }
+
+    /** Verbose scan: every NoteStep property for every NoteOn step. */
+    private JsonElement cursorGetNotesVerbose(JsonObject params) {
+        String ref = params.get("cursor").getAsString();
+        Clip clip = rig.clip(ref);
+        int channel = params.has("channel") ? params.get("channel").getAsInt() : 0;
+        int maxX = params.has("maxX") ? params.get("maxX").getAsInt() : rig.gridSteps(ref);
+
+        long start = System.nanoTime();
+        JsonArray notes = new JsonArray();
+        for (int x = 0; x < maxX; x++) {
+            for (int y = 0; y < Rig.GRID_KEYS; y++) {
+                NoteStep step = clip.getStep(channel, x, y);
+                if (step.state() == NoteStep.State.NoteOn) {
+                    notes.add(noteStepToJson(step));
+                }
+            }
+        }
+        JsonObject result = new JsonObject();
+        result.add("notes", notes);
+        result.addProperty("count", notes.size());
+        result.addProperty("scanMicros", (System.nanoTime() - start) / 1000);
+        putGuarded(result, "clipExists", () -> clip.exists().get());
+        return result;
+    }
+
+    private static JsonObject noteStepToJson(NoteStep step) {
+        JsonObject o = new JsonObject();
+        o.addProperty("x", step.x());
+        o.addProperty("y", step.y());
+        o.addProperty("channel", step.channel());
+        o.addProperty("velocity", step.velocity());
+        o.addProperty("releaseVelocity", step.releaseVelocity());
+        o.addProperty("velocitySpread", step.velocitySpread());
+        o.addProperty("duration", step.duration());
+        o.addProperty("gain", step.gain());
+        o.addProperty("pan", step.pan());
+        o.addProperty("pressure", step.pressure());
+        o.addProperty("timbre", step.timbre());
+        o.addProperty("transpose", step.transpose());
+        o.addProperty("chance", step.chance());
+        o.addProperty("isChanceEnabled", step.isChanceEnabled());
+        o.addProperty("isMuted", step.isMuted());
+        o.addProperty("isOccurrenceEnabled", step.isOccurrenceEnabled());
+        o.addProperty("occurrence", step.occurrence().name());
+        o.addProperty("isRecurrenceEnabled", step.isRecurrenceEnabled());
+        o.addProperty("recurrenceLength", step.recurrenceLength());
+        o.addProperty("recurrenceMask", step.recurrenceMask());
+        o.addProperty("isRepeatEnabled", step.isRepeatEnabled());
+        o.addProperty("repeatCount", step.repeatCount());
+        o.addProperty("repeatCurve", step.repeatCurve());
+        o.addProperty("repeatVelocityCurve", step.repeatVelocityCurve());
+        o.addProperty("repeatVelocityEnd", step.repeatVelocityEnd());
+        return o;
+    }
+
+    private JsonElement slotDelete(JsonObject params) {
+        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        int slotIndex = params.get("slotIndex").getAsInt();
+        track.clipLauncherSlotBank().getItemAt(slotIndex).deleteObject();
         return ok();
     }
 
