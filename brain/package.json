@@ -29,7 +29,14 @@
     "probe:e04e": "tsx src/probes/e04e-lastroutes.ts",
     "probe:e04f": "tsx src/probes/e04f-presetgen.ts",
     "probe:e04g": "tsx src/probes/e04g-multilayer.ts",
-    "probe:e04h": "tsx src/probes/e04h-external.ts"
+    "probe:e04h": "tsx src/probes/e04h-external.ts",
+    "probe:e07": "tsx src/probes/e07-modulators.ts",
+    "probe:e07b": "tsx src/probes/e07b-modtemplate.ts",
+    "probe:e07c": "tsx src/probes/e07c-modparams.ts",
+    "probe:e07d": "tsx src/probes/e07d-modtweak.ts",
+    "probe:e07e": "tsx src/probes/e07e-modswap.ts",
+    "probe:e07f": "tsx src/probes/e07f-routing.ts",
+    "probe:e07g": "tsx src/probes/e07g-samefamily.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

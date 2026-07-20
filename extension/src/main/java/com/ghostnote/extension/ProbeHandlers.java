@@ -8,6 +8,7 @@ import com.bitwig.extension.controller.api.DeviceBank;
 import com.bitwig.extension.controller.api.DeviceLayer;
 import com.bitwig.extension.controller.api.DrumPad;
 import com.bitwig.extension.controller.api.NoteStep;
+import com.bitwig.extension.controller.api.RemoteControl;
 import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.Track;
@@ -200,6 +201,32 @@ public class ProbeHandlers implements Bridge.Dispatcher {
                 return appActions(params);
             case "app.invokeAction":
                 return appInvokeAction(params);
+
+            // --- E7: modulators / remote controls ---
+            case "remote.list":
+                return remoteList();
+            case "remote.setMapping":
+                return remoteSetMapping(params);
+            case "remote.set":
+                return remoteSet(params);
+            case "remote.selectPage":
+                return remoteSelectPage(params);
+            case "param.modulated":
+                return paramModulated();
+            case "param.touch":
+                return paramTouch(params);
+            case "slot.launch":
+                return slotLaunch(params);
+            case "transport.stop":
+                rig.transport.stop();
+                return ok();
+            case "transport.status": {
+                JsonObject r = new JsonObject();
+                r.addProperty("isPlaying", rig.transport.isPlaying().get());
+                return r;
+            }
+            case "device.insertFileAt":
+                return deviceInsertFileAt(params);
 
             default:
                 throw new Bridge.MethodNotFoundException(method);
@@ -1214,6 +1241,174 @@ public class ProbeHandlers implements Bridge.Dispatcher {
         result.addProperty("resolved", true);
         result.addProperty("resolvedName", action.getName());
         action.invoke();
+        return result;
+    }
+
+    // -------------------------------------------- E7: modulators / remotes
+
+    /**
+     * Enumerate the remote-controls page of the pointed device — the modern
+     * modulation-mapping surface ("use remote controls instead"). Each remote
+     * control is a Parameter carrying value/modulatedValue plus isBeingMapped.
+     */
+    private JsonElement remoteList() {
+        JsonArray remotes = new JsonArray();
+        int existing = 0;
+        for (int r = 0; r < Rig.REMOTE_BANK; r++) {
+            RemoteControl rc = rig.remotes0[r];
+            JsonObject obj = new JsonObject();
+            obj.addProperty("index", r);
+            boolean exists = rc.exists().get();
+            obj.addProperty("exists", exists);
+            if (exists) {
+                existing++;
+                obj.addProperty("name", rc.name().get());
+                obj.addProperty("value", rc.value().get());
+                obj.addProperty("modulatedValue", rc.modulatedValue().get());
+                obj.addProperty("isBeingMapped", rc.isBeingMapped().get());
+            }
+            remotes.add(obj);
+        }
+        JsonObject result = new JsonObject();
+        result.add("remotes", remotes);
+        result.addProperty("existing", existing);
+        putGuarded(result, "pageCount", () -> rig.remotePage0.pageCount().get());
+        putGuarded(result, "selectedPageIndex", () -> rig.remotePage0.selectedPageIndex().get());
+        JsonArray pageNames = new JsonArray();
+        try {
+            for (String n : rig.remotePage0.pageNames().get()) {
+                pageNames.add(n);
+            }
+        } catch (Exception e) {
+            result.addProperty("pageNamesError", e.getMessage());
+        }
+        result.add("pageNames", pageNames);
+        result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
+        result.addProperty("deviceName", rig.cursorDevice0.name().get());
+        return result;
+    }
+
+    /**
+     * The map idiom on a remote control: set isBeingMapped so the next touched
+     * parameter is mapped to this remote. Tests whether the mapping mode is
+     * reachable from a background controller (hypothesis: UI-focus dependent,
+     * like the named-action / modulation idioms).
+     */
+    private JsonElement remoteSetMapping(JsonObject params) {
+        int index = params.get("index").getAsInt();
+        boolean mapping = !params.has("mapping") || params.get("mapping").getAsBoolean();
+        RemoteControl rc = rig.remotes0[index];
+        boolean before = rc.isBeingMapped().get();
+        rc.isBeingMapped().set(mapping);
+        JsonObject result = ok();
+        result.addProperty("index", index);
+        result.addProperty("requested", mapping);
+        result.addProperty("isBeingMappedBefore", before);
+        result.addProperty("isBeingMappedAfter", rc.isBeingMapped().get());
+        return result;
+    }
+
+    /**
+     * Select a remote-controls page — by index, or by name-match expression.
+     * The rig's RemoteControl handles are bound to the CURSOR page, so they
+     * re-scope to the selected page's parameters. Adding a modulator adds a
+     * page named after it (E7c), so this is how its own controls are addressed.
+     */
+    private JsonElement remoteSelectPage(JsonObject params) {
+        if (params.has("match")) {
+            rig.remotePage0.selectNextPageMatching(params.get("match").getAsString(), true);
+        } else {
+            rig.remotePage0.selectedPageIndex().set(params.get("index").getAsInt());
+        }
+        return ok();
+    }
+
+    /**
+     * Write a remote control's value (normalized 0..1). RemoteControl extends
+     * Parameter, so setImmediately bypasses the take-over strategy (E4). Tests
+     * whether the agent can DRIVE a remote-mapped control end to end.
+     */
+    private JsonElement remoteSet(JsonObject params) {
+        int index = params.get("index").getAsInt();
+        double value = params.get("value").getAsDouble();
+        rig.remotes0[index].value().setImmediately(value);
+        return ok();
+    }
+
+    /**
+     * Touch/release a param handle — the controller-side "finger on the
+     * control" signal. E7 routing sweep: with a RemoteControl in mapping mode,
+     * does a programmatic touch complete the mapping (the UI idiom is
+     * enter-mapping-then-touch-a-param)?
+     */
+    /** Launch a launcher clip (starts transport). E7e: per-voice modulators
+     * only produce output while notes sound. */
+    private JsonElement slotLaunch(JsonObject params) {
+        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        track.clipLauncherSlotBank().getItemAt(params.get("slotIndex").getAsInt()).launch();
+        return ok();
+    }
+
+    private JsonElement paramTouch(JsonObject params) {
+        String id = params.get("id").getAsString();
+        boolean touched = params.get("touched").getAsBoolean();
+        for (int i = 0; i < rig.paramIds.length; i++) {
+            if (rig.paramIds[i].equals(id)) {
+                rig.polysynthParams0[i].touch(touched);
+                return ok();
+            }
+        }
+        throw new IllegalArgumentException("unknown param id: " + id);
+    }
+
+    /**
+     * Read value() vs modulatedValue() for each param handle: modulatedValue
+     * reflects post-modulation state, so a difference is the observable proof a
+     * modulation route is live.
+     */
+    private JsonElement paramModulated() {
+        JsonArray params = new JsonArray();
+        for (int i = 0; i < rig.polysynthParams0.length; i++) {
+            Parameter p = rig.polysynthParams0[i];
+            if (!p.exists().get()) {
+                continue;
+            }
+            JsonObject obj = new JsonObject();
+            obj.addProperty("id", rig.paramIds[i]);
+            obj.addProperty("value", p.value().get());
+            obj.addProperty("modulatedValue", p.modulatedValue().get());
+            obj.addProperty("displayed", p.value().displayedValue().get());
+            params.add(obj);
+        }
+        JsonObject result = new JsonObject();
+        result.add("params", params);
+        result.addProperty("deviceName", rig.cursorDevice0.name().get());
+        return result;
+    }
+
+    /**
+     * Insert a file relative to cursorDevice0 rather than at end-of-chain.
+     * where = "after" | "before" | "replace". The creation sweep for
+     * modulators: a .bwmodulator has no chain insertion point, so try every
+     * device-anchored insertion point too before concluding it cannot be done.
+     */
+    private JsonElement deviceInsertFileAt(JsonObject params) {
+        String path = params.get("path").getAsString();
+        String where = params.has("where") ? params.get("where").getAsString() : "after";
+        switch (where) {
+            case "before":
+                rig.cursorDevice0.beforeDeviceInsertionPoint().insertFile(path);
+                break;
+            case "replace":
+                rig.cursorDevice0.replaceDeviceInsertionPoint().insertFile(path);
+                break;
+            case "after":
+            default:
+                rig.cursorDevice0.afterDeviceInsertionPoint().insertFile(path);
+                break;
+        }
+        JsonObject result = ok();
+        result.addProperty("where", where);
         return result;
     }
 

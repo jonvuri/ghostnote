@@ -13,15 +13,18 @@ import com.bitwig.extension.controller.api.Device;
 import com.bitwig.extension.controller.api.DeviceBank;
 import com.bitwig.extension.controller.api.DeviceLayer;
 import com.bitwig.extension.controller.api.DeviceLayerBank;
+import com.bitwig.extension.controller.api.CursorRemoteControlsPage;
 import com.bitwig.extension.controller.api.DrumPad;
 import com.bitwig.extension.controller.api.DrumPadBank;
 import com.bitwig.extension.controller.api.Parameter;
+import com.bitwig.extension.controller.api.RemoteControl;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.PinnableCursorDevice;
 import com.bitwig.extension.controller.api.SpecificBitwigDevice;
 import com.bitwig.extension.controller.api.SceneBank;
 import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBank;
+import com.bitwig.extension.controller.api.Transport;
 
 /**
  * All pre-allocated Bitwig API objects. Everything here must be created
@@ -113,6 +116,24 @@ public class Rig {
     public final CursorDeviceLayer cursorLayer0;
     public final DrumPadBank drumPadBank0;
     public final ChainSelector chainSelector0;
+
+    // --- E7: modulation access via remote controls ---
+    /**
+     * The classic modulation API (Device.getModulationSource / Macro /
+     * ModulationSource) is HARD-deprecated: calling getModulationSource(int)
+     * at init throws deprecatedFail ("Use remote controls instead") and takes
+     * the whole extension down (verified — see FINDINGS E7). So the only
+     * non-deprecated modulation-adjacent surface is the remote-controls page.
+     * RemoteControl extends Parameter, so it carries value()/modulatedValue()
+     * plus isBeingMapped() — the modern equivalent of the map idiom.
+     */
+    public static final int REMOTE_BANK = 8;
+    public final CursorRemoteControlsPage remotePage0;
+    public final RemoteControl[] remotes0 = new RemoteControl[REMOTE_BANK];
+
+    /** E7e: transport, so probes can hold a note playing (per-voice modulators
+     * output nothing while the project is silent). */
+    public final Transport transport;
 
     /**
      * DirectParameter API state for cursorDevice0 — the format-AGNOSTIC path
@@ -260,6 +281,22 @@ public class Rig {
         chainSelector0.activeChainIndex().markInterested();
         chainSelector0.chainCount().markInterested();
 
+        // E7: remote-controls page on cursorDevice0 (the modern modulation-
+        // mapping surface Bitwig points to). Re-scopes as the cursor repoints.
+        remotePage0 = cursorDevice0.createCursorRemoteControlsPage(REMOTE_BANK);
+        remotePage0.pageCount().markInterested();
+        remotePage0.selectedPageIndex().markInterested();
+        remotePage0.pageNames().markInterested();
+        for (int r = 0; r < REMOTE_BANK; r++) {
+            RemoteControl rc = remotePage0.getParameter(r);
+            rc.exists().markInterested();
+            rc.name().markInterested();
+            rc.value().markInterested();
+            rc.modulatedValue().markInterested();
+            rc.isBeingMapped().markInterested();
+            remotes0[r] = rc;
+        }
+
         // Param handles: the curated ID list, cycled if the E5 config asks for
         // more handles than we have distinct IDs. Duplicates still allocate
         // distinct handles, which is what the scale measurement is about.
@@ -274,9 +311,13 @@ public class Rig {
             param.name().markInterested();
             param.value().markInterested();
             param.value().displayedValue().markInterested();
+            param.modulatedValue().markInterested(); // E7: post-modulation value
             paramIds[p] = id;
             polysynthParams0[p] = param;
         }
+
+        transport = host.createTransport();
+        transport.isPlaying().markInterested();
 
         // Format-agnostic DirectParameter observers (E4b — CLAP access test).
         // Callbacks fire on the control-surface thread.
