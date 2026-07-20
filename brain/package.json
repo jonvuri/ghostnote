@@ -36,7 +36,9 @@
     "probe:e07d": "tsx src/probes/e07d-modtweak.ts",
     "probe:e07e": "tsx src/probes/e07e-modswap.ts",
     "probe:e07f": "tsx src/probes/e07f-routing.ts",
-    "probe:e07g": "tsx src/probes/e07g-samefamily.ts"
+    "probe:e07g": "tsx src/probes/e07g-samefamily.ts",
+    "probe:e08": "tsx src/probes/e08-batch.ts",
+    "probe:e08b": "tsx src/probes/e08b-interference.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
