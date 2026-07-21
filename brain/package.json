@@ -38,11 +38,16 @@
     "probe:e07f": "tsx src/probes/e07f-routing.ts",
     "probe:e07g": "tsx src/probes/e07g-samefamily.ts",
     "probe:e08": "tsx src/probes/e08-batch.ts",
-    "probe:e08b": "tsx src/probes/e08b-interference.ts"
+    "probe:e08b": "tsx src/probes/e08b-interference.ts",
+    "probe:e09": "tsx src/probes/e09-mcp.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.4.3"
   }
 }
