@@ -39,7 +39,11 @@
     "probe:e07g": "tsx src/probes/e07g-samefamily.ts",
     "probe:e08": "tsx src/probes/e08-batch.ts",
     "probe:e08b": "tsx src/probes/e08b-interference.ts",
-    "probe:e09": "tsx src/probes/e09-mcp.ts"
+    "probe:e09": "tsx src/probes/e09-mcp.ts",
+    "probe:e10": "tsx src/probes/e10-retarget.ts",
+    "probe:e10b": "tsx src/probes/e10b-varlen.ts",
+    "probe:e10c": "tsx src/probes/e10c-typeswap.ts",
+    "probe:e10d": "tsx src/probes/e10d-chaintrim.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
