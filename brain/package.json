@@ -44,7 +44,8 @@
     "probe:e10b": "tsx src/probes/e10b-varlen.ts",
     "probe:e10c": "tsx src/probes/e10c-typeswap.ts",
     "probe:e10d": "tsx src/probes/e10d-chaintrim.ts",
-    "probe:e10e": "tsx src/probes/e10e-replace.ts"
+    "probe:e10e": "tsx src/probes/e10e-replace.ts",
+    "probe:e10f": "tsx src/probes/e10f-addcat.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
