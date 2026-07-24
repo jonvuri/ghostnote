@@ -5,6 +5,319 @@ One section per experiment, appended as run. Verdicts: ● confirmed working /
 
 ---
 
+## E11d-2 — the Sampler "wall" was the loaded SAMPLE, not the device [K] (2026-07-23)
+
+**Verdict: ● a SAMPLE-LESS Sampler is fully modulator-surgery-general — the plain
+3-step recipe adds/replaces/deletes AND introduces NEW types AND holds multiple
+types, exactly like Delay+/Repro/Polysynth. The entire E11d Sampler exception was
+caused by the embedded sample, whose state mirrors the modulator count and blocks
+type introduction. This CORRECTS E11d.** The user caught the confound: the E11d
+Sampler fixtures had `7 Reso Chime.aiff` loaded; they authored `gn_sampler_no_sample`
+(truly bare) which settled it.
+
+### The evidence
+
+The two count-u32 fields (`0x129c`/`0x1422`) are **absent from a sample-less Sampler**
+and are **introduced by loading a sample** — a `no_sample→bare` diff shows the sample
+adds its ~731 B data structure *plus* the 8-byte block `01 00 00 00 1a 00 00 00 03 00
+00 00 00` (the `0x1422` count field). And `bare` (sample, **0** modulators) already
+carries `0x19`/`0x1a` there — so those fields belong to the sample's state and merely
+*track* modulator count (`base + 0x10·count`).
+
+On `gn_sampler_no_sample` (no count fields exist), the plain recipe loads everything:
+
+| build (plain 3-step recipe) | result |
+|---|---|
+| + LFO | ● LOAD |
+| + **Random (a NEW type)** | ● **LOAD** — the exact op E11d found impossible on the sampled Sampler |
+| + LFO + Random (two distinct types) | ● LOAD |
+
+### Corrected model of the Sampler
+
+- **Sample-less Sampler:** general. Plain recipe, any op, any type, multi-type. No
+  count field to maintain. Same as every other host tested.
+- **Sampled Sampler:** the embedded sample carries modulator-mirroring state, so
+  (a) same-type add/delete needs the two count-u32s deltaed by `±0x10` (E11d/E11c),
+  and (b) introducing a NEW type is rejected even with the count fix (the sample's
+  state has no entry for the new type; surgery can't synthesise it).
+
+### Decision impact (supersedes E11d's)
+
+- **The Sampler is NOT a host-class exception.** `bwmod`'s plain recipe covers
+  Polysynth, native FX, CLAP, **and sample-less Sampler**. The host-gating in
+  BWMOD_DESIGN should key on **"does this device embed a sample"**, not on device name.
+- **Slot-bank on Sampler is fully achievable by surgery — author it sample-less.** The
+  agent can add one modulator of every type to a bare Sampler (ns_add_random_newtype +
+  ns_two_types prove new-type + multi-type; E11c's 32-scale extends it). The earlier
+  "must be human-authored" conclusion for Sampler is **retracted** for the sample-less
+  path.
+- **Only when a preset must carry BOTH a sample and surgically-authored modulators**
+  do the sampled-Sampler constraints apply: maintain the count-u32s for same-type
+  add/delete; new-type introduction on an already-sampled preset is ○. Open question
+  [U]: whether authoring modulators sample-less and loading the sample afterward
+  recombines cleanly (the sample-load would need to regenerate its mirrored count) —
+  untested; likely a runtime/UI path, not file surgery.
+- **Residual it opens [U]:** the sample lesson generalizes — a device embedding an
+  opaque bulk blob can carry mirrored modulator state. Characterized for a sample only;
+  **VST/VST3 (opaque state chunk, like the sample) is untested and the highest-suspicion
+  case** — CLAP (Repro-5) is general but VST may not be. Also convolution IR / wavetable
+  / nested containers, same pattern. Tracked as E11i in HANDOFF-E11 §4.2.
+- Credit: the user's `gn_sampler_no_sample` minimal pair is what isolated sample-vs-device.
+
+---
+
+## E11c — surgery scales to 32 modulators on both hosts; Sampler count is a real u32 [K] (2026-07-22)
+
+**Verdict: ● 32 modulators load — on Polysynth (32, five mixed types) and on Sampler
+(32 LFO duplicates). No count/limit surprise. The Sampler count field is a genuine
+u32 (`base + 0x10·count`) that carries cleanly past the single-byte boundary. A
+Sampler's CAPACITY is therefore not the slot-bank blocker — the type-introduction wall
+(E11d) is, and scale does not move it.** Probe `e11-load` +
+`tools/bwformat/build_e11bc_cases.py`.
+
+| host | build | result |
+|---|---|---|
+| Polysynth | 8 / 16 / 32 modulators cycling 5 distinct types (LFO, Random, Classic LFO, Vibrato, Expressions) | ● all LOAD |
+| Sampler | 8 / 16 / 32 LFO duplicates, count-u32 = `0x99` / `0x119` / `0x219` | ● all LOAD (`LFO 1…LFO 32`) |
+
+- **The Sampler count is a u32, not a byte.** `base + 0x10·count` overflows one byte at
+  count 15, but N=16 (`0x00000119`) and N=32 (`0x00000219`) both load — so it carries
+  correctly and scales to any realistic slot-bank size. `bwmod`'s Sampler handler
+  should read/write it as a u32 (both fields), delta `±0x10` per add/remove. (This
+  Sampler scale used the *sampled* fixture — the count u32s exist only because a sample
+  is loaded; a sample-less Sampler has no such field and needs no fix. See E11d-2.)
+- **This confirms capacity + count-scaling, NOT type introduction.** The Sampler test
+  duplicates ONE type (LFO); surgery still cannot add a NEW type to a Sampler (E11d).
+  ⇒ on permissive hosts (Polysynth/Delay+/Repro) the agent can build a full multi-type
+  slot-bank by surgery outright; on Sampler-class hosts the slot-bank must be
+  human-authored once, but this proves such a template is valid at scale and the agent
+  can duplicate/delete/retune within it.
+- ⚠ **Note-driven types (Expressions) expose no remote page** (seen in E11a too), so
+  page-count readback UNDERCOUNTS modulators — the meta-ref / `0x06c9`-object count is
+  the true count. Assert on that, not on page names.
+
+---
+
+## E11b — the `0x02b9` name is cosmetic, not validated against the `0x1a1b` id [K] (2026-07-22)
+
+**Verdict: ● a modulator's `0x02b9` display-index name need not match its `0x1a1b`
+instance id — both `name="5"/id=1` and `id=5/name="1"` load (ids kept unique). Only
+`0x1a1b` uniqueness gates load; the name string is not cross-checked against it.**
+Probe `e11-load` + `build_e11bc_cases.py`, one-field edits on modtest.
+
+Resolves the BWMOD_DESIGN §5-U2 open question: `bwmod` may treat `0x02b9` as cosmetic.
+Keeping `name == id` remains the tidy default (matches what Bitwig writes), but it is
+not a correctness requirement — freeing add/delete from any name-renumbering duty.
+
+---
+
+## E11d — modulator surgery is GENERAL across FX + CLAP, but Sampler REJECTS it [K] (2026-07-22)
+
+> **⚠ PARTIALLY CORRECTED BY E11d-2 (2026-07-23).** The "Sampler is a special case"
+> reading below is right about the *sampled* Sampler but wrong to attribute it to the
+> device: the E11d Sampler fixtures had a sample loaded, and the sample — not the
+> Sampler — is what mirrors modulator count and blocks type introduction. A
+> **sample-less** Sampler is fully surgery-general. Read E11d-2 for the corrected
+> model. The Delay+/Repro/CLAP results and the count-u32 mechanics below stand.
+
+**Verdict: ● the add/replace/delete recipe generalizes beyond Polysynth to a native
+FX (Delay+) and a CLAP plugin (Repro-5) — loads AND lives. Sampler is a special case,
+now fully diagnosed: it mirrors modulator state in its own device body, so (a)
+add/delete of an ALREADY-PRESENT type works once two count-bytes are maintained, but
+(b) introducing a NEW modulator type or type-swapping is rejected — the Sampler keeps
+per-type internal state surgery cannot reconstruct.** Probes `e11-load` +
+`tools/bwformat/build_e11d_cases.py` (+ follow-up isolation builds), on user-authored
+bare/one_lfo minimal pairs for Sampler, Delay+, Repro-5.
+
+### What generalizes (all three hosts, structural — [K])
+
+All three are encoding `0002` (plain/parseable), including the CLAP. The modulator
+sub-structure is identical in kind: `0x075f` MODULATORS wrapper, `0x1a46` list,
+`0x06c9` object, `0x1a1b` unique id, `0x18c6` type guid (`ad947004` — the LFO type
+guid is **host-agnostic**, same bytes everywhere), meta `referenced_modulator_ids`,
+`f4`. The routing-target **path form differs exactly where E4b predicted**:
+
+| host | kind | route path form |
+|---|---|---|
+| Sampler | native instrument | `CONTENTS/AMP_ATTACK_TIME` |
+| Delay+ | native FX | `CONTENTS/BLUR` |
+| Repro-5 | CLAP plugin | `CONTENTS/ROOT_GENERIC_MODULE/PID3c` (plugin-param id) |
+
+### The load matrix
+
+| case | Sampler | Delay+ | Repro-5 |
+|---|---|---|---|
+| base (one_lfo) | ● LOAD (live: AmpEG/Attack div 0.38) | ● LOAD (Blur 0.35) | ● LOAD (Cutoff 0.34) |
+| add 2nd LFO | ○ **REJECT** | ● LOAD, `[LFO 1, LFO 2]`, Blur div→**0.75** | ● LOAD, `[LFO 1, LFO 2]`, Cutoff→**0.50** |
+| replace w/ Random | ○ **REJECT** | ● LOAD, `[Random]` | ● LOAD, `[Random]` |
+| delete the modulator | ○ **REJECT** | ● LOAD, LFO page gone | — |
+
+Delay+/Repro: full generality — add stacks a live second route (divergence rises),
+replace type-swaps, delete removes. **A CLAP plugin modulator route is authorable by
+file surgery**, deeper path form and all.
+
+### Ruling out a construction artifact (the isolation that reopened it)
+
+The standing rule (a FAIL is often a wrong expectation) got a full workout:
+- **Object bounds are correct.** The extracted LFO object is 826/837/847 B for
+  delay/sampler/repro — differing *exactly* by the routing-string length delta
+  (`BLUR` 13, `AMP_ATTACK_TIME` 24 = +11, `…/PID3c` 34 = +21).
+- **Meta + f4 machinery is identical** to what loads on Delay+/Repro.
+- **Not add-specific: DELETE also rejects on Sampler** while the identical delete
+  LOADS on Delay+ — so it is not insertion placement; *any* modulator-list edit
+  rejected. This is what pointed at Sampler-internal mirrored state.
+
+### The mechanism, fully diagnosed [K]
+
+A byte-diff of Sampler bare↔one_lfo is otherwise **clean** (3335/3341 stream bytes
+equal) — the misleadingly-tiny 8-byte common *suffix* was just two late 1-byte diffs.
+Beyond the modulator object + preset-name meta, **exactly two single bytes** in the
+Sampler device body change when a modulator is added — and **Delay+ has none**. Both
+sit immediately after an identical `[field][0x12 list][classId 1]` structure (fields
+`0x129c` and `0x1422`), and both move by **exactly +0x10** per modulator:
+`0x19→0x29→0x39` and `0x1a→0x2a→0x3a` for count `0→1→2`. **They encode the modulator
+count** (byte = base + 0x10·count).
+
+Confirmed by controlled patch pairs (each differs ONLY in those two bytes):
+
+| built case | flags | result |
+|---|---|---|
+| delete, flags left at 1-count | 0x29/0x2a | ○ REJECT |
+| **delete + flags→0-count** | 0x19/0x1a | ● LOAD (0 modulators) |
+| add 2nd LFO, flags left at 1-count | 0x29/0x2a | ○ REJECT |
+| **add 2nd LFO + flags→2-count** | 0x39/0x3a | ● LOAD `[LFO 1, LFO 2]` |
+
+So add/delete on Sampler need one extra step: **±0x10 on both count bytes.** The
+robust form is a *delta* (no need to know the base), located by the two signatures
+`00 00 12 9c 12 00 00 00 01 00 00 00 <byte>` and `00 00 14 22 12 …`.
+
+**But type introduction is a harder wall [K].** Further isolation:
+- replace LFO→LFO identical → LOAD; replace with the route **shortened** (object
+  shrinks 14 B, size change) → LOAD ⇒ size is not mirrored.
+- replace LFO→**Random** (type/guid swap) → REJECT at **every** flag value (0/1/2).
+- ADD a **Random** (a type NOT already present) with flags→2 → **REJECT**.
+
+⇒ Adding/removing instances of a type **already present** works; **introducing a new
+modulator type, or type-swapping, does not** — the Sampler holds per-type internal
+state (registration/routing keyed by modulator type) that file surgery cannot
+synthesise. The count bytes are necessary but not sufficient for a new type.
+
+### Decision impact
+
+- **`bwmod` add/replace/delete is verified general on Polysynth + native FX (Delay+)
+  + CLAP (Repro-5)** — instrument, effect, and external-plugin axes. NOT
+  Polysynth-specific. CLAP/VST routing uses the deeper `CONTENTS/ROOT_GENERIC_MODULE/
+  PID<hex>` form, editable like any route — lifting most of E4b's worry.
+- **Sampler needs a device-specific handler** in `bwmod`: on add/delete, delta the
+  two count bytes by ±0x10 (find them by signature). Load+readback stays mandatory.
+- **On Sampler, type set is fixed at template time.** The agent can duplicate,
+  delete, and retune modulators of types the template already contains, but cannot
+  introduce a new type by surgery. This is exactly the shape of the retired E7
+  Finding H **slot-bank** — so for Sampler-class devices the slot-bank (a template
+  pre-seeded with one dormant modulator per desired type) is the *right* pattern,
+  even though it is retired for Polysynth/FX/CLAP. Other sample/state-heavy natives
+  may share this; untested.
+- Only two count bytes were seen on this (sample-less) Sampler; a Sampler with loaded
+  samples/zones may mirror more state — untested, flag it if pursued.
+
+---
+
+## E11a — `0x1a1b` uniqueness is sufficient; ids need NOT be contiguous [K] (2026-07-22)
+
+**Verdict: ● a unique `0x1a1b` set loads even when sparse or permuted — contiguity
+is NOT a load requirement.** So `bwmod` may reuse a freed instance id and `delete`
+need not renumber siblings; `next-free = max+1` stays a safe default but is
+over-strict, not mandatory. Probe `e11-load` + `tools/bwformat/build_e11a_cases.py`,
+one-byte edits on `modtest` (loads at `[0,1,2]`).
+
+Each case edits all three modulators' `0x1a1b` u8 **and** their `0x02b9` name digit
+together (kept equal, so this does NOT also test the E11b name/id question):
+
+| case | id/name set | property | result |
+|---|---|---|---|
+| C0 | `[0,1,2]` | contiguous (control) | ● LOAD |
+| A_sparse | `[0,1,5]` | unique, gap at 2..4 | ● LOAD |
+| A_high | `[9,4,7]` | unique, none zero, sparse | ● LOAD |
+| A_perm | `[2,0,1]` | `{0,1,2}` permuted across slots | ● LOAD |
+
+All four load identically (pages `[…, Vibrato, LFO]` unchanged). The gate proven in
+E10f is exactly and only **uniqueness** — not range, not zero-basing, not order.
+
+### Decision impact
+- **`bwmod.deleteModulator` need not renumber** the surviving modulators; removing an
+  object + its meta ref is enough (ids stay unique, just sparse).
+- **`nextFreeInstanceId` = max+1** remains the simple, safe assignment (guaranteed
+  unused), now known to be a *convenience*, not a correctness requirement — any
+  value absent from the current set is equally valid.
+- Removes E10f's "must ids be contiguous?" caveat.
+
+---
+
+## E11f — same-TYPE repeated ADD loads; `addModulator` needs no id-freshening [K] (2026-07-22)
+
+**Verdict: ● two modulators of the SAME type (same donor object) coexist in one
+preset and load. A duplicate `0x18c6` device GUID and the duplicate
+`referenced_modulator_ids` entry it forces are BOTH accepted by Bitwig.** So the
+library's `addModulator` needs **no "freshen embedded ids" step** beyond the
+already-proven unique-`0x1a1b` assignment. Probe `e11f-dupdonor` +
+`tools/bwformat/build_e11f_cases.py`, on `mp_one_lfo` + repeated Random/LFO donors.
+
+### The handoff's premise was wrong — measurement corrected it first
+
+E11 §1f hypothesised that adding two modulators from the same donor would collide
+their per-instance `0x2ab8` "Chain" GUID. **A modulator object embeds no `0x2ab8`
+at all** — measured directly: the LFO donor (646B) and Random donor (551B) each
+contain exactly one `0x009a`, one `0x18c6`, one `0x1a1b`, and **zero** `0x2ab8`.
+The `0x2ab8` count is a fixed **2 per file** regardless of modulator count (modtest
+has 3 modulators but 2 `0x2ab8`; `mp_one_lfo` has 1 modulator but 2 `0x2ab8`) — it
+is **device/chain-level, not per-modulator**. So same-donor adds never touch it, and
+there is nothing to freshen there.
+
+The real per-object ids are only two: `0x1a1b` (unique instance id, the proven gate)
+and `0x18c6` (the **type** GUID). `referenced_modulator_ids` == the ordered set of
+`0x18c6` values, verbatim. Critically, `0x18c6` is **shared across all instances of
+a type** — LFO is `ad947004…` and Random is `bf29a7b0…` in *every* preset examined.
+Therefore a same-type add necessarily produces a **duplicate `0x18c6`** in the
+stream and a **duplicate entry** in `referenced_modulator_ids`. That is the real
+question, and it is now settled: **both duplicates load.** (Freshening `0x18c6` is
+not even an option — a random value would no longer name a real modulator type.)
+
+### The matrix (ids kept unique throughout; the single variable is same-type duplication)
+
+| case | edit | `0x1a1b` | `referenced_modulator_ids` | result | pages |
+|---|---|---|---|---|---|
+| F0 | `mp_one_lfo` unmodified | `[0]` | `[LFO]` | ● LOAD | `[LFO]` |
+| F1 | add Random once (control == E10f-B1) | `[0,1]` | `[LFO, Rand]` | ● LOAD | `[LFO, Random]` |
+| **F2** | add SAME Random donor **twice** | `[0,1,2]` | `[LFO, Rand, Rand]` | ● LOAD | `[LFO, Random 1, Random 2]` |
+| **F3** | add a 2nd **LFO** (dup of existing type) | `[0,1]` | `[LFO, LFO]` | ● LOAD | `[LFO 1, LFO 2]` |
+
+F1 is the add-once control; F2/F3 add a duplicate type. No confound — `0x1a1b`
+stayed unique in every case, so the only thing that changed F1→F2/F3 is the
+type-duplication (and its forced GUID/meta duplication).
+
+### Side finding — display names are auto-disambiguated by Bitwig, not by us
+
+The `0x02b9` name string we set is the slot index (`"0"/"1"/"2"`). The remote-page
+**display** names came back as `"Random 1"/"Random 2"` and `"LFO 1"/"LFO 2"` — and
+note the FIRST one is renumbered too (F1 shows bare `"Random"`, F2 shows `"Random
+1"`). So the visible page name is derived at runtime from `device_name` + a
+duplicate-disambiguation suffix; it is **cosmetic and independent of `0x02b9`**. The
+library need not (and should not) try to author these suffixes.
+
+### Decision impact
+
+- **`bwmod.addModulator`/`replaceModulator`: assign a unique `0x1a1b`, append/replace
+  the `0x18c6` GUID in `referenced_modulator_ids`, patch `f4` — and nothing else.**
+  No embedded-id freshening. Two instances of one type are a supported, first-class
+  case (`referenced_modulator_ids` may legitimately contain duplicate GUIDs).
+- **BWFORMAT_SPEC §3.2 `0x2ab8` note to sharpen:** it is device/chain-level (fixed
+  count per file), NOT a per-modulator field — so it is irrelevant to modulator add.
+- Removes E10f's "same donor twice?" caveat. Untested edges remaining: id
+  contiguity (E11a), name/id independence (E11b), scale (E11c), non-Polysynth
+  hosts (E11d), cross-device routing (E11e), save+reload durability (E11g).
+
+---
+
 ## E10 — The `.bwpreset` format is readable, and routing targets are editable (2026-07-20)
 
 **Verdict: ● modulation ROUTING TARGETS are fully parameterisable — E7 Finding F's
