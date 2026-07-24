@@ -1,7 +1,7 @@
 ---
 title: Bitwig `.bwpreset` format — working specification
-status: evidence-backed draft (spike E10 series); enough to build modulator surgery
-updated: 2026-07-22
+status: evidence-backed draft (spike E10–E12); enough to build modulator surgery
+updated: 2026-07-24
 scope: the plain (encoding 0002) container, focused on modulator topology
 ---
 
@@ -168,9 +168,18 @@ snap object bounds to the sentinel; insert new objects BEFORE it.**
 
 | classId | object |
 |---|---|
+| 0x0001 | a **reference STUB** — `classId(BE u32)=1` then a **BE-u32 payload = an object index** (a linker-style pointer). Not a normal object (no field list). Used by the sampled-Sampler count-field lists (§4, E12b). |
+| 0x0003 | the empty form `00 00 00 03 00 00 00 00` is a list **sentinel** (§3, E11h); a class-0x0003 object *with* fields is an ordinary item |
 | 0x06c9 | a **modulator instance** |
 | 0x075f | the `MODULATORS` wrapper (held by field 0x18f5) |
 | 0x018f | a layer **CHAIN** (in `CHAIN_LIST`) |
+
+- **Reference-stub lists [K, E12b]:** a `0x12` list whose items are class-1 stubs is a
+  table of object-index pointers, e.g. the sampled-Sampler count fields `0x129c` /
+  `0x1422`: `field | 0x12 | [00 00 00 01 <BE-u32 index>]+ | 00 00 00 03 00 00 00 00`.
+  A stub's payload shifts when objects are inserted/removed ahead of the referenced
+  object (§4). ⚠ Payload is **BIG-endian** — the E11d "LE u32 count" read matched only
+  because the values were single-byte.
 
 ---
 
@@ -216,23 +225,31 @@ fine: two modulators may share a `0x18c6` type guid and produce a duplicate
 **[K, E11f]**.
 
 ⚠ **The recipe is broad; the one complication is an EMBEDDED SAMPLE/BULK BLOB, not any
-device class and NOT plugin opaque state [K, E11d/E11d-2/E11h/E11i-corrected].** The
+device class and NOT plugin opaque state [K, E11d/E11d-2/E11h/E11i-corrected/E12].** The
 full add/replace/delete recipe (below) loads as-is on **Polysynth, a native FX
 (Delay+), a CLAP plugin (Repro-5), a VST3 *and* CLAP plugin (Zebra 3 — a plugin's
 own DEFLATE-ZIP state does NOT mirror modulators), and a sample-less Sampler** — every
 host tested, once no sample is embedded. CLAP/VST routing targets use a deeper path
 form, `CONTENTS/ROOT_GENERIC_MODULE/PID<hex>`, vs native `CONTENTS/<NAME>`.
-**A loaded sample is the one exception:** the embedded sample carries state that
-mirrors the modulator count in two **little-endian** u32s (right after signatures
-`00 00 12 9c 12 00 00 00 01 00 00 00` and `00 00 14 22 12 …`; value = base +
-`0x10`·count — carries past one byte, verified to 32 in E11c). On a **sampled** preset:
-same-type add/delete must delta both u32s by `±0x10`, and introducing a NEW modulator
-type (or type-swapping) is rejected even so (the sample's state has no entry for the
-new type — REAL, re-confirmed with sentinel-correct bounds in the E11d RE-CHECK). ⇒
-**Gate on "does the preset embed a sample/bulk blob", not on device name; always verify
-by load + readback. To author modulator topology on a Sampler, use a sample-less
-template — it is fully general.** (Do NOT re-introduce a "plugin opaque state" hazard:
-the original E11i claim of that was a list-sentinel test bug; see FINDINGS E11i-corrected.)
+
+**A loaded sample adds ONE MECHANICAL STEP — reference-stub relocation — not a
+capability limit [K, E12].** The sample state contains **count-field lists** (fields
+`0x129c`, `0x1422`; type `0x12`) of **class-1 object-index stubs** (§3.3), sentinel-
+terminated. Each stub points at an object AFTER the modulator list, so any add/delete/
+replace must shift EVERY stub by the modulator subtree's **object footprint**:
+`newStub = oldStub + (insertedFootprint − removedFootprint)`, BE payloads, applied to
+**every** stub in **every** count list (single sample = 2 stubs; multisample = more —
+measured 4). Footprint is **donor-specific** (LFO=`0x10`, native Sampler Random=`0x0d`,
+Polysynth Random donor=`0x0b`) — store it per curated donor. With this step, add (any
+type incl. **NEW types**), replace/type-swap, delete, and slot-bank-at-scale all LOAD and
+are LIVE on single-sample AND multisample Samplers (E12a–E12e). ⇒ **Gate on "does the
+preset embed a sample/bulk blob" only to decide whether to run the relocation step — NOT
+whether an op is possible. Every op is possible; always verify by load + readback.**
+> ⚠ CORRECTS the earlier text (E11d): there is **no per-type mirrored state** and **no
+> new-type block** — E11d only swept `±0x10` (each donor has its own footprint), and read
+> the BE payload as a single LE "count". A sample-less template is still the simplest
+> path, but a sampled template is now fully general too. (And do NOT re-introduce a
+> "plugin opaque state" hazard — E11i was a list-sentinel test bug.)
 
 ---
 

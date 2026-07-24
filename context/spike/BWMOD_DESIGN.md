@@ -30,21 +30,26 @@ depends-on: BWFORMAT_SPEC.md (the byte layout), FINDINGS.md E10/E10b/E10c/E10d/E
 4. **Validate before load.** Bitwig rejects invalid files silently (0 devices), so
    the library MUST expose a `validate()` that catches the known invariants
    *before* the brain pays an `insertFile` round-trip.
-5. **Gate on an EMBEDDED SAMPLE, not on device class (E11d/E11d-2).** The plain
-   3-step recipe is verified general across Polysynth, native FX (Delay+), CLAP
-   plugins (Repro-5), **and a sample-less Sampler** — every host tested. The one
-   complication is a **loaded sample**: its embedded state mirrors the modulator
-   **count** in two device-body **u32s** (value = base + `0x10`·count, located by the
-   signatures `00 00 12 9c 12 00 00 00 01 00 00 00` and `00 00 14 22 12 …`; read/write
-   as a full u32 — carries past one byte at count 15, verified to 32 in E11c). So for a
-   preset that already embeds a sample: `addModulator`/`deleteModulator` must delta
-   both u32s by `±0x10`, and introducing a NEW modulator type (or type-swapping) is
-   **not achievable by surgery** at all (the sample state has no entry for it). ⇒
-   `validate()`/editors should detect an embedded sample and apply the count-u32 step +
-   refuse type-introducing ops there; everywhere else (incl. sample-less Sampler) the
-   plain recipe is enough. To author a Sampler modulator slot-bank, build it on a
-   sample-less template — fully general. Keep load+readback mandatory regardless; do
-   NOT assume a new host/preset works without a live load test.
+5. **Gate on an EMBEDDED SAMPLE to run STUB RELOCATION, not on device class, and NOT
+   to forbid any op (E11d/E11d-2/E12).** The plain 3-step recipe is verified general
+   across Polysynth, native FX (Delay+), CLAP (Repro-5), **and a sample-less Sampler**.
+   A **loaded sample** adds ONE mechanical step: the sample state holds **count-field
+   lists** (fields `0x129c`, `0x1422`; type `0x12`) of **class-1 object-index stubs**
+   (`classId(BE u32)=1` + **BE-u32** payload), each sentinel-terminated. Each stub points
+   at an object AFTER the modulator list, so every add/delete/replace must shift **every
+   stub in every count list** by the modulator subtree's **object footprint**:
+   `stub += (insertedFootprint − removedFootprint)`. Footprint is **donor-specific**
+   (LFO=`0x10`, native Sampler Random=`0x0d`, Polysynth Random donor=`0x0b`) — so **store
+   each curated donor's footprint as asset metadata** (the full recursive object walk
+   hits the deep-list schema limit; a measured constant is the robust source). Single
+   sample = 2 stubs; multisample = more (measured 4) — walk each list to the sentinel;
+   never stop after the first stub. **There is NO new-type block and NO per-type mirrored
+   state (E12c):** with correct footprint + complete relocation, add (any/NEW type),
+   type-swap, delete, and slot-bank-at-scale all LOAD and are LIVE on single-sample AND
+   multisample. `retarget`/`setAmount` need no relocation (no object added/removed). A
+   sample-less template is still simplest, but a sampled template is fully general too.
+   Keep load+readback mandatory regardless; do NOT assume a new host/preset works without
+   a live load test. Port source: `tools/bwformat/build_e12d2_cases.py` (`relocate_stubs`).
 6. **Ids: unique, not contiguous (E11a).** `nextFreeInstanceId = max+1` is a safe
    convenience; any value absent from the current `0x1a1b` set is valid, so `delete`
    need not renumber. Same-type duplicates are fine — `referenced_modulator_ids` may
@@ -174,8 +179,10 @@ Checks, in order, the invariants that predict a load (cheap; run before insertFi
   the single most common way an edit silently rejects).
 - `0x1a1b` values across modulators are **unique** (the proven gate).
 - meta `referenced_modulator_ids` set == modulator-GUID set; count matches.
-- if the preset embeds a sample (count-u32 sigs present): both count-u32s == base +
-  `0x10`·(modulator count), and no new-type introduction was attempted.
+- if the preset embeds a sample (count-field lists present): every class-1 stub in
+  every count list (`0x129c`/`0x1422`) has been relocated by `(inserted − removed)
+  footprint` (BE payloads); no stub left stale. (New-type introduction is allowed — it
+  is NOT a failure mode; E12.)
 - every `0x0e3d` route target is non-empty (can't verify path validity offline — a
   warning, not an error; the real check is readback).
 - total-length / terminator sanity.
@@ -199,7 +206,7 @@ carries no modulation, E10b). Keep both.
 | U-metasync | after add/replace/delete | `referenced_modulator_ids` set == modulator-GUID set; count correct |
 | U-f4 | after any meta size change | `f4-1` indexes a `0x0a`; meta length matches |
 | **U-sentinel** | after add/replace/delete | the `0x1a46` list still ends with an intact `00 00 00 03 00 00 00 00` sentinel; the last object's terminator abuts it exactly (guards the E11i off-by-2 bug) |
-| U-count-u32 | add/delete on a sample-bearing preset | both little-endian count-u32s deltaed by `±0x10`·n; new-type add on a sampled preset is refused by `validate()` |
+| U-stub-relocate | add/delete/replace on a sample-bearing preset (incl. multisample + NEW type) | EVERY class-1 stub in EVERY count list deltaed by `(inserted − removed) footprint` (BE); golden: reconstruct `gn_sampler_one_random` from `gn_sampler_bare` byte-identical modulo name + per-save GUIDs (E12c); new-type add LOADS (not refused) |
 | U-retarget-len | retarget to shorter AND longer paths | length delta reflected; `f4` unchanged (stream-only edit) |
 | U-immutable | every editor | input buffer unchanged (deep-equal to a pre-copy) |
 | U-validate-neg | hand-build a duplicate `0x1a1b` | `validate().ok === false`, names the collision |

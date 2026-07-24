@@ -3,8 +3,12 @@ title: Handoff — E11, the (likely last) format spike task
 status: Session 1 done (E11a/b/c/d/d-2/f); Session 2 DONE (E11e/g/h/i + E11d re-check —
         all [K]). Key result: E11h found lists are SENTINEL-terminated, which overturned
         E11i (Zebra is fully general — the "wall" was a 2-byte bug) and gave bwmod its
-        core correctness rule. NEXT: (a) scrutinize Sampler Tier-2 in a fresh session
-        (see DECISIONS.md "Open for a FRESH SESSION"), then (b) build bwmod.
+        core correctness rule. **SUPERSEDED for the Sampler by E12 (2026-07-24): the
+        sampled-Sampler "new-type wall" was ALSO a test artifact (wrong footprint delta +
+        incomplete stub relocation) — the Sampler is fully general (Tier 1 + count-stub
+        relocation). See FINDINGS E12 and DECISIONS D2.** E12 is COMPLETE incl. E12f
+        (sample-load recombination — Bitwig materialises the stubs at our exact predicted
+        footprints, independently validating the model). NEXT: build bwmod.
 updated: 2026-07-24
 read-first: DECISIONS.md, BWFORMAT_SPEC.md, BWMOD_DESIGN.md, FINDINGS.md (E11 series, newest-first)
 note: original brief below is §1–§3; the Session 2 handoff is §4. Session 2 is COMPLETE;
@@ -196,6 +200,11 @@ instance (Sampler's sample). Untested and highest-suspicion:
   Resolving these completes `bwparse.py`.
 
 ## 4.4 Deferred (flagged, non-critical) — Sampler sample-loading recombination [U]
+
+> **UPDATE (E12, 2026-07-24):** the broader Sampler scrutiny this pointed at is DONE —
+> the "new-type wall" was a test artifact; a sampled Sampler is fully general via
+> count-stub relocation (FINDINGS E12, DECISIONS D2). Only the recombination question
+> below (E12f) remains, and it is interactive.
 
 Per user: defer to implementation as a **Sampler-focused investigation, not spike-
 critical.** Open question: if modulators are authored on a **sample-less** Sampler and a

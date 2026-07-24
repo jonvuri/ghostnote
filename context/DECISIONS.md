@@ -69,10 +69,12 @@ the right shape only for the Tier-2 case, D2). Recorded per handoff exit criteri
 
 ---
 
-## D2 — Host capability tiers **[Tier 1 SETTLED; Tier 2 PROVISIONAL — Sampler under scrutiny]**
+## D2 — Host capability tiers **[Tier 1 SETTLED; Tier 2 = "Tier 1 + stub relocation", SETTLED by E12]**
 
 Gate on **whether the preset embeds a sample / bulk blob**, NOT on device class, and
-**never** on plugin opaqueness. Always confirm a new host/preset with a live load test.
+**never** on plugin opaqueness. The gate decides only *whether the relocation step
+runs* — NOT *whether an op is possible*. Every op is possible on every tier. Always
+confirm a new host/preset with a live load test.
 
 - **Tier 1 — fully general** (plain recipe, all ops incl. NEW-type introduction):
   native instruments/FX (Polysynth, Delay+), CLAP plugins (Repro-5), **VST3 + CLAP
@@ -81,15 +83,25 @@ Gate on **whether the preset embeds a sample / bulk blob**, NOT on device class,
   swapping a 0-mod blob under a 1-mod stream still loads (E11i-corrected).
   > ⚠ The original E11i "opaque-topology mirror / tier-3" claim was a test bug (the
   > E11h sentinel corruption). There is **no tier-3**; do not reintroduce it.
-- **Tier 2 — count-mirrored** *(PROVISIONAL)*: a preset that **embeds a sample** mirrors
-  the modulator count in two **little-endian** u32s (`0x129c` base `0x19`, `0x1422` base
-  `0x1a`; value = base + `0x10`·count; sigs `00 00 12 9c 12 00 00 00 01 00 00 00` /
-  `00 00 14 22 12 …`). Same-type add/delete work **iff** both u32s are deltaed by
-  `±0x10`·n; **new-type introduction / type-swap is genuinely blocked** even with the
-  count fix and sentinel-correct bounds (the sample's per-type state can't be
-  synthesised) — re-confirmed in the E11d RE-CHECK. For a Tier-2 slot-bank the *type set*
-  is fixed at author time (the E7 Finding-H shape is correct here), but same-type
-  duplicate / retune / delete are surgery-reachable within it.
+- **Tier 2 — count-stub relocation** *(SETTLED, E12)*: a preset that **embeds a sample**
+  carries sample state with **count-field lists** (field ids `0x129c`, `0x1422`; type
+  `0x12`). Each list holds one or more **class-1 reference stubs** — `classId(BE u32)=1`
+  then a **BIG-ENDIAN u32 object-index payload** — and ends with the empty class-3
+  sentinel `00 00 00 03 00 00 00 00`. Each stub points at an object AFTER the modulator
+  list, so an add/delete/replace shifts it by the modulator subtree's **object
+  footprint**. **Rule: relocate EVERY class-1 stub in EVERY count list by
+  `(inserted − removed) footprint`** (walk items to the sentinel; do not stop after the
+  first — multisample has more stubs). Footprint is **donor-specific** (LFO=`0x10`,
+  native Sampler Random=`0x0d`, Polysynth Random donor=`0x0b`) — store it per curated
+  donor asset. Base is constant across samples (need only deltas).
+  > ⚠ **CORRECTS E11d / the earlier Tier-2 text.** There is **no per-type mirrored
+  > state** and **no new-type block** — both were test artifacts: E11d only ever swept
+  > `±0x10` (but each type has its own footprint; Random is `+0x0b`), and the "count is
+  > two LE u32s" read was a single-byte coincidence (payload is BE, and there can be >2
+  > stubs). With correct footprint + complete relocation, add (any/NEW type),
+  > replace/type-swap, delete, and slot-bank-at-scale all LOAD and are LIVE — on
+  > single-sample AND multisample (E12a–E12e). The E7 Finding-H slot-bank is fully
+  > surgery-reachable on a sampled preset (no human authoring needed).
 
 ---
 
@@ -100,39 +112,39 @@ stays as the reference oracle. Editors: `retarget`, `setAmount`, `replaceModulat
 `addModulator`, `deleteModulator`; a `validate()` that checks D1's invariants (sentinel
 integrity first — the top cause of silent reject) before paying an `insertFile`. Golden
 test: reconstructing `mp_one_lfo` from `mp_bare` is byte-identical to the real file
-(E10f). Full details + test matrix in BWMOD_DESIGN.md (updated this session with the
-sentinel rule and the Tier-2 count-u32 handling).
+(E10f); the sampled analogue reconstructs `gn_sampler_one_lfo`/`one_random` from
+`gn_sampler_bare` byte-identical modulo name + per-save GUIDs and loads live (E12c).
+Full details + test matrix in BWMOD_DESIGN.md (updated with the sentinel rule and the
+Tier-2 **stub-relocation** handling — every class-1 stub in every count list, BE payloads,
+`(inserted−removed) footprint`; port source `tools/bwformat/build_e12d2_cases.py`).
 
 ---
 
-## Open for a FRESH SESSION — scrutinize the Sampler (Tier-2) more
+## Sampler (Tier-2) scrutiny — RESOLVED by E12 (2026-07-24)
 
-The Tier-2 conclusion is solid on the fixtures tested but the user wants deeper
-scrutiny before `bwmod` depends on it. Carry-forward context:
+The Tier-2 residual is closed: **the "new-type wall" was never real** (see D2 and
+FINDINGS E12). The five open questions are now answered:
 
-- **Use sentinel-correct bounds + the count-u32 handler.** The port source is
-  `tools/bwformat/build_e11d_recheck.py` (sentinel-correct extractor + `bump_count`).
-  The earlier E11d/E11d-2/E11c Sampler builds used the *buggy* extractor; re-derive with
-  the fixed one. Fixtures: `Sampler/gn_sampler_{bare,one_lfo,no_sample}`.
-- **Open questions to settle:**
-  1. **Count-u32 completeness / multisample.** Only two count u32s were seen, on a
-     single-sample preset. A Sampler with **multiple samples / zones / a multisample**
-     may mirror MORE state (or more count fields). Untested — build a multi-zone fixture
-     and re-run add/delete. (E11d flagged this; E11c only scaled *duplicate* counts.)
-  2. **Is the base constant?** `0x19`/`0x1a` bases were stable across the tested pair;
-     confirm the **delta (`±0x10`) approach** holds across *different* sampled presets
-     (so `bwmod` never needs the absolute base).
-  3. **New-type block — mechanism & boundary.** Confirmed real, but is it strictly
-     per-*type* (i.e. can you duplicate/retune/delete any type the template already
-     contains, at scale)? Verify a template with ≥2 types, then surgery within it. Is
-     there *any* surgical route to introduce a new type (e.g. co-patching the sample
-     state)? Expected ○, but record.
-  4. **Sample-load recombination [U] (deferred, §4.4).** Author modulators on a
-     sample-LESS Sampler, then load a sample in the UI — does the sample-load regenerate
-     the mirrored count so the result is consistent? Only matters for a preset that must
-     carry BOTH a sample and surgical modulators. Likely a runtime/UI path, not surgery.
-  5. **Other embedded-bulk devices** (convolution IR, wavetable/Grid, nested containers)
-     — same "embeds a bulk blob" risk pattern; lower priority, still untested.
+1. **Count-field completeness / multisample — ANSWERED.** The count fields are `0x12`
+   **lists** of class-1 object-reference stubs, sentinel-terminated; a multisample has
+   MORE stubs (measured 4 vs 2). Rule: relocate EVERY stub in EVERY list. Verified live
+   on `gn_sampler_multi_*` (E12d).
+2. **Base constant — ANSWERED (yes).** `gn_sampler2_*` (different sample) has the same
+   base and behaves identically; `bwmod` needs only deltas (E12d).
+3. **New-type block — ANSWERED: it does not exist.** It was a wrong-delta artifact
+   (E11d swept only `±0x10`; each donor has its own footprint, Random=`+0x0b`). New-type
+   add, type-swap, and ≥2-type slot-bank surgery at scale all LOAD live (E12a/E12c/E12e).
+4. **Sample-load recombination — ANSWERED (E12f).** Authored LFO+Random on a
+   sample-LESS Sampler, dragged a sample in the UI, saved → Bitwig kept both modulators
+   AND materialised the count stubs at **exactly** our predicted values (base + LFO 0x10
+   + Random 0x0d = 0x36/0x37); the result reloads live. ⇒ the "author sample-less, then
+   add the sample in the UI" workflow yields a consistent preset carrying BOTH — and
+   Bitwig computes the stubs with the same footprints we reverse-engineered (independent
+   validation of the model).
+5. **Other embedded-bulk devices** (convolution IR, wavetable/Grid, nested containers)
+   — same stub-relocation pattern expected; lower priority, still untested. The heuristic
+   is now "find & relocate the reference stubs", not "give up".
+
 - **Do NOT re-suspect plugin opaque state** (VST3/CLAP) — settled Tier-1 (E11i-corrected).
 
 ---
