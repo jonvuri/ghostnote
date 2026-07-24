@@ -105,7 +105,7 @@ confirm a new host/preset with a live load test.
 
 ---
 
-## D3 — `bwmod` library shape (feeds Workstream B, not yet built) **[SETTLED — see BWMOD_DESIGN.md]**
+## D3 — `bwmod` library shape **[SETTLED and BUILT 2026-07-24 — `brain/src/bwmod/`]**
 
 TypeScript, brain-side, buffer-in/buffer-out immutable; Python `tools/bwformat/*.py`
 stays as the reference oracle. Editors: `retarget`, `setAmount`, `replaceModulator`,
@@ -117,6 +117,35 @@ test: reconstructing `mp_one_lfo` from `mp_bare` is byte-identical to the real f
 Full details + test matrix in BWMOD_DESIGN.md (updated with the sentinel rule and the
 Tier-2 **stub-relocation** handling — every class-1 stub in every count list, BE payloads,
 `(inserted−removed) footprint`; port source `tools/bwformat/build_e12d2_cases.py`).
+2026-07-24 sync: the TS-port-with-Python-oracle choice is now CALLED in the design doc;
+the `f6` re-point rule (D1 invariant 4) is folded into its editor invariants, `validate()`,
+and test matrix (U-f6); `DonorObject` carries per-donor `footprint` as curated metadata.
+
+**BUILT 2026-07-24 (E13).** `brain/src/bwmod/` ships all five editors, `validate()`, the
+readers, and a curated donor library (`brain/assets/modulators/`, footprint + provenance
+per donor). `cd brain && npm test` runs 42 offline tests — including four byte-identical
+golden reconstructions and a byte-for-byte cross-check against `tools/bwformat` — and
+`npx tsx src/probes/e13-bwmod.ts` runs 12 live cases against Bitwig 6.0.6, each verified by
+remote-page readback, with I-dup-neg confirming the reject guard. The Python stays as the
+reference + oracle; the product has no Python dependency. Fixtures are vendored under
+`brain/fixtures/` so the offline half runs in CI. Three build-time refinements are worth
+carrying (details in BWMOD_DESIGN §8, evidence in FINDINGS E13):
+- a **container preset holds one `0x1a46` list per nested device**, so the editors refuse
+  to act without an explicit `listIndex` rather than silently rewriting the wrong device;
+- the **removed** side of the Tier-2 footprint delta needs an explicit `removedFootprint`
+  unless the resident object matches a curated donor byte-for-byte — GUID equality is not
+  enough, since footprint belongs to the object, not the type;
+- **unmeasured footprints ship as `null`** and are refused on a sampled preset, never
+  guessed (a wrong delta is a silent whole-preset reject).
+
+### Carry-forward
+
+**Modulator authoring is a template-time file-surgery capability with a single load
+invariant — a unique `0x1a1b` per modulator — and it is verified by readback, not by
+inspection.** `validate()` is the cheap offline gate that predicts a LOAD; only a live
+load plus a remote-page readback proves the modulation is actually live (a wrong Ramona
+path passes every offline check and does nothing, E10b). Workstream B builds on
+`bwmod` + a curated template/donor library; it does not need any further format work.
 
 ---
 

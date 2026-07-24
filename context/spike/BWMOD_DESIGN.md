@@ -1,8 +1,11 @@
 ---
 title: bwmod — modulator-surgery library design (interfaces + tests)
-status: proposal for a fresh implementation session
-updated: 2026-07-22
-depends-on: BWFORMAT_SPEC.md (the byte layout), FINDINGS.md E10/E10b/E10c/E10d/E10e/E10f
+status: BUILT (2026-07-24) — `brain/src/bwmod/`; 42 unit tests + the Python oracle
+        cross-check green offline, all 12 integration cases green on live Bitwig
+        6.0.6. See §8 for what the build changed. Evidence: FINDINGS E13.
+updated: 2026-07-24
+depends-on: BWFORMAT_SPEC.md (the byte layout), FINDINGS.md E10–E12 (esp. E11h sentinel,
+            E11i f6, E12 stub relocation)
 ---
 
 # `bwmod` — a `.bwpreset` modulator-surgery library
@@ -12,16 +15,16 @@ depends-on: BWFORMAT_SPEC.md (the byte layout), FINDINGS.md E10/E10b/E10c/E10d/E
 > before `insertFile`. **This doc is a design sketch, not code** — implement in a
 > fresh session.
 
-## 0. Decisions to make first (call them at the top of the impl session)
+## 0. Ground decisions (all settled; decision 1 called 2026-07-24)
 
 1. **Language & home.** The surgery runs **brain-side** (TS) — the brain writes a
    temp `.bwpreset` then sends its absolute path over the bridge (E4h). So the
    shipping library is **TypeScript in `brain/src/bwmod/`**. The Python tooling
    (`tools/bwformat/*.py`) stays as the **reference implementation + analysis**,
-   and its `build_e10f_cases.py` primitives are the port source. *Recommended:
-   port to TS; keep Python as the oracle for cross-checking (a test can shell out
-   to it).* Alternatively keep it Python and have the brain spawn it — simpler to
-   reuse, but adds a Python runtime dependency to the product.
+   and its `build_e10f_cases.py` primitives are the port source. **DECIDED
+   (2026-07-24): port to TS; keep Python as the oracle** — tests may shell out to
+   `tools/bwformat` to cross-check byte output. (The keep-it-Python alternative is
+   rejected: it would add a Python runtime dependency to the product.)
 2. **Buffer-in/buffer-out, immutable.** Every edit takes a `Buffer` and returns a
    **new** `Buffer`; never mutate input. Enables cheap composition + diffing.
 3. **Donor objects come from a template library**, not synthesis. A modulator
@@ -67,6 +70,15 @@ depends-on: BWFORMAT_SPEC.md (the byte layout), FINDINGS.md E10/E10b/E10c/E10d/E
    Corollary: **plugin opaque state (VST3/CLAP DEFLATE-ZIP, e.g. Zebra 3) is NOT a
    hazard** — do not special-case it. The only bulk-content gate is decision 5's
    embedded sample.
+8. **Re-point `f6` after any stream-length change when a plugin-state blob is
+   embedded (E11i; DECISIONS D1 invariant 4).** When header `f6` ≠ 0 it is the
+   absolute offset of an embedded DEFLATE-ZIP plugin-state blob (`PK\x03\x04 …`)
+   appended after the object stream (VST3/CLAP hosts that embed their own state,
+   e.g. Zebra 3). Any edit that grows/shrinks bytes ahead of it slides the blob,
+   so every length-changing editor MUST finish by re-locating `PK\x03\x04` and
+   rewriting `f6` (no-op when `f6 == 0`). The blob itself does NOT mirror
+   modulator topology (E11i-corrected) — only the pointer needs maintenance.
+   `f5` is still [U] — preserve verbatim, never synthesize.
 
 ## 1. Types
 
@@ -76,6 +88,7 @@ interface Header {
   encoding: '0002' | '0004';
   writer: string;
   streamOffset: number;   // = f4 - 1 (the 0x0a marker); root object at f4
+  f6: number;             // 0 = no embedded plugin-state blob; else absolute offset of its PK\x03\x04 (E11i, decision 8)
 }
 
 interface Modulator {
@@ -142,12 +155,17 @@ function addModulator(buf: Buffer, donor: DonorObject, routing?: Routing): Buffe
 function deleteModulator(buf: Buffer, index: number): Buffer;
 ```
 
-`DonorObject` = a modulator object extracted from a template, plus its GUID:
+`DonorObject` = a modulator object extracted from a template, plus its GUID and
+its measured **object footprint** (decision 5):
 
 ```ts
-interface DonorObject { bytes: Buffer; guid: string; category: string; }
-function extractModulator(templatePreset: Buffer, index: number): DonorObject;
+interface DonorObject { bytes: Buffer; guid: string; category: string; footprint: number; }
+function extractModulator(templatePreset: Buffer, index: number, footprint: number): DonorObject;
 ```
+
+⚠ `footprint` cannot be computed by extraction (the deep-list schema limit, spec
+§3.1) — it is curated asset metadata, measured once per donor (E12a load-triangulation
+or the E12b field-walk) and passed in. Only Tier-2 (sampled) edits consume it.
 
 **Invariants every editor MUST maintain (this is the library's correctness spec):**
 1. **Unique `0x1a1b`** across all modulators (the load gate, E10f); need not be
@@ -159,12 +177,15 @@ function extractModulator(templatePreset: Buffer, index: number): DonorObject;
    count correct (E10c/E10f).
 3. **`f4` == meta-end offset** after any meta size change (E10f).
 4. Object/list terminators intact; no stray bytes; total length accounting exact.
+5. **`f6` re-pointed** whenever it is nonzero and the edit changed byte length
+   ahead of the blob: locate `PK\x03\x04`, rewrite `f6` (decision 8, E11i).
 
 ## 4. Low-level (exported for tests + advanced use)
 
 ```ts
 function patchString(buf, absOffset, newValue): Buffer;   // rewrites u32 len + bytes
 function setF4(buf, newStreamOffset): Buffer;
+function repointF6(buf): Buffer;                          // locate PK\x03\x04, rewrite header f6; no-op when f6 == 0 (decision 8)
 function appendMetaRef(buf, guid): Buffer;                // bumps 0x19 count, patches f4
 function removeMetaRef(buf, guid): Buffer;
 function findModulatorList(buf): { listStart: number; itemStarts: number[]; listEnd?: number };
@@ -174,6 +195,8 @@ function findModulatorList(buf): { listStart: number; itemStarts: number[]; list
 
 Checks, in order, the invariants that predict a load (cheap; run before insertFile):
 - header well-formed; encoding `0002`; `f4` points at a `0x0a` byte.
+- if `f6` ≠ 0: the bytes at `f6` are exactly `PK\x03\x04` (the plugin-state blob
+  pointer is not stale — the E11i slide guard, decision 8).
 - **`0x1a46` list ends with an intact `00 00 00 03 00 00 00 00` sentinel**, and the
   last modulator object's terminator abuts it exactly (the E11h/E11i off-by-2 guard —
   the single most common way an edit silently rejects).
@@ -205,6 +228,7 @@ carries no modulation, E10b). Keep both.
 | U-unique | `addModulator` / `replaceModulator` twice | assigned ids are distinct and `= nextFreeInstanceId` |
 | U-metasync | after add/replace/delete | `referenced_modulator_ids` set == modulator-GUID set; count correct |
 | U-f4 | after any meta size change | `f4-1` indexes a `0x0a`; meta length matches |
+| U-f6 | add/delete on a plugin-state-bearing fixture (`gn_zebra3clap_one_lfo`) | `f6` == the post-edit offset of `PK\x03\x04`; a preset with `f6 == 0` leaves it 0 |
 | **U-sentinel** | after add/replace/delete | the `0x1a46` list still ends with an intact `00 00 00 03 00 00 00 00` sentinel; the last object's terminator abuts it exactly (guards the E11i off-by-2 bug) |
 | U-stub-relocate | add/delete/replace on a sample-bearing preset (incl. multisample + NEW type) | EVERY class-1 stub in EVERY count list deltaed by `(inserted − removed) footprint` (BE); golden: reconstruct `gn_sampler_one_random` from `gn_sampler_bare` byte-identical modulo name + per-save GUIDs (E12c); new-type add LOADS (not refused) |
 | U-retarget-len | retarget to shorter AND longer paths | length delta reflected; `f4` unchanged (stream-only edit) |
@@ -234,12 +258,58 @@ fixtures. Each asserts **load + the expected modulator page(s)**.
 
 ---
 
-## 7. Definition of done
+## 7. Definition of done — MET (2026-07-24)
 
-- All 6.1 pass in CI; all 6.2 pass against Bitwig 6.0.6; I-dup-neg confirms the
-  guard fires. `validate()` catches every 6.1 negative **before** a load.
-- The library replaces `build_e10f_cases.py`'s ad-hoc surgery; that script becomes
-  a thin caller (or is retired).
-- Carry-forward note in DECISIONS: modulator authoring is a template-time
-  file-surgery capability with a single load invariant (unique `0x1a1b`), verified
-  by readback.
+- ✅ All 6.1 pass in CI (`cd brain && npm test` — 42 tests, plus the Python-oracle
+  cross-check); all 6.2 pass against Bitwig 6.0.6 (`npx tsx src/probes/e13-bwmod.ts`
+  — 12 cases); I-dup-neg confirms the guard fires. `validate()` catches every 6.1
+  negative **before** a load.
+- ✅ The library supersedes `build_e10f_cases.py`'s ad-hoc surgery. That script and
+  its siblings are KEPT VERBATIM as the reference implementation and CI oracle
+  (decision 1) — they are the record FINDINGS cites, so they are annotated as
+  superseded rather than rewritten.
+- ✅ Carry-forward note recorded in DECISIONS D3.
+
+---
+
+## 8. As built (2026-07-24)
+
+Everything in §1–§6 shipped as specified. What the build added or sharpened —
+each item is a place the design was silent and the code had to make a call:
+
+- **Container presets are refused, not guessed at.** A layer/chain preset holds
+  one `0x1a46` list PER NESTED DEVICE, which §2 did not anticipate.
+  `findModulatorList` / `listModulators` take an optional `listIndex`; without
+  one they THROW when several lists are present, because editing "the first
+  list" would silently rewrite whichever nested device serialized first.
+  `validate()` reports it as a warning (the file loads; it is just out of scope).
+- **`removedFootprint`.** §5's `(inserted − removed) footprint` needs the REMOVED
+  side, which the design left implicit. `deleteModulator`/`replaceModulator` take
+  `{ removedFootprint }`; when omitted, the resident object must match a curated
+  donor byte-for-byte (`identifyCuratedDonor`, normalizing only id/name/route —
+  the fields the editors themselves rewrite, which E12e proved add no objects).
+  No match and no explicit value ⇒ a loud refusal. Never a guess.
+- **Unmeasured footprints ship as `null`.** Only `lfo-sampler` (0x10),
+  `random-sampler` (0x0d) and `random-poly` (0x0b) are measured; the other four
+  curated donors carry `null` + provenance, are fine on Tier 1, and are refused
+  on a sampled preset. A CI test re-derives 0x10/0x0d from the fixtures' own
+  `bare -> one_X` stub deltas.
+- **`routes: Routing[]`** alongside `routing` — a modulator may drive several
+  targets, so `retarget`/`setAmount` take an optional `routeIndex` (default 0).
+- **`ValidationResult.warnings`**, for the conditions §5 called warnings (empty
+  route target, container preset) — `ok` stays driven by `problems` alone.
+- **`listChains` resolves starts only**, with the last chain's `end` as `null`,
+  faithfully to E10d. There are deliberately no chain editors.
+- **Test-matrix additions:** a fourth golden (multisample reconstruction,
+  byte-identical — E12d had only load-tested it); the offline footprint
+  corroboration; a container-preset test; and negatives for a stale `f6` and a
+  stale count stub.
+- **One divergence from the Python oracle, by design:** the port re-points `f6`
+  and the reference scripts never did (the rule post-dates them, E11i). The
+  oracle test asserts the difference is confined to those header bytes.
+
+Live readback needs one calibration the design did not mention: modulator pages
+are appended AFTER the device's own remote pages, a Note-driven modulator
+contributes no page at all, and Bitwig disambiguates duplicates as `LFO 1`/`LFO 2`.
+`e13-bwmod.ts` therefore loads each device's modulator-free `bare` fixture first
+to learn its page count instead of assuming one.

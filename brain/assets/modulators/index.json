@@ -1,0 +1,81 @@
+{
+  "donors": [
+    {
+      "id": "lfo-sampler",
+      "deviceName": "LFO",
+      "category": "LFO",
+      "guid": "ad947004-f1d3-40a1-bd15-3ec721ee7c65",
+      "footprint": 16,
+      "footprintSource": "E12a load-triangulation (loads at +0x10, rejects at 0x0f/0x11); corroborated offline by the gn_sampler_bare -> gn_sampler_one_lfo stub delta and by Bitwig itself in E12f",
+      "file": "lfo-sampler.bwmodobj",
+      "source": "Sampler/gn_sampler_one_lfo.bwpreset#0",
+      "route": "CONTENTS/AMP_ATTACK_TIME"
+    },
+    {
+      "id": "random-sampler",
+      "deviceName": "Random",
+      "category": "LFO",
+      "guid": "bf29a7b0-91dc-4851-8a94-c63f358f3cda",
+      "footprint": 13,
+      "footprintSource": "E12c golden (+0x0d reconstructs gn_sampler_one_random from bare); corroborated offline by the gn_sampler_bare -> gn_sampler_one_random stub delta and by Bitwig itself in E12f",
+      "file": "random-sampler.bwmodobj",
+      "source": "Sampler/gn_sampler_one_random.bwpreset#0",
+      "route": "CONTENTS/AMP_ATTACK_TIME"
+    },
+    {
+      "id": "random-poly",
+      "deviceName": "Random",
+      "category": "LFO",
+      "guid": "bf29a7b0-91dc-4851-8a94-c63f358f3cda",
+      "footprint": 11,
+      "footprintSource": "E12a load-triangulation (loads at +0x0b, rejects at 0x0a/0x0c) — the unrouted donor is 2 objects cheaper than the routed Sampler one",
+      "file": "random-poly.bwmodobj",
+      "source": "Polysynth/mp_one_random.bwpreset#0",
+      "route": null
+    },
+    {
+      "id": "lfo-poly",
+      "deviceName": "LFO",
+      "category": "LFO",
+      "guid": "ad947004-f1d3-40a1-bd15-3ec721ee7c65",
+      "footprint": null,
+      "footprintSource": "NOT MEASURED — Tier-1 use only; measure by E12a triangulation before using on a sampled preset",
+      "file": "lfo-poly.bwmodobj",
+      "source": "Polysynth/mp_one_lfo.bwpreset#0",
+      "route": null
+    },
+    {
+      "id": "classiclfo-poly",
+      "deviceName": "Classic LFO",
+      "category": "LFO",
+      "guid": "39f4b136-2946-4ac5-b34c-e5fde1e58fd8",
+      "footprint": null,
+      "footprintSource": "NOT MEASURED — Tier-1 use only (this is the E10f-A1/C1 cross-category donor)",
+      "file": "classiclfo-poly.bwmodobj",
+      "source": "Polysynth/modzoo.bwpreset#0",
+      "route": null
+    },
+    {
+      "id": "vibrato-poly",
+      "deviceName": "Vibrato",
+      "category": "LFO",
+      "guid": "ca8cc421-bcbc-44d9-8ef3-6e570e528d2b",
+      "footprint": null,
+      "footprintSource": "NOT MEASURED — Tier-1 use only",
+      "file": "vibrato-poly.bwmodobj",
+      "source": "Polysynth/modtest.bwpreset#0",
+      "route": "CONTENTS/PITCH"
+    },
+    {
+      "id": "expressions-poly",
+      "deviceName": "Expressions",
+      "category": "Note-driven",
+      "guid": "dcacb71b-0f1a-4493-8916-bd460eee71d5",
+      "footprint": null,
+      "footprintSource": "NOT MEASURED — Tier-1 use only (a Note-driven donor; category is not a load gate, E10f)",
+      "file": "expressions-poly.bwmodobj",
+      "source": "Polysynth/modtest.bwpreset#1",
+      "route": null
+    }
+  ]
+}

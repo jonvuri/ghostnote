@@ -72,10 +72,16 @@ change requires patching `f4`** (and only `f4`) **[K, E10f]**.
 A flat sequence of records, space-padded out to `f4-1`.
 
 ```
+meta   := record*  u32(0)  ' '*                          # terminator, then space padding to f4-1
 record := section | field
 section:= u32(4)  u32 nameLen  name                      # e.g. "meta"
 field  := u32(1)  u32 nameLen  name  u8 type  value
 ```
+
+The record run ends with a `u32(0)` (a leading word that is neither `4` nor `1`),
+after which the section is space-padded out to `f4-1` **[K, E13]**. Growing the
+ref list does NOT change the padding — the stream simply slides, which is why the
+E10f golden reconstruction is byte-identical with only `f4` patched.
 
 META value types seen: `0x08` str (`u32 len + bytes`), `0x02` u8, `0x03` u32,
 `0x19` str[] (`u32 count` then `[u32 len, bytes]*`).
@@ -187,6 +193,11 @@ snap object bounds to the sentinel; insert new objects BEFORE it.**
 
 A device's modulators live in a wrapper object (classId 0x075f, named
 `"MODULATORS"`) whose field 0x1a46 is a **list** (type 0x12) of modulator objects.
+
+⚠ **One `0x1a46` list per DEVICE, so a CONTAINER preset has several [K, E13]** — a
+4-chain Instrument Layer carries one per nested device. An editor must be told
+which list it is working on; "the first one" is whichever device happened to
+serialize first, and picking it silently edits the wrong device.
 
 ```
 MODULATORS wrapper (0x075f)

@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 """Build E10f test presets: (A) category-vs-position confound, (B) the ADD test.
-Writes files to a temp dir and prints a JSON manifest for the TS probe."""
+Writes files to a temp dir and prints a JSON manifest for the TS probe.
+
+SUPERSEDED for production use by `brain/src/bwmod/` (E13, DECISIONS D3): the
+surgery primitives below were the PORT SOURCE for that library, which now does
+add/replace/delete/retarget with the sentinel, f4, f6 and Tier-2 stub rules
+enforced and tested. This script is kept VERBATIM on purpose — it is the record
+FINDINGS E10f cites, and `brain/src/bwmod/oracle.test.ts` re-runs these same
+primitives as a byte-for-byte oracle against the TS port. Do not "modernise" it;
+write new surgery against bwmod instead.
+"""
 import json, os, re, struct, sys, tempfile
 
 LIB = os.path.expanduser('~/Documents/Bitwig Studio/Library/Presets/Polysynth')
