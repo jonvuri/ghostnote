@@ -5,6 +5,233 @@ One section per experiment, appended as run. Verdicts: ● confirmed working /
 
 ---
 
+## E11g — surgically-authored modulators SURVIVE project save + Bitwig restart [K] (2026-07-24)
+
+**Verdict: ● a modulator added by pure file surgery persists through a full project
+save → Bitwig quit → relaunch → reopen. It is not a load-time-only illusion: Bitwig
+accepts the surgical device as first-class, RE-SERIALISES it into the project on save
+(in its own canonical form), and re-parses it cleanly on a cold restart. This retires
+E4h's standing "everything is verified in-session only" caveat for modulator
+authoring.** Probes `e11g-load.ts` / `e11g-verify.ts`, driven interactively.
+
+- **Method:** built `mp_one_lfo` + a surgically-added **Random** (sentinel-correct
+  recipe) → `insertFile` onto gn-A → confirmed modulator pages `[…, LFO, Random]` →
+  user saved the project, fully quit Bitwig, relaunched, reopened → reconnected the
+  bridge and read gn-A back.
+- **Result:** gn-A returned exactly one `Polysynth` whose remote pages still include
+  **both `LFO` and `Random`**. A fresh Polysynth has zero modulator pages, so the
+  surviving `[LFO, Random]` set can only be the persisted surgical topology — no
+  ambiguity. The round-trip through Bitwig's *own* serializer (save re-writes the
+  device) is a stronger guarantee than a mere in-session load.
+- **Decision impact:** durability is settled — `bwmod`-authored presets are real,
+  saveable, portable project content, not transient. Combined with E4h (templates
+  ship as build-time assets, deletable after load), modulator authoring is fully
+  first-class end-to-end. No caveat outstanding.
+
+---
+
+## E11e — cross-device routing works from CONTAINER modulators, and is SYNTHESISABLE + live [K] (2026-07-24)
+
+**Verdict: ● a modulator on a CONTAINER device (Chain/layer) can target a param in a
+DIFFERENT device nested inside it, via a structured `0x0e3d` path — and that route is
+SYNTHESISABLE by the ordinary retarget (rewrite `0x0e3d`), producing LIVE modulation on
+the chosen nested device+param. Simple (non-container) devices cannot cross-route at
+all (user-confirmed — a modulator only reaches its own device).** Probe `e11e-live.ts`
++ retarget builder, on user-authored `gn_crossdev_outer` (Chain ⊃ Polysynth→Delay+, an
+outer LFO routed to the inner Delay+ Mix).
+
+### The cross-device path form [K]
+```
+CONTENTS/DEVICE_CHAIN/Chain/DEVICE_CHAIN/1:CONTENTS/MIX
+└container contents┘└─ nested device chain ─┘└idx┘└ nested device param ┘
+```
+`CONTENTS/DEVICE_CHAIN/<ContainerName>/DEVICE_CHAIN/<deviceIndex>:CONTENTS/<PARAM>` —
+`<deviceIndex>` selects the device within the container's chain (`0`=Polysynth,
+`1`=Delay+), then `CONTENTS/<PARAM>` is the same per-device path form as a top-level
+route (native `CONTENTS/<NAME>`; a nested CLAP/VST would use its `ROOT_GENERIC_MODULE/
+PID<hex>` tail). Compare single-device forms: native `CONTENTS/F1FREQ`, CLAP
+`CONTENTS/ROOT_GENERIC_MODULE/PID<hex>` (E4b/E11d).
+
+### Synthesis is live, not just loadable [K]
+Retargeting the outer LFO to three targets — all LOAD; liveness read by descending the
+device cursor into the container's `CHAIN` slot (`devcursor.selectFirstInSlot{slot:"CHAIN"}`)
+and scanning the nested device's remote pages for `modulatedValue ≠ value`:
+
+| synthesized route | loads | live on nested device |
+|---|---|---|
+| `…/1:CONTENTS/MIX` (control, Delay+) | ● | (target is 2nd device; not scanned) |
+| `…/1:CONTENTS/BLUR` (Delay+, other param) | ● | — |
+| **`…/0:CONTENTS/F1FREQ`** (the OTHER nested device, Polysynth) | ● | ● **`FILTER/Filt Freq` diverges 0.002** |
+
+Rewriting the path to point at a *different nested device and param* (Polysynth
+`F1FREQ`) yields real modulation there — a wrong path would read exactly `0.000`
+(silent no-op, E10b). So the container-modulator target set is **arbitrary within the
+container** (any nested device by index, any of its params), reachable by the standard
+`0x0e3d` retarget — not a curated set.
+
+### Decision impact
+- **Cross-device modulation is authored the same way as any route** — `bwmod.retarget`
+  handles it with no new primitive; only the path *form* is richer
+  (`DEVICE_CHAIN/<name>/DEVICE_CHAIN/<idx>:CONTENTS/<param>`). Same readback caveat
+  (a bad path is a silent no-op — verify live).
+- **The modulator must live on a container** (Chain/Instrument-Layer/FX-Layer); a
+  simple device's modulator is confined to that device. So a patch that wants
+  cross-device modulation must wrap the targets in a container (the E4d/E10d container
+  work already gives us those).
+- Confirms the E7-era "target set is arbitrary vs curated" question → **arbitrary**
+  (for container modulators, within the container).
+- Gotcha: nested-device modulation is invisible to a container-scoped `remote.list`;
+  readback must descend into the nested device (`selectFirstInSlot`) — the container's
+  own pages only show its modulator, not the target.
+
+---
+
+## E11h — the modulator list is SENTINEL-terminated; this was the real gap (and killed the "Zebra wall") [K] (2026-07-24)
+
+**Verdict: ● the `0x1a46` modulator list ends with an empty `cls 0x0003` SENTINEL
+object — the 8 bytes `00 00 00 03 00 00 00 00` — NOT a bare `classId 0`. This one
+fact (a) explains the phantom "unmapped stream types `0x02/0x06/0x1a`" (they were
+parser DESYNC artifacts, not real types), (b) completes the parser's top-level list
+handling, and (c) exposed a 2-byte object-bounds bug that had manufactured the
+entire E11i "Zebra wall" (see the corrected E11i below).** Tools: `bwparse.py`
+(now sentinel-aware), `walk.py` (scratch field-walker), on `mp_bare`/`mp_one_lfo`/
+`modtest` (0/1/3 modulators) + the Zebra fixtures.
+
+### The list grammar, corrected
+
+```
+list (type 0x12) := object*  +  00 00 00 03 00 00 00 00    (empty cls-0x0003 sentinel)
+  0 modulators:  <sentinel only>
+  1 modulator :  [0x06c9 object] <sentinel>
+  3 modulators:  [obj][obj][obj] <sentinel>
+```
+
+Measured directly: `mp_bare`'s `0x1a46` content is exactly the 8 sentinel bytes;
+`mp_one_lfo` is `[06c9 modulator]` + sentinel; `modtest` is three `06c9` objects +
+sentinel. The old grammar in the spec (`list := object* u32(0)`) was WRONG — there
+is no bare `classId 0` terminator; the parser read the sentinel's `0x0003` classId
+as a real list item and ran off the rails, which surfaced as the bogus
+"unknown type 0x1a/0x02/0x06" stalls. `bwparse.py` now stops a list on the sentinel
+(fallback to `classId 0`) and walks the whole top-level modulator list.
+
+### The bug it exposed — object bounds must END at the sentinel
+
+`build_e11i/e11d`'s extractor took the object's end from difflib's `insert`
+boundary. That boundary can land **2 bytes INTO the sentinel** (the object's
+trailing `00`s alias the sentinel's leading `00`s), leaving a corrupted
+`00 03 00 00 00 00 00 00` → Bitwig rejects the whole preset. Fix: snap the object
+end to the `00 00 00 03 00 00 00 00` sentinel (`build_e11i_cases.py`,
+`build_e11d_recheck.py`). ⚠ The bug is **alignment-dependent** — it only triggered
+for Zebra's boundary bytes; Delay+/Repro/sample-less-Sampler aligned exactly (0
+offset) and loaded even with the buggy extractor. That is exactly what made it a
+dangerous latent trap: works on most hosts, silently corrupts a few.
+
+### Decision impact
+- **`bwmod` MUST snap modulator-object bounds to the sentinel** and insert new
+  objects BEFORE it — never trust a diff/insert boundary. This is a hard correctness
+  rule (a golden test should assert the sentinel is intact after every edit).
+- BWFORMAT_SPEC §3 list grammar updated: sentinel terminator, not `classId 0`.
+- Full RECURSIVE parsing (nested lists inside a modulator's CONTENTS) still stalls
+  deeper (a `type 0x00` desync) — genuinely schema-limited (the documented KNOWN
+  LIMITATION) and NOT needed: `bwmod` uses targeted/diff bounds, now sentinel-aware.
+- Gotcha for §11: the "unmapped types 0x02/0x06/0x1a" are retired — they never
+  existed as value types; they were sentinel-desync noise.
+- **Sheds light on E10d (layer chains):** `CHAIN_LIST` is a `0x12` list (field
+  `0x08e0`) and a cls-0x0003 sentinel sits after the last chain — so E10d's "the last
+  chain has no exact end" limitation is very likely LIFTABLE via a sentinel-aware
+  parse (would make last-chain deletion precise, not just "drop earlier chains").
+  Not fully confirmed (chains nest — 14× `0x018f` for a 4-chain template), but a solid
+  lead when chain-surgery is needed. Scope-checked the rest: E10f's byte-identical
+  golden proves Polysynth extraction was 0-offset, so E10f/E11a/b/c/f are unaffected;
+  the only bug-exposed rejects were Sampler (real) + Zebra (phantom), both re-checked.
+
+---
+
+## E11i — CORRECTED: the "Zebra wall" was a phantom; Zebra 3 is FULLY surgery-general (CLAP + VST3) [K] (2026-07-24)
+
+> **⚠ This OVERTURNS the original E11i (2026-07-23), which claimed Zebra rejects all
+> modulator-set surgery via an "opaque topology mirror" and invented a "tier-3".
+> That was entirely a 2-byte list-SENTINEL corruption bug in the test extractor
+> (E11h). There is NO tier-3, NO opaque-topology hazard, and CLAP-vs-VST3 is not an
+> axis. The wrong entry is deleted; this is the record.**
+
+**Verdict: ● with sentinel-correct object bounds, EVERY modulator-set op — add
+(same type), add (NEW type), replace/type-swap, delete — LOADS on Zebra 3 in BOTH
+CLAP and VST3, exactly like native/Repro-5. A plugin's opaque embedded state
+(Zebra ships a DEFLATE ZIP `plugin-states/<GUID>.clap-preset`) is NOT a modulator-
+surgery hazard.** Probe `e11-load` + `tools/bwformat/build_e11i_cases.py` (sentinel
+fix), on `gn_zebra3{clap,vst}_{bare,one_lfo}`.
+
+| op | Zebra3 CLAP | Zebra3 VST3 |
+|---|---|---|
+| add 2nd LFO (same type) | ● `[LFO 1, LFO 2]` | ● `[LFO 1, LFO 2]` |
+| **add Random (NEW type)** | ● `[LFO, Random]` | ● `[LFO, Random]` |
+| replace LFO→Random | ● `[Random]` | ● `[Random]` |
+| delete | ● empty | ● empty |
+
+### What was really going on (post-mortem of five wrong readings)
+The original entry chased the reject through five confident-wrong theories, each
+killed by a control — the spike's recurring lesson, this time on the tester:
+1. "opaque ZIP mirrors the modulator" → **refuted**: swapping bare's 0-mod plugin
+   state under a 1-mod object stream (GUID-relinked) LOADS. The ZIP payload delta
+   bare↔one_lfo is just a per-save GUID + timestamp nonce; it does not gate anything.
+   (`f6` merely points at the ZIP; it slides when the object is inserted ahead of it.)
+2. "`0x07b1` companion object is the gate" → **refuted**: every host has one
+   (`"Filter"`/`"Tone"`/`"LFO"`); removing it from a loading preset still loads.
+3. "`0x131a` registration record is the gate" → **refuted**: removing it changed
+   nothing.
+4. "the `0/1` flag / a counter byte" → **refuted**: reverting both, still rejected.
+5. The real cause: the object-bounds extractor was 2 bytes long, corrupting the
+   list sentinel (E11h). Fixing the bound → everything loads.
+
+### Decision impact
+- **Zebra 3 (CLAP + VST3) is Tier 1 (fully general).** VST/CLAP opaque state does
+  not mirror modulator topology. The "embedded-bulk-content hazard" is NOT a plugin
+  property.
+- **Retarget** (rewrite `0x0e3d`, any length) is confirmed load-safe here too — a
+  universal floor, but no longer the *ceiling* on Zebra.
+- The tier map collapses to TWO tiers (see the E11d re-check). Delete the invented
+  tier-3 everywhere it was written.
+
+---
+
+## E11d RE-CHECK — the sampled-Sampler wall is REAL (not the sentinel bug); two-tier map confirmed [K] (2026-07-24)
+
+**Verdict: ● re-running the sampled-Sampler matrix with sentinel-correct bounds
+CONFIRMS E11d-2: same-type add/delete work with the ±0x10 count-u32 fix, and
+NEW-TYPE introduction is genuinely BLOCKED — it still rejects even with correct
+bounds AND the count fix. Unlike Zebra, this wall is not a test artifact; the
+embedded sample really mirrors PER-TYPE modulator state that surgery cannot
+synthesise.** Probe `e11-load` + `tools/bwformat/build_e11d_recheck.py`, on the
+sampled `gn_sampler_{bare,one_lfo}`.
+
+| op | no count-fix | + count-u32 fix (±0x10) |
+|---|---|---|
+| add 2nd LFO (same type) | ○ REJECT | ● **LOAD** `[…, LFO 1, LFO 2]` |
+| add Random (NEW type) | ○ REJECT | ○ **REJECT** |
+| replace LFO→Random | ○ REJECT | ○ REJECT (count unchanged) |
+| delete | ○ REJECT | ● **LOAD** |
+
+- The two count-mirror u32s are **little-endian**, value `= base + 0x10·count`
+  (`0x129c` base `0x19`, `0x1422` base `0x1a`), located by sigs
+  `00 00 12 9c 12 00 00 00 01 00 00 00` / `00 00 14 22 12 …`. add/delete delta both
+  by ±`0x10` per modulator (confirms E11c's u32 read; carries past one byte at count 15).
+- `0x129c` is **absent on a sample-less Sampler** (`gn_sampler_no_sample`) — the
+  count fields are the sample's, so gate on "embeds a sample/bulk blob", not device.
+
+### Decision impact — the FINAL two-tier map
+- **Tier 1 — fully general** (plain recipe, all ops incl. NEW type): native
+  (Polysynth, Delay+), CLAP (Repro-5), **Zebra 3 (CLAP + VST3)**, sample-less Sampler.
+- **Tier 2 — count-mirrored** (same-type add/delete need ±0x10 on both count-u32s;
+  NEW-type / type-swap ○): a preset that **embeds a sample/bulk blob** — verified on
+  Sampler. Gate on embedded bulk content, NOT device class.
+- ~~Tier 3~~ — deleted (Zebra phantom). Plugin opaque state is Tier 1.
+- For a Tier-2 slot-bank the modulator *type set* is fixed at author time (the E7
+  Finding-H slot-bank shape) — but same-type duplication + retune + delete are
+  surgery-reachable within it.
+
+---
+
 ## E11d-2 — the Sampler "wall" was the loaded SAMPLE, not the device [K] (2026-07-23)
 
 **Verdict: ● a SAMPLE-LESS Sampler is fully modulator-surgery-general — the plain
@@ -57,11 +284,13 @@ On `gn_sampler_no_sample` (no count fields exist), the plain recipe loads everyt
   [U]: whether authoring modulators sample-less and loading the sample afterward
   recombines cleanly (the sample-load would need to regenerate its mirrored count) —
   untested; likely a runtime/UI path, not file surgery.
-- **Residual it opens [U]:** the sample lesson generalizes — a device embedding an
-  opaque bulk blob can carry mirrored modulator state. Characterized for a sample only;
-  **VST/VST3 (opaque state chunk, like the sample) is untested and the highest-suspicion
-  case** — CLAP (Repro-5) is general but VST may not be. Also convolution IR / wavetable
-  / nested containers, same pattern. Tracked as E11i in HANDOFF-E11 §4.2.
+- **Residual it opened [RESOLVED by E11i-corrected, 2026-07-24]:** the worry that a
+  plugin's opaque state chunk (VST3/CLAP) might mirror modulator state *like the sample*
+  is **disproven** — Zebra 3 (VST3 **and** CLAP) is fully surgery-general; its DEFLATE-ZIP
+  plugin state does not gate the modulator set. The hazard is specifically an **embedded
+  sample/bulk blob**, not plugin opaqueness. Convolution IR / wavetable / nested
+  containers remain untested but are lower-suspicion now (the "opaque = hazard" heuristic
+  was wrong). The original E11i "opaque topology mirror" reading was a test bug (E11h).
 - Credit: the user's `gn_sampler_no_sample` minimal pair is what isolated sample-vs-device.
 
 ---

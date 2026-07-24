@@ -1,9 +1,14 @@
 ---
 title: Handoff — E11, the (likely last) format spike task
-status: Session 1 done (E11a/b/c/d/d-2/f [K]); Session 2 = E11e/g/h + VST + build bwmod
-updated: 2026-07-23
-read-first: BWFORMAT_SPEC.md, BWMOD_DESIGN.md, FINDINGS.md (E11 series, newest-first)
-note: original brief below is §1–§3; the Session 2 handoff is §4 (start there)
+status: Session 1 done (E11a/b/c/d/d-2/f); Session 2 DONE (E11e/g/h/i + E11d re-check —
+        all [K]). Key result: E11h found lists are SENTINEL-terminated, which overturned
+        E11i (Zebra is fully general — the "wall" was a 2-byte bug) and gave bwmod its
+        core correctness rule. NEXT: (a) scrutinize Sampler Tier-2 in a fresh session
+        (see DECISIONS.md "Open for a FRESH SESSION"), then (b) build bwmod.
+updated: 2026-07-24
+read-first: DECISIONS.md, BWFORMAT_SPEC.md, BWMOD_DESIGN.md, FINDINGS.md (E11 series, newest-first)
+note: original brief below is §1–§3; the Session 2 handoff is §4. Session 2 is COMPLETE;
+      the remaining work (Sampler scrutiny → bwmod) is tracked in DECISIONS.md.
 ---
 
 # Handoff: E11 — close the modulator-format edges, then build `bwmod`

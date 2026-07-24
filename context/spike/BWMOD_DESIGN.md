@@ -50,6 +50,18 @@ depends-on: BWFORMAT_SPEC.md (the byte layout), FINDINGS.md E10/E10b/E10c/E10d/E
    need not renumber. Same-type duplicates are fine — `referenced_modulator_ids` may
    legitimately contain a repeated guid (E11f), so `addModulator` needs no id/guid
    "freshening" beyond the unique `0x1a1b`.
+7. **Object bounds MUST snap to the list SENTINEL (E11h) — hard correctness rule.**
+   The `0x1a46` list ends with an empty `cls 0x0003` sentinel `00 00 00 03 00 00 00 00`
+   (not a bare `classId 0`). A modulator object's true end is the byte before that
+   sentinel. **A diff/insert-derived boundary can land 2 bytes INTO the sentinel and
+   corrupt it → whole-preset reject**, and this is *alignment-dependent* (it slipped
+   past on most hosts and only bit Zebra 3 — which manufactured the false "opaque-state
+   wall" the corrected E11i retracts). `extractModulator`/`deleteModulator`/`addModulator`
+   MUST end objects at, and insert new objects before, the sentinel. `validate()` and a
+   golden test MUST assert the sentinel is intact and well-formed after every edit.
+   Corollary: **plugin opaque state (VST3/CLAP DEFLATE-ZIP, e.g. Zebra 3) is NOT a
+   hazard** — do not special-case it. The only bulk-content gate is decision 5's
+   embedded sample.
 
 ## 1. Types
 
@@ -96,10 +108,14 @@ function nextFreeInstanceId(buf: Buffer): number;     // max(existing 0x1a1b)+1
 
 Implementation notes:
 - Locate the `MODULATORS` list and its items by signature (`0x1a46` list, then
-  0x06c9 objects), delimiting by consecutive item starts (spec §4). **The last
-  modulator has no exact `span[1]`** without a full parse — mark it and refuse
-  ops that need it, OR extract exact bounds via a `mp_bare`-style diff at build
-  time (as `build_e10f_cases.py` does). Decide once; the diff route is robust.
+  0x06c9 objects). The list ends with the empty `cls 0x0003` sentinel
+  `00 00 00 03 00 00 00 00` (spec §3, E11h) — so the **last** modulator's end IS
+  well-defined: it is the byte before the sentinel. Prefer a `mp_bare`-style diff to
+  find item starts, but **always SNAP the object end to the sentinel** (`buf.indexOf`
+  the sentinel near the diff boundary): the raw diff boundary can be 2 bytes off and
+  corrupt the sentinel (decision 7, the E11i bug). `listEnd` = sentinel start;
+  `addModulator` inserts before it; `deleteModulator` removes `[itemStart, nextStart)`
+  leaving the sentinel untouched.
 
 ## 3. Editor interface (buffer→buffer, immutable)
 
@@ -153,8 +169,13 @@ function findModulatorList(buf): { listStart: number; itemStarts: number[]; list
 
 Checks, in order, the invariants that predict a load (cheap; run before insertFile):
 - header well-formed; encoding `0002`; `f4` points at a `0x0a` byte.
+- **`0x1a46` list ends with an intact `00 00 00 03 00 00 00 00` sentinel**, and the
+  last modulator object's terminator abuts it exactly (the E11h/E11i off-by-2 guard —
+  the single most common way an edit silently rejects).
 - `0x1a1b` values across modulators are **unique** (the proven gate).
 - meta `referenced_modulator_ids` set == modulator-GUID set; count matches.
+- if the preset embeds a sample (count-u32 sigs present): both count-u32s == base +
+  `0x10`·(modulator count), and no new-type introduction was attempted.
 - every `0x0e3d` route target is non-empty (can't verify path validity offline — a
   warning, not an error; the real check is readback).
 - total-length / terminator sanity.
@@ -177,6 +198,8 @@ carries no modulation, E10b). Keep both.
 | U-unique | `addModulator` / `replaceModulator` twice | assigned ids are distinct and `= nextFreeInstanceId` |
 | U-metasync | after add/replace/delete | `referenced_modulator_ids` set == modulator-GUID set; count correct |
 | U-f4 | after any meta size change | `f4-1` indexes a `0x0a`; meta length matches |
+| **U-sentinel** | after add/replace/delete | the `0x1a46` list still ends with an intact `00 00 00 03 00 00 00 00` sentinel; the last object's terminator abuts it exactly (guards the E11i off-by-2 bug) |
+| U-count-u32 | add/delete on a sample-bearing preset | both little-endian count-u32s deltaed by `±0x10`·n; new-type add on a sampled preset is refused by `validate()` |
 | U-retarget-len | retarget to shorter AND longer paths | length delta reflected; `f4` unchanged (stream-only edit) |
 | U-immutable | every editor | input buffer unchanged (deep-equal to a pre-copy) |
 | U-validate-neg | hand-build a duplicate `0x1a1b` | `validate().ok === false`, names the collision |

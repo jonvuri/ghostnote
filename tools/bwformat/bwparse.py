@@ -174,12 +174,23 @@ class Dumper:
                 self.emit(f'{pad}{label(fid)} obj')
                 self.object(depth, '')
             elif t == 0x12:
+                # A list is `object*` terminated by an empty cls-0x0003 SENTINEL
+                # object (00 00 00 03 00 00 00 00) — NOT a bare classId 0 (E11h).
+                # This is why the old `while peek32()!=0` desynced: it read the
+                # sentinel's classId 0x0003 as a real item and ran off the rails,
+                # which surfaced as spurious "unknown type 0x02/0x06/0x1a" stalls.
                 self.emit(f'{pad}{label(fid)} list [')
                 i = 0
-                while self.r.peek32() != 0:
+                SENT = b'\x00\x00\x00\x03\x00\x00\x00\x00'
+                while True:
+                    if self.r.b[self.r.p:self.r.p + 8] == SENT:
+                        self.r.p += 8            # consume the sentinel
+                        break
+                    if self.r.peek32() == 0:     # fallback: bare classId-0 terminator
+                        self.r.u32()
+                        break
                     self.object(depth + 1, f' [{i}]')
                     i += 1
-                self.r.u32()
                 self.emit(f'{pad}] ({i} items)')
             else:
                 raise ValueError(f'unknown type {t:#04x} at {self.r.p - 1:#x}')

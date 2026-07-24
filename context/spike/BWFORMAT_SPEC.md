@@ -29,9 +29,9 @@ one header field.
 | 4:8 | container | container version, hex — `0003` on Bitwig 6.x |
 | 8:12 | **encoding** | **`0002` = plain TLV (readable) · `0004` = opaque** |
 | 12:16 | writer | writer/device version, hex (e.g. `00c1`, `00c5`) |
-| 16:24 | **f4** | hex; `= objectStreamOffset + 1`. The **only** offset pointer in the file. |
-| 24:32 | f5 | hex; `00000000` in every preset examined **[K for presets]** |
-| 32:40 | f6 | hex; `00000000` in every preset examined **[K for presets]** |
+| 16:24 | **f4** | hex; `= objectStreamOffset + 1`. Points at the object stream. |
+| 24:32 | f5 | hex; `00000000` in every first-party preset examined **[K for presets]** |
+| 32:40 | **f6** | hex; `00000000` when no embedded bulk blob; otherwise **= absolute offset of an embedded DEFLATE-ZIP plugin-state blob** (`PK\x03\x04 … PK\x05\x06`, one entry `plugin-states/<GUID>.<clap-preset\|vstpreset>`) **[K, E11i]** |
 | 40:42 | tail | `00` |
 
 - **The encoding field alone predicts readability**, and it tracks file *type*
@@ -43,8 +43,15 @@ one header field.
   confirmed unreadable since Bitwig 3 **[K]**. It holds proprietary DSP. **Modulator
   and device *instances* do NOT live there — they live in the plain `.bwpreset`.**
   Do not spend effort on `0004`.
-- ⚠ `f5`/`f6` were non-zero in some third-party (Serato Sample) `.bwpreset`s.
-  Meaning **[U]** — treat as opaque and preserve verbatim unless a probe explains them.
+- **`f6` decoded [K, E11i]:** for a plugin host that embeds its own state (VST3/CLAP,
+  e.g. Zebra 3 / u-he), `f6` is the absolute offset of an embedded **ZIP** archive
+  (DEFLATE, one `plugin-states/<GUID>` entry) appended after the object stream. It
+  slides when content is inserted ahead of it, so a length-changing stream edit must
+  re-point `f6` (locate `PK\x03\x04` and write its offset). This plugin-state blob does
+  **NOT** mirror modulator topology — swapping a 0-modulator blob under a 1-modulator
+  stream still loads; the blob's per-save delta is just a GUID + timestamp nonce. Its
+  entry-name GUID is regenerated per save and referenced ~3× in the object stream
+  (a linkage id). `f5` meaning still **[U]** — preserve verbatim.
 
 ### 1.2 Body layout (encoding `0002`) **[K]**
 
@@ -92,10 +99,22 @@ referenced_packaged_file_ids, revision_id, revision_no, tags, type`.
 
 ```
 stream := 0x0a  object
-object := u32 classId  field*  u32(0)          # 0 classId-or-fieldId terminates
+object := u32 classId  field*  u32(0)          # 0 fieldId terminates an object
 field  := u32 fieldId  u8 type  value
-list   := object*  u32(0)                       # a classId of 0 ends the list
+list   := object*  SENTINEL                     # ends with an empty cls-0x0003 object
+SENTINEL := 00 00 00 03 00 00 00 00             # NOT a bare classId 0 (E11h)
 ```
+
+**⚠ List terminator [K, E11h]:** a `0x12` list ends with an empty `cls 0x0003`
+**sentinel object** (`00 00 00 03 00 00 00 00`), *not* a bare `classId 0`. A
+0-item list is just the sentinel; an N-item list is N adjacent objects then the
+sentinel. Reading it as `object* u32(0)` desyncs (the parser eats the sentinel's
+`0x0003` as a real item), which is what produced the phantom "unmapped types
+0x02/0x06/0x1a" — those were desync noise, not value types. **Editing consequence:
+a modulator object's true end is the byte before the sentinel; a diff/insert
+boundary can land 2 bytes INTO the sentinel and corrupt it → whole-preset reject
+(the alignment-dependent bug that manufactured the false "Zebra wall", E11i). Always
+snap object bounds to the sentinel; insert new objects BEFORE it.**
 
 ### 3.1 Value types
 
@@ -110,7 +129,7 @@ list   := object*  u32(0)                       # a classId of 0 ends the list
 | 0x12 | list | `list` (objects until classId 0) |
 | 0x15 | guid | 16 raw bytes |
 | 0x19 | str[] | u32 count + `[u32 len, bytes]*` |
-| 0x02, 0x06, 0x1a | **[U]** seen but unmapped | discover before trusting a full parse |
+| ~~0x02, 0x06, 0x1a~~ | **RETIRED [K, E11h]** — never real value types; they were list-sentinel DESYNC artifacts (see §3 list grammar). No unmapped scalar types remain in practice. |
 
 - **Critical invariant [K, E10b]:** the `u32` after a `0x09`/`0x12` type byte is a
   **classId, not a byte length**. Nothing in the object stream encodes an absolute
@@ -121,10 +140,11 @@ list   := object*  u32(0)                       # a classId of 0 ends the list
   **not recoverable by inspection** (bitwig.jar is obfuscated; `com.bitwig.ramona.
   serial`/`.type` packages exist but class names are stripped) **[K]**. Ids are used
   raw. A routing target string like `CONTENTS/F1FREQ` is a **Ramona model path**.
-- ⚠ **Parser limitation [K]:** a full recursive dump stalls where list-vs-field
-  termination is ambiguous without the schema. This does **not** block targeted
-  editing (locate a string/object by signature, edit it) — which is all the
-  library needs.
+- ⚠ **Parser limitation [K]:** top-level lists now parse (sentinel terminator,
+  E11h), but a full recursive dump still stalls in DEEPLY-nested lists inside a
+  modulator's CONTENTS (a `type 0x00` desync) where element typing needs the schema.
+  This does **not** block targeted editing (locate a string/object by signature,
+  snap to the sentinel, edit) — which is all the library needs.
 
 ### 3.2 Field ids that matter (measured)
 
@@ -195,20 +215,24 @@ fine: two modulators may share a `0x18c6` type guid and produce a duplicate
 `referenced_modulator_ids` entry (Bitwig disambiguates display names itself)
 **[K, E11f]**.
 
-⚠ **The recipe is broad; the one complication is an EMBEDDED SAMPLE, not any device
-class [K, E11d/E11d-2].** The full add/replace/delete recipe (below) loads as-is on
-**Polysynth, a native FX (Delay+), a CLAP plugin (Repro-5), and a sample-less
-Sampler** — every host tested, once no sample is embedded. CLAP/VST routing targets
-use a deeper path form, `CONTENTS/ROOT_GENERIC_MODULE/PID<hex>`, vs native
-`CONTENTS/<NAME>`. **A loaded sample is the exception:** the embedded sample carries
-state that mirrors the modulator count in two u32s (right after signatures
+⚠ **The recipe is broad; the one complication is an EMBEDDED SAMPLE/BULK BLOB, not any
+device class and NOT plugin opaque state [K, E11d/E11d-2/E11h/E11i-corrected].** The
+full add/replace/delete recipe (below) loads as-is on **Polysynth, a native FX
+(Delay+), a CLAP plugin (Repro-5), a VST3 *and* CLAP plugin (Zebra 3 — a plugin's
+own DEFLATE-ZIP state does NOT mirror modulators), and a sample-less Sampler** — every
+host tested, once no sample is embedded. CLAP/VST routing targets use a deeper path
+form, `CONTENTS/ROOT_GENERIC_MODULE/PID<hex>`, vs native `CONTENTS/<NAME>`.
+**A loaded sample is the one exception:** the embedded sample carries state that
+mirrors the modulator count in two **little-endian** u32s (right after signatures
 `00 00 12 9c 12 00 00 00 01 00 00 00` and `00 00 14 22 12 …`; value = base +
-`0x10`·count, a real u32 — carries past one byte, verified to 32 in E11c). On a
-**sampled** preset: same-type add/delete must delta both u32s by `±0x10`, and
-introducing a NEW modulator type (or type-swapping) is rejected even so (the sample's
-state has no entry for the new type). ⇒ **Gate on "does the preset embed a sample",
-not on device name; always verify by load + readback. To author modulator topology on
-a Sampler, use a sample-less template — it is fully general.**
+`0x10`·count — carries past one byte, verified to 32 in E11c). On a **sampled** preset:
+same-type add/delete must delta both u32s by `±0x10`, and introducing a NEW modulator
+type (or type-swapping) is rejected even so (the sample's state has no entry for the
+new type — REAL, re-confirmed with sentinel-correct bounds in the E11d RE-CHECK). ⇒
+**Gate on "does the preset embed a sample/bulk blob", not on device name; always verify
+by load + readback. To author modulator topology on a Sampler, use a sample-less
+template — it is fully general.** (Do NOT re-introduce a "plugin opaque state" hazard:
+the original E11i claim of that was a list-sentinel test bug; see FINDINGS E11i-corrected.)
 
 ---
 
