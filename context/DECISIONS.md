@@ -1,11 +1,13 @@
 ---
 title: ghostnote — Decisions (evidence-backed)
-status: IN PROGRESS — modulator-authoring decisions settled (E10/E11); the remaining
-        spike-wide decisions (addressing, scaffold sizes, checkpoint, grid, batch,
-        toolchain, transport, escape-hatch) are to be consolidated here at spike close;
-        their evidence already lives in FINDINGS (E0–E9).
+status: IN PROGRESS — modulator-authoring decisions settled (D1–D3, E10/E11); project
+        topology settled (D4/D5, 2026-07-24). The remaining spike-wide decisions
+        (addressing, scaffold sizes, checkpoint, grid, batch, toolchain, transport,
+        escape-hatch) are still to be consolidated here as D6+; their evidence already
+        lives in FINDINGS (E0–E9) and the working summary is PROJECT_PLAN §4.
 updated: 2026-07-24
 evidence: context/spike/FINDINGS.md (E-numbers), BWFORMAT_SPEC.md, BWMOD_DESIGN.md
+plan: context/PROJECT_PLAN.md + context/plan/PHASE-*.md
 ---
 
 # ghostnote — DECISIONS
@@ -178,10 +180,90 @@ FINDINGS E12). The five open questions are now answered:
 
 ---
 
+## D4 — Process topology and the human surface **[SETTLED 2026-07-24]**
+
+**`ghostnoted` (a long-lived daemon) owns session state; the MCP server is one of its
+clients; the human's controls live in Bitwig first and a local web view later. There
+is no custom chat harness.**
+
+INITIAL_PROMPT §2 assumed "the TypeScript process is both the MCP server and the
+brain." That does not survive contact with §8g: an MCP stdio server is a subprocess of
+the chat client, so in-memory checkpoints die with the session, and *every channel into
+that process is a channel the agent can also use* — leaving revert-as-a-human-verb
+nowhere to live.
+
+- **The daemon owns** the single bridge connection, the take store, the change log,
+  and (uniquely) any Bitwig **observers** — which is what lets the change log
+  distinguish agent edits from the user's own concurrent edits (§8d assumes the user
+  is editing while the agent writes).
+- **All writes go through the daemon.** The extension-side revision counter (E8)
+  arbitrates *ordering* across processes, but cannot detect *omission* — a bypassing
+  write leaves a silent gap in the take log.
+- **The human surface is Bitwig's Studio I/O panel** (`host.getDocumentState()`,
+  API v1): Signal buttons, an Enum that renders as a button group at small option
+  counts, String/Number/Boolean widgets, `show()/hide()/enable()/disable()` at
+  runtime, and values that are both writable (push state) and observable (pull
+  intent) — **persisted inside the project document**. Nothing there is reachable over
+  the bridge, so §8g's privilege separation becomes structural rather than policy.
+  ⚠ **◐ doc-only — probed in Phase 0 (E14) before anything depends on it.**
+- **A local web view (Phase 3) adds only what Bitwig cannot do:** before/after
+  comparison, cross-object change summaries, take navigation, partial revert.
+  `ClipLauncherSlot.showInEditor()` + `Application.zoomToFit()` already handle "show
+  me what changed" using Bitwig's own piano roll, which is better than anything we
+  would render.
+- **A custom chat harness is ruled out**, not deferred. Embedding the agent loop in a
+  bespoke app means building streaming, tool-call rendering, session persistence and
+  model configuration — none of it musical, all of it ongoing maintenance.
+
+*Adjacent correction to E3:* `deleteObjects(String undoName, …)` (API 10) and
+`duplicateObjects(String undoName, …)` (API 19) are documented as acting "within one
+undo step" with a caller-supplied name — so E3's "no grouping hook in the API" is too
+strong. It does **not** rescue native undo (note and param writes remain ungrouped and
+the stack is still project-global, so snapshot-replay revert stands unchanged), but it
+means our bulk deletes can appear as one named entry in the user's history. ◐ probe in
+E14.
+
+## D5 — Checkpoints are branchable takes, not a linear undo stack **[SETTLED 2026-07-24]**
+
+**A batch creates a named, addressable *take* that can be compared, jumped between and
+partially reverted. Reverting to an earlier take and proceeding does not destroy the
+branch left behind.**
+
+The reasoning is musical, not technical. Cursor's loop is *preview → accept → apply*,
+and once you accept, the old version is worthless. Music inverts both halves:
+
+1. **You evaluate by listening, so application must precede judgment.** Given "Bitwig
+   is the only sound surface" (§2), optimistic apply is not a compromise tolerated for
+   ergonomics — it is the only preview mechanism that exists. The UI's job is not to
+   help you decide *before*; it is to make comparing and undoing trivial *after*.
+2. **The previous version is not disposable.** "That take had a better hi-hat" is the
+   normal case. A/B comparison is the core verb; accept/reject is the wrong primitive.
+
+Consequences for the store (built in Phase 1):
+- Take content is the §8b stash — the prior state of exactly the addresses written —
+  which is also the "before" side of the Phase-3 diff. **One mechanism, two features**
+  (§8f).
+- **Partial revert is sliced by musical address** ("keep the hats, revert the snare").
+  The write-set is already addressed, so this is nearly free.
+- **Every take carries a fidelity label** — exact for notes and scalar params, low for
+  structural create/delete and anything without readback — so a revert never silently
+  under-delivers.
+- **A take stores what readback reported, never what was requested** (E8: consecutive
+  same-pitch notes truncate each other, so a written duration may not survive).
+- **Human-owned.** The agent may read and explain the log; it may never mutate it.
+
+---
+
 ## Consolidate at spike close (evidence already in FINDINGS)
 
 Per SPIKE_PLAN §5, DECISIONS must also record: addressing model & cursor-pool sizes
 (E1/E2f/E5), pre-allocation scaffold sizes (E5/HANDOFF-E5), checkpoint fidelity table
 (E2/E3), grid/units mapping (E2), batch execution mechanics (E8), toolchain versions
 (E0), transport + protocol frame (E0/E9), escape-hatch policy (E6 ○). These are settled
-in FINDINGS but not yet transcribed here — do so when writing PROJECT_PLAN.md.
+in FINDINGS but not yet transcribed here.
+
+**Owner: Phase 0** (`plan/PHASE-0-FOUNDATION.md`); they become **D6+**. Writing
+PROJECT_PLAN.md did not discharge this — the plan cites FINDINGS directly rather than
+duplicating decisions here. Until the transcription lands, the working summary is
+PROJECT_PLAN §4 "Standing rules", which states the load-bearing ones with evidence
+pointers; that section is demoted to a pointer once D6+ exist.
