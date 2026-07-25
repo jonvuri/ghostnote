@@ -90,8 +90,16 @@ choice. Evidence in parentheses.
    cursor's target before every write (E2); **re-point after any structural op** —
    a held pin's `sceneIndex` goes permanently stale after scene compaction (E3).
 3. **Known silent-no-op write traps:** `setImmediately` never `set` (E4);
-   DirectParameter writes need `resolution=1` (E4b); write **pressure last**, since
-   `setGain`/`setTimbre` zero it (E2); `gain` reads back 2× written (E2).
+   DirectParameter writes need `resolution=1` (E4b); `gain` reads back 2× written
+   (E2); **`pressure` cannot be written at all** and is refused (E15-E, retracting
+   E2/e02e's "write pressure last"); **`cursor.setNoteProps` reads before it
+   writes**, so it needs its own request AND a settled step grid — 120ms measured,
+   and every property is discarded in silence below that (E15-B/D).
+3a. **Verify a write through a DIFFERENT handle than the one that made it.**
+   Bitwig's cursors cache what you wrote to them and report it back whether or not
+   it landed; two findings were wrong for exactly this reason (E15-C retracted,
+   E15-D misdiagnosed). An independent cursor, or the same one after a re-point,
+   is what makes standing rule 1 actually bite.
 4. **The batch is the unit.** One request carrying N ops, never N round-trips. Fast
    ops in one turn; structural ops staged at their settle budget (~600ms device
    insert, ~144ms track, ~268ms `insertFile`). The two-turn write→verify rule applies
@@ -119,7 +127,7 @@ choice. Evidence in parentheses.
 
 | # | Phase | Delivers | Doc |
 |---|---|---|---|
-| 0 | **Foundation, contract & UI probe** | project skeleton, contract v0 + fake adapter, offline CI, E14 verdicts on the in-Bitwig surface | [PHASE-0-FOUNDATION.md](plan/PHASE-0-FOUNDATION.md) |
+| 0 | **Foundation, contract & UI probe** | project skeleton, contract v0 + fake adapter, offline CI, E14 verdicts on the in-Bitwig surface | [PHASE-0-FOUNDATION.md](plan/PHASE-0-FOUNDATION.md) · [session 2](plan/PHASE-0-SESSION-2.md) |
 | 1 | **The write engine & takes** | `ghostnoted`, patch→snapshot→apply→verify, branchable take store, in-Bitwig control layer | [PHASE-1-ENGINE.md](plan/PHASE-1-ENGINE.md) |
 | 2 | **The clip surface** | musical vocabulary over notes, MCP tool surface v1 — first genuinely usable build | [PHASE-2-CLIPS.md](plan/PHASE-2-CLIPS.md) |
 | 3 | **The session view** | daemon local API + web UI: change log, before/after diff, take timeline, partial revert | [PHASE-3-SESSION-VIEW.md](plan/PHASE-3-SESSION-VIEW.md) |

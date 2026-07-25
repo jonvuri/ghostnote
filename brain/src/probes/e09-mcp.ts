@@ -13,14 +13,27 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import {
-  client as bridge, check, note, failureCount, ensureFixtureTracks, type Note,
+  client as bridge, check, note, failureCount, ensureFixtureTracks,
 } from './lib.js';
+import type { NoteRecord } from '../contract/index.js';
 
-// -- setup: resolve the gn-A fixture track index via the bridge directly.
+// -- setup: resolve the gn-A fixture via the bridge directly.
+//
+// Phase 0: mcp-server.ts was re-pointed off probes/lib.ts onto the adapter
+// contract, so `read_notes` now addresses a track by its durable channelId (the
+// only key that survives a rename or an index shift, E2f) and returns
+// beats-native note records instead of raw [x, y, vel, dur] tuples. E9's actual
+// question — does the TS MCP SDK sit cleanly over the bridge? — is unchanged,
+// and so are the assertions below.
 await bridge.connect();
 const { trackA } = await ensureFixtureTracks();
+const { tracks } = (await bridge.request('track.list')) as {
+  tracks: { index: number; channelId: string }[];
+};
+const channelId = tracks.find((t) => t.index === trackA)?.channelId;
+if (!channelId) throw new Error(`gn-A at index ${trackA} has no channelId`);
 bridge.disconnect();
-console.log(`gn-A resolved at track index ${trackA}\n`);
+console.log(`gn-A resolved at track index ${trackA} (channelId ${channelId})\n`);
 
 // -- spawn the MCP server as a subprocess and connect as an MCP client.
 const transport = new StdioClientTransport({
@@ -57,13 +70,16 @@ check('ping round-trips through the bridge (pong=true, control-surface thread)',
 console.log('\n-- C. tools/call read_notes on gn-A slot 0');
 const readRes = parse(await mcp.callTool({
   name: 'read_notes',
-  arguments: { trackIndex: trackA, slotIndex: 0 },
-})) as { pointed: boolean; notes: Note[] };
-note(`read_notes -> pointed=${readRes.pointed}, notes=${JSON.stringify(readRes.notes)}`);
-const fp: Note = [0, 60, 100, 1];
-const hasFp = readRes.notes.some((n) => n.join(',') === fp.join(','));
+  arguments: { channelId, sceneIndex: 0 },
+})) as { found: boolean; fidelity?: string; notes: NoteRecord[] };
+note(`read_notes -> found=${readRes.found}, notes=${JSON.stringify(readRes.notes)}`);
+// The gn-A slot-0 fingerprint is [x=0, y=60, vel=100, dur=1] on a 0.25 grid,
+// which the contract reports as beat 0, pitch 60, velocity 100, duration 1.
+const hasFp = readRes.notes.some(
+  (n) => n.startBeats === 0 && n.pitch === 60 && n.velocity === 100 && n.durationBeats === 1,
+);
 check('read_notes returns the gn-A slot-0 fingerprint through the MCP layer',
-  readRes.pointed && hasFp, { notes: readRes.notes });
+  readRes.found && hasFp, { notes: readRes.notes });
 
 note('=> the TS MCP SDK sits cleanly on client.ts: stdio transport, tool');
 note('   registration, and both tool calls work with no bridge-side changes.');

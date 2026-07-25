@@ -1,12 +1,21 @@
 ---
 title: Phase 0 — Foundation, contract & the in-Bitwig UI probe
-status: not started
-updated: 2026-07-24
+status: IN PROGRESS — session 1 (scope 1–4) done 2026-07-25; scope 5–6 and exit
+        criteria 3–5 remain, tracked in PHASE-0-SESSION-2.md
+updated: 2026-07-25
 parent: ../PROJECT_PLAN.md
+session2: PHASE-0-SESSION-2.md
 next: PHASE-1-ENGINE.md
 ---
 
 # Phase 0 — Foundation, contract & the in-Bitwig UI probe
+
+> **Session 1 (2026-07-25) delivered scope items 1–4** — the handler split, the
+> contract v0, the fake adapter, and the offline suite + CI — meeting exit
+> criteria 1 and 2. **Items 5 (E14) and 6 (D6+) were deliberately deferred**, and
+> with them exit criteria 3–5. They plus the engineering carry-over are tracked in
+> [PHASE-0-SESSION-2.md](PHASE-0-SESSION-2.md); this doc is unchanged otherwise
+> and remains the statement of what the phase owes.
 
 > **Purpose.** Turn the spike rig into a project, and settle the two things that
 > would be expensive to get wrong later: **the adapter contract** (because every

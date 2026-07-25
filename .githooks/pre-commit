@@ -1,0 +1,30 @@
+#!/bin/sh
+# ghostnote pre-commit — the real CI for a repo with no remote.
+#
+# Enable with:  git config core.hooksPath .githooks
+# Skip once with: git commit --no-verify
+#
+# Runs the offline suite only. Nothing here needs Bitwig.
+set -e
+
+root=$(git rev-parse --show-toplevel)
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+
+case "$staged" in
+  *brain/*)
+    echo "[pre-commit] brain: typecheck + offline tests"
+    # Matches ci.yml. Without this the bwmod oracle cross-check SKIPS itself when
+    # python3 is missing, so the local gate would be quietly weaker than the
+    # remote one — and this hook is the only gate that has ever actually run.
+    (cd "$root/brain" && GHOSTNOTE_REQUIRE_ORACLE=1 npm run --silent check)
+    ;;
+esac
+
+case "$staged" in
+  *extension/*)
+    echo "[pre-commit] extension: gradle build"
+    (cd "$root/extension" && ./gradlew --quiet build)
+    ;;
+esac
+
+exit 0

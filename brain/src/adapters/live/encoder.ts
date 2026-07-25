@@ -1,0 +1,354 @@
+/**
+ * The encoder: contract `Op` -> wire frames, and wire results -> contract state.
+ *
+ * Pure. No socket, no adapter, no clock — given an op and a resolution context it
+ * returns an array of frames, which means "does the contract emit the right
+ * calls?" is answerable offline against a recording transport, with no Bitwig and
+ * no fake modelling anything.
+ *
+ * THIS FILE IS WHERE THE SILENT-NO-OP TRAPS DIE. Each of these is a case where
+ * the underlying API accepts the wrong call and does nothing, so the mitigation
+ * has to be structural — a caller must not be able to express the wrong thing:
+ *
+ *   - `param.set` always sends `mode: 'immediate'`. A plain `value().set()` is
+ *     swallowed by the controller take-over strategy: the value stayed at the
+ *     preset default with no error (E4).
+ *   - `directparam.set` always sends `resolution: 1`. At 128 the write silently
+ *     did not land within 1.5s (E4b). Different API from the above, different
+ *     trap, and it is the only path that works for CLAP plugins.
+ *   - note properties are emitted in `NOTE_PROP_WRITE_ORDER`, and `pressure` is
+ *     NOT AMONG THEM: the write never reaches the clip, it only populates the
+ *     writing cursor's own NoteStep cache (E15-E). `assertOpsWritable` refuses it
+ *     in the contract, so it cannot arrive here at all.
+ *   - `device.insert` from a file is REFUSED unless the path is absolute and ends
+ *     `.bwpreset`. A relative path, a wrong extension and a missing file are all
+ *     silent no-ops — Bitwig dispatches on the filename, not the content, so
+ *     byte-identical data named `.template` is simply ignored (E4h).
+ *   - pointing uses track-then-slot, the only mechanism of three that works (E1).
+ *
+ * Time is beats throughout; the beats <-> step conversion happens here and only
+ * here, which is what makes standing rule 12 ("the step grid is a per-operation
+ * view, not global state") unbreakable by construction.
+ */
+import { isAbsolute, extname } from 'node:path';
+
+import {
+  InvalidOpError, assertNever, orderedNoteProps,
+  type NoteRecord, type Op, type TrackAddress,
+} from '../../contract/index.js';
+import { WIRE, frame, type Frame } from './wiremap.js';
+
+/** What the encoder needs to know that an address alone cannot tell it. */
+export interface EncodeContext {
+  /** Which pool cursor to drive — a pinned, non-following CursorTrack + clip (E1). */
+  readonly cursor: string;
+  /** channelId -> current bank index. Valid only until the next structural op. */
+  readonly trackIndex: (track: TrackAddress) => number;
+}
+
+/**
+ * Candidate step sizes in beats, coarsest first.
+ *
+ * The encoder picks the coarsest grid that represents every note start EXACTLY.
+ * Coarser is better because the grid bounds how many steps a clip scan walks, and
+ * a note that does not land on the grid is not merely imprecise — E2 found
+ * off-grid notes are reported snapped DOWN (a note at beat 0.09375 scans as x=0
+ * on a 0.25 grid), so a lossy grid choice would corrupt a snapshot silently.
+ */
+export const STEP_SIZES: readonly number[] = [1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625];
+
+const EPSILON = 1e-9;
+
+/** The coarsest grid on which every start and duration is exact. */
+export function chooseStepSize(notes: readonly NoteRecord[]): number {
+  const values = notes.flatMap((n) => [n.startBeats, n.durationBeats]);
+  for (const size of STEP_SIZES) {
+    if (values.every((v) => Math.abs(v / size - Math.round(v / size)) < EPSILON)) {
+      return size;
+    }
+  }
+  const finest = STEP_SIZES[STEP_SIZES.length - 1]!;
+  throw new InvalidOpError(
+    'note.write',
+    `note positions are finer than the ${finest}-beat grid floor; ` +
+      'Bitwig would report them snapped DOWN to the nearest step (E2), silently ' +
+      'corrupting any snapshot taken afterwards.',
+  );
+}
+
+/**
+ * Point the pool cursor at a slot, then act — in the SAME request, deliberately.
+ *
+ * ⚠ Never point at an EMPTY slot: the cursor silently lands on the WRONG clip —
+ * observed both staying on the previous clip and attaching to a different clip on
+ * the target track — and in both cases `cursor.status` looks perfectly healthy
+ * (E2). Every op that emits pointing therefore either creates the clip first or
+ * is only valid against a clip the caller has already verified exists.
+ *
+ * ● Pointing and WRITING in one request is SOUND, measured in E15-D. This was
+ * filed as a defect on the reasoning that pointing settles in ~25ms, so a write
+ * issued in the same turn might land on the previous clip. It does not, and the
+ * reason is an asymmetry worth stating once:
+ *
+ *     `selectChannel`/`selectSlot` retarget the cursor for the API calls that
+ *     FOLLOW them in the same turn. What lags ~24ms is the OBSERVABLE state —
+ *     `cursor.status`'s trackPosition and sceneIndex — not the target itself.
+ *
+ * Measured directly: park the cursor on clip A, then send point-B + `setNotes`
+ * as one `batch.run` — the note lands in B and A is untouched. Same for
+ * `clearNotes`, and for two different clips pointed and written in one batch.
+ * So there is no `cursor.point` op and no point-hoisting in `planStages`: the
+ * contract stays cursor-free, and one batch stays one turn (E8's 232x win).
+ *
+ * The rule that DOES bite is the mirror image, and it is on `note.props`, not
+ * here: `cursor.setNoteProps` READS a `NoteStep` before mutating it, and a read
+ * cannot see what the same turn (or the last ~120ms of grid change) did. That is
+ * `OP_SETTLE_BEFORE` in the contract — see `encodeOp`'s `note.props` case.
+ */
+function pointFrames(ctx: EncodeContext, trackIndex: number, sceneIndex: number): Frame[] {
+  return [
+    frame(WIRE.cursorPointTrack, { cursor: ctx.cursor, trackIndex }),
+    frame(WIRE.slotSelect, { trackIndex, slotIndex: sceneIndex, mechanism: 'track' }),
+  ];
+}
+
+/** Expression properties for one note, in the mandated write order. */
+function notePropFrames(ctx: EncodeContext, note: NoteRecord, x: number): Frame[] {
+  // `orderedNoteProps` is the CONTRACT's ordering, shared with the fake — if the
+  // mitigation lived only here, the two adapters would disagree about the same
+  // op and the conformance suite could not be adapter-agnostic.
+  const entries = orderedNoteProps(note);
+  if (entries.length === 0) return [];
+  const props: Record<string, unknown> = {};
+  for (const [key, value] of entries) props[key] = value;
+  // Gson preserves JsonObject insertion order and the Java handler iterates
+  // params.keySet(), so this object's key order IS the write order on the device.
+  return [frame(WIRE.cursorSetNoteProps, { cursor: ctx.cursor, x, y: note.pitch, props })];
+}
+
+function validateDeviceSource(op: Extract<Op, { op: 'device.insert' }>): void {
+  const { source } = op;
+  if (source.from !== 'file') return;
+  if (!isAbsolute(source.path)) {
+    throw new InvalidOpError('device.insert', `insertFile needs an ABSOLUTE path, got "${source.path}" (E4h)`);
+  }
+  if (extname(source.path) !== '.bwpreset') {
+    throw new InvalidOpError(
+      'device.insert',
+      `insertFile dispatches on the FILENAME, not the content: "${source.path}" must end .bwpreset ` +
+        'or Bitwig ignores it silently (E4h)',
+    );
+  }
+}
+
+/**
+ * One op -> the frames that perform it.
+ *
+ * Frames within an op are ordered and must stay so; the batch executor runs them
+ * in sequence inside a single control-surface turn.
+ */
+export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
+  switch (op.op) {
+    case 'note.write': {
+      if (op.notes.length === 0) return [];
+      const t = ctx.trackIndex(op.clip.slot.track);
+      const s = op.clip.slot.scene.index;
+      const stepSize = chooseStepSize(op.notes);
+      const channel = op.channel ?? 0;
+      // ● `setStepSize` immediately before `setNotes` in one request is SOUND
+      // (E15-D): `setStep` is a pure write and is steered by the new grid at
+      // once. Measured — x=2 sent on a cursor sitting at 1/16, with the grid
+      // changed to 1/2 in the same batch, lands at beat 1.0 and not at 0.125.
+      // Only the READING op (`note.props` below) has to wait for the grid.
+      const frames: Frame[] = [
+        ...pointFrames(ctx, t, s),
+        frame(WIRE.cursorSetStepSize, { cursor: ctx.cursor, stepSize }),
+        frame(WIRE.cursorSetNotes, {
+          cursor: ctx.cursor,
+          channel,
+          notes: op.notes.map((n) => [
+            Math.round(n.startBeats / stepSize),
+            n.pitch,
+            Math.round(n.velocity),
+            n.durationBeats,
+          ]),
+        }),
+      ];
+      for (const note of op.notes) {
+        frames.push(...notePropFrames(ctx, note, Math.round(note.startBeats / stepSize)));
+      }
+      return frames;
+    }
+
+    case 'note.props': {
+      if (op.notes.length === 0) return [];
+      const t = ctx.trackIndex(op.clip.slot.track);
+      const s = op.clip.slot.scene.index;
+      const stepSize = chooseStepSize(op.notes);
+      // ⚠ These frames are only safe because `planStages` gives this op
+      // `settleBefore: 'gridChange'` (E15-D). `cursor.setNoteProps` resolves
+      // `clip.getStep(channel, x, y)` and mutates what comes back, and that read
+      // is unusable for ~120ms after a `setStepSize` changed the grid — every
+      // property written into the window is discarded with no error and no
+      // failed op in the batch result. Measured: 0 of 3 landed at gaps of
+      // 0/24/48/72/96ms, 3 of 3 at 120/144/192/288ms. Sending the grid again
+      // here is what makes `x` mean the same thing it meant in the create stage;
+      // the settle in front is what makes the read see it.
+      const frames: Frame[] = [
+        ...pointFrames(ctx, t, s),
+        frame(WIRE.cursorSetStepSize, { cursor: ctx.cursor, stepSize }),
+      ];
+      // Deliberately NO setNotes here: re-issuing setStep would reset the very
+      // properties the preceding stage just wrote.
+      for (const note of op.notes) {
+        frames.push(...notePropFrames(ctx, note, Math.round(note.startBeats / stepSize)));
+      }
+      return frames;
+    }
+
+    case 'note.clear': {
+      const t = ctx.trackIndex(op.clip.slot.track);
+      const s = op.clip.slot.scene.index;
+      // The wire has no ranged clear; a range must be read, filtered and
+      // rewritten by the caller. Refusing beats silently clearing the whole clip.
+      if (op.range !== undefined) {
+        throw new InvalidOpError('note.clear', 'ranged clear is not in contract v0 — clear the clip or rewrite it');
+      }
+      return [...pointFrames(ctx, t, s), frame(WIRE.cursorClearNotes, { cursor: ctx.cursor })];
+    }
+
+    case 'clip.create':
+      return [
+        frame(WIRE.clipCreate, {
+          trackIndex: ctx.trackIndex(op.slot.track),
+          slotIndex: op.slot.scene.index,
+          lengthBeats: op.lengthBeats,
+        }),
+      ];
+
+    case 'clip.delete':
+      return [
+        frame(WIRE.slotDelete, {
+          trackIndex: ctx.trackIndex(op.slot.track),
+          slotIndex: op.slot.scene.index,
+        }),
+      ];
+
+    case 'track.create':
+      // `position` is a REQUEST, not a promise: createInstrumentTrack does not
+      // honour bank positions (asking for 9 landed at 7, asking for 0 landed at
+      // 1), so the caller must diff the bank by channelId afterwards (E2c). The
+      // receipt's `minted` map is where that lands.
+      return [frame(WIRE.trackCreate, { position: -1 })];
+
+    case 'track.rename':
+      return [frame(WIRE.trackSetName, { trackIndex: ctx.trackIndex(op.track), name: op.name })];
+
+    case 'track.delete':
+      return [frame(WIRE.trackDelete, { trackIndex: ctx.trackIndex(op.track) })];
+
+    case 'scene.create':
+      return [frame(WIRE.sceneCreate, { count: op.count })];
+
+    case 'scene.delete':
+      return [frame(WIRE.sceneDelete, { sceneIndex: op.scene.index })];
+
+    case 'device.insert': {
+      validateDeviceSource(op);
+      const trackIndex = ctx.trackIndex(op.track);
+      switch (op.source.from) {
+        case 'bitwig':
+          return [frame(WIRE.deviceInsertBitwig, { trackIndex, uuid: op.source.uuid })];
+        case 'clap':
+          return [frame(WIRE.deviceInsertClap, { trackIndex, uuid: op.source.uuid })];
+        case 'file':
+          return [frame(WIRE.deviceInsertFile, { trackIndex, path: op.source.path })];
+      }
+      break;
+    }
+
+    case 'device.delete':
+      return [
+        frame(WIRE.deviceDelete, {
+          cursor: ctx.trackIndex(op.device.track),
+          deviceIndex: op.device.chainIndex,
+        }),
+      ];
+
+    case 'param.set':
+      // ⚠ Two different APIs, two different traps. Neither is selectable by the
+      // caller, because the wrong choice is a SILENT no-op in both directions.
+      return op.param.directId !== undefined
+        ? [frame(WIRE.directParamSet, { id: op.param.directId, value: op.value, resolution: 1 })]
+        : [frame(WIRE.paramSet, { index: op.param.index, value: op.value, mode: 'immediate' })];
+
+    case 'notify':
+      return [frame(WIRE.notify, { message: op.message })];
+
+    default:
+      return assertNever(op, 'encodeOp');
+  }
+  return assertNever(op as never, 'encodeOp');
+}
+
+/**
+ * A whole stage as ONE `batch.run` request — the 232x lever (E8). `verbose` is
+ * always on: the wire only returns per-op results when asked, and §8c requires a
+ * report of what applied and what did not.
+ */
+export function encodeStage(ops: readonly Op[], ctx: EncodeContext, ifRevision?: number): Frame {
+  const wireOps = ops.flatMap((op) => encodeOp(op, ctx)).map((f) => ({ method: f.method, params: f.params ?? {} }));
+  const params: Record<string, unknown> = { ops: wireOps, verbose: true };
+  if (ifRevision !== undefined) params['ifRevision'] = ifRevision;
+  return frame(WIRE.batchRun, params);
+}
+
+/** Wire note tuple `[x, y, velocity, duration]` -> a contract note, in beats. */
+export function decodeNote(tuple: readonly number[], stepSize: number): NoteRecord {
+  const [x = 0, y = 0, velocity = 0, duration = 0] = tuple;
+  return { startBeats: x * stepSize, pitch: y, velocity, durationBeats: duration };
+}
+
+/**
+ * A `cursor.getNotesVerbose` step -> a contract note, expression properties and
+ * all.
+ *
+ * ⚠ Only properties that were actually SET come back meaningfully; Bitwig
+ * reports a default for every one of them. Carrying all 19 defaults into every
+ * snapshot would make each one look like it set gain (and so degrade every take
+ * to `lossy`, D5), so a property equal to its documented default is dropped.
+ * `velocity` is renormalised to the 0-127 the write side uses.
+ */
+export function decodeVerboseNote(step: Record<string, number | boolean | string>, stepSize: number): NoteRecord {
+  const num = (k: string, fallback = 0): number => (typeof step[k] === 'number' ? (step[k] as number) : fallback);
+  const bool = (k: string): boolean => step[k] === true;
+
+  const note: Record<string, unknown> = {
+    startBeats: num('x') * stepSize,
+    pitch: num('y'),
+    velocity: Math.round(num('velocity') * 127),
+    durationBeats: num('duration'),
+  };
+
+  // ⚠ `gain` defaults to 0, not to the 0.5 this table used to claim (E15-D,
+  // measured on a freshly created note with no property ever written to it).
+  // The old value made EVERY note look like it had set gain, so every live
+  // snapshot degraded to `lossy` while the fake reported `exact` — a fake/live
+  // divergence that the conformance suite could not see, because the only case
+  // asserting the label wrote gain explicitly.
+  const DEFAULTS: Record<string, number | boolean | string> = {
+    releaseVelocity: 0, velocitySpread: 0, gain: 0, pan: 0, pressure: 0, timbre: 0,
+    transpose: 0, chance: 1, isChanceEnabled: false, isMuted: false,
+    isOccurrenceEnabled: false, occurrence: 'ALWAYS', isRecurrenceEnabled: false,
+    isRepeatEnabled: false, repeatCount: 0, repeatCurve: 0,
+    repeatVelocityCurve: 0, repeatVelocityEnd: 0,
+  };
+  for (const [key, fallback] of Object.entries(DEFAULTS)) {
+    const value = typeof fallback === 'boolean' ? bool(key) : step[key];
+    if (value !== undefined && value !== fallback) note[key] = value;
+  }
+  if (bool('isRecurrenceEnabled')) {
+    note['recurrence'] = [num('recurrenceLength'), num('recurrenceMask')] as const;
+  }
+  return note as unknown as NoteRecord;
+}

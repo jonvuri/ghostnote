@@ -9,6 +9,10 @@
  * Skipped (not failed) when `python3` is unavailable, so CI without a Python
  * runtime still runs the rest of the matrix — the product itself has no Python
  * dependency, which is the whole reason for the port.
+ *
+ * ⚠ A silently-skipped oracle is the "offline suite certifies wrong behaviour"
+ * risk in miniature (PHASE-0 §Risks). Set `GHOSTNOTE_REQUIRE_ORACLE=1` — as the
+ * CI workflow does — to turn a missing `python3` into a hard failure instead.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -28,6 +32,13 @@ const havePython = (() => {
     return false;
   }
 })();
+
+if (process.env.GHOSTNOTE_REQUIRE_ORACLE === '1' && !havePython) {
+  throw new Error(
+    'GHOSTNOTE_REQUIRE_ORACLE=1 but python3 is unavailable — the oracle cross-check ' +
+      'would have silently skipped. Install python3 or unset the variable.',
+  );
+}
 
 /**
  * The reference primitives, lifted verbatim from `tools/bwformat/build_e10f_cases.py`

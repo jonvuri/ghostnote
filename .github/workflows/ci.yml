@@ -1,0 +1,58 @@
+# ghostnote CI — the offline half of the suite (PHASE-0 exit criterion 1).
+#
+# ⚠ UNTESTED. As of Phase 0 this repository has no git remote, so this workflow
+# has never executed. It is committed because it is the artifact that makes the
+# repo publishable, not because it is known green. The authoritative check on a
+# developer machine is `cd brain && npm run check` (plus `.githooks/pre-commit`).
+#
+# Nothing here touches Bitwig. The live half — the archived `e00`-`e13` probes
+# and `npm run probe:conformance` — needs a running DAW and a human, and is run
+# by hand.
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  brain:
+    name: brain (offline suite)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: brain/package-lock.json
+
+      - name: install
+        working-directory: brain
+        run: npm ci
+
+      - name: typecheck + offline tests
+        working-directory: brain
+        # ubuntu-latest ships python3, so the bwmod oracle cross-check MUST run
+        # here rather than self-skipping — see oracle.test.ts.
+        env:
+          GHOSTNOTE_REQUIRE_ORACLE: '1'
+        run: npm run check
+
+  extension:
+    name: extension (compile)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          # `options.release = 21` in build.gradle guarantees the bytecode
+          # target; any JDK >= 21 can build it.
+          distribution: temurin
+          java-version: '21'
+
+      - name: build
+        working-directory: extension
+        run: ./gradlew --no-daemon build

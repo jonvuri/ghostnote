@@ -2,6 +2,18 @@ package com.ghostnote.extension;
 
 import com.bitwig.extension.controller.ControllerExtension;
 import com.bitwig.extension.controller.api.ControllerHost;
+import com.ghostnote.extension.handlers.AppHandlers;
+import com.ghostnote.extension.handlers.BatchHandlers;
+import com.ghostnote.extension.handlers.ContainerHandlers;
+import com.ghostnote.extension.handlers.CoreHandlers;
+import com.ghostnote.extension.handlers.CursorHandlers;
+import com.ghostnote.extension.handlers.DeviceHandlers;
+import com.ghostnote.extension.handlers.ExecState;
+import com.ghostnote.extension.handlers.HandlerRegistry;
+import com.ghostnote.extension.handlers.NoteHandlers;
+import com.ghostnote.extension.handlers.ParamHandlers;
+import com.ghostnote.extension.handlers.StructureHandlers;
+import com.ghostnote.extension.handlers.TrackHandlers;
 
 public class GhostnoteExtension extends ControllerExtension {
     // Spike: hardcoded. Becomes config-driven post-spike.
@@ -22,17 +34,35 @@ public class GhostnoteExtension extends ControllerExtension {
         final long initStart = System.nanoTime();
         final RigConfig config = RigConfig.load();
         final Rig rig = new Rig(host, config);
-        final ProbeHandlers handlers = new ProbeHandlers(host, rig);
+
+        // The registry is just a map, so it can be handed to the groups that need
+        // to dispatch back into it (batch.run) or introspect it (contract.hello)
+        // before any of them have registered. Registration happens at construction
+        // time, dispatch at request time — no cycle.
+        final ExecState state = new ExecState();
+        final HandlerRegistry registry = new HandlerRegistry();
+        registry.register(
+            new CoreHandlers(host, rig, state, registry),
+            new TrackHandlers(host, rig, state),
+            new CursorHandlers(host, rig, state),
+            new NoteHandlers(host, rig, state),
+            new StructureHandlers(host, rig, state),
+            new DeviceHandlers(host, rig, state),
+            new ContainerHandlers(host, rig, state),
+            new ParamHandlers(host, rig, state),
+            new AppHandlers(host, rig, state),
+            new BatchHandlers(host, rig, state, registry));
 
         try {
-            bridge = new Bridge(PORT, host, handlers);
+            bridge = new Bridge(PORT, host, registry);
             bridge.start();
-            handlers.setInitStats(System.nanoTime() - initStart, System.currentTimeMillis());
+            state.setInitStats(System.nanoTime() - initStart, System.currentTimeMillis());
             host.showPopupNotification("ghostnote bridge listening on 127.0.0.1:" + PORT);
             host.println("[ghostnote] init complete, port " + PORT
                 + ", rig=" + config.stamp
                 + " tracks=" + config.tracks + " scenes=" + config.scenes
-                + " rigConstructMs=" + (rig.constructNanos / 1_000_000));
+                + " rigConstructMs=" + (rig.constructNanos / 1_000_000)
+                + " methods=" + registry.methodNames().size());
         } catch (Exception e) {
             host.errorln("[ghostnote] failed to start bridge: " + e.getMessage());
             host.showPopupNotification("ghostnote bridge FAILED to start: " + e.getMessage());

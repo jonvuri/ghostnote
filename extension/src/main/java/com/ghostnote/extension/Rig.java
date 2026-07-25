@@ -168,6 +168,24 @@ public class Rig {
 
         // Flat track list so tracks nested in groups are addressable
         trackBank = host.createTrackBank(config.tracks, 0, config.scenes, true);
+
+        // Bank-window overflow detection (E5, standing rule 5). Tracks outside the
+        // window are ABSENT, not slow — channelId resolves only inside it — which
+        // makes an over-large project a checkpoint blind spot rather than a
+        // performance problem. Without a total count there is no way to tell "16
+        // tracks exist" from "16 are visible of 54", so the rule is unimplementable.
+        //
+        // ⚠ ◐ UNPROVEN: whether Bank.itemCount() reports the PROJECT's track count
+        // or merely the window size is not yet established — E5 measured overflow
+        // against a project whose size it already knew. Probed live in Phase 0.
+        //
+        // ⚠ markInterested() at init() is the E7-Finding-0 hazard class: a handle
+        // that throws here takes the whole extension down before the bridge binds.
+        // itemCount() is not @Deprecated and the identical call is already marked
+        // on sceneBank below, so this is low risk — but it is still the first thing
+        // verified after any deploy.
+        trackBank.itemCount().markInterested();
+
         sceneBank = trackBank.sceneBank();
         sceneBank.itemCount().markInterested();
 

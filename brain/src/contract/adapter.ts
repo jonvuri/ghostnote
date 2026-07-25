@@ -1,0 +1,93 @@
+/**
+ * `BitwigAdapter` — the versioned seam between the brain and *some* Bitwig.
+ *
+ * Seven methods, and it will still be seven when Phase 5 authors modulators:
+ * breadth lives in the `Op` union and the `Address` union, never in the method
+ * count. That is the Beat Twin lesson (a 57-tool surface, abandoned) applied at
+ * the one place it is cheap to apply.
+ *
+ * The structural proof that the JSON-RPC frame is an implementation detail: the
+ * FAKE NEVER SEES A WIRE FRAME. If any type in `contract/` ever mentions a
+ * `category.action` string, the boundary has leaked.
+ *
+ * The Phase-1 pipeline (§8b) is exactly:
+ *
+ *     resolve(write-set)          -> explicit, live-checked addresses
+ *     read(write-set)             -> the stash
+ *     apply(batch)                -> optimistic, staged
+ *     read(write-set)             -> verify; report what didn't take
+ *     (revert = apply the stash)
+ */
+import type { Address } from './address.js';
+import type { SettleBudget } from './budgets.js';
+import type { Op } from './ops.js';
+import type { BatchReceipt, RevisionMark, Snapshot } from './snapshot.js';
+import type { AdapterInfo } from './version.js';
+
+export interface ResolvedAddress {
+  readonly address: Address;
+  readonly found: boolean;
+  /** The live bank index, when found. Valid only until the next structural op. */
+  readonly index?: number;
+  /** Why not, when `found` is false — a tombstone reads differently from a blind spot. */
+  readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch';
+}
+
+export interface ResolveResult {
+  readonly at: RevisionMark;
+  readonly resolved: readonly ResolvedAddress[];
+}
+
+export interface BatchRequest {
+  readonly ops: readonly Op[];
+  /**
+   * Optimistic-concurrency guard. When set and stale, the batch is rejected
+   * WHOLE — zero ops applied (E8-D). Acceptance claims the next revision
+   * immediately, so a second batch against the old revision is rejected even
+   * while a paced one is still draining.
+   */
+  readonly ifRevision?: number;
+}
+
+export interface BitwigAdapter {
+  /**
+   * Version handshake and capability report. Called once, before anything else;
+   * throws `ContractVersionError` rather than proceeding on a mismatch.
+   */
+  hello(): Promise<AdapterInfo>;
+
+  /**
+   * Durable identity -> live handle. Refuses stale scene epochs (E3) and reports
+   * bank-window blind spots distinctly from genuine absence (E5).
+   */
+  resolve(refs: readonly Address[]): Promise<ResolveResult>;
+
+  /**
+   * Read exactly these addresses. This is both the §8b stash and the verify
+   * primitive — one method, because they are the same operation at different
+   * moments, which is also why the stash doubles as Phase 3's diff source (§8f).
+   */
+  read(sel: readonly Address[]): Promise<Snapshot>;
+
+  /** The only write path. Resolves on COMPLETION, not acceptance — see stages.ts. */
+  apply(batch: BatchRequest): Promise<BatchReceipt>;
+
+  /**
+   * Wait out a settle budget.
+   *
+   * On the interface because Bitwig writes are not visible to a read in the same
+   * request, only the next one (E2) — so something must wait a turn, and if that
+   * something is `sleep()` at the call site then the offline suite pays real
+   * wall-clock and the fake can never be deterministic. Live waits out the
+   * measured duration; the fake advances virtual ticks. One code path, and the
+   * offline suite costs nothing.
+   *
+   * ⚠ Live does NOT poll here — most budgets have no observable to poll for. See
+   * the header of `budgets.ts` for which mitigations use readback instead.
+   */
+  settle(budget: SettleBudget): Promise<void>;
+
+  revision(): Promise<RevisionMark>;
+
+  close(): Promise<void>;
+}

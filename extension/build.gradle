@@ -6,9 +6,23 @@ group = 'com.ghostnote'
 version = '0.0.1'
 
 // Bitwig 6.0.6 bundles a Java 25 JVM; target 21 (LTS) for headroom.
+//
+// Deliberately `options.release` and NOT a `java { toolchain }` block: a
+// toolchain pins an exact JDK and would force a provisioning download (or fail)
+// on a machine running anything else — this one builds on Temurin 26. `release`
+// already guarantees 21-compatible bytecode against the 21 API, which is the
+// property that matters, and it builds on any JDK >= 21.
 tasks.withType(JavaCompile).configureEach {
     options.release = 21
     options.encoding = 'UTF-8'
+}
+
+// Reproducible builds: without these the jar embeds file mtimes and filesystem
+// ordering, so two builds of identical source differ byte-for-byte. Phase 0
+// exit criterion 2 is "both builds reproduce from a clean checkout".
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
 }
 
 repositories {

@@ -1,5 +1,7 @@
 ghostnote
 
+Copyright (c) 2026 jonvuri, licensed under the MIT License. See LICENSE.
+
 Portions of the Bitwig extension and TypeScript client are derived from
 daw-mcp (https://github.com/ptaczek/daw-mcp),
 Copyright (c) 2025 Zdeněk Neuman / PX-Audio, licensed under the MIT License.

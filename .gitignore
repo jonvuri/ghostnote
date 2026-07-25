@@ -1,6 +1,9 @@
 # Folder for initial project references
 reference/
 
+# Agents
+.claude/
+
 # Java / Gradle
 extension/build/
 extension/.gradle/
