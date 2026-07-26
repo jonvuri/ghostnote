@@ -76,6 +76,8 @@
     "probe:e14-status": "tsx src/probes/e14-status.ts",
     "probe:e14-selection": "tsx src/probes/e14-selection.ts",
     "probe:e14-verify": "tsx src/probes/e14-verify.ts",
+    "probe:e14-gfx": "tsx src/probes/e14-gfx.ts",
+    "probe:e14-hw": "tsx src/probes/e14-hw.ts",
     "probe:conformance-cleanup": "tsx src/probes/conformance-cleanup.ts"
   },
   "devDependencies": {

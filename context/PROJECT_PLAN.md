@@ -148,6 +148,13 @@ choice. Evidence in parentheses.
 12. **Units are beats-native**; the step grid is a per-operation view, not global
     state (E2, correcting daw-mcp's design). Pick the COARSEST exact grid — off-grid
     notes are reported snapped DOWN, which corrupts a snapshot silently. → **D9**
+13. **Allocate every Bitwig resource at `init()`.** Not a convention — it is
+    enforced, across unrelated subsystems, with the same sentence: *"This can only
+    be called during driver initialization"*. Measured on `getDocumentState()`
+    settings (E14-C2) and on `host.createBitmap` (E14-I5), on top of cursor pools
+    (E1) and device/param handles (E5). Four independent occurrences, so treat it
+    as the DEFAULT for anything the API hands out and reveal it later with
+    `show()` rather than creating it later. → **D7**
 
 ## 5. Phase index
 

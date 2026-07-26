@@ -1,6 +1,7 @@
 ---
 title: Phase 0, session 2 — the UI probe, the decision debt, and one staging fix
-status: DONE except E14 rows H/I — see the outcome log at the foot of this doc
+status: DONE. Phase 0 is COMPLETE — all five exit criteria met, E14 rows A–I all
+        carry verdicts. See the outcome log at the foot of this doc.
 updated: 2026-07-25
 parent: PHASE-0-FOUNDATION.md
 next: PHASE-1-ENGINE.md
@@ -8,11 +9,13 @@ next: PHASE-1-ENGINE.md
 
 # Phase 0, session 2
 
-> **Outcome: items 1–3 and 6 done; item 4 REJECTED with evidence; item 5 unchanged.
-> Only E14 rows H and I remain.** Three of this doc's own premises turned out to be
+> **Outcome: items 1–3 and 6 done; item 4 REJECTED with evidence; item 5 unchanged;
+> E14 rows H and I closed ○.** Three of this doc's own premises turned out to be
 > wrong, which is the most useful thing it produced. Read the **outcome log at the
 > foot** before acting on anything below it, because the row-F table and item 4's
 > recommendation are both superseded.
+>
+> **Phase 0 is complete.** Next: `PHASE-1-ENGINE.md`.
 
 > **Purpose.** Session 1 built the machinery (scope items 1–4) and deliberately
 > left the two items that need a human at the keyboard or a careful pass over the
@@ -57,10 +60,11 @@ table is reproduced here so this doc stands alone.*
 Everything surveyed is **◐ doc-only** except `showPopupNotification` (● E8).
 Standing rule 10 applies: nothing is banked until probed live.
 
-> ⚠ **Rows A–G are DONE** (`FINDINGS.md` §E14, decision **D14**). Two corrections to
-> the table below, both established the hard way: the settings do **not** live in the
-> Studio I/O panel (Bitwig 5.0 moved them to the top-right controller pane), and row
-> F's premise misreads E1. See the outcome log.
+> ⚠ **ALL ROWS A–I ARE DONE** (`FINDINGS.md` §E14, decision **D14**). Two corrections
+> to the table below, both established the hard way: the settings do **not** live in
+> the Studio I/O panel (Bitwig 5.0 moved them to the top-right controller pane), and
+> row F's premise misreads E1. Rows H and I both returned ○ on the persistence
+> question they existed to ask. See the outcome log.
 
 | # | Question | Settles |
 |---|---|---|
@@ -211,9 +215,9 @@ Carried from `PHASE-0-FOUNDATION.md`, with session-2 status:
 
 | # | Criterion | Status |
 |---|---|---|
-| 1 | `npm test` green offline with Bitwig not running | ● 138/138 |
+| 1 | `npm test` green offline with Bitwig not running | ● 143/143 |
 | 2 | Both builds reproduce clean; extension deploys via `copyExtension` | ● |
-| 3 | Every E14 row has a verdict; control-layer decision recorded | ◐ A–G done (D14); **H/I remain** |
+| 3 | Every E14 row has a verdict; control-layer decision recorded | ● A–I all done (D14) |
 | 4 | `DECISIONS.md` carries D6+; `PROJECT_PLAN.md` §4 demoted to a pointer | ● D6–D15 |
 | 5 | `INITIAL_PROMPT.md` markers updated | ● superseding banner |
 
@@ -301,13 +305,46 @@ unsaved project open.
   protocol is the only route to reclaiming it, since it is also what would make a
   re-point inside a batch settleable.
 
+## E14 rows H and I — ○ on the one question, and Phase 0 closes
+
+Full verdicts in `FINDINGS.md` §E14 rows H/I. Both were probed because a
+persistent clickable in-Bitwig surface would have reopened D14; **both failed on
+exactly that**, so nothing reopens and D14 is unchanged.
+
+- **Row H ○, narrowly.** Everything works — the surface builds, `setBounds` lays
+  it out, lights and text lines reach it, an embedded pixel display renders, and
+  **a `HardwareButton` with no `HardwareActionMatcher` fires on a click** (press
+  *and* release) while `isSupported()` correctly reports `false`, so the simulator
+  synthesises actions rather than routing them through a matcher. Then the
+  simulated GUI **closes on click-away**, exactly like the pane. A complete
+  working clickable panel that will not stay on screen — and one that would have
+  needed `extension-dev : true`, a restart and two right-click menus to reach a
+  user regardless.
+- **Row I ○, on the window only.** `showDisplayWindow()` produces *nothing* — no
+  window, no flash, no error. The renderer underneath it is genuinely good:
+  antialiased text from the default face with no `loadFontFace`, readable to
+  ~10px, smooth béziers, working alpha compositing, ~300µs for a warm 640×320
+  re-render. **If an in-Bitwig raster panel is ever wanted, only the window is
+  missing.** Artifacts in `brain/.tmp/e14/`.
+
+⚠ **Row I was measured twice.** The first run happened with no `config.json` at
+all, so the ○ was confounded by `extension-dev` being unset — and the probe's
+claim that row I was independent of that flag was *our own javadoc inference*,
+not a measurement. Re-run with the flag on: identical result. Standing rule 10's
+clause about doc passes applies to our own inferences too, and the re-run cost a
+minute.
+
+**The transferable finding is not about either row.** `host.createBitmap` after
+`init()` is refused with *"This can only be called during driver initialization"*
+— verbatim E14-C2's refusal on settings, from an unrelated subsystem. That is the
+§3a pre-allocation idiom on its **fourth** occurrence, and it is now the default
+assumption for any Bitwig resource. **D7 amended.**
+
+⇒ **D14 now rests on three independent surfaces** (pane, hardware GUI, display
+window) rather than one: Bitwig has no persistent extension-owned window. Take
+navigation stays in the Phase-3 web view.
+
 ## Still open
 
-- **E14 rows H and I** — the two explicitly speculative ones. H now has real
-  motivation rather than curiosity: the pane cannot be pinned, so a clickable
-  laid-out `HardwareSurface` panel would be the only *persistent* in-Bitwig surface.
-  H needs `extension-dev: true` in
-  `~/Library/Application Support/Bitwig/Bitwig Studio/config.json` plus a restart,
-  then "Simulate device connected" and "Show simulated hardware GUI" from the
-  right-click menu in Settings → Controllers.
-- Everything in **item 5** below, unchanged.
+- Everything in **item 5** below, unchanged. All of it is P1 or later; none of it
+  blocks Phase 0's exit.

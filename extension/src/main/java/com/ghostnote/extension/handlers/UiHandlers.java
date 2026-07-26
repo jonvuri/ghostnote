@@ -1,5 +1,8 @@
 package com.ghostnote.extension.handlers;
 
+import com.ghostnote.extension.DisplayWindow;
+import com.ghostnote.extension.HardwarePanel;
+import com.ghostnote.extension.PanelRenderer;
 import com.ghostnote.extension.Rig;
 import com.ghostnote.extension.UiPanel;
 import com.bitwig.extension.controller.api.Application;
@@ -39,11 +42,18 @@ import com.google.gson.JsonObject;
 public final class UiHandlers extends HandlerGroup {
     private final UiPanel panel;
     private final String panelError;
+    /** E14 row H. Reports its own unavailability; never null. */
+    private final HardwarePanel hardware;
+    /** E14 row I. Reports its own unavailability; never null. */
+    private final DisplayWindow display;
 
-    public UiHandlers(ControllerHost host, Rig rig, ExecState state, UiPanel panel, String panelError) {
+    public UiHandlers(ControllerHost host, Rig rig, ExecState state, UiPanel panel, String panelError,
+                      HardwarePanel hardware, DisplayWindow display) {
         super(host, rig, state);
         this.panel = panel;
         this.panelError = panelError;
+        this.hardware = hardware;
+        this.display = display;
     }
 
     @Override
@@ -57,6 +67,17 @@ public final class UiHandlers extends HandlerGroup {
         r.on("ui.panelLayout", params -> uiPanelLayout(params));
         r.on("ui.deleteObjects", params -> uiDeleteObjects(params));
         r.on("ui.duplicateObjects", params -> uiDuplicateObjects(params));
+        // Rows H and I. Kept in the `ui.` category deliberately: they are the
+        // same experiment on the same question (where does the human surface
+        // live), and `wiremap.test.ts` asserts that everything session 2 added
+        // is `ui.*` probe surface the contract cannot reach.
+        r.on("ui.hwStatus", params -> hwStatus());
+        r.on("ui.hwLight", params -> hwLight(params));
+        r.on("ui.hwText", params -> hwText(params));
+        r.on("ui.hwRender", params -> hwRender(params));
+        r.on("ui.bitmapStatus", params -> bitmapStatus());
+        r.on("ui.bitmapShow", params -> bitmapShow(params));
+        r.on("ui.bitmapRender", params -> bitmapRender(params));
     }
 
     private UiPanel requirePanel() {
@@ -484,6 +505,311 @@ public final class UiHandlers extends HandlerGroup {
         return slots;
     }
 
+    // ------------------------------------------------------------------ row H
+    //
+    // ⚠ SPECULATIVE SURFACE. Rows H and I exist to answer one question that rows
+    // A–G left open: E14 found Bitwig's controller pane CANNOT be pinned and
+    // closes on click-away, which is why D14 sent A/B take navigation to the
+    // Phase-3 web view. A `HardwareSurface` panel in the simulated hardware GUI
+    // would be the only PERSISTENT clickable surface inside Bitwig, so a working
+    // row H would reopen that choice.
+    //
+    // Neither row may become load-bearing whatever it measures. Row H is gated
+    // behind `extension-dev : true` in the user's config.json, a Bitwig restart
+    // and two right-click menus; row I's own javadoc calls `showDisplayWindow` a
+    // debug utility. Both are timeboxed at ~20 minutes.
+
+    /**
+     * Everything the hardware surface knows, in one poll-friendly read.
+     *
+     * ⚠ The pair to watch is `pressedSupported` against `presses`.
+     * `HardwareAction.isSupported()` is documented as "has a
+     * HardwareActionMatcher that can detect it", and this panel sets no matcher
+     * (it cannot — ghostnote declares zero MIDI ports), so `isSupported()` is
+     * PREDICTED false. If presses still arrive, the simulator synthesises them
+     * directly rather than through a matcher, and THAT is row H's mechanism
+     * finding rather than a bare yes/no about clicking.
+     *
+     * ⚠ The second pair is `currentValue` against `lastSentValue` on the lights
+     * and text lines. `lastSentValue` only moves when Bitwig actually pushes
+     * output state, so the two agreeing is programmatic evidence that
+     * `updateHardware()` is running — available without a human, and without the
+     * simulated GUI being open at all.
+     */
+    private JsonElement hwStatus() {
+        JsonObject r = new JsonObject();
+        r.addProperty("available", hardware.available());
+        if (!hardware.available()) {
+            r.addProperty("error", hardware.error);
+            return r;
+        }
+        r.addProperty("constructMicros", hardware.constructNanos / 1000);
+        r.addProperty("physicalWidthMm", HardwarePanel.PANEL_W_MM);
+        r.addProperty("physicalHeightMm", HardwarePanel.PANEL_H_MM);
+        r.addProperty("currentTake", hardware.currentTake);
+        r.addProperty("lastPressedIndex", hardware.lastPressedIndex);
+        r.addProperty("lastPressMs", hardware.lastPressMs);
+
+        // The flush pipeline. `updateHardwareCalls` climbing on its own proves
+        // Bitwig is calling flush(); it stalling proves the opposite, which
+        // would explain any number of silent row-H failures below.
+        r.addProperty("updateHardwareCalls", hardware.updateHardwareCalls);
+        r.addProperty("updateHardwareFailures", hardware.updateHardwareFailures);
+        r.addProperty("updateHardwareDisabled", hardware.updateHardwareDisabled);
+        r.addProperty("updateHardwareError", hardware.updateHardwareError);
+
+        JsonArray buttons = new JsonArray();
+        for (int i = 0; i < hardware.buttons.length; i++) {
+            final int index = i;
+            var button = hardware.buttons[i];
+            JsonObject b = new JsonObject();
+            b.addProperty("index", i);
+            b.addProperty("label", HardwarePanel.TAKE_LABELS[i]);
+            b.addProperty("presses", hardware.pressCounts[i]);
+            b.addProperty("releases", hardware.releaseCounts[i]);
+            putGuarded(b, "id", button::getId);
+            putGuarded(b, "x", button::getX);
+            putGuarded(b, "y", button::getY);
+            putGuarded(b, "width", button::getWidth);
+            putGuarded(b, "height", button::getHeight);
+            putGuarded(b, "pressed", () -> button.isPressed().get());
+            putGuarded(b, "pressedSupported", () -> button.pressedAction().isSupported());
+            putGuarded(b, "releasedSupported", () -> button.releasedAction().isSupported());
+            JsonObject light = new JsonObject();
+            light.addProperty("wanted", hardware.lightOn[i]);
+            putGuarded(light, "currentValue", () -> hardware.lights[index].isOn().currentValue());
+            putGuarded(light, "lastSentValue", () -> hardware.lights[index].isOn().lastSentValue());
+            b.add("light", light);
+            buttons.add(b);
+        }
+        r.add("buttons", buttons);
+
+        JsonArray lines = new JsonArray();
+        for (int i = 0; i < hardware.lines.length; i++) {
+            final int index = i;
+            JsonObject line = new JsonObject();
+            line.addProperty("index", i);
+            line.addProperty("wanted", hardware.lines[i]);
+            putGuarded(line, "currentValue", () -> hardware.textDisplay.line(index).text().currentValue());
+            putGuarded(line, "lastSentValue", () -> hardware.textDisplay.line(index).text().lastSentValue());
+            putGuarded(line, "maxChars", () -> hardware.textDisplay.line(index).text().getMaxChars());
+            lines.add(line);
+        }
+        r.add("textLines", lines);
+
+        JsonObject pixels = new JsonObject();
+        pixels.addProperty("width", HardwarePanel.PIXELS_W);
+        pixels.addProperty("height", HardwarePanel.PIXELS_H);
+        pixels.addProperty("renderCount", hardware.pixelRenderCount);
+        pixels.addProperty("scene", hardware.pixelScene);
+        pixels.add("lastRender", renderReport(hardware.lastPixelRender));
+        r.add("pixelDisplay", pixels);
+
+        putGuarded(r, "surfaceControlCount", () -> hardware.surface.hardwareControls().size());
+        putGuarded(r, "surfaceOutputCount", () -> hardware.surface.hardwareOutputElements().size());
+        return r;
+    }
+
+    /**
+     * Push light state — either a whole take selection or one light.
+     *
+     * `{take: n}` is the realistic shape (the take switcher pushing the store's
+     * current take), `{index: n, on: bool}` the diagnostic one. Both bounds-check
+     * before touching anything, per D15 rule 3.
+     */
+    private JsonElement hwLight(JsonObject params) {
+        HardwarePanel h = requireHardware();
+        JsonObject r = ok();
+        if (params.has("take")) {
+            int take = requireButtonIndex(params.get("take").getAsInt());
+            h.selectTake(take);
+            r.addProperty("take", take);
+        }
+        if (params.has("index")) {
+            int index = requireButtonIndex(params.get("index").getAsInt());
+            boolean on = !params.has("on") || params.get("on").getAsBoolean();
+            h.setLight(index, on);
+            r.addProperty("index", index);
+            r.addProperty("on", on);
+        }
+        // Output state only reaches the surface on a flush, and nothing else in
+        // this extension asks for one — without this the probe would measure the
+        // idle flush rate rather than the push.
+        h.requestFlush();
+        return r;
+    }
+
+    private JsonElement hwText(JsonObject params) {
+        HardwarePanel h = requireHardware();
+        int line = params.get("line").getAsInt();
+        if (line < 0 || line >= h.lines.length) {
+            throw new IllegalArgumentException(
+                "line out of range (0.." + (h.lines.length - 1) + "): " + line);
+        }
+        String text = params.get("text").getAsString();
+        // `setMaxChars(32)` is set at init; over-long text is refused here rather
+        // than left for Bitwig to truncate or complain about on its own thread.
+        if (text.length() > 32) {
+            throw new IllegalArgumentException("text longer than the 32-char display line: " + text.length());
+        }
+        h.setLine(line, text);
+        h.requestFlush();
+        JsonObject r = ok();
+        r.addProperty("line", line);
+        r.addProperty("text", text);
+        return r;
+    }
+
+    /**
+     * Redraw the embedded pixel display, synchronously, and report what the
+     * renderer saw.
+     *
+     * `savePath` dumps the result as a PPM, which is what lets the "does it
+     * render usefully" half of row H be judged from an artifact instead of a
+     * user's yes/no — `Bitmap.saveToDiskAsPPM` is the only export the API has.
+     */
+    private JsonElement hwRender(JsonObject params) {
+        HardwarePanel h = requireHardware();
+        String scene = requireScene(params);
+        h.pixelScene = scene;
+        long start = System.nanoTime();
+        PanelRenderer rendered = h.renderPixels(scene);
+        long micros = (System.nanoTime() - start) / 1000;
+
+        JsonObject r = ok();
+        r.addProperty("scene", scene);
+        r.addProperty("width", HardwarePanel.PIXELS_W);
+        r.addProperty("height", HardwarePanel.PIXELS_H);
+        r.addProperty("callMicros", micros);
+        r.addProperty("renderCount", h.pixelRenderCount);
+        r.add("render", renderReport(rendered));
+        if (params.has("savePath")) {
+            String path = requireSavePath(params.get("savePath").getAsString());
+            h.pixelBitmap.saveToDiskAsPPM(path);
+            r.addProperty("savedTo", path);
+        }
+        h.requestFlush();
+        return r;
+    }
+
+    // ------------------------------------------------------------------ row I
+
+    private JsonElement bitmapStatus() {
+        JsonObject r = new JsonObject();
+        r.addProperty("available", display.available());
+        if (!display.available()) {
+            r.addProperty("error", display.error);
+            return r;
+        }
+        r.addProperty("constructMicros", display.constructNanos / 1000);
+        r.addProperty("width", DisplayWindow.WIDTH);
+        r.addProperty("height", DisplayWindow.HEIGHT);
+        r.addProperty("shown", display.shown);
+        r.addProperty("showCalls", display.showCalls);
+        r.addProperty("title", display.title);
+        r.addProperty("renderCount", display.renderCount);
+        r.addProperty("lastSavedPath", display.lastSavedPath);
+        r.addProperty("lateCreateResult", display.lateCreateResult);
+        r.add("lastRender", renderReport(display.lastRender));
+        return r;
+    }
+
+    /**
+     * Show the display window — and, only when asked, probe late allocation.
+     *
+     * ⚠ `lateCreate` is opt-in and the probe runs it LAST, after everything else
+     * is measured. `host.createBitmap` after init has no precedent: E14-C2 found
+     * document-state settings are init-only and refuse cleanly, but nothing says
+     * graphics allocation behaves the same, and E14-A1 is what an unclean
+     * refusal costs. The result is reported, never thrown.
+     */
+    private JsonElement bitmapShow(JsonObject params) {
+        DisplayWindow d = requireDisplay();
+        JsonObject r = ok();
+        if (params.has("lateCreate") && params.get("lateCreate").getAsBoolean()) {
+            r.addProperty("lateCreateResult", d.attemptLateCreate(host));
+        }
+        String title = params.has("title") ? params.get("title").getAsString() : DisplayWindow.DEFAULT_TITLE;
+        // Nothing documents what an empty or enormous title does to the window,
+        // and this is a debug utility by its own javadoc — validate, do not hope.
+        if (title.isEmpty() || title.length() > 120) {
+            throw new IllegalArgumentException("title must be 1..120 chars, got " + title.length());
+        }
+        // A window showing an unrendered bitmap says nothing about whether the
+        // window works, so guarantee there is something in it first.
+        if (d.renderCount == 0) {
+            d.render("takes");
+        }
+        d.show(title);
+        r.addProperty("title", title);
+        r.addProperty("showCalls", d.showCalls);
+        r.addProperty("renderCount", d.renderCount);
+        return r;
+    }
+
+    /**
+     * Redraw the standalone bitmap.
+     *
+     * Row I's second question: does an ALREADY-OPEN window notice, with no
+     * second `showDisplayWindow()`? The renderer stamps its own render number
+     * into the image, so the answer is readable off the window rather than
+     * inferred — if the number on screen matches `renderCount` here, it redraws.
+     */
+    private JsonElement bitmapRender(JsonObject params) {
+        DisplayWindow d = requireDisplay();
+        String scene = requireScene(params);
+        long start = System.nanoTime();
+        PanelRenderer rendered = d.render(scene);
+        long micros = (System.nanoTime() - start) / 1000;
+
+        JsonObject r = ok();
+        r.addProperty("scene", scene);
+        r.addProperty("width", DisplayWindow.WIDTH);
+        r.addProperty("height", DisplayWindow.HEIGHT);
+        r.addProperty("callMicros", micros);
+        r.addProperty("renderCount", d.renderCount);
+        r.add("render", renderReport(rendered));
+        if (params.has("savePath")) {
+            String path = requireSavePath(params.get("savePath").getAsString());
+            d.save(path);
+            r.addProperty("savedTo", path);
+        }
+        return r;
+    }
+
+    /**
+     * What a render reported about itself.
+     *
+     * The text metrics are the part worth having: a scene that draws nothing but
+     * reports `rendered: true` is indistinguishable from success on this side,
+     * and a `textWidth` of 0 is what separates "the font system is dead" from
+     * "the window is not showing what we drew".
+     */
+    private static JsonObject renderReport(PanelRenderer renderer) {
+        JsonObject r = new JsonObject();
+        if (renderer == null) {
+            r.addProperty("rendered", false);
+            r.addProperty("error", "(never rendered)");
+            return r;
+        }
+        r.addProperty("scene", renderer.scene());
+        r.addProperty("rendered", renderer.rendered);
+        r.addProperty("renderMicros", renderer.renderNanos / 1000);
+        if (renderer.error != null) {
+            r.addProperty("error", renderer.error);
+        }
+        if (renderer.textError != null) {
+            r.addProperty("textError", renderer.textError);
+        }
+        r.addProperty("textWidth", renderer.textWidth);
+        r.addProperty("textHeight", renderer.textHeight);
+        r.addProperty("textAdvanceX", renderer.textAdvanceX);
+        r.addProperty("fontAscent", renderer.fontAscent);
+        r.addProperty("fontDescent", renderer.fontDescent);
+        r.addProperty("fontHeight", renderer.fontHeight);
+        return r;
+    }
+
     // ---------------------------------------------------- pre-call validation
     //
     // ⚠ Every one of these refuses an argument BEFORE it reaches Bitwig, and
@@ -491,6 +817,71 @@ public final class UiHandlers extends HandlerGroup {
     // dislikes can produce a throw on ITS thread, after our handler has already
     // returned, where nothing we write can catch it and the application exits.
     // Validating up front is the only mechanism that actually works.
+
+    private HardwarePanel requireHardware() {
+        if (!hardware.available()) {
+            throw new IllegalStateException("hardware surface unavailable: " + hardware.error);
+        }
+        return hardware;
+    }
+
+    private DisplayWindow requireDisplay() {
+        if (!display.available()) {
+            throw new IllegalStateException("display bitmap unavailable: " + display.error);
+        }
+        return display;
+    }
+
+    private static int requireButtonIndex(int index) {
+        if (index < 0 || index >= HardwarePanel.TAKE_LABELS.length) {
+            throw new IllegalArgumentException(
+                "button index out of range (0.." + (HardwarePanel.TAKE_LABELS.length - 1) + "): " + index);
+        }
+        return index;
+    }
+
+    /** One of {@link PanelRenderer#SCENES}; defaults to the take strip. */
+    private static String requireScene(JsonObject params) {
+        String scene = params.has("scene") ? params.get("scene").getAsString() : PanelRenderer.SCENES[0];
+        if (!PanelRenderer.isKnownScene(scene)) {
+            throw new IllegalArgumentException("unknown scene \"" + scene + "\"; expected one of "
+                + java.util.Arrays.toString(PanelRenderer.SCENES));
+        }
+        return scene;
+    }
+
+    /**
+     * ⚠ A path handed to `Bitmap.saveToDiskAsPPM`, checked before it gets there.
+     *
+     * Its entire javadoc is "Saves the image as a PPM file" — nothing about
+     * relative paths, missing directories, or what happens on failure. Given
+     * E14-A1, an unwritable path is exactly the shape of argument that could
+     * produce a complaint on Bitwig's own thread where no try/catch here would
+     * reach it. So: absolute, `.ppm`, and an existing writable parent directory,
+     * all verified from Java before the call.
+     */
+    private static String requireSavePath(String path) {
+        java.nio.file.Path resolved;
+        try {
+            resolved = java.nio.file.Paths.get(path);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("savePath is not a valid path: " + path);
+        }
+        if (!resolved.isAbsolute()) {
+            throw new IllegalArgumentException("savePath must be absolute: " + path);
+        }
+        if (!path.endsWith(".ppm")) {
+            throw new IllegalArgumentException("savePath must end in .ppm (that is the only format "
+                + "Bitmap can export): " + path);
+        }
+        java.nio.file.Path parent = resolved.getParent();
+        if (parent == null || !java.nio.file.Files.isDirectory(parent)
+            || !java.nio.file.Files.isWritable(parent)) {
+            throw new IllegalArgumentException("savePath's directory does not exist or is not writable: "
+                + parent);
+        }
+        return resolved.toString();
+    }
 
     private int requireSlotIndex(int slotIndex) {
         if (slotIndex < 0 || slotIndex >= rig.config.scenes) {

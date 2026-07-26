@@ -1,8 +1,8 @@
 ---
 title: Phase 0 — Foundation, contract & the in-Bitwig UI probe
-status: IN PROGRESS — session 1 (scope 1–4) done; session 2 (scope 5–6) done except
-        E14 rows H/I. Exit criteria 1, 2, 4, 5 met; 3 met for rows A–G.
-        Tracked in PHASE-0-SESSION-2.md.
+status: COMPLETE — session 1 (scope 1–4) and session 2 (scope 5–6) both done.
+        All five exit criteria met; E14 rows A–I all carry verdicts.
+        Tracked in PHASE-0-SESSION-2.md. Next: PHASE-1-ENGINE.md.
 updated: 2026-07-25
 parent: ../PROJECT_PLAN.md
 session2: PHASE-0-SESSION-2.md
@@ -90,6 +90,15 @@ simulator is gated behind a config flag and two right-click menus. They are prob
 because a clickable, laid-out panel with an embedded bitmap would meaningfully
 change what Phase 3 needs to build — not because we intend to depend on them.
 
+> ● **BOTH ANSWERED ○ 2026-07-25** — and the restraint above turned out to cost
+> nothing, because neither row reached the point of tempting anyone. H's simulated
+> GUI **closes on click-away** just as the controller pane does; I's
+> `showDisplayWindow()` **never opens a window at all**. Everything else in both
+> rows works, including a matcher-less `HardwareButton` firing on a click and a
+> genuinely capable 2D renderer — see `FINDINGS.md` §E14 rows H/I. The
+> non-speculative finding that fell out is that **`host.createBitmap` is init-only
+> too**, refusing with E14-C2's exact sentence (D7, amended).
+
 **Method note.** E14 needs Bitwig foregrounded and a user at the keyboard for the
 click-driven parts (as E6, E7 and E8b did). Sequence it so the automated parts run
 unattended and the interactive parts batch into one sitting.
@@ -115,13 +124,19 @@ unattended and the interactive parts batch into one sitting.
    > ⚠ **The 42 was always wrong.** `bwmod`'s real count is **39** (35 in
    > `bwmod.test.ts` + 4 oracle), and `bwmod.test.ts` is unmodified since E13, so
    > nothing was lost — the number was miscounted when this doc was written. The
-   > whole offline suite is **138** as of session 2. ● met.
+   > whole offline suite is **138** as of session 2, and **143** once E14 rows
+   > H/I added the render-artifact converter. ● met.
 2. Both builds reproduce from a clean checkout; the extension deploys via
    `gradle copyExtension` and the spike probe suite still passes against it.
 3. Every E14 row has a ●/◐/○ verdict with evidence appended to `FINDINGS.md`, and
    the Phase-1 control-layer decision is recorded in `DECISIONS.md`.
-   > ◐ **Rows A–G done** (FINDINGS §E14, 20+ verdicts); control-layer decision is
-   > **D14**. Rows **H and I remain** — the two explicitly speculative ones.
+   > ● **MET IN FULL.** Rows A–G (FINDINGS §E14, 20+ verdicts) plus rows H and I
+   > (FINDINGS §E14 rows H/I). Control-layer decision is **D14**, now resting on
+   > three independent surfaces rather than one: the pane closes on click-away,
+   > the `HardwareSurface` simulated GUI closes the same way, and
+   > `showDisplayWindow()` never opens. The two speculative rows were probed
+   > because a ● would have reopened D14; both returned ○ on exactly that
+   > question, so nothing reopens.
 4. `DECISIONS.md` carries the consolidated D6+ entries; `PROJECT_PLAN.md` §4 is
    demoted to a pointer.
    > ● **D6–D15**, and §4 is a pointer that names the D-entry per rule.

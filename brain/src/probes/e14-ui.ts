@@ -37,7 +37,7 @@
  *   npm run probe:e14
  *
  * ⚠ Requires the E14 build: `cd extension && ./gradlew copyExtension`, then
- * `npm run probe:hello` to confirm the methodsHash moved to c251f81240b78a42.
+ * `npm run probe:hello` to confirm the deployment matches the golden.
  * ⚠ Writes clips into gn-A scenes 2–4 for row G and deletes them again. The
  * fixture clips at scenes 0/1 are not touched.
  */
@@ -112,14 +112,34 @@ note(`fixtures: gn-A=${trackA}`);
 
 const hello = (await request('contract.hello')) as { methodsHash: string; methodCount: number };
 note(`extension: ${hello.methodCount} wire methods, hash ${hello.methodsHash}`);
-// ⚠ Moved from c251f81240b78a42 when `ui.signalFire` was DELETED after row A1
-// crashed Bitwig. A stale deployment is therefore also a deployment that still
-// has the crashing method in it, which is the strongest possible reason to check.
-const WANT_HASH = '5343039c7fe670cc';
-check('the deployed extension carries the E14 wire surface (and NOT ui.signalFire)',
-  hello.methodsHash === WANT_HASH,
-  { got: hello.methodsHash, want: WANT_HASH, methodCount: hello.methodCount });
-if (hello.methodsHash !== WANT_HASH) {
+// ⚠ This was an EXACT `methodsHash` pin — c251f81240b78a42, then 5343039c7fe670cc
+// once `ui.signalFire` was DELETED after row A1 crashed Bitwig. It broke the moment
+// rows H/I added seven more wire methods, and it would have broken on every
+// legitimate addition after that: a hard `process.exit(1)` before any row ran.
+//
+// That is the wrong trade. These probes are the live regression suite (see
+// `wiremap.ts` — the whole reason no wire method is ever renamed), and a suite
+// that stops running is worth nothing. So the check now asserts what the hash was
+// only ever a PROXY for: that the deployed extension does not carry the method
+// that killed Bitwig, and does carry the surface rows A–G drive. Neither drifts
+// when the wire grows.
+const registered = (await request('rig.methods')) as { methods: string[]; count: number };
+const hasForbidden = registered.methods.includes('ui.signalFire');
+check('the deployed extension does NOT carry ui.signalFire (E14-A1, WIRE_METHODS_FORBIDDEN)',
+  !hasForbidden, { methodCount: registered.count, hash: hello.methodsHash });
+if (hasForbidden) {
+  console.log('\n⚠ STOP — and do not run any row below. That deployment predates the A1');
+  console.log('  finding and still registers a method that crashes Bitwig UNCATCHABLY,');
+  console.log('  from Bitwig\'s own thread, with whatever is unsaved. Redeploy first:');
+  console.log('  cd extension && ./gradlew copyExtension');
+  client.disconnect();
+  process.exit(1);
+}
+const missing = ['ui.status', 'ui.set', 'ui.visibility', 'ui.addSetting', 'ui.notifications',
+  'ui.showInEditor', 'ui.panelLayout', 'ui.deleteObjects', 'ui.duplicateObjects']
+  .filter((m) => !registered.methods.includes(m));
+check('the deployed extension carries the rows A–G wire surface', missing.length === 0, { missing });
+if (missing.length > 0) {
   console.log('\nStale extension. Rebuild and redeploy before continuing:');
   console.log('  cd extension && ./gradlew copyExtension');
   client.disconnect();

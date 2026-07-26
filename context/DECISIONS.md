@@ -4,6 +4,8 @@ status: COMPLETE for Phase 0 — modulator authoring settled (D1–D3, E10–E13
         topology settled (D4/D5); the spike-wide consolidation SPIKE_PLAN §5 owed is
         now D6–D15 (2026-07-25), which also carries the Phase-1 control-layer decision
         (D14) and the verification discipline the E15 arc produced (D15).
+        E14 rows H/I closed D14 on three independent surfaces and amended D7's
+        pre-allocation rule to cover graphics.
 updated: 2026-07-25
 evidence: context/spike/FINDINGS.md (E-numbers), BWFORMAT_SPEC.md, BWMOD_DESIGN.md
 plan: context/PROJECT_PLAN.md + context/plan/PHASE-*.md
@@ -321,6 +323,16 @@ constraint is confirmed for the settings surface too, so **anything the human
 surface will ever show must exist at init and be revealed with `show()`**
 (`RigConfig.uiSlots`, default 16; the panel is "fine" at that size, E14-C4).
 
+⚠ **AMENDED 2026-07-25 (E14-I5): graphics allocation is init-only too, and it
+refuses with the SAME SENTENCE.** `host.createBitmap` after `init()` returns
+*"This can only be called during driver initialization"* — verbatim E14-C2's
+refusal, from an unrelated subsystem. That makes §3a's pre-allocation idiom its
+**fourth** independent occurrence (cursor pools E1, device/param handles E5,
+settings E14-C2, graphics E14-I5), and it is now the DEFAULT ASSUMPTION for any
+Bitwig resource rather than a per-subsystem discovery. **Anything Phase 3 will
+ever draw into must be allocated at init.** The refusal is clean, synchronous and
+catchable — the good failure mode, and the opposite of E14-A1.
+
 ## D8 — Checkpoint fidelity, measured **[SETTLED 2026-07-25]**
 
 Replaces the ◐/guess columns of INITIAL_PROMPT §4/§5/§6. **A take stores what
@@ -458,7 +470,7 @@ regression suite.
 registered at all.** `ui.signalFire` is its only member: it crashes Bitwig
 (E14-A1), so a registration is a loaded gun regardless of reachability.
 
-## D14 — The human control layer **[SETTLED 2026-07-25, E14]**
+## D14 — The human control layer **[SETTLED 2026-07-25, E14 rows A–I]**
 
 **Bitwig's per-controller pane hosts the deliberate verbs (revert, status, slot
 reveal). Take switching moves to the Phase-3 web view. §8g's privilege separation
@@ -493,6 +505,40 @@ D4's substance survived; three of its specifics did not.
   notifications the CONTROLLER requests, they default off, and ghostnote enables
   none — so pointing produces no spray to suppress. The real E1 wart is selection
   movement, handled in D6.
+
+### ⚠ Confirmed by rows H and I: **Bitwig has no persistent extension-owned window**
+
+D14 was decided on one measurement — the controller pane closes on click-away.
+E14's two speculative rows were probed precisely because a persistent surface
+would have reopened it. **Both returned ○ on exactly that question**, so the
+decision now rests on three independent surfaces agreeing:
+
+| surface | verdict |
+|---|---|
+| the per-controller pane (rows A–G) | closes on click-away, cannot be pinned or docked |
+| `HardwareSurface` simulated GUI (row H) | **closes on click-away** — everything else about it works |
+| `Bitmap.showDisplayWindow()` (row I) | **never opens at all** on macOS / Bitwig 6.0.6 |
+
+⚠ **Row H's ○ is narrow and the rest of it is ●**, which is why it is recorded
+rather than dismissed: the surface builds, `setBounds` lays it out, lights and
+text reach it, an embedded pixel display renders, and **a `HardwareButton` with
+no `HardwareActionMatcher` fires on a click** (press and release) even though
+`isSupported()` correctly reports `false` — the simulator synthesises actions
+directly rather than routing them through a matcher. It is a complete, working,
+clickable panel that will not stay on screen. It would also have needed
+`extension-dev : true`, a restart and two right-click menus to reach a user, so
+it was never shippable regardless.
+
+⚠ **Row I's renderer is ●, and worth keeping in mind for Phase 3.**
+`GraphicsOutput` is a competent 2D surface: the default font face needs no
+`loadFontFace`, text is cleanly antialiased and readable down to ~10px, béziers
+and dashes are smooth, and **alpha compositing works** — which is the before/after
+overlay a diff view wants. A warm 640×320 re-render costs ~300µs; `showText` is
+the expensive primitive at roughly 1ms a string. **If an in-Bitwig raster panel is
+ever wanted, the drawing is solved and only the window is missing.**
+
+⇒ **take navigation stays in the Phase-3 web view**, and the reasoning is no
+longer contingent on one pane's behaviour.
 
 ## D15 — Verification discipline **[SETTLED 2026-07-25]**
 

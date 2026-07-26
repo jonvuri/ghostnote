@@ -65,6 +65,47 @@ export async function waitForEnter(instruction: string): Promise<void> {
   await ask(`${instruction}\n     (press Enter when done)`);
 }
 
+/**
+ * A `client.request` that remembers what it was doing when the bridge died.
+ *
+ * ⚠ Born in `e14-ui.ts` after row A1 killed Bitwig mid-run and the probe died
+ * with a bare `Connection closed with request 17 in flight` — true, and useless:
+ * it buried the finding under a stack trace and named no suspect. A probe of ◐
+ * doc-only surface should EXPECT to find a fatal call, so a dropped connection
+ * is a RESULT here rather than an accident, and it deserves to be reported like
+ * one.
+ *
+ * Lifted out of that probe when E14 rows H and I needed the same guard. The
+ * original keeps its inline copy: it is the record of a sitting that already
+ * happened, and rewriting it would edit history to save 20 lines.
+ */
+export function trackedRequest(): (method: string, params?: Record<string, unknown>) => Promise<unknown> {
+  let lastMethod = '(none yet)';
+  for (const signal of ['uncaughtException', 'unhandledRejection'] as const) {
+    process.on(signal, (err: unknown) => {
+      const message = err instanceof Error ? err.message : String(err);
+      if (message.includes('Connection closed') || message.includes('ECONNREFUSED')) {
+        console.log(`\n${'!'.repeat(72)}`);
+        console.log(` THE BRIDGE DIED during "${lastMethod}".`);
+        console.log('');
+        console.log(' Something in that call took the extension — or Bitwig — down. That is');
+        console.log(' a finding, not a bug in the probe: check whether Bitwig is still');
+        console.log(' running, then read the crash report at');
+        console.log('   ~/Library/Application Support/Bitwig/Bitwig Studio/crash-report/');
+        console.log(' Record the verdict for that row and do NOT simply re-run the call.');
+        console.log('!'.repeat(72));
+      } else {
+        console.log(`\nunexpected failure after "${lastMethod}": ${message}`);
+      }
+      process.exit(1);
+    });
+  }
+  return async (method, params) => {
+    lastMethod = method;
+    return client.request(method, params);
+  };
+}
+
 export async function pollUntil(
   predicate: () => Promise<boolean>,
   timeoutMs = 4000,
