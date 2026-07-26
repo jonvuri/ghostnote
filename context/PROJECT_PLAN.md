@@ -161,7 +161,7 @@ choice. Evidence in parentheses.
 | # | Phase | Delivers | Doc |
 |---|---|---|---|
 | 0 | **Foundation, contract & UI probe** | project skeleton, contract v0 + fake adapter, offline CI, E14 verdicts on the in-Bitwig surface | [PHASE-0-FOUNDATION.md](plan/PHASE-0-FOUNDATION.md) · [session 2](plan/PHASE-0-SESSION-2.md) |
-| 1 | **The write engine & takes** | `ghostnoted`, patch→snapshot→apply→verify, branchable take store, in-Bitwig control layer | [PHASE-1-ENGINE.md](plan/PHASE-1-ENGINE.md) |
+| 1 | **The write engine & takes** | `ghostnoted`, patch→snapshot→apply→verify, branchable take store, in-Bitwig control layer | [PHASE-1-ENGINE.md](plan/PHASE-1-ENGINE.md) · [sessions 1–6](plan/PHASE-1-ENGINE.md#session-index) |
 | 2 | **The clip surface** | musical vocabulary over notes, MCP tool surface v1 — first genuinely usable build | [PHASE-2-CLIPS.md](plan/PHASE-2-CLIPS.md) |
 | 3 | **The session view** | daemon local API + web UI: change log, before/after diff, take timeline, partial revert | [PHASE-3-SESSION-VIEW.md](plan/PHASE-3-SESSION-VIEW.md) |
 | 4 | **Sound design** | direct-param layer, device/param catalog, device chain ops, remote controls | [PHASE-4-SOUND-DESIGN.md](plan/PHASE-4-SOUND-DESIGN.md) |
@@ -253,6 +253,14 @@ Not blockers; each is owned by a phase.
   live there while **A/B take navigation moves to the Phase-3 web view, pulled
   forward**. That is the P2↔P3 reorderable seam being exercised for a measured
   reason rather than a preference. → P1 scope, P3 timing.
+  > ● **CONFIRMED 2026-07-25 when Phase 1 was split into sessions.** "P1 scope, P3
+  > timing" resolved to: **Phase 1 builds no take switcher at all** and
+  > `PHASE-1-ENGINE.md` exit criterion 4 is relaxed rather than met. The pane keeps
+  > revert, status and `showInEditor` navigation. ⚠ The consequence worth carrying:
+  > the branchable take store ships with **no human ever exercising A/B inside
+  > Phase 1**, so Phase 3 is no longer a nice-to-have — it is where takes become
+  > usable — and PHASE-1 session 2's exit criteria carry the whole weight of
+  > proving the store design is right.
 - **A caller-written `note.props` op for two clips loses BOTH.** Every props op gets
   its own stage, so each re-points, and E15-F makes that fatal to the properties.
   Not reachable through `note.write` (the generated path pairs each props op with

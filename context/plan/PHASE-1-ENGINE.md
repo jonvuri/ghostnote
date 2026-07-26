@@ -1,13 +1,59 @@
 ---
 title: Phase 1 — The write engine & takes
-status: not started
-updated: 2026-07-24
+status: not started — split into six sessions 2026-07-25 (see §Session index)
+updated: 2026-07-25
 parent: ../PROJECT_PLAN.md
 prev: PHASE-0-FOUNDATION.md
 next: PHASE-2-CLIPS.md
+sessions: PHASE-1-SESSION-1-EXECUTOR.md … PHASE-1-SESSION-6-ASYNC.md
 ---
 
 # Phase 1 — The write engine & takes
+
+## Session index
+
+Split 2026-07-25. Sessions 1–5 are a dependency chain; session 6 is optional and
+may slip to Phase 2. The offline/live boundary is the load-bearing part of the
+ordering: the three hardest sessions are provable against the Phase-0 fake, and
+the two that need a human at the keyboard come after the things they verify are
+already written.
+
+| # | Session | Scope items | Needs | Doc |
+|---|---|---|---|---|
+| 1 | **The executor** — write-set, stash, verify, revert, resolver discipline | 2, 3, 5 | offline | [SESSION-1](PHASE-1-SESSION-1-EXECUTOR.md) |
+| 2 | **The take store** — persistence, branching, partial revert | 4 | offline | [SESSION-2](PHASE-1-SESSION-2-TAKES.md) |
+| 3 | **`ghostnoted`** — process, lifecycle, observers, local API | 1 | live daemon | [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) |
+| 4 | **The control layer** — the in-Bitwig pane | 6 | ⚠ human | [SESSION-4](PHASE-1-SESSION-4-CONTROL-LAYER.md) |
+| 5 | **Proving it live** — the exit-criteria sweep | §Exit | ⚠ human | [SESSION-5](PHASE-1-SESSION-5-PROVING.md) |
+| 6 | **Async batch completion** *(optional)* | 7 | — | [SESSION-6](PHASE-1-SESSION-6-ASYNC.md) |
+
+⚠ **Two of this doc's own premises were superseded by Phase 0's second session**,
+which closed the day after this doc was written. Both are reconciled in the
+session docs rather than rewritten here, per `DECISIONS.md`'s house rule that the
+retraction is usually the more useful record:
+
+- **⚠ Exit criterion 4 is RELAXED — take A/B leaves Phase 1.** D14 moved take
+  navigation to the Phase-3 web view because the controller pane cannot be pinned
+  and closes on click-away. **Resolved 2026-07-25: D14 wins.** Shipping the enum
+  button group would satisfy criterion 4 on paper — it works, ● at 2–12 options —
+  but A/B happens *while listening*, and a chooser that closes on click-away means
+  re-opening a pop-over between every comparison. That is the core verb not
+  working, not a wart on it. **Phase 1's in-Bitwig surface is revert, status and
+  navigation**; criterion 4 moves to Phase 3 with the rest of take navigation. See
+  [SESSION-4](PHASE-1-SESSION-4-CONTROL-LAYER.md) §Exit criterion 4 is RELAXED.
+  > ⚠ **The consequence, stated so it is not discovered later.** Phase 1 ships a
+  > branchable take store whose motivating verb no human ever exercises inside the
+  > phase. Two things follow: [SESSION-2](PHASE-1-SESSION-2-TAKES.md)'s exit
+  > criteria carry the *whole* weight of proving the store is right, and **Phase 3
+  > stops being optional-feeling** — it is now where takes become usable at all.
+  > The P2↔P3 seam (`PROJECT_PLAN.md` §5) is worth re-reading before Phase 2
+  > starts.
+- **"The Studio I/O panel" (§Scope 6) has not existed since Bitwig 5.0.** The API
+  is untouched; only where Bitwig draws it moved (D14, E14).
+- **"All 21 expression properties" (exit criterion 1) vs. D8's "16 of 18."**
+  Reconciled against the code in [SESSION-5](PHASE-1-SESSION-5-PROVING.md):
+  `NOTE_PROP_FIDELITY` has 21 keys — **19 exact, `gain` unverified, `pressure`
+  unwritable**.
 
 > **Purpose.** Build the machine that makes optimistic application safe, and prove it
 > on the one object class where fidelity is exact. Everything after this phase writes
@@ -62,6 +108,14 @@ engine.
    revert buttons and a take switcher in the Studio I/O panel, `showInEditor()`
    navigation to what changed, and popup notifications as progress signal (E8
    proved they interleave into a paced batch without stalling it).
+   > ⚠ **TWO CORRECTIONS, both from E14/D14 the day after this was written.**
+   > (a) There is no **"Studio I/O panel"** — Bitwig 5.0 moved the per-controller
+   > surface to a pane opened from the controller icons in the **top right**. The
+   > API is untouched; only the drawing moved. (b) **The take switcher is CUT.**
+   > The pane cannot be pinned and closes on click-away, so A/B-while-listening
+   > does not work there. Phase 1 ships **revert, status and navigation**; take
+   > switching goes to Phase 3. See §Session index and
+   > [SESSION-4](PHASE-1-SESSION-4-CONTROL-LAYER.md).
 7. **Async batch completion** — the deferred-response protocol E8 flagged as an open
    Phase-1 build item, so a paced batch can report *completion* rather than only
    acceptance.
@@ -121,6 +175,11 @@ The reframe in `PROJECT_PLAN.md` §3 drives this. Concretely, a take is:
 3. A stale-revision batch is **rejected whole**, applying zero ops.
 4. **Two takes can be A/B compared and switched between from inside Bitwig**, with
    no terminal and no web UI.
+   > ⚠ **RELAXED 2026-07-25 — this criterion MOVED TO PHASE 3, it did not pass.**
+   > D14 measured the pane closing on click-away, which makes A/B-while-listening
+   > unworkable there. Phase 1 proves the **store-side** half headlessly (two takes
+   > exist, are distinguishable, switchable through the daemon API); the human
+   > workflow is unproven until Phase 3. Full reasoning in §Session index.
 5. A project larger than the bank window causes a **loud, explicit refusal**, never
    a partial operation.
 6. The whole pipeline is exercised offline against the Phase-0 fake in CI.

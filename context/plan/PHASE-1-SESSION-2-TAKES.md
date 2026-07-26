@@ -1,0 +1,124 @@
+---
+title: Phase 1, session 2 — the take store: persistence, branching, partial revert
+status: not started
+updated: 2026-07-25
+parent: PHASE-1-ENGINE.md
+prev: PHASE-1-SESSION-1-EXECUTOR.md
+next: PHASE-1-SESSION-3-DAEMON.md
+scope: PHASE-1-ENGINE.md item 4
+evidence: E3, E8, E14 (rows A–D) · D5, D8, D14
+---
+
+# Phase 1, session 2 — the take store
+
+> **Purpose.** Give session 1's in-memory stashes a durable, branchable, human-owned
+> home. A batch creates a **take**; takes can be compared, jumped between, branched
+> from, and **partially reverted by musical address**. Still entirely offline.
+
+## Why this is second
+
+Session 1 produces takes as values. This session decides what a take *is* on disk
+and what can be done to one — and that shape is load-bearing twice over: the
+daemon (session 3) serves it, and **Phase 3's diff renders it**. §8f's "one
+mechanism, two features" means a schema mistake here is paid for in a later phase,
+which is a good reason to settle it while the only consumer is a test.
+
+It is deliberately *before* the daemon. A store that is a library with a directory
+path can be tested exhaustively offline; a store that is born inside a daemon
+process acquires lifecycle bugs before it has correctness ones.
+
+## Scope
+
+### In
+
+1. **The take schema.** At minimum: id, parent, timestamp, project key, the ops as
+   requested, the **stash** (prior state of exactly the write-set), the receipt,
+   the verify snapshot, and the **fidelity summary**. D5 and PHASE-1 §Risks agree
+   the label ships in the schema *from the first write* rather than being added
+   later — session 1 computes it, this session persists it.
+2. **On-disk, project-keyed.** Take contents live in the daemon's store
+   (`~/.ghostnote/…`), not in the project document. But the **active take pointer**
+   is naturally project-scoped: `getDocumentState()` settings persist inside the
+   project file and survive save + full Bitwig restart, per project (● E14). The
+   split is deliberate — see Decisions.
+3. **Branching.** Reverting to an earlier take and proceeding must not destroy the
+   branch left behind ("go back to the sparse hats, keep the new bass"). A parent
+   pointer and a head pointer are very nearly the whole model.
+4. **Partial revert by musical address.** The write-set is already a list of
+   `Address` values with a canonical `addressKey`
+   ([address.ts:118](../../brain/src/contract/address.ts#L118)) explicitly built
+   "for write-set diffing and partial-revert slicing" — so slicing is a filter over
+   the stash, and the result feeds session 1's `revertOps` unchanged.
+5. **Retention and pruning.** Depth, and what happens to old branches.
+6. **⚠ Human-ownership, made structural.** §8g / standing rule 8: the agent may
+   read and explain the log, never mutate it. This session's mitigation is a
+   **split API surface** — a read interface and a mutate interface as separate
+   types — so session 3 can hand the MCP client the read half and the design makes
+   the violation hard rather than merely forbidden. D14 notes the daemon must keep
+   the agent off those endpoints; the type split is what makes that reviewable.
+
+### Out
+
+- The daemon process and its lifecycle — session 3.
+- **⚠ Any take-switching UI.** D14 sends take navigation to Phase 3, and session 4
+  builds no chooser — so this store's A/B verb is exercised by tests and the
+  daemon API in Phase 1, and by a human only in Phase 3. **That raises the stakes
+  on this session's exit criteria**, which are now the only thing standing between
+  a wrong store design and a phase-late discovery.
+- Rendering diffs — Phase 3. This session owes the *data*, and owes it in a shape
+  a diff can consume, but renders nothing.
+- Cross-project take migration. Out of scope permanently unless something asks.
+
+## Decisions this session must make
+
+- **What the project key is.** Take contents are keyed by project, and the store
+  must recognise "the same project" across close and reopen. Options: a path hash,
+  or a UUID minted into `getDocumentState()` on first write (which survives save +
+  restart, ● E14) and used as the key thereafter. *Recommendation: the latter* —
+  it survives the file being moved or renamed, and E14 already proved the storage
+  works. It also means an unsaved project has no key, which is a case to answer
+  rather than discover.
+- **⚠ Partial-revert granularity — "cheapest useful answer first."** By clip? By
+  track? By time range? By pitch range? *Recommendation: by `addressKey` prefix,
+  which gives track and clip for free and needs no new concepts*, with time/pitch
+  slicing deferred until a real session asks for it. PHASE-1 §Risks names
+  over-modelling here as the phase's top design risk.
+- **Where the active take pointer lives**, and what happens when the daemon's
+  store and the project document disagree — e.g. the project was reopened from a
+  backup, or takes were pruned while it was closed. Detection matters more than
+  resolution; surface it.
+- **Retention policy.** How deep, and whether takes survive project close (they
+  are on disk, so the default is yes — the question is for how long).
+- **Whether a take is named.** "That take had a better hi-hat" is D5's motivating
+  sentence, and it implies the human can label one. Cheap to add now.
+
+## Exit criteria
+
+1. Two takes can be created, compared, and jumped between; jumping back and
+   writing again **branches** rather than truncating, and the abandoned branch is
+   still reachable.
+2. A **partial** revert restores one clip's notes from a take and leaves the rest
+   of that take's write-set untouched.
+3. The store survives a process restart: takes written before, readable after,
+   with fidelity labels intact.
+4. Every take carries a fidelity summary; a take containing a `none`-fidelity
+   entry says so before a revert is attempted, not during.
+5. The mutating half of the store API is **not reachable** from the read
+   interface, asserted by a test in the spirit of `WIRE_METHODS_BANNED`.
+6. Offline in CI, with no Bitwig and no daemon.
+
+## Risks
+
+- **⚠ Take branching is more design than expected** (PHASE-1 §Risks, verbatim).
+  It is a graph, not a stack, and the temptation is a general VCS. Mitigation: the
+  concrete requirements are exactly A/B comparison and partial revert. Build those
+  two verbs and stop. If a merge operation appears in the design, something has
+  gone wrong.
+- **The schema calcifies before Phase 3 knows what it needs.** Mitigation: the
+  stash is already the diff source by construction (§8f), so the risk is confined
+  to *metadata*, and metadata is cheap to version. Give the on-disk format a
+  version field on day one — the project already has a `CONTRACT_TAG` idiom to
+  copy.
+- **Store corruption from a half-written take.** A crash mid-write should not
+  leave an unreadable store. Write-then-rename is the standard answer and is worth
+  the twenty minutes now.
