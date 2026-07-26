@@ -145,6 +145,29 @@ export class ProjectModel {
   }
 
   /**
+   * Resolve `cursorClip` back to the slot it names — what the cursor is HOLDING,
+   * as opposed to what an op asked it to hold.
+   *
+   * Needed only by E2's empty-slot trap: when a point finds nothing to attach to,
+   * the cursor keeps its previous clip, so the fake has to know what that was.
+   *
+   * ⚠ Searches ALL tracks rather than `visibleTracks()`. The pool cursor is pinned
+   * and non-following (E1), so where it is parked does not depend on what the bank
+   * window can currently see; filtering here would invent a "cursor is nowhere"
+   * that the real one does not have.
+   */
+  resolveClipKey(key: string | undefined): { track: FakeTrack; slot: FakeSlot; sceneIndex: number } | undefined {
+    if (key === undefined) return undefined;
+    const sep = key.lastIndexOf(':');
+    if (sep < 0) return undefined;
+    const channelId = key.slice(0, sep);
+    const sceneIndex = Number(key.slice(sep + 1));
+    const track = this.tracks.find((t) => t.channelId === channelId);
+    const slot = track?.slots[sceneIndex];
+    return track === undefined || slot === undefined ? undefined : { track, slot, sceneIndex };
+  }
+
+  /**
    * ⚠ E2c: `createInstrumentTrack(position)` does NOT honour the requested
    * position — asking for the end landed at index 7 of 9, asking for 0 landed at
    * 1. The only safe procedure is create, then diff the bank by channelId. The

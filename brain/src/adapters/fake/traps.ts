@@ -185,8 +185,18 @@ export function noteOnReadback(stored: NoteRecord): NoteRecord {
   return stored.gain === undefined ? stored : { ...stored, gain: gainOnReadback(stored.gain) };
 }
 
-export interface PointResult {
+/** The clip the cursor was already holding when a point was attempted. */
+export interface PointOrigin {
   readonly slot: FakeSlot;
+  readonly sceneIndex: number;
+}
+
+export interface PointResult {
+  /**
+   * Where the cursor actually ended up — `undefined` when it landed on no clip at
+   * all, in which case every write through it is inert.
+   */
+  readonly slot: FakeSlot | undefined;
   readonly sceneIndex: number;
   /** True when the cursor did NOT land where it was asked to — and says nothing. */
   readonly mispointed: boolean;
@@ -194,26 +204,49 @@ export interface PointResult {
 
 /**
  * ⚠ E2, and the nastiest trap in the set: pointing at an EMPTY slot silently
- * lands the cursor on the WRONG clip. Observed both staying on the previous clip
- * and attaching to a different clip on the target track — and in BOTH cases
- * `cursor.status` looks entirely healthy. There is no error and no signal.
+ * lands the cursor on the WRONG clip, with `cursor.status` looking entirely
+ * healthy. There is no error and no signal.
+ *
+ * E2 observed TWO trials, and the difference between them is which clip is
+ * reachable, so both are reproduced here in that order:
+ *
+ *   1. "attaching to a different clip on the target track (slot 0)" — fires when
+ *      the target track holds a clip somewhere else;
+ *   2. "staying on the previous clip" — fires when it does not, and the previous
+ *      clip is routinely on a DIFFERENT TRACK entirely.
+ *
+ * ⚠ Trial 2 is the one Phase 1 walks into constantly, because "fresh track, first
+ * clip" is a wholly-empty track by definition. Modelling only trial 1 left the
+ * fake ACCEPTING a `note.write` into a never-created slot — reporting `ok: true`
+ * and reading the note back — which is the fake certifying behaviour Bitwig does
+ * not have, i.e. PHASE-0 §Risks' named failure mode pointing the wrong way.
+ *
+ * A slot with no clip cannot hold notes, so the one thing that never happens is
+ * the write landing where it was asked. When nothing is reachable at all the
+ * cursor holds no clip and the write goes nowhere, which is modelled as
+ * `slot: undefined` rather than invented as success.
  *
  * The mitigation is procedural (create the clip before pointing at it), and it is
  * invisible unless the fake actually misbehaves — which is exactly why this is
  * the highest-value trap to model.
  */
-export function pointAtSlot(track: FakeTrack, sceneIndex: number): PointResult {
+export function pointAtSlot(track: FakeTrack, sceneIndex: number, previous?: PointOrigin): PointResult {
   const target = track.slots[sceneIndex];
   if (target !== undefined && target.hasContent) {
     return { slot: target, sceneIndex, mispointed: false };
   }
-  // Land on the first slot on this track that HAS content — the observed
-  // "attached to a different clip on the target track (slot 0)" behaviour.
+  // Trial 1: the first slot on THIS track that has content.
   const fallbackIndex = track.slots.findIndex((s) => s.hasContent);
-  if (fallbackIndex < 0) {
-    return { slot: target ?? track.slots[0]!, sceneIndex, mispointed: false };
+  if (fallbackIndex >= 0) {
+    return { slot: track.slots[fallbackIndex]!, sceneIndex: fallbackIndex, mispointed: true };
   }
-  return { slot: track.slots[fallbackIndex]!, sceneIndex: fallbackIndex, mispointed: true };
+  // Trial 2: nothing on this track to attach to, so the cursor keeps what it had.
+  // `hasContent` is re-checked because a cursor parked on an empty slot is holding
+  // no clip either — landing there would recreate the bug this branch exists to fix.
+  if (previous !== undefined && previous.slot.hasContent) {
+    return { slot: previous.slot, sceneIndex: previous.sceneIndex, mispointed: true };
+  }
+  return { slot: undefined, sceneIndex, mispointed: true };
 }
 
 /**

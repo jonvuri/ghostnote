@@ -23,7 +23,7 @@ import { VirtualClock } from './clock.js';
 import { ProjectModel, noteKey, type FakeTrack } from './model.js';
 import {
   applyNotePropsInOrder, bankBlindSpot, gridChangePoisonsRead, noteOnReadback, pointAtSlot,
-  propsReadsTurnStartClip, stepDataIsStale, writeNoteProps,
+  propsReadsTurnStartClip, stepDataIsStale, writeNoteProps, type PointOrigin,
 } from './traps.js';
 
 /** How the fake names the clip a cursor points at. Identity, never index (E2f). */
@@ -279,6 +279,19 @@ export class FakeAdapter implements BitwigAdapter {
     return { contract: CONTRACT_TAG, accepted: true, stages: receipts, minted, at: this.mark() };
   }
 
+  /**
+   * The clip the pool cursor is holding RIGHT NOW.
+   *
+   * ⚠ Must be read BEFORE the op re-points, because `cursorClip` moves
+   * immediately while the staged closure that uses it runs at commit (E15-D). It
+   * feeds E2's trial 2: a point that finds nothing to attach to leaves the cursor
+   * on the clip it already had, which is usually on another track.
+   */
+  private cursorOrigin(): PointOrigin | undefined {
+    const hit = this.model.resolveClipKey(this.model.cursorClip);
+    return hit === undefined ? undefined : { slot: hit.slot, sceneIndex: hit.sceneIndex };
+  }
+
   private requireTrack(ref: { channelId: string }, op: string): FakeTrack {
     const hit = this.model.findByChannelId(ref.channelId);
     if (hit === undefined) {
@@ -300,12 +313,17 @@ export class FakeAdapter implements BitwigAdapter {
         const sceneIndex = op.clip.slot.scene.index;
         const notesToWrite = op.notes;
         const grid = stepSizeFor(notesToWrite);
+        const origin = this.cursorOrigin();
         // Pointing is cursor state, so it moves NOW rather than at commit — a
         // re-point steers the calls that follow it in the same turn (E15-D).
         this.model.cursorClip = clipKey(op.clip.slot.track.channelId, sceneIndex);
         this.clock.stage(() => {
           // ⚠ E2: pointing at an empty slot silently lands on the WRONG clip.
-          const point = pointAtSlot(track, sceneIndex);
+          const point = pointAtSlot(track, sceneIndex, origin);
+          // ⚠ E2 with nothing reachable: the cursor holds no clip and the write
+          // is inert. This is what makes a missing `clip.create` fail offline
+          // instead of silently landing somewhere else on a real project.
+          if (point.slot === undefined) return;
           const written = notesToWrite.map(writeNoteProps);
           // ⚠ E8-E: same-pitch adjacency truncates; readback != request.
           const merged = [...point.slot.notes.values(), ...written];
@@ -333,9 +351,11 @@ export class FakeAdapter implements BitwigAdapter {
         // before the re-point below, because the re-point is what causes it.
         const wrongTurnStartClip = propsReadsTurnStartClip(
           this.turnStartClip, clipKey(op.clip.slot.track.channelId, sceneIndex));
+        const origin = this.cursorOrigin();
         this.model.cursorClip = clipKey(op.clip.slot.track.channelId, sceneIndex);
         this.clock.stage(() => {
-          const point = pointAtSlot(track, sceneIndex);
+          const point = pointAtSlot(track, sceneIndex, origin);
+          if (point.slot === undefined) return;
           // ⚠ E15-D, both halves. The op emits `setStepSize` then `getStep` in
           // one turn, so it loses everything either if a PREVIOUS request moved
           // the grid too recently, or if this op moves it itself. No error, no
@@ -359,10 +379,13 @@ export class FakeAdapter implements BitwigAdapter {
       case 'note.clear': {
         const track = this.requireTrack(op.clip.slot.track, op.op);
         const sceneIndex = op.clip.slot.scene.index;
+        const origin = this.cursorOrigin();
         this.model.cursorClip = clipKey(op.clip.slot.track.channelId, sceneIndex);
         this.clock.stage(() => {
-          const point = pointAtSlot(track, sceneIndex);
-          point.slot.notes.clear();
+          // ⚠ E2 again, and worse here than for a write: a mispointed clear wipes
+          // a clip nobody addressed. Reproduced rather than prevented.
+          const point = pointAtSlot(track, sceneIndex, origin);
+          point.slot?.notes.clear();
         });
         return;
       }

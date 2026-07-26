@@ -365,9 +365,59 @@ test('T-emptyslot: a write to an empty slot lands in the WRONG clip', () => {
   track.slots[0]!.hasContent = true;
   const point = pointAtSlot(track, 3);
   const n = note({ pitch: 64 });
+  assert.ok(point.slot, 'trial 1 always lands somewhere — just not where it was asked');
   point.slot.notes.set(noteKey(0, n.pitch, n.startBeats), n);
   assert.equal(track.slots[3]!.notes.size, 0, 'the requested slot got nothing');
   assert.equal(track.slots[0]!.notes.size, 1, 'the untouched clip was silently modified');
+});
+
+test('T-emptyslot: on a WHOLLY EMPTY track the cursor stays on the PREVIOUS clip (E2)', () => {
+  // ⚠ E2's other observed trial. The fallback above can only fire when the target
+  // track holds a clip somewhere; on a track with nothing at all there is nothing
+  // to attach to, and the cursor keeps what it already had — routinely a clip on
+  // a DIFFERENT TRACK, which is what makes this worse than it looks.
+  const model = new ProjectModel();
+  const a = model.createTrack('gn-A');
+  const b = model.createTrack('gn-B');
+  a.slots[0]!.hasContent = true;
+  const point = pointAtSlot(b, 2, { slot: a.slots[0]!, sceneIndex: 0 });
+  assert.equal(point.mispointed, true);
+  assert.equal(point.slot, a.slots[0], 'landed on the other TRACK\'s clip, not on gn-B at all');
+});
+
+test('T-emptyslot: with no clip reachable anywhere the cursor holds nothing (E2)', () => {
+  // A slot with no clip cannot hold notes, so the one outcome that never happens
+  // is the write landing where it was asked. `undefined` says "nowhere" instead
+  // of inventing a success — see the end-to-end case below for why that matters.
+  const model = new ProjectModel();
+  const b = model.createTrack('gn-B');
+  assert.equal(pointAtSlot(b, 2, undefined).slot, undefined);
+  // A cursor parked on an EMPTY slot is holding no clip either.
+  const a = model.createTrack('gn-A');
+  assert.equal(pointAtSlot(b, 2, { slot: a.slots[0]!, sceneIndex: 0 }).slot, undefined);
+});
+
+test('T-emptyslot: a write to a never-created slot does NOT land there (E2)', async () => {
+  // ⚠ THE REGRESSION THIS EXISTS FOR. Phase 1 creates fresh tracks and writes
+  // their first clip, which is a wholly-empty track by definition. The fake used
+  // to accept this write, report `ok: true` and read the note back — certifying a
+  // shape that mispoints on real Bitwig, which is PHASE-0 §Risks' named failure
+  // mode with the sign flipped.
+  //
+  // The op is still ACCEPTED, because Bitwig raises no error either; what must
+  // not happen is the note appearing in the slot nobody created.
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const [tA] = adapter.model.tracks;
+  const target = clip(slot(track(tA!.channelId), scene(3, 1)));
+
+  const receipt = await adapter.apply({ ops: [{ op: 'note.write', clip: target, notes: [note()] }] });
+  await adapter.settle('noteWrite');
+
+  assert.equal(receipt.accepted, true, 'Bitwig does not error here, so neither may the fake');
+  const snap = await adapter.read([notesAddress(target)]);
+  const entry = snap.entries[addressKey(notesAddress(target))];
+  const landed = entry?.value.of === 'notes' ? entry.value.notes : [];
+  assert.deepEqual(landed, [], 'the note must not appear in a slot that was never created');
 });
 
 test('T-emptyslot: creating the clip first makes pointing land correctly (the fix)', () => {
