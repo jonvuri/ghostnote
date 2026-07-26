@@ -66,6 +66,28 @@ export class ProjectModel {
   /** Ours. Bumped by any scene create/delete so stale addresses are refusable (E3). */
   sceneEpoch = 1;
 
+  /**
+   * The pool cursor's step grid, in beats.
+   *
+   * ⚠ On the CURSOR, not on a clip — re-pointing carries it along, which is
+   * precisely why it is a hazard: a write to one clip leaves the grid it chose
+   * behind for whatever touches the cursor next (E15-D). `undefined` until
+   * something sets it, because a fresh fake has no way to know what grid a real
+   * pool cursor was left on, and inventing one would let the fake fail a case
+   * live Bitwig would pass.
+   */
+  cursorStepSize: number | undefined = undefined;
+
+  /**
+   * Which clip the pool cursor points at, as `channelId:sceneIndex`.
+   *
+   * ⚠ Cursor state, not clip data, so it moves IMMEDIATELY rather than through
+   * the pending buffer — a re-point steers the API calls that follow it in the
+   * same turn (E15-D). What lags is the step DATA behind it, which is the whole
+   * of E15-F.
+   */
+  cursorClip: string | undefined = undefined;
+
   private nextUuid = 1;
 
   mintChannelId(): string {

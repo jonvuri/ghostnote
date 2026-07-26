@@ -1,9 +1,10 @@
 ---
 title: ghostnote — Project Plan (phased)
 status: sketched 2026-07-24 — phase docs are deliberately high-level; low-level design
-        is decided inside each phase as it is entered
-updated: 2026-07-24
-evidence: context/spike/FINDINGS.md (E0–E13), context/DECISIONS.md (D1–D5)
+        is decided inside each phase as it is entered. §4 demoted to a pointer at
+        DECISIONS D6–D15 (2026-07-25); §7 updated with what Phase 0 closed.
+updated: 2026-07-25
+evidence: context/spike/FINDINGS.md (E0–E15), context/DECISIONS.md (D1–D15)
 supersedes: the "Phase 2+ ordering" open question in INITIAL_PROMPT §12
 ---
 
@@ -79,49 +80,74 @@ owes *before/after* comparison and cross-object summaries.
 
 ## 4. Standing rules (apply in every phase)
 
+> **This section is now a POINTER.** It was the working summary while the
+> spike-wide decisions were still owed; they landed as **`DECISIONS.md` D6–D15**
+> (2026-07-25), which is the canonical record with full evidence. What remains here
+> is the short form — the rules as one-liners, because "violating one is a defect"
+> is worth being able to read in thirty seconds. **Where the two disagree, DECISIONS
+> wins.** Each rule below names its D-entry.
+
 These are the spike's hard-won invariants. Violating one is a defect, not a style
 choice. Evidence in parentheses.
 
 1. **Readback is the only truth.** Every write is verified by reading it back.
    Offline validation and inspection are necessary, never sufficient — a wrong
-   modulator route passes `validate()` and silently does nothing (E10b).
+   modulator route passes `validate()` and silently does nothing (E10b). → **D15**
 2. **Address by identity, never by index.** `channelId` (UUID) is the durable key
    (E2f); pinned non-following cursor tracks are the live handle (E1); verify the
    cursor's target before every write (E2); **re-point after any structural op** —
    a held pin's `sceneIndex` goes permanently stale after scene compaction (E3).
+   → **D6**
 3. **Known silent-no-op write traps:** `setImmediately` never `set` (E4);
    DirectParameter writes need `resolution=1` (E4b); `gain` reads back 2× written
    (E2); **`pressure` cannot be written at all** and is refused (E15-E, retracting
    E2/e02e's "write pressure last"); **`cursor.setNoteProps` reads before it
    writes**, so it needs its own request AND a settled step grid — 120ms measured,
-   and every property is discarded in silence below that (E15-B/D).
+   and every property is discarded in silence below that (E15-B/D). → **D8/D9**
 3a. **Verify a write through a DIFFERENT handle than the one that made it.**
    Bitwig's cursors cache what you wrote to them and report it back whether or not
    it landed; two findings were wrong for exactly this reason (E15-C retracted,
    E15-D misdiagnosed). An independent cursor, or the same one after a re-point,
-   is what makes standing rule 1 actually bite.
+   is what makes standing rule 1 actually bite. → **D15**
+3b. **A `note.props` op must not RE-POINT.** It resolves its note against the clip
+   the cursor held at TURN START, so a props op that moves the cursor inside its own
+   turn loses every property, silently — in any shape, batched or not (E15-F). This
+   is why property writes stay interleaved with their creates and are never hoisted
+   or coalesced across clips. → **D10**
+3c. **Validate inputs BEFORE calling; a handler's `try/catch` is not a safety net.**
+   An exception Bitwig defers to its own thread escapes every extension frame and
+   takes the DAW down — `Signal.fire()` returned normally and killed Bitwig from
+   `BitwigStudioMain` (E14-A1). → **D15**
 4. **The batch is the unit.** One request carrying N ops, never N round-trips. Fast
    ops in one turn; structural ops staged at their settle budget (~600ms device
    insert, ~144ms track, ~268ms `insertFile`). The two-turn write→verify rule applies
-   once per batch, not per op (E8/E3).
+   once per batch, not per op (E8/E3). → **D10**
 5. **Bank-window overflow is a checkpoint blind spot, not a tuning knob.** Tracks
    outside the window are invisible and their state unsnapshottable. Detect and
-   **fail loud**; never operate on a partially-visible project (E5).
-6. **No named actions. Ever.** (E6)
+   **fail loud**; never operate on a partially-visible project (E5). `itemCount()`
+   reports the PROJECT total, which is what makes this implementable (E15-A).
+   → **D6/D7**
+6. **No named actions. Ever.** (E6) → **D13**
 7. **All writes go through the daemon.** The extension-side revision counter (E8)
    guards *ordering* across processes but cannot detect *omission* — a write that
-   bypasses the daemon leaves a silent gap in the take log.
+   bypasses the daemon leaves a silent gap in the take log. → **D10**
 8. **Revert is a human verb.** The agent may read the take log and explain it; it
-   may never mutate it (§8g).
+   may never mutate it (§8g). Stronger than assumed: Bitwig REFUSES `Signal.fire()`
+   on a document-state button, so only a real human click can press it (E14-A1).
+   → **D14**
 9. **Check `@Deprecated` before wiring any handle at `init()`** — some deprecations
-   throw and crash the whole extension on load (E7).
+   throw and crash the whole extension on load (E7). → **D11**
 10. **Never record a capability ○ from a single mechanism or a doc pass.** Grep
     `member-search-index.js` across *all* API versions, walk supertypes, then probe
-    live. Five-plus false negatives in the spike came from skipping this.
+    live. Five-plus false negatives in the spike came from skipping this. ⚠ And the
+    inverse: a doc pass can be wrong about where a feature APPEARS, not just
+    whether it exists — D4 named a panel Bitwig had renamed two majors earlier, and
+    the bundled user guide on disk is for 4.3.9 (E14). → **D14**
 11. **Templates and donors are build-time assets.** `insertFile` needs an **absolute
     path** and a **`.bwpreset` extension** — both fail silently otherwise (E4h).
 12. **Units are beats-native**; the step grid is a per-operation view, not global
-    state (E2, correcting daw-mcp's design).
+    state (E2, correcting daw-mcp's design). Pick the COARSEST exact grid — off-grid
+    notes are reported snapped DOWN, which corrupts a snapshot silently. → **D9**
 
 ## 5. Phase index
 
@@ -190,9 +216,16 @@ Not blockers; each is owned by a phase.
 - **Async batch completion.** The Bridge writes a response when a handler returns,
   so a paced batch acknowledges acceptance, not completion. A completion callback
   needs a deferred-response protocol (E8). → P1.
-- **Pointing borrows the UI selection** (E1). `NotificationSettings` may suppress
+- ~~**Pointing borrows the UI selection** (E1). `NotificationSettings` may suppress
   the resulting notification spray; whether the selection movement itself can be
-  restored after a batch is unresolved. → P0 probe, P1 decision.
+  restored after a batch is unresolved.~~ → **CLOSED (E14-F).** ⚠ The first half was
+  a conflation: E1's wart is that the SELECTION MOVES, and it says nothing about
+  notifications — `NotificationSettings` governs notifications the CONTROLLER
+  requests, they default off, ghostnote enables none, and pointing produces no
+  spray to suppress. The second half is answered ●: the prior selection can be
+  saved and restored, restoring it does not disturb the pool cursor, and a whole
+  batch costs exactly **one** observable selection change, so a single restore at
+  the end suffices. **Phase 1 owes that restore** (D6).
 - **Device-side scale is unmeasured.** E5's populated project was synthetic —
   empty tracks, no device chains, while `DEVICE_BANK` observers stream per chain.
   → P4.
@@ -201,7 +234,23 @@ Not blockers; each is owned by a phase.
 - **Other embedded-bulk devices** (convolution IR, wavetable, nested containers)
   are expected to follow the same Tier-2 stub-relocation pattern but are untested
   (D2 §5). → P5.
-- **DECISIONS D6+ consolidation is owed.** Per SPIKE_PLAN §5, the addressing model,
-  scaffold sizes, checkpoint-fidelity table, grid/units, batch mechanics, toolchain
-  and transport decisions are settled in FINDINGS but not yet transcribed into
-  `DECISIONS.md`. §4 above is the working summary until they are. → P0.
+- ~~**DECISIONS D6+ consolidation is owed.**~~ → **DONE 2026-07-25.** Landed as
+  `DECISIONS.md` **D6–D15**, which also carries the Phase-1 control-layer decision
+  (D14) and the verification discipline the E15 arc produced (D15). §4 above is now
+  a pointer at them.
+
+### Added by Phase 0, session 2
+
+- **The human surface splits by verb frequency.** Bitwig's controller pane cannot be
+  pinned and closes on click-away (E14), so revert and other deliberate one-shots
+  live there while **A/B take navigation moves to the Phase-3 web view, pulled
+  forward**. That is the P2↔P3 reorderable seam being exercised for a measured
+  reason rather than a preference. → P1 scope, P3 timing.
+- **A caller-written `note.props` op for two clips loses BOTH.** Every props op gets
+  its own stage, so each re-points, and E15-F makes that fatal to the properties.
+  Not reachable through `note.write` (the generated path pairs each props op with
+  its own create) and not refused either. → P1.
+- **Async batch completion** remains open exactly as recorded above; E15-F adds that
+  a deferred-response protocol would also be what makes a re-point inside a batch
+  settleable, and so is the only route to reclaiming the 2N-stage cost of expression
+  writes (D10). → P1.

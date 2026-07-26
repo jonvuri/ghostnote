@@ -1,21 +1,24 @@
 ---
 title: ghostnote — Decisions (evidence-backed)
-status: IN PROGRESS — modulator-authoring decisions settled (D1–D3, E10/E11); project
-        topology settled (D4/D5, 2026-07-24). The remaining spike-wide decisions
-        (addressing, scaffold sizes, checkpoint, grid, batch, toolchain, transport,
-        escape-hatch) are still to be consolidated here as D6+; their evidence already
-        lives in FINDINGS (E0–E9) and the working summary is PROJECT_PLAN §4.
-updated: 2026-07-24
+status: COMPLETE for Phase 0 — modulator authoring settled (D1–D3, E10–E13); project
+        topology settled (D4/D5); the spike-wide consolidation SPIKE_PLAN §5 owed is
+        now D6–D15 (2026-07-25), which also carries the Phase-1 control-layer decision
+        (D14) and the verification discipline the E15 arc produced (D15).
+updated: 2026-07-25
 evidence: context/spike/FINDINGS.md (E-numbers), BWFORMAT_SPEC.md, BWMOD_DESIGN.md
 plan: context/PROJECT_PLAN.md + context/plan/PHASE-*.md
 ---
 
 # ghostnote — DECISIONS
 
-> Each decision cites the FINDINGS experiment(s) that settled it. This file currently
-> captures the **modulator-authoring** decisions (the E10/E11 arc, the spike's
-> differentiator). Sections marked *PROVISIONAL* are settled enough to build on but
-> flagged for the noted follow-up.
+> Each decision cites the FINDINGS experiment(s) that settled it. D1–D3 are the
+> **modulator-authoring** arc (E10–E13, the differentiator); D4/D5 are topology and
+> checkpoints; **D6–D15** are the spike-wide consolidation.
+>
+> ⚠ Where a later entry corrects an earlier one, the earlier text is KEPT with the
+> correction quoted inline rather than rewritten. The retraction is usually the
+> more useful record — see D2's dead "tier 3", D4's Studio I/O panel, and the E15-C
+> retraction behind D15.
 
 ---
 
@@ -205,7 +208,19 @@ nowhere to live.
   runtime, and values that are both writable (push state) and observable (pull
   intent) — **persisted inside the project document**. Nothing there is reachable over
   the bridge, so §8g's privilege separation becomes structural rather than policy.
-  ⚠ **◐ doc-only — probed in Phase 0 (E14) before anything depends on it.**
+  > ⚠ **PROBED 2026-07-25 — D14 SUPERSEDES THIS BULLET.** E14 confirmed every
+  > capability listed, and found the button group works at **12** options rather
+  > than only "small counts". It corrected three things this text gets wrong:
+  > **(1) the panel MOVED.** Bitwig 5.0 relocated the per-controller surface to a
+  > pane opened from controller icons in the **top right of the window**, and
+  > renamed the old panel ("Studio Monitoring Panel" in 6.0.6) — which no longer
+  > lists controllers at all. The API is untouched; only the drawing moved.
+  > **(2) "nothing there is reachable over the bridge" understates it.** Bitwig
+  > REFUSES `Signal.fire()` outright, so the separation is API-enforced rather
+  > than a consequence of which wire methods we choose to register.
+  > **(3) the pane cannot be pinned** and closes on click-away, making it a poor
+  > home for A/B take switching during listening; that moves to the Phase-3 web
+  > view. Revert and other deliberate one-shots stay here and work well.
 - **A local web view (Phase 3) adds only what Bitwig cannot do:** before/after
   comparison, cross-object change summaries, take navigation, partial revert.
   `ClipLauncherSlot.showInEditor()` + `Application.zoomToFit()` already handle "show
@@ -220,8 +235,11 @@ nowhere to live.
 undo step" with a caller-supplied name — so E3's "no grouping hook in the API" is too
 strong. It does **not** rescue native undo (note and param writes remain ungrouped and
 the stack is still project-global, so snapshot-replay revert stands unchanged), but it
-means our bulk deletes can appear as one named entry in the user's history. ◐ probe in
-E14.
+means our bulk deletes can appear as one named entry in the user's history.
+> ● **CONFIRMED (E14-G).** Three clips deleted by one call; **one** undo restored
+> all three; the history entry read `"ghostnote E14 batch delete"`. Same for
+> `duplicateObjects`. Both are on `ControllerHost`, not `Application`, and take
+> `DeleteableObject…` / `DuplicableObject…` rather than `ObjectProxy`.
 
 ## D5 — Checkpoints are branchable takes, not a linear undo stack **[SETTLED 2026-07-24]**
 
@@ -254,16 +272,264 @@ Consequences for the store (built in Phase 1):
 
 ---
 
-## Consolidate at spike close (evidence already in FINDINGS)
+## D6 — Addressing: pinned non-following cursors, identity never index **[SETTLED 2026-07-25]**
 
-Per SPIKE_PLAN §5, DECISIONS must also record: addressing model & cursor-pool sizes
-(E1/E2f/E5), pre-allocation scaffold sizes (E5/HANDOFF-E5), checkpoint fidelity table
-(E2/E3), grid/units mapping (E2), batch execution mechanics (E8), toolchain versions
-(E0), transport + protocol frame (E0/E9), escape-hatch policy (E6 ○). These are settled
-in FINDINGS but not yet transcribed here.
+**Address by durable identity through a pool of pre-allocated, non-following cursor
+tracks, each owning a `PinnableCursorClip`. Never store or send a bank index that
+outlives the request that resolved it.**
 
-**Owner: Phase 0** (`plan/PHASE-0-FOUNDATION.md`); they become **D6+**. Writing
-PROJECT_PLAN.md did not discharge this — the plan cites FINDINGS directly rather than
-duplicating decisions here. Until the transcription lands, the working summary is
-PROJECT_PLAN §4 "Standing rules", which states the load-bearing ones with evidence
-pointers; that section is demoted to a pointer once D6+ exist.
+- **`channelId` (UUID) is the durable track key** (E2f). It is minted fresh on
+  create, so a delete-and-recreate is a DIFFERENT track — which is correct, and is
+  why a stash cannot be replayed onto a recreated track by name.
+- **Pointing mechanism is `trackThenSlot`** — `cursorTrack.selectChannel(track)`
+  then `track.selectSlot(s)` — the only one of three candidates that works (E1).
+  Settle is ~25ms and **verifiable by polling** `position()` + `sceneIndex()`,
+  which replaces daw-mcp's blind 400ms sleep.
+- **Cursor pools are non-following BY CONSTRUCTION** (`shouldFollowSelection=false`
+  at creation); pinning is belt-and-suspenders on top (E1). 3 cursors held 3
+  different clips concurrently, and 20/20 write+readback cycles stayed correct
+  through continuous user clicking (27 selection changes observed).
+- **Re-point after ANY structural op.** A held pin's `sceneIndex` goes permanently
+  stale after scene compaction (E3), and bank indices drift under create/delete.
+- ⚠ **Pointing STEALS the user's clip selection** (E1, measured E14-F1). It can be
+  saved and restored around a batch, restoring does not disturb the pool cursor,
+  and a whole batch costs exactly ONE observable selection change — so one restore
+  at the end suffices (E14-F2/F3/F4). **Phase 1 owes that restore.**
+- ⚠ **Pointing at an EMPTY slot silently lands on the WRONG clip** and
+  `cursor.status` looks healthy (E2). Create the clip first, always.
+- **Bank-window overflow is a refusal, not a knob** (E5, standing rule 5).
+  `TrackBank.itemCount()` reports the PROJECT total, not the window (E15-A) —
+  which is what makes the rule implementable at all; before it, "16 tracks exist"
+  and "16 of 54 are visible" were indistinguishable from the extension side.
+
+## D7 — Pre-allocation scaffold sizes **[SETTLED 2026-07-25]**
+
+**Ship `TRACKS=256, SCENES=128, CURSOR_POOL=8, DEVICE_BANK=16, paramHandles=64`,
+all config-tunable via `~/.ghostnote/rig.json`.** E5 found **no knee below 65 536
+slots** (512×128 = 81ms init) and latency flat at the ~24ms control-surface tick
+floor in every configuration, loaded or empty. Cold init was 108ms inside a 13.4s
+Bitwig launch; project-open cost was below measurement resolution.
+
+**The binding constraint is not performance — it is the bank window** (D6). Scale
+therefore bounds maximum project size, which is a correctness limit rather than a
+tuning preference.
+
+⚠ **Init-time allocation is not merely a convention, it is enforced.** E14-C2:
+`getDocumentState()` settings cannot be created after `init()` — *"This can only be
+called during driver initialization"*. INITIAL_PROMPT §3a's first structural
+constraint is confirmed for the settings surface too, so **anything the human
+surface will ever show must exist at init and be revealed with `show()`**
+(`RigConfig.uiSlots`, default 16; the panel is "fine" at that size, E14-C4).
+
+## D8 — Checkpoint fidelity, measured **[SETTLED 2026-07-25]**
+
+Replaces the ◐/guess columns of INITIAL_PROMPT §4/§5/§6. **A take stores what
+readback REPORTED, never what was requested** (D5).
+
+| object | fidelity | evidence |
+|---|---|---|
+| clip notes — identity (start, pitch, velocity, duration) | **exact** | E2, and `setStep`→`getStep` round-trips |
+| note expression, 16 of 18 properties | **exact** | E15-E swept them one at a time |
+| note `gain` | **lossy** — reads back 2× written | E2; the inverse is unverified, so it is labelled, never corrected |
+| note `pressure` | **UNWRITABLE — refused** | E15-E |
+| scalar device params | exact | E4/E4b |
+| clip / track / scene / device create-delete | **low / none** | E3 — no readback that could recreate them |
+| anything via a named action | **none** | E6 — and banned outright (D13) |
+
+⚠ **Two traps make readback ≠ request even for notes.** Consecutive same-pitch
+notes truncate each other, so a written duration may not survive (E8-E). And a
+note's properties cannot ride the request that creates it — they are silently
+discarded (E15-B).
+
+## D9 — Grid and units **[SETTLED 2026-07-25]**
+
+**Beats-native everywhere; the step grid is a per-operation view, not global
+state** (standing rule 12, correcting daw-mcp's design). The beats↔step conversion
+happens in the live encoder and nowhere else.
+
+- **Choose the COARSEST grid on which every start and duration is exact.** Not an
+  optimization: E2 found off-grid notes are reported snapped DOWN (beat 0.09375
+  scans as x=0 on a 0.25 grid), so a lossy grid choice corrupts a snapshot
+  silently. Finer than the 1/64-beat floor is REFUSED.
+- ⚠ **A grid change invalidates the cursor's step data for ~120ms**, and any
+  `getStep` in that window returns something unusable — 0 of 3 properties landed
+  at gaps of 0/24/48/72/96ms, 3 of 3 at 120/144/192/288ms (E15-D). Hence the
+  `gridChange` budget of 144ms and `OP_SETTLE_BEFORE`.
+- ⚠ **Two ops that must agree about the grid MUST hold the same note set.** A
+  generated `note.props` carries its create's WHOLE note set for exactly this
+  reason; filtering it made the props stage coarser and lost every property
+  (E15-F). `stepSizeFor` therefore lives in the contract, not the encoder, so both
+  adapters and the stage planner can ask the same question.
+
+## D10 — Batch execution mechanics **[SETTLED 2026-07-25]**
+
+**One request carries N ops; the brain partitions them into stages by declared
+settle class and awaits a settle between stages. There is no `delayMs` knob,
+because a caller cannot get pacing wrong if pacing is not expressible.**
+
+- **The batch is the unit** (standing rule 4). E8 measured 240 note writes at 25ms
+  as one batch versus 5804ms as separate RPCs — **232×**. Every `instant` op shares
+  stage 0.
+- **Settle budgets are NAMES with measured values**: `tick` 24ms, `noteWrite` 25,
+  `gridChange` 144, `trackStruct` 144, `insertFile` 268, `paramsLive` 194,
+  `deviceInsert` 600. Where a readback exists, poll instead of waiting.
+- **`OP_SETTLE_BEFORE` is the mirror of `OP_SETTLE`** and is not interchangeable
+  with it: it guards an op that READS state an earlier stage invalidated, which no
+  amount of waiting afterwards can repair (E15-D).
+- **The revision counter lives extension-side** (E8). A stale `ifRevision` rejects
+  the batch WHOLE, applying zero ops. It guards ORDERING across processes but
+  cannot detect OMISSION — hence standing rule 7, all writes through the daemon.
+- ⚠ **All-or-nothing holds WITHIN a stage, not across stages.** A later stage can
+  fail after an earlier one landed, and the receipt says which. Phase 1 replaces
+  the implementation with one paced call plus a completion frame once deferred
+  responses exist; the `Stage` shape and `stages[]` receipt survive that change.
+- ⚠ **`note.props` must NOT be hoisted or coalesced across clips.** It resolves
+  its note against the clip the cursor held at TURN START, so a props op that
+  re-points loses everything, silently (E15-F). Interleaving write-then-props
+  per clip is what makes the shipped plan correct. Cost: N clips with expression
+  pay 2N stages and N × `gridChange`. **That is the price of correctness**, and
+  the optimization was rejected with evidence rather than deferred.
+- **Progress UX is free**: interleave `notify` ops into a batch (E8-C).
+
+## D11 — Toolchain **[SETTLED 2026-07-25]**
+
+**`extension-api:25` compiled to Java 21 bytecode, Gradle with `options.release`
+(NOT a toolchain block), Node 24 + TypeScript, no runtime Python.**
+
+- Bitwig 6.0.6 bundles a Java 25 JVM; targeting **21 (LTS)** gives headroom and
+  builds on any JDK ≥ 21 (developed on Temurin 26). A `java { toolchain }` block
+  would pin an exact JDK and force a provisioning download or fail — `release`
+  guarantees the property that matters, which is 21-compatible bytecode.
+- **Reproducible archives** (`preserveFileTimestamps = false`,
+  `reproducibleFileOrder = true`): without them two builds of identical source
+  differ byte-for-byte.
+- **Java, not Kotlin** — every reference codebase is Java, and copy-paste parity
+  was worth more than ergonomics during verification (SPIKE_PLAN §2.2). Revisit
+  freely; nothing depends on it.
+- **Python (`tools/bwformat/*.py`) is a CI ORACLE only** (D3). The product has no
+  Python dependency; `GHOSTNOTE_REQUIRE_ORACLE=1` makes it mandatory in CI and the
+  pre-commit hook.
+- **`init()` is a hazard surface.** Check `@Deprecated` before wiring any handle
+  there — `getModulationSource(int)` throws and takes the whole extension down
+  (E7-Finding-0, standing rule 9). `npm run probe:hello` is the first thing run
+  after any deploy.
+
+## D12 — Transport and the contract boundary **[SETTLED 2026-07-25]**
+
+**The brain speaks the versioned adapter contract; a thin encoder translates to
+JSON-RPC 2.0 `category.action` over newline-framed TCP on 127.0.0.1:8686. The wire
+frame is an implementation detail, not the interface.**
+
+- Confirmed working end to end (E0), and the MCP SDK sits cleanly on `client.ts`
+  with no surprises (E9).
+- **The contract is the seam, not the wire** (SPIKE_PLAN §2.4, PHASE-0 §Scope 2).
+  The proof is structural: the fake adapter implements the same contract and never
+  speaks the wire at all. `WIRE` constants live in exactly one module.
+- **Capabilities are DATA VARIANTS, not methods.** One write method (`apply`)
+  taking an `Op` union; adding a capability adds a variant and the adapter
+  interface never grows. Beat Twin abandoned a 57-tool surface learning this.
+- **Versioned by exact equality** (`ghostnote/0`), plus a `methodsHash` over the
+  sorted wire-method list so a drifted deployment is caught at connect rather than
+  at the first failing write. No range negotiation — nobody ships two adapters at
+  once and range logic is the over-engineering trap here.
+- ⚠ **The socket is unauthenticated.** The gate is the daemon; the socket is the
+  soft underbelly (INITIAL_PROMPT §8j, inherited from Beat Twin). Firewall it; do
+  not mistake policy for a boundary.
+
+## D13 — There is no escape hatch **[SETTLED 2026-07-19, E6]**
+
+**ghostnote uses NO named actions. Ever.** (Standing rule 6.) 781 actions
+enumerate and `invoke()` is unusable *and* hazardous: global actions fire only
+with Bitwig foregrounded (backgrounded = silent no-op while the typed API keeps
+working), editing actions need panel keyboard focus the API cannot set, the return
+is `void` with zero readback, and they operate on the UI selection **our own
+addressing sets** — foreground `Duplicate` duplicated the gn-A fixture **7×**
+before the mechanism was understood.
+
+The typed API plus D1's file surgery is the entire toolbox. The residual gap
+(track Group/Ungroup, wrap/unwrap) is an accepted minor omission.
+
+**`app.invokeAction`, `app.actions`, `app.undo`, `app.redo` and `app.undoState`
+stay REGISTERED but banned** — `WIRE_METHODS_BANNED`, asserted unreachable from
+the contract — because the probes that established the bans are the live
+regression suite.
+
+⚠ **A second, harsher class exists: `WIRE_METHODS_FORBIDDEN`, which must not be
+registered at all.** `ui.signalFire` is its only member: it crashes Bitwig
+(E14-A1), so a registration is a loaded gun regardless of reachability.
+
+## D14 — The human control layer **[SETTLED 2026-07-25, E14]**
+
+**Bitwig's per-controller pane hosts the deliberate verbs (revert, status, slot
+reveal). Take switching moves to the Phase-3 web view. §8g's privilege separation
+is API-ENFORCED, not policy.**
+
+This is the Phase-1 control-layer decision PHASE-0 exit criterion 3 requires.
+D4's substance survived; three of its specifics did not.
+
+- ⚠ **The panel MOVED.** D4 says "Studio I/O panel"; that has been wrong since
+  Bitwig **5.0**, which relocated the per-controller surface to a pane opened from
+  **controller icons in the top right of the window** and renamed the old panel
+  (now "Studio Monitoring Panel" in 6.0.6), which no longer lists controllers at
+  all. The API is untouched and still v1 — only where Bitwig draws it moved.
+- **What works** (E14): Signal buttons fire on human click; Enum renders as a
+  **button group at every count probed, 2–12**; the extension can both push and
+  observe; String settings work as a status readout with user edits both detectable
+  and repairable; `show`/`hide`/`enable`/`disable` reflow **live**; and document
+  state survives save + **full Bitwig restart**, scoped **per project**.
+- ⚠ **The pane CANNOT be pinned or docked** — it closes on click-away. Fine for
+  revert, a rare deliberate act. Poor for A/B comparison during listening, which
+  D5 calls the core verb, since it would mean re-opening a pop-over between every
+  comparison. **⇒ take navigation belongs in the Phase-3 web view**, pulled
+  forward. PHASE-0 §Risks already names this fallback and calls it a reordering
+  rather than a redesign.
+- ⚠ **§8g is stronger than D4 claimed.** `Signal.fire()` on a document-state
+  setting is REFUSED by Bitwig — only a real human click fires it (E14-A1). So
+  "revert is a human verb" is enforced by the API rather than by our restraint,
+  and it does not depend on the pane being the take UI. A daemon-served web view
+  can own take switching without weakening it, provided the daemon keeps the agent
+  off those endpoints.
+- **Notification hygiene is a non-issue.** `NotificationSettings`' switches govern
+  notifications the CONTROLLER requests, they default off, and ghostnote enables
+  none — so pointing produces no spray to suppress. The real E1 wart is selection
+  movement, handled in D6.
+
+## D15 — Verification discipline **[SETTLED 2026-07-25]**
+
+Three rules that each cost a wrong finding or a crash to learn. They are cheap to
+follow and expensive to skip.
+
+1. **Readback is the only truth** (standing rule 1). Offline validation is
+   necessary, never sufficient — a wrong modulator route passes `validate()` and
+   silently does nothing (E10b).
+2. **⚠ Verify a write through a DIFFERENT handle than the one that made it**
+   (standing rule 3a). Bitwig's cursors cache what you wrote and report it back
+   whether or not it landed. **Two findings were wrong for exactly this reason** —
+   E15-C was retracted outright and E15-D was misdiagnosed — and E15-E found a
+   property that only ever existed in the writing cursor's cache. An independent
+   cursor, or the same one after a re-point, is what makes rule 1 actually bite.
+3. **⚠ VALIDATE INPUTS BEFORE CALLING; a handler's `try/catch` is not a safety
+   net.** An exception Bitwig DEFERS to its own thread escapes every extension
+   frame and takes the application down. `Signal.fire()` returned normally and
+   threw later on `BitwigStudioMain`'s thread, killing Bitwig with an unsaved
+   project open (E14-A1). Compare E7-Finding-0, which crashed the extension at
+   init; this is the same hazard class at runtime, one level worse.
+
+**Corollary, and the reason the fake exists:** every trap the fake models cites
+the FINDINGS experiment that established it, and each is covered three ways — a
+direct model test, a conformance case, and a runnable live probe. A trap that is
+always mitigated is a trap whose model can rot undetected, which is why the direct
+tests assert the MISBEHAVIOUR rather than the fix.
+
+---
+
+## Consolidation status
+
+**D6–D15 discharge the SPIKE_PLAN §5 debt** — addressing (D6), scaffold sizes
+(D7), checkpoint fidelity (D8), grid/units (D9), batch mechanics (D10), toolchain
+(D11), transport and frame (D12), escape hatch (D13) — plus the two the plan did
+not anticipate: the human control layer (D14, PHASE-0 exit criterion 3) and the
+verification discipline that the E15 arc produced (D15).
+
+`PROJECT_PLAN.md` §4 "Standing rules" was the working summary until these existed
+and is now a pointer at them.

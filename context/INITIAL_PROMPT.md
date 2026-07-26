@@ -1,14 +1,41 @@
 ---
 title: Bitwig MCP — Project Context
-status: scoping
-updated: 2026-07-18
+status: SUPERSEDED as a plan; retained as the pre-spike record. See the banner below.
+updated: 2026-07-25
+supersededBy: context/DECISIONS.md (D1–D15) + context/PROJECT_PLAN.md
 ---
 
 # Bitwig MCP — Project Context
 
-> **Purpose.** Context primer to seed a fresh Claude Code session for scoping and building a personal, extensible **Bitwig Studio MCP server**. Encodes decisions and research findings established so far. It deliberately does **not** pre-design the tool surface or phases beyond Phase 1 — those are for the working session.
+> ## ⚠ THIS DOCUMENT IS THE PRE-SPIKE RECORD, NOT THE PLAN
 >
-> **Confidence markers:** ● confirmed by research · ◐ likely, verify in-session · ○ not available.
+> Written 2026-07-18 to seed the spike. **Every ◐ in it has since been probed
+> live, and its confidence markers are frozen at their pre-spike values on
+> purpose** — SPIKE_PLAN §5.3 permits either updating them or adding a
+> superseding note, and the note is worth more here. The ◐s record what was
+> *guessed* before evidence existed, and several guesses were wrong in ways that
+> reshaped the project. Rewriting them in place would erase that.
+>
+> **For current truth, read `DECISIONS.md` (D1–D15) and `PROJECT_PLAN.md`.**
+> Where this document and those disagree, they win.
+>
+> The corrections that matter most, since a reader may skim the matrices below and
+> take them at face value:
+>
+> | § | said | actually (evidence) |
+> |---|---|---|
+> | §2 | the TS process is both MCP server and brain | **No** — a daemon owns state, the MCP server is a client (**D4**) |
+> | §4 | named actions are "the general workaround layer" | **BANNED.** Unusable *and* hazardous (E6, **D13**) |
+> | §5 | note expression is "Exact" | 16 of 18 properties are; `gain` is lossy, `pressure` is UNWRITABLE (E15-E, **D8**) |
+> | §5 | `setStep` → `getStep` → set properties | **Not in one request** — properties are silently discarded (E15-B) |
+> | §6 | modulators ◐ unknown | **The crown jewel.** File surgery gives arbitrary topology (D1–D3, E10–E13) |
+> | §6a | "`createParameter` … replacing the older DirectParameter API" | Both are needed; DirectParameter is the only CLAP path (E4b) |
+> | §8a | undo grouping "expected absent ◐" | Present for bulk delete/duplicate, and it works (E14-G) — but native undo still cannot do revert (E3) |
+> | §8d | `showPopupNotification` is "necessary" | Available and free, but there is no notification spray to manage (E14-F) |
+> | §12 | 6 open questions | All answered; see `PROJECT_PLAN.md` §7 for what is still open |
+>
+> **Confidence markers (as originally written):** ● confirmed by research · ◐ likely,
+> verify in-session · ○ not available.
 
 ---
 

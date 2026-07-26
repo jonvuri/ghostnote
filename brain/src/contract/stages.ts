@@ -83,6 +83,19 @@ function hasWritableProps(n: NoteRecord): boolean {
  * cannot be written at all, in any number of turns, and `assertOpsWritable`
  * refuses it up front — so there is nothing left for a third stage to do.
  *
+ * ⚠ The properties op carries the write's WHOLE note set, not just the notes
+ * that have properties, and that is load-bearing rather than lazy. Both stages
+ * derive their step grid from the notes they hold (`stepSizeFor`), and E15-D's
+ * other half is that a `setStepSize` which actually CHANGES the grid poisons the
+ * `getStep` inside `setNoteProps` — in the same turn, where no `settleBefore`
+ * can reach it. Filtering to the property-bearing notes can make the properties
+ * stage coarser than the create stage: one note at beat 0 with `pan` plus one
+ * plain note at beat 0.5 gives grid 0.5 for the create and grid 1 for a filtered
+ * props op, so the props op changes the grid and loses everything it carries,
+ * with no error. Handing over the same note set makes the two grids identical by
+ * construction, and a note with no properties costs nothing downstream — the
+ * encoder emits no frame for it and the fake applies no change.
+ *
  * Callers never arrange any of this. They hand over a `NoteRecord` and the plan
  * makes it land; this is the single largest thing the contract buys over the
  * raw wire.
@@ -91,13 +104,37 @@ function splitNoteWrite(op: Op): Op[] {
   if (op.op !== 'note.write' || !op.notes.some(hasWritableProps)) return [op];
 
   const channel = op.channel === undefined ? {} : { channel: op.channel };
-  const withProps = op.notes.filter(hasWritableProps);
   return [
     { ...op, notes: op.notes.map(identity) },
-    { op: 'note.props', clip: op.clip, ...channel, notes: withProps },
+    { op: 'note.props', clip: op.clip, ...channel, notes: op.notes },
   ];
 }
 
+/**
+ * ⚠ DO NOT hoist the generated `note.props` ops into one trailing stage.
+ *
+ * It is the obvious optimization and it is unsound. N property-bearing writes
+ * currently cost 2N stages and N x `gridChange`, and PHASE-0-SESSION-2 item 4
+ * proposed collapsing that to 2 stages and one wait, reasoning from E15-D that
+ * "ops addressing different clips MAY share a stage".
+ *
+ * E15-D measured `setNotes`, a pure write. `note.props` is the one op that READS
+ * first, and E15-F measured it directly: `cursor.setNoteProps` resolves its note
+ * against the clip the cursor held when the TURN BEGAN, whatever it re-points to
+ * inside that turn. Hoisted, the props stage opens with the cursor on the LAST
+ * clip written, so every op but that one looks its note up in the wrong clip,
+ * finds nothing, and writes nothing — silently. Measured on two clips: gn-A lost
+ * its pan, gn-B kept its own, no error and no failed op in the receipt.
+ *
+ * Interleaving is what makes the shipped plan correct, and not by accident any
+ * more: each props stage follows the create stage for the SAME clip, so its
+ * point frames are a no-op and the turn starts where the lookup needs it. That
+ * is the invariant, stated here because it was previously implicit and nothing
+ * in the code would have stopped someone optimizing it away.
+ *
+ * The fake models the trap (`propsReadsTurnStartClip`), so a future hoist fails
+ * offline rather than costing a musician their expression data.
+ */
 export function planStages(input: readonly Op[]): Stage[] {
   // Expand first, so index mapping below is over the EXPANDED list. The receipt
   // therefore reports the ops that actually ran, which is what §8c asks for.

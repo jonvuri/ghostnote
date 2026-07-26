@@ -11,3 +11,7 @@ extension/.gradle/
 # Node
 brain/node_modules/
 brain/dist/
+brain/.tmp/
+
+# Handoff marker written by probe:e14 and read by probe:e14-verify
+brain/.e14-marker

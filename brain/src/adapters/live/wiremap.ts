@@ -1,7 +1,7 @@
 /**
  * The wire vocabulary — THE ONLY PLACE `category.action` strings live.
  *
- * The extension registers 84 methods (extension/methods.golden.json). The
+ * The extension registers 93 methods (extension/methods.golden.json). The
  * contract reaches ~26 of them. That gap is deliberate, not incompleteness:
  *
  *   - the rest are exploration surface the E4c/E4d/E6/E7 probes run against, and
@@ -82,6 +82,34 @@ export const WIRE_METHODS_BANNED: Readonly<Record<string, string>> = {
   'app.undo': 'E3 — native undo is not a revert mechanism; ghostnote owns revert',
   'app.redo': 'E3 — see app.undo',
   'app.undoState': 'E3 — see app.undo',
+};
+
+/**
+ * Methods that must not merely be unreachable — they must NOT EXIST.
+ *
+ * A different and harsher class than `WIRE_METHODS_BANNED` above. Those stay
+ * registered on purpose, because the probes that established their bans are the
+ * live regression suite and re-running one is merely unwise. These cannot be
+ * re-run at all: invoking them takes Bitwig down, so a registration is a loaded
+ * gun regardless of whether the contract reaches it.
+ *
+ * `wiremap.test.ts` asserts the golden does NOT contain any of these, which is
+ * the inverse of what it asserts for the banned list.
+ */
+export const WIRE_METHODS_FORBIDDEN: Readonly<Record<string, string>> = {
+  // ⚠ E14-A1, measured once, on 2026-07-25, at the cost of a Bitwig crash with
+  // an unsaved project open. `Signal.fire()` on a `getDocumentState()` setting
+  // throws `IllegalStateException: This signal cannot be invoked` — but it
+  // throws it ASYNCHRONOUSLY, on Bitwig's own main thread, inside a runnable
+  // deferred from our call. The handler's try/catch never sees it and the
+  // application exits.
+  //
+  // The finding is a good one and it strengthens D4 rather than weakening it:
+  // the agent cannot press the human's revert button even in principle, because
+  // Bitwig refuses to let anything but a real click fire that signal. But the
+  // measurement must never be repeated, so the method is deleted rather than
+  // banned.
+  'ui.signalFire': 'E14-A1 — Signal.fire() on a document-state setting CRASHES BITWIG, uncatchably',
 };
 
 /**

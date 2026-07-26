@@ -13,7 +13,7 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertOpsWritable, budgetTicks, hasUnverifiedProps, orderedNoteProps,
+  assertOpsWritable, budgetTicks, hasUnverifiedProps, orderedNoteProps, stepSizeFor,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type Fidelity, type NoteRecord, type Op, type OpReceipt, type ResolveResult, type ResolvedAddress,
   type RevisionMark, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
@@ -22,8 +22,12 @@ import { planStages } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
 import { ProjectModel, noteKey, type FakeTrack } from './model.js';
 import {
-  applyNotePropsInOrder, bankBlindSpot, noteOnReadback, pointAtSlot, stepDataIsStale, writeNoteProps,
+  applyNotePropsInOrder, bankBlindSpot, gridChangePoisonsRead, noteOnReadback, pointAtSlot,
+  propsReadsTurnStartClip, stepDataIsStale, writeNoteProps,
 } from './traps.js';
+
+/** How the fake names the clip a cursor points at. Identity, never index (E2f). */
+const clipKey = (channelId: string, sceneIndex: number): string => `${channelId}:${sceneIndex}`;
 
 export interface FakeOptions {
   /** Tracks to start with, by name. All Instrument type. */
@@ -36,6 +40,8 @@ export class FakeAdapter implements BitwigAdapter {
   readonly model = new ProjectModel();
   readonly clock = new VirtualClock();
   private closed = false;
+  /** Where the cursor was when the current stage (== one turn) began (E15-F). */
+  private turnStartClip: string | undefined = undefined;
 
   constructor(options: FakeOptions = {}) {
     if (options.scenes !== undefined) this.model.sceneCount = options.scenes;
@@ -241,6 +247,10 @@ export class FakeAdapter implements BitwigAdapter {
       // inside `stepDataIsStale`'s window and is discarded, exactly as live.
       if (stage.settleBefore !== undefined) this.clock.settle(stage.settleBefore);
 
+      // ⚠ E15-F: one stage is one control-surface turn, and `setNoteProps`
+      // resolves its note against the clip the cursor held when the turn began.
+      this.turnStartClip = this.model.cursorClip;
+
       // Turn boundary: last batch's writes become visible, then this one stages.
       this.clock.commit();
       this.clock.advance();
@@ -289,6 +299,10 @@ export class FakeAdapter implements BitwigAdapter {
         const channel = op.channel ?? 0;
         const sceneIndex = op.clip.slot.scene.index;
         const notesToWrite = op.notes;
+        const grid = stepSizeFor(notesToWrite);
+        // Pointing is cursor state, so it moves NOW rather than at commit — a
+        // re-point steers the calls that follow it in the same turn (E15-D).
+        this.model.cursorClip = clipKey(op.clip.slot.track.channelId, sceneIndex);
         this.clock.stage(() => {
           // ⚠ E2: pointing at an empty slot silently lands on the WRONG clip.
           const point = pointAtSlot(track, sceneIndex);
@@ -301,6 +315,9 @@ export class FakeAdapter implements BitwigAdapter {
           // ⚠ E15-D: a note write always sets the step grid on the way in, and
           // that leaves `getStep` unusable until the grid has been re-fetched.
           point.slot.stepDataStaleUntilTick = this.clock.tick + budgetTicks('gridChange');
+          // ...and it leaves the CURSOR on that grid, for whatever touches it
+          // next. That residue is what the props op below has to match.
+          if (grid !== undefined) this.model.cursorStepSize = grid;
         });
         return;
       }
@@ -310,12 +327,22 @@ export class FakeAdapter implements BitwigAdapter {
         const channel = op.channel ?? 0;
         const sceneIndex = op.clip.slot.scene.index;
         const updates = op.notes;
+        const grid = stepSizeFor(updates);
+        // ⚠ E15-F: the lookup resolves against the clip the cursor held when
+        // this TURN began, so a props op that re-points loses everything. Read
+        // before the re-point below, because the re-point is what causes it.
+        const wrongTurnStartClip = propsReadsTurnStartClip(
+          this.turnStartClip, clipKey(op.clip.slot.track.channelId, sceneIndex));
+        this.model.cursorClip = clipKey(op.clip.slot.track.channelId, sceneIndex);
         this.clock.stage(() => {
           const point = pointAtSlot(track, sceneIndex);
-          // ⚠ E15-D: too soon after the grid changed, `setNoteProps` reads a
-          // NoteStep the cursor has not re-fetched and every property written
-          // to it is silently discarded. No error, no failed op.
-          if (stepDataIsStale(point.slot, this.clock.tick)) return;
+          // ⚠ E15-D, both halves. The op emits `setStepSize` then `getStep` in
+          // one turn, so it loses everything either if a PREVIOUS request moved
+          // the grid too recently, or if this op moves it itself. No error, no
+          // failed op, and `cursor.status` looks healthy in both cases.
+          const poisoned = gridChangePoisonsRead(this.model.cursorStepSize, grid);
+          if (grid !== undefined) this.model.cursorStepSize = grid;
+          if (wrongTurnStartClip || poisoned || stepDataIsStale(point.slot, this.clock.tick)) return;
           for (const update of updates) {
             const key = noteKey(channel, update.pitch, update.startBeats);
             const existing = point.slot.notes.get(key);
@@ -332,6 +359,7 @@ export class FakeAdapter implements BitwigAdapter {
       case 'note.clear': {
         const track = this.requireTrack(op.clip.slot.track, op.op);
         const sceneIndex = op.clip.slot.scene.index;
+        this.model.cursorClip = clipKey(op.clip.slot.track.channelId, sceneIndex);
         this.clock.stage(() => {
           const point = pointAtSlot(track, sceneIndex);
           point.slot.notes.clear();

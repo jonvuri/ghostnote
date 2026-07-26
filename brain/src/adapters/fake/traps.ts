@@ -82,6 +82,76 @@ export function stepDataIsStale(slot: FakeSlot, tick: number): boolean {
 }
 
 /**
+ * ⚠ E15-D's OTHER half, and the one `settleBefore` cannot reach.
+ *
+ * `stepDataIsStale` above models a grid change made in an EARLIER request, which
+ * a settle in front of the stage fixes. This models a grid change made in the
+ * SAME turn as the read, which it cannot: `cursor.setNoteProps` emits
+ * `cursor.setStepSize` immediately before its own `clip.getStep`, so if that
+ * call actually moves the grid, the read is against a grid the cursor has not
+ * re-fetched and every property in the op is discarded. Waiting afterwards is
+ * waiting for damage already done.
+ *
+ * Measured directly in probe `e15d-props` §A, which held the frames byte-identical
+ * and varied only the grid the cursor arrived on: gain landed (1.4) when the
+ * cursor was ALREADY on grid 1, and read back 0 from grids 0.5, 0.25 and 0.0625.
+ *
+ * The contract's mitigation is that `splitNoteWrite` hands the properties op the
+ * same note set as its create, so the two imply the same grid and this call is a
+ * no-op. Modelling the trap is what turns removing that into a failing offline
+ * test rather than expression silently vanishing on a real project.
+ *
+ * `undefined` on either side means "cannot tell": a fresh cursor has no known
+ * grid, and notes finer than the grid floor are refused by the encoder before
+ * they could get here. Guessing in either case would be the fake inventing a
+ * failure live Bitwig does not have.
+ */
+export function gridChangePoisonsRead(cursorStepSize: number | undefined, wanted: number | undefined): boolean {
+  if (cursorStepSize === undefined || wanted === undefined) return false;
+  return cursorStepSize !== wanted;
+}
+
+/**
+ * ⚠ E15-F: `setNoteProps` looks the note up in the clip the cursor held at the
+ * START of the turn, whichever clip it re-points to inside that turn.
+ *
+ * Measured against four shapes that all reduce to this one rule (probe
+ * `e15f-hoist`):
+ *
+ *   cursor parked on A; ONE batch: props A then props B   -> A lands, B lost
+ *   the same two ops as two separate 400ms-apart batches   -> A lands, B lost
+ *   point B in its own request, settle, THEN props B       -> B lands
+ *   write A + write B, settle, then props A + props B      -> B lands, A lost
+ *
+ * The last one looks backwards until you apply the rule: that turn STARTED with
+ * the cursor on B, so only B's cell resolved. The batch boundary has nothing to
+ * do with it — a props op that re-points is unreliable in any shape.
+ *
+ * Two things it is NOT, both measured rather than assumed. The mutation writes
+ * through to the clip actually addressed, so this is a LOST property and never a
+ * write to the wrong clip; and a property write against a cell with no note is
+ * inert, so it cannot conjure one. Bad, but bounded.
+ *
+ * This is what makes hoisting the generated props ops into one trailing stage
+ * unsound, and PHASE-0-SESSION-2 item 4 proposed exactly that on the strength of
+ * E15-D's "ops addressing different clips MAY share a stage". E15-D measured
+ * `setNotes`, a pure write. This is the one op that reads first.
+ *
+ * The contract stays safe by never re-pointing inside a props turn: each props
+ * stage follows the create stage for the SAME clip, so its point frames are a
+ * no-op. Modelling the trap is what turns a future hoist into a failing offline
+ * test instead of expression that silently disappears from a real project.
+ */
+export function propsReadsTurnStartClip(
+  turnStartClip: string | undefined,
+  addressed: string,
+): boolean {
+  // `undefined` is a fresh cursor with no known clip — the fake declines to
+  // invent a failure that live Bitwig would not have.
+  return turnStartClip !== undefined && turnStartClip !== addressed;
+}
+
+/**
  * Store a note as the request that CREATES it would — which is to say, with
  * every expression property thrown away.
  *

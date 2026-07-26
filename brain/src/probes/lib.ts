@@ -31,6 +31,40 @@ export function failureCount() {
   return failures;
 }
 
+/**
+ * Ask the human a question and wait for the answer.
+ *
+ * E6, E7 and E8b all needed a user at the keyboard and handled it with a fixed
+ * `setTimeout`, which works when the interaction is "interfere for 16 seconds"
+ * and not when it is "click this button, then tell me what you saw". E14 is
+ * almost entirely the latter — several of its rows have no programmatic
+ * observable at all, because the question is what Bitwig DREW.
+ *
+ * Answers are echoed into the transcript, which is deliberate: a row whose
+ * verdict is a human report should carry that report verbatim into FINDINGS
+ * rather than being summarised into a bare ●/○ by whoever writes it up.
+ */
+export async function ask(question: string): Promise<string> {
+  const { createInterface } = await import('node:readline/promises');
+  const rl = createInterface({ input: process.stdin, output: process.stdout });
+  try {
+    return (await rl.question(`\n  ?  ${question}\n     > `)).trim();
+  } finally {
+    rl.close();
+  }
+}
+
+/** `ask`, narrowed to yes/no. Anything not beginning with `y` is a no. */
+export async function askYesNo(question: string): Promise<boolean> {
+  const answer = await ask(`${question} [y/N]`);
+  return answer.toLowerCase().startsWith('y');
+}
+
+/** Pause until the human has done something in Bitwig. */
+export async function waitForEnter(instruction: string): Promise<void> {
+  await ask(`${instruction}\n     (press Enter when done)`);
+}
+
 export async function pollUntil(
   predicate: () => Promise<boolean>,
   timeoutMs = 4000,

@@ -15,11 +15,35 @@
   ],
   "extractedAt": "2026-07-25",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 84,
-  "methodsHash": "d6d71218612e35ea",
+  "count": 93,
+  "methodsHash": "5343039c7fe670cc",
   "addedInPhase0": [
     "contract.hello",
+    "rig.methods",
+    "ui.addSetting",
+    "ui.deleteObjects",
+    "ui.duplicateObjects",
+    "ui.notifications",
+    "ui.panelLayout",
+    "ui.set",
+    "ui.showInEditor",
+    "ui.status",
+    "ui.visibility"
+  ],
+  "addedInSession1": [
+    "contract.hello",
     "rig.methods"
+  ],
+  "addedInSession2": [
+    "ui.addSetting",
+    "ui.deleteObjects",
+    "ui.duplicateObjects",
+    "ui.notifications",
+    "ui.panelLayout",
+    "ui.set",
+    "ui.showInEditor",
+    "ui.status",
+    "ui.visibility"
   ],
   "preSplitCount": 82,
   "preSplitHash": "f22d822339fdd402",
@@ -107,7 +131,16 @@
     "track.resolveByChannelId",
     "track.setName",
     "transport.status",
-    "transport.stop"
+    "transport.stop",
+    "ui.addSetting",
+    "ui.deleteObjects",
+    "ui.duplicateObjects",
+    "ui.notifications",
+    "ui.panelLayout",
+    "ui.set",
+    "ui.showInEditor",
+    "ui.status",
+    "ui.visibility"
   ],
   "preSplitMethods": [
     "app.actions",

@@ -228,6 +228,36 @@ export function runConformance(h: AdapterHarness): void {
     });
   });
 
+  test(label('C-props', 'properties survive a write that MIXES plain and expressive notes (E15-D)'), async () => {
+    await withClip(async ({ adapter, clipA }) => {
+      // ⚠ The case C-props above cannot see, because it writes a single note and
+      // so both stages inevitably agree about the grid.
+      //
+      // The create stage derives its grid from every note it writes; the
+      // properties stage derives its grid from the notes IT holds. Filter the
+      // properties stage down to the expressive notes and those two answers can
+      // differ — here beat 0.5 forces the create onto a 0.5 grid while the lone
+      // property-bearing note at beat 0 with duration 1 would put the props op on
+      // a 1 grid. That op then emits a `setStepSize` that genuinely MOVES the
+      // grid, in the same turn as its own `clip.getStep`, and `pan` is discarded
+      // with no error — the `settleBefore` in front of the stage cannot help,
+      // because the damage is done inside it (probe `e15d-props` §A).
+      //
+      // `splitNoteWrite` hands the props op the whole note set for exactly this
+      // reason. Both notes are asserted, so a fix that quietly dropped the plain
+      // one to dodge the problem would fail here too.
+      const expressive = note({ startBeats: 0, pitch: 60, durationBeats: 1, pan: -0.25 });
+      const plain = note({ startBeats: 0.5, pitch: 67, durationBeats: 0.5 });
+      await adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [expressive, plain] }] });
+      await adapter.settle('noteWrite');
+
+      const got = await readNotes(adapter, notesAt(clipA));
+      assert.deepEqual(got.map((n) => n.pitch), [60, 67], 'both notes must exist');
+      assert.equal(got[0]?.pan, -0.25, 'the expressive note keeps its pan');
+      assert.equal(got[1]?.pan, undefined, 'the plain note gains nothing it did not ask for');
+    });
+  });
+
   test(label('C-twoclips', 'two clips addressed in ONE batch each get their own notes (E15-D)'), async () => {
     const { adapter, trackA, trackB } = await h.create();
     try {
@@ -259,6 +289,26 @@ export function runConformance(h: AdapterHarness): void {
 
       assert.deepEqual((await readNotes(adapter, notesAt(clipA))).map((n) => n.pitch), [60]);
       assert.deepEqual((await readNotes(adapter, notesAt(clipB))).map((n) => n.pitch), [67]);
+
+      // ⚠ E15-F. The same two clips, now carrying EXPRESSION, which is a
+      // different problem: `note.props` resolves its note against the clip the
+      // cursor held when the turn began, so a plan that let the two property
+      // writes share a stage would silently lose one of them. `splitNoteWrite`
+      // interleaves instead — write A, props A, write B, props B — and this is
+      // the case that fails the moment anyone collapses that.
+      await adapter.apply({ ops: [{ op: 'note.clear', clip: clipA }, { op: 'note.clear', clip: clipB }] });
+      await adapter.settle('noteWrite');
+      await adapter.apply({
+        ops: [
+          { op: 'note.write', clip: clipA, notes: [note({ pitch: 60, pan: -0.25 })] },
+          { op: 'note.write', clip: clipB, notes: [note({ pitch: 67, startBeats: 1, pan: 0.5 })] },
+        ],
+      });
+      await adapter.settle('noteWrite');
+      assert.equal((await readNotes(adapter, notesAt(clipA)))[0]?.pan, -0.25,
+        'clip A keeps its expression when two clips are written in one batch');
+      assert.equal((await readNotes(adapter, notesAt(clipB)))[0]?.pan, 0.5,
+        'and so does clip B — neither may be silently dropped');
     } finally {
       await h.dispose(adapter);
     }

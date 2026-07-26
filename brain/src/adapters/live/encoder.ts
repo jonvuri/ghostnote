@@ -33,10 +33,14 @@
 import { isAbsolute, extname } from 'node:path';
 
 import {
-  InvalidOpError, assertNever, orderedNoteProps,
+  InvalidOpError, assertNever, chooseStepSize, orderedNoteProps,
   type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
 import { WIRE, frame, type Frame } from './wiremap.js';
+
+// Re-exported because the grid used to be defined here, and because this is
+// still the only module that turns one into a step index on a wire.
+export { STEP_SIZES, chooseStepSize } from '../../contract/index.js';
 
 /** What the encoder needs to know that an address alone cannot tell it. */
 export interface EncodeContext {
@@ -44,36 +48,6 @@ export interface EncodeContext {
   readonly cursor: string;
   /** channelId -> current bank index. Valid only until the next structural op. */
   readonly trackIndex: (track: TrackAddress) => number;
-}
-
-/**
- * Candidate step sizes in beats, coarsest first.
- *
- * The encoder picks the coarsest grid that represents every note start EXACTLY.
- * Coarser is better because the grid bounds how many steps a clip scan walks, and
- * a note that does not land on the grid is not merely imprecise — E2 found
- * off-grid notes are reported snapped DOWN (a note at beat 0.09375 scans as x=0
- * on a 0.25 grid), so a lossy grid choice would corrupt a snapshot silently.
- */
-export const STEP_SIZES: readonly number[] = [1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625];
-
-const EPSILON = 1e-9;
-
-/** The coarsest grid on which every start and duration is exact. */
-export function chooseStepSize(notes: readonly NoteRecord[]): number {
-  const values = notes.flatMap((n) => [n.startBeats, n.durationBeats]);
-  for (const size of STEP_SIZES) {
-    if (values.every((v) => Math.abs(v / size - Math.round(v / size)) < EPSILON)) {
-      return size;
-    }
-  }
-  const finest = STEP_SIZES[STEP_SIZES.length - 1]!;
-  throw new InvalidOpError(
-    'note.write',
-    `note positions are finer than the ${finest}-beat grid floor; ` +
-      'Bitwig would report them snapped DOWN to the nearest step (E2), silently ' +
-      'corrupting any snapshot taken afterwards.',
-  );
 }
 
 /**
@@ -185,15 +159,28 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       const t = ctx.trackIndex(op.clip.slot.track);
       const s = op.clip.slot.scene.index;
       const stepSize = chooseStepSize(op.notes);
-      // ⚠ These frames are only safe because `planStages` gives this op
-      // `settleBefore: 'gridChange'` (E15-D). `cursor.setNoteProps` resolves
-      // `clip.getStep(channel, x, y)` and mutates what comes back, and that read
-      // is unusable for ~120ms after a `setStepSize` changed the grid — every
-      // property written into the window is discarded with no error and no
-      // failed op in the batch result. Measured: 0 of 3 landed at gaps of
-      // 0/24/48/72/96ms, 3 of 3 at 120/144/192/288ms. Sending the grid again
-      // here is what makes `x` mean the same thing it meant in the create stage;
-      // the settle in front is what makes the read see it.
+      // ⚠ These frames are safe only under TWO conditions, and they are
+      // different conditions with different owners (E15-D).
+      //
+      // 1. `planStages` gives this op `settleBefore: 'gridChange'`, so the grid
+      //    the PREVIOUS stage set has landed. `cursor.setNoteProps` resolves
+      //    `clip.getStep(channel, x, y)` and mutates what comes back, and that
+      //    read is unusable for ~120ms after a `setStepSize` — every property
+      //    written into the window is discarded with no error and no failed op
+      //    in the batch result. Measured: 0 of 3 landed at gaps of
+      //    0/24/48/72/96ms, 3 of 3 at 120/144/192/288ms.
+      // 2. `stepSize` here must EQUAL the grid the cursor is already on, so the
+      //    call below is a no-op rather than a change. A settle in front cannot
+      //    help with a change made inside this very turn. For a props op that
+      //    `splitNoteWrite` generated this holds by construction, because it
+      //    carries the same note set as its create — see `stages.ts`. For a props
+      //    op a CALLER wrote it is the caller's problem, and today an unmet one:
+      //    a bare `note.props` whose grid differs from whatever the pool cursor
+      //    was left on loses everything, silently. Not reachable through
+      //    `note.write`, but not refused either. → recorded for Phase 1.
+      //
+      // Sending the grid at all is what makes `x` mean the same thing it meant in
+      // the create stage.
       const frames: Frame[] = [
         ...pointFrames(ctx, t, s),
         frame(WIRE.cursorSetStepSize, { cursor: ctx.cursor, stepSize }),

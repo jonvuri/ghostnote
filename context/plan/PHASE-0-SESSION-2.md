@@ -1,12 +1,18 @@
 ---
 title: Phase 0, session 2 — the UI probe, the decision debt, and one staging fix
-status: not started
+status: DONE except E14 rows H/I — see the outcome log at the foot of this doc
 updated: 2026-07-25
 parent: PHASE-0-FOUNDATION.md
 next: PHASE-1-ENGINE.md
 ---
 
 # Phase 0, session 2
+
+> **Outcome: items 1–3 and 6 done; item 4 REJECTED with evidence; item 5 unchanged.
+> Only E14 rows H and I remain.** Three of this doc's own premises turned out to be
+> wrong, which is the most useful thing it produced. Read the **outcome log at the
+> foot** before acting on anything below it, because the row-F table and item 4's
+> recommendation are both superseded.
 
 > **Purpose.** Session 1 built the machinery (scope items 1–4) and deliberately
 > left the two items that need a human at the keyboard or a careful pass over the
@@ -51,6 +57,11 @@ table is reproduced here so this doc stands alone.*
 Everything surveyed is **◐ doc-only** except `showPopupNotification` (● E8).
 Standing rule 10 applies: nothing is banked until probed live.
 
+> ⚠ **Rows A–G are DONE** (`FINDINGS.md` §E14, decision **D14**). Two corrections to
+> the table below, both established the hard way: the settings do **not** live in the
+> Studio I/O panel (Bitwig 5.0 moved them to the top-right controller pane), and row
+> F's premise misreads E1. See the outcome log.
+
 | # | Question | Settles |
 |---|---|---|
 | A | Does a `getDocumentState()` Signal button fire a callback, and does it round-trip a project save? | whether the revert button is real |
@@ -58,7 +69,7 @@ Standing rule 10 applies: nothing is banked until probed live.
 | C | Do `Setting.show()/hide()/enable()/disable()` reflow the panel live? How many settings before it is unusable? | pre-allocated take slots |
 | D | Is a String setting usable as a status display, given it is user-editable with no read-only mode? | the "last change" readout |
 | E | Does `ClipLauncherSlot.showInEditor()` + `Application.setPanelLayout`/`zoomToFit` reliably navigate the user to a changed clip? | "show me what changed" — and how much diff UI Phase 3 owes |
-| F | Do `NotificationSettings.setShouldShow*Notifications(false)` suppress the spray our cursor pointing causes (E1's wart)? Can they be toggled around a batch and restored? | notification hygiene under optimistic apply |
+| F | ⚠ **MIS-SPECIFIED — see the outcome log.** Do `NotificationSettings.setShouldShow*Notifications(false)` suppress the spray our cursor pointing causes (E1's wart)? Can they be toggled around a batch and restored? | notification hygiene under optimistic apply |
 | G | Do `deleteObjects(String undoName, …)` / `duplicateObjects(String undoName, …)` really collapse to **one named** undo entry? | a correction to E3, and user-facing undo hygiene |
 | H | *(timeboxed)* `HardwareSurface` + `extension-dev: true` simulated GUI: does a `HardwareButton` with **no MIDI `HardwareActionMatcher`** fire when clicked? Do `setBounds` layout, lights, text displays and an embedded `createHardwarePixelDisplay` render usefully? | whether a clickable in-Bitwig panel exists at all |
 | I | *(timeboxed)* `host.createBitmap` + `GraphicsOutput` + `showDisplayWindow()`: does the window persist, redraw on demand, and render text/paths acceptably? | whether an in-Bitwig graphics view is viable |
@@ -83,6 +94,9 @@ the Phase-1 control-layer decision is recorded in `DECISIONS.md`.
 ---
 
 ## 2. DECISIONS D6+ consolidation
+
+> ● **DONE — landed as D6–D15**, which also carries the Phase-1 control-layer
+> decision (D14) and the verification discipline the E15 arc produced (D15).
 
 *Scope item 6; exit criterion 4.*
 
@@ -113,6 +127,11 @@ demoted to a pointer at them (exit criterion 4).
 
 ## 3. `INITIAL_PROMPT.md` confidence markers
 
+> ● **DONE** as a superseding banner with a correction table. The markers are
+> deliberately FROZEN at their pre-spike values: they record what was *guessed*
+> before evidence existed, and several guesses were wrong in ways that reshaped the
+> project. Rewriting them in place would erase that.
+
 *Exit criterion 5.* Update ◐→●/○ per SPIKE_PLAN §5.3, or add a superseding note
 pointing at `DECISIONS.md`. Cheap, and it should follow item 2 so it can point at
 finished entries.
@@ -120,6 +139,11 @@ finished entries.
 ---
 
 ## 4. `planStages` fragments multi-clip property writes
+
+> ⚠ **REJECTED. The fix proposed below is UNSOUND — see E15-F and the outcome log.**
+> Its premise ("E15-D measured that ops addressing different clips may share a
+> stage") does not transfer to `note.props`, the one op that reads before it writes.
+> A separate latent defect WAS found and fixed here. Do not implement the hoist.
 
 *Engineering carry-over from the session-1 review. Not a defect in v0; a
 measurable cost that Phase 2 will feel.*
@@ -174,18 +198,116 @@ budget for the N-clip case, and `npm run probe:conformance` is green live.
 
 ## 6. Corrections to `PHASE-0-FOUNDATION.md`
 
+> ● **DONE** — the correction is now inline at that doc's exit criterion 1.
+
 - Exit criterion 1 cites "`bwmod`'s existing 42 tests". The real count is 39 (35
   in `bwmod.test.ts` + 4 oracle). `bwmod.test.ts` is unmodified since E13, so
-  nothing was lost — the 42 was always wrong. Total offline suite is 127.
+  nothing was lost — the 42 was always wrong. Total offline suite is 127 (**138**
+  after session 2 added 11).
 
 ## Exit criteria (Phase 0 overall)
 
-Carried from `PHASE-0-FOUNDATION.md`, with session-1 status:
+Carried from `PHASE-0-FOUNDATION.md`, with session-2 status:
 
 | # | Criterion | Status |
 |---|---|---|
-| 1 | `npm test` green offline with Bitwig not running | ● 127/127 |
+| 1 | `npm test` green offline with Bitwig not running | ● 138/138 |
 | 2 | Both builds reproduce clean; extension deploys via `copyExtension` | ● |
-| 3 | Every E14 row has a verdict; control-layer decision recorded | ○ → item 1 |
-| 4 | `DECISIONS.md` carries D6+; `PROJECT_PLAN.md` §4 demoted to a pointer | ○ → item 2 |
-| 5 | `INITIAL_PROMPT.md` markers updated | ○ → item 3 |
+| 3 | Every E14 row has a verdict; control-layer decision recorded | ◐ A–G done (D14); **H/I remain** |
+| 4 | `DECISIONS.md` carries D6+; `PROJECT_PLAN.md` §4 demoted to a pointer | ● D6–D15 |
+| 5 | `INITIAL_PROMPT.md` markers updated | ● superseding banner |
+
+---
+
+# Outcome log (2026-07-25)
+
+## Three of this doc's premises were wrong
+
+Recorded first because they are the session's most transferable output, and because
+each was caught by probing a stated justification rather than trusting it.
+
+1. **Item 4's hoist is UNSOUND — rejected, not deferred.** It argued from E15-D that
+   "ops addressing different clips may share a stage". E15-D measured `setNotes`, a
+   pure WRITE; `note.props` is the one op that READS first, and E15-D's own lesson is
+   that reads do not see same-turn state. **E15-F** measured it: a props op resolves
+   its note against the clip the cursor held at TURN START, so a hoisted stage loses
+   expression on a clip, silently. Interleaving is what makes the shipped plan
+   correct — now stated in `planStages`' header, since nothing would have stopped
+   someone optimizing it away. Guarded three ways (fake trap, `stages.test.ts`,
+   `probe:e15f`).
+   ⚠ **A latent v0 DEFECT was found alongside and fixed**: `splitNoteWrite` filtered
+   the generated props op to the property-bearing notes, which could make its grid
+   coarser than the create's and lose everything. It now carries the write's whole
+   note set.
+2. **Row F's premise misreads E1.** It asks whether `NotificationSettings` suppresses
+   "the spray our cursor pointing causes (E1's wart)". E1's wart is that the
+   **selection moves**; it says nothing about notifications, and no notification
+   setting can suppress selection state. Run the long way first — six prompts, three
+   conditions — it produced no spray in any, correctly. Re-specified and answered ●
+   in `probe:e14-selection`, closing PROJECT_PLAN §7's open question: the selection
+   can be restored, restoring it does not disturb the pool cursor, and a whole batch
+   costs **one** observable change, so a single trailing restore suffices.
+3. **The E14 row table names a panel that has not existed since Bitwig 5.0.** D4's
+   "Studio I/O panel" was renamed and the per-controller surface moved to a pane on
+   the **top-right controller icons**. Cost one sitting. The bundled user guide on
+   disk is for 4.3.9 and still documents the old layout — hence standing rule 10's
+   new clause: a doc pass can be wrong about where a feature APPEARS, not only
+   whether it exists.
+
+## What E14 settled (rows A–G, ● overall)
+
+Full verdicts in `FINDINGS.md` §E14; the decision is **D14**. The surface is real:
+buttons fire on human click, the enum is a button group at every count probed (2–12,
+not merely "small"), push and pull both work, `show`/`hide`/`enable`/`disable` reflow
+live, and document state survives save + **full Bitwig restart**, per project.
+
+Three consequences worth carrying into Phase 1:
+
+- ⚠ **Settings are init-only** (`"This can only be called during driver
+  initialization"`), so pre-allocating take slots and revealing them with `show()`
+  is **mandatory**, not tidy — the §3a idiom on its third occurrence.
+- ⚠ **The pane cannot be pinned** and closes on click-away. Fine for revert; poor
+  for A/B comparison during listening, which is D5's core verb. **⇒ take navigation
+  moves to the Phase-3 web view, pulled forward** (the P2↔P3 seam, exercised for a
+  measured reason).
+- **Row G corrects E3**: one `deleteObjects(undoName, …)` call is one undo step and
+  the entry carries our name. It does *not* rescue native undo as revert.
+
+## ⚠ E14-A1 killed Bitwig, and the reason generalises
+
+`Signal.fire()` on a document-state setting is refused — but the refusal is thrown
+**asynchronously on Bitwig's own thread**, inside a runnable deferred from our call.
+Our handler returned normally and its `try/catch` saw nothing. Bitwig exited with an
+unsaved project open.
+
+- **The row verdict is ○ and it STRENGTHENS D4**: only a real human click can fire
+  the button, so §8g is API-enforced rather than policy.
+- **The general rule is worth more**: validate inputs BEFORE calling, because a
+  handler's `try/catch` protects only against a synchronous throw. Now standing rule
+  3c and **D15**. Compare E7-Finding-0, which crashed the extension at init; this is
+  the same class at runtime, one level worse.
+- The method was **deleted, not banned** — `WIRE_METHODS_FORBIDDEN`, a harsher class
+  than the ban list, because the measurement must never be repeated.
+
+## Carried into Phase 1
+
+- **The trailing selection restore** around every batch (D6).
+- **A caller-written `note.props` for two clips loses BOTH** — every props op gets
+  its own stage, so each re-points. Not reachable through `note.write`, not refused
+  either.
+- **`LiveAdapter.sceneEpoch` cannot see the user's scene ops** — unchanged from item
+  5 below, still P1.
+- **Expression writes cost 2N stages and N × `gridChange`.** A deferred-response
+  protocol is the only route to reclaiming it, since it is also what would make a
+  re-point inside a batch settleable.
+
+## Still open
+
+- **E14 rows H and I** — the two explicitly speculative ones. H now has real
+  motivation rather than curiosity: the pane cannot be pinned, so a clickable
+  laid-out `HardwareSurface` panel would be the only *persistent* in-Bitwig surface.
+  H needs `extension-dev: true` in
+  `~/Library/Application Support/Bitwig/Bitwig Studio/config.json` plus a restart,
+  then "Simulate device connected" and "Show simulated hardware GUI" from the
+  right-click menu in Settings → Controllers.
+- Everything in **item 5** below, unchanged.

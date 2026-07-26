@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm test",
     "build:donors": "tsx src/tools/build-donor-assets.ts",
+    "wire:golden": "tsx src/tools/regen-wire-golden.ts",
     "probe:list": "node -e \"const s=require('./package.json').scripts;for(const k of Object.keys(s))if(k.startsWith('probe:'))console.log(k.slice(6).padEnd(14),s[k].replace('tsx src/probes/',''))\"",
     "probe:conformance": "tsx --test src/probes/conformance.live.ts",
     "probe:hello": "tsx src/probes/gn-hello.ts",
@@ -70,6 +71,11 @@
     "probe:e15d-persist": "tsx src/probes/e15d-persist.ts",
     "probe:e15d-grid": "tsx src/probes/e15d-grid.ts",
     "probe:e15d-live": "tsx src/probes/e15d-pressure.ts",
+    "probe:e15f": "tsx src/probes/e15f-hoist.ts",
+    "probe:e14": "tsx src/probes/e14-ui.ts",
+    "probe:e14-status": "tsx src/probes/e14-status.ts",
+    "probe:e14-selection": "tsx src/probes/e14-selection.ts",
+    "probe:e14-verify": "tsx src/probes/e14-verify.ts",
     "probe:conformance-cleanup": "tsx src/probes/conformance-cleanup.ts"
   },
   "devDependencies": {

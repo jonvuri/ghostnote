@@ -25,13 +25,15 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  GAIN_READ_SCALE, assertOpsWritable, clip, orderedNoteProps, planStages, scene, slot, track,
-  type NoteRecord, type Op,
+  GAIN_READ_SCALE, addressKey, assertOpsWritable, clip, notes as notesAddress, orderedNoteProps,
+  planStages, scene, slot, stepSizeFor, track, type NoteRecord, type Op,
 } from '../../contract/index.js';
+import { FakeAdapter } from './adapter.js';
 import { VirtualClock } from './clock.js';
 import { ProjectModel, noteKey } from './model.js';
 import {
-  applyNotePropsInOrder, gainOnReadback, noteOnReadback, pointAtSlot, stepDataIsStale, writeNoteProps,
+  applyNotePropsInOrder, gainOnReadback, gridChangePoisonsRead, noteOnReadback, pointAtSlot,
+  propsReadsTurnStartClip, stepDataIsStale, writeNoteProps,
 } from './traps.js';
 
 const CLIP = clip(slot(track('b07f6b06-8f4f-4f4f-802d-ddf1a5190515'), scene(0, 1)));
@@ -143,6 +145,147 @@ test('T-props: property writes too soon after a grid change are DISCARDED (E15-D
   assert.equal(stepDataIsStale(slotState, 0), true, 'same turn as the grid change');
   assert.equal(stepDataIsStale(slotState, 5), true, 'still inside the window');
   assert.equal(stepDataIsStale(slotState, 6), false, 'the budget has elapsed');
+});
+
+test('T-props: a property write that MOVES the grid is DISCARDED, same turn (E15-D)', () => {
+  // The other half of E15-D, poked directly. `stepDataIsStale` above models a
+  // grid change made in an earlier request, which a settle in front of the stage
+  // repairs; this models one the op makes ITSELF, immediately before its own
+  // `clip.getStep`, where no amount of waiting afterwards helps.
+  //
+  // Measured in probe `e15d-props` §A with byte-identical frames: gain landed
+  // only when the cursor was ALREADY on the grid the op wanted.
+  assert.equal(gridChangePoisonsRead(0.5, 1), true, 'a real grid change poisons the read');
+  assert.equal(gridChangePoisonsRead(0.5, 0.5), false, 'the same grid is a no-op and lands');
+  // Neither side guesses. A fresh cursor has no known grid, and notes finer than
+  // the grid floor never reach an adapter — the encoder refuses them first.
+  assert.equal(gridChangePoisonsRead(undefined, 1), false);
+  assert.equal(gridChangePoisonsRead(0.5, undefined), false);
+});
+
+test('T-props: the props op inherits the create\'s grid, so it cannot poison itself (E15-D)', () => {
+  // ⚠ Why `splitNoteWrite` hands over the WHOLE note set. Filtering to the
+  // expressive notes can make the props stage coarser than the create — here the
+  // create is pinned to 0.5 by the plain note at beat 0.5, while the expressive
+  // note alone would sit on a 1 grid — and the resulting `setStepSize` would
+  // discard everything the op carries.
+  const mixed = [note({ startBeats: 0, pitch: 60, durationBeats: 1, pan: -0.25 }), note({ startBeats: 0.5, pitch: 67, durationBeats: 0.5 })];
+  const stages = planStages([{ op: 'note.write', clip: CLIP, notes: mixed }]);
+  const write = stages[0]!.ops[0] as Extract<Op, { op: 'note.write' }>;
+  const props = stages[1]!.ops[0] as Extract<Op, { op: 'note.props' }>;
+  assert.equal(gridChangePoisonsRead(stepSizeFor(write.notes), stepSizeFor(props.notes)), false);
+  assert.equal(gridChangePoisonsRead(stepSizeFor(write.notes), stepSizeFor(props.notes.filter((n) => n.pan !== undefined))), true,
+    'and the filtered version really would have lost the properties');
+});
+
+test('T-props: a property write that RE-POINTS inside its turn is DISCARDED (E15-F)', () => {
+  // The trap that killed SESSION-2 item 4's hoist, poked with no contract
+  // involved. `setNoteProps` resolves its note against the clip the cursor held
+  // when the TURN began, so an op that re-points looks the note up in the wrong
+  // clip, finds nothing, and writes nothing.
+  const A = 'chan-a:0';
+  const B = 'chan-b:0';
+  assert.equal(propsReadsTurnStartClip(A, A), false, 'already pointed there — lands');
+  assert.equal(propsReadsTurnStartClip(A, B), true, 're-pointed inside the turn — lost');
+  // A fresh cursor has no known clip, and inventing one would make the fake fail
+  // cases live Bitwig passes.
+  assert.equal(propsReadsTurnStartClip(undefined, B), false);
+});
+
+test('T-props: back-to-back props ops for DIFFERENT clips both lose (E15-F)', async () => {
+  // ⚠ Two things at once, and the second one was a surprise.
+  //
+  // 1. The regression that stops SESSION-2 item 4's hoist being re-attempted
+  //    from the doc without re-reading the finding.
+  // 2. A caller-facing hazard in v0. `planStages` gives every `note.props` op
+  //    its own stage, so a caller who hand-writes property ops for two clips
+  //    gets two turns, and EACH of them re-points — so both are lost, not just
+  //    one. That is worse than the hoisted shape live Bitwig showed (§B, where
+  //    gn-B survived because the turn happened to start there), and it is
+  //    reachable through the public op union today.
+  //
+  // The generated path is safe because `splitNoteWrite` always pairs a props op
+  // with the create for the SAME clip immediately before it. A caller passing
+  // bare `note.props` ops gets no such pairing and no warning. → Phase 1.
+  //
+  // The fake is asserted to REPRODUCE the loss, not to prevent it. A fake that
+  // quietly made this work would certify a shape real Bitwig silently breaks,
+  // which is precisely PHASE-0 §Risks' named failure mode.
+  const adapter = new FakeAdapter({ tracks: ['gn-A', 'gn-B'] });
+  const [tA, tB] = adapter.model.tracks;
+  const clipA = clip(slot(track(tA!.channelId), scene(0, 1)));
+  const clipB = clip(slot(track(tB!.channelId), scene(0, 1)));
+  await adapter.apply({
+    ops: [
+      { op: 'clip.create', slot: slot(track(tA!.channelId), scene(0, 1)), lengthBeats: 4 },
+      { op: 'clip.create', slot: slot(track(tB!.channelId), scene(0, 1)), lengthBeats: 4 },
+    ],
+  });
+  await adapter.settle('trackStruct');
+
+  // The creates coalesce into one stage, leaving the cursor on gn-B. The two
+  // props ops then take a stage each (their settle class forces it), and each
+  // one re-points away from where its turn started.
+  const withPan = (pitch: number, pan: number) => note({ pitch, pan });
+  await adapter.apply({
+    ops: [
+      { op: 'note.write', clip: clipA, notes: [note({ pitch: 60 })] },
+      { op: 'note.write', clip: clipB, notes: [note({ pitch: 67 })] },
+    ],
+  });
+  await adapter.settle('gridChange');
+  await adapter.apply({
+    ops: [
+      { op: 'note.props', clip: clipA, notes: [withPan(60, -0.25)] },
+      { op: 'note.props', clip: clipB, notes: [withPan(67, 0.5)] },
+    ],
+  });
+  await adapter.settle('noteWrite');
+
+  const notesOf = async (address: ReturnType<typeof clip>) => {
+    const snap = await adapter.read([notesAddress(address)]);
+    const entry = snap.entries[addressKey(notesAddress(address))];
+    return entry?.value.of === 'notes' ? entry.value.notes : [];
+  };
+  // Both notes still exist — the loss is the EXPRESSION, silently, with the
+  // receipt reporting every op applied.
+  assert.equal((await notesOf(clipA)).length, 1);
+  assert.equal((await notesOf(clipB)).length, 1);
+  assert.equal((await notesOf(clipA))[0]?.pan, undefined, 'gn-A loses its pan: its turn began on gn-B');
+  assert.equal((await notesOf(clipB))[0]?.pan, undefined, 'gn-B loses its too: its turn began on gn-A');
+});
+
+test('T-props: ...while the GENERATED path pairs each props op with its own create (E15-F)', async () => {
+  // The contrast that makes the test above a hazard rather than a fact of life.
+  // Identical intent, expressed the way callers are meant to — one `note.write`
+  // per clip carrying its properties — and `splitNoteWrite` interleaves them so
+  // every props stage opens on the clip it addresses.
+  const adapter = new FakeAdapter({ tracks: ['gn-A', 'gn-B'] });
+  const [tA, tB] = adapter.model.tracks;
+  const clipA = clip(slot(track(tA!.channelId), scene(0, 1)));
+  const clipB = clip(slot(track(tB!.channelId), scene(0, 1)));
+  await adapter.apply({
+    ops: [
+      { op: 'clip.create', slot: slot(track(tA!.channelId), scene(0, 1)), lengthBeats: 4 },
+      { op: 'clip.create', slot: slot(track(tB!.channelId), scene(0, 1)), lengthBeats: 4 },
+    ],
+  });
+  await adapter.settle('trackStruct');
+  await adapter.apply({
+    ops: [
+      { op: 'note.write', clip: clipA, notes: [note({ pitch: 60, pan: -0.25 })] },
+      { op: 'note.write', clip: clipB, notes: [note({ pitch: 67, pan: 0.5 })] },
+    ],
+  });
+  await adapter.settle('noteWrite');
+
+  const notesOf = async (address: ReturnType<typeof clip>) => {
+    const snap = await adapter.read([notesAddress(address)]);
+    const entry = snap.entries[addressKey(notesAddress(address))];
+    return entry?.value.of === 'notes' ? entry.value.notes : [];
+  };
+  assert.equal((await notesOf(clipA))[0]?.pan, -0.25, 'both clips keep their expression');
+  assert.equal((await notesOf(clipB))[0]?.pan, 0.5);
 });
 
 test('T-props: properties set in the request that CREATES a note are DISCARDED (Phase 0)', () => {

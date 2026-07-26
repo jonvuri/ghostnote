@@ -14,6 +14,7 @@ import com.ghostnote.extension.handlers.NoteHandlers;
 import com.ghostnote.extension.handlers.ParamHandlers;
 import com.ghostnote.extension.handlers.StructureHandlers;
 import com.ghostnote.extension.handlers.TrackHandlers;
+import com.ghostnote.extension.handlers.UiHandlers;
 
 public class GhostnoteExtension extends ControllerExtension {
     // Spike: hardcoded. Becomes config-driven post-spike.
@@ -35,6 +36,27 @@ public class GhostnoteExtension extends ControllerExtension {
         final RigConfig config = RigConfig.load();
         final Rig rig = new Rig(host, config);
 
+        // The panel is the ONLY init-time construction allowed to fail without
+        // taking the extension with it. Everything it touches is ◐ doc-only
+        // (E14), which is the E7-Finding-0 hazard class — and a dead bridge would
+        // cost the whole live sitting the panel exists to serve. `ui.status` then
+        // reports `available: false` with the reason instead.
+        UiPanel panel = null;
+        String panelError = "";
+        try {
+            panel = new UiPanel(host, config);
+        } catch (Throwable t) {
+            panelError = t.getClass().getSimpleName() + ": " + t.getMessage();
+            host.errorln("[ghostnote] UI panel (E14) failed to build: " + panelError);
+        }
+        // `panelLayout()` is read by ui.status; marking it here keeps the guarded
+        // read in UiHandlers honest rather than silently reporting an error string.
+        try {
+            rig.application.panelLayout().markInterested();
+        } catch (Throwable t) {
+            host.errorln("[ghostnote] panelLayout() not markable: " + t.getMessage());
+        }
+
         // The registry is just a map, so it can be handed to the groups that need
         // to dispatch back into it (batch.run) or introspect it (contract.hello)
         // before any of them have registered. Registration happens at construction
@@ -51,6 +73,7 @@ public class GhostnoteExtension extends ControllerExtension {
             new ContainerHandlers(host, rig, state),
             new ParamHandlers(host, rig, state),
             new AppHandlers(host, rig, state),
+            new UiHandlers(host, rig, state, panel, panelError),
             new BatchHandlers(host, rig, state, registry));
 
         try {

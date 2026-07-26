@@ -10,7 +10,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { SETTLE_MS, planBudgetMs, planStages } from './index.js';
+import { SETTLE_MS, planBudgetMs, planStages, stepSizeFor } from './index.js';
 import { clip, device, param, scene, slot, track } from './address.js';
 import type { Op } from './ops.js';
 
@@ -118,4 +118,56 @@ test('S-budget: a settleBefore counts toward the estimate too (E15-D)', () => {
   const stages = planStages([{ op: 'note.write', clip: CLIP, notes: [{ ...note, pan: 0.5 }] }]);
   // gridChange in front of the props stage, then noteWrite after it.
   assert.equal(planBudgetMs(stages, SETTLE_MS), SETTLE_MS.gridChange + SETTLE_MS.noteWrite);
+});
+
+test('S-nohoist: property ops stay INTERLEAVED with their writes (E15-F)', () => {
+  // ⚠ Asserting a deliberate non-optimization, which is unusual enough to
+  // justify itself. Two property-bearing writes to different clips cost four
+  // stages, and PHASE-0-SESSION-2 item 4 proposed collapsing them to two.
+  // E15-F measured that the collapsed shape silently loses expression: a props
+  // op resolves its note against the clip the cursor held at the START of the
+  // turn, so in a shared stage every op but one looks in the wrong clip.
+  //
+  // Interleaving is the mitigation. This test is what makes removing it fail
+  // here rather than on someone's project.
+  const CLIP_B = clip(slot(track('9c1a0b7e-1111-4f4f-802d-ddf1a5190515'), scene(0, 1)));
+  const withPan = (n: typeof note) => ({ ...n, pan: -0.25 });
+  const stages = planStages([
+    { op: 'note.write', clip: CLIP, notes: [withPan(note)] },
+    { op: 'note.write', clip: CLIP_B, notes: [withPan({ ...note, pitch: 67 })] },
+  ]);
+  assert.deepEqual(stages.map((s) => s.ops.map((o) => o.op)), [
+    ['note.write'], ['note.props'], ['note.write'], ['note.props'],
+  ], 'each props stage must follow the create for its OWN clip, so the turn starts there');
+  // And the cost is the thing item 4 wanted to remove — recorded honestly, so
+  // the trade-off is visible rather than forgotten.
+  assert.equal(planBudgetMs(stages, SETTLE_MS), 2 * (SETTLE_MS.gridChange + SETTLE_MS.noteWrite));
+});
+
+test('S-grid: the split leaves both stages on the SAME grid (E15-D)', () => {
+  // ⚠ The invariant the props stage's frames rest on, and the reason the props
+  // op carries the write's whole note set rather than just the expressive ones.
+  // A props op emits `setStepSize` then `getStep` in ONE turn, so if that grid
+  // differs from the one the create left behind, the call is a real change and
+  // every property is discarded silently — a `settleBefore` in front of the
+  // stage cannot reach damage done inside it.
+  //
+  // The beat positions are chosen so filtering WOULD diverge: the create sees
+  // beat 0.5 and needs a 0.5 grid, while the expressive note alone (beat 0,
+  // duration 1) would sit happily on a 1 grid.
+  const stages = planStages([
+    {
+      op: 'note.write',
+      clip: CLIP,
+      notes: [
+        { startBeats: 0, pitch: 60, velocity: 100, durationBeats: 1, pan: -0.25 },
+        { startBeats: 0.5, pitch: 67, velocity: 100, durationBeats: 0.5 },
+      ],
+    },
+  ]);
+  const write = stages[0]!.ops[0] as Extract<Op, { op: 'note.write' }>;
+  const props = stages[1]!.ops[0] as Extract<Op, { op: 'note.props' }>;
+  assert.equal(stepSizeFor(write.notes), 0.5, 'the create is pinned to the finer note');
+  assert.equal(stepSizeFor(props.notes), stepSizeFor(write.notes));
+  assert.equal(stepSizeFor([props.notes[0]!]), 1, 'and filtering really would have diverged');
 });

@@ -1,7 +1,8 @@
 ---
 title: Phase 0 — Foundation, contract & the in-Bitwig UI probe
-status: IN PROGRESS — session 1 (scope 1–4) done 2026-07-25; scope 5–6 and exit
-        criteria 3–5 remain, tracked in PHASE-0-SESSION-2.md
+status: IN PROGRESS — session 1 (scope 1–4) done; session 2 (scope 5–6) done except
+        E14 rows H/I. Exit criteria 1, 2, 4, 5 met; 3 met for rows A–G.
+        Tracked in PHASE-0-SESSION-2.md.
 updated: 2026-07-25
 parent: ../PROJECT_PLAN.md
 session2: PHASE-0-SESSION-2.md
@@ -111,14 +112,23 @@ unattended and the interactive parts batch into one sitting.
 
 1. `cd brain && npm test` runs the full offline suite green **with Bitwig not
    running** — including `bwmod`'s existing 42 tests and new contract/fake tests.
+   > ⚠ **The 42 was always wrong.** `bwmod`'s real count is **39** (35 in
+   > `bwmod.test.ts` + 4 oracle), and `bwmod.test.ts` is unmodified since E13, so
+   > nothing was lost — the number was miscounted when this doc was written. The
+   > whole offline suite is **138** as of session 2. ● met.
 2. Both builds reproduce from a clean checkout; the extension deploys via
    `gradle copyExtension` and the spike probe suite still passes against it.
 3. Every E14 row has a ●/◐/○ verdict with evidence appended to `FINDINGS.md`, and
    the Phase-1 control-layer decision is recorded in `DECISIONS.md`.
+   > ◐ **Rows A–G done** (FINDINGS §E14, 20+ verdicts); control-layer decision is
+   > **D14**. Rows **H and I remain** — the two explicitly speculative ones.
 4. `DECISIONS.md` carries the consolidated D6+ entries; `PROJECT_PLAN.md` §4 is
    demoted to a pointer.
+   > ● **D6–D15**, and §4 is a pointer that names the D-entry per rule.
 5. `INITIAL_PROMPT.md` confidence markers updated ◐→●/○, or a superseding note
    pointing at `DECISIONS.md` (SPIKE_PLAN §5.3).
+   > ● Superseding banner with a correction table; markers deliberately frozen at
+   > their pre-spike values, because what was GUESSED is the useful record.
 
 ## Risks
 
