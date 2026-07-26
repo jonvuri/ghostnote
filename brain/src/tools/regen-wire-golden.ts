@@ -31,10 +31,14 @@ const added = methods.filter((m) => !preSplit.has(m));
 const removed = golden.methods.filter((m) => !methods.includes(m));
 const brandNew = methods.filter((m) => !golden.methods.includes(m));
 
-// Session 1 is frozen history; everything else new since the split belongs to
-// the session that is running now.
+// Phase-0 sessions 1 and 2 are frozen history — each is the record of what ONE
+// sitting put on the wire, and letting a later sitting's methods fall into an
+// earlier bucket would quietly destroy that. So both are read back from the
+// golden and only the CURRENT sitting's bucket accumulates.
 const addedInSession1 = golden.addedInSession1 ?? ['contract.hello', 'rig.methods'];
-const addedInSession2 = added.filter((m) => !addedInSession1.includes(m)).sort();
+const addedInSession2 = golden.addedInSession2 ?? [];
+const earlier = new Set([...addedInSession1, ...addedInSession2]);
+const addedInE16 = added.filter((m) => !earlier.has(m)).sort();
 
 const next = {
   ...golden,
@@ -45,6 +49,7 @@ const next = {
   addedInPhase0: added,
   addedInSession1,
   addedInSession2,
+  addedInE16,
   methods,
 };
 

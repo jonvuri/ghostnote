@@ -4,6 +4,7 @@ import com.bitwig.extension.controller.ControllerExtension;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.ghostnote.extension.handlers.AppHandlers;
 import com.ghostnote.extension.handlers.BatchHandlers;
+import com.ghostnote.extension.handlers.BranchHandlers;
 import com.ghostnote.extension.handlers.ContainerHandlers;
 import com.ghostnote.extension.handlers.CoreHandlers;
 import com.ghostnote.extension.handlers.CursorHandlers;
@@ -94,6 +95,7 @@ public class GhostnoteExtension extends ControllerExtension {
             new ContainerHandlers(host, rig, state),
             new ParamHandlers(host, rig, state),
             new AppHandlers(host, rig, state),
+            new BranchHandlers(host, rig, state),
             new UiHandlers(host, rig, state, panel, panelError, hardware, display),
             new BatchHandlers(host, rig, state, registry));
 

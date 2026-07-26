@@ -1,7 +1,8 @@
 ---
 title: ghostnote mini-spike — E16: branches as duplicated tracks
-status: PROPOSED, unmeasured — nothing here is recorded in DECISIONS and nothing
-        may be until E16 rows A–C return verdicts (standing rule 10)
+status: ROWS A–C MEASURED, gate open — no kill criterion fired. Still nothing in
+        DECISIONS: §8 is untouched and remains the user's (standing rule 10).
+        Evidence: spike/FINDINGS.md "E16 rows A–C" (2026-07-26).
 updated: 2026-07-26
 parent: ../SPIKE_PLAN.md
 evidence it builds on: E1, E2c, E2f, E3, E5, E5c, E8, E11g, E14-G · D5, D6, D7, D10, D14, D16, D17
@@ -19,6 +20,23 @@ decides: whether Phase 1's take model gains a second, coarser layer — and whet
 ⚠ **This document records a design conversation, not a finding.** The whole idea
 rests on one API call nobody has probed. Read §4 before §3 — the kill criteria
 are cheap to reach and the spike should end the moment one fires.
+
+> **STATUS 2026-07-26 — the gate rows ran; full evidence in `FINDINGS.md`.**
+> **A ●** (three of four routes duplicate a top-level track; `copyTracks` is a
+> silent no-op, so we cannot choose where a copy lands). **A4 ●** (fresh
+> `channelId`, lands adjacent, ⚠ carries the SAME NAME). **B ●** except **B3 ◐**
+> — opaque **CLAP and VST3** state both come across (2193 params, identical
+> values), modulator *pages* come across, modulator *liveness* is unproven
+> because the fixture showed none on either side. **C ●**: 330–520 ms for a
+> two-Zebra3 track, ≈0.6 pp engine CPU per branch, freed on delete.
+> **D1/D2 ●, F1 ●, G1 ●.**
+>
+> ⚠ **E5 is answered and it is the bad answer:** a branch is **audible the
+> instant it exists**, three branches sounded **simultaneously**, and nothing
+> pre-mutes them. §6.2 is measured, not hypothetical.
+>
+> **Still unmeasured:** C4, C5, D3, D4, E1–E4, F2 (beyond naming), F3, G2, G3.
+> **§8's nine decisions are all still open**, which is unchanged by any of this.
 
 ---
 

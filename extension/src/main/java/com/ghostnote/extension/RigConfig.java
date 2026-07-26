@@ -26,6 +26,19 @@ public class RigConfig {
     public int gridSteps = 64;    // 16 beats at 1/16 grid
     public int gridKeys = 128;    // full MIDI range: y == pitch
     public int cursorPool = 3;
+    /**
+     * Sends per track (E16 row B5/E2).
+     *
+     * ⚠ This is a BANK-CREATION-TIME size, not a read option:
+     * `createTrackBank(tracks, sends, scenes, flat)` took 0 here until E16, and
+     * with 0 the modern `Channel.sendBank()` does not return an empty bank — it
+     * THROWS `No send bank exists: Requested a send bank size of 0`, from inside
+     * the Rig constructor, which killed the whole extension at init (standing
+     * rules 9/13; the same shape as E7-Finding-0). Sends are therefore something
+     * you decide before you can look, and asking for them costs scaffold on
+     * EVERY track, so it is a config knob rather than a constant.
+     */
+    public int sends = 4;
     public int deviceBank = 8;
     public int fineSteps = 512;
     public int paramHandles = 16; // typed createParameter handles (E4)
@@ -60,6 +73,7 @@ public class RigConfig {
             config.gridSteps = intOr(obj, "gridSteps", config.gridSteps);
             config.gridKeys = intOr(obj, "gridKeys", config.gridKeys);
             config.cursorPool = intOr(obj, "cursorPool", config.cursorPool);
+            config.sends = intOr(obj, "sends", config.sends);
             config.deviceBank = intOr(obj, "deviceBank", config.deviceBank);
             config.fineSteps = intOr(obj, "fineSteps", config.fineSteps);
             config.paramHandles = intOr(obj, "paramHandles", config.paramHandles);
@@ -89,6 +103,7 @@ public class RigConfig {
         obj.addProperty("gridSteps", gridSteps);
         obj.addProperty("gridKeys", gridKeys);
         obj.addProperty("cursorPool", cursorPool);
+        obj.addProperty("sends", sends);
         obj.addProperty("deviceBank", deviceBank);
         obj.addProperty("fineSteps", fineSteps);
         obj.addProperty("paramHandles", paramHandles);

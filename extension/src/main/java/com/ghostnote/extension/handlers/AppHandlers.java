@@ -28,6 +28,7 @@ public final class AppHandlers extends HandlerGroup {
     public void register(HandlerRegistry r) {
         r.on("app.actions", params -> appActions(params));
         r.on("app.invokeAction", params -> appInvokeAction(params));
+        r.on("transport.play", params -> transportPlay());
         r.on("transport.stop", params -> transportStop());
         r.on("transport.status", params -> transportStatus());
     }
@@ -75,6 +76,17 @@ public final class AppHandlers extends HandlerGroup {
         result.addProperty("resolvedName", action.getName());
         action.invoke();
         return result;
+    }
+
+    /**
+     * E16 rows C5/E: every cost and audibility question is asked with the
+     * transport ROLLING, because that is when a branch point would happen.
+     * `slot.launch` already starts playback as a side effect; this starts it
+     * without also launching a clip.
+     */
+    private JsonElement transportPlay() {
+        rig.transport.play();
+        return ok();
     }
 
     private JsonElement transportStop() {

@@ -58,12 +58,28 @@ jar {
 
 def bitwigExtensionsDir = "${System.getProperty('user.home')}/Documents/Bitwig Studio/Extensions"
 
-tasks.register('copyExtension', Copy) {
+// ⚠ Deploy is a two-step copy-then-RENAME, not a plain Copy into place.
+//
+// Bitwig hot-reloads the extension when the file changes, and a plain Copy
+// rewrites it in place — so Bitwig can start reading a half-written zip. When
+// that happened (E16) it failed with `ZipException: invalid LOC header` ->
+// `ClassNotFoundException`, and the broken instance kept port 8686 bound, so
+// every later instance died with `Address already in use` and the bridge
+// connected-but-never-answered. Only restarting Bitwig cleared it.
+//
+// A rename within the same filesystem is atomic: Bitwig either sees the old
+// complete file or the new complete file, never a torn one.
+tasks.register('copyExtension') {
     dependsOn jar
-    from jar.outputs.files
-    into bitwigExtensionsDir
-
     doLast {
-        println "Copied extension to: ${bitwigExtensionsDir}"
+        def target = file("${bitwigExtensionsDir}/${jar.archiveFileName.get()}")
+        def staging = file("${bitwigExtensionsDir}/.${jar.archiveFileName.get()}.staged")
+        staging.parentFile.mkdirs()
+        staging.bytes = jar.archiveFile.get().asFile.bytes
+        java.nio.file.Files.move(
+            staging.toPath(), target.toPath(),
+            java.nio.file.StandardCopyOption.REPLACE_EXISTING,
+            java.nio.file.StandardCopyOption.ATOMIC_MOVE)
+        println "Deployed (atomic rename) to: ${target}"
     }
 }

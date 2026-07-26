@@ -63,7 +63,23 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
   const reachable = golden.addedInSession2.filter((m) => WIRE_METHODS_USED.includes(m));
   assert.deepEqual(reachable, [], 'E14 is a probe, not a capability — the contract must not reach any of it');
   assert.deepEqual([...golden.addedInPhase0].sort(),
-    [...golden.addedInSession1, ...golden.addedInSession2].sort());
+    [...golden.addedInSession1, ...golden.addedInSession2, ...(golden.addedInE16 ?? [])].sort());
+});
+
+test('E16: the branch probe surface is probe surface, and the contract cannot reach it', () => {
+  // E16 asks whether a branch can be a duplicated track. Nothing about it is
+  // decided (SPIKE-E16 §4 kill criteria), so none of its wire methods may become
+  // reachable from the contract before the rows return verdicts — the same rule
+  // that kept E14 out, for the same reason.
+  // Named one by one rather than by prefix: the list IS the record of what the
+  // mini-spike put on the wire, and a prefix rule would let the next addition in
+  // unnoticed.
+  const allowed = ['transport.play', 'device.insertVst3'];
+  const e16 = golden.addedInE16 ?? [];
+  const unexpected = e16.filter((m) => !m.startsWith('branch.') && !allowed.includes(m));
+  assert.deepEqual(unexpected, [], `E16 added an unexpected method: ${unexpected.join(', ')}`);
+  const reachable = e16.filter((m) => WIRE_METHODS_USED.includes(m));
+  assert.deepEqual(reachable, [], 'E16 is a mini-spike, not a capability — the contract must not reach any of it');
 });
 
 test('W-hash: the golden hash matches its own method list', () => {

@@ -20,6 +20,8 @@ import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.RemoteControl;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.PinnableCursorDevice;
+import com.bitwig.extension.controller.api.Send;
+import com.bitwig.extension.controller.api.SendBank;
 import com.bitwig.extension.controller.api.SpecificBitwigDevice;
 import com.bitwig.extension.controller.api.SceneBank;
 import com.bitwig.extension.controller.api.Track;
@@ -147,6 +149,33 @@ public class Rig {
     public final java.util.Map<String, Double> directParamValues = new java.util.LinkedHashMap<>();
     public final java.util.Map<String, String> directParamDisplays = new java.util.LinkedHashMap<>();
 
+    // --- E16: mixer state + the audibility oracle ---
+    /**
+     * Sends per bank track, sized by {@link RigConfig#sends} — see the warning
+     * there, and at the `createTrackBank` call below, about why 0 is fatal.
+     * Null when the config asks for none, so every reader must check.
+     */
+    public final SendBank[] sendBanks;
+
+    /**
+     * VU meters per bank track — the ONE programmatic oracle for "is this track
+     * making sound right now".
+     *
+     * Rows E2 and E5 are audio-correctness questions ("does mute cut sends",
+     * "is there a window where both branches are audible") and the obvious
+     * method is human ears, which cannot see a 100ms window. `vuNow` is the last
+     * reported level; `vuHold` is a peak that only rises, so a probe can arm it,
+     * do something, and ask *did any signal appear at all* — which is the
+     * question, and it is answerable in a way ears are not.
+     *
+     * ⚠ Bank-INDEXED, so a structural change re-points these at whatever track
+     * now sits at that index. Callers reset the hold and re-read the bank rather
+     * than holding an index across a duplicate.
+     */
+    public static final int VU_RANGE = 128;
+    public final int[] vuNow;
+    public final int[] vuHold;
+
     // UI selection tracking, updated by observers on the control-surface
     // thread; read by handlers on the same thread.
     public int selectedTrackIndex = -1;
@@ -160,14 +189,24 @@ public class Rig {
         cursorTracks = new CursorTrack[config.cursorPool];
         cursorClips = new PinnableCursorClip[config.cursorPool];
         cursorDeviceBanks = new DeviceBank[config.cursorPool];
+        sendBanks = new SendBank[config.tracks];
+        vuNow = new int[config.tracks];
+        vuHold = new int[config.tracks];
 
         application = host.createApplication();
         application.canUndo().markInterested();
         application.canRedo().markInterested();
         project = host.getProject();
 
-        // Flat track list so tracks nested in groups are addressable
-        trackBank = host.createTrackBank(config.tracks, 0, config.scenes, true);
+        // Flat track list so tracks nested in groups are addressable.
+        //
+        // ⚠ The second argument is the SEND-BANK size and it was 0 until E16.
+        // `Channel.sendBank()` on a 0-send bank does not return an empty bank —
+        // it throws `No send bank exists: Requested a send bank size of 0` from
+        // inside this constructor and the extension never starts (measured, E16;
+        // standing rules 9/13). Sends are a bank-creation-time decision, so
+        // reading a send later is impossible unless we asked for them here.
+        trackBank = host.createTrackBank(config.tracks, config.sends, config.scenes, true);
 
         // Bank-window overflow detection (E5, standing rule 5). Tracks outside the
         // window are ABSENT, not slow — channelId resolves only inside it — which
@@ -196,6 +235,43 @@ public class Rig {
             track.position().markInterested();
             track.trackType().markInterested();
             track.channelId().markInterested();
+
+            // E16 row B5: the mixer state a duplicate either carries or does not.
+            // All of these are the MODERN accessors — the `getVolume()`/`getMute()`
+            // family is @Deprecated at v25 and standing rule 9 says a deprecated
+            // handle marked at init can take the whole extension down.
+            track.volume().value().markInterested();
+            track.volume().value().displayedValue().markInterested();
+            track.pan().value().markInterested();
+            track.mute().markInterested();
+            track.solo().markInterested();
+            track.isMutedBySolo().markInterested();
+            track.isActivated().markInterested();
+            track.color().markInterested();
+            track.isGroup().markInterested();
+
+            // Guarded on config.sends because sendBank() THROWS at size 0, and a
+            // throw here is the whole extension (E16, above).
+            if (config.sends > 0) {
+                sendBanks[i] = track.sendBank();
+                sendBanks[i].itemCount().markInterested();
+                for (int s = 0; s < config.sends; s++) {
+                    Send send = sendBanks[i].getItemAt(s);
+                    send.exists().markInterested();
+                    send.name().markInterested();
+                    send.value().markInterested();
+                    send.isEnabled().markInterested();
+                    send.isPreFader().markInterested();
+                }
+            }
+
+            final int vuIdx = i;
+            track.addVuMeterObserver(VU_RANGE, -1, true, level -> {
+                vuNow[vuIdx] = level;
+                if (level > vuHold[vuIdx]) {
+                    vuHold[vuIdx] = level;
+                }
+            });
 
             ClipLauncherSlotBank slots = track.clipLauncherSlotBank();
             for (int j = 0; j < config.scenes; j++) {

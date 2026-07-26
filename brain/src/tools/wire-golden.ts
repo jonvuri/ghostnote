@@ -26,6 +26,8 @@ export interface Golden {
   addedInPhase0: string[];
   addedInSession1: string[];
   addedInSession2: string[];
+  /** The E16 mini-spike's probe surface (branches as duplicated tracks). */
+  addedInE16?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

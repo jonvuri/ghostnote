@@ -29,6 +29,7 @@ public final class DeviceHandlers extends HandlerGroup {
     public void register(HandlerRegistry r) {
         r.on("device.insertBitwig", params -> deviceInsertBitwig(params));
         r.on("device.insertClap", params -> deviceInsertClap(params));
+        r.on("device.insertVst3", params -> deviceInsertVst3(params));
         r.on("device.list", params -> deviceList(params));
         r.on("device.delete", params -> deviceDelete(params));
         r.on("device.duplicate", params -> deviceDuplicate(params));
@@ -65,6 +66,25 @@ public final class DeviceHandlers extends HandlerGroup {
         String ref = params.get("cursor").getAsString();
         String clapId = params.get("clapId").getAsString();
         rig.cursorTrack(ref).endOfDeviceChainInsertionPoint().insertCLAPDevice(clapId);
+        return ok();
+    }
+
+    /**
+     * Insert a VST3 by its plugin ID (E16 row B2).
+     *
+     * E4 reached VST3s only through presets; kill criterion 2 asks specifically
+     * whether duplication carries **opaque VST3 state**, which needs a real one
+     * in the chain. The ID is the 32-hex-char VST3 class UID — the same string
+     * Bitwig caches in `~/Library/Caches/Bitwig/vst3-metadata-*`, which is where
+     * the probe gets it (there is no plugin-enumeration API).
+     */
+    private JsonElement deviceInsertVst3(JsonObject params) {
+        String ref = params.get("cursor").getAsString();
+        String id = params.get("vst3Id").getAsString();
+        if (!id.matches("[0-9A-Fa-f]{32}")) {
+            throw new IllegalArgumentException("vst3Id must be 32 hex chars, got: " + id);
+        }
+        rig.cursorTrack(ref).endOfDeviceChainInsertionPoint().insertVST3Device(id);
         return ok();
     }
 
