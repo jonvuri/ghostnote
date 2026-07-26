@@ -34,7 +34,7 @@ import { isAbsolute, extname } from 'node:path';
 
 import {
   InvalidOpError, assertNever, chooseStepSize, orderedNoteProps,
-  type NoteRecord, type Op, type TrackAddress,
+  type ClipAddress, type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
 import { WIRE, frame, type Frame } from './wiremap.js';
 
@@ -44,8 +44,17 @@ export { STEP_SIZES, chooseStepSize } from '../../contract/index.js';
 
 /** What the encoder needs to know that an address alone cannot tell it. */
 export interface EncodeContext {
-  /** Which pool cursor to drive — a pinned, non-following CursorTrack + clip (E1). */
-  readonly cursor: string;
+  /**
+   * Which pool cursor drives this clip — a pinned, non-following CursorTrack +
+   * PinnableCursorClip pair, pre-allocated at init (E1, D7).
+   *
+   * ⚠ A FUNCTION rather than a single ref, and the reason is E15-F rather than
+   * throughput: `cursor.setNoteProps` resolves its note against the clip that
+   * cursor held at TURN START, so the generated props op must reach the same
+   * cursor its create used or it silently loses everything. `CursorPool` keeps
+   * the assignment stable for exactly that long. See `pool.ts`.
+   */
+  readonly cursorFor: (clip: ClipAddress) => string;
   /** channelId -> current bank index. Valid only until the next structural op. */
   readonly trackIndex: (track: TrackAddress) => number;
 }
@@ -79,15 +88,15 @@ export interface EncodeContext {
  * cannot see what the same turn (or the last ~120ms of grid change) did. That is
  * `OP_SETTLE_BEFORE` in the contract — see `encodeOp`'s `note.props` case.
  */
-function pointFrames(ctx: EncodeContext, trackIndex: number, sceneIndex: number): Frame[] {
+function pointFrames(cursor: string, trackIndex: number, sceneIndex: number): Frame[] {
   return [
-    frame(WIRE.cursorPointTrack, { cursor: ctx.cursor, trackIndex }),
+    frame(WIRE.cursorPointTrack, { cursor, trackIndex }),
     frame(WIRE.slotSelect, { trackIndex, slotIndex: sceneIndex, mechanism: 'track' }),
   ];
 }
 
 /** Expression properties for one note, in the mandated write order. */
-function notePropFrames(ctx: EncodeContext, note: NoteRecord, x: number): Frame[] {
+function notePropFrames(cursor: string, note: NoteRecord, x: number): Frame[] {
   // `orderedNoteProps` is the CONTRACT's ordering, shared with the fake — if the
   // mitigation lived only here, the two adapters would disagree about the same
   // op and the conformance suite could not be adapter-agnostic.
@@ -97,7 +106,7 @@ function notePropFrames(ctx: EncodeContext, note: NoteRecord, x: number): Frame[
   for (const [key, value] of entries) props[key] = value;
   // Gson preserves JsonObject insertion order and the Java handler iterates
   // params.keySet(), so this object's key order IS the write order on the device.
-  return [frame(WIRE.cursorSetNoteProps, { cursor: ctx.cursor, x, y: note.pitch, props })];
+  return [frame(WIRE.cursorSetNoteProps, { cursor, x, y: note.pitch, props })];
 }
 
 function validateDeviceSource(op: Extract<Op, { op: 'device.insert' }>): void {
@@ -134,11 +143,12 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       // once. Measured — x=2 sent on a cursor sitting at 1/16, with the grid
       // changed to 1/2 in the same batch, lands at beat 1.0 and not at 0.125.
       // Only the READING op (`note.props` below) has to wait for the grid.
+      const cursor = ctx.cursorFor(op.clip);
       const frames: Frame[] = [
-        ...pointFrames(ctx, t, s),
-        frame(WIRE.cursorSetStepSize, { cursor: ctx.cursor, stepSize }),
+        ...pointFrames(cursor, t, s),
+        frame(WIRE.cursorSetStepSize, { cursor, stepSize }),
         frame(WIRE.cursorSetNotes, {
-          cursor: ctx.cursor,
+          cursor,
           channel,
           notes: op.notes.map((n) => [
             Math.round(n.startBeats / stepSize),
@@ -149,7 +159,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         }),
       ];
       for (const note of op.notes) {
-        frames.push(...notePropFrames(ctx, note, Math.round(note.startBeats / stepSize)));
+        frames.push(...notePropFrames(cursor, note, Math.round(note.startBeats / stepSize)));
       }
       return frames;
     }
@@ -181,14 +191,18 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       //
       // Sending the grid at all is what makes `x` mean the same thing it meant in
       // the create stage.
+      // ⚠ The SAME cursor its create used, guaranteed by `CursorPool` keeping
+      // the assignment stable — so these point frames are a no-op and the turn
+      // begins on the clip the lookup needs (E15-F).
+      const cursor = ctx.cursorFor(op.clip);
       const frames: Frame[] = [
-        ...pointFrames(ctx, t, s),
-        frame(WIRE.cursorSetStepSize, { cursor: ctx.cursor, stepSize }),
+        ...pointFrames(cursor, t, s),
+        frame(WIRE.cursorSetStepSize, { cursor, stepSize }),
       ];
       // Deliberately NO setNotes here: re-issuing setStep would reset the very
       // properties the preceding stage just wrote.
       for (const note of op.notes) {
-        frames.push(...notePropFrames(ctx, note, Math.round(note.startBeats / stepSize)));
+        frames.push(...notePropFrames(cursor, note, Math.round(note.startBeats / stepSize)));
       }
       return frames;
     }
@@ -201,7 +215,8 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       if (op.range !== undefined) {
         throw new InvalidOpError('note.clear', 'ranged clear is not in contract v0 — clear the clip or rewrite it');
       }
-      return [...pointFrames(ctx, t, s), frame(WIRE.cursorClearNotes, { cursor: ctx.cursor })];
+      const cursor = ctx.cursorFor(op.clip);
+      return [...pointFrames(cursor, t, s), frame(WIRE.cursorClearNotes, { cursor })];
     }
 
     case 'clip.create':

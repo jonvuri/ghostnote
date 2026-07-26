@@ -217,9 +217,19 @@ The line is *"no offline route that bypasses the running DAW"*, and it holds.
 
 Not blockers; each is owned by a phase.
 
-- **Stable identity for clips, scenes and devices.** `channelId` solves tracks
+- ~~**Stable identity for clips, scenes and devices.** `channelId` solves tracks
   (E2f). Slots are addressed within a track and scene indices shift under
-  compaction (E3) — is there an equivalent durable id? → P1.
+  compaction (E3) — is there an equivalent durable id? → P1.~~
+  → **CLOSED 2026-07-26 (D16a), Phase 1 session 1.** **No, and we are not going to
+  invent one.** Tracks stay durable by `channelId`; everything else stays
+  `positional` in `ADDRESS_IDENTITY` and is re-resolved as *(durable track, scene
+  index, scene epoch)* at replay time, with any scene op forcing a re-point and
+  refusing every address minted before it. ⚠ A synthetic clip id was rejected
+  rather than deferred: it would mean maintaining a side table across a DAW we do
+  not control, through user deletes we cannot see without the daemon's observers
+  — a second source of truth that goes wrong silently. The cost is stated instead
+  of hidden: a positional address in a batch that can also move rows is labelled
+  `lossy`, derived from `ADDRESS_IDENTITY` rather than remembered.
 - **Async batch completion.** The Bridge writes a response when a handler returns,
   so a paced batch acknowledges acceptance, not completion. A completion callback
   needs a deferred-response protocol (E8). → P1.

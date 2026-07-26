@@ -37,6 +37,15 @@ export const WIRE = {
   slotSelect: 'slot.select',
   slotDelete: 'slot.delete',
 
+  /**
+   * The user's own clip selection, as an observer's last value.
+   *
+   * ⚠ Read to SAVE it, not to act on it. Pointing steals the selection (E1) and
+   * D6 makes restoring it Phase 1's debt; E14-F measured that the save/restore
+   * round trip works and does not disturb the pool cursor.
+   */
+  selectionStatus: 'selection.status',
+
   cursorPin: 'cursor.pin',
   cursorPointTrack: 'cursor.pointTrack',
   cursorStatus: 'cursor.status',

@@ -46,8 +46,8 @@ export { CONTRACT_TAG, CONTRACT_VERSION } from './version.js';
 export type { AdapterCapabilities, AdapterInfo, BankLimits, ContractTag } from './version.js';
 
 export {
-  AddressUnresolvedError, BankWindowOverflowError, ContractError, ContractVersionError,
-  InvalidOpError, StaleAddressError, UnsupportedOpError, WireDriftError,
+  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractError,
+  ContractVersionError, InvalidOpError, StaleAddressError, UnsupportedOpError, WireDriftError,
 } from './errors.js';
 
 export type { BatchRequest, BitwigAdapter, ResolveResult, ResolvedAddress } from './adapter.js';

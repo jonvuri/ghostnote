@@ -1,0 +1,93 @@
+/**
+ * The cursor pool — D6's "pinned, non-following cursor tracks" as an allocator.
+ *
+ * `LiveAdapter` hardcoded cursor `'0'` through Phase 0, which was fine while
+ * nothing wrote two clips in one batch and cost correctness the moment something
+ * did. The rig pre-allocates `cursorPool` CursorTrack + PinnableCursorClip pairs
+ * at init (E1, D7 — allocation is init-only and enforced), and E1 measured three
+ * of them holding three different clips concurrently through 27 user selection
+ * changes. This is the thing that decides which one a given clip gets.
+ *
+ * ⚠ **The allocator is a CORRECTNESS mechanism, not a performance one**, and the
+ * reason is E15-F. `cursor.setNoteProps` resolves its note against the clip THAT
+ * CURSOR held when the turn began, so a props op that re-points loses every
+ * property it carries — silently, with a clean receipt. `stages.ts` keeps the
+ * generated props op directly behind its own create so the point frames are a
+ * no-op; with a pool, that stops being a happy accident of ordering and becomes
+ * structural: the props op asks for the same clip, gets the same cursor, and the
+ * cursor is already there. Interleaving still holds the line (the pool is 3 by
+ * default and a batch may address more clips than that), but the two mechanisms
+ * now agree instead of one carrying the other.
+ *
+ * Least-recently-used, because the access pattern is "the clip I just wrote is
+ * the clip I am about to set properties on".
+ */
+import { addressKey, type AddressKey, type ClipAddress } from '../../contract/index.js';
+
+export class CursorPool {
+  private readonly refs: readonly string[];
+  /** clip -> cursor ref. Never survives a structural op — see `invalidate`. */
+  private readonly held = new Map<AddressKey, string>();
+  /** Least-recently-used first. */
+  private lru: string[];
+
+  constructor(size: number) {
+    const n = Math.max(1, Math.floor(size));
+    this.refs = Array.from({ length: n }, (_, i) => String(i));
+    this.lru = [...this.refs];
+  }
+
+  get size(): number {
+    return this.refs.length;
+  }
+
+  /**
+   * Which cursor should drive this clip.
+   *
+   * Stable for as long as the assignment survives: asking twice for the same
+   * clip returns the same ref, which is what makes a props op's point frames a
+   * no-op rather than the re-point E15-F punishes.
+   */
+  cursorFor(clip: ClipAddress): string {
+    const key = addressKey(clip);
+    const existing = this.held.get(key);
+    if (existing !== undefined) {
+      this.touch(existing);
+      return existing;
+    }
+
+    const ref = this.lru[0] ?? this.refs[0]!;
+    // Evicting means the clip that had this cursor loses its assignment, so the
+    // next op addressing it re-points. That is correct and it is why eviction
+    // takes the LEAST recently used.
+    for (const [heldKey, heldRef] of this.held) {
+      if (heldRef === ref) this.held.delete(heldKey);
+    }
+    this.held.set(key, ref);
+    this.touch(ref);
+    return ref;
+  }
+
+  /**
+   * ⚠ Standing rule 2 / D6: re-point after ANY structural op.
+   *
+   * A held pin's `sceneIndex()` goes PERMANENTLY stale after scene compaction —
+   * E3 watched one read 10 for 3.1 seconds while the clip was really at row 9,
+   * with everything else about the pin perfectly healthy. Bank indices drift the
+   * same way under track create/delete. So an assignment is only valid until the
+   * next structural op, and this is how that is enforced rather than remembered.
+   */
+  invalidate(): void {
+    this.held.clear();
+    this.lru = [...this.refs];
+  }
+
+  /** What is assigned right now — for tests and diagnostics, never for logic. */
+  get assignments(): ReadonlyMap<AddressKey, string> {
+    return new Map(this.held);
+  }
+
+  private touch(ref: string): void {
+    this.lru = [...this.lru.filter((r) => r !== ref), ref];
+  }
+}

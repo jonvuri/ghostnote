@@ -19,14 +19,24 @@
  *   - assertions on real durations, which are tautological against a virtual clock;
  *   - anything needing a human at the keyboard (E6/E8b interference, E14).
  * Those stay probes.
+ *
+ * ⚠ This file imports `engine/` as well as the contract, which looks backwards
+ * for something living under `contract/`. It is deliberate: PHASE-1 session 1's
+ * exit criterion 6 is "new conformance cases so session 5 can run the same
+ * assertions live with no new test code", and the executor's claims — a revert
+ * round-trips, a stale revision rejects whole, an empty slot is refused — are
+ * exactly the ones that must hold on BOTH adapters. Putting them anywhere else
+ * would mean writing them twice.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  BankWindowOverflowError, addressKey, clip, notes as notesAt, scene, slot, track,
+  AddressUnresolvedError, BankWindowOverflowError, NOTE_PROP_FIDELITY, addressKey, clip,
+  notes as notesAt, scene, slot, track,
   type Address, type BitwigAdapter, type NoteRecord, type Op, type Snapshot, type TrackAddress,
 } from '../index.js';
+import { Executor } from '../../engine/index.js';
 
 export interface ConformanceCapabilities {
   readonly hasRealBitwig: boolean;
@@ -52,6 +62,17 @@ export interface AdapterHarness {
   forceOverflow?(adapter: BitwigAdapter): void;
   /** Required when `canOverflowBank`: push one known track out of view. */
   hideTrack?(adapter: BitwigAdapter, track: TrackAddress): void;
+
+  /**
+   * Required when `capabilities.canInjectInterference`: make the world move the
+   * way a human at the keyboard would, between our stash and our apply.
+   *
+   * The mechanism differs per adapter — the fake bumps its model counter, live
+   * calls `revision.bump` — but E8's claim does not: a batch tagged with the old
+   * revision then applies ZERO of its ops. Keeping the mechanism in the harness
+   * is what lets the ASSERTION be shared.
+   */
+  bumpRevision?(adapter: BitwigAdapter): Promise<void>;
 }
 
 const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
@@ -99,6 +120,16 @@ export function runConformance(h: AdapterHarness): void {
   };
 
   // --- handshake -------------------------------------------------------------
+
+  test(label('C-coverage', 'the round-trip note covers every property NOTE_PROP_FIDELITY calls exact'), () => {
+    const exact = Object.entries(NOTE_PROP_FIDELITY).filter(([, f]) => f === 'exact').map(([k]) => k);
+    assert.deepEqual(
+      exact.filter((k) => !(k in EXACT_VALUES)),
+      [],
+      'a property promoted to `exact` must be given a value, or C-revert stops meaning ' +
+        '"every writable expression property"',
+    );
+  });
 
   test(label('C-hello', 'reports the contract tag, its kind and its limits'), async () => {
     const { adapter } = await h.create();
@@ -515,4 +546,244 @@ export function runConformance(h: AdapterHarness): void {
       }
     },
   );
+
+  test(label('C-slot', 'a notes read on a slot with NO clip is missing, never an empty clip (E2)'), async () => {
+    // ⚠ The distinction the executor's E2 guard is built on, and a place the
+    // fake and live could silently disagree: "there is no clip here" must not
+    // present as "the clip is empty", or a write into a never-created slot looks
+    // legal right up until the cursor lands on somebody else's clip.
+    const { adapter, trackA } = await h.create();
+    try {
+      const { sceneEpoch } = await adapter.revision();
+      // Scene 5 is deliberately never created by any case in this suite.
+      const bare = notesAt(clip(slot(trackA, scene(5, sceneEpoch))));
+      const snap = await adapter.read([bare]);
+      assert.equal(snap.entries[addressKey(bare)], undefined);
+      assert.equal(snap.missing.length, 1);
+    } finally {
+      await h.dispose(adapter);
+    }
+  });
+
+  // --- the executor (PHASE-1 session 1) --------------------------------------
+  //
+  // ⚠ These run the SAME pipeline offline and live. Session 5's exit-criteria
+  // sweep is `npm run probe:conformance` with these in it and no new test code,
+  // which is the whole reason the executor was written against the fake first.
+
+  test(label('C-exec', 'the pipeline stashes prior state, applies, and verifies by readback (§8b)'), async () => {
+    await withClip(async ({ adapter, clipA }) => {
+      const executor = new Executor(adapter);
+      await adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ pitch: 60 })] }] });
+      await adapter.settle('noteWrite');
+
+      const take = await executor.run([
+        { op: 'note.clear', clip: clipA },
+        { op: 'note.write', clip: clipA, notes: [note({ pitch: 67, startBeats: 1 })] },
+      ]);
+
+      assert.equal(take.report.applied, true);
+      // The write-set is the WHOLE clip channel, and the stash is what readback
+      // reported BEFORE the batch — never what anyone requested.
+      assert.equal(take.values.length, 1);
+      const before = take.values[0]!.value;
+      assert.deepEqual(before?.of === 'notes' ? before.notes.map((n) => n.pitch) : [], [60]);
+      // ...and the verify half proves it landed, without a second read by hand.
+      const after = take.verify.entries[addressKey(notesAt(clipA))]!;
+      assert.deepEqual(after.value.of === 'notes' ? after.value.notes.map((n) => n.pitch) : [], [67]);
+    });
+  });
+
+  test(label('C-exec', 'a note write into a slot with no clip is REFUSED, not attempted (E2)'), async () => {
+    const { adapter, trackA } = await h.create();
+    try {
+      const { sceneEpoch } = await adapter.revision();
+      const bare = clip(slot(trackA, scene(6, sceneEpoch)));
+      await assert.rejects(
+        new Executor(adapter).run([{ op: 'note.write', clip: bare, notes: [note()] }]),
+        AddressUnresolvedError,
+        'pointing at an empty slot lands on a DIFFERENT clip with a healthy status — the batch ' +
+          'must never go out',
+      );
+    } finally {
+      await h.dispose(adapter);
+    }
+  });
+
+  test(label('C-revert', 'a full expression round-trip reverts to a byte-identical note set'), async () => {
+    // ⚠ PHASE-1 SESSION-1 EXIT CRITERION 1, and the reason clips were chosen as
+    // the object class to build the checkpoint engine on: `setStep` -> `getStep`
+    // is exact for every property except the two that are labelled, so a revert
+    // bug here is unambiguous rather than a fidelity argument.
+    await withClip(async ({ adapter, clipA }) => {
+      const address = notesAt(clipA);
+      const executor = new Executor(adapter);
+      const authored = [conformanceFullNote(), conformanceFullNote({ startBeats: 2, pitch: 67 })];
+
+      await adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: authored }] });
+      await adapter.settle('noteWrite');
+      const baseline = await readNotes(adapter, address);
+      assert.equal(baseline.length, 2, 'the fixture itself must have landed');
+
+      const take = await executor.run([
+        { op: 'note.clear', clip: clipA },
+        { op: 'note.write', clip: clipA, notes: [note({ startBeats: 1, pitch: 72 })] },
+      ]);
+      assert.deepEqual((await readNotes(adapter, address)).map((n) => n.pitch), [72]);
+
+      const reverted = await executor.revert(take);
+      assert.deepEqual(reverted.unrestored, [], 'nothing here is unverified or unwritable');
+      assert.deepEqual(await readNotes(adapter, address), baseline);
+    });
+  });
+
+  test(label('C-revert', 'a TWO-CLIP revert keeps the expression on both (E15-F)'), async () => {
+    // ⚠ EXIT CRITERION 2. `revertOps` emits clear+write per clip and relies on
+    // `planStages` keeping every generated `note.props` directly behind its own
+    // create. Hoist them into one trailing stage and this case loses one clip's
+    // expression, silently and with a clean receipt.
+    const { adapter, trackA, trackB } = await h.create();
+    try {
+      const { sceneEpoch } = await adapter.revision();
+      const slotA = slot(trackA, scene(0, sceneEpoch));
+      const slotB = slot(trackB, scene(0, sceneEpoch));
+      const clipA = clip(slotA);
+      const clipB = clip(slotB);
+      await adapter.apply({
+        ops: [
+          { op: 'clip.create', slot: slotA, lengthBeats: 4 },
+          { op: 'clip.create', slot: slotB, lengthBeats: 4 },
+        ],
+      });
+      await adapter.settle('trackStruct');
+      await adapter.apply({
+        ops: [
+          { op: 'note.clear', clip: clipA },
+          { op: 'note.clear', clip: clipB },
+        ],
+      });
+      await adapter.settle('noteWrite');
+      await adapter.apply({
+        ops: [
+          { op: 'note.write', clip: clipA, notes: [note({ pitch: 60, pan: -0.25 })] },
+          { op: 'note.write', clip: clipB, notes: [note({ pitch: 67, pan: 0.5 })] },
+        ],
+      });
+      await adapter.settle('noteWrite');
+
+      const executor = new Executor(adapter);
+      const take = await executor.run([
+        { op: 'note.clear', clip: clipA },
+        { op: 'note.clear', clip: clipB },
+      ]);
+      assert.equal(take.values.length, 2, 'both clips are in the write-set');
+
+      await executor.revert(take);
+      assert.equal((await readNotes(adapter, notesAt(clipA)))[0]?.pan, -0.25,
+        'clip A must get its expression back');
+      assert.equal((await readNotes(adapter, notesAt(clipB)))[0]?.pan, 0.5,
+        'and so must clip B — neither may be silently dropped');
+    } finally {
+      await h.dispose(adapter);
+    }
+  });
+
+  test(label('C-exec', 'gain is captured, labelled and REPORTED — never replayed or corrected (E2, D8)'), async () => {
+    await withClip(async ({ adapter, clipA }) => {
+      const executor = new Executor(adapter);
+      await adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }] });
+      await adapter.settle('noteWrite');
+
+      const take = await executor.run([
+        { op: 'note.clear', clip: clipA },
+        { op: 'note.write', clip: clipA, notes: [note({ pitch: 72 })] },
+      ]);
+      // The stash saw a doubled gain, so the take says lossy before anyone asks.
+      assert.equal(take.fidelity, 'lossy');
+      assert.match(take.values[0]!.caveats.join(' '), /gain: reads back/);
+
+      const reverted = await executor.revert(take);
+      // Replaying 1.4 would write 1.4 and read back 2.8, compounding on every
+      // revert. Withheld and named — the bounded failure, not the unbounded one.
+      assert.deepEqual(reverted.unrestored.map((u) => u.what), ['gain']);
+      assert.equal((await readNotes(adapter, notesAt(clipA)))[0]?.gain, undefined);
+    });
+  });
+
+  test(label('C-exec', 'readback disagreeing with the request is REPORTED, not swallowed (E8-E)'), async () => {
+    await withClip(async ({ adapter, clipA }) => {
+      // Four adjacent same-pitch dur=1 notes: Bitwig ends each where the next
+      // begins. Every op reports ok, which is exactly why §8c needs this.
+      const written = [0, 0.25, 0.5, 0.75].map((startBeats) => note({ startBeats, durationBeats: 1 }));
+      const take = await new Executor(adapter).run([{ op: 'note.write', clip: clipA, notes: written }]);
+
+      assert.equal(take.report.applied, true);
+      assert.deepEqual(take.report.failed, []);
+      const durations = take.report.disagreements.filter((d) => d.field === 'durationBeats');
+      assert.equal(durations.length, 3, 'the last note has no successor to truncate it');
+      assert.match(durations[0]!.known ?? '', /same-pitch adjacency/);
+    });
+  });
+
+  test(
+    label('C-exec', 'a write landing between stash and apply rejects the batch WHOLE (E8-D)'),
+    { skip: !h.capabilities.canInjectInterference },
+    async () => {
+      // ⚠ EXIT CRITERION 3, asserted at the EXECUTOR rather than the adapter: the
+      // guard the batch runs under is the revision its own STASH was taken at,
+      // so a human editing in the gap invalidates it without anyone passing
+      // `ifRevision` by hand.
+      await withClip(async ({ adapter, clipA }) => {
+        assert.ok(h.bumpRevision, 'canInjectInterference harness must provide bumpRevision');
+        const bump = h.bumpRevision;
+        const executor = new Executor({
+          hello: () => adapter.hello(),
+          resolve: (refs) => adapter.resolve(refs),
+          read: async (sel) => {
+            const snap = await adapter.read(sel);
+            await bump(adapter);
+            return snap;
+          },
+          apply: (b) => adapter.apply(b),
+          settle: (budget) => adapter.settle(budget),
+          revision: () => adapter.revision(),
+          close: async () => {},
+        });
+
+        const take = await executor.run([{ op: 'note.write', clip: clipA, notes: [note()] }]);
+        assert.equal(take.report.applied, false);
+        assert.equal(take.report.rejected?.reason, 'stale-revision');
+        assert.deepEqual(take.receipt.stages, [], 'zero ops may be applied');
+        await adapter.settle('noteWrite');
+        assert.deepEqual(await readNotes(adapter, notesAt(clipA)), [], 'and the clip is untouched');
+      });
+    },
+  );
+}
+
+/**
+ * A note carrying every property `NOTE_PROP_FIDELITY` calls `exact`.
+ *
+ * Derived from the table rather than hand-written, and asserted complete below,
+ * because exit criterion 1 says "every writable expression property" — a literal
+ * would quietly stop covering one the day a probe promotes it.
+ */
+const EXACT_VALUES: Record<string, unknown> = {
+  velocity: 96, duration: 0.75, releaseVelocity: 0.4, velocitySpread: 0.2, pan: -0.25,
+  timbre: 0.3, transpose: 2, chance: 0.6, isChanceEnabled: true, isMuted: true,
+  isOccurrenceEnabled: true, occurrence: 'FIRST', isRecurrenceEnabled: true, recurrence: [4, 5],
+  isRepeatEnabled: true, repeatCount: 3, repeatCurve: 0.2, repeatVelocityCurve: -0.1,
+  repeatVelocityEnd: 0.8,
+};
+
+function conformanceFullNote(over: Partial<NoteRecord> = {}): NoteRecord {
+  const bag: Record<string, unknown> = {
+    startBeats: 0, pitch: 60,
+    velocity: EXACT_VALUES['velocity'], durationBeats: EXACT_VALUES['duration'],
+  };
+  for (const [key, value] of Object.entries(EXACT_VALUES)) {
+    if (key === 'velocity' || key === 'duration') continue;
+    bag[key] = value;
+  }
+  return { ...(bag as unknown as NoteRecord), ...over };
 }

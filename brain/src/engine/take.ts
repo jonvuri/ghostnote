@@ -1,0 +1,115 @@
+/**
+ * A take — what one batch produced, as a value.
+ *
+ * D5: "a batch creates a named, addressable take that can be compared, jumped
+ * between and partially reverted." Session 1 owes the VALUE; session 2 gives it
+ * a durable, branchable home. Everything a take needs to be persisted, diffed
+ * (§8f) or partially reverted is in here already, which is deliberate — the
+ * store should be a serializer, not a second model.
+ *
+ * The three fields it is easy to get wrong, and why they are what they are:
+ *
+ *   - `stash` is a `Snapshot`, i.e. WHAT READBACK REPORTED, never what was
+ *     requested (D5, E8-E). It is also the "before" side of Phase 3's diff —
+ *     one mechanism, two features (§8f).
+ *   - `values` carries a fidelity label per address, DERIVED from the write-set
+ *     rather than attached by a caller (D5, PHASE-1 §Risks: "the label is part
+ *     of the take schema from the first write, not an addition").
+ *   - `report` is §8c: what applied, what did not take, and what readback
+ *     disagrees with the request about. A batch is not "done" until it has one.
+ */
+import type {
+  Address, BatchReceipt, ContractTag, Fidelity, Op, OpReceipt, RevisionMark, Snapshot, StateValue,
+} from '../contract/index.js';
+import type { UnrevertableOp, WriteTarget } from './write-set.js';
+
+/**
+ * One address's prior state, labelled.
+ *
+ * `value` is `undefined` when nothing was there — which is a restorable state
+ * (you restore it by not writing, or by deleting what the batch created), and
+ * so is NOT the same as `fidelity: 'none'`.
+ */
+export interface TakeValue {
+  readonly address: Address;
+  readonly key: string;
+  readonly fidelity: Fidelity;
+  readonly value: StateValue | undefined;
+  /**
+   * Why this is not `exact`, in the caller's language — property names, the
+   * structural op that put the address at risk, the blind spot that hid it.
+   * Empty when `fidelity` is `exact`.
+   */
+  readonly caveats: readonly string[];
+}
+
+/**
+ * One field where readback and request disagree (§8c's third clause).
+ *
+ * Not an error. E8-E's same-pitch adjacency truncation means a written duration
+ * is not guaranteed to survive, and gain reads back doubled (E2) — both are
+ * Bitwig behaving as measured. Reporting them is the difference between a take
+ * that tells the truth and one that claims a write landed as asked.
+ */
+export interface Disagreement {
+  readonly address: Address;
+  /** Which note, in the caller's own units. */
+  readonly at: string;
+  readonly field: string;
+  readonly requested: unknown;
+  readonly readback: unknown;
+  /** Set when this divergence is a MEASURED behaviour rather than a surprise. */
+  readonly known?: string;
+}
+
+/**
+ * An address the verify read could not cover — so "no disagreement reported"
+ * must not be read as "it landed".
+ *
+ * ⚠ The case this exists for is E3 turning on the batch that caused it: a patch
+ * containing a scene create/delete invalidates its OWN write-set, because
+ * compaction moves every row below the edit and `resolve` refuses a stale epoch
+ * rather than guessing where things went. Re-minting the addresses at the new
+ * epoch would be exactly that guess. So the verify skips them and says so.
+ */
+export interface Unverified {
+  readonly address: Address;
+  readonly why: string;
+}
+
+/** §8c: what applied, what didn't take, and where readback disagrees. */
+export interface ApplyReport {
+  readonly applied: boolean;
+  /** Set when the revision guard rejected the batch WHOLE, applying zero ops (E8-D). */
+  readonly rejected?: BatchReceipt['rejected'];
+  readonly failed: readonly OpReceipt[];
+  readonly disagreements: readonly Disagreement[];
+  /** ⚠ Addresses the verify could not READ. Empty in the ordinary case. */
+  readonly unverified: readonly Unverified[];
+}
+
+export interface Take {
+  /** Stamped so a take written by an older contract is rejected, not half-read. */
+  readonly contract: ContractTag;
+  readonly id: string;
+  readonly createdAtMs: number;
+  /** Where the world was when the stash was taken — the guard the batch ran under. */
+  readonly at: RevisionMark;
+  /** The patch AS REQUESTED. `receipt.stages` is what actually ran, post-`planStages`. */
+  readonly ops: readonly Op[];
+  readonly targets: readonly WriteTarget[];
+  readonly unrevertable: readonly UnrevertableOp[];
+  readonly stash: Snapshot;
+  readonly receipt: BatchReceipt;
+  /** The readback AFTER the batch — the verify half of §8b, and the diff's "after". */
+  readonly verify: Snapshot;
+  readonly values: readonly TakeValue[];
+  /** The worst label across `values`. A take is only as restorable as its weakest address. */
+  readonly fidelity: Fidelity;
+  readonly report: ApplyReport;
+}
+
+/** The addresses a take covers — what session 2's partial revert slices. */
+export function takeWriteSet(take: Take): readonly Address[] {
+  return take.targets.map((t) => t.address);
+}

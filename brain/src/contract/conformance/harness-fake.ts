@@ -48,5 +48,12 @@ export function fakeHarness(): AdapterHarness {
       // leaving trackA reachable.
       control(adapter as FakeAdapter).setBankWindow(1);
     },
+
+    async bumpRevision(adapter: BitwigAdapter) {
+      // A competing writer — the user nudging a clip by hand mid-batch. Live
+      // does the same thing through `revision.bump`, which is the very counter
+      // E8 measured; the assertion that uses this is identical for both.
+      control(adapter as FakeAdapter).bumpRevision();
+    },
   };
 }

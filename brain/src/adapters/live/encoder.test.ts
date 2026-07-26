@@ -25,15 +25,19 @@ import {
   type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
 import { chooseStepSize, encodeOp, encodeStage, type EncodeContext } from './encoder.js';
+import { CursorPool } from './pool.js';
 import { WIRE, type Frame } from './wiremap.js';
 
 const TRACK_A = track('b07f6b06-8f4f-4f4f-802d-ddf1a5190515');
+const TRACK_B = track('c07f6b06-8f4f-4f4f-802d-ddf1a5190515');
+const CLIP_B = clip(slot(TRACK_B, scene(0, 1)));
 const SCENE_0 = scene(0, 1);
 const CLIP_A = clip(slot(TRACK_A, SCENE_0));
 
+/** A one-cursor pool — the Phase-0 shape, so the cases below read unchanged. */
 const ctx: EncodeContext = {
-  cursor: '0',
-  trackIndex: (t: TrackAddress) => (t.channelId === TRACK_A.channelId ? 3 : -1),
+  cursorFor: () => '0',
+  trackIndex: (t: TrackAddress) => (t.channelId === TRACK_A.channelId ? 3 : (t.channelId === TRACK_B.channelId ? 4 : -1)),
 };
 
 const methods = (frames: readonly Frame[]) => frames.map((f) => f.method);
@@ -213,4 +217,51 @@ test('E-batch: nothing the encoder emits is a nested batch (E8 refuses them)', (
   const f = encodeStage([{ op: 'note.write', clip: CLIP_A, notes: [note()] }], ctx);
   const wireOps = f.params!['ops'] as { method: string }[];
   assert.ok(wireOps.every((o) => !o.method.startsWith('batch.')));
+});
+
+// --- E1/E15-F: the cursor pool ----------------------------------------------
+
+test('E-pool: the same clip always gets the same cursor, so a props op never re-points (E15-F)', () => {
+  const pool = new CursorPool(3);
+  const poolCtx: EncodeContext = { ...ctx, cursorFor: (c) => pool.cursorFor(c) };
+
+  // The shape `splitNoteWrite` produces: write A, props A, write B, props B.
+  const cursorOf = (frames: readonly Frame[]) =>
+    (frames[0]?.params as Record<string, unknown> | undefined)?.['cursor'];
+  const writeA = encodeOp({ op: 'note.write', clip: CLIP_A, notes: [note({ pan: 0.5 })] }, poolCtx);
+  const propsA = encodeOp({ op: 'note.props', clip: CLIP_A, notes: [note({ pan: 0.5 })] }, poolCtx);
+  const writeB = encodeOp({ op: 'note.write', clip: CLIP_B, notes: [note({ pan: -0.5 })] }, poolCtx);
+  const propsB = encodeOp({ op: 'note.props', clip: CLIP_B, notes: [note({ pan: -0.5 })] }, poolCtx);
+
+  // ⚠ THE POINT. `cursor.setNoteProps` resolves its note against the clip THAT
+  // CURSOR held at turn start, so a props op reaching a different cursor than
+  // its create loses every property, silently and with a clean receipt.
+  assert.equal(cursorOf(propsA), cursorOf(writeA));
+  assert.equal(cursorOf(propsB), cursorOf(writeB));
+  assert.notEqual(cursorOf(writeA), cursorOf(writeB), 'two clips, two cursors — E1 held three');
+});
+
+test('E-pool: a structural op invalidates every assignment (standing rule 2, E3)', () => {
+  const pool = new CursorPool(2);
+  const first = pool.cursorFor(CLIP_A);
+  assert.equal(pool.cursorFor(CLIP_A), first, 'stable while nothing structural happens');
+
+  // A held pin's sceneIndex goes PERMANENTLY stale after compaction while
+  // looking healthy, so an assignment cannot outlive a structural op.
+  pool.invalidate();
+  assert.equal(pool.assignments.size, 0);
+});
+
+test('E-pool: more clips than cursors evicts the LEAST recently used, never the newest', () => {
+  const pool = new CursorPool(2);
+  const a = pool.cursorFor(CLIP_A);
+  const b = pool.cursorFor(CLIP_B);
+  assert.notEqual(a, b);
+
+  const clipC = clip(slot(track('d07f6b06-8f4f-4f4f-802d-ddf1a5190515'), scene(0, 1)));
+  const c = pool.cursorFor(clipC);
+  // A took the oldest slot, so A is what gets evicted — and B, which is what a
+  // pending props op is most likely to want, keeps its cursor.
+  assert.equal(c, a);
+  assert.equal(pool.cursorFor(CLIP_B), b);
 });

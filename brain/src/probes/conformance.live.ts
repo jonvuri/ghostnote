@@ -84,7 +84,10 @@ const liveHarness: AdapterHarness = {
     // Manufacturing an overflowing project inside a real session is not something
     // a test run may do. The live evidence is banked in probe e05b.
     canOverflowBank: false,
-    canInjectInterference: false,
+    // ● `revision.bump` is the very counter E8 measured, and bumping it is
+    // exactly what a human editing between our stash and our apply does to it —
+    // without touching a single note in the user's project.
+    canInjectInterference: true,
     hasDeviceModel: true,
   },
 
@@ -99,6 +102,10 @@ const liveHarness: AdapterHarness = {
     const adapter = new LiveAdapter({ transport: new BridgeTransport(client) });
     await adapter.hello();
     return { adapter, trackA, trackB };
+  },
+
+  async bumpRevision(_adapter: BitwigAdapter) {
+    await client.request('revision.bump');
   },
 
   async dispose(_adapter: BitwigAdapter) {

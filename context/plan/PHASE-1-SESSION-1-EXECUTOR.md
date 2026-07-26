@@ -1,7 +1,9 @@
 ---
 title: Phase 1, session 1 — the executor: write-set, stash, verify, revert
-status: not started
-updated: 2026-07-25
+status: DONE 2026-07-26 — all six exit criteria met offline; the two live-only items
+        (cursor pool, selection restore) are BUILT but UNPROVEN until session 5.
+        Decisions recorded as DECISIONS D16. See the outcome log at the foot.
+updated: 2026-07-26
 parent: PHASE-1-ENGINE.md
 prev: PHASE-0-SESSION-2.md
 next: PHASE-1-SESSION-2-TAKES.md
@@ -146,3 +148,108 @@ phase is written where a bug is a failing test in 1.3s rather than a live sittin
   failure (PHASE-0 §Risks), and this session is where it would bite hardest.
   Mitigation: exit criterion 6 — every assertion goes in the conformance suite,
   which session 5 runs against real Bitwig.
+
+---
+
+# Outcome log (2026-07-26)
+
+> **All six exit criteria met against the fake; 188 offline tests green in ~1.0s.**
+> Decisions recorded as **D16**. Two items are built but unproven — see §Unproven.
+
+## What shipped
+
+`brain/src/engine/`, a library with **no module-level mutable state** (the §Risks
+mitigation, taken literally — `Executor` holds an adapter and two injected
+functions, and session 3 can create one per bridge connection without unpicking
+anything):
+
+| file | what |
+|---|---|
+| `write-set.ts` | `writeSet(ops)` / `writeSetOf(ops)`, `assertNever`-guarded; structural-risk derivation |
+| `fidelity.ts` | labels derived from `ADDRESS_IDENTITY` + `NOTE_PROP_FIDELITY`, never attached by a caller |
+| `revert.ts` | `revertOps` — pure, stash + targets in, ops + `unrestored` out |
+| `take.ts` | the take value: stash, receipt, verify, values, §8c report |
+| `executor.ts` | the pipeline, and the §8c disagreement detector |
+
+Plus `adapters/live/pool.ts` (the cursor allocator), and the E2/E5/E8-D refusals
+lifted to the executor.
+
+## Decisions — recorded in full as D16, summarised here
+
+- **Stable identity** (the `PROJECT_PLAN.md` §7 question this session owned):
+  **track + slot re-resolution, scene ops force a re-point.** No synthetic clip
+  id, no side table.
+- **⚠ `gain` on revert: WITHHELD and reported.** Neither replayed (doubles again,
+  compounding, on every revert) nor corrected (the guess D8 forbids). One edit —
+  `NOTE_PROP_FIDELITY['gain'] = 'exact'` after a session-5 probe — retires it
+  everywhere, because the withholding is derived from the table rather than
+  naming `gain` anywhere.
+- **⚠ `pressure` on revert: stripped, and the take says so.** A naive "apply the
+  stash" *throws*, because `assertOpsWritable` refuses a property a human may
+  legitimately have authored.
+- **`fidelity: 'none'`: apply what can be applied, report the rest loudly.** With
+  one asymmetry worth keeping: a clip that did NOT exist has an exact inverse
+  (delete it), so reverting `[clip.create, note.write]` is genuinely lossless.
+- **Stash granularity: the whole clip channel**, never a bounding range (E8-E).
+
+## ⚠ Three things the build found
+
+1. **A batch that bumps the scene epoch invalidates its OWN verify read.** Both
+   adapters refuse a stale scene epoch, so the post-apply readback of a
+   scene-relative address throws; re-minting at the new epoch would be exactly
+   the guess E3's epoch prevents. The executor skips those addresses and reports
+   them in `ApplyReport.unverified` — because *"no disagreement"* must never be
+   read as *"it landed"*. Found by a test.
+2. **The fake reported an empty clip where Bitwig reports NO clip.** A `notes`
+   read on a content-less slot returned `{notes: []}` on the fake and `undefined`
+   on live. The executor's E2 guard turns exactly that distinction into a
+   refusal, so the fake would have certified a batch that mispoints live —
+   PHASE-0 §Risks' named failure mode, caught only because the executor was built
+   against the fake first. Fixed; `C-slot` now asserts it on both.
+3. **"Verify the cursor's target before every write" cannot live near the write.**
+   E15-D measured `cursor.status` lagging the cursor's real target by a turn, so
+   an in-request check reads the PREVIOUS answer and would certify a mis-point.
+   It is therefore an executor-level check against the stash — a `notes` address
+   with no entry, in a batch that does not create that clip, is a refusal — which
+   has the pleasant side effect of costing zero extra round-trips and being
+   provable offline.
+
+## Phase-0 carry-overs discharged (item 5)
+
+- **`sceneBankSize: 0`** → the rig's `scenes` allocation, from `rig.info`.
+  ⚠ There is still **no scene-side equivalent of the E5 overflow refusal**. It is
+  implementable (`rig.info` reports the true `sceneCount`) but unmeasured, and
+  standing rule 10 says nothing is banked from a doc pass. → session 5.
+- **`read`'s unpopulatable `unreachable`** → fixed by splitting `refreshIndex`
+  into `scanTracks` (never throws) and `assertBankVisible` (only `apply` calls
+  it). Standing rule 5 is about *operating* half-blind, not about looking — and
+  the old shape made the one call that could diagnose an oversized project the
+  one call you could not make, including `hello()`. `resolve` now reports
+  `outside-bank-window` rather than `absent` too.
+
+## Unproven — carried to session 5
+
+Everything below is written and typechecked and **has never touched Bitwig**:
+
+- **The cursor pool.** Offline coverage is frame-level only (`E-pool` in
+  `encoder.test.ts`): same clip → same cursor, structural op → invalidate, LRU
+  eviction. Whether three pool cursors really hold three clips through a paced
+  batch is E1's measurement, not this session's.
+- **The trailing selection restore.** `selection.status` → `slot.select`, exactly
+  as E14-F measured, but never run.
+  ⚠ **Known cost, not a bug**: E14-F's "one restore per batch suffices" is per
+  BATCH, and the adapter only sees one CALL — so the read→apply→read pipeline
+  pays three capture/restore pairs. Hoisting it needs something that knows a
+  pipeline is in progress, i.e. the daemon (session 3).
+- **`hello()` no longer refuses an overflowing project**, which is a deliberate
+  behaviour change to the one call that can report the problem.
+
+## Handed to session 2
+
+- Takes are in-memory values with everything a store needs: `id`, `at`, `ops`,
+  `targets`, `stash`, `receipt`, `verify`, `values`, `fidelity`, `report`.
+- **Partial revert is already a filter.** `revertOps` takes `{targets, unrevertable,
+  stash}`, so slicing `targets` by `addressKey` prefix yields a plan for that
+  slice with no new concepts — which is what the session-2 doc recommends.
+- **Branching is already free.** `Executor.revert` runs the plan through `run`,
+  so a revert IS a take, and its own stash is the state it replaced.

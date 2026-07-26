@@ -166,7 +166,15 @@ export class FakeAdapter implements BitwigAdapter {
       }
       case 'notes': {
         const slotState = track?.slots[address.clip.slot.scene.index];
-        if (slotState === undefined) return undefined;
+        // ⚠ A slot with no clip has no note state to report, and reporting an
+        // EMPTY one instead is a fake/live divergence with teeth: `LiveAdapter`
+        // checks `slot.status` and returns `undefined` here, so the fake used to
+        // answer "the clip is empty" where Bitwig answers "there is no clip".
+        // The executor's E2 guard reads exactly this distinction to refuse a
+        // write into a never-created slot, so the fake certifying the softer
+        // answer would let the guard pass offline and mispoint live — PHASE-0
+        // §Risks' named failure mode.
+        if (slotState === undefined || !slotState.hasContent) return undefined;
         const all = [...slotState.notes.values()]
           .filter((n) => (address.range === undefined
             ? true

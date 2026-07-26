@@ -3,24 +3,40 @@
  *
  * Everything interesting is elsewhere on purpose: the wire vocabulary is in
  * `wiremap.ts`, the trap mitigations and beats/step maths are in `encoder.ts`,
- * and the staging plan is in the contract. What is left here is the part that
- * genuinely needs a live DAW — resolving durable ids to live indices, polling
- * readback instead of blind-sleeping, and refusing to work half-blind.
+ * the cursor allocator is in `pool.ts`, and the staging plan is in the contract.
+ * What is left here is the part that genuinely needs a live DAW — resolving
+ * durable ids to live indices, polling readback instead of blind-sleeping, and
+ * refusing to work half-blind.
+ *
+ * Phase 1 session 1 gave it the RESOLVER DISCIPLINE D6 asks for, replacing the
+ * Phase-0 stubs one by one:
+ *
+ *   - a real cursor pool instead of the hardcoded `'0'`, allocated across a
+ *     batch's clips — which is a correctness mechanism, not a throughput one
+ *     (E15-F; see `pool.ts`);
+ *   - RE-POINT AFTER ANY STRUCTURAL OP, not merely after a `track.create`;
+ *   - the TRAILING SELECTION RESTORE D6 says Phase 1 owes (E14-F);
+ *   - `read` and `resolve` now REPORT a bank-window blind spot where they used
+ *     to throw from a shared helper, which is what makes `Snapshot.unreachable`
+ *     something other than decoration.
  *
  * ⚠ Behaviour here is NOT covered by the offline suite. Its verification is
  * `npm run probe:conformance`, which runs the same conformance cases the fake
- * passes against real Bitwig. Until that runs, treat this file as unproven.
+ * passes against real Bitwig — including this session's executor cases. Until
+ * that runs, treat this file as unproven.
  */
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertOpsWritable, hasUnverifiedProps, planStages,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
-  type Fidelity, type NoteRecord, type ResolveResult, type ResolvedAddress, type RevisionMark,
-  type SettleBudget, type Snapshot, type StageReceipt, type StateEntry, type TrackAddress,
+  type Fidelity, type NoteRecord, type Op, type ResolveResult, type ResolvedAddress,
+  type RevisionMark, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
+  type TrackAddress,
 } from '../../contract/index.js';
 import { SETTLE_MS } from '../../contract/index.js';
 import { STEP_SIZES, decodeVerboseNote, encodeStage, type EncodeContext } from './encoder.js';
+import { CursorPool } from './pool.js';
 import { BridgeTransport, type Transport } from './transport.js';
 import { WIRE } from './wiremap.js';
 
@@ -39,21 +55,57 @@ interface TrackListResult {
   bankSize?: number;
 }
 
+/** Where the user's own clip selection was before we borrowed it (E1, D6). */
+interface SelectionState {
+  readonly trackIndex: number;
+  readonly slotIndex: number;
+}
+
 export interface LiveOptions {
   readonly transport?: Transport;
-  /** Which pool cursor to drive. The pool is pre-allocated at init (E1). */
-  readonly cursor?: string;
+  /**
+   * How many pool cursors to allocate across. Learned from `rig.info` at
+   * `hello()` when omitted; the rig pre-allocates them at init (E1, D7).
+   */
+  readonly cursorPool?: number;
   /** Expected wire methodsHash from extension/methods.golden.json, if checking. */
   readonly expectMethodsHash?: string;
 }
 
+/**
+ * Ops after which no held index or cursor assignment may be trusted.
+ *
+ * ⚠ Standing rule 2 / D6, and it is broader than it looks: scene deletion
+ * compacts rows (E3), track create/delete re-indexes the bank (E2c/E3), and a
+ * device chain re-indexes on delete exactly like tracks. A held pin survives all
+ * of them looking healthy while pointing somewhere else.
+ */
+const STRUCTURAL: ReadonlySet<string> = new Set([
+  'clip.create', 'clip.delete', 'track.create', 'track.delete',
+  'scene.create', 'scene.delete', 'device.insert', 'device.delete',
+]);
+
+/** Does this op move the pool cursor, and so borrow the user's selection (E1)? */
+const pointsAtAClip = (op: Op): boolean =>
+  op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear';
+
 export class LiveAdapter implements BitwigAdapter {
   private readonly transport: Transport;
-  private readonly cursor: string;
   private readonly expectMethodsHash: string | undefined;
+  /** Allocated at `hello()` from the rig's real pool size; see `pool.ts`. */
+  private pool: CursorPool;
 
   /** channelId -> bank index. Invalidated by every structural op, never trusted across one. */
   private index = new Map<string, number>();
+  /**
+   * ⚠ Whether the PROJECT holds more tracks than the bank can show (E5).
+   *
+   * Kept as state rather than re-derived because it is the difference between
+   * "this channelId was deleted" and "this channelId is invisible", and a single
+   * bank scan cannot tell them apart on its own. `read` and `resolve` REPORT it;
+   * only `apply` refuses on it — see `assertBankVisible`.
+   */
+  private overflowing = false;
 
   /**
    * ⚠ KNOWN LIMIT — this counter only sees OUR OWN scene ops (`apply` bumps it
@@ -75,8 +127,11 @@ export class LiveAdapter implements BitwigAdapter {
 
   constructor(options: LiveOptions = {}) {
     this.transport = options.transport ?? new BridgeTransport();
-    this.cursor = options.cursor ?? '0';
     this.expectMethodsHash = options.expectMethodsHash;
+    // A pool of one until `hello()` learns the rig's real size — which is the
+    // Phase-0 behaviour exactly, so an adapter used before the handshake is no
+    // worse than it was, merely no better.
+    this.pool = new CursorPool(options.cursorPool ?? 1);
   }
 
   async hello(): Promise<AdapterInfo> {
@@ -101,10 +156,22 @@ export class LiveAdapter implements BitwigAdapter {
       hostProduct: string;
       hostVersion: string;
     };
-    const list = await this.refreshIndex();
+    // ⚠ Deliberately a SCAN, not a scan-and-refuse. `hello()` on an overflowing
+    // project used to throw `BankWindowOverflowError`, which made the one call
+    // that could TELL you the window is too small the one call you could not
+    // make. The refusal belongs on `apply` (standing rule 5 is about operating,
+    // not about looking) and the numbers below are what a caller needs to fix it.
+    const list = await this.scanTracks();
 
-    const rig = (await this.transport.send({ method: WIRE.rigInfo })) as { gridSteps?: number };
+    const rig = (await this.transport.send({ method: WIRE.rigInfo })) as {
+      gridSteps?: number;
+      cursorPool?: number;
+      scenes?: number;
+    };
     this.gridSteps = rig.gridSteps;
+    // The rig allocates its cursor pool at init and cannot grow it afterwards
+    // (D7 — allocation is init-only and enforced), so this is the real ceiling.
+    if (rig.cursorPool !== undefined) this.pool = new CursorPool(rig.cursorPool);
 
     return {
       contract: CONTRACT_TAG,
@@ -119,7 +186,19 @@ export class LiveAdapter implements BitwigAdapter {
       methodsHash: hello.methodsHash,
       limits: {
         trackBankSize: list.bankSize ?? list.count,
-        sceneBankSize: 0,
+        // ⚠ Was hardcoded `0` through Phase 0 — harmless while nothing read it
+        // and wrong the moment something did (PHASE-0-SESSION-2 item 5). It is
+        // the rig's `scenes` allocation: `ClipLauncherSlotBank` is created that
+        // wide at init and cannot grow (D7), so it bounds the scene window the
+        // same way `tracks` bounds the track window.
+        //
+        // ⚠ KNOWN GAP, stated rather than half-fixed: there is no scene-side
+        // equivalent of the E5 overflow refusal below. `rig.info` also reports
+        // the project's true `sceneCount`, so the check is implementable — but
+        // it has never been measured against a project with more scenes than the
+        // window, and standing rule 10 says a capability is not banked from a
+        // doc pass. → Phase 1, session 5.
+        sceneBankSize: rig.scenes ?? 0,
         ...(list.itemCount === undefined ? {} : { trackCount: list.itemCount }),
       },
       capabilities: {
@@ -136,25 +215,42 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /**
-   * Re-scan the bank and rebuild the channelId -> index map.
+   * Re-scan the bank and rebuild the channelId -> index map. Does NOT refuse.
    *
    * ⚠ Standing rule 2: re-point after ANY structural op. A held index is only
    * valid until the next create/delete, because `createInstrumentTrack` does not
    * honour positions and deletes re-index everything after them (E2c, E3).
+   *
+   * ⚠ Splitting the scan from the refusal is deliberate and it fixes a Phase-0
+   * carry-over. `read` declared an `unreachable` array it could never populate,
+   * because this method threw first — so a blind spot presented as a hard error
+   * from every path, including the paths whose whole job is to REPORT it.
+   * `Snapshot.unreachable` exists precisely so a caller can tell "invisible"
+   * from "empty" (E5); making that unreachable made the distinction decorative.
    */
-  private async refreshIndex(): Promise<TrackListResult> {
+  private async scanTracks(): Promise<TrackListResult> {
     const list = (await this.transport.send({ method: WIRE.trackList })) as TrackListResult;
     this.index = new Map(list.tracks.map((t) => [t.channelId, t.index]));
-
-    // ⚠ E5, standing rule 5: never operate on a partially-visible project.
-    //
     // ● PROVEN in Phase 0: `TrackBank.itemCount()` reports the PROJECT's track
     // count, not the window size — measured live at itemCount=17 against
     // bankSize=16, with only 16 rows visible. That is what makes rule 5
     // implementable at all; before this, "16 tracks exist" and "16 of 54 are
     // visible" were indistinguishable.
-    if (list.itemCount !== undefined && list.bankSize !== undefined && list.itemCount > list.bankSize) {
-      throw new BankWindowOverflowError(list.count, list.itemCount, list.bankSize);
+    this.overflowing =
+      list.itemCount !== undefined && list.bankSize !== undefined && list.itemCount > list.bankSize;
+    return list;
+  }
+
+  /**
+   * ⚠ E5, standing rule 5: never OPERATE on a partially-visible project.
+   *
+   * Only `apply` calls this. Reads report the blind spot instead, which is the
+   * asymmetry the rule actually states: tracks outside the window are
+   * unsnapshottable, so no write is safe — but looking is how you find out.
+   */
+  private assertBankVisible(list: TrackListResult): TrackListResult {
+    if (this.overflowing) {
+      throw new BankWindowOverflowError(list.count, list.itemCount ?? -1, list.bankSize ?? -1);
     }
     return list;
   }
@@ -168,7 +264,10 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   private get ctx(): EncodeContext {
-    return { cursor: this.cursor, trackIndex: (t) => this.trackIndex(t) };
+    return {
+      cursorFor: (clipRef) => this.pool.cursorFor(clipRef),
+      trackIndex: (t) => this.trackIndex(t),
+    };
   }
 
   /**
@@ -187,8 +286,54 @@ export class LiveAdapter implements BitwigAdapter {
     return { revision: r.revision, sceneEpoch: this.sceneEpoch };
   }
 
+  /**
+   * Save the user's clip selection so it can be put back.
+   *
+   * ⚠ D6's last open item, and the one PROJECT_PLAN §7 closed with E14-F:
+   * pointing STEALS the user's clip selection (E1), the prior selection CAN be
+   * saved and restored, restoring it does not disturb the pool cursor, and a
+   * whole batch costs exactly ONE observable selection change — so a single
+   * restore at the end suffices. "Phase 1 owes that restore."
+   *
+   * `undefined` when nothing has ever been selected: `selection.status` reports
+   * an observer's last value, which starts at -1, and "restoring" that would
+   * move the user somewhere they never were.
+   *
+   * ⚠ KNOWN COST, named so it is not rediscovered as a bug. E14-F's "one restore
+   * per batch suffices" is measured per BATCH; the adapter can only see one CALL,
+   * so the executor's read→apply→read pipeline pays three capture/restore pairs
+   * instead of one. That is two extra round-trips and two extra selection
+   * changes per run — visible to the user as flicker, not as a wrong result.
+   * Hoisting it to one pair around the whole pipeline needs a component that
+   * knows a pipeline is in progress, which is the daemon (session 3).
+   */
+  private async captureSelection(): Promise<SelectionState | undefined> {
+    const status = (await this.transport.send({ method: WIRE.selectionStatus })) as {
+      trackIndex: number;
+      slotIndex: number;
+    };
+    return status.trackIndex >= 0 && status.slotIndex >= 0
+      ? { trackIndex: status.trackIndex, slotIndex: status.slotIndex }
+      : undefined;
+  }
+
+  /**
+   * Put it back — one call, at the end, exactly as E14-F2/F3/F4 measured.
+   *
+   * The same `track.selectSlot` mechanism pointing uses, because it is the only
+   * one of three that works (E1) and because restoring through a different
+   * mechanism would be a second unmeasured thing.
+   */
+  private async restoreSelection(saved: SelectionState | undefined): Promise<void> {
+    if (saved === undefined) return;
+    await this.transport.send({
+      method: WIRE.slotSelect,
+      params: { trackIndex: saved.trackIndex, slotIndex: saved.slotIndex, mechanism: 'track' },
+    });
+  }
+
   async resolve(refs: readonly Address[]): Promise<ResolveResult> {
-    await this.refreshIndex();
+    await this.scanTracks();
     const resolved: ResolvedAddress[] = refs.map((address) => {
       const sceneRef = addressScene(address);
       if (sceneRef !== undefined && sceneRef.epoch !== this.sceneEpoch) {
@@ -197,12 +342,18 @@ export class LiveAdapter implements BitwigAdapter {
       const trackRef = addressTrack(address);
       if (trackRef === undefined) return { address, found: true };
       const index = this.index.get(trackRef.channelId);
-      return index === undefined
-        // We cannot distinguish "deleted" from "outside the window" from a single
-        // bank scan; `absent` is the honest answer, and the overflow guard above
-        // is what makes the blind-spot case impossible to reach silently.
-        ? { address, found: false, reason: 'absent' as const }
-        : { address, found: true, index };
+      if (index !== undefined) return { address, found: true, index };
+      // ⚠ A single bank scan cannot tell "deleted" from "outside the window" for
+      // one channelId — but it CAN tell whether a window exists to fall out of.
+      // `itemCount` is the project total (E15-A), so when it exceeds the bank
+      // size, "not in the window" is exactly what we cannot rule out, and
+      // `absent` would be a claim we have no evidence for. A tombstone and a
+      // blind spot must read differently, or a revert quietly under-delivers.
+      return {
+        address,
+        found: false,
+        reason: this.overflowing ? ('outside-bank-window' as const) : ('absent' as const),
+      };
     });
     return { at: await this.revision(), resolved };
   }
@@ -211,7 +362,10 @@ export class LiveAdapter implements BitwigAdapter {
     const entries: Record<string, StateEntry> = {};
     const missing: Address[] = [];
     const unreachable: Address[] = [];
-    const list = await this.refreshIndex();
+    const list = await this.scanTracks();
+    // ⚠ Only a `notes` read points the cursor, and only pointing steals the
+    // selection — so a metadata-only read costs nothing extra (D6, E14-F).
+    const selection = sel.some((a) => a.kind === 'notes') ? await this.captureSelection() : undefined;
 
     for (const address of sel) {
       const sceneRef = addressScene(address);
@@ -221,13 +375,23 @@ export class LiveAdapter implements BitwigAdapter {
       const trackRef = addressTrack(address);
       const row = trackRef ? list.tracks.find((t) => t.channelId === trackRef.channelId) : undefined;
       if (trackRef !== undefined && row === undefined) {
-        missing.push(address);
+        // ⚠ E5: out of the bank window is UNREACHABLE, not missing. Collapsing
+        // the two is how a blind spot becomes a silently empty snapshot and a
+        // revert that quietly under-delivers — which is why the field exists,
+        // and why it stayed permanently empty here until `scanTracks` stopped
+        // throwing (PHASE-0-SESSION-2 item 5).
+        if (this.overflowing) unreachable.push(address);
+        else missing.push(address);
         continue;
       }
       const entry = await this.readOne(address, row);
       if (entry === undefined) missing.push(address);
       else entries[addressKey(address)] = entry;
     }
+
+    // ⚠ D6, E14-F: reading notes POINTS the pool cursor, which steals the user's
+    // clip selection. Restoring it is what Phase 1 owes.
+    await this.restoreSelection(selection);
 
     return { contract: CONTRACT_TAG, at: await this.revision(), entries, missing, unreachable };
   }
@@ -263,7 +427,12 @@ export class LiveAdapter implements BitwigAdapter {
         })) as { hasContent: boolean };
         if (!status.hasContent) return undefined;
 
-        await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor: this.cursor, trackIndex: row.index } });
+        // The SAME allocator the write path uses, so a read of clip A followed
+        // by a write to clip A costs no re-point — and, more to the point, so a
+        // read never silently re-targets the cursor a pending props op depends
+        // on (E15-F). See `pool.ts`.
+        const cursor = this.pool.cursorFor(address.clip);
+        await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex: row.index } });
         await this.transport.send({
           method: WIRE.slotSelect,
           params: { trackIndex: row.index, slotIndex: sceneIndex, mechanism: 'track' },
@@ -285,7 +454,7 @@ export class LiveAdapter implements BitwigAdapter {
         // So: the finest grid whose window still spans the whole clip.
         const loop = (await this.transport.send({
           method: WIRE.cursorStatus,
-          params: { cursor: this.cursor },
+          params: { cursor },
         })) as { loopLength?: number };
         const lengthBeats = typeof loop.loopLength === 'number' && loop.loopLength > 0 ? loop.loopLength : 4;
         const stepSize = this.scanStepSize(lengthBeats);
@@ -296,7 +465,7 @@ export class LiveAdapter implements BitwigAdapter {
         // floor at ~120ms and named the budget, so this now says what it means
         // instead of borrowing `trackStruct`'s number; the read path was already
         // waiting long enough, which is why only the WRITE path was broken.
-        await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor: this.cursor, stepSize } });
+        await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
         await this.settle('gridChange');
 
         // The VERBOSE scan, not the lean one: `cursor.getNotes` returns only
@@ -305,7 +474,7 @@ export class LiveAdapter implements BitwigAdapter {
         // and reports `fidelity: 'exact'` while doing it.
         const res = (await this.transport.send({
           method: WIRE.cursorGetNotesVerbose,
-          params: { cursor: this.cursor, channel: address.channel },
+          params: { cursor, channel: address.channel },
         })) as { notes: Record<string, number | boolean | string>[] };
 
         const all: NoteRecord[] = res.notes
@@ -331,12 +500,20 @@ export class LiveAdapter implements BitwigAdapter {
     // ⚠ E15-E: refuse a write the API would accept and discard, BEFORE anything
     // is applied. Shared with the fake so both adapters refuse identically.
     assertOpsWritable(batch.ops);
-    await this.refreshIndex();
+    // ⚠ E5, standing rule 5: this is the one path that REFUSES rather than
+    // reports. Tracks outside the window cannot be snapshotted, so no write is
+    // safe — but `read` and `resolve` above are allowed to look and say so.
+    this.assertBankVisible(await this.scanTracks());
 
     const stages = planStages(batch.ops);
     const receipts: StageReceipt[] = [];
     const minted: Record<number, Address> = {};
     let guard = batch.ifRevision;
+    // ⚠ D6, E14-F: pointing borrows the user's clip selection, and a whole batch
+    // costs exactly ONE observable selection change — so one restore at the end
+    // suffices. Captured before the first stage, because by the end the cursor
+    // has already moved.
+    const selection = batch.ops.some(pointsAtAClip) ? await this.captureSelection() : undefined;
 
     for (const [i, stage] of stages.entries()) {
       // ⚠ E15-D: waited BEFORE the request goes out, not after it comes back.
@@ -347,7 +524,7 @@ export class LiveAdapter implements BitwigAdapter {
 
       // Track creates need the bank diffed afterwards to learn what was minted.
       const before = stage.ops.some((o) => o.op === 'track.create')
-        ? new Set((await this.refreshIndex()).tracks.map((t) => t.channelId))
+        ? new Set((await this.scanTracks()).tracks.map((t: WireTrack) => t.channelId))
         : undefined;
 
       const result = (await this.transport.send(encodeStage(stage.ops, this.ctx, guard))) as {
@@ -360,8 +537,11 @@ export class LiveAdapter implements BitwigAdapter {
         results?: { method: string; ok: boolean; error?: string }[];
       };
 
-      // ⚠ E8-D: rejected means the WHOLE batch applied nothing. Stop here.
+      // ⚠ E8-D: rejected means the WHOLE batch applied nothing. Stop here — and
+      // still give the user their selection back, because we pointed on the way
+      // in whether or not anything landed.
       if (result.rejected) {
+        await this.restoreSelection(selection);
         return {
           contract: CONTRACT_TAG,
           accepted: false,
@@ -395,16 +575,26 @@ export class LiveAdapter implements BitwigAdapter {
         if (op.op === 'scene.create' || op.op === 'scene.delete') this.sceneEpoch++;
       }
 
-      if (before !== undefined) {
-        const after = (await this.refreshIndex()).tracks;
-        const created = after.find((t) => !before.has(t.channelId));
-        const at = stage.opIndices[stage.ops.findIndex((o) => o.op === 'track.create')];
-        if (created !== undefined && at !== undefined) {
-          minted[at] = { kind: 'track', channelId: created.channelId };
+      // ⚠ Standing rule 2 / D6: RE-POINT AFTER ANY STRUCTURAL OP. This used to
+      // happen only for `track.create`, and only because the mint diff needed
+      // it — which left every other structural op running on a stale bank map
+      // and stale cursor assignments. A held pin's `sceneIndex` goes permanently
+      // stale after compaction while looking perfectly healthy (E3), so the
+      // damage is silent and arbitrarily delayed.
+      if (stage.ops.some((o) => STRUCTURAL.has(o.op))) {
+        this.pool.invalidate();
+        const after = (await this.scanTracks()).tracks;
+        if (before !== undefined) {
+          const created = after.find((t: WireTrack) => !before.has(t.channelId));
+          const at = stage.opIndices[stage.ops.findIndex((o) => o.op === 'track.create')];
+          if (created !== undefined && at !== undefined) {
+            minted[at] = { kind: 'track', channelId: created.channelId };
+          }
         }
       }
     }
 
+    await this.restoreSelection(selection);
     return { contract: CONTRACT_TAG, accepted: true, stages: receipts, minted, at: await this.revision() };
   }
 

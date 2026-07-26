@@ -73,6 +73,28 @@ export class BankWindowOverflowError extends ContractError {
 }
 
 /**
+ * ⚠ E5, standing rule 5 — the same rule as `BankWindowOverflowError`, aimed at
+ * specific addresses rather than at the project.
+ *
+ * The overflow error answers "may we operate on this project at all?"; this one
+ * answers "did the state we were told to snapshot fall in the hole?". They are
+ * separate because a caller can act on the second — the named addresses say
+ * exactly which part of the write-set was invisible — and because collapsing
+ * them would make the reachable case indistinguishable from the project-wide
+ * one, which is how a blind spot becomes a silently empty snapshot.
+ */
+export class BlindSpotError extends ContractError {
+  constructor(readonly addresses: readonly Address[]) {
+    super(
+      `${addresses.length} address(es) in the write-set are OUTSIDE the bank window: ` +
+        'invisible, which is not the same as empty. Their prior state cannot be snapshotted, so ' +
+        'no write touching them is safe and no revert could restore them (E5, standing rule 5). ' +
+        'Raise `tracks` in ~/.ghostnote/rig.json and reload the controller.',
+    );
+  }
+}
+
+/**
  * ⚠ E3. An address minted before a scene create/delete carries a scene index that
  * compaction has since moved. A pinned cursor's `sceneIndex()` goes PERMANENTLY
  * stale in that situation while looking entirely healthy, so resolving it anyway

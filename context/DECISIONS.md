@@ -6,7 +6,9 @@ status: COMPLETE for Phase 0 — modulator authoring settled (D1–D3, E10–E13
         (D14) and the verification discipline the E15 arc produced (D15).
         E14 rows H/I closed D14 on three independent surfaces and amended D7's
         pre-allocation rule to cover graphics.
-updated: 2026-07-25
+        D16 (2026-07-26) carries Phase 1 session 1: the executor, the write-set, and
+        what a revert does about gain, pressure and structural ops.
+updated: 2026-07-26
 evidence: context/spike/FINDINGS.md (E-numbers), BWFORMAT_SPEC.md, BWMOD_DESIGN.md
 plan: context/PROJECT_PLAN.md + context/plan/PHASE-*.md
 ---
@@ -15,7 +17,8 @@ plan: context/PROJECT_PLAN.md + context/plan/PHASE-*.md
 
 > Each decision cites the FINDINGS experiment(s) that settled it. D1–D3 are the
 > **modulator-authoring** arc (E10–E13, the differentiator); D4/D5 are topology and
-> checkpoints; **D6–D15** are the spike-wide consolidation.
+> checkpoints; **D6–D15** are the spike-wide consolidation; **D16** is the first
+> build decision, from Phase 1 session 1.
 >
 > ⚠ Where a later entry corrects an earlier one, the earlier text is KEPT with the
 > correction quoted inline rather than rewritten. The retraction is usually the
@@ -566,6 +569,113 @@ the FINDINGS experiment that established it, and each is covered three ways — 
 direct model test, a conformance case, and a runnable live probe. A trap that is
 always mitigated is a trap whose model can rot undetected, which is why the direct
 tests assert the MISBEHAVIOUR rather than the fix.
+
+---
+
+## D16 — The executor: write-set, stash, revert **[SETTLED 2026-07-26, PHASE-1 session 1]**
+
+**The write-set is derived from the ops before execution; the stash is a readback
+of exactly those addresses; a revert materialises ops from the stash and reports
+everything it could not put back.** Built offline against the Phase-0 fake as
+`brain/src/engine/`. Five sub-decisions the session doc owed, each recorded with
+what it *rejected*, because in every case the rejected option was the tempting one.
+
+### a. Stable identity for clips, scenes and devices — **track + slot re-resolution**
+
+`PROJECT_PLAN.md` §7's oldest open question, and the answer is that there is no
+second durable key and we are not going to invent one. `channelId` solves tracks
+(E2f); everything else is `positional` in `ADDRESS_IDENTITY` and stays that way.
+A take therefore addresses a clip as *(durable track, scene index, scene epoch)*
+and re-resolves at replay time; a scene op forces a re-point and refuses every
+address minted before it (E3).
+
+⚠ **Rejected: a synthetic clip id kept in a side table.** It would mean
+maintaining a mapping across a DAW we do not control, through user deletes we
+cannot observe without the daemon's observers — i.e. a second source of truth
+that goes wrong silently, which is the failure class this project exists to
+prevent. The cost of the cheap answer is stated rather than hidden: a positional
+address in a batch that also moves rows is labelled `lossy`, derived from
+`ADDRESS_IDENTITY`, not remembered (`engine/fidelity.ts`).
+
+### b. ⚠ What revert does about `gain` — **WITHHELD and reported, not replayed**
+
+The sharpest trap in the phase. `gain` reads back **2× written** (E2), so a stash
+of a note written at 0.7 holds 1.4, and D8 is explicit that *"the inverse is
+unverified, so it is labelled, never corrected."*
+
+That settles what the SNAPSHOT stores. It does not settle what a revert *emits*,
+and the two obvious readings are both wrong:
+
+| option | failure |
+|---|---|
+| replay the stashed 1.4 | writes 1.4, reads back 2.8 — and **doubles again on every subsequent revert**. Unbounded, compounding, silent. |
+| divide by `GAIN_READ_SCALE` | the guess D8 forbids. A wrong correction makes **every** take restore wrong gain. |
+| **withhold and report** ✅ | the property is not restored, and the take says so by name. Bounded, visible, and the user is already in Bitwig's own piano roll where fixing it is one drag. |
+
+**Chosen: withhold.** A bounded visible failure beats an unbounded silent one,
+and it is the same treatment `pressure` already gets — which is not a coincidence,
+since both mean "we cannot write a value that reads back as the one we captured".
+
+⚠ **This is one edit away from being retired.** `revertOps` withholds every
+property whose `NOTE_PROP_FIDELITY` is not `exact`, derived, never named — so a
+Phase-1 session-5 probe that measures the inverse flips `gain` to `'exact'` in
+`state.ts` and the withholding stops everywhere at once. **Do not hand-code a
+correction anywhere else.**
+
+### c. ⚠ What revert does about `pressure` — **stripped, and the take says so**
+
+A human may have authored pressure in a clip we are about to overwrite. Readback
+captures it (correctly — it is the record), and `assertOpsWritable` then REFUSES
+to replay it (E15-E). So a naive "apply the stash" **throws**, and a revert that
+fails because of a property the *user* authored is a worse failure than one that
+reports "restored all but pressure". The stash→ops path strips it and names it.
+
+### d. `fidelity: 'none'` entries — **apply what can be applied, report the rest loudly**
+
+D5's "a revert never silently under-delivers" is a constraint on REPORTING, not a
+reason to refuse the whole operation. So a batch mixing note writes with a track
+delete reverts the notes and reports the track.
+
+Two asymmetries fell out of this and are worth carrying:
+
+- **A clip that did NOT exist has an exact inverse — delete it.** `readOne`
+  labels clip existence `none` because a clip's *content* has no readback that
+  could recreate it; absence has no content to fail to recreate. So a revert of
+  `[clip.create, note.write]` is `[clip.delete]` and is genuinely lossless, where
+  a blanket "structural ops are unrevertable" would have made the flagship case
+  do nothing.
+- **`track.delete` is `none`, `track.create` is `unrevertable`, and they are
+  different things.** The first has an address whose stash is meaningless (a
+  recreated track mints a new `channelId`, E2f); the second has no prior address
+  at all. Both reach the take, by different routes, so neither is silent.
+  ⚠ **Un-creating a created track is deliberately NOT offered**, even though
+  `receipt.minted` makes it expressible — a human may already have put work in
+  it, and D5's rule cuts both ways.
+
+### e. Stash granularity for an unranged `note.write` — **the whole clip channel**
+
+Never a bounding range, even when the op carries one. A write truncates
+same-pitch neighbours OUTSIDE its own extent (E8-E), so a bounding-box stash
+misses exactly the state the write is about to damage. It is also what session
+2's partial revert will SLICE, and slicing a superset is possible where widening
+a subset is not.
+
+### Two things the build discovered
+
+- ⚠ **A batch that bumps the scene epoch invalidates its OWN verify read.** Both
+  adapters refuse a stale scene epoch, so the post-apply readback of a
+  scene-relative address throws — and re-minting the address at the new epoch
+  would be precisely the guess E3's epoch exists to prevent. The executor now
+  skips those addresses and reports them in `ApplyReport.unverified`, because
+  *"no disagreement reported"* must never be mistaken for *"it landed"*. Found by
+  a test, not by a live session.
+- ⚠ **The fake reported an empty clip where Bitwig reports no clip.** A `notes`
+  read on a slot with no content returned `{notes: []}` on the fake and
+  `undefined` on live. The executor's E2 guard reads exactly that distinction to
+  refuse a write into a never-created slot, so the fake would have passed the
+  guard offline and mispointed live — PHASE-0 §Risks' named failure mode, caught
+  because the executor was built against the fake first. Fixed, and `C-slot` now
+  asserts it on both.
 
 ---
 
