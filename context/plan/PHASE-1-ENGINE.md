@@ -1,7 +1,14 @@
 ---
 title: Phase 1 — The write engine & takes
-status: not started — split into six sessions 2026-07-25 (see §Session index)
-updated: 2026-07-25
+status: in progress — split into six sessions 2026-07-25 (see §Session index).
+        Sessions 1 and 2 DONE 2026-07-26 (D16, D17); session 3 is next and is the
+        first that needs a live daemon.
+        ⚠ BEFORE SESSION 3: the branching topology is under review — E16 proposes
+        branches as duplicated tracks (../spike/SPIKE-E16-BRANCHES-AS-TRACKS.md).
+        It is unmeasured, its gate is one probe, and the daemon would own the
+        materialization it implies. Worth resolving before session 3 rather than
+        during it.
+updated: 2026-07-26
 parent: ../PROJECT_PLAN.md
 prev: PHASE-0-FOUNDATION.md
 next: PHASE-2-CLIPS.md
@@ -21,7 +28,7 @@ already written.
 | # | Session | Scope items | Needs | Doc |
 |---|---|---|---|---|
 | 1 | ● **The executor** — write-set, stash, verify, revert, resolver discipline | 2, 3, 5 | offline | [SESSION-1](PHASE-1-SESSION-1-EXECUTOR.md) — **DONE 2026-07-26**, decisions as D16 |
-| 2 | **The take store** — persistence, branching, partial revert | 4 | offline | [SESSION-2](PHASE-1-SESSION-2-TAKES.md) |
+| 2 | ● **The take store** — persistence, branching, partial revert | 4 | offline | [SESSION-2](PHASE-1-SESSION-2-TAKES.md) — **DONE 2026-07-26**, decisions as D17 |
 | 3 | **`ghostnoted`** — process, lifecycle, observers, local API | 1 | live daemon | [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) |
 | 4 | **The control layer** — the in-Bitwig pane | 6 | ⚠ human | [SESSION-4](PHASE-1-SESSION-4-CONTROL-LAYER.md) |
 | 5 | **Proving it live** — the exit-criteria sweep | §Exit | ⚠ human | [SESSION-5](PHASE-1-SESSION-5-PROVING.md) |

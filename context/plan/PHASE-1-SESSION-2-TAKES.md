@@ -1,7 +1,11 @@
 ---
 title: Phase 1, session 2 — the take store: persistence, branching, partial revert
-status: not started
-updated: 2026-07-25
+status: DONE 2026-07-26 — all six exit criteria met offline; decisions recorded as
+        DECISIONS D17. The project-key SOURCE is a port, unwired until session 3.
+        ⚠ The BRANCHING TOPOLOGY (D17 §b, §c) is PROVISIONAL pending E16 — see
+        ../spike/SPIKE-E16-BRANCHES-AS-TRACKS.md. The build is not invalidated by it.
+        See the outcome log at the foot.
+updated: 2026-07-26
 parent: PHASE-1-ENGINE.md
 prev: PHASE-1-SESSION-1-EXECUTOR.md
 next: PHASE-1-SESSION-3-DAEMON.md
@@ -122,3 +126,144 @@ process acquires lifecycle bugs before it has correctness ones.
 - **Store corruption from a half-written take.** A crash mid-write should not
   leave an unreadable store. Write-then-rename is the standard answer and is worth
   the twenty minutes now.
+
+---
+
+# Outcome log (2026-07-26)
+
+> **All six exit criteria met against the fake; 214 offline tests green in ~1.1s**
+> (26 of them new). Decisions recorded as **D17**. One item is built but unwired —
+> see §Handed to session 3.
+>
+> ⚠ **Read §Under review before building on the branching model.** A proposal
+> raised the same day this session closed would change the topology, though not
+> most of the code.
+
+## What shipped
+
+`brain/src/store/`, a **library with a directory path** — not a component of the
+daemon, which is the whole reason this session came before session 3:
+
+| file | what |
+|---|---|
+| `format.ts` | `StoredTake`, `STORE_FORMAT`, `TakeSummary`, write-then-rename |
+| `graph.ts` | the parent/head graph, the path walk, and the diff — pure, no I/O |
+| `slice.ts` | partial revert as a filter over `addressKey` |
+| `project.ts` | the project-key port, and who wins a pointer disagreement |
+| `store.ts` | `TakeLog` (read) / `TakeWriter` (mutate), retention, disk |
+
+Layout is `~/.ghostnote/projects/<projectKey>/{meta.json,takes/<id>.json}` — one
+file per take, so a crash can damage at most the take being written, and
+write-then-rename means it cannot damage even that.
+
+## Decisions — recorded in full as D17, summarised here
+
+- **Project key: a UUID minted into `getDocumentState()`** (E14-A3/A4 already
+  proved the storage). ⚠ *Rejected: a path hash* — humans move project files, and
+  every move would silently orphan the whole log. An unsaved project still gets a
+  key; the orphan case is answered, not detected.
+- **⚠ Branching is a PATH WALK**, not "restore the target take's write-set" — the
+  cheap version leaves the other branch's work in place and calls it the target
+  state. Unwind arm takes the oldest stash, replay arm takes the newest verify,
+  replay overrides. No merge; the §Risks tripwire is intact.
+- **⚠ Navigation moves the HEAD; a partial revert APPENDS.** The sharpest trap in
+  the session — recording a navigation as a take makes the next jump undo the
+  undo. Every plan carries `lands: 'take' | 'new-state'` so the caller cannot get
+  it wrong by accident.
+- **Slicing by `addressKey`**, as plain serializable data. ⚠ Time/pitch ranges are
+  **refused rather than deferred**: E8-E's truncation means a sub-range restore
+  would need a *merge* of stashed and live notes.
+- **⚠ On a pointer disagreement the PROJECT wins**, because the pointer and the
+  music are written by the same save. A pointer we have never seen moves nothing.
+- **Retention: depth 200, childless takes only**, protecting head, labels and any
+  take with children. Overshooting the depth beats deleting something protected.
+- **⚠ The read/mutate split is an OBJECT, not a cast.** `store.log` is a frozen
+  plain object; `STORE_MUTATORS` names the other half; a test asserts none of them
+  is reachable, in the `WIRE_METHODS_BANNED` idiom.
+
+## ⚠ Three things the build found
+
+1. **"No slice given" and "a slice that selects nothing" are different, and
+   conflating them is DATA LOSS.** The first version tested for empty key lists,
+   which made `selectClip(take, aClipTheTakeNeverTouched)` identical to "revert
+   everything" — so a human asking to revert one clip would have had the whole
+   take reverted, silently, *because their request matched nothing*. Found by a
+   test.
+2. **An address a take could not VERIFY must not be replayed forward.** E3's case
+   leaves no `verify` entry, and an absent notes entry means "no clip here"
+   everywhere else — so a forward jump would `note.clear` music we never saw. Same
+   distinction, and same reason, as session 1's `ApplyReport.unverified`.
+3. **`gain` is withheld on the way FORWARD too, and nobody wrote that.** Replaying
+   a take forward replays its *verify*, which holds the doubled readback — a
+   direction session 1 never exercised. D16b's withholding is derived from
+   `NOTE_PROP_FIDELITY`, so it protects both. Without it every A/B comparison would
+   double the gain again, compounding, in silence.
+
+## Exit criteria — how each was met
+
+| # | criterion | test |
+|---|---|---|
+| 1 | two takes created, compared, jumped between; branching, abandoned branch reachable | `S-branch` ×3, incl. a cross-branch jump the cheap design gets wrong |
+| 2 | a partial revert restores one clip and leaves the rest untouched | `S-partial` ×2 |
+| 3 | survives a process restart, fidelity labels intact | `S-restart` ×4 (incl. crash debris, a foreign contract, a corrupt meta) |
+| 4 | every take carries a fidelity summary; a `none` entry says so before a revert | `S-fidelity` ×3 |
+| 5 | the mutate half is unreachable from the read interface | `S-split` ×3 |
+| 6 | offline in CI, no Bitwig and no daemon | all of the above, plus `S-offline`, which asserts the module imports no adapter and no process |
+
+## Handed to session 3
+
+- **`ProjectKeySource` is a port with no live implementation.** The daemon owns
+  the bridge, so it wires `readKey`/`writeKey`/`readPointer`/`writePointer` to a
+  `getDocumentState()` String setting. ⚠ That setting must be **pre-allocated at
+  `init()`** (E14-C2 / D7) — it cannot be created later.
+- **`store.log` is what the MCP client gets.** Session 3's exit criterion 6 is
+  this session's split carried across a process boundary; the type and the test
+  are already there to point at.
+- **`plan.lands` is the contract for apply-then-record.** `store.test.ts`'s `goTo`
+  helper is the reference wiring, written out in the test on purpose: the store
+  must not apply anything, because it has no adapter and cannot know whether the
+  ops landed.
+- **Stale takes are still session 3's.** The store carries each take's
+  `RevisionMark` so a detector has something to compare against, and nothing here
+  guesses. A navigation that partially fails leaves the world short of the take
+  the head names — the plan reports `unrestored`, and only observers can catch the
+  rest.
+
+## ⚠ Under review — the branching topology, not the build
+
+Raised the day this session closed, and recorded so nobody builds on §b/§c as
+though they were closed: **[SPIKE-E16](../spike/SPIKE-E16-BRANCHES-AS-TRACKS.md)
+proposes representing branches as duplicated tracks.** A branch point duplicates
+the tracks an operation is about to touch and writes only to the copies, which
+would make revert *delete a track* — exact for the whole `none`-fidelity class —
+and A/B a *mute toggle*, instant and workable while the transport rolls.
+
+**It is entirely unmeasured.** It rests on whether a top-level `Track` can be
+duplicated at all, which nobody has probed (standing rule 10). What this session
+should carry forward either way:
+
+- **Nothing here is invalidated.** The write path is unchanged — a write into a
+  duplicated track resolves, stashes, applies, verifies and reports exactly as it
+  does now. The stash remains mandatory: delete a branch track and the take's
+  content is gone unless the store independently holds it. Partial revert cannot
+  be expressed by deleting a track.
+- **Most of the module is topology-independent**: `format.ts`, `slice.ts`,
+  `errors.ts`, the `TakeLog`/`TakeWriter` split, retention's mechanics and the
+  project-key half of `project.ts`.
+- **`graph.ts` is what changes**, and probably by generalization rather than
+  rewrite: the walk operates over addresses, so per-track partitioning makes the
+  graph a forest and the same walk runs per component. ⚠ Confirm rather than
+  assume.
+- **The exit criteria stay honest either way.** They assert on real ops through
+  the executor rather than on bookkeeping, so they measure behaviour that survives
+  a topology change.
+
+## Not done, deliberately
+
+- **No take-switching UI**, per D14 — so the store's motivating verb is exercised
+  by tests only until Phase 3. That was known going in and is why the exit
+  criteria drive real ops through the executor rather than asserting on
+  bookkeeping.
+- **No cross-project migration**, permanently, unless something asks.
+- **The whole store loads into memory on open.** Honest at depth 200 for a
+  personal tool; the ceiling is stated rather than engineered around.
