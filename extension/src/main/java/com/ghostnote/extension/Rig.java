@@ -25,6 +25,7 @@ import com.bitwig.extension.controller.api.SendBank;
 import com.bitwig.extension.controller.api.SpecificBitwigDevice;
 import com.bitwig.extension.controller.api.SceneBank;
 import com.bitwig.extension.controller.api.Track;
+import com.bitwig.extension.controller.api.TrackBankContentFilter;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 
@@ -172,9 +173,20 @@ public class Rig {
      * now sits at that index. Callers reset the hold and re-read the bank rather
      * than holding an index across a duplicate.
      */
+    /** What `setContentFilter` actually did at init — echoed by rig.stats. */
+    public String contentFilterApplied = "not-requested";
+
     public static final int VU_RANGE = 128;
     public final int[] vuNow;
     public final int[] vuHold;
+    /**
+     * ⚠ The channelId last seen in each bank SLOT, so a stale hold can be
+     * detected instead of silently returned. See the note in `BranchHandlers.vu`:
+     * a duplicate shifts every track below it down a slot, and without this the
+     * accumulated peak of the slot's PREVIOUS occupant is handed back under the
+     * new track's identity.
+     */
+    public final String[] vuIdentity;
 
     // UI selection tracking, updated by observers on the control-surface
     // thread; read by handlers on the same thread.
@@ -192,6 +204,7 @@ public class Rig {
         sendBanks = new SendBank[config.tracks];
         vuNow = new int[config.tracks];
         vuHold = new int[config.tracks];
+        vuIdentity = new String[config.tracks];
 
         application = host.createApplication();
         application.canUndo().markInterested();
@@ -207,6 +220,28 @@ public class Rig {
         // standing rules 9/13). Sends are a bank-creation-time decision, so
         // reading a send later is impossible unless we asked for them here.
         trackBank = host.createTrackBank(config.tracks, config.sends, config.scenes, true);
+
+        // ⚠ E16: what the bank is allowed to SEE, and it is not a cosmetic choice.
+        //
+        // The legacy createTrackBank above behaves as ALL_VISIBLE_CHANNELS, where
+        // "visible" means the human's mixer folding. A COLLAPSED group's children
+        // therefore leave the bank: itemCount drops and resolveByChannelId answers
+        // `found:false` — indistinguishable from a DELETED track (E2f/D1) — while
+        // the child is still audibly playing. ALL_CHANNELS is documented as
+        // including tracks "not visible in the mixer" and is the candidate fix.
+        //
+        // Applied only when asked for, because it changes the meaning of every
+        // bank read including standing rule 5's accounting. Guarded: an unknown
+        // name must not throw from this constructor (E7-Finding-0 / rule 3c) and
+        // a Beta API that disappears in a later Bitwig must not brick init.
+        if (!config.contentFilter.isEmpty()) {
+            try {
+                trackBank.setContentFilter(TrackBankContentFilter.valueOf(config.contentFilter));
+                contentFilterApplied = config.contentFilter;
+            } catch (Throwable t) {
+                contentFilterApplied = "FAILED:" + t.getClass().getSimpleName() + ":" + t.getMessage();
+            }
+        }
 
         // Bank-window overflow detection (E5, standing rule 5). Tracks outside the
         // window are ABSENT, not slow — channelId resolves only inside it — which
@@ -249,6 +284,10 @@ public class Rig {
             track.isActivated().markInterested();
             track.color().markInterested();
             track.isGroup().markInterested();
+            // Rows E3/E4/F2: a group's expanded state is the one group control
+            // that IS settable from here, so it is the candidate answer to
+            // "can the branches be collapsed out of the human's way".
+            track.isGroupExpanded().markInterested();
 
             // Guarded on config.sends because sendBank() THROWS at size 0, and a
             // throw here is the whole extension (E16, above).
@@ -262,6 +301,11 @@ public class Rig {
                     send.value().markInterested();
                     send.isEnabled().markInterested();
                     send.isPreFader().markInterested();
+                    // Row E2 needs to DRIVE pre/post, not just observe it: whether
+                    // mute cuts a send is a different question in each mode, and
+                    // `isPreFader()` is read-only. `sendMode()` is the settable
+                    // side (AUTO/PRE/POST, API v10, not deprecated — rule 9).
+                    send.sendMode().markInterested();
                 }
             }
 

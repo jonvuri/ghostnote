@@ -5,6 +5,7 @@ import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.DuplicableObject;
 import com.bitwig.extension.controller.api.Send;
 import com.bitwig.extension.controller.api.Track;
+import com.bitwig.extension.controller.api.TrackBankContentFilter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -42,9 +43,54 @@ public final class BranchHandlers extends HandlerGroup {
     @Override
     public void register(HandlerRegistry r) {
         r.on("branch.duplicateTrack", params -> duplicateTrack(params));
+        r.on("branch.moveTrack", params -> moveTrack(params));
         r.on("branch.mixer", params -> mixer(params));
         r.on("branch.setMixer", params -> setMixer(params));
         r.on("branch.vu", params -> vu(params));
+        r.on("branch.contentFilter", params -> contentFilter(params));
+        r.on("branch.createParentTrack", params -> createParentTrack(params));
+    }
+
+    /**
+     * Move an existing track to a chosen place — `InsertionPoint.moveTracks(Track…)`.
+     *
+     * ⚠ Row A concluded "placement is not ours to choose" on the evidence of ONE
+     * call: `copyTracks`, which compiles, acknowledges and does nothing. This is
+     * its sibling on the same interface and it was never probed, so that
+     * conclusion currently rests on an untested generalisation from a single
+     * mechanism — which is the shape standing rule 10 exists to catch.
+     *
+     * It matters beyond tidiness. If a duplicate can be MOVED after it is made,
+     * then "duplicate, then place" is a two-step route to the placement
+     * `copyTracks` could not give us: branches could be gathered, ordered, or
+     * moved next to a group's existing child — which is how a track gets INSIDE
+     * a group when no API creates one (row E3).
+     *
+     * Expect nothing: the prior from `copyTracks` is that this is a no-op too.
+     * The probe diffs positions by `channelId` rather than trusting the return.
+     */
+    private JsonElement moveTrack(JsonObject params) {
+        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        Track anchor = requireTrack(params.get("anchorTrackIndex").getAsInt());
+        String where = params.has("where") ? params.get("where").getAsString() : "after";
+        if (!"after".equals(where) && !"before".equals(where)) {
+            throw new IllegalArgumentException("where must be 'after' or 'before': " + where);
+        }
+
+        JsonObject result = ok();
+        result.addProperty("where", where);
+        result.addProperty("movedName", track.name().get());
+        result.addProperty("movedChannelId", track.channelId().get());
+        result.addProperty("anchorName", anchor.name().get());
+        result.addProperty("anchorChannelId", anchor.channelId().get());
+        result.addProperty("anchorIsGroup", anchor.isGroup().get());
+
+        if ("after".equals(where)) {
+            anchor.afterTrackInsertionPoint().moveTracks(new Track[] { track });
+        } else {
+            anchor.beforeTrackInsertionPoint().moveTracks(new Track[] { track });
+        }
+        return result;
     }
 
     /**
@@ -107,6 +153,138 @@ public final class BranchHandlers extends HandlerGroup {
         return result;
     }
 
+    /**
+     * ⚠ E16 row E3 — does `createParentTrack` CREATE a group, or merely return a
+     * proxy to one that already exists?
+     *
+     * The javadoc says "Creates an object that represent[s] the parent track",
+     * which reads exactly like `createCursorTrack` — an accessor. On that basis
+     * row E3 recorded group creation as unavailable, from a DOC PASS, which is
+     * the thing standing rule 10 exists to forbid.
+     *
+     * A third-party extension (gregrossdev/bitwig-extensions, `gig-maestro`)
+     * implements its `track/createGroup` RPC as exactly this call on a
+     * CursorTrack, and its design notes assert "the only way to create a group is
+     * Track.createParentTrack(numSends, numScenes), which creates a parent group
+     * above the current track". ⚠ Their only test is
+     * `verify(mockCursorTrack).createParentTrack(4, 5)` — a MOCK assertion that
+     * the call was made, with no live verification anywhere in the repo. So it is
+     * a hypothesis of the E4c kind ("a supertype method is a claim, not a
+     * capability"), and this handler exists to settle it by readback.
+     *
+     * Two routes, because they may not behave alike: their CursorTrack and our
+     * bank Track. The probe diffs `track.list` before and after; nothing here
+     * trusts the returned proxy.
+     *
+     * ⚠ TWO hazards, hence the per-field guards below:
+     *   - `create*` is the shape standing rule 13 says is init-only ("This can
+     *     only be called during driver initialization"). A runtime call may
+     *     throw, and this reports that rather than dying.
+     *   - reading `name()`/`channelId()` on a proxy nobody marked interested
+     *     throws too (E2's observer gotcha), so every read is separately
+     *     guarded and reports its own error string.
+     */
+    private JsonElement createParentTrack(JsonObject params) {
+        String route = params.has("route") ? params.get("route").getAsString() : "cursorTrack";
+        int sends = params.has("sends") ? params.get("sends").getAsInt() : rig.config.sends;
+        int scenes = params.has("scenes") ? params.get("scenes").getAsInt() : rig.config.scenes;
+        if (sends < 0 || scenes < 0) {
+            throw new IllegalArgumentException("sends and scenes must be >= 0");
+        }
+
+        JsonObject r = ok();
+        r.addProperty("route", route);
+        r.addProperty("sends", sends);
+        r.addProperty("scenes", scenes);
+
+        Track subject;
+        switch (route) {
+            case "cursorTrack": {
+                String ref = params.has("cursor") ? params.get("cursor").getAsString() : "0";
+                subject = rig.cursorTrack(ref);
+                r.addProperty("cursor", ref);
+                break;
+            }
+            case "bankTrack":
+                subject = requireTrack(params.get("trackIndex").getAsInt());
+                break;
+            default:
+                throw new IllegalArgumentException("route must be cursorTrack or bankTrack: " + route);
+        }
+
+        try {
+            r.addProperty("subjectName", subject.name().get());
+        } catch (Throwable t) {
+            r.addProperty("subjectName", "READ_FAILED: " + t.getMessage());
+        }
+
+        try {
+            Track parent = subject.createParentTrack(sends, scenes);
+            r.addProperty("returnedProxy", parent != null);
+            // Each read separately guarded: an unmarked value throws (E2), and a
+            // throw here would hide whether the CALL itself succeeded.
+            try {
+                r.addProperty("parentExists", parent.exists().get());
+            } catch (Throwable t) {
+                r.addProperty("parentExists", "READ_FAILED: " + t.getMessage());
+            }
+            try {
+                r.addProperty("parentName", parent.name().get());
+            } catch (Throwable t) {
+                r.addProperty("parentName", "READ_FAILED: " + t.getMessage());
+            }
+            try {
+                r.addProperty("parentIsGroup", parent.isGroup().get());
+            } catch (Throwable t) {
+                r.addProperty("parentIsGroup", "READ_FAILED: " + t.getMessage());
+            }
+        } catch (Throwable t) {
+            r.addProperty("returnedProxy", false);
+            r.addProperty("callError", t.getClass().getSimpleName() + ": " + t.getMessage());
+        }
+        return r;
+    }
+
+    /**
+     * E16 — change what the flat track bank is allowed to SEE, at runtime.
+     *
+     * ⚠ The hazard this exists to answer: a COLLAPSED group's children leave the
+     * bank entirely under the default filter. `itemCount` drops and
+     * `track.resolveByChannelId` returns `found:false` — byte-identical to the
+     * answer a DELETED track gives (E2f/D1) — while the child is still audible.
+     * `ALL_CHANNELS` claims to include tracks "not visible in the mixer".
+     *
+     * Two things are unknown and this method is how they get measured: whether
+     * `setContentFilter` works at all AFTER init (standing rule 13 says most
+     * Bitwig resources are init-only, so it may silently do nothing), and
+     * whether ALL_CHANNELS really restores folded children. Both are answered by
+     * calling this and re-reading `track.list` — never by the return value,
+     * which is only an acknowledgement (E4c).
+     *
+     * Validated against the enum before the call: it is a Beta API and a bad
+     * name must not throw onto the control-surface thread (rule 3c).
+     */
+    private JsonElement contentFilter(JsonObject params) {
+        String name = params.get("filter").getAsString();
+        if (!"TOP_LEVEL_CHANNELS".equals(name) && !"ALL_VISIBLE_CHANNELS".equals(name)
+            && !"ALL_CHANNELS".equals(name)) {
+            throw new IllegalArgumentException(
+                "filter must be TOP_LEVEL_CHANNELS, ALL_VISIBLE_CHANNELS or ALL_CHANNELS: " + name);
+        }
+        JsonObject r = ok();
+        r.addProperty("requested", name);
+        r.addProperty("appliedAtInit", rig.contentFilterApplied);
+        try {
+            rig.trackBank.setContentFilter(TrackBankContentFilter.valueOf(name));
+            r.addProperty("called", true);
+        } catch (Throwable t) {
+            // Beta API: report rather than take the extension down.
+            r.addProperty("called", false);
+            r.addProperty("error", t.getClass().getSimpleName() + ": " + t.getMessage());
+        }
+        return r;
+    }
+
     /** Everything about a track's mixer strip that a duplicate could drop (row B5). */
     private JsonElement mixer(JsonObject params) {
         int index = params.get("trackIndex").getAsInt();
@@ -118,6 +296,7 @@ public final class BranchHandlers extends HandlerGroup {
         r.addProperty("position", track.position().get());
         r.addProperty("type", track.trackType().get());
         r.addProperty("isGroup", track.isGroup().get());
+        r.addProperty("isGroupExpanded", track.isGroupExpanded().get());
         r.addProperty("volume", track.volume().value().get());
         r.addProperty("volumeDisplayed", track.volume().value().displayedValue().get());
         r.addProperty("pan", track.pan().value().get());
@@ -141,7 +320,12 @@ public final class BranchHandlers extends HandlerGroup {
             obj.addProperty("name", send.name().get());
             obj.addProperty("value", send.value().get());
             obj.addProperty("enabled", send.isEnabled().get());
+            // Both, because they are not the same fact: `sendMode` is what is
+            // CONFIGURED (and AUTO configures nothing explicitly), `isPreFader`
+            // is what Bitwig RESOLVED it to. Row E2's verdict depends on the
+            // resolved one, so reading only the setting would be rule-1 blind.
             obj.addProperty("preFader", send.isPreFader().get());
+            obj.addProperty("sendMode", send.sendMode().get());
             sends.add(obj);
         }
         r.add("sends", sends);
@@ -181,6 +365,10 @@ public final class BranchHandlers extends HandlerGroup {
         if (params.has("activated")) {
             track.isActivated().set(params.get("activated").getAsBoolean());
         }
+        if (params.has("groupExpanded")) {
+            track.isGroupExpanded().set(params.get("groupExpanded").getAsBoolean());
+            r.addProperty("groupExpanded", params.get("groupExpanded").getAsBoolean());
+        }
         if (params.has("color")) {
             JsonArray rgb = params.getAsJsonArray("color");
             if (rgb.size() < 3) {
@@ -202,6 +390,18 @@ public final class BranchHandlers extends HandlerGroup {
             }
             if (params.has("sendEnabled")) {
                 send.isEnabled().set(params.get("sendEnabled").getAsBoolean());
+            }
+            // Row E2. Validated against the documented enum BEFORE the call:
+            // SettableEnumValue takes a String, so a typo would otherwise be a
+            // silent no-op of exactly the kind E4c is about, and the row would
+            // then measure POST twice and call it a clean result (rule 3c).
+            if (params.has("sendMode")) {
+                String mode = params.get("sendMode").getAsString();
+                if (!"AUTO".equals(mode) && !"PRE".equals(mode) && !"POST".equals(mode)) {
+                    throw new IllegalArgumentException("sendMode must be AUTO, PRE or POST: " + mode);
+                }
+                send.sendMode().set(mode);
+                r.addProperty("sendMode", mode);
             }
             r.addProperty("sendIndex", sendIndex);
         }
@@ -228,8 +428,24 @@ public final class BranchHandlers extends HandlerGroup {
             obj.addProperty("index", i);
             obj.addProperty("name", track.name().get());
             obj.addProperty("channelId", track.channelId().get());
+            // ⚠ The hold array is BANK-INDEXED, so a structural change re-points
+            // slot i at a different track and the accumulated peak silently
+            // becomes the PREVIOUS occupant's. Measured the hard way: FX 1 had
+            // accumulated 38, a duplicate landed on FX 1's slot, and the copy's
+            // "peak" came back as exactly 38 — a check passed on another track's
+            // number. So the slot self-invalidates the moment its identity
+            // changes, and says so, rather than handing back a plausible lie.
+            String channelId = track.channelId().get();
+            boolean identityChanged = rig.vuIdentity[i] != null
+                && !rig.vuIdentity[i].equals(channelId);
+            if (identityChanged) {
+                rig.vuHold[i] = 0;
+                rig.vuNow[i] = 0;
+            }
+            rig.vuIdentity[i] = channelId;
             obj.addProperty("now", rig.vuNow[i]);
             obj.addProperty("hold", rig.vuHold[i]);
+            obj.addProperty("identityChanged", identityChanged);
             obj.addProperty("mute", track.mute().get());
             obj.addProperty("mutedBySolo", track.isMutedBySolo().get());
             tracks.add(obj);

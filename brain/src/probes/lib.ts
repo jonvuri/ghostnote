@@ -45,6 +45,17 @@ export function failureCount() {
  * rather than being summarised into a bare ●/○ by whoever writes it up.
  */
 export async function ask(question: string): Promise<string> {
+  // ⚠ Refuse rather than answer when there is nobody there. With stdin closed or
+  // piped, readline resolves immediately with '' — and `askYesNo` reads that as
+  // a confident NO, which is a human verdict fabricated out of an empty pipe.
+  // E16 rows E1/E5 are decided by what the user HEARD, so a row that silently
+  // invents its own answer is the rows-A-C trap-6 failure in another costume.
+  if (!process.stdin.isTTY) {
+    throw new Error(
+      'this probe needs a human at the keyboard, but stdin is not a TTY.\n'
+      + '     Run it directly in your own terminal:  npm run probe:<name>',
+    );
+  }
   const { createInterface } = await import('node:readline/promises');
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   try {

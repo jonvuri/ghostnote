@@ -51,6 +51,24 @@ public class RigConfig {
      * E5 swept bank sizes: edit rig.json, touch the deployed extension, look.
      */
     public int uiSlots = 16;
+    /**
+     * ⚠ E16: what the flat track bank is allowed to SEE.
+     *
+     * `TrackBankContentFilter`, one of `TOP_LEVEL_CHANNELS`,
+     * `ALL_VISIBLE_CHANNELS`, `ALL_CHANNELS`. The legacy
+     * `createTrackBank(tracks, sends, scenes, flat)` behaves as
+     * ALL_VISIBLE_CHANNELS, and "visible" is the human's mixer folding — so a
+     * COLLAPSED group's children leave the bank entirely: `itemCount` drops and
+     * `resolveByChannelId` says `found:false`, exactly as a deleted track does,
+     * while the child is still audible.
+     *
+     * `ALL_CHANNELS` is documented as "include all tracks, even the ones that
+     * are not visible in the mixer", which is the candidate fix. It is a knob
+     * rather than a constant because it changes what EVERY bank read means —
+     * including standing rule 5's bank-window accounting — so flipping it is a
+     * measurement, not a default.
+     */
+    public String contentFilter = "";
 
     /** Echoed back by rig.stats so a probe can prove which config is live. */
     public String stamp = "default";
@@ -78,6 +96,9 @@ public class RigConfig {
             config.fineSteps = intOr(obj, "fineSteps", config.fineSteps);
             config.paramHandles = intOr(obj, "paramHandles", config.paramHandles);
             config.uiSlots = intOr(obj, "uiSlots", config.uiSlots);
+            if (obj.has("contentFilter")) {
+                config.contentFilter = obj.get("contentFilter").getAsString();
+            }
             if (obj.has("directObservers")) {
                 config.directObservers = obj.get("directObservers").getAsBoolean();
             }
@@ -108,6 +129,7 @@ public class RigConfig {
         obj.addProperty("fineSteps", fineSteps);
         obj.addProperty("paramHandles", paramHandles);
         obj.addProperty("uiSlots", uiSlots);
+        obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);
         obj.addProperty("stamp", stamp);
         obj.addProperty("fromFile", fromFile);

@@ -1,8 +1,10 @@
 ---
 title: ghostnote mini-spike — E16: branches as duplicated tracks
-status: ROWS A–C MEASURED, gate open — no kill criterion fired. Still nothing in
-        DECISIONS: §8 is untouched and remains the user's (standing rule 10).
-        Evidence: spike/FINDINGS.md "E16 rows A–C" (2026-07-26).
+status: ROWS A–G MEASURED, gate open — no kill criterion fired. E2 ● (mute cuts
+        sends), C5 ● (duplication glitches), group creation ○ (human-only).
+        Still nothing in DECISIONS: §8 is untouched and remains the user's
+        (standing rule 10). Evidence: spike/FINDINGS.md "E16 rows A–C" and
+        "E16 rows D–G" (2026-07-26).
 updated: 2026-07-26
 parent: ../SPIKE_PLAN.md
 evidence it builds on: E1, E2c, E2f, E3, E5, E5c, E8, E11g, E14-G · D5, D6, D7, D10, D14, D16, D17
@@ -21,7 +23,39 @@ decides: whether Phase 1's take model gains a second, coarser layer — and whet
 rests on one API call nobody has probed. Read §4 before §3 — the kill criteria
 are cheap to reach and the spike should end the moment one fires.
 
-> **STATUS 2026-07-26 — the gate rows ran; full evidence in `FINDINGS.md`.**
+> **STATUS 2026-07-26 (second sitting) — rows D–G are measured too. Evidence:
+> `FINDINGS.md` "E16 rows D–G".**
+> **E2 ●** mute cuts sends in BOTH pre- and post-fader modes, so A/B by mute is
+> audibly correct in the wet path — the objection most likely to kill the
+> ergonomics does not hold. **E1 ●** click-free and "instant" by ear (the
+> latency *number* is below the VU meter's resolution and is not quotable).
+> **E5**: route A leaves ~307–386 ms of doubled mix; **route B "born muted" ●** —
+> a copy inherits `mute=true`, trading the doubling for a ~321 ms gap.
+> **⚠ C5 ●** every duplication audibly glitches the transport (5/5 vs 0/3
+> placebo). **E3 ●** groups are duplicable *with* their children, a branch of an
+> in-group track lands inside, and deleting a group cascades — but group
+> *creation* is ○ (see below) and **`moveTracks` is a silent no-op**, so row A's
+> "placement is not ours" now stands on two routes.
+> **⚠ Collapsing a group hides its children from the bank** — `itemCount` drops
+> and `resolveByChannelId` returns `found:false`, identical to a deleted track,
+> while the child is still audible. ⚠ **First written up as a cross-cutting
+> hazard; that framing is RETRACTED** — the cause is our own bank filter, and
+> `setContentFilter(ALL_CHANNELS)` fixes it at runtime. What remains is that the
+> DEFAULT filter is the dangerous one, `itemCount()` inherits it (standing rule
+> 5 needs `ALL_CHANNELS`), and the extra visible tracks cost bank window (D4,
+> unmeasured under that filter).
+> **⚠ Group creation is ○ and now on live evidence:** `createParentTrack` throws
+> "This can only be called during driver initialization" and creates nothing —
+> so **only a human can bring a group into existence.** Named actions exist
+> (`Create Group Track`, `Group`) and remain forbidden by standing rule 6.
+>
+> **§8's nine decisions remain open and remain the user's**, now with four more
+> inputs: duplication always glitches (C5), A/B by mute is audibly correct (E2),
+> "born muted" exists as a route (E5), and **§8.5's group topology requires a
+> HUMAN to create every group** — we can duplicate, nest into, collapse and
+> delete them, but never make one.
+>
+> **STATUS 2026-07-26 (first sitting) — the gate rows ran; full evidence in `FINDINGS.md`.**
 > **A ●** (three of four routes duplicate a top-level track; `copyTracks` is a
 > silent no-op, so we cannot choose where a copy lands). **A4 ●** (fresh
 > `channelId`, lands adjacent, ⚠ carries the SAME NAME). **B ●** except **B3 ◐**
