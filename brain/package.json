@@ -81,6 +81,7 @@
     "probe:e16g": "tsx src/probes/e16g-glitch.ts",
     "probe:e16h": "tsx src/probes/e16h-visibility.ts",
     "probe:e16i": "tsx src/probes/e16i-creategroup.ts",
+    "probe:e16j": "tsx src/probes/e16j-actions.ts",
     "probe:e14": "tsx src/probes/e14-ui.ts",
     "probe:e14-status": "tsx src/probes/e14-status.ts",
     "probe:e14-selection": "tsx src/probes/e14-selection.ts",

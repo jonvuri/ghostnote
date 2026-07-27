@@ -1,10 +1,12 @@
 ---
 title: ghostnote mini-spike — E16: branches as duplicated tracks
 status: ROWS A–G MEASURED, gate open — no kill criterion fired. E2 ● (mute cuts
-        sends), C5 ● (duplication glitches), group creation ○ (human-only).
-        Still nothing in DECISIONS: §8 is untouched and remains the user's
-        (standing rule 10). Evidence: spike/FINDINGS.md "E16 rows A–C" and
-        "E16 rows D–G" (2026-07-26).
+        sends), C5 ● (duplication glitches). ⚠ group creation is NO LONGER
+        human-only: E16j found named actions fire BACKGROUNDED and
+        `Create Group Track` / `Group` both work — E6's foreground gate does not
+        reproduce. Still nothing in DECISIONS: §8 is untouched and remains the
+        user's (standing rule 10). Evidence: spike/FINDINGS.md "E16 rows A–C",
+        "E16 rows D–G" and "E16j" (2026-07-26).
 updated: 2026-07-26
 parent: ../SPIKE_PLAN.md
 evidence it builds on: E1, E2c, E2f, E3, E5, E5c, E8, E11g, E14-G · D5, D6, D7, D10, D14, D16, D17
@@ -23,6 +25,32 @@ decides: whether Phase 1's take model gains a second, coarser layer — and whet
 rests on one API call nobody has probed. Read §4 before §3 — the kill criteria
 are cheap to reach and the spike should end the moment one fires.
 
+> **⚠ STATUS 2026-07-26 (third sitting) — the "only a human makes a group"
+> premise below is WITHDRAWN. Evidence: `FINDINGS.md` "E16j".**
+> Named actions were re-tested from the ground up on an independent path
+> (`e16j-actions.ts`) and **E6's foreground gate does not reproduce.** Every
+> action tested fires with Bitwig **behind another window** *and* **minimised to
+> the Dock**, on an unchanged host (6.0.6 / API 25) — including
+> **`Create Group Track`**, which makes a real (empty) group, and the *Editing*
+> action **`Group`**, which wraps the current selection into one. ⚠ **E6's own
+> instrument, `Create Scene`, was re-run and fired too**, so this is that probe
+> contradicting its own write-up, not a different question. The discrepancy is
+> **unexplained** and that is itself recorded as a finding.
+>
+> What is UNCHANGED: `createParentTrack` is still init-only (`e16i`), so the ○ is
+> now specifically "no *typed* api". E6's **zero readback** and — demonstrated
+> live in this very probe — the **selection hazard** both stand: `Group` wrapped
+> exactly the track our own `cursor.pointTrack` had just selected. ⚠ An empty
+> group may be worth little on its own, since `moveTracks` is a silent no-op and
+> nothing can be moved into it; `Group`-the-Editing-action is the interesting one.
+>
+> ⚠ **Standing rule 6 / D13 is NOT repealed by this** — it is the user's call
+> (rule 10), and §8.5 below is the entry it bears on. What changed is only that
+> its premise *"a topology gated on a human action at an arbitrary moment is a
+> dead end"* is now false, so the rule costs something it did not appear to cost.
+> ⚠ **No OS-level focus work was done or is proposed**: the predecessor handoff's
+> `osascript` foreground-detector was declined by the user and never built.
+>
 > **STATUS 2026-07-26 (second sitting) — rows D–G are measured too. Evidence:
 > `FINDINGS.md` "E16 rows D–G".**
 > **E2 ●** mute cuts sends in BOTH pre- and post-fader modes, so A/B by mute is
