@@ -3,12 +3,15 @@ title: Phase 1 — The write engine & takes
 status: in progress — split into six sessions 2026-07-25 (see §Session index).
         Sessions 1 and 2 DONE 2026-07-26 (D16, D17); session 3 is next and is the
         first that needs a live daemon.
-        ⚠ BEFORE SESSION 3: the branching topology is under review — E16 proposes
-        branches as duplicated tracks (../spike/SPIKE-E16-BRANCHES-AS-TRACKS.md).
-        It is unmeasured, its gate is one probe, and the daemon would own the
-        materialization it implies. Worth resolving before session 3 rather than
-        during it.
-updated: 2026-07-26
+        ⚠⚠ HALT BEFORE SESSION 3 — E16 IS RESOLVED AND IT CHANGES THIS PHASE.
+        The TRACK-NATIVE model was chosen 2026-07-29: branches are duplicated
+        tracks, the system is STATELESS, and ⚠ session 2's take store is largely
+        RETIRED (no graph, no head, no project key, no retention). Session 3's
+        daemon premise is itself an open question — two of the daemon's three jobs
+        no longer exist. ⚠ Do not start session 3 from this document. Read
+        ../spike/HANDOFF-E16-TRACK-NATIVE.md first; re-planning this phase is that
+        session's second task.
+updated: 2026-07-30
 parent: ../PROJECT_PLAN.md
 prev: PHASE-0-FOUNDATION.md
 next: PHASE-2-CLIPS.md

@@ -25,6 +25,17 @@ decides: whether Phase 1's take model gains a second, coarser layer — and whet
 rests on one API call nobody has probed. Read §4 before §3 — the kill criteria
 are cheap to reach and the spike should end the moment one fires.
 
+> **⚠⚠ STATUS 2026-07-29 — E16 IS RESOLVED AND THE MODEL IS CHOSEN.** The user
+> has picked the **track-native model**. This document's §8 decisions are
+> therefore closed by that choice or superseded by it, and its comparative
+> framing is history. ⚠ **Do not re-litigate.** The live documents are
+> **`HANDOFF-E16-TRACK-NATIVE.md`** (next session) and
+> **`E16-TRACK-NATIVE-BRANCHING.md`** (the model). Session 3 added `E16j`
+> (named actions fire backgrounded), `E16k` (group topology + the collapse
+> primitive) and `E16l` (object identity, settled completely). ⚠ The take store
+> built in Phase 1 session 2 is **largely retired** by this — see the handoff §2
+> and §4. Nothing went into `DECISIONS.md` (rule 10).
+>
 > **⚠ STATUS 2026-07-26 (third sitting) — the "only a human makes a group"
 > premise below is WITHDRAWN. Evidence: `FINDINGS.md` "E16j".**
 > Named actions were re-tested from the ground up on an independent path

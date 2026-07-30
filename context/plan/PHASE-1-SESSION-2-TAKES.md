@@ -2,10 +2,15 @@
 title: Phase 1, session 2 — the take store: persistence, branching, partial revert
 status: DONE 2026-07-26 — all six exit criteria met offline; decisions recorded as
         DECISIONS D17. The project-key SOURCE is a port, unwired until session 3.
-        ⚠ The BRANCHING TOPOLOGY (D17 §b, §c) is PROVISIONAL pending E16 — see
-        ../spike/SPIKE-E16-BRANCHES-AS-TRACKS.md. The build is not invalidated by it.
-        See the outcome log at the foot.
-updated: 2026-07-26
+        ⚠⚠ LARGELY RETIRED 2026-07-29 — E16 resolved to the TRACK-NATIVE model and
+        the system is now STATELESS. Gone: the take graph and head, D17b's path
+        walk, D17c's `lands`, D17a's project key and file format, D17e's pointer
+        arbitration, D17f's retention. `brain/src/store/` still exists and its
+        tests still pass; most of it no longer has a job. What SURVIVES is the
+        stash — for unforked writes, for changes that are not track-scoped, and as
+        the clip fingerprint. ⚠ Do not build on this document. See
+        ../spike/HANDOFF-E16-TRACK-NATIVE.md §2 for the retirement table.
+updated: 2026-07-30
 parent: PHASE-1-ENGINE.md
 prev: PHASE-1-SESSION-1-EXECUTOR.md
 next: PHASE-1-SESSION-3-DAEMON.md

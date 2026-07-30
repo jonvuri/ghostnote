@@ -1,9 +1,13 @@
 ---
 title: ghostnote mini-spike — Handoff for E16 session 3: named actions, and the
        sibling-track simplification
-status: rows A–G measured (see HANDOFF-E16.md). §8 UNTOUCHED. This session has
-        three tasks, and task 3 is GATED on task 2's outcome.
+status: ⚠ COMPLETE AND SUPERSEDED — this is session 3's record, do not work from
+        it. Tasks 1 and 2 ran (E16j, E16k, E16l + the use-case audit); task 3 was
+        superseded by the model choice and never ran. Its §8 recommendations are
+        closed by that choice. Live handoff: HANDOFF-E16-TRACK-NATIVE.md.
 updated: 2026-07-26
+successor: HANDOFF-E16-TRACK-NATIVE.md (session 4 — clear the open questions,
+        then re-plan the project onto the track-native model)
 predecessor: HANDOFF-E16.md (rows D–G — do not edit it, it is that session's record)
 ---
 
