@@ -5,6 +5,680 @@ One section per experiment, appended as run. Verdicts: ● confirmed working /
 
 ---
 
+## E16s — a clip move is DETECTABLE, pushed, and `slot.moveTo` is ours to perform [K] (2026-07-31)
+
+**Verdict: ● both halves, and the capability was a bonus.** A clip move fires
+launcher-content observers as a **PAIR** — one slot emptied, one filled — for a
+human drag and for an API move alike; and the move itself turns out to be
+performable from the wire, which E16l had assumed only a human could do. Probes:
+`e16s-clipmove.ts`, `e16s-human.ts`. New wire: `slot.moveTo`, `slot.epoch`.
+Silent; nothing launched.
+
+⚠ **The handoff's question could not be asked as written.** It asks whether a
+clip `moveTo` bumps the scene epoch. It cannot: `sceneEpoch` lives in the brain
+and is bumped by our own scene ops, so asking it whether a *human* moved a clip
+is asking ourselves — the adapter's own comment says so. The answerable question
+is **what observable, if any, changes**, and it has three possible answers with
+very different consequences: POLLED (only `hasContent`, visible only if you
+already suspected), PUSHED (an observer fires), or FOLLOWED (a pinned cursor
+tracks the clip).
+
+| row | result |
+|---|---|
+| CONTROL: a clip create / delete bumps the content epoch | ● +1 each, `t2s5=filled` / `t2s5=emptied` |
+| `slot.moveTo` relocates a clip | ● **163 ms**, via `replaceInsertionPoint().moveSlotsOrScenes()` |
+| an API move is PUSHED | ● **+2**: `t2s0=emptied`, `t2s5=filled` |
+| a cross-track move | ● `t2s1=emptied`, `t3s5=filled` — names both tracks |
+| ⚠ **a HUMAN drag is PUSHED** | ● **+2**: `t2s7=emptied`, `t2s3=filled` |
+| the human's own report of where they dropped it | ● **agrees exactly** — row 7 → row 3, gn-A |
+| §3.2.3's scene-count observer sees a move | ○ **no**, 3 → 3 — the blind spot it predicted, measured |
+| a PINNED cursor follows the clip | ○ **no** — stays at the old position |
+
+⇒ **Moved clips are cheap to detect**, and §3.2.3's extension-side observer
+should watch launcher CONTENT rather than only scene count. A move is
+distinguishable from a bare create or delete because it arrives as a pair, and
+the log names the slots rather than counting them.
+
+### ⚠ `ClipLauncherSlotOrScene.moveTo` is @Deprecated — and the doc pass changed the row
+
+Since API 4: *"Use `replaceInsertionPoint()` instead"*. Standing rule 9 exists
+because E7's `getModulationSource(int)` threw and took the whole extension down,
+so the wire method defaults to the **modern** route and reaches the deprecated
+call only when asked for by name. The modern route lands on
+`InsertionPoint.moveSlotsOrScenes(…)` — the same 14-member interface whose
+sibling `moveDevices` overturned E4d last session, and whose verbs are known to
+disagree with each other.
+
+### The method note — the human half nearly did not happen, and it was the row
+
+`e16s` runs its API moves and then SKIPS the human drag when stdin is not a TTY,
+which is the case when an agent drives it. That skip prints a warning that the
+run is **incomplete and must not be written up as a verdict**, because the threat
+model is a human moving clips and the API moves are only the control. `e16s-human`
+exists to split the measurement into `arm` and `read` so the human half can be
+driven from a conversation — the epoch lives in the extension, so it survives
+between invocations.
+
+⚠ **The agreement between the two independent accounts is what carries the row.**
+The observer said `t2s7=emptied, t2s3=filled`; the human, asked separately and
+before seeing that, said "row 7 to row 3 on gn-A". An observer that fired on the
+wrong slot would be worse than one that stayed silent, because it would be
+trusted.
+
+---
+
+## E16t — `createEqualsValue` is a TRACK-drift guard, is meaningless between two cursors, and fails GREEN [K] (2026-07-31)
+
+**Verdict: ◐ narrowly useful and dangerously shaped.** It detects positional
+drift — which D6 has nothing equivalent to — and it is **meaningless between two
+proxies of the same cursor kind**, where it reads `true` unconditionally. Probes:
+`e16t-equals.ts`, `e16t-diag.ts`, `e16t-diag2.ts`. New wire: `equals.status`,
+`equals.tryCreate`. Silent.
+
+| row | result |
+|---|---|
+| ⚠ **standing rule 13** — `createEqualsValue` outside `init()` | ● **REFUSED**: *"This can only be called during driver initialization"* |
+| 65 pairs pre-allocated at init | ● `built:65`, no init failure |
+| settle time after a repoint | ● **96 ms** |
+| cursor ↔ bank item, same object | ● true, and **exactly one** bank row matches |
+| survives a RENAME | ● true — D6's name check would have failed |
+| ⚠ **detects a POSITION SHIFT** | ● **false at the old index, true at the new** |
+| cursor ↔ cursor (tracks) | ○ **true on DIFFERENT tracks** — meaningless |
+| clip cursor ↔ clip cursor | ○ **true across different slots AND different tracks** |
+| pool clip ↔ host follower clip | ● false — so it is not literally constant |
+
+⇒ **The rule is not "createEqualsValue works".** It is: **it works between a
+CURSOR and a BANK ITEM, and is meaningless between two cursors of the same
+kind.** For clips there is no cursor-vs-bank-item pair available at all — a
+`Clip` and a `ClipLauncherSlot` are different objects and the bank holds only the
+latter — so it offers clips nothing and **E16l stands**.
+
+### ⚠ Rule 13's fifth independent occurrence
+
+`getDocumentState()` settings (E14-C2), `host.createBitmap` (E14-I5), cursor
+pools (E1), device/param handles (E5), and now this. The rule's status changes:
+it has been treated as a **default to assume** for anything the API hands out,
+and it is now a measured property of five unrelated subsystems.
+
+### ⚠ The claim this row made and then withdrew, and the direction it failed in
+
+`e16t` asserted cursor↔cursor as an **aliasing detector** — E2c's fixture
+contamination, caught directly rather than from symptoms — and never exercised
+it; it only ever exercised cursor↔bank-item. `e16t-diag2` §G exercised it: `ct0=ct1`
+reads **true on different tracks**. The claim is withdrawn.
+
+⚠ **The failure direction is the point.** An aliasing detector that is always
+true reports "no aliasing" by reporting "always aliased" — it fails **GREEN**. It
+was caught only because §F's cross-track clip result impeached a guard the row
+had already published, and the impeachment was chased instead of written up.
+
+⚠ **Two probe defects produced things that read like findings**, both from a
+discarded return value, and both caught by their own transcripts: `e16t` ignored
+`point()`'s result while cursor 1 was still track-pinned; `e16t-diag` §1b asked
+for scenes 11 and 12 in a project whose slot bank has 16 rows but whose **rows
+past the scene count are not pointable**, so both cursors stayed at scene 1 and
+"two cursors on different empty slots compare equal" was two cursors on the SAME
+slot. That is the E16o trap twice in one row.
+
+### ⚠ The sharpest limitation: it detects DRIFT, not DEATH
+
+A pinned cursor whose target is **deleted** silently slides onto the track that
+inherits its position — `cursor.status` then reports `trackName="gn-B"` — and the
+equals value reads **true against the wrong track**. Named rather than counted,
+per E16r's method note: `e16t` printed "matches 1 row", and only naming the row
+turned that into the finding.
+
+⇒ The guard answers *"is this cursor the same object as that bank row"*. It never
+answers *"is this cursor still on the object I aimed it at"*, because the cursor
+itself is not durable. **Pairing with `channelId` stays mandatory**, and pinning
+does not protect against deletion.
+
+---
+
+## E16u — a branch costs ~20 KB on disk and nothing in save time [K] (2026-07-31)
+
+**Verdict: ● measured, and disk is NOT the binding constraint.** Owed since row
+C4, which recorded a baseline and stopped. Probe: `e16u-filesize.ts`, four forks
+of the heavy fixture, two human ⌘S.
+
+| | |
+|---|---|
+| baseline | **404,130 bytes**, 10 tracks, ~1 s save (user report) |
+| after 4 forks of `gn-E16` | **485,694 bytes**, 14 tracks, **~1 s** — *"exactly the same, perceptually"* |
+| delta | **+81,564 bytes over 4 forks ⇒ 20,391 bytes per fork** |
+| the fixture's own cost | ~45 KB (C4), so a fork is **0.45×** the original |
+
+⚠ **The old baseline was STALE and was not used.** C4's 385,619 was the
+2026-07-26 13:12 backup; the file was already 403,236 by 16:01 that day and had
+been churned through two further sessions. Differencing against it would have
+measured two sessions of unrelated work.
+
+⚠ **The compression confound was ruled out rather than assumed.** Four *identical*
+forks are the best possible case for a compressor, which would have made 20 KB a
+floor rather than a cost. `gzip -9` takes the project from 485,694 to 46,021
+bytes — **ratio 0.095** — so the file is stored **largely raw** and the delta is a
+genuine per-copy cost.
+
+⇒ **Extrapolated, a full 26-fork `A·`–`Z·` lineage adds ~530 KB to a 404 KB
+project**, and save time did not move at all across 10 → 14 tracks. **The bank
+window (§3.4a) remains the binding constraint on the branch budget; disk is not.**
+
+⚠ **What is NOT measured:** these forks are identical to their original. A real
+branch diverges, and divergent device state may not share whatever these shared.
+20 KB is the cost of a *fresh* fork, not of a heavily-edited one.
+
+---
+
+## E16w — ⚠ a DeviceLayer chain's `mute()` WORKS: a device-scoped A/B exists [K] (2026-07-31)
+
+**Verdict: ● the lead holds.** `DeviceLayer` declares zero members of its own and
+inherits `Channel`, and the `Channel` mixer works on a layer chain: muting the
+chains takes the track out of the mix **as completely as muting the whole track**.
+Probes: `e16v-devab.ts` (setup + selector), `e16v-diag.ts`, `e16w-lead.ts`. New
+wire: `layer.setMixer`, plus mixer fields on `layer.list`.
+
+| state | subject's own tap | **master** |
+|---|---|---|
+| open, both chains live | 57 | **57** |
+| FLOOR — subject muted at its own mixer | 57 *(pre-mute, trap 1)* | **12** |
+| ⚠ **both chains muted** | 11 | **11** |
+| unmuted again | 57 | — |
+| chain 0 alone (default patch) | **58** | — |
+| chain 1 alone (F1FREQ at 19.4 Hz) | **16** | — |
+
+⇒ **A device-scoped A/B is real and costs no bank slot and no C5 duplication
+glitch.** It reaches the master and the FX returns — the two places a fork cannot
+reach (§4.8) and the first to leave the addressable set as a lineage grows
+(E16r). The mute flag reads back as set, so the API accepts the write.
+
+⚠ **The prior said this might not work and was right to.** `DeviceLayer` was a
+silent no-op for `duplicateObject` and `duplicate` (E4d routes 1–2) — a supertype
+method is a claim, not a capability. What distinguishes this case is that those
+are **structural** verbs, which E4e explains architecturally (an insertion point
+must bind to a referent, and a layer that does not exist has none), whereas
+`mute()` is **state on a chain that already exists**.
+
+⚠ **What it does NOT buy, so the row is not oversold.** Layer chains run in
+PARALLEL, so muting is not switching, and the live state lives in **N mute
+flags** — which is exactly what §4.4 exists to replace, and is E16m's finding one
+level down. A `ChainSelector`'s `activeChainIndex()` is the single readable
+integer §4.4 wants. **This is the cheap A/B that works with an asset we have; the
+selector remains the answer to §4.4.**
+
+**Free rider: layer chains have their own `channelId`** — `26440486-…` and
+`397aff43-…`. E16l enumerated `Channel` for tracks only and never asked whether
+this population existed. Unprobed for durability across save/restart.
+
+### ⚠ THREE failed attempts before this one, each caught by a control rather than luck
+
+This row is the strongest argument in the spike for asserting preconditions
+separately from the question.
+
+1. **`e16v meter` read only the MASTER** and saw 62 → 56, which looks like "the
+   mute does nothing". `e16v-diag` §0 then found **Group 7, gn-E16, gn-sel and
+   gn-lay all sounding at 54–58 with nothing of ours launched** — the master was
+   measuring the project, not the subject. A count where a name was needed, which
+   is `e16r-diag`'s mistake again.
+2. **`e16v-diag` read the right meter but its subject had stopped playing** —
+   open 5, restored 0. Its "mute silences it" line **PASSED**, comparing silence
+   to silence. Only the PRECONDITION and the CONTROL failing beside it revealed
+   that a probe asserting just its headline would have published a ●.
+3. **`e16w`'s first run destroyed its own subject.** It called `transport.play`
+   after each `slot.launch` and `transport.stop` between retries — but launching a
+   launcher clip **starts the transport itself** (which is how E16m held a sound
+   through eight toggles without touching the transport). The retry loop was
+   tearing down the playback it was retrying: attempt 1 caught a decay tail of 5,
+   attempts 2 and 3 read 0.
+
+⚠ **And the FLOOR CONTROL is what finally made the numbers mean anything.** The
+room's master floor is **12, not 0**, so every reading sits on a pedestal. Muting
+both chains gives **11 — at or below that floor**, against 57 open. Without the
+floor, 11 would have been an unexplained "not quite silent" and the row would
+have been written up as ◐. Recorded rather than rounded away, exactly as E16m
+recorded its group-muted 2 against a child-muted floor of 1.
+
+⚠ **A trap for every future audible row:** the per-track VU tap is PRE-MUTE
+(trap 1), so **muted tracks still read 56–58 on their own meters**. A "is the room
+clean" check written over per-track meters reports contamination that does not
+exist. The master is the arbiter for *"does it reach the mix"*; the track's own
+tap is the arbiter for *"did the device stop producing"*, and a device-layer mute
+is upstream of it.
+
+---
+
+## E16 §3.4e — chain-selector switching: ● latency and sends, ⚠ glitch owed [K] (2026-07-31)
+
+Measured on `gn-sel`, an **Instrument Selector the user built by hand with two
+chains** — Selectors ship with zero and E16o proved no verb seeds one, so the
+shell has to come from a human. The chains were then filled by
+`layer.insertDevice` at **135 ms and 146 ms**, matching E4c's ~143 ms.
+
+| row | result |
+|---|---|
+| a Selector's chains appear in the `DeviceLayerBank` | ● **2**, `hasLayers=true` |
+| `layer.insertDevice` populates a Selector chain | ● 135 / 146 ms |
+| `chainselector.status` | ● `exists=true chainCount=2 activeChainIndex=0` |
+| ⚠ **switch latency** | ● **25 ms** to `activeChainIndex==1` (50 ms round trip) |
+| the other chain is audible — switching does not silence the track | ● 57 → 58 own tap |
+| ⚠ **does switching cut the track's SENDS?** | ● **NO** — FX 1 reads **51 before, 52 after** |
+| ⚠ **does switching GLITCH?** | ○ **NO** — **0/4 real vs 0/4 placebo**, forced balance |
+
+⇒ **A chain switch does not touch routing.** A track mute cuts sends (E2); a
+chain switch happens *inside* the instrument, upstream of the send tap, so the
+send keeps flowing and carries whichever chain is active. **That is the property
+that makes a selector usable on an FX RETURN and on the MASTER.**
+
+⚠ **`devcursor.selectFirstInLayer` descends into an Instrument LAYER's chain
+(141 ms) but TIMES OUT on an Instrument SELECTOR's** (6 s, cursor stays on the
+container). The two container types expose the same 2 chains to `layer.list` and
+diverge on cursor descent. Consequence for this row: the Selector's two chains
+could not be differentiated by parameter, so both hold the same default
+Polysynth.
+
+⚠ **That is not a degraded experiment — it is the right one for the glitch
+question.** With both chains identical the switch should be inaudible, so
+**anything heard at a switch point IS the glitch**, uncontaminated by a timbre
+change. C5 measured duplication's glitch the same way.
+
+### ⚠ The glitch row: ○ no glitch — and the verdict check had to be inverted
+
+8 trials, **forced 4 real / 4 placebo** (not a coin — E16m's coin gave 5/1 and
+left that row's ear half resting on a single placebo trial). The user, run in
+their own terminal with live trial markers: *"I did not hear glitches or dropouts
+at any point."* **0/4 real, 0/4 placebo.** Meter: real avg 58.5 vs placebo 56.5 —
+no dropout on the real arm.
+
+⇒ ⚠ **A chain switch is clean where a fork is not.** C5 measured track
+duplication glitching **5/5 against 0/3 placebo**. So the device-scoped A/B is
+free of the one cost that makes a branch point *"never free and never automatic"*
+(§6.4) — and it is 25 ms.
+
+⚠ **The check scored this clean result as a FAILURE**, because it asserted "the
+ear separates the real arm from the placebo arm" — correct for the layer-mute
+row, and exactly backwards here, where both chains hold the same patch and a
+correct switch is **inaudible by construction**. E16m's method note records
+catching this same shape *before* its run (*"an earlier draft asserted
+`silences || separated`, which would have printed a red X against a perfectly
+clean ○"*); this one was caught after. The assertion is now mode-dependent.
+
+⚠ **The weakness, stated rather than buried: a null ear result cannot distinguish
+"no glitch" from "this listener and rig could not have heard one anyway."** The
+missing arm is a POSITIVE control — a trial where an artifact certainly occurs.
+The layer-mute A/B (E16w) is precisely that control and was **not** run in the
+same sitting. Until it is, this row rests on the null result plus the meter, and
+should not be quoted as strongly as C5, which had an audible artifact in its own
+real arm.
+
+### ⚠ The send check that PASSED without asking anything
+
+`e16v meter`'s send row compared `fxOnChain0: 0` against `fxOnChain1: 0` and
+passed — because `gn-sel` had **no send configured at all**. The check carried an
+`|| open.fx <= 0` escape hatch that let an unasked question look answered: **two
+silences making a green**, which is rows D–G trap 6, in a fixture built after
+that trap was documented. `e16v-diag` configures the send, **proves it live at 51
+before the switch**, and would report the question UNANSWERED rather than answer
+it if it could not.
+
+---
+
+## E16p / E16q — the bridge serves two clients atomically, and the middle dot round-trips [K] (2026-07-30)
+
+Two small rows, each closing a premise something larger was about to be built on.
+
+### E16p — ⚠ the revision guard is atomic ACROSS CONNECTIONS ●
+
+**Run because the §3.2 proposal to retire `ghostnoted` rested on a CODE
+READING** — `Bridge.java` accepts each client on its own thread and `ExecState`
+claims thread confinement makes check-apply-bump atomic for free. Standing rule
+10 applies to reading source exactly as to reading javadoc, and this spike has
+been wrong five times from that move. Probe: `e16p-multiclient.ts`; every batch
+op is `ping`, so nothing in the project is touched.
+
+| row | result |
+|---|---|
+| P1 two clients connected and served | ● identical `methodsHash` from both |
+| P2 12 interleaved round trips each | ● **0** replies delivered to the wrong client |
+| P3 both read the same revision | ● one counter, not one per connection |
+| P3 B's batch tagged with the revision A consumed | ● rejected whole, `reason: stale-revision` |
+| ⚠ **P4 both submitted concurrently against one revision** | ● **exactly one winner, 6/6 rounds** |
+| P5 one client disconnecting | ● the other is unaffected |
+
+⇒ **Retiring the daemon gives up no ordering guarantee.** E8-D had tested the
+guard with one client simulating interference via `revision.bump`, which proves
+the guard works and says nothing about processes; this says it holds across them.
+
+⚠ **What it does NOT show:** that two agents writing concurrently is a good idea.
+The guard makes writes **ordered, not coherent** — a rejected batch still has to
+be re-planned against the new world by whoever sent it. That is an MCP-server
+design question, not a bridge property, and it is the residual cost of retiring
+`ghostnoted`.
+
+### E16q — `track.setName` round-trips non-ASCII exactly ●
+
+The whole lineage-naming scheme (§1b) rests on `·` (U+00B7) surviving a write and
+a read. It does. Probe: `e16q-naming.ts`, one throwaway track, deleted after.
+
+- ⚠ **`B· Bass different-line` round-trips EXACTLY, compared by CODEPOINT** —
+  U+00B7 in, U+00B7 out. Compared by codepoint deliberately: `·` U+00B7,
+  `∙` U+2219 and `•` U+2022 are indistinguishable at UI sizes and a silent
+  substitution would pass any human check.
+- **10 of 10 non-ASCII cases exact**, including CJK (U+97F3) and an astral-plane
+  emoji (U+1F3B9, a surrogate pair). So non-ASCII is not special-cased anywhere.
+- A **96-character** name is not truncated by `name().get()` — a long original
+  name plus a tag plus a gist survives.
+- Leading and trailing spaces are preserved.
+
+⚠ **One incidental, and it has a consequence.** An **empty** name reads back as
+`"Inst 8"` — Bitwig substitutes a display default, so **a track is never
+nameless**, and the default appears to derive from creation order rather than
+being stored data. The scheme tags every lineage member so this does not bite
+it, but **the reaping guard's "refuse to delete an untagged track" must test for
+the ABSENCE OF A TAG, never for an empty name.**
+
+---
+
+## E16r — ⚠ the bank window pushes the MASTER and the FX RETURNS out FIRST, and a fork at the ceiling is an orphan [K] (2026-07-30)
+
+**Verdict: ● the budget is measurable and `itemCount` still reports the project
+total under `ALL_CHANNELS` — so standing rule 5 remains implementable. ⚠ But two
+things fall out that are worse than a ceiling**, and neither was anticipated:
+the tracks that leave the addressable set *first* are the **Master and the FX
+returns**, and a `track.create` past the window **mints a track whose identity we
+never learn**. Probes: `e16r-budget.ts`, `e16r-diag.ts`. Silent; both refuse
+while the transport rolls; the project was returned to its exact starting state.
+
+| row | result |
+|---|---|
+| §3.4a `itemCount` past the window under `ALL_CHANNELS` | ● reports the PROJECT total (21) while visible saturates at `bankSize` (16) |
+| §3.4a which tracks fall out | ⚠ **Master at 17, then FX 1 at 18**, stable at 14 thereafter. Position 0 never moved |
+| §3.4c fork burst cost | ● **0.61×** a spaced duplication (73 ms vs 119 ms median) — a burst is *cheaper* per fork, not worse |
+| §3.4i cursor-pool pressure | ● 3/3 concurrent pins; asking for a cursor past the pool **throws** (`Index 3 out of bounds for length 3`) rather than aliasing |
+
+### ⚠ The window is anchored, and that is exactly why the Master goes first
+
+Two hypotheses were on the table: a window **fixed** at positions 0..15, or one
+that **scrolls**. The measurement fits neither as stated. Position 0 kept
+resolving throughout, so it does not scroll — but known tracks *did* fall out,
+which a naive "fixed" model says cannot happen.
+
+**Both are true because creating tracks REORDERS positions.** A flat bank orders
+regular tracks, then FX returns, then Master, and every new track is inserted
+*before* that tail. So the tail's positions rise and it crosses the ceiling,
+while position 0 never moves.
+
+⇒ ⚠ **The first things to become unaddressable are the master bus and the FX
+returns.** That is a sharp consequence for this model specifically:
+
+- **Every audibility verdict in E16 reads the master or an FX return** — E2, E1,
+  E5, and E16m's group-mute row all do, because trap 1 makes a track's own meter
+  useless (it is pre-mute). **Approaching the ceiling costs the measuring
+  instrument before it costs any ordinary track.**
+- §4.8 already says FX returns cannot be forked and an FX change affects every
+  sibling identically. Now they are also **the first thing to disappear** as a
+  lineage grows — and lineages are what fill the window.
+- The failure is silent in the worst way: `resolveByChannelId` on the Master
+  returns `found:false`, which is byte-identical to the answer a **deleted**
+  track gives (E2f/D1, trap 12).
+
+### ⚠ The finding `e16r` produced by accident, which is worth more than the row it broke
+
+`e16r` learned each new track's `channelId` by diffing `track.list`. **Past the
+ceiling a created track never appears there**, so the diff yielded nothing and
+three tracks were minted whose identity the probe never learned — and could
+therefore never delete. They had to be swept by name against a KEEP set, by hand.
+
+⇒ **A `track.create` past the bank window mints a track we cannot name.** This is
+sharper than E5's "state outside the window is unsnapshottable": the track is
+**unaddressable and un-cleanable**, and `receipt.minted` — which D16/E2c specify
+as reporting the `channelId` a new track was *found* at — silently has nothing to
+report.
+
+⚠ **Under the track-native model a fork IS a `track.create`**, so **a fork
+attempted at the ceiling produces an orphan**: audible, consuming ~0.6 pp of
+engine CPU (C3), and invisible to us. ⇒ **Standing rule 5's refusal must be
+checked BEFORE the create, not detected after it.** As currently framed —
+"detect and fail loud" — it is a post-hoc check, and post-hoc is too late for
+this one.
+
+### §3.4c — a burst is *cheaper* per fork, which was not the expected direction
+
+Three spaced duplications (1.2 s apart) measured 143/96/119 ms; three back-to-back
+measured 99/73/71 ms. **0.61×**, i.e. bursting is faster per fork — plausibly
+warm caches and no re-settling between. ⇒ **An N-track turn need not pace its
+forks for cost reasons.** ⚠ This measures *wall-clock to visible only*. C5's
+audible glitch was not re-tested here (the transport is stopped, by refusal), so
+**nothing here says an N-fork burst glitches once rather than N times** — that
+remains owed and is the question a musician would actually ask.
+
+### §3.4i — the pool, not the window, bounds concurrent addressing
+
+`cursorPool` is 3 on this rig (D7 ships 8). All three pinned different tracks
+concurrently, reconfirming E1 under a lineage-shaped project. Asking for cursor
+`3` **throws** — `Index 3 out of bounds for length 3` — rather than silently
+aliasing onto cursor 0, which is the right failure: a silent alias would land a
+write intended for fork D onto fork A.
+
+⇒ **A lineage wider than the pool must address its forks in sequence**, re-pointing
+between them — which D6 already requires after any structural op, so this costs
+no new discipline.
+
+### Method note — the classifier that mis-read a true result, and the counting that nearly hid it
+
+Two mistakes, both caught, both worth recording:
+
+1. `e16r` checked whether the **newest** track resolved after each create, which
+   assumes a window anchored at 0 *and* that positions do not move. Its FAIL was
+   the probe correctly reporting that the model was wrong, not a defect.
+2. ⚠ `e16r-diag` first **counted** how many known tracks dropped out and
+   classified the result as "PARTIAL/OTHER" — an honest refusal to model, but it
+   threw the finding away. **Naming the dropped tracks instead of counting them
+   turned an unexplained pattern into the headline**: *"two known tracks fell
+   out"* is an observation; *"Master, then FX 1"* is the result.
+
+---
+
+## E16n / E16o — ⚠ E4d route 3 is WRONG: `moveDevices` relocates a device into a layer, and it carries its state [K] (2026-07-30)
+
+**Verdict: ● devices CAN be moved into a layer chain, and the moved device keeps
+its parameter state. ○ it still cannot CREATE a chain.** E4d recorded
+`InsertionPoint.copyDevices()` into a layer as a silent no-op and concluded
+devices cannot be relocated into layer chains. ⚠ **That was a single-mechanism
+check, and it is the FIFTH false negative of this spike from exactly that
+shape** — after CLAP params, `channelId`, chain creation (E4c→E4d) and group
+creation (E3→E16j). The sibling verb, never called until now, works.
+Probes: `e16n-devmove.ts`, `e16o-movestate.ts`. New wire: `layer.moveDeviceInto`,
+`device.moveTo`, `layer.pasteInto`. All silent; nothing launched.
+
+| row | question | result |
+|---|---|---|
+| **target** | `moveDevices` into a layer chain | ● top level `[FX Layer, Polysynth]` → `[FX Layer]`; layer 0 `[]` → `[Polysynth]` |
+| VERB control | `moveDevices` reorders a flat chain | ● `[FX Layer, Polysynth]` → `[Polysynth, FX Layer]`, count stable |
+| DEST control | `layer.insertDevice` into the same chain | ● 1 → 2 devices (E4c ●, re-run in situ) |
+| **O1** | does the moved device keep its STATE? | ● **`F1FREQ`=0.17 and `F1RESO`=0.83 both survived**, read through the nested cursor |
+| **O2** | can `moveDevices` CREATE a chain? | ○ **no** — 0→0 on Instrument Selector, Instrument Layer and Note FX Layer; 1→1 growing an FX Layer |
+
+### The complete-recall pass that found it
+
+Grepped all **1968** members for every relocation-shaped token (`move`,
+`relocate`, `reparent`, `transfer`, `reorder`, `copy`, `cut`, `paste`, `drag`,
+`drop`, `insert`), then enumerated `InsertionPoint`, `Device`, `DeviceChain`,
+`DeviceLayer` and `ChainSelector` in full. **`InsertionPoint` has exactly 14
+members**, three of which relocate devices: `copyDevices` (○, E4d),
+**`moveDevices`** and **`paste()`**. `relocate`/`reparent`/`reorder`/`drag`/`drop`
+return **zero** hits, so no fourth route exists under another name.
+
+⚠ **The javadoc argued AGAINST the reopen.** `moveDevices` and `copyDevices`
+carry identical wording — *"If it's not possible to do so then this does
+nothing"* — and the class doc specifies the silent no-op as intended. A doc pass
+would have closed this ○ a second time. What justified the probe was empirical:
+**E4c had measured a new device landing in that same layer chain in ~143 ms**, so
+`copyDevices`' no-op was verb-specific rather than destination-specific — and row
+A had already seen `copyTracks` ○ alongside three working duplication verbs on
+the same object.
+
+### Why the controls are the finding as much as the result
+
+The run takes two independent controls so that **every outcome is
+interpretable**, which is what E6 lacked:
+
+| VERB | DEST | target | reading |
+|---|---|---|---|
+| ● | ● | ● | **what happened** — relocation works, E4d's ○ was verb-specific |
+| ● | ● | ○ | layers specifically refuse relocation — E4d stands, on two verbs |
+| ○ | ● | ○ | ⚠ inconclusive about layers; the verb is dead everywhere |
+
+⚠ **The moved device is a Polysynth on purpose**: E4c proved a Polysynth can be
+*inserted* into an FX Layer chain, so a refusal could not have been explained
+away as "that type does not belong there". The only difference between the DEST
+control and the target is the verb.
+
+### ⚠ The method trap this sitting produced, and it nearly wrote a false finding
+
+**`rig.layerBank0` follows `cursorDevice0`, and that binds the WRITE as well as
+the read.** `layer.moveDeviceInto` reaches its destination through that bank, so
+the container must be the selected device when it is called.
+
+`e16o`'s first run marked the Polysynth's parameters — which selects the
+Polysynth — and then moved. The destination resolved
+`layerBank0.getItemAt(0)` against a Polysynth, which has no layers, so the
+insertion point had no referent and did nothing. The transcript read
+`layer 0 now holds [—]`: **byte-identical to a genuine API refusal.** The run
+reported `O1: a relocated device DOES NOT KEEP its state`, which is not merely
+wrong but wrong in the specific way that would have killed the capability — the
+device had never moved at all.
+
+⚠ It was caught only because the probe asserts a *precondition* ("the device did
+relocate") separately from the *question* ("did its state survive"). **A probe
+that tested only its headline question would have published the false negative.**
+The fix is a `moveInto` helper that re-selects the container and asserts
+`hasLayers` before every move. Generalisable: **any handler reaching a
+cursor-following bank has the cursor as a hidden argument**, and aiming it wrongly
+produces a silent no-op rather than an error.
+
+### What this changes, and what it deliberately does not
+
+⚠ **E4d's residual gap STANDS** — now against a fourth verb, and E4e's
+architectural reasoning (*"an InsertionPoint must bind to a referent, and 'layer
+3' has no referent until it exists"*) survives its sharpest test. Layer-type
+containers still cannot grow chains: 0-chain containers cannot be seeded, and an
+FX Layer will not go to two.
+
+⇒ **So multi-chain structure still comes from a `.bwpreset`** (E4d route 4,
+268 ms), and the preset-library posture is unchanged.
+
+**What IS new is the half a preset could never supply.** Before today, a chain
+could only be filled with a *freshly inserted* device. Now the human's **own
+device, carrying its own state**, can be moved into one (O1). That was the actual
+blocker for auditioning an existing patch: you could always build a two-chain
+selector from an asset, and you could never get the user's Zebra into it.
+
+⚠ **E4d's decision-impact line needs amending.** It says *"the contract should
+express 'work inside the structure you find' for layers"*. That is now too
+narrow: you may **also relocate existing devices into the structure you find**,
+losslessly. Creation remains preset-only.
+
+**Still owed before the chain-selector A/B is real** (E16 §3.4e): whether
+switching chains glitches, its latency, and whether it cuts sends. This row makes
+that measurement worth taking; it does not pre-answer it.
+
+---
+
+## E16m — muting a GROUP silences its children AND cuts their sends: lineage-level A/B is real [K] (2026-07-30)
+
+**Verdict: ● both halves, and the second one did not have to go this way.**
+Muting a group takes its children's dry path *and* their sends with it, pre- and
+post-fader alike — so auditioning a whole lineage against the arrangement is
+correct in the wet path, not just the dry one. The ergonomic claim the
+track-native model leans on hardest (E16k left it explicitly unmeasured) now
+rests on a measurement. ⚠ **One new negative falls out and it is a design
+input: the mute is NOT quantised to the beat, and the user wants it to be.**
+Probe: `e16m-groupmute.ts`. Fixture `gn-E16` inside the human-made `Group 7`.
+
+| row | question | result |
+|---|---|---|
+| M1 | does muting a GROUP silence its children? | ● **yes** — master **56 open → 2 muted**, floor 1 |
+| M2 POST | does it cut the child's post-fader send? | ● **yes** — FX return **39 → 1** |
+| M2 PRE | does it cut the child's pre-fader send? | ● **yes** — FX return **51 → 1** |
+| ear | discriminated from placebo? | ● 5/5 real vs 0/1 placebo, **no clicks on any transition** |
+
+### Why M2 is the half that mattered
+
+M1 was widely expected. **M2 does not inherit E2's answer and could easily have
+gone the other way.** E2 measured that a track's own mute cuts its own sends;
+this is a different topology question, because a child's main output flows *into*
+the group while its send is tapped on the child and routed straight to the
+return. A parent's mute could sit entirely downstream of that tap.
+
+Had it, the failure would have been the worst available shape: **the lineage
+silent in the mix, the mixer showing it muted, and its reverb still feeding the
+bus** — with the obvious oracle agreeing with you. It does not. Both fader modes
+cut, and the pre-fader case is the load-bearing one since a pre-fader send
+bypasses the fader by definition.
+
+### The controls, and why each reading means something
+
+Every muted reading is paired with two controls, per rows D–G trap 6 (two
+silences must never make a green):
+
+1. **The floor is a floor.** Master read 1 with the child muted by its *own*
+   mute while the child's PRE-MUTE meter read **58** — so the silence is a mute,
+   not a gap between notes.
+2. **The clip kept playing.** Through every group-muted window the child's own
+   meter read **56–58**, and through both send windows **57–58**.
+3. **The send was live before it was cut.** FX read 39 (POST) and 51 (PRE) with
+   the group open, so a muted reading of 1 means something was cut rather than
+   that nothing was ever routed.
+4. **Parentage was proved, not assumed**, by the collapse oracle — `gn-E16` left
+   the bank 258 ms after `Group 7` folded and came back on expand. A flat bank
+   makes a child and a sibling look identical, so adjacency would not have done.
+
+### ⚠ Three things worth carrying beyond this row
+
+1. ⚠ **A child's own mute flag is NOT changed by muting its parent** (measured,
+   0/3 windows). Combined with trap 1 — the VU tap is pre-mute, and here the mute
+   under test is on a *different track* entirely — this means **neither a child's
+   meter nor its mute flag can tell you whether its lineage is audible**. Nothing
+   may infer lineage state from the children. That is §4.1's mute-overloading
+   problem one level up, and it is worse there, because at least a leaf's own
+   flag is honest about the leaf.
+2. ⚠ **The mute is not quantised.** The user, asked openly after 8 toggles:
+   *"Yes, mostly. It muted and unmuted at regular intervals without any clicks or
+   glitches, which is fine. It would be better if it were aligned to beat or
+   measure boundaries."* This closes a question E1 left open — it recorded
+   *"instant - unsure about quantized to the beat as I didn't think to listen to
+   that"* — and answers it in the unwanted direction. **The gesture is usable but
+   not musical**, and nothing in the current design proposes to fix it.
+   ⚠ Unmeasured whether Bitwig offers quantised mute at all; the mixer's mute is
+   what `branch.setMixer` drives and it lands immediately.
+3. **Group-muted master read 2, against a child-muted floor of 1** — consistently,
+   3/3. That is one step, at exactly the `CUT_EPSILON` boundary E2 earned by
+   sweep, and it is 2 against 56 open, so it carries no musical weight. Recorded
+   rather than rounded away: if a later row wants to claim group mute is
+   *identical* to child mute, this is the datum that says it was one step off.
+
+### ⚠ The weak point in this row, stated rather than buried
+
+**The placebo arm is one trial.** The coin flip came up 5 real / 1 placebo, so
+the ear half is 5/5 vs **0/1** — consistent, and far thinner than C5's 5/5 vs
+0/3. On its own that is under-powered evidence. The row does not rest on it: the
+master-bus separation (56 → 2, three alternated repetitions, non-overlapping
+spreads) is an independent instrument and it is what carries M1. The ear's job
+here was only to confirm the meter was not lying, and it did. **A future
+audible row should force the arm balance rather than trusting a coin.**
+
+### Method note — the check that would have failed on a true result
+
+The verdict block reports M1 three ways (silences / does not reach / partially
+attenuates) and asserts only that the reading is not stranded in the noise
+between floor and open. An earlier draft asserted `silences || separated`, which
+would have printed a red X against a perfectly clean ○ — `e16j`'s
+self-validating-control mistake in a new costume, caught before the run rather
+than after. Same for the ear half: it checks that **the ear agrees with the
+meter**, not that the listener heard a mute, because if M1 had come back ○ the
+correct thing to hear was nothing.
+
+---
+
 ## E16l — object identity, settled properly: `channelId` is the ONLY one, and there is nowhere left for another to hide [K] (2026-07-29)
 
 **Verdict: ○ CONFIRMED, at last with the method standing rule 10 demands.**
@@ -587,9 +1261,17 @@ measured**; it needs a second human `⌘S` with branches live.
    `Rig.java` says so, and row E5's first run did it anyway. Proved
    unambiguously: FX 1 had accumulated **38**, a copy landed on FX 1's slot, and
    the copy's "peak" came back as exactly **38**. A hold is only attributable if
-   it is armed AFTER the structural change. *Recommended extension-side fix, not
-   yet made: zero a slot's hold when the `channelId` at that index changes, so
-   the value self-invalidates. Deferred because it is Java and costs a restart.*
+   it is armed AFTER the structural change. ~~*Recommended extension-side fix,
+   not yet made: zero a slot's hold when the `channelId` at that index changes,
+   so the value self-invalidates. Deferred because it is Java and costs a
+   restart.*~~
+   > ● **THE FIX IS IN, noted 2026-07-30.** `Rig.vuIdentity[]` exists and
+   > `BranchHandlers.vu()` zeroes `vuHold`/`vuNow` and reports
+   > `identityChanged: true` when the `channelId` at a slot changes. Recorded
+   > because the "not yet made" above is now stale and would otherwise send
+   > someone to re-do it. ⚠ The *trap* still stands — a hold armed before a
+   > structural change is still unattributable — the value now merely
+   > self-invalidates loudly instead of handing back a plausible lie.
 3. **A short settle after a mute measures note TAILS.** The window straight
    after a mute read FX 16 / master 26; the next window, identical state, read
    1 / 2. Settle ~3s before arming any peak-hold.

@@ -35,6 +35,8 @@ public final class TrackHandlers extends HandlerGroup {
         r.on("slot.select", params -> slotSelect(params));
         r.on("slot.delete", params -> slotDelete(params));
         r.on("slot.launch", params -> slotLaunch(params));
+        r.on("slot.moveTo", params -> slotMoveTo(params));
+        r.on("slot.epoch", params -> slotEpoch());
     }
 
     private JsonElement trackCreate(JsonObject params) {
@@ -145,6 +147,106 @@ public final class TrackHandlers extends HandlerGroup {
                 throw new IllegalArgumentException("unknown mechanism: " + mechanism);
         }
         return ok();
+    }
+
+    /**
+     * ⚠ E16 §3.4f — MOVE a launcher clip, so the detectability question has an
+     * event to detect.
+     *
+     * ⚠ **`ClipLauncherSlotOrScene.moveTo(dest)` is `@Deprecated`** — *"Use
+     * `replaceInsertionPoint()` instead"*, since API 4 — and standing rule 9 is
+     * about exactly this: a deprecated handle is not merely untidy, E7's
+     * `getModulationSource(int)` threw and took the whole extension down. So the
+     * DEFAULT route here is the modern one, and the deprecated call is reachable
+     * only by asking for it by name.
+     *
+     * The modern route lands on `InsertionPoint.moveSlotsOrScenes(…)` — the same
+     * 14-member interface whose sibling verb `moveDevices` overturned E4d last
+     * session, which is a pleasing symmetry and also a warning: the verbs on this
+     * interface demonstrably disagree with each other, so a ○ from one says
+     * nothing about the others.
+     *
+     * ⚠ **The API move is the CONTROL here, not the experiment.** The threat model
+     * is a HUMAN dragging a clip between scenes — that is the scenario E16l raised
+     * and the one §1's tolerant fallback exists for — and a human drag needs no
+     * wire method at all. This exists so the same question can be asked a second
+     * way, silently and repeatably, and so a difference between the two (if any)
+     * is visible rather than assumed. If the human drag and this disagree about
+     * what fires, THAT is the finding.
+     *
+     * Verified by `slot.epoch` and by `slot.status` on both ends, never by this
+     * return: the acknowledgement is identical whether or not anything moved
+     * (E6 blocker 4).
+     */
+    private JsonElement slotMoveTo(JsonObject params) {
+        Track from = requireTrack(params.get("trackIndex").getAsInt());
+        Track to = requireTrack(params.get("toTrackIndex").getAsInt());
+        int slotIndex = params.get("slotIndex").getAsInt();
+        int toSlotIndex = params.get("toSlotIndex").getAsInt();
+        String route = params.has("route") ? params.get("route").getAsString() : "insertionPoint";
+        if (!"insertionPoint".equals(route) && !"deprecatedMoveTo".equals(route)) {
+            throw new IllegalArgumentException(
+                "route must be insertionPoint or deprecatedMoveTo: " + route);
+        }
+        if (from == to && slotIndex == toSlotIndex) {
+            throw new IllegalArgumentException(
+                "source and destination are the same slot, so the move is a no-op by "
+                + "construction and would be indistinguishable from a failure");
+        }
+
+        ClipLauncherSlot source = from.clipLauncherSlotBank().getItemAt(slotIndex);
+        ClipLauncherSlot dest = to.clipLauncherSlotBank().getItemAt(toSlotIndex);
+
+        JsonObject result = ok();
+        result.addProperty("route", route);
+        // ⚠ Read both ends BEFORE the move. Afterwards these handles describe
+        // whatever now occupies those positions, which is the whole point.
+        putGuarded(result, "sourceHadContent", () -> source.hasContent().get());
+        putGuarded(result, "destHadContent", () -> dest.hasContent().get());
+        result.addProperty("epochBefore", rig.launcherContentEpoch);
+
+        if ("insertionPoint".equals(route)) {
+            dest.replaceInsertionPoint().moveSlotsOrScenes(source);
+        } else {
+            source.moveTo(dest);
+        }
+        return result;
+    }
+
+    /**
+     * ⚠ E16 §3.4f — the detector: how many launcher-content callbacks have fired,
+     * and what the last {@link Rig#CONTENT_LOG} of them said.
+     *
+     * The epoch is meaningless in absolute terms — Bitwig delivers initial values
+     * through the same callbacks, so it starts nonzero — and every caller must
+     * baseline it before the event and diff after. What carries the finding is
+     * the LOG: a move should read as a pair, one slot emptying and another
+     * filling. A create is one fill; a delete is one empty. If the pair appears,
+     * moved clips are detectable without polling and without suspicion, and
+     * §3.2.3's extension-side observer should watch content and not merely scene
+     * count. If nothing fires, §1's fingerprint-then-recreate fallback carries the
+     * whole weight, and that is worth knowing before the engine leans on it.
+     *
+     * `sceneCountChanges` rides along because §3.2.3 predicted its own blind spot
+     * — a move changes no count — and a prediction next to its measurement is
+     * cheaper than a prediction alone.
+     */
+    private JsonElement slotEpoch() {
+        JsonObject result = new JsonObject();
+        result.addProperty("epoch", rig.launcherContentEpoch);
+        result.addProperty("sceneCountChanges", rig.sceneCountChanges);
+        result.addProperty("sceneCount", rig.lastSceneCount);
+        result.addProperty("selectionChanges", rig.selectionChanges);
+        JsonArray log = new JsonArray();
+        // Oldest-first out of the ring, so the reader sees the order events
+        // happened rather than the order they happen to sit in the array.
+        int size = Math.min(rig.launcherContentEpoch, Rig.CONTENT_LOG);
+        for (int k = 0; k < size; k++) {
+            int idx = (rig.launcherContentEpoch - size + k) % Rig.CONTENT_LOG;
+            log.add(rig.contentLog[idx]);
+        }
+        result.add("log", log);
+        return result;
     }
 
     private JsonElement slotDelete(JsonObject params) {

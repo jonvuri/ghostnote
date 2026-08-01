@@ -194,6 +194,89 @@ public class Rig {
     public int selectedSlotIndex = -1;
     public int selectionChanges = 0;
 
+    // --- E16 §3.4f: is a clip move DETECTABLE, and by what? ---
+    /**
+     * ⚠ The instrument for "what observable, if any, changes when a clip moves".
+     *
+     * The question is NOT whether `sceneEpoch` moves. That counter lives in the
+     * brain and is bumped by our own scene ops, so it definitionally cannot see
+     * an edit we did not make — asking it would be asking ourselves. The real
+     * question is whether ANYTHING Bitwig-side reports the move, and there are
+     * two candidate answers with very different consequences:
+     *
+     *   POLLED  — `hasContent` differs at the old and new slots, which is only
+     *             visible if you re-read both, i.e. only if you already suspected.
+     *             That is the §1 tolerant fallback restated, not a detector.
+     *   PUSHED  — an observer fires. Then a move is detectable for free, without
+     *             polling and without suspicion, and moved clips become cheap.
+     *
+     * `ClipLauncherSlotBank.addHasContentObserver` is the pushed candidate: one
+     * INDEXED callback per bank row covering all its slots, the same shape as the
+     * `addIsSelectedObserver` below. A move should therefore arrive as TWO
+     * callbacks — false at the source, true at the destination.
+     *
+     * ⚠ The log holds the last {@link #CONTENT_LOG} events by NAME, not a bare
+     * count, and that is deliberate: `e16r-diag` classified a true result as
+     * "PARTIAL/OTHER" because it counted the tracks that dropped out of the bank
+     * instead of naming them, and naming them turned an unexplained pattern into
+     * the headline. A count here would say "something changed"; the log says
+     * "(2,1) emptied and (2,5) filled", which is the finding.
+     *
+     * ⚠ Written by observers on the control-surface thread and read by handlers
+     * on the same thread — the `selectedTrackIndex` and directParam-map pattern
+     * exactly, so no synchronization (see ExecState's note on confinement).
+     *
+     * ⚠ Bitwig delivers INITIAL values through these callbacks too, so the epoch
+     * is nonzero and meaningless in absolute terms. Only a DIFFERENCE across a
+     * known event means anything, and every reader must baseline it first.
+     */
+    public static final int CONTENT_LOG = 24;
+    public int launcherContentEpoch = 0;
+    public final String[] contentLog = new String[CONTENT_LOG];
+
+    /**
+     * The scene-count observer §3.2 approved moving into the extension.
+     *
+     * Nearly free here, and it closes the loop on a decision rather than an open
+     * question: `adapters/live/adapter.ts` defers foreign-scene-edit detection to
+     * the daemon, §3.2.3 moved that job here instead, and this is whether the job
+     * can actually be done from here. ⚠ §3.2.3 already names its own limit — a
+     * count observer catches create and delete but cannot see a MOVE — so this
+     * field and `launcherContentEpoch` above are deliberately separate: if the
+     * count sits still while the content log fills, that is the limit measured
+     * rather than predicted.
+     */
+    public int sceneCountChanges = 0;
+    public int lastSceneCount = -1;
+
+    // --- E16 §3.4g: ObjectProxy.createEqualsValue, pre-allocated ---
+    /**
+     * ⚠ E16l's find, and a `create*` — the exact shape that has thrown *"can only
+     * be called during driver initialization"* four times (standing rule 13), so
+     * every one of these is built HERE and revealed later, never created on demand.
+     * `equals.tryCreate` asks the runtime question directly.
+     *
+     * Keyed by a self-describing name (`ct0=bank3`, `clip0=follower`) rather than
+     * indexed, because the probe should read what it is comparing rather than
+     * decode a coordinate — the same reason the content log holds names.
+     *
+     * ⚠ What this can and cannot be. It compares two LIVE PROXIES WE HOLD, so the
+     * only pairs that exist are the ones whose both halves are pre-allocated: the
+     * 3 pool cursors and the 16 bank rows. That makes two guards buildable —
+     * "is my pinned cursor still the track at position n?" (cursor↔bank) and "are
+     * two pool cursors aliased onto one object?" (cursor↔cursor, which is E2c's
+     * fixture-contamination root cause) — and it makes the guard D6 actually wants
+     * for CLIPS unbuildable, because there is no second persistent proxy on the
+     * intended clip. Measured rather than assumed; the clip pairs below are what
+     * measure it.
+     */
+    public final java.util.Map<String, com.bitwig.extension.controller.api.BooleanValue>
+        equalsProbes = new java.util.LinkedHashMap<>();
+    /** Where the equals build got to — a status string, never a throw (see below). */
+    public String equalsStatus = "not-attempted";
+    /** Ditto for the DeviceLayer mixer handles: E16 §3.4 lead, `Channel` on a layer. */
+    public String layerMixerStatus = "not-attempted";
+
     public Rig(ControllerHost host, RigConfig config) {
         long start = System.nanoTime();
         this.config = config;
@@ -262,6 +345,15 @@ public class Rig {
 
         sceneBank = trackBank.sceneBank();
         sceneBank.itemCount().markInterested();
+        // §3.2.3's approved extension-side scene epoch, as an actual observer
+        // rather than a proposal. Its documented blind spot — a scene MOVE, which
+        // changes no count — is what §3.4f is measuring next to it.
+        sceneBank.itemCount().addValueObserver(count -> {
+            if (count != lastSceneCount) {
+                lastSceneCount = count;
+                sceneCountChanges++;
+            }
+        });
 
         for (int i = 0; i < config.tracks; i++) {
             Track track = trackBank.getItemAt(i);
@@ -333,6 +425,15 @@ public class Rig {
                     selectionChanges++;
                 }
             });
+
+            // §3.4f — the pushed half of "is a clip move detectable". One indexed
+            // observer covers every slot in this bank row, so the whole grid costs
+            // `tracks` observers rather than `tracks × scenes`.
+            slots.addHasContentObserver((slotIdx, has) -> {
+                contentLog[launcherContentEpoch % CONTENT_LOG] =
+                    "t" + trackIdx + "s" + slotIdx + (has ? "=filled" : "=emptied");
+                launcherContentEpoch++;
+            });
         }
 
         for (int i = 0; i < config.cursorPool; i++) {
@@ -401,6 +502,52 @@ public class Rig {
                 nested.exists().markInterested();
                 nested.name().markInterested();
             }
+        }
+
+        // ⚠ E16 — the DeviceLayer-mute lead, and the reason it is a SEPARATE,
+        // GUARDED loop rather than five more lines in the one above.
+        //
+        // `DeviceLayer` declares ZERO members of its own; everything it has is
+        // inherited, and its superinterfaces include `Channel` — which carries
+        // mute/solo/volume/pan/channelId. If those work on a layer chain then a
+        // device-scoped A/B needs no chain selector, no human-built preset and no
+        // bank slot, and the 4-chain Instrument Layer fixture already on disk is
+        // enough to test it. That reaches the master and the FX returns, which the
+        // track-native model cannot, and which E16r showed are the FIRST things to
+        // leave the addressable set as a lineage grows.
+        //
+        // ⚠ But a supertype method is a claim, not a capability, and this exact
+        // object has already proved it: `DeviceLayer.duplicateObject()` and
+        // `Channel.duplicate()` are both silent no-ops on a layer (E4d routes 1–2).
+        // The prior here is better than that — those are STRUCTURAL verbs and E4e
+        // explains their failure architecturally (an insertion point must bind to a
+        // referent, and a layer that does not exist has none), whereas mute() is
+        // state on a chain that already exists. Better is not proof, so the probe
+        // brackets it with controls and the ear, exactly as E16n did.
+        //
+        // The guard is standing rules 9/13: a throw in this constructor is the
+        // whole extension, before the bridge binds. `sendBank()` at size 0 already
+        // did precisely that once, so an unproven handle gets a status string and
+        // not a stack trace. `channelId()` is marked with them because if a layer
+        // HAS one, layers have durable identity — a fact nothing has ever asked
+        // for and which E16l's "channelId is the only identity" would gain a whole
+        // new population from.
+        int layerMixerMarked = 0;
+        try {
+            for (int l = 0; l < LAYER_BANK; l++) {
+                DeviceLayer layer = layerBank0.getItemAt(l);
+                layer.mute().markInterested();
+                layer.solo().markInterested();
+                layer.isActivated().markInterested();
+                layer.volume().value().markInterested();
+                layer.pan().value().markInterested();
+                layer.channelId().markInterested();
+                layerMixerMarked++;
+            }
+            layerMixerStatus = "marked:" + layerMixerMarked;
+        } catch (Throwable t) {
+            layerMixerStatus = "FAILED@" + layerMixerMarked + ":"
+                + t.getClass().getSimpleName() + ":" + t.getMessage();
         }
 
         cursorLayer0 = cursorDevice0.createCursorLayer();
@@ -474,7 +621,84 @@ public class Rig {
             });
         }
 
+        // ⚠ E16 §3.4g — the equals matrix. Last in the constructor deliberately:
+        // every proxy it pairs must already exist, and being last means a failure
+        // here costs nothing that came before it.
+        equalsStatus = buildEqualsProbes();
+
         constructNanos = System.nanoTime() - start;
+    }
+
+    /**
+     * Pre-allocate every `createEqualsValue` pair we could want, and mark them.
+     *
+     * ⚠ Returns a status string and never throws, for the reason standing rule 13
+     * exists: this is a `create*` at init and the failure mode it guards against
+     * is the extension not starting at all. A bricked init is indistinguishable
+     * from a bricked deploy from the probe's side, and we would spend a restart
+     * finding that out. `not-attempted` / `built:N` / `FAILED@N:…` says which.
+     *
+     * The four families, and what each is a guard FOR:
+     *
+     *   ct{i}=bank{n}   ⚠ the one D6 would actually use — "is pinned cursor i
+     *                   still the track at bank position n?". Name-and-position
+     *                   verification is what D6 does today; this is identity, and
+     *                   it should survive a rename (which the name check fails)
+     *                   and go false on a position shift (which nothing catches).
+     *   ct{i}=ct{j}     cursor aliasing. E2c's fixture contamination was two
+     *                   cursors on one track, diagnosed after the fact from
+     *                   symptoms; this would have said so directly. E16r sharpened
+     *                   it: a cursor past the pool THROWS, but two cursors pointed
+     *                   at one track is silent and still wrong.
+     *   clip{i}=clip{j} the same, one level down — and the honest test of whether
+     *   clip{i}=follower this helps CLIPS at all. E16l proved clips have no
+     *                   identity; if these read true only when two cursors are
+     *                   pointed at the same slot, that is a cursor guard wearing a
+     *                   clip's clothes, not the clip identity D6 wants.
+     *   dev0=chain{d}   "is the device cursor still the device at chain index d?",
+     *                   which is the E3 hazard — deleting device[0] slides the
+     *                   survivor from 1 to 0 under any index we were holding.
+     */
+    private String buildEqualsProbes() {
+        int built = 0;
+        try {
+            for (int i = 0; i < config.cursorPool; i++) {
+                for (int n = 0; n < config.tracks; n++) {
+                    equalsProbes.put("ct" + i + "=bank" + n,
+                        cursorTracks[i].createEqualsValue(trackBank.getItemAt(n)));
+                    built++;
+                }
+            }
+            for (int i = 0; i < config.cursorPool; i++) {
+                for (int j = i + 1; j < config.cursorPool; j++) {
+                    equalsProbes.put("ct" + i + "=ct" + j,
+                        cursorTracks[i].createEqualsValue(cursorTracks[j]));
+                    equalsProbes.put("clip" + i + "=clip" + j,
+                        cursorClips[i].createEqualsValue(cursorClips[j]));
+                    built += 2;
+                }
+            }
+            for (int i = 0; i < config.cursorPool; i++) {
+                equalsProbes.put("clip" + i + "=follower",
+                    cursorClips[i].createEqualsValue(followerClip));
+                built++;
+            }
+            for (int d = 0; d < config.deviceBank; d++) {
+                equalsProbes.put("dev0=chain" + d,
+                    cursorDevice0.createEqualsValue(cursorDeviceBanks[0].getDevice(d)));
+                built++;
+            }
+            // ⚠ Marked in a second pass, not inline. Creating and marking are two
+            // separate hazards (E2's observer gotcha is about reading an unmarked
+            // value; rule 13 is about creating at the wrong time), and separating
+            // them means the status string says which one failed.
+            for (com.bitwig.extension.controller.api.BooleanValue v : equalsProbes.values()) {
+                v.markInterested();
+            }
+            return "built:" + built;
+        } catch (Throwable t) {
+            return "FAILED@" + built + ":" + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
     }
 
     private static void markClip(Clip clip) {

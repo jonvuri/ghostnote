@@ -32,8 +32,11 @@ public final class ContainerHandlers extends HandlerGroup {
         r.on("layer.duplicate", params -> layerDuplicate(params));
         r.on("layer.duplicateChannel", params -> layerDuplicateChannel(params));
         r.on("layer.copyDeviceInto", params -> layerCopyDeviceInto(params));
+        r.on("layer.moveDeviceInto", params -> layerMoveDeviceInto(params));
+        r.on("layer.pasteInto", params -> layerPasteInto(params));
         r.on("layer.insertFile", params -> layerInsertFile(params));
         r.on("layer.insertRelative", params -> layerInsertRelative(params));
+        r.on("layer.setMixer", params -> layerSetMixer(params));
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));
         r.on("drumpad.duplicate", params -> drumPadDuplicate(params));
@@ -54,6 +57,19 @@ public final class ContainerHandlers extends HandlerGroup {
             JsonObject obj = new JsonObject();
             obj.addProperty("index", l);
             obj.addProperty("name", layer.name().get());
+            // ⚠ E16 — the `Channel` half of a DeviceLayer, read rather than assumed.
+            // Guarded per field so an unmarked or unsupported one names itself
+            // instead of failing the whole enumeration: the interesting outcome is
+            // "mute reads but volume does not", and a request-level failure would
+            // hide it. `channelId` is here because if a layer has one, layers have
+            // durable identity — which E16l's complete pass never thought to ask,
+            // having enumerated `Channel` for tracks only.
+            putGuarded(obj, "mute", () -> layer.mute().get());
+            putGuarded(obj, "solo", () -> layer.solo().get());
+            putGuarded(obj, "activated", () -> layer.isActivated().get());
+            putGuarded(obj, "volume", () -> layer.volume().value().get());
+            putGuarded(obj, "pan", () -> layer.pan().value().get());
+            putGuarded(obj, "channelId", () -> layer.channelId().get());
 
             JsonArray devices = new JsonArray();
             for (int d = 0; d < Rig.LAYER_DEVICE_BANK; d++) {
@@ -73,7 +89,85 @@ public final class ContainerHandlers extends HandlerGroup {
         result.add("layers", layers);
         result.addProperty("count", existing);
         putGuarded(result, "hasLayers", () -> rig.cursorDevice0.hasLayers().get());
+        // Whether the layer mixer handles survived init at all — see Rig. A row
+        // that reads `mute` as ERR everywhere means something different depending
+        // on this: "the handle was never marked" or "the API refuses it".
+        result.addProperty("layerMixerStatus", rig.layerMixerStatus);
         return result;
+    }
+
+    /**
+     * ⚠ E16 — drive a layer chain's mixer. The mirror of `branch.setMixer`, one
+     * level down, and the whole of the DeviceLayer-mute lead.
+     *
+     * **Why this could matter more than it looks.** The track-native model buys a
+     * lineage-level A/B by muting a group (E16m ●, sends and all), but it cannot
+     * reach the two places E16r showed leave the addressable set FIRST — the
+     * master and the FX returns — because an FX return cannot be forked at all
+     * (other tracks' sends still feed the original, §4.8). A device-scoped A/B is
+     * the only mechanism that reaches them, and until now the only candidate was a
+     * chain selector, which needs a multi-chain preset a human has to build by
+     * hand (Selectors ship with zero chains and E16o proved no verb seeds them).
+     * If a layer chain's `mute()` works, the 4-chain Instrument Layer fixture
+     * already on disk is enough, and it costs no bank slot and no C5 glitch.
+     *
+     * ⚠ **What it would NOT buy, so the row is not oversold.** Layer chains run in
+     * PARALLEL, so muting is not switching: §4.4 wants a single readable "which
+     * branch is live", and N mute flags is exactly the thing §4.4 exists to
+     * replace — E16m found the same shape one level up, where a child's own flag
+     * says nothing about whether its lineage is audible. A ChainSelector's
+     * `activeChainIndex()` IS that single readable integer. So this is the cheap
+     * A/B that works today with an asset we have; the selector remains the answer
+     * to §4.4, and §3.4e still has to be measured.
+     *
+     * ⚠ The destination is implicit in `cursorDevice0` — `rig.layerBank0` follows
+     * it — so the container must be the SELECTED device when this is called. That
+     * is the trap E16o nearly published a false negative on: aimed at a device
+     * with no layers this is a silent no-op that is byte-identical to an API
+     * refusal. `hasLayers` and the layer's own `exists` are checked first so the
+     * handler refuses loudly instead, and the probe still asserts the precondition
+     * separately from its question.
+     */
+    private JsonElement layerSetMixer(JsonObject params) {
+        int layerIndex = params.get("layerIndex").getAsInt();
+        if (layerIndex < 0 || layerIndex >= Rig.LAYER_BANK) {
+            throw new IllegalArgumentException("layerIndex out of bank range: " + layerIndex);
+        }
+        DeviceLayer layer = rig.layerBank0.getItemAt(layerIndex);
+        if (!layer.exists().get()) {
+            throw new IllegalArgumentException(
+                "no layer at index " + layerIndex + " — the cursor device is "
+                + rig.cursorDevice0.name().get() + ", hasLayers="
+                + rig.cursorDevice0.hasLayers().get());
+        }
+
+        JsonObject r = ok();
+        r.addProperty("layerIndex", layerIndex);
+        r.addProperty("layerName", layer.name().get());
+        if (params.has("mute")) {
+            boolean value = params.get("mute").getAsBoolean();
+            layer.mute().set(value);
+            r.addProperty("mute", value);
+        }
+        if (params.has("solo")) {
+            boolean value = params.get("solo").getAsBoolean();
+            layer.solo().set(value);
+            r.addProperty("solo", value);
+        }
+        if (params.has("activated")) {
+            boolean value = params.get("activated").getAsBoolean();
+            layer.isActivated().set(value);
+            r.addProperty("activated", value);
+        }
+        if (params.has("volume")) {
+            double value = params.get("volume").getAsDouble();
+            layer.volume().value().setImmediately(value);
+            r.addProperty("volume", value);
+        }
+        if (params.has("pan")) {
+            layer.pan().value().setImmediately(params.get("pan").getAsDouble());
+        }
+        return r;
     }
 
     /**
@@ -109,6 +203,84 @@ public final class ContainerHandlers extends HandlerGroup {
         int deviceIndex = params.get("deviceIndex").getAsInt();
         rig.layerBank0.getItemAt(layerIndex).endOfDeviceChainInsertionPoint()
             .copyDevices(rig.cursorDeviceBanks[0].getDevice(deviceIndex));
+        return ok();
+    }
+
+    /**
+     * ⚠ E16 §3.1 — MOVE an existing top-level device into a layer's chain.
+     *
+     * The exact sibling of `layerCopyDeviceInto` above, deliberately written as
+     * its mirror image so the two differ in one verb and nothing else. E4d route
+     * 3 recorded `copyDevices` into a layer as a silent no-op and concluded that
+     * devices cannot be relocated into layer chains — **from that single
+     * mechanism**, which is the shape that has produced four false negatives in
+     * this spike (CLAP params, channelId, chain creation, group creation). E4d
+     * itself exists only because E4c's ○ was overturned the same way.
+     *
+     * ⚠ The javadoc gives no reason to expect a different answer: `moveDevices`
+     * and `copyDevices` carry identical wording ("If it's not possible to do so
+     * then this does nothing"), and the class doc documents the silent no-op as
+     * INTENDED. So the case for probing is empirical, not documentary, and it
+     * rests on one measured fact: **this same insertion point demonstrably
+     * accepts inserts** — E4c landed a new Bitwig device in an existing layer
+     * chain through `endOfDeviceChainInsertionPoint()` in ~143ms. The
+     * destination is alive; only `copyDevices` was mute on it. Row A saw exactly
+     * this pattern one level up, where `copyTracks` was a no-op while three
+     * duplication verbs on the same object all worked.
+     *
+     * Why it matters beyond tidiness: FX returns cannot be forked (other tracks'
+     * sends still feed the original), so if devices can be relocated into layer
+     * chains then a chain selector becomes a device-scoped A/B that costs no
+     * bank slot, no duplication glitch, and reaches the master and the returns —
+     * which the track-native model cannot.
+     *
+     * ⚠ Verified by `layer.list` / `device.list` DIFF, never by this return: the
+     * acknowledgement is identical whether or not anything moved (E6 blocker 4).
+     */
+    private JsonElement layerMoveDeviceInto(JsonObject params) {
+        int layerIndex = params.get("layerIndex").getAsInt();
+        int deviceIndex = params.get("deviceIndex").getAsInt();
+        if (layerIndex < 0 || layerIndex >= Rig.LAYER_BANK) {
+            throw new IllegalArgumentException("layerIndex out of bank range: " + layerIndex);
+        }
+        if (deviceIndex < 0) {
+            throw new IllegalArgumentException("deviceIndex must be >= 0: " + deviceIndex);
+        }
+        Device source = rig.cursorDeviceBanks[0].getDevice(deviceIndex);
+        JsonObject r = ok();
+        // Read the source BEFORE moving it: afterwards the bank re-indexes and
+        // this handle may be pointing at whatever slid into its place (E3).
+        putGuarded(r, "sourceName", () -> source.name().get());
+        putGuarded(r, "sourceExists", () -> source.exists().get());
+        rig.layerBank0.getItemAt(layerIndex).endOfDeviceChainInsertionPoint().moveDevices(source);
+        return r;
+    }
+
+    /**
+     * ⚠ E16 §3.1 route 2 — `InsertionPoint.paste()` into a layer's chain.
+     *
+     * The complete-recall sweep of all 1968 API members found exactly three
+     * device-relocation verbs on `InsertionPoint`: `copyDevices` (○, E4d),
+     * `moveDevices` (above) and this. It is a genuinely INDEPENDENT mechanism —
+     * it takes its content from the clipboard rather than from a `Device`
+     * handle — so it can succeed where both of the others fail, and it is worth
+     * having on the wire before spending a second Bitwig restart to add it.
+     *
+     * ⚠ **This handler cannot fill the clipboard, and that is deliberate.**
+     * Doing so would mean `Application.cut()`/`copy()`, which act on the UI
+     * SELECTION our own addressing sets — E6 blocker 3, the mechanism that made
+     * seven orphan duplicates, and observed live again in `e16j`. So the probe
+     * asks the human to copy a device by hand and then calls this, which keeps
+     * the hazardous half outside the extension entirely. If the route turns out
+     * to work, whether to automate the clipboard at all is a separate decision
+     * with its own risk, and it stays the user's (rule 10).
+     */
+    private JsonElement layerPasteInto(JsonObject params) {
+        int layerIndex = params.get("layerIndex").getAsInt();
+        if (layerIndex < 0 || layerIndex >= Rig.LAYER_BANK) {
+            throw new IllegalArgumentException("layerIndex out of bank range: " + layerIndex);
+        }
+        rig.layerBank0.getItemAt(layerIndex).endOfDeviceChainInsertionPoint().paste();
         return ok();
     }
 

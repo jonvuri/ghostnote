@@ -74,7 +74,38 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   // Named one by one rather than by prefix: the list IS the record of what the
   // mini-spike put on the wire, and a prefix rule would let the next addition in
   // unnoticed.
-  const allowed = ['transport.play', 'device.insertVst3'];
+  // ⚠ Session 4 added three, all for §3.1 (can an existing device be MOVED into
+  // a layer?). They are relocation-verb probe surface and nothing else:
+  // `layer.moveDeviceInto` is the exact sibling of `layer.copyDeviceInto`, whose
+  // ○ in E4d rested on a single mechanism; `device.moveTo` is the same-track
+  // CONTROL, without which a no-op into a layer cannot be told from a verb that
+  // does nothing anywhere; `layer.pasteInto` is the independent clipboard route
+  // the complete-recall sweep turned up. None may become product surface.
+  //
+  // ⚠ Session 5 added five, in ONE restart because a Java change costs a full
+  // Bitwig restart and three rows needed one. Named individually for the same
+  // reason as the rest: the list IS the record, and a prefix rule would let the
+  // next addition in unnoticed.
+  //   slot.moveTo       §3.4f — moves a launcher clip. ⚠ Defaults to
+  //                     `replaceInsertionPoint().moveSlotsOrScenes()`; the
+  //                     `ClipLauncherSlotOrScene.moveTo` this is named after is
+  //                     @Deprecated (API 4) and is reachable only by asking for
+  //                     it by name, per standing rule 9.
+  //   slot.epoch        §3.4f — the detector, and the actual point of the row:
+  //                     a counter driven by per-bank `hasContent` observers, so
+  //                     "is a clip move detectable" can be answered PUSHED
+  //                     rather than only polled.
+  //   layer.setMixer    the DeviceLayer-mute lead — `Channel` on a layer chain,
+  //                     which would be a device-scoped A/B reaching the master
+  //                     and the FX returns that no fork can.
+  //   equals.status     §3.4g — reads the pre-allocated `createEqualsValue`
+  //   equals.tryCreate  matrix, and asks standing rule 13's question directly.
+  const allowed = [
+    'transport.play', 'device.insertVst3',
+    'device.moveTo', 'layer.moveDeviceInto', 'layer.pasteInto',
+    'slot.moveTo', 'slot.epoch', 'layer.setMixer',
+    'equals.status', 'equals.tryCreate',
+  ];
   const e16 = golden.addedInE16 ?? [];
   const unexpected = e16.filter((m) => !m.startsWith('branch.') && !allowed.includes(m));
   assert.deepEqual(unexpected, [], `E16 added an unexpected method: ${unexpected.join(', ')}`);

@@ -31,6 +31,8 @@ public final class CursorHandlers extends HandlerGroup {
         r.on("cursor.pointToClipOf", params -> cursorPointToClipOf(params));
         r.on("cursor.status", params -> cursorStatus(params));
         r.on("selection.status", params -> selectionStatus());
+        r.on("equals.status", params -> equalsStatus(params));
+        r.on("equals.tryCreate", params -> equalsTryCreate());
     }
 
     private JsonElement cursorPin(JsonObject params) {
@@ -79,6 +81,86 @@ public final class CursorHandlers extends HandlerGroup {
         if (clip instanceof PinnableCursorClip pinnable) {
             putGuarded(result, "isPinned", () -> pinnable.isPinned().get());
             putGuarded(result, "cursorTrackPosition", () -> rig.cursorTrack(ref).position().get());
+        }
+        return result;
+    }
+
+    // --------------------------------- E16 §3.4g: createEqualsValue as a guard
+
+    /**
+     * Read the pre-allocated equals matrix (see `Rig.buildEqualsProbes`).
+     *
+     * ⚠ Returns only pairs that read TRUE by default, plus the total, because the
+     * matrix is 65 entries and 60-odd `false`s are noise that hides the answer.
+     * `all: true` dumps everything for the run that needs to prove a pair went
+     * false rather than merely stopped being mentioned — the distinction E16r's
+     * bank-window row turned on, where "not in the list" and "reported absent"
+     * are different claims.
+     *
+     * ⚠ Every read goes through `putGuarded`, so a value that was created but not
+     * successfully marked reports its own error rather than failing the request.
+     * That matters here more than usual: `Rig.equalsStatus` says whether the BUILD
+     * survived, and these say whether the READ does, and rule 13 could bite at
+     * either point.
+     */
+    private JsonElement equalsStatus(JsonObject params) {
+        boolean all = params.has("all") && params.get("all").getAsBoolean();
+        JsonObject pairs = new JsonObject();
+        int trues = 0;
+        for (var entry : rig.equalsProbes.entrySet()) {
+            Boolean value = null;
+            try {
+                value = entry.getValue().get();
+            } catch (Exception e) {
+                pairs.addProperty(entry.getKey(), "ERR:" + e.getMessage());
+                continue;
+            }
+            if (Boolean.TRUE.equals(value)) {
+                trues++;
+            }
+            if (all || Boolean.TRUE.equals(value)) {
+                pairs.addProperty(entry.getKey(), value);
+            }
+        }
+        JsonObject result = new JsonObject();
+        result.addProperty("buildStatus", rig.equalsStatus);
+        result.addProperty("pairCount", rig.equalsProbes.size());
+        result.addProperty("trueCount", trues);
+        result.add("pairs", pairs);
+        return result;
+    }
+
+    /**
+     * ⚠ Ask standing rule 13's question DIRECTLY: does `createEqualsValue` throw
+     * when called outside `init()`?
+     *
+     * Rule 13 predicts it does — it is a `create*`, and four unrelated subsystems
+     * enforce init-only allocation with the same sentence. But the rule is stated
+     * as a DEFAULT to assume, not a law that has been checked on this method, and
+     * the difference decides whether the guard can ever be built on demand for an
+     * arbitrary pair or must always come out of a fixed pre-allocated matrix. The
+     * matrix is the expensive answer: it bounds the guard to pairs we predicted.
+     *
+     * ⚠ Deliberately does NOT `markInterested` the result. Creating and marking
+     * are separate hazards and this asks about creating; marking an object whose
+     * legality is exactly what is in question would confound the two, and the
+     * read below reporting an observer-gotcha error is itself informative.
+     *
+     * Safe to run: E14-C2 and E14-I5 both provoked this same init-only refusal at
+     * request time and both were contained. The one that was NOT contained was
+     * `Signal.fire()`, where Bitwig raised on its own thread — a different shape,
+     * and the reason `ui.signalFire` is FORBIDDEN rather than merely banned.
+     */
+    private JsonElement equalsTryCreate() {
+        JsonObject result = ok();
+        try {
+            var fresh = rig.cursorTracks[0].createEqualsValue(rig.trackBank.getItemAt(0));
+            result.addProperty("created", true);
+            putGuarded(result, "readsAs", () -> fresh.get());
+        } catch (Throwable t) {
+            result.addProperty("created", false);
+            result.addProperty("threw", t.getClass().getSimpleName());
+            result.addProperty("message", String.valueOf(t.getMessage()));
         }
         return result;
     }

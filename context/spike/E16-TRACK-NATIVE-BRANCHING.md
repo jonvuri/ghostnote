@@ -16,6 +16,25 @@ supersedes framing of: HANDOFF-E16-SIBLINGS.md task 2 ("the sibling-track
 
 # The track-native branching model
 
+> ⚠⚠ **STALENESS BANNER, 2026-07-30 — READ BEFORE §2 AND §7.** Session 4 answered
+> several things this document still calls unmeasured. **A full revision is §4 of
+> the re-plan and has NOT been done**; this banner exists so nothing below is read
+> as still-open when it is settled. See `E16-OPEN-QUESTIONS.md` and FINDINGS
+> `E16m`, `E16n`/`E16o`, `E16p`/`E16q`, `E16r`.
+>
+> | this doc says | now |
+> |---|---|
+> | §2, §7.2 "does muting a GROUP silence its children?" — *unmeasured, the claim the model leans on hardest* | ● **yes, and it cuts their sends too**, pre- and post-fader (E16m) |
+> | §2, §7.1 "D4 — bank-window headroom" — *the single highest-value gap* | ● measured, **and it is worse than a ceiling**: the Master and FX returns leave the addressable set FIRST, and a fork at the ceiling mints an un-nameable orphan (E16r) |
+> | §4.4 "whether any parameter can drive a sibling track's mute" | still open — but ⚠ **§3.1's ● opens a different route**: devices can now be MOVED into a layer chain carrying their state (E16n/E16o) |
+> | §4.13 / §1b naming | ● the middle dot round-trips exactly (E16q) |
+> | §6.1 "the bank window becomes the history budget" | ● quantified, and see the E16r caveats |
+>
+> ⚠ **One correction this document will need in §4:** §4.1 says nothing may infer
+> branch state from mute. E16m sharpens that — a child's own mute flag is
+> **unchanged** by its parent's mute, so at the lineage level the children do not
+> carry the state at all.
+
 > ⚠ **This is an analysis, not a proposal and not a decision.** It enumerates
 > what the planned branch/take system was for, and what happens to each part
 > under the model. Where it degrades, it says what specifically is lost. §8's

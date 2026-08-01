@@ -33,6 +33,7 @@ public final class DeviceHandlers extends HandlerGroup {
         r.on("device.list", params -> deviceList(params));
         r.on("device.delete", params -> deviceDelete(params));
         r.on("device.duplicate", params -> deviceDuplicate(params));
+        r.on("device.moveTo", params -> deviceMoveTo(params));
         r.on("device.insertFile", params -> deviceInsertFile(params));
         r.on("device.insertFileAt", params -> deviceInsertFileAt(params));
         r.on("device.nesting", params -> deviceNesting());
@@ -122,6 +123,98 @@ public final class DeviceHandlers extends HandlerGroup {
     private JsonElement deviceDuplicate(JsonObject params) {
         rig.cursorDeviceBanks[0].getDevice(params.get("deviceIndex").getAsInt()).duplicateObject();
         return ok();
+    }
+
+    /**
+     * ⚠ E16 §3.1 — `InsertionPoint.moveDevices` to a SAME-TRACK destination.
+     *
+     * **This is the control, and without it the row measures nothing.**
+     *
+     * `layer.moveDeviceInto` asks whether a device can be moved INTO a layer.
+     * If that comes back a silent no-op, there are two completely different
+     * worlds consistent with the observation — "layers refuse relocation" and
+     * "`moveDevices` does nothing anywhere" — and the first is a finding about
+     * layers while the second is a finding about the verb. A probe that cannot
+     * separate them has repeated E6's mistake, whose control was a different
+     * object read through a different oracle and therefore could not distinguish
+     * "the channel is dead" from "this action does nothing".
+     *
+     * So this moves a device to a destination we have every reason to expect
+     * works: another position in the SAME flat device chain, which involves no
+     * nesting, no container and no re-parenting — just reordering. A ● here plus
+     * a ○ in the layer makes the layer result mean something. A ○ here makes the
+     * whole row inconclusive, and the probe should say so rather than writing up
+     * a negative about layers.
+     *
+     * Four destinations, because `InsertionPoint` is reachable from two kinds of
+     * anchor and they are not the same object:
+     *
+     *   before / after   `Device.beforeDeviceInsertionPoint()` / `after…`
+     *   chainStart / chainEnd  `DeviceChain.startOfDeviceChainInsertionPoint()` / `end…`
+     *
+     * ⚠ Every input is validated BEFORE the call (standing rule 3c): an
+     * exception Bitwig defers to its own thread escapes every extension frame
+     * and takes the DAW down (E14-A1). An unknown `where` throws here, before
+     * anything Bitwig-side is touched.
+     */
+    private JsonElement deviceMoveTo(JsonObject params) {
+        String ref = params.has("cursor") ? params.get("cursor").getAsString() : "0";
+        int cursorIndex = Integer.parseInt(ref);
+        int deviceIndex = params.get("deviceIndex").getAsInt();
+        String where = params.has("where") ? params.get("where").getAsString() : "after";
+        if (deviceIndex < 0) {
+            throw new IllegalArgumentException("deviceIndex must be >= 0: " + deviceIndex);
+        }
+        if (!"before".equals(where) && !"after".equals(where)
+            && !"chainStart".equals(where) && !"chainEnd".equals(where)) {
+            throw new IllegalArgumentException(
+                "where must be before, after, chainStart or chainEnd: " + where);
+        }
+
+        DeviceBank bank = rig.cursorDeviceBanks[cursorIndex];
+        Device source = bank.getDevice(deviceIndex);
+
+        JsonObject r = ok();
+        r.addProperty("where", where);
+        r.addProperty("deviceIndex", deviceIndex);
+        // ⚠ Read the source's name BEFORE the move. Afterwards the chain
+        // re-indexes (E3: deleting device[0] shifts the survivor from 1 to 0),
+        // so this handle no longer necessarily refers to what was moved — and a
+        // name read after the fact is how a probe reports the wrong device.
+        putGuarded(r, "sourceName", () -> source.name().get());
+        putGuarded(r, "sourceExists", () -> source.exists().get());
+
+        switch (where) {
+            case "before":
+            case "after": {
+                int anchorIndex = params.get("anchorIndex").getAsInt();
+                if (anchorIndex < 0) {
+                    throw new IllegalArgumentException("anchorIndex must be >= 0: " + anchorIndex);
+                }
+                if (anchorIndex == deviceIndex) {
+                    throw new IllegalArgumentException(
+                        "anchorIndex must differ from deviceIndex, or the move is a no-op by "
+                        + "construction and would be indistinguishable from a failure");
+                }
+                Device anchor = bank.getDevice(anchorIndex);
+                r.addProperty("anchorIndex", anchorIndex);
+                putGuarded(r, "anchorName", () -> anchor.name().get());
+                if ("before".equals(where)) {
+                    anchor.beforeDeviceInsertionPoint().moveDevices(source);
+                } else {
+                    anchor.afterDeviceInsertionPoint().moveDevices(source);
+                }
+                break;
+            }
+            case "chainStart":
+                rig.cursorTrack(ref).startOfDeviceChainInsertionPoint().moveDevices(source);
+                break;
+            case "chainEnd":
+            default:
+                rig.cursorTrack(ref).endOfDeviceChainInsertionPoint().moveDevices(source);
+                break;
+        }
+        return r;
     }
 
     /**
