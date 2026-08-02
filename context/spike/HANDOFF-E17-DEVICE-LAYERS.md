@@ -1,9 +1,17 @@
 ---
 title: Handoff for E17 — unlock device layers, then decide the DEVICE branching model
-status: The track-native model is chosen for the project. ⚠ This session asks
-        one bounded question underneath it: should DEVICE branching be layers
-        rather than tracks? Six capability rows, then the call.
-        ⚠ Nothing goes into DECISIONS.md (standing rule 10).
+status: ⚠ CLOSED 2026-08-02 — SUPERSEDED BY `HANDOFF-E18-BRANCH-UNLOCK.md`.
+        E17 answered its question and then overturned its own answer three times.
+        ⚠ Do not read the body below for current state: almost every ○ in it was a
+        HARNESS artifact, corrected later. The surviving results and the method
+        guards that cost the most to learn are consolidated in the E18 handoff §1
+        and §2; `FINDINGS.md` "E17" carries the detail and the corrections.
+        ⚠ In one line: a chain can be CREATED autonomously
+        (`layer.select` + `Channel.duplicate()`); it CANNOT be destroyed by any
+        typed route (exhausted, with a mechanism that predicts it); rows 5 and 6
+        stand ●●; the track-vs-device DECISION is still the user's and is carried
+        forward to E18 along with `E16-REPLAN.md` §3.
+        ⚠ Nothing went into DECISIONS.md.
 updated: 2026-08-01
 predecessor: E16-OPEN-QUESTIONS.md (session 4), E16-REPLAN.md (session 5)
 model doc: E16-TRACK-NATIVE-BRANCHING.md (⚠ carries a staleness banner)

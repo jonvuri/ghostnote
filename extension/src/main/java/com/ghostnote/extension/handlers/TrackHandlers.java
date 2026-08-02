@@ -29,6 +29,7 @@ public final class TrackHandlers extends HandlerGroup {
         r.on("track.setName", params -> trackSetName(params));
         r.on("track.list", params -> trackList());
         r.on("track.delete", params -> trackDelete(params));
+        r.on("track.deleteViaAction", params -> trackDeleteViaAction(params));
         r.on("track.resolveByChannelId", params -> trackResolveByChannelId(params));
         r.on("clip.create", params -> clipCreate(params));
         r.on("slot.status", params -> slotStatus(params));
@@ -76,6 +77,54 @@ public final class TrackHandlers extends HandlerGroup {
         result.addProperty("itemCount", rig.trackBank.itemCount().get());
         result.addProperty("bankSize", rig.config.tracks);
         return result;
+    }
+
+    /**
+     * ⚠⚠ E17 row 4 — THE VERB CONTROL for `layer.deleteViaAction`, and it only
+     * works as a control because of the type hierarchy.
+     *
+     *     Channel extends DeviceChain, DeleteableObject, DuplicableObject
+     *        ↑                              ↑
+     *     Track                        DeviceLayer   (an EMPTY interface body:
+     *     + isGroup, position, …        `interface DeviceLayer extends Channel {}`)
+     *
+     * `Track` and `DeviceLayer` are **siblings**, both plain `Channel`s, and both
+     * inherit `deleteObjectAction()` from the same place. So this is the identical
+     * call on the identical inherited method, differing only in the receiver — the
+     * strongest control shape available, and the one that made `e17f`'s ○ worth
+     * something (`Device.deleteObject()` ● beside `DeviceLayer.deleteObject()` ○).
+     *
+     *   this ● and the layer ○  ⇒ the route works; DeviceLayer specifically declines
+     *   both ○                  ⇒ the `*Action()` form is dead everywhere, and the
+     *                             layer result measures nothing about layers
+     *
+     * ⚠ Without it, a ○ on the layer side is uninterpretable — exactly the mistake
+     * that let a dozen E17 negatives stand for most of the spike.
+     *
+     * ⚠ This DELETES A TRACK. It is probe surface only, banned from the contract
+     * like every other destructive route (standing rule 6 / E6 blocker 3).
+     */
+    private JsonElement trackDeleteViaAction(JsonObject params) {
+        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        JsonObject r = ok();
+        putGuarded(r, "name", () -> track.name().get());
+        putGuarded(r, "channelId", () -> track.channelId().get());
+        // ⚠ Rule 13 again: init-time handle, indexed by bank slot.
+        int ti = params.get("trackIndex").getAsInt();
+        r.addProperty("handleStatus", rig.trackDeleteActionStatus);
+        try {
+            if (rig.trackDeleteAction == null || ti >= rig.trackDeleteAction.length
+                || rig.trackDeleteAction[ti] == null) {
+                r.addProperty("actionInvoke", "NO HANDLE: " + rig.trackDeleteActionStatus);
+                return r;
+            }
+            rig.trackDeleteAction[ti].invoke();
+            r.addProperty("actionInvoke", "returned");
+        } catch (Throwable t) {
+            r.addProperty("actionInvoke",
+                "THREW:" + t.getClass().getSimpleName() + ":" + t.getMessage());
+        }
+        return r;
     }
 
     private JsonElement trackDelete(JsonObject params) {

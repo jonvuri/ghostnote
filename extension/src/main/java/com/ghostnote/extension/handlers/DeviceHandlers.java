@@ -37,6 +37,7 @@ public final class DeviceHandlers extends HandlerGroup {
         r.on("device.insertFile", params -> deviceInsertFile(params));
         r.on("device.insertFileAt", params -> deviceInsertFileAt(params));
         r.on("device.nesting", params -> deviceNesting());
+        r.on("device.selectInEditor", params -> deviceSelectInEditor(params));
         r.on("devcursor.status", params -> devcursorStatus());
         r.on("devcursor.pin", params -> devcursorPin(params));
         r.on("devcursor.selectInChannel", params -> devcursorSelectInChannel(params));
@@ -117,6 +118,58 @@ public final class DeviceHandlers extends HandlerGroup {
         int deviceIndex = params.get("deviceIndex").getAsInt();
         rig.cursorDeviceBanks[i].getDevice(deviceIndex).deleteObject();
         return ok();
+    }
+
+    /**
+     * ⚠ E17 row 1 — make a DEVICE the UI selection. `Device.selectInEditor()`
+     * (API v1, not deprecated): *"Selects the device in Bitwig Studio."*
+     *
+     * **Row 1 cannot be probed without this, and that is the point.** A named
+     * action fires against the UI selection (E6 blocker 3), and `devcursor.selectAt`
+     * does NOT set it: it calls `CursorDevice.selectDevice()` on a cursor whose
+     * owning cursor track was created with `shouldFollowSelection=false`, which
+     * moves OUR handle and leaves Bitwig's selection alone. So every previous
+     * attempt to reason about device-scoped named actions was reasoning about a
+     * selection we had never actually set.
+     *
+     * ⚠ Which makes the pairing explicit: E4d route 7 swept 781 actions and found
+     * none that create chains, and `e17a` has now re-swept the same 781 for the
+     * CONCEPT rather than the guess. `Group` (id `Group`, category Editing) is in
+     * that list. E16j fired it with a TRACK selected and got a group track — the
+     * finding that unblocked the whole track-native model. Nobody has ever fired
+     * it with a DEVICE selected, because nobody could.
+     *
+     * ⚠ **The hazard is real and E6 earned it.** An action fires against whatever
+     * is selected NOW, and E16j made seven orphan duplicates exactly this way. So
+     * this handler reports the device it is selecting BY NAME, before selecting
+     * it, and the probe asserts the selection landed before firing anything — then
+     * verifies by `device.list` / `layer.list` DIFF, never by a return value.
+     */
+    private JsonElement deviceSelectInEditor(JsonObject params) {
+        int cursorIndex = params.has("cursor") ? Integer.parseInt(params.get("cursor").getAsString()) : 0;
+        int deviceIndex = params.get("deviceIndex").getAsInt();
+        // Validate before calling (rule 3c) — a throw Bitwig defers to its own
+        // thread escapes every extension frame and takes the DAW down (E14-A1).
+        if (cursorIndex < 0 || cursorIndex >= rig.config.cursorPool) {
+            throw new IllegalArgumentException("cursor out of pool range: " + cursorIndex);
+        }
+        if (deviceIndex < 0 || deviceIndex >= rig.config.deviceBank) {
+            throw new IllegalArgumentException("deviceIndex out of bank range: " + deviceIndex);
+        }
+        Device target = rig.cursorDeviceBanks[cursorIndex].getDevice(deviceIndex);
+        JsonObject r = ok();
+        r.addProperty("deviceIndex", deviceIndex);
+        // Named before the act: after this the UI selection has moved, and a probe
+        // that cannot say WHAT it selected cannot interpret what an action did.
+        putGuarded(r, "deviceName", () -> target.name().get());
+        putGuarded(r, "deviceExists", () -> target.exists().get());
+        if (!target.exists().get()) {
+            throw new IllegalArgumentException(
+                "no device at index " + deviceIndex + " — selecting nothing and then firing a "
+                + "named action is how E16j made seven orphan duplicates");
+        }
+        target.selectInEditor();
+        return r;
     }
 
     /** Duplicating a container device — does it bring its layers along? */

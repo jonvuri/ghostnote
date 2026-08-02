@@ -1,6 +1,8 @@
 package com.ghostnote.extension;
 
 import com.bitwig.extension.controller.api.Application;
+import com.bitwig.extension.controller.api.HardwareActionBindable;
+import com.bitwig.extension.controller.api.NotificationSettings;
 import com.bitwig.extension.controller.api.Clip;
 import com.bitwig.extension.controller.api.ClipLauncherSlot;
 import com.bitwig.extension.controller.api.ClipLauncherSlotBank;
@@ -46,6 +48,27 @@ public class Rig {
     public final long constructNanos;
 
     public final Application application;
+    /**
+     * ⚠ E17 — the SECOND, independent oracle for "did the device-layer selection
+     * actually change". `NotificationSettings` carries a toggle dedicated to it:
+     *
+     *     setShouldShowSelectionNotifications
+     *     setShouldShowChannelSelectionNotifications
+     *     setShouldShowTrackSelectionNotifications
+     *     setShouldShowDeviceSelectionNotifications
+     *   ⚠ setShouldShowDeviceLayerSelectionNotifications   ← its own channel
+     *
+     * That Bitwig ships a separate notification for device-layer selection is
+     * independent evidence the concept exists internally, distinct from device
+     * selection. Switched on, it makes the state change VISIBLE to the operator —
+     * so "does a human click change it" and "does our selectInEditor change it"
+     * can be compared by eye, without depending on the observer alone.
+     *
+     * ⚠ Two instruments that can disagree is the point (rule 10). One readback
+     * agreeing with itself is not evidence.
+     */
+    public NotificationSettings notifications;
+    public String notificationsStatus = "not-attempted";
     public final com.bitwig.extension.controller.api.Project project;
     public final TrackBank trackBank;
     public final SceneBank sceneBank;
@@ -277,6 +300,49 @@ public class Rig {
     /** Ditto for the DeviceLayer mixer handles: E16 §3.4 lead, `Channel` on a layer. */
     public String layerMixerStatus = "not-attempted";
 
+    /**
+     * ⚠⚠ E17 — whether each layer chain is the UI selection, written by observers.
+     *
+     * The missing instrument of this session. `e17k` could not tell "the named
+     * actions ignore layers" from "our selection never landed", and had to spend a
+     * human-assisted probe (`e17l`) to find out it was the second. These two flags
+     * turn that into a precondition a probe can assert for itself.
+     *
+     * Both observers exist on `DeviceChain` and neither had ever been allocated —
+     * and being init-only (rule 13) is exactly why the gap could not be closed
+     * without another restart. Written on the control-surface thread and read by
+     * handlers on the same thread, the `selectedTrackIndex` pattern.
+     */
+    public final boolean[] layerSelectedInEditor = new boolean[LAYER_BANK];
+    public final boolean[] layerSelected = new boolean[LAYER_BANK];
+
+    /**
+     * ⚠⚠ E17 row 4 — the `*Action()` handles, allocated at INIT because Bitwig
+     * refuses to hand them out later.
+     *
+     * The first attempt called `layer.deleteObjectAction()` lazily inside the
+     * handler and every arm threw **"This can only be called during driver
+     * initialization"**. That is standing rule 13 verbatim — a
+     * `HardwareActionBindable` is a Bitwig RESOURCE, and resources are init-only —
+     * and it was walked straight past. The three ○s it produced measured nothing
+     * about layers; they measured the handle never being obtained.
+     *
+     * ⚠ Held per BANK SLOT, not per chain: `layerBank0.getItemAt(i)` is a proxy for
+     * "slot i of whatever the bank is currently scoped to", so an action captured
+     * here should follow the bank. ⚠ That is an ASSUMPTION about bank semantics and
+     * the probe must verify it by NAMING the survivor, never by counting.
+     */
+    public final HardwareActionBindable[] layerDeleteAction = new HardwareActionBindable[LAYER_BANK];
+    public final HardwareActionBindable[] layerDuplicateAction = new HardwareActionBindable[LAYER_BANK];
+    public String layerDeleteActionStatus = "not-attempted";
+    public String layerDuplicateActionStatus = "not-attempted";
+    /** ⚠ The sibling CONTROL: the same inherited call on a Track. */
+    public HardwareActionBindable[] trackDeleteAction;
+    public String trackDeleteActionStatus = "not-attempted";
+    public String layerSelectionStatus = "not-attempted";
+    /** ⚠ Reported separately so a @Deprecated failure cannot be read as the current one failing. */
+    public String layerSelectionLegacyStatus = "not-attempted";
+
     public Rig(ControllerHost host, RigConfig config) {
         long start = System.nanoTime();
         this.config = config;
@@ -292,6 +358,16 @@ public class Rig {
         application = host.createApplication();
         application.canUndo().markInterested();
         application.canRedo().markInterested();
+
+        // ⚠ Rule 13: allocated at init, never mid-probe. Guarded because a throw in
+        // this constructor takes the whole extension down before the bridge binds.
+        // ⚠ Marked in its OWN try block — the lesson this session paid for twice.
+        try {
+            notifications = host.getNotificationSettings();
+            notificationsStatus = notifications == null ? "null" : "ok";
+        } catch (Throwable t) {
+            notificationsStatus = "FAILED:" + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
         project = host.getProject();
 
         // Flat track list so tracks nested in groups are addressable.
@@ -547,6 +623,109 @@ public class Rig {
             layerMixerStatus = "marked:" + layerMixerMarked;
         } catch (Throwable t) {
             layerMixerStatus = "FAILED@" + layerMixerMarked + ":"
+                + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
+
+        // ⚠⚠ E17 — IS THIS LAYER THE UI SELECTION? The readback whose ABSENCE cost
+        // this session two inconclusive rows and a human-assisted probe.
+        //
+        // `e17k` fired `Duplicate`, `Copy`+`Paste` and `Delete` at a layer we had
+        // "selected" via `DeviceChain.selectInEditor()` and got nothing, four
+        // routes. That ○ was UNINTERPRETABLE, because two different worlds produce
+        // it — the actions ignore layers, or our selection never landed — and
+        // **nothing in the API reported which.** `e17l` had to put a human in the
+        // loop to split them, and the answer was the second: with a HUMAN-set
+        // selection the very same actions worked (Copy+Paste 4→5, Delete 4→3).
+        //
+        // `DeviceChain` carries two selection observers and neither had ever been
+        // allocated. Rule 13 is why they could not simply be added mid-probe: they
+        // are init-only, so the missing readback cost a whole extra restart. Both
+        // are marked here so a probe can assert "the layer IS selected" as a
+        // PRECONDITION, separately from its question — which is the discipline
+        // E16o established and the thing `e17k` could not do.
+        //
+        // ⚠ Guarded for the same reason as the mixer block above: a throw in this
+        // constructor is the whole extension, before the bridge binds.
+        //
+        // ⚠⚠ FIXED 2026-08-01 — the two observers were marked inside ONE try block,
+        // and it cost the good one. `addIsSelectedObserver` IS @Deprecated and threw
+        // ("deprecated since API version 2") on the very first layer, so the catch
+        // fired before `addIsSelectedInEditorObserver` — documented CURRENT — was
+        // ever reached for layers 1..N, and the status read `FAILED@0`. Rule 9 says
+        // check @Deprecated before wiring; the subtler lesson is that **a guard
+        // around two calls reports on neither**. They are split so one can fail
+        // without taking the other, and each reports its own status.
+        //
+        // ⚠ This is no longer load-bearing. `cursorLayer0.name()` turned out to
+        // track the chain selection already (5/5 against human eyes in `e17u`,
+        // non-disturbing per `e17v` PART 0), so the readback exists without this.
+        // It is kept as an INDEPENDENT second instrument — two disagreeing readbacks
+        // is a finding, one readback agreeing with itself is not.
+        int layerSelMarked = 0;
+        try {
+            for (int l = 0; l < LAYER_BANK; l++) {
+                final int idx = l;
+                layerBank0.getItemAt(l).addIsSelectedInEditorObserver(v -> layerSelectedInEditor[idx] = v);
+                layerSelMarked++;
+            }
+            layerSelectionStatus = "observing:" + layerSelMarked;
+        } catch (Throwable t) {
+            layerSelectionStatus = "FAILED@" + layerSelMarked + ":"
+                + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
+
+        // ⚠ Separately, and expected to fail: @Deprecated since API v2. Marked only
+        // so its failure is RECORDED rather than inferred, and so it can never again
+        // take the current observer down with it.
+        int layerSelLegacyMarked = 0;
+        try {
+            for (int l = 0; l < LAYER_BANK; l++) {
+                final int idx = l;
+                layerBank0.getItemAt(l).addIsSelectedObserver(v -> layerSelected[idx] = v);
+                layerSelLegacyMarked++;
+            }
+            layerSelectionLegacyStatus = "observing:" + layerSelLegacyMarked;
+        } catch (Throwable t) {
+            layerSelectionLegacyStatus = "FAILED@" + layerSelLegacyMarked + ":"
+                + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
+
+        // ⚠⚠ Rule 13: obtain the `*Action()` handles HERE. Bitwig throws
+        // "This can only be called during driver initialization" anywhere else.
+        // ⚠ Three separate try blocks — one failure must not cost the others, the
+        // lesson the selection observers taught earlier this session.
+        int ldMarked = 0;
+        try {
+            for (int l = 0; l < LAYER_BANK; l++) {
+                layerDeleteAction[l] = layerBank0.getItemAt(l).deleteObjectAction();
+                ldMarked++;
+            }
+            layerDeleteActionStatus = "held:" + ldMarked;
+        } catch (Throwable t) {
+            layerDeleteActionStatus = "FAILED@" + ldMarked + ":"
+                + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
+        int luMarked = 0;
+        try {
+            for (int l = 0; l < LAYER_BANK; l++) {
+                layerDuplicateAction[l] = layerBank0.getItemAt(l).duplicateObjectAction();
+                luMarked++;
+            }
+            layerDuplicateActionStatus = "held:" + luMarked;
+        } catch (Throwable t) {
+            layerDuplicateActionStatus = "FAILED@" + luMarked + ":"
+                + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
+        int tdMarked = 0;
+        try {
+            trackDeleteAction = new HardwareActionBindable[config.tracks];
+            for (int i = 0; i < config.tracks; i++) {
+                trackDeleteAction[i] = trackBank.getItemAt(i).deleteObjectAction();
+                tdMarked++;
+            }
+            trackDeleteActionStatus = "held:" + tdMarked;
+        } catch (Throwable t) {
+            trackDeleteActionStatus = "FAILED@" + tdMarked + ":"
                 + t.getClass().getSimpleName() + ":" + t.getMessage();
         }
 

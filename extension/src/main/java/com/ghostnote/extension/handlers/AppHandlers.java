@@ -28,9 +28,73 @@ public final class AppHandlers extends HandlerGroup {
     public void register(HandlerRegistry r) {
         r.on("app.actions", params -> appActions(params));
         r.on("app.invokeAction", params -> appInvokeAction(params));
+        r.on("app.selectionNotifications", params -> appSelectionNotifications(params));
         r.on("transport.play", params -> transportPlay());
         r.on("transport.stop", params -> transportStop());
         r.on("transport.status", params -> transportStatus());
+    }
+
+    /**
+     * ⚠⚠ E17 — turn Bitwig's own DEVICE-LAYER SELECTION notification on, as a
+     * second and independent oracle.
+     *
+     * **Why this is worth a wire method.** `NotificationSettings` carries a toggle
+     * dedicated to device-layer selection, listed separately from the channel,
+     * track and device ones. That Bitwig ships a distinct notification channel for
+     * it is independent evidence the concept exists internally — and switched on,
+     * it makes the state change VISIBLE, so the open question can be settled by the
+     * operator's eyes rather than by the observer alone:
+     *
+     *   a HUMAN clicks a chain      → does Bitwig announce a layer selection?
+     *   we call selectInEditor()    → does it announce the same thing?
+     *
+     * ⚠ **The point is that this can DISAGREE with `layer.selectionState`.** Two
+     * instruments that could contradict each other is evidence; one instrument
+     * agreeing with itself is not (rule 10). If the observer says "selected" and
+     * Bitwig never announces it, the observer is reporting something other than
+     * what the DAW means by a layer selection.
+     *
+     * ⚠ Every flag is settable here, not just the layer one, so the layer arm has
+     * siblings to be read against — a notification that fires for everything is
+     * not a signal. Absent params leave a flag untouched.
+     */
+    private JsonElement appSelectionNotifications(JsonObject params) {
+        JsonObject result = new JsonObject();
+        result.addProperty("status", rig.notificationsStatus);
+        if (rig.notifications == null) {
+            result.addProperty("applied", false);
+            return result;
+        }
+        JsonArray applied = new JsonArray();
+        // ⚠ Each in its OWN try: one unsupported flag must not cost the others.
+        // This session lost a working observer to exactly that mistake.
+        setFlag(params, applied, "deviceLayer",
+            v -> rig.notifications.setShouldShowDeviceLayerSelectionNotifications(v));
+        setFlag(params, applied, "device",
+            v -> rig.notifications.setShouldShowDeviceSelectionNotifications(v));
+        setFlag(params, applied, "track",
+            v -> rig.notifications.setShouldShowTrackSelectionNotifications(v));
+        setFlag(params, applied, "channel",
+            v -> rig.notifications.setShouldShowChannelSelectionNotifications(v));
+        setFlag(params, applied, "selection",
+            v -> rig.notifications.setShouldShowSelectionNotifications(v));
+        result.add("applied", applied);
+        return result;
+    }
+
+    private interface FlagSetter { void set(boolean v); }
+
+    private void setFlag(JsonObject params, JsonArray applied, String key, FlagSetter fn) {
+        if (!params.has(key)) {
+            return;
+        }
+        boolean v = params.get(key).getAsBoolean();
+        try {
+            fn.set(v);
+            applied.add(key + "=" + v);
+        } catch (Throwable t) {
+            applied.add(key + "=THREW:" + t.getClass().getSimpleName() + ":" + t.getMessage());
+        }
     }
 
     /** Dump the named-action list (E6 overlap): is layer creation an action? */

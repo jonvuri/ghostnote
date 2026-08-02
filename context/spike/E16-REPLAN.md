@@ -3,12 +3,14 @@ title: ghostnote — E16 session 5, job 2: the re-plan onto the track-native mod
 status: IN PROGRESS. Standing rules 5/6/7 restated; PHASE-1 sessions 2 and 3
         dispositioned. PROJECT_PLAN §5/§7, PHASE-3 and the two E16 spike docs
         are NOT yet done.
-        ⚠⚠ §3 IS CONTINGENT ON E17. The user has opened the question of whether
-        DEVICE branching should be layer chains rather than track forks, with
-        note branching moving to clips. If layers win, §3 stops being "the
-        answer for the master and the FX returns" and becomes the primary
-        device-branching mechanism, and §1's rule 5 changes shape. §1 and §2 are
-        NOT contingent and can be started. See HANDOFF-E17-DEVICE-LAYERS.md.
+        ⚠ §3 IS NO LONGER CONTINGENT — E17 answered it (2026-08-01).
+        DEVICE takes are TRACKS: a layer chain cannot be created beside a
+        sibling and cannot be deleted (FINDINGS E17 rows 1-4). So §3 keeps its
+        original scope as the answer for the MASTER and the FX RETURNS only, and
+        §1's rule 5 does NOT change shape. ⚠ One amendment is owed to §3's
+        mechanism choice: row 6 makes DeviceLayer.solo() container-scoped AND
+        locally exclusive, which beats both the layer-mute and the chain-selector
+        options the table weighs. See E17-VERDICT.md §4.
         ⚠ Nothing here goes into DECISIONS.md (standing rule 10) — this
         proposes, the user decides.
 updated: 2026-07-31
@@ -186,14 +188,22 @@ remaining work moves earlier.
 
 ## 3. What §3.4e and E16w change that nothing had planned for
 
-> ⚠⚠ **THIS SECTION IS CONTINGENT — E17 may promote it from a patch to the
-> model.** It is written on the assumption that device-scoped A/B fills a *hole*
-> in the track-native model (the master and the FX returns, which no fork
-> reaches). The user has since asked whether **all device branching** should be
-> layer chains, with note branching moving to clips. That is
-> `HANDOFF-E17-DEVICE-LAYERS.md`, and it turns on six capability rows — add,
-> group-into, duplicate, delete, rename and solo a layer. **Do not act on §3
-> until that call is made.** §1 and §2 are unaffected.
+> ⚠ **RESOLVED 2026-08-01 — this section keeps its original scope.** It was
+> written assuming device-scoped A/B fills a *hole* in the track-native model
+> (the master and the FX returns, which no fork reaches), and E17 confirms that
+> is exactly what it does. The six capability rows came back: a layer chain can
+> be created by a named action but only ever ONE (row 1 ◐), cannot be duplicated
+> (row 2 ○), cannot be grown (row 3 ○) and **cannot be deleted** (row 4 ○, four
+> routes, both verb controls ●). A container whose branches can be neither added
+> nor removed is not a take container. **DEVICE takes are TRACKS.**
+>
+> ⚠ **One amendment is owed below**, and it improves §3 rather than shrinking it:
+> the table's "readable which-is-live" column is settled by **row 6**, not by the
+> chain selector. `DeviceLayer.solo()` is container-scoped (0 of 10 tracks
+> flipped, where a track solo flipped all 10) and **locally exclusive** (soloing
+> chain 1 reads 23 against a mute-calibrated "chain 1 alone" of 25, and 66 for
+> both open). That is one exclusive flag per chain, with no Selector preset and
+> no routing. See `E17-VERDICT.md` §4.
 
 ⚠ **A device-scoped A/B now exists, and it reaches what the whole track-native
 model cannot.** §4.8 states that FX returns cannot be forked — other tracks'

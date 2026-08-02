@@ -37,6 +37,22 @@ public final class ContainerHandlers extends HandlerGroup {
         r.on("layer.insertFile", params -> layerInsertFile(params));
         r.on("layer.insertRelative", params -> layerInsertRelative(params));
         r.on("layer.setMixer", params -> layerSetMixer(params));
+        // ⚠ E17 — the six capability rows. See the block comment above
+        // `layerDelete` for why each of these is on the wire and what a ○ from it
+        // would and would not mean.
+        r.on("layer.select", params -> layerSelect(params));
+        r.on("layer.pointCursor", params -> layerPointCursor(params));
+        r.on("layer.delete", params -> layerDelete(params));
+        r.on("layer.deleteViaHost", params -> layerDeleteViaHost(params));
+        r.on("layer.duplicateViaHost", params -> layerDuplicateViaHost(params));
+        r.on("layer.setName", params -> layerSetName(params));
+        r.on("layer.soloToggle", params -> layerSoloToggle(params));
+        r.on("layer.insertViaCursor", params -> layerInsertViaCursor(params));
+        r.on("layer.insertAtStart", params -> layerInsertAtStart(params));
+        r.on("layer.selectLegacy", params -> layerSelectLegacy(params));
+        r.on("layer.selectionState", params -> layerSelectionState());
+        r.on("layer.deleteViaAction", params -> layerDeleteViaAction(params));
+        r.on("layer.duplicateViaAction", params -> layerDuplicateViaAction(params));
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));
         r.on("drumpad.duplicate", params -> drumPadDuplicate(params));
@@ -70,6 +86,12 @@ public final class ContainerHandlers extends HandlerGroup {
             putGuarded(obj, "volume", () -> layer.volume().value().get());
             putGuarded(obj, "pan", () -> layer.pan().value().get());
             putGuarded(obj, "channelId", () -> layer.channelId().get());
+            // ⚠⚠ E17 — the readback whose absence made `e17k` uninterpretable and
+            // forced a human-assisted probe. A row firing a named action at a
+            // layer can now assert "it IS selected" as a PRECONDITION, separately
+            // from its question (the e16o discipline).
+            obj.addProperty("selectedInEditor", rig.layerSelectedInEditor[l]);
+            obj.addProperty("selected", rig.layerSelected[l]);
 
             JsonArray devices = new JsonArray();
             for (int d = 0; d < Rig.LAYER_DEVICE_BANK; d++) {
@@ -93,6 +115,24 @@ public final class ContainerHandlers extends HandlerGroup {
         // that reads `mute` as ERR everywhere means something different depending
         // on this: "the handle was never marked" or "the API refuses it".
         result.addProperty("layerMixerStatus", rig.layerMixerStatus);
+        // Whether the selection observers survived init — same reasoning as the
+        // mixer status: "every layer reads selected=false" means something
+        // different depending on whether the observers were ever attached.
+        result.addProperty("layerSelectionStatus", rig.layerSelectionStatus);
+        result.addProperty("layerSelectionLegacyStatus", rig.layerSelectionLegacyStatus);
+        // ⚠ E17 row 3 — the CONTAINER-SCOPED cursor, reported alongside the
+        // indexed bank so `layer.insertViaCursor` can be read against it. E4e's
+        // architectural negative is that an InsertionPoint must bind to a
+        // referent and "layer 3" has none until it exists; that argument is about
+        // INDEXED addressing, and this is the non-indexed alternative. Whether
+        // the cursor has a referent when the container has zero chains is half of
+        // row 3's answer, and nothing has ever read it.
+        putGuarded(result, "cursorLayerExists", () -> rig.cursorLayer0.exists().get());
+        putGuarded(result, "cursorLayerName", () -> rig.cursorLayer0.name().get());
+        // Named, not counted (e16t): which device the bank is actually scoped to.
+        // Every layer call reaches its target through this cursor, so a row that
+        // does not report it cannot tell a refusal from a mis-aimed read.
+        putGuarded(result, "cursorDeviceName", () -> rig.cursorDevice0.name().get());
         return result;
     }
 
@@ -167,6 +207,522 @@ public final class ContainerHandlers extends HandlerGroup {
         if (params.has("pan")) {
             layer.pan().value().setImmediately(params.get("pan").getAsDouble());
         }
+        return r;
+    }
+
+    // ======================================================================
+    // ⚠ E17 — the six capability rows for the LAYER branching model.
+    //
+    // The question underneath all of them: should DEVICE branching be layer
+    // chains inside one track rather than forked tracks? A layer costs no bank
+    // slot (E16r's ceiling is the track model's budget), reaches the master and
+    // the FX returns (which no fork can, §4.8), does not glitch on switch
+    // (§3.4e, 0/4 vs 0/4 against duplication's 5/5) and costs ~0 bytes against a
+    // fork's 20,391 (E16u). What it lacks is the ability to GROW: E4d/E4e is a
+    // reasoned negative that layer-type containers cannot gain chains.
+    //
+    // ⚠ Every one of these is a candidate for the E16n shape — a sibling verb,
+    // never called, on a destination that demonstrably works — and every one is
+    // verified by a `layer.list` DIFF, never by its own return value. The
+    // acknowledgement is identical whether or not anything happened (E6 blocker
+    // 4), and `rig.layerBank0` follows `cursorDevice0`, so the container must be
+    // the SELECTED device for any of them to reach their target at all (the
+    // e16o trap: aimed at a device with no layers, every one of these is a
+    // silent no-op byte-identical to an API refusal).
+    //
+    // Deprecation checked on all of them per standing rule 9: `selectInEditor`
+    // (v1), `selectInMixer` (v1), `deleteObject` (v10), `duplicateObject` (v19),
+    // `SoloValue.toggle` (v1), `name()` (SettableStringValue) and
+    // `startOfDeviceChainInsertionPoint` (v7) are all current.
+    // ⚠ `DeviceChain.select()` IS @Deprecated and is deliberately NOT wired —
+    // `selectInEditor()` is its living equivalent.
+    // ======================================================================
+
+    /**
+     * ⚠ E17 rows 1/2/4 — make a LAYER CHAIN the UI selection.
+     *
+     * **This is the enabling call for row 1 and it did not exist before.** A
+     * named action fires against the UI selection (E6 blocker 3), and until now
+     * nothing on the wire could point that selection at anything but a track.
+     * `DeviceLayer` is a `DeviceChain`, so it carries `selectInEditor()` — and it
+     * is a `Channel`, so it also carries `selectInMixer()`. Neither has ever been
+     * called. Without one of them, "fire `Group` with a chain selected" is not a
+     * probe that can be written, and row 1's ○ would be about our reach rather
+     * than about Bitwig.
+     *
+     * ⚠ Two mechanisms rather than one on purpose. This spike's most repeated
+     * lesson is that sibling verbs on the same object disagree — `copyDevices` ○
+     * beside `moveDevices` ● (E16n), `copyTracks` ○ beside three working
+     * duplication verbs (row A), `DrumPad.insertionPoint()` ● where `DeviceLayer`
+     * has none (E4d). A single-mechanism ○ here would be the sixth false negative
+     * of exactly that shape.
+     */
+    /**
+     * ⚠ E17 — `DeviceChain.select()`, the FOURTH setter, and the one nobody tried.
+     *
+     * **Why it exists as a probe target.** An API sweep for `selectInEditor` found
+     * it on exactly three types — `Scene`, `DeviceChain`, `Device` — and turned up
+     * something the whole session missed: `DeviceChain` carries **two** selection
+     * concepts, not one.
+     *
+     *     selectInEditor()  ←→  addIsSelectedInEditorObserver     (current)
+     *     select()          ←→  addIsSelectedObserver             (both @Deprecated)
+     *
+     * Every E17 probe used the first pair. The second was never called.
+     *
+     * ⚠ **Rule 9 was applied before wiring, and this IS @Deprecated** — so it is
+     * expected to THROW, exactly as its sibling `addIsSelectedObserver` did at init
+     * ("This has been deprecated since API version 2"). It is wired anyway, and
+     * guarded, for one reason: a throw RECORDED is a measurement, where a method
+     * never called is an assumption. `e17o` is the cautionary case — it recorded a
+     * ● from a mechanism that turned out to do nothing.
+     *
+     * ⇒ Read a thrown result as "the legacy selection concept is unreachable from
+     * API v25", not as "chains cannot be selected".
+     */
+    /**
+     * ⚠⚠ E17 row 4 — `DeleteableObject.deleteObjectAction().invoke()`, the route
+     * nobody has called.
+     *
+     * **Why this exists, and why the prior is better than it looks.** A type sweep
+     * shows `DeviceLayer` is literally `interface DeviceLayer extends Channel {}` —
+     * an empty body — while `Track extends Channel` too. They are SIBLINGS, and
+     * `track.delete` reaches `Track.deleteObject()`, the *same inherited method*
+     * that refuses on a layer. So the refusal is not "layers are not deletable"; it
+     * is one specific method declining on one of two sibling types.
+     *
+     * ⚠ **And the duplicate case already proved which-method-you-call decides it:**
+     *
+     *     DuplicableObject.duplicateObject()   ○ dead on a layer
+     *     Channel.duplicate()                  ● creates a chain (with a selection)
+     *
+     * Two sibling verbs, opposite outcomes. `Channel` declares its own bespoke
+     * `duplicate()` but **no delete at all** — deletion arrives only via
+     * `DeleteableObject`, which offers exactly two forms. We have called one.
+     *
+     *     deleteObject()          ○ measured, e17f / e17q / e17al
+     *   ⚠ deleteObjectAction()    → HardwareActionBindable → invoke()  ← NEVER CALLED
+     *
+     * ⇒ A ○ on `deleteObject()` says nothing about this. It is the last untried
+     * typed route to destroying a chain, and destroy is the only half of the branch
+     * lifecycle still missing after `e17ak` made creation autonomous.
+     *
+     * ⚠ Guarded: a throw is DATA, not a dead bridge (the `layerSelectLegacy`
+     * lesson, where a @Deprecated call returned instead of throwing).
+     * ⚠ `requireLayer` refuses when the cursor is not on the container, so a no-op
+     * from an empty bank can never be misread as a refusal (the e16o trap).
+     */
+    private JsonElement layerDeleteViaAction(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        // ⚠ Rule 13: the handle was obtained at INIT. Calling `deleteObjectAction()`
+        // here throws "This can only be called during driver initialization" — which
+        // is exactly what the first attempt measured, three times, as a false ○.
+        int idx = params.get("layerIndex").getAsInt();
+        r.addProperty("handleStatus", rig.layerDeleteActionStatus);
+        try {
+            if (rig.layerDeleteAction[idx] == null) {
+                r.addProperty("actionInvoke", "NO HANDLE: " + rig.layerDeleteActionStatus);
+                return r;
+            }
+            rig.layerDeleteAction[idx].invoke();
+            r.addProperty("actionInvoke", "returned");
+        } catch (Throwable t) {
+            r.addProperty("actionInvoke",
+                "THREW:" + t.getClass().getSimpleName() + ":" + t.getMessage());
+        }
+        return r;
+    }
+
+    /**
+     * ⚠ E17 rows 2/3 — `DuplicableObject.duplicateObjectAction().invoke()`.
+     *
+     * The mirror of the above, and worth having even though `Channel.duplicate()`
+     * already gives us autonomous creation: if the `*Action()` form turns out to be
+     * the one that works for DELETE, we should know whether it also works for
+     * DUPLICATE. Two verbs behaving the same way through the same form is a
+     * mechanism; one working alone is a curiosity.
+     *
+     * ⚠ It also discriminates a real possibility — that `*Action()` invokes the
+     * same UI pathway a named action does, in which case it may carry the same
+     * focus precondition (`e17ab`). If this needs a human click and
+     * `Channel.duplicate()` does not, that is the tell.
+     */
+    private JsonElement layerDuplicateViaAction(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        int idx = params.get("layerIndex").getAsInt();
+        r.addProperty("handleStatus", rig.layerDuplicateActionStatus);
+        try {
+            if (rig.layerDuplicateAction[idx] == null) {
+                r.addProperty("actionInvoke", "NO HANDLE: " + rig.layerDuplicateActionStatus);
+                return r;
+            }
+            rig.layerDuplicateAction[idx].invoke();
+            r.addProperty("actionInvoke", "returned");
+        } catch (Throwable t) {
+            r.addProperty("actionInvoke",
+                "THREW:" + t.getClass().getSimpleName() + ":" + t.getMessage());
+        }
+        return r;
+    }
+
+    private JsonElement layerSelectLegacy(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        // ⚠ Guarded so a deprecated throw is DATA rather than a dead bridge.
+        try {
+            layer.select();
+            r.addProperty("legacySelect", "returned");
+        } catch (Throwable t) {
+            r.addProperty("legacySelect",
+                "THREW:" + t.getClass().getSimpleName() + ":" + t.getMessage());
+        }
+        return r;
+    }
+
+    /**
+     * ⚠⚠ E17 — the reader the whole question turns on, isolated from `layer.list`.
+     *
+     * **What this is for.** `cursorLayerName` tells us WHICH chain is current;
+     * `addIsSelectedInEditorObserver` tells us whether **Bitwig considers a chain
+     * selected**. Those are different claims, and only the second discriminates
+     * the open question: a HUMAN's click makes a chain actionable (`e17l`:
+     * Copy+Paste 4→5, Delete 4→3, fired by US), while our `selectInEditor()` sets
+     * a highlight the human can SEE (`e17u`) that named actions then ignore
+     * entirely (`e17v`/`e17x` — the panel's current DEVICE decides in all four
+     * cells).
+     *
+     *   observer fires for the HUMAN and not for us ⇒ our call sets a lookalike
+     *       state; the hunt narrows to what the click writes.
+     *   observer fires for BOTH ⇒ the selection really is the same object and the
+     *       actions read a THIRD thing — which moves the investigation off
+     *       selection entirely and onto dispatch.
+     *
+     * ⚠ Separate from `layer.list` on purpose: `layer.list` walks every layer's
+     * device bank, and a read that does more work than the question needs is a
+     * read that can perturb what it measures (`e17l` had our own list call steal
+     * the human's selection). This touches the observer arrays and nothing else.
+     *
+     * ⚠ Both status strings are reported. "Every chain reads false" means something
+     * completely different depending on whether the observer ever attached — and
+     * this session already lost the current observer to being marked beside its
+     * @Deprecated sibling in one try block (`FAILED@0`), which is why they are now
+     * split and reported independently.
+     */
+    private JsonElement layerSelectionState() {
+        JsonObject result = new JsonObject();
+        result.addProperty("editorObserver", rig.layerSelectionStatus);
+        result.addProperty("legacyObserver", rig.layerSelectionLegacyStatus);
+        JsonArray rows = new JsonArray();
+        for (int l = 0; l < rig.layerSelectedInEditor.length; l++) {
+            JsonObject row = new JsonObject();
+            row.addProperty("index", l);
+            row.addProperty("selectedInEditor", rig.layerSelectedInEditor[l]);
+            row.addProperty("selected", rig.layerSelected[l]);
+            rows.add(row);
+        }
+        result.add("layers", rows);
+        // ⚠ Named beside the flags: an index means nothing without knowing which
+        // container the bank is scoped to (the e16o trap).
+        putGuarded(result, "cursorDeviceName", () -> rig.cursorDevice0.name().get());
+        putGuarded(result, "cursorLayerExists", () -> rig.cursorLayer0.exists().get());
+        putGuarded(result, "cursorLayerName", () -> rig.cursorLayer0.name().get());
+        return result;
+    }
+
+    private JsonElement layerSelect(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        String where = params.has("where") ? params.get("where").getAsString() : "editor";
+        // Validate BEFORE calling: an exception Bitwig defers to its own thread
+        // escapes every extension frame and takes the DAW down (E14-A1, rule 3c).
+        if (!"editor".equals(where) && !"mixer".equals(where)) {
+            throw new IllegalArgumentException("where must be editor or mixer: " + where);
+        }
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        r.addProperty("where", where);
+        if ("editor".equals(where)) {
+            layer.selectInEditor();
+        } else {
+            layer.selectInMixer();
+        }
+        return r;
+    }
+
+    /**
+     * ⚠⚠ E17 rows 3+4 REOPENED — point the LAYER CURSOR at a chain, which is the
+     * one selection mechanism with a proven precedent and the one nobody tried.
+     *
+     * **What `e17l` established with a human in the loop, and why this method
+     * exists.** The user reported that selecting a layer in Bitwig and pressing
+     * copy/paste duplicates it. `e17k` drove that from our side —
+     * `layer.select` (`DeviceChain.selectInEditor()` and `Channel.selectInMixer()`)
+     * followed by `Duplicate`, and by `Copy`+`Paste` — and got 4 → 4 on every
+     * route. `e17l` then split the variable with a human:
+     *
+     *   ARM A  human selects the layer AND copies/pastes   ● 4 → 5
+     *   ARM B  human selects, WE fire Copy+Paste           ⚠ ● 4 → 5
+     *   ARM C  human selects, WE fire Delete               ⚠⚠ ● 4 → 3, correct chain
+     *
+     * ⇒ **The named actions reach a selected layer perfectly well. What fails is
+     * OUR selection.** So rows 3 and 4 are not closed, they are UNREACHABLE —
+     * which is exactly what row 1 turned out to be before `device.selectInEditor`
+     * existed. `E17-VERDICT.md`'s central claim rests on this one gap.
+     *
+     * ⚠ **The precedent, and it is a strong one.** E16j watched the `Group` action
+     * wrap *exactly* the track that `cursor.pointTrack` had selected — and
+     * `cursor.pointTrack` is `CursorTrack.selectChannel(track)`. So
+     * `CursorChannel.selectChannel()` demonstrably SETS the UI selection where
+     * `selectInEditor()` apparently does not. `CursorDeviceLayer` is also a
+     * `CursorChannel` (11 supertypes, walked in the E17 complete-recall pass), and
+     * `rig.cursorLayer0` has existed since E4c without ever being pointed at
+     * anything. This is the exact analogue, one level down, of the call that
+     * already works for tracks.
+     *
+     * ⚠ Note what row 3 measured about this cursor: `cursorLayer0.exists()` is
+     * FALSE on every container, even ones WITH chains — it never acquires a
+     * referent on its own. That is precisely what `selectChannel` is for, and it
+     * also means `exists()` becoming true is a readback that the point landed.
+     */
+    private JsonElement layerPointCursor(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        // Read the cursor BEFORE, so the probe can diff rather than trust.
+        putGuarded(r, "cursorLayerExistedBefore", () -> rig.cursorLayer0.exists().get());
+        putGuarded(r, "cursorLayerNameBefore", () -> rig.cursorLayer0.name().get());
+        rig.cursorLayer0.selectChannel(layer);
+        return r;
+    }
+
+    /**
+     * ⚠ E17 row 4 — DELETE a layer chain. `DeviceLayer` extends
+     * `DeleteableObject`; **E4d probed duplicate and never probed delete.**
+     *
+     * ⚠⚠ **`e17l` REOPENED this row.** With a human-set layer selection, the
+     * `Delete` NAMED ACTION removed the correct chain (4 → 3, verified by
+     * channelId). So a chain IS removable; what these typed calls prove is only
+     * that `DeleteableObject.deleteObject()` does not honour it. Read the ○ below
+     * as "the typed verb refuses", never as "chains cannot be deleted".
+     *
+     * ⚠ **This row alone is the minimum viable unlock for the layer model**,
+     * because revert-by-delete is what makes a branch exact regardless of its
+     * contents (§4.2) — the strongest single argument for the whole track-native
+     * model, one level down. With `moveDevices` ● (E16n) and `insertFile` ●
+     * (E4d route 4), delete is the last piece of a create-by-rebuild loop:
+     * materialise N chains from a preset, trim to the shape wanted, move the
+     * human's own device in. If it works and rows 1–3 all fail, layers are still
+     * usable — just more expensive to grow.
+     *
+     * ⚠ Watch for a REMOVABLE-BUT-NOT-ADDABLE asymmetry, because that is exactly
+     * the shape E10c and E10d already found one level down IN THE FILE FORMAT
+     * (chains are trimmable, not insertable; the last chain specifically is not).
+     * Two independent layers of the product showing the same asymmetry would be a
+     * finding in its own right rather than a coincidence.
+     */
+    private JsonElement layerDelete(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        layer.deleteObject();
+        return r;
+    }
+
+    /**
+     * ⚠ E17 row 4, route 2 — `ControllerHost.deleteObjects(DeleteableObject…)`.
+     *
+     * The independent mechanism, and the javadoc for `deleteObject()` points at
+     * it by name (*"If you want to delete multiple objects at once, see
+     * Host.deleteObjects()"*). It is a different code path on Bitwig's side —
+     * `ui.deleteObjects` already exercises it, but only ever on clip launcher
+     * slots, so it has never been aimed at a layer. Cheap to add while the jar is
+     * open, and this is the row where "independent mechanism" has paid five times.
+     */
+    private JsonElement layerDeleteViaHost(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        host.deleteObjects(new com.bitwig.extension.controller.api.DeleteableObject[] { layer });
+        return r;
+    }
+
+    /**
+     * ⚠ E17 row 2, route 3 — `ControllerHost.duplicateObjects(DuplicableObject…)`.
+     *
+     * `e17b` re-ran E4d routes 1 and 2 with the precondition proved and both
+     * still no-op, so the ○ is now about layers rather than about a mis-aimed
+     * cursor. This is the third mechanism, and the one `duplicateObject()`'s own
+     * javadoc names. If it fires where the direct call does not, the ○ was never
+     * about the capability at all.
+     */
+    private JsonElement layerDuplicateViaHost(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        host.duplicateObjects(new com.bitwig.extension.controller.api.DuplicableObject[] { layer });
+        return r;
+    }
+
+    /**
+     * ⚠ E17 row 5 — RENAME a layer chain, and read it back.
+     *
+     * `DeviceChain.name()` is a `SettableStringValue`, so the write is typed as
+     * possible. **The question is whether it STICKS.** E4c recorded that a layer
+     * renames itself after its content ("Layer 1" → "Polysynth" once a Polysynth
+     * lands in it), which means a set may be silently overwritten the next time
+     * the chain changes.
+     *
+     * ⚠ **This decides whether §1b's naming scheme survives the move to layers.**
+     * Under the track model the lineage tag lives in the track name, and E16q
+     * proved the middle dot round-trips exactly. If layer names are volatile the
+     * tag needs a different home — and `channelId` cannot be it, because a tag has
+     * to be human-readable and human-editable BY DESIGN. So the probe must set the
+     * name, then CHANGE THE CHAIN'S CONTENTS and re-read, which is the case that
+     * actually bites; a set-then-read is the easy half and proves little.
+     */
+    private JsonElement layerSetName(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        String name = params.get("name").getAsString();
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        r.addProperty("requested", name);
+        layer.name().set(name);
+        return r;
+    }
+
+    /**
+     * ⚠ E17 row 6 — `SoloValue.toggle(boolean exclusive)` on a layer chain.
+     *
+     * `layer.setMixer` already writes `solo`, so this is not about whether the
+     * flag sets. **The question is SCOPE, and `toggle(exclusive)` is the
+     * exclusivity primitive itself.** Track solo is project-global, which would
+     * make it useless here — soloing take B would silence the drums. The evidence
+     * that Bitwig models solo PER CONTAINER is `DrumPadBank.hasSoloedPads()` /
+     * `clearSoloedPads()`: solo state scoped to one device.
+     *
+     * ⚠ But the counter-evidence is now on the record too, and it is the kind
+     * that should be stated before the measurement rather than after:
+     * `DeviceLayerBank` declares exactly ONE member (`getChannel`) and has no
+     * `hasSoloedLayers` / `clearSoloedLayers` equivalent. Bitwig gave drum pads a
+     * container-scoped solo vocabulary and gave device layers none.
+     *
+     * If it IS container-scoped, it is the mutually-exclusive selection gesture
+     * the user asked for in session 5's closing exchange — one call, no selector,
+     * no routing, and a readable "which one is live" that N mute flags cannot give.
+     *
+     * ⚠ Measure the scope with the MASTER as oracle and at least one unrelated
+     * track playing. A solo that silences the project reads identically to one
+     * that does not, if the project is silent — rows D–G trap 6, and session 5
+     * shipped exactly that mistake once (`fxOnChain0: 0` vs `fxOnChain1: 0`
+     * passing as a green).
+     */
+    private JsonElement layerSoloToggle(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        boolean exclusive = !params.has("exclusive") || params.get("exclusive").getAsBoolean();
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        r.addProperty("exclusive", exclusive);
+        layer.solo().toggle(exclusive);
+        return r;
+    }
+
+    /**
+     * ⚠ E17 row 3 — insert through the CONTAINER-SCOPED cursor rather than a bank
+     * index. The one reading of the primary source nobody has tested.
+     *
+     * The Bitwig user guide, quoted in E4e, describes chain creation as a SIDE
+     * EFFECT of adding a device to the container: *"there is only one Add Device
+     * button in the main interface of Instrument Layer, with each added device
+     * being placed on a **newly created** instrument chain."* Everything tried so
+     * far inserted into an EXISTING chain addressed by index (E4c, E16n) or called
+     * a duplication verb. E4e's architectural argument is that an `InsertionPoint`
+     * must bind to a referent and "layer 3" has none until it exists — which is an
+     * argument about INDEXED addressing specifically.
+     *
+     * ⚠ `cursorDevice0.createCursorLayer()` is not indexed. It is a cursor scoped
+     * to the container, and it is the closest thing the API has to "the
+     * container's own insertion point" — a complete sweep of the javadoc finds
+     * exactly 11 methods returning an `InsertionPoint` and not one of them hangs
+     * off a container `Device`. So this is the last untried reading, and it costs
+     * one call.
+     *
+     * ⚠ Expect nothing. E4e is a REASONED negative with five converging lines of
+     * evidence, and the user agrees row 3 looks genuinely closed. This is here
+     * because it is cheap and because E4c's ○ was overturned by E4d, which was
+     * overturned in part by E16n — not because the prior is good.
+     */
+    private JsonElement layerInsertViaCursor(JsonObject params) {
+        String uuid = params.get("uuid").getAsString();
+        java.util.UUID id = java.util.UUID.fromString(uuid);
+        JsonObject r = ok();
+        // The cursor layer's own state, read BEFORE the insert: whether it even
+        // has a referent is half the answer, and afterwards it may have moved.
+        putGuarded(r, "cursorLayerExists", () -> rig.cursorLayer0.exists().get());
+        putGuarded(r, "cursorLayerName", () -> rig.cursorLayer0.name().get());
+        putGuarded(r, "containerName", () -> rig.cursorDevice0.name().get());
+        putGuarded(r, "containerHasLayers", () -> rig.cursorDevice0.hasLayers().get());
+        rig.cursorLayer0.endOfDeviceChainInsertionPoint().insertBitwigDevice(id);
+        return r;
+    }
+
+    /**
+     * ⚠ E17 row 3, the last unexercised `InsertionPoint` SOURCE on a layer.
+     *
+     * E4c and E16n both went through `endOfDeviceChainInsertionPoint()`.
+     * `startOfDeviceChainInsertionPoint()` is its sibling, added at the same API
+     * version (v7), and has never been called on a `DeviceLayer`. E4e claims
+     * every `InsertionPoint` source has been exercised; a javadoc sweep says 11
+     * exist and this is one of them, so the claim is exhaustive about SOURCES
+     * enumerated and not about sources CALLED ON A LAYER.
+     *
+     * ⚠ It should land in the same chain, not spawn a sibling — that is the
+     * expected result and it is the CONTROL for `layerInsertViaCursor` above: if
+     * this one lands and that one does nothing, the difference is the cursor, not
+     * the verb.
+     */
+    private JsonElement layerInsertAtStart(JsonObject params) {
+        DeviceLayer layer = requireLayer(params);
+        java.util.UUID id = java.util.UUID.fromString(params.get("uuid").getAsString());
+        JsonObject r = describeLayer(layer, params.get("layerIndex").getAsInt());
+        layer.startOfDeviceChainInsertionPoint().insertBitwigDevice(id);
+        return r;
+    }
+
+    /**
+     * Resolve a layer and REFUSE loudly if it is not there.
+     *
+     * ⚠ The e16o trap in one place. `rig.layerBank0` follows `cursorDevice0`, so
+     * the container is a hidden argument to every call above — and aimed at a
+     * device with no layers, each of them is a silent no-op indistinguishable
+     * from an API refusal. That nearly published a false negative on the
+     * `moveDevices` row, and it is the reason E4d's ○ on duplication had to be
+     * re-run at all. A handler that throws here turns the whole class of mistake
+     * into an error message instead of a wrong finding.
+     */
+    private DeviceLayer requireLayer(JsonObject params) {
+        int layerIndex = params.get("layerIndex").getAsInt();
+        if (layerIndex < 0 || layerIndex >= Rig.LAYER_BANK) {
+            throw new IllegalArgumentException("layerIndex out of bank range: " + layerIndex);
+        }
+        DeviceLayer layer = rig.layerBank0.getItemAt(layerIndex);
+        if (!layer.exists().get()) {
+            throw new IllegalArgumentException(
+                "no layer at index " + layerIndex + " — the cursor device is "
+                + rig.cursorDevice0.name().get() + ", hasLayers="
+                + rig.cursorDevice0.hasLayers().get()
+                + ". Point the device cursor at the CONTAINER first (the e16o trap).");
+        }
+        return layer;
+    }
+
+    /**
+     * Identify the layer a call is about to act on, read BEFORE the act.
+     *
+     * ⚠ Named, not counted — `e16t` reported "matches 1 bank row" and naming the
+     * row turned that into the finding that a pinned cursor slides onto its
+     * target's heir. After a delete or a duplicate the bank re-indexes, so a read
+     * taken afterwards may describe whatever slid into the slot (E3).
+     */
+    private JsonObject describeLayer(DeviceLayer layer, int layerIndex) {
+        JsonObject r = ok();
+        r.addProperty("layerIndex", layerIndex);
+        putGuarded(r, "layerName", () -> layer.name().get());
+        putGuarded(r, "channelId", () -> layer.channelId().get());
+        putGuarded(r, "containerName", () -> rig.cursorDevice0.name().get());
         return r;
     }
 

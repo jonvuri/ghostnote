@@ -100,11 +100,81 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   //                     and the FX returns that no fork can.
   //   equals.status     §3.4g — reads the pre-allocated `createEqualsValue`
   //   equals.tryCreate  matrix, and asks standing rule 13's question directly.
+  //
+  // ⚠ Session 6 (E17) added NINE, again in one restart, because five of the six
+  // capability rows needed Java and a Java change costs a full Bitwig restart.
+  // E17 asks whether DEVICE branching should be layer chains rather than track
+  // forks; nothing about it is decided either, so the same rule applies — none
+  // of it may become product surface before the rows return verdicts.
+  //   device.selectInEditor  row 1's ENABLING call, and the reason the row was
+  //                     never probeable: a named action fires against the UI
+  //                     selection, and `devcursor.selectAt` does not set it —
+  //                     it moves our own non-following cursor. So no previous
+  //                     sitting had ever fired an action with a DEVICE selected.
+  //   layer.select      the same, one level down, via `DeviceChain.selectInEditor`
+  //                     and `Channel.selectInMixer`. ⚠ `DeviceChain.select()` is
+  //                     @Deprecated and is deliberately NOT wired (rule 9).
+  //   layer.delete      row 4 — `DeleteableObject` on a layer. E4d probed
+  //   layer.deleteViaHost      duplicate and never probed delete, and this row
+  //                     alone is the minimum viable unlock: revert-by-delete is
+  //                     what makes a branch exact regardless of contents (§4.2).
+  //   layer.duplicateViaHost  row 2's third mechanism, the one `duplicateObject`'s
+  //                     own javadoc names. Routes 1 and 2 re-ran ○ in `e17b`
+  //                     with the precondition proved, so this is what is left.
+  //   layer.setName     row 5 — `name()` is a SettableStringValue, but E4c saw
+  //                     layers rename themselves after their content. Decides
+  //                     whether §1b's naming scheme survives the move to layers.
+  //   layer.soloToggle  row 6 — `SoloValue.toggle(exclusive)`, the exclusivity
+  //                     primitive. The question is SCOPE, not whether it sets.
+  //   layer.pointCursor ⚠ session 7's ONE addition, and the reason for a second
+  //                     restart: `e17l` proved with a human in the loop that the
+  //                     named actions DO act on a selected layer (Copy+Paste 4→5,
+  //                     Delete 4→3) — so rows 3 and 4 are UNREACHABLE, not closed,
+  //                     and the only broken link is our own selection.
+  //                     `CursorChannel.selectChannel()` is the mechanism E16j
+  //                     watched `Group` obey for TRACKS; this is its exact
+  //                     analogue on `CursorDeviceLayer`, never once called.
+  //   layer.insertViaCursor  row 3 — the last untried reading of the vendor's own
+  //   layer.insertAtStart    documentation (a chain is created as a SIDE EFFECT
+  //                     of adding a device to the container) plus the last
+  //                     unexercised InsertionPoint source on a layer, which is
+  //                     its control. Both expected ○: E4e is a reasoned negative.
   const allowed = [
     'transport.play', 'device.insertVst3',
     'device.moveTo', 'layer.moveDeviceInto', 'layer.pasteInto',
     'slot.moveTo', 'slot.epoch', 'layer.setMixer',
     'equals.status', 'equals.tryCreate',
+    'device.selectInEditor', 'layer.select', 'layer.pointCursor',
+    'layer.delete', 'layer.deleteViaHost', 'layer.duplicateViaHost',
+    'layer.setName', 'layer.soloToggle',
+    'layer.insertViaCursor', 'layer.insertAtStart',
+    // ⚠ E17, the reopened selection question. Named individually with a reason
+    // each, because a wildcard here would let the next session add anything.
+    //
+    // `layer.selectLegacy` — `DeviceChain.select()`, the FOURTH setter and the one
+    //   never tried. An API sweep found TWO selection concepts on a chain
+    //   (select/addIsSelectedObserver, both @Deprecated; selectInEditor/
+    //   addIsSelectedInEditorObserver, current) and E17 only ever used the second.
+    //   Rule 9 was applied and it IS deprecated, so it is expected to throw — it is
+    //   wired guarded so the throw is RECORDED rather than assumed.
+    // `layer.selectionState` — the reader the question turns on, isolated from
+    //   `layer.list` so the read cannot perturb the selection it measures.
+    // `app.selectionNotifications` — Bitwig's OWN device-layer selection
+    //   notification, as a second oracle that can disagree with the observer.
+    'layer.selectLegacy', 'layer.selectionState', 'app.selectionNotifications',
+    // ⚠ The `*Action()` routes — `DeleteableObject.deleteObjectAction()` and
+    //   `DuplicableObject.duplicateObjectAction()`, both returning a
+    //   HardwareActionBindable with `invoke()`. NEVER called before. Named here
+    //   because the duplicate case proved which SIBLING METHOD you call decides the
+    //   outcome: `DuplicableObject.duplicateObject()` is dead on a layer while
+    //   `Channel.duplicate()` creates a chain. So `deleteObject()` refusing says
+    //   nothing about `deleteObjectAction()`.
+    // `track.deleteViaAction` — ⚠ the VERB CONTROL. Track and DeviceLayer are
+    //   SIBLINGS (both bare `Channel`s; DeviceLayer's interface body is empty), so
+    //   this is the identical inherited call differing only in receiver. Without it
+    //   a ○ on the layer side is uninterpretable. ⚠ It deletes a track: probe
+    //   surface only, unreachable from the contract like every destructive route.
+    'layer.deleteViaAction', 'layer.duplicateViaAction', 'track.deleteViaAction',
   ];
   const e16 = golden.addedInE16 ?? [];
   const unexpected = e16.filter((m) => !m.startsWith('branch.') && !allowed.includes(m));
