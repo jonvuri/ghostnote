@@ -175,6 +175,35 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
     //   a ○ on the layer side is uninterpretable. ⚠ It deletes a track: probe
     //   surface only, unreachable from the contract like every destructive route.
     'layer.deleteViaAction', 'layer.duplicateViaAction', 'track.deleteViaAction',
+    // ⚠⚠ E18 §3.1's TWO, and they are the whole reason for its restart. The chain
+    //   DELETE is exhausted — both `DeleteableObject` forms, each with and without
+    //   the selection precondition that unlocked CREATE, each bracketed by a Track
+    //   sibling control deleting in the same run, and with a mechanism that predicts
+    //   the ○. So the operator proposed working WITHOUT a delete: clone the
+    //   container with fewer chains, migrate the devices across, delete the old
+    //   container. ⚠ E16n only ever measured `moveDevices` INTO a chain; every
+    //   direction that strategy needs — chain → top level, chain → chain, and chain
+    //   → chain across DIFFERENT containers — has never been tested, and no wire
+    //   method could even name a device inside a chain as a SOURCE.
+    // `chain.move`      the mover. Carries BOTH verbs, because sibling verbs on this
+    //   very interface disagree (`copyDevices` ○ beside `moveDevices` ●, E4d/E16n)
+    //   and because copy is the better product primitive here: a copy-then-delete
+    //   rebuild never has the device missing from the signal path, which is the
+    //   operator's explicit bar about glitchy intermediate states.
+    // `chain.inventory` guard #2 in one call — the slot, its chains, and the devices
+    //   inside those chains, read together. Three E17 probes read "nothing happened"
+    //   while a container was duplicated one level above where they looked, and
+    //   `e17ac` shipped that blind spot a third time after it had been written up as
+    //   a method trap. It also reports `slotScopeStatus`, because standing rule 13
+    //   makes "the handle was never built" and "the API declines" indistinguishable
+    //   in the outcome — three false ○s in E17 came from exactly that.
+    // ⚠ Both read through `Rig.slotLayerBanks`, layer banks hung off top-level
+    //   device SLOTS rather than off `cursorDevice0`. `layerBank0` follows the
+    //   cursor, so only ONE container is addressable at a time — fatal for the
+    //   cross-container direction, where scoping to the destination re-scopes the
+    //   handle pointing at the source. It also removes the e16o trap from the row:
+    //   the container is named by a parameter instead of by hidden cursor state.
+    'chain.move', 'chain.inventory',
   ];
   const e16 = golden.addedInE16 ?? [];
   const unexpected = e16.filter((m) => !m.startsWith('branch.') && !allowed.includes(m));

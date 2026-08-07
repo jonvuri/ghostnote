@@ -5,6 +5,671 @@ One section per experiment, appended as run. Verdicts: ● confirmed working /
 
 ---
 
+## E18h — ⚠⚠ THE VERB DECIDES: a MOVE-based rebuild is SILENT, a COPY-based one is not [K] (2026-08-03)
+
+**Verdict: ⚠⚠ ●● perfect separation across all four arms, both gates passed.** A
+layer rebuild CAN be performed silently during playback — which a track fork cannot.
+Probe: `e18h`, run 3 (runs 1 and 2 are the method record below).
+
+| arm | heard | |
+|---|---|---|
+| ⚠ **REBUILD-COPY** — instantiates a SECOND plugin instance | ⚠ **2/2** | audible |
+| ⚠⚠ **REBUILD-MOVE** — relocates the EXISTING instance | ⚠⚠ **0/2** | **SILENT** |
+| ⚠ **PLACEBO** | **0/2** | the listener is not pattern-matching |
+| ⚠ **CONTROL** — fork `gn-E16`, E16 C5's fixture | ⚠ **2/2** | the rig resolves a glitch |
+
+⇒ ⚠⚠ **THE OPERATOR'S MECHANISM IS CONFIRMED, by a clean discriminator:**
+
+> **Instantiating a plugin is the audible event. Relocating an existing one is free.**
+
+The two rebuild arms are byte-identical except for one parameter — `verb: 'copy'`
+versus `verb: 'move'` — and they separate 2/2 against 0/2 with the control firing and
+the placebo clean **in the same sitting**. That is the strongest shape this spike has
+for an ear result.
+
+### ⚠⚠ What it changes: layers WIN this row, and it is the first row they win outright
+
+| | glitch on a structural branch change |
+|---|---|
+| track fork | ⚠ **5/5 audible (E16 C5)** — and there is no silent variant |
+| ⚠ **layer rebuild via MOVE** | ⚠⚠ **●● SILENT** |
+| layer rebuild via COPY | 2/2 audible — parity with the fork |
+
+⇒ ⚠ **This partly offsets `e18f`'s 7-undo-step cost**, which is the row layers lose.
+A take system that can restructure without a click during playback is doing something
+the track model cannot do at all.
+
+### ⚠ The TRADE-OFF is real, and one half of it is NOT measured
+
+`MOVE` is silent but the device leaves its source chain; `COPY` never drops it but
+instantiates. ⚠ **The "gap" has NOT been measured and must not be reported as if it
+had.** The audio in every trial was playing on a track OTHER than the one carrying
+the rebuild — deliberately, to isolate the ENGINE-wide event from the doubling that
+forking `gn-E16` would otherwise produce. So:
+
+- ⚠ **measured:** a MOVE-based rebuild causes no engine glitch anywhere in the project.
+- ⚠ **NOT measured:** whether the migrated take's OWN output has an audible hole while
+  it is between containers. That needs audio running through the container being
+  rebuilt, and it is a different probe.
+
+⇒ **Record both, decide neither** (rule 10). The choice between an audible click and a
+possible momentary hole is the user's, and it cannot be made until the second half is
+measured.
+
+### ⚠⚠ The method record: two earlier runs, and both failures were the instrument
+
+**Run 1 — VOID.** Control 0/1. The operator diagnosed it:
+
+> *"The control likely didn't glitch because before we were using heavy tracks with
+> Zebra instances… Glitching is most likely a function of heavy plugin
+> initialization, and maybe unpredictable even then."*
+
+The record confirmed it — **E16 C5's 5/5 forked `gn-E16`, "two Zebra3s and a
+Polysynth"**, while run 1 forked four NATIVE devices. ⚠ And the consequence was
+bigger than the control: run 1's REBUILD arms were light too, so a passing control
+would still not have tested the realistic case.
+
+**Run 2 — VALID but CONFLATED, and the fault was the probe's.** Gates passed (placebo
+0/2, control 2/2) and both rebuild arms read 2/2 — but `buildOld()` ran INSIDE the
+measured window:
+
+    clear previous → insertFile 4-chain preset → insert Zebra3 → insertFile a 2nd
+    preset → migrate → delete old
+    └─────────────── FIXTURE, ~3.4 s ──────────────┘ └── the rebuild ──┘
+
+⚠ Roughly half the window was setup, containing the heaviest instantiation in the
+probe. So `MOVE` reading 2/2 measured the fixture build, not the verb — **the
+discriminator never ran**, and reading those equal columns as "the verb makes no
+difference" would have been exactly wrong. Run 3 moved setup outside the window
+(judged window: migrate + delete-old, **1.73 s**) and the columns immediately
+separated.
+
+⚠ **Three runs, two thrown away, and neither for a wrong answer** — one fixture too
+light to fire the control, one window too wide to attribute. Both were caught by
+gates the probe carried from the start rather than by re-reading the numbers
+afterwards, which is the only reason run 3's separation can be trusted.
+
+⚠ A blindness leak was closed on the way: rebuild arms ran ~5 s against the control's
+~0.9 s, so a question arriving early told the listener which arm they were on. All
+arms are now padded to a fixed 7 s.
+
+---
+
+## E18e — ⚠⚠ MODULATION SURVIVES EVERY RELOCATION — and the fixture that proves it had to be BUILT [K] (2026-08-02)
+
+**Verdict: ⚠⚠ ●● 3/3 legs.** The scariest item on §3.1's list, because the failure
+mode was *silent*: a take whose filter quietly stops moving, with no error anywhere.
+It does not happen. Probe: `e18e`; fixture built by
+`src/tools/build-e18-modfixture.ts`.
+
+| leg | move | rebuild step | max divergence | |
+|---|---|---|---|---|
+| baseline | (none) | — | **0.00357** | ● |
+| 1 | top level → chain `A0` | the patch entering a take container | 0.00239 | ●● |
+| 2 | ⚠ chain `A0` → chain `B0`, **different containers** | **reduce** | 0.00303 | ●● |
+| 3 | ⚠ chain `B0` → top level | **collapse** | 0.00359 | ●● |
+
+⇒ ⚠ **A modulator riding on the relocated device keeps working**, across containers
+and back out to top level.
+
+### ⚠⚠ The instrument was the whole problem, and two of them had to be fixed
+
+**1. Every modulator fixture on disk was UNROUTED.** An offline read settled it —
+`mp_one_lfo` `routes=0`, `modzoo` `routes=0` ×2, `mp_one_random` `routes=0`. They
+modulate **nothing**. That is not a defect: they were built for `bwmod` FORMAT work
+(E11/E13), where the question was whether a modulator *loads*. ⚠ **But a relocation
+probe run on them would compare 0 against 0 before and after and report "modulation
+survived"** — the emptiest false ● available. The fixture is now authored:
+`addModulator` with a routed donor aimed at `CONTENTS/F1FREQ` at amount 1.0, the
+route read back out of the written bytes before the file is accepted.
+
+**2. The oracle only saw one remote page.** Liveness had only ever been readable via
+`remote.list`, which exposes the 8 controls of the **selected** page — so asking
+*"is this parameter modulated"* meant guessing which page it lives on and scanning.
+`param.list` now carries `modulatedValue` beside `value` for the 16 named handles,
+making it a direct comparison on `F1FREQ` — the same parameter `e18c` marks for its
+state check. No new wire method; `modulatedValue` was already marked at init by E7.
+
+### ⚠⚠ The FLOOR is measured, not asserted — and the first draft got it wrong
+
+The probe originally hard-coded a floor of `0.01` as *"safely above noise"*. A live
+check then showed the authored fixture swinging only **±0.0036** — real, repeatable
+modulation that the gate would have discarded as *"no fixture modulates"*, **turning
+a working instrument into a false blocker.**
+
+⚠ **The right framing is not "big vs small", it is "non-zero vs EXACTLY zero":**
+
+| arm | max divergence |
+|---|---|
+| ⚠ **NEGATIVE CONTROL** — an unrouted modulator | ⚠⚠ **0.000000** |
+| `gn_mod_lfo-sampler` (authored, routed) | **0.00357** ● |
+| `gn_mod_vibrato-poly` (authored, routed) | ⚠ **0.00000** ○ |
+
+An unmodulated parameter reads `modulatedValue == value` **exactly**, so the
+discrimination is ~3600:1 and the small absolute number costs nothing. The negative
+control establishes that in the same sitting rather than trusting a constant.
+
+⚠ **Building TWO candidate fixtures paid for itself.** Whether a modulator *runs at
+rest* is not knowable offline — an LFO free-runs, a Vibrato apparently wants voices.
+`vibrato-poly` loaded correctly, validated correctly, routed correctly, and produced
+**exactly zero** movement. Had it been the only fixture, the row would have reported
+a blocker instead of an answer.
+
+### ⚠ Scope — stated so this is not over-read
+
+This measures a modulator **on the device being moved**, routed to **its own**
+parameter. It does **NOT** measure E11e's cross-device form — a modulator on the
+**outer container** routed into a chain, whose Ramona path is
+`…/DEVICE_CHAIN/<deviceIndex>:CONTENTS/<PARAM>` and therefore **encodes a device
+INDEX**. ⚠ That is precisely the path a rebuild could renumber, and it remains owed.
+The green result above says nothing about it.
+
+---
+
+## E18g — ⚠ CHAIN-LEVEL state: colour is re-appliable, and a chain has NO SENDS AT ALL [K] (2026-08-02)
+
+**Verdict: ⚠ colour ●● / sends ○ — and the ○ CLOSES the row rather than failing it.**
+Relocating devices carries the devices and nothing else, so every chain-level
+property is something a rebuild must re-apply or silently lose. Probe: `e18g`.
+
+| | result |
+|---|---|
+| colour readable + writable, **per-chain** | ⚠ **●●** — wrote `0.83,0.17,0.42`, read back `0.827,0.169,0.416`; the sibling chain unmoved |
+| ⚠ **a chain's SENDS** | ⚠⚠ **○ THERE ARE NONE** |
+| chain state carried by a device migration | ⚠ **○ NO** — `B0` kept its default `0.341,0.380,0.776` |
+| …but re-appliable onto the destination | ● yes |
+
+### ⚠⚠ A `DeviceLayer` has no send bank, and Bitwig says so out loud
+
+    layerSendsStatus = FAILED@0: No send bank exists: Requested a send bank size of 0
+
+⚠ **`Channel.sendBank()` does not return an EMPTY bank on a layer — it refuses to
+create one.** That is a far stronger negative than a silent no-op: the API is
+*stating* the capability is absent rather than quietly doing nothing, which is E6
+blocker 4's entire problem. It is also one more instance of the rule E17 established
+— **an inherited member is a claim, not a capability** (`deleteObject()` is inherited
+and refuses; `duplicateObject()` is inherited and refuses).
+
+⇒ ⚠ **This CLOSES the sends half of the row: a rebuild cannot lose what does not
+exist.** It also fits the model — a layer chain is not a mixer channel routed to FX
+buses. ⚠ **A TRACK fork, by contrast, does carry sends** (E16d), so this is a real
+difference between the two branching models rather than a non-issue.
+
+⚠ **The gate needed THREE readings, not two, and this is the transferable part.**
+`marked:N` means the bank exists; *"No send bank exists"* means **Bitwig answering the
+question**; anything else is OUR failure. Collapsing the last two would have let an
+instrument fault be published as a capability ○ — the exact mistake standing rule 13
+exists to prevent, and the one that produced three false ○s in E17. The raw status
+string is recorded so the reading can be audited rather than taken on trust.
+
+### ⚠ What it means for the rebuild
+
+⇒ **The rebuild is not "move the devices".** It is *move the devices AND re-apply
+every chain property that was set* — name, mute, solo, volume, pan and colour.
+⚠ **`e18f` measured that every call is another undo step**, so each property restored
+is one more step between the user and their single Cmd-Z. The costs compound, and
+colour is the cheap end of that list.
+
+---
+
+## E18f — ⚠⚠ ONE REBUILD IS SEVEN UNDO STEPS: the first real cost of the layer model, and it is a UX one [K] (2026-08-02)
+
+**Verdict: ⚠⚠ the rebuild WORKS and it is EXPENSIVE in the one currency the operator
+named.** `e18c` proved the mechanism; this runs the `reduce` shape end to end and
+measures the three properties that decide whether it ships. Probe: `e18f`.
+
+| | measured | reading |
+|---|---|---|
+| **COST** | **4276 ms** for 4→2 carrying 2 devices, 6 steps | tolerable, and the delete dominates |
+| ⚠⚠ **UNDO** | ⚠⚠ **7 steps for ONE rebuild** | ⚠ **the real regression** |
+| **ATOMICITY** | ⚠ **6 of 7 intermediate states hold BOTH containers** | one Cmd-Z lands mid-migration |
+
+### ⚠⚠ The rule, and it generalises well beyond this row
+
+    ONE STRUCTURAL API CALL = ONE UNDO STEP.
+
+The trail is exactly legible against the six rebuild steps, in reverse:
+
+| undo | what came back |
+|---|---|
+| 1 | the OLD container (un-deletes it — both now present) |
+| 2 | `NEW1`'s migrated device |
+| 3 | `NEW0`'s migrated device |
+| 4 | `NEW1`'s name → `Layer 2` |
+| 5 | `NEW0`'s name → `Layer 1` |
+| 6 | the second chain (2 → 1) |
+| 7 | the FX Layer itself |
+
+⇒ ⚠⚠ **The user's single Cmd-Z does not undo "the take change" — it lands INSIDE the
+migration**, with the old and new containers both present and the takes duplicated
+across them. Under the TRACK model a branch is one operation and one Cmd-Z, and
+**that is the comparison that decides this**.
+
+⚠ **Not fatal on the operator's own bar** — *"it doesn't need to be perfect — track
+branching isn't either"* — but it is a per-use cost the track model does not have,
+and it is **invisible until the user hits undo once**. That makes it the same shape
+as E17's priming hazard: a precondition nobody can see.
+
+⚠ **It also reaches past this row.** Any multi-call operation we ever perform costs
+the user N undo steps. That is a general property of the wire, measured here for the
+first time, and it applies to the track model too wherever a gesture is more than one
+call (fork + rename + lineage group = 3).
+
+### Cost, stated so it is not over-read
+
+| step | ms |
+|---|---|
+| insert the NEW container (FX Layer) | 777 |
+| grow to 2 chains (`layer.select` + `duplicateChannel`) | 805 |
+| name the 2 takes | 398 |
+| migrate `OLD0` → `NEW0` (copy, across containers) | 297 |
+| migrate `OLD1` → `NEW1` (copy, across containers) | 306 |
+| ⚠ **DELETE the old container** | ⚠ **1688 — the single most expensive step** |
+
+⚠ **These are WALL-CLOCK and settle-inclusive, poll-quantised at 200–250 ms, not API
+latencies.** E17 measured `Device.deleteObject()` at 577 ms, so the 1688 above is
+inflated by our own settle policy. Two honest readings: as *"how long the user
+waits"* the wall clock is the right number; as *"what Bitwig costs"* it is an upper
+bound. ⚠ **The migrations themselves are the CHEAP part** (~300 ms each), so cost
+scales gently in the number of devices and is dominated by the fixed container
+insert/delete — which is the good news in this table.
+
+### ⚠ Method: the undo arm walks a PROJECT-WIDE stack, and that is dangerous
+
+`app.undo` knows nothing about our fixture. Firing it blindly can undo the
+**operator's own work**, which would be an unrecoverable side effect of a
+measurement — by far the worst thing this probe could do. Four rails, all held:
+
+1. A full **cross-track fingerprint** before the first undo — track list by identity
+   plus the device list of every other track, ⚠ including `gn-A`, the Master and
+   `FX 1`, which earlier probes **this same session** wrote to and which a runaway
+   undo would reach first.
+2. After EVERY undo, everything outside `gn-B` must be byte-identical; the moment it
+   is not, the probe **redoes immediately** and aborts with a bound rather than an
+   exact count.
+3. A hard ceiling of 40 undos.
+4. ⚠ Every undo **redone** at the end — verified: `gn-B` returned to the rebuilt
+   shape and the outside world was untouched. **Measuring must not mutate.**
+
+⚠ The arm is worth the care because the answer cannot be reasoned out: Bitwig decides
+its own undo granularity and nothing in the API documents it.
+
+---
+
+## E18c — ⚠⚠ THE REBUILD STRATEGY IS MECHANICALLY AVAILABLE: a device can leave a chain, cross containers, and keep its state [K] (2026-08-02)
+
+**Verdict: ⚠⚠ ●● all four directions, 2/2 parameter marks survived, both controls
+passed.** E18's main question. A chain cannot be deleted by any typed route — the
+best-founded ○ in E17 — so the operator proposed working without one: *reduce*
+(clone the container with fewer chains, migrate the devices across, delete the old)
+and *collapse* (migrate the chosen chain's devices out, delete the container).
+⚠ **E16n had only ever measured `moveDevices` in ONE direction, top level INTO a
+chain.** Every direction the strategy needs was untested, and no wire method could
+even name a device inside a chain as a SOURCE. Probe: `e18c`. New wire:
+`chain.move` + `chain.inventory`, `methodsHash` **`f1c6401540eb9daa`** (133 → 135).
+
+| row | direction | needed by | verdict |
+|---|---|---|---|
+| 1 | ⚠ **chain → TOP LEVEL** | **collapse** | ⚠⚠ **●● 926 ms** — `A1` lost its Polysynth, top level gained it |
+| 2 | chain → chain, same container | either | ●● 716 ms — `A2` lost its Organ, `A0` gained it |
+| 3 | ⚠ **chain → chain, DIFFERENT containers** | **reduce** | ⚠⚠ **●● 706 ms** — `A3` lost its Sampler, `B0` gained it |
+| 4 | ⚠ the **COPY** verb, across containers | a rebuild with no gap in the signal path | ⚠⚠ **●● 705 ms** — source KEPT its Phase-4, `B1` gained one |
+| — | ⚠ **STATE across a relocation OUT** | the whole point | ⚠ **●● 2/2** — `F1FREQ` 0.170, `F1RESO` 0.830, exact |
+
+⇒ ⚠⚠ **The missing chain DELETE stops being a WALL and becomes a COST.** Both
+primitives work, and `Device.deleteObject()` on the container was already ●.
+
+### ⚠ Why COPY working matters more than the row count suggests
+
+A `move`-based rebuild has a window where the device is **out of the signal path
+entirely**. A `copy`-based one does not: copy across, then delete the old container,
+and the audio never loses the device. ⚠ That speaks directly to the operator's bar —
+*"low on (or free of) intermediate states that are undesirable or glitchy"* — and it
+was not a given **on the prior standing at the time**: sibling verbs on this exact
+interface had disagreed repeatedly — `copyDevices` ○ beside `moveDevices` ● (E4d
+route 3 / E16n), `duplicateObject()` ○ beside `Channel.duplicate()` ●, `copyTracks`
+○ beside three working duplication verbs. ⚠ **That particular prior turned out to be
+wrong**, and row 4 is what exposed it: see **E18d**, which re-ran the `copyDevices`
+question deliberately and found E4d route 3 to be a false negative. The reasoning
+above is kept as the prior the row was designed against, not as a current claim.
+
+### ⚠ State survives the direction that matters
+
+`e16o` measured state across a relocation **INTO** a chain. Out of one was never
+tested, and it is the direction *collapse* depends on — a take system that rescues
+your chosen patch by resetting it is worthless for the one job it exists for.
+
+Two parameters were marked, not one: a single value could coincide with a fresh
+instance's default and read as "state survived" when the device was silently
+replaced. Marked through `devcursor.selectFirstInLayer(1)` (descending into the
+chain), read back through `devcursor.selectAt(topIndex)` after the move — ⚠ **a
+different handle than the one that wrote them** (rule 3a / D15), because Bitwig's
+cursors cache what you write and report it back whether or not it landed.
+
+### The new wire, and why it is shaped this way
+
+⚠ **`layerBank0` follows `cursorDevice0`, so exactly ONE container is addressable at
+a time** — fatal for row 3, where scoping to the destination re-scopes the handle
+pointing at the source. `Device.createLayerBank(int)` is declared on `Device`, not
+on `CursorDevice` (checked against the 6.0.6 javadoc index before wiring), so layer
+banks now hang off top-level device **SLOTS**: two containers, side by side on one
+track, never contending.
+
+⚠ **It also removes the e16o trap from the whole row.** Every `layer.*` call is a
+silent no-op byte-identical to an API refusal when the cursor is not on the
+container; a slot-scoped bank has no such hidden argument, because the container is
+named by a parameter rather than by cursor state. Both scopes reported
+`status: "held"` — ⚠ and the probe **aborts** unless they do, because standing rule
+13 makes *"the handle was never built"* and *"the API declines"* identical in the
+outcome, which produced three false ○s in E17.
+
+### Method
+
+- ⚠ **Guard #4 as a CONSERVATION LAW.** Total device population = top-level count +
+  every device inside every chain. A `move` must conserve it and a `copy` must add
+  exactly one; anything else ABORTS rather than scoring.
+- ⚠ **Both halves of every relocation.** The source must lose it *and* the
+  destination must gain it. *"The chain is now empty"* is what a successful move and
+  a **destructive** one have in common, and only the second half separates them.
+  For row 4 the polarity inverts — a copy must KEEP its source — and that is checked
+  as its own condition rather than folded into a single boolean.
+- ⚠ **Explicit chain names are load-bearing, not cosmetic.** E4c: a layer's DEFAULT
+  name tracks its content, so a chain renames itself exactly when its device leaves
+  — i.e. precisely when a move succeeds. Row 5's sticky explicit names (`A0`…`A3`,
+  `B0`…`B2`) are what let every survivor be NAMED rather than counted (e16t / #13).
+  Container B was built EMPTY so anything appearing in it can only have come from A.
+- ⚠ **Two independent readers, cross-checked.** The same container was read through
+  the cursor-scoped `layer.list` and the slot-scoped `chain.inventory`; they share no
+  handle, so their agreement is evidence where one reader agreeing with itself is not.
+- ⚠ **`where` is always `chainEnd` for a move to top level.** `chainStart` would
+  insert BEFORE the containers and shift them out of slots 0/1, silently invalidating
+  every scope. The probe asserts both containers are still at indices 0 and 1 after
+  every arm, and that `chain.inventory.trackName` is still the subject.
+- **The E16n direction is the CONTROL**, fired through a *different* handler
+  (`layer.moveDeviceInto`) before and after the run — both ●, so a ○ on any row would
+  have meant the direction and not a dead verb or a dead bridge.
+
+⇒ ⚠ **STILL OWED before this is a recommendation rather than a mechanism:**
+modulator routings across a relocation, chain-level state not carried by moving
+devices (colour and sends are untested; name/mute/solo/volume/pan are ●), audible
+glitch, undo granularity, atomicity if a migration fails halfway, and cost at
+realistic N. **Feasibility is not sufficiency** — that was the operator's point.
+
+---
+
+## E18d — ⚠ E4d route 3 is a FALSE NEGATIVE: `copyDevices` into a layer chain works [K] (2026-08-02)
+
+**Verdict: ⚠⚠ ●● all three arms.** `e18c` row 4 copied a device into a layer chain,
+which directly contradicts E4d route 3's recorded ○ — and E16n had reasoned about
+that ○ at length when it overturned the `moveDevices` half:
+
+> *"`copyDevices`' no-op was verb-specific rather than destination-specific"*
+
+Two readings survived and they are materially different: **(a)** E4d's ○ was an
+artifact, or **(b)** the SOURCE decides — every previous attempt copied from the
+TOP-LEVEL chain, while `e18c` copied one already NESTED. Probe: `e18d`.
+
+| arm | verb | source | destination | result |
+|---|---|---|---|---|
+| A | `copy` | nested (`C0`) | `C1` | ●● reproduces `e18c` row 4 |
+| ⚠ **B** | ⚠ **`copy`** | ⚠ **TOP LEVEL** | `C2` | ⚠⚠ **●● — E4d says this is impossible** |
+| ⚠ **C** | `move` | ⚠ **TOP LEVEL** | `C2` | ●● the discriminator |
+
+⇒ ⚠⚠ **(a). `copyDevices` into a layer chain works from either source.** E4d route
+3's ○ is a false negative of exactly the shape its own `moveDevices` sibling turned
+out to be, and E16n's *"verb-specific rather than destination-specific"* is wrong in
+**both** halves — it was neither. The likeliest cause is the e16o trap, which is
+what killed the sibling.
+
+⚠ **Arm C is the design, not a formality.** It holds source and destination fixed
+and changes only the VERB, in the same sitting. Had B come back ○, C's ● would have
+proved the top-level source handle valid and the destination alive — so the ○ could
+only have been the verb, and reading (b) would have been *established* rather than
+assumed. Without it, a ○ on B is the E6 failure again: a negative whose control was
+a different object read through a different oracle.
+
+⚠ **The nested source was seeded through `layer.insertDevice`** — a route
+independent of every verb under test — so the fixture never presupposes the answer.
+
+⇒ **What it changes:** one more verb is available for the §3.1 rebuild, and the
+count of relocation routes into a chain goes from two (`moveDevices`,
+`layer.pasteInto`) to **three**. ⚠ **What it does not change:** nothing in E18c
+depended on E4d being right, and no E18c row was routed through this call.
+
+⇒ ⚠ **This is the FIFTH capability ○ in the spike overturned by re-aiming a verb
+everyone had written off** (CLAP params, `channelId`, chain creation, group creation,
+now this). Standing rule 10 keeps paying for itself.
+
+---
+
+## E18b — ⚠⚠ §3.2 CLOSED: a chain's `channelId` is minted by the PROJECT LOADER — a matched pair on one fixture [K] (2026-08-04)
+
+**Verdict: ⚠⚠ both arms measured on the SAME four ids, and they separate cleanly.**
+§3.2 rebuilt from scratch on a fresh fixture as the operator asked, and NOT a re-run
+of `e17ad`. Probe: `e18b` (`snapshot` → `resnap` → `verify`).
+
+| arm | chain ids | proof the reload happened |
+|---|---|---|
+| ⚠ **extension reload** (project stayed open) | ⚠⚠ **●● 4/4 SURVIVED** | `methodsHash` moved |
+| ⚠ *…replicated over a SECOND extension reload* | ⚠ **●● 4/4 SURVIVED** | new jar, ids untouched |
+| ⚠⚠ **PROJECT reload** (save + quit + reopen) | ⚠⚠ **○ 4/4 REGENERATED** | ⚠ **undo stack CLEARED** |
+
+⇒ ⚠⚠ **A chain `channelId` lives in the RUNNING PROJECT and is minted by the project
+LOADER.** It survives our jar re-initialising and being replaced — twice — and dies
+with the document load.
+
+The operator's objection was the reason to rebuild it, and it is now answered:
+
+> *"it is weird that channel identity is stable for tracks but not for chains when
+> they share the same underlying object that channelId's name implies."*
+
+⇒ ⚠ **The asymmetry is about what the project FILE persists, not about what our
+proxies hand out.** A track id is written to disk; a chain id is created at load.
+Nothing odd remains, and nothing on our side can recover it.
+
+⚠ **`e17ad` is CONFIRMED** — independently, on a fresh fixture, with a different
+method. Its 8/8 was not an artifact.
+
+### ⚠⚠ Why this is a matched pair and not two experiments
+
+⚠ **`e17ad` could not have answered the question at all**, because a quit-and-reopen
+restarts BOTH the project and the extension, and its 8/8 is consistent with either
+being the cause. Splitting them needs the SAME ids put through both reload types —
+which meant the project arm could not rebuild its fixture:
+
+- ⚠ A `resnap` mode was added for exactly this. The `snapshot` mode clears the track
+  and rebuilds, which **mints new ids** and would have turned the pair into two
+  unrelated experiments. `resnap` captures what is already there and touches nothing.
+- ⚠ The re-snapshot confirmed **4/4 ids unchanged since the original**, so the two
+  arms genuinely share one fixture — and that check also delivered a free
+  **replication** of the extension arm across a second reload.
+
+### ⚠⚠ Proving WHICH reload happened — the gap that would have wrecked it
+
+⚠ **`methodsHash` and `initEpochMs` prove our JAR re-ran `init()`. Neither says the
+DOCUMENT reloaded** — and a controller reload satisfying the extension proof while
+being filed as the project arm would have inverted the entire finding.
+
+⚠ Bitwig's undo history belongs to the PROJECT, so a controller reload leaves it
+alone while loading a project clears it. **Measured: `canUndo` true → false**, which
+is positive evidence the document was re-parsed from disk. Both proofs fired on this
+run, and they are independent.
+
+⚠ **The extension proof came from `initEpochMs`, not the hash** (`newCode: false` —
+the jar was unchanged between the two runs). That is precisely the case the
+`initEpochMs` field was added for, after the first version of this probe proved
+re-init by hash alone and would have been unable to gate this run at all.
+
+⚠ The undo detector is **reported, not enforced**. Whether Bitwig clears undo history
+on load is an assumption about DAW behaviour nobody here has measured, and refusing a
+good run on an untested assumption would be its own error — so an unproven reload
+kind is labelled rather than blocked.
+
+### ⚠ Also re-confirmed, and the framing depends on it
+
+`channelId` is **stable WITHIN a session** — identical across back-to-back reads,
+after re-scoping the container, and after a track-cursor round trip. Had it been a
+per-read handle, "does not survive a reload" would be true for a much stronger reason
+and the whole framing would be wrong.
+
+⇒ ⚠⚠ **CONSEQUENCE, and it is the durable one:** addressing a take layer across
+sessions must rest on the **NAME**, which E17 row 5 measured sticky across a content
+change AND a save + restart. ⚠ This is the one place D6 inverts — for tracks
+`channelId` is the key and the name is the human tag; for chains there is no key and
+the tag is all there is.
+
+⇒ ⚠ **The operator's "weird" is resolved, and the resolution is the useful part:**
+the asymmetry with tracks is about what the project **FILE** persists, not about
+what our proxies hand out. A track id is written to disk; a chain id is minted at
+load. So the ○ is a property of the document format, and no amount of care on our
+side can recover it — which is a cleaner statement than *"chain ids are unstable"*.
+
+⚠ Also re-confirmed on the fresh fixture: `channelId` is **stable WITHIN a session**
+— identical across back-to-back reads, after re-scoping the container, and after a
+track-cursor round trip. Had it been a per-read handle the framing would be wrong in
+a much stronger way.
+
+### Method — and one guard that fired on its first outing
+
+- ⚠ **The re-init PRECONDITION must not be the `methodsHash`.** A hash change proves
+  NEW CODE loaded, which is a different claim from *`init()` re-ran* — and the arm
+  this probe exists for is a controller reload where the hash may not move at all.
+  Without a precondition the probe would cheerfully report *"the ids survived"*
+  against an extension that never restarted: the emptiest false ● available.
+- ⚠ **It fired, and it caught a real defect — mine.** The snapshot half was written
+  before `initEpochMs` was added, so `snap.initEpochMs` was `undefined` and
+  `x > undefined` is silently `false`. The probe REFUSED rather than scoring. Fixed
+  to take EITHER proof — a moved `rig.stats.initEpochMs`, or a changed `methodsHash`
+  (different code cannot be the same session) — and to treat a missing field as
+  **UNKNOWN** rather than as "did not re-init", so an absent field can never
+  masquerade as a failed precondition.
+- ⚠ **The STRUCTURAL FINGERPRINT gate**, carried over from `e17ad`: container count,
+  chain count, chain names and devices-per-chain captured at both ends, and the
+  verify **refuses to compare ids at all** unless they match. So *"we read a
+  different container"* can never masquerade as *"the ids changed"* — the artifact
+  that made `e17n` untrustworthy, since a duplicate container has identical chain
+  NAMES and different IDS.
+- ⚠ **Explicit chain names** (`gnid·0`…`gnid·3`) for the same reason as E18c: a
+  default name tracks content and is not a stable fingerprint field.
+- The probe also **refuses if the track carries more than one container**, closing
+  the `e17n` artifact by construction rather than by argument.
+
+⇒ ⚠ **CLOSED 2026-08-04** by the project-reload arm above, run on this same fixture
+with the operator's consent to save. The two arms are a matched pair and §3.2 needs
+nothing further.
+
+---
+
+## E18a — §6's load-bearing ASSUMPTION is now a MEASUREMENT: a multi-chain container reaches the Master and an FX return, autonomously [K] (2026-08-02)
+
+**Verdict: ⚠⚠ ●● all nine cells landed.** `E17-VERDICT.md` §6.1 claims layers are
+*"the only device-scoped A/B that reaches the Master and the FX returns"* — the
+hole §4.8 had no answer for, since an FX return cannot be forked at all (other
+tracks' sends still feed the original). ⚠ **That argument rested on a container
+being placeable there by us, and nothing had ever tested it.** It is now tested,
+and it holds by a wider margin than the argument needed. Probe: `e18a`. No wire
+change; `methodsHash b3b9c71954d83b6a`, 133 methods.
+
+| route | gn-B (control) | FX 1 (Effect) | Master |
+|---|---|---|---|
+| ⚠ **FX Layer by UUID, then `layer.select` + `duplicateChannel`** | ●● 1 → **2 chains** | ●● 1 → **2 chains** | ⚠⚠ ●● 1 → **2 chains** |
+| Instrument Layer by UUID | ● lands, 0 chains | ● lands, 0 chains | ● lands, 0 chains |
+| `insertFile` (4-chain Instrument Layer preset) | ● **4 chains, filled** | ● **4 chains, filled** | ⚠ ● **4 chains, filled** |
+
+⇒ ⚠⚠ **A multi-chain container can be built on the Master and on an FX return
+with no preset, no named action, no focus, no priming and no human.** The `e17ak`
+recipe transfers to both destinations unchanged, and the chain selection flag read
+`chain 0` at the instant of the call in all four growth arms (`observing:8`).
+
+### ⚠ The discriminator fired the OTHER way, and that is the more useful half
+
+The probe carried an INSTRUMENT-container arm specifically to separate *"the
+destination refuses CONTAINERS"* from *"the destination refuses INSTRUMENTS"* —
+because every container fixture on disk is instrument-shaped, and an `insertFile`
+○ on a Master would otherwise have been scored as a property of the destination
+when the honest reading was a property of the preset. That is the `e17v` mistake
+(a fixture under which two mechanisms predict the same outcome), pre-empted.
+
+⚠ **It was not needed, and the reason is a finding in its own right: there is no
+type restriction to discriminate.** A Master and an FX return each accepted an
+Instrument Layer by UUID *and* a 4-chain instrument preset carrying
+`[Phase-4, Polysynth, Organ, Sampler]`, every chain arriving filled. Whatever
+Bitwig's UI implies about what belongs on a master bus, **the API imposes no
+device-type gate we can detect at these destinations.**
+
+### ⚠ Two bootstrap facts re-confirmed at three destinations each
+
+`e17ai` measured these once, on one track. They are destination-independent:
+
+| | ships with |
+|---|---|
+| a fresh **FX Layer** | ⚠ **1 chain** — so it can be grown from nothing, typed |
+| a fresh **Instrument Layer** | **0 chains** — no first chain to copy, so it still needs a preset or `Group` |
+
+⇒ ⚠ **The FX Layer is the right container for these two destinations anyway**,
+which is what makes the autonomous route available exactly where §6 wants it.
+
+### ⚠ Cost, stated so it is not over-read
+
+| | gn-B | FX 1 | Master |
+|---|---|---|---|
+| `insertBitwig` + settle | 469 ms | 469 ms | 500 ms |
+| `insertFile` + settle | 463 ms | 464 ms | 465 ms |
+
+⚠ **These are settle-INCLUSIVE and poll-quantised at 200 ms, not call latencies** —
+they are not comparable to E16's ~143 ms insert or ~764 ms `insertFile`, which were
+measured differently. What they *do* support, because both were measured the same
+way here, is the **comparison**: at these destinations `insertFile` costs no more
+than a plain device insert. The preset route is not the expensive one.
+
+### Method
+
+- ⚠ **The first run ABORTED on its own readback, and the reason generalises.**
+  `cursor.status.trackPosition` reads `clip.getTrack()` — the cursor CLIP's track —
+  and an FX return and the Master have **no launcher clip**, so it reports
+  `trackPosition=-1, trackName="", trackExists=false` no matter how correctly the
+  cursor landed. **A probe waiting on it aborts on precisely the two destinations
+  it exists to measure.** The cursor was fine throughout; the instrument was not.
+- ⚠⚠ **And the obvious replacement is also wrong, which is the transferable part.**
+  `cursorTrack.position()` is **NOT the bank index**: swept across all 13 tracks it
+  is the position within the PARENT GROUP. `gn-E16` reads `0` because it is a child
+  of `Group 7`, and every track after the group is shifted by one (`gn-sel` bank 10
+  → position 9, `Master` bank 12 → 11). ⇒ **Two different tracks share one position
+  number**, which is D6's complaint one level down. The probe calibrates the mapping
+  per destination and **refuses if two destinations collide** — an ambiguous
+  readback is not a readback.
+- **Landing was confirmed by CONTENT, not by the number** (rule 3a): pointing at
+  `gn-sel` returns its `Instrument Selector`, at `gn-E16` its three devices, and at
+  `FX 1`/`Master` genuinely empty chains. That is what rules out a mis-landing.
+- **The control brackets the run** (the `e17v` ordering fix): `gn-B` ran the
+  identical recipe **before, between and after** the two real destinations and grew
+  every time, so a recipe dying mid-run would have produced an early refusal rather
+  than false ○s on the destinations that matter.
+- **Guards honoured:** destinations resolved by `channelId` with a refusal on
+  duplicate names (#1); device list, chain list and devices-inside-chains read every
+  arm (#2); track identity compared before and after every arm (#3); Δdevices bound
+  to 0/+1 and Δchains to 0/+1 with an abort otherwise (#4); ⚠ **`device.selectInEditor`
+  never called** — it is what poisoned `e17ac` (#6); chain 0 renamed `E18·a` before
+  the duplicate so growth is verified by NAME (#13).
+- ⚠ **Writing to the Master is the global signal path**, so the probe **refuses to
+  run while the transport is rolling** (two parallel chains sum the signal), restores
+  each destination to its exact device-name sequence after every arm, attempts the
+  same restore on abort before exiting, and takes a **cross-track device fingerprint
+  at both ends** — the off-subject check `e17ah` lacked. All three destinations back
+  to baseline; fingerprint unchanged; track list identical by identity.
+- ⚠ The first run's SUMMARY row printed `1 chains` under a body reading `GREW to 2`
+  — it recorded the pre-growth count. The body is authoritative for this run; the
+  derived line is fixed for future ones. **A derived line that can disagree with its
+  own evidence is a defect even when the evidence is right.**
+
+⇒ ⚠ **What this does NOT settle.** It says a container can be PLACED and GROWN
+there. It says nothing about §3.1's rebuild strategy, about destroying a chain, or
+about `channelId` durability. And it leaves `E17-VERDICT.md` §6.1 standing on
+measurement rather than assumption — which strengthens the *layers* column without
+touching the three rows that decide the call (destroy, identity, clips).
+
+---
+
 ## E17 — device layers: a chain can be CREATED and SOLOED, and never grown, duplicated or deleted [K] (2026-08-01)
 
 **Verdict: ⚠⚠ a layer chain is UNADDRESSABLE, not fixed-shape — and that
@@ -4877,9 +5542,9 @@ CLAP params and channelId) — the pattern is now undeniable, see Method.
 
 | # | route | result |
 |---|---|---|
-| 1 | `DeviceLayer.duplicateObject()` | ✗ silent no-op |
-| 2 | `DeviceLayer.duplicate()` (as Channel) | ✗ silent no-op |
-| 3 | `InsertionPoint.copyDevices()` into a layer | ✗ silent no-op |
+| 1 | `DeviceLayer.duplicateObject()` | ✗ silent no-op — ⚠ **still ○** (e17am, exhausted) |
+| 2 | `DeviceLayer.duplicate()` (as Channel) | ⚠⚠ **OVERTURNED — see E17 `e17ak`.** `Channel.duplicate()` creates a chain; it needed the chain SELECTED, which `layer.select` does |
+| 3 | `InsertionPoint.copyDevices()` into a layer | ⚠⚠ **OVERTURNED — see E18d.** It works, from a top-level source AND a nested one. The move sibling was overturned first (E16n); this is the same false negative |
 | 4 | **`InsertionPoint.insertFile(preset)`** | **● 12-pad structure in 268ms** |
 | 5 | **`DrumPad.insertionPoint().insertBitwigDevice()`** | **● creates chains** |
 | 6 | **`Device.duplicateObject()` on a container** | **● clones WITH contents** |

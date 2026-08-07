@@ -53,6 +53,9 @@ public final class ContainerHandlers extends HandlerGroup {
         r.on("layer.selectionState", params -> layerSelectionState());
         r.on("layer.deleteViaAction", params -> layerDeleteViaAction(params));
         r.on("layer.duplicateViaAction", params -> layerDuplicateViaAction(params));
+        // ⚠⚠ E18 §3.1 — the REBUILD strategy's gating direction. See `chainMove`.
+        r.on("chain.inventory", params -> chainInventory());
+        r.on("chain.move", params -> chainMove(params));
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));
         r.on("drumpad.duplicate", params -> drumPadDuplicate(params));
@@ -86,6 +89,31 @@ public final class ContainerHandlers extends HandlerGroup {
             putGuarded(obj, "volume", () -> layer.volume().value().get());
             putGuarded(obj, "pan", () -> layer.pan().value().get());
             putGuarded(obj, "channelId", () -> layer.channelId().get());
+            // ⚠ E18 §3.1 — the chain-level state a rebuild has to carry by hand.
+            // Moving devices carries the DEVICES and nothing else, so anything read
+            // here is something the migration must re-apply or silently lose.
+            putGuarded(obj, "color", () -> String.format("%.3f,%.3f,%.3f",
+                layer.color().red(), layer.color().green(), layer.color().blue()));
+            JsonArray sends = new JsonArray();
+            try {
+                if (rig.layerSendBanks[l] != null) {
+                    for (int s = 0; s < Rig.LAYER_SEND_BANK; s++) {
+                        com.bitwig.extension.controller.api.Send send =
+                            rig.layerSendBanks[l].getItemAt(s);
+                        if (!send.exists().get()) {
+                            continue;
+                        }
+                        JsonObject row = new JsonObject();
+                        row.addProperty("index", s);
+                        row.addProperty("name", send.name().get());
+                        row.addProperty("value", send.value().get());
+                        sends.add(row);
+                    }
+                }
+            } catch (Throwable t) {
+                obj.addProperty("sendsError", t.getClass().getSimpleName() + ":" + t.getMessage());
+            }
+            obj.add("sends", sends);
             // ⚠⚠ E17 — the readback whose absence made `e17k` uninterpretable and
             // forced a human-assisted probe. A row firing a named action at a
             // layer can now assert "it IS selected" as a PRECONDITION, separately
@@ -115,6 +143,10 @@ public final class ContainerHandlers extends HandlerGroup {
         // that reads `mute` as ERR everywhere means something different depending
         // on this: "the handle was never marked" or "the API refuses it".
         result.addProperty("layerMixerStatus", rig.layerMixerStatus);
+        // ⚠ Rule 13, reported per handle group: "every chain reads 0,0,0 and no
+        // sends" means something different depending on whether these ever marked.
+        result.addProperty("layerColorStatus", rig.layerColorStatus);
+        result.addProperty("layerSendsStatus", rig.layerSendsStatus);
         // Whether the selection observers survived init — same reasoning as the
         // mixer status: "every layer reads selected=false" means something
         // different depending on whether the observers were ever attached.
@@ -206,6 +238,40 @@ public final class ContainerHandlers extends HandlerGroup {
         }
         if (params.has("pan")) {
             layer.pan().value().setImmediately(params.get("pan").getAsDouble());
+        }
+        // ⚠ E18 §3.1 — the WRITE half. Reading colour and sends says what a rebuild
+        // would lose; writing them says whether it can put them back. A read-only
+        // measurement would answer half the question and the wrong half: "the old
+        // chain was blue" is useless if the new one cannot be made blue.
+        if (params.has("color")) {
+            JsonObject c = params.get("color").getAsJsonObject();
+            layer.color().set(
+                (float) c.get("r").getAsDouble(),
+                (float) c.get("g").getAsDouble(),
+                (float) c.get("b").getAsDouble());
+            r.add("color", c);
+        }
+        if (params.has("sendIndex")) {
+            int sendIndex = params.get("sendIndex").getAsInt();
+            if (sendIndex < 0 || sendIndex >= Rig.LAYER_SEND_BANK) {
+                throw new IllegalArgumentException("sendIndex out of bank range: " + sendIndex);
+            }
+            if (rig.layerSendBanks[layerIndex] == null) {
+                throw new IllegalArgumentException(
+                    "the send bank was never built: " + rig.layerSendsStatus
+                    + " (rule 13 — a missing handle and a refusal look identical)");
+            }
+            com.bitwig.extension.controller.api.Send send =
+                rig.layerSendBanks[layerIndex].getItemAt(sendIndex);
+            // ⚠ Refuse rather than write into a slot that does not exist: a no-op on
+            // an absent send is byte-identical to the API declining (the e16o trap).
+            if (!send.exists().get()) {
+                throw new IllegalArgumentException(
+                    "no send at index " + sendIndex + " on chain " + layerIndex
+                    + " — a DeviceLayer may legitimately have none; that is a finding, not a write");
+            }
+            send.value().setImmediately(params.get("sendValue").getAsDouble());
+            r.addProperty("sendIndex", sendIndex);
         }
         return r;
     }
@@ -865,6 +931,240 @@ public final class ContainerHandlers extends HandlerGroup {
             anchor.beforeDeviceInsertionPoint().insertBitwigDevice(id);
         }
         return ok();
+    }
+
+    // ======================================================================
+    // ⚠⚠ E18 §3.1 — moving a device OUT of a chain, and ACROSS containers.
+    //
+    // **The whole rebuild strategy gates on one untested direction.** A chain
+    // cannot be deleted by any typed route — exhausted across both
+    // `DeleteableObject` forms with a `Track` sibling control deleting in the same
+    // run, and with a mechanism that predicts it (a `DeviceLayer` honours the verb
+    // `Channel` declares itself and declines every verb it merely inherits). So the
+    // operator proposed working without a delete:
+    //
+    //     reduce    clone the container with fewer chains, migrate devices across,
+    //               delete the OLD container (`Device.deleteObject()` is ● already)
+    //     collapse  migrate the chosen chain's devices out to top level, then
+    //               delete the container
+    //
+    // ⚠ E16n measured `moveDevices` in ONE direction only — top level INTO a chain.
+    // Every direction the strategy actually needs is unmeasured:
+    //
+    //     chain → top level                 NEVER TESTED   (collapse depends on it)
+    //     chain → chain, same container      NEVER TESTED
+    //     chain → chain, DIFFERENT containers NEVER TESTED (reduce depends on it)
+    //
+    // ⚠ **And `Ungroup` is not a way around this.** That was suggested as the
+    // device-level analogue of E16's K3 pattern and it is circular: K3 is
+    // *delete-all-but-one then Ungroup*, which works at TRACK level because track
+    // delete works. At device level delete is the blocked thing, so it cannot be
+    // step one.
+    //
+    // ⚠ **Why the cross-container direction needs its own scopes.** `layerBank0`
+    // follows `cursorDevice0`, so source and destination cannot be in two different
+    // containers at once — scoping to the destination re-scopes the handle pointing
+    // at the source. `Rig.slotLayerBanks` exists for exactly this and nothing else.
+    //
+    // ⚠ **Both verbs, deliberately.** This spike's most repeated lesson is that
+    // sibling verbs on the same interface disagree: `copyDevices` ○ beside
+    // `moveDevices` ● (E4d/E16n), `duplicateObject()` ○ beside `Channel.duplicate()`
+    // ● (e17ak/e17am), `copyTracks` ○ beside three working duplication verbs. A
+    // single-mechanism ○ here would be the sixth false negative of that shape.
+    // ⚠ And COPY is not merely completeness for this row — it is the better product
+    // primitive: a copy-then-delete-container rebuild never has the device missing
+    // from the signal path, where a move does. The operator's bar is explicitly
+    // *"low on (or free of) intermediate states that are undesirable or glitchy"*.
+    // ======================================================================
+
+    /**
+     * ⚠ E18 §3.1 — read the FULL container structure of the pointed track through
+     * the cursor-free slot scopes.
+     *
+     * **Guard #2 in one call.** Three separate E17 probes read "nothing happened"
+     * while a container was being duplicated one level above where they looked, and
+     * `e17ac` shipped the same blind spot a third time after it had been diagnosed
+     * and written up as a method trap. Every level a relocation can land on —
+     * the slot, its chains, and the devices inside those chains — is reported here
+     * together, so a probe cannot accidentally read one of them.
+     *
+     * ⚠ Reports `slotScopeStatus` per scope. "Zero chains everywhere" means
+     * something completely different depending on whether the bank was ever built
+     * (standing rule 13), and a probe must abort rather than score if it was not.
+     */
+    private JsonElement chainInventory() {
+        JsonArray scopes = new JsonArray();
+        for (int s = 0; s < Rig.SLOT_SCOPES; s++) {
+            JsonObject scope = new JsonObject();
+            scope.addProperty("slot", s);
+            scope.addProperty("status", rig.slotScopeStatus[s]);
+            Device slot = rig.cursorDeviceBanks[0].getDevice(s);
+            putGuarded(scope, "deviceExists", () -> slot.exists().get());
+            putGuarded(scope, "deviceName", () -> slot.name().get());
+            putGuarded(scope, "hasLayers", () -> slot.hasLayers().get());
+            JsonArray chains = new JsonArray();
+            int existing = 0;
+            if (rig.slotLayerBanks[s] != null) {
+                for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
+                    DeviceLayer layer = rig.slotLayerBanks[s].getItemAt(l);
+                    if (!layer.exists().get()) {
+                        continue;
+                    }
+                    existing++;
+                    JsonObject chain = new JsonObject();
+                    chain.addProperty("index", l);
+                    putGuarded(chain, "name", () -> layer.name().get());
+                    putGuarded(chain, "channelId", () -> layer.channelId().get());
+                    JsonArray devices = new JsonArray();
+                    for (int d = 0; d < Rig.SLOT_LAYER_DEVICE_BANK; d++) {
+                        Device nested = rig.slotLayerDeviceBanks[s][l].getDevice(d);
+                        if (!nested.exists().get()) {
+                            continue;
+                        }
+                        JsonObject dev = new JsonObject();
+                        dev.addProperty("index", d);
+                        putGuarded(dev, "name", () -> nested.name().get());
+                        devices.add(dev);
+                    }
+                    chain.add("devices", devices);
+                    chains.add(chain);
+                }
+            }
+            scope.add("chains", chains);
+            scope.addProperty("chainCount", existing);
+            scopes.add(scope);
+        }
+        JsonObject result = new JsonObject();
+        result.add("scopes", scopes);
+        // Named beside the scopes: an index means nothing without knowing which
+        // TRACK the device bank is on (the e16o trap, one level up).
+        putGuarded(result, "trackName", () -> rig.cursorTracks[0].name().get());
+        return result;
+    }
+
+    /**
+     * ⚠⚠ E18 §3.1 — relocate a device that is INSIDE a chain.
+     *
+     * Source is always `slotLayerDeviceBanks[srcSlot][srcLayer][srcDevice]` — a
+     * device nested in a container's chain, which no wire method has ever been able
+     * to name as a SOURCE. Destination is either the track's top-level chain or
+     * another chain, in the same container or a different one.
+     *
+     * ⚠ Every input is validated BEFORE the call (standing rule 3c): an exception
+     * Bitwig defers to its own thread escapes every extension frame and takes the
+     * DAW down (E14-A1).
+     *
+     * ⚠ The source is required to EXIST before the verb fires. Aimed at an empty
+     * bank slot, `moveDevices` is a silent no-op byte-identical to an API refusal —
+     * the e16o trap, which nearly published a false negative on the inbound row and
+     * is why `requireLayer` exists at all. A handler that throws here turns the
+     * whole class of mistake into an error message instead of a wrong finding.
+     *
+     * ⚠ Verified by a `chain.inventory` / `device.list` DIFF, never by this return:
+     * the acknowledgement is identical whether or not anything moved (E6 blocker 4).
+     */
+    private JsonElement chainMove(JsonObject params) {
+        int srcSlot = params.get("srcSlot").getAsInt();
+        int srcLayer = params.get("srcLayer").getAsInt();
+        int srcDevice = params.get("srcDevice").getAsInt();
+        String dst = params.has("dst") ? params.get("dst").getAsString() : "top";
+        String verb = params.has("verb") ? params.get("verb").getAsString() : "move";
+        String where = params.has("where") ? params.get("where").getAsString() : "chainEnd";
+        String ref = params.has("cursor") ? params.get("cursor").getAsString() : "0";
+
+        if (srcSlot < 0 || srcSlot >= Rig.SLOT_SCOPES) {
+            throw new IllegalArgumentException("srcSlot out of scope range: " + srcSlot);
+        }
+        if (srcLayer < 0 || srcLayer >= Rig.SLOT_LAYER_BANK) {
+            throw new IllegalArgumentException("srcLayer out of bank range: " + srcLayer);
+        }
+        if (srcDevice < 0 || srcDevice >= Rig.SLOT_LAYER_DEVICE_BANK) {
+            throw new IllegalArgumentException("srcDevice out of bank range: " + srcDevice);
+        }
+        if (!"top".equals(dst) && !"chain".equals(dst)) {
+            throw new IllegalArgumentException("dst must be top or chain: " + dst);
+        }
+        if (!"move".equals(verb) && !"copy".equals(verb)) {
+            throw new IllegalArgumentException("verb must be move or copy: " + verb);
+        }
+        if (!"chainStart".equals(where) && !"chainEnd".equals(where)) {
+            throw new IllegalArgumentException("where must be chainStart or chainEnd: " + where);
+        }
+        if (rig.slotLayerBanks[srcSlot] == null) {
+            throw new IllegalArgumentException(
+                "source scope " + srcSlot + " was never built: " + rig.slotScopeStatus[srcSlot]
+                + " (standing rule 13 — a missing handle and an API refusal look identical)");
+        }
+
+        Device source = rig.slotLayerDeviceBanks[srcSlot][srcLayer].getDevice(srcDevice);
+        JsonObject r = ok();
+        r.addProperty("verb", verb);
+        r.addProperty("dst", dst);
+        r.addProperty("where", where);
+        r.addProperty("srcScopeStatus", rig.slotScopeStatus[srcSlot]);
+        // ⚠ Read the source BEFORE the verb fires. Afterwards the banks re-index
+        // (E3: deleting device[0] shifts the survivor from 1 to 0), so this handle
+        // no longer necessarily refers to what moved — and a name read after the
+        // fact is how a probe reports the wrong device.
+        putGuarded(r, "sourceName", () -> source.name().get());
+        putGuarded(r, "sourceExists", () -> source.exists().get());
+        putGuarded(r, "sourceChain",
+            () -> rig.slotLayerBanks[srcSlot].getItemAt(srcLayer).name().get());
+        putGuarded(r, "sourceContainer",
+            () -> rig.cursorDeviceBanks[0].getDevice(srcSlot).name().get());
+        if (!source.exists().get()) {
+            throw new IllegalArgumentException(
+                "no device at scope " + srcSlot + " / chain " + srcLayer + " / index " + srcDevice
+                + " — aimed at an empty slot this verb is a silent no-op byte-identical to a "
+                + "refusal (the e16o trap)");
+        }
+
+        com.bitwig.extension.controller.api.InsertionPoint target;
+        if ("top".equals(dst)) {
+            target = "chainStart".equals(where)
+                ? rig.cursorTrack(ref).startOfDeviceChainInsertionPoint()
+                : rig.cursorTrack(ref).endOfDeviceChainInsertionPoint();
+        } else {
+            int dstSlot = params.get("dstSlot").getAsInt();
+            int dstLayer = params.get("dstLayer").getAsInt();
+            if (dstSlot < 0 || dstSlot >= Rig.SLOT_SCOPES) {
+                throw new IllegalArgumentException("dstSlot out of scope range: " + dstSlot);
+            }
+            if (dstLayer < 0 || dstLayer >= Rig.SLOT_LAYER_BANK) {
+                throw new IllegalArgumentException("dstLayer out of bank range: " + dstLayer);
+            }
+            if (rig.slotLayerBanks[dstSlot] == null) {
+                throw new IllegalArgumentException(
+                    "destination scope " + dstSlot + " was never built: " + rig.slotScopeStatus[dstSlot]);
+            }
+            if (dstSlot == srcSlot && dstLayer == srcLayer) {
+                throw new IllegalArgumentException(
+                    "the destination chain is the source chain, so the move is a no-op by "
+                    + "construction and would be indistinguishable from a failure");
+            }
+            DeviceLayer destination = rig.slotLayerBanks[dstSlot].getItemAt(dstLayer);
+            if (!destination.exists().get()) {
+                throw new IllegalArgumentException(
+                    "no chain at scope " + dstSlot + " / index " + dstLayer + " — the slot device is "
+                    + rig.cursorDeviceBanks[0].getDevice(dstSlot).name().get());
+            }
+            r.addProperty("dstSlot", dstSlot);
+            r.addProperty("dstLayer", dstLayer);
+            r.addProperty("dstScopeStatus", rig.slotScopeStatus[dstSlot]);
+            putGuarded(r, "dstChain", () -> destination.name().get());
+            putGuarded(r, "dstContainer",
+                () -> rig.cursorDeviceBanks[0].getDevice(dstSlot).name().get());
+            target = "chainStart".equals(where)
+                ? destination.startOfDeviceChainInsertionPoint()
+                : destination.endOfDeviceChainInsertionPoint();
+        }
+
+        if ("move".equals(verb)) {
+            target.moveDevices(source);
+        } else {
+            target.copyDevices(source);
+        }
+        return r;
     }
 
     private JsonElement drumPadList() {

@@ -3,7 +3,16 @@ title: ghostnote — E16 session 5, job 2: the re-plan onto the track-native mod
 status: IN PROGRESS. Standing rules 5/6/7 restated; PHASE-1 sessions 2 and 3
         dispositioned. PROJECT_PLAN §5/§7, PHASE-3 and the two E16 spike docs
         are NOT yet done.
-        ⚠ §3 IS NO LONGER CONTINGENT — E17 answered it (2026-08-01).
+        ⚠⚠ §3 IS SUPERSEDED, 2026-08-06 — and its PREMISE changed, not just its
+        answer. §3 scopes device-layer A/B to the MASTER and FX RETURNS ONLY, on
+        the ground that a layer chain could be neither grown nor deleted. E18
+        overturned both (`e18c` ●● ×4, `e18a` ●● nine cells), and the operator
+        then chose a HYBRID: track fork, layer chain AND clip block all get
+        built, with the agent choosing between them at "L3-open".
+        ⇒ READ `HYBRID-AUTONOMY-LEVELS.md` §7 FIRST; this document's §1 rule-5
+        restatement and §2 session dispositions still stand, §3 does not.
+        ⚠ §5's list of untouched documents is what the next re-plan inherits.
+        ⚠ ~~§3 IS NO LONGER CONTINGENT — E17 answered it (2026-08-01).~~
         DEVICE takes are TRACKS: a layer chain cannot be created beside a
         sibling and cannot be deleted (FINDINGS E17 rows 1-4). So §3 keeps its
         original scope as the answer for the MASTER and the FX RETURNS only, and

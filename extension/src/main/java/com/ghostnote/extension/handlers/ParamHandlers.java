@@ -59,6 +59,16 @@ public final class ParamHandlers extends HandlerGroup {
                 obj.addProperty("name", p.name().get());
                 obj.addProperty("value", p.value().get());
                 obj.addProperty("displayed", p.value().displayedValue().get());
+                // ⚠⚠ E18 §3.4 — the MODULATION oracle, and the reason the row was
+                // unprobeable. Liveness has only ever been readable through
+                // `remote.list`, which exposes the 8 controls of the SELECTED remote
+                // page — so answering "is this parameter modulated" meant guessing
+                // which page it lives on and scanning. These 16 handles are named,
+                // pre-allocated and stable, and `F1FREQ`/`F1RESO` are already the
+                // ones `e18c` marks for its state check. Reading `modulatedValue`
+                // beside `value` turns "does modulation survive a relocation" into a
+                // direct comparison on a known parameter.
+                putGuarded(obj, "modulatedValue", () -> p.modulatedValue().get());
             }
             params.add(obj);
         }

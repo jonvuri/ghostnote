@@ -1,10 +1,16 @@
 ---
 title: E17 — the call on DEVICE branching: layers or tracks?
-status: ⚠⚠ SUPERSEDED FOR CURRENT STATE — read `HANDOFF-E18-BRANCH-UNLOCK.md`
-        §2 and §5 instead. This document's CALL never changed, but its REASONING
-        turned over three times and the body below is a stack of correction
-        banners; it is kept as the record of how the argument moved, not as a
-        statement of what is true.
+status: ⚠⚠ RETIRED 2026-08-04 — replaced by `E18-VERDICT.md`, which is the
+        rewrite §6 of the E18 handoff asked for once §3.1 reported. Kept as the
+        record of how the argument moved, NOT as a statement of what is true.
+        ⚠ Two of its load-bearing claims are now measured FALSE: §2's "the first
+        gesture of a chain branch cannot be ours" (chain CREATE is typed and
+        fully autonomous — `e17ak`, handoff §2) and the whole framing of DESTROY
+        as a wall (`e18c` ●● ×4 makes it a rebuild cost). ⚠ Its §1b remains
+        directionally right and is confirmed by `e18b` — but see E18-VERDICT §3d
+        for why it no longer decides anything.
+        ⚠⚠ SUPERSEDED FOR CURRENT STATE — read `E18-VERDICT.md`, then
+        `HANDOFF-E18-BRANCH-UNLOCK.md` §2 and §5.
         ⚠ WHAT ACTUALLY SURVIVES: a chain CAN be created autonomously
         (`layer.select` + `Channel.duplicate()`, typed, no human); it CANNOT be
         destroyed by any typed route — exhausted across both `DeleteableObject`

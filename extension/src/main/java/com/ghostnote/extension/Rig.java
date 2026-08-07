@@ -130,6 +130,47 @@ public class Rig {
     public static final int LAYER_DEVICE_BANK = 4;
     public static final int DRUM_PAD_BANK = 16;
 
+    // --- ⚠⚠ E18 §3.1: container scopes that do NOT depend on the device cursor ---
+    /**
+     * ⚠ **Why a second way to see a container, when `layerBank0` already exists.**
+     *
+     * `layerBank0` follows `cursorDevice0`, so **exactly one container is
+     * addressable at a time** — and that is fatal for the one direction E18 exists
+     * to measure. The operator's REBUILD strategy is *"clone the container with
+     * fewer chains, migrate the devices across, delete the old container"*, which
+     * requires a SOURCE device inside container A and a DESTINATION chain inside
+     * container B to be live **simultaneously**. Through a single cursor they
+     * cannot be: scoping to B re-scopes the handle that was pointing into A.
+     *
+     * ⚠ `Device.createLayerBank(int)` is declared on `Device`, not on
+     * `CursorDevice` — checked against the 6.0.6 javadoc index before wiring. So a
+     * layer bank can hang off a plain **bank slot**, and two top-level device slots
+     * on one track give two container scopes that never contend.
+     *
+     * ⚠ It also removes the e16o trap from this whole row. Every `layer.*` call is
+     * a silent no-op byte-identical to an API refusal when `cursorDevice0` is not
+     * on the container; a slot-scoped bank has no such hidden argument, because the
+     * container is named by the parameter rather than by cursor state.
+     *
+     * ⚠ Scoped to the track `cursorTracks[0]` points at, and to its FIRST TWO
+     * top-level device slots — which is what the rebuild shape needs (old container
+     * and new container, side by side on one track) and no more.
+     */
+    public static final int SLOT_SCOPES = 2;
+    public static final int SLOT_LAYER_BANK = 4;
+    public static final int SLOT_LAYER_DEVICE_BANK = 4;
+    public final DeviceLayerBank[] slotLayerBanks = new DeviceLayerBank[SLOT_SCOPES];
+    public final DeviceBank[][] slotLayerDeviceBanks = new DeviceBank[SLOT_SCOPES][SLOT_LAYER_BANK];
+    /**
+     * ⚠ Per-scope status, reported by every handler that reads through these banks.
+     *
+     * Standing rule 13's lesson, stated as instrumentation: *"the handle does not
+     * exist"* and *"the API declines"* are indistinguishable in the outcome, and
+     * three false ○s in E17 came from not being able to tell them apart. A probe
+     * must ABORT unless this reads `held`.
+     */
+    public final String[] slotScopeStatus = new String[SLOT_SCOPES];
+
     /**
      * Nesting views on cursorDevice0. All four Bitwig nesting mechanisms are
      * distinct API surfaces, so the rig carries one of each:
@@ -299,6 +340,21 @@ public class Rig {
     public String equalsStatus = "not-attempted";
     /** Ditto for the DeviceLayer mixer handles: E16 §3.4 lead, `Channel` on a layer. */
     public String layerMixerStatus = "not-attempted";
+
+    // --- ⚠ E18 §3.1: the chain-level state a rebuild must re-apply by hand ---
+    /** How many sends to expose per chain. FX returns are few; 8 is generous. */
+    public static final int LAYER_SEND_BANK = 8;
+    public final SendBank[] layerSendBanks = new SendBank[LAYER_BANK];
+    /**
+     * ⚠ Reported separately from each other AND from `layerMixerStatus`.
+     *
+     * "Every chain reads colour 0,0,0 and zero sends" means something completely
+     * different depending on whether the handles were ever marked — the same
+     * distinction that produced three false ○s in E17 (standing rule 13). A probe
+     * must ABORT rather than score when either of these does not read `marked:`.
+     */
+    public String layerColorStatus = "not-attempted";
+    public String layerSendsStatus = "not-attempted";
 
     /**
      * ⚠⚠ E17 — whether each layer chain is the UI selection, written by observers.
@@ -580,6 +636,45 @@ public class Rig {
             }
         }
 
+        // ⚠⚠ E18 §3.1 — the cursor-free container scopes. See SLOT_SCOPES above for
+        // why they exist; this is why they are GUARDED and marked per scope.
+        //
+        // Rule 9/13 discipline: `Device.createLayerBank` on a plain bank slot is
+        // documented-current and should work, but "should" is what the E17 rule-13
+        // violation also assumed, and a throw here at init would take the whole rig
+        // down and cost a Bitwig restart to discover. Each scope is built in its OWN
+        // try so one failure cannot take the other with it — the `FAILED@0` lesson,
+        // where a @Deprecated sibling marked in the same block killed a
+        // documented-current observer and cost the session its readback.
+        for (int s = 0; s < SLOT_SCOPES; s++) {
+            try {
+                Device slot = cursorDeviceBanks[0].getDevice(s);
+                // `hasLayers` is not marked by the pool loop above, and a handler
+                // that cannot say whether the slot IS a container cannot tell "no
+                // chains" from "not a container".
+                slot.hasLayers().markInterested();
+                slotLayerBanks[s] = slot.createLayerBank(SLOT_LAYER_BANK);
+                for (int l = 0; l < SLOT_LAYER_BANK; l++) {
+                    DeviceLayer layer = slotLayerBanks[s].getItemAt(l);
+                    layer.exists().markInterested();
+                    layer.name().markInterested();
+                    // ⚠ E18 §3.2 will ask whether this survives a reload; it is
+                    // marked here so the question is answerable through a scope that
+                    // does not move, rather than through a cursor that does.
+                    layer.channelId().markInterested();
+                    slotLayerDeviceBanks[s][l] = layer.createDeviceBank(SLOT_LAYER_DEVICE_BANK);
+                    for (int d = 0; d < SLOT_LAYER_DEVICE_BANK; d++) {
+                        Device nested = slotLayerDeviceBanks[s][l].getDevice(d);
+                        nested.exists().markInterested();
+                        nested.name().markInterested();
+                    }
+                }
+                slotScopeStatus[s] = "held";
+            } catch (Throwable t) {
+                slotScopeStatus[s] = "FAILED:" + t.getClass().getSimpleName() + ":" + t.getMessage();
+            }
+        }
+
         // ⚠ E16 — the DeviceLayer-mute lead, and the reason it is a SEPARATE,
         // GUARDED loop rather than five more lines in the one above.
         //
@@ -623,6 +718,60 @@ public class Rig {
             layerMixerStatus = "marked:" + layerMixerMarked;
         } catch (Throwable t) {
             layerMixerStatus = "FAILED@" + layerMixerMarked + ":"
+                + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
+
+        // ⚠⚠ E18 §3.1 — the two pieces of CHAIN-LEVEL state a rebuild would have to
+        // re-apply, and the only two never measured.
+        //
+        // A chain is a `Channel`, so it carries name, mute, solo, volume, pan,
+        // COLOR and SENDS. Moving devices between containers carries the DEVICES and
+        // nothing else — so every chain-level property has to be read off the old
+        // chain and written onto the new one, or the rebuild silently loses it.
+        // Name/mute/solo/volume/pan are already ● (E17 rows 5/6 + layer.setMixer).
+        // Colour and sends are not, and a take that comes back a different colour —
+        // or missing its reverb send — is a real regression.
+        //
+        // ⚠ Marked in their OWN try blocks, separately from each other and from the
+        // mixer loop above. `DeviceLayer` inherits both from `Channel`, and this
+        // spike's record is that an inherited member is a CLAIM and not a
+        // capability: `deleteObject()` is inherited and refuses, `duplicateObject()`
+        // is inherited and refuses. Either of these may throw, and the `FAILED@0`
+        // lesson is that one bad handle in a shared block takes its neighbours down.
+        //
+        // ⚠ A send bank on a DEVICE layer may legitimately be EMPTY — a layer chain
+        // is not a mixer channel routed to FX buses. That would itself be the
+        // finding ("there are no sends to lose"), and it is why `itemCount` is
+        // marked and reported rather than assumed.
+        int layerColorMarked = 0;
+        try {
+            for (int l = 0; l < LAYER_BANK; l++) {
+                layerBank0.getItemAt(l).color().markInterested();
+                layerColorMarked++;
+            }
+            layerColorStatus = "marked:" + layerColorMarked;
+        } catch (Throwable t) {
+            layerColorStatus = "FAILED@" + layerColorMarked + ":"
+                + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
+
+        int layerSendsMarked = 0;
+        try {
+            for (int l = 0; l < LAYER_BANK; l++) {
+                SendBank bank = layerBank0.getItemAt(l).sendBank();
+                bank.itemCount().markInterested();
+                layerSendBanks[l] = bank;
+                for (int s = 0; s < LAYER_SEND_BANK; s++) {
+                    Send send = bank.getItemAt(s);
+                    send.exists().markInterested();
+                    send.name().markInterested();
+                    send.value().markInterested();
+                }
+                layerSendsMarked++;
+            }
+            layerSendsStatus = "marked:" + layerSendsMarked;
+        } catch (Throwable t) {
+            layerSendsStatus = "FAILED@" + layerSendsMarked + ":"
                 + t.getClass().getSimpleName() + ":" + t.getMessage();
         }
 
