@@ -12,8 +12,9 @@ status: ⚠⚠ THE BRANCHING CALL IS DECIDED (operator, 2026-08-06) — E18's jo
         branching, no prescriptive fallback, and ⚠⚠ the rule must NEVER reach
         the agent's tool surface.
         ⚠ `E18-VERDICT.md` §6 is REPURPOSED as that deterministic control rule.
-        ⚠ Nothing is in `DECISIONS.md` — the operator authors it (rule 10).
-        ⚠ NEXT SESSION: the re-plan, from clean context.
+        ⚠ ~~Nothing is in `DECISIONS.md`~~ → D18–D20 AUTHORED 2026-08-07, and
+        the re-plan RAN the same day (PROJECT_PLAN §4/§5/§7, PHASE-1/2/3, spike
+        banners). This handoff is fully discharged — record only.
         ⚠⚠ THE ONE EARLY BUILD ITEM: `launchWithOptions(quantization,
         launchMode)` and `ClipLauncherSlot.duplicateClip()` are UNPROBED and NOT
         ON THE WIRE, and the clip half's whole ergonomic claim runs through

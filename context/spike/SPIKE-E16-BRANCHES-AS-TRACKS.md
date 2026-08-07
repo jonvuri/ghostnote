@@ -16,6 +16,14 @@ decides: whether Phase 1's take model gains a second, coarser layer — and whet
 
 # E16 — branches as duplicated tracks
 
+> ⚠⚠ **STATUS 2026-08-07 — CLOSED, AND SUPERSEDED TWICE OVER. RECORD ONLY.**
+> The track-native model this spike led to was itself superseded on the
+> mechanism axis: the operator chose the HYBRID — track fork + layer chain +
+> clip block, agent choosing at L3-open — authored as **DECISIONS D18–D20**
+> (rule 10 lifted 2026-08-07). D17b/D17c, which this spike's `decides:` line
+> names, are formally superseded by the D17 revision banner. Nothing below is
+> live.
+
 > **The idea.** A branch point **duplicates the tracks an operation is about to
 > touch**, and every write lands on the duplicate. The original is never edited.
 > Reverting is deleting a track; A/B is muting one. Both live in the project

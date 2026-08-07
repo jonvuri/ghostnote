@@ -3,8 +3,14 @@ title: ghostnote — Project Plan (phased)
 status: sketched 2026-07-24 — phase docs are deliberately high-level; low-level design
         is decided inside each phase as it is entered. §4 demoted to a pointer at
         DECISIONS D6–D15 (2026-07-25); §7 updated with what Phase 0 closed.
-updated: 2026-07-25
-evidence: context/spike/FINDINGS.md (E0–E15), context/DECISIONS.md (D1–D15)
+        ⚠ REVISED 2026-08-07 under D16–D20 (the stateless hybrid): rules 5–8
+        restated in §4, §5's phase index reshaped (no daemon, no take store, the
+        PROJECT is the take log; the three branch mechanisms and the clip block
+        land in Phase 1; Phase 3 is OPTIONAL, textual default), §7 gains the
+        branching arc's open items. §2's D4/D5 text is HISTORICAL — the revision
+        banners in DECISIONS.md are the live record.
+updated: 2026-08-07
+evidence: context/spike/FINDINGS.md (E0–E18), context/DECISIONS.md (D1–D20)
 supersedes: the "Phase 2+ ordering" open question in INITIAL_PROMPT §12
 ---
 
@@ -82,7 +88,8 @@ owes *before/after* comparison and cross-object summaries.
 
 > **This section is now a POINTER.** It was the working summary while the
 > spike-wide decisions were still owed; they landed as **`DECISIONS.md` D6–D15**
-> (2026-07-25), which is the canonical record with full evidence. What remains here
+> (2026-07-25) and **D16–D20** (2026-07-26 → 2026-08-07), which are the canonical
+> record with full evidence. What remains here
 > is the short form — the rules as one-liners, because "violating one is a defect"
 > is worth being able to read in thirty seconds. **Where the two disagree, DECISIONS
 > wins.** Each rule below names its D-entry.
@@ -122,19 +129,37 @@ choice. Evidence in parentheses.
    ops in one turn; structural ops staged at their settle budget (~600ms device
    insert, ~144ms track, ~268ms `insertFile`). The two-turn write→verify rule applies
    once per batch, not per op (E8/E3). → **D10**
-5. **Bank-window overflow is a checkpoint blind spot, not a tuning knob.** Tracks
-   outside the window are invisible and their state unsnapshottable. Detect and
-   **fail loud**; never operate on a partially-visible project (E5). `itemCount()`
-   reports the PROJECT total, which is what makes this implementable (E15-A).
-   → **D6/D7**
-6. **No named actions. Ever.** (E6) → **D13**
-7. **All writes go through the daemon.** The extension-side revision counter (E8)
-   guards *ordering* across processes but cannot detect *omission* — a write that
-   bypasses the daemon leaves a silent gap in the take log. → **D10**
-8. **Revert is a human verb.** The agent may read the take log and explain it; it
-   may never mutate it (§8g). Stronger than assumed: Bitwig REFUSES `Signal.fire()`
-   on a document-state button, so only a real human click can press it (E14-A1).
-   → **D14**
+5. **Bank-window overflow is a PRECONDITION on every structural create** — never a
+   post-hoc check *(restated 2026-08-07)*. A create past the window mints a track
+   `track.list` never shows — unaddressable, un-cleanable, audible (E16r) — and a
+   fork IS a `track.create`, so "detect and fail" runs after the damage. Check the
+   budget `bankSize − (project tracks + FX returns + master + lineage groups)`
+   BEFORE the call and refuse loudly (`itemCount()` reports the project total:
+   E15-A, re-confirmed E16r). ⚠ Never a licence to reap (D20); never justified on
+   disk grounds — E16u measured disk immaterial. → **D6 (rev)/D7**
+6. **Named actions are not addressable surface** *(restated 2026-08-07; "no named
+   actions, ever" was factually wrong — E16j)*. They act on the UI selection, which
+   our own addressing sets and a human can move under us (E6 blocker 3, E16j —
+   seven orphan duplicates). Usable only where the selection is established and
+   verified in the same batch, and never where an addressed API call exists. The
+   ONE sanctioned use is lineage-group creation — no API creates a group — and its
+   construction order is forced: **group the original first, then duplicate**
+   (E16k K2). → **D13 (rev)**
+7. ~~All writes go through the daemon.~~ **STRUCK 2026-08-07** — there is no
+   daemon and no take log to leave a gap in (D4 rev). The replacement is about
+   coherence, not topology: ⚠ **ordered is not coherent.** The revision guard is
+   atomic across connections (E16p) and guards *ordering* only; a rejected batch
+   must be re-planned against the new world by whoever sent it — two chat sessions
+   are two MCP servers are two writers. *(Mitigation available, unadopted: the
+   extension refuses a second writing client.)* → **D4 (rev)**
+8. **Destruction is never the agent's DECISION** *(restated 2026-08-07; was
+   "revert is a human verb", which stands but is now half the rule)*. The revert
+   and reap decisions are the human's; the agent may execute what was explicitly
+   directed. Reversal of its own changesets rides the ordinary surface (D19);
+   destruction of anything else rides the annotated destructive tool surface and
+   the host's permission flow (D20). Bitwig still REFUSES `Signal.fire()` on a
+   document-state button, so only a real human click can press one (E14-A1).
+   → **D14 (rev)/D19/D20**
 9. **Check `@Deprecated` before wiring any handle at `init()`** — some deprecations
    throw and crash the whole extension on load (E7). → **D11**
 10. **Never record a capability ○ from a single mechanism or a doc pass.** Grep
@@ -161,9 +186,9 @@ choice. Evidence in parentheses.
 | # | Phase | Delivers | Doc |
 |---|---|---|---|
 | 0 | **Foundation, contract & UI probe** | project skeleton, contract v0 + fake adapter, offline CI, E14 verdicts on the in-Bitwig surface | [PHASE-0-FOUNDATION.md](plan/PHASE-0-FOUNDATION.md) · [session 2](plan/PHASE-0-SESSION-2.md) |
-| 1 | **The write engine & takes** | `ghostnoted`, patch→snapshot→apply→verify, branchable take store, in-Bitwig control layer | [PHASE-1-ENGINE.md](plan/PHASE-1-ENGINE.md) · [sessions 1–6](plan/PHASE-1-ENGINE.md#session-index) |
+| 1 | **The write engine & branching** | executor (patch→stash→apply→verify), the three branch mechanisms (fork / chain / clip block) + beat-aligned A/B, extension observers, MCP bridge, control layer | [PHASE-1-ENGINE.md](plan/PHASE-1-ENGINE.md) · [sessions 1–6](plan/PHASE-1-ENGINE.md#session-index) |
 | 2 | **The clip surface** | musical vocabulary over notes, MCP tool surface v1 — first genuinely usable build | [PHASE-2-CLIPS.md](plan/PHASE-2-CLIPS.md) |
-| 3 | **The session view** | daemon local API + web UI: change log, before/after diff, take timeline, partial revert | [PHASE-3-SESSION-VIEW.md](plan/PHASE-3-SESSION-VIEW.md) |
+| 3 | **The session view** *(⚠ OPTIONAL — D4 rev)* | before/after diff, change summaries, partial-revert UX — **textual, agent-rendered first**; a web view only if re-justified after the core | [PHASE-3-SESSION-VIEW.md](plan/PHASE-3-SESSION-VIEW.md) |
 | 4 | **Sound design** | direct-param layer, device/param catalog, device chain ops, remote controls | [PHASE-4-SOUND-DESIGN.md](plan/PHASE-4-SOUND-DESIGN.md) |
 | 5 | **Structure & modulation authoring** | `bwmod` in the executor, curated template/donor library — the differentiator | [PHASE-5-AUTHORING.md](plan/PHASE-5-AUTHORING.md) |
 | 6 | **Breadth & release** | mixer/transport/scenes/browser, arrangement, publishable artifacts | [PHASE-6-BREADTH.md](plan/PHASE-6-BREADTH.md) |
@@ -179,7 +204,8 @@ P0 ──► P1 ──► P2 ──► P3
 ```
 
 P1 is the only hard universal prerequisite: everything else writes through its
-executor and checkpoints into its take store.
+executor and branches through its mechanisms. (There is no take store — D17 rev;
+the project is the take log.)
 
 ### Reorderable seams
 
@@ -189,6 +215,9 @@ Named so a later reorder is a decision rather than a surprise:
   order is P2 first because you need real musical material to know what a musical
   diff should show. P1 must therefore ship a *sufficient* control layer (§in
   PHASE-1), not a placeholder — optimistic apply is unsafe without one.
+  > ⚠ 2026-08-07: this seam is mostly DISSOLVED — P3 is optional (D4 rev), coarse
+  > A/B is Bitwig's own surface (D14 rev), and P3's textual forms can grow
+  > incrementally inside any phase.
 - **P4 ↔ P5.** P5 depends on P4 only for *readback* (remote pages and
   `modulatedValue` are how a modulator edit is verified). If sound design stalls,
   P5 can proceed on a thin readback slice.
@@ -271,6 +300,10 @@ Not blockers; each is owned by a phase.
   > Phase 1**, so Phase 3 is no longer a nice-to-have — it is where takes become
   > usable — and PHASE-1 session 2's exit criteria carry the whole weight of
   > proving the store design is right.
+  > ⚠ **SUPERSEDED AGAIN 2026-08-07 (D14 rev, D18):** the take switcher is
+  > dissolved, not relocated — coarse A/B is Bitwig's own surface (chain solo,
+  > clip launch, group mute), the store is retired, and Phase 3 is OPTIONAL.
+  > Takes become usable in Phase 1 after all, through the project itself.
 - **A caller-written `note.props` op for two clips loses BOTH.** Every props op gets
   its own stage, so each re-points, and E15-F makes that fatal to the properties.
   Not reachable through `note.write` (the generated path pairs each props op with
@@ -279,3 +312,40 @@ Not blockers; each is owned by a phase.
   a deferred-response protocol would also be what makes a re-point inside a batch
   settleable, and so is the only route to reclaiming the 2N-stage cost of expression
   writes (D10). → P1.
+
+### Added by the branching arc (E16–E18, re-plan 2026-08-07)
+
+Each owed item is owned; none blocks starting. The first two are **early** P1
+items because whole design claims run through them and both are currently
+readings, not measurements.
+
+- ⚠ **`launchWithOptions(quantization, launchMode)` and
+  `ClipLauncherSlot.duplicateClip()` are UNPROBED and not on the wire** — and the
+  clip block's entire ergonomic claim runs through them: `"1"`/`"8"` per-call
+  quantisation, and `"continue_or_synced"` (take B resumes at A's playback
+  position — the same bar rendered differently, which no mute, solo or chain
+  switch can imitate; the only answer to E16m's beat-alignment complaint). Wire
+  and probe **before** the clip half is designed. → P1, early.
+- ⚠ **MCP tool-annotation handling (`destructiveHint`, `readOnlyHint`) is a spec
+  reading, not a measurement.** D20's stop-and-ask rests on target hosts actually
+  prompting; verify early, same epistemic class as the item above. → P1, early.
+- **`getDocumentState()` capacity for a JSON payload** — never measured, and
+  D18d's branch-event metadata lands there. → P1.
+- **The block-delimiting premise** — that contiguous clips bounded by empty slots
+  are what a Next Action's round-robin scopes to. Operator experience, never
+  measured; cheap to confirm by ear the first time a block is built. ⚠ Related
+  design consequence, absorbed not measured: Next Actions are NOT in the
+  controller API (E18-VERDICT §4a″), so the human arms a block and **we cannot
+  tell an armed block from an unarmed one** — decide what the agent says when it
+  builds a block it cannot arm. → P1.
+- **The MOVE trade-off's other half** — `e18h` measured the engine with audio on
+  a different track; whether a MOVE leaves an audible hole in the migrated take's
+  OWN output is unmeasured. Record both, decide neither. → P1.
+- **The cross-device modulator case** — E11e's form, whose path encodes a device
+  INDEX, exactly what a rebuild renumbers; `e18e`'s ●● 3/3 says nothing about it.
+  A session of its own. → P5.
+- ⚠ **Judgement dispositions with retirement conditions** (E18-VERDICT §7a):
+  dormant-chain CPU, container PDC/transparency, launch quantisation. If
+  exploration ever degrades the engine, or a take structure ever sounds different
+  from its top-level equivalent, these are the first assumptions to re-test.
+  → standing, all phases.

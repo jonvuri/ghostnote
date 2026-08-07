@@ -13,7 +13,12 @@ status: COMPLETE for Phase 0 — modulator authoring settled (D1–D3, E10–E13
         ⚠ D17 §b and §c are PROVISIONAL: the branches-as-duplicated-tracks proposal
         (context/spike/SPIKE-E16-BRANCHES-AS-TRACKS.md) would change the branching
         topology they describe. Unmeasured; nothing recorded until E16 rows A–C return.
-updated: 2026-07-26
+        → RESOLVED 2026-08-07: superseded — see D18 and the D17 revision banner.
+        D18–D20 (2026-08-06/07) close the E16→E18 branching arc: the HYBRID at
+        L3-open (D18), undo policy (D19), and the destruction seam (D20) — with
+        revision banners on D4, D6, D12, D13, D14, D16 and D17 landing the
+        stateless re-plan (no daemon, no take store; the PROJECT is the take log).
+updated: 2026-08-07
 evidence: context/spike/FINDINGS.md (E-numbers), BWFORMAT_SPEC.md, BWMOD_DESIGN.md
 plan: context/PROJECT_PLAN.md + context/plan/PHASE-*.md
 ---
@@ -23,7 +28,8 @@ plan: context/PROJECT_PLAN.md + context/plan/PHASE-*.md
 > Each decision cites the FINDINGS experiment(s) that settled it. D1–D3 are the
 > **modulator-authoring** arc (E10–E13, the differentiator); D4/D5 are topology and
 > checkpoints; **D6–D15** are the spike-wide consolidation; **D16 and D17** are the
-> build decisions, from Phase 1 sessions 1 and 2.
+> build decisions, from Phase 1 sessions 1 and 2; **D18–D20** close the branching
+> arc (the hybrid at L3-open, undo, destruction) and revise D4/D13/D14/D17 under it.
 >
 > ⚠ Where a later entry corrects an earlier one, the earlier text is KEPT with the
 > correction quoted inline rather than rewritten. The retraction is usually the
@@ -199,6 +205,35 @@ FINDINGS E12). The five open questions are now answered:
 clients; the human's controls live in Bitwig first and a local web view later. There
 is no custom chat harness.**
 
+> ⚠ **REVISED 2026-08-07 (E16p, E16s, E16-REPLAN §2, D18). The daemon is RETIRED.**
+> Two of its three jobs no longer exist and the third was never a constraint. Where
+> each landed:
+>
+> - **Observers move into the EXTENSION** — a strictly better home: alive whenever
+>   Bitwig is, so it cannot miss an edit made while no client is attached, which a
+>   daemon started later provably can. It carries **both** a scene-count epoch and a
+>   launcher-content epoch, and the content epoch is the one clip addressing
+>   consults (E16s: the count observer sat still, 3 → 3, through a human clip drag
+>   the content observer reported as a pair, `t2s7=emptied`/`t2s3=filled`). Initial
+>   values arrive through the same callbacks, so an epoch is meaningless in absolute
+>   terms — only a difference across a known event means anything.
+> - **The MCP server holds a bridge connection directly.** Ordering needs no
+>   daemon: the extension-side revision guard is atomic **across connections**
+>   (E16p — 6/6 rounds, exactly one winner). Omission-detection died with the take
+>   log — there is no log to leave a gap in (D17 rev). Standing rule 7 is STRUCK
+>   with this (PROJECT_PLAN §4), and D10's *"hence standing rule 7"* bullet with it.
+> - **The change log's job is superseded: the PROJECT is the take log**
+>   (E16-TRACK-NATIVE). Branch-event metadata lands in `getDocumentState()`
+>   [⚠ capacity for a JSON payload unmeasured — owed, P1]; changesets live in the
+>   chat log and are the input to agent-edit reversal (D19).
+> - ⚠ **The web view is OPTIONAL, evaluated again after the core is built**
+>   (operator, 2026-08-07). Default: forego what needs it, or build a TEXTUAL
+>   version agents can naturally produce and render. If it is ever built, it is
+>   MCP-server-hosted and lives and dies with the chat session. ⚠ Tripwire: if it
+>   ever wants to be usable with no agent attached, the daemon decision REOPENS.
+>
+> *"No custom chat harness"* survives untouched.
+
 INITIAL_PROMPT §2 assumed "the TypeScript process is both the MCP server and the
 brain." That does not survive contact with §8g: an MCP stdio server is a subprocess of
 the chat client, so in-memory checkpoints die with the session, and *every channel into
@@ -311,6 +346,15 @@ outlives the request that resolved it.**
   `TrackBank.itemCount()` reports the PROJECT total, not the window (E15-A) —
   which is what makes the rule implementable at all; before it, "16 tracks exist"
   and "16 of 54 are visible" were indistinguishable from the extension side.
+  > ⚠ **RESTATED 2026-08-07 (E16r): a PRECONDITION on every structural create,
+  > checked BEFORE the call — never a post-hoc detection.** A create past the
+  > window mints a track `track.list` never shows: unaddressable, un-cleanable,
+  > audible — and a fork IS a `track.create`. Budget: `bankSize − (project tracks
+  > + FX returns + master + lineage groups)`. The Master and the FX returns leave
+  > the window FIRST (E16r) and are E16's audibility oracles; the failure reads
+  > `found:false`, byte-identical to a deleted track. ⚠ Never a licence to reap
+  > (D20); ⚠ never justified on disk grounds — E16u measured disk immaterial
+  > (~20 KB/fork, no save-time change). → PROJECT_PLAN §4 rule 5.
 
 ## D7 — Pre-allocation scaffold sizes **[SETTLED 2026-07-25]**
 
@@ -455,6 +499,16 @@ frame is an implementation detail, not the interface.**
 - ⚠ **The socket is unauthenticated.** The gate is the daemon; the socket is the
   soft underbelly (INITIAL_PROMPT §8j, inherited from Beat Twin). Firewall it; do
   not mistake policy for a boundary.
+  > ⚠ 2026-08-07: "the gate is the daemon" → the gate is the **MCP server** (D4
+  > rev — there is no daemon). The threat-model posture is unchanged.
+
+> ⚠ **AMENDED 2026-08-07 (D20).** *"One write method"* holds at the ADAPTER
+> CONTRACT — the `Op` union does not split. But the **MCP tool surface** above it
+> partitions by privilege class — read / write / destructive — so that host
+> permission systems can see the destruction boundary (`readOnlyHint`,
+> `destructiveHint`). The seam is at tool granularity only; the adapter interface
+> still never grows per capability. This is D17g's structural-seam idiom applied
+> at the tool layer: a privilege boundary should be a seam, not a remembered rule.
 
 ## D13 — There is no escape hatch **[SETTLED 2026-07-19, E6]**
 
@@ -465,6 +519,27 @@ working), editing actions need panel keyboard focus the API cannot set, the retu
 is `void` with zero readback, and they operate on the UI selection **our own
 addressing sets** — foreground `Duplicate` duplicated the gn-A fixture **7×**
 before the mechanism was understood.
+
+> ⚠ **REVISED 2026-08-07 (E16j, E16k). The verdict NARROWS; the reasoning is
+> REPLACED.** E16j disproved the stated premise — named actions **do** fire
+> backgrounded, including minimised to the Dock — and the track-native lineage
+> group can only be created by one (`Group` / `Create Group Track`), so the model
+> now *depends* on the thing this rule forbade. What is actually wrong with named
+> actions: they are **not addressable surface** — they act on the UI selection,
+> which our own addressing sets and a human can move under us (E6 blocker 3;
+> observed live again in E16j — seven orphan duplicates). New form:
+>
+> **Named actions may be used only where the selection is established and
+> verified in the same batch, and never where an addressed API call exists. The
+> ONE sanctioned use is lineage-group creation**, whose construction order is
+> forced — group the original FIRST, then duplicate (E16k K2: `moveTracks` and
+> `copyTracks` are silent no-ops; nothing can be gathered in afterwards).
+>
+> ⚠ Probe-level addendum (E17/E18 method guards): a named action fired at a
+> *chain* additionally needs a human-clicked chain lane since project load —
+> invisible priming, destroyed by a cross-track re-point or a project reload — so
+> a typed route is preferred always. `WIRE_METHODS_BANNED` and
+> `WIRE_METHODS_FORBIDDEN` stand unchanged.
 
 The typed API plus D1's file surgery is the entire toolbox. The residual gap
 (track Group/Ungroup, wrap/unwrap) is an accepted minor omission.
@@ -483,6 +558,23 @@ registered at all.** `ui.signalFire` is its only member: it crashes Bitwig
 **Bitwig's per-controller pane hosts the deliberate verbs (revert, status, slot
 reveal). Take switching moves to the Phase-3 web view. §8g's privilege separation
 is API-ENFORCED, not policy.**
+
+> ⚠ **REVISED 2026-08-07 (E16m/E16w/E17 row 6, D18, D4 rev).** Two changes and a
+> dissolution:
+>
+> - **Coarse A/B needs no ghostnote UI at all.** The take mechanisms are Bitwig's
+>   own surfaces — exclusive chain solo (one flag, E17 row 6), clip launch
+>   (quantised by construction, the only beat-aligned A/B — E16m's recorded
+>   complaint, answered in D18a), group mute. The "take switcher" this entry moved
+>   to Phase 3 is mostly **dissolved rather than relocated**; what Phase 3 still
+>   owed — comparison and summary views — defaults to TEXTUAL, agent-rendered
+>   forms, since the web view itself is now optional (D4 rev, operator 2026-08-07).
+> - **The privilege concern MOVES.** "The daemon keeps the agent off those
+>   endpoints" is moot: under D18, A/B switching is an ordinary non-destructive
+>   write the agent may make anyway. What stays privileged is unchanged in
+>   substance — the revert *decision* is human (and the document-state button is
+>   API-enforced: `Signal.fire()` refused, E14-A1), and destruction is never the
+>   agent's decision (D20).
 
 This is the Phase-1 control-layer decision PHASE-0 exit criterion 3 requires.
 D4's substance survived; three of its specifics did not.
@@ -682,6 +774,46 @@ a subset is not.
   because the executor was built against the fake first. Fixed, and `C-slot` now
   asserts it on both.
 
+> ⚠ **AMENDED 2026-08-07 (E16-OPEN-QUESTIONS §3.3.3/§3.3.4, operator-approved).**
+> Three corrections to the write-set/fidelity machinery:
+>
+> 1. **`clip.delete`'s `none` was an ADAPTER ARTIFACT, not an API limit.**
+>    `write-set.ts` claimed *"neither its length nor its content has a readback"* —
+>    both halves false as the code stands: content is stashed (§e — the whole clip
+>    channel) and length is readable (the live adapter already reads `loopLength`
+>    to pick a scan grid; it simply never wrote it into the clip entry). Meanwhile
+>    `StateValue` declares `lengthBeats?`, the fake populates it and the live
+>    adapter did not — PHASE-0 §Risks' named failure mode, unexercised because
+>    nothing read the field. **The live adapter captures `lengthBeats`; the label
+>    becomes `lossy`** — a revert recreates the clip at its true length carrying
+>    the stashed notes, and reports what it cannot restore (name, colour, loop
+>    start/end as distinct from length, launch settings, and — the one that bites —
+>    automation lanes, which have no readback in our surface at all). Recorded so a
+>    later session does not mistake a stash gap for an API wall — the E4c mistake
+>    in a different costume.
+> 2. **`device.insert` gets `clip.create`'s treatment: revert emits
+>    `device.delete`** at the chain index the insert produced — structural, no
+>    readback needed, returns the chain to a state that provably existed.
+>    `unrevertableOf` had filed it under `NO_DEVICE_READBACK`, a reason written
+>    about the *delete* direction. §d's human-work objection is resolved the same
+>    way it already is for clips: the revert *says* what it deletes, and D5's
+>    reporting rule is the protection, not a refusal to invert. With the mislabel
+>    fixed, `WriteSet.unrevertable` becomes exactly *"the set a branch cannot
+>    rescue"* (`track.create` — nothing to fork; `scene.create` — not
+>    track-scoped): the bucket doing its job.
+> 3. ⚠ **The genuine exception is `device.insertFileAt` with `where:'replace'`**:
+>    its damage PRECEDES the stash — the outgoing device's opaque state has no
+>    readback and no template to rebuild from — so the label predicate's own input
+>    is unreliable. If Phase 5 ever adds replace to the contract it is
+>    **unconditionally gated** (refused unless branch-protected, before reading
+>    anything) — the one hard-coded member §3.3.6 already reserves.
+>
+> ⚠ Related, decided in D18c: the floor over these labels (*"fidelity worse than
+> `exact`"*, §3.3.5) keeps its predicate but changes its RESPONSE — a loud
+> refusal-unless-branch-protected, never an automatic fork. And §d's *"un-creating
+> a created track is deliberately NOT offered"* softens under D20: not offered
+> **automatically**; expressible as a directed destructive op.
+
 ---
 
 ## D17 — The take store: persistence, branching, partial revert **[SETTLED 2026-07-26, PHASE-1 session 2 — ⚠ §b and §c PROVISIONAL, see below]**
@@ -704,6 +836,32 @@ mutate half.** Built offline as `brain/src/store/`, 26 tests.
 > regardless**, and §e's argument gets *stronger* under the proposal, since a
 > project that literally contains its branches is more authoritative about the world,
 > not less.
+
+> ⚠ **REVISED 2026-08-07 (E16-TRACK-NATIVE, E16-REPLAN §2, D18). The take STORE is
+> RETIRED — the system is stateless and the PROJECT is the take log.** Per
+> sub-decision:
+>
+> - **§b, §c SUPERSEDED** (provisional the day they were written, and the warning
+>   above resolved against them). There is no head, no path walk, no project-wide
+>   "state at take N": takes are real structures in the project — track forks,
+>   layer chains, clip blocks (D18a) — and navigation is *switching* between them
+>   (mute / solo / launch), not materialised revert. ⚠ §c's trap keeps its force
+>   in the new form: **a navigation is a SWITCH, never an edit** — nothing may
+>   record it as a step the next navigation then reverses.
+> - **§a, §f RETIRED with the store** — no project key, no on-disk log, no
+>   retention. Reaping was already the human's decision regardless (D20).
+> - **§d SURVIVES, repurposed**: `slice.ts` stays — partial revert by address over
+>   the **stash** (D5's *"that take had a better hi-hat"* is within-track), with
+>   time/pitch slicing still REFUSED for E8-E's merge reason, which no
+>   authorization moves (D20).
+> - **§e's principle outlives its object**: the project document is authoritative
+>   about the world — now trivially, since the project *is* the log.
+> - **§g REAFFIRMED and generalised** (D20): the privilege boundary is a
+>   structural seam, not a remembered rule — now at the MCP tool surface (D12
+>   amendment) rather than around a store object.
+> - ⚠ **The STASH survives the store and is load-bearing THREE ways** — unbranched
+>   writes (D16), the clip content fingerprint guarding positional addressing, and
+>   agent-edit reversal (D19). **Do not delete it with the store.**
 
 ⚠ This session's exit criteria carry unusual weight, and it is worth restating
 why: D14 moved take navigation to Phase 3, so **Phase 1 ships a branchable take
@@ -899,6 +1057,229 @@ in a listing, before anyone commits to a revert.
 
 ---
 
+## D18 — Branching: the hybrid model at L3-open **[SETTLED 2026-08-06 by the operator; recorded 2026-08-07]**
+
+**All three branch mechanisms exist — track fork, layer chain, clip block — and
+the agent chooses between them freely. What the agent experiences is L4:
+open-ended tool descriptions, no dispatch rule anywhere on its surface. What the
+record captures is L3: every branch event stores a deterministic rule's verdict —
+computed silently, used for nothing — beside the agent's actual choice and the
+human's response. Only reporting is imposed.**
+
+Closes the E16→E18 branching arc. The argument is
+`spike/HYBRID-AUTONOMY-LEVELS.md` (the ladder, and why L3-open beats both the L1
+recommendation it replaced and plain L4); the measured substance is
+`spike/E18-VERDICT.md` §1. The operator's framing, verbatim:
+
+> *"I don't want the inherent prescriptiveness of L0/L1 to bleed up; I
+> specifically want to see how agents work with more autonomy and iterate on tool
+> descriptions in that world, with the deterministic branching as a useful
+> measurement control. This holds for all measurements in general; only reporting
+> is imposed, no automatic mechanism-level branching or prescriptiveness."*
+
+### a. The hybrid — all three mechanisms are built
+
+Track fork: ● proven (E16k, C5, E16u, E16r). Layer chain: ◐ most of the wire
+exists (`e18a`/`e18c`/`e18e`/`e18g`/`e18h`). Clip block: ⚠ **the gap** —
+`launchWithOptions(quantization, launchMode)` and
+`ClipLauncherSlot.duplicateClip()` are unprobed and not on the wire; **the one
+early build item** (Phase 1). The track-vs-layer question closed by dissolving:
+layers were committed regardless (`e18a` — the Master and FX returns are
+reachable no other way), and the clip block is the only beat-aligned A/B in the
+design (E16m's complaint; E18-VERDICT §4c). ⚠ Three owed measurements were
+dispositioned by operator judgement with named retirement conditions
+(E18-VERDICT §7a: dormant-chain CPU, container PDC/transparency, launch
+quantisation) — that dependency stays visible, not buried.
+
+### b. L3-open — what the agent sees, what the record keeps
+
+The agent is never shown a default, a dispatch table, or anything to "depart
+from"; it chooses on the merits as it understands them. Hiding the rule removes
+the anchoring bias that made plain L3 a poor instrument (HYBRID §1c); the matched
+pair — silent verdict beside live choice, neither informing the other — is what
+makes autonomy *measurable* rather than merely granted. L4 alone has no tell;
+L3-open takes L4's freedom and keeps one. Agent judgement is **perishable** (the
+conversation and the human's stated intent are not in the changeset); the rule's
+verdict is free, retroactive and permanent — so real sessions are spent on the
+perishable signal (HYBRID §1a/§1b).
+
+### c. ⚠ The firewall is scoped to CHOICE-MAPPING, not to prescription
+
+> **Tool descriptions carry complete mechanical knowledge — capabilities, costs,
+> traps, and correct procedures, as prescriptive as correctness requires — and
+> ZERO choice-mapping: nothing that maps the shape of a change onto a mechanism.
+> Facts and procedures, never pre-drawn conclusions.**
+
+⚠ Replaces a first draft's blanket *"guidance, never prescription"* (operator,
+2026-08-07): correctness recipes — group-then-duplicate, append-only scenes,
+rename-on-fork — are *required* knowledge, and deficient knowledge is a
+**confound** in the judgment measurement, not a purer form of it. We measure
+judgment, not ignorance. Facts that let an agent *derive* the rule are fine — a
+derived conclusion is a finding (§5c row 1 of HYBRID: high agreement means the
+rule captures what good judgement does); a pre-drawn one is compliance.
+
+- **Preconditions are DOCUMENTED** (the bank-window budget, the fidelity floor),
+  so refusals are predictable. Refusal text is fully informative — even
+  procedurally directive — *within* the attempted mechanism, and **never
+  redirects across mechanisms** ("fork won't fit — use a layer" is the leak
+  arriving through an error message). Unpredictable refusals also pollute the
+  instrument: wall-bump mechanism switches are not judgment.
+- ⚠ **The floor is RESTATED** (E16-OPEN-QUESTIONS §3.3.5): predicate unchanged
+  (*fidelity worse than `exact`*), response changed — a **loud
+  refusal-unless-branch-protected, never an automatic fork**. Same for the
+  damage-precedes-the-stash member (§3.3.6): unconditional refusal unless
+  branch-protected, before reading anything. An automatic fork is automatic
+  mechanism-level branching, which the operator's framing forbids outright.
+- **No prescriptive fallback in behaviour**: if the agent does not choose, the
+  system reports and stops.
+- **The deterministic dispatch rule** (E18-VERDICT §6, repurposed:
+  split-by-object-type with the track fork as escape hatch) **lives in the
+  executor and never reaches the agent surface in any form** — not a tool
+  description, a parameter name, an error message, or a receipt. A leak
+  contaminates every event logged after it, irrecoverably (HYBRID §4). This is
+  the one one-way door: guidance can always be *added* on evidence — that is
+  L3-open degrading gracefully toward L3/L1 — but choice-mapping can never be
+  cleanly *removed*.
+- ⚠ **Fresh surface language** (operator, 2026-08-07): tool names and
+  descriptions are written from scratch for a general-purpose agent — **none of
+  the spike's internal jargon** (fork/reap/lineage/stash/floor as terms of art)
+  crosses the surface. Each domain concept gets self-explanatory naming; names
+  should naturally suggest capabilities and seams while leaving room for
+  judgment. Internal docs keep their vocabulary; the surface earns its own.
+
+### d. The record, and versioned tool descriptions
+
+One row per branch event:
+
+| field | notes |
+|---|---|
+| the **raw write-set** | the INPUT, never a classification — any future rule, including ones not yet invented, replays against it (HYBRID §1a) |
+| the rule's **silent verdict** | computed in the executor, used for nothing |
+| the **agent's choice** | fork / chain / block |
+| *agreed?* | derived, never stored |
+| the agent's **own rationale** | not a justification of a deviation — it never saw a default |
+| the **human's response** | accepted / vetoed / **silent** — silent must be distinguishable from accepted |
+| the **resulting structure** | by identity |
+| ⚠ the **tool-description version** | see below |
+
+⚠ **Tool descriptions are a first-class versioned artifact**: freeze a version,
+gather events under it, then edit — an edit mid-cohort splits the cohort and
+neither half is interpretable alone (HYBRID §5b). v1 ships the mechanics,
+trade-offs and correctness recipes **lean** — no worked examples, no heuristics,
+no "typically/recommended" language — and every addition is a deliberate,
+versioned response to an observed failure (§5c: vetoed choices → tighten
+descriptions first, the rule only if that fails).
+
+Two confounds stated, not buried (HYBRID §5d): a falling veto rate is equally
+consistent with the human having stopped reading — report veto rate and
+choice-diversity together, and treat "departs more, vetoed less" as suspicious;
+and the replayed rule is never *"what would have happened under L1"*, because the
+agent's choices shape later write-sets.
+
+### e. Axes B and C do not move
+
+This decision governs **mechanism choice only**. **B (whether to branch) stays
+low** — *"deliberate and coarse"* (E16-TRACK-NATIVE answer 2); most batches are
+never branched and the stash is the common path. **C (destruction) is pinned at
+zero INITIATIVE** — see **D20**, which is where the operator's 2026-08-07
+refinement of "never reap" lives.
+
+---
+
+## D19 — Undo: Bitwig's stack is the human's; agent-edit reversal is ours **[SETTLED 2026-08-06; separated out 2026-08-07]**
+
+**The agent's edits are not expected to be reversible through Bitwig's undo, and
+nothing is designed as if they were. Agent-edit reversal is our job — best-effort,
+from the changesets, and it must SAY best-effort through D8/D16's existing
+fidelity labels.** Split out of D18 at the operator's request, because this is
+expected to mutate as the model refines.
+
+- **The cost accepted, with numbers**: one structural API call = one undo step
+  (`e18f`), so Cmd-Z travels ≈1 (clip duplicate), 3 (fork + rename + group) or
+  **7** (layer rebuild — with both containers live in 6 of 7 intermediate states)
+  depending on a mechanism choice the human did not make. The operator's reframe,
+  verbatim: *"undoing within Bitwig will mostly be a gesture for human edits; the
+  operator is not likely to be very surprised that undo history is filled with
+  several opaque entries for an agent edit. We will still be able to execute a
+  best-effort agent-assisted undo of its own edits with the changesets in the
+  chat log."*
+- **Reversal is DIRECTED** — the human asks for it — and rides the ordinary
+  (non-destructive) write surface, **structurally bounded to the session's own
+  changesets**. Reversal that would destroy anything the agent did not itself
+  mint-and-last-write is **withheld and reported** through the fidelity
+  machinery, never silently escalated to destruction. Clean reverts are NOT
+  reaping (the D20 boundary), and need no approval beyond the instruction that
+  directed them.
+- ⚠ **This makes the STASH load-bearing a third way** — after D16's unbranched
+  writes and the clip content fingerprint. It survives the take store's
+  retirement (D17 rev) and must not be deleted with it.
+- What a reversal cannot restore is governed by the labels as they already exist:
+  `gain` withheld (D16b), `pressure` stripped and named (D16c), `none`-fidelity
+  reported loudly (D16d) — reused, never reinvented.
+
+---
+
+## D20 — Destruction: zero initiative, directed execution behind an annotated seam **[SETTLED 2026-08-07]**
+
+**Privileges attach to DECISIONS, not to executions. The agent never *decides* to
+destroy; it may *execute* destruction the operator explicitly directed. Axis C is
+pinned at zero initiative, not zero capability.**
+
+The letter of *"the agent may never reap"* (D17g, §4.16, rule 8) said never; the
+spirit was always never *uninvited* — E18-VERDICT §3f: pruning is a user-visible
+act, and the chain-delete ○ *"binds the agent, not the human."* This entry amends
+the letter to match, at the operator's direction (2026-08-07). Unsolicited
+destruction stays at absolute zero — and making zero-initiative *structural* is
+precisely what lets directed destruction be allowed without re-litigating trust
+every time.
+
+- **The seam: destructive verbs live on a SEPARATE MCP tool surface, annotated**
+  (`destructiveHint`; read tools carry `readOnlyHint`), so the **host's
+  permission flow is the stop-and-ask**. Tool names and descriptions are chosen
+  to suggest the capability class naturally (D18c's fresh-language rule applies).
+  *"Always allow"* is the operator's prerogative and accepted — they may have
+  good reasons (e.g. directed cleanup of a large cluttered project). Amends D12:
+  the adapter contract keeps one `Op` union; only the MCP tool surface partitions.
+- ⚠ **The boundary is host-mediated: nothing INSIDE our system gates a directed
+  destructive call.** Threat model is the confused agent, not a malicious client —
+  consistent with D12's socket posture. ⚠ **Annotation handling is currently a
+  SPEC READING, not a measurement** — the same epistemic class as
+  `launchWithOptions` — so verifying that target hosts actually prompt as
+  expected is a Phase-1 early item.
+- ⚠ **Rejected: a document-state arming toggle** (API-enforced human-only —
+  Bitwig refuses `Signal.fire()`, E14-A1 — checked extension-side as a
+  conditional `WIRE_METHODS_BANNED`). Proposed as the hard gate; dismissed by the
+  operator as too awkward. Recorded so a future reopening inherits the design
+  rather than rediscovering it.
+- **The revert/reap boundary**: reversal of the session's own changesets is not
+  destruction (D19). v1 line: **own changesets ungated; destruction of anything
+  else rides the destructive surface.** A fingerprint refinement is available if
+  the simple line chafes: ungated iff current content matches what our changeset
+  last wrote.
+- **Merges come apart three ways**, and only one moves:
+  1. *Store-level merge* — dead with the store (D17 rev); the old tripwire's
+     object is gone.
+  2. *Project-level consolidation* — collapse-to-winner, reduce, mechanism
+     conversion (chain→top then fork, `e18c`) — becomes **directed + annotated
+     surface**, with a save-the-project-first suggestion in the warning (a
+     collapse is 7 undo steps, `e18f`) and the conversion asymmetry stated:
+     layer→track exists; **clip→layer is impossible outright** (a chain carries
+     no clips).
+  3. *State-level merge* — time/pitch-sliced revert — **stays REFUSED,
+     mechanically** (E8-E: same-pitch truncation outside the write's extent).
+     ⚠ **Authorization changes "may we", never "how" — mechanical walls do not
+     move for permission.**
+- **Execution discipline is authorization-independent**: enumerate the cascade by
+  identity before any delete (§4.16 — a group delete takes the winner with it
+  whether or not it was ordered); **name the survivor, never count it** (rule 13);
+  bound the delta; verify by readback. A directed delete on a name-addressed
+  chain (`e18b`: ids minted by the project loader) can still hit the wrong take —
+  only discipline prevents that, and no instruction relaxes it.
+- **Untouched**: the revert *decision* stays human, and the document-state button
+  stays API-enforced (E14-A1) — Bitwig enforces that, not us.
+
+---
+
 ## Consolidation status
 
 **D6–D15 discharge the SPIKE_PLAN §5 debt** — addressing (D6), scaffold sizes
@@ -909,3 +1290,10 @@ verification discipline that the E15 arc produced (D15).
 
 `PROJECT_PLAN.md` §4 "Standing rules" was the working summary until these existed
 and is now a pointer at them.
+
+**D18–D20 (2026-08-06/07) discharge the E16-REPLAN §5 debt**: the branching model
+(D18), undo (D19), destruction (D20), and the revision banners on D4, D6, D12,
+D13, D14, D16 and D17 that land the stateless re-plan. Standing rules 5, 6, 7 and
+8 were restated in `PROJECT_PLAN.md` §4 the same day; rule 7 is struck with a
+tombstone rather than renumbered, so the spike record's cross-references stay
+valid.

@@ -1,13 +1,38 @@
 ---
 title: Phase 2 — The clip surface
-status: not started
-updated: 2026-07-24
+status: not started. ⚠ Premises revised 2026-08-07 (D16–D20 re-plan) — see the
+        banner below: the CLIP BLOCK is Phase 1's deliverable, there is no take
+        store, and "staged vs direct" is answered by the model.
+updated: 2026-08-07
 parent: ../PROJECT_PLAN.md
 prev: PHASE-1-ENGINE.md
 next: PHASE-3-SESSION-VIEW.md
 ---
 
 # Phase 2 — The clip surface
+
+> ⚠ **2026-08-07 (D18, re-plan).** Three premise changes, none touching the
+> phase's core (the musical vocabulary):
+>
+> - **The CLIP BLOCK is PHASE 1's deliverable** (operator call: the block is a
+>   branch mechanism, and Phase 1 owns branching — takes as contiguous launcher
+>   clips bounded by empty slots, `duplicateClip` minting, `launchWithOptions`
+>   A/B). Phase 2 **consumes** it: the vocabulary writes into takes the block
+>   mints. §Scope 6's clip lifecycle remains this phase's — the block's *geometry
+>   maintenance* does not.
+> - **"Checkpointed as a take" (exit criterion 2) no longer means a store row**
+>   (D17 rev): it means the stash for unbranched writes, and a D18 mechanism when
+>   branch-protected. "Revertible from inside Bitwig" is the human's Bitwig-native
+>   verbs plus directed agent reversal (D19).
+> - **"Whether generated material is written directly or staged" (§Decisions) is
+>   ANSWERED by the model**: written directly — branch-protected when the floor's
+>   precondition requires it or when the human directs it. *"Generate four
+>   variations"* maps onto a clip block of four takes, which is D5's insight
+>   landing exactly where it pointed.
+>
+> ⚠ Tool-surface work here inherits D18c's rules: fresh jargon-free language,
+> versioned descriptions, no choice-mapping, and the read/write/destructive seam
+> (D20).
 
 > **Purpose.** The first phase that is about music rather than machinery. Phase 1 can
 > write any note it is told to; Phase 2 is what makes an agent able to decide *which*

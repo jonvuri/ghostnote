@@ -5,7 +5,14 @@ status: ⚠ SUPERSEDED IN PART — the MODEL IS NOW CHOSEN (user, 2026-07-29), s
         this document's comparative framing is history. §4's ledger still holds
         except where the 2026-07-29 revisions below change it. Live handoff:
         HANDOFF-E16-TRACK-NATIVE.md. Still nothing in DECISIONS.md (rule 10).
-updated: 2026-07-29
+        ⚠⚠ RETIRED 2026-08-07 — the branching mechanism is now the HYBRID
+        (DECISIONS D18–D20; the "nothing in DECISIONS" line above is stale).
+        The foundation this document argued STANDS — the project is the take
+        log, stateless, "deliberate and coarse" — but track-only branching does
+        not: E18 overturned "DEVICE takes are TRACKS", and the operator chose
+        track fork + layer chain + CLIP BLOCK with the agent choosing at
+        L3-open. See the 2026-08-07 banner below.
+updated: 2026-08-07
 parent: SPIKE-E16-BRANCHES-AS-TRACKS.md
 evidence: spike/FINDINGS.md — "E16 rows A–C", "E16 rows D–G", "E16j", "E16k"
         · DECISIONS D5, D8, D13, D14, D16, D17 · INITIAL_PROMPT §8a–§8g
@@ -15,6 +22,18 @@ supersedes framing of: HANDOFF-E16-SIBLINGS.md task 2 ("the sibling-track
 ---
 
 # The track-native branching model
+
+> ⚠⚠ **RETIREMENT BANNER, 2026-08-07 — THE BRANCHING MODEL IS NOW THE HYBRID,
+> AND IT IS IN `DECISIONS.md` (D18–D20).** This document's foundation stands —
+> the project is the take log, the system is stateless, branching is deliberate
+> and coarse — but its track-only mechanism does not: E18 overturned the
+> E17-era "DEVICE takes are TRACKS" (a layer chain CAN be grown and rebuilt —
+> `e18a`, `e18c`), and the operator chose a hybrid of track fork + layer chain +
+> clip block with the agent choosing freely at L3-open. Rule 10 was lifted
+> 2026-08-07 and the arc is authored. **Live model:**
+> `HYBRID-AUTONOMY-LEVELS.md` §7 and DECISIONS D18–D20. **Read this document
+> for**: why the project is the log, what the stash survives for, and §4's
+> use-case ledger — much of which D16–D19's revisions cite.
 
 > ⚠⚠ **STALENESS BANNER, 2026-07-30 — READ BEFORE §2 AND §7.** Session 4 answered
 > several things this document still calls unmeasured. **A full revision is §4 of

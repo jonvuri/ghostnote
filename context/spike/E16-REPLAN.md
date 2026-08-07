@@ -1,8 +1,13 @@
 ---
 title: ghostnote — E16 session 5, job 2: the re-plan onto the track-native model
-status: IN PROGRESS. Standing rules 5/6/7 restated; PHASE-1 sessions 2 and 3
-        dispositioned. PROJECT_PLAN §5/§7, PHASE-3 and the two E16 spike docs
-        are NOT yet done.
+status: ⚠ DONE 2026-08-07 — the second re-plan session discharged §5's untouched
+        list under the HYBRID (D18–D20): PROJECT_PLAN §4/§5/§7 revised, PHASE-1
+        re-planned (clip block in P1), PHASE-2 premises updated, PHASE-3 made
+        OPTIONAL (operator), both E16 spike docs bannered, and DECISIONS.md
+        authored with rule 10 lifted — §1's rules 5/6/7 accepted as restated
+        (rule 7 struck with a tombstone; single-writer mitigation recorded
+        unadopted), §4's two D16 amendments approved (plus the insertFileAt
+        'replace' exception). Historical record below.
         ⚠⚠ §3 IS SUPERSEDED, 2026-08-06 — and its PREMISE changed, not just its
         answer. §3 scopes device-layer A/B to the MASTER and FX RETURNS ONLY, on
         the ground that a layer chain could be neither grown nor deleted. E18

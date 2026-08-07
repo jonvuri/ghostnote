@@ -1,17 +1,22 @@
 ---
 title: Phase 1 — The write engine & takes
 status: in progress — split into six sessions 2026-07-25 (see §Session index).
-        Sessions 1 and 2 DONE 2026-07-26 (D16, D17); session 3 is next and is the
-        first that needs a live daemon.
-        ⚠⚠ HALT BEFORE SESSION 3 — E16 IS RESOLVED AND IT CHANGES THIS PHASE.
-        The TRACK-NATIVE model was chosen 2026-07-29: branches are duplicated
-        tracks, the system is STATELESS, and ⚠ session 2's take store is largely
-        RETIRED (no graph, no head, no project key, no retention). Session 3's
-        daemon premise is itself an open question — two of the daemon's three jobs
-        no longer exist. ⚠ Do not start session 3 from this document. Read
-        ../spike/HANDOFF-E16-TRACK-NATIVE.md first; re-planning this phase is that
-        session's second task.
-updated: 2026-07-30
+        Sessions 1 and 2 DONE 2026-07-26 (D16, D17).
+        ⚠⚠ RE-PLANNED 2026-08-07 UNDER D16–D20 — READ §Re-plan BELOW FIRST. The
+        original text is kept as the record and is STALE where it disagrees.
+        The model: STATELESS — the project is the take log; branching is the
+        HYBRID at L3-open (D18: track fork / layer chain / clip block, agent
+        chooses freely, the record silently captures the control rule's verdict).
+        No daemon (D4 rev): observers live in the EXTENSION, the MCP server holds
+        a bridge connection. Session 2's store is retired to the STASH, which is
+        load-bearing three ways (D17 rev, D19). ⚠ The CLIP BLOCK lands in THIS
+        phase (operator, 2026-08-06), and its design is gated on unprobed
+        primitives — `launchWithOptions` + `duplicateClip` — which run EARLY,
+        beside D20's annotation-behaviour check.
+        ⚠ (The 2026-07-30 HALT banner this replaces said "branches are duplicated
+        tracks"; E18 and the operator's hybrid decision superseded that — see
+        ../spike/HYBRID-AUTONOMY-LEVELS.md §7.)
+updated: 2026-08-07
 parent: ../PROJECT_PLAN.md
 prev: PHASE-0-FOUNDATION.md
 next: PHASE-2-CLIPS.md
@@ -20,7 +25,38 @@ sessions: PHASE-1-SESSION-1-EXECUTOR.md … PHASE-1-SESSION-6-ASYNC.md
 
 # Phase 1 — The write engine & takes
 
-## Session index
+## ⚠⚠ RE-PLAN, 2026-08-07 — this phase under the hybrid (D16–D20)
+
+> The original document below is KEPT as the record. Where it disagrees with this
+> section or with `DECISIONS.md` D16–D20, **this section wins**. Disposition
+> trail: `../spike/E16-REPLAN.md` (§1 rules, §2 sessions) and
+> `../spike/HYBRID-AUTONOMY-LEVELS.md` §7 (what the re-plan inherits).
+
+### Revised session structure
+
+| # | Session | Disposition |
+|---|---|---|
+| 1 | The executor | ● DONE (D16) — ⚠ re-open briefly for the 2026-08-07 amendments: `clip.delete` → `lossy` via live `lengthBeats` (fixes the fake/live disagreement); `device.insert` gets its exact inverse (`device.delete`); the floor becomes **refuse-unless-branch-protected**, never an automatic fork (D18c) |
+| 2 | ~~The take store~~ → **the stash** | ● DONE (D17), then RETIRED to the stash (D17 rev). Delete `graph.ts`/`project.ts`; reduce `store.ts`/`format.ts`; ⚠ **KEEP `slice.ts`** (partial revert by address) and the read/write type split. ⚠ **The stash is load-bearing THREE ways** — unbranched writes, the clip content fingerprint, agent-edit reversal (D19). Do not delete it with the store |
+| 3 | ~~`ghostnoted`~~ → **bridge + observers** | Daemon DELETED (D4 rev). The MCP server holds a bridge connection — a fraction of a session. The **extension** carries both epochs: scene-count AND launcher-content, and the content epoch is the one clip addressing consults (E16s: the count observer missed a human clip drag the content observer reported as a pair) |
+| 3′ | ⚠ **NEW — early probes** | The design-gating unknowns, run before anything leans on them: **`launchWithOptions(quantization, launchMode)`** (per-call `"1"`/`"8"` quantisation; `"continue_or_synced"` — take B resumes at A's position, the only answer to E16m) and **`ClipLauncherSlot.duplicateClip()`** (mints the next take); **D20's annotation check** (do target hosts actually prompt on `destructiveHint`?); **`getDocumentState()` JSON capacity** (D18d's record lands there) |
+| 3″ | ⚠ **NEW — the branch mechanisms & the record** | Track fork (built: E16k/C5/E16u) · layer chain (wire mostly exists: `e18a`/`e18c`; solo A/B per E17 row 6) · **clip block** (this phase, operator 2026-08-06): `duplicateClip` → append-only geometry (`hasContent()` contiguity, `slot.moveTo` restore, `createScene()` for room) → `launchWithOptions` A/B. Plus the **branch-event record** (D18d) and **versioned tool descriptions in fresh, jargon-free language** (D18c). ⚠ The dispatch classifier lives in the executor and must be *provably* unreachable from the tool surface — the `WIRE_METHODS_BANNED` test idiom, aimed at the leak |
+| 4 | The control layer | Mostly survives, and SHRINKS: coarse A/B is Bitwig's own surface (D14 rev). The pane keeps revert, status, `showInEditor` navigation |
+| 5 | Proving it live | ⚠ Exit criterion 4 is **BACK IN PHASE 1**: two takes A/B'd from inside Bitwig — chain solo (one exclusive flag) or clip launch (beat-aligned, E16m answered). The relaxation below is superseded |
+| 6 | Async batch completion | Unchanged |
+
+### New decisions this phase owns (not in the old list)
+
+- **What the agent says when it builds a clip block it cannot arm** — Next
+  Actions are not in the controller API, and an armed block is indistinguishable
+  from an unarmed one (E18-VERDICT §4a″). An explicit affordance, not silence.
+- **The destructive tool seam in practice** (D20): the read / write / destructive
+  partition of the MCP surface, and reversal-bounded-to-own-changesets riding the
+  ordinary write surface (D19).
+- **Tool-description v1 content and its freeze/version mechanics** (D18c/d):
+  mechanics + trade-offs + correctness recipes, lean, no heuristics; versioned
+  per cohort; every domain concept renamed from scratch — no spike jargon on the
+  surface.
 
 Split 2026-07-25. Sessions 1–5 are a dependency chain; session 6 is optional and
 may slip to Phase 2. The offline/live boundary is the load-bearing part of the
@@ -94,6 +130,9 @@ engine.
    is the expected lifecycle. It is also the only process that can usefully hold
    Bitwig observers, which is what makes the change log trustworthy while the user is
    editing concurrently (§8d).
+   > ⚠ **2026-08-07: DELETED (D4 rev).** The extension holds the observers — a
+   > strictly better home — and the MCP server holds a bridge connection. See
+   > §Re-plan session 3.
 2. **The execution pipeline** — §8b, made real:
    ```
    materialize patch → explicit IDs → known write-set
@@ -158,6 +197,13 @@ The reframe in `PROJECT_PLAN.md` §3 drives this. Concretely, a take is:
 
 ## Decisions this phase must make
 
+> ⚠ 2026-08-07: mostly DECIDED since this was written — schema/retention retired
+> with the store (D17 rev), identity closed (D16a), daemon lifecycle mooted (D4
+> rev), partial-revert granularity closed (D17d, survives over the stash). Still
+> live: **what happens when the user edits inside the write-set** (detection over
+> resolution — the launcher-content epoch is the detector now), plus §Re-plan's
+> new-decisions list.
+
 - **Take store schema and retention.** Depth, pruning, and whether takes survive
   project close. `getDocumentState()` settings persist in the project document —
   which makes the *active take pointer* a natural project-scoped value even though
@@ -190,6 +236,10 @@ The reframe in `PROJECT_PLAN.md` §3 drives this. Concretely, a take is:
    > unworkable there. Phase 1 proves the **store-side** half headlessly (two takes
    > exist, are distinguishable, switchable through the daemon API); the human
    > workflow is unproven until Phase 3. Full reasoning in §Session index.
+   > ⚠⚠ **UN-RELAXED 2026-08-07 (D14 rev, D18) — the criterion is BACK, in
+   > Bitwig-native form**: two takes A/B'd from inside Bitwig via chain solo (one
+   > exclusive flag) or clip launch (beat-aligned, answering E16m), no ghostnote
+   > UI involved. See §Re-plan session 5.
 5. A project larger than the bank window causes a **loud, explicit refusal**, never
    a partial operation.
 6. The whole pipeline is exercised offline against the Phase-0 fake in CI.

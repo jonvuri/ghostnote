@@ -1,13 +1,44 @@
 ---
 title: Phase 3 — The session view
-status: not started
-updated: 2026-07-24
+status: ⚠⚠ OPTIONAL as of 2026-08-07 (operator; D4 rev) — re-evaluated after the
+        core is built. Default: forego what needs a web view, or build TEXTUAL
+        versions agents naturally produce and render. The daemon-served premise
+        is retired; see the banner below. Original text kept as the record.
+updated: 2026-08-07
 parent: ../PROJECT_PLAN.md
 prev: PHASE-2-CLIPS.md
 next: PHASE-4-SOUND-DESIGN.md
 ---
 
 # Phase 3 — The session view
+
+> ⚠⚠ **RE-SCOPED 2026-08-07 (operator; D4 rev, D14 rev, D17 rev, D18). This
+> phase is OPTIONAL and DEFERRED — evaluated again after the core is built.**
+> The default is to forego what needs a web view, or to build **textual**
+> versions agents can naturally produce and render. What moved out from under
+> the original text:
+>
+> - **Take navigation and A/B (§Scope 4) are DISSOLVED, not deferred.** Coarse
+>   A/B is Bitwig's own surface (chain solo, clip launch, group mute — D14 rev),
+>   and takes are visible structures *in the project*, not store rows. The
+>   original "Phase 1 gives you revert and A/B from inside Bitwig" premise is
+>   true again, more literally than it knew.
+> - **The data source changed**: no daemon, no store (D4/D17 rev). Changesets
+>   live in the chat log; branch-event metadata lands in `getDocumentState()`
+>   (D18d). A change summary is an agent rendering of those — no server needed.
+> - **The daemon's local API (§Scope 1) is retired.** If a view is ever built it
+>   is MCP-server-hosted and lives and dies with the chat session. ⚠ Tripwire
+>   (E16-REPLAN §5): wanting it usable with no agent attached REOPENS the daemon
+>   decision.
+> - **Partial revert (§Scope 5) stays** — `slice.ts` over the stash (D17 rev) —
+>   with a conversational/textual UX first.
+> - **The live residue**: before/after diff and cross-object summaries (§Scope
+>   2/3). Try them textual first; a renderer is justified only if text
+>   demonstrably fails exit criterion 1's test — "what changed and what it
+>   replaced", without reconstructing from memory.
+>
+> Exit criterion 4's "revert remains a human verb" is now D20's zero-initiative
+> rule, enforced at the annotated tool seam rather than at daemon endpoints.
 
 > **Purpose.** The visual half of "Cursor for music" — but only the half Bitwig
 > cannot do itself. Phase 1 gives you revert and A/B from inside Bitwig; Phase 3 adds

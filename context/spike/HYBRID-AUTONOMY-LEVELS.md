@@ -3,11 +3,19 @@ title: The hybrid branching model — agent autonomy, and the decision to run at
 status: ⚠⚠ DECIDED BY THE OPERATOR 2026-08-06. This document records a CHOSEN
         design, not an open question. §0 states it; §1–§3 are the record of how
         the argument got there and should not be re-litigated.
-        ⚠ NOTHING HAS BEEN WRITTEN TO `DECISIONS.md` — rule 10 and
-        `E16-REPLAN.md` §5 both say those entries are the USER'S to author.
-        §7 is shaped so lifting it is mechanical.
-        ⚠ READ THIS COLD BEFORE THE RE-PLAN. §7 is what the next session
-        inherits; §8 is what is still owed and none of it blocks starting.
+        ⚠ ~~NOTHING HAS BEEN WRITTEN TO `DECISIONS.md`~~ → AUTHORED 2026-08-07
+        as D18–D20 (rule 10 lifted for the re-plan session), with TWO OPERATOR
+        REFINEMENTS this document predates — read §4 through them:
+        (1) the prescription firewall is scoped to CHOICE-MAPPING, not to
+        prescription as a category — correctness recipes and documented
+        preconditions ARE allowed, and refusals are predictable and informative
+        within the attempted mechanism (D18c);
+        (2) axis C is pinned at zero INITIATIVE, not zero capability — directed
+        destruction is allowed behind an annotated tool seam, and clean reverts
+        of the session's own changesets are not reaping (D19/D20).
+        ⚠ THE RE-PLAN RAN 2026-08-07: PROJECT_PLAN, PHASE-1/2/3 and the spike
+        docs are updated; §8's owed items live in PROJECT_PLAN §7. §7d is
+        discharged.
 updated: 2026-08-06
 parent: E18-VERDICT.md §5
 supersedes: E18-VERDICT.md §5's A/B/C framing (they were points on one ladder)
