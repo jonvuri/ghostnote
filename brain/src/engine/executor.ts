@@ -3,9 +3,17 @@
  *
  *     resolve(write-set)   -> explicit, live-checked addresses
  *     read(write-set)      -> the stash
+ *     label(stash)         -> per-address fidelity, and THE FLOOR (D18c)
  *     apply(batch)         -> optimistic, staged, revision-guarded
  *     read(write-set)      -> verify
  *     report               -> §8c: what applied, what didn't, what disagrees
+ *
+ * ⚠ The labelling step moved forward on 2026-08-07 and that is not cosmetic. The
+ * labels always existed; they were computed after the apply, for the report. The
+ * fidelity floor asks a question only answerable BEFORE the first write — *can
+ * this batch be put back?* — so the same derivation now runs between the stash and
+ * the apply, and its answer is a refusal rather than an automatic branch
+ * (`floor.ts`).
  *
  * The contract already had the four primitives (`adapter.ts:52-93`) and its own
  * header already spelled the pipeline out; nothing called them in sequence. This
@@ -27,15 +35,29 @@ import {
   type Address, type AdapterInfo, type BitwigAdapter, type NoteRecord, type Op, type Snapshot,
 } from '../contract/index.js';
 import { labelTarget, worstOf } from './fidelity.js';
-import { revertOps, type RevertPlan, type Unrestored } from './revert.js';
+import { floorRefusal, gateBeforeReading, ownChangesetReversal, type Clearance } from './floor.js';
+import { NO_MINT_NO_INVERSE, revertOps, type RevertPlan, type Unrestored } from './revert.js';
 import type { ApplyReport, Disagreement, Take, TakeValue, Unverified } from './take.js';
-import { structuralRisk, writeSetOf } from './write-set.js';
+import { structuralRisk, writeSetOf, type UnrevertableOp } from './write-set.js';
 
 export interface ExecutorOptions {
   /** Injected so a take id is deterministic under test. Never a module global. */
   readonly newId?: () => string;
   /** Injected for the same reason. */
   readonly now?: () => number;
+}
+
+export interface RunOptions {
+  /**
+   * Why this batch may proceed when its prior state cannot be restored exactly
+   * (D18c). Absent is the ordinary case: an ordinary write into a clip whose
+   * prior state round-trips is `exact` and pays nothing.
+   *
+   * ⚠ There is no default and no fallback. If the floor trips and nothing clears
+   * it, the batch is refused — the system reports and stops rather than choosing
+   * a protection for the caller.
+   */
+  readonly clearance?: Clearance;
 }
 
 /** What a revert did, and what it could not do (D5). */
@@ -68,14 +90,22 @@ export class Executor {
    * exception to learn "someone else wrote first" would be a worse API.
    *
    * Throws only for the refusals: a stale scene epoch (E3), an address we cannot
-   * see (E5), and a note write into a slot with no clip (E2). All three are
-   * conditions under which proceeding produces a SILENTLY wrong result, which is
-   * the whole reason this project owns revert.
+   * see (E5), a note write into a slot with no clip (E2), and the fidelity floor
+   * (D18c). The first three are conditions under which proceeding produces a
+   * SILENTLY wrong result, which is the whole reason this project owns revert;
+   * the fourth is a documented precondition, and it is a refusal rather than an
+   * automatic branch because *"only reporting is imposed"*.
    */
-  async run(ops: readonly Op[]): Promise<Take> {
+  async run(ops: readonly Op[], options: RunOptions = {}): Promise<Take> {
     // ⚠ E15-E, first and before anything reads: a batch asking for `pressure`
     // must be refused before we pay for a stash we are going to throw away.
     assertOpsWritable(ops);
+
+    // ⚠ §3.3.6, and it runs here for a reason: this member's damage precedes the
+    // stash, so a check that waited for labels would be reading its verdict off
+    // a snapshot that was already insufficient when it was taken.
+    const gate = gateBeforeReading(ops, options.clearance);
+    if (gate !== undefined) throw gate;
 
     const { targets, unrevertable } = writeSetOf(ops);
     const addresses: Address[] = targets.map((t) => t.address);
@@ -86,6 +116,13 @@ export class Executor {
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
 
+    // ⚠ THE FLOOR (D18c, §3.3.5). The labels are derived here rather than after
+    // the apply — same inputs, same answer — because the one instant this
+    // decision can still be made is between the stash and the first write.
+    const values: TakeValue[] = targets.map((t) => labelTarget(t, stash, risk));
+    const refusal = floorRefusal(values, options.clearance);
+    if (refusal !== undefined) throw refusal;
+
     // ⚠ E8-D / D10: the guard is the revision the STASH was taken at, so a
     // concurrent write between reading prior state and applying rejects the
     // batch WHOLE. Without it the take would claim a "before" that was already
@@ -94,7 +131,7 @@ export class Executor {
 
     if (receipt.rejected !== undefined) {
       return this.take({
-        ops, targets, unrevertable, stash, receipt, verify: stash, risk,
+        ops, targets, unrevertable, stash, receipt, verify: stash, values,
         disagreements: [], unverified: [],
       });
     }
@@ -103,6 +140,17 @@ export class Executor {
     // one. `apply` resolves on completion, but its last stage may be the instant
     // one with no settle of its own, so the verify read owes a turn.
     await this.adapter.settle('noteWrite');
+
+    // ⚠ D5, and it is only answerable HERE. `writeSetOf` runs before the apply,
+    // so it cannot know whether an insert was observed landing — but a take that
+    // stayed silent about an insert nobody watched would claim, in every field a
+    // caller reads before reverting, that there is nothing it cannot put back.
+    // The device is really in the chain, so that claim is false.
+    //
+    // Adding it to `unrevertable` is the same channel `track.create` has always
+    // used, which is what makes it reach the store's walk (`store/graph.ts`) and
+    // the plan's `unrestored` without either of them learning a new concept.
+    const unobserved = unobservedInserts(ops, receipt.minted);
 
     // ⚠ E3, turned on the batch that caused it. A patch containing a scene
     // create/delete invalidates its OWN write-set: compaction moves every row
@@ -125,7 +173,7 @@ export class Executor {
     const verify = await this.adapter.read(readable);
 
     return this.take({
-      ops, targets, unrevertable, stash, receipt, verify, risk,
+      ops, targets, unrevertable: [...unrevertable, ...unobserved], stash, receipt, verify, values,
       disagreements: disagreementsOf(ops, verify, new Set(unverified.map((u) => addressKey(u.address)))),
       unverified,
     });
@@ -141,7 +189,13 @@ export class Executor {
    */
   async revert(take: Take): Promise<RevertResult> {
     const plan = revertOps(take);
-    const applied = await this.run(plan.ops);
+    // ⚠ D19/D20: putting our own changeset back rides the ordinary write surface
+    // and is not gated. It has to be — the floor grades the state a batch is
+    // about to overwrite, and the state a revert overwrites is by construction
+    // the one the take already recorded, so gating it would make a lossy take
+    // impossible to undo at all. What the revert cannot restore is REPORTED
+    // (`plan.unrestored`), which is the protection D19 actually asks for.
+    const applied = await this.run(plan.ops, { clearance: ownChangesetReversal(take.id) });
     return { take: applied, of: take.id, plan, unrestored: plan.unrestored };
   }
 
@@ -223,11 +277,16 @@ export class Executor {
     stash: Snapshot;
     receipt: Take['receipt'];
     verify: Snapshot;
-    risk: ReturnType<typeof structuralRisk>;
+    /**
+     * ⚠ Derived before the apply and carried in, not recomputed. The floor is
+     * evaluated on exactly these labels, so a take that recomputed its own would
+     * be free to disagree with the gate that let it run.
+     */
+    values: readonly TakeValue[];
     disagreements: readonly Disagreement[];
     unverified: readonly Unverified[];
   }): Take {
-    const values: TakeValue[] = parts.targets.map((t) => labelTarget(t, parts.stash, parts.risk));
+    const values = parts.values;
     const report: ApplyReport = {
       applied: parts.receipt.accepted && parts.receipt.rejected === undefined,
       ...(parts.receipt.rejected === undefined ? {} : { rejected: parts.receipt.rejected }),
@@ -251,6 +310,33 @@ export class Executor {
       report,
     };
   }
+}
+
+/**
+ * Inserts this batch made whose landing place nobody observed.
+ *
+ * ⚠ The inverse of `device.insert` is a delete at the chain index the receipt
+ * MINTED (D16 rev 2), so an insert with no mint has no inverse: the adapter could
+ * not see where it landed, and inferring an index would delete whatever now sits
+ * at a position we counted rather than observed (E2c, D20).
+ *
+ * That is a fact about the EXECUTION, not about the op, which is why it cannot
+ * come from `writeSetOf` the way `track.create`'s does — the write-set is derived
+ * before the apply and this is only knowable after. It reaches the take through
+ * the same field regardless, so nothing downstream has to learn where it came
+ * from: the store's walk already folds `take.unrevertable` into its plan, and
+ * `revertOps` already turns it into `unrestored`.
+ */
+function unobservedInserts(
+  ops: readonly Op[],
+  minted: Readonly<Record<number, Address>>,
+): UnrevertableOp[] {
+  const out: UnrevertableOp[] = [];
+  ops.forEach((op, opIndex) => {
+    if (op.op !== 'device.insert' || minted[opIndex]?.kind === 'device') return;
+    out.push({ opIndex, op: op.op, why: NO_MINT_NO_INVERSE });
+  });
+  return out;
 }
 
 // --- §8c's third clause: what readback disagrees with the request about ------

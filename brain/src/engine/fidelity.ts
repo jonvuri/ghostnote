@@ -117,8 +117,40 @@ export function labelTarget(target: WriteTarget, stash: Snapshot, risk: Structur
     );
   }
 
+  // ⚠ The adapter grades its own READBACK; this grades what a revert can do with
+  // what came back, and for one value the two genuinely differ (see below). Same
+  // direction as everything else here — worst wins — so an adapter can only ever
+  // be corrected downwards.
+  fidelity = worse(fidelity, restorability(entry.value));
+
   caveats.push(...valueCaveats(entry.value));
   return { ...base, fidelity, value: entry.value, caveats };
+}
+
+/**
+ * What a REVERT can put back from this value, as distinct from how faithfully the
+ * adapter read it.
+ *
+ * ⚠ One member today, and it is the D16 amendment's own edge case. A clip that
+ * was THERE is rebuilt from its captured length (`revert.ts`) — so a clip entry
+ * with no length is not "restorable, minus some metadata". It cannot be rebuilt
+ * at all, and `revertOps` withholds its NOTES as well, because replaying them
+ * into a slot with no clip lands the cursor on a DIFFERENT clip, silently (E2).
+ * Nothing about the address survives, which is `none`.
+ *
+ * Both adapters report `lossy` here, correctly — they are describing a readback
+ * that worked, and neither of them knows what revert does with it. Deriving the
+ * consequence once, on this side, is why the rule cannot drift between them; it
+ * is the same reason the label is computed rather than attached (D5).
+ *
+ * ⚠ It is not cosmetic. `TakeStore.summarize` lists exactly the `none` values as
+ * `unrestorable`, so a clip labelled `lossy` here would drop out of the take
+ * listing and the loss would surface only in the middle of a revert — which is
+ * the "never silently under-delivers" half of D5 failing.
+ */
+function restorability(value: StateValue): Fidelity {
+  if (value.of === 'clip' && value.exists && value.lengthBeats === undefined) return 'none';
+  return 'exact';
 }
 
 function valueCaveats(value: StateValue): string[] {
@@ -126,9 +158,22 @@ function valueCaveats(value: StateValue): string[] {
     case 'notes':
       return notePropCaveats(value.notes);
     case 'clip':
-      return value.exists
-        ? ['a clip that already existed cannot be recreated from readback (E3, D8)']
-        : [];
+      // ⚠ AMENDED 2026-08-07 (D16, §3.3.3). This used to read "a clip that
+      // already existed cannot be recreated from readback", which was an
+      // ADAPTER ARTIFACT dressed as an API wall: the content was always stashed
+      // and the length was always readable. What a recreate genuinely cannot put
+      // back is the list below — and the last item is the one that bites.
+      if (!value.exists) return [];
+      return [
+        value.lengthBeats === undefined
+          ? 'this clip\'s LENGTH was not captured, so it cannot be recreated at all and its ' +
+            'notes cannot be replayed into it — a clip rebuilt at a guessed length is a musical ' +
+            'value invented from nothing (D16, §3.3.3).'
+          : `a clip that already existed is restored as a new ${value.lengthBeats}-beat clip ` +
+            'carrying the stashed notes. NOT restored, because none of it has a readback in our ' +
+            'surface: the clip\'s name and colour, its loop start/end as distinct from its ' +
+            'length, its launch quantisation and mode, and its AUTOMATION LANES (D16, §3.3.3).',
+      ];
     case 'device':
       return ['device state has no readback that could reproduce the chain (E3, D8)'];
     case 'track':

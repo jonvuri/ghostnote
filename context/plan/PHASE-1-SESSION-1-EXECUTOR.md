@@ -3,7 +3,18 @@ title: Phase 1, session 1 — the executor: write-set, stash, verify, revert
 status: DONE 2026-07-26 — all six exit criteria met offline; the two live-only items
         (cursor pool, selection restore) are BUILT but UNPROVEN until session 5.
         Decisions recorded as DECISIONS D16. See the outcome log at the foot.
-updated: 2026-07-26
+        ⚠ RE-OPENED and closed again 2026-08-07 for the D16 amendment block —
+        `clip.delete` is `lossy` not `none`, `device.insert` has its exact
+        inverse, and the fidelity floor is now a REFUSAL (D18c). See
+        §Amendment, 2026-08-07 at the foot. ⚠ It adds a THIRD live-unproven
+        item: the clip-length capture points a cursor.
+        ⚠ A REVIEW PASS on the amendment (2026-08-07) fixed two defects it
+        introduced. Its one OPEN item — the live `device.insert` mint — was
+        BUILT 2026-08-08, along with the three Phase-0 wire defects that had
+        left the live device path unable to run at all. See §Review pass at the
+        foot. 241 tests green; every device behaviour is unproven until
+        session 5 runs `C-device`.
+updated: 2026-08-07
 parent: PHASE-1-ENGINE.md
 prev: PHASE-0-SESSION-2.md
 next: PHASE-1-SESSION-2-TAKES.md
@@ -251,5 +262,255 @@ Everything below is written and typechecked and **has never touched Bitwig**:
 - **Partial revert is already a filter.** `revertOps` takes `{targets, unrevertable,
   stash}`, so slicing `targets` by `addressKey` prefix yields a plan for that
   slice with no new concepts — which is what the session-2 doc recommends.
+  ⚠ 2026-08-07: it now also accepts OPTIONAL `{ops, minted}`, which is where the
+  one inverse that cannot be known before execution comes from. A slicing caller
+  that omits them keeps reporting `device.insert` instead of undoing it — see the
+  amendment below.
 - **Branching is already free.** `Executor.revert` runs the plan through `run`,
   so a revert IS a take, and its own stash is the state it replaced.
+
+---
+
+## ⚠ Amendment, 2026-08-07 — the D16 amendment block, landed
+
+`DECISIONS.md` D16's amendment (operator-approved, from
+`../spike/E16-OPEN-QUESTIONS.md` §3.3.3/§3.3.4/§3.3.5/§3.3.6) plus D18c's
+restatement of the floor. Offline against the fake, 231 tests green. Nothing else
+was re-opened.
+
+**1. `clip.delete` was `none` because of the ADAPTER, not the API.** `write-set.ts`
+said *"neither its length nor its content has a readback"* and both halves were
+false: content was always stashed (D16e — the whole clip channel), and the live
+adapter was already reading `loopLength` off the cursor to pick a scan grid and
+simply never wrote it into the clip entry. Meanwhile `StateValue.lengthBeats?`
+was declared and **the fake populated it and live did not** — PHASE-0 §Risks'
+named failure mode, sitting unexercised because nothing read the field. Now: both
+adapters capture it, the label is derived from the same fact on both sides
+(`absent → exact`, `present → lossy`), and `revertOps` **rebuilds the clip at its
+captured length and refills it from the stash**. What that cannot carry is named
+in the caveats rather than hidden — name, colour, loop start/end as distinct from
+length, launch settings, and automation lanes.
+> ⚠ The ORDER is the correctness: `clip.create` now runs FIRST in a revert plan,
+> ahead of the notes. Replaying notes into a slot with no clip lands the cursor on
+> a different clip, silently (E2) — the same measurement that already forced
+> deletions to run last, aimed at the other end.
+
+**2. `device.insert` had `clip.create`'s exact inverse all along.** It was filed
+under `NO_DEVICE_READBACK`, a reason written about the *delete* direction. It is
+out of `WriteSet.unrevertable`, which now holds exactly *the set a branch cannot
+rescue* (`track.create`, `scene.create`). The inverse is emitted from
+`receipt.minted` — **an OBSERVED chain index, never a counted one**, the same
+discipline E2c forced on `track.create` — and multiple deletes are emitted
+DESCENDING, because a chain re-indexes on delete (E3). An insert nobody watched
+land is reported, not guessed at; that is the whole reason it is a mint.
+
+**3. The floor is a REFUSAL** (`engine/floor.ts`). Predicate unchanged —
+*the batch's own labelled fidelity is worse than `exact`*, over `targets` only —
+response changed: `UnprotectedWriteError`, thrown between the stash and the first
+write, never an automatic fork. Two clearances, kept distinct so the record can
+tell them apart: `branch-protected` (D18c) and `own-changeset-reversal`
+(D19/D20). The refusal text names what cannot be restored and what would clear
+it, and **names no mechanism** — a redirect arriving through an error message is
+the choice-mapping leak wearing a disguise, and `X-floor` asserts its absence.
+§3.3.6's hard-coded member (`insertFileAt where:'replace'`) is a switch over the
+op union that matches nothing today and fails to compile when Phase 5 adds the
+variant.
+
+### The one judgement call, stated
+
+**A revert is not gated by the floor.** No decision says this in those words; D19
+says reversal rides the ordinary surface bounded to our own changesets, D20 says
+own changesets are ungated, and D16d says D5's rule is *"a constraint on
+REPORTING, not a reason to refuse the whole operation"*. Gating it would mean a
+lossy take could never be undone at all — the deadlock reading. So
+`Executor.revert` clears its own plan and the fidelity machinery reports, exactly
+as before. If that reading is wrong, the fix is one argument in one place.
+
+### ⚠ Added to "unproven — carried to session 5"
+
+- **The clip-length capture points a cursor.** `Clip.getLoopLength()` needs a
+  cursor on the clip, so a `clip`/`slot` read of an OCCUPIED slot now points and
+  therefore steals and restores the user's selection, where a metadata-only read
+  used to be free. An EMPTY slot still costs nothing and is still never pointed at
+  (E2). The point is memoised per `read` call, so the common shape — a clip target
+  and its notes target side by side — costs one point and one settle rather than
+  two. All of it is unmeasured live.
+  > A cheaper route may exist (a length on `slot.status`), but `ClipLauncherSlot`
+  > exposing one is a doc-pass guess and standing rule 10 refuses those. If the
+  > flicker is a problem in session 5, that is the probe to run.
+
+- **`clip.create` onto an OCCUPIED slot**, which the amendment made reachable and
+  did not measure. Reverting a `clip.create` that landed on a slot which already
+  held a clip now emits `clip.create` at the captured length into a slot that is
+  still occupied. The fake models that as *overwrite the length, keep the notes*
+  ([fake/adapter.ts:414](../../brain/src/adapters/fake/adapter.ts#L414)) — which
+  is a GUESS, not a measurement. If Bitwig's `createEmptyClip` no-ops on an
+  occupied slot instead, the revert restores the notes and silently keeps the
+  length the batch imposed, which is the quiet under-delivery D5 forbids.
+  > The probe is two calls: create a clip at 8 beats, create again at 4 in the
+  > same slot, read the length back. Until it runs, the `clip.delete` direction
+  > (empty slot, the flagship case) is the only one with a modelled basis.
+
+- **The `lengthBeats` readback itself.** The live adapter refuses to default it —
+  absent means absent, and `revertOps` then declines to rebuild the clip rather
+  than invent a length. Whether `getLoopLength()` reports a usable number for a
+  launcher clip through a pool cursor is exactly the sort of thing that has been
+  wrong before (E15-D), and `C-clip` in the conformance suite is what will say so.
+
+---
+
+## ⚠ Review pass, 2026-08-07 — two defects in the amendment, fixed; one left open
+
+A read of the amendment against the code it changed. **234 tests green.** Both
+fixes were confirmed by running the new assertion against the PRE-fix file first
+and watching it fail — a test that has never failed has not been shown to test
+anything.
+
+**1. FIXED — the clip-length capture could return another clip's music.** The new
+per-`read` point memo
+([live/adapter.ts:418](../../brain/src/adapters/live/adapter.ts#L418)) remembered
+*which CLIPS we had pointed at*, but `CursorPool` **evicts** (LRU). A read
+addressing more clips than the pool holds hands a revisited clip a DIFFERENT
+cursor, and the clip-keyed memo then skipped the point and read through a cursor
+still sitting on the clip it was evicted for — E2's silent mispoint arriving
+through the mechanism built to prevent it, straight into the stash a revert
+replays. Reachable today, because `note.write`/`note.props` carry a `channel`, so
+one clip legitimately appears twice in a write-set with others in between. The
+memo now records **cursor → clip** and asks *is THIS cursor on THIS clip*, which
+cannot be wrong that way.
+> ⚠ The real finding underneath it: **`LiveAdapter.read` had no offline harness
+> at all**, so a mispoint was unfalsifiable outside a sitting. `live/adapter.test.ts`
+> is that harness — a stub transport that MODELS THE CURSOR, answering from
+> whichever clip a cursor is really on, the way Bitwig does. A stub that answered
+> from the address the adapter *asked about* would only ever assert the adapter's
+> own belief back at it. Against the pre-fix adapter the case returns pitch 62
+> for clip 0. It also locks in the memo's benefit (one point for a clip+notes
+> pair) and E2's empty-slot rule, so the fix cannot be undone by reverting to
+> "just always point".
+
+**2. FIXED — a clip captured with no length was labelled `lossy`, not `none`.**
+Both adapters report `lossy` and both are right about their own READBACK; what
+neither can know is that `revertOps` then withholds the clip *and* its notes, so
+nothing about the address survives. `TakeStore.summarize` lists exactly the
+`none` values as `unrestorable`, so the clip dropped out of the take listing and
+the loss surfaced only mid-revert — the "never silently under-delivers" half of
+D5 failing. The consequence is now derived once in `fidelity.ts` (`restorability`,
+worst-wins like everything else there) rather than in each adapter, which is the
+same reason the label is computed rather than attached (D5).
+
+### ✅ CLOSED — `device.insert` is minted by the live adapter (2026-08-08)
+
+Amendment 2 took `device.insert` out of `WriteSet.unrevertable` and made its
+inverse depend entirely on `receipt.minted`. The fake mints it
+([fake/adapter.ts:482](../../brain/src/adapters/fake/adapter.ts#L482)); the live
+adapter still mints `track.create` and nothing else
+([live/adapter.ts:655](../../brain/src/adapters/live/adapter.ts#L655)). So live,
+every insert falls to the *"nobody watched it land"* branch and the device stays
+in the chain. The fallback REPORTS rather than guessing, so nothing is silently
+wrong — but the amendment's headline capability is offline-only.
+
+> ⚠ This is precisely the failure mode amendment 1 congratulates itself for
+> catching — `lengthBeats` declared, fake populated it, live did not — reintroduced
+> one section later for `minted`. And unlike `lengthBeats` nothing will catch it:
+> `C-minted` covers `track.create` only, and there is **no conformance case for
+> `device.insert` at all**, so exit criterion 6 is not met for this amendment.
+
+**Built 2026-08-08. 241 tests green.** `apply` now brackets every insert stage
+with two OBSERVATIONS of the chain (`deviceChain` → `device.list`) and mints from
+the diff, the same shape as the bank diff after a `track.create`. `C-device` is in
+the conformance suite, so session 5 runs the same assertions live.
+
+The diff **fails closed**, which is the whole design: the index a mint reports is
+the index a revert DELETES. Every insert handler in the extension uses
+`endOfDeviceChainInsertionPoint()`, so the new device is the last one — and that
+is *verified*, not assumed. Every entry the chain already had must still be
+exactly where it was. A chain that grew by two, a prefix that moved, or a view
+partial against `itemCount` (E5's rule one level down) all mint NOTHING and the
+insert is reported as un-undoable, exactly as an unobserved one already was.
+
+> ⚠ `C-device` inserts TWICE and asserts the second index is `first + 1`, then
+> reverts both and asserts a third insert lands back at `first`. One insert would
+> pass with a hardcoded 0; and because every assertion is relative, the case holds
+> on a fixture track that already carries an instrument. There is no device
+> readback in v0, so where the NEXT insert lands is the only contract-surface
+> evidence that a delete really happened.
+
+### ⚠ What building it uncovered — the live device path had never run
+
+The mint was the smaller half. Reading the Java to write the diff turned up that
+**no device op could have worked live at all**, which is why nothing had ever
+noticed the missing mint:
+
+- **`device.insert` sent `trackIndex`; the handler reads `params.get("cursor")`.**
+  Not a wrong value — a missing key, so the insert would have thrown inside the
+  extension on the first live call.
+- **`device.delete` sent `cursor: trackIndex`.** Worse, because it is silent:
+  every device handler resolves `rig.cursorTrack(ref)` / `rig.cursorDeviceBanks[ref]`
+  by POOL index, so a bank row number addresses whichever cursor shares that
+  number and deletes from *its* chain, reporting `ok`.
+- **`device.insertClap` sent `uuid`; the handler reads `clapId`.**
+
+All three are Phase-0 carry-overs, not amendment damage. Fixed by encoding
+device ops as **point, then act** in one request: `CursorPool.cursorForTrack`
+allocates a cursor for a TRACK out of the same LRU (the rig allocates
+`CursorTrack` + `PinnableCursorClip` + `DeviceBank` as one unit per slot, so a
+cursor pointed at a track for device work is the same handle that was holding a
+clip — one map makes that unrepresentable-otherwise), and the encoder emits the
+point immediately in front of the op.
+
+> ⚠ Consequence worth naming: `cursor.pointTrack` is `CursorTrack.selectChannel`,
+> which this codebase has already observed SETTING the UI selection. So device ops
+> now borrow the user's selection and are in the capture/restore set
+> (`borrowsSelection`, was `pointsAtAClip`). Leaving them out would have made the
+> op class with the slowest settle (600ms, E3) the one that never gives the
+> selection back.
+
+### ⚠ Two defects the mint work left behind, found by review and fixed (2026-08-08)
+
+Both were in the SHAPE the amendment gave the inverse, not in the mint itself,
+and both were reproduced before being fixed.
+
+**1. `TakeStore.planRevert` would not undo an insert — the store path was the one
+that could not.** `revertOps` took a single optional `(ops, minted)` pair, so
+`store/graph.ts` composed a walk by flattening several takes and had to decline
+inserts entirely: op index 0 means a different op in every take. That reasoning is
+right about a walk that flattens and wrong about the fix — **stop flattening**.
+`RevertInput.batches` is now a LIST of per-take `(ops, minted)` pairs, so a
+single-take undo *and* a multi-take walk both emit the delete, ordered descending
+across the whole set because the hazard is the chain's shape (E3), not which take
+caused it.
+> ⚠ The old message told the reader to *"revert that take on its own to remove
+> it"* — which is precisely what `planRevert` is. Advice that points back at the
+> path that just declined is worse than no advice. A SLICED revert still declines,
+> and that one is honest: slicing selects addresses, an insert has none, so
+> "restore just this clip" has no reading under which a device also vanishes.
+
+**2. An insert nobody watched land said NOTHING before revert time.** Taking
+`device.insert` out of `WriteSet.unrevertable` was right when the mint lands — the
+take genuinely is restorable, and `exact` is the true label. It was wrong when the
+mint does not: `unrevertable: []`, `values: []`, `fidelity: 'exact'`, no caveat,
+while the device sits in the chain. `writeSetOf` cannot know — it runs before the
+apply — so the EXECUTOR stamps it on when the receipt comes back
+(`unobservedInserts`), through the same field `track.create` has always used. It
+reaches the store's walk and the plan's `unrestored` without either learning a new
+concept, and `deviceRemovals` matches on `(op, opIndex)` so the fact is reported
+once rather than twice.
+> ⚠ One claim in the report did NOT hold up and the fix does not chase it:
+> *"`TakeStore.summarize().unrestorable` stays empty"* is true, but it is true of
+> `track.create` and `scene.create` too and always has been — `unrevertable` has
+> never fed `unrestorable`, which is built from `values`. That is a pre-existing
+> property of every op with no prior address, not a regression this amendment
+> caused, and inventing an address to put in `values` to fix it would corrupt the
+> walk's address-keyed state. Left alone deliberately.
+
+### ⚠ Still unproven — carried to session 5
+
+- **All of it.** The diff, the pointing, the CLAP key: every one of these is read
+  off the Java rather than measured, and reading the Java is exactly how the three
+  defects above survived a whole phase. `C-device` is what will say so.
+- **Where a fresh instrument track's chain starts.** The case is relative on
+  purpose, so it does not care — but nothing here has measured whether a live
+  fixture track carries a default device.
+- **The `blind` guard has never seen a real overflow.** `rig.config.deviceBank`
+  bounds the view and `itemCount` reports the truth, but no probe has built a
+  chain long enough to cross it.

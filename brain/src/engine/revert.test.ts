@@ -10,18 +10,21 @@
  *   R-empty     "there were no notes" is itself a state, restored by a clear
  *   R-gain      gain is withheld and REPORTED — replaying it would double again
  *   R-pressure  pressure is stripped, and the plan survives assertOpsWritable
- *   R-clip      absence is un-created; an existing clip is reported
+ *   R-clip      absence is un-created; a clip that was there is rebuilt and refilled
+ *   R-device    an insert is undone at the chain index the receipt MINTED
  *   R-none      structural targets report rather than throw
- *   R-order     un-creates run last, so nothing writes through a dead cursor
+ *   R-order     re-creates run first and un-creates last, so nothing writes
+ *               through a cursor whose clip does not exist (E2, both directions)
  *   R-stages    the plan survives planStages with props still interleaved
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  CONTRACT_TAG, addressKey, assertOpsWritable, clip, notes as notesAt, planStages, scene, slot,
-  track, type NoteRecord, type Snapshot, type StateEntry,
+  CONTRACT_TAG, addressKey, assertOpsWritable, clip, device, notes as notesAt, planStages, scene,
+  slot, track, type NoteRecord, type Op, type Snapshot, type StateEntry,
 } from '../contract/index.js';
+import { labelTarget } from './fidelity.js';
 import { revertOps } from './revert.js';
 import { writeSetOf } from './write-set.js';
 
@@ -109,25 +112,88 @@ test('R-pressure: a human-authored pressure is stripped, and the plan is emittab
   assert.match(plan.unrestored.find((u) => u.what === 'pressure')?.why ?? '', /cannot be written/);
 });
 
-test('R-clip: a slot that was EMPTY is un-created; one that held a clip is reported', () => {
+test('R-clip: a slot that was EMPTY is un-created; one that held a clip is REBUILT (D16 rev)', () => {
   const empty = revertOps({
     ...writeSetOf([{ op: 'clip.create', slot: SLOT_A, lengthBeats: 4 }]),
-    stash: stashOf([{ address: CLIP_A, fidelity: 'none', value: { of: 'clip', exists: false } }]),
+    stash: stashOf([{ address: CLIP_A, fidelity: 'exact', value: { of: 'clip', exists: false } }]),
   });
   // Absence is the one structural inverse that is not a guess.
   assert.deepEqual(empty.ops.map((o) => o.op), ['clip.delete']);
   assert.deepEqual(empty.unrestored, []);
 
+  // ⚠ AMENDED 2026-08-07 (§3.3.3). This used to assert that an occupied slot got
+  // its NOTES back and nothing else, "because the clip's own length has no
+  // readback that could reproduce it" — which was false about the code as it
+  // stood. The captured length is the rebuild instruction, so a create that
+  // landed on an occupied slot gives the ORIGINAL 8 beats back rather than
+  // keeping the 4 the batch imposed.
   const occupied = revertOps({
     ...writeSetOf([{ op: 'clip.create', slot: SLOT_A, lengthBeats: 4 }]),
     stash: stashOf([
-      { address: CLIP_A, fidelity: 'none', value: { of: 'clip', exists: true, lengthBeats: 8 } },
+      { address: CLIP_A, fidelity: 'lossy', value: { of: 'clip', exists: true, lengthBeats: 8 } },
       notesEntry(notesAt(CLIP_A), [note()]),
     ]),
   });
-  // Nothing to un-create; the notes target restores the content, and the clip's
-  // own length is not offered because it has no readback that could reproduce it.
-  assert.deepEqual(occupied.ops.map((o) => o.op), ['note.clear', 'note.write']);
+  assert.deepEqual(occupied.ops.map((o) => o.op), ['clip.create', 'note.clear', 'note.write']);
+  const rebuilt = occupied.ops[0]!;
+  assert.equal(rebuilt.op === 'clip.create' ? rebuilt.lengthBeats : 0, 8);
+});
+
+test('R-clip: a DELETED clip is recreated and refilled — and the create goes FIRST (E2)', () => {
+  // The flagship of the amendment: `clip.delete` used to be `none` on both
+  // halves, so this plan was empty and the take reported two things it could not
+  // do. Now the clip comes back at its captured length and its notes go into it —
+  // in that order, because writing into a slot with no clip lands the cursor on a
+  // DIFFERENT clip and reports a healthy status (E2).
+  const plan = revertOps({
+    ...writeSetOf([{ op: 'clip.delete', slot: SLOT_A }]),
+    stash: stashOf([
+      { address: CLIP_A, fidelity: 'lossy', value: { of: 'clip', exists: true, lengthBeats: 4 } },
+      notesEntry(notesAt(CLIP_A), [note({ pitch: 62 })]),
+    ]),
+  });
+  assert.deepEqual(plan.ops.map((o) => o.op), ['clip.create', 'note.clear', 'note.write']);
+  assert.deepEqual(plan.unrestored, [], 'nothing here is withheld — the caveats carry the rest');
+  const write = plan.ops[2]!;
+  assert.deepEqual(write.op === 'note.write' ? write.notes.map((n) => n.pitch) : [], [62]);
+});
+
+test('R-clip: a clip whose LENGTH was never captured is reported, not rebuilt at a guess', () => {
+  // ⚠ The live adapter omits `lengthBeats` rather than defaulting it when
+  // `loopLength` does not read as a positive number, because a clip recreated at
+  // a guessed length is a musical value invented from nothing. The plan must then
+  // also withhold the NOTES: replaying them into a slot with no clip is E2's trap.
+  const { targets, unrevertable } = writeSetOf([{ op: 'clip.delete', slot: SLOT_A }]);
+  const stash = stashOf([
+    { address: CLIP_A, fidelity: 'lossy', value: { of: 'clip', exists: true } },
+    notesEntry(notesAt(CLIP_A), [note()]),
+  ]);
+  const plan = revertOps({ targets, unrevertable, stash });
+  assert.deepEqual(plan.ops, []);
+  assert.equal(plan.unrestored.length, 1);
+  assert.match(plan.unrestored[0]!.why, /length was not captured/);
+
+  // ⚠ And the LABEL has to agree with the plan, or the take under-delivers
+  // silently — which is the half of D5 that is a promise about reporting. Both
+  // adapters say `lossy` here and both are right about their own readback; what
+  // they cannot know is that `revert.ts` then withholds the clip AND its notes,
+  // so nothing about this address survives. `labelTarget` derives that once, on
+  // this side, and takes the worst.
+  //
+  // It is load-bearing downstream: `TakeStore.summarize` lists exactly the
+  // `none` values as `unrestorable`, so a `lossy` here would drop the clip out
+  // of the take listing and surface the loss only mid-revert.
+  const clipTarget = targets.find((t) => t.address.kind === 'clip')!;
+  const label = labelTarget(clipTarget, stash, { scenes: false, deviceChains: false });
+  assert.equal(label.fidelity, 'none');
+  assert.match(label.caveats.join(' '), /LENGTH was not captured/);
+
+  // The same clip WITH a length stays `lossy` — the downgrade is derived from
+  // the missing field, not from the address kind.
+  const withLength = labelTarget(clipTarget, stashOf([
+    { address: CLIP_A, fidelity: 'lossy', value: { of: 'clip', exists: true, lengthBeats: 4 } },
+  ]), { scenes: false, deviceChains: false });
+  assert.equal(withLength.fidelity, 'lossy');
 });
 
 test('R-none: a structural target REPORTS rather than throwing or being dropped', () => {
@@ -144,6 +210,69 @@ test('R-none: a structural target REPORTS rather than throwing or being dropped'
   // D5's rule is a constraint on REPORTING, not a reason to refuse the whole
   // operation — so both are named, loudly.
   assert.deepEqual(plan.unrestored.map((u) => u.what).sort(), ['track', 'track.create']);
+});
+
+test('R-device: an insert is undone at the chain index the receipt MINTED (D16 rev)', () => {
+  const ops: Op[] = [
+    { op: 'device.insert', track: TA, source: { from: 'bitwig', uuid: 'abc' } },
+    { op: 'device.insert', track: TA, source: { from: 'bitwig', uuid: 'def' } },
+  ];
+  const plan = revertOps({
+    ...writeSetOf(ops),
+    stash: stashOf([]),
+    batches: [{ ops, minted: { 0: device(TA, 3), 1: device(TA, 4) } }],
+  });
+  // ⚠ DESCENDING. A device chain RE-INDEXES on delete (E3), so deleting 3 first
+  // would shift 4 down into its place and the second delete would take the wrong
+  // device — a bug that looks like it works on any one-device batch.
+  assert.deepEqual(plan.ops.map((o) => (o.op === 'device.delete' ? o.device.chainIndex : -1)), [4, 3]);
+  assert.deepEqual(plan.unrestored, []);
+});
+
+test('R-device: SEVERAL batches keep their own op indices, and order across all of them', () => {
+  // ⚠ The shape the store's walk needs, and the reason `batches` is a list. A
+  // `minted` map is indexed by op index WITHIN its batch, so flattening two takes
+  // makes op 0 ambiguous — and the delete that came out of the ambiguity would
+  // take a device nobody addressed. Kept apart, both takes contribute, and the
+  // descending order is computed over the WHOLE set because the hazard is the
+  // chain's shape, not which take caused it.
+  const first: Op[] = [{ op: 'device.insert', track: TA, source: { from: 'bitwig', uuid: 'abc' } }];
+  const second: Op[] = [{ op: 'device.insert', track: TA, source: { from: 'bitwig', uuid: 'def' } }];
+  const plan = revertOps({
+    ...writeSetOf([...first, ...second]),
+    stash: stashOf([]),
+    batches: [
+      { ops: first, minted: { 0: device(TA, 1) } },
+      { ops: second, minted: { 0: device(TA, 2) } },
+    ],
+  });
+  assert.deepEqual(plan.ops.map((o) => (o.op === 'device.delete' ? o.device.chainIndex : -1)), [2, 1]);
+  assert.deepEqual(plan.unrestored, []);
+});
+
+test('R-device: an insert nobody watched land is REPORTED, never deleted at a counted index', () => {
+  // The whole point of minting rather than computing. An index we inferred can be
+  // wrong by any structural op that ran in between, and being wrong here deletes
+  // a device the user cares about (E2c's rule for `track.create`, D20's *name the
+  // survivor, never count it*). So an unobserved insert leaves the chain alone.
+  const ops: Op[] = [{ op: 'device.insert', track: TA, source: { from: 'bitwig', uuid: 'abc' } }];
+  const plan = revertOps({ ...writeSetOf(ops), stash: stashOf([]), batches: [{ ops, minted: {} }] });
+  assert.deepEqual(plan.ops, []);
+  assert.equal(plan.unrestored.length, 1);
+  assert.match(plan.unrestored[0]!.why, /never read back/);
+
+  // ⚠ ...and it is said ONCE. The executor stamps the same fact onto the take the
+  // moment the receipt comes back (`unobservedInserts`), so by the time a plan is
+  // built both channels know it — and D5's promise is a report a human reads, not
+  // a report that repeats itself.
+  const alreadySaid = revertOps({
+    targets: [],
+    unrevertable: [{ opIndex: 0, op: 'device.insert', why: 'said by the executor' }],
+    stash: stashOf([]),
+    batches: [{ ops, minted: {} }],
+  });
+  assert.equal(alreadySaid.unrestored.length, 1);
+  assert.match(alreadySaid.unrestored[0]!.why, /said by the executor/);
 });
 
 test('R-none: an address that was outside the bank window is reported, not silently skipped (E5)', () => {

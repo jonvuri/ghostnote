@@ -10,7 +10,7 @@
  *   W-merge    one address touched by several ops is ONE target
  *   W-pessim   a merge takes the WORST restorability, never the first
  *   W-identity ops that mint or destroy identity are `none`, with a reason
- *   W-mint     ops with no prior address at all are reported separately
+ *   W-mint     ops with no prior address AND no inverse are reported separately
  *   W-risk     positional degradation is gated on ADDRESS_IDENTITY
  */
 import { test } from 'node:test';
@@ -46,16 +46,33 @@ test('W-merge: several ops on one address produce ONE target carrying all their 
   assert.equal(targets[0]!.restore, 'replay');
 });
 
-test('W-pessim: a batch that writes notes and then deletes their clip restores NEITHER', () => {
+test('W-pessim: a batch that writes notes and then deletes their clip restores BOTH (D16 rev)', () => {
   const { targets } = writeSetOf([
     { op: 'note.write', clip: CLIP, notes: [note] },
     { op: 'clip.delete', slot: S0 },
   ]);
+  // ⚠ AMENDED 2026-08-07. This case used to assert `none` on the reason that a
+  // deleted clip "has no readback that could reproduce it" — an ADAPTER ARTIFACT,
+  // not an API limit (§3.3.3). The content was always stashed and the length was
+  // always readable, so the clip is recreated at its captured length and the
+  // notes go back into it; `revert.test.ts`'s R-clip proves the ORDER, which is
+  // where the old objection was really pointing: replaying notes into a clip that
+  // does not exist yet mispoints, silently (E2).
   const notesTarget = targets.find((t) => t.address.kind === 'notes')!;
-  // Merging optimistically here would produce a take that offers to replay notes
-  // into a clip that no longer exists — which mispoints, silently (E2).
-  assert.equal(notesTarget.restore, 'none');
-  assert.match(notesTarget.reason ?? '', /deleted clip cannot be recreated/);
+  assert.equal(notesTarget.restore, 'replay');
+  assert.deepEqual(notesTarget.opIndices, [0, 1], 'both ops touched it, and both are recorded');
+  assert.equal(targets.find((t) => t.address.kind === 'clip')!.restore, 'replay');
+
+  // The pessimistic MERGE itself is untouched and still load-bearing: no op pair
+  // in today's contract produces a `none` on an address another op also touches,
+  // and the day a Phase-4/5 variant does, "any op that cannot be reverted makes
+  // the target `none` for all of them" is what stops the take over-promising.
+  const mixed = writeSetOf([
+    { op: 'note.write', clip: CLIP, notes: [note] },
+    { op: 'track.delete', track: T },
+  ]);
+  assert.equal(mixed.targets.find((t) => t.address.kind === 'track')!.restore, 'none');
+  assert.equal(mixed.targets.find((t) => t.address.kind === 'notes')!.restore, 'replay');
 });
 
 test('W-clipcreate: a create stashes the slot AND its notes, and both stay replayable', () => {
@@ -85,9 +102,29 @@ test('W-mint: ops with no prior address are reported, not dropped on the floor',
     { op: 'notify', message: 'hi' },
   ]);
   assert.deepEqual(targets, [], 'none of these has prior state to stash');
+  // ⚠ AMENDED 2026-08-07 (D16 rev 2). `device.insert` is NOT here any more: it
+  // has no prior state, but it does have an exact inverse — delete it at the
+  // chain index the receipt minted — and this list is for ops that have neither.
   // `notify` mutates nothing, so its absence from BOTH lists is correct.
-  assert.deepEqual(unrevertable.map((u) => u.op), ['track.create', 'scene.create', 'device.insert']);
+  assert.deepEqual(unrevertable.map((u) => u.op), ['track.create', 'scene.create']);
   assert.ok(unrevertable.every((u) => u.why.length > 0), 'D5: never silently under-deliver');
+});
+
+test('W-mint: what is left in `unrevertable` is exactly what a branch could not rescue (§3.3.5)', () => {
+  // The claim the amendment turned from an approximation into a fact, and the
+  // reason the fidelity floor can ignore this list entirely: `track.create` has
+  // nothing to fork, `scene.create` is not track-scoped, and every other op that
+  // was ever here is either restorable or reported through a target.
+  const everyMinting: Op[] = [
+    { op: 'track.create', name: 'gn-new' },
+    { op: 'scene.create', count: 1 },
+    { op: 'device.insert', track: T, source: { from: 'bitwig', uuid: 'abc' } },
+    { op: 'clip.create', slot: S0, lengthBeats: 4 },
+  ];
+  assert.deepEqual(
+    writeSetOf(everyMinting).unrevertable.map((u) => u.op).sort(),
+    ['scene.create', 'track.create'],
+  );
 });
 
 test('W-risk: a positional address degrades only when the batch can actually MOVE it', () => {

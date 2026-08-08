@@ -55,6 +55,16 @@ export interface EncodeContext {
    * the assignment stable for exactly that long. See `pool.ts`.
    */
   readonly cursorFor: (clip: ClipAddress) => string;
+  /**
+   * Which pool cursor drives this TRACK's device chain.
+   *
+   * ⚠ Not the same thing as `trackIndex`, and conflating them is a wrong-chain
+   * write rather than an error: every device handler resolves
+   * `rig.cursorTrack(ref)` / `rig.cursorDeviceBanks[ref]` by POOL index, so a
+   * bank row number passed as a cursor addresses whichever cursor shares that
+   * number — and it reports `ok` either way.
+   */
+  readonly cursorForTrack: (track: TrackAddress) => string;
   /** channelId -> current bank index. Valid only until the next structural op. */
   readonly trackIndex: (track: TrackAddress) => number;
 }
@@ -255,27 +265,44 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
     case 'scene.delete':
       return [frame(WIRE.sceneDelete, { sceneIndex: op.scene.index })];
 
+    // ⚠ POINT, THEN ACT — and it is not the clip pointing above. Every device
+    // handler operates on `rig.cursorTrack(cursor)` / `rig.cursorDeviceBanks[cursor]`,
+    // i.e. on whatever track THAT POOL CURSOR is pointed at, and the insert
+    // handlers say so outright: *"The cursor must already be pointed at the target
+    // track."* Both ops used to send a bank row number instead — `device.insert`
+    // under a `trackIndex` key the handler never reads (`params.get("cursor")`
+    // would be null), and `device.delete` under a `cursor` key holding a track
+    // index, which addresses whichever cursor shares that number and deletes from
+    // its chain. The point frame is what makes the address mean the track it names.
+    //
+    // ⚠ `cursor.pointTrack` is `CursorTrack.selectChannel`, which SETS the UI
+    // selection — so device ops borrow the user's selection exactly the way note
+    // ops do, and the adapter's capture/restore covers them for that reason.
+    //
+    // No `slot.select`: a device chain hangs off the CursorTrack, so there is
+    // nothing to gain from pointing at a slot and E2's empty-slot trap to lose.
     case 'device.insert': {
       validateDeviceSource(op);
-      const trackIndex = ctx.trackIndex(op.track);
+      const cursor = ctx.cursorForTrack(op.track);
+      const point = frame(WIRE.cursorPointTrack, { cursor, trackIndex: ctx.trackIndex(op.track) });
       switch (op.source.from) {
         case 'bitwig':
-          return [frame(WIRE.deviceInsertBitwig, { trackIndex, uuid: op.source.uuid })];
+          return [point, frame(WIRE.deviceInsertBitwig, { cursor, uuid: op.source.uuid })];
         case 'clap':
-          return [frame(WIRE.deviceInsertClap, { trackIndex, uuid: op.source.uuid })];
+          return [point, frame(WIRE.deviceInsertClap, { cursor, clapId: op.source.uuid })];
         case 'file':
-          return [frame(WIRE.deviceInsertFile, { trackIndex, path: op.source.path })];
+          return [point, frame(WIRE.deviceInsertFile, { cursor, path: op.source.path })];
       }
       break;
     }
 
-    case 'device.delete':
+    case 'device.delete': {
+      const cursor = ctx.cursorForTrack(op.device.track);
       return [
-        frame(WIRE.deviceDelete, {
-          cursor: ctx.trackIndex(op.device.track),
-          deviceIndex: op.device.chainIndex,
-        }),
+        frame(WIRE.cursorPointTrack, { cursor, trackIndex: ctx.trackIndex(op.device.track) }),
+        frame(WIRE.deviceDelete, { cursor, deviceIndex: op.device.chainIndex }),
       ];
+    }
 
     case 'param.set':
       // ⚠ Two different APIs, two different traps. Neither is selectable by the

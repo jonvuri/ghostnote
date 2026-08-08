@@ -22,11 +22,23 @@
  * Least-recently-used, because the access pattern is "the clip I just wrote is
  * the clip I am about to set properties on".
  */
-import { addressKey, type AddressKey, type ClipAddress } from '../../contract/index.js';
+import {
+  addressKey, type AddressKey, type ClipAddress, type TrackAddress,
+} from '../../contract/index.js';
 
 export class CursorPool {
   private readonly refs: readonly string[];
-  /** clip -> cursor ref. Never survives a structural op — see `invalidate`. */
+  /**
+   * target -> cursor ref. Never survives a structural op — see `invalidate`.
+   *
+   * ⚠ A target is a CLIP or a TRACK, in one map on purpose. The rig allocates
+   * `CursorTrack` + `PinnableCursorClip` + `DeviceBank` as one unit per pool slot
+   * (`Rig.java`), so a cursor pointed at a track for device work is the very same
+   * handle that was holding a clip — pointing it at the track moves it off. One
+   * map makes that physical fact unrepresentable-otherwise: taking a ref for a
+   * track evicts whatever clip held it, exactly as taking it for another clip
+   * would, and the evicted op re-points.
+   */
   private readonly held = new Map<AddressKey, string>();
   /** Least-recently-used first. */
   private lru: string[];
@@ -49,7 +61,25 @@ export class CursorPool {
    * no-op rather than the re-point E15-F punishes.
    */
   cursorFor(clip: ClipAddress): string {
-    const key = addressKey(clip);
+    return this.assign(addressKey(clip));
+  }
+
+  /**
+   * Which cursor should drive this TRACK's device chain.
+   *
+   * ⚠ Device work needs a pool cursor, not a track index, and the two are not
+   * interchangeable: every device handler resolves `rig.cursorTrack(ref)` /
+   * `rig.cursorDeviceBanks[ref]` by POOL INDEX, so handing it a bank row number
+   * addresses whichever cursor happens to share that number. The chain a device
+   * op reaches is the chain its cursor is pointed at and nothing else — which is
+   * also why the encoder emits the point in front of the op rather than trusting
+   * an assignment to have survived (standing rule 2).
+   */
+  cursorForTrack(trackRef: TrackAddress): string {
+    return this.assign(addressKey(trackRef));
+  }
+
+  private assign(key: AddressKey): string {
     const existing = this.held.get(key);
     if (existing !== undefined) {
       this.touch(existing);
@@ -57,7 +87,7 @@ export class CursorPool {
     }
 
     const ref = this.lru[0] ?? this.refs[0]!;
-    // Evicting means the clip that had this cursor loses its assignment, so the
+    // Evicting means the target that had this cursor loses its assignment, so the
     // next op addressing it re-points. That is correct and it is why eviction
     // takes the LEAST recently used.
     for (const [heldKey, heldRef] of this.held) {

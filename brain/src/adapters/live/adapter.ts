@@ -28,11 +28,12 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   ContractVersionError, StaleAddressError, WireDriftError,
-  addressKey, addressScene, addressTrack, assertOpsWritable, hasUnverifiedProps, planStages,
-  type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
-  type Fidelity, type NoteRecord, type Op, type ResolveResult, type ResolvedAddress,
-  type RevisionMark, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
-  type TrackAddress,
+  addressKey, addressScene, addressTrack, assertOpsWritable, clip as clipAt, hasUnverifiedProps,
+  planStages,
+  type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
+  type BitwigAdapter, type ClipAddress, type Fidelity, type NoteRecord, type Op,
+  type ResolveResult, type ResolvedAddress, type RevisionMark, type SettleBudget, type Snapshot,
+  type StageReceipt, type StateEntry, type TrackAddress,
 } from '../../contract/index.js';
 import { SETTLE_MS } from '../../contract/index.js';
 import { STEP_SIZES, decodeVerboseNote, encodeStage, type EncodeContext } from './encoder.js';
@@ -53,6 +54,48 @@ interface TrackListResult {
   count: number;
   itemCount?: number;
   bankSize?: number;
+}
+
+interface WireDevice {
+  index: number;
+  name: string;
+}
+
+/** A device chain as one observation, with whether we could see all of it. */
+interface ChainSnapshot {
+  readonly devices: readonly WireDevice[];
+  /** The chain is longer than the device bank window, so this view is partial. */
+  readonly blind: boolean;
+}
+
+/**
+ * ⚠ The chain index a `device.insert` PRODUCED, from two observations of the
+ * chain — never from a count, and never from the position anyone requested.
+ *
+ * E2c forced this discipline on `track.create` (create, diff the bank, verify)
+ * and the cost of being wrong is sharper here: the index a mint reports is the
+ * index a revert DELETES, so an index that was inferred rather than seen removes
+ * a device nobody addressed (D20 — *name the survivor, never count it*).
+ *
+ * Every insert handler in the extension uses `endOfDeviceChainInsertionPoint()`,
+ * so the new device is the LAST one — and that is VERIFIED here rather than
+ * assumed: every entry the chain already had must still be exactly where it was.
+ * Anything else (a chain that grew by two, a prefix that moved, a partial view)
+ * returns `undefined`, and the insert is REPORTED as un-undoable instead. Failing
+ * closed is the whole point; a mint that guesses is worse than no mint.
+ *
+ * ⚠ If Phase 5 ever reaches an insertion point that is not the end of the chain,
+ * this must get stronger before that op ships — appending is what makes "the last
+ * entry" identifiable at all when a chain holds two devices of the same name.
+ */
+function mintedChainIndex(before: ChainSnapshot, after: ChainSnapshot): number | undefined {
+  if (before.blind || after.blind) return undefined;
+  if (after.devices.length !== before.devices.length + 1) return undefined;
+  for (const [i, was] of before.devices.entries()) {
+    const now = after.devices[i];
+    if (now === undefined || now.index !== was.index || now.name !== was.name) return undefined;
+  }
+  return after.devices[after.devices.length - 1]?.index;
 }
 
 /** Where the user's own clip selection was before we borrowed it (E1, D6). */
@@ -85,9 +128,19 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
   'scene.create', 'scene.delete', 'device.insert', 'device.delete',
 ]);
 
-/** Does this op move the pool cursor, and so borrow the user's selection (E1)? */
-const pointsAtAClip = (op: Op): boolean =>
-  op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear';
+/**
+ * Does this op move a pool cursor, and so borrow the user's selection (E1)?
+ *
+ * ⚠ DEVICE ops belong here, which they did not while they were mis-encoded. They
+ * now emit `cursor.pointTrack` — `CursorTrack.selectChannel`, the call this
+ * codebase has already observed SETTING the UI selection — so a batch that
+ * inserts a device steals the selection exactly as a note write does. Leaving
+ * them out would mean the one op class that takes 600ms to settle is also the one
+ * that never gives the selection back (D6, E14-F).
+ */
+const borrowsSelection = (op: Op): boolean =>
+  op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear'
+  || op.op === 'device.insert' || op.op === 'device.delete';
 
 export class LiveAdapter implements BitwigAdapter {
   private readonly transport: Transport;
@@ -266,8 +319,39 @@ export class LiveAdapter implements BitwigAdapter {
   private get ctx(): EncodeContext {
     return {
       cursorFor: (clipRef) => this.pool.cursorFor(clipRef),
+      cursorForTrack: (t) => this.pool.cursorForTrack(t),
       trackIndex: (t) => this.trackIndex(t),
     };
+  }
+
+  /**
+   * A track's device chain, as OBSERVED through a pool cursor.
+   *
+   * ⚠ `device.list` reads `rig.cursorDeviceBanks[cursor]`, i.e. the bank of
+   * whatever track that cursor is pointed at — so the point is part of the
+   * observation, not a precondition someone else is trusted to have met. Re-pointed
+   * on every call rather than relying on an assignment to have survived, because
+   * the whole reason this is being read is that a structural op just ran
+   * (standing rule 2).
+   */
+  private async deviceChain(trackRef: TrackAddress): Promise<ChainSnapshot | undefined> {
+    const trackIndex = this.index.get(trackRef.channelId);
+    if (trackIndex === undefined) return undefined;
+    const cursor = this.pool.cursorForTrack(trackRef);
+    await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
+    await this.settle('cursorPoint');
+    const res = (await this.transport.send({
+      method: WIRE.deviceList,
+      params: { cursor },
+    })) as { devices?: WireDevice[]; count?: number; itemCount?: number };
+    const devices = res.devices ?? [];
+    // ⚠ E5's rule, one level down. `deviceList` walks `rig.config.deviceBank`
+    // slots while `itemCount` is the CHAIN's true length, so a chain longer than
+    // the bank window is partially visible — and a diff over a partial view
+    // cannot tell an insert from something scrolling into frame. Looking is
+    // allowed; concluding from a half-view is not.
+    const blind = typeof res.itemCount === 'number' && res.itemCount > devices.length;
+    return { devices, blind };
   }
 
   /**
@@ -363,9 +447,26 @@ export class LiveAdapter implements BitwigAdapter {
     const missing: Address[] = [];
     const unreachable: Address[] = [];
     const list = await this.scanTracks();
-    // ⚠ Only a `notes` read points the cursor, and only pointing steals the
-    // selection — so a metadata-only read costs nothing extra (D6, E14-F).
-    const selection = sel.some((a) => a.kind === 'notes') ? await this.captureSelection() : undefined;
+    // ⚠ Pointing steals the user's clip selection (E1, D6, E14-F), so anything
+    // that MIGHT point has to be paid for here. That used to be `notes` alone;
+    // as of the D16 amendment a `clip` read of an OCCUPIED slot points too, to
+    // capture the clip's length. An empty slot still costs nothing — and must
+    // not be pointed at in any case (E2).
+    const selection = sel.some((a) => a.kind === 'notes' || a.kind === 'clip' || a.kind === 'slot')
+      ? await this.captureSelection()
+      : undefined;
+    // Where each pool cursor is actually pointed, so the common shape — a clip
+    // target and its notes target, side by side in one write-set — costs one
+    // point and one settle rather than two.
+    //
+    // ⚠ Keyed by CURSOR, not by clip, and that is the whole correctness of it.
+    // The pool EVICTS (`pool.ts`, LRU), so "we already pointed at this clip" does
+    // not survive a batch that addresses more clips than the pool holds: the clip
+    // comes back, gets a different cursor, and a clip-keyed memo would skip the
+    // point and read through a cursor still sitting on somebody else's music —
+    // E2's silent mispoint arriving through the mechanism built to prevent it.
+    // Asking "is THIS cursor already on THIS clip" cannot be wrong that way.
+    const pointedAt = new Map<string, AddressKey>();
 
     for (const address of sel) {
       const sceneRef = addressScene(address);
@@ -384,7 +485,7 @@ export class LiveAdapter implements BitwigAdapter {
         else missing.push(address);
         continue;
       }
-      const entry = await this.readOne(address, row);
+      const entry = await this.readOne(address, row, pointedAt);
       if (entry === undefined) missing.push(address);
       else entries[addressKey(address)] = entry;
     }
@@ -396,7 +497,48 @@ export class LiveAdapter implements BitwigAdapter {
     return { contract: CONTRACT_TAG, at: await this.revision(), entries, missing, unreachable };
   }
 
-  private async readOne(address: Address, row: WireTrack | undefined): Promise<StateEntry | undefined> {
+  /**
+   * Point a pool cursor at a clip, once per read.
+   *
+   * The pool assigns per clip (`pool.ts`), so asking twice usually returns the
+   * same cursor — but the point FRAMES and their settle are not free, and the
+   * write-set of any `clip.create`/`clip.delete` asks for the clip and its notes
+   * back to back. `pointedAt` is that memo, scoped to the one `read` call so
+   * nothing is ever assumed to have survived a structural op (standing rule 2).
+   *
+   * ⚠ "Usually" is doing real work in that sentence, which is why the memo
+   * records CURSOR → clip rather than a set of clips. `cursorFor` evicts the
+   * least recently used assignment, so a read addressing more clips than the pool
+   * holds can hand the same clip a different cursor the second time round — and a
+   * memo that only remembered "we pointed at this clip already" would skip the
+   * point and then read a cursor that is still on the clip it was evicted for.
+   * Wrong notes, wrong length, healthy status, straight into the stash a revert
+   * replays (E2). Reachable today: `note.write`/`note.props` carry a `channel`, so
+   * one clip legitimately appears twice in a write-set with other clips between.
+   */
+  private async pointAtClip(
+    clipRef: ClipAddress,
+    trackIndex: number,
+    pointedAt: Map<string, AddressKey>,
+  ): Promise<string> {
+    const cursor = this.pool.cursorFor(clipRef);
+    const key = addressKey(clipRef);
+    if (pointedAt.get(cursor) === key) return cursor;
+    await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
+    await this.transport.send({
+      method: WIRE.slotSelect,
+      params: { trackIndex, slotIndex: clipRef.slot.scene.index, mechanism: 'track' },
+    });
+    await this.settle('cursorPoint');
+    pointedAt.set(cursor, key);
+    return cursor;
+  }
+
+  private async readOne(
+    address: Address,
+    row: WireTrack | undefined,
+    pointedAt: Map<string, AddressKey>,
+  ): Promise<StateEntry | undefined> {
     switch (address.kind) {
       case 'track':
         return row === undefined ? undefined : {
@@ -408,12 +550,48 @@ export class LiveAdapter implements BitwigAdapter {
       case 'slot':
       case 'clip': {
         if (row === undefined) return undefined;
-        const sceneIndex = address.kind === 'clip' ? address.slot.scene.index : address.scene.index;
+        const clipRef = address.kind === 'clip' ? address : clipAt(address);
+        const sceneIndex = clipRef.slot.scene.index;
         const status = (await this.transport.send({
           method: WIRE.slotStatus,
           params: { trackIndex: row.index, slotIndex: sceneIndex },
         })) as { hasContent: boolean };
-        return { address, fidelity: 'none', value: { of: 'clip', exists: status.hasContent } };
+        // ⚠ E2: an empty slot must never be pointed at — the cursor lands on a
+        // DIFFERENT clip and reports a healthy status. Absence is also the case
+        // that needs nothing more: it is restorable exactly, by deleting whatever
+        // the batch put here (D16d).
+        if (!status.hasContent) {
+          return { address, fidelity: 'exact', value: { of: 'clip', exists: false } };
+        }
+
+        // ⚠ AMENDED 2026-08-07 (D16, §3.3.3). This branch used to return
+        // `fidelity: 'none'` with no length, on the reason that a clip has no
+        // readback that could reproduce it — while the `notes` branch below was
+        // already reading `loopLength` off this very cursor to pick its scan
+        // grid. The capture was never missing from the API; it was missing from
+        // the entry. `StateValue.lengthBeats` had been declared and populated by
+        // the fake the whole time, which made this the exact shape PHASE-0 §Risks
+        // warned about: a fake certifying a capture the live path did not make.
+        const cursor = await this.pointAtClip(clipRef, row.index, pointedAt);
+        const loop = (await this.transport.send({
+          method: WIRE.cursorStatus,
+          params: { cursor },
+        })) as { loopLength?: number };
+        // ⚠ NOT defaulted. The `notes` branch may fall back to 4 beats because a
+        // scan window that is too wide only costs resolution; here the number IS
+        // the captured value, and a clip silently recreated at a guessed length is
+        // a musical value invented from nothing. Absent means absent, and
+        // `revertOps` refuses to recreate the clip rather than pick a length.
+        const lengthBeats = typeof loop.loopLength === 'number' && loop.loopLength > 0
+          ? loop.loopLength
+          : undefined;
+        return {
+          address,
+          fidelity: 'lossy',
+          value: lengthBeats === undefined
+            ? { of: 'clip', exists: true }
+            : { of: 'clip', exists: true, lengthBeats },
+        };
       }
 
       case 'notes': {
@@ -431,13 +609,7 @@ export class LiveAdapter implements BitwigAdapter {
         // by a write to clip A costs no re-point — and, more to the point, so a
         // read never silently re-targets the cursor a pending props op depends
         // on (E15-F). See `pool.ts`.
-        const cursor = this.pool.cursorFor(address.clip);
-        await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex: row.index } });
-        await this.transport.send({
-          method: WIRE.slotSelect,
-          params: { trackIndex: row.index, slotIndex: sceneIndex, mechanism: 'track' },
-        });
-        await this.settle('cursorPoint');
+        const cursor = await this.pointAtClip(address.clip, row.index, pointedAt);
 
         // ⚠ Two constraints pull against each other here.
         //
@@ -513,7 +685,7 @@ export class LiveAdapter implements BitwigAdapter {
     // costs exactly ONE observable selection change — so one restore at the end
     // suffices. Captured before the first stage, because by the end the cursor
     // has already moved.
-    const selection = batch.ops.some(pointsAtAClip) ? await this.captureSelection() : undefined;
+    const selection = batch.ops.some(borrowsSelection) ? await this.captureSelection() : undefined;
 
     for (const [i, stage] of stages.entries()) {
       // ⚠ E15-D: waited BEFORE the request goes out, not after it comes back.
@@ -525,6 +697,16 @@ export class LiveAdapter implements BitwigAdapter {
       // Track creates need the bank diffed afterwards to learn what was minted.
       const before = stage.ops.some((o) => o.op === 'track.create')
         ? new Set((await this.scanTracks()).tracks.map((t: WireTrack) => t.channelId))
+        : undefined;
+
+      // ⚠ And so does a device insert, for the same reason and with a sharper
+      // consequence — see `mintedChainIndex`. `planStages` gives every
+      // `device.insert` a stage of its own (its settle is not `instant`), so a
+      // stage holds at most one and the two observations bracket exactly one op.
+      const insertAt = stage.ops.findIndex((o) => o.op === 'device.insert');
+      const insertOp = insertAt === -1 ? undefined : stage.ops[insertAt];
+      const chainBefore = insertOp?.op === 'device.insert'
+        ? await this.deviceChain(insertOp.track)
         : undefined;
 
       const result = (await this.transport.send(encodeStage(stage.ops, this.ctx, guard))) as {
@@ -570,6 +752,22 @@ export class LiveAdapter implements BitwigAdapter {
       guard = result.revision;
 
       if (stage.settle !== undefined) await this.settle(stage.settle);
+
+      // ⚠ AFTER the settle and BEFORE `pool.invalidate()`. `deviceInsert` is the
+      // slowest budget measured (600ms, E3) precisely because the device is not
+      // in the chain until it lands, so a diff taken any earlier would report the
+      // chain we already had and mint nothing — the failure that looks like a
+      // missing capability rather than a race.
+      if (insertOp?.op === 'device.insert' && chainBefore !== undefined) {
+        const chainAfter = await this.deviceChain(insertOp.track);
+        const at = stage.opIndices[insertAt];
+        const chainIndex = chainAfter === undefined
+          ? undefined
+          : mintedChainIndex(chainBefore, chainAfter);
+        if (at !== undefined && chainIndex !== undefined) {
+          minted[at] = { kind: 'device', track: insertOp.track, chainIndex };
+        }
+      }
 
       for (const op of stage.ops) {
         if (op.op === 'scene.create' || op.op === 'scene.delete') this.sceneEpoch++;

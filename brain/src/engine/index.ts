@@ -8,12 +8,17 @@
  * compose a value, which is only possible because nothing here is global.
  */
 export { Executor, disagreementsOf } from './executor.js';
-export type { ExecutorOptions, RevertResult } from './executor.js';
+export type { ExecutorOptions, RevertResult, RunOptions } from './executor.js';
 
 export { labelTarget, notePropCaveats, splitReplayable, worse, worstOf } from './fidelity.js';
 
-export { revertOps } from './revert.js';
-export type { RevertInput, RevertPlan, Unrestored } from './revert.js';
+export {
+  branchProtected, floorRefusal, gateBeforeReading, ownChangesetReversal, UnprotectedWriteError,
+} from './floor.js';
+export type { Clearance } from './floor.js';
+
+export { NO_MINT_NO_INVERSE, revertOps } from './revert.js';
+export type { InsertBatch, RevertInput, RevertPlan, Unrestored } from './revert.js';
 
 export { takeWriteSet } from './take.js';
 export type { ApplyReport, Disagreement, Take, TakeValue, Unverified } from './take.js';

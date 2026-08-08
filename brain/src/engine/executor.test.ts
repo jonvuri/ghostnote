@@ -21,11 +21,16 @@ import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
 import { noteKey } from '../adapters/fake/model.js';
 import {
-  AddressUnresolvedError, BlindSpotError, NOTE_PROP_FIDELITY, addressKey, clip,
-  notes as notesAt, scene, slot, track,
+  AddressUnresolvedError, BlindSpotError, NOTE_PROP_FIDELITY, addressKey, clip, device,
+  notes as notesAt, param, scene, slot, track,
   type BitwigAdapter, type NoteRecord, type Op, type TrackAddress,
 } from '../contract/index.js';
 import { Executor } from './executor.js';
+import { branchProtected, gateBeforeReading, UnprotectedWriteError } from './floor.js';
+
+/** Addresses for the pure cases below — well-formed, and never resolved. */
+const FIXTURE_TRACK = track('b07f6b06-8f4f-4f4f-802d-ddf1a5190515');
+const CLIP_FIXTURE = clip(slot(FIXTURE_TRACK, scene(0, 1)));
 
 /**
  * One value per property `NOTE_PROP_FIDELITY` calls `exact`.
@@ -264,6 +269,55 @@ test('X-emptyslot: ...but a clip.create in the SAME batch satisfies it (planStag
   assert.equal(entry?.value.of === 'clip' ? entry.value.exists : true, false);
 });
 
+// --- the D16 amendment, end to end through the pipeline ----------------------
+
+test('X-clip: a deleted clip comes BACK — at its captured length, carrying its notes (D16 rev)', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const address = notesAt(clipA);
+  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ pitch: 62, pan: 0.25 })] }] });
+  await fake.settle('noteWrite');
+
+  const take = await executor.run(
+    [{ op: 'clip.delete', slot: clipA.slot }],
+    { clearance: branchProtected('X-clip') },
+  );
+  assert.equal(take.report.applied, true);
+  assert.deepEqual(await readNotes(fake, address), [], 'the clip really went');
+
+  const reverted = await executor.revert(take);
+  // ⚠ The order is the correctness: create, THEN write. Replaying notes into a
+  // slot with no clip lands the cursor on a different clip, silently (E2).
+  assert.deepEqual(reverted.plan.ops.map((o) => o.op), ['clip.create', 'note.clear', 'note.write']);
+  const back = await fake.read([clipA, address]);
+  const entry = back.entries[addressKey(clipA)];
+  assert.equal(entry?.value.of === 'clip' ? entry.value.exists : false, true);
+  assert.equal(entry?.value.of === 'clip' ? entry.value.lengthBeats : undefined, 4);
+  const notes = back.entries[addressKey(address)];
+  assert.deepEqual(
+    notes?.value.of === 'notes' ? notes.value.notes.map((n) => [n.pitch, n.pan]) : [],
+    [[62, 0.25]],
+    'and its content came with it',
+  );
+});
+
+test('X-device: an insert is undone at the chain index the RECEIPT minted (D16 rev)', async () => {
+  const { fake, executor, trackA } = await fixture();
+  const source = { from: 'bitwig', uuid: 'gn-device' } as const;
+
+  const take = await executor.run([{ op: 'device.insert', track: trackA, source }]);
+  assert.equal(take.report.applied, true);
+  assert.deepEqual(take.unrevertable, [], 'an insert is no longer filed as having no inverse');
+  // ⚠ Minted, not counted. The receipt reports where the device actually landed,
+  // which is the same discipline `track.create` has always followed (E2c).
+  assert.deepEqual(take.receipt.minted[0], device(trackA, 0));
+  assert.equal(control(fake).model.tracks[0]!.devices.length, 1);
+
+  const reverted = await executor.revert(take);
+  assert.deepEqual(reverted.plan.ops, [{ op: 'device.delete', device: device(trackA, 0) }]);
+  assert.deepEqual(reverted.unrestored, [], 'nothing is reported, because nothing was lost');
+  assert.equal(control(fake).model.tracks[0]!.devices.length, 0, 'the chain is back where it was');
+});
+
 // --- exit criterion 5 --------------------------------------------------------
 
 test('X-label: a take value is labelled from its write-set, not by its caller (D5)', async () => {
@@ -275,10 +329,13 @@ test('X-label: a take value is labelled from its write-set, not by its caller (D
 
   // ⚠ E3: a scene op compacts rows, so every scene-relative address in the same
   // batch is positional-at-risk — derived from ADDRESS_IDENTITY, not remembered.
+  // ⚠ And as of D18c a batch that labels itself worse than `exact` is REFUSED
+  // unless something is protecting its prior state — so every case below has to
+  // say what that is. X-floor asserts the refusal itself.
   const risky = await executor.run([
     { op: 'note.write', clip: clipA, notes: [note({ pitch: 62 })] },
     { op: 'scene.create', count: 1 },
-  ]);
+  ], { clearance: branchProtected('X-label') });
   assert.equal(risky.fidelity, 'lossy');
   assert.match(risky.values[0]!.caveats.join(' '), /POSITIONAL address/);
   // ...and the scene create itself is reported as having no inverse at all.
@@ -291,8 +348,34 @@ test('X-label: a take value is labelled from its write-set, not by its caller (D
 
   // A track delete is `none`: `channelId` is minted fresh, so no stash can be
   // replayed onto a recreated track.
-  const destructive = await executor.run([{ op: 'track.delete', track: trackA }]);
+  const destructive = await executor.run(
+    [{ op: 'track.delete', track: trackA }],
+    { clearance: branchProtected('X-label') },
+  );
   assert.equal(destructive.fidelity, 'none');
+});
+
+test('X-label: a clip that was THERE is lossy and says what a rebuild cannot carry (D16 rev)', async () => {
+  const { executor, trackA } = await fixture({ clips: false });
+  const target = slot(trackA, scene(2, 1));
+
+  // An empty slot is EXACT — absence has no content to fail to recreate (D16d),
+  // which is what keeps the flagship create+write case off the floor entirely.
+  const created = await executor.run([{ op: 'clip.create', slot: target, lengthBeats: 4 }]);
+  assert.equal(created.fidelity, 'exact');
+  assert.deepEqual(created.values.find((v) => v.address.kind === 'clip')!.caveats, []);
+
+  // Deleting it is LOSSY, not `none`: the length was captured and the notes are
+  // stashed, so the clip comes back — minus the things nothing can read back.
+  const deleted = await executor.run(
+    [{ op: 'clip.delete', slot: target }],
+    { clearance: branchProtected('X-label') },
+  );
+  const clipValue = deleted.values.find((v) => v.address.kind === 'clip')!;
+  assert.equal(clipValue.fidelity, 'lossy');
+  assert.equal(clipValue.value?.of === 'clip' ? clipValue.value.lengthBeats : undefined, 4);
+  assert.match(clipValue.caveats.join(' '), /AUTOMATION LANES/);
+  assert.match(clipValue.caveats.join(' '), /4-beat clip/);
 });
 
 test('X-label: a human-authored pressure is captured, labelled, and reported unrestored (E15-E)', async () => {
@@ -305,7 +388,7 @@ test('X-label: a human-authored pressure is captured, labelled, and reported unr
   const take = await executor.run([
     { op: 'note.clear', clip: clipA },
     { op: 'note.write', clip: clipA, notes: [note({ pitch: 72 })] },
-  ]);
+  ], { clearance: branchProtected('X-label-pressure') });
   assert.equal(take.fidelity, 'lossy');
   assert.match(take.values[0]!.caveats.join(' '), /pressure: cannot be written/);
 
@@ -359,4 +442,113 @@ test('X-pressure: a patch ASKING for pressure is refused before anything is read
   const { executor, clipA } = await fixture();
   const asked: Op[] = [{ op: 'note.write', clip: clipA, notes: [note({ pressure: 0.9 })] }];
   await assert.rejects(executor.run(asked), /pressure cannot be written/);
+});
+
+// --- the fidelity floor (D18c, §3.3.5) ---------------------------------------
+
+test('X-floor: a batch that cannot be put back exactly is REFUSED, and nothing is written', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const address = notesAt(clipA);
+  // A human played expression into this clip. That is what makes the SAME
+  // `note.write` lossy here and exact on a clean clip — the floor is a predicate
+  // over the stash, which is the one thing a hand-kept list of op classes could
+  // never be (§3.3.5).
+  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }] });
+  await fake.settle('noteWrite');
+
+  await assert.rejects(
+    executor.run([{ op: 'note.clear', clip: clipA }]),
+    UnprotectedWriteError,
+    'the response is a refusal, never an automatic branch (D18c)',
+  );
+  assert.equal((await readNotes(fake, address)).length, 1, 'and the clip is untouched');
+
+  // ⚠ The refusal says what it cannot restore and what would clear it, and it
+  // names NO mechanism. A redirect arriving through an error message is the
+  // choice-mapping leak wearing a disguise (D18c), and it would contaminate
+  // every branch event logged after it.
+  const refused = await executor.run([{ op: 'note.clear', clip: clipA }])
+    .then(() => undefined, (e: unknown) => e as UnprotectedWriteError);
+  assert.ok(refused instanceof UnprotectedWriteError);
+  assert.equal(refused.fidelity, 'lossy');
+  assert.match(refused.message, /gain/);
+  assert.doesNotMatch(refused.message, /fork|layer|chain|duplicate|track instead/i);
+});
+
+test('X-floor: the same write into a CLEAN clip pays nothing — the predicate is over the stash', async () => {
+  const { executor, clipA } = await fixture();
+  const take = await executor.run([{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }]);
+  // ⚠ A take's fidelity describes what it can RESTORE, not what it wrote. The
+  // clip was empty, so the prior state is exactly restorable and the batch is
+  // ordinary — even though the gain it writes will read back doubled.
+  assert.equal(take.fidelity, 'exact');
+  assert.equal(take.report.applied, true);
+});
+
+test('X-floor: clearance lets it through, and the take still says what it cannot restore', async () => {
+  const { fake, executor, clipA } = await fixture();
+  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }] });
+  await fake.settle('noteWrite');
+
+  const take = await executor.run(
+    [{ op: 'note.clear', clip: clipA }],
+    { clearance: branchProtected('take-42') },
+  );
+  assert.equal(take.report.applied, true);
+  // Clearance changes whether the batch RUNS. It never changes what the take
+  // claims: D5's "a revert never silently under-delivers" is untouched by it.
+  assert.equal(take.fidelity, 'lossy');
+  assert.match(take.values[0]!.caveats.join(' '), /gain/);
+});
+
+test('X-floor: reverting our own changeset is NOT gated, or a lossy take could never be undone', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const address = notesAt(clipA);
+  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ pan: 0.25 })] }] });
+  await fake.settle('noteWrite');
+
+  const take = await executor.run([
+    { op: 'note.clear', clip: clipA },
+    { op: 'note.write', clip: clipA, notes: [note({ pitch: 72, gain: 0.7 })] },
+  ]);
+  assert.equal(take.fidelity, 'exact', 'the prior state was clean, so the write was ordinary');
+
+  // ⚠ The state the revert is about to overwrite now carries a doubled gain, so
+  // the floor would refuse it — and refusing a revert of our own take is the
+  // deadlock version of the rule. D19/D20: own changesets ride the ordinary
+  // surface ungated, and the fidelity machinery REPORTS instead.
+  const reverted = await executor.revert(take);
+  assert.equal(reverted.take.report.applied, true);
+  assert.deepEqual((await readNotes(fake, address)).map((n) => n.pan), [0.25]);
+});
+
+test('X-floor: every op in the contract is classified against the damage-precedes-stash rule', () => {
+  // ⚠ §3.3.6's one hard-coded member, and today it matches NOTHING — which is a
+  // fact about the contract, not about Bitwig. `device.insertFileAt` with
+  // `where: 'replace'` is on the wire; the `device.insert` op carries no
+  // placement, so a replace is not expressible and cannot reach the executor.
+  // When Phase 5 adds it, `damagePrecedesTheStash`'s exhaustive switch makes
+  // "forgot to classify it" a compile error rather than an ungated replace.
+  const everyOp: Op[] = [
+    { op: 'note.write', clip: CLIP_FIXTURE, notes: [note()] },
+    { op: 'note.clear', clip: CLIP_FIXTURE },
+    { op: 'note.props', clip: CLIP_FIXTURE, notes: [note()] },
+    { op: 'clip.create', slot: CLIP_FIXTURE.slot, lengthBeats: 4 },
+    { op: 'clip.delete', slot: CLIP_FIXTURE.slot },
+    { op: 'track.create', name: 'gn-x' },
+    { op: 'track.rename', track: CLIP_FIXTURE.slot.track, name: 'gn-x' },
+    { op: 'track.delete', track: CLIP_FIXTURE.slot.track },
+    { op: 'scene.create', count: 1 },
+    { op: 'scene.delete', scene: scene(0, 1) },
+    { op: 'device.insert', track: CLIP_FIXTURE.slot.track, source: { from: 'bitwig', uuid: 'abc' } },
+    { op: 'device.delete', device: device(CLIP_FIXTURE.slot.track, 0) },
+    { op: 'param.set', param: param(device(CLIP_FIXTURE.slot.track, 0), 1), value: 0.5 },
+    { op: 'notify', message: 'hi' },
+  ];
+  assert.equal(gateBeforeReading(everyOp, undefined), undefined);
+  assert.equal(
+    new Set(everyOp.map((o) => o.op)).size,
+    everyOp.length,
+    'one of every variant, or this stops meaning "every op in the contract"',
+  );
 });

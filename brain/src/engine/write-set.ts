@@ -71,10 +71,6 @@ const NO_TRACK_IDENTITY =
   'a track cannot be un-deleted: `channelId` is minted fresh on create, so a recreated ' +
   'track is a DIFFERENT track and this stash can never be replayed onto it (E2f, D6).';
 
-const NO_CLIP_READBACK =
-  'a deleted clip cannot be recreated: neither its length nor its content has a readback ' +
-  'that could reproduce it (E3, D8 "clip create-delete: low / none").';
-
 const NO_SCENE_READBACK =
   'scene deletion COMPACTS the rows below it (E3); the prior layout has no readback, and ' +
   'every scene-relative address minted before it is refused rather than resolved.';
@@ -103,15 +99,25 @@ function targetsOf(op: Op): { address: Address; restore: Restore; reason?: strin
         { address: notesAt(clipAt(op.slot), 0), restore: 'replay' },
       ];
 
-    // ⚠ And the other direction is NOT symmetric. The notes are captured — they
-    // are the record — but they cannot be replayed into a clip that no longer
-    // exists, and pointing at the empty slot to try would land on the wrong clip
-    // entirely (E2). Both halves are `none` so the revert reports rather than
-    // attempts.
+    // ⚠ AMENDED 2026-08-07 (D16, E16-OPEN-QUESTIONS §3.3.3). Both halves used to
+    // be `none`, on the reason *"neither its length nor its content has a
+    // readback that could reproduce it"* — and both halves of that were false as
+    // the code stood. Content is stashed (the whole clip channel, above). Length
+    // is readable: the live adapter was already reading `loopLength` to pick a
+    // scan grid and simply never wrote it into the clip entry, while `StateValue`
+    // declared `lengthBeats?` and the fake populated it — PHASE-0 §Risks' named
+    // failure mode, sitting unexercised because nothing read the field.
+    //
+    // So the stash IS the restore instruction for both: `revert.ts` recreates the
+    // clip at its captured length and replays the notes into it. What that cannot
+    // put back is real and is REPORTED rather than hidden — name, colour, loop
+    // start/end as distinct from length, launch settings, and automation lanes,
+    // which have no readback in our surface at all (`fidelity.ts`, `valueCaveats`).
+    // Recorded so a later session does not mistake a stash gap for an API wall.
     case 'clip.delete':
       return [
-        { address: clipAt(op.slot), restore: 'none', reason: NO_CLIP_READBACK },
-        { address: notesAt(clipAt(op.slot), 0), restore: 'none', reason: NO_CLIP_READBACK },
+        { address: clipAt(op.slot), restore: 'replay' },
+        { address: notesAt(clipAt(op.slot), 0), restore: 'replay' },
       ];
 
     case 'track.rename':
@@ -129,7 +135,14 @@ function targetsOf(op: Op): { address: Address; restore: Restore; reason?: strin
     case 'param.set':
       return [{ address: op.param, restore: 'replay' }];
 
-    // No prior address exists for these — see `unrevertableOf`.
+    // No prior address exists for these.
+    //
+    // `track.create` and `scene.create` reach the take through `unrevertableOf`.
+    // ⚠ `device.insert` no longer does (D16 amendment 2): its inverse needs no
+    // prior state at all, only the chain index the insert actually produced,
+    // which the receipt MINTS the way `track.create`'s channelId is minted (E2c —
+    // read back what was created, never assume a requested position). `revert.ts`
+    // materialises the `device.delete` from that mint.
     case 'track.create':
     case 'scene.create':
     case 'device.insert':
@@ -143,7 +156,18 @@ function targetsOf(op: Op): { address: Address; restore: Restore; reason?: strin
   }
 }
 
-/** Ops that change the world but have no prior address to stash. */
+/**
+ * Ops that change the world but have no prior address to stash AND no inverse.
+ *
+ * ⚠ Both halves matter, and getting the second one wrong is what the D16
+ * amendment fixed. `device.insert` used to be filed here under
+ * `NO_DEVICE_READBACK` — a reason written about the DELETE direction — even
+ * though a device that did not exist has the same exact inverse a clip that did
+ * not exist has: delete it again (D16d). With that corrected this list is
+ * exactly *the set a branch cannot rescue*: `track.create` has nothing to fork,
+ * `scene.create` is not track-scoped (E16-OPEN-QUESTIONS §3.3.5). That is also
+ * why the fidelity floor deliberately does not read it — see `floor.ts`.
+ */
 function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
   switch (op.op) {
     case 'track.create':
@@ -157,9 +181,8 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
       };
     case 'scene.create':
       return { opIndex, op: op.op, why: NO_SCENE_READBACK };
-    case 'device.insert':
-      return { opIndex, op: op.op, why: NO_DEVICE_READBACK };
-    // `notify` mutates nothing; its absence here is a positive statement.
+    // `notify` mutates nothing; its absence here is a positive statement. So is
+    // `device.insert`'s, as of the D16 amendment — see this function's header.
     default:
       return undefined;
   }

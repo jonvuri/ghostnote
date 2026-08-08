@@ -25,9 +25,9 @@ import { join } from 'node:path';
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import {
   addressKey, clip, notes as notesAt, scene, slot, track,
-  type ClipAddress, type NoteRecord, type Op, type TrackAddress,
+  type BitwigAdapter, type ClipAddress, type NoteRecord, type Op, type TrackAddress,
 } from '../contract/index.js';
-import { Executor, type Take } from '../engine/index.js';
+import { branchProtected, Executor, ownChangesetReversal, type Take } from '../engine/index.js';
 import { EmptySliceError, DuplicateTakeError } from './errors.js';
 import { TakeStore } from './store.js';
 
@@ -87,9 +87,26 @@ async function readNotes(fake: FakeAdapter, address: ClipAddress, channel = 0): 
 const pitches = async (fake: FakeAdapter, c: ClipAddress): Promise<number[]> =>
   (await readNotes(fake, c)).map((n) => n.pitch).sort((x, y) => x - y);
 
-/** Run a patch and record it — what session 3 will do on every agent write. */
-async function commit(fx: Fixture, ops: readonly Op[], label?: string): Promise<Take> {
-  const take = await fx.executor.run(ops);
+/**
+ * Run a patch and record it — what session 3 will do on every agent write.
+ *
+ * ⚠ `protect` is the fidelity floor showing through (D18c): a batch whose prior
+ * state cannot be restored exactly is REFUSED unless something is protecting it,
+ * and the cases below that overwrite a human's expression or delete a track have
+ * to say so. It is a per-call argument rather than a blanket default precisely so
+ * the ordinary commits stay ordinary — if this helper cleared everything, these
+ * tests would stop noticing the floor at all.
+ */
+async function commit(
+  fx: Fixture,
+  ops: readonly Op[],
+  label?: string,
+  protect?: string,
+): Promise<Take> {
+  const take = await fx.executor.run(
+    ops,
+    protect === undefined ? {} : { clearance: branchProtected(protect) },
+  );
   await fx.store.append(take, label === undefined ? {} : { label });
   return take;
 }
@@ -104,7 +121,10 @@ async function commit(fx: Fixture, ops: readonly Op[], label?: string): Promise<
 async function goTo(fx: Fixture, id: string): Promise<void> {
   const plan = fx.store.log.planTo(id);
   assert.equal(plan.lands, 'take');
-  await fx.executor.run(plan.ops);
+  // Navigating the log moves the world between states this session itself
+  // recorded, so it rides the ordinary write surface ungated (D19/D20) — and
+  // what a move cannot restore is already in `plan.unrestored`.
+  await fx.executor.run(plan.ops, { clearance: ownChangesetReversal(id) });
   await fx.store.setHead(id);
 }
 
@@ -219,7 +239,7 @@ test('S-partial: a partial revert restores ONE clip and leaves the rest of the w
   assert.equal(plan.lands, 'new-state');
   assert.deepEqual(plan.addresses, [addressKey(notesAt(fx.clipA))]);
 
-  const applied = await fx.executor.run(plan.ops);
+  const applied = await fx.executor.run(plan.ops, { clearance: ownChangesetReversal(both.id) });
   await fx.store.append(applied);
 
   assert.deepEqual(await pitches(fx.fake, fx.clipA), [60], 'clip A is back');
@@ -249,8 +269,8 @@ test('S-restart: takes written before a restart are readable after, with fidelit
   const one = await commit(fx, [
     { op: 'note.clear', clip: fx.clipA },
     { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 72 })] },
-  ], 'better hats');
-  const two = await commit(fx, [{ op: 'track.delete', track: fx.trackA }]);
+  ], 'better hats', 'S-restart');
+  const two = await commit(fx, [{ op: 'track.delete', track: fx.trackA }], undefined, 'S-restart');
 
   // A second process, same directory. Nothing is shared but the disk.
   const reopened = await TakeStore.open({ projectKey: PROJECT, root: fx.root });
@@ -308,7 +328,7 @@ test('S-restart: appending the same take id twice is refused, not silently overw
 test('S-fidelity: every take carries a summary, and a `none` entry says so BEFORE the revert', async () => {
   const fx = await fixture();
   await commit(fx, [{ op: 'note.write', clip: fx.clipA, notes: [note()] }]);
-  const destructive = await commit(fx, [{ op: 'track.delete', track: fx.trackA }]);
+  const destructive = await commit(fx, [{ op: 'track.delete', track: fx.trackA }], undefined, 'S-fidelity');
 
   for (const summary of fx.store.log.list()) {
     assert.ok(['exact', 'lossy', 'none'].includes(summary.fidelity), 'every take is labelled');
@@ -327,6 +347,102 @@ test('S-fidelity: every take carries a summary, and a `none` entry says so BEFOR
   assert.match(plan.unrestored.map((u) => u.why).join(' '), /a track cannot be un-deleted/);
 });
 
+test('S-device: the STORE path undoes an insert too, not just `Executor.revert` (D16 rev 2)', async () => {
+  // ⚠ The bug this locks out: `planRevert` IS "revert that take on its own", and
+  // it was the one path that declined to. `Executor.revert` emitted the delete
+  // while the store — the surface the control layer actually calls — reported the
+  // insert as un-undoable and told the reader to do what they had just done.
+  const fx = await fixture();
+  const source = { from: 'bitwig', uuid: 'gn-dev' } as const;
+  const take = await commit(fx, [
+    { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 64 })] },
+    { op: 'device.insert', track: fx.trackA, source },
+  ]);
+  assert.equal(fx.fake.model.tracks[0]!.devices.length, 1, 'the device really went in');
+
+  const plan = fx.store.log.planRevert(take.id);
+  assert.deepEqual(
+    plan.ops.filter((o) => o.op === 'device.delete').map((o) => (o.op === 'device.delete' ? o.device.chainIndex : -1)),
+    [0],
+    'the plan deletes it at the index the receipt minted',
+  );
+  assert.deepEqual(plan.unrestored, [], 'and claims nothing was lost, because nothing was');
+
+  // ⚠ A SLICE is the one path that still declines, and for a reason that holds:
+  // slicing selects ADDRESSES and an insert has none, so "restore just this clip"
+  // has no reading under which a device also disappears. It says so rather than
+  // silently leaving it out.
+  const sliced = fx.store.log.planRevert(take.id, fx.store.log.selectClip(take.id, fx.clipA));
+  assert.deepEqual(sliced.ops.filter((o) => o.op === 'device.delete'), []);
+  assert.match(
+    sliced.unrestored.find((u) => u.what === 'device.insert')?.why ?? '',
+    /outside the slice/,
+  );
+});
+
+test('S-device: a WALK across several takes undoes every insert on it, ordered by chain', async () => {
+  // ⚠ The reason `batches` is a list. Each take's `minted` is indexed by op index
+  // within its own batch, so a walk that flattened them would make op 0 ambiguous
+  // and delete a device nobody addressed. Two takes, two batches, one descending
+  // order across both — because a chain re-indexes on delete (E3) regardless of
+  // which take put the device there.
+  const fx = await fixture();
+  const source = { from: 'bitwig', uuid: 'gn-dev' } as const;
+  const base = await commit(fx, [{ op: 'note.write', clip: fx.clipA, notes: [note()] }]);
+  await commit(fx, [{ op: 'device.insert', track: fx.trackA, source }]);
+  await commit(fx, [{ op: 'device.insert', track: fx.trackA, source }]);
+  assert.equal(fx.fake.model.tracks[0]!.devices.length, 2);
+
+  const plan = fx.store.log.planTo(base.id);
+  assert.deepEqual(
+    plan.ops.filter((o) => o.op === 'device.delete').map((o) => (o.op === 'device.delete' ? o.device.chainIndex : -1)),
+    [1, 0],
+    'newest chain index first, or the first delete shifts the second target',
+  );
+  assert.deepEqual(plan.unrestored.filter((u) => u.what === 'device.insert'), []);
+});
+
+test('S-device: an insert nobody watched land is reported BEFORE any revert (D5)', async () => {
+  // ⚠ D5's "never silently under-deliver" is a promise about what a caller can
+  // read in advance. An insert whose mint the adapter could not observe has no
+  // inverse — so a take that stayed quiet about it would claim, in the very field
+  // a control layer checks before offering an undo, that there is nothing it
+  // cannot put back. `writeSetOf` cannot know this (it runs before the apply), so
+  // the executor stamps it on when the receipt comes back.
+  const fx = await fixture();
+  // An adapter that performs the insert but cannot see where it landed — a chain
+  // longer than the device bank window, or one that did not change the way an
+  // append changes it (`mintedChainIndex` refuses both). Wrapping the fake is the
+  // only honest way to reach this: the fake itself always observes its own model.
+  const blind: BitwigAdapter = {
+    hello: () => fx.fake.hello(),
+    resolve: (refs) => fx.fake.resolve(refs),
+    read: (sel) => fx.fake.read(sel),
+    settle: (budget) => fx.fake.settle(budget),
+    revision: () => fx.fake.revision(),
+    close: () => fx.fake.close(),
+    apply: async (batch) => ({ ...(await fx.fake.apply(batch)), minted: {} }),
+  };
+  const executor = new Executor(blind, { newId: () => 'take-blind', now: () => 1 });
+
+  const take = await executor.run(
+    [{ op: 'device.insert', track: fx.trackA, source: { from: 'bitwig', uuid: 'gn-dev' } }],
+  );
+  assert.equal(fx.fake.model.tracks[0]!.devices.length, 1, 'the device is really in the chain');
+  // ⚠ On the TAKE, before any plan or revert exists — which is the whole promise.
+  assert.deepEqual(take.unrevertable.map((u) => u.op), ['device.insert']);
+  assert.match(take.unrevertable[0]!.why, /never read back/);
+
+  await fx.store.append(take);
+  const plan = fx.store.log.planRevert(take.id);
+  assert.deepEqual(plan.ops, [], 'nothing is attempted at an index nobody read back');
+  assert.equal(
+    plan.unrestored.filter((u) => u.what === 'device.insert').length,
+    1,
+    'said ONCE — both channels know it, and D5 asks for a report a human reads',
+  );
+});
+
 test('S-fidelity: an address the take could not VERIFY is refused on the way forward (E3)', async () => {
   const fx = await fixture();
   const one = await commit(fx, [{ op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 60 })] }]);
@@ -335,7 +451,7 @@ test('S-fidelity: an address the take could not VERIFY is refused on the way for
   const blind = await commit(fx, [
     { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 67 })] },
     { op: 'scene.create', count: 1 },
-  ]);
+  ], undefined, 'S-fidelity');
   assert.equal(fx.store.log.require(blind.id).take.report.unverified.length, 1);
 
   // Undoing it is fine — the STASH was read cleanly, before the scene op.
@@ -354,7 +470,7 @@ test('S-fidelity: an address the take could not VERIFY is refused on the way for
 test('S-fidelity: gain is withheld on the way FORWARD too, not just on a revert (D16b)', async () => {
   const fx = await fixture();
   const base = await commit(fx, [{ op: 'note.write', clip: fx.clipA, notes: [note({ gain: 0.7 })] }]);
-  const cleared = await commit(fx, [{ op: 'note.clear', clip: fx.clipA }]);
+  const cleared = await commit(fx, [{ op: 'note.clear', clip: fx.clipA }], undefined, 'S-fidelity');
 
   // ⚠ Replaying a take FORWARD replays its VERIFY, and verify holds the doubled
   // readback (E2). Session 1 never exercised this direction — but the withholding

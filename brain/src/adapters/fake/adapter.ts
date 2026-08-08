@@ -158,10 +158,23 @@ export class FakeAdapter implements BitwigAdapter {
         const sceneIndex = address.kind === 'clip' ? address.slot.scene.index : address.scene.index;
         const slotState = track?.slots[sceneIndex];
         if (slotState === undefined) return undefined;
+        // ⚠ AMENDED 2026-08-07 (D16, §3.3.3). Both adapters said `none` here and
+        // meant two different things by it — the fake populated `lengthBeats`
+        // and the live adapter did not, which is PHASE-0 §Risks' named failure
+        // mode sitting unexercised because nothing read the field. The label is
+        // now derived from the same fact on both sides:
+        //
+        //   absent — restorable EXACTLY, by deleting whatever the batch created
+        //            (D16d: absence has no content to fail to recreate);
+        //   present — restorable as a clip of the captured length carrying the
+        //            stashed notes, minus the metadata nothing can read back.
+        if (!slotState.hasContent) {
+          return { address, fidelity: 'exact', value: { of: 'clip', exists: false } };
+        }
         return {
           address,
-          fidelity: 'none', // a clip's existence has no readback that could recreate it
-          value: { of: 'clip', exists: slotState.hasContent, lengthBeats: slotState.lengthBeats },
+          fidelity: 'lossy',
+          value: { of: 'clip', exists: true, lengthBeats: slotState.lengthBeats },
         };
       }
       case 'notes': {
@@ -461,6 +474,12 @@ export class FakeAdapter implements BitwigAdapter {
         const name = op.source.from === 'file' ? op.source.path.split('/').pop()! : op.source.uuid;
         const device = { name, paramsLive: false, params: [{ name: 'Param 1', value: 0.5 }] };
         track.devices.push(device);
+        // ⚠ The chain index the insert PRODUCED, read off the chain rather than
+        // predicted — the same discipline `track.create` follows (E2c). It is
+        // what `revertOps` turns into the exact inverse (D16 amendment 2), and
+        // emitting it from anything but an observation is how a revert deletes a
+        // device nobody addressed.
+        minted[opIndex] = { kind: 'device', track: op.track, chainIndex: track.devices.length - 1 };
         // ⚠ E4: the device exists immediately but its parameters are not readable
         // for another ~194ms. A timer, not a tick counter, is what expresses that.
         this.clock.after('paramsLive', `paramsLive:${name}`, () => { device.paramsLive = true; });

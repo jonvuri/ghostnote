@@ -36,7 +36,7 @@ import {
   notes as notesAt, scene, slot, track,
   type Address, type BitwigAdapter, type NoteRecord, type Op, type Snapshot, type TrackAddress,
 } from '../index.js';
-import { Executor } from '../../engine/index.js';
+import { Executor, branchProtected, UnprotectedWriteError } from '../../engine/index.js';
 
 export interface ConformanceCapabilities {
   readonly hasRealBitwig: boolean;
@@ -480,6 +480,67 @@ export function runConformance(h: AdapterHarness): void {
     }
   });
 
+  test(
+    label('C-device', 'an insert reports the chain index it PRODUCED, and the revert undoes it (D16 rev 2)'),
+    // The first use of this capability, and a real one: the case needs a device
+    // chain that behaves like a chain, not merely an adapter that accepts the op.
+    { skip: !h.capabilities.hasDeviceModel },
+    async () => {
+      // ⚠ The case that would have caught the amendment shipping half-built. The
+      // FAKE minted `device.insert` and the live adapter did not, so the inverse
+      // D16 rev 2 claims — delete it at the index the receipt minted — existed
+      // offline only, and nothing in this suite looked. That is PHASE-0 §Risks'
+      // named failure mode aimed at a revert.
+      const { adapter, trackA } = await h.create();
+      const executor = new Executor(adapter);
+      // Polysynth's real Bitwig UUID (E3, E4). The fake names its device after
+      // whatever uuid it is handed, so one constant serves both adapters.
+      const source = { from: 'bitwig', uuid: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef' } as const;
+      const chainIndexOf = (receipt: { minted: Record<number, Address> }): number => {
+        const address = receipt.minted[0];
+        assert.ok(address, 'an insert must report the identity it minted (E2c, D20)');
+        assert.equal(address.kind, 'device');
+        return address.kind === 'device' ? address.chainIndex : -1;
+      };
+
+      try {
+        const first = await executor.run([{ op: 'device.insert', track: trackA, source }]);
+        const firstIndex = chainIndexOf(first.receipt);
+        assert.equal(first.unrevertable.length, 0, 'an insert is no longer filed as having no inverse');
+
+        // ⚠ The assertion that separates OBSERVED from COUNTED, and the reason it
+        // is two inserts rather than one: an index hardcoded to 0, or counted from
+        // the request rather than read off the chain, passes a single-insert case
+        // and fails here. It also says nothing about where the chain started, so
+        // it holds on a fixture track that already carries an instrument.
+        const second = await executor.run([{ op: 'device.insert', track: trackA, source }]);
+        assert.equal(chainIndexOf(second.receipt), firstIndex + 1,
+          'the second device lands one further along the chain the first one grew');
+
+        // Reverted NEWEST FIRST, because a chain re-indexes on delete (E3) —
+        // which is exactly the order `revertOps` emits for a multi-insert batch.
+        await executor.revert(second);
+        await executor.revert(first);
+
+        // ⚠ And this is how we know both deletes actually landed, using nothing
+        // but contract surface: there is no device READBACK in v0, so the chain's
+        // state is only observable through where the NEXT insert reports landing.
+        const again = await executor.run([{ op: 'device.insert', track: trackA, source }]);
+        assert.equal(chainIndexOf(again.receipt), firstIndex,
+          'the chain is back to the length it started at, so the reverts removed what they claimed');
+        await executor.revert(again);
+      } finally {
+        // ⚠ LIVE RESIDUE, stated rather than guessed at: a case that fails
+        // between an insert and its revert leaves that device in the fixture
+        // chain. The assertions above are all RELATIVE, so a later run still
+        // passes — but the chain grows, and a chain longer than the device bank
+        // window stops minting at all (`blind`). If C-device starts failing on a
+        // rig where it used to pass, look at the fixture track's chain first.
+        await h.dispose(adapter);
+      }
+    },
+  );
+
   // --- staged application ----------------------------------------------------
 
   test(label('C-stage', 'instant ops coalesce and settling ops get their own stage (E8)'), async () => {
@@ -694,10 +755,13 @@ export function runConformance(h: AdapterHarness): void {
       await adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }] });
       await adapter.settle('noteWrite');
 
+      // ⚠ The stash is about to say `lossy`, which is the fidelity floor's whole
+      // predicate — so this batch has to declare what is protecting it or it is
+      // refused (D18c). C-floor below asserts the refusal itself.
       const take = await executor.run([
         { op: 'note.clear', clip: clipA },
         { op: 'note.write', clip: clipA, notes: [note({ pitch: 72 })] },
-      ]);
+      ], { clearance: branchProtected('C-exec') });
       // The stash saw a doubled gain, so the take says lossy before anyone asks.
       assert.equal(take.fidelity, 'lossy');
       assert.match(take.values[0]!.caveats.join(' '), /gain: reads back/);
@@ -708,6 +772,83 @@ export function runConformance(h: AdapterHarness): void {
       assert.deepEqual(reverted.unrestored.map((u) => u.what), ['gain']);
       assert.equal((await readNotes(adapter, notesAt(clipA)))[0]?.gain, undefined);
     });
+  });
+
+  test(label('C-floor', 'a batch that cannot be put back exactly is REFUSED unless cleared (D18c)'), async () => {
+    // ⚠ Portable on purpose. The floor's predicate is engine logic, but its INPUT
+    // is the fidelity each adapter reports from its own readback — so a fake that
+    // graded a clip carrying gain as `exact` would let a batch through offline
+    // that Bitwig refuses, which is PHASE-0 §Risks' failure mode aimed straight
+    // at a safety gate.
+    await withClip(async ({ adapter, clipA }) => {
+      const executor = new Executor(adapter);
+      await adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }] });
+      await adapter.settle('noteWrite');
+
+      await assert.rejects(
+        executor.run([{ op: 'note.clear', clip: clipA }]),
+        UnprotectedWriteError,
+        'the response is a refusal, never an automatic branch',
+      );
+      assert.equal((await readNotes(adapter, notesAt(clipA))).length, 1, 'nothing was written');
+
+      // ...and the same batch runs once something is protecting the prior state.
+      const cleared = await executor.run(
+        [{ op: 'note.clear', clip: clipA }],
+        { clearance: branchProtected('C-floor') },
+      );
+      assert.equal(cleared.report.applied, true);
+      assert.equal(cleared.fidelity, 'lossy', 'clearance changes whether it runs, never what it claims');
+    });
+  });
+
+  test(label('C-floor', 'an ordinary write into a clean clip pays nothing'), async () => {
+    // The other half, and the reason the floor is a predicate over the stash
+    // rather than a list of op classes: this is the SAME op that was refused
+    // above, and here it is exact.
+    await withClip(async ({ adapter, clipA }) => {
+      const take = await new Executor(adapter).run([
+        { op: 'note.write', clip: clipA, notes: [note({ pitch: 64 })] },
+      ]);
+      assert.equal(take.fidelity, 'exact');
+      assert.equal(take.report.applied, true);
+    });
+  });
+
+  test(label('C-clip', 'a clip capture carries its LENGTH, and absence is exact (D16 rev)'), async () => {
+    // ⚠ The fake/live disagreement §3.3.3 named: `StateValue` declared
+    // `lengthBeats?`, the fake populated it and the live adapter did not — an
+    // unexercised divergence, because nothing read the field until the revert
+    // path started rebuilding clips from it. This is the case that exercises it.
+    const { adapter, trackA } = await h.create();
+    try {
+      const { sceneEpoch } = await adapter.revision();
+      const target = slot(trackA, scene(4, sceneEpoch));
+      // ⚠ Make the precondition TRUE rather than assume it. The fake gets a fresh
+      // model per case; a real project keeps whatever the last run left here, and
+      // a case that only passes the first time is worse than no case at all.
+      await adapter.apply({ ops: [{ op: 'clip.delete', slot: target }] });
+      await adapter.settle('trackStruct');
+
+      const before = await adapter.read([clip(target)]);
+      const empty = before.entries[addressKey(clip(target))];
+      assert.equal(empty?.value.of === 'clip' ? empty.value.exists : true, false);
+      assert.equal(empty?.fidelity, 'exact', 'absence has no content to fail to recreate (D16d)');
+
+      await adapter.apply({ ops: [{ op: 'clip.create', slot: target, lengthBeats: 8 }] });
+      await adapter.settle('trackStruct');
+
+      const after = await adapter.read([clip(target)]);
+      const held = after.entries[addressKey(clip(target))];
+      assert.equal(held?.value.of === 'clip' ? held.value.exists : false, true);
+      assert.equal(held?.fidelity, 'lossy', 'restorable, but not everything about it is');
+      assert.equal(held?.value.of === 'clip' ? held.value.lengthBeats : undefined, 8);
+
+      await adapter.apply({ ops: [{ op: 'clip.delete', slot: target }] });
+      await adapter.settle('trackStruct');
+    } finally {
+      await h.dispose(adapter);
+    }
   });
 
   test(label('C-exec', 'readback disagreeing with the request is REPORTED, not swallowed (E8-E)'), async () => {

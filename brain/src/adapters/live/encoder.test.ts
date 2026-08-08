@@ -37,6 +37,7 @@ const CLIP_A = clip(slot(TRACK_A, SCENE_0));
 /** A one-cursor pool — the Phase-0 shape, so the cases below read unchanged. */
 const ctx: EncodeContext = {
   cursorFor: () => '0',
+  cursorForTrack: () => '0',
   trackIndex: (t: TrackAddress) => (t.channelId === TRACK_A.channelId ? 3 : (t.channelId === TRACK_B.channelId ? 4 : -1)),
 };
 
@@ -139,8 +140,60 @@ test('E-insertfile: an absolute .bwpreset path is accepted', () => {
     { op: 'device.insert', track: TRACK_A, source: { from: 'file', path: '/tmp/gn/lfo.bwpreset' } },
     ctx,
   );
-  assert.deepEqual(methods(frames), [WIRE.deviceInsertFile]);
+  assert.deepEqual(methods(frames), [WIRE.cursorPointTrack, WIRE.deviceInsertFile]);
   assert.equal(paramsOf(frames, WIRE.deviceInsertFile)?.['path'], '/tmp/gn/lfo.bwpreset');
+});
+
+test('E-device: a device op POINTS a cursor at its track, and addresses that cursor', () => {
+  // ⚠ The bug this locks out is silent, not loud. Every device handler resolves
+  // `rig.cursorTrack(cursor)` / `rig.cursorDeviceBanks[cursor]` by POOL index, so
+  // the old encoding — a bank row number under a `trackIndex` key the insert
+  // handler never reads, and under a `cursor` key the delete handler reads as a
+  // pool ref — either threw inside the extension or deleted from a different
+  // track's chain while reporting `ok`.
+  const pool = new CursorPool(3);
+  const poolCtx: EncodeContext = {
+    ...ctx,
+    cursorForTrack: (t) => pool.cursorForTrack(t),
+  };
+
+  const inserted = encodeOp(
+    { op: 'device.insert', track: TRACK_A, source: { from: 'bitwig', uuid: 'abc' } },
+    poolCtx,
+  );
+  assert.deepEqual(methods(inserted), [WIRE.cursorPointTrack, WIRE.deviceInsertBitwig]);
+  const cursor = paramsOf(inserted, WIRE.cursorPointTrack)?.['cursor'];
+  // The point names the BANK ROW; the op names the CURSOR. Two different numbers
+  // that happened to be spelled the same way before.
+  assert.equal(paramsOf(inserted, WIRE.cursorPointTrack)?.['trackIndex'], 3);
+  assert.equal(paramsOf(inserted, WIRE.deviceInsertBitwig)?.['cursor'], cursor);
+  assert.equal(paramsOf(inserted, WIRE.deviceInsertBitwig)?.['uuid'], 'abc');
+
+  // A delete on the SAME track reuses that cursor rather than re-pointing a
+  // second one, which is the allocator doing its job (E1, E15-F).
+  const deleted = encodeOp({ op: 'device.delete', device: device(TRACK_A, 2) }, poolCtx);
+  assert.deepEqual(methods(deleted), [WIRE.cursorPointTrack, WIRE.deviceDelete]);
+  assert.equal(paramsOf(deleted, WIRE.deviceDelete)?.['cursor'], cursor);
+  assert.equal(paramsOf(deleted, WIRE.deviceDelete)?.['deviceIndex'], 2);
+
+  // ...and a different track gets a different cursor, so two chains in one batch
+  // cannot silently become one.
+  const other = encodeOp({ op: 'device.delete', device: device(TRACK_B, 0) }, poolCtx);
+  assert.notEqual(paramsOf(other, WIRE.deviceDelete)?.['cursor'], cursor);
+  assert.equal(paramsOf(other, WIRE.cursorPointTrack)?.['trackIndex'], 4);
+});
+
+test('E-device: a CLAP insert sends `clapId`, which is the key its handler reads', () => {
+  // `deviceInsertClap` does `params.get("clapId")`; the encoder sent `uuid`, so
+  // the handler would have dereferenced null. Same shape of defect as the cursor
+  // confusion above and found the same way — by reading the Java, which is the
+  // only source of truth for a wire this side cannot exercise offline.
+  const frames = encodeOp(
+    { op: 'device.insert', track: TRACK_A, source: { from: 'clap', uuid: 'com.example.synth' } },
+    ctx,
+  );
+  assert.deepEqual(methods(frames), [WIRE.cursorPointTrack, WIRE.deviceInsertClap]);
+  assert.equal(paramsOf(frames, WIRE.deviceInsertClap)?.['clapId'], 'com.example.synth');
 });
 
 // --- E2: beats are the unit; the grid is a per-op view ----------------------

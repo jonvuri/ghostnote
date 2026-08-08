@@ -41,10 +41,13 @@ import {
   CONTRACT_TAG, addressKey, type Address, type AddressKey, type Fidelity, type NoteRecord,
   type Snapshot, type StateEntry, type StateValue,
 } from '../contract/index.js';
-import { worstOf, type RevertInput, type TakeValue, type Unrestored, type WriteTarget } from '../engine/index.js';
+import {
+  worstOf,
+  type RevertInput, type TakeValue, type Unrestored, type UnrevertableOp, type WriteTarget,
+} from '../engine/index.js';
 import { TakeCycleError, TakeNotFoundError } from './errors.js';
 import type { StoredTake } from './format.js';
-import { selects, type Slice } from './slice.js';
+import { isWholeTake, selects, type Slice } from './slice.js';
 
 export type TakeIndex = ReadonlyMap<string, StoredTake>;
 
@@ -125,6 +128,40 @@ interface Wanted {
  * replaying it would emit writes that restore the state to itself.
  */
 const changedTheWorld = (node: StoredTake): boolean => node.take.report.applied;
+
+/**
+ * ⚠ Inserts a SLICED revert is deliberately not undoing.
+ *
+ * `device.insert` has an exact inverse — delete it at the chain index the receipt
+ * minted (D16 rev 2) — and the walk now emits it, by handing `revertOps` each
+ * take's `(ops, minted)` pair separately (`InsertBatch`). A slice is the one case
+ * that still cannot: slicing selects ADDRESSES, and an insert has none to select,
+ * so "restore just this clip" has no honest reading under which a device also
+ * disappears. Reported rather than silently skipped, with the move that WOULD
+ * remove it named.
+ *
+ * > ⚠ This function used to run on every path, including the single-take undo,
+ * > on the reasoning that a walk cannot address one batch's mint. True of a walk
+ * > that FLATTENS the takes; the fix was to stop flattening them. Its message
+ * > told the reader to "revert that take on its own" — which is exactly what
+ * > `planRevert` is, so the advice pointed back at the path that had just
+ * > declined.
+ */
+function slicedInserts(node: StoredTake): UnrevertableOp[] {
+  const out: UnrevertableOp[] = [];
+  node.take.ops.forEach((op, opIndex) => {
+    if (op.op !== 'device.insert') return;
+    out.push({
+      opIndex,
+      op: op.op,
+      why:
+        `take ${node.take.id} inserted a device, and this revert selects specific addresses. An ` +
+        'insert has no address to select, so it is outside the slice: the device stays in the ' +
+        'chain. Revert the WHOLE take to remove it.',
+    });
+  });
+  return out;
+}
 
 /**
  * The state at the far end of a path.
@@ -264,7 +301,16 @@ function planAlong(
   // named separately below, because "the track did not exist, so there is nothing
   // to restore" is the wrong sentence when the problem is that we cannot CREATE
   // it again on the way forward.
-  const unrevertable = undo.filter(changedTheWorld).flatMap((n) => [...n.take.unrevertable]);
+  //
+  // An insert whose landing place nobody observed is already in `take.unrevertable`
+  // — the executor stamps it there when the receipt comes back — so it arrives
+  // here without this function knowing anything about mints.
+  const applied = undo.filter(changedTheWorld);
+  const whole = isWholeTake(slice);
+  const unrevertable = applied.flatMap((n) => [
+    ...n.take.unrevertable,
+    ...(whole ? [] : slicedInserts(n)),
+  ]);
   for (const node of redo) {
     for (const op of node.take.unrevertable) {
       blocked.push({
@@ -296,6 +342,16 @@ function planAlong(
       missing: [],
       unreachable,
     },
+    // ⚠ One entry PER TAKE, never flattened: `minted` is indexed by op index
+    // within its own batch, so merging them would make op 0 ambiguous and the
+    // resulting delete would take a device nobody addressed. Kept apart, a walk
+    // undoes inserts for the same reason a single-take undo does, and
+    // `deviceRemovals` orders the whole set descending — the hazard is the
+    // chain's shape (E3), not which take caused it.
+    //
+    // Omitted entirely for a SLICED revert: an insert has no address, so no slice
+    // can select it, and `slicedInserts` says so instead.
+    ...(whole ? { batches: applied.map((n) => ({ ops: n.take.ops, minted: n.take.receipt.minted })) } : {}),
   };
 
   return {

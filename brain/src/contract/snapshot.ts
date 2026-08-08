@@ -36,16 +36,35 @@ export interface RevisionMark {
  *
  *   exact — round-trips losslessly; a revert fully restores it.
  *   lossy — restorable, but at least one property has an unverified round-trip
- *           (today: note `gain`, E2) or the address is positional and a
- *           structural op could have moved it.
- *   none  — captured for the record, not restorable (structural creates have no
- *           readback that could reproduce them).
+ *           (today: note `gain`, E2), or the address is positional and a
+ *           structural op could have moved it, or the value carries less than the
+ *           object does (a clip is rebuilt from its length and notes, and its
+ *           name, colour and automation lanes are not in the snapshot at all).
+ *   none  — captured for the record, not restorable (a deleted track: a recreated
+ *           one mints a fresh `channelId`, so no stash can be replayed onto it).
+ *
+ * ⚠ This is the input to the fidelity floor (`engine/floor.ts`): anything worse
+ * than `exact` REFUSES to run unless the caller cleared it. An adapter that
+ * over-labels here does not merely mislead a report — it opens a safety gate.
  */
 export type Fidelity = 'exact' | 'lossy' | 'none';
 
 export type StateValue =
   | { readonly of: 'notes'; readonly notes: readonly NoteRecord[] }
   | { readonly of: 'track'; readonly track: TrackState }
+  /**
+   * ⚠ `lengthBeats` is LOAD-BEARING, and was not always treated as such. It is
+   * what lets a revert rebuild a clip the batch removed (D16 amendment 1); an
+   * entry that says `exists: true` without one cannot be rebuilt at all, and
+   * `revertOps` reports that rather than picking a length. It stays OPTIONAL
+   * because the live adapter reads it from `Clip.getLoopLength()` and will not
+   * invent a number when that does not read back — the honest shape of "we did
+   * not capture it".
+   *
+   * ⚠ It was declared, populated by the fake, and ignored by the live adapter for
+   * a whole phase — PHASE-0 §Risks' named failure mode, invisible because nothing
+   * read the field. Both adapters populate it now and `C-clip` asserts it on both.
+   */
   | { readonly of: 'clip'; readonly exists: boolean; readonly lengthBeats?: number }
   | { readonly of: 'device'; readonly device: DeviceState }
   | { readonly of: 'param'; readonly param: ParamState };
@@ -102,8 +121,13 @@ export interface BatchReceipt {
   readonly stages: readonly StageReceipt[];
   /**
    * Identity minted by this batch: op index -> the address it produced.
-   * `track.create` is the only op that mints, and E2c proved you must create,
-   * diff the bank by channelId and verify — never assume a requested position.
+   *
+   * E2c proved the discipline on `track.create`: create, diff the bank by
+   * channelId, verify — never assume a requested position. ⚠ `device.insert`
+   * mints too (D16 amendment 2), and for a sharper reason: the chain index it
+   * reports is what a revert DELETES, so an index that was counted rather than
+   * observed would remove a device nobody addressed. An adapter that cannot see
+   * where the device landed reports no mint, and the revert says so.
    */
   readonly minted: Readonly<Record<number, Address>>;
   readonly at: RevisionMark;
