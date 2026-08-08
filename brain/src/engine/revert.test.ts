@@ -180,9 +180,9 @@ test('R-clip: a clip whose LENGTH was never captured is reported, not rebuilt at
   // so nothing about this address survives. `labelTarget` derives that once, on
   // this side, and takes the worst.
   //
-  // It is load-bearing downstream: `TakeStore.summarize` lists exactly the
+  // It is load-bearing downstream: the stash's `summarize` lists exactly the
   // `none` values as `unrestorable`, so a `lossy` here would drop the clip out
-  // of the take listing and surface the loss only mid-revert.
+  // of the changeset listing and surface the loss only mid-reversal.
   const clipTarget = targets.find((t) => t.address.kind === 'clip')!;
   const label = labelTarget(clipTarget, stash, { scenes: false, deviceChains: false });
   assert.equal(label.fidelity, 'none');

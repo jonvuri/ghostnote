@@ -519,8 +519,8 @@ export function runConformance(h: AdapterHarness): void {
 
         // Reverted NEWEST FIRST, because a chain re-indexes on delete (E3) —
         // which is exactly the order `revertOps` emits for a multi-insert batch.
-        await executor.revert(second);
-        await executor.revert(first);
+        await executor.revertUnchecked(second);
+        await executor.revertUnchecked(first);
 
         // ⚠ And this is how we know both deletes actually landed, using nothing
         // but contract surface: there is no device READBACK in v0, so the chain's
@@ -528,7 +528,7 @@ export function runConformance(h: AdapterHarness): void {
         const again = await executor.run([{ op: 'device.insert', track: trackA, source }]);
         assert.equal(chainIndexOf(again.receipt), firstIndex,
           'the chain is back to the length it started at, so the reverts removed what they claimed');
-        await executor.revert(again);
+        await executor.revertUnchecked(again);
       } finally {
         // ⚠ LIVE RESIDUE, stated rather than guessed at: a case that fails
         // between an insert and its revert leaves that device in the fixture
@@ -692,7 +692,7 @@ export function runConformance(h: AdapterHarness): void {
       ]);
       assert.deepEqual((await readNotes(adapter, address)).map((n) => n.pitch), [72]);
 
-      const reverted = await executor.revert(take);
+      const reverted = await executor.revertUnchecked(take);
       assert.deepEqual(reverted.unrestored, [], 'nothing here is unverified or unwritable');
       assert.deepEqual(await readNotes(adapter, address), baseline);
     });
@@ -739,7 +739,7 @@ export function runConformance(h: AdapterHarness): void {
       ]);
       assert.equal(take.values.length, 2, 'both clips are in the write-set');
 
-      await executor.revert(take);
+      await executor.revertUnchecked(take);
       assert.equal((await readNotes(adapter, notesAt(clipA)))[0]?.pan, -0.25,
         'clip A must get its expression back');
       assert.equal((await readNotes(adapter, notesAt(clipB)))[0]?.pan, 0.5,
@@ -766,7 +766,7 @@ export function runConformance(h: AdapterHarness): void {
       assert.equal(take.fidelity, 'lossy');
       assert.match(take.values[0]!.caveats.join(' '), /gain: reads back/);
 
-      const reverted = await executor.revert(take);
+      const reverted = await executor.revertUnchecked(take);
       // Replaying 1.4 would write 1.4 and read back 2.8, compounding on every
       // revert. Withheld and named — the bounded failure, not the unbounded one.
       assert.deepEqual(reverted.unrestored.map((u) => u.what), ['gain']);

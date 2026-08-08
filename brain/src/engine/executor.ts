@@ -18,8 +18,8 @@
  * The contract already had the four primitives (`adapter.ts:52-93`) and its own
  * header already spelled the pipeline out; nothing called them in sequence. This
  * is that sequence, and it is the component every later session composes: the
- * take store (session 2) persists what this produces, the daemon (session 3)
- * hosts it, the control layer (session 4) triggers its revert.
+ * stash (session 2) records what this produces, the MCP server (session 3) hosts
+ * it, the control layer (session 4) triggers its reversal.
  *
  * ⚠ **NO MODULE-LEVEL MUTABLE STATE.** PHASE-1-SESSION-1 §Risks names the
  * failure precisely: the daemon will host one engine per bridge connection and
@@ -148,8 +148,8 @@ export class Executor {
     // The device is really in the chain, so that claim is false.
     //
     // Adding it to `unrevertable` is the same channel `track.create` has always
-    // used, which is what makes it reach the store's walk (`store/graph.ts`) and
-    // the plan's `unrestored` without either of them learning a new concept.
+    // used, which is what makes it reach the stash's `planReversal` and the
+    // plan's `unrestored` without either of them learning a new concept.
     const unobserved = unobservedInserts(ops, receipt.minted);
 
     // ⚠ E3, turned on the batch that caused it. A patch containing a scene
@@ -180,14 +180,40 @@ export class Executor {
   }
 
   /**
-   * Revert a take, and record the revert as a take of its own.
+   * ⚠⚠ **Put a take back WITHOUT checking what the world looks like now.** Not
+   * the reversal verb — `Stash.planReversal` is. Read the name before reaching
+   * for this.
    *
-   * That last part is not bookkeeping — it is what makes branching free in
-   * session 2 (D5: "reverting to an earlier take and proceeding does not destroy
-   * the branch you left"). The revert's own stash is the state it replaced, so
-   * "undo the undo" is just another revert.
+   * D19 bounds reversal to what the agent *"did itself mint-and-last-write"*, and
+   * this method cannot evaluate the second half: it materialises ops from the
+   * take's own stash and applies them. If a human edited any of those addresses
+   * in the meantime, the `note.clear` that must precede every note restore
+   * (`revert.ts`) takes their edit with it — silently, because a stash from
+   * before their edit has no way to know about it.
+   *
+   * ⚠ **It was called `revert`, and the rename is the fix.** *"Structurally
+   * bounded"* is D19's own word, and a comment saying "prefer the other route" is
+   * not structural — the obvious call is the unsafe one, and session 3's wiring
+   * would have reached for it by muscle memory. Now the obvious call does not
+   * compile, and `executor.test.ts`'s `X-ban` keeps it that way. Same idiom as
+   * `WIRE_METHODS_BANNED` and `STASH_MUTATORS`: the ban is reviewable rather than
+   * merely stated.
+   *
+   * ⚠ It is kept rather than deleted because the CONTRACT conformance suite is a
+   * legitimate caller: it reverts its own writes on a fixture nobody else can
+   * touch, to prove adapter behaviour. Making it hold a session `Stash` would
+   * invert the layering — the suite tests the adapter contract, not session 2's
+   * policy. The coarse bound is all it needs, and even that is a convention here
+   * rather than a guarantee: `Take` is an interface, so a hand-built literal
+   * passes. One more reason this is not the route a tool surface uses.
+   *
+   * The revert is recorded as a take of its own, and that part is not
+   * bookkeeping: its stash is the state it replaced, so "undo the undo" is just
+   * another revert — and a reversal that left no record would be a write this
+   * session could not put back, which is the one thing every write here is
+   * supposed to be.
    */
-  async revert(take: Take): Promise<RevertResult> {
+  async revertUnchecked(take: Take): Promise<RevertResult> {
     const plan = revertOps(take);
     // ⚠ D19/D20: putting our own changeset back rides the ordinary write surface
     // and is not gated. It has to be — the floor grades the state a batch is

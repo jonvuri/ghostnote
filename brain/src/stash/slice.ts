@@ -2,6 +2,11 @@
  * Partial revert, sliced by musical address — D5's "keep the hats, revert the
  * snare".
  *
+ * ⚠ **KEPT when the take store was retired** (D17 rev, §d): partial revert by
+ * address is not a store feature, it is a stash feature. Branching yields one
+ * winner per track, and D5's motivating case — *"that take had a better
+ * hi-hat"* — is WITHIN a track, so no amount of track-level branching reaches it.
+ *
  * The whole feature is a filter, and that is the point. `addressKey`
  * ([address.ts:118](../contract/address.ts)) was built "for write-set diffing and
  * partial-revert slicing"; session 1's `revertOps` takes `{targets, unrevertable,
@@ -20,8 +25,14 @@
  * Whole-address slicing has no such problem, because the stash is already the
  * whole clip channel (D16e).
  *
- * A slice is PLAIN DATA on purpose: Phase 3's partial-revert UI has to send one
- * over the daemon's API, and a predicate cannot cross a wire.
+ * ⚠ D20 re-confirms that refusal and says why it is different in kind from the
+ * rest of the destruction posture: *"authorization changes 'may we', never 'how'
+ * — mechanical walls do not move for permission."* A directed, approved,
+ * explicitly-requested time-sliced revert is still refused, because what stops it
+ * is E8-E and not a privilege.
+ *
+ * A slice is PLAIN DATA on purpose: it crosses the MCP tool surface as an
+ * argument, and a predicate cannot cross a wire.
  */
 import { addressKey, addressScene, addressTrack, type Address, type AddressKey, type ClipAddress, type TrackAddress } from '../contract/index.js';
 import { EmptySliceError } from './errors.js';

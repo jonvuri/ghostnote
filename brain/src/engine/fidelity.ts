@@ -143,10 +143,10 @@ export function labelTarget(target: WriteTarget, stash: Snapshot, risk: Structur
  * consequence once, on this side, is why the rule cannot drift between them; it
  * is the same reason the label is computed rather than attached (D5).
  *
- * ⚠ It is not cosmetic. `TakeStore.summarize` lists exactly the `none` values as
- * `unrestorable`, so a clip labelled `lossy` here would drop out of the take
- * listing and the loss would surface only in the middle of a revert — which is
- * the "never silently under-delivers" half of D5 failing.
+ * ⚠ It is not cosmetic. The stash's `summarize` lists exactly the `none` values
+ * as `unrestorable`, so a clip labelled `lossy` here would drop out of the
+ * changeset listing and the loss would surface only in the middle of a reversal
+ * — which is the "never silently under-delivers" half of D5 failing.
  */
 function restorability(value: StateValue): Fidelity {
   if (value.of === 'clip' && value.exists && value.lengthBeats === undefined) return 'none';

@@ -3,9 +3,10 @@
  *
  * Deliberately not a module with state and deliberately not a process. The
  * daemon (session 3) will host one `Executor` per bridge connection and may
- * re-create it when Bitwig restarts; the take store (session 2) persists what
- * this produces; the control layer (session 4) triggers its revert. All three
- * compose a value, which is only possible because nothing here is global.
+ * re-create it when Bitwig restarts; the stash (session 2) records what this
+ * produces and bounds what may be reversed from it (D19); the control layer
+ * (session 4) triggers that reversal. All three compose a value, which is only
+ * possible because nothing here is global.
  */
 export { Executor, disagreementsOf } from './executor.js';
 export type { ExecutorOptions, RevertResult, RunOptions } from './executor.js';

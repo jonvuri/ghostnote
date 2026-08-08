@@ -2,10 +2,14 @@
  * A take — what one batch produced, as a value.
  *
  * D5: "a batch creates a named, addressable take that can be compared, jumped
- * between and partially reverted." Session 1 owes the VALUE; session 2 gives it
- * a durable, branchable home. Everything a take needs to be persisted, diffed
- * (§8f) or partially reverted is in here already, which is deliberate — the
- * store should be a serializer, not a second model.
+ * between and partially reverted." Session 1 owes the VALUE; session 2 keeps it
+ * in the session's stash, where it is the "before" every reversal replays and
+ * the fingerprint the boundary checks against (D19). Everything that needs is in
+ * here already, which is deliberate — the stash should be a RECORD, not a second
+ * model.
+ *
+ * ⚠ It used to say *"session 2 gives it a durable, branchable home."* There is
+ * no home: the store is retired and the PROJECT is the take log (D17 rev, D18).
  *
  * The three fields it is easy to get wrong, and why they are what they are:
  *

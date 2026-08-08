@@ -155,7 +155,7 @@ test('X-roundtrip: a batch applies, verifies by readback, and reverts BYTE-IDENT
   assert.equal(stashed.value?.of, 'notes');
   assert.deepEqual(stashed.value?.of === 'notes' ? stashed.value.notes : [], baseline);
 
-  const reverted = await executor.revert(take);
+  const reverted = await executor.revertUnchecked(take);
   assert.deepEqual(reverted.unrestored, [], 'nothing here is unverified or unwritable');
   assert.deepEqual(await readNotes(fake, address), baseline);
 });
@@ -169,12 +169,12 @@ test('X-roundtrip: a revert is a take of its own, so the branch it left is still
     { op: 'note.clear', clip: clipA },
     { op: 'note.write', clip: clipA, notes: [note({ pitch: 72 })] },
   ]);
-  const reverted = await executor.revert(take);
+  const reverted = await executor.revertUnchecked(take);
 
   assert.equal(reverted.of, take.id);
   assert.notEqual(reverted.take.id, take.id);
   // The revert's OWN stash is the state it replaced — which is what makes
-  // "undo the undo" just another revert, and branching free in session 2.
+  // "undo the undo" just another revert.
   const replaced = reverted.take.values[0]!;
   assert.deepEqual(
     replaced.value?.of === 'notes' ? replaced.value.notes.map((n) => n.pitch) : [],
@@ -262,7 +262,7 @@ test('X-emptyslot: ...but a clip.create in the SAME batch satisfies it (planStag
 
   // And the revert un-creates the clip, because "the slot was empty" is a state
   // with an exact inverse.
-  const reverted = await executor.revert(take);
+  const reverted = await executor.revertUnchecked(take);
   assert.deepEqual(reverted.plan.ops.map((o) => o.op), ['clip.delete']);
   const after = await fake.read([clip(target)]);
   const entry = after.entries[addressKey(clip(target))];
@@ -284,7 +284,7 @@ test('X-clip: a deleted clip comes BACK — at its captured length, carrying its
   assert.equal(take.report.applied, true);
   assert.deepEqual(await readNotes(fake, address), [], 'the clip really went');
 
-  const reverted = await executor.revert(take);
+  const reverted = await executor.revertUnchecked(take);
   // ⚠ The order is the correctness: create, THEN write. Replaying notes into a
   // slot with no clip lands the cursor on a different clip, silently (E2).
   assert.deepEqual(reverted.plan.ops.map((o) => o.op), ['clip.create', 'note.clear', 'note.write']);
@@ -312,7 +312,7 @@ test('X-device: an insert is undone at the chain index the RECEIPT minted (D16 r
   assert.deepEqual(take.receipt.minted[0], device(trackA, 0));
   assert.equal(control(fake).model.tracks[0]!.devices.length, 1);
 
-  const reverted = await executor.revert(take);
+  const reverted = await executor.revertUnchecked(take);
   assert.deepEqual(reverted.plan.ops, [{ op: 'device.delete', device: device(trackA, 0) }]);
   assert.deepEqual(reverted.unrestored, [], 'nothing is reported, because nothing was lost');
   assert.equal(control(fake).model.tracks[0]!.devices.length, 0, 'the chain is back where it was');
@@ -394,7 +394,7 @@ test('X-label: a human-authored pressure is captured, labelled, and reported unr
 
   // ⚠ The revert must NOT throw. A revert that fails because of a property the
   // USER authored is a worse failure than one that reports it.
-  const reverted = await executor.revert(take);
+  const reverted = await executor.revertUnchecked(take);
   assert.equal(reverted.take.report.applied, true);
   assert.deepEqual(reverted.unrestored.map((u) => u.what), ['pressure']);
   // Everything else came back.
@@ -517,7 +517,7 @@ test('X-floor: reverting our own changeset is NOT gated, or a lossy take could n
   // the floor would refuse it — and refusing a revert of our own take is the
   // deadlock version of the rule. D19/D20: own changesets ride the ordinary
   // surface ungated, and the fidelity machinery REPORTS instead.
-  const reverted = await executor.revert(take);
+  const reverted = await executor.revertUnchecked(take);
   assert.equal(reverted.take.report.applied, true);
   assert.deepEqual((await readNotes(fake, address)).map((n) => n.pan), [0.25]);
 });
@@ -551,4 +551,32 @@ test('X-floor: every op in the contract is classified against the damage-precede
     everyOp.length,
     'one of every variant, or this stops meaning "every op in the contract"',
   );
+});
+
+/**
+ * ⚠ D19's *"structurally bounded"*, made structural — the `WIRE_METHODS_BANNED`
+ * idiom aimed at the leak a reviewer found in this exact spot.
+ *
+ * `revertUnchecked` cannot evaluate the half of D19 that needs a read of the
+ * world (*and last wrote it*), so the only safe route is `Stash.planReversal`.
+ * That was true before this test existed too — it was just written in a comment,
+ * and the obvious call was still the unsafe one. A convenience alias re-added for
+ * ergonomics is the way this regresses, so the name is banned rather than merely
+ * unused.
+ */
+test('X-ban: `revert` is not on the Executor — the bounded route is the stash\'s', () => {
+  const executor = new Executor(new FakeAdapter({ tracks: ['gn-A'], scenes: 4 }));
+  for (const name of ['revert', 'revertTake', 'undo']) {
+    assert.equal(
+      name in (executor as object),
+      false,
+      `Executor.${name} would be the obvious call and the unbounded one. D19 bounds reversal to ` +
+        'what we ourselves last wrote, which needs a live read compared against the stash — ' +
+        '`Stash.planReversal`. Keep the unbounded primitive named `revertUnchecked`.',
+    );
+  }
+  // ⚠ Proves the check is not vacuous: `in` really does see a prototype method on
+  // this object, so the falses above mean "absent" and not "wrong operator".
+  assert.equal('revertUnchecked' in (executor as object), true);
+  assert.equal(typeof executor.revertUnchecked, 'function', 'and the honest name is still there');
 });

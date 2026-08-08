@@ -10,7 +10,26 @@ status: DONE 2026-07-26 — all six exit criteria met offline; decisions recorde
         stash — for unforked writes, for changes that are not track-scoped, and as
         the clip fingerprint. ⚠ Do not build on this document. See
         ../spike/HANDOFF-E16-TRACK-NATIVE.md §2 for the retirement table.
-updated: 2026-07-30
+        ⚠⚠ RETIREMENT EXECUTED IN CODE 2026-08-08, per E16-REPLAN §2's disposition
+        table under D17 rev / D19 / D20. `brain/src/store/` IS GONE; the module is
+        **`brain/src/stash/`** (`stash.ts`, `record.ts`, `slice.ts`, `errors.ts`),
+        1,718 lines of non-test store → 1,029 of stash, and the drop understates
+        it: the new module is ~40% NEW code (the boundary) on top of the cut.
+        Deleted: `graph.ts`,
+        `project.ts`, `project.test.ts`, and with them the head, the path walk,
+        `planTo`, `diffBetween`, the on-disk format and retention. Kept: `slice.ts`
+        verbatim (D17d) and the read/write type split (D17g, `surface.test.ts`).
+        NEW, and the part this document has nothing to say about: **the boundary**
+        (D19) — reversal is bounded to the session's own changesets and to what we
+        ourselves LAST WROTE, checked against a live read, withholding and
+        reporting past that line through the existing fidelity channel. The same
+        check is the clip content fingerprint, in an address-keyed form
+        (`fingerprint`) a write path can actually call. 30 tests, `B-*` and `S-*`.
+        ⚠ REVIEW FOLLOW-UP, same day: `Executor.revert` → `revertUnchecked` with a
+        `WIRE_METHODS_BANNED`-style ban test, because a documented seam is not a
+        structural bound. The fingerprint is built but UNWIRED — session 3's join.
+        ⚠ Phase 3's diff went with `graph.ts` — see §Owed below.
+updated: 2026-08-08
 parent: PHASE-1-ENGINE.md
 prev: PHASE-1-SESSION-1-EXECUTOR.md
 next: PHASE-1-SESSION-3-DAEMON.md
@@ -272,3 +291,42 @@ should carry forward either way:
 - **No cross-project migration**, permanently, unless something asks.
 - **The whole store loads into memory on open.** Honest at depth 200 for a
   personal tool; the ceiling is stated rather than engineered around.
+
+## ⚠ Owed, after the 2026-08-08 retirement
+
+Two things left the module with `graph.ts` and are recorded here rather than
+rediscovered:
+
+- **Phase 3's before/after diff.** `diffBetween` was the graph's second verb —
+  §8f's *"one mechanism, two features"*. It is gone, and it is NOT a loss of
+  capability: every changeset still carries its own `stash` and `verify`, and the
+  structural comparison survives as `sameValue` in `stash/record.ts`. What is gone
+  is diffing ACROSS takes, which needed a path walk between two nodes of a graph
+  that no longer exists. Under D18 the analogous question is answered by the
+  project — two branches are two real structures — so Phase 3 should re-derive
+  what it wants rather than reinstating the walk.
+- ⚠ ~~**`Executor.revert` is the unbounded route**, documented as owed debt.~~
+  **CLOSED 2026-08-08, on review.** Documenting it was not enough: D19's word is
+  *"structurally bounded"*, and while the coarse bound was described as
+  structural it was only a convention — `Take` is an interface, so a hand-built
+  literal passes, and more to the point the obvious call was still the unsafe
+  one. The method is now **`Executor.revertUnchecked`**, and `X-ban` in
+  `executor.test.ts` asserts no `revert`/`revertTake`/`undo` exists on the
+  Executor, so a convenience alias re-added for ergonomics fails the build. It is
+  kept rather than deleted because the **contract conformance suite** is a
+  legitimate caller — it reverts its own writes on a fixture nobody else can
+  touch, and making it hold a session `Stash` would invert the layering.
+- ⚠ **The fingerprint is BUILT but NOT WIRED, and that is session 3's join.**
+  `Stash.fingerprint(addresses, current)` answers the pre-write question — *is
+  this positional clip address still holding what we last left in it* — but no
+  write path consults it, because `Executor` is deliberately history-free
+  (PHASE-1-SESSION-1 §Risks: no module-level mutable state) and so cannot hold a
+  stash. **Whoever holds both the `Stash` and the `Executor` does the check**,
+  which is the MCP server. Two things to carry:
+  - `unseen` is **not a pass**. The stash can only vouch for addresses it wrote,
+    and a first write to a clip has no record at all. The **launcher-content
+    epoch** (session 3, in the extension) is what covers that case, and E16s is
+    why it has to be a separate live mechanism rather than this one.
+  - The address-keyed form exists *because* the changeset-keyed one could not
+    answer it. Shipping only `boundary(id, current)` would have left session 3
+    hand-rolling the last-writer lookup — found in review, before it was.
