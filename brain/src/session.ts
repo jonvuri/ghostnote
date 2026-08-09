@@ -42,9 +42,11 @@
 import { LiveAdapter } from './adapters/live/adapter.js';
 import { BridgeTransport } from './adapters/live/transport.js';
 import { BridgeClient, type BridgeLike } from './client.js';
+import { compareDeployment, deployedAtMs, StaleExtensionError } from './deploy.js';
 import { Executor } from './engine/index.js';
 import { Stash } from './stash/index.js';
 import type { AdapterInfo, RevisionMark } from './contract/index.js';
+import { WIRE } from './adapters/live/wiremap.js';
 
 export interface SessionOptions {
   /**
@@ -58,6 +60,12 @@ export interface SessionOptions {
   readonly expectMethodsHash?: string;
   /** Substituted in tests; see `BridgeLike`. Defaults to a real TCP client. */
   readonly client?: BridgeLike;
+  /**
+   * When the deployed extension was last written, for the staleness check
+   * (`deploy.ts`). Injected so the check is testable without a filesystem;
+   * defaults to stat-ing the deployed jar. Return `undefined` to skip it.
+   */
+  readonly deployedAt?: () => number | undefined;
 }
 
 /** What a reconnect found on the other end. */
@@ -131,6 +139,13 @@ export class Session {
     }
     if (this.info === undefined) {
       this.info = await this.adapter.hello();
+      // ⚠ Right after the handshake, because it closes the handshake's own blind
+      // spot: `methodsHash` compares method NAMES, so a change that only adds
+      // fields to an existing reply passes it green against a build Bitwig never
+      // loaded. Refused rather than warned, for the same reason a contract
+      // mismatch is: an extension that limps along on the wrong build produces
+      // confusing wrong answers rather than an error.
+      await this.assertFreshBuild();
     }
 
     const mark = await this.adapter.revision();
@@ -167,6 +182,23 @@ export class Session {
     this.executorCache = new Executor(this.adapter);
     this.info = undefined;
   }
+
+  /**
+   * ⚠ Re-checked on every reconnect, not once. Redeploying mid-session is the
+   * ordinary development case and is exactly when a stale instance appears.
+   */
+  private async assertFreshBuild(): Promise<void> {
+    const stats = (await this.client.request(WIRE.rigStats)) as { initEpochMs?: number };
+    const deployment = compareDeployment(
+      (this.options.deployedAt ?? deployedAtMs)(),
+      stats.initEpochMs ?? -1,
+    );
+    if (deployment.state === 'stale') throw new StaleExtensionError(deployment);
+    this.deploymentState = deployment;
+  }
+
+  /** What the last freshness check concluded, for a caller that wants to report it. */
+  deploymentState: ReturnType<typeof compareDeployment> | undefined;
 
   get bitwig(): LiveAdapter {
     return this.adapter;

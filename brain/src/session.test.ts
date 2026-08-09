@@ -16,6 +16,7 @@ import assert from 'node:assert/strict';
 import { WIRE } from './adapters/live/wiremap.js';
 import type { BridgeLike } from './client.js';
 import { CONTRACT_VERSION, ContractVersionError } from './contract/index.js';
+import { StaleExtensionError } from './deploy.js';
 import { Session } from './session.js';
 
 /**
@@ -45,8 +46,13 @@ class StubBridge implements BridgeLike {
     this.generation = generation;
   }
 
+  /** When the extension says it started. Older than `deployedAt` means stale. */
+  initEpochMs = 2_000;
+
   async request(method: string): Promise<unknown> {
     switch (method) {
+      case WIRE.rigStats:
+        return { initEpochMs: this.initEpochMs };
       case WIRE.hello:
         this.hellos++;
         return {
@@ -79,9 +85,55 @@ class StubBridge implements BridgeLike {
   }
 }
 
+/**
+ * A session on a stub bridge, with the deploy check neutralised by default.
+ *
+ * ⚠ Explicit rather than absent. Without it these tests stat the REAL deployed
+ * jar, so whether they pass depends on when someone last ran `copyExtension` —
+ * a suite that fails on a machine because of a file mtime is a suite people
+ * learn to ignore. The staleness cases below set it deliberately.
+ */
+const sessionOn = (bridge: StubBridge, deployedAt: () => number | undefined = () => 0): Session =>
+  new Session({ client: bridge, deployedAt });
+
+test('N-stale: a build newer than the running extension is REFUSED, not warned', async () => {
+  const bridge = new StubBridge();
+  bridge.initEpochMs = 1_000;
+  // ⚠ The handshake passes — same contract version, same method table — which is
+  // the whole point: `methodsHash` is over method NAMES, so a change that only
+  // adds fields to a reply is invisible to it. This is the check that is not.
+  const session = sessionOn(bridge, () => 5_000);
+
+  await assert.rejects(() => session.ready(), StaleExtensionError);
+  assert.equal(bridge.hellos, 1, 'the handshake itself succeeded');
+});
+
+test('N-stale: a redeploy MID-SESSION is caught on the next reconnect', async () => {
+  const bridge = new StubBridge();
+  bridge.initEpochMs = 5_000;
+  let deployed = 1_000;
+  const session = sessionOn(bridge, () => deployed);
+  await session.ready();
+
+  // Rebuilt and redeployed while the session was live — the ordinary development
+  // case, and exactly when a stale instance appears. A check that ran only at
+  // startup would sail straight past it.
+  deployed = 9_000;
+  bridge.disconnect();
+
+  await assert.rejects(() => session.ready(), StaleExtensionError);
+});
+
+test('N-stale: a missing deploy tree blocks nothing', async () => {
+  const bridge = new StubBridge();
+  const session = sessionOn(bridge, () => undefined);
+  await session.ready();
+  assert.equal(session.deploymentState?.state, 'unknown');
+});
+
 test('N-lazy: constructing a session does not connect — Bitwig may not be running yet', () => {
   const bridge = new StubBridge();
-  const session = new Session({ client: bridge });
+  const session = sessionOn(bridge);
   // An MCP server starts as a subprocess of a chat client, before anyone has
   // opened the DAW. A constructor that connected would turn "not launched yet"
   // into a startup failure the user never sees.
@@ -91,7 +143,7 @@ test('N-lazy: constructing a session does not connect — Bitwig may not be runn
 
 test('N-handshake: the first use connects and handshakes exactly once', async () => {
   const bridge = new StubBridge();
-  const session = new Session({ client: bridge });
+  const session = sessionOn(bridge);
 
   await session.ready();
   await session.ready();
@@ -104,7 +156,7 @@ test('N-handshake: the first use connects and handshakes exactly once', async ()
 
 test('N-restart: a reconnect onto a DIFFERENT life of the extension is reported', async () => {
   const bridge = new StubBridge();
-  const session = new Session({ client: bridge });
+  const session = sessionOn(bridge);
 
   const first = await session.ready();
   assert.equal(first.restarted, false, 'the first connection has nothing to differ from');
@@ -126,7 +178,7 @@ test('N-restart: a reconnect onto a DIFFERENT life of the extension is reported'
 
 test('N-restart: a reconnect onto the SAME life keeps the adapter', async () => {
   const bridge = new StubBridge();
-  const session = new Session({ client: bridge });
+  const session = sessionOn(bridge);
   await session.ready();
   const before = session.bitwig;
 
@@ -143,14 +195,14 @@ test('N-restart: a reconnect onto the SAME life keeps the adapter', async () => 
 test('N-version: a contract mismatch REFUSES rather than limping', async () => {
   const bridge = new StubBridge();
   bridge.contractVersion = CONTRACT_VERSION + 1;
-  const session = new Session({ client: bridge });
+  const session = sessionOn(bridge);
 
   await assert.rejects(() => session.ready(), ContractVersionError);
 });
 
 test('N-version: the mismatch is caught again after a reconnect, not only the first time', async () => {
   const bridge = new StubBridge();
-  const session = new Session({ client: bridge });
+  const session = sessionOn(bridge);
   await session.ready();
 
   // A redeploy mid-session is the ordinary development case, and it is the one
@@ -163,7 +215,7 @@ test('N-version: the mismatch is caught again after a reconnect, not only the fi
 
 test('N-project: a project change rebuilds the adapter even though nothing restarted', async () => {
   const bridge = new StubBridge();
-  const session = new Session({ client: bridge });
+  const session = sessionOn(bridge);
   await session.ready();
   const before = session.bitwig;
 
@@ -185,7 +237,7 @@ test('N-project: a project change rebuilds the adapter even though nothing resta
 
 test('N-stash: the stash SURVIVES a restart — it records what we did, not where things are', async () => {
   const bridge = new StubBridge();
-  const session = new Session({ client: bridge });
+  const session = sessionOn(bridge);
   await session.ready();
   const stash = session.stash;
 

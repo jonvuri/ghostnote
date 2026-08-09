@@ -24,6 +24,16 @@ export const WIRE = {
   hostInfo: 'host.info',
   rigInfo: 'rig.info',
   rigMethods: 'rig.methods',
+  /**
+   * ⚠ Reached for ONE field: `initEpochMs`, when the running extension started.
+   *
+   * That is what `deploy.ts` compares against the deployed jar's mtime to answer
+   * *"is Bitwig running the build that is on disk?"* — the question
+   * `contract.hello` cannot answer, because `methodsHash` is over method NAMES
+   * and a change that only adds fields to a reply leaves it identical. The rest
+   * of this method is E5 scale instrumentation the contract does not use.
+   */
+  rigStats: 'rig.stats',
   scanTracks: 'rig.scanTracks',
 
   trackList: 'track.list',

@@ -15,6 +15,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { compareDeployment, deployedAtMs } from '../deploy.js';
 import { client, check, note, failureCount } from './lib.js';
 
 const golden = JSON.parse(
@@ -59,6 +60,27 @@ note(`track.list -> count=${tracks.count} itemCount=${tracks.itemCount} bankSize
 check('track.list reports itemCount (trackBank.itemCount() marked without throwing)',
   tracks.itemCount !== undefined, tracks);
 check('track.list reports bankSize', tracks.bankSize !== undefined, tracks);
+
+// ⚠⚠ E. IS BITWIG RUNNING THE BUILD THAT IS ON DISK?
+//
+// Last, and the most important check in this file, because it is the one whose
+// ABSENCE cost a whole cycle: everything above passed green against a jar Bitwig
+// had never loaded. `methodsHash` compares method NAMES, so a change that only
+// adds fields to an existing reply leaves the whole table identical — and every
+// field session 3 added was exactly that shape.
+//
+// ⚠ It is a CHECK and not a note, deliberately. A warning printed among passes
+// is what "all green" already was; this has to be able to fail the run, or the
+// next person trusts `ALL PASS` the way I did.
+console.log('\n-- E. the running extension is the deployed one (deploy.ts)');
+const stats = (await client.request('rig.stats')) as { initEpochMs?: number };
+const deployment = compareDeployment(deployedAtMs(), stats.initEpochMs ?? -1);
+note(deployment.detail);
+check('the running extension is not older than the deployed file',
+  deployment.state !== 'stale', deployment);
+if (deployment.state === 'unknown') {
+  note('⚠ UNCHECKED — see above. Absence of the file is not evidence of freshness.');
+}
 
 client.disconnect();
 console.log(`\n${failureCount() === 0 ? 'ALL PASS' : `${failureCount()} FAILURE(S)`}`);

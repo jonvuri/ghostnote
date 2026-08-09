@@ -370,7 +370,7 @@ structurally could not reach.
    drift. The new test mints at a NON-resting epoch deliberately — at the resting
    value it would pass by coincidence and prove nothing.
 
-#### ⚠⚠ NEW, owed — `contract.hello` cannot detect a stale extension
+#### ● CLOSED — `contract.hello` cannot detect a stale extension
 
 Found the expensive way: the first PART A run after deploying failed `E19-A11a/b`
 against a jar Bitwig had not picked up, and **`probe:hello` had passed immediately
@@ -382,16 +382,45 @@ handshake, so any change that adds fields to an existing method's reply passes a
 stale check. The accidental tell was the generation nonce reading byte-identical
 to the previous run; nothing was designed to catch it.
 
-⇒ **Owed: a build stamp in `contract.hello`** (jar mtime, or a gradle-injected
-build id) so `Session.ready()` refuses a build the brain was not compiled against,
-exactly as it already refuses a contract-version mismatch. Small, and it belongs
-beside the handshake rather than in 3‴.
+⇒ ● **CLOSED 2026-08-08 — `brain/src/deploy.ts`.**
 
-⚠ **Also owed, documentation-level:** a deploy is NOT a reload. `copyExtension`
-lands the file and the controller must be reloaded by hand (Settings →
-Controllers). `build.gradle`'s comment says Bitwig hot-reloads on the atomic
-rename; it did not, and `ContractVersionError`'s own message already says to
-reload by hand. One of the two is wrong and it is the comment.
+⚠⚠ **The obvious fix was rejected.** A build id stamped into the jar and compared
+against a checked-in golden has the flaw that kills this class of guard: it needs
+the golden regenerated on every extension change, so the routine action becomes
+*"the check is noisy, regenerate it"* — and a check people routinely silence is
+not a check. It also only ever detects what someone remembered to stamp.
+
+**What was built asks a question needing no maintenance at all:**
+
+> *was the deployed file written AFTER the running extension started?*
+
+If it was, the running instance predates the file and cannot be it — true
+regardless of what changed, so it generalises past the bug that motivated it.
+⚠ `initEpochMs` was **already on the wire** (`rig.stats`, E5's init-cost
+measurement), so the extension needed **no change whatsoever**.
+
+- `Session.ready()` **refuses** with `StaleExtensionError`, for the same reason a
+  contract mismatch does, and re-checks on every reconnect — a redeploy
+  mid-session is the ordinary development case and precisely when a stale
+  instance appears.
+- `probe:hello` gained it as a **check that can fail the run**, not a note. A
+  warning printed among passes is what `ALL PASS` already was.
+- ⚠ Absence degrades to `unknown` and blocks nothing (D12's loopback posture); the
+  `-1` sentinel is `unknown`, never a timestamp.
+- ⚠ Not a content check: touching the file reads as stale. Accepted — the remedy
+  is one reload, and hashing a zip per handshake buys precision nobody needs for
+  a failure whose real cause is always *"I forgot to reload"*.
+
+⚠ **Verified in both directions** (E17 method guard 10): fresh against the live
+extension, then the jar's mtime pushed forward to reproduce the FAILURE — it
+failed loudly, named the manual reload, and said why the handshake had missed it —
+then the mtime restored. A guard only ever shown saying yes is not a guard.
+Offline: `D-*` ×5 (pure arithmetic, filesystem injected) and `N-stale` ×3.
+
+⚠ **Also owed, documentation-level, NOT done:** `build.gradle`'s comment says
+Bitwig hot-reloads on the atomic rename. It did not, and
+`ContractVersionError`'s message already says to reload by hand. One of the two
+is wrong and it is the comment.
 
 #### ⚠ PROPOSED — a session 3‴, *the window*
 
