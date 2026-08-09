@@ -1203,6 +1203,18 @@ One row per branch event:
 > looking. ⚠ Confirm both before anything writes a large record. `RigConfig`'s
 > default stays `0`, which is a safety default and is documented as one.
 >
+> ⚠⚠ **DONE, same day.** `UiPanel`'s constructor now hides the setting where it
+> creates it, so `init()` never re-arms the hazard on a restart. Both human
+> observations owed above are now in: confirmed by eye, after a hand reload with
+> `recordChars=262144`, that the "Branch record" row is absent from the panel and
+> that the pane stays responsive; `probe:e20d-hidden`'s H1/H2/H3 all PASS against
+> the init-time hide (full 262144 chars, 19 ms settle — `FINDINGS.md` E20d). ⚠ One
+> addition beyond what this decision specified: if the `Setting` downcast itself
+> is unavailable, the setting is now refused rather than created and left
+> unhideable — checked against `statusText` (already created) before
+> `getStringSetting` is ever called for the record, since a setting once created
+> cannot be un-created through this API.
+>
 > ⚠ **Rejected: a pointer or rolling window** with the log living elsewhere, and
 > **rejected: dropping the document setting as the record's home.** Both were live
 > options while capacity looked like the constraint; neither is needed once the

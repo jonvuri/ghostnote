@@ -137,6 +137,30 @@ call you make once — it has to be hidden *at init*, in `UiPanel`, or every res
 re-arms the hazard. That is a one-line change and a design decision (rule 10),
 not a probe.
 
+### ⚠⚠ RESOLVED 2026-08-09 — the hide moved to `init()`, and both human checks are in
+
+`UiPanel`'s constructor now hides the record setting the moment it creates it,
+never as a later runtime call — the change flagged as owed above. Live,
+`recordChars=262144`, controller reloaded by hand:
+
+- ● **`probe:e20d-hidden`, re-run against the init-time hide**: H1 (the downcast
+  works) and H2 (`hide()` accepted) both PASS as before, and H3 — a HIDDEN setting
+  holds its value byte for byte — PASSES at the full 262144 chars, settled in 19 ms.
+- ● **The two human checks this arm always asked for, and that were missing
+  before**: confirmed by eye, after the hand reload, that the "Branch record" row
+  is ABSENT from the panel and that the pane stays RESPONSIVE (opened, closed,
+  hovered the other rows). "Hidden means safe" is now confirmed by looking, not
+  inferred from the value surviving.
+- ⚠ **One case this finding did not anticipate, added during the fix**: what
+  happens when the `Setting` downcast itself fails? `UiPanel` now checks the cast
+  first — against `statusText`, already created above, before `getStringSetting`
+  is ever called for the record — and REFUSES to create the setting at all if the
+  cast does not hold. A setting already created cannot be hidden retroactively
+  (Bitwig's API has no "delete this setting" call), so the only response that
+  cannot ship a visible hazard is to never mint it.
+
+Implemented in `UiPanel.java`.
+
 ### ⚠ Two method findings, both from the same reflex
 
 1. ⚠⚠ **`ui.set` is ASYNCHRONOUS, and a one-shot readback faked a capacity
@@ -159,13 +183,12 @@ not a probe.
 
 ### Decision impact
 
-- ⚠⚠ **D18d cannot put a large record in a visible document setting.** Three
-  options, in the order the evidence supports them:
-  1. **hide the setting at `init()`** — pending `probe:e20d-hidden`; keeps the
-     record in the project document, which is what made `getDocumentState()`
-     attractive (per-project, survives restart, E14-A3/A4);
-  2. **a pointer or rolling window** in the setting, with the log living elsewhere;
-  3. drop the document setting as the record's home entirely.
+- ⚠⚠ **D18d cannot put a large record in a visible document setting.** ● **DONE
+  2026-08-09**: **the setting is hidden at `init()`**, keeping the record in the
+  project document — which is what made `getDocumentState()` attractive in the
+  first place (per-project, survives restart, E14-A3/A4). The other two options
+  considered (a pointer/rolling window living elsewhere, or dropping the document
+  setting as the record's home entirely) are no longer live.
 - **Storage capacity is closed as a question**: 256 KB stores, reloads and survives
   a restart exactly. It should never be quoted as the ceiling again without the
   interaction hazard attached to it.
