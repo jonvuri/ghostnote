@@ -3,12 +3,16 @@ title: Phase 1, session 3 — the bridge and the observers
 status: ● DONE 2026-08-08. ⚠⚠ RE-SCOPED — the daemon was DELETED (D4 rev) before
         this session ran. Read §Re-scope FIRST; the original text below is kept
         as the record and is STALE wherever it disagrees.
-        Filename keeps `-DAEMON` so the spike record's cross-references stay
-        valid — the same tombstone convention standing rule 7 got.
-updated: 2026-08-08
+        ⚠ RENAMED 2026-08-09, `-DAEMON` → `-BRIDGE`. This file previously kept
+        `-DAEMON` as a tombstone *"so the spike record's cross-references stay
+        valid"* — the standing-rule-7 convention. That rationale is DISCHARGED,
+        not overruled: the 2026-08-09 re-cut swept every reference to this file
+        and to the prime-suffixed sessions in one pass, so nothing dangles. ⚠ The
+        tombstone convention itself still stands for anything not swept.
+updated: 2026-08-09
 parent: PHASE-1-ENGINE.md
 prev: PHASE-1-SESSION-2-TAKES.md
-next: PHASE-1-SESSION-4-CONTROL-LAYER.md
+next: PHASE-1-SESSION-3B-PROBES.md
 scope: PHASE-1-ENGINE.md §Re-plan session 3
 evidence: E1, E3, E8, E9, E15-A, E16p, E16s · D4 rev, D6, D10, D12, D16, D19
 ---
@@ -105,7 +109,7 @@ reads as `events: []` if you only count.
 
 - **The MCP tool surface.** Still two tools. Versioned descriptions in fresh,
   jargon-free language and the annotated destructive surface are D18c/D20 work
-  and belong to the branch-mechanisms session (3″). Widening the surface here
+  and belong to the branch-mechanisms sessions (3d–3g). Widening the surface here
   would freeze a v0 vocabulary the moment before the vocabulary is designed.
 - **A daemon, a local HTTP/WebSocket API, single-instance enforcement, spawn-on-
   demand lifecycle.** All four are original-scope items with no object any more.
@@ -194,9 +198,13 @@ would have hidden inside this session's diff. `probe:e19` now checks the budget
 BEFORE creating and skips that arm with an explanatory failure.
 ### ⚠⚠ THE FULL CARRY-FORWARD — everything this session leaves behind, with a home
 
-> Written down at the operator's request so none of it is lost. **Homes marked
-> ⚠ PROPOSED are recommendations, not decisions** (rule 10): 3‴ does not exist
-> until the operator says it does.
+> Written down at the operator's request so none of it is lost. Homes were
+> originally marked ⚠ PROPOSED — recommendations, not decisions (rule 10).
+>
+> ⇒ ● **ACCEPTED 2026-08-09.** The operator took the proposal and re-cut the whole
+> session-3 family; `3‴` became **3c** and the tool-surface half of `3″` became
+> **3d**. Old labels are kept in the cells below so this table still reads against
+> the version that proposed them. See `PHASE-1-ENGINE.md` §The renumbering.
 
 #### From session 3's OWN original scope
 
@@ -224,12 +232,12 @@ so its privilege boundary needs designing rather than improvising.
 
 | # | item | home |
 |---|---|---|
-| **B1** | ⚠⚠ **Standing rule 5 is not implemented for SCENES** — a budget precondition on `scene.create`, a window guard on `scene.delete` (`encoder.ts` sends a project index as a bank index), and scenes counted into `Snapshot.unreachable`. Found by `probe:e19`; see §Owed above | ⚠ **PROPOSED: 3‴** |
-| **B2** | ⚠⚠ **The observers inherit the same blind spot, in BOTH dimensions.** By construction in `Rig.java`, `addHasContentObserver` is attached per bank row across `config.tracks`, on a slot bank sized by `config.scenes`. An edit on a track past the track window, or a scene row past the scene window, fires **nothing** — and `ContentDelta` reports it as a clean, complete, empty window. ⚠ This partly undercuts session 3's own claim: `deltaComplete` returns `true` for a case where the world moved unobserved. It is a **fourth** way a window can lie and, unlike the three that ARE modelled, it is not detectable from the delta | ⚠ **PROPOSED: 3‴** |
-| **B3** | ⚠ **The stash and the whole reversal path are UNWIRED.** Nothing in production calls `stash.record()` or `planReversal()` — `Session` owns a `Stash` nothing writes to, because the MCP surface is still `ping` and `read_notes`. So `moved` and `undecidable`, the verdicts this session's justification rests on, are exercised **by tests only**. Not a session-3 defect (there was no write tool to wire them to), but two obligations that are easy to miss: **record every take**, and pass **`launcher: await adapter.contentSince(take.at)`** to every reversal | **Session 3″** (the tool surface) |
+| **B1** | ⚠⚠ **Standing rule 5 is not implemented for SCENES** — a budget precondition on `scene.create`, a window guard on `scene.delete` (`encoder.ts` sends a project index as a bank index), and scenes counted into `Snapshot.unreachable`. Found by `probe:e19`; see §Owed above | ● **3c** (was "PROPOSED: 3‴") |
+| **B2** | ⚠⚠ **The observers inherit the same blind spot, in BOTH dimensions.** By construction in `Rig.java`, `addHasContentObserver` is attached per bank row across `config.tracks`, on a slot bank sized by `config.scenes`. An edit on a track past the track window, or a scene row past the scene window, fires **nothing** — and `ContentDelta` reports it as a clean, complete, empty window. ⚠ This partly undercuts session 3's own claim: `deltaComplete` returns `true` for a case where the world moved unobserved. It is a **fourth** way a window can lie and, unlike the three that ARE modelled, it is not detectable from the delta | ● **3c** (was "PROPOSED: 3‴") |
+| **B3** | ⚠ **The stash and the whole reversal path are UNWIRED.** Nothing in production calls `stash.record()` or `planReversal()` — `Session` owns a `Stash` nothing writes to, because the MCP surface is still `ping` and `read_notes`. So `moved` and `undecidable`, the verdicts this session's justification rests on, are exercised **by tests only**. Not a session-3 defect (there was no write tool to wire them to), but two obligations that are easy to miss: **record every take**, and pass **`launcher: await adapter.contentSince(take.at)`** to every reversal | ● **3d** — the write surface (was "session 3″") |
 | B4 | **The executor's three selection capture/restore pairs per pipeline** (`adapter.ts`, the ⚠ on `captureSelection`) blamed the daemon for being unable to hoist them to one. There is no daemon; the component that knows a pipeline is in progress is the **executor**, so this is now a plain refactor with no blocker | **Session 5**, or a cleanup pass |
 | B5 | **Two unmeasured drags** — ⚠ **cross-track** (E19 PART B moved within one track, so both events shared a `channelId`; the two-track case should produce two, and that is an INFERENCE, not a measurement) and **below the bank window**, which B2 predicts is invisible | **Session 5**'s live sweep |
-| B6 | **`config.scenes` scale is unmeasured.** It sizes the scene bank AND every slot bank, so raising it to fit real projects multiplies observer count. E5 measured track-side scale only | ⚠ **PROPOSED: 3‴** |
+| B6 | **`config.scenes` scale is unmeasured.** It sizes the scene bank AND every slot bank, so raising it to fit real projects multiplies observer count. E5 measured track-side scale only | ● **3c** (was "PROPOSED: 3‴") |
 
 #### ● Project identity — A1, closed in this diff
 
@@ -327,7 +335,7 @@ caller knows to re-resolve, and the stash boundary reports `undecidable` through
 `discontinuityBetween`. The hole is a caller holding a RAW address across a
 discontinuity and reading through it without consulting either — and per **B3**,
 nothing in production mints and holds addresses across batches yet. **Real, and
-currently unreachable.** It becomes reachable the moment 3″ wires the write
+currently unreachable.** It becomes reachable the moment 3d wires the write
 surface.
 
 ⚠ **Fixing it is a DECISION, not a bug fix, which is why it is proposed rather
@@ -422,7 +430,7 @@ Bitwig hot-reloads on the atomic rename. It did not, and
 `ContractVersionError`'s message already says to reload by hand. One of the two
 is wrong and it is the comment.
 
-#### ⚠ PROPOSED — a session 3‴, *the window*
+#### ● ACCEPTED — the window is **session 3c** *(proposed here as "3‴")*
 
 **Recommendation, not a decision.** B1, B2 and B6 plus A1's cousin are all the
 same shape: **bank-window truth that the model assumed for tracks and never
@@ -430,10 +438,17 @@ generalised.** B1 and B2 share a fix — one scene/track budget that the ops, th
 snapshot AND the observers all read — and splitting them across sessions is how
 one gets done and the other does not. A2 unblocks the moment B2 lands.
 
-⚠ Note what 3‴ is NOT: it is not new design. Standing rule 5 already mandates
+⚠ Note what it is NOT: it is not new design. Standing rule 5 already mandates
 B1 in words that cover scenes verbatim, so this is **implementing an existing
 decision**, which is why it is proposed as a small session rather than as a
 decision for `DECISIONS.md`.
+
+> ⇒ ● **ACCEPTED 2026-08-09 as [session 3c](PHASE-1-SESSION-3C-WINDOW.md)**, and it
+> gained a second reason on the way: the clip block makes room with `scene.create`,
+> which is the exact call B1 puts a precondition on. ⚠ **So 3c is not merely
+> proposed, it BLOCKS the clip block** — and under the prime-suffix numbering it
+> sorted *after* the session that depends on it. That contradiction is what
+> triggered the re-cut; see `PHASE-1-ENGINE.md` §The renumbering.
 
 ---
 

@@ -3,7 +3,7 @@ title: Phase 1, session 4 — the in-Bitwig control layer
 status: not started
 updated: 2026-07-25
 parent: PHASE-1-ENGINE.md
-prev: PHASE-1-SESSION-3-DAEMON.md
+prev: PHASE-1-SESSION-3G-RECORD.md
 next: PHASE-1-SESSION-5-PROVING.md
 scope: PHASE-1-ENGINE.md item 6
 evidence: E8-C, E14 rows A–G, E14-A1 · D5, D7, D14, D15

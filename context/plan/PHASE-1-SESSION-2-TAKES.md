@@ -32,7 +32,7 @@ status: DONE 2026-07-26 — all six exit criteria met offline; decisions recorde
 updated: 2026-08-08
 parent: PHASE-1-ENGINE.md
 prev: PHASE-1-SESSION-1-EXECUTOR.md
-next: PHASE-1-SESSION-3-DAEMON.md
+next: PHASE-1-SESSION-3-BRIDGE.md
 scope: PHASE-1-ENGINE.md item 4
 evidence: E3, E8, E14 (rows A–D) · D5, D8, D14
 ---

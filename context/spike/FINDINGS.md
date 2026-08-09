@@ -311,7 +311,7 @@ empty. Not refused. Overwritten.
 
 ⇒ ⚠⚠ **Minting a take destroys whatever is in the next row**, which makes an
 empty next row a **hard precondition** on `duplicateClip`, in the same class as
-the bank-window budget (standing rule 5) rather than a nicety. Session 3″ must
+the bank-window budget (standing rule 5) rather than a nicety. Session 3e must
 verify before it mints; an agent that calls this without checking destroys a clip
 nobody authorised, and D20's execution discipline — *enumerate the cascade by
 identity before any delete* — applies to an operation whose name contains no verb
@@ -331,7 +331,7 @@ EQUAL byte for byte; here the contents are **different** and the window is still
 empty. E19-A7 established that silence means "no occupancy change" and treated
 that as the detector's whole value; this is the other edge of the same knife.
 
-⇒ **For 3″**: the stash cannot learn about this after the fact. The protection has
+⇒ **For 3e**: the stash cannot learn about this after the fact. The protection has
 to be the precondition, plus stashing the destination row's contents *before*
 minting if the block ever mints into ground it did not verify.
 
@@ -352,7 +352,7 @@ gn-A's column was full — rows 0–9 all occupied by the fixture, `e16s`, `e19`
 
 ### Decision impact
 
-- ⚠⚠ **New precondition for the clip block (session 3″)**: `duplicateClip` may only
+- ⚠⚠ **New precondition for the clip block (session 3e)**: `duplicateClip` may only
   be called when the destination row is verified empty. Belongs in the tool
   description as a mechanical fact under D18c ("*correctness recipes are required
   knowledge*"), beside the bank-window budget.
@@ -487,9 +487,9 @@ not repeating that.
 ### Decision impact
 
 - **D18's clip block keeps its justification**, now evidenced. `launchWithOptions`
-  and its two working modes are the mechanism session 3″ should design the block's
+  and its two working modes are the mechanism session 3e should design the block's
   A/B around.
-- ⚠ **New, for 3″**: the A/B is position-continuous **only when the outgoing take
+- ⚠ **New, for 3e**: the A/B is position-continuous **only when the outgoing take
   is itself on the grid** — which is the ordinary case, and worth stating in the
   tool description as a mechanical fact rather than discovered later as a bug.
 

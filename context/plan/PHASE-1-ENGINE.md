@@ -1,28 +1,38 @@
 ---
 title: Phase 1 — The write engine & takes
-status: in progress — split into six sessions 2026-07-25 (see §Session index).
+status: in progress — split into six sessions 2026-07-25 (see §Session index),
+        then RE-CUT 2026-08-09 into a ten-session ladder (see §Re-plan).
         Sessions 1 and 2 DONE 2026-07-26 (D16, D17); session 3 DONE 2026-08-08
-        as **bridge + observers**, no daemon built.
+        as **bridge + observers**, no daemon built; session 3b (the early probes)
+        DONE 2026-08-09.
         ⚠⚠ RE-PLANNED 2026-08-07 UNDER D16–D20 — READ §Re-plan BELOW FIRST. The
         original text is kept as the record and is STALE where it disagrees.
+        ⚠⚠ RENUMBERED 2026-08-09 — the prime suffixes (3′/3″/3‴) are GONE and the
+        ladder is 3 · 3b · 3c · 3d · 3e · 3f · 3g. See §The renumbering: the
+        prime count recorded when a session was PROPOSED while the table recorded
+        when it should RUN, and the two disagreed.
         The model: STATELESS — the project is the take log; branching is the
         HYBRID at L3-open (D18: track fork / layer chain / clip block, agent
         chooses freely, the record silently captures the control rule's verdict).
         No daemon (D4 rev): observers live in the EXTENSION, the MCP server holds
         a bridge connection. Session 2's store is retired to the STASH, which is
         load-bearing three ways (D17 rev, D19). ⚠ The CLIP BLOCK lands in THIS
-        phase (operator, 2026-08-06), and its design is gated on unprobed
-        primitives — `launchWithOptions` + `duplicateClip` — which run EARLY,
-        beside D20's annotation-behaviour check.
+        phase (operator, 2026-08-06); the unprobed primitives its design rested on
+        — `launchWithOptions` + `duplicateClip` — were measured in 3b, beside
+        D20's annotation-behaviour check and `getDocumentState()`'s capacity.
         ⚠ (The 2026-07-30 HALT banner this replaces said "branches are duplicated
         tracks"; E18 and the operator's hybrid decision superseded that — see
         ../spike/HYBRID-AUTONOMY-LEVELS.md §7.)
-updated: 2026-08-08
+updated: 2026-08-09
 parent: ../PROJECT_PLAN.md
 prev: PHASE-0-FOUNDATION.md
 next: PHASE-2-CLIPS.md
-sessions: PHASE-1-SESSION-1-EXECUTOR.md … PHASE-1-SESSION-6-ASYNC.md,
-          plus PHASE-1-SESSION-3P-PROBES.md (session 3′, the early probes)
+sessions: PHASE-1-SESSION-1-EXECUTOR.md, PHASE-1-SESSION-2-TAKES.md,
+          PHASE-1-SESSION-3-BRIDGE.md, PHASE-1-SESSION-3B-PROBES.md,
+          PHASE-1-SESSION-3C-WINDOW.md, PHASE-1-SESSION-3D-SURFACE.md,
+          PHASE-1-SESSION-3E-CLIPBLOCK.md, PHASE-1-SESSION-3F-FORK-CHAIN.md,
+          PHASE-1-SESSION-3G-RECORD.md, PHASE-1-SESSION-4-CONTROL-LAYER.md,
+          PHASE-1-SESSION-5-PROVING.md, PHASE-1-SESSION-6-ASYNC.md
 ---
 
 # Phase 1 — The write engine & takes
@@ -34,16 +44,80 @@ sessions: PHASE-1-SESSION-1-EXECUTOR.md … PHASE-1-SESSION-6-ASYNC.md,
 > trail: `../spike/E16-REPLAN.md` (§1 rules, §2 sessions) and
 > `../spike/HYBRID-AUTONOMY-LEVELS.md` §7 (what the re-plan inherits).
 
+### ⚠⚠ The renumbering, 2026-08-09 — why the primes are gone
+
+**The prime suffixes encoded the wrong axis, and the doc contradicted itself.** The
+count recorded *when a session was proposed* — 3′ and 3″ on 2026-08-07, 3‴ on
+2026-08-08 as session 3's carry-forward — while this table's row order recorded
+*when each should run*. The two disagreed, and the table was the one that was
+right: **3‴ belongs before 3″**, because the clip block makes room with
+`scene.create` and 3‴ exists to put a precondition on that exact call. A reader
+sorting by prime count runs them backwards.
+
+⇒ **The ladder is now flat and its order IS the execution order.** Old labels are
+kept in this one table so a reader who remembers them can resolve them; they appear
+nowhere else.
+
+| was | is | session |
+|---|---|---|
+| 3 | **3** | the bridge and the observers |
+| 3′ | **3b** | the early probes |
+| 3‴ | **3c** | the window |
+| — | **3d** | the write surface *(new — absorbs session 3's B3)* |
+| 3″ *(part)* | **3e** | the clip block |
+| 3″ *(part)* | **3f** | the track fork and the layer chain |
+| 3″ *(part)* | **3g** | the record, the classifier, the v1 freeze |
+
+**Session 3 keeps its number** — it is done, committed, and referenced by
+`FINDINGS.md` E19. Only the suffixes go.
+
+⚠ **The second reason for the re-cut: 3″ was not one session.** It carried three
+mechanisms, the branch-event record, the silent classifier, D18c's versioned
+descriptions, D20's destructive partition, and session 3's B3 — plus a contract
+change nobody had costed (`DeviceAddress` is flat, one level, and a layer-chain
+take needs a nested address, which touches the `addressKey` grammar, every slice
+prefix and every stashed key). Sessions are now sized to one agent chat, and where
+one might not fit, **the split point is named in advance** rather than discovered
+at the end.
+
+### ⚠ Operator decisions taken while planning the re-cut, 2026-08-09
+
+Recorded here rather than in `DECISIONS.md`, following 3b's own convention for
+planning-time calls (rule 10 — these bound the work, they do not settle a question
+the spike asked).
+
+1. **3″ splits at the SURFACE SEAM.** Mechanisms into the contract/engine first,
+   provable offline against the Phase-0 fake; the MCP surface, the record and the
+   description freeze after. ⚠ Keeps D18c's one-way door — the choice-mapping leak
+   — in its own session, and stops v1 descriptions being frozen while the
+   mechanisms they describe are still moving.
+2. ⚠⚠ **The PER-CLIP launch settings get probed and wired**, not just
+   `launchWithOptions`. The verb needs a caller for every switch; it is
+   `Clip.launchQuantization()` / `Clip.launchMode()` — unprobed, not on our wire —
+   that make **the human's own click** land on the bar and continue from the
+   outgoing take. That is the only route to exit criterion 4 as re-stated (*"from
+   inside Bitwig, no ghostnote UI involved"*); with the verb alone, the good A/B
+   exists only while the agent is driving it.
+3. **v1's write surface is broad enough to make all three mechanisms REAL** —
+   branch verbs, note writes, clip/scene room, device insert/delete addressed
+   **into a chain**, param set. ⚠ Accepts the nested chain address as a contract
+   change rather than shipping a layer chain we can create but not fill.
+4. **Sessions are sized to one agent chat**, and a session that may not fit names
+   its split point up front.
+
 ### Revised session structure
 
 | # | Session | Disposition |
 |---|---|---|
 | 1 | The executor | ● DONE (D16) — ⚠ re-open briefly for the 2026-08-07 amendments: `clip.delete` → `lossy` via live `lengthBeats` (fixes the fake/live disagreement); `device.insert` gets its exact inverse (`device.delete`); the floor becomes **refuse-unless-branch-protected**, never an automatic fork (D18c) |
 | 2 | ~~The take store~~ → **the stash** | ● DONE (D17), then RETIRED to the stash (D17 rev). Delete `graph.ts`/`project.ts`; reduce `store.ts`/`format.ts`; ⚠ **KEEP `slice.ts`** (partial revert by address) and the read/write type split. ⚠ **The stash is load-bearing THREE ways** — unbranched writes, the clip content fingerprint, agent-edit reversal (D19). Do not delete it with the store |
-| 3 | ~~`ghostnoted`~~ → **bridge + observers** | ● **DONE 2026-08-08** — see [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §Re-scope. Daemon DELETED (D4 rev); the MCP server holds the connection (`brain/src/session.ts`). The **extension** carries both epochs and the content epoch is the one clip addressing consults (E16s). Three things the build added past E16s: the event log holds `channelId` not a bank index (rule 2), a **generation nonce** per `init()` so a restart makes a mark INCOMPARABLE rather than falsely equal, and the mark is one round trip. Consumed as `ApplyReport.concurrent` and as the stash's ⚠ **`moved`** verdict — the one a content fingerprint structurally cannot produce. ⚠ The mark also carries the **PROJECT**, closing the original doc's *"sharpest question in the session"*: a project load does not re-`init()` the extension, so the counters keep climbing and the window looks ordinary while every `channelId` names a track that is no longer open — worse than a restart, not milder. ● **Proven live** (`FINDINGS.md` E19, 17/17). ⚠⚠ Its probe also found **standing rule 5 is not implemented for SCENES** — a create past the scene-bank window strands an unaddressable row, and clip rows past it are missing from `Snapshot.unreachable` entirely. Owed, not built; see [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §Owed |
-| 3′ | ⚠ **NEW — early probes** | The design-gating unknowns, run before anything leans on them: **`launchWithOptions(quantization, launchMode)`** (per-call `"1"`/`"8"` quantisation; `"continue_or_synced"` — take B resumes at A's position, the only answer to E16m) and **`ClipLauncherSlot.duplicateClip()`** (mints the next take); **D20's annotation check** (do target hosts actually prompt on `destructiveHint`?); **`getDocumentState()` JSON capacity** (D18d's record lands there). ◐ **IN PROGRESS — apparatus built 2026-08-09, ⚠⚠ E20a ●● PASS live 12/12** — see [SESSION-3′](PHASE-1-SESSION-3P-PROBES.md). Five probe-only wire methods (golden 140, `d8168372c04c1e07`), four probes, `wiremap.test.ts` proving the contract reaches none of it. ⚠⚠ **`launchWithOptions` confirms E18-VERDICT §4a″-bis BY MEASUREMENT** — `"continue_or_synced"` continues from the OUTGOING clip (take B enters where take A was, 31 steps from the transport grid and 17 from B's own last position), and quantisation is a real per-call override at bar and phrase granularity (`FINDINGS.md` E20a). ⚠ Two APPARATUS bugs first produced a confident refutation of a claim that is true — a one-bar clip silently adopted as the take, and a degenerate on-grid trial. ⚠⚠ **E20b ●● 11/11**: `duplicateClip` copies into the next row down (both routes agreeing, notes carried, a `channelId`-named FILL fired, selection-independent) — but into an **OCCUPIED** row it **OVERWRITES**, destroying the take that was there, and fires **no occupancy event**, so session 3's detector is structurally blind to it. ⇒ an empty destination row is a **hard precondition** on minting a take, in the same class as the bank-window budget, and E18-VERDICT §4b's append-only discipline is confirmed necessary for a sharper reason than it gave. ● `E20c` ARM A green (7/7, no DAW). ⚠ E20d not yet run and three arms are **operator-gated**: the ear check on `continue_or_synced`, the annotation prompts in Claude Code, and the doc-state restart. ⚠ Operator decisions taken while planning: annotations against **Claude Code only**; `continue_or_synced` gets a number **and** an ear; **no over-length write** (so the record self-limits by decision, not by measurement) |
-| 3‴ | ⚠ **PROPOSED 2026-08-08 — *the window*** | Session 3's carry-forward, and **not new design**: standing rule 5 is implemented for TRACKS only and its own words cover scenes verbatim. Three items that share one fix — a scene budget as a **precondition** on `scene.create` (a create past the window strands an unaddressable row: measured, `FINDINGS.md` E19), a window guard on `scene.delete` (`encoder.ts` sends a project index as a bank index), and ⚠⚠ **scenes counted into `Snapshot.unreachable`**, which today reports blind tracks and stays silent about blind clip rows. ⚠ The observers inherit the same hole in BOTH dimensions, so `ContentDelta` calls a window `complete` when the world moved outside the bank — a fourth way to lie that, unlike the three that are modelled, the delta cannot show. Plus `config.scenes` scale, unmeasured (E5 measured tracks). ⚠ Unblocks the Phase-3 change log. See [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §The full carry-forward |
-| 3″ | ⚠ **NEW — the branch mechanisms & the record** | Track fork (built: E16k/C5/E16u) · layer chain (wire mostly exists: `e18a`/`e18c`; solo A/B per E17 row 6) · **clip block** (this phase, operator 2026-08-06): `duplicateClip` → append-only geometry (`hasContent()` contiguity, `slot.moveTo` restore, `createScene()` for room) → `launchWithOptions` A/B. Plus the **branch-event record** (D18d) and **versioned tool descriptions in fresh, jargon-free language** (D18c). ⚠ The dispatch classifier lives in the executor and must be *provably* unreachable from the tool surface — the `WIRE_METHODS_BANNED` test idiom, aimed at the leak |
+| 3 | ~~`ghostnoted`~~ → **bridge + observers** | ● **DONE 2026-08-08** — see [SESSION-3](PHASE-1-SESSION-3-BRIDGE.md) §Re-scope. Daemon DELETED (D4 rev); the MCP server holds the connection (`brain/src/session.ts`). The **extension** carries both epochs and the content epoch is the one clip addressing consults (E16s). Three things the build added past E16s: the event log holds `channelId` not a bank index (rule 2), a **generation nonce** per `init()` so a restart makes a mark INCOMPARABLE rather than falsely equal, and the mark is one round trip. Consumed as `ApplyReport.concurrent` and as the stash's ⚠ **`moved`** verdict — the one a content fingerprint structurally cannot produce. ⚠ The mark also carries the **PROJECT**, closing the original doc's *"sharpest question in the session"*: a project load does not re-`init()` the extension, so the counters keep climbing and the window looks ordinary while every `channelId` names a track that is no longer open — worse than a restart, not milder. ● **Proven live** (`FINDINGS.md` E19, 17/17). ⚠⚠ Its probe also found **standing rule 5 is not implemented for SCENES** — a create past the scene-bank window strands an unaddressable row, and clip rows past it are missing from `Snapshot.unreachable` entirely. Owed, not built ⇒ **3c** |
+| 3b | **The early probes** | ● **DONE 2026-08-09** — see [SESSION-3B](PHASE-1-SESSION-3B-PROBES.md). Four design-gating unknowns measured before anything leaned on them, plus one defect found by accident. Five probe-only wire methods (golden 140, `d8168372c04c1e07`), `wiremap.test.ts` proving the contract reaches none of it. ⚠⚠ **E20a ●● 12/12** — `launchWithOptions` confirms E18-VERDICT §4a″-bis BY MEASUREMENT: `"continue_or_synced"` continues from the OUTGOING clip (take B enters where take A was, 31 steps from the transport grid and 17 from B's own last position), quantisation is a real per-call override at bar and phrase granularity, and ● **the ear agrees with the numbers** (operator, verbatim: *"Yes."*). ⚠ Two APPARATUS bugs first produced a confident refutation of a claim that is true. ⚠⚠ **E20b ●● 11/11** — `duplicateClip` copies into the next row down (both routes agreeing, notes carried, a `channelId`-named FILL fired, selection-independent) — but into an **OCCUPIED** row it **OVERWRITES**, destroying the take that was there, and fires **no occupancy event**, so session 3's detector is structurally blind to it ⇒ an empty destination row is a **hard precondition** on minting a take, in the same class as the bank-window budget. ⚠⚠ **E20c** — Claude Code prompts **identically** for all four tools, annotated or not: D20's seam stands but gates on the tool **NAME**. ⚠⚠ **E20d** — `getDocumentState()` stores 262144 chars perfectly through a save and a restart, and **drawing** the field hard-locks Bitwig ⇒ the record is hidden at `init()`. ● **E20e** — the bridge client corrupted any non-ASCII reply split across a TCP chunk boundary; fixed and regression-tested |
+| 3c | **The window** | Session 3's carry-forward B1/B2/B6, and **not new design**: standing rule 5 is implemented for TRACKS only and its own words cover scenes verbatim. A scene budget as a **precondition** on `scene.create` (a create past the window strands an unaddressable row: measured, `FINDINGS.md` E19), a window guard on `scene.delete` (`encoder.ts` sends a project index as a bank index), and ⚠⚠ **scenes counted into `Snapshot.unreachable`**, which today reports blind tracks and stays silent about blind clip rows. ⚠ The observers inherit the same hole in BOTH dimensions, so `ContentDelta` calls a window `complete` when the world moved outside the bank — a fourth way to lie that, unlike the three that are modelled, the delta cannot show. Plus `config.scenes` scale, unmeasured (E5 measured tracks). ⚠ **Blocks 3e** (the clip block makes room with `scene.create`) and unblocks the Phase-3 change log. See [SESSION-3C](PHASE-1-SESSION-3C-WINDOW.md) |
+| 3d | ⚠ **NEW — the write surface** | The MCP surface is still `ping` and `read_notes`, so **nothing in production calls `stash.record()` or `planReversal()`** — session 3's B3, and the reason `moved` and `undecidable` are exercised by tests only. This session builds the write surface over the **existing** `Op` union (no branch verbs yet), partitions it read / write / destructive per D20 — ⚠ keyed on the tool **NAME**, which is what E20c measured the host gating on — and wires the stash and the reversal path. ⚠ D18c's fresh naming applies from the first line, but **v1 is not frozen here**: a description cohort needs branch events, and there are none yet. See [SESSION-3D](PHASE-1-SESSION-3D-SURFACE.md) |
+| 3e | **The clip block** | The mechanism this phase gained by operator decision (2026-08-06), now standing on measurements rather than a javadoc. ⚠ Probes the **per-clip** launch settings first (planning decision 2), then promotes `slot.duplicateClip` / `slot.launchWithOptions` / `slot.playState` / `slot.moveTo` from probe surface to `WIRE`. ⚠⚠ **A verified-empty destination row is a hard precondition on minting** (E20b). Append-only geometry — `hasContent()` contiguity, `slot.moveTo` restore (163 ms), `scene.create` for room. ⚠ And an explicit affordance for what the agent says when it builds a block it cannot arm: Next Actions are not in the API, and an armed block is indistinguishable from an unarmed one. **Depends on 3c.** See [SESSION-3E](PHASE-1-SESSION-3E-CLIPBLOCK.md) |
+| 3f | **The track fork and the layer chain** | Fork ● built and proven (E16k/C5/E16u/E16r) — composite group-then-duplicate, rule 6's one sanctioned named action, with a forced construction order. Chain ◐ most of the wire exists (`e18a`/`e18c`/`e18g`/`e18h`; solo A/B per E17 row 6) but needs the **nested chain address** — `DeviceAddress` is flat today. ⚠ **The session most likely to need splitting; the split point is named in advance: fork ships, chain becomes 3f-bis.** See [SESSION-3F](PHASE-1-SESSION-3F-FORK-CHAIN.md) |
+| 3g | ⚠⚠ **The record, the classifier, and the v1 freeze** | The **branch-event record** (D18d) in the document setting `UiPanel` already creates and hides; the **deterministic dispatch classifier** in the executor, computed per branch event and **used for nothing**; and the **v1 description freeze** (D18c). ⚠⚠ It lands last on purpose — it is the one-way door, and all three mechanisms have to exist before they can be described honestly. ⚠ The classifier must be *provably* unreachable from the tool surface — the `WIRE_METHODS_BANNED` test idiom, aimed at the leak. See [SESSION-3G](PHASE-1-SESSION-3G-RECORD.md) |
 | 4 | The control layer | Mostly survives, and SHRINKS: coarse A/B is Bitwig's own surface (D14 rev). The pane keeps revert, status, `showInEditor` navigation |
 | 5 | Proving it live | ⚠ Exit criterion 4 is **BACK IN PHASE 1**: two takes A/B'd from inside Bitwig — chain solo (one exclusive flag) or clip launch (beat-aligned, E16m answered). The relaxation below is superseded |
 | 6 | Async batch completion | Unchanged |
@@ -93,18 +167,26 @@ rejected, because in every case the rejected option was the tempting one.
 
 ### New decisions this phase owns (not in the old list)
 
+Each now names the session that owns it, per the 2026-08-09 re-cut.
+
 - **What the agent says when it builds a clip block it cannot arm** — Next
   Actions are not in the controller API, and an armed block is indistinguishable
   from an unarmed one (E18-VERDICT §4a″). An explicit affordance, not silence.
+  ⇒ **3e**
 - **The destructive tool seam in practice** (D20): the read / write / destructive
   partition of the MCP surface, and reversal-bounded-to-own-changesets riding the
-  ordinary write surface (D19).
+  ordinary write surface (D19). ⇒ **3d**
 - **Tool-description v1 content and its freeze/version mechanics** (D18c/d):
   mechanics + trade-offs + correctness recipes, lean, no heuristics; versioned
   per cohort; every domain concept renamed from scratch — no spike jargon on the
-  surface.
+  surface. ⇒ written in **3d**, frozen in **3g**
+- ⚠ **NEW, surfaced by the 2026-08-09 re-cut — the nested chain address.**
+  `DeviceAddress {track, chainIndex}` is flat, one level, so a layer-chain take has
+  nowhere to live. Adding a level touches the `addressKey` grammar, every slice
+  prefix and every stashed key — the same ground session 3's proposed decision 1
+  declined to disturb for a different reason. ⇒ **3f**
 
-Split 2026-07-25. Sessions 1–5 are a dependency chain; session 6 is optional and
+Split 2026-07-25; re-cut 2026-08-09. Sessions 1–5 are a dependency chain; session 6 is optional and
 may slip to Phase 2. The offline/live boundary is the load-bearing part of the
 ordering: the three hardest sessions are provable against the Phase-0 fake, and
 the two that need a human at the keyboard come after the things they verify are
@@ -114,7 +196,7 @@ already written.
 |---|---|---|---|---|
 | 1 | ● **The executor** — write-set, stash, verify, revert, resolver discipline | 2, 3, 5 | offline | [SESSION-1](PHASE-1-SESSION-1-EXECUTOR.md) — **DONE 2026-07-26**, decisions as D16 |
 | 2 | ● **The take store** — persistence, branching, partial revert | 4 | offline | [SESSION-2](PHASE-1-SESSION-2-TAKES.md) — **DONE 2026-07-26**, decisions as D17 |
-| 3 | **`ghostnoted`** — process, lifecycle, observers, local API | 1 | live daemon | [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) — ⚠ **RE-SCOPED to bridge + observers, DONE 2026-08-08**; no daemon was built |
+| 3 | **`ghostnoted`** — process, lifecycle, observers, local API | 1 | live daemon | [SESSION-3](PHASE-1-SESSION-3-BRIDGE.md) — ⚠ **RE-SCOPED to bridge + observers, DONE 2026-08-08**; no daemon was built |
 | 4 | **The control layer** — the in-Bitwig pane | 6 | ⚠ human | [SESSION-4](PHASE-1-SESSION-4-CONTROL-LAYER.md) |
 | 5 | **Proving it live** — the exit-criteria sweep | §Exit | ⚠ human | [SESSION-5](PHASE-1-SESSION-5-PROVING.md) |
 | 6 | **Async batch completion** *(optional)* | 7 | — | [SESSION-6](PHASE-1-SESSION-6-ASYNC.md) |
@@ -257,7 +339,7 @@ The reframe in `PROJECT_PLAN.md` §3 drives this. Concretely, a take is:
 > ⚠ The sharpest part is what it reaches that nothing else could: an edit in a
 > slot the batch never addressed, and a clip REPLACED by an identical one, which
 > every content comparison in the system reads as unchanged. See
-> [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §Re-scope and §Decisions proposed by
+> [SESSION-3](PHASE-1-SESSION-3-BRIDGE.md) §Re-scope and §Decisions proposed by
 > session 3 above (rule 10: proposed, not recorded).
 
 - **Take store schema and retention.** Depth, pruning, and whether takes survive

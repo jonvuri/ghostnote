@@ -216,12 +216,12 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   assert.deepEqual(reachable, [], 'E16 is a mini-spike, not a capability — the contract must not reach any of it');
 });
 
-test('E20: session 3′s early-probe surface is probe surface, and the contract cannot reach it', () => {
-  // ⚠ Session 3′ measures four design-gating unknowns BEFORE the clip block is
-  // designed (PHASE-1 §Re-plan row 3′). Every one of these is a call nobody had
+test('E20: session 3b early-probe surface is probe surface, and the contract cannot reach it', () => {
+  // ⚠ Session 3b measures four design-gating unknowns BEFORE the clip block is
+  // designed (PHASE-1 §Re-plan row 3b). Every one of these is a call nobody had
   // ever made, and the whole point of running them early is that the design gets
   // to depend on a measurement instead of a javadoc — so none of it may become
-  // contract surface here. Session 3″ owns what the clip block exposes, under
+  // contract surface here. Session 3e owns what the clip block exposes, under
   // D18c's fresh-language rule, and a name minted in a probe would freeze the
   // vocabulary the moment before the vocabulary is designed.
   //
@@ -260,7 +260,7 @@ test('E20: session 3′s early-probe surface is probe surface, and the contract 
   ];
   const e20 = golden.addedInE20 ?? [];
   const unexpected = e20.filter((m) => !allowed.includes(m));
-  assert.deepEqual(unexpected, [], `session 3′ added an unexpected method: ${unexpected.join(', ')}`);
+  assert.deepEqual(unexpected, [], `session 3b added an unexpected method: ${unexpected.join(', ')}`);
   const reachable = e20.filter((m) => WIRE_METHODS_USED.includes(m));
   assert.deepEqual(reachable, [],
     'these are probes for a design that has not been made — the contract must not reach any of it');

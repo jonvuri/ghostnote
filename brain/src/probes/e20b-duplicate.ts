@@ -85,7 +85,7 @@ const occupied = (rows: boolean[]): number[] =>
  * to the window, so a scene created past the window is unaddressable and
  * un-deletable — `e19` stranded one in a 99-scene project and that is how the gap
  * was found. The rule is written about tracks and covers scenes verbatim; it is
- * **not implemented for scenes**, and implementing it is the proposed session 3‴,
+ * **not implemented for scenes**, and implementing it is session 3c,
  * not this probe's business. What IS this probe's business is never being the
  * thing that strands a row.
  */
@@ -278,7 +278,7 @@ check('E20b-B5: the copy carries the source\'s notes, not an empty clip',
   { atRow: copyRow, pitches: copiedPitches, expected: SOURCE_PITCH });
 
 // ⚠ B4: session 3's observers must SEE it, or the block's geometry is not
-// self-reporting and 3″ needs a readback discipline instead of a mark.
+// self-reporting and 3e needs a readback discipline instead of a mark.
 check('E20b-B4: the duplicate arrives as a FILL naming the track by durable channelId',
   slotRoute.events.some((e) => e.filled && e.channelId === channelA && e.slotIndex === copyRow),
   { events: slotRoute.events, want: { channelId: channelA, slotIndex: copyRow } });
@@ -304,7 +304,7 @@ check('E20b-B2c: and it agrees with the slot route about WHERE',
 // the clip that was there is gone — row 11 held pitch 72 before and pitch 60
 // after, with row 12 still empty, so nothing was pushed anywhere.
 //
-// ⇒ ⚠⚠ **Minting a take DESTROYS whatever is in the next row.** For session 3″
+// ⇒ ⚠⚠ **Minting a take DESTROYS whatever is in the next row.** For session 3e
 // that is a hard precondition, not a nicety: `duplicateClip` may only be called
 // against a next row VERIFIED EMPTY, or the block eats a take. It also lands on
 // D20 — an agent calling this without the check destroys a clip nobody authorised,
@@ -355,7 +355,7 @@ check('E20b-B3c: ⚠⚠ the overwrite fires NO occupancy event — session 3\'s 
 // ⚠ `duplicateClip` is an addressed API call and should not care. It is asked
 // anyway because E6's selection hazard has bitten twice — named actions fire
 // against the UI selection our own pointing moves — and a ● here is what lets
-// session 3″ call this without establishing a selection first.
+// session 3e call this without establishing a selection first.
 console.log('\n-- B6. with the UI selection deliberately somewhere else');
 await clearRegion();
 check('E20b-B6a: the source clip is in place', await plant(base, SOURCE_PITCH, '0'));

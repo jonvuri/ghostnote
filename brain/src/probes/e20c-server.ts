@@ -17,7 +17,7 @@
  *
  * ⚠ **The names are deliberately probe-flavoured and must not be reused.** D18c
  * requires the real surface to be written from scratch in fresh, jargon-free
- * language for a general-purpose agent, and that naming is session 3″'s to do.
+ * language for a general-purpose agent, and that naming is session 3d's and 3g's to do.
  * A name minted here would freeze a v0 vocabulary the moment before the
  * vocabulary is designed — so these are prefixed, ugly, and disposable on
  * purpose.

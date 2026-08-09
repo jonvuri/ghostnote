@@ -29,7 +29,7 @@ export interface Golden {
   /** The E16 mini-spike's probe surface (branches as duplicated tracks). */
   addedInE16?: string[];
   /**
-   * Session 3′'s early probes: the clip-block primitives and the doc-state
+   * Session 3b's early probes: the clip-block primitives and the doc-state
    * capacity apparatus.
    *
    * ⚠ Session 3 (E19) added NO wire method — it changed `revision.get`'s reply

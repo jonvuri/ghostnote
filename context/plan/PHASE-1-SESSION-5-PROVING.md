@@ -99,7 +99,7 @@ first. Record the reconciliation so the next reader does not re-derive it.
 ## ⚠ Carried in from session 3 (2026-08-08)
 
 Two items with no session of their own, homed here because this is the live
-sweep. Detail in [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §The full carry-forward.
+sweep. Detail in [SESSION-3](PHASE-1-SESSION-3-BRIDGE.md) §The full carry-forward.
 
 - **B4 — hoist the selection capture/restore.** `LiveAdapter.captureSelection`'s
   ⚠ note blames the daemon for being unable to reduce the executor's three

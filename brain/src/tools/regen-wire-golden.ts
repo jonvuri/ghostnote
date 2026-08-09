@@ -36,7 +36,7 @@ const brandNew = methods.filter((m) => !golden.methods.includes(m));
 // earlier bucket would quietly destroy that. So all closed buckets are read back
 // from the golden and only the CURRENT sitting's bucket accumulates.
 //
-// ⚠ E16 joined them when session 3′ opened: it is finished, and its list is the
+// ⚠ E16 joined them when session 3b opened: it is finished, and its list is the
 // record of what the branching mini-spike put on the wire. The current bucket is
 // `addedInE20` — the early probes. When the next sitting opens, freeze this one
 // the same way rather than widening it.

@@ -1336,7 +1336,7 @@ every time.
 >   makes the seam sharper rather than different. ⚠ They are **future-proofing,
 >   not a mechanism** — no design may assume a host reads them.
 > - ⚠ Measured against **Claude Code only** (the operator's target host, chosen
->   while planning session 3′). Other hosts are **unmeasured**, not assumed
+>   while planning session 3b). Other hosts are **unmeasured**, not assumed
 >   equivalent — and under the rule above it does not matter much, since the name
 >   grain is what carries the weight.
 - ⚠ **Rejected: a document-state arming toggle** (API-enforced human-only —
