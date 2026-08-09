@@ -28,6 +28,16 @@ export interface Golden {
   addedInSession2: string[];
   /** The E16 mini-spike's probe surface (branches as duplicated tracks). */
   addedInE16?: string[];
+  /**
+   * Session 3′'s early probes: the clip-block primitives and the doc-state
+   * capacity apparatus.
+   *
+   * ⚠ Session 3 (E19) added NO wire method — it changed `revision.get`'s reply
+   * fields, which is precisely the class of change `methodsHash` cannot see and
+   * `deploy.ts` was built to catch — so E16 is the previous bucket, not a
+   * skipped one.
+   */
+  addedInE20?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

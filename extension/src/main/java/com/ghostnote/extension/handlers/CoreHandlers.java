@@ -97,7 +97,13 @@ public final class CoreHandlers extends HandlerGroup {
         // Derived scaffold volume — the thing that actually scales.
         long slots = (long) rig.config.tracks * rig.config.scenes;
         result.addProperty("slotObjects", slots);
-        result.addProperty("markedValues", slots * 3 + (long) rig.config.tracks * 5);
+        // ⚠ SIX per slot since E20a, not three: `isPlaying`, `isPlaybackQueued` and
+        // `isStopQueued` joined `exists`/`hasContent`/`isSelected` so a quantised
+        // launch's pending state is readable. That doubles the per-slot marked
+        // volume — 768 more values at the default rig — and `initMicros` beside
+        // this number is what says whether it cost anything (E5's measurement,
+        // which is only interpretable if this count stays honest).
+        result.addProperty("markedValues", slots * 6 + (long) rig.config.tracks * 5);
 
         // Whole-JVM heap (shared with Bitwig): a coarse trend signal only.
         Runtime runtime = Runtime.getRuntime();

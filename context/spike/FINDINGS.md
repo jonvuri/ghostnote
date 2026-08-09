@@ -5,6 +5,473 @@ One section per experiment, appended as run. Verdicts: ● confirmed working /
 
 ---
 
+## E20e — ⚠⚠ THE BRIDGE CLIENT CORRUPTED ANY NON-ASCII DATA: one line, found by accident [K] (2026-08-09)
+
+**Verdict: ⚠⚠ a real data-corruption bug, diagnosed and FIXED.** Found while
+measuring `getDocumentState()` capacity (E20d) as *"1 MB echoes come back two
+characters longer, intermittently"*. It was never about 1 MB.
+
+```ts
+socket.on('data', (data) => this.handleData(data.toString('utf8')));   // ⚠ the bug
+socket.setEncoding('utf8');                                            // ● the fix
+```
+
+**`BridgeClient` decoded every TCP chunk INDEPENDENTLY.** TCP hands over arbitrary
+byte boundaries, so a multi-byte UTF-8 character straddling one was decoded as two
+U+FFFD replacement characters — one per fragment. ⇒ **One character silently became
+two, corrupting content and length together.**
+
+### ⚠⚠ Why the "1 MB" framing was wrong, and dangerous
+
+| | |
+|---|---|
+| what it looked like | a capacity limit at ~1 MB, intermittent, absent below 256 KB |
+| what it was | **any reply carrying a non-ASCII character**, whenever a chunk boundary lands inside it |
+| why size correlated | small replies arrive in ONE chunk. Nothing splits, so nothing corrupts. The 1 MB payload crossed ~16 boundaries and carried a `→` roughly every 100 chars |
+| why it was intermittent | the boundaries are the kernel's choice, not ours |
+
+⚠ **A track named `Café`, an em dash in a clip name, any CJK text** — all corruptible
+at any size. ⚠⚠ **And standing rule 1 offers NO protection**: a readback travels the
+same broken path as the write, so it agrees with itself. This is the one failure
+class the project's central discipline cannot catch, which is why it survived 294
+green tests and four live probe sittings.
+
+### The regression tests, and what writing them taught
+
+`brain/src/client.test.ts` — 4 cases over a **real loopback `net.Server`**, because
+the bug lives in the seam between socket and parser and a fake handing over whole
+strings cannot express it.
+
+⚠⚠ **The first version of two of those tests was decorative**, and only a
+both-directions check found that out (E17 method guard 10). With the bug
+deliberately reintroduced they still PASSED — loopback coalesces back-to-back small
+writes into one segment, so the split never happened. ⇒ The harness now waits 5 ms
+between chunks, and all three UTF-8 cases fail with the bug and pass with the fix,
+verified by reverting and restoring.
+
+⚠ A third instance of the same reflex, in the harness itself: it originally parsed
+the FIRST CHUNK as a whole request and blew up on a 200 KB one. **"One chunk is one
+message" was assumed three times in one file** — by the client, by the test, and by
+the harness. It is a comfortable assumption.
+
+### ⚠ Found on the way, NOT fixed: a connect race
+
+Two concurrent first requests both see `connected === false` and both call
+`connect()` — opening two sockets, leaking one, and assigning request ids in
+whichever order the connects resolve. Observed directly: `request('one')` resolved
+with the reply to id 2. ⚠ An in-flight `connect()` is not memoised. **Recorded, not
+fixed** — unrelated to the corruption this diff was for, and folding it in is how
+the fix that matters stops being reviewable.
+
+### Decision impact
+
+- ● **The recorded wire ceiling is now 1 MB exact, 3/3 live**, and `e20d` scores it
+  again rather than reporting it as a known flake.
+- ⚠ **Nothing else changes** — no contract, no adapter, no probe result. Every
+  earlier measurement was ASCII-only and therefore unaffected, which is luck rather
+  than design.
+- ⚠ **Owed**: the connect race above.
+
+---
+
+## E20d — ⚠⚠ `getDocumentState()` STORES 256 KB PERFECTLY AND KILLS BITWIG WHEN YOU TOUCH IT [K] (2026-08-09)
+
+**Verdict: ● on all three storage ceilings, ⚠⚠ ○ on the one that decides the
+design.** D18d's branch-event record was going to live in `getDocumentState()`, and
+the question was assumed to be *how much fits*. It is not. Everything fits — and
+the value is **DRAWN**, and drawing it is fatal. Probe `e20d`
+(`sweep` / `verify` / `hidden`).
+
+### The three storage ceilings — all of them pass
+
+| ceiling | result |
+|---|---|
+| **the wire** | ● **262144 chars exact**, byte for byte, flat at **16–34 ms** across 1 KB → 256 KB |
+| **the setting's declared `numChars`** | ● exact at **1024**, **8192** and **262144**, at ⅛, ½ and the FULL declared size — nothing silently trimmed at any of them |
+| **the project document** | ● **262144 chars survived a save + a full application restart, byte for byte** (sha `80c44744220f831f` both sides) |
+| init cost | ● **16.7 ms** at `recordChars=262144` — the allocation is not the problem either |
+
+⇒ Storage was never the constraint. E14-A3's persistence result scales to a
+quarter-megabyte without complaint.
+
+### ⚠⚠ THE FINDING: interacting with the field HARD-LOCKS BITWIG
+
+With `recordChars=262144` and the value written, the operator opened the panel:
+
+> *"when I tried interacting with the panel field a bit, it ended up hard locking
+> Bitwig. The panel dropdown rendered on top of other windows after switching away
+> from Bitwig, and had a busy cursor when hovered, and the Bitwig process stopped
+> responding until I force quit it."*
+
+⇒ ⚠⚠ **The binding constraint on `getDocumentState()` is not capacity — it is that
+a document setting is a HUMAN INPUT WIDGET, and Bitwig draws it.** All four checks
+had just passed. A capacity sweep that only ran assertions would have recorded
+*"256 KB ✓, ship it"* and handed D18d a design that force-quits the DAW.
+
+⚠ **This is why the arm asked for a human reading at every size.** No assertion in
+the probe could have caught it: the value stored, reloaded and hashed correctly at
+every step. The operator also reported the field **lagging at 1024 chars** — the
+smallest size tested — so the degradation is continuous and starts almost
+immediately, with the hard lock at the top of the same curve.
+
+⚠ Same *severity* class as E14-A1 (`Signal.fire()` taking the DAW down with an
+unsaved project), reached by a different route: not an uncatchable async throw, but
+a UI widget asked to render a payload. **Nothing extension-side can contain either
+one.** `RigConfig.recordChars` now carries the warning at the field, and its
+default of `0` is a safety default rather than a tidiness one.
+
+### ⚠ The operator's hypothesis, and why it is the right question
+
+> *"I think it might be fine as long as the state isn't represented in a visible
+> field (if that's possible at all)."*
+
+It is possible: E14 row C1 established that the undocumented `Setting` downcast
+**works** — `hide()`/`show()`/`enable()`/`disable()` are reachable, and the cast was
+verified genuine by reading `getLabel()` back through it. ⇒ `probe:e20d-hidden`
+tests exactly this: hide the setting, then check the value still round-trips and
+still persists.
+
+⚠ **One consequence is already known without running it**: `hide()` is a RUNTIME
+call and `init()` re-creates the setting **visible**. So a hidden record is not a
+call you make once — it has to be hidden *at init*, in `UiPanel`, or every restart
+re-arms the hazard. That is a one-line change and a design decision (rule 10),
+not a probe.
+
+### ⚠ Two method findings, both from the same reflex
+
+1. ⚠⚠ **`ui.set` is ASYNCHRONOUS, and a one-shot readback faked a capacity
+   ceiling.** A 4096-char write read back as exactly **1024** characters — the
+   length of the value written immediately before it — while 8192 passed on either
+   side of it. Recorded naively that is *"the setting truncates at 1024"*, which is
+   false; the tell was the SHAPE, not the number, because a real 1024-char ceiling
+   cannot then pass 8192. ⚠ **It is intermittent** — a re-run had every first read
+   already correct — which makes it worse: a one-shot readback is usually right and
+   occasionally wrong. ⇒ Writes are now polled until they land and the **settle
+   time is reported** (20–25 ms, one round trip). Same family as E2's observer
+   gotcha and E15-B/D's 120 ms grid settle: standing rule 1 says readback is the
+   only truth, not that it is instantaneous.
+2. ⚠⚠ **The bridge appeared intermittently wrong at 1 MB** — payloads coming back
+   two characters longer. ⇒ **DIAGNOSED AND FIXED THE SAME DAY, and it was ours:**
+   `BridgeClient` decoded each TCP chunk independently, so a multi-byte character
+   split across a boundary became two replacement characters. It was never a
+   capacity limit and never about 1 MB — **any non-ASCII data was corruptible at
+   any size.** See **E20e**, which is the more important finding of the two.
+
+### Decision impact
+
+- ⚠⚠ **D18d cannot put a large record in a visible document setting.** Three
+  options, in the order the evidence supports them:
+  1. **hide the setting at `init()`** — pending `probe:e20d-hidden`; keeps the
+     record in the project document, which is what made `getDocumentState()`
+     attractive (per-project, survives restart, E14-A3/A4);
+  2. **a pointer or rolling window** in the setting, with the log living elsewhere;
+  3. drop the document setting as the record's home entirely.
+- **Storage capacity is closed as a question**: 256 KB stores, reloads and survives
+  a restart exactly. It should never be quoted as the ceiling again without the
+  interaction hazard attached to it.
+- ⚠ **E16-TRACK-NATIVE §4e's fallback** rested on this capacity being adequate. It
+  is — and it now inherits the visibility constraint with it.
+
+---
+
+## E20c — ⚠⚠ CLAUDE CODE IGNORES TOOL ANNOTATIONS: D20's seam survives, its stated reason does not [K] (2026-08-09)
+
+**Verdict: ⚠⚠ ○ on the mechanism, ● on the seam.** D20 rests its stop-and-ask on
+*"the host's permission flow"* and flags the claim as **a spec reading, not a
+measurement**. Measured now, and the reading is wrong: Claude Code does not appear
+to read `destructiveHint` at all. Probe `e20c` — ARM A autonomous (7/7), ARM B the
+operator in a live Claude Code session.
+
+### ARM A — we emit them correctly, which is what makes ARM B interpretable
+
+| tool | annotations, as they arrived at an MCP client |
+|---|---|
+| `gn_probe_write` | ● **none** — the baseline |
+| `gn_probe_read` | ● `readOnlyHint: true, destructiveHint: false` |
+| `gn_probe_destroy` | ● `readOnlyHint: false, destructiveHint: true` |
+| `gn_probe_destroy_idempotent` | ● `destructiveHint: true, idempotentHint: true` |
+
+⚠ Asserted **field by field**, not as "annotations exist": a host reads the field,
+and an object that arrived with the wrong one set would still be truthy. Without
+this arm, a host that did nothing would be indistinguishable from a server that
+sent nothing, and the ○ below would have been recorded against the wrong component.
+
+### ⚠⚠ ARM B — all four prompts are IDENTICAL
+
+The operator called all four tools, baseline first, in a default-permission session:
+
+> *"Claude Code treated all of the tool calls identically. It listed the tool name,
+> description, and then prompted with 'Do you want to proceed?' with options 'Yes',
+> 'Yes, and don't ask again for &lt;this tool in this project&gt;', 'No'. It didn't seem
+> to have any indication of the tool annotations."*
+
+⇒ ⚠⚠ **The annotation changes nothing.** The unannotated baseline prompted exactly
+as the `destructiveHint` one did; `readOnlyHint` did not buy a quieter path;
+`idempotentHint` did not soften anything.
+
+⇒ ⚠ **But look at what the host DOES gate on** — *"don't ask again for **this
+tool**"*. The permission grain is the **tool NAME**, per project. That is precisely
+the grain D20's seam is built out of.
+
+### What this does and does not cost D20
+
+- ● **The seam stands, unchanged.** Destructive verbs on their own separately-NAMED
+  tools is exactly what the host's permission model keys on, so *"the host's
+  permission flow is the stop-and-ask"* remains true.
+- ⚠⚠ **The stated reason must change.** D20 says the host prompts *because of the
+  annotation*. It does not. It prompts because the call is a tool call, and it
+  remembers per name. ⇒ **PROPOSED amendment** (rule 10 — proposed, not recorded):
+  *"…because destructive verbs carry their own tool NAMES, which is the grain the
+  host's allow-list actually uses. Annotations are sent, are correct, and are
+  currently decorative."*
+- ⚠ **A consequence worth stating before it bites**: *"Yes, and don't ask again for
+  this tool in this project"* is a **per-name blanket grant**. D20 already accepts
+  *"always allow"* as the operator's prerogative — this is what it looks like in
+  practice, and it is the reason a destructive verb must never share a tool name
+  with a benign one. Tool-surface granularity IS the permission granularity.
+- ⚠ **Nothing inside our system gates a directed destructive call** (D20's own
+  threat model: the confused agent, not a malicious client). That is unchanged, and
+  now rests on the name grain rather than on a hint the host ignores.
+
+### ⚠ Method note: the independent-evidence path did not work
+
+The scratch server appends every call to a log so that what actually RAN can be
+read back independently of what the host reported. The log showed only ARM A's own
+entry. ⚠ Cause: `os.tmpdir()` resolves differently per environment, so the server
+spawned by the host wrote its log somewhere other than where it was read.
+
+⚠ **Recorded rather than patched**, and the finding does not depend on it: the
+question is what the host DREW, and a human report is the correct oracle for that —
+it is the same oracle every E14 row used. The wart is that the corroboration was
+designed in and then silently missed its target, which is worth knowing before
+another probe leans on the same trick.
+
+---
+
+## E20b — ⚠⚠ `duplicateClip` OVERWRITES the next row when it is occupied, and the observers CANNOT SEE IT [K] (2026-08-09)
+
+**Verdict: ●● 11/11, and two of the passes are warnings.** The primitive that
+mints the next take, run for the first time. It works, it is self-reporting when
+the row below is free — and when the row below is *not* free it destroys what is
+there, silently, in a way session 3's detector is structurally blind to. Probe
+`e20b` (autonomous, silent, never launches anything).
+
+### Where the copy lands
+
+| | |
+|---|---|
+| `ClipLauncherSlot.duplicateClip()` (route "slot") | ● copy landed in **the next row down** (source row 10 → row 11) |
+| `ClipLauncherSlotBank.duplicateClip(int)` (route "bank") | ● **agrees exactly** — same destination row |
+| the source | ● still there: a duplicate is not a move |
+| the copy's contents | ● carries the source's notes (pitch 60 read back through a third cursor) |
+| the observers | ● arrives as a **FILL naming the track by `channelId`** — the block's geometry is self-reporting, through session 3's durable-identity path |
+| the UI selection | ● irrelevant: the duplicate landed with the selection parked on row 0. An addressed API call, unlike the named actions E6 banned |
+
+⚠ **Two routes, per standing rule 10**, because sibling verbs on these interfaces
+have disagreed before (`copyDevices` ○ beside `moveDevices` ●). Here they agree,
+which is what makes "the next row down" a property of the operation rather than of
+one method.
+
+### ⚠⚠ THE FINDING: into an OCCUPIED row, it OVERWRITES
+
+The design listed two possibilities and the probe's first draft tested for them:
+**append** past the block, or **insert** — shifting every row below and staling
+every address, E18-VERDICT §4b's named hazard. ⚠ **Neither happened.**
+
+```
+before:  row 10 = pitch 60 (source)   row 11 = pitch 72   row 12 = empty
+after:   row 10 = pitch 60            row 11 = pitch 60   row 12 = empty
+```
+
+⇒ ⚠⚠ **The clip that was in row 11 is GONE.** Not pushed down — row 12 is still
+empty. Not refused. Overwritten.
+
+⇒ ⚠⚠ **Minting a take destroys whatever is in the next row**, which makes an
+empty next row a **hard precondition** on `duplicateClip`, in the same class as
+the bank-window budget (standing rule 5) rather than a nicety. Session 3″ must
+verify before it mints; an agent that calls this without checking destroys a clip
+nobody authorised, and D20's execution discipline — *enumerate the cascade by
+identity before any delete* — applies to an operation whose name contains no verb
+about deleting.
+
+### ⚠⚠ And the launcher-content observer is BLIND to it
+
+`E20b-B3c`: the overwrite fired **zero** occupancy events. Of course it did —
+occupancy did not change, an occupied slot stayed occupied — but the consequence
+is sharp:
+
+> **A destructive structural op is invisible to the change window.**
+
+This is the `moved` verdict's motivating case one step worse. Session 3 built
+`moved` because a clip dragged out and an identical one dragged back compares
+EQUAL byte for byte; here the contents are **different** and the window is still
+empty. E19-A7 established that silence means "no occupancy change" and treated
+that as the detector's whole value; this is the other edge of the same knife.
+
+⇒ **For 3″**: the stash cannot learn about this after the fact. The protection has
+to be the precondition, plus stashing the destination row's contents *before*
+minting if the block ever mints into ground it did not verify.
+
+### ⚠ Method note: the probe grew the grid rather than clearing anyone's rows
+
+gn-A's column was full — rows 0–9 all occupied by the fixture, `e16s`, `e19` and
+`e20a`. Two disciplines, both worth keeping:
+
+- ⚠ **It refused to delete to make room.** A clip in a shared column is more
+  likely the operator's than ours, `slot.delete` is not undoable by us, and D19/D20
+  put destruction outside what a probe decides.
+- ⚠ **It appended three scenes instead, checking the budget FIRST** (10 scenes, a
+  16-wide window ⇒ budget 6), used rows 10–12, and gave them back **from the end**
+  — because `Scene.deleteObject()` compacts upward (E3), so deleting a trailing row
+  moves nothing while deleting a mid-grid one stales every address beneath it.
+  That is E18-VERDICT §4b's append-only geometry, exercised by the probe that was
+  measuring it.
+
+### Decision impact
+
+- ⚠⚠ **New precondition for the clip block (session 3″)**: `duplicateClip` may only
+  be called when the destination row is verified empty. Belongs in the tool
+  description as a mechanical fact under D18c ("*correctness recipes are required
+  knowledge*"), beside the bank-window budget.
+- **E18-VERDICT §4b's append-only discipline is CONFIRMED as necessary**, and for a
+  sharper reason than it gave: the hazard is not that a mid-grid insert shifts
+  addresses — Bitwig never inserts — it is that a duplicate into occupied ground
+  eats a take.
+- ⚠ **Session 3's `ContentDelta` gains a documented blind spot** to sit beside the
+  bank-window one (session 3 carry-forward B2): content changes that preserve
+  occupancy are invisible, and at least one of them is destructive.
+
+---
+
+## E20a — ⚠⚠ `continue_or_synced` CONTINUES FROM THE OUTGOING CLIP: E18-VERDICT §4a″-bis is confirmed by measurement, and per-call quantisation is real [K] (2026-08-09)
+
+**Verdict: ⚠⚠ ●● 12/12.** The clip half's most valuable unclaimed primitive,
+`launchWithOptions(quantization, launchMode)`, run for the first time. Both of
+E18-VERDICT §4a″-bis's claims hold, and the second one — the one nothing else in
+the design can imitate — is now a number rather than a javadoc reading. Probe
+`e20a` (PART A autonomous, 12 checks; PART B ⚠ operator, owed).
+
+### The launch-mode matrix — what each mode actually means
+
+⚠ **Take A is launched deliberately OFF the grid** in T1–T5 (unquantised, mid-bar),
+because that is the only condition under which the three candidate meanings of
+"continue" are separable. On the grid they COINCIDE, which is why this hid.
+
+| trial | mode | take A was at | B came in at | nearest prediction |
+|---|---|---|---|---|
+| T1 | `synced` | step 46 | **48** | ● the transport grid (predicted 48, exactly) |
+| T2 | `from_start` | 46 | **0** | ● the top of the clip |
+| T3 | ⚠⚠ `continue_or_synced` | 46 | **47** | ⚠⚠ **A's position** (1 away; the transport grid was 31 away) |
+| T4 | `continue_or_from_start` | 46 | **47** | ⚠ **A's position** (1 away; both alternatives 17 away) |
+| T5 | `continue_or_synced`, ⚠ B primed near the top | 46 | **47** | ⚠⚠ **A's position** (1 away; **B's own last position 17 away**) |
+| T6 | `continue_or_synced`, ⚠ A ON the grid | 31 | **32** | ● A's position — and 32 steps from the top |
+
+⇒ ⚠⚠ **"Continue" means the OUTGOING clip's position, not the incoming clip's own
+last position and not the transport grid.** T5 is what separates the first two:
+take B was run to the top of its clip and stopped there, and it still came in
+where take A was. **This is exactly what E18-VERDICT §4a″-bis claimed**, and it was
+a javadoc reading until now.
+
+⇒ **T6 is the one the design rests on.** With take A launched normally — on the
+grid, like everything else — take B comes in **where take A was**, 32 steps from
+the top of the clip. That is E16m's request delivered: *the same bar, rendered
+differently*, rather than a jump back to the top of the loop. ⚠ No mute, solo or
+chain switch can imitate it.
+
+### Quantisation is a genuine per-call override
+
+| | |
+|---|---|
+| `"1"` fired at beat 1.04 | started at beat **4.02** — 0.02 off the bar line, after waiting **1567 ms** |
+| `"none"` fired at beat 5.06 | started at **5.38** — 1.38 off the bar, after **121 ms** ⚠ the control |
+| `"8"` | started at beat **32.01**, after **14266 ms** — the 8-bar grid, and materially longer than `"1"` |
+| the pending state | ● `isPlaybackQueued` observed true before the switch, so a scheduled launch is distinguishable from a call that did nothing |
+
+⚠ **Both quantisation arms fire deliberately mid-bar.** A launch fired near a bar
+line lands near one whatever its quantisation, so the `"none"` control could
+otherwise pass the `"1"` assertion by luck.
+
+⚠ **The 8-bar phrase's PHASE is recorded, not asserted**: nothing in the javadoc
+says whether a phrase counts from the timeline origin or the last transport start,
+and asserting a guess would manufacture a finding.
+
+### ⚠ Free, and it matters to session 3: a launch is not an edit
+
+`E20a-A7` — launching clips fires **no occupancy events at all**. Session 3's
+detector rests on silence meaning something; an A/B session that reported itself
+as a stream of concurrent edits would have made it worthless within a day. It does
+not.
+
+### ⚠⚠ TWO PROBE BUGS, and the first one produced a consistent matrix of nothing
+
+Both are worth more than the result they nearly spoiled, because both are shapes
+that recur.
+
+1. ⚠⚠ **A pre-existing ONE-BAR clip silently became take B.** `ensureTake` created
+   a clip only when the slot was EMPTY and accepted whatever was already there
+   otherwise — so row 5's leftover 4-beat clip was adopted, and *this probe's own
+   header* says a clip shorter than the launch grid makes the arms undecidable:
+   the switch always lands where the loop restarts, so `continue_or_synced` and
+   `from_start` are identical **by construction**. The first run reported
+   `continue_or_synced` entering at step 15 against take A at 32 and looked like a
+   real negative refuting §4a″-bis.
+   ⇒ **Standing rule 1 applies to the SETUP, not only the result.** The fix reads
+   `loopLength` back through a cursor and replaces a clip of the wrong length, and
+   an `E20a-S1` check now refuses the whole probe rather than measuring.
+2. **The on-grid trial was DEGENERATE.** With take A synced and the switch on a bar
+   line, take A sits at a multiple of 16 steps when the handover happens — so
+   "A's position", "the transport grid" and "the top of the clip" all named the
+   same step (measured: A at 63 handing to B at 0, all three predictions within 1).
+   ⇒ The trial now fires inside a **window** whose next bar line falls mid-clip.
+   A control that can accidentally agree with the experiment is not a control, and
+   this is that failure one level up: a *trial* that cannot disagree with itself.
+
+⚠ **The diagnostic that found bug 1 is worth keeping** (`probe:e20a-diag`). It
+asks one question — does `Clip.playingStep()` track a launcher clip's playhead? —
+and answered it with a per-cursor time series. It **vindicated the instrument**
+(cursor 0 swept 0→62 while its clip played and read **−1** while the other clip
+played, and vice versa: `playingStep` is a per-CLIP playhead, not a per-track one)
+and caught the wrong clip length in passing. Three false ○s in E17 came from being
+unable to tell a broken handle from a real negative; this is the cheap version of
+not repeating that.
+
+### What it closes, and what it does not
+
+- ● **E16m is answered, and with a knob**: beat-aligned A/B, at bar or phrase
+  granularity, chosen per call.
+- ● **§4a″-bis's `"continue_or_synced"` claim is measured**, so the clip block's
+  ergonomic case no longer rests on a reading.
+- ○ **Unattendedness is still not ours.** `launchWithOptions` is a VERB — every
+  switch needs a caller — and Next Actions are not in the API (§4a″). Nothing here
+  changes that, and this probe deliberately measures none of it.
+- ● **THE EAR AGREES WITH THE NUMBERS** (`probe:e20a-ear`, 2026-08-09, master peak
+  **84** so the refusal-on-silence guard passed rather than being skipped):
+
+  | | operator |
+  |---|---|
+  | did the switch land cleanly on a bar line? | ● **yes** |
+  | did take B come in PART-WAY THROUGH rather than restarting? | ● **yes** |
+  | is this the A/B you asked for in E16m? | ⚠ verbatim: **"Yes."** |
+
+  ⚠ **The takes had to be rewritten for this arm to mean anything.** They were a
+  note on every beat at a constant pitch — so every bar sounded like every other
+  bar and *"did it come in part-way through?"* had **no audible answer**; the
+  operator would have been asked to report something they could not hear. The takes
+  are now RISING lines (A from pitch 60, B the same shape an octave up), which
+  makes position audible: a take entering at bar 3 enters high. E16m was a
+  complaint made by ear, and this is its answer in the same currency.
+
+### Decision impact
+
+- **D18's clip block keeps its justification**, now evidenced. `launchWithOptions`
+  and its two working modes are the mechanism session 3″ should design the block's
+  A/B around.
+- ⚠ **New, for 3″**: the A/B is position-continuous **only when the outgoing take
+  is itself on the grid** — which is the ordinary case, and worth stating in the
+  tool description as a mechanical fact rather than discovered later as a bug.
+
+---
+
 ## E19 — ⚠⚠ THE OBSERVERS ARE PRODUCT-GRADE: a human clip drag is a PAIR by DURABLE identity, and a note write is SILENT [K] (2026-08-08)
 
 **Verdict: ⚠⚠ ●● 21/21 across three arms** (PART A ×15, PART B drag ×5, PART B

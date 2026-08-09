@@ -68,6 +68,7 @@ public final class UiPanel {
     private static final String CAT_STATUS = "Status";
     private static final String CAT_SHAPE = "Enum shape";
     private static final String CAT_SLOTS = "Take slots";
+    private static final String CAT_RECORD = "Record";
 
     /** Option counts to create one enum setting each for — row B's real question. */
     public static final int[] ENUM_OPTION_COUNTS = { 2, 3, 4, 6, 8, 12 };
@@ -100,6 +101,18 @@ public final class UiPanel {
 
     // --- row C: pre-allocated slots, shown and hidden at runtime --------------
     public final SettableStringValue[] slotSettings;
+
+    // --- E20d: how much JSON a document-state setting will hold ---------------
+    /**
+     * ⚠ Null unless {@link RigConfig#recordChars} is nonzero — the sweep knob IS
+     * the experiment, and a rig that is not sweeping should not carry a
+     * payload-sized text field in a human panel.
+     */
+    public final SettableStringValue recordSetting;
+    /** The size this setting was DECLARED with, so a reply can report it. */
+    public final int recordChars;
+    public String recordValue = "";
+    public int recordChanges = 0;
 
     // --- row F: the notification master switch --------------------------------
     public final SettableBooleanValue userNotificationsEnabled;
@@ -163,6 +176,27 @@ public final class UiPanel {
                 "Slot " + (i + 1), CAT_SLOTS, 32, "");
         }
 
+        // ⚠⚠ E20d. D18d's branch record lands in `getDocumentState()`, and how much
+        // JSON that holds has never been measured — E14-A3 proved settings survive
+        // a full restart and said nothing about SIZE. `getStringSetting` takes a
+        // declared char count whose enforcement is undocumented: it may truncate,
+        // refuse, or be advisory. The sweep writes a payload of exactly this length
+        // and compares the readback byte for byte.
+        //
+        // ⚠ Created only when asked for. Rule 13 makes it init-only either way, so
+        // the knob is read here and nowhere else.
+        this.recordChars = Math.max(0, config.recordChars);
+        if (recordChars > 0) {
+            recordSetting = documentState.getStringSetting(
+                "Branch record", CAT_RECORD, recordChars, "");
+            recordSetting.addValueObserver(value -> {
+                recordValue = value;
+                recordChanges++;
+            });
+        } else {
+            recordSetting = null;
+        }
+
         // Row F. ⚠ NOT one of the setShouldShow* methods: those govern
         // notifications the controller requests, and they are already off by
         // default, so switching them off cannot suppress anything. This is the
@@ -195,6 +229,17 @@ public final class UiPanel {
             case "revert": return revertSignal;
             case "take": return takeChooser;
             case "status": return statusText;
+            case "record":
+                if (recordSetting == null) {
+                    // ⚠ Named, never silent. "The knob is zero" and "the setting
+                    // failed to create" are different facts and E20d scores them
+                    // differently — rule 13's lesson, which cost three false ○s in
+                    // E17 before handle status was reported separately from value.
+                    throw new IllegalArgumentException(
+                        "no record setting: recordChars is 0 in ~/.ghostnote/rig.json, so it was "
+                        + "never created (settings are init-only, standing rule 13)");
+                }
+                return recordSetting;
             default:
                 if (ref.startsWith("shape:")) {
                     int i = Integer.parseInt(ref.substring(6));
@@ -243,7 +288,8 @@ public final class UiPanel {
 
     /** How many settings this panel contributed to Bitwig's controller surface. */
     public int settingCount() {
-        return 3 + shapeProbes.length + slotSettings.length + lateSettings.size();
+        return 3 + shapeProbes.length + slotSettings.length + lateSettings.size()
+            + (recordSetting == null ? 0 : 1);
     }
 
     ControllerHost host() {

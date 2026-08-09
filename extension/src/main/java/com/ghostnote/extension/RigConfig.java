@@ -52,6 +52,27 @@ public class RigConfig {
      */
     public int uiSlots = 16;
     /**
+     * ⚠⚠ E20d: the declared size of ONE document-state String setting, in chars.
+     *
+     * ⚠⚠ **A LARGE VALUE HERE IS A LOADED GUN, MEASURED 2026-08-09 (E20d).** At
+     * 262144 chars the value stores and reloads perfectly — and INTERACTING with
+     * the field HARD-LOCKED BITWIG: the pane hung with a busy cursor, drew on top
+     * of other windows, and the process had to be force-quit. The default is 0 for
+     * that reason, not for tidiness. Raise it only to sweep, and put it back.
+     *
+     * D18d puts the branch-event record in `getDocumentState()`, and how much JSON
+     * that will hold has never been measured — E14 proved settings PERSIST across a
+     * full restart (A3/A4) and said nothing about how big they may be. `0` means
+     * the setting is not created at all, which is the default: an unswept rig
+     * should not carry a payload-sized text field in the human panel.
+     *
+     * ⚠ A knob rather than a constant for the same reason `uiSlots` is one — rule
+     * 13 makes settings init-only, so the only way to sweep a size is to edit
+     * rig.json and reload. There is no rebuild in that loop, which is what makes
+     * four sizes affordable in one sitting.
+     */
+    public int recordChars = 0;
+    /**
      * ⚠ E16: what the flat track bank is allowed to SEE.
      *
      * `TrackBankContentFilter`, one of `TOP_LEVEL_CHANNELS`,
@@ -96,6 +117,7 @@ public class RigConfig {
             config.fineSteps = intOr(obj, "fineSteps", config.fineSteps);
             config.paramHandles = intOr(obj, "paramHandles", config.paramHandles);
             config.uiSlots = intOr(obj, "uiSlots", config.uiSlots);
+            config.recordChars = intOr(obj, "recordChars", config.recordChars);
             if (obj.has("contentFilter")) {
                 config.contentFilter = obj.get("contentFilter").getAsString();
             }
@@ -129,6 +151,7 @@ public class RigConfig {
         obj.addProperty("fineSteps", fineSteps);
         obj.addProperty("paramHandles", paramHandles);
         obj.addProperty("uiSlots", uiSlots);
+        obj.addProperty("recordChars", recordChars);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);
         obj.addProperty("stamp", stamp);

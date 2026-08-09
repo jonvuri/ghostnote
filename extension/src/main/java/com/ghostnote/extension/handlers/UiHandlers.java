@@ -60,6 +60,7 @@ public final class UiHandlers extends HandlerGroup {
     public void register(HandlerRegistry r) {
         r.on("ui.status", params -> uiStatus());
         r.on("ui.set", params -> uiSet(params));
+        r.on("ui.get", params -> uiGet(params));
         r.on("ui.visibility", params -> uiVisibility(params));
         r.on("ui.addSetting", params -> uiAddSetting(params));
         r.on("ui.notifications", params -> uiNotifications(params));
@@ -192,6 +193,51 @@ public final class UiHandlers extends HandlerGroup {
             r.addProperty("kind", "string");
         } else {
             throw new IllegalArgumentException("setting is not writable: " + ref);
+        }
+        return r;
+    }
+
+    /**
+     * ⚠⚠ E20d — read ONE setting back by name, with its LENGTH beside it.
+     *
+     * `ui.status` reports a fixed set of fields and cannot reach the record
+     * setting, and a capacity measurement needs the read side more than the write
+     * side: the question is not whether `set` returns, it is whether what comes
+     * back is what went in. Standing rule 1 in its plainest form — a write that
+     * truncated at 8192 chars and a write that landed are indistinguishable from
+     * the acknowledgement.
+     *
+     * ⚠ `length` is reported separately from `value` even though the caller could
+     * count it, because the two disagree exactly when it matters: a value that lost
+     * its tail on the WIRE and a value that lost it in the SETTING both come back
+     * short, and the probe measures the wire independently (through `echo`) so it
+     * can tell which ceiling it hit. `declaredChars` is what the setting was
+     * created with, so a truncation can be scored against the number that caused it.
+     */
+    private JsonElement uiGet(JsonObject params) {
+        UiPanel p = requirePanel();
+        String ref = params.get("setting").getAsString();
+        Object target = p.settingByRef(ref);
+
+        JsonObject r = new JsonObject();
+        r.addProperty("setting", ref);
+        if ("record".equals(ref)) {
+            r.addProperty("declaredChars", p.recordChars);
+            r.addProperty("changes", p.recordChanges);
+        }
+        if (target instanceof SettableStringValue stringValue) {
+            r.addProperty("kind", "string");
+            String value = stringValue.get();
+            r.addProperty("value", value);
+            r.addProperty("length", value == null ? -1 : value.length());
+        } else if (target instanceof SettableEnumValue enumValue) {
+            r.addProperty("kind", "enum");
+            r.addProperty("value", enumValue.get());
+        } else {
+            // Reported, not thrown: "this setting is not readable" is a verdict the
+            // probe wants recorded per kind, not a reason to abandon the sweep.
+            r.addProperty("kind", "unreadable");
+            r.addProperty("error", "setting is neither a string nor an enum value: " + ref);
         }
         return r;
     }

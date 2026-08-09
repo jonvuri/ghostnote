@@ -1162,6 +1162,53 @@ One row per branch event:
 | the **resulting structure** | by identity |
 | ⚠ the **tool-description version** | see below |
 
+> ### ⚠⚠ REVISED 2026-08-09 (E20d) — the record lives in `getDocumentState()`, **HIDDEN AT `init()`**
+>
+> **Settled by the operator, 2026-08-09.** D18d put the record in
+> `getDocumentState()` and the open question was *how much JSON fits*. ⚠⚠ **That
+> was the wrong question.** Measured (`FINDINGS.md` E20d):
+>
+> - ● **Capacity is a non-issue.** 262144 chars round-trip the wire exactly (flat
+>   at 16–34 ms), store in the setting exactly at ⅛/½/full declared size, and
+>   **survive a save plus a full application restart byte for byte**. Init costs
+>   16.7 ms at that size.
+> - ⚠⚠ **The value is DRAWN, and drawing it is fatal.** With 262144 chars in the
+>   field, interacting with it **hard-locked Bitwig** — the pane hung with a busy
+>   cursor, drew over other windows, and the process had to be force-quit. The
+>   operator reported the field lagging from **1024** chars up, so the degradation
+>   is continuous and the lock is the top of the same curve. Same severity class as
+>   E14-A1, reached by a different route; nothing extension-side contains either.
+>
+> ⇒ **The record stays in `getDocumentState()` and the setting is HIDDEN AT
+> `init()`.** `Setting.hide()` is reachable through E14 row C1's undocumented
+> downcast — ● measured again here (`E20d-H1/H2`: the cast works, `hide()` is
+> accepted) — and ● **a hidden setting still holds its value byte for byte**
+> (`E20d-H3` at the full 262144).
+>
+> ⚠⚠ **AT `init()`, not at runtime, and the distinction is the whole decision.**
+> `hide()` is a runtime call and `init()` re-creates the setting **visible**, so a
+> runtime hide re-arms the hazard on every restart. The hide therefore belongs in
+> `UiPanel`'s constructor beside the creation, where rule 13 already puts
+> everything else.
+>
+> **What this buys, and it is why the document setting survived the finding**: the
+> record stays **per-project** and **survives a restart** (E14-A3/A4) — the two
+> properties that made `getDocumentState()` the right home — while never being
+> rendered.
+>
+> ⚠ **OWED, not done** (and it is small): the init-time hide is **not built**, and
+> the two human observations the hidden arm asks for — *is the row gone from the
+> pane, and is the pane responsive* — were **not reported back**, so "hidden means
+> safe" is currently inferred from the value surviving rather than confirmed by
+> looking. ⚠ Confirm both before anything writes a large record. `RigConfig`'s
+> default stays `0`, which is a safety default and is documented as one.
+>
+> ⚠ **Rejected: a pointer or rolling window** with the log living elsewhere, and
+> **rejected: dropping the document setting as the record's home.** Both were live
+> options while capacity looked like the constraint; neither is needed once the
+> value can exist unrendered, and both would have cost the per-project persistence
+> that is the actual reason the record is there.
+
 ⚠ **Tool descriptions are a first-class versioned artifact**: freeze a version,
 gather events under it, then edit — an edit mid-cohort splits the cohort and
 neither half is interpretable alone (HYBRID §5b). v1 ships the mechanics,
@@ -1242,10 +1289,44 @@ every time.
   the adapter contract keeps one `Op` union; only the MCP tool surface partitions.
 - ⚠ **The boundary is host-mediated: nothing INSIDE our system gates a directed
   destructive call.** Threat model is the confused agent, not a malicious client —
-  consistent with D12's socket posture. ⚠ **Annotation handling is currently a
-  SPEC READING, not a measurement** — the same epistemic class as
-  `launchWithOptions` — so verifying that target hosts actually prompt as
-  expected is a Phase-1 early item.
+  consistent with D12's socket posture. ~~⚠ **Annotation handling is currently a
+  SPEC READING, not a measurement**~~ — ⚠⚠ **MEASURED 2026-08-09, and the reading
+  was wrong. See the revision below.**
+
+> ### ⚠⚠ REVISED 2026-08-09 (E20c) — the seam stands, the STATED REASON does not
+>
+> **Settled by the operator, 2026-08-09.** The mechanism is unchanged; the sentence
+> justifying it is replaced, because the thing it named turned out to be
+> decorative.
+>
+> **Measured** (`FINDINGS.md` E20c, `probe:e20c` ARM A 7/7 + ARM B in a live
+> Claude Code session): we emit `destructiveHint` / `readOnlyHint` /
+> `idempotentHint` correctly — asserted field by field at an MCP client — and
+> ⚠⚠ **Claude Code prompts IDENTICALLY for all four tools**, annotated or not,
+> including an unannotated baseline. There is no visible indication that the
+> annotations are read at all.
+>
+> ⚠ **But the grain it DOES gate on is the tool NAME**, per project — the prompt
+> offers *"Yes, and don't ask again for **this tool** in this project."* That is
+> exactly what the seam is built out of, so nothing about the design changes:
+>
+> - **The gate is the tool NAME**, not the annotation. Destructive verbs live on
+>   separately-named tools; that is what the host's allow-list keys on, and it is
+>   why the partition is load-bearing rather than cosmetic.
+> - ⚠⚠ **Consequence, stated so it is not discovered later: *"don't ask again for
+>   this tool"* is a PER-NAME BLANKET GRANT.** D20 already accepts *"always
+>   allow"* as the operator's prerogative — this is what that looks like in
+>   practice. ⇒ **A destructive verb must never share a tool name with a benign
+>   one, and must never be widened to cover a benign case later.** Tool-surface
+>   granularity IS permission granularity.
+> - **Annotations stay on, and nothing relies on them** (operator's direction):
+>   they are correct, they cost nothing, and a host that starts honouring them
+>   makes the seam sharper rather than different. ⚠ They are **future-proofing,
+>   not a mechanism** — no design may assume a host reads them.
+> - ⚠ Measured against **Claude Code only** (the operator's target host, chosen
+>   while planning session 3′). Other hosts are **unmeasured**, not assumed
+>   equivalent — and under the rule above it does not matter much, since the name
+>   grain is what carries the weight.
 - ⚠ **Rejected: a document-state arming toggle** (API-enforced human-only —
   Bitwig refuses `Signal.fire()`, E14-A1 — checked extension-side as a
   conditional `WIRE_METHODS_BANNED`). Proposed as the hard gate; dismissed by the

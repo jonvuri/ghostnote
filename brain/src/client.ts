@@ -64,7 +64,27 @@ export class BridgeClient implements BridgeLike {
       // 'close' handler below is what rejects in-flight requests.
       socket.on('error', () => {});
 
-      socket.on('data', (data) => this.handleData(data.toString('utf8')));
+      // ⚠⚠ `setEncoding`, NOT `data.toString('utf8')` per chunk — and this line is
+      // a bug fix with a measured failure behind it (E20d).
+      //
+      // TCP hands us arbitrary byte boundaries. Decoding each chunk INDEPENDENTLY
+      // turns a multi-byte character straddling a boundary into two U+FFFD
+      // replacement characters, one per fragment — so one character silently
+      // becomes two and the payload is corrupt in both content AND length.
+      //
+      // It surfaced as "1 MB echoes come back TWO characters longer,
+      // intermittently" while measuring something else entirely, and it was
+      // invisible below 256 KB only because small replies arrive in one chunk.
+      // ⚠ The size was never the point: ANY reply carrying a non-ASCII character —
+      // a track named "Café", an em dash in a clip name — can be corrupted the
+      // moment a chunk boundary lands inside it, and standing rule 1 cannot save
+      // us because the readback is corrupted the same way the write was.
+      //
+      // `setEncoding('utf8')` puts a `StringDecoder` in front of the stream, which
+      // holds an incomplete sequence back until its remaining bytes arrive. The
+      // handler then receives strings that are never split mid-character.
+      socket.setEncoding('utf8');
+      socket.on('data', (data: string) => this.handleData(data));
       socket.on('close', () => {
         this.socket = null;
         for (const [id, p] of this.pending) {

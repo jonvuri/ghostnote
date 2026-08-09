@@ -30,6 +30,7 @@ public final class CursorHandlers extends HandlerGroup {
         r.on("cursor.pointTrack", params -> cursorPointTrack(params));
         r.on("cursor.pointToClipOf", params -> cursorPointToClipOf(params));
         r.on("cursor.status", params -> cursorStatus(params));
+        r.on("cursor.playState", params -> cursorPlayState(params));
         r.on("selection.status", params -> selectionStatus());
         r.on("equals.status", params -> equalsStatus(params));
         r.on("equals.tryCreate", params -> equalsTryCreate());
@@ -82,6 +83,42 @@ public final class CursorHandlers extends HandlerGroup {
             putGuarded(result, "isPinned", () -> pinnable.isPinned().get());
             putGuarded(result, "cursorTrackPosition", () -> rig.cursorTrack(ref).position().get());
         }
+        return result;
+    }
+
+    /**
+     * ⚠⚠ E20a — WHERE INSIDE THE CLIP playback is, through a pool cursor.
+     *
+     * This is the measurement `"continue_or_synced"` lives or dies by: take B is
+     * claimed to pick up at take A's position rather than restarting
+     * (E18-VERDICT §4a″-bis), and `playingStep()` is the only handle in the API
+     * that can say so. `-1` means nothing is playing, so "silent" and "playing at
+     * step 0" stay distinguishable — which matters, because the control arm's whole
+     * assertion is that `"from_start"` DOES report step 0.
+     *
+     * ⚠ **A separate method rather than three more fields on `cursor.status`, and
+     * that is deliberate.** `contract.hello`'s `methodsHash` is over method NAMES,
+     * so a new field on an existing reply passes a stale-extension handshake
+     * unnoticed — the exact gap that cost a sitting and produced `deploy.ts`. A new
+     * NAME moves the hash, so a jar Bitwig never loaded is caught at connect rather
+     * than by a probe check failing for what looks like a Bitwig reason.
+     *
+     * ⚠ `sampledAtMs` and `playPosition` are read here, beside the step, so a
+     * caller can place the reading on the timeline without a second round trip
+     * inserting itself between the two halves of one observation.
+     */
+    private JsonElement cursorPlayState(JsonObject params) {
+        String ref = params.get("cursor").getAsString();
+        Clip clip = rig.clip(ref);
+        JsonObject result = new JsonObject();
+        result.addProperty("sampledAtMs", System.currentTimeMillis());
+        putGuarded(result, "playingStep", () -> clip.playingStep().get());
+        putGuarded(result, "exists", () -> clip.exists().get());
+        putGuarded(result, "loopLength", () -> clip.getLoopLength().get());
+        putGuarded(result, "sceneIndex", () -> clip.clipLauncherSlot().sceneIndex().get());
+        putGuarded(result, "trackPosition", () -> clip.getTrack().position().get());
+        putGuarded(result, "playPosition", () -> rig.transport.playPosition().get());
+        putGuarded(result, "isPlaying", () -> rig.transport.isPlaying().get());
         return result;
     }
 

@@ -2,6 +2,7 @@ package com.ghostnote.extension.handlers;
 
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.ClipLauncherSlot;
+import com.bitwig.extension.controller.api.ClipLauncherSlotBank;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.RemoteControl;
 import com.bitwig.extension.controller.api.Track;
@@ -36,9 +37,28 @@ public final class TrackHandlers extends HandlerGroup {
         r.on("slot.select", params -> slotSelect(params));
         r.on("slot.delete", params -> slotDelete(params));
         r.on("slot.launch", params -> slotLaunch(params));
+        r.on("slot.launchWithOptions", params -> slotLaunchWithOptions(params));
+        r.on("slot.duplicateClip", params -> slotDuplicateClip(params));
+        r.on("slot.playState", params -> slotPlayState(params));
         r.on("slot.moveTo", params -> slotMoveTo(params));
         r.on("slot.epoch", params -> slotEpoch());
     }
+
+    /**
+     * ⚠ Legal values, VERBATIM from the API 16 javadoc for
+     * `ClipLauncherSlotOrScene.launchWithOptions(String, String)`.
+     *
+     * Copied rather than derived because there is nothing to derive them from: the
+     * API takes free strings and documents the accepted set in prose. They are the
+     * whole reason {@link #slotLaunchWithOptions} validates before it calls — see
+     * the note there.
+     */
+    private static final String[] LAUNCH_QUANTIZATIONS = {
+        "default", "none", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/16",
+    };
+    private static final String[] LAUNCH_MODES = {
+        "default", "from_start", "continue_or_from_start", "continue_or_synced", "synced",
+    };
 
     private JsonElement trackCreate(JsonObject params) {
         int position = params.get("position").getAsInt();
@@ -318,5 +338,147 @@ public final class TrackHandlers extends HandlerGroup {
         Track track = requireTrack(params.get("trackIndex").getAsInt());
         track.clipLauncherSlotBank().getItemAt(params.get("slotIndex").getAsInt()).launch();
         return ok();
+    }
+
+    /**
+     * ⚠⚠ E20a — launch with a PER-CALL quantisation and launch mode (API 16).
+     *
+     * The clip block's entire ergonomic claim runs through this call and none of it
+     * had ever been run: `"1"`/`"8"` forces a take switch onto the bar or the
+     * 8-bar phrase regardless of the project's own launch quantisation, and
+     * ⚠⚠ `"continue_or_synced"` makes the incoming take pick up at the outgoing
+     * one's position instead of restarting the loop — the same bar rendered
+     * differently, which E16m asked for and no mute, solo or chain switch can
+     * imitate (E18-VERDICT §4a″-bis, §4c).
+     *
+     * ⚠⚠ **BOTH STRINGS ARE VALIDATED BEFORE THE CALL, AND THIS IS NOT TIDINESS.**
+     * Standing rule 3c exists because of E14-A1: `Signal.fire()` returned normally
+     * and Bitwig threw the refusal LATER, on its own thread, inside a runnable
+     * deferred from our call — where no handler try/catch reaches it — and took the
+     * DAW down with an unsaved project open. The API takes these as free strings
+     * and documents the accepted set in prose, so an unrecognised value is exactly
+     * the shape of input that gets rejected somewhere we cannot catch. `uiSet`
+     * already refuses out-of-range enum values on the same reasoning; this is that
+     * precedent applied one subsystem over.
+     *
+     * ⚠ The reply reports the state BEFORE the call and never claims the launch
+     * happened: a quantised launch has not happened yet when this returns — that is
+     * the point of it — so an ack that claimed success would be false by
+     * construction (E6 blocker 4). `slot.playState` is where the verdict comes
+     * from, polled.
+     */
+    private JsonElement slotLaunchWithOptions(JsonObject params) {
+        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        int slotIndex = params.get("slotIndex").getAsInt();
+        String quantization = params.get("quantization").getAsString();
+        String launchMode = params.get("launchMode").getAsString();
+        requireOneOf("quantization", quantization, LAUNCH_QUANTIZATIONS);
+        requireOneOf("launchMode", launchMode, LAUNCH_MODES);
+
+        ClipLauncherSlot slot = track.clipLauncherSlotBank().getItemAt(slotIndex);
+        JsonObject result = ok();
+        result.addProperty("quantization", quantization);
+        result.addProperty("launchMode", launchMode);
+        result.addProperty("epochBefore", rig.launcherContentEpoch);
+        result.addProperty("requestedAtMs", System.currentTimeMillis());
+        putGuarded(result, "hadContent", () -> slot.hasContent().get());
+        putGuarded(result, "wasPlaying", () -> slot.isPlaying().get());
+        slot.launchWithOptions(quantization, launchMode);
+        return result;
+    }
+
+    /**
+     * ⚠⚠ E20b — `duplicateClip`, the primitive that mints the next take.
+     *
+     * The API sweep found it (E18-VERDICT §4b) and nothing had run it. Its javadoc
+     * is three words — *"Duplicates the clip."* — and says nothing about WHERE the
+     * copy lands, which is the only part the clip-block geometry depends on: an
+     * APPEND leaves every existing address intact, an INSERT shifts every row below
+     * it and invalidates them all, the way `Scene.deleteObject()`'s compaction does
+     * (E3). The append-only discipline E18-VERDICT §4b proposes is built on an
+     * assumption about a call nobody had made.
+     *
+     * ⚠ TWO ROUTES, per standing rule 10: `ClipLauncherSlot.duplicateClip()` (API
+     * 10) and `ClipLauncherSlotBank.duplicateClip(int)` (API 1). They are different
+     * methods on different types and a ○ from one says nothing about the other —
+     * the same lesson `slot.moveTo`'s two routes are here to remember.
+     *
+     * ⚠ The whole COLUMN is read before the call and returned. Where the copy
+     * landed is not something the return value of a void method can tell us, and a
+     * caller that only checked the row it expected would read an insert as a
+     * success. The probe diffs the column.
+     */
+    private JsonElement slotDuplicateClip(JsonObject params) {
+        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        int slotIndex = params.get("slotIndex").getAsInt();
+        String route = params.has("route") ? params.get("route").getAsString() : "slot";
+        if (!"slot".equals(route) && !"bank".equals(route)) {
+            throw new IllegalArgumentException("route must be slot or bank: " + route);
+        }
+        if (slotIndex < 0 || slotIndex >= rig.config.scenes) {
+            throw new IllegalArgumentException(
+                "slotIndex outside the scene bank window: " + slotIndex + " (window " + rig.config.scenes + ")");
+        }
+
+        ClipLauncherSlotBank slots = track.clipLauncherSlotBank();
+        JsonObject result = ok();
+        result.addProperty("route", route);
+        result.addProperty("epochBefore", rig.launcherContentEpoch);
+        JsonArray before = new JsonArray();
+        for (int j = 0; j < rig.config.scenes; j++) {
+            final int row = j;
+            JsonObject cell = new JsonObject();
+            cell.addProperty("slotIndex", row);
+            putGuarded(cell, "hasContent", () -> slots.getItemAt(row).hasContent().get());
+            before.add(cell);
+        }
+        result.add("columnBefore", before);
+
+        if ("slot".equals(route)) {
+            slots.getItemAt(slotIndex).duplicateClip();
+        } else {
+            slots.duplicateClip(slotIndex);
+        }
+        return result;
+    }
+
+    /**
+     * ⚠ E20a — is the slot playing, queued to play, or queued to stop?
+     *
+     * `isPlaybackQueued()` is the one worth the wire method. A quantised launch
+     * spends the rest of the bar in exactly that state, so it is what distinguishes
+     * *"the switch was scheduled and is waiting for the boundary"* from *"the call
+     * did nothing"* — two outcomes that look identical if all you can see is
+     * `isPlaying`.
+     *
+     * `sampledAtMs` is stamped INSIDE the extension, on the control-surface thread,
+     * rather than by the caller when the reply arrives: the probe times a transition
+     * against a bar boundary, and a bridge round trip sitting between the read and
+     * the timestamp would be charged to Bitwig.
+     */
+    private JsonElement slotPlayState(JsonObject params) {
+        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        int slotIndex = params.get("slotIndex").getAsInt();
+        ClipLauncherSlot slot = track.clipLauncherSlotBank().getItemAt(slotIndex);
+        JsonObject result = new JsonObject();
+        result.addProperty("sampledAtMs", System.currentTimeMillis());
+        putGuarded(result, "hasContent", () -> slot.hasContent().get());
+        putGuarded(result, "isPlaying", () -> slot.isPlaying().get());
+        putGuarded(result, "isPlaybackQueued", () -> slot.isPlaybackQueued().get());
+        putGuarded(result, "isStopQueued", () -> slot.isStopQueued().get());
+        putGuarded(result, "playPosition", () -> rig.transport.playPosition().get());
+        return result;
+    }
+
+    /** Refuse a free-string parameter Bitwig might reject asynchronously (rule 3c). */
+    private static void requireOneOf(String name, String value, String[] legal) {
+        for (String candidate : legal) {
+            if (candidate.equals(value)) {
+                return;
+            }
+        }
+        throw new IllegalArgumentException(
+            name + " \"" + value + "\" is not one of " + java.util.Arrays.toString(legal)
+            + " — refusing rather than letting Bitwig reject it asynchronously (E14-A1)");
     }
 }

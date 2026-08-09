@@ -647,6 +647,21 @@ public class Rig {
                 slot.exists().markInterested();
                 slot.hasContent().markInterested();
                 slot.isSelected().markInterested();
+                // ⚠ E20a — the launch state, and the QUEUED half is the point.
+                //
+                // `launchWithOptions` quantises a switch to a bar or a phrase, so
+                // between the call and the switch there is a window in which the
+                // slot is neither playing nor idle. E18-VERDICT §4b calls that
+                // readable pending state better than anything either device
+                // mechanism offers — solo flags have no equivalent — and it is what
+                // separates "the launch was quantised" from "the launch was slow".
+                //
+                // ⚠ Three markInterested per slot is `3 × tracks × scenes` = 768 at
+                // the default rig, on top of the three above. Rule 13 gives no
+                // choice about WHERE (init only); `rig.stats` reports what it cost.
+                slot.isPlaying().markInterested();
+                slot.isPlaybackQueued().markInterested();
+                slot.isStopQueued().markInterested();
             }
 
             final int trackIdx = i;
@@ -1046,6 +1061,10 @@ public class Rig {
 
         transport = host.createTransport();
         transport.isPlaying().markInterested();
+        // ⚠ E20a — the corroborating half of the quantisation measurement. Wall
+        // clock says a launch was DELAYED; only the play position says it landed on
+        // a BAR, which is the property `launchWithOptions("1", …)` actually claims.
+        transport.playPosition().markInterested();
 
         // Format-agnostic DirectParameter observers (E4b — CLAP access test).
         // Callbacks fire on the control-surface thread.
@@ -1154,6 +1173,16 @@ public class Rig {
         clip.clipLauncherSlot().exists().markInterested();
         clip.clipLauncherSlot().sceneIndex().markInterested();
         clip.clipLauncherSlot().name().markInterested();
+        // ⚠ E20a — WHERE INSIDE THE CLIP playback is, which is the only
+        // programmatic answer to `"continue_or_synced"`.
+        //
+        // The claim under test is that take B picks up at A's position instead of
+        // restarting (E18-VERDICT §4a″-bis). That is an audible fact, and an ear is
+        // one of the two ways it gets checked — but an ear cannot carry a control
+        // arm, and `"from_start"` beside it is what makes the reading a measurement
+        // rather than an impression. `playingStep()` reports -1 when nothing is
+        // playing, so "not playing" and "playing at step 0" stay distinguishable.
+        clip.playingStep().markInterested();
     }
 
     /** Resolve "0".."N-1", "follower", "bare", "fine", or "arranger". */

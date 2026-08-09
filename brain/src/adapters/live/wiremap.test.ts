@@ -62,8 +62,12 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
     `session 2 added a non-ui method: ${golden.addedInSession2.filter((m) => !m.startsWith('ui.')).join(', ')}`);
   const reachable = golden.addedInSession2.filter((m) => WIRE_METHODS_USED.includes(m));
   assert.deepEqual(reachable, [], 'E14 is a probe, not a capability — the contract must not reach any of it');
+  // ⚠ Every post-split addition must be accounted for by exactly one sitting's
+  // bucket. The equality is the bookkeeping guard: a method that appears on the
+  // wire without landing in a named bucket is one nobody has had to justify.
   assert.deepEqual([...golden.addedInPhase0].sort(),
-    [...golden.addedInSession1, ...golden.addedInSession2, ...(golden.addedInE16 ?? [])].sort());
+    [...golden.addedInSession1, ...golden.addedInSession2,
+      ...(golden.addedInE16 ?? []), ...(golden.addedInE20 ?? [])].sort());
 });
 
 test('E16: the branch probe surface is probe surface, and the contract cannot reach it', () => {
@@ -210,6 +214,56 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   assert.deepEqual(unexpected, [], `E16 added an unexpected method: ${unexpected.join(', ')}`);
   const reachable = e16.filter((m) => WIRE_METHODS_USED.includes(m));
   assert.deepEqual(reachable, [], 'E16 is a mini-spike, not a capability — the contract must not reach any of it');
+});
+
+test('E20: session 3′s early-probe surface is probe surface, and the contract cannot reach it', () => {
+  // ⚠ Session 3′ measures four design-gating unknowns BEFORE the clip block is
+  // designed (PHASE-1 §Re-plan row 3′). Every one of these is a call nobody had
+  // ever made, and the whole point of running them early is that the design gets
+  // to depend on a measurement instead of a javadoc — so none of it may become
+  // contract surface here. Session 3″ owns what the clip block exposes, under
+  // D18c's fresh-language rule, and a name minted in a probe would freeze the
+  // vocabulary the moment before the vocabulary is designed.
+  //
+  // Named one by one, with a reason each, for the same reason E16's list is: the
+  // list IS the record, and a prefix rule would let the next addition in
+  // unnoticed.
+  //
+  //   slot.launchWithOptions  ⚠⚠ THE ONE THE CLIP HALF RESTS ON. Per-call
+  //                     quantisation ("1"/"8") and, decisively,
+  //                     "continue_or_synced" — take B picks up at A's position
+  //                     instead of restarting, which is the only answer to
+  //                     E16m's beat-alignment complaint and something no mute,
+  //                     solo or chain switch can imitate. ⚠ Both strings are
+  //                     validated in the handler before Bitwig sees them: the API
+  //                     takes free strings, and E14-A1 established that a value
+  //                     Bitwig rejects asynchronously takes the DAW down.
+  //   slot.duplicateClip  the primitive that mints the next take. Its javadoc is
+  //                     three words and says nothing about WHERE the copy lands,
+  //                     which is the only part the append-only geometry depends
+  //                     on. Carries BOTH routes (slot and bank) because sibling
+  //                     verbs on these interfaces demonstrably disagree.
+  //   slot.playState    isPlaying / isPlaybackQueued / isStopQueued. The QUEUED
+  //                     half is what separates "the launch was quantised and is
+  //                     waiting for the bar" from "the call did nothing".
+  //   cursor.playState  `Clip.playingStep()` — the only handle in the API that
+  //                     can say where inside a clip playback is, and therefore
+  //                     the only thing that can turn "continue_or_synced" from
+  //                     an impression into a measurement with a control arm.
+  //   ui.get            reads one setting back WITH ITS LENGTH, for the
+  //                     `getDocumentState()` capacity sweep (D18d's record lands
+  //                     there). Standing rule 1: a write that truncated and a
+  //                     write that landed are indistinguishable from the ack.
+  const allowed = [
+    'slot.launchWithOptions', 'slot.duplicateClip', 'slot.playState',
+    'cursor.playState', 'ui.get',
+  ];
+  const e20 = golden.addedInE20 ?? [];
+  const unexpected = e20.filter((m) => !allowed.includes(m));
+  assert.deepEqual(unexpected, [], `session 3′ added an unexpected method: ${unexpected.join(', ')}`);
+  const reachable = e20.filter((m) => WIRE_METHODS_USED.includes(m));
+  assert.deepEqual(reachable, [],
+    'these are probes for a design that has not been made — the contract must not reach any of it');
 });
 
 test('W-hash: the golden hash matches its own method list', () => {

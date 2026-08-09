@@ -158,9 +158,24 @@ public final class AppHandlers extends HandlerGroup {
         return ok();
     }
 
+    /**
+     * ⚠ E20a added `playPosition` and `sampledAtMs`.
+     *
+     * Wall clock can say a launch was DELAYED; only the play position can say it
+     * landed on a BAR, which is the property `launchWithOptions("1", …)` actually
+     * claims. Both are read on the control-surface thread and stamped there, so a
+     * bridge round trip cannot be charged to Bitwig's scheduling.
+     *
+     * ⚠ Fields on an existing reply, which `contract.hello` cannot see (its hash is
+     * over method names). That is safe here only because `deploy.ts` now refuses a
+     * stale extension outright — and it is exactly why `cursor.playState` was
+     * given its own NAME instead.
+     */
     private JsonElement transportStatus() {
         JsonObject r = new JsonObject();
         r.addProperty("isPlaying", rig.transport.isPlaying().get());
+        r.addProperty("sampledAtMs", System.currentTimeMillis());
+        putGuarded(r, "playPosition", () -> rig.transport.playPosition().get());
         return r;
     }
 }
