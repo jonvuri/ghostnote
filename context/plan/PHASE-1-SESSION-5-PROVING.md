@@ -96,6 +96,24 @@ first. Record the reconciliation so the next reader does not re-derive it.
 - Phase 2's musical vocabulary, however tempting once notes are landing reliably.
 - The deferred-response protocol — session 6, and no exit criterion depends on it.
 
+## ⚠ Carried in from session 3 (2026-08-08)
+
+Two items with no session of their own, homed here because this is the live
+sweep. Detail in [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §The full carry-forward.
+
+- **B4 — hoist the selection capture/restore.** `LiveAdapter.captureSelection`'s
+  ⚠ note blames the daemon for being unable to reduce the executor's three
+  save/restore pairs per pipeline to one. There is no daemon (D4 rev), and the
+  component that knows a pipeline is in progress is the **executor**. A plain
+  refactor with no blocker; the user-visible symptom is selection flicker, not a
+  wrong result.
+- **B5 — two drags E19 did not measure.** ⚠ A **cross-track** drag: PART B moved
+  a clip within one track, so both content events carried the same `channelId`,
+  and "two tracks produce two ids" is an INFERENCE. Rule 10 says an inference is
+  not a measurement. And a drag **below the bank window**, which session 3's B2
+  predicts fires nothing at all — worth confirming as a known limit rather than
+  discovering it as a bug.
+
 ## Decisions this session must make
 
 - **⚠ Whether to verify `gain`'s inverse mapping** and enable the correction. This

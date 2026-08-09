@@ -104,6 +104,21 @@ right.
   `extension-dev: true`, a restart and two right-click menus to reach a user.
 - Push signalling from extension to daemon — session 6. Poll.
 
+## ⚠ Inherited from session 3 (2026-08-08)
+
+**How the extension tells the brain a human pressed a button.** Session 3's
+original doc owed this decision and recommended *"the daemon polls a `ui.state`
+method at a modest interval"*. ⚠ There is no daemon (D4 rev) and the recommendation
+survives it unchanged — the poller is now the **MCP server** (`brain/src/session.ts`
+holds the connection). The reasoning still stands: nothing new is needed, and a
+revert button is a rare deliberate act where 100 ms of latency is invisible.
+Session 6 generalises it into a push, which is the same machinery as deferred
+batch responses.
+
+⚠ Bitwig still REFUSES `Signal.fire()` on a document-state button (E14-A1,
+`WIRE_METHODS_FORBIDDEN`), so only a real human click can press one. That is
+Bitwig enforcing rule 8, not us.
+
 ## Decisions this session must make
 
 - **What the status line says** in its 64 characters, and what happens when the

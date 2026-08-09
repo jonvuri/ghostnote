@@ -1,7 +1,8 @@
 ---
 title: Phase 1 — The write engine & takes
 status: in progress — split into six sessions 2026-07-25 (see §Session index).
-        Sessions 1 and 2 DONE 2026-07-26 (D16, D17).
+        Sessions 1 and 2 DONE 2026-07-26 (D16, D17); session 3 DONE 2026-08-08
+        as **bridge + observers**, no daemon built.
         ⚠⚠ RE-PLANNED 2026-08-07 UNDER D16–D20 — READ §Re-plan BELOW FIRST. The
         original text is kept as the record and is STALE where it disagrees.
         The model: STATELESS — the project is the take log; branching is the
@@ -16,7 +17,7 @@ status: in progress — split into six sessions 2026-07-25 (see §Session index)
         ⚠ (The 2026-07-30 HALT banner this replaces said "branches are duplicated
         tracks"; E18 and the operator's hybrid decision superseded that — see
         ../spike/HYBRID-AUTONOMY-LEVELS.md §7.)
-updated: 2026-08-07
+updated: 2026-08-08
 parent: ../PROJECT_PLAN.md
 prev: PHASE-0-FOUNDATION.md
 next: PHASE-2-CLIPS.md
@@ -38,12 +39,56 @@ sessions: PHASE-1-SESSION-1-EXECUTOR.md … PHASE-1-SESSION-6-ASYNC.md
 |---|---|---|
 | 1 | The executor | ● DONE (D16) — ⚠ re-open briefly for the 2026-08-07 amendments: `clip.delete` → `lossy` via live `lengthBeats` (fixes the fake/live disagreement); `device.insert` gets its exact inverse (`device.delete`); the floor becomes **refuse-unless-branch-protected**, never an automatic fork (D18c) |
 | 2 | ~~The take store~~ → **the stash** | ● DONE (D17), then RETIRED to the stash (D17 rev). Delete `graph.ts`/`project.ts`; reduce `store.ts`/`format.ts`; ⚠ **KEEP `slice.ts`** (partial revert by address) and the read/write type split. ⚠ **The stash is load-bearing THREE ways** — unbranched writes, the clip content fingerprint, agent-edit reversal (D19). Do not delete it with the store |
-| 3 | ~~`ghostnoted`~~ → **bridge + observers** | Daemon DELETED (D4 rev). The MCP server holds a bridge connection — a fraction of a session. The **extension** carries both epochs: scene-count AND launcher-content, and the content epoch is the one clip addressing consults (E16s: the count observer missed a human clip drag the content observer reported as a pair) |
+| 3 | ~~`ghostnoted`~~ → **bridge + observers** | ● **DONE 2026-08-08** — see [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §Re-scope. Daemon DELETED (D4 rev); the MCP server holds the connection (`brain/src/session.ts`). The **extension** carries both epochs and the content epoch is the one clip addressing consults (E16s). Three things the build added past E16s: the event log holds `channelId` not a bank index (rule 2), a **generation nonce** per `init()` so a restart makes a mark INCOMPARABLE rather than falsely equal, and the mark is one round trip. Consumed as `ApplyReport.concurrent` and as the stash's ⚠ **`moved`** verdict — the one a content fingerprint structurally cannot produce. ⚠ The mark also carries the **PROJECT**, closing the original doc's *"sharpest question in the session"*: a project load does not re-`init()` the extension, so the counters keep climbing and the window looks ordinary while every `channelId` names a track that is no longer open — worse than a restart, not milder. ● **Proven live** (`FINDINGS.md` E19, 17/17). ⚠⚠ Its probe also found **standing rule 5 is not implemented for SCENES** — a create past the scene-bank window strands an unaddressable row, and clip rows past it are missing from `Snapshot.unreachable` entirely. Owed, not built; see [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §Owed |
 | 3′ | ⚠ **NEW — early probes** | The design-gating unknowns, run before anything leans on them: **`launchWithOptions(quantization, launchMode)`** (per-call `"1"`/`"8"` quantisation; `"continue_or_synced"` — take B resumes at A's position, the only answer to E16m) and **`ClipLauncherSlot.duplicateClip()`** (mints the next take); **D20's annotation check** (do target hosts actually prompt on `destructiveHint`?); **`getDocumentState()` JSON capacity** (D18d's record lands there) |
+| 3‴ | ⚠ **PROPOSED 2026-08-08 — *the window*** | Session 3's carry-forward, and **not new design**: standing rule 5 is implemented for TRACKS only and its own words cover scenes verbatim. Three items that share one fix — a scene budget as a **precondition** on `scene.create` (a create past the window strands an unaddressable row: measured, `FINDINGS.md` E19), a window guard on `scene.delete` (`encoder.ts` sends a project index as a bank index), and ⚠⚠ **scenes counted into `Snapshot.unreachable`**, which today reports blind tracks and stays silent about blind clip rows. ⚠ The observers inherit the same hole in BOTH dimensions, so `ContentDelta` calls a window `complete` when the world moved outside the bank — a fourth way to lie that, unlike the three that are modelled, the delta cannot show. Plus `config.scenes` scale, unmeasured (E5 measured tracks). ⚠ Unblocks the Phase-3 change log. See [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §The full carry-forward |
 | 3″ | ⚠ **NEW — the branch mechanisms & the record** | Track fork (built: E16k/C5/E16u) · layer chain (wire mostly exists: `e18a`/`e18c`; solo A/B per E17 row 6) · **clip block** (this phase, operator 2026-08-06): `duplicateClip` → append-only geometry (`hasContent()` contiguity, `slot.moveTo` restore, `createScene()` for room) → `launchWithOptions` A/B. Plus the **branch-event record** (D18d) and **versioned tool descriptions in fresh, jargon-free language** (D18c). ⚠ The dispatch classifier lives in the executor and must be *provably* unreachable from the tool surface — the `WIRE_METHODS_BANNED` test idiom, aimed at the leak |
 | 4 | The control layer | Mostly survives, and SHRINKS: coarse A/B is Bitwig's own surface (D14 rev). The pane keeps revert, status, `showInEditor` navigation |
 | 5 | Proving it live | ⚠ Exit criterion 4 is **BACK IN PHASE 1**: two takes A/B'd from inside Bitwig — chain solo (one exclusive flag) or clip launch (beat-aligned, E16m answered). The relaxation below is superseded |
 | 6 | Async batch completion | Unchanged |
+
+### ⚠ Decisions PROPOSED by session 3, awaiting the operator (rule 10)
+
+Built and tested, recorded here rather than in `DECISIONS.md`. Each names what it
+rejected, because in every case the rejected option was the tempting one.
+
+1. **The content epoch lives on the MARK, not on the address.** A clip address
+   keeps the scene epoch it already carries; the launcher window is compared
+   between two `RevisionMark`s. ⚠ *Rejected: a second epoch on the address.* It
+   would change the key grammar, every slice prefix and every stashed key, and it
+   buys nothing — an address is minted from a live read inside one batch, and an
+   address that outlives a batch lives in the stash, which carries the mark.
+2. ⚠ **A per-`init()` GENERATION nonce, and refusal rather than staleness.** Both
+   epochs restart at zero on every load, so a mark from before a Bitwig restart
+   compares **equal** to one after it. ⚠ *Rejected: monotonic epochs persisted in
+   `getDocumentState()`.* They would survive a restart but not a project change,
+   and the failure would be a wrong comparison rather than a refused one — the
+   silent direction.
+3. **Events naming our OWN slots are not concurrent edits.** The callback carries
+   no author, so our `clip.create` is byte-identical to a human's. ⚠ *Rejected:
+   reporting every event.* The field would be noise within a day and would stop
+   being read, which is worse than not having it. Our own addresses are
+   arbitrated by the verify readback and the stash fingerprint; the detector's
+   unique reach is the slots we never touched.
+4. ⚠ **Three named ways a window is unusable, never collapsed into "no events"** —
+   `truncated`, `discontinuous`, `unattributable`. Each reads as an empty window
+   if you only count, and each means the opposite of quiet.
+5. **`moved` and `undecidable` join the boundary verdicts.** `moved` fires even
+   when contents compare EQUAL (a clip dragged out, an identical one dragged in);
+   `undecidable` downgrades `ours` and only `ours`, and only for launcher cells,
+   so pessimism cannot spread past its evidence. ⚠ *Rejected: making the launcher
+   window a required argument.* It would have been honest and would also have
+   made every existing caller wrong at once; the omission is REPORTED in the
+   plan's caveats instead.
+6. **The detector never refuses.** PHASE-1: *"detection matters more than
+   resolution here — surface it, don't guess."* A concurrent edit outside the
+   write-set does not invalidate a batch that already ran, and a detector that
+   cannot answer must not take down a batch that landed.
+7. **A reconnect onto a different generation throws the adapter away; the STASH
+   survives.** ⚠ *Rejected: clearing the stash too.* It records what this session
+   did, which is still true after a restart — and the boundary already reports
+   its addresses as `undecidable` on its own, so clearing it would lose the
+   record to protect against a stale index.
 
 ### New decisions this phase owns (not in the old list)
 
@@ -68,7 +113,7 @@ already written.
 |---|---|---|---|---|
 | 1 | ● **The executor** — write-set, stash, verify, revert, resolver discipline | 2, 3, 5 | offline | [SESSION-1](PHASE-1-SESSION-1-EXECUTOR.md) — **DONE 2026-07-26**, decisions as D16 |
 | 2 | ● **The take store** — persistence, branching, partial revert | 4 | offline | [SESSION-2](PHASE-1-SESSION-2-TAKES.md) — **DONE 2026-07-26**, decisions as D17 |
-| 3 | **`ghostnoted`** — process, lifecycle, observers, local API | 1 | live daemon | [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) |
+| 3 | **`ghostnoted`** — process, lifecycle, observers, local API | 1 | live daemon | [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) — ⚠ **RE-SCOPED to bridge + observers, DONE 2026-08-08**; no daemon was built |
 | 4 | **The control layer** — the in-Bitwig pane | 6 | ⚠ human | [SESSION-4](PHASE-1-SESSION-4-CONTROL-LAYER.md) |
 | 5 | **Proving it live** — the exit-criteria sweep | §Exit | ⚠ human | [SESSION-5](PHASE-1-SESSION-5-PROVING.md) |
 | 6 | **Async batch completion** *(optional)* | 7 | — | [SESSION-6](PHASE-1-SESSION-6-ASYNC.md) |
@@ -203,6 +248,16 @@ The reframe in `PROJECT_PLAN.md` §3 drives this. Concretely, a take is:
 > live: **what happens when the user edits inside the write-set** (detection over
 > resolution — the launcher-content epoch is the detector now), plus §Re-plan's
 > new-decisions list.
+>
+> ⚠⚠ 2026-08-08, session 3: **the last one is ANSWERED and built.** "Surface it,
+> don't guess" resolves concretely to `ApplyReport.concurrent` /
+> `ApplyReport.undecidable` on the executor and to the `moved` / `undecidable`
+> boundary verdicts on the stash — a detector that reports and never refuses.
+> ⚠ The sharpest part is what it reaches that nothing else could: an edit in a
+> slot the batch never addressed, and a clip REPLACED by an identical one, which
+> every content comparison in the system reads as unchanged. See
+> [SESSION-3](PHASE-1-SESSION-3-DAEMON.md) §Re-scope and §Decisions proposed by
+> session 3 above (rule 10: proposed, not recorded).
 
 - **Take store schema and retention.** Depth, pruning, and whether takes survive
   project close. `getDocumentState()` settings persist in the project document —

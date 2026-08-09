@@ -23,6 +23,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
+import { control } from '../adapters/fake/control.js';
 import {
   addressKey, clip, notes as notesAt, scene, slot, track,
   type BitwigAdapter, type ClipAddress, type NoteRecord, type Op, type SlotAddress,
@@ -600,6 +601,7 @@ test('B-device: an insert nobody watched land is reported BEFORE any reversal (D
     read: (sel) => fx.fake.read(sel),
     settle: (budget) => fx.fake.settle(budget),
     revision: () => fx.fake.revision(),
+    contentSince: (since) => fx.fake.contentSince(since),
     close: () => fx.fake.close(),
     apply: async (batch) => ({ ...(await fx.fake.apply(batch)), minted: {} }),
   };
@@ -631,4 +633,95 @@ test('B-record: `forget` empties the stash, and reversal is unaskable afterwards
   // ⚠ Which is exactly why `forget` is a named mutator: dropping the stash does
   // not lose a log, it loses the ability to put the music back.
   assert.throws(() => fx.stash.log.readSetFor(take.id), ChangesetNotFoundError);
+});
+
+// --- session 3: the launcher window, and what it buys the boundary -----------
+
+test('B-moved: a clip REPLACED by an identical one fingerprints as ours, and is not', async () => {
+  const fx = await fixture();
+  const take = await commit(fx, [{ op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 60 })] }]);
+
+  // ⚠ The control that reproduces the FAILURE (E17 method guard 10). A human
+  // deletes our clip and drops an identical one in the same slot: every byte
+  // compares equal afterwards, and the slot is not holding the clip we wrote.
+  control(fx.fake).replaceClipInPlace(fx.trackA.channelId, 0);
+
+  const current = await fx.fake.read(fx.stash.log.readSetFor(take.id));
+
+  // Without the window, the boundary can only compare contents — and they match.
+  const blind = fx.stash.log.boundary(take.id, current);
+  assert.deepEqual([...new Set(blind.map((c) => c.verdict))], ['ours'],
+    'content comparison alone says this is ours to put back');
+
+  // With it, the same addresses read `moved`. This is the whole justification
+  // for building a second mechanism instead of tuning the first one.
+  const launcher = await fx.fake.contentSince(take.at);
+  const seeing = fx.stash.log.boundary(take.id, current, launcher);
+  assert.ok(seeing.some((c) => c.verdict === 'moved'), 'the launcher saw what the bytes could not');
+  assert.match(seeing.find((c) => c.verdict === 'moved')!.why, /no durable id|position/);
+});
+
+test('B-moved: a reversal withholds a moved address and says why', async () => {
+  const fx = await fixture();
+  const take = await commit(fx, [{ op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 60 })] }]);
+  control(fx.fake).replaceClipInPlace(fx.trackA.channelId, 0);
+
+  const current = await fx.fake.read(fx.stash.log.readSetFor(take.id));
+  const launcher = await fx.fake.contentSince(take.at);
+  const plan = fx.stash.log.planReversal(take.id, current, { launcher });
+
+  assert.deepEqual(plan.ops, [], 'nothing is written over a clip that moved under us');
+  assert.ok(plan.withheld.some((w) => w.verdict === 'moved'));
+  assert.equal(plan.fidelity, 'none', 'a wholly withheld reversal restores nothing');
+});
+
+test('B-moved: our OWN batch\'s occupancy change is not a move', async () => {
+  const fx = await fixture();
+  // `clip.create` on an empty slot fires the observer exactly as a human drag
+  // does. If that read as `moved`, every flagship reversal would be withheld.
+  const emptied = slot(fx.trackA, scene(3, 1));
+  const take = await commit(fx, [
+    { op: 'clip.create', slot: emptied, lengthBeats: 4 },
+    { op: 'note.write', clip: clip(emptied), notes: [note({ pitch: 64 })] },
+  ]);
+
+  const current = await fx.fake.read(fx.stash.log.readSetFor(take.id));
+  const launcher = await fx.fake.contentSince(take.at);
+  const checks = fx.stash.log.boundary(take.id, current, launcher);
+
+  assert.deepEqual([...new Set(checks.map((c) => c.verdict))], ['ours']);
+  const plan = fx.stash.log.planReversal(take.id, current, { launcher });
+  assert.ok(plan.ops.some((o) => o.op === 'clip.delete'), 'and the reversal still un-creates it');
+});
+
+test('B-undecidable: an unusable window downgrades `ours`, and only `ours`', async () => {
+  const fx = await fixture();
+  const take = await commit(fx, [
+    { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 60 })] },
+    { op: 'track.rename', track: fx.trackA, name: 'gn-A2' },
+  ]);
+
+  control(fx.fake).floodContentEvents(40);
+
+  const current = await fx.fake.read(fx.stash.log.readSetFor(take.id));
+  const launcher = await fx.fake.contentSince(take.at);
+  const checks = fx.stash.log.boundary(take.id, current, launcher);
+
+  const byKind = new Map(checks.map((c) => [c.address.kind, c.verdict]));
+  assert.equal(byKind.get('notes'), 'undecidable', 'a launcher cell cannot be vouched for');
+  // ⚠ Pessimism must not spread past its evidence: the launcher observer never
+  // had anything to say about a track address, so a dropped launcher event
+  // cannot be a reason to withhold one.
+  assert.equal(byKind.get('track'), 'ours');
+});
+
+test('B-undecidable: a reversal planned WITHOUT the window says so in its caveats', async () => {
+  const fx = await fixture();
+  const take = await commit(fx, [{ op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 60 })] }]);
+  const current = await fx.fake.read(fx.stash.log.readSetFor(take.id));
+
+  const plan = fx.stash.log.planReversal(take.id, current);
+
+  assert.ok(plan.ops.length > 0, 'it still plans — the omission is reported, not fatal');
+  assert.ok(plan.caveats.some((c) => /WITHOUT the clip-launcher window/.test(c)));
 });

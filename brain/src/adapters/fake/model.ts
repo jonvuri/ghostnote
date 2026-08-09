@@ -11,7 +11,7 @@
  * PHASE-0 §Risks names for fake drift ("every trap the fake models must cite the
  * FINDINGS experiment that established it").
  */
-import type { NoteRecord } from '../../contract/index.js';
+import type { ContentEvent, NoteRecord } from '../../contract/index.js';
 
 export type TrackType = 'Instrument' | 'Audio' | 'Effect' | 'Master' | 'Group';
 
@@ -63,8 +63,87 @@ export class ProjectModel {
   /** E8's monotonic counter, owned by the executor, not by any DAW object. */
   revision = 0;
 
-  /** Ours. Bumped by any scene create/delete so stale addresses are refusable (E3). */
-  sceneEpoch = 1;
+  /**
+   * ⚠ What a freshly-`init()`ed extension reports before anyone touches a scene.
+   *
+   * Named rather than inlined so `restartExtension` and this field cannot drift:
+   * the whole point of a restart is that the counter comes back HERE, and a
+   * literal in two places is how one of them stops being the resting value.
+   * Live, `sceneCountChanges` starts at 0 and the observer's first delivery makes
+   * it small-and-nonzero — measured at 2 across a controller reload where it had
+   * been 7 (`FINDINGS.md` E19).
+   */
+  static readonly RESTING_SCENE_EPOCH = 1;
+
+  /**
+   * Bumped by any scene create/delete so stale addresses are refusable (E3).
+   *
+   * ⚠ It used to be described as "ours". It is not any more: live, this counter
+   * is an OBSERVER in the extension that sees the user's scene ops as well as
+   * ours (D4 rev), and the fake models the counter, not the old ownership. ⚠ Which
+   * also means it RESTARTS with the extension — see `TrapControl.restartExtension`.
+   */
+  sceneEpoch = ProjectModel.RESTING_SCENE_EPOCH;
+
+  /**
+   * ⚠ The launcher-content epoch and its ring — the fake's model of E16s.
+   *
+   * `ClipLauncherSlotBank.addHasContentObserver` fires when a slot changes
+   * between empty and occupied, so a clip MOVE arrives as a PAIR (source
+   * emptied, destination filled) where the scene count sits still. The fake has
+   * to model it because the two failure modes that matter most cannot be
+   * produced on demand against a live DAW: a ring that has dropped the names we
+   * needed, and a mark from a previous life of the extension.
+   *
+   * ⚠ Same ring size as the extension. Deliberately the same wrong-by-being-small
+   * number rather than a generous one — a fake with a bigger buffer would pass
+   * the truncation cases the live adapter fails.
+   */
+  static readonly CONTENT_RING = 24;
+  contentEpoch = 0;
+  contentRing: ContentEvent[] = [];
+
+  /**
+   * ⚠ Minted per model, standing in for the extension's per-`init()` nonce, and
+   * settable so `TrapControl.restartExtension()` can prove the discontinuity.
+   */
+  generation = `fake-gen-${Math.random().toString(36).slice(2, 10)}`;
+
+  /**
+   * ⚠ Which project is loaded — modelled because a project change is the ONE
+   * discontinuity with no numeric tell.
+   *
+   * A restart resets `contentEpoch` to 0, which a comparison can at least notice
+   * as impossible. A project LOAD leaves the extension running, so the counter
+   * keeps climbing and a stale mark's window looks like an ordinary busy one.
+   * `TrapControl.loadProject` models it faithfully — same generation, epoch goes
+   * UP — which is the only way a test can prove the field is doing the work.
+   */
+  project = 'fake-project-A';
+
+  /**
+   * The ONE place a slot changes occupancy — so every route into that state
+   * change emits the observer event, exactly as Bitwig does.
+   *
+   * ⚠ Only a CHANGE fires. A note write into an already-occupied slot is not a
+   * content event, and modelling it as one would make the fake noisier than the
+   * thing it stands in for, which is worse than useless for a detector whose
+   * whole value is that silence means something.
+   */
+  setSlotContent(track: FakeTrack, sceneIndex: number, has: boolean): void {
+    const slot = track.slots[sceneIndex];
+    if (slot === undefined || slot.hasContent === has) return;
+    slot.hasContent = has;
+    this.pushContentEvent(track.channelId, sceneIndex, has);
+  }
+
+  /** ⚠ Also used to model an edit made by a HUMAN, which is the point of the detector. */
+  pushContentEvent(channelId: string, slotIndex: number, filled: boolean): void {
+    const seq = ++this.contentEpoch;
+    const trackIndex = this.bankView().findIndex((t) => t.channelId === channelId);
+    this.contentRing.push({ seq, channelId, trackIndex, slotIndex, filled });
+    if (this.contentRing.length > ProjectModel.CONTENT_RING) this.contentRing.shift();
+  }
 
   /**
    * The pool cursor's step grid, in beats.
@@ -205,7 +284,15 @@ export class ProjectModel {
    * is what converts that into a refusal at `resolve()` instead of a wrong write.
    */
   deleteScene(index: number): void {
+    // ⚠ The content observer is INDEXED BY SLOT POSITION, so a compaction is
+    // visible to it as every position whose occupancy changed underneath it —
+    // which is a second, independent reason a scene op invalidates clip
+    // addresses, and one the scene epoch alone would not have shown. Derived by
+    // diffing the same positions before and after rather than predicted, because
+    // predicting it is exactly the guess the epoch exists to avoid.
+    const before = this.tracks.map((t) => t.slots.map((s) => s.hasContent));
     for (const track of this.tracks) track.slots.splice(index, 1);
+    this.emitCompaction(before);
     this.sceneCount--;
     this.sceneEpoch++;
   }
@@ -218,6 +305,18 @@ export class ProjectModel {
     }
     this.sceneCount += count;
     this.sceneEpoch++;
+  }
+
+  /** One event per slot POSITION whose occupancy differs after a compaction. */
+  private emitCompaction(before: boolean[][]): void {
+    for (const [t, track] of this.tracks.entries()) {
+      const was = before[t] ?? [];
+      const rows = Math.max(was.length, track.slots.length);
+      for (let s = 0; s < rows; s++) {
+        const now = track.slots[s]?.hasContent ?? false;
+        if ((was[s] ?? false) !== now) this.pushContentEvent(track.channelId, s, now);
+      }
+    }
   }
 
   /**

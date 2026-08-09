@@ -201,6 +201,7 @@ function racing(fake: FakeAdapter): BitwigAdapter {
     apply: (batch) => fake.apply(batch),
     settle: (budget) => fake.settle(budget),
     revision: () => fake.revision(),
+    contentSince: (since) => fake.contentSince(since),
     close: () => fake.close(),
   };
 }
@@ -579,4 +580,145 @@ test('X-ban: `revert` is not on the Executor — the bounded route is the stash\
   // this object, so the falses above mean "absent" and not "wrong operator".
   assert.equal('revertUnchecked' in (executor as object), true);
   assert.equal(typeof executor.revertUnchecked, 'function', 'and the honest name is still there');
+});
+
+// --- session 3: the concurrent-edit detector ---------------------------------
+
+test('X-concurrent: an edit OUTSIDE the write-set is reported, and the batch still lands', async () => {
+  const fx = await fixture();
+  // A human dragging a clip on the other track while our batch runs. It touches
+  // nothing we address, which is exactly why nothing else in the system can see
+  // it: the verify reads our addresses, the fingerprint compares our addresses.
+  const racingFake: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    apply: async (batch) => {
+      const receipt = await fx.fake.apply(batch);
+      control(fx.fake).dragClip(fx.trackB.channelId, 0, 6);
+      return receipt;
+    },
+  };
+  const executor = new Executor(racingFake, { newId: () => 'take-c', now: () => 1 });
+
+  const take = await executor.run([{ op: 'note.write', clip: fx.clipA, notes: [note()] }]);
+
+  assert.equal(take.report.applied, true, 'detection is not refusal — the batch ran');
+  assert.equal(take.report.undecidable, undefined);
+  assert.deepEqual(
+    take.report.concurrent.map((c) => `${c.slotIndex}:${c.filled}`),
+    ['6:true', '0:false'],
+    'both halves of the drag, on a track this batch never addressed',
+  );
+  assert.match(take.report.concurrent[0]!.why, /addressed by position/);
+});
+
+test('X-concurrent: an event on OUR OWN slot is not reported — the callback has no author', async () => {
+  const fx = await fixture({ clips: false });
+  const slotA = slot(fx.trackA, scene(0, 1));
+
+  const take = await fx.executor.run([{ op: 'clip.create', slot: slotA, lengthBeats: 4 }]);
+
+  // The create really did fire the observer...
+  assert.ok((await fx.fake.revision()).contentEpoch > 0);
+  // ...and it is deliberately NOT reported. A detector that flagged every
+  // clip.create as a concurrent edit would be noise by the end of the day, and
+  // our own addresses are arbitrated by the verify readback instead.
+  assert.deepEqual(take.report.concurrent, []);
+  assert.equal(take.report.undecidable, undefined);
+});
+
+test('X-concurrent: a window that cannot be evaluated is NOT an empty window', async () => {
+  const fx = await fixture();
+  const flooding: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    apply: async (batch) => {
+      const receipt = await fx.fake.apply(batch);
+      control(fx.fake).floodContentEvents(40);
+      return receipt;
+    },
+  };
+  const executor = new Executor(flooding, { newId: () => 'take-f', now: () => 1 });
+
+  const take = await executor.run([{ op: 'note.write', clip: fx.clipA, notes: [note()] }]);
+
+  assert.equal(take.report.applied, true);
+  assert.match(take.report.undecidable ?? '', /more launcher edits/);
+});
+
+test('X-concurrent: a REJECTED batch still reports where the world moved', async () => {
+  const fx = await fixture();
+  const racing: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    read: async (sel) => {
+      const snapshot = await fx.fake.read(sel);
+      control(fx.fake).bumpRevision();
+      control(fx.fake).dragClip(fx.trackB.channelId, 0, 6);
+      return snapshot;
+    },
+  };
+  const executor = new Executor(racing, { newId: () => 'take-rj', now: () => 1 });
+
+  const take = await executor.run([{ op: 'note.write', clip: fx.clipA, notes: [note()] }]);
+
+  assert.equal(take.report.applied, false, 'the revision guard rejected it whole');
+  // The guard says the world moved; this says WHERE. Zero ops applied, so every
+  // event in the window is somebody else's by construction.
+  assert.equal(take.report.concurrent.length, 2);
+});
+
+test('X-concurrent: a detector that cannot answer never takes down a batch that landed', async () => {
+  const fx = await fixture();
+  const broken: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    contentSince: () => Promise.reject(new Error('bridge went away')),
+  };
+  const executor = new Executor(broken, { newId: () => 'take-b', now: () => 1 });
+
+  const take = await executor.run([{ op: 'note.write', clip: fx.clipA, notes: [note()] }]);
+
+  assert.equal(take.report.applied, true, 'losing the take would be worse than losing detection');
+  assert.match(take.report.undecidable ?? '', /bridge went away/);
+});
+
+/** The fake, as a plain `BitwigAdapter` object one method can be swapped on. */
+function adapterOf(fake: FakeAdapter): BitwigAdapter {
+  return {
+    hello: () => fake.hello(),
+    resolve: (refs) => fake.resolve(refs),
+    read: (sel) => fake.read(sel),
+    apply: (batch) => fake.apply(batch),
+    settle: (budget) => fake.settle(budget),
+    revision: () => fake.revision(),
+    contentSince: (since) => fake.contentSince(since),
+    close: () => fake.close(),
+  };
+}
+
+test('X-concurrent: a REJECTED batch reports an edit on a slot it MEANT to write', async () => {
+  const fx = await fixture();
+  // ⚠ The case the other reject test cannot reach: the human edits the very slot
+  // this batch was about to write. Nothing else covers it — a rejected batch
+  // takes no verify read (its `verify` IS its stash) and `planReversal` returns
+  // empty for an unapplied take, so the boundary never runs either.
+  const racing: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    read: async (sel) => {
+      const snapshot = await fx.fake.read(sel);
+      control(fx.fake).bumpRevision();
+      control(fx.fake).replaceClipInPlace(fx.trackA.channelId, 0);
+      return snapshot;
+    },
+  };
+  const executor = new Executor(racing, { newId: () => 'take-rj2', now: () => 1 });
+
+  const take = await executor.run([{ op: 'note.write', clip: fx.clipA, notes: [note()] }]);
+
+  assert.equal(take.report.applied, false);
+  // ZERO ops applied, so every event in the window is somebody else's BY
+  // CONSTRUCTION — including events on slots this batch merely intended to touch.
+  assert.equal(
+    take.report.concurrent.length, 2,
+    'both halves of the replacement must be reported, on our own intended slot',
+  );
+  assert.ok(take.report.concurrent.every((c) => c.slotIndex === 0));
+  assert.match(take.report.concurrent[0]!.why, /applied nothing/);
 });

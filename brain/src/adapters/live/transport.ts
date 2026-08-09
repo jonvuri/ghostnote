@@ -7,7 +7,7 @@
  * contract emit the right calls?" is answerable in `encoder.test.ts` rather than
  * only against a running Bitwig.
  */
-import { BridgeClient } from '../../client.js';
+import { BridgeClient, type BridgeLike } from '../../client.js';
 import type { Frame } from './wiremap.js';
 
 export interface Transport {
@@ -16,7 +16,7 @@ export interface Transport {
 }
 
 export class BridgeTransport implements Transport {
-  constructor(private readonly client: BridgeClient = new BridgeClient()) {}
+  constructor(private readonly client: BridgeLike = new BridgeClient()) {}
 
   async send(frame: Frame): Promise<unknown> {
     return this.client.request(frame.method, frame.params);

@@ -33,7 +33,7 @@ import assert from 'node:assert/strict';
 
 import {
   AddressUnresolvedError, BankWindowOverflowError, NOTE_PROP_FIDELITY, addressKey, clip,
-  notes as notesAt, scene, slot, track,
+  contentTouching, deltaComplete, notes as notesAt, scene, slot, track,
   type Address, type BitwigAdapter, type NoteRecord, type Op, type Snapshot, type TrackAddress,
 } from '../index.js';
 import { Executor, branchProtected, UnprotectedWriteError } from '../../engine/index.js';
@@ -888,6 +888,7 @@ export function runConformance(h: AdapterHarness): void {
           apply: (b) => adapter.apply(b),
           settle: (budget) => adapter.settle(budget),
           revision: () => adapter.revision(),
+          contentSince: (since) => adapter.contentSince(since),
           close: async () => {},
         });
 
@@ -900,6 +901,123 @@ export function runConformance(h: AdapterHarness): void {
       });
     },
   );
+
+  // --- the observers (session 3) --------------------------------------------
+
+  test(label('C-mark', 'the mark carries a generation and BOTH epochs, from the extension'), async () => {
+    const { adapter, trackA } = await h.create();
+    try {
+      const mark = await adapter.revision();
+      // ⚠ Portable because the SHAPE is the contract, not the values. The
+      // numbers are meaningless as absolutes — Bitwig delivers initial values
+      // through the same callbacks, so they are nonzero at rest — and the
+      // generation is what makes any later difference honest.
+      assert.equal(typeof mark.generation, 'string');
+      assert.ok(mark.generation.length > 0, 'a mark with no generation is not comparable to anything');
+      assert.equal(typeof mark.sceneEpoch, 'number');
+      assert.equal(typeof mark.contentEpoch, 'number');
+      // ⚠ Which PROJECT the epochs were counted in. A project load does not
+      // re-init the extension, so `generation` cannot see it — and unlike a
+      // restart it leaves the counters looking entirely normal.
+      assert.equal(typeof mark.project, 'string');
+      assert.ok(mark.project.length > 0,
+        'an empty project name means the handle was never obtained; every window then fails '
+        + 'closed, which is safe but useless — check `projectStatus` on the rig');
+
+      // Two marks in a row, with nothing in between, are the same generation.
+      // If this ever fails live, the nonce is being minted per REQUEST rather
+      // than per init() and every window would read as discontinuous.
+      assert.equal((await adapter.revision()).generation, mark.generation);
+      assert.equal((await adapter.revision()).project, mark.project);
+      assert.ok(trackA.channelId.length > 0);
+    } finally {
+      await h.dispose(adapter);
+    }
+  });
+
+  test(label('C-mark', 'a window with nothing in it reports nothing, and is intact'), async () => {
+    await withClip(async ({ adapter }) => {
+      const mark = await adapter.revision();
+      const delta = await adapter.contentSince(mark);
+      assert.deepEqual(delta.events, []);
+      assert.equal(delta.truncated, false);
+      assert.equal(delta.discontinuous, false);
+      assert.ok(deltaComplete(delta), 'an empty window means "quiet" only while it is complete');
+    });
+  });
+
+  test(label('C-content', 'creating and deleting a clip is visible in the launcher window'), async () => {
+    const { adapter, trackA } = await h.create();
+    try {
+      const { sceneEpoch } = await adapter.revision();
+      // ⚠ A slot the fixture has not touched, so the assertions below are about
+      // THIS batch's events and not about leftovers a previous case created —
+      // the same reason `withClip` clears its clip.
+      const target = slot(trackA, scene(2, sceneEpoch));
+      await adapter.apply({ ops: [{ op: 'clip.delete', slot: target }] });
+      await adapter.settle('trackStruct');
+
+      const before = await adapter.revision();
+      await adapter.apply({ ops: [{ op: 'clip.create', slot: target, lengthBeats: 4 }] });
+      await adapter.settle('trackStruct');
+
+      const delta = await adapter.contentSince(before);
+      assert.ok(deltaComplete(delta), 'the window must be usable for the rest of this to mean anything');
+      const touching = contentTouching(delta, clip(target));
+      assert.equal(touching.length, 1, 'one occupancy change, on the slot we addressed');
+      assert.equal(touching[0]?.filled, true);
+      // ⚠ Matched by DURABLE identity. A bank index would pass here and fail the
+      // moment anything re-indexed the bank, which is the failure standing rule
+      // 2 exists for and which a same-session test would never surface.
+      assert.equal(touching[0]?.channelId, trackA.channelId);
+
+      const mid = await adapter.revision();
+      await adapter.apply({ ops: [{ op: 'clip.delete', slot: target }] });
+      await adapter.settle('trackStruct');
+      const after = await adapter.contentSince(mid);
+      assert.equal(contentTouching(after, clip(target))[0]?.filled, false);
+    } finally {
+      await h.dispose(adapter);
+    }
+  });
+
+  test(label('C-content', 'a note write into an EXISTING clip is not an occupancy event'), async () => {
+    await withClip(async ({ adapter, clipA }) => {
+      const before = await adapter.revision();
+      await adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note()] }] });
+      await adapter.settle('noteWrite');
+
+      const delta = await adapter.contentSince(before);
+      // ⚠ The detector's whole value is that silence means something. If Bitwig
+      // fires content callbacks on note writes, this fails — and that failure is
+      // the finding, because every batch would then look like a concurrent edit.
+      assert.deepEqual(contentTouching(delta, clipA), []);
+      assert.equal((await readNotes(adapter, notesAt(clipA))).length, 1, 'the write did happen');
+    });
+  });
+
+  test(label('C-content', 'a scene op moves the scene epoch, and stales scene-relative addresses'), async () => {
+    const { adapter, trackA } = await h.create();
+    try {
+      const before = await adapter.revision();
+      await adapter.apply({ ops: [{ op: 'scene.create', count: 1 }] });
+      await adapter.settle('trackStruct');
+      const after = await adapter.revision();
+
+      // ⚠ This is now an OBSERVER reading, not a counter we bump — which is the
+      // session's whole change, and the reason the same assertion is worth
+      // running live: the fake can only prove we read the field.
+      assert.notEqual(after.sceneEpoch, before.sceneEpoch);
+      assert.equal(after.generation, before.generation, 'a scene op is not a restart');
+
+      const stale = clip(slot(trackA, scene(0, before.sceneEpoch)));
+      const [resolved] = (await adapter.resolve([stale])).resolved;
+      assert.equal(resolved?.found, false);
+      assert.equal(resolved?.reason, 'stale-epoch');
+    } finally {
+      await h.dispose(adapter);
+    }
+  });
 }
 
 /**

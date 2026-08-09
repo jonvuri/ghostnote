@@ -296,7 +296,97 @@ public class Rig {
      */
     public static final int CONTENT_LOG = 24;
     public int launcherContentEpoch = 0;
-    public final String[] contentLog = new String[CONTENT_LOG];
+    public final ContentEvent[] contentLog = new ContentEvent[CONTENT_LOG];
+
+    /**
+     * One launcher-content callback, kept by DURABLE IDENTITY.
+     *
+     * ⚠ The spike version of this log held the string `"t2s7=emptied"`, and the
+     * bank index in it is a lie the moment a track is created or deleted — the
+     * bank re-indexes (E2c/E3) and `t2` then names whatever slid into slot 2.
+     * Standing rule 2 says address by identity, and the E17 method guards say it
+     * again for fixtures (*"a name is not an identity"*); a detector the engine
+     * is about to trust has to obey both. `channelId` is captured AT CALLBACK
+     * TIME, when the bank row and the track still agree.
+     *
+     * ⚠ `channelId` may be empty — Bitwig delivers initial values through these
+     * same callbacks, and at init the id may not have arrived yet. An event that
+     * cannot name its track is UNATTRIBUTABLE and the brain fails closed on it
+     * rather than guessing; that is why the field is reported rather than
+     * dropped.
+     *
+     * `seq` is the epoch value this event produced, so a consumer holding an
+     * older epoch can slice `(since, now]` exactly and can SEE when the ring has
+     * dropped events it needed (`oldest.seq > since + 1`) instead of silently
+     * reading a short window as a quiet one.
+     */
+    public static final class ContentEvent {
+        public final int seq;
+        public final String channelId;
+        public final int trackIndex;
+        public final int slotIndex;
+        public final boolean filled;
+
+        ContentEvent(int seq, String channelId, int trackIndex, int slotIndex, boolean filled) {
+            this.seq = seq;
+            this.channelId = channelId;
+            this.trackIndex = trackIndex;
+            this.slotIndex = slotIndex;
+            this.filled = filled;
+        }
+
+        /** The spike's log line, so the E16s probes keep reading what they read. */
+        public String legacy() {
+            return "t" + trackIndex + "s" + slotIndex + (filled ? "=filled" : "=emptied");
+        }
+    }
+
+    /**
+     * ⚠ A nonce minted once per `init()`, so an epoch is never compared across
+     * two different lives of the extension.
+     *
+     * Both epochs are COUNTERS that start at zero on every load, and §3.2.3's
+     * warning — *"only a difference across a known event means anything"* — has a
+     * sharper edge than it first reads: after a Bitwig restart the counters come
+     * back SMALLER, and a stale mark taken before the restart compares equal to a
+     * fresh one taken after it. That is a difference that reads as no difference,
+     * which is the exact silent-agreement failure the epoch exists to prevent.
+     *
+     * With a generation attached, a mark from a previous life is not stale — it is
+     * INCOMPARABLE, and the brain refuses rather than concludes.
+     */
+    public final String epochGeneration = java.util.UUID.randomUUID().toString();
+
+    /**
+     * ⚠ WHICH PROJECT the epochs above are counting, so a project CHANGE is
+     * refusable the same way a restart is.
+     *
+     * The gap the generation nonce does not close, and PHASE-1-SESSION-3's
+     * original doc called it *"the sharpest question in the session"*: loading a
+     * different project does NOT re-`init()` the extension, so the generation is
+     * unchanged and both counters keep climbing — while every `channelId` in the
+     * project is different and every positional address means something else.
+     * Worse than a restart, because the numbers stay superficially comparable:
+     * observers re-fire initial values for the new project, so a stale mark's
+     * epoch is genuinely lower and the window looks like an ordinary busy one.
+     * D17a's `projectKey` used to cover this and was retired with the store.
+     *
+     * ⚠⚠ **A NAME IS NOT AN IDENTITY** — standing rule 2, and E17 method guard 1
+     * says it again for fixtures. Two projects can share a name, and a rename is
+     * not a project change. So this detects a change it SEES and cannot promise
+     * it sees all of them: a `lossy` detector, and the brain labels it as one
+     * rather than treating it as a key. It is still strictly better than the
+     * nothing it replaces. ⚠ `Application.projectName()` is the current member
+     * (its sibling is the `@Deprecated` one, so rule 9 points the safe way), and
+     * DrivenByMoss marks it at init exactly like this.
+     *
+     * ⚠ Marked in its OWN try — the `FAILED@0` lesson. `projectStatus` says
+     * whether the handle was ever obtained, because *"the handle does not exist"*
+     * and *"the value is empty"* are indistinguishable in the outcome and three
+     * false ○s in E17 came from not being able to tell them apart.
+     */
+    public com.bitwig.extension.controller.api.StringValue projectName;
+    public String projectStatus = "not-attempted";
 
     /**
      * The scene-count observer §3.2 approved moving into the extension.
@@ -414,6 +504,16 @@ public class Rig {
         application = host.createApplication();
         application.canUndo().markInterested();
         application.canRedo().markInterested();
+
+        // ⚠ Own try block, own status — see the field. A throw in this
+        // constructor is the whole extension, before the bridge binds.
+        try {
+            projectName = application.projectName();
+            projectName.markInterested();
+            projectStatus = "marked";
+        } catch (Throwable t) {
+            projectStatus = "FAILED:" + t.getClass().getSimpleName() + ":" + t.getMessage();
+        }
 
         // ⚠ Rule 13: allocated at init, never mid-probe. Guarded because a throw in
         // this constructor takes the whole extension down before the bridge binds.
@@ -561,10 +661,25 @@ public class Rig {
             // §3.4f — the pushed half of "is a clip move detectable". One indexed
             // observer covers every slot in this bank row, so the whole grid costs
             // `tracks` observers rather than `tracks × scenes`.
+            //
+            // ⚠ The whole body is guarded. This runs on the control-surface thread,
+            // which is the thread every request is marshalled onto (Bridge), so an
+            // exception escaping here does not merely lose one event — it lands in
+            // Bitwig's own callback dispatch, which is the E14-A1 hazard class. The
+            // epoch is bumped in the `finally` so a failed READ still counts as an
+            // event: an unattributable event must make the window untrustworthy,
+            // never make it look empty.
             slots.addHasContentObserver((slotIdx, has) -> {
-                contentLog[launcherContentEpoch % CONTENT_LOG] =
-                    "t" + trackIdx + "s" + slotIdx + (has ? "=filled" : "=emptied");
-                launcherContentEpoch++;
+                String owner = "";
+                try {
+                    owner = track.channelId().get();
+                } catch (Throwable ignored) {
+                    // Left empty on purpose — see ContentEvent.channelId.
+                } finally {
+                    int seq = ++launcherContentEpoch;
+                    contentLog[(seq - 1) % CONTENT_LOG] =
+                        new ContentEvent(seq, owner == null ? "" : owner, trackIdx, slotIdx, has);
+                }
             });
         }
 

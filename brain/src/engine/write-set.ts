@@ -25,7 +25,7 @@
  *      dropping them on the floor would produce.
  */
 import {
-  ADDRESS_IDENTITY, addressKey, assertNever, clip as clipAt, notes as notesAt,
+  ADDRESS_IDENTITY, OP_BUMPS_SCENE_EPOCH, addressKey, assertNever, clip as clipAt, notes as notesAt,
   type Address, type AddressKey, type Op, type OpKind,
 } from '../contract/index.js';
 
@@ -252,7 +252,11 @@ export interface StructuralRisk {
 
 export function structuralRisk(ops: readonly Op[]): StructuralRisk {
   return {
-    scenes: ops.some((o) => o.op === 'scene.create' || o.op === 'scene.delete'),
+    // ⚠ Read from the contract's own set rather than re-listing the ops here.
+    // The literal was duplicated, and the copy that mattered — the live adapter's
+    // self-bumping scene counter — was deleted in session 3 when the epoch moved
+    // into the extension. A second copy left behind is how the two drift.
+    scenes: ops.some((o) => OP_BUMPS_SCENE_EPOCH.has(o.op)),
     deviceChains: ops.some((o) => o.op === 'device.insert' || o.op === 'device.delete'),
   };
 }

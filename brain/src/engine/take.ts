@@ -81,6 +81,35 @@ export interface Unverified {
   readonly why: string;
 }
 
+/**
+ * ⚠ Something in the clip launcher changed while this batch was running, and the
+ * batch did not do it.
+ *
+ * PHASE-1 asks *"what happens when the user edits inside the write-set after the
+ * agent wrote"* and answers its own question: *"detection matters more than
+ * resolution here — surface it, don't guess."* This is the surface. Nothing here
+ * repairs anything, refuses anything, or re-mints an address.
+ *
+ * ⚠ **Its unique reach is the slots the batch did NOT write.** The launcher
+ * callback carries no author, so an event naming a slot this batch also wrote is
+ * evidence of nothing — that case is arbitrated by the verify readback and the
+ * stash fingerprint, which compare against what we know we left. What no
+ * fingerprint can see is a clip that moved somewhere we never looked, and a
+ * position-addressed world is exactly the one where that matters (D16a: there is
+ * no durable clip id, and we are not inventing one).
+ *
+ * ⚠ `undecidable` is not "nothing happened". It is the extension's ring having
+ * dropped events, or a mark from a previous life of the extension — the two ways
+ * the window can be intact-looking and empty while the world moved. Reported as
+ * its own field so a caller cannot read silence as calm.
+ */
+export interface ConcurrentEdit {
+  readonly channelId: string;
+  readonly slotIndex: number;
+  readonly filled: boolean;
+  readonly why: string;
+}
+
 /** §8c: what applied, what didn't take, and where readback disagrees. */
 export interface ApplyReport {
   readonly applied: boolean;
@@ -90,6 +119,14 @@ export interface ApplyReport {
   readonly disagreements: readonly Disagreement[];
   /** ⚠ Addresses the verify could not READ. Empty in the ordinary case. */
   readonly unverified: readonly Unverified[];
+  /** ⚠ Launcher edits during this batch that this batch cannot account for. */
+  readonly concurrent: readonly ConcurrentEdit[];
+  /**
+   * ⚠ Set when the concurrent-edit window could not be evaluated at all, with
+   * the reason. An empty `concurrent` means "we looked and saw nothing" ONLY
+   * while this is absent.
+   */
+  readonly undecidable?: string;
 }
 
 export interface Take {

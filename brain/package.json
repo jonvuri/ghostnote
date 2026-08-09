@@ -159,6 +159,9 @@
     "probe:e18f": "tsx src/probes/e18f-rebuild.ts",
     "probe:e18g": "tsx src/probes/e18g-chainstate.ts",
     "probe:e18h": "tsx src/probes/e18h-glitch.ts",
+    "probe:e19": "tsx src/probes/e19-observers.ts",
+    "probe:e19-arm": "tsx src/probes/e19-observers.ts arm",
+    "probe:e19-read": "tsx src/probes/e19-observers.ts read",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

@@ -292,7 +292,8 @@ public final class TrackHandlers extends HandlerGroup {
         int size = Math.min(rig.launcherContentEpoch, Rig.CONTENT_LOG);
         for (int k = 0; k < size; k++) {
             int idx = (rig.launcherContentEpoch - size + k) % Rig.CONTENT_LOG;
-            log.add(rig.contentLog[idx]);
+            Rig.ContentEvent event = rig.contentLog[idx];
+            log.add(event == null ? null : event.legacy());
         }
         result.add("log", log);
         return result;

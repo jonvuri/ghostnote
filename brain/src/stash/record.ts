@@ -69,6 +69,30 @@ export type BoundaryVerdict =
   | 'superseded'
   /** ⚠ Live differs and no changeset of ours explains it — a human edited it. */
   | 'changed'
+  /**
+   * ⚠⚠ The launcher reports this slot filling or emptying since we wrote it, and
+   * no changeset of ours did that — **even though the content may compare EQUAL.**
+   *
+   * The verdict the content fingerprint structurally cannot produce, and the
+   * reason session 3 built a second mechanism instead of tuning this one. Clips
+   * are addressed positionally (D16a), so *"the same notes are in this slot"* and
+   * *"this is the same clip"* are different claims: drag a clip out and an
+   * identical one in and every byte of the fingerprint agrees while the address
+   * means something else. E16s measured the pushed observer reporting exactly
+   * that as a PAIR — one slot emptied, one filled — through a human clip drag the
+   * scene count sat still for.
+   */
+  | 'moved'
+  /**
+   * ⚠ The launcher window could not be evaluated, so `ours` is a claim we are not
+   * entitled to make about a positional address.
+   *
+   * Reached when the extension's event ring dropped events, when the mark comes
+   * from a previous life of the extension, or when an event could not name its
+   * track. Each of those looks identical to a quiet window if you only count
+   * events, which is why it is a verdict rather than a footnote.
+   */
+  | 'undecidable'
   /** ⚠ We never read this address back after writing it (E3). We do not know what we left. */
   | 'unverified'
   /** The caller did not read this address just now, so the boundary is unevaluated. */

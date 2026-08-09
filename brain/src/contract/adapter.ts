@@ -20,6 +20,7 @@
  */
 import type { Address } from './address.js';
 import type { SettleBudget } from './budgets.js';
+import type { ContentDelta } from './observers.js';
 import type { Op } from './ops.js';
 import type { BatchReceipt, RevisionMark, Snapshot } from './snapshot.js';
 import type { AdapterInfo } from './version.js';
@@ -88,6 +89,23 @@ export interface BitwigAdapter {
   settle(budget: SettleBudget): Promise<void>;
 
   revision(): Promise<RevisionMark>;
+
+  /**
+   * What the clip launcher did since `since` — the PUSHED half of change
+   * detection, and the one thing a client-side poll cannot reconstruct.
+   *
+   * ⚠ On the interface rather than inside the live adapter because the executor
+   * and the stash both consume it, and because the offline suite has to be able
+   * to prove the fail-closed cases (a dropped event, a restarted extension) that
+   * a live DAW will not produce on demand. The fake models them; `observers.ts`
+   * holds the slicing both adapters share so they cannot drift.
+   *
+   * ⚠ It answers *what moved*, never *who moved it*. The callback carries no
+   * author, so an event naming a slot this session also wrote is evidence of
+   * nothing — the stash's content fingerprint is what arbitrates there. This
+   * method's unique reach is the slots we never touched.
+   */
+  contentSince(since: RevisionMark): Promise<ContentDelta>;
 
   close(): Promise<void>;
 }

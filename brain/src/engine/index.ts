@@ -22,7 +22,9 @@ export { NO_MINT_NO_INVERSE, revertOps } from './revert.js';
 export type { InsertBatch, RevertInput, RevertPlan, Unrestored } from './revert.js';
 
 export { takeWriteSet } from './take.js';
-export type { ApplyReport, Disagreement, Take, TakeValue, Unverified } from './take.js';
+export type {
+  ApplyReport, ConcurrentEdit, Disagreement, Take, TakeValue, Unverified,
+} from './take.js';
 
 export { isAtRisk, structuralRisk, writeSet, writeSetOf } from './write-set.js';
 export type { Restore, StructuralRisk, UnrevertableOp, WriteSet, WriteTarget } from './write-set.js';

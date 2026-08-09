@@ -19,7 +19,24 @@ export class BridgeError extends Error {
   }
 }
 
-export class BridgeClient {
+/**
+ * The connection, one interface wide — the same seam `Transport` already draws
+ * one level down, and for the same reason.
+ *
+ * ⚠ `Session`'s reconnect handling is the part of session 3 with no offline test
+ * otherwise, and it is the part PHASE-1 §Risks calls *"the classic time sink"*
+ * (stale sockets, orphaned processes). Without this, proving "a reconnect that
+ * lands on a different life of the extension throws the adapter away" would need
+ * a real socket and a real Bitwig restart — i.e. it would not get proven.
+ */
+export interface BridgeLike {
+  connect(): Promise<void>;
+  disconnect(): void;
+  readonly connected: boolean;
+  request(method: string, params?: Record<string, unknown>, timeoutMs?: number): Promise<unknown>;
+}
+
+export class BridgeClient implements BridgeLike {
   private socket: net.Socket | null = null;
   private requestId = 0;
   private buffer = '';

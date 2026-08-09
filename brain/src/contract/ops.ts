@@ -131,7 +131,17 @@ export const OP_SETTLE_BEFORE: Partial<Record<OpKind, SettleBudget>> = {
   'note.props': 'gridChange',
 };
 
-/** Ops that change the scene layout, and therefore invalidate every scene epoch (E3). */
+/**
+ * Ops that change the scene layout, and therefore invalidate every scene epoch (E3).
+ *
+ * ⚠ **Nothing bumps a counter from this set any more, and that is the point.**
+ * Both adapters used to increment their own scene epoch when they saw one of
+ * these, which is exactly why the epoch could see us and not the user. The epoch
+ * is an OBSERVER in the extension now (session 3, D4 rev), so a scene op moves it
+ * because Bitwig moved it — including one a human performed while nothing was
+ * connected. Kept as the declaration of WHICH ops have that consequence, which is
+ * still a fact about the op union and is what `structuralRisk` reads it for.
+ */
 export const OP_BUMPS_SCENE_EPOCH: ReadonlySet<OpKind> = new Set<OpKind>(['scene.create', 'scene.delete']);
 
 /**

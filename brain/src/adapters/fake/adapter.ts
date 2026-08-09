@@ -13,10 +13,12 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertOpsWritable, budgetTicks, hasUnverifiedProps, orderedNoteProps, stepSizeFor,
+  assertOpsWritable, budgetTicks, discontinuityBetween, hasUnverifiedProps, orderedNoteProps,
+  sliceDelta, stepSizeFor,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
-  type Fidelity, type NoteRecord, type Op, type OpReceipt, type ResolveResult, type ResolvedAddress,
-  type RevisionMark, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
+  type ContentDelta, type Fidelity, type NoteRecord, type Op, type OpReceipt, type ResolveResult,
+  type ResolvedAddress, type RevisionMark, type SettleBudget, type Snapshot, type StageReceipt,
+  type StateEntry,
 } from '../../contract/index.js';
 import { planStages } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
@@ -81,11 +83,44 @@ export class FakeAdapter implements BitwigAdapter {
   }
 
   private mark(): RevisionMark {
-    return { revision: this.model.revision, sceneEpoch: this.model.sceneEpoch };
+    return {
+      revision: this.model.revision,
+      sceneEpoch: this.model.sceneEpoch,
+      contentEpoch: this.model.contentEpoch,
+      generation: this.model.generation,
+      project: this.model.project,
+    };
   }
 
   async revision(): Promise<RevisionMark> {
     return this.mark();
+  }
+
+  /**
+   * ⚠ The same slicing the live adapter does, over the same ring size, so the
+   * offline suite cannot be kinder about a dropped event than Bitwig is.
+   *
+   * A mark from another generation is answered rather than thrown, because this
+   * is a REPORT: the caller decides whether an incomparable window is fatal
+   * (a reversal) or merely worth surfacing (a finished batch).
+   */
+  async contentSince(since: RevisionMark): Promise<ContentDelta> {
+    const now = this.mark();
+    const discontinuity = discontinuityBetween(since, now);
+    if (discontinuity !== undefined) {
+      return {
+        since: since.contentEpoch,
+        now: now.contentEpoch,
+        events: [],
+        truncated: false,
+        discontinuous: true,
+        discontinuity,
+      };
+    }
+    return {
+      ...sliceDelta(since.contentEpoch, now.contentEpoch, this.model.contentRing),
+      discontinuous: false,
+    };
   }
 
   /**
@@ -418,7 +453,9 @@ export class FakeAdapter implements BitwigAdapter {
         this.clock.stage(() => {
           const slotState = track.slots[sceneIndex];
           if (slotState !== undefined) {
-            slotState.hasContent = true;
+            // Through the model, so the launcher-content observer fires exactly
+            // where Bitwig's would — see `ProjectModel.setSlotContent`.
+            this.model.setSlotContent(track, sceneIndex, true);
             slotState.lengthBeats = length;
           }
         });
@@ -431,7 +468,7 @@ export class FakeAdapter implements BitwigAdapter {
         this.clock.stage(() => {
           const slotState = track.slots[sceneIndex];
           if (slotState !== undefined) {
-            slotState.hasContent = false;
+            this.model.setSlotContent(track, sceneIndex, false);
             slotState.lengthBeats = 0;
             slotState.notes.clear();
           }

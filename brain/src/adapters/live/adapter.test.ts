@@ -61,7 +61,11 @@ class CursorModelTransport implements Transport {
         return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1, bankSize: 8, itemCount: 1 };
 
       case WIRE.revisionGet:
-        return { revision: 1 };
+        // ⚠ The mark now carries both epochs and the generation nonce, because
+        // the extension owns them (session 3). A stub that answers only
+        // `revision` makes every scene-relative address read as stale, which is
+        // the right failure — it is the adapter refusing an epoch it never saw.
+        return { revision: 1, generation: 'stub-gen', sceneEpoch: 1, contentEpoch: 0, contentEvents: [] };
 
       case WIRE.selectionStatus:
         return { trackIndex: -1, slotIndex: -1 };
@@ -216,7 +220,13 @@ class DeviceChainTransport implements Transport {
         return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1, bankSize: 8, itemCount: 1 };
 
       case WIRE.revisionGet:
-        return { revision: this.revision };
+        return {
+          revision: this.revision,
+          generation: 'stub-gen',
+          sceneEpoch: 1,
+          contentEpoch: 0,
+          contentEvents: [],
+        };
 
       case WIRE.selectionStatus:
         return { trackIndex: -1, slotIndex: -1 };

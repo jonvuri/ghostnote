@@ -65,9 +65,9 @@
  * merely stated.
  */
 import {
-  addressKey,
-  type Address, type AddressKey, type ClipAddress, type Fidelity, type Op, type Snapshot,
-  type StateEntry, type TrackAddress,
+  addressKey, addressScene, addressTrack, contentTouching, deltaComplete,
+  type Address, type AddressKey, type ClipAddress, type ContentDelta, type Fidelity, type Op,
+  type Snapshot, type StateEntry, type TrackAddress,
 } from '../contract/index.js';
 import {
   ownChangesetReversal, revertOps, worstOf,
@@ -120,6 +120,18 @@ export interface ReversalPlan {
 /** Options for planning a reversal. */
 export interface ReversalOptions {
   readonly slice?: Slice;
+  /**
+   * ⚠ What the clip launcher has done since this changeset ran
+   * (`adapter.contentSince(take.at)`), so the boundary can see a MOVE.
+   *
+   * Optional, and the omission is REPORTED rather than silently tolerated: a
+   * caller that does not supply one gets the pre-session-3 boundary — content
+   * comparison alone, which cannot distinguish "still our clip" from "an
+   * identical clip somebody dragged in" — plus a caveat saying exactly that.
+   * *"An unchecked address is not an unchanged one"* is already this module's
+   * doctrine for `unread`; this is the same sentence about a different check.
+   */
+  readonly launcher?: ContentDelta;
 }
 
 // --- the read half -----------------------------------------------------------
@@ -159,7 +171,7 @@ export interface StashLog {
    * read now — job 3 (D19). `fingerprint` is the same comparison keyed on
    * addresses, which is job 2's shape.
    */
-  boundary(id: string, current: Snapshot): readonly BoundaryCheck[];
+  boundary(id: string, current: Snapshot, launcher?: ContentDelta): readonly BoundaryCheck[];
 
   /**
    * ⚠ The same check keyed on ADDRESSES rather than a changeset — what a write
@@ -170,7 +182,11 @@ export interface StashLog {
    * changeset of ours ever wrote comes back `unseen`, which is an absence of
    * evidence and not a pass.
    */
-  fingerprint(addresses: readonly Address[], current: Snapshot): readonly BoundaryCheck[];
+  fingerprint(
+    addresses: readonly Address[],
+    current: Snapshot,
+    launcher?: ContentDelta,
+  ): readonly BoundaryCheck[];
 
   /** Put changeset `id` back, as far as the boundary and the labels allow. */
   planReversal(id: string, current: Snapshot, options?: ReversalOptions): ReversalPlan;
@@ -254,8 +270,8 @@ export class Stash implements StashLog, StashWriter {
       summary: (id) => this.summary(id),
       lastWriterOf: (key) => this.lastWriterOf(key),
       readSetFor: (id) => this.readSetFor(id),
-      boundary: (id, current) => this.boundary(id, current),
-      fingerprint: (addresses, current) => this.fingerprint(addresses, current),
+      boundary: (id, current, launcher) => this.boundary(id, current, launcher),
+      fingerprint: (addresses, current, launcher) => this.fingerprint(addresses, current, launcher),
       planReversal: (id, current, options) => this.planReversal(id, current, options),
       selectClip: (id, clip) => this.selectClip(id, clip),
       selectTrack: (id, track) => this.selectTrack(id, track),
@@ -360,10 +376,10 @@ export class Stash implements StashLog, StashWriter {
    * when we left" and correctly reads `ours`, where an absence-means-unread rule
    * would withhold the notes replay and leave the clip a shell.
    */
-  boundary(id: string, current: Snapshot): readonly BoundaryCheck[] {
+  boundary(id: string, current: Snapshot, launcher?: ContentDelta): readonly BoundaryCheck[] {
     const change = this.requireInternal(id);
     return change.take.targets.map(
-      (target) => this.checkOne(target.address, target.key, change, current),
+      (target) => this.checkOne(target.address, target.key, change, current, launcher),
     );
   }
 
@@ -385,7 +401,11 @@ export class Stash implements StashLog, StashWriter {
    * The live launcher-content epoch (session 3, in the extension) is what covers
    * the rest, and it is a different mechanism precisely because this one cannot.
    */
-  fingerprint(addresses: readonly Address[], current: Snapshot): readonly BoundaryCheck[] {
+  fingerprint(
+    addresses: readonly Address[],
+    current: Snapshot,
+    launcher?: ContentDelta,
+  ): readonly BoundaryCheck[] {
     return addresses.map((address) => {
       const key = addressKey(address);
       const lastWriter = this.lastWriterOf(key);
@@ -404,7 +424,7 @@ export class Stash implements StashLog, StashWriter {
       }
       // ⚠ Compared against the LAST writer, so `superseded` cannot arise here by
       // construction: there is no later changeset of ours to be superseded by.
-      return this.checkOne(address, key, change, current);
+      return this.checkOne(address, key, change, current, launcher);
     });
   }
 
@@ -419,6 +439,7 @@ export class Stash implements StashLog, StashWriter {
     key: AddressKey,
     change: StashedChangeset,
     current: Snapshot,
+    launcher?: ContentDelta,
   ): BoundaryCheck {
     const unverified = new Set(change.take.report.unverified.map((u) => addressKey(u.address)));
     const blind = new Set(current.unreachable.map((a) => addressKey(a)));
@@ -441,6 +462,22 @@ export class Stash implements StashLog, StashWriter {
         'There is no record of what we left here, so there is nothing to compare the world ' +
         'against and no way to tell our own work from a human\'s.');
     }
+    // ⚠ BEFORE `unread`, and that ordering is the mechanism's whole contribution.
+    // A move is visible without reading the address at all — that is what a PUSHED
+    // detector buys over a polled one — so an address nobody read this turn can
+    // still be known to have moved. Putting this after `unread` would throw the
+    // one verdict away that needs no snapshot.
+    const moved = launcher === undefined ? [] : contentTouching(launcher, address);
+    if (moved.length > 0 && !this.explainedByUs(change, address, moved)) {
+      return verdict('moved',
+        'the clip launcher reports this slot ' +
+        `${moved.map((e) => (e.filled ? 'filling' : 'emptying')).join(' then ')} since this ` +
+        'batch wrote it, and no changeset of this session did that. ⚠ Note what this does NOT ' +
+        'depend on: the contents may compare byte-identical and the address still not mean what ' +
+        'it meant, because clips are addressed by position and have no durable id (D16a). A ' +
+        'clip dragged out and an identical one dragged in is exactly this case (E16s). ' +
+        'Re-resolve before writing.');
+    }
     if (!observed(current, key)) {
       return verdict('unread',
         'this address was not in the snapshot handed to the boundary check, so whether it ' +
@@ -461,7 +498,63 @@ export class Stash implements StashLog, StashWriter {
         'what we ourselves last wrote (D19): overwriting this would be destroying somebody ' +
         'else\'s work, which is never the agent\'s decision (D20, rule 8).');
     }
+    // ⚠ LAST, and only over `ours`. An unusable launcher window is not evidence
+    // against a specific address — it is the absence of the evidence that would
+    // let us say `ours` about a POSITIONAL one. Every more specific verdict above
+    // already stands on its own, and a track or device address is untouched
+    // because the launcher observer never had anything to say about it.
+    if (launcher !== undefined && !deltaComplete(launcher) && isLauncherCell(address)) {
+      return verdict('undecidable', undecidableWhy(launcher));
+    }
     return verdict('ours', '');
+  }
+
+  /**
+   * Do THIS session's own ops account for the launcher events on this address?
+   *
+   * ⚠ The callback carries no author, so this is answered from our own record of
+   * what we asked for — never from the event, which cannot tell us. Only
+   * `clip.create` and `clip.delete` change a slot's occupancy: a note write into
+   * a clip that already exists fires nothing (and a write into a slot that does
+   * not is refused before it runs, E2). So the expected count is derivable, and
+   * anything beyond it came from somewhere else.
+   *
+   * ⚠ Counted per direction rather than matched as a sequence. Our ops and a
+   * human's interleave in an order nobody records, so sequence equality would be
+   * brittle in the direction that matters — it would report `moved` for an
+   * ordinary batch and the verdict would stop being believed. Fills and empties
+   * are counted separately so a swap (one of each) cannot hide inside a total.
+   *
+   * ⚠ This is a count, and standing rule 13 says name the survivor rather than
+   * count it. The rule is about OBJECTS, where a count of 3 is also what deleting
+   * the wrong one produces; there is no object here to name, only edges, and the
+   * comparison fails toward REPORTING — an excess is always a move, a shortfall
+   * never conceals one.
+   *
+   * ⚠ Every changeset from this one onward counts, not just this one. A later
+   * batch of ours that re-created the clip is our work too; the content
+   * comparison below then reports it as `superseded`, which is the truer sentence
+   * and is already the right one.
+   */
+  private explainedByUs(
+    change: StashedChangeset,
+    address: Address,
+    observed: readonly { readonly filled: boolean }[],
+  ): boolean {
+    const key = slotOf(address);
+    if (key === undefined) return false;
+    let fills = 0;
+    let empties = 0;
+    for (const record of this.order) {
+      if (record.seq < change.seq) continue;
+      if (!record.take.report.applied) continue;
+      for (const op of record.take.ops) {
+        if (op.op === 'clip.create' && slotOf(op.slot) === key) fills++;
+        if (op.op === 'clip.delete' && slotOf(op.slot) === key) empties++;
+      }
+    }
+    return observed.filter((e) => e.filled).length <= fills
+      && observed.filter((e) => !e.filled).length <= empties;
   }
 
   /**
@@ -505,7 +598,7 @@ export class Stash implements StashLog, StashWriter {
       };
     }
 
-    const checks = this.boundary(id, current);
+    const checks = this.boundary(id, current, options.launcher);
     const verdict = new Map(checks.map((c) => [c.key, c]));
     const unrestored: Unrestored[] = [];
     const withheld: BoundaryCheck[] = [];
@@ -626,6 +719,9 @@ export class Stash implements StashLog, StashWriter {
     const caveats = dedupe([
       ...labels.flatMap((l) => l.caveats),
       ...(plan.ops.some((o) => o.op === 'device.delete') ? [DEVICE_INDEX_CAVEAT] : []),
+      ...(options.launcher === undefined && take.targets.some((t) => isLauncherCell(t.address))
+        ? [NO_LAUNCHER_WINDOW_CAVEAT]
+        : []),
     ]);
 
     return {
@@ -690,6 +786,23 @@ export class Stash implements StashLog, StashWriter {
 }
 
 // --- helpers -----------------------------------------------------------------
+
+/**
+ * ⚠ The caveat for a reversal planned WITHOUT the launcher window.
+ *
+ * Not defensive padding. The content fingerprint's blind spot is specific and
+ * nameable — it compares what is in a slot, so a clip dragged away and an
+ * identical one dragged in reads as unchanged — and a caller who never learns
+ * the window was skipped has no way to know a `ours` verdict was reached on the
+ * weaker of the two available checks.
+ */
+const NO_LAUNCHER_WINDOW_CAVEAT =
+  'this reversal was planned WITHOUT the clip-launcher window (pass ' +
+  '`launcher: await adapter.contentSince(take.at)`). The boundary therefore compared CONTENT ' +
+  'only, which cannot see a move: clips are addressed by position and have no durable id ' +
+  '(D16a), so a clip dragged out of one of these slots and an identical one dragged in ' +
+  'compares equal and is not the same clip (E16s). Every verdict of `ours` above is a claim ' +
+  'about contents, not about identity.';
 
 /**
  * ⚠ The one caveat the plan adds that no label produces.
@@ -777,3 +890,58 @@ function slicedInserts(take: Take): UnrevertableOp[] {
 }
 
 const dedupe = (values: readonly string[]): string[] => [...new Set(values)];
+
+/**
+ * Does this address name a clip-launcher cell — i.e. is it the kind of address
+ * the launcher-content observer can say anything about at all?
+ *
+ * ⚠ Asked so that an unusable window degrades ONLY what it actually covers. A
+ * track, device or param address is unaffected by a dropped launcher event, and
+ * marking it `undecidable` would be pessimism spreading past its evidence, which
+ * is how a fail-closed mechanism becomes one nobody leaves switched on.
+ */
+function isLauncherCell(address: Address): boolean {
+  return slotOf(address) !== undefined;
+}
+
+/** The three ways a launcher window can be unusable, each said in full. */
+function undecidableWhy(delta: ContentDelta): string {
+  if (delta.discontinuity === 'project-changed') {
+    return 'a DIFFERENT PROJECT has been loaded since this changeset ran. The extension never ' +
+      'restarted, so the epoch counters kept climbing and the window looks perfectly ordinary — ' +
+      'but every `channelId` in this changeset names a track in a project that is no longer ' +
+      'open, and every scene index means something else. ⚠ Note the limit of the detector ' +
+      'itself: it compares project NAMES, and a name is not an identity (rule 2), so it catches ' +
+      'the changes it sees and cannot promise it saw them all.';
+  }
+  if (delta.discontinuous) {
+    return 'the mark this changeset was taken at belongs to a previous life of the extension ' +
+      '(Bitwig restarted, or the extension reloaded), so both epoch counters restarted and ' +
+      'nothing before can be compared with anything after. Whether this slot moved in between ' +
+      'is not merely unknown — it is unobservable, because every observer was destroyed and ' +
+      'rebuilt. Re-resolve this address from scratch.';
+  }
+  if (delta.truncated) {
+    return `${delta.now - delta.since} launcher edits have happened since this changeset ran, ` +
+      'which is more than the extension\'s event log holds, so the ones it dropped cannot be ' +
+      'named. This slot may be among them. Contents comparing equal does not settle it: clips ' +
+      'are addressed by position and a moved clip can leave an identical-looking one behind.';
+  }
+  return 'at least one launcher event since this changeset ran could not name the track it ' +
+    'happened on, so it cannot be ruled out as having been this slot. Which slot moved is ' +
+    'known; whose track it was is not.';
+}
+
+/**
+ * The launcher cell an address hangs off, as `channelId:slot`.
+ *
+ * ⚠ Durable half plus slot index, matching how the events are keyed and for the
+ * same reason (standing rule 2). Shared by the boundary and by `isLauncherCell`
+ * so the two cannot disagree about what counts as a cell.
+ */
+function slotOf(address: Address): string | undefined {
+  const trackRef = addressTrack(address);
+  const sceneRef = addressScene(address);
+  if (trackRef === undefined || sceneRef === undefined) return undefined;
+  return `${trackRef.channelId}:${sceneRef.index}`;
+}

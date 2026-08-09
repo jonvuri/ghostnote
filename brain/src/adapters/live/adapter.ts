@@ -29,11 +29,11 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertOpsWritable, clip as clipAt, hasUnverifiedProps,
-  planStages,
+  discontinuityBetween, planStages, sliceDelta,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
-  type BitwigAdapter, type ClipAddress, type Fidelity, type NoteRecord, type Op,
-  type ResolveResult, type ResolvedAddress, type RevisionMark, type SettleBudget, type Snapshot,
-  type StageReceipt, type StateEntry, type TrackAddress,
+  type BitwigAdapter, type ClipAddress, type ContentDelta, type ContentEvent, type Fidelity,
+  type NoteRecord, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
+  type SettleBudget, type Snapshot, type StageReceipt, type StateEntry, type TrackAddress,
 } from '../../contract/index.js';
 import { SETTLE_MS } from '../../contract/index.js';
 import { STEP_SIZES, decodeVerboseNote, encodeStage, type EncodeContext } from './encoder.js';
@@ -161,20 +161,29 @@ export class LiveAdapter implements BitwigAdapter {
   private overflowing = false;
 
   /**
-   * ⚠ KNOWN LIMIT — this counter only sees OUR OWN scene ops (`apply` bumps it
-   * below). A scene the USER creates or deletes in Bitwig does not move it, so a
-   * scene-relative address minted before that edit still resolves as `found` and
-   * `read` does not refuse it — while E3's compaction has already shifted every
-   * row beneath it. That is exactly the silent mis-write the epoch exists to
-   * prevent, and against a concurrent human it does not prevent it.
+   * ⚠⚠ **The last mark read off the extension — and the fix for the limit that
+   * used to be documented here.**
    *
-   * Not fixable from here: detecting a foreign scene edit needs a Bitwig
-   * OBSERVER, and D4 puts observers in the daemon precisely so the change log can
-   * tell agent edits from the user's. So this is a Phase-1 dependency, not an
-   * oversight — but until then, treat `sceneEpoch` as "no scene op happened THAT
-   * WE KNOW OF", which is weaker than what `address.ts` promises.
+   * This was a counter the adapter bumped on its OWN scene ops, and its own
+   * comment said what was wrong with it: a scene the USER created or deleted did
+   * not move it, so a scene-relative address minted before that edit still
+   * resolved as `found` while E3's compaction had already shifted every row
+   * beneath it — the exact silent mis-write the epoch exists to prevent, absent
+   * precisely when a human was at the keyboard. It was filed as a Phase-1
+   * dependency on the daemon's observers.
+   *
+   * ⚠ There is no daemon (D4 rev). The observers live in the EXTENSION, which is
+   * a strictly better home than the daemon ever was: it is alive whenever Bitwig
+   * is, so it cannot miss an edit made while no client was attached — which a
+   * daemon spawned on demand by its first client provably can. Both epochs are
+   * now read from there, and this field is a CACHE of the last reading, not a
+   * counter we maintain.
+   *
+   * ⚠ `undefined` until the first `revision()`. Anything that needs an epoch
+   * reads one; nothing here invents a starting value, because a made-up epoch
+   * that happens to match is the failure this whole mechanism is about.
    */
-  private sceneEpoch = 1;
+  private lastMark: RevisionMark | undefined;
   /** The rig's cursor-clip width, learned at hello(); bounds the scan window. */
   private gridSteps: number | undefined;
 
@@ -365,9 +374,82 @@ export class LiveAdapter implements BitwigAdapter {
     return candidate ?? STEP_SIZES[0]!;
   }
 
+  /**
+   * The mark, and the launcher events behind it, in ONE round trip.
+   *
+   * ⚠ They arrive together on purpose. The extension's event log is a ring, so a
+   * reader that learns the epoch here and fetches the names in a second call can
+   * have the names it needed pushed out in between — and would then read a short
+   * window as a quiet one. Together they are one observation of one moment.
+   */
+  private async readMark(): Promise<{ mark: RevisionMark; events: readonly ContentEvent[] }> {
+    const r = (await this.transport.send({ method: WIRE.revisionGet })) as {
+      revision: number;
+      generation: string;
+      sceneEpoch: number;
+      contentEpoch: number;
+      project?: string;
+      contentEvents?: readonly ContentEvent[];
+    };
+    const mark: RevisionMark = {
+      revision: r.revision,
+      sceneEpoch: r.sceneEpoch,
+      contentEpoch: r.contentEpoch,
+      generation: r.generation,
+      // ⚠ Absent from an older extension reads as '' — which `discontinuityBetween`
+      // treats as UNKNOWN and therefore incomparable, not as a match. A stale
+      // extension makes every window fail closed rather than silently pass.
+      project: r.project ?? '',
+    };
+    this.lastMark = mark;
+    return { mark, events: r.contentEvents ?? [] };
+  }
+
   async revision(): Promise<RevisionMark> {
-    const r = (await this.transport.send({ method: WIRE.revisionGet })) as { revision: number };
-    return { revision: r.revision, sceneEpoch: this.sceneEpoch };
+    return (await this.readMark()).mark;
+  }
+
+  /**
+   * ⚠ A REPORT, not a refusal — the caller decides how bad an incomparable window
+   * is. A finished batch surfaces it; a reversal refuses on it (D19's boundary).
+   * Making that call here would hard-code one policy into the transport layer.
+   */
+  async contentSince(since: RevisionMark): Promise<ContentDelta> {
+    const { mark, events } = await this.readMark();
+    const discontinuity = discontinuityBetween(since, mark);
+    if (discontinuity !== undefined) {
+      return {
+        since: since.contentEpoch,
+        now: mark.contentEpoch,
+        events: [],
+        truncated: false,
+        discontinuous: true,
+        discontinuity,
+      };
+    }
+    return {
+      ...sliceDelta(since.contentEpoch, mark.contentEpoch, events),
+      discontinuous: false,
+    };
+  }
+
+  /**
+   * The epoch every scene-relative address is checked against.
+   *
+   * ⚠ Throws rather than defaulting when no mark has been read yet. A zero here
+   * would compare equal to a freshly-minted address's epoch and pass a check
+   * nothing had performed, which is worse than the limit this replaced.
+   */
+  private requireSceneEpoch(): number {
+    if (this.lastMark === undefined) {
+      throw new AddressUnresolvedError(
+        { kind: 'scene', index: -1, epoch: -1 },
+        'no mark has been read from the extension yet, so there is no scene epoch to check a ' +
+        'scene-relative address against. Call revision(), resolve() or read() first — they all ' +
+        'take one.',
+      );
+    }
+    return this.lastMark.sceneEpoch;
   }
 
   /**
@@ -417,10 +499,16 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   async resolve(refs: readonly Address[]): Promise<ResolveResult> {
+    // ⚠ The mark is taken FIRST, and it is the mark returned. Two reasons, both
+    // fail-closed: the epoch every address below is checked against has to be a
+    // real reading rather than a remembered one, and a caller that baselines on
+    // the returned mark then sees any foreign edit that happened DURING this
+    // call. A mark taken at the end would swallow exactly those.
+    const at = await this.revision();
     await this.scanTracks();
     const resolved: ResolvedAddress[] = refs.map((address) => {
       const sceneRef = addressScene(address);
-      if (sceneRef !== undefined && sceneRef.epoch !== this.sceneEpoch) {
+      if (sceneRef !== undefined && sceneRef.epoch !== at.sceneEpoch) {
         return { address, found: false, reason: 'stale-epoch' as const };
       }
       const trackRef = addressTrack(address);
@@ -439,13 +527,17 @@ export class LiveAdapter implements BitwigAdapter {
         reason: this.overflowing ? ('outside-bank-window' as const) : ('absent' as const),
       };
     });
-    return { at: await this.revision(), resolved };
+    return { at, resolved };
   }
 
   async read(sel: readonly Address[]): Promise<Snapshot> {
     const entries: Record<string, StateEntry> = {};
     const missing: Address[] = [];
     const unreachable: Address[] = [];
+    // ⚠ Before the read, and it is the mark the snapshot carries — see `resolve`.
+    // A stash is the thing a reversal later asks "what has happened since?", so
+    // the window it opens has to START no later than the read it describes.
+    const at = await this.revision();
     const list = await this.scanTracks();
     // ⚠ Pointing steals the user's clip selection (E1, D6, E14-F), so anything
     // that MIGHT point has to be paid for here. That used to be `notes` alone;
@@ -470,8 +562,8 @@ export class LiveAdapter implements BitwigAdapter {
 
     for (const address of sel) {
       const sceneRef = addressScene(address);
-      if (sceneRef !== undefined && sceneRef.epoch !== this.sceneEpoch) {
-        throw new StaleAddressError(address, sceneRef.epoch, this.sceneEpoch);
+      if (sceneRef !== undefined && sceneRef.epoch !== at.sceneEpoch) {
+        throw new StaleAddressError(address, sceneRef.epoch, at.sceneEpoch);
       }
       const trackRef = addressTrack(address);
       const row = trackRef ? list.tracks.find((t) => t.channelId === trackRef.channelId) : undefined;
@@ -494,7 +586,7 @@ export class LiveAdapter implements BitwigAdapter {
     // clip selection. Restoring it is what Phase 1 owes.
     await this.restoreSelection(selection);
 
-    return { contract: CONTRACT_TAG, at: await this.revision(), entries, missing, unreachable };
+    return { contract: CONTRACT_TAG, at, entries, missing, unreachable };
   }
 
   /**
@@ -769,9 +861,11 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
 
-      for (const op of stage.ops) {
-        if (op.op === 'scene.create' || op.op === 'scene.delete') this.sceneEpoch++;
-      }
+      // ⚠ NOTHING is bumped here any more, and the deletion is the session's
+      // point. The epoch used to be incremented from this loop, which is why it
+      // could only ever see our own scene ops; it now comes off an observer in
+      // the extension that sees the user's too. The next `revision()` reports the
+      // new value because Bitwig moved it, not because we remembered to.
 
       // ⚠ Standing rule 2 / D6: RE-POINT AFTER ANY STRUCTURAL OP. This used to
       // happen only for `track.create`, and only because the mint diff needed

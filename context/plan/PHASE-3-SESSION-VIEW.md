@@ -98,6 +98,36 @@ the other take sounded like.
 - Editing. The session view is a *view* plus revert controls. Musical edits go
   through the agent or through Bitwig.
 
+## ⚠ Carried in from Phase 1 session 3 (2026-08-08)
+
+> ⚠ This whole document is on `E16-REPLAN.md` §5's **not-yet-re-planned** list —
+> it is *"the doc most changed by the model, and now also by the daemon
+> retirement."* These two items are recorded here so they are not lost in the
+> re-plan, not because the surrounding text has been reconciled with them.
+
+- **A3 — the local API.** Session 3's original scope owned it and described it as
+  *"the API Phase 3's web view will consume."* No daemon was built, so it was
+  never written. It lands here by default. ⚠ The daemon retirement carries a
+  tripwire worth reading before designing it: Phase 3 becomes MCP-server-hosted
+  and therefore **lives and dies with the chat session** — *"if Phase 3 ever wants
+  to be usable with no agent attached, the daemon decision reopens."*
+- ⚠⚠ **A2 — the "what the user did" change log, and it is BLOCKED.** Session 3's
+  observers were meant to feed it (observer job 3, verbatim: *"the change log's
+  'what the user did' side, which Phase 3 renders"*). What exists is
+  `ApplyReport.concurrent`, which is **per-batch and dies with the take**.
+  >
+  > ⚠ **Do not build the log until session 3's B2 is fixed.** Its only feed is the
+  > launcher-content observers, which cover `config.tracks × config.scenes` and
+  > nothing beyond. A per-batch REPORT survives that hole because `assertVisible`
+  > refuses a batch whose addresses are not visible, so its scope is bounded to
+  > checked ground. A LOG claims to describe the whole project over time, so the
+  > same hole becomes a **silent omission in a record this phase renders as
+  > complete** — the failure class the project exists to prevent. Two more open
+  > questions ride with it: retention has no policy since D17f died with the store,
+  > and the log is **human-owned** under standing rule 8, so its privilege boundary
+  > needs designing rather than improvising (D17g's type split was built around a
+  > store object that no longer exists).
+
 ## Decisions this phase must make
 
 - **How the window is hosted.** A browser tab is the cheapest and needs no packaging;

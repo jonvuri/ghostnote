@@ -22,13 +22,57 @@ import type { ContractTag } from './version.js';
  *
  * `revision` is E8's monotonic counter, which lives on the extension's executor
  * and is thread-confined to the control-surface thread — that confinement is what
- * makes check-then-apply-then-bump atomic with no locking. `sceneEpoch` is ours,
- * and it is what makes E3's compaction trap a refusal instead of a silent
- * mis-write.
+ * makes check-then-apply-then-bump atomic with no locking. `sceneEpoch` is what
+ * makes E3's compaction trap a refusal instead of a silent mis-write.
+ *
+ * ⚠ **`sceneEpoch` stopped being OURS in session 3, and that is the change.** It
+ * used to be a counter the adapter bumped on its own scene ops, which meant it
+ * could see us and not the user — so a scene the human deleted left every
+ * scene-relative address resolving as `found` while the rows beneath it had
+ * already moved. Both epochs now come off observers in the EXTENSION (D4 rev),
+ * which is alive whenever Bitwig is and therefore cannot miss an edit made while
+ * no client was attached.
+ *
+ * `contentEpoch` is the second one, and it exists because the first has a
+ * structural blind spot: a clip MOVE changes no scene count. E16s measured the
+ * count sitting still at 3 → 3 through a human clip drag that the launcher
+ * content observer reported as a pair. Clip addressing consults the content
+ * epoch (E16-REPLAN §2); see `observers.ts`.
+ *
+ * ⚠ Neither epoch means anything as an ABSOLUTE — initial values arrive through
+ * the same callbacks, so both are nonzero at rest. Only a difference between two
+ * marks carries information, and `generation` is what makes that difference
+ * honest: it is minted per `init()`, so a mark from a previous life of the
+ * extension is INCOMPARABLE rather than merely old. Without it the counters
+ * restart lower and a stale mark compares equal to a fresh one.
  */
 export interface RevisionMark {
   readonly revision: number;
   readonly sceneEpoch: number;
+  readonly contentEpoch: number;
+  /** ⚠ Per-`init()` nonce. Marks from different generations are not comparable. */
+  readonly generation: string;
+  /**
+   * ⚠ WHICH PROJECT the epochs were counted in — the gap `generation` does not
+   * close, and PHASE-1-SESSION-3's *"sharpest question in the session"*.
+   *
+   * Loading a different project does NOT re-`init()` the extension, so the
+   * generation is unchanged and both counters keep climbing — while every
+   * `channelId` is different and every positional address means something else.
+   * ⚠ That is WORSE than a restart, not better: a restart makes the counters go
+   * backwards, which is at least anomalous, whereas a project change leaves a
+   * stale mark's epoch genuinely lower and the window looking like an ordinary
+   * busy one. D17a's `projectKey` covered this and was retired with the store.
+   *
+   * ⚠⚠ **A NAME IS NOT AN IDENTITY** (standing rule 2; E17 method guard 1 says it
+   * again for fixtures). Two projects can share a name, and a rename is not a
+   * project change — so this detects a change it SEES and cannot promise it sees
+   * every one. It is a `lossy` detector and is documented as one rather than
+   * being treated as a key: it may never be used to ADDRESS anything, only to
+   * refuse a comparison. Empty when the handle was never obtained, which is
+   * treated as unknown rather than as a match.
+   */
+  readonly project: string;
 }
 
 /**

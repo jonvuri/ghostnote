@@ -31,13 +31,17 @@ import { randomUUID } from 'node:crypto';
 
 import {
   AddressUnresolvedError, BlindSpotError, CONTRACT_TAG, GAIN_READ_SCALE, NOTE_PROP_FIDELITY,
-  StaleAddressError, addressKey, addressScene, assertOpsWritable, failures, notes as notesAt,
-  type Address, type AdapterInfo, type BitwigAdapter, type NoteRecord, type Op, type Snapshot,
+  StaleAddressError, addressKey, addressScene, addressTrack, assertOpsWritable, deltaComplete,
+  failures, notes as notesAt,
+  type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
+  type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
 import { labelTarget, worstOf } from './fidelity.js';
 import { floorRefusal, gateBeforeReading, ownChangesetReversal, type Clearance } from './floor.js';
 import { NO_MINT_NO_INVERSE, revertOps, type RevertPlan, type Unrestored } from './revert.js';
-import type { ApplyReport, Disagreement, Take, TakeValue, Unverified } from './take.js';
+import type {
+  ApplyReport, ConcurrentEdit, Disagreement, Take, TakeValue, Unverified,
+} from './take.js';
 import { structuralRisk, writeSetOf, type UnrevertableOp } from './write-set.js';
 
 export interface ExecutorOptions {
@@ -130,9 +134,14 @@ export class Executor {
     const receipt = await this.adapter.apply({ ops, ifRevision: stash.at.revision });
 
     if (receipt.rejected !== undefined) {
+      // ⚠ A rejected batch applied ZERO ops (E8-D), so every launcher event in
+      // the window is somebody else's by construction — the cleanest reading of
+      // this detector there is, and worth reporting rather than dropping: the
+      // revision guard says the world moved, and this says WHERE.
+      const seen = await this.concurrent(stash.at, targets, false);
       return this.take({
         ops, targets, unrevertable, stash, receipt, verify: stash, values,
-        disagreements: [], unverified: [],
+        disagreements: [], unverified: [], ...seen,
       });
     }
 
@@ -172,11 +181,109 @@ export class Executor {
       : [];
     const verify = await this.adapter.read(readable);
 
+    // ⚠ Asked AFTER the verify read, so the window covers the whole pipeline —
+    // stash, apply, settle and verify. PHASE-1's open question is *"what happens
+    // when the user edits inside the write-set after the agent wrote"*, and the
+    // moment after the verify is the latest one at which this batch is still the
+    // thing that can report it.
+    const seen = await this.concurrent(stash.at, targets, true);
+
     return this.take({
       ops, targets, unrevertable: [...unrevertable, ...unobserved], stash, receipt, verify, values,
       disagreements: disagreementsOf(ops, verify, new Set(unverified.map((u) => addressKey(u.address)))),
-      unverified,
+      unverified, ...seen,
     });
+  }
+
+  /**
+   * ⚠ What moved in the clip launcher during this batch that this batch did not
+   * move — the extension's observers, turned into a sentence.
+   *
+   * Three things about the shape, each of which was tempting to get wrong:
+   *
+   * 1. ⚠ **Events naming our OWN slots are dropped ONLY WHEN THE BATCH APPLIED**,
+   *    and that is not a blind spot being introduced — it is one being labelled.
+   *    The callback carries no author. A slot we filled produces exactly the
+   *    event a human filling it produces, so keeping those would report every
+   *    ordinary `clip.create` as a concurrent edit and the field would be noise
+   *    within a day. What arbitrates our own addresses in that case is the verify
+   *    readback and the stash fingerprint, which compare against what we know we
+   *    left. This reaches the rest: the slots we never touched, where no
+   *    fingerprint exists to ask.
+   *
+   *    ⚠⚠ **A REJECTED batch is the exact inverse and the filter must not run.**
+   *    It applied ZERO ops (E8-D), so there is no "our own event" to confuse
+   *    anything with — every event in the window is somebody else's by
+   *    construction. Worse, a rejected take has NO other coverage: its `verify`
+   *    IS its stash, so no disagreement is computed, and `planReversal` returns
+   *    empty for an unapplied take, so the boundary never runs either. Filtering
+   *    the intended write-set out here dropped precisely the edit that caused
+   *    the rejection — the human writing the slot we were about to write —
+   *    which is the single most informative event this detector can ever see.
+   *    Found by review; `X-concurrent`'s reject cases now cover both sides.
+   * 2. ⚠ **A window that cannot be evaluated is NOT an empty window.** A ring
+   *    that dropped events, a mark from a previous life of the extension, an
+   *    event that could not name its track — each is the world having moved
+   *    unobserved, and each reads as `events: []` if you only count. `undecidable`
+   *    is a separate field for that reason.
+   * 3. **It never refuses.** *"Detection matters more than resolution here —
+   *    surface it, don't guess"* (PHASE-1). A concurrent edit outside the
+   *    write-set does not invalidate a batch that already ran; claiming it did
+   *    would be a resolution nobody asked for.
+   *
+   * ⚠ Failures of the detector itself are reported, never thrown. An adapter that
+   * cannot answer must not take down a batch that has already landed — losing the
+   * take would be strictly worse than losing the detection, and the caller finds
+   * out either way.
+   */
+  private async concurrent(
+    since: RevisionMark,
+    targets: readonly { readonly address: Address }[],
+    applied: boolean,
+  ): Promise<{ concurrent: readonly ConcurrentEdit[]; undecidable?: string }> {
+    let delta: ContentDelta;
+    try {
+      delta = await this.adapter.contentSince(since);
+    } catch (error) {
+      return {
+        concurrent: [],
+        undecidable:
+          'the launcher-content window could not be read, so whether anyone edited alongside ' +
+          `${applied ? 'this batch' : 'this rejected batch'} is unknown: `
+          + String(error),
+      };
+    }
+
+    // ⚠ EMPTY when nothing applied — see note 1. There is no own-event to
+    // confuse, and the intended write-set is exactly where the interesting edit
+    // is: the guard rejected us because somebody wrote, and this says where.
+    const ours = applied
+      ? new Set(targets.map((t) => slotKeyOf(t.address)).filter((k) => k !== undefined))
+      : new Set<string>();
+    const concurrent: ConcurrentEdit[] = delta.events
+      .filter((e) => e.channelId !== '' && !ours.has(`${e.channelId}:${e.slotIndex}`))
+      .map((e) => ({
+        channelId: e.channelId,
+        slotIndex: e.slotIndex,
+        filled: e.filled,
+        why: applied
+          ? `slot ${e.slotIndex} of track ${e.channelId} became `
+            + `${e.filled ? 'occupied' : 'empty'} while this batch ran, and the batch never `
+            + 'addressed it. Clips are addressed by position (there is no durable clip id), so a '
+            + 'clip that moved invalidates addresses nothing else can check — including addresses '
+            + 'this session minted earlier and has not re-resolved.'
+          : `slot ${e.slotIndex} of track ${e.channelId} became `
+            + `${e.filled ? 'occupied' : 'empty'} while this batch was being rejected. The batch `
+            + 'applied nothing (the revision guard refused it whole), so this edit is somebody '
+            + 'else\'s by construction — including on slots the batch itself meant to write, '
+            + 'which is very likely what caused the rejection. Re-plan against the new world.',
+      }));
+
+    if (deltaComplete(delta)) return { concurrent };
+    return {
+      concurrent,
+      undecidable: undecidableWhy(delta),
+    };
   }
 
   /**
@@ -311,6 +418,8 @@ export class Executor {
     values: readonly TakeValue[];
     disagreements: readonly Disagreement[];
     unverified: readonly Unverified[];
+    concurrent: readonly ConcurrentEdit[];
+    undecidable?: string;
   }): Take {
     const values = parts.values;
     const report: ApplyReport = {
@@ -319,6 +428,8 @@ export class Executor {
       failed: failures(parts.receipt),
       disagreements: parts.disagreements,
       unverified: parts.unverified,
+      concurrent: parts.concurrent,
+      ...(parts.undecidable === undefined ? {} : { undecidable: parts.undecidable }),
     };
     return {
       contract: CONTRACT_TAG,
@@ -482,4 +593,45 @@ function knownDivergence(field: string, requested: unknown, readback: unknown): 
       'because storing the request would make a revert restore a state that never existed.';
   }
   return undefined;
+}
+
+/**
+ * The launcher cell an address hangs off, as `channelId:slot` — or `undefined`
+ * when it does not hang off one at all.
+ *
+ * ⚠ Built from the DURABLE half of the address and the slot index, never from a
+ * bank position, because the events it is matched against are keyed the same way
+ * for the same reason (standing rule 2). A track address has no slot and a scene
+ * address spans every track: neither names a cell, so neither can excuse an event
+ * naming one.
+ */
+function slotKeyOf(address: Address): string | undefined {
+  const trackRef = addressTrack(address);
+  const sceneRef = addressScene(address);
+  if (trackRef === undefined || sceneRef === undefined) return undefined;
+  return `${trackRef.channelId}:${sceneRef.index}`;
+}
+
+/** Why a launcher window cannot be believed — one sentence per way it can fail. */
+function undecidableWhy(delta: ContentDelta): string {
+  if (delta.discontinuity === 'project-changed') {
+    return 'a DIFFERENT PROJECT was loaded while this batch ran. The extension never restarted, ' +
+      'so both epoch counters kept climbing and nothing about the numbers looks wrong — but ' +
+      'every address this batch used names a track in a project that is no longer open. ' +
+      'Re-resolve everything before writing again.';
+  }
+  if (delta.discontinuous) {
+    return 'this batch\'s mark was taken in a previous life of the extension (Bitwig restarted, ' +
+      'or the extension reloaded), so both epoch counters restarted and nothing before can be ' +
+      'compared with anything after. Whether anyone edited alongside this batch is unknowable, ' +
+      'and every positional address minted before the restart must be re-resolved.';
+  }
+  if (delta.truncated) {
+    return `more launcher edits happened during this batch (${delta.now - delta.since}) than the ` +
+      'extension\'s event log holds, so the ones it dropped cannot be named. Something moved and ' +
+      'we cannot say what — treat every positional clip address as suspect.';
+  }
+  return 'at least one launcher event could not name the track it happened on, so it cannot be ' +
+    'told apart from an edit inside this batch\'s own write-set. Something moved; which slot is ' +
+    'known, whose track is not.';
 }

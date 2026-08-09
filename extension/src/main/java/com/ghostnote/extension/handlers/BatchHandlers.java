@@ -150,9 +150,81 @@ public final class BatchHandlers extends HandlerGroup {
         host.scheduleTask(() -> scheduleOps(ops, index + 1, delayMs), delayMs);
     }
 
+    /**
+     * ⚠ THE MARK — where in the world a snapshot was taken, in one round trip.
+     *
+     * It used to carry `revision` alone and the brain kept its own scene epoch, a
+     * counter that could only see OUR OWN scene ops and therefore could not see
+     * the user at all (`adapters/live/adapter.ts`, and the ⚠ on `address.ts`).
+     * D4 rev re-homed that job here: the extension is alive whenever Bitwig is, so
+     * an observer here cannot miss an edit made while no client was attached,
+     * which a daemon started later provably can.
+     *
+     * Three counters, three different questions, deliberately not merged:
+     *
+     *   revision      E8's optimistic-concurrency counter — ORDERING. Whose write
+     *                 went first. Bumped by us, never by the human.
+     *   sceneEpoch    scene create/delete, by ANYONE. Rows below a deletion
+     *                 compact upward (E3) and a held `sceneIndex` goes
+     *                 permanently stale while looking healthy.
+     *   contentEpoch  launcher slots filling and emptying, by anyone. Catches
+     *                 what the scene count structurally cannot: a MOVE changes no
+     *                 count, and E16s measured the count observer sitting still at
+     *                 3 → 3 through a human clip drag that the content observer
+     *                 reported as a pair. That is why clip addressing consults
+     *                 this one.
+     *
+     * ⚠ The events ride along rather than living behind a second call, and the
+     * reason is a race, not convenience: the log is a ring of
+     * {@link Rig#CONTENT_LOG}, so a reader that learns the epoch here and fetches
+     * the names afterwards can have the names it needed pushed out in between —
+     * and would read the resulting short window as a quiet one. Delivered together
+     * they are one observation. The cost is ≤24 small objects on a local socket.
+     *
+     * ⚠ Absolute values mean NOTHING (§3.2.3): Bitwig delivers initial values
+     * through the same callbacks, so both epochs are already nonzero at rest and
+     * only a difference across a known event carries information. `generation`
+     * is what stops that difference being computed across two lives of the
+     * extension, where the counters restart lower than the mark being compared.
+     */
     private JsonElement revisionGet() {
         JsonObject r = new JsonObject();
         r.addProperty("revision", state.revision);
+        r.addProperty("generation", rig.epochGeneration);
+        // ⚠ Which PROJECT the counters below are counting. A project load does
+        // not re-init() the extension, so `generation` cannot see it — and the
+        // epochs stay superficially comparable, which is the dangerous shape.
+        // ⚠ Guarded: an unobtained handle must read as absent rather than throw
+        // from the one call every batch makes. `projectStatus` says which.
+        String project = "";
+        try {
+            if (rig.projectName != null) project = rig.projectName.get();
+        } catch (Throwable ignored) {
+            // Left empty — the brain treats an unnameable project as unknown.
+        }
+        r.addProperty("project", project == null ? "" : project);
+        r.addProperty("projectStatus", rig.projectStatus);
+        r.addProperty("sceneEpoch", rig.sceneCountChanges);
+        r.addProperty("sceneCount", rig.lastSceneCount);
+        r.addProperty("contentEpoch", rig.launcherContentEpoch);
+
+        // Oldest-first, each event carrying the epoch it produced, so the reader
+        // slices `(since, now]` itself and can tell a dropped event from no event.
+        JsonArray events = new JsonArray();
+        int size = Math.min(rig.launcherContentEpoch, Rig.CONTENT_LOG);
+        for (int k = 0; k < size; k++) {
+            int idx = (rig.launcherContentEpoch - size + k) % Rig.CONTENT_LOG;
+            Rig.ContentEvent event = rig.contentLog[idx];
+            if (event == null) continue;
+            JsonObject e = new JsonObject();
+            e.addProperty("seq", event.seq);
+            e.addProperty("channelId", event.channelId);
+            e.addProperty("trackIndex", event.trackIndex);
+            e.addProperty("slotIndex", event.slotIndex);
+            e.addProperty("filled", event.filled);
+            events.add(e);
+        }
+        r.add("contentEvents", events);
         return r;
     }
 

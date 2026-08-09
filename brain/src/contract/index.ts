@@ -23,6 +23,9 @@ export type { SettleBudget } from './budgets.js';
 
 export { STEP_SIZES, chooseStepSize, stepSizeFor } from './grid.js';
 
+export { contentTouching, deltaComplete, discontinuityBetween, sliceDelta } from './observers.js';
+export type { ContentDelta, ContentEvent } from './observers.js';
+
 export { OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertNever, assertOpsWritable } from './ops.js';
 export type { DeviceSource, Op, OpKind } from './ops.js';
 
