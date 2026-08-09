@@ -163,21 +163,50 @@ test('C-frame: two responses arriving in ONE chunk are both delivered', async ()
   const { port } = server.address() as net.AddressInfo;
   const client = new BridgeClient(port);
   try {
-    // ⚠⚠ CONNECT FIRST, and the reason is a SECOND defect this test found.
-    //
-    // Without it, two concurrent first requests BOTH see `connected === false` and
-    // both call `connect()` — opening two sockets, leaking one, and assigning
-    // request ids in whichever order the two connects happen to resume. The
-    // observed symptom was `request('one')` resolving with the reply to id 2.
-    //
-    // ⚠ That is a real client bug (an in-flight connect is not memoised) and it is
-    // RECORDED, not fixed here: it is unrelated to the UTF-8 corruption this file
-    // was written for, and folding an unrelated fix into that diff is how the fix
-    // that matters stops being reviewable. Connecting first isolates the framing
-    // question, which is what this case is about.
+    // ⚠ CONNECT FIRST. This case is about frame delivery, not the connect race
+    // fixed below (E20e) — pre-connecting isolates the framing question from it.
     await client.connect();
     const [a, b] = await Promise.all([client.request('one'), client.request('two')]);
     assert.deepEqual([(a as { id: string }).id, (b as { id: string }).id], ['1', '2']);
+  } finally {
+    client.disconnect();
+    server.close();
+  }
+});
+
+test('C-race: two concurrent FIRST requests share one connection and get their own reply', async () => {
+  // ⚠⚠ The defect the case above sidesteps by connecting first, now measured
+  // directly. Before the fix: `request()` guarded on `if (!this.connected)`, and
+  // `connected` reads true the instant `connect()` creates the socket object —
+  // well before the TCP handshake completes. A second concurrent caller sees
+  // "connected" already, skips its own wait, and grabs `requestId` while the
+  // first caller is still suspended inside its `connect()` call. Observed
+  // directly and deterministically (5/5 runs): `request('one')` resolves with
+  // the reply meant for id 2, and `request('two')` gets id 1 — the two replies
+  // are not lost, just swapped from what the caller would expect, which is
+  // exactly the kind of wrong-but-self-consistent result standing rule 1 cannot
+  // catch on its own (each reply lands on the id that asked for it).
+  let connections = 0;
+  const server = net.createServer((socket) => {
+    connections++;
+    socket.on('data', (raw) => {
+      for (const line of String(raw).split('\n').filter(Boolean)) {
+        const { id } = JSON.parse(line) as { id: string };
+        socket.write(JSON.stringify({ jsonrpc: '2.0', id, result: { id } }) + '\n');
+      }
+    });
+  });
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const { port } = server.address() as net.AddressInfo;
+  const client = new BridgeClient(port);
+  try {
+    // ⚠ No `connect()` beforehand — both requests are each other's first call,
+    // which is the only shape that exercises the race.
+    const [a, b] = await Promise.all([client.request('one'), client.request('two')]);
+    assert.equal(connections, 1,
+      'two concurrent first requests opened more than one socket — the in-flight connect was not memoised');
+    assert.deepEqual([(a as { id: string }).id, (b as { id: string }).id], ['1', '2'],
+      'ids were not assigned in call order — a later caller raced ahead of an earlier one still awaiting connect()');
   } finally {
     client.disconnect();
     server.close();

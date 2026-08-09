@@ -45,6 +45,22 @@ export class BridgeClient implements BridgeLike {
     reject: (error: Error) => void;
     timer: NodeJS.Timeout;
   }>();
+  /**
+   * ⚠⚠ Memoises an in-flight `connect()`. Found while measuring E20d, not fixed
+   * there: two concurrent FIRST `request()` calls both used to see
+   * `this.socket === null`, race to create their own socket, and grab request
+   * ids in whichever order their connects happened to resume — observed
+   * directly as `request('one')` resolving with the reply meant for id 2.
+   *
+   * ⚠ Checked BEFORE `this.connected` in {@link connect}, not after: the socket
+   * object exists (and so `connected` already reads true) from the moment this
+   * promise is created, well before the TCP handshake actually completes. A
+   * second caller that consulted `connected` first would see a "connected"
+   * socket that has not connected yet and race ahead of the first caller's
+   * still-suspended continuation — which is the exact mechanism the bug above
+   * exploited.
+   */
+  private connectPromise: Promise<void> | null = null;
 
   constructor(
     private port = 8686,
@@ -53,7 +69,13 @@ export class BridgeClient implements BridgeLike {
   ) {}
 
   connect(): Promise<void> {
-    return new Promise((resolve, reject) => {
+    if (this.connectPromise) {
+      return this.connectPromise;
+    }
+    if (this.connected) {
+      return Promise.resolve();
+    }
+    const promise = new Promise<void>((resolve, reject) => {
       const socket = new net.Socket();
       this.socket = socket;
 
@@ -87,6 +109,7 @@ export class BridgeClient implements BridgeLike {
       socket.on('data', (data: string) => this.handleData(data));
       socket.on('close', () => {
         this.socket = null;
+        this.connectPromise = null;
         for (const [id, p] of this.pending) {
           clearTimeout(p.timer);
           p.reject(new Error(`Connection closed with request ${id} in flight`));
@@ -96,6 +119,11 @@ export class BridgeClient implements BridgeLike {
 
       socket.connect(this.port, this.host);
     });
+    // Cleared once the attempt settles, success or failure — a rejected
+    // attempt must not be replayed to the next caller, and 'close' above
+    // already clears it for the success-then-drop case.
+    this.connectPromise = promise.finally(() => { this.connectPromise = null; });
+    return this.connectPromise;
   }
 
   disconnect(): void {
@@ -108,9 +136,14 @@ export class BridgeClient implements BridgeLike {
   }
 
   async request(method: string, params?: Record<string, unknown>, timeoutMs?: number): Promise<unknown> {
-    if (!this.connected) {
-      await this.connect();
-    }
+    // ⚠ Unconditional, not `if (!this.connected)`. `connected` reads true from
+    // the moment `connect()` creates the socket object — before the TCP
+    // handshake completes — so a guard keyed on it lets a second concurrent
+    // caller skip straight past this line while the first is still suspended
+    // inside its own `connect()`, and race it for `requestId`. Always calling
+    // `connect()` routes every caller through the memoised promise, which
+    // resolves in the order callers actually awaited it.
+    await this.connect();
 
     const id = String(++this.requestId);
     const line = JSON.stringify({ jsonrpc: '2.0', id, method, params }) + '\n';
@@ -139,9 +172,8 @@ export class BridgeClient implements BridgeLike {
    * Probe-only: used to verify the bridge's malformed-frame handling.
    */
   async sendRaw(rawLine: string, windowMs = 500): Promise<JsonRpcResponse[]> {
-    if (!this.connected) {
-      await this.connect();
-    }
+    // See the note in `request()`: unconditional, not `if (!this.connected)`.
+    await this.connect();
     const collected: JsonRpcResponse[] = [];
     this.orphanSink = (msg) => collected.push(msg);
     this.socket!.write(rawLine + '\n');
