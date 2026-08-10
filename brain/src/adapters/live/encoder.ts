@@ -33,8 +33,9 @@
 import { isAbsolute, extname } from 'node:path';
 
 import {
-  InvalidOpError, assertNever, chooseStepSize, orderedNoteProps,
-  type ClipAddress, type NoteRecord, type Op, type TrackAddress,
+  BlindSpotError, InvalidOpError, assertNever, chooseStepSize, orderedNoteProps,
+  type ClipAddress, type NoteRecord, type Op, type SceneAddress, type TrackAddress,
+  type WindowCoverage,
 } from '../../contract/index.js';
 import { WIRE, frame, type Frame } from './wiremap.js';
 
@@ -67,6 +68,42 @@ export interface EncodeContext {
   readonly cursorForTrack: (track: TrackAddress) => string;
   /** channelId -> current bank index. Valid only until the next structural op. */
   readonly trackIndex: (track: TrackAddress) => number;
+  /**
+   * ⚠⚠ A scene ROW -> the index the bank will accept for it.
+   *
+   * A function, and a REFUSING one, because this file used to conflate two things
+   * that are only accidentally equal. A `SceneAddress.index` is a position in the
+   * project; `sceneBank.getScene(i)` and `ClipLauncherSlotBank.getItemAt(i)` are
+   * positions in a WINDOW `config.scenes` wide. They agree exactly while the bank
+   * sits at scroll position 0 and the row is inside it, and they agree on nothing
+   * at all past that: `sceneBank.itemCount()` reports the PROJECT total (E15-A's
+   * behaviour, measured for scenes in E21), so a row 99 of 99 went out on the wire
+   * as bank index 99 and came back *"Parameter index (=99) must be in the range 0
+   * to 16"* — from the middle of a batch, after earlier ops had landed
+   * (`FINDINGS.md` E19).
+   *
+   * `apply` refuses such a batch before anything runs (`assertOpsAddressable`), so
+   * reaching the throw here means a caller drove the encoder directly. It throws
+   * anyway: the identity is only safe inside the window, and a pure function that
+   * silently narrows its meaning at the edge is how the conflation got here.
+   *
+   * ⚠ Deliberately NOT a scroll. Scrolling would turn rule 5's refusal into a
+   * retry loop and would need its own re-resolution discipline (D6) — session 3c
+   * names it out of scope for exactly that reason.
+   */
+  readonly sceneRow: (scene: SceneAddress) => number;
+}
+
+/**
+ * The one implementation of `sceneRow`, so an adapter cannot supply a laxer one.
+ *
+ * Identity while the bank does not scroll; a refusal past the window.
+ */
+export function sceneRowIn(scenes: WindowCoverage): (scene: SceneAddress) => number {
+  return (scene) => {
+    if (scene.index >= scenes.bankSize) throw new BlindSpotError('scenes', [scene], scenes.bankSize);
+    return scene.index;
+  };
 }
 
 /**
@@ -145,7 +182,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
     case 'note.write': {
       if (op.notes.length === 0) return [];
       const t = ctx.trackIndex(op.clip.slot.track);
-      const s = op.clip.slot.scene.index;
+      const s = ctx.sceneRow(op.clip.slot.scene);
       const stepSize = chooseStepSize(op.notes);
       const channel = op.channel ?? 0;
       // ● `setStepSize` immediately before `setNotes` in one request is SOUND
@@ -177,7 +214,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
     case 'note.props': {
       if (op.notes.length === 0) return [];
       const t = ctx.trackIndex(op.clip.slot.track);
-      const s = op.clip.slot.scene.index;
+      const s = ctx.sceneRow(op.clip.slot.scene);
       const stepSize = chooseStepSize(op.notes);
       // ⚠ These frames are safe only under TWO conditions, and they are
       // different conditions with different owners (E15-D).
@@ -219,7 +256,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
 
     case 'note.clear': {
       const t = ctx.trackIndex(op.clip.slot.track);
-      const s = op.clip.slot.scene.index;
+      const s = ctx.sceneRow(op.clip.slot.scene);
       // The wire has no ranged clear; a range must be read, filtered and
       // rewritten by the caller. Refusing beats silently clearing the whole clip.
       if (op.range !== undefined) {
@@ -233,7 +270,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       return [
         frame(WIRE.clipCreate, {
           trackIndex: ctx.trackIndex(op.slot.track),
-          slotIndex: op.slot.scene.index,
+          slotIndex: ctx.sceneRow(op.slot.scene),
           lengthBeats: op.lengthBeats,
         }),
       ];
@@ -242,7 +279,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       return [
         frame(WIRE.slotDelete, {
           trackIndex: ctx.trackIndex(op.slot.track),
-          slotIndex: op.slot.scene.index,
+          slotIndex: ctx.sceneRow(op.slot.scene),
         }),
       ];
 
@@ -263,7 +300,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       return [frame(WIRE.sceneCreate, { count: op.count })];
 
     case 'scene.delete':
-      return [frame(WIRE.sceneDelete, { sceneIndex: op.scene.index })];
+      return [frame(WIRE.sceneDelete, { sceneIndex: ctx.sceneRow(op.scene) })];
 
     // ⚠ POINT, THEN ACT — and it is not the clip pointing above. Every device
     // handler operates on `rig.cursorTrack(cursor)` / `rig.cursorDeviceBanks[cursor]`,

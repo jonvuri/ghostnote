@@ -58,6 +58,16 @@ export class ProjectModel {
    * absent, not slow (E5). Default matches RigConfig's shipped default.
    */
   trackBankSize = 16;
+  /**
+   * ⚠ The SCENE window, and it now does work rather than being decoration.
+   *
+   * It was declared, reported in `hello()`'s limits, and consulted by nothing —
+   * so the fake happily addressed row 40 of a 16-wide bank and certified a write
+   * that live Bitwig answers with *"Parameter index (=99) must be in the range 0
+   * to 16"* from the middle of a batch (E19). That is PHASE-0 §Risks' named
+   * failure mode in the one direction it must never point: the fake being MORE
+   * PERMISSIVE than the thing it stands in for.
+   */
   sceneBankSize = 16;
 
   /** E8's monotonic counter, owned by the executor, not by any DAW object. */
@@ -134,7 +144,27 @@ export class ProjectModel {
     const slot = track.slots[sceneIndex];
     if (slot === undefined || slot.hasContent === has) return;
     slot.hasContent = has;
-    this.pushContentEvent(track.channelId, sceneIndex, has);
+    // ⚠⚠ THE OBSERVER ONLY EXISTS INSIDE THE WINDOWS, and the state change
+    // happens either way — which is the whole of B2.
+    //
+    // `Rig.java` attaches one `addHasContentObserver` per bank row across
+    // `config.tracks`, on a slot bank sized by `config.scenes`. A clip appearing
+    // on a track past the track window, or in a row past the scene window, fires
+    // NOTHING. The world moved and the event stream is silent, which is
+    // indistinguishable from a quiet window if you only count events.
+    //
+    // ⚠ Modelled rather than mitigated, deliberately. A fake that fired here
+    // would certify a detector that live Bitwig cannot supply, and the offline
+    // suite would prove `deltaComplete` correct on exactly the case where it is
+    // not. The mitigation is `RevisionMark.window` making the reach visible.
+    if (this.observes(track, sceneIndex)) this.pushContentEvent(track.channelId, sceneIndex, has);
+  }
+
+  /** ⚠ Would a launcher observer exist for this cell at all? See `setSlotContent`. */
+  observes(track: FakeTrack, sceneIndex: number): boolean {
+    return sceneIndex < this.sceneBankSize
+      && this.bankView().indexOf(track) >= 0
+      && this.bankView().indexOf(track) < this.trackBankSize;
   }
 
   /** ⚠ Also used to model an edit made by a HUMAN, which is the point of the detector. */
@@ -209,6 +239,20 @@ export class ProjectModel {
 
   get overflowing(): boolean {
     return this.trackCount > this.trackBankSize;
+  }
+
+  /**
+   * ⚠ The same question one population down: does the project hold rows the scene
+   * bank cannot address?
+   *
+   * Live, the two numbers are `sceneBank.itemCount()` (the PROJECT total —
+   * measured, E21 arm 1) and `config.scenes`. Here they are `sceneCount` and
+   * `sceneBankSize`, which is why a test can produce the condition at all: a real
+   * session cannot be asked to grow to 99 scenes, and a scene created past the
+   * window cannot be given back (E19).
+   */
+  get sceneOverflowing(): boolean {
+    return this.sceneCount > this.sceneBankSize;
   }
 
   /** Resolve by durable key — but only inside the window, exactly like the real bank. */
@@ -297,6 +341,38 @@ export class ProjectModel {
     this.sceneEpoch++;
   }
 
+  /**
+   * ⚠⚠ E21: what `Track.createNewLauncherClip` does to an OCCUPIED slot.
+   *
+   * Not an error, and not an overwrite. Bitwig APPENDS A SCENE to the project and
+   * puts the new clip in the new row, leaving the clip that was there alone —
+   * measured live, `gn-conf-A` row 0, 169 -> 170 scenes with every row inside the
+   * window unchanged.
+   *
+   * ⚠ That makes the op a silent, unbudgeted `scene.create`, and the row it mints
+   * is at the END of the project: past the bank window on anything bigger than
+   * it, so nothing can address it, delete it, or observe it. It is how a project
+   * reaches 99 scenes with nobody creating one, which is the state `probe:e19`
+   * tripped over and mis-attributed.
+   *
+   * The epoch moves because the count moved — the same reason a real
+   * `scene.create` moves it — which is the one tell the old code had, and it read
+   * as an unexplained epoch bump rather than as growth.
+   */
+  appendSceneForOverflowingClip(track: FakeTrack, lengthBeats: number): void {
+    const row = this.sceneCount;
+    this.createScenes(1);
+    const appended = track.slots[row];
+    if (appended === undefined) return;
+    appended.hasContent = true;
+    appended.lengthBeats = lengthBeats;
+    // ⚠ Deliberately NOT through `setSlotContent`: the new row is past the slot
+    // bank window by construction on any project bigger than it, so no observer
+    // exists to fire. Routing it through the observer path would make the fake
+    // report an event Bitwig cannot produce.
+    if (this.observes(track, row)) this.pushContentEvent(track.channelId, row, true);
+  }
+
   createScenes(count: number): void {
     for (const track of this.tracks) {
       for (let i = 0; i < count; i++) {
@@ -307,14 +383,21 @@ export class ProjectModel {
     this.sceneEpoch++;
   }
 
-  /** One event per slot POSITION whose occupancy differs after a compaction. */
+  /**
+   * One event per slot POSITION whose occupancy differs after a compaction.
+   *
+   * ⚠ Bounded by the same observer reach as `setSlotContent`: a compaction that
+   * shifts rows below the scene window shifts them unobserved.
+   */
   private emitCompaction(before: boolean[][]): void {
     for (const [t, track] of this.tracks.entries()) {
       const was = before[t] ?? [];
       const rows = Math.max(was.length, track.slots.length);
       for (let s = 0; s < rows; s++) {
         const now = track.slots[s]?.hasContent ?? false;
-        if ((was[s] ?? false) !== now) this.pushContentEvent(track.channelId, s, now);
+        if ((was[s] ?? false) !== now && this.observes(track, s)) {
+          this.pushContentEvent(track.channelId, s, now);
+        }
       }
     }
   }

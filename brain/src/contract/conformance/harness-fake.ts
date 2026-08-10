@@ -49,6 +49,16 @@ export function fakeHarness(): AdapterHarness {
       control(adapter as FakeAdapter).setBankWindow(1);
     },
 
+    forceSceneOverflow(adapter: BitwigAdapter) {
+      // ⚠ Shrink the WINDOW rather than grow the project, for the same reason
+      // `forceOverflow` does: the condition is what matters and manufacturing it
+      // by growing is the expensive, one-way half. The fixture has 8 scenes, so a
+      // 4-wide window leaves rows 4..7 present, addressable by nobody, and
+      // unobserved — which is exactly the live shape one population down.
+      control(adapter as FakeAdapter).setSceneWindow(4);
+      return { outsideRow: 5 };
+    },
+
     async bumpRevision(adapter: BitwigAdapter) {
       // A competing writer — the user nudging a clip by hand mid-batch. Live
       // does the same thing through `revision.bump`, which is the very counter

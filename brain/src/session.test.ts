@@ -76,6 +76,10 @@ class StubBridge implements BridgeLike {
           generation: this.generation,
           sceneEpoch: 1,
           contentEpoch: 0,
+          // An empty project, consistent with the empty `track.list` above — so
+          // the window covers it and these cases exercise connection policy
+          // rather than the uncovered-window path.
+          sceneCount: 0,
           project: this.project,
           contentEvents: [],
         };

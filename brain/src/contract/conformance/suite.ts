@@ -32,8 +32,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  AddressUnresolvedError, BankWindowOverflowError, NOTE_PROP_FIDELITY, addressKey, clip,
-  contentTouching, deltaComplete, notes as notesAt, scene, slot, track,
+  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, NOTE_PROP_FIDELITY,
+  SlotOccupiedError, addressKey, clip, contentTouching, deltaComplete, notes as notesAt, scene,
+  slot, track,
   type Address, type BitwigAdapter, type NoteRecord, type Op, type Snapshot, type TrackAddress,
 } from '../index.js';
 import { Executor, branchProtected, UnprotectedWriteError } from '../../engine/index.js';
@@ -62,6 +63,22 @@ export interface AdapterHarness {
   forceOverflow?(adapter: BitwigAdapter): void;
   /** Required when `canOverflowBank`: push one known track out of view. */
   hideTrack?(adapter: BitwigAdapter, track: TrackAddress): void;
+  /**
+   * ⚠ Required when `canOverflowBank`: leave the project holding more scene ROWS
+   * than the scene bank can address, and return the first row that is outside.
+   *
+   * A separate hook from `forceOverflow` because the two conditions are separate
+   * and one masks the other — a track-overflowing project refuses every write at
+   * `assertBankVisible`, so it could never reach the scene refusals under test.
+   *
+   * ⚠ It is also the hook a live harness cannot implement, and the reason is the
+   * finding: getting there costs a `scene.create` past the window, which strands a
+   * row nothing can address or delete (E19). The live evidence is banked in
+   * `probe:e21` instead, which measures the refusals from the other side — an
+   * over-budget create is refused BEFORE the call, so it needs no oversized
+   * project at all.
+   */
+  forceSceneOverflow?(adapter: BitwigAdapter): { readonly outsideRow: number };
 
   /**
    * Required when `capabilities.canInjectInterference`: make the world move the
@@ -97,6 +114,15 @@ export function runConformance(h: AdapterHarness): void {
     try {
       const { sceneEpoch } = await adapter.revision();
       const slotA = slot(trackA, scene(0, sceneEpoch));
+      // ⚠⚠ DELETED FIRST, and it is not tidiness. `clip.create` into an OCCUPIED
+      // slot appends a scene to the project (E21) — so this helper, run once per
+      // case against a real project that keeps whatever the last case left, grew
+      // the project by one row per test. It is what took a 10-scene project to
+      // 170 in one afternoon, and the refusal that now stops it would fail every
+      // case here instead. The fake gets a fresh model per case and so never saw
+      // it; live it was every case after the first.
+      await adapter.apply({ ops: [{ op: 'clip.delete', slot: slotA }] });
+      await adapter.settle('trackStruct');
       // ⚠ E2: the clip MUST exist before anything points at that slot, or the
       // cursor silently lands on a different clip and status looks healthy.
       await adapter.apply({ ops: [{ op: 'clip.create', slot: slotA, lengthBeats: 4 }] });
@@ -112,6 +138,21 @@ export function runConformance(h: AdapterHarness): void {
       await h.dispose(adapter);
     }
   }
+
+  /**
+   * Remove the LAST scene row, back down to `was`.
+   *
+   * ⚠ From the end, always. `Scene.deleteObject()` compacts the rows below it
+   * upward (E3), so removing a middle row stales every address beneath it
+   * permanently — `probe:e20b`'s discipline, and the reason a suite that adds a
+   * row has to take that one back rather than any row.
+   */
+  const giveBackLastScene = async (adapter: BitwigAdapter, was: number): Promise<void> => {
+    const at = await adapter.revision();
+    if (at.window.scenes.count <= was) return;
+    await adapter.apply({ ops: [{ op: 'scene.delete', scene: scene(at.window.scenes.count - 1, at.sceneEpoch) }] });
+    await adapter.settle('tick');
+  };
 
   const readNotes = async (adapter: BitwigAdapter, address: Address): Promise<readonly NoteRecord[]> => {
     const snap = await adapter.read([address]);
@@ -172,7 +213,8 @@ export function runConformance(h: AdapterHarness): void {
   test(label('C-epoch', 'a scene op bumps the epoch and stales prior addresses (E3)'), async () => {
     const { adapter, trackA } = await h.create();
     try {
-      const before = (await adapter.revision()).sceneEpoch;
+      const start = await adapter.revision();
+      const before = start.sceneEpoch;
       const stale = slot(trackA, scene(0, before));
       await adapter.apply({ ops: [{ op: 'scene.create', count: 1 }] });
       await adapter.settle('tick');
@@ -185,6 +227,14 @@ export function runConformance(h: AdapterHarness): void {
       const res = await adapter.resolve([stale]);
       assert.equal(res.resolved[0]!.found, false);
       assert.equal(res.resolved[0]!.reason, 'stale-epoch');
+
+      // ⚠ GIVE IT BACK, from the END. This case and `C-content` below each left a
+      // scene behind on every live run — slow next to the ~24 rows `clip.create`
+      // was appending (E21), and the same failure: a suite that grows the project
+      // it is run against eventually pushes it past the window, where rule 5
+      // correctly refuses everything. E3 is why it must be the LAST row: a
+      // mid-grid delete compacts every row beneath it, permanently.
+      await giveBackLastScene(adapter, start.window.scenes.count);
     } finally {
       await h.dispose(adapter);
     }
@@ -295,6 +345,16 @@ export function runConformance(h: AdapterHarness): void {
       const { sceneEpoch } = await adapter.revision();
       const clipA = clip(slot(trackA, scene(0, sceneEpoch)));
       const clipB = clip(slot(trackB, scene(0, sceneEpoch)));
+      // ⚠ Deleted first — see `withClip`. A `clip.create` into an occupied slot
+      // appends a scene to the project rather than failing (E21), so a case that
+      // assumed an empty slot grew the project every time it ran.
+      await adapter.apply({
+        ops: [
+          { op: 'clip.delete', slot: clipA.slot },
+          { op: 'clip.delete', slot: clipB.slot },
+        ],
+      });
+      await adapter.settle('trackStruct');
       await adapter.apply({
         ops: [
           { op: 'clip.create', slot: slot(trackA, scene(0, sceneEpoch)), lengthBeats: 4 },
@@ -608,6 +668,261 @@ export function runConformance(h: AdapterHarness): void {
     },
   );
 
+  // --- the SCENE window: rule 5's second population (E19, session 3c) --------
+
+  test(
+    label('C-scene-room', 'a scene.create past the window is refused BEFORE the call (rule 5)'),
+    async () => {
+      // ⚠ No oversized project needed, which is why this case runs LIVE as well
+      // as offline. The refusal is a precondition, so asking for more rows than
+      // any window could hold is refused without a single scene being created —
+      // and that is the whole point: `scene.create` past the window strands a row
+      // nothing can address or delete, so a post-hoc check runs after the damage
+      // (E19, and rule 5's own words).
+      const { adapter } = await h.create();
+      try {
+        const before = await adapter.revision();
+        const room = before.window.scenes.bankSize - before.window.scenes.count;
+        assert.ok(room >= 0, 'the fixture project must fit inside its own scene window');
+
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'scene.create', count: room + 1 }] }),
+          BankWindowOverflowError,
+        );
+
+        const after = await adapter.revision();
+        assert.equal(after.window.scenes.count, before.window.scenes.count,
+          'refused BEFORE the call — never a partial operation, and never a stranded row');
+        assert.equal(after.sceneEpoch, before.sceneEpoch, 'and nothing moved the epoch either');
+      } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-scene-room', 'two creates in ONE batch are summed, not checked one at a time'),
+    async () => {
+      // The post-hoc check wearing a precondition's clothes: each half fits, the
+      // pair does not, and checking them separately lets the second one strand.
+      const { adapter } = await h.create();
+      try {
+        const before = await adapter.revision();
+        const room = before.window.scenes.bankSize - before.window.scenes.count;
+        const half = Math.floor(room / 2) + 1;
+        assert.ok(half <= room, 'the fixture needs room for one half but not for two');
+
+        await assert.rejects(
+          adapter.apply({
+            ops: [{ op: 'scene.create', count: half }, { op: 'scene.create', count: half }],
+          }),
+          BankWindowOverflowError,
+        );
+        assert.equal((await adapter.revision()).window.scenes.count, before.window.scenes.count);
+      } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-slot-free', 'a clip.create into an OCCUPIED slot is REFUSED, not a silent scene (E21)'),
+    async () => {
+      // ⚠⚠ The door the scene budget does not cover, and the one that was
+      // actually open. `Track.createNewLauncherClip` on an occupied slot neither
+      // fails nor overwrites: it APPENDS A SCENE at the end of the project and
+      // puts the clip out there — past the window, unaddressable, un-deletable,
+      // unobserved. Measured live at 169 -> 170 with every row inside the window
+      // unchanged. A budget that only counts `scene.create` misses all of it.
+      await withClip(async ({ adapter, clipA }) => {
+        const before = await adapter.revision();
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'clip.create', slot: clipA.slot, lengthBeats: 4 }] }),
+          SlotOccupiedError,
+        );
+        const after = await adapter.revision();
+        assert.equal(after.window.scenes.count, before.window.scenes.count,
+          'refused before the call, so the project did not grow a row');
+      });
+    },
+  );
+
+  test(
+    label('C-slot-free', 'and an EMPTY slot still takes a clip, so the refusal is not blanket'),
+    async () => {
+      const { adapter, trackA } = await h.create();
+      try {
+        const at = await adapter.revision();
+        // A row this suite creates nothing in, cleared first so the case is
+        // re-runnable against a real project.
+        const target = slot(trackA, scene(4, at.sceneEpoch));
+        await adapter.apply({ ops: [{ op: 'clip.delete', slot: target }] });
+        await adapter.settle('trackStruct');
+
+        const before = await adapter.revision();
+        await adapter.apply({ ops: [{ op: 'clip.create', slot: target, lengthBeats: 4 }] });
+        await adapter.settle('trackStruct');
+
+        const entry = (await adapter.read([clip(target)])).entries[addressKey(clip(target))];
+        assert.equal(entry?.value.of === 'clip' ? entry.value.exists : false, true);
+        assert.equal((await adapter.revision()).window.scenes.count, before.window.scenes.count,
+          'creating into an empty slot costs no scene');
+
+        await adapter.apply({ ops: [{ op: 'clip.delete', slot: target }] });
+      } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-scene-row', 'an op naming a row past the window is refused, applying nothing'),
+    async () => {
+      // ⚠ `encoder.ts` handed this straight to `sceneBank.getScene(i)` as a bank
+      // index, and the bank is bounded to its window — so the throw came from the
+      // MIDDLE of a batch, after whatever ran before it had already landed.
+      // Also live-safe: nothing is created, and the row is refused unopened.
+      const { adapter, trackA } = await h.create();
+      try {
+        const at = await adapter.revision();
+        const outside = scene(at.window.scenes.bankSize + 4, at.sceneEpoch);
+
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'scene.delete', scene: outside }] }),
+          BlindSpotError,
+        );
+        // The same refusal for a clip op, because the slot bank is the same width.
+        await assert.rejects(
+          adapter.apply({
+            ops: [{ op: 'clip.create', slot: slot(trackA, outside), lengthBeats: 4 }],
+          }),
+          BlindSpotError,
+        );
+      } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-scene-row', 'a row past the window resolves as outside-bank-window, not absent'),
+    async () => {
+      const { adapter, trackA } = await h.create();
+      try {
+        const at = await adapter.revision();
+        // ⚠ A row inside the PROJECT and outside the WINDOW is the interesting
+        // one, and only a project bigger than its window has any. Without that,
+        // the honest answer for a far row is `absent` and this case would be
+        // asserting the wrong thing — so it needs the harness hook.
+        if (h.capabilities.canOverflowBank) {
+          assert.ok(h.forceSceneOverflow, 'canOverflowBank harness must provide forceSceneOverflow');
+          const { outsideRow } = h.forceSceneOverflow(adapter);
+          const now = await adapter.revision();
+          const row = slot(trackA, scene(outsideRow, now.sceneEpoch));
+          const [resolved] = (await adapter.resolve([row])).resolved;
+          assert.equal(resolved?.found, false);
+          assert.equal(resolved?.reason, 'outside-bank-window',
+            'invisible is not absent — collapsing them is how a revert under-delivers');
+        }
+        // A row past the PROJECT's own scene count is genuinely absent, on both
+        // adapters and with no setup. The two answers must not be the same.
+        const far = slot(trackA, scene(at.window.scenes.bankSize + 4, at.sceneEpoch));
+        const [beyond] = (await adapter.resolve([far])).resolved;
+        assert.equal(beyond?.found, false);
+      } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-scene-row', 'blind clip ROWS are in Snapshot.unreachable, not a clean snapshot (B1c)'),
+    { skip: !h.capabilities.canOverflowBank },
+    async () => {
+      // The under-delivery D5 forbids: `unreachable` reported blind TRACKS and
+      // stayed silent about blind rows, so a project with more scenes than the
+      // window produced a clean-looking snapshot of a grid whose lower half
+      // nothing had looked at.
+      const { adapter, trackA } = await h.create();
+      try {
+        assert.ok(h.forceSceneOverflow, 'canOverflowBank harness must provide forceSceneOverflow');
+        const { outsideRow } = h.forceSceneOverflow(adapter);
+        const at = await adapter.revision();
+        const blind = clip(slot(trackA, scene(outsideRow, at.sceneEpoch)));
+
+        const snap = await adapter.read([blind]);
+        assert.deepEqual(snap.missing, [], 'a row we cannot see is not a row we saw was empty');
+        assert.equal(snap.unreachable.length, 1);
+        assert.equal(Object.keys(snap.entries).length, 0);
+      } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-cover', 'a window that cannot see the whole project is NOT complete (B2)'),
+    { skip: !h.capabilities.canOverflowBank },
+    async () => {
+      // ⚠⚠ The fourth way a window lies, and the only one the delta cannot notice
+      // on its own: the observers are attached per bank row across `config.tracks`
+      // on a slot bank sized by `config.scenes`, so an edit outside either window
+      // fires NOTHING — and an empty event list then reads as "quiet" when it
+      // means "we were not looking".
+      const { adapter } = await h.create();
+      try {
+        assert.ok(h.forceSceneOverflow, 'canOverflowBank harness must provide forceSceneOverflow');
+        h.forceSceneOverflow(adapter);
+        const mark = await adapter.revision();
+        const delta = await adapter.contentSince(mark);
+
+        assert.deepEqual(delta.events, [], 'genuinely nothing to report...');
+        assert.equal(delta.truncated, false, '...and none of the other three verdicts fires');
+        assert.equal(delta.discontinuous, false);
+        assert.equal(delta.uncovered, true, 'so this is the only thing standing between');
+        assert.equal(delta.uncoveredIn, 'scenes');
+        assert.equal(deltaComplete(delta), false,
+          'an unobservable window must never read as an intact empty one');
+      } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-cover', 'the TRACK dimension reports it too, and both together say so'),
+    { skip: !h.capabilities.canOverflowBank },
+    async () => {
+      const { adapter } = await h.create();
+      try {
+        assert.ok(h.forceOverflow && h.forceSceneOverflow, 'harness must provide both hooks');
+        h.forceOverflow(adapter);
+        assert.equal((await adapter.contentSince(await adapter.revision())).uncoveredIn, 'tracks');
+        h.forceSceneOverflow(adapter);
+        assert.equal((await adapter.contentSince(await adapter.revision())).uncoveredIn, 'both');
+      } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-cover', 'a window that DOES cover the project is complete, so the flag can be believed'),
+    async () => {
+      // The control. Without it, a `uncovered` that was simply always true would
+      // pass every case above and make the delta useless in the other direction.
+      await withClip(async ({ adapter }) => {
+        const mark = await adapter.revision();
+        assert.equal(mark.window.tracks.count <= mark.window.tracks.bankSize, true);
+        assert.equal(mark.window.scenes.count <= mark.window.scenes.bankSize, true);
+        const delta = await adapter.contentSince(mark);
+        assert.equal(delta.uncovered, false);
+        assert.equal(delta.uncoveredIn, undefined);
+        assert.ok(deltaComplete(delta));
+      });
+    },
+  );
+
   test(label('C-slot', 'a notes read on a slot with NO clip is missing, never an empty clip (E2)'), async () => {
     // ⚠ The distinction the executor's E2 guard is built on, and a place the
     // fake and live could silently disagree: "there is no clip here" must not
@@ -616,8 +931,15 @@ export function runConformance(h: AdapterHarness): void {
     const { adapter, trackA } = await h.create();
     try {
       const { sceneEpoch } = await adapter.revision();
-      // Scene 5 is deliberately never created by any case in this suite.
+      // ⚠ Row 5 is one no case in this suite writes to — and "no case writes to
+      // it" is not the same as "it is empty". A real project arrives with its own
+      // clips, and this one did: the assertion below is about a slot with NO
+      // CLIP, so the case has to establish that rather than assume it. The
+      // suite's own rule, from `C-clip`: a case that only passes the first time
+      // is worse than no case at all.
       const bare = notesAt(clip(slot(trackA, scene(5, sceneEpoch))));
+      await adapter.apply({ ops: [{ op: 'clip.delete', slot: slot(trackA, scene(5, sceneEpoch)) }] });
+      await adapter.settle('trackStruct');
       const snap = await adapter.read([bare]);
       assert.equal(snap.entries[addressKey(bare)], undefined);
       assert.equal(snap.missing.length, 1);
@@ -659,7 +981,11 @@ export function runConformance(h: AdapterHarness): void {
     const { adapter, trackA } = await h.create();
     try {
       const { sceneEpoch } = await adapter.revision();
+      // ⚠ Established, not assumed — see the note on row 5 in `C-slot`. The whole
+      // case is about a slot with NO clip, so arriving at one is part of it.
       const bare = clip(slot(trackA, scene(6, sceneEpoch)));
+      await adapter.apply({ ops: [{ op: 'clip.delete', slot: bare.slot }] });
+      await adapter.settle('trackStruct');
       await assert.rejects(
         new Executor(adapter).run([{ op: 'note.write', clip: bare, notes: [note()] }]),
         AddressUnresolvedError,
@@ -710,6 +1036,11 @@ export function runConformance(h: AdapterHarness): void {
       const slotB = slot(trackB, scene(0, sceneEpoch));
       const clipA = clip(slotA);
       const clipB = clip(slotB);
+      // ⚠ Deleted first — see `withClip` and E21.
+      await adapter.apply({
+        ops: [{ op: 'clip.delete', slot: slotA }, { op: 'clip.delete', slot: slotB }],
+      });
+      await adapter.settle('trackStruct');
       await adapter.apply({
         ops: [
           { op: 'clip.create', slot: slotA, lengthBeats: 4 },
@@ -1014,6 +1345,9 @@ export function runConformance(h: AdapterHarness): void {
       const [resolved] = (await adapter.resolve([stale])).resolved;
       assert.equal(resolved?.found, false);
       assert.equal(resolved?.reason, 'stale-epoch');
+
+      // ⚠ Given back from the END — see `C-epoch`.
+      await giveBackLastScene(adapter, before.window.scenes.count);
     } finally {
       await h.dispose(adapter);
     }

@@ -23,10 +23,16 @@ export type { SettleBudget } from './budgets.js';
 
 export { STEP_SIZES, chooseStepSize, stepSizeFor } from './grid.js';
 
-export { contentTouching, deltaComplete, discontinuityBetween, sliceDelta } from './observers.js';
-export type { ContentDelta, ContentEvent } from './observers.js';
+export {
+  contentDelta, contentTouching, deltaComplete, discontinuityBetween, sliceDelta,
+  uncoveredAt, uncoveredBetween,
+} from './observers.js';
+export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 
-export { OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertNever, assertOpsWritable } from './ops.js';
+export {
+  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertNever, assertOpsAddressable,
+  assertOpsWritable, assertSceneRoom, assertSlotsFree,
+} from './ops.js';
 export type { DeviceSource, Op, OpKind } from './ops.js';
 
 export {
@@ -37,9 +43,10 @@ export type {
   DeviceState, NoteProp, NoteRecord, ParamState, PropFidelity, Recurrence, TrackState,
 } from './state.js';
 
-export { failures, fullyApplied } from './snapshot.js';
+export { blindCount, failures, fullyApplied, windowCovers } from './snapshot.js';
 export type {
   BatchReceipt, Fidelity, OpReceipt, RevisionMark, Snapshot, StageReceipt, StateEntry, StateValue,
+  WindowCoverage,
 } from './snapshot.js';
 
 export { planBudgetMs, planStages } from './stages.js';
@@ -50,7 +57,9 @@ export type { AdapterCapabilities, AdapterInfo, BankLimits, ContractTag } from '
 
 export {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractError,
-  ContractVersionError, InvalidOpError, StaleAddressError, UnsupportedOpError, WireDriftError,
+  ContractVersionError, InvalidOpError, SlotOccupiedError, StaleAddressError, UnsupportedOpError,
+  WireDriftError, blindSpotError,
 } from './errors.js';
+export type { BankDimension } from './errors.js';
 
 export type { BatchRequest, BitwigAdapter, ResolveResult, ResolvedAddress } from './adapter.js';

@@ -98,8 +98,9 @@ first. Record the reconciliation so the next reader does not re-derive it.
 
 ## ⚠ Carried in from session 3 (2026-08-08)
 
-Two items with no session of their own, homed here because this is the live
-sweep. Detail in [SESSION-3](PHASE-1-SESSION-3-BRIDGE.md) §The full carry-forward.
+Three items with no session of their own, homed here because this is the live
+sweep. B4/B5 in [SESSION-3](PHASE-1-SESSION-3-BRIDGE.md) §The full carry-forward;
+B7 in [SESSION-3C](PHASE-1-SESSION-3C-WINDOW.md) §Carry-forward.
 
 - **B4 — hoist the selection capture/restore.** `LiveAdapter.captureSelection`'s
   ⚠ note blames the daemon for being unable to reduce the executor's three
@@ -113,6 +114,18 @@ sweep. Detail in [SESSION-3](PHASE-1-SESSION-3-BRIDGE.md) §The full carry-forwa
   not a measurement. And a drag **below the bank window**, which session 3's B2
   predicts fires nothing at all — worth confirming as a known limit rather than
   discovering it as a bug.
+- ⚠ **B7 — `C-minted` fails in a FULL live conformance run and nowhere else**, and
+  it is the suite's only red (session 3c: 43/1/6). ⚠ Verified PRE-EXISTING against
+  the pre-session tree, so it is a standing defect rather than a regression. It
+  passes in isolation and in every 3–5 case subset tried; the full 50-case run is
+  what breaks it, which is the load-dependent signature of the cause: **the
+  `track.create` mint diffs the bank after a fixed `trackStruct` budget (144 ms)
+  where a readback exists.** Under load the create has not landed, the diff sees no
+  new `channelId`, and the mint is withheld — failing CLOSED, which is why it is a
+  flake and not a wrong answer. ⚠ `budgets.ts`'s own header already prescribes the
+  fix in words: *"where a readback exists, use it instead of a budget —
+  `refreshIndex` re-reads the bank rather than waiting out a track create."* Poll
+  the bank for the new id instead of waiting the number.
 
 ## Decisions this session must make
 

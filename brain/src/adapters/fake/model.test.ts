@@ -16,6 +16,7 @@
  *   T-emptyslot   E2       pointing at an empty slot lands on the wrong clip
  *   T-scene       E3       deleting a scene compacts rows and stales the epoch
  *   T-bank        E5       tracks past the window are absent, not slow
+ *   T-reach       E19      no observer exists outside either bank window
  *   T-adjacency   E8-E     same-pitch notes truncate each other
  *   T-tracks      E2c      flat bank tail, unhonoured positions, auto-names
  *   T-chain       E3       device chains re-index on delete
@@ -519,4 +520,94 @@ test('T-chain: deleting a device RE-INDEXES the chain (E3)', () => {
   track.devices.push({ name: 'B', paramsLive: true, params: [] });
   model.deleteDevice(track, 0);
   assert.equal(track.devices[0]!.name, 'B', 'the survivor shifted from index 1 to 0');
+});
+
+// --- E19 / B2: the observers only exist inside the windows -------------------
+
+test('T-reach: a slot filling OUTSIDE the scene window fires no event at all', () => {
+  // ⚠⚠ The trap, not the mitigation. `Rig.java` attaches one
+  // `addHasContentObserver` per bank row on a slot bank sized by `config.scenes`,
+  // so a row past it has no observer — the state change happens and the event
+  // stream stays empty. A fake that fired here would certify a detector Bitwig
+  // cannot supply, and the offline suite would prove `deltaComplete` correct on
+  // exactly the case where it is not.
+  const model = new ProjectModel();
+  model.sceneCount = 8;
+  model.sceneBankSize = 4;
+  const track = model.createTrack('gn-A');
+
+  model.setSlotContent(track, 1, true);
+  assert.equal(model.contentRing.length, 1, 'inside the window, the observer fires');
+
+  model.setSlotContent(track, 6, true);
+  assert.equal(track.slots[6]!.hasContent, true, 'the slot really did fill...');
+  assert.equal(model.contentRing.length, 1, '...and nothing reported it');
+});
+
+test('T-reach: the same hole in the TRACK dimension', () => {
+  const model = new ProjectModel();
+  model.trackBankSize = 1;
+  model.createTrack('gn-A');
+  const hidden = model.createTrack('gn-B');
+
+  model.setSlotContent(hidden, 0, true);
+  assert.equal(hidden.slots[0]!.hasContent, true);
+  assert.deepEqual(model.contentRing, [], 'a bank row past the window carries no observer');
+});
+
+test('T-reach: a compaction below the window shifts rows unobserved (E3 + B2)', () => {
+  // The two traps compounding: `deleteScene` compacts rows upward, and out there
+  // nothing reports the occupancy changes that compaction produces.
+  const model = new ProjectModel();
+  model.sceneCount = 8;
+  model.sceneBankSize = 4;
+  const track = model.createTrack('gn-A');
+  model.setSlotContent(track, 6, true);
+  const before = model.contentEpoch;
+
+  model.deleteScene(5);
+
+  assert.equal(track.slots[5]!.hasContent, true, 'the clip moved up a row...');
+  assert.equal(model.contentEpoch, before, '...and the content log says nothing happened');
+  assert.equal(model.sceneEpoch > 0, true, 'only the scene epoch caught it, which is why it exists');
+});
+
+// --- E21: clip.create into an occupied slot appends a scene ------------------
+
+test('T-append: creating a clip in an OCCUPIED slot grows the PROJECT, silently', () => {
+  // ⚠⚠ The trap, not the mitigation. Bitwig neither refuses nor overwrites: it
+  // appends a row at the end of the project and puts the clip out there. The
+  // clip already in the slot is untouched, so nothing about the addressed row
+  // looks wrong — which is why a 10-scene project reached 170 with nobody
+  // creating a scene.
+  const model = new ProjectModel();
+  model.sceneCount = 4;
+  const track = model.createTrack('gn-A');
+  model.setSlotContent(track, 0, true);
+  track.slots[0]!.lengthBeats = 4;
+
+  model.appendSceneForOverflowingClip(track, 8);
+
+  assert.equal(model.sceneCount, 5, 'the PROJECT grew a row');
+  assert.equal(track.slots[0]!.hasContent, true, 'and the clip that was there is untouched');
+  assert.equal(track.slots[0]!.lengthBeats, 4, 'including its length — this is not an overwrite');
+  assert.equal(track.slots[4]!.hasContent, true, 'the new clip is in the appended row');
+});
+
+test('T-append: the appended row is UNOBSERVED when it lands past the window', () => {
+  // The two traps compounding, and the reason the growth was invisible: the row
+  // is minted at the end of the project, so on anything bigger than the window
+  // no observer exists there to report it.
+  const model = new ProjectModel();
+  model.sceneCount = 4;
+  model.sceneBankSize = 4;
+  const track = model.createTrack('gn-A');
+  model.setSlotContent(track, 0, true);
+  const epochBefore = model.contentEpoch;
+
+  model.appendSceneForOverflowingClip(track, 4);
+
+  assert.equal(model.sceneCount, 5);
+  assert.equal(model.contentEpoch, epochBefore, 'no content event — there is no observer out there');
+  assert.notEqual(model.sceneEpoch, 0, 'only the scene COUNT moved, which is the one tell');
 });

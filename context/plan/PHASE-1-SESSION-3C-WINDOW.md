@@ -1,13 +1,21 @@
 ---
 title: Phase 1, session 3c — the window
-status: PLANNED 2026-08-09. Session 3's carry-forward B1, B2 and B6, which share
+status: ● **DONE 2026-08-09.** Session 3's carry-forward B1, B2 and B6, which share
         one fix. ⚠ **Not new design** — standing rule 5 already mandates B1 in
         words that cover scenes verbatim, so this implements an existing decision
         rather than proposing one.
+        Offline **320/320**; live `probe:e21` **11/11 + 9/9 + 5/5** (`FINDINGS.md`
+        E21). ⚠ **ARM 1 measured**: `sceneBank.itemCount()` reports the PROJECT
+        total, so the budget is implementable on the same instrument as the track
+        one. ⚠⚠ **And the session found something bigger than it came for** —
+        `clip.create` into an OCCUPIED slot is a silent, unbudgeted `scene.create`
+        that appends a row past the window; see §What this session found that it
+        was not looking for, and closed it. ⚠ The live conformance suite is **43/1/6**;
+        its one red (`C-minted`) is verified PRE-EXISTING and carried to session 5.
         ⚠⚠ **It BLOCKS 3e**: the clip block makes room with `scene.create`, which
-        is the exact call that has no precondition today. Under the old
-        prime-suffix numbering this session sorted *after* the one that depends on
-        it — the contradiction that triggered the 2026-08-09 re-cut.
+        is the exact call that had no precondition. Under the old prime-suffix
+        numbering this session sorted *after* the one that depends on it — the
+        contradiction that triggered the 2026-08-09 re-cut.
         ⚠ Was proposed as **session 3‴**.
 updated: 2026-08-09
 parent: PHASE-1-ENGINE.md
@@ -167,6 +175,89 @@ green (rule 10's habit, applied to our own expectations).
 6. `./gradlew copyExtension`, ⚠ **reload the controller by hand** (a deploy is not
    a reload), `npm run probe:hello` — which fails rather than warns on a stale
    extension — then the live probe.
+
+## ⚠⚠ What this session found that it was not looking for
+
+**`clip.create` into an OCCUPIED slot appends a scene to the project** —
+`Track.createNewLauncherClip` neither fails nor overwrites; it makes room by adding
+a row at the END, past the bank window on anything bigger than it, and puts the new
+clip out there where nothing can address, delete or observe it (`FINDINGS.md` E21).
+
+⇒ **B1a as specified was necessary and not sufficient.** A budget on `scene.create`
+alone has a door beside it, and that door is what took the test project from 10
+scenes to 170 in an afternoon — two or three dozen rows per live conformance run,
+every one of them through `withClip`'s unconditional `clip.create`, while
+`scene.create` was being correctly refused throughout.
+
+⚠ It is also the likeliest explanation for the **99-scene project `probe:e19` tripped
+over**. E19's account of the symptom stands; its implied cause was incomplete.
+
+**Built, as scope this session added deliberately:** `SlotOccupiedError` and
+`assertSlotsFree`, a precondition on both adapters — the RULE in the contract, the
+occupancy LOOKUP per adapter, so neither can be the lenient one. Refusing is right on
+its own terms before any of the above: a caller naming a slot means THAT slot, and
+*"create a clip somewhere you choose"* is not expressible in the op union. ⚠ It is
+the same precondition E20b puts on `duplicateClip` — where an occupied destination is
+worse still, because the existing clip is DESTROYED and no occupancy event fires —
+so **3e inherits it rather than inventing it**.
+
+## The live conformance suite, and the two leaks it was carrying
+
+⚠ **The suite was growing every project it ran against**, and the bigger half was
+this session's finding: `withClip` created a clip unconditionally, so once a real
+project held a clip in row 0 every case after the first appended a scene. Two or
+three dozen rows per run.
+
+| leak | fix |
+|---|---|
+| ⚠⚠ `withClip`, `C-twoclips`, `C-revert` created into slots a real project already filled | delete before create — the refusal now makes it a hard error rather than silent growth |
+| ⚠ `C-epoch` and `C-content` each created a scene and never gave it back | `giveBackLastScene`, from the END (E3: a mid-grid delete compacts every row beneath it) |
+| `C-slot`, `C-exec` asserted a row was empty because *no case writes to it* | establish it. A real project arrives with its own clips, and "no case writes here" is not "this is empty" |
+
+● **43 pass / 1 fail / 6 skipped, and the project is unchanged across a run** —
+measured 14 scenes before, 14 after. The 6 skips are the `canOverflowBank` cases,
+which a live harness cannot stage: reaching them costs a create past the window,
+which strands a row nothing can delete (E19). Their live evidence is `probe:e21`
+instead, which proves the same refusals from the other side.
+
+## ⚠ CARRY-FORWARD — `C-minted` fails in a full live run only (pre-existing)
+
+**Not this session's, and verified so**: it fails identically on the pre-session
+tree (`git stash`, same project, same case). Recorded because it is now the only
+red in the live suite.
+
+| | |
+|---|---|
+| symptom | `track.create` reports no minted identity — `receipt.minted[0]` is `undefined` |
+| ⚠ passes | in isolation, and in every 3–5 case subset tried (`C-revision+`, `C-twoclips+C-stash+`, `C-notes+C-props+C-gain+`) |
+| fails | only in the full 50-case run |
+
+⇒ **Diagnosis: the mint diff waits a fixed budget where a readback exists.**
+`apply` scans the bank, sends the create, waits `trackStruct` (144 ms, E1/E3) and
+diffs. Under a loaded session the create has not landed, the diff sees no new
+`channelId`, and the mint is correctly withheld — failing CLOSED, which is why it
+is a flake and not a wrong answer. ⚠ `budgets.ts`'s own header already prescribes
+the fix: *"where a readback exists, use it instead of a budget — `refreshIndex`
+re-reads the bank rather than waiting out a track create"*. The mint path does not.
+
+⇒ **Home: session 5's live sweep**, beside B4 (the three selection capture/restore
+pairs) and B5 (the two unmeasured drags).
+
+## ⚠ A deliberate asymmetry with the track path, stated so it is not read as an omission
+
+The track dimension REFUSES EVERY WRITE on an overflowing project
+(`assertBankVisible`). The scene dimension does not: it refuses **per address**
+(a row outside the window), refuses the **creates** that would make one, and REPORTS
+the rest — `Snapshot.unreachable` for what it could not see, `uncovered` for what the
+observers could not have seen.
+
+The reason is that the two blind spots differ in kind. A track outside the window
+cannot be RESOLVED at all — `channelId` resolution silently fails, so an address may
+mean nothing. A row outside the window is perfectly resolvable for every row inside
+it; what is lost is concurrent-edit reach, and that is reported rather than guessed.
+⚠ **Whether a scene-overflowing project should refuse writes wholesale is a PRODUCT
+decision, not an implementation detail** — it would refuse most real projects — and
+it is not this session's to take. Recorded here as a question the operator may want.
 
 ## Risks
 

@@ -43,6 +43,11 @@
  *   `unattributable` an event whose track could not be named (the observer read an
  *                    empty `channelId`, which happens while initial values are
  *                    still arriving). It touched something; we cannot say what.
+ *   `uncovered`      ⚠⚠ the observers could not have seen the whole project. The
+ *                    fourth, added in session 3c, and the one that is NOT visible
+ *                    in the delta: the other three are things the event stream
+ *                    reports about itself, while this one is a fact about the
+ *                    stream's REACH. See `uncoveredBetween`.
  *
  * ## ⚠ What this mechanism is NOT
  *
@@ -59,7 +64,61 @@
  * dragged in fingerprints as unchanged and is not the same clip.
  */
 import { addressScene, addressTrack, type Address } from './address.js';
-import type { RevisionMark } from './snapshot.js';
+import { windowCovers, type RevisionMark } from './snapshot.js';
+
+/**
+ * ⚠⚠ WHICH population the launcher observers could not cover.
+ *
+ * Named rather than collapsed into a boolean because the two dimensions have
+ * different causes and different fixes, and because *"tracks and scenes both"* is
+ * the case a caller most wants to see spelled out. Mirrors `discontinuity`: a
+ * boolean says the window is unusable, this says which way.
+ */
+export type UncoveredIn = 'tracks' | 'scenes' | 'both';
+
+/** What a single mark's banks could not see. `undefined` when they covered the world. */
+export function uncoveredAt(mark: RevisionMark): UncoveredIn | undefined {
+  const tracks = !windowCovers(mark.window.tracks);
+  const scenes = !windowCovers(mark.window.scenes);
+  if (tracks && scenes) return 'both';
+  if (tracks) return 'tracks';
+  if (scenes) return 'scenes';
+  return undefined;
+}
+
+/**
+ * ⚠⚠ Could the observers have seen the whole project across this window — the
+ * fourth verdict, and B2's whole fix.
+ *
+ * By construction in `Rig.java`, `addHasContentObserver` is attached per bank row
+ * across `config.tracks`, on a slot bank sized by `config.scenes`. An edit on a
+ * track past the track window, or a row past the scene window, fires nothing at
+ * all. Every other way a window can lie is *reported by the window*; this one is
+ * the window not existing where the edit happened, so a delta that only counts
+ * events calls it quiet.
+ *
+ * ⚠ The UNION of both ends, and deliberately pessimistic. Coverage is a property
+ * of the whole interval and we only ever hold its two endpoints, so a window that
+ * was uncoverable at either moment is reported uncovered. The alternative — trust
+ * the later reading — resolves "we could not tell" to "nothing happened", which is
+ * the direction this entire mechanism exists to refuse.
+ *
+ * ⚠ Computed even when the marks are DISCONTINUOUS. Comparing counts across a
+ * project change means nothing, but each end is still a true observation of a real
+ * moment, and the union of two true statements is conservative in the safe
+ * direction. A caller reading `discontinuous` and `uncovered` together learns two
+ * independent facts rather than one that swallowed the other.
+ */
+export function uncoveredBetween(
+  since: RevisionMark,
+  now: RevisionMark,
+): UncoveredIn | undefined {
+  const a = uncoveredAt(since);
+  const b = uncoveredAt(now);
+  if (a === undefined) return b;
+  if (b === undefined) return a;
+  return a === b ? a : 'both';
+}
 
 /**
  * ⚠ Are two marks comparable at all — and if not, which way.
@@ -121,6 +180,17 @@ export interface ContentDelta {
    * the counters kept climbing and nothing about the numbers looks wrong.
    */
   readonly discontinuity?: 'extension-restarted' | 'project-changed';
+  /**
+   * ⚠⚠ The observers could not have seen the whole project, so an empty window is
+   * a statement about the BANK and not about the world (B2, session 3c).
+   *
+   * The other three flags describe events that happened; this one describes
+   * events that could not have arrived. It is the only one of the four a delta
+   * cannot notice on its own, which is why it is carried rather than inferred.
+   */
+  readonly uncovered: boolean;
+  /** ⚠ WHICH population went unobserved. Mirrors `discontinuity`. */
+  readonly uncoveredIn?: UncoveredIn;
 }
 
 /**
@@ -129,10 +199,16 @@ export interface ContentDelta {
  * Stated once, here, so no caller re-derives it and none of them forgets that an
  * empty `events` array is a claim about the world only when the window is
  * intact. Everything else must fail closed.
+ *
+ * ⚠⚠ `uncovered` joined the list in session 3c, and adding it here is the entire
+ * distribution of the fix: the stash's `undecidable` verdict and the executor's
+ * concurrent-edit report both gate on this one predicate, so both learned to fail
+ * closed on an unobservable window without either of them changing a line.
  */
 export const deltaComplete = (delta: ContentDelta): boolean =>
   !delta.truncated
   && !delta.discontinuous
+  && !delta.uncovered
   && delta.events.every((e) => e.channelId !== '');
 
 /** The events that touch the slot this address hangs off, by durable identity. */
@@ -165,8 +241,51 @@ export function sliceDelta(
   since: number,
   now: number,
   ring: readonly ContentEvent[],
-): Omit<ContentDelta, 'discontinuous' | 'discontinuity'> {
+): Pick<ContentDelta, 'since' | 'now' | 'events' | 'truncated'> {
   const events = ring.filter((e) => e.seq > since && e.seq <= now);
   const expected = Math.max(0, now - since);
   return { since, now, events, truncated: events.length < expected };
+}
+
+/**
+ * ⚠⚠ The WHOLE delta, assembled once — the only place a `ContentDelta` is built.
+ *
+ * Both adapters used to construct one each, from the same two helpers, with the
+ * discontinuity short-circuit written out twice. That is exactly the shape
+ * PHASE-0 §Risks names: a fake that can drift into being kinder than Bitwig, one
+ * forgotten field at a time. Session 3's own review already caught one instance
+ * of it (`restartExtension` resetting one epoch and not the other), and adding a
+ * FOURTH verdict to two hand-written literals is how the next one happens.
+ *
+ * ⚠ A discontinuous window reports NO events rather than a slice of them. The
+ * counters are not comparable, so `(since, now]` does not name an interval —
+ * handing back the events that happen to fall in the arithmetic range would be
+ * inventing a window out of two unrelated numbers.
+ */
+export function contentDelta(
+  since: RevisionMark,
+  now: RevisionMark,
+  ring: readonly ContentEvent[],
+): ContentDelta {
+  const uncoveredIn = uncoveredBetween(since, now);
+  const coverage = uncoveredIn === undefined
+    ? { uncovered: false as const }
+    : { uncovered: true as const, uncoveredIn };
+  const discontinuity = discontinuityBetween(since, now);
+  if (discontinuity !== undefined) {
+    return {
+      since: since.contentEpoch,
+      now: now.contentEpoch,
+      events: [],
+      truncated: false,
+      discontinuous: true,
+      discontinuity,
+      ...coverage,
+    };
+  }
+  return {
+    ...sliceDelta(since.contentEpoch, now.contentEpoch, ring),
+    discontinuous: false,
+    ...coverage,
+  };
 }

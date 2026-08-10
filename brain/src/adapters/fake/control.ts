@@ -55,6 +55,54 @@ export class TrapControl {
     for (let i = 0; i < count; i++) this.fake.model.createTrack(`hidden ${i + 1}`);
   }
 
+  /**
+   * ⚠ Shrink the SCENE window, so a project can outgrow it without growing.
+   *
+   * The only way this condition is reachable in a test at all. Live it costs a
+   * project with more scenes than the bank, and getting one is a one-way door:
+   * `scene.create` past the window strands a row that `sceneBank.getScene(i)`
+   * cannot address and therefore cannot delete — `probe:e19` produced exactly
+   * that and the operator had to remove the scene by hand (E19).
+   */
+  setSceneWindow(size: number): void {
+    this.fake.model.sceneBankSize = size;
+  }
+
+  /**
+   * ⚠ Rows the scene bank cannot see — present in the project, unaddressable and
+   * UNOBSERVED.
+   *
+   * Goes through the model's own `createScenes`, so the rows are real slots on
+   * every track and the scene epoch moves exactly as a create does. What it does
+   * NOT do is make them reachable: that is the point.
+   */
+  addScenesBeyondWindow(count: number): void {
+    this.fake.model.createScenes(count);
+  }
+
+  /**
+   * ⚠⚠ A human filling a launcher slot the observers cannot see — B2's failure,
+   * reproducible.
+   *
+   * The state change is real and the event stream stays silent, because
+   * `ProjectModel.observes` says no observer exists out there. *"A control that
+   * reproduces the FAILURE is worth as much as one that reproduces the success"*
+   * (E17 method guard 10): without this, a passing coverage test proves only that
+   * the flag was plumbed, not that anything was ever missed.
+   */
+  fillUnobservedSlot(channelId: string, slotIndex: number): void {
+    const model = this.fake.model;
+    const track = model.tracks.find((t) => t.channelId === channelId);
+    if (track === undefined) throw new Error(`fillUnobservedSlot: no track ${channelId}`);
+    if (model.observes(track, slotIndex)) {
+      throw new Error(
+        `fillUnobservedSlot: (${channelId}, ${slotIndex}) IS inside both windows, so an observer `
+        + 'would fire and this control would be modelling nothing. Shrink a window first.',
+      );
+    }
+    model.setSlotContent(track, slotIndex, true);
+  }
+
   /** Delete a scene directly, compacting rows and staling every epoch (E3). */
   compactScene(index: number): void {
     this.fake.model.deleteScene(index);

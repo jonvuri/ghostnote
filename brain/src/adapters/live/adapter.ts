@@ -28,15 +28,19 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   ContractVersionError, StaleAddressError, WireDriftError,
-  addressKey, addressScene, addressTrack, assertOpsWritable, clip as clipAt, hasUnverifiedProps,
-  discontinuityBetween, planStages, sliceDelta,
+  addressKey, addressScene, addressTrack, assertOpsAddressable, assertOpsWritable,
+  assertSceneRoom, assertSlotsFree, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
+  windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ClipAddress, type ContentDelta, type ContentEvent, type Fidelity,
   type NoteRecord, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
-  type SettleBudget, type Snapshot, type StageReceipt, type StateEntry, type TrackAddress,
+  type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
+  type TrackAddress, type WindowCoverage,
 } from '../../contract/index.js';
 import { SETTLE_MS } from '../../contract/index.js';
-import { STEP_SIZES, decodeVerboseNote, encodeStage, type EncodeContext } from './encoder.js';
+import {
+  STEP_SIZES, decodeVerboseNote, encodeStage, sceneRowIn, type EncodeContext,
+} from './encoder.js';
 import { CursorPool } from './pool.js';
 import { BridgeTransport, type Transport } from './transport.js';
 import { WIRE } from './wiremap.js';
@@ -104,6 +108,21 @@ interface SelectionState {
   readonly slotIndex: number;
 }
 
+/**
+ * ⚠ `RigConfig.scenes`' shipped default, and a PLACEHOLDER, not a reading.
+ *
+ * `hello()` replaces it with the rig's real allocation. It exists for the same
+ * reason `CursorPool(1)` and `gridSteps ?? 64` do: an adapter used before the
+ * handshake must behave no worse than the Phase-0 one did, and an offline stub
+ * transport that never answers `rig.info` still has to produce a scene window.
+ *
+ * ⚠ It is a claim about the world and it can be WRONG — a rig configured with
+ * `scenes: 8` and used before `hello()` would consider row 10 addressable. The
+ * contract says `hello()` is called "once, before anything else", and every
+ * production path (`Session.ready()`, both harnesses, every probe) does.
+ */
+const RIG_DEFAULT_SCENES = 16;
+
 export interface LiveOptions {
   readonly transport?: Transport;
   /**
@@ -111,6 +130,12 @@ export interface LiveOptions {
    * `hello()` when omitted; the rig pre-allocates them at init (E1, D7).
    */
   readonly cursorPool?: number;
+  /**
+   * How wide the scene bank window is. Learned from `rig.info` at `hello()` when
+   * omitted; like the cursor pool it is fixed at the rig's `init()` (D7), which
+   * is why it can be cached at all.
+   */
+  readonly sceneBankSize?: number;
   /** Expected wire methodsHash from extension/methods.golden.json, if checking. */
   readonly expectMethodsHash?: string;
 }
@@ -151,6 +176,15 @@ export class LiveAdapter implements BitwigAdapter {
   /** channelId -> bank index. Invalidated by every structural op, never trusted across one. */
   private index = new Map<string, number>();
   /**
+   * The rows the last scan returned, so a `read` does not re-scan what the mark
+   * it was just handed already scanned.
+   *
+   * ⚠ Derived state from `scanTracks`, exactly like `index` and `overflowing`,
+   * and subject to the same rule: valid only until the next structural op. Every
+   * reader here takes it immediately after a scan rather than holding it.
+   */
+  private bank: readonly WireTrack[] = [];
+  /**
    * ⚠ Whether the PROJECT holds more tracks than the bank can show (E5).
    *
    * Kept as state rather than re-derived because it is the difference between
@@ -186,6 +220,17 @@ export class LiveAdapter implements BitwigAdapter {
   private lastMark: RevisionMark | undefined;
   /** The rig's cursor-clip width, learned at hello(); bounds the scan window. */
   private gridSteps: number | undefined;
+  /**
+   * ⚠ How wide the SCENE window is — the number rule 5's second population is an
+   * inequality over, and the one nothing in this file used to hold.
+   *
+   * `ClipLauncherSlotBank` and `SceneBank` are both created `config.scenes` wide
+   * at the rig's `init()` and cannot grow (D7), so unlike the track side — where
+   * `track.list` re-reports `bankSize` on every scan — this is learned once and
+   * cached. Learned at `hello()`; see `RIG_DEFAULT_SCENES` for what it is until
+   * then.
+   */
+  private sceneBankSize: number;
 
   constructor(options: LiveOptions = {}) {
     this.transport = options.transport ?? new BridgeTransport();
@@ -194,6 +239,7 @@ export class LiveAdapter implements BitwigAdapter {
     // Phase-0 behaviour exactly, so an adapter used before the handshake is no
     // worse than it was, merely no better.
     this.pool = new CursorPool(options.cursorPool ?? 1);
+    this.sceneBankSize = options.sceneBankSize ?? RIG_DEFAULT_SCENES;
   }
 
   async hello(): Promise<AdapterInfo> {
@@ -234,6 +280,10 @@ export class LiveAdapter implements BitwigAdapter {
     // The rig allocates its cursor pool at init and cannot grow it afterwards
     // (D7 — allocation is init-only and enforced), so this is the real ceiling.
     if (rig.cursorPool !== undefined) this.pool = new CursorPool(rig.cursorPool);
+    // ⚠ Same rule, second population: the scene bank and every slot bank are
+    // created `config.scenes` wide at init and cannot grow. This is the real
+    // ceiling on which ROWS exist for us at all.
+    if (rig.scenes !== undefined) this.sceneBankSize = rig.scenes;
 
     return {
       contract: CONTRACT_TAG,
@@ -254,13 +304,15 @@ export class LiveAdapter implements BitwigAdapter {
         // wide at init and cannot grow (D7), so it bounds the scene window the
         // same way `tracks` bounds the track window.
         //
-        // ⚠ KNOWN GAP, stated rather than half-fixed: there is no scene-side
-        // equivalent of the E5 overflow refusal below. `rig.info` also reports
-        // the project's true `sceneCount`, so the check is implementable — but
-        // it has never been measured against a project with more scenes than the
-        // window, and standing rule 10 says a capability is not banked from a
-        // doc pass. → Phase 1, session 5.
-        sceneBankSize: rig.scenes ?? 0,
+        // ⚠⚠ The KNOWN GAP that used to be recorded here — *"there is no
+        // scene-side equivalent of the E5 overflow refusal"* — is CLOSED in
+        // session 3c. It cost a stranded scene at project index 99 to notice
+        // (`FINDINGS.md` E19), and the premise it was waiting on is now measured
+        // rather than assumed: `sceneBank.itemCount()` reports the PROJECT total,
+        // not the window size (E21 arm 1). The refusals are `assertSceneRoom` and
+        // `assertOpsAddressable` in `apply`, the blind rows are in
+        // `Snapshot.unreachable`, and the observers' reach is on the mark.
+        sceneBankSize: this.sceneBankSize,
         ...(list.itemCount === undefined ? {} : { trackCount: list.itemCount }),
       },
       capabilities: {
@@ -293,6 +345,7 @@ export class LiveAdapter implements BitwigAdapter {
   private async scanTracks(): Promise<TrackListResult> {
     const list = (await this.transport.send({ method: WIRE.trackList })) as TrackListResult;
     this.index = new Map(list.tracks.map((t) => [t.channelId, t.index]));
+    this.bank = list.tracks;
     // ● PROVEN in Phase 0: `TrackBank.itemCount()` reports the PROJECT's track
     // count, not the window size — measured live at itemCount=17 against
     // bankSize=16, with only 16 rows visible. That is what makes rule 5
@@ -309,12 +362,15 @@ export class LiveAdapter implements BitwigAdapter {
    * Only `apply` calls this. Reads report the blind spot instead, which is the
    * asymmetry the rule actually states: tracks outside the window are
    * unsnapshottable, so no write is safe — but looking is how you find out.
+   *
+   * ⚠ Takes the coverage off the MARK rather than re-deriving it from a list, so
+   * the refusal and the delta's `uncovered` verdict are the same two numbers. They
+   * were separate readings of the same fact for a phase, and separate readings are
+   * how one of them ends up right and the other stale.
    */
-  private assertBankVisible(list: TrackListResult): TrackListResult {
-    if (this.overflowing) {
-      throw new BankWindowOverflowError(list.count, list.itemCount ?? -1, list.bankSize ?? -1);
-    }
-    return list;
+  private assertBankVisible(tracks: WindowCoverage): void {
+    if (windowCovers(tracks)) return;
+    throw new BankWindowOverflowError('tracks', this.bank.length, tracks.count, tracks.bankSize);
   }
 
   private trackIndex(track: TrackAddress): number {
@@ -330,7 +386,27 @@ export class LiveAdapter implements BitwigAdapter {
       cursorFor: (clipRef) => this.pool.cursorFor(clipRef),
       cursorForTrack: (t) => this.pool.cursorForTrack(t),
       trackIndex: (t) => this.trackIndex(t),
+      sceneRow: sceneRowIn(this.sceneWindow),
     };
+  }
+
+  /**
+   * ⚠ Where a scene ROW falls relative to the window — E5's question, one
+   * population down, and the distinction `Snapshot.unreachable` exists to keep.
+   *
+   *   `visible`     inside the window; whatever is there can be read.
+   *   `unreachable` outside it, and it EXISTS (or we cannot tell whether it does,
+   *                 which fails the same way). Invisible is not empty.
+   *   `absent`      past the project's own scene count, so there is no row.
+   *
+   * ⚠ An unknown project total resolves to `unreachable`, never to `absent`.
+   * Reporting a row we cannot see as "there is nothing there" is the exact
+   * under-delivery D5 forbids.
+   */
+  private sceneRowStanding(row: SceneAddress): 'visible' | 'unreachable' | 'absent' {
+    const scenes = this.sceneWindow;
+    if (row.index < scenes.bankSize) return 'visible';
+    return scenes.count >= 0 && row.index >= scenes.count ? 'absent' : 'unreachable';
   }
 
   /**
@@ -375,12 +451,27 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /**
-   * The mark, and the launcher events behind it, in ONE round trip.
+   * The mark, the launcher events behind it, and WHAT THE BANKS COULD SEE.
    *
-   * ⚠ They arrive together on purpose. The extension's event log is a ring, so a
-   * reader that learns the epoch here and fetches the names in a second call can
-   * have the names it needed pushed out in between — and would then read a short
-   * window as a quiet one. Together they are one observation of one moment.
+   * ⚠ The epoch and the events arrive together on purpose. The extension's event
+   * log is a ring, so a reader that learns the epoch here and fetches the names in
+   * a second call can have the names it needed pushed out in between — and would
+   * then read a short window as a quiet one. Together they are one observation of
+   * one moment.
+   *
+   * ⚠⚠ The bank SCAN is the second call, and it is not part of that atomicity
+   * requirement — coverage is a fact about how the rig was built, not about the
+   * event stream. It rides here so that every mark in the system carries it: a
+   * consumer that has to fetch coverage separately is a consumer that can forget
+   * to, and forgetting fails in the direction that reads as "nothing happened"
+   * (B2, session 3c).
+   *
+   * ⚠ Assembled entirely from fields the wire ALREADY carried — `revision.get`'s
+   * `sceneCount` and `track.list`'s `itemCount`/`bankSize`. No reply field was
+   * added, deliberately: `methodsHash` is over method NAMES, so an extension too
+   * old to send a new field answers the coverage question with silence and the
+   * handshake cannot tell. Absent `sceneCount` reads as `-1`, which every
+   * predicate treats as UNCOVERED rather than as covered.
    */
   private async readMark(): Promise<{ mark: RevisionMark; events: readonly ContentEvent[] }> {
     const r = (await this.transport.send({ method: WIRE.revisionGet })) as {
@@ -389,8 +480,10 @@ export class LiveAdapter implements BitwigAdapter {
       sceneEpoch: number;
       contentEpoch: number;
       project?: string;
+      sceneCount?: number;
       contentEvents?: readonly ContentEvent[];
     };
+    const list = await this.scanTracks();
     const mark: RevisionMark = {
       revision: r.revision,
       sceneEpoch: r.sceneEpoch,
@@ -400,6 +493,14 @@ export class LiveAdapter implements BitwigAdapter {
       // treats as UNKNOWN and therefore incomparable, not as a match. A stale
       // extension makes every window fail closed rather than silently pass.
       project: r.project ?? '',
+      window: {
+        // ⚠ `itemCount` is the PROJECT total (E15-A); `count` is only what the
+        // window happened to hold. Falling back to `count` would report a FULL
+        // window as a complete project — the one substitution that turns the
+        // detector into a rubber stamp — so an absent `itemCount` stays `-1`.
+        tracks: { count: list.itemCount ?? -1, bankSize: list.bankSize ?? -1 },
+        scenes: { count: r.sceneCount ?? -1, bankSize: this.sceneBankSize },
+      },
     };
     this.lastMark = mark;
     return { mark, events: r.contentEvents ?? [] };
@@ -409,6 +510,11 @@ export class LiveAdapter implements BitwigAdapter {
     return (await this.readMark()).mark;
   }
 
+  /** The scene window every row-bearing address is measured against. */
+  private get sceneWindow(): WindowCoverage {
+    return { count: this.lastMark?.window.scenes.count ?? -1, bankSize: this.sceneBankSize };
+  }
+
   /**
    * ⚠ A REPORT, not a refusal — the caller decides how bad an incomparable window
    * is. A finished batch surfaces it; a reversal refuses on it (D19's boundary).
@@ -416,21 +522,11 @@ export class LiveAdapter implements BitwigAdapter {
    */
   async contentSince(since: RevisionMark): Promise<ContentDelta> {
     const { mark, events } = await this.readMark();
-    const discontinuity = discontinuityBetween(since, mark);
-    if (discontinuity !== undefined) {
-      return {
-        since: since.contentEpoch,
-        now: mark.contentEpoch,
-        events: [],
-        truncated: false,
-        discontinuous: true,
-        discontinuity,
-      };
-    }
-    return {
-      ...sliceDelta(since.contentEpoch, mark.contentEpoch, events),
-      discontinuous: false,
-    };
+    // ⚠ Assembled by the CONTRACT, not here. Both adapters used to build a delta
+    // each from the same parts, which is how a fake drifts into being kinder than
+    // Bitwig one forgotten field at a time — and a fourth verdict is exactly the
+    // kind of field that gets forgotten in one of two hand-written literals.
+    return contentDelta(since, mark, events);
   }
 
   /**
@@ -505,11 +601,20 @@ export class LiveAdapter implements BitwigAdapter {
     // the returned mark then sees any foreign edit that happened DURING this
     // call. A mark taken at the end would swallow exactly those.
     const at = await this.revision();
-    await this.scanTracks();
     const resolved: ResolvedAddress[] = refs.map((address) => {
       const sceneRef = addressScene(address);
       if (sceneRef !== undefined && sceneRef.epoch !== at.sceneEpoch) {
         return { address, found: false, reason: 'stale-epoch' as const };
+      }
+      // ⚠ The row before the track: a row outside the scene window cannot be
+      // addressed no matter how reachable its track is, and answering `found`
+      // for it would hand back an index the bank rejects (E19's stranded scene).
+      if (sceneRef !== undefined) {
+        const standing = this.sceneRowStanding(sceneRef);
+        if (standing === 'unreachable') {
+          return { address, found: false, reason: 'outside-bank-window' as const };
+        }
+        if (standing === 'absent') return { address, found: false, reason: 'absent' as const };
       }
       const trackRef = addressTrack(address);
       if (trackRef === undefined) return { address, found: true };
@@ -537,8 +642,11 @@ export class LiveAdapter implements BitwigAdapter {
     // ⚠ Before the read, and it is the mark the snapshot carries — see `resolve`.
     // A stash is the thing a reversal later asks "what has happened since?", so
     // the window it opens has to START no later than the read it describes.
+    // ⚠ `revision()` scans the bank on the way through, so the rows below are the
+    // ones this very mark's coverage was computed from — not a second, later
+    // reading that could disagree with the mark the snapshot carries.
     const at = await this.revision();
-    const list = await this.scanTracks();
+    const list = this.bank;
     // ⚠ Pointing steals the user's clip selection (E1, D6, E14-F), so anything
     // that MIGHT point has to be paid for here. That used to be `notes` alone;
     // as of the D16 amendment a `clip` read of an OCCUPIED slot points too, to
@@ -565,8 +673,21 @@ export class LiveAdapter implements BitwigAdapter {
       if (sceneRef !== undefined && sceneRef.epoch !== at.sceneEpoch) {
         throw new StaleAddressError(address, sceneRef.epoch, at.sceneEpoch);
       }
+      // ⚠⚠ B1c: a clip ROW past the scene window is UNREACHABLE, and this field
+      // stayed silent about it for a whole phase. `unreachable` reported blind
+      // TRACKS only, so a project with more scenes than the window produced a
+      // clean-looking snapshot of a grid whose lower rows nothing had looked at —
+      // the under-delivery D5 forbids, arriving through the very field that
+      // exists to prevent it (E19, session 3c).
+      if (sceneRef !== undefined) {
+        const standing = this.sceneRowStanding(sceneRef);
+        if (standing !== 'visible') {
+          (standing === 'unreachable' ? unreachable : missing).push(address);
+          continue;
+        }
+      }
       const trackRef = addressTrack(address);
-      const row = trackRef ? list.tracks.find((t) => t.channelId === trackRef.channelId) : undefined;
+      const row = trackRef ? list.find((t) => t.channelId === trackRef.channelId) : undefined;
       if (trackRef !== undefined && row === undefined) {
         // ⚠ E5: out of the bank window is UNREACHABLE, not missing. Collapsing
         // the two is how a blind spot becomes a silently empty snapshot and a
@@ -760,6 +881,35 @@ export class LiveAdapter implements BitwigAdapter {
     }
   }
 
+  /**
+   * Is each `clip.create`'s target slot free? One `slot.status` per op, before
+   * the batch runs.
+   *
+   * ⚠ An unreadable slot maps to `true` — occupied — and therefore to a refusal.
+   * The hazard it guards is one Bitwig performs SILENTLY (E21: an occupied target
+   * appends a scene past the window), so "we could not look" must not resolve to
+   * "go ahead".
+   */
+  private async readOccupancy(ops: readonly Op[]): Promise<Map<AddressKey, boolean>> {
+    const seen = new Map<AddressKey, boolean>();
+    for (const op of ops) {
+      if (op.op !== 'clip.create') continue;
+      const key = addressKey(op.slot);
+      if (seen.has(key)) continue;
+      const trackIndex = this.index.get(op.slot.track.channelId);
+      if (trackIndex === undefined) {
+        seen.set(key, true);
+        continue;
+      }
+      const status = (await this.transport.send({
+        method: WIRE.slotStatus,
+        params: { trackIndex, slotIndex: op.slot.scene.index },
+      })) as { hasContent?: boolean };
+      seen.set(key, status.hasContent !== false);
+    }
+    return seen;
+  }
+
   async apply(batch: BatchRequest): Promise<BatchReceipt> {
     // ⚠ E15-E: refuse a write the API would accept and discard, BEFORE anything
     // is applied. Shared with the fake so both adapters refuse identically.
@@ -767,7 +917,26 @@ export class LiveAdapter implements BitwigAdapter {
     // ⚠ E5, standing rule 5: this is the one path that REFUSES rather than
     // reports. Tracks outside the window cannot be snapshotted, so no write is
     // safe — but `read` and `resolve` above are allowed to look and say so.
-    this.assertBankVisible(await this.scanTracks());
+    //
+    // ⚠ The mark first, because the two scene refusals below need a scene count
+    // and this is the call that reads one. It scans the bank on the way through,
+    // so the track check is measuring the same reading.
+    const at = await this.revision();
+    this.assertBankVisible(at.window.tracks);
+    // ⚠⚠ Standing rule 5's SECOND population, and both halves of it — a create
+    // that would land past the scene window, and an op naming a row already past
+    // it. Preconditions, before any op runs: a scene minted outside the window is
+    // unaddressable and un-deletable, so "detect and fail" would run after the
+    // damage (E19). Shared with the fake so neither adapter is more forgiving.
+    assertSceneRoom(batch.ops, at.window.scenes);
+    assertOpsAddressable(batch.ops, at.window.scenes);
+    // ⚠⚠ E21, and the door the scene budget above does not cover. A
+    // `clip.create` into an OCCUPIED slot is a silent `scene.create`: Bitwig
+    // appends a row at the END of the project and puts the clip out there, past
+    // the window, unaddressable and un-deletable. Occupancy is world state, so
+    // the lookup is read here and the RULE stays in the contract.
+    const occupancy = await this.readOccupancy(batch.ops);
+    assertSlotsFree(batch.ops, (s) => occupancy.get(addressKey(s)));
 
     const stages = planStages(batch.ops);
     const receipts: StageReceipt[] = [];

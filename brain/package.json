@@ -170,6 +170,10 @@
     "probe:e20d": "tsx src/probes/e20d-docstate.ts",
     "probe:e20d-verify": "tsx src/probes/e20d-docstate.ts verify",
     "probe:e20d-hidden": "tsx src/probes/e20d-docstate.ts hidden",
+    "probe:e21": "tsx src/probes/e21-window.ts",
+    "probe:e21-shrink": "tsx src/probes/e21-window.ts shrink",
+    "probe:e21-scale": "tsx src/probes/e21-window.ts scale",
+    "probe:e21-diag": "tsx src/probes/e21-diag.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

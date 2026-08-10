@@ -268,6 +268,68 @@ test('O-notes: writing notes into an OCCUPIED clip is not a content event', asyn
   assert.deepEqual(await readPitches(fake, clipA), [60], 'the write really happened');
 });
 
+// --- the FOURTH verdict: the window did not reach (B2, session 3c) -----------
+
+test('O-uncovered: an edit the observers cannot reach leaves the window LOOKING quiet', async () => {
+  // ⚠⚠ The case the other three verdicts structurally cannot catch, and the
+  // reason `uncovered` had to be carried rather than inferred. The slot really
+  // fills; no observer exists out there to say so; every counting test passes.
+  const { fake, trackA } = await fixture();
+  control(fake).setSceneWindow(4);
+  const before = await fake.revision();
+
+  control(fake).fillUnobservedSlot(trackA.channelId, 6);
+
+  const delta = await fake.contentSince(before);
+  assert.deepEqual(delta.events, [], 'the world moved and the event stream is EMPTY');
+  assert.equal(delta.truncated, false, 'nothing was dropped — nothing was ever produced');
+  assert.equal(delta.discontinuous, false, 'and the counters are perfectly comparable');
+  // Those three lines are exactly what a quiet window looks like. Only the reach
+  // of the observers tells the two apart.
+  assert.equal(delta.uncovered, true);
+  assert.equal(delta.uncoveredIn, 'scenes');
+  assert.equal(deltaComplete(delta), false);
+});
+
+test('O-uncovered: it is the UNION of both ends, so a window that closed mid-flight still fails', async () => {
+  // Coverage is a property of the whole interval and we hold only its endpoints.
+  // Reporting the later reading alone would resolve "we could not tell" to
+  // "nothing happened" — the direction the whole mechanism refuses.
+  const { fake } = await fixture();
+  control(fake).setSceneWindow(4);
+  const narrow = await fake.revision();
+  control(fake).setSceneWindow(64);
+  const wide = await fake.revision();
+
+  assert.equal((await fake.contentSince(narrow)).uncovered, true,
+    'the window was uncoverable when the baseline was taken, so the interval is suspect');
+  assert.equal((await fake.contentSince(wide)).uncovered, false,
+    'and once both ends cover the project, the verdict clears');
+});
+
+test('O-uncovered: an unread project total is NOT a covered window', async () => {
+  // Live, `revision.get` reports the scene observer's last value, which is -1
+  // until Bitwig has delivered one. "We could not tell" must never resolve to
+  // "we saw everything".
+  const { fake } = await fixture();
+  fake.model.sceneCount = -1;
+  const delta = await fake.contentSince(await fake.revision());
+  assert.equal(delta.uncovered, true);
+  assert.equal(deltaComplete(delta), false);
+});
+
+test('O-uncovered: a discontinuous window reports BOTH facts, neither swallowing the other', async () => {
+  const { fake } = await fixture();
+  const before = await fake.revision();
+  control(fake).setSceneWindow(4);
+  control(fake).restartExtension();
+
+  const delta = await fake.contentSince(before);
+  assert.equal(delta.discontinuous, true);
+  assert.equal(delta.discontinuity, 'extension-restarted');
+  assert.equal(delta.uncovered, true, 'an incomparable window can ALSO be an unobservable one');
+});
+
 async function readPitches(fake: FakeAdapter, target: ClipAddress): Promise<number[]> {
   const address = notesAt(target);
   const snap = await fake.read([address]);

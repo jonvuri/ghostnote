@@ -30,8 +30,9 @@
 import { randomUUID } from 'node:crypto';
 
 import {
-  AddressUnresolvedError, BlindSpotError, CONTRACT_TAG, GAIN_READ_SCALE, NOTE_PROP_FIDELITY,
-  StaleAddressError, addressKey, addressScene, addressTrack, assertOpsWritable, deltaComplete,
+  AddressUnresolvedError, CONTRACT_TAG, GAIN_READ_SCALE, NOTE_PROP_FIDELITY,
+  StaleAddressError, addressKey, addressScene, addressTrack, assertOpsWritable,
+  blindSpotError, deltaComplete,
   failures, notes as notesAt,
   type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
   type Op, type RevisionMark, type Snapshot,
@@ -357,7 +358,9 @@ export class Executor {
             at.sceneEpoch,
           );
         case 'outside-bank-window':
-          throw new BlindSpotError([r.address]);
+          // ⚠ The mark says WHICH window hid it — track or scene row — and the
+          // two have different fixes, so the refusal names the binding one.
+          throw blindSpotError([r.address], at.window);
         default:
           // `absent` is legitimate — a clip that does not exist yet is exactly
           // what `clip.create` is for, and a stash of "nothing was here" is a
@@ -369,7 +372,7 @@ export class Executor {
 
   /** ⚠ E5, standing rule 5: never operate on a partially-visible project. */
   private assertVisible(stash: Snapshot): void {
-    if (stash.unreachable.length > 0) throw new BlindSpotError(stash.unreachable);
+    if (stash.unreachable.length > 0) throw blindSpotError(stash.unreachable, stash.at.window);
   }
 
   /**

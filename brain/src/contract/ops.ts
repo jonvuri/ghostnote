@@ -23,7 +23,10 @@
 import type { ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress, BeatRange } from './address.js';
 import { unwritableProps, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
-import { InvalidOpError } from './errors.js';
+import {
+  BankWindowOverflowError, BlindSpotError, InvalidOpError, SlotOccupiedError,
+} from './errors.js';
+import type { WindowCoverage } from './snapshot.js';
 
 /** A device to insert. Both forms are checked before a frame is emitted (E4h). */
 export type DeviceSource =
@@ -174,6 +177,136 @@ export function assertOpsWritable(ops: readonly Op[]): void {
       );
     }
   }
+}
+
+/**
+ * The scene ROW an op puts on the wire, if any.
+ *
+ * ⚠ Deliberately not `writeSetOf` (which lives in the engine and answers a
+ * different question — *which addresses need stashing*). This one answers *which
+ * rows does the wire address*, and the two differ: `scene.delete` names a row it
+ * has no stashable prior state for, and a `notes` write names its clip's row
+ * without the row itself being in the write-set.
+ *
+ * Exhaustive on purpose: a Phase-4/5 variant that carries a scene row and is not
+ * listed here fails to COMPILE rather than slipping past the window guard.
+ */
+function sceneRowOf(op: Op): SceneAddress | undefined {
+  switch (op.op) {
+    case 'note.write':
+    case 'note.clear':
+    case 'note.props':
+      return op.clip.slot.scene;
+    case 'clip.create':
+    case 'clip.delete':
+      return op.slot.scene;
+    case 'scene.delete':
+      return op.scene;
+    case 'scene.create':
+    case 'track.create':
+    case 'track.rename':
+    case 'track.delete':
+    case 'device.insert':
+    case 'device.delete':
+    case 'param.set':
+    case 'notify':
+      return undefined;
+    default:
+      return assertNever(op, 'sceneRowOf');
+  }
+}
+
+/**
+ * ⚠⚠ Standing rule 5 for SCENES: a create may not land past the window.
+ *
+ * *"Bank-window overflow is a PRECONDITION on every structural create — never a
+ * post-hoc check."* The rule was written about tracks and its words cover scenes
+ * verbatim; nothing implemented it, and `probe:e19` paid for that by stranding a
+ * scene at project index 99 of a 16-wide window, where nothing could address or
+ * delete it and it had to be removed by hand (`FINDINGS.md` E19).
+ *
+ * ⚠ Checked over the WHOLE batch, and summed. Two `scene.create`s of 4 in one
+ * batch are a create of 8, and checking each against the current count would let
+ * the pair through and strand the second one — the post-hoc check wearing a
+ * precondition's clothes.
+ *
+ * ⚠ It refuses the batch before ANY op runs, which is what "never a partial
+ * operation" means here. `scene.create` has no inverse we could reach: the row it
+ * mints is outside the window, so `scene.delete` cannot address it either.
+ *
+ * Lives in the contract so both adapters refuse identically — PHASE-0 §Risks'
+ * one-directional rule, that the fake must never be more permissive than Bitwig.
+ */
+export function assertSceneRoom(ops: readonly Op[], scenes: WindowCoverage): void {
+  let wanted = 0;
+  for (const op of ops) {
+    if (op.op !== 'scene.create') continue;
+    // ⚠ A non-positive count is refused rather than ignored. The handler is
+    // `for (int i = 0; i < count; i++) createScene()`, so zero or negative is a
+    // SILENT no-op — the trap class this contract refuses on principle (E4h) —
+    // and it would also make the budget arithmetic below meaningless.
+    if (!Number.isInteger(op.count) || op.count < 1) {
+      throw new InvalidOpError('scene.create', `count must be a positive integer, got ${op.count}`);
+    }
+    wanted += op.count;
+  }
+  if (wanted === 0) return;
+  const would = scenes.count + wanted;
+  if (would > scenes.bankSize) {
+    throw new BankWindowOverflowError(
+      'scenes', Math.min(scenes.count, scenes.bankSize), would, scenes.bankSize);
+  }
+}
+
+/**
+ * ⚠⚠ Standing rule 5 for scene ROWS already addressed: no op may name one the
+ * bank cannot reach.
+ *
+ * The other half of the scene hole, and the one that throws from inside a live
+ * batch today: `encoder.ts` hands `op.scene.index` to `sceneBank.getScene(i)` as
+ * a bank index, and the bank is bounded to its window — so a `SceneAddress` at or
+ * past it produced *"Parameter index (=99) must be in the range 0 to 16"* from
+ * the middle of a batch, after everything staged before it had already landed.
+ *
+ * ⚠ It refuses rows past the WINDOW, not rows past the project's scene count. A
+ * row that does not exist is a different answer (`missing` in a snapshot,
+ * `absent` in a resolve) and conflating them is how a blind spot becomes a
+ * silently empty result — the distinction `Snapshot.unreachable` exists to keep.
+ */
+export function assertOpsAddressable(ops: readonly Op[], scenes: WindowCoverage): void {
+  const blind = ops
+    .map(sceneRowOf)
+    .filter((row): row is SceneAddress => row !== undefined && row.index >= scenes.bankSize);
+  if (blind.length > 0) throw new BlindSpotError('scenes', blind, scenes.bankSize);
+}
+
+/**
+ * ⚠⚠ No `clip.create` may name a slot that already holds a clip.
+ *
+ * The scene budget's other half, and the one nothing was watching. `scene.create`
+ * is the op everybody knows grows the project; `clip.create` into an OCCUPIED
+ * slot grows it too, by appending a row at the end — measured, E21 — so a budget
+ * that only counts the first is a budget with a door beside it. The 170-scene
+ * project this was found on got there entirely through this door.
+ *
+ * ⚠ The RULE lives here and the OBSERVATION does not: occupancy is world state,
+ * so each adapter supplies the lookup and the refusal stays identical. That split
+ * is what lets the conformance suite assert it on both — the live adapter reads
+ * `slot.status`, the fake reads its model, and neither can be the lenient one.
+ *
+ * ⚠ `occupied` may answer `undefined` for a slot it cannot see. That is NOT a
+ * pass: an unreadable slot is refused, because the failure it guards against is
+ * one Bitwig performs silently.
+ */
+export function assertSlotsFree(
+  ops: readonly Op[],
+  occupied: (slot: SlotAddress) => boolean | undefined,
+): void {
+  const taken = ops
+    .filter((op): op is Extract<Op, { op: 'clip.create' }> => op.op === 'clip.create')
+    .filter((op) => occupied(op.slot) !== false)
+    .map((op) => op.slot);
+  if (taken.length > 0) throw new SlotOccupiedError(taken);
 }
 
 /** Exhaustiveness guard: an unhandled variant fails to compile, not at runtime. */

@@ -18,6 +18,40 @@ import type { DeviceState, NoteRecord, ParamState, TrackState } from './state.js
 import type { ContractTag } from './version.js';
 
 /**
+ * How much of one population the bank can see — the numbers standing rule 5 is
+ * an inequality over.
+ *
+ * ⚠ `count` is the PROJECT total, not the window's occupancy. `Bank.itemCount()`
+ * reports it (E15-A for tracks, re-confirmed E16r; measured for SCENES in E21
+ * arm 1), and that is the whole reason the rule is implementable: without it,
+ * *"16 tracks exist"* and *"16 of 54 are visible"* are indistinguishable.
+ *
+ * ⚠ Both numbers, never a derived boolean. A caller that only receives
+ * "overflowing: true" cannot say by how much, and every refusal this feeds has
+ * to name the budget and the totals or it is not actionable.
+ */
+export interface WindowCoverage {
+  /**
+   * What the PROJECT holds — `Bank.itemCount()`, the project total (E15-A).
+   *
+   * ⚠ NEGATIVE means the total could not be read. Live, `revision.get` reports the
+   * scene observer's last value, which is `-1` until Bitwig has delivered one —
+   * and "we could not tell" must never resolve to "we saw everything". Every
+   * predicate below treats it as uncovered.
+   */
+  readonly count: number;
+  /** How many of them the bank window can address at once. Fixed at `init()` (D7). */
+  readonly bankSize: number;
+}
+
+/** ⚠ Can the window see the whole population? An unknown total is NOT a yes. */
+export const windowCovers = (c: WindowCoverage): boolean => c.count >= 0 && c.count <= c.bankSize;
+
+/** How many exist that the window cannot address; `-1` when the total is unknown. */
+export const blindCount = (c: WindowCoverage): number =>
+  c.count < 0 ? -1 : Math.max(0, c.count - c.bankSize);
+
+/**
  * Where in the world a snapshot or receipt was taken.
  *
  * `revision` is E8's monotonic counter, which lives on the extension's executor
@@ -73,6 +107,32 @@ export interface RevisionMark {
    * treated as unknown rather than as a match.
    */
   readonly project: string;
+  /**
+   * ⚠⚠ WHAT THE BANKS COULD SEE when this mark was taken, in both dimensions —
+   * session 3's carry-forward B2, and the fourth way a window can lie.
+   *
+   * The other three (`truncated`, `discontinuous`, `unattributable`) are visible
+   * IN the delta. This one is not: the launcher observers are attached per bank
+   * row across `config.tracks`, on a slot bank sized by `config.scenes`, so an
+   * edit on a track past the track window or a row past the scene window fires
+   * NOTHING — and a delta that only counts events reports a clean, complete,
+   * empty window while the world moved outside the bank.
+   *
+   * ⚠ It rides on the MARK rather than being re-derived at each consumer,
+   * because the consumer that forgets fails in the direction that reads as
+   * "nothing happened". And it rides on BOTH ends of a window: `contentSince`
+   * takes the union, so a window that was uncoverable at either moment is
+   * reported uncovered.
+   *
+   * ⚠ Assembled from what is ALREADY on the wire — `revision.get`'s `sceneCount`
+   * and `track.list`'s `itemCount`/`bankSize` — rather than from a new reply
+   * field. `methodsHash` is over method NAMES and cannot see a field appear, so
+   * a stale extension would answer a coverage question with silence.
+   */
+  readonly window: {
+    readonly tracks: WindowCoverage;
+    readonly scenes: WindowCoverage;
+  };
 }
 
 /**
@@ -130,6 +190,13 @@ export interface Snapshot {
    * as it being empty. Kept separate from `missing` for exactly that reason:
    * collapsing the two is how a blind spot becomes a silently empty snapshot and
    * a revert that quietly under-delivers (E5, standing rule 5).
+   *
+   * ⚠⚠ BOTH DIMENSIONS since session 3c. It reported blind TRACKS and stayed
+   * silent about blind clip ROWS, which meant a project with more scenes than the
+   * scene window produced a clean-looking snapshot of a grid whose lower half
+   * nothing had looked at — the under-delivery D5 forbids, arriving through the
+   * field that exists to prevent it. A row past the window is unreachable; a row
+   * past the project's scene COUNT does not exist and is `missing`.
    */
   readonly unreachable: readonly Address[];
 }

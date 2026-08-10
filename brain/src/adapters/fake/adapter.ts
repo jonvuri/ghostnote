@@ -13,12 +13,13 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertOpsWritable, budgetTicks, discontinuityBetween, hasUnverifiedProps, orderedNoteProps,
-  sliceDelta, stepSizeFor,
+  assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertSlotsFree, budgetTicks,
+  contentDelta,
+  hasUnverifiedProps, orderedNoteProps, stepSizeFor,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type ContentDelta, type Fidelity, type NoteRecord, type Op, type OpReceipt, type ResolveResult,
-  type ResolvedAddress, type RevisionMark, type SettleBudget, type Snapshot, type StageReceipt,
-  type StateEntry,
+  type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
+  type StageReceipt, type StateEntry, type WindowCoverage,
 } from '../../contract/index.js';
 import { planStages } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
@@ -89,7 +90,30 @@ export class FakeAdapter implements BitwigAdapter {
       contentEpoch: this.model.contentEpoch,
       generation: this.model.generation,
       project: this.model.project,
+      // ⚠ The same two pairs the live adapter assembles off the wire. Reporting
+      // the WINDOW's occupancy here instead of the project total would make every
+      // fake window look covered, which is the fake certifying a reach live
+      // Bitwig does not have (B2, session 3c).
+      window: {
+        tracks: { count: this.model.trackCount, bankSize: this.model.trackBankSize },
+        scenes: { count: this.model.sceneCount, bankSize: this.model.sceneBankSize },
+      },
     };
+  }
+
+  /** The scene window every row-bearing address is measured against. */
+  private get sceneWindow(): WindowCoverage {
+    return { count: this.model.sceneCount, bankSize: this.model.sceneBankSize };
+  }
+
+  /**
+   * ⚠ Where a scene ROW falls relative to the window — the live adapter's
+   * `sceneRowStanding`, and it must answer identically or the conformance suite
+   * is proving two different things.
+   */
+  private sceneRowStanding(row: SceneAddress): 'visible' | 'unreachable' | 'absent' {
+    if (row.index < this.model.sceneBankSize) return 'visible';
+    return row.index >= this.model.sceneCount ? 'absent' : 'unreachable';
   }
 
   async revision(): Promise<RevisionMark> {
@@ -105,22 +129,7 @@ export class FakeAdapter implements BitwigAdapter {
    * (a reversal) or merely worth surfacing (a finished batch).
    */
   async contentSince(since: RevisionMark): Promise<ContentDelta> {
-    const now = this.mark();
-    const discontinuity = discontinuityBetween(since, now);
-    if (discontinuity !== undefined) {
-      return {
-        since: since.contentEpoch,
-        now: now.contentEpoch,
-        events: [],
-        truncated: false,
-        discontinuous: true,
-        discontinuity,
-      };
-    }
-    return {
-      ...sliceDelta(since.contentEpoch, now.contentEpoch, this.model.contentRing),
-      discontinuous: false,
-    };
+    return contentDelta(since, this.mark(), this.model.contentRing);
   }
 
   /**
@@ -134,11 +143,18 @@ export class FakeAdapter implements BitwigAdapter {
       if (sceneRef !== undefined && sceneRef.epoch !== this.model.sceneEpoch) {
         return { address, found: false, reason: 'stale-epoch' as const };
       }
-      const trackRef = addressTrack(address);
-      if (trackRef === undefined) {
-        const ok = sceneRef === undefined || sceneRef.index < this.model.sceneCount;
-        return ok ? { address, found: true } : { address, found: false, reason: 'absent' as const };
+      // ⚠ The row before the track, exactly as live: a row outside the scene
+      // window is unaddressable however reachable its track is, and `found` for
+      // one hands back an index the bank rejects (E19's stranded scene).
+      if (sceneRef !== undefined) {
+        const standing = this.sceneRowStanding(sceneRef);
+        if (standing === 'unreachable') {
+          return { address, found: false, reason: 'outside-bank-window' as const };
+        }
+        if (standing === 'absent') return { address, found: false, reason: 'absent' as const };
       }
+      const trackRef = addressTrack(address);
+      if (trackRef === undefined) return { address, found: true };
       const hit = this.model.findByChannelId(trackRef.channelId);
       if (hit !== undefined) return { address, found: true, index: hit.index };
       return {
@@ -163,6 +179,15 @@ export class FakeAdapter implements BitwigAdapter {
       const sceneRef = addressScene(address);
       if (sceneRef !== undefined && sceneRef.epoch !== this.model.sceneEpoch) {
         throw new StaleAddressError(address, sceneRef.epoch, this.model.sceneEpoch);
+      }
+      // ⚠⚠ B1c: a clip ROW past the scene window is UNREACHABLE, not missing —
+      // the same classification the live adapter makes, from the same numbers.
+      if (sceneRef !== undefined) {
+        const standing = this.sceneRowStanding(sceneRef);
+        if (standing !== 'visible') {
+          (standing === 'unreachable' ? unreachable : missing).push(address);
+          continue;
+        }
       }
       const trackRef = addressTrack(address);
       const hit = trackRef ? this.model.findByChannelId(trackRef.channelId) : undefined;
@@ -278,8 +303,22 @@ export class FakeAdapter implements BitwigAdapter {
     // ⚠ Standing rule 5: never operate on a partially-visible project.
     const blind = bankBlindSpot(this.model);
     if (blind !== undefined) {
-      throw new BankWindowOverflowError(blind.visible, blind.total, this.model.trackBankSize);
+      throw new BankWindowOverflowError('tracks', blind.visible, blind.total, this.model.trackBankSize);
     }
+    // ⚠⚠ Rule 5's SECOND population, from the same shared contract functions the
+    // live adapter calls — a create that would land past the scene window, and an
+    // op naming a row already past it. Both are preconditions: a scene minted
+    // outside the window is unaddressable and un-deletable, so a post-hoc check
+    // runs after the damage (E19, and rule 5's own words).
+    assertSceneRoom(batch.ops, this.sceneWindow);
+    assertOpsAddressable(batch.ops, this.sceneWindow);
+    // ⚠⚠ E21, the door the scene budget above does not cover: a `clip.create`
+    // into an OCCUPIED slot appends a row at the END of the project, past the
+    // window. The rule is the contract's; only the lookup is the fake's.
+    assertSlotsFree(batch.ops, (s) => {
+      const hit = this.model.findByChannelId(s.track.channelId);
+      return hit?.track.slots[s.scene.index]?.hasContent;
+    });
 
     // ⚠ E8-D: a stale guard rejects the batch WHOLE, applying zero ops.
     if (batch.ifRevision !== undefined && batch.ifRevision !== this.model.revision) {
@@ -452,12 +491,19 @@ export class FakeAdapter implements BitwigAdapter {
         const length = op.lengthBeats;
         this.clock.stage(() => {
           const slotState = track.slots[sceneIndex];
-          if (slotState !== undefined) {
-            // Through the model, so the launcher-content observer fires exactly
-            // where Bitwig's would — see `ProjectModel.setSlotContent`.
-            this.model.setSlotContent(track, sceneIndex, true);
-            slotState.lengthBeats = length;
+          if (slotState === undefined) return;
+          // ⚠⚠ E21, REPRODUCED rather than prevented — `apply` refuses this
+          // before it can happen, and modelling it is what turns removing that
+          // refusal into a failing offline test instead of a project that grows
+          // a row every time a case runs.
+          if (slotState.hasContent) {
+            this.model.appendSceneForOverflowingClip(track, length);
+            return;
           }
+          // Through the model, so the launcher-content observer fires exactly
+          // where Bitwig's would — see `ProjectModel.setSlotContent`.
+          this.model.setSlotContent(track, sceneIndex, true);
+          slotState.lengthBeats = length;
         });
         return;
       }

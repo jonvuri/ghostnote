@@ -43,7 +43,10 @@ const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
 function stashOf(entries: readonly StateEntry[], unreachable: Snapshot['unreachable'] = []): Snapshot {
   return {
     contract: CONTRACT_TAG,
-    at: { revision: 7, sceneEpoch: 1, contentEpoch: 0, generation: 'test-gen', project: 'test-project' },
+    at: {
+      revision: 7, sceneEpoch: 1, contentEpoch: 0, generation: 'test-gen', project: 'test-project',
+      window: { tracks: { count: 2, bankSize: 16 }, scenes: { count: 8, bankSize: 16 } },
+    },
     entries: Object.fromEntries(entries.map((e) => [addressKey(e.address), e])),
     missing: [],
     unreachable,

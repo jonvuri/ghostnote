@@ -21,10 +21,12 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  InvalidOpError, assertOpsWritable, clip, device, param, scene, slot, track,
+  BlindSpotError, InvalidOpError, assertOpsWritable, clip, device, param, scene, slot, track,
   type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
-import { chooseStepSize, encodeOp, encodeStage, type EncodeContext } from './encoder.js';
+import {
+  chooseStepSize, encodeOp, encodeStage, sceneRowIn, type EncodeContext,
+} from './encoder.js';
 import { CursorPool } from './pool.js';
 import { WIRE, type Frame } from './wiremap.js';
 
@@ -34,11 +36,15 @@ const CLIP_B = clip(slot(TRACK_B, scene(0, 1)));
 const SCENE_0 = scene(0, 1);
 const CLIP_A = clip(slot(TRACK_A, SCENE_0));
 
+/** The default rig's scene window, so the cases below sit comfortably inside it. */
+const SCENE_WINDOW = { count: 8, bankSize: 16 } as const;
+
 /** A one-cursor pool — the Phase-0 shape, so the cases below read unchanged. */
 const ctx: EncodeContext = {
   cursorFor: () => '0',
   cursorForTrack: () => '0',
   trackIndex: (t: TrackAddress) => (t.channelId === TRACK_A.channelId ? 3 : (t.channelId === TRACK_B.channelId ? 4 : -1)),
+  sceneRow: sceneRowIn(SCENE_WINDOW),
 };
 
 const methods = (frames: readonly Frame[]) => frames.map((f) => f.method);
@@ -317,4 +323,38 @@ test('E-pool: more clips than cursors evicts the LEAST recently used, never the 
   // pending props op is most likely to want, keeps its cursor.
   assert.equal(c, a);
   assert.equal(pool.cursorFor(CLIP_B), b);
+});
+
+// --- the scene ROW: a project index is not a bank index (E19, session 3c) ----
+
+test('E-row: every scene index on the wire goes through the window, not straight out', () => {
+  // ⚠ The conflation this fixes was silent because the two numbers agree for
+  // every row inside the window — which is every row anyone had tested.
+  const inside = scene(3, 1);
+  assert.equal(
+    paramsOf(encodeOp({ op: 'scene.delete', scene: inside }, ctx), WIRE.sceneDelete)?.['sceneIndex'],
+    3,
+    'identity while the bank sits at scroll position 0 and the row is inside it');
+  assert.equal(
+    paramsOf(
+      encodeOp({ op: 'clip.create', slot: slot(TRACK_A, inside), lengthBeats: 4 }, ctx),
+      WIRE.clipCreate,
+    )?.['slotIndex'],
+    3,
+    'and the SLOT bank is the same width, so clip ops carry the same constraint');
+});
+
+test('E-row: a row past the window REFUSES rather than emitting a frame the bank rejects', () => {
+  // Live, `sceneBank.getScene(99)` answered "Parameter index (=99) must be in the
+  // range 0 to 16" — from inside a batch, after earlier ops had already landed
+  // (E19). A pure function that narrows its meaning at the edge is how that got
+  // there, so the edge throws.
+  const outside = scene(SCENE_WINDOW.bankSize + 2, 1);
+  assert.throws(() => encodeOp({ op: 'scene.delete', scene: outside }, ctx), BlindSpotError);
+  assert.throws(
+    () => encodeOp({ op: 'clip.create', slot: slot(TRACK_A, outside), lengthBeats: 4 }, ctx),
+    BlindSpotError);
+  assert.throws(
+    () => encodeOp({ op: 'note.write', clip: clip(slot(TRACK_A, outside)), notes: [note()] }, ctx),
+    BlindSpotError);
 });
