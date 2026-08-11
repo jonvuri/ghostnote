@@ -14,7 +14,8 @@ export type { ExecutorOptions, RevertResult, RunOptions } from './executor.js';
 export { labelTarget, notePropCaveats, splitReplayable, worse, worstOf } from './fidelity.js';
 
 export {
-  branchProtected, floorRefusal, gateBeforeReading, ownChangesetReversal, UnprotectedWriteError,
+  branchProtected, directedDestruction, floorRefusal, gateBeforeReading, ownChangesetReversal,
+  UnprotectedWriteError,
 } from './floor.js';
 export type { Clearance } from './floor.js';
 

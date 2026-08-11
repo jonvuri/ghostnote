@@ -1,101 +1,55 @@
 /**
- * A minimal MCP server over the ghostnote bridge (E9 originally; re-pointed onto
- * the adapter contract in Phase 0).
+ * The MCP server — the process an agent actually talks to.
  *
  * ⚠ **This process holds the bridge connection.** There is no daemon (D4 rev) —
  * see `session.ts` for which of `ghostnoted`'s three jobs each went where, and
- * for why "ordered is not coherent" replaced standing rule 7. What changed HERE
- * in session 3 is the lifecycle: the connection is opened lazily, handshaken on
- * every reconnect, and everything index-shaped is thrown away when the extension
- * turns out to be a different life of itself.
+ * for why "ordered is not coherent" replaced standing rule 7.
  *
- * Two tools, deliberately still two. The real tool surface is D18c/D20 work —
- * versioned descriptions in fresh, jargon-free language, with destructive verbs
- * on their own annotated surface — and it belongs to the branch-mechanisms
- * session, not to this one. Widening it here would freeze a v0 vocabulary the
- * moment before the vocabulary is designed.
+ * ⚠ What changed in session 3d is everything above the connection. This file used
+ * to register two tools by hand and was *"deliberately still two"*, because the
+ * real surface is D18c/D20 work and widening it early would have frozen a v0
+ * vocabulary the moment before the vocabulary was designed. That vocabulary now
+ * exists: `surface/tools.ts` holds the tools as data — partitioned into reading,
+ * writing and destroying by NAME, which is the grain a host's permission
+ * allow-list keys on (E20c) — and this file is the three lines that put them on a
+ * transport.
  *
- *   - `ping`       — round-trips a ping through the Bitwig bridge.
- *   - `read_notes` — reads a clip's notes by durable track id (channelId), which
- *                    is the only addressing the contract accepts (E2f).
+ * ⚠ The engine is reached only through `surface/workspace.ts`, which is what makes
+ * "every batch that applied is recorded" a property of the code rather than a
+ * habit: no tool can see an executor to go around it.
  *
  * ⚠ stdio transport uses STDOUT for JSON-RPC — this file must never write to
- * stdout (no console.log). Diagnostics go to stderr only.
+ * stdout (no console.log). Diagnostics go to stderr only. `surface.test.ts`
+ * asserts it for the whole surface, because the failure it produces is a
+ * transport that dies with no message at all.
  */
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { z } from 'zod';
 
-import { WIRE } from './adapters/live/wiremap.js';
-import { addressKey, clip, notes, scene, slot, track } from './contract/index.js';
 import { Session } from './session.js';
+import { registerTools } from './surface/tools.js';
+import { workspaceOf } from './surface/workspace.js';
 
 const session = new Session();
 
 const server = new McpServer({ name: 'ghostnote', version: '0.0.1' });
 
-server.registerTool(
-  'ping',
-  {
-    title: 'Ping the ghostnote bridge',
-    description:
-      'Round-trip a ping through the Bitwig bridge. Returns pong plus the '
-      + 'control-surface thread name — confirms the extension is live.',
-    inputSchema: {},
+registerTools(server, workspaceOf({
+  ready: async () => {
+    await session.ready();
   },
-  async () => {
-    const { generation, restarted } = await session.ready();
-    const res = (await session.client.request(WIRE.ping)) as { pong: boolean; thread: string };
-    return { content: [{ type: 'text', text: JSON.stringify({ ...res, generation, restarted }) }] };
+  // ⚠ Getters, not values. `Session` throws its adapter and executor away when it
+  // reconnects onto a different life of the extension, and a workspace holding
+  // the old ones would go on writing through handles whose every index names a
+  // track that is no longer there.
+  get adapter() {
+    return session.bitwig;
   },
-);
-
-server.registerTool(
-  'read_notes',
-  {
-    title: 'Read notes from a clip',
-    description:
-      'Read a clip\'s notes as beats-native records. The track is addressed by its '
-      + 'durable channelId (UUID), which survives renames, index shifts and a '
-      + 'project reload — a bank index does not.',
-    inputSchema: {
-      channelId: z.string().describe('Durable track UUID, from track.list'),
-      sceneIndex: z.number().int().default(0).describe('Scene/slot index (default 0)'),
-    },
+  get executor() {
+    return session.executor;
   },
-  async ({ channelId, sceneIndex }) => {
-    const index = sceneIndex ?? 0;
-    // ⚠ The epoch is READ, never remembered. It comes off an observer in the
-    // extension that sees the user's scene ops as well as ours (session 3), so
-    // an address minted here is minted against the world as it is — and a scene
-    // op between this call and the next one makes the address refusable rather
-    // than silently wrong (E3).
-    const { sceneEpoch, contentEpoch, generation } = await session.mark();
-    const address = notes(clip(slot(track(channelId), scene(index, sceneEpoch))));
-    const snapshot = await session.bitwig.read([address]);
-    const entry = snapshot.entries[addressKey(address)];
-    const found = entry?.value.of === 'notes' ? entry.value.notes : [];
-    return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify({
-          channelId,
-          sceneIndex: index,
-          // ⚠ Returned so a caller can baseline on it. Both epochs are
-          // meaningless as absolutes and only a DIFFERENCE across a known event
-          // carries information — the generation is what makes that difference
-          // honest across a Bitwig restart.
-          at: { sceneEpoch, contentEpoch, generation },
-          // A clip that is missing is reported as such rather than as "no notes":
-          // an empty result and an absent clip are different facts.
-          found: entry !== undefined,
-          fidelity: entry?.fidelity,
-          notes: found,
-        }),
-      }],
-    };
-  },
-);
+  stash: session.stash,
+}));
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

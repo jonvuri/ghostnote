@@ -48,10 +48,10 @@ import type { TakeValue } from './take.js';
 /**
  * Why a batch may proceed when its prior state cannot be restored exactly.
  *
- * Two kinds, and they are kept distinct rather than collapsed into a boolean
- * because the record has to be able to tell them apart afterwards — one is a
- * branch the caller took responsibility for, the other is the human asking for
- * their own changes back.
+ * Three kinds, and they are kept distinct rather than collapsed into a boolean
+ * because the record has to be able to tell them apart afterwards: a branch the
+ * caller took responsibility for, the human asking for their own changes back,
+ * and the human directing a deletion through the surface the host gates.
  */
 export type Clearance =
   /**
@@ -67,7 +67,33 @@ export type Clearance =
    * reports what the reversal cannot put back (`unrestored`), which is the
    * protection D19 actually asks for.
    */
-  | { readonly kind: 'own-changeset-reversal'; readonly of: string };
+  | { readonly kind: 'own-changeset-reversal'; readonly of: string }
+  /**
+   * ⚠⚠ D20: destruction the operator DIRECTED, arriving through the separately
+   * named destructive tool surface and therefore through the host's permission
+   * flow.
+   *
+   * Added in session 3d, and it closes a contradiction the engine had while
+   * nothing called it. D18c's floor refuses any batch whose prior state cannot be
+   * put back exactly — which is *every* deletion of anything that already
+   * existed, since a track's identity, a row's arrangement and a device's
+   * settings have no readback at all. D20 says the opposite about exactly these
+   * calls, in its own words: *"the boundary is host-mediated: nothing INSIDE our
+   * system gates a directed destructive call"*, and *"the agent never DECIDES to
+   * destroy; it may EXECUTE destruction the operator explicitly directed."*
+   * Without this the destructive surface could never run at all, and D20's
+   * partition would be decoration.
+   *
+   * ⚠ What it clears is the REFUSAL, never the reporting. Everything the deletion
+   * cannot put back is still labelled and still travels out on the receipt (D5,
+   * D16d), which is the protection D19/D20 actually ask for. Nor does it clear
+   * `gateBeforeReading` — see there.
+   *
+   * ⚠ `via` is the tool NAME, because the name is what the operator granted (the
+   * host's *"don't ask again for this tool"*, E20c). It is a record of which
+   * permission this call rode in on, not a capability.
+   */
+  | { readonly kind: 'directed-destruction'; readonly via: string };
 
 /** The batch is protected by `branch`, whatever that branch turns out to be. */
 export const branchProtected = (branch: string): Clearance => ({ kind: 'branch-protected', branch });
@@ -75,6 +101,10 @@ export const branchProtected = (branch: string): Clearance => ({ kind: 'branch-p
 /** The batch puts back what take `of` changed. */
 export const ownChangesetReversal = (of: string): Clearance =>
   ({ kind: 'own-changeset-reversal', of });
+
+/** The operator directed this destruction through the tool named `via` (D20). */
+export const directedDestruction = (via: string): Clearance =>
+  ({ kind: 'directed-destruction', via });
 
 /**
  * A write whose prior state cannot be restored exactly, with nothing protecting
@@ -85,6 +115,22 @@ export class UnprotectedWriteError extends Error {
     readonly fidelity: Fidelity,
     readonly caveats: readonly string[],
     detail: string,
+    /**
+     * ⚠ The labelled values that tripped it — the same information as `caveats`,
+     * as DATA rather than as sentences.
+     *
+     * Added in session 3d for the tool surface, and the reason is D18c rather
+     * than convenience: the surface writes its own words for a general-purpose
+     * agent, so it cannot forward these sentences (they are written in this
+     * project's vocabulary and cite its evidence record). Re-deriving *which
+     * address, and which property of it* from a message would mean parsing
+     * English. The value carries the stashed state, so the surface can name the
+     * offending properties from `NOTE_PROP_FIDELITY` exactly as this file does.
+     *
+     * Empty for `gateBeforeReading`, and that is the honest shape: nothing was
+     * read, so there are no labels to hand over.
+     */
+    readonly blocked: readonly TakeValue[] = [],
   ) {
     super(
       `refused: this batch would change state it cannot put back exactly (${fidelity}). ${detail}` +
@@ -107,11 +153,13 @@ export function floorRefusal(
 ): UnprotectedWriteError | undefined {
   const fidelity = worstOf(values);
   if (fidelity === 'exact' || clearance !== undefined) return undefined;
+  const blocked = values.filter((v) => v.fidelity !== 'exact');
   return new UnprotectedWriteError(
     fidelity,
-    values.filter((v) => v.fidelity !== 'exact').flatMap((v) => v.caveats),
+    blocked.flatMap((v) => v.caveats),
     'Nothing was written. Re-run it with the prior state protected, or narrow the batch until ' +
       'everything it touches can be restored exactly.',
+    blocked,
   );
 }
 
@@ -140,10 +188,15 @@ export function gateBeforeReading(
   ops: readonly Op[],
   clearance: Clearance | undefined,
 ): UnprotectedWriteError | undefined {
-  // ⚠ `branch-protected` ONLY, where the floor above takes either kind. D18c
-  // says this one is *"unconditional refusal unless branch-protected"*, and a
-  // reversal cannot honestly clear it: putting our own changeset back cannot
-  // rebuild a device whose state was never capturable in the first place.
+  // ⚠ `branch-protected` ONLY, where the floor above takes any kind. D18c says
+  // this one is *"unconditional refusal unless branch-protected"*, and neither of
+  // the other two can honestly clear it: putting our own changeset back cannot
+  // rebuild a device whose state was never capturable in the first place, and a
+  // DIRECTED destruction is allowed here on the strength of its report — *this is
+  // what you will lose* — which is precisely the thing a stash that could not be
+  // taken cannot produce. Being unable to say what a deletion destroys is the one
+  // condition no authorization changes (D20: "mechanical walls do not move for
+  // permission").
   if (clearance?.kind === 'branch-protected') return undefined;
   for (const op of ops) {
     const why = damagePrecedesTheStash(op);

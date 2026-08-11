@@ -598,6 +598,7 @@ test('B-device: an insert nobody watched land is reported BEFORE any reversal (D
   const blind: BitwigAdapter = {
     hello: () => fx.fake.hello(),
     resolve: (refs) => fx.fake.resolve(refs),
+    tracks: () => fx.fake.tracks(),
     read: (sel) => fx.fake.read(sel),
     settle: (budget) => fx.fake.settle(budget),
     revision: () => fx.fake.revision(),

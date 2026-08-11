@@ -9,8 +9,18 @@ status: PLANNED 2026-08-09. The last session of the 3-family, and it lands last
         ⚠ Depends on 3e AND 3f: all three mechanisms must exist before they can be
         described honestly, and the classifier has nothing to classify until they
         do.
+        ⚠⚠ **The vocabulary it freezes already EXISTS** — 3d wrote it
+        (`brain/src/surface/`), under D18c from the first line, and held it with a
+        lexical ban list (`naming.ts`) asserted against the JSON schema an agent
+        receives, every refusal the surface can produce and everything it emits.
+        So this session AMENDS one naming pass when the branch verbs join and then
+        declares the version; it does not start one. ⚠ The ban list is where the
+        mechanisms are banned BY NAME, which is exactly what has to be relaxed,
+        deliberately and entry by entry, when a branch verb needs to describe
+        itself — and the guard is what makes that a reviewable act instead of a
+        sentence nobody noticed.
         ⚠ Was part of **session 3″**.
-updated: 2026-08-09
+updated: 2026-08-10
 parent: PHASE-1-ENGINE.md
 prev: PHASE-1-SESSION-3F-FORK-CHAIN.md
 next: PHASE-1-SESSION-4-CONTROL-LAYER.md

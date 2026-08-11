@@ -35,7 +35,7 @@ import {
   type BitwigAdapter, type ClipAddress, type ContentDelta, type ContentEvent, type Fidelity,
   type NoteRecord, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
-  type TrackAddress, type WindowCoverage,
+  type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { SETTLE_MS } from '../../contract/index.js';
 import {
@@ -592,6 +592,29 @@ export class LiveAdapter implements BitwigAdapter {
       method: WIRE.slotSelect,
       params: { trackIndex: saved.trackIndex, slotIndex: saved.slotIndex, mechanism: 'track' },
     });
+  }
+
+  /**
+   * ⚠ A fresh SCAN every time, never the cached bank.
+   *
+   * Standing rule 2: re-point after any structural op. This is the call whose
+   * whole output is positions and identities, so serving it from `this.bank`
+   * would hand back the world as it was before whatever just happened — and the
+   * caller most likely to ask is one that has no ids yet and no way to notice.
+   *
+   * ⚠ It does not refuse an overflowing project, for the reason `hello()` records
+   * at length: looking is how you find out. The tracks past the window are simply
+   * not in the bank's own answer, and `RevisionMark.window.tracks` is what says
+   * how many were left out.
+   */
+  async tracks(): Promise<readonly TrackState[]> {
+    const list = await this.scanTracks();
+    return list.tracks.map((t) => ({
+      channelId: t.channelId,
+      name: t.name,
+      position: t.position,
+      type: t.type,
+    }));
   }
 
   async resolve(refs: readonly Address[]): Promise<ResolveResult> {

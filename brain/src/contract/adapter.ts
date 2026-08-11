@@ -1,10 +1,18 @@
 /**
  * `BitwigAdapter` — the versioned seam between the brain and *some* Bitwig.
  *
- * Seven methods, and it will still be seven when Phase 5 authors modulators:
+ * Eight methods, and it will still be eight when Phase 5 authors modulators:
  * breadth lives in the `Op` union and the `Address` union, never in the method
  * count. That is the Beat Twin lesson (a 57-tool surface, abandoned) applied at
  * the one place it is cheap to apply.
+ *
+ * ⚠ It said SEVEN until session 3d, and `tracks()` is the exception that proves
+ * the rule rather than a crack in it. Every other method takes addresses a caller
+ * already holds; none of them can answer *which addresses exist*, and no `Op` or
+ * `Address` variant could add that — an enumeration has nothing to be addressed
+ * BY. That gap was invisible while the only client was a probe with the ids
+ * hard-coded, and it became load-bearing the moment a tool surface had to hand an
+ * agent something to write to (PHASE-1 session 3d).
  *
  * The structural proof that the JSON-RPC frame is an implementation detail: the
  * FAKE NEVER SEES A WIRE FRAME. If any type in `contract/` ever mentions a
@@ -23,6 +31,7 @@ import type { SettleBudget } from './budgets.js';
 import type { ContentDelta } from './observers.js';
 import type { Op } from './ops.js';
 import type { BatchReceipt, RevisionMark, Snapshot } from './snapshot.js';
+import type { TrackState } from './state.js';
 import type { AdapterInfo } from './version.js';
 
 export interface ResolvedAddress {
@@ -62,6 +71,22 @@ export interface BitwigAdapter {
    * bank-window blind spots distinctly from genuine absence (E5).
    */
   resolve(refs: readonly Address[]): Promise<ResolveResult>;
+
+  /**
+   * Every track the bank window can address, in bank order — where a caller's
+   * FIRST `channelId` comes from.
+   *
+   * ⚠ It does NOT refuse an overflowing project, and that asymmetry is the same
+   * one `read` has: standing rule 5 is about operating, not about looking, and
+   * the call that tells you the window is too small must not be the call you
+   * cannot make. How many tracks the window is missing rides on `RevisionMark`
+   * (`window.tracks`), so a caller who wants the whole picture takes both.
+   *
+   * ⚠ Returns `TrackState`, the same value `read` produces for a `TrackAddress`,
+   * rather than a listing type of its own — two shapes for one fact is how the
+   * enumeration and the read end up disagreeing about what a track is.
+   */
+  tracks(): Promise<readonly TrackState[]>;
 
   /**
    * Read exactly these addresses. This is both the §8b stash and the verify

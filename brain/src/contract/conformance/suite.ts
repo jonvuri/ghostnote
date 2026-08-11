@@ -210,6 +210,36 @@ export function runConformance(h: AdapterHarness): void {
     }
   });
 
+  test(label('C-list', 'every enumerated track resolves, and the two agree about identity'), async () => {
+    // ⚠ The enumeration is where a caller's first `channelId` comes from, so the
+    // property that matters is not "it returns rows" — it is that every id it
+    // hands out is one `resolve` accepts. A listing whose ids resolve to nothing
+    // would be worse than no listing: the caller would address the world with
+    // keys that look durable and are not (E2f, standing rule 2).
+    const { adapter, trackA, trackB } = await h.create();
+    try {
+      const listed = await adapter.tracks();
+      const ids = listed.map((t) => t.channelId);
+      assert.ok(ids.includes(trackA.channelId), 'the fixture track is missing from the listing');
+      assert.ok(ids.includes(trackB.channelId));
+      assert.equal(new Set(ids).size, ids.length, 'a channelId appeared twice');
+
+      const { resolved } = await adapter.resolve(ids.map((id) => track(id)));
+      assert.deepEqual(
+        resolved.filter((r) => !r.found).map((r) => r.address),
+        [],
+        'the listing offered an id that does not resolve',
+      );
+      // The same fact read the other way: a listed track reads back as itself.
+      const snap = await adapter.read([track(ids[0]!)]);
+      const entry = snap.entries[addressKey(track(ids[0]!))];
+      assert.equal(entry?.value.of, 'track');
+      if (entry?.value.of === 'track') assert.equal(entry.value.track.channelId, ids[0]);
+    } finally {
+      await h.dispose(adapter);
+    }
+  });
+
   test(label('C-epoch', 'a scene op bumps the epoch and stales prior addresses (E3)'), async () => {
     const { adapter, trackA } = await h.create();
     try {
@@ -1211,6 +1241,7 @@ export function runConformance(h: AdapterHarness): void {
         const executor = new Executor({
           hello: () => adapter.hello(),
           resolve: (refs) => adapter.resolve(refs),
+          tracks: () => adapter.tracks(),
           read: async (sel) => {
             const snap = await adapter.read(sel);
             await bump(adapter);

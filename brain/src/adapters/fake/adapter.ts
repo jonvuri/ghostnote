@@ -19,7 +19,7 @@ import {
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type ContentDelta, type Fidelity, type NoteRecord, type Op, type OpReceipt, type ResolveResult,
   type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
-  type StageReceipt, type StateEntry, type WindowCoverage,
+  type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { planStages } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
@@ -167,6 +167,24 @@ export class FakeAdapter implements BitwigAdapter {
       };
     });
     return { at: this.mark(), resolved };
+  }
+
+  /**
+   * ⚠ The bank VIEW, not the project — so the tracks a caller can be handed are
+   * exactly the tracks it can then address, and the ones beyond the window are
+   * absent from the answer rather than listed and unusable.
+   *
+   * How many were left out is on the mark (`window.tracks`), which is where the
+   * live adapter puts it too; a listing that carried its own count would be a
+   * second reading of the same fact.
+   */
+  async tracks(): Promise<readonly TrackState[]> {
+    return this.model.visibleTracks().map((t, index) => ({
+      channelId: t.channelId,
+      name: t.name,
+      position: index,
+      type: t.type,
+    }));
   }
 
   /** Reads COMMITTED state only — never flushes pending, never advances the clock. */
