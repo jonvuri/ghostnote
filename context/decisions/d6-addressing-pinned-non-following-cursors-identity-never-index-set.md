@@ -1,0 +1,45 @@
+---
+id: D6
+kind: decision
+state: active
+source: DECISIONS.md
+---
+
+# D6 — Addressing: pinned non-following cursors, identity never index **[SETTLED 2026-07-25]**
+
+**Address by durable identity through a pool of pre-allocated, non-following cursor
+tracks, each owning a `PinnableCursorClip`. Never store or send a bank index that
+outlives the request that resolved it.**
+
+- **`channelId` (UUID) is the durable track key** (E2f). It is minted fresh on
+  create, so a delete-and-recreate is a DIFFERENT track — which is correct, and is
+  why a stash cannot be replayed onto a recreated track by name.
+- **Pointing mechanism is `trackThenSlot`** — `cursorTrack.selectChannel(track)`
+  then `track.selectSlot(s)` — the only one of three candidates that works (E1).
+  Settle is ~25ms and **verifiable by polling** `position()` + `sceneIndex()`,
+  which replaces daw-mcp's blind 400ms sleep.
+- **Cursor pools are non-following BY CONSTRUCTION** (`shouldFollowSelection=false`
+  at creation); pinning is belt-and-suspenders on top (E1). 3 cursors held 3
+  different clips concurrently, and 20/20 write+readback cycles stayed correct
+  through continuous user clicking (27 selection changes observed).
+- **Re-point after ANY structural op.** A held pin's `sceneIndex` goes permanently
+  stale after scene compaction (E3), and bank indices drift under create/delete.
+- ⚠ **Pointing STEALS the user's clip selection** (E1, measured E14-F1). It can be
+  saved and restored around a batch, restoring does not disturb the pool cursor,
+  and a whole batch costs exactly ONE observable selection change — so one restore
+  at the end suffices (E14-F2/F3/F4). **Phase 1 owes that restore.**
+- ⚠ **Pointing at an EMPTY slot silently lands on the WRONG clip** and
+  `cursor.status` looks healthy (E2). Create the clip first, always.
+- **Bank-window overflow is a refusal, not a knob** (E5, standing rule 5).
+  `TrackBank.itemCount()` reports the PROJECT total, not the window (E15-A) —
+  which is what makes the rule implementable at all; before it, "16 tracks exist"
+  and "16 of 54 are visible" were indistinguishable from the extension side.
+  > ⚠ **RESTATED 2026-08-07 (E16r): a PRECONDITION on every structural create,
+  > checked BEFORE the call — never a post-hoc detection.** A create past the
+  > window mints a track `track.list` never shows: unaddressable, un-cleanable,
+  > audible — and a fork IS a `track.create`. Budget: `bankSize − (project tracks
+  > + FX returns + master + lineage groups)`. The Master and the FX returns leave
+  > the window FIRST (E16r) and are E16's audibility oracles; the failure reads
+  > `found:false`, byte-identical to a deleted track. ⚠ Never a licence to reap
+  > (D20); ⚠ never justified on disk grounds — E16u measured disk immaterial
+  > (~20 KB/fork, no save-time change). → PROJECT_PLAN §4 rule 5.
