@@ -217,6 +217,10 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     case 'note.props':
     case 'clip.create':
     case 'clip.delete':
+    case 'clip.duplicate':
+    case 'clip.move':
+    case 'clip.launch':
+    case 'clip.launchSettings':
     case 'track.create':
     case 'track.rename':
     case 'track.delete':

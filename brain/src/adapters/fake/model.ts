@@ -11,7 +11,7 @@
  * PHASE-0 §Risks names for fake drift ("every trap the fake models must cite the
  * FINDINGS experiment that established it").
  */
-import type { ContentEvent, NoteRecord } from '../../contract/index.js';
+import type { ContentEvent, LaunchMode, LaunchQuantization, NoteRecord } from '../../contract/index.js';
 
 export type TrackType = 'Instrument' | 'Audio' | 'Effect' | 'Master' | 'Group';
 
@@ -26,6 +26,12 @@ export interface FakeSlot {
    * because a note write always changes the step grid on the way in.
    */
   stepDataStaleUntilTick: number;
+  launchQuantization: LaunchQuantization;
+  launchMode: LaunchMode;
+  useLoopStartAsQuantizationReference: boolean;
+  isPlaying: boolean;
+  isPlaybackQueued: boolean;
+  isStopQueued: boolean;
 }
 
 export interface FakeDevice {
@@ -212,6 +218,12 @@ export class ProjectModel {
       lengthBeats: 0,
       notes: new Map<string, NoteRecord>(),
       stepDataStaleUntilTick: 0,
+      launchQuantization: 'default',
+      launchMode: 'default',
+      useLoopStartAsQuantizationReference: false,
+      isPlaying: false,
+      isPlaybackQueued: false,
+      isStopQueued: false,
     }));
   }
 
@@ -376,7 +388,12 @@ export class ProjectModel {
   createScenes(count: number): void {
     for (const track of this.tracks) {
       for (let i = 0; i < count; i++) {
-        track.slots.push({ hasContent: false, lengthBeats: 0, notes: new Map(), stepDataStaleUntilTick: 0 });
+        track.slots.push({
+          hasContent: false, lengthBeats: 0, notes: new Map(), stepDataStaleUntilTick: 0,
+          launchQuantization: 'default', launchMode: 'default',
+          useLoopStartAsQuantizationReference: false,
+          isPlaying: false, isPlaybackQueued: false, isStopQueued: false,
+        });
       }
     }
     this.sceneCount += count;

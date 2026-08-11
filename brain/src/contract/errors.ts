@@ -186,14 +186,20 @@ export function blindSpotError(
  * worse still, because there the existing clip is DESTROYED and no occupancy
  * event fires (`FINDINGS.md` E20b).
  */
+export type OccupiedSlotHazard = 'append-row' | 'overwrite';
+
 export class SlotOccupiedError extends ContractError {
-  constructor(readonly addresses: readonly Address[]) {
-    super(
-      `${addresses.length} clip.create op(s) name a slot that already holds a clip. Bitwig does `
-      + 'not refuse that and does not overwrite: it APPENDS A SCENE to the project and puts the '
-      + 'new clip out there, past the bank window, where nothing can address or delete it (E21). '
-      + 'Delete the clip first, or address an empty slot.',
-    );
+  constructor(
+    readonly addresses: readonly Address[],
+    readonly hazard: OccupiedSlotHazard = 'append-row',
+  ) {
+    super(hazard === 'overwrite'
+      ? `${addresses.length} clip destination(s) already hold content. Bitwig would replace that `
+        + 'content without an occupancy event, so the call was refused before it reached the wire.'
+      : `${addresses.length} clip.create op(s) name a slot that already holds a clip. Bitwig does `
+        + 'not refuse that and does not overwrite: it APPENDS A SCENE to the project and puts the '
+        + 'new clip out there, past the bank window, where nothing can address or delete it (E21). '
+        + 'Delete the clip first, or address an empty slot.');
   }
 }
 

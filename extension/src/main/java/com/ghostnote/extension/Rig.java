@@ -1173,6 +1173,13 @@ public class Rig {
         clip.clipLauncherSlot().exists().markInterested();
         clip.clipLauncherSlot().sceneIndex().markInterested();
         clip.clipLauncherSlot().name().markInterested();
+        // Phase 1 session 3e, arm 1. These are per-CLIP defaults, not properties
+        // of the launcher slot and not substitutes for launchWithOptions. They
+        // are what can make a human click use the same bar-aligned,
+        // position-continuous behaviour as an agent-triggered switch.
+        clip.launchQuantization().markInterested();
+        clip.launchMode().markInterested();
+        clip.useLoopStartAsQuantizationReference().markInterested();
         // ⚠ E20a — WHERE INSIDE THE CLIP playback is, which is the only
         // programmatic answer to `"continue_or_synced"`.
         //

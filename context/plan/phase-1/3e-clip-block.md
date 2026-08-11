@@ -1,8 +1,8 @@
 ---
 title: Phase 1, session 3e — the clip block
 kind: plan
-state: active
-status: PLANNED 2026-08-09. The first of the three branch mechanisms, and the one
+state: complete
+status: DONE 2026-08-11. The first of the three branch mechanisms, and the one
         that arrived latest (operator, 2026-08-06) but is now the best measured —
         3b's E20a and E20b ran specifically so this session would not be designed
         on a javadoc.
@@ -11,7 +11,11 @@ status: PLANNED 2026-08-09. The first of the three branch mechanisms, and the on
         ⚠⚠ **A verified-empty destination row is a HARD PRECONDITION on minting**
         — `duplicateClip` OVERWRITES an occupied row and fires no event (E20b).
         ⚠ Was part of **session 3″**.
-updated: 2026-08-09
+        Arm 1 is green 5/5 autonomous and 5/5 human; the production contract,
+        adapters and five surface tools are implemented, offline 348/348. The
+        final production MCP smoke passed 9/9, removed every clip it created and
+        stopped transport. See the archived outcome.
+updated: 2026-08-11
 parent: README.md
 previous_outcome: ../../archive/outcomes/PHASE-1-SESSION-3D-SURFACE.md
 next: 3f-fork-chain.md

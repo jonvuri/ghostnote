@@ -14,7 +14,9 @@
  * existed.
  */
 import type { Address, AddressKey } from './address.js';
-import type { DeviceState, NoteRecord, ParamState, TrackState } from './state.js';
+import type {
+  ClipLaunchState, ClipPlayState, DeviceState, NoteRecord, ParamState, TrackState,
+} from './state.js';
 import type { ContractTag } from './version.js';
 
 /**
@@ -170,6 +172,8 @@ export type StateValue =
    * read the field. Both adapters populate it now and `C-clip` asserts it on both.
    */
   | { readonly of: 'clip'; readonly exists: boolean; readonly lengthBeats?: number }
+  | { readonly of: 'clipLaunch'; readonly launch: ClipLaunchState }
+  | { readonly of: 'clipPlay'; readonly play: ClipPlayState }
   | { readonly of: 'device'; readonly device: DeviceState }
   | { readonly of: 'param'; readonly param: ParamState };
 

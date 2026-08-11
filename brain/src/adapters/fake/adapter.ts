@@ -13,7 +13,7 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertSlotsFree, budgetTicks,
+  assertClipSources, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertSlotsFree, budgetTicks,
   contentDelta,
   hasUnverifiedProps, orderedNoteProps, stepSizeFor,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
@@ -277,6 +277,28 @@ export class FakeAdapter implements BitwigAdapter {
         const fidelity: Fidelity = all.some(hasUnverifiedProps) ? 'lossy' : 'exact';
         return { address, fidelity, value: { of: 'notes', notes: all } };
       }
+      case 'clipLaunch': {
+        const slotState = track?.slots[address.clip.slot.scene.index];
+        if (slotState === undefined || !slotState.hasContent) return undefined;
+        return { address, fidelity: 'exact', value: { of: 'clipLaunch', launch: {
+          quantization: slotState.launchQuantization,
+          mode: slotState.launchMode,
+          useLoopStartAsQuantizationReference: slotState.useLoopStartAsQuantizationReference,
+        } } };
+      }
+      case 'clipPlay': {
+        const slotState = track?.slots[address.clip.slot.scene.index];
+        if (slotState === undefined) return undefined;
+        return { address, fidelity: 'exact', value: { of: 'clipPlay', play: {
+          hasContent: slotState.hasContent,
+          isPlaying: slotState.isPlaying,
+          isPlaybackQueued: slotState.isPlaybackQueued,
+          isStopQueued: slotState.isStopQueued,
+          playingStep: slotState.isPlaying ? 0 : -1,
+          sampledAtMs: this.clock.tick,
+          playPosition: 0,
+        } } };
+      }
       case 'device': {
         const dev = track?.devices[address.chainIndex];
         if (dev === undefined) return undefined;
@@ -334,6 +356,10 @@ export class FakeAdapter implements BitwigAdapter {
     // into an OCCUPIED slot appends a row at the END of the project, past the
     // window. The rule is the contract's; only the lookup is the fake's.
     assertSlotsFree(batch.ops, (s) => {
+      const hit = this.model.findByChannelId(s.track.channelId);
+      return hit?.track.slots[s.scene.index]?.hasContent;
+    });
+    assertClipSources(batch.ops, (s) => {
       const hit = this.model.findByChannelId(s.track.channelId);
       return hit?.track.slots[s.scene.index]?.hasContent;
     });
@@ -536,6 +562,70 @@ export class FakeAdapter implements BitwigAdapter {
             slotState.lengthBeats = 0;
             slotState.notes.clear();
           }
+        });
+        return;
+      }
+
+      case 'clip.duplicate': {
+        const track = this.requireTrack(op.source.slot.track, op.op);
+        const sourceIndex = op.source.slot.scene.index;
+        const destinationIndex = op.destination.scene.index;
+        this.clock.stage(() => {
+          const source = track.slots[sourceIndex];
+          const destination = track.slots[destinationIndex];
+          if (source === undefined || destination === undefined || !source.hasContent) return;
+          this.model.setSlotContent(track, destinationIndex, true);
+          destination.lengthBeats = source.lengthBeats;
+          destination.notes = new Map(source.notes);
+          destination.launchQuantization = source.launchQuantization;
+          destination.launchMode = source.launchMode;
+          destination.useLoopStartAsQuantizationReference = source.useLoopStartAsQuantizationReference;
+        });
+        return;
+      }
+
+      case 'clip.move': {
+        const from = this.requireTrack(op.source.slot.track, op.op);
+        const to = this.requireTrack(op.destination.track, op.op);
+        const sourceIndex = op.source.slot.scene.index;
+        const destinationIndex = op.destination.scene.index;
+        this.clock.stage(() => {
+          const source = from.slots[sourceIndex];
+          const destination = to.slots[destinationIndex];
+          if (source === undefined || destination === undefined || !source.hasContent) return;
+          destination.lengthBeats = source.lengthBeats;
+          destination.notes = new Map(source.notes);
+          destination.launchQuantization = source.launchQuantization;
+          destination.launchMode = source.launchMode;
+          destination.useLoopStartAsQuantizationReference = source.useLoopStartAsQuantizationReference;
+          this.model.setSlotContent(to, destinationIndex, true);
+          this.model.setSlotContent(from, sourceIndex, false);
+          source.lengthBeats = 0;
+          source.notes.clear();
+        });
+        return;
+      }
+
+      case 'clip.launch': {
+        const track = this.requireTrack(op.clip.slot.track, op.op);
+        const sceneIndex = op.clip.slot.scene.index;
+        this.clock.stage(() => {
+          for (const slot of track.slots) slot.isPlaying = false;
+          const slot = track.slots[sceneIndex];
+          if (slot?.hasContent) slot.isPlaying = true;
+        });
+        return;
+      }
+
+      case 'clip.launchSettings': {
+        const track = this.requireTrack(op.clip.slot.track, op.op);
+        const sceneIndex = op.clip.slot.scene.index;
+        this.clock.stage(() => {
+          const slot = track.slots[sceneIndex];
+          if (slot === undefined || !slot.hasContent) return;
+          slot.launchQuantization = op.quantization;
+          slot.launchMode = op.mode;
+          slot.useLoopStartAsQuantizationReference = op.useLoopStartAsQuantizationReference;
         });
         return;
       }

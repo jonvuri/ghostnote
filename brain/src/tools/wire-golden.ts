@@ -38,6 +38,8 @@ export interface Golden {
    * skipped one.
    */
   addedInE20?: string[];
+  /** Session 3e arm 1: per-clip launch settings, before product design. */
+  addedInSession3eProbe?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

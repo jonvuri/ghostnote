@@ -37,14 +37,16 @@ const brandNew = methods.filter((m) => !golden.methods.includes(m));
 // from the golden and only the CURRENT sitting's bucket accumulates.
 //
 // ⚠ E16 joined them when session 3b opened: it is finished, and its list is the
-// record of what the branching mini-spike put on the wire. The current bucket is
-// `addedInE20` — the early probes. When the next sitting opens, freeze this one
-// the same way rather than widening it.
+// record of what the branching mini-spike put on the wire. `addedInE20`, the
+// early-probe bucket, is frozen too. Session 3e begins with one more design-gating
+// probe, whose bucket remains separate from product methods the same session may
+// add after the result is known.
 const addedInSession1 = golden.addedInSession1 ?? ['contract.hello', 'rig.methods'];
 const addedInSession2 = golden.addedInSession2 ?? [];
 const addedInE16 = golden.addedInE16 ?? [];
-const earlier = new Set([...addedInSession1, ...addedInSession2, ...addedInE16]);
-const addedInE20 = added.filter((m) => !earlier.has(m)).sort();
+const addedInE20 = golden.addedInE20 ?? [];
+const earlier = new Set([...addedInSession1, ...addedInSession2, ...addedInE16, ...addedInE20]);
+const addedInSession3eProbe = added.filter((m) => !earlier.has(m)).sort();
 
 const next = {
   ...golden,
@@ -57,6 +59,7 @@ const next = {
   addedInSession2,
   addedInE16,
   addedInE20,
+  addedInSession3eProbe,
   methods,
 };
 

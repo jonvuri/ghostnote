@@ -242,13 +242,55 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(read.lengthBeats, 4);
   assert.deepEqual(read.notes.map((n) => n.pitch).sort(), [64, 67]);
 
+  const geometry = await exercise('inspect_clip_block', {
+    trackId: fx.trackA, firstRow: 0, lastRow: 0,
+  }) as { contiguous: boolean; boundaryBelow: string };
+  assert.equal(geometry.contiguous, true);
+  assert.equal(geometry.boundaryBelow, 'empty');
+
+  const copied = await exercise('copy_clip_down', {
+    trackId: fx.trackA,
+    row: 0,
+    quantization: '1',
+    mode: 'continue_or_synced',
+    useLoopStartAsQuantizationReference: false,
+  });
+  assert.equal(copied['applied'], true, JSON.stringify(copied));
+  assert.equal(copied['clickLaunchVerified'], true, JSON.stringify(copied));
+
+  assert.equal((await exercise('set_clip_launch', {
+    clips: [{
+      trackId: fx.trackA,
+      row: 1,
+      quantization: '1/4',
+      mode: 'from_start',
+      useLoopStartAsQuantizationReference: true,
+    }],
+  }))['applied'], true);
+
+  const launched = await exercise('launch_clip', {
+    trackId: fx.trackA, row: 1, quantization: 'none', mode: 'from_start',
+  }) as { applied: boolean; playback: { isPlaying: boolean } };
+  assert.equal(launched.applied, true);
+  assert.equal(launched.playback.isPlaying, true);
+
   assert.equal((await exercise('erase_notes', {
     clips: [{ trackId: fx.trackA, row: 0, range: { fromBeat: 1, toBeat: 2 } }],
   }))['applied'], true);
 
-  assert.equal((await exercise('rename_track', {
+  const moved = await exercise('move_clip_block', {
+    trackId: fx.trackA, firstRow: 0, lastRow: 1, destinationFirstRow: 2,
+  }) as { applied: boolean; movedTo: { firstRow: number; lastRow: number } };
+  assert.equal(moved.applied, true, JSON.stringify(moved));
+  assert.deepEqual(moved.movedTo, {
+    firstRow: 2, lastRow: 3, firstBitwigSceneRow: 3, lastBitwigSceneRow: 4,
+  });
+
+  const renamed = await exercise('rename_track', {
     tracks: [{ trackId: fx.trackB, name: 'gn-B renamed' }],
-  }))['applied'], true);
+  });
+  assert.equal(renamed['applied'], true);
+  const renameChangeId = renamed['changeId'] as string;
 
   const addedTrack = await exercise('add_track', { names: ['gn-C'] }) as {
     applied: boolean; created: { trackId: string }[];
@@ -272,13 +314,13 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   const changes = await exercise('list_changes', {}) as { changes: { changeId: string }[] };
   assert.ok(changes.changes.length >= 8);
 
-  const renameChange = changes.changes.find((c) => c.changeId === 'change-4');
+  const renameChange = changes.changes.find((c) => c.changeId === renameChangeId);
   assert.ok(renameChange !== undefined, 'the rename is in the record');
-  const check = await exercise('check_revert', { changeId: 'change-4' }) as {
+  const check = await exercise('check_revert', { changeId: renameChangeId }) as {
     fullyRestorable: boolean;
   };
   assert.equal(check.fullyRestorable, true);
-  assert.equal((await exercise('revert_change', { changeId: 'change-4' }))['applied'], true);
+  assert.equal((await exercise('revert_change', { changeId: renameChangeId }))['applied'], true);
   assert.equal(fx.fake.model.tracks[1]?.name, 'gn-B', 'the rename really was put back');
 
   // -- destroying.
@@ -287,7 +329,7 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   }))['applied'], true);
 
   assert.equal((await exercise('delete_clip', {
-    clips: [{ trackId: fx.trackA, row: 0 }],
+    clips: [{ trackId: fx.trackA, row: 2 }],
   }))['applied'], true);
 
   assert.equal((await exercise('delete_scene', { rows: [8] }))['applied'], true);
@@ -541,6 +583,68 @@ test('T-refusal: a slot that already holds a clip is refused rather than appende
   assert.ok(refused(result));
   assert.match(result['why'] as string, /already holds a clip/);
   assert.equal(fx.fake.model.sceneCount, 8, 'and the project did not grow a row');
+});
+
+test('T-clip-block: copy refuses an occupied next row before the wire call', async () => {
+  const fx = fixture();
+  await call(fx, 'add_clip', {
+    clips: [
+      { trackId: fx.trackA, row: 0, lengthBeats: 4, notes: [note({ pitch: 60 })] },
+      { trackId: fx.trackA, row: 1, lengthBeats: 4, notes: [note({ pitch: 72 })] },
+    ],
+  });
+  const before = fx.sent.length;
+  const result = await call(fx, 'copy_clip_down', {
+    trackId: fx.trackA, row: 0, quantization: '1', mode: 'continue_or_synced',
+  });
+  assert.ok(refused(result));
+  assert.match(result['why'] as string, /would replace it without any occupancy event/);
+  assert.equal(fx.sent.length, before, 'the unsafe copy never reached the adapter');
+  const destination = await call(fx, 'read_clip', {
+    trackId: fx.trackA, row: 1,
+  }) as { notes: NoteRecord[] };
+  assert.deepEqual(destination.notes.map((n) => n.pitch), [72], 'the destination stayed intact');
+});
+
+test('T-clip-block: an overlapping move is ordered safely and its reported reverse works', async () => {
+  const fx = fixture();
+  await call(fx, 'add_clip', {
+    clips: [
+      { trackId: fx.trackA, row: 1, lengthBeats: 4, notes: [note({ pitch: 60 })] },
+      { trackId: fx.trackA, row: 2, lengthBeats: 4, notes: [note({ pitch: 72 })] },
+    ],
+  });
+  const moved = await call(fx, 'move_clip_block', {
+    trackId: fx.trackA, firstRow: 1, lastRow: 2, destinationFirstRow: 2,
+  }) as { applied: boolean; reverse: Record<string, unknown> };
+  assert.equal(moved.applied, true, JSON.stringify(moved));
+  assert.equal((await call(fx, 'read_clip', {
+    trackId: fx.trackA, row: 1,
+  }))['clipExists'], false);
+  assert.deepEqual(
+    (await call(fx, 'read_clip', { trackId: fx.trackA, row: 2 }) as { notes: NoteRecord[] })
+      .notes.map((n) => n.pitch),
+    [60],
+  );
+  assert.deepEqual(
+    (await call(fx, 'read_clip', { trackId: fx.trackA, row: 3 }) as { notes: NoteRecord[] })
+      .notes.map((n) => n.pitch),
+    [72],
+  );
+
+  const { tool: reverseTool, ...reverseArgs } = moved.reverse;
+  const reversed = await call(fx, reverseTool as string, reverseArgs);
+  assert.equal(reversed['applied'], true, JSON.stringify(reversed));
+  assert.deepEqual(
+    (await call(fx, 'read_clip', { trackId: fx.trackA, row: 1 }) as { notes: NoteRecord[] })
+      .notes.map((n) => n.pitch),
+    [60],
+  );
+  assert.deepEqual(
+    (await call(fx, 'read_clip', { trackId: fx.trackA, row: 2 }) as { notes: NoteRecord[] })
+      .notes.map((n) => n.pitch),
+    [72],
+  );
 });
 
 test('T-refusal: more rows than can be addressed is refused before anything happens', async () => {

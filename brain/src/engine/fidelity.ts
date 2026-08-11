@@ -174,6 +174,9 @@ function valueCaveats(value: StateValue): string[] {
             'surface: the clip\'s name and colour, its loop start/end as distinct from its ' +
             'length, its launch quantisation and mode, and its AUTOMATION LANES (D16, §3.3.3).',
       ];
+    case 'clipLaunch':
+    case 'clipPlay':
+      return [];
     case 'device':
       return ['device state has no readback that could reproduce the chain (E3, D8)'];
     case 'track':

@@ -11,10 +11,10 @@
  */
 export {
   ADDRESS_IDENTITY, addressKey, addressScene, addressTrack,
-  clip, device, notes, param, scene, slot, track,
+  clip, clipLaunch, clipPlay, device, notes, param, scene, slot, track,
 } from './address.js';
 export type {
-  Address, AddressKey, AddressKind, BeatRange, ClipAddress, DeviceAddress,
+  Address, AddressKey, AddressKind, BeatRange, ClipAddress, ClipLaunchAddress, ClipPlayAddress, DeviceAddress,
   NotesAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress,
 } from './address.js';
 
@@ -31,16 +31,16 @@ export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 
 export {
   OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertNever, assertOpsAddressable,
-  assertOpsWritable, assertSceneRoom, assertSlotsFree,
+  assertOpsWritable, assertSceneRoom, assertSlotsFree, assertClipSources,
 } from './ops.js';
 export type { DeviceSource, Op, OpKind } from './ops.js';
 
 export {
-  GAIN_READ_SCALE, NOTE_PROP_FIDELITY, NOTE_PROP_WRITE_ORDER, UNVERIFIED_NOTE_PROPS,
+  GAIN_READ_SCALE, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, NOTE_PROP_FIDELITY, NOTE_PROP_WRITE_ORDER, UNVERIFIED_NOTE_PROPS,
   UNWRITABLE_NOTE_PROPS, hasUnverifiedProps, orderedNoteProps, unwritableProps,
 } from './state.js';
 export type {
-  DeviceState, NoteProp, NoteRecord, ParamState, PropFidelity, Recurrence, TrackState,
+  ClipLaunchState, ClipPlayState, DeviceState, LaunchMode, LaunchQuantization, NoteProp, NoteRecord, ParamState, PropFidelity, Recurrence, TrackState,
 } from './state.js';
 
 export { blindCount, failures, fullyApplied, windowCovers } from './snapshot.js';
@@ -60,6 +60,6 @@ export {
   ContractVersionError, InvalidOpError, SlotOccupiedError, StaleAddressError, UnsupportedOpError,
   WireDriftError, blindSpotError,
 } from './errors.js';
-export type { BankDimension } from './errors.js';
+export type { BankDimension, OccupiedSlotHazard } from './errors.js';
 
 export type { BatchRequest, BitwigAdapter, ResolveResult, ResolvedAddress } from './adapter.js';

@@ -325,6 +325,20 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
       return;
     }
 
+    case 'clipLaunch':
+      if (target.address.kind !== 'clipLaunch') return;
+      sink.scalarOps.push({
+        op: 'clip.launchSettings',
+        clip: target.address.clip,
+        quantization: value.launch.quantization,
+        mode: value.launch.mode,
+        useLoopStartAsQuantizationReference: value.launch.useLoopStartAsQuantizationReference,
+      });
+      return;
+
+    case 'clipPlay':
+      return;
+
     case 'track':
       if (target.address.kind !== 'track') return;
       sink.scalarOps.push({ op: 'track.rename', track: target.address, name: value.track.name });
@@ -385,4 +399,3 @@ function withheldReason(prop: string, count: number): string {
 function orderOps(parts: { createOps: Op[]; noteOps: Op[]; scalarOps: Op[]; removalOps: Op[] }): Op[] {
   return [...parts.createOps, ...parts.noteOps, ...parts.scalarOps, ...parts.removalOps];
 }
-

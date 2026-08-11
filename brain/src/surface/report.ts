@@ -80,6 +80,9 @@ export function describeAddress(address: Address): Where {
       return { what: 'slot', trackId: address.track.channelId, row: address.scene.index };
     case 'clip':
       return { what: 'clip', trackId: address.slot.track.channelId, row: address.slot.scene.index };
+    case 'clipLaunch':
+    case 'clipPlay':
+      return { what: 'clip', trackId: address.clip.slot.track.channelId, row: address.clip.slot.scene.index };
     case 'notes':
       return {
         what: 'notes',
@@ -173,6 +176,15 @@ const NO_RISK: StructuralRisk = { scenes: false, deviceChains: false };
  */
 export function lossReasons(value: TakeValue, risk: StructuralRisk = NO_RISK): string[] {
   if (value.fidelity === 'exact') return [];
+  if (value.caveats.some((caveat) =>
+    caveat.includes('clip relocation') || caveat.includes('destination is positional'))) {
+    return [
+      'the clip moved intact, but clips have no durable identity with which to prove that a '
+      + 'later occupant is the same clip. This change is not reversed automatically; the '
+      + 'reported reverse move remains safe only while its old rows stay empty and its new rows '
+      + 'still hold these clips.',
+    ];
+  }
   const reasons: string[] = [];
   if (isAtRisk(value.address, risk)) reasons.push(POSITION_MOVED);
 
@@ -205,6 +217,8 @@ function valueLosses(value: StateValue): string[] {
       return [DEVICE_GONE_FOR_GOOD];
     case 'track':
     case 'param':
+    case 'clipLaunch':
+    case 'clipPlay':
       return [];
   }
 }
@@ -571,6 +585,14 @@ export function refusalOf(error: unknown): Refusal {
     );
   }
   if (error instanceof SlotOccupiedError) {
+    if (error.hazard === 'overwrite') {
+      return refusal(
+        'nothing was written. A destination slot already holds a clip. The requested copy or '
+        + 'move would replace it without any occupancy event, so the call stopped before anything '
+        + 'was sent. Empty the destination or name an empty destination.',
+        { where: error.addresses.map(describeAddress) },
+      );
+    }
     return refusal(
       'nothing was written. A slot named here already holds a clip. Bitwig neither refuses that '
       + 'nor overwrites it: it appends a row at the end of the project and puts the new clip out '
@@ -609,7 +631,10 @@ export function refusalOf(error: unknown): Refusal {
     // ⚠ Which of the two cases this is, read off the address rather than the
     // message: a note address that did not resolve is an empty slot, and every
     // other kind is an id that names nothing this connection can see.
-    const emptySlot = error.address.kind === 'notes';
+    const emptySlot = error.address.kind === 'notes'
+      || error.address.kind === 'clip'
+      || error.address.kind === 'clipLaunch'
+      || error.address.kind === 'clipPlay';
     return refusal(
       emptySlot
         ? 'nothing was written. There is no clip in that slot — or the track id names nothing this '

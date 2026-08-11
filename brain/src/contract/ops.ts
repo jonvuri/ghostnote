@@ -20,11 +20,12 @@
  * hand `insertFile` a relative path (E4h) — because none of those are
  * expressible. That is the point of a typed seam over a string wire.
  */
+import { addressKey, clip } from './address.js';
 import type { ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress, BeatRange } from './address.js';
-import { unwritableProps, type NoteRecord } from './state.js';
+import { unwritableProps, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
 import {
-  BankWindowOverflowError, BlindSpotError, InvalidOpError, SlotOccupiedError,
+  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, InvalidOpError, SlotOccupiedError,
 } from './errors.js';
 import type { WindowCoverage } from './snapshot.js';
 
@@ -64,6 +65,10 @@ export type Op =
   // silently lands the cursor on the WRONG clip, and status looks healthy (E2).
   | { readonly op: 'clip.create'; readonly slot: SlotAddress; readonly lengthBeats: number }
   | { readonly op: 'clip.delete'; readonly slot: SlotAddress }
+  | { readonly op: 'clip.duplicate'; readonly source: ClipAddress; readonly destination: SlotAddress }
+  | { readonly op: 'clip.move'; readonly source: ClipAddress; readonly destination: SlotAddress }
+  | { readonly op: 'clip.launch'; readonly clip: ClipAddress; readonly quantization: LaunchQuantization; readonly mode: LaunchMode }
+  | { readonly op: 'clip.launchSettings'; readonly clip: ClipAddress; readonly quantization: LaunchQuantization; readonly mode: LaunchMode; readonly useLoopStartAsQuantizationReference: boolean }
 
   // --- tracks: the only ops that MINT identity ------------------------------
   // `createInstrumentTrack(position)` does not honour positions (E2c), so the
@@ -107,6 +112,10 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   notify: 'instant',
   'clip.create': 'trackStruct',
   'clip.delete': 'trackStruct',
+  'clip.duplicate': 'trackStruct',
+  'clip.move': 'trackStruct',
+  'clip.launch': 'tick',
+  'clip.launchSettings': 'instant',
   'track.create': 'trackStruct',
   'track.rename': 'trackStruct',
   'track.delete': 'trackStruct',
@@ -164,6 +173,21 @@ export const OP_BUMPS_SCENE_EPOCH: ReadonlySet<OpKind> = new Set<OpKind>(['scene
  */
 export function assertOpsWritable(ops: readonly Op[]): void {
   for (const op of ops) {
+    if (op.op === 'clip.duplicate') {
+      const source = op.source.slot;
+      if (source.track.channelId !== op.destination.track.channelId
+          || op.destination.scene.index !== source.scene.index + 1) {
+        throw new InvalidOpError(
+          op.op,
+          'duplicateClip always writes exactly one row below its source on the same track; '
+          + 'the typed destination must name that measured landing row',
+        );
+      }
+    }
+    if (op.op === 'clip.move'
+        && addressKey(op.source.slot) === addressKey(op.destination)) {
+      throw new InvalidOpError(op.op, 'source and destination must be different slots');
+    }
     if (op.op !== 'note.write' && op.op !== 'note.props') continue;
     for (const note of op.notes) {
       const refused = unwritableProps(note);
@@ -191,17 +215,23 @@ export function assertOpsWritable(ops: readonly Op[]): void {
  * Exhaustive on purpose: a Phase-4/5 variant that carries a scene row and is not
  * listed here fails to COMPILE rather than slipping past the window guard.
  */
-function sceneRowOf(op: Op): SceneAddress | undefined {
+function sceneRowsOf(op: Op): readonly SceneAddress[] {
   switch (op.op) {
     case 'note.write':
     case 'note.clear':
     case 'note.props':
-      return op.clip.slot.scene;
+      return [op.clip.slot.scene];
     case 'clip.create':
     case 'clip.delete':
-      return op.slot.scene;
+      return [op.slot.scene];
+    case 'clip.duplicate':
+    case 'clip.move':
+      return [op.source.slot.scene, op.destination.scene];
+    case 'clip.launch':
+    case 'clip.launchSettings':
+      return [op.clip.slot.scene];
     case 'scene.delete':
-      return op.scene;
+      return [op.scene];
     case 'scene.create':
     case 'track.create':
     case 'track.rename':
@@ -210,9 +240,9 @@ function sceneRowOf(op: Op): SceneAddress | undefined {
     case 'device.delete':
     case 'param.set':
     case 'notify':
-      return undefined;
+      return [];
     default:
-      return assertNever(op, 'sceneRowOf');
+      return assertNever(op, 'sceneRowsOf');
   }
 }
 
@@ -275,8 +305,8 @@ export function assertSceneRoom(ops: readonly Op[], scenes: WindowCoverage): voi
  */
 export function assertOpsAddressable(ops: readonly Op[], scenes: WindowCoverage): void {
   const blind = ops
-    .map(sceneRowOf)
-    .filter((row): row is SceneAddress => row !== undefined && row.index >= scenes.bankSize);
+    .flatMap(sceneRowsOf)
+    .filter((row) => row.index >= scenes.bankSize);
   if (blind.length > 0) throw new BlindSpotError('scenes', blind, scenes.bankSize);
 }
 
@@ -302,11 +332,90 @@ export function assertSlotsFree(
   ops: readonly Op[],
   occupied: (slot: SlotAddress) => boolean | undefined,
 ): void {
-  const taken = ops
-    .filter((op): op is Extract<Op, { op: 'clip.create' }> => op.op === 'clip.create')
-    .filter((op) => occupied(op.slot) !== false)
-    .map((op) => op.slot);
-  if (taken.length > 0) throw new SlotOccupiedError(taken);
+  // Model the occupancy changes in caller order. This permits an overlapping
+  // block move when it is ordered from the far edge inward: the first move
+  // vacates the destination of the second before the second reaches the wire.
+  const projected = new Map<string, boolean | undefined>();
+  const state = (slot: SlotAddress): boolean | undefined => {
+    const key = addressKey(slot);
+    if (!projected.has(key)) projected.set(key, occupied(slot));
+    return projected.get(key);
+  };
+  const set = (slot: SlotAddress, value: boolean): void => {
+    projected.set(addressKey(slot), value);
+  };
+
+  for (const op of ops) {
+    if (op.op === 'clip.create') {
+      if (state(op.slot) !== false) throw new SlotOccupiedError([clip(op.slot)]);
+      set(op.slot, true);
+      continue;
+    }
+    if (op.op === 'clip.duplicate') {
+      if (state(op.destination) !== false) {
+        throw new SlotOccupiedError([clip(op.destination)], 'overwrite');
+      }
+      set(op.destination, true);
+      continue;
+    }
+    if (op.op === 'clip.move') {
+      if (state(op.destination) !== false) {
+        throw new SlotOccupiedError([clip(op.destination)], 'overwrite');
+      }
+      set(op.source.slot, false);
+      set(op.destination, true);
+    }
+  }
+}
+
+/** Every source clip is positively verified at the point its verb runs. */
+export function assertClipSources(
+  ops: readonly Op[],
+  occupied: (slot: SlotAddress) => boolean | undefined,
+): void {
+  // As with the destination guard above, caller order matters. In particular,
+  // settings for a newly copied clip are safe in the same staged batch: the
+  // copy establishes occupancy before the settings stage points at it.
+  const projected = new Map<string, boolean | undefined>();
+  const state = (slot: SlotAddress): boolean | undefined => {
+    const key = addressKey(slot);
+    if (!projected.has(key)) projected.set(key, occupied(slot));
+    return projected.get(key);
+  };
+  const set = (slot: SlotAddress, value: boolean): void => {
+    projected.set(addressKey(slot), value);
+  };
+  const requireClip = (slot: SlotAddress): void => {
+    if (state(slot) !== true) {
+      throw new AddressUnresolvedError(clip(slot), 'the source slot does not contain a verified clip');
+    }
+  };
+
+  for (const op of ops) {
+    switch (op.op) {
+      case 'clip.create':
+        set(op.slot, true);
+        break;
+      case 'clip.delete':
+        set(op.slot, false);
+        break;
+      case 'clip.duplicate':
+        requireClip(op.source.slot);
+        set(op.destination, true);
+        break;
+      case 'clip.move':
+        requireClip(op.source.slot);
+        set(op.source.slot, false);
+        set(op.destination, true);
+        break;
+      case 'clip.launch':
+      case 'clip.launchSettings':
+        requireClip(op.clip.slot);
+        break;
+      default:
+        break;
+    }
+  }
 }
 
 /** Exhaustiveness guard: an unhandled variant fails to compile, not at runtime. */

@@ -283,6 +283,45 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         }),
       ];
 
+    case 'clip.duplicate':
+      return [frame(WIRE.slotDuplicateClip, {
+        trackIndex: ctx.trackIndex(op.source.slot.track),
+        slotIndex: ctx.sceneRow(op.source.slot.scene),
+        route: 'slot',
+      })];
+
+    case 'clip.move':
+      return [frame(WIRE.slotMoveTo, {
+        trackIndex: ctx.trackIndex(op.source.slot.track),
+        slotIndex: ctx.sceneRow(op.source.slot.scene),
+        toTrackIndex: ctx.trackIndex(op.destination.track),
+        toSlotIndex: ctx.sceneRow(op.destination.scene),
+        route: 'insertionPoint',
+      })];
+
+    case 'clip.launch':
+      return [frame(WIRE.slotLaunchWithOptions, {
+        trackIndex: ctx.trackIndex(op.clip.slot.track),
+        slotIndex: ctx.sceneRow(op.clip.slot.scene),
+        quantization: op.quantization,
+        launchMode: op.mode,
+      })];
+
+    case 'clip.launchSettings': {
+      const t = ctx.trackIndex(op.clip.slot.track);
+      const s = ctx.sceneRow(op.clip.slot.scene);
+      const cursor = ctx.cursorFor(op.clip);
+      return [
+        ...pointFrames(cursor, t, s),
+        frame(WIRE.cursorSetLaunchSettings, {
+          cursor,
+          launchQuantization: op.quantization,
+          launchMode: op.mode,
+          useLoopStartAsQuantizationReference: op.useLoopStartAsQuantizationReference,
+        }),
+      ];
+    }
+
     case 'track.create':
       // `position` is a REQUEST, not a promise: createInstrumentTrack does not
       // honour bank positions (asking for 9 landed at 7, asking for 0 landed at

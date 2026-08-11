@@ -46,6 +46,10 @@ export const WIRE = {
   slotStatus: 'slot.status',
   slotSelect: 'slot.select',
   slotDelete: 'slot.delete',
+  slotDuplicateClip: 'slot.duplicateClip',
+  slotLaunchWithOptions: 'slot.launchWithOptions',
+  slotPlayState: 'slot.playState',
+  slotMoveTo: 'slot.moveTo',
 
   /**
    * The user's own clip selection, as an observer's last value.
@@ -63,6 +67,9 @@ export const WIRE = {
   cursorSetNotes: 'cursor.setNotes',
   cursorGetNotes: 'cursor.getNotes',
   cursorGetNotesVerbose: 'cursor.getNotesVerbose',
+  cursorPlayState: 'cursor.playState',
+  cursorLaunchSettings: 'cursor.launchSettings',
+  cursorSetLaunchSettings: 'cursor.setLaunchSettings',
   cursorClearNotes: 'cursor.clearNotes',
   cursorSetNoteProps: 'cursor.setNoteProps',
 

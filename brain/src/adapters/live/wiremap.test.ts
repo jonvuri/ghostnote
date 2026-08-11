@@ -67,7 +67,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
   // wire without landing in a named bucket is one nobody has had to justify.
   assert.deepEqual([...golden.addedInPhase0].sort(),
     [...golden.addedInSession1, ...golden.addedInSession2,
-      ...(golden.addedInE16 ?? []), ...(golden.addedInE20 ?? [])].sort());
+      ...(golden.addedInE16 ?? []), ...(golden.addedInE20 ?? []),
+      ...(golden.addedInSession3eProbe ?? [])].sort());
 });
 
 test('E16: the branch probe surface is probe surface, and the contract cannot reach it', () => {
@@ -213,7 +214,8 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   const unexpected = e16.filter((m) => !m.startsWith('branch.') && !allowed.includes(m));
   assert.deepEqual(unexpected, [], `E16 added an unexpected method: ${unexpected.join(', ')}`);
   const reachable = e16.filter((m) => WIRE_METHODS_USED.includes(m));
-  assert.deepEqual(reachable, [], 'E16 is a mini-spike, not a capability — the contract must not reach any of it');
+  assert.deepEqual(reachable, ['slot.moveTo'],
+    'only the measured clip relocation primitive is promoted by session 3e');
 });
 
 test('E20: session 3b early-probe surface is probe surface, and the contract cannot reach it', () => {
@@ -262,8 +264,18 @@ test('E20: session 3b early-probe surface is probe surface, and the contract can
   const unexpected = e20.filter((m) => !allowed.includes(m));
   assert.deepEqual(unexpected, [], `session 3b added an unexpected method: ${unexpected.join(', ')}`);
   const reachable = e20.filter((m) => WIRE_METHODS_USED.includes(m));
-  assert.deepEqual(reachable, [],
-    'these are probes for a design that has not been made — the contract must not reach any of it');
+  assert.deepEqual(reachable.sort(), [
+    'cursor.playState', 'slot.duplicateClip', 'slot.launchWithOptions', 'slot.playState',
+  ], 'session 3e promotes the four measured clip primitives; ui.get remains probe-only');
+});
+
+test('3e-arm-1: per-clip launch-setting probes are named and promoted', () => {
+  const expected = ['cursor.launchSettings', 'cursor.setLaunchSettings'];
+  const methods = golden.addedInSession3eProbe ?? [];
+  assert.deepEqual([...methods].sort(), expected,
+    'session 3e arm 1 must contain exactly its read and write instruments');
+  assert.deepEqual(methods.filter((m) => !WIRE_METHODS_USED.includes(m)), [],
+    'arm 1 passed live, so both measured settings methods must now be production-reachable');
 });
 
 test('W-hash: the golden hash matches its own method list', () => {

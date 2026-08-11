@@ -55,6 +55,56 @@ const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
   startBeats: 0, pitch: 60, velocity: 100, durationBeats: 1, ...over,
 });
 
+// --- 3e: the measured clip primitives --------------------------------------
+
+test('E-clip-block: copy, move, launch and settings encode only measured routes', () => {
+  const destination = slot(TRACK_A, scene(1, 1));
+
+  const copied = encodeOp({
+    op: 'clip.duplicate', source: CLIP_A, destination,
+  }, ctx);
+  assert.deepEqual(copied, [{
+    method: WIRE.slotDuplicateClip,
+    params: { trackIndex: 3, slotIndex: 0, route: 'slot' },
+  }]);
+
+  const moved = encodeOp({ op: 'clip.move', source: CLIP_A, destination }, ctx);
+  assert.deepEqual(moved, [{
+    method: WIRE.slotMoveTo,
+    params: {
+      trackIndex: 3, slotIndex: 0, toTrackIndex: 3, toSlotIndex: 1,
+      route: 'insertionPoint',
+    },
+  }]);
+
+  const launched = encodeOp({
+    op: 'clip.launch', clip: CLIP_A, quantization: '1', mode: 'continue_or_synced',
+  }, ctx);
+  assert.deepEqual(launched, [{
+    method: WIRE.slotLaunchWithOptions,
+    params: {
+      trackIndex: 3, slotIndex: 0, quantization: '1', launchMode: 'continue_or_synced',
+    },
+  }]);
+
+  const settings = encodeOp({
+    op: 'clip.launchSettings',
+    clip: CLIP_A,
+    quantization: '1',
+    mode: 'continue_or_synced',
+    useLoopStartAsQuantizationReference: false,
+  }, ctx);
+  assert.deepEqual(methods(settings), [
+    WIRE.cursorPointTrack, WIRE.slotSelect, WIRE.cursorSetLaunchSettings,
+  ]);
+  assert.deepEqual(paramsOf(settings, WIRE.cursorSetLaunchSettings), {
+    cursor: '0',
+    launchQuantization: '1',
+    launchMode: 'continue_or_synced',
+    useLoopStartAsQuantizationReference: false,
+  });
+});
+
 // --- E4 / E4b: the two parameter APIs, two different silent-no-op traps ------
 
 test('E-immediate: a typed param write is ALWAYS setImmediately, never set (E4)', () => {

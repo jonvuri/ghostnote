@@ -249,3 +249,31 @@ export interface DeviceState {
   readonly name: string;
   readonly params: readonly ParamState[];
 }
+
+export const LAUNCH_QUANTIZATIONS = [
+  'default', 'none', '8', '4', '2', '1', '1/2', '1/4', '1/8', '1/16',
+] as const;
+export type LaunchQuantization = (typeof LAUNCH_QUANTIZATIONS)[number];
+
+export const LAUNCH_MODES = [
+  'default', 'from_start', 'continue_or_from_start', 'continue_or_synced', 'synced',
+] as const;
+export type LaunchMode = (typeof LAUNCH_MODES)[number];
+
+export interface ClipLaunchState {
+  readonly quantization: LaunchQuantization;
+  readonly mode: LaunchMode;
+  readonly useLoopStartAsQuantizationReference: boolean;
+}
+
+export interface ClipPlayState {
+  readonly hasContent: boolean;
+  readonly isPlaying: boolean;
+  readonly isPlaybackQueued: boolean;
+  readonly isStopQueued: boolean;
+  /** Clip-local playback step from Clip.playingStep(); -1 when no clip can be read. */
+  readonly playingStep: number;
+  /** Sample time assigned inside the extension, beside playingStep/playPosition. */
+  readonly sampledAtMs: number;
+  readonly playPosition: number;
+}

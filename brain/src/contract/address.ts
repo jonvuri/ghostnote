@@ -49,6 +49,16 @@ export interface ClipAddress {
   readonly slot: SlotAddress;
 }
 
+export interface ClipLaunchAddress {
+  readonly kind: 'clipLaunch';
+  readonly clip: ClipAddress;
+}
+
+export interface ClipPlayAddress {
+  readonly kind: 'clipPlay';
+  readonly clip: ClipAddress;
+}
+
 /** Beats, always. The step grid is a per-operation view, never global state (E2). */
 export interface BeatRange {
   readonly startBeats: number;
@@ -91,6 +101,8 @@ export type Address =
   | SceneAddress
   | SlotAddress
   | ClipAddress
+  | ClipLaunchAddress
+  | ClipPlayAddress
   | NotesAddress
   | DeviceAddress
   | ParamAddress;
@@ -107,6 +119,8 @@ export const ADDRESS_IDENTITY: Record<AddressKind, 'durable' | 'positional'> = {
   scene: 'positional',
   slot: 'positional',
   clip: 'positional',
+  clipLaunch: 'positional',
+  clipPlay: 'positional',
   notes: 'positional',
   device: 'positional',
   param: 'positional',
@@ -125,6 +139,10 @@ export function addressKey(a: Address): AddressKey {
       return `slot:${a.track.channelId}:${a.scene.index}@${a.scene.epoch}`;
     case 'clip':
       return `clip:${a.slot.track.channelId}:${a.slot.scene.index}@${a.slot.scene.epoch}`;
+    case 'clipLaunch':
+      return `clipLaunch:${a.clip.slot.track.channelId}:${a.clip.slot.scene.index}@${a.clip.slot.scene.epoch}`;
+    case 'clipPlay':
+      return `clipPlay:${a.clip.slot.track.channelId}:${a.clip.slot.scene.index}@${a.clip.slot.scene.epoch}`;
     case 'notes': {
       const clip = `${a.clip.slot.track.channelId}:${a.clip.slot.scene.index}@${a.clip.slot.scene.epoch}`;
       const range = a.range ? `:${a.range.startBeats}-${a.range.endBeats}` : '';
@@ -152,6 +170,9 @@ export function addressTrack(a: Address): TrackAddress | undefined {
       return a.track;
     case 'clip':
       return a.slot.track;
+    case 'clipLaunch':
+    case 'clipPlay':
+      return a.clip.slot.track;
     case 'notes':
       return a.clip.slot.track;
     case 'device':
@@ -170,6 +191,9 @@ export function addressScene(a: Address): SceneAddress | undefined {
       return a.scene;
     case 'clip':
       return a.slot.scene;
+    case 'clipLaunch':
+    case 'clipPlay':
+      return a.clip.slot.scene;
     case 'notes':
       return a.clip.slot.scene;
     default:
@@ -186,6 +210,10 @@ export const scene = (index: number, epoch: number): SceneAddress => ({ kind: 's
 export const slot = (t: TrackAddress, s: SceneAddress): SlotAddress => ({ kind: 'slot', track: t, scene: s });
 
 export const clip = (s: SlotAddress): ClipAddress => ({ kind: 'clip', slot: s });
+
+export const clipLaunch = (c: ClipAddress): ClipLaunchAddress => ({ kind: 'clipLaunch', clip: c });
+
+export const clipPlay = (c: ClipAddress): ClipPlayAddress => ({ kind: 'clipPlay', clip: c });
 
 export const notes = (c: ClipAddress, channel = 0, range?: BeatRange): NotesAddress =>
   range === undefined ? { kind: 'notes', clip: c, channel } : { kind: 'notes', clip: c, channel, range };

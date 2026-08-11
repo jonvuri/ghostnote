@@ -25,7 +25,8 @@
  *      dropping them on the floor would produce.
  */
 import {
-  ADDRESS_IDENTITY, OP_BUMPS_SCENE_EPOCH, addressKey, assertNever, clip as clipAt, notes as notesAt,
+  ADDRESS_IDENTITY, OP_BUMPS_SCENE_EPOCH, addressKey, assertNever, clip as clipAt,
+  clipLaunch, notes as notesAt,
   type Address, type AddressKey, type Op, type OpKind,
 } from '../contract/index.js';
 
@@ -119,6 +120,31 @@ function targetsOf(op: Op): { address: Address; restore: Restore; reason?: strin
         { address: clipAt(op.slot), restore: 'replay' },
         { address: notesAt(clipAt(op.slot), 0), restore: 'replay' },
       ];
+
+    // The destination was verified empty before the host's copy call. Its
+    // absence is an exact stash value, so the inverse is the same exact
+    // clip.delete used for clip.create.
+    case 'clip.duplicate':
+      return [
+        { address: clipAt(op.destination), restore: 'replay' },
+        { address: notesAt(clipAt(op.destination), 0), restore: 'replay' },
+      ];
+
+    // Moving preserves opaque clip state, but positional clip identity cannot
+    // prove that a later occupant is the object we moved. The operation is
+    // mechanically reversible by moving it back; automatic reversal declines.
+    case 'clip.move':
+      return [
+        { address: clipAt(op.source.slot), restore: 'none', reason: 'clip relocation preserves the object, but clips have no identity with which to prove a later reverse move targets the same object' },
+        { address: clipAt(op.destination), restore: 'none', reason: 'the destination is positional and a later occupant cannot be identified as the moved clip' },
+      ];
+
+    case 'clip.launchSettings':
+      return [{ address: clipLaunch(op.clip), restore: 'replay' }];
+
+    // Launching is transient playback control, not a project edit to restore.
+    case 'clip.launch':
+      return [];
 
     case 'track.rename':
       return [{ address: op.track, restore: 'replay' }];
@@ -268,6 +294,8 @@ export function isAtRisk(address: Address, risk: StructuralRisk): boolean {
     case 'scene':
     case 'slot':
     case 'clip':
+    case 'clipLaunch':
+    case 'clipPlay':
     case 'notes':
       return risk.scenes;
     case 'device':

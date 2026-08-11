@@ -13,10 +13,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-08-09",
+  "extractedAt": "2026-08-11",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 140,
-  "methodsHash": "d8168372c04c1e07",
+  "count": 142,
+  "methodsHash": "fa636974130033ba",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -29,7 +29,9 @@
     "chain.inventory",
     "chain.move",
     "contract.hello",
+    "cursor.launchSettings",
     "cursor.playState",
+    "cursor.setLaunchSettings",
     "device.insertVst3",
     "device.moveTo",
     "device.selectInEditor",
@@ -125,12 +127,14 @@
     "cursor.clearNotes",
     "cursor.getNotes",
     "cursor.getNotesVerbose",
+    "cursor.launchSettings",
     "cursor.pin",
     "cursor.pinTrack",
     "cursor.playState",
     "cursor.pointToClipOf",
     "cursor.pointTrack",
     "cursor.setAndReadNote",
+    "cursor.setLaunchSettings",
     "cursor.setNoteProps",
     "cursor.setNotes",
     "cursor.setStepSize",
@@ -370,5 +374,9 @@
     "slot.launchWithOptions",
     "slot.playState",
     "ui.get"
+  ],
+  "addedInSession3eProbe": [
+    "cursor.launchSettings",
+    "cursor.setLaunchSettings"
   ]
 }

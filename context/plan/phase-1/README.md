@@ -2,9 +2,9 @@
 title: Phase 1 — write engine and branching
 kind: plan
 state: active
-updated: 2026-08-10
+updated: 2026-08-11
 parent: ../ROADMAP.md
-active_session: 3e-clip-block.md
+active_session: 3f-fork-chain.md
 ---
 
 # Phase 1 — write engine and branching
@@ -21,7 +21,7 @@ The project is the take log. Branching uses three complementary mechanisms:
 
 | Mechanism | Best fit | Current state |
 |---|---|---|
-| Clip block | Beat-aligned, position-continuous clip A/B | session 3e next |
+| Clip block | Beat-aligned, position-continuous clip A/B | session 3e done; production MCP smoke 9/9 |
 | Track fork | Coarse track-wide branch | wire proven; product mechanism in 3f |
 | Layer chain | Device-scoped branch | partial wire; nested addressing in 3f |
 
@@ -31,8 +31,8 @@ agent-facing surface.
 
 ## Execution order
 
-1. [3e — clip block](3e-clip-block.md)
-2. [3f — track fork and layer chain](3f-fork-chain.md)
+1. ~~[3e — clip block](3e-clip-block.md)~~ — done
+2. [3f — track fork and layer chain](3f-fork-chain.md) — next
 3. [3g — record, classifier, and v1 freeze](3g-record.md)
 4. [4 — control layer](4-control-layer.md)
 5. [5 — live proving](5-proving.md)
@@ -49,4 +49,3 @@ renumbering history, remains in `archive/plans/PHASE-1-ENGINE.md`.
 - Reversal and destructive boundaries match D18–D20.
 - A human can compare two takes from Bitwig without a ghostnote-specific A/B UI.
 - Live conformance covers the address, write, branch, and control paths.
-

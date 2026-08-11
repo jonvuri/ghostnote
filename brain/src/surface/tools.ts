@@ -52,13 +52,14 @@ import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 
 import {
-  clip as clipAt, notes as notesAt, param as paramAt, scene as sceneAt, slot as slotAt,
-  track as trackAt, device as deviceAt,
-  addressKey, blindCount, SlotOccupiedError,
+  clip as clipAt, clipLaunch as launchAt, clipPlay as playAt, notes as notesAt,
+  param as paramAt, scene as sceneAt, slot as slotAt, track as trackAt, device as deviceAt,
+  addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS,
+  AddressUnresolvedError, SlotOccupiedError,
   type Address, type ClipAddress, type DeviceSource, type NoteRecord, type Op, type OpKind,
   type RevisionMark,
 } from '../contract/index.js';
-import { directedDestruction } from '../engine/index.js';
+import { branchProtected, directedDestruction } from '../engine/index.js';
 import { selectClip, selectTrack, type Slice } from '../stash/index.js';
 import { describeAddress, receiptOf, refusalOf, reversalReport } from './report.js';
 import type { Workspace } from './workspace.js';
@@ -150,8 +151,17 @@ const trackId = z.string().describe(
 );
 
 const row = z.number().int().min(0).describe(
-  'Which launcher row, counting from 0. A row is a position, so adding or removing rows changes '
-  + 'what it means — a call made against a stale row number is refused, never guessed at.',
+  'Which launcher row, counting from 0. Bitwig displays the same scene row as this number plus 1. '
+  + 'A row is a position, so adding or removing rows changes what it means — a call made against '
+  + 'a stale row number is refused, never guessed at.',
+);
+
+const launchQuantization = z.enum(LAUNCH_QUANTIZATIONS).describe(
+  'Launch grid: project default, none, or the named beat division.',
+);
+
+const launchMode = z.enum(LAUNCH_MODES).describe(
+  'Where playback enters the clip. continue_or_synced follows the outgoing clip position on the grid.',
 );
 
 const channel = z.number().int().min(0).max(15).optional().describe(
@@ -340,9 +350,15 @@ export const TOOLS: readonly ToolSpec[] = [
         // would come back as the confident, wrong sentence "there is no clip
         // there".
         const trackAddress = trackAt(args.trackId);
-        const snapshot = await workspace.read([trackAddress, clip, notesAddress]);
+        const launchAddress = launchAt(clip);
+        const playAddress = playAt(clip);
+        const snapshot = await workspace.read([
+          trackAddress, clip, notesAddress, launchAddress, playAddress,
+        ]);
         const clipEntry = snapshot.entries[addressKey(clip)];
         const notesEntry = snapshot.entries[addressKey(notesAddress)];
+        const launchEntry = snapshot.entries[addressKey(launchAddress)];
+        const playEntry = snapshot.entries[addressKey(playAddress)];
         const value = clipEntry?.value.of === 'clip' ? clipEntry.value : undefined;
         const where = describeAddress(clip);
 
@@ -369,6 +385,105 @@ export const TOOLS: readonly ToolSpec[] = [
           clipExists: value?.exists === true,
           lengthBeats: value?.lengthBeats ?? null,
           notes: notesEntry?.value.of === 'notes' ? notesEntry.value.notes : [],
+          launch: launchEntry?.value.of === 'clipLaunch' ? launchEntry.value.launch : null,
+          playback: playEntry?.value.of === 'clipPlay' ? playEntry.value.play : null,
+        };
+      });
+    },
+  }),
+
+  tool({
+    name: 'inspect_clip_block',
+    kind: 'read',
+    title: 'Inspect a contiguous clip block',
+    description:
+      'Check a range on one launcher track. Every row in the range is read, along with the slots '
+      + 'immediately above and below it. The answer reports whether the range is contiguous and '
+      + 'whether both boundaries are empty. A missing row is reported as missing, never empty. '
+      + 'Tool rows count from 0; Bitwig scene rows count from 1.',
+    inputSchema: {
+      trackId,
+      firstRow: row.describe('First row in the range, counting from 0.'),
+      lastRow: row.describe('Last row in the range, inclusive and counting from 0.'),
+    },
+    async run(workspace, args) {
+      return writing(async () => {
+        if (args.firstRow > args.lastRow) {
+          return {
+            readable: false,
+            why: 'firstRow must be less than or equal to lastRow. Nothing was read as a block.',
+          };
+        }
+        const at = await workspace.mark();
+        const count = at.window.scenes.count;
+        if (count >= 0 && args.lastRow >= count) {
+          return {
+            readable: false,
+            why: 'the range reaches a row that does not exist. Add launcher rows at the end, then '
+              + 'inspect the range again.',
+            rowsInProject: count,
+          };
+        }
+
+        const firstRead = Math.max(0, args.firstRow - 1);
+        const lastRead = Math.min(
+          at.window.scenes.bankSize - 1,
+          count < 0 ? args.lastRow + 1 : Math.min(count - 1, args.lastRow + 1),
+        );
+        const clips = Array.from(
+          { length: Math.max(0, lastRead - firstRead + 1) },
+          (_, offset) => clipOf(args.trackId, firstRead + offset, at),
+        );
+        const trackAddress = trackAt(args.trackId);
+        const snapshot = await workspace.read([trackAddress, ...clips]);
+        if (snapshot.entries[addressKey(trackAddress)] === undefined) {
+          return {
+            readable: false,
+            why: 'that id does not name a track this connection can see. list_tracks reports the '
+              + 'ids that exist.',
+          };
+        }
+        if (snapshot.unreachable.length > 0) {
+          return {
+            readable: false,
+            why: 'part of the range is outside the rows this connection can address. Invisible is '
+              + 'not the same as empty.',
+          };
+        }
+
+        const occupied = (index: number): boolean | undefined => {
+          const address = clipOf(args.trackId, index, at);
+          const entry = snapshot.entries[addressKey(address)];
+          return entry?.value.of === 'clip' ? entry.value.exists : undefined;
+        };
+        const rows = Array.from(
+          { length: args.lastRow - args.firstRow + 1 },
+          (_, offset) => args.firstRow + offset,
+        );
+        const above = args.firstRow === 0
+          ? 'project-edge'
+          : occupied(args.firstRow - 1) === false ? 'empty' : 'occupied';
+        const below = count >= 0 && args.lastRow + 1 >= count
+          ? 'missing-row'
+          : occupied(args.lastRow + 1) === false ? 'empty' : 'occupied';
+        const contiguous = rows.every((index) => occupied(index) === true);
+        return {
+          readable: true,
+          range: {
+            firstRow: args.firstRow,
+            lastRow: args.lastRow,
+            firstBitwigSceneRow: args.firstRow + 1,
+            lastBitwigSceneRow: args.lastRow + 1,
+          },
+          rows: rows.map((index) => ({
+            row: index,
+            bitwigSceneRow: index + 1,
+            clipExists: occupied(index) === true,
+          })),
+          contiguous,
+          boundaryAbove: above,
+          boundaryBelow: below,
+          boundedByEmptySlots: contiguous && above === 'empty' && below === 'empty',
         };
       });
     },
@@ -436,6 +551,294 @@ export const TOOLS: readonly ToolSpec[] = [
   }),
 
   // ============================== write =====================================
+  tool({
+    name: 'copy_clip_down',
+    kind: 'write',
+    title: 'Copy a clip to the next row',
+    description:
+      'Copy one launcher clip into the immediately following row on the same track. The '
+      + 'destination must already exist and is positively read as empty before the call; an '
+      + 'occupied destination is refused because Bitwig would silently replace its clip without '
+      + 'an occupancy event. Add rows only at the end with add_scenes when room is missing.\n'
+      + 'The source is first set to the requested launch grid and mode, and those settings travel '
+      + 'with the copied clip. A person clicking either clip in Bitwig then gets the same launch '
+      + 'behaviour. continue_or_synced enters at the outgoing clip position on the grid; that '
+      + 'position continuity requires the outgoing clip itself to be on the grid.\n'
+      + 'Hands-off cycling is not configured here. Bitwig Next Actions cannot be set, read, or '
+      + 'verified through this API. A person must configure them in the Inspector, and this '
+      + 'system cannot distinguish configured from unconfigured. Tool row N is Bitwig scene row N+1.',
+    inputSchema: {
+      trackId,
+      row: row.describe('Source row, counting from 0. The destination is row + 1.'),
+      quantization: launchQuantization,
+      mode: launchMode,
+      useLoopStartAsQuantizationReference: z.boolean().default(false).optional().describe(
+        'Whether the clip loop start, rather than the project grid, is the quantization reference.',
+      ),
+    },
+    emits: ['clip.launchSettings', 'clip.duplicate'],
+    async run(workspace, args) {
+      return writing(async () => {
+        const at = await workspace.mark();
+        const destinationRow = args.row + 1;
+        if (at.window.scenes.count >= 0 && destinationRow >= at.window.scenes.count) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'the destination row does not exist. Add one launcher row at the end with '
+              + 'add_scenes, then repeat this call.',
+            destination: { row: destinationRow, bitwigSceneRow: destinationRow + 1 },
+          };
+        }
+        const source = clipOf(args.trackId, args.row, at);
+        const destination = slotOf(args.trackId, destinationRow, at);
+        const snapshot = await workspace.read([
+          trackAt(args.trackId), source, clipAt(destination),
+        ]);
+        if (snapshot.unreachable.length > 0) {
+          throw blindSpotError(snapshot.unreachable, at.window);
+        }
+        const sourceEntry = snapshot.entries[addressKey(source)];
+        if (sourceEntry?.value.of !== 'clip' || !sourceEntry.value.exists) {
+          throw new AddressUnresolvedError(source, 'the source slot does not contain a clip');
+        }
+        const destinationEntry = snapshot.entries[addressKey(clipAt(destination))];
+        if (destinationEntry?.value.of !== 'clip' || destinationEntry.value.exists) {
+          throw new SlotOccupiedError([clipAt(destination)], 'overwrite');
+        }
+
+        const quantizationReference = args.useLoopStartAsQuantizationReference ?? false;
+        const change = await workspace.apply([
+          {
+            op: 'clip.launchSettings',
+            clip: source,
+            quantization: args.quantization,
+            mode: args.mode,
+            useLoopStartAsQuantizationReference: quantizationReference,
+          },
+          { op: 'clip.duplicate', source, destination },
+          {
+            op: 'clip.launchSettings',
+            clip: clipAt(destination),
+            quantization: args.quantization,
+            mode: args.mode,
+            useLoopStartAsQuantizationReference: quantizationReference,
+          },
+        ]);
+        const copied = clipAt(destination);
+        const verified = await workspace.read([launchAt(copied)]);
+        const launchEntry = verified.entries[addressKey(launchAt(copied))];
+        const launch = launchEntry?.value.of === 'clipLaunch' ? launchEntry.value.launch : null;
+        return {
+          ...receiptOf(change),
+          copiedTo: {
+            trackId: args.trackId,
+            row: destinationRow,
+            bitwigSceneRow: destinationRow + 1,
+          },
+          clickLaunch: launch,
+          clickLaunchVerified: launch?.quantization === args.quantization
+            && launch.mode === args.mode
+            && launch.useLoopStartAsQuantizationReference === quantizationReference,
+          handsOffCycling:
+            'not configured. Next Actions require a person in Bitwig, and their state cannot be read here.',
+        };
+      });
+    },
+  }),
+
+  tool({
+    name: 'set_clip_launch',
+    kind: 'write',
+    title: 'Set how clips launch',
+    description:
+      'Set the per-clip launch grid and mode used by a person clicking clips in Bitwig. The prior '
+      + 'values are read and recorded, so this change can be undone. continue_or_synced enters at '
+      + 'the outgoing clip position on the grid; that position continuity requires the outgoing '
+      + 'clip itself to be on the grid. This does not start playback and does not configure Next '
+      + 'Actions.',
+    inputSchema: {
+      clips: z.array(z.object({
+        trackId,
+        row,
+        quantization: launchQuantization,
+        mode: launchMode,
+        useLoopStartAsQuantizationReference: z.boolean().default(false).optional(),
+      })).min(1),
+    },
+    emits: ['clip.launchSettings'],
+    async run(workspace, args) {
+      return writing(async () => {
+        const at = await workspace.mark();
+        const ops: Op[] = args.clips.map((item) => ({
+          op: 'clip.launchSettings',
+          clip: clipOf(item.trackId, item.row, at),
+          quantization: item.quantization,
+          mode: item.mode,
+          useLoopStartAsQuantizationReference:
+            item.useLoopStartAsQuantizationReference ?? false,
+        }));
+        return receiptOf(await workspace.apply(ops));
+      });
+    },
+  }),
+
+  tool({
+    name: 'launch_clip',
+    kind: 'write',
+    title: 'Launch one clip',
+    description:
+      'Launch a clip with a per-call grid and mode, then read whether it is queued or playing. '
+      + 'This starts the transport. One call performs one switch; it does not keep cycling. '
+      + 'continue_or_synced enters at the outgoing clip position on the grid, provided the '
+      + 'outgoing clip itself is on that grid.',
+    inputSchema: { trackId, row, quantization: launchQuantization, mode: launchMode },
+    emits: ['clip.launch'],
+    async run(workspace, args) {
+      return writing(async () => {
+        const at = await workspace.mark();
+        const clip = clipOf(args.trackId, args.row, at);
+        const change = await workspace.apply([{
+          op: 'clip.launch',
+          clip,
+          quantization: args.quantization,
+          mode: args.mode,
+        }]);
+        const snapshot = await workspace.read([playAt(clip)]);
+        const entry = snapshot.entries[addressKey(playAt(clip))];
+        return {
+          ...receiptOf(change),
+          playback: entry?.value.of === 'clipPlay' ? entry.value.play : null,
+          startsTransport: true,
+          oneCallPerSwitch: true,
+          positionContinuousOnlyIfOutgoingClipIsOnGrid: true,
+        };
+      });
+    },
+  }),
+
+  tool({
+    name: 'move_clip_block',
+    kind: 'write',
+    title: 'Move a contiguous clip block',
+    description:
+      'Move a contiguous range of clips intact on one track, including clip metadata and '
+      + 'automation. Source rows must all hold clips. The destination range and the empty slots '
+      + 'directly outside it must already exist unless the upper boundary is the project edge; '
+      + 'destination rows outside the source range must be empty. Overlapping moves are ordered '
+      + 'from the far edge inward so no clip is replaced.\n'
+      + 'Clips have no durable identity, so revert_change does not move them back automatically. '
+      + 'The answer supplies the exact reverse call. That reverse is safe only while the old '
+      + 'source rows remain empty and the new rows still hold these clips. Tool rows count from '
+      + '0; Bitwig scene rows count from 1.',
+    inputSchema: {
+      trackId,
+      firstRow: row.describe('First source row, inclusive.'),
+      lastRow: row.describe('Last source row, inclusive.'),
+      destinationFirstRow: row.describe('Where the first source clip will land.'),
+    },
+    emits: ['clip.move'],
+    async run(workspace, args) {
+      return writing(async () => {
+        if (args.firstRow > args.lastRow || args.destinationFirstRow === args.firstRow) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: args.firstRow > args.lastRow
+              ? 'firstRow must be less than or equal to lastRow.'
+              : 'the source and destination ranges are the same, so there is nothing to move.',
+          };
+        }
+        const at = await workspace.mark();
+        const length = args.lastRow - args.firstRow + 1;
+        const destinationLastRow = args.destinationFirstRow + length - 1;
+        const requiredLastRow = destinationLastRow + 1;
+        if (at.window.scenes.count >= 0 && requiredLastRow >= at.window.scenes.count) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'the destination range has no existing empty slot below it. Add launcher rows '
+              + 'at the end, then inspect and repeat the move.',
+            requiredRowsInProject: requiredLastRow + 1,
+          };
+        }
+
+        const sourceRows = Array.from({ length }, (_, offset) => args.firstRow + offset);
+        const destinationRows = Array.from(
+          { length }, (_, offset) => args.destinationFirstRow + offset,
+        );
+        const rowsToRead = [...new Set([
+          ...sourceRows,
+          ...destinationRows,
+          args.destinationFirstRow - 1,
+          destinationLastRow + 1,
+        ].filter((index) => index >= 0))];
+        const clips = rowsToRead.map((index) => clipOf(args.trackId, index, at));
+        const snapshot = await workspace.read([trackAt(args.trackId), ...clips]);
+        if (snapshot.unreachable.length > 0) {
+          throw blindSpotError(snapshot.unreachable, at.window);
+        }
+        const occupied = (index: number): boolean | undefined => {
+          const entry = snapshot.entries[addressKey(clipOf(args.trackId, index, at))];
+          return entry?.value.of === 'clip' ? entry.value.exists : undefined;
+        };
+        if (!sourceRows.every((index) => occupied(index) === true)) {
+          const empty = sourceRows.find((index) => occupied(index) !== true)!;
+          throw new AddressUnresolvedError(
+            clipOf(args.trackId, empty, at),
+            'every source row must contain a verified clip',
+          );
+        }
+        const sourceSet = new Set(sourceRows);
+        const blocked = destinationRows.filter(
+          (index) => !sourceSet.has(index) && occupied(index) !== false,
+        );
+        const boundaries = [args.destinationFirstRow - 1, destinationLastRow + 1]
+          .filter((index) => index >= 0 && !sourceSet.has(index));
+        blocked.push(...boundaries.filter((index) => occupied(index) !== false));
+        if (blocked.length > 0) {
+          throw new SlotOccupiedError(
+            [...new Set(blocked)].map((index) => clipOf(args.trackId, index, at)),
+            'overwrite',
+          );
+        }
+
+        const ordered = args.destinationFirstRow > args.firstRow
+          ? [...sourceRows].reverse()
+          : sourceRows;
+        const ops: Op[] = ordered.map((sourceRow) => {
+          const offset = sourceRow - args.firstRow;
+          return {
+            op: 'clip.move',
+            source: clipOf(args.trackId, sourceRow, at),
+            destination: slotOf(args.trackId, args.destinationFirstRow + offset, at),
+          };
+        });
+        const change = await workspace.apply(ops, {
+          clearance: branchProtected(
+            `clip-move:${args.trackId}:${args.firstRow}-${args.lastRow}>${args.destinationFirstRow}`,
+          ),
+        });
+        return {
+          ...receiptOf(change),
+          movedTo: {
+            firstRow: args.destinationFirstRow,
+            lastRow: destinationLastRow,
+            firstBitwigSceneRow: args.destinationFirstRow + 1,
+            lastBitwigSceneRow: destinationLastRow + 1,
+          },
+          reverse: {
+            tool: 'move_clip_block',
+            trackId: args.trackId,
+            firstRow: args.destinationFirstRow,
+            lastRow: destinationLastRow,
+            destinationFirstRow: args.firstRow,
+          },
+        };
+      });
+    },
+  }),
+
   tool({
     name: 'write_notes',
     kind: 'write',

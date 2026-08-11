@@ -29,12 +29,12 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertOpsAddressable, assertOpsWritable,
-  assertSceneRoom, assertSlotsFree, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
+  assertClipSources, assertSceneRoom, assertSlotsFree, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
   windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ClipAddress, type ContentDelta, type ContentEvent, type Fidelity,
   type NoteRecord, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
-  type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
+  type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { SETTLE_MS } from '../../contract/index.js';
@@ -150,6 +150,7 @@ export interface LiveOptions {
  */
 const STRUCTURAL: ReadonlySet<string> = new Set([
   'clip.create', 'clip.delete', 'track.create', 'track.delete',
+  'clip.duplicate', 'clip.move',
   'scene.create', 'scene.delete', 'device.insert', 'device.delete',
 ]);
 
@@ -165,7 +166,8 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
  */
 const borrowsSelection = (op: Op): boolean =>
   op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear'
-  || op.op === 'device.insert' || op.op === 'device.delete';
+  || op.op === 'device.insert' || op.op === 'device.delete'
+  || op.op === 'clip.launchSettings';
 
 export class LiveAdapter implements BitwigAdapter {
   private readonly transport: Transport;
@@ -675,7 +677,9 @@ export class LiveAdapter implements BitwigAdapter {
     // as of the D16 amendment a `clip` read of an OCCUPIED slot points too, to
     // capture the clip's length. An empty slot still costs nothing — and must
     // not be pointed at in any case (E2).
-    const selection = sel.some((a) => a.kind === 'notes' || a.kind === 'clip' || a.kind === 'slot')
+    const selection = sel.some((a) =>
+      a.kind === 'notes' || a.kind === 'clip' || a.kind === 'slot'
+      || a.kind === 'clipLaunch' || a.kind === 'clipPlay')
       ? await this.captureSelection()
       : undefined;
     // Where each pool cursor is actually pointed, so the common shape — a clip
@@ -894,6 +898,54 @@ export class LiveAdapter implements BitwigAdapter {
         return { address, fidelity, value: { of: 'notes', notes: all } };
       }
 
+      case 'clipLaunch': {
+        if (row === undefined) return undefined;
+        const sceneIndex = address.clip.slot.scene.index;
+        const status = (await this.transport.send({
+          method: WIRE.slotStatus,
+          params: { trackIndex: row.index, slotIndex: sceneIndex },
+        })) as { hasContent: boolean };
+        if (!status.hasContent) return undefined;
+        const cursor = await this.pointAtClip(address.clip, row.index, pointedAt);
+        const launch = (await this.transport.send({
+          method: WIRE.cursorLaunchSettings, params: { cursor },
+        })) as {
+          launchQuantization: LaunchQuantization;
+          launchMode: LaunchMode;
+          useLoopStartAsQuantizationReference: boolean;
+        };
+        return { address, fidelity: 'exact', value: { of: 'clipLaunch', launch: {
+          quantization: launch.launchQuantization,
+          mode: launch.launchMode,
+          useLoopStartAsQuantizationReference: launch.useLoopStartAsQuantizationReference,
+        } } };
+      }
+
+      case 'clipPlay': {
+        if (row === undefined) return undefined;
+        const slotPlay = (await this.transport.send({
+          method: WIRE.slotPlayState,
+          params: { trackIndex: row.index, slotIndex: address.clip.slot.scene.index },
+        })) as {
+          hasContent: boolean; isPlaying: boolean; isPlaybackQueued: boolean;
+          isStopQueued: boolean; playPosition: number; sampledAtMs: number;
+        };
+        let playingStep = -1;
+        let playPosition = slotPlay.playPosition;
+        let sampledAtMs = slotPlay.sampledAtMs;
+        if (slotPlay.hasContent) {
+          const cursor = await this.pointAtClip(address.clip, row.index, pointedAt);
+          const cursorPlay = (await this.transport.send({
+            method: WIRE.cursorPlayState, params: { cursor },
+          })) as { playingStep: number; playPosition: number; sampledAtMs: number };
+          playingStep = cursorPlay.playingStep;
+          playPosition = cursorPlay.playPosition;
+          sampledAtMs = cursorPlay.sampledAtMs;
+        }
+        const play = { ...slotPlay, playingStep, playPosition, sampledAtMs };
+        return { address, fidelity: 'exact', value: { of: 'clipPlay', play } };
+      }
+
       case 'device':
       case 'param':
       case 'scene':
@@ -913,22 +965,27 @@ export class LiveAdapter implements BitwigAdapter {
    * appends a scene past the window), so "we could not look" must not resolve to
    * "go ahead".
    */
-  private async readOccupancy(ops: readonly Op[]): Promise<Map<AddressKey, boolean>> {
-    const seen = new Map<AddressKey, boolean>();
+  private async readOccupancy(ops: readonly Op[]): Promise<Map<AddressKey, boolean | undefined>> {
+    const seen = new Map<AddressKey, boolean | undefined>();
     for (const op of ops) {
-      if (op.op !== 'clip.create') continue;
-      const key = addressKey(op.slot);
-      if (seen.has(key)) continue;
-      const trackIndex = this.index.get(op.slot.track.channelId);
-      if (trackIndex === undefined) {
-        seen.set(key, true);
-        continue;
+      const slots = op.op === 'clip.create' ? [op.slot]
+        : op.op === 'clip.duplicate' || op.op === 'clip.move' ? [op.source.slot, op.destination]
+        : op.op === 'clip.launch' || op.op === 'clip.launchSettings' ? [op.clip.slot]
+        : [];
+      for (const slot of slots) {
+        const key = addressKey(slot);
+        if (seen.has(key)) continue;
+        const trackIndex = this.index.get(slot.track.channelId);
+        if (trackIndex === undefined) {
+          seen.set(key, undefined);
+          continue;
+        }
+        const status = (await this.transport.send({
+          method: WIRE.slotStatus,
+          params: { trackIndex, slotIndex: slot.scene.index },
+        })) as { hasContent?: boolean };
+        seen.set(key, status.hasContent);
       }
-      const status = (await this.transport.send({
-        method: WIRE.slotStatus,
-        params: { trackIndex, slotIndex: op.slot.scene.index },
-      })) as { hasContent?: boolean };
-      seen.set(key, status.hasContent !== false);
     }
     return seen;
   }
@@ -960,6 +1017,7 @@ export class LiveAdapter implements BitwigAdapter {
     // the lookup is read here and the RULE stays in the contract.
     const occupancy = await this.readOccupancy(batch.ops);
     assertSlotsFree(batch.ops, (s) => occupancy.get(addressKey(s)));
+    assertClipSources(batch.ops, (s) => occupancy.get(addressKey(s)));
 
     const stages = planStages(batch.ops);
     const receipts: StageReceipt[] = [];

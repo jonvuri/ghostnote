@@ -31,6 +31,8 @@ public final class CursorHandlers extends HandlerGroup {
         r.on("cursor.pointToClipOf", params -> cursorPointToClipOf(params));
         r.on("cursor.status", params -> cursorStatus(params));
         r.on("cursor.playState", params -> cursorPlayState(params));
+        r.on("cursor.launchSettings", params -> cursorLaunchSettings(params));
+        r.on("cursor.setLaunchSettings", params -> cursorSetLaunchSettings(params));
         r.on("selection.status", params -> selectionStatus());
         r.on("equals.status", params -> equalsStatus(params));
         r.on("equals.tryCreate", params -> equalsTryCreate());
@@ -120,6 +122,88 @@ public final class CursorHandlers extends HandlerGroup {
         putGuarded(result, "playPosition", () -> rig.transport.playPosition().get());
         putGuarded(result, "isPlaying", () -> rig.transport.isPlaying().get());
         return result;
+    }
+
+    // -------------------------------- Phase 1 session 3e: per-clip launching
+
+    /**
+     * Read the three per-clip settings that decide how the HUMAN'S own launcher
+     * click behaves.
+     *
+     * ⚠ A new method name, not fields on {@link #cursorStatus}: the contract
+     * handshake hashes method names. Session 3 proved that extending an existing
+     * reply lets a stale jar pass the handshake, so every new capability starts
+     * with a new name even when an older reply would be a tempting home for it.
+     */
+    private JsonElement cursorLaunchSettings(JsonObject params) {
+        Clip clip = rig.clip(params.get("cursor").getAsString());
+        JsonObject result = new JsonObject();
+        putGuarded(result, "exists", () -> clip.exists().get());
+        putGuarded(result, "sceneIndex", () -> clip.clipLauncherSlot().sceneIndex().get());
+        putGuarded(result, "launchQuantization", () -> clip.launchQuantization().get());
+        putGuarded(result, "launchMode", () -> clip.launchMode().get());
+        putGuarded(result, "useLoopStartAsQuantizationReference",
+            () -> clip.useLoopStartAsQuantizationReference().get());
+        return result;
+    }
+
+    /**
+     * Set one or more per-clip launch settings through a pointed cursor.
+     *
+     * The enum strings are validated BEFORE Bitwig sees them. The API accepts
+     * free strings and E14-A1 established that an asynchronous host rejection can
+     * escape the request's try/catch and take down the DAW. A partial object is
+     * deliberate: the arm needs to vary one setting while holding the other two
+     * constant, and a caller must not read-then-rewrite values it did not mean to
+     * touch.
+     */
+    private JsonElement cursorSetLaunchSettings(JsonObject params) {
+        Clip clip = rig.clip(params.get("cursor").getAsString());
+        boolean touched = false;
+
+        if (params.has("launchQuantization")) {
+            String value = params.get("launchQuantization").getAsString();
+            requireOneOf("launchQuantization", value, LAUNCH_QUANTIZATIONS);
+            clip.launchQuantization().set(value);
+            touched = true;
+        }
+        if (params.has("launchMode")) {
+            String value = params.get("launchMode").getAsString();
+            requireOneOf("launchMode", value, LAUNCH_MODES);
+            clip.launchMode().set(value);
+            touched = true;
+        }
+        if (params.has("useLoopStartAsQuantizationReference")) {
+            clip.useLoopStartAsQuantizationReference().set(
+                params.get("useLoopStartAsQuantizationReference").getAsBoolean());
+            touched = true;
+        }
+        if (!touched) {
+            throw new IllegalArgumentException(
+                "set at least one of launchQuantization, launchMode, or "
+                + "useLoopStartAsQuantizationReference");
+        }
+        return ok();
+    }
+
+    /** Legal values verbatim from the API 16 Clip javadoc. */
+    private static final String[] LAUNCH_QUANTIZATIONS = {
+        "default", "none", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/16",
+    };
+    private static final String[] LAUNCH_MODES = {
+        "default", "from_start", "continue_or_from_start", "continue_or_synced", "synced",
+    };
+
+    /** Refuse a free-string parameter Bitwig might reject asynchronously. */
+    private static void requireOneOf(String name, String value, String[] legal) {
+        for (String candidate : legal) {
+            if (candidate.equals(value)) {
+                return;
+            }
+        }
+        throw new IllegalArgumentException(
+            name + " \"" + value + "\" is not one of " + java.util.Arrays.toString(legal)
+            + " — refusing rather than letting Bitwig reject it asynchronously (E14-A1)");
     }
 
     // --------------------------------- E16 §3.4g: createEqualsValue as a guard
