@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-08-10
+updated: 2026-08-11
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E22 | ⚠⚠ `Group` DISPATCHES ON PRIMARY FOCUS: three ordinary clicks break the track fork, and the device panel silently builds an Instrument Layer instead [K] (2026-08-11, matrix 2026-08-12) | [open](experiments/e22-group-editing-action-does-not-fire-reliably-backgrounded.md) |
 | E21 | ⚠⚠ THE SCENE WINDOW: rule 5 is implementable one level down, and `clip.create` was growing the project [K] (2026-08-09) | [open](experiments/e21-the-scene-window-rule-5-is-implementable-one-level-down-and-was-.md) |
 | E20e | ⚠⚠ THE BRIDGE CLIENT CORRUPTED ANY NON-ASCII DATA: one line, found by accident [K] (2026-08-09) | [open](experiments/e20e-the-bridge-client-corrupted-any-non-ascii-data-one-line-found-by.md) |
 | E20d | ⚠⚠ `getDocumentState()` STORES 256 KB PERFECTLY AND KILLS BITWIG WHEN YOU TOUCH IT [K] (2026-08-09) | [open](experiments/e20d-stores-256-kb-perfectly-and-kills-bitwig-when-you-touch-it-k-202.md) |
