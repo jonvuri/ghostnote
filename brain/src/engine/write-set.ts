@@ -325,6 +325,10 @@ export function isAtRisk(address: Address, risk: StructuralRisk): boolean {
     case 'clipPlay':
     case 'notes':
       return risk.scenes;
+    // ⚠ A chain is at risk for the same reason its devices are: it is addressed
+    // through a container POSITION, and a device-chain edit re-indexes that (E3).
+    // The durable name inside the address does not rescue it.
+    case 'chain':
     case 'device':
     case 'param':
       return risk.deviceChains;

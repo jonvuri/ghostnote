@@ -10,11 +10,11 @@
  * here encodes.
  */
 export {
-  ADDRESS_IDENTITY, addressKey, addressScene, addressTrack,
-  clip, clipLaunch, clipPlay, device, notes, param, scene, slot, track,
+  ADDRESS_IDENTITY, addressKey, addressScene, addressTrack, chainPath, isNestedDevice,
+  chain, clip, clipLaunch, clipPlay, device, deviceIn, notes, param, scene, slot, track,
 } from './address.js';
 export type {
-  Address, AddressKey, AddressKind, BeatRange, ClipAddress, ClipLaunchAddress, ClipPlayAddress, DeviceAddress,
+  Address, AddressKey, AddressKind, BeatRange, ChainAddress, ClipAddress, ClipLaunchAddress, ClipPlayAddress, DeviceAddress,
   NotesAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress,
 } from './address.js';
 
@@ -30,8 +30,9 @@ export {
 export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 
 export {
-  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertNever, assertOpsAddressable,
-  assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, assertClipSources,
+  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertDevicesRoutable, assertNever,
+  assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree,
+  assertClipSources,
 } from './ops.js';
 export type { DeviceSource, Op, OpKind } from './ops.js';
 

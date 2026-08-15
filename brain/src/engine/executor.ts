@@ -31,7 +31,7 @@ import { randomUUID } from 'node:crypto';
 
 import {
   AddressUnresolvedError, CONTRACT_TAG, GAIN_READ_SCALE, NOTE_PROP_FIDELITY,
-  StaleAddressError, addressKey, addressScene, addressTrack, assertOpsWritable,
+  StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
   blindSpotError, deltaComplete,
   failures, notes as notesAt,
   type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
@@ -105,6 +105,10 @@ export class Executor {
     // ⚠ E15-E, first and before anything reads: a batch asking for `pressure`
     // must be refused before we pay for a stash we are going to throw away.
     assertOpsWritable(ops);
+    // ⚠ Same moment, same reason, one address kind further in: a device inside a
+    // layer chain is nameable but not yet routable, and the stash would be read
+    // through the top-level chain the write would then damage.
+    assertDevicesRoutable(ops);
 
     // ⚠ §3.3.6, and it runs here for a reason: this member's damage precedes the
     // stash, so a check that waited for labels would be reading its verdict off
@@ -361,6 +365,13 @@ export class Executor {
           // ⚠ The mark says WHICH window hid it — track or scene row — and the
           // two have different fixes, so the refusal names the binding one.
           throw blindSpotError([r.address], at.window);
+        case 'unsupported':
+          throw new AddressUnresolvedError(
+            r.address,
+            'the durable track exists, but this address depends on device-layer chain structure ' +
+            'that neither adapter can inspect yet. Refused rather than treating the track anchor ' +
+            'as proof that the nested address exists.',
+          );
         default:
           // `absent` is legitimate — a clip that does not exist yet is exactly
           // what `clip.create` is for, and a stash of "nothing was here" is a

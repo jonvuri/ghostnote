@@ -13,7 +13,7 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertClipSources, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
+  assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   contentDelta,
   hasUnverifiedProps, orderedNoteProps, stepSizeFor,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
@@ -156,7 +156,17 @@ export class FakeAdapter implements BitwigAdapter {
       const trackRef = addressTrack(address);
       if (trackRef === undefined) return { address, found: true };
       const hit = this.model.findByChannelId(trackRef.channelId);
-      if (hit !== undefined) return { address, found: true, index: hit.index };
+      if (hit !== undefined) {
+        // ⚠ Resolving the durable TRACK anchor is not resolving structure this
+        // flat model cannot inspect. `unsupported` is deliberately distinct
+        // from `absent`: no chain lookup happened, so absence is not known.
+        if (address.kind === 'chain'
+          || (address.kind === 'device' && address.chain !== undefined)
+          || (address.kind === 'param' && address.device.chain !== undefined)) {
+          return { address, found: false, reason: 'unsupported' as const };
+        }
+        return { address, found: true, index: hit.index };
+      }
       return {
         address,
         found: false,
@@ -299,7 +309,18 @@ export class FakeAdapter implements BitwigAdapter {
           playPosition: 0,
         } } };
       }
+      // ⚠ A chain has no readback here AT ALL, and answering one would be worse
+      // than the gap: this model holds a flat device list per track, so any value
+      // it invented for a layer chain would certify structure neither adapter can
+      // see (PHASE-0 §Risks). Live answers `undefined` for every device-family
+      // address too — see `LiveAdapter.readOne`.
+      case 'chain':
+        return undefined;
       case 'device': {
+        // ⚠ NESTED IS NOT INDEXABLE HERE. `chainIndex` counts positions inside
+        // `address.chain`, and this list is the TRACK's — so reading it would
+        // report a top-level device's state under a nested device's key.
+        if (address.chain !== undefined) return undefined;
         const dev = track?.devices[address.chainIndex];
         if (dev === undefined) return undefined;
         return {
@@ -316,6 +337,9 @@ export class FakeAdapter implements BitwigAdapter {
         };
       }
       case 'param': {
+        // Same reason as the device case above: a param on a nested device hangs
+        // off a list this model does not have.
+        if (address.device.chain !== undefined) return undefined;
         const dev = track?.devices[address.device.chainIndex];
         const p = dev?.params[address.index];
         if (dev === undefined || p === undefined) return undefined;
@@ -339,6 +363,11 @@ export class FakeAdapter implements BitwigAdapter {
     // ⚠ E15-E: the same refusal the live adapter makes, from the same shared
     // contract function — so the conformance suite can assert it on both.
     assertOpsWritable(batch.ops);
+    // ⚠ And the same for a device inside a layer chain. This model is FLAT — one
+    // device list per track — so an unguarded nested address would index straight
+    // into it and mutate the wrong device, which is precisely what the live route
+    // would do. The fake must never be the permissive one.
+    assertDevicesRoutable(batch.ops);
 
     // ⚠ Standing rule 5: never operate on a partially-visible project.
     const blind = bankBlindSpot(this.model);

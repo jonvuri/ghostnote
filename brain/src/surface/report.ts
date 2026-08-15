@@ -34,10 +34,10 @@
  */
 import {
   NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS, UNWRITABLE_NOTE_PROPS,
-  addressKey, assertNever,
+  addressKey, addressTrack, assertNever, chainPath,
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
   InvalidOpError, SlotOccupiedError, StaleAddressError, WireDriftError,
-  type Address, type NoteRecord, type StateValue,
+  type Address, type ChainAddress, type DeviceAddress, type NoteRecord, type StateValue,
 } from '../contract/index.js';
 import { StaleExtensionError } from '../deploy.js';
 import {
@@ -70,6 +70,24 @@ export interface Where {
   readonly parameter?: number | string;
 }
 
+/**
+ * ⚠ The position ON THE TRACK that a device address hangs off — the outermost
+ * container when the address is nested, and the device itself when it is not.
+ *
+ * A nested `chainIndex` counts positions inside a device-layer chain, so
+ * reporting it as `devicePosition` would tell an agent a number that means
+ * something else on the surface it addresses with. This under-describes instead:
+ * the top-level position is true at every depth. Describing the nesting itself
+ * needs vocabulary the surface does not have yet — `naming.ts` holds both
+ * candidate words as deliberately-closed entries — and nothing can produce a
+ * nested address through this surface today, so the gap is nameable rather than
+ * reachable.
+ */
+function trackLevelDevice(address: DeviceAddress | ChainAddress): DeviceAddress {
+  const path = chainPath(address);
+  return path[0]?.container ?? (address.kind === 'device' ? address : address.container);
+}
+
 export function describeAddress(address: Address): Where {
   switch (address.kind) {
     case 'track':
@@ -93,13 +111,18 @@ export function describeAddress(address: Address): Where {
           ? {}
           : { fromBeat: address.range.startBeats, toBeat: address.range.endBeats }),
       };
+    case 'chain':
     case 'device':
-      return { what: 'device', trackId: address.track.channelId, devicePosition: address.chainIndex };
+      return {
+        what: 'device',
+        trackId: addressTrack(address)!.channelId,
+        devicePosition: trackLevelDevice(address).chainIndex,
+      };
     case 'param':
       return {
         what: 'parameter',
         trackId: address.device.track.channelId,
-        devicePosition: address.device.chainIndex,
+        devicePosition: trackLevelDevice(address.device).chainIndex,
         parameter: address.directId ?? address.index,
       };
   }

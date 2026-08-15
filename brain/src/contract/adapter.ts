@@ -39,8 +39,11 @@ export interface ResolvedAddress {
   readonly found: boolean;
   /** The live bank index, when found. Valid only until the next structural op. */
   readonly index?: number;
-  /** Why not, when `found` is false — a tombstone reads differently from a blind spot. */
-  readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch';
+  /**
+   * Why not, when `found` is false — a tombstone reads differently from a blind
+   * spot, and an address the adapter cannot inspect is neither one.
+   */
+  readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch' | 'unsupported';
 }
 
 export interface ResolveResult {

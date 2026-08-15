@@ -2,10 +2,12 @@
 title: Phase 1, session 3f — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: STEP 5 COMPLETE 2026-08-15. `copy_track` is implemented and
-        verified offline, in the extension build, through the production MCP
-        surface, and by the full live conformance suite. Next: continue nested
-        layer addressing and autonomous lifecycle work in step 6.
+status: STEP 6a COMPLETE 2026-08-15. Step 5 (`copy_track`) shipped and was
+        verified live. Step 6's address grammar now expresses a chain and a
+        device inside one, keeps every pre-nesting key byte-identical, and
+        refuses every op that would route a nested address into the track's
+        top-level chain. Next: observable resolution, then the first typed
+        chain verb (step 6b).
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -134,6 +136,67 @@ rather than just a decision. Settle that when the tools are written, entry by
 entry, and record the reasoning where the entries live. ⚠ Note what these tools
 will have to say: a device alternate carries devices and device state and **no
 clips, no sends and no track-mixer state** (revised D18b).
+
+### Step 6a — complete 2026-08-15: the address grammar and its refusal seam
+
+Acceptance item 1's naming half is landed; its observation half is not, and the
+gap between them is a refusal rather than a hazard.
+
+What exists now:
+
+- `ChainAddress` addresses a chain by CONTAINER POSITION plus NAME, because a
+  chain's `channelId` is minted afresh by every project load while its name
+  survives (E17ad, E18b). The declaration carries that reasoning and the two
+  obligations it imposes on a resolver: name our own chains explicitly, and refuse
+  an ambiguous name rather than resolve it to the first hit.
+- `DeviceAddress.chain?` makes a device at any depth expressible; the track stays
+  on the address at every level, so the durable anchor costs one lookup.
+- `addressKey` composes nested steps with `/` and escapes chain names, so **every
+  pre-nesting key is byte-identical** and no nested key can collide with or forge
+  another. Asserted against written-out golden strings, plus a real collision pair
+  that only escaping separates.
+- `ADDRESS_IDENTITY.chain` is `positional` — the durable name does not rescue an
+  address hanging off a container index that a chain edit re-indexes (E3).
+- ⚠ `assertDevicesRoutable` REFUSES any op naming a device inside a chain, in the
+  contract, called by the executor and by both adapters. Every measured device
+  route sends `chainIndex` against the track's top-level chain, so an unguarded
+  nested address would delete or retune a real device nobody addressed. The fake's
+  device model is flat too, so it refuses for the same reason rather than
+  certifying a capability neither adapter has.
+- Neither adapter claims a chain, nested device or nested param RESOLVED merely
+  because its durable track anchor exists, or answers its READ with top-level
+  state; `C-nested-device` asserts the unsupported resolution, write refusals and
+  read non-answers on both.
+
+Verification, 2026-08-15: brain typecheck plus 369/369 offline tests (11 new
+`A-*` address cases, 1 new conformance row), extension Gradle build green,
+`git diff --check` green. No wire method was added, so the golden hash is
+unchanged and no live run is owed by this slice.
+
+Deliberately NOT claimed: nothing resolves, observes, creates, fills, switches or
+reduces a chain yet. The grammar is the vocabulary those verbs will be written in.
+
+### Step 6b — next
+
+1. Observable resolution: `resolve`/`read` for a `ChainAddress` against real
+   structure, which needs the `layer.*` enumeration promoted from E17/E18 probe
+   surface into the product wire vocabulary (`wiremap.test.ts` bans it today),
+   a golden regen, and a live run. Ambiguous names refuse.
+2. Then the first typed verb, and the measured route is already known: E17's
+   `e17ak` closed chain creation as **fully autonomous** — `layer.select` +
+   `Channel.duplicate()` (`layer.duplicateChannel`), no focus, no priming, no
+   human. `DeviceLayer.duplicateObject()` stays dead.
+3. ⚠ Reduction cannot mirror creation: every typed chain DELETE refuses
+   (`e17al`, `e17am` — a `DeviceLayer` honours only the verbs `Channel` declares
+   itself). So collapse is *move the devices out, then delete the CONTAINER*
+   (`Device.deleteObject()` ●), exactly the shape acceptance item 5 names.
+4. ⚠ The seed asset's scope is narrower than this brief assumed, and worth
+   settling before building it: a fresh **FX Layer ships with one chain** and can
+   therefore be grown entirely typed from a `device.insert`, while a fresh
+   **Instrument Layer ships with zero** and has no typed route to a first chain
+   (`e17ai`, `e17ak`). The bundled seed is load-bearing for the instrument-track
+   case and may be avoidable for the Master/FX-return case. Measure before
+   committing to one asset for both.
 
 ## Capability boundary
 

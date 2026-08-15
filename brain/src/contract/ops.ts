@@ -20,7 +20,7 @@
  * hand `insertFile` a relative path (E4h) — because none of those are
  * expressible. That is the point of a typed seam over a string wire.
  */
-import { addressKey, clip } from './address.js';
+import { addressKey, chainPath, clip } from './address.js';
 import type { ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress, BeatRange } from './address.js';
 import { unwritableProps, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
@@ -247,6 +247,85 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
       return [];
     default:
       return assertNever(op, 'sceneRowsOf');
+  }
+}
+
+/**
+ * The DEVICE addresses an op puts on the wire.
+ *
+ * Exhaustive for the same reason `sceneRowsOf` is: a Phase-4/5 variant that
+ * carries a device address and is not listed here would slip past the routing
+ * guard below, which is the one check standing between a nested address and a
+ * write aimed at a different device.
+ */
+function deviceRefsOf(op: Op): readonly DeviceAddress[] {
+  switch (op.op) {
+    case 'device.delete':
+      return [op.device];
+    case 'param.set':
+      return [op.param.device];
+    // ⚠ `device.insert` names a TRACK, not a device, so it cannot be nested today.
+    // When an insert into a chain is measured it gains its own addressing, and
+    // this switch is where that fact has to be restated.
+    case 'device.insert':
+    case 'note.write':
+    case 'note.clear':
+    case 'note.props':
+    case 'clip.create':
+    case 'clip.delete':
+    case 'clip.duplicate':
+    case 'clip.move':
+    case 'clip.launch':
+    case 'clip.launchSettings':
+    case 'track.create':
+    case 'track.duplicate':
+    case 'track.rename':
+    case 'track.delete':
+    case 'scene.create':
+    case 'scene.delete':
+    case 'notify':
+      return [];
+    default:
+      return assertNever(op, 'deviceRefsOf');
+  }
+}
+
+/**
+ * ⚠⚠ Refuse an op naming a device INSIDE a layer chain, because every write
+ * route we have measured addresses the track's TOP-LEVEL chain.
+ *
+ * `DeviceAddress.chain` exists so that nested structure can be named, stashed and
+ * reported before any verb can reach it — the address grammar and the routes are
+ * separate deliveries, and this is the seam between them. Without this refusal a
+ * nested address would be handed to `deviceDelete`/`param.set` as a bare
+ * `deviceIndex`, and Bitwig would happily apply it to whatever sits at that
+ * position in the track's own chain: a real device, addressed by nobody, removed
+ * or retuned silently. That is the exact failure class the contract refuses on
+ * principle (E4h, D20 *"name the survivor, never count it"*).
+ *
+ * ⚠ In the CONTRACT rather than in the live encoder so both adapters refuse
+ * identically. The fake models a flat per-track device list, so an unguarded
+ * nested address there reads and writes the wrong device too — and would certify
+ * a capability neither adapter has (PHASE-0 §Risks' one-directional rule).
+ *
+ * ⚠ Relaxing this is a MEASUREMENT, not a default: the nested routes (`layer.*`)
+ * exist on the wire as E17/E18 probe surface and have never been driven through
+ * the typed seam. 3f step 6 lands them one verb at a time.
+ */
+export function assertDevicesRoutable(ops: readonly Op[]): void {
+  for (const op of ops) {
+    for (const ref of deviceRefsOf(op)) {
+      if (ref.chain === undefined) continue;
+      const path = chainPath(ref).map((c) => c.name).join(' > ');
+      throw new InvalidOpError(
+        op.op,
+        `this address names a device inside a device-layer chain (${path}), and no measured wire ` +
+        'route reaches one. Every device route addresses `chainIndex` against the TRACK\'s ' +
+        'top-level chain, so honouring it would hit whatever sits at that position on the track ' +
+        '— a real device that nobody addressed. Refused before the first frame; the nested ' +
+        'routes are measured before this is relaxed.',
+      );
+    }
   }
 }
 

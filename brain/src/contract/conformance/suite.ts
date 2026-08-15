@@ -33,8 +33,8 @@ import assert from 'node:assert/strict';
 
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, NOTE_PROP_FIDELITY,
-  SlotOccupiedError, addressKey, clip, contentTouching, deltaComplete, notes as notesAt, scene,
-  slot, track,
+  SlotOccupiedError, addressKey, chain, clip, contentTouching, deltaComplete, device, deviceIn,
+  notes as notesAt, param, scene, slot, track,
   type Address, type BitwigAdapter, type NoteRecord, type Op, type Snapshot, type TrackAddress,
 } from '../index.js';
 import { Executor, branchProtected, UnprotectedWriteError } from '../../engine/index.js';
@@ -662,6 +662,54 @@ export function runConformance(h: AdapterHarness): void {
         // passes — but the chain grows, and a chain longer than the device bank
         // window stops minting at all (`blind`). If C-device starts failing on a
         // rig where it used to pass, look at the fixture track's chain first.
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-nested-device', 'a device inside a layer chain is REFUSED by both adapters, not mis-aimed'),
+    async () => {
+      // ⚠ The address grammar can NAME a device inside a device-layer chain
+      // before any wire route can reach one, and this is the case that keeps the
+      // gap between those two a refusal instead of a wrong write. Every measured
+      // device route sends `chainIndex` as a position in the TRACK's own chain,
+      // so an unguarded nested address deletes or retunes whatever sits there —
+      // a real device, addressed by nobody, on both adapters for the same reason
+      // (the fake's device model is flat too).
+      const { adapter, trackA } = await h.create();
+      try {
+        const alt = chain(device(trackA, 0), 'gn-conf-alt');
+        const inner = deviceIn(alt, 0);
+        const innerParam = param(inner, 0);
+        const resolution = await adapter.resolve([alt, inner, innerParam]);
+        assert.deepEqual(
+          resolution.resolved.map((r) => ({ found: r.found, reason: r.reason, index: r.index })),
+          [
+            { found: false, reason: 'unsupported', index: undefined },
+            { found: false, reason: 'unsupported', index: undefined },
+            { found: false, reason: 'unsupported', index: undefined },
+          ],
+          'a visible track anchor must not be promoted into false chain-family resolution',
+        );
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'device.delete', device: inner }] }),
+          /device-layer chain/,
+        );
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'param.set', param: param(inner, 0), value: 0.5 }] }),
+          /device-layer chain/,
+        );
+        // ⚠ And nothing was sent on the way to either refusal: the guard runs
+        // ahead of the mark the live adapter would otherwise read, so a refusal
+        // costs no round trip and cannot half-run a batch.
+        const snapshot = await adapter.read([alt, inner, innerParam]);
+        for (const address of [alt, inner, innerParam]) {
+          assert.equal(snapshot.entries[addressKey(address)], undefined,
+            'no adapter may answer a chain-family read with top-level device state');
+        }
+        assert.deepEqual(snapshot.missing.map(addressKey), [alt, inner, innerParam].map(addressKey));
+      } finally {
         await h.dispose(adapter);
       }
     },

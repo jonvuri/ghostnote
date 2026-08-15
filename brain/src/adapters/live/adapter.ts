@@ -28,7 +28,7 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   ContractVersionError, StaleAddressError, WireDriftError,
-  addressKey, addressScene, addressTrack, assertOpsAddressable, assertOpsWritable,
+  addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
   windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
@@ -644,7 +644,17 @@ export class LiveAdapter implements BitwigAdapter {
       const trackRef = addressTrack(address);
       if (trackRef === undefined) return { address, found: true };
       const index = this.index.get(trackRef.channelId);
-      if (index !== undefined) return { address, found: true, index };
+      if (index !== undefined) {
+        // ⚠ The track bank resolves only the durable anchor. Until the product
+        // wire can enumerate layer chains, claiming the nested address itself
+        // was found would certify structure this adapter never inspected.
+        if (address.kind === 'chain'
+          || (address.kind === 'device' && address.chain !== undefined)
+          || (address.kind === 'param' && address.device.chain !== undefined)) {
+          return { address, found: false, reason: 'unsupported' as const };
+        }
+        return { address, found: true, index };
+      }
       // ⚠ A single bank scan cannot tell "deleted" from "outside the window" for
       // one channelId — but it CAN tell whether a window exists to fall out of.
       // `itemCount` is the project total (E15-A), so when it exceeds the bank
@@ -946,12 +956,18 @@ export class LiveAdapter implements BitwigAdapter {
         return { address, fidelity: 'exact', value: { of: 'clipPlay', play } };
       }
 
+      case 'chain':
       case 'device':
       case 'param':
       case 'scene':
         // Device and param READS need the device-cursor apparatus, which is
         // Phase-4 work. Writing them already works; reading them back does not,
         // so v0 reports them missing rather than inventing a value.
+        //
+        // ⚠ A chain is here for a second reason as well as that one: the wire
+        // methods that enumerate layers are registered as E17/E18 probe surface
+        // and are banned from the product path (`wiremap.test.ts`), so there is
+        // nothing this adapter may legitimately call to answer.
         return undefined;
     }
   }
@@ -994,6 +1010,11 @@ export class LiveAdapter implements BitwigAdapter {
     // ⚠ E15-E: refuse a write the API would accept and discard, BEFORE anything
     // is applied. Shared with the fake so both adapters refuse identically.
     assertOpsWritable(batch.ops);
+    // ⚠ Before any frame, and before the mark below costs a round trip: a device
+    // inside a layer chain has no measured route, and the encoder would send its
+    // `chainIndex` as a position in the TRACK's top-level chain — hitting a real
+    // device nobody addressed.
+    assertDevicesRoutable(batch.ops);
     // ⚠ E5, standing rule 5: this is the one path that REFUSES rather than
     // reports. Tracks outside the window cannot be snapshotted, so no write is
     // safe — but `read` and `resolve` above are allowed to look and say so.
