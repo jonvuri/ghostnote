@@ -4,15 +4,50 @@ kind: status
 state: active
 updated: 2026-08-15
 phase: phase-1
-session: phase-1-session-3f-h
+session: knowledge-base-detour
+resumes: phase-1-session-3f-h
 ---
 
 # Now
 
-Phase 1 is in **session 3f-h: selective reduction**. Session 3f-g winner
+Phase 1 is **paused between sessions 3f-g and 3f-h** for one isolated detour:
+[mint the capability knowledge base](plan/knowledge-base.md). Session 3f-g winner
 collapse is complete and verified live, including the review fixes below, which
 were re-proved live against a rebuilt and redeployed jar. The audible evidence
 is the earlier measurement and was not re-taken.
+
+⚠ The detour is a context-tree session. It changes no code, runs no probe, and
+leaves every baseline and constraint below untouched. **3f-h resumes immediately
+after it, with nothing about its scope or acceptance changed.**
+
+## Detour — capability knowledge base, next session
+
+Purpose: add the one axis the context tree does not have — durable, topical,
+current capability reference — and seed it with host-API knowledge already paid
+for, plus facts mined from `reference/BitX`. Brief:
+[plan/knowledge-base.md](plan/knowledge-base.md).
+
+Why it is worth interrupting Phase 1 for, in one line each:
+
+- ⚠⚠ **Supersession has nowhere to land, so it lands in code.** The freshest
+  statement of the Selector verdict was a comment in `ContainerHandlers.java`,
+  and it was stale against the seed-asset rule now in `PROJECT.md`. Experiment
+  files are frozen records by design and cannot carry supersession.
+- **Lookup cost.** Answering one capability question meant reading seven
+  experiment files, the spike archive and Java source.
+- **The E-index headline is lossy.** `⚠ glitch owed` reads as "it glitches"; the
+  row measured ○ no glitch with a *positive control* owed.
+- ⚠ **An observed fact with no probe has no home.** A live 2026-08-15 finding —
+  a deactivated Selector chain is fully disabled, so its tail continues sounding
+  and a newly activated chain takes no input until active — materially qualifies
+  E16 §3.4e but is neither a decision nor an experiment run.
+
+Boundary: `context/` only. No change under `brain/`, `extension/` or `tools/`;
+no new probe; no `decisions/` edit; no experiment file edited. ⚠ It does **not**
+re-open the Selector route — the deactivation finding above closes it for live
+A/B, and layer chains remain the product path. Acceptance is in the brief.
+
+Return: reopen `plan/phase-1/3f-fork-chain.md` and start 3f-h below.
 
 ## Baseline
 
@@ -196,6 +231,9 @@ Verification at this boundary — everything below was actually run:
   the signal, and nothing here re-proves it.
 
 ## Session 3f-h — selective reduction
+
+⚠ Resumes after the knowledge-base detour above. Nothing in this session's scope
+or acceptance is changed by it.
 
 Purpose: remove one explicitly named alternate while preserving several named
 survivors by rebuilding the container.
