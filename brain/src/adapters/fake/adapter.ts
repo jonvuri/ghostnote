@@ -13,7 +13,7 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertChainActivatable, assertChainCreatable, assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
+  assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, contentDelta,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   verifyDeviceRelocation, verifyExclusiveChain,
@@ -23,6 +23,8 @@ import {
   type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
   type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
+import { INSTRUMENT_LAYER_SEED_BASENAME } from '../../device-alternates/assets.js';
+import { basename } from 'node:path';
 import { planStages } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
 import { ProjectModel, noteKey, type FakeDevice, type FakeTrack } from './model.js';
@@ -496,7 +498,21 @@ export class FakeAdapter implements BitwigAdapter {
     // neither adapter can be the lenient one and a conformance row can assert
     // them on both.
     assertChainCreatable(batch.ops, (container) => this.observeAt(container));
+    assertChainRenamable(batch.ops, (container) => this.observeAt(container));
     assertChainActivatable(batch.ops, (container) => this.observeAt(container));
+    assertChainRelocatable(
+      batch.ops,
+      (trackRef) => {
+        const track = this.requireTrack(trackRef, 'chain.relocate');
+        return {
+          devices: track.devices.slice(0, this.model.deviceBankSize)
+            .map((item, index) => ({ index, name: item.name })),
+          devicesComplete: track.devices.length <= this.model.deviceBankSize,
+          bankSize: this.model.deviceBankSize,
+        };
+      },
+      (container) => this.observeAt(container),
+    );
 
     // ⚠ E8-D: a stale guard rejects the batch WHOLE, applying zero ops.
     if (batch.ifRevision !== undefined && batch.ifRevision !== this.model.revision) {
@@ -822,13 +838,24 @@ export class FakeAdapter implements BitwigAdapter {
 
       case 'device.insert': {
         const track = this.requireTrack(op.track, op.op);
-        const name = op.source.from === 'file' ? op.source.path.split('/').pop()! : op.source.uuid;
+        const isInstrumentSeed = op.source.from === 'file'
+          && basename(op.source.path) === INSTRUMENT_LAYER_SEED_BASENAME;
+        const name = isInstrumentSeed
+          ? 'Instrument Layer'
+          : op.source.from === 'file' ? op.source.path.split('/').pop()! : op.source.uuid;
         // ⚠ A container inserted by uuid arrives with the chains its type ships
         // with — one for an FX Layer, none for an Instrument Layer (`e17ai`,
         // E18a at three destinations). That asymmetry is the bootstrap fact the
         // whole lifecycle turns on, so the fake models it rather than treating
         // every inserted device as an opaque box.
-        const shipped = op.source.from === 'file' ? undefined : this.model.shippedChains(op.source.uuid);
+        const shipped = isInstrumentSeed
+          ? [{
+            name: 'fake-seed-alternate',
+            solo: false,
+            id: this.model.mintChannelId(),
+            devices: [],
+          }]
+          : op.source.from === 'file' ? undefined : this.model.shippedChains(op.source.uuid);
         const device: FakeDevice = {
           name,
           paramsLive: false,
@@ -934,6 +961,22 @@ export class FakeAdapter implements BitwigAdapter {
           );
         }
         minted[opIndex] = chainAt(op.source.container, op.name);
+        return;
+      }
+
+      case 'chain.rename': {
+        const track = this.requireTrack(op.chain.container.track, op.op);
+        const observed = this.model.observeContainer(track, op.chain.container.chainIndex);
+        const found = observed === undefined ? undefined : lookupChain(observed, op.chain.name);
+        if (found?.ok !== true || found.chain.id === undefined) {
+          throw new UnsupportedOpError(`${op.op}: the addressed chain is not uniquely observable`, 'fake');
+        }
+        this.model.renameChain(track, op.chain.container.chainIndex, found.chain.id, op.name);
+        const settled = this.model.observeContainer(track, op.chain.container.chainIndex);
+        const renamed = settled === undefined ? undefined : lookupChain(settled, op.name);
+        if (renamed?.ok !== true || renamed.chain.id !== found.chain.id) {
+          throw new UnsupportedOpError(`${op.op}: the new name was not independently resolved`, 'fake');
+        }
         return;
       }
 

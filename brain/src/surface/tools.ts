@@ -49,6 +49,7 @@
  * recommended" language. Every trap named below is a measured one.
  */
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { existsSync } from 'node:fs';
 import { z } from 'zod';
 
 import {
@@ -60,6 +61,7 @@ import {
   type RevisionMark,
 } from '../contract/index.js';
 import { branchProtected, directedDestruction } from '../engine/index.js';
+import { FX_LAYER_UUID, INSTRUMENT_LAYER_SEED_PATH } from '../device-alternates/assets.js';
 import { selectClip, selectTrack, type Slice } from '../stash/index.js';
 import { describeAddress, receiptOf, refusalOf, reversalReport } from './report.js';
 import type { Workspace } from './workspace.js';
@@ -264,6 +266,76 @@ function sliceFor(
     : selectClip(addresses, clipOf(scope.trackId, scope.row, at));
 }
 
+const containerAt = (id: string, position: number) => deviceAt(trackAt(id), position);
+
+const alternateName = z.string().min(1).refine((name) => name.trim().length > 0, {
+  message: 'a device alternate name cannot contain only whitespace',
+});
+
+function observedAlternateStates(container: {
+  readonly chainsComplete: boolean;
+  readonly chains: readonly { readonly name: string; readonly solo?: boolean }[];
+}): {
+  readonly exclusiveActive: string | null;
+  readonly states: { readonly name: string; readonly soloed: boolean | null }[];
+} {
+  const states = container.chains.map((item) => ({
+    name: item.name,
+    soloed: typeof item.solo === 'boolean' ? item.solo : null,
+  }));
+  const soloed = states.filter((item) => item.soloed === true);
+  const exclusiveActive = container.chainsComplete
+    && states.every((item) => item.soloed !== null)
+    && soloed.length === 1
+    ? soloed[0]!.name
+    : null;
+  return { states, exclusiveActive };
+}
+
+/** Public shape of one independently read device-alternate container. */
+async function deviceAlternatesAt(
+  workspace: Workspace,
+  id: string,
+  position: number,
+): Promise<Record<string, unknown>> {
+  const container = containerAt(id, position);
+  const snapshot = await workspace.read([trackAt(id), container]);
+  if (snapshot.unreachable.some((address) => addressKey(address) === addressKey(container))) {
+    return {
+      readable: false,
+      why: 'this device position is outside the container scopes this connection can inspect.',
+    };
+  }
+  if (snapshot.entries[addressKey(trackAt(id))] === undefined) {
+    return { readable: false, why: 'that id does not name a visible track.' };
+  }
+  const entry = snapshot.entries[addressKey(container)];
+  const device = entry?.value.of === 'device' ? entry.value.device : undefined;
+  if (device === undefined) {
+    return { readable: false, why: 'no device exists at that position.' };
+  }
+  if (device.container === undefined) {
+    return { readable: false, why: 'the device at that position does not expose named alternates.' };
+  }
+  const observedState = observedAlternateStates(device.container);
+  return {
+    readable: true,
+    container: { trackId: id, devicePosition: position },
+    complete: device.container.chainsComplete,
+    capacity: device.container.chainsBankSize ?? null,
+    exclusiveActive: observedState.exclusiveActive,
+    alternates: device.container.chains.map((item) => ({
+      name: item.name,
+      soloed: typeof item.solo === 'boolean' ? item.solo : null,
+      devicesComplete: item.devicesComplete,
+      devices: item.devices.map((nested) => ({
+        position: nested.index,
+        name: nested.name,
+      })),
+    })),
+  };
+}
+
 // --- the tools ---------------------------------------------------------------
 
 export const TOOLS: readonly ToolSpec[] = [
@@ -389,6 +461,29 @@ export const TOOLS: readonly ToolSpec[] = [
           playback: playEntry?.value.of === 'clipPlay' ? playEntry.value.play : null,
         };
       });
+    },
+  }),
+
+  tool({
+    name: 'inspect_device_alternates',
+    kind: 'read',
+    title: 'Inspect device alternates',
+    description:
+      'Read every named device alternate inside one container, including its device order and '
+      + 'observed solo flag. The container is named by its position in the track; adding or removing '
+      + 'devices before it changes that position. A partial sibling or device view is labelled '
+      + 'partial and is never presented as complete. An exclusive active name is reported only '
+      + 'when the complete sibling read shows exactly one soloed entry; no claim about effective '
+      + 'audibility is made. Device alternates carry devices and device '
+      + 'state, not clips, sends, routing or track mixer state.',
+    inputSchema: {
+      trackId,
+      containerPosition: z.number().int().min(0).describe(
+        'Position of the containing device in the track, counting from 0.',
+      ),
+    },
+    async run(workspace, args) {
+      return writing(() => deviceAlternatesAt(workspace, args.trackId, args.containerPosition));
     },
   }),
 
@@ -1217,24 +1312,278 @@ export const TOOLS: readonly ToolSpec[] = [
   }),
 
   tool({
+    name: 'create_device_alternates',
+    kind: 'write',
+    title: 'Create named device alternates',
+    description:
+      'Add one device container at the end of a track and create one to four explicitly named '
+      + 'alternates inside it. `instrument` loads the bundled empty seed; `effect` uses the '
+      + 'shipped empty entry and is also supported on effect returns and the master. No '
+      + 'operator-authored setup file is required. Every supplied name must be unique. Success '
+      + 'reports only the complete structure independently read after insertion and naming.\n'
+      + 'A device alternate carries devices and device state. It carries no clips, sends, routing '
+      + 'or track mixer state. The container is added at the end and can load devices, so creation '
+      + 'can add engine load. Automatic reversal does not remove added alternates.',
+    inputSchema: {
+      trackId,
+      containerType: z.enum(['instrument', 'effect']).describe(
+        'The device role of the new container. Effect containers also work on returns and master.',
+      ),
+      names: z.array(alternateName).min(1).max(4).describe(
+        'One unique durable name per device alternate, in order.',
+      ),
+    },
+    emits: ['device.insert', 'chain.rename', 'chain.create'],
+    async run(workspace, args) {
+      return writing(async () => {
+        const blankAt = args.names.findIndex((name) => name.trim().length === 0);
+        if (blankAt !== -1) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: `device alternate name ${blankAt + 1} cannot contain only whitespace.`,
+          };
+        }
+        if (new Set(args.names).size !== args.names.length) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'every alternate name must be unique within the new container.',
+          };
+        }
+        if (args.containerType === 'instrument' && !existsSync(INSTRUMENT_LAYER_SEED_PATH)) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'the bundled instrument seed is missing, so creation was refused before writing.',
+          };
+        }
+
+        const inserted = await workspace.apply([{
+          op: 'device.insert',
+          track: trackAt(args.trackId),
+          source: args.containerType === 'instrument'
+            ? { from: 'file', path: INSTRUMENT_LAYER_SEED_PATH }
+            : { from: 'bitwig', uuid: FX_LAYER_UUID },
+        }]);
+        const insertion = receiptOf(inserted);
+        const container = inserted.take.receipt.minted[0];
+        if (container?.kind !== 'device') {
+          return {
+            ...insertion,
+            containerConfirmed: false,
+            why: 'no new container position was independently observed within the bounded window.',
+          };
+        }
+
+        try {
+        const firstRead = await workspace.read([container]);
+        const firstEntry = firstRead.entries[addressKey(container)];
+        const observed = firstEntry?.value.of === 'device'
+          ? firstEntry.value.device.container
+          : undefined;
+        if (observed?.chainsComplete !== true || observed.chains.length !== 1) {
+          return {
+            ...insertion,
+            containerConfirmed: true,
+            container: describeAddress(container),
+            namingConfirmed: false,
+            why: 'the new container did not independently resolve to exactly one complete seed entry.',
+          };
+        }
+
+        let currentName = observed.chains[0]!.name;
+        let preparation: ReturnType<typeof receiptOf> | undefined;
+        if (currentName === args.names[0]) {
+          const occupied = new Set([...args.names, currentName]);
+          let temporary = 'ghostnote pending alternate';
+          while (occupied.has(temporary)) temporary += ' pending';
+          const prepared = await workspace.apply([{
+            op: 'chain.rename',
+            chain: chainAt(container, currentName),
+            name: temporary,
+          }]);
+          preparation = receiptOf(prepared);
+          const preparedRead = await deviceAlternatesAt(
+            workspace, args.trackId, container.chainIndex,
+          ) as { readable?: boolean; alternates?: { name: string }[] };
+          if (preparation.failed !== undefined
+              || preparedRead.readable !== true
+              || preparedRead.alternates?.length !== 1
+              || preparedRead.alternates[0]?.name !== temporary) {
+            return {
+              applied: false,
+              containerConfirmed: true,
+              namingConfirmed: false,
+              containerChange: insertion,
+              preparationChange: preparation,
+              structure: preparedRead,
+            };
+          }
+          currentName = temporary;
+        }
+
+        const named = await workspace.apply([{
+          op: 'chain.rename',
+          chain: chainAt(container, currentName),
+          name: args.names[0]!,
+        }]);
+        const naming = receiptOf(named);
+        const afterName = await deviceAlternatesAt(
+          workspace, args.trackId, container.chainIndex,
+        ) as { readable?: boolean; alternates?: { name: string }[] };
+        const namingConfirmed = afterName.readable === true
+          && afterName.alternates?.length === 1
+          && afterName.alternates[0]?.name === args.names[0];
+        if (!namingConfirmed) {
+          return {
+            applied: false,
+            containerConfirmed: true,
+            namingConfirmed: false,
+            containerChange: insertion,
+            namingChange: naming,
+            ...(preparation === undefined ? {} : { preparationChange: preparation }),
+            structure: afterName,
+          };
+        }
+
+        const added = args.names.length <= 1
+          ? undefined
+          : await workspace.apply(args.names.slice(1).map((name): Op => ({
+            op: 'chain.create',
+            source: chainAt(container, args.names[0]!),
+            name,
+          })));
+        const structure = await deviceAlternatesAt(
+          workspace, args.trackId, container.chainIndex,
+        ) as { readable?: boolean; complete?: boolean; alternates?: { name: string }[] };
+        const resolvedNames = structure.alternates?.map((item) => item.name) ?? [];
+        const creationConfirmed = structure.readable === true
+          && structure.complete === true
+          && resolvedNames.length === args.names.length
+          && args.names.every((name, index) => resolvedNames[index] === name);
+        return {
+          applied: creationConfirmed,
+          containerConfirmed: true,
+          namingConfirmed: true,
+          creationConfirmed,
+          containerChange: insertion,
+          namingChange: naming,
+          ...(preparation === undefined ? {} : { preparationChange: preparation }),
+          ...(added === undefined ? {} : { alternateChange: receiptOf(added) }),
+          structure,
+        };
+        } catch {
+          return {
+            applied: false,
+            containerConfirmed: true,
+            namingConfirmed: false,
+            containerChange: insertion,
+            why: 'The container was added and recorded, but all requested names were not '
+              + 'independently confirmed. No automatic cleanup was attempted.',
+          };
+        }
+      });
+    },
+  }),
+
+  tool({
+    name: 'fill_device_alternate',
+    kind: 'write',
+    title: 'Fill a device alternate',
+    description:
+      'Move or copy one or more top-level devices into one named device alternate, appending them '
+      + 'in the order given. Positions count from 0 in the starting track device list. A move '
+      + 'compacts that list; the operation projects every later source position and the container '
+      + 'position before writing it. Success returns the complete destination structure from a '
+      + 'fresh independent reading.\n'
+      + 'Moving carries each device and its device state. It does not carry clips, sends, routing '
+      + 'or track mixer state. Automatic reversal does not move or remove the devices.',
+    inputSchema: {
+      trackId,
+      containerPosition: z.number().int().min(0).describe(
+        'Starting position of the containing device in the track, counting from 0.',
+      ),
+      alternateName: z.string().min(1).describe('Exact name of the destination device alternate.'),
+      sourceDevicePositions: z.array(z.number().int().min(0)).min(1).max(4).describe(
+        'Top-level device positions in the starting list, in the order to append them.',
+      ),
+      mode: z.enum(['move', 'copy']),
+    },
+    emits: ['chain.relocate'],
+    async run(workspace, args) {
+      return writing(async () => {
+        if (new Set(args.sourceDevicePositions).size !== args.sourceDevicePositions.length) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'each source device position may appear only once.',
+          };
+        }
+        if (args.sourceDevicePositions.includes(args.containerPosition)) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'the containing device cannot be moved or copied into itself.',
+          };
+        }
+
+        const moved: number[] = [];
+        const ops: Op[] = args.sourceDevicePositions.map((original) => {
+          const sourcePosition = args.mode === 'move'
+            ? original - moved.filter((position) => position < original).length
+            : original;
+          const projectedContainer = args.mode === 'move'
+            ? args.containerPosition
+              - moved.filter((position) => position < args.containerPosition).length
+            : args.containerPosition;
+          if (args.mode === 'move') moved.push(original);
+          return {
+            op: 'chain.relocate',
+            source: deviceAt(trackAt(args.trackId), sourcePosition),
+            destination: chainAt(
+              containerAt(args.trackId, projectedContainer),
+              args.alternateName,
+            ),
+            mode: args.mode,
+          };
+        });
+        const change = await workspace.apply(ops);
+        const finalContainerPosition = args.mode === 'move'
+          ? args.containerPosition
+            - args.sourceDevicePositions.filter((position) => position < args.containerPosition).length
+          : args.containerPosition;
+        const structure = await deviceAlternatesAt(
+          workspace, args.trackId, finalContainerPosition,
+        );
+        return {
+          ...receiptOf(change),
+          finalContainerPosition,
+          structure,
+        };
+      });
+    },
+  }),
+
+  tool({
     name: 'switch_device_alternate',
     kind: 'write',
-    title: 'Switch the active device alternate',
+    title: 'Solo one device alternate exclusively',
     description:
-      'Make one named device alternate active inside a device container and every sibling there '
-      + 'inactive. The container is named by its position in the track; that position shifts when '
+      'Solo one named device alternate inside a device container and clear solo from every sibling. '
+      + 'The container is named by its position in the track; that position shifts when '
       + 'devices before it are added or removed. The alternate name must identify exactly one '
-      + 'entry, and the complete sibling set plus every active flag must be readable or nothing '
+      + 'entry, and the complete sibling set plus every solo flag must be readable or nothing '
       + 'is written. Success is proved by a fresh independent reading, not by acknowledgement.\n'
       + 'A device alternate carries devices and device state. It carries no clips, sends, routing '
-      + 'or track mixer state. Automatic reversal does not restore the prior active entry; call '
+      + 'or track mixer state. Automatic reversal does not restore the prior soloed entry; call '
       + 'this operation again with the desired name.',
     inputSchema: {
       trackId,
       containerPosition: z.number().int().min(0).describe(
         'Position of the containing device in the track, counting from 0.',
       ),
-      alternateName: z.string().min(1).describe('Exact name of the device alternate to activate.'),
+      alternateName: alternateName.describe('Exact name of the device alternate to solo exclusively.'),
     },
     emits: ['chain.activate'],
     async run(workspace, args) {
@@ -1246,28 +1595,24 @@ export const TOOLS: readonly ToolSpec[] = [
         const snapshot = await workspace.read([container]);
         const entry = snapshot.entries[addressKey(container)];
         const observed = entry?.value.of === 'device' ? entry.value.device.container : undefined;
-        const states = observed?.chains.map((item) => ({
-          name: item.name,
-          active: typeof item.solo === 'boolean' ? item.solo : null,
-        })) ?? [];
+        const observedState = observed === undefined
+          ? { states: [], exclusiveActive: null }
+          : observedAlternateStates(observed);
+        const states = observedState.states;
         return {
           ...receipt,
           ...(receipt.failed === undefined ? {} : {
             failed: receipt.failed.map(() => ({
               op: 'switch_device_alternate',
-              error: 'The requested device alternate was not proved as the only active sibling.',
+              error: 'The requested device alternate was not proved as the only soloed sibling.',
             })),
           }),
-          active: states.find((item) => item.active)?.name ?? null,
+          exclusiveActive: observedState.exclusiveActive,
           alternates: states,
           exclusiveStateConfirmed:
-            observed?.chainsComplete === true
-            && states.length > 0
-            && states.every((item) => item.active !== null)
-            && states.filter((item) => item.active).length === 1
-            && states.find((item) => item.active)?.name === args.alternateName,
+            observedState.exclusiveActive === args.alternateName,
           automaticReversal:
-            'The prior active entry is not restored automatically. Switch again with its name.',
+            'The prior exclusively soloed entry is not restored automatically. Switch again with its name.',
         };
       });
     },

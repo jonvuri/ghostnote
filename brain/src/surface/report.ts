@@ -145,11 +145,9 @@ const DEVICE_GONE_FOR_GOOD =
 
 // ⚠ The alternate-holding structure inside a device, in the only words this
 // surface currently owns. `naming.ts` keeps both of the natural words closed as
-// relaxation candidates, and the device-alternate tools are what will reopen one
-// with a disambiguation — so this sentence describes the SHAPE rather than
-// naming the mechanism, and stays honest either way. Nothing on this surface can
-// produce such an address yet; the sentence exists so the record has words if
-// one ever arrives, rather than falling through to a vaguer one.
+// reviewed-and-kept entries after 3f-f: the device-alternate tools describe the
+// object as an alternate inside a container, so this sentence follows the same
+// vocabulary rather than leaking the DAW mechanism into an error.
 const NESTED_HOLDER_GONE_FOR_GOOD =
   'this named a compartment inside a device that holds its own devices. Making one is only '
   + 'possible by copying a compartment that already exists, and removing one is not possible at '
@@ -718,6 +716,13 @@ export function refusalOf(error: unknown): Refusal {
     return refusal('nothing in that change is inside the part of the project you named.');
   }
   if (error instanceof InvalidOpError) {
+    if (error.op === 'chain.relocate') {
+      return refusal(
+        'nothing was written. The complete requested fill could not be proved safe from the '
+        + 'current device order, destination identity, and available destination capacity. '
+        + 'Inspect the container and top-level device positions again before retrying.',
+      );
+    }
     return refusal(`nothing was written. That call cannot be represented: ${error.op} was refused `
       + 'before anything was sent, because the underlying API would have accepted it and done '
       + 'nothing.');

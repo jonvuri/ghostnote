@@ -20,9 +20,12 @@
  * hand `insertFile` a relative path (E4h) — because none of those are
  * expressible. That is the point of a typed seam over a string wire.
  */
-import { addressKey, chainPath, clip } from './address.js';
+import { addressKey, chainPath, clip, device } from './address.js';
 import type { ChainAddress, ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress, BeatRange } from './address.js';
-import { lookupChain, nestingObservable, type ObservedContainer } from './chains.js';
+import {
+  lookupChain, nestingObservable, type ObservedChain, type ObservedContainer,
+  type ObservedDeviceSequence,
+} from './chains.js';
 import { unwritableProps, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
 import {
@@ -120,6 +123,13 @@ export type Op =
    */
   | { readonly op: 'chain.create'; readonly source: ChainAddress; readonly name: string }
   /**
+   * Give one uniquely named, observed chain a new durable name. This is the
+   * bootstrap half that `chain.create` cannot provide: fresh FX containers and
+   * the bundled Instrument seed both begin with a chain whose shipped name must
+   * be replaced before it becomes a lifecycle address.
+   */
+  | { readonly op: 'chain.rename'; readonly chain: ChainAddress; readonly name: string }
+  /**
    * Relocate one device between the track's top-level chain and a named layer
    * chain, or between two named layer chains. The destination is always the end
    * of its device chain; repeating the verb therefore preserves caller order.
@@ -184,6 +194,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   // before the copy is in the bank, which reports no mint and leaves a chain
   // wearing its source's name.
   'chain.create': 'deviceInsert',
+  'chain.rename': 'trackStruct',
   'chain.relocate': 'deviceInsert',
   'chain.activate': 'tick',
 };
@@ -276,6 +287,17 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         );
       }
     }
+    if (op.op === 'chain.rename') {
+      if (op.name.trim() === '') {
+        throw new InvalidOpError(op.op, 'a device alternate needs a non-empty durable name');
+      }
+      if (op.name === op.chain.name) {
+        throw new InvalidOpError(op.op, 'the new name must differ from the current name');
+      }
+      if (!nestingObservable(op.chain)) {
+        throw new InvalidOpError(op.op, 'the addressed chain is deeper than the measured one-chain slot scopes');
+      }
+    }
     if (op.op === 'chain.relocate') {
       const destinationTrack = op.destination.kind === 'chain'
         ? op.destination.container.track
@@ -357,6 +379,7 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'device.delete':
     case 'param.set':
     case 'chain.create':
+    case 'chain.rename':
     case 'chain.relocate':
     case 'chain.activate':
     case 'notify':
@@ -390,6 +413,8 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
     // address rather than re-implementing the refusal.
     case 'chain.create':
       return [op.source.container];
+    case 'chain.rename':
+      return [op.chain.container];
     // This verb owns its nested route and performs the corresponding depth,
     // name and identity checks itself. Listing its source here would make the
     // general refusal erase the one deliberately promoted capability.
@@ -635,6 +660,173 @@ export function assertChainCreatable(
       );
     }
     state.names.push(op.name);
+  }
+}
+
+/**
+ * Prove every rename has one identity-bearing source and one provably free
+ * destination name. Projection makes several renames in one batch refer to the
+ * names left by the preceding renames rather than to a stale common snapshot.
+ */
+export function assertChainRenamable(
+  ops: readonly Op[],
+  observe: (container: DeviceAddress) => ObservedContainer | undefined,
+): void {
+  const projected = new Map<string, ObservedChain[]>();
+  for (const op of ops) {
+    if (op.op !== 'chain.rename') continue;
+    const key = addressKey(op.chain.container);
+    let chains = projected.get(key);
+    if (chains === undefined) {
+      const observed = observe(op.chain.container);
+      if (observed === undefined || !observed.chainsComplete) {
+        throw new InvalidOpError(op.op, 'the complete sibling set must be observable before a rename');
+      }
+      chains = observed.chains.map((item) => ({ ...item }));
+      projected.set(key, chains);
+    }
+    const matches = chains.filter((item) => item.name === op.chain.name);
+    if (matches.length !== 1) {
+      throw new InvalidOpError(
+        op.op,
+        `the addressed chain is ${matches.length === 0 ? 'absent' : 'ambiguous'}`,
+      );
+    }
+    if (matches[0]!.id === undefined) {
+      throw new InvalidOpError(op.op, 'the addressed chain did not report its within-turn identity');
+    }
+    if (chains.some((item) => item.name === op.name)) {
+      throw new InvalidOpError(op.op, `the name "${op.name}" is already in use in this container`);
+    }
+    const at = chains.indexOf(matches[0]!);
+    chains[at] = { ...matches[0]!, name: op.name };
+  }
+}
+
+/** A complete device enumeration plus the fixed bank width it must fit inside. */
+export interface ObservedDeviceBank extends ObservedDeviceSequence {
+  readonly bankSize?: number;
+}
+
+/**
+ * Refuse a relocation batch unless its COMPLETE projected device structure is
+ * safe. Relocations settle one per stage, so a per-stage preflight can run only
+ * after earlier stages have already written. This projection is therefore the
+ * atomicity boundary: both adapters call it once, before the first stage.
+ *
+ * Top-level positions are simulated in caller order. A move compacts the list,
+ * so a later container address is resolved to the same initial device identity
+ * through the projected list rather than re-read at its future position. Each
+ * nested destination is then counted cumulatively against its reported bank.
+ */
+export function assertChainRelocatable(
+  ops: readonly Op[],
+  observeTrack: (track: TrackAddress) => ObservedDeviceBank | undefined,
+  observeContainer: (container: DeviceAddress) => ObservedContainer | undefined,
+): void {
+  type ProjectedDevice = {
+    readonly token: number;
+    readonly name: string;
+    /** Present only for a device independently observed at top level now. */
+    readonly origin?: DeviceAddress;
+  };
+  type ProjectedSequence = { devices: ProjectedDevice[]; bankSize: number };
+
+  let nextToken = 0;
+  const tracks = new Map<string, ProjectedSequence>();
+  const nested = new Map<string, ProjectedSequence>();
+
+  const top = (track: TrackAddress): ProjectedSequence => {
+    let state = tracks.get(track.channelId);
+    if (state !== undefined) return state;
+    const observed = observeTrack(track);
+    if (observed === undefined) {
+      throw new InvalidOpError('chain.relocate', 'the source track device order was not observable');
+    }
+    if (!observed.devicesComplete) {
+      throw new InvalidOpError('chain.relocate', 'the complete source track device order must be observable');
+    }
+    if (observed.bankSize === undefined) {
+      throw new InvalidOpError('chain.relocate', 'the top-level device bank did not report its width');
+    }
+    state = {
+      bankSize: observed.bankSize,
+      devices: observed.devices.map((item) => ({
+        token: nextToken++,
+        name: item.name,
+        origin: device(track, item.index),
+      })),
+    };
+    tracks.set(track.channelId, state);
+    return state;
+  };
+
+  const sequence = (endpoint: TrackAddress | ChainAddress): ProjectedSequence => {
+    if (endpoint.kind === 'track') return top(endpoint);
+    const parent = top(endpoint.container.track);
+    const holder = parent.devices[endpoint.container.chainIndex];
+    if (holder === undefined) {
+      throw new InvalidOpError(
+        'chain.relocate',
+        `no destination container exists at projected position ${endpoint.container.chainIndex}`,
+      );
+    }
+    if (holder.origin === undefined) {
+      throw new InvalidOpError(
+        'chain.relocate',
+        'the projected destination container has no pre-write structural identity',
+      );
+    }
+    const key = `${holder.token}\u0000${endpoint.name}`;
+    let state = nested.get(key);
+    if (state !== undefined) return state;
+    const observed = observeContainer(holder.origin);
+    if (observed === undefined || !observed.chainsComplete) {
+      throw new InvalidOpError(
+        'chain.relocate',
+        'the complete destination container structure must be observable before filling it',
+      );
+    }
+    const found = lookupChain(observed, endpoint.name);
+    if (!found.ok) {
+      throw new InvalidOpError('chain.relocate', `the addressed device alternate is ${found.miss}`);
+    }
+    if (!found.chain.devicesComplete) {
+      throw new InvalidOpError('chain.relocate', 'the complete device order of the addressed alternate must be observable');
+    }
+    if (found.chain.devicesBankSize === undefined) {
+      throw new InvalidOpError('chain.relocate', 'the destination device bank did not report its width');
+    }
+    state = {
+      bankSize: found.chain.devicesBankSize,
+      devices: found.chain.devices.map((item) => ({ token: nextToken++, name: item.name })),
+    };
+    nested.set(key, state);
+    return state;
+  };
+
+  for (const op of ops) {
+    if (op.op !== 'chain.relocate') continue;
+    const source = sequence(op.source.chain ?? op.source.track);
+    const destination = sequence(op.destination);
+    const sourceDevice = source.devices[op.source.chainIndex];
+    if (sourceDevice === undefined) {
+      throw new InvalidOpError(
+        op.op,
+        `no source device exists at projected position ${op.source.chainIndex}`,
+      );
+    }
+    if (destination.devices.length >= destination.bankSize) {
+      throw new InvalidOpError(
+        op.op,
+        `the complete request would leave ${destination.devices.length + 1} devices in a destination bank `
+        + `${destination.bankSize} wide; the whole request was refused before any device moved`,
+      );
+    }
+    if (op.mode === 'move') source.devices.splice(op.source.chainIndex, 1);
+    destination.devices.push(op.mode === 'copy'
+      ? { token: nextToken++, name: sourceDevice.name }
+      : sourceDevice);
   }
 }
 

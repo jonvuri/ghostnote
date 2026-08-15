@@ -49,6 +49,7 @@ const ctx: EncodeContext = {
   // named chains, at positions that are NOT 0 and 1, so a frame carrying an
   // array offset or a hardcoded zero fails here rather than live.
   chainIndex: (c) => (c.name === 'A take' ? 2 : (c.name === 'B take' ? 3 : -1)),
+  chainId: (c) => `id-${c.name}`,
   deviceName: () => 'Polysynth',
   sceneRow: sceneRowIn(SCENE_WINDOW),
 };
@@ -253,6 +254,17 @@ test('E-chain: a source nobody observed is REFUSED, never given a guessed positi
   const frames = encodeOp({ op: 'chain.create', source: unseen, name: 'B' }, ctx);
   assert.equal(paramsOf(frames, WIRE.chainDuplicate)?.['layerIndex'], -1,
     'whatever the context says is what goes out — the encoder invents no position');
+});
+
+test('E-chain-rename: a durable name write targets the freshly observed identity', () => {
+  const source = chainAt(device(TRACK_A, 1), 'A take');
+  const frames = encodeOp({ op: 'chain.rename', chain: source, name: 'Original' }, ctx);
+  assert.deepEqual(methods(frames), [WIRE.chainSetName]);
+  const params = paramsOf(frames, WIRE.chainSetName);
+  assert.equal(params?.['slot'], 1);
+  assert.equal(params?.['channelId'], 'id-A take');
+  assert.equal(params?.['name'], 'Original');
+  assert.equal(params?.['layerIndex'], undefined, 'a position is never the rename identity');
 });
 
 test('E-chain-relocate: all directions use one guarded slot-scoped mover', () => {

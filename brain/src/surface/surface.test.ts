@@ -31,6 +31,7 @@ import { z } from 'zod';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
+import { ProjectModel } from '../adapters/fake/model.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
   InvalidOpError, NOTE_PROP_FIDELITY, SlotOccupiedError, StaleAddressError, WireDriftError,
@@ -57,7 +58,7 @@ interface Fixture {
   readonly workspace: Workspace;
   readonly trackA: string;
   readonly trackB: string;
-  /** Every op that reached the adapter, in order — how `emits` is checked. */
+  /** Every op whose adapter call reached staging, in order — how `emits` is checked. */
   readonly sent: Op[];
 }
 
@@ -77,9 +78,10 @@ function fixture(): Fixture {
     revision: () => fake.revision(),
     contentSince: (since) => fake.contentSince(since),
     close: () => fake.close(),
-    apply: (batch) => {
+    apply: async (batch) => {
+      const receipt = await fake.apply(batch);
       sent.push(...batch.ops);
-      return fake.apply(batch);
+      return receipt;
     },
   };
   const stash = new Stash({ now: () => 1 });
@@ -310,31 +312,64 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
     settings: [{ trackId: fx.trackA, devicePosition: 0, index: 0, value: 0.25 }],
   }))['applied'], true);
 
-  // The creation surface is deliberately a later slice. Seed the fake directly
-  // here so this slice's production switching tool is still exercised end to end.
-  const containerChange = await fx.workspace.apply([{
-    op: 'device.insert',
-    track: trackAt(fx.trackA),
-    source: { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' },
-  }]);
-  const container = containerChange.take.receipt.minted[0];
-  assert.ok(container?.kind === 'device');
-  const containerRead = await fx.workspace.read([container]);
-  const containerState = containerRead.entries[addressKey(container)];
-  const sourceName = containerState?.value.of === 'device'
-    ? containerState.value.device.container?.chains[0]?.name
-    : undefined;
-  assert.ok(sourceName);
-  await fx.workspace.apply([{
-    op: 'chain.create', source: chainAt(container, sourceName), name: 'gn-tool-alt',
-  }]);
+  const createdAlternates = await exercise('create_device_alternates', {
+    trackId: fx.trackA,
+    containerType: 'instrument',
+    names: ['gn-tool-source', 'gn-tool-alt'],
+  }) as {
+    applied: boolean;
+    structure: { container: { devicePosition: number }; alternates: { name: string }[] };
+  };
+  assert.equal(createdAlternates.applied, true, JSON.stringify(createdAlternates));
+  assert.deepEqual(
+    createdAlternates.structure.alternates.map((item) => item.name),
+    ['gn-tool-source', 'gn-tool-alt'],
+  );
+
+  const inspected = await exercise('inspect_device_alternates', {
+    trackId: fx.trackA,
+    containerPosition: createdAlternates.structure.container.devicePosition,
+  }) as {
+    readable: boolean;
+    complete: boolean;
+    exclusiveActive: string | null;
+    alternates: { soloed: boolean | null }[];
+  };
+  assert.equal(inspected.readable, true);
+  assert.equal(inspected.complete, true);
+  assert.equal(inspected.exclusiveActive, null,
+    'two open siblings are not mislabeled as one exclusively active alternate');
+  assert.deepEqual(inspected.alternates.map((item) => item.soloed), [false, false]);
+
+  const filled = await exercise('fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: createdAlternates.structure.container.devicePosition,
+    alternateName: 'gn-tool-source',
+    sourceDevicePositions: [0],
+    mode: 'move',
+  }) as {
+    applied: boolean;
+    finalContainerPosition: number;
+    structure: { alternates: { name: string; devices: { name: string }[] }[] };
+  };
+  assert.equal(filled.applied, true, JSON.stringify(filled));
+  assert.equal(filled.finalContainerPosition, 0);
+  assert.equal(filled.structure.alternates[0]?.devices.length, 1);
+
+  const effectAlternates = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackB,
+    containerType: 'effect',
+    names: ['gn-effect-source', 'gn-effect-alt'],
+  }) as { applied: boolean; structure: { container: { devicePosition: number } } };
+  assert.equal(effectAlternates.applied, true, JSON.stringify(effectAlternates));
+
   const switched = await exercise('switch_device_alternate', {
     trackId: fx.trackA,
-    containerPosition: container.chainIndex,
+    containerPosition: filled.finalContainerPosition,
     alternateName: 'gn-tool-alt',
-  }) as { applied: boolean; active: string; exclusiveStateConfirmed: boolean };
+  }) as { applied: boolean; exclusiveActive: string; exclusiveStateConfirmed: boolean };
   assert.equal(switched.applied, true, JSON.stringify(switched));
-  assert.equal(switched.active, 'gn-tool-alt');
+  assert.equal(switched.exclusiveActive, 'gn-tool-alt');
   assert.equal(switched.exclusiveStateConfirmed, true);
 
   // -- the record of all of it, and putting one of them back.
@@ -366,6 +401,12 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   // -- destroying.
   assert.equal((await exercise('delete_device', {
     devices: [{ trackId: fx.trackA, position: 0 }],
+  }))['applied'], true);
+  assert.equal((await call(fx, 'delete_device', {
+    devices: [{
+      trackId: fx.trackB,
+      position: effectAlternates.structure.container.devicePosition,
+    }],
   }))['applied'], true);
 
   assert.equal((await exercise('delete_clip', {
@@ -653,6 +694,160 @@ test('T-refusal: writing into a slot with no clip is refused, and says what to d
   assert.equal(result['nothingWasWritten'], true);
   assert.match(result['why'] as string, /no clip in that slot/);
   assert.match(result['why'] as string, /add_clip/, 'the refusal names the way forward');
+});
+
+test('T-device-alternate names: every invalid name refuses before container insertion', async () => {
+  const spec = TOOLS.find((tool) => tool.name === 'create_device_alternates')!;
+  for (const names of [[' '], ['valid', '\t'], ['same', 'same']]) {
+    const fx = fixture();
+    const before = JSON.stringify(fx.fake.model.findByChannelId(fx.trackA)!.track.devices);
+    const beforeChanges = fx.stash.list().length;
+    const beforeSent = fx.sent.length;
+    const result = await spec.run(fx.workspace, {
+      trackId: fx.trackA,
+      containerType: 'effect',
+      names,
+    } as never) as Record<string, unknown>;
+    assert.equal(result['refused'], true, JSON.stringify(result));
+    assert.equal(result['nothingWasWritten'], true, JSON.stringify(result));
+    assert.equal(JSON.stringify(fx.fake.model.findByChannelId(fx.trackA)!.track.devices), before);
+    assert.equal(fx.stash.list().length, beforeChanges);
+    assert.equal(fx.sent.length, beforeSent);
+  }
+
+  assert.equal(z.object(spec.inputSchema).safeParse({
+    trackId: 'track', containerType: 'effect', names: [' '],
+  }).success, false, 'the public schema itself rejects a whitespace-only first name');
+  assert.equal(z.object(spec.inputSchema).safeParse({
+    trackId: 'track', containerType: 'effect', names: ['valid', '  '],
+  }).success, false, 'the public schema itself rejects a whitespace-only later name');
+});
+
+test('T-device-alternate names: a requested name matching the shipped entry is still explicitly written', async () => {
+  const fx = fixture();
+  const beforeChanges = fx.stash.list().length;
+  const beforeSent = fx.sent.length;
+  const result = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA,
+    containerType: 'effect',
+    names: [ProjectModel.SHIPPED_CHAIN_NAME],
+  }) as {
+    applied: boolean;
+    namingConfirmed: boolean;
+    preparationChange?: { changeId: string };
+    structure: { alternates: { name: string }[] };
+  };
+  assert.equal(result.applied, true, JSON.stringify(result));
+  assert.equal(result.namingConfirmed, true);
+  assert.equal(result.structure.alternates[0]?.name, ProjectModel.SHIPPED_CHAIN_NAME);
+  assert.equal(typeof result.preparationChange?.changeId, 'string',
+    'the untouched shipped name was changed away and explicitly restored');
+  assert.deepEqual(
+    fx.sent.slice(beforeSent).map((op) => op.op),
+    ['device.insert', 'chain.rename', 'chain.rename'],
+  );
+  assert.equal(fx.stash.list().length, beforeChanges + 3,
+    'both explicit naming writes travelled through the recorded executor path');
+});
+
+test('T-fill preflight: cumulative capacity refuses the whole request without state, history, or emitted writes', async () => {
+  const fx = fixture();
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA, containerType: 'effect', names: ['destination'],
+  }) as { structure: { container: { devicePosition: number } } };
+  await call(fx, 'add_device', {
+    devices: [
+      { trackId: fx.trackA, from: 'bitwig', id: 'source-a' },
+      { trackId: fx.trackA, from: 'bitwig', id: 'source-b' },
+    ],
+  });
+  fx.fake.model.chainDeviceBankSize = 1;
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  const before = JSON.stringify(track.devices);
+  const beforeChanges = fx.stash.list().length;
+  const beforeSent = fx.sent.length;
+  const beforeRevision = (await fx.fake.revision()).revision;
+
+  const result = await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: made.structure.container.devicePosition,
+    alternateName: 'destination',
+    sourceDevicePositions: [1, 2],
+    mode: 'copy',
+  });
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.equal(JSON.stringify(track.devices), before, 'both sources and the destination are unchanged');
+  assert.equal(fx.stash.list().length, beforeChanges, 'no change was recorded');
+  assert.equal(fx.sent.length, beforeSent, 'no write batch was emitted by the adapter');
+  assert.equal((await fx.fake.revision()).revision, beforeRevision, 'no stage ran');
+});
+
+test('T-fill preflight: a valid first source followed by an invalid source writes nothing', async () => {
+  const fx = fixture();
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA, containerType: 'effect', names: ['destination'],
+  }) as { structure: { container: { devicePosition: number } } };
+  await call(fx, 'add_device', {
+    devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'source-a' }],
+  });
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  const before = JSON.stringify(track.devices);
+  const beforeChanges = fx.stash.list().length;
+  const beforeSent = fx.sent.length;
+  const beforeRevision = (await fx.fake.revision()).revision;
+
+  const result = await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: made.structure.container.devicePosition,
+    alternateName: 'destination',
+    sourceDevicePositions: [1, 7],
+    mode: 'move',
+  });
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.equal(JSON.stringify(track.devices), before, 'the valid first source and destination are unchanged');
+  assert.equal(fx.stash.list().length, beforeChanges);
+  assert.equal(fx.sent.length, beforeSent);
+  assert.equal((await fx.fake.revision()).revision, beforeRevision);
+});
+
+test('T-fill projection: non-sorted caller order preserves requested order through move compaction', async () => {
+  const fx = fixture();
+  await call(fx, 'add_device', {
+    devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'source-a' }],
+  });
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA, containerType: 'effect', names: ['destination'],
+  }) as { structure: { container: { devicePosition: number } } };
+  await call(fx, 'add_device', {
+    devices: [
+      { trackId: fx.trackA, from: 'bitwig', id: 'source-b' },
+      { trackId: fx.trackA, from: 'bitwig', id: 'source-c' },
+    ],
+  });
+
+  const result = await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: made.structure.container.devicePosition,
+    alternateName: 'destination',
+    sourceDevicePositions: [3, 0],
+    mode: 'move',
+  }) as {
+    applied: boolean;
+    finalContainerPosition: number;
+    structure: { alternates: { name: string; devices: { name: string }[] }[] };
+  };
+  assert.equal(result.applied, true, JSON.stringify(result));
+  assert.equal(result.finalContainerPosition, 0);
+  assert.deepEqual(
+    result.structure.alternates[0]?.devices.map((item) => item.name),
+    ['source-c', 'source-a'],
+  );
+  assert.deepEqual(
+    fx.fake.model.findByChannelId(fx.trackA)!.track.devices.map((item) => item.name),
+    [ProjectModel.FX_LAYER_UUID, 'source-b'],
+  );
 });
 
 test('T-refusal: a write it could not put back is refused, and names what is in the way', async () => {

@@ -81,6 +81,8 @@ export interface EncodeContext {
    * rather than guessing when a chain was never observed.
    */
   readonly chainIndex: (chain: ChainAddress) => number;
+  /** Within-turn identity from the same container observation as `chainIndex`. */
+  readonly chainId: (chain: ChainAddress) => string;
   /** Source name from the structural reading that immediately precedes relocation. */
   readonly deviceName?: (device: import('../../contract/index.js').DeviceAddress) => string;
   /**
@@ -428,6 +430,13 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         // anything, which turns a stale position into an error instead of a copy
         // of somebody else's chain.
         expectedName: op.source.name,
+      })];
+
+    case 'chain.rename':
+      return [frame(WIRE.chainSetName, {
+        slot: op.chain.container.chainIndex,
+        channelId: ctx.chainId(op.chain),
+        name: op.name,
       })];
 
     case 'chain.relocate': {

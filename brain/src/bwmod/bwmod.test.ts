@@ -21,6 +21,7 @@ import {
   streamOffset, stubValues, validate, writeModulatorRefs,
 } from './index.js';
 import { allFixtures, fixture, normalizeVolatiles } from './fixtures.js';
+import { INSTRUMENT_LAYER_SEED_PATH } from '../device-alternates/assets.js';
 
 const ZIP_MAGIC = Buffer.from('PK\x03\x04', 'latin1');
 const SAMPLED = 'Sampler/gn_sampler_one_lfo';
@@ -81,6 +82,12 @@ test('U-parse: listChains resolves a layer container, last chain end unknown (E1
   assert.ok(chains.every((c, i) => i === 0 || c.start > chains[i - 1].start));
   assert.equal(chains.at(-1)?.end, null, 'the last chain has no exact end (E10d)');
   assert.ok(chains.slice(0, -1).every((c) => c.end !== null));
+});
+
+test('U-seed: the bundled Instrument container seed is valid and has one entry', () => {
+  const seed = readFileSync(INSTRUMENT_LAYER_SEED_PATH);
+  assert.deepEqual(listChains(seed).map((item) => item.name), ['CHAIN1']);
+  assertValid(seed, 'instrument device-alternate seed');
 });
 
 // ---------------------------------------------------------------------------

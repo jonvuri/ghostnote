@@ -188,6 +188,7 @@ function targetsOf(op: Op): {
     case 'scene.create':
     case 'device.insert':
     case 'chain.create':
+    case 'chain.rename':
     case 'chain.relocate':
     case 'chain.activate':
     case 'notify':
@@ -245,6 +246,13 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
           + 'forms refuse on a DeviceLayer while the same inherited call deletes a Track in the '
           + 'same run (e17al, e17am). Reduction is a different operation — move the devices out '
           + 'and delete the container — so automatic reversal leaves this chain standing.',
+      };
+    case 'chain.rename':
+      return {
+        opIndex, op: op.op, unrestoredAs: 'renamed device alternate',
+        why:
+          'the old name stops resolving as soon as it changes, so automatic reversal cannot prove '
+          + 'that a later rename still addresses the same entry. The new name remains.',
       };
     case 'chain.relocate':
       return {

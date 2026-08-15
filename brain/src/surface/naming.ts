@@ -66,14 +66,14 @@ export const SURFACE_WORDS_BANNED: Readonly<Record<string, string>> = {
     'PERMANENT. The category the retired three-mechanism model lived in. A surface that offers to '
     + '"branch" has mapped a change onto take machinery instead of naming the object it changes.',
   layer:
-    'RELAXATION CANDIDATE (3f step 6). The device-alternate mechanism. Nothing on this surface '
-    + 'reaches a device layer today; when the device-alternate tools ship, revised D18e may allow '
-    + 'them to name what they build — reopen this entry then, deliberately, not in passing.',
+    'REVIEWED AND KEPT (3f-f). The device-alternate tools now inspect, create, fill and switch '
+    + 'their object directly, and "device alternate" plus "container" describes that object '
+    + 'without exposing the DAW mechanism or colliding with ordinary track-device wording.',
   chain:
-    'RELAXATION CANDIDATE (3f step 6), with a second reason to keep it: it is also the word this '
-    + 'project uses for a device chain, which is why the device tools say "position in the track" '
-    + 'instead. Two meanings, one of them a mechanism, is exactly the ambiguity a fresh vocabulary '
-    + 'exists to avoid — so relaxing this one needs a disambiguation, not just a decision.',
+    'REVIEWED AND KEPT (3f-f). It names both the DAW mechanism and an ordinary ordered device '
+    + 'sequence. The production tools need neither meaning: they say "device alternate", '
+    + '"container", "device order" and "position in the track" explicitly, so reopening this '
+    + 'word would add ambiguity without adding precision.',
   duplicate:
     'REVIEWED AND KEPT (3f step 5). Track copying is now an ordinary product operation, but the '
     + '`copy_track` surface can describe it completely in its own COPY vocabulary. Keeping this '

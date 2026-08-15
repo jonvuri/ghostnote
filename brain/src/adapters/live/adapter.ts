@@ -28,8 +28,8 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
   ContractVersionError, StaleAddressError, WireDriftError,
-  addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
-  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
+  addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
+  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
   lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
@@ -284,6 +284,8 @@ export class LiveAdapter implements BitwigAdapter {
    * on the way in so no batch can inherit another's.
    */
   private chainPositions = new Map<AddressKey, number>();
+  /** Chain address -> within-turn identity from the same fresh observation. */
+  private chainIds = new Map<AddressKey, string>();
   /** Device names from the relocation reading immediately preceding the wire call. */
   private deviceNames = new Map<AddressKey, string>();
 
@@ -484,6 +486,7 @@ export class LiveAdapter implements BitwigAdapter {
       cursorForTrack: (t) => this.pool.cursorForTrack(t),
       trackIndex: (t) => this.trackIndex(t),
       chainIndex: (c) => this.chainIndex(c),
+      chainId: (c) => this.chainId(c),
       deviceName: (d) => {
         const name = this.deviceNames.get(addressKey(d));
         if (name === undefined) throw new AddressUnresolvedError(d, 'no fresh structural reading named this device');
@@ -512,6 +515,17 @@ export class LiveAdapter implements BitwigAdapter {
       );
     }
     return at;
+  }
+
+  private chainId(chainRef: ChainAddress): string {
+    const id = this.chainIds.get(addressKey(chainRef));
+    if (id === undefined) {
+      throw new AddressUnresolvedError(
+        chainRef,
+        `no fresh observation recorded an identity for chain "${chainRef.name}"`,
+      );
+    }
+    return id;
   }
 
   /**
@@ -1361,9 +1375,10 @@ export class LiveAdapter implements BitwigAdapter {
     ops: readonly Op[],
   ): Promise<Map<AddressKey, ObservedContainer | undefined>> {
     this.chainPositions.clear();
+    this.chainIds.clear();
     const seen = new Map<AddressKey, ObservedContainer | undefined>();
     for (const op of ops) {
-      if (op.op !== 'chain.create' && op.op !== 'chain.activate') continue;
+      if (op.op !== 'chain.create' && op.op !== 'chain.rename' && op.op !== 'chain.activate') continue;
       const container = op.op === 'chain.create' ? op.source.container : op.chain.container;
       const key = addressKey(container);
       if (seen.has(key)) continue;
@@ -1391,7 +1406,9 @@ export class LiveAdapter implements BitwigAdapter {
       // last. (A blank name would also throw in `chain()`, which builds an
       // address, not a position.)
       if (item.name.trim() === '' || !lookupChain(observed, item.name).ok) continue;
-      this.chainPositions.set(addressKey(chainAt(container, item.name)), item.index);
+      const key = addressKey(chainAt(container, item.name));
+      this.chainPositions.set(key, item.index);
+      if (item.id !== undefined) this.chainIds.set(key, item.id);
     }
   }
 
@@ -1438,7 +1455,23 @@ export class LiveAdapter implements BitwigAdapter {
   ): Promise<RelocationReading> {
     const sourceEndpoint = op.source.chain ?? op.source.track;
     const source = await this.relocationSequence(sourceEndpoint);
-    const destination = await this.relocationSequence(op.destination);
+    // A top-level MOVE from before the destination container compacts the top
+    // device list. The wire correctly addresses the container at its pre-write
+    // position; independent readback must address where that same container
+    // moved, or it would inspect the now-empty old position and reject a write
+    // that actually landed.
+    const destination = await this.relocationSequence(
+      !preflight
+        && op.mode === 'move'
+        && op.source.chain === undefined
+        && op.destination.kind === 'chain'
+        && op.source.chainIndex < op.destination.container.chainIndex
+        ? chainAt(
+          deviceAt(op.destination.container.track, op.destination.container.chainIndex - 1),
+          op.destination.name,
+        )
+        : op.destination,
+    );
     if (preflight) {
       if (!source.devicesComplete || !destination.devicesComplete) {
         throw new InvalidOpError(op.op, 'source and destination must both be fully inside their device bank windows');
@@ -1459,6 +1492,31 @@ export class LiveAdapter implements BitwigAdapter {
       this.deviceNames.set(addressKey(op.source), sourceDevice.name);
     }
     return { source, destination };
+  }
+
+  /** Validate every projected relocation before the first settling stage writes. */
+  private async assertRelocationsPreflight(ops: readonly Op[]): Promise<void> {
+    const relocations = ops.filter((op): op is Extract<Op, { op: 'chain.relocate' }> =>
+      op.op === 'chain.relocate');
+    if (relocations.length === 0) return;
+
+    const tracks = new Map<string, RelocationSequence>();
+    const containers = new Map<string, ObservedContainer | undefined>();
+    for (const trackRef of new Map(relocations.map((op) =>
+      [op.source.track.channelId, op.source.track])).values()) {
+      const observed = await this.relocationSequence(trackRef);
+      tracks.set(trackRef.channelId, observed);
+      for (const item of observed.devices) {
+        const at = deviceAt(trackRef, item.index);
+        const scope = await this.containerScope(trackRef, item.index);
+        containers.set(addressKey(at), scope.ok ? scope.container : undefined);
+      }
+    }
+    assertChainRelocatable(
+      ops,
+      (trackRef) => tracks.get(trackRef.channelId),
+      (container) => containers.get(addressKey(container)),
+    );
   }
 
   /** Poll structural readback until relocation is proved or the bounded window closes. */
@@ -1508,6 +1566,28 @@ export class LiveAdapter implements BitwigAdapter {
       if (Date.now() - started < 4000) await new Promise((resolve) => setTimeout(resolve, 100));
     } while (Date.now() - started < 4000);
     return { ok: false, why: `exclusive switch was not proved by container readback: ${last}` };
+  }
+
+  /** Prove a rename by resolving the new name to the identity observed before it. */
+  private async finishChainRename(
+    op: Extract<Op, { op: 'chain.rename' }>,
+    id: string,
+  ): Promise<{ readonly ok: true } | { readonly ok: false; readonly why: string }> {
+    const started = Date.now();
+    let last = 'the new name did not resolve';
+    do {
+      const scope = await this.containerScope(
+        op.chain.container.track, op.chain.container.chainIndex);
+      if (scope.ok) {
+        const found = lookupChain(scope.container, op.name);
+        if (found.ok && found.chain.id === id) return { ok: true };
+        last = found.ok ? 'the new name resolved to a different identity' : `the new name was ${found.miss}`;
+      } else {
+        last = `the container became ${scope.miss}`;
+      }
+      if (Date.now() - started < 4000) await new Promise((resolve) => setTimeout(resolve, 100));
+    } while (Date.now() - started < 4000);
+    return { ok: false, why: `rename was not proved by container readback: ${last}` };
   }
 
   /**
@@ -1673,7 +1753,9 @@ export class LiveAdapter implements BitwigAdapter {
     // comes from a reply, and it must come from a reply this batch took.
     const containers = await this.readContainers(batch.ops);
     assertChainCreatable(batch.ops, (container) => containers.get(addressKey(container)));
+    assertChainRenamable(batch.ops, (container) => containers.get(addressKey(container)));
     assertChainActivatable(batch.ops, (container) => containers.get(addressKey(container)));
+    await this.assertRelocationsPreflight(batch.ops);
     this.deviceNames.clear();
 
     const stages = planStages(batch.ops);
@@ -1728,6 +1810,22 @@ export class LiveAdapter implements BitwigAdapter {
         // earlier stage in the same batch is allowed to have added one.
         this.recordChainPositions(createOp.source.container, containerBefore.container);
         await this.selectSourceChain(createOp);
+      }
+
+      const renameAt = stage.ops.findIndex((o) => o.op === 'chain.rename');
+      const renameOp = renameAt === -1 ? undefined : stage.ops[renameAt];
+      let renameId: string | undefined;
+      if (renameOp?.op === 'chain.rename') {
+        try {
+          const scope = await this.containerScope(
+            renameOp.chain.container.track, renameOp.chain.container.chainIndex);
+          assertChainRenamable([renameOp], () => scope.ok ? scope.container : undefined);
+          if (scope.ok) this.recordChainPositions(renameOp.chain.container, scope.container);
+          renameId = this.chainId(renameOp.chain);
+        } catch (error) {
+          await this.restoreSelection(selection);
+          throw error;
+        }
       }
 
       // Relocation is one settling op per stage, so this reading brackets
@@ -1851,6 +1949,17 @@ export class LiveAdapter implements BitwigAdapter {
               ? { ...entry, ok: false, error: named.why }
               : entry));
           receipts[receipts.length - 1] = { ...receipt, ops };
+        }
+      }
+      if (renameOp?.op === 'chain.rename' && renameId !== undefined
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const proved = await this.finishChainRename(renameOp, renameId);
+        if (!proved.ok) {
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            (entry.op === WIRE.chainSetName || entry.op === 'chain.rename'
+              ? { ...entry, ok: false, error: proved.why }
+              : entry));
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
         }
       }
       if (relocateOp?.op === 'chain.relocate' && relocationBefore !== undefined

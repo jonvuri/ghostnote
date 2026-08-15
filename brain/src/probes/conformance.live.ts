@@ -70,6 +70,29 @@ async function ensureFixtures(client: BridgeClient): Promise<[TrackAddress, Trac
   const a = found(rows, FIXTURE_A);
   const b = found(rows, FIXTURE_B);
   if (!a || !b) throw new Error('fixture tracks did not materialise');
+
+  // A failed device/container row can leave residue even though the ordinary
+  // per-case cleanup is in `finally` (for example, an insert may mint outside
+  // the observable container scopes before its assertion fails). These tracks
+  // are wholly conformance-owned, so restore their required empty device-chain
+  // baseline once, before any case runs.
+  for (const row of [a, b]) {
+    await client.request('cursor.pointTrack', { cursor: '0', trackIndex: row.index });
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    for (let guard = 0; guard < 8; guard++) {
+      const before = (await client.request('device.list', { cursor: '0' })) as {
+        count: number;
+        devices: { index: number }[];
+      };
+      if (before.count === 0) break;
+      await client.request('device.delete', { cursor: '0', deviceIndex: before.devices[0]!.index });
+      for (let poll = 0; poll < 40; poll++) {
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        const after = (await client.request('device.list', { cursor: '0' })) as { count: number };
+        if (after.count < before.count) break;
+      }
+    }
+  }
   return [track(a.channelId), track(b.channelId)];
 }
 

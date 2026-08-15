@@ -733,6 +733,23 @@ class ChainCreateTransport implements Transport {
 
 const SHIPPED = () => chainAt(deviceAt(TRACK, 0), 'gn-shipped');
 
+test('L-chain-rename: the observed identity is renamed and independently resolved', async () => {
+  const wire = new ChainCreateTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({
+    ops: [{ op: 'chain.rename', chain: SHIPPED(), name: 'gn-source' }],
+  });
+
+  assert.equal(receipt.stages[0]?.ops[0]?.ok, true);
+  assert.deepEqual(wire.chains.map((item) => item.name), ['gn-source']);
+  const rename = wire.frames.find((frame) => frame.method === WIRE.batchRun)
+    ?.params as { ops?: { method: string; params: Record<string, unknown> }[] };
+  const frame = rename.ops?.find((item) => item.method === WIRE.chainSetName);
+  assert.equal(frame?.params['channelId'], 'chain-id-1');
+  assert.equal(frame?.params['name'], 'gn-source');
+});
+
 test('L-chain-create: the copy is SELECTED first, then named by the id it was observed with', async () => {
   const wire = new ChainCreateTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });

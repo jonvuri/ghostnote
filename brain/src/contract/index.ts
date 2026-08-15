@@ -39,11 +39,11 @@ export {
 export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 
 export {
-  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertChainActivatable, assertChainCreatable, assertDevicesRoutable,
+  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDevicesRoutable,
   assertNever, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom,
   assertSlotsFree, assertClipSources,
 } from './ops.js';
-export type { DeviceSource, Op, OpKind } from './ops.js';
+export type { DeviceSource, ObservedDeviceBank, Op, OpKind } from './ops.js';
 
 export {
   GAIN_READ_SCALE, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, NOTE_PROP_FIDELITY, NOTE_PROP_WRITE_ORDER, UNVERIFIED_NOTE_PROPS,

@@ -11,9 +11,6 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 
-import { LiveAdapter } from '../adapters/live/adapter.js';
-import { BridgeTransport } from '../adapters/live/transport.js';
-import { addressKey, chain, track } from '../contract/index.js';
 import { check, client as bridge, failureCount, note } from './lib.js';
 
 const transport = new StdioClientTransport({
@@ -96,46 +93,142 @@ try {
       && reversal['wouldNotRestore'].length > 0,
     reversal);
 
-  // 3f-f owns production creation. Until then the smoke seeds its disposable
-  // copied track through the contract, then tests only the new public switch.
+  // Production creation is exercised through the public surface for both
+  // autonomous container cases. Each receives a device only after the
+  // container, keeping the positional creation proof inside the observable
+  // scopes and making move-based fill deterministic.
   if (cleanupId === undefined) throw new Error('the copied track has no durable id');
-  const adapter = new LiveAdapter({ transport: new BridgeTransport(bridge) });
-  await adapter.hello();
-  const copiedTrack = track(cleanupId);
-  const inserted = await adapter.apply({ ops: [{
-    op: 'device.insert',
-    track: copiedTrack,
-    source: { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' },
-  }] });
-  const container = inserted.minted[0];
-  if (container?.kind !== 'device') throw new Error('the disposable container was not observed');
-  const initialEntry = (await adapter.read([container])).entries[addressKey(container)];
-  const initial = initialEntry?.value.of === 'device'
-    ? initialEntry.value.device.container
-    : undefined;
-  const sourceName = initial?.chains[0]?.name;
-  if (sourceName === undefined) throw new Error('the disposable container has no addressable source');
-  const alternateName = `gn-3f-switch-${process.pid}`;
-  await adapter.apply({ ops: [{
-    op: 'chain.create', source: chain(container, sourceName), name: alternateName,
-  }] });
-  await adapter.apply({ ops: [{ op: 'chain.activate', chain: chain(container, sourceName) }] });
+  const instrumentNames = [`gn-3f-inst-a-${process.pid}`, `gn-3f-inst-b-${process.pid}`];
+  const instrument = await call('create_device_alternates', {
+    trackId: cleanupId,
+    containerType: 'instrument',
+    names: instrumentNames,
+  }) as {
+    applied?: boolean;
+    creationConfirmed?: boolean;
+    structure?: {
+      complete?: boolean;
+      container?: { devicePosition?: number };
+      alternates?: { name: string; devices?: unknown[] }[];
+    };
+  };
+  const instrumentPosition = instrument.structure?.container?.devicePosition;
+  check('3f-P5: bundled Instrument creation resolves every explicit name',
+    instrument.applied === true
+      && instrument.creationConfirmed === true
+      && instrument.structure?.complete === true
+      && instrument.structure.alternates?.map((item) => item.name).join(',') === instrumentNames.join(',')
+      && typeof instrumentPosition === 'number',
+    instrument);
+  if (typeof instrumentPosition !== 'number') throw new Error('instrument container has no position');
 
+  const instrumentDevice = await call('add_device', {
+    devices: [{
+      trackId: cleanupId,
+      from: 'bitwig',
+      id: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef',
+    }],
+  }) as { added?: { devicePosition?: number }[] };
+  const instrumentSource = instrumentDevice.added?.[0]?.devicePosition;
+  if (typeof instrumentSource !== 'number') throw new Error('instrument fill source was not observed');
+  const instrumentFill = await call('fill_device_alternate', {
+    trackId: cleanupId,
+    containerPosition: instrumentPosition,
+    alternateName: instrumentNames[0],
+    sourceDevicePositions: [instrumentSource],
+    mode: 'move',
+  }) as {
+    applied?: boolean;
+    finalContainerPosition?: number;
+    structure?: { alternates?: { name: string; devices?: unknown[] }[] };
+  };
+  check('3f-P6: Instrument fill is independently visible in the named destination',
+    instrumentFill.applied === true
+      && instrumentFill.structure?.alternates
+        ?.find((item) => item.name === instrumentNames[0])?.devices?.length === 1,
+    instrumentFill);
+
+  const activeInstrumentPosition = instrumentFill.finalContainerPosition ?? instrumentPosition;
   const switched = await call('switch_device_alternate', {
     trackId: cleanupId,
-    containerPosition: container.chainIndex,
-    alternateName,
+    containerPosition: activeInstrumentPosition,
+    alternateName: instrumentNames[1],
   });
-  const finalEntry = (await adapter.read([container])).entries[addressKey(container)];
-  const final = finalEntry?.value.of === 'device' ? finalEntry.value.device.container : undefined;
-  check('3f-P5: production switching proves exactly the requested active alternate',
+  const final = await call('inspect_device_alternates', {
+    trackId: cleanupId,
+    containerPosition: activeInstrumentPosition,
+  }) as {
+    complete?: boolean;
+    exclusiveActive?: string | null;
+    alternates?: { name: string; soloed?: boolean | null }[];
+  };
+  check('3f-P7: production switching proves exactly the requested soloed alternate',
     switched['applied'] === true
       && switched['exclusiveStateConfirmed'] === true
-      && switched['active'] === alternateName
-      && final?.chainsComplete === true
-      && final.chains.every((item) => typeof item.solo === 'boolean')
-      && final.chains.filter((item) => item.solo).map((item) => item.name).join(',') === alternateName,
+      && switched['exclusiveActive'] === instrumentNames[1]
+      && final.complete === true
+      && final.exclusiveActive === instrumentNames[1]
+      && final.alternates !== undefined
+      && final.alternates.every((item) => typeof item.soloed === 'boolean')
+      && final.alternates.filter((item) => item.soloed).map((item) => item.name).join(',') === instrumentNames[1],
     { switched, final });
+
+  const removedInstrument = await call('delete_device', {
+    devices: [{ trackId: cleanupId, position: activeInstrumentPosition }],
+  });
+  if (removedInstrument['applied'] !== true) {
+    throw new Error('the disposable Instrument container could not be removed before the effect path');
+  }
+
+  const effectNames = [`gn-3f-fx-a-${process.pid}`, `gn-3f-fx-b-${process.pid}`];
+  const effect = await call('create_device_alternates', {
+    trackId: cleanupId,
+    containerType: 'effect',
+    names: effectNames,
+  }) as {
+    applied?: boolean;
+    creationConfirmed?: boolean;
+    structure?: {
+      complete?: boolean;
+      container?: { devicePosition?: number };
+      alternates?: { name: string; devices?: unknown[] }[];
+    };
+  };
+  const effectPosition = effect.structure?.container?.devicePosition;
+  check('3f-P8: fresh effect-container creation resolves every explicit name',
+    effect.applied === true
+      && effect.creationConfirmed === true
+      && effect.structure?.complete === true
+      && effect.structure.alternates?.map((item) => item.name).join(',') === effectNames.join(',')
+      && typeof effectPosition === 'number',
+    effect);
+  if (typeof effectPosition !== 'number') throw new Error('effect container has no position');
+
+  const effectDevice = await call('add_device', {
+    devices: [{
+      trackId: cleanupId,
+      from: 'bitwig',
+      id: 'f2dcfe9a-7b66-4c84-984a-b25685a1c21a',
+    }],
+  }) as { added?: { devicePosition?: number }[] };
+  const effectSource = effectDevice.added?.[0]?.devicePosition;
+  if (typeof effectSource !== 'number') throw new Error('effect fill source was not observed');
+  const effectFill = await call('fill_device_alternate', {
+    trackId: cleanupId,
+    containerPosition: effectPosition,
+    alternateName: effectNames[0],
+    sourceDevicePositions: [effectSource],
+    mode: 'move',
+  }) as {
+    applied?: boolean;
+    structure?: { alternates?: { name: string; devices?: unknown[] }[] };
+  };
+  check('3f-P9: effect-container fill is independently visible in the named destination',
+    effectFill.applied === true
+      && effectFill.structure?.alternates
+        ?.find((item) => item.name === effectNames[0])?.devices?.length === 1,
+    effectFill);
+
 } catch (error) {
   check('3f-PX: the production smoke completed without an unexpected failure', false, {
     error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
@@ -144,10 +237,10 @@ try {
   if (cleanupId !== undefined) {
     try {
       const removed = await call('delete_track', { trackIds: [cleanupId] });
-      check('3f-P6: directed cleanup removes the observed copied id',
+      check('3f-P10: directed cleanup removes the observed copied id',
         removed['applied'] === true && removed['refused'] !== true, removed);
     } catch (error) {
-      check('3f-P6: directed cleanup completed without an unexpected failure', false, {
+      check('3f-P10: directed cleanup completed without an unexpected failure', false, {
         error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
       });
     }

@@ -2,9 +2,9 @@
 title: Phase 1, 3f epic — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: SESSION 3f-e COMPLETE 2026-08-15, VERIFIED LIVE. Container-local
-        exclusive switching and its production tool are green. Next is 3f-f,
-        bootstrap and the production creation/fill surface.
+status: SESSION 3f-f COMPLETE 2026-08-15, VERIFIED LIVE. Both container cases
+        are autonomous through production inspection, creation and fill, with
+        atomic projected-fill refusal. Next is 3f-g.
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -451,13 +451,14 @@ observer; the controller was rebuilt, deployed and reloaded before the passing
 run.
 
 `C-chain-switch` creates disposable containers on two tracks, switches the
-source then its named alternate, proves exactly one active sibling each time,
+source then its named alternate, proves exactly one exclusively soloed sibling
+each time,
 and proves the unrelated track's complete solo state is unchanged. Cleanup
 deletes both containers. Fake and live run the same row.
 
 The production `switch_device_alternate` tool emits only `chain.activate`,
 returns the complete sibling states and an `exclusiveStateConfirmed` proof, and
-states that automatic reversal does not restore the prior active entry. The 3f
+states that automatic reversal does not restore the prior soloed entry. The 3f
 production smoke seeds two alternates through the contract on its isolated
 copied track, switches through the public MCP tool, independently re-reads the
 container, and deletes the copied track.
@@ -468,6 +469,83 @@ extension Gradle build green, `hello()` proved the fresh 147-method /
 6**, and production MCP smoke passed **7/7** with cleanup. Context check and
 `git diff --check` are the closing checks. Session 3f-f may now begin bootstrap
 and the production inspection/creation/fill surface.
+
+### Session 3f-f — complete 2026-08-15, verified live
+
+The Instrument case now ships with a one-entry empty seed at
+`brain/assets/device-alternates/instrument-layer-seed.bwpreset`. It is a
+build-time product asset, validates as a Bitwig preset, materialised live with
+one empty entry, and needs no operator-authored runtime setup. The FX case
+continues from the one empty entry a fresh FX Layer ships with.
+
+`chain.rename` names either first entry before its `ChainAddress` is relied on.
+It resolves the old name uniquely, targets the within-turn `channelId` already
+reported by independent inventory, and accepts success only when the new name
+resolves to that same identity. The already-promoted `chain.setName` wire route
+is reused, so the golden remains 147 methods / `7f212c48cd3dab75`.
+
+Three production tools now own the slice:
+
+- `inspect_device_alternates` returns sibling names, raw `soloed` observations,
+  an `exclusiveActive` name only when the complete all-known sibling read has
+  exactly one solo, and ordered nested device names, labelling every incomplete
+  view;
+- `create_device_alternates` inserts the chosen Instrument or FX container,
+  explicitly names its first entry, creates up to three more named entries and
+  returns only independently resolved structure;
+- `fill_device_alternate` moves or copies top-level devices in caller order,
+  projects positional compaction across several moves and returns fresh
+  destination structure.
+
+All three descriptions state the object boundary: a device alternate carries
+devices and device state, with no clips, sends, routing or track-mixer state.
+The `layer` and `chain` surface bans were deliberately reviewed and kept: the
+unambiguous `device alternate` / `container` vocabulary covers the public object
+without exposing mechanism words.
+
+Live proof corrected one relocation readback gap. Moving a top-level source that
+sits before its destination compacts the container from position N to N-1. The
+writer correctly used the pre-write position, but readback also used it and
+would inspect the now-empty old slot. Readback now follows the container to N-1;
+`C-chain-relocate` exercises that exact move live.
+
+The first live run found old devices on the conformance-owned fixture tracks,
+placing every new container past the two observable scopes. The harness now
+restores those two scratch tracks to their documented empty-device baseline once
+before the suite. The first production run then correctly refused a second
+container at position 2; the smoke now switches and removes its disposable
+Instrument container before exercising the FX case in the same observable slot.
+
+Verification, 2026-08-15: brain typecheck plus **434/434** offline tests,
+extension Gradle test green, live conformance **51 passed / 0 failed / 6
+skipped**, production MCP smoke **10/10** with its copied track removed, context
+check and `git diff --check` green. Session 3f-g may now begin directed winner
+collapse.
+
+Review hardening, 2026-08-15: multi-device fill now projects the complete batch
+before its first settling stage, including source order/existence, top-level
+compaction, destination identity and cumulative destination capacity. Fake and
+live call the same guard. A failed later source or a destination with room for
+only one of two requested devices therefore emits zero stages; focused surface
+coverage also proves source, destination, recorded history and emitted writes
+unchanged. Non-sorted caller order is covered separately.
+
+Creation now rejects whitespace-only and exact-duplicate caller names before
+container insertion. When the requested first name equals the seed entry's
+observed name, creation explicitly renames through a unique temporary name and
+back, with both writes recorded, rather than relying on an untouched name that
+may change on fill. Inspection exposes the observed fact as `soloed`; it reports
+`exclusiveActive` only from a complete all-known sibling read containing exactly
+one solo and makes no effective-audibility claim.
+
+Review verification, 2026-08-15: brain typecheck plus **439/439** offline tests
+and extension Gradle test pass. The first live conformance attempt passed the
+new relocation row but had one transient incomplete sibling read in the later
+switch row (**50/1/6**); conformance-owned fixtures were removed and the clean
+rerun passed **51/0/6**. Production MCP smoke passed every **P0-P10** check with
+the new `soloed` / `exclusiveActive` structure and removed its copied track.
+Final conformance cleanup deleted both fixture tracks, leaving the project at 10
+visible tracks with Master visible and no test residue.
 
 ## Capability boundary
 

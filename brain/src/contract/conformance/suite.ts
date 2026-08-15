@@ -850,6 +850,7 @@ export function runConformance(h: AdapterHarness): void {
       const { adapter, trackA } = await h.create();
       const executor = new Executor(adapter);
       const FX_LAYER = { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' } as const;
+      const SOURCE = 'gn-conf-source';
       const MADE = 'gn-conf-made';
       let inserted: Address | undefined;
       try {
@@ -865,7 +866,17 @@ export function runConformance(h: AdapterHarness): void {
         const entry = (await adapter.read([container])).entries[addressKey(container)];
         const observed = entry?.value.of === 'device' ? entry.value.device.container : undefined;
         assert.ok(observed, 'a container read carries the chains, or nothing can name a source');
-        const source = chain(container, observed.chains[0]!.name);
+        const shipped = chain(container, observed.chains[0]!.name);
+        const renamed = await executor.run([{ op: 'chain.rename', chain: shipped, name: SOURCE }]);
+        assert.equal(renamed.report.failed.length, 0, 'the shipped entry is explicitly named before use');
+        const source = chain(container, SOURCE);
+        assert.equal((await adapter.resolve([source])).resolved[0]?.found, true,
+          'the explicit source name resolves independently');
+        assert.deepEqual(
+          (await adapter.resolve([shipped])).resolved[0],
+          { address: shipped, found: false, reason: 'absent' },
+          'the old shipped name no longer resolves after the verified rename',
+        );
 
         const made = await executor.run([{ op: 'chain.create', source, name: MADE }]);
 
@@ -1008,6 +1019,12 @@ export function runConformance(h: AdapterHarness): void {
         return hit.devices.map((item) => item.name);
       };
       try {
+        await executor.run([{ op: 'device.insert', track: trackA, source: A }]);
+        const beforeContainer = await adapter.read([device(trackA, 0)]);
+        const beforeValue = beforeContainer.entries[addressKey(device(trackA, 0))]?.value;
+        assert.equal(beforeValue?.of, 'device');
+        const aName = beforeValue?.of === 'device' ? beforeValue.device.name : '';
+
         const inserted = await executor.run([{ op: 'device.insert', track: trackA, source: FX_LAYER }]);
         container = inserted.receipt.minted[0];
         assert.ok(container?.kind === 'device');
@@ -1019,12 +1036,12 @@ export function runConformance(h: AdapterHarness): void {
           op: 'chain.create', source: shipped, name: 'gn-conf-fill',
         }] });
         assert.equal(madeFirst.stages[0]?.ops[0]?.ok, true);
-        const first = chain(container, 'gn-conf-fill');
+        let first = chain(container, 'gn-conf-fill');
         const madeAlt = await adapter.apply({ ops: [{
           op: 'chain.create', source: first, name: 'gn-conf-alt',
         }] });
         assert.equal(madeAlt.stages[0]?.ops[0]?.ok, true);
-        const alt = chain(container, 'gn-conf-alt');
+        let alt = chain(container, 'gn-conf-alt');
 
         const readName = async (index: number): Promise<string> => {
           const at = device(trackA, index);
@@ -1033,15 +1050,45 @@ export function runConformance(h: AdapterHarness): void {
           return value?.of === 'device' ? value.device.name : '';
         };
 
-        // The top chain compacts after each move, so each insert is observed at
-        // index 1 and the repeated relocation appends A then B in that order.
-        await executor.run([{ op: 'device.insert', track: trackA, source: A }]);
-        const aName = await readName(1);
+        // The whole projected request is checked before stage one. The first
+        // source is valid and would move the container from 1 to 0; the later
+        // projected source is absent. Neither adapter may let the first move
+        // land before discovering that fact.
+        const beforeInvalidRevision = (await adapter.revision()).revision;
+        await assert.rejects(
+          adapter.apply({ ops: [
+            {
+              op: 'chain.relocate',
+              source: device(trackA, 0),
+              destination: first,
+              mode: 'move',
+            },
+            {
+              op: 'chain.relocate',
+              source: device(trackA, 7),
+              destination: chain(device(trackA, 0), first.name),
+              mode: 'move',
+            },
+          ] }),
+          /no source device exists at projected position/,
+        );
+        assert.equal((await adapter.revision()).revision, beforeInvalidRevision,
+          'a failed later source emitted zero stages');
+        assert.equal(await readName(0), aName, 'the valid first source did not move');
+        assert.deepEqual(await chainDevices(container, first.name), [],
+          'the destination remained empty');
+
+        // A sits BEFORE the container. Moving it in compacts the top-level list,
+        // so independent destination readback must follow the container from
+        // position 1 to position 0 rather than inspecting its now-empty old slot.
         const firstFill = await adapter.apply({ ops: [{
-          op: 'chain.relocate', source: device(trackA, 1), destination: first, mode: 'move',
+          op: 'chain.relocate', source: device(trackA, 0), destination: first, mode: 'move',
         }] });
         assert.equal(firstFill.stages[0]?.ops[0]?.ok, true,
           JSON.stringify(firstFill.stages[0]?.ops[0]));
+        container = device(trackA, 0);
+        first = chain(container, first.name);
+        alt = chain(container, alt.name);
 
         await executor.run([{ op: 'device.insert', track: trackA, source: B }]);
         const bName = await readName(1);
@@ -1077,6 +1124,31 @@ export function runConformance(h: AdapterHarness): void {
         assert.deepEqual(await chainDevices(container, alt.name), [bName]);
         const top = await adapter.read([device(trackA, 1)]);
         assert.equal(top.entries[addressKey(device(trackA, 1))]?.value.of, 'device');
+
+        // Leave exactly one nested slot free, then request two devices from two
+        // valid sources. Capacity is cumulative over the request, so the first
+        // copy must not land before the second is refused.
+        for (let i = 0; i < 2; i += 1) {
+          const prefill = await adapter.apply({ ops: [{
+            op: 'chain.relocate', source: deviceIn(first, 0), destination: alt, mode: 'copy',
+          }] });
+          assert.equal(prefill.stages[0]?.ops[0]?.ok, true);
+        }
+        const beforeCapacity = (await adapter.read([container])).entries[addressKey(container)];
+        const beforeCapacityRevision = (await adapter.revision()).revision;
+        await assert.rejects(
+          adapter.apply({ ops: [
+            { op: 'chain.relocate', source: deviceIn(first, 0), destination: alt, mode: 'copy' },
+            { op: 'chain.relocate', source: device(trackA, 1), destination: alt, mode: 'copy' },
+          ] }),
+          /complete request would leave 5 devices in a destination bank 4 wide/,
+        );
+        assert.equal((await adapter.revision()).revision, beforeCapacityRevision,
+          'a cumulative-capacity refusal emitted zero stages');
+        const afterCapacity = (await adapter.read([container])).entries[addressKey(container)];
+        assert.deepEqual(afterCapacity, beforeCapacity,
+          'source and destination structure stayed byte-for-byte unchanged');
+        assert.equal(await readName(1), aName, 'the top-level source stayed in place');
 
         // The general nested-device refusal is untouched outside this verb.
         await assert.rejects(
