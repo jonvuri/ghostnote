@@ -55,7 +55,7 @@ import {
   clip as clipAt, clipLaunch as launchAt, clipPlay as playAt, notes as notesAt,
   param as paramAt, scene as sceneAt, slot as slotAt, track as trackAt, device as deviceAt,
   addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS,
-  AddressUnresolvedError, SlotOccupiedError,
+  AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
   type Address, type ClipAddress, type DeviceSource, type NoteRecord, type Op, type OpKind,
   type RevisionMark,
 } from '../contract/index.js';
@@ -995,6 +995,103 @@ export const TOOLS: readonly ToolSpec[] = [
           created: Object.values(change.take.receipt.minted)
             .filter((a: Address) => a.kind === 'track')
             .map(describeAddress),
+        };
+      });
+    },
+  }),
+
+  tool({
+    name: 'copy_track',
+    kind: 'write',
+    title: 'Copy an instrument track',
+    description:
+      'Copy one instrument track and give the copy an explicit name. Bitwig carries the source '
+      + 'track\'s launcher and arrangement clips, devices and device state, mixer settings, sends, '
+      + 'and routing into the new track. Other track kinds are refused because only instrument '
+      + 'tracks have been measured for this operation.\n'
+      + 'The copy is immediately audible if the source was audible. Loading its devices can glitch '
+      + 'the audio and adds engine load. It consumes one addressable track row and receives a fresh '
+      + 'durable id; a full bank is refused before anything is written.\n'
+      + 'This is ordinary track editing. It creates no managed alternate, pairing, shared switch, '
+      + 'or implicit cleanup promise. Automatic reversal leaves the copied track in place; '
+      + 'delete_track is the separately permissioned cleanup.',
+    inputSchema: {
+      trackId,
+      name: z.string().min(1).describe('The explicit name to assign to the copied track.'),
+    },
+    emits: ['track.duplicate', 'track.rename'],
+    async run(workspace, args) {
+      return writing(async () => {
+        const at = await workspace.mark();
+        if (at.window.tracks.count < 0
+            || at.window.tracks.count + 1 > at.window.tracks.bankSize) {
+          throw new BankWindowOverflowError(
+            'tracks',
+            Math.min(Math.max(0, at.window.tracks.count), at.window.tracks.bankSize),
+            at.window.tracks.count + 1,
+            at.window.tracks.bankSize,
+          );
+        }
+
+        // ⚠ E16 measured Channel.duplicate() on ordinary Instrument tracks.
+        // A shared supertype method is not evidence that Effect, Master, Group,
+        // Audio or future track kinds behave the same way (E4c), so widening
+        // this set is a live measurement and a deliberate code change.
+        const source = (await workspace.tracks()).find((t) => t.channelId === args.trackId);
+        if (source === undefined) throw new AddressUnresolvedError(
+          trackAt(args.trackId), 'copy_track source is not visible',
+        );
+        if (source.type !== 'Instrument') {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'nothing was written. Only instrument tracks are supported: they are the only '
+              + 'track kind whose copying behaviour has been measured. This track has another kind.',
+          };
+        }
+
+        // The copy and its rename are separate typed edits because the durable
+        // id needed by track.rename does not exist until bounded structural
+        // readback has found it. Both go through Workspace.apply, so both are
+        // ordinary session changes; no side write can escape the record.
+        const copiedChange = await workspace.apply([
+          { op: 'track.duplicate', track: trackAt(args.trackId) },
+        ]);
+        const copiedReceipt = receiptOf(copiedChange);
+        const copied = copiedChange.take.receipt.minted[0];
+        if (copied?.kind !== 'track') {
+          return {
+            ...copiedReceipt,
+            copyConfirmed: false,
+            copied: null,
+            confirmation:
+              'The request was acknowledged, but no fresh track id appeared within the bounded '
+              + 'readback window. This answer does not claim that a copy succeeded.',
+            automaticReversal:
+              'No copied track is removed automatically. If one appeared later, inspect '
+              + 'list_tracks before making any directed cleanup decision.',
+          };
+        }
+
+        const namedChange = await workspace.apply([
+          { op: 'track.rename', track: copied, name: args.name },
+        ]);
+        const namedReceipt = receiptOf(namedChange);
+        const verified = await workspace.read([copied]);
+        const entry = verified.entries[addressKey(copied)];
+        const nameConfirmed = entry?.value.of === 'track'
+          && entry.value.track.name === args.name;
+
+        return {
+          ...copiedReceipt,
+          copyConfirmed: true,
+          copied: describeAddress(copied),
+          requestedName: args.name,
+          nameConfirmed,
+          namingChange: namedReceipt,
+          automaticReversal:
+            'The copied track remains. Automatic reversal does not remove it; delete_track is the '
+            + 'separately permissioned directed cleanup.',
         };
       });
     },

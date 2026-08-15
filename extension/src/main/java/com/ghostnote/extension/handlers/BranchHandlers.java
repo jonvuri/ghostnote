@@ -199,14 +199,6 @@ public final class BranchHandlers extends HandlerGroup {
      */
     private JsonElement duplicateTrack(JsonObject params) {
         Track track = requireTrack(params.get("trackIndex").getAsInt());
-        if (params.has("expectedChannelId")) {
-            String expected = params.get("expectedChannelId").getAsString();
-            String actual = track.channelId().get();
-            if (!expected.equals(actual)) {
-                throw new IllegalArgumentException(
-                    "track identity changed before duplication: expected " + expected + ", found " + actual);
-            }
-        }
         String route = params.has("route") ? params.get("route").getAsString() : "channelDuplicate";
         String undoName = params.has("undoName") ? params.get("undoName").getAsString() : "";
 
@@ -217,12 +209,19 @@ public final class BranchHandlers extends HandlerGroup {
 
         switch (route) {
             case "channelDuplicate":
+                // Product calls always carry this guard. Keep it immediately
+                // adjacent to the mutating call: a bank row is positional, and
+                // validating it earlier in the callback would leave room for a
+                // future prelude to separate the check from the write.
+                verifyExpectedChannelId(params, track);
                 track.duplicate();
                 break;
             case "duplicateObject":
+                verifyExpectedChannelId(params, track);
                 track.duplicateObject();
                 break;
             case "hostDuplicate":
+                verifyExpectedChannelId(params, track);
                 if (undoName.isEmpty()) {
                     host.duplicateObjects(new DuplicableObject[] { track });
                 } else {
@@ -255,6 +254,17 @@ public final class BranchHandlers extends HandlerGroup {
                 throw new IllegalArgumentException("unknown duplication route: " + route);
         }
         return result;
+    }
+
+    /** Optional only for archived probes; production always supplies it. */
+    private void verifyExpectedChannelId(JsonObject params, Track track) {
+        if (!params.has("expectedChannelId")) return;
+        String expected = params.get("expectedChannelId").getAsString();
+        String actual = track.channelId().get();
+        if (!expected.equals(actual)) {
+            throw new IllegalArgumentException(
+                "track identity changed before duplication: expected " + expected + ", found " + actual);
+        }
     }
 
     /**

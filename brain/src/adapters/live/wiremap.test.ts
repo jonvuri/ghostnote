@@ -292,6 +292,20 @@ test('3f: no new extension method is needed for preserved track-copy groundwork'
   assert.deepEqual(golden.addedInSession3f ?? [], []);
 });
 
+test('3f: the extension checks the expected durable id immediately before the product copy call', () => {
+  const source = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'BranchHandlers.java'),
+    'utf8',
+  );
+  assert.match(source,
+    /case "channelDuplicate":[\s\S]{0,500}verifyExpectedChannelId\(params, track\);\s*track\.duplicate\(\);/,
+    'the positional bank row must be identity-checked adjacent to the measured typed call');
+  assert.match(source,
+    /String actual = track\.channelId\(\)\.get\(\);[\s\S]{0,200}!expected\.equals\(actual\)/,
+    'the guard compares the same-callback observable channel id');
+});
+
 test('W-hash: the golden hash matches its own method list', () => {
   // The extension computes this same value in handlers/Contract.java and returns
   // it from contract.hello, so a drifted deployment is caught at connect.

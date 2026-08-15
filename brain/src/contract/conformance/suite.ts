@@ -570,6 +570,42 @@ export function runConformance(h: AdapterHarness): void {
     }
   });
 
+  test(label('C-track-copy', 'a track copy reports a fresh durable id and remains addressable (E16)'), async () => {
+    const { adapter, trackA } = await h.create();
+    let copied: TrackAddress | undefined;
+    try {
+      const before = await adapter.tracks();
+      const source = before.find((t) => t.channelId === trackA.channelId);
+      assert.ok(source, 'the source track must be observable before the write');
+
+      const receipt = await adapter.apply({ ops: [{ op: 'track.duplicate', track: trackA }] });
+      const minted = receipt.minted[0];
+      assert.ok(minted, 'acknowledgement alone is not a successful copy receipt');
+      assert.equal(minted.kind, 'track');
+      if (minted.kind !== 'track') return;
+      copied = minted;
+      assert.notEqual(copied.channelId, trackA.channelId);
+      assert.equal((await adapter.resolve([copied])).resolved[0]!.found, true);
+
+      const after = await adapter.tracks();
+      const copy = after.find((t) => t.channelId === copied!.channelId);
+      assert.equal(copy?.name, source!.name, 'Bitwig first copies the source name');
+      assert.equal(copy?.type, source!.type, 'the copied track keeps the measured source kind');
+
+      await adapter.apply({
+        ops: [{ op: 'track.rename', track: copied, name: 'gn-conf' }],
+      });
+      await adapter.settle('trackStruct');
+      assert.equal((await adapter.tracks()).find((t) => t.channelId === copied!.channelId)?.name, 'gn-conf');
+    } finally {
+      if (copied !== undefined && (await adapter.resolve([copied])).resolved[0]?.found) {
+        await adapter.apply({ ops: [{ op: 'track.delete', track: copied }] });
+        await adapter.settle('trackStruct');
+      }
+      await h.dispose(adapter);
+    }
+  });
+
   test(
     label('C-device', 'an insert reports the chain index it PRODUCED, and the revert undoes it (D16 rev 2)'),
     // The first use of this capability, and a real one: the case needs a device

@@ -2,12 +2,11 @@
 title: Phase 1, session 3f — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: READY FOR NEXT SESSION 2026-08-14. E22 evidence is committed. The grouped
-        track-fork product path has been removed. The remaining worktree contains
-        only reusable typed track-duplication/readback groundwork, probe-only E22
-        support, and this revised documentation. Next: finish `copy_track`, then
-        continue nested layer addressing and autonomous lifecycle work.
-updated: 2026-08-14
+status: STEP 5 COMPLETE 2026-08-15. `copy_track` is implemented and
+        verified offline, in the extension build, through the production MCP
+        surface, and by the full live conformance suite. Next: continue nested
+        layer addressing and autonomous lifecycle work in step 6.
+updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
 next: 3g-record.md
@@ -43,7 +42,7 @@ The worktree deliberately preserves reusable track-copy groundwork: the typed
 `branch.duplicateTrack` route, expected-channel-id guard, one-row bank precondition,
 bounded fresh-ID polling, and ordinary change/reversal reporting.
 
-## Step 5 — finish and commit `copy_track`
+## Step 5 — complete: `copy_track`
 
 Expose track duplication as direct CRUD, not as a take verb.
 
@@ -77,6 +76,23 @@ Acceptance:
     description in the surface's own vocabulary, or reopen that one entry
     deliberately with its reason rewritten. Do not delete the entry silently.
 12. Offline checks, extension tests, and a clean live smoke pass before its commit.
+
+Completion record, 2026-08-15:
+
+- the public tool accepts one durable instrument-track id and one non-empty copy
+  name;
+- the structural copy and its typed rename are two ordinary recorded changes,
+  because the rename address does not exist until bounded readback returns it;
+- a missing fresh id is reported as unconfirmed rather than promoted from the
+  acknowledgement;
+- unsupported track kinds and a full observable bank refuse before the first
+  write;
+- the description carries the audibility, glitch/load, bank-row, fresh-id and
+  directed-cleanup facts in COPY vocabulary; the `duplicate` ban was reviewed and
+  deliberately kept;
+- brain checks passed 357/357, the extension build passed, production MCP smoke
+  passed 6/6 with cleanup, and live conformance passed 46/0/6. Both the new
+  `C-track-copy` row and the formerly load-dependent `C-minted` row passed live.
 
 ## Step 6 — continue the layer-chain lifecycle
 

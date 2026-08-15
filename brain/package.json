@@ -178,6 +178,7 @@
     "probe:3e-settings": "tsx src/probes/phase3e-launch-settings.ts write",
     "probe:3e-settings-human": "tsx src/probes/phase3e-launch-settings.ts human",
     "probe:3e-production": "tsx src/probes/phase3e-production.ts",
+    "probe:3f-production": "tsx src/probes/phase3f-production.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

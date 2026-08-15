@@ -75,9 +75,9 @@ export const SURFACE_WORDS_BANNED: Readonly<Record<string, string>> = {
     + 'instead. Two meanings, one of them a mechanism, is exactly the ambiguity a fresh vocabulary '
     + 'exists to avoid — so relaxing this one needs a disambiguation, not just a decision.',
   duplicate:
-    'RELAXATION CANDIDATE (3f step 5). Banned when nothing here duplicated anything; revised D18c '
-    + 'makes track duplication an ordinary product operation. The surface says COPY, and this '
-    + 'entry stands until `copy_track` is written and its wording reviewed.',
+    'REVIEWED AND KEPT (3f step 5). Track copying is now an ordinary product operation, but the '
+    + '`copy_track` surface can describe it completely in its own COPY vocabulary. Keeping this '
+    + 'entry prevents the internal contract and legacy probe wording from leaking into tool text.',
   lineage:
     'PERMANENT. The spike\'s word for the group structure the retired fork built. Internal, '
     + 'mechanism-shaped, and nothing builds it any more.',

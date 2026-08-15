@@ -323,6 +323,19 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal((await exercise('revert_change', { changeId: renameChangeId }))['applied'], true);
   assert.equal(fx.fake.model.tracks[1]?.name, 'gn-B', 'the rename really was put back');
 
+  const copiedTrack = await exercise('copy_track', {
+    trackId: fx.trackA, name: 'gn-A copy',
+  }) as {
+    applied: boolean;
+    copyConfirmed: boolean;
+    nameConfirmed: boolean;
+    copied: { trackId: string };
+  };
+  assert.equal(copiedTrack.applied, true, JSON.stringify(copiedTrack));
+  assert.equal(copiedTrack.copyConfirmed, true, JSON.stringify(copiedTrack));
+  assert.equal(copiedTrack.nameConfirmed, true, JSON.stringify(copiedTrack));
+  assert.notEqual(copiedTrack.copied.trackId, fx.trackA, 'the copy receives a fresh durable id');
+
   // -- destroying.
   assert.equal((await exercise('delete_device', {
     devices: [{ trackId: fx.trackA, position: 0 }],
@@ -335,7 +348,7 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal((await exercise('delete_scene', { rows: [8] }))['applied'], true);
 
   assert.equal((await exercise('delete_track', {
-    trackIds: [addedTrack.created[0]!.trackId],
+    trackIds: [addedTrack.created[0]!.trackId, copiedTrack.copied.trackId],
   }))['applied'], true);
 
   // ⚠ The coverage claim, asserted rather than assumed: a tool added without a
@@ -437,6 +450,75 @@ test('T-record: every batch that applied is in the record, and no tool can go ar
     assert.equal(banned in (fx.workspace.changes as object), false, `${banned} is reachable`);
   }
   assert.ok(Object.isFrozen(fx.workspace));
+});
+
+test('T-copy-track: copy and explicit naming are ordinary recorded edits, and reversal keeps the copy', async () => {
+  const fx = fixture();
+  await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 0, lengthBeats: 4, notes: [note({ pitch: 73 })] }],
+  });
+
+  const before = fx.stash.list().length;
+  const result = await call(fx, 'copy_track', {
+    trackId: fx.trackA, name: 'gn-A explicit copy',
+  }) as {
+    changeId: string;
+    copyConfirmed: boolean;
+    nameConfirmed: boolean;
+    copied: { trackId: string };
+    namingChange: { changeId: string; applied: boolean };
+    automaticReversal: string;
+  };
+
+  assert.equal(result.copyConfirmed, true, JSON.stringify(result));
+  assert.equal(result.nameConfirmed, true, JSON.stringify(result));
+  assert.notEqual(result.copied.trackId, fx.trackA);
+  assert.notEqual(result.namingChange.changeId, result.changeId);
+  assert.equal(fx.stash.list().length, before + 2,
+    'the structural copy and its typed rename are both in ordinary change history');
+
+  const source = fx.fake.model.findByChannelId(fx.trackA)?.track;
+  const copy = fx.fake.model.findByChannelId(result.copied.trackId)?.track;
+  assert.equal(source?.name, 'gn-A', 'the source is not renamed');
+  assert.equal(copy?.name, 'gn-A explicit copy');
+  assert.deepEqual([...copy!.slots[0]!.notes.values()], [...source!.slots[0]!.notes.values()],
+    'the source contents travel with the track');
+
+  const preview = await call(fx, 'check_revert', { changeId: result.changeId }) as {
+    fullyRestorable: boolean; wouldWriteAnything: boolean; wouldNotRestore: unknown[];
+  };
+  assert.equal(preview.fullyRestorable, false);
+  assert.equal(preview.wouldWriteAnything, false);
+  assert.ok(preview.wouldNotRestore.length > 0, 'the preview says the copied track remains');
+
+  const reversed = await call(fx, 'revert_change', { changeId: result.changeId });
+  assert.equal(reversed['applied'], false);
+  assert.ok(fx.fake.model.findByChannelId(result.copied.trackId),
+    'automatic reversal does not delete a copied track');
+  assert.match(result.automaticReversal, /delete_track/);
+});
+
+test('T-copy-track: unsupported track kinds and a full bank refuse before the first write', async () => {
+  const unsupported = fixture();
+  const effect = unsupported.fake.model.visibleTracks().find((t) => t.type === 'Effect')!;
+  const unsupportedBefore = unsupported.sent.length;
+  const unsupportedResult = await call(unsupported, 'copy_track', {
+    trackId: effect.channelId, name: 'not allowed',
+  });
+  assert.equal(refused(unsupportedResult), true);
+  assert.equal(unsupported.sent.length, unsupportedBefore, 'unsupported kinds emit no op');
+
+  const full = fixture();
+  control(full.fake).setBankWindow(full.fake.model.trackCount);
+  const idsBefore = full.fake.model.tracks.map((t) => t.channelId);
+  const sentBefore = full.sent.length;
+  const fullResult = await call(full, 'copy_track', {
+    trackId: full.trackA, name: 'no room',
+  });
+  assert.equal(refused(fullResult), true);
+  assert.equal(full.sent.length, sentBefore, 'capacity is checked before the adapter runs an op');
+  assert.deepEqual(full.fake.model.tracks.map((t) => t.channelId), idsBefore,
+    'no unaddressable copy is created');
 });
 
 test('T-record: no tool source mentions the executor or the recording call', async () => {
