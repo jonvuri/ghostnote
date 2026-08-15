@@ -1032,6 +1032,8 @@ public final class ContainerHandlers extends HandlerGroup {
                         devices.add(dev);
                     }
                     chain.add("devices", devices);
+                    chain.addProperty("deviceCount",
+                        rig.slotLayerDeviceBanks[s][l].itemCount().get());
                     chains.add(chain);
                 }
             }
@@ -1088,21 +1090,27 @@ public final class ContainerHandlers extends HandlerGroup {
      * the acknowledgement is identical whether or not anything moved (E6 blocker 4).
      */
     private JsonElement chainMove(JsonObject params) {
-        int srcSlot = params.get("srcSlot").getAsInt();
-        int srcLayer = params.get("srcLayer").getAsInt();
+        String src = params.has("src") ? params.get("src").getAsString() : "chain";
+        int srcSlot = params.has("srcSlot") ? params.get("srcSlot").getAsInt() : -1;
+        int srcLayer = params.has("srcLayer") ? params.get("srcLayer").getAsInt() : -1;
         int srcDevice = params.get("srcDevice").getAsInt();
         String dst = params.has("dst") ? params.get("dst").getAsString() : "top";
         String verb = params.has("verb") ? params.get("verb").getAsString() : "move";
         String where = params.has("where") ? params.get("where").getAsString() : "chainEnd";
         String ref = params.has("cursor") ? params.get("cursor").getAsString() : "0";
 
-        if (srcSlot < 0 || srcSlot >= Rig.SLOT_SCOPES) {
+        if (!"top".equals(src) && !"chain".equals(src)) {
+            throw new IllegalArgumentException("src must be top or chain: " + src);
+        }
+        if ("chain".equals(src) && (srcSlot < 0 || srcSlot >= Rig.SLOT_SCOPES)) {
             throw new IllegalArgumentException("srcSlot out of scope range: " + srcSlot);
         }
-        if (srcLayer < 0 || srcLayer >= Rig.SLOT_LAYER_BANK) {
+        if ("chain".equals(src) && (srcLayer < 0 || srcLayer >= Rig.SLOT_LAYER_BANK)) {
             throw new IllegalArgumentException("srcLayer out of bank range: " + srcLayer);
         }
-        if (srcDevice < 0 || srcDevice >= Rig.SLOT_LAYER_DEVICE_BANK) {
+        int sourceBankSize = "chain".equals(src)
+            ? Rig.SLOT_LAYER_DEVICE_BANK : rig.config.deviceBank;
+        if (srcDevice < 0 || srcDevice >= sourceBankSize) {
             throw new IllegalArgumentException("srcDevice out of bank range: " + srcDevice);
         }
         if (!"top".equals(dst) && !"chain".equals(dst)) {
@@ -1114,31 +1122,59 @@ public final class ContainerHandlers extends HandlerGroup {
         if (!"chainStart".equals(where) && !"chainEnd".equals(where)) {
             throw new IllegalArgumentException("where must be chainStart or chainEnd: " + where);
         }
-        if (rig.slotLayerBanks[srcSlot] == null) {
+        if (params.has("expectedTrackChannelId")) {
+            String expectedTrack = params.get("expectedTrackChannelId").getAsString();
+            String actualTrack = rig.cursorTracks[0].channelId().get();
+            if (!expectedTrack.equals(actualTrack)) {
+                throw new IllegalArgumentException(
+                    "chain.move track identity changed: expected " + expectedTrack + ", got " + actualTrack);
+            }
+        }
+        if ("chain".equals(src) && rig.slotLayerBanks[srcSlot] == null) {
             throw new IllegalArgumentException(
                 "source scope " + srcSlot + " was never built: " + rig.slotScopeStatus[srcSlot]
                 + " (standing rule 13 — a missing handle and an API refusal look identical)");
         }
 
-        Device source = rig.slotLayerDeviceBanks[srcSlot][srcLayer].getDevice(srcDevice);
+        Device source = "chain".equals(src)
+            ? rig.slotLayerDeviceBanks[srcSlot][srcLayer].getDevice(srcDevice)
+            : rig.cursorDeviceBanks[0].getDevice(srcDevice);
+        if ("chain".equals(src) && params.has("expectedSourceChain")) {
+            String expected = params.get("expectedSourceChain").getAsString();
+            String actual = rig.slotLayerBanks[srcSlot].getItemAt(srcLayer).name().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "source chain identity changed: expected \"" + expected + "\", got \"" + actual + "\"");
+            }
+        }
+        if (params.has("expectedSourceName")) {
+            String expected = params.get("expectedSourceName").getAsString();
+            String actual = source.name().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "source device identity changed: expected \"" + expected + "\", got \"" + actual + "\"");
+            }
+        }
         JsonObject r = ok();
         r.addProperty("verb", verb);
         r.addProperty("dst", dst);
         r.addProperty("where", where);
-        r.addProperty("srcScopeStatus", rig.slotScopeStatus[srcSlot]);
+        if ("chain".equals(src)) r.addProperty("srcScopeStatus", rig.slotScopeStatus[srcSlot]);
         // ⚠ Read the source BEFORE the verb fires. Afterwards the banks re-index
         // (E3: deleting device[0] shifts the survivor from 1 to 0), so this handle
         // no longer necessarily refers to what moved — and a name read after the
         // fact is how a probe reports the wrong device.
         putGuarded(r, "sourceName", () -> source.name().get());
         putGuarded(r, "sourceExists", () -> source.exists().get());
-        putGuarded(r, "sourceChain",
-            () -> rig.slotLayerBanks[srcSlot].getItemAt(srcLayer).name().get());
-        putGuarded(r, "sourceContainer",
-            () -> rig.cursorDeviceBanks[0].getDevice(srcSlot).name().get());
+        if ("chain".equals(src)) {
+            putGuarded(r, "sourceChain",
+                () -> rig.slotLayerBanks[srcSlot].getItemAt(srcLayer).name().get());
+            putGuarded(r, "sourceContainer",
+                () -> rig.cursorDeviceBanks[0].getDevice(srcSlot).name().get());
+        }
         if (!source.exists().get()) {
             throw new IllegalArgumentException(
-                "no device at scope " + srcSlot + " / chain " + srcLayer + " / index " + srcDevice
+                "no device at " + src + " source " + srcSlot + " / chain " + srcLayer + " / index " + srcDevice
                 + " — aimed at an empty slot this verb is a silent no-op byte-identical to a "
                 + "refusal (the e16o trap)");
         }
@@ -1161,7 +1197,7 @@ public final class ContainerHandlers extends HandlerGroup {
                 throw new IllegalArgumentException(
                     "destination scope " + dstSlot + " was never built: " + rig.slotScopeStatus[dstSlot]);
             }
-            if (dstSlot == srcSlot && dstLayer == srcLayer) {
+            if ("chain".equals(src) && dstSlot == srcSlot && dstLayer == srcLayer) {
                 throw new IllegalArgumentException(
                     "the destination chain is the source chain, so the move is a no-op by "
                     + "construction and would be indistinguishable from a failure");
@@ -1171,6 +1207,18 @@ public final class ContainerHandlers extends HandlerGroup {
                 throw new IllegalArgumentException(
                     "no chain at scope " + dstSlot + " / index " + dstLayer + " — the slot device is "
                     + rig.cursorDeviceBanks[0].getDevice(dstSlot).name().get());
+            }
+            if ("top".equals(src) && srcDevice == dstSlot) {
+                throw new IllegalArgumentException("a container cannot be relocated into one of its own chains");
+            }
+            if (params.has("expectedDestinationChain")) {
+                String expected = params.get("expectedDestinationChain").getAsString();
+                String actual = destination.name().get();
+                if (!expected.equals(actual)) {
+                    throw new IllegalArgumentException(
+                        "destination chain identity changed: expected \"" + expected
+                        + "\", got \"" + actual + "\"");
+                }
             }
             r.addProperty("dstSlot", dstSlot);
             r.addProperty("dstLayer", dstLayer);

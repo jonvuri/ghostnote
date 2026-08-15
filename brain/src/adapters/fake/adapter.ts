@@ -16,6 +16,7 @@ import {
   assertChainCreatable, assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, contentDelta,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
+  verifyDeviceRelocation,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
   type Op, type OpReceipt, type ResolveResult,
@@ -932,6 +933,70 @@ export class FakeAdapter implements BitwigAdapter {
           );
         }
         minted[opIndex] = chainAt(op.source.container, op.name);
+        return;
+      }
+
+      case 'chain.relocate': {
+        const track = this.requireTrack(op.source.track, op.op);
+        const findChain = (address: typeof op.destination & { kind: 'chain' }) => {
+          const chains = track.devices[address.container.chainIndex]?.chains;
+          const matches = chains?.filter((chain) => chain.name === address.name) ?? [];
+          if (matches.length !== 1) {
+            throw new UnsupportedOpError(
+              `${op.op}: chain "${address.name}" ${matches.length === 0 ? 'is absent' : 'is ambiguous'}`,
+              'fake',
+            );
+          }
+          return matches[0]!.devices;
+        };
+        const sourceDevices = op.source.chain === undefined
+          ? track.devices
+          : findChain(op.source.chain);
+        const destinationDevices = op.destination.kind === 'track'
+          ? track.devices
+          : findChain(op.destination);
+        const sourceLimit = op.source.chain === undefined
+          ? this.model.deviceBankSize
+          : this.model.chainDeviceBankSize;
+        const destinationLimit = op.destination.kind === 'track'
+          ? this.model.deviceBankSize
+          : this.model.chainDeviceBankSize;
+        if (sourceDevices.length > sourceLimit || destinationDevices.length >= destinationLimit) {
+          throw new UnsupportedOpError(
+            `${op.op}: source or destination is outside its device bank window`, 'fake');
+        }
+        const observe = (devices: readonly FakeDevice[], limit: number) => ({
+          devices: devices.slice(0, limit).map((device, index) => ({ index, name: device.name })),
+          devicesComplete: devices.length <= limit,
+        });
+        const beforeSource = observe(sourceDevices, sourceLimit);
+        const beforeDestination = observe(destinationDevices, destinationLimit);
+        const source = sourceDevices[op.source.chainIndex];
+        if (source === undefined) {
+          throw new UnsupportedOpError(`${op.op}: no source device at index ${op.source.chainIndex}`, 'fake');
+        }
+        const clone = (device: FakeDevice): FakeDevice => ({
+          ...device,
+          params: device.params.map((param) => ({ ...param })),
+          ...(device.chains === undefined ? {} : {
+            chains: device.chains.map((chain) => ({
+              ...chain,
+              id: this.model.mintChannelId(),
+              devices: chain.devices.map(clone),
+            })),
+          }),
+        });
+        if (op.mode === 'move') sourceDevices.splice(op.source.chainIndex, 1);
+        destinationDevices.push(op.mode === 'copy' ? clone(source) : source);
+        const proof = verifyDeviceRelocation(
+          op.source.chainIndex,
+          op.mode,
+          beforeSource,
+          beforeDestination,
+          observe(sourceDevices, sourceLimit),
+          observe(destinationDevices, destinationLimit),
+        );
+        if (!proof.ok) throw new UnsupportedOpError(`${op.op}: ${proof.why}`, 'fake');
         return;
       }
 

@@ -133,6 +133,8 @@ export class ProjectModel {
   containerScopes = 2;
   chainBankSize = 4;
   chainDeviceBankSize = 4;
+  /** The top-level device bank mirrors RigConfig's shipped default. */
+  deviceBankSize = 8;
 
   /**
    * ⚠ What a freshly inserted container SHIPS WITH, by device uuid (`e17ai`,
@@ -619,7 +621,8 @@ export class ProjectModel {
           // either adapter resolves an address through it.
           id: c.id,
           devices: devices.map((d, at) => ({ index: at, name: d.name })),
-          devicesComplete: devices.length < this.chainDeviceBankSize,
+          devicesComplete: c.devices.length <= this.chainDeviceBankSize,
+          devicesBankSize: this.chainDeviceBankSize,
         };
       }),
       chainsComplete: visible.length < this.chainBankSize,

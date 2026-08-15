@@ -24,7 +24,7 @@ track copying remains separate CRUD:
 |---|---|---|
 | Clip block | Beat-aligned, position-continuous clip A/B | session 3e done; production MCP smoke 9/9 |
 | Track copy | General coarse track duplication, not a managed take | complete; production MCP smoke 6/6 |
-| Layer chain | Managed device alternate | address, observation and creation complete; 3f-c live closure green, 3f-d active |
+| Layer chain | Managed device alternate | address, observation, creation and relocation complete; 3f-d live green, 3f-e active |
 
 Layer and clip alternates created in one instruction are independent. Tool naming
 and descriptions begin light and are versioned for later observation; the old
@@ -34,7 +34,7 @@ three-way dispatch classifier is retired.
 
 1. ~~[3e — clip block](3e-clip-block.md)~~ — done
 2. [3f — track-copy CRUD and layer-chain lifecycle](3f-fork-chain.md) — active;
-   3f-c live closure complete, 3f-d relocation next
+   3f-d relocation complete, 3f-e switching next
 3. [3g — observation, descriptions, and v1 freeze](3g-record.md)
 4. [4 — control layer](4-control-layer.md)
 5. [5 — live proving](5-proving.md)

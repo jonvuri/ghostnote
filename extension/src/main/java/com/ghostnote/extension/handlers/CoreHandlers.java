@@ -75,6 +75,7 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("gridKeys", rig.config.gridKeys);
         result.addProperty("stepSize", Rig.STEP_SIZE);
         result.addProperty("cursorPool", rig.config.cursorPool);
+        result.addProperty("deviceBank", rig.config.deviceBank);
         result.addProperty("sceneCount", rig.sceneBank.itemCount().get());
         return result;
     }

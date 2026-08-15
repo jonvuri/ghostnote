@@ -22,7 +22,7 @@ import assert from 'node:assert/strict';
 
 import {
   chain, device, deviceIn, lookupChain, lookupDevice, lookupNestedDevice, mintedChain,
-  nestingDepth, nestingObservable, track,
+  nestingDepth, nestingObservable, track, verifyDeviceRelocation,
   type ObservedChain, type ObservedContainer,
 } from './index.js';
 
@@ -261,4 +261,26 @@ test('N-mint: a blank id counts as no id at all', () => {
   const before = container([withId('A', 'id-1', 0)]);
   const after = container([withId('A', 'id-1', 0), withId('A', '', 1)]);
   assert.equal(mintedChain(before, after).ok, false);
+});
+
+test('N-relocate: move and copy are proved from both structural halves', () => {
+  const seq = (names: string[], complete = true) => ({
+    devices: names.map((name, index) => ({ index, name })),
+    devicesComplete: complete,
+  });
+  assert.equal(verifyDeviceRelocation(
+    0, 'move', seq(['A', 'B']), seq([]), seq(['B']), seq(['A']),
+  ).ok, true);
+  assert.equal(verifyDeviceRelocation(
+    0, 'copy', seq(['A']), seq(['B']), seq(['A']), seq(['B', 'A']),
+  ).ok, true);
+  const wrongOrder = verifyDeviceRelocation(
+    0, 'move', seq(['A', 'B']), seq([]), seq(['B']), seq(['B', 'A']),
+  );
+  assert.equal(wrongOrder.ok, false);
+  assert.match(wrongOrder.ok ? '' : wrongOrder.why, /destination readback/);
+  const blind = verifyDeviceRelocation(
+    0, 'move', seq(['A'], false), seq([]), seq([]), seq(['A']),
+  );
+  assert.equal(blind.ok, false, 'a partial bank cannot certify a relocation');
 });

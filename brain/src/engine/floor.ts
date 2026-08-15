@@ -237,6 +237,7 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     // BACK, which is a different question — `write-set.ts` files it unrevertable
     // and the report says the chain stands.
     case 'chain.create':
+    case 'chain.relocate':
     case 'notify':
       return undefined;
     default:

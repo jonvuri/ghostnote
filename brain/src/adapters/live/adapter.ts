@@ -26,14 +26,14 @@
  * that runs, treat this file as unproven.
  */
 import {
-  AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
+  AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainCreatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
-  lookupChain, lookupNestedDevice, mintedChain, nestingObservable, windowCovers,
+  lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
-  type NoteRecord, type ObservedContainer, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
+  type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
@@ -80,6 +80,7 @@ interface WireInventoryChain {
   name?: string;
   channelId?: string;
   devices?: { index: number; name?: string }[];
+  deviceCount?: number;
 }
 
 interface WireInventoryScope {
@@ -104,6 +105,7 @@ interface ChainSnapshot {
   readonly devices: readonly WireDevice[];
   /** The chain is longer than the device bank window, so this view is partial. */
   readonly blind: boolean;
+  readonly bankSize?: number;
 }
 
 /**
@@ -148,6 +150,15 @@ function mintedChainIndex(before: ChainSnapshot, after: ChainSnapshot): number |
 type ContainerScope =
   | { ok: true; container: ObservedContainer; deviceName: string | undefined }
   | { ok: false; miss: ChainMiss };
+
+interface RelocationSequence extends ObservedDeviceSequence {
+  readonly bankSize?: number;
+}
+
+interface RelocationReading {
+  readonly source: RelocationSequence;
+  readonly destination: RelocationSequence;
+}
 
 /** Where the user's own clip selection was before we borrowed it (E1, D6). */
 interface SelectionState {
@@ -229,6 +240,7 @@ const borrowsSelection = (op: Op): boolean =>
   // and nothing on the wire reads back which chain a human had selected. Named
   // here so the gap is on the record rather than discovered as a complaint.
   || op.op === 'chain.create'
+  || op.op === 'chain.relocate'
   || op.op === 'clip.launchSettings';
 
 export class LiveAdapter implements BitwigAdapter {
@@ -270,6 +282,8 @@ export class LiveAdapter implements BitwigAdapter {
    * on the way in so no batch can inherit another's.
    */
   private chainPositions = new Map<AddressKey, number>();
+  /** Device names from the relocation reading immediately preceding the wire call. */
+  private deviceNames = new Map<AddressKey, string>();
 
   /**
    * ⚠⚠ **The last mark read off the extension — and the fix for the limit that
@@ -297,6 +311,8 @@ export class LiveAdapter implements BitwigAdapter {
   private lastMark: RevisionMark | undefined;
   /** The rig's cursor-clip width, learned at hello(); bounds the scan window. */
   private gridSteps: number | undefined;
+  /** Top-level device-bank width, fixed at extension init. */
+  private deviceBankSize: number | undefined;
   /**
    * ⚠ How wide the SCENE window is — the number rule 5's second population is an
    * inequality over, and the one nothing in this file used to hold.
@@ -352,8 +368,10 @@ export class LiveAdapter implements BitwigAdapter {
       gridSteps?: number;
       cursorPool?: number;
       scenes?: number;
+      deviceBank?: number;
     };
     this.gridSteps = rig.gridSteps;
+    this.deviceBankSize = rig.deviceBank;
     // The rig allocates its cursor pool at init and cannot grow it afterwards
     // (D7 — allocation is init-only and enforced), so this is the real ceiling.
     if (rig.cursorPool !== undefined) this.pool = new CursorPool(rig.cursorPool);
@@ -464,6 +482,11 @@ export class LiveAdapter implements BitwigAdapter {
       cursorForTrack: (t) => this.pool.cursorForTrack(t),
       trackIndex: (t) => this.trackIndex(t),
       chainIndex: (c) => this.chainIndex(c),
+      deviceName: (d) => {
+        const name = this.deviceNames.get(addressKey(d));
+        if (name === undefined) throw new AddressUnresolvedError(d, 'no fresh structural reading named this device');
+        return name;
+      },
       sceneRow: sceneRowIn(this.sceneWindow),
     };
   }
@@ -535,7 +558,7 @@ export class LiveAdapter implements BitwigAdapter {
     // cannot tell an insert from something scrolling into frame. Looking is
     // allowed; concluding from a half-view is not.
     const blind = typeof res.itemCount === 'number' && res.itemCount > devices.length;
-    return { devices, blind };
+    return { devices, blind, ...(this.deviceBankSize === undefined ? {} : { bankSize: this.deviceBankSize }) };
   }
 
   /**
@@ -616,7 +639,9 @@ export class LiveAdapter implements BitwigAdapter {
             ? { id: c.channelId }
             : {}),
           devices: (c.devices ?? []).map((d) => ({ index: d.index, name: d.name ?? '' })),
-          devicesComplete: deviceBank !== undefined && (c.devices ?? []).length < deviceBank,
+          devicesComplete: deviceBank !== undefined && typeof c.deviceCount === 'number'
+            && c.deviceCount <= deviceBank && (c.devices ?? []).length === c.deviceCount,
+          ...(deviceBank === undefined ? {} : { devicesBankSize: deviceBank }),
         })),
         chainsComplete: chainBank !== undefined && chains.length < chainBank,
         // ⚠ Carried through so a guard can count a container it has no second
@@ -1367,6 +1392,100 @@ export class LiveAdapter implements BitwigAdapter {
     }
   }
 
+  /** Enumerate one relocation endpoint through a handle other than the writer. */
+  private async relocationSequence(
+    endpoint: TrackAddress | ChainAddress,
+  ): Promise<RelocationSequence> {
+    if (endpoint.kind === 'track') {
+      const observed = await this.deviceChain(endpoint);
+      if (observed === undefined) throw new AddressUnresolvedError(endpoint, 'track device chain is absent');
+      return {
+        devices: observed.devices,
+        devicesComplete: !observed.blind,
+        ...(observed.bankSize === undefined ? {} : { bankSize: observed.bankSize }),
+      };
+    }
+
+    const scope = await this.containerScope(
+      endpoint.container.track, endpoint.container.chainIndex);
+    if (!scope.ok) {
+      throw new AddressUnresolvedError(endpoint, `container structure is ${scope.miss}`);
+    }
+    this.recordChainPositions(endpoint.container, scope.container);
+    const found = lookupChain(scope.container, endpoint.name);
+    if (!found.ok) {
+      const observed = scope.container.chains.map((item) => item.name).join(', ');
+      throw new AddressUnresolvedError(
+        endpoint,
+        `chain name is ${found.miss}; observed chain names: [${observed}]`,
+      );
+    }
+    return {
+      devices: found.chain.devices,
+      devicesComplete: found.chain.devicesComplete,
+      ...(found.chain.devicesBankSize === undefined
+        ? {} : { bankSize: found.chain.devicesBankSize }),
+    };
+  }
+
+  /** Fresh source/destination reading, used both before and after the wire call. */
+  private async relocationReading(
+    op: Extract<Op, { op: 'chain.relocate' }>,
+    preflight: boolean,
+  ): Promise<RelocationReading> {
+    const sourceEndpoint = op.source.chain ?? op.source.track;
+    const source = await this.relocationSequence(sourceEndpoint);
+    const destination = await this.relocationSequence(op.destination);
+    if (preflight) {
+      if (!source.devicesComplete || !destination.devicesComplete) {
+        throw new InvalidOpError(op.op, 'source and destination must both be fully inside their device bank windows');
+      }
+      const sourceDevice = source.devices.find((device) => device.index === op.source.chainIndex);
+      if (sourceDevice === undefined) {
+        throw new InvalidOpError(op.op, `no source device exists at index ${op.source.chainIndex}`);
+      }
+      if (destination.bankSize === undefined) {
+        throw new InvalidOpError(op.op, 'the destination did not report its device-bank width');
+      }
+      if (destination.devices.length >= destination.bankSize) {
+        throw new InvalidOpError(
+          op.op,
+          `the destination device bank is full at ${destination.devices.length}/${destination.bankSize}`,
+        );
+      }
+      this.deviceNames.set(addressKey(op.source), sourceDevice.name);
+    }
+    return { source, destination };
+  }
+
+  /** Poll structural readback until relocation is proved or the bounded window closes. */
+  private async finishRelocation(
+    op: Extract<Op, { op: 'chain.relocate' }>,
+    before: RelocationReading,
+  ): Promise<{ readonly ok: true } | { readonly ok: false; readonly why: string }> {
+    const started = Date.now();
+    let last = 'structural readback did not change';
+    do {
+      try {
+        const after = await this.relocationReading(op, false);
+        const proof = verifyDeviceRelocation(
+          op.source.chainIndex,
+          op.mode,
+          before.source,
+          before.destination,
+          after.source,
+          after.destination,
+        );
+        if (proof.ok) return { ok: true };
+        last = proof.why;
+      } catch (error) {
+        last = error instanceof Error ? error.message : String(error);
+      }
+      if (Date.now() - started < 8000) await new Promise((resolve) => setTimeout(resolve, 100));
+    } while (Date.now() - started < 8000);
+    return { ok: false, why: `relocation was not proved by structural readback: ${last}` };
+  }
+
   /**
    * ⚠⚠ Select the chain about to be copied — `e17ak`'s enabling half, sent as
    * ITS OWN REQUEST.
@@ -1530,6 +1649,7 @@ export class LiveAdapter implements BitwigAdapter {
     // comes from a reply, and it must come from a reply this batch took.
     const containers = await this.readContainers(batch.ops);
     assertChainCreatable(batch.ops, (container) => containers.get(addressKey(container)));
+    this.deviceNames.clear();
 
     const stages = planStages(batch.ops);
     const receipts: StageReceipt[] = [];
@@ -1583,6 +1703,21 @@ export class LiveAdapter implements BitwigAdapter {
         // earlier stage in the same batch is allowed to have added one.
         this.recordChainPositions(createOp.source.container, containerBefore.container);
         await this.selectSourceChain(createOp);
+      }
+
+      // Relocation is one settling op per stage, so this reading brackets
+      // exactly one device transfer. It also refreshes both chain positions and
+      // the source-name identity guard used by the encoder.
+      const relocateAt = stage.ops.findIndex((o) => o.op === 'chain.relocate');
+      const relocateOp = relocateAt === -1 ? undefined : stage.ops[relocateAt];
+      let relocationBefore: RelocationReading | undefined;
+      try {
+        relocationBefore = relocateOp?.op === 'chain.relocate'
+          ? await this.relocationReading(relocateOp, true)
+          : undefined;
+      } catch (error) {
+        await this.restoreSelection(selection);
+        throw error;
       }
 
       const result = (await this.transport.send(encodeStage(stage.ops, this.ctx, guard))) as {
@@ -1673,6 +1808,20 @@ export class LiveAdapter implements BitwigAdapter {
               ? { ...entry, ok: false, error: named.why }
               : entry));
           receipts[receipts.length - 1] = { ...receipt, ops };
+        }
+      }
+      if (relocateOp?.op === 'chain.relocate' && relocationBefore !== undefined
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const proved = await this.finishRelocation(relocateOp, relocationBefore);
+        if (!proved.ok) {
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            (entry.op === WIRE.chainMove || entry.op === 'chain.relocate'
+              ? { ...entry, ok: false, error: proved.why }
+              : entry));
+          receipts[receipts.length - 1] = {
+            ...receipts[receipts.length - 1]!,
+            ops,
+          };
         }
       }
 

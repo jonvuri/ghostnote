@@ -2,9 +2,9 @@
 title: Phase 1, 3f epic — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: SESSION 3f-c COMPLETE 2026-08-15, VERIFIED LIVE. The post-chain.create
-        baseline is green. Next is 3f-d, typed fill/extract relocation with
-        independent structural readback.
+status: SESSION 3f-d COMPLETE 2026-08-15, VERIFIED LIVE. Typed relocation is
+        green in every required direction. Next is 3f-e, container-local
+        exclusive switching.
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -380,6 +380,54 @@ would require a product fault hook, and 3f-c deliberately added none.
 Closing checks: brain typecheck plus 423/423 offline tests, extension Gradle
 build, context check and `git diff --check` all green. Session 3f-d may now begin
 the relocation primitive; 3f-c added no capability.
+
+### Session 3f-d — complete 2026-08-15, verified live
+
+One contract verb, `chain.relocate`, now owns top→chain, chain→top and
+chain→chain device transfer. It takes a source `DeviceAddress`, a destination
+`ChainAddress` or `TrackAddress`, and `move` or `copy`; it is same-track,
+one-level deep, refuses a same-chain no-op and refuses moving a container into
+one of its own chains. No switching, tool surface or destructive lifecycle work
+was added.
+
+The evidence boundary is shared by both adapters. `verifyDeviceRelocation`
+compares complete source and destination device sequences before and after the
+write: move removes exactly the addressed source, copy retains it, the device is
+appended at the destination, total population changes by zero or one as
+appropriate, and all other ordering is byte-for-byte the same. The live adapter
+takes fresh structural readings around each settling stage and polls within a
+bounded window; a wire `ok` is overwritten with a failed receipt when the
+structural proof does not arrive.
+
+`chain.move`, already registered from measurement, was widened to accept top or
+chain sources and is promoted only by this verb. The extension checks durable
+track identity, source-device name, source/destination chain names, scope and
+bank positions immediately before `moveDevices`/`copyDevices`. `rig.info` now
+reports the top-level device-bank width and `chain.inventory` reports nested
+device population, allowing full-bank views to be distinguished from blind
+ones. `assertDevicesRoutable` exempts only `chain.relocate`; nested
+`device.delete`, `param.set` and every unrelated verb still refuse.
+
+⚠ Live proof corrected one address assumption: an untouched shipped FX Layer
+chain auto-renamed itself to `Polysynth` when first filled. A pre-fill default
+name is therefore not durable enough for lifecycle work. The passing row creates
+and explicitly names its two working chains before moving devices; production
+work must do the same. The adapter's failure now reports all observed sibling
+names when a requested chain name disappears.
+
+`C-chain-relocate` fills one explicitly named chain with Polysynth then Organ,
+proves their order, copies the first device chain→chain, moves the second
+chain→chain, extracts the first chain→top, and reasserts the general nested-write
+refusal. Its disposable container is removed in `finally`; the final conformance
+cleanup removes the reusable fixture tracks. The fake runs the same row and
+deep-clones copied devices.
+
+Verification, 2026-08-15: brain typecheck plus **426/426** offline tests,
+extension Gradle build green, rebuilt jar deployed and proved fresh after a full
+Bitwig restart, and live conformance passed **50, failed 0, skipped 6**. The wire
+golden remains 146 methods / `c1120b1c567369d3` because no method was added.
+Context check and `git diff --check` are the closing checks. Session 3f-e may now
+begin container-local exclusive switching.
 
 ## Capability boundary
 

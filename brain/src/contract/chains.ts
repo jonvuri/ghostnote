@@ -51,6 +51,13 @@ export interface ObservedDevice {
   readonly name: string;
 }
 
+/** One independently enumerated device chain, top-level or nested. */
+export interface ObservedDeviceSequence {
+  readonly devices: readonly ObservedDevice[];
+  /** True only when the enumeration proved that no device was hidden. */
+  readonly devicesComplete: boolean;
+}
+
 /**
  * One chain of a container, as the enumeration reported it — and the value a
  * `read` of a `ChainAddress` returns.
@@ -70,6 +77,8 @@ export interface ObservedChain {
   readonly name: string;
   readonly devices: readonly ObservedDevice[];
   readonly devicesComplete: boolean;
+  /** Width of the nested device bank; absent on an older deployment. */
+  readonly devicesBankSize?: number;
   /**
    * ⚠⚠ A WITHIN-SESSION WITNESS, and never an address. Read the sentence twice
    * before using this field, because the whole chain grammar rests on it being
@@ -95,6 +104,60 @@ export interface ObservedChain {
    * declines to identify anything rather than falling back to position.
    */
   readonly id?: string;
+}
+
+/**
+ * Check one relocation from structural readings taken on either side.
+ * Acknowledgements and writer-held handles are intentionally absent.
+ */
+export function verifyDeviceRelocation(
+  sourceIndex: number,
+  mode: 'move' | 'copy',
+  beforeSource: ObservedDeviceSequence,
+  beforeDestination: ObservedDeviceSequence,
+  afterSource: ObservedDeviceSequence,
+  afterDestination: ObservedDeviceSequence,
+): { readonly ok: true; readonly device: ObservedDevice } | { readonly ok: false; readonly why: string } {
+  const complete = [beforeSource, beforeDestination, afterSource, afterDestination]
+    .every((reading) => reading.devicesComplete);
+  if (!complete) return { ok: false, why: 'source or destination device structure was outside its bank window' };
+
+  const sourceAt = beforeSource.devices.findIndex((device) => device.index === sourceIndex);
+  const source = beforeSource.devices[sourceAt];
+  if (source === undefined) return { ok: false, why: `no source device exists at index ${sourceIndex}` };
+
+  const names = (reading: ObservedDeviceSequence): string[] => reading.devices.map((device) => device.name);
+  const beforeSourceNames = names(beforeSource);
+  const beforeDestinationNames = names(beforeDestination);
+  const expectedSource = mode === 'move'
+    ? beforeSourceNames.filter((_, index) => index !== sourceAt)
+    : beforeSourceNames;
+  const expectedDestination = [...beforeDestinationNames, source.name];
+  const afterSourceNames = names(afterSource);
+  const afterDestinationNames = names(afterDestination);
+
+  if (JSON.stringify(afterSourceNames) !== JSON.stringify(expectedSource)) {
+    return {
+      ok: false,
+      why: `source readback was [${afterSourceNames.join(', ')}], expected [${expectedSource.join(', ')}]`,
+    };
+  }
+  if (JSON.stringify(afterDestinationNames) !== JSON.stringify(expectedDestination)) {
+    return {
+      ok: false,
+      why: `destination readback was [${afterDestinationNames.join(', ')}], expected [${expectedDestination.join(', ')}]`,
+    };
+  }
+  const beforePopulation = beforeSource.devices.length + beforeDestination.devices.length;
+  const afterPopulation = afterSource.devices.length + afterDestination.devices.length;
+  const expectedPopulation = beforePopulation + (mode === 'copy' ? 1 : 0);
+  if (afterPopulation !== expectedPopulation) {
+    return {
+      ok: false,
+      why: `observable device population changed ${beforePopulation} -> ${afterPopulation}; expected ${expectedPopulation}`,
+    };
+  }
+  return { ok: true, device: source };
 }
 
 /**

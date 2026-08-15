@@ -119,6 +119,22 @@ export type Op =
    * CONTAINER*, which is a different verb this op does not pretend to have.
    */
   | { readonly op: 'chain.create'; readonly source: ChainAddress; readonly name: string }
+  /**
+   * Relocate one device between the track's top-level chain and a named layer
+   * chain, or between two named layer chains. The destination is always the end
+   * of its device chain; repeating the verb therefore preserves caller order.
+   *
+   * ⚠ This is the ONLY device write allowed to carry a nested `DeviceAddress`.
+   * Its adapters resolve both chain names immediately before the write and
+   * prove both structural halves afterwards. `device.delete` and `param.set`
+   * remain behind `assertDevicesRoutable` exactly as before.
+   */
+  | {
+    readonly op: 'chain.relocate';
+    readonly source: DeviceAddress;
+    readonly destination: ChainAddress | TrackAddress;
+    readonly mode: 'move' | 'copy';
+  }
 
   // --- progress signal ------------------------------------------------------
   // Free: E8-C interleaved notify ops into a paced batch and all fired, spaced
@@ -166,6 +182,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   // before the copy is in the bank, which reports no mint and leaves a chain
   // wearing its source's name.
   'chain.create': 'deviceInsert',
+  'chain.relocate': 'deviceInsert',
 };
 
 /**
@@ -256,6 +273,31 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         );
       }
     }
+    if (op.op === 'chain.relocate') {
+      const destinationTrack = op.destination.kind === 'chain'
+        ? op.destination.container.track
+        : op.destination;
+      if (op.source.track.channelId !== destinationTrack.channelId) {
+        throw new InvalidOpError(op.op, 'source and destination must be on the same track');
+      }
+      if (op.source.chain === undefined && op.destination.kind === 'track') {
+        throw new InvalidOpError(op.op, 'at least one side of a chain relocation must be a chain');
+      }
+      if (op.source.chain !== undefined && !nestingObservable(op.source)) {
+        throw new InvalidOpError(op.op, 'the source is deeper than the measured one-chain slot scopes');
+      }
+      if (op.destination.kind === 'chain' && !nestingObservable(op.destination)) {
+        throw new InvalidOpError(op.op, 'the destination is deeper than the measured one-chain slot scopes');
+      }
+      if (op.source.chain !== undefined && op.destination.kind === 'chain'
+          && addressKey(op.source.chain) === addressKey(op.destination)) {
+        throw new InvalidOpError(op.op, 'source and destination chains must be different');
+      }
+      if (op.source.chain === undefined && op.destination.kind === 'chain'
+          && op.source.chainIndex === op.destination.container.chainIndex) {
+        throw new InvalidOpError(op.op, 'a container cannot be relocated into one of its own chains');
+      }
+    }
     if (op.op !== 'note.write' && op.op !== 'note.props') continue;
     for (const note of op.notes) {
       const refused = unwritableProps(note);
@@ -309,6 +351,7 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'device.delete':
     case 'param.set':
     case 'chain.create':
+    case 'chain.relocate':
     case 'notify':
       return [];
     default:
@@ -340,6 +383,11 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
     // address rather than re-implementing the refusal.
     case 'chain.create':
       return [op.source.container];
+    // This verb owns its nested route and performs the corresponding depth,
+    // name and identity checks itself. Listing its source here would make the
+    // general refusal erase the one deliberately promoted capability.
+    case 'chain.relocate':
+      return [];
     // ⚠ `device.insert` names a TRACK, not a device, so it cannot be nested today.
     // When an insert into a chain is measured it gains its own addressing, and
     // this switch is where that fact has to be restated.
@@ -367,8 +415,8 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
 }
 
 /**
- * ⚠⚠ Refuse an op naming a device INSIDE a layer chain, because every write
- * route we have measured addresses the track's TOP-LEVEL chain.
+ * ⚠⚠ Refuse an op naming a device INSIDE a layer chain unless that op owns a
+ * measured nested route. Today the only exception is `chain.relocate`.
  *
  * `DeviceAddress.chain` exists so that nested structure can be named, stashed and
  * reported before any verb can reach it — the address grammar and the routes are
@@ -384,9 +432,9 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
  * nested address there reads and writes the wrong device too — and would certify
  * a capability neither adapter has (PHASE-0 §Risks' one-directional rule).
  *
- * ⚠ Relaxing this is a MEASUREMENT, not a default: the nested routes (`layer.*`)
- * exist on the wire as E17/E18 probe surface and have never been driven through
- * the typed seam. 3f step 6 lands them one verb at a time.
+ * ⚠ Relaxing this is a MEASUREMENT, not a default. `chain.relocate` promotes the
+ * slot-scoped E18 mover through its own validation and structural proof; no
+ * other nested device operation inherits that reach.
  */
 export function assertDevicesRoutable(ops: readonly Op[]): void {
   for (const op of ops) {

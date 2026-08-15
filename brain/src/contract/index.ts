@@ -20,10 +20,11 @@ export type {
 
 export {
   chainCopyUnnamed, lookupChain, lookupDevice, lookupNestedDevice, mintedChain, nestingDepth,
-  nestingObservable,
+  nestingObservable, verifyDeviceRelocation,
 } from './chains.js';
 export type {
   ChainLookup, ChainMint, ChainMiss, DeviceLookup, ObservedChain, ObservedContainer, ObservedDevice,
+  ObservedDeviceSequence,
 } from './chains.js';
 
 export { SETTLE_MS, TICK_MS, budgetTicks } from './budgets.js';

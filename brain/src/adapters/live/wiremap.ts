@@ -100,6 +100,8 @@ export const WIRE = {
    * chain past the bank is `outside-bank-window`, never `absent`.
    */
   chainInventory: 'chain.inventory',
+  /** Slot-scoped device relocation, promoted only for `chain.relocate`. */
+  chainMove: 'chain.move',
   /**
    * ⚠⚠ NEW in session 3f step 6b-2, and the first WRITE in this system that
    * reaches inside a container. `layer.select` + `Channel.duplicate()`, the one

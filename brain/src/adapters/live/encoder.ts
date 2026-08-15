@@ -81,6 +81,8 @@ export interface EncodeContext {
    * rather than guessing when a chain was never observed.
    */
   readonly chainIndex: (chain: ChainAddress) => number;
+  /** Source name from the structural reading that immediately precedes relocation. */
+  readonly deviceName?: (device: import('../../contract/index.js').DeviceAddress) => string;
   /**
    * ⚠⚠ A scene ROW -> the index the bank will accept for it.
    *
@@ -427,6 +429,29 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         // of somebody else's chain.
         expectedName: op.source.name,
       })];
+
+    case 'chain.relocate': {
+      const sourceChain = op.source.chain;
+      const destinationChain = op.destination.kind === 'chain' ? op.destination : undefined;
+      return [frame(WIRE.chainMove, {
+        src: sourceChain === undefined ? 'top' : 'chain',
+        srcDevice: op.source.chainIndex,
+        ...(sourceChain === undefined ? {} : {
+          srcSlot: sourceChain.container.chainIndex,
+          srcLayer: ctx.chainIndex(sourceChain),
+          expectedSourceChain: sourceChain.name,
+        }),
+        dst: destinationChain === undefined ? 'top' : 'chain',
+        ...(destinationChain === undefined ? { where: 'chainEnd' } : {
+          dstSlot: destinationChain.container.chainIndex,
+          dstLayer: ctx.chainIndex(destinationChain),
+          expectedDestinationChain: destinationChain.name,
+        }),
+        verb: op.mode,
+        expectedTrackChannelId: op.source.track.channelId,
+        expectedSourceName: ctx.deviceName?.(op.source),
+      })];
+    }
 
     case 'param.set':
       // ⚠ Two different APIs, two different traps. Neither is selectable by the

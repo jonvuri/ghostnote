@@ -989,6 +989,117 @@ export function runConformance(h: AdapterHarness): void {
     },
   );
 
+  test(
+    label('C-chain-relocate', 'devices fill and leave chains with ordered structural proof'),
+    { skip: !h.capabilities.hasDeviceModel },
+    async () => {
+      const { adapter, trackA } = await h.create();
+      const executor = new Executor(adapter);
+      const FX_LAYER = { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' } as const;
+      const A = { from: 'bitwig', uuid: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef' } as const;
+      const B = { from: 'bitwig', uuid: 'f2dcfe9a-7b66-4c84-984a-b25685a1c21a' } as const;
+      let container: Address | undefined;
+      const chainDevices = async (at: Address, name: string): Promise<string[]> => {
+        assert.equal(at.kind, 'device');
+        const entry = (await adapter.read([at])).entries[addressKey(at)];
+        const observed = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+        const hit = observed?.chains.find((item) => item.name === name);
+        assert.ok(hit, `chain ${name} must remain independently observable`);
+        return hit.devices.map((item) => item.name);
+      };
+      try {
+        const inserted = await executor.run([{ op: 'device.insert', track: trackA, source: FX_LAYER }]);
+        container = inserted.receipt.minted[0];
+        assert.ok(container?.kind === 'device');
+        const initial = (await adapter.read([container])).entries[addressKey(container)];
+        const observed = initial?.value.of === 'device' ? initial.value.device.container : undefined;
+        assert.ok(observed?.chains[0]);
+        const shipped = chain(container, observed.chains[0].name);
+        const madeFirst = await adapter.apply({ ops: [{
+          op: 'chain.create', source: shipped, name: 'gn-conf-fill',
+        }] });
+        assert.equal(madeFirst.stages[0]?.ops[0]?.ok, true);
+        const first = chain(container, 'gn-conf-fill');
+        const madeAlt = await adapter.apply({ ops: [{
+          op: 'chain.create', source: first, name: 'gn-conf-alt',
+        }] });
+        assert.equal(madeAlt.stages[0]?.ops[0]?.ok, true);
+        const alt = chain(container, 'gn-conf-alt');
+
+        const readName = async (index: number): Promise<string> => {
+          const at = device(trackA, index);
+          const value = (await adapter.read([at])).entries[addressKey(at)]?.value;
+          assert.equal(value?.of, 'device');
+          return value?.of === 'device' ? value.device.name : '';
+        };
+
+        // The top chain compacts after each move, so each insert is observed at
+        // index 1 and the repeated relocation appends A then B in that order.
+        await executor.run([{ op: 'device.insert', track: trackA, source: A }]);
+        const aName = await readName(1);
+        const firstFill = await adapter.apply({ ops: [{
+          op: 'chain.relocate', source: device(trackA, 1), destination: first, mode: 'move',
+        }] });
+        assert.equal(firstFill.stages[0]?.ops[0]?.ok, true,
+          JSON.stringify(firstFill.stages[0]?.ops[0]));
+
+        await executor.run([{ op: 'device.insert', track: trackA, source: B }]);
+        const bName = await readName(1);
+        const secondFill = await adapter.apply({ ops: [{
+          op: 'chain.relocate', source: device(trackA, 1), destination: first, mode: 'move',
+        }] });
+        assert.equal(secondFill.stages[0]?.ops[0]?.ok, true,
+          JSON.stringify(secondFill.stages[0]?.ops[0]));
+        assert.deepEqual(await chainDevices(container, first.name), [aName, bName],
+          'repeated fills preserve device order');
+
+        // Copy retains the top-level source and adds exactly one nested device.
+        const copied = await adapter.apply({ ops: [{
+          op: 'chain.relocate', source: deviceIn(first, 0), destination: alt, mode: 'copy',
+        }] });
+        assert.equal(copied.stages[0]?.ops[0]?.ok, true);
+        assert.deepEqual(await chainDevices(container, first.name), [aName, bName]);
+        assert.deepEqual(await chainDevices(container, alt.name), [aName]);
+
+        // Chain→chain removes from the source and appends at the destination.
+        const crossed = await adapter.apply({ ops: [{
+          op: 'chain.relocate', source: deviceIn(first, 1), destination: alt, mode: 'move',
+        }] });
+        assert.equal(crossed.stages[0]?.ops[0]?.ok, true);
+        assert.deepEqual(await chainDevices(container, first.name), [aName]);
+        assert.deepEqual(await chainDevices(container, alt.name), [aName, bName]);
+
+        // Chain→top extraction is proved by both the nested miss and top read.
+        const extracted = await adapter.apply({ ops: [{
+          op: 'chain.relocate', source: deviceIn(alt, 0), destination: trackA, mode: 'move',
+        }] });
+        assert.equal(extracted.stages[0]?.ops[0]?.ok, true);
+        assert.deepEqual(await chainDevices(container, alt.name), [bName]);
+        const top = await adapter.read([device(trackA, 1)]);
+        assert.equal(top.entries[addressKey(device(trackA, 1))]?.value.of, 'device');
+
+        // The general nested-device refusal is untouched outside this verb.
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'device.delete', device: deviceIn(alt, 0) }] }),
+          /device-layer chain/,
+        );
+      } finally {
+        if (container?.kind === 'device') {
+          await adapter.apply({ ops: [{ op: 'device.delete', device: container }] });
+          await adapter.settle('trackStruct');
+          // The extracted device remains at top level after the container goes.
+          for (let guard = 0; guard < 8; guard += 1) {
+            const at = device(trackA, 0);
+            if ((await adapter.read([at])).entries[addressKey(at)] === undefined) break;
+            await adapter.apply({ ops: [{ op: 'device.delete', device: at }] });
+            await adapter.settle('trackStruct');
+          }
+        }
+        await h.dispose(adapter);
+      }
+    },
+  );
+
   // --- staged application ----------------------------------------------------
 
   test(label('C-stage', 'instant ops coalesce and settling ops get their own stage (E8)'), async () => {

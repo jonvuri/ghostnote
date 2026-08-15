@@ -21,7 +21,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  BlindSpotError, InvalidOpError, assertOpsWritable, chain as chainAt, clip, device, param,
+  BlindSpotError, InvalidOpError, assertOpsWritable, chain as chainAt, clip, device, deviceIn, param,
   scene, slot, track,
   type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
@@ -49,6 +49,7 @@ const ctx: EncodeContext = {
   // named chains, at positions that are NOT 0 and 1, so a frame carrying an
   // array offset or a hardcoded zero fails here rather than live.
   chainIndex: (c) => (c.name === 'A take' ? 2 : (c.name === 'B take' ? 3 : -1)),
+  deviceName: () => 'Polysynth',
   sceneRow: sceneRowIn(SCENE_WINDOW),
 };
 
@@ -252,6 +253,27 @@ test('E-chain: a source nobody observed is REFUSED, never given a guessed positi
   const frames = encodeOp({ op: 'chain.create', source: unseen, name: 'B' }, ctx);
   assert.equal(paramsOf(frames, WIRE.chainDuplicate)?.['layerIndex'], -1,
     'whatever the context says is what goes out — the encoder invents no position');
+});
+
+test('E-chain-relocate: all directions use one guarded slot-scoped mover', () => {
+  const a = chainAt(device(TRACK_A, 0), 'A take');
+  const b = chainAt(device(TRACK_A, 1), 'B take');
+  const cases: Op[] = [
+    { op: 'chain.relocate', source: device(TRACK_A, 1), destination: a, mode: 'move' },
+    { op: 'chain.relocate', source: deviceIn(a, 0), destination: TRACK_A, mode: 'move' },
+    { op: 'chain.relocate', source: deviceIn(a, 0), destination: b, mode: 'copy' },
+  ];
+  const params = cases.map((op) => paramsOf(encodeOp(op, ctx), WIRE.chainMove));
+  assert.deepEqual(params.map((value) => [value?.['src'], value?.['dst'], value?.['verb']]), [
+    ['top', 'chain', 'move'], ['chain', 'top', 'move'], ['chain', 'chain', 'copy'],
+  ]);
+  assert.equal(params[0]?.['dstLayer'], 2);
+  assert.equal(params[1]?.['srcLayer'], 2);
+  assert.equal(params[2]?.['dstLayer'], 3);
+  for (const value of params) {
+    assert.equal(value?.['expectedTrackChannelId'], TRACK_A.channelId);
+    assert.equal(value?.['expectedSourceName'], 'Polysynth');
+  }
 });
 
 test('E-device: a device op POINTS a cursor at its track, and addresses that cursor', () => {

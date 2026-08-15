@@ -188,6 +188,7 @@ function targetsOf(op: Op): {
     case 'scene.create':
     case 'device.insert':
     case 'chain.create':
+    case 'chain.relocate':
     case 'notify':
       return [];
 
@@ -243,6 +244,14 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
           + 'forms refuse on a DeviceLayer while the same inherited call deletes a Track in the '
           + 'same run (e17al, e17am). Reduction is a different operation — move the devices out '
           + 'and delete the container — so automatic reversal leaves this chain standing.',
+      };
+    case 'chain.relocate':
+      return {
+        opIndex, op: op.op, unrestoredAs: `${op.mode === 'copy' ? 'copied' : 'moved'} device`,
+        why:
+          'device addresses are positional and a relocation re-indexes at least one device chain, '
+          + 'so a later occupant cannot be proved to be the object this operation moved or copied. '
+          + 'Use a directed relocation for cleanup; automatic reversal declines.',
       };
     // `notify` mutates nothing; its absence here is a positive statement. So is
     // `device.insert`'s, as of the D16 amendment — see this function's header.

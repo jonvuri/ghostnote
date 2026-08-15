@@ -215,18 +215,13 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   const unexpected = e16.filter((m) => !m.startsWith('branch.') && !allowed.includes(m));
   assert.deepEqual(unexpected, [], `E16 added an unexpected method: ${unexpected.join(', ')}`);
   const reachable = e16.filter((m) => WIRE_METHODS_USED.includes(m));
-  // ⚠ `chain.inventory` joined this list in session 3f step 6b, and it is the
-  // first READ promoted out of E16/E18 probe surface. It is promoted alone: it
-  // observes, it names its container by parameter, and it cannot write. Its
-  // sibling `chain.move` stays unreachable — the relocation directions the
-  // rebuild strategy needs (chain → top level, chain → chain, across
-  // containers) have verdicts but no typed seam, and promoting a mover beside
-  // a reader would put a write route in the product before the verb that owns
-  // it exists.
-  assert.deepEqual(reachable.sort(), ['branch.duplicateTrack', 'chain.inventory', 'slot.moveTo'],
-    'session 3e promotes clip relocation, 3f step 5 measured track copying, 3f step 6b chain observation');
-  assert.ok(!WIRE_METHODS_USED.includes('chain.move'),
-    'the nested-device MOVER stays probe surface until the verb that owns it is written');
+  // Session 3f-d promotes the measured mover only through `chain.relocate`.
+  // The handler remains slot-scoped and the encoder has no other route to it.
+  assert.deepEqual(
+    reachable.sort(),
+    ['branch.duplicateTrack', 'chain.inventory', 'chain.move', 'slot.moveTo'],
+    '3f-d promotes chain.move only after the typed relocation verb owns its structural proof',
+  );
 });
 
 test('E20: session 3b early-probe surface is probe surface, and the contract cannot reach it', () => {

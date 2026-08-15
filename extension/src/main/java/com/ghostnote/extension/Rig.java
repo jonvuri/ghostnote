@@ -803,6 +803,9 @@ public class Rig {
                     // does not move, rather than through a cursor that does.
                     layer.channelId().markInterested();
                     slotLayerDeviceBanks[s][l] = layer.createDeviceBank(SLOT_LAYER_DEVICE_BANK);
+                    // Product relocation needs a true population count so a
+                    // full bank is distinguishable from an overflowing one.
+                    slotLayerDeviceBanks[s][l].itemCount().markInterested();
                     for (int d = 0; d < SLOT_LAYER_DEVICE_BANK; d++) {
                         Device nested = slotLayerDeviceBanks[s][l].getDevice(d);
                         nested.exists().markInterested();
