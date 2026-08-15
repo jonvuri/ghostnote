@@ -245,6 +245,17 @@ not.
 
 ## Phase 3f impact
 
+> ⚠⚠ **DISPOSITION 2026-08-14 (operator; D18 rev). This section is the state at
+> the time of the matrix and is now historical in its particulars.** The grouped
+> track-fork product path was removed rather than repaired: there is no
+> `track.group` contract op, no `make_track_copy`, and no
+> `WriteEffectUnobservedError` — the post-send diagnostic described below no
+> longer exists, because the write it diagnosed no longer exists. `Group` is
+> reachable only through `branch.groupTrack`, kept registered to reproduce this
+> experiment and product-banned. ⚠ The FINDINGS below are unaffected; only the
+> "therefore Phase 3f will…" reading is superseded. See revised D18 and
+> [3f](../../plan/phase-1/3f-fork-chain.md).
+
 The forced topology remains mechanically proven, but Phase 3f has not yet passed
 its production live-smoke criterion. An empty group is insufficient: E16k
 measured `moveTracks` and `copyTracks` as silent no-ops, so the correct route is

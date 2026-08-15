@@ -26,6 +26,11 @@ evidence: E16j, E16k, E17, E22 · D13 · standing rules 2, 5, 6, 10, 13
 
 # Result — read this before the brief below
 
+**Product disposition, 2026-08-14:** the operator chose deferral in favour of
+layer-chain and clip-block managed takes. The grouped-fork product slice was
+removed; ordinary typed track copying remains separate CRUD. The E22 handler and
+selection observer remain only as product-banned probe support.
+
 The brief's §6 matrix was run in order. Full detail, verbatim operator reports and
 the three harness lags that had to be fixed first are in
 [E22](../../evidence/experiments/e22-group-editing-action-does-not-fire-reliably-backgrounded.md).
@@ -165,6 +170,13 @@ Known additions include:
 - `brain/src/probes/e22-group-state.ts` and `probe:e22`;
 - E22 evidence and documentation;
 - `WriteEffectUnobservedError` and its corrected post-send surface report.
+
+> ⚠ **This inventory is spent (2026-08-14).** It described the worktree the
+> experiment ran against. Per the disposition above, everything grouped-fork in it
+> was removed, `phase3f-production.ts` and `WriteEffectUnobservedError` included;
+> the typed duplication and readback pieces were kept and reshaped toward
+> `copy_track`. Only `probe:e22` and this document survive as written. Do not read
+> the list as a description of the current tree.
 
 The last offline verification was `npm run check` at 355/355, extension
 `./gradlew test` green, and `git diff --check` green. The wire handshake was 143

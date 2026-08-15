@@ -22,7 +22,7 @@ every time.
 - **The seam: destructive verbs live on a SEPARATE MCP tool surface, annotated**
   (`destructiveHint`; read tools carry `readOnlyHint`), so the **host's
   permission flow is the stop-and-ask**. Tool names and descriptions are chosen
-  to suggest the capability class naturally (D18c's fresh-language rule applies).
+  to suggest the capability class naturally (revised D18e's naming rule applies).
   *"Always allow"* is the operator's prerogative and accepted — they may have
   good reasons (e.g. directed cleanup of a large cluttered project). Amends D12:
   the adapter contract keeps one `Op` union; only the MCP tool surface partitions.

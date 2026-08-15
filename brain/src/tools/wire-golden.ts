@@ -40,6 +40,10 @@ export interface Golden {
   addedInE20?: string[];
   /** Session 3e arm 1: per-clip launch settings, before product design. */
   addedInSession3eProbe?: string[];
+  /** E22 regression probe only: the addressed Group-action reproducer. */
+  addedInE22Probe?: string[];
+  /** Session 3f product methods added after the E22 fork path was retired. */
+  addedInSession3f?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

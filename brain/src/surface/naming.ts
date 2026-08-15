@@ -23,6 +23,17 @@
  * names, the JSON schema an agent actually receives, and the TEXT every exercised
  * tool emits, refusals included.
  *
+ * ⚠⚠ **REVISED 2026-08-14 (E22, D18 rev), and this is the file's live tension.**
+ * Rule 1 survives, but its old form assumed three interchangeable mechanisms an
+ * agent had to be kept from being steered between. There are now two managed take
+ * representations divided by OBJECT, and revised D18e says descriptions *"do not
+ * need to hide the now-settled object boundary"*. So some entries below are
+ * permanent (naming a retired mechanism, or our own machinery) and some are
+ * **relaxation candidates** — marked as such, to be reopened DELIBERATELY AND ONE
+ * AT A TIME by the session that writes the tool needing the word, never as a
+ * side effect of a description edit. That review is scope in `3g-record.md` and
+ * gated in `3f-fork-chain.md`. Until then every entry stands as written.
+ *
  * ⚠ **False positives are expected and are not a defect.** *"A guard that never
  * fires is not a guard, and the remedy is to widen the exemption list
  * EXPLICITLY, one entry at a time"* (session 3d). `SURFACE_WORD_EXEMPTIONS` is
@@ -46,30 +57,35 @@
 const SUFFIXES = '(?:s|es|ed|ing)?';
 
 export const SURFACE_WORDS_BANNED: Readonly<Record<string, string>> = {
-  // --- choice-mapping: the mechanisms, by name (D18c) -----------------------
+  // --- choice-mapping: the mechanisms, by name (revised D18e) ---------------
   fork:
-    'the track-fork branch mechanism. Naming a mechanism on the surface is the choice-mapping '
-    + 'leak in its purest form — and the mechanism does not exist yet, so a description that '
-    + 'mentioned one would be describing something an agent cannot call.',
+    'PERMANENT. The grouped track-fork mechanism, RETIRED by E22 and the D18 revision. It names '
+    + 'something the product does not have and never will, so a description mentioning one would '
+    + 'be describing a thing an agent cannot call.',
   branch:
-    'the same leak one level up: "branch" is the category the three mechanisms live in, and a '
-    + 'surface that offers to branch has already mapped a change onto one of them.',
+    'PERMANENT. The category the retired three-mechanism model lived in. A surface that offers to '
+    + '"branch" has mapped a change onto take machinery instead of naming the object it changes.',
   layer:
-    'the layer-chain branch mechanism (3f). Nothing on this surface reaches a device layer.',
+    'RELAXATION CANDIDATE (3f step 6). The device-alternate mechanism. Nothing on this surface '
+    + 'reaches a device layer today; when the device-alternate tools ship, revised D18e may allow '
+    + 'them to name what they build — reopen this entry then, deliberately, not in passing.',
   chain:
-    'the layer-chain mechanism again, and the word this project uses for a device chain — which '
-    + 'is why the device tools say "position in the track" instead. Two meanings, one of them a '
-    + 'mechanism, is exactly the ambiguity a fresh vocabulary exists to avoid.',
+    'RELAXATION CANDIDATE (3f step 6), with a second reason to keep it: it is also the word this '
+    + 'project uses for a device chain, which is why the device tools say "position in the track" '
+    + 'instead. Two meanings, one of them a mechanism, is exactly the ambiguity a fresh vocabulary '
+    + 'exists to avoid — so relaxing this one needs a disambiguation, not just a decision.',
   duplicate:
-    'the clip-block mechanism\'s verb (3e). Nothing here duplicates anything, and a description '
-    + 'that mentioned duplication would map a change onto a mechanism before the mechanism ships.',
+    'RELAXATION CANDIDATE (3f step 5). Banned when nothing here duplicated anything; revised D18c '
+    + 'makes track duplication an ordinary product operation. The surface says COPY, and this '
+    + 'entry stands until `copy_track` is written and its wording reviewed.',
   lineage:
-    'the spike\'s word for the group structure a fork builds. Internal, and mechanism-shaped.',
+    'PERMANENT. The spike\'s word for the group structure the retired fork built. Internal, '
+    + 'mechanism-shaped, and nothing builds it any more.',
   reap:
     'the spike\'s word for destroying structure the agent did not make (D20). The destructive '
     + 'tools say what they delete in plain words instead.',
 
-  // --- spike jargon: our machinery, not the agent's world (D18c) ------------
+  // --- spike jargon: our machinery, not the agent's world (revised D18e) ----
   take:
     'this project\'s word for one recorded batch. The surface calls it a CHANGE, because that is '
     + 'what it is to the person whose music it altered.',
@@ -86,15 +102,15 @@ export const SURFACE_WORDS_BANNED: Readonly<Record<string, string>> = {
   'write-set': 'this project\'s word for the addresses a batch touches.',
   changelog: 'not a thing this system has — the project is the record, and `list_changes` is the view.',
 
-  // --- heuristic language (D18d: v1 ships mechanics, not advice) ------------
+  // --- heuristic language (revised D18e: light and factual, not advice) -----
   typically:
-    'D18d: v1 descriptions carry mechanics, trade-offs and correctness recipes, with "no worked '
-    + 'examples, no heuristics, no typically/recommended language". A hedge is a pre-drawn '
-    + 'conclusion wearing a softer word.',
+    'Revised D18e: descriptions begin light and factual — scope, preconditions, costs, seams and '
+    + 'correct procedures, with no worked examples and no elaborate heuristics. A hedge is a '
+    + 'pre-drawn conclusion wearing a softer word.',
   recommended: 'as `typically` — a recommendation is a choice already made for the agent.',
   usually: 'as `typically`.',
   prefer: 'as `typically`, in the imperative.',
-  'use this when': 'the exact sentence D18c names as the smell: a rule about WHEN, not a fact.',
+  'use this when': 'the exact sentence D18 names as the smell: a rule about WHEN, not a fact.',
   'use it when': 'as `use this when`.',
   'instead use': 'a redirect. Refusal text says what is impossible; it never points elsewhere.',
 };

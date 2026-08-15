@@ -28,6 +28,12 @@ is API-ENFORCED, not policy.**
 >   API-enforced: `Signal.fire()` refused, E14-A1), and destruction is never the
 >   agent's decision (D20).
 
+> ⚠ **REVISED 2026-08-14 (E22, D18 rev).** Remove `group mute` from the take
+> surfaces above. Track forks are no longer managed takes. Coarse managed A/B is
+> layer-chain solo plus clip launch; an ordinary copied track can still be
+> compared with Bitwig's normal project-wide track controls, without ghostnote
+> take semantics. This does not restore a need for a ghostnote take switcher.
+
 This is the Phase-1 control-layer decision PHASE-0 exit criterion 3 requires.
 D4's substance survived; three of its specifics did not.
 

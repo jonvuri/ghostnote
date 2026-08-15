@@ -511,6 +511,17 @@ test('T-tracks: a delete-and-recreate mints a NEW channelId (E2f)', () => {
   assert.equal(model.findByChannelId(first), undefined);
 });
 
+test('T-tracks: duplicating a track copies its contents and mints a fresh id', () => {
+  const model = new ProjectModel();
+  const source = model.createTrack('gn-A');
+  source.devices.push({ name: 'Polysynth', paramsLive: true, params: [] });
+  const copy = model.duplicateTrack(source.channelId)!;
+  assert.notEqual(copy.channelId, source.channelId);
+  assert.equal(copy.name, source.name);
+  assert.deepEqual(copy.devices, source.devices);
+  assert.notEqual(copy.devices, source.devices);
+});
+
 // --- E3: device chain re-indexing -------------------------------------------
 
 test('T-chain: deleting a device RE-INDEXES the chain (E3)', () => {

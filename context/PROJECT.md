@@ -2,7 +2,7 @@
 title: ghostnote project context
 kind: project
 state: active
-updated: 2026-08-10
+updated: 2026-08-14
 ---
 
 # ghostnote
@@ -21,9 +21,13 @@ surface without relying on the user's UI selection.
   addressing for clips/scenes, which have no durable identity.
 - Writes pass through one executor and stash boundary with readback verification,
   concurrency reporting, and fidelity-aware reversal.
-- Branching is the D18 hybrid: track fork, layer chain, and clip block. The agent
-  chooses at L3-open; a silent record later compares that choice with a
-  deterministic classifier without exposing choice-mapping to the agent.
+- Managed takes use two project-native representations: layer chains for device
+  alternates and launcher clip blocks for clip alternates. Mixed instructions may
+  create both independently; no compound-take linkage is promised.
+- Track duplication is ordinary typed CRUD. It is observable as a session change
+  but receives no managed-take lineage or lifecycle semantics.
+- Tool names and descriptions are versioned and observed. They begin light rather
+  than implementing the retired three-way dispatch classifier.
 - Native Bitwig undo remains the human's. Reversal of agent edits belongs to
   ghostnote and is bounded to changes it can identify and restore safely.
 - Destructive initiative is zero. Directed destructive operations are separated
@@ -36,12 +40,13 @@ surface without relying on the user's UI selection.
 - Bank windows are explicit resource budgets; operations outside observable
   windows refuse rather than guess.
 - Correctness claims require readback or controlled live evidence.
-- Named actions are not a general escape hatch. The one sanctioned group-track
-  construction is a measured exception with a forced order.
-- Refusals should be predictable and actionable; internal classifier guidance
-  must not leak into the agent's choice surface.
+- Named actions are not a product escape hatch. E22 proved `Group` follows
+  unobservable primary focus and can misdispatch into a device chain.
+- Mechanical functionality is autonomous: required assets are provisioned at
+  build time, never authored or primed by the operator at runtime.
+- Refusals should be predictable and actionable; description changes follow
+  repeated cross-session evidence unless safety demands immediate containment.
 
 For exact wording and amendments, use the [decision index](decisions/INDEX.md).
 For product sequencing, use the [roadmap](plan/ROADMAP.md). The original project
 plan and pre-spike prompt are retained in [archive](archive/README.md).
-

@@ -326,6 +326,25 @@ export class ProjectModel {
     return track;
   }
 
+  /** E16: a copy lands beside its source with fresh durable identity. */
+  duplicateTrack(channelId: string): FakeTrack | undefined {
+    const at = this.tracks.findIndex((t) => t.channelId === channelId);
+    const source = this.tracks[at];
+    if (at < 0 || source === undefined) return undefined;
+    const copy: FakeTrack = {
+      channelId: this.mintChannelId(),
+      name: source.name,
+      type: source.type,
+      slots: source.slots.map((slot) => ({ ...slot, notes: new Map(slot.notes) })),
+      devices: source.devices.map((device) => ({
+        ...device,
+        params: device.params.map((param) => ({ ...param })),
+      })),
+    };
+    this.tracks.splice(at + 1, 0, copy);
+    return copy;
+  }
+
   deleteTrack(channelId: string): boolean {
     const at = this.tracks.findIndex((t) => t.channelId === channelId);
     if (at < 0) return false;

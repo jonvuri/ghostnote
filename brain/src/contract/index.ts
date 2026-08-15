@@ -31,7 +31,7 @@ export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 
 export {
   OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertNever, assertOpsAddressable,
-  assertOpsWritable, assertSceneRoom, assertSlotsFree, assertClipSources,
+  assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, assertClipSources,
 } from './ops.js';
 export type { DeviceSource, Op, OpKind } from './ops.js';
 

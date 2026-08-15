@@ -144,7 +144,7 @@ a subset is not.
 >    **unconditionally gated** (refused unless branch-protected, before reading
 >    anything) — the one hard-coded member §3.3.6 already reserves.
 >
-> ⚠ Related, decided in D18c: the floor over these labels (*"fidelity worse than
+> ⚠ Related, decided in revised D18g: the floor over these labels (*"fidelity worse than
 > `exact`"*, §3.3.5) keeps its predicate but changes its RESPONSE — a loud
 > refusal-unless-branch-protected, never an automatic fork. And §d's *"un-creating
 > a created track is deliberately NOT offered"* softens under D20: not offered

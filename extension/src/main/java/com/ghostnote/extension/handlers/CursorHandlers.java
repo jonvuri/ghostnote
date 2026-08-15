@@ -292,6 +292,7 @@ public final class CursorHandlers extends HandlerGroup {
         JsonObject result = new JsonObject();
         result.addProperty("trackIndex", rig.selectedTrackIndex);
         result.addProperty("slotIndex", rig.selectedSlotIndex);
+        result.addProperty("mixerTrackIndex", rig.selectedMixerTrackIndex);
         result.addProperty("changes", rig.selectionChanges);
         return result;
     }

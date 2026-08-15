@@ -256,6 +256,8 @@ public class Rig {
     // thread; read by handlers on the same thread.
     public int selectedTrackIndex = -1;
     public int selectedSlotIndex = -1;
+    /** The actual action-facing channel selection; unlike the two fields above, this is not slot-derived. */
+    public int selectedMixerTrackIndex = -1;
     public int selectionChanges = 0;
 
     // --- E16 §3.4f: is a clip move DETECTABLE, and by what? ---
@@ -612,6 +614,14 @@ public class Rig {
             // that IS settable from here, so it is the candidate answer to
             // "can the branches be collapsed out of the human's way".
             track.isGroupExpanded().markInterested();
+
+            // E22 probe instrumentation: this observer records the selected
+            // mixer channel, which the experiment proved is not the invisible
+            // primary-focus state consumed by the Group action.
+            final int mixerTrackIdx = i;
+            track.addIsSelectedInMixerObserver(selected -> {
+                if (selected) selectedMixerTrackIndex = mixerTrackIdx;
+            });
 
             // Guarded on config.sends because sendBank() THROWS at size 0, and a
             // throw here is the whole extension (E16, above).

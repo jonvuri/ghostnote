@@ -145,6 +145,10 @@ const CREATED_TRACK_STAYS =
   'this created a track. Deleting it again is not offered: nothing proves the track is still only '
   + 'ours, and somebody may have put work in it since.';
 
+const COPIED_TRACK_STAYS =
+  'the copied track stays. Deleting it automatically is not offered: somebody may have edited it '
+  + 'since it was made. A separately permissioned delete_track call is required for directed cleanup.';
+
 const DEVICE_LANDING_UNSEEN =
   'where this device landed in the track was never read back, so there is no position to remove. '
   + 'Removing a counted position could remove a different device.';
@@ -531,6 +535,8 @@ function unrestoredWhy(what: string): string {
       return TRACK_GONE_FOR_GOOD;
     case 'track.create':
       return CREATED_TRACK_STAYS;
+    case 'copied track':
+      return COPIED_TRACK_STAYS;
     case 'scene':
     case 'scene.create':
       return ROW_GONE_FOR_GOOD;

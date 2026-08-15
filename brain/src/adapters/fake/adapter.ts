@@ -13,7 +13,7 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertClipSources, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertSlotsFree, budgetTicks,
+  assertClipSources, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   contentDelta,
   hasUnverifiedProps, orderedNoteProps, stepSizeFor,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
@@ -345,6 +345,10 @@ export class FakeAdapter implements BitwigAdapter {
     if (blind !== undefined) {
       throw new BankWindowOverflowError('tracks', blind.visible, blind.total, this.model.trackBankSize);
     }
+    assertTrackRoom(batch.ops, {
+      count: this.model.trackCount,
+      bankSize: this.model.trackBankSize,
+    });
     // ⚠⚠ Rule 5's SECOND population, from the same shared contract functions the
     // live adapter calls — a create that would land past the scene window, and an
     // op naming a row already past it. Both are preconditions: a scene minted
@@ -635,6 +639,14 @@ export class FakeAdapter implements BitwigAdapter {
         // reading back what was actually created — never from an assumption.
         const created = this.model.createTrack(op.name);
         minted[opIndex] = { kind: 'track', channelId: created.channelId };
+        return;
+      }
+
+      case 'track.duplicate': {
+        this.requireTrack(op.track, op.op);
+        const copy = this.model.duplicateTrack(op.track.channelId);
+        if (copy === undefined) throw new AddressUnresolvedError(op.track, 'track.duplicate target disappeared');
+        minted[opIndex] = { kind: 'track', channelId: copy.channelId };
         return;
       }
 

@@ -19,7 +19,7 @@
  * on a clean clip and `lossy` on one a human has played into.
  *
  * ⚠ **What changed on 2026-08-07 is the RESPONSE, and it is the whole point
- * (D18c).** The floor used to say *fork automatically*. It now says **refuse
+ * (revised D18g).** The floor used to say *fork automatically*. It now says **refuse
  * unless the caller cleared it** — because an automatic fork is automatic
  * mechanism-level branching, and the operator's framing forbids that outright:
  * *"only reporting is imposed, no automatic mechanism-level branching or
@@ -37,8 +37,9 @@
  * ⚠ The predicate reads `WriteSet.targets` and deliberately NOT
  * `WriteSet.unrevertable`, whose members have no prior address to label. That is
  * exactly right rather than an oversight: with `device.insert` moved out
- * (D16 amendment 2), what remains there is `track.create` (nothing to branch) and
- * `scene.create` (not track-scoped) — the ops a branch could not rescue anyway.
+ * (D16 amendment 2), what remains there is a created/copied track (no safe
+ * automatic delete) and `scene.create` (not take-scoped). These do not describe
+ * prior state that the fidelity floor could label.
  * They still reach the take, through `revertOps`' `unrestored`.
  */
 import type { Fidelity, Op } from '../contract/index.js';
@@ -55,9 +56,10 @@ import type { TakeValue } from './take.js';
  */
 export type Clearance =
   /**
-   * D18c: the batch runs somewhere its prior state survives. WHICH mechanism is
-   * the caller's business and is deliberately not modelled here — this type
-   * carries an identifier, not a kind, so no dispatch rule can hide in it.
+   * Revised D18g: the batch runs inside the appropriate managed layer or clip
+   * take, so its prior state survives. `branch-protected` is a legacy internal
+   * spelling; it never includes an ordinary copied track. This type carries an
+   * identifier, not a mechanism kind, so no dispatch rule can hide in it.
    */
   | { readonly kind: 'branch-protected'; readonly branch: string }
   /**
@@ -188,7 +190,7 @@ export function gateBeforeReading(
   ops: readonly Op[],
   clearance: Clearance | undefined,
 ): UnprotectedWriteError | undefined {
-  // ⚠ `branch-protected` ONLY, where the floor above takes any kind. D18c says
+  // ⚠ `branch-protected` ONLY, where the floor above takes any kind. Revised D18g says
   // this one is *"unconditional refusal unless branch-protected"*, and neither of
   // the other two can honestly clear it: putting our own changeset back cannot
   // rebuild a device whose state was never capturable in the first place, and a
@@ -222,6 +224,7 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     case 'clip.launch':
     case 'clip.launchSettings':
     case 'track.create':
+    case 'track.duplicate':
     case 'track.rename':
     case 'track.delete':
     case 'scene.create':

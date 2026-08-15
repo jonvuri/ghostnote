@@ -215,6 +215,17 @@ test('R-none: a structural target REPORTS rather than throwing or being dropped'
   assert.deepEqual(plan.unrestored.map((u) => u.what).sort(), ['track', 'track.create']);
 });
 
+test('R-none: a copied track retains a specific public failure label', () => {
+  const plan = revertOps({
+    ...writeSetOf([{ op: 'track.duplicate', track: TA }]),
+    stash: stashOf([
+      { address: TA, fidelity: 'exact', value: { of: 'track', track: { channelId: TA.channelId, name: 'gn-A', position: 0, type: 'Instrument' } } },
+    ]),
+  });
+  assert.deepEqual(plan.ops, []);
+  assert.deepEqual(plan.unrestored.map((u) => u.what), ['copied track']);
+});
+
 test('R-device: an insert is undone at the chain index the receipt MINTED (D16 rev)', () => {
   const ops: Op[] = [
     { op: 'device.insert', track: TA, source: { from: 'bitwig', uuid: 'abc' } },

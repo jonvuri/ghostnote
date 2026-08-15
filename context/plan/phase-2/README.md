@@ -2,10 +2,10 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: planned
-status: not started. ⚠ Premises revised 2026-08-07 (D16–D20 re-plan) — see the
+status: not started. ⚠ Premises revised 2026-08-14 (D18 re-plan) — see the
         banner below: the CLIP BLOCK is Phase 1's deliverable, there is no take
         store, and "staged vs direct" is answered by the model.
-updated: 2026-08-07
+updated: 2026-08-14
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
 next: ../phase-3/README.md
@@ -32,9 +32,15 @@ next: ../phase-3/README.md
 >   variations"* maps onto a clip block of four takes, which is D5's insight
 >   landing exactly where it pointed.
 >
-> ⚠ Tool-surface work here inherits D18c's rules: fresh jargon-free language,
-> versioned descriptions, no choice-mapping, and the read/write/destructive seam
-> (D20).
+> ⚠ Tool-surface work here inherits revised D18e: fresh jargon-free language,
+> versioned descriptions, a light factual starting point, and the read/write/
+> destructive seam (D20). Device-vs-clip scope is settled; elaborate heuristics
+> wait for repeated session evidence.
+
+> ⚠ **2026-08-14 amendment.** Clip blocks remain the managed representation for
+> clip-content alternates. Layer chains independently represent device alternates;
+> track copying is ordinary CRUD, not the escape hatch of the earlier form-C
+> classifier. Mixed instructions may create independent clip and device events.
 
 > **Purpose.** The first phase that is about music rather than machinery. Phase 1 can
 > write any note it is told to; Phase 2 is what makes an agent able to decide *which*

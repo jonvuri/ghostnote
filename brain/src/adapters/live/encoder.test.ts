@@ -105,6 +105,17 @@ test('E-clip-block: copy, move, launch and settings encode only measured routes'
   });
 });
 
+test('E-track-copy: duplication carries the source durable identity', () => {
+  assert.deepEqual(encodeOp({ op: 'track.duplicate', track: TRACK_A }, ctx), [{
+    method: WIRE.trackDuplicate,
+    params: {
+      trackIndex: 3,
+      expectedChannelId: TRACK_A.channelId,
+      route: 'channelDuplicate',
+    },
+  }]);
+});
+
 // --- E4 / E4b: the two parameter APIs, two different silent-no-op traps ------
 
 test('E-immediate: a typed param write is ALWAYS setImmediately, never set (E4)', () => {

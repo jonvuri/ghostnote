@@ -6,7 +6,7 @@ status: ⚠⚠ OPTIONAL as of 2026-08-07 (operator; D4 rev) — re-evaluated aft
         core is built. Default: forego what needs a web view, or build TEXTUAL
         versions agents naturally produce and render. The daemon-served premise
         is retired; see the banner below. Original text kept as the record.
-updated: 2026-08-07
+updated: 2026-08-14
 parent: ../ROADMAP.md
 prev: ../phase-2/README.md
 next: ../phase-4/README.md
@@ -21,13 +21,13 @@ next: ../phase-4/README.md
 > the original text:
 >
 > - **Take navigation and A/B (§Scope 4) are DISSOLVED, not deferred.** Coarse
->   A/B is Bitwig's own surface (chain solo, clip launch, group mute — D14 rev),
+>   A/B is Bitwig's own surface (chain solo and clip launch — D14/D18 rev),
 >   and takes are visible structures *in the project*, not store rows. The
 >   original "Phase 1 gives you revert and A/B from inside Bitwig" premise is
 >   true again, more literally than it knew.
 > - **The data source changed**: no daemon, no store (D4/D17 rev). Changesets
 >   live in the chat log; branch-event metadata lands in `getDocumentState()`
->   (D18d). A change summary is an agent rendering of those — no server needed.
+>   (revised D18f). A change summary is an agent rendering of those — no server needed.
 > - **The daemon's local API (§Scope 1) is retired.** If a view is ever built it
 >   is MCP-server-hosted and lives and dies with the chat session. ⚠ Tripwire
 >   (E16-REPLAN §5): wanting it usable with no agent attached REOPENS the daemon
@@ -41,6 +41,11 @@ next: ../phase-4/README.md
 >
 > Exit criterion 4's "revert remains a human verb" is now D20's zero-initiative
 > rule, enforced at the annotated tool seam rather than at daemon endpoints.
+
+> ⚠ **2026-08-14 amendment.** There are two managed take representations, and a
+> mixed instruction may create independent layer and clip events. Ordinary copied
+> tracks may appear in textual change summaries, but they do not enter take
+> navigation or lineage views.
 
 > **Purpose.** The visual half of "Cursor for music" — but only the half Bitwig
 > cannot do itself. Phase 1 gives you revert and A/B from inside Bitwig; Phase 3 adds

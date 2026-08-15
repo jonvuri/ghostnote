@@ -110,20 +110,20 @@ test('W-mint: ops with no prior address are reported, not dropped on the floor',
   assert.ok(unrevertable.every((u) => u.why.length > 0), 'D5: never silently under-deliver');
 });
 
-test('W-mint: what is left in `unrevertable` is exactly what a branch could not rescue (§3.3.5)', () => {
-  // The claim the amendment turned from an approximation into a fact, and the
-  // reason the fidelity floor can ignore this list entirely: `track.create` has
-  // nothing to fork, `scene.create` is not track-scoped, and every other op that
-  // was ever here is either restorable or reported through a target.
+test('W-mint: `unrevertable` contains structural additions with no safe automatic delete', () => {
+  // The fidelity floor can ignore this list: these ops have no prior state to
+  // label. Created/copied tracks may receive human work before reversal, and a
+  // new scene is not take-scoped; all remain visible in the report.
   const everyMinting: Op[] = [
     { op: 'track.create', name: 'gn-new' },
+    { op: 'track.duplicate', track: T },
     { op: 'scene.create', count: 1 },
     { op: 'device.insert', track: T, source: { from: 'bitwig', uuid: 'abc' } },
     { op: 'clip.create', slot: S0, lengthBeats: 4 },
   ];
   assert.deepEqual(
     writeSetOf(everyMinting).unrevertable.map((u) => u.op).sort(),
-    ['scene.create', 'track.create'],
+    ['scene.create', 'track.create', 'track.duplicate'],
   );
 });
 

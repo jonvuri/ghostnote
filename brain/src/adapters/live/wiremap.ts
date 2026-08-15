@@ -41,6 +41,7 @@ export const WIRE = {
   trackSetName: 'track.setName',
   trackDelete: 'track.delete',
   trackResolve: 'track.resolveByChannelId',
+  trackDuplicate: 'branch.duplicateTrack',
 
   clipCreate: 'clip.create',
   slotStatus: 'slot.status',
@@ -108,6 +109,7 @@ export const WIRE_METHODS_BANNED: Readonly<Record<string, string>> = {
   'app.undo': 'E3 — native undo is not a revert mechanism; ghostnote owns revert',
   'app.redo': 'E3 — see app.undo',
   'app.undoState': 'E3 — see app.undo',
+  'branch.groupTrack': 'E22 — Group follows unobservable primary focus and can misdispatch into a device chain',
 };
 
 /**

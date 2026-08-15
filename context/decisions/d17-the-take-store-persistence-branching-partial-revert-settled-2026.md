@@ -52,6 +52,14 @@ mutate half.** Built offline as `brain/src/store/`, 26 tests.
 >   writes (D16), the clip content fingerprint guarding positional addressing, and
 >   agent-edit reversal (D19). **Do not delete it with the store.**
 
+> ⚠ **REVISED AGAIN 2026-08-14 (E22, D18 rev).** Replace “track forks, layer
+> chains, clip blocks” above with **layer chains and clip blocks**. They are the
+> only managed take structures. A device alternate and a clip alternate created
+> in one instruction are independent events, even on the same track; correlation
+> does not create a project-wide head or compound take. Track duplication remains
+> ordinary recorded CRUD and is not part of take navigation. The project-is-log,
+> switch-not-edit, stash, and privilege conclusions otherwise stand.
+
 ⚠ This session's exit criteria carry unusual weight, and it is worth restating
 why: D14 moved take navigation to Phase 3, so **Phase 1 ships a branchable take
 store whose motivating verb no human exercises inside the phase**. The tests are

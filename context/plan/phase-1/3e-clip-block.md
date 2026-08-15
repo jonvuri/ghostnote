@@ -2,7 +2,7 @@
 title: Phase 1, session 3e — the clip block
 kind: plan
 state: complete
-status: DONE 2026-08-11. The first of the three branch mechanisms, and the one
+status: DONE 2026-08-11. The managed clip-take representation, and the one
         that arrived latest (operator, 2026-08-06) but is now the best measured —
         3b's E20a and E20b ran specifically so this session would not be designed
         on a javadoc.
@@ -74,8 +74,8 @@ deliberately, before this design was made.
 
 ### Out — named so it does not drift in
 
-- **Track fork and layer chain.** 3f.
-- **The record, the classifier, the v1 freeze.** 3g. ⚠ This session's descriptions
+- **Track-copy CRUD and the layer-chain lifecycle.** 3f.
+- **The observation record and v1 description freeze.** 3g. ⚠ This session's descriptions
   are written to v1's rules and amended there, not frozen here.
 - ⚠⚠ **Unattended auto-advance.** It is real, it is what the block layout exists
   for, and it is **not ours to deliver** — see §The division of labour. Scoring it

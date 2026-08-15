@@ -74,6 +74,8 @@ export type Op =
   // `createInstrumentTrack(position)` does not honour positions (E2c), so the
   // receipt reports the channelId the new track was FOUND at, never a guess.
   | { readonly op: 'track.create'; readonly name: string }
+  /** Duplicate one addressed track. The receipt reports the fresh channelId. */
+  | { readonly op: 'track.duplicate'; readonly track: TrackAddress }
   | { readonly op: 'track.rename'; readonly track: TrackAddress; readonly name: string }
   | { readonly op: 'track.delete'; readonly track: TrackAddress }
 
@@ -117,6 +119,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   'clip.launch': 'tick',
   'clip.launchSettings': 'instant',
   'track.create': 'trackStruct',
+  'track.duplicate': 'trackStruct',
   'track.rename': 'trackStruct',
   'track.delete': 'trackStruct',
   'scene.create': 'tick',
@@ -234,6 +237,7 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
       return [op.scene];
     case 'scene.create':
     case 'track.create':
+    case 'track.duplicate':
     case 'track.rename':
     case 'track.delete':
     case 'device.insert':
@@ -285,6 +289,29 @@ export function assertSceneRoom(ops: readonly Op[], scenes: WindowCoverage): voi
   if (would > scenes.bankSize) {
     throw new BankWindowOverflowError(
       'scenes', Math.min(scenes.count, scenes.bankSize), would, scenes.bankSize);
+  }
+}
+
+/**
+ * Standing rule 5 for every operation that grows the flat track bank.
+ *
+ * Each create or copy consumes one row. The existing count already includes the
+ * Master, FX returns and groups (E16r). The refusal is before the first call
+ * because an overflowed create mints an audible track whose channelId cannot be
+ * learned or cleaned up.
+ */
+export function assertTrackRoom(ops: readonly Op[], tracks: WindowCoverage): void {
+  let wanted = 0;
+  for (const op of ops) {
+    if (op.op === 'track.create' || op.op === 'track.duplicate') {
+      wanted++;
+    }
+  }
+  if (wanted === 0) return;
+  const would = tracks.count + wanted;
+  if (tracks.count < 0 || would > tracks.bankSize) {
+    throw new BankWindowOverflowError(
+      'tracks', Math.min(Math.max(0, tracks.count), tracks.bankSize), would, tracks.bankSize);
   }
 }
 

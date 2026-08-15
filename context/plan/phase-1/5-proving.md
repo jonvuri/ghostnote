@@ -2,8 +2,8 @@
 title: Phase 1, session 5 — proving it live: the exit-criteria sweep
 kind: plan
 state: planned
-status: not started
-updated: 2026-07-25
+status: not started; revised for the two-representation take model
+updated: 2026-08-14
 parent: README.md
 prev: 4-control-layer.md
 next: 6-async.md
@@ -66,14 +66,11 @@ first. Record the reconciliation so the next reader does not re-derive it.
    asserted — the batch should cost exactly **one** observable selection change,
    restored at the end.
 3. **Exit criterion 3 — stale revision rejected whole.** Live, applying zero ops.
-4. ~~**Exit criterion 4 — A/B from inside Bitwig.**~~ **⚠ RELAXED — not proven in
-   Phase 1.** D14 moved take navigation to the Phase-3 web view, and session 4
-   builds no take switcher. What this session proves instead is the *store-side*
-   half, headlessly: two takes exist, are distinguishable, and can be switched
-   between through the daemon's API. **Say plainly in `FINDINGS.md` that the human
-   A/B workflow is unproven until Phase 3** — a criterion that moved is not a
-   criterion that passed, and this is exactly the kind of thing a later reader
-   would otherwise assume was verified.
+4. **Exit criterion 4 — managed A/B in Bitwig.** Prove layer-chain alternates switch
+   with container-local solo and clip-block alternates switch with per-slot launch.
+   A mixed instruction produces two independent controls, not a compound switch.
+   Also smoke ordinary `copy_track` and confirm it is reported outside managed
+   take bookkeeping. No custom take switcher or daemon API is involved.
 5. **Exit criterion 5 — bank-window overflow refuses loudly.** ⚠ Note the
    constraint: `LiveAdapter` declares `canOverflowBank: false` deliberately,
    because *manufacturing an overflowing project inside someone's real session is
@@ -128,6 +125,16 @@ B7 in [SESSION-3C](../../archive/outcomes/PHASE-1-SESSION-3C-WINDOW.md) §Carry-
   fix in words: *"where a readback exists, use it instead of a budget —
   `refreshIndex` re-reads the bank rather than waiting out a track create."* Poll
   the bank for the new id instead of waiting the number.
+  > ⚠ **AMENDED 2026-08-14 — the fix has LANDED offline, so B7 is now a live
+  > verification, not an investigation.** The track-copy groundwork preserved from
+  > the retired 3f slice generalised it: `LiveAdapter` polls the bank for a
+  > previously unseen `channelId` on every minting stage — `track.create` included,
+  > not only `track.duplicate` — for a bounded 8 s, and still reports no mint if
+  > that window expires. That is exactly the prescription above, and it was never
+  > specific to track takes. ⚠ **It is unproven live.** What this session owes is
+  > the full ~50-case conformance run under load with `C-minted` green, and a
+  > statement in the findings if it is not — a fix that only passes in isolation is
+  > the same flake with a longer timeout.
 
 ## Decisions this session must make
 
@@ -149,9 +156,9 @@ All six of `PHASE-1-ENGINE.md`'s, each with evidence appended to `FINDINGS.md`
 under a new E-number, and each either ● or explicitly qualified (as criterion 5
 must be). Plus:
 
-7. `DECISIONS.md` carries the Phase-1 decisions: clip/scene/device identity
-   (session 1), take schema and retention (session 2), daemon lifecycle
-   (session 3), partial-revert granularity (session 2), and the gain verdict.
+7. The active decision set carries clip/scene/device identity, the retired-store
+   amendments, two-representation take semantics, ordinary track-copy semantics,
+   partial-revert granularity, and the gain verdict.
 8. `PHASE-1-ENGINE.md` status updated, and any premise of it that turned out
    wrong recorded **as a correction rather than a rewrite** — the house rule from
    `DECISIONS.md`'s header, and the reason Phase 0's outcome log is its most

@@ -68,7 +68,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
   assert.deepEqual([...golden.addedInPhase0].sort(),
     [...golden.addedInSession1, ...golden.addedInSession2,
       ...(golden.addedInE16 ?? []), ...(golden.addedInE20 ?? []),
-      ...(golden.addedInSession3eProbe ?? [])].sort());
+      ...(golden.addedInSession3eProbe ?? []), ...(golden.addedInE22Probe ?? []),
+      ...(golden.addedInSession3f ?? [])].sort());
 });
 
 test('E16: the branch probe surface is probe surface, and the contract cannot reach it', () => {
@@ -214,8 +215,8 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   const unexpected = e16.filter((m) => !m.startsWith('branch.') && !allowed.includes(m));
   assert.deepEqual(unexpected, [], `E16 added an unexpected method: ${unexpected.join(', ')}`);
   const reachable = e16.filter((m) => WIRE_METHODS_USED.includes(m));
-  assert.deepEqual(reachable, ['slot.moveTo'],
-    'only the measured clip relocation primitive is promoted by session 3e');
+  assert.deepEqual(reachable.sort(), ['branch.duplicateTrack', 'slot.moveTo'],
+    'session 3e promotes clip relocation and session 3f promotes measured track copying');
 });
 
 test('E20: session 3b early-probe surface is probe surface, and the contract cannot reach it', () => {
@@ -276,6 +277,19 @@ test('3e-arm-1: per-clip launch-setting probes are named and promoted', () => {
     'session 3e arm 1 must contain exactly its read and write instruments');
   assert.deepEqual(methods.filter((m) => !WIRE_METHODS_USED.includes(m)), [],
     'arm 1 passed live, so both measured settings methods must now be production-reachable');
+});
+
+test('E22: the Group regression route remains probe-only and product-banned', () => {
+  assert.deepEqual(golden.addedInE22Probe ?? [], ['branch.groupTrack']);
+  assert.ok(!WIRE_METHODS_USED.includes('branch.groupTrack'));
+  assert.ok(Object.hasOwn(WIRE_METHODS_BANNED, 'branch.groupTrack'));
+  assert.ok(WIRE_METHODS_USED.includes('branch.duplicateTrack'));
+  assert.ok(!WIRE_METHODS_USED.includes('app.invokeAction'),
+    'the general named-action route stays unreachable');
+});
+
+test('3f: no new extension method is needed for preserved track-copy groundwork', () => {
+  assert.deepEqual(golden.addedInSession3f ?? [], []);
 });
 
 test('W-hash: the golden hash matches its own method list', () => {

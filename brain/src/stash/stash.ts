@@ -5,8 +5,8 @@
  * ## ⚠ What this is NOT any more
  *
  * This file was `store.ts`: a durable, branchable, project-keyed take log on
- * disk. D18 made the system stateless and **the project the take log** — takes
- * are real structures in the project (track forks, layer chains, clip blocks) and
+ * disk. D18 made the system stateless and **the project the take log** — managed
+ * takes are real structures in the project (layer chains and clip blocks) and
  * navigation is *switching* between them, not materialising a revert. So the head
  * pointer, the parent edges, the path walk, the on-disk layout, the retention
  * policy and the project key are all gone, along with `graph.ts` and
@@ -22,11 +22,10 @@
  * D19 spells them out, and the disposition table warns twice that the stash is
  * easy to delete along with the store:
  *
- *   1. **Unbranched writes.** A branch isolates a TRACK. Every write that is not
- *      track-scoped — tempo, scenes, the master, the FX returns, cross-track
- *      routing — has no fork that could rescue it, and neither does an ordinary
- *      write the caller did not branch. For all of those the stash is the only
- *      "before" that exists.
+ *   1. **Writes outside a managed take.** Device and clip alternates isolate only
+ *      their own object scope. Tempo, scenes, routing, and any ordinary write the
+ *      caller did not protect have no alternate to preserve them. For all of
+ *      those the stash is the only "before" that exists.
  *   2. ⚠ **The clip content fingerprint.** Clips are addressed positionally
  *      (D16a — there is no durable clip id and we are not inventing one), so a
  *      positional address is only trustworthy while the content behind it is

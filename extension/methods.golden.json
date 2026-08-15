@@ -13,15 +13,16 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-08-11",
+  "extractedAt": "2026-08-14",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 142,
-  "methodsHash": "fa636974130033ba",
+  "count": 143,
+  "methodsHash": "4c4d687667d4804b",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
     "branch.createParentTrack",
     "branch.duplicateTrack",
+    "branch.groupTrack",
     "branch.mixer",
     "branch.moveTrack",
     "branch.setMixer",
@@ -114,6 +115,7 @@
     "branch.contentFilter",
     "branch.createParentTrack",
     "branch.duplicateTrack",
+    "branch.groupTrack",
     "branch.mixer",
     "branch.moveTrack",
     "branch.setMixer",
@@ -378,5 +380,9 @@
   "addedInSession3eProbe": [
     "cursor.launchSettings",
     "cursor.setLaunchSettings"
-  ]
+  ],
+  "addedInE22Probe": [
+    "branch.groupTrack"
+  ],
+  "addedInSession3f": []
 }

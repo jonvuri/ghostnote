@@ -9,6 +9,8 @@ import com.bitwig.extension.controller.api.TrackBankContentFilter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * E16 — branches as duplicated tracks.
@@ -42,6 +44,7 @@ public final class BranchHandlers extends HandlerGroup {
 
     @Override
     public void register(HandlerRegistry r) {
+        r.on("branch.groupTrack", params -> groupTrack(params));
         r.on("branch.duplicateTrack", params -> duplicateTrack(params));
         r.on("branch.moveTrack", params -> moveTrack(params));
         r.on("branch.mixer", params -> mixer(params));
@@ -49,6 +52,99 @@ public final class BranchHandlers extends HandlerGroup {
         r.on("branch.vu", params -> vu(params));
         r.on("branch.contentFilter", params -> contentFilter(params));
         r.on("branch.createParentTrack", params -> createParentTrack(params));
+    }
+
+    /**
+     * E22 regression probe only. This method is registered so the destructive
+     * finding remains reproducible, but it is banned from the product wire map.
+     * Its durable-id and selection checks cannot observe Bitwig's primary focus:
+     * Group can pass every check here and still edit the target's device chain.
+     */
+    private JsonElement groupTrack(JsonObject params) {
+        JsonObject result = new JsonObject();
+        if (params.has("ifRevision")) {
+            long expectedRevision = params.get("ifRevision").getAsLong();
+            if (expectedRevision != state.revision) {
+                result.addProperty("applied", false);
+                result.addProperty("rejected", true);
+                result.addProperty("reason", "stale-revision");
+                result.addProperty("expected", expectedRevision);
+                result.addProperty("actual", state.revision);
+                return result;
+            }
+        }
+
+        int trackIndex = params.get("trackIndex").getAsInt();
+        Track track = requireTrack(trackIndex);
+        String expected = params.get("expectedChannelId").getAsString();
+        String actual = track.channelId().get();
+        if (!expected.equals(actual)) {
+            throw new IllegalArgumentException(
+                "track identity changed before grouping: expected " + expected + ", found " + actual);
+        }
+
+        com.bitwig.extension.controller.api.Action action = rig.application.getAction("Group");
+        if (action == null) {
+            throw new IllegalStateException("Bitwig action Group is unavailable");
+        }
+
+        // Capture structural identity before the final selection precondition.
+        // E17's method guard is literal: once cursor + mixer selection are read,
+        // invoke Group immediately, with no helper or even a read in between.
+        Set<String> beforeIds = new HashSet<>();
+        for (int i = 0; i < rig.config.tracks; i++) {
+            Track candidate = rig.trackBank.getItemAt(i);
+            if (candidate.exists().get()) beforeIds.add(candidate.channelId().get());
+        }
+
+        String cursor = params.has("cursor") ? params.get("cursor").getAsString() : "0";
+        String selected = rig.cursorTrack(cursor).channelId().get();
+        if (!expected.equals(selected)) {
+            throw new IllegalArgumentException(
+                "cursor selection did not settle before grouping: expected " + expected + ", found " + selected);
+        }
+        if (rig.selectedMixerTrackIndex != trackIndex) {
+            throw new IllegalArgumentException(
+                "mixer selection changed before grouping: expected bank row " + trackIndex
+                    + ", found " + rig.selectedMixerTrackIndex);
+        }
+
+        // This method is intentionally invoked as a top-level RPC, not through
+        // batch.run: the Group action is a UI command and a nested registry
+        // dispatch acknowledges it without making Live execute it. Own the same
+        // atomic guard -> claim -> apply protocol here instead.
+        long revision = ++state.revision;
+        action.invoke();
+        host.scheduleTask(() -> expandCreatedGroup(beforeIds, 0), 25);
+
+        result.addProperty("success", true);
+        result.addProperty("applied", true);
+        result.addProperty("revision", revision);
+        result.addProperty("selectionVerified", true);
+        result.addProperty("channelId", actual);
+        result.addProperty("action", "Group");
+        return result;
+    }
+
+    /** Poll the structural readback and expand one unambiguous newly-created group. */
+    private void expandCreatedGroup(Set<String> beforeIds, int attempt) {
+        Track created = null;
+        for (int i = 0; i < rig.config.tracks; i++) {
+            Track candidate = rig.trackBank.getItemAt(i);
+            if (!candidate.exists().get() || !candidate.isGroup().get()
+                    || beforeIds.contains(candidate.channelId().get())) {
+                continue;
+            }
+            if (created != null) return; // Concurrent new groups: fail closed.
+            created = candidate;
+        }
+        if (created != null) {
+            created.isGroupExpanded().set(true);
+            return;
+        }
+        if (attempt < 80) {
+            host.scheduleTask(() -> expandCreatedGroup(beforeIds, attempt + 1), 25);
+        }
     }
 
     /**
@@ -103,6 +199,14 @@ public final class BranchHandlers extends HandlerGroup {
      */
     private JsonElement duplicateTrack(JsonObject params) {
         Track track = requireTrack(params.get("trackIndex").getAsInt());
+        if (params.has("expectedChannelId")) {
+            String expected = params.get("expectedChannelId").getAsString();
+            String actual = track.channelId().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "track identity changed before duplication: expected " + expected + ", found " + actual);
+            }
+        }
         String route = params.has("route") ? params.get("route").getAsString() : "channelDuplicate";
         String undoName = params.has("undoName") ? params.get("undoName").getAsString() : "";
 

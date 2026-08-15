@@ -50,6 +50,8 @@ export interface WriteTarget {
   readonly restore: Restore;
   /** Always set when `restore` is `'none'`. Carried verbatim into the take. */
   readonly reason?: string;
+  /** Op-shaped public label when the address kind alone would be ambiguous. */
+  readonly unrestoredAs?: string;
 }
 
 /**
@@ -61,6 +63,8 @@ export interface UnrevertableOp {
   readonly opIndex: number;
   readonly op: OpKind;
   readonly why: string;
+  /** Public failure label when the internal op name is mechanism-shaped. */
+  readonly unrestoredAs?: string;
 }
 
 export interface WriteSet {
@@ -81,7 +85,12 @@ const NO_DEVICE_READBACK =
   'authors devices by file surgery, which is where an inverse could come from.';
 
 /** One op -> the addresses it touches, with what a stash of each could promise. */
-function targetsOf(op: Op): { address: Address; restore: Restore; reason?: string }[] {
+function targetsOf(op: Op): {
+  address: Address;
+  restore: Restore;
+  reason?: string;
+  unrestoredAs?: string;
+}[] {
   switch (op.op) {
     // ⚠ Deliberately UNRANGED even when the op carries a range. See this file's
     // header: a write truncates same-pitch neighbours outside its own extent
@@ -170,6 +179,7 @@ function targetsOf(op: Op): { address: Address; restore: Restore; reason?: strin
     // read back what was created, never assume a requested position). `revert.ts`
     // materialises the `device.delete` from that mint.
     case 'track.create':
+    case 'track.duplicate':
     case 'scene.create':
     case 'device.insert':
     case 'notify':
@@ -190,15 +200,18 @@ function targetsOf(op: Op): { address: Address; restore: Restore; reason?: strin
  * `NO_DEVICE_READBACK` — a reason written about the DELETE direction — even
  * though a device that did not exist has the same exact inverse a clip that did
  * not exist has: delete it again (D16d). With that corrected this list is
- * exactly *the set a branch cannot rescue*: `track.create` has nothing to fork,
- * `scene.create` is not track-scoped (E16-OPEN-QUESTIONS §3.3.5). That is also
- * why the fidelity floor deliberately does not read it — see `floor.ts`.
+ * contains the creates we deliberately will not auto-delete: `track.create` has
+ * nothing to restore, `track.duplicate` may receive human edits immediately,
+ * and `scene.create` is not track-scoped (E16-OPEN-QUESTIONS §3.3.5). That is
+ * also why the fidelity floor deliberately does not read it — see `floor.ts`.
  */
 function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
   switch (op.op) {
     case 'track.create':
+    case 'track.duplicate':
       return {
         opIndex, op: op.op,
+        ...(op.op === 'track.duplicate' ? { unrestoredAs: 'copied track' } : {}),
         why:
           'the track did not exist, so there is nothing to restore; and deleting it again is ' +
           'NOT offered, because the receipt\'s minted id is the only proof it was ours and a ' +
@@ -224,7 +237,13 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
  * and claiming otherwise is the failure mode this whole module exists to avoid.
  */
 export function writeSetOf(ops: readonly Op[]): WriteSet {
-  const byKey = new Map<AddressKey, { address: Address; opIndices: number[]; restore: Restore; reason?: string }>();
+  const byKey = new Map<AddressKey, {
+    address: Address;
+    opIndices: number[];
+    restore: Restore;
+    reason?: string;
+    unrestoredAs?: string;
+  }>();
   const unrevertable: UnrevertableOp[] = [];
 
   ops.forEach((op, opIndex) => {
@@ -235,13 +254,20 @@ export function writeSetOf(ops: readonly Op[]): WriteSet {
       const key = addressKey(t.address);
       const existing = byKey.get(key);
       if (existing === undefined) {
-        byKey.set(key, { address: t.address, opIndices: [opIndex], restore: t.restore, ...(t.reason === undefined ? {} : { reason: t.reason }) });
+        byKey.set(key, {
+          address: t.address,
+          opIndices: [opIndex],
+          restore: t.restore,
+          ...(t.reason === undefined ? {} : { reason: t.reason }),
+          ...(t.unrestoredAs === undefined ? {} : { unrestoredAs: t.unrestoredAs }),
+        });
         continue;
       }
       existing.opIndices.push(opIndex);
       if (t.restore === 'none' && existing.restore !== 'none') {
         existing.restore = 'none';
         existing.reason = t.reason;
+        existing.unrestoredAs = t.unrestoredAs;
       }
     }
   });
@@ -252,6 +278,7 @@ export function writeSetOf(ops: readonly Op[]): WriteSet {
     opIndices: v.opIndices,
     restore: v.restore,
     ...(v.reason === undefined ? {} : { reason: v.reason }),
+    ...(v.unrestoredAs === undefined ? {} : { unrestoredAs: v.unrestoredAs }),
   }));
   return { targets, unrevertable };
 }

@@ -29,7 +29,7 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertOpsAddressable, assertOpsWritable,
-  assertClipSources, assertSceneRoom, assertSlotsFree, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
+  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
   windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ClipAddress, type ContentDelta, type ContentEvent, type Fidelity,
@@ -149,7 +149,7 @@ export interface LiveOptions {
  * of them looking healthy while pointing somewhere else.
  */
 const STRUCTURAL: ReadonlySet<string> = new Set([
-  'clip.create', 'clip.delete', 'track.create', 'track.delete',
+  'clip.create', 'clip.delete', 'track.create', 'track.duplicate', 'track.delete',
   'clip.duplicate', 'clip.move',
   'scene.create', 'scene.delete', 'device.insert', 'device.delete',
 ]);
@@ -1003,6 +1003,7 @@ export class LiveAdapter implements BitwigAdapter {
     // so the track check is measuring the same reading.
     const at = await this.revision();
     this.assertBankVisible(at.window.tracks);
+    assertTrackRoom(batch.ops, at.window.tracks);
     // ⚠⚠ Standing rule 5's SECOND population, and both halves of it — a create
     // that would land past the scene window, and an op naming a row already past
     // it. Preconditions, before any op runs: a scene minted outside the window is
@@ -1036,8 +1037,9 @@ export class LiveAdapter implements BitwigAdapter {
       // Waiting afterwards would be waiting for damage that already happened.
       if (stage.settleBefore !== undefined) await this.settle(stage.settleBefore);
 
-      // Track creates need the bank diffed afterwards to learn what was minted.
-      const before = stage.ops.some((o) => o.op === 'track.create')
+      // Track creates and copies need the bank diffed afterwards to learn what was minted.
+      const before = stage.ops.some((o) =>
+        o.op === 'track.create' || o.op === 'track.duplicate')
         ? new Set((await this.scanTracks()).tracks.map((t: WireTrack) => t.channelId))
         : undefined;
 
@@ -1125,10 +1127,23 @@ export class LiveAdapter implements BitwigAdapter {
       // damage is silent and arbitrarily delayed.
       if (stage.ops.some((o) => STRUCTURAL.has(o.op))) {
         this.pool.invalidate();
-        const after = (await this.scanTracks()).tracks;
+        let after = (await this.scanTracks()).tracks;
+        // E2c/C-minted: structural rows sometimes enter the observable bank
+        // well after the measured settle. A single diff loses the durable id
+        // and turns an owned row into an orphan. Poll only when this stage is
+        // known to mint, and still report no mint if the bounded window expires.
+        if (before !== undefined) {
+          const started = Date.now();
+          while (!after.some((track: WireTrack) => !before.has(track.channelId))
+            && Date.now() - started < 8000) {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            after = (await this.scanTracks()).tracks;
+          }
+        }
         if (before !== undefined) {
           const created = after.find((t: WireTrack) => !before.has(t.channelId));
-          const at = stage.opIndices[stage.ops.findIndex((o) => o.op === 'track.create')];
+          const mintingAt = stage.ops.findIndex((o) => o.op === 'track.create' || o.op === 'track.duplicate');
+          const at = stage.opIndices[mintingAt];
           if (created !== undefined && at !== undefined) {
             minted[at] = { kind: 'track', channelId: created.channelId };
           }

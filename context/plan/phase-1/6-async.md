@@ -45,8 +45,8 @@ deliberately. What it should *not* do is block session 5's sweep.
    conclusion precisely: *a deferred-response protocol is also what would make a
    re-point inside a batch settleable, and so is the only route to reclaiming it.*
    Phase 2 is the phase that will feel this, since it writes expression constantly.
-3. **Push instead of poll for the control layer.** Session 3 decided the daemon
-   polls `ui.state` to learn a human pressed Revert. An extension→brain
+3. **Push instead of poll for the control layer.** The MCP server polls `ui.state`
+   to learn a human pressed Revert. An extension→brain
    asynchronous frame is the same machinery, and it retires the poll.
 
 ## Scope

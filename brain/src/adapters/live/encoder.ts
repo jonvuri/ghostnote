@@ -329,6 +329,13 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       // receipt's `minted` map is where that lands.
       return [frame(WIRE.trackCreate, { position: -1 })];
 
+    case 'track.duplicate':
+      return [frame(WIRE.trackDuplicate, {
+        trackIndex: ctx.trackIndex(op.track),
+        expectedChannelId: op.track.channelId,
+        route: 'channelDuplicate',
+      })];
+
     case 'track.rename':
       return [frame(WIRE.trackSetName, { trackIndex: ctx.trackIndex(op.track), name: op.name })];
 

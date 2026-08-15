@@ -37,9 +37,9 @@ outlives the request that resolved it.**
   > ⚠ **RESTATED 2026-08-07 (E16r): a PRECONDITION on every structural create,
   > checked BEFORE the call — never a post-hoc detection.** A create past the
   > window mints a track `track.list` never shows: unaddressable, un-cleanable,
-  > audible — and a fork IS a `track.create`. Budget: `bankSize − (project tracks
-  > + FX returns + master + lineage groups)`. The Master and the FX returns leave
+  > audible — and a track copy consumes one row by the same rule. Budget:
+  > `bankSize − (project tracks + FX returns + master)`. The Master and the FX returns leave
   > the window FIRST (E16r) and are E16's audibility oracles; the failure reads
   > `found:false`, byte-identical to a deleted track. ⚠ Never a licence to reap
-  > (D20); ⚠ never justified on disk grounds — E16u measured disk immaterial
-  > (~20 KB/fork, no save-time change). → PROJECT_PLAN §4 rule 5.
+  > (D20); ⚠ never justified on disk grounds — E16u measured copied-track disk
+  > cost as immaterial (~20 KB/copy, no save-time change). → PROJECT_PLAN §4 rule 5.

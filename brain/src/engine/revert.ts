@@ -135,7 +135,11 @@ export function revertOps(input: Take | RevertInput): RevertPlan {
 
   for (const target of targets) {
     if (target.restore === 'none') {
-      unrestored.push({ address: target.address, what: target.address.kind, why: target.reason ?? 'no inverse exists' });
+      unrestored.push({
+        address: target.address,
+        what: target.unrestoredAs ?? target.address.kind,
+        why: target.reason ?? 'no inverse exists',
+      });
       continue;
     }
 
@@ -161,7 +165,7 @@ export function revertOps(input: Take | RevertInput): RevertPlan {
   }
 
   for (const op of unrevertable) {
-    unrestored.push({ what: op.op, why: op.why });
+    unrestored.push({ what: op.unrestoredAs ?? op.op, why: op.why });
   }
 
   removalOps.push(...deviceRemovals(batches, unrevertable, unrestored));
