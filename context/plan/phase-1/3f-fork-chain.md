@@ -2,10 +2,9 @@
 title: Phase 1, 3f epic — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: STEP 6b-2 COMPLETE 2026-08-15, VERIFIED LIVE. The remaining lifecycle is
-        split into sessions 3f-c through 3f-i. Next is 3f-c, a live-only closure
-        for the batch-precondition and failure-reporting fixes made after the
-        last live run; 3f-d begins relocation only after that baseline is green.
+status: SESSION 3f-c COMPLETE 2026-08-15, VERIFIED LIVE. The post-chain.create
+        baseline is green. Next is 3f-d, typed fill/extract relocation with
+        independent structural readback.
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -353,9 +352,34 @@ Offline is now 423/423 with a regression case for each: `T-create` for the summe
 bank and the paired name (plus the positive case, a create sourced from a chain
 an earlier create in the same batch made), `L-chain-create` for the refused
 rename, and `C-chain-create` gained the paired-name refusal so it is asserted on
-both adapters. ⚠ **No live re-run has been made since.** The fixes are refusals
-and reports on paths the passing live row never entered, so its result stands —
-but the batch paths themselves have still never met a real DAW.
+both adapters. ⚠ **At that review boundary no live re-run had been made.** The
+fixes were refusals and reports on paths the earlier passing live row never
+entered, so the batch paths still had not met a real DAW; session 3f-c below
+closes that gap.
+
+### Session 3f-c — complete 2026-08-15, verified live
+
+`C-chain-create` now also submits three distinct names after the disposable
+container has two chains, projecting five chains into the fixed four-wide bank.
+The real adapter refused the whole batch before its first copy and independent
+container readback proved both population and names unchanged. The existing
+paired-name batch refusal passed in the same row, and the row deleted the entire
+FX Layer in `finally`, taking its successful test chain with it.
+
+The rebuilt jar was atomically deployed, Bitwig was fully restarted, and
+`hello()` proved the running extension fresh at 146 methods /
+`c1120b1c567369d3`. Full live conformance passed **49, failed 0, skipped 6**;
+`C-chain-create` was green in 4.18s and the six skips remain the standing
+unconstructible bank/scene-overflow cases.
+
+⚠ The refused-rename receipt remains an offline `L-chain-create` live-adapter
+test boundary. A cooperative real extension necessarily accepts the valid
+within-turn chain identity it just reported; safely constructing the rejection
+would require a product fault hook, and 3f-c deliberately added none.
+
+Closing checks: brain typecheck plus 423/423 offline tests, extension Gradle
+build, context check and `git diff --check` all green. Session 3f-d may now begin
+the relocation primitive; 3f-c added no capability.
 
 ## Capability boundary
 

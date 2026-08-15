@@ -936,10 +936,31 @@ export function runConformance(h: AdapterHarness): void {
           }),
           /already used by a chain in this container at the point this op runs/,
         );
+
+        // ⚠⚠ DISTINCT names do not make a batch safe when its projected total
+        // outgrows the fixed four-wide chain bank. The container has two chains
+        // here (the shipped source and MADE), so this three-create batch would
+        // place the last copy at position 4, outside every observable slot scope.
+        // The projection must reject the WHOLE batch before even its first copy.
+        await assert.rejects(
+          adapter.apply({
+            ops: [
+              { op: 'chain.create', source, name: 'gn-conf-cap-a' },
+              { op: 'chain.create', source, name: 'gn-conf-cap-b' },
+              { op: 'chain.create', source, name: 'gn-conf-cap-c' },
+            ],
+          }),
+          /would leave the container holding 5 chains in a bank 4 wide/,
+        );
         const unchanged = (await adapter.read([container])).entries[addressKey(container)];
         const chainsNow = unchanged?.value.of === 'device' ? unchanged.value.device.container : undefined;
         assert.equal(chainsNow?.chains.length, observed.chains.length + 1,
-          'both refusals happened before any copy was made');
+          'all refusals happened before any copy was made');
+        assert.deepEqual(
+          [...(chainsNow?.chains ?? [])].map((c) => c.name).sort(),
+          [source.name, MADE].sort(),
+          'the refused batches left the container names unchanged',
+        );
 
         // ⚠⚠ AND THE WRITE GUARD DID NOT MOVE. A chain can now be created and a
         // device inside one still cannot be deleted or retuned: `chain.create`

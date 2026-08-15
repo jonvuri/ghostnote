@@ -4,14 +4,12 @@ kind: status
 state: active
 updated: 2026-08-15
 phase: phase-1
-session: phase-1-session-3f-c
+session: phase-1-session-3f-d
 ---
 
 # Now
 
-Phase 1 is in **session 3f-c: close the post-`chain.create` live evidence gap**.
-This is a verification prelude, not a capability slice. Do not promote device
-relocation until it is green.
+Phase 1 is in **session 3f-d: typed fill/extract relocation**.
 
 ## Baseline
 
@@ -23,41 +21,45 @@ relocation until it is green.
   `Rig.slotLayerBanks`; they do not move `cursorDevice0`.
 - Every other nested-device write still refuses through `assertDevicesRoutable`.
   `chain.move` remains measured probe surface and is not product-reachable.
-- The current wire golden is 146 methods / `c1120b1c567369d3`.
-- Brain typecheck and 423/423 offline tests pass. The last live run passed
-  49/0/6, but it preceded three fixes to batch preconditions and rename-failure
-  reporting.
+- The current wire golden is 146 methods / `c1120b1c567369d3`; a rebuilt and
+  redeployed jar was proved after a full Bitwig restart through `hello()`.
+- Brain typecheck and 423/423 offline tests pass. Post-review live conformance
+  passes 49/0/6, including both `chain.create` batch refusals against a
+  disposable FX Layer with the whole container deleted in cleanup.
+- The refused-rename report is proved by the offline `L-chain-create` live-adapter
+  test. There is no safe production setup that makes the extension reject the
+  valid identity it just returned, and 3f-c added no product fault hook to force
+  one.
 
-## Session 3f-c — live closure
+## Session 3f-d — relocation
 
-Purpose: prove the post-review `chain.create` fixes against the real adapter and
-leave a clean baseline for 3f-d relocation.
+Purpose: add one typed, slot-scoped primitive that fills and extracts chains
+without weakening the nested-device refusal for any other operation.
 
 Acceptance:
 
-1. Rebuild and redeploy the extension, restart Bitwig, and prove the running jar
-   matches the 146-method golden through `hello()`.
-2. Extend `C-chain-create` with a batch of distinct names whose projected total
-   exceeds the four-wide chain bank. It must refuse before any copy and leave the
-   container unchanged.
-3. Run full live conformance. The existing paired-name batch refusal and the new
-   summed-bank refusal must pass against a disposable FX Layer, with the whole
-   container deleted in cleanup.
-4. Keep the refused-rename path as an offline live-adapter test unless a safe,
-   non-production fault can construct it. Do not add a product fault hook merely
-   to force the extension to reject the identity it just reported; state the
-   evidence boundary explicitly.
-5. Rerun brain checks, the extension build, the context check and
-   `git diff --check`; update this file to hand off to 3f-d.
+1. Add one typed fill/extract verb covering top→chain, chain→top and
+   chain→chain within the measured slot scopes. Promote `chain.move` only
+   through that verb.
+2. Prove source removal and destination placement through structural readback
+   independent of the writer; acknowledgement and writer-selected handles are
+   not evidence.
+3. Moving conserves the observable device population; copying adds exactly one.
+   Multiple devices preserve their order.
+4. Put a real device into a chain so nested observation joins conformance live.
+5. Preserve the current refusal on every nested-device write not owned by this
+   verb. Do not add switching, creation-surface, seed, collapse or selective-
+   reduction work.
+6. Pass brain checks, the extension build, live conformance, the context check
+   and `git diff --check` with no residue.
 
-Out of scope: a relocation op, `chain.move` promotion, solo switching, the seed
-asset, public device-alternate tools, collapse or selective reduction.
+Out of scope: solo switching, the seed asset, public device-alternate tools,
+collapse or selective reduction.
 
 ## Following slices
 
 | Slice | Focus |
 |---|---|
-| 3f-d | typed fill/extract relocation with independent structural readback |
 | 3f-e | container-local exclusive switching and its production tool |
 | 3f-f | Instrument Layer seed/bootstrap and the production creation surface |
 | 3f-g | directed winner collapse at the original signal-chain position |
