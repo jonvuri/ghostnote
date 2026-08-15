@@ -143,6 +143,19 @@ const DEVICE_GONE_FOR_GOOD =
   'a device carries settings that cannot be read back through this API, so nothing recorded here '
   + 'could rebuild it.';
 
+// ⚠ The alternate-holding structure inside a device, in the only words this
+// surface currently owns. `naming.ts` keeps both of the natural words closed as
+// relaxation candidates, and the device-alternate tools are what will reopen one
+// with a disambiguation — so this sentence describes the SHAPE rather than
+// naming the mechanism, and stays honest either way. Nothing on this surface can
+// produce such an address yet; the sentence exists so the record has words if
+// one ever arrives, rather than falling through to a vaguer one.
+const NESTED_HOLDER_GONE_FOR_GOOD =
+  'this named a compartment inside a device that holds its own devices. Making one is only '
+  + 'possible by copying a compartment that already exists, and removing one is not possible at '
+  + 'all through this API, so what was recorded here is a record and not something that can be '
+  + 'put back.';
+
 const OUT_OF_VIEW =
   'this was outside the part of the project this connection can address when the change ran — '
   + 'invisible, which is not the same as empty — so nothing about it was recorded.';
@@ -242,6 +255,8 @@ function valueLosses(value: StateValue): string[] {
       return notePropertyLosses(value.notes);
     case 'device':
       return [DEVICE_GONE_FOR_GOOD];
+    case 'chain':
+      return [NESTED_HOLDER_GONE_FOR_GOOD];
     case 'track':
     case 'param':
     case 'clipLaunch':

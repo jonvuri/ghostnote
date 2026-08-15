@@ -79,6 +79,27 @@ export const WIRE = {
   sceneDelete: 'scene.delete',
 
   deviceList: 'device.list',
+  /**
+   * ⚠⚠ PROMOTED in session 3f step 6b, out of E18 §3.1 probe surface, and it is
+   * the only route by which a layer chain is observable at all.
+   *
+   * ⚠ Why this one and not `layer.list`. `layer.list` reads `rig.layerBank0`,
+   * which follows `cursorDevice0` — exactly ONE container is addressable at a
+   * time, the container is named by hidden cursor state rather than by a
+   * parameter (the e16o trap), and reaching an arbitrary container needs the
+   * device-cursor apparatus that Phase 4 owns. `chain.inventory` reads
+   * `Rig.slotLayerBanks`, layer banks hung off top-level device SLOTS: the
+   * container is a parameter, and the slot, its chains and the devices inside
+   * those chains arrive in ONE reply — which is also the guard, because three
+   * E17 probes read "nothing happened" while a container changed one level above
+   * where they looked.
+   *
+   * ⚠ Its reach is small and fixed, and the resolver treats the limits as
+   * limits: `Rig.SLOT_SCOPES` container positions on the track `cursorTracks[0]`
+   * points at, `SLOT_LAYER_BANK` chains, `SLOT_LAYER_DEVICE_BANK` devices. A
+   * chain past the bank is `outside-bank-window`, never `absent`.
+   */
+  chainInventory: 'chain.inventory',
   deviceInsertBitwig: 'device.insertBitwig',
   deviceInsertClap: 'device.insertClap',
   deviceInsertFile: 'device.insertFile',

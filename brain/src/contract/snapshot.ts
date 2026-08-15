@@ -14,6 +14,7 @@
  * existed.
  */
 import type { Address, AddressKey } from './address.js';
+import type { ObservedChain } from './chains.js';
 import type {
   ClipLaunchState, ClipPlayState, DeviceState, NoteRecord, ParamState, TrackState,
 } from './state.js';
@@ -175,6 +176,16 @@ export type StateValue =
   | { readonly of: 'clipLaunch'; readonly launch: ClipLaunchState }
   | { readonly of: 'clipPlay'; readonly play: ClipPlayState }
   | { readonly of: 'device'; readonly device: DeviceState }
+  /**
+   * ⚠ A chain, as OBSERVED — its position, its name, and the devices in it.
+   *
+   * It carries no state that could rebuild one, and that is not an omission:
+   * every typed route to create a chain refuses except duplication of a chain
+   * that already exists, and every typed DELETE refuses outright (`e17al`,
+   * `e17am`). So the entry is a record, never a restore plan, and `revertOps`
+   * files it as unrestored rather than emitting an inverse it cannot honour.
+   */
+  | { readonly of: 'chain'; readonly chain: ObservedChain }
   | { readonly of: 'param'; readonly param: ParamState };
 
 export interface StateEntry {

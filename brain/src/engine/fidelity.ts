@@ -179,6 +179,15 @@ function valueCaveats(value: StateValue): string[] {
       return [];
     case 'device':
       return ['device state has no readback that could reproduce the chain (E3, D8)'];
+    // ⚠ A chain entry is a RECORD, not a restore plan, and the reason is measured
+    // rather than architectural: chain creation exists only as duplication of a
+    // chain that is already there (`e17ak`) and every typed chain DELETE refuses
+    // (`e17al`, `e17am`, exhausted across both `DeleteableObject` forms). So a
+    // reversal can neither put a removed chain back nor take an added one away.
+    case 'chain':
+      return ['a layer chain cannot be recreated or removed by any measured typed route '
+        + '(e17ak creates only by duplication; e17al/e17am exhaust delete), so this entry '
+        + 'records the chain and its devices and restores neither'];
     case 'track':
     case 'param':
       return [];

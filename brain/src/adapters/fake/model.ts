@@ -11,7 +11,9 @@
  * PHASE-0 §Risks names for fake drift ("every trap the fake models must cite the
  * FINDINGS experiment that established it").
  */
-import type { ContentEvent, LaunchMode, LaunchQuantization, NoteRecord } from '../../contract/index.js';
+import type {
+  ContentEvent, LaunchMode, LaunchQuantization, NoteRecord, ObservedContainer,
+} from '../../contract/index.js';
 
 export type TrackType = 'Instrument' | 'Audio' | 'Effect' | 'Master' | 'Group';
 
@@ -34,11 +36,34 @@ export interface FakeSlot {
   isStopQueued: boolean;
 }
 
+/**
+ * A device-layer chain inside a container device.
+ *
+ * ⚠ NO `channelId`, and the omission is the model. A chain does hand one out
+ * live, and it is worthless: the project LOADER mints it, so it regenerates on
+ * every document load while the name survives (E17ad 8/8, E18b). Carrying one
+ * here would let an offline test resolve a chain by a key that live Bitwig
+ * cannot honour — the fake certifying a reach the real thing does not have.
+ */
+export interface FakeChain {
+  name: string;
+  devices: FakeDevice[];
+}
+
 export interface FakeDevice {
   name: string;
   /** Live only after E4's ~194ms settle; until then reads report `paramsLive: false`. */
   paramsLive: boolean;
   params: { name: string; value: number }[];
+  /**
+   * ⚠ Present only on a CONTAINER device, and the two container kinds do not
+   * ship alike — which is the whole bootstrap question for the layer-chain
+   * lifecycle. A fresh **FX Layer ships with ONE (empty) chain**, so it can be
+   * grown entirely typed; a fresh **Instrument Layer ships with ZERO** and has
+   * no first chain to duplicate (`e17ai`, re-confirmed at three destinations by
+   * E18a). `ProjectModel.shippedChains` is where that mapping lives.
+   */
+  chains?: FakeChain[];
 }
 
 export interface FakeTrack {
@@ -75,6 +100,37 @@ export class ProjectModel {
    * PERMISSIVE than the thing it stands in for.
    */
   sceneBankSize = 16;
+
+  /**
+   * ⚠⚠ THE CONTAINER WINDOWS, and they are small on purpose — these are
+   * `Rig.SLOT_SCOPES`, `Rig.SLOT_LAYER_BANK` and `Rig.SLOT_LAYER_DEVICE_BANK`,
+   * the banks `chain.inventory` reads through.
+   *
+   * A layer bank is not the track bank: it is fixed at init, it is narrow, and a
+   * container is only observable at all in the FIRST FEW top-level device
+   * positions, because a `DeviceLayerBank` has to hang off a bank slot that
+   * exists when the extension starts (D7 — allocation is init-only). Modelled
+   * rather than idealised for the reason PHASE-0 §Risks names: a fake that could
+   * see every chain everywhere would certify resolution live Bitwig answers with
+   * silence, and "we could not look" would ship as "it is not there".
+   */
+  containerScopes = 2;
+  chainBankSize = 4;
+  chainDeviceBankSize = 4;
+
+  /**
+   * ⚠ What a freshly inserted container SHIPS WITH, by device uuid (`e17ai`,
+   * E18a). Anything not listed here is not a container at all.
+   *
+   * ⚠ The shipped chain's NAME is not a measurement — E4c only established that
+   * a DEFAULT name tracks the chain's content, and nothing has ever recorded
+   * what a fresh FX Layer calls its one chain. So the fake uses an obviously
+   * synthetic name, and any test that hardcodes it is asserting on the fake
+   * rather than on Bitwig. Read the name back and use what you were given.
+   */
+  static readonly FX_LAYER_UUID = 'a0913b7f-096b-4ac9-bddd-33c775314b42';
+  static readonly INSTRUMENT_LAYER_UUID = '5024be2e-65d6-4d40-bbfe-8b2ea993c445';
+  static readonly SHIPPED_CHAIN_NAME = 'fake-shipped-chain';
 
   /** E8's monotonic counter, owned by the executor, not by any DAW object. */
   revision = 0;
@@ -339,6 +395,16 @@ export class ProjectModel {
       devices: source.devices.map((device) => ({
         ...device,
         params: device.params.map((param) => ({ ...param })),
+        // ⚠ Deep, and a copied container's chains keep their NAMES — which is
+        // exactly the `e17n` artifact: two containers whose chains are named
+        // identically and are different objects. That is the fixture the
+        // ambiguity refusal exists for, so the fake has to be able to produce it.
+        ...(device.chains === undefined ? {} : {
+          chains: device.chains.map((c) => ({
+            name: c.name,
+            devices: c.devices.map((d) => ({ ...d, params: d.params.map((p) => ({ ...p })) })),
+          })),
+        }),
       })),
     };
     this.tracks.splice(at + 1, 0, copy);
@@ -436,6 +502,47 @@ export class ProjectModel {
         }
       }
     }
+  }
+
+  /** What a container of this uuid ships with; `undefined` if it is not a container. */
+  shippedChains(uuid: string): FakeChain[] | undefined {
+    if (uuid === ProjectModel.FX_LAYER_UUID) {
+      return [{ name: ProjectModel.SHIPPED_CHAIN_NAME, devices: [] }];
+    }
+    return uuid === ProjectModel.INSTRUMENT_LAYER_UUID ? [] : undefined;
+  }
+
+  /**
+   * What the container scopes can SEE at one top-level device position — the
+   * fake's half of `chain.inventory`.
+   *
+   * ⚠ `undefined` means the position is past `containerScopes`: no bank was ever
+   * built there, so nothing was looked at. That is NOT the same as a position
+   * holding no container, which is an observation and reports empty-and-complete.
+   *
+   * ⚠⚠ Completeness is `visible < bankSize`, never `<=`, and the asymmetry is
+   * deliberate: the live enumeration omits empty bank slots, so a full bank and
+   * an overflowing one produce byte-identical replies. A fake that reported a
+   * dead-full bank as complete would answer `absent` where live must answer
+   * `outside-bank-window` — the fake being the permissive one, which is the
+   * direction PHASE-0 §Risks forbids.
+   */
+  observeContainer(track: FakeTrack, containerIndex: number): ObservedContainer | undefined {
+    if (containerIndex < 0 || containerIndex >= this.containerScopes) return undefined;
+    const held = track.devices[containerIndex]?.chains ?? [];
+    const visible = held.slice(0, this.chainBankSize);
+    return {
+      chains: visible.map((c, index) => {
+        const devices = c.devices.slice(0, this.chainDeviceBankSize);
+        return {
+          index,
+          name: c.name,
+          devices: devices.map((d, at) => ({ index: at, name: d.name })),
+          devicesComplete: devices.length < this.chainDeviceBankSize,
+        };
+      }),
+      chainsComplete: visible.length < this.chainBankSize,
+    };
   }
 
   /**

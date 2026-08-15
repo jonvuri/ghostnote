@@ -2,12 +2,12 @@
 title: Phase 1, session 3f — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: STEP 6a COMPLETE 2026-08-15. Step 5 (`copy_track`) shipped and was
-        verified live. Step 6's address grammar now expresses a chain and a
-        device inside one, keeps every pre-nesting key byte-identical, and
-        refuses every op that would route a nested address into the track's
-        top-level chain. Next: observable resolution, then the first typed
-        chain verb (step 6b).
+status: STEP 6b-1 COMPLETE 2026-08-15, VERIFIED LIVE. Step 5 (`copy_track`)
+        shipped and was verified live. Step 6a's grammar expresses a chain and a
+        device inside one; step 6b-1 makes both OBSERVABLE through a promoted
+        `chain.inventory`, with ambiguity, blindness and absence kept apart, and
+        every nested write still refused. Next: the first typed chain verb
+        (step 6b-2).
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -176,16 +176,41 @@ unchanged and no live run is owed by this slice.
 Deliberately NOT claimed: nothing resolves, observes, creates, fills, switches or
 reduces a chain yet. The grammar is the vocabulary those verbs will be written in.
 
-### Step 6b — next
+### Step 6b-1 — observation: complete 2026-08-15, verified live
 
-1. Observable resolution: `resolve`/`read` for a `ChainAddress` against real
-   structure, which needs the `layer.*` enumeration promoted from E17/E18 probe
-   surface into the product wire vocabulary (`wiremap.test.ts` bans it today),
-   a golden regen, and a live run. Ambiguous names refuse.
-2. Then the first typed verb, and the measured route is already known: E17's
+Observable resolution landed. `resolve` and `read` walk a `ChainAddress` and a
+nested `DeviceAddress` against real structure through `chain.inventory`, the only
+method promoted; four answers are kept apart (`found`, `ambiguous`,
+`outside-bank-window`, `absent`); depth beyond one level and a nested
+`ParamAddress` stay `unsupported`; and a CONTAINER device's read carries its
+chains, which is the bootstrap — a chain is addressed by name, so something has
+to be able to say what the names are, and a chain has no address of its own to be
+enumerated by. Its container has one, so no ninth adapter method was needed.
+
+⚠ Three assumptions in this brief were wrong and are corrected in NOW.md's
+step 6b-1 record: `layer.list` was never banned (and is the worse route —
+`chain.inventory` names its container by parameter and needs no device cursor);
+zero name matches is `absent` only when the bank sizes prove the view complete;
+and no golden regen was owed, because promoting an already-registered method
+moves no hash. The extension gained reply FIELDS, which the hash cannot see, so
+the jar was redeployed and Bitwig restarted before the live run.
+
+⚠ Writes were not touched. `assertDevicesRoutable` refuses every nested route
+exactly as before, and `chain.move` stays probe surface.
+
+### Step 6b-2 — next
+
+1. The first typed verb, and the measured route is already known: E17's
    `e17ak` closed chain creation as **fully autonomous** — `layer.select` +
    `Channel.duplicate()` (`layer.duplicateChannel`), no focus, no priming, no
-   human. `DeviceLayer.duplicateObject()` stays dead.
+   human. A successful receipt requires independent resolution/readback of the
+   created chain; acknowledgement or the writer's selected handle is not proof.
+   Keep `assertDevicesRoutable` in force for every nested write route not promoted
+   and verified in this slice. `DeviceLayer.duplicateObject()` stays dead.
+2. The verb also unlocks two assertions 6b-1 could only make one-sidedly, and
+   both should move into conformance the moment they are constructible: an
+   AMBIGUOUS name inside one container (fake-only today — `T-ambig`; `ambiguous`
+   itself already exists as a contract reason), and a chain that holds a device.
 3. ⚠ Reduction cannot mirror creation: every typed chain DELETE refuses
    (`e17al`, `e17am` — a `DeviceLayer` honours only the verbs `Channel` declares
    itself). So collapse is *move the devices out, then delete the CONTAINER*

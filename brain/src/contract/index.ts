@@ -18,6 +18,13 @@ export type {
   NotesAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress,
 } from './address.js';
 
+export {
+  lookupChain, lookupDevice, lookupNestedDevice, nestingDepth, nestingObservable,
+} from './chains.js';
+export type {
+  ChainLookup, ChainMiss, DeviceLookup, ObservedChain, ObservedContainer, ObservedDevice,
+} from './chains.js';
+
 export { SETTLE_MS, TICK_MS, budgetTicks } from './budgets.js';
 export type { SettleBudget } from './budgets.js';
 

@@ -26,7 +26,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  GAIN_READ_SCALE, addressKey, assertOpsWritable, clip, notes as notesAddress, orderedNoteProps,
+  GAIN_READ_SCALE, addressKey, assertOpsWritable, chain as chainAddress, clip,
+  device as deviceAddress, notes as notesAddress, orderedNoteProps,
   planStages, scene, slot, stepSizeFor, track, type NoteRecord, type Op,
 } from '../../contract/index.js';
 import { FakeAdapter } from './adapter.js';
@@ -621,4 +622,96 @@ test('T-append: the appended row is UNOBSERVED when it lands past the window', (
   assert.equal(model.sceneCount, 5);
   assert.equal(model.contentEpoch, epochBefore, 'no content event — there is no observer out there');
   assert.notEqual(model.sceneEpoch, 0, 'only the scene COUNT moved, which is the one tell');
+});
+
+// --- e17ai / E17ad / E18b: containers, and the two facts that gate them -------
+
+test('T-ship: the two container types do not ship alike (e17ai, E18a)', () => {
+  // ⚠ The bootstrap asymmetry the whole layer-chain lifecycle turns on, and the
+  // reason a seed asset may be load-bearing for one destination and pointless
+  // for another. An FX Layer can be grown from nothing — insert it, duplicate
+  // its chain, repeat — while an Instrument Layer has no first chain to copy.
+  const model = new ProjectModel();
+  assert.equal(model.shippedChains(ProjectModel.FX_LAYER_UUID)?.length, 1);
+  assert.equal(model.shippedChains(ProjectModel.INSTRUMENT_LAYER_UUID)?.length, 0);
+  assert.equal(model.shippedChains('a9ffacb5-33e9-4fc7-8621-b1af31e410ef'), undefined,
+    'an ordinary device is not a container at all');
+  assert.deepEqual(model.shippedChains(ProjectModel.FX_LAYER_UUID)?.[0]?.devices, [],
+    'and the chain it ships with is EMPTY (e17ai)');
+});
+
+test('T-scope: a container is observable only in the first few device positions', () => {
+  // ⚠ Not a fake limitation — `Rig.slotLayerBanks` are allocated at init (D7)
+  // on `SLOT_SCOPES` top-level device slots, so a container further along the
+  // chain has no bank to be read through. The model carries the same number so
+  // an offline pass cannot certify a reach live Bitwig does not have.
+  const model = new ProjectModel();
+  const track = model.createTrack('gn-A');
+  for (let i = 0; i <= model.containerScopes; i++) {
+    track.devices.push({ name: `dev-${i}`, paramsLive: true, params: [], chains: [{ name: 'A', devices: [] }] });
+  }
+  assert.notEqual(model.observeContainer(track, 0), undefined);
+  assert.equal(model.observeContainer(track, model.containerScopes), undefined,
+    'past the scopes nothing was looked at — which is not the same as nothing being there');
+});
+
+test('T-full: a chain bank filled to its size reads as INCOMPLETE, not as complete', () => {
+  // ⚠⚠ The asymmetry that keeps a blind spot from reading as a tombstone. The
+  // enumeration omits empty bank slots, so a dead-full bank and an overflowing
+  // one produce identical replies — and only `chainsComplete: false` stops the
+  // resolver answering `absent` for a chain it simply could not see.
+  const model = new ProjectModel();
+  const track = model.createTrack('gn-A');
+  const chains = Array.from({ length: model.chainBankSize }, (_, i) => ({ name: `c${i}`, devices: [] }));
+  track.devices.push({ name: 'container', paramsLive: true, params: [], chains });
+  const observed = model.observeContainer(track, 0)!;
+  assert.equal(observed.chains.length, model.chainBankSize);
+  assert.equal(observed.chainsComplete, false);
+
+  track.devices[0]!.chains = chains.slice(0, model.chainBankSize - 1);
+  assert.equal(model.observeContainer(track, 0)!.chainsComplete, true);
+});
+
+test('T-dupname: copying a container gives two chains ONE name (e17n)', () => {
+  // The ambiguity fixture, and it is the ordinary outcome of duplication rather
+  // than a contrived one: names are copied, ids are minted, and the ids are
+  // worthless across a project load (E17ad, E18b). A resolver that took the
+  // first hit would pick one of these at random.
+  const model = new ProjectModel();
+  const source = model.createTrack('gn-A');
+  source.devices.push({
+    name: 'container', paramsLive: true, params: [], chains: [{ name: 'A take', devices: [] }],
+  });
+  const copy = model.duplicateTrack(source.channelId)!;
+  assert.equal(copy.devices[0]!.chains?.[0]?.name, 'A take');
+  assert.notEqual(copy.devices[0]!.chains, source.devices[0]!.chains, 'and it is a real copy');
+});
+
+test('T-ambig: the fake ADAPTER refuses a duplicated chain name, exactly as live does', async () => {
+  // ⚠ This case cannot be built live yet, and that is why it is here rather than
+  // in the conformance suite: producing two same-named chains in ONE container
+  // needs chain duplication, which is measured (`e17ak`) but not promoted. The
+  // fake can build the fixture today, so the shared resolver's ambiguity path is
+  // proven offline now and becomes a two-sided conformance row the moment the
+  // create verb lands.
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
+  model.devices.push({
+    name: 'container',
+    paramsLive: true,
+    params: [],
+    chains: [{ name: 'A take', devices: [] }, { name: 'A take', devices: [] }],
+  });
+
+  const target = chainAddress(deviceAddress(track(first.channelId), 0), 'A take');
+  const hit = (await adapter.resolve([target])).resolved[0];
+  assert.deepEqual({ found: hit?.found, reason: hit?.reason }, { found: false, reason: 'ambiguous' });
+
+  // ⚠ And the READ answers nothing rather than picking one. A refusal belongs on
+  // `resolve`, which is the call made before acting; a stash is not the place to
+  // discover that an address named two objects.
+  const snapshot = await adapter.read([target]);
+  assert.equal(snapshot.entries[addressKey(target)], undefined);
+  assert.deepEqual(snapshot.missing.map(addressKey), [addressKey(target)]);
 });

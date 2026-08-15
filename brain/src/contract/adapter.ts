@@ -42,8 +42,16 @@ export interface ResolvedAddress {
   /**
    * Why not, when `found` is false — a tombstone reads differently from a blind
    * spot, and an address the adapter cannot inspect is neither one.
+   *
+   * ⚠⚠ `ambiguous` arrived with chain resolution (session 3f step 6b) and is the
+   * only value here that reports a SURPLUS rather than a shortfall: the name
+   * matched more than one chain, so the address identifies no single object.
+   * It gets its own value rather than being folded into `absent` or
+   * `unsupported` because all three would be lies about what was observed —
+   * we looked, we could look, and we found too much. `ChainAddress` names the
+   * refusal as an obligation on any resolver; this is where it lands.
    */
-  readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch' | 'unsupported';
+  readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch' | 'unsupported' | 'ambiguous';
 }
 
 export interface ResolveResult {

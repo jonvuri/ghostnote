@@ -30,10 +30,10 @@ import {
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
-  windowCovers,
+  lookupChain, lookupNestedDevice, nestingObservable, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
-  type BitwigAdapter, type ClipAddress, type ContentDelta, type ContentEvent, type Fidelity,
-  type NoteRecord, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
+  type BitwigAdapter, type ChainMiss, type ClipAddress, type ContentDelta, type ContentEvent, type Fidelity,
+  type NoteRecord, type ObservedChain, type ObservedContainer, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
@@ -63,6 +63,40 @@ interface TrackListResult {
 interface WireDevice {
   index: number;
   name: string;
+}
+
+/**
+ * `chain.inventory`'s reply — the container structure of the pointed track.
+ *
+ * ⚠ Every field is optional except the ones an OLDER extension also sent, and
+ * that is the versioning discipline: `methodsHash` is over method NAMES, so a
+ * deployment too old to carry `trackChannelId` or the bank sizes answers with
+ * SILENCE and the handshake cannot tell. Silence must fail closed, so a missing
+ * identity refuses the whole observation and a missing bank size makes the view
+ * incomplete rather than complete.
+ */
+interface WireInventoryChain {
+  index: number;
+  name?: string;
+  channelId?: string;
+  devices?: { index: number; name?: string }[];
+}
+
+interface WireInventoryScope {
+  slot: number;
+  status?: string;
+  deviceExists?: boolean;
+  deviceName?: string;
+  chains?: WireInventoryChain[];
+  chainCount?: number;
+  chainBankSize?: number;
+  deviceBankSize?: number;
+}
+
+interface WireInventory {
+  scopes?: WireInventoryScope[];
+  trackName?: string;
+  trackChannelId?: string;
 }
 
 /** A device chain as one observation, with whether we could see all of it. */
@@ -442,6 +476,117 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /**
+   * ⚠⚠ A container device's chains, through `chain.inventory` — the only route
+   * by which anything in this system can SEE a layer chain.
+   *
+   * Everything about this call is narrow, and every limit is reported rather
+   * than smoothed over:
+   *
+   *   - it reads `Rig.slotLayerBanks`, which hang off the FIRST FEW top-level
+   *     device slots of the track `cursorTracks[0]` points at. A container
+   *     further along the chain has no scope and is `outside-bank-window`;
+   *   - the scopes are built at `init()` (D7), so a scope that failed to build
+   *     reports its own status. Standing rule 13: *"the handle does not exist"*
+   *     and *"the API declines"* are indistinguishable in the outcome, and three
+   *     false ○s in E17 came from exactly that. A scope that is not `held` is
+   *     `unsupported` — we did not look — never `absent`;
+   *   - the bank SIZES come off the reply, and when they do not (an extension
+   *     older than this slice) completeness is UNKNOWN, which makes every
+   *     zero-match answer `outside-bank-window` instead of `absent`. A stale
+   *     deployment fails closed rather than silently reporting tombstones.
+   *
+   * ⚠⚠ It points cursor `'0'` SPECIFICALLY, and not a pool cursor: the slot
+   * scopes were built from `cursorDeviceBanks[0]` at init and follow that one
+   * cursor for the life of the extension. Handing this a pool ref would scope
+   * the read to whatever track that cursor happens to hold — the e16o trap, one
+   * level up, with a reply that looks perfectly healthy.
+   *
+   * ⚠ And the point is VERIFIED, not assumed: the reply carries the pointed
+   * track's own `channelId`, which is compared against the track we were asked
+   * about. A mismatch is `unsupported` rather than a guess — reporting another
+   * track's chains under this address is the whole failure class.
+   */
+  private async containerScope(
+    trackRef: TrackAddress,
+    containerIndex: number,
+  ): Promise<
+    | { ok: true; container: ObservedContainer; deviceName: string | undefined }
+    | { ok: false; miss: ChainMiss }
+  > {
+    const trackIndex = this.index.get(trackRef.channelId);
+    if (trackIndex === undefined) return { ok: false, miss: 'absent' };
+    if (containerIndex < 0) return { ok: false, miss: 'absent' };
+    await this.transport.send({
+      method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex },
+    });
+    await this.settle('cursorPoint');
+    const reply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
+    // ⚠ The identity guard, before anything in the reply is believed. `trackName`
+    // rides along too and is deliberately NOT used for this: a name is not an
+    // identity (standing rule 2), and two tracks may share one.
+    if (reply.trackChannelId !== trackRef.channelId) return { ok: false, miss: 'unsupported' };
+    const scope = (reply.scopes ?? [])[containerIndex];
+    if (scope === undefined) return { ok: false, miss: 'outside-bank-window' };
+    if (scope.status !== 'held') return { ok: false, miss: 'unsupported' };
+    const chainBank = scope.chainBankSize;
+    const deviceBank = scope.deviceBankSize;
+    const chains = scope.chains ?? [];
+    return {
+      ok: true,
+      // ⚠ `undefined` means the position holds NO DEVICE — which is a real
+      // observation (the scope was held and we looked), not a failure to look.
+      // It is what makes a device read of an empty position `missing` while a
+      // position with no scope at all is `unreachable`.
+      deviceName: scope.deviceExists === true ? scope.deviceName ?? '' : undefined,
+      container: {
+        chains: chains.map((c) => ({
+          index: c.index,
+          name: c.name ?? '',
+          devices: (c.devices ?? []).map((d) => ({ index: d.index, name: d.name ?? '' })),
+          devicesComplete: deviceBank !== undefined && (c.devices ?? []).length < deviceBank,
+        })),
+        chainsComplete: chainBank !== undefined && chains.length < chainBank,
+      },
+    };
+  }
+
+  /**
+   * Chain-family resolution, or `undefined` when the address is not one.
+   *
+   * ⚠ The mirror of `FakeAdapter.resolveNested`, and it has to stay one: the
+   * conformance suite asserts the same reasons on both, so a divergence here is
+   * a failing test rather than a discovery made live months later.
+   */
+  private async resolveNested(
+    address: Address,
+    trackRef: TrackAddress,
+  ): Promise<ResolvedAddress | undefined> {
+    if (address.kind === 'param') {
+      // ⚠ A parameter inside a chain hangs off a handle nothing has built or
+      // measured. Device resolution must not promote it implicitly.
+      return address.device.chain === undefined
+        ? undefined
+        : { address, found: false, reason: 'unsupported' as const };
+    }
+    if (address.kind === 'device' && address.chain === undefined) return undefined;
+    if (address.kind !== 'chain' && address.kind !== 'device') return undefined;
+    if (!nestingObservable(address)) return { address, found: false, reason: 'unsupported' as const };
+    const container = address.kind === 'chain' ? address.container : address.chain!.container;
+    const scope = await this.containerScope(trackRef, container.chainIndex);
+    if (!scope.ok) return { address, found: false, reason: scope.miss };
+    if (address.kind === 'chain') {
+      const found = lookupChain(scope.container, address.name);
+      return found.ok
+        ? { address, found: true, index: found.chain.index }
+        : { address, found: false, reason: found.miss };
+    }
+    const found = lookupNestedDevice(scope.container, address);
+    return found.ok
+      ? { address, found: true, index: found.device.index }
+      : { address, found: false, reason: found.miss };
+  }
+
+  /**
    * The finest step size whose `gridSteps`-wide window still covers `lengthBeats`.
    * Learned from the rig rather than assumed, because it is configurable
    * (`~/.ghostnote/rig.json`) and the fine cursor uses a different width.
@@ -626,7 +771,15 @@ export class LiveAdapter implements BitwigAdapter {
     // the returned mark then sees any foreign edit that happened DURING this
     // call. A mark taken at the end would swallow exactly those.
     const at = await this.revision();
-    const resolved: ResolvedAddress[] = refs.map((address) => {
+    // ⚠ Chain-family addresses cost a ROUND TRIP each — a point and an inventory
+    // read — where every other kind is answered from the bank scan already in
+    // hand. They are therefore resolved in a second pass, after the cheap
+    // classification below has already refused everything it can refuse for
+    // free: a stale epoch, a row outside the scene window, a track that is not
+    // in the bank. Nothing reaches the wire on behalf of an address that was
+    // never going to resolve.
+    const WALK = Symbol('chain-family: needs a path walk');
+    const first: (ResolvedAddress | typeof WALK)[] = refs.map((address) => {
       const sceneRef = addressScene(address);
       if (sceneRef !== undefined && sceneRef.epoch !== at.sceneEpoch) {
         return { address, found: false, reason: 'stale-epoch' as const };
@@ -645,13 +798,13 @@ export class LiveAdapter implements BitwigAdapter {
       if (trackRef === undefined) return { address, found: true };
       const index = this.index.get(trackRef.channelId);
       if (index !== undefined) {
-        // ⚠ The track bank resolves only the durable anchor. Until the product
-        // wire can enumerate layer chains, claiming the nested address itself
-        // was found would certify structure this adapter never inspected.
+        // ⚠ The track bank resolves only the durable ANCHOR, and a chain-family
+        // address is not resolved until its whole path has been walked. Marked
+        // for the second pass rather than answered here.
         if (address.kind === 'chain'
           || (address.kind === 'device' && address.chain !== undefined)
           || (address.kind === 'param' && address.device.chain !== undefined)) {
-          return { address, found: false, reason: 'unsupported' as const };
+          return WALK;
         }
         return { address, found: true, index };
       }
@@ -667,6 +820,19 @@ export class LiveAdapter implements BitwigAdapter {
         reason: this.overflowing ? ('outside-bank-window' as const) : ('absent' as const),
       };
     });
+    const resolved: ResolvedAddress[] = [];
+    for (const [at_, entry] of first.entries()) {
+      const address = refs[at_]!;
+      if (entry !== WALK) {
+        resolved.push(entry);
+        continue;
+      }
+      const trackRef = addressTrack(address)!;
+      // ⚠ `resolveNested` is the only thing that may answer `found` for a
+      // chain-family address, and it is shared, line for line, with the fake.
+      resolved.push(await this.resolveNested(address, trackRef)
+        ?? { address, found: false, reason: 'unsupported' as const });
+    }
     return { at, resolved };
   }
 
@@ -736,7 +902,13 @@ export class LiveAdapter implements BitwigAdapter {
         continue;
       }
       const entry = await this.readOne(address, row, pointedAt);
-      if (entry === undefined) missing.push(address);
+      // ⚠ A chain-family address whose container has no observable scope is
+      // UNREACHABLE, not missing — the same E5 distinction the track bank makes
+      // one level up. The layer banks are init-allocated and narrow (D7), so
+      // "there is no container scope at that position" is a fact about our
+      // reach and never about the music.
+      if (entry === 'unreachable') unreachable.push(address);
+      else if (entry === undefined) missing.push(address);
       else entries[addressKey(address)] = entry;
     }
 
@@ -788,7 +960,7 @@ export class LiveAdapter implements BitwigAdapter {
     address: Address,
     row: WireTrack | undefined,
     pointedAt: Map<string, AddressKey>,
-  ): Promise<StateEntry | undefined> {
+  ): Promise<StateEntry | 'unreachable' | undefined> {
     switch (address.kind) {
       case 'track':
         return row === undefined ? undefined : {
@@ -956,21 +1128,80 @@ export class LiveAdapter implements BitwigAdapter {
         return { address, fidelity: 'exact', value: { of: 'clipPlay', play } };
       }
 
-      case 'chain':
-      case 'device':
+      // ⚠⚠ A CHAIN reads back as what the container scope observed, and as
+      // nothing else. There is no chain state a reversal could replay — creation
+      // exists only as duplication of a chain that is already there (`e17ak`)
+      // and every typed delete refuses (`e17al`, `e17am`) — so the entry is
+      // `none` and `revertOps` files it unrestored.
+      case 'chain': {
+        if (row === undefined || !nestingObservable(address)) return undefined;
+        const scope = await this.containerScope(address.container.track, address.container.chainIndex);
+        if (!scope.ok) return scope.miss === 'absent' ? undefined : 'unreachable';
+        const found = lookupChain(scope.container, address.name);
+        // ⚠ An ambiguous name reads as NO ENTRY. The reason belongs on
+        // `resolve`, which is the call made before acting; a stash is not the
+        // place to discover that an address named two objects.
+        return found.ok
+          ? { address, fidelity: 'none', value: { of: 'chain', chain: found.chain } }
+          : undefined;
+      }
+
+      case 'device': {
+        if (row === undefined || !nestingObservable(address)) return undefined;
+        // ⚠ A device INSIDE a chain reports its observed name and position and
+        // NO PARAMETERS. The container enumeration has no parameter handle, and
+        // an empty list would assert a device with no controls — a claim about
+        // the instrument rather than about our reach (`DeviceState.params`).
+        if (address.chain !== undefined) {
+          const scope = await this.containerScope(address.chain.container.track, address.chain.container.chainIndex);
+          if (!scope.ok) return scope.miss === 'absent' ? undefined : 'unreachable';
+          const found = lookupNestedDevice(scope.container, address);
+          return found.ok
+            ? {
+              address,
+              fidelity: 'none',
+              value: { of: 'device', device: { chainIndex: found.device.index, name: found.device.name } },
+            }
+            : undefined;
+        }
+        // ⚠⚠ A TOP-LEVEL device answers with its container structure when it has
+        // an observable scope — and this is the bootstrap, not a bonus. A chain
+        // is addressed by NAME, so something has to be able to say what the
+        // names are, and a chain has no address of its own to be enumerated by.
+        // Its container has one. Beyond the scopes the answer is `unreachable`,
+        // which is the honest half of the same fact.
+        //
+        // ⚠ Parameters are still absent here: reading them needs the
+        // device-cursor apparatus, which is Phase-4 work. `params` is optional
+        // precisely so this entry can be silent about them instead of shipping
+        // an empty list that reads as "no controls".
+        const scope = await this.containerScope(address.track, address.chainIndex);
+        if (!scope.ok) return scope.miss === 'absent' ? undefined : 'unreachable';
+        if (scope.deviceName === undefined) return undefined;
+        return {
+          address,
+          fidelity: 'none',
+          value: {
+            of: 'device',
+            device: {
+              chainIndex: address.chainIndex,
+              name: scope.deviceName,
+              container: scope.container,
+            },
+          },
+        };
+      }
+
       case 'param':
       case 'scene':
-        // Device and param READS need the device-cursor apparatus, which is
-        // Phase-4 work. Writing them already works; reading them back does not,
-        // so v0 reports them missing rather than inventing a value.
-        //
-        // ⚠ A chain is here for a second reason as well as that one: the wire
-        // methods that enumerate layers are registered as E17/E18 probe surface
-        // and are banned from the product path (`wiremap.test.ts`), so there is
-        // nothing this adapter may legitimately call to answer.
+        // Param READS need the device-cursor apparatus, which is Phase-4 work.
+        // Writing them already works; reading them back does not, so v0 reports
+        // them missing rather than inventing a value — and a param inside a
+        // chain is refused before it gets here in any case.
         return undefined;
     }
   }
+
 
   /**
    * Is each `clip.create`'s target slot free? One `slot.status` per op, before

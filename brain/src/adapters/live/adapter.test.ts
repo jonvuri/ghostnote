@@ -17,7 +17,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  addressKey, clip, notes as notesAt, scene, slot, track,
+  addressKey, chain as chainAt, clip, device as deviceAt, deviceIn as deviceInAt,
+  notes as notesAt, scene, slot, track,
   type ClipAddress, type TrackAddress,
 } from '../../contract/index.js';
 import { LiveAdapter } from './adapter.js';
@@ -364,4 +365,223 @@ test('L-mint: the insert is addressed to a POINTED cursor, not to a bank row', a
   assert.equal(point?.method, WIRE.cursorPointTrack, 'the point is immediately in front of the op');
   assert.equal(point?.params['cursor'], cursor);
   assert.equal(point?.params['trackIndex'], 0, 'pointed at the track the op NAMED');
+});
+
+// --- chain observation: the wire mapping, and what it refuses ------------------
+
+/**
+ * A `chain.inventory`-shaped stub, and — like `CursorModelTransport` — it answers
+ * from the track CURSOR 0 IS ON rather than from the track the adapter asked
+ * about. A stub that echoed the request back could not fail for the bug the
+ * identity guard exists to catch: an inventory of somebody else's container,
+ * reported under this address, with every field looking healthy.
+ */
+class InventoryTransport implements Transport {
+  readonly frames: Frame[] = [];
+  /** Which track cursor 0 is pointed at, by bank index. Nothing points it at first. */
+  private pointed: number | undefined;
+
+  constructor(
+    /** bank index -> that track's channelId. */
+    private readonly tracks: ReadonlyMap<number, string>,
+    /** channelId -> scopes, exactly as the extension would report them. */
+    private readonly inventory: ReadonlyMap<string, unknown[]>,
+    /** ⚠ An extension too old to send the identity and the bank sizes. */
+    private readonly stale = false,
+    /**
+     * ⚠ A cursor that DOES NOT MOVE when pointed — the failure the identity
+     * guard exists for. It is not hypothetical: `cursor.pointTrack` is
+     * `CursorTrack.selectChannel`, and a bank row that is not what the adapter
+     * thinks it is (a re-index, a stale scan) points it somewhere else while
+     * every call still succeeds.
+     */
+    private readonly stuckOn?: number,
+  ) {
+    this.pointed = stuckOn;
+  }
+
+  async send(frame: Frame): Promise<unknown> {
+    this.frames.push(frame);
+    const params = (frame.params ?? {}) as Record<string, unknown>;
+    switch (frame.method) {
+      case WIRE.trackList:
+        return {
+          tracks: [...this.tracks].map(([index, channelId]) => ({ index, channelId, name: `t${index}` })),
+          count: this.tracks.size, bankSize: 8, itemCount: this.tracks.size,
+        };
+      case WIRE.revisionGet:
+        return { revision: 1, generation: 'stub-gen', sceneEpoch: 1, contentEpoch: 0, contentEvents: [] };
+      case WIRE.cursorPointTrack:
+        if (params['cursor'] === '0' && this.stuckOn === undefined) {
+          this.pointed = params['trackIndex'] as number;
+        }
+        return {};
+      case WIRE.chainInventory: {
+        const on = this.pointed === undefined ? undefined : this.tracks.get(this.pointed);
+        const scopes = (on === undefined ? undefined : this.inventory.get(on)) ?? [];
+        const stripped = this.stale
+          ? (scopes as Record<string, unknown>[]).map(({ chainBankSize, deviceBankSize, ...rest }) => rest)
+          : scopes;
+        return this.stale
+          ? { scopes: stripped, trackName: 'whoever' }
+          : { scopes: stripped, trackName: 'whoever', trackChannelId: on };
+      }
+      default:
+        return {};
+    }
+  }
+
+  async close(): Promise<void> {}
+}
+
+const CONTAINER_SCOPE = (chains: { index: number; name: string; devices?: { index: number; name: string }[] }[]) => ({
+  slot: 0,
+  status: 'held',
+  deviceExists: true,
+  deviceName: 'FX Layer',
+  chains: chains.map((c) => ({ ...c, devices: c.devices ?? [] })),
+  chainCount: chains.length,
+  chainBankSize: 4,
+  deviceBankSize: 4,
+});
+
+const OTHER_ID = 'e4a1c0de-0000-4000-8000-000000000002';
+
+test('L-chain: a chain resolves by name, at the bank position the container reported', async () => {
+  const wire = new InventoryTransport(
+    new Map([[0, CHANNEL_ID]]),
+    new Map([[CHANNEL_ID, [CONTAINER_SCOPE([{ index: 2, name: 'A take' }])]]]),
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const target = chainAt(deviceAt(TRACK, 0), 'A take');
+  const hit = (await adapter.resolve([target])).resolved[0];
+
+  assert.equal(hit?.found, true);
+  assert.equal(hit?.index, 2, 'the BANK position, not the position in the reply array');
+  // ⚠ And it pointed cursor 0 specifically: the slot scopes were built from
+  // `cursorDeviceBanks[0]` at init and follow that one cursor. A pool ref would
+  // scope the read to whatever track that cursor happened to hold.
+  const point = wire.frames.find((f) => f.method === WIRE.cursorPointTrack);
+  assert.equal((point?.params as Record<string, unknown>)['cursor'], '0');
+});
+
+test('L-chain: an inventory of ANOTHER track is refused, not reported under this address', async () => {
+  // ⚠⚠ The e16o trap, one level up, and the reason a name is not enough here.
+  // The cursor stays on track 1, so the reply is about a DIFFERENT container —
+  // well-formed, healthy, and describing somebody else's chains. Under this
+  // address it would be a chain that resolves to the wrong object, which is the
+  // whole failure class the nested seam exists to prevent.
+  const wire = new InventoryTransport(
+    new Map([[0, CHANNEL_ID], [1, OTHER_ID]]),
+    new Map([[OTHER_ID, [CONTAINER_SCOPE([{ index: 0, name: 'A take' }])]]]),
+    false,
+    1,
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const hit = (await adapter.resolve([chainAt(deviceAt(TRACK, 0), 'A take')])).resolved[0];
+  // ⚠ `unsupported`: nothing about the addressed container was observed at all.
+  // `absent` would be a claim about a container we never looked into.
+  assert.deepEqual({ found: hit?.found, reason: hit?.reason }, { found: false, reason: 'unsupported' });
+});
+
+test('L-chain: an extension too old to report the bank sizes never answers `absent`', async () => {
+  // ⚠ `methodsHash` is over method NAMES, so a deployment that predates these
+  // reply fields answers the completeness question with silence — and silence
+  // must fail closed. Every zero-match becomes a window answer instead of a
+  // tombstone, which is the difference between "we could not see it" and "it is
+  // not there".
+  const wire = new InventoryTransport(
+    new Map([[0, CHANNEL_ID]]),
+    new Map([[CHANNEL_ID, [CONTAINER_SCOPE([{ index: 0, name: 'A take' }])]]]),
+    true,
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const hit = (await adapter.resolve([chainAt(deviceAt(TRACK, 0), 'nope')])).resolved[0];
+  // ⚠ `unsupported` and not `absent`: without `trackChannelId` the observation
+  // cannot even be attributed to the right track, so it is refused whole.
+  assert.deepEqual({ found: hit?.found, reason: hit?.reason }, { found: false, reason: 'unsupported' });
+});
+
+test('L-chain: a scope whose handle was never built is unsupported, never absent', async () => {
+  // Standing rule 13, as instrumentation: "the handle does not exist" and "the
+  // API declines" are indistinguishable in the outcome, and three false ○s in
+  // E17 came from exactly that.
+  const wire = new InventoryTransport(
+    new Map([[0, CHANNEL_ID]]),
+    new Map([[CHANNEL_ID, [{ ...CONTAINER_SCOPE([]), status: 'failed: NoSuchMethod' }]]]),
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const hit = (await adapter.resolve([chainAt(deviceAt(TRACK, 0), 'A take')])).resolved[0];
+  assert.deepEqual({ found: hit?.found, reason: hit?.reason }, { found: false, reason: 'unsupported' });
+});
+
+test('L-chain: a duplicated NAME refuses as ambiguous rather than taking the first', async () => {
+  const wire = new InventoryTransport(
+    new Map([[0, CHANNEL_ID]]),
+    new Map([[CHANNEL_ID, [CONTAINER_SCOPE([
+      { index: 0, name: 'A take' },
+      { index: 1, name: 'A take' },
+    ])]]]),
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const hit = (await adapter.resolve([chainAt(deviceAt(TRACK, 0), 'A take')])).resolved[0];
+  assert.deepEqual({ found: hit?.found, reason: hit?.reason }, { found: false, reason: 'ambiguous' });
+});
+
+test('L-chain: a container read carries the chains — the only way a name is ever learned', async () => {
+  const wire = new InventoryTransport(
+    new Map([[0, CHANNEL_ID]]),
+    new Map([[CHANNEL_ID, [CONTAINER_SCOPE([
+      { index: 0, name: 'A take', devices: [{ index: 0, name: 'Polysynth' }] },
+    ])]]]),
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const snapshot = await adapter.read([deviceAt(TRACK, 0)]);
+  const entry = snapshot.entries[addressKey(deviceAt(TRACK, 0))];
+  assert.equal(entry?.value.of, 'device');
+  const observed = entry?.value.of === 'device' ? entry.value.device : undefined;
+  assert.equal(observed?.container?.chains[0]?.name, 'A take');
+  assert.equal(observed?.container?.chains[0]?.devices[0]?.name, 'Polysynth');
+  // ⚠ NO PARAMETERS, and absent rather than empty: this route has no parameter
+  // handle at all, and `[]` would assert a device with no controls.
+  assert.equal(observed?.params, undefined);
+});
+
+test('L-chain: a device INSIDE a chain reads its own name, never the track chain\'s', async () => {
+  // ⚠ The `C-nested-device` hazard, from the observation side: `chainIndex` 0
+  // means two different devices depending on whether the address is nested, and
+  // the track's own chain holds something at that position too.
+  const wire = new InventoryTransport(
+    new Map([[0, CHANNEL_ID]]),
+    new Map([[CHANNEL_ID, [CONTAINER_SCOPE([
+      { index: 0, name: 'A take', devices: [{ index: 0, name: 'inner-polysynth' }] },
+    ])]]]),
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const inner = deviceInAt(chainAt(deviceAt(TRACK, 0), 'A take'), 0);
+  const snapshot = await adapter.read([inner]);
+  const entry = snapshot.entries[addressKey(inner)];
+  assert.equal(entry?.value.of === 'device' ? entry.value.device.name : undefined, 'inner-polysynth');
+});
+
+test('L-chain: a container position with no scope is UNREACHABLE on a read, not missing', async () => {
+  const wire = new InventoryTransport(
+    new Map([[0, CHANNEL_ID]]),
+    new Map([[CHANNEL_ID, [CONTAINER_SCOPE([{ index: 0, name: 'A take' }])]]]),
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  // Position 4 is past the scopes the stub reports, exactly as it would be past
+  // `Rig.SLOT_SCOPES` live.
+  const far = chainAt(deviceAt(TRACK, 4), 'A take');
+  const snapshot = await adapter.read([far]);
+  assert.deepEqual(snapshot.unreachable.map(addressKey), [addressKey(far)]);
+  assert.deepEqual(snapshot.missing, []);
 });

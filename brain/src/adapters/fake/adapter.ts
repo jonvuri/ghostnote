@@ -15,7 +15,7 @@ import {
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
   assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   contentDelta,
-  hasUnverifiedProps, orderedNoteProps, stepSizeFor,
+  hasUnverifiedProps, lookupChain, lookupNestedDevice, nestingObservable, orderedNoteProps, stepSizeFor,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type ContentDelta, type Fidelity, type NoteRecord, type Op, type OpReceipt, type ResolveResult,
   type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
@@ -23,7 +23,7 @@ import {
 } from '../../contract/index.js';
 import { planStages } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
-import { ProjectModel, noteKey, type FakeTrack } from './model.js';
+import { ProjectModel, noteKey, type FakeDevice, type FakeTrack } from './model.js';
 import {
   applyNotePropsInOrder, bankBlindSpot, gridChangePoisonsRead, noteOnReadback, pointAtSlot,
   propsReadsTurnStartClip, stepDataIsStale, writeNoteProps, type PointOrigin,
@@ -157,13 +157,13 @@ export class FakeAdapter implements BitwigAdapter {
       if (trackRef === undefined) return { address, found: true };
       const hit = this.model.findByChannelId(trackRef.channelId);
       if (hit !== undefined) {
-        // ⚠ Resolving the durable TRACK anchor is not resolving structure this
-        // flat model cannot inspect. `unsupported` is deliberately distinct
-        // from `absent`: no chain lookup happened, so absence is not known.
-        if (address.kind === 'chain'
-          || (address.kind === 'device' && address.chain !== undefined)
-          || (address.kind === 'param' && address.device.chain !== undefined)) {
-          return { address, found: false, reason: 'unsupported' as const };
+        // ⚠⚠ Resolving the durable TRACK anchor is not resolving the structure
+        // hanging off it. Every chain-family address is walked to the end
+        // through the container scopes, or refused with the reason that says
+        // which of the four things happened — see `resolveNested`.
+        if (address.kind === 'chain' || address.kind === 'device' || address.kind === 'param') {
+          const nested = this.resolveNested(address, hit.track);
+          if (nested !== undefined) return nested;
         }
         return { address, found: true, index: hit.index };
       }
@@ -177,6 +177,52 @@ export class FakeAdapter implements BitwigAdapter {
       };
     });
     return { at: this.mark(), resolved };
+  }
+
+  /**
+   * Chain-family resolution, or `undefined` when the address is not one.
+   *
+   * ⚠⚠ The whole point is that a `found` here is earned by walking the PATH.
+   * Before step 6b both adapters answered every chain-family address
+   * `unsupported` on the grounds that no lookup had happened; now one has, and
+   * the four ways it can fail are kept apart because each asserts a different
+   * observed fact: `unsupported` (no route could look), `outside-bank-window`
+   * (we looked at a bank that may not hold everything), `ambiguous` (the name
+   * matched more than one chain) and `absent` (we saw the whole bank and it is
+   * not there).
+   *
+   * ⚠ A nested PARAM stays `unsupported` even now, and the distinction is not
+   * pedantry: resolving a device is a statement about a device handle, and a
+   * parameter hangs off a SEPARATE handle that nothing has built or measured
+   * inside a chain. Promoting it implicitly is how a `param.set` ends up aimed
+   * at whatever the top-level parameter list has at that index.
+   */
+  private resolveNested(address: Address, track: FakeTrack): ResolvedAddress | undefined {
+    if (address.kind === 'param') {
+      return address.device.chain === undefined
+        ? undefined
+        : { address, found: false, reason: 'unsupported' as const };
+    }
+    if (address.kind === 'device' && address.chain === undefined) return undefined;
+    if (address.kind !== 'chain' && address.kind !== 'device') return undefined;
+    if (!nestingObservable(address)) {
+      return { address, found: false, reason: 'unsupported' as const };
+    }
+    const container = address.kind === 'chain' ? address.container : address.chain!.container;
+    const observed = this.model.observeContainer(track, container.chainIndex);
+    if (observed === undefined) {
+      return { address, found: false, reason: 'outside-bank-window' as const };
+    }
+    if (address.kind === 'chain') {
+      const found = lookupChain(observed, address.name);
+      return found.ok
+        ? { address, found: true, index: found.chain.index }
+        : { address, found: false, reason: found.miss };
+    }
+    const found = lookupNestedDevice(observed, address);
+    return found.ok
+      ? { address, found: true, index: found.device.index }
+      : { address, found: false, reason: found.miss };
   }
 
   /**
@@ -226,14 +272,22 @@ export class FakeAdapter implements BitwigAdapter {
         continue;
       }
       const entry = this.readOne(address, hit?.track, hit?.index ?? -1);
-      if (entry === undefined) missing.push(address);
+      // ⚠ Same three-way answer the live adapter gives: an entry, "nothing is
+      // there" (missing), or "we could not look" (unreachable). The third one is
+      // what a chain-family address gets when its container has no scope.
+      if (entry === 'unreachable') unreachable.push(address);
+      else if (entry === undefined) missing.push(address);
       else entries[addressKey(address)] = entry;
     }
 
     return { contract: CONTRACT_TAG, at: this.mark(), entries, missing, unreachable };
   }
 
-  private readOne(address: Address, track: FakeTrack | undefined, index: number): StateEntry | undefined {
+  private readOne(
+    address: Address,
+    track: FakeTrack | undefined,
+    index: number,
+  ): StateEntry | 'unreachable' | undefined {
     switch (address.kind) {
       case 'track':
         return track === undefined ? undefined : {
@@ -309,19 +363,52 @@ export class FakeAdapter implements BitwigAdapter {
           playPosition: 0,
         } } };
       }
-      // ⚠ A chain has no readback here AT ALL, and answering one would be worse
-      // than the gap: this model holds a flat device list per track, so any value
-      // it invented for a layer chain would certify structure neither adapter can
-      // see (PHASE-0 §Risks). Live answers `undefined` for every device-family
-      // address too — see `LiveAdapter.readOne`.
-      case 'chain':
-        return undefined;
+      // ⚠ A chain reads back as WHAT WAS OBSERVED — its position, its name and
+      // the devices in it — and as nothing else. There is no chain state a
+      // reversal could replay: creation exists only as duplication of an
+      // existing chain (`e17ak`) and every typed delete refuses (`e17al`,
+      // `e17am`), so the entry is `none` and `revertOps` files it unrestored.
+      case 'chain': {
+        if (track === undefined || !nestingObservable(address)) return undefined;
+        const observed = this.model.observeContainer(track, address.container.chainIndex);
+        if (observed === undefined) return 'unreachable';
+        const found = lookupChain(observed, address.name);
+        // ⚠ Ambiguity and absence both read as NO ENTRY, deliberately. A read
+        // reports what is there; the reason lives on `resolve`, which is the
+        // call a caller makes before it acts. Inventing a "which one did you
+        // mean" value here would put a refusal inside a stash.
+        return found.ok ? { address, fidelity: 'none', value: { of: 'chain', chain: found.chain } } : undefined;
+      }
       case 'device': {
-        // ⚠ NESTED IS NOT INDEXABLE HERE. `chainIndex` counts positions inside
-        // `address.chain`, and this list is the TRACK's — so reading it would
-        // report a top-level device's state under a nested device's key.
-        if (address.chain !== undefined) return undefined;
-        const dev = track?.devices[address.chainIndex];
+        // ⚠ NESTED IS NOT INDEXABLE IN THE TRACK'S LIST. `chainIndex` counts
+        // positions inside `address.chain`, so the nested case walks the
+        // container scopes instead of reaching into `track.devices`, and it
+        // reports NO PARAMS — the enumeration has no parameter handle, and an
+        // empty list would claim a device with no controls.
+        if (address.chain !== undefined) {
+          if (track === undefined) return undefined;
+          const observed = this.model.observeContainer(track, address.chain.container.chainIndex);
+          if (observed === undefined) return 'unreachable';
+          const found = lookupNestedDevice(observed, address);
+          return found.ok
+            ? {
+              address,
+              fidelity: 'none',
+              value: { of: 'device', device: { chainIndex: found.device.index, name: found.device.name } },
+            }
+            : undefined;
+        }
+        if (track === undefined) return undefined;
+        // ⚠⚠ UNREACHABLE past the container scopes, and the fake reports it even
+        // though its own list could answer — because live cannot. `device.list`
+        // reads a device bank; the CONTAINER structure and the device names this
+        // entry carries both come from the slot scopes, which exist at the first
+        // `containerScopes` positions and nowhere else. A fake that answered
+        // here would certify a read live Bitwig has no route for, which is
+        // PHASE-0 §Risks' named failure mode pointed the wrong way.
+        const observed = this.model.observeContainer(track, address.chainIndex);
+        if (observed === undefined) return 'unreachable';
+        const dev = track.devices[address.chainIndex];
         if (dev === undefined) return undefined;
         return {
           address,
@@ -332,6 +419,10 @@ export class FakeAdapter implements BitwigAdapter {
               chainIndex: address.chainIndex,
               name: dev.name,
               params: dev.params.map((p, i) => ({ index: i, name: p.name, value: p.value })),
+              // ⚠ The bootstrap: a container's read is how anything ever learns
+              // what its chains are CALLED, because a chain is addressed by name
+              // and has no address of its own to be enumerated by.
+              container: observed,
             },
           },
         };
@@ -704,7 +795,18 @@ export class FakeAdapter implements BitwigAdapter {
       case 'device.insert': {
         const track = this.requireTrack(op.track, op.op);
         const name = op.source.from === 'file' ? op.source.path.split('/').pop()! : op.source.uuid;
-        const device = { name, paramsLive: false, params: [{ name: 'Param 1', value: 0.5 }] };
+        // ⚠ A container inserted by uuid arrives with the chains its type ships
+        // with — one for an FX Layer, none for an Instrument Layer (`e17ai`,
+        // E18a at three destinations). That asymmetry is the bootstrap fact the
+        // whole lifecycle turns on, so the fake models it rather than treating
+        // every inserted device as an opaque box.
+        const shipped = op.source.from === 'file' ? undefined : this.model.shippedChains(op.source.uuid);
+        const device: FakeDevice = {
+          name,
+          paramsLive: false,
+          params: [{ name: 'Param 1', value: 0.5 }],
+          ...(shipped === undefined ? {} : { chains: shipped }),
+        };
         track.devices.push(device);
         // ⚠ The chain index the insert PRODUCED, read off the chain rather than
         // predicted — the same discipline `track.create` follows (E2c). It is

@@ -1032,6 +1032,18 @@ public final class ContainerHandlers extends HandlerGroup {
             }
             scope.add("chains", chains);
             scope.addProperty("chainCount", existing);
+            // ⚠⚠ Session 3f step 6b — THE BANK SIZES, and they are not decoration.
+            // This enumeration SKIPS empty bank slots, so a full bank and an
+            // overflowing one produce byte-identical replies: "four chains, none
+            // of them named X" is either a complete answer or a partial one, and
+            // only the size separates the two. The resolver reports a chain it
+            // cannot see as outside the window rather than as absent, and without
+            // these numbers it cannot tell which it is looking at. An extension
+            // too old to send them makes the reader treat EVERY view as partial
+            // (`methodsHash` is over method names and cannot see a field appear,
+            // so silence has to fail closed).
+            scope.addProperty("chainBankSize", Rig.SLOT_LAYER_BANK);
+            scope.addProperty("deviceBankSize", Rig.SLOT_LAYER_DEVICE_BANK);
             scopes.add(scope);
         }
         JsonObject result = new JsonObject();
@@ -1039,6 +1051,13 @@ public final class ContainerHandlers extends HandlerGroup {
         // Named beside the scopes: an index means nothing without knowing which
         // TRACK the device bank is on (the e16o trap, one level up).
         putGuarded(result, "trackName", () -> rig.cursorTracks[0].name().get());
+        // ⚠⚠ And the DURABLE half of that guard, added in session 3f step 6b when
+        // this became product surface. A name is not an identity (standing rule 2)
+        // and two tracks may share one, so a reader that has just pointed cursor 0
+        // at a channelId compares against THIS and refuses the whole observation
+        // on a mismatch. It is the only field here that can prove the reply
+        // describes the track that was asked about.
+        putGuarded(result, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
         return result;
     }
 

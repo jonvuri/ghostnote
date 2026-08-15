@@ -361,6 +361,19 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
       });
       return;
 
+    // ⚠ Reported, never inverted. See the caveat in `fidelity.ts`: the measured
+    // lifecycle is asymmetric — a chain can be minted by duplication and removed
+    // by nothing typed — so the honest report is that the chain stands as
+    // observed, which is what an unrestored entry says.
+    case 'chain':
+      sink.unrestored.push({
+        address: target.address,
+        what: 'chain',
+        why: 'a layer chain has no typed delete and no create-from-nothing (e17al, e17am, e17ak), '
+          + 'so neither adding nor removing one can be reversed.',
+      });
+      return;
+
     default:
       return assertNever(value, 'revertOps.restoreValue');
   }

@@ -23,6 +23,7 @@
  *     carrying it `lossy` — a phantom that only the writer can see is worse than
  *     a missing feature, because it would make readback lie to a snapshot.
  */
+import type { ObservedContainer } from './chains.js';
 
 /** The optional expression properties, beyond the four a note always has. */
 export type NoteProp =
@@ -247,7 +248,34 @@ export interface ParamState {
 export interface DeviceState {
   readonly chainIndex: number;
   readonly name: string;
-  readonly params: readonly ParamState[];
+  /**
+   * ⚠⚠ ABSENT MEANS NOT OBSERVED — never *"this device has no parameters"*.
+   *
+   * It became optional in session 3f step 6b, when a device inside a layer chain
+   * became readable. That read goes through the container enumeration, which
+   * reports a nested device's NAME and position and has no parameter handle at
+   * all; an empty array there would assert a device with no controls, which is
+   * a claim about the instrument rather than about our reach. The live adapter
+   * omits it for top-level devices too, whose parameter readback is still the
+   * device-cursor work Phase 4 owns.
+   */
+  readonly params?: readonly ParamState[];
+  /**
+   * The chains this device holds, when it is a CONTAINER we could look inside.
+   *
+   * ⚠⚠ This is the bootstrap, and without it the chain grammar is unusable.
+   * A chain is addressed by NAME (`ChainAddress`), so something has to be able
+   * to say what the names ARE — and a chain has no address of its own to be
+   * enumerated by, only a container. That container is an ordinary device with
+   * an ordinary address, so its READ is the enumeration, and no ninth adapter
+   * method is needed for it (the argument `tracks()` had to make, arriving at
+   * the opposite answer because a track has no container to hang off).
+   *
+   * ⚠ Absent means we did not look or could not, exactly as `params` does; a
+   * container whose chains we could see and which holds none reports an empty
+   * `chains` list with `chainsComplete: true`.
+   */
+  readonly container?: ObservedContainer;
 }
 
 export const LAUNCH_QUANTIZATIONS = [

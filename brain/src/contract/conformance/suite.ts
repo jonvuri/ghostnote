@@ -686,11 +686,28 @@ export function runConformance(h: AdapterHarness): void {
         assert.deepEqual(
           resolution.resolved.map((r) => ({ found: r.found, reason: r.reason, index: r.index })),
           [
-            { found: false, reason: 'unsupported', index: undefined },
-            { found: false, reason: 'unsupported', index: undefined },
+            // ⚠⚠ AMENDED in step 6b, and the change is the whole point of that
+            // slice: these used to read `unsupported` on the honest grounds that
+            // no lookup had happened. One happens now — the container position
+            // is inside the observable scopes and holds no container — so the
+            // answer is `absent`, which is a claim about the WORLD. The nested
+            // param stays `unsupported`, because its handle is a separate one
+            // that nothing has built or measured; device resolution must not
+            // promote it implicitly.
+            { found: false, reason: 'absent', index: undefined },
+            { found: false, reason: 'absent', index: undefined },
             { found: false, reason: 'unsupported', index: undefined },
           ],
           'a visible track anchor must not be promoted into false chain-family resolution',
+        );
+        // ⚠ Depth is where `unsupported` still lives for a DEVICE: no route
+        // enumerates a chain inside a chain, and a truncated walk would answer
+        // about a different device than the one addressed.
+        const deep = deviceIn(chain(deviceIn(chain(device(trackA, 0), 'outer'), 0), 'inner'), 0);
+        const deepRes = await adapter.resolve([deep]);
+        assert.deepEqual(
+          { found: deepRes.resolved[0]?.found, reason: deepRes.resolved[0]?.reason },
+          { found: false, reason: 'unsupported' },
         );
         await assert.rejects(
           adapter.apply({ ops: [{ op: 'device.delete', device: inner }] }),
@@ -700,6 +717,11 @@ export function runConformance(h: AdapterHarness): void {
           adapter.apply({ ops: [{ op: 'param.set', param: param(inner, 0), value: 0.5 }] }),
           /device-layer chain/,
         );
+        // ⚠⚠ OBSERVATION DID NOT RELAX THE WRITE GUARD, and that is the whole
+        // shape of this slice: a chain can now be seen and still cannot be
+        // written through. `assertDevicesRoutable` stays in force for every
+        // nested route until the verb that owns it is measured and promoted.
+        //
         // ⚠ And nothing was sent on the way to either refusal: the guard runs
         // ahead of the mark the live adapter would otherwise read, so a refusal
         // costs no round trip and cannot half-run a batch.
@@ -710,6 +732,99 @@ export function runConformance(h: AdapterHarness): void {
         }
         assert.deepEqual(snapshot.missing.map(addressKey), [alt, inner, innerParam].map(addressKey));
       } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-chain-observe', 'a real container\'s chains are observable, and every miss says which kind it is'),
+    // Needs a device chain that behaves like one — the same capability `C-device`
+    // gates on, and for the same reason: an adapter that merely accepts the op
+    // would prove nothing here.
+    { skip: !h.capabilities.hasDeviceModel },
+    async () => {
+      // ⚠⚠ THE BOOTSTRAP CASE. A chain is addressed by NAME, and nothing in this
+      // system can invent one: the loader mints a chain's `channelId` afresh on
+      // every project load (E17ad, E18b) so the name is all there is, and a name
+      // has to be LEARNED before it can be addressed. The container's own read is
+      // where it is learned — which is why `DeviceState.container` exists and why
+      // no ninth adapter method was needed for it.
+      //
+      // ⚠ The fixture is a fresh FX Layer, because that is the container type
+      // that ships with ONE chain (`e17ai`, re-confirmed at three destinations by
+      // E18a). An Instrument Layer ships with zero and would make every
+      // assertion below vacuous.
+      const { adapter, trackA } = await h.create();
+      const executor = new Executor(adapter);
+      const FX_LAYER = { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' } as const;
+      let inserted: Address | undefined;
+      try {
+        const receipt = await executor.run([{ op: 'device.insert', track: trackA, source: FX_LAYER }]);
+        inserted = receipt.receipt.minted[0];
+        assert.ok(inserted && inserted.kind === 'device', 'the insert must report where it landed');
+        const container = inserted as ReturnType<typeof device>;
+
+        const containerRead = await adapter.read([container]);
+        const entry = containerRead.entries[addressKey(container)];
+        assert.ok(entry, 'a container inside the observable scopes must read back');
+        assert.equal(entry.value.of, 'device');
+        const observed = entry.value.of === 'device' ? entry.value.device.container : undefined;
+        assert.ok(observed, 'a container read carries the chains, or nothing can ever name one');
+        assert.equal(observed.chains.length, 1, 'a fresh FX Layer ships with exactly one chain (e17ai)');
+        // ⚠ NOT a literal. What a fresh container calls its one chain has never
+        // been measured — E4c established only that a DEFAULT name tracks the
+        // chain's content — so the name is read back and used, never asserted.
+        const shipped = observed.chains[0]!;
+
+        const alt = chain(container, shipped.name);
+        const hit = (await adapter.resolve([alt])).resolved[0];
+        assert.equal(hit?.found, true, 'the chain the container just reported must resolve by name');
+        assert.equal(hit?.index, shipped.index, 'and at the position the container reported');
+
+        // ⚠ The same container, a name it does not hold: `absent`, because the
+        // view was complete. This is the assertion that separates a real lookup
+        // from the step-6a stub, which answered `unsupported` for everything.
+        const miss = (await adapter.resolve([chain(container, 'gn-conf-no-such-chain')])).resolved[0];
+        assert.deepEqual({ found: miss?.found, reason: miss?.reason }, { found: false, reason: 'absent' });
+
+        // ⚠ A container position with NO SCOPE is a fact about our reach, not
+        // about the music — `outside-bank-window`, and `unreachable` on a read.
+        // The layer banks are allocated at init (D7) on the first few device
+        // slots only, so this is an ordinary position, not an extreme one.
+        const far = chain(device(trackA, 9), 'anything');
+        const blind = (await adapter.resolve([far])).resolved[0];
+        assert.deepEqual({ found: blind?.found, reason: blind?.reason },
+          { found: false, reason: 'outside-bank-window' });
+        const blindRead = await adapter.read([far]);
+        assert.deepEqual(blindRead.unreachable.map(addressKey), [addressKey(far)],
+          'a container we cannot see must not be reported as empty');
+
+        // The chain reads back as what was observed, and as nothing restorable.
+        const chainRead = await adapter.read([alt]);
+        const chainEntry = chainRead.entries[addressKey(alt)];
+        assert.ok(chainEntry);
+        assert.equal(chainEntry.value.of, 'chain');
+        assert.equal(chainEntry.fidelity, 'none',
+          'a chain has no typed delete and no create-from-nothing, so it is a record, not a restore plan');
+        assert.equal(chainEntry.value.of === 'chain' && chainEntry.value.chain.name, shipped.name);
+
+        // ⚠ A device INSIDE the shipped chain: the FX Layer's chain ships EMPTY,
+        // so position 0 is absent — and absent is the answer only because the
+        // device view was complete. Nothing in this slice can put a device in
+        // there, which is exactly what the next one is for.
+        const innerMiss = (await adapter.resolve([deviceIn(alt, 0)])).resolved[0];
+        assert.deepEqual({ found: innerMiss?.found, reason: innerMiss?.reason },
+          { found: false, reason: 'absent' });
+      } finally {
+        // ⚠ LIVE RESIDUE: the inserted container stays in the fixture chain if
+        // an assertion above fails between the insert and here. Same hazard
+        // `C-device` documents, and the same remedy — look at the fixture
+        // track's chain first if this row starts failing where it used to pass.
+        if (inserted?.kind === 'device') {
+          await adapter.apply({ ops: [{ op: 'device.delete', device: inserted }] });
+          await adapter.settle('trackStruct');
+        }
         await h.dispose(adapter);
       }
     },
