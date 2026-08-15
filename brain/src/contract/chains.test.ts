@@ -21,8 +21,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  chain, device, deviceIn, lookupChain, lookupDevice, lookupNestedDevice, mintedChain,
-  nestingDepth, nestingObservable, track, verifyDeviceRelocation,
+  assertChainActivatable, chain, device, deviceIn, lookupChain, lookupDevice, lookupNestedDevice, mintedChain,
+  nestingDepth, nestingObservable, track, verifyDeviceRelocation, verifyExclusiveChain,
   type ObservedChain, type ObservedContainer,
 } from './index.js';
 
@@ -283,4 +283,37 @@ test('N-relocate: move and copy are proved from both structural halves', () => {
     0, 'move', seq(['A'], false), seq([]), seq([]), seq(['A']),
   );
   assert.equal(blind.ok, false, 'a partial bank cannot certify a relocation');
+});
+
+test('N-solo: exclusive state requires a complete view and exact flags for every sibling', () => {
+  const exact = container([
+    { ...oneChain('A'), solo: false },
+    { ...oneChain('B', 1), solo: true },
+  ]);
+  assert.equal(verifyExclusiveChain(exact, 'B').ok, true);
+
+  const unknown = container([
+    { ...oneChain('A'), solo: false },
+    oneChain('B', 1),
+  ]);
+  const missingFlag = verifyExclusiveChain(unknown, 'B');
+  assert.equal(missingFlag.ok, false);
+  assert.match(missingFlag.ok ? '' : missingFlag.why, /not observed/);
+
+  const partial = container([{ ...oneChain('B'), solo: true }], false);
+  assert.equal(verifyExclusiveChain(partial, 'B').ok, false);
+  assert.throws(
+    () => assertChainActivatable(
+      [{ op: 'chain.activate', chain: chain(CONTAINER, 'B') }],
+      () => partial,
+    ),
+    /partial/,
+  );
+  assert.throws(
+    () => assertChainActivatable(
+      [{ op: 'chain.activate', chain: chain(CONTAINER, 'B') }],
+      () => unknown,
+    ),
+    /not observed exactly/,
+  );
 });

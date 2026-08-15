@@ -22,7 +22,7 @@
  */
 import { addressKey, chainPath, clip } from './address.js';
 import type { ChainAddress, ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress, BeatRange } from './address.js';
-import { nestingObservable, type ObservedContainer } from './chains.js';
+import { lookupChain, nestingObservable, type ObservedContainer } from './chains.js';
 import { unwritableProps, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
 import {
@@ -135,6 +135,8 @@ export type Op =
     readonly destination: ChainAddress | TrackAddress;
     readonly mode: 'move' | 'copy';
   }
+  /** Make one named chain the sole soloed chain in its container. */
+  | { readonly op: 'chain.activate'; readonly chain: ChainAddress }
 
   // --- progress signal ------------------------------------------------------
   // Free: E8-C interleaved notify ops into a paced batch and all fired, spaced
@@ -183,6 +185,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   // wearing its source's name.
   'chain.create': 'deviceInsert',
   'chain.relocate': 'deviceInsert',
+  'chain.activate': 'tick',
 };
 
 /**
@@ -298,6 +301,9 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         throw new InvalidOpError(op.op, 'a container cannot be relocated into one of its own chains');
       }
     }
+    if (op.op === 'chain.activate' && !nestingObservable(op.chain)) {
+      throw new InvalidOpError(op.op, 'the addressed chain is deeper than the measured one-chain slot scopes');
+    }
     if (op.op !== 'note.write' && op.op !== 'note.props') continue;
     for (const note of op.notes) {
       const refused = unwritableProps(note);
@@ -352,6 +358,7 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'param.set':
     case 'chain.create':
     case 'chain.relocate':
+    case 'chain.activate':
     case 'notify':
       return [];
     default:
@@ -388,6 +395,8 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
     // general refusal erase the one deliberately promoted capability.
     case 'chain.relocate':
       return [];
+    case 'chain.activate':
+      return [op.chain.container];
     // ⚠ `device.insert` names a TRACK, not a device, so it cannot be nested today.
     // When an insert into a chain is measured it gains its own addressing, and
     // this switch is where that fact has to be restated.
@@ -416,7 +425,8 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
 
 /**
  * ⚠⚠ Refuse an op naming a device INSIDE a layer chain unless that op owns a
- * measured nested route. Today the only exception is `chain.relocate`.
+ * measured nested route. Today the exceptions are the chain verbs that own
+ * their slot-scoped routing.
  *
  * `DeviceAddress.chain` exists so that nested structure can be named, stashed and
  * reported before any verb can reach it — the address grammar and the routes are
@@ -432,9 +442,9 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
  * nested address there reads and writes the wrong device too — and would certify
  * a capability neither adapter has (PHASE-0 §Risks' one-directional rule).
  *
- * ⚠ Relaxing this is a MEASUREMENT, not a default. `chain.relocate` promotes the
- * slot-scoped E18 mover through its own validation and structural proof; no
- * other nested device operation inherits that reach.
+ * ⚠ Relaxing this is a MEASUREMENT, not a default. Each chain verb promotes one
+ * slot-scoped route through its own validation and readback; no general device
+ * operation inherits that reach.
  */
 export function assertDevicesRoutable(ops: readonly Op[]): void {
   for (const op of ops) {
@@ -448,6 +458,34 @@ export function assertDevicesRoutable(ops: readonly Op[]): void {
         'top-level chain, so honouring it would hit whatever sits at that position on the track ' +
         '— a real device that nobody addressed. Refused before the first frame; the nested ' +
         'routes are measured before this is relaxed.',
+      );
+    }
+  }
+}
+
+/** Refuse a chain switch unless every sibling and its solo flag were observed. */
+export function assertChainActivatable(
+  ops: readonly Op[],
+  observe: (container: DeviceAddress) => ObservedContainer | undefined,
+): void {
+  for (const op of ops) {
+    if (op.op !== 'chain.activate') continue;
+    const observed = observe(op.chain.container);
+    if (observed === undefined) {
+      throw new InvalidOpError(op.op, 'the addressed container is not observable through a slot scope');
+    }
+    if (!observed.chainsComplete) {
+      throw new InvalidOpError(op.op, 'the container chain view is partial, so every sibling cannot be switched safely');
+    }
+    const found = lookupChain(observed, op.chain.name);
+    if (!found.ok) {
+      throw new InvalidOpError(op.op, `the addressed chain is ${found.miss}`);
+    }
+    const unknown = observed.chains.filter((item) => typeof item.solo !== 'boolean');
+    if (unknown.length > 0) {
+      throw new InvalidOpError(
+        op.op,
+        `solo state was not observed exactly for: ${unknown.map((item) => item.name).join(', ')}`,
       );
     }
   }

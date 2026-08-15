@@ -798,6 +798,10 @@ public class Rig {
                     DeviceLayer layer = slotLayerBanks[s].getItemAt(l);
                     layer.exists().markInterested();
                     layer.name().markInterested();
+                    // 3f-e reads and writes solo through this cursor-free slot
+                    // scope. Without subscribing here `get()` is unavailable and
+                    // inventory correctly omits the field instead of guessing.
+                    layer.solo().markInterested();
                     // ⚠ E18 §3.2 will ask whether this survives a reload; it is
                     // marked here so the question is answerable through a scope that
                     // does not move, rather than through a cursor that does.

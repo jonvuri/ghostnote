@@ -61,6 +61,7 @@ public final class ContainerHandlers extends HandlerGroup {
         r.on("chain.select", params -> chainSelect(params));
         r.on("chain.duplicate", params -> chainDuplicate(params));
         r.on("chain.setName", params -> chainSetName(params));
+        r.on("chain.activate", params -> chainActivate(params));
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));
         r.on("drumpad.duplicate", params -> drumPadDuplicate(params));
@@ -1020,6 +1021,10 @@ public final class ContainerHandlers extends HandlerGroup {
                     chain.addProperty("index", l);
                     putGuarded(chain, "name", () -> layer.name().get());
                     putGuarded(chain, "channelId", () -> layer.channelId().get());
+                    // Product switching needs the exact flag for EVERY sibling.
+                    // Guarded silence is preserved as a missing field, which the
+                    // brain refuses rather than guessing as false.
+                    putGuarded(chain, "solo", () -> layer.solo().get());
                     JsonArray devices = new JsonArray();
                     for (int d = 0; d < Rig.SLOT_LAYER_DEVICE_BANK; d++) {
                         Device nested = rig.slotLayerDeviceBanks[s][l].getDevice(d);
@@ -1394,6 +1399,35 @@ public final class ContainerHandlers extends HandlerGroup {
         putGuarded(r, "previousName", () -> chain.name().get());
         putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
         chain.name().set(name);
+        return r;
+    }
+
+    /** Make one chain the sole soloed chain in this container. */
+    private JsonElement chainActivate(JsonObject params) {
+        DeviceLayer target = requireSlotLayer(params);
+        String expectedTrack = params.get("expectedTrackChannelId").getAsString();
+        String actualTrack = rig.cursorTracks[0].channelId().get();
+        if (!expectedTrack.equals(actualTrack)) {
+            throw new IllegalArgumentException(
+                "chain.activate track identity changed: expected " + expectedTrack + ", got " + actualTrack);
+        }
+        int slot = params.get("slot").getAsInt();
+        int targetIndex = params.get("layerIndex").getAsInt();
+        JsonObject r = describeSlotLayer(params, target);
+
+        // Clear any exceptional multi-solo state first. Then use the measured
+        // exclusivity primitive only when the requested target is not already on;
+        // toggle(true) on an already-soloed target would turn it off.
+        for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
+            if (l == targetIndex) continue;
+            DeviceLayer sibling = rig.slotLayerBanks[slot].getItemAt(l);
+            if (sibling.exists().get() && sibling.solo().get()) {
+                sibling.solo().set(false);
+            }
+        }
+        if (!target.solo().get()) {
+            target.solo().toggle(true);
+        }
         return r;
     }
 

@@ -276,6 +276,17 @@ test('E-chain-relocate: all directions use one guarded slot-scoped mover', () =>
   }
 });
 
+test('E-chain-activate: exclusive switching carries stable identity guards', () => {
+  const target = chainAt(device(TRACK_A, 1), 'B take');
+  const frames = encodeOp({ op: 'chain.activate', chain: target }, ctx);
+  assert.deepEqual(methods(frames), [WIRE.chainActivate]);
+  const params = paramsOf(frames, WIRE.chainActivate);
+  assert.equal(params?.['slot'], 1);
+  assert.equal(params?.['layerIndex'], 3);
+  assert.equal(params?.['expectedName'], 'B take');
+  assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+});
+
 test('E-device: a device op POINTS a cursor at its track, and addresses that cursor', () => {
   // ⚠ The bug this locks out is silent, not loud. Every device handler resolves
   // `rig.cursorTrack(cursor)` / `rig.cursorDeviceBanks[cursor]` by POOL index, so

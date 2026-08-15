@@ -61,6 +61,7 @@ export interface FakeSlot {
  */
 export interface FakeChain {
   name: string;
+  solo: boolean;
   /** ⚠ A within-session witness, never an address. See above. */
   id: string;
   devices: FakeDevice[];
@@ -148,7 +149,7 @@ export class ProjectModel {
    */
   static readonly FX_LAYER_UUID = 'a0913b7f-096b-4ac9-bddd-33c775314b42';
   static readonly INSTRUMENT_LAYER_UUID = '5024be2e-65d6-4d40-bbfe-8b2ea993c445';
-  static readonly SHIPPED_CHAIN_NAME = 'fake-shipped-chain';
+  static readonly SHIPPED_CHAIN_NAME = 'fake-shipped-alternate';
 
   /** E8's monotonic counter, owned by the executor, not by any DAW object. */
   revision = 0;
@@ -420,6 +421,7 @@ export class ProjectModel {
         ...(device.chains === undefined ? {} : {
           chains: device.chains.map((c) => ({
             name: c.name,
+            solo: c.solo,
             // ⚠ A FRESH id under the SAME name, which is `e17n` stated exactly:
             // a duplicated container's chains are different objects wearing
             // identical names. Copying the id would model them as the same
@@ -530,7 +532,7 @@ export class ProjectModel {
   /** What a container of this uuid ships with; `undefined` if it is not a container. */
   shippedChains(uuid: string): FakeChain[] | undefined {
     if (uuid === ProjectModel.FX_LAYER_UUID) {
-      return [{ name: ProjectModel.SHIPPED_CHAIN_NAME, id: this.mintChannelId(), devices: [] }];
+      return [{ name: ProjectModel.SHIPPED_CHAIN_NAME, solo: false, id: this.mintChannelId(), devices: [] }];
     }
     return uuid === ProjectModel.INSTRUMENT_LAYER_UUID ? [] : undefined;
   }
@@ -568,6 +570,7 @@ export class ProjectModel {
     if (at < 0 || source === undefined) return undefined;
     const copy: FakeChain = {
       name: source.name,
+      solo: source.solo,
       id: this.mintChannelId(),
       devices: source.devices.map((d) => ({ ...d, params: d.params.map((p) => ({ ...p })) })),
     };
@@ -615,6 +618,7 @@ export class ProjectModel {
         return {
           index,
           name: c.name,
+          solo: c.solo,
           // ⚠ Reported because live reports it (`chain.inventory` reads
           // `layer.channelId()`), and for one consumer only — `mintedChain`.
           // See `FakeChain.id`: it is a within-session witness, and nothing in

@@ -154,6 +154,8 @@ export const WIRE = {
    * used in. The handler refuses an id it cannot find rather than falling back.
    */
   chainSetName: 'chain.setName',
+  /** Container-local exclusive solo, addressed through the same slot scope as observation. */
+  chainActivate: 'chain.activate',
   deviceInsertBitwig: 'device.insertBitwig',
   deviceInsertClap: 'device.insertClap',
   deviceInsertFile: 'device.insertFile',

@@ -576,6 +576,7 @@ test('L-chain: a device INSIDE a chain reads its own name, never the track chain
 interface StubChain {
   name: string;
   channelId: string;
+  solo: boolean;
 }
 
 /**
@@ -596,7 +597,7 @@ interface StubChain {
  */
 class ChainCreateTransport implements Transport {
   readonly frames: Frame[] = [];
-  readonly chains: StubChain[] = [{ name: 'gn-shipped', channelId: 'chain-id-1' }];
+  readonly chains: StubChain[] = [{ name: 'gn-shipped', channelId: 'chain-id-1', solo: false }];
   private pointed: number | undefined;
   private selected: number | undefined;
   private revision = 1;
@@ -613,6 +614,8 @@ class ChainCreateTransport implements Transport {
      * when the bank re-indexed between the two readings.
      */
     private readonly refuseRename = false,
+    /** Simulate an older/failed observer that cannot report exact solo state. */
+    private readonly omitSolo = false,
   ) {}
 
   async send(frame: Frame): Promise<unknown> {
@@ -654,6 +657,7 @@ class ChainCreateTransport implements Transport {
               index,
               name: c.name,
               ...(this.stale ? {} : { channelId: c.channelId }),
+              ...(this.omitSolo ? {} : { solo: c.solo }),
               devices: [],
             })),
             chainCount: this.chains.length,
@@ -682,6 +686,7 @@ class ChainCreateTransport implements Transport {
         this.chains.splice(at + 1, 0, {
           name: source.name,
           channelId: `chain-id-${++this.minted + 1}`,
+          solo: source.solo,
         });
         this.revision++;
         return {};
@@ -692,6 +697,18 @@ class ChainCreateTransport implements Transport {
         const hit = this.chains.find((c) => c.channelId === params['channelId']);
         if (hit === undefined) throw new Error('no chain with that channelId');
         hit.name = params['name'] as string;
+        this.revision++;
+        return {};
+      }
+
+      case WIRE.chainActivate: {
+        const at = params['layerIndex'] as number;
+        const target = this.chains[at];
+        if (target === undefined || target.name !== params['expectedName']) {
+          throw new Error('stale activation position');
+        }
+        if (params['expectedTrackChannelId'] !== CHANNEL_ID) throw new Error('stale track');
+        for (const [index, item] of this.chains.entries()) item.solo = index === at;
         this.revision++;
         return {};
       }
@@ -852,6 +869,39 @@ test('L-chain-create: a container with no observable scope is refused, not writt
     /no container scope covers device position 4/,
   );
   assert.equal(wire.frames.some((f) => f.method === WIRE.chainDuplicate), false);
+});
+
+test('L-chain-activate: exact independent readback proves one active sibling', async () => {
+  const wire = new ChainCreateTransport();
+  wire.chains[0]!.solo = true;
+  wire.chains.push({ name: 'gn-B', channelId: 'chain-id-2', solo: false });
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({
+    ops: [{ op: 'chain.activate', chain: chainAt(deviceAt(TRACK, 0), 'gn-B') }],
+  });
+  assert.equal(receipt.stages[0]?.ops[0]?.ok, true);
+  assert.deepEqual(wire.chains.map((item) => [item.name, item.solo]), [
+    ['gn-shipped', false], ['gn-B', true],
+  ]);
+  const batch = wire.frames.find((frame) => frame.method === WIRE.batchRun);
+  const ops = ((batch?.params as Record<string, unknown> | undefined)?.['ops'] ?? []) as
+    { method: string }[];
+  assert.equal(ops.some((frame) => frame.method === WIRE.chainActivate), true);
+});
+
+test('L-chain-activate: missing solo observation refuses before the write frame', async () => {
+  const wire = new ChainCreateTransport(false, false, false, true);
+  wire.chains.push({ name: 'gn-B', channelId: 'chain-id-2', solo: false });
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(
+    adapter.apply({
+      ops: [{ op: 'chain.activate', chain: chainAt(deviceAt(TRACK, 0), 'gn-B') }],
+    }),
+    /solo state was not observed exactly/,
+  );
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainActivate), false);
 });
 
 test('L-chain: a container position with no scope is UNREACHABLE on a read, not missing', async () => {

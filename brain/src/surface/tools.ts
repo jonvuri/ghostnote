@@ -52,7 +52,7 @@ import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 
 import {
-  clip as clipAt, clipLaunch as launchAt, clipPlay as playAt, notes as notesAt,
+  chain as chainAt, clip as clipAt, clipLaunch as launchAt, clipPlay as playAt, notes as notesAt,
   param as paramAt, scene as sceneAt, slot as slotAt, track as trackAt, device as deviceAt,
   addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS,
   AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
@@ -1212,6 +1212,63 @@ export const TOOLS: readonly ToolSpec[] = [
           value: s.value,
         }));
         return receiptOf(await workspace.apply(ops));
+      });
+    },
+  }),
+
+  tool({
+    name: 'switch_device_alternate',
+    kind: 'write',
+    title: 'Switch the active device alternate',
+    description:
+      'Make one named device alternate active inside a device container and every sibling there '
+      + 'inactive. The container is named by its position in the track; that position shifts when '
+      + 'devices before it are added or removed. The alternate name must identify exactly one '
+      + 'entry, and the complete sibling set plus every active flag must be readable or nothing '
+      + 'is written. Success is proved by a fresh independent reading, not by acknowledgement.\n'
+      + 'A device alternate carries devices and device state. It carries no clips, sends, routing '
+      + 'or track mixer state. Automatic reversal does not restore the prior active entry; call '
+      + 'this operation again with the desired name.',
+    inputSchema: {
+      trackId,
+      containerPosition: z.number().int().min(0).describe(
+        'Position of the containing device in the track, counting from 0.',
+      ),
+      alternateName: z.string().min(1).describe('Exact name of the device alternate to activate.'),
+    },
+    emits: ['chain.activate'],
+    async run(workspace, args) {
+      return writing(async () => {
+        const container = deviceAt(trackAt(args.trackId), args.containerPosition);
+        const target = chainAt(container, args.alternateName);
+        const change = await workspace.apply([{ op: 'chain.activate', chain: target }]);
+        const receipt = receiptOf(change);
+        const snapshot = await workspace.read([container]);
+        const entry = snapshot.entries[addressKey(container)];
+        const observed = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+        const states = observed?.chains.map((item) => ({
+          name: item.name,
+          active: typeof item.solo === 'boolean' ? item.solo : null,
+        })) ?? [];
+        return {
+          ...receipt,
+          ...(receipt.failed === undefined ? {} : {
+            failed: receipt.failed.map(() => ({
+              op: 'switch_device_alternate',
+              error: 'The requested device alternate was not proved as the only active sibling.',
+            })),
+          }),
+          active: states.find((item) => item.active)?.name ?? null,
+          alternates: states,
+          exclusiveStateConfirmed:
+            observed?.chainsComplete === true
+            && states.length > 0
+            && states.every((item) => item.active !== null)
+            && states.filter((item) => item.active).length === 1
+            && states.find((item) => item.active)?.name === args.alternateName,
+          automaticReversal:
+            'The prior active entry is not restored automatically. Switch again with its name.',
+        };
       });
     },
   }),

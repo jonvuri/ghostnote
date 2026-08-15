@@ -453,6 +453,14 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       })];
     }
 
+    case 'chain.activate':
+      return [frame(WIRE.chainActivate, {
+        slot: op.chain.container.chainIndex,
+        layerIndex: ctx.chainIndex(op.chain),
+        expectedName: op.chain.name,
+        expectedTrackChannelId: op.chain.container.track.channelId,
+      })];
+
     case 'param.set':
       // ⚠ Two different APIs, two different traps. Neither is selectable by the
       // caller, because the wrong choice is a SILENT no-op in both directions.

@@ -75,6 +75,12 @@ export interface ObservedDeviceSequence {
 export interface ObservedChain {
   readonly index: number;
   readonly name: string;
+  /**
+   * Container-local solo state. Absent means it was not observed exactly; it
+   * must never be read as `false`, because switching depends on knowing every
+   * sibling's state rather than guessing from silence.
+   */
+  readonly solo?: boolean;
   readonly devices: readonly ObservedDevice[];
   readonly devicesComplete: boolean;
   /** Width of the nested device bank; absent on an older deployment. */
@@ -104,6 +110,33 @@ export interface ObservedChain {
    * declines to identify anything rather than falling back to position.
    */
   readonly id?: string;
+}
+
+/** Prove one complete container is in the requested exclusive-solo state. */
+export function verifyExclusiveChain(
+  container: ObservedContainer,
+  name: string,
+): { readonly ok: true; readonly chain: ObservedChain } | { readonly ok: false; readonly why: string } {
+  if (!container.chainsComplete) {
+    return { ok: false, why: 'the container chain view is partial' };
+  }
+  const found = lookupChain(container, name);
+  if (!found.ok) return { ok: false, why: `the addressed chain is ${found.miss}` };
+  const unknown = container.chains.filter((item) => typeof item.solo !== 'boolean');
+  if (unknown.length > 0) {
+    return {
+      ok: false,
+      why: `solo state was not observed for: ${unknown.map((item) => item.name).join(', ')}`,
+    };
+  }
+  const active = container.chains.filter((item) => item.solo === true);
+  if (found.chain.solo !== true || active.length !== 1) {
+    return {
+      ok: false,
+      why: `exclusive solo readback was [${active.map((item) => item.name).join(', ')}], expected [${name}]`,
+    };
+  }
+  return { ok: true, chain: found.chain };
 }
 
 /**

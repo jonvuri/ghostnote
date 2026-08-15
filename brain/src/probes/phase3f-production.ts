@@ -1,14 +1,19 @@
 /**
- * Phase 1 session 3f step 5 — narrow live smoke through `copy_track`.
+ * Phase 1 session 3f — narrow live smoke through the production surface.
  *
  * The transport is stopped first. The probe copies one visible instrument
  * track, verifies the fresh durable id and explicit name through independent
- * reads, checks ordinary change history and reversal reporting, then removes
- * only the id this run observed minting.
+ * reads, checks ordinary change history and reversal reporting, then uses that
+ * isolated copy to seed two device alternates through the contract and exercise
+ * the production-only switching verb. Finally it removes only the id this run
+ * observed minting.
  */
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 
+import { LiveAdapter } from '../adapters/live/adapter.js';
+import { BridgeTransport } from '../adapters/live/transport.js';
+import { addressKey, chain, track } from '../contract/index.js';
 import { check, client as bridge, failureCount, note } from './lib.js';
 
 const transport = new StdioClientTransport({
@@ -90,6 +95,47 @@ try {
       && Array.isArray(reversal['wouldNotRestore'])
       && reversal['wouldNotRestore'].length > 0,
     reversal);
+
+  // 3f-f owns production creation. Until then the smoke seeds its disposable
+  // copied track through the contract, then tests only the new public switch.
+  if (cleanupId === undefined) throw new Error('the copied track has no durable id');
+  const adapter = new LiveAdapter({ transport: new BridgeTransport(bridge) });
+  await adapter.hello();
+  const copiedTrack = track(cleanupId);
+  const inserted = await adapter.apply({ ops: [{
+    op: 'device.insert',
+    track: copiedTrack,
+    source: { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' },
+  }] });
+  const container = inserted.minted[0];
+  if (container?.kind !== 'device') throw new Error('the disposable container was not observed');
+  const initialEntry = (await adapter.read([container])).entries[addressKey(container)];
+  const initial = initialEntry?.value.of === 'device'
+    ? initialEntry.value.device.container
+    : undefined;
+  const sourceName = initial?.chains[0]?.name;
+  if (sourceName === undefined) throw new Error('the disposable container has no addressable source');
+  const alternateName = `gn-3f-switch-${process.pid}`;
+  await adapter.apply({ ops: [{
+    op: 'chain.create', source: chain(container, sourceName), name: alternateName,
+  }] });
+  await adapter.apply({ ops: [{ op: 'chain.activate', chain: chain(container, sourceName) }] });
+
+  const switched = await call('switch_device_alternate', {
+    trackId: cleanupId,
+    containerPosition: container.chainIndex,
+    alternateName,
+  });
+  const finalEntry = (await adapter.read([container])).entries[addressKey(container)];
+  const final = finalEntry?.value.of === 'device' ? finalEntry.value.device.container : undefined;
+  check('3f-P5: production switching proves exactly the requested active alternate',
+    switched['applied'] === true
+      && switched['exclusiveStateConfirmed'] === true
+      && switched['active'] === alternateName
+      && final?.chainsComplete === true
+      && final.chains.every((item) => typeof item.solo === 'boolean')
+      && final.chains.filter((item) => item.solo).map((item) => item.name).join(',') === alternateName,
+    { switched, final });
 } catch (error) {
   check('3f-PX: the production smoke completed without an unexpected failure', false, {
     error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
@@ -98,10 +144,10 @@ try {
   if (cleanupId !== undefined) {
     try {
       const removed = await call('delete_track', { trackIds: [cleanupId] });
-      check('3f-P5: directed cleanup removes the observed copied id',
+      check('3f-P6: directed cleanup removes the observed copied id',
         removed['applied'] === true && removed['refused'] !== true, removed);
     } catch (error) {
-      check('3f-P5: directed cleanup completed without an unexpected failure', false, {
+      check('3f-P6: directed cleanup completed without an unexpected failure', false, {
         error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
       });
     }

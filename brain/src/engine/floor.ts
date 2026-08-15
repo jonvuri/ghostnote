@@ -238,6 +238,7 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     // and the report says the chain stands.
     case 'chain.create':
     case 'chain.relocate':
+    case 'chain.activate':
     case 'notify':
       return undefined;
     default:

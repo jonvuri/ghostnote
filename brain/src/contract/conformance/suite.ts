@@ -1100,6 +1100,70 @@ export function runConformance(h: AdapterHarness): void {
     },
   );
 
+  test(
+    label('C-chain-switch', 'exclusive solo is proved locally and leaves another track unchanged'),
+    { skip: !h.capabilities.hasDeviceModel },
+    async () => {
+      const { adapter, trackA, trackB } = await h.create();
+      const executor = new Executor(adapter);
+      const FX_LAYER = { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' } as const;
+      let containerA: Address | undefined;
+      let containerB: Address | undefined;
+      const observed = async (at: Address) => {
+        assert.equal(at.kind, 'device');
+        const entry = (await adapter.read([at])).entries[addressKey(at)];
+        const value = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+        assert.ok(value?.chainsComplete, 'the whole sibling set must be observable');
+        assert.ok(value.chains.every((item) => typeof item.solo === 'boolean'),
+          'every chain must carry exact solo state');
+        return value;
+      };
+      try {
+        containerA = (await executor.run([
+          { op: 'device.insert', track: trackA, source: FX_LAYER },
+        ])).receipt.minted[0];
+        containerB = (await executor.run([
+          { op: 'device.insert', track: trackB, source: FX_LAYER },
+        ])).receipt.minted[0];
+        assert.ok(containerA?.kind === 'device' && containerB?.kind === 'device');
+
+        const a0 = await observed(containerA);
+        const b0 = await observed(containerB);
+        assert.ok(a0.chains[0] && b0.chains[0]);
+        const source = chain(containerA, a0.chains[0].name);
+        const unrelatedBefore = b0.chains.map((item) => [item.name, item.solo]);
+        const made = await adapter.apply({ ops: [{ op: 'chain.create', source, name: 'gn-conf-switch' }] });
+        assert.equal(made.stages[0]?.ops[0]?.ok, true);
+        const alternate = chain(containerA, 'gn-conf-switch');
+
+        const first = await adapter.apply({ ops: [{ op: 'chain.activate', chain: source }] });
+        assert.equal(first.stages[0]?.ops[0]?.ok, true, JSON.stringify(first.stages[0]?.ops[0]));
+        const firstState = await observed(containerA);
+        assert.deepEqual(firstState.chains.filter((item) => item.solo).map((item) => item.name),
+          [source.name]);
+
+        const switched = await adapter.apply({ ops: [{ op: 'chain.activate', chain: alternate }] });
+        assert.equal(switched.stages[0]?.ops[0]?.ok, true,
+          JSON.stringify(switched.stages[0]?.ops[0]));
+        const finalState = await observed(containerA);
+        assert.deepEqual(finalState.chains.filter((item) => item.solo).map((item) => item.name),
+          [alternate.name], 'the addressed alternate is active and every sibling is inactive');
+        assert.deepEqual(
+          (await observed(containerB)).chains.map((item) => [item.name, item.solo]),
+          unrelatedBefore,
+          'an unrelated track did not change',
+        );
+      } finally {
+        for (const at of [containerA, containerB]) {
+          if (at?.kind !== 'device') continue;
+          await adapter.apply({ ops: [{ op: 'device.delete', device: at }] });
+          await adapter.settle('trackStruct');
+        }
+        await h.dispose(adapter);
+      }
+    },
+  );
+
   // --- staged application ----------------------------------------------------
 
   test(label('C-stage', 'instant ops coalesce and settling ops get their own stage (E8)'), async () => {

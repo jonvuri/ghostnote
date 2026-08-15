@@ -15,8 +15,8 @@
   ],
   "extractedAt": "2026-08-15",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 146,
-  "methodsHash": "c1120b1c567369d3",
+  "count": 147,
+  "methodsHash": "7f212c48cd3dab75",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -27,6 +27,7 @@
     "branch.moveTrack",
     "branch.setMixer",
     "branch.vu",
+    "chain.activate",
     "chain.duplicate",
     "chain.inventory",
     "chain.move",
@@ -123,6 +124,7 @@
     "branch.moveTrack",
     "branch.setMixer",
     "branch.vu",
+    "chain.activate",
     "chain.duplicate",
     "chain.inventory",
     "chain.move",
@@ -391,6 +393,7 @@
     "branch.groupTrack"
   ],
   "addedInSession3f": [
+    "chain.activate",
     "chain.duplicate",
     "chain.select",
     "chain.setName"

@@ -28,9 +28,9 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
   ContractVersionError, StaleAddressError, WireDriftError,
-  addressKey, addressScene, addressTrack, assertChainCreatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
+  addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
-  lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, windowCovers,
+  lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
   type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
@@ -79,6 +79,7 @@ interface WireInventoryChain {
   index: number;
   name?: string;
   channelId?: string;
+  solo?: boolean | string;
   devices?: { index: number; name?: string }[];
   deviceCount?: number;
 }
@@ -241,6 +242,7 @@ const borrowsSelection = (op: Op): boolean =>
   // here so the gap is on the record rather than discovered as a complaint.
   || op.op === 'chain.create'
   || op.op === 'chain.relocate'
+  || op.op === 'chain.activate'
   || op.op === 'clip.launchSettings';
 
 export class LiveAdapter implements BitwigAdapter {
@@ -625,6 +627,7 @@ export class LiveAdapter implements BitwigAdapter {
         chains: chains.map((c) => ({
           index: c.index,
           name: c.name ?? '',
+          ...(typeof c.solo === 'boolean' ? { solo: c.solo } : {}),
           // ⚠ `layer.channelId()`, carried through as a WITHIN-SESSION WITNESS
           // and nothing else — see `ObservedChain.id`. It is worthless across a
           // project load (E17ad, E18b), which is exactly why `ChainAddress`
@@ -1360,8 +1363,8 @@ export class LiveAdapter implements BitwigAdapter {
     this.chainPositions.clear();
     const seen = new Map<AddressKey, ObservedContainer | undefined>();
     for (const op of ops) {
-      if (op.op !== 'chain.create') continue;
-      const container = op.source.container;
+      if (op.op !== 'chain.create' && op.op !== 'chain.activate') continue;
+      const container = op.op === 'chain.create' ? op.source.container : op.chain.container;
       const key = addressKey(container);
       if (seen.has(key)) continue;
       const scope = await this.containerScope(container.track, container.chainIndex);
@@ -1484,6 +1487,27 @@ export class LiveAdapter implements BitwigAdapter {
       if (Date.now() - started < 8000) await new Promise((resolve) => setTimeout(resolve, 100));
     } while (Date.now() - started < 8000);
     return { ok: false, why: `relocation was not proved by structural readback: ${last}` };
+  }
+
+  /** Poll independent container readback until exactly one requested solo remains. */
+  private async finishChainActivation(
+    op: Extract<Op, { op: 'chain.activate' }>,
+  ): Promise<{ readonly ok: true } | { readonly ok: false; readonly why: string }> {
+    const started = Date.now();
+    let last = 'container readback did not show the requested solo';
+    do {
+      const scope = await this.containerScope(
+        op.chain.container.track, op.chain.container.chainIndex);
+      if (scope.ok) {
+        const proof = verifyExclusiveChain(scope.container, op.chain.name);
+        if (proof.ok) return { ok: true };
+        last = proof.why;
+      } else {
+        last = `the container became ${scope.miss}`;
+      }
+      if (Date.now() - started < 4000) await new Promise((resolve) => setTimeout(resolve, 100));
+    } while (Date.now() - started < 4000);
+    return { ok: false, why: `exclusive switch was not proved by container readback: ${last}` };
   }
 
   /**
@@ -1649,6 +1673,7 @@ export class LiveAdapter implements BitwigAdapter {
     // comes from a reply, and it must come from a reply this batch took.
     const containers = await this.readContainers(batch.ops);
     assertChainCreatable(batch.ops, (container) => containers.get(addressKey(container)));
+    assertChainActivatable(batch.ops, (container) => containers.get(addressKey(container)));
     this.deviceNames.clear();
 
     const stages = planStages(batch.ops);
@@ -1718,6 +1743,24 @@ export class LiveAdapter implements BitwigAdapter {
       } catch (error) {
         await this.restoreSelection(selection);
         throw error;
+      }
+      // A switch is also one settling op per stage. Re-read immediately before
+      // encoding so its positional wire target comes from current structure.
+      const activateAt = stage.ops.findIndex((o) => o.op === 'chain.activate');
+      const activateOp = activateAt === -1 ? undefined : stage.ops[activateAt];
+      if (activateOp?.op === 'chain.activate') {
+        try {
+          const scope = await this.containerScope(
+            activateOp.chain.container.track, activateOp.chain.container.chainIndex);
+          assertChainActivatable(
+            [activateOp],
+            () => scope.ok ? scope.container : undefined,
+          );
+          if (scope.ok) this.recordChainPositions(activateOp.chain.container, scope.container);
+        } catch (error) {
+          await this.restoreSelection(selection);
+          throw error;
+        }
       }
 
       const result = (await this.transport.send(encodeStage(stage.ops, this.ctx, guard))) as {
@@ -1822,6 +1865,17 @@ export class LiveAdapter implements BitwigAdapter {
             ...receipts[receipts.length - 1]!,
             ops,
           };
+        }
+      }
+      if (activateOp?.op === 'chain.activate'
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const proved = await this.finishChainActivation(activateOp);
+        if (!proved.ok) {
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            (entry.op === WIRE.chainActivate || entry.op === 'chain.activate'
+              ? { ...entry, ok: false, error: proved.why }
+              : entry));
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
         }
       }
 

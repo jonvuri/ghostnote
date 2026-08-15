@@ -4,17 +4,17 @@ kind: status
 state: active
 updated: 2026-08-15
 phase: phase-1
-session: phase-1-session-3f-e
+session: phase-1-session-3f-f
 ---
 
 # Now
 
-Phase 1 is in **session 3f-e: container-local exclusive switching**.
+Phase 1 is in **session 3f-f: bootstrap and creation surface**.
 
 ## Baseline
 
-- `copy_track`, nested address grammar, chain observation, `chain.create` and
-  `chain.relocate` are complete.
+- `copy_track`, nested address grammar, chain observation, `chain.create`,
+  `chain.relocate` and `chain.activate` are complete.
 - A chain is addressed by container position plus name. Its `channelId` is minted
   again on project load and is used only as a within-turn creation witness.
 - Product container reads and writes use the same cursor-free
@@ -26,43 +26,47 @@ Phase 1 is in **session 3f-e: container-local exclusive switching**.
   and every other nested-device write still refuse through
   `assertDevicesRoutable`; `chain.move` is product-reachable only through this
   typed verb.
+- Every observed sibling carries exact solo state or switching refuses.
+  `chain.activate` makes one named chain the sole soloed sibling and accepts
+  success only after an independent complete container readback proves it.
+- `switch_device_alternate` exposes switching without mixing in creation or
+  reduction. Automatic reversal reports that it cannot restore the prior active
+  alternate; the caller can switch back explicitly by name.
 - ⚠ An untouched shipped chain auto-renames to its first inserted device in
   Bitwig. Lifecycle writes therefore use explicitly named chains; the live
   conformance row discovered and now exercises that boundary.
-- The current wire golden is 146 methods / `c1120b1c567369d3`; a rebuilt and
-  redeployed jar was proved after a full Bitwig restart through `hello()`.
-- Brain typecheck and 426/426 offline tests pass. Live conformance passes
-  50/0/6, including a real device-filled chain, all relocation directions,
-  move/copy conservation and ordered multi-device fill. Disposable containers
-  and fixture tracks are deleted in cleanup.
+- The current wire golden is 147 methods / `7f212c48cd3dab75`; a rebuilt and
+  redeployed jar was proved fresh after a controller reload through `hello()`.
+- Brain typecheck and 431/431 offline tests pass. Live conformance passes
+  51/0/6, including exact exclusive switching and an unchanged unrelated track.
+  Production MCP smoke passes 7/7 and removes its copied fixture track.
 
-## Session 3f-e — switching
+## Session 3f-f — bootstrap and creation surface
 
-Purpose: observe and set container-local exclusive solo through a stable
-`ChainAddress`, then expose the corresponding production operation.
+Purpose: make both supported container cases autonomous and expose the minimum
+production inspection, creation and fill surface.
 
 Acceptance:
 
-1. Add exact chain-solo observation to the existing stable `ChainAddress`
-   readback; unknown or partial state refuses rather than being guessed.
-2. Add one typed switching verb that makes the addressed alternate active and
-   every sibling in the same container inactive.
-3. Prove the final exclusive state by independent container readback; wire
-   acknowledgement or selection is not proof.
-4. Prove an unrelated track's chain state does not change.
-5. Make fake and live adapters run the same switching assertions, and expose the
-   minimum production operation without mixing in creation or reduction.
-6. Pass brain checks, extension build, live conformance, production smoke as
-   applicable, context check and `git diff --check` with no residue.
+1. Bundle or provision the Instrument Layer seed needed to establish its first
+   addressable chain; runtime operator-authored setup is forbidden.
+2. Keep the fresh FX Layer path autonomous through its shipped chain, while
+   explicitly naming every chain before relying on its `ChainAddress`.
+3. Expose production inspection, creation and fill operations for both supported
+   container cases, returning only independently resolved structure.
+4. State the object boundary honestly: alternates carry devices and device state,
+   not clips, sends, routing or track mixer state.
+5. Make only the minimum deliberate surface-vocabulary changes these tools need;
+   do not begin winner collapse or selective reduction.
+6. Pass offline checks, extension build, live conformance, production MCP smoke,
+   context check and `git diff --check` with no residue.
 
-Out of scope: the Instrument Layer seed, general creation/fill surface, winner
-collapse and selective reduction.
+Out of scope: winner collapse and selective reduction.
 
 ## Following slices
 
 | Slice | Focus |
 |---|---|
-| 3f-f | Instrument Layer seed/bootstrap and the production creation surface |
 | 3f-g | directed winner collapse at the original signal-chain position |
 | 3f-h | selective reduction by rebuild while several alternates survive |
 | 3f-i | complete lifecycle production smoke and handoff to 3g |

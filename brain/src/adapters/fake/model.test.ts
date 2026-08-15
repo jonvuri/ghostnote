@@ -652,7 +652,7 @@ test('T-ship: the two container types do not ship alike (e17ai, E18a)', () => {
  */
 let fixtureChainId = 0;
 const someChain = (name: string, devices: FakeChain['devices'] = []): FakeChain =>
-  ({ name, id: `fixture-chain-${++fixtureChainId}`, devices });
+  ({ name, solo: false, id: `fixture-chain-${++fixtureChainId}`, devices });
 
 test('T-scope: a container is observable only in the first few device positions', () => {
   // ⚠ Not a fake limitation — `Rig.slotLayerBanks` are allocated at init (D7)

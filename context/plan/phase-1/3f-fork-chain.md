@@ -2,9 +2,9 @@
 title: Phase 1, 3f epic — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: SESSION 3f-d COMPLETE 2026-08-15, VERIFIED LIVE. Typed relocation is
-        green in every required direction. Next is 3f-e, container-local
-        exclusive switching.
+status: SESSION 3f-e COMPLETE 2026-08-15, VERIFIED LIVE. Container-local
+        exclusive switching and its production tool are green. Next is 3f-f,
+        bootstrap and the production creation/fill surface.
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -428,6 +428,46 @@ Bitwig restart, and live conformance passed **50, failed 0, skipped 6**. The wir
 golden remains 146 methods / `c1120b1c567369d3` because no method was added.
 Context check and `git diff --check` are the closing checks. Session 3f-e may now
 begin container-local exclusive switching.
+
+### Session 3f-e — complete 2026-08-15, verified live
+
+Exact container-local solo state is now part of `ObservedChain`. Absence means
+unknown, never false. The shared precondition refuses a partial sibling bank,
+an absent or ambiguous name, or any sibling whose flag was not observed. Both
+adapters run that same check before writing.
+
+One typed verb, `chain.activate`, makes the named `ChainAddress` the sole soloed
+sibling. The extension resolves it through the same cursor-free slot scope used
+by inventory, checks the durable track id and expected name immediately before
+the write, clears any other soloed sibling, and invokes the measured exclusive
+toggle only when the target is not already active. The live adapter then polls a
+fresh container inventory; wire acknowledgement is overwritten with failure
+unless the complete independent readback shows exactly the requested name.
+
+The first live run exposed a real subscription omission: `solo().get()` on the
+slot-scoped layer bank was unavailable, so inventory omitted every flag and the
+contract correctly refused. Marking those values interested in `Rig` fixed the
+observer; the controller was rebuilt, deployed and reloaded before the passing
+run.
+
+`C-chain-switch` creates disposable containers on two tracks, switches the
+source then its named alternate, proves exactly one active sibling each time,
+and proves the unrelated track's complete solo state is unchanged. Cleanup
+deletes both containers. Fake and live run the same row.
+
+The production `switch_device_alternate` tool emits only `chain.activate`,
+returns the complete sibling states and an `exclusiveStateConfirmed` proof, and
+states that automatic reversal does not restore the prior active entry. The 3f
+production smoke seeds two alternates through the contract on its isolated
+copied track, switches through the public MCP tool, independently re-reads the
+container, and deletes the copied track.
+
+Verification, 2026-08-15: brain typecheck plus **431/431** offline tests,
+extension Gradle build green, `hello()` proved the fresh 147-method /
+`7f212c48cd3dab75` deployment, live conformance passed **51, failed 0, skipped
+6**, and production MCP smoke passed **7/7** with cleanup. Context check and
+`git diff --check` are the closing checks. Session 3f-f may now begin bootstrap
+and the production inspection/creation/fill surface.
 
 ## Capability boundary
 

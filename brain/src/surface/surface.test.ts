@@ -34,7 +34,7 @@ import { control } from '../adapters/fake/control.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
   InvalidOpError, NOTE_PROP_FIDELITY, SlotOccupiedError, StaleAddressError, WireDriftError,
-  addressKey, clip as clipAt, notes as notesAt, scene as sceneAt, slot as slotAt, track as trackAt,
+  addressKey, chain as chainAt, clip as clipAt, notes as notesAt, scene as sceneAt, slot as slotAt, track as trackAt,
   type BitwigAdapter, type NoteRecord, type Op,
 } from '../contract/index.js';
 import { StaleExtensionError } from '../deploy.js';
@@ -309,6 +309,33 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal((await exercise('set_parameter', {
     settings: [{ trackId: fx.trackA, devicePosition: 0, index: 0, value: 0.25 }],
   }))['applied'], true);
+
+  // The creation surface is deliberately a later slice. Seed the fake directly
+  // here so this slice's production switching tool is still exercised end to end.
+  const containerChange = await fx.workspace.apply([{
+    op: 'device.insert',
+    track: trackAt(fx.trackA),
+    source: { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' },
+  }]);
+  const container = containerChange.take.receipt.minted[0];
+  assert.ok(container?.kind === 'device');
+  const containerRead = await fx.workspace.read([container]);
+  const containerState = containerRead.entries[addressKey(container)];
+  const sourceName = containerState?.value.of === 'device'
+    ? containerState.value.device.container?.chains[0]?.name
+    : undefined;
+  assert.ok(sourceName);
+  await fx.workspace.apply([{
+    op: 'chain.create', source: chainAt(container, sourceName), name: 'gn-tool-alt',
+  }]);
+  const switched = await exercise('switch_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: container.chainIndex,
+    alternateName: 'gn-tool-alt',
+  }) as { applied: boolean; active: string; exclusiveStateConfirmed: boolean };
+  assert.equal(switched.applied, true, JSON.stringify(switched));
+  assert.equal(switched.active, 'gn-tool-alt');
+  assert.equal(switched.exclusiveStateConfirmed, true);
 
   // -- the record of all of it, and putting one of them back.
   const changes = await exercise('list_changes', {}) as { changes: { changeId: string }[] };

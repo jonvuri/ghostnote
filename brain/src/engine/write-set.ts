@@ -189,6 +189,7 @@ function targetsOf(op: Op): {
     case 'device.insert':
     case 'chain.create':
     case 'chain.relocate':
+    case 'chain.activate':
     case 'notify':
       return [];
 
@@ -252,6 +253,14 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
           'device addresses are positional and a relocation re-indexes at least one device chain, '
           + 'so a later occupant cannot be proved to be the object this operation moved or copied. '
           + 'Use a directed relocation for cleanup; automatic reversal declines.',
+      };
+    case 'chain.activate':
+      return {
+        opIndex, op: op.op, unrestoredAs: 'active device alternate',
+        why:
+          'switching changes the addressed alternate and every sibling in its container, while '
+          + 'the static write record cannot name that sibling set. The final state is proved by '
+          + 'complete container readback, but automatic reversal does not guess the prior one.',
       };
     // `notify` mutates nothing; its absence here is a positive statement. So is
     // `device.insert`'s, as of the D16 amendment — see this function's header.

@@ -13,10 +13,10 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertChainCreatable, assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
+  assertChainActivatable, assertChainCreatable, assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, contentDelta,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
-  verifyDeviceRelocation,
+  verifyDeviceRelocation, verifyExclusiveChain,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
   type Op, type OpReceipt, type ResolveResult,
@@ -496,6 +496,7 @@ export class FakeAdapter implements BitwigAdapter {
     // neither adapter can be the lenient one and a conformance row can assert
     // them on both.
     assertChainCreatable(batch.ops, (container) => this.observeAt(container));
+    assertChainActivatable(batch.ops, (container) => this.observeAt(container));
 
     // ⚠ E8-D: a stale guard rejects the batch WHOLE, applying zero ops.
     if (batch.ifRevision !== undefined && batch.ifRevision !== this.model.revision) {
@@ -996,6 +997,28 @@ export class FakeAdapter implements BitwigAdapter {
           observe(sourceDevices, sourceLimit),
           observe(destinationDevices, destinationLimit),
         );
+        if (!proof.ok) throw new UnsupportedOpError(`${op.op}: ${proof.why}`, 'fake');
+        return;
+      }
+
+      case 'chain.activate': {
+        const track = this.requireTrack(op.chain.container.track, op.op);
+        const container = track.devices[op.chain.container.chainIndex]?.chains;
+        if (container === undefined) {
+          throw new UnsupportedOpError(`${op.op}: the container is absent`, 'fake');
+        }
+        const matches = container.filter((item) => item.name === op.chain.name);
+        if (matches.length !== 1) {
+          throw new UnsupportedOpError(
+            `${op.op}: the addressed chain is ${matches.length === 0 ? 'absent' : 'ambiguous'}`,
+            'fake',
+          );
+        }
+        for (const item of container) item.solo = item === matches[0];
+        const observed = this.model.observeContainer(track, op.chain.container.chainIndex);
+        const proof = observed === undefined
+          ? { ok: false as const, why: 'the container became unobservable' }
+          : verifyExclusiveChain(observed, op.chain.name);
         if (!proof.ok) throw new UnsupportedOpError(`${op.op}: ${proof.why}`, 'fake');
         return;
       }

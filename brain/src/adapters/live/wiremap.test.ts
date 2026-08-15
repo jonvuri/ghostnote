@@ -293,7 +293,7 @@ test('E22: the Group regression route remains probe-only and product-banned', ()
     'the general named-action route stays unreachable');
 });
 
-test('3f: the session-3f bucket holds exactly the chain-create route, and it is PRODUCT', () => {
+test('3f: the session-3f bucket holds exactly the promoted chain routes, and they are PRODUCT', () => {
   // ⚠ Step 5 added nothing — track copying reused `branch.duplicateTrack` — and
   // step 6b-1 added nothing either, because promoting an already-registered
   // method moves no hash. Step 6b-2 is the first addition, and it is the first
@@ -321,7 +321,7 @@ test('3f: the session-3f bucket holds exactly the chain-create route, and it is 
   // `cursorDevice0`, which would make the container a hidden argument (the e16o
   // trap), would let the reader and the writer disagree about which container a
   // slot index means, and would move the very cursor `param.set` writes through.
-  const expected = ['chain.duplicate', 'chain.select', 'chain.setName'];
+  const expected = ['chain.activate', 'chain.duplicate', 'chain.select', 'chain.setName'];
   assert.deepEqual([...(golden.addedInSession3f ?? [])].sort(), expected);
   assert.deepEqual(expected.filter((m) => !WIRE_METHODS_USED.includes(m)), [],
     'every method in this bucket is product surface — it was added to be reached, not probed');
