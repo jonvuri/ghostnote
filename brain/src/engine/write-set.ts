@@ -178,10 +178,16 @@ function targetsOf(op: Op): {
     // which the receipt MINTS the way `track.create`'s channelId is minted (E2c —
     // read back what was created, never assume a requested position). `revert.ts`
     // materialises the `device.delete` from that mint.
+    // ⚠ `chain.create` is here for the `track.create` reason and NOT for the
+    // `device.insert` reason, and the difference is the whole of its entry in
+    // `unrevertableOf` below: there is no prior address, and unlike an inserted
+    // device there is also no inverse to materialise from the mint. A chain has
+    // no typed delete at all (`e17al`, `e17am`).
     case 'track.create':
     case 'track.duplicate':
     case 'scene.create':
     case 'device.insert':
+    case 'chain.create':
     case 'notify':
       return [];
 
@@ -220,6 +226,24 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
       };
     case 'scene.create':
       return { opIndex, op: op.op, why: NO_SCENE_READBACK };
+    // ⚠⚠ Unrevertable for a MEASURED reason rather than a policy one, which is
+    // what separates it from the three above. `track.create` could be undone and
+    // deliberately is not; this one CANNOT be. Both `DeleteableObject` forms were
+    // tried on a `DeviceLayer`, each with the selection precondition that
+    // unlocked creation, each bracketed by a `Track` sibling deleting in the same
+    // run — `deleteObject()` ○ and `deleteObjectAction().invoke()` ○ against
+    // `Track.deleteObject()` ● (`e17al`, `e17am`). A `DeviceLayer` honours the
+    // verbs `Channel` declares itself and declines the ones it merely inherits,
+    // which is a mechanism, not a gap waiting to be filled by a better call.
+    case 'chain.create':
+      return {
+        opIndex, op: op.op, unrestoredAs: 'added alternate',
+        why:
+          'the chain did not exist, and no measured typed route removes one: both DeleteableObject '
+          + 'forms refuse on a DeviceLayer while the same inherited call deletes a Track in the '
+          + 'same run (e17al, e17am). Reduction is a different operation — move the devices out '
+          + 'and delete the container — so automatic reversal leaves this chain standing.',
+      };
     // `notify` mutates nothing; its absence here is a positive statement. So is
     // `device.insert`'s, as of the D16 amendment — see this function's header.
     default:
@@ -305,6 +329,12 @@ export interface StructuralRisk {
 
 export function structuralRisk(ops: readonly Op[]): StructuralRisk {
   return {
+    // ⚠ `chain.create` is deliberately absent from BOTH rows below, and the
+    // absence is a positive statement. It adds a chain to a container's layer
+    // bank: the track's own device chain does not move, so no top-level device
+    // address shifts; and a chain is addressed by NAME inside a container
+    // position that does not shift either, so no chain-family address shifts.
+    // What DOES move is a chain's bank index, and no address holds one.
     // ⚠ Read from the contract's own set rather than re-listing the ops here.
     // The literal was duplicated, and the copy that mattered — the live adapter's
     // self-bumping scene counter — was deleted in session 3 when the epoch moved

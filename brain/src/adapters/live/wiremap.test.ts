@@ -298,8 +298,46 @@ test('E22: the Group regression route remains probe-only and product-banned', ()
     'the general named-action route stays unreachable');
 });
 
-test('3f: no new extension method is needed for preserved track-copy groundwork', () => {
-  assert.deepEqual(golden.addedInSession3f ?? [], []);
+test('3f: the session-3f bucket holds exactly the chain-create route, and it is PRODUCT', () => {
+  // ⚠ Step 5 added nothing — track copying reused `branch.duplicateTrack` — and
+  // step 6b-1 added nothing either, because promoting an already-registered
+  // method moves no hash. Step 6b-2 is the first addition, and it is the first
+  // time in this bucket's life that a new method is product surface on arrival
+  // rather than probe surface awaiting a verdict. Named one by one, with a
+  // reason each, for the same reason the E16 and E20 lists are.
+  //
+  //   chain.select     `e17ak`'s enabling half — `DeviceChain.selectInEditor()`
+  //                    on a chain, because `Channel.duplicate()` copies the
+  //                    SELECTED chain and does nothing at all without one. ⚠ It
+  //                    is a separate method rather than a line inside the
+  //                    duplicate because E2 says a write is not visible in the
+  //                    same request, and `e17ak` fired it a turn earlier.
+  //   chain.duplicate  `Channel.duplicate()`, the one typed route that makes a
+  //                    chain. Its sibling `DuplicableObject.duplicateObject()`
+  //                    is dead on a DeviceLayer (`e17ak`, `e17am`).
+  //   chain.setName    the rename, addressed BY CHANNELID. A copy carries its
+  //                    source's name, so at that moment neither a name nor a
+  //                    bank position can tell the two apart — and guessing wrong
+  //                    renames the source.
+  //
+  // ⚠⚠ All three read through `Rig.slotLayerBanks`, exactly as `chain.inventory`
+  // does, and NOT through `rig.layerBank0` like their `layer.*` predecessors.
+  // That is the whole reason they are new methods: `layerBank0` follows
+  // `cursorDevice0`, which would make the container a hidden argument (the e16o
+  // trap), would let the reader and the writer disagree about which container a
+  // slot index means, and would move the very cursor `param.set` writes through.
+  const expected = ['chain.duplicate', 'chain.select', 'chain.setName'];
+  assert.deepEqual([...(golden.addedInSession3f ?? [])].sort(), expected);
+  assert.deepEqual(expected.filter((m) => !WIRE_METHODS_USED.includes(m)), [],
+    'every method in this bucket is product surface — it was added to be reached, not probed');
+  // ⚠ And the `layer.*` originals stay unreachable. They are the E17 probe
+  // surface that established the finding, and they address their container
+  // through the device cursor; promoting them would put a second, hidden
+  // addressing scheme beside the one `chain.inventory` reads.
+  for (const legacy of ['layer.select', 'layer.duplicateChannel', 'layer.setName', 'layer.list']) {
+    assert.ok(!WIRE_METHODS_USED.includes(legacy),
+      `${legacy} follows cursorDevice0 and must stay probe surface`);
+  }
 });
 
 test('3f: the extension checks the expected durable id immediately before the product copy call', () => {

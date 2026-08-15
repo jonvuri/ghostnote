@@ -21,7 +21,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  BlindSpotError, InvalidOpError, assertOpsWritable, clip, device, param, scene, slot, track,
+  BlindSpotError, InvalidOpError, assertOpsWritable, chain as chainAt, clip, device, param,
+  scene, slot, track,
   type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
 import {
@@ -44,6 +45,10 @@ const ctx: EncodeContext = {
   cursorFor: () => '0',
   cursorForTrack: () => '0',
   trackIndex: (t: TrackAddress) => (t.channelId === TRACK_A.channelId ? 3 : (t.channelId === TRACK_B.channelId ? 4 : -1)),
+  // ⚠ Stands in for the observation `LiveAdapter` takes before the batch. Two
+  // named chains, at positions that are NOT 0 and 1, so a frame carrying an
+  // array offset or a hardcoded zero fails here rather than live.
+  chainIndex: (c) => (c.name === 'A take' ? 2 : (c.name === 'B take' ? 3 : -1)),
   sceneRow: sceneRowIn(SCENE_WINDOW),
 };
 
@@ -209,6 +214,44 @@ test('E-insertfile: an absolute .bwpreset path is accepted', () => {
   );
   assert.deepEqual(methods(frames), [WIRE.cursorPointTrack, WIRE.deviceInsertFile]);
   assert.equal(paramsOf(frames, WIRE.deviceInsertFile)?.['path'], '/tmp/gn/lfo.bwpreset');
+});
+
+test('E-chain: a create names its container by SLOT and its source by OBSERVED position', () => {
+  // ⚠ The whole reason `chainIndex` is a context function. A chain is addressed
+  // by NAME (E17ad, E18b), so its bank position exists nowhere in the address —
+  // the only honest source is a `chain.inventory` reply, and the encoder must
+  // take it from one rather than deriving anything.
+  const source = chainAt(device(TRACK_A, 1), 'A take');
+  const frames = encodeOp({ op: 'chain.create', source, name: 'B take' }, ctx);
+
+  assert.deepEqual(methods(frames), [WIRE.chainDuplicate],
+    'ONE frame: the rename cannot be encoded, because nothing yet knows which chain to rename');
+  const params = paramsOf(frames, WIRE.chainDuplicate);
+  // ⚠ `slot` is the CONTAINER's position in the track's own device chain, and
+  // `layerIndex` is the source chain's position inside that container. Two
+  // different numbers at two different levels; the stub answers 2 for this
+  // chain, so a frame that reused the container's 1 fails here.
+  assert.equal(params?.['slot'], 1);
+  assert.equal(params?.['layerIndex'], 2);
+  // ⚠ Carried so the extension can refuse a position that re-indexed since it
+  // was observed, instead of copying whatever slid into it (E3, one level down).
+  assert.equal(params?.['expectedName'], 'A take');
+  // ⚠ And NO cursor and NO trackIndex: these banks hang off `cursorTracks[0]`
+  // via the slot scopes, and the load-bearing point is the settled one the
+  // adapter makes in an earlier request. A point in this frame would look like a
+  // precondition while guaranteeing nothing.
+  assert.equal(params?.['cursor'], undefined);
+  assert.equal(params?.['trackIndex'], undefined);
+});
+
+test('E-chain: a source nobody observed is REFUSED, never given a guessed position', () => {
+  const unseen = chainAt(device(TRACK_A, 0), 'never enumerated');
+  assert.equal(ctx.chainIndex(unseen), -1, 'the stub reports "no observation" as -1');
+  // The real context throws; this asserts the shape the encoder passes through,
+  // so a future default of 0 would show up as a frame aimed at the first chain.
+  const frames = encodeOp({ op: 'chain.create', source: unseen, name: 'B' }, ctx);
+  assert.equal(paramsOf(frames, WIRE.chainDuplicate)?.['layerIndex'], -1,
+    'whatever the context says is what goes out — the encoder invents no position');
 });
 
 test('E-device: a device op POINTS a cursor at its track, and addresses that cursor', () => {

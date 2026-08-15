@@ -39,14 +39,30 @@ export interface FakeSlot {
 /**
  * A device-layer chain inside a container device.
  *
- * ⚠ NO `channelId`, and the omission is the model. A chain does hand one out
- * live, and it is worthless: the project LOADER mints it, so it regenerates on
- * every document load while the name survives (E17ad 8/8, E18b). Carrying one
- * here would let an offline test resolve a chain by a key that live Bitwig
- * cannot honour — the fake certifying a reach the real thing does not have.
+ * ⚠ The `id` is NOT an address, and this comment used to say the field should
+ * not exist at all — for a good reason that turned out to be about the wrong
+ * question. The reason stands: a chain's `channelId` is minted by the project
+ * LOADER, so it regenerates on every document load while the name survives
+ * (E17ad 8/8, E18b), and resolving a chain by it would be the fake certifying a
+ * reach live Bitwig does not have. Nothing here resolves by it, and
+ * `observeContainer` is the only reader.
+ *
+ * ⚠⚠ What it exists for is the question a NAME cannot answer, which arrived
+ * with chain creation in session 3f step 6b-2: a duplicate carries its source's
+ * name, so between the copy and its rename the container holds two chains that
+ * are identical to every name-based lookup. `mintedChain` tells them apart by
+ * this, in the same turn, exactly as `apply` diffs the track bank by
+ * `channelId` after a create (E2c) — and the fake has to model it or the shared
+ * diff is exercised on one adapter only.
+ *
+ * ⚠ It is minted per-chain and never copied by `duplicateChain`, because a
+ * duplicate that inherited its source's id would make the diff below unable to
+ * see it — which is precisely the failure the field guards against.
  */
 export interface FakeChain {
   name: string;
+  /** ⚠ A within-session witness, never an address. See above. */
+  id: string;
   devices: FakeDevice[];
 }
 
@@ -402,6 +418,11 @@ export class ProjectModel {
         ...(device.chains === undefined ? {} : {
           chains: device.chains.map((c) => ({
             name: c.name,
+            // ⚠ A FRESH id under the SAME name, which is `e17n` stated exactly:
+            // a duplicated container's chains are different objects wearing
+            // identical names. Copying the id would model them as the same
+            // object, which is the one thing they demonstrably are not.
+            id: this.mintChannelId(),
             devices: c.devices.map((d) => ({ ...d, params: d.params.map((p) => ({ ...p })) })),
           })),
         }),
@@ -507,9 +528,64 @@ export class ProjectModel {
   /** What a container of this uuid ships with; `undefined` if it is not a container. */
   shippedChains(uuid: string): FakeChain[] | undefined {
     if (uuid === ProjectModel.FX_LAYER_UUID) {
-      return [{ name: ProjectModel.SHIPPED_CHAIN_NAME, devices: [] }];
+      return [{ name: ProjectModel.SHIPPED_CHAIN_NAME, id: this.mintChannelId(), devices: [] }];
     }
     return uuid === ProjectModel.INSTRUMENT_LAYER_UUID ? [] : undefined;
+  }
+
+  /**
+   * ⚠⚠ `layer.select` + `Channel.duplicate()` (`e17ak`), as the fake models it.
+   *
+   * Three facts are modelled and each of them is load-bearing somewhere:
+   *
+   *   1. **The copy carries the SOURCE'S NAME.** That is what makes the
+   *      container momentarily ambiguous, what forces the rename into the same
+   *      verb, and what `mintedChain` exists to see through. A fake that named
+   *      the copy something helpful would make the offline suite pass a create
+   *      whose live readback cannot work.
+   *   2. **It gets a FRESH id**, because it is a different object.
+   *   3. **It lands directly after its source**, which is the reasonable
+   *      expectation and is deliberately NOT what anything depends on — the
+   *      identity diff would find it anywhere, and `M-chain` proves that by
+   *      landing it elsewhere.
+   *
+   * ⚠ Devices are copied DEEP, so a copy of a chain holding devices holds its
+   * own copies of them. Nothing in this slice can put a device in a chain, so
+   * today every real copy is of an empty chain; the model is written for the
+   * chain the fill verb will produce rather than for the one it can reach now.
+   */
+  duplicateChain(
+    track: FakeTrack,
+    containerIndex: number,
+    sourceName: string,
+  ): FakeChain | undefined {
+    const chains = track.devices[containerIndex]?.chains;
+    if (chains === undefined) return undefined;
+    const at = chains.findIndex((c) => c.name === sourceName);
+    const source = chains[at];
+    if (at < 0 || source === undefined) return undefined;
+    const copy: FakeChain = {
+      name: source.name,
+      id: this.mintChannelId(),
+      devices: source.devices.map((d) => ({ ...d, params: d.params.map((p) => ({ ...p })) })),
+    };
+    chains.splice(at + 1, 0, copy);
+    return copy;
+  }
+
+  /**
+   * Rename the chain with this WITHIN-SESSION id.
+   *
+   * ⚠ By id and not by name or position, and that is the whole point of the
+   * two-step verb: at the moment this runs the container holds two chains under
+   * one name, so a name-addressed rename could only pick between them by luck,
+   * and a position-addressed one would depend on where the copy landed.
+   */
+  renameChain(track: FakeTrack, containerIndex: number, id: string, name: string): boolean {
+    const hit = track.devices[containerIndex]?.chains?.find((c) => c.id === id);
+    if (hit === undefined) return false;
+    hit.name = name;
+    return true;
   }
 
   /**
@@ -537,11 +613,21 @@ export class ProjectModel {
         return {
           index,
           name: c.name,
+          // ⚠ Reported because live reports it (`chain.inventory` reads
+          // `layer.channelId()`), and for one consumer only — `mintedChain`.
+          // See `FakeChain.id`: it is a within-session witness, and nothing in
+          // either adapter resolves an address through it.
+          id: c.id,
           devices: devices.map((d, at) => ({ index: at, name: d.name })),
           devicesComplete: devices.length < this.chainDeviceBankSize,
         };
       }),
       chainsComplete: visible.length < this.chainBankSize,
+      // ⚠ Reported for the guards that have to reason about a container two
+      // creates from now — see `ObservedContainer.chainsBankSize`. The fake
+      // carries the same number the rig does (`Rig.SLOT_LAYER_BANK`), because a
+      // fake with a roomier bank would pass batches live Bitwig strands.
+      chainsBankSize: this.chainBankSize,
     };
   }
 

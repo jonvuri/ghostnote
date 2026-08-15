@@ -19,10 +19,11 @@ export type {
 } from './address.js';
 
 export {
-  lookupChain, lookupDevice, lookupNestedDevice, nestingDepth, nestingObservable,
+  chainCopyUnnamed, lookupChain, lookupDevice, lookupNestedDevice, mintedChain, nestingDepth,
+  nestingObservable,
 } from './chains.js';
 export type {
-  ChainLookup, ChainMiss, DeviceLookup, ObservedChain, ObservedContainer, ObservedDevice,
+  ChainLookup, ChainMint, ChainMiss, DeviceLookup, ObservedChain, ObservedContainer, ObservedDevice,
 } from './chains.js';
 
 export { SETTLE_MS, TICK_MS, budgetTicks } from './budgets.js';
@@ -37,9 +38,9 @@ export {
 export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 
 export {
-  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertDevicesRoutable, assertNever,
-  assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree,
-  assertClipSources,
+  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertChainCreatable, assertDevicesRoutable,
+  assertNever, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom,
+  assertSlotsFree, assertClipSources,
 } from './ops.js';
 export type { DeviceSource, Op, OpKind } from './ops.js';
 

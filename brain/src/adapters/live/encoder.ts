@@ -34,8 +34,8 @@ import { isAbsolute, extname } from 'node:path';
 
 import {
   BlindSpotError, InvalidOpError, assertNever, chooseStepSize, orderedNoteProps,
-  type ClipAddress, type NoteRecord, type Op, type SceneAddress, type TrackAddress,
-  type WindowCoverage,
+  type ChainAddress, type ClipAddress, type NoteRecord, type Op, type SceneAddress,
+  type TrackAddress, type WindowCoverage,
 } from '../../contract/index.js';
 import { WIRE, frame, type Frame } from './wiremap.js';
 
@@ -68,6 +68,19 @@ export interface EncodeContext {
   readonly cursorForTrack: (track: TrackAddress) => string;
   /** channelId -> current bank index. Valid only until the next structural op. */
   readonly trackIndex: (track: TrackAddress) => number;
+  /**
+   * ⚠⚠ A chain -> the position its container reported it at, from an
+   * observation THIS BATCH took.
+   *
+   * A function and not a field for the same reason `trackIndex` is one: it is
+   * live state with a short life. A chain's bank position is not part of its
+   * address — a chain is addressed by NAME (`ChainAddress`, E17ad/E18b) — so the
+   * only place a position may come from is a `chain.inventory` reply, and the
+   * only place it stays valid is the turn that read it. `LiveAdapter` fills this
+   * from the observation its own preconditions already took, and it REFUSES
+   * rather than guessing when a chain was never observed.
+   */
+  readonly chainIndex: (chain: ChainAddress) => number;
   /**
    * ⚠⚠ A scene ROW -> the index the bank will accept for it.
    *
@@ -386,6 +399,34 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         frame(WIRE.deviceDelete, { cursor, deviceIndex: op.device.chainIndex }),
       ];
     }
+
+    // ⚠⚠ ONE FRAME, and the op is not finished when it returns. `chain.create`
+    // is the only op in the union whose second half cannot be encoded: the
+    // rename has to name the chain the duplicate produced, and nothing knows
+    // which one that is until the container has been observed AGAIN, in a later
+    // request (E2 — a write is not visible to a read in the same one). So the
+    // encoder emits the copy and `LiveAdapter.apply` brackets the stage with the
+    // two observations and the rename, the same shape `device.insert`'s mint
+    // already has and for the same reason.
+    //
+    // ⚠ NO POINT FRAME, and its absence is deliberate. `chain.duplicate` reads
+    // `Rig.slotLayerBanks`, which hang off `cursorDeviceBanks[0]` on the track
+    // `cursorTracks[0]` points at — and a bank RE-SCOPE is not a same-turn
+    // effect the way a cursor retarget is. A point in this request would look
+    // like a precondition while guaranteeing nothing. The load-bearing point is
+    // the settled one `containerScope` makes immediately before this stage, and
+    // the identity guard on its reply is what proves it landed.
+    case 'chain.create':
+      return [frame(WIRE.chainDuplicate, {
+        slot: op.source.container.chainIndex,
+        layerIndex: ctx.chainIndex(op.source),
+        // ⚠ Sent so the extension can refuse a chain that is not the one we
+        // observed. The index is a bank position and a bank re-indexes; the
+        // handler compares this against `layer.name().get()` before it selects
+        // anything, which turns a stale position into an error instead of a copy
+        // of somebody else's chain.
+        expectedName: op.source.name,
+      })];
 
     case 'param.set':
       // ⚠ Two different APIs, two different traps. Neither is selectable by the

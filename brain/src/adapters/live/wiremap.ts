@@ -100,6 +100,58 @@ export const WIRE = {
    * chain past the bank is `outside-bank-window`, never `absent`.
    */
   chainInventory: 'chain.inventory',
+  /**
+   * ⚠⚠ NEW in session 3f step 6b-2, and the first WRITE in this system that
+   * reaches inside a container. `layer.select` + `Channel.duplicate()`, the one
+   * typed route `e17ak` found for making a chain — but reached through
+   * `Rig.slotLayerBanks`, exactly as `chain.inventory` reads through them.
+   *
+   * ⚠ **Why a new method instead of the two `layer.*` ones `e17ak` used.** Those
+   * act on `rig.layerBank0`, which follows `cursorDevice0`. Three consequences,
+   * any one of them disqualifying:
+   *
+   *   - the container becomes a HIDDEN argument (the e16o trap), where every
+   *     other call in this family names it by parameter;
+   *   - the reader and the writer would then address containers through two
+   *     different handles, so a chain resolved at slot 1 could be duplicated
+   *     somewhere else entirely;
+   *   - `cursorDevice0` is what `param.set` writes through. Moving it to reach a
+   *     container would silently re-aim every parameter write in the same batch.
+   *
+   * ⚠ The DEVIATION is named rather than glossed: `e17ak` measured
+   * `selectInEditor()` + `duplicate()` on a `DeviceLayer` obtained from
+   * `layerBank0`, and this obtains the same chain from `slotLayerBanks`. Same
+   * interface, same two calls, a different bank handle — which this project's own
+   * repeated lesson (sibling verbs disagree) says is a measurement and not a
+   * deduction. The live conformance row is what closes it.
+   */
+  /**
+   * ⚠⚠ Make a chain the editor selection — and A SEPARATE CALL ON PURPOSE.
+   *
+   * `Channel.duplicate()` copies the chain that is SELECTED, and `e17ak` fired
+   * the select one turn earlier. E2 says a write is not visible to a read in the
+   * same request, so a select bundled into the duplicate's own turn would be
+   * relying on a timing nobody has measured — and its failure mode is a silent
+   * ○, indistinguishable from "the route does not work at all". `LiveAdapter`
+   * sends this, settles, and only then sends the duplicate.
+   */
+  chainSelect: 'chain.select',
+  chainDuplicate: 'chain.duplicate',
+  /**
+   * ⚠⚠ Rename a chain BY ITS WITHIN-SESSION ID, not by name and not by position.
+   *
+   * The second half of the create, and it cannot be addressed the way everything
+   * else is: at the moment it runs the container holds two chains under one
+   * name, because a duplicate carries its source's. A name would pick between
+   * them by luck and a bank position would depend on where the copy landed —
+   * either way a wrong guess renames the SOURCE and leaves the copy wearing the
+   * source's name, breaking every address anyone held.
+   *
+   * ⚠ `channelId` is worthless ACROSS a project load (E17ad, E18b) and perfectly
+   * good WITHIN the turn that just observed it, which is the only window this is
+   * used in. The handler refuses an id it cannot find rather than falling back.
+   */
+  chainSetName: 'chain.setName',
   deviceInsertBitwig: 'device.insertBitwig',
   deviceInsertClap: 'device.insertClap',
   deviceInsertFile: 'device.insertFile',

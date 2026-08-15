@@ -56,6 +56,11 @@ public final class ContainerHandlers extends HandlerGroup {
         // ⚠⚠ E18 §3.1 — the REBUILD strategy's gating direction. See `chainMove`.
         r.on("chain.inventory", params -> chainInventory());
         r.on("chain.move", params -> chainMove(params));
+        // ⚠⚠ Session 3f step 6b-2 — PRODUCT surface, the first write that reaches
+        // inside a container. See the block comment above `chainSelect`.
+        r.on("chain.select", params -> chainSelect(params));
+        r.on("chain.duplicate", params -> chainDuplicate(params));
+        r.on("chain.setName", params -> chainSetName(params));
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));
         r.on("drumpad.duplicate", params -> drumPadDuplicate(params));
@@ -1183,6 +1188,257 @@ public final class ContainerHandlers extends HandlerGroup {
         } else {
             target.copyDevices(source);
         }
+        return r;
+    }
+
+    // ======================================================================
+    // ⚠⚠ Session 3f step 6b-2 — CHAIN CREATION, as product surface.
+    //
+    // `e17ak` closed this as the one typed route that works, after the whole
+    // spike had recorded it as impossible: SELECT the chain
+    // (`DeviceChain.selectInEditor()`), then call `Channel.duplicate()` on it.
+    // Four arms on a fresh FX Layer that had never been clicked — no primer ○,
+    // `layer.pointCursor` ○, `insertViaCursor` ○, and `layer.select` ●● — with
+    // the sibling `DuplicableObject.duplicateObject()` genuinely dead beside it.
+    // No focus, no priming, no foreground, no human.
+    //
+    // ⚠⚠ **These three are NOT `layer.select` / `layer.duplicateChannel` /
+    // `layer.setName` under new names, and the difference is the handle.** Those
+    // act on `rig.layerBank0`, which follows `cursorDevice0`. That is
+    // disqualifying three times over for a product route:
+    //
+    //   - the container becomes a HIDDEN argument (the e16o trap), where
+    //     `chain.inventory` — the reader these must agree with — names it by
+    //     parameter;
+    //   - reader and writer would address containers through different handles,
+    //     so a chain resolved at slot 1 could be duplicated somewhere else;
+    //   - `cursorDevice0` is what `param.set` writes through, so moving it to
+    //     reach a container would silently re-aim every parameter write near it.
+    //
+    // These read through `Rig.slotLayerBanks[slot]` instead: the same banks
+    // `chain.inventory` enumerates, hung off top-level device SLOTS, with the
+    // container named by a parameter and no cursor to steal.
+    //
+    // ⚠ The DEVIATION is named rather than glossed over, because this project's
+    // most repeated lesson is that sibling verbs and sibling handles disagree
+    // (`copyDevices` ○ beside `moveDevices` ●; `duplicateObject()` ○ beside
+    // `Channel.duplicate()` ●). `e17ak` measured these two calls on a
+    // `DeviceLayer` from `layerBank0`; this is the same interface and the same
+    // two calls on a `DeviceLayer` from `slotLayerBanks`. Live conformance is
+    // what closes that gap — nothing here should be read as having closed it.
+    //
+    // ⚠ SELECT IS ITS OWN CALL, deliberately, and that is not tidiness. E2: a
+    // write is not visible to a read in the same request. `e17ak` fired the
+    // select as a separate call one turn earlier, so a handler that selected and
+    // duplicated in one breath would be testing a timing nobody has measured,
+    // and the failure mode is a silent ○ indistinguishable from "the route does
+    // not work". The brain sends `chain.select`, settles, and only then sends
+    // `chain.duplicate`.
+    //
+    // ⚠ Every one of them is verified by a `chain.inventory` DIFF, never by its
+    // own return value: the acknowledgement is identical whether or not anything
+    // happened (E6 blocker 4).
+    // ======================================================================
+
+    /**
+     * ⚠ Make a chain the editor selection — `e17ak`'s enabling half.
+     *
+     * `DeviceLayer` is a `DeviceChain`, so it carries `selectInEditor()`, and
+     * `e17y` proved our call sets the identical flag a human click does.
+     *
+     * ⚠ It refuses a chain whose name is not the one the caller observed. The
+     * bank re-indexes when a chain is added or removed (E3, one level down), so a
+     * position learned from an earlier reply can name a different chain by the
+     * time it is used — and selecting the wrong one means duplicating the wrong
+     * one, silently, with a healthy acknowledgement.
+     */
+    private JsonElement chainSelect(JsonObject params) {
+        DeviceLayer layer = requireSlotLayer(params);
+        JsonObject r = describeSlotLayer(params, layer);
+        layer.selectInEditor();
+        return r;
+    }
+
+    /**
+     * ⚠⚠ `Channel.duplicate()` on an already-selected chain — the create itself.
+     *
+     * ⚠ It calls `selectInEditor()` again first, and that is belt AND braces
+     * rather than a substitute for `chain.select`. The load-bearing selection is
+     * the one made in the PREVIOUS request, which has had a turn to land; this
+     * one costs nothing, and covers the case where something moved the selection
+     * in between. If it were the only one, this row would depend on a same-turn
+     * visibility that E2 says does not exist.
+     *
+     * ⚠ Returns the source's identity read BEFORE the verb fires. Afterwards the
+     * bank re-indexes and this handle may describe whatever slid into the slot
+     * (E3, `e16t`) — and the brain identifies the COPY by diffing channelIds
+     * across two inventories, so what it needs from here is what was there
+     * before, not a guess about what is there now.
+     */
+    private JsonElement chainDuplicate(JsonObject params) {
+        DeviceLayer layer = requireSlotLayer(params);
+        JsonObject r = describeSlotLayer(params, layer);
+        layer.selectInEditor();
+        layer.duplicate();
+        return r;
+    }
+
+    /**
+     * ⚠⚠ Rename the chain carrying this `channelId` — BY IDENTITY, never by name
+     * and never by position.
+     *
+     * **Why it cannot be addressed like everything else.** A duplicate arrives
+     * carrying its source's NAME, so at the moment this runs the container holds
+     * two chains one name cannot tell apart; and a bank POSITION is exactly what
+     * the duplicate just invalidated. Either way a wrong guess renames the
+     * SOURCE and leaves the copy wearing the source's name — which breaks every
+     * address anyone held to the source, in a way nothing would report.
+     *
+     * ⚠ `channelId` is worthless ACROSS a project load — the loader mints it
+     * afresh (E17ad 8/8, E18b), which is why `ChainAddress` addresses by name —
+     * and it is exactly right WITHIN the turn that just observed it, which is
+     * the only window this is used in.
+     *
+     * ⚠ It REFUSES an id it cannot find, and refuses again if two chains somehow
+     * report the same one. Falling back to a position here would reintroduce the
+     * whole hazard the id exists to remove.
+     */
+    private JsonElement chainSetName(JsonObject params) {
+        int slot = requireSlotScope(params);
+        String channelId = params.get("channelId").getAsString();
+        String name = params.get("name").getAsString();
+        // Validated BEFORE the write: a chain's name is its only durable
+        // identifier (E18b), so a blank one is not a weak name but no name.
+        if (name.trim().isEmpty()) {
+            throw new IllegalArgumentException("name must not be blank");
+        }
+
+        DeviceLayer target = null;
+        int at = -1;
+        for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
+            DeviceLayer candidate = rig.slotLayerBanks[slot].getItemAt(l);
+            if (!candidate.exists().get() || !channelId.equals(candidate.channelId().get())) {
+                continue;
+            }
+            if (target != null) {
+                throw new IllegalArgumentException(
+                    "two chains in scope " + slot + " report channelId " + channelId
+                    + " — refusing rather than renaming whichever was enumerated first");
+            }
+            target = candidate;
+            at = l;
+        }
+        if (target == null) {
+            throw new IllegalArgumentException(
+                "no chain in scope " + slot + " has channelId " + channelId
+                + " — the container holds " + countSlotChains(slot) + " chains. Refusing rather "
+                + "than falling back to a position, which is what this id exists to avoid");
+        }
+
+        final DeviceLayer chain = target;
+        JsonObject r = ok();
+        r.addProperty("slot", slot);
+        r.addProperty("layerIndex", at);
+        r.addProperty("scopeStatus", rig.slotScopeStatus[slot]);
+        r.addProperty("requested", name);
+        // Read BEFORE the write, so a reply describes what was there rather than
+        // what we just put there (`e16t`).
+        putGuarded(r, "previousName", () -> chain.name().get());
+        putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
+        chain.name().set(name);
+        return r;
+    }
+
+    /** How many chains the scope can currently see — for a refusal's message only. */
+    private int countSlotChains(int slot) {
+        int existing = 0;
+        for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
+            if (rig.slotLayerBanks[slot].getItemAt(l).exists().get()) {
+                existing++;
+            }
+        }
+        return existing;
+    }
+
+    /**
+     * The scope index, validated — and validated BEFORE any Bitwig call.
+     *
+     * ⚠ Standing rule 3c: an exception Bitwig defers to its own thread escapes
+     * every extension frame and takes the DAW down (E14-A1).
+     *
+     * ⚠ Standing rule 13: a scope that was never BUILT and an API that declines
+     * are indistinguishable in the outcome, and three false ○s in E17 came from
+     * exactly that. A missing bank throws with its own recorded status rather
+     * than behaving like an empty container.
+     */
+    private int requireSlotScope(JsonObject params) {
+        int slot = params.get("slot").getAsInt();
+        if (slot < 0 || slot >= Rig.SLOT_SCOPES) {
+            throw new IllegalArgumentException("slot out of scope range: " + slot);
+        }
+        if (rig.slotLayerBanks[slot] == null) {
+            throw new IllegalArgumentException(
+                "scope " + slot + " was never built: " + rig.slotScopeStatus[slot]
+                + " (standing rule 13 — a missing handle and an API refusal look identical)");
+        }
+        return slot;
+    }
+
+    /**
+     * The chain a call is about to act on, resolved through the CURSOR-FREE slot
+     * scope and checked against the name the caller observed.
+     *
+     * ⚠ The name check is the whole point. A bank position is not an identity: a
+     * chain bank re-indexes when a chain is added or removed (E3, one level
+     * down), so a position learned from one reply can name a different chain in
+     * the next request. Aimed at the wrong chain, both verbs above succeed and
+     * report `ok`.
+     *
+     * ⚠ An absent chain throws rather than no-op'ing, for the e16o reason: aimed
+     * at an empty bank slot these verbs are silent no-ops byte-identical to an
+     * API refusal, and that has published false negatives in this codebase
+     * before.
+     */
+    private DeviceLayer requireSlotLayer(JsonObject params) {
+        int slot = requireSlotScope(params);
+        int layerIndex = params.get("layerIndex").getAsInt();
+        if (layerIndex < 0 || layerIndex >= Rig.SLOT_LAYER_BANK) {
+            throw new IllegalArgumentException("layerIndex out of bank range: " + layerIndex);
+        }
+        DeviceLayer layer = rig.slotLayerBanks[slot].getItemAt(layerIndex);
+        if (!layer.exists().get()) {
+            throw new IllegalArgumentException(
+                "no chain at scope " + slot + " index " + layerIndex + " — the slot device is "
+                + rig.cursorDeviceBanks[0].getDevice(slot).name().get()
+                + ", holding " + countSlotChains(slot) + " chains");
+        }
+        if (params.has("expectedName")) {
+            String expected = params.get("expectedName").getAsString();
+            String actual = layer.name().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "chain at scope " + slot + " index " + layerIndex + " is named \"" + actual
+                    + "\", not \"" + expected + "\" — the bank re-indexed since it was observed, "
+                    + "and acting on a stale position would hit a chain nobody addressed");
+            }
+        }
+        return layer;
+    }
+
+    /** Identify the chain a call is about to act on, read BEFORE the act (`e16t`). */
+    private JsonObject describeSlotLayer(JsonObject params, DeviceLayer layer) {
+        JsonObject r = ok();
+        r.addProperty("slot", params.get("slot").getAsInt());
+        r.addProperty("layerIndex", params.get("layerIndex").getAsInt());
+        r.addProperty("scopeStatus", rig.slotScopeStatus[params.get("slot").getAsInt()]);
+        putGuarded(r, "sourceName", () -> layer.name().get());
+        putGuarded(r, "sourceChannelId", () -> layer.channelId().get());
+        putGuarded(r, "containerName",
+            () -> rig.cursorDeviceBanks[0].getDevice(params.get("slot").getAsInt()).name().get());
+        // ⚠ Named beside the rest: a scope index means nothing without knowing
+        // which TRACK the device bank is on (the e16o trap, one level up), and
+        // these banks follow `cursorTracks[0]`.
+        putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
         return r;
     }
 

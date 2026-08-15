@@ -13,11 +13,12 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
-  contentDelta,
-  hasUnverifiedProps, lookupChain, lookupNestedDevice, nestingObservable, orderedNoteProps, stepSizeFor,
+  assertChainCreatable, assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
+  chain as chainAt, chainCopyUnnamed, contentDelta,
+  hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
-  type ContentDelta, type Fidelity, type NoteRecord, type Op, type OpReceipt, type ResolveResult,
+  type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
+  type Op, type OpReceipt, type ResolveResult,
   type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
   type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
@@ -487,6 +488,13 @@ export class FakeAdapter implements BitwigAdapter {
       const hit = this.model.findByChannelId(s.track.channelId);
       return hit?.track.slots[s.scene.index]?.hasContent;
     });
+    // ⚠⚠ The chain-create preconditions, from the same shared contract function
+    // the live adapter calls: the container is observable, the source names
+    // exactly one chain, the new name is provably free, and the chain bank has
+    // room. Only the LOOKUP is the fake's — the refusals are the contract's, so
+    // neither adapter can be the lenient one and a conformance row can assert
+    // them on both.
+    assertChainCreatable(batch.ops, (container) => this.observeAt(container));
 
     // ⚠ E8-D: a stale guard rejects the batch WHOLE, applying zero ops.
     if (batch.ifRevision !== undefined && batch.ifRevision !== this.model.revision) {
@@ -553,6 +561,24 @@ export class FakeAdapter implements BitwigAdapter {
   private cursorOrigin(): PointOrigin | undefined {
     const hit = this.model.resolveClipKey(this.model.cursorClip);
     return hit === undefined ? undefined : { slot: hit.slot, sceneIndex: hit.sceneIndex };
+  }
+
+  /**
+   * The container at a top-level device position, as an observation — the fake's
+   * half of `chain.inventory`, in the shape the contract's guards take.
+   *
+   * ⚠ `undefined` means the position is past `containerScopes`, i.e. NOTHING WAS
+   * LOOKED AT, and every caller treats that as a refusal rather than as "no
+   * chains". A position inside the scopes that holds no container is a different
+   * answer and reports an empty, complete container — see `observeContainer`.
+   *
+   * ⚠ An unresolvable track THROWS rather than answering `undefined`, so the two
+   * cannot be conflated: "your track is not in the window" and "we cannot see
+   * that deep into this track" are different refusals with different fixes.
+   */
+  private observeAt(container: DeviceAddress): ObservedContainer | undefined {
+    const track = this.requireTrack(container.track, 'chain.create');
+    return this.model.observeContainer(track, container.chainIndex);
   }
 
   private requireTrack(ref: { channelId: string }, op: string): FakeTrack {
@@ -836,6 +862,76 @@ export class FakeAdapter implements BitwigAdapter {
           const p = device.params[index];
           if (p !== undefined) p.value = value;
         });
+        return;
+      }
+
+      // ⚠⚠ Chain creation, and the fake runs the same TWO-STEP the live adapter
+      // runs rather than a shortcut, because the interesting part is the middle.
+      //
+      // `Channel.duplicate()` hands back nothing (E6 blocker 4: the
+      // acknowledgement is identical whether or not anything happened) and the
+      // copy arrives wearing its source's name, so the only way to know which
+      // chain is the new one is to observe the container before and after and
+      // diff by identity. That diff is `mintedChain`, it lives in the contract,
+      // and running it here is what makes a bug in it fail offline instead of
+      // live — the fake performing the copy and simply remembering the answer
+      // would exercise nothing.
+      case 'chain.create': {
+        const track = this.requireTrack(op.source.container.track, op.op);
+        const containerIndex = op.source.container.chainIndex;
+        const before = this.model.observeContainer(track, containerIndex);
+        const copy = this.model.duplicateChain(track, containerIndex, op.source.name);
+        const after = this.model.observeContainer(track, containerIndex);
+        // ⚠ `assertChainCreatable` proved all of this before the batch started;
+        // reaching any of these is a bug in this adapter, not a refusal a caller
+        // can provoke, so it throws rather than silently minting nothing.
+        if (before === undefined || after === undefined || copy === undefined) {
+          throw new UnsupportedOpError('chain.create: the container stopped being observable', 'fake');
+        }
+        // ⚠⚠ FAILS LOUDLY and leaves the copy in place, exactly as live does.
+        // The chain is really there, it is wearing the source's name, and
+        // nothing renamed it — so this THROWS, which `apply` turns into an
+        // `ok: false` op receipt carrying the reason.
+        //
+        // ⚠ It used to `return` here, and that was the fake being kinder than
+        // Bitwig in the one direction PHASE-0 §Risks forbids: the batch reported
+        // `ok: true` for a create that had produced an unaddressable chain, while
+        // the live adapter reported it failed. The sentence comes from the
+        // contract so the two cannot drift apart again.
+        //
+        // ⚠ With the batch-cumulative preconditions in place these are no longer
+        // REACHABLE from the fake's public surface — nothing races this model, so
+        // the projected container and the real one agree. They stay because the
+        // live adapter's equivalents are reachable (a real bank re-indexes, and
+        // the extension really does refuse a rename it cannot aim), and an
+        // adapter pair whose failure SHAPES differ is one the conformance suite
+        // cannot speak about at all.
+        const witness = mintedChain(before, after);
+        if (!witness.ok) {
+          throw new UnsupportedOpError(chainCopyUnnamed(op.source.name, witness.why), 'fake');
+        }
+        this.model.renameChain(track, containerIndex, witness.chain.id!, op.name);
+        // ⚠ And the mint is only claimed once the NAME resolves — the readback
+        // discipline, not the writer's own belief. `lookupChain` refuses the
+        // ambiguity a failed rename would have left, so this is the assertion
+        // that the whole two-step landed.
+        const settled = this.model.observeContainer(track, containerIndex);
+        const found = settled === undefined ? undefined : lookupChain(settled, op.name);
+        if (found?.ok !== true) {
+          throw new UnsupportedOpError(
+            chainCopyUnnamed(op.source.name, `the new name reads back as ${found?.ok === false ? found.miss : 'unreadable'}`),
+            'fake',
+          );
+        }
+        if (found.chain.id !== witness.chain.id) {
+          throw new UnsupportedOpError(
+            chainCopyUnnamed(
+              op.source.name,
+              'the new name resolved to a DIFFERENT chain than the one that was created'),
+            'fake',
+          );
+        }
+        minted[opIndex] = chainAt(op.source.container, op.name);
         return;
       }
 

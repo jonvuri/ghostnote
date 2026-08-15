@@ -28,12 +28,12 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   ContractVersionError, StaleAddressError, WireDriftError,
-  addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
-  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
-  lookupChain, lookupNestedDevice, nestingObservable, windowCovers,
+  addressKey, addressScene, addressTrack, assertChainCreatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
+  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, clip as clipAt, contentDelta, hasUnverifiedProps, planStages,
+  lookupChain, lookupNestedDevice, mintedChain, nestingObservable, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
-  type BitwigAdapter, type ChainMiss, type ClipAddress, type ContentDelta, type ContentEvent, type Fidelity,
-  type NoteRecord, type ObservedChain, type ObservedContainer, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
+  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
+  type NoteRecord, type ObservedContainer, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
@@ -136,6 +136,19 @@ function mintedChainIndex(before: ChainSnapshot, after: ChainSnapshot): number |
   return after.devices[after.devices.length - 1]?.index;
 }
 
+/**
+ * What one look into a container position returned — an observation, or the
+ * reason there was not one.
+ *
+ * ⚠ Named rather than inlined because the create carries it ACROSS the write:
+ * the diff that identifies the new chain compares a reading from before the copy
+ * against one from after, and a "before" that was really a miss must not be
+ * silently treated as an empty container. The union makes that unrepresentable.
+ */
+type ContainerScope =
+  | { ok: true; container: ObservedContainer; deviceName: string | undefined }
+  | { ok: false; miss: ChainMiss };
+
 /** Where the user's own clip selection was before we borrowed it (E1, D6). */
 interface SelectionState {
   readonly trackIndex: number;
@@ -186,6 +199,12 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
   'clip.create', 'clip.delete', 'track.create', 'track.duplicate', 'track.delete',
   'clip.duplicate', 'clip.move',
   'scene.create', 'scene.delete', 'device.insert', 'device.delete',
+  // ⚠ `chain.create` is deliberately NOT here, and the omission is a claim: it
+  // re-indexes a container's LAYER bank and nothing else. No track bank row
+  // moves, no scene row moves, and the track's own device chain is untouched —
+  // so no pool cursor assignment and no held `channelId` index goes stale. The
+  // one thing it does invalidate is a chain's bank position, which no address
+  // holds and which `readContainers` re-reads for every batch anyway.
 ]);
 
 /**
@@ -201,6 +220,15 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
 const borrowsSelection = (op: Op): boolean =>
   op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear'
   || op.op === 'device.insert' || op.op === 'device.delete'
+  // ⚠ `chain.create` borrows it TWICE over: `containerScope` points cursor 0 at
+  // the track before every observation it takes, and the create takes three.
+  // ⚠⚠ And the verb's own middle step is a SELECTION — `layer.select` is how
+  // `Channel.duplicate()` knows which chain to copy (`e17ak`), so this op moves
+  // the user's device-layer selection as well as their clip selection. Only the
+  // clip half is restorable today: `selection.status` reports a track/slot pair
+  // and nothing on the wire reads back which chain a human had selected. Named
+  // here so the gap is on the record rather than discovered as a complaint.
+  || op.op === 'chain.create'
   || op.op === 'clip.launchSettings';
 
 export class LiveAdapter implements BitwigAdapter {
@@ -229,6 +257,19 @@ export class LiveAdapter implements BitwigAdapter {
    * only `apply` refuses on it — see `assertBankVisible`.
    */
   private overflowing = false;
+
+  /**
+   * ⚠ Chain `addressKey` -> the bank position the last observation reported —
+   * filled by `apply`'s preconditions and read by the encoder, and by nothing
+   * else.
+   *
+   * Deliberately short-lived and deliberately narrow. It is not a cache and must
+   * never become one: a chain's position is not part of its address, a container
+   * re-indexes when a chain is added or removed, and the one moment a position
+   * is trustworthy is the turn its container was observed in. `apply` clears it
+   * on the way in so no batch can inherit another's.
+   */
+  private chainPositions = new Map<AddressKey, number>();
 
   /**
    * ⚠⚠ **The last mark read off the extension — and the fix for the limit that
@@ -422,8 +463,30 @@ export class LiveAdapter implements BitwigAdapter {
       cursorFor: (clipRef) => this.pool.cursorFor(clipRef),
       cursorForTrack: (t) => this.pool.cursorForTrack(t),
       trackIndex: (t) => this.trackIndex(t),
+      chainIndex: (c) => this.chainIndex(c),
       sceneRow: sceneRowIn(this.sceneWindow),
     };
+  }
+
+  /**
+   * The bank position an observation THIS BATCH took reported for this chain.
+   *
+   * ⚠ It refuses rather than resolving on demand, and the refusal is the design.
+   * A chain's position is not part of its address and cannot be derived from
+   * one; the only honest source is a `chain.inventory` reply, and re-reading one
+   * here would be a second observation the guards did not check — so a position
+   * that was never recorded means the op reached the encoder without its
+   * precondition, which is a bug rather than a slow path.
+   */
+  private chainIndex(chainRef: ChainAddress): number {
+    const at = this.chainPositions.get(addressKey(chainRef));
+    if (at === undefined) {
+      throw new AddressUnresolvedError(
+        chainRef,
+        `no observation of this container recorded a chain named "${chainRef.name}"`,
+      );
+    }
+    return at;
   }
 
   /**
@@ -509,10 +572,7 @@ export class LiveAdapter implements BitwigAdapter {
   private async containerScope(
     trackRef: TrackAddress,
     containerIndex: number,
-  ): Promise<
-    | { ok: true; container: ObservedContainer; deviceName: string | undefined }
-    | { ok: false; miss: ChainMiss }
-  > {
+  ): Promise<ContainerScope> {
     const trackIndex = this.index.get(trackRef.channelId);
     if (trackIndex === undefined) return { ok: false, miss: 'absent' };
     if (containerIndex < 0) return { ok: false, miss: 'absent' };
@@ -542,10 +602,28 @@ export class LiveAdapter implements BitwigAdapter {
         chains: chains.map((c) => ({
           index: c.index,
           name: c.name ?? '',
+          // ⚠ `layer.channelId()`, carried through as a WITHIN-SESSION WITNESS
+          // and nothing else — see `ObservedChain.id`. It is worthless across a
+          // project load (E17ad, E18b), which is exactly why `ChainAddress`
+          // addresses by name; its one job is telling a fresh copy from the
+          // chain it was copied from, in the turn that made it.
+          //
+          // ⚠ `putGuarded` writes an `ERR:` string rather than throwing when a
+          // value is unreadable, and an unparsed one would be a plausible-looking
+          // identity that matches nothing. Dropping it makes `mintedChain`
+          // decline, which is the fail-closed direction.
+          ...(typeof c.channelId === 'string' && !c.channelId.startsWith('ERR')
+            ? { id: c.channelId }
+            : {}),
           devices: (c.devices ?? []).map((d) => ({ index: d.index, name: d.name ?? '' })),
           devicesComplete: deviceBank !== undefined && (c.devices ?? []).length < deviceBank,
         })),
         chainsComplete: chainBank !== undefined && chains.length < chainBank,
+        // ⚠ Carried through so a guard can count a container it has no second
+        // reading of — see `ObservedContainer.chainsBankSize`. Absent from an
+        // older extension, which also makes `chainsComplete` false above, so a
+        // create is refused either way rather than counted against a guess.
+        ...(chainBank === undefined ? {} : { chainsBankSize: chainBank }),
       },
     };
   }
@@ -1237,6 +1315,176 @@ export class LiveAdapter implements BitwigAdapter {
     return seen;
   }
 
+  /**
+   * Every container a `chain.create` in this batch names, observed once, before
+   * anything is written.
+   *
+   * ⚠ It also RECORDS each observed chain's bank position into
+   * `chainPositions`, which is what the encoder reads. Two things follow from
+   * doing it here rather than at encode time: the position the wire receives
+   * comes from the same reading the preconditions were checked against, and a
+   * chain nobody observed has no position at all — so a stale or invented one
+   * cannot reach the wire, it fails in `chainIndex` instead.
+   *
+   * ⚠ Cleared first. A map carried over from a previous batch would be exactly
+   * the "held index across a structural op" that standing rule 2 forbids.
+   */
+  private async readContainers(
+    ops: readonly Op[],
+  ): Promise<Map<AddressKey, ObservedContainer | undefined>> {
+    this.chainPositions.clear();
+    const seen = new Map<AddressKey, ObservedContainer | undefined>();
+    for (const op of ops) {
+      if (op.op !== 'chain.create') continue;
+      const container = op.source.container;
+      const key = addressKey(container);
+      if (seen.has(key)) continue;
+      const scope = await this.containerScope(container.track, container.chainIndex);
+      // ⚠ EVERY miss maps to `undefined`, deliberately — including `absent`. The
+      // contract's refusal says "nothing could observe the chain this would
+      // make", which is true of all four of them, and a create is the one moment
+      // where the difference between "we could not look" and "we looked and it
+      // is empty" changes nothing: neither is a container we can safely write a
+      // chain into and then find again.
+      seen.set(key, scope.ok ? scope.container : undefined);
+      if (scope.ok) this.recordChainPositions(container, scope.container);
+    }
+    return seen;
+  }
+
+  /** One observation's chain positions, keyed by the address that names each one. */
+  private recordChainPositions(container: DeviceAddress, observed: ObservedContainer): void {
+    for (const item of observed.chains) {
+      // ⚠ Only a name that identifies EXACTLY ONE chain gets a position, and a
+      // blank one gets none. `lookupChain` refuses both cases and
+      // `assertChainCreatable` runs before the encoder, so this is belt and
+      // braces — but the braces are cheap and the failure they guard is a
+      // duplicate aimed at whichever of two same-named chains was enumerated
+      // last. (A blank name would also throw in `chain()`, which builds an
+      // address, not a position.)
+      if (item.name.trim() === '' || !lookupChain(observed, item.name).ok) continue;
+      this.chainPositions.set(addressKey(chainAt(container, item.name)), item.index);
+    }
+  }
+
+  /**
+   * ⚠⚠ Select the chain about to be copied — `e17ak`'s enabling half, sent as
+   * ITS OWN REQUEST.
+   *
+   * `Channel.duplicate()` copies the chain that is SELECTED; with no selection
+   * it is a silent no-op (`e17ak` arm A). E2 says a write is not visible to a
+   * read in the same request, and the select in `e17ak` was fired a turn
+   * earlier — so bundling it into the duplicate's own turn would rest on a
+   * timing nobody measured, failing as a ○ that looks exactly like the route
+   * being dead. The extension re-selects inside the duplicate as well; that one
+   * is the belt, this one is the braces.
+   *
+   * ⚠ `expectedName` rides along so the extension refuses a bank position that
+   * has re-indexed since it was observed, rather than selecting a chain nobody
+   * addressed and copying that.
+   *
+   * ⚠ It waits `trackStruct`, and the number is borrowed rather than measured —
+   * stated plainly because `budgets.ts` requires every number to cite one. No
+   * chain-selection settle has ever been measured; the two neighbouring measured
+   * budgets are 25ms for a cursor point (E1) and ~144ms for a structural change
+   * (E1/E3), and the create takes the larger of the two once. Under-waiting here
+   * produces a copy that never happened, so erring long is the cheap direction.
+   */
+  private async selectSourceChain(op: Extract<Op, { op: 'chain.create' }>): Promise<void> {
+    await this.transport.send({
+      method: WIRE.chainSelect,
+      params: {
+        slot: op.source.container.chainIndex,
+        layerIndex: this.chainIndex(op.source),
+        expectedName: op.source.name,
+      },
+    });
+    await this.settle('trackStruct');
+  }
+
+  /**
+   * ⚠⚠ NAME THE CHAIN THE COPY JUST MADE — the half of `chain.create` that no
+   * encoder could emit, because it has to be told which chain that is.
+   *
+   * Four steps, in this order, and each one refuses rather than assuming:
+   *
+   *   1. **Observe the container again.** A write is not visible to a read in
+   *      the same request (E2), so this is a new one, after the op's settle.
+   *   2. **Diff by identity** (`mintedChain`, shared with the fake). The copy
+   *      carries its SOURCE'S NAME, so nothing name-shaped can tell them apart
+   *      and position is not a fallback — see that function for the five ways it
+   *      declines.
+   *   3. **Rename by the id the diff returned**, never by name or position. The
+   *      extension refuses an id it cannot find, so a bank that re-indexed
+   *      between the two calls is an error rather than a rename aimed at the
+   *      source.
+   *   4. ⚠ **Prove it by RESOLVING the new name**, on the object we created —
+   *      the id has to match too. This is the acceptance criterion the slice was
+   *      written to: *"success requires independent resolution/readback of the
+   *      created chain; acknowledgement or the writer's selected handle is not
+   *      proof"*. The writer's own belief is not consulted anywhere here.
+   *
+   * ⚠ A failure at any step leaves a real chain in the container, wearing the
+   * source's name, and says so. Nothing rolls back, because nothing CAN: every
+   * typed chain delete refuses (`e17al`, `e17am`). Silence would be the worst of
+   * the available options — the container would be quietly ambiguous, and the
+   * next resolve of the source's own name would start failing.
+   */
+  private async finishChainCreate(
+    op: Extract<Op, { op: 'chain.create' }>,
+    before: ContainerScope,
+  ): Promise<{ ok: true; address: ChainAddress } | { ok: false; why: string }> {
+    const container = op.source.container;
+    // ⚠ The sentence comes from the contract, so the fake reports the same one.
+    // Two hand-written copies is how the offline suite ends up asserting a
+    // softer version of what a user actually sees.
+    const unnamed = (why: string): { ok: false; why: string } =>
+      ({ ok: false, why: chainCopyUnnamed(op.source.name, why) });
+
+    // ⚠ The "before" reading is checked HERE rather than at the call site, so a
+    // container that could not be observed before the copy can never be mistaken
+    // for one that held no chains — which would make the diff below see the
+    // whole container as new.
+    if (!before.ok) return unnamed(`the container was not observable before the copy (${before.miss})`);
+    const after = await this.containerScope(container.track, container.chainIndex);
+    if (!after.ok) return unnamed(`the container became unobservable (${after.miss})`);
+    const witness = mintedChain(before.container, after.container);
+    if (!witness.ok) return unnamed(`the copy could not be identified: ${witness.why}`);
+
+    // ⚠⚠ FROM HERE ON NOTHING MAY THROW, and the try is the mechanism rather
+    // than defensive habit. The copy exists by this point, so a thrown error
+    // would leave `apply` reporting nothing at all about a container that now
+    // holds an unaddressable chain — and the extension really does refuse this
+    // call, deliberately, when no chain carries the id (a bank that re-indexed
+    // between the two readings). Refusing is right; escaping as an exception is
+    // not, because the whole promise of this path is that a create which could
+    // not be finished SAYS SO in the receipt. There is no typed delete to undo
+    // it with, so the sentence is the entire remedy.
+    try {
+      await this.transport.send({
+        method: WIRE.chainSetName,
+        params: { slot: container.chainIndex, channelId: witness.chain.id, name: op.name },
+      });
+      // A rename is a name write, not a structural one; `trackStruct` is the
+      // budget `track.rename` already pays for the same class of change.
+      await this.settle('trackStruct');
+
+      const settled = await this.containerScope(container.track, container.chainIndex);
+      if (!settled.ok) return unnamed(`the container became unobservable after the rename (${settled.miss})`);
+      const found = lookupChain(settled.container, op.name);
+      if (!found.ok) return unnamed(`the new name reads back as ${found.miss}`);
+      if (found.chain.id !== witness.chain.id) {
+        return unnamed('the new name resolved to a DIFFERENT chain than the one that was created');
+      }
+      return { ok: true, address: chainAt(container, op.name) };
+    } catch (error) {
+      // ⚠ The message is carried verbatim rather than summarised: it is the
+      // extension's own refusal, and it is the only thing that says WHY the
+      // rename was declined.
+      return unnamed(`the rename failed: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+
   async apply(batch: BatchRequest): Promise<BatchReceipt> {
     // ⚠ E15-E: refuse a write the API would accept and discard, BEFORE anything
     // is applied. Shared with the fake so both adapters refuse identically.
@@ -1271,6 +1519,17 @@ export class LiveAdapter implements BitwigAdapter {
     const occupancy = await this.readOccupancy(batch.ops);
     assertSlotsFree(batch.ops, (s) => occupancy.get(addressKey(s)));
     assertClipSources(batch.ops, (s) => occupancy.get(addressKey(s)));
+    // ⚠⚠ The chain-create preconditions, from the same shared contract function
+    // the fake calls — the container is observable, the source names exactly one
+    // chain, the new name is provably free, and the bank has room. Only the
+    // observation is the adapter's.
+    //
+    // ⚠ It doubles as the encoder's source of truth for the source chain's bank
+    // position, which is why the observations are recorded rather than
+    // discarded: a chain has no position in its address, so the only honest one
+    // comes from a reply, and it must come from a reply this batch took.
+    const containers = await this.readContainers(batch.ops);
+    assertChainCreatable(batch.ops, (container) => containers.get(addressKey(container)));
 
     const stages = planStages(batch.ops);
     const receipts: StageReceipt[] = [];
@@ -1305,6 +1564,27 @@ export class LiveAdapter implements BitwigAdapter {
         ? await this.deviceChain(insertOp.track)
         : undefined;
 
+      // ⚠⚠ And a chain create needs the same bracket, one level down and with a
+      // WRITE in the middle of it — see `finishChainCreate`. Taken here, freshly,
+      // rather than reusing the precondition reading above: that one was taken
+      // before the whole batch, and an earlier stage may have moved the world.
+      //
+      // ⚠ `OP_SETTLE['chain.create']` is not `instant`, so `planStages` gives it
+      // a stage to itself and these two observations bracket exactly one op.
+      const createAt = stage.ops.findIndex((o) => o.op === 'chain.create');
+      const createOp = createAt === -1 ? undefined : stage.ops[createAt];
+      const containerBefore = createOp?.op === 'chain.create'
+        ? await this.containerScope(
+          createOp.source.container.track, createOp.source.container.chainIndex)
+        : undefined;
+      if (createOp?.op === 'chain.create' && containerBefore?.ok === true) {
+        // ⚠ The positions the ENCODER will use come from THIS reading, not from
+        // the pre-batch one. A container re-indexes when a chain is added, and an
+        // earlier stage in the same batch is allowed to have added one.
+        this.recordChainPositions(createOp.source.container, containerBefore.container);
+        await this.selectSourceChain(createOp);
+      }
+
       const result = (await this.transport.send(encodeStage(stage.ops, this.ctx, guard))) as {
         applied: boolean;
         rejected?: boolean;
@@ -1330,7 +1610,7 @@ export class LiveAdapter implements BitwigAdapter {
         };
       }
 
-      receipts.push({
+      const receipt: StageReceipt = {
         index: i,
         ...(stage.settle === undefined ? {} : { settled: stage.settle }),
         applied: result.applied,
@@ -1341,7 +1621,8 @@ export class LiveAdapter implements BitwigAdapter {
             ...(r.error === undefined ? {} : { error: r.error }),
           })),
         revision: result.revision,
-      });
+      };
+      receipts.push(receipt);
 
       // Each stage guards on what the previous one returned, so an interfering
       // write between stages is caught for free.
@@ -1362,6 +1643,36 @@ export class LiveAdapter implements BitwigAdapter {
           : mintedChainIndex(chainBefore, chainAfter);
         if (at !== undefined && chainIndex !== undefined) {
           minted[at] = { kind: 'device', track: insertOp.track, chainIndex };
+        }
+      }
+
+      // ⚠⚠ The chain create's SECOND HALF, after its settle for the same reason
+      // the device mint waits for its own: the copy is not in the bank until it
+      // lands, and a diff taken earlier would see the container we already had.
+      if (createOp?.op === 'chain.create' && containerBefore !== undefined) {
+        const at = stage.opIndices[createAt];
+        const named = await this.finishChainCreate(createOp, containerBefore);
+        if (named.ok) {
+          if (at !== undefined) minted[at] = named.address;
+        } else {
+          // ⚠⚠ REPORTED AS A FAILED OP, and this is the one place in `apply`
+          // where a stage's own `ok` is overruled from outside the wire result.
+          // The reason is that the wire told the truth and it is not the whole
+          // truth: `chain.duplicate` really did apply, and the op it belongs to
+          // did not — the copy is sitting in the container wearing its source's
+          // name, where `lookupChain` will refuse both of them as `ambiguous`.
+          // Letting the receipt say `ok` would report a create that produced an
+          // unaddressable chain as a success, and there is no typed delete to
+          // clean it up with, so the user has to be told.
+          // ⚠ Matched against BOTH names on purpose. A verbose reply labels each
+          // entry with the WIRE method it ran; the fallback above labels them
+          // with the contract op. Matching only one would silently stop
+          // reporting the failure the day the other shape is taken.
+          const ops = receipt.ops.map((entry) =>
+            (entry.op === WIRE.chainDuplicate || entry.op === 'chain.create'
+              ? { ...entry, ok: false, error: named.why }
+              : entry));
+          receipts[receipts.length - 1] = { ...receipt, ops };
         }
       }
 

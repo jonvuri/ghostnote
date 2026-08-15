@@ -830,6 +830,144 @@ export function runConformance(h: AdapterHarness): void {
     },
   );
 
+  test(
+    label('C-chain-create', 'a chain is CREATED, named, and proved by resolving the name — not by the writer'),
+    // Same capability gate as the two rows above, and for the same reason: an
+    // adapter that merely accepted the op would prove nothing about a container.
+    { skip: !h.capabilities.hasDeviceModel },
+    async () => {
+      // ⚠⚠ THE FIRST TYPED WRITE INSIDE A CONTAINER. `e17ak` closed chain
+      // creation as fully autonomous — select the chain, then
+      // `Channel.duplicate()` — after the whole spike had recorded it as
+      // impossible, and after the sibling `DuplicableObject.duplicateObject()`
+      // was found genuinely dead on the same object.
+      //
+      // ⚠ The fixture is a fresh FX Layer because that is the container type
+      // that ships with ONE chain (`e17ai`, E18a at three destinations), and
+      // this verb COPIES — it cannot make a chain out of nothing. An Instrument
+      // Layer ships with zero and has no first chain to copy, which is the
+      // bootstrap asymmetry the seed-asset question is about.
+      const { adapter, trackA } = await h.create();
+      const executor = new Executor(adapter);
+      const FX_LAYER = { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' } as const;
+      const MADE = 'gn-conf-made';
+      let inserted: Address | undefined;
+      try {
+        const insert = await executor.run([{ op: 'device.insert', track: trackA, source: FX_LAYER }]);
+        inserted = insert.receipt.minted[0];
+        assert.ok(inserted && inserted.kind === 'device', 'the insert must report where it landed');
+        const container = inserted;
+
+        // ⚠ The name is READ BACK, never assumed. What a fresh container calls
+        // its one chain has never been measured — E4c established only that a
+        // default name tracks the chain's content — so a literal here would be
+        // asserting on the fixture rather than on Bitwig.
+        const entry = (await adapter.read([container])).entries[addressKey(container)];
+        const observed = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+        assert.ok(observed, 'a container read carries the chains, or nothing can name a source');
+        const source = chain(container, observed.chains[0]!.name);
+
+        const made = await executor.run([{ op: 'chain.create', source, name: MADE }]);
+
+        // ⚠⚠ THE ACCEPTANCE CRITERION, and the reason the op takes three round
+        // trips. Success is INDEPENDENT RESOLUTION of the created chain: the
+        // acknowledgement is identical whether or not anything happened (E6
+        // blocker 4), and the writer's own selected handle is not evidence.
+        const minted = made.receipt.minted[0];
+        assert.ok(minted && minted.kind === 'chain', 'a create that could not be proved mints nothing');
+        assert.equal(minted.name, MADE);
+        const hit = (await adapter.resolve([minted])).resolved[0];
+        assert.equal(hit?.found, true, 'the created chain resolves by the name the verb gave it');
+
+        // ⚠ And the SOURCE still resolves under its own name. This is the half a
+        // rename aimed at the wrong chain would break: the copy arrives wearing
+        // the source's name, so picking wrong leaves the source renamed and the
+        // copy impersonating it — with every prior address silently broken.
+        const still = (await adapter.resolve([source])).resolved[0];
+        assert.equal(still?.found, true, 'the source was not the chain that got renamed');
+
+        // The container now holds one more chain than it shipped with, observed
+        // rather than counted from the request.
+        const after = (await adapter.read([container])).entries[addressKey(container)];
+        const grown = after?.value.of === 'device' ? after.value.device.container : undefined;
+        assert.equal(grown?.chains.length, observed.chains.length + 1);
+        assert.deepEqual(
+          [...(grown?.chains ?? [])].map((c) => c.name).sort(),
+          [source.name, MADE].sort(),
+        );
+
+        // ⚠⚠ IT CANNOT BE TAKEN BACK, and the report says so rather than
+        // implying a clean undo. Every typed chain delete refuses — both
+        // `DeleteableObject` forms, each bracketed by a `Track` sibling deleting
+        // in the same run (`e17al`, `e17am`) — so reduction is a different
+        // operation (move the devices out, delete the container) that this verb
+        // does not pretend to have.
+        assert.equal(made.unrevertable.length, 1, 'a created chain is filed as having no inverse');
+        assert.equal(made.unrevertable[0]?.op, 'chain.create');
+        assert.match(made.unrevertable[0]?.why ?? '', /e17al/);
+
+        // ⚠ A second create under the SAME name is refused before anything is
+        // written, on both adapters, from the shared contract rule. Without it
+        // the verb would manufacture exactly the ambiguity `lookupChain` exists
+        // to refuse — and there is no delete to clean it up with.
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'chain.create', source, name: MADE }] }),
+          /already used by a chain in this container/,
+        );
+        // ...and so is naming a copy after its own source, which is the same
+        // hazard reached from the other side.
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'chain.create', source, name: source.name }] }),
+          /leave two chains sharing one name/,
+        );
+        // ⚠⚠ And so are TWO creates in one batch claiming one name. Nothing has
+        // been applied when the preconditions run, so both would be checked
+        // against the same reading and both would pass — the post-hoc check
+        // wearing a precondition's clothes, which `assertSceneRoom` already
+        // names one population up. Measured before it was fixed: two creates
+        // named the same thing produced two chains with that name, and both
+        // stage receipts said `ok`. The whole batch refuses instead.
+        await assert.rejects(
+          adapter.apply({
+            ops: [
+              { op: 'chain.create', source, name: 'gn-conf-pair' },
+              { op: 'chain.create', source, name: 'gn-conf-pair' },
+            ],
+          }),
+          /already used by a chain in this container at the point this op runs/,
+        );
+        const unchanged = (await adapter.read([container])).entries[addressKey(container)];
+        const chainsNow = unchanged?.value.of === 'device' ? unchanged.value.device.container : undefined;
+        assert.equal(chainsNow?.chains.length, observed.chains.length + 1,
+          'both refusals happened before any copy was made');
+
+        // ⚠⚠ AND THE WRITE GUARD DID NOT MOVE. A chain can now be created and a
+        // device inside one still cannot be deleted or retuned: `chain.create`
+        // is the only nested route promoted, and `assertDevicesRoutable` refuses
+        // every other one exactly as it did before this slice.
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'device.delete', device: deviceIn(minted, 0) }] }),
+          /device-layer chain/,
+        );
+        await assert.rejects(
+          adapter.apply({ ops: [{ op: 'param.set', param: param(deviceIn(minted, 0), 0), value: 0.5 }] }),
+          /device-layer chain/,
+        );
+      } finally {
+        // ⚠ LIVE RESIDUE, and worse here than for the rows above: there is no
+        // typed route that removes a chain, so deleting the CONTAINER is the
+        // only cleanup — which takes the created chain with it. If this row
+        // fails between the insert and here, the fixture track keeps an FX Layer
+        // with an extra chain in it; look there first.
+        if (inserted?.kind === 'device') {
+          await adapter.apply({ ops: [{ op: 'device.delete', device: inserted }] });
+          await adapter.settle('trackStruct');
+        }
+        await h.dispose(adapter);
+      }
+    },
+  );
+
   // --- staged application ----------------------------------------------------
 
   test(label('C-stage', 'instant ops coalesce and settling ops get their own stage (E8)'), async () => {

@@ -185,6 +185,18 @@ const COPIED_TRACK_STAYS =
   'the copied track stays. Deleting it automatically is not offered: somebody may have edited it '
   + 'since it was made. A separately permissioned delete_track call is required for directed cleanup.';
 
+// ⚠ Written in the surface's own words, under the ban list, without naming the
+// mechanism — `layer` and `chain` are both closed entries in `naming.ts` and
+// session 3f step 6b-2 deliberately did not reopen either, because it shipped a
+// typed verb and no tool that says this out loud. The sentence exists so the
+// record has honest words the day one does, rather than falling through to a
+// vaguer one, and it says the two things that are actually true: the new
+// compartment stays, and nothing here can take it away.
+const ADDED_ALTERNATE_STAYS =
+  'this made a new compartment inside a device by copying one that was already there. It stays: '
+  + 'removing a compartment is not possible through this API at all, so there is no automatic '
+  + 'way to undo it, and the device it was made in now has one more than it did.';
+
 const DEVICE_LANDING_UNSEEN =
   'where this device landed in the track was never read back, so there is no position to remove. '
   + 'Removing a counted position could remove a different device.';
@@ -582,6 +594,8 @@ function unrestoredWhy(what: string): string {
       return DEVICE_GONE_FOR_GOOD;
     case 'device.insert':
       return DEVICE_LANDING_UNSEEN;
+    case 'added alternate':
+      return ADDED_ALTERNATE_STAYS;
     case 'clip':
       return CLIP_LENGTH_MISSING;
     case 'notes':

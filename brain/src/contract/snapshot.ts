@@ -254,6 +254,14 @@ export interface BatchReceipt {
    * reports is what a revert DELETES, so an index that was counted rather than
    * observed would remove a device nobody addressed. An adapter that cannot see
    * where the device landed reports no mint, and the revert says so.
+   *
+   * ⚠⚠ `chain.create` mints too, and it is the one entry here that is NOT an
+   * inverse. A created chain cannot be removed by any measured typed route
+   * (`e17al`, `e17am`), so this address is not a revert instruction — it is the
+   * only proof the create happened at all, and it is a NAME-shaped
+   * `ChainAddress` because a chain's `channelId` regenerates on every project
+   * load (E17ad, E18b). Absent means the copy could not be identified or could
+   * not be named, which is a failure the receipt also reports as a failed op.
    */
   readonly minted: Readonly<Record<number, Address>>;
   readonly at: RevisionMark;

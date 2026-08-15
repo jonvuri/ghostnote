@@ -27,12 +27,13 @@ import assert from 'node:assert/strict';
 
 import {
   GAIN_READ_SCALE, addressKey, assertOpsWritable, chain as chainAddress, clip,
-  device as deviceAddress, notes as notesAddress, orderedNoteProps,
+  device as deviceAddress, deviceIn as deviceInAddress,
+  lookupChain as chainLookup, notes as notesAddress, orderedNoteProps,
   planStages, scene, slot, stepSizeFor, track, type NoteRecord, type Op,
 } from '../../contract/index.js';
 import { FakeAdapter } from './adapter.js';
 import { VirtualClock } from './clock.js';
-import { ProjectModel, noteKey } from './model.js';
+import { ProjectModel, noteKey, type FakeChain } from './model.js';
 import {
   applyNotePropsInOrder, gainOnReadback, gridChangePoisonsRead, noteOnReadback, pointAtSlot,
   propsReadsTurnStartClip, stepDataIsStale, writeNoteProps,
@@ -640,6 +641,19 @@ test('T-ship: the two container types do not ship alike (e17ai, E18a)', () => {
     'and the chain it ships with is EMPTY (e17ai)');
 });
 
+/**
+ * A chain fixture with a DISTINCT id, because the ids are what `mintedChain`
+ * reads and two fixtures sharing one would make a create look like a no-op.
+ *
+ * ⚠ Counted rather than taken from `mintChannelId`, so a test can build a chain
+ * without a model in hand — and deliberately not shaped like a real channelId,
+ * because nothing may ever depend on the shape of a value that regenerates on
+ * every project load (E18b).
+ */
+let fixtureChainId = 0;
+const someChain = (name: string, devices: FakeChain['devices'] = []): FakeChain =>
+  ({ name, id: `fixture-chain-${++fixtureChainId}`, devices });
+
 test('T-scope: a container is observable only in the first few device positions', () => {
   // ⚠ Not a fake limitation — `Rig.slotLayerBanks` are allocated at init (D7)
   // on `SLOT_SCOPES` top-level device slots, so a container further along the
@@ -648,7 +662,7 @@ test('T-scope: a container is observable only in the first few device positions'
   const model = new ProjectModel();
   const track = model.createTrack('gn-A');
   for (let i = 0; i <= model.containerScopes; i++) {
-    track.devices.push({ name: `dev-${i}`, paramsLive: true, params: [], chains: [{ name: 'A', devices: [] }] });
+    track.devices.push({ name: `dev-${i}`, paramsLive: true, params: [], chains: [someChain('A')] });
   }
   assert.notEqual(model.observeContainer(track, 0), undefined);
   assert.equal(model.observeContainer(track, model.containerScopes), undefined,
@@ -662,7 +676,7 @@ test('T-full: a chain bank filled to its size reads as INCOMPLETE, not as comple
   // resolver answering `absent` for a chain it simply could not see.
   const model = new ProjectModel();
   const track = model.createTrack('gn-A');
-  const chains = Array.from({ length: model.chainBankSize }, (_, i) => ({ name: `c${i}`, devices: [] }));
+  const chains = Array.from({ length: model.chainBankSize }, (_, i) => someChain(`c${i}`));
   track.devices.push({ name: 'container', paramsLive: true, params: [], chains });
   const observed = model.observeContainer(track, 0)!;
   assert.equal(observed.chains.length, model.chainBankSize);
@@ -680,11 +694,217 @@ test('T-dupname: copying a container gives two chains ONE name (e17n)', () => {
   const model = new ProjectModel();
   const source = model.createTrack('gn-A');
   source.devices.push({
-    name: 'container', paramsLive: true, params: [], chains: [{ name: 'A take', devices: [] }],
+    name: 'container', paramsLive: true, params: [], chains: [someChain('A take')],
   });
   const copy = model.duplicateTrack(source.channelId)!;
   assert.equal(copy.devices[0]!.chains?.[0]?.name, 'A take');
   assert.notEqual(copy.devices[0]!.chains, source.devices[0]!.chains, 'and it is a real copy');
+});
+
+test('T-create: a copied chain carries its source NAME and a fresh id (e17ak, e17n)', () => {
+  // ⚠⚠ The fact the whole two-step verb exists for. `Channel.duplicate()` gives
+  // the copy its source's name, so the container is momentarily ambiguous and
+  // nothing name-shaped can say which chain is new. A fake that named the copy
+  // something helpful would make the offline suite certify a create whose live
+  // readback cannot possibly work.
+  const model = new ProjectModel();
+  const track = model.createTrack('gn-A');
+  track.devices.push({
+    name: 'container', paramsLive: true, params: [], chains: [someChain('A take')],
+  });
+
+  const copy = model.duplicateChain(track, 0, 'A take')!;
+  assert.equal(copy.name, 'A take', 'the copy arrives wearing the source name');
+  assert.notEqual(copy.id, track.devices[0]!.chains![0]!.id, 'and is a different object');
+  assert.deepEqual(track.devices[0]!.chains!.map((c) => c.name), ['A take', 'A take']);
+
+  // ...which is exactly the state the resolver must refuse until the rename.
+  const observed = model.observeContainer(track, 0)!;
+  assert.deepEqual(chainLookup(observed, 'A take'), { ok: false, miss: 'ambiguous' });
+
+  // The rename is BY ID, and it resolves the ambiguity for both names at once.
+  assert.equal(model.renameChain(track, 0, copy.id, 'B take'), true);
+  const settled = model.observeContainer(track, 0)!;
+  assert.equal(chainLookup(settled, 'A take').ok, true, 'the source is addressable again');
+  const found = chainLookup(settled, 'B take');
+  assert.equal(found.ok && found.chain.id, copy.id, 'and the new name names the chain we made');
+});
+
+test('T-create: renaming by an id the container does not hold changes NOTHING', () => {
+  // ⚠ The fail-closed direction. A rename that fell back to a position would
+  // rename the SOURCE and leave the copy wearing the source's name — breaking
+  // every address anyone held, silently.
+  const model = new ProjectModel();
+  const track = model.createTrack('gn-A');
+  track.devices.push({
+    name: 'container', paramsLive: true, params: [], chains: [someChain('A take')],
+  });
+  assert.equal(model.renameChain(track, 0, 'no-such-id', 'B take'), false);
+  assert.equal(track.devices[0]!.chains![0]!.name, 'A take');
+});
+
+test('T-create: a copy of a chain holding devices holds its OWN copies of them', () => {
+  // Nothing in this slice can put a device in a chain, so the model is written
+  // for the chain the fill verb will produce rather than the one it can reach.
+  const model = new ProjectModel();
+  const track = model.createTrack('gn-A');
+  const inner = { name: 'Polysynth', paramsLive: true, params: [{ name: 'Param 1', value: 0.5 }] };
+  track.devices.push({
+    name: 'container', paramsLive: true, params: [], chains: [someChain('A take', [inner])],
+  });
+
+  const copy = model.duplicateChain(track, 0, 'A take')!;
+  assert.deepEqual(copy.devices.map((d) => d.name), ['Polysynth']);
+  assert.notEqual(copy.devices[0], inner, 'deep, so editing one does not edit the other');
+  assert.notEqual(copy.devices[0]!.params[0], inner.params[0]);
+});
+
+test('T-create: a source name the container does not hold copies nothing', () => {
+  const model = new ProjectModel();
+  const track = model.createTrack('gn-A');
+  track.devices.push({
+    name: 'container', paramsLive: true, params: [], chains: [someChain('A take')],
+  });
+  assert.equal(model.duplicateChain(track, 0, 'nope'), undefined);
+  assert.equal(model.duplicateChain(track, 1, 'A take'), undefined, 'and neither does a non-container');
+  assert.equal(track.devices[0]!.chains!.length, 1);
+});
+
+test('T-create: the LAST bank slot is usable, and the create after it refuses', async () => {
+  // ⚠⚠ The boundary the mint diff is written around. A container filled to its
+  // bank width reports itself INCOMPLETE, because the enumeration omits nothing
+  // past the window and a full bank is byte-identical to an overflowing one. If
+  // the diff demanded completeness on both sides, this create would copy the
+  // chain and then decline to name it — leaving it wearing the source's name,
+  // every time, in every container's last slot.
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
+  const bank = adapter.model.chainBankSize;
+  model.devices.push({
+    name: 'container',
+    paramsLive: true,
+    params: [],
+    chains: Array.from({ length: bank - 1 }, (_, i) => someChain(`c${i}`)),
+  });
+  const container = deviceAddress(track(first.channelId), 0);
+  const source = chainAddress(container, 'c0');
+
+  const filled = await adapter.apply({ ops: [{ op: 'chain.create', source, name: 'last' }] });
+  assert.deepEqual(filled.minted[0], chainAddress(container, 'last'),
+    'the chain that fills the bank is still identified and still named');
+  const hit = (await adapter.resolve([chainAddress(container, 'last')])).resolved[0];
+  assert.equal(hit?.found, true, 'and it resolves, because a visible name resolves either way');
+
+  // ⚠ And now the bank IS full, so standing rule 5 refuses the next one before
+  // anything is copied. A chain created past the window could be resolved by
+  // nothing and removed by nothing — there is no typed chain delete at all.
+  await assert.rejects(
+    adapter.apply({ ops: [{ op: 'chain.create', source, name: 'overflow' }] }),
+    /chain bank is full/,
+  );
+  assert.equal(model.devices[0]!.chains!.length, bank, 'nothing was copied');
+});
+
+test('T-create: two creates in ONE batch are SUMMED against the bank, not checked one at a time', async () => {
+  // ⚠⚠ The regression, and it is the mistake `assertSceneRoom`'s header already
+  // names one population up: nothing has been applied when the guard runs, so
+  // every create in a batch sees the same reading, and checking each against it
+  // independently is a post-hoc check wearing a precondition's clothes.
+  //
+  // Measured before the fix, on exactly this fixture: two creates against a
+  // 3-of-4 container produced FIVE chains — one stranded past a bank that can
+  // address four, unresolvable and with no typed delete to remove it — and both
+  // stage receipts reported `ok: true`.
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
+  const bank = adapter.model.chainBankSize;
+  model.devices.push({
+    name: 'container',
+    paramsLive: true,
+    params: [],
+    chains: Array.from({ length: bank - 1 }, (_, i) => someChain(`c${i}`)),
+  });
+  const container = deviceAddress(track(first.channelId), 0);
+  const source = chainAddress(container, 'c0');
+
+  await assert.rejects(
+    adapter.apply({
+      ops: [
+        { op: 'chain.create', source, name: 'x1' },
+        { op: 'chain.create', source, name: 'x2' },
+      ],
+    }),
+    /would leave the container holding 5 chains in a bank 4 wide/,
+  );
+  // ⚠ The WHOLE batch is refused, so not even the first create ran. A create
+  // that landed and a create that was refused cannot be mixed here: there is no
+  // typed delete, so a partial batch is a partial batch forever.
+  assert.equal(model.devices[0]!.chains!.length, bank - 1, 'nothing was copied');
+});
+
+test('T-create: two creates in ONE batch cannot claim the same name', async () => {
+  // ⚠ Measured before the fix: this produced ["src", "dup", "dup"] with both ops
+  // reporting `ok: true`, and `resolve` then answering `ambiguous` for the only
+  // address either of them could be addressed by.
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
+  model.devices.push({
+    name: 'container', paramsLive: true, params: [], chains: [someChain('src')],
+  });
+  const container = deviceAddress(track(first.channelId), 0);
+  const source = chainAddress(container, 'src');
+
+  await assert.rejects(
+    adapter.apply({
+      ops: [
+        { op: 'chain.create', source, name: 'dup' },
+        { op: 'chain.create', source, name: 'dup' },
+      ],
+    }),
+    /"dup" is already used by a chain in this container at the point this op runs/,
+  );
+  assert.deepEqual(model.devices[0]!.chains!.map((c) => c.name), ['src']);
+});
+
+test('T-create: a chain an EARLIER create in the batch made is a usable source', async () => {
+  // The positive half of the same projection, and the reason it tracks names
+  // rather than just counting: the guard reasons about the container as the
+  // creates before it leave it, so a batch can build a chain and then copy it.
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
+  model.devices.push({
+    name: 'container', paramsLive: true, params: [], chains: [someChain('src')],
+  });
+  const container = deviceAddress(track(first.channelId), 0);
+
+  const receipt = await adapter.apply({
+    ops: [
+      { op: 'chain.create', source: chainAddress(container, 'src'), name: 'a' },
+      { op: 'chain.create', source: chainAddress(container, 'a'), name: 'b' },
+    ],
+  });
+
+  assert.deepEqual(model.devices[0]!.chains!.map((c) => c.name).sort(), ['a', 'b', 'src']);
+  assert.deepEqual(receipt.minted[1], chainAddress(container, 'b'));
+  assert.deepEqual(receipt.stages.flatMap((s) => s.ops).filter((o) => !o.ok), []);
+});
+
+test('T-create: a container inside a chain is refused — no route reaches that deep', async () => {
+  // The depth seam, still where step 6a put it. `chain.create` declares its
+  // container as a device address, so `assertDevicesRoutable` refuses a nested
+  // one for free rather than sending its `chainIndex` as a top-level position.
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const outer = chainAddress(deviceAddress(track(first.channelId), 0), 'outer');
+  const nested = chainAddress(deviceInAddress(outer, 0), 'inner');
+  await assert.rejects(
+    adapter.apply({ ops: [{ op: 'chain.create', source: nested, name: 'x' }] }),
+    /device-layer chain/,
+  );
 });
 
 test('T-ambig: the fake ADAPTER refuses a duplicated chain name, exactly as live does', async () => {
@@ -701,7 +921,7 @@ test('T-ambig: the fake ADAPTER refuses a duplicated chain name, exactly as live
     name: 'container',
     paramsLive: true,
     params: [],
-    chains: [{ name: 'A take', devices: [] }, { name: 'A take', devices: [] }],
+    chains: [someChain('A take'), someChain('A take')],
   });
 
   const target = chainAddress(deviceAddress(track(first.channelId), 0), 'A take');

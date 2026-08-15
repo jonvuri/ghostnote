@@ -21,8 +21,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  chain, device, deviceIn, lookupChain, lookupDevice, lookupNestedDevice, nestingDepth,
-  nestingObservable, track,
+  chain, device, deviceIn, lookupChain, lookupDevice, lookupNestedDevice, mintedChain,
+  nestingDepth, nestingObservable, track,
   type ObservedChain, type ObservedContainer,
 } from './index.js';
 
@@ -35,6 +35,14 @@ const oneChain = (name: string, index = 0, devices: string[] = [], complete = tr
   devices: devices.map((n, i) => ({ index: i, name: n })),
   devicesComplete: complete,
 });
+
+/**
+ * A chain with an explicit WITHIN-SESSION id — the only thing `mintedChain`
+ * reads, and deliberately separate from `oneChain` so every lookup case above
+ * keeps proving that resolution never touches it.
+ */
+const withId = (name: string, id: string, index = 0): ObservedChain =>
+  ({ ...oneChain(name, index), id });
 
 const container = (chains: ObservedChain[], complete = true): ObservedContainer =>
   ({ chains, chainsComplete: complete });
@@ -153,4 +161,104 @@ test('N-depth: a top-level device is not a nested lookup at all', () => {
     lookupNestedDevice(container([oneChain('a', 0)]), device(TRACK, 0)),
     { ok: false, miss: 'unsupported' },
   );
+});
+
+// --- which chain a CREATE just made ---------------------------------------------
+
+test('N-mint: the new chain is identified by IDENTITY, not by where it landed', () => {
+  // ⚠⚠ The case that makes position useless, and it is the ordinary one rather
+  // than a corner: `Channel.duplicate()` copies a chain, and a copy carries its
+  // SOURCE'S NAME. Both chains below are called "A take" and neither the name
+  // nor the ordering separates them — only the id does.
+  const before = container([withId('A take', 'id-src', 0)]);
+  const after = container([withId('A take', 'id-src', 0), withId('A take', 'id-new', 1)]);
+  const mint = mintedChain(before, after);
+  assert.equal(mint.ok, true);
+  assert.equal(mint.ok && mint.chain.id, 'id-new');
+});
+
+test('N-mint: the copy is found wherever it landed, not only after its source', () => {
+  // Nothing has measured WHERE a duplicate lands, so nothing may depend on it.
+  // Here it lands first, which a positional rule would resolve to the source.
+  const before = container([withId('A take', 'id-src', 0)]);
+  const after = container([withId('A take', 'id-new', 0), withId('A take', 'id-src', 1)]);
+  const mint = mintedChain(before, after);
+  assert.equal(mint.ok && mint.chain.id, 'id-new');
+});
+
+test('N-mint: a container that was already full BEFORE the copy mints NOTHING', () => {
+  // ⚠ A full bank hides whatever is past it, so the prior set is unknown and a
+  // chain that was already there could pass for the new one. Failing closed here
+  // costs a mint; guessing costs a rename aimed at somebody else's chain.
+  const before = container([withId('A', 'id-1', 0)], false);
+  const after = container([withId('A', 'id-1', 0), withId('A', 'id-2', 1)]);
+  assert.equal(mintedChain(before, after).ok, false);
+});
+
+test('N-mint: a container the copy FILLED is still minted — the last slot is usable', () => {
+  // ⚠⚠ The asymmetry, and it is the difference between a working last slot and a
+  // permanently broken one. A complete before view has strictly fewer chains
+  // than the bank is wide, so the copy always lands inside the window — and
+  // lands the container in the state a full bank always reports, incomplete.
+  // Demanding completeness on both sides would decline every create that fills a
+  // container and leave the copy wearing its source's name, every time.
+  const before = container([withId('A', 'id-1', 0), withId('B', 'id-2', 1)]);
+  const after = container(
+    [withId('A', 'id-1', 0), withId('A', 'id-3', 1), withId('B', 'id-2', 2)], false);
+  const mint = mintedChain(before, after);
+  assert.equal(mint.ok && mint.chain.id, 'id-3');
+});
+
+test('N-mint: a copy that pushed a chain OUT of the window mints NOTHING', () => {
+  // ⚠ The case the relaxation above must not let through, and the reason the
+  // `lost` check is not redundant with the count: the after view grew by exactly
+  // one AND a chain we could see before is gone from it, which is what a
+  // container overflowing its bank looks like from here.
+  const before = container([withId('A', 'id-1', 0), withId('B', 'id-2', 1)]);
+  const after = container(
+    [withId('A', 'id-1', 0), withId('A', 'id-3', 1), withId('C', 'id-4', 2)], false);
+  const mint = mintedChain(before, after);
+  assert.equal(mint.ok, false);
+  assert.match(mint.ok ? '' : mint.why, /no longer there/);
+});
+
+test('N-mint: an enumeration with no per-chain identity mints NOTHING', () => {
+  // An extension too old to report `channelId` answers with silence, which
+  // `methodsHash` cannot see (it is over method NAMES). Silence must not decay
+  // into a positional guess.
+  const before = container([oneChain('A', 0)]);
+  const after = container([oneChain('A', 0), oneChain('A', 1)]);
+  const mint = mintedChain(before, after);
+  assert.equal(mint.ok, false);
+  assert.match(mint.ok ? '' : mint.why, /identity/);
+});
+
+test('N-mint: a container that did not grow by exactly one mints NOTHING', () => {
+  const before = container([withId('A', 'id-1', 0)]);
+  assert.equal(mintedChain(before, before).ok, false, 'nothing happened');
+  assert.equal(
+    mintedChain(before, container([
+      withId('A', 'id-1', 0), withId('A', 'id-2', 1), withId('A', 'id-3', 2),
+    ])).ok,
+    false,
+    'two appeared, so what happened is not the create that was asked for',
+  );
+});
+
+test('N-mint: a chain that VANISHED across the create mints NOTHING', () => {
+  // Same count, different objects. A rule that only counted would call this a
+  // clean create and then rename a chain that replaced one somebody else lost.
+  const before = container([withId('A', 'id-1', 0), withId('B', 'id-2', 1)]);
+  const after = container([withId('A', 'id-1', 0), withId('B', 'id-3', 1), withId('B', 'id-4', 2)]);
+  const mint = mintedChain(before, after);
+  assert.equal(mint.ok, false);
+  assert.match(mint.ok ? '' : mint.why, /no longer there/);
+});
+
+test('N-mint: a blank id counts as no id at all', () => {
+  // `putGuarded` writes a string for an unreadable value, and an empty one would
+  // otherwise be a perfectly good map key that matches every other blank.
+  const before = container([withId('A', 'id-1', 0)]);
+  const after = container([withId('A', 'id-1', 0), withId('A', '', 1)]);
+  assert.equal(mintedChain(before, after).ok, false);
 });

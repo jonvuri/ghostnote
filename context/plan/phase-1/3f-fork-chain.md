@@ -2,12 +2,13 @@
 title: Phase 1, session 3f — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: STEP 6b-1 COMPLETE 2026-08-15, VERIFIED LIVE. Step 5 (`copy_track`)
-        shipped and was verified live. Step 6a's grammar expresses a chain and a
-        device inside one; step 6b-1 makes both OBSERVABLE through a promoted
-        `chain.inventory`, with ambiguity, blindness and absence kept apart, and
-        every nested write still refused. Next: the first typed chain verb
-        (step 6b-2).
+status: STEP 6b-2 COMPLETE 2026-08-15, VERIFIED LIVE. Steps 5, 6a and 6b-1
+        shipped and were verified live. Step 6b-2 lands `chain.create`, the first
+        typed write inside a container: it copies a named chain, names the copy,
+        identifies it by within-session id, and mints only once the new name
+        resolves. Three new wire methods moved the golden hash, the jar was
+        redeployed, and live conformance passed 49/0/6 with `C-chain-create`
+        green. Next: the FILL verb.
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -198,30 +199,140 @@ the jar was redeployed and Bitwig restarted before the live run.
 ⚠ Writes were not touched. `assertDevicesRoutable` refuses every nested route
 exactly as before, and `chain.move` stays probe surface.
 
-### Step 6b-2 — next
+### Step 6b-2 — complete 2026-08-15, verified live
 
-1. The first typed verb, and the measured route is already known: E17's
-   `e17ak` closed chain creation as **fully autonomous** — `layer.select` +
-   `Channel.duplicate()` (`layer.duplicateChannel`), no focus, no priming, no
-   human. A successful receipt requires independent resolution/readback of the
-   created chain; acknowledgement or the writer's selected handle is not proof.
-   Keep `assertDevicesRoutable` in force for every nested write route not promoted
-   and verified in this slice. `DeviceLayer.duplicateObject()` stays dead.
-2. The verb also unlocks two assertions 6b-1 could only make one-sidedly, and
-   both should move into conformance the moment they are constructible: an
-   AMBIGUOUS name inside one container (fake-only today — `T-ambig`; `ambiguous`
-   itself already exists as a contract reason), and a chain that holds a device.
-3. ⚠ Reduction cannot mirror creation: every typed chain DELETE refuses
-   (`e17al`, `e17am` — a `DeviceLayer` honours only the verbs `Channel` declares
-   itself). So collapse is *move the devices out, then delete the CONTAINER*
-   (`Device.deleteObject()` ●), exactly the shape acceptance item 5 names.
-4. ⚠ The seed asset's scope is narrower than this brief assumed, and worth
-   settling before building it: a fresh **FX Layer ships with one chain** and can
-   therefore be grown entirely typed from a `device.insert`, while a fresh
-   **Instrument Layer ships with zero** and has no typed route to a first chain
-   (`e17ai`, `e17ak`). The bundled seed is load-bearing for the instrument-track
-   case and may be avoidable for the Master/FX-return case. Measure before
-   committing to one asset for both.
+The first typed verb landed: `chain.create` copies a named chain in a container
+and names the copy, and it is the first write in this system that reaches inside
+one. `assertDevicesRoutable` still refuses every other nested route.
+
+What the verb is, and why it has that shape:
+
+- **It copies, because there is no create-from-nothing.** `e17ak` measured the
+  whole space and exactly one typed route works: select the chain, then
+  `Channel.duplicate()`. The op therefore takes a SOURCE `ChainAddress` and
+  refuses a container with nothing to copy, instead of pretending placement is a
+  choice.
+- ⚠⚠ **Naming is part of the verb, not a second op.** A duplicate arrives
+  carrying its source's name, so between the copy and the rename the container
+  holds two chains `lookupChain` correctly refuses as `ambiguous` — a state in
+  which the new chain has no address at all. A separate rename would have to be
+  addressed with exactly the address that does not yet exist.
+- ⚠⚠ **The copy is identified by IDENTITY, never position.** `mintedChain` (in
+  the contract, shared by both adapters) diffs the container's per-chain
+  `channelId`s across the write. That id is worthless as an ADDRESS — the loader
+  mints it on every project load (E17ad, E18b), which is why `ChainAddress` uses
+  the name — and it is exactly right as a within-turn witness. Getting this wrong
+  renames the SOURCE and leaves the copy impersonating it.
+- **Success is independent resolution**, per the acceptance bar: the receipt
+  mints only after the new name resolves, uniquely, to the chain whose id the
+  diff returned. Acknowledgement is not consulted, and neither is the writer's
+  selected handle.
+- ⚠ **A failure is reported, because nothing can roll it back.** If the copy
+  cannot be identified or named, a real chain is left wearing the source's name;
+  the op is marked failed in the receipt with that sentence, since there is no
+  typed delete to clean up with.
+- ⚠ **Preconditions refuse before the first frame** (`assertChainCreatable`,
+  contract-side rule + adapter-side observation, exactly like `assertSlotsFree`):
+  the container must be observable, the source must name exactly one chain, the
+  new name must be provably free, and the chain bank must have room — standing
+  rule 5 one population down, because a chain created past a four-wide bank could
+  be resolved by nothing and removed by nothing.
+- ⚠⚠ **Those preconditions are PROJECTED across the batch**, not checked
+  independently. Nothing is applied when they run, so every create in a batch
+  sees the same reading — the mistake `assertSceneRoom`'s header already names
+  one population up. Measured before the fix: two creates against a 3-of-4
+  container produced FIVE chains, stranding one past the bank, and two creates
+  named `dup` produced two chains called `dup` — both with every stage receipt
+  reporting `ok`. Each create is now checked against the container as the creates
+  before it leave it, which also means a chain an earlier create made is a usable
+  source. Counting needs the bank SIZE, so `ObservedContainer` carries one; a
+  reading without it is refused rather than treated as room.
+- ⚠ **A create that copies but cannot be named is reported on BOTH adapters, and
+  never thrown.** The extension deliberately refuses a rename whose id no chain
+  carries, but by then the copy exists — so an exception escaping `apply` would
+  leave the caller no receipt at all for a container that now holds an
+  unaddressable chain. Everything after the copy is caught and converted into a
+  failed op carrying the extension's own words. The fake throws the same sentence
+  (shared from the contract) rather than returning quietly, which it used to do.
+
+⚠⚠ **Three new wire methods, and they are NOT the `layer.*` ones `e17ak` used.**
+`chain.select`, `chain.duplicate` and `chain.setName` read through
+`Rig.slotLayerBanks` — the same banks `chain.inventory` enumerates — where
+`layer.select`/`layer.duplicateChannel`/`layer.setName` follow `cursorDevice0`.
+That difference is disqualifying three times over: the container would become a
+hidden argument (the e16o trap), reader and writer would address containers
+through different handles, and moving `cursorDevice0` would silently re-aim every
+`param.set` near it. The `layer.*` originals stay probe surface, asserted.
+
+⚠⚠ **The deviation was a measurement, not a deduction — and it is now MEASURED.**
+`e17ak` established `selectInEditor()` + `duplicate()` on a `DeviceLayer` from
+`layerBank0`; this route makes the same two calls on a `DeviceLayer` from
+`slotLayerBanks`, and this project's most repeated lesson is that sibling verbs
+and handles disagree. `C-chain-create` passed live on 2026-08-15, so they do not
+disagree here: **the product's chain reads and its chain writes now address
+containers through the same cursor-free slot scopes, and neither needs the
+device-cursor apparatus.**
+
+⚠ `chain.select` is its own wire call rather than a line inside the duplicate:
+E2 says a write is not visible to a read in the same request, and `e17ak` fired
+the select a turn earlier. The extension re-selects inside the duplicate as belt
+and braces. The settle between them is `trackStruct` (144ms) — **borrowed, not
+measured**; no chain-selection settle has ever been measured, and the two
+neighbouring measured budgets are 25ms (cursor point, E1) and ~144ms (structural,
+E1/E3). ⚠ The live pass says 144ms is ENOUGH; it does not say where the floor is.
+A future silent ○ on this row should suspect that number first.
+
+Two acceptance items resolved differently than this brief expected:
+
+1. ⚠ **Neither of item 2's assertions became constructible, and that is a
+   finding rather than an omission.** An AMBIGUOUS name cannot be produced
+   through the typed surface at all now, because the create refuses a colliding
+   target name — refusing it is what stops the verb manufacturing the exact state
+   the resolver exists to reject, so conformance asserts the REFUSAL on both
+   adapters instead. `T-ambig` stays fake-only. A chain HOLDING A DEVICE is still
+   unreachable too: the FX Layer's shipped chain is empty, a copy of an empty
+   chain is empty, and no fill route is promoted. Both move when the fill verb
+   does.
+2. ⚠ **The seed asset is not needed for this step and is deferred, not
+   cancelled.** A fresh FX Layer ships with one chain, so the FX/Master path is
+   fully typed end to end from a `device.insert` — measured `e17ai`, and now
+   exercised by `C-chain-create`. A fresh Instrument Layer ships with ZERO and
+   still has no typed route to a first chain, so the bundled seed remains
+   load-bearing for the instrument-track case only. Scope it when that case is
+   built, against a measurement rather than against one asset for both.
+
+Reduction is unchanged and still not built: every typed chain DELETE refuses
+(`e17al`, `e17am` — a `DeviceLayer` honours only the verbs `Channel` declares
+itself), so collapse is *move the devices out, then delete the CONTAINER*
+(`Device.deleteObject()` ●), the shape acceptance item 5 names.
+
+⚠ **The surface ban list was NOT reopened.** This step shipped a typed verb and
+no tool that has to say `layer` or `chain` out loud, so both entries in
+`naming.ts` stand as written. `report.ts` gained one sentence for an
+unreverted chain, written in the surface's own vocabulary under the ban.
+
+Verification, 2026-08-15: brain typecheck plus 419/419 offline tests (8 `N-mint`,
+6 `T-create`, 6 `L-chain-create` driven against a stub that models `e17ak` arm A,
+2 `E-chain`, and the new `C-chain-create` row), extension Gradle build green,
+`git diff --check` green. The golden moved to 146 methods / `c1120b1c567369d3`,
+the jar was redeployed and Bitwig restarted, and **live conformance passed 49,
+failed 0, skipped 6** — `C-chain-create` green in 3.9s, `C-chain-observe` and
+`C-nested-device` unchanged, and the 6 skips the standing bank/scene-overflow
+ones no live harness can construct.
+
+⚠ **Review pass, same day: three defects found and fixed, all in the batch and
+failure paths the live row does not exercise** (it runs one create at a time
+against a cooperative extension). Two were reproduced against the fake before
+being fixed — five chains in a four-wide bank, and two chains under one name,
+both with `ok: true` receipts — and the third against a stub that refuses the
+rename, where `apply` threw and left the container ambiguous with no receipt.
+Offline is now 423/423 with a regression case for each: `T-create` for the summed
+bank and the paired name (plus the positive case, a create sourced from a chain
+an earlier create in the same batch made), `L-chain-create` for the refused
+rename, and `C-chain-create` gained the paired-name refusal so it is asserted on
+both adapters. ⚠ **No live re-run has been made since.** The fixes are refusals
+and reports on paths the passing live row never entered, so its result stands —
+but the batch paths themselves have still never met a real DAW.
 
 ## Capability boundary
 

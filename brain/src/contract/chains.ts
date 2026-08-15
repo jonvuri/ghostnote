@@ -36,6 +36,12 @@
  * can walk would answer a question about one chain with a fact about a different
  * one, which is the whole failure class `assertDevicesRoutable` exists to
  * prevent.
+ *
+ * ⚠ Session 3f step 6b-2 added ONE thing to this module and it is not a lookup:
+ * `mintedChain`, which answers *which chain did the create just make* from two
+ * observations. It lives here rather than in an adapter for the same reason the
+ * lookups do — both adapters must identify a minted chain by the same rule, or
+ * the offline suite is certifying a discipline the live one does not have.
  */
 import { chainPath, type ChainAddress, type DeviceAddress } from './address.js';
 
@@ -64,6 +70,31 @@ export interface ObservedChain {
   readonly name: string;
   readonly devices: readonly ObservedDevice[];
   readonly devicesComplete: boolean;
+  /**
+   * ⚠⚠ A WITHIN-SESSION WITNESS, and never an address. Read the sentence twice
+   * before using this field, because the whole chain grammar rests on it being
+   * the second thing and not the first.
+   *
+   * A chain does hand out a `channelId`, and it is worthless as a key: the
+   * project LOADER mints it, so it regenerates on every document load while the
+   * name survives (E17ad 8/8 changed with the track ids unchanged in the same
+   * read; E18b separated the two reload kinds and closed it). That is precisely
+   * why `ChainAddress` addresses by NAME.
+   *
+   * What it IS good for is the one question a name cannot answer: *which of
+   * these two chains did we just create?* Chain creation is
+   * `layer.select` + `Channel.duplicate()` (`e17ak`), and a duplicate carries
+   * its source's NAME — so between the copy and its rename the container holds
+   * two chains a name cannot tell apart, and `lookupChain` correctly refuses
+   * both as `ambiguous`. `mintedChain` uses this id to identify the new one, in
+   * the same turn it was made, exactly the way `apply` diffs the track bank by
+   * `channelId` after a `track.create` (E2c).
+   *
+   * ⚠ OPTIONAL, and absence must fail closed. An extension too old to report it
+   * answers with silence, which `methodsHash` cannot see — so `mintedChain`
+   * declines to identify anything rather than falling back to position.
+   */
+  readonly id?: string;
 }
 
 /**
@@ -79,6 +110,24 @@ export interface ObservedContainer {
   readonly chains: readonly ObservedChain[];
   /** ⚠ Was the chain bank known to hold everything? See `ObservedChain.devicesComplete`. */
   readonly chainsComplete: boolean;
+  /**
+   * ⚠ How wide the chain bank is (`Rig.SLOT_LAYER_BANK`) — the number
+   * `chainsComplete` is a yes/no answer about.
+   *
+   * Both are carried because they answer different questions and only one of
+   * them can be projected. `chainsComplete` says whether THIS reading saw
+   * everything; the SIZE is what lets a guard reason about a container two
+   * creates from now, without taking a second reading it has no way to take
+   * (nothing has been applied yet). `assertChainCreatable` needs exactly that,
+   * for the same reason `assertSceneRoom` needs `WindowCoverage.bankSize`: a
+   * budget that re-checks the current count per op lets a pair through and
+   * strands the second one.
+   *
+   * ⚠ OPTIONAL, and absence must fail closed. An extension too old to report it
+   * also makes `chainsComplete` false on both adapters, so a create is refused
+   * either way — but a guard must never treat a missing size as room.
+   */
+  readonly chainsBankSize?: number;
 }
 
 /**
@@ -160,4 +209,112 @@ export function lookupNestedDevice(
   const found = lookupChain(container, chainRef.name);
   if (!found.ok) return { ok: false, miss: found.miss };
   return lookupDevice(found.chain, address.chainIndex);
+}
+
+/**
+ * ⚠⚠ WHICH CHAIN A CREATE JUST MADE — from two observations of the container,
+ * never from a count and never from the position anyone expected.
+ *
+ * The exact sibling of `mintedChainIndex` (a device insert) and of `apply`'s
+ * track-bank diff (E2c), and the reason all three exist is one rule: *name the
+ * survivor, never count it* (D20). Here the rule bites harder than usual,
+ * because the create is a DUPLICATION and a duplicate carries its source's
+ * name — so the container momentarily holds two chains that a name cannot tell
+ * apart, and picking the wrong one renames the SOURCE while leaving the copy
+ * wearing the source's name. Every address anyone held to the source would then
+ * be pointing at an object that is no longer called that.
+ *
+ * ⚠ Identity, not position, and position is not a fallback. A duplicate landing
+ * *after* its source is a reasonable expectation and nothing has measured it;
+ * if the copy landed anywhere else, a positional rule would confidently rename
+ * the wrong chain. `ObservedChain.id` is the within-session witness — see the
+ * ⚠⚠ on that field for why it is a witness and never an address.
+ *
+ * ⚠ FAILS CLOSED, in four separate ways, because the consequence of a wrong
+ * answer is a rename aimed at somebody else's chain:
+ *
+ *   - the BEFORE view was incomplete — the prior set is then unknown, so a
+ *     chain that was already there could look new;
+ *   - any chain missing its id — an older deployment, and silence must not
+ *     degrade into a positional guess;
+ *   - the count did not grow by exactly one, or a chain that was there before
+ *     is gone (which is what a copy pushing a chain past the window looks like);
+ *   - the new ids do not number exactly one.
+ *
+ * ⚠⚠ The AFTER view is deliberately allowed to be incomplete, and the asymmetry
+ * is load-bearing rather than a relaxation. A complete before view has strictly
+ * fewer chains than the bank is wide, so the one this call adds is always inside
+ * the window — but the container is then FULL, and a full bank reports itself
+ * incomplete by construction (`ObservedChain.devicesComplete` explains why).
+ * Requiring completeness on both sides would therefore make the last slot of
+ * every container permanently unusable: the copy would land, the diff would
+ * decline, and the chain would be left wearing its source's name. That is a
+ * deterministic defect traded against a race — two chains appearing between the
+ * two readings — that the `lost`-id check above already catches whenever the new
+ * arrival displaces anything, and that the track-bank mint in `apply` has lived
+ * with since E2c.
+ */
+export type ChainMint =
+  | { readonly ok: true; readonly chain: ObservedChain }
+  | { readonly ok: false; readonly why: string };
+
+/**
+ * What a create that copied but could not NAME has left behind, in one sentence
+ * both adapters use.
+ *
+ * ⚠ Shared rather than written twice, because it is the sentence a user acts on
+ * and the sentence a conformance row matches. Two hand-written copies is how the
+ * fake ends up reporting a softer version of what live reports — and this
+ * particular failure is one nothing can clean up automatically, so the wording
+ * is the entire remedy.
+ */
+export const chainCopyUnnamed = (sourceName: string, why: string): string =>
+  `${why}. A chain was copied and is still called "${sourceName}", so that name now names two `
+  + 'chains and neither resolves. There is no typed route to remove it (e17al, e17am); the '
+  + 'container has to be reduced by hand.';
+
+export function mintedChain(before: ObservedContainer, after: ObservedContainer): ChainMint {
+  if (!before.chainsComplete) {
+    return {
+      ok: false,
+      why: 'the chain bank was already full before the copy, so the set of chains that were '
+        + 'there is unknown and one of them could pass for the new one',
+    };
+  }
+  const ids = (c: ObservedContainer): string[] | undefined => {
+    const out: string[] = [];
+    for (const item of c.chains) {
+      if (item.id === undefined || item.id === '') return undefined;
+      out.push(item.id);
+    }
+    return out;
+  };
+  const was = ids(before);
+  const now = ids(after);
+  if (was === undefined || now === undefined) {
+    return {
+      ok: false,
+      why: 'the container enumeration did not carry a per-chain identity, so which chain is new '
+        + 'cannot be observed — and position is not an acceptable substitute for it',
+    };
+  }
+  if (now.length !== was.length + 1) {
+    return {
+      ok: false,
+      why: `the container held ${was.length} chains and now holds ${now.length}; exactly one more `
+        + 'was expected, so what happened is not the create that was asked for',
+    };
+  }
+  const seen = new Set(now);
+  const lost = was.filter((id) => !seen.has(id));
+  if (lost.length > 0) {
+    return { ok: false, why: 'a chain that was there before the create is no longer there' };
+  }
+  const had = new Set(was);
+  const fresh = after.chains.filter((c) => !had.has(c.id!));
+  const one = fresh[0];
+  if (fresh.length !== 1 || one === undefined) {
+    return { ok: false, why: `${fresh.length} chains are new, and exactly one was expected` };
+  }
+  return { ok: true, chain: one };
 }

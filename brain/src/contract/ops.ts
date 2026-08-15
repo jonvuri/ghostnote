@@ -21,7 +21,8 @@
  * expressible. That is the point of a typed seam over a string wire.
  */
 import { addressKey, chainPath, clip } from './address.js';
-import type { ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress, BeatRange } from './address.js';
+import type { ChainAddress, ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress, BeatRange } from './address.js';
+import { nestingObservable, type ObservedContainer } from './chains.js';
 import { unwritableProps, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
 import {
@@ -88,6 +89,37 @@ export type Op =
   | { readonly op: 'device.delete'; readonly device: DeviceAddress }
   | { readonly op: 'param.set'; readonly param: ParamAddress; readonly value: number }
 
+  // --- device-layer chains: the FIRST typed verb that reaches inside one -----
+  /**
+   * ⚠⚠ Make a new chain in a container, by COPYING one that is already there,
+   * and give it a name. Session 3f step 6b-2, and the first write in this
+   * system that addresses anything below the track's own device chain.
+   *
+   * **Why copying, and why that is not a limitation of this op.** There is no
+   * create-from-nothing. `e17ak` measured the whole space and exactly one typed
+   * route works: select the chain (`DeviceChain.selectInEditor()`), then call
+   * `Channel.duplicate()` on it. Its sibling `DuplicableObject.duplicateObject()`
+   * is dead on a `DeviceLayer`, the named actions need a human click (`e17ab`),
+   * and a container's own insertion point does not exist. So a container with no
+   * chain at all cannot be grown, and the op says so by requiring a SOURCE
+   * rather than by pretending the seam is a placement choice.
+   *
+   * **Why the name is part of the verb rather than a second op.** A duplicate
+   * carries its source's name, so the moment it lands the container holds two
+   * chains that `lookupChain` correctly refuses as `ambiguous` — a state in
+   * which the new chain has no address at all. A separate rename op would have
+   * to be addressed with exactly the address that does not yet exist. The verb
+   * therefore owns both halves, and `mintedChain` is what tells them apart in
+   * between.
+   *
+   * ⚠ It is UNREVERTABLE, and measured so rather than assumed: every typed
+   * chain DELETE refuses — `DeleteableObject.deleteObject()` and
+   * `deleteObjectAction().invoke()`, both with a `Track` sibling deleting in the
+   * same run (`e17al`, `e17am`). Reduction is *move the devices out, delete the
+   * CONTAINER*, which is a different verb this op does not pretend to have.
+   */
+  | { readonly op: 'chain.create'; readonly source: ChainAddress; readonly name: string }
+
   // --- progress signal ------------------------------------------------------
   // Free: E8-C interleaved notify ops into a paced batch and all fired, spaced
   // across it, without stalling it. Under optimistic apply this is not politeness
@@ -126,6 +158,14 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   'scene.delete': 'tick',
   'device.insert': 'deviceInsert',
   'device.delete': 'trackStruct',
+  // ⚠ `deviceInsert`, the slowest budget measured (600ms, E3), and NOT
+  // `trackStruct`. Duplicating a chain instantiates a copy of every device in
+  // it, which is the same plugin-loading work an insert pays for; the empty
+  // chain a fresh FX Layer ships with is the cheap case, not the case a budget
+  // has to cover. Under-waiting here is not a slow readback — it is a diff taken
+  // before the copy is in the bank, which reports no mint and leaves a chain
+  // wearing its source's name.
+  'chain.create': 'deviceInsert',
 };
 
 /**
@@ -191,6 +231,31 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         && addressKey(op.source.slot) === addressKey(op.destination)) {
       throw new InvalidOpError(op.op, 'source and destination must be different slots');
     }
+    if (op.op === 'chain.create') {
+      // ⚠ A blank name is not a weak address, it is no address at all: a chain's
+      // `channelId` regenerates on every project load (E18b), so the name is the
+      // only durable identifier and a blank one identifies every unnamed chain
+      // on the container equally. The `chain()` constructor refuses one too; this
+      // refuses it BEFORE the copy is made rather than after.
+      if (op.name.trim() === '') {
+        throw new InvalidOpError(
+          op.op,
+          'a created chain needs a non-empty name — its channelId is minted fresh by every '
+          + 'project load (E18b), so an unnamed chain is one nothing can address twice',
+        );
+      }
+      // ⚠ And it must differ from the source's, because the copy ARRIVES with the
+      // source's name. "Renaming" it to what it already is would leave two chains
+      // sharing one name, which `lookupChain` refuses as `ambiguous` — the verb
+      // would have manufactured the exact state the resolver exists to reject.
+      if (op.name === op.source.name) {
+        throw new InvalidOpError(
+          op.op,
+          `the copy arrives carrying its source's name, so naming it "${op.name}" again would `
+          + 'leave two chains sharing one name and neither of them addressable',
+        );
+      }
+    }
     if (op.op !== 'note.write' && op.op !== 'note.props') continue;
     for (const note of op.notes) {
       const refused = unwritableProps(note);
@@ -243,6 +308,7 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'device.insert':
     case 'device.delete':
     case 'param.set':
+    case 'chain.create':
     case 'notify':
       return [];
     default:
@@ -264,6 +330,16 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
       return [op.device];
     case 'param.set':
       return [op.param.device];
+    // ⚠⚠ The CONTAINER, and listing it here is what makes the routing guard do
+    // this op's depth check for free. `chain.duplicate` addresses its container
+    // by slot position in `Rig.slotLayerBanks`, which hang off TOP-LEVEL device
+    // slots and nowhere else — so a container that is itself inside a chain has
+    // no scope to be named through, and sending its `chainIndex` would aim the
+    // duplicate at whatever top-level device shares that number. That is exactly
+    // the failure `assertDevicesRoutable` refuses, so the op declares the
+    // address rather than re-implementing the refusal.
+    case 'chain.create':
+      return [op.source.container];
     // ⚠ `device.insert` names a TRACK, not a device, so it cannot be nested today.
     // When an insert into a chain is measured it gains its own addressing, and
     // this switch is where that fact has to be restated.
@@ -326,6 +402,153 @@ export function assertDevicesRoutable(ops: readonly Op[]): void {
         'routes are measured before this is relaxed.',
       );
     }
+  }
+}
+
+/**
+ * ⚠⚠ Everything `chain.create` needs to be TRUE about the container before the
+ * copy is made — checked against a real observation, never assumed, and
+ * PROJECTED ACROSS THE BATCH.
+ *
+ * ⚠ The RULE is here and the OBSERVATION is not, exactly as `assertSlotsFree`
+ * splits them: each adapter supplies the lookup (live through `chain.inventory`,
+ * the fake through its own model) and the refusal stays identical, which is what
+ * lets a conformance row assert it on both and stops the fake from being the
+ * lenient one.
+ *
+ * ⚠⚠ **The projection is not a refinement, it is the guard.** Nothing has been
+ * applied when this runs, so every create in a batch sees the SAME reading —
+ * and checking each one against it independently is the post-hoc check wearing a
+ * precondition's clothes, which is the exact mistake `assertSceneRoom`'s header
+ * already names ("two `scene.create`s of 4 in one batch are a create of 8").
+ * Measured here, before the fix: two creates against a 3-of-4 container produced
+ * FIVE chains, stranding one past a bank nothing can address; two creates named
+ * `dup` produced two chains called `dup`, and both stage receipts said `ok`.
+ * So each create is checked against the container as the creates BEFORE it
+ * leave it, in caller order — the same shape `assertSlotsFree` uses for slot
+ * occupancy, and for the same reason.
+ *
+ * Four preconditions, and each of them is a different way the create would
+ * otherwise leave the container in a state nothing can address:
+ *
+ *   1. **We could look at all.** `undefined` is a refusal, not a pass. The
+ *      container scopes exist on the first few top-level device positions only
+ *      (D7, init-allocated), and a create aimed through a scope that was never
+ *      built is a write nothing could then observe or name.
+ *   2. ⚠⚠ **Standing rule 5, one population down, and CUMULATIVE.** The same
+ *      hazard E19 paid for with a scene stranded at project index 99 of a
+ *      16-wide window: the chain bank is FOUR wide (`Rig.SLOT_LAYER_BANK`), the
+ *      enumeration reports nothing past it, and a chain created out there can be
+ *      resolved by nothing, renamed by nothing and removed by nothing — there is
+ *      no typed chain delete at all. Counting requires the bank SIZE, which is
+ *      why `ObservedContainer` carries one; a reading that omits it is refused
+ *      rather than treated as room.
+ *   3. **The source resolves, uniquely** — against the projected container, so a
+ *      chain an earlier create in the same batch made is a usable source, and a
+ *      name that earlier creates made ambiguous is refused. `Channel.duplicate()`
+ *      copies the chain that is SELECTED (`e17ak`), so a source that does not
+ *      identify exactly one chain would copy whichever one we picked.
+ *   4. **The new name is free, and provably so** — also against the projection,
+ *      which is what stops two creates in one batch claiming one name.
+ */
+export function assertChainCreatable(
+  ops: readonly Op[],
+  observe: (container: DeviceAddress) => ObservedContainer | undefined,
+): void {
+  /** The container as the creates so far leave it: the names in it, and how wide it is. */
+  const projected = new Map<string, { names: string[]; bankSize: number }>();
+
+  for (const op of ops) {
+    if (op.op !== 'chain.create') continue;
+    const container = op.source.container;
+    if (!nestingObservable(op.source)) {
+      throw new InvalidOpError(
+        op.op,
+        'the container of this chain is itself inside a chain, and no measured route enumerates '
+        + 'or writes one level deeper than a top-level container',
+      );
+    }
+
+    const key = addressKey(container);
+    let state = projected.get(key);
+    if (state === undefined) {
+      const observed = observe(container);
+      if (observed === undefined) {
+        throw new InvalidOpError(
+          op.op,
+          `no container scope covers device position ${container.chainIndex} on this track, so `
+          + 'nothing could observe the chain this create would make. Refused rather than written '
+          + 'blind — a chain we cannot see is one nothing can name, and there is no typed delete',
+        );
+      }
+      // ⚠ Both checks, because they fail for different reasons and only one of
+      // them is arithmetic. `chainsComplete` is the ADAPTER's own answer to "did
+      // this reading see everything"; the size is what the projection below
+      // counts against. An extension too old to report the size makes
+      // `chainsComplete` false as well, so neither check is reachable alone
+      // today — and neither may be dropped on that basis.
+      if (observed.chainsBankSize === undefined) {
+        throw new InvalidOpError(
+          op.op,
+          'the container enumeration did not report how wide the chain bank is, so there is no '
+          + 'way to prove this create lands inside it. Refused rather than counted on',
+        );
+      }
+      if (!observed.chainsComplete) {
+        // ⚠ Deliberately NOT a `BankWindowOverflowError`. That error's whole
+        // remedy is *"raise the knob in ~/.ghostnote/rig.json"*, and this window
+        // has no knob: it is `Rig.SLOT_LAYER_BANK`, fixed in the extension and
+        // allocated at init (D7). Reusing the class would put a false
+        // instruction in a refusal, which is worse than a plainer error.
+        throw new InvalidOpError(
+          op.op,
+          `the container's chain bank is full at ${observed.chains.length} visible chains, so a `
+          + 'new chain would land outside the window — unresolvable, un-nameable, and with no '
+          + 'typed delete to take it back. Refused before the copy is made (standing rule 5)',
+        );
+      }
+      state = {
+        names: observed.chains.map((c) => c.name),
+        bankSize: observed.chainsBankSize,
+      };
+      projected.set(key, state);
+    }
+
+    // ⚠ The cumulative half of rule 5. The FIRST create is covered by
+    // `chainsComplete` above; every one after it is covered only here.
+    if (state.names.length >= state.bankSize) {
+      throw new InvalidOpError(
+        op.op,
+        `this batch would leave the container holding ${state.names.length + 1} chains in a bank `
+        + `${state.bankSize} wide, so a chain would land outside the window — unresolvable, `
+        + 'un-nameable, and with no typed delete to take it back. The whole batch is refused '
+        + 'before any copy is made (standing rule 5, summed over the batch)',
+      );
+    }
+
+    // ⚠ Against the PROJECTION, not the reading. Counted rather than looked up,
+    // because `lookupChain` answers about an `ObservedContainer` and the state
+    // here is one no observation has been taken of — it is the container as the
+    // earlier creates in this batch leave it.
+    const sources = state.names.filter((n) => n === op.source.name).length;
+    if (sources !== 1) {
+      throw new InvalidOpError(
+        op.op,
+        `the source chain "${op.source.name}" ${sources === 0 ? 'is absent from' : 'names more than one chain in'} `
+        + 'this container at the point this op runs. A copy is made of the chain that is SELECTED '
+        + '(`e17ak`), so a source that does not identify exactly one chain would copy whichever '
+        + 'one we happened to select',
+      );
+    }
+    if (state.names.includes(op.name)) {
+      throw new InvalidOpError(
+        op.op,
+        `the name "${op.name}" is already used by a chain in this container at the point this op `
+        + 'runs — a chain is addressed by name, so minting a second one under a name that is '
+        + 'taken produces two chains neither of which can be addressed',
+      );
+    }
+    state.names.push(op.name);
   }
 }
 

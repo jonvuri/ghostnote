@@ -571,6 +571,289 @@ test('L-chain: a device INSIDE a chain reads its own name, never the track chain
   assert.equal(entry?.value.of === 'device' ? entry.value.device.name : undefined, 'inner-polysynth');
 });
 
+// --- chain creation: the first typed write inside a container ------------------
+
+interface StubChain {
+  name: string;
+  channelId: string;
+}
+
+/**
+ * A container that can really be duplicated into — and, like every other stub in
+ * this file, one that answers from what it ACTUALLY holds rather than from what
+ * the adapter asked for.
+ *
+ * ⚠ Two behaviours are modelled because they are the two the create rests on,
+ * and neither is a convenience:
+ *
+ *   - `duplicate` DOES NOTHING WITHOUT A SELECTION (`e17ak` arm A ○ against arm
+ *     B ●●). A stub that copied unconditionally would pass a build that never
+ *     sent `chain.select`, which is the single call the whole route turned on
+ *     and which the whole spike missed for six sessions;
+ *   - the copy carries the SOURCE'S NAME and a fresh `channelId`. That is what
+ *     makes the container ambiguous in the middle of the verb, and it is why the
+ *     rename has to be addressed by identity.
+ */
+class ChainCreateTransport implements Transport {
+  readonly frames: Frame[] = [];
+  readonly chains: StubChain[] = [{ name: 'gn-shipped', channelId: 'chain-id-1' }];
+  private pointed: number | undefined;
+  private selected: number | undefined;
+  private revision = 1;
+  private minted = 1;
+
+  constructor(
+    /** ⚠ `stale` drops the per-chain ids, as an extension too old to send them. */
+    private readonly stale = false,
+    /** ⚠ `deaf` accepts the duplicate and does nothing — the silent no-op class. */
+    private readonly deaf = false,
+    /**
+     * ⚠ `refuseRename` throws from `chain.setName`, which the real extension
+     * does — deliberately — when no chain in the scope carries the id, i.e.
+     * when the bank re-indexed between the two readings.
+     */
+    private readonly refuseRename = false,
+  ) {}
+
+  async send(frame: Frame): Promise<unknown> {
+    this.frames.push(frame);
+    return this.dispatch(frame.method, (frame.params ?? {}) as Record<string, unknown>);
+  }
+
+  private dispatch(method: string, params: Record<string, unknown>): unknown {
+    switch (method) {
+      case WIRE.trackList:
+        return {
+          tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }],
+          count: 1, bankSize: 8, itemCount: 1,
+        };
+      case WIRE.revisionGet:
+        return {
+          revision: this.revision, generation: 'stub-gen',
+          sceneEpoch: 1, contentEpoch: 0, contentEvents: [],
+        };
+      case WIRE.selectionStatus:
+        return { trackIndex: -1, slotIndex: -1 };
+      case WIRE.cursorPointTrack:
+        if (params['cursor'] === '0') this.pointed = params['trackIndex'] as number;
+        return {};
+
+      case WIRE.chainInventory: {
+        // ⚠ Answers for the track cursor 0 is really ON, so a missing point
+        // reads as a missing container rather than as the right one.
+        if (this.pointed !== 0) return { scopes: [], trackName: 'nobody' };
+        return {
+          trackName: 'gn-fixture',
+          trackChannelId: CHANNEL_ID,
+          scopes: [{
+            slot: 0,
+            status: 'held',
+            deviceExists: true,
+            deviceName: 'FX Layer',
+            chains: this.chains.map((c, index) => ({
+              index,
+              name: c.name,
+              ...(this.stale ? {} : { channelId: c.channelId }),
+              devices: [],
+            })),
+            chainCount: this.chains.length,
+            chainBankSize: 4,
+            deviceBankSize: 4,
+          }],
+        };
+      }
+
+      case WIRE.chainSelect: {
+        const at = params['layerIndex'] as number;
+        const chain = this.chains[at];
+        if (chain === undefined) throw new Error(`no chain at ${at}`);
+        if (params['expectedName'] !== chain.name) throw new Error('stale position');
+        this.selected = at;
+        return {};
+      }
+
+      case WIRE.chainDuplicate: {
+        const at = params['layerIndex'] as number;
+        const source = this.chains[at];
+        if (source === undefined) throw new Error(`no chain at ${at}`);
+        // ⚠ `e17ak` arm A: with nothing selected this call returns cleanly and
+        // does nothing at all.
+        if (this.selected !== at || this.deaf) return {};
+        this.chains.splice(at + 1, 0, {
+          name: source.name,
+          channelId: `chain-id-${++this.minted + 1}`,
+        });
+        this.revision++;
+        return {};
+      }
+
+      case WIRE.chainSetName: {
+        if (this.refuseRename) throw new Error('no chain in scope 0 has channelId ' + params['channelId']);
+        const hit = this.chains.find((c) => c.channelId === params['channelId']);
+        if (hit === undefined) throw new Error('no chain with that channelId');
+        hit.name = params['name'] as string;
+        this.revision++;
+        return {};
+      }
+
+      case WIRE.batchRun: {
+        const ops = (params['ops'] ?? []) as { method: string; params: Record<string, unknown> }[];
+        for (const op of ops) this.dispatch(op.method, op.params);
+        return {
+          applied: true,
+          revision: this.revision,
+          results: ops.map((o) => ({ method: o.method, ok: true })),
+        };
+      }
+
+      default:
+        return {};
+    }
+  }
+
+  async close(): Promise<void> {}
+}
+
+const SHIPPED = () => chainAt(deviceAt(TRACK, 0), 'gn-shipped');
+
+test('L-chain-create: the copy is SELECTED first, then named by the id it was observed with', async () => {
+  const wire = new ChainCreateTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({
+    ops: [{ op: 'chain.create', source: SHIPPED(), name: 'gn-B' }],
+  });
+
+  // ⚠ The mint is a NAME-shaped address, because a name is the only durable
+  // thing a chain has (E17ad, E18b) — never the channelId the diff used.
+  assert.deepEqual(receipt.minted[0], chainAt(deviceAt(TRACK, 0), 'gn-B'));
+  assert.deepEqual(wire.chains.map((c) => c.name), ['gn-shipped', 'gn-B'],
+    'the source keeps its name and the copy got the new one');
+
+  // ⚠⚠ The select is its OWN request, ahead of the batch — not a frame inside
+  // it. Bundled into the duplicate's turn it would rest on a same-turn
+  // visibility E2 says does not exist, and would fail as a silent no-op.
+  const order = wire.frames.map((f) => f.method);
+  const selectAt = order.indexOf(WIRE.chainSelect);
+  const batchAt = order.findIndex((m, i) => m === WIRE.batchRun && i > selectAt);
+  assert.ok(selectAt >= 0 && batchAt > selectAt, 'select comes before the batch that duplicates');
+  const batch = wire.frames[batchAt]!.params as Record<string, unknown>;
+  const inBatch = (batch['ops'] as { method: string }[]).map((o) => o.method);
+  assert.deepEqual(inBatch, [WIRE.chainDuplicate], 'and is not repeated inside it');
+
+  // ⚠ The rename names the CHAIN THAT WAS CREATED, by the identity the diff
+  // returned — not the source, and not a position.
+  const rename = wire.frames.find((f) => f.method === WIRE.chainSetName)
+    ?.params as Record<string, unknown>;
+  assert.equal(rename['name'], 'gn-B');
+  assert.equal(rename['channelId'], wire.chains[1]!.channelId);
+  assert.notEqual(rename['channelId'], 'chain-id-1', 'the SOURCE must never be the rename target');
+});
+
+test('L-chain-create: a duplicate that silently did nothing mints NOTHING and says so', async () => {
+  // ⚠⚠ The failure that has to be loud. `chain.duplicate` acknowledges
+  // identically whether or not anything happened (E6 blocker 4), so a receipt
+  // that trusted it would report a create that produced no chain as a success.
+  const wire = new ChainCreateTransport(false, true);
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({
+    ops: [{ op: 'chain.create', source: SHIPPED(), name: 'gn-B' }],
+  });
+
+  assert.deepEqual(receipt.minted, {});
+  assert.deepEqual(wire.chains.map((c) => c.name), ['gn-shipped'], 'nothing was created');
+  assert.equal(wire.frames.some((f) => f.method === WIRE.chainSetName), false,
+    'and nothing was renamed — a rename on an unidentified chain is how the source loses its name');
+  const failed = receipt.stages.flatMap((s) => s.ops).filter((o) => !o.ok);
+  assert.equal(failed.length, 1, 'the op is reported failed even though the wire said ok');
+  assert.match(failed[0]?.error ?? '', /exactly one more was expected/);
+});
+
+test('L-chain-create: an extension too old to report chain ids mints NOTHING', async () => {
+  // Silence must fail closed: `methodsHash` is over method NAMES, so a
+  // deployment that predates the per-chain `channelId` cannot be detected at the
+  // handshake. Falling back to position would rename by guesswork.
+  const wire = new ChainCreateTransport(true);
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({
+    ops: [{ op: 'chain.create', source: SHIPPED(), name: 'gn-B' }],
+  });
+
+  assert.deepEqual(receipt.minted, {});
+  assert.deepEqual(wire.chains.map((c) => c.name), ['gn-shipped', 'gn-shipped'],
+    '⚠ the copy is REAL and is wearing the source name — which is what the failure has to report');
+  const failed = receipt.stages.flatMap((s) => s.ops).filter((o) => !o.ok);
+  assert.match(failed[0]?.error ?? '', /names two chains and neither resolves/);
+});
+
+test('L-chain-create: a rename the extension REFUSES is reported, never thrown', async () => {
+  // ⚠⚠ The regression this row exists for. `chain.setName` refuses an id no
+  // chain in the scope carries — that refusal is correct and deliberate — but by
+  // the time it fires the COPY ALREADY EXISTS. An exception escaping `apply`
+  // here would leave the caller with no receipt at all for a container that now
+  // holds an unaddressable chain, and there is no typed delete to clean it up
+  // with, so the sentence in the receipt is the entire remedy.
+  const wire = new ChainCreateTransport(false, false, true);
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({
+    ops: [{ op: 'chain.create', source: SHIPPED(), name: 'gn-B' }],
+  });
+
+  assert.deepEqual(receipt.minted, {}, 'nothing may be minted for a chain that was never named');
+  const failed = receipt.stages.flatMap((s) => s.ops).filter((o) => !o.ok);
+  assert.equal(failed.length, 1);
+  // ⚠ The extension's own words are carried through verbatim: they are the only
+  // thing that says WHY the rename was declined.
+  assert.match(failed[0]?.error ?? '', /no chain in scope 0 has channelId/);
+  assert.match(failed[0]?.error ?? '', /names two chains and neither resolves/);
+  assert.deepEqual(wire.chains.map((c) => c.name), ['gn-shipped', 'gn-shipped'],
+    'and the copy really is there, wearing the source name — which is what the report is about');
+});
+
+test('L-chain-create: a name the container already holds is refused before any frame', async () => {
+  const wire = new ChainCreateTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(
+    adapter.apply({ ops: [{ op: 'chain.create', source: SHIPPED(), name: 'gn-shipped' }] }),
+    /leave two chains sharing one name/,
+  );
+  assert.equal(wire.frames.some((f) => f.method === WIRE.chainDuplicate), false);
+  assert.deepEqual(wire.chains.map((c) => c.name), ['gn-shipped']);
+});
+
+test('L-chain-create: a source the container does not hold is refused before any frame', async () => {
+  const wire = new ChainCreateTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(
+    adapter.apply({
+      ops: [{ op: 'chain.create', source: chainAt(deviceAt(TRACK, 0), 'nope'), name: 'gn-B' }],
+    }),
+    /source chain "nope" is absent/,
+  );
+  assert.equal(wire.frames.some((f) => f.method === WIRE.chainSelect), false);
+});
+
+test('L-chain-create: a container with no observable scope is refused, not written blind', async () => {
+  const wire = new ChainCreateTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  // Position 4 is past the scopes the stub reports, exactly as it would be past
+  // `Rig.SLOT_SCOPES` live — and a chain created out there could be resolved by
+  // nothing and removed by nothing.
+  await assert.rejects(
+    adapter.apply({
+      ops: [{ op: 'chain.create', source: chainAt(deviceAt(TRACK, 4), 'gn-shipped'), name: 'gn-B' }],
+    }),
+    /no container scope covers device position 4/,
+  );
+  assert.equal(wire.frames.some((f) => f.method === WIRE.chainDuplicate), false);
+});
+
 test('L-chain: a container position with no scope is UNREACHABLE on a read, not missing', async () => {
   const wire = new InventoryTransport(
     new Map([[0, CHANNEL_ID]]),
