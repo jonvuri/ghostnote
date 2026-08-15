@@ -4,48 +4,65 @@ kind: status
 state: active
 updated: 2026-08-15
 phase: phase-1
-session: knowledge-base-detour
-resumes: phase-1-session-3f-h
+session: phase-1-session-3f-h
 ---
 
 # Now
 
-Phase 1 is **paused between sessions 3f-g and 3f-h** for one isolated detour:
-[mint the capability knowledge base](plan/knowledge-base.md). Session 3f-g winner
-collapse is complete and verified live, including the review fixes below, which
-were re-proved live against a rebuilt and redeployed jar. The audible evidence
-is the earlier measurement and was not re-taken.
+Phase 1 is **ready to resume at session 3f-h**. The isolated knowledge-base
+detour is complete. Session 3f-g winner collapse is complete and verified live,
+including the review fixes below, which were re-proved live against a rebuilt and
+redeployed jar. The audible evidence is the earlier measurement and was not
+re-taken.
 
-⚠ The detour is a context-tree session. It changes no code, runs no probe, and
-leaves every baseline and constraint below untouched. **3f-h resumes immediately
-after it, with nothing about its scope or acceptance changed.**
+⚠ The detour was a context-tree session. It ran no probe and left every baseline
+and constraint below untouched. Its only change outside `context/` is
+`extension/build.gradle`, which gained a build-irrelevant configuration that
+resolves the Bitwig API source — the jar is byte-identical across it.
+**3f-h resumes now, with nothing about its scope or acceptance changed.**
 
-## Detour — capability knowledge base, next session
+## Detour — capability knowledge base, complete 2026-08-15
 
-Purpose: add the one axis the context tree does not have — durable, topical,
-current capability reference — and seed it with host-API knowledge already paid
-for, plus facts mined from `reference/BitX`. Brief:
-[plan/knowledge-base.md](plan/knowledge-base.md).
+Brief and outcome record:
+[archive/outcomes/KNOWLEDGE-BASE.md](archive/outcomes/KNOWLEDGE-BASE.md).
 
-Why it is worth interrupting Phase 1 for, in one line each:
+The tree now has a fourth evidence axis:
+[`evidence/capability/`](evidence/capability/INDEX.md), a sibling of
+`evidence/format/`. It holds the **current reading** of a measured fact,
+organized by subject, and it is rewritten in place when superseded. Experiment
+files stay frozen and are cited, never edited.
 
-- ⚠⚠ **Supersession has nowhere to land, so it lands in code.** The freshest
-  statement of the Selector verdict was a comment in `ContainerHandlers.java`,
-  and it was stale against the seed-asset rule now in `PROJECT.md`. Experiment
-  files are frozen records by design and cannot carry supersession.
-- **Lookup cost.** Answering one capability question meant reading seven
-  experiment files, the spike archive and Java source.
-- **The E-index headline is lossy.** `⚠ glitch owed` reads as "it glitches"; the
-  row measured ○ no glitch with a *positive control* owed.
-- ⚠ **An observed fact with no probe has no home.** A live 2026-08-15 finding —
-  a deactivated Selector chain is fully disabled, so its tail continues sounding
-  and a newly activated chain takes no input until active — materially qualifies
-  E16 §3.4e but is neither a decision nor an experiment run.
+Six pages were seeded: `containers`, `identity`, `devices`, `banks`, `actions`
+and `host-api`. `README.md`'s authority order now separates the current reading
+from the dated record, and a capability question routes to the new index first.
 
-Boundary: `context/` only. No change under `brain/`, `extension/` or `tools/`;
-no new probe; no `decisions/` edit; no experiment file edited. ⚠ It does **not**
-re-open the Selector route — the deactivation finding above closes it for live
-A/B, and layer chains remain the product path. Acceptance is in the brief.
+What the detour settled, beyond the axis itself:
+
+- ⚠⚠ **The Selector is closed for live A/B.** A deactivated Selector chain is
+  fully disabled: its tail continues sounding, and a newly activated chain takes
+  no input until it is active. Recorded at `[I]` (user, live, 2026-08-15) with
+  the probe that would raise it to `[K]`. **Layer chains remain the product
+  path**, and this reopens nothing.
+- ⚠ **The stale "Selectors cannot be seeded" conflation is corrected in place.**
+  *No verb creates a chain* stands `[K]`; *no shell can be obtained* is
+  superseded by the build-time preset route. The stale statement lives at
+  `handlers/ContainerHandlers.java:188` and is left as it is — a code comment is
+  not authority, and the capability page now carries the current reading.
+- ⚠ **Two claims in the brief were corrected by source reads.** `hasLayers()` is
+  marked on bank devices too, not only `exists()` and `name()`. And
+  `createEqualsValue` is no longer unprobed — E16t measured it, and
+  `Rig.java:1174` uses it.
+- **`reference/BitX` is mined and framed accurately**: seven device UUIDs at
+  `[I]`, four parameter-ID maps at `[I]`, and three unused mechanisms recorded as
+  leads. ⚠ It is a ~3,100-line command runner that creates no structure. It gave
+  data and one existence proof, no technique.
+
+⚠ Nothing was adopted. Every `[U]` and `[I]` names the probe that would settle it
+and leaves it unrun.
+
+Return: reopen `plan/phase-1/3f-fork-chain.md` and start 3f-h below.
+
+The case for taking the detour is in the brief and is not repeated here.
 
 Return: reopen `plan/phase-1/3f-fork-chain.md` and start 3f-h below.
 
@@ -232,8 +249,8 @@ Verification at this boundary — everything below was actually run:
 
 ## Session 3f-h — selective reduction
 
-⚠ Resumes after the knowledge-base detour above. Nothing in this session's scope
-or acceptance is changed by it.
+⚠ This is the next session. The knowledge-base detour above changed nothing in
+its scope or acceptance.
 
 Purpose: remove one explicitly named alternate while preserving several named
 survivors by rebuilding the container.

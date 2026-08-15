@@ -32,12 +32,43 @@ repositories {
     }
 }
 
+// ⚠ The API source is a READING aid, not a dependency. It is held in its own
+// configuration so that nothing on the compile or runtime path can ever see it.
+//
+// Why it exists: the API ships no javadoc jar, so before this, enumerating a
+// type's members meant a live probe (E16o counted `InsertionPoint`'s 14 members
+// that way) or reading a third party's redistributed copy. `maven.bitwig.com`
+// publishes the `-sources` classifier beside the compile artifact, so the
+// authoritative source can simply be resolved.
+//
+// An ordinary `build` never resolves this: no task depends on the configuration.
+// Run `./gradlew bitwigApiSourcePath` to fetch it and print where it landed.
+configurations {
+    bitwigApiSource {
+        canBeConsumed = false
+        transitive = false
+    }
+}
+
 dependencies {
     // Provided by Bitwig at runtime
     compileOnly 'com.bitwig:extension-api:25'
 
     // Bundled into the extension jar
     implementation 'com.google.code.gson:gson:2.11.0'
+
+    // Reading aid only — see the comment above. Never on any classpath.
+    bitwigApiSource 'com.bitwig:extension-api:25:sources'
+}
+
+tasks.register('bitwigApiSourcePath') {
+    group = 'help'
+    description = 'Resolves the Bitwig extension-api sources jar and prints its cache path.'
+    def resolved = configurations.bitwigApiSource
+    inputs.files(resolved)
+    doLast {
+        resolved.files.each { println it.absolutePath }
+    }
 }
 
 jar {

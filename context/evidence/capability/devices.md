@@ -1,0 +1,256 @@
+---
+title: Devices — type UUIDs, parameters and observables
+kind: capability
+state: active
+updated: 2026-08-15
+scope: device identification, parameter access and the observable surface
+evidence: E4, E4b, E4c, E4d, E12, E16l; D2; reference/BitX
+---
+
+# Devices
+
+> **Provenance.** Each claim carries `[K]` known, `[I]` inferred or `[U]`
+> unknown, and cites its E-number or names its observer and date. Read the four
+> rules in [INDEX.md](INDEX.md) before you edit this page.
+
+A device has **no runtime identity**. It is identified by *type* through a UUID,
+and located by position within a chain. See [identity](identity.md) for what
+follows from that.
+
+---
+
+## 1. Native device type UUIDs
+
+A type UUID is *which model of device*, never *which instance* [K, [E16l](../experiments/e16l-object-identity-settled-properly-is-the-only-one-and-there-is-no.md)]. It is
+accepted by `InsertionPoint.insertBitwigDevice(UUID)`,
+`Device.createSpecificBitwigDevice(UUID)` and
+`ControllerHost.createBitwigDeviceMatcher(UUID)`.
+
+### Confirmed by a live load in this project — `[K]`
+
+| Device | UUID | Where |
+|---|---|---|
+| Polysynth | `a9ffacb5-33e9-4fc7-8621-b1af31e410ef` | `Rig.java:104` |
+| Instrument Layer | `5024be2e-65d6-4d40-bbfe-8b2ea993c445` | `Rig.java:126` |
+| Instrument Selector | `9588fbcf-721a-438b-8555-97e4231f7d2c` | `Rig.java:127` |
+| FX Layer | `a0913b7f-096b-4ac9-bddd-33c775314b42` | `brain/src/probes/e17ai-typedrebuild.ts:55` and the conformance suite |
+
+⚠ The Instrument Selector UUID above is **also** the one `reference/BitX` carries,
+independently transcribed. Two sources agree and ghostnote has loaded it live.
+
+### Transcribed from `reference/BitX` — `[I]`, not yet live-loaded here
+
+| Device | UUID | BitX source |
+|---|---|---|
+| Instrument Selector | `9588fbcf-721a-438b-8555-97e4231f7d2c` | `BitXExtension.java:152` — ⚠ **`[K]` here**, see above |
+| FX Selector | `956e396b-07c5-4430-a58d-8dcfc316522a` | `BitXExtension.java:158` |
+| Channel Filter | `c5a1bb2d-a589-4fda-b3cf-911cfd6297be` | `BitXExtension.java:164` |
+| Note Filter | `ef7559c8-49ae-4657-95be-11abb896c969` | `BitXExtension.java:171` |
+| Note Transpose | `0815cd9e-3a31-4429-a268-dabd952a3b68` | `BitXExtension.java:178` |
+| MIDI Program Change | `429c7dcb-6863-48bc-becc-508463841e3b` | `BitXExtension.java:187` |
+| Drum Machine | `8ea97e45-0255-40fd-bc7e-94419741e9d1` | `BitXExtension.java:631` |
+
+⚠ **These stay `[I]` until each is confirmed by a live load.** They are
+transcribed from a third party, and [D2](../../decisions/d2-host-capability-tiers-tier-1-settled-tier-2-tier-1-stub-relocati.md)'s standing rule is to confirm a new host or preset with
+a live load test.
+
+⚠⚠ **The FX Selector entry is weaker than the other six.** BitX's own source
+comments it *"FX Selector (FX Rack) – replace with correct UUID yourself"*
+(`BitXExtension.java:157`). Treat it as a lead, not as data.
+
+**Probe that would raise all seven to `[K]`:** insert each UUID with
+`insertBitwigDevice`, then read the resulting device name back. Drum Machine is
+independently corroborated — E4c records the same UUID from the app bundle
+harvest [K, [E4c](../experiments/e4c-device-nesting-layers-pads-slots-selectors-2026-07-19.md)].
+
+---
+
+## 2. Parameter access — two APIs, chosen by role
+
+| | `createParameter` (typed) | `DirectParameter` |
+|---|---|---|
+| Devices | VST2 / VST3 / Bitwig | **any, including CLAP** |
+| Discovery | IDs known upfront | **self-enumerates every ID** |
+| Access | pull, `get()` | push, observers set at init |
+| Displayed values | ● `displayedValue()`, e.g. "2.59 kHz" | ◐ the observer did not populate |
+| Write | `setImmediately` | `setDirectParameterValueNormalized(id, v, 1)` |
+
+[K, [E4](../experiments/e4-direct-parameter-layer-6a-differentiator-2026-07-19.md) and [E4b](../experiments/e4b-clap-params-via-the-directparameter-api-2026-07-19.md)]
+
+⚠⚠ **`param.value().set(v)` is silently swallowed** by the controller take-over
+strategy. Every agent parameter write must use `setImmediately` [K, E4].
+
+⚠ With `DirectParameter`, pass `resolution=1`. `resolution=128` did not take
+within 1.5 s [K, E4b].
+
+⚠ A `SpecificBitwigDevice` view is **device-type-specific**. Point a Polysynth
+view at a Polymer and every handle reports `exists=false`. A parameter pool
+therefore carries one view per device type you support deeply [K, E4].
+
+⚠ **Pin the track cursor, not the device cursor.** A device cursor's `isPinned`
+is subordinate to its track cursor, so the robust hold is a pinned track cursor
+plus `selectDevice(index)` [K, E4].
+
+### `SpecificBitwigDevice` is a two-method interface
+
+Verified against the resolved `extension-api:25:sources` jar,
+`SpecificBitwigDevice.java`:
+
+```java
+Parameter createParameter(String id);              // :16
+IntegerValue createIntegerOutputValue(String id);  // :21
+```
+
+That is the entire surface. There is no `createBoolParameter` and no
+`createEnumParameter`. ⚠ The interface itself is `@since API 12`
+[K, source read, 2026-08-15].
+
+⚠ `[U]` **`createIntegerOutputValue` has no known use.** Neither ghostnote nor
+BitX calls it. Its javadoc says it reads "a certain output value of the device",
+and which ids are valid is undocumented. **Probe:** call it on a Polysynth with
+each harvested ID token and record which ones resolve.
+
+---
+
+## 3. Parameter IDs
+
+### Harvest route — offline, from the app bundle
+
+```
+…/Bitwig Studio.app/Contents/Resources/Library/device-settings/<uuid>/Default.bwpreset
+strings <file> | grep -E '^[A-Z][A-Z0-9_]{2,}$'
+```
+
+Polysynth yielded 63 tokens [K, E4]. ⚠ The dump includes non-parameter section
+markers (`CONTENTS`, `MODULATORS`, `FAKE1`…), so every ID needs a resolve-check
+against a live device before you trust it. 14 of 16 sampled tokens were valid.
+
+⚠ **A name of exactly 12 characters breaks an anchored grep.** Preset files store
+names as `<length-byte><name>`, and macOS `strings` keeps `0x0C` because it is
+printable. Seven of 151 devices are affected: Drum Machine, Freq Shifter,
+HW Clock Out, Note Repeats, Oscilloscope, Peak Limiter, Stereo Split. Extract
+the structured field instead — `grep -A1 '^device_name$' | sed -n 2p | tr -d '\f'`
+[K, E4c].
+
+### Known ID maps
+
+**Polysynth — `[K]`**, held at `Rig.java:110` and resolved live 14/16:
+
+`F1FREQ`, `F1RESO`, `HPFFREQ`, `HPF_RESONANCE`, `OSCMIX`, `OSC1_SHAPE`,
+`OSC2_SHAPE`, `OSC1_PITCH`, `OSC2PITCH`, `OSC1_UNISON_VOICES`, `GAIN`,
+`GLIDE_TIME`, `NOISE`, `FEGDEPTH`, `FEEDBACK`, `DEPTH`
+
+**Mined from `reference/BitX` — `[I]`**, undocumented and otherwise only
+discoverable by guessing. Directly relevant to Phase 4:
+
+| Device | Parameter IDs | BitX source |
+|---|---|---|
+| Note Filter | `MIN_KEY`, `MAX_KEY` | `BitXExtension.java:564-565` |
+| Note Transpose | `OCTAVES`, `COARSE`, `FINE` | `BitXExtension.java:583-585` |
+| MIDI Program Change | `PROGRAM`, `BANK_MSB`, `BANK_LSB`, `CHANNEL` | `BitXExtension.java:607-610` |
+| Channel Filter | `SELECT_CHANNEL_1` … `SELECT_CHANNEL_16` | `BitXExtension.java:550` |
+
+**Probe that would raise these to `[K]`:** insert each device, create the
+`SpecificBitwigDevice` view, call `createParameter(id)`, and assert `exists()`.
+
+---
+
+## 4. The observable surface
+
+`Device` declares roughly 80 members. Ghostnote marks a small subset, and that
+subset is a **deliberate budget**, not an oversight — every `markInterested()`
+costs a subscription for the life of the session.
+
+### What ghostnote marks today — `[K]`, source read 2026-08-15
+
+| Bank | Per-`Device` marks |
+|---|---|
+| `cursorDeviceBanks[i]` (`Rig.java:724`) | `exists()`, `name()` |
+| `cursorDeviceBanks[0]` slots 0-1 (`Rig.java:791`) | the above, plus **`hasLayers()`** |
+| `layerDeviceBanks[l]` (`Rig.java:771`) | `exists()`, `name()` |
+| `slotLayerDeviceBanks[s][l]` (`Rig.java:816`) | `exists()`, `name()` |
+
+⚠ **A shorter reading of this was in circulation and is wrong:** *"only
+`exists()` and `name()` are marked, at `Rig.java:728`"*. `hasLayers()` is marked
+too, on `cursorDeviceBanks[0]` slots 0-1. And the **chain**-level surface is much
+wider than the device-level one: `slotLayerBanks[s]` marks `exists`, `name`,
+`solo`, `mute`, `volume`, `pan`, `color` and `channelId` on each `DeviceLayer`
+(`Rig.java:799-815`). Read the loop you care about, not the first one.
+
+### What the API also offers and ghostnote does not mark — `[K]`
+
+Read from the resolved `extension-api:25:sources` jar, 2026-08-15. `Device.java`
+holds **81 declarations, of which 38 are `@Deprecated`** — so 43 live members,
+and every one of these is among them. See [host-api](host-api.md) §1 for how to
+resolve and read that source.
+
+| Member | `Device.java` line |
+|---|---|
+| `presetName()` | 393 |
+| `presetCategory()`, `presetCreator()` | 416, 439 |
+| `deviceType()` | 915 |
+| `isPlugin()` | 239 |
+| `position()` | 48 |
+| `sampleName()` | 830 |
+| `slotNames()`, `hasSlots()` | 614, 607 |
+| `isEnabled()` | 587 |
+| `isNested()`, `hasDrumPads()` | 643, 659 |
+
+⚠⚠ **State the limit honestly: these are fingerprint fields, not identity.** They
+would **narrow** the duplicate-name restoration gap that session 3f-g had to fail
+closed on. They would not **close** it. Two devices of the same type, the same
+preset and the same name remain indistinguishable, and `position()` is the very
+thing a move changes. Adopting them is Phase 4 or a 3f successor, not a
+correctness fix for 3f-g.
+
+---
+
+## 5. Device structure verbs
+
+| Verb | Result |
+|---|---|
+| `InsertionPoint.insertBitwigDevice(UUID)` | ● ~144 ms |
+| `InsertionPoint.insertFile(preset)` | ● a 12-pad Drum Machine in 268 ms |
+| `InsertionPoint.moveDevices` | ● relocates, and the device keeps its state |
+| `InsertionPoint.copyDevices` | ● works into a layer chain, from top level and from a nested source |
+| `Device.duplicateObject()` on a container | ● clones **with** contents |
+| `Device.deleteObject()` | ● |
+| `DrumPad.insertionPoint()` | ● filling an empty pad **creates** the chain |
+
+[K, [E4d](../experiments/e4d-chain-creation-e4c-s-was-wrong-2026-07-19.md), [E16n/o](../experiments/e16n-e16o-e4d-route-3-is-wrong-relocates-a-device-into-a-layer-and-it.md), [E18c](../experiments/e18c-the-rebuild-strategy-is-mechanically-available-a-device-can-leav.md), [E18d](../experiments/e18d-e4d-route-3-is-a-false-negative-into-a-layer-chain-works-k-2026-.md)]
+
+⚠ `DeviceLayer` has **no** `insertionPoint()`; `DrumPad` does. That asymmetry is
+the architectural reason a drum pad is addressable while empty and a layer chain
+is not: an `InsertionPoint` must bind to a referent, and "layer 3" has no
+referent until it exists [K, E4d/E4e].
+
+⚠ **`selectFirstInKeyPad(n)` takes a MIDI key, not a pad index.** Key 36 (C1) is
+pad 0. Passing `0` silently leaves the cursor where it was. Use
+`selectFirstInChannel(drumPadBank.getItemAt(i))` [K, E4d].
+
+⚠ **Inserting into a non-existent layer index is a silent no-op.** So is
+`selectFirstInSlot` on an empty slot, and the cursor still looks healthy
+afterwards. Verify the cursor target before every write [K, E4c].
+
+---
+
+## 6. Modulation
+
+Modulator topology is not authored through this API. It is authored by tested
+`.bwpreset` byte surgery through `bwmod` [K, [E13](../experiments/e13-is-built-the-byte-recipes-are-a-tested-ts-library-green-offline-.md)]. See
+[`evidence/format/BWMOD_DESIGN.md`](../format/BWMOD_DESIGN.md) and
+[`BWFORMAT_SPEC.md`](../format/BWFORMAT_SPEC.md) for that domain, and
+[D2](../../decisions/d2-host-capability-tiers-tier-1-settled-tier-2-tier-1-stub-relocati.md) for the tier gate.
+
+⚠ Cross-device modulation stays **outside every claim** until its indexed route
+is measured [carried forward, session 3f].
+
+---
+
+## Supersession record
+
+| Date | Change |
+|---|---|
+| 2026-08-15 | Page created. It supersedes the *reading* of E4's "CLAP direct params are not accessible", which E4b already overturned in place. |
+| 2026-08-15 | Corrected the marked-observable set: `hasLayers()` is marked too, and the `DeviceLayer` surface is far wider than the `Device` one. §4. |
+| 2026-08-15 | Every API declaration re-anchored from the third-party `BitwigAPI25.txt` dump to the `extension-api:25:sources` jar resolved from `maven.bitwig.com`. `Device` is 81 declarations / 43 live, not "~84". §2, §4. |

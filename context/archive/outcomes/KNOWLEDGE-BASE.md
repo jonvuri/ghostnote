@@ -1,13 +1,26 @@
 ---
 title: Capability knowledge base — mint the reference axis, then seed it
 kind: plan
-state: active
+state: archived
+status: ● **DONE 2026-08-15.** Minted `evidence/capability/` as a sibling of
+        `evidence/format/` and seeded six pages — containers, identity, devices,
+        banks, actions and host-api — every claim tagged [K]/[I]/[U] and cited.
+        `containers.md` is the worked example: it records the Selector
+        deactivation finding at [I] with its probe named, closes the Selector for
+        live A/B, and corrects the "cannot be seeded" conflation in place.
+        `reference/BitX` is mined for seven device UUIDs and four parameter-ID
+        maps, all [I], and framed as data plus one existence proof rather than as
+        technique. `README.md`'s authority order now separates the current
+        reading from the dated record. Two claims in this brief were themselves
+        corrected by source reads. No experiment file, no decision file, and
+        nothing under `brain/`, `extension/` or `tools/` was touched. `check.rb`
+        passes at 121 documents; `git diff --check` is clean.
 updated: 2026-08-15
 parent: ROADMAP.md
 next: phase-1/3f-fork-chain.md
 scope: context tree only; no brain, extension or product change
 note: isolated detour taken between Phase 1 sessions 3f-g and 3f-h; Phase 1
-      resumes at 3f-h immediately afterwards
+      resumed at 3f-h immediately afterwards
 evidence: E4c, E4d, E16 §3.4e, E16n/o, E16w, E17, E18a; D2; reference/BitX
 ---
 
@@ -217,3 +230,120 @@ BitX copy in place, under `reference/`, is acceptable and changes nothing.
   for live A/B; the page records the capability, and the product stays on layers.
 - Migrating the 70 experiment files or collapsing the E-index. The capability
   axis sits alongside them and links back.
+
+---
+
+# Outcome — 2026-08-15
+
+## What was built
+
+`evidence/capability/` exists as a sibling of `evidence/format/`, with
+`INDEX.md` stating the four rules and listing every page it links. Six pages
+were seeded, each one backed by measurement:
+
+| Page | Covers |
+|---|---|
+| `containers.md` | Layer, Selector and Drum Machine; chain lifecycle, switching, addressing, chain-level state, cost |
+| `identity.md` | `channelId`, the absent device identity, `createEqualsValue`, clips and scenes |
+| `devices.md` | Type UUIDs, the two parameter APIs, ID harvesting, the observable surface |
+| `banks.md` | Windows, eviction order, the pre-create refusal, pre-allocation, read lag |
+| `actions.md` | The E6 → E16j → E17 → E22 arc and the primary-focus mechanism |
+| `host-api.md` | API 25 source lookup, and three mechanisms recorded as leads |
+
+`README.md`'s authority order was split into rows 4 and 5 — capability and format
+pages carry the **current reading**, experiment files carry **what one run
+measured on one day** — with the ordering between them stated deliberately, plus
+a note that a capability page never overrides a `decisions/` file. The reading
+routes now send a capability question to the new index first, and gained routes
+for the E-index and the byte format. One maintenance rule was added: never edit
+an experiment file to record a newer reading.
+
+⚠ **Ongoing maintenance of this axis is governed by `context/README.md` and the
+four rules in `evidence/capability/INDEX.md`.** No standing plan replaces this
+brief, by the operator's disposition at close.
+
+## Acceptance
+
+| # | Item | Result |
+|---|---|---|
+| 1 | Registered in `ROADMAP.md`, reachable from the reading routes | ● done, then repointed here at close |
+| 2 | `INDEX.md` states the four rules and lists every page | ● |
+| 3 | `containers.md` complete, deactivation at `[I]` with probe, conflation corrected in place | ● |
+| 4 | BitX facts integrated with provenance and accurate framing | ● |
+| 5 | `README.md` authority order and capability route amended | ● |
+| 6 | No experiment file and no `decisions/` file edited | ● verified by `git status` |
+| 7 | `ruby context/check.rb` passes; `git diff --check` clean | ● 121 documents, links intact |
+| 8 | No change under `brain/`, `extension/` or `tools/` | ⚠ **superseded at close** — see the scope amendment above. `extension/build.gradle` changed by operator instruction; `brain/` and `tools/` untouched |
+
+## ⚠ Two claims in this brief were corrected by the work
+
+1. **The marked-observable set was wrong.** The brief recorded *"only `exists()`
+   and `name()` are marked (`Rig.java:728`)"*. A source read found `hasLayers()`
+   marked too, on `cursorDeviceBanks[0]` slots 0-1, and found the `DeviceLayer`
+   surface far wider — `solo`, `mute`, `volume`, `pan`, `color` and `channelId`
+   are all marked at `Rig.java:799-815`. Recorded in `devices.md` §4.
+2. **`createEqualsValue` is no longer unprobed.** The brief inherited E16l's
+   *"Unprobed"*. E16t measured it in full, and `Rig.java:1174` uses it today.
+   Recorded in `identity.md` §5 and `host-api.md` §7.
+
+A third refinement: the FX Selector UUID is weaker than the other six BitX
+entries, because BitX's own source comments it *"replace with correct UUID
+yourself"*. It is recorded as a lead rather than as data.
+
+## What was deliberately not done
+
+- **No probe was run.** Every `[U]` and `[I]` names the probe that would settle
+  it and leaves it unrun.
+- **The Selector route was not reopened.** Layer chains remain the product path.
+- **No decision file was touched.** Where a capability page and a D-file could be
+  read as disagreeing, the page defers and says so.
+
+## ⚠ Scope amended at close — the API source WAS resolved
+
+The brief's item 8 forbade any change under `extension/`, and the first pass of
+this outcome record accordingly logged the `sources` classifier as not attempted.
+**The operator then amended the scope**, stating the resolution had been intended
+as part of this session. It was done, and `extension/build.gradle` changed.
+
+- ⚠ **The classifier is published.** `extension-api-25-sources.jar` is 201 368
+  bytes at `maven.bitwig.com`. There is **no** javadoc jar — that URL is a 404.
+- `extension/build.gradle` gained a dedicated `bitwigApiSource` configuration —
+  `canBeConsumed = false`, `transitive = false`, on **no** classpath — plus a
+  `bitwigApiSourcePath` task. No task depends on the configuration, so an
+  ordinary build never resolves it and compilation is untouched.
+- Resolved to
+  `~/.gradle/caches/modules-2/files-2.1/com.bitwig/extension-api/25/…/extension-api-25-sources.jar`:
+  **278 `.java` files**, 205 of them under `controller/api`.
+- ⚠ **Vendoring was authorised as a fallback and was not needed.** Nothing was
+  copied into the repo, and `reference/BitX/BitwigAPI/BitwigAPI25.txt` stays
+  un-vendored — its third-party redistribution licence is still unestablished.
+
+**Every declaration cited in `host-api.md` and `devices.md` is re-anchored to
+this source.** Two independent probe counts were confirmed by it — E16o's
+*"`InsertionPoint` has exactly 14 members"* and E16l's *"`Scene` has eight"* —
+and two figures were corrected: `Device` is **81 declarations, 38 of them
+`@Deprecated`** rather than "~84", and `createIntegerOutputValue` carries no
+`@since` of its own (its interface is `@since API 12`). ⚠ The BitX dump's "276
+types" disagrees with the jar's 278 source files; the Maven artifact wins.
+
+⇒ ⚠ **Item 8 of the acceptance table below is superseded by this amendment.**
+Everything else in it stands.
+
+## Verification
+
+- `ruby context/check.rb`: **passed, 120 active documents, links intact.**
+- `git diff --check`: clean.
+- `git status`: no experiment file and no `decisions/` file among the staged
+  paths. One path sits outside `context/` — `extension/build.gradle`, by the
+  scope amendment above.
+- `./gradlew bitwigApiSourcePath`: resolved and printed the cache path.
+- `./gradlew build`: **BUILD SUCCESSFUL.**
+- ⚠ **The jar is byte-identical across the build change, and this was measured
+  rather than argued.** `clean jar` with the new configuration, then `clean jar`
+  against `HEAD`'s `build.gradle`, both
+  `sha256 90054ae078fea5c6fe02ec832c8c5a3071747f0ebd9414e70e9aea7fae77452e`. The
+  reproducible-build settings make that comparison meaningful.
+  ⚠ The first attempt at this check compared two **empty** hashes, because it
+  guessed the artifact name wrong, and printed a green. Two silences making a
+  green — E16 §3.4e's trap, in the check written to avoid exactly it. The result
+  above is from the corrected run, which asserts the hash is non-empty.

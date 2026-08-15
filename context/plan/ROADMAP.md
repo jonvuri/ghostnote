@@ -17,5 +17,17 @@ updated: 2026-08-14
 | [5 — authoring](phase-5/README.md) | planned | Structure and modulation authoring; `bwmod` already exists |
 | [6 — breadth and release](phase-6/README.md) | planned | Independently schedulable breadth, packaging, and release work |
 
+## Cross-phase work
+
+| Brief | State | Purpose |
+|---|---|---|
+| [capability knowledge base](../archive/outcomes/KNOWLEDGE-BASE.md) | done 2026-08-15 | Minted [`evidence/capability/`](../evidence/capability/INDEX.md) and seeded it from host-API and `reference/BitX` facts |
+
+That detour changed no product behaviour. Phase 1 paused between sessions 3f-g
+and 3f-h while it ran, and resumed at 3f-h unchanged. Maintenance
+of the capability axis needs no standing plan: the rules are in
+[`context/README.md`](../README.md) and in the
+[capability index](../evidence/capability/INDEX.md).
+
 The [current execution state](../NOW.md) owns the immediate next step. Historical
 phase plans are retained under `archive/plans/`.
