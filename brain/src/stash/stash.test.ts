@@ -599,6 +599,7 @@ test('B-device: an insert nobody watched land is reported BEFORE any reversal (D
     hello: () => fx.fake.hello(),
     resolve: (refs) => fx.fake.resolve(refs),
     tracks: () => fx.fake.tracks(),
+    devices: (trackRef) => fx.fake.devices(trackRef),
     read: (sel) => fx.fake.read(sel),
     settle: (budget) => fx.fake.settle(budget),
     revision: () => fx.fake.revision(),

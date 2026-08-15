@@ -13,10 +13,10 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
+  assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, contentDelta,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
-  verifyDeviceRelocation, verifyExclusiveChain,
+  verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
   type Op, type OpReceipt, type ResolveResult,
@@ -84,6 +84,16 @@ export class FakeAdapter implements BitwigAdapter {
         canInjectInterference: true,
         hasDeviceModel: true,
       },
+    };
+  }
+
+  async devices(trackRef: import('../../contract/index.js').TrackAddress) {
+    const track = this.requireTrack(trackRef, 'devices');
+    return {
+      devices: track.devices.slice(0, this.model.deviceBankSize)
+        .map((item, index) => ({ index, name: item.name })),
+      devicesComplete: track.devices.length <= this.model.deviceBankSize,
+      bankSize: this.model.deviceBankSize,
     };
   }
 
@@ -513,6 +523,15 @@ export class FakeAdapter implements BitwigAdapter {
       },
       (container) => this.observeAt(container),
     );
+    assertDeviceRelocatable(batch.ops, (trackRef) => {
+      const track = this.requireTrack(trackRef, 'device.relocate');
+      return {
+        devices: track.devices.slice(0, this.model.deviceBankSize)
+          .map((item, index) => ({ index, name: item.name })),
+        devicesComplete: track.devices.length <= this.model.deviceBankSize,
+        bankSize: this.model.deviceBankSize,
+      };
+    });
 
     // ⚠ E8-D: a stale guard rejects the batch WHOLE, applying zero ops.
     if (batch.ifRevision !== undefined && batch.ifRevision !== this.model.revision) {
@@ -851,7 +870,11 @@ export class FakeAdapter implements BitwigAdapter {
         const shipped = isInstrumentSeed
           ? [{
             name: 'fake-seed-alternate',
+            mute: false,
             solo: false,
+            volume: 1,
+            pan: 0.5,
+            color: { red: 0.341, green: 0.38, blue: 0.776 },
             id: this.model.mintChannelId(),
             devices: [],
           }]
@@ -877,7 +900,39 @@ export class FakeAdapter implements BitwigAdapter {
 
       case 'device.delete': {
         const track = this.requireTrack(op.device.track, op.op);
+        const current = track.devices[op.device.chainIndex];
+        if (op.expectedName !== undefined && current?.name !== op.expectedName) {
+          throw new UnsupportedOpError(
+            `${op.op}: expected "${op.expectedName}" at position ${op.device.chainIndex}, got "${current?.name ?? ''}"`,
+            'fake',
+          );
+        }
         this.model.deleteDevice(track, op.device.chainIndex);
+        return;
+      }
+
+      case 'device.relocate': {
+        const track = this.requireTrack(op.track, op.op);
+        const before = {
+          devices: track.devices.map((item, index) => ({ index, name: item.name })),
+          devicesComplete: track.devices.length <= this.model.deviceBankSize,
+        };
+        const sourceIndex = track.devices.length - 1 - op.sourceFromEnd;
+        const source = track.devices[sourceIndex];
+        const anchor = track.devices[op.before.chainIndex];
+        if (source === undefined || anchor === undefined || source.name !== op.expectedName) {
+          throw new UnsupportedOpError(`${op.op}: source or anchor is absent`, 'fake');
+        }
+        track.devices.splice(sourceIndex, 1);
+        const anchorAt = track.devices.indexOf(anchor);
+        track.devices.splice(anchorAt, 0, source);
+        const after = {
+          devices: track.devices.map((item, index) => ({ index, name: item.name })),
+          devicesComplete: track.devices.length <= this.model.deviceBankSize,
+        };
+        const proof = verifyDeviceReorder(
+          sourceIndex, op.before.chainIndex, before, after);
+        if (!proof.ok) throw new UnsupportedOpError(`${op.op}: ${proof.why}`, 'fake');
         return;
       }
 

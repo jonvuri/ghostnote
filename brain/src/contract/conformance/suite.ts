@@ -35,7 +35,7 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, NOTE_PROP_FIDELITY,
   SlotOccupiedError, addressKey, chain, clip, contentTouching, deltaComplete, device, deviceIn,
   notes as notesAt, param, scene, slot, track,
-  type Address, type BitwigAdapter, type NoteRecord, type Op, type Snapshot, type TrackAddress,
+  type Address, type BitwigAdapter, type NoteRecord, type ObservedContainer, type Op, type Snapshot, type TrackAddress,
 } from '../index.js';
 import { Executor, branchProtected, UnprotectedWriteError } from '../../engine/index.js';
 
@@ -1009,6 +1009,9 @@ export function runConformance(h: AdapterHarness): void {
       const FX_LAYER = { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' } as const;
       const A = { from: 'bitwig', uuid: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef' } as const;
       const B = { from: 'bitwig', uuid: 'f2dcfe9a-7b66-4c84-984a-b25685a1c21a' } as const;
+      // A third measured Bitwig device, and the row needs a third NAME rather
+      // than a third device: the restoration proof below can only see names.
+      const C = { from: 'bitwig', uuid: '8f58138b-03aa-4e9d-83bd-a038c99a4ed5' } as const;
       let container: Address | undefined;
       const chainDevices = async (at: Address, name: string): Promise<string[]> => {
         assert.equal(at.kind, 'device');
@@ -1030,6 +1033,7 @@ export function runConformance(h: AdapterHarness): void {
         assert.ok(container?.kind === 'device');
         const initial = (await adapter.read([container])).entries[addressKey(container)];
         const observed = initial?.value.of === 'device' ? initial.value.device.container : undefined;
+        const containerName = initial?.value.of === 'device' ? initial.value.device.name : '';
         assert.ok(observed?.chains[0]);
         const shipped = chain(container, observed.chains[0].name);
         const madeFirst = await adapter.apply({ ops: [{
@@ -1125,6 +1129,33 @@ export function runConformance(h: AdapterHarness): void {
         const top = await adapter.read([device(trackA, 1)]);
         assert.equal(top.entries[addressKey(device(trackA, 1))]?.value.of, 'device');
 
+        // The collapse workflow's second relocation: a named tail device can be
+        // restored before an existing top-level anchor, with full-order proof.
+        const movedBeforeContainer = await adapter.apply({ ops: [{
+          op: 'device.relocate',
+          track: trackA,
+          sourceFromEnd: 0,
+          expectedName: aName,
+          before: device(trackA, 0),
+        }] });
+        assert.equal(movedBeforeContainer.stages[0]?.ops.every((item) => item.ok), true,
+          JSON.stringify(movedBeforeContainer.stages[0]?.ops));
+        container = device(trackA, 1);
+        first = chain(container, first.name);
+        alt = chain(container, alt.name);
+        const restoredContainer = await adapter.apply({ ops: [{
+          op: 'device.relocate',
+          track: trackA,
+          sourceFromEnd: 0,
+          expectedName: containerName,
+          before: device(trackA, 0),
+        }] });
+        assert.equal(restoredContainer.stages[0]?.ops.every((item) => item.ok), true,
+          JSON.stringify(restoredContainer.stages[0]?.ops));
+        container = device(trackA, 0);
+        first = chain(container, first.name);
+        alt = chain(container, alt.name);
+
         // Leave exactly one nested slot free, then request two devices from two
         // valid sources. Capacity is cumulative over the request, so the first
         // copy must not land before the second is refused.
@@ -1155,17 +1186,100 @@ export function runConformance(h: AdapterHarness): void {
           adapter.apply({ ops: [{ op: 'device.delete', device: deviceIn(alt, 0) }] }),
           /device-layer chain/,
         );
+
+        // ⚠⚠ The collapse fixture is built out of DISTINCT device names on
+        // purpose, and that is a finding rather than tidiness. Restoration is
+        // proved from a top-level NAME sequence — a device has no durable id to
+        // diff — so two devices sharing a name make "it moved back" and "nothing
+        // happened" the same reading, and the contract refuses such a batch
+        // before its first frame (`reorderIndistinguishable`). The capacity
+        // section above deliberately leaves two copies of A beside a top-level
+        // A, which is exactly that shape. So the surplus copies are pushed into
+        // the alternate that is about to be destroyed anyway, and a third
+        // distinct device becomes the following anchor the restoration lands
+        // before.
+        const tidied = await adapter.apply({ ops: [
+          { op: 'chain.relocate', source: deviceIn(alt, 2), destination: first, mode: 'move' },
+          { op: 'chain.relocate', source: device(trackA, 1), destination: first, mode: 'move' },
+        ] });
+        assert.equal(tidied.stages.flatMap((stage) => stage.ops).every((item) => item.ok), true,
+          JSON.stringify(tidied.stages));
+        await executor.run([{ op: 'device.insert', track: trackA, source: C }]);
+        const cName = await readName(1);
+        assert.notEqual(cName, aName, 'the following anchor must be nameable apart from the winner');
+        assert.deepEqual(await chainDevices(container, alt.name), [bName, aName],
+          'the winner holds two distinctly named devices in order');
+
+        // Collapse the named winner through the same guarded sequence the
+        // production tool uses: exact state/order preflight, ordered extraction,
+        // independent empty-chain proof, guarded container removal, then exact
+        // restoration at the container's former signal position.
+        const fullBefore = await adapter.devices(trackA);
+        assert.equal(fullBefore.devicesComplete, true);
+        const collapseRead = (await adapter.read([container])).entries[addressKey(container)];
+        const collapseContainer = collapseRead?.value.of === 'device'
+          ? collapseRead.value.device.container : undefined;
+        const winner = collapseContainer?.chains.find((item) => item.name === alt.name);
+        assert.ok(winner?.devicesComplete, 'the named winner device order must be complete');
+        assert.equal(typeof winner.mute, 'boolean');
+        assert.equal(typeof winner.solo, 'boolean');
+        assert.equal(typeof winner.volume, 'number');
+        assert.equal(typeof winner.pan, 'number');
+        assert.ok(winner.color, 'the named winner colour must be observed');
+        const winnerNames = winner.devices.map((item) => item.name);
+        const initialNames = fullBefore.devices.map((item) => item.name);
+        const extractedWinner = await adapter.apply({
+          ops: winnerNames.map(() => ({
+            op: 'chain.relocate' as const,
+            source: deviceIn(alt, 0),
+            destination: trackA,
+            mode: 'move' as const,
+          })),
+        });
+        assert.equal(extractedWinner.stages.flatMap((stage) => stage.ops).every((item) => item.ok), true,
+          JSON.stringify(extractedWinner.stages));
+        assert.deepEqual((await adapter.devices(trackA)).devices.map((item) => item.name),
+          [...initialNames, ...winnerNames]);
+        assert.deepEqual(await chainDevices(container, alt.name), [],
+          'an independent nested read proves the winner empty before deletion');
+
+        const removedContainer = await adapter.apply({ ops: [{
+          op: 'device.delete', device: container, expectedName: containerName,
+        }] });
+        assert.equal(removedContainer.stages.flatMap((stage) => stage.ops).every((item) => item.ok), true,
+          JSON.stringify(removedContainer.stages));
+        const afterRemovalNames = initialNames.slice(1).concat(winnerNames);
+        assert.deepEqual((await adapter.devices(trackA)).devices.map((item) => item.name),
+          afterRemovalNames, 'only the guarded container was removed');
+
+        if (initialNames[1] !== undefined) {
+          const restoredWinner = await adapter.apply({
+            ops: winnerNames.map((name, index) => ({
+              op: 'device.relocate' as const,
+              track: trackA,
+              sourceFromEnd: winnerNames.length - 1 - index,
+              expectedName: name,
+              before: device(trackA, index),
+            })),
+          });
+          assert.equal(restoredWinner.stages.flatMap((stage) => stage.ops).every((item) => item.ok), true,
+            JSON.stringify(restoredWinner.stages));
+        }
+        assert.deepEqual((await adapter.devices(trackA)).devices.map((item) => item.name),
+          [...winnerNames, ...initialNames.slice(1)],
+          'the winner replaces the container without changing its signal position');
+        container = undefined;
       } finally {
         if (container?.kind === 'device') {
           await adapter.apply({ ops: [{ op: 'device.delete', device: container }] });
           await adapter.settle('trackStruct');
-          // The extracted device remains at top level after the container goes.
-          for (let guard = 0; guard < 8; guard += 1) {
-            const at = device(trackA, 0);
-            if ((await adapter.read([at])).entries[addressKey(at)] === undefined) break;
-            await adapter.apply({ ops: [{ op: 'device.delete', device: at }] });
-            await adapter.settle('trackStruct');
-          }
+        }
+        // Extracted/collapsed devices remain top-level after the container goes.
+        for (let guard = 0; guard < 8; guard += 1) {
+          const at = device(trackA, 0);
+          if ((await adapter.read([at])).entries[addressKey(at)] === undefined) break;
+          await adapter.apply({ ops: [{ op: 'device.delete', device: at }] });
+          await adapter.settle('trackStruct');
         }
         await h.dispose(adapter);
       }
@@ -1181,22 +1295,39 @@ export function runConformance(h: AdapterHarness): void {
       const FX_LAYER = { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' } as const;
       let containerA: Address | undefined;
       let containerB: Address | undefined;
+      const insertContainer = async (track: TrackAddress): Promise<Address | undefined> => {
+        const inserted = await executor.run([{ op: 'device.insert', track, source: FX_LAYER }]);
+        const minted = inserted.receipt.minted[0];
+        if (minted?.kind === 'device') return minted;
+        // Device insertion acknowledgement can precede the observer used by
+        // minting. This switch row needs the independently observed position,
+        // not the mint mechanism itself (C-device owns that assertion).
+        const full = await adapter.devices(track);
+        return full.devicesComplete && full.devices.length === 1
+          ? device(track, full.devices[0]!.index)
+          : undefined;
+      };
       const observed = async (at: Address) => {
         assert.equal(at.kind, 'device');
-        const entry = (await adapter.read([at])).entries[addressKey(at)];
-        const value = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+        let value: ObservedContainer | undefined;
+        for (let attempt = 0; attempt < 8; attempt += 1) {
+          const entry = (await adapter.read([at])).entries[addressKey(at)];
+          value = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+          if (value?.chainsComplete
+              && value.chains.every((item) => typeof item.solo === 'boolean')) break;
+          // A fresh layer bank can report its device before its sibling/state
+          // observers populate. The product refuses that partial view; this live
+          // conformance helper waits to assert the eventual exact observation.
+          await adapter.settle('cursorPoint');
+        }
         assert.ok(value?.chainsComplete, 'the whole sibling set must be observable');
         assert.ok(value.chains.every((item) => typeof item.solo === 'boolean'),
           'every chain must carry exact solo state');
         return value;
       };
       try {
-        containerA = (await executor.run([
-          { op: 'device.insert', track: trackA, source: FX_LAYER },
-        ])).receipt.minted[0];
-        containerB = (await executor.run([
-          { op: 'device.insert', track: trackB, source: FX_LAYER },
-        ])).receipt.minted[0];
+        containerA = await insertContainer(trackA);
+        containerB = await insertContainer(trackB);
         assert.ok(containerA?.kind === 'device' && containerB?.kind === 'device');
 
         const a0 = await observed(containerA);
@@ -1226,10 +1357,16 @@ export function runConformance(h: AdapterHarness): void {
           'an unrelated track did not change',
         );
       } finally {
-        for (const at of [containerA, containerB]) {
-          if (at?.kind !== 'device') continue;
-          await adapter.apply({ ops: [{ op: 'device.delete', device: at }] });
-          await adapter.settle('trackStruct');
+        // Both are conformance-owned empty-device scratch tracks. Enumerate
+        // rather than trusting mint receipts so a failed setup cannot strand a
+        // container and poison the next run.
+        for (const track of [trackA, trackB]) {
+          for (let guard = 0; guard < 8; guard += 1) {
+            const full = await adapter.devices(track);
+            if (!full.devicesComplete || full.devices.length === 0) break;
+            await adapter.apply({ ops: [{ op: 'device.delete', device: device(track, 0) }] });
+            await adapter.settle('trackStruct');
+          }
         }
         await h.dispose(adapter);
       }
@@ -1847,6 +1984,7 @@ export function runConformance(h: AdapterHarness): void {
           hello: () => adapter.hello(),
           resolve: (refs) => adapter.resolve(refs),
           tracks: () => adapter.tracks(),
+          devices: (trackRef) => adapter.devices(trackRef),
           read: async (sel) => {
             const snap = await adapter.read(sel);
             await bump(adapter);

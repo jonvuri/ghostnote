@@ -40,7 +40,7 @@
  * track that is no longer there. The dependencies are therefore getters.
  */
 import type {
-  Address, BitwigAdapter, ContentDelta, Op, RevisionMark, Snapshot, TrackState,
+  Address, BitwigAdapter, ContentDelta, ObservedDeviceBank, Op, RevisionMark, Snapshot, TrackAddress, TrackState,
 } from '../contract/index.js';
 import type { Executor, RunOptions } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
@@ -59,6 +59,8 @@ export interface Workspace {
   mark(): Promise<RevisionMark>;
   /** Where a caller's first durable track id comes from. */
   tracks(): Promise<readonly TrackState[]>;
+  /** Complete observable top-level device order on one track. */
+  devices(track: TrackAddress): Promise<ObservedDeviceBank>;
   read(addresses: readonly Address[]): Promise<Snapshot>;
   /**
    * ⚠ The ONLY write, and it records what it did. See the header for why that is
@@ -89,6 +91,11 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
     async tracks(): Promise<readonly TrackState[]> {
       await deps.ready();
       return deps.adapter.tracks();
+    },
+
+    async devices(trackRef: TrackAddress): Promise<ObservedDeviceBank> {
+      await deps.ready();
+      return deps.adapter.devices(trackRef);
     },
 
     async read(addresses: readonly Address[]): Promise<Snapshot> {

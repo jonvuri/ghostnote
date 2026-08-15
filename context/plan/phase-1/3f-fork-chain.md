@@ -2,9 +2,10 @@
 title: Phase 1, 3f epic — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: SESSION 3f-f COMPLETE 2026-08-15, VERIFIED LIVE. Both container cases
-        are autonomous through production inspection, creation and fill, with
-        atomic projected-fill refusal. Next is 3f-g.
+status: SESSION 3f-g COMPLETE 2026-08-15, VERIFIED LIVE INCLUDING ITS REVIEW
+        PASS. Named winner collapse, own-track audible measurement and exact
+        cleanup are green; four review defects are fixed and re-proved live
+        against a redeployed jar. Next is 3f-h.
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -546,6 +547,142 @@ rerun passed **51/0/6**. Production MCP smoke passed every **P0-P10** check with
 the new `soloed` / `exclusiveActive` structure and removed its copied track.
 Final conformance cleanup deleted both fixture tracks, leaving the project at 10
 visible tracks with Master visible and no test residue.
+
+### Session 3f-g — complete 2026-08-15, verified live including its review pass
+
+The destructive `keep_device_alternate` operation now names its survivor and
+refuses before writing unless it can see the complete top-level device order,
+the complete ordered winner contents, and exact name/mute/solo/volume/pan/colour
+state. It extracts winner devices in order, independently proves both their
+top-level tail placement and the now-empty source, then removes the container
+through an expected-name guard. A new typed tail-relative top-level relocation
+restores every kept device before the original following-device anchor; final
+success requires an independent exact whole-track order match.
+
+The answer reports the chain-level state that moving devices cannot carry,
+states that device alternates have no sends, and keeps cross-device modulation
+outside the claim. Shared fake/live conformance now runs the complete ordered
+extraction, guarded deletion and position restoration sequence. Production smoke
+adds the same lifecycle through the public destructive tool on its isolated copy.
+
+Brain typecheck and **444/444** offline tests pass; extension Gradle test passes;
+`git diff --check` is clean. The rebuilt jar was atomically deployed and the
+running controller proved fresh. Full live conformance passes **51/0/6**. The
+first full run exposed the already-known delayed sibling observation in the
+later switch row; its harness now uses a bounded wait for eventual exact state,
+recovers an insertion address only from a complete single-device reading when a
+mint receipt is late, and enumerates both owned tracks during cleanup. The clean
+full rerun passed. Production MCP smoke passes every **P0-P11** check and removed
+its exact copied track after a live collapse restored `Organ` at the removed FX
+container's former position and reported exact non-carried state.
+
+`probe:3f-collapse-audio` closes E18h's scope gap by playing and metering the
+copied track whose own container is collapsed. Two blind sets each heard
+collapse **2/2** and placebo **0/2**, for **4/4 versus 0/4** combined. The
+original controls were rejected rather than counted: track mute read back but
+did not silence Master, while both VU `now` and `hold` remained latched after a
+transport stop. A separate randomized two-arm gate then heard the proved 1200ms
+stop/relaunch control and not its placebo; stopped transport and resumed Master
+peak 62 were independently observed. An initial setup that accidentally muted
+Master and a later distracted gate were voided.
+
+Exact-ID cleanup removed `gn-conf-A`
+(`1f167244-fba6-4fbc-ad78-5b47facea75c`) and `gn-conf-B`
+(`717e1f2d-b228-4a87-8158-8abef723e9ce`). Every audio and production copy
+removed its own minted id. A final read found the documented 10-track baseline
+with Master visible and no test residue.
+
+Review hardening, 2026-08-15 — three defects, each reproduced offline before it
+was fixed, and all three in the same family: **evidence that could not have
+distinguished success from failure was being reported as success.**
+
+- ⚠⚠ **The signal-position proof could not see the move it was proving.** A
+  top-level device is observed by position and NAME and has no durable id (a
+  chain has one — `ObservedChain.id` — which is exactly why chain work can diff
+  identities and this cannot). So when a kept device shared a name with a
+  surviving top-level device, the order the restoration should leave spelled the
+  order it started from, and the readback matched whatever happened, including
+  nothing. `verifyDeviceReorder` and `assertDeviceRelocatable` now refuse such a
+  move outright (`reorderIndistinguishable`, shared so the proof and the
+  precondition cannot drift), and `keep_device_alternate` projects the entire
+  restoration **before the destructive boundary** and refuses there, with every
+  alternate still intact. Refusing afterwards would have been worthless: nothing
+  can undo the removal, and acceptance item 2 is exactly the claim at stake.
+- ⚠ **The container delete guarded the device and not the track.** It resolved
+  its cursor by BANK ROW from the last scan and checked only `expectedName`, so
+  a track bank that changed in between pointed it at a different track — where
+  an identically named container satisfied the guard and was deleted with an
+  `ok` reply. `device.delete` now carries `expectedTrackChannelId`, derived from
+  the `DeviceAddress` it already holds, and the extension refuses a mismatch;
+  this is the guard `device.relocate` has had since 3f-d, on the one verb that
+  cannot be taken back.
+- ⚠ **Partial destruction could report less than a refusal.** After a
+  successful delete receipt, a removal the readback could not confirm returned
+  without the captured name/mute/solo/volume/pan/colour/sends state, under a key
+  no other path used. Every outcome after the first write now carries that
+  state; removal is answered `true`/`false`/`null` from a fresh complete track
+  order rather than from a receipt; and a throw after the first write is
+  reported as a partial outcome instead of the surface's blanket "nothing was
+  written", which it would otherwise have been.
+
+⚠ **Two claims above are corrected by this pass rather than merely extended.**
+`C-chain-relocate`'s collapse fixture held three identically named devices, so
+the restoration it asserted was unprovable by its own oracle — the row now
+builds the winner and its anchor from three distinct devices. And the production
+smoke left the container LAST, where appending the winner and restoring it are
+the same result, so the position half of that check could not fail; the probe
+now inserts one ordinary device after the container and asserts the kept device
+reads back at the container's former position, before that anchor.
+
+⚠⚠ **A fourth defect appeared only when the fixes met a real DAW, and it is a
+borrowed budget rather than a race** — the same shape as the `trackStruct` note
+in step 6b-2, now measured. `LiveAdapter.containerScope` re-points cursor 0 and
+reads `chain.inventory` after `settle('cursorPoint')` (25ms, E1). But that is
+what a cursor POINT costs, and this reply comes through `Rig.slotLayerBanks`,
+which have to FOLLOW the cursor to another track before the inventory means
+anything. Measured 2026-08-15, re-pointing between two tracks and reading
+immediately: the reply named the track just pointed at **0/6 at 0ms, 3/6 at
+25ms, 5/6 at 50ms, 6/6 from 100ms**. So at the borrowed budget this read was a
+coin flip. Nothing was ever mis-reported — the identity guard fails closed — but
+a container write refused about half the time whenever the cursor had been
+somewhere else, and `C-chain-switch` failed **two live runs in three** on it.
+The guard is now POLLED within a bound: a mismatch is a staleness signal and
+never an observation, so it re-points and re-reads (`cursorPoint` on the first
+pass, `trackStruct` after), while every other miss answers immediately because
+each of those IS an observation. ⚠ The bound counts ATTEMPTS rather than
+wall-clock time — a clock spins hot wherever `settle` is not real time, which is
+every offline test of this class, and a bound that means one thing in the suite
+and another live is not a bound.
+
+Verification at this boundary — every item below was actually run:
+
+- brain typecheck plus **451/451** offline tests (7 new regression cases) and a
+  green extension Gradle build; `git diff --check` clean;
+- the jar was rebuilt, atomically deployed and the controller reloaded, and
+  `probe:hello` proved the running build fresh. ⚠ The golden is unchanged at 147
+  methods / `7f212c48cd3dab75`, because `methodsHash` is over method NAMES and
+  this change adds a PARAMETER — the same blind spot step 6b-1 recorded for reply
+  fields. The redeploy is the proof; a matching hash would not have been;
+- live conformance **51/0/6** across five runs (three consecutive after the
+  settle fix, two more after the bound became an attempt count). The same suite
+  ran 50/1/6, 51/0/6, 50/1/6 before that fix;
+- production MCP smoke **14/14, P0-P13, zero failures**. ⚠ P10-P12 are new and
+  close a real hole: creation and fill both leave the container LAST, where
+  restoring the winner and appending it are the same result, so the old P10's
+  position half could not fail. With one device added after the container the
+  live answer reads `finalDeviceOrder: ["Instrument Layer", "Organ",
+  "Polysynth"]` — the kept Organ back at the removed container's position 1,
+  before its anchor, with a recorded `reorderChange`. Acceptance item 2 is proved
+  live for the first time here;
+- every copied track removed its own minted id, `probe:conformance-cleanup`
+  removed `gn-conf-A` and `gn-conf-B`, and the project is back to its documented
+  10-track baseline with Master visible and no residue.
+
+⚠ The audible evidence was NOT re-taken and stands as the earlier measurement.
+Nothing in this pass changes what a successful collapse does to the signal, and
+nothing here re-proves it.
+
+Session 3f-h may now begin selective reduction.
 
 ## Capability boundary
 

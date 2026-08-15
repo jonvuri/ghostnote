@@ -51,6 +51,7 @@ const ctx: EncodeContext = {
   chainIndex: (c) => (c.name === 'A take' ? 2 : (c.name === 'B take' ? 3 : -1)),
   chainId: (c) => `id-${c.name}`,
   deviceName: () => 'Polysynth',
+  deviceTailIndex: () => 5,
   sceneRow: sceneRowIn(SCENE_WINDOW),
 };
 
@@ -297,6 +298,40 @@ test('E-chain-activate: exclusive switching carries stable identity guards', () 
   assert.equal(params?.['layerIndex'], 3);
   assert.equal(params?.['expectedName'], 'B take');
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+});
+
+test('E-device-relocate: a fresh tail source and before-anchor carry identity guards', () => {
+  const before = device(TRACK_A, 1);
+  const frames = encodeOp({
+    op: 'device.relocate',
+    track: TRACK_A,
+    sourceFromEnd: 0,
+    expectedName: 'Polysynth',
+    before,
+  }, ctx);
+  assert.deepEqual(methods(frames), [WIRE.cursorPointTrack, WIRE.deviceMoveTo]);
+  const params = paramsOf(frames, WIRE.deviceMoveTo);
+  assert.equal(params?.['deviceIndex'], 5);
+  assert.equal(params?.['anchorIndex'], 1);
+  assert.equal(params?.['where'], 'before');
+  assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+  assert.equal(params?.['expectedSourceName'], 'Polysynth');
+  assert.equal(params?.['expectedAnchorName'], 'Polysynth');
+});
+
+test('E-device-delete: a removal carries the durable track identity, not just a position', () => {
+  // ⚠ The positional cursor is the whole hazard. `trackIndex` is a BANK ROW from
+  // the last scan, so a track added, removed or reordered since retargets the
+  // point — and an expected DEVICE name alone cannot notice, because container
+  // names repeat across tracks. `device.relocate` already sends the durable id;
+  // a delete is the one that cannot be taken back, so it must too.
+  const frames = encodeOp({
+    op: 'device.delete', device: device(TRACK_A, 2), expectedName: 'FX Layer',
+  }, ctx);
+  const params = paramsOf(frames, WIRE.deviceDelete);
+  assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+  assert.equal(params?.['expectedName'], 'FX Layer');
+  assert.equal(params?.['deviceIndex'], 2);
 });
 
 test('E-device: a device op POINTS a cursor at its track, and addresses that cursor', () => {

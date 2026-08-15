@@ -21,8 +21,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  assertChainActivatable, chain, device, deviceIn, lookupChain, lookupDevice, lookupNestedDevice, mintedChain,
-  nestingDepth, nestingObservable, track, verifyDeviceRelocation, verifyExclusiveChain,
+  assertChainActivatable, assertDeviceRelocatable, chain, device, deviceIn, lookupChain, lookupDevice, lookupNestedDevice, mintedChain,
+  nestingDepth, nestingObservable, track, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type ObservedChain, type ObservedContainer,
 } from './index.js';
 
@@ -283,6 +283,73 @@ test('N-relocate: move and copy are proved from both structural halves', () => {
     0, 'move', seq(['A'], false), seq([]), seq([]), seq(['A']),
   );
   assert.equal(blind.ok, false, 'a partial bank cannot certify a relocation');
+});
+
+test('N-reorder: tail-relative moves project in order and exact readback proves them', () => {
+  const seq = (names: string[]) => ({
+    devices: names.map((name, index) => ({ index, name })),
+    devicesComplete: true,
+    bankSize: 8,
+  });
+  const ops = [
+    { op: 'device.relocate' as const, track: TRACK, sourceFromEnd: 1,
+      expectedName: 'A', before: device(TRACK, 1) },
+    { op: 'device.relocate' as const, track: TRACK, sourceFromEnd: 0,
+      expectedName: 'B', before: device(TRACK, 2) },
+  ];
+  assert.doesNotThrow(() => assertDeviceRelocatable(ops, () => seq(['before', 'after', 'A', 'B'])));
+  assert.equal(verifyDeviceReorder(
+    2, 1, seq(['before', 'after', 'A', 'B']), seq(['before', 'A', 'after', 'B']),
+  ).ok, true);
+  assert.throws(
+    () => assertDeviceRelocatable(
+      [{ ...ops[0]!, expectedName: 'somebody else' }],
+      () => seq(['before', 'after', 'A', 'B']),
+    ),
+    /expected/,
+  );
+});
+
+test('N-reorder: a move names cannot tell apart from a no-op is refused, never certified', () => {
+  const seq = (names: string[]) => ({
+    devices: names.map((name, index) => ({ index, name })),
+    devicesComplete: true,
+    bankSize: 8,
+  });
+  // ⚠ The whole readback is a NAME sequence, so two devices sharing a name make
+  // the requested move and "nothing happened at all" the same observation. The
+  // proof must decline rather than report the move it cannot see.
+  const twins = seq(['keep', 'keep']);
+  const noop = verifyDeviceReorder(1, 0, twins, twins);
+  assert.equal(noop.ok, false, 'an unmoved pair of twins must not certify a move');
+  assert.match(noop.ok ? '' : noop.why, /both before and after this move/);
+
+  // The same batch refuses before its first frame, for the same reason.
+  assert.throws(
+    () => assertDeviceRelocatable(
+      [{
+        op: 'device.relocate' as const, track: TRACK, sourceFromEnd: 0,
+        expectedName: 'keep', before: device(TRACK, 0),
+      }],
+      () => twins,
+    ),
+    /both before and after this move/,
+  );
+
+  // ⚠ And the projection carries: a first move nothing can fault does not
+  // license a second one whose result reads exactly like the first one's.
+  assert.throws(
+    () => assertDeviceRelocatable(
+      [
+        { op: 'device.relocate' as const, track: TRACK, sourceFromEnd: 0,
+          expectedName: 'tail', before: device(TRACK, 0) },
+        { op: 'device.relocate' as const, track: TRACK, sourceFromEnd: 0,
+          expectedName: 'keep', before: device(TRACK, 1) },
+      ],
+      () => seq(['keep', 'keep', 'tail']),
+    ),
+    /both before and after this move/,
+  );
 });
 
 test('N-solo: exclusive state requires a complete view and exact flags for every sibling', () => {

@@ -86,7 +86,9 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   // ○ in E4d rested on a single mechanism; `device.moveTo` is the same-track
   // CONTROL, without which a no-op into a layer cannot be told from a verb that
   // does nothing anywhere; `layer.pasteInto` is the independent clipboard route
-  // the complete-recall sweep turned up. None may become product surface.
+  // the complete-recall sweep turned up. Session 3f-g deliberately promotes the
+  // measured before-anchor control through `device.relocate`; the other two stay
+  // probe-only.
   //
   // ⚠ Session 5 added five, in ONE restart because a Java change costs a full
   // Bitwig restart and three rows needed one. Named individually for the same
@@ -219,8 +221,8 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   // The handler remains slot-scoped and the encoder has no other route to it.
   assert.deepEqual(
     reachable.sort(),
-    ['branch.duplicateTrack', 'chain.inventory', 'chain.move', 'slot.moveTo'],
-    '3f-d promotes chain.move only after the typed relocation verb owns its structural proof',
+    ['branch.duplicateTrack', 'chain.inventory', 'chain.move', 'device.moveTo', 'slot.moveTo'],
+    'typed relocation verbs own the two measured device-move routes they promote',
   );
 });
 

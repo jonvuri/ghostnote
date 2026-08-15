@@ -61,7 +61,11 @@ export interface FakeSlot {
  */
 export interface FakeChain {
   name: string;
+  mute?: boolean;
   solo: boolean;
+  volume?: number;
+  pan?: number;
+  color?: { red: number; green: number; blue: number };
   /** ⚠ A within-session witness, never an address. See above. */
   id: string;
   devices: FakeDevice[];
@@ -532,7 +536,16 @@ export class ProjectModel {
   /** What a container of this uuid ships with; `undefined` if it is not a container. */
   shippedChains(uuid: string): FakeChain[] | undefined {
     if (uuid === ProjectModel.FX_LAYER_UUID) {
-      return [{ name: ProjectModel.SHIPPED_CHAIN_NAME, solo: false, id: this.mintChannelId(), devices: [] }];
+      return [{
+        name: ProjectModel.SHIPPED_CHAIN_NAME,
+        mute: false,
+        solo: false,
+        volume: 1,
+        pan: 0.5,
+        color: { red: 0.341, green: 0.38, blue: 0.776 },
+        id: this.mintChannelId(),
+        devices: [],
+      }];
     }
     return uuid === ProjectModel.INSTRUMENT_LAYER_UUID ? [] : undefined;
   }
@@ -570,7 +583,11 @@ export class ProjectModel {
     if (at < 0 || source === undefined) return undefined;
     const copy: FakeChain = {
       name: source.name,
+      mute: source.mute,
       solo: source.solo,
+      volume: source.volume,
+      pan: source.pan,
+      ...(source.color === undefined ? {} : { color: { ...source.color } }),
       id: this.mintChannelId(),
       devices: source.devices.map((d) => ({ ...d, params: d.params.map((p) => ({ ...p })) })),
     };
@@ -618,7 +635,11 @@ export class ProjectModel {
         return {
           index,
           name: c.name,
+          ...(c.mute === undefined ? {} : { mute: c.mute }),
           solo: c.solo,
+          ...(c.volume === undefined ? {} : { volume: c.volume }),
+          ...(c.pan === undefined ? {} : { pan: c.pan }),
+          ...(c.color === undefined ? {} : { color: { ...c.color } }),
           // ⚠ Reported because live reports it (`chain.inventory` reads
           // `layer.channelId()`), and for one consumer only — `mintedChain`.
           // See `FakeChain.id`: it is a within-session witness, and nothing in

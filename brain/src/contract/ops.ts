@@ -23,8 +23,8 @@
 import { addressKey, chainPath, clip, device } from './address.js';
 import type { ChainAddress, ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress, BeatRange } from './address.js';
 import {
-  lookupChain, nestingObservable, type ObservedChain, type ObservedContainer,
-  type ObservedDeviceSequence,
+  lookupChain, nestingObservable, projectedReorder, reorderIndistinguishable,
+  type ObservedChain, type ObservedContainer, type ObservedDeviceSequence,
 } from './chains.js';
 import { unwritableProps, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
@@ -89,7 +89,15 @@ export type Op =
 
   // --- devices & params -----------------------------------------------------
   | { readonly op: 'device.insert'; readonly track: TrackAddress; readonly source: DeviceSource }
-  | { readonly op: 'device.delete'; readonly device: DeviceAddress }
+  | { readonly op: 'device.delete'; readonly device: DeviceAddress; readonly expectedName?: string }
+  /** Move one named top-level device from the observed tail immediately before another. */
+  | {
+    readonly op: 'device.relocate';
+    readonly track: TrackAddress;
+    readonly sourceFromEnd: number;
+    readonly expectedName: string;
+    readonly before: DeviceAddress;
+  }
   | { readonly op: 'param.set'; readonly param: ParamAddress; readonly value: number }
 
   // --- device-layer chains: the FIRST typed verb that reaches inside one -----
@@ -186,6 +194,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   'scene.delete': 'tick',
   'device.insert': 'deviceInsert',
   'device.delete': 'trackStruct',
+  'device.relocate': 'deviceInsert',
   // ⚠ `deviceInsert`, the slowest budget measured (600ms, E3), and NOT
   // `trackStruct`. Duplicating a chain instantiates a copy of every device in
   // it, which is the same plugin-loading work an insert pays for; the empty
@@ -326,6 +335,20 @@ export function assertOpsWritable(ops: readonly Op[]): void {
     if (op.op === 'chain.activate' && !nestingObservable(op.chain)) {
       throw new InvalidOpError(op.op, 'the addressed chain is deeper than the measured one-chain slot scopes');
     }
+    if (op.op === 'device.relocate') {
+      if (op.before.chain !== undefined) {
+        throw new InvalidOpError(op.op, 'the before-anchor must be a top-level device');
+      }
+      if (op.track.channelId !== op.before.track.channelId) {
+        throw new InvalidOpError(op.op, 'source and anchor must be on the same track');
+      }
+      if (!Number.isInteger(op.sourceFromEnd) || op.sourceFromEnd < 0) {
+        throw new InvalidOpError(op.op, 'sourceFromEnd must be a non-negative integer');
+      }
+      if (op.expectedName.trim() === '') {
+        throw new InvalidOpError(op.op, 'the moved device needs an expected name guard');
+      }
+    }
     if (op.op !== 'note.write' && op.op !== 'note.props') continue;
     for (const note of op.notes) {
       const refused = unwritableProps(note);
@@ -377,6 +400,7 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'track.delete':
     case 'device.insert':
     case 'device.delete':
+    case 'device.relocate':
     case 'param.set':
     case 'chain.create':
     case 'chain.rename':
@@ -403,6 +427,9 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
       return [op.device];
     case 'param.set':
       return [op.param.device];
+    case 'device.relocate':
+      // This verb owns its top-level-only validation above.
+      return [];
     // ⚠⚠ The CONTAINER, and listing it here is what makes the routing guard do
     // this op's depth check for free. `chain.duplicate` addresses its container
     // by slot position in `Rig.slotLayerBanks`, which hang off TOP-LEVEL device
@@ -827,6 +854,67 @@ export function assertChainRelocatable(
     destination.devices.push(op.mode === 'copy'
       ? { token: nextToken++, name: sourceDevice.name }
       : sourceDevice);
+  }
+}
+
+/**
+ * Refuse a top-level reorder unless the complete projected track sequence is
+ * visible. Several moves in one batch address the sequence left by the prior
+ * moves, so this is the before-first-frame atomicity boundary.
+ */
+export function assertDeviceRelocatable(
+  ops: readonly Op[],
+  observeTrack: (track: TrackAddress) => ObservedDeviceBank | undefined,
+): void {
+  type Item = { readonly token: number; readonly name: string };
+  const projected = new Map<string, { devices: Item[]; bankSize: number }>();
+  let token = 0;
+  for (const op of ops) {
+    if (op.op !== 'device.relocate') continue;
+    let state = projected.get(op.track.channelId);
+    if (state === undefined) {
+      const observed = observeTrack(op.track);
+      if (observed === undefined || !observed.devicesComplete || observed.bankSize === undefined) {
+        throw new InvalidOpError(op.op, 'the complete top-level device order must be observable');
+      }
+      state = {
+        devices: observed.devices.map((item) => ({ token: token++, name: item.name })),
+        bankSize: observed.bankSize,
+      };
+      projected.set(op.track.channelId, state);
+    }
+    const sourceIndex = state.devices.length - 1 - op.sourceFromEnd;
+    const source = state.devices[sourceIndex];
+    const anchor = state.devices[op.before.chainIndex];
+    if (source === undefined) {
+      throw new InvalidOpError(op.op, `no source device exists ${op.sourceFromEnd} positions from the projected end`);
+    }
+    if (anchor === undefined) {
+      throw new InvalidOpError(op.op, `no anchor device exists at projected position ${op.before.chainIndex}`);
+    }
+    if (source.name !== op.expectedName) {
+      throw new InvalidOpError(
+        op.op,
+        `the projected tail device was "${source.name}", expected "${op.expectedName}"`,
+      );
+    }
+    if (source.token === anchor.token) {
+      throw new InvalidOpError(op.op, 'the source and before-anchor resolve to the same device');
+    }
+    // ⚠⚠ Refused HERE, before the first frame, rather than left for the proof to
+    // decline afterwards. `verifyDeviceReorder` cannot certify a move whose
+    // result spells the same names it started from — see
+    // `reorderIndistinguishable` — and by the time that verdict arrives the move
+    // has already been sent. A caller that restores a signal position after a
+    // destructive step needs the refusal while it can still act on it.
+    const started = state.devices.map((item) => item.name);
+    const wanted = projectedReorder(started, sourceIndex, op.before.chainIndex);
+    if (wanted === undefined || JSON.stringify(wanted) === JSON.stringify(started)) {
+      throw new InvalidOpError(op.op, reorderIndistinguishable(started));
+    }
+    state.devices.splice(sourceIndex, 1);
+    const anchorAt = state.devices.findIndex((item) => item.token === anchor.token);
+    state.devices.splice(anchorAt, 0, source);
   }
 }
 

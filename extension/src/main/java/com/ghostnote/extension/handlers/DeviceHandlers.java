@@ -112,11 +112,43 @@ public final class DeviceHandlers extends HandlerGroup {
         return result;
     }
 
-    /** Delete a device by chain index on a pool cursor's track. */
+    /**
+     * Delete a device by chain index on a pool cursor's track.
+     *
+     * ⚠⚠ Two guards, and they answer different questions. `expectedName` says
+     * *is this the device we meant*; `expectedTrackChannelId` says *is this even
+     * the track we meant*. The second is the one a positional cursor needs: the
+     * caller points the cursor by BANK ROW, and a track bank that changed since
+     * that reading aims the same number at another track — where an identically
+     * named container (an "FX Layer" is not a rare name) would satisfy the name
+     * guard and be deleted with an `ok` reply. Same guard, same wording, same
+     * reason as `device.moveTo` below; a delete cannot be taken back.
+     */
     private JsonElement deviceDelete(JsonObject params) {
         int i = params.get("cursor").getAsInt();
         int deviceIndex = params.get("deviceIndex").getAsInt();
-        rig.cursorDeviceBanks[i].getDevice(deviceIndex).deleteObject();
+        // Validated before any Bitwig object is touched (rule 3c).
+        if (i < 0 || i >= rig.config.cursorPool) {
+            throw new IllegalArgumentException("cursor out of pool range: " + i);
+        }
+        if (params.has("expectedTrackChannelId")) {
+            String expected = params.get("expectedTrackChannelId").getAsString();
+            String actual = rig.cursorTracks[i].channelId().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "device.delete track identity changed: expected " + expected + ", got " + actual);
+            }
+        }
+        Device target = rig.cursorDeviceBanks[i].getDevice(deviceIndex);
+        if (params.has("expectedName")) {
+            String expected = params.get("expectedName").getAsString();
+            String actual = target.name().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "device.delete target changed: expected \"" + expected + "\", got \"" + actual + "\"");
+            }
+        }
+        target.deleteObject();
         return ok();
     }
 
@@ -226,6 +258,25 @@ public final class DeviceHandlers extends HandlerGroup {
 
         DeviceBank bank = rig.cursorDeviceBanks[cursorIndex];
         Device source = bank.getDevice(deviceIndex);
+        if (params.has("expectedTrackChannelId")) {
+            String expected = params.get("expectedTrackChannelId").getAsString();
+            String actual = rig.cursorTracks[cursorIndex].channelId().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "device.moveTo track identity changed: expected " + expected + ", got " + actual);
+            }
+        }
+        if (params.has("expectedSourceName")) {
+            String expected = params.get("expectedSourceName").getAsString();
+            String actual = source.name().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "device.moveTo source changed: expected \"" + expected + "\", got \"" + actual + "\"");
+            }
+        }
+        if (!source.exists().get()) {
+            throw new IllegalArgumentException("no source device at index " + deviceIndex);
+        }
 
         JsonObject r = ok();
         r.addProperty("where", where);
@@ -250,6 +301,17 @@ public final class DeviceHandlers extends HandlerGroup {
                         + "construction and would be indistinguishable from a failure");
                 }
                 Device anchor = bank.getDevice(anchorIndex);
+                if (!anchor.exists().get()) {
+                    throw new IllegalArgumentException("no anchor device at index " + anchorIndex);
+                }
+                if (params.has("expectedAnchorName")) {
+                    String expected = params.get("expectedAnchorName").getAsString();
+                    String actual = anchor.name().get();
+                    if (!expected.equals(actual)) {
+                        throw new IllegalArgumentException(
+                            "device.moveTo anchor changed: expected \"" + expected + "\", got \"" + actual + "\"");
+                    }
+                }
                 r.addProperty("anchorIndex", anchorIndex);
                 putGuarded(r, "anchorName", () -> anchor.name().get());
                 if ("before".equals(where)) {

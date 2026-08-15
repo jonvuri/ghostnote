@@ -1025,6 +1025,11 @@ public final class ContainerHandlers extends HandlerGroup {
                     // Guarded silence is preserved as a missing field, which the
                     // brain refuses rather than guessing as false.
                     putGuarded(chain, "solo", () -> layer.solo().get());
+                    putGuarded(chain, "mute", () -> layer.mute().get());
+                    putGuarded(chain, "volume", () -> layer.volume().value().get());
+                    putGuarded(chain, "pan", () -> layer.pan().value().get());
+                    putGuarded(chain, "color", () -> String.format("%.3f,%.3f,%.3f",
+                        layer.color().red(), layer.color().green(), layer.color().blue()));
                     JsonArray devices = new JsonArray();
                     for (int d = 0; d < Rig.SLOT_LAYER_DEVICE_BANK; d++) {
                         Device nested = rig.slotLayerDeviceBanks[s][l].getDevice(d);

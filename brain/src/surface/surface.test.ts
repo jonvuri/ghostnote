@@ -62,10 +62,28 @@ interface Fixture {
   readonly sent: Op[];
 }
 
+/**
+ * ⚠ The ONE place a fixture is allowed to stop being the fake's own behaviour,
+ * and it may only weaken an OBSERVATION — never a write.
+ *
+ * A destructive tool has to say something true when its confirming readback does
+ * not arrive, and that state is unreachable through a cooperative fake: the fake
+ * always answers completely and always answers correctly. So this hook rewrites
+ * one numbered `devices()` answer, which is exactly what a live blind spot or a
+ * delete that did not take effect looks like from the tool's side.
+ */
+interface FixtureHooks {
+  readonly devices?: (
+    call: number,
+    actual: Awaited<ReturnType<FakeAdapter['devices']>>,
+  ) => Awaited<ReturnType<FakeAdapter['devices']>>;
+}
+
 /** Two tracks, eight rows, nothing written yet. */
-function fixture(): Fixture {
+function fixture(hooks: FixtureHooks = {}): Fixture {
   const fake = new FakeAdapter({ tracks: ['gn-A', 'gn-B'], scenes: 8 });
   const sent: Op[] = [];
+  let deviceReads = 0;
   // ⚠ A spy rather than a stub: everything is the fake's own behaviour, and the
   // only addition is a record of what was asked for. A stub here would let a
   // tool's declared `emits` be checked against a world that does not push back.
@@ -73,6 +91,11 @@ function fixture(): Fixture {
     hello: () => fake.hello(),
     resolve: (refs) => fake.resolve(refs),
     tracks: () => fake.tracks(),
+    devices: async (trackRef) => {
+      const actual = await fake.devices(trackRef);
+      deviceReads += 1;
+      return hooks.devices?.(deviceReads, actual) ?? actual;
+    },
     read: (sel) => fake.read(sel),
     settle: (budget) => fake.settle(budget),
     revision: () => fake.revision(),
@@ -371,6 +394,15 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(switched.applied, true, JSON.stringify(switched));
   assert.equal(switched.exclusiveActive, 'gn-tool-alt');
   assert.equal(switched.exclusiveStateConfirmed, true);
+
+  const collapsed = await exercise('keep_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: filled.finalContainerPosition,
+    alternateName: 'gn-tool-source',
+  }) as { applied: boolean; containerRemoved: boolean; finalPositionConfirmed: boolean };
+  assert.equal(collapsed.applied, true, JSON.stringify(collapsed));
+  assert.equal(collapsed.containerRemoved, true);
+  assert.equal(collapsed.finalPositionConfirmed, true);
 
   // -- the record of all of it, and putting one of them back.
   const changes = await exercise('list_changes', {}) as { changes: { changeId: string }[] };
@@ -848,6 +880,241 @@ test('T-fill projection: non-sorted caller order preserves requested order throu
     fx.fake.model.findByChannelId(fx.trackA)!.track.devices.map((item) => item.name),
     [ProjectModel.FX_LAYER_UUID, 'source-b'],
   );
+});
+
+test('T-collapse: a named multi-device winner replaces its container at the original position', async () => {
+  const fx = fixture();
+  const add = async (id: string) => call(fx, 'add_device', {
+    devices: [{ trackId: fx.trackA, from: 'bitwig', id }],
+  });
+  await add('gn-before');
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA,
+    containerType: 'effect',
+    names: ['gn-winner', 'gn-loser'],
+  }) as { applied: boolean; structure: { container: { devicePosition: number } } };
+  assert.equal(made.applied, true, JSON.stringify(made));
+  assert.equal(made.structure.container.devicePosition, 1);
+  await add('gn-after');
+  await add('gn-winner-a');
+  await add('gn-winner-b');
+  const filled = await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: 1,
+    alternateName: 'gn-winner',
+    sourceDevicePositions: [3, 4],
+    mode: 'move',
+  }) as { applied: boolean };
+  assert.equal(filled.applied, true, JSON.stringify(filled));
+
+  const result = await call(fx, 'keep_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: 1,
+    alternateName: 'gn-winner',
+  }) as {
+    applied: boolean;
+    containerRemoved: boolean;
+    finalPositionConfirmed: boolean;
+    finalDeviceOrder: string[];
+    stateNotCarried: { name: string; mute: boolean; solo: boolean };
+  };
+  assert.equal(result.applied, true, JSON.stringify(result));
+  assert.equal(result.containerRemoved, true);
+  assert.equal(result.finalPositionConfirmed, true);
+  assert.deepEqual(result.finalDeviceOrder,
+    ['gn-before', 'gn-winner-a', 'gn-winner-b', 'gn-after']);
+  assert.deepEqual(result.stateNotCarried.name, 'gn-winner');
+  assert.equal(typeof result.stateNotCarried.mute, 'boolean');
+  assert.equal(typeof result.stateNotCarried.solo, 'boolean');
+});
+
+test('T-collapse: unknown winner state refuses before any device moves', async () => {
+  const fx = fixture();
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA,
+    containerType: 'effect',
+    names: ['gn-winner', 'gn-loser'],
+  }) as { applied: boolean; structure: { container: { devicePosition: number } } };
+  assert.equal(made.applied, true);
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  const winner = track.devices[made.structure.container.devicePosition]!.chains![0]!;
+  delete winner.mute;
+  const before = JSON.stringify(track.devices);
+  const changes = fx.workspace.changes.list().length;
+  const result = await call(fx, 'keep_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: made.structure.container.devicePosition,
+    alternateName: 'gn-winner',
+  });
+  assert.equal(result['refused'], true);
+  assert.equal(result['nothingWasWritten'], true);
+  assert.equal(JSON.stringify(track.devices), before);
+  assert.equal(fx.workspace.changes.list().length, changes);
+});
+
+test('T-collapse: an unprovable extraction overflow refuses before the first move', async () => {
+  const fx = fixture();
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA,
+    containerType: 'effect',
+    names: ['gn-winner'],
+  }) as { structure: { container: { devicePosition: number } } };
+  await call(fx, 'add_device', {
+    devices: ['winner-a', 'winner-b'].map((id) => ({
+      trackId: fx.trackA, from: 'bitwig', id,
+    })),
+  });
+  await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: made.structure.container.devicePosition,
+    alternateName: 'gn-winner',
+    sourceDevicePositions: [1, 2],
+    mode: 'move',
+  });
+  await call(fx, 'add_device', {
+    devices: Array.from({ length: 7 }, (_, index) => ({
+      trackId: fx.trackA, from: 'bitwig', id: `top-${index}`,
+    })),
+  });
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  const before = JSON.stringify(track.devices);
+  const changes = fx.workspace.changes.list().length;
+  const result = await call(fx, 'keep_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: made.structure.container.devicePosition,
+    alternateName: 'gn-winner',
+  });
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.match(String(result['why']), /beyond the observable bank/);
+  assert.equal(JSON.stringify(track.devices), before);
+  assert.equal(fx.workspace.changes.list().length, changes);
+});
+
+/**
+ * A container, one named winner holding a device, and a top-level device that
+ * shares the winner device's name — the shape whose restoration no name-sequence
+ * readback can tell from a move that never happened.
+ */
+async function twinNamedCollapse(fx: Fixture): Promise<number> {
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA,
+    containerType: 'effect',
+    names: ['gn-winner'],
+  }) as { structure: { container: { devicePosition: number } } };
+  const position = made.structure.container.devicePosition;
+  await call(fx, 'add_device', {
+    devices: ['gn-twin', 'gn-twin'].map((id) => ({ trackId: fx.trackA, from: 'bitwig', id })),
+  });
+  await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-winner',
+    sourceDevicePositions: [position + 2],
+    mode: 'move',
+  });
+  return position;
+}
+
+test('T-collapse: a restoration two identical names could not prove refuses before the container goes', async () => {
+  const fx = fixture();
+  const position = await twinNamedCollapse(fx);
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  const before = JSON.stringify(track.devices);
+  const changes = fx.workspace.changes.list().length;
+
+  const result = await call(fx, 'keep_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-winner',
+  });
+  // ⚠ The refusal has to come BEFORE the container is destroyed. Afterwards
+  // there is nothing to refuse with: the alternates are gone and the only
+  // remaining question is whether the answer lies about the signal position.
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.match(String(result['why']), /both before and after the move/);
+  assert.equal(JSON.stringify(track.devices), before);
+  assert.equal(fx.workspace.changes.list().length, changes);
+});
+
+test('T-collapse: a container the readback still sees is reported as NOT removed, with its state', async () => {
+  // The delete is acknowledged and the confirming reading still shows the
+  // container: exactly what a refused or lost removal looks like from here.
+  let extracted: Awaited<ReturnType<FakeAdapter['devices']>> | undefined;
+  const fx = fixture({
+    devices: (call, actual) => {
+      if (call === 2) extracted = actual;
+      return call === 3 && extracted !== undefined ? extracted : actual;
+    },
+  });
+  await call(fx, 'add_device', { devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'gn-before' }] });
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA, containerType: 'effect', names: ['gn-winner'],
+  }) as { structure: { container: { devicePosition: number } } };
+  const position = made.structure.container.devicePosition;
+  await call(fx, 'add_device', { devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'gn-kept' }] });
+  await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-winner',
+    sourceDevicePositions: [position + 1],
+    mode: 'move',
+  });
+
+  const result = await call(fx, 'keep_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-winner',
+  }) as Record<string, unknown> & {
+    stateNotCarried?: Record<string, unknown>;
+  };
+  assert.equal(result['applied'], false, JSON.stringify(result));
+  assert.equal(result['containerRemoved'], false);
+  assert.equal(result['finalPositionConfirmed'], false);
+  assert.ok(result.stateNotCarried, 'the captured chain-level state must survive into every answer');
+  assert.equal(result.stateNotCarried['name'], 'gn-winner');
+  assert.equal(typeof result.stateNotCarried['mute'], 'boolean');
+  assert.equal(typeof result.stateNotCarried['solo'], 'boolean');
+  assert.equal(typeof result.stateNotCarried['volume'], 'number');
+  assert.equal(typeof result.stateNotCarried['pan'], 'number');
+  assert.ok(result.stateNotCarried['color']);
+  assert.equal(result.stateNotCarried['sends'], 'none');
+  assert.deepEqual(result['keptDevices'], ['gn-kept']);
+});
+
+test('T-collapse: a removal no reading could confirm says so, and claims neither outcome', async () => {
+  // The confirming reading comes back partial. Removed and not-removed are both
+  // still possible, and the answer must be exactly that — not either one.
+  const fx = fixture({
+    devices: (call, actual) => (call === 3 ? { ...actual, devices: [], devicesComplete: false } : actual),
+  });
+  await call(fx, 'add_device', { devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'gn-before' }] });
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA, containerType: 'effect', names: ['gn-winner'],
+  }) as { structure: { container: { devicePosition: number } } };
+  const position = made.structure.container.devicePosition;
+  await call(fx, 'add_device', { devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'gn-kept' }] });
+  await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-winner',
+    sourceDevicePositions: [position + 1],
+    mode: 'move',
+  });
+
+  const result = await call(fx, 'keep_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-winner',
+  }) as Record<string, unknown> & { stateNotCarried?: Record<string, unknown> };
+  assert.equal(result['applied'], false, JSON.stringify(result));
+  assert.equal(result['containerRemoved'], null, 'an unreadable removal is neither true nor false');
+  assert.equal(result['finalPositionConfirmed'], false);
+  assert.ok(result.stateNotCarried);
+  assert.equal(result.stateNotCarried['name'], 'gn-winner');
+  assert.equal(result.stateNotCarried['sends'], 'none');
+  assert.equal(result['crossDeviceModulation'], 'not measured and not claimed');
 });
 
 test('T-refusal: a write it could not put back is refused, and names what is in the way', async () => {

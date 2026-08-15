@@ -85,6 +85,8 @@ export interface EncodeContext {
   readonly chainId: (chain: ChainAddress) => string;
   /** Source name from the structural reading that immediately precedes relocation. */
   readonly deviceName?: (device: import('../../contract/index.js').DeviceAddress) => string;
+  /** Absolute source position resolved from a complete tail-relative reading. */
+  readonly deviceTailIndex?: (track: TrackAddress, fromEnd: number, expectedName: string) => number;
   /**
    * ⚠⚠ A scene ROW -> the index the bank will accept for it.
    *
@@ -396,11 +398,50 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       break;
     }
 
+    // ⚠⚠ Both guards, and the DURABLE one is the load-bearing half.
+    //
+    // The point frame above resolves a track by BANK ROW, out of the last scan
+    // (`LiveAdapter.trackIndex`). A track added, removed or reordered since then
+    // moves every row below it, so the same number aims the cursor at a
+    // different track — and `expectedName` cannot notice, because it guards a
+    // DEVICE name and container names repeat across tracks ("FX Layer" on two
+    // tracks is the ordinary case, not the contrived one). The result would be a
+    // deletion nobody addressed, on a track nobody named, reported `ok`.
+    //
+    // `device.relocate` already sends `expectedTrackChannelId` for exactly this
+    // reason; a delete is the one that cannot be taken back afterwards, so it
+    // carries the same guard. Derived from the address rather than added to the
+    // op: the durable id is already part of every `DeviceAddress`.
     case 'device.delete': {
       const cursor = ctx.cursorForTrack(op.device.track);
       return [
         frame(WIRE.cursorPointTrack, { cursor, trackIndex: ctx.trackIndex(op.device.track) }),
-        frame(WIRE.deviceDelete, { cursor, deviceIndex: op.device.chainIndex }),
+        frame(WIRE.deviceDelete, {
+          cursor,
+          deviceIndex: op.device.chainIndex,
+          expectedTrackChannelId: op.device.track.channelId,
+          ...(op.expectedName === undefined ? {} : { expectedName: op.expectedName }),
+        }),
+      ];
+    }
+
+    case 'device.relocate': {
+      const cursor = ctx.cursorForTrack(op.track);
+      const sourceIndex = ctx.deviceTailIndex?.(op.track, op.sourceFromEnd, op.expectedName);
+      if (sourceIndex === undefined) {
+        throw new InvalidOpError(op.op, 'no fresh complete reading resolved the tail-relative source');
+      }
+      return [
+        frame(WIRE.cursorPointTrack, { cursor, trackIndex: ctx.trackIndex(op.track) }),
+        frame(WIRE.deviceMoveTo, {
+          cursor,
+          deviceIndex: sourceIndex,
+          where: 'before',
+          anchorIndex: op.before.chainIndex,
+          expectedTrackChannelId: op.track.channelId,
+          expectedSourceName: op.expectedName,
+          expectedAnchorName: ctx.deviceName?.(op.before),
+        }),
       ];
     }
 

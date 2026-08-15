@@ -4,12 +4,15 @@ kind: status
 state: active
 updated: 2026-08-15
 phase: phase-1
-session: phase-1-session-3f-g
+session: phase-1-session-3f-h
 ---
 
 # Now
 
-Phase 1 is in **session 3f-g: directed winner collapse**.
+Phase 1 is in **session 3f-h: selective reduction**. Session 3f-g winner
+collapse is complete and verified live, including the review fixes below, which
+were re-proved live against a rebuilt and redeployed jar. The audible evidence
+is the earlier measurement and was not re-taken.
 
 ## Baseline
 
@@ -57,7 +60,7 @@ Phase 1 is in **session 3f-g: directed winner collapse**.
   solo-state structure, removes its copied track, and final cleanup removes both
   conformance-owned fixture tracks.
 
-## Session 3f-g — directed winner collapse
+## Session 3f-g — complete 2026-08-15, verified live including its review pass
 
 Purpose: implement the common destructive lifecycle by extracting one named
 winner at the container's original signal position and deleting the container.
@@ -78,11 +81,141 @@ Acceptance:
 
 Out of scope: selective reduction while several alternates survive.
 
+Implementation status, 2026-08-15:
+
+- `keep_device_alternate` is a separate destructive production tool. It requires
+  a complete top-level order, complete named-winner order and exact
+  name/mute/solo/volume/pan/colour state before the first move.
+- Winner devices move out in order. Fresh full-track plus empty-winner readback
+  gates a name-guarded container delete; a typed tail-relative top-level move
+  then restores the original signal position and exact final order.
+- State that does not move is reported rather than implied restored; sends are
+  reported as absent and cross-device modulation remains explicitly unmeasured.
+- Brain typecheck and **444/444** offline tests pass, including multi-device
+  position preservation, unknown-state refusal and extraction-window preflight.
+  Extension Gradle test passes. The rebuilt controller is deployed and proved
+  fresh. Full live conformance passes **51/0/6**; the first run exposed a
+  pre-existing observer-population race in the switch fixture, whose bounded
+  test-only wait and mint-independent cleanup are now covered by the clean run.
+- Production MCP smoke passes every **P0-P11** check. It collapsed a named FX
+  winner after extraction proof, reported exact non-carried state, restored the
+  Organ at the container's former position before its following anchor, and
+  removed the exact copied track it minted.
+- The corrected own-track listening evidence heard collapse **4/4** versus
+  placebo **0/4** across two blind sets. A separate randomized validity gate
+  heard the proved 1200ms stop/relaunch control and not its placebo. The first
+  setup that muted Master and a distracted gate were voided; stale VU readings
+  while stopped are recorded as an oracle limit, not silence evidence.
+- Exact-ID cleanup removed `gn-conf-A` and `gn-conf-B`; every audio and production
+  copy removed its own minted id. The project returned to its 10-track baseline
+  with Master visible.
+
+Review pass, 2026-08-15 — three defects confirmed against the code and each
+reproduced by a failing offline case before it was fixed:
+
+- ⚠⚠ **A restoration two identical names could not prove reported success.**
+  The whole position proof is a top-level NAME sequence, because a device has no
+  durable id to diff — so a winner device sharing a name with a surviving
+  top-level device made "it moved back" and "nothing happened" the same reading,
+  and the answer said `finalPositionConfirmed: true` either way. The proof and
+  the batch precondition now refuse a move whose projected order spells the
+  order it started from, and `keep_device_alternate` projects the whole
+  restoration **before the container is destroyed** and refuses there — the only
+  point at which a refusal is still worth anything. No stronger observable
+  exists to fall back on; if a device identity is ever measured, that is what
+  relaxes this.
+- ⚠ **The container delete carried no durable track guard.** It pointed a cursor
+  by BANK ROW and guarded only the device NAME, so a track bank that changed
+  since the scan aimed it at another track, where an identically named container
+  ("FX Layer" is the ordinary case) satisfied the guard and was deleted with an
+  `ok` reply. `device.delete` now sends `expectedTrackChannelId` — the same
+  guard `device.relocate` already had — and the extension refuses on mismatch.
+- ⚠ **Uncertainty after the delete reported less than a refusal would have.**
+  The unconfirmed-removal path returned without the captured
+  name/mute/solo/volume/pan/colour/sends state and under a key no other path
+  used. Every outcome after the first write now carries that state, and removal
+  is a three-way answer read off a fresh complete order — removed, not removed,
+  or unconfirmed — never a receipt's opinion. A throw after the first write is
+  reported as a partial outcome rather than as the surface's blanket "nothing
+  was written", which it would have been.
+
+⚠ **Two prior claims are corrected by this pass.** The shared conformance row's
+collapse fixture held three identically named devices, so its restoration was
+never provable by its own oracle; it now builds the winner and its following
+anchor out of three distinct devices. And the production smoke left the
+container LAST, where any winner is "restored" by appending it — so P10's
+position half was unfalsifiable. The probe now adds one ordinary device after
+the container and asserts the kept device reads back at the container's former
+position, before that anchor.
+
+⚠⚠ **A fourth defect surfaced only when the fixes met a real DAW, and it was
+measured rather than guessed at.** `LiveAdapter.containerScope` re-points cursor
+0 and reads `chain.inventory`, waiting the **`cursorPoint`** budget (25ms) — a
+budget borrowed from what a cursor POINT costs, while this reply arrives through
+`Rig.slotLayerBanks`, which must follow the cursor to another track first.
+Measured: re-pointing between tracks and reading immediately, the reply named the
+track just pointed at **0/6 at 0ms, 3/6 at 25ms, 5/6 at 50ms, 6/6 from 100ms**.
+Nothing was ever mis-reported — the identity guard fails closed — but every
+container write refused roughly half the time when the cursor had been elsewhere,
+and `C-chain-switch` failed **two live runs in three** on exactly that. A
+mismatch is now retried within a bound (8 passes, `cursorPoint` on the first and
+`trackStruct` after) because a mismatch is a staleness signal and never an
+observation; every other miss still answers at once, because each of those IS
+one. The bound counts ATTEMPTS, not wall-clock: a clock spins hot wherever
+`settle` is not real time, which is every offline test of this class.
+
+Verification at this boundary — everything below was actually run:
+
+- Brain typecheck plus **451/451** offline tests (7 new regression cases: the
+  indistinguishable-move proof and precondition, the duplicate-name collapse
+  refusal, the not-removed report, the unconfirmed report, the lagging-inventory
+  retry and its bound). Extension Gradle build green; `git diff --check` clean.
+- The jar was rebuilt, atomically deployed and the controller reloaded;
+  `probe:hello` proved the running build fresh and ALL PASS. ⚠ The wire golden
+  is unchanged at 147 methods / `7f212c48cd3dab75` because `methodsHash` is over
+  method NAMES and this change adds a PARAMETER — the hash cannot see it, exactly
+  as it could not see step 6b-1's reply fields, so the redeploy was the proof and
+  a matching hash would not have been.
+- Live conformance passes **51/0/6**, five runs in total: three consecutive after
+  the settle fix, then two more after the bound was changed from a clock to an
+  attempt count. Before that fix the same suite ran 50/1/6, 51/0/6, 50/1/6.
+- Production MCP smoke passes **P0-P13**, 14/14 with zero failures. ⚠ P10-P12 are
+  new and they close a real hole: creation and fill both leave the container
+  LAST, where restoring the winner and appending it are the same result, so the
+  position half of the old P10 could not fail. With one ordinary device added
+  after the container, the live answer reads
+  `finalDeviceOrder: ["Instrument Layer", "Organ", "Polysynth"]` — the kept Organ
+  back at the removed container's position 1, before its Polysynth anchor, with a
+  recorded `reorderChange`. That is acceptance item 2 proved live for the first
+  time.
+- Exact-ID cleanup removed each copied track it minted, and
+  `probe:conformance-cleanup` removed `gn-conf-A` and `gn-conf-B`. The project is
+  back to its documented 10-track baseline with Master visible and no residue.
+- ⚠ **The audible evidence was NOT re-taken.** It stands as the earlier
+  measurement; nothing in this pass changes what a successful collapse does to
+  the signal, and nothing here re-proves it.
+
+## Session 3f-h — selective reduction
+
+Purpose: remove one explicitly named alternate while preserving several named
+survivors by rebuilding the container.
+
+Acceptance:
+
+1. Preflight every survivor's complete ordered devices and exact reported state.
+2. Preserve survivor names and multi-device order through the rebuild.
+3. Restore or explicitly report mute, solo, volume, pan and colour.
+4. Never report completion after a partial rebuild; remove the old container only
+   after the replacement structure is independently proved.
+5. Keep cross-device modulation outside the claim until its indexed route is
+   measured.
+6. Pass offline, extension, live conformance, production smoke, context and diff
+   checks with no residue.
+
 ## Following slices
 
 | Slice | Focus |
 |---|---|
-| 3f-h | selective reduction by rebuild while several alternates survive |
 | 3f-i | complete lifecycle production smoke and handoff to 3g |
 
 Selective reduction is a Phase 1 requirement, not optional. Session 3g does not

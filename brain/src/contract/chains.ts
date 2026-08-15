@@ -75,12 +75,21 @@ export interface ObservedDeviceSequence {
 export interface ObservedChain {
   readonly index: number;
   readonly name: string;
+  /** Chain-level state. Moving devices out does not carry any of these values. */
+  readonly mute?: boolean;
   /**
    * Container-local solo state. Absent means it was not observed exactly; it
    * must never be read as `false`, because switching depends on knowing every
    * sibling's state rather than guessing from silence.
    */
   readonly solo?: boolean;
+  readonly volume?: number;
+  readonly pan?: number;
+  readonly color?: {
+    readonly red: number;
+    readonly green: number;
+    readonly blue: number;
+  };
   readonly devices: readonly ObservedDevice[];
   readonly devicesComplete: boolean;
   /** Width of the nested device bank; absent on an older deployment. */
@@ -189,6 +198,84 @@ export function verifyDeviceRelocation(
       ok: false,
       why: `observable device population changed ${beforePopulation} -> ${afterPopulation}; expected ${expectedPopulation}`,
     };
+  }
+  return { ok: true, device: source };
+}
+
+/**
+ * ⚠⚠ The one sentence for a reorder no readback could ever prove, shared by the
+ * proof and by the precondition so they cannot drift apart.
+ *
+ * A top-level device has NO durable identity here. `device.list` and
+ * `chain.inventory` report a bank position and a NAME, and the position is what
+ * the move changes — so the entire evidence for "the device moved" is a name
+ * sequence. When the requested order spells the same names as the order it
+ * started from, "it moved" and "nothing happened at all" are the same
+ * observation, and a proof that accepts it is not a proof: it reports success
+ * from a reading it would have got from a wire call that never landed.
+ *
+ * ⚠ There is no stronger observable to fall back on. A `Device` exposes no
+ * channelId (a chain does — `ObservedChain.id` — and that is exactly why chain
+ * work can diff identities and this cannot), so the honest move is to refuse.
+ * If a device identity is ever measured, this is the refusal that relaxes.
+ */
+export const reorderIndistinguishable = (names: readonly string[]): string =>
+  `the device order reads [${names.join(', ')}] both before and after this move, so no readback `
+  + 'could tell it from a move that never happened. Devices are observed by position and name '
+  + 'only, and the position is what the move changes — the requested order is therefore refused '
+  + 'rather than reported on evidence that cannot exist';
+
+/**
+ * The order a before-anchor move leaves, projected over names alone.
+ *
+ * ⚠ Both the precondition and the proof read the sequence the same way, through
+ * this one function, so a batch that is admitted is a batch whose result the
+ * proof can actually recognise.
+ */
+export function projectedReorder(
+  names: readonly string[],
+  sourceIndex: number,
+  anchorIndex: number,
+): string[] | undefined {
+  if (sourceIndex < 0 || sourceIndex >= names.length) return undefined;
+  if (anchorIndex < 0 || anchorIndex >= names.length) return undefined;
+  if (sourceIndex === anchorIndex) return undefined;
+  const tokens = names.map((name, token) => ({ name, token }));
+  const anchorToken = tokens[anchorIndex]!.token;
+  const moved = tokens.splice(sourceIndex, 1)[0]!;
+  tokens.splice(tokens.findIndex((item) => item.token === anchorToken), 0, moved);
+  return tokens.map((item) => item.name);
+}
+
+/** Prove one top-level before-anchor reorder from independent full readings. */
+export function verifyDeviceReorder(
+  sourceIndex: number,
+  anchorIndex: number,
+  before: ObservedDeviceSequence,
+  after: ObservedDeviceSequence,
+): { readonly ok: true; readonly device: ObservedDevice } | { readonly ok: false; readonly why: string } {
+  if (!before.devicesComplete || !after.devicesComplete) {
+    return { ok: false, why: 'the top-level device order was outside its bank window' };
+  }
+  const source = before.devices.find((item) => item.index === sourceIndex);
+  const anchor = before.devices.find((item) => item.index === anchorIndex);
+  if (source === undefined) return { ok: false, why: `no source device exists at index ${sourceIndex}` };
+  if (anchor === undefined) return { ok: false, why: `no anchor device exists at index ${anchorIndex}` };
+  if (sourceIndex === anchorIndex) return { ok: false, why: 'source and anchor are the same device' };
+  const started = before.devices.map((item) => item.name);
+  const wanted = projectedReorder(started, sourceIndex, anchorIndex);
+  if (wanted === undefined) {
+    return { ok: false, why: `no source device exists at index ${sourceIndex}` };
+  }
+  // ⚠⚠ Checked BEFORE the readback comparison, and it is not an optimisation.
+  // Comparing first would pass — the readback matches — which is precisely the
+  // failure: it matches whatever happened, including nothing.
+  if (JSON.stringify(wanted) === JSON.stringify(started)) {
+    return { ok: false, why: reorderIndistinguishable(started) };
+  }
+  const got = after.devices.map((item) => item.name);
+  if (JSON.stringify(got) !== JSON.stringify(wanted)) {
+    return { ok: false, why: `device order readback was [${got.join(', ')}], expected [${wanted.join(', ')}]` };
   }
   return { ok: true, device: source };
 }

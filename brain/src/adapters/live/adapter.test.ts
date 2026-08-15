@@ -553,6 +553,63 @@ test('L-chain: a container read carries the chains — the only way a name is ev
   assert.equal(observed?.params, undefined);
 });
 
+test('L-chain: an inventory still naming the PREVIOUS track is retried, not reported as a miss', async () => {
+  // ⚠⚠ Measured 2026-08-15: `chain.inventory` follows a re-pointed cursor at a
+  // structural pace, not a cursor-point one — it named the track just pointed at
+  // 0/6 immediately, 3/6 at the 25ms `cursorPoint` budget this read was
+  // borrowing, and 6/6 only from 100ms. So the identity guard was firing on
+  // containers that were perfectly observable a tick later, and `C-chain-switch`
+  // failed two live runs in three on it. A mismatch is a staleness signal, never
+  // an observation, so it is retried within a bound; every other miss still
+  // answers at once because each of those IS an observation.
+  class LaggingInventory extends InventoryTransport {
+    private reads = 0;
+
+    override async send(frame: Frame): Promise<unknown> {
+      const reply = await super.send(frame);
+      if (frame.method !== WIRE.chainInventory) return reply;
+      this.reads += 1;
+      // The first two reads still describe wherever the cursor used to be.
+      return this.reads <= 2
+        ? { ...(reply as Record<string, unknown>), trackChannelId: 'some-other-track' }
+        : reply;
+    }
+  }
+  const wire = new LaggingInventory(
+    new Map([[0, CHANNEL_ID]]),
+    new Map([[CHANNEL_ID, [CONTAINER_SCOPE([{ index: 0, name: 'A take' }])]]]),
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const entry = (await adapter.read([deviceAt(TRACK, 0)]))
+    .entries[addressKey(deviceAt(TRACK, 0))];
+  const observed = entry?.value.of === 'device' ? entry.value.device : undefined;
+  assert.equal(observed?.container?.chains[0]?.name, 'A take',
+    'the lagging reply was waited out rather than answered as unobservable');
+  // ⚠ And it re-POINTS each time rather than only re-reading: the cursor is what
+  // the stale reply is stale about, so a bare re-read could wait forever.
+  assert.equal(
+    wire.frames.filter((f) => f.method === WIRE.cursorPointTrack).length,
+    wire.frames.filter((f) => f.method === WIRE.chainInventory).length,
+  );
+});
+
+test('L-chain: a cursor that never arrives is still a refusal, not an endless wait', async () => {
+  // The bound is what keeps the retry above from turning a real miss into a
+  // hang. `stuckOn` models a point that succeeds and moves nothing.
+  const wire = new InventoryTransport(
+    new Map([[0, CHANNEL_ID], [1, 'other-channel']]),
+    new Map([[CHANNEL_ID, [CONTAINER_SCOPE([{ index: 0, name: 'A take' }])]]]),
+    false,
+    1,
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const hit = (await adapter.resolve([chainAt(deviceAt(TRACK, 0), 'A take')])).resolved[0];
+  assert.equal(hit?.found, false, 'another track\'s container is never reported under this address');
+  assert.ok(wire.frames.filter((f) => f.method === WIRE.chainInventory).length <= 8);
+});
+
 test('L-chain: a device INSIDE a chain reads its own name, never the track chain\'s', async () => {
   // ⚠ The `C-nested-device` hazard, from the observation side: `chainIndex` 0
   // means two different devices depending on whether the address is nested, and

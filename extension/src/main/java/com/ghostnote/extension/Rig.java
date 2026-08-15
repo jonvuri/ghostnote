@@ -802,6 +802,13 @@ public class Rig {
                     // scope. Without subscribing here `get()` is unavailable and
                     // inventory correctly omits the field instead of guessing.
                     layer.solo().markInterested();
+                    // Winner collapse reports the chain-level state that device
+                    // relocation cannot carry (E18g). These are read through the
+                    // same cursor-free scope as the chain name and device order.
+                    layer.mute().markInterested();
+                    layer.volume().value().markInterested();
+                    layer.pan().value().markInterested();
+                    layer.color().markInterested();
                     // ⚠ E18 §3.2 will ask whether this survives a reload; it is
                     // marked here so the question is answerable through a scope that
                     // does not move, rather than through a cursor that does.

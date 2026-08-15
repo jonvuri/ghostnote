@@ -190,6 +190,7 @@ function targetsOf(op: Op): {
     case 'chain.create':
     case 'chain.rename':
     case 'chain.relocate':
+    case 'device.relocate':
     case 'chain.activate':
     case 'notify':
       return [];
@@ -261,6 +262,14 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
           'device addresses are positional and a relocation re-indexes at least one device chain, '
           + 'so a later occupant cannot be proved to be the object this operation moved or copied. '
           + 'Use a directed relocation for cleanup; automatic reversal declines.',
+      };
+    case 'device.relocate':
+      return {
+        opIndex, op: op.op, unrestoredAs: 'moved device',
+        why:
+          'device addresses are positional and this move re-indexes the top-level device order, '
+          + 'so a later occupant cannot be proved to be the object that moved. Directed cleanup '
+          + 'does not guess an automatic reverse move.',
       };
     case 'chain.activate':
       return {
@@ -366,7 +375,9 @@ export function structuralRisk(ops: readonly Op[]): StructuralRisk {
     // self-bumping scene counter — was deleted in session 3 when the epoch moved
     // into the extension. A second copy left behind is how the two drift.
     scenes: ops.some((o) => OP_BUMPS_SCENE_EPOCH.has(o.op)),
-    deviceChains: ops.some((o) => o.op === 'device.insert' || o.op === 'device.delete'),
+    deviceChains: ops.some((o) =>
+      o.op === 'device.insert' || o.op === 'device.delete'
+      || o.op === 'device.relocate' || o.op === 'chain.relocate'),
   };
 }
 

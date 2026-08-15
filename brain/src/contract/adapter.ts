@@ -1,18 +1,14 @@
 /**
  * `BitwigAdapter` — the versioned seam between the brain and *some* Bitwig.
  *
- * Eight methods, and it will still be eight when Phase 5 authors modulators:
- * breadth lives in the `Op` union and the `Address` union, never in the method
- * count. That is the Beat Twin lesson (a 57-tool surface, abandoned) applied at
- * the one place it is cheap to apply.
+ * Ten narrow methods; operation breadth lives in the `Op` and `Address` unions,
+ * never in adapter method proliferation. That is the Beat Twin lesson (a
+ * 57-tool surface, abandoned) applied at the one place it is cheap to apply.
  *
- * ⚠ It said SEVEN until session 3d, and `tracks()` is the exception that proves
- * the rule rather than a crack in it. Every other method takes addresses a caller
- * already holds; none of them can answer *which addresses exist*, and no `Op` or
- * `Address` variant could add that — an enumeration has nothing to be addressed
- * BY. That gap was invisible while the only client was a probe with the ids
- * hard-coded, and it became load-bearing the moment a tool surface had to hand an
- * agent something to write to (PHASE-1 session 3d).
+ * The two enumerators are deliberate exceptions: `tracks()` discovers durable
+ * track addresses, while `devices(track)` proves a complete top-level signal
+ * order. Neither fact can be represented as a read of addresses the caller
+ * already holds.
  *
  * The structural proof that the JSON-RPC frame is an implementation detail: the
  * FAKE NEVER SEES A WIRE FRAME. If any type in `contract/` ever mentions a
@@ -29,7 +25,7 @@
 import type { Address } from './address.js';
 import type { SettleBudget } from './budgets.js';
 import type { ContentDelta } from './observers.js';
-import type { Op } from './ops.js';
+import type { ObservedDeviceBank, Op } from './ops.js';
 import type { BatchReceipt, RevisionMark, Snapshot } from './snapshot.js';
 import type { TrackState } from './state.js';
 import type { AdapterInfo } from './version.js';
@@ -98,6 +94,9 @@ export interface BitwigAdapter {
    * enumeration and the read end up disagreeing about what a track is.
    */
   tracks(): Promise<readonly TrackState[]>;
+
+  /** Complete observable top-level device order for one durable track id. */
+  devices(track: import('./address.js').TrackAddress): Promise<ObservedDeviceBank>;
 
   /**
    * Read exactly these addresses. This is both the §8b stash and the verify

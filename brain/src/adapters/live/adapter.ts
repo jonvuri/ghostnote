@@ -28,9 +28,9 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
   ContractVersionError, StaleAddressError, WireDriftError,
-  addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
+  addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
-  lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyExclusiveChain, windowCovers,
+  lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
   type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
@@ -80,6 +80,10 @@ interface WireInventoryChain {
   name?: string;
   channelId?: string;
   solo?: boolean | string;
+  mute?: boolean | string;
+  volume?: number | string;
+  pan?: number | string;
+  color?: string;
   devices?: { index: number; name?: string }[];
   deviceCount?: number;
 }
@@ -211,6 +215,7 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
   'clip.create', 'clip.delete', 'track.create', 'track.duplicate', 'track.delete',
   'clip.duplicate', 'clip.move',
   'scene.create', 'scene.delete', 'device.insert', 'device.delete',
+  'device.relocate', 'chain.relocate',
   // ⚠ `chain.create` is deliberately NOT here, and the omission is a claim: it
   // re-indexes a container's LAYER bank and nothing else. No track bank row
   // moves, no scene row moves, and the track's own device chain is untouched —
@@ -288,6 +293,8 @@ export class LiveAdapter implements BitwigAdapter {
   private chainIds = new Map<AddressKey, string>();
   /** Device names from the relocation reading immediately preceding the wire call. */
   private deviceNames = new Map<AddressKey, string>();
+  /** Tail-relative reorder source -> absolute position from the same fresh reading. */
+  private deviceTailIndices = new Map<string, number>();
 
   /**
    * ⚠⚠ **The last mark read off the extension — and the fix for the limit that
@@ -492,6 +499,14 @@ export class LiveAdapter implements BitwigAdapter {
         if (name === undefined) throw new AddressUnresolvedError(d, 'no fresh structural reading named this device');
         return name;
       },
+      deviceTailIndex: (trackRef, fromEnd, expectedName) => {
+        const key = `${trackRef.channelId}\u0000${fromEnd}\u0000${expectedName}`;
+        const index = this.deviceTailIndices.get(key);
+        if (index === undefined) {
+          throw new AddressUnresolvedError(trackRef, 'no fresh structural reading resolved the tail device');
+        }
+        return index;
+      },
       sceneRow: sceneRowIn(this.sceneWindow),
     };
   }
@@ -607,6 +622,23 @@ export class LiveAdapter implements BitwigAdapter {
    * track's own `channelId`, which is compared against the track we were asked
    * about. A mismatch is `unsupported` rather than a guess — reporting another
    * track's chains under this address is the whole failure class.
+   *
+   * ⚠⚠ **The identity guard is POLLED, because `cursorPoint` is the wrong budget
+   * for this read and was borrowed rather than measured.** `settle('cursorPoint')`
+   * is 25ms (E1), which is what a cursor POINT costs; this reply comes through
+   * `Rig.slotLayerBanks`, which have to follow the cursor to a different track
+   * before the inventory means anything. Measured on 2026-08-15, re-pointing from
+   * one track to another and reading immediately: the reply named the track we
+   * had just pointed at 0/6 at 0ms, **3/6 at 25ms**, 5/6 at 50ms and 6/6 from
+   * 100ms — so at the borrowed budget this read was a coin flip, and
+   * `C-chain-switch` failed two runs in three on exactly that.
+   *
+   * Nothing was ever mis-reported, because the guard below fails closed — but a
+   * refusal on a container that is perfectly observable a tick later is a
+   * capability that works or does not depending on where the cursor last was.
+   * So a MISMATCH is retried within a bound rather than answered: a mismatch is
+   * a staleness signal and never an observation. Every other miss still answers
+   * immediately, because each of those IS an observation (see the list above).
    */
   private async containerScope(
     trackRef: TrackAddress,
@@ -615,15 +647,27 @@ export class LiveAdapter implements BitwigAdapter {
     const trackIndex = this.index.get(trackRef.channelId);
     if (trackIndex === undefined) return { ok: false, miss: 'absent' };
     if (containerIndex < 0) return { ok: false, miss: 'absent' };
-    await this.transport.send({
-      method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex },
-    });
-    await this.settle('cursorPoint');
-    const reply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
-    // ⚠ The identity guard, before anything in the reply is believed. `trackName`
-    // rides along too and is deliberately NOT used for this: a name is not an
-    // identity (standing rule 2), and two tracks may share one.
-    if (reply.trackChannelId !== trackRef.channelId) return { ok: false, miss: 'unsupported' };
+    // ⚠ Bounded by ATTEMPTS, not by a clock. A wall-clock deadline spins hot
+    // wherever `settle` is not real time — which is every offline test of this
+    // class — and a bound that means something different in the suite from what
+    // it means live is not a bound. Eight passes is ~1s at the structural budget
+    // against a measured need of ~100ms.
+    let reply: WireInventory | undefined;
+    for (let attempt = 0; attempt < 8; attempt += 1) {
+      await this.transport.send({
+        method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex },
+      });
+      // The fast path stays fast: a cursor already on this track answers on the
+      // first pass at the cursor budget. Only a mismatch pays the structural one.
+      await this.settle(attempt === 0 ? 'cursorPoint' : 'trackStruct');
+      reply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
+      // ⚠ The identity guard, before anything in the reply is believed. `trackName`
+      // rides along too and is deliberately NOT used for this: a name is not an
+      // identity (standing rule 2), and two tracks may share one.
+      if (reply.trackChannelId === trackRef.channelId) break;
+      reply = undefined;
+    }
+    if (reply === undefined) return { ok: false, miss: 'unsupported' };
     const scope = (reply.scopes ?? [])[containerIndex];
     if (scope === undefined) return { ok: false, miss: 'outside-bank-window' };
     if (scope.status !== 'held') return { ok: false, miss: 'unsupported' };
@@ -641,7 +685,17 @@ export class LiveAdapter implements BitwigAdapter {
         chains: chains.map((c) => ({
           index: c.index,
           name: c.name ?? '',
+          ...(typeof c.mute === 'boolean' ? { mute: c.mute } : {}),
           ...(typeof c.solo === 'boolean' ? { solo: c.solo } : {}),
+          ...(typeof c.volume === 'number' ? { volume: c.volume } : {}),
+          ...(typeof c.pan === 'number' ? { pan: c.pan } : {}),
+          ...(() => {
+            if (typeof c.color !== 'string' || c.color.startsWith('ERR')) return {};
+            const [red, green, blue] = c.color.split(',').map(Number);
+            return [red, green, blue].every((value) => Number.isFinite(value))
+              ? { color: { red: red!, green: green!, blue: blue! } }
+              : {};
+          })(),
           // ⚠ `layer.channelId()`, carried through as a WITHIN-SESSION WITNESS
           // and nothing else — see `ObservedChain.id`. It is worthless across a
           // project load (E17ad, E18b), which is exactly why `ChainAddress`
@@ -882,6 +936,19 @@ export class LiveAdapter implements BitwigAdapter {
       position: t.position,
       type: t.type,
     }));
+  }
+
+  async devices(trackRef: TrackAddress) {
+    await this.scanTracks();
+    const observed = await this.deviceChain(trackRef);
+    if (observed === undefined) {
+      throw new AddressUnresolvedError(trackRef, 'the track device order is absent');
+    }
+    return {
+      devices: observed.devices,
+      devicesComplete: !observed.blind,
+      ...(observed.bankSize === undefined ? {} : { bankSize: observed.bankSize }),
+    };
   }
 
   async resolve(refs: readonly Address[]): Promise<ResolveResult> {
@@ -1547,6 +1614,67 @@ export class LiveAdapter implements BitwigAdapter {
     return { ok: false, why: `relocation was not proved by structural readback: ${last}` };
   }
 
+  /** Complete top-level reading around one before-anchor device reorder. */
+  private async deviceReorderReading(
+    op: Extract<Op, { op: 'device.relocate' }>,
+    preflight: boolean,
+  ): Promise<{ readonly reading: ObservedDeviceSequence; readonly sourceIndex: number }> {
+    const reading = await this.relocationSequence(op.track);
+    if (!reading.devicesComplete) {
+      throw new InvalidOpError(op.op, 'the complete top-level device order must be observable');
+    }
+    const sourceIndex = reading.devices.length - 1 - op.sourceFromEnd;
+    if (preflight) {
+      const source = reading.devices.find((item) => item.index === sourceIndex);
+      const anchor = reading.devices.find((item) => item.index === op.before.chainIndex);
+      if (source === undefined || anchor === undefined || source.name !== op.expectedName) {
+        throw new InvalidOpError(op.op, 'the source and anchor must both exist in the current device order');
+      }
+      this.deviceNames.set(addressKey(op.before), anchor.name);
+      this.deviceTailIndices.set(
+        `${op.track.channelId}\u0000${op.sourceFromEnd}\u0000${op.expectedName}`,
+        sourceIndex,
+      );
+    }
+    return { reading, sourceIndex };
+  }
+
+  /** Validate the complete projected reorder batch before its first stage. */
+  private async assertDeviceReordersPreflight(ops: readonly Op[]): Promise<void> {
+    const moves = ops.filter((op): op is Extract<Op, { op: 'device.relocate' }> =>
+      op.op === 'device.relocate');
+    if (moves.length === 0) return;
+    const tracks = new Map<string, RelocationSequence>();
+    for (const trackRef of new Map(moves.map((op) =>
+      [op.track.channelId, op.track])).values()) {
+      tracks.set(trackRef.channelId, await this.relocationSequence(trackRef));
+    }
+    assertDeviceRelocatable(ops, (trackRef) => tracks.get(trackRef.channelId));
+  }
+
+  /** Poll an independent full-device read until the requested order is proved. */
+  private async finishDeviceReorder(
+    op: Extract<Op, { op: 'device.relocate' }>,
+    before: ObservedDeviceSequence,
+    sourceIndex: number,
+  ): Promise<{ readonly ok: true } | { readonly ok: false; readonly why: string }> {
+    const started = Date.now();
+    let last = 'device order did not change';
+    do {
+      try {
+        const after = await this.deviceReorderReading(op, false);
+        const proof = verifyDeviceReorder(
+          sourceIndex, op.before.chainIndex, before, after.reading);
+        if (proof.ok) return { ok: true };
+        last = proof.why;
+      } catch (error) {
+        last = error instanceof Error ? error.message : String(error);
+      }
+      if (Date.now() - started < 8000) await new Promise((resolve) => setTimeout(resolve, 100));
+    } while (Date.now() - started < 8000);
+    return { ok: false, why: `device reorder was not proved by structural readback: ${last}` };
+  }
+
   /** Poll independent container readback until exactly one requested solo remains. */
   private async finishChainActivation(
     op: Extract<Op, { op: 'chain.activate' }>,
@@ -1756,7 +1884,9 @@ export class LiveAdapter implements BitwigAdapter {
     assertChainRenamable(batch.ops, (container) => containers.get(addressKey(container)));
     assertChainActivatable(batch.ops, (container) => containers.get(addressKey(container)));
     await this.assertRelocationsPreflight(batch.ops);
+    await this.assertDeviceReordersPreflight(batch.ops);
     this.deviceNames.clear();
+    this.deviceTailIndices.clear();
 
     const stages = planStages(batch.ops);
     const receipts: StageReceipt[] = [];
@@ -1837,6 +1967,17 @@ export class LiveAdapter implements BitwigAdapter {
       try {
         relocationBefore = relocateOp?.op === 'chain.relocate'
           ? await this.relocationReading(relocateOp, true)
+          : undefined;
+      } catch (error) {
+        await this.restoreSelection(selection);
+        throw error;
+      }
+      const reorderAt = stage.ops.findIndex((o) => o.op === 'device.relocate');
+      const reorderOp = reorderAt === -1 ? undefined : stage.ops[reorderAt];
+      let reorderBefore: { readonly reading: ObservedDeviceSequence; readonly sourceIndex: number } | undefined;
+      try {
+        reorderBefore = reorderOp?.op === 'device.relocate'
+          ? await this.deviceReorderReading(reorderOp, true)
           : undefined;
       } catch (error) {
         await this.restoreSelection(selection);
@@ -1974,6 +2115,18 @@ export class LiveAdapter implements BitwigAdapter {
             ...receipts[receipts.length - 1]!,
             ops,
           };
+        }
+      }
+      if (reorderOp?.op === 'device.relocate' && reorderBefore !== undefined
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const proved = await this.finishDeviceReorder(
+          reorderOp, reorderBefore.reading, reorderBefore.sourceIndex);
+        if (!proved.ok) {
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            (entry.op === WIRE.deviceMoveTo || entry.op === 'device.relocate'
+              ? { ...entry, ok: false, error: proved.why }
+              : entry));
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
         }
       }
       if (activateOp?.op === 'chain.activate'

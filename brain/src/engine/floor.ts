@@ -239,6 +239,7 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     case 'chain.create':
     case 'chain.rename':
     case 'chain.relocate':
+    case 'device.relocate':
     case 'chain.activate':
     case 'notify':
       return undefined;

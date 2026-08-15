@@ -55,7 +55,8 @@ import { z } from 'zod';
 import {
   chain as chainAt, clip as clipAt, clipLaunch as launchAt, clipPlay as playAt, notes as notesAt,
   param as paramAt, scene as sceneAt, slot as slotAt, track as trackAt, device as deviceAt,
-  addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS,
+  deviceIn, addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, lookupChain,
+  projectedReorder,
   AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
   type Address, type ClipAddress, type DeviceSource, type NoteRecord, type Op, type OpKind,
   type RevisionMark,
@@ -327,6 +328,12 @@ async function deviceAlternatesAt(
     alternates: device.container.chains.map((item) => ({
       name: item.name,
       soloed: typeof item.solo === 'boolean' ? item.solo : null,
+      state: {
+        mute: typeof item.mute === 'boolean' ? item.mute : null,
+        volume: typeof item.volume === 'number' ? item.volume : null,
+        pan: typeof item.pan === 'number' ? item.pan : null,
+        color: item.color ?? null,
+      },
       devicesComplete: item.devicesComplete,
       devices: item.devices.map((nested) => ({
         position: nested.index,
@@ -1678,7 +1685,7 @@ export const TOOLS: readonly ToolSpec[] = [
   }),
 
   // ============================ destructive =================================
-  // ⚠⚠ Four names, one per thing that can be removed, rather than one `delete`
+  // ⚠⚠ Five names, one per thing that can be removed, rather than one `delete`
   // with a kind parameter. The host's "don't ask again for this tool" is a
   // blanket grant on a NAME, so the grain of the naming is the grain of the
   // permission: allowing clip deletion for a project must not also allow track
@@ -1693,6 +1700,314 @@ export const TOOLS: readonly ToolSpec[] = [
   // destructive call", and the direction is the operator answering the host's
   // prompt for this tool name. What the clearance does not touch is the
   // REPORTING: every receipt below still says what it could not put back.
+  tool({
+    name: 'keep_device_alternate',
+    kind: 'destructive',
+    title: 'Keep one device alternate',
+    description:
+      'Keep the devices from one explicitly named alternate at the container\'s current signal '
+      + 'position, then remove the container and every other alternate in it. The complete '
+      + 'device order and all reported alternate state are read before anything moves. Every '
+      + 'kept device is moved out in order and independently read back before the container can '
+      + 'be removed; acknowledgement alone is never enough. The final complete track device '
+      + 'order is read back again.\n'
+      + 'Restoring the position is proved from the track device order, and devices are observed '
+      + 'by position and name only. When the requested order would read exactly the same before '
+      + 'and after the restoring move — two devices sharing one name — nothing could tell that '
+      + 'move from a move that never happened, so the whole operation is refused before anything '
+      + 'is removed.\n'
+      + 'This permanently removes the other alternates and cannot be undone here. Device moves '
+      + 'carry device state, but do not carry the alternate\'s name, mute, solo, volume, pan or '
+      + 'colour; those exact values are reported in every answer once anything has been written, '
+      + 'including one that cannot confirm what it did. Device alternates have no sends. '
+      + 'Cross-device modulation is not claimed to survive. Moving existing devices caused no '
+      + 'project-wide engine glitch in the earlier measured trial. On the sounding rebuilt track, '
+      + 'this operation was audible in 4/4 blind trials versus 0/4 placebo; a separately randomized '
+      + 'stop-and-relaunch control was heard and its placebo was clean.',
+    inputSchema: {
+      trackId,
+      containerPosition: z.number().int().min(0).describe(
+        'Current position of the containing device in the track, counting from 0.',
+      ),
+      alternateName: alternateName.describe('Exact durable name of the one device alternate to keep.'),
+    },
+    emits: ['chain.relocate', 'device.delete', 'device.relocate'],
+    async run(workspace, args) {
+      return writing(async () => {
+        const track = trackAt(args.trackId);
+        const container = deviceAt(track, args.containerPosition);
+        const topBefore = await workspace.devices(track);
+        const snapshot = await workspace.read([track, container]);
+        const entry = snapshot.entries[addressKey(container)];
+        const device = entry?.value.of === 'device' ? entry.value.device : undefined;
+        const observed = device?.container;
+        if (!topBefore.devicesComplete || topBefore.bankSize === undefined) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'the complete starting track device order was not observable.' };
+        }
+        if (observed === undefined || !observed.chainsComplete) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'the complete sibling set was not observable at that container position.' };
+        }
+        const found = lookupChain(observed, args.alternateName);
+        if (!found.ok || !found.chain.devicesComplete) {
+          return { refused: true, nothingWasWritten: true,
+            why: found.ok
+              ? 'the complete ordered device sequence of the named alternate was not observable.'
+              : `the named device alternate was ${found.miss}.` };
+        }
+        const winner = found.chain;
+        const stateKnown = typeof winner.mute === 'boolean'
+          && typeof winner.solo === 'boolean'
+          && typeof winner.volume === 'number'
+          && typeof winner.pan === 'number'
+          && winner.color !== undefined;
+        if (!stateKnown) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'name, mute, solo, volume, pan and colour must all be observed exactly before removal.' };
+        }
+        const initialNames = topBefore.devices.map((item) => item.name);
+        if (device === undefined || initialNames[args.containerPosition] !== device.name) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'the container identity disagreed between the full track reading and its own reading.' };
+        }
+        const keptNames = winner.devices.map((item) => item.name);
+        if (initialNames.length + keptNames.length > topBefore.bankSize) {
+          return { refused: true, nothingWasWritten: true,
+            why: `extracting ${keptNames.length} kept devices would make ${initialNames.length
+              + keptNames.length} top-level devices, beyond the observable bank of ${topBefore.bankSize}.` };
+        }
+
+        // The three orders every later reading is judged against, worked out
+        // once from the one complete pre-write observation.
+        const withoutContainer = initialNames.filter((_, index) => index !== args.containerPosition);
+        const expectedExtracted = [...initialNames, ...keptNames];
+        const expectedAfterRemoval = [...withoutContainer, ...keptNames];
+        const expectedFinal = [
+          ...initialNames.slice(0, args.containerPosition),
+          ...keptNames,
+          ...initialNames.slice(args.containerPosition + 1),
+        ];
+        const followingName = initialNames[args.containerPosition + 1];
+        const restoring = followingName === undefined || keptNames.length === 0
+          ? []
+          : keptNames.map((name, index) => ({
+            name,
+            sourceFromEnd: keptNames.length - 1 - index,
+            anchorPosition: args.containerPosition + index,
+          }));
+
+        // ⚠⚠ REFUSED HERE, before the container is destroyed, when the
+        // restoration is one no reading could prove.
+        //
+        // A top-level device has no durable id: it is observed by position and
+        // name, and the position is exactly what the restoring move changes. So
+        // when the order the move should leave spells the same names as the
+        // order it started from — two devices sharing one name — "the device
+        // moved back" and "nothing happened" are the same reading, and the
+        // answer would report a restored signal position on evidence that
+        // cannot exist. There is nothing stronger to fall back on and no way to
+        // undo the removal afterwards, so the whole operation stops now, with
+        // every alternate still intact.
+        let projected = expectedAfterRemoval;
+        for (const step of restoring) {
+          const sourceIndex = projected.length - 1 - step.sourceFromEnd;
+          const next = projectedReorder(projected, sourceIndex, step.anchorPosition);
+          if (next === undefined || JSON.stringify(next) === JSON.stringify(projected)) {
+            return {
+              refused: true,
+              nothingWasWritten: true,
+              why: `restoring "${step.name}" to position ${step.anchorPosition} would leave the `
+                + `device order reading [${projected.join(', ')}] both before and after the move, `
+                + 'so nothing could tell it from a move that never happened. Devices are observed '
+                + 'by position and name only. Rename the devices that share a name and repeat '
+                + 'this call.',
+              deviceOrder: projected,
+            };
+          }
+          projected = next;
+        }
+        if (restoring.length > 0 && JSON.stringify(projected) !== JSON.stringify(expectedFinal)) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'the ordered restoration could not be projected onto the exact final device order '
+              + 'this operation would have to prove, so nothing was removed.',
+            deviceOrder: projected,
+          };
+        }
+
+        // ⚠ What every answer from here on must carry. Once the first device
+        // has moved, an answer that omits the state no move carries is
+        // reporting a partial destruction as though it were nothing at all.
+        const carried = {
+          keptAlternate: args.alternateName,
+          keptDevices: keptNames,
+          stateNotCarried: {
+            name: args.alternateName,
+            mute: winner.mute,
+            solo: winner.solo,
+            volume: winner.volume,
+            pan: winner.pan,
+            color: winner.color,
+            sends: 'none',
+          },
+          crossDeviceModulation: 'not measured and not claimed',
+        };
+
+        /**
+         * ⚠ REMOVED, NOT REMOVED, or NEITHER — read off a fresh complete track
+         * order rather than assumed from a receipt. Three orders are
+         * recognisable: the one extraction leaves with the container still
+         * there, the one its removal leaves, and the restored one. Anything
+         * else, or any reading that could not see the whole track, is `null`:
+         * the removal is unconfirmed, which is a third answer and not a
+         * quieter way of saying no.
+         */
+        const observedRemoval = async (
+          known?: { readonly devices: readonly { readonly name: string }[]; readonly devicesComplete: boolean },
+        ): Promise<boolean | null> => {
+          try {
+            const reading = known ?? await workspace.devices(track);
+            if (!reading.devicesComplete) return null;
+            const names = JSON.stringify(reading.devices.map((item) => item.name));
+            if (names === JSON.stringify(expectedExtracted)) return false;
+            if (names === JSON.stringify(expectedAfterRemoval)) return true;
+            if (names === JSON.stringify(expectedFinal)) return true;
+            return null;
+          } catch {
+            return null;
+          }
+        };
+
+        const clearance = directedDestruction('keep_device_alternate');
+        let extractionReceipt: ReturnType<typeof receiptOf> | undefined;
+        let removalReceipt: ReturnType<typeof receiptOf> | undefined;
+        let removalAttempted = false;
+        try {
+          const extraction = keptNames.length === 0 ? undefined : await workspace.apply(
+            keptNames.map((): Op => ({
+              op: 'chain.relocate',
+              source: deviceIn(chainAt(container, args.alternateName), 0),
+              destination: track,
+              mode: 'move',
+            })),
+            { clearance },
+          );
+          extractionReceipt = extraction === undefined ? undefined : receiptOf(extraction);
+          if (extractionReceipt?.failed !== undefined || extractionReceipt?.applied === false) {
+            return { applied: false, containerRemoved: false, finalPositionConfirmed: false,
+              ...carried, extractionChange: extractionReceipt,
+              why: 'device extraction was not completely proved, so the container was not removed.' };
+          }
+
+          const topExtracted = await workspace.devices(track);
+          const extractedSnapshot = await workspace.read([container]);
+          const extractedEntry = extractedSnapshot.entries[addressKey(container)];
+          const extractedContainer = extractedEntry?.value.of === 'device'
+            ? extractedEntry.value.device.container : undefined;
+          const emptied = extractedContainer === undefined
+            ? undefined : lookupChain(extractedContainer, args.alternateName);
+          const extractionConfirmed = topExtracted.devicesComplete
+            && JSON.stringify(topExtracted.devices.map((item) => item.name)) === JSON.stringify(expectedExtracted)
+            && emptied?.ok === true && emptied.chain.devicesComplete && emptied.chain.devices.length === 0;
+          if (!extractionConfirmed) {
+            return { applied: false, containerRemoved: false, finalPositionConfirmed: false,
+              ...carried, extractionChange: extractionReceipt,
+              deviceOrder: topExtracted.devicesComplete
+                ? topExtracted.devices.map((item) => item.name) : null,
+              why: 'fresh complete readback did not prove every kept device at the track tail and none left behind.' };
+          }
+
+          removalAttempted = true;
+          const removed = await workspace.apply([{
+            op: 'device.delete', device: container, expectedName: device.name,
+          }], { clearance });
+          removalReceipt = receiptOf(removed);
+          if (removalReceipt.failed !== undefined || removalReceipt.applied === false) {
+            // ⚠ Not `false`. The request went out, so whether it landed is a
+            // question for a reading, not for the receipt that just declined.
+            return { applied: false, containerRemoved: await observedRemoval(),
+              finalPositionConfirmed: false, ...carried,
+              extractionChange: extractionReceipt, removalChange: removalReceipt,
+              why: 'the devices were extracted, and removal of the guarded container was not '
+                + 'confirmed. The reported removal state is what a fresh complete reading showed.' };
+          }
+
+          const afterRemoval = await workspace.devices(track);
+          const removalConfirmed = afterRemoval.devicesComplete
+            && JSON.stringify(afterRemoval.devices.map((item) => item.name)) === JSON.stringify(expectedAfterRemoval);
+          if (!removalConfirmed) {
+            const state = await observedRemoval(afterRemoval);
+            return {
+              applied: false,
+              containerRemoved: state,
+              finalPositionConfirmed: false,
+              ...carried,
+              extractionChange: extractionReceipt,
+              removalChange: removalReceipt,
+              deviceOrder: afterRemoval.devicesComplete
+                ? afterRemoval.devices.map((item) => item.name) : null,
+              why: state === false
+                ? 'the kept devices were moved out and the container is still there, so this is a '
+                  + 'partly finished operation rather than a completed one.'
+                : 'the kept devices were moved out, and no complete reading could say whether only '
+                  + 'the container was removed. Read the track device order before acting again.',
+            };
+          }
+
+          const reordered = restoring.length === 0
+            ? undefined
+            : await workspace.apply(restoring.map((step): Op => ({
+              op: 'device.relocate',
+              track,
+              sourceFromEnd: step.sourceFromEnd,
+              expectedName: step.name,
+              before: deviceAt(track, step.anchorPosition),
+            })), { clearance });
+          const reorderReceipt = reordered === undefined ? undefined : receiptOf(reordered);
+          const final = await workspace.devices(track);
+          const finalConfirmed = final.devicesComplete
+            && reorderReceipt?.failed === undefined
+            && reorderReceipt?.applied !== false
+            && JSON.stringify(final.devices.map((item) => item.name)) === JSON.stringify(expectedFinal);
+          return {
+            applied: finalConfirmed,
+            containerRemoved: true,
+            finalPositionConfirmed: finalConfirmed,
+            ...carried,
+            extractionChange: extractionReceipt,
+            removalChange: removalReceipt,
+            ...(reorderReceipt === undefined ? {} : { reorderChange: reorderReceipt }),
+            finalDeviceOrder: final.devicesComplete
+              ? final.devices.map((item) => item.name) : null,
+            ...(finalConfirmed ? {} : {
+              why: 'the container was removed and the kept devices were not proved back at its '
+                + 'original position by a complete final reading.',
+            }),
+          };
+        } catch (error) {
+          // ⚠⚠ The one place this surface must not answer "nothing was
+          // written", because by here something was. A refusal shape would
+          // report a half-finished destruction as an operation that never
+          // started.
+          return {
+            applied: false,
+            containerRemoved: removalAttempted ? await observedRemoval() : false,
+            finalPositionConfirmed: false,
+            ...carried,
+            ...(extractionReceipt === undefined ? {} : { extractionChange: extractionReceipt }),
+            ...(removalReceipt === undefined ? {} : { removalChange: removalReceipt }),
+            why: 'this operation stopped after it had already written, so nothing here claims that '
+              + 'nothing happened. The recorded changes and the captured state are below; read the '
+              + 'track device order before acting on it again.',
+            unexpected: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
+          };
+        }
+      });
+    },
+  }),
+
   tool({
     name: 'delete_clip',
     kind: 'destructive',

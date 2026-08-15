@@ -20,7 +20,8 @@ export type {
 
 export {
   chainCopyUnnamed, lookupChain, lookupDevice, lookupNestedDevice, mintedChain, nestingDepth,
-  nestingObservable, verifyDeviceRelocation, verifyExclusiveChain,
+  nestingObservable, projectedReorder, reorderIndistinguishable, verifyDeviceRelocation,
+  verifyDeviceReorder, verifyExclusiveChain,
 } from './chains.js';
 export type {
   ChainLookup, ChainMint, ChainMiss, DeviceLookup, ObservedChain, ObservedContainer, ObservedDevice,
@@ -39,7 +40,7 @@ export {
 export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 
 export {
-  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDevicesRoutable,
+  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceRelocatable, assertDevicesRoutable,
   assertNever, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom,
   assertSlotsFree, assertClipSources,
 } from './ops.js';

@@ -4,9 +4,14 @@
  * The transport is stopped first. The probe copies one visible instrument
  * track, verifies the fresh durable id and explicit name through independent
  * reads, checks ordinary change history and reversal reporting, then uses that
- * isolated copy to seed two device alternates through the contract and exercise
- * the production-only switching verb. Finally it removes only the id this run
- * observed minting.
+ * isolated copy to seed two device alternates through the contract, exercise
+ * switching, and collapse one explicitly named winner at its original signal
+ * position. Finally it removes only the id this run observed minting.
+ *
+ * ⚠ The collapse fixture deliberately puts one ordinary device AFTER the
+ * container. Creation and fill both leave the container last, and a winner
+ * "restored" to a last position is a winner appended at the end — so without
+ * the following anchor the position half of the claim is unfalsifiable here.
  */
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
@@ -229,6 +234,76 @@ try {
         ?.find((item) => item.name === effectNames[0])?.devices?.length === 1,
     effectFill);
 
+  // ⚠⚠ A FOLLOWING device, and without it this row proves nothing about signal
+  // position. Creation and fill both leave the container LAST, and a winner
+  // restored to a last position is a winner appended at the end — the exact
+  // shape acceptance item 2 says is not good enough. `finalPositionConfirmed`
+  // is then true whatever the operation did about position, because there is no
+  // position for it to be wrong about. One ordinary device added after the
+  // container gives the restoration a real anchor to land before, and it is a
+  // different device from the winner so the proof's name sequence can tell the
+  // move from a move that never happened.
+  const anchorDevice = await call('add_device', {
+    devices: [{
+      trackId: cleanupId,
+      from: 'bitwig',
+      id: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef',
+    }],
+  }) as { added?: { devicePosition?: number }[] };
+  const anchorPosition = anchorDevice.added?.[0]?.devicePosition;
+  check('3f-P10: the collapse fixture has a following anchor, so position can be wrong',
+    typeof anchorPosition === 'number' && anchorPosition === effectPosition + 1,
+    { anchorDevice, effectPosition });
+
+  const collapsed = await call('keep_device_alternate', {
+    trackId: cleanupId,
+    containerPosition: effectPosition,
+    alternateName: effectNames[0],
+  }) as {
+    applied?: boolean;
+    containerRemoved?: boolean;
+    finalPositionConfirmed?: boolean;
+    keptAlternate?: string;
+    keptDevices?: string[];
+    reorderChange?: { changeId?: string; applied?: boolean };
+    finalDeviceOrder?: string[] | null;
+    stateNotCarried?: {
+      name?: string;
+      mute?: boolean;
+      solo?: boolean;
+      volume?: number;
+      pan?: number;
+      color?: unknown;
+      sends?: string;
+    };
+    crossDeviceModulation?: string;
+  };
+  const keptName = collapsed.keptDevices?.[0];
+  const order = collapsed.finalDeviceOrder ?? [];
+  check('3f-P11: named winner collapse removes only after extraction and restores signal position',
+    collapsed.applied === true
+      && collapsed.containerRemoved === true
+      && collapsed.finalPositionConfirmed === true
+      && collapsed.keptAlternate === effectNames[0]
+      && collapsed.keptDevices?.length === 1
+      && collapsed.stateNotCarried?.name === effectNames[0]
+      && typeof collapsed.stateNotCarried.mute === 'boolean'
+      && typeof collapsed.stateNotCarried.solo === 'boolean'
+      && typeof collapsed.stateNotCarried.volume === 'number'
+      && typeof collapsed.stateNotCarried.pan === 'number'
+      && collapsed.stateNotCarried.color !== undefined
+      && collapsed.stateNotCarried.sends === 'none'
+      && collapsed.crossDeviceModulation === 'not measured and not claimed',
+    collapsed);
+  // The restoration itself: a recorded reordering change, and the kept device
+  // read back at the container's former position rather than after the anchor.
+  check('3f-P12: the kept device is proved back at the container position, before the anchor',
+    collapsed.reorderChange?.applied === true
+      && typeof keptName === 'string'
+      && order.indexOf(keptName) === effectPosition
+      && order.length === effectPosition + 2,
+    { collapsed, effectPosition });
+
 } catch (error) {
   check('3f-PX: the production smoke completed without an unexpected failure', false, {
     error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
@@ -237,10 +312,10 @@ try {
   if (cleanupId !== undefined) {
     try {
       const removed = await call('delete_track', { trackIds: [cleanupId] });
-      check('3f-P10: directed cleanup removes the observed copied id',
+      check('3f-P13: directed cleanup removes the observed copied id',
         removed['applied'] === true && removed['refused'] !== true, removed);
     } catch (error) {
-      check('3f-P10: directed cleanup completed without an unexpected failure', false, {
+      check('3f-P13: directed cleanup completed without an unexpected failure', false, {
         error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
       });
     }

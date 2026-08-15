@@ -79,6 +79,8 @@ export const WIRE = {
   sceneDelete: 'scene.delete',
 
   deviceList: 'device.list',
+  /** Measured same-track before-anchor move, promoted for `device.relocate`. */
+  deviceMoveTo: 'device.moveTo',
   /**
    * ⚠⚠ PROMOTED in session 3f step 6b, out of E18 §3.1 probe surface, and it is
    * the only route by which a layer chain is observable at all.

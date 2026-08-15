@@ -23,10 +23,17 @@ type TrackRow = { index: number; name: string; type: string; channelId: string }
 const list = async () =>
   (await client.request('track.list')) as { tracks: TrackRow[]; count: number; itemCount: number; bankSize: number };
 
+const exactIds = new Set(process.argv.slice(2));
 const before = await list();
 note(`before: ${before.count} visible, itemCount=${before.itemCount}, bankSize=${before.bankSize}`);
 
-const doomed = before.tracks.filter((t) => t.type === 'Instrument' && LITTER.test(t.name));
+const doomed = exactIds.size > 0
+  ? before.tracks.filter((track) => exactIds.has(track.channelId))
+  : before.tracks.filter((t) => t.type === 'Instrument' && LITTER.test(t.name));
+if (exactIds.size > 0 && doomed.length !== exactIds.size) {
+  const found = new Set(doomed.map((track) => track.channelId));
+  throw new Error(`approved fixture ids not found: ${[...exactIds].filter((id) => !found.has(id)).join(', ')}`);
+}
 note(`litter: ${doomed.map((t) => t.name).join(', ') || '(none)'}`);
 
 let deleted = 0;
