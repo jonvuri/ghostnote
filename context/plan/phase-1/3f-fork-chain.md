@@ -1,14 +1,11 @@
 ---
-title: Phase 1, session 3f — track-copy CRUD and the layer-chain lifecycle
+title: Phase 1, 3f epic — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: STEP 6b-2 COMPLETE 2026-08-15, VERIFIED LIVE. Steps 5, 6a and 6b-1
-        shipped and were verified live. Step 6b-2 lands `chain.create`, the first
-        typed write inside a container: it copies a named chain, names the copy,
-        identifies it by within-session id, and mints only once the new name
-        resolves. Three new wire methods moved the golden hash, the jar was
-        redeployed, and live conformance passed 49/0/6 with `C-chain-create`
-        green. Next: the FILL verb.
+status: STEP 6b-2 COMPLETE 2026-08-15, VERIFIED LIVE. The remaining lifecycle is
+        split into sessions 3f-c through 3f-i. Next is 3f-c, a live-only closure
+        for the batch-precondition and failure-reporting fixes made after the
+        last live run; 3f-d begins relocation only after that baseline is green.
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -17,7 +14,7 @@ scope: revised D18
 evidence: E16 duplicate/readback rows; E17; E18a/c/e/g/h; E22; D13, D18–D20
 ---
 
-# Phase 1, session 3f — track-copy CRUD and the layer-chain lifecycle
+# Phase 1, 3f epic — track-copy CRUD and the layer-chain lifecycle
 
 > **Purpose.** Land an ordinary typed track-copy operation, then complete the
 > autonomous device-take representation. Do not restore grouped track forks or
@@ -74,10 +71,10 @@ Acceptance:
 10. ⚠ **Supported track types are only the ones measured.** Anything else refuses
     rather than assuming `Channel.duplicate()` behaves identically on every
     channel kind; widening the set is a measurement, not a default.
-11. ⚠ The word `duplicate` is still banned on the surface (`naming.ts`). It is
-    marked a relaxation candidate for exactly this tool: either write the
-    description in the surface's own vocabulary, or reopen that one entry
-    deliberately with its reason rewritten. Do not delete the entry silently.
+11. ⚠ The word `duplicate` was banned on the surface (`naming.ts`) and required
+    an explicit review for this tool: either write the description in the
+    surface's own vocabulary, or reopen that one entry deliberately with its
+    reason rewritten. Do not delete the entry silently.
 12. Offline checks, extension tests, and a clean live smoke pass before its commit.
 
 Completion record, 2026-08-15:
@@ -108,15 +105,19 @@ Build toward these autonomous operations:
 
 1. Address a layer container, a named/indexed chain within it, and a device within
    that chain through stable observable structure.
-2. Create a chain from a bundled/provisioned seed asset. Runtime operator-authored
-   presets are forbidden as a functionality dependency.
+2. Bootstrap both supported container cases autonomously. A fresh FX Layer's
+   shipped chain is sufficient for FX/Master; the zero-chain Instrument Layer
+   case uses a bundled/provisioned seed asset. Runtime operator-authored presets
+   are forbidden as a functionality dependency.
 3. Fill a chain by moving/copying/inserting devices and verify placement through a
    handle other than the writer.
 4. Switch alternates with `DeviceLayer.solo()`, retaining E17's container-local
    exclusivity and proving unrelated tracks do not flip.
 5. Support directed reduction autonomously. The common winner-only collapse moves
-   the winner's devices out and deletes the layer container; selective removal
-   while several alternates survive may use the measured rebuild route.
+   the winner's devices out and deletes the layer container. Selective removal
+   while several alternates survive is also a **Phase 1 requirement** and uses
+   the measured rebuild route unless implementation evidence forces a recorded
+   correction.
 
 Correctness gates for collapse/rebuild:
 
@@ -128,6 +129,28 @@ Correctness gates for collapse/rebuild:
 
 The seed asset is a build-time dependency and may require its own small asset task,
 but it must ship as part of the feature rather than as operator setup.
+
+### Remaining execution slices
+
+Session 3f is now an epic of verified vertical slices. The lettering is the
+execution order and the boundary between commits; no slice weakens Step 6's
+acceptance.
+
+| Slice | Scope | Exit boundary |
+|---|---|---|
+| **3f-c — live closure** | Re-run the post-`chain.create` review fixes against Bitwig before adding capability. | Full live conformance is green; paired-name and projected bank-capacity batches refuse before a copy and leave a disposable container unchanged. The refused-rename path remains an explicit offline boundary unless it can be constructed safely without a production fault hook. |
+| **3f-d — relocation** | Add one typed, slot-scoped fill/extract primitive covering the required top→chain, chain→top and chain→chain directions. Promote `chain.move` only through the verb that owns it. | Source and destination are both proved through structural readback independent of the writer; move conserves population, copy adds exactly one, multiple devices preserve order, and a chain holding a device joins conformance live. No switching or destruction. |
+| **3f-e — switching** | Observe and set container-local exclusive solo through a stable `ChainAddress`, and expose the corresponding production operation. | The addressed alternate becomes active, siblings in its container become inactive as measured, unrelated tracks do not flip, and both fake and live adapters agree. No creation or reduction work is mixed in. |
+| **3f-f — bootstrap and creation surface** | Bundle/provision the Instrument Layer seed, prove its first addressable chain, and expose production inspection/creation/fill tools for both container cases. | FX/Master and Instrument paths are autonomous, require no operator-authored preset, return only independently resolved structure, state their object scope honestly, and pass production MCP smoke. This slice makes only the minimum deliberate `naming.ts` changes its tools require. |
+| **3f-g — winner collapse** | Implement the common directed destructive lifecycle: extract the named winner, restore its intended top-level signal position, then delete the container. | Multi-device order and state survive, the survivor is named rather than counted, deletion occurs only after preflight/readback, the destructive tool seam is separate, and the audible effect is measured on the rebuilt track itself. |
+| **3f-h — selective reduction** | Rebuild a container while removing one alternate and preserving several survivors. This is required for Phase 1. | Surviving names and device order are proved; name/mute/solo/volume/pan/colour are restored or explicitly reported; partial failure never masquerades as completion; cross-device modulation remains outside the claim until its indexed path is measured. |
+| **3f-i — lifecycle closeout** | Exercise the complete production lifecycle and prepare the observation handoff. | Creation, fill, switch, collapse and selective reduction pass offline, live conformance and production MCP smoke with no residue; descriptions are mechanically accurate; 3g receives stable event identities and owns the cohort-wide wording review/version freeze. |
+
+Dependencies are intentionally narrow: 3f-d and 3f-e share only the completed
+address/observation layer; 3f-f consumes relocation; both destructive slices
+consume relocation and switching but remain separately permissioned and tested.
+The asset task is contained in 3f-f rather than hidden inside either destructive
+workflow.
 
 ⚠ **The device-alternate tools cannot be described under the current ban list.**
 `layer` and `chain` are both banned words on the surface, marked relaxation
@@ -351,7 +374,9 @@ but the batch paths themselves have still never met a real DAW.
 
 ## Split and handoff rule
 
-Commit step 5 independently once green. Step 6 may span more than one session;
-split at a verified vertical slice rather than weakening the address or lifecycle
-acceptance. Session 3g starts only after both managed take representations have
-honest production mechanics to describe and observe.
+Sessions 3f-c through 3f-i are separate verified vertical slices and should land
+independently. A later slice may depend on an earlier primitive, but it must not
+absorb another slice's capability or permission boundary merely to make a green
+demo. Session 3g starts only after 3f-i: both managed take representations must
+have honest production mechanics to describe and observe, including the required
+selective-reduction path.

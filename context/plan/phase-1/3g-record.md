@@ -2,11 +2,11 @@
 title: Phase 1, session 3g — observation, tool descriptions, and the v1 freeze
 kind: plan
 state: planned
-status: REVISED 2026-08-14. Runs after `copy_track` and the layer-chain lifecycle.
+status: REVISED 2026-08-15. Runs after `copy_track` and 3f-i lifecycle closeout.
         The old three-way dispatch classifier is retired. This session records
         independent managed alternate events and observes whether naming and
         descriptions lead agents toward correctly scoped operations.
-updated: 2026-08-14
+updated: 2026-08-15
 parent: README.md
 prev: 3f-fork-chain.md
 next: 4-control-layer.md
@@ -24,8 +24,8 @@ evidence: E20c/d; E22; D18–D20
 
 - clip-block production mechanics from 3e;
 - `copy_track` as ordinary CRUD from step 5 of 3f;
-- autonomous layer addressing, creation, switching, and directed lifecycle from
-  step 6 of 3f;
+- autonomous layer addressing, creation, filling, switching, winner collapse and
+  selective reduction through 3f-i;
 - all descriptions mechanically accurate before a version is frozen.
 
 ## Scope
@@ -36,16 +36,14 @@ evidence: E20c/d; E22; D18–D20
    per turn. Events share a turn/instruction correlation id when appropriate.
 3. A versioned, light tool-description artifact covering layer takes, clip takes,
    track copying, and their correctness preconditions.
-4. ⚠⚠ **The `naming.ts` ban-list review.** The vocabulary this session freezes
-   already exists — 3d wrote `brain/src/surface/` under the ban list and the guard
-   asserts it against tool names, the JSON schema an agent receives, and every
-   word the surface emits. That list is where the mechanisms are banned BY NAME,
-   and revised D18e changed what may be said: `layer`, `chain` and `duplicate` are
-   marked relaxation candidates there, while `fork`, `branch` and `lineage` are
-   permanent. Reopen entries **deliberately and one at a time**, with the reason
-   rewritten in place — the guard is what makes that a reviewable act instead of a
-   sentence nobody noticed. This session amends the naming pass and declares the
-   version; it does not start one.
+4. ⚠⚠ **The cohort-wide `naming.ts` review.** Each 3f production slice owns the
+   minimum deliberate exemption or rewritten reason required by the tool it
+   ships; this session reviews those accumulated choices as one description
+   cohort and declares the version. The guard still asserts tool names, the JSON
+   schema an agent receives, and every word the surface emits. `layer` and
+   `chain` are candidates to reopen only where the shipped vocabulary requires
+   them; `duplicate` was reviewed and kept banned in 3f step 5; `fork`, `branch`
+   and `lineage` remain permanent. No entry is silently deleted.
 5. Tests proving description version and raw scope survive recording and that
    accepted, vetoed, and silent operator responses remain distinct.
 6. Reporting stratified by requested scope and actual structure.

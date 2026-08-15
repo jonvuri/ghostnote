@@ -2,7 +2,7 @@
 title: Phase 1 — write engine and managed takes
 kind: plan
 state: active
-updated: 2026-08-14
+updated: 2026-08-15
 parent: ../ROADMAP.md
 active_session: 3f-fork-chain.md
 ---
@@ -23,8 +23,8 @@ track copying remains separate CRUD:
 | Capability | Role | Current state |
 |---|---|---|
 | Clip block | Beat-aligned, position-continuous clip A/B | session 3e done; production MCP smoke 9/9 |
-| Track copy | General coarse track duplication, not a managed take | typed groundwork preserved; surface next in 3f |
-| Layer chain | Managed device alternate | partial wire; nested addressing and lifecycle next in 3f |
+| Track copy | General coarse track duplication, not a managed take | complete; production MCP smoke 6/6 |
+| Layer chain | Managed device alternate | address, observation and creation complete; 3f-c active, 3f-d–3f-i planned |
 
 Layer and clip alternates created in one instruction are independent. Tool naming
 and descriptions begin light and are versioned for later observation; the old
@@ -33,7 +33,8 @@ three-way dispatch classifier is retired.
 ## Execution order
 
 1. ~~[3e — clip block](3e-clip-block.md)~~ — done
-2. [3f — track-copy CRUD and layer-chain lifecycle](3f-fork-chain.md) — active; steps 5 and 6 next
+2. [3f — track-copy CRUD and layer-chain lifecycle](3f-fork-chain.md) — active;
+   next 3f-c live closure, then relocation through lifecycle closeout
 3. [3g — observation, descriptions, and v1 freeze](3g-record.md)
 4. [4 — control layer](4-control-layer.md)
 5. [5 — live proving](5-proving.md)
@@ -48,6 +49,8 @@ renumbering history, remains in `archive/plans/PHASE-1-ENGINE.md`.
 - All supported writes travel through executor → stash recording.
 - Track copy works as ordinary CRUD; layer-chain and clip-block takes work through
   the production surface without runtime operator assistance.
+- The layer-chain lifecycle includes both winner collapse and selective reduction
+  while several alternates survive; both are Phase 1 requirements.
 - Reversal and destructive boundaries match D18–D20.
 - A human can compare two takes from Bitwig without a ghostnote-specific A/B UI.
 - Live conformance covers the address, write, branch, and control paths.
