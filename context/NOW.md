@@ -4,29 +4,28 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5d-repair-owned-cleanup-fingerprint
+session: phase-1-session-5d-concurrent-editing-fourth-attempt
 ---
 
 # Now
 
-Run the focused [5d owned cleanup fingerprint
-repair](plan/phase-1/5d-repair-owned-cleanup-fingerprint.md). E30 stopped the
-third human proof attempt during setup. Live readback contained host-normalized
-note properties that were absent from the sparse stored cleanup recipe.
+Run the human-assisted [5d concurrent editing
+proof](plan/phase-1/5d-concurrent-editing.md) again. The three focused repairs
+are complete. E31 confirms that host-normalized readback promotes to an exact
+cleanup fingerprint and that automatic cleanup restores the fixture.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5c and the first two 5d repairs are complete
-(E23–E25, E27, E29). Session 5d remains unproved after E26, E28, and E30.
-Sessions 5e through 5i remain planned. No other Session 5 exit criterion is
-complete.
+slices. Sessions 5a through 5c and all three 5d repairs are complete (E23–E25,
+E27, E29, E31). Session 5d remains unproved after E26, E28, and E30. Sessions 5e
+through 5i remain planned. No other Session 5 exit criterion is complete.
 
 ## Start here
 
-1. Read E30 and the owned cleanup fingerprint repair brief.
-2. Separate the sparse creation fingerprint from the exact verified readback.
-3. Add early-match, exact-promotion, and refusal regressions.
-4. Run the focused live setup and cleanup sweep.
-5. Run all offline gates. Leave the human 5d proof for the next session.
+1. Read E31 and the 5d concurrent-editing brief.
+2. Confirm the documented fixture identities and complete baseline.
+3. Run `probe:5d-concurrent` with a human at the keyboard.
+4. Restore the complete fixture baseline and record new evidence.
+5. Do not combine this proof with Session 5e.
 
 ## Baseline
 
@@ -38,9 +37,9 @@ complete.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- E30 directed cleanup removed both exact probe-owned clips. Final readback held
-  revision 515, scene epoch 2, and content epoch 302. It found the three claimed
-  row-10 cells empty and restored the other documented baseline state.
+- E31 automatic cleanup removed both exact probe-owned clips. Final readback
+  held revision 523, scene epoch 2, and content epoch 310. It found no visible
+  grid differences and restored the other documented baseline state.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -59,5 +58,5 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-A cleanup fingerprint must distinguish the sparse write recipe from the exact
-host-normalized readback. No repository instruction change is needed.
+Keep creation evidence separate from normalized readback. No repository
+instruction change is needed.

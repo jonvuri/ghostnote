@@ -1,15 +1,16 @@
 ---
 title: Phase 1, session 5d repair — owned cleanup fingerprint
 kind: plan
-state: planned
-status: Planned 2026-08-16 after E30 stopped the third 5d attempt during setup.
+state: complete
+status: Complete 2026-08-16. E31 confirms early enriched matching, exact
+        promotion, drift refusal, and complete live cleanup.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5d-concurrent-editing.md
 next: 5d-concurrent-editing.md
 scope: Repair only; rerun 5d after this session
-evidence: E26, E27, E28, E29, E30 · D6, D15
-needs: Bitwig foregrounded for the focused live cleanup sweep
+evidence: E26, E27, E28, E29, E30, E31 · D6, D15
+needs: none
 ---
 
 # Phase 1, session 5d repair — owned cleanup fingerprint
@@ -51,6 +52,23 @@ needs: Bitwig foregrounded for the focused live cleanup sweep
 - changing production note fidelity or cursor behavior;
 - stale-revision, bank-window, managed A/B, or full conformance proof.
 
+## Result
+
+Owned clips now keep the immutable sparse creation fingerprint separately from
+the optional exact cleanup fingerprint. Early cleanup checks the complete note
+count and every authored field. Independent readback promotes that state to the
+exact host-normalized record. Later drift refuses deletion.
+
+Six focused regressions cover enriched early cleanup, changed authored fields,
+added notes, exact promotion, invalid promotion, and post-promotion drift. The
+focused live sweep passed 9/9. It promoted both enriched independent reads,
+moved and removed the drag clip, removed the target clip, and restored the
+complete fixture baseline without directed cleanup. E31 records the result.
+
+The full offline check passes 540/540. The context check and
+`git diff --check` pass. The human 5d proof remains next.
+
 ## Session retrospective
 
-No finding yet.
+Keep creation evidence separate from normalized readback. No repository
+instruction change is needed.

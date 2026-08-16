@@ -2,14 +2,14 @@
 title: Phase 1, session 5d — concurrent editing
 kind: plan
 state: planned
-status: Proof attempted three times 2026-08-16. E30 stopped the third attempt
-        during setup. Repair owned cleanup fingerprints before another attempt.
+status: Proof attempted three times 2026-08-16. All focused repairs are
+        complete through E31. Repeat the human proof.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5c-drag-boundaries.md
 next: 5e-refusal-boundaries.md
 scope: Phase 1 exit criterion 2
-evidence: E8, E23, E26, E27, E28, E29, E30 · D6, D10, D15
+evidence: E8, E23, E26, E27, E28, E29, E30, E31 · D6, D10, D15
 needs: Bitwig foregrounded; a human at the keyboard
 ---
 
@@ -106,6 +106,9 @@ result.
 
 Run the focused [owned cleanup fingerprint
 repair](5d-repair-owned-cleanup-fingerprint.md) before this proof is repeated.
+The repair is complete. E31 confirms separate creation and exact fingerprints,
+safe promotion, drift refusal, and a clean 9/9 live sweep. Repeat this human
+proof next.
 
 ## Session retrospective
 

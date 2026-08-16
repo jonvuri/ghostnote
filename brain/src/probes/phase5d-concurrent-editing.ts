@@ -16,8 +16,8 @@ import { Executor } from '../engine/executor.js';
 import { emptyObservationRecord, encodeObservationRecord } from '../observation/index.js';
 import { check, client, failureCount, note, pollUntil, waitForEnter } from './lib.js';
 import {
-  canonicalNotes, ownClip, removeOwnedClip, type CleanupCell, type OwnedClip,
-  type OwnedClipCleanupPort,
+  canonicalNotes, ownClip, promoteOwnedClip, removeOwnedClip, type CleanupCell,
+  type OwnedClip, type OwnedClipCleanupPort,
 } from './phase5d-owned-cleanup.js';
 
 const PROJECT = 'gn-scale-test';
@@ -327,8 +327,8 @@ try {
   dragOwned = ownClip(dragSource, [
     { startBeats: 3.5, pitch: 108, velocity: 64, durationBeats: 0.25 },
   ], dragDestination);
-  targetBaseline = targetOwned.fingerprint;
-  dragBaseline = dragOwned.fingerprint;
+  targetBaseline = targetOwned.creationFingerprint;
+  dragBaseline = dragOwned.creationFingerprint;
   await writer.apply({ ops: [{ op: 'clip.create', slot: targetSlot, lengthBeats: 4 }] });
   targetCreated = true;
   await writer.apply({ ops: [{ op: 'clip.create', slot: sourceSlot, lengthBeats: 4 }] });
@@ -345,14 +345,15 @@ try {
 
   const targetFingerprint = await cleanupPort.readNotes(targetOwned.source);
   const dragFingerprint = await cleanupPort.readNotes(dragOwned.source);
+  const promotedTarget = promoteOwnedClip(targetOwned, targetFingerprint);
+  const promotedDrag = promoteOwnedClip(dragOwned, dragFingerprint);
+  targetOwned = promotedTarget;
+  dragOwned = promotedDrag;
+  targetBaseline = promotedTarget.exactFingerprint;
+  dragBaseline = promotedDrag.exactFingerprint;
   check('5d-L3: both owned clip fingerprints read through the witness cursor',
-    canonicalNotes(targetFingerprint) === canonicalNotes(targetBaseline)
-      && canonicalNotes(dragFingerprint) === canonicalNotes(dragBaseline),
+    targetOwned.exactFingerprint !== undefined && dragOwned.exactFingerprint !== undefined,
     { targetFingerprint, dragFingerprint });
-  if (canonicalNotes(targetFingerprint) !== canonicalNotes(targetBaseline)
-      || canonicalNotes(dragFingerprint) !== canonicalNotes(dragBaseline)) {
-    throw new Error('an owned cleanup fingerprint did not match exact readback');
-  }
 
   const beforeMark = await witness.revision();
   const beforeGrid = await captureGrid(witness, listed.tracks, beforeMark);

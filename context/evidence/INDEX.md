@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E31 | Owned cleanup promotes host-normalized readback [K] (2026-08-16) | [open](experiments/e31-owned-cleanup-promotes-host-normalized-readback.md) |
 | E30 | Owned cleanup needs a host-normalized fingerprint [K] (2026-08-16) | [open](experiments/e30-owned-cleanup-needs-a-host-normalized-fingerprint.md) |
 | E29 | Clip pointing owns pin state and bounded confirmation [K] (2026-08-16) | [open](experiments/e29-clip-pointing-owns-pin-state-and-bounded-confirmation.md) |
 | E28 | Clip cursor confirmation needs a bounded retry [K] (2026-08-16) | [open](experiments/e28-clip-cursor-confirmation-needs-a-bounded-retry.md) |

@@ -66,14 +66,14 @@ three-way dispatch classifier is retired.
    - ~~[5c — observer drag boundaries](5c-drag-boundaries.md)~~ — complete;
      cross-track identity pair and below-window limit measured (E25)
    - [5d — concurrent editing](5d-concurrent-editing.md) — attempted three
-     times; E30 stopped setup on an owned cleanup fingerprint mismatch
+     times; all focused repairs are complete through E31; repeat the human proof
    - ~~[5d repair — concurrent selection](5d-repair-concurrent-selection.md)~~ —
      complete; eager capture, verified cursor reuse, and pan diagnosis (E27)
    - ~~[5d repair — cursor confirmation](5d-repair-cursor-confirmation.md)~~ —
      complete; pin-aware bounded confirmation and early cleanup pass (E29)
-   - [5d repair — owned cleanup
-     fingerprint](5d-repair-owned-cleanup-fingerprint.md) — preserve safe
-     cleanup across host-normalized readback (E30)
+   - ~~[5d repair — owned cleanup
+     fingerprint](5d-repair-owned-cleanup-fingerprint.md)~~ — complete; safe
+     early matching and exact host-normalized cleanup pass live (E31)
    - [5e — refusal boundaries](5e-refusal-boundaries.md) — exit criteria 3 and 5
    - [5f — managed A/B](5f-managed-ab.md) — exit criterion 4
    - [5g — full live conformance](5g-live-conformance.md) — B7 only
