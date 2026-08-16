@@ -36,6 +36,7 @@ const call = async (name: string, args: Record<string, unknown> = {}) =>
 type TrackRow = { trackId: string; name: string; kind: string };
 
 let cleanupId: string | undefined;
+let sourceCleanupId: string | undefined;
 
 try {
   await bridge.connect();
@@ -49,9 +50,24 @@ try {
   check('3f-P0: a measured instrument track is visible', source !== undefined, before);
   if (source === undefined) throw new Error('no visible instrument track');
 
-  const beforeIds = new Set((before.tracks ?? []).map((track) => track.trackId));
+  const sourceName = `gn-3f-source-${process.pid}`;
+  const emptySource = await call('add_track', { names: [sourceName] }) as {
+    applied?: boolean;
+    created?: { trackId?: string }[];
+  };
+  sourceCleanupId = emptySource.created?.[0]?.trackId;
+  const withSource = await call('list_tracks') as { tracks?: TrackRow[] };
+  check('3f-P1: a dedicated empty lifecycle source has a fresh durable id',
+    emptySource.applied === true
+      && typeof sourceCleanupId === 'string'
+      && withSource.tracks?.some((track) =>
+        track.trackId === sourceCleanupId && track.kind === 'Instrument') === true,
+    { emptySource, withSource });
+  if (sourceCleanupId === undefined) throw new Error('empty lifecycle source has no durable id');
+
+  const beforeIds = new Set((withSource.tracks ?? []).map((track) => track.trackId));
   const name = `gn-3f-copy-${process.pid}`;
-  const copied = await call('copy_track', { trackId: source.trackId, name }) as {
+  const copied = await call('copy_track', { trackId: sourceCleanupId, name }) as {
     applied?: boolean;
     copyConfirmed?: boolean;
     nameConfirmed?: boolean;
@@ -65,14 +81,14 @@ try {
   const fresh = (after.tracks ?? []).filter((track) => !beforeIds.has(track.trackId));
   if (cleanupId === undefined && fresh.length === 1) cleanupId = fresh[0]!.trackId;
 
-  check('3f-P1: bounded structural readback returns one fresh durable id',
+  check('3f-P2: bounded structural readback returns one fresh durable id',
     copied.applied === true
       && copied.copyConfirmed === true
       && typeof cleanupId === 'string'
-      && cleanupId !== source.trackId
+      && cleanupId !== sourceCleanupId
       && fresh.some((track) => track.trackId === cleanupId),
     { copied, fresh });
-  check('3f-P2: the explicit name is independently visible on the copied track',
+  check('3f-P3: the explicit name is independently visible on the copied track',
     copied.nameConfirmed === true
       && fresh.some((track) => track.trackId === cleanupId && track.name === name),
     { copied, fresh });
@@ -81,7 +97,7 @@ try {
     changes?: { changeId: string }[];
   };
   const recorded = new Set((changes.changes ?? []).map((change) => change.changeId));
-  check('3f-P3: copy and typed naming are both in ordinary change history',
+  check('3f-P4: copy and typed naming are both in ordinary change history',
     typeof copied.changeId === 'string'
       && typeof copied.namingChange?.changeId === 'string'
       && recorded.has(copied.changeId)
@@ -91,7 +107,7 @@ try {
   const reversal = typeof copied.changeId === 'string'
     ? await call('check_revert', { changeId: copied.changeId })
     : {};
-  check('3f-P4: automatic reversal reports that the copied track remains',
+  check('3f-P5: automatic reversal reports that the copied track remains',
     reversal['fullyRestorable'] === false
       && reversal['wouldWriteAnything'] === false
       && Array.isArray(reversal['wouldNotRestore'])
@@ -103,7 +119,11 @@ try {
   // container, keeping the positional creation proof inside the observable
   // scopes and making move-based fill deterministic.
   if (cleanupId === undefined) throw new Error('the copied track has no durable id');
-  const instrumentNames = [`gn-3f-inst-a-${process.pid}`, `gn-3f-inst-b-${process.pid}`];
+  const instrumentNames = [
+    `gn-3f-inst-a-${process.pid}`,
+    `gn-3f-inst-b-${process.pid}`,
+    `gn-3f-inst-remove-${process.pid}`,
+  ];
   const instrument = await call('create_device_alternates', {
     trackId: cleanupId,
     containerType: 'instrument',
@@ -118,7 +138,7 @@ try {
     };
   };
   const instrumentPosition = instrument.structure?.container?.devicePosition;
-  check('3f-P5: bundled Instrument creation resolves every explicit name',
+  check('3f-P6: bundled Instrument creation resolves every explicit name',
     instrument.applied === true
       && instrument.creationConfirmed === true
       && instrument.structure?.complete === true
@@ -147,7 +167,7 @@ try {
     finalContainerPosition?: number;
     structure?: { alternates?: { name: string; devices?: unknown[] }[] };
   };
-  check('3f-P6: Instrument fill is independently visible in the named destination',
+  check('3f-P7: Instrument fill is independently visible in the named destination',
     instrumentFill.applied === true
       && instrumentFill.structure?.alternates
         ?.find((item) => item.name === instrumentNames[0])?.devices?.length === 1,
@@ -167,7 +187,7 @@ try {
     exclusiveActive?: string | null;
     alternates?: { name: string; soloed?: boolean | null }[];
   };
-  check('3f-P7: production switching proves exactly the requested soloed alternate',
+  check('3f-P8: production switching proves exactly the requested soloed alternate',
     switched['applied'] === true
       && switched['exclusiveStateConfirmed'] === true
       && switched['exclusiveActive'] === instrumentNames[1]
@@ -177,6 +197,66 @@ try {
       && final.alternates.every((item) => typeof item.soloed === 'boolean')
       && final.alternates.filter((item) => item.soloed).map((item) => item.name).join(',') === instrumentNames[1],
     { switched, final });
+
+  // The rig allocates container observation for the first two top-level device
+  // positions. Selective reduction temporarily holds old and replacement
+  // containers together, so this production fixture must have compacted the
+  // original to position 0 and leave position 1 available for the replacement.
+  check('3f-P9: the selective-reduction fixture leaves one observable replacement position',
+    activeInstrumentPosition === 0,
+    { instrumentFill, activeInstrumentPosition });
+  const reduced = await call('remove_device_alternate', {
+    trackId: cleanupId,
+    containerPosition: activeInstrumentPosition,
+    alternateName: instrumentNames[2],
+    containerType: 'instrument',
+  }) as {
+    applied?: boolean;
+    originalContainerRemoved?: boolean | null;
+    replacementPositionConfirmed?: boolean;
+    removedAlternate?: string;
+    survivors?: { name?: string; devices?: string[]; state?: Record<string, unknown> }[];
+    stateRestoration?: {
+      name?: string;
+      captured?: Record<string, unknown>;
+      final?: Record<string, unknown> | null;
+      restored?: string[];
+      reportedOnly?: string[];
+    }[];
+    replacementContainerRole?: { supplied?: string; independentlyObserved?: boolean };
+    finalStructure?: {
+      complete?: boolean;
+      alternates?: { name?: string; devices?: { name?: string }[] }[];
+    };
+    crossDeviceModulation?: string;
+  };
+  check('3f-P10: selective reduction proves two ordered survivors before removing the old container',
+    reduced.applied === true
+      && reduced.originalContainerRemoved === true
+      && reduced.replacementPositionConfirmed === true
+      && reduced.removedAlternate === instrumentNames[2]
+      && reduced.survivors?.map((item) => item.name).join(',')
+        === instrumentNames.slice(0, 2).join(',')
+      && reduced.finalStructure?.complete === true
+      && reduced.finalStructure.alternates?.map((item) => item.name).join(',')
+        === instrumentNames.slice(0, 2).join(',')
+      && reduced.finalStructure.alternates?.[0]?.devices?.length === 1
+      && reduced.finalStructure.alternates?.[1]?.devices?.length === 0,
+    reduced);
+  check('3f-P11: survivor state and the unobserved replacement-role boundary are reported exactly',
+    reduced.stateRestoration?.length === 2
+      && reduced.stateRestoration.every((item) => item.final !== null
+        && typeof item.captured?.['mute'] === 'boolean'
+        && typeof item.captured?.['solo'] === 'boolean'
+        && typeof item.captured?.['volume'] === 'number'
+        && typeof item.captured?.['pan'] === 'number'
+        && item.captured?.['color'] !== undefined
+        && Array.isArray(item.restored)
+        && Array.isArray(item.reportedOnly))
+      && reduced.replacementContainerRole?.supplied === 'instrument'
+      && reduced.replacementContainerRole.independentlyObserved === false
+      && reduced.crossDeviceModulation === 'not measured and not claimed',
+    reduced);
 
   const removedInstrument = await call('delete_device', {
     devices: [{ trackId: cleanupId, position: activeInstrumentPosition }],
@@ -200,7 +280,7 @@ try {
     };
   };
   const effectPosition = effect.structure?.container?.devicePosition;
-  check('3f-P8: fresh effect-container creation resolves every explicit name',
+  check('3f-P12: fresh effect-container creation resolves every explicit name',
     effect.applied === true
       && effect.creationConfirmed === true
       && effect.structure?.complete === true
@@ -228,7 +308,7 @@ try {
     applied?: boolean;
     structure?: { alternates?: { name: string; devices?: unknown[] }[] };
   };
-  check('3f-P9: effect-container fill is independently visible in the named destination',
+  check('3f-P13: effect-container fill is independently visible in the named destination',
     effectFill.applied === true
       && effectFill.structure?.alternates
         ?.find((item) => item.name === effectNames[0])?.devices?.length === 1,
@@ -251,7 +331,7 @@ try {
     }],
   }) as { added?: { devicePosition?: number }[] };
   const anchorPosition = anchorDevice.added?.[0]?.devicePosition;
-  check('3f-P10: the collapse fixture has a following anchor, so position can be wrong',
+  check('3f-P14: the collapse fixture has a following anchor, so position can be wrong',
     typeof anchorPosition === 'number' && anchorPosition === effectPosition + 1,
     { anchorDevice, effectPosition });
 
@@ -280,7 +360,7 @@ try {
   };
   const keptName = collapsed.keptDevices?.[0];
   const order = collapsed.finalDeviceOrder ?? [];
-  check('3f-P11: named winner collapse removes only after extraction and restores signal position',
+  check('3f-P15: named winner collapse removes only after extraction and restores signal position',
     collapsed.applied === true
       && collapsed.containerRemoved === true
       && collapsed.finalPositionConfirmed === true
@@ -297,7 +377,7 @@ try {
     collapsed);
   // The restoration itself: a recorded reordering change, and the kept device
   // read back at the container's former position rather than after the anchor.
-  check('3f-P12: the kept device is proved back at the container position, before the anchor',
+  check('3f-P16: the kept device is proved back at the container position, before the anchor',
     collapsed.reorderChange?.applied === true
       && typeof keptName === 'string'
       && order.indexOf(keptName) === effectPosition
@@ -309,13 +389,15 @@ try {
     error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
   });
 } finally {
-  if (cleanupId !== undefined) {
+  const cleanupIds = [cleanupId, sourceCleanupId]
+    .filter((id): id is string => id !== undefined);
+  if (cleanupIds.length > 0) {
     try {
-      const removed = await call('delete_track', { trackIds: [cleanupId] });
-      check('3f-P13: directed cleanup removes the observed copied id',
+      const removed = await call('delete_track', { trackIds: cleanupIds });
+      check('3f-P17: directed cleanup removes the observed source and copied ids',
         removed['applied'] === true && removed['refused'] !== true, removed);
     } catch (error) {
-      check('3f-P13: directed cleanup completed without an unexpected failure', false, {
+      check('3f-P17: directed cleanup completed without an unexpected failure', false, {
         error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
       });
     }

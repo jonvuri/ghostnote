@@ -2,10 +2,9 @@
 title: Phase 1, 3f epic — track-copy CRUD and the layer-chain lifecycle
 kind: plan
 state: active
-status: SESSION 3f-g COMPLETE 2026-08-15, VERIFIED LIVE INCLUDING ITS REVIEW
-        PASS. Named winner collapse, own-track audible measurement and exact
-        cleanup are green; four review defects are fixed and re-proved live
-        against a redeployed jar. Next is 3f-h.
+status: SESSION 3f-h COMPLETE 2026-08-15, VERIFIED LIVE. Selective reduction,
+        ordered survivor rebuild, exact state comparison and partial-outcome
+        reporting are green. Next is 3f-i lifecycle closeout.
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -682,7 +681,45 @@ Verification at this boundary — every item below was actually run:
 Nothing in this pass changes what a successful collapse does to the signal, and
 nothing here re-proves it.
 
-Session 3f-h may now begin selective reduction.
+### Session 3f-h — complete 2026-08-15, verified live
+
+The destructive `remove_device_alternate` operation removes one explicitly
+named alternate only while preserving at least two survivors. It refuses before
+writing unless the complete top-level order, complete unique sibling set, every
+survivor device order, every survivor name/mute/solo/volume/pan/colour value,
+temporary top-level capacity and the replacement container scope are all
+observable. The caller supplies the replacement instrument/effect role because
+the current observer cannot infer it; the result reports that boundary directly.
+
+The replacement is built at the track tail while the original remains. Names
+are created in captured order, all devices move survivor-by-survivor, and fresh
+reads prove the replacement population and emptied old survivor chains. Exact
+zero-or-one survivor solo state is restored through `chain.activate`; all final
+state fields are compared with their captured values and differences are
+reported. Only after that proof is the guarded original container removed. A
+final complete top-level order plus reduced-container readback proves the
+replacement at the original signal position. Every post-write failure reports a
+partial rebuild; an unreadable delete reports removal as unknown.
+
+The three-entry fixture exposed a pre-existing creation-order defect:
+`create_device_alternates` copied every new entry from the first, reversing the
+tail under beside-source placement. Each requested entry now copies its immediate
+predecessor, preserving caller order under both beside-source and tail placement,
+with independent final readback still required.
+
+Brain typecheck and **456/456** offline tests pass. Extension Gradle test passes;
+`git diff --check` is clean. Live conformance passes **52/0/6**, including the
+new `C-chain-reduce` row. Production MCP smoke passes **18/18, P0-P17**, including
+public selective reduction, exact survivor state comparison, collapse and exact
+two-track cleanup. Conformance cleanup removed both owned fixture tracks and the
+project returned to its documented 10-track baseline with Master visible.
+
+⚠ 3f-i inherits one live surface mismatch found while making production smoke
+self-contained: `add_track` accepts requested names but `track.create` encodes no
+name, and the fresh track read back as `Inst 11`. Closeout must fix the contract
+or the description before the cohort is frozen.
+
+Session 3f-i may now begin lifecycle closeout and the 3g handoff.
 
 ## Capability boundary
 

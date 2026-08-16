@@ -35,7 +35,8 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, NOTE_PROP_FIDELITY,
   SlotOccupiedError, addressKey, chain, clip, contentTouching, deltaComplete, device, deviceIn,
   notes as notesAt, param, scene, slot, track,
-  type Address, type BitwigAdapter, type NoteRecord, type ObservedContainer, type Op, type Snapshot, type TrackAddress,
+  type Address, type BitwigAdapter, type DeviceAddress, type NoteRecord, type ObservedContainer,
+  type Op, type Snapshot, type TrackAddress,
 } from '../index.js';
 import { Executor, branchProtected, UnprotectedWriteError } from '../../engine/index.js';
 
@@ -1279,6 +1280,136 @@ export function runConformance(h: AdapterHarness): void {
           const at = device(trackA, 0);
           if ((await adapter.read([at])).entries[addressKey(at)] === undefined) break;
           await adapter.apply({ ops: [{ op: 'device.delete', device: at }] });
+          await adapter.settle('trackStruct');
+        }
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-chain-reduce', 'a proved replacement preserves two survivors before the old container is removed'),
+    { skip: !h.capabilities.hasDeviceModel },
+    async () => {
+      const { adapter, trackA } = await h.create();
+      const executor = new Executor(adapter);
+      const FX_LAYER = { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' } as const;
+      const A = { from: 'bitwig', uuid: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef' } as const;
+      const B = { from: 'bitwig', uuid: 'f2dcfe9a-7b66-4c84-984a-b25685a1c21a' } as const;
+      let original: Address | undefined;
+      let replacement: Address | undefined;
+      const observed = async (at: Address): Promise<ObservedContainer> => {
+        assert.equal(at.kind, 'device');
+        const entry = (await adapter.read([at])).entries[addressKey(at)];
+        const container = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+        assert.ok(container?.chainsComplete, 'the complete replacement structure must be readable');
+        return container;
+      };
+      try {
+        original = (await executor.run([{
+          op: 'device.insert', track: trackA, source: FX_LAYER,
+        }])).receipt.minted[0];
+        assert.ok(original?.kind === 'device');
+        const originalSeed = (await observed(original)).chains[0]!;
+        await adapter.apply({ ops: [{
+          op: 'chain.rename', chain: chain(original, originalSeed.name), name: 'gn-reduce-a',
+        }] });
+        await adapter.apply({ ops: [{
+          op: 'chain.create', source: chain(original, 'gn-reduce-a'), name: 'gn-reduce-remove',
+        }] });
+        await adapter.apply({ ops: [{
+          op: 'chain.create', source: chain(original, 'gn-reduce-remove'), name: 'gn-reduce-b',
+        }] });
+
+        replacement = (await executor.run([{
+          op: 'device.insert', track: trackA, source: FX_LAYER,
+        }])).receipt.minted[0];
+        assert.ok(replacement?.kind === 'device');
+        const replacementSeed = (await observed(replacement)).chains[0]!;
+        await adapter.apply({ ops: [{
+          op: 'chain.rename', chain: chain(replacement, replacementSeed.name), name: 'gn-reduce-a',
+        }] });
+        await adapter.apply({ ops: [{
+          op: 'chain.create', source: chain(replacement, 'gn-reduce-a'), name: 'gn-reduce-b',
+        }] });
+
+        await executor.run([
+          { op: 'device.insert', track: trackA, source: A },
+          { op: 'device.insert', track: trackA, source: B },
+        ]);
+        const sourceNames = (await adapter.devices(trackA)).devices.slice(2).map((item) => item.name);
+        assert.equal(sourceNames.length, 2);
+        await adapter.apply({ ops: sourceNames.map(() => ({
+          op: 'chain.relocate' as const,
+          source: device(trackA, 2),
+          destination: chain(original as DeviceAddress, 'gn-reduce-a'),
+          mode: 'move' as const,
+        })) });
+        await adapter.apply({ ops: sourceNames.map(() => ({
+          op: 'chain.relocate' as const,
+          source: deviceIn(chain(original as DeviceAddress, 'gn-reduce-a'), 0),
+          destination: chain(replacement as DeviceAddress, 'gn-reduce-a'),
+          mode: 'move' as const,
+        })) });
+        await adapter.apply({ ops: [{
+          op: 'chain.activate', chain: chain(original, 'gn-reduce-b'),
+        }] });
+        await adapter.apply({ ops: [{
+          op: 'chain.activate', chain: chain(replacement, 'gn-reduce-b'),
+        }] });
+
+        const oldBeforeDelete = await observed(original);
+        const replacementBeforeDelete = await observed(replacement);
+        assert.deepEqual(oldBeforeDelete.chains.map((item) => item.name),
+          ['gn-reduce-a', 'gn-reduce-remove', 'gn-reduce-b']);
+        assert.deepEqual(
+          oldBeforeDelete.chains.find((item) => item.name === 'gn-reduce-a')?.devices,
+          [],
+          'the preserved source is empty before deletion',
+        );
+        assert.deepEqual(replacementBeforeDelete.chains.map((item) => item.name),
+          ['gn-reduce-a', 'gn-reduce-b']);
+        assert.deepEqual(
+          replacementBeforeDelete.chains.find((item) => item.name === 'gn-reduce-a')
+            ?.devices.map((item) => item.name),
+          sourceNames,
+          'the complete multi-device survivor order is proved before deletion',
+        );
+        for (const survivor of replacementBeforeDelete.chains) {
+          assert.equal(typeof survivor.mute, 'boolean');
+          assert.equal(typeof survivor.solo, 'boolean');
+          assert.equal(typeof survivor.volume, 'number');
+          assert.equal(typeof survivor.pan, 'number');
+          assert.ok(survivor.color);
+        }
+        assert.deepEqual(
+          replacementBeforeDelete.chains.filter((item) => item.solo).map((item) => item.name),
+          ['gn-reduce-b'],
+        );
+
+        const originalName = (await adapter.devices(trackA)).devices[0]!.name;
+        const removed = await adapter.apply({ ops: [{
+          op: 'device.delete', device: original, expectedName: originalName,
+        }] });
+        assert.equal(removed.stages.flatMap((stage) => stage.ops).every((item) => item.ok), true,
+          JSON.stringify(removed.stages));
+        replacement = device(trackA, 0);
+        original = undefined;
+        assert.equal((await adapter.devices(trackA)).devices.length, 1,
+          'only the proved replacement remains');
+        const final = await observed(replacement);
+        assert.deepEqual(final.chains.map((item) => item.name), ['gn-reduce-a', 'gn-reduce-b']);
+        assert.deepEqual(
+          final.chains.find((item) => item.name === 'gn-reduce-a')
+            ?.devices.map((item) => item.name),
+          sourceNames,
+        );
+      } finally {
+        // Both containers and all nested devices are owned by this row.
+        for (let guard = 0; guard < 4; guard += 1) {
+          const full = await adapter.devices(trackA);
+          if (!full.devicesComplete || full.devices.length === 0) break;
+          await adapter.apply({ ops: [{ op: 'device.delete', device: device(trackA, 0) }] });
           await adapter.settle('trackStruct');
         }
         await h.dispose(adapter);

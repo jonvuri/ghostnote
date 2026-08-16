@@ -382,9 +382,28 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   const effectAlternates = await call(fx, 'create_device_alternates', {
     trackId: fx.trackB,
     containerType: 'effect',
-    names: ['gn-effect-source', 'gn-effect-alt'],
+    names: ['gn-effect-source', 'gn-effect-remove', 'gn-effect-alt'],
   }) as { applied: boolean; structure: { container: { devicePosition: number } } };
   assert.equal(effectAlternates.applied, true, JSON.stringify(effectAlternates));
+
+  const reduced = await exercise('remove_device_alternate', {
+    trackId: fx.trackB,
+    containerPosition: effectAlternates.structure.container.devicePosition,
+    alternateName: 'gn-effect-remove',
+    containerType: 'effect',
+  }) as {
+    applied: boolean;
+    originalContainerRemoved: boolean;
+    replacementPositionConfirmed: boolean;
+    finalStructure: { alternates: { name: string }[] };
+  };
+  assert.equal(reduced.applied, true, JSON.stringify(reduced));
+  assert.equal(reduced.originalContainerRemoved, true);
+  assert.equal(reduced.replacementPositionConfirmed, true);
+  assert.deepEqual(
+    reduced.finalStructure.alternates.map((item) => item.name),
+    ['gn-effect-source', 'gn-effect-alt'],
+  );
 
   const switched = await exercise('switch_device_alternate', {
     trackId: fx.trackA,
@@ -879,6 +898,186 @@ test('T-fill projection: non-sorted caller order preserves requested order throu
   assert.deepEqual(
     fx.fake.model.findByChannelId(fx.trackA)!.track.devices.map((item) => item.name),
     [ProjectModel.FX_LAYER_UUID, 'source-b'],
+  );
+});
+
+async function selectiveReductionFixture(
+  fx: Fixture,
+): Promise<{ position: number; track: NonNullable<ReturnType<ProjectModel['findByChannelId']>>['track'] }> {
+  // The replacement temporarily sits after the anchor at position 2. Widening
+  // this fake-only observer window models the already allocated live slot scope;
+  // a separate case below proves the ordinary narrow window refuses pre-write.
+  fx.fake.model.containerScopes = 3;
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA,
+    containerType: 'effect',
+    names: ['gn-keep-a', 'gn-remove', 'gn-keep-b'],
+  }) as { applied: boolean; structure: { container: { devicePosition: number } } };
+  assert.equal(made.applied, true, JSON.stringify(made));
+  const position = made.structure.container.devicePosition;
+  await call(fx, 'add_device', {
+    devices: ['gn-anchor', 'gn-a1', 'gn-a2', 'gn-b1'].map((id) => ({
+      trackId: fx.trackA, from: 'bitwig', id,
+    })),
+  });
+  await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-keep-a',
+    sourceDevicePositions: [2, 3],
+    mode: 'move',
+  });
+  await call(fx, 'fill_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-keep-b',
+    sourceDevicePositions: [2],
+    mode: 'move',
+  });
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  const chains = track.devices[position]!.chains!;
+  Object.assign(chains.find((item) => item.name === 'gn-keep-a')!, {
+    mute: true,
+    solo: true,
+    volume: 0.72,
+    pan: 0.18,
+    color: { red: 0.1, green: 0.2, blue: 0.3 },
+  });
+  Object.assign(chains.find((item) => item.name === 'gn-keep-b')!, {
+    mute: false,
+    solo: false,
+    volume: 0.63,
+    pan: 0.81,
+    color: { red: 0.7, green: 0.6, blue: 0.5 },
+  });
+  return { position, track };
+}
+
+test('T-selective-reduction: survivor names, multi-device order and signal position are rebuilt and proved', async () => {
+  const fx = fixture();
+  const { position, track } = await selectiveReductionFixture(fx);
+  const oldContainer = track.devices[position]!;
+
+  const result = await call(fx, 'remove_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-remove',
+    containerType: 'effect',
+  }) as {
+    applied: boolean;
+    originalContainerRemoved: boolean;
+    replacementPositionConfirmed: boolean;
+    finalDeviceOrder: string[];
+    finalStructure: { alternates: { name: string; devices: { name: string }[] }[] };
+    stateRestoration: { name: string; restored: string[]; reportedOnly: string[] }[];
+    replacementContainerRole: { supplied: string; independentlyObserved: boolean };
+    crossDeviceModulation: string;
+  };
+
+  assert.equal(result.applied, true, JSON.stringify(result));
+  assert.equal(result.originalContainerRemoved, true);
+  assert.equal(result.replacementPositionConfirmed, true);
+  assert.deepEqual(result.finalDeviceOrder, [ProjectModel.FX_LAYER_UUID, 'gn-anchor']);
+  assert.notEqual(track.devices[position], oldContainer, 'the old container object is gone');
+  assert.deepEqual(
+    result.finalStructure.alternates.map((item) => ({
+      name: item.name,
+      devices: item.devices.map((device) => device.name),
+    })),
+    [
+      { name: 'gn-keep-a', devices: ['gn-a1', 'gn-a2'] },
+      { name: 'gn-keep-b', devices: ['gn-b1'] },
+    ],
+  );
+  assert.ok(result.stateRestoration.every((item) => item.restored.includes('solo')),
+    'the one prior solo is restored exactly across all survivors');
+  assert.ok(result.stateRestoration.some((item) => item.reportedOnly.includes('volume')),
+    'state with no write route is reported rather than claimed restored');
+  assert.deepEqual(result.replacementContainerRole,
+    { supplied: 'effect', independentlyObserved: false });
+  assert.equal(result.crossDeviceModulation, 'not measured and not claimed');
+});
+
+test('T-selective-reduction: every survivor state is required before the first replacement write', async () => {
+  const fx = fixture();
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA,
+    containerType: 'effect',
+    names: ['gn-keep-a', 'gn-remove', 'gn-keep-b'],
+  }) as { structure: { container: { devicePosition: number } } };
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  delete track.devices[made.structure.container.devicePosition]!.chains![2]!.volume;
+  const before = JSON.stringify(track.devices);
+  const sent = fx.sent.length;
+
+  const result = await call(fx, 'remove_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: made.structure.container.devicePosition,
+    alternateName: 'gn-remove',
+    containerType: 'effect',
+  });
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.match(String(result['why']), /mute, solo, volume, pan and colour/);
+  assert.equal(JSON.stringify(track.devices), before);
+  assert.equal(fx.sent.length, sent);
+});
+
+test('T-selective-reduction: an unobservable temporary container position refuses before insertion', async () => {
+  const fx = fixture();
+  const made = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA,
+    containerType: 'effect',
+    names: ['gn-keep-a', 'gn-remove', 'gn-keep-b'],
+  }) as { structure: { container: { devicePosition: number } } };
+  await call(fx, 'add_device', {
+    devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'gn-anchor' }],
+  });
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  const before = JSON.stringify(track.devices);
+  const sent = fx.sent.length;
+
+  const result = await call(fx, 'remove_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: made.structure.container.devicePosition,
+    alternateName: 'gn-remove',
+    containerType: 'effect',
+  });
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.match(String(result['why']), /outside the observable container scopes/);
+  assert.equal(JSON.stringify(track.devices), before);
+  assert.equal(fx.sent.length, sent);
+});
+
+test('T-selective-reduction: an unreadable old-container removal is partial, never completion', async () => {
+  const fx = fixture({
+    devices: (call, actual) => call === 2
+      ? { ...actual, devices: [], devicesComplete: false }
+      : actual,
+  });
+  const { position } = await selectiveReductionFixture(fx);
+  const result = await call(fx, 'remove_device_alternate', {
+    trackId: fx.trackA,
+    containerPosition: position,
+    alternateName: 'gn-remove',
+    containerType: 'effect',
+  }) as {
+    applied: boolean;
+    originalContainerRemoved: boolean | null;
+    replacementPositionConfirmed: boolean;
+    stateRestoration: unknown[];
+    replacementStructure: { alternates: { name: string }[] };
+  };
+  assert.equal(result.applied, false, JSON.stringify(result));
+  assert.equal(result.originalContainerRemoved, null,
+    'an incomplete reading claims neither removed nor not removed');
+  assert.equal(result.replacementPositionConfirmed, false);
+  assert.equal(result.stateRestoration.length, 2,
+    'captured and final survivor state remains in every post-migration answer');
+  assert.deepEqual(
+    result.replacementStructure.alternates.map((item) => item.name),
+    ['gn-keep-a', 'gn-keep-b'],
   );
 });
 

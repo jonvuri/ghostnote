@@ -1456,9 +1456,12 @@ export const TOOLS: readonly ToolSpec[] = [
 
         const added = args.names.length <= 1
           ? undefined
-          : await workspace.apply(args.names.slice(1).map((name): Op => ({
+          // Each requested entry copies the one immediately before it. That
+          // preserves caller order whether Bitwig places a copy beside its
+          // source or at the container tail; the final readback still proves it.
+          : await workspace.apply(args.names.slice(1).map((name, index): Op => ({
             op: 'chain.create',
-            source: chainAt(container, args.names[0]!),
+            source: chainAt(container, args.names[index]!),
             name,
           })));
         const structure = await deviceAlternatesAt(
@@ -1685,7 +1688,7 @@ export const TOOLS: readonly ToolSpec[] = [
   }),
 
   // ============================ destructive =================================
-  // ⚠⚠ Five names, one per thing that can be removed, rather than one `delete`
+  // ⚠⚠ Separate names, one per destructive permission, rather than one `delete`
   // with a kind parameter. The host's "don't ask again for this tool" is a
   // blanket grant on a NAME, so the grain of the naming is the grain of the
   // permission: allowing clip deletion for a project must not also allow track
@@ -1700,6 +1703,385 @@ export const TOOLS: readonly ToolSpec[] = [
   // destructive call", and the direction is the operator answering the host's
   // prompt for this tool name. What the clearance does not touch is the
   // REPORTING: every receipt below still says what it could not put back.
+  tool({
+    name: 'remove_device_alternate',
+    kind: 'destructive',
+    title: 'Remove one device alternate',
+    description:
+      'Remove one explicitly named alternate while preserving two or more named survivors by '
+      + 'building a replacement container. The caller supplies the replacement container role '
+      + 'because that role is not exposed by the current observer. Before anything is written, '
+      + 'the complete top-level order, every sibling name, every survivor device order, and every '
+      + 'survivor mute, solo, volume, pan and colour value must be readable. The replacement is '
+      + 'built at the track tail, filled in survivor order, and independently proved before the '
+      + 'old container can be removed. It is then restored to the old signal position and read '
+      + 'again. A partial rebuild is reported as partial and never as completion.\n'
+      + 'Names and device order are preserved. Solo is restored when the prior survivor state '
+      + 'has zero or one soloed entry; every final state value is compared with its captured '
+      + 'value, and differences in mute, solo, volume, pan or colour are reported rather than '
+      + 'claimed restored. Device alternates have no sends. Cross-device modulation is not '
+      + 'measured and is not claimed to survive. This permanently removes the named alternate '
+      + 'and the old container and cannot be undone here.',
+    inputSchema: {
+      trackId,
+      containerPosition: z.number().int().min(0).describe(
+        'Current position of the containing device in the track, counting from 0.',
+      ),
+      alternateName: alternateName.describe('Exact durable name of the one device alternate to remove.'),
+      containerType: z.enum(['instrument', 'effect']).describe(
+        'Role of the replacement container. The current observer cannot infer this from the old container.',
+      ),
+    },
+    emits: [
+      'device.insert', 'chain.rename', 'chain.create', 'chain.relocate',
+      'chain.activate', 'device.delete', 'device.relocate',
+    ],
+    async run(workspace, args) {
+      return writing(async () => {
+        const same = (left: unknown, right: unknown) =>
+          JSON.stringify(left) === JSON.stringify(right);
+        const track = trackAt(args.trackId);
+        const original = deviceAt(track, args.containerPosition);
+        const topBefore = await workspace.devices(track);
+        const snapshot = await workspace.read([track, original]);
+        const entry = snapshot.entries[addressKey(original)];
+        const device = entry?.value.of === 'device' ? entry.value.device : undefined;
+        const observed = device?.container;
+
+        if (!topBefore.devicesComplete || topBefore.bankSize === undefined) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'the complete starting track device order was not observable.' };
+        }
+        if (topBefore.devices.length >= topBefore.bankSize) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'the replacement needs one temporary top-level device position, but the observable bank is full.' };
+        }
+        if (device === undefined || observed === undefined || !observed.chainsComplete) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'the complete sibling set was not observable at that container position.' };
+        }
+        const initialNames = topBefore.devices.map((item) => item.name);
+        if (initialNames[args.containerPosition] !== device.name) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'the container identity disagreed between the full track reading and its own reading.' };
+        }
+        const removed = lookupChain(observed, args.alternateName);
+        if (!removed.ok) {
+          return { refused: true, nothingWasWritten: true,
+            why: `the named device alternate was ${removed.miss}.` };
+        }
+        if (new Set(observed.chains.map((item) => item.name)).size !== observed.chains.length) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'every surviving device alternate must have a unique durable name.' };
+        }
+        const survivors = observed.chains.filter((item) => item.index !== removed.chain.index);
+        if (survivors.length < 2) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'selective reduction requires at least two named survivors; use keep_device_alternate for one.' };
+        }
+        const incomplete = survivors.find((item) => !item.devicesComplete);
+        if (incomplete !== undefined) {
+          return { refused: true, nothingWasWritten: true,
+            why: `the complete ordered devices of survivor "${incomplete.name}" were not observable.` };
+        }
+        const unknown = survivors.find((item) =>
+          typeof item.mute !== 'boolean'
+          || typeof item.solo !== 'boolean'
+          || typeof item.volume !== 'number'
+          || typeof item.pan !== 'number'
+          || item.color === undefined);
+        if (unknown !== undefined) {
+          return { refused: true, nothingWasWritten: true,
+            why: `name, mute, solo, volume, pan and colour of survivor "${unknown.name}" `
+              + 'must all be observed exactly before rebuilding.' };
+        }
+        if (args.containerType === 'instrument' && !existsSync(INSTRUMENT_LAYER_SEED_PATH)) {
+          return { refused: true, nothingWasWritten: true,
+            why: 'the bundled instrument seed is missing, so reduction was refused before writing.' };
+        }
+
+        const replacementStart = initialNames.length;
+        const future = deviceAt(track, replacementStart);
+        const futureRead = await workspace.read([future]);
+        if (futureRead.unreachable.some((address) => addressKey(address) === addressKey(future))) {
+          return { refused: true, nothingWasWritten: true,
+            why: `the temporary replacement position ${replacementStart} is outside the observable container scopes.` };
+        }
+
+        const withoutOriginal = initialNames.filter((_, index) => index !== args.containerPosition);
+        const expectedAfterRemoval = [...withoutOriginal, device.name];
+        const needsReorder = args.containerPosition < initialNames.length - 1;
+        if (needsReorder) {
+          const projected = projectedReorder(
+            expectedAfterRemoval,
+            expectedAfterRemoval.length - 1,
+            args.containerPosition,
+          );
+          if (projected === undefined || same(projected, expectedAfterRemoval) || !same(projected, initialNames)) {
+            return { refused: true, nothingWasWritten: true,
+              why: 'restoring the replacement to the old signal position could not be distinguished '
+                + 'and projected onto the exact starting device order, so nothing was rebuilt.' };
+          }
+        }
+
+        const captured = survivors.map((item) => ({
+          name: item.name,
+          devices: item.devices.map((nested) => nested.name),
+          state: {
+            mute: item.mute as boolean,
+            solo: item.solo as boolean,
+            volume: item.volume as number,
+            pan: item.pan as number,
+            color: item.color!,
+          },
+        }));
+        const carried = {
+          removedAlternate: args.alternateName,
+          survivors: captured,
+          replacementContainerRole: {
+            supplied: args.containerType,
+            independentlyObserved: false,
+          },
+          sends: 'none',
+          crossDeviceModulation: 'not measured and not claimed',
+        };
+        const clearance = directedDestruction('remove_device_alternate');
+        const changes: Record<string, unknown> = {};
+        let removalAttempted = false;
+
+        const partial = (why: string, extra: Record<string, unknown> = {}) => ({
+          applied: false,
+          originalContainerRemoved: false,
+          replacementPositionConfirmed: false,
+          ...carried,
+          ...changes,
+          ...extra,
+          why,
+        });
+
+        const replacementMatches = (structure: Record<string, unknown>): boolean => {
+          const alternates = structure['alternates'] as
+            | { name: string; devices: { name: string }[] }[] | undefined;
+          return structure['readable'] === true
+            && structure['complete'] === true
+            && alternates !== undefined
+            && same(alternates.map((item) => ({
+              name: item.name,
+              devices: item.devices.map((nested) => nested.name),
+            })), captured.map((item) => ({ name: item.name, devices: item.devices })));
+        };
+
+        const stateReport = (structure: Record<string, unknown>) => {
+          const alternates = structure['alternates'] as | {
+            name: string;
+            soloed: boolean | null;
+            state: { mute: boolean | null; volume: number | null; pan: number | null; color: unknown };
+          }[] | undefined;
+          return captured.map((before) => {
+            const after = alternates?.find((item) => item.name === before.name);
+            const final = after === undefined ? null : {
+              mute: after.state.mute,
+              solo: after.soloed,
+              volume: after.state.volume,
+              pan: after.state.pan,
+              color: after.state.color,
+            };
+            const restored = final === null ? [] :
+              (['mute', 'solo', 'volume', 'pan', 'color'] as const)
+                .filter((field) => same(final[field], before.state[field]));
+            const reportedOnly = (['mute', 'solo', 'volume', 'pan', 'color'] as const)
+              .filter((field) => !restored.includes(field));
+            return { name: before.name, captured: before.state, final, restored, reportedOnly };
+          });
+        };
+
+        try {
+          const inserted = await workspace.apply([{
+            op: 'device.insert',
+            track,
+            source: args.containerType === 'instrument'
+              ? { from: 'file', path: INSTRUMENT_LAYER_SEED_PATH }
+              : { from: 'bitwig', uuid: FX_LAYER_UUID },
+          }], { clearance });
+          changes['replacementChange'] = receiptOf(inserted);
+          const replacement = inserted.take.receipt.minted[0];
+          if (replacement?.kind !== 'device' || replacement.chainIndex !== replacementStart) {
+            return partial('the replacement insertion was not independently observed at the projected track tail.');
+          }
+
+          const seedRead = await workspace.read([replacement]);
+          const seedEntry = seedRead.entries[addressKey(replacement)];
+          const seedDevice = seedEntry?.value.of === 'device' ? seedEntry.value.device : undefined;
+          const seed = seedDevice?.container;
+          if (seedDevice?.name !== device.name || seed?.chainsComplete !== true || seed.chains.length !== 1) {
+            return partial('the inserted replacement did not prove the same observed container name '
+              + 'and exactly one complete seed entry; the original was left intact.', {
+              replacementContainerPosition: replacement.chainIndex,
+            });
+          }
+
+          let seedName = seed.chains[0]!.name;
+          if (seedName === captured[0]!.name) {
+            const occupied = new Set(captured.map((item) => item.name));
+            let temporary = 'ghostnote pending reduction';
+            while (occupied.has(temporary)) temporary += ' pending';
+            const prepared = await workspace.apply([{
+              op: 'chain.rename', chain: chainAt(replacement, seedName), name: temporary,
+            }], { clearance });
+            changes['preparationChange'] = receiptOf(prepared);
+            seedName = temporary;
+          }
+
+          const named = await workspace.apply([{
+            op: 'chain.rename', chain: chainAt(replacement, seedName), name: captured[0]!.name,
+          }], { clearance });
+          changes['namingChange'] = receiptOf(named);
+          // Copy each survivor from the one immediately before it so either
+          // beside-source or tail placement preserves the captured order.
+          const added = await workspace.apply(captured.slice(1).map((item, index): Op => ({
+            op: 'chain.create', source: chainAt(replacement, captured[index]!.name), name: item.name,
+          })), { clearance });
+          changes['alternateChange'] = receiptOf(added);
+
+          const emptyReplacement = await deviceAlternatesAt(workspace, args.trackId, replacement.chainIndex);
+          const emptyAlternates = emptyReplacement['alternates'] as
+            | { name: string; devices: unknown[] }[] | undefined;
+          if (emptyReplacement['readable'] !== true || emptyReplacement['complete'] !== true
+              || !same(emptyAlternates?.map((item) => item.name), captured.map((item) => item.name))
+              || emptyAlternates?.some((item) => item.devices.length !== 0)) {
+            return partial('the empty named replacement was not independently proved; the original was left intact.', {
+              replacementStructure: emptyReplacement,
+            });
+          }
+
+          const migrations = captured.flatMap((item) => item.devices.map((): Op => ({
+            op: 'chain.relocate',
+            source: deviceIn(chainAt(original, item.name), 0),
+            destination: chainAt(replacement, item.name),
+            mode: 'move',
+          })));
+          if (migrations.length > 0) {
+            const migrated = await workspace.apply(migrations, { clearance });
+            changes['migrationChange'] = receiptOf(migrated);
+            const receipt = changes['migrationChange'] as ReturnType<typeof receiptOf>;
+            if (receipt.failed !== undefined || receipt.applied === false) {
+              return partial('the survivor migration did not completely apply; the original was left intact.');
+            }
+          }
+
+          let replacementStructure = await deviceAlternatesAt(
+            workspace, args.trackId, replacement.chainIndex,
+          );
+          const originalStructure = await deviceAlternatesAt(
+            workspace, args.trackId, original.chainIndex,
+          );
+          const oldAlternates = originalStructure['alternates'] as
+            | { name: string; devices: unknown[] }[] | undefined;
+          const oldSurvivorsEmpty = originalStructure['readable'] === true
+            && originalStructure['complete'] === true
+            && captured.every((item) =>
+              oldAlternates?.find((old) => old.name === item.name)?.devices.length === 0);
+          if (!replacementMatches(replacementStructure) || !oldSurvivorsEmpty) {
+            return partial('fresh complete readback did not prove every survivor in the replacement '
+              + 'and emptied in the original, so the original was not removed.', {
+              replacementStructure, originalStructure,
+            });
+          }
+
+          const soloed = captured.filter((item) => item.state.solo);
+          if (soloed.length === 1) {
+            const activated = await workspace.apply([{
+              op: 'chain.activate', chain: chainAt(replacement, soloed[0]!.name),
+            }], { clearance });
+            changes['soloChange'] = receiptOf(activated);
+            replacementStructure = await deviceAlternatesAt(
+              workspace, args.trackId, replacement.chainIndex,
+            );
+          }
+          if (!replacementMatches(replacementStructure)) {
+            return partial('the replacement structure became unreadable while restoring reported state; '
+              + 'the original was left intact.', { replacementStructure });
+          }
+          const state = stateReport(replacementStructure);
+          if (state.some((item) => item.final === null
+              || Object.values(item.final).some((value) => value === null))) {
+            return partial('the final replacement state was not completely observable, so the original '
+              + 'was left intact.', { replacementStructure, stateRestoration: state });
+          }
+
+          removalAttempted = true;
+          const deleted = await workspace.apply([{
+            op: 'device.delete', device: original, expectedName: device.name,
+          }], { clearance });
+          changes['removalChange'] = receiptOf(deleted);
+          const afterRemoval = await workspace.devices(track);
+          const afterRemovalNames = afterRemoval.devices.map((item) => item.name);
+          const removedConfirmed = afterRemoval.devicesComplete && same(afterRemovalNames, expectedAfterRemoval);
+          if (!removedConfirmed) {
+            const beforeDelete = [...initialNames, device.name];
+            const removalState = afterRemoval.devicesComplete && same(afterRemovalNames, beforeDelete)
+              ? false : null;
+            return {
+              ...partial('the replacement is complete, but fresh readback did not prove removal of '
+                + 'the guarded original container.', {
+                originalContainerRemoved: removalState,
+                replacementStructure,
+                stateRestoration: state,
+                finalDeviceOrder: afterRemoval.devicesComplete ? afterRemovalNames : null,
+              }),
+            };
+          }
+
+          if (needsReorder) {
+            const reordered = await workspace.apply([{
+              op: 'device.relocate',
+              track,
+              sourceFromEnd: 0,
+              expectedName: device.name,
+              before: deviceAt(track, args.containerPosition),
+            }], { clearance });
+            changes['reorderChange'] = receiptOf(reordered);
+          }
+
+          const final = await workspace.devices(track);
+          const finalStructure = await deviceAlternatesAt(
+            workspace, args.trackId, args.containerPosition,
+          );
+          const finalState = stateReport(finalStructure);
+          const finalStateKnown = finalState.every((item) => item.final !== null
+            && Object.values(item.final).every((value) => value !== null));
+          const finalConfirmed = final.devicesComplete
+            && same(final.devices.map((item) => item.name), initialNames)
+            && replacementMatches(finalStructure)
+            && finalStateKnown;
+          return {
+            applied: finalConfirmed,
+            originalContainerRemoved: true,
+            replacementPositionConfirmed: finalConfirmed,
+            ...carried,
+            ...changes,
+            stateRestoration: finalState,
+            finalDeviceOrder: final.devicesComplete
+              ? final.devices.map((item) => item.name) : null,
+            finalStructure,
+            ...(finalConfirmed ? {} : {
+              why: 'the original was removed, but the replacement was not proved at its old signal '
+                + 'position with the exact surviving structure.',
+            }),
+          };
+        } catch (error) {
+          return {
+            ...partial('selective reduction stopped after it had already written. Nothing here '
+              + 'claims completion; inspect both containers before acting again.', {
+                originalContainerRemoved: removalAttempted ? null : false,
+              }),
+            unexpected: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
+          };
+        }
+      });
+    },
+  }),
+
   tool({
     name: 'keep_device_alternate',
     kind: 'destructive',
