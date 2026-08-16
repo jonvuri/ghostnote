@@ -8,7 +8,7 @@ status: SESSION 3f-i COMPLETE 2026-08-15, VERIFIED LIVE. The complete
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
-next: 3g-record.md
+next: 3g-a-observation-contract.md
 scope: revised D18
 evidence: E16 duplicate/readback rows; E17; E18a/c/e/g/h; E22; D13, D18–D20
 ---

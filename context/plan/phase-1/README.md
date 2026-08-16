@@ -4,7 +4,7 @@ kind: plan
 state: active
 updated: 2026-08-15
 parent: ../ROADMAP.md
-active_session: 3g-record.md
+active_session: 3g-a-observation-contract.md
 ---
 
 # Phase 1 — write engine and managed takes
@@ -35,7 +35,13 @@ three-way dispatch classifier is retired.
 1. ~~[3e — clip block](3e-clip-block.md)~~ — done
 2. ~~[3f — track-copy CRUD and layer-chain lifecycle](3f-fork-chain.md)~~ — done;
    complete lifecycle and 3g mechanics handoff verified live
-3. [3g — observation, descriptions, and v1 freeze](3g-record.md) — active
+3. [3g — observation and v1 description program](3g-record.md)
+   - [3g-a — observation contract and capture
+     protocol](3g-a-observation-contract.md) — active
+   - [3g-b — per-project persistence transport](3g-b-persistence.md)
+   - [3g-c — v1 description cohort freeze](3g-c-description-freeze.md)
+   - [3g-d — production event instrumentation](3g-d-instrumentation.md)
+   - [3g-e — reporting and live closure](3g-e-reporting.md)
 4. [4 — control layer](4-control-layer.md)
 5. [5 — live proving](5-proving.md)
 6. [6 — async completion](6-async.md), optional

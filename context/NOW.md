@@ -4,13 +4,14 @@ kind: status
 state: active
 updated: 2026-08-15
 phase: phase-1
-session: phase-1-session-3g
+session: phase-1-session-3g-a
 ---
 
 # Now
 
-Phase 1 is **ready to begin session 3g**. The complete 3f device-alternate
-lifecycle is closed and verified live.
+Phase 1 is **ready to begin session 3g-a**. The complete 3f device-alternate
+lifecycle is closed and verified live. Session 3g is split into five focused
+briefs.
 
 ## Baseline
 
@@ -55,9 +56,20 @@ Verification at this boundary:
   removed `gn-conf-A` and `gn-conf-B`. The project is at its documented 10-track
   baseline with Master visible and no probe residue.
 
-## Session 3g — next
+## Session 3g-a — next
 
-Build the per-project observation record and version the light description
-cohort described in [3g-record.md](plan/phase-1/3g-record.md). Preserve the 3f-i
-mechanical identities and event boundary; 3g reviews wording and assigns the v1
-description version without reopening lifecycle mechanics.
+Define the observation contract and capture protocol in
+[3g-a-observation-contract.md](plan/phase-1/3g-a-observation-contract.md).
+Separate instruction observations, successful managed events, and ordinary
+track-copy use before storage or production instrumentation changes. Preserve
+the 3f-i mechanical identities and event boundary.
+
+The parent [3g program](plan/phase-1/3g-record.md) then runs per-project
+persistence, the v1 description freeze, production instrumentation, and live
+reporting as independent sessions.
+
+## Planning retrospective
+
+Define record entry types before storage and instrumentation plans. This prevents
+successful events, vetoes, and ordinary operations from sharing one ambiguous
+row model.

@@ -1,125 +1,99 @@
 ---
-title: Phase 1, session 3g — observation, tool descriptions, and the v1 freeze
+title: Phase 1, session 3g — observation and v1 description program
 kind: plan
-state: active
-status: READY 2026-08-15. `copy_track` and 3f-i lifecycle closeout are complete
-        and verified live. The old three-way dispatch classifier is retired.
-        This session records independent managed alternate events and observes
-        whether naming and descriptions lead agents toward correctly scoped
-        operations.
+state: planned
+status: SPLIT 2026-08-15. Five focused sessions now own the record contract,
+        persistence, description freeze, instrumentation, and live reporting.
 updated: 2026-08-15
 parent: README.md
 prev: 3f-fork-chain.md
-next: 4-control-layer.md
+next: 3g-a-observation-contract.md
 scope: revised D18
 evidence: E20c/d; E22; D18–D20
 ---
 
-# Phase 1, session 3g — observation, tool descriptions, and the v1 freeze
+# Phase 1, session 3g — observation and v1 description program
 
 > **Purpose.** Make tool-choice behavior measurable without reinstating a policy
-> engine. Freeze a light v1 description cohort, record what agents actually do,
-> and preserve enough raw context to revise the instrument later.
+> engine. Freeze a light v1 description cohort, record what agents do, and keep
+> enough raw context to revise the instrument later.
 
-## Prerequisites
+## Prerequisites and inherited boundaries
 
-- clip-block production mechanics from 3e;
-- `copy_track` as ordinary CRUD from step 5 of 3f;
-- autonomous layer addressing, creation, filling, switching, winner collapse and
-  selective reduction through 3f-i;
-- all descriptions mechanically accurate before a version is frozen.
+- Clip-block production mechanics are complete through 3e.
+- `copy_track` is ordinary CRUD and not a managed alternate.
+- The device-alternate lifecycle is complete through 3f-i.
+- The six device-lifecycle tool names, privilege classes, input identities, and
+  emitted contract operations are stable.
 
-3f-i hands this session six stable device-lifecycle tool identities:
-`inspect_device_alternates`, `create_device_alternates`,
-`fill_device_alternate`, `switch_device_alternate`,
-`keep_device_alternate`, and `remove_device_alternate`. Their privilege classes,
-input identities and emitted contract operations are enumerated and guarded in
-[3f](3f-fork-chain.md#session-3f-i--complete-2026-08-15-verified-live).
+One successful `create_device_alternates` call creates one managed
+device-alternate event. One successful `copy_clip_down` call creates one managed
+clip-alternate event. Inspection, filling, switching, movement, and reduction
+act on existing events. They do not create new event rows.
 
-For observation, one successful `create_device_alternates` call is one managed
-device-alternate event. Inspect, fill, switch and either reduction operation act
-on that event rather than minting another row. `copy_track` remains an ordinary
-change outside managed-event bookkeeping. This event boundary and the six tool
-identities are inherited mechanics; the description wording and its v1 version
-are this session's work.
+Device and clip events from one instruction can share a correlation id. They
+remain independent structures. Their correlation is not a compound alternate,
+an atomic project state, or a shared switch.
 
-## Scope
+## Record model
 
-1. A per-project observation record in the document setting already hidden at
-   `init()` and proven by E20d.
-2. One row per **independent managed alternate event**, not necessarily one row
-   per turn. Events share a turn/instruction correlation id when appropriate.
-3. A versioned, light tool-description artifact covering layer takes, clip takes,
-   track copying, and their correctness preconditions.
-4. ⚠⚠ **The cohort-wide `naming.ts` review.** Each 3f production slice owns the
-   minimum deliberate exemption or rewritten reason required by the tool it
-   ships; this session reviews those accumulated choices as one description
-   cohort and declares the version. The guard still asserts tool names, the JSON
-   schema an agent receives, and every word the surface emits. `layer` and
-   `chain` are candidates to reopen only where the shipped vocabulary requires
-   them; `duplicate` was reviewed and kept banned in 3f step 5; `fork`, `branch`
-   and `lineage` remain permanent. No entry is silently deleted.
-5. Tests proving description version and raw scope survive recording and that
-   accepted, vetoed, and silent operator responses remain distinct.
-6. Reporting stratified by requested scope and actual structure.
+The record uses three related entry types. This separation resolves the old
+conflict between successful managed events and observations whose result is a
+track copy, a veto, or no action.
 
-Out of scope:
-
-- a dispatch classifier or automatic choice;
-- linking a device alternate and clip alternate into a compound take;
-- treating `copy_track` as a branch event;
-- reacting to one ordinary anecdote with permanent prescription;
-- record retention policy, which remains operator-owned.
-
-## Record shape
-
-Each managed alternate event stores:
-
-| field | purpose |
+| entry | purpose |
 |---|---|
-| turn/instruction id | correlates independent events without linking their lifecycle |
-| raw requested/write-set scope | device-only, launcher-clip-only, mixed, or unsupported (arrangement clips, per-alternate sends or track-mixer state, routing, cross-track and project-level state — revised D18b); retain raw data for later analysis |
-| actual structure | layer chain, clip block, both as separate rows, track copy, or none |
-| result identity | the created project structure by observable identity |
-| agent rationale | perishable context, when available |
-| operator response | accepted, vetoed, or silent |
-| tool-description version | distinguishes behavior changes from wording changes |
+| instruction observation | Stores the raw request or write scope, requested-scope label, agent rationale when available, operator response, correlation id, and description version. It can refer to zero or more result entries. |
+| managed event | Stores one successful device-alternate or clip-alternate creation, its observable result identity, correlation, and description version. |
+| ordinary use | Stores experimental use of `copy_track`, its durable result identity, correlation, and description version. It does not receive managed lifecycle semantics. |
 
-Ordinary session change reporting separately records track copies and lets the
-experiment correlate their use when they compete with scoped operations. It does
-not promote them into managed alternate events.
+The operator response is `silent` until an explicit observation records
+`accepted` or `vetoed`. Tool success and host permission behavior do not imply
+acceptance. A veto or no-action outcome belongs to an instruction observation,
+not to a managed event.
 
-## Description strategy
+Raw requested data is caller-supplied. The MCP server does not receive the user
+instruction or an agent rationale through a normal tool call. The recording
+surface must collect that context explicitly and must not change the stable
+input schemas of the six device-lifecycle tools.
 
-Start light, as already planned. Names and descriptions should state scope,
-preconditions, costs, destructive seams, and required procedures. They should make
-the two managed representations understandable and identify `copy_track` as coarse
-track CRUD. Avoid elaborate heuristics until sessions reveal a real failure mode.
+## Program order
 
-The initial review should explicitly watch for, but not limit itself to:
+1. [3g-a — observation contract and capture protocol](3g-a-observation-contract.md)
+2. [3g-b — per-project persistence transport](3g-b-persistence.md)
+3. [3g-c — v1 description cohort freeze](3g-c-description-freeze.md)
+4. [3g-d — production event instrumentation](3g-d-instrumentation.md)
+5. [3g-e — reporting and live closure](3g-e-reporting.md)
 
-- device-only work copied as a whole track;
-- clip-only work attempted in a layer;
-- mixed instructions incorrectly represented as one linked take;
-- track copying omitted from ordinary change reporting;
-- layer collapse attempted through a focus-dependent action;
-- names/descriptions causing the right tool to be overlooked.
+Sessions 3g-b and 3g-c are mechanically independent after 3g-a, but the listed
+order keeps the handoff linear. Production event recording starts only after
+both are complete.
 
-Revise descriptions when a failure pattern recurs across distinct sessions. Stay
-adaptable: the important failure may not be in this list. Safety and correctness
-remain different from preference—a single strong controlled result can justify an
-immediate ban or containment.
+## Program-wide constraints
 
-## Exit criteria
+- Do not add a dispatch classifier or automatic tool choice.
+- Do not link device and clip alternates into one lifecycle.
+- Do not treat `copy_track` as a managed event.
+- Do not infer instruction text, rationale, or operator response.
+- Do not evict, truncate, or rewrite raw observations silently.
+- Keep record retention operator-owned.
+- Keep the document setting hidden at `init()`.
+- Keep wording light and factual. State scope, preconditions, costs,
+  destructive seams, and required procedures.
+- Do not change a frozen cohort without assigning a new description version.
 
-1. Device and clip alternate creation each record independent rows, including two
-   correlated rows for one mixed instruction.
-2. Track copy remains outside managed take bookkeeping while its ordinary change
-   and experimental usage are observable.
-3. The hidden document setting round-trips the record and survives restart without
-   appearing in or degrading the settings pane.
-4. v1 descriptions are versioned and the version is stamped into every row.
-5. The surface contains no stale grouped-fork or three-way-classifier language, and
-   every ban-list entry reopened for v1 carries a rewritten reason rather than a
-   deletion.
-6. Offline and live end-to-end checks pass with no fixtures left behind.
+## Program exit
+
+1. Device and clip alternate creation each record one independent event,
+   including two correlated events for one mixed instruction.
+2. Track copy remains outside managed-event bookkeeping while its ordinary
+   change and experimental use remain observable.
+3. Raw scope, rationale when supplied, operator response, result identity, and
+   description version survive project restart.
+4. The hidden setting remains absent from the settings pane and does not degrade
+   it.
+5. v1 maps to one exact public description cohort. The surface contains no stale
+   grouped-fork or three-way-classifier language.
+6. Reporting stratifies requested scope and actual structure without prescribing
+   a choice.
+7. Offline and live end-to-end checks pass with no fixture residue.
