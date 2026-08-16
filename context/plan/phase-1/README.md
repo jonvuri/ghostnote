@@ -87,7 +87,9 @@ three-way dispatch classifier is retired.
    - ~~[5g repair — two-clip revert
      confirmation](5g-repair-two-clip-revert-confirmation.md)~~ — complete;
      target and pin settlement are separate bounded states (E38)
-   - [5h — CI and regression policy](5h-ci.md) — exit criterion 6
+   - ~~[5h — CI and regression policy](5h-ci.md)~~ — complete; both remote CI
+     jobs pass for candidate `01b7162`, and every Session 5 probe has a class
+     and owner (E40)
    - [5i — Phase 1 closeout](5i-closeout.md) — decision and phase closure
 6. [6 — async completion](6-async.md), optional
 

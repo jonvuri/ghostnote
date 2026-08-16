@@ -2,8 +2,8 @@
 title: Phase 1, session 5 — live proving program
 kind: plan
 state: active
-status: Sessions 5a through 5g and both focused 5g repairs are complete. Prepare
-        the pushed candidate for session 5h remote CI proof.
+status: Sessions 5a through 5h and all focused repairs are complete. Prepare
+        session 5i closeout.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
@@ -91,7 +91,11 @@ Session 5g is complete. E39 records one unfiltered live invocation with 53
 passes, no failures, and 6 qualified skips. `C-minted`, `C-twoclips`, and the
 later two-clip revert all pass under full-suite load. Cleanup removed the two
 generated tracks by durable identity and restored the exact project baseline.
-Session 5h is next after the operator commits and pushes the candidate.
+
+Session 5h is complete. GitHub Actions run 31974448060 passed the brain and
+extension jobs for exact candidate
+`01b716265a20cbf91e6c2c1e357fb69d489ee707`. E40 records the remote proof and
+the four-class regression policy. Session 5i is next.
 
 ## The 21-property contract
 
@@ -122,7 +126,7 @@ Later plans must say that 20 of 21 properties are exact and pressure is refused.
 | [5g — full live conformance](5g-live-conformance.md) | Complete load run with `C-minted` green; complete, E39 | B7 |
 | [5g repair — two-clip property isolation](5g-repair-two-clip-properties.md) | Diagnose and repair E35's cross-clip pan read; complete, E36 | repair only |
 | [5g repair — two-clip revert confirmation](5g-repair-two-clip-revert-confirmation.md) | Poll pin settlement without restarting a confirmed target; complete, E38 | repair only |
-| [5h — CI and regression policy](5h-ci.md) | Real remote CI proof and regression classification | criterion 6 |
+| [5h — CI and regression policy](5h-ci.md) | Real remote CI proof and regression classification; complete, E40 | criterion 6 |
 | [5i — Phase 1 closeout](5i-closeout.md) | Decision audit, corrections, and phase handoff | criteria 7 and 8 |
 
 The order is deliberate:

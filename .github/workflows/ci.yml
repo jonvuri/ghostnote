@@ -1,13 +1,12 @@
-# ghostnote CI — the offline half of the suite (PHASE-0 exit criterion 1).
+# ghostnote CI — the unattended offline gate.
 #
-# ⚠ UNTESTED. As of Phase 0 this repository has no git remote, so this workflow
-# has never executed. It is committed because it is the artifact that makes the
-# repo publishable, not because it is known green. The authoritative check on a
-# developer machine is `cd brain && npm run check` (plus `.githooks/pre-commit`).
+# Run 31974448060 passed for Phase 1 candidate
+# 01b716265a20cbf91e6c2c1e357fb69d489ee707 on 2026-08-16. The brain job ran
+# `npm run check` with the required Python oracle. The extension job built with
+# Java 21. See E40.
 #
-# Nothing here touches Bitwig. The live half — the archived `e00`-`e13` probes
-# and `npm run probe:conformance` — needs a running DAW and a human, and is run
-# by hand.
+# Nothing here touches Bitwig. Live probes need a running DAW. Some also need a
+# human editor. Run them manually under the E40 regression policy.
 name: ci
 
 on:
