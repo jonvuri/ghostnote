@@ -408,6 +408,74 @@ test('3g-d: MCP registration uses the same instrumented executor as direct calls
   assert.equal(stored.entries[0]?.type, 'ordinary-use');
 });
 
+test('3g-e: raw view and descriptive report use the same complete record', async () => {
+  const fx = fixture();
+  const begun = await call(fx, 'record_observation', {
+    operation: 'begin', requestedScope: 'device-only', rawScope: 'Compare a sound.',
+  });
+  const copied = await call(fx, 'copy_track', { trackId: fx.trackA, name: 'coarse copy' });
+  await call(fx, 'record_observation', {
+    operation: 'enrich',
+    instructionId: begun['instructionId'],
+    operatorResponse: 'vetoed',
+  });
+
+  const raw = await call(fx, 'read_observation_record') as {
+    record: { entries: unknown[] };
+    canonicalJson: string;
+  };
+  const stored = (await fx.observationStore.read()).value;
+  assert.equal(raw.canonicalJson, stored);
+  assert.deepEqual(raw.record, decodeObservationRecord(stored));
+  assert.equal(raw.record.entries.length, 2);
+
+  const report = await call(fx, 'report_observations') as {
+    totals: Record<string, number>;
+    managedEvents: Record<string, number>;
+    ordinaryUses: Record<string, number>;
+    operatorResponses: Record<string, number>;
+    crossTab: { descriptionVersion: string; actualResults: Record<string, number> }[];
+  };
+  assert.equal(report.totals['entries'], raw.record.entries.length);
+  assert.equal(report.totals['managedEvents'], 0);
+  assert.equal(report.totals['ordinaryUses'], 1);
+  assert.deepEqual(report.managedEvents, { deviceAlternate: 0, clipBlock: 0 });
+  assert.deepEqual(report.ordinaryUses, { copyTrack: 1 });
+  assert.deepEqual(report.operatorResponses, { silent: 0, accepted: 0, vetoed: 1 });
+  assert.deepEqual(report.crossTab[0]?.actualResults, {
+    deviceAlternateEvents: 0,
+    clipBlockEvents: 0,
+    copyTrackUses: 1,
+  });
+  assert.equal(report.crossTab[0]?.descriptionVersion, TOOL_DESCRIPTION_VERSION);
+  assert.equal(typeof copied['ordinaryUseId'], 'string');
+});
+
+test('3g-e cleanup regression: several track removals run from high position to low', async () => {
+  const fx = fixture();
+  const removed = await call(fx, 'delete_track', {
+    trackIds: [fx.trackA, fx.trackB],
+  });
+  assert.equal(removed['applied'], true);
+  assert.deepEqual(
+    fx.sent.filter((op) => op.op === 'track.delete')
+      .map((op) => op.op === 'track.delete' ? op.track.channelId : undefined),
+    [fx.trackB, fx.trackA],
+  );
+  assert.equal(fx.fake.model.visibleTracks().some((track) => track.channelId === fx.trackA), false);
+  assert.equal(fx.fake.model.visibleTracks().some((track) => track.channelId === fx.trackB), false);
+
+  const duplicateFx = fixture();
+  const refusedDuplicate = await call(duplicateFx, 'delete_track', {
+    trackIds: [duplicateFx.trackA, duplicateFx.trackA],
+  });
+  assert.equal(refusedDuplicate['refused'], true);
+  assert.deepEqual(duplicateFx.sent, []);
+  assert.ok(duplicateFx.fake.model.visibleTracks().some(
+    (track) => track.channelId === duplicateFx.trackA,
+  ));
+});
+
 // --- exit criterion 7: it all runs, and what it sends is what it declared ----
 
 test('T-surface: every tool runs offline, and emits only what it declares', async () => {
@@ -433,6 +501,14 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   // -- reading first: an agent with no ids has nowhere else to start.
   const connection = await exercise('check_connection', {});
   assert.equal(connection['reachable'], true);
+
+  const rawObservations = await exercise('read_observation_record', {}) as {
+    record: { entries: unknown[] };
+  };
+  assert.deepEqual(rawObservations.record.entries, []);
+  assert.equal((await exercise('report_observations', {}) as {
+    totals: { entries: number };
+  }).totals.entries, 0);
 
   const listed = await exercise('list_tracks', {}) as {
     tracks: { trackId: string; name: string }[];

@@ -64,6 +64,7 @@ import {
 import { branchProtected, directedDestruction } from '../engine/index.js';
 import { FX_LAYER_UUID, INSTRUMENT_LAYER_SEED_PATH } from '../device-alternates/assets.js';
 import {
+  reportObservationRecord,
   reportObservationFailureAfterProjectWrite,
   type ConfirmedToolResult,
   type JsonValue,
@@ -381,6 +382,40 @@ export const TOOLS: readonly ToolSpec[] = [
           tracks: coverage(at.window.tracks),
           rows: coverage(at.window.scenes),
         };
+      });
+    },
+  }),
+
+  tool({
+    name: 'read_observation_record',
+    kind: 'read',
+    title: 'Read the raw observation record',
+    description:
+      'Return the complete validated per-project observation record and its canonical JSON. '
+      + 'Every raw instruction, independent managed event, ordinary track-copy use, response, '
+      + 'result identity, and description version stays present. This tool does not classify, '
+      + 'compact, delete, or change the record.',
+    inputSchema: {},
+    async run(workspace) {
+      return writing(async () => workspace.observations.snapshot());
+    },
+  }),
+
+  tool({
+    name: 'report_observations',
+    kind: 'read',
+    title: 'Report observation counts',
+    description:
+      'Return descriptive counts and response rates from the complete per-project observation '
+      + 'record. The report cross-tabulates caller-supplied requested scope with separate counts '
+      + 'for device events, launcher-clip events, and ordinary track copies. It also reports '
+      + 'no-result instructions and choice diversity. The report does not score, recommend, '
+      + 'redirect, or select a tool.',
+    inputSchema: {},
+    async run(workspace) {
+      return writing(async () => {
+        const snapshot = await workspace.observations.snapshot();
+        return reportObservationRecord(snapshot.record);
       });
     },
   }),
@@ -2587,7 +2622,23 @@ export const TOOLS: readonly ToolSpec[] = [
     emits: ['track.delete'],
     async run(workspace, args) {
       return writing(async () => {
-        const ops: Op[] = args.trackIds.map((id) => ({ op: 'track.delete', track: trackAt(id) }));
+        if (new Set(args.trackIds).size !== args.trackIds.length) {
+          return {
+            refused: true,
+            why: 'each track id can appear only once. Nothing was removed.',
+          };
+        }
+        const positions = new Map(
+          (await workspace.tracks()).map((track) => [track.channelId, track.position]),
+        );
+        // The live adapter resolves durable ids before it sends the batch. A
+        // lower removal shifts every higher bank position, so remove from the
+        // highest observed position to the lowest.
+        const ops: Op[] = args.trackIds
+          .map((id) => ({ op: 'track.delete' as const, track: trackAt(id) }))
+          .sort((left, right) =>
+            (positions.get(right.track.channelId) ?? -1)
+              - (positions.get(left.track.channelId) ?? -1));
         return receiptOf(
           await workspace.apply(ops, { clearance: directedDestruction('delete_track') }),
         );

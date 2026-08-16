@@ -1,12 +1,12 @@
 ---
 title: Phase 1, session 4 — the in-Bitwig control layer
 kind: plan
-state: planned
-status: REVISED 2026-08-15. Runs after 3g-e closes observation reporting and the
-        v1 description program. The panel owns deliberate human verbs and
-        status; managed A/B remains in Bitwig's layer-solo and clip-launch
-        surfaces.
-updated: 2026-08-15
+state: active
+status: READY 2026-08-16. Session 3g-e closed observation reporting and the v1
+        description program offline and live. The panel owns deliberate human
+        verbs and status; managed A/B remains in Bitwig's layer-solo and
+        clip-launch surfaces.
+updated: 2026-08-16
 parent: README.md
 prev: 3g-e-reporting.md
 next: 5-proving.md

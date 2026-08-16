@@ -182,6 +182,7 @@
     "probe:3f-collapse-audio": "tsx src/probes/phase3f-collapse-audio.ts",
     "probe:3g-persistence": "tsx src/probes/phase3g-persistence.ts",
     "probe:3g-instrumentation": "tsx src/probes/phase3g-instrumentation.ts",
+    "probe:3g-reporting": "tsx src/probes/phase3g-reporting.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

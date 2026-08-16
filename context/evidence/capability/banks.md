@@ -2,7 +2,7 @@
 title: Banks — windows, eviction order and pre-allocation
 kind: capability
 state: active
-updated: 2026-08-15
+updated: 2026-08-16
 scope: bank windows, cursor pools, scaffold sizes and init-time allocation
 evidence: E1, E5, E14, E15, E16r, E16u, E22; D6, D7, D20
 ---
@@ -94,6 +94,20 @@ row by the same rule.
 ⚠ **Never justified on disk grounds.** A copied track costs about **20 KB** and
 no measurable save time [K, [E16u](../experiments/e16u-a-branch-costs-20-kb-on-disk-and-nothing-in-save-time-k-2026-07-.md)]. The budget argument is about
 addressability alone.
+
+### ⚠ Several track removals must run from high position to low
+
+The live adapter resolves every durable track id to a bank position before it
+sends a batch. A removal then compacts higher positions. In the first 3g-e
+cleanup, removing a lower disposable track first shifted `FX 1` into the wire
+position already resolved for the second disposable track. The second frame
+removed `FX 1` while the receipt still named the intended durable id [K, live
+3g-e cleanup, 2026-08-16]. Native undo restored `FX 1` under its original id.
+
+⇒ A batch of track removals must reject repeated ids and send unique targets from
+the highest observed position to the lowest. The corrected two-track cleanup
+preserved all 10 baseline ids live [K, 2026-08-16]. A durable input identity does
+not make a pre-resolved wire position durable after an earlier structural frame.
 
 ---
 
@@ -223,4 +237,5 @@ actually ask [K, E16r].
 
 | Date | Change |
 |---|---|
+| 2026-08-16 | Added the measured high-to-low rule for several track removals after the 3g-e cleanup incident and recovery. |
 | 2026-08-15 | Page created. It supersedes the *reading* of E5's "state outside the window is unsnapshottable", which E16r sharpened to "unaddressable and un-cleanable". |

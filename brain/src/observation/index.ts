@@ -52,4 +52,15 @@ export type {
   EnrichInstructionInput,
   ObservationCaptureOptions,
   ObservationExecution,
+  ObservationSnapshot,
 } from './capture.js';
+
+export { reportObservationRecord } from './report.js';
+export type {
+  ActualResultProfile,
+  ObservationCrossTabRow,
+  ObservationReport,
+  ObservationScopeSummary,
+  OperatorResponseCounts,
+  OperatorResponseRates,
+} from './report.js';

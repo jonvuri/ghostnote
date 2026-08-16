@@ -1,9 +1,9 @@
 ---
 title: Phase 1, session 3g — observation and v1 description program
 kind: plan
-state: planned
-status: IN PROGRESS 2026-08-16. Sessions 3g-a through 3g-d are complete.
-        Session 3g-e is next.
+state: complete
+status: COMPLETE 2026-08-16. All five sessions pass offline and live with exact
+        restart survival and cleanup.
 updated: 2026-08-16
 parent: README.md
 prev: 3f-fork-chain.md
@@ -97,3 +97,16 @@ both are complete.
 6. Reporting stratifies requested scope and actual structure without prescribing
    a choice.
 7. Offline and live end-to-end checks pass with no fixture residue.
+
+## Completion — 2026-08-16
+
+Sessions 3g-a through 3g-e are complete. The per-project record has strict
+schema-v1 data, hidden persistent transport, one frozen public description
+cohort, shared production capture, lossless raw reading, and descriptive
+aggregate reporting. The controlled record survived a full restart exactly.
+The hidden field remained absent and responsive. Corrected cleanup restored the
+empty record and all 10 baseline track identities.
+
+No reporting path scores, recommends, redirects, or dispatches a tool. Device
+and clip events remain independent. Ordinary track copies remain outside managed
+event counts.

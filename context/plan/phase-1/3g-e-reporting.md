@@ -1,8 +1,9 @@
 ---
 title: Phase 1, session 3g-e — reporting and live closure
 kind: plan
-state: active
-status: READY 2026-08-16. Production recording and its live proof are complete.
+state: complete
+status: COMPLETE 2026-08-16. Raw and aggregate reporting, restart survival,
+        hidden-field visibility, and exact cleanup pass offline and live.
 updated: 2026-08-16
 parent: 3g-record.md
 prev: 3g-d-instrumentation.md
@@ -60,3 +61,41 @@ needs: Bitwig running; human confirmation of the settings pane
 8. Brain checks, extension tests, context check, `git diff --check`, live
    conformance, and the full 3g production MCP smoke pass.
 9. No track, clip, scene, container, device, or transport residue remains.
+
+## Completion — 2026-08-16
+
+`read_observation_record` returns the complete validated record and its canonical
+JSON. `report_observations` returns descriptive entry totals, independent device
+and clip event counts, ordinary track-copy counts, unreferenced-result counts,
+response counts and rates, description-version totals, scope summaries, and an
+exact requested-scope by result-profile cross-tab. Each result profile keeps
+device events, clip events, and track-copy uses separate. The report makes no
+score, default, recommendation, redirect, or dispatch decision.
+
+The controlled production record held six instructions: device-only,
+launcher-clip-only, mixed, ordinary track-copy, explicit veto, and no action. It
+held 11 rows: six instructions, four managed events, and one ordinary use. The
+responses were three accepted, one vetoed, and two silent. Raw JSON and the full
+aggregate report survived a save, full Bitwig restart, and project reopen
+exactly. Every row retained `ghostnote-description-v1`. The operator confirmed
+that the `Observation record` field was absent and that the controller pane was
+responsive.
+
+The first cleanup found a positional batch defect in `delete_track`. Two durable
+ids were resolved before either removal, so removing the lower position first
+shifted the second position onto `FX 1`. The operator restored `FX 1` with native
+undo under its original durable id. `delete_track` now refuses repeated ids and
+orders several removals from the highest observed position to the lowest. A
+focused offline regression and a live two-track cleanup rerun both pass. The
+prior empty record and all 10 baseline track ids are restored exactly.
+
+Brain typecheck and **492/492** offline tests pass. Extension Gradle test,
+context check, and `git diff --check` pass. Live conformance passes **52/0/6**.
+The restart reporting smoke passes **P0-P7**, and the corrected preserving
+cleanup passes **3/3** with no fixture residue.
+
+## Retrospective
+
+Structural batches need an ordering audit whenever one operation changes the
+position used by a later operation. A durable input id does not make a
+pre-resolved wire position durable within that batch.

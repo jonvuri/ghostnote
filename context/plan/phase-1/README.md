@@ -4,7 +4,7 @@ kind: plan
 state: active
 updated: 2026-08-16
 parent: ../ROADMAP.md
-active_session: 3g-e-reporting.md
+active_session: 4-control-layer.md
 ---
 
 # Phase 1 — write engine and managed takes
@@ -35,7 +35,7 @@ three-way dispatch classifier is retired.
 1. ~~[3e — clip block](3e-clip-block.md)~~ — done
 2. ~~[3f — track-copy CRUD and layer-chain lifecycle](3f-fork-chain.md)~~ — done;
    complete lifecycle and 3g mechanics handoff verified live
-3. [3g — observation and v1 description program](3g-record.md)
+3. ~~[3g — observation and v1 description program](3g-record.md)~~ — done
    - ~~[3g-a — observation contract and capture
      protocol](3g-a-observation-contract.md)~~ — done; strict schema-v1 record,
      canonical codec, capture protocol and failure report verified offline
@@ -45,8 +45,10 @@ three-way dispatch classifier is retired.
      exact 15-tool public artifact frozen as `ghostnote-description-v1`
    - ~~[3g-d — production event instrumentation](3g-d-instrumentation.md)~~ —
      done; shared capture and preserving production MCP smoke verified live
-   - [3g-e — reporting and live closure](3g-e-reporting.md) — ready
-4. [4 — control layer](4-control-layer.md)
+   - ~~[3g-e — reporting and live closure](3g-e-reporting.md)~~ — done; lossless
+     raw view, descriptive cross-tab, restart survival, visibility, and exact
+     cleanup verified live
+4. [4 — control layer](4-control-layer.md) — ready
 5. [5 — live proving](5-proving.md)
 6. [6 — async completion](6-async.md), optional
 

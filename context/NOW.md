@@ -4,151 +4,51 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-3g-e
+session: phase-1-session-4
 ---
 
 # Now
 
-Phase 1 is **ready to begin session 3g-e**. Session 3g-d production
-instrumentation is complete and verified live.
+Phase 1 is **ready to begin session 4**. The complete 3g observation and v1
+description program is closed offline and live.
 
 ## Baseline
 
-- `copy_track` remains ordinary track CRUD. Device alternates and clip blocks are
+- `copy_track` is ordinary track CRUD. Device alternates and clip blocks are
   independent managed representations.
-- The device lifecycle is production-reachable through stable inspect, create,
-  fill, switch, selective-reduction and winner-collapse tool identities.
-- Device alternates carry devices and device state, not clips, sends, routing or
-  track-mixer state. Cross-device modulation remains unmeasured and unclaimed.
-- Container reads and writes use cursor-free `Rig.slotLayerBanks`; only the first
-  two top-level device positions have observable container scopes.
-- Chains are addressed by container position plus durable name. Their
-  `channelId` is only a within-turn creation witness.
-- Only `chain.relocate` may route nested devices. Every other nested-device write
-  remains behind `assertDevicesRoutable`.
-- The wire golden is 149 methods / `bd01617c718f5c50`.
+- The observation record is empty. The project has its exact 10 baseline track
+  ids, including `FX 1` and Master, with no probe residue.
+- The hidden per-project record survives a full restart. Its field is absent
+  from the controller pane, and the pane remains responsive.
+- `ghostnote-description-v1` remains the frozen 15-tool cohort at SHA-256
+  `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
+- The wire golden remains 149 methods / `bd01617c718f5c50`.
 
-## Session 3f-i — complete 2026-08-15, verified live
+## Session 3g-e — complete 2026-08-16, verified live
 
-The six-tool device-alternate cohort was reviewed as one lifecycle. Its public
-names, privilege classes, input identities and emitted contract operations are
-now guarded together for the 3g handoff; 3g still owns the cohort-wide wording
-review and v1 description freeze. A successful `create_device_alternates` call
-is one device-alternate event. Inspection, filling, switching and both reduction
-operations act on that existing event and do not create another one.
+The read-only raw view returns the complete canonical record. Descriptive
+reporting reconciles instruction, managed-event, and ordinary-use totals. It
+cross-tabulates requested scope against separate device-event, clip-event, and
+track-copy counts. It reports silent, accepted, and vetoed responses with choice
+diversity. It adds no score, recommendation, redirect, or dispatch rule.
 
-`add_track` now implements its claimed exact-name behavior. It creates the
-tracks, reads back each fresh durable id, applies a separate typed rename through
-that id, and independently confirms every requested name. Its production result
-distinguishes creation confirmation from name confirmation. The lifecycle smoke
-proved the requested source name in Bitwig rather than accepting the create
-acknowledgement.
+The six-case production record survived save, full restart, and reopen exactly.
+The initial cleanup exposed and recovered a positional multi-track deletion
+defect. `delete_track` now rejects repeated ids and removes several tracks from
+the highest observed position to the lowest. The corrected cleanup passed live
+and restored all 10 baseline ids and the prior empty record.
 
-Verification at this boundary:
+Verification: brain typecheck and **492/492** tests; extension Gradle test;
+context check; `git diff --check`; live conformance **52/0/6**; restart smoke
+**P0-P7**; corrected cleanup **3/3**.
 
-- brain typecheck and **457/457** offline tests pass;
-- extension Gradle test, context check and `git diff --check` pass;
-- live conformance passes **52/0/6**;
-- production MCP smoke passes **18/18, P0-P17** across create, fill, switch,
-  selective reduction, state comparison, winner collapse and exact cleanup;
-- production cleanup removed both minted track ids, then conformance cleanup
-  removed `gn-conf-A` and `gn-conf-B`. The project is at its documented 10-track
-  baseline with Master visible and no probe residue.
+## Next session
 
-## Session 3g-a — complete 2026-08-15
+Start [session 4](plan/phase-1/4-control-layer.md). Replace the probe panel with
+the smallest product control layer for directed reversal, status, and navigation.
+Keep the observation setting hidden at construction.
 
-The strict schema-v1 envelope separates instruction observations, managed events,
-and ordinary track-copy uses. Stable entry and execution ids prevent one tool
-execution from producing two result rows. Correlation records provenance only;
-mixed device and clip events keep independent identities and lifecycles.
+## Retrospective
 
-The canonical codec rejects malformed data, unknown schema versions, broken
-references, duplicate identities, and complete values over capacity. It never
-truncates or evicts. The capture protocol keeps operator response `silent` until
-explicit input supplies `accepted` or `vetoed`. A confirmed project write followed
-by a failed record update reports both facts as a partial success.
-
-Brain typecheck and **467/467** offline tests pass, including **10/10** focused
-observation tests. Context check and `git diff --check` pass. No live Bitwig run
-was required.
-
-## Session 3g-b — complete 2026-08-15, verified live
-
-The extension now creates one hidden 262144-character observation setting during
-`init()`. Dedicated product methods read and replace its opaque string. Generic
-UI setting methods remain probe-only. The brain owns canonical JSON and schema
-validation through a separate `Session.observations` store. It polls bounded
-exact readback and reports absence, downcast refusal, overflow, stale readback,
-and detected project-name changes separately. Bitwig API 25 exposes no stable
-project id, so same-name tab switches remain indistinguishable. `DocumentState`
-still scopes the value per project. The retired E20d capacity probe now refuses
-before it can replace production observation data.
-
-Brain typecheck and **478/478** offline tests pass, including **18/18** focused
-observation tests. Extension Gradle test, context check, and `git diff --check`
-pass. Live, exact empty, populated, and Unicode values round-tripped; overflow
-did not replace the prior value. A marker survived save, controller reload,
-project switching, and full application restart. Another project did not reuse
-it. Cleanup removed the marker and the two reloaded `gn-conf-*` fixtures. The
-project is again at its 10-track baseline with Master visible. The operator
-confirmed that the observation row is absent from the settings pane.
-
-The review fix makes the E20d capacity probe refuse before record access and
-names the lossy foreground-project guard accurately. API 25 source confirms
-that it exposes no stable project id. The reloaded build passed the live hello
-and preserving persistence smoke. Empty, populated, Unicode, bounded readback,
-and overflow refusal passed, and the original record was restored exactly.
-
-## Session 3g-c — complete 2026-08-15
-
-The explicit manifest contains the six device-alternate tools, six clip-block
-tools, ordinary `copy_track`, and two support tools. `add_scenes` supplies missing
-clip rows. `delete_track` supplies directed track-copy cleanup. The canonical
-public artifact includes each name, title, description, draft-7 input schema,
-and derived privilege annotations. `ghostnote-description-v1` maps to SHA-256
-`9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-
-The wording now states the two-position device-container observation limit,
-audible device seams, and clip-launch playback reversal limit. `copy_track`
-remains ordinary editing. All lexical bans remain in force. The 3f-i identities,
-privilege classes, input identities, and emitted operations are unchanged.
-
-Brain typecheck and **480/480** offline tests pass. Context check and
-`git diff --check` pass. No live project mutation was required.
-
-## Session 3g-d — complete 2026-08-16, verified live
-
-Direct calls and MCP registration now use one instrumented execution wrapper.
-Declarative metadata limits result rows to confirmed device-alternate creation,
-confirmed clip-block creation, and confirmed ordinary `copy_track` use. Creator
-results return a managed-event id. Track copy returns an ordinary-use id.
-
-`record_observation` begins or enriches explicit caller context. One active
-instruction can correlate independent device and clip results without linking
-their execution or lifecycle identities. Rationale and operator response remain
-explicit. All persisted entries use `ghostnote-description-v1`. A record failure
-after a confirmed project write returns a typed partial-success result.
-
-Brain typecheck and **486/486** offline tests pass. The focused 3g-d surface suite
-passes **49/49**. Context check and `git diff --check` pass. Live conformance
-passes **18/0/1**. The production MCP smoke passes **14/14, P0-P13**. It proved
-the mixed instruction, independent event and execution ids, ordinary track-copy
-use, refusal behavior, v1 stamping, and exact cleanup.
-
-The smoke restored the prior empty observation record exactly and removed both
-disposable track ids. Conformance cleanup removed `gn-conf-A` and `gn-conf-B`.
-The project is at its documented 10-track baseline with Master visible and no
-probe residue.
-
-## Session 3g-e — next
-
-Add the raw record view and descriptive aggregate reporting. Then run the full
-save, restart, visibility, and cleanup closure for the observation program.
-
-## Planning retrospective
-
-Build a description fingerprint from the same draft-7 input conversion that the
-MCP server sends. A different schema draft can make a false golden.
-
-Run conformance cleanup before a device-instrumentation smoke. Let the track bank
-settle before the smoke creates its first disposable track.
+Audit the order of every structural batch. Durable ids become positional wire
+targets before send, so an earlier removal can invalidate a later frame.

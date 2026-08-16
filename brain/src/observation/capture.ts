@@ -23,6 +23,11 @@ export interface ObservationCaptureOptions {
   readonly now?: () => number;
 }
 
+export interface ObservationSnapshot {
+  readonly record: ObservationRecordV1;
+  readonly canonicalJson: string;
+}
+
 export interface ObservationExecution {
   readonly executionId: string;
   readonly resultId: string;
@@ -90,6 +95,17 @@ export class ObservationCapture {
       correlationId: this.active?.correlationId ?? this.newId(),
       ...(this.active === undefined ? {} : { instructionId: this.active.instructionId }),
     };
+  }
+
+  /** Read one complete validated record after earlier capture work settles. */
+  async snapshot(): Promise<ObservationSnapshot> {
+    return this.exclusive(async () => {
+      const stored = await this.read();
+      return {
+        record: stored.record,
+        canonicalJson: encodeObservationRecord(stored.record),
+      };
+    });
   }
 
   /** Create caller context and make it active for later confirmed results. */
