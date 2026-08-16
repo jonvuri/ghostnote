@@ -4,7 +4,8 @@ kind: plan
 state: planned
 status: not started. ⚠ Premises revised 2026-08-14 (D18 re-plan) — see the
         banner below: the CLIP BLOCK is Phase 1's deliverable, there is no take
-        store, and "staged vs direct" is answered by the model.
+        store, and direct writing with scoped protection is settled. Phase 1 is
+        complete.
 updated: 2026-08-16
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
@@ -101,17 +102,26 @@ diff should show.
   whether ghostnote is a *tool* the model drives or a *library* it calls.
 - **Where quantization loss is allowed to happen**, and whether it is ever silent
   (recommendation: never — report it, per §8c's reporting discipline).
-- **Whether generated material is written directly or staged.** Optimistic apply says
-  directly. Worth revisiting once takes are real, because "generate four variations"
-  is a natural request that maps well onto branchable takes (D5).
+- **When generated material needs managed protection.** Writes are direct and
+  stash-backed. Use a clip block when the D18 fidelity floor requires protection
+  or when the human asks for alternates. For example, "generate four variations"
+  maps to a four-clip block. This phase does not reopen direct versus staged
+  writing.
+
+## Deferred optimization
+
+[Async batch completion](../phase-1/6-async.md) moved out of Phase 1. It is not a
+prerequisite for this phase. Schedule it only if a measured musical workload
+shows that staged completion or the 2N expression-stage cost blocks useful work.
 
 ## Exit criteria
 
 1. You can hold a conversation with an agent through an ordinary MCP client and get
    musically useful clip content into Bitwig, without touching the DAW.
-2. Every operation is checkpointed as a take, verified by readback, and
-   reversible through Phase 1's directed `revert_change` path. Recorded clip
-   changes can open in Bitwig's editor.
+2. Every write has a stash-backed changeset, is verified by readback, and is
+   reversible through Phase 1's directed `revert_change` path within its stated
+   fidelity. Branch-protected clip work uses a clip block. Recorded clip changes
+   can open in Bitwig's editor.
 3. A regression suite covers the complete 21-property contract offline against
    the Phase-0 fake and live against Bitwig: all 20 exact members round-trip,
    gain uses the E24 inverse, and pressure refusal is explicit.

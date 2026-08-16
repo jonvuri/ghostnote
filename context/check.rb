@@ -25,7 +25,11 @@ active_sessions = Dir.glob(File.join(root, "plan/phase-1/*.md")).reject do |path
 end.select do |path|
   File.read(path).match?(/^state: active$/)
 end
-errors << "expected one active Phase 1 session, found #{active_sessions.length}" unless active_sessions.length == 1
+phase_one = File.read(File.join(root, "plan/phase-1/README.md"))
+expected_active_sessions = phase_one.match?(/^state: complete$/) ? 0 : 1
+unless active_sessions.length == expected_active_sessions
+  errors << "expected #{expected_active_sessions} active Phase 1 sessions, found #{active_sessions.length}"
+end
 
 if errors.empty?
   puts "context check passed: #{files.length} active documents, links intact"

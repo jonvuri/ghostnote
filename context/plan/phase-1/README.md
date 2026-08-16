@@ -1,10 +1,10 @@
 ---
 title: Phase 1 — write engine and managed takes
 kind: plan
-state: active
+state: complete
 updated: 2026-08-16
 parent: ../ROADMAP.md
-active_session: 5-proving.md
+outcome: ../../archive/outcomes/PHASE-1.md
 ---
 
 # Phase 1 — write engine and managed takes
@@ -57,8 +57,8 @@ three-way dispatch classifier is retired.
    - ~~[4b — navigation to a recorded clip change](4b-change-navigation.md)~~ —
      done; explicit durable targeting, ambiguity, missing-target refusal, Edit
      layout, and fitted content verified live
-5. [5 — live proving program](5-proving.md) — active; the focused re-cut was
-   approved 2026-08-16
+5. ~~[5 — live proving program](5-proving.md)~~ — complete; all eight program
+   exit criteria close from linked evidence
    - ~~[5a — selection preservation](5a-selection.md)~~ — complete; B4 passes
      8/8 live with cleanup (E23)
    - ~~[5b — note fidelity and gain](5b-fidelity.md)~~ — complete; 20 exact
@@ -90,13 +90,18 @@ three-way dispatch classifier is retired.
    - ~~[5h — CI and regression policy](5h-ci.md)~~ — complete; both remote CI
      jobs pass for candidate `01b7162`, and every Session 5 probe has a class
      and owner (E40)
-   - [5i — Phase 1 closeout](5i-closeout.md) — decision and phase closure
-6. [6 — async completion](6-async.md), optional
+   - ~~[5i — Phase 1 closeout](5i-closeout.md)~~ — complete; decisions audited,
+     Phase 1 closed, and Phase 2 premises corrected
+6. [6 — async completion](6-async.md) — deferred to Phase 2; run only after a
+   measured staging cost justifies its wire and thread-confinement risk
 
 Completed session records stay in their session briefs and under
 `archive/outcomes/`. [NOW](../../NOW.md) contains only the next-session handoff.
 The original combined Phase 1 plan, including re-plan and renumbering history,
 remains in `archive/plans/PHASE-1-ENGINE.md`.
+
+The final evidence map, qualifications, and regression policy are in the
+[Phase 1 outcome](../../archive/outcomes/PHASE-1.md).
 
 ## Phase exit
 
@@ -108,3 +113,7 @@ remains in `archive/plans/PHASE-1-ENGINE.md`.
 - Reversal and destructive boundaries match D18–D20.
 - A human can compare two takes from Bitwig without a ghostnote-specific A/B UI.
 - Live conformance covers the address, write, branch, and control paths.
+
+All exit conditions are complete. E39 records 53 passing runnable live cases
+and 6 qualified skips. E40 records the passing candidate CI run and standing
+regression matrix.

@@ -1,9 +1,10 @@
 ---
 title: Phase 1, session 5 — live proving program
 kind: plan
-state: active
-status: Sessions 5a through 5h and all focused repairs are complete. Prepare
-        session 5i closeout.
+state: complete
+status: Complete 2026-08-16. Sessions 5a through 5i and all focused repairs are
+        complete. All eight program exit criteria are closed from linked
+        evidence.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
@@ -95,7 +96,13 @@ generated tracks by durable identity and restored the exact project baseline.
 Session 5h is complete. GitHub Actions run 31974448060 passed the brain and
 extension jobs for exact candidate
 `01b716265a20cbf91e6c2c1e357fb69d489ee707`. E40 records the remote proof and
-the four-class regression policy. Session 5i is next.
+the four-class regression policy.
+
+Session 5i is complete. The decision audit passed without an amendment. The six
+original Phase 1 criteria map to E24, E32, E33, E34, and E40. The bank-window
+claim keeps its existing-live-plus-fake qualification. The
+[Phase 1 outcome](../../archive/outcomes/PHASE-1.md) records the final map and
+standing regression matrix. Optional async completion is deferred to Phase 2.
 
 ## The 21-property contract
 
@@ -127,7 +134,7 @@ Later plans must say that 20 of 21 properties are exact and pressure is refused.
 | [5g repair — two-clip property isolation](5g-repair-two-clip-properties.md) | Diagnose and repair E35's cross-clip pan read; complete, E36 | repair only |
 | [5g repair — two-clip revert confirmation](5g-repair-two-clip-revert-confirmation.md) | Poll pin settlement without restarting a confirmed target; complete, E38 | repair only |
 | [5h — CI and regression policy](5h-ci.md) | Real remote CI proof and regression classification; complete, E40 | criterion 6 |
-| [5i — Phase 1 closeout](5i-closeout.md) | Decision audit, corrections, and phase handoff | criteria 7 and 8 |
+| [5i — Phase 1 closeout](5i-closeout.md) | Decision audit, corrections, and phase handoff; complete | criteria 7 and 8 |
 
 The order is deliberate:
 
@@ -174,3 +181,16 @@ The order is deliberate:
 The archived combined engine plan remains historical. Session 5i records the
 final correction in the current Phase 1 plan and outcome documents instead of
 rewriting archived prose.
+
+## Closeout
+
+All eight program exit criteria are complete. E24 proves criterion 1. E32 proves
+criterion 2. E33 proves criteria 3 and 5. E34 proves criterion 4. E40 proves
+criterion 6. The Session 5i decision audit proves criterion 7, and this closed
+plan plus the Phase 1 outcome record proves criterion 8.
+
+Criterion 5 is qualified. Its regression is the fake refusal matrix, supported
+by the existing live bank measurements in E5/e05b, E15-A, E16r, and E21. Phase 1
+does not claim a fresh destructive overflow sweep. E39 provides the final full
+live conformance result: 53 runnable cases passed and 6 deliberate skips retain
+their named evidence.

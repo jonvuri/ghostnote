@@ -1,24 +1,31 @@
 ---
-title: Phase 1, session 6 — async batch completion (OPTIONAL; may slip to Phase 2)
+title: Deferred async batch completion (Phase 2 option)
 kind: plan
-state: optional
-status: not started — optional
+state: deferred
+status: Deferred to Phase 2 on 2026-08-16. Run only if Phase 2 measures a batch
+        completion or expression-stage cost that justifies this wire change.
 updated: 2026-08-16
-parent: README.md
+parent: ../phase-2/README.md
 prev: 5i-closeout.md
 next: ../phase-2/README.md
 scope: PHASE-1-ENGINE.md item 7
 evidence: E8, E15-D, E15-F · D10
 ---
 
-# Phase 1, session 6 — async batch completion
+# Deferred async batch completion
 
 > **Purpose.** Build the deferred-response protocol E8 flagged as an open Phase-1
 > item, so a paced batch can report **completion** rather than only acceptance.
 > Two things fall out of the same mechanism, which is the argument for building
 > it at all.
 
-## ⚠ This session is optional and may slip to Phase 2
+## Disposition
+
+Phase 1 closed without this work. Phase 2 owns the option. Do not schedule it
+before the musical clip surface. Schedule it only if a measured Phase 2 workload
+shows that staged completion or the 2N expression-stage cost blocks useful work.
+
+## ⚠ This session is optional in Phase 2
 
 **No Phase-1 exit criterion depends on it.** Session 1's staging already sidesteps
 the problem entirely: instead of passing `delayMs` and hoping, the brain partitions

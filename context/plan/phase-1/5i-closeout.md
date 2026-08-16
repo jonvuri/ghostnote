@@ -1,8 +1,10 @@
 ---
 title: Phase 1, session 5i — closeout
 kind: plan
-state: planned
-status: Not started. Depends on sessions 5a–5h.
+state: complete
+status: Complete 2026-08-16. The decision audit passed. All six Phase 1 exit
+        criteria map to direct evidence. Phase 1 is closed, and optional async
+        completion is deferred until Phase 2 produces a measured need.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5h-ci.md
@@ -68,3 +70,19 @@ and thread-confinement risk is larger than its current Phase 1 value.
 4. The selected next session is explicit in `NOW.md`.
 5. The context check, full offline check, and `git diff --check` pass.
 6. Only closeout changes are staged. Nothing is committed.
+
+## Outcome
+
+The decision audit passed without an amendment. D6 and D16 define durable track
+identity and bounded positional identity. D15 requires independent-handle
+verification. D17 retires the take store but keeps the stash and whole-address
+partial revert. D18 keeps layer chains and clip blocks independent and leaves
+track copy as ordinary CRUD. D14 uses Bitwig-native A/B with no ghostnote
+switcher. D8 and D16 record exact gain through the measured inverse and refuse
+pressure. D19 and D20 keep reversal directed and destruction at zero initiative.
+
+The six evidence-backed Phase 1 criteria are recorded in the
+[Phase 1 outcome](../../archive/outcomes/PHASE-1.md). The standing regression
+matrix remains in E40 and is reproduced in that outcome record. Phase 2 now
+states the stash and managed-take model directly. Session 6 moves to Phase 2 as
+an optional optimization and does not precede the musical clip surface.

@@ -3,32 +3,26 @@ title: Current state
 kind: status
 state: active
 updated: 2026-08-16
-phase: phase-1
-session: phase-1-session-5i-closeout
+phase: phase-2
+session: phase-2-planning
 ---
 
 # Now
 
-Prepare [Session 5i closeout](plan/phase-1/5i-closeout.md). Session 5h is
-complete. E40 records GitHub Actions run 31974448060 for exact candidate
-`01b716265a20cbf91e6c2c1e357fb69d489ee707`. Both jobs passed. The brain job
-ran all 545 tests with no failures or skips, including the fake conformance
-suite and required Python oracle. The extension built with Java 21.
-
-The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5h, all three 5d repairs, and both 5g repairs are
-complete (E23–E25, E27, E29, E31–E34, E36, E38–E40). Session 5i remains
-planned. Phase 1 exit criteria 1 through 6 are complete.
+Phase 1 is complete. The [Phase 1 outcome](archive/outcomes/PHASE-1.md) maps all
+six original exit criteria to evidence and records their qualifications. E39
+records full live conformance. E40 records passing remote CI for candidate
+`01b716265a20cbf91e6c2c1e357fb69d489ee707` and the standing regression matrix.
 
 ## Start here
 
-1. Review and commit the staged 5h context and workflow-header changes.
-2. Read the 5i brief and audit D6, D8, and D14 through D20.
-3. Map all six Phase 1 exit criteria to exact evidence and qualifications.
-4. Close the current Phase 1 plan and roadmap. Do not rewrite archived plans.
-5. Correct any active Phase 2 premise that conflicts with Session 5 evidence.
-6. Record the Phase 1 outcome and select the next session. The current
-   recommendation is to defer optional Session 6 to Phase 2.
+1. Read the [Phase 2 plan](plan/phase-2/README.md), D8, D16, and D18 through D20.
+2. Cut the first focused Phase 2 session for the musical clip vocabulary and its
+   MCP surface.
+3. Keep direct writes stash-backed. Use clip blocks for requested or required
+   clip alternates.
+4. Do not schedule [async batch completion](plan/phase-1/6-async.md) unless a
+   measured Phase 2 workload justifies it.
 
 ## Baseline
 
@@ -63,5 +57,5 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-Keep the Actions run URL with downloaded logs. The archive does not contain the
-run ID. No repository instruction change is needed.
+The closeout brief identified the exact active documents that needed changes.
+No repository instruction change is needed.
