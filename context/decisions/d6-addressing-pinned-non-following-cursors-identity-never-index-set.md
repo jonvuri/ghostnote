@@ -23,7 +23,11 @@ outlives the request that resolved it.**
   both handles and confirms the track, row, track pin, and clip pin in one
   status reading before it records the hold. The fast path waits 25 ms. Retries
   wait the 144 ms structural budget. Eight failed attempts refuse with
-  `AddressUnresolvedError`.
+  `AddressUnresolvedError`. **Amended by E38:** target acquisition and pin
+  settlement are separate states. A target miss repeats the complete point. A
+  pin miss polls in place without canceling the pending pins. It repeats the
+  point only if the exact target moves. The refusal states which confirmation
+  state failed.
 - **Cursor pools are non-following BY CONSTRUCTION** (`shouldFollowSelection=false`
   at creation); pinning is belt-and-suspenders on top (E1). 3 cursors held 3
   different clips concurrently, and 20/20 write+readback cycles stayed correct

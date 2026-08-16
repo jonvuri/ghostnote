@@ -80,13 +80,13 @@ three-way dispatch classifier is retired.
      controls, mixed bookkeeping, and ordinary track copy pass live (E34)
    - [5g — full live conformance](5g-live-conformance.md) — first run found a
      two-clip property failure; the E36 rerun passed that row and `C-minted`,
-     then timed out during two-clip revert confirmation (E37)
+     then timed out during two-clip revert confirmation (E37); rerun after E38
    - ~~[5g repair — two-clip property
      isolation](5g-repair-two-clip-properties.md)~~ — complete; cursor-track and
      cursor-clip pin confirmation passes independent readback (E36)
-   - [5g repair — two-clip revert
-     confirmation](5g-repair-two-clip-revert-confirmation.md) — diagnose and
-     repair E37's bounded confirmation timeout
+   - ~~[5g repair — two-clip revert
+     confirmation](5g-repair-two-clip-revert-confirmation.md)~~ — complete;
+     target and pin settlement are separate bounded states (E38)
    - [5h — CI and regression policy](5h-ci.md) — exit criterion 6
    - [5i — Phase 1 closeout](5i-closeout.md) — decision and phase closure
 6. [6 — async completion](6-async.md), optional

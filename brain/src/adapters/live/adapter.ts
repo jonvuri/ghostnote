@@ -171,8 +171,15 @@ interface SelectionState {
   readonly slotIndex: number;
 }
 
-/** Eight attempts keep clip confirmation bounded when the cursor never arrives. */
+/** Eight attempts keep target and dual-pin confirmation bounded. */
 const CLIP_POINT_ATTEMPTS = 8;
+
+interface ClipCursorStatus {
+  readonly trackPosition?: number;
+  readonly sceneIndex?: number;
+  readonly isPinned?: boolean;
+  readonly cursorTrackPinned?: boolean;
+}
 
 /**
  * ⚠ `RigConfig.scenes`' shipped default, and a PLACEHOLDER, not a reading.
@@ -1266,31 +1273,40 @@ export class LiveAdapter implements BitwigAdapter {
     if (pointedAt.get(cursor) === key) return cursor;
     this.heldClips.delete(cursor);
 
+    let confirmingPins = false;
+    let lastStatus: ClipCursorStatus | undefined;
     for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt += 1) {
-      // Re-send the complete point. A status mismatch means that cursor state is
-      // stale. It does not prove that the requested occupied clip is absent.
-      await this.transport.send({
-        method: WIRE.cursorPin,
-        params: { cursor, pinned: false },
-      });
-      await this.transport.send({
-        method: WIRE.cursorPinTrack,
-        params: { cursor, pinned: false },
-      });
-      await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
-      await this.transport.send({
-        method: WIRE.slotSelect,
-        params: { trackIndex, slotIndex: clipRef.slot.scene.index, mechanism: 'track' },
-      });
-      // A re-send restarts the follower. Use the measured structural budget on
-      // retries instead of treating several 25 ms waits as one longer wait.
+      if (!confirmingPins) {
+        // Re-send the complete point. A target mismatch means that cursor state
+        // is stale. It does not prove that the occupied clip is absent.
+        await this.transport.send({
+          method: WIRE.cursorPin,
+          params: { cursor, pinned: false },
+        });
+        await this.transport.send({
+          method: WIRE.cursorPinTrack,
+          params: { cursor, pinned: false },
+        });
+        await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
+        await this.transport.send({
+          method: WIRE.slotSelect,
+          params: { trackIndex, slotIndex: clipRef.slot.scene.index, mechanism: 'track' },
+        });
+      }
+      // A re-send restarts the follower. Later checks use the structural budget
+      // instead of treating several 25 ms waits as one longer wait.
       await this.settle(attempt === 0 ? 'cursorPoint' : 'trackStruct');
-      const status = (await this.transport.send({
+      lastStatus = (await this.transport.send({
         method: WIRE.cursorStatus,
         params: { cursor },
-      })) as { trackPosition?: number; sceneIndex?: number };
-      if (status.trackPosition === trackIndex
-          && status.sceneIndex === clipRef.slot.scene.index) {
+      })) as ClipCursorStatus;
+      const targetConfirmed = lastStatus.trackPosition === trackIndex
+        && lastStatus.sceneIndex === clipRef.slot.scene.index;
+      if (!targetConfirmed) {
+        confirmingPins = false;
+        continue;
+      }
+      if (!confirmingPins) {
         await this.transport.send({
           method: WIRE.cursorPinTrack,
           params: { cursor, pinned: true },
@@ -1305,30 +1321,35 @@ export class LiveAdapter implements BitwigAdapter {
         // physical handle. A target is reusable only after both facts are true
         // in one independent status reading.
         await this.settle('cursorPoint');
-        const pinned = (await this.transport.send({
+        lastStatus = (await this.transport.send({
           method: WIRE.cursorStatus,
           params: { cursor },
-        })) as {
-          trackPosition?: number;
-          sceneIndex?: number;
-          isPinned?: boolean;
-          cursorTrackPinned?: boolean;
-        };
-        if (pinned.trackPosition === trackIndex
-            && pinned.sceneIndex === clipRef.slot.scene.index
-            && pinned.isPinned === true
-            && pinned.cursorTrackPinned === true) {
-          this.heldClips.set(cursor, key);
-          pointedAt.set(cursor, key);
-          return cursor;
-        }
+        })) as ClipCursorStatus;
       }
+      const pinnedTargetConfirmed = lastStatus.trackPosition === trackIndex
+        && lastStatus.sceneIndex === clipRef.slot.scene.index;
+      if (pinnedTargetConfirmed
+          && lastStatus.isPinned === true
+          && lastStatus.cursorTrackPinned === true) {
+        this.heldClips.set(cursor, key);
+        pointedAt.set(cursor, key);
+        return cursor;
+      }
+      // Do not cancel a pin that is still settling. Poll it in place. Re-point
+      // only when the exact target itself moved.
+      confirmingPins = pinnedTargetConfirmed;
     }
 
+    const detail = confirmingPins
+      ? `target track ${trackIndex}, row ${clipRef.slot.scene.index} confirmed, but clip pin `
+        + `${String(lastStatus?.isPinned)} and track pin ${String(lastStatus?.cursorTrackPinned)} `
+        + `did not both confirm after ${CLIP_POINT_ATTEMPTS} attempts`
+      : `target track ${trackIndex}, row ${clipRef.slot.scene.index} did not confirm after `
+        + `${CLIP_POINT_ATTEMPTS} attempts; last observed track `
+        + `${String(lastStatus?.trackPosition)}, row ${String(lastStatus?.sceneIndex)}`;
     throw new AddressUnresolvedError(
       clipRef,
-      `cursor ${cursor} did not confirm track ${trackIndex}, row ${clipRef.slot.scene.index} `
-        + `after ${CLIP_POINT_ATTEMPTS} attempts`,
+      `cursor ${cursor} ${detail}`,
     );
   }
 

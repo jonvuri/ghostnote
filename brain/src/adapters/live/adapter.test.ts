@@ -62,20 +62,32 @@ class CursorModelTransport implements Transport {
   /** Cursor ref -> whether its owning track no longer follows track selection. */
   private readonly trackPinned = new Map<string, boolean>();
   /** Pin writes that become visible only after the adapter settles. */
-  private readonly pendingPins = new Set<string>();
-  private readonly pendingTrackPins = new Set<string>();
+  private readonly pendingPins = new Map<string, number>();
+  private readonly pendingTrackPins = new Map<string, number>();
 
   constructor(
     private readonly slots: ReadonlyMap<number, SlotModel>,
     private readonly selection = { trackIndex: -1, slotIndex: -1 },
-    private readonly delayedPins = false,
+    private readonly pinSettleCount = 0,
   ) {}
 
   settlePins(): void {
-    for (const cursor of this.pendingPins) this.pinned.set(cursor, true);
-    for (const cursor of this.pendingTrackPins) this.trackPinned.set(cursor, true);
-    this.pendingPins.clear();
-    this.pendingTrackPins.clear();
+    for (const [cursor, remaining] of this.pendingPins) {
+      if (remaining <= 1) {
+        this.pinned.set(cursor, true);
+        this.pendingPins.delete(cursor);
+      } else {
+        this.pendingPins.set(cursor, remaining - 1);
+      }
+    }
+    for (const [cursor, remaining] of this.pendingTrackPins) {
+      if (remaining <= 1) {
+        this.trackPinned.set(cursor, true);
+        this.pendingTrackPins.delete(cursor);
+      } else {
+        this.pendingTrackPins.set(cursor, remaining - 1);
+      }
+    }
   }
 
   /** Where a given cursor ended up — for asserting the point actually happened. */
@@ -136,8 +148,8 @@ class CursorModelTransport implements Transport {
         if (!value) {
           this.pendingPins.delete(cursor);
           this.pinned.set(cursor, false);
-        } else if (this.delayedPins) {
-          this.pendingPins.add(cursor);
+        } else if (this.pinSettleCount > 0) {
+          this.pendingPins.set(cursor, this.pinSettleCount);
         } else {
           this.pinned.set(cursor, true);
         }
@@ -150,8 +162,8 @@ class CursorModelTransport implements Transport {
         if (!value) {
           this.pendingTrackPins.delete(cursor);
           this.trackPinned.set(cursor, false);
-        } else if (this.delayedPins) {
-          this.pendingTrackPins.add(cursor);
+        } else if (this.pinSettleCount > 0) {
+          this.pendingTrackPins.set(cursor, this.pinSettleCount);
         } else {
           this.trackPinned.set(cursor, true);
         }
@@ -213,7 +225,7 @@ test('5g repair: two delayed pins settle before either cursor hold is reused', a
   const transport = new CursorModelTransport(new Map([
     [0, { lengthBeats: 4, pitch: 60 }],
     [1, { lengthBeats: 4, pitch: 67 }],
-  ]), { trackIndex: 3, slotIndex: 2 }, true);
+  ]), { trackIndex: 3, slotIndex: 2 }, 1);
   const adapter = new DelayedPinAdapter(transport);
 
   const snapshot = await adapter.read([notesAt(CLIP(0)), notesAt(CLIP(1))]);
@@ -229,6 +241,41 @@ test('5g repair: two delayed pins settle before either cursor hold is reused', a
     6,
     'each clip gets target, pin, and loop-length status readings',
   );
+});
+
+test('5g revert repair: slow pins are polled without restarting the confirmed point', async () => {
+  const transport = new CursorModelTransport(
+    new Map([[0, { lengthBeats: 4, pitch: 60 }]]),
+    { trackIndex: 3, slotIndex: 2 },
+    3,
+  );
+  const adapter = new DelayedPinAdapter(transport);
+
+  const snapshot = await adapter.read([notesAt(CLIP(0))]);
+  const value = snapshot.entries[addressKey(notesAt(CLIP(0)))]?.value;
+
+  assert.equal(value?.of === 'notes' ? value.notes[0]?.pitch : undefined, 60);
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
+  assert.equal(transport.frames.filter((frame) =>
+    frame.method === WIRE.cursorPin && frame.params?.['pinned'] === true).length, 1);
+  assert.equal(transport.frames.filter((frame) =>
+    frame.method === WIRE.cursorPinTrack && frame.params?.['pinned'] === true).length, 1);
+});
+
+test('5g revert repair: pins that never settle refuse within eight attempts', async () => {
+  const transport = new CursorModelTransport(
+    new Map([[0, { lengthBeats: 4, pitch: 60 }]]),
+    { trackIndex: 3, slotIndex: 2 },
+    Number.POSITIVE_INFINITY,
+  );
+  const adapter = new DelayedPinAdapter(transport);
+
+  await assert.rejects(
+    adapter.read([notesAt(CLIP(0))]),
+    /target track 0, row 0 confirmed, but clip pin false and track pin false did not both confirm after 8 attempts/,
+  );
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 9);
 });
 
 test('5g repair: a direct read does not reuse a hold after an out-of-band point', async () => {

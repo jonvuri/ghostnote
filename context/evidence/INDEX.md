@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E38 | Pin confirmation polls without restarting the point [K] (2026-08-16) | [open](experiments/e38-pin-confirmation-polls-without-restarting-the-point.md) |
 | E37 | Full conformance reaches two-clip revert but pin confirmation times out [K] (2026-08-16) | [open](experiments/e37-full-conformance-two-clip-revert-pin-timeout.md) |
 | E36 | Two-clip isolation needs track and clip pin confirmation [K] (2026-08-16) | [open](experiments/e36-two-clip-isolation-needs-track-and-clip-pin-confirmation.md) |
 | E35 | Full conformance exposes a two-clip property cross-read [K] (2026-08-16) | [open](experiments/e35-full-conformance-exposes-two-clip-property-cross-read.md) |

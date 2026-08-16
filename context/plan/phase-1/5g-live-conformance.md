@@ -2,14 +2,14 @@
 title: Phase 1, session 5g — full live conformance
 kind: plan
 state: planned
-status: Second attempt passed C-twoclips and C-minted, then failed two-clip
-        revert cursor confirmation. Repair that timeout, then rerun.
+status: E38 repaired the second attempt's two-clip revert confirmation timeout.
+        Run the third complete conformance attempt.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5f-managed-ab.md
 next: 5h-ci.md
 scope: Session 3c carry-in B7; final live integration proof
-evidence: E15, E21, E35, E36, E37 · D15
+evidence: E15, E21, E35, E36, E37, E38 · D15
 needs: Bitwig foregrounded
 ---
 
@@ -77,6 +77,8 @@ Cleanup removed both generated conformance tracks. Final readback matched the
 10 durable tracks, 10 scenes, 22 occupied cells, selection, observation data,
 cursor state, status, and stopped transport. E37 records the run and cleanup.
 
-Complete the focused [two-clip revert confirmation
-repair](5g-repair-two-clip-revert-confirmation.md), then rerun this session in
-one complete invocation.
+The focused [two-clip revert confirmation
+repair](5g-repair-two-clip-revert-confirmation.md) is complete. E38 keeps
+pending pin requests active after target confirmation and records the failed
+confirmation state separately. Run this session again in one complete
+invocation.

@@ -4,31 +4,30 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5g-repair-two-clip-revert-confirmation
+session: phase-1-session-5g-live-conformance-third-attempt
 ---
 
 # Now
 
-Complete the [two-clip revert confirmation
-repair](plan/phase-1/5g-repair-two-clip-revert-confirmation.md). E37 records the
-second full conformance attempt. `C-twoclips` and `C-minted` passed, but the
-later two-clip revert case timed out before independent readback because cursor
-0 did not confirm clip A within eight attempts.
+Rerun [Session 5g live conformance](plan/phase-1/5g-live-conformance.md) in one
+complete invocation. E38 completes the focused repair for E37. Target
+acquisition and dual-pin settlement are now separate bounded states. The
+focused two-clip revert and independent readback pass with exact cleanup.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5f, all three 5d repairs, and the first 5g repair
-are complete (E23–E25, E27, E29, E31–E34, E36). Session 5g remains open.
+slices. Sessions 5a through 5f, all three 5d repairs, and both 5g repairs are
+complete (E23–E25, E27, E29, E31–E34, E36, E38). Session 5g remains open.
 Sessions 5h and 5i remain planned. Phase 1 exit criteria 2 through 5 are
 complete.
 
 ## Start here
 
-1. Read the repair brief, E37, E36, E29, D6, and D15.
-2. Trace target and dual-pin confirmation as separate states.
-3. Reproduce the complete two-clip revert ordering in a focused probe.
-4. Repair only the confirmed bounded-confirmation cause and add regressions.
-5. Run the focused live proof and restore the complete baseline.
-6. Leave the full conformance rerun for the next session.
+1. Read the 5g brief, E38, E37, E36, E35, D6, and D15.
+2. Confirm the live handshake, deployed build freshness, and fixture baseline.
+3. Run `probe:conformance` once, without a filter or a second live invocation.
+4. Record all passes, failures, and qualified skips.
+5. Remove the two generated conformance tracks by their durable identities.
+6. Restore and verify the complete baseline.
 
 ## Baseline
 
@@ -40,10 +39,10 @@ complete.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- E37 cleanup removed both generated conformance tracks. Final checks found the
-  same 10 tracks, 10 scenes, 22 occupied cells, selection at track 0 row 1,
-  stopped transport, and exact observation value. All three cursor tracks and
-  clips were unpinned on `gn-lay` row 0. `Last change` was restored.
+- E38 cleanup removed both temporary clips. Final checks found the same 10
+  tracks, 10 scenes, 22 occupied cells, selection at track 0 row 1, stopped
+  transport, and exact observation value. All three cursor tracks and clips
+  were unpinned on `gn-lay` row 0. `Last change` was restored.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -62,6 +61,6 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-Report target confirmation and pin confirmation as separate states. A generic
-point timeout hides which state did not settle. No repository instruction
-change is needed.
+A cleanup probe must restore the documented fixture selection. Restoring only
+its entry selection can preserve residue from an earlier failed run. No
+repository instruction change is needed.

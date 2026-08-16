@@ -1,14 +1,15 @@
 ---
 title: Phase 1, session 5g repair — two-clip revert confirmation
 kind: plan
-state: planned
-status: Not started. E37 timed out before independent readback after revert.
+state: complete
+status: Complete. E38 separates target and pin settlement, and the focused
+        revert passes independent readback with exact cleanup.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5g-live-conformance.md
 next: 5g-live-conformance.md
 scope: Repair only; rerun 5g after this session
-evidence: E15, E29, E36, E37 · D6, D15
+evidence: E15, E29, E36, E37, E38 · D6, D15
 needs: Bitwig foregrounded for the focused live proof
 ---
 
@@ -51,3 +52,10 @@ needs: Bitwig foregrounded for the focused live proof
 
 After this repair, rerun Session 5g in one complete invocation. Do not replace
 the full run with the focused result.
+
+## Result
+
+E38 records the completed repair. `pointAtClip` now polls pending pins without
+restarting a confirmed point. It still refuses after eight attempts and still
+requires exact target and dual-pin readback. The focused live sequence passed
+all ten checks and restored the complete baseline. Rerun Session 5g next.

@@ -1,4 +1,4 @@
-/** Phase 1 session 5g repair: isolate two-clip property persistence from cursor cache. */
+/** Phase 1 session 5g repairs: prove two-clip isolation and bounded cursor confirmation. */
 import { LiveAdapter } from '../adapters/live/adapter.js';
 import { BridgeTransport, type Transport } from '../adapters/live/transport.js';
 import { WIRE, type Frame } from '../adapters/live/wiremap.js';
@@ -6,6 +6,7 @@ import {
   addressKey, clip, notes as notesAt, scene, slot, track,
   type NoteRecord, type RevisionMark,
 } from '../contract/index.js';
+import { Executor } from '../engine/executor.js';
 import { emptyObservationRecord, encodeObservationRecord } from '../observation/index.js';
 import { check, client, failureCount, note, pollUntil } from './lib.js';
 import { canonicalNotes } from './phase5d-owned-cleanup.js';
@@ -14,6 +15,7 @@ const PROJECT = 'gn-scale-test';
 const ROWS = 10;
 const TARGET_ROW = 9;
 const STATUS = 'Change · 4a-live-check';
+const BASELINE_SELECTION: Selection = { trackIndex: 0, slotIndex: 1 };
 const EMPTY_RECORD = encodeObservationRecord(emptyObservationRecord());
 const TRACKS: Readonly<Record<string, string>> = {
   '98ba8aa3-dbce-4e51-8bb2-de9302542b6e': 'Instrument Layer',
@@ -58,10 +60,68 @@ interface ClipState {
 
 class TraceTransport implements Transport {
   readonly frames: Frame[] = [];
+  readonly statuses: {
+    readonly elapsedMs: number;
+    readonly cursor: string;
+    readonly attempt: number;
+    readonly check: 'target' | 'pins';
+    readonly expectedTrack?: number;
+    readonly expectedRow?: number;
+    readonly reply: unknown;
+  }[] = [];
+  private readonly attempts = new Map<string, number>();
+  private readonly expected = new Map<string, { track?: number; row?: number }>();
+  private readonly checks = new Map<string, 'target' | 'pins' | 'held'>();
+  private readonly checkStarted = new Map<string, number>();
 
   async send(frame: Frame): Promise<unknown> {
     this.frames.push(frame);
-    return client.request(frame.method, frame.params);
+    const cursor = frame.params?.['cursor'];
+    if (typeof cursor === 'string') {
+      if (frame.method === WIRE.cursorPin && frame.params?.['pinned'] === false) {
+        this.attempts.set(cursor, (this.attempts.get(cursor) ?? 0) + 1);
+        this.checks.set(cursor, 'target');
+      } else if (frame.method === WIRE.cursorPointTrack) {
+        this.expected.set(cursor, { track: frame.params?.['trackIndex'] as number });
+        this.checkStarted.set(cursor, Date.now());
+      } else if (frame.method === WIRE.cursorPin && frame.params?.['pinned'] === true) {
+        this.checks.set(cursor, 'pins');
+        this.checkStarted.set(cursor, Date.now());
+      }
+    }
+    if (frame.method === WIRE.slotSelect && frame.params?.['mechanism'] === 'track') {
+      const pending = [...this.expected.entries()].find(([, target]) => target.row === undefined);
+      if (pending !== undefined) {
+        const [ref, target] = pending;
+        this.expected.set(ref, { ...target, row: frame.params?.['slotIndex'] as number });
+      }
+    }
+    const reply = await client.request(frame.method, frame.params);
+    const check = typeof cursor === 'string' ? this.checks.get(cursor) : undefined;
+    if (frame.method === WIRE.cursorStatus && typeof cursor === 'string' && check !== 'held') {
+      const target = this.expected.get(cursor);
+      this.statuses.push({
+        elapsedMs: Date.now() - (this.checkStarted.get(cursor) ?? Date.now()),
+        cursor,
+        attempt: this.attempts.get(cursor) ?? 0,
+        check: check ?? 'target',
+        ...(target?.track === undefined ? {} : { expectedTrack: target.track }),
+        ...(target?.row === undefined ? {} : { expectedRow: target.row }),
+        reply,
+      });
+      const state = reply as {
+        trackPosition?: number;
+        sceneIndex?: number;
+        isPinned?: boolean;
+        cursorTrackPinned?: boolean;
+      };
+      if (check === 'pins' && state.trackPosition === target?.track
+          && state.sceneIndex === target?.row && state.isPinned === true
+          && state.cursorTrackPinned === true) {
+        this.checks.set(cursor, 'held');
+      }
+    }
+    return reply;
   }
 
   async close(): Promise<void> {}
@@ -143,6 +203,18 @@ function traceStages(trace: TraceTransport, start: number, label: string): void 
   note(`${label} stages: ${JSON.stringify(stages)}`);
 }
 
+function traceAttempts(trace: TraceTransport, start: number, label: string): void {
+  const attempts = trace.statuses.slice(start).map((status) => ({
+    cursor: status.cursor,
+    attempt: status.attempt,
+    check: status.check,
+    elapsedMs: status.elapsedMs,
+    target: [status.expectedTrack, status.expectedRow],
+    status: status.reply,
+  }));
+  note(`${label} cursor confirmation: ${JSON.stringify(attempts)}`);
+}
+
 async function restoreSelection(target: Selection): Promise<void> {
   await client.request(WIRE.slotSelect, {
     trackIndex: target.trackIndex,
@@ -170,7 +242,7 @@ async function parkCursors(trackIndex: number): Promise<void> {
 }
 
 await client.connect();
-const originalSelection = await selection();
+const entrySelection = await selection();
 const trace = new TraceTransport();
 const writer = new LiveAdapter({ transport: trace, cursorRefs: ['0', '1'] });
 const witness = new LiveAdapter({
@@ -196,9 +268,11 @@ try {
   const mark = await writer.revision();
   const transport = (await client.request('transport.status')) as { isPlaying?: boolean };
   const baselineMatches = mark.project === PROJECT && rig.sceneCount === ROWS
-    && await readObservation() === EMPTY_RECORD && transport.isPlaying === false;
-  check('5gr-L1: project, rows, observation, and transport match the baseline',
-    baselineMatches, { project: mark.project, rig, transport });
+    && await readObservation() === EMPTY_RECORD && transport.isPlaying === false
+    && entrySelection.trackIndex === BASELINE_SELECTION.trackIndex
+    && entrySelection.slotIndex === BASELINE_SELECTION.slotIndex;
+  check('5gr-L1: project, rows, selection, observation, and transport match the baseline',
+    baselineMatches, { project: mark.project, rig, entrySelection, transport });
   if (!baselineMatches) throw new Error('live project baseline mismatch');
 
   baselineOccupancy = await occupancy(baselineTracks);
@@ -264,9 +338,24 @@ try {
     independentRead[0][0]?.pan === -0.25 && independentRead[1][0]?.pan === 0.5,
     independentRead);
 
+  const executor = new Executor(writer);
+  const statusAt = trace.statuses.length;
+  const take = await executor.run([
+    { op: 'note.clear', clip: clipA },
+    { op: 'note.clear', clip: clipB },
+  ]);
+  check('5gr-L6: the executor stashes both expression clips before clear',
+    take.values.length === 2, take.values);
+  await executor.revertUnchecked(take);
+  traceAttempts(trace, statusAt, 'executor clear and revert');
+
+  const reverted = await readPair(witness, await witness.revision());
+  check('5gr-L7: independent readback finds both pan values after revert',
+    reverted[0][0]?.pan === -0.25 && reverted[1][0]?.pan === 0.5, reverted);
+
   await parkCursors(trackRow(baselineTracks, PARK_TRACK).index);
   const repointedRead = await readPair(writer, await writer.revision());
-  check('5gr-L6: the writer agrees after both physical handles move away and back',
+  check('5gr-L8: the writer agrees after both physical handles move away and back',
     repointedRead[0][0]?.pan === -0.25 && repointedRead[1][0]?.pan === 0.5,
     repointedRead);
 } catch (error) {
@@ -290,10 +379,10 @@ try {
         slot: slot(track(TRACK_B), scene(TARGET_ROW, at.sceneEpoch)),
       }] });
     }
-    await restoreSelection(originalSelection);
+    await restoreSelection(BASELINE_SELECTION);
     if (baselineTracks.length > 0) {
       await parkCursors(trackRow(baselineTracks, PARK_TRACK).index);
-      await restoreSelection(originalSelection);
+      await restoreSelection(BASELINE_SELECTION);
     }
     const statusAt = await writer.revision();
     const status = (await client.request('status.push', {
@@ -321,16 +410,16 @@ try {
       && finalRig.sceneCount === ROWS
       && await readObservation() === EMPTY_RECORD
       && finalTransport.isPlaying === false
-      && finalSelection.trackIndex === originalSelection.trackIndex
-      && finalSelection.slotIndex === originalSelection.slotIndex
+      && finalSelection.trackIndex === BASELINE_SELECTION.trackIndex
+      && finalSelection.slotIndex === BASELINE_SELECTION.slotIndex
       && status.accepted === true
       && cursorStates.every((cursor) => cursor.trackPosition === parkIndex
         && cursor.sceneIndex === 0 && cursor.isPinned === false
         && cursor.cursorTrackPinned === false);
-    check('5gr-L7: cleanup restores tracks, cells, rows, selection, observation, and transport',
+    check('5gr-L9: cleanup restores tracks, cells, rows, selection, observation, and transport',
       baselineRestored, { finalSelection, finalRig, finalTransport, status, cursorStates });
   } catch (error) {
-    check('5gr-L7: cleanup restores the complete documented baseline', false,
+    check('5gr-L9: cleanup restores the complete documented baseline', false,
       error instanceof Error ? `${error.name}: ${error.message}` : String(error));
   }
   await writer.close();
