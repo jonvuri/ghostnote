@@ -8,7 +8,7 @@
  *
  *   R-clear     a revert CLEARS before it writes, or it merges instead
  *   R-empty     "there were no notes" is itself a state, restored by a clear
- *   R-gain      gain is withheld and REPORTED — replaying it would double again
+ *   R-gain      gain is replayed after its independent-handle inverse proof
  *   R-pressure  pressure is stripped, and the plan survives assertOpsWritable
  *   R-clip      absence is un-created; a clip that was there is rebuilt and refilled
  *   R-device    an insert is undone at the chain index the receipt MINTED
@@ -76,25 +76,18 @@ test('R-empty: "there were no notes here" is a state, and only a clear can expre
   assert.deepEqual(plan.ops.map((o) => o.op), ['note.clear']);
 });
 
-test('R-gain: gain is WITHHELD and reported, never replayed (E2, D8)', () => {
+test('R-gain: gain is replayed exactly after the measured inverse (E24)', () => {
   const address = notesAt(CLIP_A);
-  // The stash holds what readback REPORTED — 1.4 for a note written at 0.7.
   const plan = revertOps({
     ...writeSetOf([{ op: 'note.write', clip: CLIP_A, notes: [note()] }]),
-    stash: stashOf([notesEntry(address, [note({ gain: 1.4, pan: 0.25 })], 'lossy')]),
+    stash: stashOf([notesEntry(address, [note({ gain: 0.7, pan: 0.25 })])]),
   });
 
   const write = plan.ops.find((o) => o.op === 'note.write');
   assert.ok(write?.op === 'note.write');
-  // Replaying 1.4 would write 1.4 and read back 2.8 — and compound on every
-  // subsequent revert. The inverse is unverified, so neither replaying nor
-  // correcting is defensible; withholding is bounded and visible.
-  assert.equal(write.notes[0]?.gain, undefined);
+  assert.equal(write.notes[0]?.gain, 0.7);
   assert.equal(write.notes[0]?.pan, 0.25, 'the exact properties around it are untouched');
-
-  const said = plan.unrestored.find((u) => u.what === 'gain');
-  assert.ok(said, 'D5: a revert never silently under-delivers');
-  assert.match(said.why, /UNVERIFIED/);
+  assert.deepEqual(plan.unrestored, []);
 });
 
 test('R-pressure: a human-authored pressure is stripped, and the plan is emittable (E15-E)', () => {

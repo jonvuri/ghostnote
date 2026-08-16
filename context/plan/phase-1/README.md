@@ -61,9 +61,9 @@ three-way dispatch classifier is retired.
    approved 2026-08-16
    - ~~[5a — selection preservation](5a-selection.md)~~ — complete; B4 passes
      8/8 live with cleanup (E23)
-   - [5b — note fidelity and gain](5b-fidelity.md) — next; independent-handle
-     21-property proof and gain verdict
-   - [5c — observer drag boundaries](5c-drag-boundaries.md) — B5 only
+   - ~~[5b — note fidelity and gain](5b-fidelity.md)~~ — complete; 20 exact
+     properties, measured gain inverse, and pressure refusal (E24)
+   - [5c — observer drag boundaries](5c-drag-boundaries.md) — next; B5 only
    - [5d — concurrent editing](5d-concurrent-editing.md) — exit criterion 2
    - [5e — refusal boundaries](5e-refusal-boundaries.md) — exit criteria 3 and 5
    - [5f — managed A/B](5f-managed-ab.md) — exit criterion 4

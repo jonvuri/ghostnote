@@ -51,8 +51,9 @@ export interface TakeValue {
  * One field where readback and request disagree (§8c's third clause).
  *
  * Not an error. E8-E's same-pitch adjacency truncation means a written duration
- * is not guaranteed to survive, and gain reads back doubled (E2) — both are
- * Bitwig behaving as measured. Reporting them is the difference between a take
+ * is not guaranteed to survive. Gain also has a measured write-side inverse
+ * (E24), so it no longer creates a disagreement. Reporting real differences is
+ * the difference between a take
  * that tells the truth and one that claims a write landed as asked.
  */
 export interface Disagreement {

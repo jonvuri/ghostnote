@@ -4,27 +4,27 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5b-fidelity
+session: phase-1-session-5c-drag-boundaries
 ---
 
 # Now
 
-Run [Phase 1 session 5b](plan/phase-1/5b-fidelity.md): prove the complete
-21-property note contract through an independent read handle and settle the gain
-inverse from live measurement.
+Run [Phase 1 session 5c](plan/phase-1/5c-drag-boundaries.md): measure cross-track
+and below-window clip-drag observer boundaries with a human operator.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Session 5a is complete (E23). Sessions 5b through 5i are planned. No
-other Session 5 exit criterion is complete.
+slices. Sessions 5a and 5b are complete (E23, E24). Sessions 5c through 5i are
+planned. No other Session 5 exit criterion is complete.
 
 ## Start here
 
-1. Read the Session 5 umbrella, then the 5b brief and its cited D8, D15, and D16
-   sections.
-2. Keep the 21-property reconciliation and independent-handle round-trip in one
-   session.
-3. Measure gain at several values before changing `GAIN_READ_SCALE` or fidelity.
-4. Confirm pressure refusal before mutation.
+1. Read the Session 5 umbrella, then the 5c brief and its cited E19, E21, D6, and
+   D16 sections.
+2. Arrange a human-assisted cross-track drag and record both durable identities.
+3. Shrink the scene window against the existing project. Do not add scenes past
+   the window.
+4. Restore the window configuration, reload the extension, and restore all moved
+   clips and selection.
 5. Leave the live project at the baseline below.
 
 ## Baseline
@@ -52,9 +52,14 @@ Confirm these track identities before a destructive live sweep:
 | FX 1 | `52bd865e-c958-4bda-b9d3-97d0ea2f463a` |
 | Master | `834e65ab-efa4-4bc6-ae9d-4eafd818d16e` |
 
-## Planning-session retrospective
+## Session 5b result
 
-The combined live sweep hid independent failure domains and made verification
-work look like one implementation session. The new briefs separate measurement,
-human interference, refusal, production workflow, integration, CI, and closeout.
-No repository instruction change is needed.
+E24 proves a stable gain inverse at nine values through a cursor the writer
+cannot allocate. The final table is 20 exact properties plus unwritable
+`pressure`. `probe:5-fidelity` passed 12/12 and left no residue.
+
+## Session 5b retrospective
+
+Reset state between curve samples. This separates mapping from a setter call
+that did not land. The focused probe now enforces the control. No repository
+instruction change is needed.

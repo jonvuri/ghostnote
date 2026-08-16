@@ -2,14 +2,14 @@
 title: Phase 1, session 5 — live proving program
 kind: plan
 state: active
-status: Re-cut approved 2026-08-16. Session 5a is complete. Sessions 5b–5i are
-        planned.
+status: Re-cut approved 2026-08-16. Sessions 5a and 5b are complete. Sessions
+        5c–5i are planned.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
 next: 5a-selection.md
 scope: Phase 1 exit criteria
-evidence: E2, E5, E8, E15-A/E, E19, E21, E23 · D6, D8, D15–D20
+evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24 · D6, D8, D15–D20
 needs: Bitwig foregrounded for live sessions; a human where each brief says so
 ---
 
@@ -25,8 +25,9 @@ executor owns one lazy selection-preservation scope across resolve, stash,
 apply, verify, and reporting. `probe:5-selection` passes 8/8 live and leaves no
 residue (E23).
 
-No other Session 5 criterion is complete. Earlier evidence remains valid, but
-the remaining briefs must make each phase-exit claim explicit.
+Session 5b is also complete: 20 properties are exact, gain uses the E24 inverse,
+and pressure is refused. Earlier evidence remains valid, but the remaining
+briefs must make each phase-exit claim explicit.
 
 ## The 21-property contract
 
@@ -35,19 +36,18 @@ These statements count different slices. `NOTE_PROP_FIDELITY` has 21 keys:
 
 | Count | Class | Required proof |
 |---|---|---|
-| 19 | exact | Apply, read through an independent handle, and revert exactly. |
-| 1 | unverified: `gain` | Measure the inverse before any correction. |
+| 20 | exact | Apply, read through an independent handle, and revert exactly. |
 | 1 | unwritable: `pressure` | Refuse at the contract boundary. |
 
-Session 5b owns this reconciliation and the gain decision. Later plans must use
-its verdict instead of saying that all 21 properties are exact.
+E24 settles this reconciliation. Gain writes requested value divided by two.
+Later plans must say that 20 of 21 properties are exact and pressure is refused.
 
 ## Program order
 
 | Session | Focus | Phase exit |
 |---|---|---|
 | [5a — selection preservation](5a-selection.md) | One executor-owned selection scope | B4; complete |
-| [5b — note fidelity and gain](5b-fidelity.md) | Independent-handle round-trip and gain decision | criterion 1 |
+| [5b — note fidelity and gain](5b-fidelity.md) | Independent-handle round-trip and gain decision; complete, E24 | criterion 1 |
 | [5c — observer drag boundaries](5c-drag-boundaries.md) | Cross-track and below-window drag measurements | B5 |
 | [5d — concurrent editing](5d-concurrent-editing.md) | Pinned writes while the human edits | criterion 2 |
 | [5e — refusal boundaries](5e-refusal-boundaries.md) | Stale revision and bank-window refusal | criteria 3 and 5 |

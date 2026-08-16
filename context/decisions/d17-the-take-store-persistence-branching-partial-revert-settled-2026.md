@@ -237,19 +237,15 @@ actually matters.
    `note.clear` against music we simply never saw. The store blocks those
    addresses and reports them, which is the same distinction session 1 drew with
    `ApplyReport.unverified` and the same reason it exists.
-3. **`gain` is withheld on the way FORWARD too, and nobody had to write that.**
-   Replaying a take forward replays its *verify*, which holds the doubled readback
-   (E2) — a direction session 1 never exercised. D16b's withholding is derived
-   from `NOTE_PROP_FIDELITY` rather than from which snapshot the value came out
-   of, so it protects both directions. Without that, every A/B comparison would
-   double the gain again, compounding, in silence.
+3. **Gain replay follows the property table in both directions.** E24 promoted
+   gain to exact after an independent-handle inverse measurement. Forward and
+   reverse replay both gained exact restoration without a take-store special
+   case.
 
 ### A take's fidelity describes what it can RESTORE, not what it wrote
 
-Worth stating because it reads as a bug the first time: a take that *writes* a
-gain is `exact` (its stash is the clean prior state); a take that *overwrites* a
-clip containing gain is `lossy`. That is the correct semantics — the label answers
-"what can this take put back?" — and it is what `TakeSummary.unrestorable` reports
-in a listing, before anyone commits to a revert.
+The label answers what a take can restore, not what it wrote. E24 makes gain exact
+in both places. Pressure and structural loss still degrade the prior state when
+the take cannot put them back.
 
 ---

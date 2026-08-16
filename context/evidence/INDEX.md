@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E24 | Gain has an exact inverse and 20 of 21 note properties round-trip [K] (2026-08-16) | [open](experiments/e24-gain-inverse-and-complete-note-contract.md) |
 | E23 | The executor restores clip selection once after the complete pipeline [K] (2026-08-16) | [open](experiments/e23-executor-restores-selection-once-after-the-complete-pipeline.md) |
 | E22 | ⚠⚠ `Group` DISPATCHES ON PRIMARY FOCUS: three ordinary clicks break the track fork, and the device panel silently builds an Instrument Layer instead [K] (2026-08-11, matrix 2026-08-12) | [open](experiments/e22-group-editing-action-does-not-fire-reliably-backgrounded.md) |
 | E21 | ⚠⚠ THE SCENE WINDOW: rule 5 is implementable one level down, and `clip.create` was growing the project [K] (2026-08-09) | [open](experiments/e21-the-scene-window-rule-5-is-implementable-one-level-down-and-was-.md) |

@@ -35,7 +35,8 @@ expected to mutate as the model refines.
   writes and the clip content fingerprint. It survives the take store's
   retirement (D17 rev) and must not be deleted with it.
 - What a reversal cannot restore is governed by the labels as they already exist:
-  `gain` withheld (D16b), `pressure` stripped and named (D16c), `none`-fidelity
-  reported loudly (D16d) — reused, never reinvented.
+  `gain` restored through its measured inverse (D16b), `pressure` stripped and
+  named (D16c), and `none` fidelity reported loudly (D16d). These rules are
+  reused, never reinvented.
 
 ---

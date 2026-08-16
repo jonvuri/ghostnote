@@ -30,7 +30,7 @@
 import { randomUUID } from 'node:crypto';
 
 import {
-  AddressUnresolvedError, CONTRACT_TAG, GAIN_READ_SCALE, NOTE_PROP_FIDELITY,
+  AddressUnresolvedError, CONTRACT_TAG, NOTE_PROP_FIDELITY,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
   blindSpotError, deltaComplete,
   failures, notes as notesAt,
@@ -506,7 +506,7 @@ function unobservedInserts(
  *
  *   - consecutive same-pitch notes truncate each other, so a written duration is
  *     not guaranteed to survive (E8-E) — no error, no failed op;
- *   - `gain` reads back doubled (E2);
+ *   - `gain` uses the independently measured write-side inverse (E24);
  *   - a mis-pointed write lands somewhere else entirely (E2), which shows up
  *     here as a note that simply is not present.
  *
@@ -596,12 +596,7 @@ function knownDivergence(field: string, requested: unknown, readback: unknown): 
   const fidelity = NOTE_PROP_FIDELITY[key as keyof typeof NOTE_PROP_FIDELITY];
 
   if (fidelity === 'unverified') {
-    const doubled = typeof requested === 'number' && typeof readback === 'number'
-      && Math.abs(readback - requested * GAIN_READ_SCALE) <= TOLERANCE;
-    return doubled
-      ? `${key} reads back exactly ${GAIN_READ_SCALE}x written, as measured (E2). The inverse is ` +
-        'unverified, so this is reported and never corrected (D8).'
-      : `${key} has an unverified round-trip (E2, D8).`;
+    return `${key} has an unverified write/read inverse.`;
   }
   if (fidelity === 'unwritable') {
     return `${key} cannot be written through this API (E15-E) — it should not have been emitted at all.`;

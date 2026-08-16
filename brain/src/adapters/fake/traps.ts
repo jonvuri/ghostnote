@@ -26,11 +26,9 @@ import type { FakeSlot, FakeTrack, ProjectModel } from './model.js';
  * ⚠ E2: `gain` reads back 2x the written value — set 0.7, settled read 1.4,
  * reproducibly and on clean state, while the javadoc claims 0..1 both ways.
  *
- * The fake reports the doubled value because that is what Bitwig does. The
- * contract does NOT correct it: the inverse mapping is unverified until Phase 1,
- * and correcting on an unverified inverse would make every take restore a wrong
- * gain silently. Instead `gain` is labelled `unverified` in NOTE_PROP_FIDELITY
- * and any snapshot touching it degrades to `lossy`.
+ * The fake reports the doubled stored value because that is what Bitwig does.
+ * E24 verified the inverse. The shared property encoder writes half of the
+ * contract value, so a contract write now reads back exactly.
  */
 export function gainOnReadback(written: number): number {
   return written * GAIN_READ_SCALE;

@@ -199,10 +199,13 @@ const DEVICE_LANDING_UNSEEN =
   'where this device landed in the track was never read back, so there is no position to remove. '
   + 'Removing a counted position could remove a different device.';
 
-const GAIN_NOT_REPLAYED =
-  'note gain reads back at twice the value written and the reverse of that has never been '
-  + 'measured, so it is reported rather than replayed — replaying it would double it again, and '
-  + 'again on every further attempt.';
+const UNVERIFIED_NOTE_PROPERTY =
+  'this note property has no verified write and read inverse. It is reported rather than '
+  + 'replayed with a guessed correction.';
+
+const STALE_GAIN_REPORT =
+  'this result marks note gain as unrestored, but E24 now makes current gain writes and reverts '
+  + 'exact. Treat this as a stale result.';
 
 const PRESSURE_NOT_REPLAYED =
   'note pressure cannot be written through this API at all: the value reaches the writing handle '
@@ -285,7 +288,7 @@ function notePropertyLosses(notes: readonly NoteRecord[]): string[] {
     notes.some((n) => (n as unknown as Record<string, unknown>)[prop] !== undefined);
   const out: string[] = [];
   for (const prop of UNVERIFIED_NOTE_PROPS) {
-    if (present(prop)) out.push(prop === 'gain' ? GAIN_NOT_REPLAYED : `${prop} cannot be replayed exactly.`);
+    if (present(prop)) out.push(`${prop}: ${UNVERIFIED_NOTE_PROPERTY}`);
   }
   for (const prop of UNWRITABLE_NOTE_PROPS) {
     if (present(prop)) {
@@ -477,7 +480,7 @@ function sayMismatch(d: Disagreement): Mismatch {
 function knownBehaviour(field: string, asked: unknown, found: unknown): string | undefined {
   const prop = field === 'durationBeats' ? 'duration' : field;
   const fidelity = NOTE_PROP_FIDELITY[prop as keyof typeof NOTE_PROP_FIDELITY];
-  if (fidelity === 'unverified') return GAIN_NOT_REPLAYED;
+  if (fidelity === 'unverified') return UNVERIFIED_NOTE_PROPERTY;
   if (fidelity === 'unwritable') return PRESSURE_NOT_REPLAYED;
   if (prop === 'duration' && typeof asked === 'number' && typeof found === 'number' && found < asked) {
     return 'a note ends where the next note of the same pitch begins, so a length can come back '
@@ -576,7 +579,7 @@ function sayUnrestored(
 function unrestoredWhy(what: string): string {
   switch (what) {
     case 'gain':
-      return GAIN_NOT_REPLAYED;
+      return STALE_GAIN_REPORT;
     case 'pressure':
       return PRESSURE_NOT_REPLAYED;
     case 'track':

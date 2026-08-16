@@ -186,6 +186,7 @@
     "probe:4a-status": "tsx src/probes/phase4a-status.ts",
     "probe:4b-navigation": "tsx src/probes/phase4b-navigation.ts",
     "probe:5-selection": "tsx src/probes/phase5-selection.ts",
+    "probe:5-fidelity": "tsx src/probes/phase5b-fidelity.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

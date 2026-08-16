@@ -529,7 +529,7 @@ test('B-fidelity: a `none` entry is in the SUMMARY, before any reversal is plann
   assert.match(plan.unrestored.map((u) => u.why).join(' '), /a track cannot be un-deleted/);
 });
 
-test('B-fidelity: `gain` is withheld from the reversal and named, never replayed (D16b)', async () => {
+test('B-fidelity: `gain` is restored after the measured inverse (E24)', async () => {
   const fx = await fixture();
   // ⚠ A changeset's fidelity describes what it can RESTORE — its stash — not what
   // it wrote. So the gain has to be in the clip BEFORE the batch that stashes it.
@@ -538,14 +538,13 @@ test('B-fidelity: `gain` is withheld from the reversal and named, never replayed
     { op: 'note.clear', clip: fx.clipA },
     { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 72 })] },
   ], 'B-fidelity');
-  assert.equal(over.fidelity, 'lossy');
-  assert.match(over.values[0]!.caveats.join(' '), /INVERSE IS UNVERIFIED/);
+  assert.equal(over.fidelity, 'exact');
 
   const plan = await reverse(fx, over.id);
   const written = plan.ops.flatMap((o) => (o.op === 'note.write' ? o.notes : []));
   assert.equal(written.length, 1);
-  assert.equal(written[0]!.gain, undefined, 'the doubled value is not replayed');
-  assert.match(plan.unrestored.map((u) => u.what).join(' '), /gain/);
+  assert.equal(written[0]!.gain, 0.7);
+  assert.deepEqual(plan.unrestored, []);
   assert.deepEqual(await pitches(fx.fake, fx.clipA), [60], 'and everything else does come back');
 });
 

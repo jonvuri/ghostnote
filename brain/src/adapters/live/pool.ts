@@ -43,9 +43,13 @@ export class CursorPool {
   /** Least-recently-used first. */
   private lru: string[];
 
-  constructor(size: number) {
-    const n = Math.max(1, Math.floor(size));
-    this.refs = Array.from({ length: n }, (_, i) => String(i));
+  constructor(sizeOrRefs: number | readonly string[]) {
+    const refs = typeof sizeOrRefs === 'number'
+      ? Array.from({ length: Math.max(1, Math.floor(sizeOrRefs)) }, (_, i) => String(i))
+      : [...sizeOrRefs];
+    if (refs.length === 0) throw new Error('a cursor pool needs at least one cursor reference');
+    if (new Set(refs).size !== refs.length) throw new Error('cursor pool references must be unique');
+    this.refs = refs;
     this.lru = [...this.refs];
   }
 

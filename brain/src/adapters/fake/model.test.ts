@@ -102,6 +102,12 @@ test('T-gain: a note without gain is returned untouched', () => {
   assert.equal(noteOnReadback(n), n);
 });
 
+test('T-gain: the shared contract encoder applies the measured inverse once (E24)', () => {
+  const gain = orderedNoteProps(note({ gain: 0.7 })).find(([key]) => key === 'gain');
+  assert.deepEqual(gain, ['gain', 0.35]);
+  assert.equal(gainOnReadback(gain?.[1] as number), 0.7);
+});
+
 // --- E15-E: pressure cannot be written at all --------------------------------
 
 test('T-pressure: pressure is never emitted, whatever order it is asked for in (E15-E)', () => {

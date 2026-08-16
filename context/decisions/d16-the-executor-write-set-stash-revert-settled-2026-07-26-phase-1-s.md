@@ -30,30 +30,16 @@ prevent. The cost of the cheap answer is stated rather than hidden: a positional
 address in a batch that also moves rows is labelled `lossy`, derived from
 `ADDRESS_IDENTITY`, not remembered (`engine/fidelity.ts`).
 
-### b. ⚠ What revert does about `gain` — **WITHHELD and reported, not replayed**
+### b. What revert does about `gain` — **replayed exactly**
 
-The sharpest trap in the phase. `gain` reads back **2× written** (E2), so a stash
-of a note written at 0.7 holds 1.4, and D8 is explicit that *"the inverse is
-unverified, so it is labelled, never corrected."*
+E24 verified `readback = setter input × 2` at nine values. Repeated reads and a
+zero revert used a cursor that the writer could not allocate. The shared
+property encoder now writes `requested / GAIN_READ_SCALE`, and
+`NOTE_PROP_FIDELITY.gain` is `exact`.
 
-That settles what the SNAPSHOT stores. It does not settle what a revert *emits*,
-and the two obvious readings are both wrong:
-
-| option | failure |
-|---|---|
-| replay the stashed 1.4 | writes 1.4, reads back 2.8 — and **doubles again on every subsequent revert**. Unbounded, compounding, silent. |
-| divide by `GAIN_READ_SCALE` | the guess D8 forbids. A wrong correction makes **every** take restore wrong gain. |
-| **withhold and report** ✅ | the property is not restored, and the take says so by name. Bounded, visible, and the user is already in Bitwig's own piano roll where fixing it is one drag. |
-
-**Chosen: withhold.** A bounded visible failure beats an unbounded silent one,
-and it is the same treatment `pressure` already gets — which is not a coincidence,
-since both mean "we cannot write a value that reads back as the one we captured".
-
-⚠ **This is one edit away from being retired.** `revertOps` withholds every
-property whose `NOTE_PROP_FIDELITY` is not `exact`, derived, never named — so a
-Phase-1 session-5 probe that measures the inverse flips `gain` to `'exact'` in
-`state.ts` and the withholding stops everywhere at once. **Do not hand-code a
-correction anywhere else.**
+The derived replay rule therefore includes gain automatically. No gain-specific
+revert correction exists. Current snapshots store and restore corrected gain
+exactly.
 
 ### c. ⚠ What revert does about `pressure` — **stripped, and the take says so**
 

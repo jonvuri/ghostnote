@@ -495,6 +495,14 @@ test('E-pool: a structural op invalidates every assignment (standing rule 2, E3)
   assert.equal(pool.assignments.size, 0);
 });
 
+test('E-pool: an explicit cursor partition cannot allocate outside its references', () => {
+  const pool = new CursorPool(['writer']);
+  assert.equal(pool.cursorFor(CLIP_A), 'writer');
+  assert.equal(pool.cursorFor(CLIP_B), 'writer');
+  assert.throws(() => new CursorPool([]), /at least one cursor/);
+  assert.throws(() => new CursorPool(['0', '0']), /unique/);
+});
+
 test('E-pool: more clips than cursors evicts the LEAST recently used, never the newest', () => {
   const pool = new CursorPool(2);
   const a = pool.cursorFor(CLIP_A);

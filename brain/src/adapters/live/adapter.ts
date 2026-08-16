@@ -194,6 +194,14 @@ export interface LiveOptions {
    */
   readonly cursorPool?: number;
   /**
+   * Exact cursor references this adapter may use.
+   *
+   * A focused live harness can partition the rig into a writer and an
+   * independent witness. When set, `hello()` does not replace this partition
+   * with the rig's full cursor pool.
+   */
+  readonly cursorRefs?: readonly string[];
+  /**
    * How wide the scene bank window is. Learned from `rig.info` at `hello()` when
    * omitted; like the cursor pool it is fixed at the rig's `init()` (D7), which
    * is why it can be cached at all.
@@ -255,6 +263,8 @@ export class LiveAdapter implements BitwigAdapter {
   private readonly expectMethodsHash: string | undefined;
   /** Allocated at `hello()` from the rig's real pool size; see `pool.ts`. */
   private pool: CursorPool;
+  /** The caller supplied an exact cursor partition that `hello()` must keep. */
+  private readonly fixedCursorRefs: boolean;
 
   /** channelId -> bank index. Invalidated by every structural op, never trusted across one. */
   private index = new Map<string, number>();
@@ -353,7 +363,8 @@ export class LiveAdapter implements BitwigAdapter {
     // A pool of one until `hello()` learns the rig's real size — which is the
     // Phase-0 behaviour exactly, so an adapter used before the handshake is no
     // worse than it was, merely no better.
-    this.pool = new CursorPool(options.cursorPool ?? 1);
+    this.fixedCursorRefs = options.cursorRefs !== undefined;
+    this.pool = new CursorPool(options.cursorRefs ?? options.cursorPool ?? 1);
     this.sceneBankSize = options.sceneBankSize ?? RIG_DEFAULT_SCENES;
   }
 
@@ -396,7 +407,9 @@ export class LiveAdapter implements BitwigAdapter {
     this.deviceBankSize = rig.deviceBank;
     // The rig allocates its cursor pool at init and cannot grow it afterwards
     // (D7 — allocation is init-only and enforced), so this is the real ceiling.
-    if (rig.cursorPool !== undefined) this.pool = new CursorPool(rig.cursorPool);
+    if (!this.fixedCursorRefs && rig.cursorPool !== undefined) {
+      this.pool = new CursorPool(rig.cursorPool);
+    }
     // ⚠ Same rule, second population: the scene bank and every slot bank are
     // created `config.scenes` wide at init and cannot grow. This is the real
     // ceiling on which ROWS exist for us at all.

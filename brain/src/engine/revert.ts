@@ -387,10 +387,8 @@ function withheldReason(prop: string, count: number): string {
       'human authored; the revert cannot put it back, and refusing the whole revert over it ' +
       'would be the worse failure.';
   }
-  return `withheld on ${notes}: \`${prop}\` reads back doubled and the inverse is UNVERIFIED ` +
-    '(E2, D8). Replaying the stashed value would double it AGAIN, and compound on every ' +
-    'subsequent revert. Withheld rather than corrected on a guess — flipping ' +
-    'NOTE_PROP_FIDELITY to `exact` after a live probe is what re-enables it.';
+  return `withheld on ${notes}: \`${prop}\` has no verified write/read inverse. The stash keeps ` +
+    'the observed value, but replay does not guess a correction.';
 }
 
 /**

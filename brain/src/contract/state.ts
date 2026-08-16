@@ -2,18 +2,15 @@
  * Note state and its fidelity labels — the object class Phase 1 is born on.
  *
  * E2 swept all 21 expression properties and found `setStep` → `getStep` exact to
- * ±2e-3 for every one of them EXCEPT gain. That is why clips are where the
+ * ±2e-3 after the measured gain inverse. That is why clips are where the
  * checkpoint engine gets built: the snapshot is lossless, so a revert bug is
  * unambiguous rather than a fidelity argument.
  *
  * Two traps are named here and NOT silently papered over:
  *
- *   - `gain` reads back 2x what was written (write 0.7, settled read 1.4), and
- *     the INVERSE mapping is unverified until Phase 1 measures it. Correcting on
- *     an unverified inverse would make every take restore wrong gain, silently —
- *     the exact failure class this project exists to prevent, and precisely how
- *     an offline fake ends up certifying wrong behaviour (PHASE-0 §Risks). So the
- *     contract REPORTS what readback said and LABELS the property instead.
+ *   - `gain` reads back 2x the setter input. E24 measured nine values from 0.1
+ *     through 1.0, repeated independent-cursor reads, and a zero revert. The
+ *     shared property encoder therefore writes `gain / GAIN_READ_SCALE`.
  *   - `pressure` CANNOT BE WRITTEN AT ALL (E15-E). `NoteStep.setPressure` leaves
  *     the value in the writing cursor's own `NoteStep` cache and never in the
  *     clip: re-point that cursor and the value is gone, and any other cursor
@@ -67,8 +64,8 @@ export const NOTE_PROP_FIDELITY: Record<NoteProp | 'velocity' | 'duration', Prop
   duration: 'exact',
   releaseVelocity: 'exact',
   velocitySpread: 'exact',
-  // ⚠ E2: reads back 2x written. Inverse mapping UNVERIFIED — Phase 1 probe.
-  gain: 'unverified',
+  // E24: the stable inverse is write / 2, verified through an independent cursor.
+  gain: 'exact',
   pan: 'exact',
   // ⚠ E15-E: the write never reaches the clip. See this file's header.
   pressure: 'unwritable',
@@ -92,9 +89,8 @@ export const NOTE_PROP_FIDELITY: Record<NoteProp | 'velocity' | 'duration', Prop
 /**
  * The observed readback scale for `gain`.
  *
- * ⚠ @unverified — E2. This constant is documentation, not a correction: nothing
- * applies it in v0. When Phase 1 verifies the inverse mapping, enabling the
- * correction is a one-line change HERE and nowhere else.
+ * E24 verified the inverse at nine values, with repeated independent reads and
+ * a revert. `orderedNoteProps` is the one place that applies it.
  */
 export const GAIN_READ_SCALE = 2;
 
@@ -153,7 +149,10 @@ export function orderedNoteProps(note: NoteRecord): (readonly [string, unknown])
     // above cannot quietly put it back on the wire.
     if (UNWRITABLE_NOTE_PROPS.includes(key)) continue;
     const value = bag[key];
-    if (value !== undefined) entries.push([key, value] as const);
+    if (value === undefined) continue;
+    entries.push([key, key === 'gain' && typeof value === 'number'
+      ? value / GAIN_READ_SCALE
+      : value] as const);
   }
   return entries;
 }
@@ -203,8 +202,7 @@ export interface NoteRecord {
 /**
  * Does this note carry any property we cannot promise to round-trip?
  *
- * Both `unverified` (gain: reads back doubled, inverse unproven) and
- * `unwritable` (pressure: the write never lands) count, because the question
+ * Both `unverified` and `unwritable` properties count, because the question
  * this answers is "could replaying this snapshot fail to reproduce the clip?"
  * and the answer is yes for both, for different reasons.
  */

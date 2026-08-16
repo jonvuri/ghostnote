@@ -45,6 +45,7 @@ const EXACT_VALUES: Record<string, unknown> = {
   duration: 0.75,
   releaseVelocity: 0.4,
   velocitySpread: 0.2,
+  gain: 0.7,
   pan: -0.25,
   timbre: 0.3,
   transpose: 2,
@@ -135,7 +136,7 @@ test('X-roundtrip: a batch applies, verifies by readback, and reverts BYTE-IDENT
   const { fake, executor, clipA } = await fixture();
   const address = notesAt(clipA);
 
-  // The state a human authored, carrying all 19 exact properties.
+  // The state a human authored, carrying all 20 exact properties.
   await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [fullNote(), fullNote({ startBeats: 2, pitch: 67 })] }] });
   await fake.settle('noteWrite');
   const baseline = await readNotes(fake, address);
@@ -461,16 +462,13 @@ test('X-report: readback disagreeing with the request is REPORTED, not swallowed
   assert.match(durations[0]!.known ?? '', /same-pitch adjacency/);
 });
 
-test('X-report: gain is reported as diverging by exactly the measured factor (E2)', async () => {
-  const { executor, clipA } = await fixture();
+test('X-report: the measured gain inverse makes request and readback exact (E24)', async () => {
+  const { fake, executor, clipA } = await fixture();
   const take = await executor.run([{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }]);
 
-  const gain = take.report.disagreements.find((d) => d.field === 'gain')!;
-  assert.equal(gain.requested, 0.7);
-  assert.equal(gain.readback, 1.4);
-  assert.match(gain.known ?? '', /2x written, as measured/);
-  // The take says lossy up front, so a revert can never quietly under-deliver.
-  assert.equal(take.verify.entries[addressKey(notesAt(clipA))]?.fidelity, 'lossy');
+  assert.equal(take.report.disagreements.find((d) => d.field === 'gain'), undefined);
+  assert.equal(take.verify.entries[addressKey(notesAt(clipA))]?.fidelity, 'exact');
+  assert.ok(Math.abs(((await readNotes(fake, notesAt(clipA)))[0]?.gain ?? 0) - 0.7) <= 2e-3);
 });
 
 test('X-empty: an empty patch is a no-op take, not a crash', async () => {
@@ -492,12 +490,12 @@ test('X-pressure: a patch ASKING for pressure is refused before anything is read
 test('X-floor: a batch that cannot be put back exactly is REFUSED, and nothing is written', async () => {
   const { fake, executor, clipA } = await fixture();
   const address = notesAt(clipA);
-  // A human played expression into this clip. That is what makes the SAME
-  // `note.write` lossy here and exact on a clean clip — the floor is a predicate
+  // A human played pressure into this clip. That is what makes the SAME
+  // `note.clear` lossy here and exact on a clean clip — the floor is a predicate
   // over the stash, which is the one thing a hand-kept list of op classes could
   // never be (§3.3.5).
-  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }] });
-  await fake.settle('noteWrite');
+  const slotState = control(fake).model.tracks[0]!.slots[0]!;
+  slotState.notes.set(noteKey(0, 60, 0), note({ pressure: 0.9 }));
 
   await assert.rejects(
     executor.run([{ op: 'note.clear', clip: clipA }]),
@@ -514,7 +512,7 @@ test('X-floor: a batch that cannot be put back exactly is REFUSED, and nothing i
     .then(() => undefined, (e: unknown) => e as UnprotectedWriteError);
   assert.ok(refused instanceof UnprotectedWriteError);
   assert.equal(refused.fidelity, 'lossy');
-  assert.match(refused.message, /gain/);
+  assert.match(refused.message, /pressure/);
   assert.doesNotMatch(refused.message, /fork|layer|chain|duplicate|track instead/i);
 });
 
@@ -523,15 +521,15 @@ test('X-floor: the same write into a CLEAN clip pays nothing — the predicate i
   const take = await executor.run([{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }]);
   // ⚠ A take's fidelity describes what it can RESTORE, not what it wrote. The
   // clip was empty, so the prior state is exactly restorable and the batch is
-  // ordinary — even though the gain it writes will read back doubled.
+  // ordinary. The measured inverse also makes the gain itself exact.
   assert.equal(take.fidelity, 'exact');
   assert.equal(take.report.applied, true);
 });
 
 test('X-floor: clearance lets it through, and the take still says what it cannot restore', async () => {
   const { fake, executor, clipA } = await fixture();
-  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }] });
-  await fake.settle('noteWrite');
+  const slotState = control(fake).model.tracks[0]!.slots[0]!;
+  slotState.notes.set(noteKey(0, 60, 0), note({ pressure: 0.9 }));
 
   const take = await executor.run(
     [{ op: 'note.clear', clip: clipA }],
@@ -541,7 +539,7 @@ test('X-floor: clearance lets it through, and the take still says what it cannot
   // Clearance changes whether the batch RUNS. It never changes what the take
   // claims: D5's "a revert never silently under-delivers" is untouched by it.
   assert.equal(take.fidelity, 'lossy');
-  assert.match(take.values[0]!.caveats.join(' '), /gain/);
+  assert.match(take.values[0]!.caveats.join(' '), /pressure/);
 });
 
 test('X-floor: reverting our own changeset is NOT gated, or a lossy take could never be undone', async () => {
@@ -556,10 +554,7 @@ test('X-floor: reverting our own changeset is NOT gated, or a lossy take could n
   ]);
   assert.equal(take.fidelity, 'exact', 'the prior state was clean, so the write was ordinary');
 
-  // ⚠ The state the revert is about to overwrite now carries a doubled gain, so
-  // the floor would refuse it — and refusing a revert of our own take is the
-  // deadlock version of the rule. D19/D20: own changesets ride the ordinary
-  // surface ungated, and the fidelity machinery REPORTS instead.
+  // Reverting an owned changeset stays outside the ordinary write floor.
   const reverted = await executor.revertUnchecked(take);
   assert.equal(reverted.take.report.applied, true);
   assert.deepEqual((await readNotes(fake, address)).map((n) => n.pan), [0.25]);

@@ -16,7 +16,7 @@
  * label that over-promises is worse than no label at all.
  */
 import {
-  ADDRESS_IDENTITY, GAIN_READ_SCALE, NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS,
+  ADDRESS_IDENTITY, NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS,
   UNWRITABLE_NOTE_PROPS, addressKey,
   type Fidelity, type NoteRecord, type Snapshot, type StateValue,
 } from '../contract/index.js';
@@ -48,11 +48,8 @@ export function notePropCaveats(notes: readonly NoteRecord[]): string[] {
 
   for (const prop of UNVERIFIED_NOTE_PROPS) {
     if (!present(prop)) continue;
-    caveats.push(
-      `${prop}: reads back ${GAIN_READ_SCALE}x what was written and the INVERSE IS UNVERIFIED ` +
-        '(E2, D8) — the stash records the doubled readback, so replaying it would compound the ' +
-        'error on every revert. Captured and reported; never corrected on a guess.',
-    );
+    caveats.push(`${prop}: its write/read inverse is unverified, so the stash records and reports `
+      + 'the value but does not replay it on a guess.');
   }
   for (const prop of UNWRITABLE_NOTE_PROPS) {
     if (!present(prop)) continue;

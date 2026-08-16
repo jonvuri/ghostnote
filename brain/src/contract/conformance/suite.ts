@@ -454,15 +454,15 @@ export function runConformance(h: AdapterHarness): void {
     });
   });
 
-  test(label('C-gain', 'a snapshot touching gain is labelled lossy, never silently corrected (E2)'), async () => {
+  test(label('C-gain', 'the measured inverse makes gain exact through readback (E24)'), async () => {
     await withClip(async ({ adapter, clipA }) => {
       await adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }] });
       await adapter.settle('noteWrite');
       const snap = await adapter.read([notesAt(clipA)]);
       const entry = snap.entries[addressKey(notesAt(clipA))]!;
-      // The inverse mapping is unverified until Phase 1; correcting on a guess
-      // would make every take restore a wrong gain, silently.
-      assert.equal(entry.fidelity, 'lossy');
+      assert.equal(entry.fidelity, 'exact');
+      assert.ok(entry.value.of === 'notes');
+      assert.ok(Math.abs((entry.value.of === 'notes' ? entry.value.notes[0]?.gain ?? 0 : 0) - 0.7) <= 2e-3);
     });
   });
 
@@ -1983,28 +1983,21 @@ export function runConformance(h: AdapterHarness): void {
     }
   });
 
-  test(label('C-exec', 'gain is captured, labelled and REPORTED — never replayed or corrected (E2, D8)'), async () => {
+  test(label('C-exec', 'gain is captured and restored exactly through the measured inverse (E24)'), async () => {
     await withClip(async ({ adapter, clipA }) => {
       const executor = new Executor(adapter);
       await adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ gain: 0.7 })] }] });
       await adapter.settle('noteWrite');
 
-      // ⚠ The stash is about to say `lossy`, which is the fidelity floor's whole
-      // predicate — so this batch has to declare what is protecting it or it is
-      // refused (D18c). C-floor below asserts the refusal itself.
       const take = await executor.run([
         { op: 'note.clear', clip: clipA },
         { op: 'note.write', clip: clipA, notes: [note({ pitch: 72 })] },
-      ], { clearance: branchProtected('C-exec') });
-      // The stash saw a doubled gain, so the take says lossy before anyone asks.
-      assert.equal(take.fidelity, 'lossy');
-      assert.match(take.values[0]!.caveats.join(' '), /gain: reads back/);
+      ]);
+      assert.equal(take.fidelity, 'exact');
 
       const reverted = await executor.revertUnchecked(take);
-      // Replaying 1.4 would write 1.4 and read back 2.8, compounding on every
-      // revert. Withheld and named — the bounded failure, not the unbounded one.
-      assert.deepEqual(reverted.unrestored.map((u) => u.what), ['gain']);
-      assert.equal((await readNotes(adapter, notesAt(clipA)))[0]?.gain, undefined);
+      assert.deepEqual(reverted.unrestored, []);
+      assert.ok(Math.abs(((await readNotes(adapter, notesAt(clipA)))[0]?.gain ?? 0) - 0.7) <= 2e-3);
     });
   });
 
@@ -2020,7 +2013,7 @@ export function runConformance(h: AdapterHarness): void {
       await adapter.settle('noteWrite');
 
       await assert.rejects(
-        executor.run([{ op: 'note.clear', clip: clipA }]),
+        executor.run([{ op: 'clip.delete', slot: clipA.slot }]),
         UnprotectedWriteError,
         'the response is a refusal, never an automatic branch',
       );
@@ -2028,7 +2021,7 @@ export function runConformance(h: AdapterHarness): void {
 
       // ...and the same batch runs once something is protecting the prior state.
       const cleared = await executor.run(
-        [{ op: 'note.clear', clip: clipA }],
+        [{ op: 'clip.delete', slot: clipA.slot }],
         { clearance: branchProtected('C-floor') },
       );
       assert.equal(cleared.report.applied, true);
@@ -2269,7 +2262,7 @@ export function runConformance(h: AdapterHarness): void {
  * would quietly stop covering one the day a probe promotes it.
  */
 const EXACT_VALUES: Record<string, unknown> = {
-  velocity: 96, duration: 0.75, releaseVelocity: 0.4, velocitySpread: 0.2, pan: -0.25,
+  velocity: 96, duration: 0.75, releaseVelocity: 0.4, velocitySpread: 0.2, gain: 0.7, pan: -0.25,
   timbre: 0.3, transpose: 2, chance: 0.6, isChanceEnabled: true, isMuted: true,
   isOccurrenceEnabled: true, occurrence: 'FIRST', isRecurrenceEnabled: true, recurrence: [4, 5],
   isRepeatEnabled: true, repeatCount: 3, repeatCurve: 0.2, repeatVelocityCurve: -0.1,

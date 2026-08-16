@@ -1934,12 +1934,17 @@ test('T-refusal: a write it could not put back is refused, and names what is in 
   assert.equal((await call(fx, 'write_notes', {
     clips: [{ trackId: fx.trackA, row: 0, notes: [note({ gain: 0.7 })] }],
   }))['applied'], true);
+  // Only a human can add pressure. Put it into the fake model directly so the
+  // refusal still covers a real lossy note property after gain became exact.
+  const slotState = control(fx.fake).model.tracks[0]!.slots[0]!;
+  const [key, existing] = [...slotState.notes.entries()][0]!;
+  slotState.notes.set(key, { ...existing, pressure: 0.9 });
 
   const result = await call(fx, 'erase_notes', { clips: [{ trackId: fx.trackA, row: 0 }] });
   assert.ok(refused(result), 'the clip now holds a value that cannot be recorded exactly');
   const inTheWay = result['inTheWay'] as { where: { row: number }; why: string[] }[];
   assert.equal(inTheWay[0]?.where.row, 0);
-  assert.match(inTheWay[0]!.why.join(' '), /twice the value written/);
+  assert.match(inTheWay[0]!.why.join(' '), /pressure cannot be written/);
   // ⚠ And the notes are untouched: a refusal is not a partial application.
   assert.equal(
     (await call(fx, 'read_clip', { trackId: fx.trackA, row: 0 }) as { notes: NoteRecord[] }).notes.length,
