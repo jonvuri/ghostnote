@@ -1,14 +1,15 @@
 ---
 title: Phase 1, session 5d repair — concurrent selection and property writes
 kind: plan
-state: planned
-status: Not started. E26 blocks the 5d proof.
+state: complete
+status: Completed 2026-08-16. E27 repairs selection capture and cursor reuse;
+        focused independent readback found no property-write defect.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5d-concurrent-editing.md
 next: 5d-concurrent-editing.md
 scope: Repair only; rerun 5d after this session
-evidence: E8, E23, E26 · D6, D10, D15
+evidence: E8, E23, E26, E27 · D6, D10, D15
 needs: Bitwig foregrounded for the focused property diagnosis
 ---
 
@@ -49,3 +50,25 @@ needs: Bitwig foregrounded for the focused property diagnosis
 - claiming Phase 1 exit criterion 2;
 - stale-revision and bank-window proof;
 - managed A/B or full live conformance.
+
+## Result
+
+The executor captures selection before any pipeline work. The live adapter
+reuses a non-following clip cursor only after cursor readback confirms the track
+position and scene row. It clears that hold when the cursor is reused for device
+work and after every structural operation.
+
+Focused regressions cover entry capture, a selection change before the first
+borrow, changes between stages, one final restore, and structural invalidation.
+The full offline check passes 532/532.
+
+The focused live probe wrote 40 non-zero pan values in a control arm and 40 more
+while it changed selection 24 times across three tracks. Two complete runs found
+all values through an independent cursor. The probe reverted each write, removed
+its clip, restored selection, and preserved the exact observation baseline. E27
+records the result. No property-write repair was justified.
+
+## Session retrospective
+
+Keep allocator ownership and verified physical cursor state separate. No
+repository instruction change is needed.

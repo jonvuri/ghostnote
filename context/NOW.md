@@ -4,29 +4,28 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5d-repair-concurrent-selection
+session: phase-1-session-5d-concurrent-editing-rerun
 ---
 
 # Now
 
-Run the [session 5d repair](plan/phase-1/5d-repair-concurrent-selection.md): stop
-repeated selection borrowing and diagnose the independently observed property
-loss before the 5d proof is repeated.
+Run [session 5d](plan/phase-1/5d-concurrent-editing.md) again with a human at the
+keyboard. E27 completed the focused selection and property repair.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5c are complete (E23, E24, E25). E26 blocks 5d.
-Sessions 5e through 5i remain planned. No other Session 5 exit criterion is
-complete.
+slices. Sessions 5a through 5c and the 5d repair are complete (E23–E25, E27).
+Session 5d remains unproved after the E26 attempt. Sessions 5e through 5i remain
+planned. No other Session 5 exit criterion is complete.
 
 ## Start here
 
-1. Read E26, the 5d attempt result, and the focused repair brief.
-2. Capture selection at pipeline entry, before the first asynchronous resolve.
-3. Reuse a verified held cursor across nonstructural stages without changing the
-   user's selection again. Keep structural invalidation unchanged.
-4. Reproduce the missing pan value with control and interference cases through
-   an independent handle.
-5. Add focused regressions and leave the live project at the baseline below.
+1. Read E26, E27, and the 5d proof brief.
+2. Run `npm run probe:5d-concurrent` with Bitwig foregrounded.
+3. During the write window, move the owned drag clip to its named destination.
+4. Select at least two other clips on different tracks. Do not select the write
+   target or the documented restore target.
+5. Confirm one target arrival, one final restore, exact independent write
+   readback, both drag events, exact revert, and no cleanup residue.
 
 ## Baseline
 
@@ -36,8 +35,8 @@ complete.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- The 5d attempt reverted its write, removed both owned clips, restored the
-  pre-probe selection, and left no probe residue.
+- The E27 repair probe reverted both arms, removed its clip, restored the pre-run
+  selection, and left no probe residue.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -54,16 +53,18 @@ Confirm these track identities before a destructive live sweep:
 | FX 1 | `52bd865e-c958-4bda-b9d3-97d0ea2f463a` |
 | Master | `834e65ab-efa4-4bc6-ae9d-4eafd818d16e` |
 
-## Session 5d attempt result
+## Repair result
 
-E26 shows that all 40 note identities landed on the pinned target while the
-operator selected eight clips across five tracks. The selection trace recorded
-10 target arrivals, and the executor restored a selection captured after the
-pipeline began. Independent readback also found one missing pan value. The
-planned clip drag did not complete and remains unmeasured.
+E27 captures selection at pipeline entry and reuses a cursor only after live
+readback confirms its track and row. Nonstructural stages no longer point again;
+structural operations still invalidate the hold. Focused offline tests and the
+full 532-test check pass.
 
-## Session 5d retrospective
+Two live repair runs found all 80 control pans and all 80 interference pans
+through an independent cursor. No property-write defect was confirmed. The
+human clip drag and complete selection trace remain for the 5d rerun.
 
-Do not use an optional property's default value as a live presence oracle.
-Bitwig omits an explicit pan of zero from verbose readback. The standing probe
-now uses non-zero pan values. No repository instruction change is needed.
+## Session retrospective
+
+Keep cursor allocator ownership separate from verified physical cursor state.
+No repository instruction change is needed.

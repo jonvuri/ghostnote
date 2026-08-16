@@ -57,6 +57,14 @@ export interface EncodeContext {
    */
   readonly cursorFor: (clip: ClipAddress) => string;
   /**
+   * Whether this op must send the UI-selection-changing point frames.
+   *
+   * The live adapter can omit them when a prior independent read verified that
+   * the same non-following cursor still owns this clip. Pure encoder callers do
+   * not hold that live state, so absence means that pointing is required.
+   */
+  readonly shouldPointClip?: (clip: ClipAddress, cursor: string) => boolean;
+  /**
    * Which pool cursor drives this TRACK's device chain.
    *
    * ⚠ Not the same thing as `trackIndex`, and conflating them is a wrong-chain
@@ -154,7 +162,13 @@ export function sceneRowIn(scenes: WindowCoverage): (scene: SceneAddress) => num
  * cannot see what the same turn (or the last ~120ms of grid change) did. That is
  * `OP_SETTLE_BEFORE` in the contract — see `encodeOp`'s `note.props` case.
  */
-function pointFrames(cursor: string, trackIndex: number, sceneIndex: number): Frame[] {
+function pointFrames(
+  cursor: string,
+  trackIndex: number,
+  sceneIndex: number,
+  needed = true,
+): Frame[] {
+  if (!needed) return [];
   return [
     frame(WIRE.cursorPointTrack, { cursor, trackIndex }),
     frame(WIRE.slotSelect, { trackIndex, slotIndex: sceneIndex, mechanism: 'track' }),
@@ -211,7 +225,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       // Only the READING op (`note.props` below) has to wait for the grid.
       const cursor = ctx.cursorFor(op.clip);
       const frames: Frame[] = [
-        ...pointFrames(cursor, t, s),
+        ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),
         frame(WIRE.cursorSetStepSize, { cursor, stepSize }),
         frame(WIRE.cursorSetNotes, {
           cursor,
@@ -258,11 +272,12 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       // Sending the grid at all is what makes `x` mean the same thing it meant in
       // the create stage.
       // ⚠ The SAME cursor its create used, guaranteed by `CursorPool` keeping
-      // the assignment stable — so these point frames are a no-op and the turn
-      // begins on the clip the lookup needs (E15-F).
+      // the assignment stable. The live adapter omits the point frames when an
+      // earlier read verified that the non-following cursor still owns this
+      // clip. The turn then begins on the clip the lookup needs (E15-F).
       const cursor = ctx.cursorFor(op.clip);
       const frames: Frame[] = [
-        ...pointFrames(cursor, t, s),
+        ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),
         frame(WIRE.cursorSetStepSize, { cursor, stepSize }),
       ];
       // Deliberately NO setNotes here: re-issuing setStep would reset the very
@@ -282,7 +297,10 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         throw new InvalidOpError('note.clear', 'ranged clear is not in contract v0 — clear the clip or rewrite it');
       }
       const cursor = ctx.cursorFor(op.clip);
-      return [...pointFrames(cursor, t, s), frame(WIRE.cursorClearNotes, { cursor })];
+      return [
+        ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),
+        frame(WIRE.cursorClearNotes, { cursor }),
+      ];
     }
 
     case 'clip.create':

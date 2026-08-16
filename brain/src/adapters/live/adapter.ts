@@ -356,6 +356,8 @@ export class LiveAdapter implements BitwigAdapter {
     | undefined;
   /** A completed scope must finish its UI restore before a new scope can start. */
   private selectionRestore: Promise<void> | undefined;
+  /** Cursor ref -> clip target confirmed by live cursor readback. */
+  private readonly heldClips = new Map<string, AddressKey>();
 
   constructor(options: LiveOptions = {}) {
     this.transport = options.transport ?? new BridgeTransport();
@@ -514,7 +516,16 @@ export class LiveAdapter implements BitwigAdapter {
   private get ctx(): EncodeContext {
     return {
       cursorFor: (clipRef) => this.pool.cursorFor(clipRef),
-      cursorForTrack: (t) => this.pool.cursorForTrack(t),
+      shouldPointClip: (clipRef, cursor) => {
+        const held = this.heldClips.get(cursor) === addressKey(clipRef);
+        if (!held) this.heldClips.delete(cursor);
+        return !held;
+      },
+      cursorForTrack: (t) => {
+        const cursor = this.pool.cursorForTrack(t);
+        this.heldClips.delete(cursor);
+        return cursor;
+      },
       trackIndex: (t) => this.trackIndex(t),
       chainIndex: (c) => this.chainIndex(c),
       chainId: (c) => this.chainId(c),
@@ -600,6 +611,7 @@ export class LiveAdapter implements BitwigAdapter {
     const trackIndex = this.index.get(trackRef.channelId);
     if (trackIndex === undefined) return undefined;
     const cursor = this.pool.cursorForTrack(trackRef);
+    this.heldClips.delete(cursor);
     await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
     await this.settle('cursorPoint');
     const res = (await this.transport.send({
@@ -678,6 +690,7 @@ export class LiveAdapter implements BitwigAdapter {
     // against a measured need of ~100ms.
     let reply: WireInventory | undefined;
     for (let attempt = 0; attempt < 8; attempt += 1) {
+      this.heldClips.delete('0');
       await this.transport.send({
         method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex },
       });
@@ -907,8 +920,9 @@ export class LiveAdapter implements BitwigAdapter {
    * move the user somewhere they never were.
    *
    * Session 5 hoists this work through `preserveSelection`. The executor knows
-   * the complete read -> apply -> read pipeline, so that path captures once and
-   * restores once. A direct adapter call still preserves selection by itself.
+   * the complete read -> apply -> read pipeline, so that path captures at entry
+   * and restores once. A direct adapter call still preserves selection by
+   * itself.
    */
   private async captureSelection(): Promise<SelectionState | undefined> {
     const status = (await this.transport.send({ method: WIRE.selectionStatus })) as {
@@ -968,6 +982,7 @@ export class LiveAdapter implements BitwigAdapter {
     if (active !== undefined) {
       active.users += 1;
       try {
+        active.saved = await active.capture;
         return await work();
       } finally {
         await this.finishSelectionScope(active);
@@ -977,11 +992,14 @@ export class LiveAdapter implements BitwigAdapter {
     const scope = {
       saved: undefined as SelectionState | undefined,
       borrowed: false,
-      capture: undefined as Promise<SelectionState | undefined> | undefined,
+      // Start the wire read before any resolve, stash, or other asynchronous
+      // work can let a human selection replace the pipeline-entry state.
+      capture: this.captureSelection(),
       users: 1,
     };
     this.selectionScope = scope;
     try {
+      scope.saved = await scope.capture;
       return await work();
     } finally {
       await this.finishSelectionScope(scope);
@@ -993,6 +1011,9 @@ export class LiveAdapter implements BitwigAdapter {
     scope.users -= 1;
     if (scope.users !== 0 || this.selectionScope !== scope) return;
     this.selectionScope = undefined;
+    // A verified hold belongs to this pipeline. Do not carry it across a gap in
+    // which an external structural edit can move the track or scene layout.
+    this.heldClips.clear();
     if (!scope.borrowed) return;
     const restore = this.restoreSelection(scope.saved);
     this.selectionRestore = restore;
@@ -1008,7 +1029,6 @@ export class LiveAdapter implements BitwigAdapter {
     if (!needed) return undefined;
     if (this.selectionScope !== undefined) {
       const scope = this.selectionScope;
-      scope.capture ??= this.captureSelection();
       scope.saved = await scope.capture;
       scope.borrowed = true;
       return undefined;
@@ -1231,13 +1251,30 @@ export class LiveAdapter implements BitwigAdapter {
   ): Promise<string> {
     const cursor = this.pool.cursorFor(clipRef);
     const key = addressKey(clipRef);
+    if (this.heldClips.get(cursor) === key) {
+      pointedAt.set(cursor, key);
+      return cursor;
+    }
     if (pointedAt.get(cursor) === key) return cursor;
+    this.heldClips.delete(cursor);
     await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
     await this.transport.send({
       method: WIRE.slotSelect,
       params: { trackIndex, slotIndex: clipRef.slot.scene.index, mechanism: 'track' },
     });
     await this.settle('cursorPoint');
+    const status = (await this.transport.send({
+      method: WIRE.cursorStatus,
+      params: { cursor },
+    })) as { trackPosition?: number; sceneIndex?: number };
+    if (status.trackPosition !== trackIndex
+        || status.sceneIndex !== clipRef.slot.scene.index) {
+      throw new AddressUnresolvedError(
+        clipRef,
+        `cursor ${cursor} did not confirm track ${trackIndex}, row ${clipRef.slot.scene.index}`,
+      );
+    }
+    this.heldClips.set(cursor, key);
     pointedAt.set(cursor, key);
     return cursor;
   }
@@ -2254,6 +2291,7 @@ export class LiveAdapter implements BitwigAdapter {
       // damage is silent and arbitrarily delayed.
       if (stage.ops.some((o) => STRUCTURAL.has(o.op))) {
         this.pool.invalidate();
+        this.heldClips.clear();
         let after = (await this.scanTracks()).tracks;
         // E2c/C-minted: structural rows sometimes enter the observable bank
         // well after the measured settle. A single diff loses the durable id

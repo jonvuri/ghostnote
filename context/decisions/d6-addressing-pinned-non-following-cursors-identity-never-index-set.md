@@ -29,7 +29,11 @@ outlives the request that resolved it.**
   and a whole batch costs exactly ONE observable selection change — so one restore
   at the end suffices (E14-F2/F3/F4). **Delivered in Phase 1 session 5 B4:** the
   executor owns one scope across its complete pipeline, and the live adapter
-  confirms the final restore through selection readback (E23).
+  confirms the final restore through selection readback (E23). **Amended by
+  E27:** the scope captures selection at pipeline entry. A cursor hold is reused
+  across nonstructural stages only after `cursor.status` confirms the target
+  track position and scene row. Cursor eviction, device pointing, and every
+  structural operation invalidate the applicable hold.
 - ⚠ **Pointing at an EMPTY slot silently lands on the WRONG clip** and
   `cursor.status` looks healthy (E2). Create the clip first, always.
 - **Bank-window overflow is a refusal, not a knob** (E5, standing rule 5).

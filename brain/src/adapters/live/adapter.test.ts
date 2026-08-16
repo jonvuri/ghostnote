@@ -100,6 +100,9 @@ class CursorModelTransport implements Transport {
         if (this.pending !== undefined) {
           this.cursorOn.set(this.pending, params['slotIndex'] as number);
           this.pending = undefined;
+        } else {
+          this.selection.trackIndex = params['trackIndex'] as number;
+          this.selection.slotIndex = params['slotIndex'] as number;
         }
         return {};
       }
@@ -107,7 +110,11 @@ class CursorModelTransport implements Transport {
       case WIRE.cursorStatus: {
         const on = this.cursorOn.get(params['cursor'] as string);
         const model = on === undefined ? undefined : this.slots.get(on);
-        return model === undefined ? {} : { loopLength: model.lengthBeats };
+        return model === undefined ? {} : {
+          loopLength: model.lengthBeats,
+          trackPosition: 0,
+          sceneIndex: on,
+        };
       }
 
       case WIRE.cursorGetNotesVerbose: {
@@ -117,6 +124,9 @@ class CursorModelTransport implements Transport {
           ? { notes: [] }
           : { notes: [{ x: 0, y: model.pitch, velocity: 100 / 127, duration: 1 }] };
       }
+
+      case WIRE.batchRun:
+        return { applied: true, revision: 2, results: [] };
 
       default:
         return {};
@@ -158,7 +168,7 @@ test('B4: one selection scope covers repeated live reads and restores once', asy
     'the full pipeline captures once and confirms the final restore once',
   );
   const selects = transport.frames.filter((frame) => frame.method === WIRE.slotSelect);
-  assert.equal(selects.length, 3, 'two cursor points and one final restore are sent');
+  assert.equal(selects.length, 2, 'one verified cursor point and one final restore are sent');
   assert.deepEqual(selects.at(-1)?.params, {
     trackIndex: 3,
     slotIndex: 2,
@@ -166,16 +176,88 @@ test('B4: one selection scope covers repeated live reads and restores once', asy
   });
 });
 
-test('B4: a pipeline that never points does not touch the UI selection', async () => {
+test('5d repair: a pipeline captures selection eagerly but does not restore without a borrow', async () => {
   const transport = new CursorModelTransport(new Map());
   const adapter = new UntimedAdapter({ transport, cursorPool: 2, sceneBankSize: 8 });
 
   await adapter.preserveSelection(async () => {});
 
+  assert.equal(transport.frames.filter((frame) => frame.method === WIRE.selectionStatus).length, 1);
+  assert.equal(transport.frames.some((frame) => frame.method === WIRE.slotSelect), false);
+});
+
+test('5d repair: entry selection wins over a change before the first cursor borrow', async () => {
+  const selected = { trackIndex: 3, slotIndex: 2 };
+  const transport = new CursorModelTransport(
+    new Map([[0, { lengthBeats: 4, pitch: 60 }]]),
+    selected,
+  );
+  const adapter = new UntimedAdapter({ transport, cursorPool: 2, sceneBankSize: 8 });
+
+  await adapter.preserveSelection(async () => {
+    selected.trackIndex = 6;
+    selected.slotIndex = 5;
+    await adapter.read([notesAt(CLIP(0))]);
+  });
+
+  assert.deepEqual(selected, { trackIndex: 3, slotIndex: 2 });
+  const restores = transport.frames.filter((frame) =>
+    frame.method === WIRE.slotSelect && frame.params?.['mechanism'] === 'track');
+  assert.deepEqual(restores.at(-1)?.params, {
+    trackIndex: 3,
+    slotIndex: 2,
+    mechanism: 'track',
+  });
+});
+
+test('5d repair: selection changes do not re-point a verified held clip between stages', async () => {
+  const selected = { trackIndex: 3, slotIndex: 2 };
+  const transport = new CursorModelTransport(
+    new Map([[0, { lengthBeats: 4, pitch: 60 }]]),
+    selected,
+  );
+  const adapter = new UntimedAdapter({ transport, cursorPool: 1, sceneBankSize: 8 });
+
+  await adapter.preserveSelection(async () => {
+    await adapter.read([notesAt(CLIP(0))]);
+    selected.trackIndex = 7;
+    selected.slotIndex = 4;
+    await adapter.apply({
+      ops: [
+        { op: 'note.write', clip: CLIP(0), notes: [{
+          startBeats: 0, pitch: 64, velocity: 100, durationBeats: 1, pan: 0.25,
+        }] },
+        { op: 'note.write', clip: CLIP(0), notes: [{
+          startBeats: 1, pitch: 65, velocity: 100, durationBeats: 1, pan: -0.25,
+        }] },
+      ],
+    });
+    await adapter.read([notesAt(CLIP(0))]);
+  });
+
   assert.equal(
-    transport.frames.some((frame) =>
-      frame.method === WIRE.selectionStatus || frame.method === WIRE.slotSelect),
-    false,
+    transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length,
+    1,
+    'the stash point remains held through every nonstructural write and verify stage',
+  );
+  assert.deepEqual(selected, { trackIndex: 3, slotIndex: 2 });
+});
+
+test('5d repair: a structural stage invalidates the verified held clip', async () => {
+  const transport = new CursorModelTransport(new Map([
+    [0, { lengthBeats: 4, pitch: 60 }],
+    [1, { lengthBeats: 4, pitch: 62 }],
+  ]));
+  const adapter = new UntimedAdapter({ transport, cursorPool: 1, sceneBankSize: 8 });
+
+  await adapter.read([notesAt(CLIP(0))]);
+  await adapter.apply({ ops: [{ op: 'clip.delete', slot: CLIP(1).slot }] });
+  await adapter.read([notesAt(CLIP(0))]);
+
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length,
+    2,
+    'the next read must re-point after a structural operation',
   );
 });
 

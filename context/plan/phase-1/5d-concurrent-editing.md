@@ -2,14 +2,14 @@
 title: Phase 1, session 5d — concurrent editing
 kind: plan
 state: planned
-status: Proof attempted 2026-08-16. E26 blocks completion pending a focused
-        repair session.
+status: Proof attempted 2026-08-16. E27 completed the focused repair; run the
+        human proof again.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5c-drag-boundaries.md
 next: 5e-refusal-boundaries.md
 scope: Phase 1 exit criterion 2
-evidence: E8, E23, E26 · D6, D10, D15
+evidence: E8, E23, E26, E27 · D6, D10, D15
 needs: Bitwig foregrounded; a human at the keyboard
 ---
 
@@ -66,6 +66,10 @@ so that subclaim remains unmeasured. Cleanup reverted the write exactly, removed
 both owned clips, restored the pre-probe selection, and preserved the observation
 baseline. E26 records the result. Run the focused
 [5d repair](5d-repair-concurrent-selection.md) before this proof is repeated.
+
+The focused repair is now complete. E27 confirms eager entry capture, verified
+cursor reuse across nonstructural stages, structural invalidation, and exact pan
+readback under automated selection interference. Repeat this proof next.
 
 ## Session retrospective
 

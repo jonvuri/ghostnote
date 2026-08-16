@@ -2,14 +2,14 @@
 title: Phase 1, session 5 — live proving program
 kind: plan
 state: active
-status: Re-cut approved 2026-08-16. Sessions 5a through 5c are complete. E26
-        blocks 5d pending its focused repair. Sessions 5e–5i are planned.
+status: Re-cut approved 2026-08-16. Sessions 5a through 5c and the 5d repair are
+        complete. Repeat 5d next. Sessions 5e–5i are planned.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
 next: 5a-selection.md
 scope: Phase 1 exit criteria
-evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26 · D6, D8, D15–D20
+evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26, E27 · D6, D8, D15–D20
 needs: Bitwig foregrounded for live sessions; a human where each brief says so
 ---
 
@@ -35,7 +35,9 @@ that the mark reports the uncovered scene dimension.
 
 Session 5d was attempted. E26 confirms pinned note identities, but repeated
 production stages re-borrow selection under human changes and one pan write did
-not pass independent readback. The focused 5d repair precedes a new proof run.
+not pass independent readback. The focused repair is complete. E27 confirms
+eager selection capture and verified cursor reuse. Its independent control and
+interference cases found no property-write defect. Run the 5d proof again.
 
 ## The 21-property contract
 
@@ -58,7 +60,7 @@ Later plans must say that 20 of 21 properties are exact and pressure is refused.
 | [5b — note fidelity and gain](5b-fidelity.md) | Independent-handle round-trip and gain decision; complete, E24 | criterion 1 |
 | [5c — observer drag boundaries](5c-drag-boundaries.md) | Cross-track and below-window drag measurements; complete, E25 | B5 |
 | [5d — concurrent editing](5d-concurrent-editing.md) | Pinned writes while the human edits | criterion 2 |
-| [5d repair — concurrent selection](5d-repair-concurrent-selection.md) | Stop repeated UI borrowing and diagnose one property loss | repair before 5d rerun |
+| [5d repair — concurrent selection](5d-repair-concurrent-selection.md) | Stop repeated UI borrowing and diagnose one property loss | complete, E27 |
 | [5e — refusal boundaries](5e-refusal-boundaries.md) | Stale revision and bank-window refusal | criteria 3 and 5 |
 | [5f — managed A/B](5f-managed-ab.md) | Both native A/B mechanisms and ordinary track copy | criterion 4 |
 | [5g — full live conformance](5g-live-conformance.md) | Complete load run with `C-minted` green | B7 |
