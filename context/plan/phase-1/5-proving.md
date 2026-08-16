@@ -2,14 +2,14 @@
 title: Phase 1, session 5 — live proving program
 kind: plan
 state: active
-status: Re-cut approved 2026-08-16. Sessions 5a through 5c and the 5d repair are
-        complete. Repeat 5d next. Sessions 5e–5i are planned.
+status: Re-cut approved 2026-08-16. Sessions 5a through 5c and the first 5d
+        repair are complete. E28 requires a cursor confirmation repair next.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
 next: 5a-selection.md
 scope: Phase 1 exit criteria
-evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26, E27 · D6, D8, D15–D20
+evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26, E27, E28 · D6, D8, D15–D20
 needs: Bitwig foregrounded for live sessions; a human where each brief says so
 ---
 
@@ -39,6 +39,12 @@ not pass independent readback. The focused repair is complete. E27 confirms
 eager selection capture and verified cursor reuse. Its independent control and
 interference cases found no property-write defect. Run the 5d proof again.
 
+The rerun stopped before the human window. E28 found that clip cursor
+confirmation checks status only once after 25 ms, although D6 requires polling.
+It also found that early grid-capture failure leaves the probe without its owned
+cleanup fingerprint. Run the focused cursor confirmation repair before another
+5d attempt.
+
 ## The 21-property contract
 
 The old phase plan says "all 21 expression properties." D8 says "16 of 18."
@@ -61,6 +67,7 @@ Later plans must say that 20 of 21 properties are exact and pressure is refused.
 | [5c — observer drag boundaries](5c-drag-boundaries.md) | Cross-track and below-window drag measurements; complete, E25 | B5 |
 | [5d — concurrent editing](5d-concurrent-editing.md) | Pinned writes while the human edits | criterion 2 |
 | [5d repair — concurrent selection](5d-repair-concurrent-selection.md) | Stop repeated UI borrowing and diagnose one property loss | complete, E27 |
+| [5d repair — cursor confirmation](5d-repair-cursor-confirmation.md) | Retry lagging clip confirmation and preserve cleanup fingerprints | planned, E28 |
 | [5e — refusal boundaries](5e-refusal-boundaries.md) | Stale revision and bank-window refusal | criteria 3 and 5 |
 | [5f — managed A/B](5f-managed-ab.md) | Both native A/B mechanisms and ordinary track copy | criterion 4 |
 | [5g — full live conformance](5g-live-conformance.md) | Complete load run with `C-minted` green | B7 |

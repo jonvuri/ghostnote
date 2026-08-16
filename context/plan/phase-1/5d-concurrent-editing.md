@@ -2,14 +2,14 @@
 title: Phase 1, session 5d — concurrent editing
 kind: plan
 state: planned
-status: Proof attempted 2026-08-16. E27 completed the focused repair; run the
-        human proof again.
+status: Proof attempted twice 2026-08-16. E28 stopped the rerun before the human
+        window; repair cursor confirmation before another attempt.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5c-drag-boundaries.md
 next: 5e-refusal-boundaries.md
 scope: Phase 1 exit criterion 2
-evidence: E8, E23, E26, E27 · D6, D10, D15
+evidence: E8, E23, E26, E27, E28 · D6, D10, D15
 needs: Bitwig foregrounded; a human at the keyboard
 ---
 
@@ -69,10 +69,27 @@ baseline. E26 records the result. Run the focused
 
 The focused repair is now complete. E27 confirms eager entry capture, verified
 cursor reuse across nonstructural stages, structural invalidation, and exact pan
-readback under automated selection interference. Repeat this proof next.
+readback under automated selection interference.
+
+## Rerun result
+
+The rerun stopped during setup, before the human prompt and production write
+window. The fixed witness cursor did not confirm one occupied clip after the
+single 25 ms check in `pointAtClip`. The adapter failed closed, so no concurrent
+editing claim was measured.
+
+Cleanup removed the write target but initially refused the drag clip because
+the complete grid capture failed before the probe assigned its cleanup
+fingerprint. Directed readback confirmed the exact owned pitch-108 note before
+deletion. Final readback found all three claimed cells empty, restored the entry
+selection, preserved the empty observation record, and found the transport
+stopped. E28 records the result.
+
+Run the focused [cursor confirmation repair](5d-repair-cursor-confirmation.md)
+before this proof is repeated.
 
 ## Session retrospective
 
-Do not use an optional property's default value as a live presence oracle.
-Bitwig omits an explicit pan of zero from verbose readback. The standing probe
-now uses non-zero pan values. No repository instruction change is needed.
+Store owned cleanup fingerprints before a larger diagnostic read can fail. Keep
+the existing non-zero pan values because Bitwig omits an explicit zero from
+verbose readback. No repository instruction change is needed.

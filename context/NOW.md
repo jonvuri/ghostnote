@@ -4,28 +4,28 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5d-concurrent-editing-rerun
+session: phase-1-session-5d-repair-cursor-confirmation
 ---
 
 # Now
 
-Run [session 5d](plan/phase-1/5d-concurrent-editing.md) again with a human at the
-keyboard. E27 completed the focused selection and property repair.
+Run the focused [5d cursor confirmation
+repair](plan/phase-1/5d-repair-cursor-confirmation.md). E28 stopped the human
+rerun during setup, before the operator prompt and production write window.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5c and the 5d repair are complete (E23–E25, E27).
-Session 5d remains unproved after the E26 attempt. Sessions 5e through 5i remain
-planned. No other Session 5 exit criterion is complete.
+slices. Sessions 5a through 5c and the first 5d repair are complete (E23–E25,
+E27). Session 5d remains unproved after E26 and E28. Sessions 5e through 5i
+remain planned. No other Session 5 exit criterion is complete.
 
 ## Start here
 
-1. Read E26, E27, and the 5d proof brief.
-2. Run `npm run probe:5d-concurrent` with Bitwig foregrounded.
-3. During the write window, move the owned drag clip to its named destination.
-4. Select at least two other clips on different tracks. Do not select the write
-   target or the documented restore target.
-5. Confirm one target arrival, one final restore, exact independent write
-   readback, both drag events, exact revert, and no cleanup residue.
+1. Read E28 and the cursor confirmation repair brief.
+2. Add a bounded retry for exact clip cursor confirmation. Keep failure bounded.
+3. Store exact owned cleanup fingerprints before the complete grid capture.
+4. Add the focused lag, refusal, and early-cleanup regressions.
+5. Run the focused live cursor sweep three times, then run all offline gates.
+6. Leave the human 5d proof for the next session.
 
 ## Baseline
 
@@ -35,8 +35,9 @@ planned. No other Session 5 exit criterion is complete.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- The E27 repair probe reverted both arms, removed its clip, restored the pre-run
-  selection, and left no probe residue.
+- E28 directed cleanup removed its one verified pitch-108 clip. Final readback
+  found the `gn-B`, `gn-lay`, and `gn-lay4` row-10 cells empty, selection at
+  track 0 row 1, the exact empty observation record, and the transport stopped.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -53,18 +54,19 @@ Confirm these track identities before a destructive live sweep:
 | FX 1 | `52bd865e-c958-4bda-b9d3-97d0ea2f463a` |
 | Master | `834e65ab-efa4-4bc6-ae9d-4eafd818d16e` |
 
-## Repair result
+## Failure result
 
-E27 captures selection at pipeline entry and reuses a cursor only after live
-readback confirms its track and row. Nonstructural stages no longer point again;
-structural operations still invalidate the hold. Focused offline tests and the
-full 532-test check pass.
+The production adapter sends a clip point, waits 25 ms, and checks status once.
+The 5d witness scan saw one valid occupied clip fail that check. D6 requires
+polling, and existing measurements show that follower state can need about 100
+ms. The adapter refused safely, but the proof did not start.
 
-Two live repair runs found all 80 control pans and all 80 interference pans
-through an independent cursor. No property-write defect was confirmed. The
-human clip drag and complete selection trace remain for the 5d rerun.
+The standing probe also stores its cleanup fingerprints after the complete grid
+capture. The early failure left its drag baseline unassigned, so automatic
+cleanup refused a correct owned fingerprint. The focused repair covers both
+gaps before another 5d run.
 
 ## Session retrospective
 
-Keep cursor allocator ownership separate from verified physical cursor state.
-No repository instruction change is needed.
+Store owned cleanup fingerprints before a larger diagnostic can fail. No
+repository instruction change is needed.
