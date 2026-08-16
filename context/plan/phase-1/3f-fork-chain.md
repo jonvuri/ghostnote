@@ -1,10 +1,10 @@
 ---
 title: Phase 1, 3f epic — track-copy CRUD and the layer-chain lifecycle
 kind: plan
-state: active
-status: SESSION 3f-h COMPLETE 2026-08-15, VERIFIED LIVE. Selective reduction,
-        ordered survivor rebuild, exact state comparison and partial-outcome
-        reporting are green. Next is 3f-i lifecycle closeout.
+state: complete
+status: SESSION 3f-i COMPLETE 2026-08-15, VERIFIED LIVE. The complete
+        device-alternate lifecycle, exact add_track naming and the stable 3g
+        mechanics handoff are green. Next is session 3g.
 updated: 2026-08-15
 parent: README.md
 prev: 3e-clip-block.md
@@ -720,6 +720,54 @@ name, and the fresh track read back as `Inst 11`. Closeout must fix the contract
 or the description before the cohort is frozen.
 
 Session 3f-i may now begin lifecycle closeout and the 3g handoff.
+
+### Session 3f-i — complete 2026-08-15, verified live
+
+The production cohort closes on these stable mechanical identities. This is the
+handoff beneath 3g's wording/version work; changing a name, privilege grain,
+input identity or emitted operation is a mechanics change rather than a wording
+revision.
+
+| public tool | class | input identities | emitted contract operations |
+|---|---|---|---|
+| `inspect_device_alternates` | read | `trackId`, `containerPosition` | none |
+| `create_device_alternates` | write | `trackId`, `containerType`, `names` | `device.insert`, `chain.rename`, `chain.create` |
+| `fill_device_alternate` | write | `trackId`, `containerPosition`, `alternateName`, `sourceDevicePositions`, `mode` | `chain.relocate` |
+| `switch_device_alternate` | write | `trackId`, `containerPosition`, `alternateName` | `chain.activate` |
+| `keep_device_alternate` | destructive | `trackId`, `containerPosition`, `alternateName` | `chain.relocate`, `device.delete`, `device.relocate` |
+| `remove_device_alternate` | destructive | `trackId`, `containerPosition`, `alternateName`, `containerType` | `device.insert`, `chain.rename`, `chain.create`, `chain.relocate`, `chain.activate`, `device.delete`, `device.relocate` |
+
+A successful `create_device_alternates` call is one device-alternate event for
+3g. Inspect, fill, switch, winner collapse and selective reduction are lifecycle
+actions on an existing event, not new managed-alternate events. `copy_track`
+remains ordinary change reporting and never becomes one.
+
+The descriptions were re-read together against their results. The only cohort
+wording correction needed here is that filling by either move **or copy** carries
+the device and device state; neither carries clips, sends, routing or track-mixer
+state. Creation reports independently resolved structure, switching reports
+exclusive readback, selective reduction compares every captured survivor field,
+and winner collapse reports the state that device movement cannot carry. The two
+reduction names remain separate destructive permissions.
+
+The inherited live mismatch in `add_track` is closed in behavior rather than by
+weakening its claim. `track.create` still encodes no name. The tool now creates
+the full requested batch, uses the minted durable ids for a separate typed
+`track.rename` batch, and independently reads every exact name. Its result
+separates `creationConfirmed`, `namesConfirmed`, per-track `nameConfirmed`, and
+the naming change receipt. Production P1 proved the fresh source under its
+requested name instead of accepting the create acknowledgement.
+
+Brain typecheck and **457/457** offline tests pass, including a single invariant
+over the six lifecycle identities, classes, inputs and emitted operations.
+Extension Gradle test, context check and `git diff --check` pass. Live
+conformance passes **52/0/6** and production MCP smoke passes **18/18, P0-P17**.
+Production cleanup removed both minted ids; conformance cleanup removed
+`gn-conf-A` and `gn-conf-B`. The project returned to its documented 10-track
+baseline with Master visible and no probe residue. No extension method was added,
+so the wire golden remains 147 methods / `7f212c48cd3dab75`.
+
+Session 3g may now begin the observation record and v1 description freeze.
 
 ## Capability boundary
 

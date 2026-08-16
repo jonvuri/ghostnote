@@ -1,11 +1,12 @@
 ---
 title: Phase 1, session 3g — observation, tool descriptions, and the v1 freeze
 kind: plan
-state: planned
-status: REVISED 2026-08-15. Runs after `copy_track` and 3f-i lifecycle closeout.
-        The old three-way dispatch classifier is retired. This session records
-        independent managed alternate events and observes whether naming and
-        descriptions lead agents toward correctly scoped operations.
+state: active
+status: READY 2026-08-15. `copy_track` and 3f-i lifecycle closeout are complete
+        and verified live. The old three-way dispatch classifier is retired.
+        This session records independent managed alternate events and observes
+        whether naming and descriptions lead agents toward correctly scoped
+        operations.
 updated: 2026-08-15
 parent: README.md
 prev: 3f-fork-chain.md
@@ -27,6 +28,20 @@ evidence: E20c/d; E22; D18–D20
 - autonomous layer addressing, creation, filling, switching, winner collapse and
   selective reduction through 3f-i;
 - all descriptions mechanically accurate before a version is frozen.
+
+3f-i hands this session six stable device-lifecycle tool identities:
+`inspect_device_alternates`, `create_device_alternates`,
+`fill_device_alternate`, `switch_device_alternate`,
+`keep_device_alternate`, and `remove_device_alternate`. Their privilege classes,
+input identities and emitted contract operations are enumerated and guarded in
+[3f](3f-fork-chain.md#session-3f-i--complete-2026-08-15-verified-live).
+
+For observation, one successful `create_device_alternates` call is one managed
+device-alternate event. Inspect, fill, switch and either reduction operation act
+on that event rather than minting another row. `copy_track` remains an ordinary
+change outside managed-event bookkeeping. This event boundary and the six tool
+identities are inherited mechanics; the description wording and its v1 version
+are this session's work.
 
 ## Scope
 

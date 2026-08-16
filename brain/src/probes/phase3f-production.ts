@@ -53,15 +53,25 @@ try {
   const sourceName = `gn-3f-source-${process.pid}`;
   const emptySource = await call('add_track', { names: [sourceName] }) as {
     applied?: boolean;
-    created?: { trackId?: string }[];
+    creationConfirmed?: boolean;
+    namesConfirmed?: boolean;
+    created?: { trackId?: string; requestedName?: string; nameConfirmed?: boolean }[];
+    namingChange?: { applied?: boolean };
   };
   sourceCleanupId = emptySource.created?.[0]?.trackId;
   const withSource = await call('list_tracks') as { tracks?: TrackRow[] };
-  check('3f-P1: a dedicated empty lifecycle source has a fresh durable id',
+  check('3f-P1: a dedicated empty lifecycle source has a fresh durable id and exact name',
     emptySource.applied === true
+      && emptySource.creationConfirmed === true
+      && emptySource.namesConfirmed === true
+      && emptySource.namingChange?.applied === true
+      && emptySource.created?.[0]?.requestedName === sourceName
+      && emptySource.created[0]?.nameConfirmed === true
       && typeof sourceCleanupId === 'string'
       && withSource.tracks?.some((track) =>
-        track.trackId === sourceCleanupId && track.kind === 'Instrument') === true,
+        track.trackId === sourceCleanupId
+          && track.kind === 'Instrument'
+          && track.name === sourceName) === true,
     { emptySource, withSource });
   if (sourceCleanupId === undefined) throw new Error('empty lifecycle source has no durable id');
 

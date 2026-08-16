@@ -210,6 +210,34 @@ test('T-partition: only a destructive tool may remove, and the one crossing is n
   }
 });
 
+test('T-device-alternate lifecycle: 3f-i hands stable identities and event operations to 3g', () => {
+  // 3g owns the wording review and version freeze. This closes 3f on the
+  // mechanical cohort beneath that wording: public identity, permission grain,
+  // input identity and the typed contract events each operation can emit.
+  const expected = [
+    ['inspect_device_alternates', 'read', [], ['trackId', 'containerPosition']],
+    ['create_device_alternates', 'write',
+      ['device.insert', 'chain.rename', 'chain.create'],
+      ['trackId', 'containerType', 'names']],
+    ['fill_device_alternate', 'write', ['chain.relocate'],
+      ['trackId', 'containerPosition', 'alternateName', 'sourceDevicePositions', 'mode']],
+    ['switch_device_alternate', 'write', ['chain.activate'],
+      ['trackId', 'containerPosition', 'alternateName']],
+    ['keep_device_alternate', 'destructive',
+      ['chain.relocate', 'device.delete', 'device.relocate'],
+      ['trackId', 'containerPosition', 'alternateName']],
+    ['remove_device_alternate', 'destructive',
+      ['device.insert', 'chain.rename', 'chain.create', 'chain.relocate',
+        'chain.activate', 'device.delete', 'device.relocate'],
+      ['trackId', 'containerPosition', 'alternateName', 'containerType']],
+  ];
+  const actual = expected.map(([name]) => {
+    const spec = TOOLS.find((tool) => tool.name === name)!;
+    return [spec.name, spec.kind, [...spec.emits], Object.keys(spec.inputSchema)];
+  });
+  assert.deepEqual(actual, expected);
+});
+
 // --- exit criterion 7: it all runs, and what it sends is what it declared ----
 
 test('T-surface: every tool runs offline, and emits only what it declares', async () => {
@@ -317,11 +345,25 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(renamed['applied'], true);
   const renameChangeId = renamed['changeId'] as string;
 
-  const addedTrack = await exercise('add_track', { names: ['gn-C'] }) as {
-    applied: boolean; created: { trackId: string }[];
+  const addedTrack = await exercise('add_track', { names: ['gn-C', 'gn-D'] }) as {
+    applied: boolean;
+    creationConfirmed: boolean;
+    namesConfirmed: boolean;
+    created: { trackId: string; requestedName: string; nameConfirmed: boolean }[];
+    namingChange: { applied: boolean };
   };
   assert.equal(addedTrack.applied, true);
-  assert.equal(addedTrack.created.length, 1, 'the new track reports the id it actually got');
+  assert.equal(addedTrack.creationConfirmed, true);
+  assert.equal(addedTrack.namesConfirmed, true);
+  assert.equal(addedTrack.namingChange.applied, true);
+  assert.equal(addedTrack.created.length, 2, 'every new track reports the id it actually got');
+  assert.deepEqual(
+    addedTrack.created.map(({ requestedName, nameConfirmed }) => ({ requestedName, nameConfirmed })),
+    [
+      { requestedName: 'gn-C', nameConfirmed: true },
+      { requestedName: 'gn-D', nameConfirmed: true },
+    ],
+  );
 
   assert.equal((await exercise('add_scenes', { count: 1 }))['applied'], true);
 

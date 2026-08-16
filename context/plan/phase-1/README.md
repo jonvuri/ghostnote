@@ -4,7 +4,7 @@ kind: plan
 state: active
 updated: 2026-08-15
 parent: ../ROADMAP.md
-active_session: 3f-fork-chain.md
+active_session: 3g-record.md
 ---
 
 # Phase 1 — write engine and managed takes
@@ -24,7 +24,7 @@ track copying remains separate CRUD:
 |---|---|---|
 | Clip block | Beat-aligned, position-continuous clip A/B | session 3e done; production MCP smoke 9/9 |
 | Track copy | General coarse track duplication, not a managed take | complete; production MCP smoke 6/6 |
-| Layer chain | Managed device alternate | selective reduction complete and live-proved; 3f-i lifecycle closeout next |
+| Layer chain | Managed device alternate | complete lifecycle closed and live-proved through 3f-i |
 
 Layer and clip alternates created in one instruction are independent. Tool naming
 and descriptions begin light and are versioned for later observation; the old
@@ -33,9 +33,9 @@ three-way dispatch classifier is retired.
 ## Execution order
 
 1. ~~[3e — clip block](3e-clip-block.md)~~ — done
-2. [3f — track-copy CRUD and layer-chain lifecycle](3f-fork-chain.md) — active;
-   3f-h selective reduction complete, 3f-i lifecycle closeout next
-3. [3g — observation, descriptions, and v1 freeze](3g-record.md)
+2. ~~[3f — track-copy CRUD and layer-chain lifecycle](3f-fork-chain.md)~~ — done;
+   complete lifecycle and 3g mechanics handoff verified live
+3. [3g — observation, descriptions, and v1 freeze](3g-record.md) — active
 4. [4 — control layer](4-control-layer.md)
 5. [5 — live proving](5-proving.md)
 6. [6 — async completion](6-async.md), optional

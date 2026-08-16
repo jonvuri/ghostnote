@@ -1078,25 +1078,68 @@ export const TOOLS: readonly ToolSpec[] = [
     kind: 'write',
     title: 'Create instrument tracks',
     description:
-      'Create instrument tracks by name. Where a track lands is not something the API honours, so '
-      + 'no position is accepted: the id of each new track is read back after the fact and '
-      + 'reported.\n'
+      'Create instrument tracks and give each one its exact requested name. Where a track lands is '
+      + 'not something the API honours, so no position is accepted: each fresh durable id is read '
+      + 'back first, then used for a separate naming edit. Success requires every requested name '
+      + 'to be independently visible.\n'
       + 'Creating a track is not undone by revert_change. Nothing afterwards proves the track is '
       + 'still only ours, and somebody may have put work in it; removing one is delete_track, '
       + 'which is a separate tool and says what it removes along with the track.',
     inputSchema: {
       names: z.array(z.string().min(1)).min(1).describe('One new track per name.'),
     },
-    emits: ['track.create'],
+    emits: ['track.create', 'track.rename'],
     async run(workspace, args) {
       return writing(async () => {
+        // One preflight covers the whole request. The create and naming edits
+        // cannot share a batch because the durable addresses do not exist until
+        // structural readback has proved what each create minted.
         const ops: Op[] = args.names.map((name) => ({ op: 'track.create', name }));
         const change = await workspace.apply(ops);
+        const creation = receiptOf(change);
+        const minted = args.names.map((requestedName, index) => ({
+          requestedName,
+          address: change.take.receipt.minted[index],
+        }));
+        const addressable = minted.filter((item): item is {
+          requestedName: string;
+          address: Extract<Address, { kind: 'track' }>;
+        } => item.address?.kind === 'track');
+        const created = addressable.map((item) => ({
+          ...describeAddress(item.address),
+          requestedName: item.requestedName,
+        }));
+
+        if (addressable.length !== args.names.length) {
+          return {
+            ...creation,
+            creationConfirmed: false,
+            namesConfirmed: false,
+            created,
+            why: 'The request was acknowledged, but every fresh track id was not independently '
+              + 'observed. No unaddressed track is claimed named or safe to remove.',
+          };
+        }
+
+        const namedChange = await workspace.apply(addressable.map((item): Op => ({
+          op: 'track.rename', track: item.address, name: item.requestedName,
+        })));
+        const naming = receiptOf(namedChange);
+        const verified = await workspace.read(addressable.map((item) => item.address));
+        const confirmed = addressable.map((item) => {
+          const entry = verified.entries[addressKey(item.address)];
+          return entry?.value.of === 'track'
+            && entry.value.track.name === item.requestedName;
+        });
         return {
-          ...receiptOf(change),
-          created: Object.values(change.take.receipt.minted)
-            .filter((a: Address) => a.kind === 'track')
-            .map(describeAddress),
+          ...creation,
+          creationConfirmed: true,
+          namesConfirmed: confirmed.every(Boolean),
+          created: created.map((item, index) => ({
+            ...item,
+            nameConfirmed: confirmed[index],
+          })),
+          namingChange: naming,
         };
       });
     },
@@ -1507,8 +1550,8 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'compacts that list; the operation projects every later source position and the container '
       + 'position before writing it. Success returns the complete destination structure from a '
       + 'fresh independent reading.\n'
-      + 'Moving carries each device and its device state. It does not carry clips, sends, routing '
-      + 'or track mixer state. Automatic reversal does not move or remove the devices.',
+      + 'Moving or copying carries each device and its device state. It does not carry clips, sends, '
+      + 'routing or track mixer state. Automatic reversal does not move or remove the devices.',
     inputSchema: {
       trackId,
       containerPosition: z.number().int().min(0).describe(
