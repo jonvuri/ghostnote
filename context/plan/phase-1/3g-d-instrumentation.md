@@ -1,8 +1,9 @@
 ---
 title: Phase 1, session 3g-d — production event instrumentation
 kind: plan
-state: planned
-status: not started; depends on 3g-a, 3g-b, and the 3g-c v1 freeze
+state: active
+status: READY 2026-08-15. The record, persistence transport, and exact
+        ghostnote-description-v1 public cohort are complete.
 updated: 2026-08-15
 parent: 3g-record.md
 prev: 3g-c-description-freeze.md

@@ -2,8 +2,8 @@
 title: Phase 1, session 3g — observation and v1 description program
 kind: plan
 state: planned
-status: IN PROGRESS 2026-08-15. Sessions 3g-a and reviewed 3g-b are complete.
-        Session 3g-c is next.
+status: IN PROGRESS 2026-08-15. Sessions 3g-a through 3g-c are complete.
+        Session 3g-d is next.
 updated: 2026-08-15
 parent: README.md
 prev: 3f-fork-chain.md

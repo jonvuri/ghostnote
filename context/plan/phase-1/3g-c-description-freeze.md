@@ -1,9 +1,9 @@
 ---
 title: Phase 1, session 3g-c — v1 description cohort freeze
 kind: plan
-state: active
-status: READY 2026-08-15. The schema-v1 record and reviewed per-project
-        persistence transport are complete. This session freezes the first cohort.
+state: complete
+status: COMPLETE 2026-08-15. The exact 15-tool public cohort is frozen as
+        ghostnote-description-v1. Session 3g-d is next.
 updated: 2026-08-15
 parent: 3g-record.md
 prev: 3g-b-persistence.md
@@ -72,3 +72,29 @@ cohort. Record the reason in the manifest.
 6. The cohort remains light and factual, with no choice mapping.
 7. Brain typecheck, full offline tests, context check, and
    `git diff --check` pass. No live project mutation is required.
+
+## Completion
+
+`brain/src/surface/description-cohort.ts` is the single v1 manifest and
+fingerprint source. Its explicit manifest contains the six device-alternate
+tools, six clip-block tools, `copy_track`, and two required support tools.
+`add_scenes` supplies missing clip rows. `delete_track` supplies directed cleanup
+for an ordinary track copy. Each entry states its privilege class and why it is
+included.
+
+The canonical artifact contains each tool name, title, description, draft-7
+input schema, and derived privilege annotations. Its declared identity is
+`ghostnote-description-v1`. Its SHA-256 fingerprint is
+`9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
+A focused golden test fails when any public field changes under that version.
+
+The wording review added the two-position container-observer limit to every
+device procedure. It also states the audible device seams and the clip-launch
+playback reversal limit. `copy_track` remains ordinary track editing. It carries
+no managed-alternate wording. The complete lexical-ban list was reviewed. No
+entry was reopened, so all existing reasons and bans remain in force.
+
+Brain typecheck and **480/480** offline tests pass. The full surface test still
+scans names, titles, descriptions, agent-visible schemas, and all exercised
+result text. Context check and `git diff --check` pass. No live project mutation
+was required.

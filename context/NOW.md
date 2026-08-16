@@ -4,13 +4,13 @@ kind: status
 state: active
 updated: 2026-08-15
 phase: phase-1
-session: phase-1-session-3g-c
+session: phase-1-session-3g-d
 ---
 
 # Now
 
-Phase 1 is **ready to begin session 3g-c**. Sessions 3g-a and 3g-b defined the
-observation record and verified its per-project persistence transport.
+Phase 1 is **ready to begin session 3g-d**. Sessions 3g-a through 3g-c defined
+the record, verified per-project persistence, and froze the public cohort.
 
 ## Baseline
 
@@ -99,14 +99,30 @@ that it exposes no stable project id. The reloaded build passed the live hello
 and preserving persistence smoke. Empty, populated, Unicode, bounded readback,
 and overflow refusal passed, and the original record was restored exactly.
 
-## Session 3g-c — next
+## Session 3g-c — complete 2026-08-15
 
-Freeze the exact v1 public description cohort in
-[3g-c-description-freeze.md](plan/phase-1/3g-c-description-freeze.md). Keep the
-3f-i tool identities, privilege classes, input identities, and emitted contract
-operations unchanged.
+The explicit manifest contains the six device-alternate tools, six clip-block
+tools, ordinary `copy_track`, and two support tools. `add_scenes` supplies missing
+clip rows. `delete_track` supplies directed track-copy cleanup. The canonical
+public artifact includes each name, title, description, draft-7 input schema,
+and derived privilege annotations. `ghostnote-description-v1` maps to SHA-256
+`9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
+
+The wording now states the two-position device-container observation limit,
+audible device seams, and clip-launch playback reversal limit. `copy_track`
+remains ordinary editing. All lexical bans remain in force. The 3f-i identities,
+privilege classes, input identities, and emitted operations are unchanged.
+
+Brain typecheck and **480/480** offline tests pass. Context check and
+`git diff --check` pass. No live project mutation was required.
+
+## Session 3g-d — next
+
+Instrument the shared production execution path. Record confirmed device and
+clip creations as independent managed events, and record confirmed `copy_track`
+use as ordinary use. Stamp every entry with the frozen v1 identifier.
 
 ## Planning retrospective
 
-Before a probe setting becomes product storage, audit every retained probe that
-can write it. State lossy host guards as lossy; do not call a name an identity.
+Build a description fingerprint from the same draft-7 input conversion that the
+MCP server sends. A different schema draft can make a false golden.

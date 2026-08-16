@@ -478,7 +478,8 @@ export const TOOLS: readonly ToolSpec[] = [
     description:
       'Read every named device alternate inside one container, including its device order and '
       + 'observed solo flag. The container is named by its position in the track; adding or removing '
-      + 'devices before it changes that position. A partial sibling or device view is labelled '
+      + 'devices before it changes that position. Only positions 0 and 1 can expose container '
+      + 'contents through the current observer. A partial sibling or device view is labelled '
       + 'partial and is never presented as complete. An exclusive active name is reported only '
       + 'when the complete sibling read shows exactly one soloed entry; no claim about effective '
       + 'audibility is made. Device alternates carry devices and device '
@@ -486,7 +487,7 @@ export const TOOLS: readonly ToolSpec[] = [
     inputSchema: {
       trackId,
       containerPosition: z.number().int().min(0).describe(
-        'Position of the containing device in the track, counting from 0.',
+        'Position of the containing device in the track, counting from 0. Only 0 and 1 expose container contents.',
       ),
     },
     async run(workspace, args) {
@@ -790,10 +791,12 @@ export const TOOLS: readonly ToolSpec[] = [
     kind: 'write',
     title: 'Launch one clip',
     description:
-      'Launch a clip with a per-call grid and mode, then read whether it is queued or playing. '
+      'Launch one launcher clip with a per-call grid and mode, then read whether it is queued or '
+      + 'playing. '
       + 'This starts the transport. One call performs one switch; it does not keep cycling. '
       + 'continue_or_synced enters at the outgoing clip position on the grid, provided the '
-      + 'outgoing clip itself is on that grid.',
+      + 'outgoing clip itself is on that grid. Automatic reversal does not stop the transport or '
+      + 'restore the prior playback state.',
     inputSchema: { trackId, row, quantization: launchQuantization, mode: launchMode },
     emits: ['clip.launch'],
     async run(workspace, args) {
@@ -1373,7 +1376,9 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'reports only the complete structure independently read after insertion and naming.\n'
       + 'A device alternate carries devices and device state. It carries no clips, sends, routing '
       + 'or track mixer state. The container is added at the end and can load devices, so creation '
-      + 'can add engine load. Automatic reversal does not remove added alternates.',
+      + 'can add engine load. Only positions 0 and 1 expose container contents. If the new container '
+      + 'lands later, the insertion is recorded but completion cannot be confirmed. Automatic '
+      + 'reversal does not remove added alternates.',
     inputSchema: {
       trackId,
       containerType: z.enum(['instrument', 'effect']).describe(
@@ -1549,13 +1554,15 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'in the order given. Positions count from 0 in the starting track device list. A move '
       + 'compacts that list; the operation projects every later source position and the container '
       + 'position before writing it. Success returns the complete destination structure from a '
-      + 'fresh independent reading.\n'
+      + 'fresh independent reading. Only container positions 0 and 1 are observable.\n'
       + 'Moving or copying carries each device and its device state. It does not carry clips, sends, '
-      + 'routing or track mixer state. Automatic reversal does not move or remove the devices.',
+      + 'routing or track mixer state. A copy can load another device instance and add engine load. '
+      + 'A move changes the signal path and can be audible. Automatic reversal does not move or '
+      + 'remove the devices.',
     inputSchema: {
       trackId,
       containerPosition: z.number().int().min(0).describe(
-        'Starting position of the containing device in the track, counting from 0.',
+        'Starting position of the containing device in the track, counting from 0. Only 0 and 1 expose container contents.',
       ),
       alternateName: z.string().min(1).describe('Exact name of the destination device alternate.'),
       sourceDevicePositions: z.array(z.number().int().min(0)).min(1).max(4).describe(
@@ -1625,16 +1632,18 @@ export const TOOLS: readonly ToolSpec[] = [
     description:
       'Solo one named device alternate inside a device container and clear solo from every sibling. '
       + 'The container is named by its position in the track; that position shifts when '
-      + 'devices before it are added or removed. The alternate name must identify exactly one '
+      + 'devices before it are added or removed. Only positions 0 and 1 can expose container '
+      + 'contents through the current observer. The alternate name must identify exactly one '
       + 'entry, and the complete sibling set plus every solo flag must be readable or nothing '
       + 'is written. Success is proved by a fresh independent reading, not by acknowledgement.\n'
-      + 'A device alternate carries devices and device state. It carries no clips, sends, routing '
+      + 'This can change the sound immediately and is not beat-aligned. A device alternate carries '
+      + 'devices and device state. It carries no clips, sends, routing '
       + 'or track mixer state. Automatic reversal does not restore the prior soloed entry; call '
       + 'this operation again with the desired name.',
     inputSchema: {
       trackId,
       containerPosition: z.number().int().min(0).describe(
-        'Position of the containing device in the track, counting from 0.',
+        'Position of the containing device in the track, counting from 0. Only 0 and 1 expose container contents.',
       ),
       alternateName: alternateName.describe('Exact name of the device alternate to solo exclusively.'),
     },
@@ -1755,7 +1764,8 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'building a replacement container. The caller supplies the replacement container role '
       + 'because that role is not exposed by the current observer. Before anything is written, '
       + 'the complete top-level order, every sibling name, every survivor device order, and every '
-      + 'survivor mute, solo, volume, pan and colour value must be readable. The replacement is '
+      + 'survivor mute, solo, volume, pan and colour value must be readable. Only container '
+      + 'positions 0 and 1 are observable. The replacement is '
       + 'built at the track tail, filled in survivor order, and independently proved before the '
       + 'old container can be removed. It is then restored to the old signal position and read '
       + 'again. A partial rebuild is reported as partial and never as completion.\n'
@@ -1768,7 +1778,7 @@ export const TOOLS: readonly ToolSpec[] = [
     inputSchema: {
       trackId,
       containerPosition: z.number().int().min(0).describe(
-        'Current position of the containing device in the track, counting from 0.',
+        'Current position of the containing device in the track, counting from 0. Only 0 and 1 expose container contents.',
       ),
       alternateName: alternateName.describe('Exact durable name of the one device alternate to remove.'),
       containerType: z.enum(['instrument', 'effect']).describe(
@@ -2135,7 +2145,7 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'device order and all reported alternate state are read before anything moves. Every '
       + 'kept device is moved out in order and independently read back before the container can '
       + 'be removed; acknowledgement alone is never enough. The final complete track device '
-      + 'order is read back again.\n'
+      + 'order is read back again. Only container positions 0 and 1 are observable.\n'
       + 'Restoring the position is proved from the track device order, and devices are observed '
       + 'by position and name only. When the requested order would read exactly the same before '
       + 'and after the restoring move — two devices sharing one name — nothing could tell that '
@@ -2145,14 +2155,11 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'carry device state, but do not carry the alternate\'s name, mute, solo, volume, pan or '
       + 'colour; those exact values are reported in every answer once anything has been written, '
       + 'including one that cannot confirm what it did. Device alternates have no sends. '
-      + 'Cross-device modulation is not claimed to survive. Moving existing devices caused no '
-      + 'project-wide engine glitch in the earlier measured trial. On the sounding rebuilt track, '
-      + 'this operation was audible in 4/4 blind trials versus 0/4 placebo; a separately randomized '
-      + 'stop-and-relaunch control was heard and its placebo was clean.',
+      + 'Cross-device modulation is not claimed to survive. The signal interruption can be audible.',
     inputSchema: {
       trackId,
       containerPosition: z.number().int().min(0).describe(
-        'Current position of the containing device in the track, counting from 0.',
+        'Current position of the containing device in the track, counting from 0. Only 0 and 1 expose container contents.',
       ),
       alternateName: alternateName.describe('Exact durable name of the one device alternate to keep.'),
     },

@@ -23,7 +23,7 @@
  * names, the JSON schema an agent actually receives, and the TEXT every exercised
  * tool emits, refusals included.
  *
- * ⚠⚠ **REVISED 2026-08-14 (E22, D18 rev), and this is the file's live tension.**
+ * ⚠⚠ **REVIEWED 2026-08-15 (3g-c, E22, D18 rev).**
  * Rule 1 survives, but its old form assumed three interchangeable mechanisms an
  * agent had to be kept from being steered between. There are now two managed take
  * representations divided by OBJECT, and revised D18e says descriptions *"do not
@@ -31,8 +31,8 @@
  * permanent (naming a retired mechanism, or our own machinery) and some are
  * **relaxation candidates** — marked as such, to be reopened DELIBERATELY AND ONE
  * AT A TIME by the session that writes the tool needing the word, never as a
- * side effect of a description edit. That review is scope in `3g-record.md` and
- * gated in `3f-fork-chain.md`. Until then every entry stands as written.
+ * side effect of a description edit. The complete v1 cohort needs none of the
+ * candidate words. Every ban stays in force for `ghostnote-description-v1`.
  *
  * ⚠ **False positives are expected and are not a defect.** *"A guard that never
  * fires is not a guard, and the remedy is to widen the exemption list
