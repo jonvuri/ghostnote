@@ -2,13 +2,14 @@
 title: Phase 1, session 5g — full live conformance
 kind: plan
 state: planned
-status: Not started. Runs after sessions 5b–5f.
+status: First attempt failed C-twoclips after C-minted passed under full load.
+        Run the focused 5g repair, then rerun this session.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5f-managed-ab.md
 next: 5h-ci.md
 scope: Session 3c carry-in B7; final live integration proof
-evidence: E15, E21 · D15
+evidence: E15, E21, E35 · D15
 needs: Bitwig foregrounded
 ---
 
@@ -31,8 +32,8 @@ needs: Bitwig foregrounded
    with isolated cases or small subsets.
 3. Require `C-minted` to pass in the full run. A pass in isolation is not proof
    of the load-dependent fix.
-4. Record all passes, failures, and deliberate skips. Keep the six live overflow
-   skips qualified by session 5e evidence.
+4. Record all passes, failures, and deliberate skips. Keep the live overflow
+   limits qualified by session 5e evidence.
 5. Run the conformance cleanup path and confirm that the project returns to the
    recorded baseline.
 
@@ -48,3 +49,17 @@ needs: Bitwig foregrounded
 
 This is a verification session. If it fails, record the failure and create a
 focused repair session. Rerun 5g after that repair.
+
+## First attempt
+
+The complete live suite ran once and reported 52 passed, 1 failed, and 6
+skipped. `C-minted` passed under full-suite load. `C-twoclips` failed because
+clip B read back clip A's pan value, `-0.25`, instead of its requested `0.5`.
+E35 records the run, the deliberate limits, and exact cleanup.
+
+The cleanup path removed both generated conformance tracks. Final readback
+matched all 10 durable tracks, 10 scenes, 22 occupied launcher cells, selection,
+observation data, cursor state, status, and stopped transport.
+
+Run the focused [two-clip property repair](5g-repair-two-clip-properties.md),
+then rerun this session in one complete invocation.

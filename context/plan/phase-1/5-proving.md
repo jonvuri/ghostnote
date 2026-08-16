@@ -2,13 +2,14 @@
 title: Phase 1, session 5 — live proving program
 kind: plan
 state: active
-status: Sessions 5a through 5f are complete through E34. Run Session 5g.
+status: Sessions 5a through 5f are complete. E35 found a two-clip property
+        failure in the first 5g run. Run the focused 5g repair.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
 next: 5a-selection.md
 scope: Phase 1 exit criteria
-evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26, E27, E28, E29, E30, E31, E32, E33, E34 · D6, D8, D14, D15–D20
+evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26, E27, E28, E29, E30, E31, E32, E33, E34, E35 · D6, D8, D14, D15–D20
 needs: Bitwig foregrounded for live sessions; a human where each brief says so
 ---
 
@@ -68,7 +69,11 @@ E21 qualifies every bank-window boundary without a fresh live overflow.
 Session 5f is complete. E34 confirms that a human can switch device and clip
 alternates through independent Bitwig-native controls. One mixed instruction
 keeps its managed results correlated but separate. Track copy stays ordinary.
-Run Session 5g next.
+
+The first Session 5g run completed at 52 passed, 1 failed, and 6 skipped.
+`C-minted` passed under full load. `C-twoclips` read clip A's pan value from
+clip B. E35 records the result and exact cleanup. Run the focused two-clip
+property repair, then rerun 5g.
 
 ## The 21-property contract
 
@@ -97,6 +102,7 @@ Later plans must say that 20 of 21 properties are exact and pressure is refused.
 | [5e — refusal boundaries](5e-refusal-boundaries.md) | Stale revision and bank-window refusal; complete, E33 | criteria 3 and 5 |
 | [5f — managed A/B](5f-managed-ab.md) | Both native A/B mechanisms and ordinary track copy; complete, E34 | criterion 4 |
 | [5g — full live conformance](5g-live-conformance.md) | Complete load run with `C-minted` green | B7 |
+| [5g repair — two-clip property isolation](5g-repair-two-clip-properties.md) | Diagnose and repair E35's cross-clip pan read | repair only |
 | [5h — CI and regression policy](5h-ci.md) | Real remote CI proof and regression classification | criterion 6 |
 | [5i — Phase 1 closeout](5i-closeout.md) | Decision audit, corrections, and phase handoff | criteria 7 and 8 |
 

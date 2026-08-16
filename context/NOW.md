@@ -4,28 +4,30 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5g-live-conformance
+session: phase-1-session-5g-repair-two-clip-properties
 ---
 
 # Now
 
-Run [Session 5g full live conformance](plan/phase-1/5g-live-conformance.md).
-Session 5f is complete. E34 confirms that the layer and clip representations
-switch through independent Bitwig-native controls. One mixed instruction kept
-its managed results correlated but independent. Track copy stayed ordinary.
+Run the [Session 5g two-clip property
+repair](plan/phase-1/5g-repair-two-clip-properties.md). The first complete 5g
+run reported 52 passed, 1 failed, and 6 skipped. `C-minted` passed under full
+load. `C-twoclips` read clip A's pan `-0.25` from clip B instead of clip B's
+requested `0.5` (E35).
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
 slices. Sessions 5a through 5f and all three 5d repairs are complete (E23–E25,
-E27, E29, E31–E34). Sessions 5g through 5i remain planned. Phase 1 exit criteria
-2 through 5 are complete.
+E27, E29, E31–E34). Session 5g remains open through its focused repair. Sessions
+5h and 5i remain planned. Phase 1 exit criteria 2 through 5 are complete.
 
 ## Start here
 
-1. Read the 5g brief, E15, E21, and D15.
-2. Confirm the deployed build and the documented fixture baseline.
-3. Run the complete live conformance suite in one invocation.
-4. Require `C-minted` to pass under full-suite load.
-5. Record each deliberate skip, then run cleanup and verify the exact baseline.
+1. Read the 5g repair brief, E15, E27, E29, E35, and D15.
+2. Reproduce the warm-pool `C-twoclips` sequence in a focused live probe.
+3. Use an independent cursor or a re-point to separate persisted mutation from
+   stale readback.
+4. Repair the confirmed mechanism and add focused regressions.
+5. Run the focused live and full offline checks. Rerun 5g only afterwards.
 
 ## Baseline
 
@@ -37,9 +39,10 @@ E27, E29, E31–E34). Sessions 5g through 5i remain planned. Phase 1 exit criter
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- E34 cleanup removed the disposable track. Final checks found 10 tracks,
-  10 scenes, selection at track 0 row 1, a stopped transport, and the exact
-  observation value. Both cursor states and `Last change` were also restored.
+- E35 cleanup removed both conformance fixture tracks. Final checks found the
+  same 10 tracks, 10 scenes, 22 occupied launcher cells, selection at track 0
+  row 1, stopped transport, and exact observation value. All three cursors were
+  unpinned on `gn-lay` row 0. `Last change` was restored.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -58,6 +61,5 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-Name Shift-click explicitly when a Bitwig solo proof requires exclusive
-behavior. A normal click is additive. No repository instruction change is
-needed.
+Record reported skips separately from conditional live limits. The counts are
+not interchangeable. No repository instruction change is needed.
