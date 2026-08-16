@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-2
-session: phase-2-planning
+session: 2a-musical-contract
 ---
 
 # Now
@@ -16,9 +16,9 @@ records full live conformance. E40 records passing remote CI for candidate
 
 ## Start here
 
-1. Read the [Phase 2 plan](plan/phase-2/README.md), D8, D16, and D18 through D20.
-2. Cut the first focused Phase 2 session for the musical clip vocabulary and its
-   MCP surface.
+1. Run [Phase 2 session 2a](plan/phase-2/2a-musical-contract.md).
+2. Settle the musical patch and public tool shape from representative requests
+   before adding `tonal.js` or product behavior.
 3. Keep direct writes stash-backed. Use clip blocks for requested or required
    clip alternates.
 4. Do not schedule [async batch completion](plan/phase-1/6-async.md) unless a
@@ -57,5 +57,7 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-The closeout brief identified the exact active documents that needed changes.
-No repository instruction change is needed.
+The planning pass found three contract gaps by comparing the Phase 2 premises
+with current code: optional MIDI channels, stale gain wording, and no triplet
+candidate grid. Session 2a and session 2d now own them explicitly. No repository
+instruction change is needed.

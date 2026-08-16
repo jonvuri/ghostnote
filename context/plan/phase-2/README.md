@@ -1,11 +1,10 @@
 ---
 title: Phase 2 — The clip surface
 kind: plan
-state: planned
-status: not started. ⚠ Premises revised 2026-08-14 (D18 re-plan) — see the
-        banner below: the CLIP BLOCK is Phase 1's deliverable, there is no take
-        store, and direct writing with scoped protection is settled. Phase 1 is
-        complete.
+state: active
+status: Session 2a is active. Seven build sessions lead to live proof, two
+        separate dogfood sessions, and closeout. Async completion stays
+        conditional on a measured workload.
 updated: 2026-08-16
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
@@ -56,6 +55,60 @@ machinery (Phase 1) had to be born on exact-fidelity objects, and the musical su
 should be the first thing built on top of it — both because it is the highest daily
 usefulness and because Phase 3 needs real musical material to know what a musical
 diff should show.
+
+## Execution order
+
+The first seven sessions separate pure musical work, Bitwig lifecycle work,
+application safety, and the public surface. The last three sessions prove actual
+use and close the phase.
+
+1. [2a — musical contract and surface decision](2a-musical-contract.md) — active;
+   define the versioned musical patch, representative request corpus, and public
+   tool shape before implementation.
+2. [2b — theory and generation core](2b-theory-generation.md) — add `tonal.js`
+   behind a pure TypeScript boundary and generate canonical note material.
+3. [2c — harmonic transformations](2c-harmonic-transforms.md) — transpose,
+   harmonize, arpeggiate, and re-voice without changing unrelated note state.
+4. [2d — rhythm and performance transformations](2d-rhythm-performance.md) —
+   quantize, humanize, thin, and densify with seeded randomness and explicit loss
+   reports; prove triplet grids.
+5. [2e — clip lifecycle](2e-clip-lifecycle.md) — measure, then build the verified
+   launcher-clip contract for length, loop, name, colour, and duplication.
+6. [2f — musical application planner](2f-application-planner.md) — turn musical
+   patches into preflighted, stash-backed operations; use clip blocks only for
+   requested or required alternates.
+7. [2g — MCP clip surface v1](2g-mcp-surface.md) — expose the planner through a
+   small, versioned, observed public surface.
+8. [2h — conformance and workload proof](2h-conformance.md) — prove the complete
+   path offline and live, restore the baseline, and measure whether async work is
+   justified.
+9. [2i — dogfood round one](2i-dogfood-1.md) — write real music through an
+   ordinary MCP conversation and record friction without overfitting one use.
+10. [2j — dogfood round two and revision](2j-dogfood-2.md) — use a different
+    musical task, compare both records, and revise repeated problems only.
+11. [2k — closeout](2k-closeout.md) — audit evidence, record qualifications, and
+    hand off the next phase.
+
+[2x — async batch completion](../phase-1/6-async.md) is a conditional branch
+after 2h, not part of the default sequence. If 2h activates it, rerun the affected
+2h workload and conformance cases before dogfooding.
+
+### Dependency rule
+
+- Sessions 2b through 2d depend only on the 2a musical contract.
+- Session 2e is independent of the pure musical core after 2a.
+- Session 2f joins the musical and lifecycle paths.
+- Session 2g freezes public wording only after the planner reports real results.
+- Sessions 2i and 2j are separate uses. A scripted repeat does not satisfy the
+  dogfood gate.
+
+### Carry-in corrections
+
+Session 2a owns two contract corrections before the new schema freezes: note ops
+must carry MIDI channel explicitly, and public gain wording must match E24's
+measured inverse. Session 2d owns the gap between the current binary grid list and
+this phase's triplet requirement. These are part of the named sessions, not
+separate repair work.
 
 ## Scope
 

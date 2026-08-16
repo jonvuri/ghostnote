@@ -11,7 +11,7 @@ updated: 2026-08-16
 |---|---|---|
 | 0 — foundation | done | Contract, fake adapter, UI probe, decision consolidation |
 | [1 — write engine and managed takes](phase-1/README.md) | done | Safe writes, track-copy CRUD, two scoped take representations, observation, status, navigation, live proof |
-| [2 — clip surface](phase-2/README.md) | planned | Musical clip vocabulary on top of Phase 1 mechanisms |
+| [2 — clip surface](phase-2/README.md) | active | Musical clip vocabulary on top of Phase 1 mechanisms |
 | [3 — session view](phase-3/README.md) | optional | Textual session overview; build only if evidence justifies it |
 | [4 — sound design](phase-4/README.md) | planned | Device and parameter surface |
 | [5 — authoring](phase-5/README.md) | planned | Structure and modulation authoring; `bwmod` already exists |
