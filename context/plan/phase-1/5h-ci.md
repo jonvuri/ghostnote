@@ -2,13 +2,13 @@
 title: Phase 1, session 5h — CI and regression policy
 kind: plan
 state: planned
-status: Not started. Requires a pushed candidate revision after session 5g.
+status: Session 5g is complete. Await the reviewed candidate commit and push.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5g-live-conformance.md
 next: 5i-closeout.md
 scope: Phase 1 exit criterion 6; Session 5 regression policy
-evidence: E8, E15, E23 · D11, D15
+evidence: E8, E15, E23, E39 · D11, D15
 needs: Candidate commit pushed by the operator; GitHub Actions access
 ---
 

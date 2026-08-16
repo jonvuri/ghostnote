@@ -2,14 +2,14 @@
 title: Phase 1, session 5 — live proving program
 kind: plan
 state: active
-status: Sessions 5a through 5f and both focused 5g repairs are complete. Rerun
-        5g after E38's bounded pin-confirmation repair.
+status: Sessions 5a through 5g and both focused 5g repairs are complete. Prepare
+        the pushed candidate for session 5h remote CI proof.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
 next: 5a-selection.md
 scope: Phase 1 exit criteria
-evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26, E27, E28, E29, E30, E31, E32, E33, E34, E35, E36, E37, E38 · D6, D8, D14, D15–D20
+evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26, E27, E28, E29, E30, E31, E32, E33, E34, E35, E36, E37, E38, E39 · D6, D8, D14, D15–D20
 needs: Bitwig foregrounded for live sessions; a human where each brief says so
 ---
 
@@ -87,6 +87,12 @@ from pin settlement, keeps pending pins active while it polls, and preserves the
 eight-attempt refusal. The focused two-clip revert and independent readback pass
 with exact cleanup. Rerun 5g in one complete invocation.
 
+Session 5g is complete. E39 records one unfiltered live invocation with 53
+passes, no failures, and 6 qualified skips. `C-minted`, `C-twoclips`, and the
+later two-clip revert all pass under full-suite load. Cleanup removed the two
+generated tracks by durable identity and restored the exact project baseline.
+Session 5h is next after the operator commits and pushes the candidate.
+
 ## The 21-property contract
 
 The old phase plan says "all 21 expression properties." D8 says "16 of 18."
@@ -113,7 +119,7 @@ Later plans must say that 20 of 21 properties are exact and pressure is refused.
 | [5d repair — owned cleanup fingerprint](5d-repair-owned-cleanup-fingerprint.md) | Promote host-normalized readback to the exact owned fingerprint | complete, E31 |
 | [5e — refusal boundaries](5e-refusal-boundaries.md) | Stale revision and bank-window refusal; complete, E33 | criteria 3 and 5 |
 | [5f — managed A/B](5f-managed-ab.md) | Both native A/B mechanisms and ordinary track copy; complete, E34 | criterion 4 |
-| [5g — full live conformance](5g-live-conformance.md) | Complete load run with `C-minted` green | B7 |
+| [5g — full live conformance](5g-live-conformance.md) | Complete load run with `C-minted` green; complete, E39 | B7 |
 | [5g repair — two-clip property isolation](5g-repair-two-clip-properties.md) | Diagnose and repair E35's cross-clip pan read; complete, E36 | repair only |
 | [5g repair — two-clip revert confirmation](5g-repair-two-clip-revert-confirmation.md) | Poll pin settlement without restarting a confirmed target; complete, E38 | repair only |
 | [5h — CI and regression policy](5h-ci.md) | Real remote CI proof and regression classification | criterion 6 |

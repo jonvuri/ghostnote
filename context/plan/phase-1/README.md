@@ -78,9 +78,9 @@ three-way dispatch classifier is retired.
      batch rejection and bank-window qualification pass (E33)
    - ~~[5f — managed A/B](5f-managed-ab.md)~~ — complete; independent native
      controls, mixed bookkeeping, and ordinary track copy pass live (E34)
-   - [5g — full live conformance](5g-live-conformance.md) — first run found a
-     two-clip property failure; the E36 rerun passed that row and `C-minted`,
-     then timed out during two-clip revert confirmation (E37); rerun after E38
+   - ~~[5g — full live conformance](5g-live-conformance.md)~~ — complete; 53
+     runnable cases pass in one invocation, 6 skips retain explicit evidence,
+     and cleanup restores the exact baseline (E39)
    - ~~[5g repair — two-clip property
      isolation](5g-repair-two-clip-properties.md)~~ — complete; cursor-track and
      cursor-clip pin confirmation passes independent readback (E36)

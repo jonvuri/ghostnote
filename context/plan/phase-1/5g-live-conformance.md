@@ -1,15 +1,15 @@
 ---
 title: Phase 1, session 5g — full live conformance
 kind: plan
-state: planned
-status: E38 repaired the second attempt's two-clip revert confirmation timeout.
-        Run the third complete conformance attempt.
+state: complete
+status: COMPLETE 2026-08-16. The third complete run passed 53/53 runnable
+        cases with 6 qualified skips and exact cleanup. See E39.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5f-managed-ab.md
 next: 5h-ci.md
 scope: Session 3c carry-in B7; final live integration proof
-evidence: E15, E21, E35, E36, E37, E38 · D15
+evidence: E15, E21, E35, E36, E37, E38, E39 · D15
 needs: Bitwig foregrounded
 ---
 
@@ -82,3 +82,15 @@ repair](5g-repair-two-clip-revert-confirmation.md) is complete. E38 keeps
 pending pin requests active after target confirmation and records the failed
 confirmation state separately. Run this session again in one complete
 invocation.
+
+## Completion
+
+The third complete live suite ran once without a filter. It reported 53 passed,
+0 failed, and 6 skipped. `C-minted`, `C-twoclips`, and the later two-clip revert
+all passed under full-suite load. The six runner skips retain their explicit E2,
+E5, E8, E16r, E19, E21, and E33 qualifications. They are not fresh passes.
+
+Cleanup removed the two generated conformance tracks by their durable
+identities. Final readback matched the 10 durable tracks, 10 scenes, 22
+occupied cells, selection, observation data, cursor state, status, and stopped
+transport. E39 records the run and exact cleanup. Session 5h is next.
