@@ -195,6 +195,7 @@
     "probe:5d-repair": "tsx src/probes/phase5d-repair.ts",
     "probe:5d-cursor": "tsx src/probes/phase5d-cursor-confirmation.ts",
     "probe:5d-cleanup": "tsx src/probes/phase5d-owned-cleanup-fingerprint.ts",
+    "probe:5e-refusal": "tsx src/probes/phase5e-refusal-boundaries.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

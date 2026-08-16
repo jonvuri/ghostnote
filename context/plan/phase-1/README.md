@@ -74,7 +74,8 @@ three-way dispatch classifier is retired.
    - ~~[5d repair — owned cleanup
      fingerprint](5d-repair-owned-cleanup-fingerprint.md)~~ — complete; safe
      early matching and exact host-normalized cleanup pass live (E31)
-   - [5e — refusal boundaries](5e-refusal-boundaries.md) — exit criteria 3 and 5
+   - ~~[5e — refusal boundaries](5e-refusal-boundaries.md)~~ — complete; stale
+     batch rejection and bank-window qualification pass (E33)
    - [5f — managed A/B](5f-managed-ab.md) — exit criterion 4
    - [5g — full live conformance](5g-live-conformance.md) — B7 only
    - [5h — CI and regression policy](5h-ci.md) — exit criterion 6

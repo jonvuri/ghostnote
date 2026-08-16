@@ -4,30 +4,29 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5e-refusal-boundaries
+session: phase-1-session-5f-managed-ab
 ---
 
 # Now
 
-Run [Session 5e refusal boundaries](plan/phase-1/5e-refusal-boundaries.md).
-Session 5d is complete. E32 confirms that 40 production writes remained on the
-pinned target while the operator moved another clip and selected clips across
-four tracks. Independent readback found no unintended write. Selection had one
-borrow and one restore. Revert and automatic cleanup restored the fixture.
+Run [Session 5f managed A/B](plan/phase-1/5f-managed-ab.md). Session 5e is
+complete. E33 confirms that a stale two-operation batch rejected with zero
+stages and zero independent-read mutation. The current-revision control applied
+and cleaned up. Fake regression plus banked live evidence qualifies every track
+and scene window refusal without a fresh live overflow.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5d and all three 5d repairs are complete (E23–E25,
-E27, E29, E31, E32). Sessions 5e through 5i remain planned. Phase 1 exit
-criterion 2 is complete.
+slices. Sessions 5a through 5e and all three 5d repairs are complete (E23–E25,
+E27, E29, E31–E33). Sessions 5f through 5i remain planned. Phase 1 exit criteria
+2, 3, and 5 are complete.
 
 ## Start here
 
-1. Read the 5e refusal-boundaries brief and its linked evidence and decisions.
-2. Prove stale-revision rejection and the current-revision positive control.
-3. Use the existing live evidence for bank-window qualification. Do not create
-   a fresh live overflow.
-4. Restore the complete fixture baseline and record new evidence.
-5. Do not combine this proof with Session 5f.
+1. Read the 5f managed-A/B brief and its linked evidence and decisions.
+2. Prove both managed representations through their Bitwig-native controls.
+3. Prove one mixed instruction keeps correlated results independent.
+4. Confirm ordinary track copy stays outside managed-event bookkeeping.
+5. Restore every project object, selection, and observation value.
 
 ## Baseline
 
@@ -39,9 +38,9 @@ criterion 2 is complete.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- E32 automatic cleanup removed both exact probe-owned clips. Final checks found
-  no non-probe grid change, restored selection to track 0, row 1, and preserved
-  the exact observation value.
+- E33 cleanup removed the positive-control clip. Final checks found 10 tracks,
+  10 scenes, selection at track 0 row 1, a stopped transport, and the exact
+  observation value.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -60,5 +59,6 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-The exact human instructions were sufficient. No repository instruction change
-is needed.
+The batch receipt lists encoded wire calls. Count semantic write calls when a
+probe compares a receipt with contract operations. No repository instruction
+change is needed.

@@ -1,14 +1,14 @@
 ---
 title: Phase 1, session 5e — refusal boundaries
 kind: plan
-state: planned
-status: Not started.
+state: complete
+status: Complete 2026-08-16. Stale rejection passes 11/11 live; bank qualification is complete (E33).
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5d-concurrent-editing.md
 next: 5f-managed-ab.md
 scope: Phase 1 exit criteria 3 and 5
-evidence: E5, E8, E15-A, E16r, E21 · D6, D10, D15
+evidence: E5, E8, E15-A, E16r, E21, E33 · D6, D10, D15
 needs: Bitwig foregrounded for stale-revision proof
 ---
 
@@ -47,3 +47,30 @@ needs: Bitwig foregrounded for stale-revision proof
 5. The project remains at baseline.
 6. Focused tests, the full offline check, the context check, and
    `git diff --check` pass.
+
+## Result
+
+The focused live probe passed 11/11. An intervening writer advanced revision
+617 to 618. The two-operation batch submitted against revision 617 rejected
+with no applied stages. Independent cursor readback found zero notes. The same
+two writes applied against revision 618, and independent readback found both.
+
+Cleanup removed the positive-control clip. It restored the documented 10-track,
+10-scene fixture, track 0 row 1 selection, exact empty observation record, and
+stopped transport.
+
+The fake refusal matrix passed 20/20. It covers track overflow, cumulative track
+growth, cumulative scene growth, unreachable rows, snapshot blind spots, and
+incomplete observer windows. E5/e05b, E15-A, E16r, and E21 supply the banked live
+basis. Project totals are reported independently from configured track and scene
+windows. No fresh live overflow was created, and no new destructive overflow
+coverage is claimed.
+
+The full offline check passes 541/541. The context check and
+`git diff --check` pass. E33 records the result. Session 5f is next.
+
+## Session retrospective
+
+The batch receipt lists encoded wire calls. Count semantic write calls when a
+probe compares a receipt with contract operations. No repository instruction
+change is needed.

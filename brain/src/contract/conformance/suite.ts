@@ -1534,6 +1534,30 @@ export function runConformance(h: AdapterHarness): void {
   // --- the bank window (E5) --------------------------------------------------
 
   test(
+    label('C-track-room', 'the complete structural batch is refused before it can overflow the track window'),
+    async () => {
+      const { adapter, trackA } = await h.create();
+      try {
+        const before = await adapter.revision();
+        const room = before.window.tracks.bankSize - before.window.tracks.count;
+        assert.ok(room >= 0, 'the fixture project must fit inside its own track window');
+        const ops: Op[] = Array.from({ length: room + 1 }, (_, index) => index % 2 === 0
+          ? { op: 'track.create', name: `gn-room-${index}` }
+          : { op: 'track.duplicate', track: trackA });
+
+        await assert.rejects(adapter.apply({ ops }), BankWindowOverflowError);
+
+        const after = await adapter.revision();
+        assert.equal(after.window.tracks.count, before.window.tracks.count,
+          'the budget covers creates and copies across the whole batch before mutation');
+        assert.equal(after.revision, before.revision, 'a refused structural batch claims no revision');
+      } finally {
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
     label('C-bank', 'an overflowing project refuses to be written, loudly (E5)'),
     { skip: !h.capabilities.canOverflowBank },
     async () => {

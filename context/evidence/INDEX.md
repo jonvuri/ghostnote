@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E33 | Stale revision and bank-window refusals fail closed [K] (2026-08-16) | [open](experiments/e33-stale-revision-and-bank-window-refusals-fail-closed.md) |
 | E32 | Pinned writes survive human clip and track edits [K] (2026-08-16) | [open](experiments/e32-pinned-writes-survive-human-clip-and-track-edits.md) |
 | E31 | Owned cleanup promotes host-normalized readback [K] (2026-08-16) | [open](experiments/e31-owned-cleanup-promotes-host-normalized-readback.md) |
 | E30 | Owned cleanup needs a host-normalized fingerprint [K] (2026-08-16) | [open](experiments/e30-owned-cleanup-needs-a-host-normalized-fingerprint.md) |
