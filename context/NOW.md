@@ -4,29 +4,28 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5f-managed-ab
+session: phase-1-session-5g-live-conformance
 ---
 
 # Now
 
-Run [Session 5f managed A/B](plan/phase-1/5f-managed-ab.md). Session 5e is
-complete. E33 confirms that a stale two-operation batch rejected with zero
-stages and zero independent-read mutation. The current-revision control applied
-and cleaned up. Fake regression plus banked live evidence qualifies every track
-and scene window refusal without a fresh live overflow.
+Run [Session 5g full live conformance](plan/phase-1/5g-live-conformance.md).
+Session 5f is complete. E34 confirms that the layer and clip representations
+switch through independent Bitwig-native controls. One mixed instruction kept
+its managed results correlated but independent. Track copy stayed ordinary.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5e and all three 5d repairs are complete (E23–E25,
-E27, E29, E31–E33). Sessions 5f through 5i remain planned. Phase 1 exit criteria
-2, 3, and 5 are complete.
+slices. Sessions 5a through 5f and all three 5d repairs are complete (E23–E25,
+E27, E29, E31–E34). Sessions 5g through 5i remain planned. Phase 1 exit criteria
+2 through 5 are complete.
 
 ## Start here
 
-1. Read the 5f managed-A/B brief and its linked evidence and decisions.
-2. Prove both managed representations through their Bitwig-native controls.
-3. Prove one mixed instruction keeps correlated results independent.
-4. Confirm ordinary track copy stays outside managed-event bookkeeping.
-5. Restore every project object, selection, and observation value.
+1. Read the 5g brief, E15, E21, and D15.
+2. Confirm the deployed build and the documented fixture baseline.
+3. Run the complete live conformance suite in one invocation.
+4. Require `C-minted` to pass under full-suite load.
+5. Record each deliberate skip, then run cleanup and verify the exact baseline.
 
 ## Baseline
 
@@ -38,9 +37,9 @@ E27, E29, E31–E33). Sessions 5f through 5i remain planned. Phase 1 exit criter
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- E33 cleanup removed the positive-control clip. Final checks found 10 tracks,
+- E34 cleanup removed the disposable track. Final checks found 10 tracks,
   10 scenes, selection at track 0 row 1, a stopped transport, and the exact
-  observation value.
+  observation value. Both cursor states and `Last change` were also restored.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -59,6 +58,6 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-The batch receipt lists encoded wire calls. Count semantic write calls when a
-probe compares a receipt with contract operations. No repository instruction
-change is needed.
+Name Shift-click explicitly when a Bitwig solo proof requires exclusive
+behavior. A normal click is additive. No repository instruction change is
+needed.

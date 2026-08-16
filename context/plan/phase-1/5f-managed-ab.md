@@ -1,14 +1,14 @@
 ---
 title: Phase 1, session 5f — managed A/B
 kind: plan
-state: planned
-status: Not started.
+state: complete
+status: Complete 2026-08-16. Both native controls, mixed bookkeeping, and ordinary track copy pass live (E34).
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5e-refusal-boundaries.md
 next: 5g-live-conformance.md
 scope: Phase 1 exit criterion 4
-evidence: E16w, E17, E20a/b, E22 · D14, D17, D18
+evidence: E16w, E17, E20a/b, E22, E34 · D14, D17, D18
 needs: Bitwig foregrounded; a human at the keyboard
 ---
 
@@ -53,3 +53,33 @@ needs: Bitwig foregrounded; a human at the keyboard
 
 If an existing mechanism cannot meet this workflow, record the defect and plan a
 repair session. Do not add capability inside this proving session.
+
+## Result
+
+The human-assisted `probe:5f-ab` run passed all assertions. Machine readback
+confirmed exclusive A-only, B-only, then A-only layer selection. The operator
+heard the empty alternate silence the playing clip and heard the copied device
+chain restore it. Bitwig uses Shift-click for this exclusive solo action. A
+normal solo click is additive.
+
+The two four-beat clips stored half-bar quantization and
+`continue_or_synced`. The probe observed the queued state, a landing within
+0.038 beats of the half-bar grid, and position continuity. Device selection did
+not change during the clip switch. The selected clip kept playing during device
+switches.
+
+One mixed instruction stored two managed events with one correlation id and
+distinct result and execution ids. The production report matched the persisted
+record. A production track copy stored one separate ordinary-use event and no
+managed event.
+
+Cleanup removed the one disposable track. It restored both cursors, the exact
+observation value, status, selection, track identities, row count, and stopped
+transport. Focused tests pass 83/83. The full offline check passes 541/541. The
+context check covers 152 active documents with intact links, and
+`git diff --check` passes. E34 records the result. Session 5g is next.
+
+## Session retrospective
+
+Name Shift-click explicitly when a Bitwig solo proof requires exclusive
+behavior. No repository instruction change is needed.

@@ -76,7 +76,8 @@ three-way dispatch classifier is retired.
      early matching and exact host-normalized cleanup pass live (E31)
    - ~~[5e — refusal boundaries](5e-refusal-boundaries.md)~~ — complete; stale
      batch rejection and bank-window qualification pass (E33)
-   - [5f — managed A/B](5f-managed-ab.md) — exit criterion 4
+   - ~~[5f — managed A/B](5f-managed-ab.md)~~ — complete; independent native
+     controls, mixed bookkeeping, and ordinary track copy pass live (E34)
    - [5g — full live conformance](5g-live-conformance.md) — B7 only
    - [5h — CI and regression policy](5h-ci.md) — exit criterion 6
    - [5i — Phase 1 closeout](5i-closeout.md) — decision and phase closure
