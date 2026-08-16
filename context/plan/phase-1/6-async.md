@@ -5,7 +5,7 @@ state: optional
 status: not started — optional
 updated: 2026-08-16
 parent: README.md
-prev: 5-proving.md
+prev: 5i-closeout.md
 next: ../phase-2/README.md
 scope: PHASE-1-ENGINE.md item 7
 evidence: E8, E15-D, E15-F · D10

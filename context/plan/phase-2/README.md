@@ -66,11 +66,11 @@ diff should show.
    have no clean inverse but a perfectly clean prior state — quantize, humanize,
    transpose, harmonize, arpeggiate, thin, densify, re-voice. §8b's whole argument
    for snapshot-over-inverse-op-log exists to make exactly these safe.
-2. **Full expression coverage.** All 21 properties E2 verified round-trip exact:
-   velocity, release velocity, velocity spread, duration, pan, timbre, transpose
-   (fractional), chance, occurrence, recurrence (length+mask), repeat
-   (count/curve/velocity curve/velocity end), mute — plus the ordering rule
-   (**pressure last**) and the gain `read/2` mapping.
+2. **Full expression coverage.** Phase 1 session 5b settles the complete
+   21-property contract before this phase starts. The current table has 19 exact
+   properties, `gain` pending an independent-handle inverse measurement, and
+   `pressure` unwritable and refused. This phase consumes that measured verdict;
+   it does not assume that all 21 properties are exact.
 3. **Grid and units.** Beats-native contract; per-operation step size rather than
    global init-time grid (E2 — grid is a *view*, and daw-mcp's global design was
    unnecessarily rigid). Triplet grids work; snapshots scan at the finest grid
@@ -113,8 +113,9 @@ diff should show.
 2. Every operation is checkpointed as a take, verified by readback, and
    reversible through Phase 1's directed `revert_change` path. Recorded clip
    changes can open in Bitwig's editor.
-3. A round-trip regression suite covers all 21 expression properties offline against
-   the Phase-0 fake, and live against Bitwig via the archived probe path.
+3. A regression suite covers the complete 21-property contract offline against
+   the Phase-0 fake and live against Bitwig: exact members round-trip, gain uses
+   the session 5b verdict, and pressure refusal is explicit.
 4. **Dogfood gate: you actually use it to write music, more than once, unprompted.**
    This is the real exit criterion. The rest is necessary, not sufficient.
 

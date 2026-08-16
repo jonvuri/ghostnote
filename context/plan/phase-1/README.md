@@ -57,8 +57,19 @@ three-way dispatch classifier is retired.
    - ~~[4b — navigation to a recorded clip change](4b-change-navigation.md)~~ —
      done; explicit durable targeting, ambiguity, missing-target refusal, Edit
      layout, and fitted content verified live
-5. [5 — live proving](5-proving.md) — active; B4 is complete, and the remaining
-   sweep needs a focused session re-cut
+5. [5 — live proving program](5-proving.md) — active; the focused re-cut was
+   approved 2026-08-16
+   - ~~[5a — selection preservation](5a-selection.md)~~ — complete; B4 passes
+     8/8 live with cleanup (E23)
+   - [5b — note fidelity and gain](5b-fidelity.md) — next; independent-handle
+     21-property proof and gain verdict
+   - [5c — observer drag boundaries](5c-drag-boundaries.md) — B5 only
+   - [5d — concurrent editing](5d-concurrent-editing.md) — exit criterion 2
+   - [5e — refusal boundaries](5e-refusal-boundaries.md) — exit criteria 3 and 5
+   - [5f — managed A/B](5f-managed-ab.md) — exit criterion 4
+   - [5g — full live conformance](5g-live-conformance.md) — B7 only
+   - [5h — CI and regression policy](5h-ci.md) — exit criterion 6
+   - [5i — Phase 1 closeout](5i-closeout.md) — decision and phase closure
 6. [6 — async completion](6-async.md), optional
 
 Completed session records stay in their session briefs and under

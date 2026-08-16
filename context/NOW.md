@@ -4,30 +4,28 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5-replan
+session: phase-1-session-5b-fidelity
 ---
 
 # Now
 
-Re-cut the remaining [Phase 1 session 5](plan/phase-1/5-proving.md) work into
-focused, orthogonal sessions before implementation continues. The operator
-stopped the combined sweep after B4.
+Run [Phase 1 session 5b](plan/phase-1/5b-fidelity.md): prove the complete
+21-property note contract through an independent read handle and settle the gain
+inverse from live measurement.
 
-B4 is complete and verified live (E23). The executor owns one lazy selection
-scope across resolve, stash, apply, verify, and reporting. The live adapter waits
-for selection readback after its single restore. `probe:5-selection` passes
-**8/8** and removes its owned clip. Offline checks pass **527/527**. The extension
-and wire method set are unchanged.
+The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
+slices. Session 5a is complete (E23). Sessions 5b through 5i are planned. No
+other Session 5 exit criterion is complete.
 
 ## Start here
 
-1. Split the remaining six exit criteria and carry-ins into small sessions.
-2. Keep the 21-property reconciliation and independent-handle round-trip
-   together.
-3. Keep B5 human drag measurements separate from B7 full live conformance.
-4. Plan the managed A/B sweep, gain decision, CI proof, decision updates, and
-   Phase 1 closeout with explicit dependencies.
-5. Leave the project at the baseline below after every live slice.
+1. Read the Session 5 umbrella, then the 5b brief and its cited D8, D15, and D16
+   sections.
+2. Keep the 21-property reconciliation and independent-handle round-trip in one
+   session.
+3. Measure gain at several values before changing `GAIN_READ_SCALE` or fidelity.
+4. Confirm pressure refusal before mutation.
+5. Leave the live project at the baseline below.
 
 ## Baseline
 
@@ -37,7 +35,7 @@ and wire method set are unchanged.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- Session 5 B4 left no probe clip or other probe residue.
+- Session 5a left no probe clip or other probe residue.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -53,3 +51,10 @@ Confirm these track identities before a destructive live sweep:
 | gn-sel | `6fb96670-abde-4958-9147-f573a4b43918` |
 | FX 1 | `52bd865e-c958-4bda-b9d3-97d0ea2f463a` |
 | Master | `834e65ab-efa4-4bc6-ae9d-4eafd818d16e` |
+
+## Planning-session retrospective
+
+The combined live sweep hid independent failure domains and made verification
+work look like one implementation session. The new briefs separate measurement,
+human interference, refusal, production workflow, integration, CI, and closeout.
+No repository instruction change is needed.
