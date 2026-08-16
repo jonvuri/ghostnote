@@ -2,14 +2,14 @@
 title: Phase 1, session 5d — concurrent editing
 kind: plan
 state: planned
-status: Proof attempted twice 2026-08-16. E28 stopped the rerun before the human
-        window; repair cursor confirmation before another attempt.
+status: Proof attempted twice 2026-08-16. Both focused repairs are complete.
+        Run the human proof again.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5c-drag-boundaries.md
 next: 5e-refusal-boundaries.md
 scope: Phase 1 exit criterion 2
-evidence: E8, E23, E26, E27, E28 · D6, D10, D15
+evidence: E8, E23, E26, E27, E28, E29 · D6, D10, D15
 needs: Bitwig foregrounded; a human at the keyboard
 ---
 
@@ -86,7 +86,9 @@ selection, preserved the empty observation record, and found the transport
 stopped. E28 records the result.
 
 Run the focused [cursor confirmation repair](5d-repair-cursor-confirmation.md)
-before this proof is repeated.
+before this proof is repeated. The repair is complete. E29 confirms bounded
+pin-aware confirmation, early cleanup fingerprints, and three clean live
+sweeps. Repeat this human proof next.
 
 ## Session retrospective
 

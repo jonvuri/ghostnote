@@ -1,16 +1,16 @@
 ---
 title: Phase 1, session 5d repair — cursor confirmation
 kind: plan
-state: planned
-status: Planned 2026-08-16 after E28. Repair bounded clip confirmation and
-        failure-safe owned cleanup, then repeat 5d.
+state: complete
+status: Complete 2026-08-16. E29 confirms bounded pin-aware clip pointing,
+        failure-safe owned cleanup, and three live cursor sweeps.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5d-concurrent-editing.md
 next: 5d-concurrent-editing.md
 scope: Repair only; rerun 5d after this session
-evidence: E1, E26, E27, E28 · D6, D15
-needs: Bitwig foregrounded for a focused cursor sweep
+evidence: E1, E26, E27, E28, E29 · D6, D15
+needs: none
 ---
 
 # Phase 1, session 5d repair — cursor confirmation
@@ -51,6 +51,24 @@ needs: Bitwig foregrounded for a focused cursor sweep
 - changing cursor allocation or structural invalidation rules;
 - stale-revision, bank-window, managed A/B, or full conformance proof.
 
+## Result
+
+`pointAtClip` now owns the clip pin state and retries the complete track and
+slot point within eight attempts. It uses the 25 ms fast path and the 144 ms
+retry budget. Exact track and row status is required before the cursor is pinned
+and recorded as held.
+
+The standing probe registers exact target and drag fingerprints before clip
+creation. Its shared cleanup verifies and removes both owned clips after an
+early failure. Grid capture keeps Group and output occupancy in its comparison,
+but does not treat aggregate launcher occupancy as a pointable clip.
+
+The lag, refusal, and early-cleanup regressions pass. `probe:5d-cursor` passed
+three consecutive sweeps over 19 pointable occupied clips. Each run restored
+entry selection and left revision, epochs, occupancy, observation data, and
+transport unchanged. E29 records the result. The human 5d proof remains next.
+
 ## Session retrospective
 
-Pending.
+A point operation must own pin state. It must not depend on state from an
+earlier probe. No repository instruction change is needed.

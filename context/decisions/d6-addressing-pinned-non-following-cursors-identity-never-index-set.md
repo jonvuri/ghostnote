@@ -17,7 +17,11 @@ outlives the request that resolved it.**
 - **Pointing mechanism is `trackThenSlot`** — `cursorTrack.selectChannel(track)`
   then `track.selectSlot(s)` — the only one of three candidates that works (E1).
   Settle is ~25ms and **verifiable by polling** `position()` + `sceneIndex()`,
-  which replaces daw-mcp's blind 400ms sleep.
+  which replaces daw-mcp's blind 400ms sleep. **Amended by E29:** each point
+  attempt unpins the clip cursor, sends the complete track and slot point, and
+  checks the exact track and row. It pins and records the hold only after exact
+  confirmation. The fast path waits 25 ms. Retries wait the 144 ms structural
+  budget. Eight failed attempts refuse with `AddressUnresolvedError`.
 - **Cursor pools are non-following BY CONSTRUCTION** (`shouldFollowSelection=false`
   at creation); pinning is belt-and-suspenders on top (E1). 3 cursors held 3
   different clips concurrently, and 20/20 write+readback cycles stayed correct

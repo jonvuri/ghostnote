@@ -15,6 +15,10 @@ import {
 import { Executor } from '../engine/executor.js';
 import { emptyObservationRecord, encodeObservationRecord } from '../observation/index.js';
 import { check, client, failureCount, note, pollUntil, waitForEnter } from './lib.js';
+import {
+  canonicalNotes, ownClip, removeOwnedClip, type CleanupCell, type OwnedClip,
+  type OwnedClipCleanupPort,
+} from './phase5d-owned-cleanup.js';
 
 const PROJECT = 'gn-scale-test';
 const WRITER_CURSOR = '0';
@@ -42,6 +46,7 @@ interface TrackRow {
   readonly index: number;
   readonly name: string;
   readonly channelId: string;
+  readonly type: string;
 }
 
 interface Selection {
@@ -50,7 +55,7 @@ interface Selection {
   readonly changes: number;
 }
 
-interface Cell {
+interface Cell extends CleanupCell {
   readonly trackId: string;
   readonly trackIndex: number;
   readonly trackName: string;
@@ -76,14 +81,6 @@ const hasContent = async (cell: Pick<Cell, 'trackIndex' | 'row'>): Promise<boole
   })) as { hasContent: boolean }).hasContent;
 
 const cellKey = (trackId: string, row: number): string => `${trackId}:${row}`;
-
-function noteOrder(a: NoteRecord, b: NoteRecord): number {
-  return a.startBeats - b.startBeats || a.pitch - b.pitch;
-}
-
-function canonicalNotes(value: readonly NoteRecord[]): string {
-  return JSON.stringify([...value].sort(noteOrder));
-}
 
 async function select(target: Pick<Selection, 'trackIndex' | 'slotIndex'>): Promise<Selection> {
   await client.request('slot.select', {
@@ -138,7 +135,10 @@ async function captureGrid(
       const cell = { trackIndex: item.index, row };
       const occupied = await hasContent(cell);
       result.set(cellKey(item.channelId, row), { occupied, notes: [] });
-      if (occupied) {
+      // Group and output rows can report aggregate launcher content. They do
+      // not own a clip that a launcher cursor can point at.
+      if (occupied && item.type !== 'Group' && item.type !== 'Effect'
+          && item.type !== 'Master') {
         addresses.push(notesAt(clip(slot(track(item.channelId), scene(row, at.sceneEpoch)))));
       }
     }
@@ -257,6 +257,35 @@ let dragDestination: Cell | undefined;
 let take: Awaited<ReturnType<Executor['run']>> | undefined;
 let targetBaseline: readonly NoteRecord[] = [];
 let dragBaseline: readonly NoteRecord[] = [];
+let targetOwned: OwnedClip | undefined;
+let dragOwned: OwnedClip | undefined;
+
+const cleanupPort: OwnedClipCleanupPort = {
+  hasContent,
+  async readNotes(cell) {
+    const current = await witness.revision();
+    const address = notesAt(clip(slot(track(cell.trackId), scene(cell.row, current.sceneEpoch))));
+    const state = await witness.read([address]);
+    const value = state.entries[addressKey(address)]?.value;
+    if (value?.of !== 'notes') throw new Error('the owned clip notes are unreadable');
+    return value.notes;
+  },
+  async move(source, destination) {
+    const current = await writer.revision();
+    await writer.apply({ ops: [{
+      op: 'clip.move',
+      source: clip(slot(track(source.trackId), scene(source.row, current.sceneEpoch))),
+      destination: slot(track(destination.trackId), scene(destination.row, current.sceneEpoch)),
+    }] });
+  },
+  async remove(cell) {
+    const current = await writer.revision();
+    await writer.apply({ ops: [{
+      op: 'clip.delete',
+      slot: slot(track(cell.trackId), scene(cell.row, current.sceneEpoch)),
+    }] });
+  },
+};
 
 try {
   await writer.hello();
@@ -292,28 +321,41 @@ try {
   const sourceSlot = slot(track(dragSource.trackId), scene(dragSource.row, at.sceneEpoch));
   const targetClip = clip(targetSlot);
   const dragClip = clip(sourceSlot);
+  targetOwned = ownClip(target, [
+    { startBeats: 0, pitch: 36, velocity: 72, durationBeats: 0.25 },
+  ]);
+  dragOwned = ownClip(dragSource, [
+    { startBeats: 3.5, pitch: 108, velocity: 64, durationBeats: 0.25 },
+  ], dragDestination);
+  targetBaseline = targetOwned.fingerprint;
+  dragBaseline = dragOwned.fingerprint;
   await writer.apply({ ops: [{ op: 'clip.create', slot: targetSlot, lengthBeats: 4 }] });
   targetCreated = true;
   await writer.apply({ ops: [{ op: 'clip.create', slot: sourceSlot, lengthBeats: 4 }] });
   dragCreated = true;
   await writer.apply({ ops: [{
     op: 'note.write', clip: targetClip,
-    notes: [{ startBeats: 0, pitch: 36, velocity: 72, durationBeats: 0.25 }],
+    notes: targetBaseline,
   }] });
   await writer.apply({ ops: [{
     op: 'note.write', clip: dragClip,
-    notes: [{ startBeats: 3.5, pitch: 108, velocity: 64, durationBeats: 0.25 }],
+    notes: dragBaseline,
   }] });
   await writer.settle('noteWrite');
 
+  const targetFingerprint = await cleanupPort.readNotes(targetOwned.source);
+  const dragFingerprint = await cleanupPort.readNotes(dragOwned.source);
+  check('5d-L3: both owned clip fingerprints read through the witness cursor',
+    canonicalNotes(targetFingerprint) === canonicalNotes(targetBaseline)
+      && canonicalNotes(dragFingerprint) === canonicalNotes(dragBaseline),
+    { targetFingerprint, dragFingerprint });
+  if (canonicalNotes(targetFingerprint) !== canonicalNotes(targetBaseline)
+      || canonicalNotes(dragFingerprint) !== canonicalNotes(dragBaseline)) {
+    throw new Error('an owned cleanup fingerprint did not match exact readback');
+  }
+
   const beforeMark = await witness.revision();
   const beforeGrid = await captureGrid(witness, listed.tracks, beforeMark);
-  targetBaseline = beforeGrid.get(cellKey(target.trackId, target.row))?.notes ?? [];
-  dragBaseline = beforeGrid.get(cellKey(dragSource.trackId, dragSource.row))?.notes ?? [];
-  check('5d-L3: both owned clip fingerprints read through the witness cursor',
-    targetBaseline.some((item) => item.pitch === 36)
-      && dragBaseline.some((item) => item.pitch === 108),
-    { targetBaseline, dragBaseline });
 
   const selectionHome = rowFor(listed.tracks, '78a40fcf-3eae-48fc-badf-1ff18900166b');
   const initial = await select({ trackIndex: selectionHome.index, slotIndex: 0 });
@@ -409,29 +451,10 @@ try {
   check('5d-LX: the focused live probe completed without an unexpected failure', false,
     error instanceof Error ? `${error.name}: ${error.message}` : String(error));
 } finally {
-  if (dragCreated && dragSource !== undefined && dragDestination !== undefined) {
+  if (dragCreated && dragOwned !== undefined && dragSource !== undefined
+      && dragDestination !== undefined) {
     try {
-      const sourceHas = await hasContent(dragSource);
-      const destinationHas = await hasContent(dragDestination);
-      if (!sourceHas && destinationHas) {
-        const current = await writer.revision();
-        await writer.apply({ ops: [{
-          op: 'clip.move',
-          source: clip(slot(track(dragDestination.trackId),
-            scene(dragDestination.row, current.sceneEpoch))),
-          destination: slot(track(dragSource.trackId), scene(dragSource.row, current.sceneEpoch)),
-        }] });
-      } else if (!sourceHas || destinationHas) {
-        throw new Error('the owned drag clip is not at its source or destination alone');
-      }
-      const current = await writer.revision();
-      const sourceClip = clip(slot(track(dragSource.trackId), scene(dragSource.row, current.sceneEpoch)));
-      const state = await witness.read([notesAt(sourceClip)]);
-      const value = state.entries[addressKey(notesAt(sourceClip))]?.value;
-      if (value?.of !== 'notes' || canonicalNotes(value.notes) !== canonicalNotes(dragBaseline)) {
-        throw new Error('the drag clip fingerprint changed; cleanup refuses to delete it');
-      }
-      await writer.apply({ ops: [{ op: 'clip.delete', slot: sourceClip.slot }] });
+      await removeOwnedClip(dragOwned, cleanupPort);
       await writer.settle('trackStruct');
       check('5d-L12: the owned drag clip is removed from both cells',
         !(await hasContent(dragSource)) && !(await hasContent(dragDestination)));
@@ -440,18 +463,9 @@ try {
         error instanceof Error ? error.message : String(error));
     }
   }
-  if (targetCreated && target !== undefined) {
+  if (targetCreated && targetOwned !== undefined && target !== undefined) {
     try {
-      const current = await writer.revision();
-      const targetClip = clip(slot(track(target.trackId), scene(target.row, current.sceneEpoch)));
-      if (take !== undefined) {
-        const state = await witness.read([notesAt(targetClip)]);
-        const value = state.entries[addressKey(notesAt(targetClip))]?.value;
-        if (value?.of !== 'notes' || canonicalNotes(value.notes) !== canonicalNotes(targetBaseline)) {
-          throw new Error('the write target is not at its owned baseline; cleanup refuses to delete it');
-        }
-      }
-      await writer.apply({ ops: [{ op: 'clip.delete', slot: targetClip.slot }] });
+      await removeOwnedClip(targetOwned, cleanupPort);
       await writer.settle('trackStruct');
       check('5d-L13: the owned write-target clip is removed', !(await hasContent(target)));
     } catch (error) {

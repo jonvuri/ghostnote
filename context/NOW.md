@@ -4,40 +4,43 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5d-repair-cursor-confirmation
+session: phase-1-session-5d-concurrent-editing-rerun
 ---
 
 # Now
 
-Run the focused [5d cursor confirmation
-repair](plan/phase-1/5d-repair-cursor-confirmation.md). E28 stopped the human
-rerun during setup, before the operator prompt and production write window.
+Run the human-assisted [5d concurrent-editing
+proof](plan/phase-1/5d-concurrent-editing.md) again. Both focused repairs are
+complete. E29 confirms bounded pin-aware cursor pointing, failure-safe owned
+cleanup, and three clean live cursor sweeps.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5c and the first 5d repair are complete (E23–E25,
-E27). Session 5d remains unproved after E26 and E28. Sessions 5e through 5i
+slices. Sessions 5a through 5c and both 5d repairs are complete (E23–E25, E27,
+E29). Session 5d remains unproved after E26 and E28. Sessions 5e through 5i
 remain planned. No other Session 5 exit criterion is complete.
 
 ## Start here
 
-1. Read E28 and the cursor confirmation repair brief.
-2. Add a bounded retry for exact clip cursor confirmation. Keep failure bounded.
-3. Store exact owned cleanup fingerprints before the complete grid capture.
-4. Add the focused lag, refusal, and early-cleanup regressions.
-5. Run the focused live cursor sweep three times, then run all offline gates.
-6. Leave the human 5d proof for the next session.
+1. Read E26 through E29 and the 5d concurrent-editing brief.
+2. Run `npm run probe:5d-concurrent` with Bitwig foregrounded.
+3. Move the owned drag clip and change selection as the prompt directs.
+4. Confirm pinned writes, independent readback, one borrow and restore, exact
+   revert, cleanup, and final fixture state.
+5. Record a new evidence result. Do not combine a new repair with the proof.
 
 ## Baseline
 
 - Project: `gn-scale-test`; 10 launcher rows; 10 visible tracks.
 - Observation record: exact empty schema-v1 canonical value.
 - `Last change`: `Change · 4a-live-check`.
+- Selection: track 0, row 1.
+- Transport: stopped.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- E28 directed cleanup removed its one verified pitch-108 clip. Final readback
-  found the `gn-B`, `gn-lay`, and `gn-lay4` row-10 cells empty, selection at
-  track 0 row 1, the exact empty observation record, and the transport stopped.
+- E29 changed no project content. Three live sweeps held revision 509, scene
+  epoch 2, and content epoch 298. Directed cleanup restored the documented
+  selection after two failed diagnostic sweeps.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -54,19 +57,7 @@ Confirm these track identities before a destructive live sweep:
 | FX 1 | `52bd865e-c958-4bda-b9d3-97d0ea2f463a` |
 | Master | `834e65ab-efa4-4bc6-ae9d-4eafd818d16e` |
 
-## Failure result
-
-The production adapter sends a clip point, waits 25 ms, and checks status once.
-The 5d witness scan saw one valid occupied clip fail that check. D6 requires
-polling, and existing measurements show that follower state can need about 100
-ms. The adapter refused safely, but the proof did not start.
-
-The standing probe also stores its cleanup fingerprints after the complete grid
-capture. The early failure left its drag baseline unassigned, so automatic
-cleanup refused a correct owned fingerprint. The focused repair covers both
-gaps before another 5d run.
-
 ## Session retrospective
 
-Store owned cleanup fingerprints before a larger diagnostic can fail. No
-repository instruction change is needed.
+A point operation must own pin state. It must not depend on cursor state from an
+earlier probe. No repository instruction change is needed.

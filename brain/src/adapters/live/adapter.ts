@@ -171,6 +171,9 @@ interface SelectionState {
   readonly slotIndex: number;
 }
 
+/** Eight attempts keep clip confirmation bounded when the cursor never arrives. */
+const CLIP_POINT_ATTEMPTS = 8;
+
 /**
  * ⚠ `RigConfig.scenes`' shipped default, and a PLACEHOLDER, not a reading.
  *
@@ -1257,26 +1260,43 @@ export class LiveAdapter implements BitwigAdapter {
     }
     if (pointedAt.get(cursor) === key) return cursor;
     this.heldClips.delete(cursor);
-    await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
-    await this.transport.send({
-      method: WIRE.slotSelect,
-      params: { trackIndex, slotIndex: clipRef.slot.scene.index, mechanism: 'track' },
-    });
-    await this.settle('cursorPoint');
-    const status = (await this.transport.send({
-      method: WIRE.cursorStatus,
-      params: { cursor },
-    })) as { trackPosition?: number; sceneIndex?: number };
-    if (status.trackPosition !== trackIndex
-        || status.sceneIndex !== clipRef.slot.scene.index) {
-      throw new AddressUnresolvedError(
-        clipRef,
-        `cursor ${cursor} did not confirm track ${trackIndex}, row ${clipRef.slot.scene.index}`,
-      );
+
+    for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt += 1) {
+      // Re-send the complete point. A status mismatch means that cursor state is
+      // stale. It does not prove that the requested occupied clip is absent.
+      await this.transport.send({
+        method: WIRE.cursorPin,
+        params: { cursor, pinned: false },
+      });
+      await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
+      await this.transport.send({
+        method: WIRE.slotSelect,
+        params: { trackIndex, slotIndex: clipRef.slot.scene.index, mechanism: 'track' },
+      });
+      // A re-send restarts the follower. Use the measured structural budget on
+      // retries instead of treating several 25 ms waits as one longer wait.
+      await this.settle(attempt === 0 ? 'cursorPoint' : 'trackStruct');
+      const status = (await this.transport.send({
+        method: WIRE.cursorStatus,
+        params: { cursor },
+      })) as { trackPosition?: number; sceneIndex?: number };
+      if (status.trackPosition === trackIndex
+          && status.sceneIndex === clipRef.slot.scene.index) {
+        await this.transport.send({
+          method: WIRE.cursorPin,
+          params: { cursor, pinned: true },
+        });
+        this.heldClips.set(cursor, key);
+        pointedAt.set(cursor, key);
+        return cursor;
+      }
     }
-    this.heldClips.set(cursor, key);
-    pointedAt.set(cursor, key);
-    return cursor;
+
+    throw new AddressUnresolvedError(
+      clipRef,
+      `cursor ${cursor} did not confirm track ${trackIndex}, row ${clipRef.slot.scene.index} `
+        + `after ${CLIP_POINT_ATTEMPTS} attempts`,
+    );
   }
 
   private async readOne(

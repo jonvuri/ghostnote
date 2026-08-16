@@ -193,6 +193,7 @@
     "probe:5c-read-below": "tsx src/probes/phase5c-drag-boundaries.ts read-below",
     "probe:5d-concurrent": "tsx src/probes/phase5d-concurrent-editing.ts",
     "probe:5d-repair": "tsx src/probes/phase5d-repair.ts",
+    "probe:5d-cursor": "tsx src/probes/phase5d-cursor-confirmation.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

@@ -17,7 +17,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  addressKey, chain as chainAt, clip, device as deviceAt, deviceIn as deviceInAt,
+  AddressUnresolvedError, addressKey, chain as chainAt, clip, device as deviceAt,
+  deviceIn as deviceInAt,
   notes as notesAt, scene, slot, track,
   type ClipAddress, type RevisionMark, type TrackAddress,
 } from '../../contract/index.js';
@@ -455,6 +456,63 @@ test('L-read: a clip and its notes side by side still cost ONE point', async () 
 
   const points = wire.frames.filter((f) => f.method === WIRE.cursorPointTrack);
   assert.equal(points.length, 1, 'one clip, one point — the memo is still doing its job');
+});
+
+test('5d cursor repair: a lagging clip cursor retries the complete point', async () => {
+  class LaggingCursorTransport extends CursorModelTransport {
+    private statusReads = 0;
+
+    override async send(frame: Frame): Promise<unknown> {
+      const reply = await super.send(frame);
+      if (frame.method !== WIRE.cursorStatus) return reply;
+      this.statusReads += 1;
+      return this.statusReads < 3
+        ? { ...(reply as Record<string, unknown>), trackPosition: 9, sceneIndex: 7 }
+        : reply;
+    }
+  }
+
+  const wire = new LaggingCursorTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 1 });
+
+  const snapshot = await adapter.read([notesAt(CLIP(0))]);
+  const value = snapshot.entries[addressKey(notesAt(CLIP(0)))]?.value;
+
+  assert.equal(value?.of === 'notes' ? value.notes[0]?.pitch : undefined, 60);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 3);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 3);
+  assert.deepEqual(
+    wire.frames.filter((frame) => frame.method === WIRE.cursorPin).map((frame) => frame.params),
+    [
+      { cursor: '0', pinned: false },
+      { cursor: '0', pinned: false },
+      { cursor: '0', pinned: false },
+      { cursor: '0', pinned: true },
+    ],
+  );
+});
+
+test('5d cursor repair: a clip cursor that never arrives refuses after eight attempts', async () => {
+  class StuckCursorTransport extends CursorModelTransport {
+    override async send(frame: Frame): Promise<unknown> {
+      const reply = await super.send(frame);
+      return frame.method === WIRE.cursorStatus
+        ? { ...(reply as Record<string, unknown>), trackPosition: 9, sceneIndex: 7 }
+        : reply;
+    }
+  }
+
+  const wire = new StuckCursorTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 1 });
+
+  await assert.rejects(adapter.read([notesAt(CLIP(0))]), AddressUnresolvedError);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 8);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 8);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 8);
+  assert.equal(wire.frames.filter((frame) =>
+    frame.method === WIRE.cursorPin && frame.params?.['pinned'] === false).length, 8);
+  assert.equal(wire.frames.some((frame) =>
+    frame.method === WIRE.cursorPin && frame.params?.['pinned'] === true), false);
 });
 
 test('L-read: an EMPTY slot is never pointed at, and is exact (E2, D16d)', async () => {
