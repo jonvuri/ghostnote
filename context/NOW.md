@@ -4,28 +4,29 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5d-concurrent-editing
+session: phase-1-session-5d-repair-concurrent-selection
 ---
 
 # Now
 
-Run [Phase 1 session 5d](plan/phase-1/5d-concurrent-editing.md): prove pinned
-writes and one final selection restore while a human edits elsewhere.
+Run the [session 5d repair](plan/phase-1/5d-repair-concurrent-selection.md): stop
+repeated selection borrowing and diagnose the independently observed property
+loss before the 5d proof is repeated.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5c are complete (E23, E24, E25). Sessions 5d through
-5i are planned. No other Session 5 exit criterion is complete.
+slices. Sessions 5a through 5c are complete (E23, E24, E25). E26 blocks 5d.
+Sessions 5e through 5i remain planned. No other Session 5 exit criterion is
+complete.
 
 ## Start here
 
-1. Read the Session 5 umbrella, then the 5d brief and its cited E8, E23, D6, D10,
-   and D15 sections.
-2. Build one human-assisted production-executor interference probe.
-3. Keep the write target pinned while the operator changes tracks, clips, and
-   one clip outside the write target.
-4. Verify the target through an independent handle and measure one selection
-   borrow plus one final restore.
-5. Revert the owned write and leave the live project at the baseline below.
+1. Read E26, the 5d attempt result, and the focused repair brief.
+2. Capture selection at pipeline entry, before the first asynchronous resolve.
+3. Reuse a verified held cursor across nonstructural stages without changing the
+   user's selection again. Keep structural invalidation unchanged.
+4. Reproduce the missing pan value with control and interference cases through
+   an independent handle.
+5. Add focused regressions and leave the live project at the baseline below.
 
 ## Baseline
 
@@ -35,7 +36,8 @@ slices. Sessions 5a through 5c are complete (E23, E24, E25). Sessions 5d through
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- Session 5c restored the exact rig configuration and left no probe clip.
+- The 5d attempt reverted its write, removed both owned clips, restored the
+  pre-probe selection, and left no probe residue.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -52,15 +54,16 @@ Confirm these track identities before a destructive live sweep:
 | FX 1 | `52bd865e-c958-4bda-b9d3-97d0ea2f463a` |
 | Master | `834e65ab-efa4-4bc6-ae9d-4eafd818d16e` |
 
-## Session 5c result
+## Session 5d attempt result
 
-E25 proves the ordered cross-track event pair with the correct source and
-destination durable ids. A real drag below an eight-row window emitted no event.
-The mark reported `uncoveredIn: 'scenes'`, so the quiet result is explicitly
-incomplete.
+E26 shows that all 40 note identities landed on the pinned target while the
+operator selected eight clips across five tracks. The selection trace recorded
+10 target arrivals, and the executor restored a selection captured after the
+pipeline began. Independent readback also found one missing pan value. The
+planned clip drag did not complete and remains unmeasured.
 
-## Session 5c retrospective
+## Session 5d retrospective
 
-Finish cleanup before closing a shared bridge client. Immediate reuse can race
-the prior socket's close event. The focused probe now uses the safe order. No
-repository instruction change is needed.
+Do not use an optional property's default value as a live presence oracle.
+Bitwig omits an explicit pan of zero from verbose readback. The standing probe
+now uses non-zero pan values. No repository instruction change is needed.

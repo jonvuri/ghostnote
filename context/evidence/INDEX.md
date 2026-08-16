@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E26 | The production executor re-borrows selection under interference [K] (2026-08-16) | [open](experiments/e26-production-executor-reborrows-selection-under-interference.md) |
 | E25 | Cross-track drags carry both durable identities, and below-window drags are silent [K] (2026-08-16) | [open](experiments/e25-cross-track-and-below-window-drag-boundaries.md) |
 | E24 | Gain has an exact inverse and 20 of 21 note properties round-trip [K] (2026-08-16) | [open](experiments/e24-gain-inverse-and-complete-note-contract.md) |
 | E23 | The executor restores clip selection once after the complete pipeline [K] (2026-08-16) | [open](experiments/e23-executor-restores-selection-once-after-the-complete-pipeline.md) |

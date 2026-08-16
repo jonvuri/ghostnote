@@ -2,13 +2,14 @@
 title: Phase 1, session 5d — concurrent editing
 kind: plan
 state: planned
-status: Not started. Depends on completed session 5a.
+status: Proof attempted 2026-08-16. E26 blocks completion pending a focused
+        repair session.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5c-drag-boundaries.md
 next: 5e-refusal-boundaries.md
 scope: Phase 1 exit criterion 2
-evidence: E8, E23 · D6, D10, D15
+evidence: E8, E23, E26 · D6, D10, D15
 needs: Bitwig foregrounded; a human at the keyboard
 ---
 
@@ -47,3 +48,27 @@ needs: Bitwig foregrounded; a human at the keyboard
 4. Revert restores the owned content exactly and cleanup leaves no residue.
 5. Focused tests, the full offline check, the context check, and
    `git diff --check` pass.
+
+## Attempt result
+
+The production executor ran 40 property-bearing note writes while the operator
+selected eight other clips across five tracks. All 40 note identities landed on
+the pinned `gn-B` target. Independent readback found no write on another clip.
+
+The proof failed two criteria. The selection trace recorded 10 target arrivals
+because later production stages pointed again after each human selection. Lazy
+capture also saved a human selection made after pipeline entry, so the executor
+did not restore the selection measured before the run. Independent readback and
+the executor report also agreed that one requested pan value did not land.
+
+The planned outside-target drag did not complete. No drag event was reported,
+so that subclaim remains unmeasured. Cleanup reverted the write exactly, removed
+both owned clips, restored the pre-probe selection, and preserved the observation
+baseline. E26 records the result. Run the focused
+[5d repair](5d-repair-concurrent-selection.md) before this proof is repeated.
+
+## Session retrospective
+
+Do not use an optional property's default value as a live presence oracle.
+Bitwig omits an explicit pan of zero from verbose readback. The standing probe
+now uses non-zero pan values. No repository instruction change is needed.
