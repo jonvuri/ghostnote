@@ -1,15 +1,14 @@
 ---
 title: Phase 1, session 5d — concurrent editing
 kind: plan
-state: planned
-status: Proof attempted three times 2026-08-16. All focused repairs are
-        complete through E31. Repeat the human proof.
+state: complete
+status: Complete 2026-08-16. The fourth proof passes 16/16 live (E32).
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5c-drag-boundaries.md
 next: 5e-refusal-boundaries.md
 scope: Phase 1 exit criterion 2
-evidence: E8, E23, E26, E27, E28, E29, E30, E31 · D6, D10, D15
+evidence: E8, E23, E26, E27, E28, E29, E30, E31, E32 · D6, D10, D15
 needs: Bitwig foregrounded; a human at the keyboard
 ---
 
@@ -110,8 +109,24 @@ The repair is complete. E31 confirms separate creation and exact fingerprints,
 safe promotion, drift refusal, and a clean 9/9 live sweep. Repeat this human
 proof next.
 
+## Fourth attempt result
+
+The human-assisted proof passed all 16 live checks. The production executor
+applied and verified 40 note writes while the operator moved the drag clip and
+selected five cells across four tracks. Independent readback found every write
+on the pinned `gn-B` target, found no target write on the moved clip, and found
+no change on a non-probe clip.
+
+The selection monitor missed no counter change. It recorded one target borrow
+and one final restore. The executor reported the moved clip through both durable
+track identities. Revert restored the exact target fingerprint. Automatic
+cleanup removed both owned clips, restored the entry selection, and preserved
+the observation baseline. The full offline check passes 540/540. The context
+check and `git diff --check` pass. E32 records the result. Session 5e is next.
+
 ## Session retrospective
 
 Distinguish a sparse creation recipe from the exact host-normalized readback.
 Keep the existing non-zero pan values because Bitwig omits an explicit zero from
-verbose readback. No repository instruction change is needed.
+verbose readback. The human instructions were exact and sufficient. No
+repository instruction change is needed.

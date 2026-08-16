@@ -4,28 +4,30 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5d-concurrent-editing-fourth-attempt
+session: phase-1-session-5e-refusal-boundaries
 ---
 
 # Now
 
-Run the human-assisted [5d concurrent editing
-proof](plan/phase-1/5d-concurrent-editing.md) again. The three focused repairs
-are complete. E31 confirms that host-normalized readback promotes to an exact
-cleanup fingerprint and that automatic cleanup restores the fixture.
+Run [Session 5e refusal boundaries](plan/phase-1/5e-refusal-boundaries.md).
+Session 5d is complete. E32 confirms that 40 production writes remained on the
+pinned target while the operator moved another clip and selected clips across
+four tracks. Independent readback found no unintended write. Selection had one
+borrow and one restore. Revert and automatic cleanup restored the fixture.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5c and all three 5d repairs are complete (E23–E25,
-E27, E29, E31). Session 5d remains unproved after E26, E28, and E30. Sessions 5e
-through 5i remain planned. No other Session 5 exit criterion is complete.
+slices. Sessions 5a through 5d and all three 5d repairs are complete (E23–E25,
+E27, E29, E31, E32). Sessions 5e through 5i remain planned. Phase 1 exit
+criterion 2 is complete.
 
 ## Start here
 
-1. Read E31 and the 5d concurrent-editing brief.
-2. Confirm the documented fixture identities and complete baseline.
-3. Run `probe:5d-concurrent` with a human at the keyboard.
+1. Read the 5e refusal-boundaries brief and its linked evidence and decisions.
+2. Prove stale-revision rejection and the current-revision positive control.
+3. Use the existing live evidence for bank-window qualification. Do not create
+   a fresh live overflow.
 4. Restore the complete fixture baseline and record new evidence.
-5. Do not combine this proof with Session 5e.
+5. Do not combine this proof with Session 5f.
 
 ## Baseline
 
@@ -37,9 +39,9 @@ through 5i remain planned. No other Session 5 exit criterion is complete.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- E31 automatic cleanup removed both exact probe-owned clips. Final readback
-  held revision 523, scene epoch 2, and content epoch 310. It found no visible
-  grid differences and restored the other documented baseline state.
+- E32 automatic cleanup removed both exact probe-owned clips. Final checks found
+  no non-probe grid change, restored selection to track 0, row 1, and preserved
+  the exact observation value.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -58,5 +60,5 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-Keep creation evidence separate from normalized readback. No repository
-instruction change is needed.
+The exact human instructions were sufficient. No repository instruction change
+is needed.

@@ -65,8 +65,8 @@ three-way dispatch classifier is retired.
      properties, measured gain inverse, and pressure refusal (E24)
    - ~~[5c — observer drag boundaries](5c-drag-boundaries.md)~~ — complete;
      cross-track identity pair and below-window limit measured (E25)
-   - [5d — concurrent editing](5d-concurrent-editing.md) — attempted three
-     times; all focused repairs are complete through E31; repeat the human proof
+   - ~~[5d — concurrent editing](5d-concurrent-editing.md)~~ — complete; pinned
+     writes, outside-target drag, one borrow, and one restore pass live (E32)
    - ~~[5d repair — concurrent selection](5d-repair-concurrent-selection.md)~~ —
      complete; eager capture, verified cursor reuse, and pan diagnosis (E27)
    - ~~[5d repair — cursor confirmation](5d-repair-cursor-confirmation.md)~~ —
