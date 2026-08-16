@@ -4,16 +4,16 @@ kind: plan
 state: active
 updated: 2026-08-16
 parent: ../ROADMAP.md
-active_session: 4-control-layer.md
+active_session: 4a-status-surface.md
 ---
 
 # Phase 1 — write engine and managed takes
 
 ## Outcome
 
-Deliver a typed write engine with verified application, bounded reversal, ordinary
-track-copy CRUD, two autonomous managed-take representations, a human control
-surface, and live proof of the complete path.
+Deliver a typed write engine with verified application, bounded reversal,
+ordinary track-copy CRUD, two autonomous managed-take representations, Bitwig
+status and change navigation, and live proof of the complete path.
 
 ## Current model
 
@@ -48,7 +48,9 @@ three-way dispatch classifier is retired.
    - ~~[3g-e — reporting and live closure](3g-e-reporting.md)~~ — done; lossless
      raw view, descriptive cross-tab, restart survival, visibility, and exact
      cleanup verified live
-4. [4 — control layer](4-control-layer.md) — ready
+4. [4 — Bitwig status and change navigation](4-control-layer.md) — ready
+   - [4a — status surface and panel cleanup](4a-status-surface.md) — ready
+   - [4b — navigation to a recorded clip change](4b-change-navigation.md) — planned
 5. [5 — live proving](5-proving.md)
 6. [6 — async completion](6-async.md), optional
 

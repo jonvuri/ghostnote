@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-08-14
+updated: 2026-08-16
 ---
 
 # Decision index
@@ -25,7 +25,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D11 | Toolchain **[SETTLED 2026-07-25]** | [open](d11-toolchain-settled-2026-07-25.md) |
 | D12 | Transport and the contract boundary **[SETTLED 2026-07-25]** | [open](d12-transport-and-the-contract-boundary-settled-2026-07-25.md) |
 | D13 | There is no named-action escape hatch **[SETTLED; group exception retired by E22/D18 revision]** | [open](d13-there-is-no-escape-hatch-settled-2026-07-19-e6.md) |
-| D14 | The human control layer **[SETTLED 2026-07-25, E14 rows A–I]** | [open](d14-the-human-control-layer-settled-2026-07-25-e14-rows-a-i.md) |
+| D14 | Bitwig status and change navigation **[REVISED 2026-08-16]** | [open](d14-the-human-control-layer-settled-2026-07-25-e14-rows-a-i.md) |
 | D15 | Verification discipline **[SETTLED 2026-07-25]** | [open](d15-verification-discipline-settled-2026-07-25.md) |
 | D16 | The executor: write-set, stash, revert **[SETTLED 2026-07-26, PHASE-1 session 1]** | [open](d16-the-executor-write-set-stash-revert-settled-2026-07-26-phase-1-s.md) |
 | D17 | Take store retired; project-native scoped takes and stash survive **[REVISED 2026-08-14]** | [open](d17-the-take-store-persistence-branching-partial-revert-settled-2026.md) |

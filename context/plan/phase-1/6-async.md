@@ -3,7 +3,7 @@ title: Phase 1, session 6 — async batch completion (OPTIONAL; may slip to Phas
 kind: plan
 state: optional
 status: not started — optional
-updated: 2026-07-25
+updated: 2026-08-16
 parent: README.md
 prev: 5-proving.md
 next: ../phase-2/README.md
@@ -15,7 +15,7 @@ evidence: E8, E15-D, E15-F · D10
 
 > **Purpose.** Build the deferred-response protocol E8 flagged as an open Phase-1
 > item, so a paced batch can report **completion** rather than only acceptance.
-> Three things fall out of the same mechanism, which is the argument for building
+> Two things fall out of the same mechanism, which is the argument for building
 > it at all.
 
 ## ⚠ This session is optional and may slip to Phase 2
@@ -45,9 +45,9 @@ deliberately. What it should *not* do is block session 5's sweep.
    conclusion precisely: *a deferred-response protocol is also what would make a
    re-point inside a batch settleable, and so is the only route to reclaiming it.*
    Phase 2 is the phase that will feel this, since it writes expression constantly.
-3. **Push instead of poll for the control layer.** The MCP server polls `ui.state`
-   to learn a human pressed Revert. An extension→brain
-   asynchronous frame is the same machinery, and it retires the poll.
+
+Session 4 has no pane action button or polling loop. It does not need an
+extension-to-brain event path, so this protocol has no control-layer obligation.
 
 ## Scope
 

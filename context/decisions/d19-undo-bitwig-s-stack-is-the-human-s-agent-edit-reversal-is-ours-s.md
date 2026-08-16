@@ -29,6 +29,8 @@ expected to mutate as the model refines.
   machinery, never silently escalated to destruction. Clean reverts are NOT
   reaping (the D20 boundary), and need no approval beyond the instruction that
   directed them.
+  A request through chat satisfies this direction. A separate physical button
+  does not add a structural bound and is not required.
 - ⚠ **This makes the STASH load-bearing a third way** — after D16's unbranched
   writes and the clip content fingerprint. It survives the take store's
   retirement (D17 rev) and must not be deleted with it.

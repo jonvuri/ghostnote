@@ -7,7 +7,7 @@ status: COMPLETE 2026-08-16. Raw and aggregate reporting, restart survival,
 updated: 2026-08-16
 parent: 3g-record.md
 prev: 3g-d-instrumentation.md
-next: 4-control-layer.md
+next: 4a-status-surface.md
 scope: revised D18e/f
 evidence: E20d; D18
 needs: Bitwig running; human confirmation of the settings pane

@@ -4,13 +4,14 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-4
+session: phase-1-session-4a
 ---
 
 # Now
 
-Phase 1 is **ready to begin session 4**. The complete 3g observation and v1
-description program is closed offline and live.
+Phase 1 is **ready to begin session 4a**. Session 4 is split into a reduced
+status surface and explicit recorded-change navigation. It has no pane action
+button, polling loop, or automatic progress-notification policy.
 
 ## Baseline
 
@@ -44,11 +45,12 @@ context check; `git diff --check`; live conformance **52/0/6**; restart smoke
 
 ## Next session
 
-Start [session 4](plan/phase-1/4-control-layer.md). Replace the probe panel with
-the smallest product control layer for directed reversal, status, and navigation.
-Keep the observation setting hidden at construction.
+Start [session 4a](plan/phase-1/4a-status-surface.md). Replace the probe panel
+with one product status field. Keep the observation setting hidden at
+construction and repair status edits inside the extension. Session 4b then adds
+explicit MCP navigation to one recorded changed clip.
 
 ## Retrospective
 
-Audit the order of every structural batch. Durable ids become positional wire
-targets before send, so an earlier removal can invalidate a later frame.
+Separate event transport from server-to-extension commands before assigning UI
+work. Navigation and status never required a polling loop.

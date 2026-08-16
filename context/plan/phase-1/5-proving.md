@@ -3,9 +3,9 @@ title: Phase 1, session 5 — proving it live: the exit-criteria sweep
 kind: plan
 state: planned
 status: not started; revised for the two-representation take model
-updated: 2026-08-14
+updated: 2026-08-16
 parent: README.md
-prev: 4-control-layer.md
+prev: 4b-change-navigation.md
 next: 6-async.md
 scope: PHASE-1-ENGINE.md §Exit criteria
 evidence: E2, E5, E8, E8b, E15-A/E · D8, D15
@@ -27,9 +27,8 @@ its conformance cases disagreeing with the fake is what surfaced E15-B and E15-C
 and E15-E then retracted two findings that had been "verified" through the cursor
 that wrote them.
 
-It is separate from session 4 rather than folded into it because a live sitting is
-expensive and a control layer that is still being written is a bad thing to be
-debugging during one. Build first, then prove.
+It follows sessions 4a and 4b because a live sitting is expensive. Finish the
+status and navigation surfaces before the complete live sweep.
 
 ## ⚠ First, settle the "21 properties" count
 

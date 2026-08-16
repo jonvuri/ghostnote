@@ -5,7 +5,7 @@ state: planned
 status: not started. ⚠ Premises revised 2026-08-14 (D18 re-plan) — see the
         banner below: the CLIP BLOCK is Phase 1's deliverable, there is no take
         store, and "staged vs direct" is answered by the model.
-updated: 2026-08-14
+updated: 2026-08-16
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
 next: ../phase-3/README.md
@@ -110,8 +110,9 @@ diff should show.
 
 1. You can hold a conversation with an agent through an ordinary MCP client and get
    musically useful clip content into Bitwig, without touching the DAW.
-2. Every operation is checkpointed as a take, verified by readback, and revertible
-   from inside Bitwig (Phase 1's control layer).
+2. Every operation is checkpointed as a take, verified by readback, and
+   reversible through Phase 1's directed `revert_change` path. Recorded clip
+   changes can open in Bitwig's editor.
 3. A round-trip regression suite covers all 21 expression properties offline against
    the Phase-0 fake, and live against Bitwig via the archived probe path.
 4. **Dogfood gate: you actually use it to write music, more than once, unprompted.**

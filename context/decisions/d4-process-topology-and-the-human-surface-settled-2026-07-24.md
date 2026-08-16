@@ -40,6 +40,13 @@ is no custom chat harness.**
 >
 > *"No custom chat harness"* survives untouched.
 
+> ⚠ **REVISED 2026-08-16 (session 4 planning scrutiny).** The MCP server does not
+> poll the extension for document-state button events. Phase 1 has no pane action
+> button. Directed reversal uses the existing chat-driven `revert_change` tool,
+> status flows from the server to the extension after a recorded change, and an
+> explicit MCP request drives clip-editor navigation. The bridge remains
+> request/response, and the MCP connection remains lazy.
+
 INITIAL_PROMPT §2 assumed "the TypeScript process is both the MCP server and the
 brain." That does not survive contact with §8g: an MCP stdio server is a subprocess of
 the chat client, so in-memory checkpoints die with the session, and *every channel into

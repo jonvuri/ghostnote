@@ -5,11 +5,35 @@ state: active
 source: DECISIONS.md
 ---
 
-# D14 — The human control layer **[SETTLED 2026-07-25, E14 rows A–I]**
+# D14 — Bitwig status and change navigation **[REVISED 2026-08-16]**
 
-**Bitwig's per-controller pane hosts the deliberate verbs (revert, status, slot
-reveal). Take switching moves to the Phase-3 web view. §8g's privilege separation
-is API-ENFORCED, not policy.**
+**Bitwig's per-controller pane hosts last-change status. An explicit MCP request
+opens a recorded changed clip in Bitwig's editor. Directed reversal stays on the
+existing chat-driven `revert_change` path. There is no pane action button or
+polling loop.**
+
+> ⚠ **REVISED 2026-08-16 (session 4 planning scrutiny).** The measured Signal
+> boundary remains true, but Phase 1 does not use it as a product transport.
+>
+> - A pane Revert button would need polling or push only to carry its click into
+>   the TypeScript process. It would not add a reversal bound. `revert_change`
+>   already requires a human request and is structurally bounded by the session
+>   stash and current readback (D19).
+> - Polling would conflict with the MCP server's lazy Bitwig connection and would
+>   work only while the chat process and its stash are alive. The convenience
+>   does not justify the lifecycle, reconnect, repeat-click, and stale-event
+>   behavior.
+> - Navigation needs no event channel. The user asks through chat, and the server
+>   sends a narrow request to `ClipLauncherSlot.showInEditor()` and
+>   `Application.zoomToFit()`.
+> - Status is pushed after a recorded change. The extension repairs user edits
+>   locally. No poll is needed.
+> - Automatic progress notifications are separate from status and navigation.
+>   E8-C's `notify` operation remains available, but Phase 1 adds no automatic
+>   policy without a measured need.
+>
+> The E14 action-button results remain evidence about the API. They no longer
+> describe the selected product UI.
 
 > ⚠ **REVISED 2026-08-07 (E16m/E16w/E17 row 6, D18, D4 rev).** Two changes and a
 > dissolution:
