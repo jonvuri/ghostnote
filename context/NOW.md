@@ -4,28 +4,30 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5-proving
+session: phase-1-session-5-replan
 ---
 
 # Now
 
-Start [Phase 1 session 5](plan/phase-1/5-proving.md). Run the full live
-exit-criteria sweep. Session 5 adds no capability. If the sweep finds a defect,
-record the evidence before changing code.
+Re-cut the remaining [Phase 1 session 5](plan/phase-1/5-proving.md) work into
+focused, orthogonal sessions before implementation continues. The operator
+stopped the combined sweep after B4.
 
-The session 4b review follow-up binds clip navigation to the state mark that
-approved the target. Project switches and occupied-slot replacements now refuse
-across the final UI-call gap. Offline checks pass **523/523**. The wire method
-set and live baseline are unchanged.
+B4 is complete and verified live (E23). The executor owns one lazy selection
+scope across resolve, stash, apply, verify, and reporting. The live adapter waits
+for selection readback after its single restore. `probe:5-selection` passes
+**8/8** and removes its owned clip. Offline checks pass **527/527**. The extension
+and wire method set are unchanged.
 
 ## Start here
 
-1. Read the session 5 plan and its linked evidence and decisions.
-2. Reconcile the 21-property note table before the live round-trip.
-3. Cover the B4 selection restore, B5 drag measurements, and B7 full live
-   conformance carry-ins.
-4. Use an independent handle for write verification. Leave the project at the
-   baseline below.
+1. Split the remaining six exit criteria and carry-ins into small sessions.
+2. Keep the 21-property reconciliation and independent-handle round-trip
+   together.
+3. Keep B5 human drag measurements separate from B7 full live conformance.
+4. Plan the managed A/B sweep, gain decision, CI proof, decision updates, and
+   Phase 1 closeout with explicit dependencies.
+5. Leave the project at the baseline below after every live slice.
 
 ## Baseline
 
@@ -35,7 +37,7 @@ set and live baseline are unchanged.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- Session 4 focused checks left no 4b probe clips or other probe residue.
+- Session 5 B4 left no probe clip or other probe residue.
 
 Confirm these track identities before a destructive live sweep:
 

@@ -1,7 +1,7 @@
 /**
  * `BitwigAdapter` — the versioned seam between the brain and *some* Bitwig.
  *
- * Eleven narrow methods; operation breadth lives in the `Op` and `Address` unions,
+ * Twelve narrow methods; operation breadth lives in the `Op` and `Address` unions,
  * never in adapter method proliferation. That is the Beat Twin lesson (a
  * 57-tool surface, abandoned) applied at the one place it is cheap to apply.
  *
@@ -150,6 +150,16 @@ export interface BitwigAdapter {
    * method's unique reach is the slots we never touched.
    */
   contentSince(since: RevisionMark): Promise<ContentDelta>;
+
+  /**
+   * Preserve the user's clip selection across one complete engine pipeline.
+   *
+   * Live cursor pointing borrows the UI selection (E1, D6). The executor is the
+   * first component that knows the full resolve -> stash -> apply -> verify
+   * boundary, so it owns this scope. Direct adapter calls still preserve the
+   * selection within each call. The fake runs `work` with no UI side effect.
+   */
+  preserveSelection<T>(work: () => Promise<T>): Promise<T>;
 
   /**
    * Focus one launcher clip in Bitwig's editor.

@@ -27,7 +27,9 @@ outlives the request that resolved it.**
 - ⚠ **Pointing STEALS the user's clip selection** (E1, measured E14-F1). It can be
   saved and restored around a batch, restoring does not disturb the pool cursor,
   and a whole batch costs exactly ONE observable selection change — so one restore
-  at the end suffices (E14-F2/F3/F4). **Phase 1 owes that restore.**
+  at the end suffices (E14-F2/F3/F4). **Delivered in Phase 1 session 5 B4:** the
+  executor owns one scope across its complete pipeline, and the live adapter
+  confirms the final restore through selection readback (E23).
 - ⚠ **Pointing at an EMPTY slot silently lands on the WRONG clip** and
   `cursor.status` looks healthy (E2). Create the clip first, always.
 - **Bank-window overflow is a refusal, not a knob** (E5, standing rule 5).

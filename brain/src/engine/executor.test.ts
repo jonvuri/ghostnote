@@ -182,6 +182,44 @@ test('X-roundtrip: a revert is a take of its own, so the branch it left is still
   );
 });
 
+test('B4: the executor gives one selection scope the complete pipeline', async () => {
+  const fx = await fixture();
+  let scopes = 0;
+  let inside = false;
+  const watched: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    preserveSelection: async (work) => {
+      scopes += 1;
+      inside = true;
+      try {
+        return await work();
+      } finally {
+        inside = false;
+      }
+    },
+    resolve: (refs) => {
+      assert.equal(inside, true, 'resolve must be inside the selection scope');
+      return fx.fake.resolve(refs);
+    },
+    read: (sel) => {
+      assert.equal(inside, true, 'stash and verify reads must be inside the selection scope');
+      return fx.fake.read(sel);
+    },
+    apply: (batch) => {
+      assert.equal(inside, true, 'apply must be inside the selection scope');
+      return fx.fake.apply(batch);
+    },
+  };
+
+  const take = await new Executor(watched).run([
+    { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 64 })] },
+  ]);
+
+  assert.equal(take.report.applied, true);
+  assert.equal(scopes, 1);
+  assert.equal(inside, false, 'the scope must close after reporting completes');
+});
+
 // --- exit criterion 3 --------------------------------------------------------
 
 /** A human nudging a clip in the window between our stash and our apply. */
@@ -204,6 +242,7 @@ function racing(fake: FakeAdapter): BitwigAdapter {
     settle: (budget) => fake.settle(budget),
     revision: () => fake.revision(),
     contentSince: (since) => fake.contentSince(since),
+    preserveSelection: (work) => fake.preserveSelection(work),
     showClipInEditor: (clipRef, verifiedAt) => fake.showClipInEditor(clipRef, verifiedAt),
     close: () => fake.close(),
   };
@@ -694,6 +733,7 @@ function adapterOf(fake: FakeAdapter): BitwigAdapter {
     settle: (budget) => fake.settle(budget),
     revision: () => fake.revision(),
     contentSince: (since) => fake.contentSince(since),
+    preserveSelection: (work) => fake.preserveSelection(work),
     showClipInEditor: (clipRef, verifiedAt) => fake.showClipInEditor(clipRef, verifiedAt),
     close: () => fake.close(),
   };

@@ -2,8 +2,9 @@
 title: Phase 1, session 5 — proving it live: the exit-criteria sweep
 kind: plan
 state: active
-status: READY 2026-08-16. Session 4 is complete. Start with the six Phase 1
-        exit criteria and the B4, B5, and B7 carry-ins.
+status: PARTIAL 2026-08-16. B4 is complete and verified live (E23). Stop here by
+        operator direction. Re-cut the remaining proving work into focused,
+        orthogonal sessions before implementation continues.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
@@ -14,6 +15,17 @@ needs: Bitwig foregrounded, a human at the keyboard
 ---
 
 # Phase 1, session 5 — proving it live
+
+> **Execution note, 2026-08-16.** The first implementation slice closed B4 only.
+> The executor now owns one selection-preservation scope across its complete
+> pipeline. Offline checks pass 527/527, and `probe:5-selection` passes 8/8 live
+> with cleanup (E23). The operator stopped the combined sweep here so the
+> remaining work can be split into focused sessions. All other criteria in this
+> document remain planned, not executed by this slice.
+>
+> **Retrospective.** A probe must claim an empty fixture row from live readback.
+> A fixed-row assumption caused two safe false starts. E23 and the probe now
+> record this rule, so no repository instruction change is needed.
 
 > **Purpose.** Run Phase 1's exit criteria against real Bitwig, and convert the
 > ones worth keeping into standing regressions. Sessions 1–4 were each verified

@@ -185,6 +185,7 @@
     "probe:3g-reporting": "tsx src/probes/phase3g-reporting.ts",
     "probe:4a-status": "tsx src/probes/phase4a-status.ts",
     "probe:4b-navigation": "tsx src/probes/phase4b-navigation.ts",
+    "probe:5-selection": "tsx src/probes/phase5-selection.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

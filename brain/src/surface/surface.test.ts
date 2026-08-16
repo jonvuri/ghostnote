@@ -117,6 +117,7 @@ function fixture(
       return fake.revision();
     },
     contentSince: (since) => fake.contentSince(since),
+    preserveSelection: (work) => fake.preserveSelection(work),
     showClipInEditor: (clipRef, verifiedAt) => fake.showClipInEditor(clipRef, verifiedAt),
     close: () => fake.close(),
     apply: async (batch) => {

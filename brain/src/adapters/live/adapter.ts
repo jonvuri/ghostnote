@@ -335,6 +335,17 @@ export class LiveAdapter implements BitwigAdapter {
    * then.
    */
   private sceneBankSize: number;
+  /** One shared selection scope for overlapping or composed executor pipelines. */
+  private selectionScope:
+    | {
+      saved: SelectionState | undefined;
+      borrowed: boolean;
+      capture: Promise<SelectionState | undefined> | undefined;
+      users: number;
+    }
+    | undefined;
+  /** A completed scope must finish its UI restore before a new scope can start. */
+  private selectionRestore: Promise<void> | undefined;
 
   constructor(options: LiveOptions = {}) {
     this.transport = options.transport ?? new BridgeTransport();
@@ -882,13 +893,9 @@ export class LiveAdapter implements BitwigAdapter {
    * an observer's last value, which starts at -1, and "restoring" that would
    * move the user somewhere they never were.
    *
-   * ⚠ KNOWN COST, named so it is not rediscovered as a bug. E14-F's "one restore
-   * per batch suffices" is measured per BATCH; the adapter can only see one CALL,
-   * so the executor's read→apply→read pipeline pays three capture/restore pairs
-   * instead of one. That is two extra round-trips and two extra selection
-   * changes per run — visible to the user as flicker, not as a wrong result.
-   * Hoisting it to one pair around the whole pipeline needs a component that
-   * knows a pipeline is in progress, which is the daemon (session 3).
+   * Session 5 hoists this work through `preserveSelection`. The executor knows
+   * the complete read -> apply -> read pipeline, so that path captures once and
+   * restores once. A direct adapter call still preserves selection by itself.
    */
   private async captureSelection(): Promise<SelectionState | undefined> {
     const status = (await this.transport.send({ method: WIRE.selectionStatus })) as {
@@ -913,6 +920,87 @@ export class LiveAdapter implements BitwigAdapter {
       method: WIRE.slotSelect,
       params: { trackIndex: saved.trackIndex, slotIndex: saved.slotIndex, mechanism: 'track' },
     });
+    // The call returns before the selection observer moves. Do not let the
+    // executor return while the UI still shows the borrowed target. Poll the
+    // observer because it is the readback for this UI state (D15).
+    //
+    // A timeout does not throw. The content write may already have landed, and
+    // losing its receipt is worse than returning after a UI-only restore miss.
+    const started = Date.now();
+    while (Date.now() - started < 4000) {
+      const status = (await this.transport.send({ method: WIRE.selectionStatus })) as {
+        trackIndex: number;
+        slotIndex: number;
+      };
+      if (status.trackIndex === saved.trackIndex && status.slotIndex === saved.slotIndex) return;
+      await new Promise((resolve) => setTimeout(resolve, 25));
+    }
+  }
+
+  /**
+   * Preserve clip selection across the complete executor pipeline (B4).
+   *
+   * `read` and `apply` still preserve selection when called directly. Inside
+   * this scope they only record that they borrowed it. The outer scope restores
+   * once after verify and concurrent-edit reporting finish. A nested scope uses
+   * the same capture, which keeps reversal composition from adding flicker.
+   */
+  async preserveSelection<T>(work: () => Promise<T>): Promise<T> {
+    if (this.selectionRestore !== undefined) {
+      await this.selectionRestore;
+      return this.preserveSelection(work);
+    }
+
+    const active = this.selectionScope;
+    if (active !== undefined) {
+      active.users += 1;
+      try {
+        return await work();
+      } finally {
+        await this.finishSelectionScope(active);
+      }
+    }
+
+    const scope = {
+      saved: undefined as SelectionState | undefined,
+      borrowed: false,
+      capture: undefined as Promise<SelectionState | undefined> | undefined,
+      users: 1,
+    };
+    this.selectionScope = scope;
+    try {
+      return await work();
+    } finally {
+      await this.finishSelectionScope(scope);
+    }
+  }
+
+  /** Restore only after the last overlapping pipeline leaves the shared scope. */
+  private async finishSelectionScope(scope: NonNullable<LiveAdapter['selectionScope']>): Promise<void> {
+    scope.users -= 1;
+    if (scope.users !== 0 || this.selectionScope !== scope) return;
+    this.selectionScope = undefined;
+    if (!scope.borrowed) return;
+    const restore = this.restoreSelection(scope.saved);
+    this.selectionRestore = restore;
+    try {
+      await restore;
+    } finally {
+      if (this.selectionRestore === restore) this.selectionRestore = undefined;
+    }
+  }
+
+  /** Capture locally, or mark the executor-owned scope as borrowed. */
+  private async beginSelectionBorrow(needed: boolean): Promise<SelectionState | undefined> {
+    if (!needed) return undefined;
+    if (this.selectionScope !== undefined) {
+      const scope = this.selectionScope;
+      scope.capture ??= this.captureSelection();
+      scope.saved = await scope.capture;
+      scope.borrowed = true;
+      return undefined;
+    }
+    return this.captureSelection();
   }
 
   /**
@@ -1040,11 +1128,9 @@ export class LiveAdapter implements BitwigAdapter {
     // as of the D16 amendment a `clip` read of an OCCUPIED slot points too, to
     // capture the clip's length. An empty slot still costs nothing — and must
     // not be pointed at in any case (E2).
-    const selection = sel.some((a) =>
+    const selection = await this.beginSelectionBorrow(sel.some((a) =>
       a.kind === 'notes' || a.kind === 'clip' || a.kind === 'slot'
-      || a.kind === 'clipLaunch' || a.kind === 'clipPlay')
-      ? await this.captureSelection()
-      : undefined;
+      || a.kind === 'clipLaunch' || a.kind === 'clipPlay'));
     // Where each pool cursor is actually pointed, so the common shape — a clip
     // target and its notes target, side by side in one write-set — costs one
     // point and one settle rather than two.
@@ -1896,7 +1982,7 @@ export class LiveAdapter implements BitwigAdapter {
     // costs exactly ONE observable selection change — so one restore at the end
     // suffices. Captured before the first stage, because by the end the cursor
     // has already moved.
-    const selection = batch.ops.some(borrowsSelection) ? await this.captureSelection() : undefined;
+    const selection = await this.beginSelectionBorrow(batch.ops.some(borrowsSelection));
 
     for (const [i, stage] of stages.entries()) {
       // ⚠ E15-D: waited BEFORE the request goes out, not after it comes back.

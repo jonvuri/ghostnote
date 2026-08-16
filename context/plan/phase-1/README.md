@@ -57,7 +57,8 @@ three-way dispatch classifier is retired.
    - ~~[4b — navigation to a recorded clip change](4b-change-navigation.md)~~ —
      done; explicit durable targeting, ambiguity, missing-target refusal, Edit
      layout, and fitted content verified live
-5. [5 — live proving](5-proving.md) — active
+5. [5 — live proving](5-proving.md) — active; B4 is complete, and the remaining
+   sweep needs a focused session re-cut
 6. [6 — async completion](6-async.md), optional
 
 Completed session records stay in their session briefs and under

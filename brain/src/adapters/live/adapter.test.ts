@@ -57,7 +57,10 @@ class CursorModelTransport implements Transport {
   /** The cursor named by the last `cursor.pointTrack`, awaiting its `slot.select`. */
   private pending: string | undefined;
 
-  constructor(private readonly slots: ReadonlyMap<number, SlotModel>) {}
+  constructor(
+    private readonly slots: ReadonlyMap<number, SlotModel>,
+    private readonly selection = { trackIndex: -1, slotIndex: -1 },
+  ) {}
 
   /** Where a given cursor ended up — for asserting the point actually happened. */
   where(cursor: string): number | undefined {
@@ -80,7 +83,7 @@ class CursorModelTransport implements Transport {
         return { revision: 1, generation: 'stub-gen', sceneEpoch: 1, contentEpoch: 0, contentEvents: [] };
 
       case WIRE.selectionStatus:
-        return { trackIndex: -1, slotIndex: -1 };
+        return this.selection;
 
       case WIRE.slotStatus:
         return { hasContent: this.slots.has(params['slotIndex'] as number) };
@@ -132,6 +135,91 @@ class CursorModelTransport implements Transport {
 class UntimedAdapter extends LiveAdapter {
   override async settle(): Promise<void> {}
 }
+
+test('B4: one selection scope covers repeated live reads and restores once', async () => {
+  const transport = new CursorModelTransport(
+    new Map([[0, { lengthBeats: 4, pitch: 60 }]]),
+    { trackIndex: 3, slotIndex: 2 },
+  );
+  const adapter = new UntimedAdapter({ transport, cursorPool: 2, sceneBankSize: 8 });
+
+  await assert.rejects(
+    adapter.preserveSelection(async () => {
+      await adapter.read([notesAt(CLIP(0))]);
+      await adapter.read([notesAt(CLIP(0))]);
+      throw new Error('pipeline failed after pointing');
+    }),
+    /pipeline failed/,
+  );
+
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.selectionStatus).length,
+    2,
+    'the full pipeline captures once and confirms the final restore once',
+  );
+  const selects = transport.frames.filter((frame) => frame.method === WIRE.slotSelect);
+  assert.equal(selects.length, 3, 'two cursor points and one final restore are sent');
+  assert.deepEqual(selects.at(-1)?.params, {
+    trackIndex: 3,
+    slotIndex: 2,
+    mechanism: 'track',
+  });
+});
+
+test('B4: a pipeline that never points does not touch the UI selection', async () => {
+  const transport = new CursorModelTransport(new Map());
+  const adapter = new UntimedAdapter({ transport, cursorPool: 2, sceneBankSize: 8 });
+
+  await adapter.preserveSelection(async () => {});
+
+  assert.equal(
+    transport.frames.some((frame) =>
+      frame.method === WIRE.selectionStatus || frame.method === WIRE.slotSelect),
+    false,
+  );
+});
+
+test('B4: overlapping pipelines share one capture and restore after both finish', async () => {
+  const transport = new CursorModelTransport(
+    new Map([[0, { lengthBeats: 4, pitch: 60 }]]),
+    { trackIndex: 3, slotIndex: 2 },
+  );
+  const adapter = new UntimedAdapter({ transport, cursorPool: 2, sceneBankSize: 8 });
+  let releaseFirst!: () => void;
+  let firstPointed!: () => void;
+  const release = new Promise<void>((resolve) => { releaseFirst = resolve; });
+  const pointed = new Promise<void>((resolve) => { firstPointed = resolve; });
+
+  const first = adapter.preserveSelection(async () => {
+    await adapter.read([notesAt(CLIP(0))]);
+    firstPointed();
+    await release;
+  });
+  await pointed;
+  await adapter.preserveSelection(async () => {
+    await adapter.read([notesAt(CLIP(0))]);
+  });
+
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.selectionStatus).length,
+    1,
+    'the second pipeline must not capture the first pipeline target',
+  );
+  releaseFirst();
+  await first;
+
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.selectionStatus).length,
+    2,
+    'the final call is the one restore confirmation',
+  );
+  const selects = transport.frames.filter((frame) => frame.method === WIRE.slotSelect);
+  assert.deepEqual(selects.at(-1)?.params, {
+    trackIndex: 3,
+    slotIndex: 2,
+    mechanism: 'track',
+  });
+});
 
 test('4b: live navigation resolves the durable track id before the UI-only frame', async () => {
   const frames: Frame[] = [];

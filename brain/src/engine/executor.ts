@@ -102,6 +102,11 @@ export class Executor {
    * automatic branch because *"only reporting is imposed"*.
    */
   async run(ops: readonly Op[], options: RunOptions = {}): Promise<Take> {
+    return this.adapter.preserveSelection(() => this.runInside(ops, options));
+  }
+
+  /** Run inside the one selection scope that covers the complete pipeline. */
+  private async runInside(ops: readonly Op[], options: RunOptions): Promise<Take> {
     // ⚠ E15-E, first and before anything reads: a batch asking for `pressure`
     // must be refused before we pay for a stash we are going to throw away.
     assertOpsWritable(ops);

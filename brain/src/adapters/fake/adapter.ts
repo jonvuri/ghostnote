@@ -148,6 +148,11 @@ export class FakeAdapter implements BitwigAdapter {
     return contentDelta(since, this.mark(), this.model.contentRing);
   }
 
+  /** The fake has no UI selection, but shares the executor's pipeline shape. */
+  async preserveSelection<T>(work: () => Promise<T>): Promise<T> {
+    return work();
+  }
+
   /**
    * Durable key -> live index, with the two refusals that make E3 and E5 safe.
    * A stale epoch and a blind spot are reported DIFFERENTLY from genuine absence,

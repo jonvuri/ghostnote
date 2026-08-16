@@ -604,6 +604,7 @@ test('B-device: an insert nobody watched land is reported BEFORE any reversal (D
     settle: (budget) => fx.fake.settle(budget),
     revision: () => fx.fake.revision(),
     contentSince: (since) => fx.fake.contentSince(since),
+    preserveSelection: (work) => fx.fake.preserveSelection(work),
     showClipInEditor: (clipRef, verifiedAt) => fx.fake.showClipInEditor(clipRef, verifiedAt),
     close: () => fx.fake.close(),
     apply: async (batch) => ({ ...(await fx.fake.apply(batch)), minted: {} }),
