@@ -4,14 +4,13 @@ kind: status
 state: active
 updated: 2026-08-15
 phase: phase-1
-session: phase-1-session-3g-a
+session: phase-1-session-3g-b
 ---
 
 # Now
 
-Phase 1 is **ready to begin session 3g-a**. The complete 3f device-alternate
-lifecycle is closed and verified live. Session 3g is split into five focused
-briefs.
+Phase 1 is **ready to begin session 3g-b**. Session 3g-a defined and verified the
+observation record before any storage or production instrumentation change.
 
 ## Baseline
 
@@ -56,20 +55,33 @@ Verification at this boundary:
   removed `gn-conf-A` and `gn-conf-B`. The project is at its documented 10-track
   baseline with Master visible and no probe residue.
 
-## Session 3g-a — next
+## Session 3g-a — complete 2026-08-15
 
-Define the observation contract and capture protocol in
-[3g-a-observation-contract.md](plan/phase-1/3g-a-observation-contract.md).
-Separate instruction observations, successful managed events, and ordinary
-track-copy use before storage or production instrumentation changes. Preserve
-the 3f-i mechanical identities and event boundary.
+The strict schema-v1 envelope separates instruction observations, managed events,
+and ordinary track-copy uses. Stable entry and execution ids prevent one tool
+execution from producing two result rows. Correlation records provenance only;
+mixed device and clip events keep independent identities and lifecycles.
 
-The parent [3g program](plan/phase-1/3g-record.md) then runs per-project
-persistence, the v1 description freeze, production instrumentation, and live
-reporting as independent sessions.
+The canonical codec rejects malformed data, unknown schema versions, broken
+references, duplicate identities, and complete values over capacity. It never
+truncates or evicts. The capture protocol keeps operator response `silent` until
+explicit input supplies `accepted` or `vetoed`. A confirmed project write followed
+by a failed record update reports both facts as a partial success.
+
+Brain typecheck and **467/467** offline tests pass, including **10/10** focused
+observation tests. Context check and `git diff --check` pass. No live Bitwig run
+was required.
+
+## Session 3g-b — next
+
+Implement the per-project persistence transport in
+[3g-b-persistence.md](plan/phase-1/3g-b-persistence.md). Keep the extension value
+opaque. The brain owns schema validation and canonical JSON.
+
+The parent [3g program](plan/phase-1/3g-record.md) then runs the v1 description
+freeze, production instrumentation, and live reporting as independent sessions.
 
 ## Planning retrospective
 
-Define record entry types before storage and instrumentation plans. This prevents
-successful events, vetoes, and ordinary operations from sharing one ambiguous
-row model.
+No instruction change is needed. Reading the later 3g briefs with 3g-a made the
+identity and failure seams clear before code was written.

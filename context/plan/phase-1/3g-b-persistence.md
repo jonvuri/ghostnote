@@ -1,8 +1,9 @@
 ---
 title: Phase 1, session 3g-b — per-project persistence transport
 kind: plan
-state: planned
-status: not started; depends on the 3g-a record contract
+state: active
+status: READY 2026-08-15. The 3g-a schema-v1 record and capture contract are
+        complete. This session owns only its per-project persistence transport.
 updated: 2026-08-15
 parent: 3g-record.md
 prev: 3g-a-observation-contract.md
