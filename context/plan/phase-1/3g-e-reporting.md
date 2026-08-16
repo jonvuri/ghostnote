@@ -1,9 +1,9 @@
 ---
 title: Phase 1, session 3g-e — reporting and live closure
 kind: plan
-state: planned
-status: not started; depends on production recording through 3g-d
-updated: 2026-08-15
+state: active
+status: READY 2026-08-16. Production recording and its live proof are complete.
+updated: 2026-08-16
 parent: 3g-record.md
 prev: 3g-d-instrumentation.md
 next: 4-control-layer.md

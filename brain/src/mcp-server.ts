@@ -49,6 +49,7 @@ registerTools(server, workspaceOf({
     return session.executor;
   },
   stash: session.stash,
+  observationStore: session.observations,
 }));
 
 const transport = new StdioServerTransport();

@@ -2,15 +2,15 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-15
+updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-3g-d
+session: phase-1-session-3g-e
 ---
 
 # Now
 
-Phase 1 is **ready to begin session 3g-d**. Sessions 3g-a through 3g-c defined
-the record, verified per-project persistence, and froze the public cohort.
+Phase 1 is **ready to begin session 3g-e**. Session 3g-d production
+instrumentation is complete and verified live.
 
 ## Baseline
 
@@ -116,13 +116,39 @@ privilege classes, input identities, and emitted operations are unchanged.
 Brain typecheck and **480/480** offline tests pass. Context check and
 `git diff --check` pass. No live project mutation was required.
 
-## Session 3g-d — next
+## Session 3g-d — complete 2026-08-16, verified live
 
-Instrument the shared production execution path. Record confirmed device and
-clip creations as independent managed events, and record confirmed `copy_track`
-use as ordinary use. Stamp every entry with the frozen v1 identifier.
+Direct calls and MCP registration now use one instrumented execution wrapper.
+Declarative metadata limits result rows to confirmed device-alternate creation,
+confirmed clip-block creation, and confirmed ordinary `copy_track` use. Creator
+results return a managed-event id. Track copy returns an ordinary-use id.
+
+`record_observation` begins or enriches explicit caller context. One active
+instruction can correlate independent device and clip results without linking
+their execution or lifecycle identities. Rationale and operator response remain
+explicit. All persisted entries use `ghostnote-description-v1`. A record failure
+after a confirmed project write returns a typed partial-success result.
+
+Brain typecheck and **486/486** offline tests pass. The focused 3g-d surface suite
+passes **49/49**. Context check and `git diff --check` pass. Live conformance
+passes **18/0/1**. The production MCP smoke passes **14/14, P0-P13**. It proved
+the mixed instruction, independent event and execution ids, ordinary track-copy
+use, refusal behavior, v1 stamping, and exact cleanup.
+
+The smoke restored the prior empty observation record exactly and removed both
+disposable track ids. Conformance cleanup removed `gn-conf-A` and `gn-conf-B`.
+The project is at its documented 10-track baseline with Master visible and no
+probe residue.
+
+## Session 3g-e — next
+
+Add the raw record view and descriptive aggregate reporting. Then run the full
+save, restart, visibility, and cleanup closure for the observation program.
 
 ## Planning retrospective
 
 Build a description fingerprint from the same draft-7 input conversion that the
 MCP server sends. A different schema draft can make a false golden.
+
+Run conformance cleanup before a device-instrumentation smoke. Let the track bank
+settle before the smoke creates its first disposable track.

@@ -40,14 +40,16 @@ import {
 } from '../contract/index.js';
 import { StaleExtensionError } from '../deploy.js';
 import { Executor, UnprotectedWriteError } from '../engine/index.js';
+import { decodeObservationRecord, FakeObservationStore } from '../observation/index.js';
 import {
   ChangesetNotFoundError, EmptySliceError, Stash, type BoundaryVerdict,
 } from '../stash/index.js';
 import { refusalOf, verdictSentence } from './report.js';
 import { SURFACE_WORDS_BANNED, bannedWordsIn } from './naming.js';
 import {
-  ANNOTATIONS, REMOVAL_OPS, TOOLS, WRITE_TOOLS_THAT_MAY_REMOVE, callTool,
+  ANNOTATIONS, REMOVAL_OPS, TOOLS, WRITE_TOOLS_THAT_MAY_REMOVE, callTool, registerTools,
 } from './tools.js';
+import { TOOL_DESCRIPTION_VERSION } from './description-cohort.js';
 import { workspaceOf, type Workspace } from './workspace.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -56,6 +58,7 @@ interface Fixture {
   readonly fake: FakeAdapter;
   readonly stash: Stash;
   readonly workspace: Workspace;
+  readonly observationStore: FakeObservationStore;
   readonly trackA: string;
   readonly trackB: string;
   /** Every op whose adapter call reached staging, in order — how `emits` is checked. */
@@ -80,7 +83,10 @@ interface FixtureHooks {
 }
 
 /** Two tracks, eight rows, nothing written yet. */
-function fixture(hooks: FixtureHooks = {}): Fixture {
+function fixture(
+  hooks: FixtureHooks = {},
+  observationStore = new FakeObservationStore(),
+): Fixture {
   const fake = new FakeAdapter({ tracks: ['gn-A', 'gn-B'], scenes: 8 });
   const sent: Op[] = [];
   let deviceReads = 0;
@@ -115,9 +121,14 @@ function fixture(hooks: FixtureHooks = {}): Fixture {
     adapter: watched,
     executor,
     stash,
+    observationStore,
+    observationCaptureOptions: { newId: () => `observation-${++n}`, now: () => 1_000_000 },
   });
   const [a, b] = fake.model.visibleTracks();
-  return { fake, stash, workspace, trackA: a!.channelId, trackB: b!.channelId, sent };
+  return {
+    fake, stash, workspace, observationStore,
+    trackA: a!.channelId, trackB: b!.channelId, sent,
+  };
 }
 
 const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
@@ -236,6 +247,165 @@ test('T-device-alternate lifecycle: 3f-i hands stable identities and event opera
     return [spec.name, spec.kind, [...spec.emits], Object.keys(spec.inputSchema)];
   });
   assert.deepEqual(actual, expected);
+});
+
+test('3g-d: only confirmed creation and track-copy specs declare observation results', () => {
+  assert.deepEqual(
+    TOOLS.filter((spec) => spec.observation !== undefined)
+      .map((spec) => [spec.name, spec.observation]),
+    [
+      ['copy_clip_down', 'clip-block'],
+      ['copy_track', 'copy-track'],
+      ['create_device_alternates', 'device-alternate'],
+    ],
+  );
+});
+
+test('3g-d: one direct mixed instruction keeps two confirmed event identities', async () => {
+  const fx = fixture();
+  const begun = await call(fx, 'record_observation', {
+    operation: 'begin',
+    requestedScope: 'mixed',
+    rawScope: { request: 'Change the sound and its launcher clip.', writes: ['device', 'clip'] },
+  });
+  await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 0, lengthBeats: 4, notes: [note()] }],
+  });
+  const device = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackB, containerType: 'effect', names: ['clean', 'wide'],
+  });
+  const clip = await call(fx, 'copy_clip_down', {
+    trackId: fx.trackA, row: 0, quantization: '1', mode: 'continue_or_synced',
+  });
+  assert.equal(typeof device['managedEventId'], 'string');
+  assert.equal(typeof clip['managedEventId'], 'string');
+  assert.notEqual(device['managedEventId'], clip['managedEventId']);
+
+  await call(fx, 'inspect_device_alternates', {
+    trackId: fx.trackB,
+    containerPosition: (device['structure'] as { container: { devicePosition: number } })
+      .container.devicePosition,
+  });
+  await call(fx, 'record_observation', {
+    operation: 'enrich',
+    instructionId: begun['instructionId'],
+    rationale: 'Both requested objects were changed independently.',
+    operatorResponse: 'accepted',
+  });
+
+  const stored = decodeObservationRecord((await fx.observationStore.read()).value);
+  assert.equal(stored.entries.length, 3, 'inspection and ordinary setup add no result rows');
+  const instruction = stored.entries[0];
+  assert.equal(instruction?.type, 'instruction-observation');
+  assert.deepEqual(
+    instruction?.type === 'instruction-observation' ? instruction.rawScope : undefined,
+    { request: 'Change the sound and its launcher clip.', writes: ['device', 'clip'] },
+  );
+  assert.deepEqual(
+    instruction?.type === 'instruction-observation' ? instruction.resultIds : [],
+    [device['managedEventId'], clip['managedEventId']],
+  );
+  const events = stored.entries.slice(1);
+  assert.deepEqual(events.map((entry) => entry.type), ['managed-event', 'managed-event']);
+  assert.deepEqual(
+    events.map((entry) => entry.type === 'managed-event' ? entry.structure : undefined),
+    ['device-alternate', 'clip-block'],
+  );
+  assert.equal(new Set(events.map((entry) => entry.correlationId)).size, 1);
+  assert.equal(new Set(events.map((entry) => entry.type === 'instruction-observation'
+    ? '' : entry.executionId)).size, 2);
+  assert.ok(stored.entries.every((entry) => entry.descriptionVersion === TOOL_DESCRIPTION_VERSION));
+});
+
+test('3g-d: track copy is ordinary use, and refusals and no-action context add no event', async () => {
+  const fx = fixture();
+  const refusedCreation = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA, containerType: 'effect', names: ['same', 'same'],
+  });
+  assert.equal(refusedCreation['refused'], true);
+  const copied = await call(fx, 'copy_track', { trackId: fx.trackA, name: 'ordinary copy' });
+  assert.equal(typeof copied['ordinaryUseId'], 'string');
+
+  const veto = await call(fx, 'record_observation', {
+    operation: 'begin', requestedScope: 'unsupported', rawScope: 'Change project tempo.',
+  });
+  await call(fx, 'record_observation', {
+    operation: 'enrich', instructionId: veto['instructionId'], operatorResponse: 'vetoed',
+  });
+  const silent = await call(fx, 'record_observation', {
+    operation: 'begin', requestedScope: 'device-only', rawScope: { devices: [] },
+  });
+  await call(fx, 'record_observation', {
+    operation: 'enrich', instructionId: silent['instructionId'],
+  });
+
+  const stored = decodeObservationRecord((await fx.observationStore.read()).value);
+  assert.deepEqual(stored.entries.map((entry) => entry.type), [
+    'ordinary-use', 'instruction-observation', 'instruction-observation',
+  ]);
+  assert.equal(stored.entries[0]?.type === 'ordinary-use'
+    ? stored.entries[0].result.copiedTrackId
+    : undefined, (copied['copied'] as { trackId: string }).trackId);
+  assert.deepEqual(
+    stored.entries.filter((entry) => entry.type === 'instruction-observation')
+      .map((entry) => entry.operatorResponse),
+    ['vetoed', 'silent'],
+  );
+});
+
+test('3g-d: an inserted but unconfirmed device container creates no managed event', async () => {
+  const fx = fixture();
+  for (const id of [
+    'a9ffacb5-33e9-4fc7-8621-b1af31e410ef',
+    'f2dcfe9a-7b66-4c84-984a-b25685a1c21a',
+  ]) {
+    assert.equal((await call(fx, 'add_device', {
+      devices: [{ trackId: fx.trackA, from: 'bitwig', id }],
+    }))['applied'], true);
+  }
+  const result = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA, containerType: 'effect', names: ['outside view'],
+  });
+  assert.equal(result['creationConfirmed'], undefined);
+  assert.equal(result['managedEventId'], undefined);
+  assert.equal((await fx.observationStore.read()).value, '');
+});
+
+test('3g-d: a record failure reports a confirmed project write as partial success', async () => {
+  const fx = fixture({}, new FakeObservationStore(1));
+  const result = await call(fx, 'copy_track', { trackId: fx.trackA, name: 'surviving copy' });
+  assert.equal(result['partialSuccess'], true);
+  const projectWrite = result['projectWrite'] as {
+    succeeded: boolean; result: { copyConfirmed: boolean; copied: { trackId: string } };
+  };
+  assert.equal(projectWrite.succeeded, true);
+  assert.equal(projectWrite.result.copyConfirmed, true);
+  assert.ok(fx.fake.model.visibleTracks().some(
+    (track) => track.channelId === projectWrite.result.copied.trackId,
+  ));
+  assert.equal(
+    (result['observationUpdate'] as { succeeded: boolean }).succeeded,
+    false,
+  );
+});
+
+test('3g-d: MCP registration uses the same instrumented executor as direct calls', async () => {
+  const fx = fixture();
+  const handlers = new Map<string, (args: unknown) => Promise<unknown>>();
+  const server = {
+    registerTool(name: string, _surface: unknown, handler: (args: unknown) => Promise<unknown>) {
+      handlers.set(name, handler);
+    },
+  };
+  registerTools(server as never, fx.workspace);
+  const response = await handlers.get('copy_track')!({
+    trackId: fx.trackA, name: 'MCP copy',
+  }) as { content: { text: string }[] };
+  const result = JSON.parse(response.content[0]!.text) as Record<string, unknown>;
+  assert.equal(typeof result['ordinaryUseId'], 'string');
+  const stored = decodeObservationRecord((await fx.observationStore.read()).value);
+  assert.equal(stored.entries.length, 1);
+  assert.equal(stored.entries[0]?.type, 'ordinary-use');
 });
 
 // --- exit criterion 7: it all runs, and what it sends is what it declared ----
@@ -512,6 +682,13 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
     trackIds: [addedTrack.created[0]!.trackId, copiedTrack.copied.trackId],
   }))['applied'], true);
 
+  const observation = await exercise('record_observation', {
+    operation: 'begin', requestedScope: 'unsupported', rawScope: 'No project change.',
+  });
+  assert.equal((await exercise('record_observation', {
+    operation: 'enrich', instructionId: observation['instructionId'], operatorResponse: 'vetoed',
+  }))['recorded'], true);
+
   // ⚠ The coverage claim, asserted rather than assumed: a tool added without a
   // case here fails this, which is the only way "the surface has offline
   // coverage" stays true after today.
@@ -682,13 +859,17 @@ test('T-copy-track: unsupported track kinds and a full bank refuse before the fi
     'no unaddressable copy is created');
 });
 
-test('T-record: no tool source mentions the executor or the recording call', async () => {
+test('T-record: no tool source mentions the executor or project-write recording call', async () => {
   // The `WIRE_METHODS_BANNED` idiom: the only real enforcement of a "never" is a
   // test that greps for it. `workspace.ts` names both because it is the one place
   // allowed to; every other file in the surface must not.
   const source = await readFile(join(HERE, 'tools.ts'), 'utf8');
   assert.doesNotMatch(source, /\bexecutor\b/i, 'tools.ts reaches for an executor');
-  assert.doesNotMatch(source, /\.record\(/, 'tools.ts records by hand rather than through apply');
+  assert.doesNotMatch(
+    source,
+    /(?:stash|changes)\.record\(/,
+    'tools.ts records a project write by hand rather than through apply',
+  );
   assert.doesNotMatch(source, /planReversal/, 'tools.ts plans a reversal without the launcher window');
 });
 

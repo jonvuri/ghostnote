@@ -44,3 +44,12 @@ export type {
 } from './record.js';
 
 export type { ObservationStore, StoredObservationRecord } from './store.js';
+
+export { ObservationCapture } from './capture.js';
+export type {
+  BeginInstructionInput,
+  ConfirmedToolResult,
+  EnrichInstructionInput,
+  ObservationCaptureOptions,
+  ObservationExecution,
+} from './capture.js';

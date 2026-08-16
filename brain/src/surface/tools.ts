@@ -63,6 +63,12 @@ import {
 } from '../contract/index.js';
 import { branchProtected, directedDestruction } from '../engine/index.js';
 import { FX_LAYER_UUID, INSTRUMENT_LAYER_SEED_PATH } from '../device-alternates/assets.js';
+import {
+  reportObservationFailureAfterProjectWrite,
+  type ConfirmedToolResult,
+  type JsonValue,
+  type ObservationExecution,
+} from '../observation/index.js';
 import { selectClip, selectTrack, type Slice } from '../stash/index.js';
 import { describeAddress, receiptOf, refusalOf, reversalReport } from './report.js';
 import type { Workspace } from './workspace.js';
@@ -75,6 +81,7 @@ import type { Workspace } from './workspace.js';
  * destructive tools remove something.
  */
 export type ToolClass = 'read' | 'write' | 'destructive';
+export type ObservationOutcome = 'device-alternate' | 'clip-block' | 'copy-track';
 
 export interface ToolSpec {
   readonly name: string;
@@ -88,6 +95,8 @@ export interface ToolSpec {
    * described in a comment. Empty for a read tool.
    */
   readonly emits: readonly OpKind[];
+  /** Confirmed result type, if this tool can create one observation row. */
+  readonly observation?: ObservationOutcome;
   run(workspace: Workspace, args: never): Promise<unknown>;
 }
 
@@ -141,6 +150,7 @@ function tool<S extends z.ZodRawShape>(spec: {
   description: string;
   inputSchema: S;
   emits?: readonly OpKind[];
+  observation?: ObservationOutcome;
   run: (workspace: Workspace, args: z.infer<z.ZodObject<S>>) => Promise<unknown>;
 }): ToolSpec {
   return { emits: [], ...spec } as unknown as ToolSpec;
@@ -170,6 +180,11 @@ const launchMode = z.enum(LAUNCH_MODES).describe(
 const channel = z.number().int().min(0).max(15).optional().describe(
   'MIDI channel within the clip, 0-15. Defaults to 0.',
 );
+
+const jsonInput: z.ZodType<JsonValue> = z.lazy(() => z.union([
+  z.null(), z.boolean(), z.number().finite(), z.string(), z.array(jsonInput),
+  z.record(z.string(), jsonInput),
+]));
 
 /**
  * ⚠ Every property that can be written, and NOT the one that cannot.
@@ -655,6 +670,92 @@ export const TOOLS: readonly ToolSpec[] = [
 
   // ============================== write =====================================
   tool({
+    name: 'record_observation',
+    kind: 'write',
+    title: 'Record explicit instruction context',
+    description:
+      'Store caller-supplied context for later measurement without changing tracks, clips, or '
+      + 'devices. Begin before related tool calls to link their independently confirmed results. '
+      + 'Enrich after the calls to add a rationale or an explicit accepted or vetoed response. '
+      + 'Enrichment completes the active observation unless complete is false. No response is '
+      + 'inferred from tool success, permission, or silence.',
+    inputSchema: {
+      operation: z.enum(['begin', 'enrich']),
+      requestedScope: z.enum([
+        'device-only', 'launcher-clip-only', 'mixed', 'unsupported',
+      ]).optional().describe('Required for begin. The caller classifies the requested object scope.'),
+      rawScope: jsonInput.optional().describe(
+        'Required for begin. Exact caller-supplied instruction text or structured scope.',
+      ),
+      instructionId: z.string().min(1).optional().describe(
+        'Required for enrich. The instruction observation id returned by begin.',
+      ),
+      resultIds: z.array(z.string().min(1)).optional().describe(
+        'Already recorded result ids to relate. Results from an active observation are linked automatically.',
+      ),
+      rationale: z.string().optional().describe('Caller-supplied rationale. It is never inferred.'),
+      operatorResponse: z.enum(['accepted', 'vetoed']).optional().describe(
+        'An explicit operator response. Omission preserves silent.',
+      ),
+      complete: z.boolean().optional().describe(
+        'For enrich only. Defaults to true and clears the active observation for this session.',
+      ),
+    },
+    async run(workspace, args) {
+      return writing(async () => {
+        if (args.operation === 'begin') {
+          if (args.requestedScope === undefined || args.rawScope === undefined) {
+            throw new Error('begin needs requestedScope and rawScope.');
+          }
+          if (args.instructionId !== undefined || args.operatorResponse !== undefined
+              || args.complete !== undefined) {
+            throw new Error(
+              'begin does not accept instructionId, operatorResponse, or complete. Use enrich.',
+            );
+          }
+          const observation = await workspace.observations.begin({
+            requestedScope: args.requestedScope,
+            rawScope: args.rawScope,
+            ...(args.rationale === undefined ? {} : { rationale: args.rationale }),
+            ...(args.resultIds === undefined ? {} : { resultIds: args.resultIds }),
+          });
+          return {
+            recorded: true,
+            instructionId: observation.id,
+            correlationId: observation.correlationId,
+            operatorResponse: observation.operatorResponse,
+            resultIds: observation.resultIds,
+            active: true,
+          };
+        }
+        if (args.instructionId === undefined) {
+          throw new Error('enrich needs instructionId.');
+        }
+        if (args.requestedScope !== undefined || args.rawScope !== undefined) {
+          throw new Error('enrich does not replace requestedScope or rawScope.');
+        }
+        const observation = await workspace.observations.enrich({
+          instructionId: args.instructionId,
+          ...(args.rationale === undefined ? {} : { rationale: args.rationale }),
+          ...(args.operatorResponse === undefined
+            ? {}
+            : { operatorResponse: args.operatorResponse }),
+          ...(args.resultIds === undefined ? {} : { resultIds: args.resultIds }),
+          ...(args.complete === undefined ? {} : { complete: args.complete }),
+        });
+        return {
+          recorded: true,
+          instructionId: observation.id,
+          correlationId: observation.correlationId,
+          operatorResponse: observation.operatorResponse,
+          resultIds: observation.resultIds,
+          active: args.complete === false,
+        };
+      });
+    },
+  }),
+
+  tool({
     name: 'copy_clip_down',
     kind: 'write',
     title: 'Copy a clip to the next row',
@@ -680,6 +781,7 @@ export const TOOLS: readonly ToolSpec[] = [
       ),
     },
     emits: ['clip.launchSettings', 'clip.duplicate'],
+    observation: 'clip-block',
     async run(workspace, args) {
       return writing(async () => {
         const at = await workspace.mark();
@@ -734,6 +836,7 @@ export const TOOLS: readonly ToolSpec[] = [
         const launch = launchEntry?.value.of === 'clipLaunch' ? launchEntry.value.launch : null;
         return {
           ...receiptOf(change),
+          creationConfirmed: launch !== null,
           copiedTo: {
             trackId: args.trackId,
             row: destinationRow,
@@ -1168,6 +1271,7 @@ export const TOOLS: readonly ToolSpec[] = [
       name: z.string().min(1).describe('The explicit name to assign to the copied track.'),
     },
     emits: ['track.duplicate', 'track.rename'],
+    observation: 'copy-track',
     async run(workspace, args) {
       return writing(async () => {
         const at = await workspace.mark();
@@ -1389,6 +1493,7 @@ export const TOOLS: readonly ToolSpec[] = [
       ),
     },
     emits: ['device.insert', 'chain.rename', 'chain.create'],
+    observation: 'device-alternate',
     async run(workspace, args) {
       return writing(async () => {
         const blankAt = args.names.findIndex((name) => name.trim().length === 0);
@@ -2569,6 +2674,91 @@ function sourceOf(d: { from: string; id?: string; path?: string }): DeviceSource
 
 export const toolNamed = (name: string): ToolSpec | undefined => TOOLS.find((t) => t.name === name);
 
+function object(value: unknown): Record<string, unknown> | undefined {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : undefined;
+}
+
+/** Build a row only from explicit confirmation fields in the declared result contract. */
+function confirmedToolResult(
+  outcome: ObservationOutcome,
+  args: unknown,
+  result: unknown,
+): ConfirmedToolResult | undefined {
+  const input = object(args);
+  const reply = object(result);
+  if (input === undefined || reply === undefined) return undefined;
+
+  if (outcome === 'device-alternate') {
+    const structure = object(reply['structure']);
+    const container = object(structure?.['container']);
+    const names = Array.isArray(input['names'])
+      && input['names'].every((name) => typeof name === 'string')
+      ? input['names'] as string[]
+      : undefined;
+    if (reply['creationConfirmed'] !== true
+        || typeof input['trackId'] !== 'string'
+        || !Number.isInteger(container?.['devicePosition'])
+        || names === undefined) return undefined;
+    return {
+      kind: 'device-alternate',
+      trackId: input['trackId'],
+      containerPosition: container!['devicePosition'] as number,
+      alternateNames: names,
+    };
+  }
+
+  if (outcome === 'clip-block') {
+    const copiedTo = object(reply['copiedTo']);
+    if (reply['creationConfirmed'] !== true
+        || typeof input['trackId'] !== 'string'
+        || !Number.isInteger(input['row'])
+        || !Number.isInteger(copiedTo?.['row'])) return undefined;
+    return {
+      kind: 'clip-block',
+      trackId: input['trackId'],
+      sourceRow: input['row'] as number,
+      copiedRow: copiedTo!['row'] as number,
+    };
+  }
+
+  const copied = object(reply['copied']);
+  if (reply['copyConfirmed'] !== true
+      || typeof input['trackId'] !== 'string'
+      || typeof copied?.['trackId'] !== 'string') return undefined;
+  return {
+    kind: 'copy-track',
+    sourceTrackId: input['trackId'],
+    copiedTrackId: copied['trackId'],
+  };
+}
+
+async function executeTool(
+  workspace: Workspace,
+  spec: ToolSpec,
+  args: unknown,
+): Promise<unknown> {
+  const execution: ObservationExecution | undefined = spec.observation === undefined
+    ? undefined
+    : workspace.observations.execution();
+  const result = await spec.run(workspace, args as never);
+  if (spec.observation === undefined || execution === undefined) return result;
+  const confirmed = confirmedToolResult(spec.observation, args, result);
+  if (confirmed === undefined) return result;
+  try {
+    const resultId = await workspace.observations.recordResult(confirmed, execution);
+    return {
+      ...object(result),
+      ...(spec.observation === 'copy-track'
+        ? { ordinaryUseId: resultId }
+        : { managedEventId: resultId }),
+    };
+  } catch (error) {
+    return reportObservationFailureAfterProjectWrite(result, error);
+  }
+}
+
 /**
  * Run one tool by name, validating its input first.
  *
@@ -2584,7 +2774,7 @@ export async function callTool(
   const spec = toolNamed(name);
   if (spec === undefined) throw new Error(`no such tool: ${name}`);
   const parsed = z.object(spec.inputSchema).parse(args);
-  return spec.run(workspace, parsed as never);
+  return executeTool(workspace, spec, parsed);
 }
 
 /** Put every tool on an MCP server, with the annotations its class implies. */
@@ -2601,7 +2791,7 @@ export function registerTools(server: McpServer, workspace: Workspace): void {
       async (args: unknown) => ({
         content: [{
           type: 'text' as const,
-          text: JSON.stringify(await spec.run(workspace, args as never)),
+          text: JSON.stringify(await callTool(workspace, spec.name, args)),
         }],
       }),
     );

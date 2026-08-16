@@ -44,6 +44,7 @@ import type {
 } from '../contract/index.js';
 import type { Executor, RunOptions } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
+import { ObservationCapture, type ObservationCaptureOptions, type ObservationStore } from '../observation/index.js';
 
 export interface WorkspaceDeps {
   /** Connected, handshaken, and talking to the extension we think we are. */
@@ -52,6 +53,8 @@ export interface WorkspaceDeps {
   readonly adapter: BitwigAdapter;
   readonly executor: Executor;
   readonly stash: Stash;
+  readonly observationStore: ObservationStore;
+  readonly observationCaptureOptions?: ObservationCaptureOptions;
 }
 
 export interface Workspace {
@@ -69,6 +72,8 @@ export interface Workspace {
   apply(ops: readonly Op[], options?: RunOptions): Promise<StashedChangeset>;
   /** The read half of the session's record. No `record`, no `forget`. */
   readonly changes: StashLog;
+  /** Per-project observation capture. Tool execution wraps confirmed results. */
+  readonly observations: ObservationCapture;
   /**
    * ⚠ Plan putting one change back, ALWAYS against the launcher window. Shared by
    * the tool that previews a reversal and the tool that performs one, so the two
@@ -82,6 +87,7 @@ export interface Workspace {
 export function workspaceOf(deps: WorkspaceDeps): Workspace {
   const workspace: Workspace = {
     changes: deps.stash.log,
+    observations: new ObservationCapture(deps.observationStore, deps.observationCaptureOptions),
 
     async mark(): Promise<RevisionMark> {
       await deps.ready();

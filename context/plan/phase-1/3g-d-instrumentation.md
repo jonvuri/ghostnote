@@ -1,10 +1,10 @@
 ---
 title: Phase 1, session 3g-d — production event instrumentation
 kind: plan
-state: active
-status: READY 2026-08-15. The record, persistence transport, and exact
-        ghostnote-description-v1 public cohort are complete.
-updated: 2026-08-15
+state: complete
+status: COMPLETE 2026-08-16. Shared instrumentation, explicit context capture,
+        live conformance, production MCP proof, and exact cleanup pass.
+updated: 2026-08-16
 parent: 3g-record.md
 prev: 3g-c-description-freeze.md
 next: 3g-e-reporting.md
@@ -67,3 +67,34 @@ evidence: E20c/d; D18–D20
 8. Brain checks, extension tests when touched, context check,
    `git diff --check`, live conformance, and focused production MCP smoke pass.
 9. Live cleanup returns the project to its documented baseline.
+
+## Completion — 2026-08-16
+
+One shared executor now serves direct calls and MCP registration. Tool metadata
+declares the only three recorded outcomes. The wrapper appends rows only from
+explicit confirmation fields and returns the new result id. If persistence fails
+after a confirmed project write, the response reports both facts as partial
+success.
+
+The new `record_observation` surface begins and enriches explicit instruction
+context. An active instruction links any confirmed results in one record
+replacement. Device and clip results retain separate entry and execution ids.
+Rationale and accepted or vetoed responses come only from explicit input. Every
+entry uses the frozen v1 constant.
+
+Offline tests cover mixed correlation, ordinary track copy, refusals,
+unconfirmed creation, veto and no-action context, partial success, and matching
+direct and MCP execution. Brain typecheck and **486/486** tests pass. The focused
+surface suite passes **49/49**. Context check and `git diff --check` pass.
+
+Live conformance passes **18/0/1**. The preserving production MCP smoke passes
+**14/14, P0-P13**. It verifies two correlated managed events with independent
+entry and execution ids, one separate ordinary-use row, explicit enrichment,
+refusal behavior, and the frozen v1 stamp on every entry.
+
+The first smoke run showed that conformance fixtures must be removed before a
+device-instrumentation smoke. An immediate post-cleanup retry also met a stale
+track observation. After cleanup and settling, the complete smoke passed. Every
+attempt restored the prior empty record and removed any identified disposable
+tracks. Final conformance cleanup removed `gn-conf-A` and `gn-conf-B`. The project
+is at the documented 10-track baseline with Master visible and no probe residue.

@@ -2,9 +2,9 @@
 title: Phase 1 — write engine and managed takes
 kind: plan
 state: active
-updated: 2026-08-15
+updated: 2026-08-16
 parent: ../ROADMAP.md
-active_session: 3g-d-instrumentation.md
+active_session: 3g-e-reporting.md
 ---
 
 # Phase 1 — write engine and managed takes
@@ -43,8 +43,9 @@ three-way dispatch classifier is retired.
      hidden project store, safe legacy probe, and exact readback verified live
    - ~~[3g-c — v1 description cohort freeze](3g-c-description-freeze.md)~~ — done;
      exact 15-tool public artifact frozen as `ghostnote-description-v1`
-   - [3g-d — production event instrumentation](3g-d-instrumentation.md) — active
-   - [3g-e — reporting and live closure](3g-e-reporting.md)
+   - ~~[3g-d — production event instrumentation](3g-d-instrumentation.md)~~ —
+     done; shared capture and preserving production MCP smoke verified live
+   - [3g-e — reporting and live closure](3g-e-reporting.md) — ready
 4. [4 — control layer](4-control-layer.md)
 5. [5 — live proving](5-proving.md)
 6. [6 — async completion](6-async.md), optional
