@@ -506,6 +506,7 @@ public class Rig {
         application = host.createApplication();
         application.canUndo().markInterested();
         application.canRedo().markInterested();
+        application.panelLayout().markInterested();
 
         // ⚠ Own try block, own status — see the field. A throw in this
         // constructor is the whole extension, before the bridge binds.

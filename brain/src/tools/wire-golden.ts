@@ -48,6 +48,8 @@ export interface Golden {
   addedInSession3gB?: string[];
   /** Session 4a product status writer. */
   addedInSession4a?: string[];
+  /** Session 4b product clip-editor navigation. */
+  addedInSession4b?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

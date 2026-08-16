@@ -176,6 +176,9 @@ export const WIRE = {
   /** One-way product update for the Last change field. */
   statusPush: 'status.push',
 
+  /** UI-only product navigation. The adapter resolves the durable track id first. */
+  showChangedClip: 'navigation.showChangedClip',
+
   notify: 'notify',
 } as const;
 

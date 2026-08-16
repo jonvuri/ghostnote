@@ -84,6 +84,8 @@ interface FixtureHooks {
     actual: Awaited<ReturnType<FakeAdapter['devices']>>,
   ) => Awaited<ReturnType<FakeAdapter['devices']>>;
   readonly statusPush?: (value: string, target: StatusTarget) => Promise<void>;
+  /** Inject a state change before a numbered revision read. */
+  readonly beforeRevision?: (call: number, fake: FakeAdapter) => void;
 }
 
 /** Two tracks, eight rows, nothing written yet. */
@@ -94,6 +96,7 @@ function fixture(
   const fake = new FakeAdapter({ tracks: ['gn-A', 'gn-B'], scenes: 8 });
   const sent: Op[] = [];
   let deviceReads = 0;
+  let revisionReads = 0;
   // ⚠ A spy rather than a stub: everything is the fake's own behaviour, and the
   // only addition is a record of what was asked for. A stub here would let a
   // tool's declared `emits` be checked against a world that does not push back.
@@ -108,8 +111,13 @@ function fixture(
     },
     read: (sel) => fake.read(sel),
     settle: (budget) => fake.settle(budget),
-    revision: () => fake.revision(),
+    revision: () => {
+      revisionReads += 1;
+      hooks.beforeRevision?.(revisionReads, fake);
+      return fake.revision();
+    },
     contentSince: (since) => fake.contentSince(since),
+    showClipInEditor: (clipRef, verifiedAt) => fake.showClipInEditor(clipRef, verifiedAt),
     close: () => fake.close(),
     apply: async (batch) => {
       const receipt = await fake.apply(batch);
@@ -165,16 +173,18 @@ test('T-partition: the names are the boundary, and no verb sits on two of them',
 
   const byClass = {
     read: TOOLS.filter((t) => t.kind === 'read').map((t) => t.name),
+    focus: TOOLS.filter((t) => t.kind === 'focus').map((t) => t.name),
     write: TOOLS.filter((t) => t.kind === 'write').map((t) => t.name),
     destructive: TOOLS.filter((t) => t.kind === 'destructive').map((t) => t.name),
   };
   // ⚠ Not vacuous: a partition with an empty side would pass every check below.
-  assert.ok(byClass.read.length > 0 && byClass.write.length > 0 && byClass.destructive.length > 0);
+  assert.ok(byClass.read.length > 0 && byClass.focus.length > 0
+    && byClass.write.length > 0 && byClass.destructive.length > 0);
 
   // ⚠⚠ The host's "don't ask again for this tool" is a blanket grant on a NAME
   // (E20c), so a destructive verb sharing a name with a benign one would hand out
   // destruction with the benign grant.
-  const benign = new Set([...byClass.read, ...byClass.write]);
+  const benign = new Set([...byClass.read, ...byClass.focus, ...byClass.write]);
   for (const name of byClass.destructive) {
     assert.equal(benign.has(name), false, `${name} is both destructive and benign`);
   }
@@ -191,6 +201,11 @@ test('T-partition: every tool carries the annotations its class implies', () => 
       assert.equal(expected.destructiveHint, true, `${spec.name} must be destructiveHint`);
       assert.equal(expected.readOnlyHint, false);
     }
+    if (spec.kind === 'focus') {
+      assert.equal(expected.readOnlyHint, false, `${spec.name} changes UI focus`);
+      assert.equal(expected.destructiveHint, false);
+      assert.equal(expected.idempotentHint, true, `${spec.name} has the same result when repeated`);
+    }
     if (spec.kind === 'write') {
       assert.equal(expected.readOnlyHint, false, `${spec.name} writes`);
       assert.equal(expected.destructiveHint, false, `${spec.name} is not the destructive surface`);
@@ -198,7 +213,7 @@ test('T-partition: every tool carries the annotations its class implies', () => 
   }
   // ⚠ Nothing may READ its own annotations into existence: they come from the
   // class table, so this also proves the table has an entry for every class.
-  assert.deepEqual(Object.keys(ANNOTATIONS).sort(), ['destructive', 'read', 'write']);
+  assert.deepEqual(Object.keys(ANNOTATIONS).sort(), ['destructive', 'focus', 'read', 'write']);
 });
 
 test('T-partition: only a destructive tool may remove, and the one crossing is named', () => {
@@ -210,6 +225,10 @@ test('T-partition: only a destructive tool may remove, and the one crossing is n
     }
     if (spec.kind === 'read') {
       assert.deepEqual([...spec.emits], [], `${spec.name} is a read tool and must write nothing`);
+      continue;
+    }
+    if (spec.kind === 'focus') {
+      assert.deepEqual([...spec.emits], [], `${spec.name} changes no project content`);
       continue;
     }
     if (removes.length > 0) {
@@ -684,6 +703,12 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(copied['applied'], true, JSON.stringify(copied));
   assert.equal(copied['clickLaunchVerified'], true, JSON.stringify(copied));
 
+  const focused = await exercise('show_changed_clip', {
+    changeId: copied['changeId'], target: { trackId: fx.trackA, row: 1 },
+  });
+  assert.equal(focused['navigated'], true, JSON.stringify(focused));
+  assert.deepEqual(focused['target'], { trackId: fx.trackA, row: 1 });
+
   assert.equal((await exercise('set_clip_launch', {
     clips: [{
       trackId: fx.trackA,
@@ -959,6 +984,164 @@ test('T-roundtrip: a partial undo touches only what it was scoped to', async () 
   const b = await call(fx, 'read_clip', { trackId: fx.trackB, row: 0 }) as { notes: NoteRecord[] };
   assert.deepEqual(a.notes, [], 'the scoped track was put back');
   assert.deepEqual(b.notes.map((n) => n.pitch), [72], 'and the other one was left alone');
+});
+
+test('4b: one verified clip target opens explicitly without recording a change', async () => {
+  const fx = fixture();
+  const made = await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 2, lengthBeats: 4, notes: [note()] }],
+  });
+  const beforeChanges = fx.stash.list().length;
+  const beforeRevision = (await fx.fake.revision()).revision;
+  const beforeObservation = JSON.stringify((await fx.workspace.observations.snapshot()).record);
+  const beforeStatuses = fx.statuses.length;
+
+  const result = await call(fx, 'show_changed_clip', { changeId: made['changeId'] });
+
+  assert.equal(result['navigated'], true, JSON.stringify(result));
+  assert.equal(result['layoutRequested'], 'EDIT');
+  assert.equal(result['layoutConfirmed'], true);
+  assert.deepEqual(result['target'], { trackId: fx.trackA, row: 2 });
+  assert.equal(fx.stash.list().length, beforeChanges, 'UI focus creates no stash entry');
+  assert.equal((await fx.fake.revision()).revision, beforeRevision, 'UI focus creates no revision bump');
+  assert.equal(JSON.stringify((await fx.workspace.observations.snapshot()).record), beforeObservation,
+    'UI focus creates no observation event');
+  assert.equal(fx.statuses.length, beforeStatuses, 'UI focus publishes no project-change status');
+  assert.deepEqual(fx.fake.lastNavigation, clipAt(slotAt(trackAt(fx.trackA), sceneAt(2, 1))));
+});
+
+test('4b review: an occupied replacement during final verification does not navigate', async () => {
+  let armed = false;
+  let navigationMarks = 0;
+  let targetTrackId = '';
+  const fx = fixture({
+    beforeRevision: (_call, fake) => {
+      if (!armed || ++navigationMarks !== 2) return;
+      control(fake).replaceClipInPlace(targetTrackId, 2);
+    },
+  });
+  targetTrackId = fx.trackA;
+  const made = await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 2, lengthBeats: 4, notes: [note()] }],
+  });
+  armed = true;
+
+  const result = await call(fx, 'show_changed_clip', { changeId: made['changeId'] });
+
+  assert.equal(result['navigated'], false);
+  assert.match(result['why'] as string, /changed while/);
+  assert.equal(fx.fake.lastNavigation, undefined);
+});
+
+test('4b review: a project switch during final verification does not navigate', async () => {
+  let armed = false;
+  let navigationMarks = 0;
+  const fx = fixture({
+    beforeRevision: (_call, fake) => {
+      if (!armed || ++navigationMarks !== 2) return;
+      // Keep the same track ids to model a copied project with matching coordinates.
+      fake.model.project = 'fake-project-B';
+    },
+  });
+  const made = await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 2, lengthBeats: 4, notes: [note()] }],
+  });
+  armed = true;
+
+  const result = await call(fx, 'show_changed_clip', { changeId: made['changeId'] });
+
+  assert.equal(result['navigated'], false);
+  assert.match(result['why'] as string, /changed while/);
+  assert.equal(fx.fake.lastNavigation, undefined);
+});
+
+test('4b: a multi-clip change returns candidates until one is selected', async () => {
+  const fx = fixture();
+  const made = await call(fx, 'add_clip', {
+    clips: [
+      { trackId: fx.trackA, row: 0, lengthBeats: 4 },
+      { trackId: fx.trackB, row: 3, lengthBeats: 4 },
+    ],
+  });
+
+  const ambiguous = await call(fx, 'show_changed_clip', { changeId: made['changeId'] });
+  assert.equal(ambiguous['navigated'], false);
+  assert.equal(ambiguous['ambiguous'], true);
+  assert.deepEqual(ambiguous['availableTargets'], [
+    { trackId: fx.trackA, row: 0 },
+    { trackId: fx.trackB, row: 3 },
+  ]);
+  assert.equal(fx.fake.lastNavigation, undefined, 'ambiguity never chooses by order');
+
+  const selected = await call(fx, 'show_changed_clip', {
+    changeId: made['changeId'], target: { trackId: fx.trackB, row: 3 },
+  });
+  assert.equal(selected['navigated'], true, JSON.stringify(selected));
+  assert.deepEqual(selected['target'], { trackId: fx.trackB, row: 3 });
+});
+
+test('4b: a move exposes its occupied destination, not its empty source', async () => {
+  const fx = fixture();
+  await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 0, lengthBeats: 4, notes: [note()] }],
+  });
+  const moved = await call(fx, 'move_clip_block', {
+    trackId: fx.trackA, firstRow: 0, lastRow: 0, destinationFirstRow: 2,
+  });
+
+  const shown = await call(fx, 'show_changed_clip', { changeId: moved['changeId'] });
+
+  assert.equal(shown['navigated'], true, JSON.stringify(shown));
+  assert.deepEqual(shown['target'], { trackId: fx.trackA, row: 2 });
+  assert.deepEqual(shown['availableTargets'], [{ trackId: fx.trackA, row: 2 }]);
+});
+
+test('4b: unsupported, missing, moved, stale, and unknown changes do not navigate', async () => {
+  const fx = fixture();
+  const renamed = await call(fx, 'rename_track', {
+    tracks: [{ trackId: fx.trackB, name: 'renamed' }],
+  });
+  const unsupported = await call(fx, 'show_changed_clip', { changeId: renamed['changeId'] });
+  assert.equal(unsupported['supported'], false);
+
+  await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackB, row: 4, lengthBeats: 4 }],
+  });
+  const deletedChange = await call(fx, 'delete_clip', {
+    clips: [{ trackId: fx.trackB, row: 4 }],
+  });
+  const deleted = await call(fx, 'show_changed_clip', { changeId: deletedChange['changeId'] });
+  assert.equal(deleted['navigated'], false);
+  assert.match(deleted['why'] as string, /no longer holds a clip/);
+
+  const missingChange = await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 0, lengthBeats: 4 }],
+  });
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  fx.fake.model.setSlotContent(track, 0, false);
+  const missing = await call(fx, 'show_changed_clip', { changeId: missingChange['changeId'] });
+  assert.equal(missing['navigated'], false);
+  assert.equal(missing['mismatch'], 'moved');
+
+  const movedChange = await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 1, lengthBeats: 4 }],
+  });
+  control(fx.fake).dragClip(fx.trackA, 1, 2);
+  const moved = await call(fx, 'show_changed_clip', { changeId: movedChange['changeId'] });
+  assert.equal(moved['navigated'], false);
+  assert.equal(moved['mismatch'], 'moved');
+
+  const staleChange = await call(fx, 'write_notes', {
+    clips: [{ trackId: fx.trackA, row: 2, notes: [note({ pitch: 72 })] }],
+  });
+  control(fx.fake).restartExtension();
+  const stale = await call(fx, 'show_changed_clip', { changeId: staleChange['changeId'] });
+  assert.equal(stale['navigated'], false);
+  assert.match(stale['why'] as string, /restarted/);
+
+  const unknown = await call(fx, 'show_changed_clip', { changeId: 'not-a-change' });
+  assert.ok(refused(unknown));
+  assert.equal(fx.fake.lastNavigation, undefined);
 });
 
 // --- exit criterion 2: nothing that applied goes unrecorded ------------------

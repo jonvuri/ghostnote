@@ -73,4 +73,6 @@ export {
 } from './errors.js';
 export type { BankDimension, OccupiedSlotHazard } from './errors.js';
 
-export type { BatchRequest, BitwigAdapter, ResolveResult, ResolvedAddress } from './adapter.js';
+export type {
+  BatchRequest, BitwigAdapter, ClipNavigationResult, ResolveResult, ResolvedAddress,
+} from './adapter.js';

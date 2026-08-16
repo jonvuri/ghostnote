@@ -1,13 +1,13 @@
 ---
 title: Phase 1, session 4 — Bitwig status and change navigation
 kind: plan
-state: planned
-status: READY 2026-08-16. The work is split into status-surface cleanup and
-        explicit navigation. There is no pane action button or polling loop.
+state: complete
+status: COMPLETE 2026-08-16. Status and explicit clip navigation pass offline
+        and focused live checks. There is no pane action button or polling loop.
 updated: 2026-08-16
 parent: README.md
 prev: 3g-e-reporting.md
-next: 4a-status-surface.md
+next: 5-proving.md
 evidence: E8-C, E14 rows A–I, E14-A1, E20d; D14, D18–D20
 needs: Bitwig foregrounded, a human at the keyboard
 ---

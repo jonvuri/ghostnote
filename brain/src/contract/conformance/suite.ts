@@ -2125,6 +2125,7 @@ export function runConformance(h: AdapterHarness): void {
           settle: (budget) => adapter.settle(budget),
           revision: () => adapter.revision(),
           contentSince: (since) => adapter.contentSince(since),
+          showClipInEditor: (clipRef, verifiedAt) => adapter.showClipInEditor(clipRef, verifiedAt),
           close: async () => {},
         });
 

@@ -19,7 +19,7 @@ import assert from 'node:assert/strict';
 import {
   addressKey, chain as chainAt, clip, device as deviceAt, deviceIn as deviceInAt,
   notes as notesAt, scene, slot, track,
-  type ClipAddress, type TrackAddress,
+  type ClipAddress, type RevisionMark, type TrackAddress,
 } from '../../contract/index.js';
 import { LiveAdapter } from './adapter.js';
 import type { Transport } from './transport.js';
@@ -28,6 +28,17 @@ import { WIRE, type Frame } from './wiremap.js';
 const CHANNEL_ID = 'e4a1c0de-0000-4000-8000-000000000001';
 const TRACK: TrackAddress = track(CHANNEL_ID);
 const CLIP = (sceneIndex: number): ClipAddress => clip(slot(TRACK, scene(sceneIndex, 1)));
+const NAV_MARK: RevisionMark = {
+  revision: 7,
+  generation: 'nav-gen',
+  project: 'nav-project',
+  sceneEpoch: 1,
+  contentEpoch: 3,
+  window: {
+    tracks: { count: 1, bankSize: 16 },
+    scenes: { count: 8, bankSize: 8 },
+  },
+};
 
 interface SlotModel {
   readonly lengthBeats: number;
@@ -121,6 +132,113 @@ class CursorModelTransport implements Transport {
 class UntimedAdapter extends LiveAdapter {
   override async settle(): Promise<void> {}
 }
+
+test('4b: live navigation resolves the durable track id before the UI-only frame', async () => {
+  const frames: Frame[] = [];
+  const transport: Transport = {
+    async send(frame) {
+      frames.push(frame);
+      if (frame.method === WIRE.revisionGet) {
+        return {
+          revision: 7, generation: 'nav-gen', project: 'nav-project', sceneEpoch: 1,
+          contentEpoch: 3, sceneCount: 8, contentEvents: [],
+        };
+      }
+      if (frame.method === WIRE.trackList) {
+        return {
+          tracks: [{ index: 5, channelId: CHANNEL_ID, name: 'moved track', position: 5, type: 'Instrument' }],
+          count: 1, itemCount: 1, bankSize: 16,
+        };
+      }
+      if (frame.method === WIRE.showChangedClip) {
+        return { navigated: true, layout: 'EDIT' };
+      }
+      return {};
+    },
+    async close() {},
+  };
+  const adapter = new UntimedAdapter({ transport, cursorPool: 3, sceneBankSize: 8 });
+
+  const result = await adapter.showClipInEditor(CLIP(2), NAV_MARK);
+
+  assert.deepEqual(result, { navigated: true, layoutRequested: 'EDIT', layoutConfirmed: true });
+  const navigation = frames.find((frame) => frame.method === WIRE.showChangedClip);
+  assert.deepEqual(navigation?.params, {
+    trackIndex: 5,
+    expectedChannelId: CHANNEL_ID,
+    slotIndex: 2,
+    expectedRevision: 7,
+    expectedGeneration: 'nav-gen',
+    expectedProject: 'nav-project',
+    expectedSceneEpoch: 1,
+    expectedContentEpoch: 3,
+  });
+  assert.ok(frames.findIndex((frame) => frame.method === WIRE.trackList)
+    < frames.findIndex((frame) => frame.method === WIRE.showChangedClip));
+});
+
+test('4b review: a project switch after verification refuses before the UI frame', async () => {
+  const frames: Frame[] = [];
+  const transport: Transport = {
+    async send(frame) {
+      frames.push(frame);
+      if (frame.method === WIRE.revisionGet) {
+        return {
+          revision: 7, generation: 'nav-gen', project: 'other-project', sceneEpoch: 1,
+          contentEpoch: 3, sceneCount: 8, contentEvents: [],
+        };
+      }
+      if (frame.method === WIRE.trackList) {
+        return {
+          tracks: [{ index: 5, channelId: CHANNEL_ID, name: 'same-id clone', position: 5, type: 'Instrument' }],
+          count: 1, itemCount: 1, bankSize: 16,
+        };
+      }
+      return {};
+    },
+    async close() {},
+  };
+  const adapter = new UntimedAdapter({ transport, cursorPool: 3, sceneBankSize: 8 });
+
+  const result = await adapter.showClipInEditor(CLIP(2), NAV_MARK);
+
+  assert.equal(result.navigated, false);
+  assert.match(result.why ?? '', /changed after/);
+  assert.equal(frames.some((frame) => frame.method === WIRE.showChangedClip), false);
+});
+
+test('4b review: an occupied replacement after verification refuses before the UI frame', async () => {
+  const frames: Frame[] = [];
+  const transport: Transport = {
+    async send(frame) {
+      frames.push(frame);
+      if (frame.method === WIRE.revisionGet) {
+        return {
+          revision: 7, generation: 'nav-gen', project: 'nav-project', sceneEpoch: 1,
+          contentEpoch: 5, sceneCount: 8, contentEvents: [
+            { seq: 4, channelId: CHANNEL_ID, trackIndex: 5, slotIndex: 2, filled: false },
+            { seq: 5, channelId: CHANNEL_ID, trackIndex: 5, slotIndex: 2, filled: true },
+          ],
+        };
+      }
+      if (frame.method === WIRE.trackList) {
+        return {
+          tracks: [{ index: 5, channelId: CHANNEL_ID, name: 'same slot', position: 5, type: 'Instrument' }],
+          count: 1, itemCount: 1, bankSize: 16,
+        };
+      }
+      return {};
+    },
+    async close() {},
+  };
+  const adapter = new UntimedAdapter({ transport, cursorPool: 3, sceneBankSize: 8 });
+
+  const result = await adapter.showClipInEditor(CLIP(2), NAV_MARK);
+
+  assert.equal(result.navigated, false);
+  assert.match(result.why ?? '', /changed after/);
+  assert.equal(frames.some((frame) => frame.method === WIRE.showChangedClip), false);
+});
 
 test('L-read: a clip revisited after its cursor was EVICTED is re-pointed, not assumed (E2)', async () => {
   // Four clips, a pool of three. The fourth read evicts the first clip's cursor,

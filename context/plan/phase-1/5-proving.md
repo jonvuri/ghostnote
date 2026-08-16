@@ -1,8 +1,9 @@
 ---
 title: Phase 1, session 5 — proving it live: the exit-criteria sweep
 kind: plan
-state: planned
-status: not started; revised for the two-representation take model
+state: active
+status: READY 2026-08-16. Session 4 is complete. Start with the six Phase 1
+        exit criteria and the B4, B5, and B7 carry-ins.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md

@@ -204,6 +204,7 @@ function racing(fake: FakeAdapter): BitwigAdapter {
     settle: (budget) => fake.settle(budget),
     revision: () => fake.revision(),
     contentSince: (since) => fake.contentSince(since),
+    showClipInEditor: (clipRef, verifiedAt) => fake.showClipInEditor(clipRef, verifiedAt),
     close: () => fake.close(),
   };
 }
@@ -693,6 +694,7 @@ function adapterOf(fake: FakeAdapter): BitwigAdapter {
     settle: (budget) => fake.settle(budget),
     revision: () => fake.revision(),
     contentSince: (since) => fake.contentSince(since),
+    showClipInEditor: (clipRef, verifiedAt) => fake.showClipInEditor(clipRef, verifiedAt),
     close: () => fake.close(),
   };
 }

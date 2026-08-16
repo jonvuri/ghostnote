@@ -18,7 +18,7 @@ import {
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
-  type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
+  type ClipAddress, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
   type Op, type OpReceipt, type ResolveResult,
   type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
   type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
@@ -49,6 +49,8 @@ export class FakeAdapter implements BitwigAdapter {
   private closed = false;
   /** Where the cursor was when the current stage (== one turn) began (E15-F). */
   private turnStartClip: string | undefined = undefined;
+  /** Last explicit UI focus request. It is not project state. */
+  lastNavigation: ClipAddress | undefined;
 
   constructor(options: FakeOptions = {}) {
     if (options.scenes !== undefined) this.model.sceneCount = options.scenes;
@@ -1133,6 +1135,46 @@ export class FakeAdapter implements BitwigAdapter {
 
   async settle(budget: SettleBudget): Promise<void> {
     this.clock.settle(budget);
+  }
+
+  async showClipInEditor(
+    clipRef: ClipAddress,
+    verifiedAt: RevisionMark,
+  ): Promise<ClipNavigationResult> {
+    const resolved = await this.resolve([clipRef]);
+    if (resolved.at.revision !== verifiedAt.revision
+        || resolved.at.generation !== verifiedAt.generation
+        || resolved.at.project !== verifiedAt.project
+        || resolved.at.sceneEpoch !== verifiedAt.sceneEpoch
+        || resolved.at.contentEpoch !== verifiedAt.contentEpoch) {
+      return {
+        navigated: false,
+        layoutRequested: 'EDIT',
+        layoutConfirmed: false,
+        why: 'Bitwig state changed after the clip target was verified',
+      };
+    }
+    const target = resolved.resolved[0];
+    if (target?.found !== true) {
+      return {
+        navigated: false,
+        layoutRequested: 'EDIT',
+        layoutConfirmed: false,
+        why: `the clip address is ${target?.reason ?? 'unresolved'}`,
+      };
+    }
+    const track = this.model.findByChannelId(clipRef.slot.track.channelId)?.track;
+    const slot = track?.slots[clipRef.slot.scene.index];
+    if (slot?.hasContent !== true) {
+      return {
+        navigated: false,
+        layoutRequested: 'EDIT',
+        layoutConfirmed: false,
+        why: 'the launcher slot no longer holds a clip',
+      };
+    }
+    this.lastNavigation = structuredClone(clipRef);
+    return { navigated: true, layoutRequested: 'EDIT', layoutConfirmed: true };
   }
 
   async close(): Promise<void> {

@@ -40,7 +40,7 @@
  * track that is no longer there. The dependencies are therefore getters.
  */
 import type {
-  Address, BitwigAdapter, ContentDelta, ObservedDeviceBank, Op, RevisionMark, Snapshot, TrackAddress, TrackState,
+  Address, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, ObservedDeviceBank, Op, RevisionMark, Snapshot, TrackAddress, TrackState,
 } from '../contract/index.js';
 import type { Executor, RunOptions } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
@@ -86,6 +86,8 @@ export interface Workspace {
   planRevert(changeId: string, slice?: Slice): Promise<ReversalPlan>;
   /** What the launcher did since a mark — exposed for reporting, not for planning. */
   contentSince(since: RevisionMark): Promise<ContentDelta>;
+  /** Explicit UI focus. This bypasses the project-write and stash path. */
+  showClipInEditor(clip: ClipAddress, verifiedAt: RevisionMark): Promise<ClipNavigationResult>;
 }
 
 export interface CapturedWorkspaceResult<T> {
@@ -140,6 +142,14 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
     async contentSince(since: RevisionMark): Promise<ContentDelta> {
       await deps.ready();
       return deps.adapter.contentSince(since);
+    },
+
+    async showClipInEditor(
+      clip: ClipAddress,
+      verifiedAt: RevisionMark,
+    ): Promise<ClipNavigationResult> {
+      await deps.ready();
+      return deps.adapter.showClipInEditor(clip, verifiedAt);
     },
 
     async apply(ops: readonly Op[], options: RunOptions = {}): Promise<StashedChangeset> {

@@ -4,7 +4,7 @@ kind: plan
 state: active
 updated: 2026-08-16
 parent: ../ROADMAP.md
-active_session: 4b-change-navigation.md
+active_session: 5-proving.md
 ---
 
 # Phase 1 — write engine and managed takes
@@ -48,19 +48,22 @@ three-way dispatch classifier is retired.
    - ~~[3g-e — reporting and live closure](3g-e-reporting.md)~~ — done; lossless
      raw view, descriptive cross-tab, restart survival, visibility, and exact
      cleanup verified live
-4. [4 — Bitwig status and change navigation](4-control-layer.md) — active
+4. ~~[4 — Bitwig status and change navigation](4-control-layer.md)~~ — done
    - ~~[4a — status surface and panel cleanup](4a-status-surface.md)~~ — done;
      reduced pane, truthful status, edit repair, and restart persistence verified
      live
    - ~~[4a review follow-up](4a-review-follow-up.md)~~ — done; probe cleanup is
      failure-safe and each status update is bound to its write project
-   - [4b — navigation to a recorded clip change](4b-change-navigation.md) — planned
-5. [5 — live proving](5-proving.md)
+   - ~~[4b — navigation to a recorded clip change](4b-change-navigation.md)~~ —
+     done; explicit durable targeting, ambiguity, missing-target refusal, Edit
+     layout, and fitted content verified live
+5. [5 — live proving](5-proving.md) — active
 6. [6 — async completion](6-async.md), optional
 
-Completed session records are listed in [NOW](../../NOW.md) and live under
-`archive/outcomes/`. The original combined Phase 1 plan, including re-plan and
-renumbering history, remains in `archive/plans/PHASE-1-ENGINE.md`.
+Completed session records stay in their session briefs and under
+`archive/outcomes/`. [NOW](../../NOW.md) contains only the next-session handoff.
+The original combined Phase 1 plan, including re-plan and renumbering history,
+remains in `archive/plans/PHASE-1-ENGINE.md`.
 
 ## Phase exit
 

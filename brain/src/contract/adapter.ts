@@ -1,7 +1,7 @@
 /**
  * `BitwigAdapter` — the versioned seam between the brain and *some* Bitwig.
  *
- * Ten narrow methods; operation breadth lives in the `Op` and `Address` unions,
+ * Eleven narrow methods; operation breadth lives in the `Op` and `Address` unions,
  * never in adapter method proliferation. That is the Beat Twin lesson (a
  * 57-tool surface, abandoned) applied at the one place it is cheap to apply.
  *
@@ -22,7 +22,7 @@
  *     read(write-set)             -> verify; report what didn't take
  *     (revert = apply the stash)
  */
-import type { Address } from './address.js';
+import type { Address, ClipAddress } from './address.js';
 import type { SettleBudget } from './budgets.js';
 import type { ContentDelta } from './observers.js';
 import type { ObservedDeviceBank, Op } from './ops.js';
@@ -64,6 +64,15 @@ export interface BatchRequest {
    * while a paced one is still draining.
    */
   readonly ifRevision?: number;
+}
+
+/** Result of one explicit request to focus Bitwig's editor on a launcher clip. */
+export interface ClipNavigationResult {
+  readonly navigated: boolean;
+  readonly layoutRequested: 'EDIT';
+  readonly layoutConfirmed: boolean;
+  /** A current mismatch found after durable identity resolution. */
+  readonly why?: string;
 }
 
 export interface BitwigAdapter {
@@ -141,6 +150,19 @@ export interface BitwigAdapter {
    * method's unique reach is the slots we never touched.
    */
   contentSince(since: RevisionMark): Promise<ContentDelta>;
+
+  /**
+   * Focus one launcher clip in Bitwig's editor.
+   *
+   * The input keeps the durable track id. A live adapter resolves it at call
+   * time and does not expose the temporary bank index to the product surface.
+   * This changes UI focus only. It does not change project content or revision.
+   */
+  showClipInEditor(
+    clip: ClipAddress,
+    /** The state boundary that approved this positional clip address. */
+    verifiedAt: RevisionMark,
+  ): Promise<ClipNavigationResult>;
 
   close(): Promise<void>;
 }

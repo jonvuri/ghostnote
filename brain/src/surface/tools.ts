@@ -73,16 +73,18 @@ import {
 import { selectClip, selectTrack, type Slice } from '../stash/index.js';
 import { describeAddress, receiptOf, refusalOf, reversalReport } from './report.js';
 import { captureWorkspaceChanges, type Workspace } from './workspace.js';
+import { showChangedClip } from './navigation.js';
 import type { StatusCategory } from './status.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
 /**
  * ⚠ The privilege class, and the ONLY thing that decides a tool's annotations.
- * Read tools change nothing; write tools change something they recorded first;
- * destructive tools remove something.
+ * Read tools change nothing. Focus tools change UI focus only. Write tools
+ * change project state through the recorded write seam. Destructive tools
+ * remove something.
  */
-export type ToolClass = 'read' | 'write' | 'destructive';
+export type ToolClass = 'read' | 'focus' | 'write' | 'destructive';
 export type ObservationOutcome = 'device-alternate' | 'clip-block' | 'copy-track';
 
 export interface ToolSpec {
@@ -117,6 +119,7 @@ export const ANNOTATIONS: Readonly<Record<ToolClass, {
   readonly idempotentHint: boolean;
 }>> = {
   read: { readOnlyHint: true, destructiveHint: false, idempotentHint: true },
+  focus: { readOnlyHint: false, destructiveHint: false, idempotentHint: true },
   write: { readOnlyHint: false, destructiveHint: false, idempotentHint: false },
   destructive: { readOnlyHint: false, destructiveHint: true, idempotentHint: false },
 };
@@ -704,6 +707,28 @@ export const TOOLS: readonly ToolSpec[] = [
           wouldWriteAnything: plan.ops.length > 0,
         };
       });
+    },
+  }),
+
+  // ============================== focus =====================================
+  tool({
+    name: 'show_changed_clip',
+    kind: 'focus',
+    title: 'Show one changed clip in Bitwig',
+    description:
+      'Open one launcher clip from a recorded change in Bitwig\'s detail editor, request the '
+      + 'edit layout, and fit the clip content. This changes Bitwig UI focus only. It does not '
+      + 'change project content, create a change record, or run automatically. If the change '
+      + 'has several current clip targets, call again with one target returned here.',
+    inputSchema: {
+      changeId: z.string().describe('From list_changes.'),
+      target: z.object({
+        trackId: z.string().describe('The durable track id returned in the change location.'),
+        row: z.number().int().min(0).describe('The zero-based launcher row returned in the change location.'),
+      }).optional().describe('Required when the change has several current clip targets.'),
+    },
+    async run(workspace, args) {
+      return writing(async () => showChangedClip(workspace, args.changeId, args.target));
     },
   }),
 

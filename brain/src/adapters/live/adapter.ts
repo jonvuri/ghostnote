@@ -32,7 +32,7 @@ import {
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
   lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
-  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
+  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
   type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type TrackAddress, type TrackState, type WindowCoverage,
@@ -2201,6 +2201,59 @@ export class LiveAdapter implements BitwigAdapter {
    */
   async settle(budget: SettleBudget): Promise<void> {
     await new Promise((resolve) => setTimeout(resolve, SETTLE_MS[budget]));
+  }
+
+  async showClipInEditor(
+    clipRef: ClipAddress,
+    verifiedAt: RevisionMark,
+  ): Promise<ClipNavigationResult> {
+    // Resolve the durable track identity now. The bank index stays inside the
+    // adapter and is checked again by the narrow handler before any UI call.
+    const resolution = await this.resolve([clipRef]);
+    if (resolution.at.revision !== verifiedAt.revision
+        || resolution.at.generation !== verifiedAt.generation
+        || resolution.at.project !== verifiedAt.project
+        || resolution.at.sceneEpoch !== verifiedAt.sceneEpoch
+        || resolution.at.contentEpoch !== verifiedAt.contentEpoch) {
+      return {
+        navigated: false,
+        layoutRequested: 'EDIT',
+        layoutConfirmed: false,
+        why: 'Bitwig state changed after the clip target was verified',
+      };
+    }
+    const target = resolution.resolved[0];
+    if (target?.found !== true || target.index === undefined) {
+      return {
+        navigated: false,
+        layoutRequested: 'EDIT',
+        layoutConfirmed: false,
+        why: `the recorded clip address is ${target?.reason ?? 'unresolved'}`,
+      };
+    }
+    const reply = (await this.transport.send({
+      method: WIRE.showChangedClip,
+      params: {
+        trackIndex: target.index,
+        expectedChannelId: clipRef.slot.track.channelId,
+        slotIndex: clipRef.slot.scene.index,
+        expectedRevision: verifiedAt.revision,
+        expectedGeneration: verifiedAt.generation,
+        expectedProject: verifiedAt.project,
+        expectedSceneEpoch: verifiedAt.sceneEpoch,
+        expectedContentEpoch: verifiedAt.contentEpoch,
+      },
+    })) as {
+      navigated?: boolean;
+      layout?: string;
+      error?: string;
+    };
+    return {
+      navigated: reply.navigated === true,
+      layoutRequested: 'EDIT',
+      layoutConfirmed: reply.layout === 'EDIT',
+      ...(reply.navigated === true ? {} : { why: reply.error ?? 'Bitwig did not open the clip' }),
+    };
   }
 
   async close(): Promise<void> {

@@ -69,7 +69,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInE16 ?? []), ...(golden.addedInE20 ?? []),
       ...(golden.addedInSession3eProbe ?? []), ...(golden.addedInE22Probe ?? []),
       ...(golden.addedInSession3f ?? []), ...(golden.addedInSession3gB ?? []),
-      ...(golden.addedInSession4a ?? [])];
+      ...(golden.addedInSession4a ?? []), ...(golden.addedInSession4b ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -374,6 +374,29 @@ test('4a: only the narrow status writer replaces the retired UI probe wire', () 
     'ui.panelLayout', 'ui.set', 'ui.showInEditor', 'ui.status', 'ui.visibility',
   ];
   assert.deepEqual(retired.filter((method) => golden.methods.includes(method)), []);
+});
+
+test('4b: only narrow product navigation reaches the retired UI capability', () => {
+  assert.deepEqual(golden.addedInSession4b ?? [], ['navigation.showChangedClip']);
+  assert.ok(WIRE_METHODS_USED.includes('navigation.showChangedClip'));
+  assert.ok(!WIRE_METHODS_USED.includes('ui.showInEditor'), 'the generic E14 handler stays retired');
+
+  const source = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'NavigationHandlers.java'),
+    'utf8',
+  );
+  assert.match(source, /expectedChannelId[\s\S]*track\.channelId\(\)\.get\(\)/,
+    'the temporary bank index must be checked against durable identity');
+  assert.match(source,
+    /state\.revision != expectedRevision[\s\S]*rig\.launcherContentEpoch != expectedContentEpoch[\s\S]*slot\.showInEditor\(\)/,
+    'the verified project and launcher boundary must survive until the first UI call');
+  assert.match(source,
+    /if \(!slot\.exists\(\)\.get\(\) \|\| !slot\.hasContent\(\)\.get\(\)\)[\s\S]*slot\.showInEditor\(\)/,
+    'current occupancy must be checked before the first UI call');
+  assert.match(source,
+    /setPanelLayout\("EDIT"\);[\s\S]*slot\.showInEditor\(\);[\s\S]*zoomToFit\(\);/,
+    'the narrow handler requests Edit, opens the clip, and fits the content');
 });
 
 test('3g-b: the retired E20d probe refuses before it can touch the product record', () => {

@@ -1,9 +1,9 @@
 ---
 title: Phase 1, session 4b — navigation to a recorded clip change
 kind: plan
-state: active
-status: READY 2026-08-16. Session 4a left the product panel and wire surface
-        clean.
+state: complete
+status: COMPLETE 2026-08-16. Offline and focused live checks pass. The probe
+        restored the project baseline.
 updated: 2026-08-16
 parent: 4-control-layer.md
 prev: 4a-review-follow-up.md
@@ -69,3 +69,30 @@ needs: Bitwig foregrounded, a human at the keyboard
 - track, device, arrangement, or diff navigation;
 - reversal, deletion, or other project mutation;
 - a web view or custom renderer.
+
+## Implementation record
+
+`show_changed_clip` accepts a recorded change id and an optional durable clip
+target. It returns candidates for ambiguous changes. It refuses unsupported,
+missing, moved, stale, and unknown targets without opening another clip.
+
+The surface closes verification with one state mark. The adapter resolves the
+durable track id at invocation time and requires its new mark to match the
+verified mark. The narrow `navigation.showChangedClip` handler rechecks the
+revision, generation, project, scene epoch, content epoch, track id, row bounds,
+and clip occupancy before the first UI call. It requests the Edit layout, opens
+the launcher clip, and calls zoom-to-fit. The path changes UI focus only. It adds
+no project revision, stash entry, observation event, status update, timer, poll,
+or automatic callback.
+
+Verification passed: brain typecheck and **523/523** tests; extension Gradle
+test; context check; `git diff --check`; live handshake **134 /
+`c2aa57be11e1f47e`**. The focused live probe confirmed target selection,
+ambiguity, Edit layout, fitted content, missing-target refusal, exact record
+preservation, and complete cleanup. Review follow-up tests confirm that a project
+switch or occupied-slot replacement during the final navigation gap refuses.
+
+Retrospective: request the layout before editor focus. A same-turn layout change
+after focus can make zoom-to-fit act before the detail editor is ready. Carry the
+approved state mark through a narrow handler. Do not create a new authority mark
+after validation.
