@@ -5,6 +5,10 @@ export {
   ObservationCapacityError,
   ObservationConflictError,
   ObservationRecordError,
+  ObservationProjectNameChangedError,
+  ObservationStaleReadbackError,
+  ObservationStorageAbsentError,
+  ObservationStorageDowncastError,
   ObservationStoreUnavailableError,
   UnsupportedObservationSchemaError,
   appendObservationEntry,
@@ -15,6 +19,11 @@ export {
   instructionObservation,
   reportObservationFailureAfterProjectWrite,
 } from './record.js';
+
+export {
+  FakeObservationStore,
+  OBSERVATION_RECORD_CAPACITY_CHARS,
+} from './store.js';
 
 export type {
   ClipBlockEvent,
@@ -33,3 +42,5 @@ export type {
   ProjectWriteObservationFailure,
   RequestedScope,
 } from './record.js';
+
+export type { ObservationStore, StoredObservationRecord } from './store.js';

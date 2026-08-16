@@ -40,6 +40,7 @@
  * index-shaped is dropped when it changes.
  */
 import { LiveAdapter } from './adapters/live/adapter.js';
+import { LiveObservationStore } from './adapters/live/observation-store.js';
 import { BridgeTransport } from './adapters/live/transport.js';
 import { BridgeClient, type BridgeLike } from './client.js';
 import { compareDeployment, deployedAtMs, StaleExtensionError } from './deploy.js';
@@ -47,6 +48,7 @@ import { Executor } from './engine/index.js';
 import { Stash } from './stash/index.js';
 import type { AdapterInfo, RevisionMark } from './contract/index.js';
 import { WIRE } from './adapters/live/wiremap.js';
+import type { ObservationStore } from './observation/index.js';
 
 export interface SessionOptions {
   /**
@@ -94,6 +96,7 @@ export interface Reconnection {
 export class Session {
   readonly client: BridgeLike;
   readonly stash = new Stash();
+  readonly observations: ObservationStore;
 
   private adapter: LiveAdapter;
   private executorCache: Executor;
@@ -105,6 +108,10 @@ export class Session {
     this.client = options.client ?? new BridgeClient();
     this.adapter = this.newAdapter();
     this.executorCache = new Executor(this.adapter);
+    this.observations = new LiveObservationStore({
+      transport: new BridgeTransport(this.client),
+      projectName: async () => (await this.ready()).project,
+    });
   }
 
   private newAdapter(): LiveAdapter {

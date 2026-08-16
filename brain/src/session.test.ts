@@ -29,6 +29,7 @@ class StubBridge implements BridgeLike {
   hellos = 0;
   generation = 'gen-1';
   project = 'project-A';
+  readonly observationRecords = new Map<string, string>();
   contractVersion = CONTRACT_VERSION;
 
   async connect(): Promise<void> {
@@ -49,7 +50,7 @@ class StubBridge implements BridgeLike {
   /** When the extension says it started. Older than `deployedAt` means stale. */
   initEpochMs = 2_000;
 
-  async request(method: string): Promise<unknown> {
+  async request(method: string, params?: Record<string, unknown>): Promise<unknown> {
     switch (method) {
       case WIRE.rigStats:
         return { initEpochMs: this.initEpochMs };
@@ -82,6 +83,21 @@ class StubBridge implements BridgeLike {
           sceneCount: 0,
           project: this.project,
           contentEvents: [],
+        };
+      case WIRE.observationRead:
+        return {
+          available: true,
+          capacityChars: 262144,
+          projectName: this.project,
+          value: this.observationRecords.get(this.project) ?? '',
+        };
+      case WIRE.observationReplace:
+        this.observationRecords.set(this.project, String(params?.value ?? ''));
+        return {
+          available: true,
+          accepted: true,
+          capacityChars: 262144,
+          projectName: this.project,
         };
       default:
         return {};
@@ -253,4 +269,21 @@ test('N-stash: the stash SURVIVES a restart — it records what we did, not wher
   // it here would instead make D19's reversal unaskable for work that really
   // happened — losing the record to protect against a stale index.
   assert.equal(session.stash, stash);
+});
+
+test('N-observation: the per-project store is separate from the adapter and stash', async () => {
+  const bridge = new StubBridge();
+  const session = sessionOn(bridge);
+  const store = session.observations;
+
+  assert.equal((await store.read()).value, '');
+  assert.equal((await store.replace('project A')).value, 'project A');
+  bridge.project = 'project-B';
+  assert.equal((await store.read()).value, '');
+  await store.replace('project B');
+  bridge.project = 'project-A';
+  assert.equal((await store.read()).value, 'project A');
+  assert.equal(session.observations, store);
+  assert.notEqual(store, session.bitwig);
+  assert.notEqual(store, session.stash);
 });

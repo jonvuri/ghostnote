@@ -44,6 +44,8 @@ export interface Golden {
   addedInE22Probe?: string[];
   /** Session 3f product methods added after the E22 fork path was retired. */
   addedInSession3f?: string[];
+  /** Session 3g-b product access to the hidden per-project record. */
+  addedInSession3gB?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

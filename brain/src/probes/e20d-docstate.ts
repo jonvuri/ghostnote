@@ -1,6 +1,10 @@
 /**
  * E20d — how much JSON will `getDocumentState()` actually hold?
  *
+ * RETIRED for the product extension. Session 3g-b removed the `recordChars`
+ * sweep knob and assigned the setting to the production observation record.
+ * This probe refuses before a record read or write when that knob is absent.
+ *
  * ⚠⚠ **D18d's branch-event record lands there, and the capacity has never been
  * measured.** E14 proved document settings PERSIST — String and Enum settings
  * survive a save and a full Bitwig restart, scoped per project (A3/A4) — and said
@@ -103,6 +107,15 @@ if (!['sweep', 'verify', 'hidden'].includes(mode)) {
 await client.connect();
 const stats = (await req('rig.stats')) as Stats;
 const declared = stats.config.recordChars;
+
+if (!Number.isInteger(declared) || declared < 1) {
+  console.error([
+    'REFUSING: E20d is a retired capacity probe.',
+    'The current extension owns the record setting as production observation data.',
+    'Use `npm run probe:3g-persistence` for a preserving transport check.',
+  ].join('\n'));
+  process.exit(2);
+}
 
 if (mode === 'verify') {
   // --- ceiling 3: did it come back OFF DISK? ---------------------------------

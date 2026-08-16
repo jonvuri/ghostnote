@@ -169,6 +169,10 @@ export const WIRE = {
   batchRun: 'batch.run',
   revisionGet: 'revision.get',
 
+  /** Exact opaque access to the hidden per-project observation setting. */
+  observationRead: 'observation.read',
+  observationReplace: 'observation.replace',
+
   notify: 'notify',
 } as const;
 

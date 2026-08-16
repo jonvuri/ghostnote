@@ -4,7 +4,7 @@ kind: plan
 state: active
 updated: 2026-08-15
 parent: ../ROADMAP.md
-active_session: 3g-b-persistence.md
+active_session: 3g-c-description-freeze.md
 ---
 
 # Phase 1 — write engine and managed takes
@@ -39,8 +39,9 @@ three-way dispatch classifier is retired.
    - ~~[3g-a — observation contract and capture
      protocol](3g-a-observation-contract.md)~~ — done; strict schema-v1 record,
      canonical codec, capture protocol and failure report verified offline
-   - [3g-b — per-project persistence transport](3g-b-persistence.md) — active
-   - [3g-c — v1 description cohort freeze](3g-c-description-freeze.md)
+   - ~~[3g-b — per-project persistence transport](3g-b-persistence.md)~~ — done;
+     hidden project store, safe legacy probe, and exact readback verified live
+   - [3g-c — v1 description cohort freeze](3g-c-description-freeze.md) — active
    - [3g-d — production event instrumentation](3g-d-instrumentation.md)
    - [3g-e — reporting and live closure](3g-e-reporting.md)
 4. [4 — control layer](4-control-layer.md)

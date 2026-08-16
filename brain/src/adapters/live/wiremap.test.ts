@@ -69,7 +69,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
     [...golden.addedInSession1, ...golden.addedInSession2,
       ...(golden.addedInE16 ?? []), ...(golden.addedInE20 ?? []),
       ...(golden.addedInSession3eProbe ?? []), ...(golden.addedInE22Probe ?? []),
-      ...(golden.addedInSession3f ?? [])].sort());
+      ...(golden.addedInSession3f ?? []), ...(golden.addedInSession3gB ?? [])].sort());
 });
 
 test('E16: the branch probe surface is probe surface, and the contract cannot reach it', () => {
@@ -349,6 +349,27 @@ test('3f: the extension checks the expected durable id immediately before the pr
   assert.match(source,
     /String actual = track\.channelId\(\)\.get\(\);[\s\S]{0,200}!expected\.equals\(actual\)/,
     'the guard compares the same-callback observable channel id');
+});
+
+test('3g-b: only the dedicated observation record methods are product-reachable', () => {
+  const expected = ['observation.read', 'observation.replace'];
+  assert.deepEqual(golden.addedInSession3gB ?? [], expected);
+  assert.deepEqual(expected.filter((method) => !WIRE_METHODS_USED.includes(method)), []);
+  assert.ok(!WIRE_METHODS_USED.includes('ui.get'), 'the generic read stays probe-only');
+  assert.ok(!WIRE_METHODS_USED.includes('ui.set'), 'the generic write stays probe-only');
+});
+
+test('3g-b: the retired E20d probe refuses before it can touch the product record', () => {
+  const source = readFileSync(
+    join(process.cwd(), 'src', 'probes', 'e20d-docstate.ts'),
+    'utf8',
+  );
+  const configRead = source.indexOf('const declared = stats.config.recordChars;');
+  const refusal = source.indexOf('if (!Number.isInteger(declared) || declared < 1)');
+  const firstMode = source.indexOf("if (mode === 'verify')");
+  assert.ok(configRead >= 0 && refusal > configRead && firstMode > refusal,
+    'the missing legacy knob must stop every probe mode before record access');
+  assert.match(source, /Use `npm run probe:3g-persistence`/);
 });
 
 test('W-hash: the golden hash matches its own method list', () => {

@@ -102,11 +102,12 @@ public final class UiPanel {
     // --- row C: pre-allocated slots, shown and hidden at runtime --------------
     public final SettableStringValue[] slotSettings;
 
-    // --- E20d/D18d: how much JSON a document-state setting will hold, HIDDEN --
+    // --- D18f: one hidden per-project observation record ---------------------
+    /** E20d proved this exact allocation, including save and restart. */
+    public static final int OBSERVATION_RECORD_CHARS = 262144;
     /**
-     * ⚠⚠ D18d, revised 2026-08-09 (`FINDINGS.md` E20d): null unless {@link
-     * RigConfig#recordChars} is nonzero AND the {@link Setting} downcast is
-     * available — see {@link #recordUnavailable} for the second case. A
+     * Null unless the {@link Setting} downcast is available. See {@link
+     * #recordUnavailable}. A
      * 262144-char field DRAWN in the panel hard-locked Bitwig; hiding it at
      * construction (below) is what makes it safe to create at all, so a
      * setting this constructor cannot hide is never created in the first
@@ -117,11 +118,7 @@ public final class UiPanel {
      *  whenever {@link #recordSetting} is null, for either reason. */
     public final int recordChars;
     /**
-     * Set only when {@link RigConfig#recordChars} asked for a record but it
-     * was refused because it could not be hidden — distinct from "recordChars
-     * is 0", which is the ordinary unswept default and carries no error at
-     * all (rule 13's lesson: "the knob is zero" and "creation failed" are
-     * different facts and must be reported separately, per E17).
+     * Set when product storage was refused because it could not be hidden.
      */
     public final String recordUnavailable;
     public String recordValue = "";
@@ -189,14 +186,7 @@ public final class UiPanel {
                 "Slot " + (i + 1), CAT_SLOTS, 32, "");
         }
 
-        // ⚠⚠ E20d. D18d's branch record lands in `getDocumentState()`, and how much
-        // JSON that holds has never been measured — E14-A3 proved settings survive
-        // a full restart and said nothing about SIZE. `getStringSetting` takes a
-        // declared char count whose enforcement is undocumented: it may truncate,
-        // refuse, or be advisory. The sweep writes a payload of exactly this length
-        // and compares the readback byte for byte.
-        //
-        // ⚠⚠ D18d, revised 2026-08-09: capacity was never the constraint — the
+        // ⚠⚠ E20d: capacity was never the constraint. The
         // field is DRAWN, and drawing it at 262144 chars hard-locked Bitwig (force
         // quit required), with lag reported from as low as 1024 chars. The setting
         // must therefore be HIDDEN, and `hide()` only exists behind the
@@ -211,18 +201,18 @@ public final class UiPanel {
         // measured, so a cast that would fail is caught on an object that already
         // exists (cheap to discard) rather than on the hazardous one itself.
         //
-        // ⚠ Created only when asked for. Rule 13 makes it init-only either way, so
-        // the knob is read here and nowhere else.
-        int requestedChars = Math.max(0, config.recordChars);
-        if (requestedChars > 0 && asSetting(statusText) == null) {
+        // Product storage has one measured allocation. It is created only here,
+        // during init. There is no runtime creation route.
+        int requestedChars = OBSERVATION_RECORD_CHARS;
+        if (asSetting(statusText) == null) {
             recordSetting = null;
             recordChars = 0;
             recordUnavailable = "Setting downcast unavailable (see UiPanel#asSetting); "
                 + "refusing to create a " + requestedChars + "-char record field that "
                 + "could not be hidden — a visible field this size hard-locks Bitwig (E20d)";
-        } else if (requestedChars > 0) {
+        } else {
             SettableStringValue created = documentState.getStringSetting(
-                "Branch record", CAT_RECORD, requestedChars, "");
+                "Observation record", CAT_RECORD, requestedChars, "");
             // ⚠ Re-checked on `created` itself rather than trusted from the proxy
             // above — never a blind cast, same discipline `asSetting`'s own javadoc
             // states. The two calls share an implementation class in practice, but
@@ -233,7 +223,7 @@ public final class UiPanel {
                 recordSetting = null;
                 recordChars = 0;
                 recordUnavailable = "Setting downcast worked for \"Last change\" but not for "
-                    + "\"Branch record\" itself; refusing a " + requestedChars + "-char "
+                    + "\"Observation record\" itself; refusing a " + requestedChars + "-char "
                     + "record field that could not be hidden — a visible field this size "
                     + "hard-locks Bitwig (E20d). ⚠ The field was already created and is "
                     + "now abandoned, undismissable through this API; it will not be wired "
@@ -253,10 +243,6 @@ public final class UiPanel {
                 recordChars = requestedChars;
                 recordUnavailable = null;
             }
-        } else {
-            recordSetting = null;
-            recordChars = 0;
-            recordUnavailable = null;
         }
 
         // Row F. ⚠ NOT one of the setShouldShow* methods: those govern
@@ -299,8 +285,7 @@ public final class UiPanel {
                     // E17 before handle status was reported separately from value.
                     String reason = recordUnavailable != null
                         ? recordUnavailable
-                        : "recordChars is 0 in ~/.ghostnote/rig.json, so it was never created "
-                          + "(settings are init-only, standing rule 13)";
+                        : "the observation record was not created during init";
                     throw new IllegalArgumentException("no record setting: " + reason);
                 }
                 return recordSetting;

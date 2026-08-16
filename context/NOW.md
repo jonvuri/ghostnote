@@ -4,13 +4,13 @@ kind: status
 state: active
 updated: 2026-08-15
 phase: phase-1
-session: phase-1-session-3g-b
+session: phase-1-session-3g-c
 ---
 
 # Now
 
-Phase 1 is **ready to begin session 3g-b**. Session 3g-a defined and verified the
-observation record before any storage or production instrumentation change.
+Phase 1 is **ready to begin session 3g-c**. Sessions 3g-a and 3g-b defined the
+observation record and verified its per-project persistence transport.
 
 ## Baseline
 
@@ -26,7 +26,7 @@ observation record before any storage or production instrumentation change.
   `channelId` is only a within-turn creation witness.
 - Only `chain.relocate` may route nested devices. Every other nested-device write
   remains behind `assertDevicesRoutable`.
-- The wire golden remains 147 methods / `7f212c48cd3dab75`.
+- The wire golden is 149 methods / `bd01617c718f5c50`.
 
 ## Session 3f-i — complete 2026-08-15, verified live
 
@@ -72,16 +72,41 @@ Brain typecheck and **467/467** offline tests pass, including **10/10** focused
 observation tests. Context check and `git diff --check` pass. No live Bitwig run
 was required.
 
-## Session 3g-b — next
+## Session 3g-b — complete 2026-08-15, verified live
 
-Implement the per-project persistence transport in
-[3g-b-persistence.md](plan/phase-1/3g-b-persistence.md). Keep the extension value
-opaque. The brain owns schema validation and canonical JSON.
+The extension now creates one hidden 262144-character observation setting during
+`init()`. Dedicated product methods read and replace its opaque string. Generic
+UI setting methods remain probe-only. The brain owns canonical JSON and schema
+validation through a separate `Session.observations` store. It polls bounded
+exact readback and reports absence, downcast refusal, overflow, stale readback,
+and detected project-name changes separately. Bitwig API 25 exposes no stable
+project id, so same-name tab switches remain indistinguishable. `DocumentState`
+still scopes the value per project. The retired E20d capacity probe now refuses
+before it can replace production observation data.
 
-The parent [3g program](plan/phase-1/3g-record.md) then runs the v1 description
-freeze, production instrumentation, and live reporting as independent sessions.
+Brain typecheck and **478/478** offline tests pass, including **18/18** focused
+observation tests. Extension Gradle test, context check, and `git diff --check`
+pass. Live, exact empty, populated, and Unicode values round-tripped; overflow
+did not replace the prior value. A marker survived save, controller reload,
+project switching, and full application restart. Another project did not reuse
+it. Cleanup removed the marker and the two reloaded `gn-conf-*` fixtures. The
+project is again at its 10-track baseline with Master visible. The operator
+confirmed that the observation row is absent from the settings pane.
+
+The review fix makes the E20d capacity probe refuse before record access and
+names the lossy foreground-project guard accurately. API 25 source confirms
+that it exposes no stable project id. The reloaded build passed the live hello
+and preserving persistence smoke. Empty, populated, Unicode, bounded readback,
+and overflow refusal passed, and the original record was restored exactly.
+
+## Session 3g-c — next
+
+Freeze the exact v1 public description cohort in
+[3g-c-description-freeze.md](plan/phase-1/3g-c-description-freeze.md). Keep the
+3f-i tool identities, privilege classes, input identities, and emitted contract
+operations unchanged.
 
 ## Planning retrospective
 
-No instruction change is needed. Reading the later 3g briefs with 3g-a made the
-identity and failure seams clear before code was written.
+Before a probe setting becomes product storage, audit every retained probe that
+can write it. State lossy host guards as lossy; do not call a name an identity.

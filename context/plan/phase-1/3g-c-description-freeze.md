@@ -1,9 +1,9 @@
 ---
 title: Phase 1, session 3g-c — v1 description cohort freeze
 kind: plan
-state: planned
-status: not started; depends on the 3g-a version field. It is mechanically
-        independent of 3g-b storage.
+state: active
+status: READY 2026-08-15. The schema-v1 record and reviewed per-project
+        persistence transport are complete. This session freezes the first cohort.
 updated: 2026-08-15
 parent: 3g-record.md
 prev: 3g-b-persistence.md

@@ -180,6 +180,7 @@
     "probe:3e-production": "tsx src/probes/phase3e-production.ts",
     "probe:3f-production": "tsx src/probes/phase3f-production.ts",
     "probe:3f-collapse-audio": "tsx src/probes/phase3f-collapse-audio.ts",
+    "probe:3g-persistence": "tsx src/probes/phase3g-persistence.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

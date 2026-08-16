@@ -15,8 +15,8 @@
   ],
   "extractedAt": "2026-08-15",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 147,
-  "methodsHash": "7f212c48cd3dab75",
+  "count": 149,
+  "methodsHash": "bd01617c718f5c50",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -58,6 +58,8 @@
     "layer.setMixer",
     "layer.setName",
     "layer.soloToggle",
+    "observation.read",
+    "observation.replace",
     "rig.methods",
     "slot.duplicateClip",
     "slot.epoch",
@@ -202,6 +204,8 @@
     "layer.setName",
     "layer.soloToggle",
     "notify",
+    "observation.read",
+    "observation.replace",
     "param.list",
     "param.modulated",
     "param.set",
@@ -397,5 +401,9 @@
     "chain.duplicate",
     "chain.select",
     "chain.setName"
+  ],
+  "addedInSession3gB": [
+    "observation.read",
+    "observation.replace"
   ]
 }

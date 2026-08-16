@@ -129,6 +129,34 @@ export class ObservationStoreUnavailableError extends ObservationRecordError {
   }
 }
 
+export class ObservationStorageAbsentError extends ObservationRecordError {}
+
+export class ObservationStorageDowncastError extends ObservationRecordError {}
+
+export class ObservationStaleReadbackError extends ObservationRecordError {
+  constructor(
+    readonly expected: string,
+    readonly observed: string,
+    readonly attempts: number,
+  ) {
+    super(
+      `the observation replacement was not visible after ${attempts} readback attempts. `
+      + 'The write acknowledgement was not treated as proof.',
+    );
+  }
+}
+
+/** A lossy guard detected that the foreground project name changed. */
+export class ObservationProjectNameChangedError extends ObservationRecordError {
+  constructor(readonly before: string, readonly after: string) {
+    super(
+      `the foreground project name changed from ${JSON.stringify(before)} to `
+      + `${JSON.stringify(after)} during the observation store operation. `
+      + 'No result was reported as stored.',
+    );
+  }
+}
+
 export class ObservationConflictError extends ObservationRecordError {}
 
 const identifier = z.string().min(1).max(256);
@@ -386,6 +414,10 @@ export type ObservationFailure =
   | { readonly kind: 'unsupported-schema'; readonly message: string }
   | { readonly kind: 'unavailable-store'; readonly message: string }
   | { readonly kind: 'capacity-exhaustion'; readonly message: string }
+  | { readonly kind: 'storage-absent'; readonly message: string }
+  | { readonly kind: 'storage-downcast-refused'; readonly message: string }
+  | { readonly kind: 'stale-readback'; readonly message: string }
+  | { readonly kind: 'project-name-changed'; readonly message: string }
   | { readonly kind: 'record-update-failed'; readonly message: string };
 
 export interface ProjectWriteObservationFailure<Result> {
@@ -417,6 +449,14 @@ function observationFailure(error: unknown): ObservationFailure {
   }
   if (error instanceof ObservationCapacityError) {
     return { kind: 'capacity-exhaustion', message };
+  }
+  if (error instanceof ObservationStorageAbsentError) return { kind: 'storage-absent', message };
+  if (error instanceof ObservationStorageDowncastError) {
+    return { kind: 'storage-downcast-refused', message };
+  }
+  if (error instanceof ObservationStaleReadbackError) return { kind: 'stale-readback', message };
+  if (error instanceof ObservationProjectNameChangedError) {
+    return { kind: 'project-name-changed', message };
   }
   return { kind: 'record-update-failed', message };
 }

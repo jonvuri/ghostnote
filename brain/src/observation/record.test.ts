@@ -5,6 +5,10 @@ import {
   MalformedObservationRecordError,
   ObservationCapacityError,
   ObservationStoreUnavailableError,
+  ObservationProjectNameChangedError,
+  ObservationStaleReadbackError,
+  ObservationStorageAbsentError,
+  ObservationStorageDowncastError,
   UnsupportedObservationSchemaError,
   appendObservationEntry,
   decodeObservationRecord,
@@ -249,4 +253,17 @@ test('a record failure after a project write reports both facts', () => {
   });
   assert.equal(report.observationUpdate.succeeded, false);
   assert.equal(report.observationUpdate.error.kind, 'unavailable-store');
+});
+
+test('persistence transport failures keep distinct public kinds', () => {
+  const cases = [
+    [new ObservationStorageAbsentError('absent'), 'storage-absent'],
+    [new ObservationStorageDowncastError('refused'), 'storage-downcast-refused'],
+    [new ObservationStaleReadbackError('new', 'old', 4), 'stale-readback'],
+    [new ObservationProjectNameChangedError('A', 'B'), 'project-name-changed'],
+  ] as const;
+  for (const [error, kind] of cases) {
+    const report = reportObservationFailureAfterProjectWrite({ applied: true }, error);
+    assert.equal(report.observationUpdate.error.kind, kind);
+  }
 });

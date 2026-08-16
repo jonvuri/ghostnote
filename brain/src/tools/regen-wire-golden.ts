@@ -38,19 +38,20 @@ const brandNew = methods.filter((m) => !golden.methods.includes(m));
 //
 // ⚠ E16 joined them when session 3b opened: it is finished, and its list is the
 // record of what the branching mini-spike put on the wire. E20, the session-3e
-// probe, and E22 are frozen too. New product methods now accumulate in session
-// 3f's bucket; the E22 regression route must never absorb later product work.
+// probe, E22, and session 3f are frozen too. New product methods now accumulate
+// in session 3g-b's bucket.
 const addedInSession1 = golden.addedInSession1 ?? ['contract.hello', 'rig.methods'];
 const addedInSession2 = golden.addedInSession2 ?? [];
 const addedInE16 = golden.addedInE16 ?? [];
 const addedInE20 = golden.addedInE20 ?? [];
 const addedInSession3eProbe = golden.addedInSession3eProbe ?? [];
 const addedInE22Probe = golden.addedInE22Probe ?? [];
+const addedInSession3f = golden.addedInSession3f ?? [];
 const earlier = new Set([
   ...addedInSession1, ...addedInSession2, ...addedInE16, ...addedInE20,
-  ...addedInSession3eProbe, ...addedInE22Probe,
+  ...addedInSession3eProbe, ...addedInE22Probe, ...addedInSession3f,
 ]);
-const addedInSession3f = added.filter((m) => !earlier.has(m)).sort();
+const addedInSession3gB = added.filter((m) => !earlier.has(m)).sort();
 
 const next = {
   ...golden,
@@ -66,6 +67,7 @@ const next = {
   addedInSession3eProbe,
   addedInE22Probe,
   addedInSession3f,
+  addedInSession3gB,
   methods,
 };
 
