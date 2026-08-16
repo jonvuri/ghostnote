@@ -4,7 +4,7 @@ kind: plan
 state: active
 updated: 2026-08-16
 parent: ../ROADMAP.md
-active_session: 4a-status-surface.md
+active_session: 4b-change-navigation.md
 ---
 
 # Phase 1 — write engine and managed takes
@@ -48,8 +48,12 @@ three-way dispatch classifier is retired.
    - ~~[3g-e — reporting and live closure](3g-e-reporting.md)~~ — done; lossless
      raw view, descriptive cross-tab, restart survival, visibility, and exact
      cleanup verified live
-4. [4 — Bitwig status and change navigation](4-control-layer.md) — ready
-   - [4a — status surface and panel cleanup](4a-status-surface.md) — ready
+4. [4 — Bitwig status and change navigation](4-control-layer.md) — active
+   - ~~[4a — status surface and panel cleanup](4a-status-surface.md)~~ — done;
+     reduced pane, truthful status, edit repair, and restart persistence verified
+     live
+   - ~~[4a review follow-up](4a-review-follow-up.md)~~ — done; probe cleanup is
+     failure-safe and each status update is bound to its write project
    - [4b — navigation to a recorded clip change](4b-change-navigation.md) — planned
 5. [5 — live proving](5-proving.md)
 6. [6 — async completion](6-async.md), optional

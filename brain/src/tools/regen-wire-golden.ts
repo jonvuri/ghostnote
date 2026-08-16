@@ -47,11 +47,12 @@ const addedInE20 = golden.addedInE20 ?? [];
 const addedInSession3eProbe = golden.addedInSession3eProbe ?? [];
 const addedInE22Probe = golden.addedInE22Probe ?? [];
 const addedInSession3f = golden.addedInSession3f ?? [];
+const addedInSession3gB = golden.addedInSession3gB ?? [];
 const earlier = new Set([
   ...addedInSession1, ...addedInSession2, ...addedInE16, ...addedInE20,
-  ...addedInSession3eProbe, ...addedInE22Probe, ...addedInSession3f,
+  ...addedInSession3eProbe, ...addedInE22Probe, ...addedInSession3f, ...addedInSession3gB,
 ]);
-const addedInSession3gB = added.filter((m) => !earlier.has(m)).sort();
+const addedInSession4a = added.filter((m) => !earlier.has(m)).sort();
 
 const next = {
   ...golden,
@@ -68,6 +69,7 @@ const next = {
   addedInE22Probe,
   addedInSession3f,
   addedInSession3gB,
+  addedInSession4a,
   methods,
 };
 

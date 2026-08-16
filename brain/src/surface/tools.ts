@@ -72,7 +72,8 @@ import {
 } from '../observation/index.js';
 import { selectClip, selectTrack, type Slice } from '../stash/index.js';
 import { describeAddress, receiptOf, refusalOf, reversalReport } from './report.js';
-import type { Workspace } from './workspace.js';
+import { captureWorkspaceChanges, type Workspace } from './workspace.js';
+import type { StatusCategory } from './status.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -98,6 +99,8 @@ export interface ToolSpec {
   readonly emits: readonly OpKind[];
   /** Confirmed result type, if this tool can create one observation row. */
   readonly observation?: ObservationOutcome;
+  /** Product category shown after a confirmed, non-empty change. */
+  readonly status?: readonly StatusCategory[];
   run(workspace: Workspace, args: never): Promise<unknown>;
 }
 
@@ -152,6 +155,7 @@ function tool<S extends z.ZodRawShape>(spec: {
   inputSchema: S;
   emits?: readonly OpKind[];
   observation?: ObservationOutcome;
+  status?: readonly StatusCategory[];
   run: (workspace: Workspace, args: z.infer<z.ZodObject<S>>) => Promise<unknown>;
 }): ToolSpec {
   return { emits: [], ...spec } as unknown as ToolSpec;
@@ -817,6 +821,7 @@ export const TOOLS: readonly ToolSpec[] = [
     },
     emits: ['clip.launchSettings', 'clip.duplicate'],
     observation: 'clip-block',
+    status: ['clip-alternate'],
     async run(workspace, args) {
       return writing(async () => {
         const at = await workspace.mark();
@@ -1307,6 +1312,7 @@ export const TOOLS: readonly ToolSpec[] = [
     },
     emits: ['track.duplicate', 'track.rename'],
     observation: 'copy-track',
+    status: ['track-copy'],
     async run(workspace, args) {
       return writing(async () => {
         const at = await workspace.mark();
@@ -1529,6 +1535,7 @@ export const TOOLS: readonly ToolSpec[] = [
     },
     emits: ['device.insert', 'chain.rename', 'chain.create'],
     observation: 'device-alternate',
+    status: ['device-alternate'],
     async run(workspace, args) {
       return writing(async () => {
         const blankAt = args.names.findIndex((name) => name.trim().length === 0);
@@ -1711,6 +1718,7 @@ export const TOOLS: readonly ToolSpec[] = [
       mode: z.enum(['move', 'copy']),
     },
     emits: ['chain.relocate'],
+    status: ['device-alternate'],
     async run(workspace, args) {
       return writing(async () => {
         if (new Set(args.sourceDevicePositions).size !== args.sourceDevicePositions.length) {
@@ -1788,6 +1796,7 @@ export const TOOLS: readonly ToolSpec[] = [
       alternateName: alternateName.describe('Exact name of the device alternate to solo exclusively.'),
     },
     emits: ['chain.activate'],
+    status: ['device-alternate'],
     async run(workspace, args) {
       return writing(async () => {
         const container = deviceAt(trackAt(args.trackId), args.containerPosition);
@@ -1844,6 +1853,7 @@ export const TOOLS: readonly ToolSpec[] = [
     // our own work back is not destruction, and the boundary above is what makes
     // that true rather than merely claimed.
     emits: ['clip.create', 'clip.delete', 'note.clear', 'note.write', 'track.rename', 'param.set', 'device.delete'],
+    status: ['reversal'],
     async run(workspace, args) {
       return writing(async () => {
         const slice = sliceFor(workspace, args.changeId, args.scope);
@@ -1929,6 +1939,7 @@ export const TOOLS: readonly ToolSpec[] = [
       'device.insert', 'chain.rename', 'chain.create', 'chain.relocate',
       'chain.activate', 'device.delete', 'device.relocate',
     ],
+    status: ['device-alternate'],
     async run(workspace, args) {
       return writing(async () => {
         const same = (left: unknown, right: unknown) =>
@@ -2304,6 +2315,7 @@ export const TOOLS: readonly ToolSpec[] = [
       alternateName: alternateName.describe('Exact durable name of the one device alternate to keep.'),
     },
     emits: ['chain.relocate', 'device.delete', 'device.relocate'],
+    status: ['device-alternate'],
     async run(workspace, args) {
       return writing(async () => {
         const track = trackAt(args.trackId);
@@ -2793,21 +2805,65 @@ async function executeTool(
   const execution: ObservationExecution | undefined = spec.observation === undefined
     ? undefined
     : workspace.observations.execution();
-  const result = await spec.run(workspace, args as never);
-  if (spec.observation === undefined || execution === undefined) return result;
-  const confirmed = confirmedToolResult(spec.observation, args, result);
-  if (confirmed === undefined) return result;
-  try {
-    const resultId = await workspace.observations.recordResult(confirmed, execution);
-    return {
-      ...object(result),
-      ...(spec.observation === 'copy-track'
-        ? { ordinaryUseId: resultId }
-        : { managedEventId: resultId }),
-    };
-  } catch (error) {
-    return reportObservationFailureAfterProjectWrite(result, error);
+  const captured = await captureWorkspaceChanges(
+    workspace,
+    async (scoped) => spec.run(scoped, args as never),
+  );
+  const { result } = captured;
+  const confirmed = spec.observation === undefined
+    ? undefined
+    : confirmedToolResult(spec.observation, args, result);
+
+  let reported = result;
+  if (spec.observation !== undefined && execution !== undefined && confirmed !== undefined) {
+    try {
+      const resultId = await workspace.observations.recordResult(confirmed, execution);
+      reported = {
+        ...object(result),
+        ...(spec.observation === 'copy-track'
+          ? { ordinaryUseId: resultId }
+          : { managedEventId: resultId }),
+      };
+    } catch (error) {
+      reported = reportObservationFailureAfterProjectWrite(result, error);
+    }
   }
+
+  const changed = captured.changes
+    .filter((change) => change.take.report.applied
+      && change.take.receipt.stages.some(
+        (stage) => stage.applied && stage.ops.some((op) => op.ok),
+      ))
+    .sort((left, right) => right.seq - left.seq)[0];
+  // A semantic status needs its semantic confirmation. This prevents a partial
+  // container insertion from being reported as a completed alternate.
+  const statusConfirmed = spec.observation === undefined || confirmed !== undefined;
+  const resultApplied = object(result)?.['applied'] === true;
+  if (changed !== undefined && statusConfirmed && resultApplied) {
+    try {
+      await workspace.status.publish({
+        categories: spec.status ?? ['change'],
+        changeId: changed.take.id,
+        seq: changed.seq,
+        target: {
+          generation: changed.take.at.generation,
+          project: changed.take.at.project,
+        },
+        ...(execution?.instructionId === undefined
+          ? {}
+          : { groupKey: execution.correlationId }),
+      });
+    } catch (error) {
+      return {
+        ...object(reported),
+        statusUpdate: {
+          succeeded: false,
+          error: error instanceof Error ? error.message : String(error),
+        },
+      };
+    }
+  }
+  return reported;
 }
 
 /**

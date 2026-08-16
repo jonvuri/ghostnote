@@ -44,14 +44,6 @@ public class RigConfig {
     public int paramHandles = 16; // typed createParameter handles (E4)
     public boolean directObservers = true; // DirectParameter observers (E4b)
     /**
-     * E14 row C: pre-allocated take slots in the Studio I/O panel.
-     *
-     * Tunable because the question IS the number — "how many settings before the
-     * panel is unusable" has no answer in any javadoc, so it gets swept the way
-     * E5 swept bank sizes: edit rig.json, touch the deployed extension, look.
-     */
-    public int uiSlots = 16;
-    /**
      * ⚠ E16: what the flat track bank is allowed to SEE.
      *
      * `TrackBankContentFilter`, one of `TOP_LEVEL_CHANNELS`,
@@ -95,7 +87,6 @@ public class RigConfig {
             config.deviceBank = intOr(obj, "deviceBank", config.deviceBank);
             config.fineSteps = intOr(obj, "fineSteps", config.fineSteps);
             config.paramHandles = intOr(obj, "paramHandles", config.paramHandles);
-            config.uiSlots = intOr(obj, "uiSlots", config.uiSlots);
             if (obj.has("contentFilter")) {
                 config.contentFilter = obj.get("contentFilter").getAsString();
             }
@@ -128,7 +119,6 @@ public class RigConfig {
         obj.addProperty("deviceBank", deviceBank);
         obj.addProperty("fineSteps", fineSteps);
         obj.addProperty("paramHandles", paramHandles);
-        obj.addProperty("uiSlots", uiSlots);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);
         obj.addProperty("stamp", stamp);

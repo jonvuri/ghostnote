@@ -27,6 +27,8 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
 import { Session } from './session.js';
+import { BridgeTransport } from './adapters/live/transport.js';
+import { LiveStatusSink } from './surface/status.js';
 import { registerTools } from './surface/tools.js';
 import { workspaceOf } from './surface/workspace.js';
 
@@ -50,6 +52,13 @@ registerTools(server, workspaceOf({
   },
   stash: session.stash,
   observationStore: session.observations,
+  statusSink: new LiveStatusSink(
+    new BridgeTransport(session.client),
+    async () => {
+      const current = await session.ready();
+      return { generation: current.generation, project: current.project };
+    },
+  ),
 }));
 
 const transport = new StdioServerTransport();

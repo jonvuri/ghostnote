@@ -50,7 +50,8 @@ import {
   ANNOTATIONS, REMOVAL_OPS, TOOLS, WRITE_TOOLS_THAT_MAY_REMOVE, callTool, registerTools,
 } from './tools.js';
 import { TOOL_DESCRIPTION_VERSION } from './description-cohort.js';
-import { workspaceOf, type Workspace } from './workspace.js';
+import { captureWorkspaceChanges, workspaceOf, type Workspace } from './workspace.js';
+import { formatStatus, type StatusTarget } from './status.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 
@@ -63,6 +64,8 @@ interface Fixture {
   readonly trackB: string;
   /** Every op whose adapter call reached staging, in order — how `emits` is checked. */
   readonly sent: Op[];
+  /** Product status values in push order. */
+  readonly statuses: string[];
 }
 
 /**
@@ -80,6 +83,7 @@ interface FixtureHooks {
     call: number,
     actual: Awaited<ReturnType<FakeAdapter['devices']>>,
   ) => Awaited<ReturnType<FakeAdapter['devices']>>;
+  readonly statusPush?: (value: string, target: StatusTarget) => Promise<void>;
 }
 
 /** Two tracks, eight rows, nothing written yet. */
@@ -114,6 +118,7 @@ function fixture(
     },
   };
   const stash = new Stash({ now: () => 1 });
+  const statuses: string[] = [];
   let n = 0;
   const executor = new Executor(watched, { newId: () => `change-${++n}`, now: () => 1_000_000 });
   const workspace = workspaceOf({
@@ -123,11 +128,17 @@ function fixture(
     stash,
     observationStore,
     observationCaptureOptions: { newId: () => `observation-${++n}`, now: () => 1_000_000 },
+    statusSink: {
+      push: async (value, target) => {
+        await hooks.statusPush?.(value, target);
+        statuses.push(value);
+      },
+    },
   });
   const [a, b] = fake.model.visibleTracks();
   return {
     fake, stash, workspace, observationStore,
-    trackA: a!.channelId, trackB: b!.channelId, sent,
+    trackA: a!.channelId, trackB: b!.channelId, sent, statuses,
   };
 }
 
@@ -474,6 +485,122 @@ test('3g-e cleanup regression: several track removals run from high position to 
   assert.ok(duplicateFx.fake.model.visibleTracks().some(
     (track) => track.channelId === duplicateFx.trackA,
   ));
+});
+
+test('4a: status names track, device, clip, mixed, and reversal changes', async () => {
+  const copyFx = fixture();
+  const copied = await call(copyFx, 'copy_track', {
+    trackId: copyFx.trackA, name: 'ordinary copy',
+  });
+  const namingId = (copied['namingChange'] as { changeId: string }).changeId;
+  assert.equal(copyFx.statuses.at(-1), formatStatus(['track-copy'], namingId));
+
+  const mixedFx = fixture();
+  await call(mixedFx, 'add_clip', {
+    clips: [{ trackId: mixedFx.trackA, row: 0, lengthBeats: 4, notes: [note()] }],
+  });
+  mixedFx.statuses.length = 0;
+  const begun = await call(mixedFx, 'record_observation', {
+    operation: 'begin', requestedScope: 'mixed', rawScope: 'Change sound and clip.',
+  });
+  const device = await call(mixedFx, 'create_device_alternates', {
+    trackId: mixedFx.trackB, containerType: 'effect', names: ['clean', 'wide'],
+  });
+  assert.equal(device['creationConfirmed'], true);
+  assert.match(mixedFx.statuses.at(-1) ?? '', /^Device alternate · change-/);
+  const clip = await call(mixedFx, 'copy_clip_down', {
+    trackId: mixedFx.trackA, row: 0, quantization: '1', mode: 'continue_or_synced',
+  });
+  assert.equal(clip['creationConfirmed'], true);
+  assert.equal(
+    mixedFx.statuses.at(-1),
+    formatStatus(['device-alternate', 'clip-alternate'], clip['changeId'] as string),
+  );
+  await call(mixedFx, 'record_observation', {
+    operation: 'enrich', instructionId: begun['instructionId'], complete: true,
+  });
+
+  const revertFx = fixture();
+  const renamed = await call(revertFx, 'rename_track', {
+    tracks: [{ trackId: revertFx.trackA, name: 'renamed' }],
+  });
+  const reversed = await call(revertFx, 'revert_change', { changeId: renamed['changeId'] });
+  assert.equal(
+    revertFx.statuses.at(-1),
+    formatStatus(['reversal'], reversed['changeId'] as string),
+  );
+});
+
+test('4a: refusal and a zero-write reversal preserve the prior status', async () => {
+  const fx = fixture();
+  const copied = await call(fx, 'copy_track', { trackId: fx.trackA, name: 'copy' });
+  const prior = fx.statuses.at(-1);
+
+  const refused = await call(fx, 'create_device_alternates', {
+    trackId: fx.trackA, containerType: 'effect', names: ['same', 'same'],
+  });
+  assert.equal(refused['refused'], true);
+  assert.equal(fx.statuses.at(-1), prior);
+
+  const zero = await call(fx, 'revert_change', { changeId: copied['changeId'] });
+  assert.equal(zero['applied'], false);
+  assert.match(zero['nothingToPutBack'] as string, /nothing was written/);
+  assert.equal(fx.statuses.at(-1), prior);
+});
+
+test('4a follow-up: a project-bound status failure is returned with the tool result', async () => {
+  let target: StatusTarget | undefined;
+  const fx = fixture({
+    statusPush: async (_value, pushedTarget) => {
+      target = pushedTarget;
+      throw new Error('status target changed from Project A to Project B');
+    },
+  });
+  const expectedTarget = await fx.fake.revision();
+  const renamed = await call(fx, 'rename_track', {
+    tracks: [{ trackId: fx.trackA, name: 'renamed without status' }],
+  });
+
+  assert.equal(renamed['applied'], true);
+  assert.deepEqual(target, {
+    generation: expectedTarget.generation,
+    project: expectedTarget.project,
+  });
+  assert.deepEqual(renamed['statusUpdate'], {
+    succeeded: false,
+    error: 'status target changed from Project A to Project B',
+  });
+  assert.deepEqual(fx.statuses, []);
+});
+
+test('4a: concurrent execution scopes capture only their own recorded changes', async () => {
+  const fx = fixture();
+  let releaseFirst!: () => void;
+  let firstRecorded!: () => void;
+  const release = new Promise<void>((resolve) => { releaseFirst = resolve; });
+  const recorded = new Promise<void>((resolve) => { firstRecorded = resolve; });
+
+  const first = captureWorkspaceChanges(fx.workspace, async (scoped) => {
+    const change = await scoped.apply([{
+      op: 'track.rename', track: trackAt(fx.trackA), name: 'first concurrent rename',
+    }]);
+    firstRecorded();
+    await release;
+    return change.take.id;
+  });
+  await recorded;
+  const second = await captureWorkspaceChanges(fx.workspace, async (scoped) => {
+    const change = await scoped.apply([{
+      op: 'track.rename', track: trackAt(fx.trackB), name: 'second concurrent rename',
+    }]);
+    return change.take.id;
+  });
+  releaseFirst();
+  const firstDone = await first;
+
+  assert.deepEqual(firstDone.changes.map((change) => change.take.id), [firstDone.result]);
+  assert.deepEqual(second.changes.map((change) => change.take.id), [second.result]);
+  assert.notEqual(firstDone.result, second.result);
 });
 
 // --- exit criterion 7: it all runs, and what it sends is what it declared ----

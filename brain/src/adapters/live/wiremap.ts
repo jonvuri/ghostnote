@@ -173,6 +173,9 @@ export const WIRE = {
   observationRead: 'observation.read',
   observationReplace: 'observation.replace',
 
+  /** One-way product update for the Last change field. */
+  statusPush: 'status.push',
+
   notify: 'notify',
 } as const;
 

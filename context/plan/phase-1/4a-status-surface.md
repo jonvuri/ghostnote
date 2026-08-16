@@ -1,13 +1,13 @@
 ---
 title: Phase 1, session 4a — status surface and panel cleanup
 kind: plan
-state: active
-status: READY 2026-08-16. Session 3g-e left the observation record hidden and
-        live-proven. This slice removes probe UI and adds product status only.
+state: complete
+status: COMPLETE 2026-08-16. Offline and focused live checks pass, including
+        save, full restart, and reopen.
 updated: 2026-08-16
 parent: 4-control-layer.md
 prev: 3g-e-reporting.md
-next: 4b-change-navigation.md
+next: 4a-review-follow-up.md
 evidence: E14 rows A–D and F–I, E14-A1, E20d; D14, D18–D20
 needs: Bitwig foregrounded, a human at the keyboard
 ---
@@ -72,3 +72,28 @@ needs: Bitwig foregrounded, a human at the keyboard
 - automatic progress notifications;
 - changes to reversal semantics or permission annotations;
 - observation reporting or description-cohort changes.
+
+## Implementation record
+
+The product panel now constructs one visible `Last change` String setting, one
+hidden product status mirror, and one hidden observation setting. It does not
+construct the E14 Signal, Enum, slot, shape, notification, hardware, or bitmap
+apparatus. The source and wire contain no generic `ui.set`, `ui.get`, or
+`ui.status` route. The product seam is the one-way `status.push` method.
+
+Status is published once after a tool returns a confirmed non-empty result. Each
+tool runs through a scoped workspace that captures only its own recorded
+changes. The newest successful captured change supplies the change id. The
+status coordinator keeps the highest session sequence visible when concurrent
+calls finish out of order. A slower result from the same mixed instruction can
+add its category without replacing the newer change id. The hidden status
+mirror separates delayed project-load callbacks from visible user edits. The
+visible setting observer restores edits from that extension-owned value.
+
+Verification passed: brain typecheck and **503/503** tests, extension Gradle
+test, context check, and `git diff --check`. The wire golden and live controller
+are 133 methods at `e4f565baa157c5a2`. The focused probe filled the hidden record
+to 262144 characters while the pane stayed responsive. The pane showed only
+`Last change`, and a user edit repaired locally. After save, full restart, and
+reopen, `Change · 4a-live-check` persisted and still repaired edits. The probe
+restored the observation record to its exact empty baseline.

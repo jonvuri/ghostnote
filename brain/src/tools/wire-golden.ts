@@ -46,6 +46,8 @@ export interface Golden {
   addedInSession3f?: string[];
   /** Session 3g-b product access to the hidden per-project record. */
   addedInSession3gB?: string[];
+  /** Session 4a product status writer. */
+  addedInSession4a?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

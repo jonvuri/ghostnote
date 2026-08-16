@@ -45,6 +45,7 @@ import type {
 import type { Executor, RunOptions } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
 import { ObservationCapture, type ObservationCaptureOptions, type ObservationStore } from '../observation/index.js';
+import { ProductStatus, type StatusSink } from './status.js';
 
 export interface WorkspaceDeps {
   /** Connected, handshaken, and talking to the extension we think we are. */
@@ -55,6 +56,7 @@ export interface WorkspaceDeps {
   readonly stash: Stash;
   readonly observationStore: ObservationStore;
   readonly observationCaptureOptions?: ObservationCaptureOptions;
+  readonly statusSink?: StatusSink;
 }
 
 export interface Workspace {
@@ -74,6 +76,8 @@ export interface Workspace {
   readonly changes: StashLog;
   /** Per-project observation capture. Tool execution wraps confirmed results. */
   readonly observations: ObservationCapture;
+  /** One-way product status. It has no read or event path. */
+  readonly status: ProductStatus;
   /**
    * ⚠ Plan putting one change back, ALWAYS against the launcher window. Shared by
    * the tool that previews a reversal and the tool that performs one, so the two
@@ -84,10 +88,34 @@ export interface Workspace {
   contentSince(since: RevisionMark): Promise<ContentDelta>;
 }
 
+export interface CapturedWorkspaceResult<T> {
+  readonly result: T;
+  /** Exact changes recorded through this execution's scoped write seam. */
+  readonly changes: readonly StashedChangeset[];
+}
+
+/** Run one tool against a workspace that records only that tool's changes. */
+export async function captureWorkspaceChanges<T>(
+  workspace: Workspace,
+  run: (scoped: Workspace) => Promise<T>,
+): Promise<CapturedWorkspaceResult<T>> {
+  const changes: StashedChangeset[] = [];
+  const scoped = Object.freeze<Workspace>({
+    ...workspace,
+    async apply(ops: readonly Op[], options?: RunOptions): Promise<StashedChangeset> {
+      const change = await workspace.apply(ops, options);
+      changes.push(change);
+      return change;
+    },
+  });
+  return { result: await run(scoped), changes };
+}
+
 export function workspaceOf(deps: WorkspaceDeps): Workspace {
   const workspace: Workspace = {
     changes: deps.stash.log,
     observations: new ObservationCapture(deps.observationStore, deps.observationCaptureOptions),
+    status: new ProductStatus(deps.statusSink),
 
     async mark(): Promise<RevisionMark> {
       await deps.ready();

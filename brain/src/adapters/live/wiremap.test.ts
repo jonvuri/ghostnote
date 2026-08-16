@@ -65,11 +65,16 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
   // ⚠ Every post-split addition must be accounted for by exactly one sitting's
   // bucket. The equality is the bookkeeping guard: a method that appears on the
   // wire without landing in a named bucket is one nobody has had to justify.
-  assert.deepEqual([...golden.addedInPhase0].sort(),
-    [...golden.addedInSession1, ...golden.addedInSession2,
+  const historical = [...golden.addedInSession1, ...golden.addedInSession2,
       ...(golden.addedInE16 ?? []), ...(golden.addedInE20 ?? []),
       ...(golden.addedInSession3eProbe ?? []), ...(golden.addedInE22Probe ?? []),
-      ...(golden.addedInSession3f ?? []), ...(golden.addedInSession3gB ?? [])].sort());
+      ...(golden.addedInSession3f ?? []), ...(golden.addedInSession3gB ?? []),
+      ...(golden.addedInSession4a ?? [])];
+  assert.deepEqual(
+    [...golden.addedInPhase0].sort(),
+    historical.filter((method) => golden.methods.includes(method)).sort(),
+    'every active post-split method belongs to a named session bucket',
+  );
 });
 
 test('E16: the branch probe surface is probe surface, and the contract cannot reach it', () => {
@@ -357,6 +362,18 @@ test('3g-b: only the dedicated observation record methods are product-reachable'
   assert.deepEqual(expected.filter((method) => !WIRE_METHODS_USED.includes(method)), []);
   assert.ok(!WIRE_METHODS_USED.includes('ui.get'), 'the generic read stays probe-only');
   assert.ok(!WIRE_METHODS_USED.includes('ui.set'), 'the generic write stays probe-only');
+});
+
+test('4a: only the narrow status writer replaces the retired UI probe wire', () => {
+  assert.deepEqual(golden.addedInSession4a ?? [], ['status.push']);
+  assert.ok(WIRE_METHODS_USED.includes('status.push'));
+  const retired = [
+    'ui.addSetting', 'ui.bitmapRender', 'ui.bitmapShow', 'ui.bitmapStatus',
+    'ui.deleteObjects', 'ui.duplicateObjects', 'ui.get', 'ui.hwLight',
+    'ui.hwRender', 'ui.hwStatus', 'ui.hwText', 'ui.notifications',
+    'ui.panelLayout', 'ui.set', 'ui.showInEditor', 'ui.status', 'ui.visibility',
+  ];
+  assert.deepEqual(retired.filter((method) => golden.methods.includes(method)), []);
 });
 
 test('3g-b: the retired E20d probe refuses before it can touch the product record', () => {

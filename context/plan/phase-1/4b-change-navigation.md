@@ -1,12 +1,12 @@
 ---
 title: Phase 1, session 4b — navigation to a recorded clip change
 kind: plan
-state: planned
-status: not started. Begins after 4a leaves the product panel and wire surface
+state: active
+status: READY 2026-08-16. Session 4a left the product panel and wire surface
         clean.
 updated: 2026-08-16
 parent: 4-control-layer.md
-prev: 4a-status-surface.md
+prev: 4a-review-follow-up.md
 next: 5-proving.md
 evidence: E14 row E, E2, E15-D; D6, D14, D19
 needs: Bitwig foregrounded, a human at the keyboard

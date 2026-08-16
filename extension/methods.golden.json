@@ -1,22 +1,21 @@
 {
   "$comment": [
-    "The ghostnote bridge wire method table — the ~82 `category.action` names the",
-    "extension dispatches. GENERATED from ProbeHandlers.dispatch BEFORE the Phase-0",
-    "handler split, and frozen as the proof that the split changed no behaviour.",
+    "The ghostnote bridge wire method table. Its pre-split fields freeze the Phase-0",
+    "handler-split baseline; `methods` records the current product and probe wire.",
     "",
     "This is the WIRE surface, not the adapter contract. The contract deliberately",
     "exposes far less (see brain/src/adapters/live/wiremap.ts); the gap is the point.",
-    "Every one of these stays reachable so the archived src/probes/*.ts regression",
-    "suite keeps running — renaming any of them breaks all 53 probes.",
+    "Closed session buckets retain retired method names as historical evidence.",
+    "The current methods list omits retired E14 UI apparatus after session 4a.",
     "",
     "Checked offline by brain/src/adapters/live/wiremap.test.ts and live by",
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-08-15",
+  "extractedAt": "2026-08-16",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 149,
-  "methodsHash": "bd01617c718f5c50",
+  "count": 133,
+  "methodsHash": "e4f565baa157c5a2",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -66,25 +65,9 @@
     "slot.launchWithOptions",
     "slot.moveTo",
     "slot.playState",
+    "status.push",
     "track.deleteViaAction",
-    "transport.play",
-    "ui.addSetting",
-    "ui.bitmapRender",
-    "ui.bitmapShow",
-    "ui.bitmapStatus",
-    "ui.deleteObjects",
-    "ui.duplicateObjects",
-    "ui.get",
-    "ui.hwLight",
-    "ui.hwRender",
-    "ui.hwStatus",
-    "ui.hwText",
-    "ui.notifications",
-    "ui.panelLayout",
-    "ui.set",
-    "ui.showInEditor",
-    "ui.status",
-    "ui.visibility"
+    "transport.play"
   ],
   "addedInSession1": [
     "contract.hello",
@@ -234,6 +217,7 @@
     "slot.playState",
     "slot.select",
     "slot.status",
+    "status.push",
     "track.create",
     "track.delete",
     "track.deleteViaAction",
@@ -242,24 +226,7 @@
     "track.setName",
     "transport.play",
     "transport.status",
-    "transport.stop",
-    "ui.addSetting",
-    "ui.bitmapRender",
-    "ui.bitmapShow",
-    "ui.bitmapStatus",
-    "ui.deleteObjects",
-    "ui.duplicateObjects",
-    "ui.get",
-    "ui.hwLight",
-    "ui.hwRender",
-    "ui.hwStatus",
-    "ui.hwText",
-    "ui.notifications",
-    "ui.panelLayout",
-    "ui.set",
-    "ui.showInEditor",
-    "ui.status",
-    "ui.visibility"
+    "transport.stop"
   ],
   "preSplitMethods": [
     "app.actions",
@@ -405,5 +372,8 @@
   "addedInSession3gB": [
     "observation.read",
     "observation.replace"
+  ],
+  "addedInSession4a": [
+    "status.push"
   ]
 }
