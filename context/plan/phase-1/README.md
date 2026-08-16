@@ -65,12 +65,15 @@ three-way dispatch classifier is retired.
      properties, measured gain inverse, and pressure refusal (E24)
    - ~~[5c — observer drag boundaries](5c-drag-boundaries.md)~~ — complete;
      cross-track identity pair and below-window limit measured (E25)
-   - [5d — concurrent editing](5d-concurrent-editing.md) — attempted twice; both
-     focused repairs are complete, so repeat the human proof next
+   - [5d — concurrent editing](5d-concurrent-editing.md) — attempted three
+     times; E30 stopped setup on an owned cleanup fingerprint mismatch
    - ~~[5d repair — concurrent selection](5d-repair-concurrent-selection.md)~~ —
      complete; eager capture, verified cursor reuse, and pan diagnosis (E27)
    - ~~[5d repair — cursor confirmation](5d-repair-cursor-confirmation.md)~~ —
      complete; pin-aware bounded confirmation and early cleanup pass (E29)
+   - [5d repair — owned cleanup
+     fingerprint](5d-repair-owned-cleanup-fingerprint.md) — preserve safe
+     cleanup across host-normalized readback (E30)
    - [5e — refusal boundaries](5e-refusal-boundaries.md) — exit criteria 3 and 5
    - [5f — managed A/B](5f-managed-ab.md) — exit criterion 4
    - [5g — full live conformance](5g-live-conformance.md) — B7 only

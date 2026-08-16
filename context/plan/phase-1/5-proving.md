@@ -2,14 +2,14 @@
 title: Phase 1, session 5 — live proving program
 kind: plan
 state: active
-status: Re-cut approved 2026-08-16. Sessions 5a through 5c and both 5d repairs
-        are complete. Run the human 5d proof again.
+status: Re-cut approved 2026-08-16. Sessions 5a through 5c and the first two 5d
+        repairs are complete. E30 requires an owned cleanup fingerprint repair.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
 next: 5a-selection.md
 scope: Phase 1 exit criteria
-evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26, E27, E28, E29 · D6, D8, D15–D20
+evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25, E26, E27, E28, E29, E30 · D6, D8, D15–D20
 needs: Bitwig foregrounded for live sessions; a human where each brief says so
 ---
 
@@ -46,6 +46,12 @@ cleanup fingerprint. The focused repair is complete. E29 confirms pin-aware
 bounded confirmation, early cleanup fingerprints, and three live cursor sweeps.
 Run the human 5d proof again.
 
+The third attempt also stopped before the human window. E30 found that the
+standing probe compares a sparse write recipe with complete host-normalized
+note readback. Both owned notes gained the same live properties, so strict
+cleanup comparison refused them. Directed exact cleanup restored the fixture.
+Run the focused owned cleanup fingerprint repair before another 5d attempt.
+
 ## The 21-property contract
 
 The old phase plan says "all 21 expression properties." D8 says "16 of 18."
@@ -69,6 +75,7 @@ Later plans must say that 20 of 21 properties are exact and pressure is refused.
 | [5d — concurrent editing](5d-concurrent-editing.md) | Pinned writes while the human edits | criterion 2 |
 | [5d repair — concurrent selection](5d-repair-concurrent-selection.md) | Stop repeated UI borrowing and diagnose one property loss | complete, E27 |
 | [5d repair — cursor confirmation](5d-repair-cursor-confirmation.md) | Retry lagging clip confirmation and preserve cleanup fingerprints | complete, E29 |
+| [5d repair — owned cleanup fingerprint](5d-repair-owned-cleanup-fingerprint.md) | Promote host-normalized readback to the exact owned fingerprint | planned, E30 |
 | [5e — refusal boundaries](5e-refusal-boundaries.md) | Stale revision and bank-window refusal | criteria 3 and 5 |
 | [5f — managed A/B](5f-managed-ab.md) | Both native A/B mechanisms and ordinary track copy | criterion 4 |
 | [5g — full live conformance](5g-live-conformance.md) | Complete load run with `C-minted` green | B7 |

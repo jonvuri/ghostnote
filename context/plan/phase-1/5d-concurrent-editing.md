@@ -2,14 +2,14 @@
 title: Phase 1, session 5d — concurrent editing
 kind: plan
 state: planned
-status: Proof attempted twice 2026-08-16. Both focused repairs are complete.
-        Run the human proof again.
+status: Proof attempted three times 2026-08-16. E30 stopped the third attempt
+        during setup. Repair owned cleanup fingerprints before another attempt.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5c-drag-boundaries.md
 next: 5e-refusal-boundaries.md
 scope: Phase 1 exit criterion 2
-evidence: E8, E23, E26, E27, E28, E29 · D6, D10, D15
+evidence: E8, E23, E26, E27, E28, E29, E30 · D6, D10, D15
 needs: Bitwig foregrounded; a human at the keyboard
 ---
 
@@ -90,8 +90,25 @@ before this proof is repeated. The repair is complete. E29 confirms bounded
 pin-aware confirmation, early cleanup fingerprints, and three clean live
 sweeps. Repeat this human proof next.
 
+## Third attempt result
+
+The third attempt stopped during the first independent fingerprint check. Both
+owned notes had the requested four base fields. Live readback also supplied
+release velocity, four enabled state flags, and recurrence. The strict complete
+record comparison rejected the sparse stored write recipes. The human prompt
+and production write window did not start.
+
+Automatic cleanup refused both mismatched fingerprints. Directed cleanup
+matched the complete live records from the failed output and deleted only the
+two owned clips. Final readback found all three claimed cells empty and restored
+the documented selection, observation, and transport baseline. E30 records the
+result.
+
+Run the focused [owned cleanup fingerprint
+repair](5d-repair-owned-cleanup-fingerprint.md) before this proof is repeated.
+
 ## Session retrospective
 
-Store owned cleanup fingerprints before a larger diagnostic read can fail. Keep
-the existing non-zero pan values because Bitwig omits an explicit zero from
+Distinguish a sparse creation recipe from the exact host-normalized readback.
+Keep the existing non-zero pan values because Bitwig omits an explicit zero from
 verbose readback. No repository instruction change is needed.

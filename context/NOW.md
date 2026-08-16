@@ -4,29 +4,29 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-1
-session: phase-1-session-5d-concurrent-editing-rerun
+session: phase-1-session-5d-repair-owned-cleanup-fingerprint
 ---
 
 # Now
 
-Run the human-assisted [5d concurrent-editing
-proof](plan/phase-1/5d-concurrent-editing.md) again. Both focused repairs are
-complete. E29 confirms bounded pin-aware cursor pointing, failure-safe owned
-cleanup, and three clean live cursor sweeps.
+Run the focused [5d owned cleanup fingerprint
+repair](plan/phase-1/5d-repair-owned-cleanup-fingerprint.md). E30 stopped the
+third human proof attempt during setup. Live readback contained host-normalized
+note properties that were absent from the sparse stored cleanup recipe.
 
 The approved [Session 5 program](plan/phase-1/5-proving.md) has nine focused
-slices. Sessions 5a through 5c and both 5d repairs are complete (E23–E25, E27,
-E29). Session 5d remains unproved after E26 and E28. Sessions 5e through 5i
-remain planned. No other Session 5 exit criterion is complete.
+slices. Sessions 5a through 5c and the first two 5d repairs are complete
+(E23–E25, E27, E29). Session 5d remains unproved after E26, E28, and E30.
+Sessions 5e through 5i remain planned. No other Session 5 exit criterion is
+complete.
 
 ## Start here
 
-1. Read E26 through E29 and the 5d concurrent-editing brief.
-2. Run `npm run probe:5d-concurrent` with Bitwig foregrounded.
-3. Move the owned drag clip and change selection as the prompt directs.
-4. Confirm pinned writes, independent readback, one borrow and restore, exact
-   revert, cleanup, and final fixture state.
-5. Record a new evidence result. Do not combine a new repair with the proof.
+1. Read E30 and the owned cleanup fingerprint repair brief.
+2. Separate the sparse creation fingerprint from the exact verified readback.
+3. Add early-match, exact-promotion, and refusal regressions.
+4. Run the focused live setup and cleanup sweep.
+5. Run all offline gates. Leave the human 5d proof for the next session.
 
 ## Baseline
 
@@ -38,9 +38,9 @@ remain planned. No other Session 5 exit criterion is complete.
 - Wire: 134 methods / `c2aa57be11e1f47e`.
 - Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
   `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
-- E29 changed no project content. Three live sweeps held revision 509, scene
-  epoch 2, and content epoch 298. Directed cleanup restored the documented
-  selection after two failed diagnostic sweeps.
+- E30 directed cleanup removed both exact probe-owned clips. Final readback held
+  revision 515, scene epoch 2, and content epoch 302. It found the three claimed
+  row-10 cells empty and restored the other documented baseline state.
 
 Confirm these track identities before a destructive live sweep:
 
@@ -59,5 +59,5 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-A point operation must own pin state. It must not depend on cursor state from an
-earlier probe. No repository instruction change is needed.
+A cleanup fingerprint must distinguish the sparse write recipe from the exact
+host-normalized readback. No repository instruction change is needed.
