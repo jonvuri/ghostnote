@@ -2,14 +2,14 @@
 title: Phase 1, session 5 — live proving program
 kind: plan
 state: active
-status: Re-cut approved 2026-08-16. Sessions 5a and 5b are complete. Sessions
-        5c–5i are planned.
+status: Re-cut approved 2026-08-16. Sessions 5a through 5c are complete.
+        Sessions 5d–5i are planned.
 updated: 2026-08-16
 parent: README.md
 prev: 4b-change-navigation.md
 next: 5a-selection.md
 scope: Phase 1 exit criteria
-evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24 · D6, D8, D15–D20
+evidence: E2, E5, E8, E15-A/E, E19, E21, E23, E24, E25 · D6, D8, D15–D20
 needs: Bitwig foregrounded for live sessions; a human where each brief says so
 ---
 
@@ -28,6 +28,10 @@ residue (E23).
 Session 5b is also complete: 20 properties are exact, gain uses the E24 inverse,
 and pressure is refused. Earlier evidence remains valid, but the remaining
 briefs must make each phase-exit claim explicit.
+
+Session 5c is complete. E25 confirms the ordered cross-track event pair by both
+durable identities. It also confirms that a below-window drag is silent and
+that the mark reports the uncovered scene dimension.
 
 ## The 21-property contract
 
@@ -48,7 +52,7 @@ Later plans must say that 20 of 21 properties are exact and pressure is refused.
 |---|---|---|
 | [5a — selection preservation](5a-selection.md) | One executor-owned selection scope | B4; complete |
 | [5b — note fidelity and gain](5b-fidelity.md) | Independent-handle round-trip and gain decision; complete, E24 | criterion 1 |
-| [5c — observer drag boundaries](5c-drag-boundaries.md) | Cross-track and below-window drag measurements | B5 |
+| [5c — observer drag boundaries](5c-drag-boundaries.md) | Cross-track and below-window drag measurements; complete, E25 | B5 |
 | [5d — concurrent editing](5d-concurrent-editing.md) | Pinned writes while the human edits | criterion 2 |
 | [5e — refusal boundaries](5e-refusal-boundaries.md) | Stale revision and bank-window refusal | criteria 3 and 5 |
 | [5f — managed A/B](5f-managed-ab.md) | Both native A/B mechanisms and ordinary track copy | criterion 4 |

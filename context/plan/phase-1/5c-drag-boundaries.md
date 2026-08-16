@@ -1,14 +1,15 @@
 ---
 title: Phase 1, session 5c — observer drag boundaries
 kind: plan
-state: planned
-status: Not started.
+state: complete
+status: Complete 2026-08-16. E25 confirms the cross-track identity pair and the
+        explicit below-window limit.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5b-fidelity.md
 next: 5d-concurrent-editing.md
 scope: Session 3 carry-in B5
-evidence: E19, E21 · D6, D16
+evidence: E19, E21, E25 · D6, D16
 needs: Bitwig foregrounded; a human at the keyboard
 ---
 
@@ -46,3 +47,27 @@ needs: Bitwig foregrounded; a human at the keyboard
 
 This is a human-assisted measurement, not an unattended regression. If either
 result contradicts the model, create a focused repair session before continuing.
+
+## Result
+
+Complete. The operator moved one owned clip from `gn-B` row 9 to `gn-lay` row
+9. The observer emitted exactly two events. The source-empty event carried the
+`gn-B` durable id. The destination-fill event carried the `gn-lay` durable id.
+The event window was complete, and the scene epoch did not move.
+
+The second arm reduced the scene window from 16 rows to 8 against the existing
+10-scene project. The operator moved an owned clip from `gn-B` row 9 to row 8.
+The content epoch did not move. The delta had no events and reported
+`uncoveredIn: 'scenes'`. After the probe restored the 16-row window, live
+readback proved the drag had occurred.
+
+The probe restored the exact prior rig configuration, reloaded the extension,
+removed both owned clips, and restored selection, `Last change`, and the empty
+observation record. E25 records the measurements. No observer-model change is
+needed.
+
+## Session retrospective
+
+Finish cleanup before closing a shared bridge client. Immediate reuse can race
+the prior socket's close event. The focused probe now uses the safe order. No
+repository instruction change is needed.

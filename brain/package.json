@@ -187,6 +187,10 @@
     "probe:4b-navigation": "tsx src/probes/phase4b-navigation.ts",
     "probe:5-selection": "tsx src/probes/phase5-selection.ts",
     "probe:5-fidelity": "tsx src/probes/phase5b-fidelity.ts",
+    "probe:5c-arm-cross": "tsx src/probes/phase5c-drag-boundaries.ts arm-cross",
+    "probe:5c-read-cross": "tsx src/probes/phase5c-drag-boundaries.ts read-cross",
+    "probe:5c-arm-below": "tsx src/probes/phase5c-drag-boundaries.ts arm-below",
+    "probe:5c-read-below": "tsx src/probes/phase5c-drag-boundaries.ts read-below",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

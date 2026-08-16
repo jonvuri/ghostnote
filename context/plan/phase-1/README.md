@@ -63,8 +63,9 @@ three-way dispatch classifier is retired.
      8/8 live with cleanup (E23)
    - ~~[5b — note fidelity and gain](5b-fidelity.md)~~ — complete; 20 exact
      properties, measured gain inverse, and pressure refusal (E24)
-   - [5c — observer drag boundaries](5c-drag-boundaries.md) — next; B5 only
-   - [5d — concurrent editing](5d-concurrent-editing.md) — exit criterion 2
+   - ~~[5c — observer drag boundaries](5c-drag-boundaries.md)~~ — complete;
+     cross-track identity pair and below-window limit measured (E25)
+   - [5d — concurrent editing](5d-concurrent-editing.md) — next; exit criterion 2
    - [5e — refusal boundaries](5e-refusal-boundaries.md) — exit criteria 3 and 5
    - [5f — managed A/B](5f-managed-ab.md) — exit criterion 4
    - [5g — full live conformance](5g-live-conformance.md) — B7 only
