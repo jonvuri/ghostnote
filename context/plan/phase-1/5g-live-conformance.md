@@ -3,13 +3,13 @@ title: Phase 1, session 5g — full live conformance
 kind: plan
 state: planned
 status: First attempt failed C-twoclips after C-minted passed under full load.
-        Run the focused 5g repair, then rerun this session.
+        E36 repairs physical cursor ownership. Rerun this session once.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5f-managed-ab.md
 next: 5h-ci.md
 scope: Session 3c carry-in B7; final live integration proof
-evidence: E15, E21, E35 · D15
+evidence: E15, E21, E35, E36 · D15
 needs: Bitwig foregrounded
 ---
 
@@ -61,5 +61,6 @@ The cleanup path removed both generated conformance tracks. Final readback
 matched all 10 durable tracks, 10 scenes, 22 occupied launcher cells, selection,
 observation data, cursor state, status, and stopped transport.
 
-Run the focused [two-clip property repair](5g-repair-two-clip-properties.md),
-then rerun this session in one complete invocation.
+The focused [two-clip property repair](5g-repair-two-clip-properties.md) is
+complete. E36 confirms independent two-clip readback and exact cleanup. Rerun
+this session in one complete invocation.

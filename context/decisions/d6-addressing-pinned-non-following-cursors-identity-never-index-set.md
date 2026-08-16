@@ -18,10 +18,12 @@ outlives the request that resolved it.**
   then `track.selectSlot(s)` — the only one of three candidates that works (E1).
   Settle is ~25ms and **verifiable by polling** `position()` + `sceneIndex()`,
   which replaces daw-mcp's blind 400ms sleep. **Amended by E29:** each point
-  attempt unpins the clip cursor, sends the complete track and slot point, and
-  checks the exact track and row. It pins and records the hold only after exact
-  confirmation. The fast path waits 25 ms. Retries wait the 144 ms structural
-  budget. Eight failed attempts refuse with `AddressUnresolvedError`.
+  attempt unpins the cursor track and clip, sends the complete track and slot
+  point, and checks the exact track and row. **Amended by E36:** it then pins
+  both handles and confirms the track, row, track pin, and clip pin in one
+  status reading before it records the hold. The fast path waits 25 ms. Retries
+  wait the 144 ms structural budget. Eight failed attempts refuse with
+  `AddressUnresolvedError`.
 - **Cursor pools are non-following BY CONSTRUCTION** (`shouldFollowSelection=false`
   at creation); pinning is belt-and-suspenders on top (E1). 3 cursors held 3
   different clips concurrently, and 20/20 write+readback cycles stayed correct
@@ -36,8 +38,11 @@ outlives the request that resolved it.**
   confirms the final restore through selection readback (E23). **Amended by
   E27:** the scope captures selection at pipeline entry. A cursor hold is reused
   across nonstructural stages only after `cursor.status` confirms the target
-  track position and scene row. Cursor eviction, device pointing, and every
-  structural operation invalidate the applicable hold.
+  track position, scene row, cursor-track pin, and cursor-clip pin. Cursor
+  eviction, device pointing, and every structural operation invalidate the
+  applicable hold. **Amended by E36:** only an active executor selection scope
+  can reuse a hold across calls. A direct adapter call clears its holds when it
+  returns.
 - ⚠ **Pointing at an EMPTY slot silently lands on the WRONG clip** and
   `cursor.status` looks healthy (E2). Create the clip first, always.
 - **Bank-window overflow is a refusal, not a knob** (E5, standing rule 5).

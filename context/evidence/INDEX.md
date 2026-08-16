@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E36 | Two-clip isolation needs track and clip pin confirmation [K] (2026-08-16) | [open](experiments/e36-two-clip-isolation-needs-track-and-clip-pin-confirmation.md) |
+| E35 | Full conformance exposes a two-clip property cross-read [K] (2026-08-16) | [open](experiments/e35-full-conformance-exposes-two-clip-property-cross-read.md) |
 | E34 | Managed native A/B and ordinary track copy stay independent [K] (2026-08-16) | [open](experiments/e34-managed-native-ab-and-ordinary-copy-stay-independent.md) |
 | E33 | Stale revision and bank-window refusals fail closed [K] (2026-08-16) | [open](experiments/e33-stale-revision-and-bank-window-refusals-fail-closed.md) |
 | E32 | Pinned writes survive human clip and track edits [K] (2026-08-16) | [open](experiments/e32-pinned-writes-survive-human-clip-and-track-edits.md) |

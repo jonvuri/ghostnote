@@ -57,11 +57,26 @@ class CursorModelTransport implements Transport {
   private readonly cursorOn = new Map<string, number>();
   /** The cursor named by the last `cursor.pointTrack`, awaiting its `slot.select`. */
   private pending: string | undefined;
+  /** Cursor ref -> whether it no longer follows launcher selection. */
+  private readonly pinned = new Map<string, boolean>();
+  /** Cursor ref -> whether its owning track no longer follows track selection. */
+  private readonly trackPinned = new Map<string, boolean>();
+  /** Pin writes that become visible only after the adapter settles. */
+  private readonly pendingPins = new Set<string>();
+  private readonly pendingTrackPins = new Set<string>();
 
   constructor(
     private readonly slots: ReadonlyMap<number, SlotModel>,
     private readonly selection = { trackIndex: -1, slotIndex: -1 },
+    private readonly delayedPins = false,
   ) {}
+
+  settlePins(): void {
+    for (const cursor of this.pendingPins) this.pinned.set(cursor, true);
+    for (const cursor of this.pendingTrackPins) this.trackPinned.set(cursor, true);
+    this.pendingPins.clear();
+    this.pendingTrackPins.clear();
+  }
 
   /** Where a given cursor ended up — for asserting the point actually happened. */
   where(cursor: string): number | undefined {
@@ -98,12 +113,47 @@ class CursorModelTransport implements Transport {
         return {};
 
       case WIRE.slotSelect: {
+        const slotIndex = params['slotIndex'] as number;
+        // E36: every cursor whose pin has not settled still follows selection.
+        for (const cursor of this.cursorOn.keys()) {
+          if (this.pinned.get(cursor) !== true || this.trackPinned.get(cursor) !== true) {
+            this.cursorOn.set(cursor, slotIndex);
+          }
+        }
         if (this.pending !== undefined) {
-          this.cursorOn.set(this.pending, params['slotIndex'] as number);
+          this.cursorOn.set(this.pending, slotIndex);
           this.pending = undefined;
         } else {
           this.selection.trackIndex = params['trackIndex'] as number;
-          this.selection.slotIndex = params['slotIndex'] as number;
+          this.selection.slotIndex = slotIndex;
+        }
+        return {};
+      }
+
+      case WIRE.cursorPin: {
+        const cursor = params['cursor'] as string;
+        const value = params['pinned'] === true;
+        if (!value) {
+          this.pendingPins.delete(cursor);
+          this.pinned.set(cursor, false);
+        } else if (this.delayedPins) {
+          this.pendingPins.add(cursor);
+        } else {
+          this.pinned.set(cursor, true);
+        }
+        return {};
+      }
+
+      case WIRE.cursorPinTrack: {
+        const cursor = params['cursor'] as string;
+        const value = params['pinned'] === true;
+        if (!value) {
+          this.pendingTrackPins.delete(cursor);
+          this.trackPinned.set(cursor, false);
+        } else if (this.delayedPins) {
+          this.pendingTrackPins.add(cursor);
+        } else {
+          this.trackPinned.set(cursor, true);
         }
         return {};
       }
@@ -115,6 +165,8 @@ class CursorModelTransport implements Transport {
           loopLength: model.lengthBeats,
           trackPosition: 0,
           sceneIndex: on,
+          isPinned: this.pinned.get(params['cursor'] as string) === true,
+          cursorTrackPinned: this.trackPinned.get(params['cursor'] as string) === true,
         };
       }
 
@@ -146,6 +198,66 @@ class CursorModelTransport implements Transport {
 class UntimedAdapter extends LiveAdapter {
   override async settle(): Promise<void> {}
 }
+
+class DelayedPinAdapter extends LiveAdapter {
+  constructor(private readonly model: CursorModelTransport) {
+    super({ transport: model, cursorPool: 2, sceneBankSize: 8 });
+  }
+
+  override async settle(): Promise<void> {
+    this.model.settlePins();
+  }
+}
+
+test('5g repair: two delayed pins settle before either cursor hold is reused', async () => {
+  const transport = new CursorModelTransport(new Map([
+    [0, { lengthBeats: 4, pitch: 60 }],
+    [1, { lengthBeats: 4, pitch: 67 }],
+  ]), { trackIndex: 3, slotIndex: 2 }, true);
+  const adapter = new DelayedPinAdapter(transport);
+
+  const snapshot = await adapter.read([notesAt(CLIP(0)), notesAt(CLIP(1))]);
+  const first = snapshot.entries[addressKey(notesAt(CLIP(0)))]?.value;
+  const second = snapshot.entries[addressKey(notesAt(CLIP(1)))]?.value;
+
+  assert.equal(first?.of === 'notes' ? first.notes[0]?.pitch : undefined, 60);
+  assert.equal(second?.of === 'notes' ? second.notes[0]?.pitch : undefined, 67);
+  assert.equal(transport.where('0'), 0, 'the first cursor stays on clip A');
+  assert.equal(transport.where('1'), 1, 'the second cursor reaches clip B');
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.cursorStatus).length,
+    6,
+    'each clip gets target, pin, and loop-length status readings',
+  );
+});
+
+test('5g repair: a direct read does not reuse a hold after an out-of-band point', async () => {
+  const transport = new CursorModelTransport(new Map([
+    [0, { lengthBeats: 4, pitch: 60 }],
+    [1, { lengthBeats: 4, pitch: 67 }],
+  ]), { trackIndex: 3, slotIndex: 2 });
+  const adapter = new UntimedAdapter({ transport, cursorPool: 1, sceneBankSize: 8 });
+
+  await adapter.read([notesAt(CLIP(0))]);
+  await transport.send({ method: WIRE.cursorPin, params: { cursor: '0', pinned: false } });
+  await transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
+  await transport.send({ method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex: 0 } });
+  await transport.send({
+    method: WIRE.slotSelect,
+    params: { trackIndex: 0, slotIndex: 1, mechanism: 'track' },
+  });
+
+  const snapshot = await adapter.read([notesAt(CLIP(0))]);
+  const value = snapshot.entries[addressKey(notesAt(CLIP(0)))]?.value;
+
+  assert.equal(value?.of === 'notes' ? value.notes[0]?.pitch : undefined, 60);
+  assert.equal(transport.where('0'), 0, 'the second call re-points to clip A');
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length,
+    3,
+    'both adapter calls point, with one out-of-band point between them',
+  );
+});
 
 test('B4: one selection scope covers repeated live reads and restores once', async () => {
   const transport = new CursorModelTransport(
@@ -490,6 +602,7 @@ test('5d cursor repair: a lagging clip cursor retries the complete point', async
       { cursor: '0', pinned: true },
     ],
   );
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 5);
 });
 
 test('5d cursor repair: a clip cursor that never arrives refuses after eight attempts', async () => {

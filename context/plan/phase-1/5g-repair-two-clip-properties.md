@@ -1,15 +1,16 @@
 ---
 title: Phase 1, session 5g repair — two-clip property isolation
 kind: plan
-state: planned
-status: Not started. E35 requires this repair before 5g runs again.
+state: complete
+status: Completed 2026-08-16. E36 confirms complete track-and-clip pin
+        ownership, independent two-clip readback, and exact cleanup.
 updated: 2026-08-16
 parent: 5-proving.md
 prev: 5g-live-conformance.md
 next: 5g-live-conformance.md
 scope: Repair only; rerun 5g after this session
-evidence: E15, E27, E29, E35 · D6, D10, D15
-needs: Bitwig foregrounded for focused diagnosis
+evidence: E15, E27, E29, E35, E36 · D6, D10, D15
+needs: none
 ---
 
 # Phase 1, session 5g repair — two-clip property isolation
@@ -58,3 +59,21 @@ needs: Bitwig foregrounded for focused diagnosis
 
 After this repair, rerun Session 5g in one complete invocation. Do not promote
 an isolated `C-twoclips` pass to the full-suite verdict.
+
+## Outcome
+
+The focused probe found a physical cursor ownership failure, not a stale
+property value. The allocator assigned clips A and B to different cursors, but
+both physical handles followed the second selection to clip B. Independent
+readback found clip A empty and both authored notes and pan values in clip B.
+
+The adapter now unpins, points, pins, and confirms both the cursor track and
+cursor clip before it records a reusable hold. Direct calls clear their holds
+when they return. The executor can still reuse a confirmed hold inside its one
+selection-preservation scope. Structural invalidation and E15-F interleaving
+are unchanged.
+
+Focused tests pass 87/87. The full offline check passes 543/543. The extension
+test, live handshake, context check, and `git diff --check` pass. The focused
+live probe passes 8/8 and restores the complete baseline. E36 records the
+diagnosis, repair, verification, and cleanup. Rerun Session 5g next.

@@ -79,10 +79,11 @@ three-way dispatch classifier is retired.
    - ~~[5f — managed A/B](5f-managed-ab.md)~~ — complete; independent native
      controls, mixed bookkeeping, and ordinary track copy pass live (E34)
    - [5g — full live conformance](5g-live-conformance.md) — first run found a
-     two-clip property failure after `C-minted` passed under load (E35)
-   - [5g repair — two-clip property
-     isolation](5g-repair-two-clip-properties.md) — diagnose and repair E35,
-     then rerun 5g
+     two-clip property failure after `C-minted` passed under load; rerun with
+     the E36 repair
+   - ~~[5g repair — two-clip property
+     isolation](5g-repair-two-clip-properties.md)~~ — complete; cursor-track and
+     cursor-clip pin confirmation passes independent readback (E36)
    - [5h — CI and regression policy](5h-ci.md) — exit criterion 6
    - [5i — Phase 1 closeout](5i-closeout.md) — decision and phase closure
 6. [6 — async completion](6-async.md), optional

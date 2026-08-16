@@ -945,6 +945,11 @@ export class LiveAdapter implements BitwigAdapter {
    * mechanism would be a second unmeasured thing.
    */
   private async restoreSelection(saved: SelectionState | undefined): Promise<void> {
+    // A direct call has no ownership across its return boundary. Another adapter
+    // or probe can move the same physical cursor before the next call. Keep a
+    // hold only inside `preserveSelection`, where this adapter owns the complete
+    // pipeline and both the cursor track and clip remain pinned.
+    if (this.selectionScope === undefined) this.heldClips.clear();
     if (saved === undefined) return;
     await this.transport.send({
       method: WIRE.slotSelect,
@@ -1268,6 +1273,10 @@ export class LiveAdapter implements BitwigAdapter {
         method: WIRE.cursorPin,
         params: { cursor, pinned: false },
       });
+      await this.transport.send({
+        method: WIRE.cursorPinTrack,
+        params: { cursor, pinned: false },
+      });
       await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
       await this.transport.send({
         method: WIRE.slotSelect,
@@ -1283,12 +1292,36 @@ export class LiveAdapter implements BitwigAdapter {
       if (status.trackPosition === trackIndex
           && status.sceneIndex === clipRef.slot.scene.index) {
         await this.transport.send({
+          method: WIRE.cursorPinTrack,
+          params: { cursor, pinned: true },
+        });
+        await this.transport.send({
           method: WIRE.cursorPin,
           params: { cursor, pinned: true },
         });
-        this.heldClips.set(cursor, key);
-        pointedAt.set(cursor, key);
-        return cursor;
+        // Pinning is asynchronous. E36 observed the next slot selection move a
+        // cursor after target confirmation but before its pin had settled. The
+        // adapter then cached the old target and read two clips through one
+        // physical handle. A target is reusable only after both facts are true
+        // in one independent status reading.
+        await this.settle('cursorPoint');
+        const pinned = (await this.transport.send({
+          method: WIRE.cursorStatus,
+          params: { cursor },
+        })) as {
+          trackPosition?: number;
+          sceneIndex?: number;
+          isPinned?: boolean;
+          cursorTrackPinned?: boolean;
+        };
+        if (pinned.trackPosition === trackIndex
+            && pinned.sceneIndex === clipRef.slot.scene.index
+            && pinned.isPinned === true
+            && pinned.cursorTrackPinned === true) {
+          this.heldClips.set(cursor, key);
+          pointedAt.set(cursor, key);
+          return cursor;
+        }
       }
     }
 

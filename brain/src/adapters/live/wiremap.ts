@@ -62,6 +62,7 @@ export const WIRE = {
   selectionStatus: 'selection.status',
 
   cursorPin: 'cursor.pin',
+  cursorPinTrack: 'cursor.pinTrack',
   cursorPointTrack: 'cursor.pointTrack',
   cursorStatus: 'cursor.status',
   cursorSetStepSize: 'cursor.setStepSize',

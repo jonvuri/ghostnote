@@ -84,6 +84,7 @@ public final class CursorHandlers extends HandlerGroup {
         if (clip instanceof PinnableCursorClip pinnable) {
             putGuarded(result, "isPinned", () -> pinnable.isPinned().get());
             putGuarded(result, "cursorTrackPosition", () -> rig.cursorTrack(ref).position().get());
+            putGuarded(result, "cursorTrackPinned", () -> rig.cursorTrack(ref).isPinned().get());
         }
         return result;
     }
