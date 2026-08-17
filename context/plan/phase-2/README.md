@@ -2,7 +2,7 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: active
-status: Session 2a is active. Seven build sessions lead to live proof, two
+status: Session 2b is active. Seven build sessions lead to live proof, two
         separate dogfood sessions, and closeout. Async completion stays
         conditional on a measured workload.
 updated: 2026-08-16
@@ -62,10 +62,9 @@ The first seven sessions separate pure musical work, Bitwig lifecycle work,
 application safety, and the public surface. The last three sessions prove actual
 use and close the phase.
 
-1. [2a — musical contract and surface decision](2a-musical-contract.md) — active;
-   define the versioned musical patch, representative request corpus, and public
-   tool shape before implementation.
-2. [2b — theory and generation core](2b-theory-generation.md) — add `tonal.js`
+1. [2a — musical contract and surface decision](../../archive/outcomes/PHASE-2-SESSION-2A-MUSICAL-CONTRACT.md) — complete;
+   the versioned patch, corpus, semantics, and public tool shape are fixed by D21.
+2. [2b — theory and generation core](2b-theory-generation.md) — active; add `tonal.js`
    behind a pure TypeScript boundary and generate canonical note material.
 3. [2c — harmonic transformations](2c-harmonic-transforms.md) — transpose,
    harmonize, arpeggiate, and re-voice without changing unrelated note state.
@@ -104,11 +103,12 @@ after 2h, not part of the default sequence. If 2h activates it, rerun the affect
 
 ### Carry-in corrections
 
-Session 2a owns two contract corrections before the new schema freezes: note ops
-must carry MIDI channel explicitly, and public gain wording must match E24's
-measured inverse. Session 2d owns the gap between the current binary grid list and
-this phase's triplet requirement. These are part of the named sessions, not
-separate repair work.
+Session 2a owns two contract corrections before the new schema freezes: musical
+note writes must carry MIDI channel explicitly, and public gain wording must
+match E24's measured inverse. Clear is clip-wide because the host has no
+channel-scoped clear. Session 2d owns the gap between the current binary grid
+list and this phase's triplet requirement. These are part of the named sessions,
+not separate repair work.
 
 ## Scope
 

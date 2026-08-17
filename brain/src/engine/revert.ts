@@ -132,6 +132,8 @@ export function revertOps(input: Take | RevertInput): RevertPlan {
   // recreated, and replaying its notes anyway would point at an empty slot —
   // which lands on a DIFFERENT clip, silently, with a healthy status (E2).
   const unrecreatable = unrecreatableClips(targets, stash, unrestored);
+  const incompleteNoteClips = incompleteNoteRestores(targets, stash, unrestored);
+  const clearedNoteClips = new Set<string>();
 
   for (const target of targets) {
     if (target.restore === 'none') {
@@ -161,7 +163,11 @@ export function revertOps(input: Take | RevertInput): RevertPlan {
       continue;
     }
 
-    restoreValue(target, entry.value, { createOps, noteOps, scalarOps, removalOps, unrestored, unrecreatable });
+    if (target.address.kind === 'notes'
+        && incompleteNoteClips.has(addressKey(target.address.clip))) continue;
+    restoreValue(target, entry.value, {
+      createOps, noteOps, scalarOps, removalOps, unrestored, unrecreatable, clearedNoteClips,
+    });
   }
 
   for (const op of unrevertable) {
@@ -171,6 +177,48 @@ export function revertOps(input: Take | RevertInput): RevertPlan {
   removalOps.push(...deviceRemovals(batches, unrevertable, unrestored));
 
   return { ops: orderOps({ createOps, noteOps, scalarOps, removalOps }), unrestored };
+}
+
+/**
+ * A note replay clears the complete clip. Refuse a partial channel replay unless
+ * the stash has one readable value for every MIDI channel in that clip.
+ */
+function incompleteNoteRestores(
+  targets: readonly WriteTarget[],
+  stash: Snapshot,
+  unrestored: Unrestored[],
+): ReadonlySet<string> {
+  const byClip = new Map<string, { clip: Extract<Address, { kind: 'clip' }>; targets: WriteTarget[] }>();
+  for (const target of targets) {
+    if (target.address.kind !== 'notes' || target.restore !== 'replay') continue;
+    const key = addressKey(target.address.clip);
+    const group = byClip.get(key) ?? { clip: target.address.clip, targets: [] };
+    group.targets.push(target);
+    byClip.set(key, group);
+  }
+
+  const blocked = new Set<string>();
+  for (const [key, group] of byClip) {
+    const readable = group.targets.filter((target) =>
+      stash.entries[target.key]?.value.of === 'notes');
+    if (readable.length === 0) continue;
+    const channels = new Set(group.targets.map((target) =>
+      target.address.kind === 'notes' ? target.address.channel : -1));
+    const complete = channels.size === 16
+      && Array.from({ length: 16 }, (_, channel) => channel).every((channel) =>
+        group.targets.some((target) => target.address.kind === 'notes'
+          && target.address.channel === channel
+          && stash.entries[target.key]?.value.of === 'notes'));
+    if (complete) continue;
+    blocked.add(key);
+    unrestored.push({
+      address: group.clip,
+      what: 'notes',
+      why: 'the host can clear only the complete clip, but this restore does not have one '
+        + 'readable stashed value for every MIDI channel. No note channel was changed.',
+    });
+  }
+  return blocked;
 }
 
 /**
@@ -267,6 +315,7 @@ interface Sink {
   readonly removalOps: Op[];
   readonly unrestored: Unrestored[];
   readonly unrecreatable: ReadonlySet<string>;
+  readonly clearedNoteClips: Set<string>;
 }
 
 function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void {
@@ -276,6 +325,7 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
       if (sink.unrecreatable.has(addressKey(target.address.clip))) return;
       const clip = target.address.clip;
       const channel = target.address.channel;
+      const clipKey = addressKey(clip);
       const replay: NoteRecord[] = [];
       const withheld = new Map<string, number>();
       for (const note of value.notes) {
@@ -284,11 +334,12 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
         for (const prop of split.withheld) withheld.set(prop, (withheld.get(prop) ?? 0) + 1);
       }
 
-      // ⚠ CLEAR FIRST, ALWAYS — including when the stash is empty, which is the
-      // case that matters most: "there were no notes here" is restored by
-      // removing whatever the batch wrote, and a plan that only ever writes
-      // could never express it.
-      sink.noteOps.push({ op: 'note.clear', clip, channel });
+      // Clear once, then reconstruct every protected channel. The host clear is
+      // clip-wide even though note reads and writes are channel-scoped.
+      if (!sink.clearedNoteClips.has(clipKey)) {
+        sink.noteOps.push({ op: 'note.clear', clip });
+        sink.clearedNoteClips.add(clipKey);
+      }
       if (replay.length > 0) sink.noteOps.push({ op: 'note.write', clip, channel, notes: replay });
 
       for (const [prop, count] of withheld) {

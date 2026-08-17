@@ -351,7 +351,10 @@ export class FakeAdapter implements BitwigAdapter {
         // answer would let the guard pass offline and mispoint live — PHASE-0
         // §Risks' named failure mode.
         if (slotState === undefined || !slotState.hasContent) return undefined;
-        const all = [...slotState.notes.values()]
+        const channelPrefix = `${address.channel}:`;
+        const all = [...slotState.notes.entries()]
+          .filter(([key]) => key.startsWith(channelPrefix))
+          .map(([, note]) => note)
           .filter((n) => (address.range === undefined
             ? true
             : n.startBeats >= address.range.startBeats && n.startBeats < address.range.endBeats))
@@ -659,7 +662,11 @@ export class FakeAdapter implements BitwigAdapter {
           if (point.slot === undefined) return;
           const written = notesToWrite.map(writeNoteProps);
           // ⚠ E8-E: same-pitch adjacency truncates; readback != request.
-          const merged = [...point.slot.notes.values(), ...written];
+          const channelPrefix = `${channel}:`;
+          const existingChannel = [...point.slot.notes.entries()]
+            .filter(([key]) => key.startsWith(channelPrefix))
+            .map(([, note]) => note);
+          const merged = [...existingChannel, ...written];
           for (const n of ProjectModel.applyAdjacencyTruncation(merged)) {
             point.slot.notes.set(noteKey(channel, n.pitch, n.startBeats), n);
           }

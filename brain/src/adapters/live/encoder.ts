@@ -291,11 +291,6 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
     case 'note.clear': {
       const t = ctx.trackIndex(op.clip.slot.track);
       const s = ctx.sceneRow(op.clip.slot.scene);
-      // The wire has no ranged clear; a range must be read, filtered and
-      // rewritten by the caller. Refusing beats silently clearing the whole clip.
-      if (op.range !== undefined) {
-        throw new InvalidOpError('note.clear', 'ranged clear is not in contract v0 — clear the clip or rewrite it');
-      }
       const cursor = ctx.cursorFor(op.clip);
       return [
         ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),

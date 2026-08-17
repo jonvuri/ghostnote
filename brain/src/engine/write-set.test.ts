@@ -6,7 +6,7 @@
  * cannot restore something it appeared to cover, which is the one failure class
  * this project exists to prevent.
  *
- *   W-notes    granularity is the whole clip channel, never the written range
+ *   W-notes    granularity is all 16 channels in the clip
  *   W-merge    one address touched by several ops is ONE target
  *   W-pessim   a merge takes the WORST restorability, never the first
  *   W-identity ops that mint or destroy identity are `none`, with a reason
@@ -24,26 +24,30 @@ const S0 = slot(T, scene(0, 1));
 const CLIP = clip(S0);
 const note = { startBeats: 0, pitch: 60, velocity: 100, durationBeats: 1 };
 
-test('W-notes: the write-set of a note op is the WHOLE clip channel, never its range (E8-E)', () => {
-  const ranged: Op = {
-    op: 'note.clear', clip: CLIP, channel: 2, range: { startBeats: 4, endBeats: 8 },
-  };
-  const [address] = writeSet([ranged]);
-  assert.equal(address?.kind, 'notes');
-  // A write truncates same-pitch neighbours OUTSIDE its own extent (E8-E), so a
-  // bounding-box stash would miss exactly the state the op is about to damage.
-  assert.equal(addressKey(address!), addressKey(notesAt(CLIP, 2)));
+test('W-notes: every note change protects all 16 clip channels', () => {
+  for (const op of [
+    { op: 'note.clear', clip: CLIP },
+    { op: 'note.write', clip: CLIP, channel: 2, notes: [note] },
+  ] satisfies Op[]) {
+    const addresses = writeSet([op]);
+    assert.equal(addresses.length, 16);
+    assert.deepEqual(
+      addresses.map((address) => address.kind === 'notes' ? address.channel : -1),
+      Array.from({ length: 16 }, (_, channel) => channel),
+    );
+    assert.equal(addressKey(addresses[2]!), addressKey(notesAt(CLIP, 2)));
+  }
 });
 
-test('W-merge: several ops on one address produce ONE target carrying all their indices', () => {
+test('W-merge: several ops on one clip merge indices on each protected channel', () => {
   const { targets } = writeSetOf([
     { op: 'note.clear', clip: CLIP },
     { op: 'note.write', clip: CLIP, notes: [note] },
     { op: 'note.props', clip: CLIP, notes: [note] },
   ]);
-  assert.equal(targets.length, 1);
-  assert.deepEqual(targets[0]!.opIndices, [0, 1, 2]);
-  assert.equal(targets[0]!.restore, 'replay');
+  assert.equal(targets.length, 16);
+  assert.ok(targets.every((target) => target.restore === 'replay'));
+  assert.ok(targets.every((target) => target.opIndices.join(',') === '0,1,2'));
 });
 
 test('W-pessim: a batch that writes notes and then deletes their clip restores BOTH (D16 rev)', () => {
@@ -77,7 +81,9 @@ test('W-pessim: a batch that writes notes and then deletes their clip restores B
 
 test('W-clipcreate: a create stashes the slot AND its notes, and both stay replayable', () => {
   const { targets } = writeSetOf([{ op: 'clip.create', slot: S0, lengthBeats: 4 }]);
-  assert.deepEqual(targets.map((t) => t.address.kind), ['clip', 'notes']);
+  assert.deepEqual(targets.map((t) => t.address.kind), [
+    'clip', ...Array.from({ length: 16 }, () => 'notes'),
+  ]);
   // `exists: false` is what makes the inverse available and exact: absence has
   // no content to fail to recreate.
   assert.ok(targets.every((t) => t.restore === 'replay'));

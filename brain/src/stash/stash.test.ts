@@ -235,7 +235,10 @@ test('B-partial: a partial reversal restores ONE clip and leaves the rest of the
   assert.deepEqual(await pitches(fx.fake, fx.clipB), [48]);
 
   const plan = await reverse(fx, both.id, { slice: fx.stash.log.selectClip(both.id, fx.clipA) });
-  assert.deepEqual(plan.addresses, [addressKey(notesAt(fx.clipA))]);
+  assert.deepEqual(
+    plan.addresses,
+    Array.from({ length: 16 }, (_, channel) => addressKey(notesAt(fx.clipA, channel))),
+  );
 
   assert.deepEqual(await pitches(fx.fake, fx.clipA), [60], 'clip A is back');
   assert.deepEqual(await pitches(fx.fake, fx.clipB), [48], 'clip B is untouched');
@@ -360,12 +363,12 @@ test('B-bound: ⚠ un-creating a clip we created needs mint AND last-write, not 
 test('B-bound: a BARE create is protected too, because its write-set already carries the evidence', async () => {
   const fx = await fixture();
   // ⚠ No note op — and the protection still holds, for a reason worth pinning
-  // down: `clip.create` pairs its clip address with the channel-0 notes address
-  // in `write-set.ts`, so a bare create still stashes what was in the slot and
+  // down: `clip.create` pairs its clip address with all 16 note channels in
+  // `write-set.ts`, so a bare create still stashes what was in the slot and
   // verifies what it left. The stash never has to go minting addresses it did not
   // write to find out, which would be the contract's job and not its own (D16a).
   const bare = await commit(fx, [{ op: 'clip.create', slot: fx.emptySlot, lengthBeats: 4 }]);
-  assert.equal(bare.targets.length, 2, 'the pairing is what makes this case safe');
+  assert.equal(bare.targets.length, 17, 'the pairing is what makes this case safe');
 
   await human(fx, [{ op: 'note.write', clip: clip(fx.emptySlot), notes: [note({ pitch: 55 })] }]);
 
@@ -402,7 +405,7 @@ test('B-bound: an address the batch could not VERIFY is withheld, and is not eve
     { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 67 })] },
     { op: 'scene.create', count: 1 },
   ], 'B-bound');
-  assert.equal(fx.stash.log.require(blind.id).take.report.unverified.length, 1);
+  assert.equal(fx.stash.log.require(blind.id).take.report.unverified.length, 16);
 
   // The address is stale now, so reading it THROWS. A read set that contained it
   // would be a read set nobody could use.
@@ -431,7 +434,7 @@ test('B-print: the same check, run BEFORE a write, is the positional-clip finger
   // the reversal boundary uses: one mechanism, two features.
   assert.deepEqual(
     fx.stash.log.boundary(written.id, await read()).map((c) => c.verdict),
-    ['ours'],
+    Array.from({ length: 16 }, () => 'ours'),
   );
 
   // A human drags a different clip into the slot — the E16s case the launcher
@@ -440,7 +443,7 @@ test('B-print: the same check, run BEFORE a write, is the positional-clip finger
   await human(fx, [{ op: 'note.clear', clip: fx.clipA }, { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 41 })] }]);
   assert.deepEqual(
     fx.stash.log.boundary(written.id, await read()).map((c) => c.verdict),
-    ['changed'],
+    ['changed', ...Array.from({ length: 15 }, () => 'ours')],
   );
 });
 
@@ -501,7 +504,10 @@ test('B-print: note ORDER is not a change — a fingerprint that cries wolf is n
   // Readback order is the adapter's business, not the clip's. The comparison
   // sorts before it compares, which is why this is `ours` and not `changed`.
   const current = await fx.fake.read(fx.stash.log.readSetFor(written.id));
-  assert.deepEqual(fx.stash.log.boundary(written.id, current).map((c) => c.verdict), ['ours']);
+  assert.deepEqual(
+    fx.stash.log.boundary(written.id, current).map((c) => c.verdict),
+    Array.from({ length: 16 }, () => 'ours'),
+  );
 });
 
 // --- B-fidelity: D5, readable before it runs ---------------------------------

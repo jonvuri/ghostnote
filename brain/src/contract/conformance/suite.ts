@@ -1893,9 +1893,9 @@ export function runConformance(h: AdapterHarness): void {
       ]);
 
       assert.equal(take.report.applied, true);
-      // The write-set is the WHOLE clip channel, and the stash is what readback
-      // reported BEFORE the batch — never what anyone requested.
-      assert.equal(take.values.length, 1);
+      // The host clear is clip-wide, so all 16 channels are protected. The stash
+      // is what readback reported before the batch, never what anyone requested.
+      assert.equal(take.values.length, 16);
       const before = take.values[0]!.value;
       assert.deepEqual(before?.of === 'notes' ? before.notes.map((n) => n.pitch) : [], [60]);
       // ...and the verify half proves it landed, without a second read by hand.
@@ -1995,7 +1995,7 @@ export function runConformance(h: AdapterHarness): void {
         { op: 'note.clear', clip: clipA },
         { op: 'note.clear', clip: clipB },
       ]);
-      assert.equal(take.values.length, 2, 'both clips are in the write-set');
+      assert.equal(take.values.length, 32, 'all channels of both clips are in the write-set');
 
       await executor.revertUnchecked(take);
       assert.equal((await readNotes(adapter, notesAt(clipA)))[0]?.pan, -0.25,

@@ -621,8 +621,8 @@ export class Stash implements StashLog, StashWriter {
       if (content.length === 0) {
         // ⚠ Unreachable today, and worth keeping because WHY it is unreachable is
         // a coupling that would otherwise be silent: `clip.create` pairs its clip
-        // address with the channel-0 notes address in `write-set.ts`, so the
-        // evidence is always there. Break that pairing and this fails closed
+        // address with all 16 note addresses in `write-set.ts`, so the evidence
+        // is always there. Break that pairing and this fails closed
         // rather than deleting a clip whose contents nobody ever looked at.
         undeletable.set(target.key, {
           verdict: 'unread',
@@ -654,6 +654,15 @@ export class Stash implements StashLog, StashWriter {
     const entries: Record<AddressKey, StateEntry> = {};
     const unreachable: Address[] = [];
     const labels: TakeValue[] = [];
+    const blockedNoteClips = new Map<string, BoundaryCheck>();
+    for (const target of take.targets) {
+      if (!selects(slice, target.key) || target.address.kind !== 'notes') continue;
+      const check = verdict.get(target.key)!;
+      if (!inBounds(check) && !blockedNoteClips.has(addressKey(target.address.clip))) {
+        blockedNoteClips.set(addressKey(target.address.clip), check);
+      }
+    }
+    const reportedNoteClips = new Set<string>();
 
     for (const target of take.targets) {
       if (!selects(slice, target.key)) continue;
@@ -676,12 +685,22 @@ export class Stash implements StashLog, StashWriter {
       }
       const check = verdict.get(target.key)!;
       const blocked = undeletable.get(target.key);
-      if (!inBounds(check) || blocked !== undefined) {
-        const reported = blocked === undefined ? check : { ...check, ...blocked };
+      const noteClipKey = target.address.kind === 'notes'
+        ? addressKey(target.address.clip)
+        : undefined;
+      const noteBlocked = noteClipKey === undefined ? undefined : blockedNoteClips.get(noteClipKey);
+      if (!inBounds(check) || blocked !== undefined || noteBlocked !== undefined) {
+        const reported = blocked !== undefined
+          ? { ...check, ...blocked }
+          : noteBlocked ?? check;
+        if (noteClipKey !== undefined && noteBlocked !== undefined) {
+          if (reportedNoteClips.has(noteClipKey)) continue;
+          reportedNoteClips.add(noteClipKey);
+        }
         withheld.push(reported);
         unrestored.push({
-          address: target.address,
-          what: target.address.kind,
+          address: reported.address,
+          what: reported.address.kind,
           why: reported.why,
         });
         continue;

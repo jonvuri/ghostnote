@@ -386,7 +386,7 @@ test('X-label: a take value is labelled from its write-set, not by its caller (D
   assert.deepEqual(risky.unrevertable.map((u) => u.op), ['scene.create']);
   // ⚠ And the batch invalidated its OWN write-set, so the verify could not read
   // it back. "No disagreement" must never be mistaken for "it landed" here.
-  assert.equal(risky.report.unverified.length, 1);
+  assert.equal(risky.report.unverified.length, 16);
   assert.match(risky.report.unverified[0]!.why, /changed the scene layout/);
   assert.deepEqual(risky.report.disagreements, []);
 

@@ -21,7 +21,7 @@
  * expressible. That is the point of a typed seam over a string wire.
  */
 import { addressKey, chainPath, clip, device } from './address.js';
-import type { ChainAddress, ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress, BeatRange } from './address.js';
+import type { ChainAddress, ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress } from './address.js';
 import {
   lookupChain, nestingObservable, projectedReorder, reorderIndistinguishable,
   type ObservedChain, type ObservedContainer, type ObservedDeviceSequence,
@@ -43,7 +43,8 @@ export type DeviceSource =
 export type Op =
   // --- notes: Phase 1's only object class -----------------------------------
   | { readonly op: 'note.write'; readonly clip: ClipAddress; readonly channel?: number; readonly notes: readonly NoteRecord[] }
-  | { readonly op: 'note.clear'; readonly clip: ClipAddress; readonly channel?: number; readonly range?: BeatRange }
+  /** Clear all MIDI channels in one clip. The host has no channel-scoped clear. */
+  | { readonly op: 'note.clear'; readonly clip: ClipAddress }
   /**
    * Set expression properties on notes that ALREADY exist, touching nothing else.
    *

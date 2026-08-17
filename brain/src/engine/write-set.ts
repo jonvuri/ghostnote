@@ -10,12 +10,9 @@
  *
  * Two things the naive version gets wrong, both recorded as decisions:
  *
- *   1. **Granularity for notes is the WHOLE CLIP CHANNEL**, never the written
- *      range, even when the op carries one. A write truncates same-pitch notes
- *      that sit outside it (E8-E), so a bounding-box stash would miss exactly
- *      the state the write is about to damage. It is also the shape session 2's
- *      partial revert wants to SLICE, and slicing a superset is possible where
- *      widening a subset is not.
+ *   1. **Granularity for notes is the WHOLE CLIP.** Reads and writes address one
+ *      MIDI channel, but the only clear operation clears all channels. A safe
+ *      inverse must therefore capture every channel before any note change.
  *   2. **Some ops have no restorable prior state at all**, and they split into
  *      two kinds. `track.delete` HAS an address whose stash is meaningless
  *      (a recreated track mints a new `channelId`, E2f) — that is a target with
@@ -91,14 +88,19 @@ function targetsOf(op: Op): {
   reason?: string;
   unrestoredAs?: string;
 }[] {
+  const allClipChannels = (clip: ReturnType<typeof clipAt>) =>
+    Array.from({ length: 16 }, (_, channel) => ({
+      address: notesAt(clip, channel), restore: 'replay' as const,
+    }));
+
   switch (op.op) {
-    // ⚠ Deliberately UNRANGED even when the op carries a range. See this file's
-    // header: a write truncates same-pitch neighbours outside its own extent
-    // (E8-E), so anything narrower than the whole channel stashes the wrong set.
+    // A note restore must clear the complete clip because the host has no
+    // channel-scoped clear. Protect all channels before any note change so the
+    // inverse can reconstruct the complete clip without losing other channels.
     case 'note.write':
     case 'note.props':
     case 'note.clear':
-      return [{ address: notesAt(op.clip, op.channel ?? 0), restore: 'replay' }];
+      return allClipChannels(op.clip);
 
     // Creating a clip can land on an occupied slot, so the notes go in the
     // write-set too. `exists: false` in the stash is what makes the inverse
@@ -106,13 +108,13 @@ function targetsOf(op: Op): {
     case 'clip.create':
       return [
         { address: clipAt(op.slot), restore: 'replay' },
-        { address: notesAt(clipAt(op.slot), 0), restore: 'replay' },
+        ...allClipChannels(clipAt(op.slot)),
       ];
 
     // ⚠ AMENDED 2026-08-07 (D16, E16-OPEN-QUESTIONS §3.3.3). Both halves used to
     // be `none`, on the reason *"neither its length nor its content has a
     // readback that could reproduce it"* — and both halves of that were false as
-    // the code stood. Content is stashed (the whole clip channel, above). Length
+    // the code stood. Content is stashed (all clip channels, above). Length
     // is readable: the live adapter was already reading `loopLength` to pick a
     // scan grid and simply never wrote it into the clip entry, while `StateValue`
     // declared `lengthBeats?` and the fake populated it — PHASE-0 §Risks' named
@@ -127,7 +129,7 @@ function targetsOf(op: Op): {
     case 'clip.delete':
       return [
         { address: clipAt(op.slot), restore: 'replay' },
-        { address: notesAt(clipAt(op.slot), 0), restore: 'replay' },
+        ...allClipChannels(clipAt(op.slot)),
       ];
 
     // The destination was verified empty before the host's copy call. Its
@@ -136,7 +138,7 @@ function targetsOf(op: Op): {
     case 'clip.duplicate':
       return [
         { address: clipAt(op.destination), restore: 'replay' },
-        { address: notesAt(clipAt(op.destination), 0), restore: 'replay' },
+        ...allClipChannels(clipAt(op.destination)),
       ];
 
     // Moving preserves opaque clip state, but positional clip identity cannot

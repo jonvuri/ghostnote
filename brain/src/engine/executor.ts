@@ -63,6 +63,8 @@ export interface RunOptions {
    * a protection for the caller.
    */
   readonly clearance?: Clearance;
+  /** Refuse if the project changed after a caller's content preflight. */
+  readonly ifRevision?: number;
 }
 
 /** What a revert did, and what it could not do (D5). */
@@ -141,7 +143,10 @@ export class Executor {
     // concurrent write between reading prior state and applying rejects the
     // batch WHOLE. Without it the take would claim a "before" that was already
     // someone else's "after".
-    const receipt = await this.adapter.apply({ ops, ifRevision: stash.at.revision });
+    const receipt = await this.adapter.apply({
+      ops,
+      ifRevision: options.ifRevision ?? stash.at.revision,
+    });
 
     if (receipt.rejected !== undefined) {
       // ⚠ A rejected batch applied ZERO ops (E8-D), so every launcher event in
@@ -410,7 +415,7 @@ export class Executor {
     for (const op of ops) {
       if (op.op !== 'note.write' && op.op !== 'note.props' && op.op !== 'note.clear') continue;
       if (created.has(addressKey(op.clip.slot))) continue;
-      const address = notesAt(op.clip, op.channel ?? 0);
+      const address = notesAt(op.clip, op.op === 'note.clear' ? 0 : op.channel ?? 0);
       if (stash.entries[addressKey(address)] !== undefined) continue;
       throw new AddressUnresolvedError(
         address,

@@ -41,15 +41,33 @@ const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
 
 /** A stash built by hand — the only way to model state a human authored. */
 function stashOf(entries: readonly StateEntry[], unreachable: Snapshot['unreachable'] = []): Snapshot {
+  const expanded = [...entries];
+  for (const entry of entries) {
+    if (entry.address.kind !== 'notes') continue;
+    for (let channel = 0; channel < 16; channel += 1) {
+      const address = notesAt(entry.address.clip, channel);
+      if (expanded.some((candidate) => addressKey(candidate.address) === addressKey(address))) continue;
+      expanded.push(notesEntry(address, []));
+    }
+  }
+  const expandedUnreachable = [...unreachable];
+  for (const address of unreachable) {
+    if (address.kind !== 'notes') continue;
+    for (let channel = 0; channel < 16; channel += 1) {
+      const sibling = notesAt(address.clip, channel);
+      if (expandedUnreachable.some((candidate) => addressKey(candidate) === addressKey(sibling))) continue;
+      expandedUnreachable.push(sibling);
+    }
+  }
   return {
     contract: CONTRACT_TAG,
     at: {
       revision: 7, sceneEpoch: 1, contentEpoch: 0, generation: 'test-gen', project: 'test-project',
       window: { tracks: { count: 2, bankSize: 16 }, scenes: { count: 8, bankSize: 16 } },
     },
-    entries: Object.fromEntries(entries.map((e) => [addressKey(e.address), e])),
+    entries: Object.fromEntries(expanded.map((e) => [addressKey(e.address), e])),
     missing: [],
-    unreachable,
+    unreachable: expandedUnreachable,
   };
 }
 

@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-2
-session: 2a-musical-contract
+session: 2b-theory-generation
 ---
 
 # Now
@@ -16,9 +16,10 @@ records full live conformance. E40 records passing remote CI for candidate
 
 ## Start here
 
-1. Run [Phase 2 session 2a](plan/phase-2/2a-musical-contract.md).
-2. Settle the musical patch and public tool shape from representative requests
-   before adding `tonal.js` or product behavior.
+1. Run [Phase 2 session 2b](plan/phase-2/2b-theory-generation.md).
+2. Implement the pure theory and generation boundary against the repaired D21
+   patch and corpus. Preserve compiler loss provenance. Do not expose public
+   tools yet.
 3. Keep direct writes stash-backed. Use clip blocks for requested or required
    clip alternates.
 4. Do not schedule [async batch completion](plan/phase-1/6-async.md) unless a
@@ -57,7 +58,9 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-The planning pass found three contract gaps by comparing the Phase 2 premises
-with current code: optional MIDI channels, stale gain wording, and no triplet
-candidate grid. Session 2a and session 2d now own them explicitly. No repository
-instruction change is needed.
+Session 2a review confirmed three defects. Merge compilation ignored existing
+notes. Clip-wide clear protected one channel. The fake copied notes across
+channels during reconstruction. The repair adds existing-note normalization and
+reporting, all-channel protection and replay, a preflight revision guard, and
+offline application-path regressions. No repository instruction change is
+needed.

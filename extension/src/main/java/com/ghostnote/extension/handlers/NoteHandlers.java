@@ -11,11 +11,12 @@ import com.google.gson.JsonObject;
 /**
  * Clip note content — read, write and the 21-property expression sweep (E2).
  *
- * Two traps live in this surface and are NOT worked around here (the handlers
+ * Three traps live in this surface and are NOT worked around here (the handlers
  * stay a faithful mirror of the API; the mitigation belongs in the brain):
- *   - setGain / setTimbre each RESET pressure to 0, so pressure must be
- *     written last (E2/e02e);
- *   - gain reads back 2x the written value (E2), inverse mapping unverified.
+ *   - pressure does not persist in the clip and must be refused (E15-E);
+ *   - gain reads back 2x the written value; the brain applies the exact inverse
+ *     once (E24);
+ *   - an absent MIDI channel means channel 0 for low-level compatibility.
  * A setStep is also not visible to a getStep in the SAME request — only on the
  * next one (E2), which is what `cursor.setAndReadNote` exists to demonstrate.
  *
@@ -83,6 +84,7 @@ public final class NoteHandlers extends HandlerGroup {
         return result;
     }
 
+    /** Clear the complete clip. The host has no channel-scoped clear. */
     private JsonElement cursorClearNotes(JsonObject params) {
         rig.clip(params.get("cursor").getAsString()).clearSteps();
         return ok();

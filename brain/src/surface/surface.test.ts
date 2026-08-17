@@ -727,7 +727,7 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(launched.playback.isPlaying, true);
 
   assert.equal((await exercise('erase_notes', {
-    clips: [{ trackId: fx.trackA, row: 0, range: { fromBeat: 1, toBeat: 2 } }],
+    clips: [{ trackId: fx.trackA, row: 0 }],
   }))['applied'], true);
 
   const moved = await exercise('move_clip_block', {
@@ -1952,6 +1952,26 @@ test('T-refusal: a write it could not put back is refused, and names what is in 
   );
 });
 
+test('T-refusal: erase is clip-wide and rejects channel or beat-range selectors', async () => {
+  const fx = fixture();
+  await call(fx, 'add_clip', { clips: [{ trackId: fx.trackA, row: 0, lengthBeats: 4 }] });
+  await call(fx, 'write_notes', {
+    clips: [{ trackId: fx.trackA, row: 0, channel: 9, notes: [note({ pitch: 69 })] }],
+  });
+
+  await assert.rejects(call(fx, 'erase_notes', {
+    clips: [{ trackId: fx.trackA, row: 0, channel: 9 }],
+  }), /Unrecognized key.*channel/);
+  await assert.rejects(call(fx, 'erase_notes', {
+    clips: [{ trackId: fx.trackA, row: 0, range: { fromBeat: 0, toBeat: 1 } }],
+  }), /Unrecognized key.*range/);
+  const channel = notesAt(clipAt(slotAt(trackAt(fx.trackA), sceneAt(0, 1))), 9);
+  const snapshot = await fx.workspace.read([channel]);
+  const entry = snapshot.entries[addressKey(channel)];
+  assert.equal(entry?.value.of, 'notes');
+  assert.equal(entry?.value.of === 'notes' ? entry.value.notes.length : 0, 1);
+});
+
 test('T-refusal: undoing something this session did not do is refused in terms an agent can act on', async () => {
   const fx = fixture();
   const result = await call(fx, 'revert_change', { changeId: 'not-a-change' });
@@ -2173,6 +2193,16 @@ test('T-words: the note input covers every writable property and none of the oth
     assert.equal(present, true,
       `${key} can be written and is missing from the surface, so nothing can ask for it`);
   }
+});
+
+test('T-words: channel compatibility and exact gain wording match the Phase 2 contract', () => {
+  const tool = TOOLS.find((candidate) => candidate.name === 'write_notes')!;
+  const schema = z.toJSONSchema(z.object(tool.inputSchema));
+  const text = JSON.stringify(schema);
+  assert.match(text, /defaults to 0 for compatibility/);
+  assert.match(text, /musical patch path always supplies this field/);
+  assert.match(text, /Exact.*shared encoder writes the requested value divided by 2/);
+  assert.doesNotMatch(text, /inverse.*never been measured/);
 });
 
 // --- the transport ------------------------------------------------------------

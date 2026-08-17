@@ -1,10 +1,10 @@
 ---
 title: Phase 2, session 2b — theory and generation core
 kind: plan
-state: planned
+state: active
 updated: 2026-08-16
 parent: README.md
-prev: 2a-musical-contract.md
+prev: ../../archive/outcomes/PHASE-2-SESSION-2A-MUSICAL-CONTRACT.md
 next: 2c-harmonic-transforms.md
 scope: Phase 2 musical vocabulary
 evidence: INITIAL_PROMPT §7 · D8, D9
@@ -23,7 +23,8 @@ evidence: INITIAL_PROMPT §7 · D8, D9
 3. Support notes, intervals, chords, scales, modes, keys, chord and scale
    detection, progressions, and pitch-class sets required by the 2a corpus.
 4. Generate canonical notes with explicit start, duration, velocity, and MIDI
-   channel. Reject pitches outside MIDI range unless the 2a contract defines an
+   channel. Keep target, variation, and operation provenance for compiler loss
+   reports. Reject pitches outside MIDI range unless the 2a contract defines an
    explicit fold or clamp operation.
 5. Make enharmonic spelling and octave choice deterministic where MIDI output
    requires one answer.

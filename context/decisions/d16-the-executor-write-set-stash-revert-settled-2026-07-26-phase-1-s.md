@@ -71,13 +71,16 @@ Two asymmetries fell out of this and are worth carrying:
   `receipt.minted` makes it expressible — a human may already have put work in
   it, and D5's rule cuts both ways.
 
-### e. Stash granularity for an unranged `note.write` — **the whole clip channel**
+### e. Note stash granularity — **all 16 channels in the clip**
 
-Never a bounding range, even when the op carries one. A write truncates
-same-pitch neighbours OUTSIDE its own extent (E8-E), so a bounding-box stash
-misses exactly the state the write is about to damage. It is also what session
-2's partial revert will SLICE, and slicing a superset is possible where widening
-a subset is not.
+Never a bounding range. A write truncates same-pitch neighbours outside its own
+extent (E8-E), so a bounding-box stash misses state the write can damage.
+
+**Amended 2026-08-16 by the Phase 2 session 2a repair.** The host clear applies
+to the complete clip. Stash replay therefore needs every MIDI channel even when
+the forward write names one channel. Every note change protects all 16 channel
+addresses. Replay clears once and reconstructs them. A partial channel replay
+refuses unless it has the complete set.
 
 ### Two things the build discovered
 

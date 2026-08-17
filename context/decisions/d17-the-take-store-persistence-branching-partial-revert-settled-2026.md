@@ -170,8 +170,9 @@ key grammar.
 stronger than scope.** A `note.write` truncates same-pitch neighbours OUTSIDE its
 own extent (E8-E), so "restore beats 4-8 of this clip" cannot be done by replaying
 a sub-range of the stash — it would need a **merge** of stashed and live notes,
-which is exactly the tripwire in (b). Whole-address slicing has no such problem
-because the stash is already the whole clip channel (D16e).
+which is exactly the tripwire in (b). Note slicing is clip-wide because the host
+clear affects all MIDI channels. `selectClip` includes all 16 channel addresses,
+and an incomplete channel selection refuses (D16e, D21).
 
 ### e. ⚠ The pointer disagreement — **the PROJECT wins**
 

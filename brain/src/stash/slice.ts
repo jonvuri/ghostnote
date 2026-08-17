@@ -22,8 +22,8 @@
  * "beats 4-8 of this clip" cannot be done by replaying a sub-range of the stash.
  * It would need a merge of stashed and live notes — which is exactly the "if a
  * merge operation appears in the design, something has gone wrong" tripwire.
- * Whole-address slicing has no such problem, because the stash is already the
- * whole clip channel (D16e).
+ * Whole-clip slicing has no such problem. Note changes protect all 16 channels
+ * because the host can clear only the complete clip (D16e, D21).
  *
  * ⚠ D20 re-confirms that refusal and says why it is different in kind from the
  * rest of the destruction posture: *"authorization changes 'may we', never 'how'

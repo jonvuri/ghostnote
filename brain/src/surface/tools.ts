@@ -186,7 +186,8 @@ const launchMode = z.enum(LAUNCH_MODES).describe(
 );
 
 const channel = z.number().int().min(0).max(15).optional().describe(
-  'MIDI channel within the clip, 0-15. Defaults to 0.',
+  'MIDI channel within the clip, 0-15. The low-level surface defaults to 0 for compatibility. '
+  + 'The musical patch path always supplies this field.',
 );
 
 const jsonInput: z.ZodType<JsonValue> = z.lazy(() => z.union([
@@ -217,9 +218,8 @@ const noteInput = z.object({
   releaseVelocity: z.number().min(0).max(1).optional(),
   velocitySpread: z.number().min(0).max(1).optional(),
   gain: z.number().optional().describe(
-    'Reads back at twice the value written, and the reverse of that has never been measured — so '
-    + 'it is reported as read and never corrected, and a clip holding it cannot be put back '
-    + 'exactly.',
+    'Exact. Bitwig reads twice the raw setter input, so the shared encoder writes the requested '
+    + 'value divided by 2. E24 verified the inverse with independent reads and revert.',
   ),
   pan: z.number().min(-1).max(1).optional(),
   timbre: z.number().min(-1).max(1).optional(),
@@ -1158,22 +1158,17 @@ export const TOOLS: readonly ToolSpec[] = [
     kind: 'write',
     title: 'Erase notes from clips',
     description:
-      'Remove notes from clips that already exist — the whole clip, or a range of beats within '
-      + 'it. The clip itself stays; delete_clip removes the clip.\n'
+      'Remove all notes from clips that already exist. The clip itself stays; delete_clip '
+      + 'removes the clip. The host clear applies to all MIDI channels.\n'
       + 'What was there is read and recorded first, so this can be undone with revert_change. If '
-      + 'the notes carry something that cannot be recorded exactly — gain, or a pressure a person '
-      + 'authored — the call is refused and nothing is erased, because it could not then be put '
-      + 'back.',
+      + 'the notes carry pressure that a person authored, the call is refused and nothing is '
+      + 'erased, because pressure cannot be written back. All other note properties, including '
+      + 'gain through its measured inverse, can be restored.',
     inputSchema: {
       clips: z.array(z.object({
         trackId,
         row,
-        channel,
-        range: z.object({
-          fromBeat: z.number(),
-          toBeat: z.number(),
-        }).optional().describe('Beats to clear. Absent clears the whole clip channel.'),
-      })).min(1),
+      }).strict()).min(1),
     },
     emits: ['note.clear'],
     async run(workspace, args) {
@@ -1182,10 +1177,6 @@ export const TOOLS: readonly ToolSpec[] = [
         const ops: Op[] = args.clips.map((c) => ({
           op: 'note.clear',
           clip: clipOf(c.trackId, c.row, at),
-          ...(c.channel === undefined ? {} : { channel: c.channel }),
-          ...(c.range === undefined
-            ? {}
-            : { range: { startBeats: c.range.fromBeat, endBeats: c.range.toBeat } }),
         }));
         return receiptOf(await workspace.apply(ops));
       });

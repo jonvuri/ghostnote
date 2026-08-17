@@ -74,7 +74,7 @@ export interface NotesAddress {
   readonly kind: 'notes';
   readonly clip: ClipAddress;
   readonly channel: number;
-  /** Absent means the whole clip. */
+  /** Absent means the complete addressed MIDI channel. */
   readonly range?: BeatRange;
 }
 
