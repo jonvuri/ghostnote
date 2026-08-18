@@ -9,7 +9,8 @@ import * as Progression from '@tonaljs/progression';
 import * as RomanNumeral from '@tonaljs/roman-numeral';
 import * as Scale from '@tonaljs/scale';
 
-import type { NoteRecord } from '../contract/index.js';
+import { STEP_SIZES, stepSizeFor, type NoteRecord } from '../contract/index.js';
+import { musicalRandom, musicalSeedScope } from './patch.js';
 import type {
   MaterializedMusicalTarget, MusicalLoss, MusicalOperation, MusicalPatch,
   MusicalSelection, MusicalTarget,
@@ -24,6 +25,8 @@ export type TheoryRefusalCode =
   | 'invalid-pitch-class'
   | 'invalid-progression'
   | 'midi-range'
+  | 'missing-seed'
+  | 'grid-refused'
   | 'unsupported-operation'
   | 'unwritable-expression'
   | 'unknown-chord'
@@ -124,7 +127,11 @@ export interface GeneratedMusicalTarget extends MusicalProvenance {
 
 export interface HarmonicMaterializedTarget extends GeneratedMusicalTarget {
   readonly loss: readonly MusicalLoss[];
+  readonly effectiveSeed?: string;
+  readonly seedScopes: readonly { readonly operationIndex: number; readonly scope: string }[];
 }
+
+export type MusicalMaterializedTarget = HarmonicMaterializedTarget;
 
 /** One note group. Grouping stays separate from operations on the group. */
 export interface MusicalNoteGroup {
@@ -164,12 +171,19 @@ export type HarmonyPlanResolver = (
 export interface HarmonicTransformOptions {
   readonly groupNotes?: MusicalNoteGrouping;
   readonly resolveHarmony?: HarmonyPlanResolver;
+  readonly seed?: string;
 }
+
+export type MusicalTransformOptions = HarmonicTransformOptions;
 
 type GenerateOperation = Extract<MusicalOperation, { readonly op: 'generate' }>;
 type HarmonicOperation = Extract<
   MusicalOperation,
   { readonly op: 'transpose' | 'harmonize' | 'arpeggiate' | 'revoice' }
+>;
+type RhythmOperation = Extract<
+  MusicalOperation,
+  { readonly op: 'quantize' | 'humanize' | 'thin' | 'densify' }
 >;
 type HarmonizeOperation = Extract<HarmonicOperation, { readonly op: 'harmonize' }>;
 
@@ -686,8 +700,11 @@ export function resolveHarmonyPlan(
 function validateTransformNotes(
   notes: readonly CanonicalMusicalNote[],
   operationIndex: number,
+  allowEmpty = false,
 ): TheoryResult<readonly CanonicalMusicalNote[]> {
-  if (notes.length === 0) return refuse('empty-result', `operation ${operationIndex} produced no notes`);
+  if (notes.length === 0 && !allowEmpty) {
+    return refuse('empty-result', `operation ${operationIndex} produced no notes`);
+  }
   const identities = new Set<string>();
   for (const note of notes) {
     if (!Number.isInteger(note.pitch) || note.pitch < 0 || note.pitch > 127) {
@@ -700,6 +717,14 @@ function validateTransformNotes(
       return refuse(
         'unwritable-expression',
         `operation ${operationIndex} would write pressure on channel ${note.channel}; pressure is not writable and cannot be dropped`,
+      );
+    }
+    if (!Number.isFinite(note.startBeats) || note.startBeats < 0
+        || !Number.isFinite(note.durationBeats) || note.durationBeats <= 0) {
+      return refuse(
+        'grid-refused',
+        `operation ${operationIndex} produced invalid timing at beat ${note.startBeats} `
+          + `with duration ${note.durationBeats}`,
       );
     }
     const identity = noteIdentity(note, note.channel);
@@ -1002,6 +1027,262 @@ function revoiceNotes(
   return accept({ notes: transformedSelection(notes, grouped.selection, replacements), loss });
 }
 
+const TIMING_EPSILON = 1e-9;
+
+function cleanBeat(value: number): number {
+  return Math.abs(value) < TIMING_EPSILON ? 0 : value;
+}
+
+function timingLoss(
+  before: CanonicalMusicalNote,
+  after: CanonicalMusicalNote,
+  provenance: MusicalProvenance,
+  requestedStartBeats: number,
+  message: string,
+): MusicalLoss {
+  return {
+    ...lossItem('timing-moved', before, after, provenance, message),
+    requestedStartBeats,
+    realizedStartBeats: after.startBeats,
+  };
+}
+
+function truncateSamePitchOverlaps(
+  notes: readonly CanonicalMusicalNote[],
+  provenance: MusicalProvenance,
+): { readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] } {
+  const output = [...notes];
+  const ordered = notes.map((note, index) => ({ note, index })).sort((left, right) =>
+    left.note.pitch - right.note.pitch || left.note.startBeats - right.note.startBeats);
+  const loss: MusicalLoss[] = [];
+  for (let index = 1; index < ordered.length; index += 1) {
+    const previous = ordered[index - 1]!;
+    const next = ordered[index]!;
+    if (previous.note.pitch !== next.note.pitch) continue;
+    const durationBeats = cleanBeat(next.note.startBeats - previous.note.startBeats);
+    if (previous.note.durationBeats <= durationBeats + TIMING_EPSILON) continue;
+    const after = { ...previous.note, durationBeats };
+    output[previous.index] = after;
+    loss.push(lossItem(
+      'note-shortened', previous.note, after, provenance,
+      `shortened pitch ${previous.note.pitch} at beat ${previous.note.startBeats} from `
+        + `${previous.note.durationBeats} to ${durationBeats} beats before the next same-pitch note`,
+    ));
+  }
+  return { notes: output, loss };
+}
+
+function validateRhythmGrid(
+  notes: readonly CanonicalMusicalNote[],
+  provenance: MusicalProvenance,
+): TheoryResult<number> {
+  const stepSize = stepSizeFor(notes);
+  if (stepSize === undefined) {
+    return refuse(
+      'grid-refused',
+      `operation ${provenance.operationIndex} produced timing that no exact straight or triplet grid can represent; `
+        + 'change the grid, strength, or timing range',
+    );
+  }
+  const identities = new Set<string>();
+  for (const note of notes) {
+    const step = Math.round(note.startBeats / stepSize);
+    const identity = `${note.channel}:${note.pitch}:${step}`;
+    if (identities.has(identity)) {
+      return refuse(
+        'duplicate-note',
+        `operation ${provenance.operationIndex} would encode duplicate note identity on channel `
+          + `${note.channel}: pitch ${note.pitch} at grid step ${step} on the ${stepSize}-beat grid`,
+      );
+    }
+    identities.add(identity);
+  }
+  return accept(stepSize);
+}
+
+function validateRhythmResult(
+  notes: readonly CanonicalMusicalNote[],
+  provenance: MusicalProvenance,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  const valid = validateTransformNotes(notes, provenance.operationIndex, true);
+  if (!valid.ok) return valid;
+  const inputGrid = validateRhythmGrid(valid.value, provenance);
+  if (!inputGrid.ok) return inputGrid;
+  const normalized = truncateSamePitchOverlaps(valid.value, provenance);
+  const normalizedNotes = validateTransformNotes(normalized.notes, provenance.operationIndex, true);
+  if (!normalizedNotes.ok) return normalizedNotes;
+  const outputGrid = validateRhythmGrid(normalizedNotes.value, provenance);
+  if (!outputGrid.ok) return outputGrid;
+  return accept({ notes: normalizedNotes.value, loss: normalized.loss });
+}
+
+function quantizeNotes(
+  notes: readonly CanonicalMusicalNote[],
+  operation: Extract<RhythmOperation, { readonly op: 'quantize' }>,
+  provenance: MusicalProvenance,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  const selection = selectCanonicalNotes(notes, operation.selection);
+  if (selection.selected.length === 0) return refuse('empty-result', 'quantize needs at least one selected note');
+  const loss: MusicalLoss[] = [];
+  const output = notes.map((before, index) => {
+    if (!selection.selectedIndexes.has(index)) return before;
+    const snapped = cleanBeat(Math.floor(before.startBeats / operation.gridBeats + 0.5) * operation.gridBeats);
+    const realized = cleanBeat(before.startBeats + (snapped - before.startBeats) * operation.strength);
+    const after = realized === before.startBeats ? before : { ...before, startBeats: realized, provenance };
+    if (snapped !== before.startBeats) {
+      loss.push(timingLoss(
+        before, after, provenance, snapped,
+        `quantize requested beat ${snapped} from beat ${before.startBeats}; strength `
+          + `${operation.strength} realized beat ${realized}`,
+      ));
+    }
+    return after;
+  });
+  const validated = validateRhythmResult(output, provenance);
+  return validated.ok
+    ? accept({ notes: validated.value.notes, loss: [...loss, ...validated.value.loss] })
+    : validated;
+}
+
+function finestExactGrid(notes: readonly CanonicalMusicalNote[]): number | undefined {
+  const values = notes.flatMap((note) => [note.startBeats, note.durationBeats]);
+  return [...STEP_SIZES].reverse().find((size) =>
+    values.every((value) => Math.abs(value / size - Math.round(value / size)) < TIMING_EPSILON));
+}
+
+function humanizeNotes(
+  notes: readonly CanonicalMusicalNote[],
+  operation: Extract<RhythmOperation, { readonly op: 'humanize' }>,
+  provenance: MusicalProvenance,
+  seedScope: string,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  const selection = selectCanonicalNotes(notes, operation.selection);
+  if (selection.selected.length === 0) return refuse('empty-result', 'humanize needs at least one selected note');
+  const exactGrid = finestExactGrid(notes);
+  if (exactGrid === undefined) {
+    return refuse('grid-refused', 'humanize input has no exact straight or triplet host grid');
+  }
+  const maxTimingSteps = Math.floor((operation.maxTimingBeats + TIMING_EPSILON) / exactGrid);
+  const loss: MusicalLoss[] = [];
+  let drawIndex = 0;
+  const output = notes.map((before, index) => {
+    if (!selection.selectedIndexes.has(index)) return before;
+    const timingDraw = musicalRandom(seedScope, drawIndex++);
+    const velocityDraw = musicalRandom(seedScope, drawIndex++);
+    const requestedStart = cleanBeat(
+      before.startBeats + (timingDraw * 2 - 1) * operation.maxTimingBeats,
+    );
+    const requestedSteps = Math.round((requestedStart - before.startBeats) / exactGrid);
+    const boundedSteps = Math.max(-maxTimingSteps, Math.min(maxTimingSteps, requestedSteps));
+    const realizedStart = cleanBeat(Math.max(0, before.startBeats + boundedSteps * exactGrid));
+    const requestedVelocity = before.velocity + (velocityDraw * 2 - 1) * operation.maxVelocity;
+    const realizedVelocity = Math.round(Math.max(0, Math.min(127, requestedVelocity)));
+    const after = realizedStart === before.startBeats && realizedVelocity === before.velocity
+      ? before
+      : { ...before, startBeats: realizedStart, velocity: realizedVelocity, provenance };
+    if (requestedStart !== before.startBeats || realizedStart !== before.startBeats) {
+      loss.push(timingLoss(
+        before, after, provenance, requestedStart,
+        `humanize requested beat ${requestedStart} from beat ${before.startBeats}; exact-grid `
+          + `snap and range clipping realized beat ${realizedStart}`,
+      ));
+    }
+    if (realizedVelocity !== before.velocity) {
+      loss.push(lossItem(
+        'velocity-changed', before, after, provenance,
+        `humanize requested velocity ${requestedVelocity}; integer snap and range clipping realized ${realizedVelocity}`,
+      ));
+    }
+    return after;
+  });
+  const validated = validateRhythmResult(output, provenance);
+  return validated.ok
+    ? accept({ notes: validated.value.notes, loss: [...loss, ...validated.value.loss] })
+    : validated;
+}
+
+function thinNotes(
+  notes: readonly CanonicalMusicalNote[],
+  operation: Extract<RhythmOperation, { readonly op: 'thin' }>,
+  provenance: MusicalProvenance,
+  seedScope: string,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  const selection = selectCanonicalNotes(notes, operation.selection);
+  if (selection.selected.length === 0) return refuse('empty-result', 'thin needs at least one selected note');
+  const output: CanonicalMusicalNote[] = [];
+  const loss: MusicalLoss[] = [];
+  let drawIndex = 0;
+  notes.forEach((note, index) => {
+    if (!selection.selectedIndexes.has(index) || musicalRandom(seedScope, drawIndex++) >= operation.probability) {
+      output.push(note);
+      return;
+    }
+    loss.push(lossItem(
+      'note-removed', note, undefined, provenance,
+      `removed pitch ${note.pitch} at beat ${note.startBeats} with probability ${operation.probability}`,
+    ));
+  });
+  return accept({ notes: output, loss });
+}
+
+function densifyNotes(
+  notes: readonly CanonicalMusicalNote[],
+  operation: Extract<RhythmOperation, { readonly op: 'densify' }>,
+  provenance: MusicalProvenance,
+  seedScope: string,
+  groupNotes: MusicalNoteGrouping,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  const selected = selectCanonicalNotes(notes, operation.selection);
+  if (selected.selected.length === 0) return refuse('empty-result', 'densify needs at least one selected note');
+  const groups = [...groupNotes(selected.selected, [...selected.selectedIndexes])]
+    .sort((left, right) => left.startBeats - right.startBeats);
+  const additions: CanonicalMusicalNote[] = [];
+  const loss: MusicalLoss[] = [];
+  let drawIndex = 0;
+  for (let groupIndex = 0; groupIndex + 1 < groups.length; groupIndex += 1) {
+    const group = groups[groupIndex]!;
+    const next = groups[groupIndex + 1]!;
+    let startBeats = cleanBeat(
+      (Math.floor(group.startBeats / operation.gridBeats + TIMING_EPSILON) + 1) * operation.gridBeats,
+    );
+    while (startBeats < next.startBeats - TIMING_EPSILON) {
+      for (const source of group.notes) {
+        if (musicalRandom(seedScope, drawIndex++) < operation.probability) {
+          const added = { ...source, startBeats, provenance };
+          additions.push(added);
+          loss.push(lossItem(
+            'note-added', undefined, added, provenance,
+            `added pitch ${added.pitch} at grid beat ${startBeats} from the preceding onset group`,
+          ));
+        }
+      }
+      startBeats = cleanBeat(startBeats + operation.gridBeats);
+    }
+  }
+  const validated = validateRhythmResult([...notes, ...additions], provenance);
+  return validated.ok
+    ? accept({ notes: validated.value.notes, loss: [...loss, ...validated.value.loss] })
+    : validated;
+}
+
+function applyRhythmOperation(
+  notes: readonly CanonicalMusicalNote[],
+  operation: RhythmOperation,
+  provenance: MusicalProvenance,
+  options: HarmonicTransformOptions,
+  seedScope?: string,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  if (operation.op === 'quantize') return quantizeNotes(notes, operation, provenance);
+  if (seedScope === undefined) {
+    return refuse('missing-seed', `operation ${provenance.operationIndex} (${operation.op}) needs an explicit seed`);
+  }
+  if (operation.op === 'humanize') return humanizeNotes(notes, operation, provenance, seedScope);
+  if (operation.op === 'thin') return thinNotes(notes, operation, provenance, seedScope);
+  return densifyNotes(
+    notes, operation, provenance, seedScope, options.groupNotes ?? groupNotesByExactOnset,
+  );
+}
+
 function applyHarmonicOperation(
   notes: readonly CanonicalMusicalNote[],
   operation: HarmonicOperation,
@@ -1039,8 +1320,8 @@ function applyHarmonicOperation(
   return validated.ok ? accept({ notes: validated.value, loss: transformed.value.loss }) : validated;
 }
 
-/** Materialize one ordered harmonic pipeline from generated or existing notes. */
-export function materializeHarmonicTarget(
+/** Materialize one ordered musical pipeline from generated or existing notes. */
+export function materializeMusicalTarget(
   target: MusicalTarget,
   sourceNotes: readonly NoteRecord[],
   targetIndex = 0,
@@ -1071,20 +1352,29 @@ export function materializeHarmonicTarget(
   const initial = validateTransformNotes(notes, Math.max(0, operationIndex - 1));
   if (!initial.ok) return initial;
   const loss: MusicalLoss[] = [];
+  const seedScopes: { operationIndex: number; scope: string }[] = [];
   for (; operationIndex < target.operations.length; operationIndex += 1) {
     const operation = target.operations[operationIndex]!;
     if (operation.op === 'generate') {
       return refuse('unsupported-operation', `generate cannot occur at operation ${operationIndex}`);
     }
-    if (operation.op === 'quantize' || operation.op === 'humanize'
-        || operation.op === 'thin' || operation.op === 'densify') {
+    const provenance = operationProvenance({ targetIndex, variationIndex, operationIndex }, operationIndex);
+    if (operation.op === 'thin' && target.write === 'merge') {
       return refuse(
         'unsupported-operation',
-        `operation ${operationIndex} (${operation.op}) belongs to the rhythm and performance transform session`,
+        `target ${targetIndex}, variation ${variationIndex}, operation ${operationIndex}: `
+          + 'thin requires replace mode because merge keeps every source note',
       );
     }
-    const provenance = operationProvenance({ targetIndex, variationIndex, operationIndex }, operationIndex);
-    const transformed = applyHarmonicOperation(notes, operation, provenance, options);
+    const rhythmic = operation.op === 'quantize' || operation.op === 'humanize'
+      || operation.op === 'thin' || operation.op === 'densify';
+    const seedScope = rhythmic && operation.op !== 'quantize' && options.seed !== undefined
+      ? musicalSeedScope(options.seed, targetIndex, variationIndex, operationIndex)
+      : undefined;
+    if (seedScope !== undefined) seedScopes.push({ operationIndex, scope: seedScope });
+    const transformed = rhythmic
+      ? applyRhythmOperation(notes, operation, provenance, options, seedScope)
+      : applyHarmonicOperation(notes, operation, provenance, options);
     if (!transformed.ok) {
       return refuse(
         transformed.code,
@@ -1096,7 +1386,8 @@ export function materializeHarmonicTarget(
   }
   const sourceValues = new Set(sourceNotes.map(noteValueKey));
   const outputNotes = target.write === 'merge' && first.op !== 'generate'
-    ? notes.filter((note) => !sourceValues.has(noteValueKey(plainNote(note))))
+    ? notes.filter((note) => note.provenance.operationIndex !== -1
+      && !sourceValues.has(noteValueKey(plainNote(note))))
     : notes;
   return accept({
     channel: target.channel,
@@ -1106,8 +1397,16 @@ export function materializeHarmonicTarget(
     variationIndex,
     operationIndex: target.operations.length - 1,
     loss,
+    ...(seedScopes.length === 0 ? {} : { effectiveSeed: options.seed }),
+    seedScopes,
   }, warnings);
 }
+
+/** Compatibility name for callers built during the harmonic session. */
+export const materializeHarmonicTarget = materializeMusicalTarget;
+
+/** Rhythm-facing name for the same ordered transform pipeline. */
+export const materializeRhythmTarget = materializeMusicalTarget;
 
 /** Materialize the generation stage for every target and requested take. */
 export function materializeGenerationPatch(

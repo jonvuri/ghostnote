@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-08-16
+updated: 2026-08-18
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E41 | Triplet rhythm readback and seeded transforms [K] (2026-08-18) | [open](experiments/e41-triplet-rhythm-readback-and-seeded-transforms.md) |
 | E40 | Remote CI passes and Session 5 has a regression policy [K] (2026-08-16) | [open](experiments/e40-remote-ci-passes-and-session-5-has-a-regression-policy.md) |
 | E39 | Full live conformance passes after the pin-settlement repair [K] (2026-08-16) | [open](experiments/e39-full-live-conformance-passes-after-pin-settlement-repair.md) |
 | E38 | Pin confirmation polls without restarting the point [K] (2026-08-16) | [open](experiments/e38-pin-confirmation-polls-without-restarting-the-point.md) |

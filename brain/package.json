@@ -198,6 +198,7 @@
     "probe:5e-refusal": "tsx src/probes/phase5e-refusal-boundaries.ts",
     "probe:5f-ab": "tsx src/probes/phase5f-managed-ab.ts",
     "probe:5g-repair": "tsx src/probes/phase5g-two-clip-repair.ts",
+    "probe:2d-rhythm": "tsx src/probes/phase2d-rhythm.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

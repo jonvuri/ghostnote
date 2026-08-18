@@ -6,7 +6,7 @@ updated: 2026-08-18
 source: phase-2-session-2a
 ---
 
-# D21 — One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16]**
+# D21 — One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16, AMENDED 2026-08-18]**
 
 The internal musical contract is `ghostnote-musical-patch` version 1. It is pure,
 beats-native, ordered, and deterministic. It has one or more clip-channel targets.
@@ -81,6 +81,13 @@ Each operation defines its input, output, changed fields, preserved fields,
 order, and possible loss. A loss item names the target, variation, operation,
 before value, after value, and message when those values apply. A timing move,
 velocity change, shortened note, added note, or removed note is never silent.
+
+E41 adds two result details without changing the patch grammar. A materialized
+random result returns the effective caller seed and each derived operation
+scope. A timing item returns requested and realized start beats. Quantize uses
+nearest-grid ties-later behavior. Thin probability means removal chance and
+requires replace mode. Densify fills empty grid lines between selected onset
+groups from the preceding group; its probability means addition chance.
 
 ## Compatibility decisions
 

@@ -5,7 +5,7 @@ state: active
 source: DECISIONS.md
 ---
 
-# D9 — Grid and units **[SETTLED 2026-07-25]**
+# D9 — Grid and units **[SETTLED 2026-07-25, AMENDED 2026-08-18]**
 
 **Beats-native everywhere; the step grid is a per-operation view, not global
 state** (standing rule 12, correcting daw-mcp's design). The beats↔step conversion
@@ -24,3 +24,10 @@ happens in the live encoder and nowhere else.
   reason; filtering it made the props stage coarser and lost every property
   (E15-F). `stepSizeFor` therefore lives in the contract, not the encoder, so both
   adapters and the stage planner can ask the same question.
+
+**Amended by E41.** The exact per-operation grid family includes binary views
+from 1 beat through 1/64 beat and triplet views at 1/3, 1/6, 1/12, 1/24, and
+1/48 beat. The chooser still selects the coarsest view that represents all
+starts and durations. A 1/12-beat independent witness read returned a 1/6-beat
+position and 1/3-beat duration exactly within note readback tolerance. Mixed
+straight and triplet content is therefore supported, not refused.

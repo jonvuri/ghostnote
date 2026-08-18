@@ -4,7 +4,7 @@ kind: plan
 state: planned
 updated: 2026-08-16
 parent: README.md
-prev: 2d-rhythm-performance.md
+prev: 2d-grid-precision-follow-up.md
 next: 2f-application-planner.md
 scope: Phase 2 launcher-clip lifecycle
 evidence: E2, E3, E20a/b, E24 · D8, D15, D16, D18–D20

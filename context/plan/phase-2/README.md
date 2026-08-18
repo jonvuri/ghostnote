@@ -2,9 +2,9 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: active
-status: Session 2d is active. Seven build sessions lead to live proof, two
-        separate dogfood sessions, and closeout. Async completion stays
-        conditional on a measured workload.
+status: The Session 2d grid-precision follow-up is active. Eight build sessions
+        lead to live proof, two separate dogfood sessions, and closeout. Async
+        completion stays conditional on a measured workload.
 updated: 2026-08-18
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
@@ -58,7 +58,7 @@ diff should show.
 
 ## Execution order
 
-The first seven sessions separate pure musical work, Bitwig lifecycle work,
+The first eight sessions separate pure musical work, Bitwig lifecycle work,
 application safety, and the public surface. The last three sessions prove actual
 use and close the phase.
 
@@ -69,24 +69,26 @@ use and close the phase.
 3. [2c — harmonic transformations](../../archive/outcomes/PHASE-2-SESSION-2C-HARMONIC-TRANSFORMS.md) —
    complete; pure ordered transforms preserve unrelated note state and expose
    replaceable onset-group and harmony-region policies.
-4. [2d — rhythm and performance transformations](2d-rhythm-performance.md) — active;
-   quantize, humanize, thin, and densify with seeded randomness and explicit loss
-   reports; prove triplet grids.
-5. [2e — clip lifecycle](2e-clip-lifecycle.md) — measure, then build the verified
+4. [2d — rhythm and performance transformations](../../archive/outcomes/PHASE-2-SESSION-2D-RHYTHM-PERFORMANCE.md) —
+   complete; seeded pure transforms report timing, density, and collisions, and
+   independent live readback proves mixed straight and triplet grids.
+5. [2d follow-up — measured grid precision](2d-grid-precision-follow-up.md) — active;
+   measure host duration representation, then fix safe grid normalization.
+6. [2e — clip lifecycle](2e-clip-lifecycle.md) — measure, then build the verified
    launcher-clip contract for length, loop, name, colour, and duplication.
-6. [2f — musical application planner](2f-application-planner.md) — turn musical
+7. [2f — musical application planner](2f-application-planner.md) — turn musical
    patches into preflighted, stash-backed operations; use clip blocks only for
    requested or required alternates.
-7. [2g — MCP clip surface v1](2g-mcp-surface.md) — expose the planner through a
+8. [2g — MCP clip surface v1](2g-mcp-surface.md) — expose the planner through a
    small, versioned, observed public surface.
-8. [2h — conformance and workload proof](2h-conformance.md) — prove the complete
+9. [2h — conformance and workload proof](2h-conformance.md) — prove the complete
    path offline and live, restore the baseline, and measure whether async work is
    justified.
-9. [2i — dogfood round one](2i-dogfood-1.md) — write real music through an
+10. [2i — dogfood round one](2i-dogfood-1.md) — write real music through an
    ordinary MCP conversation and record friction without overfitting one use.
-10. [2j — dogfood round two and revision](2j-dogfood-2.md) — use a different
+11. [2j — dogfood round two and revision](2j-dogfood-2.md) — use a different
     musical task, compare both records, and revise repeated problems only.
-11. [2k — closeout](2k-closeout.md) — audit evidence, record qualifications, and
+12. [2k — closeout](2k-closeout.md) — audit evidence, record qualifications, and
     hand off the next phase.
 
 [2x — async batch completion](../phase-1/6-async.md) is a conditional branch
@@ -96,7 +98,8 @@ after 2h, not part of the default sequence. If 2h activates it, rerun the affect
 ### Dependency rule
 
 - Sessions 2b through 2d depend only on the 2a musical contract.
-- Session 2e is independent of the pure musical core after 2a.
+- The 2d grid-precision follow-up depends on E41 and precedes 2e.
+- Session 2e is otherwise independent of the pure musical core after 2a.
 - Session 2f joins the musical and lifecycle paths.
 - Session 2g freezes public wording only after the planner reports real results.
 - Sessions 2i and 2j are separate uses. A scripted repeat does not satisfy the
@@ -108,8 +111,9 @@ Session 2a owns two contract corrections before the new schema freezes: musical
 note writes must carry MIDI channel explicitly, and public gain wording must
 match E24's measured inverse. Clear is clip-wide because the host has no
 channel-scoped clear. Session 2d owns the gap between the current binary grid
-list and this phase's triplet requirement. These are part of the named sessions,
-not separate repair work.
+list and this phase's triplet requirement. Its focused follow-up owns the measured
+host-precision rule. These are part of the named sessions, not unnamed repair
+work.
 
 ## Scope
 

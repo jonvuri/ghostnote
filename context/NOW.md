@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-18
 phase: phase-2
-session: 2d-rhythm-performance
+session: 2d-grid-precision-follow-up
 ---
 
 # Now
@@ -16,10 +16,9 @@ records full live conformance. E40 records passing remote CI for candidate
 
 ## Start here
 
-1. Run [Phase 2 session 2d](plan/phase-2/2d-rhythm-performance.md).
-2. Implement quantize, humanize, thin, and densify as seeded pure transforms.
-3. Measure triplet readback through an independent live handle. Restore the
-   documented project baseline after the probe.
+1. Run the [Phase 2 session 2d grid-precision follow-up](plan/phase-2/2d-grid-precision-follow-up.md).
+2. Measure raw host duration doubles before changing the grid tolerance.
+3. Keep start identity exact and normalize durations only under a measured rule.
 4. Do not schedule [async batch completion](plan/phase-1/6-async.md) unless a
    measured Phase 2 workload justifies it.
 
@@ -56,14 +55,17 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-Session 2c added pure ordered harmonic transforms. Beat selection is half-open;
-pitch selection is inclusive. Exact-onset grouping and harmony-region resolution
-are replaceable policies. The current resolver uses one full-range context and
-fills missing chord or scale tones near each group's lowest pitch. Duplicate
-identities and MIDI range failures refuse. Pressure refuses before compilation.
-All 20 writable note properties round-trip in the focused fixture. Re-voice now
-reports `octave-displaced`, which changed only the version-1 report fingerprint.
-Merge transformations emit only new or changed notes. Group reconstruction keeps
-interleaved unselected notes in place. Future key-change work can provide several
-regions through the existing resolver. No repository instruction change is
-needed.
+Session 2d added quantize, humanize, thin, and densify to the ordered pure
+pipeline. Random output returns the caller seed and derived operation scopes.
+Timing reports contain requested and realized beats. Thin probability means
+removal and requires replace mode. Densify fills empty grid lines between onset
+groups from the preceding group. Duplicate identities and unsupported grids
+refuse. Same-pitch truncation is applied and reported before compilation. E41
+proves mixed straight and triplet positions and durations through an independent
+live witness. The probe restored all 22 occupied cells, selection, cursor homes,
+transport, and observation state. Define probability direction and density
+behavior when future operation shapes enter the grammar. Review found that the
+measured 1/3-beat duration does not pass the unmeasured grid epsilon. Measure and
+fix that boundary before session 2e. Review also made grid-cell collision checks
+match encoder identity, revalidated truncated notes, and rounded humanized
+velocities to the host integer representation.

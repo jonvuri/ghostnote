@@ -27,7 +27,20 @@ import type { NoteRecord } from './state.js';
  * snapped DOWN (a note at beat 0.09375 scans as x=0 on a 0.25 grid), so a lossy
  * grid choice would corrupt a snapshot silently.
  */
-export const STEP_SIZES: readonly number[] = [1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625];
+export const STEP_SIZES: readonly number[] = [
+  1,
+  0.5,
+  1 / 3,
+  0.25,
+  1 / 6,
+  0.125,
+  1 / 12,
+  0.0625,
+  1 / 24,
+  0.03125,
+  1 / 48,
+  0.015625,
+];
 
 const EPSILON = 1e-9;
 

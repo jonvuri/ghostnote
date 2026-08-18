@@ -536,6 +536,14 @@ export const MUSICAL_PATCH_POLICY = {
     'Refuse pressure before materialization because the host does not persist it.',
   protection:
     'Use direct stash-backed writes unless variations are requested or the fidelity floor requires a clip block.',
+  quantize:
+    'Snap to the nearest grid line, with a tie moving later. Strength linearly interpolates from the input to the snapped position.',
+  humanize:
+    'Draw timing and velocity offsets per selected note. Snap timing to the finest exact host grid, round velocity to a host integer, and clip both fields to their ranges.',
+  thin:
+    'Treat probability as the removal chance for each selected note. Thin requires replace mode because merge cannot remove source notes.',
+  densify:
+    'At each empty grid line between selected onset groups, copy the preceding group and treat probability as each copied note\'s addition chance.',
 } as const;
 
 export type MusicalLossCode =
@@ -556,6 +564,8 @@ export interface MusicalLoss {
   readonly operationIndex: number;
   readonly before?: NoteRecord;
   readonly after?: NoteRecord;
+  readonly requestedStartBeats?: number;
+  readonly realizedStartBeats?: number;
   readonly message: string;
 }
 

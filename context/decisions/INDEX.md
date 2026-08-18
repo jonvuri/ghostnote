@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-08-16
+updated: 2026-08-18
 ---
 
 # Decision index
@@ -20,7 +20,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D6 | Addressing: pinned non-following cursors, identity never index **[SETTLED 2026-07-25]** | [open](d6-addressing-pinned-non-following-cursors-identity-never-index-set.md) |
 | D7 | Pre-allocation scaffold sizes **[SETTLED 2026-07-25]** | [open](d7-pre-allocation-scaffold-sizes-settled-2026-07-25.md) |
 | D8 | Checkpoint fidelity, measured **[SETTLED 2026-07-25]** | [open](d8-checkpoint-fidelity-measured-settled-2026-07-25.md) |
-| D9 | Grid and units **[SETTLED 2026-07-25]** | [open](d9-grid-and-units-settled-2026-07-25.md) |
+| D9 | Grid and units **[SETTLED 2026-07-25, AMENDED 2026-08-18]** | [open](d9-grid-and-units-settled-2026-07-25.md) |
 | D10 | Batch execution mechanics **[SETTLED 2026-07-25]** | [open](d10-batch-execution-mechanics-settled-2026-07-25.md) |
 | D11 | Toolchain **[SETTLED 2026-07-25]** | [open](d11-toolchain-settled-2026-07-25.md) |
 | D12 | Transport and the contract boundary **[SETTLED 2026-07-25]** | [open](d12-transport-and-the-contract-boundary-settled-2026-07-25.md) |
@@ -32,4 +32,4 @@ with the original decision heading and preserves its amendments and rationale.
 | D18 | Managed takes use layer chains and clip blocks; track copying is ordinary CRUD **[REVISED 2026-08-14]** | [open](d18-branching-the-hybrid-model-at-l3-open-settled-2026-08-06-by-the-.md) |
 | D19 | Undo: Bitwig's stack is the human's; agent-edit reversal is ours **[SETTLED 2026-08-06; separated out 2026-08-07]** | [open](d19-undo-bitwig-s-stack-is-the-human-s-agent-edit-reversal-is-ours-s.md) |
 | D20 | Destruction: zero initiative, directed execution behind an annotated seam **[SETTLED 2026-08-07]** | [open](d20-destruction-zero-initiative-directed-execution-behind-an-annotat.md) |
-| D21 | One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16]** | [open](d21-musical-patch-and-public-tool-grain.md) |
+| D21 | One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16, AMENDED 2026-08-18]** | [open](d21-musical-patch-and-public-tool-grain.md) |
