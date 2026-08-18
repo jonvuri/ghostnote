@@ -105,6 +105,34 @@ public final class NoteHandlers extends HandlerGroup {
     private JsonElement cursorSetAndReadNote(JsonObject params) {
         Clip clip = rig.clip(params.get("cursor").getAsString());
         int channel = params.has("channel") ? params.get("channel").getAsInt() : 0;
+
+        // Probe-only precision mode. This keeps raw-bit diagnostics off the
+        // product note reader and does not add a wire method.
+        if (params.has("measurements")) {
+            JsonArray measurements = new JsonArray();
+            for (JsonElement el : params.getAsJsonArray("measurements")) {
+                JsonObject requested = el.getAsJsonObject();
+                int x = requested.get("x").getAsInt();
+                int y = requested.get("y").getAsInt();
+                double requestedDuration = requested.get("duration").getAsDouble();
+                NoteStep settled = clip.getStep(channel, x, y);
+                double settledDuration = settled.duration();
+
+                JsonObject measured = new JsonObject();
+                measured.addProperty("x", x);
+                measured.addProperty("y", y);
+                measured.addProperty("requestedDuration", requestedDuration);
+                measured.addProperty("requestedRawBits", rawDoubleBits(requestedDuration));
+                measured.addProperty("settledDuration", settledDuration);
+                measured.addProperty("settledRawBits", rawDoubleBits(settledDuration));
+                measured.addProperty("state", settled.state().name());
+                measurements.add(measured);
+            }
+            JsonObject result = new JsonObject();
+            result.add("measurements", measurements);
+            return result;
+        }
+
         int x = params.get("x").getAsInt();
         int y = params.get("y").getAsInt();
         int vel = params.get("vel").getAsInt();
@@ -120,6 +148,10 @@ public final class NoteHandlers extends HandlerGroup {
         result.addProperty("postVelocity", after.velocity());
         result.addProperty("postDuration", after.duration());
         return result;
+    }
+
+    private static String rawDoubleBits(double value) {
+        return String.format("%016x", Double.doubleToRawLongBits(value));
     }
 
     /** Set arbitrary NoteStep properties on an existing step. */

@@ -42,7 +42,25 @@ export const STEP_SIZES: readonly number[] = [
   0.015625,
 ];
 
-const EPSILON = 1e-9;
+const START_EPSILON = 1e-9;
+
+/**
+ * E42 measured settled host durations as exact multiples of 2^-20 beat. Binary
+ * controls stayed exact. Supported triplet values rounded to the nearest such
+ * multiple, with a maximum observed error of 3.1789143895011307e-7 beat.
+ */
+const HOST_DURATION_QUANTUM = 2 ** -20;
+
+function startIsOnGrid(value: number, size: number): boolean {
+  return Math.abs(value / size - Math.round(value / size)) < START_EPSILON;
+}
+
+function durationIsOnGrid(value: number, size: number): boolean {
+  if (startIsOnGrid(value, size)) return true;
+  const exact = Math.round(value / size) * size;
+  const hostNormalized = Math.round(exact / HOST_DURATION_QUANTUM) * HOST_DURATION_QUANTUM;
+  return value === hostNormalized;
+}
 
 /**
  * The coarsest grid on which every start and duration is exact, or `undefined`
@@ -53,8 +71,8 @@ const EPSILON = 1e-9;
  * them "no representable grid" is an answer, not an error.
  */
 export function stepSizeFor(notes: readonly NoteRecord[]): number | undefined {
-  const values = notes.flatMap((n) => [n.startBeats, n.durationBeats]);
-  return STEP_SIZES.find((size) => values.every((v) => Math.abs(v / size - Math.round(v / size)) < EPSILON));
+  return STEP_SIZES.find((size) => notes.every((note) =>
+    startIsOnGrid(note.startBeats, size) && durationIsOnGrid(note.durationBeats, size)));
 }
 
 /** The same answer, as a refusal — for the encoder, which has to emit something. */

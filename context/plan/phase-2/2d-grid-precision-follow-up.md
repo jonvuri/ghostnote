@@ -1,13 +1,16 @@
 ---
 title: Phase 2, session 2d follow-up — measured grid precision
 kind: plan
-state: active
+state: complete
+status: Complete 2026-08-18. E42 measures the host's 2^-20-beat duration
+        representation and proves the exact normalization rule through the
+        complete product rewrite path.
 updated: 2026-08-18
 parent: README.md
 prev: ../../archive/outcomes/PHASE-2-SESSION-2D-RHYTHM-PERFORMANCE.md
 next: 2e-clip-lifecycle.md
 scope: Host duration precision and safe grid normalization
-evidence: E2, E15-D/F, E41 · D9, D10, D15, D21
+evidence: E2, E15-D/F, E41, E42 · D9, D10, D15, D21
 ---
 
 # Phase 2, session 2d follow-up — measured grid precision

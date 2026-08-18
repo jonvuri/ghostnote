@@ -31,3 +31,13 @@ from 1 beat through 1/64 beat and triplet views at 1/3, 1/6, 1/12, 1/24, and
 starts and durations. A 1/12-beat independent witness read returned a 1/6-beat
 position and 1/3-beat duration exactly within note readback tolerance. Mixed
 straight and triplet content is therefore supported, not refused.
+
+**Amended by E42.** Start positions and durations use separate precision rules.
+Starts return as integer grid coordinates and keep the strict `1e-9` ratio
+check. Settled host durations are exact multiples of `2^-20` beat. Binary
+controls remain bit-exact. Supported triplet durations round to the nearest
+`2^-20`-beat value, with a maximum observed error of
+`3.1789143895011307e-7` beat. A duration passes only when it is exact on a
+supported grid or equals that grid value after exact `2^-20` quantization. An
+arbitrary nearby value does not pass. This rule is qualified to the supported
+values measured on Bitwig 6.0.6 with host API 25.

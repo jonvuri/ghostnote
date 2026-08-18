@@ -75,6 +75,57 @@ test('R-grid: straight, triplet, and mixed straight-triplet values choose an exa
   assert.equal(chooseStepSize([{ ...FULL_EXPRESSION_NOTE, startBeats: 1 / 6, durationBeats: 1 / 6 }]), 1 / 6);
 });
 
+test('R-grid: measured host triplet durations use the exact 2^-20 normalization rule', () => {
+  const measured = [
+    [1 / 3, 1, 0.33333301544189453],
+    [1 / 3, 2, 0.6666669845581055],
+    [1 / 3, 5, 1.6666669845581055],
+    [1 / 6, 1, 0.16666698455810547],
+    [1 / 6, 2, 0.33333301544189453],
+    [1 / 6, 5, 0.8333330154418945],
+    [1 / 12, 1, 0.08333301544189453],
+    [1 / 12, 2, 0.16666698455810547],
+    [1 / 12, 5, 0.41666698455810547],
+    [1 / 24, 1, 0.04166698455810547],
+    [1 / 24, 2, 0.08333301544189453],
+    [1 / 24, 5, 0.20833301544189453],
+    [1 / 48, 1, 0.02083301544189453],
+    [1 / 48, 2, 0.04166698455810547],
+    [1 / 48, 5, 0.10416698455810547],
+  ] as const;
+  for (const [unit, multiple, durationBeats] of measured) {
+    assert.notEqual(stepSizeFor([{ ...FULL_EXPRESSION_NOTE, durationBeats }]), undefined,
+      `${unit} * ${multiple}`);
+  }
+});
+
+test('R-grid: duration normalization does not widen start identity or accept nearby values', () => {
+  const rawThird = 0.33333301544189453;
+  assert.equal(stepSizeFor([{ ...FULL_EXPRESSION_NOTE, durationBeats: rawThird }]), 1 / 3);
+  assert.equal(stepSizeFor([
+    { ...FULL_EXPRESSION_NOTE, startBeats: 0.25, durationBeats: rawThird },
+    { ...FULL_EXPRESSION_NOTE, startBeats: 1 / 3, durationBeats: 0.25, pitch: 61 },
+  ]), 1 / 12, 'mixed straight and triplet timing keeps the coarsest shared grid');
+  assert.equal(stepSizeFor([{
+    ...FULL_EXPRESSION_NOTE, startBeats: rawThird, durationBeats: 0.25,
+  }]), undefined, 'start identity stays strict');
+  assert.equal(stepSizeFor([{
+    ...FULL_EXPRESSION_NOTE, durationBeats: rawThird + 2 ** -20,
+  }]), undefined, 'an adjacent fixed-point value is not the normalized third');
+  assert.equal(stepSizeFor([{
+    ...FULL_EXPRESSION_NOTE, durationBeats: 1 / 3 + 3e-7,
+  }]), undefined, 'an arbitrary value inside the empirical error bound is not accepted');
+});
+
+test('R-grid: the 1/64-beat floor stays exact', () => {
+  assert.equal(stepSizeFor([{
+    ...FULL_EXPRESSION_NOTE, startBeats: 1 / 64, durationBeats: 1 / 64,
+  }]), 1 / 64);
+  assert.equal(stepSizeFor([{
+    ...FULL_EXPRESSION_NOTE, startBeats: 1 / 128, durationBeats: 1 / 64,
+  }]), undefined);
+});
+
 test('R-quantize: nearest ties move later and strength reports requested and realized timing', () => {
   const source = { ...FULL_EXPRESSION_NOTE, startBeats: 0.25, durationBeats: 0.25 };
   const half = valueOf(materializeRhythmTarget(target([{
@@ -103,17 +154,31 @@ test('R-quantize: an unrepresentable strength refuses instead of losing timing',
 });
 
 test('R-quantize: positions that encode to one grid cell refuse as duplicates', () => {
+  const rawThird = 0.33333301544189453;
   const result = materializeRhythmTarget(target([{
     op: 'quantize', gridBeats: 0.25, strength: 0.9999999998888892,
   }]), [
-    { ...FULL_EXPRESSION_NOTE, startBeats: 0.25, durationBeats: 0.25 },
-    { ...FULL_EXPRESSION_NOTE, startBeats: 0.34, durationBeats: 0.25 },
+    { ...FULL_EXPRESSION_NOTE, startBeats: 0.25, durationBeats: rawThird },
+    { ...FULL_EXPRESSION_NOTE, startBeats: 0.34, durationBeats: rawThird },
   ]);
   assert.equal(result.ok, false);
   if (!result.ok) {
     assert.equal(result.code, 'duplicate-note');
-    assert.match(result.reason, /grid step 1 on the 0.25-beat grid/);
+    assert.match(result.reason, /grid step 3 on the 0.08333333333333333-beat grid/);
   }
+});
+
+test('R-quantize: measured adjacent durations truncate before output and stay positive', () => {
+  const source = [
+    { ...FULL_EXPRESSION_NOTE, durationBeats: 0.6666669845581055 },
+    { ...FULL_EXPRESSION_NOTE, startBeats: 1 / 3, durationBeats: 0.33333301544189453 },
+  ];
+  const result = valueOf(materializeRhythmTarget(
+    target([{ op: 'quantize', gridBeats: 1 / 3, strength: 1 }]), source,
+  ));
+  assert.equal(result.notes[0]!.durationBeats, 1 / 3);
+  assert.ok(result.notes.every((item) => item.durationBeats > 0));
+  assert.deepEqual(result.loss.map((item) => item.code), ['note-shortened']);
 });
 
 test('R-humanize: the seed repeats notes and reports, while a different seed changes them', () => {

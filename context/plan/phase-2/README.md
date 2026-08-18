@@ -2,9 +2,9 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: active
-status: The Session 2d grid-precision follow-up is active. Eight build sessions
-        lead to live proof, two separate dogfood sessions, and closeout. Async
-        completion stays conditional on a measured workload.
+status: Session 2e is next. Eight build sessions lead to live proof, two separate
+        dogfood sessions, and closeout. Async completion stays conditional on a
+        measured workload.
 updated: 2026-08-18
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
@@ -72,8 +72,9 @@ use and close the phase.
 4. [2d — rhythm and performance transformations](../../archive/outcomes/PHASE-2-SESSION-2D-RHYTHM-PERFORMANCE.md) —
    complete; seeded pure transforms report timing, density, and collisions, and
    independent live readback proves mixed straight and triplet grids.
-5. [2d follow-up — measured grid precision](2d-grid-precision-follow-up.md) — active;
-   measure host duration representation, then fix safe grid normalization.
+5. [2d follow-up — measured grid precision](../../archive/outcomes/PHASE-2-SESSION-2D-GRID-PRECISION.md) —
+   complete; host durations use a measured `2^-20`-beat representation, while
+   start identity stays exact.
 6. [2e — clip lifecycle](2e-clip-lifecycle.md) — measure, then build the verified
    launcher-clip contract for length, loop, name, colour, and duplication.
 7. [2f — musical application planner](2f-application-planner.md) — turn musical

@@ -423,6 +423,11 @@ test('W-contract: every method the encoder can emit exists in the extension', ()
   assert.deepEqual(unknown, [], 'the encoder would call a method the extension does not register');
 });
 
+test('E42: raw duration bits stay on the existing probe-only route', () => {
+  assert.ok(golden.methods.includes('cursor.setAndReadNote'));
+  assert.ok(!WIRE_METHODS_USED.includes('cursor.setAndReadNote'));
+});
+
 test('W-contract: the contract reaches only a deliberate subset of the wire', () => {
   // The gap is the design, not incompleteness: the rest is probe surface. If this
   // ever approaches parity, the contract has drifted into being a 1:1 RPC facade

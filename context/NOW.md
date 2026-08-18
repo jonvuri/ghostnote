@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-18
 phase: phase-2
-session: 2d-grid-precision-follow-up
+session: 2e-clip-lifecycle
 ---
 
 # Now
@@ -16,9 +16,11 @@ records full live conformance. E40 records passing remote CI for candidate
 
 ## Start here
 
-1. Run the [Phase 2 session 2d grid-precision follow-up](plan/phase-2/2d-grid-precision-follow-up.md).
-2. Measure raw host duration doubles before changing the grid tolerance.
-3. Keep start identity exact and normalize durations only under a measured rule.
+1. Run [Phase 2 session 2e](plan/phase-2/2e-clip-lifecycle.md).
+2. Measure clip metadata and duplication routes before product code relies on
+   them.
+3. Keep destructive delete on the D20 surface and retain empty-destination
+   protection for duplication.
 4. Do not schedule [async batch completion](plan/phase-1/6-async.md) unless a
    measured Phase 2 workload justifies it.
 
@@ -55,17 +57,11 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-Session 2d added quantize, humanize, thin, and densify to the ordered pure
-pipeline. Random output returns the caller seed and derived operation scopes.
-Timing reports contain requested and realized beats. Thin probability means
-removal and requires replace mode. Densify fills empty grid lines between onset
-groups from the preceding group. Duplicate identities and unsupported grids
-refuse. Same-pitch truncation is applied and reported before compilation. E41
-proves mixed straight and triplet positions and durations through an independent
-live witness. The probe restored all 22 occupied cells, selection, cursor homes,
-transport, and observation state. Define probability direction and density
-behavior when future operation shapes enter the grammar. Review found that the
-measured 1/3-beat duration does not pass the unmeasured grid epsilon. Measure and
-fix that boundary before session 2e. Review also made grid-cell collision checks
-match encoder identity, revalidated truncated notes, and rounded humanized
-velocities to the host integer representation.
+E42 measured binary controls and supported triplet durations at the Java and
+brain boundaries. Settled durations use exact `2^-20`-beat values. Grid
+classification now accepts only the predicted fixed-point duration while start
+identity keeps its strict rule. The raw E41 third-beat duration passed product
+read, transform, compile, write, and independent readback. The probe restored
+all 22 occupied cells, selection, cursor homes, transport, observation state,
+and `Last change`. Separate start and duration rules make the contract clearer;
+no repository instruction change is needed.

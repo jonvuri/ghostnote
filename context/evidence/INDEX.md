@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E42 | Host durations use measured 2^-20-beat quantization [K] (2026-08-18) | [open](experiments/e42-host-duration-fixed-point-grid-normalization.md) |
 | E41 | Triplet rhythm readback and seeded transforms [K] (2026-08-18) | [open](experiments/e41-triplet-rhythm-readback-and-seeded-transforms.md) |
 | E40 | Remote CI passes and Session 5 has a regression policy [K] (2026-08-16) | [open](experiments/e40-remote-ci-passes-and-session-5-has-a-regression-policy.md) |
 | E39 | Full live conformance passes after the pin-settlement repair [K] (2026-08-16) | [open](experiments/e39-full-live-conformance-passes-after-pin-settlement-repair.md) |
