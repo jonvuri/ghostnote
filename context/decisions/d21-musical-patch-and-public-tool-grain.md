@@ -2,7 +2,7 @@
 id: D21
 kind: decision
 state: active
-updated: 2026-08-16
+updated: 2026-08-18
 source: phase-2-session-2a
 ---
 
@@ -96,4 +96,7 @@ unmeasured. Pressure stays unwritable and is refused before mutation.
 
 The representative corpus and golden report shapes are in
 `brain/src/musical/corpus.ts`. Their v1 SHA-256 is
-`11413279d0acfb506d159e625b8b1af6f52b2ab7ba2c7b1371d29892164cf85f`.
+`a9d4fd5a5074788fba330d8230a7c6bd8b80909d74d40fa649ca581dc7c8e635`.
+Session 2c changed only the report vocabulary. Re-voice now declares
+`octave-displaced` as possible loss so that octave moves are not silent. The
+patch grammar and representative requests did not change.

@@ -1,10 +1,10 @@
 ---
 title: Phase 2, session 2d — rhythm and performance transformations
 kind: plan
-state: planned
-updated: 2026-08-16
+state: active
+updated: 2026-08-18
 parent: README.md
-prev: 2c-harmonic-transforms.md
+prev: ../../archive/outcomes/PHASE-2-SESSION-2C-HARMONIC-TRANSFORMS.md
 next: 2e-clip-lifecycle.md
 scope: Phase 2 manipulation vocabulary and grid contract
 evidence: E2, E15-D/F, E24 · D8–D10, D15, D16

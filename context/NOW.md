@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-16
+updated: 2026-08-18
 phase: phase-2
-session: 2c-harmonic-transforms
+session: 2d-rhythm-performance
 ---
 
 # Now
@@ -16,11 +16,10 @@ records full live conformance. E40 records passing remote CI for candidate
 
 ## Start here
 
-1. Run [Phase 2 session 2c](plan/phase-2/2c-harmonic-transforms.md).
-2. Implement transpose, harmonize, arpeggiate, and re-voice as pure transforms.
-   Use `brain/src/musical/theory.ts` for all theory work.
-3. Preserve timing, channel, and expression unless the requested operation owns
-   the field. Keep every material change in the loss report.
+1. Run [Phase 2 session 2d](plan/phase-2/2d-rhythm-performance.md).
+2. Implement quantize, humanize, thin, and densify as seeded pure transforms.
+3. Measure triplet readback through an independent live handle. Restore the
+   documented project baseline after the probe.
 4. Do not schedule [async batch completion](plan/phase-1/6-async.md) unless a
    measured Phase 2 workload justifies it.
 
@@ -57,11 +56,14 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-Session 2b added a pure theory boundary and canonical generation for all five
-generation cases in the 2a corpus. Minor-key Roman numerals needed one explicit
-rule: unaltered degrees use the natural-minor scale. Review also found that note
-sorting removed literal order before `as-played` arpeggiation. Generation now
-keeps explicit source order. Octave-bearing note names outside MIDI 0–127 now
-refuse as range errors instead of losing their octave. Future corpus additions
-must state the degree basis for other minor-key forms. No repository instruction
-change is needed.
+Session 2c added pure ordered harmonic transforms. Beat selection is half-open;
+pitch selection is inclusive. Exact-onset grouping and harmony-region resolution
+are replaceable policies. The current resolver uses one full-range context and
+fills missing chord or scale tones near each group's lowest pitch. Duplicate
+identities and MIDI range failures refuse. Pressure refuses before compilation.
+All 20 writable note properties round-trip in the focused fixture. Re-voice now
+reports `octave-displaced`, which changed only the version-1 report fingerprint.
+Merge transformations emit only new or changed notes. Group reconstruction keeps
+interleaved unselected notes in place. Future key-change work can provide several
+regions through the existing resolver. No repository instruction change is
+needed.

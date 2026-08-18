@@ -7,7 +7,7 @@ status: Complete 2026-08-16. The pure theory boundary supports the full 2a
 updated: 2026-08-16
 parent: README.md
 prev: ../../archive/outcomes/PHASE-2-SESSION-2A-MUSICAL-CONTRACT.md
-next: 2c-harmonic-transforms.md
+next: ../../archive/outcomes/PHASE-2-SESSION-2C-HARMONIC-TRANSFORMS.md
 scope: Phase 2 musical vocabulary
 evidence: INITIAL_PROMPT §7 · D8, D9
 ---

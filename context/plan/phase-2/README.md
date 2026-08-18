@@ -2,10 +2,10 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: active
-status: Session 2c is active. Seven build sessions lead to live proof, two
+status: Session 2d is active. Seven build sessions lead to live proof, two
         separate dogfood sessions, and closeout. Async completion stays
         conditional on a measured workload.
-updated: 2026-08-16
+updated: 2026-08-18
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
 next: ../phase-3/README.md
@@ -66,9 +66,10 @@ use and close the phase.
    the versioned patch, corpus, semantics, and public tool shape are fixed by D21.
 2. [2b — theory and generation core](2b-theory-generation.md) — complete; pinned
    `tonal.js` packages sit behind a pure boundary that generates canonical notes.
-3. [2c — harmonic transformations](2c-harmonic-transforms.md) — active; transpose,
-   harmonize, arpeggiate, and re-voice without changing unrelated note state.
-4. [2d — rhythm and performance transformations](2d-rhythm-performance.md) —
+3. [2c — harmonic transformations](../../archive/outcomes/PHASE-2-SESSION-2C-HARMONIC-TRANSFORMS.md) —
+   complete; pure ordered transforms preserve unrelated note state and expose
+   replaceable onset-group and harmony-region policies.
+4. [2d — rhythm and performance transformations](2d-rhythm-performance.md) — active;
    quantize, humanize, thin, and densify with seeded randomness and explicit loss
    reports; prove triplet grids.
 5. [2e — clip lifecycle](2e-clip-lifecycle.md) — measure, then build the verified

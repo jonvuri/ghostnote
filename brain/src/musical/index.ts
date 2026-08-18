@@ -8,7 +8,7 @@ export {
 export type {
   MaterializedMusicalChannel, MaterializedMusicalPreflight, MaterializedMusicalTarget,
   MusicalCompilation, MusicalContractReport, MusicalLoss, MusicalLossCode, MusicalOperation,
-  MusicalOperationKind, MusicalOperationSemantics, MusicalPatch, MusicalTarget,
+  MusicalOperationKind, MusicalOperationSemantics, MusicalPatch, MusicalSelection, MusicalTarget,
   MusicalToolBoundary, WritableExpression,
 } from './patch.js';
 export { MusicalPatchError } from './patch.js';
@@ -19,11 +19,15 @@ export {
 export type { MusicalCorpusCase } from './corpus.js';
 export {
   chordFact, detectHarmony, intervalFact, keyFact, materializeGenerationPatch,
-  modeFact, noteFact, pitchClassSetFact, progressionFact, scaleFact,
+  materializeHarmonicTarget, modeFact, noteFact, pitchClassSetFact, progressionFact,
+  groupNotesByExactOnset, resolveHarmonyPlan, scaleFact, selectCanonicalNotes,
   toMaterializedMusicalTarget,
 } from './theory.js';
 export type {
   CanonicalMusicalNote, ChordFact, GeneratedMusicalTarget, HarmonyDetection,
-  IntervalFact, KeyFact, ModeFact, MusicalProvenance, NoteFact, PitchClassSetFact,
-  ProgressionFact, ScaleFact, TheoryRefusalCode, TheoryResult,
+  HarmonicMaterializedTarget, HarmonicTransformOptions, HarmonyPlan,
+  HarmonyPlanResolver, HarmonyRegion, IntervalFact, KeyFact, ModeFact,
+  MusicalNoteGroup, MusicalNoteGrouping, MusicalProvenance, NoteFact,
+  NoteSelectionResult, PitchClassSetFact, ProgressionFact, ScaleFact,
+  TheoryRefusalCode, TheoryResult,
 } from './theory.js';

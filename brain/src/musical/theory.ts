@@ -11,7 +11,8 @@ import * as Scale from '@tonaljs/scale';
 
 import type { NoteRecord } from '../contract/index.js';
 import type {
-  MaterializedMusicalTarget, MusicalOperation, MusicalPatch, MusicalTarget,
+  MaterializedMusicalTarget, MusicalLoss, MusicalOperation, MusicalPatch,
+  MusicalSelection, MusicalTarget,
 } from './patch.js';
 
 export type TheoryRefusalCode =
@@ -23,6 +24,8 @@ export type TheoryRefusalCode =
   | 'invalid-pitch-class'
   | 'invalid-progression'
   | 'midi-range'
+  | 'unsupported-operation'
+  | 'unwritable-expression'
   | 'unknown-chord'
   | 'unknown-mode'
   | 'unknown-scale';
@@ -119,7 +122,56 @@ export interface GeneratedMusicalTarget extends MusicalProvenance {
   readonly notes: readonly CanonicalMusicalNote[];
 }
 
+export interface HarmonicMaterializedTarget extends GeneratedMusicalTarget {
+  readonly loss: readonly MusicalLoss[];
+}
+
+/** One note group. Grouping stays separate from operations on the group. */
+export interface MusicalNoteGroup {
+  readonly startBeats: number;
+  readonly sourceIndexes: readonly number[];
+  readonly notes: readonly CanonicalMusicalNote[];
+}
+
+export interface NoteSelectionResult {
+  readonly selectedIndexes: ReadonlySet<number>;
+  readonly selected: readonly CanonicalMusicalNote[];
+  readonly unselected: readonly CanonicalMusicalNote[];
+}
+
+/** One half-open harmony region. Later resolvers can return key-local regions. */
+export interface HarmonyRegion {
+  readonly fromBeats: number;
+  readonly toBeats: number;
+  readonly label: string;
+  readonly pitchClasses: readonly string[];
+}
+
+export type HarmonyPlan =
+  | { readonly kind: 'intervals'; readonly intervals: readonly IntervalFact[] }
+  | { readonly kind: 'regions'; readonly regions: readonly HarmonyRegion[] };
+
+export type MusicalNoteGrouping = (
+  notes: readonly CanonicalMusicalNote[],
+  sourceIndexes?: readonly number[],
+) => readonly MusicalNoteGroup[];
+
+export type HarmonyPlanResolver = (
+  harmony: HarmonizeOperation['harmony'],
+  selected: readonly CanonicalMusicalNote[],
+) => TheoryResult<HarmonyPlan>;
+
+export interface HarmonicTransformOptions {
+  readonly groupNotes?: MusicalNoteGrouping;
+  readonly resolveHarmony?: HarmonyPlanResolver;
+}
+
 type GenerateOperation = Extract<MusicalOperation, { readonly op: 'generate' }>;
+type HarmonicOperation = Extract<
+  MusicalOperation,
+  { readonly op: 'transpose' | 'harmonize' | 'arpeggiate' | 'revoice' }
+>;
+type HarmonizeOperation = Extract<HarmonicOperation, { readonly op: 'harmonize' }>;
 
 interface PitchMaterial {
   readonly groups: readonly (readonly number[])[];
@@ -502,6 +554,559 @@ function generateNotes(
   });
   const finalized = finalizeNotes(notes);
   return finalized.ok ? accept(finalized.value, material.value.warnings) : finalized;
+}
+
+function plainNote(note: CanonicalMusicalNote): NoteRecord {
+  const { channel: _channel, provenance: _provenance, ...value } = note;
+  return value;
+}
+
+function noteValueKey(note: NoteRecord): string {
+  return JSON.stringify(Object.fromEntries(
+    Object.entries(note).sort(([left], [right]) => left.localeCompare(right)),
+  ));
+}
+
+function operationProvenance(
+  provenance: MusicalProvenance,
+  operationIndex: number,
+): MusicalProvenance {
+  return { ...provenance, operationIndex };
+}
+
+function selectedBy(note: NoteRecord, selection?: MusicalSelection): boolean {
+  if (selection?.beatRange !== undefined
+      && (note.startBeats < selection.beatRange.fromBeats
+        || note.startBeats >= selection.beatRange.toBeats)) return false;
+  if (selection?.pitchRange !== undefined
+      && (note.pitch < selection.pitchRange.min || note.pitch > selection.pitchRange.max)) return false;
+  return true;
+}
+
+/** Select by half-open beat range and inclusive pitch range. Array order stays intact. */
+export function selectCanonicalNotes(
+  notes: readonly CanonicalMusicalNote[],
+  selection?: MusicalSelection,
+): NoteSelectionResult {
+  const selectedIndexes = new Set<number>();
+  const selected: CanonicalMusicalNote[] = [];
+  const unselected: CanonicalMusicalNote[] = [];
+  notes.forEach((note, index) => {
+    if (selectedBy(note, selection)) {
+      selectedIndexes.add(index);
+      selected.push(note);
+    } else {
+      unselected.push(note);
+    }
+  });
+  return { selectedIndexes, selected, unselected };
+}
+
+/** Group exact simultaneous onsets without changing note order within a group. */
+export function groupNotesByExactOnset(
+  notes: readonly CanonicalMusicalNote[],
+  sourceIndexes: readonly number[] = notes.map((_note, index) => index),
+): readonly MusicalNoteGroup[] {
+  if (sourceIndexes.length !== notes.length) {
+    throw new Error('note grouping needs one source index for every note');
+  }
+  const groups = new Map<number, { sourceIndexes: number[]; notes: CanonicalMusicalNote[] }>();
+  notes.forEach((note, index) => {
+    const group = groups.get(note.startBeats) ?? { sourceIndexes: [], notes: [] };
+    group.sourceIndexes.push(sourceIndexes[index]!);
+    group.notes.push(note);
+    groups.set(note.startBeats, group);
+  });
+  return [...groups].map(([startBeats, group]) => ({ startBeats, ...group }));
+}
+
+function fullHarmonyRegion(label: string, pitchClasses: readonly string[]): HarmonyRegion {
+  return { fromBeats: Number.NEGATIVE_INFINITY, toBeats: Number.POSITIVE_INFINITY, label, pitchClasses };
+}
+
+/** Resolve harmony separately from grouping so later resolvers can return local regions. */
+export function resolveHarmonyPlan(
+  harmony: HarmonizeOperation['harmony'],
+  selected: readonly CanonicalMusicalNote[],
+): TheoryResult<HarmonyPlan> {
+  if (harmony.kind === 'intervals') {
+    const intervals: IntervalFact[] = [];
+    for (const name of harmony.intervals) {
+      const interval = intervalFact(name);
+      if (!interval.ok) return interval;
+      intervals.push(interval.value);
+    }
+    return accept({ kind: 'intervals', intervals });
+  }
+
+  if (harmony.kind === 'chord') {
+    const chord = chordFact(harmony.symbol);
+    if (!chord.ok) return chord;
+    return accept({
+      kind: 'regions', regions: [fullHarmonyRegion(chord.value.symbol, chord.value.pitchClasses)],
+    });
+  }
+
+  if (harmony.kind === 'scale') {
+    const scale = scaleFact(harmony.tonic, harmony.name);
+    if (!scale.ok) return scale;
+    return accept({
+      kind: 'regions', regions: [fullHarmonyRegion(scale.value.name, scale.value.pitchClasses)],
+    });
+  }
+
+  if (selected.length === 0) {
+    return refuse('empty-result', 'harmony detection needs at least one selected note');
+  }
+  const detected = detectHarmony(selected.map((note) => Note.fromMidi(note.pitch)));
+  if (!detected.ok) return detected;
+  if (harmony.as === 'chord') {
+    const symbol = detected.value.chords[0];
+    if (symbol === undefined) {
+      return refuse('empty-result', `no chord matches selected pitches ${detected.value.pitchClasses.join(', ')}`);
+    }
+    const chord = chordFact(symbol);
+    if (!chord.ok) return chord;
+    return accept({
+      kind: 'regions', regions: [fullHarmonyRegion(chord.value.symbol, chord.value.pitchClasses)],
+    });
+  }
+  const name = detected.value.scales[0];
+  if (name === undefined) {
+    return refuse('empty-result', `no exact scale matches selected pitches ${detected.value.pitchClasses.join(', ')}`);
+  }
+  const [tonic, type] = Scale.tokenize(name);
+  const scale = scaleFact(tonic, type);
+  if (!scale.ok) return scale;
+  return accept({
+    kind: 'regions', regions: [fullHarmonyRegion(scale.value.name, scale.value.pitchClasses)],
+  });
+}
+
+function validateTransformNotes(
+  notes: readonly CanonicalMusicalNote[],
+  operationIndex: number,
+): TheoryResult<readonly CanonicalMusicalNote[]> {
+  if (notes.length === 0) return refuse('empty-result', `operation ${operationIndex} produced no notes`);
+  const identities = new Set<string>();
+  for (const note of notes) {
+    if (!Number.isInteger(note.pitch) || note.pitch < 0 || note.pitch > 127) {
+      return refuse(
+        'midi-range',
+        `operation ${operationIndex} resolves to MIDI pitch ${note.pitch}, outside 0-127; change the operation or selection`,
+      );
+    }
+    if (note.pressure !== undefined) {
+      return refuse(
+        'unwritable-expression',
+        `operation ${operationIndex} would write pressure on channel ${note.channel}; pressure is not writable and cannot be dropped`,
+      );
+    }
+    const identity = noteIdentity(note, note.channel);
+    if (identities.has(identity)) {
+      return refuse(
+        'duplicate-note',
+        `operation ${operationIndex} produced duplicate note identity on channel ${note.channel}: `
+          + `pitch ${note.pitch} at beat ${note.startBeats}; duplicate collapse is refused`,
+      );
+    }
+    identities.add(identity);
+  }
+  return accept(notes);
+}
+
+function transformedSelection(
+  notes: readonly CanonicalMusicalNote[],
+  selection: NoteSelectionResult,
+  replacements: ReadonlyMap<number, readonly CanonicalMusicalNote[]>,
+): readonly CanonicalMusicalNote[] {
+  const firstIndexes = new Map<number, readonly CanonicalMusicalNote[]>();
+  for (const [sourceIndex, group] of replacements) firstIndexes.set(sourceIndex, group);
+  const output: CanonicalMusicalNote[] = [];
+  notes.forEach((note, index) => {
+    const replacement = firstIndexes.get(index);
+    if (replacement !== undefined) output.push(...replacement);
+    if (!selection.selectedIndexes.has(index)) output.push(note);
+  });
+  return output;
+}
+
+function setGroupReplacements(
+  replacements: Map<number, readonly CanonicalMusicalNote[]>,
+  group: MusicalNoteGroup,
+  output: readonly CanonicalMusicalNote[],
+): void {
+  const sourceIndexes = [...group.sourceIndexes].sort((left, right) => left - right);
+  sourceIndexes.forEach((sourceIndex, index) => {
+    replacements.set(sourceIndex, output[index] === undefined ? [] : [output[index]]);
+  });
+  const lastSourceIndex = sourceIndexes.at(-1);
+  if (lastSourceIndex !== undefined && output.length > sourceIndexes.length) {
+    replacements.set(lastSourceIndex, [
+      ...(replacements.get(lastSourceIndex) ?? []),
+      ...output.slice(sourceIndexes.length),
+    ]);
+  }
+}
+
+function groupedSelection(
+  notes: readonly CanonicalMusicalNote[],
+  selection?: MusicalSelection,
+  groupNotes: MusicalNoteGrouping = groupNotesByExactOnset,
+): { readonly selection: NoteSelectionResult; readonly groups: readonly MusicalNoteGroup[] } {
+  const result = selectCanonicalNotes(notes, selection);
+  return {
+    selection: result,
+    groups: groupNotes(result.selected, [...result.selectedIndexes]),
+  };
+}
+
+function lossItem(
+  code: MusicalLoss['code'],
+  before: CanonicalMusicalNote | undefined,
+  after: CanonicalMusicalNote | undefined,
+  provenance: MusicalProvenance,
+  message: string,
+): MusicalLoss {
+  return {
+    code,
+    targetIndex: provenance.targetIndex,
+    variationIndex: provenance.variationIndex,
+    operationIndex: provenance.operationIndex,
+    ...(before === undefined ? {} : { before: plainNote(before) }),
+    ...(after === undefined ? {} : { after: plainNote(after) }),
+    message,
+  };
+}
+
+function midiCandidates(pitchClass: string, minPitch: number, maxPitch: number): readonly number[] {
+  const chroma = Note.chroma(pitchClass);
+  const first = minPitch + ((chroma - minPitch % 12) + 12) % 12;
+  const values: number[] = [];
+  for (let pitch = first; pitch <= maxPitch; pitch += 12) values.push(pitch);
+  return values;
+}
+
+function nearestPitch(pitchClass: string, anchor: number): number {
+  return [...midiCandidates(pitchClass, 0, 127)].sort((left, right) =>
+    Math.abs(left - anchor) - Math.abs(right - anchor) || left - right)[0]!;
+}
+
+function harmonizeGroup(
+  group: MusicalNoteGroup,
+  plan: HarmonyPlan,
+  provenance: MusicalProvenance,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  const additions: CanonicalMusicalNote[] = [];
+  if (plan.kind === 'intervals') {
+    for (const note of group.notes) {
+      for (const interval of plan.intervals) {
+        const pitch = note.pitch + interval.semitones;
+        const checked = checkedMidi(pitch, `interval ${interval.name} from MIDI pitch ${note.pitch}`);
+        if (!checked.ok) return checked;
+        additions.push({ ...note, pitch: checked.value, provenance });
+      }
+    }
+  } else {
+    const region = plan.regions.find((candidate) =>
+      group.startBeats >= candidate.fromBeats && group.startBeats < candidate.toBeats);
+    if (region === undefined) {
+      return refuse('empty-result', `no harmony region covers beat ${group.startBeats}`);
+    }
+    const present = new Set(group.notes.map((note) => note.pitch % 12));
+    const anchor = Math.min(...group.notes.map((note) => note.pitch));
+    const template = group.notes[0]!;
+    for (const pitchClass of region.pitchClasses) {
+      const chroma = Note.chroma(pitchClass);
+      if (present.has(chroma)) continue;
+      additions.push({ ...template, pitch: nearestPitch(pitchClass, anchor), provenance });
+      present.add(chroma);
+    }
+  }
+  const loss = additions.map((note) => lossItem(
+    'note-added', undefined, note, provenance,
+    `added harmony pitch ${note.pitch} at beat ${note.startBeats}`,
+  ));
+  return accept({ notes: [...group.notes, ...additions], loss });
+}
+
+function harmonizeNotes(
+  notes: readonly CanonicalMusicalNote[],
+  operation: HarmonizeOperation,
+  provenance: MusicalProvenance,
+  options: HarmonicTransformOptions,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  const grouped = groupedSelection(notes, operation.selection, options.groupNotes);
+  if (grouped.groups.length === 0) return refuse('empty-result', 'harmonize needs at least one selected note');
+  const plan = (options.resolveHarmony ?? resolveHarmonyPlan)(operation.harmony, grouped.selection.selected);
+  if (!plan.ok) return plan;
+  const replacements = new Map<number, readonly CanonicalMusicalNote[]>();
+  const loss: MusicalLoss[] = [];
+  for (const group of grouped.groups) {
+    const transformed = harmonizeGroup(group, plan.value, provenance);
+    if (!transformed.ok) return transformed;
+    setGroupReplacements(replacements, group, transformed.value.notes);
+    loss.push(...transformed.value.loss);
+  }
+  return accept({ notes: transformedSelection(notes, grouped.selection, replacements), loss });
+}
+
+function arpeggioOrder(
+  notes: readonly CanonicalMusicalNote[],
+  pattern: Extract<HarmonicOperation, { readonly op: 'arpeggiate' }>['pattern'],
+): readonly CanonicalMusicalNote[] {
+  if (pattern === 'as-played') return [...notes];
+  const ascending = [...notes].sort((left, right) => left.pitch - right.pitch);
+  if (pattern === 'up') return ascending;
+  if (pattern === 'down') return ascending.reverse();
+  return ascending.length < 3
+    ? ascending
+    : [...ascending, ...ascending.slice(1, -1).reverse()];
+}
+
+function arpeggiateNotes(
+  notes: readonly CanonicalMusicalNote[],
+  operation: Extract<HarmonicOperation, { readonly op: 'arpeggiate' }>,
+  provenance: MusicalProvenance,
+  options: HarmonicTransformOptions,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  const grouped = groupedSelection(notes, operation.selection, options.groupNotes);
+  if (grouped.groups.length === 0) return refuse('empty-result', 'arpeggiate needs at least one selected note');
+  const replacements = new Map<number, readonly CanonicalMusicalNote[]>();
+  const loss: MusicalLoss[] = [];
+  for (const group of grouped.groups) {
+    const ordered = arpeggioOrder(group.notes, operation.pattern);
+    const output = ordered.map((before, index): CanonicalMusicalNote => ({
+      ...before,
+      startBeats: group.startBeats + index * operation.stepBeats,
+      durationBeats: operation.durationBeats,
+      provenance,
+    }));
+    output.forEach((after, index) => {
+      const before = ordered[index]!;
+      if (after.startBeats !== before.startBeats) {
+        loss.push(lossItem(
+          'timing-moved', before, after, provenance,
+          `moved pitch ${before.pitch} from beat ${before.startBeats} to ${after.startBeats}`,
+        ));
+      }
+      if (after.durationBeats < before.durationBeats) {
+        loss.push(lossItem(
+          'note-shortened', before, after, provenance,
+          `shortened pitch ${before.pitch} at beat ${after.startBeats} to ${after.durationBeats} beats`,
+        ));
+      }
+      if (index >= group.notes.length) {
+        loss.push(lossItem(
+          'note-added', undefined, after, provenance,
+          `added return pitch ${after.pitch} at beat ${after.startBeats} for the up-down pattern`,
+        ));
+      }
+    });
+    setGroupReplacements(replacements, group, output);
+  }
+  return accept({ notes: transformedSelection(notes, grouped.selection, replacements), loss });
+}
+
+function closestVoicing(
+  notes: readonly CanonicalMusicalNote[],
+  minPitch: number,
+  maxPitch: number,
+): TheoryResult<readonly { readonly before: CanonicalMusicalNote; readonly after: CanonicalMusicalNote }[]> {
+  const used = new Set<number>();
+  const output: { before: CanonicalMusicalNote; after: CanonicalMusicalNote }[] = [];
+  for (const note of notes) {
+    const candidates = [...midiCandidates(pitchClassFromChroma(note.pitch % 12), minPitch, maxPitch)]
+      .filter((pitch) => !used.has(pitch))
+      .sort((left, right) => Math.abs(left - note.pitch) - Math.abs(right - note.pitch) || left - right);
+    const pitch = candidates[0];
+    if (pitch === undefined) {
+      return refuse(
+        'midi-range',
+        `cannot place every pitch class without duplicates in MIDI range ${minPitch}-${maxPitch}; widen the range`,
+      );
+    }
+    used.add(pitch);
+    output.push({ before: note, after: { ...note, pitch } });
+  }
+  return accept(output);
+}
+
+function ascendingVoicing(
+  notes: readonly CanonicalMusicalNote[],
+  minPitch: number,
+  maxPitch: number,
+): TheoryResult<readonly { readonly before: CanonicalMusicalNote; readonly after: CanonicalMusicalNote }[]> {
+  const ordered = [...notes].sort((left, right) => left.pitch - right.pitch);
+  const output: { before: CanonicalMusicalNote; after: CanonicalMusicalNote }[] = [];
+  let previous = minPitch - 1;
+  for (const note of ordered) {
+    const pitch = midiCandidates(pitchClassFromChroma(note.pitch % 12), minPitch, maxPitch)
+      .find((candidate) => candidate > previous);
+    if (pitch === undefined) {
+      return refuse('midi-range', `cannot build an ascending voicing in MIDI range ${minPitch}-${maxPitch}; widen the range`);
+    }
+    output.push({ before: note, after: { ...note, pitch } });
+    previous = pitch;
+  }
+  return accept(output);
+}
+
+function revoiceGroup(
+  notes: readonly CanonicalMusicalNote[],
+  operation: Extract<HarmonicOperation, { readonly op: 'revoice' }>,
+): TheoryResult<readonly { readonly before: CanonicalMusicalNote; readonly after: CanonicalMusicalNote }[]> {
+  if (operation.strategy === 'ascending') {
+    return ascendingVoicing(notes, operation.minPitch, operation.maxPitch);
+  }
+  const closest = closestVoicing(notes, operation.minPitch, operation.maxPitch);
+  if (!closest.ok || operation.strategy === 'closest' || closest.value.length < 2) return closest;
+  const dropped = [...closest.value].sort((left, right) => left.after.pitch - right.after.pitch);
+  const dropIndex = dropped.length - 2;
+  const voice = dropped[dropIndex]!;
+  const pitch = voice.after.pitch - 12;
+  if (pitch < operation.minPitch) {
+    return refuse(
+      'midi-range',
+      `drop-2 moves MIDI pitch ${voice.after.pitch} below range ${operation.minPitch}-${operation.maxPitch}; widen the range`,
+    );
+  }
+  dropped[dropIndex] = { ...voice, after: { ...voice.after, pitch } };
+  return accept(dropped.sort((left, right) => left.after.pitch - right.after.pitch));
+}
+
+function revoiceNotes(
+  notes: readonly CanonicalMusicalNote[],
+  operation: Extract<HarmonicOperation, { readonly op: 'revoice' }>,
+  provenance: MusicalProvenance,
+  options: HarmonicTransformOptions,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  const grouped = groupedSelection(notes, operation.selection, options.groupNotes);
+  if (grouped.groups.length === 0) return refuse('empty-result', 'revoice needs at least one selected note');
+  const replacements = new Map<number, readonly CanonicalMusicalNote[]>();
+  const loss: MusicalLoss[] = [];
+  for (const group of grouped.groups) {
+    const voiced = revoiceGroup(group.notes, operation);
+    if (!voiced.ok) return voiced;
+    const output = voiced.value.map(({ after }) => ({ ...after, provenance }));
+    voiced.value.forEach(({ before, after }, index) => {
+      if (before.pitch !== after.pitch) {
+        loss.push(lossItem(
+          'octave-displaced', before, output[index]!, provenance,
+          `moved pitch ${before.pitch} to ${after.pitch} by ${Math.abs(after.pitch - before.pitch) / 12} octave(s)`,
+        ));
+      }
+    });
+    setGroupReplacements(replacements, group, output);
+  }
+  return accept({ notes: transformedSelection(notes, grouped.selection, replacements), loss });
+}
+
+function applyHarmonicOperation(
+  notes: readonly CanonicalMusicalNote[],
+  operation: HarmonicOperation,
+  provenance: MusicalProvenance,
+  options: HarmonicTransformOptions,
+): TheoryResult<{ readonly notes: readonly CanonicalMusicalNote[]; readonly loss: readonly MusicalLoss[] }> {
+  let transformed: TheoryResult<{
+    readonly notes: readonly CanonicalMusicalNote[];
+    readonly loss: readonly MusicalLoss[];
+  }>;
+  if (operation.op === 'transpose') {
+    const selection = selectCanonicalNotes(notes, operation.selection);
+    if (selection.selected.length === 0) return refuse('empty-result', 'transpose needs at least one selected note');
+    const output: CanonicalMusicalNote[] = [];
+    for (let index = 0; index < notes.length; index += 1) {
+      const note = notes[index]!;
+      if (!selection.selectedIndexes.has(index)) {
+        output.push(note);
+        continue;
+      }
+      const pitch = checkedMidi(note.pitch + operation.semitones, `transpose from MIDI pitch ${note.pitch}`);
+      if (!pitch.ok) return pitch;
+      output.push({ ...note, pitch: pitch.value, provenance });
+    }
+    transformed = accept({ notes: output, loss: [] });
+  } else if (operation.op === 'harmonize') {
+    transformed = harmonizeNotes(notes, operation, provenance, options);
+  } else if (operation.op === 'arpeggiate') {
+    transformed = arpeggiateNotes(notes, operation, provenance, options);
+  } else {
+    transformed = revoiceNotes(notes, operation, provenance, options);
+  }
+  if (!transformed.ok) return transformed;
+  const validated = validateTransformNotes(transformed.value.notes, provenance.operationIndex);
+  return validated.ok ? accept({ notes: validated.value, loss: transformed.value.loss }) : validated;
+}
+
+/** Materialize one ordered harmonic pipeline from generated or existing notes. */
+export function materializeHarmonicTarget(
+  target: MusicalTarget,
+  sourceNotes: readonly NoteRecord[],
+  targetIndex = 0,
+  variationIndex = 0,
+  options: HarmonicTransformOptions = {},
+): TheoryResult<HarmonicMaterializedTarget> {
+  const first = target.operations[0];
+  if (first === undefined) return refuse('empty-result', `target ${targetIndex} has no operations`);
+  const warnings: string[] = [];
+  let notes: readonly CanonicalMusicalNote[];
+  let operationIndex = 0;
+  if (first.op === 'generate') {
+    const generated = generateNotes(first, target.channel, { targetIndex, variationIndex, operationIndex: 0 });
+    if (!generated.ok) return generated;
+    notes = generated.value;
+    warnings.push(...generated.warnings);
+    operationIndex = 1;
+  } else {
+    if (sourceNotes.length === 0) {
+      return refuse('empty-result', `target ${targetIndex} needs existing notes for the transformation boundary`);
+    }
+    notes = sourceNotes.map((note) => ({
+      ...note, channel: target.channel,
+      provenance: { targetIndex, variationIndex, operationIndex: -1 },
+    }));
+  }
+
+  const initial = validateTransformNotes(notes, Math.max(0, operationIndex - 1));
+  if (!initial.ok) return initial;
+  const loss: MusicalLoss[] = [];
+  for (; operationIndex < target.operations.length; operationIndex += 1) {
+    const operation = target.operations[operationIndex]!;
+    if (operation.op === 'generate') {
+      return refuse('unsupported-operation', `generate cannot occur at operation ${operationIndex}`);
+    }
+    if (operation.op === 'quantize' || operation.op === 'humanize'
+        || operation.op === 'thin' || operation.op === 'densify') {
+      return refuse(
+        'unsupported-operation',
+        `operation ${operationIndex} (${operation.op}) belongs to the rhythm and performance transform session`,
+      );
+    }
+    const provenance = operationProvenance({ targetIndex, variationIndex, operationIndex }, operationIndex);
+    const transformed = applyHarmonicOperation(notes, operation, provenance, options);
+    if (!transformed.ok) {
+      return refuse(
+        transformed.code,
+        `target ${targetIndex}, variation ${variationIndex}, operation ${operationIndex}: ${transformed.reason}`,
+      );
+    }
+    notes = transformed.value.notes;
+    loss.push(...transformed.value.loss);
+  }
+  const sourceValues = new Set(sourceNotes.map(noteValueKey));
+  const outputNotes = target.write === 'merge' && first.op !== 'generate'
+    ? notes.filter((note) => !sourceValues.has(noteValueKey(plainNote(note))))
+    : notes;
+  return accept({
+    channel: target.channel,
+    write: target.write,
+    notes: outputNotes,
+    targetIndex,
+    variationIndex,
+    operationIndex: target.operations.length - 1,
+    loss,
+  }, warnings);
 }
 
 /** Materialize the generation stage for every target and requested take. */

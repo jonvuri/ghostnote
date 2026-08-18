@@ -212,6 +212,7 @@ export type MusicalPatch = z.infer<typeof musicalPatchSchema>;
 export type MusicalTarget = MusicalPatch['targets'][number];
 export type MusicalOperation = MusicalTarget['operations'][number];
 export type MusicalOperationKind = MusicalOperation['op'];
+export type MusicalSelection = z.infer<typeof selectionSchema>;
 export type WritableExpression = z.infer<typeof expressionSchema>;
 
 export class MusicalPatchError extends Error {
@@ -543,6 +544,7 @@ export type MusicalLossCode =
   | 'note-shortened'
   | 'note-added'
   | 'note-removed'
+  | 'octave-displaced'
   | 'duplicate-refused'
   | 'pitch-range-refused'
   | 'grid-refused';
@@ -610,7 +612,7 @@ export const MUSICAL_OPERATION_SEMANTICS: Readonly<Record<
     output: 'the same notes displaced by octaves into the range',
     changedFields: ['pitch'], preservedFields: PRESERVE_EXPRESSION,
     ordering: 'consume the previous operation output',
-    possibleLoss: ['pitch-range-refused', 'duplicate-refused'],
+    possibleLoss: ['octave-displaced', 'pitch-range-refused', 'duplicate-refused'],
   },
   quantize: {
     input: 'selected input notes, beat grid, and strength',

@@ -233,4 +233,4 @@ export const fingerprintMusicalCorpus = (): string =>
 
 /** Changing the corpus, patch shape, or report shape requires an explicit contract review. */
 export const MUSICAL_CORPUS_V1_SHA256 =
-  '11413279d0acfb506d159e625b8b1af6f52b2ab7ba2c7b1371d29892164cf85f';
+  'a9d4fd5a5074788fba330d8230a7c6bd8b80909d74d40fa649ca581dc7c8e635';
