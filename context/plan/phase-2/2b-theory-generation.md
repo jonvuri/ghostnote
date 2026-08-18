@@ -1,7 +1,9 @@
 ---
 title: Phase 2, session 2b — theory and generation core
 kind: plan
-state: active
+state: complete
+status: Complete 2026-08-16. The pure theory boundary supports the full 2a
+        theory corpus and emits canonical, channel-explicit generated notes.
 updated: 2026-08-16
 parent: README.md
 prev: ../../archive/outcomes/PHASE-2-SESSION-2A-MUSICAL-CONTRACT.md
@@ -47,3 +49,37 @@ evidence: INITIAL_PROMPT §7 · D8, D9
 4. Output always carries explicit MIDI channel and beats-native units.
 5. Focused tests, full offline tests, typecheck, context check, and
    `git diff --check` pass.
+
+## Outcome
+
+The brain now pins nine focused `@tonaljs` packages. `musical/theory.ts` is the
+only import boundary. It returns local fact types, warnings, or explicit
+refusals. It supports notes, intervals, chords, scales, modes, major and minor
+keys, chord and scale detection, Roman-numeral progressions, and pitch-class
+sets.
+
+Generation covers every 2a generation case. It emits beats-native notes with an
+explicit channel and target, variation, and operation provenance. The compiler
+conversion removes boundary-only note fields but keeps target provenance for
+loss reports. Literal expression remains exact. Theory generation refuses
+invalid names, empty results, duplicate identities, and MIDI pitches outside
+0–127.
+
+Canonical MIDI spelling uses flats. Detection results and pitch-class sets have
+stable order. Literal notes keep their explicit order for later `as-played`
+arpeggiation. Unaltered minor-key progression degrees resolve against the
+natural-minor scale. Thus the corpus progression `i VI III VII` in C minor
+resolves to `Cm Ab Eb Bb`.
+
+The focused theory suite passes 10/10. The full offline check passes 567/567.
+Typecheck is part of that check. The context check and `git diff --check` pass.
+
+## Retrospective
+
+The 2a corpus did not state how unaltered Roman numerals resolve in a minor key.
+This session fixed the rule from the representative request. Future corpus
+changes must state the degree basis when they add another minor-key form. Review
+also caught a premature note sort that removed literal source order. Preserve
+semantic array order at pure boundaries and sort only where order is irrelevant.
+Tonal uses a null MIDI value for both pitch classes and out-of-range notes. Check
+the octave before interpreting that value.

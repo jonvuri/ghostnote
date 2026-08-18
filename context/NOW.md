@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-16
 phase: phase-2
-session: 2b-theory-generation
+session: 2c-harmonic-transforms
 ---
 
 # Now
@@ -16,12 +16,11 @@ records full live conformance. E40 records passing remote CI for candidate
 
 ## Start here
 
-1. Run [Phase 2 session 2b](plan/phase-2/2b-theory-generation.md).
-2. Implement the pure theory and generation boundary against the repaired D21
-   patch and corpus. Preserve compiler loss provenance. Do not expose public
-   tools yet.
-3. Keep direct writes stash-backed. Use clip blocks for requested or required
-   clip alternates.
+1. Run [Phase 2 session 2c](plan/phase-2/2c-harmonic-transforms.md).
+2. Implement transpose, harmonize, arpeggiate, and re-voice as pure transforms.
+   Use `brain/src/musical/theory.ts` for all theory work.
+3. Preserve timing, channel, and expression unless the requested operation owns
+   the field. Keep every material change in the loss report.
 4. Do not schedule [async batch completion](plan/phase-1/6-async.md) unless a
    measured Phase 2 workload justifies it.
 
@@ -58,9 +57,11 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-Session 2a review confirmed three defects. Merge compilation ignored existing
-notes. Clip-wide clear protected one channel. The fake copied notes across
-channels during reconstruction. The repair adds existing-note normalization and
-reporting, all-channel protection and replay, a preflight revision guard, and
-offline application-path regressions. No repository instruction change is
-needed.
+Session 2b added a pure theory boundary and canonical generation for all five
+generation cases in the 2a corpus. Minor-key Roman numerals needed one explicit
+rule: unaltered degrees use the natural-minor scale. Review also found that note
+sorting removed literal order before `as-played` arpeggiation. Generation now
+keeps explicit source order. Octave-bearing note names outside MIDI 0–127 now
+refuse as range errors instead of losing their octave. Future corpus additions
+must state the degree basis for other minor-key forms. No repository instruction
+change is needed.

@@ -1,7 +1,7 @@
 ---
 title: Phase 2, session 2c — harmonic transformations
 kind: plan
-state: planned
+state: active
 updated: 2026-08-16
 parent: README.md
 prev: 2b-theory-generation.md

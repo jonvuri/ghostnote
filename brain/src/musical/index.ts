@@ -17,3 +17,13 @@ export {
   fingerprintMusicalCorpus, musicalCorpusArtifact,
 } from './corpus.js';
 export type { MusicalCorpusCase } from './corpus.js';
+export {
+  chordFact, detectHarmony, intervalFact, keyFact, materializeGenerationPatch,
+  modeFact, noteFact, pitchClassSetFact, progressionFact, scaleFact,
+  toMaterializedMusicalTarget,
+} from './theory.js';
+export type {
+  CanonicalMusicalNote, ChordFact, GeneratedMusicalTarget, HarmonyDetection,
+  IntervalFact, KeyFact, ModeFact, MusicalProvenance, NoteFact, PitchClassSetFact,
+  ProgressionFact, ScaleFact, TheoryRefusalCode, TheoryResult,
+} from './theory.js';
