@@ -69,5 +69,11 @@ cursor homes and pin state, and `Last change`. The wire remains 138 methods with
 hash `87619942d7eac74d`.
 
 `npm run check` passes 623/623. The Java 21 extension build and deployment pass.
-The handshake and full live probe pass. The required remote CI candidate is
-pending until the reviewed changes have a commit.
+The handshake and full live probe pass.
+
+[GitHub Actions run 32258673507](https://github.com/jonvuri/ghostnote/actions/runs/32258673507)
+passed on its first attempt for exact candidate
+`5c1207bc282a45cabcaf0f837a2cd0150388da48`. The `brain (offline suite)` and
+`extension (compile)` jobs both passed. The brain workflow required the Python
+oracle with `GHOSTNOTE_REQUIRE_ORACLE=1`. The run started at 13:32:25 UTC and
+completed at 13:32:56 UTC on 2026-08-19.

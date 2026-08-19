@@ -1,15 +1,15 @@
 ---
 title: Phase 2, session 2h — conformance and workload proof
-kind: plan
-state: active
-status: Offline and live conformance pass. Workload evidence defers async
-        completion. Remote CI waits for the reviewed candidate commit.
+kind: outcome
+state: complete
+status: Complete 2026-08-19. Offline, live, cleanup, and remote CI pass. Workload
+        evidence keeps async completion deferred.
 updated: 2026-08-19
-parent: README.md
-prev: ../../archive/outcomes/PHASE-2-SESSION-2G-MCP-SURFACE.md
-next: 2i-dogfood-1.md
+parent: ../../plan/phase-2/README.md
+prev: PHASE-2-SESSION-2G-MCP-SURFACE.md
+next: ../../plan/phase-2/2i-dogfood-1.md
 scope: Phase 2 exit criteria 1 through 3 and async gate
-evidence: E24, E32–E40 · D8–D10, D15, D16, D18–D20
+evidence: E24, E32–E40, E44 · D8–D10, D15, D16, D18–D20
 ---
 
 # Phase 2, session 2h — conformance and workload proof
@@ -19,7 +19,7 @@ evidence: E24, E32–E40 · D8–D10, D15, D16, D18–D20
 
 ## Result
 
-Local work is complete. One shared public-path harness passes against the fake
+Session 2h is complete. One shared public-path harness passes against the fake
 and live Bitwig. It covers generation, all eight transformation verbs, four
 requested variations, explicit MIDI channels, mixed straight and triplet grids,
 all 20 exact note properties, pressure refusal, stale revision, readback,
@@ -38,8 +38,14 @@ deferred.
 
 E44 records the full proof and deliberate live skips. `npm run check` passes
 623/623. The extension build, deployment, handshake, context check, and diff
-check pass locally. The required remote CI result remains pending until the
-reviewed changes have a commit.
+check pass locally.
+
+[GitHub Actions run 32258673507](https://github.com/jonvuri/ghostnote/actions/runs/32258673507)
+passed on its first attempt for exact candidate
+`5c1207bc282a45cabcaf0f837a2cd0150388da48`. The `brain (offline suite)` and
+`extension (compile)` jobs both passed. The brain job ran the required Python
+oracle under `GHOSTNOTE_REQUIRE_ORACLE=1`. The run started at 13:32:25 UTC and
+completed at 13:32:56 UTC on 2026-08-19.
 
 ## Scope
 
@@ -60,7 +66,7 @@ reviewed changes have a commit.
 
 ## Conditional branch
 
-If the workload activates [async completion](../phase-1/6-async.md), run that
+If the workload activates [async completion](../../plan/phase-1/6-async.md), run that
 brief as session 2x. Then repeat every affected workload and conformance case
 before 2i. A failed optimization can close as evidence without replacing the
 working staged path.

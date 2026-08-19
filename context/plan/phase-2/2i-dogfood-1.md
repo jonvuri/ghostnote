@@ -4,7 +4,7 @@ kind: plan
 state: planned
 updated: 2026-08-19
 parent: README.md
-prev: 2h-conformance.md
+prev: ../../archive/outcomes/PHASE-2-SESSION-2H-CONFORMANCE.md
 next: 2j-dogfood-2.md
 scope: Phase 2 dogfood gate, first use
 evidence: Phase 2 observation record and 2h conformance

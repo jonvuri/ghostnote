@@ -4,21 +4,25 @@ kind: status
 state: active
 updated: 2026-08-19
 phase: phase-2
-session: 2h-conformance
+session: 2i-dogfood-1
 ---
 
 # Now
 
-Phase 2 session 2h passes offline and live. E44 records the complete public
-musical proof, the writer-window repair, the workload measurements, and exact
-live cleanup. Async batch completion stays deferred.
+Phase 2 session 2h is complete. E44 records the public musical proof, the
+writer-window repair, workload measurements, exact cleanup, and passing remote
+CI for candidate `5c1207bc282a45cabcaf0f837a2cd0150388da48`. Async batch
+completion stays deferred.
 
 ## Start here
 
-1. Review the staged 2h changes.
-2. Commit and push the reviewed candidate.
-3. Record the required remote CI result for the exact candidate. Session 2h can
-   then close and session 2i can start.
+1. Start [session 2i](plan/phase-2/2i-dogfood-1.md) only for an
+   operator-selected musical task through the ordinary MCP client.
+2. Use an operator-selected project. Do not alter the conformance fixture.
+3. Keep the natural request, tool calls, result, reversal path, and operator
+   response in the observation record.
+4. Measure a comparable three-clip expression write if the project permits it.
+   Profile the non-property latency before changing async completion.
 
 ## Verification
 
@@ -31,7 +35,8 @@ live cleanup. Async batch completion stays deferred.
 - Live cleanup restored 10 tracks, 10 scenes, 22 occupied cells, selection at
   track 0 row 1, stopped transport, the empty schema-v1 observation value,
   cursor homes and pin state, and `Last change`.
-- Remote CI: pending a reviewed commit.
+- [Remote CI run 32258673507](https://github.com/jonvuri/ghostnote/actions/runs/32258673507):
+  first-attempt success for the exact candidate. Both jobs passed.
 
 ## Baseline
 
@@ -48,5 +53,7 @@ live cleanup. Async batch completion stays deferred.
 The failed variation rows ended at each writer cursor's 64-step boundary. The
 diagnosis became direct when expected note positions were compared with the
 cursor window. For future note-loss failures, compare the first missing step
-with the active grid width before changing settle timing. No repository
-instruction change is needed.
+with the active grid width before changing settle timing. For a first-attempt
+green CI run, keep the run URL and public run and job metadata. Inspect raw logs
+only if the workflow or result is unclear. No repository instruction change is
+needed.

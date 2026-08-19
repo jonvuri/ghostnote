@@ -5,7 +5,7 @@ state: complete
 updated: 2026-08-18
 parent: ../../plan/phase-2/README.md
 prev: PHASE-2-SESSION-2F-APPLICATION-PLANNER.md
-next: ../../plan/phase-2/2h-conformance.md
+next: PHASE-2-SESSION-2H-CONFORMANCE.md
 scope: Phase 2 public tool surface
 evidence: E20c, E22 · D18–D21
 ---
