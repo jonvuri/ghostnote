@@ -1,8 +1,10 @@
 ---
 title: Phase 2, session 2h — conformance and workload proof
 kind: plan
-state: planned
-updated: 2026-08-16
+state: active
+status: Offline and live conformance pass. Workload evidence defers async
+        completion. Remote CI waits for the reviewed candidate commit.
+updated: 2026-08-19
 parent: README.md
 prev: ../../archive/outcomes/PHASE-2-SESSION-2G-MCP-SURFACE.md
 next: 2i-dogfood-1.md
@@ -14,6 +16,30 @@ evidence: E24, E32–E40 · D8–D10, D15, D16, D18–D20
 
 > **Purpose.** Prove the complete musical path and use measured workload cost to
 > decide whether async completion enters the phase.
+
+## Result
+
+Local work is complete. One shared public-path harness passes against the fake
+and live Bitwig. It covers generation, all eight transformation verbs, four
+requested variations, explicit MIDI channels, mixed straight and triplet grids,
+all 20 exact note properties, pressure refusal, stale revision, readback,
+editor navigation, and directed reversal.
+
+The live proof found that a 64-step writer silently drops fine-grid notes after
+its window. The three writer cursors now use the existing 512-step fine width.
+The live four-variation case keeps all eight notes in every row and reverses
+without clip residue.
+
+The one-clip expression workload used 2 stages and took 6.575 s. Its property
+wait share was 2.6%. The three-clip workload used 6 stages and took 17.409 s.
+Its property wait share was 2.9%. The named workload completes in one public
+request, and the property path is not the main cost. Async completion stays
+deferred.
+
+E44 records the full proof and deliberate live skips. `npm run check` passes
+623/623. The extension build, deployment, handshake, context check, and diff
+check pass locally. The required remote CI result remains pending until the
+reviewed changes have a commit.
 
 ## Scope
 

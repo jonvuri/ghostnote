@@ -211,6 +211,14 @@ test('E-pressure: a note with no expression props emits no setNoteProps at all',
   assert.ok(!methods(frames).includes(WIRE.cursorSetNoteProps));
 });
 
+test('note properties keep the requested MIDI channel', () => {
+  const frames = encodeOp(
+    { op: 'note.props', clip: CLIP_A, channel: 12, notes: [note({ pan: 0.5 })] },
+    ctx,
+  );
+  assert.equal(paramsOf(frames, WIRE.cursorSetNoteProps)?.['channel'], 12);
+});
+
 // --- E4h: insertFile's three silent failure modes ---------------------------
 
 test('E-insertfile: a relative path is refused before any frame is emitted (E4h)', () => {

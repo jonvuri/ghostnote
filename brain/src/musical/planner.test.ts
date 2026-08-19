@@ -159,7 +159,7 @@ test('P-transform: operation order changes timing and pitch while preserving exp
   assert.ok(result.differences.some((item) => item.code === 'timing-moved'));
 });
 
-test('P-variations: the planner mints a clip block before it writes four deterministic takes', async () => {
+test('P-variations: the complete copy chain settles before any take reconstruction', async () => {
   const { workspace, trackIds: [trackId] } = await fixture(['gn-A']);
   const source = Array.from({ length: 8 }, (_, index) => note({
     startBeats: index * 0.5, pitch: 60 + index % 3, durationBeats: 0.25,
@@ -179,9 +179,15 @@ test('P-variations: the planner mints a clip block before it writes four determi
   } as const;
 
   const planned = await planMusicalPatch(workspace, patch, 'transformation');
+  const duplicates = planned.ops.filter((op) => op.op === 'clip.duplicate');
+  assert.deepEqual(duplicates.map((op) => op.op === 'clip.duplicate'
+    ? [op.source.slot.scene.index, op.destination.scene.index] : []), [
+    [1, 2], [2, 3], [3, 4],
+  ]);
   assert.deepEqual(planned.ops.slice(0, 3).map((op) => op.op), [
     'clip.duplicate', 'clip.duplicate', 'clip.duplicate',
   ]);
+  assert.equal(planned.ops[3]?.op, 'note.clear');
   assert.ok(planned.ops.every((op) => op.op !== 'track.duplicate'));
   assert.deepEqual(planned.clipBlocks[0]!.createdRows, [2, 3, 4]);
 

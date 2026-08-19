@@ -181,6 +181,9 @@ interface ClipCursorStatus {
   readonly cursorTrackPinned?: boolean;
 }
 
+/** One exact, reconciled note reading for all 16 MIDI channels in a clip. */
+type ClipNoteChannels = ReadonlyMap<number, readonly NoteRecord[]>;
+
 /**
  * ⚠ `RigConfig.scenes`' shipped default, and a PLACEHOLDER, not a reading.
  *
@@ -211,6 +214,14 @@ export interface LiveOptions {
    * with the rig's full cursor pool.
    */
   readonly cursorRefs?: readonly string[];
+  /**
+   * Dedicated cursor for exact note reads.
+   *
+   * Set this to `fine` in a focused harness that must keep its read handle
+   * separate from its write handles. A normal session selects `fine` after
+   * `hello()` learns that the extension provides the fine cursor.
+   */
+  readonly noteReadCursorRef?: 'fine';
   /**
    * How wide the scene bank window is. Learned from `rig.info` at `hello()` when
    * omitted; like the cursor pool it is fixed at the rig's `init()` (D7), which
@@ -342,6 +353,12 @@ export class LiveAdapter implements BitwigAdapter {
   private lastMark: RevisionMark | undefined;
   /** The rig's cursor-clip width, learned at hello(); bounds the scan window. */
   private gridSteps: number | undefined;
+  /** The dedicated fine cursor width, learned at hello(). */
+  private fineSteps: number | undefined;
+  /** A dedicated cursor for dual-grid note reads. */
+  private noteReadCursorRef: 'fine' | undefined;
+  /** True when a harness selected the note-read cursor. */
+  private readonly fixedNoteReadCursorRef: boolean;
   /** Top-level device-bank width, fixed at extension init. */
   private deviceBankSize: number | undefined;
   /**
@@ -377,6 +394,8 @@ export class LiveAdapter implements BitwigAdapter {
     // worse than it was, merely no better.
     this.fixedCursorRefs = options.cursorRefs !== undefined;
     this.pool = new CursorPool(options.cursorRefs ?? options.cursorPool ?? 1);
+    this.fixedNoteReadCursorRef = options.noteReadCursorRef !== undefined;
+    this.noteReadCursorRef = options.noteReadCursorRef;
     this.sceneBankSize = options.sceneBankSize ?? RIG_DEFAULT_SCENES;
   }
 
@@ -411,11 +430,16 @@ export class LiveAdapter implements BitwigAdapter {
 
     const rig = (await this.transport.send({ method: WIRE.rigInfo })) as {
       gridSteps?: number;
+      fineSteps?: number;
       cursorPool?: number;
       scenes?: number;
       deviceBank?: number;
     };
     this.gridSteps = rig.gridSteps;
+    this.fineSteps = rig.fineSteps;
+    if (!this.fixedNoteReadCursorRef && !this.fixedCursorRefs && rig.fineSteps !== undefined) {
+      this.noteReadCursorRef = 'fine';
+    }
     this.deviceBankSize = rig.deviceBank;
     // The rig allocates its cursor pool at init and cannot grow it afterwards
     // (D7 — allocation is init-only and enforced), so this is the real ceiling.
@@ -823,8 +847,9 @@ export class LiveAdapter implements BitwigAdapter {
     clip: ClipAddress,
     trackIndex: number,
     pointedAt: Map<string, AddressKey>,
+    cursorRef?: string,
   ): Promise<{ readonly metadata: ClipMetadataState; readonly playStopBeats: number }> {
-    const cursor = await this.pointAtClip(clip, trackIndex, pointedAt);
+    const cursor = await this.pointAtClip(clip, trackIndex, pointedAt, cursorRef);
     const raw = (await this.transport.send({
       method: WIRE.cursorClipMetadata,
       params: { cursor },
@@ -859,6 +884,122 @@ export class LiveAdapter implements BitwigAdapter {
       },
       playStopBeats: number('playStop'),
     };
+  }
+
+  /**
+   * Read all note channels through the dedicated fine cursor at both grid
+   * families, then reconcile the two observations.
+   *
+   * Bitwig rounds an off-grid note start down. A binary scan alone corrupts a
+   * triplet start, and a triplet scan alone corrupts a binary start. The later
+   * of the two observed starts is therefore the exact start for every value in
+   * the supported binary-or-triplet grid family. If either scan loses a note or
+   * reports different note data, refuse the reading instead of guessing.
+   */
+  private async readFineClipNotes(
+    clipRef: ClipAddress,
+    trackIndex: number,
+    pointedAt: Map<string, AddressKey>,
+  ): Promise<ClipNoteChannels> {
+    const cursor = this.noteReadCursorRef;
+    const steps = this.fineSteps;
+    if (cursor !== 'fine' || steps === undefined) {
+      throw new AddressUnresolvedError(
+        clipRef,
+        'exact note read requires the dedicated fine cursor and its measured width',
+      );
+    }
+    await this.pointAtClip(clipRef, trackIndex, pointedAt, cursor);
+    const observed = await this.readClipMetadata(clipRef, trackIndex, pointedAt, cursor);
+    const extent = Math.max(observed.playStopBeats, observed.metadata.loopEndBeats);
+    const lengthBeats = extent > 0 ? extent : 4;
+    const binaryStep = 1 / 64;
+    const tripletStep = 1 / 48;
+    if (steps * binaryStep < lengthBeats) {
+      throw new AddressUnresolvedError(
+        clipRef,
+        `the fine cursor covers ${steps * binaryStep} beats, less than the ${lengthBeats}-beat clip`,
+      );
+    }
+
+    const scan = async (stepSize: number): Promise<ReadonlyMap<number, readonly NoteRecord[]>> => {
+      await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
+      await this.settle('gridChange');
+      const channels = new Map<number, readonly NoteRecord[]>();
+      for (let channel = 0; channel < 16; channel += 1) {
+        const result = (await this.transport.send({
+          method: WIRE.cursorGetNotesVerbose,
+          params: { cursor, channel, maxX: steps },
+        })) as { notes: Record<string, number | boolean | string>[] };
+        channels.set(channel, result.notes.map((note) => decodeVerboseNote(note, stepSize)));
+      }
+      return channels;
+    };
+
+    const binary = await scan(binaryStep);
+    const triplet = await scan(tripletStep);
+    const reconciled = new Map<number, readonly NoteRecord[]>();
+    for (let channel = 0; channel < 16; channel += 1) {
+      reconciled.set(channel, this.reconcileNoteScans(
+        clipRef,
+        channel,
+        binary.get(channel) ?? [],
+        triplet.get(channel) ?? [],
+      ));
+    }
+    return reconciled;
+  }
+
+  /** Pair notes by pitch and order, and keep the scan that did not round down. */
+  private reconcileNoteScans(
+    clipRef: ClipAddress,
+    channel: number,
+    binary: readonly NoteRecord[],
+    triplet: readonly NoteRecord[],
+  ): readonly NoteRecord[] {
+    const byPitch = (notes: readonly NoteRecord[]): ReadonlyMap<number, readonly NoteRecord[]> => {
+      const grouped = new Map<number, NoteRecord[]>();
+      for (const note of notes) {
+        const found = grouped.get(note.pitch) ?? [];
+        found.push(note);
+        grouped.set(note.pitch, found);
+      }
+      for (const found of grouped.values()) found.sort((left, right) => left.startBeats - right.startBeats);
+      return grouped;
+    };
+    const left = byPitch(binary);
+    const right = byPitch(triplet);
+    const pitches = new Set([...left.keys(), ...right.keys()]);
+    const result: NoteRecord[] = [];
+    for (const pitch of pitches) {
+      const binaryPitch = left.get(pitch) ?? [];
+      const tripletPitch = right.get(pitch) ?? [];
+      if (binaryPitch.length !== tripletPitch.length) {
+        throw new AddressUnresolvedError(
+          clipRef,
+          `binary and triplet scans disagree on channel ${channel}, pitch ${pitch} note count`,
+        );
+      }
+      for (let index = 0; index < binaryPitch.length; index += 1) {
+        const binaryNote = binaryPitch[index]!;
+        const tripletNote = tripletPitch[index]!;
+        const { startBeats: binaryStart, ...binaryBody } = binaryNote;
+        const { startBeats: tripletStart, ...tripletBody } = tripletNote;
+        if (JSON.stringify(binaryBody) !== JSON.stringify(tripletBody)
+            || Math.abs(binaryStart - tripletStart) > 1 / 48) {
+          throw new AddressUnresolvedError(
+            clipRef,
+            `binary and triplet scans disagree on channel ${channel}, pitch ${pitch} note identity`,
+          );
+        }
+        result.push({
+          ...binaryNote,
+          startBeats: Math.max(binaryStart, tripletStart),
+        });
+      }
+    }
+    return result.sort((leftNote, rightNote) =>
+      leftNote.startBeats - rightNote.startBeats || leftNote.pitch - rightNote.pitch);
   }
 
   /**
@@ -1234,6 +1375,10 @@ export class LiveAdapter implements BitwigAdapter {
     // E2's silent mispoint arriving through the mechanism built to prevent it.
     // Asking "is THIS cursor already on THIS clip" cannot be wrong that way.
     const pointedAt = new Map<string, AddressKey>();
+    // A dual-grid read scans all channels while each grid is settled. Keep the
+    // result for this snapshot so 16 channel addresses cost two grid changes,
+    // not 32 grid changes and 32 waits.
+    const noteReads = new Map<AddressKey, Promise<ClipNoteChannels>>();
 
     for (const address of sel) {
       const sceneRef = addressScene(address);
@@ -1265,7 +1410,7 @@ export class LiveAdapter implements BitwigAdapter {
         else missing.push(address);
         continue;
       }
-      const entry = await this.readOne(address, row, pointedAt);
+      const entry = await this.readOne(address, row, pointedAt, noteReads);
       // ⚠ A chain-family address whose container has no observable scope is
       // UNREACHABLE, not missing — the same E5 distinction the track bank makes
       // one level up. The layer banks are init-allocated and narrow (D7), so
@@ -1306,8 +1451,9 @@ export class LiveAdapter implements BitwigAdapter {
     clipRef: ClipAddress,
     trackIndex: number,
     pointedAt: Map<string, AddressKey>,
+    cursorRef?: string,
   ): Promise<string> {
-    const cursor = this.pool.cursorFor(clipRef);
+    const cursor = cursorRef ?? this.pool.cursorFor(clipRef);
     const key = addressKey(clipRef);
     if (this.heldClips.get(cursor) === key) {
       pointedAt.set(cursor, key);
@@ -1400,6 +1546,7 @@ export class LiveAdapter implements BitwigAdapter {
     address: Address,
     row: WireTrack | undefined,
     pointedAt: Map<string, AddressKey>,
+    noteReads: Map<AddressKey, Promise<ClipNoteChannels>>,
   ): Promise<StateEntry | 'unreachable' | undefined> {
     switch (address.kind) {
       case 'track':
@@ -1474,6 +1621,22 @@ export class LiveAdapter implements BitwigAdapter {
           params: { trackIndex: row.index, slotIndex: sceneIndex },
         })) as { hasContent: boolean };
         if (!status.hasContent) return undefined;
+
+        if (this.noteReadCursorRef === 'fine') {
+          const key = addressKey(address.clip);
+          let reading = noteReads.get(key);
+          if (reading === undefined) {
+            reading = this.readFineClipNotes(address.clip, row.index, pointedAt);
+            noteReads.set(key, reading);
+          }
+          const channelNotes = (await reading).get(address.channel ?? 0) ?? [];
+          const selected = channelNotes.filter((note) => (address.range === undefined
+            ? true
+            : note.startBeats >= address.range.startBeats
+              && note.startBeats < address.range.endBeats));
+          const fidelity: Fidelity = selected.some(hasUnverifiedProps) ? 'lossy' : 'exact';
+          return { address, fidelity, value: { of: 'notes', notes: selected } };
+        }
 
         // The SAME allocator the write path uses, so a read of clip A followed
         // by a write to clip A costs no re-point — and, more to the point, so a
@@ -2261,6 +2424,23 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
 
+      // A clip-wide clear starts a complete reconstruction. Verify its cursor
+      // before the batch. A wrong target would clear another clip before the
+      // independent readback could report the error.
+      const reconstruction = stage.ops.find((op) => op.op === 'note.clear');
+      if (reconstruction?.op === 'note.clear') {
+        try {
+          await this.pointAtClip(
+            reconstruction.clip,
+            this.trackIndex(reconstruction.clip.slot.track),
+            new Map(),
+          );
+        } catch (error) {
+          await this.restoreSelection(selection);
+          throw error;
+        }
+      }
+
       const result = (await this.transport.send(encodeStage(stage.ops, this.ctx, guard))) as {
         applied: boolean;
         rejected?: boolean;
@@ -2415,6 +2595,20 @@ export class LiveAdapter implements BitwigAdapter {
       if (stage.ops.some((o) => STRUCTURAL.has(o.op))) {
         this.pool.invalidate();
         this.heldClips.clear();
+        // Logical invalidation is not enough. Reads pin the physical writer
+        // cursors, and a pinned cursor ignores later selection changes. Release
+        // every writer cursor and wait before the next stage.
+        for (const cursor of this.pool.references) {
+          await this.transport.send({
+            method: WIRE.cursorPin,
+            params: { cursor, pinned: false },
+          });
+          await this.transport.send({
+            method: WIRE.cursorPinTrack,
+            params: { cursor, pinned: false },
+          });
+        }
+        await this.settle('cursorPoint');
         let after = (await this.scanTracks()).tracks;
         // E2c/C-minted: structural rows sometimes enter the observable bank
         // well after the measured settle. A single diff loses the durable id

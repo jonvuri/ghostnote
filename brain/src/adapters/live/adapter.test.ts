@@ -17,7 +17,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  AddressUnresolvedError, addressKey, chain as chainAt, clip, device as deviceAt,
+  AddressUnresolvedError, CONTRACT_VERSION, addressKey, chain as chainAt, clip, device as deviceAt,
   deviceIn as deviceInAt,
   notes as notesAt, scene, slot, track,
   type ClipAddress, type RevisionMark, type TrackAddress,
@@ -45,6 +45,7 @@ interface SlotModel {
   readonly lengthBeats: number;
   /** One note per clip, pitched so a mispoint is legible in the assertion. */
   readonly pitch: number;
+  readonly startBeats?: number;
 }
 
 /**
@@ -64,6 +65,8 @@ class CursorModelTransport implements Transport {
   /** Pin writes that become visible only after the adapter settles. */
   private readonly pendingPins = new Map<string, number>();
   private readonly pendingTrackPins = new Map<string, number>();
+  /** Cursor ref -> current step size. */
+  private readonly stepSize = new Map<string, number>();
 
   constructor(
     private readonly slots: ReadonlyMap<number, SlotModel>,
@@ -100,6 +103,15 @@ class CursorModelTransport implements Transport {
     const params = (frame.params ?? {}) as Record<string, unknown>;
 
     switch (frame.method) {
+      case WIRE.hello:
+        return { contractVersion: CONTRACT_VERSION, extensionVersion: 'test', hostApiVersion: 18, methodsHash: 'test' };
+
+      case WIRE.hostInfo:
+        return { hostApiVersion: 18, hostProduct: 'Bitwig Studio', hostVersion: 'test' };
+
+      case WIRE.rigInfo:
+        return { gridSteps: 64, fineSteps: 512, cursorPool: 3, scenes: 8, deviceBank: 8 };
+
       case WIRE.trackList:
         return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1, bankSize: 8, itemCount: 1 };
 
@@ -195,10 +207,20 @@ class CursorModelTransport implements Transport {
       case WIRE.cursorGetNotesVerbose: {
         const on = this.cursorOn.get(params['cursor'] as string);
         const model = on === undefined ? undefined : this.slots.get(on);
+        const stepSize = this.stepSize.get(params['cursor'] as string) ?? 1;
         return model === undefined
           ? { notes: [] }
-          : { notes: [{ x: 0, y: model.pitch, velocity: 100 / 127, duration: 1 }] };
+          : { notes: [{
+            x: Math.floor((model.startBeats ?? 0) / stepSize + 1e-9),
+            y: model.pitch,
+            velocity: 100 / 127,
+            duration: 1,
+          }] };
       }
+
+      case WIRE.cursorSetStepSize:
+        this.stepSize.set(params['cursor'] as string, params['stepSize'] as number);
+        return {};
 
       case WIRE.batchRun:
         return { applied: true, revision: 2, results: [] };
@@ -230,6 +252,31 @@ class DelayedPinAdapter extends LiveAdapter {
     this.model.settlePins();
   }
 }
+
+test('2h: the production fine cursor preserves a triplet start across exact readback', async () => {
+  const transport = new CursorModelTransport(new Map([
+    [0, { lengthBeats: 8, pitch: 65, startBeats: 1 / 6 }],
+  ]));
+  const adapter = new UntimedAdapter({ transport });
+  await adapter.hello();
+
+  const snapshot = await adapter.read([notesAt(CLIP(0), 4)]);
+  const value = snapshot.entries[addressKey(notesAt(CLIP(0), 4))]?.value;
+
+  assert.equal(value?.of === 'notes' ? value.notes[0]?.startBeats : undefined, 1 / 6);
+  assert.deepEqual(
+    transport.frames
+      .filter((frame) => frame.method === WIRE.cursorSetStepSize)
+      .map((frame) => frame.params?.['stepSize']),
+    [1 / 64, 1 / 48],
+  );
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerbose).length,
+    32,
+    'one clip scans all channels once per grid',
+  );
+  assert.equal(transport.where('fine'), 0);
+});
 
 test('5g repair: two delayed pins settle before either cursor hold is reused', async () => {
   const transport = new CursorModelTransport(new Map([
@@ -703,6 +750,70 @@ test('L-read: an EMPTY slot is never pointed at, and is exact (E2, D16d)', async
   const entry = snapshot.entries[addressKey(clip(CLIP(5).slot))];
   assert.equal(entry?.value.of === 'clip' ? entry.value.exists : true, false);
   assert.equal(entry?.fidelity, 'exact');
+});
+
+test('2h: a structural stage releases every physical writer cursor', async () => {
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.read([clip(CLIP(0).slot)]);
+  const beforeApply = wire.frames.length;
+
+  await adapter.apply({ ops: [{
+      op: 'clip.duplicate',
+      source: CLIP(0),
+      destination: CLIP(1).slot,
+    }],
+  });
+
+  const after = wire.frames.slice(beforeApply);
+  const batchAt = after.findIndex((frame) => frame.method === WIRE.batchRun);
+  assert.ok(batchAt >= 0);
+  assert.deepEqual(
+    after.slice(batchAt + 1)
+      .filter((frame) => frame.method === WIRE.cursorPin)
+      .map((frame) => frame.params),
+    [
+      { cursor: '0', pinned: false },
+      { cursor: '1', pinned: false },
+      { cursor: '2', pinned: false },
+    ],
+  );
+  assert.deepEqual(
+    after.slice(batchAt + 1)
+      .filter((frame) => frame.method === WIRE.cursorPinTrack)
+      .map((frame) => frame.params),
+    [
+      { cursor: '0', pinned: false },
+      { cursor: '1', pinned: false },
+      { cursor: '2', pinned: false },
+    ],
+  );
+});
+
+test('2h: a clip-wide reconstruction verifies its cursor before the write turn', async () => {
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await adapter.apply({ ops: [
+    { op: 'note.clear', clip: CLIP(0) },
+    {
+      op: 'note.write', clip: CLIP(0), channel: 8,
+      notes: [{ startBeats: 0, pitch: 67, velocity: 90, durationBeats: 1 }],
+    },
+  ] });
+
+  const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+  assert.ok(batchAt > 0);
+  assert.equal(wire.frames.slice(0, batchAt)
+    .filter((frame) => frame.method === WIRE.cursorStatus).length, 2);
+  const batch = wire.frames[batchAt]!.params as {
+    ops: { method: string }[];
+  };
+  assert.deepEqual(batch.ops.map((frame) => frame.method), [
+    WIRE.cursorClearNotes,
+    WIRE.cursorSetStepSize,
+    WIRE.cursorSetNotes,
+  ]);
 });
 
 // --- the device mint (D16 amendment 2, live half) ----------------------------

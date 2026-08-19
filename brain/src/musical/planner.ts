@@ -292,29 +292,16 @@ export async function planMusicalPatch(
     }
   }
 
-  const duplicateOps: Op[] = [];
-  const musicOps: Op[] = [];
+  const ops: Op[] = [];
   const results: PlannedMusicalResult[] = [];
   const differences: MusicalLoss[] = [];
   const warnings: string[] = [];
 
-  if (patch.protection.kind === 'clip-block'
-      && patch.protection.reason === 'requested-variations') {
-    for (const group of groups) {
-      const rows = workRowsFor(group, patch);
-      for (let index = 1; index < rows.length; index += 1) {
-        duplicateOps.push({
-          op: 'clip.duplicate',
-          source: clipAddress(group.trackId, rows[index - 1]!, marked.sceneEpoch),
-          destination: clipAddress(group.trackId, rows[index]!, marked.sceneEpoch).slot,
-        });
-      }
-    }
-  }
-
   for (const group of groups) {
     const sourceChannels = channels.get(group.key)!;
-    for (const [variationIndex, row] of workRowsFor(group, patch).entries()) {
+    const rows = workRowsFor(group, patch);
+    const rowOps: Op[][] = [];
+    for (const [variationIndex, row] of rows.entries()) {
       const materialized: MaterializedMusicalTarget[] = [];
       for (const targetIndex of group.targetIndexes) {
         const target = patch.targets[targetIndex]!;
@@ -351,12 +338,26 @@ export async function planMusicalPatch(
         revision: snapshot.at.revision,
         channels: existingChannels,
       });
-      musicOps.push(...compiled.ops);
+      rowOps.push([...compiled.ops]);
       differences.push(...compiled.loss);
+    }
+    if (patch.protection.kind === 'clip-block'
+        && patch.protection.reason === 'requested-variations') {
+      // The host can copy only one row down. Complete the adjacent copy chain
+      // while each source still holds the original clip state.
+      for (let index = 1; index < rows.length; index += 1) {
+        ops.push({
+          op: 'clip.duplicate',
+          source: clipAddress(group.trackId, rows[index - 1]!, marked.sceneEpoch),
+          destination: clipAddress(group.trackId, rows[index]!, marked.sceneEpoch).slot,
+        });
+      }
+      ops.push(...rowOps.flat());
+    } else {
+      ops.push(...rowOps.flat());
     }
   }
 
-  const ops = [...duplicateOps, ...musicOps];
   validateCompiledOps(ops);
   const requestedBlocks = patch.protection.kind === 'clip-block'
     && patch.protection.reason === 'requested-variations';

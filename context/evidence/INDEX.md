@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-08-18
+updated: 2026-08-19
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E44 | Public musical conformance passes, and writer cursors need the 512-step window [K] (2026-08-19) | [open](experiments/e44-public-musical-conformance-and-writer-window.md) |
 | E43 | Clip metadata round-trips, and `duplicateClip` remains the product route [K] (2026-08-18) | [open](experiments/e43-clip-metadata-and-duplication-routes.md) |
 | E42 | Host durations use measured 2^-20-beat quantization [K] (2026-08-18) | [open](experiments/e42-host-duration-fixed-point-grid-normalization.md) |
 | E41 | Triplet rhythm readback and seeded transforms [K] (2026-08-18) | [open](experiments/e41-triplet-rhythm-readback-and-seeded-transforms.md) |

@@ -718,7 +718,9 @@ public class Rig {
             cursorTracks[i].channelId().markInterested();
             cursorTracks[i].isPinned().markInterested();
 
-            cursorClips[i] = cursorTracks[i].createLauncherCursorClip(config.gridSteps, config.gridKeys);
+            // Musical writes can use a 1/64-beat grid across an eight-beat clip.
+            // A 64-step writer silently drops every note after the first beat.
+            cursorClips[i] = cursorTracks[i].createLauncherCursorClip(config.fineSteps, config.gridKeys);
             markClip(cursorClips[i]);
             cursorClips[i].isPinned().markInterested();
 
@@ -740,6 +742,7 @@ public class Rig {
 
         fineTrack = host.createCursorTrack("GN_CT_FINE", "ghostnote fine cursor", 0, config.scenes, false);
         fineTrack.position().markInterested();
+        fineTrack.isPinned().markInterested();
         fineClip = fineTrack.createLauncherCursorClip(config.fineSteps, config.gridKeys);
         markClip(fineClip);
         fineClip.isPinned().markInterested();
@@ -1251,8 +1254,15 @@ public class Rig {
         }
     }
 
-    /** Grid width of a clip cursor (differs for "fine"). */
+    /** Grid width of a clip cursor. Pointable writer cursors use the fine width. */
     public int gridSteps(String ref) {
-        return "fine".equals(ref) ? config.fineSteps : config.gridSteps;
+        if ("fine".equals(ref)) return config.fineSteps;
+        try {
+            int i = Integer.parseInt(ref);
+            if (i >= 0 && i < config.cursorPool) return config.fineSteps;
+        } catch (NumberFormatException ignored) {
+            // Non-pool cursors keep the standard width.
+        }
+        return config.gridSteps;
     }
 }

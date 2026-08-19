@@ -2,7 +2,7 @@
 title: Phase 2, session 2i — dogfood round one
 kind: plan
 state: planned
-updated: 2026-08-16
+updated: 2026-08-19
 parent: README.md
 prev: 2h-conformance.md
 next: 2j-dogfood-2.md
@@ -37,6 +37,21 @@ fixture baseline.
 5. Fix a safety or correctness defect immediately in a focused repair. Do not
    redesign wording or granularity from one ordinary preference.
 
+## Latency investigation
+
+Do not count this investigation as the real musical task. During or after that
+task, measure a comparable multi-clip write if the project permits it. Use the
+E44 workload as the baseline: write full expression to three launcher clips in
+one MCP request. It took 17.409 s across 6 stages. The 3 property waits took
+507 ms, or 2.9% of the total.
+
+Profile the remaining time across readback, cursor work, the bridge, and other
+settles. Record whether the blocking request interrupts the operator's work.
+Start a focused latency repair because the named interaction exceeds 10 s.
+Activate the deferred async session only if evidence shows that it can remove
+at least 2 s or 20% of the request time, or if blocking materially interrupts
+use. Otherwise, optimize the dominant measured cost and keep async deferred.
+
 ## Exit criteria
 
 1. One real musical task reaches a useful or clearly rejected outcome.
@@ -45,3 +60,5 @@ fixture baseline.
 3. Every write retains its changeset, readback, and reversal path.
 4. The observation record identifies the exact surface version used.
 5. Findings are concise and do not claim a repeated pattern yet.
+6. The latency record identifies the dominant measured cost and gives an async
+   verdict against the stated threshold.

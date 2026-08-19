@@ -72,6 +72,7 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("tracks", rig.config.tracks);
         result.addProperty("scenes", rig.config.scenes);
         result.addProperty("gridSteps", rig.config.gridSteps);
+        result.addProperty("fineSteps", rig.config.fineSteps);
         result.addProperty("gridKeys", rig.config.gridKeys);
         result.addProperty("stepSize", Rig.STEP_SIZE);
         result.addProperty("cursorPool", rig.config.cursorPool);

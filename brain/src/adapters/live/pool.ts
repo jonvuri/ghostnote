@@ -57,6 +57,11 @@ export class CursorPool {
     return this.refs.length;
   }
 
+  /** Writer cursor references that structural invalidation must release live. */
+  get references(): readonly string[] {
+    return [...this.refs];
+  }
+
   /**
    * Which cursor should drive this clip.
    *

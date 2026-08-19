@@ -2,10 +2,9 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: active
-status: Session 2g is next. Eight build sessions lead to live proof, two separate
-        dogfood sessions, and closeout. Async completion stays conditional on a
-        measured workload.
-updated: 2026-08-18
+status: Session 2h passes offline and live. Async completion stays deferred.
+        The required remote CI candidate remains before session closeout.
+updated: 2026-08-19
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
 next: ../phase-3/README.md
@@ -84,9 +83,9 @@ use and close the phase.
 8. [2g — MCP clip surface v1](../../archive/outcomes/PHASE-2-SESSION-2G-MCP-SURFACE.md) —
    complete; two versioned musical write tools share the planner, public result,
    description cohort, and observed ordinary MCP path.
-9. [2h — conformance and workload proof](2h-conformance.md) — prove the complete
-   path offline and live, restore the baseline, and measure whether async work is
-   justified.
+9. [2h — conformance and workload proof](2h-conformance.md) — local proof is
+   complete; E44 records 623 offline tests, full live conformance, exact cleanup,
+   and the decision to defer async completion. Remote CI remains pending.
 10. [2i — dogfood round one](2i-dogfood-1.md) — write real music through an
    ordinary MCP conversation and record friction without overfitting one use.
 11. [2j — dogfood round two and revision](2j-dogfood-2.md) — use a different

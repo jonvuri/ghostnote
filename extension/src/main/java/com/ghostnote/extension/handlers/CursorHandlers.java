@@ -173,8 +173,8 @@ public final class CursorHandlers extends HandlerGroup {
     }
 
     private JsonElement cursorPinTrack(JsonObject params) {
-        int i = params.get("cursor").getAsInt();
-        rig.cursorTracks[i].isPinned().set(params.get("pinned").getAsBoolean());
+        String ref = params.get("cursor").getAsString();
+        rig.cursorTrack(ref).isPinned().set(params.get("pinned").getAsBoolean());
         return ok();
     }
 

@@ -176,7 +176,7 @@ function pointFrames(
 }
 
 /** Expression properties for one note, in the mandated write order. */
-function notePropFrames(cursor: string, note: NoteRecord, x: number): Frame[] {
+function notePropFrames(cursor: string, channel: number, note: NoteRecord, x: number): Frame[] {
   // `orderedNoteProps` is the CONTRACT's ordering, shared with the fake — if the
   // mitigation lived only here, the two adapters would disagree about the same
   // op and the conformance suite could not be adapter-agnostic.
@@ -186,7 +186,7 @@ function notePropFrames(cursor: string, note: NoteRecord, x: number): Frame[] {
   for (const [key, value] of entries) props[key] = value;
   // Gson preserves JsonObject insertion order and the Java handler iterates
   // params.keySet(), so this object's key order IS the write order on the device.
-  return [frame(WIRE.cursorSetNoteProps, { cursor, x, y: note.pitch, props })];
+  return [frame(WIRE.cursorSetNoteProps, { cursor, channel, x, y: note.pitch, props })];
 }
 
 function validateDeviceSource(op: Extract<Op, { op: 'device.insert' }>): void {
@@ -239,7 +239,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         }),
       ];
       for (const note of op.notes) {
-        frames.push(...notePropFrames(cursor, note, Math.round(note.startBeats / stepSize)));
+        frames.push(...notePropFrames(cursor, channel, note, Math.round(note.startBeats / stepSize)));
       }
       return frames;
     }
@@ -249,6 +249,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       const t = ctx.trackIndex(op.clip.slot.track);
       const s = ctx.sceneRow(op.clip.slot.scene);
       const stepSize = chooseStepSize(op.notes);
+      const channel = op.channel ?? 0;
       // ⚠ These frames are safe only under TWO conditions, and they are
       // different conditions with different owners (E15-D).
       //
@@ -283,7 +284,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       // Deliberately NO setNotes here: re-issuing setStep would reset the very
       // properties the preceding stage just wrote.
       for (const note of op.notes) {
-        frames.push(...notePropFrames(cursor, note, Math.round(note.startBeats / stepSize)));
+        frames.push(...notePropFrames(cursor, channel, note, Math.round(note.startBeats / stepSize)));
       }
       return frames;
     }
