@@ -100,6 +100,7 @@ export function describeAddress(address: Address): Where {
       return { what: 'clip', trackId: address.slot.track.channelId, row: address.slot.scene.index };
     case 'clipLaunch':
     case 'clipPlay':
+    case 'clipMetadata':
       return { what: 'clip', trackId: address.clip.slot.track.channelId, row: address.clip.slot.scene.index };
     case 'notes':
       return {
@@ -163,10 +164,11 @@ const CLIP_LENGTH_MISSING =
   + 'at a guessed length is a musical value invented from nothing. Its notes are not replayed '
   + 'either, because writing into a slot with no clip lands somewhere else entirely.';
 
-const CLIP_METADATA_LOST =
+const CLIP_UNRESTORED_STATE =
   'a clip that already existed comes back as a new clip of the same length carrying the same '
-  + 'notes. Its name, its colour, its loop start and end as distinct from its length, its launch '
-  + 'settings and its automation are not recorded by anything here and do not come back.';
+  + 'notes, exact metadata and launch settings. Its play-stop marker does not come back because '
+  + 'the setter is inert. Its automation lanes do not come back because the host API has no '
+  + 'complete lane readback.';
 
 const POSITION_MOVED =
   'this change also added or removed rows, which moves every row below the edit. The place this '
@@ -263,7 +265,7 @@ function valueLosses(value: StateValue): string[] {
   switch (value.of) {
     case 'clip':
       if (!value.exists) return [];
-      return [value.lengthBeats === undefined ? CLIP_LENGTH_MISSING : CLIP_METADATA_LOST];
+      return [value.lengthBeats === undefined ? CLIP_LENGTH_MISSING : CLIP_UNRESTORED_STATE];
     case 'notes':
       return notePropertyLosses(value.notes);
     case 'device':
@@ -273,6 +275,7 @@ function valueLosses(value: StateValue): string[] {
     case 'track':
     case 'param':
     case 'clipLaunch':
+    case 'clipMetadata':
     case 'clipPlay':
       return [];
   }
@@ -492,7 +495,7 @@ function knownBehaviour(field: string, asked: unknown, found: unknown): string |
 
 // --- reversals ---------------------------------------------------------------
 
-const RECREATED_CLIP_CAVEAT = CLIP_METADATA_LOST;
+const RECREATED_CLIP_CAVEAT = CLIP_UNRESTORED_STATE;
 
 const REMOVED_DEVICE_CAVEAT =
   'this removes a device at the position its insertion was seen to produce. A track\'s device '

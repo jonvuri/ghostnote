@@ -33,9 +33,138 @@ public final class CursorHandlers extends HandlerGroup {
         r.on("cursor.playState", params -> cursorPlayState(params));
         r.on("cursor.launchSettings", params -> cursorLaunchSettings(params));
         r.on("cursor.setLaunchSettings", params -> cursorSetLaunchSettings(params));
+        r.on("cursor.clipMetadata", params -> cursorClipMetadata(params));
+        r.on("cursor.setClipMetadata", params -> cursorSetClipMetadata(params));
+        r.on("cursor.duplicateContent", params -> cursorDuplicateContent(params));
         r.on("selection.status", params -> selectionStatus());
         r.on("equals.status", params -> equalsStatus(params));
         r.on("equals.tryCreate", params -> equalsTryCreate());
+    }
+
+    // ------------------------------- Phase 2 session 2e: clip lifecycle probe
+
+    /** Read every candidate launcher-clip metadata value through one cursor. */
+    private JsonElement cursorClipMetadata(JsonObject params) {
+        Clip clip = rig.clip(params.get("cursor").getAsString());
+        JsonObject result = new JsonObject();
+        putGuarded(result, "exists", () -> clip.exists().get());
+        putGuarded(result, "name", () -> clip.clipLauncherSlot().name().get());
+        putGuarded(result, "playStart", () -> clip.getPlayStart().get());
+        putGuarded(result, "playStop", () -> clip.getPlayStop().get());
+        putGuarded(result, "loopEnabled", () -> clip.isLoopEnabled().get());
+        putGuarded(result, "loopStart", () -> clip.getLoopStart().get());
+        putGuarded(result, "loopLength", () -> clip.getLoopLength().get());
+        putGuarded(result, "colorRed", () -> clip.color().red());
+        putGuarded(result, "colorGreen", () -> clip.color().green());
+        putGuarded(result, "colorBlue", () -> clip.color().blue());
+        putGuarded(result, "colorAlpha", () -> clip.color().alpha());
+        return result;
+    }
+
+    /** Set candidate metadata fields independently for the live probe. */
+    private JsonElement cursorSetClipMetadata(JsonObject params) {
+        Clip clip = rig.clip(params.get("cursor").getAsString());
+        if (params.has("lengthBeats")) {
+            String name = params.get("name").getAsString();
+            double length = requireBeat(params, "lengthBeats", false);
+            double playStart = requireBeat(params, "playStartBeats", true);
+            double loopStart = requireBeat(params, "loopStartBeats", true);
+            double loopEnd = requireBeat(params, "loopEndBeats", false);
+            if (loopEnd <= loopStart || Math.abs(loopStart + length - loopEnd) > 1e-9) {
+                throw new IllegalArgumentException(
+                    "clip metadata must have a positive loop length and loop end "
+                    + "equal to loop start plus length");
+            }
+            var color = params.getAsJsonArray("colorBytes");
+            if (color.size() != 3) {
+                throw new IllegalArgumentException("colorBytes must contain red, green, and blue");
+            }
+            int red = requireColorByte(color.get(0).getAsInt(), "red");
+            int green = requireColorByte(color.get(1).getAsInt(), "green");
+            int blue = requireColorByte(color.get(2).getAsInt(), "blue");
+
+            // E43: a loop-start write can move the play markers. Write the loop
+            // first, then restore the writable play start. Play-stop writes are
+            // accepted but ignored and are not part of the product contract.
+            clip.getLoopLength().set(length);
+            clip.getLoopStart().set(loopStart);
+            clip.getPlayStart().set(playStart);
+            clip.isLoopEnabled().set(params.get("loopEnabled").getAsBoolean());
+            clip.setName(name);
+            clip.color().set(red / 255f, green / 255f, blue / 255f);
+            return ok();
+        }
+        boolean touched = false;
+        if (params.has("name")) {
+            clip.setName(params.get("name").getAsString());
+            touched = true;
+        }
+        if (params.has("playStart")) {
+            clip.getPlayStart().set(requireBeat(params, "playStart", true));
+            touched = true;
+        }
+        if (params.has("playStop")) {
+            clip.getPlayStop().set(requireBeat(params, "playStop", false));
+            touched = true;
+        }
+        if (params.has("loopEnabled")) {
+            clip.isLoopEnabled().set(params.get("loopEnabled").getAsBoolean());
+            touched = true;
+        }
+        if (params.has("loopStart")) {
+            clip.getLoopStart().set(requireBeat(params, "loopStart", true));
+            touched = true;
+        }
+        if (params.has("loopLength")) {
+            clip.getLoopLength().set(requireBeat(params, "loopLength", false));
+            touched = true;
+        }
+        if (params.has("color")) {
+            var color = params.getAsJsonArray("color");
+            if (color.size() != 3) {
+                throw new IllegalArgumentException("color must contain red, green, and blue");
+            }
+            float red = requireColor(color.get(0).getAsDouble(), "red");
+            float green = requireColor(color.get(1).getAsDouble(), "green");
+            float blue = requireColor(color.get(2).getAsDouble(), "blue");
+            clip.color().set(red, green, blue);
+            touched = true;
+        }
+        if (!touched) {
+            throw new IllegalArgumentException("set at least one clip metadata field");
+        }
+        return ok();
+    }
+
+    /** Probe-only route for the Clip.duplicateContent() candidate. */
+    private JsonElement cursorDuplicateContent(JsonObject params) {
+        Clip clip = rig.clip(params.get("cursor").getAsString());
+        clip.duplicateContent();
+        return ok();
+    }
+
+    private static double requireBeat(JsonObject params, String name, boolean allowZero) {
+        double value = params.get(name).getAsDouble();
+        if (!Double.isFinite(value) || value < 0 || (!allowZero && value == 0)) {
+            throw new IllegalArgumentException(
+                name + " must be " + (allowZero ? "a non-negative" : "a positive")
+                + " finite beat value");
+        }
+        return value;
+    }
+
+    private static float requireColor(double value, String name) {
+        if (!Double.isFinite(value) || value < 0 || value > 1) {
+            throw new IllegalArgumentException(name + " must be between 0 and 1");
+        }
+        return (float)value;
+    }
+
+    private static int requireColorByte(int value, String name) {
+        if (value < 0 || value > 255) {
+            throw new IllegalArgumentException(name + " must be between 0 and 255");
+        }
+        return value;
     }
 
     private JsonElement cursorPin(JsonObject params) {

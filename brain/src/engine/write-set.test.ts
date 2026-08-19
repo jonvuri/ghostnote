@@ -16,7 +16,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { addressKey, clip, device, notes as notesAt, param, scene, slot, track, type Op } from '../contract/index.js';
+import { addressKey, clip, clipMetadata, device, notes as notesAt, param, scene, slot, track, type Op } from '../contract/index.js';
 import { isAtRisk, structuralRisk, writeSet, writeSetOf } from './write-set.js';
 
 const T = track('b07f6b06-8f4f-4f4f-802d-ddf1a5190515');
@@ -87,6 +87,23 @@ test('W-clipcreate: a create stashes the slot AND its notes, and both stay repla
   // `exists: false` is what makes the inverse available and exact: absence has
   // no content to fail to recreate.
   assert.ok(targets.every((t) => t.restore === 'replay'));
+});
+
+test('W-clipmeta: update protects metadata, and delete protects all reproducible clip state', () => {
+  const metadata = {
+    name: 'take', color: { red: 31, green: 159, blue: 223 },
+    lengthBeats: 9, playStartBeats: 2, loopEnabled: true,
+    loopStartBeats: 1, loopEndBeats: 10,
+  };
+  assert.deepEqual(
+    writeSetOf([{ op: 'clip.update', clip: CLIP, metadata }]).targets.map((t) => t.address),
+    [clipMetadata(CLIP)],
+  );
+
+  const kinds = writeSetOf([{ op: 'clip.delete', slot: S0 }]).targets.map((t) => t.address.kind);
+  assert.deepEqual(kinds, [
+    'clip', 'clipMetadata', 'clipLaunch', ...Array.from({ length: 16 }, () => 'notes'),
+  ]);
 });
 
 test('W-identity: track.delete is `none` — a recreated track is a DIFFERENT track (E2f)', () => {

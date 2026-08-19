@@ -21,7 +21,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  CONTRACT_TAG, addressKey, assertOpsWritable, clip, device, notes as notesAt, planStages, scene,
+  CONTRACT_TAG, addressKey, assertOpsWritable, clip, clipLaunch, clipMetadata, device, notes as notesAt, planStages, scene,
   slot, track, type NoteRecord, type Op, type Snapshot, type StateEntry,
 } from '../contract/index.js';
 import { labelTarget } from './fidelity.js';
@@ -163,10 +163,31 @@ test('R-clip: a DELETED clip is recreated and refilled — and the create goes F
     ...writeSetOf([{ op: 'clip.delete', slot: SLOT_A }]),
     stash: stashOf([
       { address: CLIP_A, fidelity: 'lossy', value: { of: 'clip', exists: true, lengthBeats: 4 } },
+      {
+        address: clipMetadata(CLIP_A), fidelity: 'exact', value: {
+          of: 'clipMetadata',
+          metadata: {
+            name: 'gn-take', color: { red: 31, green: 159, blue: 223 },
+            lengthBeats: 3, playStartBeats: 0.5, loopEnabled: true,
+            loopStartBeats: 0, loopEndBeats: 3,
+          },
+        },
+      },
+      {
+        address: clipLaunch(CLIP_A), fidelity: 'exact', value: {
+          of: 'clipLaunch',
+          launch: {
+            quantization: '1/4', mode: 'continue_or_synced',
+            useLoopStartAsQuantizationReference: true,
+          },
+        },
+      },
       notesEntry(notesAt(CLIP_A), [note({ pitch: 62 })]),
     ]),
   });
-  assert.deepEqual(plan.ops.map((o) => o.op), ['clip.create', 'note.clear', 'note.write']);
+  assert.deepEqual(plan.ops.map((o) => o.op), [
+    'clip.create', 'note.clear', 'note.write', 'clip.update', 'clip.launchSettings',
+  ]);
   assert.deepEqual(plan.unrestored, [], 'nothing here is withheld — the caveats carry the rest');
   const write = plan.ops[2]!;
   assert.deepEqual(write.op === 'note.write' ? write.notes.map((n) => n.pitch) : [], [62]);

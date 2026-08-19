@@ -23,7 +23,7 @@
  */
 import {
   ADDRESS_IDENTITY, OP_BUMPS_SCENE_EPOCH, addressKey, assertNever, clip as clipAt,
-  clipLaunch, notes as notesAt,
+  clipLaunch, clipMetadata, notes as notesAt,
   type Address, type AddressKey, type Op, type OpKind,
 } from '../contract/index.js';
 
@@ -111,26 +111,21 @@ function targetsOf(op: Op): {
         ...allClipChannels(clipAt(op.slot)),
       ];
 
-    // ⚠ AMENDED 2026-08-07 (D16, E16-OPEN-QUESTIONS §3.3.3). Both halves used to
-    // be `none`, on the reason *"neither its length nor its content has a
-    // readback that could reproduce it"* — and both halves of that were false as
-    // the code stood. Content is stashed (all clip channels, above). Length
-    // is readable: the live adapter was already reading `loopLength` to pick a
-    // scan grid and simply never wrote it into the clip entry, while `StateValue`
-    // declared `lengthBeats?` and the fake populated it — PHASE-0 §Risks' named
-    // failure mode, sitting unexercised because nothing read the field.
-    //
-    // So the stash IS the restore instruction for both: `revert.ts` recreates the
-    // clip at its captured length and replays the notes into it. What that cannot
-    // put back is real and is REPORTED rather than hidden — name, colour, loop
-    // start/end as distinct from length, launch settings, and automation lanes,
-    // which have no readback in our surface at all (`fidelity.ts`, `valueCaveats`).
-    // Recorded so a later session does not mistake a stash gap for an API wall.
+    // ⚠ AMENDED 2026-08-18 (D16, E43). A deleted clip now protects its
+    // existence, exact metadata, launch settings, and all note channels.
+    // Reversal recreates the clip before it restores the other values. Host
+    // The inert play-stop setter and unreadable automation lanes remain named
+    // fidelity gaps.
     case 'clip.delete':
       return [
         { address: clipAt(op.slot), restore: 'replay' },
+        { address: clipMetadata(clipAt(op.slot)), restore: 'replay' },
+        { address: clipLaunch(clipAt(op.slot)), restore: 'replay' },
         ...allClipChannels(clipAt(op.slot)),
       ];
+
+    case 'clip.update':
+      return [{ address: clipMetadata(op.clip), restore: 'replay' }];
 
     // The destination was verified empty before the host's copy call. Its
     // absence is an exact stash value, so the inverse is the same exact

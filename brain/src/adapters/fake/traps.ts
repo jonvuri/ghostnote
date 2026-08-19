@@ -183,6 +183,29 @@ export function noteOnReadback(stored: NoteRecord): NoteRecord {
   return stored.gain === undefined ? stored : { ...stored, gain: gainOnReadback(stored.gain) };
 }
 
+/**
+ * Set a loop start through the raw host primitive.
+ *
+ * ⚠ E43: moving the loop start from 0 to 1 moved the play start and stop
+ * from 0/8 to 10/11. The complete metadata writer prevents this leaked side
+ * effect by writing all measured markers in a safe order.
+ */
+export function rawLoopStartWrite(slot: FakeSlot, loopStartBeats: number): void {
+  slot.loopStartBeats = loopStartBeats;
+  slot.playStartBeats = slot.loopStartBeats + slot.lengthBeats - 1;
+  slot.playStopBeats = slot.loopStartBeats + slot.lengthBeats;
+}
+
+/**
+ * Set the play stop through the raw host primitive.
+ *
+ * ⚠ E43: stops below and above the loop end were accepted but ignored. The
+ * contract does not expose this setter. Reversal reports the marker as a gap.
+ */
+export function rawPlayStopWrite(_slot: FakeSlot, _playStopBeats: number): void {
+  // Deliberate no-op: the host accepts the call and changes nothing.
+}
+
 /** The clip the cursor was already holding when a point was attempted. */
 export interface PointOrigin {
   readonly slot: FakeSlot;

@@ -22,8 +22,8 @@ import { control } from '../adapters/fake/control.js';
 import { noteKey } from '../adapters/fake/model.js';
 import {
   AddressUnresolvedError, BlindSpotError, NOTE_PROP_FIDELITY, addressKey, clip, device,
-  notes as notesAt, param, scene, slot, track,
-  type BitwigAdapter, type NoteRecord, type Op, type TrackAddress,
+  clipMetadata, notes as notesAt, param, scene, slot, track,
+  type BitwigAdapter, type ClipMetadataState, type NoteRecord, type Op, type TrackAddress,
 } from '../contract/index.js';
 import { Executor } from './executor.js';
 import { branchProtected, gateBeforeReading, UnprotectedWriteError } from './floor.js';
@@ -331,7 +331,9 @@ test('X-clip: a deleted clip comes BACK — at its captured length, carrying its
   const reverted = await executor.revertUnchecked(take);
   // ⚠ The order is the correctness: create, THEN write. Replaying notes into a
   // slot with no clip lands the cursor on a different clip, silently (E2).
-  assert.deepEqual(reverted.plan.ops.map((o) => o.op), ['clip.create', 'note.clear', 'note.write']);
+  assert.deepEqual(reverted.plan.ops.map((o) => o.op), [
+    'clip.create', 'note.clear', 'note.write', 'clip.update', 'clip.launchSettings',
+  ]);
   const back = await fake.read([clipA, address]);
   const entry = back.entries[addressKey(clipA)];
   assert.equal(entry?.value.of === 'clip' ? entry.value.exists : false, true);
@@ -399,7 +401,7 @@ test('X-label: a take value is labelled from its write-set, not by its caller (D
   assert.equal(destructive.fidelity, 'none');
 });
 
-test('X-label: a clip that was THERE is lossy and says what a rebuild cannot carry (D16 rev)', async () => {
+test('X-label: a rebuilt clip names play stop and automation as fidelity gaps (E43)', async () => {
   const { executor, trackA } = await fixture({ clips: false });
   const target = slot(trackA, scene(2, 1));
 
@@ -409,8 +411,8 @@ test('X-label: a clip that was THERE is lossy and says what a rebuild cannot car
   assert.equal(created.fidelity, 'exact');
   assert.deepEqual(created.values.find((v) => v.address.kind === 'clip')!.caveats, []);
 
-  // Deleting it is LOSSY, not `none`: the length was captured and the notes are
-  // stashed, so the clip comes back — minus the things nothing can read back.
+  // Deleting it is LOSSY, not `none`: exact metadata, launch settings, and
+  // notes return. Automation lanes remain opaque.
   const deleted = await executor.run(
     [{ op: 'clip.delete', slot: target }],
     { clearance: branchProtected('X-label') },
@@ -418,6 +420,7 @@ test('X-label: a clip that was THERE is lossy and says what a rebuild cannot car
   const clipValue = deleted.values.find((v) => v.address.kind === 'clip')!;
   assert.equal(clipValue.fidelity, 'lossy');
   assert.equal(clipValue.value?.of === 'clip' ? clipValue.value.lengthBeats : undefined, 4);
+  assert.match(clipValue.caveats.join(' '), /PLAY-STOP MARKER/);
   assert.match(clipValue.caveats.join(' '), /AUTOMATION LANES/);
   assert.match(clipValue.caveats.join(' '), /4-beat clip/);
 });
@@ -469,6 +472,85 @@ test('X-report: the measured gain inverse makes request and readback exact (E24)
   assert.equal(take.report.disagreements.find((d) => d.field === 'gain'), undefined);
   assert.equal(take.verify.entries[addressKey(notesAt(clipA))]?.fidelity, 'exact');
   assert.ok(Math.abs(((await readNotes(fake, notesAt(clipA)))[0]?.gain ?? 0) - 0.7) <= 2e-3);
+});
+
+const CHANGED_METADATA: ClipMetadataState = {
+  name: 'gn-updated',
+  color: { red: 31, green: 159, blue: 223 },
+  lengthBeats: 9,
+  playStartBeats: 2,
+  loopEnabled: false,
+  loopStartBeats: 1,
+  loopEndBeats: 10,
+};
+
+test('X-report: an ignored clip metadata update reports every changed field', async () => {
+  const fx = await fixture();
+  const ignoring: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    apply: (batch) => fx.fake.apply({
+      ...batch,
+      ops: batch.ops.filter((op) => op.op !== 'clip.update'),
+    }),
+  };
+
+  const take = await new Executor(ignoring).run([{
+    op: 'clip.update', clip: fx.clipA, metadata: CHANGED_METADATA,
+  }]);
+
+  assert.equal(take.report.applied, true, 'the adapter acknowledgement is deliberately misleading');
+  assert.deepEqual(
+    take.report.disagreements.map((entry) => entry.field),
+    [
+      'name', 'color.red', 'color.green', 'color.blue', 'lengthBeats',
+      'playStartBeats', 'loopEnabled', 'loopStartBeats', 'loopEndBeats',
+    ],
+  );
+  assert.ok(take.report.disagreements.every((entry) =>
+    addressKey(entry.address) === addressKey(clipMetadata(fx.clipA))));
+});
+
+test('X-report: missing clip metadata readback is a mismatch, not silent success', async () => {
+  const fx = await fixture();
+  let applied = false;
+  const missing: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    apply: async (batch) => {
+      const receipt = await fx.fake.apply(batch);
+      applied = true;
+      return receipt;
+    },
+    read: async (selection) => {
+      const snapshot = await fx.fake.read(selection);
+      if (!applied) return snapshot;
+      const key = addressKey(clipMetadata(fx.clipA));
+      const { [key]: _missing, ...entries } = snapshot.entries;
+      return { ...snapshot, entries };
+    },
+  };
+
+  const take = await new Executor(missing).run([{
+    op: 'clip.update', clip: fx.clipA, metadata: CHANGED_METADATA,
+  }]);
+
+  assert.deepEqual(take.report.disagreements, [{
+    address: clipMetadata(fx.clipA),
+    at: 'clip metadata',
+    field: 'exists',
+    requested: true,
+    readback: false,
+  }]);
+});
+
+test('X-report: a later delete supersedes an earlier metadata request', async () => {
+  const fx = await fixture();
+  const take = await fx.executor.run([
+    { op: 'clip.update', clip: fx.clipA, metadata: CHANGED_METADATA },
+    { op: 'clip.delete', slot: fx.clipA.slot },
+  ], { clearance: branchProtected('X-report') });
+
+  assert.equal(take.report.applied, true);
+  assert.deepEqual(take.report.disagreements, []);
 });
 
 test('X-empty: an empty patch is a no-op take, not a crash', async () => {

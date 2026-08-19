@@ -1191,7 +1191,15 @@ public class Rig {
     private static void markClip(Clip clip) {
         clip.setStepSize(STEP_SIZE);
         clip.exists().markInterested();
+        // Phase 2 session 2e. These values form the launcher-clip metadata
+        // contract. Mark all scalar values at init so an unmarked read cannot
+        // look like a missing capability (E2).
+        clip.getPlayStart().markInterested();
+        clip.getPlayStop().markInterested();
+        clip.isLoopEnabled().markInterested();
+        clip.getLoopStart().markInterested();
         clip.getLoopLength().markInterested();
+        clip.color().markInterested();
         clip.getTrack().exists().markInterested();
         clip.getTrack().name().markInterested();
         clip.getTrack().position().markInterested();

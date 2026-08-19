@@ -69,12 +69,22 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInE16 ?? []), ...(golden.addedInE20 ?? []),
       ...(golden.addedInSession3eProbe ?? []), ...(golden.addedInE22Probe ?? []),
       ...(golden.addedInSession3f ?? []), ...(golden.addedInSession3gB ?? []),
-      ...(golden.addedInSession4a ?? []), ...(golden.addedInSession4b ?? [])];
+      ...(golden.addedInSession4a ?? []), ...(golden.addedInSession4b ?? []),
+      ...(golden.addedInPhase2Session2e ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
     'every active post-split method belongs to a named session bucket',
   );
+});
+
+test('2e: metadata is product wire, while rejected duplicate routes stay probe-only', () => {
+  assert.deepEqual(golden.addedInPhase2Session2e, [
+    'cursor.clipMetadata', 'cursor.duplicateContent',
+    'cursor.setClipMetadata', 'slot.duplicateObject',
+  ]);
+  const reachable = golden.addedInPhase2Session2e.filter((method) => WIRE_METHODS_USED.includes(method));
+  assert.deepEqual(reachable, ['cursor.clipMetadata', 'cursor.setClipMetadata']);
 });
 
 test('E16: the branch probe surface is probe surface, and the contract cannot reach it', () => {

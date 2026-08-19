@@ -200,6 +200,7 @@
     "probe:5g-repair": "tsx src/probes/phase5g-two-clip-repair.ts",
     "probe:2d-rhythm": "tsx src/probes/phase2d-rhythm.ts",
     "probe:2d-grid": "tsx src/probes/phase2d-grid-precision.ts",
+    "probe:2e-lifecycle": "tsx src/probes/phase2e-clip-lifecycle.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

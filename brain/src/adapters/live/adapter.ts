@@ -32,7 +32,7 @@ import {
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
   lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
-  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
+  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
   type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type TrackAddress, type TrackState, type WindowCoverage,
@@ -818,6 +818,49 @@ export class LiveAdapter implements BitwigAdapter {
     return candidate ?? STEP_SIZES[0]!;
   }
 
+  /** Read exact metadata plus the readable but unwritable play-stop marker. */
+  private async readClipMetadata(
+    clip: ClipAddress,
+    trackIndex: number,
+    pointedAt: Map<string, AddressKey>,
+  ): Promise<{ readonly metadata: ClipMetadataState; readonly playStopBeats: number }> {
+    const cursor = await this.pointAtClip(clip, trackIndex, pointedAt);
+    const raw = (await this.transport.send({
+      method: WIRE.cursorClipMetadata,
+      params: { cursor },
+    })) as Readonly<Record<string, unknown>>;
+    const number = (name: string): number => {
+      const value = raw[name];
+      if (typeof value !== 'number' || !Number.isFinite(value)) {
+        throw new Error(`clip metadata ${name} did not return a finite number`);
+      }
+      return value;
+    };
+    const text = raw.name;
+    if (typeof text !== 'string' || typeof raw.loopEnabled !== 'boolean') {
+      throw new Error('clip metadata name or loopEnabled did not return its measured type');
+    }
+    const colorByte = (name: string): number => Math.max(0, Math.min(255, Math.round(number(name) * 255)));
+    const loopStartBeats = number('loopStart');
+    const lengthBeats = number('loopLength');
+    return {
+      metadata: {
+        name: text,
+        color: {
+          red: colorByte('colorRed'),
+          green: colorByte('colorGreen'),
+          blue: colorByte('colorBlue'),
+        },
+        lengthBeats,
+        playStartBeats: number('playStart'),
+        loopEnabled: raw.loopEnabled,
+        loopStartBeats,
+        loopEndBeats: loopStartBeats + lengthBeats,
+      },
+      playStopBeats: number('playStop'),
+    };
+  }
+
   /**
    * The mark, the launcher events behind it, and WHAT THE BANKS COULD SEE.
    *
@@ -1178,7 +1221,7 @@ export class LiveAdapter implements BitwigAdapter {
     // not be pointed at in any case (E2).
     const selection = await this.beginSelectionBorrow(sel.some((a) =>
       a.kind === 'notes' || a.kind === 'clip' || a.kind === 'slot'
-      || a.kind === 'clipLaunch' || a.kind === 'clipPlay'));
+      || a.kind === 'clipLaunch' || a.kind === 'clipPlay' || a.kind === 'clipMetadata'));
     // Where each pool cursor is actually pointed, so the common shape — a clip
     // target and its notes target, side by side in one write-set — costs one
     // point and one settle rather than two.
@@ -1391,18 +1434,14 @@ export class LiveAdapter implements BitwigAdapter {
         // the entry. `StateValue.lengthBeats` had been declared and populated by
         // the fake the whole time, which made this the exact shape PHASE-0 §Risks
         // warned about: a fake certifying a capture the live path did not make.
-        const cursor = await this.pointAtClip(clipRef, row.index, pointedAt);
-        const loop = (await this.transport.send({
-          method: WIRE.cursorStatus,
-          params: { cursor },
-        })) as { loopLength?: number };
+        const observed = await this.readClipMetadata(clipRef, row.index, pointedAt);
         // ⚠ NOT defaulted. The `notes` branch may fall back to 4 beats because a
         // scan window that is too wide only costs resolution; here the number IS
         // the captured value, and a clip silently recreated at a guessed length is
         // a musical value invented from nothing. Absent means absent, and
         // `revertOps` refuses to recreate the clip rather than pick a length.
-        const lengthBeats = typeof loop.loopLength === 'number' && loop.loopLength > 0
-          ? loop.loopLength
+        const lengthBeats = observed.metadata.lengthBeats > 0
+          ? observed.metadata.lengthBeats
           : undefined;
         return {
           address,
@@ -1411,6 +1450,18 @@ export class LiveAdapter implements BitwigAdapter {
             ? { of: 'clip', exists: true }
             : { of: 'clip', exists: true, lengthBeats },
         };
+      }
+
+      case 'clipMetadata': {
+        if (row === undefined) return undefined;
+        const sceneIndex = address.clip.slot.scene.index;
+        const status = (await this.transport.send({
+          method: WIRE.slotStatus,
+          params: { trackIndex: row.index, slotIndex: sceneIndex },
+        })) as { hasContent: boolean };
+        if (!status.hasContent) return undefined;
+        const observed = await this.readClipMetadata(address.clip, row.index, pointedAt);
+        return { address, fidelity: 'exact', value: { of: 'clipMetadata', metadata: observed.metadata } };
       }
 
       case 'notes': {
@@ -1443,11 +1494,9 @@ export class LiveAdapter implements BitwigAdapter {
         // an empty clip.
         //
         // So: the finest grid whose window still spans the whole clip.
-        const loop = (await this.transport.send({
-          method: WIRE.cursorStatus,
-          params: { cursor },
-        })) as { loopLength?: number };
-        const lengthBeats = typeof loop.loopLength === 'number' && loop.loopLength > 0 ? loop.loopLength : 4;
+        const observed = await this.readClipMetadata(address.clip, row.index, pointedAt);
+        const observedExtent = Math.max(observed.playStopBeats, observed.metadata.loopEndBeats);
+        const lengthBeats = observedExtent > 0 ? observedExtent : 4;
         const stepSize = this.scanStepSize(lengthBeats);
         // ⚠ E2/E15-D: setStepSize works at runtime but needs a settle — not
         // instant. Under-waiting does not fail loudly: the scan runs on the OLD

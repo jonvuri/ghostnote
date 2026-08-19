@@ -32,10 +32,10 @@ import { randomUUID } from 'node:crypto';
 import {
   AddressUnresolvedError, CONTRACT_TAG, NOTE_PROP_FIDELITY,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
-  blindSpotError, deltaComplete,
+  blindSpotError, clipMetadata as clipMetadataAt, deltaComplete,
   failures, notes as notesAt,
   type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
-  type Op, type RevisionMark, type Snapshot,
+  type ClipMetadataState, type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
 import { labelTarget, worstOf } from './fidelity.js';
 import { floorRefusal, gateBeforeReading, ownChangesetReversal, type Clearance } from './floor.js';
@@ -515,9 +515,10 @@ function unobservedInserts(
  *   - a mis-pointed write lands somewhere else entirely (E2), which shows up
  *     here as a note that simply is not present.
  *
- * Only `note.write` states a request about note content, so only it is checked.
- * `note.props` is generated FROM a `note.write` by `planStages` and carries the
- * same values, so checking it too would double-report every property.
+ * `note.props` is generated from a `note.write` by `planStages` and carries the
+ * same values, so checking it too would report every property twice. Clip
+ * metadata is complete state, so only the final update for each surviving clip
+ * is compared.
  */
 export function disagreementsOf(
   ops: readonly Op[],
@@ -531,6 +532,24 @@ export function disagreementsOf(
   unread: ReadonlySet<string> = new Set(),
 ): Disagreement[] {
   const out: Disagreement[] = [];
+  const metadataUpdates = finalClipMetadataUpdates(ops);
+  for (const op of metadataUpdates.values()) {
+    const address = clipMetadataAt(op.clip);
+    if (unread.has(addressKey(address))) continue;
+    const entry = verify.entries[addressKey(address)];
+    if (entry?.value.of !== 'clipMetadata') {
+      out.push({
+        address,
+        at: 'clip metadata',
+        field: 'exists',
+        requested: true,
+        readback: false,
+      });
+      continue;
+    }
+    out.push(...compareClipMetadata(address, op.metadata, entry.value.metadata));
+  }
+
   for (const op of ops) {
     if (op.op !== 'note.write') continue;
     const address = notesAt(op.clip, op.channel ?? 0);
@@ -558,6 +577,52 @@ export function disagreementsOf(
     }
   }
   return out;
+}
+
+/** Keep only metadata requests that still describe the clip at batch end. */
+function finalClipMetadataUpdates(
+  ops: readonly Op[],
+): ReadonlyMap<string, Extract<Op, { op: 'clip.update' }>> {
+  const updates = new Map<string, Extract<Op, { op: 'clip.update' }>>();
+  for (const op of ops) {
+    if (op.op === 'clip.update') {
+      updates.set(addressKey(op.clip), op);
+      continue;
+    }
+    if (op.op === 'clip.delete') {
+      updates.delete(addressKey({ kind: 'clip', slot: op.slot }));
+      continue;
+    }
+    if (op.op === 'clip.move') updates.delete(addressKey(op.source));
+  }
+  return updates;
+}
+
+function compareClipMetadata(
+  address: Address,
+  requested: ClipMetadataState,
+  readback: ClipMetadataState,
+): Disagreement[] {
+  const fields: readonly [string, unknown, unknown][] = [
+    ['name', requested.name, readback.name],
+    ['color.red', requested.color.red, readback.color.red],
+    ['color.green', requested.color.green, readback.color.green],
+    ['color.blue', requested.color.blue, readback.color.blue],
+    ['lengthBeats', requested.lengthBeats, readback.lengthBeats],
+    ['playStartBeats', requested.playStartBeats, readback.playStartBeats],
+    ['loopEnabled', requested.loopEnabled, readback.loopEnabled],
+    ['loopStartBeats', requested.loopStartBeats, readback.loopStartBeats],
+    ['loopEndBeats', requested.loopEndBeats, readback.loopEndBeats],
+  ];
+  return fields
+    .filter(([, asked, found]) => !equalEnough(asked, found))
+    .map(([field, asked, found]) => ({
+      address,
+      at: 'clip metadata',
+      field,
+      requested: asked,
+      readback: found,
+    }));
 }
 
 const noteLabel = (n: NoteRecord): string => `pitch ${n.pitch} @ beat ${n.startBeats}`;

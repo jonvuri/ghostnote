@@ -182,6 +182,16 @@ class CursorModelTransport implements Transport {
         };
       }
 
+      case WIRE.cursorClipMetadata: {
+        const on = this.cursorOn.get(params['cursor'] as string);
+        const model = on === undefined ? undefined : this.slots.get(on);
+        return model === undefined ? {} : {
+          name: '', colorRed: 87 / 255, colorGreen: 97 / 255, colorBlue: 198 / 255,
+          playStart: 0, playStop: model.lengthBeats, loopEnabled: true,
+          loopStart: 0, loopLength: model.lengthBeats,
+        };
+      }
+
       case WIRE.cursorGetNotesVerbose: {
         const on = this.cursorOn.get(params['cursor'] as string);
         const model = on === undefined ? undefined : this.slots.get(on);
@@ -238,8 +248,13 @@ test('5g repair: two delayed pins settle before either cursor hold is reused', a
   assert.equal(transport.where('1'), 1, 'the second cursor reaches clip B');
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.cursorStatus).length,
-    6,
-    'each clip gets target, pin, and loop-length status readings',
+    4,
+    'each clip gets target and pin status readings',
+  );
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length,
+    2,
+    'each clip gets one complete metadata reading',
   );
 });
 
@@ -649,7 +664,8 @@ test('5d cursor repair: a lagging clip cursor retries the complete point', async
       { cursor: '0', pinned: true },
     ],
   );
-  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 5);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorStatus).length, 4);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 1);
 });
 
 test('5d cursor repair: a clip cursor that never arrives refuses after eight attempts', async () => {

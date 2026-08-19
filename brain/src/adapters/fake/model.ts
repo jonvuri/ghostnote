@@ -19,6 +19,12 @@ export type TrackType = 'Instrument' | 'Audio' | 'Effect' | 'Master' | 'Group';
 
 export interface FakeSlot {
   hasContent: boolean;
+  name: string;
+  color: { red: number; green: number; blue: number };
+  playStartBeats: number;
+  playStopBeats: number;
+  loopEnabled: boolean;
+  loopStartBeats: number;
   lengthBeats: number;
   /** Keyed `channel:pitch:startBeats` so a re-write of the same cell replaces it. */
   notes: Map<string, NoteRecord>;
@@ -294,6 +300,12 @@ export class ProjectModel {
   makeSlots(): FakeSlot[] {
     return Array.from({ length: this.sceneCount }, () => ({
       hasContent: false,
+      name: '',
+      color: { red: 87, green: 97, blue: 198 },
+      playStartBeats: 0,
+      playStopBeats: 0,
+      loopEnabled: true,
+      loopStartBeats: 0,
       lengthBeats: 0,
       notes: new Map<string, NoteRecord>(),
       stepDataStaleUntilTick: 0,
@@ -492,6 +504,7 @@ export class ProjectModel {
     if (appended === undefined) return;
     appended.hasContent = true;
     appended.lengthBeats = lengthBeats;
+    appended.playStopBeats = lengthBeats;
     // ⚠ Deliberately NOT through `setSlotContent`: the new row is past the slot
     // bank window by construction on any project bigger than it, so no observer
     // exists to fire. Routing it through the observer path would make the fake
@@ -503,7 +516,9 @@ export class ProjectModel {
     for (const track of this.tracks) {
       for (let i = 0; i < count; i++) {
         track.slots.push({
-          hasContent: false, lengthBeats: 0, notes: new Map(), stepDataStaleUntilTick: 0,
+          hasContent: false, name: '', color: { red: 87, green: 97, blue: 198 },
+          playStartBeats: 0, playStopBeats: 0, loopEnabled: true, loopStartBeats: 0,
+          lengthBeats: 0, notes: new Map(), stepDataStaleUntilTick: 0,
           launchQuantization: 'default', launchMode: 'default',
           useLoopStartAsQuantizationReference: false,
           isPlaying: false, isPlaybackQueued: false, isStopQueued: false,

@@ -21,6 +21,7 @@
  *   T-tracks      E2c      flat bank tail, unhonoured positions, auto-names
  *   T-chain       E3       device chains re-index on delete
  *   T-params      E4       parameters are not live until after the insert settles
+ *   T-clip-meta   E43      raw clip marker writes leak or are ignored
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -36,7 +37,7 @@ import { VirtualClock } from './clock.js';
 import { ProjectModel, noteKey, type FakeChain } from './model.js';
 import {
   applyNotePropsInOrder, gainOnReadback, gridChangePoisonsRead, noteOnReadback, pointAtSlot,
-  propsReadsTurnStartClip, stepDataIsStale, writeNoteProps,
+  propsReadsTurnStartClip, rawLoopStartWrite, rawPlayStopWrite, stepDataIsStale, writeNoteProps,
 } from './traps.js';
 
 const CLIP = clip(slot(track('b07f6b06-8f4f-4f4f-802d-ddf1a5190515'), scene(0, 1)));
@@ -100,6 +101,26 @@ test('T-gain: gain reads back 2x what was written (E2)', () => {
 test('T-gain: a note without gain is returned untouched', () => {
   const n = note();
   assert.equal(noteOnReadback(n), n);
+});
+
+test('T-clip-meta: raw loop start moves play markers, and play-stop writes are ignored (E43)', () => {
+  const model = new ProjectModel();
+  const slotState = model.makeSlots()[0]!;
+  slotState.hasContent = true;
+  slotState.lengthBeats = 10;
+  slotState.playStartBeats = 0;
+  slotState.playStopBeats = 8;
+
+  rawLoopStartWrite(slotState, 1);
+  assert.deepEqual(
+    { loopStart: slotState.loopStartBeats, playStart: slotState.playStartBeats, playStop: slotState.playStopBeats },
+    { loopStart: 1, playStart: 10, playStop: 11 },
+  );
+
+  rawPlayStopWrite(slotState, 9);
+  assert.equal(slotState.playStopBeats, 11, 'a stop before the loop end is silently ignored');
+  rawPlayStopWrite(slotState, 12);
+  assert.equal(slotState.playStopBeats, 11, 'a stop after the loop end is also silently ignored');
 });
 
 test('T-gain: the shared contract encoder applies the measured inverse once (E24)', () => {

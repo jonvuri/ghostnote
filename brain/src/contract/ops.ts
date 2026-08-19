@@ -26,7 +26,7 @@ import {
   lookupChain, nestingObservable, projectedReorder, reorderIndistinguishable,
   type ObservedChain, type ObservedContainer, type ObservedDeviceSequence,
 } from './chains.js';
-import { unwritableProps, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
+import { unwritableProps, type ClipMetadataState, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, InvalidOpError, SlotOccupiedError,
@@ -70,6 +70,7 @@ export type Op =
   // silently lands the cursor on the WRONG clip, and status looks healthy (E2).
   | { readonly op: 'clip.create'; readonly slot: SlotAddress; readonly lengthBeats: number }
   | { readonly op: 'clip.delete'; readonly slot: SlotAddress }
+  | { readonly op: 'clip.update'; readonly clip: ClipAddress; readonly metadata: ClipMetadataState }
   | { readonly op: 'clip.duplicate'; readonly source: ClipAddress; readonly destination: SlotAddress }
   | { readonly op: 'clip.move'; readonly source: ClipAddress; readonly destination: SlotAddress }
   | { readonly op: 'clip.launch'; readonly clip: ClipAddress; readonly quantization: LaunchQuantization; readonly mode: LaunchMode }
@@ -183,6 +184,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   notify: 'instant',
   'clip.create': 'trackStruct',
   'clip.delete': 'trackStruct',
+  'clip.update': 'instant',
   'clip.duplicate': 'trackStruct',
   'clip.move': 'trackStruct',
   'clip.launch': 'tick',
@@ -257,6 +259,34 @@ export const OP_BUMPS_SCENE_EPOCH: ReadonlySet<OpKind> = new Set<OpKind>(['scene
  */
 export function assertOpsWritable(ops: readonly Op[]): void {
   for (const op of ops) {
+    if (op.op === 'clip.update') {
+      const { metadata } = op;
+      const beats = [
+        metadata.lengthBeats,
+        metadata.playStartBeats,
+        metadata.loopStartBeats,
+        metadata.loopEndBeats,
+      ];
+      if (beats.some((value) => !Number.isFinite(value))) {
+        throw new InvalidOpError(op.op, 'all clip beat values must be finite');
+      }
+      if (metadata.lengthBeats <= 0
+          || metadata.playStartBeats < 0
+          || metadata.loopStartBeats < 0
+          || metadata.loopEndBeats <= metadata.loopStartBeats
+          || Math.abs(metadata.loopStartBeats + metadata.lengthBeats - metadata.loopEndBeats) > 1e-9) {
+        throw new InvalidOpError(
+          op.op,
+          'clip metadata must have a non-negative play start, a positive loop length, '
+          + 'and loop end equal to loop start plus length',
+        );
+      }
+      for (const [name, value] of Object.entries(metadata.color)) {
+        if (!Number.isInteger(value) || value < 0 || value > 255) {
+          throw new InvalidOpError(op.op, `${name} must be an integer from 0 to 255`);
+        }
+      }
+    }
     if (op.op === 'clip.duplicate') {
       const source = op.source.slot;
       if (source.track.channelId !== op.destination.track.channelId
@@ -386,6 +416,8 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'clip.create':
     case 'clip.delete':
       return [op.slot.scene];
+    case 'clip.update':
+      return [op.clip.slot.scene];
     case 'clip.duplicate':
     case 'clip.move':
       return [op.source.slot.scene, op.destination.scene];
@@ -459,6 +491,7 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
     case 'note.props':
     case 'clip.create':
     case 'clip.delete':
+    case 'clip.update':
     case 'clip.duplicate':
     case 'clip.move':
     case 'clip.launch':
@@ -1106,6 +1139,7 @@ export function assertClipSources(
         break;
       case 'clip.launch':
       case 'clip.launchSettings':
+      case 'clip.update':
         requireClip(op.clip.slot);
         break;
       default:

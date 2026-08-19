@@ -4,7 +4,7 @@ kind: plan
 state: planned
 updated: 2026-08-16
 parent: README.md
-prev: 2e-clip-lifecycle.md
+prev: ../../archive/outcomes/PHASE-2-SESSION-2E-CLIP-LIFECYCLE.md
 next: 2g-mcp-surface.md
 scope: Phase 2 patch materialization and protection
 evidence: E24, E32–E39 · D8–D10, D15, D16, D18–D20

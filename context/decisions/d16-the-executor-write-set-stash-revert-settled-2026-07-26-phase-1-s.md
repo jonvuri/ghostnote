@@ -139,4 +139,11 @@ refuses unless it has the complete set.
 > a created track is deliberately NOT offered"* softens under D20: not offered
 > **automatically**; expressible as a directed destructive op.
 
+> ⚠ **AMENDED 2026-08-18 (E43).** Launcher-clip metadata now has a complete
+> exact state and an exact typed writer. `clip.delete` stashes existence,
+> metadata, launch settings, and all 16 note channels. Reversal recreates the
+> clip first and restores the other values after it. The remaining fidelity gaps
+> are the inert play-stop setter and automation lanes, which have no complete
+> readback. The positional identity rule does not change.
+
 ---

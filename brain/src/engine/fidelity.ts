@@ -155,11 +155,9 @@ function valueCaveats(value: StateValue): string[] {
     case 'notes':
       return notePropCaveats(value.notes);
     case 'clip':
-      // ⚠ AMENDED 2026-08-07 (D16, §3.3.3). This used to read "a clip that
-      // already existed cannot be recreated from readback", which was an
-      // ADAPTER ARTIFACT dressed as an API wall: the content was always stashed
-      // and the length was always readable. What a recreate genuinely cannot put
-      // back is the list below — and the last item is the one that bites.
+      // ⚠ AMENDED 2026-08-18 (D16, E43). Shipped clip metadata and launch
+      // settings have exact paths. The play-stop setter is inert, and automation
+      // remains opaque.
       if (!value.exists) return [];
       return [
         value.lengthBeats === undefined
@@ -167,11 +165,12 @@ function valueCaveats(value: StateValue): string[] {
             'notes cannot be replayed into it — a clip rebuilt at a guessed length is a musical ' +
             'value invented from nothing (D16, §3.3.3).'
           : `a clip that already existed is restored as a new ${value.lengthBeats}-beat clip ` +
-            'carrying the stashed notes. NOT restored, because none of it has a readback in our ' +
-            'surface: the clip\'s name and colour, its loop start/end as distinct from its ' +
-            'length, its launch quantisation and mode, and its AUTOMATION LANES (D16, §3.3.3).',
+            'with its exact metadata, launch settings, and notes. Its PLAY-STOP MARKER is not ' +
+            'restored because the setter is inert, and its AUTOMATION LANES are not restored ' +
+            'because the host API has no complete lane readback (E43).',
       ];
     case 'clipLaunch':
+    case 'clipMetadata':
     case 'clipPlay':
       return [];
     case 'device':

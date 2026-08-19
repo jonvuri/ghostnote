@@ -315,6 +315,29 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         }),
       ];
 
+    case 'clip.update': {
+      const t = ctx.trackIndex(op.clip.slot.track);
+      const s = ctx.sceneRow(op.clip.slot.scene);
+      const cursor = ctx.cursorFor(op.clip);
+      return [
+        ...pointFrames(cursor, t, s),
+        frame(WIRE.cursorSetClipMetadata, {
+          cursor,
+          name: op.metadata.name,
+          colorBytes: [
+            op.metadata.color.red,
+            op.metadata.color.green,
+            op.metadata.color.blue,
+          ],
+          lengthBeats: op.metadata.lengthBeats,
+          playStartBeats: op.metadata.playStartBeats,
+          loopEnabled: op.metadata.loopEnabled,
+          loopStartBeats: op.metadata.loopStartBeats,
+          loopEndBeats: op.metadata.loopEndBeats,
+        }),
+      ];
+    }
+
     case 'clip.duplicate':
       return [frame(WIRE.slotDuplicateClip, {
         trackIndex: ctx.trackIndex(op.source.slot.track),

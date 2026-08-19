@@ -16,7 +16,7 @@
 import type { Address, AddressKey } from './address.js';
 import type { ObservedChain } from './chains.js';
 import type {
-  ClipLaunchState, ClipPlayState, DeviceState, NoteRecord, ParamState, TrackState,
+  ClipLaunchState, ClipMetadataState, ClipPlayState, DeviceState, NoteRecord, ParamState, TrackState,
 } from './state.js';
 import type { ContractTag } from './version.js';
 
@@ -142,11 +142,10 @@ export interface RevisionMark {
  * How exactly this entry can be restored.
  *
  *   exact — round-trips losslessly; a revert fully restores it.
- *   lossy — restorable, but at least one property has an unverified round-trip
- *           (today: note `gain`, E2), or the address is positional and a
- *           structural op could have moved it, or the value carries less than the
- *           object does (a clip is rebuilt from its length and notes, and its
- *           name, colour and automation lanes are not in the snapshot at all).
+ *   lossy — restorable, but the address can move under a structural op or the
+ *           captured value omits host state. A rebuilt clip restores exact
+ *           metadata, launch settings, and notes, but not its play-stop marker
+ *           or automation lanes.
  *   none  — captured for the record, not restorable (a deleted track: a recreated
  *           one mints a fresh `channelId`, so no stash can be replayed onto it).
  *
@@ -173,6 +172,7 @@ export type StateValue =
    * read the field. Both adapters populate it now and `C-clip` asserts it on both.
    */
   | { readonly of: 'clip'; readonly exists: boolean; readonly lengthBeats?: number }
+  | { readonly of: 'clipMetadata'; readonly metadata: ClipMetadataState }
   | { readonly of: 'clipLaunch'; readonly launch: ClipLaunchState }
   | { readonly of: 'clipPlay'; readonly play: ClipPlayState }
   | { readonly of: 'device'; readonly device: DeviceState }

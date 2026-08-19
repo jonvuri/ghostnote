@@ -39,9 +39,23 @@ public final class TrackHandlers extends HandlerGroup {
         r.on("slot.launch", params -> slotLaunch(params));
         r.on("slot.launchWithOptions", params -> slotLaunchWithOptions(params));
         r.on("slot.duplicateClip", params -> slotDuplicateClip(params));
+        r.on("slot.duplicateObject", params -> slotDuplicateObject(params));
         r.on("slot.playState", params -> slotPlayState(params));
         r.on("slot.moveTo", params -> slotMoveTo(params));
         r.on("slot.epoch", params -> slotEpoch());
+    }
+
+    /** Probe-only route for DuplicableObject.duplicateObject(). */
+    private JsonElement slotDuplicateObject(JsonObject params) {
+        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        int slotIndex = params.get("slotIndex").getAsInt();
+        if (slotIndex < 0 || slotIndex >= rig.config.scenes) {
+            throw new IllegalArgumentException(
+                "slotIndex outside the scene bank window: " + slotIndex
+                + " (window " + rig.config.scenes + ")");
+        }
+        track.clipLauncherSlotBank().getItemAt(slotIndex).duplicateObject();
+        return ok();
     }
 
     /**

@@ -64,6 +64,12 @@ export interface ClipPlayAddress {
   readonly clip: ClipAddress;
 }
 
+/** Readable and writable launcher-clip container metadata (E43). */
+export interface ClipMetadataAddress {
+  readonly kind: 'clipMetadata';
+  readonly clip: ClipAddress;
+}
+
 /** Beats, always. The step grid is a per-operation view, never global state (E2). */
 export interface BeatRange {
   readonly startBeats: number;
@@ -149,6 +155,7 @@ export type Address =
   | ClipAddress
   | ClipLaunchAddress
   | ClipPlayAddress
+  | ClipMetadataAddress
   | NotesAddress
   | ChainAddress
   | DeviceAddress
@@ -168,6 +175,7 @@ export const ADDRESS_IDENTITY: Record<AddressKind, 'durable' | 'positional'> = {
   clip: 'positional',
   clipLaunch: 'positional',
   clipPlay: 'positional',
+  clipMetadata: 'positional',
   notes: 'positional',
   // ⚠ Positional despite the durable NAME in it: the container it hangs off is a
   // chain position, and a device-chain edit re-indexes that (E3). A take holding
@@ -252,6 +260,8 @@ export function addressKey(a: Address): AddressKey {
       return `clipLaunch:${a.clip.slot.track.channelId}:${a.clip.slot.scene.index}@${a.clip.slot.scene.epoch}`;
     case 'clipPlay':
       return `clipPlay:${a.clip.slot.track.channelId}:${a.clip.slot.scene.index}@${a.clip.slot.scene.epoch}`;
+    case 'clipMetadata':
+      return `clipMetadata:${a.clip.slot.track.channelId}:${a.clip.slot.scene.index}@${a.clip.slot.scene.epoch}`;
     case 'notes': {
       const clip = `${a.clip.slot.track.channelId}:${a.clip.slot.scene.index}@${a.clip.slot.scene.epoch}`;
       const range = a.range ? `:${a.range.startBeats}-${a.range.endBeats}` : '';
@@ -283,6 +293,7 @@ export function addressTrack(a: Address): TrackAddress | undefined {
       return a.slot.track;
     case 'clipLaunch':
     case 'clipPlay':
+    case 'clipMetadata':
       return a.clip.slot.track;
     case 'notes':
       return a.clip.slot.track;
@@ -309,6 +320,7 @@ export function addressScene(a: Address): SceneAddress | undefined {
       return a.slot.scene;
     case 'clipLaunch':
     case 'clipPlay':
+    case 'clipMetadata':
       return a.clip.slot.scene;
     case 'notes':
       return a.clip.slot.scene;
@@ -328,6 +340,8 @@ export const slot = (t: TrackAddress, s: SceneAddress): SlotAddress => ({ kind: 
 export const clip = (s: SlotAddress): ClipAddress => ({ kind: 'clip', slot: s });
 
 export const clipLaunch = (c: ClipAddress): ClipLaunchAddress => ({ kind: 'clipLaunch', clip: c });
+
+export const clipMetadata = (c: ClipAddress): ClipMetadataAddress => ({ kind: 'clipMetadata', clip: c });
 
 export const clipPlay = (c: ClipAddress): ClipPlayAddress => ({ kind: 'clipPlay', clip: c });
 

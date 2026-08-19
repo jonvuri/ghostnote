@@ -113,6 +113,25 @@ test('E-clip-block: copy, move, launch and settings encode only measured routes'
   });
 });
 
+test('E-clip-meta: complete metadata uses one measured writer with byte colour (E43)', () => {
+  const frames = encodeOp({
+    op: 'clip.update', clip: CLIP_A,
+    metadata: {
+      name: 'gn-take', color: { red: 31, green: 159, blue: 223 },
+      lengthBeats: 9, playStartBeats: 2, loopEnabled: true,
+      loopStartBeats: 1, loopEndBeats: 10,
+    },
+  }, ctx);
+  assert.deepEqual(methods(frames), [
+    WIRE.cursorPointTrack, WIRE.slotSelect, WIRE.cursorSetClipMetadata,
+  ]);
+  assert.deepEqual(paramsOf(frames, WIRE.cursorSetClipMetadata), {
+    cursor: '0', name: 'gn-take', colorBytes: [31, 159, 223],
+    lengthBeats: 9, playStartBeats: 2, loopEnabled: true,
+    loopStartBeats: 1, loopEndBeats: 10,
+  });
+});
+
 test('E-track-copy: duplication carries the source durable identity', () => {
   assert.deepEqual(encodeOp({ op: 'track.duplicate', track: TRACK_A }, ctx), [{
     method: WIRE.trackDuplicate,

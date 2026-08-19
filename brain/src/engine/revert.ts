@@ -361,17 +361,9 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
         sink.removalOps.push({ op: 'clip.delete', slot: target.address.slot });
         return;
       }
-      // ⚠ A clip WAS here, and as of the D16 amendment the stash knows how long
-      // it was — so the inverse is to put a clip of that length back, ahead of
-      // the notes target that fills it (`orderOps`). The two ops that can produce
-      // this target take it identically and correctly: `clip.delete` gets its
-      // clip recreated, and a `clip.create` that landed on an occupied slot gets
-      // the ORIGINAL length back rather than keeping the one the batch imposed.
-      //
-      // What this cannot put back is stated in the take's caveats rather than
-      // here, because a label a reader sees before they revert is worth more than
-      // a comment they never read: name, colour, loop start/end as distinct from
-      // length, launch settings, and automation lanes (`fidelity.ts`).
+      // A clip was here. Recreate it before notes, metadata, and launch settings
+      // are restored. `orderOps` enforces this order because a cursor pointed at
+      // an empty slot can land on another clip (E2).
       const lengthBeats = value.lengthBeats;
       // Already reported by `unrecreatableClips`; a default here would be the
       // invented value that function exists to refuse.
@@ -388,6 +380,15 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
         quantization: value.launch.quantization,
         mode: value.launch.mode,
         useLoopStartAsQuantizationReference: value.launch.useLoopStartAsQuantizationReference,
+      });
+      return;
+
+    case 'clipMetadata':
+      if (target.address.kind !== 'clipMetadata') return;
+      sink.scalarOps.push({
+        op: 'clip.update',
+        clip: target.address.clip,
+        metadata: value.metadata,
       });
       return;
 

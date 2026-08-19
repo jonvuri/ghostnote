@@ -18,7 +18,7 @@ import {
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
-  type ClipAddress, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
+  type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
   type Op, type OpReceipt, type ResolveResult,
   type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
   type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
@@ -35,6 +35,16 @@ import {
 
 /** How the fake names the clip a cursor points at. Identity, never index (E2f). */
 const clipKey = (channelId: string, sceneIndex: number): string => `${channelId}:${sceneIndex}`;
+
+const clipMetadataState = (slot: import('./model.js').FakeSlot): ClipMetadataState => ({
+  name: slot.name,
+  color: { ...slot.color },
+  lengthBeats: slot.lengthBeats,
+  playStartBeats: slot.playStartBeats,
+  loopEnabled: slot.loopEnabled,
+  loopStartBeats: slot.loopStartBeats,
+  loopEndBeats: slot.loopStartBeats + slot.lengthBeats,
+});
 
 export interface FakeOptions {
   /** Tracks to start with, by name. All Instrument type. */
@@ -338,6 +348,15 @@ export class FakeAdapter implements BitwigAdapter {
           address,
           fidelity: 'lossy',
           value: { of: 'clip', exists: true, lengthBeats: slotState.lengthBeats },
+        };
+      }
+      case 'clipMetadata': {
+        const slotState = track?.slots[address.clip.slot.scene.index];
+        if (slotState === undefined || !slotState.hasContent) return undefined;
+        return {
+          address,
+          fidelity: 'exact',
+          value: { of: 'clipMetadata', metadata: clipMetadataState(slotState) },
         };
       }
       case 'notes': {
@@ -749,6 +768,12 @@ export class FakeAdapter implements BitwigAdapter {
           // where Bitwig's would — see `ProjectModel.setSlotContent`.
           this.model.setSlotContent(track, sceneIndex, true);
           slotState.lengthBeats = length;
+          slotState.name = '';
+          slotState.color = { red: 87, green: 97, blue: 198 };
+          slotState.playStartBeats = 0;
+          slotState.playStopBeats = length;
+          slotState.loopEnabled = true;
+          slotState.loopStartBeats = 0;
         });
         return;
       }
@@ -761,8 +786,31 @@ export class FakeAdapter implements BitwigAdapter {
           if (slotState !== undefined) {
             this.model.setSlotContent(track, sceneIndex, false);
             slotState.lengthBeats = 0;
+            slotState.name = '';
+            slotState.color = { red: 87, green: 97, blue: 198 };
+            slotState.playStartBeats = 0;
+            slotState.playStopBeats = 0;
+            slotState.loopEnabled = true;
+            slotState.loopStartBeats = 0;
             slotState.notes.clear();
           }
+        });
+        return;
+      }
+
+      case 'clip.update': {
+        const track = this.requireTrack(op.clip.slot.track, op.op);
+        const sceneIndex = op.clip.slot.scene.index;
+        this.clock.stage(() => {
+          const target = track.slots[sceneIndex];
+          if (target === undefined || !target.hasContent) return;
+          target.name = op.metadata.name;
+          target.color = { ...op.metadata.color };
+          target.playStartBeats = op.metadata.playStartBeats;
+          target.playStopBeats = op.metadata.loopEndBeats;
+          target.loopEnabled = op.metadata.loopEnabled;
+          target.loopStartBeats = op.metadata.loopStartBeats;
+          target.lengthBeats = op.metadata.loopEndBeats - op.metadata.loopStartBeats;
         });
         return;
       }
@@ -777,6 +825,12 @@ export class FakeAdapter implements BitwigAdapter {
           if (source === undefined || destination === undefined || !source.hasContent) return;
           this.model.setSlotContent(track, destinationIndex, true);
           destination.lengthBeats = source.lengthBeats;
+          destination.name = source.name;
+          destination.color = { ...source.color };
+          destination.playStartBeats = source.playStartBeats;
+          destination.playStopBeats = source.playStopBeats;
+          destination.loopEnabled = source.loopEnabled;
+          destination.loopStartBeats = source.loopStartBeats;
           destination.notes = new Map(source.notes);
           destination.launchQuantization = source.launchQuantization;
           destination.launchMode = source.launchMode;
@@ -795,6 +849,12 @@ export class FakeAdapter implements BitwigAdapter {
           const destination = to.slots[destinationIndex];
           if (source === undefined || destination === undefined || !source.hasContent) return;
           destination.lengthBeats = source.lengthBeats;
+          destination.name = source.name;
+          destination.color = { ...source.color };
+          destination.playStartBeats = source.playStartBeats;
+          destination.playStopBeats = source.playStopBeats;
+          destination.loopEnabled = source.loopEnabled;
+          destination.loopStartBeats = source.loopStartBeats;
           destination.notes = new Map(source.notes);
           destination.launchQuantization = source.launchQuantization;
           destination.launchMode = source.launchMode;
@@ -802,6 +862,12 @@ export class FakeAdapter implements BitwigAdapter {
           this.model.setSlotContent(to, destinationIndex, true);
           this.model.setSlotContent(from, sourceIndex, false);
           source.lengthBeats = 0;
+          source.name = '';
+          source.color = { red: 87, green: 97, blue: 198 };
+          source.playStartBeats = 0;
+          source.playStopBeats = 0;
+          source.loopEnabled = true;
+          source.loopStartBeats = 0;
           source.notes.clear();
         });
         return;

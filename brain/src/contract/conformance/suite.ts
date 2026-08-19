@@ -32,8 +32,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, NOTE_PROP_FIDELITY,
-  SlotOccupiedError, addressKey, chain, clip, contentTouching, deltaComplete, device, deviceIn,
+  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, InvalidOpError, NOTE_PROP_FIDELITY,
+  SlotOccupiedError, addressKey, chain, clip, clipLaunch, clipMetadata, contentTouching, deltaComplete, device, deviceIn,
   notes as notesAt, param, scene, slot, track,
   type Address, type BitwigAdapter, type DeviceAddress, type NoteRecord, type ObservedContainer,
   type Op, type Snapshot, type TrackAddress,
@@ -2096,6 +2096,81 @@ export function runConformance(h: AdapterHarness): void {
       assert.equal(held?.value.of === 'clip' ? held.value.lengthBeats : undefined, 8);
 
       await adapter.apply({ ops: [{ op: 'clip.delete', slot: target }] });
+      await adapter.settle('trackStruct');
+    } finally {
+      await h.dispose(adapter);
+    }
+  });
+
+  test(label('C-clip-meta', 'metadata is exact, invalid marker state is refused, and duplication copies the clip (E43)'), async () => {
+    const { adapter, trackA } = await h.create();
+    try {
+      const { sceneEpoch } = await adapter.revision();
+      const sourceSlot = slot(trackA, scene(4, sceneEpoch));
+      const destinationSlot = slot(trackA, scene(5, sceneEpoch));
+      const source = clip(sourceSlot);
+      const destination = clip(destinationSlot);
+      const metadata = {
+        name: 'gn-2e-meta', color: { red: 31, green: 159, blue: 223 },
+        lengthBeats: 9, playStartBeats: 2, loopEnabled: true,
+        loopStartBeats: 1, loopEndBeats: 10,
+      } as const;
+
+      await adapter.apply({ ops: [
+        { op: 'clip.delete', slot: sourceSlot },
+        { op: 'clip.delete', slot: destinationSlot },
+      ] });
+      await adapter.settle('trackStruct');
+      await adapter.apply({ ops: [
+        { op: 'clip.create', slot: sourceSlot, lengthBeats: 8 },
+        { op: 'clip.update', clip: source, metadata },
+        { op: 'clip.launchSettings', clip: source, quantization: '1/4', mode: 'continue_or_synced', useLoopStartAsQuantizationReference: true },
+        { op: 'note.write', clip: source, notes: [note({ pitch: 65, durationBeats: 2 })] },
+      ] });
+      await adapter.settle('trackStruct');
+
+      const before = await adapter.read([clipMetadata(source)]);
+      assert.deepEqual(before.entries[addressKey(clipMetadata(source))]?.value, {
+        of: 'clipMetadata', metadata,
+      }, 'the complete writer must hide the raw marker side effects');
+
+      await assert.rejects(
+        adapter.apply({ ops: [{
+          op: 'clip.update', clip: source,
+          metadata: { ...metadata, lengthBeats: 8 },
+        }] }),
+        InvalidOpError,
+      );
+      const unchanged = await adapter.read([clipMetadata(source)]);
+      assert.deepEqual(unchanged.entries[addressKey(clipMetadata(source))]?.value, {
+        of: 'clipMetadata', metadata,
+      });
+
+      await adapter.apply({ ops: [{ op: 'clip.duplicate', source, destination: destinationSlot }] });
+      await adapter.settle('trackStruct');
+      const copied = await adapter.read([
+        clipMetadata(destination), clipLaunch(destination), notesAt(destination),
+      ]);
+      assert.deepEqual(copied.entries[addressKey(clipMetadata(destination))]?.value, {
+        of: 'clipMetadata', metadata,
+      });
+      assert.deepEqual(copied.entries[addressKey(clipLaunch(destination))]?.value, {
+        of: 'clipLaunch',
+        launch: {
+          quantization: '1/4', mode: 'continue_or_synced',
+          useLoopStartAsQuantizationReference: true,
+        },
+      });
+      const copiedNotes = copied.entries[addressKey(notesAt(destination))]?.value;
+      assert.deepEqual(
+        copiedNotes?.of === 'notes' ? copiedNotes.notes.map((entry) => entry.pitch) : [],
+        [65],
+      );
+
+      await adapter.apply({ ops: [
+        { op: 'clip.delete', slot: destinationSlot },
+        { op: 'clip.delete', slot: sourceSlot },
+      ] });
       await adapter.settle('trackStruct');
     } finally {
       await h.dispose(adapter);

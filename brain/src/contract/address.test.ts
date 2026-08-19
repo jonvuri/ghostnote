@@ -19,7 +19,7 @@ import assert from 'node:assert/strict';
 
 import {
   ADDRESS_IDENTITY, InvalidOpError, addressKey, addressScene, addressTrack, assertDevicesRoutable,
-  chain, chainPath, clip, clipLaunch, clipPlay, device, deviceIn, isNestedDevice, notes as notesAt,
+  chain, chainPath, clip, clipLaunch, clipMetadata, clipPlay, device, deviceIn, isNestedDevice, notes as notesAt,
   param, scene, slot, track,
   type Op,
 } from './index.js';
@@ -37,6 +37,7 @@ test('A-key: every pre-nesting address keys exactly as it always has', () => {
   assert.equal(addressKey(slot(TRACK, ROW)), 'slot:cid-1:2@7');
   assert.equal(addressKey(clip(slot(TRACK, ROW))), 'clip:cid-1:2@7');
   assert.equal(addressKey(clipLaunch(clip(slot(TRACK, ROW)))), 'clipLaunch:cid-1:2@7');
+  assert.equal(addressKey(clipMetadata(clip(slot(TRACK, ROW)))), 'clipMetadata:cid-1:2@7');
   assert.equal(addressKey(clipPlay(clip(slot(TRACK, ROW)))), 'clipPlay:cid-1:2@7');
   assert.equal(addressKey(notesAt(clip(slot(TRACK, ROW)), 3)), 'notes:cid-1:2@7:ch3');
   assert.equal(

@@ -130,9 +130,27 @@ export class TrapControl {
       throw new Error(`dragClip: no slot ${channelId}:${fromSlot} -> ${toSlot}`);
     }
     to.notes = new Map(from.notes);
+    to.name = from.name;
+    to.color = { ...from.color };
+    to.playStartBeats = from.playStartBeats;
+    to.playStopBeats = from.playStopBeats;
+    to.loopEnabled = from.loopEnabled;
+    to.loopStartBeats = from.loopStartBeats;
     to.lengthBeats = from.lengthBeats;
+    to.launchQuantization = from.launchQuantization;
+    to.launchMode = from.launchMode;
+    to.useLoopStartAsQuantizationReference = from.useLoopStartAsQuantizationReference;
     from.notes = new Map();
+    from.name = '';
+    from.color = { red: 87, green: 97, blue: 198 };
+    from.playStartBeats = 0;
+    from.playStopBeats = 0;
+    from.loopEnabled = true;
+    from.loopStartBeats = 0;
     from.lengthBeats = 0;
+    from.launchQuantization = 'default';
+    from.launchMode = 'default';
+    from.useLoopStartAsQuantizationReference = false;
     model.setSlotContent(track, toSlot, true);
     model.setSlotContent(track, fromSlot, false);
   }

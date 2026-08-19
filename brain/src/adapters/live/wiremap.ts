@@ -65,6 +65,8 @@ export const WIRE = {
   cursorPinTrack: 'cursor.pinTrack',
   cursorPointTrack: 'cursor.pointTrack',
   cursorStatus: 'cursor.status',
+  cursorClipMetadata: 'cursor.clipMetadata',
+  cursorSetClipMetadata: 'cursor.setClipMetadata',
   cursorSetStepSize: 'cursor.setStepSize',
   cursorSetNotes: 'cursor.setNotes',
   cursorGetNotes: 'cursor.getNotes',

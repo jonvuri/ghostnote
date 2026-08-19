@@ -12,10 +12,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-08-16",
+  "extractedAt": "2026-08-18",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 134,
-  "methodsHash": "c2aa57be11e1f47e",
+  "count": 138,
+  "methodsHash": "87619942d7eac74d",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -33,8 +33,11 @@
     "chain.select",
     "chain.setName",
     "contract.hello",
+    "cursor.clipMetadata",
+    "cursor.duplicateContent",
     "cursor.launchSettings",
     "cursor.playState",
+    "cursor.setClipMetadata",
     "cursor.setLaunchSettings",
     "device.insertVst3",
     "device.moveTo",
@@ -62,6 +65,7 @@
     "observation.replace",
     "rig.methods",
     "slot.duplicateClip",
+    "slot.duplicateObject",
     "slot.epoch",
     "slot.launchWithOptions",
     "slot.moveTo",
@@ -121,6 +125,8 @@
     "clip.create",
     "contract.hello",
     "cursor.clearNotes",
+    "cursor.clipMetadata",
+    "cursor.duplicateContent",
     "cursor.getNotes",
     "cursor.getNotesVerbose",
     "cursor.launchSettings",
@@ -130,6 +136,7 @@
     "cursor.pointToClipOf",
     "cursor.pointTrack",
     "cursor.setAndReadNote",
+    "cursor.setClipMetadata",
     "cursor.setLaunchSettings",
     "cursor.setNoteProps",
     "cursor.setNotes",
@@ -212,6 +219,7 @@
     "selection.status",
     "slot.delete",
     "slot.duplicateClip",
+    "slot.duplicateObject",
     "slot.epoch",
     "slot.launch",
     "slot.launchWithOptions",
@@ -380,5 +388,11 @@
   ],
   "addedInSession4b": [
     "navigation.showChangedClip"
+  ],
+  "addedInPhase2Session2e": [
+    "cursor.clipMetadata",
+    "cursor.duplicateContent",
+    "cursor.setClipMetadata",
+    "slot.duplicateObject"
   ]
 }

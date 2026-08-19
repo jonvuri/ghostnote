@@ -292,6 +292,27 @@ export interface ClipLaunchState {
   readonly useLoopStartAsQuantizationReference: boolean;
 }
 
+/** Host-normalized 8-bit clip colour. E43 proved exact byte round-trips. */
+export interface ClipColor {
+  readonly red: number;
+  readonly green: number;
+  readonly blue: number;
+}
+
+/** Complete readable and writable launcher-clip container metadata (E43). */
+export interface ClipMetadataState {
+  readonly name: string;
+  readonly color: ClipColor;
+  /** Loop length from Clip.getLoopLength(). */
+  readonly lengthBeats: number;
+  /** Preserved because changing the loop start can move this marker. */
+  readonly playStartBeats: number;
+  readonly loopEnabled: boolean;
+  readonly loopStartBeats: number;
+  /** Derived loop end. It must equal loop start plus length. */
+  readonly loopEndBeats: number;
+}
+
 export interface ClipPlayState {
   readonly hasContent: boolean;
   readonly isPlaying: boolean;
