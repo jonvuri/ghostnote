@@ -1,11 +1,14 @@
 ---
 title: Phase 2, session 2i — dogfood round one
 kind: plan
-state: planned
+state: complete
+status: Complete 2026-08-19. The operator kept six verified full-phrase
+        variations. E45 records three correctness repairs and activates the
+        deferred async-completion follow-up.
 updated: 2026-08-19
 parent: README.md
 prev: ../../archive/outcomes/PHASE-2-SESSION-2H-CONFORMANCE.md
-next: 2j-dogfood-2.md
+next: 2i-long-clip-follow-up.md
 scope: Phase 2 dogfood gate, first use
 evidence: Phase 2 observation record and 2h conformance
 ---
@@ -62,3 +65,21 @@ use. Otherwise, optimize the dominant measured cost and keep async deferred.
 5. Findings are concise and do not claim a repeated pattern yet.
 6. The latency record identifies the dominant measured cost and gives an async
    verdict against the stated threshold.
+
+## Current result
+
+[E45](../../evidence/experiments/e45-first-real-musical-dogfood.md) records the
+natural task, two vetoed attempts, focused correctness repairs, the verified
+six-clip result, the accepted operator response, and the blocking latency
+evidence. The focused long-clip follow-up owns clip-length updates, paged note
+writes, and reversal qualification. Session 2x owns timeout-safe completion and
+cancellation.
+
+The full offline check passes 629/629. The extension build and deployment,
+context check, and `git diff --check` pass.
+
+## Retrospective
+
+Confirm whether a musical unit means a beat-grid span or a complete clip before
+planning variations. Compare long requests with both cursor widths and the
+client timeout before mutation.

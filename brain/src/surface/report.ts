@@ -693,20 +693,17 @@ export function refusalOf(error: unknown): Refusal {
     );
   }
   if (error instanceof AddressUnresolvedError) {
-    // ⚠ Which of the two cases this is, read off the address rather than the
-    // message: a note address that did not resolve is an empty slot, and every
-    // other kind is an id that names nothing this connection can see.
-    const emptySlot = error.address.kind === 'notes'
+    // A clip-family miss does not prove that the slot is empty. Cursor target
+    // confirmation and exact note reads can also fail on an occupied clip.
+    const clipTarget = error.address.kind === 'notes'
       || error.address.kind === 'clip'
       || error.address.kind === 'clipLaunch'
       || error.address.kind === 'clipPlay';
     return refusal(
-      emptySlot
-        ? 'nothing was written. There is no clip in that slot — or the track id names nothing this '
-          + 'connection can see, which reads the same way from here; `list_tracks` reports the ids '
-          + 'that exist. Pointing at an empty slot silently lands on a DIFFERENT clip and reports '
-          + 'success, so this is refused rather than attempted: create the clip first, or give '
-          + 'its notes to `add_clip` in one call.'
+      clipTarget
+        ? 'nothing was written. The exact clip target could not be resolved safely. This does not '
+          + 'prove that the slot is empty. Read the slot again and retry only after the clip, track '
+          + 'id, and launcher row are confirmed.'
         : 'nothing was written. That id does not name anything this connection can see. Track ids '
           + 'come from `list_tracks`; a track that was deleted never resolves again, and one '
           + 'outside what this connection can address is invisible rather than absent.',

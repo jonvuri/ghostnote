@@ -70,7 +70,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInSession3eProbe ?? []), ...(golden.addedInE22Probe ?? []),
       ...(golden.addedInSession3f ?? []), ...(golden.addedInSession3gB ?? []),
       ...(golden.addedInSession4a ?? []), ...(golden.addedInSession4b ?? []),
-      ...(golden.addedInPhase2Session2e ?? [])];
+      ...(golden.addedInPhase2Session2e ?? []), ...(golden.addedInPhase2Session2i ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -85,6 +85,11 @@ test('2e: metadata is product wire, while rejected duplicate routes stay probe-o
   ]);
   const reachable = golden.addedInPhase2Session2e.filter((method) => WIRE_METHODS_USED.includes(method));
   assert.deepEqual(reachable, ['cursor.clipMetadata', 'cursor.setClipMetadata']);
+});
+
+test('2i: exact long-clip reads can page the fixed cursor window', () => {
+  assert.deepEqual(golden.addedInPhase2Session2i, ['cursor.scrollToStep']);
+  assert.ok(WIRE_METHODS_USED.includes('cursor.scrollToStep'));
 });
 
 test('E16: the branch probe surface is probe surface, and the contract cannot reach it', () => {

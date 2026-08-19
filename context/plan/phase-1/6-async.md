@@ -1,18 +1,18 @@
 ---
-title: Deferred async batch completion (Phase 2 option)
+title: Phase 2, session 2x — async batch completion
 kind: plan
-state: deferred
-status: Deferred to Phase 2 on 2026-08-16. Run only if Phase 2 measures a batch
-        completion or expression-stage cost that justifies this wire change.
-updated: 2026-08-16
+state: planned
+status: Activated 2026-08-19 by E45. A request exceeded the client timeout and
+        continued to mutate while the caller began recovery.
+updated: 2026-08-19
 parent: ../phase-2/README.md
-prev: 5i-closeout.md
-next: ../phase-2/README.md
+prev: ../phase-2/2i-long-clip-follow-up.md
+next: ../phase-2/2j-dogfood-2.md
 scope: PHASE-1-ENGINE.md item 7
-evidence: E8, E15-D, E15-F · D10
+evidence: E8, E15-D, E15-F, E45 · D10
 ---
 
-# Deferred async batch completion
+# Phase 2, session 2x — async batch completion
 
 > **Purpose.** Build the deferred-response protocol E8 flagged as an open Phase-1
 > item, so a paced batch can report **completion** rather than only acceptance.
@@ -21,13 +21,14 @@ evidence: E8, E15-D, E15-F · D10
 
 ## Disposition
 
-Phase 1 closed without this work. Phase 2 owns the option. Do not schedule it
-before the musical clip surface. Schedule it only if a measured Phase 2 workload
-shows that staged completion or the 2N expression-stage cost blocks useful work.
+Phase 1 closed without this work. E45 now activates it before the second
+dogfood use. One musical request exceeded the client's 60-second timeout and
+continued to mutate while the caller began recovery. The synchronous fallback
+must remain available until the replacement path passes the affected proof.
 
-## ⚠ This session is optional in Phase 2
+## Phase 1 background
 
-**No Phase-1 exit criterion depends on it.** Session 1's staging already sidesteps
+**No Phase-1 exit criterion depended on it.** Session 1's staging already sidesteps
 the problem entirely: instead of passing `delayMs` and hoping, the brain partitions
 ops by settle class and issues one `batch.run` per stage, awaiting a settle
 between them — so `apply()` **already resolves on completion**, because nothing is
@@ -77,6 +78,10 @@ extension-to-brain event path, so this protocol has no control-layer obligation.
 4. **The re-point-inside-a-batch settle**, and with it the coalescing of
    `note.props` across clips that E15-F currently forbids.
 5. **Fake-adapter parity**, so the offline suite still models what live does.
+6. **Cancellation semantics.** A client timeout alone does not prove server
+   cancellation. The protocol must expose terminal completion or confirmed
+   cancellation. Recovery must not start while the timed-out request can still
+   mutate.
 
 ### Out
 
@@ -97,7 +102,7 @@ extension-to-brain event path, so this protocol has no control-layer obligation.
   deleted — otherwise the next reader re-derives a bug the project already paid
   for twice.
 - **What a deferred response does when Bitwig never completes it.** Timeouts,
-  and what the receipt says.
+  explicit cancellation, terminal state, and what the receipt says.
 
 ## Exit criteria
 
@@ -111,6 +116,8 @@ extension-to-brain event path, so this protocol has no control-layer obligation.
 4. `probe:e15f` still passes, or is superseded by a probe carrying stronger
    evidence.
 5. Offline suite green; `methods.golden.json` regenerated if the wire changed.
+6. A timed-out client can reach a confirmed terminal or cancelled state before
+   recovery starts. No mutation occurs after cancellation is confirmed.
 
 ## Risks
 

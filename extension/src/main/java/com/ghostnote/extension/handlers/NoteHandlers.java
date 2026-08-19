@@ -33,6 +33,7 @@ public final class NoteHandlers extends HandlerGroup {
         r.on("cursor.getNotes", params -> cursorGetNotes(params));
         r.on("cursor.clearNotes", params -> cursorClearNotes(params));
         r.on("cursor.setStepSize", params -> cursorSetStepSize(params));
+        r.on("cursor.scrollToStep", params -> cursorScrollToStep(params));
         r.on("cursor.setAndReadNote", params -> cursorSetAndReadNote(params));
         r.on("cursor.setNoteProps", params -> cursorSetNoteProps(params));
         r.on("cursor.getNotesVerbose", params -> cursorGetNotesVerbose(params));
@@ -95,6 +96,13 @@ public final class NoteHandlers extends HandlerGroup {
     private JsonElement cursorSetStepSize(JsonObject params) {
         rig.clip(params.get("cursor").getAsString())
             .setStepSize(params.get("stepSize").getAsDouble());
+        return ok();
+    }
+
+    /** Put the first visible grid step at one absolute step offset. */
+    private JsonElement cursorScrollToStep(JsonObject params) {
+        rig.clip(params.get("cursor").getAsString())
+            .scrollToStep(params.get("step").getAsInt());
         return ok();
     }
 

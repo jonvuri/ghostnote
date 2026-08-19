@@ -52,6 +52,8 @@ export interface Golden {
   addedInSession4b?: string[];
   /** Phase 2 session 2e metadata product wire and duplicate-route probes. */
   addedInPhase2Session2e?: string[];
+  /** Phase 2 session 2i long-clip paging repair. */
+  addedInPhase2Session2i?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

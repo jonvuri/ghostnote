@@ -2,8 +2,8 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: active
-status: Session 2h passes offline and live. Async completion stays deferred.
-        Remote CI passes for the exact candidate. Session 2i is next.
+status: Session 2i is complete. A focused long-clip repair and activated session
+        2x now precede the second dogfood use.
 updated: 2026-08-19
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
@@ -58,8 +58,8 @@ diff should show.
 ## Execution order
 
 The first eight sessions separate pure musical work, Bitwig lifecycle work,
-application safety, and the public surface. The last three sessions prove actual
-use and close the phase.
+application safety, and the public surface. The remaining sessions repair the
+first-use findings, prove a second use, and close the phase.
 
 1. [2a — musical contract and surface decision](../../archive/outcomes/PHASE-2-SESSION-2A-MUSICAL-CONTRACT.md) — complete;
    the versioned patch, corpus, semantics, and public tool shape are fixed by D21.
@@ -86,16 +86,17 @@ use and close the phase.
 9. [2h — conformance and workload proof](../../archive/outcomes/PHASE-2-SESSION-2H-CONFORMANCE.md) —
    complete; E44 records 623 offline tests, full live conformance, exact cleanup,
    the async deferral, and passing remote CI for the exact candidate.
-10. [2i — dogfood round one](2i-dogfood-1.md) — write real music through an
-   ordinary MCP conversation and record friction without overfitting one use.
-11. [2j — dogfood round two and revision](2j-dogfood-2.md) — use a different
+10. [2i — dogfood round one](2i-dogfood-1.md) — complete; the operator kept six
+    full-phrase variations, and E45 records long-clip, target, and timeout
+    findings.
+11. [2i follow-up — long-clip editing](2i-long-clip-follow-up.md) — add public
+    existing-clip metadata updates, paged writes, and truthful reversal limits.
+12. [2x — async batch completion](../phase-1/6-async.md) — define completion and
+    cancellation after E45 proved that a timed-out request can keep mutating.
+13. [2j — dogfood round two and revision](2j-dogfood-2.md) — use a different
     musical task, compare both records, and revise repeated problems only.
-12. [2k — closeout](2k-closeout.md) — audit evidence, record qualifications, and
+14. [2k — closeout](2k-closeout.md) — audit evidence, record qualifications, and
     hand off the next phase.
-
-[2x — async batch completion](../phase-1/6-async.md) is a conditional branch
-after 2h, not part of the default sequence. If 2h activates it, rerun the affected
-2h workload and conformance cases before dogfooding.
 
 ### Dependency rule
 
@@ -104,6 +105,8 @@ after 2h, not part of the default sequence. If 2h activates it, rerun the affect
 - Session 2e is otherwise independent of the pure musical core after 2a.
 - Session 2f joins the musical and lifecycle paths.
 - Session 2g freezes public wording only after the planner reports real results.
+- The 2i long-clip follow-up and session 2x close known first-use defects before
+  the next natural task.
 - Sessions 2i and 2j are separate uses. A scripted repeat does not satisfy the
   dogfood gate.
 
@@ -168,11 +171,11 @@ work.
   maps to a four-clip block. This phase does not reopen direct versus staged
   writing.
 
-## Deferred optimization
+## Activated optimization
 
-[Async batch completion](../phase-1/6-async.md) moved out of Phase 1. It is not a
-prerequisite for this phase. Schedule it only if a measured musical workload
-shows that staged completion or the 2N expression-stage cost blocks useful work.
+[Async batch completion](../phase-1/6-async.md) moved out of Phase 1. E45
+activated it after one musical request exceeded the client timeout and continued
+to mutate during recovery. It now precedes the second dogfood use.
 
 ## Exit criteria
 

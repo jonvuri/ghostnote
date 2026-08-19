@@ -2,7 +2,7 @@
 title: Phase 2, session 2k — closeout
 kind: plan
 state: planned
-updated: 2026-08-16
+updated: 2026-08-19
 parent: README.md
 prev: 2j-dogfood-2.md
 next: ../phase-3/README.md
@@ -17,8 +17,9 @@ evidence: Phase 2 session evidence · D8–D10, D15, D16, D18–D20
 
 ## Preconditions
 
-Sessions 2a through 2j are complete. Any activated 2x work has repeated the
-affected 2h proof. The conformance project is at its documented baseline.
+Sessions 2a through 2j, the 2i long-clip follow-up, and session 2x are complete.
+Session 2x has repeated the affected proof. The conformance project is at its
+documented baseline.
 
 ## Scope
 

@@ -2,9 +2,9 @@
 title: Phase 2, session 2j — dogfood round two and revision
 kind: plan
 state: planned
-updated: 2026-08-16
+updated: 2026-08-19
 parent: README.md
-prev: 2i-dogfood-1.md
+prev: ../phase-1/6-async.md
 next: 2k-closeout.md
 scope: Phase 2 dogfood gate, second use and evidence-based revision
 evidence: Phase 2 observation record and session 2i
@@ -20,6 +20,9 @@ evidence: Phase 2 observation record and session 2i
 The operator again starts from a real musical intention. This must be a separate
 use, not a replay of session 2i. Use an operator-selected project and leave the
 conformance fixture unchanged.
+
+The 2i long-clip follow-up and session 2x must be complete. Known repair work
+does not count as the second dogfood use.
 
 ## Scope
 

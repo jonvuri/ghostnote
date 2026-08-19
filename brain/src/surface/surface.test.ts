@@ -1373,15 +1373,15 @@ test('T-moved: an edit by somebody else inside our own write is reported, never 
 
 // --- refusals ----------------------------------------------------------------
 
-test('T-refusal: writing into a slot with no clip is refused, and says what to do', async () => {
+test('T-refusal: writing into an unresolved slot refuses without claiming it is empty', async () => {
   const fx = fixture();
   const result = await call(fx, 'write_notes', {
     clips: [{ trackId: fx.trackA, row: 5, notes: [note()] }],
   });
   assert.ok(refused(result));
   assert.equal(result['nothingWasWritten'], true);
-  assert.match(result['why'] as string, /no clip in that slot/);
-  assert.match(result['why'] as string, /add_clip/, 'the refusal names the way forward');
+  assert.match(result['why'] as string, /could not be resolved safely/);
+  assert.match(result['why'] as string, /Read the slot again/, 'the refusal names the way forward');
 });
 
 test('T-device-alternate names: every invalid name refuses before container insertion', async () => {
@@ -2133,6 +2133,14 @@ test('T-words: no refusal redirects a change onto a mechanism', () => {
   for (const text of [...emitted, ...TOOLS.map((t) => t.description)]) {
     assert.doesNotMatch(text, /\bfork|\blayer|\bchain|\bduplicate|track instead/i, text.slice(0, 160));
   }
+});
+
+test('2i: an unresolved note read does not claim that an occupied slot is empty', () => {
+  const target = notesAt(clipAt(slotAt(trackAt('t-1'), sceneAt(0, 1))), 0);
+  const result = refusalOf(new AddressUnresolvedError(target, 'exact scan failed'));
+
+  assert.match(result.why, /does not prove that the slot is empty/);
+  assert.doesNotMatch(result.why, /There is no clip/);
 });
 
 test('T-words: EVERY refusal the surface can produce is written in its own words', () => {

@@ -17,7 +17,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  AddressUnresolvedError, CONTRACT_VERSION, addressKey, chain as chainAt, clip, device as deviceAt,
+  AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, device as deviceAt,
   deviceIn as deviceInAt,
   notes as notesAt, scene, slot, track,
   type ClipAddress, type RevisionMark, type TrackAddress,
@@ -65,6 +65,7 @@ class CursorModelTransport implements Transport {
   /** Pin writes that become visible only after the adapter settles. */
   private readonly pendingPins = new Map<string, number>();
   private readonly pendingTrackPins = new Map<string, number>();
+  private readonly stepOffset = new Map<string, number>();
   /** Cursor ref -> current step size. */
   private readonly stepSize = new Map<string, number>();
 
@@ -205,13 +206,18 @@ class CursorModelTransport implements Transport {
       }
 
       case WIRE.cursorGetNotesVerbose: {
-        const on = this.cursorOn.get(params['cursor'] as string);
+        const cursor = params['cursor'] as string;
+        const on = this.cursorOn.get(cursor);
         const model = on === undefined ? undefined : this.slots.get(on);
-        const stepSize = this.stepSize.get(params['cursor'] as string) ?? 1;
-        return model === undefined
+        const stepSize = this.stepSize.get(cursor) ?? 1;
+        const offset = this.stepOffset.get(cursor) ?? 0;
+        const absolute = Math.floor((model?.startBeats ?? 0) / stepSize + 1e-9);
+        const maxX = params['maxX'] as number | undefined;
+        const local = absolute - offset;
+        return model === undefined || local < 0 || (maxX !== undefined && local >= maxX)
           ? { notes: [] }
           : { notes: [{
-            x: Math.floor((model.startBeats ?? 0) / stepSize + 1e-9),
+            x: local,
             y: model.pitch,
             velocity: 100 / 127,
             duration: 1,
@@ -220,6 +226,10 @@ class CursorModelTransport implements Transport {
 
       case WIRE.cursorSetStepSize:
         this.stepSize.set(params['cursor'] as string, params['stepSize'] as number);
+        return {};
+
+      case WIRE.cursorScrollToStep:
+        this.stepOffset.set(params['cursor'] as string, params['step'] as number);
         return {};
 
       case WIRE.batchRun:
@@ -276,6 +286,30 @@ test('2h: the production fine cursor preserves a triplet start across exact read
     'one clip scans all channels once per grid',
   );
   assert.equal(transport.where('fine'), 0);
+});
+
+test('2i: the exact reader pages through a clip longer than its fine window', async () => {
+  const transport = new CursorModelTransport(new Map([
+    [0, { lengthBeats: 32, pitch: 67, startBeats: 24 }],
+  ]));
+  const adapter = new UntimedAdapter({ transport });
+  await adapter.hello();
+
+  const snapshot = await adapter.read([notesAt(CLIP(0), 0)]);
+  const value = snapshot.entries[addressKey(notesAt(CLIP(0), 0))]?.value;
+
+  assert.equal(value?.of === 'notes' ? value.notes[0]?.startBeats : undefined, 24);
+  assert.deepEqual(
+    transport.frames
+      .filter((frame) => frame.method === WIRE.cursorScrollToStep)
+      .map((frame) => frame.params?.['step']),
+    [0, 512, 1024, 1536, 0, 0, 512, 1024, 0],
+  );
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerbose).length,
+    112,
+    'four binary pages and three triplet pages each scan all channels',
+  );
 });
 
 test('5g repair: two delayed pins settle before either cursor hold is reused', async () => {
@@ -814,6 +848,52 @@ test('2h: a clip-wide reconstruction verifies its cursor before the write turn',
     WIRE.cursorSetStepSize,
     WIRE.cursorSetNotes,
   ]);
+});
+
+test('2i: an additive note write verifies and pins its exact clip before the write turn', async () => {
+  const wire = new CursorModelTransport(new Map([[2, { lengthBeats: 32, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await adapter.apply({ ops: [{
+    op: 'note.write', clip: CLIP(2), channel: 0,
+    notes: [{ startBeats: 12, pitch: 64, velocity: 90, durationBeats: 2 }],
+  }] });
+
+  const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+  assert.ok(batchAt > 0);
+  assert.equal(wire.where('0'), 2);
+  assert.equal(wire.frames.slice(0, batchAt)
+    .filter((frame) => frame.method === WIRE.cursorStatus).length, 2);
+  const batch = wire.frames[batchAt]!.params as { ops: { method: string }[] };
+  assert.deepEqual(batch.ops.map((frame) => frame.method), [
+    WIRE.cursorSetStepSize,
+    WIRE.cursorSetNotes,
+  ]);
+});
+
+test('2i: one note stage wider than the verified cursor pool is refused before mutation', async () => {
+  const wire = new CursorModelTransport(new Map(Array.from(
+    { length: 4 }, (_, row) => [row, { lengthBeats: 4, pitch: 60 + row }] as const,
+  )));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(adapter.apply({ ops: Array.from({ length: 4 }, (_, row) => ({
+    op: 'note.write' as const,
+    clip: CLIP(row),
+    notes: [{ startBeats: 0, pitch: 72 + row, velocity: 90, durationBeats: 1 }],
+  })) }), InvalidOpError);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
+});
+
+test('2i: a note beyond the fixed writer window is refused before mutation', async () => {
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 32, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(adapter.apply({ ops: [{
+    op: 'note.write', clip: CLIP(0),
+    notes: [{ startBeats: 9, pitch: 72, velocity: 90, durationBeats: 1 / 64 }],
+  }] }), InvalidOpError);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
 });
 
 // --- the device mint (D16 amendment 2, live half) ----------------------------

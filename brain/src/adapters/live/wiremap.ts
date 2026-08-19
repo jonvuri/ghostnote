@@ -68,6 +68,7 @@ export const WIRE = {
   cursorClipMetadata: 'cursor.clipMetadata',
   cursorSetClipMetadata: 'cursor.setClipMetadata',
   cursorSetStepSize: 'cursor.setStepSize',
+  cursorScrollToStep: 'cursor.scrollToStep',
   cursorSetNotes: 'cursor.setNotes',
   cursorGetNotes: 'cursor.getNotes',
   cursorGetNotesVerbose: 'cursor.getNotesVerbose',

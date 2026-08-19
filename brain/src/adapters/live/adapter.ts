@@ -29,7 +29,7 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
-  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
+  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, chooseStepSize, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
   lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
@@ -915,23 +915,44 @@ export class LiveAdapter implements BitwigAdapter {
     const lengthBeats = extent > 0 ? extent : 4;
     const binaryStep = 1 / 64;
     const tripletStep = 1 / 48;
-    if (steps * binaryStep < lengthBeats) {
-      throw new AddressUnresolvedError(
-        clipRef,
-        `the fine cursor covers ${steps * binaryStep} beats, less than the ${lengthBeats}-beat clip`,
-      );
-    }
-
     const scan = async (stepSize: number): Promise<ReadonlyMap<number, readonly NoteRecord[]>> => {
       await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
       await this.settle('gridChange');
-      const channels = new Map<number, readonly NoteRecord[]>();
-      for (let channel = 0; channel < 16; channel += 1) {
-        const result = (await this.transport.send({
-          method: WIRE.cursorGetNotesVerbose,
-          params: { cursor, channel, maxX: steps },
-        })) as { notes: Record<string, number | boolean | string>[] };
-        channels.set(channel, result.notes.map((note) => decodeVerboseNote(note, stepSize)));
+      const channels = new Map<number, NoteRecord[]>();
+      for (let channel = 0; channel < 16; channel += 1) channels.set(channel, []);
+      const totalSteps = Math.max(1, Math.ceil(lengthBeats / stepSize));
+      try {
+        for (let pageStart = 0; pageStart < totalSteps; pageStart += steps) {
+          await this.transport.send({
+            method: WIRE.cursorScrollToStep,
+            params: { cursor, step: pageStart },
+          });
+          // Scrolling changes which NoteStep objects the fixed cursor window
+          // exposes. It has no readback, so use the measured grid-change wait.
+          await this.settle('gridChange');
+          const pageSteps = Math.min(steps, totalSteps - pageStart);
+          for (let channel = 0; channel < 16; channel += 1) {
+            const result = (await this.transport.send({
+              method: WIRE.cursorGetNotesVerbose,
+              params: { cursor, channel, maxX: pageSteps },
+            })) as { notes: Record<string, number | boolean | string>[] };
+            channels.get(channel)!.push(...result.notes.map((note) => {
+              const x = note['x'];
+              if (typeof x !== 'number') {
+                throw new AddressUnresolvedError(clipRef, 'a note step returned no numeric position');
+              }
+              return decodeVerboseNote({ ...note, x: x + pageStart }, stepSize);
+            }));
+          }
+        }
+      } finally {
+        // The fine cursor is shared across reads. Do not leak a page offset into
+        // the next clip or the next client call.
+        await this.transport.send({
+          method: WIRE.cursorScrollToStep,
+          params: { cursor, step: 0 },
+        });
+        await this.settle('gridChange');
       }
       return channels;
     };
@@ -2311,6 +2332,33 @@ export class LiveAdapter implements BitwigAdapter {
     this.deviceTailIndices.clear();
 
     const stages = planStages(batch.ops);
+    const writerSteps = this.fineSteps ?? this.gridSteps ?? 64;
+    for (const op of batch.ops) {
+      if (op.op !== 'note.write') continue;
+      const stepSize = chooseStepSize(op.notes);
+      if (op.notes.some((note) => {
+        const step = Math.round(note.startBeats / stepSize);
+        return step < 0 || step >= writerSteps;
+      })) {
+        throw new InvalidOpError(
+          'note.write',
+          `a note falls outside the ${writerSteps}-step writer window at the required `
+            + `${stepSize}-beat grid`,
+        );
+      }
+    }
+    for (const stage of stages) {
+      const clips = new Set(stage.ops
+        .filter((op) => op.op === 'note.write')
+        .map((op) => addressKey(op.clip)));
+      if (clips.size > this.pool.size) {
+        throw new InvalidOpError(
+          'note.write',
+          `one write stage addresses ${clips.size} clips, but only ${this.pool.size} `
+            + 'writer cursors can confirm targets before the turn',
+        );
+      }
+    }
     const receipts: StageReceipt[] = [];
     const minted: Record<number, Address> = {};
     let guard = batch.ifRevision;
@@ -2424,15 +2472,20 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
 
-      // A clip-wide clear starts a complete reconstruction. Verify its cursor
-      // before the batch. A wrong target would clear another clip before the
-      // independent readback could report the error.
-      const reconstruction = stage.ops.find((op) => op.op === 'note.clear');
-      if (reconstruction?.op === 'note.clear') {
+      // Verify every note mutation target before the batch. A wrong clear would
+      // destroy another clip, and a wrong additive write would change one. The
+      // independent readback detects either error only after the damage.
+      const noteTargets = new Map<string, ClipAddress>();
+      for (const op of stage.ops) {
+        if (op.op === 'note.clear' || op.op === 'note.write') {
+          noteTargets.set(addressKey(op.clip), op.clip);
+        }
+      }
+      for (const target of noteTargets.values()) {
         try {
           await this.pointAtClip(
-            reconstruction.clip,
-            this.trackIndex(reconstruction.clip.slot.track),
+            target,
+            this.trackIndex(target.slot.track),
             new Map(),
           );
         } catch (error) {
