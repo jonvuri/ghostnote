@@ -2,7 +2,8 @@ export {
   MUSICAL_OPERATION_SEMANTICS, MUSICAL_PATCH_POLICY, MUSICAL_PATCH_SCHEMA,
   MUSICAL_PATCH_VERSION, STOCHASTIC_OPERATIONS, assertMusicalToolBoundary,
   compileMusicalClip, decodeMusicalPatch, describeMusicalPatch,
-  encodeMusicalPatch, encodeMusicalReport, musicalPatchSchema, musicalRandom, musicalSeedScope,
+  encodeMusicalPatch, encodeMusicalReport, musicalOutputCount, musicalPatchSchema,
+  musicalRandom, musicalSeedScope,
   parseMusicalPatch,
 } from './patch.js';
 export type {
@@ -12,6 +13,11 @@ export type {
   MusicalToolBoundary, WritableExpression,
 } from './patch.js';
 export { MusicalPatchError } from './patch.js';
+export { applyMusicalPatch, planMusicalPatch } from './planner.js';
+export type {
+  MusicalChangesetIdentity, MusicalPlannerResult, MusicalReversalQualification,
+  PlannedClipBlock, PlannedMusicalApplication, PlannedMusicalResult,
+} from './planner.js';
 export {
   MUSICAL_CORPUS_V1_SHA256, MUSICAL_REQUEST_CORPUS, encodeMusicalCorpus,
   fingerprintMusicalCorpus, musicalCorpusArtifact,

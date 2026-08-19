@@ -703,6 +703,23 @@ test('B-moved: our OWN batch\'s occupancy change is not a move', async () => {
   assert.ok(plan.ops.some((o) => o.op === 'clip.delete'), 'and the reversal still un-creates it');
 });
 
+test('B-moved: our own verified clip duplicate is also an explained fill', async () => {
+  const fx = await fixture();
+  const destination = slot(fx.trackA, scene(1, 1));
+  const take = await commit(fx, [
+    { op: 'clip.duplicate', source: fx.clipA, destination },
+    { op: 'note.clear', clip: clip(destination) },
+    { op: 'note.write', clip: clip(destination), notes: [note({ pitch: 67 })] },
+  ]);
+
+  const current = await fx.fake.read(fx.stash.log.readSetFor(take.id));
+  const launcher = await fx.fake.contentSince(take.at);
+  const checks = fx.stash.log.boundary(take.id, current, launcher);
+  assert.deepEqual([...new Set(checks.map((check) => check.verdict))], ['ours']);
+  const plan = fx.stash.log.planReversal(take.id, current, { launcher });
+  assert.ok(plan.ops.some((op) => op.op === 'clip.delete'));
+});
+
 test('B-undecidable: an unusable window downgrades `ours`, and only `ours`', async () => {
   const fx = await fixture();
   const take = await commit(fx, [

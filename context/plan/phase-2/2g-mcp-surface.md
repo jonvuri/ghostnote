@@ -4,7 +4,7 @@ kind: plan
 state: planned
 updated: 2026-08-16
 parent: README.md
-prev: 2f-application-planner.md
+prev: ../../archive/outcomes/PHASE-2-SESSION-2F-APPLICATION-PLANNER.md
 next: 2h-conformance.md
 scope: Phase 2 public tool surface
 evidence: E20c, E22 · D18–D20

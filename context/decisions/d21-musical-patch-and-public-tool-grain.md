@@ -70,6 +70,13 @@ The D18 fidelity floor also requires a matching clip block when direct replay
 cannot protect the prior clip content. The planner never uses track copying as
 protection.
 
+The planner fixes the two `takes` meanings at their protection boundaries.
+For `requested-variations`, `takes` is the total number of musical outputs and
+the source clip is take zero. For `fidelity-required`, `takes` is the number of
+adjacent existing protected takes. The planner writes one working result and
+keeps the protected takes unchanged. At least one protected take must match the
+working clip's complete 16-channel note state before the write.
+
 ## Randomness and reports
 
 Every random patch has a caller seed. The brain derives a SHA-256 scope from the

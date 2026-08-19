@@ -404,15 +404,21 @@ export class Executor {
    *
    * The mitigation is procedural ("create the clip first, always", D6) and it is
    * invisible unless something checks. The stash already tells us: a `notes`
-   * address whose entry is missing had no clip behind it. A batch that CREATES
-   * that clip is fine — `planStages` gives `clip.create` its own stage and a
-   * `trackStruct` settle, so the slot is real by the time the notes go out.
+   * address whose entry is missing had no clip behind it. A batch that creates
+   * or duplicates that clip is fine. `planStages` puts either structural op in
+   * an earlier stage, so the slot is real by the time the notes go out.
    */
   private assertClipsExist(ops: readonly Op[], stash: Snapshot): void {
-    const created = new Set(
-      ops.filter((o) => o.op === 'clip.create').map((o) => addressKey(o.slot)),
-    );
+    const created = new Set<string>();
     for (const op of ops) {
+      if (op.op === 'clip.create') {
+        created.add(addressKey(op.slot));
+        continue;
+      }
+      if (op.op === 'clip.duplicate') {
+        created.add(addressKey(op.destination));
+        continue;
+      }
       if (op.op !== 'note.write' && op.op !== 'note.props' && op.op !== 'note.clear') continue;
       if (created.has(addressKey(op.clip.slot))) continue;
       const address = notesAt(op.clip, op.op === 'note.clear' ? 0 : op.channel ?? 0);
@@ -422,7 +428,7 @@ export class Executor {
         `${op.op} addresses a slot that holds no clip. Pointing at an empty slot silently lands ` +
           'the cursor on a DIFFERENT clip and reports a healthy status (E2), so this batch would ' +
           'either write into a clip nobody addressed or write nowhere at all. Emit `clip.create` ' +
-          'for the slot in the same batch — it stages ahead of the write — or create it first.',
+          'or `clip.duplicate` for the slot in the same batch, or create it first.',
       );
     }
   }

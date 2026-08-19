@@ -313,6 +313,31 @@ test('X-emptyslot: ...but a clip.create in the SAME batch satisfies it (planStag
   assert.equal(entry?.value.of === 'clip' ? entry.value.exists : true, false);
 });
 
+test('X-emptyslot: a verified clip duplicate in the same batch also establishes the slot', async () => {
+  const { fake, executor, trackA, clipA } = await fixture();
+  const destination = slot(trackA, scene(1, 1));
+
+  const take = await executor.run([
+    { op: 'clip.duplicate', source: clipA, destination },
+    { op: 'note.clear', clip: clip(destination) },
+    { op: 'note.write', clip: clip(destination), notes: [note({ pitch: 72 })] },
+  ]);
+  assert.equal(take.report.applied, true);
+  assert.deepEqual(
+    (await readNotes(fake, notesAt(clip(destination)))).map((value) => value.pitch),
+    [72],
+  );
+});
+
+test('X-emptyslot: a later duplicate cannot excuse an earlier note write', async () => {
+  const { executor, trackA, clipA } = await fixture();
+  const destination = slot(trackA, scene(1, 1));
+  await assert.rejects(executor.run([
+    { op: 'note.write', clip: clip(destination), notes: [note({ pitch: 72 })] },
+    { op: 'clip.duplicate', source: clipA, destination },
+  ]), AddressUnresolvedError);
+});
+
 // --- the D16 amendment, end to end through the pipeline ----------------------
 
 test('X-clip: a deleted clip comes BACK — at its captured length, carrying its notes (D16 rev)', async () => {

@@ -10,7 +10,7 @@ import * as RomanNumeral from '@tonaljs/roman-numeral';
 import * as Scale from '@tonaljs/scale';
 
 import { STEP_SIZES, stepSizeFor, type NoteRecord } from '../contract/index.js';
-import { musicalRandom, musicalSeedScope } from './patch.js';
+import { musicalOutputCount, musicalRandom, musicalSeedScope } from './patch.js';
 import type {
   MaterializedMusicalTarget, MusicalLoss, MusicalOperation, MusicalPatch,
   MusicalSelection, MusicalTarget,
@@ -1412,7 +1412,7 @@ export const materializeRhythmTarget = materializeMusicalTarget;
 export function materializeGenerationPatch(
   patch: MusicalPatch,
 ): TheoryResult<readonly GeneratedMusicalTarget[]> {
-  const takes = patch.protection.kind === 'direct' ? 1 : patch.protection.takes;
+  const takes = musicalOutputCount(patch);
   const targets: GeneratedMusicalTarget[] = [];
   const warnings: string[] = [];
   for (let targetIndex = 0; targetIndex < patch.targets.length; targetIndex += 1) {

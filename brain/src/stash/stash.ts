@@ -512,11 +512,10 @@ export class Stash implements StashLog, StashWriter {
    * Do THIS session's own ops account for the launcher events on this address?
    *
    * ⚠ The callback carries no author, so this is answered from our own record of
-   * what we asked for — never from the event, which cannot tell us. Only
-   * `clip.create` and `clip.delete` change a slot's occupancy: a note write into
-   * a clip that already exists fires nothing (and a write into a slot that does
-   * not is refused before it runs, E2). So the expected count is derivable, and
-   * anything beyond it came from somewhere else.
+   * what we asked for — never from the event, which cannot tell us. Clip create,
+   * delete, and verified duplication change slot occupancy. A note write into a
+   * clip that already exists fires nothing. So the expected count is derivable,
+   * and anything beyond it came from somewhere else.
    *
    * ⚠ Counted per direction rather than matched as a sequence. Our ops and a
    * human's interleave in an order nobody records, so sequence equality would be
@@ -549,6 +548,7 @@ export class Stash implements StashLog, StashWriter {
       if (!record.take.report.applied) continue;
       for (const op of record.take.ops) {
         if (op.op === 'clip.create' && slotOf(op.slot) === key) fills++;
+        if (op.op === 'clip.duplicate' && slotOf(op.destination) === key) fills++;
         if (op.op === 'clip.delete' && slotOf(op.slot) === key) empties++;
       }
     }

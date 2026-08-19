@@ -2,7 +2,7 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: active
-status: Session 2f is next. Eight build sessions lead to live proof, two separate
+status: Session 2g is next. Eight build sessions lead to live proof, two separate
         dogfood sessions, and closeout. Async completion stays conditional on a
         measured workload.
 updated: 2026-08-18
@@ -78,9 +78,9 @@ use and close the phase.
 6. [2e — clip lifecycle](../../archive/outcomes/PHASE-2-SESSION-2E-CLIP-LIFECYCLE.md) —
    complete; measured metadata is exact, `duplicateClip` remains the guarded
    next-row copy, and clip reversal now restores all measured state.
-7. [2f — musical application planner](2f-application-planner.md) — turn musical
-   patches into preflighted, stash-backed operations; use clip blocks only for
-   requested or required alternates.
+7. [2f — musical application planner](../../archive/outcomes/PHASE-2-SESSION-2F-APPLICATION-PLANNER.md) —
+   complete; one revision-bound planner applies through `Workspace.apply`, mints
+   requested variation blocks, and requires existing matching fidelity takes.
 8. [2g — MCP clip surface v1](2g-mcp-surface.md) — expose the planner through a
    small, versioned, observed public surface.
 9. [2h — conformance and workload proof](2h-conformance.md) — prove the complete

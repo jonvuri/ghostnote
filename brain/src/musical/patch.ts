@@ -296,6 +296,14 @@ export function decodeMusicalPatch(value: string): MusicalPatch {
 
 export type MusicalToolBoundary = 'generation' | 'transformation';
 
+/** Count musical outputs. Fidelity protection keeps adjacent copies unchanged. */
+export function musicalOutputCount(patch: MusicalPatch): number {
+  return patch.protection.kind === 'clip-block'
+    && patch.protection.reason === 'requested-variations'
+    ? patch.protection.takes
+    : 1;
+}
+
 /** Enforce the object boundary that the two future public tools use. */
 export function assertMusicalToolBoundary(
   patch: MusicalPatch,
@@ -673,7 +681,7 @@ export interface MusicalContractReport {
 
 /** Describe ownership, order, possible loss, and deterministic seed scopes. */
 export function describeMusicalPatch(patch: MusicalPatch): MusicalContractReport {
-  const takes = patch.protection.kind === 'direct' ? 1 : patch.protection.takes;
+  const takes = musicalOutputCount(patch);
   return {
     schema: 'ghostnote-musical-report',
     version: 1,
