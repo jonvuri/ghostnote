@@ -84,18 +84,23 @@ test('report totals reconcile with every raw entry type', () => {
     instructions: 6,
     managedEvents: 4,
     ordinaryUses: 1,
+    musicalUses: 0,
     resultReferences: 5,
   });
   assert.deepEqual(report.managedEvents, { deviceAlternate: 2, clipBlock: 2 });
   assert.deepEqual(report.ordinaryUses, { copyTrack: 1 });
+  assert.deepEqual(report.musicalUses, { generation: 0, transformation: 0, applied: 0 });
   assert.equal(report.instructionsWithoutResults, 2);
-  assert.deepEqual(report.unreferencedResults, { managedEvents: 0, ordinaryUses: 0 });
+  assert.deepEqual(report.unreferencedResults, {
+    managedEvents: 0, ordinaryUses: 0, musicalUses: 0,
+  });
   assert.deepEqual(report.operatorResponses, { silent: 2, accepted: 2, vetoed: 2 });
   assert.deepEqual(report.descriptionVersions, [{
     descriptionVersion: version,
     instructionObservations: 6,
     managedEvents: 4,
     ordinaryUses: 1,
+    musicalUses: 0,
   }]);
 });
 
@@ -112,6 +117,8 @@ test('requested scope cross-tab keeps independent structures and track copies di
       deviceAlternateEvents: 1,
       clipBlockEvents: 1,
       copyTrackUses: 0,
+      generationUses: 0,
+      transformationUses: 0,
     },
     instructionCount: 1,
     operatorResponses: { silent: 0, accepted: 1, vetoed: 0 },
@@ -124,6 +131,8 @@ test('requested scope cross-tab keeps independent structures and track copies di
     deviceAlternateEvents: 0,
     clipBlockEvents: 0,
     copyTrackUses: 1,
+    generationUses: 0,
+    transformationUses: 0,
   });
   assert.equal(report.crossTab.filter((row) =>
     row.actualResults.deviceAlternateEvents === 0

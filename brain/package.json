@@ -201,6 +201,7 @@
     "probe:2d-rhythm": "tsx src/probes/phase2d-rhythm.ts",
     "probe:2d-grid": "tsx src/probes/phase2d-grid-precision.ts",
     "probe:2e-lifecycle": "tsx src/probes/phase2e-clip-lifecycle.ts",
+    "probe:2g-mcp": "tsx src/probes/phase2g-mcp-surface.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

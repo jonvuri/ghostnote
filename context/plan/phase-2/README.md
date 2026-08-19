@@ -81,8 +81,9 @@ use and close the phase.
 7. [2f — musical application planner](../../archive/outcomes/PHASE-2-SESSION-2F-APPLICATION-PLANNER.md) —
    complete; one revision-bound planner applies through `Workspace.apply`, mints
    requested variation blocks, and requires existing matching fidelity takes.
-8. [2g — MCP clip surface v1](2g-mcp-surface.md) — expose the planner through a
-   small, versioned, observed public surface.
+8. [2g — MCP clip surface v1](../../archive/outcomes/PHASE-2-SESSION-2G-MCP-SURFACE.md) —
+   complete; two versioned musical write tools share the planner, public result,
+   description cohort, and observed ordinary MCP path.
 9. [2h — conformance and workload proof](2h-conformance.md) — prove the complete
    path offline and live, restore the baseline, and measure whether async work is
    justified.

@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v1';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v2';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -17,7 +17,7 @@ export interface DescriptionCohortMember {
  * This list is the complete v1 cohort. It includes only the two support tools
  * whose wording is part of a required cohort procedure.
  */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V1: readonly DescriptionCohortMember[] = [
   {
     name: 'inspect_device_alternates', kind: 'read',
     reason: 'Reads the managed device-alternate object.',
@@ -80,6 +80,63 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   },
 ] as const;
 
+/** v2 keeps the frozen v1 artifact and adds the musical path and its procedures. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V1,
+  {
+    name: 'list_tracks', kind: 'read',
+    reason: 'Provides durable target ids for both musical write tools.',
+  },
+  {
+    name: 'read_clip', kind: 'read',
+    reason: 'Reads musical inputs and verifies public musical outputs.',
+  },
+  {
+    name: 'write_notes', kind: 'write',
+    reason: 'Keeps exact low-level note writes beside the musical tools.',
+  },
+  {
+    name: 'erase_notes', kind: 'write',
+    reason: 'Keeps exact low-level clip-wide note removal separate.',
+  },
+  {
+    name: 'add_clip', kind: 'write',
+    reason: 'Keeps exact empty clip-container creation outside both musical tools.',
+  },
+  {
+    name: 'generate_clip_music', kind: 'write',
+    reason: 'Generates musical content through the shared patch planner.',
+  },
+  {
+    name: 'transform_clip_music', kind: 'write',
+    reason: 'Transforms musical content through the shared patch planner.',
+  },
+  {
+    name: 'list_changes', kind: 'read',
+    reason: 'Lists recorded changes used by the musical result procedures.',
+  },
+  {
+    name: 'revert_change', kind: 'write',
+    reason: 'Provides the bounded reversal procedure for musical changes.',
+  },
+  {
+    name: 'show_changed_clip', kind: 'focus',
+    reason: 'Opens one verified musical result in the clip editor.',
+  },
+  {
+    name: 'record_observation', kind: 'write',
+    reason: 'Links raw musical instructions and explicit operator responses.',
+  },
+  {
+    name: 'read_observation_record', kind: 'read',
+    reason: 'Preserves raw musical tool choice and usefulness evidence.',
+  },
+  {
+    name: 'report_observations', kind: 'read',
+    reason: 'Reports musical tool use beside explicit operator responses.',
+  },
+] as const;
+
 interface ToolAnnotations {
   readonly readOnlyHint: boolean;
   readonly destructiveHint: boolean;
@@ -92,14 +149,16 @@ export type DescriptionCohortArtifact = readonly {
   readonly description: string;
   readonly inputSchema: unknown;
   readonly annotations: ToolAnnotations;
+  readonly resultContract?: unknown;
 }[];
 
 /** Build the versioned public fields that an MCP client receives. */
 export function descriptionCohortArtifact(
   tools: readonly ToolSpec[],
   annotations: Readonly<Record<ToolClass, ToolAnnotations>>,
+  cohort: readonly DescriptionCohortMember[] = DESCRIPTION_COHORT,
 ): DescriptionCohortArtifact {
-  return DESCRIPTION_COHORT.map((member) => {
+  return cohort.map((member) => {
     const spec = tools.find((candidate) => candidate.name === member.name);
     if (spec === undefined) throw new Error(`description cohort tool is missing: ${member.name}`);
     if (spec.kind !== member.kind) {
@@ -109,11 +168,12 @@ export function descriptionCohortArtifact(
       name: spec.name,
       title: spec.title,
       description: spec.description,
-      inputSchema: z.toJSONSchema(z.object(spec.inputSchema), {
+      inputSchema: z.toJSONSchema(spec.inputValidator ?? z.object(spec.inputSchema), {
         target: 'draft-7',
         io: 'input',
       }),
       annotations: annotations[spec.kind],
+      ...(spec.resultContract === undefined ? {} : { resultContract: spec.resultContract }),
     };
   });
 }
@@ -140,3 +200,7 @@ export const fingerprintDescriptionCohort = (artifact: DescriptionCohortArtifact
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V1_SHA256 =
   '9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V2_SHA256 =
+  '5842b7410066a3e89bb17dc51b4fb884052e9eec844c2c95c0834ca0675a57bc';

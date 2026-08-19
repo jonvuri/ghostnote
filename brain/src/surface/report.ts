@@ -49,6 +49,8 @@ import {
   ChangesetNotFoundError, EmptySliceError,
   type BoundaryCheck, type BoundaryVerdict, type ReversalPlan, type StashedChangeset,
 } from '../stash/index.js';
+import { MusicalPatchError } from '../musical/index.js';
+import { MUSICAL_REFUSAL_TEXT } from './musical.js';
 
 // --- where something is ------------------------------------------------------
 
@@ -646,6 +648,7 @@ export function refusalOf(error: unknown): Refusal {
       },
     );
   }
+  if (error instanceof MusicalPatchError) return refusal(MUSICAL_REFUSAL_TEXT);
   if (error instanceof SlotOccupiedError) {
     if (error.hazard === 'overwrite') {
       return refusal(

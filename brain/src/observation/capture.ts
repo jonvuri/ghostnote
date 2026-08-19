@@ -12,7 +12,7 @@ import {
   type InstructionObservation,
   type JsonValue,
   type ObservationEntry,
-  type ObservationRecordV1,
+  type ObservationRecord,
   type OperatorResponse,
   type RequestedScope,
 } from './record.js';
@@ -24,7 +24,7 @@ export interface ObservationCaptureOptions {
 }
 
 export interface ObservationSnapshot {
-  readonly record: ObservationRecordV1;
+  readonly record: ObservationRecord;
   readonly canonicalJson: string;
 }
 
@@ -67,6 +67,15 @@ export type ConfirmedToolResult =
     readonly kind: 'copy-track';
     readonly sourceTrackId: string;
     readonly copiedTrackId: string;
+  }
+  | {
+    readonly kind: 'musical-use';
+    readonly tool: 'generate_clip_music' | 'transform_clip_music';
+    readonly changeId: string;
+    readonly applied: boolean;
+    readonly outputCount: number;
+    readonly differenceCount: number;
+    readonly warningCount: number;
   };
 
 /**
@@ -193,14 +202,28 @@ export class ObservationCapture {
               copiedRow: result.copiedRow,
             },
           }
-          : {
-            type: 'ordinary-use', ...common,
-            outcome: 'copy-track', tool: 'copy_track',
-            result: {
-              sourceTrackId: result.sourceTrackId,
-              copiedTrackId: result.copiedTrackId,
-            },
-          };
+          : result.kind === 'copy-track'
+            ? {
+              type: 'ordinary-use', ...common,
+              outcome: 'copy-track', tool: 'copy_track',
+              result: {
+                sourceTrackId: result.sourceTrackId,
+                copiedTrackId: result.copiedTrackId,
+              },
+            }
+            : {
+              type: 'musical-use', ...common,
+              tool: result.tool,
+              result: {
+                format: 'ghostnote-musical-result',
+                version: 1,
+                changeId: result.changeId,
+                applied: result.applied,
+                outputCount: result.outputCount,
+                differenceCount: result.differenceCount,
+                warningCount: result.warningCount,
+              },
+            };
       let next = appendObservationEntry(stored.record, entry);
       if (execution.instructionId !== undefined) {
         next = enrichInstructionObservation(next, {
@@ -214,7 +237,7 @@ export class ObservationCapture {
   }
 
   private async read(): Promise<{
-    readonly record: ObservationRecordV1;
+    readonly record: ObservationRecord;
     readonly capacityChars: number;
   }> {
     const stored = await this.store.read();
@@ -226,7 +249,7 @@ export class ObservationCapture {
     };
   }
 
-  private async replace(record: ObservationRecordV1, capacityChars: number): Promise<void> {
+  private async replace(record: ObservationRecord, capacityChars: number): Promise<void> {
     await this.store.replace(encodeObservationRecord(record, { capacityChars }));
   }
 
@@ -237,7 +260,7 @@ export class ObservationCapture {
   }
 }
 
-function correlationFor(record: ObservationRecordV1, resultIds: readonly string[]): string | undefined {
+function correlationFor(record: ObservationRecord, resultIds: readonly string[]): string | undefined {
   let correlationId: string | undefined;
   for (const id of resultIds) {
     const result = record.entries.find((entry) => entry.id === id);
@@ -252,7 +275,7 @@ function correlationFor(record: ObservationRecordV1, resultIds: readonly string[
   return correlationId;
 }
 
-function instructionFrom(record: ObservationRecordV1, id: string): InstructionObservation {
+function instructionFrom(record: ObservationRecord, id: string): InstructionObservation {
   const entry = record.entries.find((candidate) => candidate.id === id);
   if (entry?.type !== 'instruction-observation') {
     throw new Error(`instruction observation ${id} does not exist.`);

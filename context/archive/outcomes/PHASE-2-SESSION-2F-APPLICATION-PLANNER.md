@@ -5,7 +5,7 @@ state: complete
 updated: 2026-08-18
 parent: ../../plan/phase-2/README.md
 prev: PHASE-2-SESSION-2E-CLIP-LIFECYCLE.md
-next: ../../plan/phase-2/2g-mcp-surface.md
+next: PHASE-2-SESSION-2G-MCP-SURFACE.md
 scope: Phase 2 patch materialization and protection
 evidence: E24, E32–E39 · D8–D10, D15, D16, D18–D21
 ---

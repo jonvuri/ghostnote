@@ -126,7 +126,18 @@ export const SURFACE_WORD_EXEMPTIONS: readonly {
   readonly word: string;
   readonly where: string;
   readonly why: string;
-}[] = [];
+}[] = [
+  {
+    word: 'take',
+    where: 'generate_clip_music.schema',
+    why: 'The frozen musical patch v1 grammar names its clip-block output count `takes`.',
+  },
+  {
+    word: 'take',
+    where: 'transform_clip_music.schema',
+    why: 'The frozen musical patch v1 grammar names its clip-block output count `takes`.',
+  },
+];
 
 const patternFor = (word: string): RegExp =>
   new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}${SUFFIXES}\\b`, 'i');

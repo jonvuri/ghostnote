@@ -1,7 +1,7 @@
 /** Read-only descriptive reporting for the observation record. */
 import {
   type InstructionObservation,
-  type ObservationRecordV1,
+  type ObservationRecord,
   type OperatorResponse,
   type RequestedScope,
 } from './record.js';
@@ -22,6 +22,8 @@ export interface ActualResultProfile {
   readonly deviceAlternateEvents: number;
   readonly clipBlockEvents: number;
   readonly copyTrackUses: number;
+  readonly generationUses: number;
+  readonly transformationUses: number;
 }
 
 export interface ObservationCrossTabRow {
@@ -45,13 +47,14 @@ export interface ObservationScopeSummary {
 }
 
 export interface ObservationReport {
-  readonly format: ObservationRecordV1['format'];
-  readonly schemaVersion: ObservationRecordV1['schemaVersion'];
+  readonly format: ObservationRecord['format'];
+  readonly schemaVersion: ObservationRecord['schemaVersion'];
   readonly totals: {
     readonly entries: number;
     readonly instructions: number;
     readonly managedEvents: number;
     readonly ordinaryUses: number;
+    readonly musicalUses: number;
     readonly resultReferences: number;
   };
   readonly managedEvents: {
@@ -59,10 +62,16 @@ export interface ObservationReport {
     readonly clipBlock: number;
   };
   readonly ordinaryUses: { readonly copyTrack: number };
+  readonly musicalUses: {
+    readonly generation: number;
+    readonly transformation: number;
+    readonly applied: number;
+  };
   readonly instructionsWithoutResults: number;
   readonly unreferencedResults: {
     readonly managedEvents: number;
     readonly ordinaryUses: number;
+    readonly musicalUses: number;
   };
   readonly operatorResponses: OperatorResponseCounts;
   readonly descriptionVersions: readonly {
@@ -70,6 +79,7 @@ export interface ObservationReport {
     readonly instructionObservations: number;
     readonly managedEvents: number;
     readonly ordinaryUses: number;
+    readonly musicalUses: number;
   }[];
   readonly scopeSummaries: readonly ObservationScopeSummary[];
   readonly crossTab: readonly ObservationCrossTabRow[];
@@ -103,18 +113,28 @@ const profileKey = (profile: ActualResultProfile): string => [
   profile.deviceAlternateEvents,
   profile.clipBlockEvents,
   profile.copyTrackUses,
+  profile.generationUses,
+  profile.transformationUses,
 ].join(':');
 
 function actualResults(
   instruction: InstructionObservation,
-  entries: ReadonlyMap<string, ObservationRecordV1['entries'][number]>,
+  entries: ReadonlyMap<string, ObservationRecord['entries'][number]>,
 ): ActualResultProfile {
   let deviceAlternateEvents = 0;
   let clipBlockEvents = 0;
   let copyTrackUses = 0;
+  let generationUses = 0;
+  let transformationUses = 0;
   for (const id of instruction.resultIds) {
     const result = entries.get(id);
     if (result?.type === 'ordinary-use') copyTrackUses += 1;
+    if (result?.type === 'musical-use' && result.tool === 'generate_clip_music') {
+      generationUses += 1;
+    }
+    if (result?.type === 'musical-use' && result.tool === 'transform_clip_music') {
+      transformationUses += 1;
+    }
     if (result?.type === 'managed-event' && result.structure === 'device-alternate') {
       deviceAlternateEvents += 1;
     }
@@ -122,17 +142,20 @@ function actualResults(
       clipBlockEvents += 1;
     }
   }
-  return { deviceAlternateEvents, clipBlockEvents, copyTrackUses };
+  return {
+    deviceAlternateEvents, clipBlockEvents, copyTrackUses, generationUses, transformationUses,
+  };
 }
 
 /** Build deterministic counts and rates. This report makes no recommendation. */
-export function reportObservationRecord(record: ObservationRecordV1): ObservationReport {
+export function reportObservationRecord(record: ObservationRecord): ObservationReport {
   const entries = new Map(record.entries.map((entry) => [entry.id, entry]));
   const instructions = record.entries.filter(
     (entry): entry is InstructionObservation => entry.type === 'instruction-observation',
   );
   const managed = record.entries.filter((entry) => entry.type === 'managed-event');
   const ordinary = record.entries.filter((entry) => entry.type === 'ordinary-use');
+  const musical = record.entries.filter((entry) => entry.type === 'musical-use');
   const referenced = new Set(instructions.flatMap((entry) => [...entry.resultIds]));
 
   let operatorResponses = emptyResponses();
@@ -144,14 +167,16 @@ export function reportObservationRecord(record: ObservationRecordV1): Observatio
     instructionObservations: number;
     managedEvents: number;
     ordinaryUses: number;
+    musicalUses: number;
   }>();
   for (const entry of record.entries) {
     const row = versionRows.get(entry.descriptionVersion) ?? {
-      instructionObservations: 0, managedEvents: 0, ordinaryUses: 0,
+      instructionObservations: 0, managedEvents: 0, ordinaryUses: 0, musicalUses: 0,
     };
     if (entry.type === 'instruction-observation') row.instructionObservations += 1;
     if (entry.type === 'managed-event') row.managedEvents += 1;
     if (entry.type === 'ordinary-use') row.ordinaryUses += 1;
+    if (entry.type === 'musical-use') row.musicalUses += 1;
     versionRows.set(entry.descriptionVersion, row);
   }
 
@@ -230,6 +255,7 @@ export function reportObservationRecord(record: ObservationRecordV1): Observatio
       instructions: instructions.length,
       managedEvents: managed.length,
       ordinaryUses: ordinary.length,
+      musicalUses: musical.length,
       resultReferences: instructions.reduce((sum, entry) => sum + entry.resultIds.length, 0),
     },
     managedEvents: {
@@ -237,10 +263,16 @@ export function reportObservationRecord(record: ObservationRecordV1): Observatio
       clipBlock: managed.filter((entry) => entry.structure === 'clip-block').length,
     },
     ordinaryUses: { copyTrack: ordinary.length },
+    musicalUses: {
+      generation: musical.filter((entry) => entry.tool === 'generate_clip_music').length,
+      transformation: musical.filter((entry) => entry.tool === 'transform_clip_music').length,
+      applied: musical.filter((entry) => entry.result.applied).length,
+    },
     instructionsWithoutResults: instructions.filter((entry) => entry.resultIds.length === 0).length,
     unreferencedResults: {
       managedEvents: managed.filter((entry) => !referenced.has(entry.id)).length,
       ordinaryUses: ordinary.filter((entry) => !referenced.has(entry.id)).length,
+      musicalUses: musical.filter((entry) => !referenced.has(entry.id)).length,
     },
     operatorResponses,
     descriptionVersions: [...versionRows.entries()]

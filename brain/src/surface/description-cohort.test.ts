@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 
 import {
   DESCRIPTION_COHORT,
+  DESCRIPTION_COHORT_V1,
   TOOL_DESCRIPTION_V1_SHA256,
+  TOOL_DESCRIPTION_V2_SHA256,
   TOOL_DESCRIPTION_VERSION,
   descriptionCohortArtifact,
   fingerprintDescriptionCohort,
@@ -26,10 +28,23 @@ const EXPECTED_COHORT = [
   'copy_track',
   'add_scenes',
   'delete_track',
+  'list_tracks',
+  'read_clip',
+  'write_notes',
+  'erase_notes',
+  'add_clip',
+  'generate_clip_music',
+  'transform_clip_music',
+  'list_changes',
+  'revert_change',
+  'show_changed_clip',
+  'record_observation',
+  'read_observation_record',
+  'report_observations',
 ] as const;
 
-test('description v1 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v1');
+test('description v2 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v2');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -40,12 +55,22 @@ test('description v1 names one complete and explicit cohort', () => {
   }
 });
 
-test('description v1 matches its frozen public artifact', () => {
+test('description v1 stays frozen as its original 15-tool artifact', () => {
+  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V1);
+  assert.equal(artifact.length, 15);
+  assert.equal(
+    fingerprintDescriptionCohort(artifact),
+    TOOL_DESCRIPTION_V1_SHA256,
+    'the frozen v1 public wording or schema changed',
+  );
+});
+
+test('description v2 matches its frozen public artifact', () => {
   const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
   assert.deepEqual(artifact.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V1_SHA256,
+    TOOL_DESCRIPTION_V2_SHA256,
     'public wording or schema changed; assign a new description version before updating the golden',
   );
 });

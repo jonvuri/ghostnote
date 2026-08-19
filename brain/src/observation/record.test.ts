@@ -20,6 +20,7 @@ import {
   type ClipBlockEvent,
   type DeviceAlternateEvent,
   type OrdinaryUse,
+  type MusicalUse,
 } from './index.js';
 
 const common = {
@@ -70,6 +71,18 @@ const ordinaryUse: OrdinaryUse = {
   outcome: 'copy-track',
   tool: 'copy_track',
   result: { sourceTrackId: 'track-source', copiedTrackId: 'track-copy' },
+};
+
+const musicalUse: MusicalUse = {
+  type: 'musical-use',
+  ...common,
+  id: 'musical-1',
+  executionId: 'execution-musical-1',
+  tool: 'generate_clip_music',
+  result: {
+    format: 'ghostnote-musical-result', version: 1, changeId: 'change-music',
+    applied: true, outputCount: 1, differenceCount: 0, warningCount: 0,
+  },
 };
 
 test('observation entries stay distinct and all operator responses are representable', () => {
@@ -194,6 +207,12 @@ test('one execution cannot create two result entries', () => {
   );
 });
 
+test('musical use keeps tool, result identity, version, and concise outcome counts', () => {
+  const record = appendObservationEntry(emptyObservationRecord(), musicalUse);
+  assert.deepEqual(record.entries[0], musicalUse);
+  assert.deepEqual(decodeObservationRecord(encodeObservationRecord(record)), record);
+});
+
 test('managed events accept only the two creation tools and structures', () => {
   const forged = {
     ...deviceEvent,
@@ -210,20 +229,20 @@ test('managed events accept only the two creation tools and structures', () => {
   assert.equal(ordinaryUse.outcome, 'copy-track');
 });
 
-test('malformed and unsupported records are distinct refusals', () => {
+test('schema v1 migrates exactly and unknown schemas are refused', () => {
   assert.throws(
     () => decodeObservationRecord('{'),
     MalformedObservationRecordError,
   );
+  assert.deepEqual(decodeObservationRecord(JSON.stringify({
+    format: 'ghostnote-observation-record', schemaVersion: 1, entries: [],
+  })), emptyObservationRecord());
+  assert.throws(() => decodeObservationRecord(JSON.stringify({
+    format: 'ghostnote-observation-record', schemaVersion: 3, entries: [],
+  })), UnsupportedObservationSchemaError);
   assert.throws(
     () => decodeObservationRecord(JSON.stringify({
-      format: 'ghostnote-observation-record', schemaVersion: 2, entries: [],
-    })),
-    UnsupportedObservationSchemaError,
-  );
-  assert.throws(
-    () => decodeObservationRecord(JSON.stringify({
-      ...emptyObservationRecord(), extra: 'not schema v1',
+      ...emptyObservationRecord(), extra: 'not schema v2',
     })),
     MalformedObservationRecordError,
   );

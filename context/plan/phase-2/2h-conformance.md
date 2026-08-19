@@ -4,7 +4,7 @@ kind: plan
 state: planned
 updated: 2026-08-16
 parent: README.md
-prev: 2g-mcp-surface.md
+prev: ../../archive/outcomes/PHASE-2-SESSION-2G-MCP-SURFACE.md
 next: 2i-dogfood-1.md
 scope: Phase 2 exit criteria 1 through 3 and async gate
 evidence: E24, E32–E40 · D8–D10, D15, D16, D18–D20

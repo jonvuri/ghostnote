@@ -280,11 +280,13 @@ test('T-device-alternate lifecycle: 3f-i hands stable identities and event opera
   assert.deepEqual(actual, expected);
 });
 
-test('3g-d: only confirmed creation and track-copy specs declare observation results', () => {
+test('2g: only confirmed creation, musical, and track-copy specs declare observation results', () => {
   assert.deepEqual(
     TOOLS.filter((spec) => spec.observation !== undefined)
       .map((spec) => [spec.name, spec.observation]),
     [
+      ['generate_clip_music', 'musical-generation'],
+      ['transform_clip_music', 'musical-transformation'],
       ['copy_clip_down', 'clip-block'],
       ['copy_track', 'copy-track'],
       ['create_device_alternates', 'device-alternate'],
@@ -477,6 +479,8 @@ test('3g-e: raw view and descriptive report use the same complete record', async
     deviceAlternateEvents: 0,
     clipBlockEvents: 0,
     copyTrackUses: 1,
+    generationUses: 0,
+    transformationUses: 0,
   });
   assert.equal(report.crossTab[0]?.descriptionVersion, TOOL_DESCRIPTION_VERSION);
   assert.equal(typeof copied['ordinaryUseId'], 'string');
@@ -725,6 +729,29 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   }) as { applied: boolean; playback: { isPlaying: boolean } };
   assert.equal(launched.applied, true);
   assert.equal(launched.playback.isPlaying, true);
+
+  const generated = await exercise('generate_clip_music', {
+    schema: 'ghostnote-musical-patch', version: 1, protection: { kind: 'direct' },
+    targets: [{
+      clip: { trackId: fx.trackA, row: 0 }, channel: 1, write: 'merge',
+      operations: [{
+        op: 'generate', source: { kind: 'chord', symbol: 'Cm', octave: 4 },
+        placement: { kind: 'stack', startBeats: 0, durationBeats: 1 }, velocity: 90,
+      }],
+    }],
+  });
+  assert.equal(generated['applied'], true, JSON.stringify(generated));
+  assert.equal(typeof generated['musicalUseId'], 'string');
+
+  const transformed = await exercise('transform_clip_music', {
+    schema: 'ghostnote-musical-patch', version: 1, protection: { kind: 'direct' },
+    targets: [{
+      clip: { trackId: fx.trackA, row: 1 }, channel: 0, write: 'replace',
+      operations: [{ op: 'transpose', semitones: 12 }],
+    }],
+  });
+  assert.equal(transformed['applied'], true, JSON.stringify(transformed));
+  assert.equal(typeof transformed['musicalUseId'], 'string');
 
   assert.equal((await exercise('erase_notes', {
     clips: [{ trackId: fx.trackA, row: 0 }],

@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-18
 phase: phase-2
-session: 2g-mcp-surface
+session: 2h-conformance
 ---
 
 # Now
@@ -16,11 +16,10 @@ records full live conformance. E40 records passing remote CI for candidate
 
 ## Start here
 
-1. Run [Phase 2 session 2g](plan/phase-2/2g-mcp-surface.md).
-2. Route both musical write tools through `applyMusicalPatch`; do not expose a
-   second compilation or mutation path.
-3. Keep direct work stash-backed. Requested variations mint clip blocks.
-   Fidelity-required work needs an existing matching protected take.
+1. Run [Phase 2 session 2h](plan/phase-2/2h-conformance.md).
+2. Extend fake and live conformance through both public musical tools.
+3. Restore the documented live baseline after every arm and record measured
+   workload latency before any async decision.
 4. Do not schedule [async batch completion](plan/phase-1/6-async.md) unless a
    measured Phase 2 workload justifies it.
 
@@ -32,8 +31,8 @@ records full live conformance. E40 records passing remote CI for candidate
 - Selection: track 0, row 1.
 - Transport: stopped.
 - Wire: 138 methods / `87619942d7eac74d`.
-- Description cohort: `ghostnote-description-v1`, 15 tools, SHA-256
-  `9fa9bc1cc390f7a274b64b41c6aea26235562822ed7f804d9f6aac7dea540ebd`.
+- Description cohort: `ghostnote-description-v2`, 28 tools, SHA-256
+  `5842b7410066a3e89bb17dc51b4fb884052e9eec844c2c95c0834ca0675a57bc`.
 - E39 cleanup removed generated tracks `06cd7b87-70b1-4cdd-8634-feb267a25b28`
   and `15a1a9fe-9964-414d-b9b4-ab1746342c3d`. Final checks found the same 10
   tracks, 10 scenes, 22 occupied cells, selection at track 0 row 1, stopped
@@ -57,16 +56,14 @@ Confirm these track identities before a destructive live sweep:
 
 ## Session retrospective
 
-The 2f planner reads complete clip state, materializes ordered musical pipelines,
-and applies one revision-bound changeset through `Workspace.apply`. Direct work
-creates no alternate. Requested variations duplicate all block rows before note
-writes. Fidelity-required work writes only the working clip and requires an
-adjacent existing take with matching 16-channel note state. The result carries
-musical output, differences, warnings, changeset identity, readback state, and
-reversal qualifications. Directed reversal restores the source and removes only
-planner-minted takes.
-Object-state guards and launcher event accounting must classify verified
-duplication wherever they classify clip creation.
-The review follow-up bounds caller-sized take blocks before allocation. A
-revision-rejected planner change reports exact, empty reversal qualifications.
-No repository instruction change is needed.
+The 2g surface exposes `generate_clip_music` and `transform_clip_music` over one
+strict patch grammar and the single 2f planner. The public result keeps musical
+output, differences, warnings, readback, change identity, and reversal limits.
+Description v2 freezes 28 tools and the musical result contract without changing
+the v1 artifact. Observation schema v2 records concise musical use and migrates
+valid v1 records exactly.
+The review follow-up keeps root-level patch validation strict and states that
+requested variations can copy source clips into adjacent rows.
+The first live probe printed complete JSON schemas in a passing check. It now
+reports only names and privilege annotations. Keep large artifacts in goldens
+and live evidence concise. No repository instruction change is needed.

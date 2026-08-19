@@ -75,6 +75,11 @@ import { describeAddress, receiptOf, refusalOf, reversalReport } from './report.
 import { captureWorkspaceChanges, type Workspace } from './workspace.js';
 import { showChangedClip } from './navigation.js';
 import type { StatusCategory } from './status.js';
+import { applyMusicalPatch } from '../musical/index.js';
+import {
+  MUSICAL_RESULT_CONTRACT, musicalToolInputSchema, musicalToolInputValidator,
+  publicMusicalResult,
+} from './musical.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -85,7 +90,12 @@ import type { StatusCategory } from './status.js';
  * remove something.
  */
 export type ToolClass = 'read' | 'focus' | 'write' | 'destructive';
-export type ObservationOutcome = 'device-alternate' | 'clip-block' | 'copy-track';
+export type ObservationOutcome =
+  | 'device-alternate'
+  | 'clip-block'
+  | 'copy-track'
+  | 'musical-generation'
+  | 'musical-transformation';
 
 export interface ToolSpec {
   readonly name: string;
@@ -93,12 +103,16 @@ export interface ToolSpec {
   readonly title: string;
   readonly description: string;
   readonly inputSchema: z.ZodRawShape;
+  /** Full validator when the input contract has rules beyond its field shape. */
+  readonly inputValidator?: z.ZodType;
   /**
    * Which kinds of edit this tool can put on the wire — declared as data so the
    * partition can be ASSERTED against what tools actually emit, rather than
    * described in a comment. Empty for a read tool.
    */
   readonly emits: readonly OpKind[];
+  /** Versioned result fields and procedures included in the cohort golden. */
+  readonly resultContract?: unknown;
   /** Confirmed result type, if this tool can create one observation row. */
   readonly observation?: ObservationOutcome;
   /** Product category shown after a confirmed, non-empty change. */
@@ -156,7 +170,9 @@ function tool<S extends z.ZodRawShape>(spec: {
   title: string;
   description: string;
   inputSchema: S;
+  inputValidator?: z.ZodType;
   emits?: readonly OpKind[];
+  resultContract?: unknown;
   observation?: ObservationOutcome;
   status?: readonly StatusCategory[];
   run: (workspace: Workspace, args: z.infer<z.ZodObject<S>>) => Promise<unknown>;
@@ -399,8 +415,8 @@ export const TOOLS: readonly ToolSpec[] = [
     title: 'Read the raw observation record',
     description:
       'Return the complete validated per-project observation record and its canonical JSON. '
-      + 'Every raw instruction, independent managed event, ordinary track-copy use, response, '
-      + 'result identity, and description version stays present. This tool does not classify, '
+      + 'Every raw instruction, independent managed event, musical use, ordinary track-copy use, '
+      + 'response, result identity, and description version stays present. This tool does not classify, '
       + 'compact, delete, or change the record.',
     inputSchema: {},
     async run(workspace) {
@@ -415,7 +431,8 @@ export const TOOLS: readonly ToolSpec[] = [
     description:
       'Return descriptive counts and response rates from the complete per-project observation '
       + 'record. The report cross-tabulates caller-supplied requested scope with separate counts '
-      + 'for device events, launcher-clip events, and ordinary track copies. It also reports '
+      + 'for device events, launcher-clip events, musical generation, musical transformation, '
+      + 'and ordinary track copies. It also reports '
       + 'no-result instructions and choice diversity. The report does not score, recommend, '
       + 'redirect, or select a tool.',
     inputSchema: {},
@@ -739,7 +756,8 @@ export const TOOLS: readonly ToolSpec[] = [
     title: 'Record explicit instruction context',
     description:
       'Store caller-supplied context for later measurement without changing tracks, clips, or '
-      + 'devices. Begin before related tool calls to link their independently confirmed results. '
+      + 'devices. Begin before related tool calls to link their independently confirmed results, '
+      + 'including musical results. '
       + 'Enrich after the calls to add a rationale or an explicit accepted or vetoed response. '
       + 'Enrichment completes the active observation unless complete is false. No response is '
       + 'inferred from tool success, permission, or silence.',
@@ -816,6 +834,69 @@ export const TOOLS: readonly ToolSpec[] = [
           active: args.complete === false,
         };
       });
+    },
+  }),
+
+  tool({
+    name: 'generate_clip_music',
+    kind: 'write',
+    title: 'Generate music in existing clips',
+    description:
+      'Generate notes in one or more existing launcher clips with musical patch version 1. Every '
+      + 'target starts with generate. Track ids are durable ids from list_tracks. Rows and note '
+      + 'times count from zero in beats. MIDI channels are 0-15. Each source clip must already '
+      + 'exist. This tool does not remove clip containers.\n'
+      + 'Merge keeps existing notes and adds the output. Replace changes only the addressed MIDI '
+      + 'channel after all 16 channels are read. An identical note address, an unread channel, '
+      + 'pressure, or a pitch outside MIDI 0-127 is refused before a write. Timing, expression, '
+      + 'added notes, removed notes, and shortened overlaps are returned as differences.\n'
+      + 'Direct work creates no alternate. It is recorded for revert_change and is refused if the '
+      + 'prior clip cannot be restored. Requested variations copy the source clip into adjacent '
+      + 'rows before any note write. Fidelity-required work needs an adjacent existing protected '
+      + 'row whose notes match on all 16 channels. The complete patch is one revision-bound change.\n'
+      + 'The result returns outputs, differences, warnings, clip rows, readback, a change id, and '
+      + 'reversal limits. Use read_clip to inspect an output, revert_change to put the change back, '
+      + 'and show_changed_clip to open one changed clip in the editor.',
+    inputSchema: musicalToolInputSchema,
+    inputValidator: musicalToolInputValidator,
+    resultContract: MUSICAL_RESULT_CONTRACT,
+    emits: ['clip.duplicate', 'note.clear', 'note.write'],
+    observation: 'musical-generation',
+    async run(workspace, args) {
+      return writing(async () =>
+        publicMusicalResult(await applyMusicalPatch(workspace, args, 'generation')));
+    },
+  }),
+
+  tool({
+    name: 'transform_clip_music',
+    kind: 'write',
+    title: 'Transform music in existing clips',
+    description:
+      'Transform notes already in one or more launcher clips with musical patch version 1. No '
+      + 'target starts with generate. Track ids are durable ids from list_tracks. Rows and note '
+      + 'times count from zero in beats. MIDI channels are 0-15. Each source clip must already '
+      + 'exist. This tool does not remove clip containers.\n'
+      + 'Operations run in the order supplied. Merge keeps existing notes and adds the output. '
+      + 'Replace changes only the addressed MIDI channel after all 16 channels are read. A '
+      + 'matching note address, an unread channel, pressure, or a pitch outside MIDI 0-127 is '
+      + 'refused before a write. Timing, expression, added notes, removed notes, and shortened '
+      + 'overlaps are returned as differences.\n'
+      + 'Direct work creates no alternate. It is recorded for revert_change and is refused if the '
+      + 'prior clip cannot be restored. Requested variations copy the source clip into adjacent '
+      + 'rows before any note write. Fidelity-required work needs an adjacent existing protected '
+      + 'row whose notes match on all 16 channels. The complete patch is one revision-bound change.\n'
+      + 'The result returns outputs, differences, warnings, clip rows, readback, a change id, and '
+      + 'reversal limits. Use read_clip to inspect an output, revert_change to put the change back, '
+      + 'and show_changed_clip to open one changed clip in the editor.',
+    inputSchema: musicalToolInputSchema,
+    inputValidator: musicalToolInputValidator,
+    resultContract: MUSICAL_RESULT_CONTRACT,
+    emits: ['clip.duplicate', 'note.clear', 'note.write'],
+    observation: 'musical-transformation',
+    async run(workspace, args) {
+      return writing(async () =>
+        publicMusicalResult(await applyMusicalPatch(workspace, args, 'transformation')));
     },
   }),
 
@@ -2802,6 +2883,34 @@ function confirmedToolResult(
     };
   }
 
+  if (outcome === 'musical-generation' || outcome === 'musical-transformation') {
+    const changes = Array.isArray(reply['changes']) ? reply['changes'] : [];
+    const change = object(changes[0]);
+    const outputs = Array.isArray(reply['outputs']) ? reply['outputs'] : undefined;
+    const differences = Array.isArray(reply['differences']) ? reply['differences'] : undefined;
+    const warnings = Array.isArray(reply['warnings']) ? reply['warnings'] : undefined;
+    const expectedOperation = outcome === 'musical-generation' ? 'generation' : 'transformation';
+    if (reply['format'] !== 'ghostnote-musical-result'
+        || reply['version'] !== 1
+        || reply['operation'] !== expectedOperation
+        || typeof change?.['changeId'] !== 'string'
+        || typeof change?.['applied'] !== 'boolean'
+        || outputs === undefined
+        || differences === undefined
+        || warnings === undefined) return undefined;
+    return {
+      kind: 'musical-use',
+      tool: outcome === 'musical-generation'
+        ? 'generate_clip_music'
+        : 'transform_clip_music',
+      changeId: change['changeId'],
+      applied: change['applied'],
+      outputCount: outputs.length,
+      differenceCount: differences.length,
+      warningCount: warnings.length,
+    };
+  }
+
   const copied = object(reply['copied']);
   if (reply['copyConfirmed'] !== true
       || typeof input['trackId'] !== 'string'
@@ -2838,7 +2947,10 @@ async function executeTool(
         ...object(result),
         ...(spec.observation === 'copy-track'
           ? { ordinaryUseId: resultId }
-          : { managedEventId: resultId }),
+          : spec.observation === 'musical-generation'
+              || spec.observation === 'musical-transformation'
+            ? { musicalUseId: resultId }
+            : { managedEventId: resultId }),
       };
     } catch (error) {
       reported = reportObservationFailureAfterProjectWrite(result, error);
@@ -2896,7 +3008,7 @@ export async function callTool(
 ): Promise<unknown> {
   const spec = toolNamed(name);
   if (spec === undefined) throw new Error(`no such tool: ${name}`);
-  const parsed = z.object(spec.inputSchema).parse(args);
+  const parsed = (spec.inputValidator ?? z.object(spec.inputSchema)).parse(args);
   return executeTool(workspace, spec, parsed);
 }
 
@@ -2908,7 +3020,7 @@ export function registerTools(server: McpServer, workspace: Workspace): void {
       {
         title: spec.title,
         description: spec.description,
-        inputSchema: spec.inputSchema,
+        inputSchema: spec.inputValidator ?? spec.inputSchema,
         annotations: ANNOTATIONS[spec.kind],
       },
       async (args: unknown) => ({

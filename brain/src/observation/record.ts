@@ -9,7 +9,8 @@
 import { z } from 'zod';
 
 export const OBSERVATION_RECORD_FORMAT = 'ghostnote-observation-record' as const;
-export const OBSERVATION_SCHEMA_VERSION = 1 as const;
+export const OBSERVATION_SCHEMA_VERSION = 2 as const;
+export const LEGACY_OBSERVATION_SCHEMA_VERSION = 1 as const;
 
 export type RequestedScope = 'device-only' | 'launcher-clip-only' | 'mixed' | 'unsupported';
 export type OperatorResponse = 'silent' | 'accepted' | 'vetoed';
@@ -88,9 +89,28 @@ export interface OrdinaryUse {
   };
 }
 
-export type ObservationEntry = InstructionObservation | ManagedEvent | OrdinaryUse;
+export interface MusicalUse {
+  readonly type: 'musical-use';
+  readonly id: string;
+  readonly correlationId: string;
+  readonly executionId: string;
+  readonly recordedAtMs: number;
+  readonly descriptionVersion: string;
+  readonly tool: 'generate_clip_music' | 'transform_clip_music';
+  readonly result: {
+    readonly format: 'ghostnote-musical-result';
+    readonly version: 1;
+    readonly changeId: string;
+    readonly applied: boolean;
+    readonly outputCount: number;
+    readonly differenceCount: number;
+    readonly warningCount: number;
+  };
+}
 
-export interface ObservationRecordV1 {
+export type ObservationEntry = InstructionObservation | ManagedEvent | OrdinaryUse | MusicalUse;
+
+export interface ObservationRecord {
   readonly format: typeof OBSERVATION_RECORD_FORMAT;
   readonly schemaVersion: typeof OBSERVATION_SCHEMA_VERSION;
   readonly entries: readonly ObservationEntry[];
@@ -109,7 +129,8 @@ export class UnsupportedObservationSchemaError extends ObservationRecordError {
   constructor(readonly schemaVersion: unknown) {
     super(
       `observation schema ${JSON.stringify(schemaVersion)} is not supported. `
-      + `This checkout reads schema ${OBSERVATION_SCHEMA_VERSION} only; the record was not changed.`,
+      + `This checkout reads schemas ${LEGACY_OBSERVATION_SCHEMA_VERSION} and `
+      + `${OBSERVATION_SCHEMA_VERSION}; the record was not changed.`,
     );
   }
 }
@@ -228,7 +249,30 @@ const ordinaryUseSchema = z.object({
   }).strict(),
 }).strict();
 
+const musicalUseSchema = z.object({
+  type: z.literal('musical-use'),
+  ...commonEntry,
+  executionId: identifier,
+  tool: z.enum(['generate_clip_music', 'transform_clip_music']),
+  result: z.object({
+    format: z.literal('ghostnote-musical-result'),
+    version: z.literal(1),
+    changeId: identifier,
+    applied: z.boolean(),
+    outputCount: z.number().int().nonnegative(),
+    differenceCount: z.number().int().nonnegative(),
+    warningCount: z.number().int().nonnegative(),
+  }).strict(),
+}).strict();
+
 const entrySchema = z.discriminatedUnion('type', [
+  instructionSchema,
+  z.discriminatedUnion('structure', [deviceEventSchema, clipEventSchema]),
+  ordinaryUseSchema,
+  musicalUseSchema,
+]);
+
+const legacyEntrySchema = z.discriminatedUnion('type', [
   instructionSchema,
   z.discriminatedUnion('structure', [deviceEventSchema, clipEventSchema]),
   ordinaryUseSchema,
@@ -295,8 +339,14 @@ const recordSchema = z.object({
   }
 });
 
+const legacyRecordSchema = z.object({
+  format: z.literal(OBSERVATION_RECORD_FORMAT),
+  schemaVersion: z.literal(LEGACY_OBSERVATION_SCHEMA_VERSION),
+  entries: z.array(legacyEntrySchema),
+}).strict();
+
 /** Start an empty record. Storage is not consulted by this pure constructor. */
-export function emptyObservationRecord(): ObservationRecordV1 {
+export function emptyObservationRecord(): ObservationRecord {
   return {
     format: OBSERVATION_RECORD_FORMAT,
     schemaVersion: OBSERVATION_SCHEMA_VERSION,
@@ -321,9 +371,9 @@ export function instructionObservation(input: NewInstructionObservation): Instru
 
 /** Append one independently identified entry. No existing entry is rewritten. */
 export function appendObservationEntry(
-  record: ObservationRecordV1,
+  record: ObservationRecord,
   entry: ObservationEntry,
-): ObservationRecordV1 {
+): ObservationRecord {
   return parseRecord({ ...record, entries: [...record.entries, entry] });
 }
 
@@ -338,9 +388,9 @@ export interface InstructionEnrichment {
 
 /** Enrich one instruction after work without changing its raw request or identity. */
 export function enrichInstructionObservation(
-  record: ObservationRecordV1,
+  record: ObservationRecord,
   enrichment: InstructionEnrichment,
-): ObservationRecordV1 {
+): ObservationRecord {
   const at = record.entries.findIndex((entry) => entry.id === enrichment.instructionId);
   if (at === -1 || record.entries[at]?.type !== 'instruction-observation') {
     throw new ObservationConflictError(
@@ -377,8 +427,8 @@ export function enrichInstructionObservation(
   return parseRecord({ ...record, entries });
 }
 
-/** Decode exact schema v1. Unknown versions are not guessed or migrated. */
-export function decodeObservationRecord(encoded: string): ObservationRecordV1 {
+/** Decode schema v2. Exact v1 entries migrate without changing their content. */
+export function decodeObservationRecord(encoded: string): ObservationRecord {
   let value: unknown;
   try {
     value = JSON.parse(encoded);
@@ -386,6 +436,15 @@ export function decodeObservationRecord(encoded: string): ObservationRecordV1 {
     throw new MalformedObservationRecordError(
       `the observation record is not valid JSON: ${errorMessage(error)}. The record was not changed.`,
     );
+  }
+  if (isObject(value) && value.schemaVersion === LEGACY_OBSERVATION_SCHEMA_VERSION) {
+    const legacy = legacyRecordSchema.safeParse(value);
+    if (!legacy.success) throw malformed(legacy.error);
+    return parseRecord({
+      format: legacy.data.format,
+      schemaVersion: OBSERVATION_SCHEMA_VERSION,
+      entries: legacy.data.entries,
+    });
   }
   if (isObject(value) && 'schemaVersion' in value
       && value.schemaVersion !== OBSERVATION_SCHEMA_VERSION) {
@@ -399,7 +458,7 @@ export function decodeObservationRecord(encoded: string): ObservationRecordV1 {
  * it never slices, evicts, or rewrites entries to make the value fit.
  */
 export function encodeObservationRecord(
-  record: ObservationRecordV1,
+  record: ObservationRecord,
   options: { readonly capacityChars?: number } = {},
 ): string {
   const encoded = stableJson(parseRecord(record));
@@ -467,7 +526,7 @@ function parseEntry(value: unknown): ObservationEntry {
   return result.data;
 }
 
-function parseRecord(value: unknown): ObservationRecordV1 {
+function parseRecord(value: unknown): ObservationRecord {
   const result = recordSchema.safeParse(value);
   if (!result.success) throw malformed(result.error);
   return result.data;
@@ -483,7 +542,7 @@ function malformed(error: z.ZodError): MalformedObservationRecordError {
   );
 }
 
-function stableJson(value: JsonValue | ObservationRecordV1): string {
+function stableJson(value: JsonValue | ObservationRecord): string {
   if (value === null || typeof value !== 'object') return JSON.stringify(value);
   if (Array.isArray(value)) return `[${value.map((item) => stableJson(item)).join(',')}]`;
   const entries = Object.entries(value)
