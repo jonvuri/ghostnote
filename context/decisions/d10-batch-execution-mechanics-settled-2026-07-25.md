@@ -39,3 +39,7 @@ because a caller cannot get pacing wrong if pacing is not expressible.**
   the latency bound. Session 2x does not trade E15-F correctness for a smaller
   non-binding cost.
 - **Progress UX is free**: interleave `notify` ops into a batch (E8-C).
+- **Background wall-clock time is explicit.** Operation status reports live
+  `elapsedMs` from acceptance and freezes it at terminal state. E48 measures
+  34,470 ms at the server and 34,569 ms through client polling for the accepted
+  two-clip dogfood batch.

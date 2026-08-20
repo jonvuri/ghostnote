@@ -34,6 +34,8 @@ export interface OperationStatus {
   readonly cancellationRequested: boolean;
   readonly startedAtMs: number;
   readonly finishedAtMs?: number;
+  /** Wall-clock time from acceptance through this status snapshot. */
+  readonly elapsedMs: number;
   readonly changes: readonly OperationChange[];
   readonly result?: unknown;
   readonly error?: string;
@@ -132,6 +134,7 @@ export class OperationRegistry {
 
   status(id: string): OperationStatus {
     const entry = this.require(id);
+    const measuredAtMs = entry.finishedAtMs ?? this.now();
     return {
       operationId: entry.id,
       operation: entry.operation,
@@ -140,6 +143,7 @@ export class OperationRegistry {
       cancellationRequested: entry.controller.signal.aborted,
       startedAtMs: entry.startedAtMs,
       ...(entry.finishedAtMs === undefined ? {} : { finishedAtMs: entry.finishedAtMs }),
+      elapsedMs: Math.max(0, measuredAtMs - entry.startedAtMs),
       changes: structuredClone(entry.changes),
       ...(entry.result === undefined ? {} : { result: structuredClone(entry.result) }),
       ...(entry.error === undefined ? {} : { error: entry.error }),

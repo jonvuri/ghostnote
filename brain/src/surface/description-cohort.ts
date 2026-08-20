@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v3';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v4';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -138,7 +138,7 @@ export const DESCRIPTION_COHORT_V2: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v3 adds explicit completion and cancellation for long musical calls. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V3: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V2,
   {
     name: 'start_clip_music_operation', kind: 'write',
@@ -152,6 +152,11 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
     name: 'cancel_clip_music_operation', kind: 'write',
     reason: 'Requests an explicit stop and distinguishes it from a client timeout.',
   },
+] as const;
+
+/** v4 adds wall-clock timing to operation status results. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V3,
 ] as const;
 
 interface ToolAnnotations {
@@ -224,4 +229,8 @@ export const TOOL_DESCRIPTION_V2_SHA256 =
 
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V3_SHA256 =
+  '0289ae1611a7c8c6c13b296a0749bd11dc8969df586859e10903b5e6d08d1ca4';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V4_SHA256 =
   '0289ae1611a7c8c6c13b296a0749bd11dc8969df586859e10903b5e6d08d1ca4';

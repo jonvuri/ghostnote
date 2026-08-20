@@ -34,6 +34,7 @@ interface OperationStatus {
   readonly state: string;
   readonly terminal: boolean;
   readonly cancellationRequested: boolean;
+  readonly elapsedMs: number;
   readonly changes: readonly OperationChange[];
   readonly result?: Record<string, unknown>;
   readonly error?: string;
@@ -188,8 +189,9 @@ try {
     completed.status.state === 'completed'
       && completed.status.result?.['applied'] === true
       && completed.status.changes.length === 1
-      && completed.status.changes[0]?.applied === true,
-    { elapsedMs: completed.elapsedMs, status: completed.status });
+      && completed.status.changes[0]?.applied === true
+      && completed.status.elapsedMs > 0,
+    { clientElapsedMs: completed.elapsedMs, status: completed.status });
 
   const read = await call('read_clip', {
     trackId: target.trackId, row: target.row, channel: 7,

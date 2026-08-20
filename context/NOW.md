@@ -2,54 +2,55 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-19
+updated: 2026-08-20
 phase: phase-2
-session: 2j
+session: 2k
 ---
 
 # Now
 
-Session 2x is complete. E47 records the offline and ordinary-MCP live result.
-Session 2j is next.
+Session 2j is complete. E48 records the accepted second dogfood use and measured
+operation latency. Session 2k is next.
 
 ## Accepted live result
 
 Project `26.05-2 moon` has the original 32-beat Lead and Harmony clips in row 1.
 Rows 2 through 4 hold three accepted full-phrase variations on each track. The
-2x probe restored its entry selection on Harmony row 4. It left no clip or note
-residue.
+new `Harmony – Open Minor` track copies Harmony and adds two accepted 32-beat
+clips. Zero-based row 5 contains Fm9–Gm11–Ebmaj9–Cm11. Row 6 contains
+Fm11–Abmaj9–Bb13–Ebmaj9. The first new clip is open in Bitwig.
 
-## Session 2x result
+## Session 2j result
 
-- `start_clip_music_operation` returns an operation id immediately.
-- Inspection exposes explicit running and terminal states plus the complete
-  direct-tool result after completion.
-- Cancellation during preflight writes nothing.
-- Cancellation after a write starts stays non-terminal until independent
-  readback and session recording finish.
-- The direct tools remain available. MCP cancellation now stops them at the next
-  workspace boundary.
-- The Bridge, revision counter, wire golden, and E15-F stage plan are unchanged.
-- The ordinary-MCP live probe completed in 10.8 seconds. Cancellation first
-  reported `cancelling`, then reached `cancelled` with no recorded write.
-- Teardown removed the disposable Lead row 5 clip, preserved all accepted-row
-  occupancy, and restored the entry selection.
+- The task used one track copy, one two-clip creation, one background musical
+  operation, and two final independent clip reads.
+- Independent readback found 21 and 22 notes with no warning or mismatch.
+- The operator auditioned and kept the result.
+- The v4 observation links the accepted instruction to the ordinary track copy
+  and the two-output musical result.
+- Operation status now reports live `elapsedMs` and freezes it at terminal state.
+- The accepted operation measured 34,470 ms at the server and 34,569 ms through
+  client polling. The measured post-key subtotal was 60,630 ms.
+- E45 and E48 repeat the slow exact-read finding. Background completion prevents
+  it from blocking one MCP request. No other problem repeated.
 
 ## Next action
 
-Begin session 2j. Use a different natural musical task, compare both dogfood
-records, and revise only problems that repeat. Do not use a scripted repeat as
-the second dogfood task.
+Begin session 2k. Audit the Phase 2 exit criteria, final cohort, qualifications,
+dogfood evidence, and project baseline. Decide whether optional Phase 3 has
+enough evidence to run or whether work proceeds to Phase 4.
 
 ## Verification
 
-- Focused completion, cancellation, surface, and description tests: 75/75 pass.
-- Full offline check: 644/644 pass.
+- Focused operation, surface, and description tests: 15/15 pass.
+- Full offline check: 646/646 pass.
 - Extension build: pass; no extension or wire change.
 - Live handshake: pass, including the 139-method golden and deployment age.
-- Ordinary-MCP completion, cancellation, readback, reversal, and cleanup: pass.
+- Cleanup-safe live timing path: pass with exact restoration.
+- Ordinary-MCP dogfood task, independent readback, and accepted observation:
+  pass.
 
 ## Retrospective
 
-Put a test pause at the boundary it claims to prove. A pause after
-`workspace.apply()` returned did not cover in-flight verification.
+Record server and polling-client time separately. This keeps polling delay out
+of project-work latency.

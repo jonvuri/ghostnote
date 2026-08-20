@@ -75,6 +75,38 @@ test('2x completion returns one terminal result through the operation id', async
   assert.deepEqual(completed.result, { applied: true });
 });
 
+test('2j operation status reports live wall-clock time and freezes it at terminal state', async () => {
+  const entered = deferred();
+  const release = deferred();
+  let now = 100;
+  const registry = new OperationRegistry({
+    newId: () => 'operation-timing',
+    now: () => now,
+  });
+  const accepted = registry.start('generation', async () => {
+    entered.resolve();
+    await release.promise;
+    return { applied: true };
+  });
+
+  assert.equal(accepted.startedAtMs, 100);
+  assert.equal(accepted.elapsedMs, 0);
+  await entered.promise;
+  now = 145;
+  const running = registry.status(accepted.operationId);
+  assert.equal(running.state, 'running');
+  assert.equal(running.elapsedMs, 45);
+
+  now = 250;
+  release.resolve();
+  const completed = await registry.wait(accepted.operationId);
+  assert.equal(completed.finishedAtMs, 250);
+  assert.equal(completed.elapsedMs, 150);
+
+  now = 900;
+  assert.equal(registry.status(accepted.operationId).elapsedMs, 150);
+});
+
 test('2x cancellation is not terminal until the running unit stops', async () => {
   const entered = deferred();
   const release = deferred();

@@ -2,8 +2,8 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: active
-status: Session 2x is complete. Session 2j is the second dogfood use.
-updated: 2026-08-19
+status: Session 2j is complete. Session 2k closes Phase 2.
+updated: 2026-08-20
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
 next: ../phase-3/README.md
@@ -93,8 +93,8 @@ first-use findings, prove a second use, and close the phase.
     limits, and clean live reversal.
 12. [2x — async batch completion](../phase-1/6-async.md) — complete; E47 records
     offline cancellation boundaries and ordinary-MCP live completion and cleanup.
-13. [2j — dogfood round two and revision](2j-dogfood-2.md) — use a different
-    musical task, compare both records, and revise repeated problems only.
+13. [2j — dogfood round two and revision](2j-dogfood-2.md) — complete; E48
+    records an accepted track-copy and two-progression task plus batch timing.
 14. [2k — closeout](2k-closeout.md) — audit evidence, record qualifications, and
     hand off the next phase.
 

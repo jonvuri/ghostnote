@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-08-19
+updated: 2026-08-20
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E48 | Second musical dogfood passes with measured operation latency [K] (2026-08-20) | [open](experiments/e48-second-musical-dogfood-and-operation-latency.md) |
 | E47 | Background musical completion and cancellation pass live [K] (2026-08-19) | [open](experiments/e47-background-musical-completion-and-cancellation.md) |
 | E46 | Long-clip metadata, paged writes, and reversal pass live [K] (2026-08-19) | [open](experiments/e46-long-clip-editing-follow-up.md) |
 | E45 | First real musical dogfood exposes long-clip and cursor limits [K] (2026-08-19) | [open](experiments/e45-first-real-musical-dogfood.md) |
