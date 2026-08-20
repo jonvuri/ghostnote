@@ -183,7 +183,7 @@ test('an ordinary MCP client generates, transforms, reads, opens, and reverts', 
   assert.deepEqual(uses.map((entry) => entry.tool), [
     'generate_clip_music', 'transform_clip_music',
   ]);
-  assert.ok(uses.every((entry) => entry.descriptionVersion === 'ghostnote-description-v2'));
+  assert.ok(uses.every((entry) => entry.descriptionVersion === 'ghostnote-description-v3'));
   const instruction = stored.entries.find((entry) => entry.type === 'instruction-observation');
   assert.equal(instruction?.rawScope, 'Add a C minor chord to channel 2.');
   assert.equal(instruction?.operatorResponse, 'accepted');

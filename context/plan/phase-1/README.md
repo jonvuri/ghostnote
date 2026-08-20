@@ -2,7 +2,7 @@
 title: Phase 1 — write engine and managed takes
 kind: plan
 state: complete
-updated: 2026-08-16
+updated: 2026-08-19
 parent: ../ROADMAP.md
 outcome: ../../archive/outcomes/PHASE-1.md
 ---
@@ -92,8 +92,8 @@ three-way dispatch classifier is retired.
      and owner (E40)
    - ~~[5i — Phase 1 closeout](5i-closeout.md)~~ — complete; decisions audited,
      Phase 1 closed, and Phase 2 premises corrected
-6. [6 — async completion](6-async.md) — deferred to Phase 2; run only after a
-   measured staging cost justifies its wire and thread-confinement risk
+6. [6 — async completion](6-async.md) — complete as Phase 2 session 2x; E47
+   records MCP-boundary completion, cancellation, and clean live teardown
 
 Completed session records stay in their session briefs and under
 `archive/outcomes/`. [NOW](../../NOW.md) contains only the next-session handoff.

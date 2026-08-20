@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E47 | Background musical completion and cancellation pass live [K] (2026-08-19) | [open](experiments/e47-background-musical-completion-and-cancellation.md) |
 | E46 | Long-clip metadata, paged writes, and reversal pass live [K] (2026-08-19) | [open](experiments/e46-long-clip-editing-follow-up.md) |
 | E45 | First real musical dogfood exposes long-clip and cursor limits [K] (2026-08-19) | [open](experiments/e45-first-real-musical-dogfood.md) |
 | E44 | Public musical conformance passes, and writer cursors need the 512-step window [K] (2026-08-19) | [open](experiments/e44-public-musical-conformance-and-writer-window.md) |

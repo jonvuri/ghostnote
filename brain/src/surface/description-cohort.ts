@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v2';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v3';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -81,7 +81,7 @@ export const DESCRIPTION_COHORT_V1: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v2 keeps the frozen v1 artifact and adds the musical path and its procedures. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V2: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V1,
   {
     name: 'list_tracks', kind: 'read',
@@ -134,6 +134,23 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   {
     name: 'report_observations', kind: 'read',
     reason: 'Reports musical tool use beside explicit operator responses.',
+  },
+] as const;
+
+/** v3 adds explicit completion and cancellation for long musical calls. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V2,
+  {
+    name: 'start_clip_music_operation', kind: 'write',
+    reason: 'Starts long musical work without holding one client request open.',
+  },
+  {
+    name: 'inspect_clip_music_operation', kind: 'read',
+    reason: 'Reports terminal completion or cancellation before recovery starts.',
+  },
+  {
+    name: 'cancel_clip_music_operation', kind: 'write',
+    reason: 'Requests an explicit stop and distinguishes it from a client timeout.',
   },
 ] as const;
 
@@ -204,3 +221,7 @@ export const TOOL_DESCRIPTION_V1_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V2_SHA256 =
   '5842b7410066a3e89bb17dc51b4fb884052e9eec844c2c95c0834ca0675a57bc';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V3_SHA256 =
+  '0289ae1611a7c8c6c13b296a0749bd11dc8969df586859e10903b5e6d08d1ca4';

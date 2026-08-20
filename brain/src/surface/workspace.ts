@@ -46,6 +46,7 @@ import type { Executor, RunOptions } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
 import { ObservationCapture, type ObservationCaptureOptions, type ObservationStore } from '../observation/index.js';
 import { ProductStatus, type StatusSink } from './status.js';
+import { OperationRegistry } from './operations.js';
 
 export interface WorkspaceDeps {
   /** Connected, handshaken, and talking to the extension we think we are. */
@@ -57,6 +58,8 @@ export interface WorkspaceDeps {
   readonly observationStore: ObservationStore;
   readonly observationCaptureOptions?: ObservationCaptureOptions;
   readonly statusSink?: StatusSink;
+  /** Session-owned background operations. Tests can inject deterministic ids. */
+  readonly operations?: OperationRegistry;
 }
 
 export interface Workspace {
@@ -78,6 +81,8 @@ export interface Workspace {
   readonly observations: ObservationCapture;
   /** One-way product status. It has no read or event path. */
   readonly status: ProductStatus;
+  /** Background completion and cancellation for long-running tool calls. */
+  readonly operations: OperationRegistry;
   /**
    * ⚠ Plan putting one change back, ALWAYS against the launcher window. Shared by
    * the tool that previews a reversal and the tool that performs one, so the two
@@ -88,6 +93,62 @@ export interface Workspace {
   contentSince(since: RevisionMark): Promise<ContentDelta>;
   /** Explicit UI focus. This bypasses the project-write and stash path. */
   showClipInEditor(clip: ClipAddress, verifiedAt: RevisionMark): Promise<ClipNavigationResult>;
+}
+
+/**
+ * Stop a tool at workspace boundaries after cancellation is requested.
+ *
+ * A write is one indivisible unit here. If cancellation arrives after it starts,
+ * the executor finishes readback and recording before this wrapper throws. This
+ * keeps a terminal cancellation from hiding an in-flight project mutation.
+ */
+export function cancellableWorkspace(
+  workspace: Workspace,
+  signal: AbortSignal,
+  record: (change: StashedChangeset) => void = () => undefined,
+): Workspace {
+  const before = (): void => signal.throwIfAborted();
+  const after = <T>(value: T): T => {
+    signal.throwIfAborted();
+    return value;
+  };
+  return Object.freeze<Workspace>({
+    ...workspace,
+    async mark() {
+      before();
+      return after(await workspace.mark());
+    },
+    async tracks() {
+      before();
+      return after(await workspace.tracks());
+    },
+    async devices(track) {
+      before();
+      return after(await workspace.devices(track));
+    },
+    async read(addresses) {
+      before();
+      return after(await workspace.read(addresses));
+    },
+    async apply(ops, options) {
+      before();
+      const change = await workspace.apply(ops, options);
+      record(change);
+      return after(change);
+    },
+    async planRevert(changeId, slice) {
+      before();
+      return after(await workspace.planRevert(changeId, slice));
+    },
+    async contentSince(since) {
+      before();
+      return after(await workspace.contentSince(since));
+    },
+    async showClipInEditor(clip, verifiedAt) {
+      before();
+      return after(await workspace.showClipInEditor(clip, verifiedAt));
+    },
+  });
 }
 
 export interface CapturedWorkspaceResult<T> {
@@ -118,6 +179,7 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
     changes: deps.stash.log,
     observations: new ObservationCapture(deps.observationStore, deps.observationCaptureOptions),
     status: new ProductStatus(deps.statusSink),
+    operations: deps.operations ?? new OperationRegistry(),
 
     async mark(): Promise<RevisionMark> {
       await deps.ready();

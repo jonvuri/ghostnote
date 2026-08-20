@@ -137,6 +137,11 @@ export const SURFACE_WORD_EXEMPTIONS: readonly {
     where: 'transform_clip_music.schema',
     why: 'The frozen musical patch v1 grammar names its clip-block output count `takes`.',
   },
+  {
+    word: 'take',
+    where: 'start_clip_music_operation.schema',
+    why: 'The nested frozen musical patch v1 grammar names its clip-block output count `takes`.',
+  },
 ];
 
 const patternFor = (word: string): RegExp =>

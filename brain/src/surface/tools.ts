@@ -73,7 +73,9 @@ import {
 } from '../observation/index.js';
 import { selectClip, selectTrack, type Slice } from '../stash/index.js';
 import { describeAddress, receiptOf, refusalOf, reversalReport } from './report.js';
-import { captureWorkspaceChanges, type Workspace } from './workspace.js';
+import {
+  cancellableWorkspace, captureWorkspaceChanges, type Workspace,
+} from './workspace.js';
 import { showChangedClip } from './navigation.js';
 import type { StatusCategory } from './status.js';
 import { applyMusicalPatch } from '../musical/index.js';
@@ -298,6 +300,10 @@ const scopeInput = z.object({
   'Narrow this to part of what the change touched. Whatever is left out is untouched.',
 );
 
+const operationId = z.string().min(1).describe(
+  'Id returned by start_clip_music_operation.',
+);
+
 // --- helpers -----------------------------------------------------------------
 
 /**
@@ -436,6 +442,22 @@ export const TOOLS: readonly ToolSpec[] = [
           rows: coverage(at.window.scenes),
         };
       });
+    },
+  }),
+
+  tool({
+    name: 'inspect_clip_music_operation',
+    kind: 'read',
+    title: 'Inspect a clip music operation',
+    description:
+      'Read the current or terminal state of a background clip music operation. A terminal state '
+      + 'confirms that the operation will make no later project change. A completed result '
+      + 'includes the same output as the corresponding direct music tool. A cancelled result '
+      + 'lists every change that finished verification and was recorded before cancellation.',
+    inputSchema: { operationId },
+    emits: [],
+    async run(workspace, args) {
+      return workspace.operations.status(args.operationId);
     },
   }),
 
@@ -927,6 +949,50 @@ export const TOOLS: readonly ToolSpec[] = [
     async run(workspace, args) {
       return writing(async () =>
         publicMusicalResult(await applyMusicalPatch(workspace, args, 'transformation')));
+    },
+  }),
+
+  tool({
+    name: 'start_clip_music_operation',
+    kind: 'write',
+    title: 'Start a clip music operation',
+    description:
+      'Start a generation or transformation in the background and return an operation id '
+      + 'immediately. The direct music tools remain available for short calls. Inspect this '
+      + 'operation until it is terminal before starting recovery work. Cancellation stops before '
+      + 'the next project-write unit. A write already in progress finishes independent readback '
+      + 'and recording before cancellation becomes terminal.',
+    inputSchema: {
+      operation: z.enum(['generation', 'transformation']),
+      patch: musicalToolInputValidator,
+    },
+    emits: ['clip.duplicate', 'note.clear', 'note.write'],
+    async run(workspace, args) {
+      return workspace.operations.start(args.operation, async ({ signal, record }) => {
+        const scoped = cancellableWorkspace(workspace, signal, record);
+        const toolName = args.operation === 'generation'
+          ? 'generate_clip_music'
+          : 'transform_clip_music';
+        const result = await callTool(scoped, toolName, args.patch);
+        signal.throwIfAborted();
+        return result;
+      });
+    },
+  }),
+
+  tool({
+    name: 'cancel_clip_music_operation',
+    kind: 'write',
+    title: 'Cancel a clip music operation',
+    description:
+      'Request cancellation of a background clip music operation. The first answer can be '
+      + 'cancelling while a current read or project-write unit finishes. Inspect the operation '
+      + 'until it is terminal. Terminal cancellation confirms that it will make no later project '
+      + 'change. Repeating this call for a terminal operation does not change its result.',
+    inputSchema: { operationId },
+    emits: [],
+    async run(workspace, args) {
+      return workspace.operations.cancel(args.operationId);
     },
   }),
 
@@ -3102,10 +3168,16 @@ export function registerTools(server: McpServer, workspace: Workspace): void {
         inputSchema: spec.inputValidator ?? spec.inputSchema,
         annotations: ANNOTATIONS[spec.kind],
       },
-      async (args: unknown) => ({
+      async (args: unknown, extra: { readonly signal?: AbortSignal }) => ({
         content: [{
           type: 'text' as const,
-          text: JSON.stringify(await callTool(workspace, spec.name, args)),
+          text: JSON.stringify(await callTool(
+            extra?.signal === undefined
+              ? workspace
+              : cancellableWorkspace(workspace, extra.signal),
+            spec.name,
+            args,
+          )),
         }],
       }),
     );

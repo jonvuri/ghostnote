@@ -4,8 +4,10 @@ import assert from 'node:assert/strict';
 import {
   DESCRIPTION_COHORT,
   DESCRIPTION_COHORT_V1,
+  DESCRIPTION_COHORT_V2,
   TOOL_DESCRIPTION_V1_SHA256,
   TOOL_DESCRIPTION_V2_SHA256,
+  TOOL_DESCRIPTION_V3_SHA256,
   TOOL_DESCRIPTION_VERSION,
   descriptionCohortArtifact,
   fingerprintDescriptionCohort,
@@ -41,10 +43,13 @@ const EXPECTED_COHORT = [
   'record_observation',
   'read_observation_record',
   'report_observations',
+  'start_clip_music_operation',
+  'inspect_clip_music_operation',
+  'cancel_clip_music_operation',
 ] as const;
 
-test('description v2 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v2');
+test('description v3 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v3');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -66,11 +71,20 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
 });
 
 test('description v2 matches its frozen public artifact', () => {
+  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V2);
+  assert.equal(
+    fingerprintDescriptionCohort(artifact),
+    TOOL_DESCRIPTION_V2_SHA256,
+    'the frozen v2 public wording or schema changed',
+  );
+});
+
+test('description v3 matches its frozen public artifact', () => {
   const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
   assert.deepEqual(artifact.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V2_SHA256,
+    TOOL_DESCRIPTION_V3_SHA256,
     'public wording or schema changed; assign a new description version before updating the golden',
   );
 });

@@ -4,55 +4,52 @@ kind: status
 state: active
 updated: 2026-08-19
 phase: phase-2
-session: 2x
+session: 2j
 ---
 
 # Now
 
-Session 2i and its long-clip follow-up are complete. E45 records the accepted
-first musical dogfood result. E46 records the public existing-clip metadata
-operation, paged long-note writes, and truthful reversal qualification. Session
-2x is next. Session 2j starts the second dogfood use after it.
+Session 2x is complete. E47 records the offline and ordinary-MCP live result.
+Session 2j is next.
 
 ## Accepted live result
 
 Project `26.05-2 moon` has the original 32-beat Lead and Harmony clips in row 1.
-Rows 2 through 4 hold three accepted full-phrase variations on each track. Lead
-row 2 is open in the Edit layout. The long-clip proof used a disposable empty
-Lead row after the accepted clips. It left that row empty.
+Rows 2 through 4 hold three accepted full-phrase variations on each track. The
+2x probe restored its entry selection on Harmony row 4. It left no clip or note
+residue.
 
-## Long-clip result
+## Session 2x result
 
-- `set_clip_metadata` updates the complete measured metadata of an existing
-  clip, records the prior state, and returns exact readback.
-- Note writes page the fixed writer window, use page-local steps, confirm the
-  exact pinned target before every required page, and restore page zero.
-- Every planned stage is preflighted before the first write. A later page or
-  target failure cannot leave an earlier expressive write unrecorded.
-- Note properties use separate settled page turns. The live proof preserved an
-  exact `pan: -0.25` value on the channel-7 note at beat 96.
-- Captured durations outside all writable grids fail the fidelity floor before
-  mutation. They no longer report an undo that cannot run.
-- Live proof extended a disposable clip from 32 to 128 beats, wrote an exact
-  channel-7 note at beat 96, reversed to 32 beats with no notes, and removed the
-  clip.
+- `start_clip_music_operation` returns an operation id immediately.
+- Inspection exposes explicit running and terminal states plus the complete
+  direct-tool result after completion.
+- Cancellation during preflight writes nothing.
+- Cancellation after a write starts stays non-terminal until independent
+  readback and session recording finish.
+- The direct tools remain available. MCP cancellation now stops them at the next
+  workspace boundary.
+- The Bridge, revision counter, wire golden, and E15-F stage plan are unchanged.
+- The ordinary-MCP live probe completed in 10.8 seconds. Cancellation first
+  reported `cancelling`, then reached `cancelled` with no recorded write.
+- Teardown removed the disposable Lead row 5 clip, preserved all accepted-row
+  occupancy, and restored the entry selection.
 
-## Next session
+## Next action
 
-Session 2x owns asynchronous completion and explicit cancellation. E45 proved
-that a request can continue to mutate after the MCP client's 60-second timeout.
-Keep this work separate from the completed long-clip repair.
+Begin session 2j. Use a different natural musical task, compare both dogfood
+records, and revise only problems that repeat. Do not use a scripted repeat as
+the second dogfood task.
 
 ## Verification
 
-- Focused adapter, executor, and surface tests: pass.
-- Full offline check: 637/637 pass.
-- Live long-clip proof: pass with exact later-page expression, reversal, and
-  clean teardown.
-- Extension build, context check, and diff checks pass.
+- Focused completion, cancellation, surface, and description tests: 75/75 pass.
+- Full offline check: 644/644 pass.
+- Extension build: pass; no extension or wire change.
+- Live handshake: pass, including the 139-method golden and deployment age.
+- Ordinary-MCP completion, cancellation, readback, reversal, and cleanup: pass.
 
 ## Retrospective
 
-Preflight every planned stage before mutation. Run read-based note properties
-only after the required writer page settles. Keep the reader's binary and
-triplet scan rules separate.
+Put a test pause at the boundary it claims to prove. A pause after
+`workspace.apply()` returned did not cover in-flight verification.

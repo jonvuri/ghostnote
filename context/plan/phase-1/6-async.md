@@ -1,135 +1,118 @@
 ---
 title: Phase 2, session 2x — async batch completion
 kind: plan
-state: planned
-status: Activated 2026-08-19 by E45. A request exceeded the client timeout and
-        continued to mutate while the caller began recovery.
+state: complete
+status: Completed on 2026-08-19. E47 records offline boundary tests and the
+        passing ordinary-MCP live proof with clean teardown.
 updated: 2026-08-19
 parent: ../phase-2/README.md
 prev: ../phase-2/2i-long-clip-follow-up.md
 next: ../phase-2/2j-dogfood-2.md
 scope: PHASE-1-ENGINE.md item 7
-evidence: E8, E15-D, E15-F, E45 · D10
+evidence: E8, E15-D, E15-F, E44, E45, E47 · D10
 ---
 
 # Phase 2, session 2x — async batch completion
 
-> **Purpose.** Build the deferred-response protocol E8 flagged as an open Phase-1
-> item, so a paced batch can report **completion** rather than only acceptance.
-> Two things fall out of the same mechanism, which is the argument for building
-> it at all.
+> **Purpose.** Give long musical calls explicit background completion and
+> cancellation, so recovery never races work that can still change the project.
 
 ## Disposition
 
-Phase 1 closed without this work. E45 now activates it before the second
-dogfood use. One musical request exceeded the client's 60-second timeout and
-continued to mutate while the caller began recovery. The synchronous fallback
-must remain available until the replacement path passes the affected proof.
+Phase 1 closed without this work. E45 activated it before the second dogfood
+use. One musical request exceeded the client's 60-second timeout and continued
+to mutate while the caller began recovery. The direct tools remain available.
 
-## Phase 1 background
+## Scope reconfirmation
 
-**No Phase-1 exit criterion depended on it.** Session 1's staging already sidesteps
-the problem entirely: instead of passing `delayMs` and hoping, the brain partitions
-ops by settle class and issues one `batch.run` per stage, awaiting a settle
-between them — so `apply()` **already resolves on completion**, because nothing is
-ever fire-and-forget. `stages.ts` says as much in its header, and says the `Stage`
-shape and `stages[]` receipt are designed to survive this session's change.
+The original brief targeted a deferred Bridge response and the 2N expression
+stage cost. Current code and E45 change the binding problem:
 
-So: build it if Phase 1 has room, defer it without guilt if not. It is listed last
-deliberately. What it should *not* do is block session 5's sweep.
+- Production `LiveAdapter.apply()` does not use the Bridge `delayMs` path. It
+  sends one synchronous `batch.run` for each planned stage and returns only after
+  all stages complete.
+- E45 measured 15.482 seconds for one two-clip source read and about 32 seconds
+  for six final reads. The full corrected request took more than two minutes.
+  Long exact reads and verification dominated. E44 already found that expression
+  waits were a small part of the workload.
+- A deferred extension frame would shorten neither the musical preflight nor the
+  executor stash and verification reads. It would not prevent the MCP client
+  timeout that E45 observed.
+- The MCP SDK already supplies an `AbortSignal` to each tool handler. The surface
+  did not use it and exposed no operation identity after a timeout.
 
-## What the same mechanism buys
-
-1. **Completion, not acceptance.** The Bridge writes a handler's response when the
-   handler **returns** ([Bridge.java](../../../extension/src/main/java/com/ghostnote/extension/Bridge.java)),
-   so a paced batch can only acknowledge that it was accepted. E8's probe polled
-   readback instead. A handler returning a "deferred" sentinel, with the executor
-   writing the final frame later, is the shape E8 named.
-2. **⚠ The 2N-stage expression cost — the real prize.** D10: N clips with
-   expression pay **2N stages and N × `gridChange`** (144ms each), because a
-   `note.props` op resolves its note against the clip the cursor held at **turn
-   start**, so it can never be hoisted or coalesced across clips (E15-F). That
-   cost "is the price of correctness," and `PHASE-0-SESSION-2.md` records the
-   conclusion precisely: *a deferred-response protocol is also what would make a
-   re-point inside a batch settleable, and so is the only route to reclaiming it.*
-   Phase 2 is the phase that will feel this, since it writes expression constantly.
-
-Session 4 has no pane action button or polling loop. It does not need an
-extension-to-brain event path, so this protocol has no control-layer obligation.
+Session 2x therefore moves completion and cancellation to the MCP boundary. It
+does not change the Bridge, the revision counter, or `planStages`.
 
 ## Scope
 
 ### In
 
-1. **The wire protocol change.** A deferred sentinel from a handler, correlated
-   later by JSON-RPC id. The Bridge already marshals requests onto the
-   control-surface thread via `host.scheduleTask` and correlates responses by id,
-   with the header noting responses "may therefore complete out of order" — so the
-   correlation half exists and the deferral half does not.
-2. **⚠ Thread confinement, preserved.** The revision counter's atomicity is not
-   defended by a lock — it is defended by the fact that **every request is
-   dispatched on the one control-surface thread**, which is what makes
-   check → apply → bump atomic for free (E8, `ExecState`). A deferred completion
-   frame written from a different thread is the obvious way to break that. This is
-   the session's central correctness constraint.
-3. **The executor side**: one paced call plus a completion frame, replacing
-   `planStages`' per-stage round-trips — while keeping the `Stage` shape and the
-   `stages[]` receipt, which were designed for this substitution.
-4. **The re-point-inside-a-batch settle**, and with it the coalescing of
-   `note.props` across clips that E15-F currently forbids.
-5. **Fake-adapter parity**, so the offline suite still models what live does.
-6. **Cancellation semantics.** A client timeout alone does not prove server
-   cancellation. The protocol must expose terminal completion or confirmed
-   cancellation. Recovery must not start while the timed-out request can still
-   mutate.
+1. A background musical tool that accepts the frozen patch-v1 input and returns
+   an operation id immediately.
+2. Explicit `accepted`, `running`, `cancelling`, `completed`, `cancelled`, and
+   `failed` states. Only the last three are terminal.
+3. Inspection that returns the complete direct-tool result after completion and
+   lists every verified recorded change after cancellation.
+4. Explicit cancellation at workspace boundaries. A read can finish before the
+   stop takes effect. A project-write unit that already started must finish its
+   independent readback and session recording before cancellation is terminal.
+5. MCP request cancellation on the existing direct tools. The direct path stays
+   available for short calls.
+6. A versioned public-description cohort and offline tests for completion and
+   both sides of the write boundary.
 
 ### Out
 
-- Removing the staged path. It is the fallback and it works; the deferred path
-  should be provably better before anything is deleted.
+- A Bridge protocol change or a deferred extension response.
+- Removing or changing the staged adapter path.
+- Coalescing `note.props` across clips. E15-F remains load-bearing.
 - Streaming progress beyond what `notify` already does for free (E8-C).
 
-## Decisions this session must make
+## Decisions
 
-- **Whether the deferred path replaces the staged one or sits beside it.**
-  *Recommendation: beside it first*, selected per batch, so a regression is a
-  config flip rather than a revert.
-- **⚠ Whether coalescing `note.props` across clips is actually re-enabled.**
-  E15-F is emphatic and `planStages` carries a long comment specifically to stop
-  someone optimizing it away, with the fake modelling the trap
-  (`propsReadsTurnStartClip`) so a hoist fails offline. If this session re-enables
-  it, that comment and that trap must be **updated with the new evidence**, not
-  deleted — otherwise the next reader re-derives a bug the project already paid
-  for twice.
-- **What a deferred response does when Bitwig never completes it.** Timeouts,
-  explicit cancellation, terminal state, and what the receipt says.
+- The background path sits beside the direct tools.
+- An operation registry belongs to one workspace session. A process restart
+  ends its operation-status lifetime, just as it ends the session stash.
+- Cancellation is cooperative and honest. `cancelling` is not terminal. A
+  terminal state means the operation has no remaining project mutation.
+- One executor write remains indivisible at this layer. Cancellation does not
+  hide a write that already landed or skip its verification and recording.
+- The expression-stage optimization is ○ for this session. E44 and E45 show that
+  it does not address the measured latency bound, while E15-F shows its safety
+  risk.
 
 ## Exit criteria
 
-1. A paced batch reports **completion**, with the receipt naming what landed in
-   each stage, verified by readback.
-2. Thread confinement is preserved: the revision counter is still touched from one
-   thread only, and this is asserted rather than assumed.
-3. The N-clip expression case costs measurably less than 2N stages, with the
-   before/after numbers recorded — or the attempt is recorded as a ○ with its
-   evidence, which is an equally good outcome.
-4. `probe:e15f` still passes, or is superseded by a probe carrying stronger
-   evidence.
-5. Offline suite green; `methods.golden.json` regenerated if the wire changed.
-6. A timed-out client can reach a confirmed terminal or cancelled state before
-   recovery starts. No mutation occurs after cancellation is confirmed.
+1. Start returns an operation id before the musical work completes. Inspection
+   reaches a terminal result with the direct tool's verified readback.
+2. Cancellation during preflight reaches terminal with no write.
+3. Cancellation after a project write starts does not become terminal until the
+   change is verified and recorded. No mutation occurs after terminal status.
+4. Direct musical tools remain available and honor MCP request cancellation at
+   workspace boundaries.
+5. The extension and wire method golden do not change. E15-F and revision thread
+   confinement remain intact.
+6. The full offline suite, extension build, context check, and diff check pass.
+7. An ordinary MCP live proof completes and cancels background operations on a
+   disposable fixture, then restores the documented baseline.
 
 ## Risks
 
-- **⚠ This is the session most likely to break something already proven.** It
-  touches the Bridge, the revision counter and the staging plan — three pieces
-  that currently work and that everything else depends on. That is the strongest
-  argument for its position last, and for it being optional.
-- **The 2N-stage prize may not materialise.** The re-point settle is a hypothesis
-  ("would also be what makes a re-point inside a batch settleable"), not a
-  measurement. Treat it as a probe with a build attached, not a build with a probe
-  attached — and be willing to record ○.
-- **Asynchronous frames are how a `try/catch` stops protecting you.** E14-A1 is
-  the precedent: an exception Bitwig deferred to its own thread escaped every
-  extension frame and **took the DAW down**. Standing rule 3c / D15 applies with
-  full force to anything that completes later on another thread.
+- A caller can lose an operation id before it receives the start reply. The start
+  reply is small and performs no DAW work before it returns.
+- Cancellation can remain `cancelling` for the duration of one current workspace
+  call. It must never claim terminal status early.
+- A process exit removes the in-memory operation registry. It does not erase
+  changes already recorded in the project session stash.
+- Background failures must be observed through inspection. The registry catches
+  every task rejection so no unhandled rejection can terminate the MCP process.
+
+## Current outcome
+
+Three public tools start, inspect, and cancel clip-music operations.
+`ghostnote-description-v3` freezes their wording. The full offline suite passes
+644 tests. The live start returned in 3 ms, completion reached one verified
+exact change in 10.8 seconds, and preflight cancellation reached terminal with
+no write. Teardown removed the disposable clip and restored accepted-row
+occupancy and entry selection. E47 records the complete result.

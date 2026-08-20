@@ -769,6 +769,35 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(transformed['applied'], true, JSON.stringify(transformed));
   assert.equal(typeof transformed['musicalUseId'], 'string');
 
+  const backgroundStartAt = fx.sent.length;
+  const background = await exercise('start_clip_music_operation', {
+    operation: 'generation',
+    patch: {
+      schema: 'ghostnote-musical-patch', version: 1, protection: { kind: 'direct' },
+      targets: [{
+        clip: { trackId: fx.trackA, row: 0 }, channel: 2, write: 'merge',
+        operations: [{
+          op: 'generate', source: { kind: 'notes', notes: [note({ pitch: 71 })] },
+        }],
+      }],
+    },
+  });
+  const operationId = background['operationId'] as string;
+  assert.equal(background['terminal'], false);
+  const finished = await fx.workspace.operations.wait(operationId);
+  assert.equal(finished.state, 'completed', JSON.stringify(finished));
+  const startSpec = TOOLS.find((tool) => tool.name === 'start_clip_music_operation')!;
+  for (const op of fx.sent.slice(backgroundStartAt).map((item) => item.op)) {
+    assert.ok(startSpec.emits.includes(op), `background start sent undeclared ${op}`);
+  }
+
+  const inspectedOperation = await exercise('inspect_clip_music_operation', { operationId });
+  assert.equal(inspectedOperation['state'], 'completed');
+  assert.equal(inspectedOperation['terminal'], true);
+  const cancelledOperation = await exercise('cancel_clip_music_operation', { operationId });
+  assert.equal(cancelledOperation['state'], 'completed', 'late cancellation keeps the completed result');
+  assert.equal(cancelledOperation['terminal'], true);
+
   assert.equal((await exercise('erase_notes', {
     clips: [{ trackId: fx.trackA, row: 0 }],
   }))['applied'], true);

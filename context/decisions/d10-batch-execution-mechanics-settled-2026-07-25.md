@@ -24,13 +24,18 @@ because a caller cannot get pacing wrong if pacing is not expressible.**
   the batch WHOLE, applying zero ops. It guards ORDERING across processes but
   cannot detect OMISSION — hence standing rule 7, all writes through the daemon.
 - ⚠ **All-or-nothing holds WITHIN a stage, not across stages.** A later stage can
-  fail after an earlier one landed, and the receipt says which. Phase 1 replaces
-  the implementation with one paced call plus a completion frame once deferred
-  responses exist; the `Stage` shape and `stages[]` receipt survive that change.
+  fail after an earlier one landed, and the receipt says which. E47 keeps this
+  implementation. E45's timeout was dominated by brain-side exact reads and
+  verification, so one deferred extension frame would not fix it. Background
+  completion and cancellation now sit above the adapter instead.
 - ⚠ **`note.props` must NOT be hoisted or coalesced across clips.** It resolves
   its note against the clip the cursor held at TURN START, so a props op that
   re-points loses everything, silently (E15-F). Interleaving write-then-props
   per clip is what makes the shipped plan correct. Cost: N clips with expression
   pay 2N stages and N × `gridChange`. **That is the price of correctness**, and
   the optimization was rejected with evidence rather than deferred.
+- **The expression cost remains accepted after E47.** E44 measured it as a small
+  part of the activated workload. E45 measured exact reads and verification as
+  the latency bound. Session 2x does not trade E15-F correctness for a smaller
+  non-binding cost.
 - **Progress UX is free**: interleave `notify` ops into a batch (E8-C).
