@@ -35,7 +35,8 @@ import { ProjectModel } from '../adapters/fake/model.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
   InvalidOpError, NOTE_PROP_FIDELITY, SlotOccupiedError, StaleAddressError, WireDriftError,
-  addressKey, chain as chainAt, clip as clipAt, notes as notesAt, scene as sceneAt, slot as slotAt, track as trackAt,
+  addressKey, chain as chainAt, clip as clipAt, clipMetadata as metadataAt,
+  notes as notesAt, scene as sceneAt, slot as slotAt, track as trackAt,
   type BitwigAdapter, type NoteRecord, type Op,
 } from '../contract/index.js';
 import { StaleExtensionError } from '../deploy.js';
@@ -724,6 +725,21 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
     }],
   }))['applied'], true);
 
+  const metadata = {
+    name: 'gn-long', color: { red: 31, green: 159, blue: 223 },
+    lengthBeats: 16, playStartBeats: 2, loopEnabled: true,
+    loopStartBeats: 1, loopEndBeats: 17,
+  };
+  const metadataResult = await exercise('set_clip_metadata', {
+    clips: [{ trackId: fx.trackA, row: 1, metadata }],
+  }) as {
+    applied: boolean;
+    clips: { metadata: typeof metadata; metadataVerified: boolean }[];
+  };
+  assert.equal(metadataResult.applied, true);
+  assert.equal(metadataResult.clips[0]?.metadataVerified, true);
+  assert.deepEqual(metadataResult.clips[0]?.metadata, metadata);
+
   const launched = await exercise('launch_clip', {
     trackId: fx.trackA, row: 1, quantization: 'none', mode: 'from_start',
   }) as { applied: boolean; playback: { isPlaying: boolean } };
@@ -986,6 +1002,30 @@ test('T-roundtrip: notes applied, verified and put back, entirely through the to
   };
   assert.deepEqual(restored.notes, [], 'the clip is back to empty');
   assert.equal(restored.clipExists, true, 'and the clip itself is untouched — only its notes moved');
+});
+
+test('2i follow-up: complete public clip metadata readback and reversal are exact', async () => {
+  const fx = fixture();
+  await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 2, lengthBeats: 32, notes: [note({ pitch: 64 })] }],
+  });
+  const target = clipAt(slotAt(trackAt(fx.trackA), sceneAt(2, 1)));
+  const before = await fx.fake.read([metadataAt(target), notesAt(target)]);
+  const metadata = {
+    name: 'gn-four-phrases', color: { red: 31, green: 159, blue: 223 },
+    lengthBeats: 128, playStartBeats: 2, loopEnabled: true,
+    loopStartBeats: 1, loopEndBeats: 129,
+  };
+
+  const changed = await call(fx, 'set_clip_metadata', {
+    clips: [{ trackId: fx.trackA, row: 2, metadata }],
+  }) as { changeId: string; clips: { metadataVerified: boolean }[] };
+  assert.equal(changed.clips[0]?.metadataVerified, true);
+  assert.equal((await call(fx, 'revert_change', { changeId: changed.changeId }))['applied'], true);
+
+  const restored = await fx.fake.read([metadataAt(target), notesAt(target)]);
+  assert.deepEqual(restored.entries[addressKey(metadataAt(target))], before.entries[addressKey(metadataAt(target))]);
+  assert.deepEqual(restored.entries[addressKey(notesAt(target))], before.entries[addressKey(notesAt(target))]);
 });
 
 test('T-roundtrip: a partial undo touches only what it was scoped to', async () => {

@@ -34,7 +34,7 @@
  */
 import {
   NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS, UNWRITABLE_NOTE_PROPS,
-  addressKey, addressTrack, assertNever, chainPath,
+  addressKey, addressTrack, assertNever, chainPath, stepSizeFor,
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
   InvalidOpError, SlotOccupiedError, StaleAddressError, WireDriftError,
   type Address, type ChainAddress, type DeviceAddress, type NoteRecord, type StateValue,
@@ -215,6 +215,10 @@ const PRESSURE_NOT_REPLAYED =
   'note pressure cannot be written through this API at all: the value reaches the writing handle '
   + 'and never the clip. What a person authored is kept in the record and cannot be put back.';
 
+const NOTE_TIMING_NOT_REPLAYABLE =
+  'one or more note lengths use host timing that the writable grid cannot represent. A reversal '
+  + 'would refuse before restoring these notes.';
+
 /**
  * ⚠ The default for a caller that has the labels but not the batch they came
  * from — a refusal, which happens before there is a batch. It can only ever
@@ -300,6 +304,7 @@ function notePropertyLosses(notes: readonly NoteRecord[]): string[] {
       out.push(prop === 'pressure' ? PRESSURE_NOT_REPLAYED : `${prop} cannot be written through this API.`);
     }
   }
+  if (notes.length > 0 && stepSizeFor(notes) === undefined) out.push(NOTE_TIMING_NOT_REPLAYABLE);
   return out;
 }
 

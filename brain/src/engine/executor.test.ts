@@ -475,6 +475,24 @@ test('X-label: a human-authored pressure is captured, labelled, and reported unr
   assert.equal(restored?.pressure, undefined, 'and it is honestly absent, not faked');
 });
 
+test('2i follow-up: a captured host duration that the grid cannot replay refuses before mutation', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const slotState = control(fake).model.tracks[0]!.slots[0]!;
+  slotState.notes.set(noteKey(0, 60, 0), note({ durationBeats: 0.1000001 }));
+  const before = await fake.revision();
+
+  await assert.rejects(
+    executor.run([{ op: 'note.write', clip: clipA, notes: [note({ pitch: 72 })] }]),
+    (error: unknown) => {
+      assert.ok(error instanceof UnprotectedWriteError);
+      assert.match(error.caveats.join(' '), /cannot be represented on the writable grid/);
+      return true;
+    },
+  );
+  assert.equal((await fake.revision()).revision, before.revision);
+  assert.equal(slotState.notes.has(noteKey(0, 72, 0)), false);
+});
+
 // --- §8c: the report ---------------------------------------------------------
 
 test('X-report: readback disagreeing with the request is REPORTED, not swallowed (E8-E)', async () => {

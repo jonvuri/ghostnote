@@ -219,6 +219,25 @@ test('note properties keep the requested MIDI channel', () => {
   assert.equal(paramsOf(frames, WIRE.cursorSetNoteProps)?.['channel'], 12);
 });
 
+test('2i follow-up: a settled property page emits only page-local reads', () => {
+  const frames = encodeOp({
+    op: 'note.props', clip: CLIP_A,
+    notes: [
+      note({ startBeats: 1, durationBeats: 1 / 64, pan: 0.25 }),
+      note({ startBeats: 9, pitch: 64, durationBeats: 1 / 64, pan: -0.25 }),
+    ],
+  }, {
+    ...ctx,
+    shouldPointClip: () => false,
+    writerSteps: 512,
+    writerPageStart: 512,
+  });
+
+  assert.deepEqual(methods(frames), [WIRE.cursorSetStepSize, WIRE.cursorSetNoteProps]);
+  assert.equal(paramsOf(frames, WIRE.cursorSetNoteProps)?.['x'], 64);
+  assert.equal(paramsOf(frames, WIRE.cursorSetNoteProps)?.['y'], 64);
+});
+
 // --- E4h: insertFile's three silent failure modes ---------------------------
 
 test('E-insertfile: a relative path is refused before any frame is emitted (E4h)', () => {

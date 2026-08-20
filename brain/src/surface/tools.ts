@@ -53,7 +53,8 @@ import { existsSync } from 'node:fs';
 import { z } from 'zod';
 
 import {
-  chain as chainAt, clip as clipAt, clipLaunch as launchAt, clipPlay as playAt, notes as notesAt,
+  chain as chainAt, clip as clipAt, clipLaunch as launchAt, clipMetadata as metadataAt,
+  clipPlay as playAt, notes as notesAt,
   param as paramAt, scene as sceneAt, slot as slotAt, track as trackAt, device as deviceAt,
   deviceIn, addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, lookupChain,
   projectedReorder,
@@ -205,6 +206,35 @@ const channel = z.number().int().min(0).max(15).optional().describe(
   'MIDI channel within the clip, 0-15. The low-level surface defaults to 0 for compatibility. '
   + 'The musical patch path always supplies this field.',
 );
+
+const clipMetadataInput = z.object({
+  name: z.string().describe('The complete clip name. Use an empty string for no name.'),
+  color: z.object({
+    red: z.number().int().min(0).max(255),
+    green: z.number().int().min(0).max(255),
+    blue: z.number().int().min(0).max(255),
+  }).describe('The complete clip colour as red, green, and blue bytes.'),
+  lengthBeats: z.number().positive().describe('The complete loop length in beats.'),
+  playStartBeats: z.number().min(0).describe('The play start in beats.'),
+  loopEnabled: z.boolean(),
+  loopStartBeats: z.number().min(0).describe('The loop start in beats.'),
+  loopEndBeats: z.number().positive().describe(
+    'The loop end in beats. It must equal loopStartBeats plus lengthBeats.',
+  ),
+}).strict();
+
+const sameClipMetadata = (
+  left: import('../contract/index.js').ClipMetadataState,
+  right: import('../contract/index.js').ClipMetadataState,
+): boolean => left.name === right.name
+  && left.color.red === right.color.red
+  && left.color.green === right.color.green
+  && left.color.blue === right.color.blue
+  && left.lengthBeats === right.lengthBeats
+  && left.playStartBeats === right.playStartBeats
+  && left.loopEnabled === right.loopEnabled
+  && left.loopStartBeats === right.loopStartBeats
+  && left.loopEndBeats === right.loopEndBeats;
 
 const jsonInput: z.ZodType<JsonValue> = z.lazy(() => z.union([
   z.null(), z.boolean(), z.number().finite(), z.string(), z.array(jsonInput),
@@ -1031,6 +1061,55 @@ export const TOOLS: readonly ToolSpec[] = [
             item.useLoopStartAsQuantizationReference ?? false,
         }));
         return receiptOf(await workspace.apply(ops));
+      });
+    },
+  }),
+
+  tool({
+    name: 'set_clip_metadata',
+    kind: 'write',
+    title: 'Set complete clip metadata',
+    description:
+      'Set the complete measured metadata of clips that already exist. Each item must include '
+      + 'the name, colour, loop length, play start, loop state, loop start, and loop end. The '
+      + 'complete state prevents omitted fields from inheriting side effects from another field. '
+      + 'The prior state is recorded for reversal. The result includes readback taken after the '
+      + 'write; a mismatch is reported and never hidden.',
+    inputSchema: {
+      clips: z.array(z.object({
+        trackId,
+        row,
+        metadata: clipMetadataInput,
+      }).strict()).min(1),
+    },
+    emits: ['clip.update'],
+    async run(workspace, args) {
+      return writing(async () => {
+        const at = await workspace.mark();
+        const targets = args.clips.map((item) => ({
+          clip: clipOf(item.trackId, item.row, at),
+          metadata: item.metadata,
+        }));
+        const change = await workspace.apply(targets.map((item) => ({
+          op: 'clip.update' as const,
+          clip: item.clip,
+          metadata: item.metadata,
+        })));
+        const readback = await workspace.read(targets.map((item) => metadataAt(item.clip)));
+        return {
+          ...receiptOf(change),
+          clips: targets.map((item, index) => {
+            const entry = readback.entries[addressKey(metadataAt(item.clip))];
+            const found = entry?.value.of === 'clipMetadata' ? entry.value.metadata : null;
+            return {
+              trackId: args.clips[index]!.trackId,
+              row: args.clips[index]!.row,
+              metadata: found,
+              metadataVerified: found !== null
+                && sameClipMetadata(found, item.metadata),
+            };
+          }),
+        };
       });
     },
   }),

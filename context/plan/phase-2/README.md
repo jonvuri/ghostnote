@@ -2,8 +2,8 @@
 title: Phase 2 — The clip surface
 kind: plan
 state: active
-status: Session 2i is complete. A focused long-clip repair and activated session
-        2x now precede the second dogfood use.
+status: Session 2i and its long-clip follow-up are complete. Activated session
+        2x now precedes the second dogfood use.
 updated: 2026-08-19
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
@@ -89,8 +89,9 @@ first-use findings, prove a second use, and close the phase.
 10. [2i — dogfood round one](2i-dogfood-1.md) — complete; the operator kept six
     full-phrase variations, and E45 records long-clip, target, and timeout
     findings.
-11. [2i follow-up — long-clip editing](2i-long-clip-follow-up.md) — add public
-    existing-clip metadata updates, paged writes, and truthful reversal limits.
+11. [2i follow-up — long-clip editing](2i-long-clip-follow-up.md) — complete;
+    E46 records exact public metadata updates, paged writes, truthful reversal
+    limits, and clean live reversal.
 12. [2x — async batch completion](../phase-1/6-async.md) — define completion and
     cancellation after E45 proved that a timed-out request can keep mutating.
 13. [2j — dogfood round two and revision](2j-dogfood-2.md) — use a different

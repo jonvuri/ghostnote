@@ -17,7 +17,7 @@
  */
 import {
   ADDRESS_IDENTITY, NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS,
-  UNWRITABLE_NOTE_PROPS, addressKey,
+  UNWRITABLE_NOTE_PROPS, addressKey, stepSizeFor,
   type Fidelity, type NoteRecord, type Snapshot, type StateValue,
 } from '../contract/index.js';
 import type { TakeValue } from './take.js';
@@ -57,6 +57,12 @@ export function notePropCaveats(notes: readonly NoteRecord[]): string[] {
       `${prop}: cannot be written through this API at all (E15-E) — the value lands only in the ` +
         'writing cursor\'s own NoteStep cache. A human may have authored it, so the stash keeps ' +
         'it as a record; a revert cannot put it back.',
+    );
+  }
+  if (notes.length > 0 && stepSizeFor(notes) === undefined) {
+    caveats.push(
+      'note timing: one or more captured host durations cannot be represented on the writable '
+        + 'grid, so replay would refuse before restoring the clip.',
     );
   }
   return caveats;
@@ -147,6 +153,9 @@ export function labelTarget(target: WriteTarget, stash: Snapshot, risk: Structur
  */
 function restorability(value: StateValue): Fidelity {
   if (value.of === 'clip' && value.exists && value.lengthBeats === undefined) return 'none';
+  if (value.of === 'notes' && value.notes.length > 0 && stepSizeFor(value.notes) === undefined) {
+    return 'lossy';
+  }
   return 'exact';
 }
 

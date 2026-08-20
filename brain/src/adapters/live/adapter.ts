@@ -35,11 +35,12 @@ import {
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
   type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
-  type TrackAddress, type TrackState, type WindowCoverage,
+  type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { SETTLE_MS } from '../../contract/index.js';
 import {
-  STEP_SIZES, decodeVerboseNote, encodeStage, sceneRowIn, type EncodeContext,
+  STEP_SIZES, decodeVerboseNote, encodeStage, notePageStarts, notePropertyPageStarts,
+  sceneRowIn, type EncodeContext,
 } from './encoder.js';
 import { CursorPool } from './pool.js';
 import { BridgeTransport, type Transport } from './transport.js';
@@ -51,6 +52,16 @@ interface WireTrack {
   position: number;
   type: string;
   channelId: string;
+}
+
+interface BatchRunResult {
+  readonly applied: boolean;
+  readonly rejected?: boolean;
+  readonly reason?: string;
+  readonly expected?: number;
+  readonly actual?: number;
+  readonly revision: number;
+  readonly results?: readonly { method: string; ok: boolean; error?: string }[];
 }
 
 interface TrackListResult {
@@ -265,6 +276,7 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
  */
 const borrowsSelection = (op: Op): boolean =>
   op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear'
+  || op.op === 'clip.update'
   || op.op === 'device.insert' || op.op === 'device.delete'
   // ⚠ `chain.create` borrows it TWICE over: `containerScope` points cursor 0 at
   // the track before every observation it takes, and the create takes three.
@@ -555,6 +567,7 @@ export class LiveAdapter implements BitwigAdapter {
         if (!held) this.heldClips.delete(cursor);
         return !held;
       },
+      writerSteps: this.fineSteps ?? this.gridSteps ?? 64,
       cursorForTrack: (t) => {
         const cursor = this.pool.cursorForTrack(t);
         this.heldClips.delete(cursor);
@@ -1563,6 +1576,117 @@ export class LiveAdapter implements BitwigAdapter {
     );
   }
 
+  /** Check every writer page before the stage can mutate project state. */
+  private async confirmWriterPages(ops: readonly Op[], writerPageStart?: number): Promise<void> {
+    const writerSteps = this.fineSteps ?? this.gridSteps ?? 64;
+    const touched = new Set<string>();
+    try {
+      for (const op of ops) {
+        if ((op.op !== 'note.write' && op.op !== 'note.props') || op.notes.length === 0) continue;
+        const cursor = this.pool.cursorFor(op.clip);
+        touched.add(cursor);
+        const stepSize = chooseStepSize(op.notes);
+        await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
+        await this.settle('gridChange');
+        const requiredPages = op.op === 'note.props'
+          ? notePropertyPageStarts(op.notes, writerSteps)
+          : notePageStarts(op.notes, writerSteps);
+        const pages = writerPageStart === undefined
+          ? requiredPages
+          : requiredPages.filter((page) => page === writerPageStart);
+        for (const page of pages) {
+          await this.confirmWriterPage(op.clip, cursor, page);
+        }
+      }
+    } finally {
+      for (const cursor of touched) {
+        await this.transport.send({
+          method: WIRE.cursorScrollToStep,
+          params: { cursor, step: 0 },
+        });
+      }
+      if (touched.size > 0) await this.settle('gridChange');
+    }
+  }
+
+  /** Settle one page and confirm that its cursor still owns the exact target. */
+  private async confirmWriterPage(clipRef: ClipAddress, cursor: string, page: number): Promise<void> {
+    await this.transport.send({
+      method: WIRE.cursorScrollToStep,
+      params: { cursor, step: page },
+    });
+    await this.settle('gridChange');
+    const status = (await this.transport.send({
+      method: WIRE.cursorStatus,
+      params: { cursor },
+    })) as ClipCursorStatus;
+    const confirmed = status.trackPosition === this.trackIndex(clipRef.slot.track)
+      && status.sceneIndex === clipRef.slot.scene.index
+      && status.isPinned === true
+      && status.cursorTrackPinned === true;
+    if (confirmed) return;
+    this.heldClips.delete(cursor);
+    throw new AddressUnresolvedError(
+      clipRef,
+      `writer cursor ${cursor} did not confirm the target at page ${page}`,
+    );
+  }
+
+  /** Send one stage after settling its optional read-based property page. */
+  private async sendStage(
+    ops: readonly Op[],
+    guard: number | undefined,
+    writerPageStart?: number,
+  ): Promise<BatchRunResult> {
+    if (writerPageStart === undefined) {
+      return await this.transport.send(encodeStage(ops, this.ctx, guard)) as BatchRunResult;
+    }
+    const props = ops[0];
+    if (ops.length !== 1 || props?.op !== 'note.props') {
+      throw new InvalidOpError('note.props', 'a settled writer page must contain one property op');
+    }
+    const cursor = this.pool.cursorFor(props.clip);
+    try {
+      await this.confirmWriterPage(props.clip, cursor, writerPageStart);
+      return await this.transport.send(encodeStage(
+        ops,
+        { ...this.ctx, writerPageStart },
+        guard,
+      )) as BatchRunResult;
+    } finally {
+      await this.transport.send({
+        method: WIRE.cursorScrollToStep,
+        params: { cursor, step: 0 },
+      });
+      await this.settle('gridChange');
+    }
+  }
+
+  /** Confirm every existing cursor-clip target and writer page for one stage. */
+  private async confirmClipMutationStage(
+    ops: readonly Op[],
+    skip: ReadonlySet<AddressKey> = new Set(),
+    writerPageStart?: number,
+  ): Promise<void> {
+    const clipTargets = new Map<AddressKey, ClipAddress>();
+    for (const op of ops) {
+      if (op.op !== 'clip.update' && op.op !== 'note.clear' && op.op !== 'note.write') continue;
+      const key = addressKey(op.clip);
+      if (!skip.has(key)) clipTargets.set(key, op.clip);
+    }
+    for (const target of clipTargets.values()) {
+      await this.pointAtClip(
+        target,
+        this.trackIndex(target.slot.track),
+        new Map(),
+      );
+    }
+    await this.confirmWriterPages(ops.filter((op) => {
+      if (op.op !== 'note.write' && op.op !== 'note.props') return true;
+      return !skip.has(addressKey(op.clip));
+    }), writerPageStart);
+  }
+
   private async readOne(
     address: Address,
     row: WireTrack | undefined,
@@ -1847,7 +1971,8 @@ export class LiveAdapter implements BitwigAdapter {
     for (const op of ops) {
       const slots = op.op === 'clip.create' ? [op.slot]
         : op.op === 'clip.duplicate' || op.op === 'clip.move' ? [op.source.slot, op.destination]
-        : op.op === 'clip.launch' || op.op === 'clip.launchSettings' ? [op.clip.slot]
+        : op.op === 'clip.launch' || op.op === 'clip.launchSettings' || op.op === 'clip.update'
+          ? [op.clip.slot]
         : [];
       for (const slot of slots) {
         const key = addressKey(slot);
@@ -2331,31 +2456,27 @@ export class LiveAdapter implements BitwigAdapter {
     this.deviceNames.clear();
     this.deviceTailIndices.clear();
 
-    const stages = planStages(batch.ops);
+    type LiveStage = Stage & { readonly writerPageStart?: number };
     const writerSteps = this.fineSteps ?? this.gridSteps ?? 64;
-    for (const op of batch.ops) {
-      if (op.op !== 'note.write') continue;
-      const stepSize = chooseStepSize(op.notes);
-      if (op.notes.some((note) => {
-        const step = Math.round(note.startBeats / stepSize);
-        return step < 0 || step >= writerSteps;
-      })) {
-        throw new InvalidOpError(
-          'note.write',
-          `a note falls outside the ${writerSteps}-step writer window at the required `
-            + `${stepSize}-beat grid`,
-        );
-      }
-    }
+    const stages: LiveStage[] = planStages(batch.ops).flatMap((stage) => {
+      const props = stage.ops.length === 1 && stage.ops[0]?.op === 'note.props'
+        ? stage.ops[0]
+        : undefined;
+      if (props === undefined) return [stage];
+      const pages = notePropertyPageStarts(props.notes, writerSteps);
+      return pages.length === 0
+        ? [stage]
+        : pages.map((writerPageStart) => ({ ...stage, writerPageStart }));
+    });
     for (const stage of stages) {
       const clips = new Set(stage.ops
-        .filter((op) => op.op === 'note.write')
+        .filter((op) => op.op === 'clip.update' || op.op === 'note.clear' || op.op === 'note.write')
         .map((op) => addressKey(op.clip)));
       if (clips.size > this.pool.size) {
         throw new InvalidOpError(
-          'note.write',
-          `one write stage addresses ${clips.size} clips, but only ${this.pool.size} `
-            + 'writer cursors can confirm targets before the turn',
+          'clip targets',
+          `one write stage addresses ${clips.size} clips through cursors, but only `
+            + `${this.pool.size} writer cursors can confirm targets before the turn`,
         );
       }
     }
@@ -2367,6 +2488,33 @@ export class LiveAdapter implements BitwigAdapter {
     // suffices. Captured before the first stage, because by the end the cursor
     // has already moved.
     const selection = await this.beginSelectionBorrow(batch.ops.some(borrowsSelection));
+
+    try {
+      // Validate every note grid before any stage can mutate the project. Then
+      // confirm every page of each target that exists at batch start. A clip
+      // that this batch creates, duplicates, or moves cannot be pointed at yet;
+      // its stage keeps the same check immediately before its first write.
+      const createdClipKeys = new Set<AddressKey>();
+      for (const op of batch.ops) {
+        if (op.op === 'clip.create') createdClipKeys.add(addressKey(clipAt(op.slot)));
+        if (op.op === 'clip.duplicate' || op.op === 'clip.move') {
+          createdClipKeys.add(addressKey(clipAt(op.destination)));
+        }
+        if (op.op === 'note.write' || op.op === 'note.props') {
+          notePageStarts(op.notes, this.fineSteps ?? this.gridSteps ?? 64);
+        }
+      }
+      for (const stage of stages) {
+        await this.confirmClipMutationStage(
+          stage.ops,
+          createdClipKeys,
+          stage.writerPageStart,
+        );
+      }
+    } catch (error) {
+      await this.restoreSelection(selection);
+      throw error;
+    }
 
     for (const [i, stage] of stages.entries()) {
       // ⚠ E15-D: waited BEFORE the request goes out, not after it comes back.
@@ -2472,37 +2620,17 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
 
-      // Verify every note mutation target before the batch. A wrong clear would
-      // destroy another clip, and a wrong additive write would change one. The
-      // independent readback detects either error only after the damage.
-      const noteTargets = new Map<string, ClipAddress>();
-      for (const op of stage.ops) {
-        if (op.op === 'note.clear' || op.op === 'note.write') {
-          noteTargets.set(addressKey(op.clip), op.clip);
-        }
-      }
-      for (const target of noteTargets.values()) {
-        try {
-          await this.pointAtClip(
-            target,
-            this.trackIndex(target.slot.track),
-            new Map(),
-          );
-        } catch (error) {
-          await this.restoreSelection(selection);
-          throw error;
-        }
+      // Reconfirm immediately before this stage. The batch-wide preflight above
+      // prevents a later deterministic refusal from leaving earlier writes. This
+      // check protects against cursor drift between preflight and execution.
+      try {
+        await this.confirmClipMutationStage(stage.ops, new Set(), stage.writerPageStart);
+      } catch (error) {
+        await this.restoreSelection(selection);
+        throw error;
       }
 
-      const result = (await this.transport.send(encodeStage(stage.ops, this.ctx, guard))) as {
-        applied: boolean;
-        rejected?: boolean;
-        reason?: string;
-        expected?: number;
-        actual?: number;
-        revision: number;
-        results?: { method: string; ok: boolean; error?: string }[];
-      };
+      const result = await this.sendStage(stage.ops, guard, stage.writerPageStart);
 
       // ⚠ E8-D: rejected means the WHOLE batch applied nothing. Stop here — and
       // still give the user their selection back, because we pointed on the way

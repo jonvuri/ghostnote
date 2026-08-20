@@ -64,6 +64,10 @@ export interface EncodeContext {
    * not hold that live state, so absence means that pointing is required.
    */
   readonly shouldPointClip?: (clip: ClipAddress, cursor: string) => boolean;
+  /** Fixed note-step width of each writer cursor page. */
+  readonly writerSteps?: number;
+  /** Settled writer page for one page-local property turn. */
+  readonly writerPageStart?: number;
   /**
    * Which pool cursor drives this TRACK's device chain.
    *
@@ -189,6 +193,45 @@ function notePropFrames(cursor: string, channel: number, note: NoteRecord, x: nu
   return [frame(WIRE.cursorSetNoteProps, { cursor, channel, x, y: note.pitch, props })];
 }
 
+interface NotePage {
+  readonly start: number;
+  readonly notes: readonly { readonly note: NoteRecord; readonly step: number }[];
+}
+
+/** Group notes by the fixed writer window, with absolute steps retained. */
+function notePages(notes: readonly NoteRecord[], stepSize: number, writerSteps: number): readonly NotePage[] {
+  if (!Number.isInteger(writerSteps) || writerSteps <= 0) {
+    throw new InvalidOpError('note.write', 'the writer cursor width must be a positive integer');
+  }
+  const pages = new Map<number, { note: NoteRecord; step: number }[]>();
+  for (const note of notes) {
+    const step = Math.round(note.startBeats / stepSize);
+    if (step < 0) throw new InvalidOpError('note.write', 'note starts must be non-negative');
+    const start = Math.floor(step / writerSteps) * writerSteps;
+    const page = pages.get(start) ?? [];
+    page.push({ note, step });
+    pages.set(start, page);
+  }
+  return [...pages.entries()]
+    .sort(([left], [right]) => left - right)
+    .map(([start, page]) => ({ start, notes: page }));
+}
+
+/** Page origins needed for one exact write. Shared with live preflight. */
+export function notePageStarts(notes: readonly NoteRecord[], writerSteps: number): readonly number[] {
+  return notePages(notes, chooseStepSize(notes), writerSteps).map((page) => page.start);
+}
+
+/** Page origins that contain at least one expression-property write. */
+export function notePropertyPageStarts(
+  notes: readonly NoteRecord[],
+  writerSteps: number,
+): readonly number[] {
+  return notePages(notes, chooseStepSize(notes), writerSteps)
+    .filter((page) => page.notes.some(({ note }) => orderedNoteProps(note).length > 0))
+    .map((page) => page.start);
+}
+
 function validateDeviceSource(op: Extract<Op, { op: 'device.insert' }>): void {
   const { source } = op;
   if (source.from !== 'file') return;
@@ -227,7 +270,9 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       const frames: Frame[] = [
         ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),
         frame(WIRE.cursorSetStepSize, { cursor, stepSize }),
-        frame(WIRE.cursorSetNotes, {
+      ];
+      if (ctx.writerSteps === undefined) {
+        frames.push(frame(WIRE.cursorSetNotes, {
           cursor,
           channel,
           notes: op.notes.map((n) => [
@@ -236,11 +281,29 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
             Math.round(n.velocity),
             n.durationBeats,
           ]),
-        }),
-      ];
-      for (const note of op.notes) {
-        frames.push(...notePropFrames(cursor, channel, note, Math.round(note.startBeats / stepSize)));
+        }));
+        for (const note of op.notes) {
+          frames.push(...notePropFrames(cursor, channel, note, Math.round(note.startBeats / stepSize)));
+        }
+        return frames;
       }
+      for (const page of notePages(op.notes, stepSize, ctx.writerSteps)) {
+        frames.push(frame(WIRE.cursorScrollToStep, { cursor, step: page.start }));
+        frames.push(frame(WIRE.cursorSetNotes, {
+          cursor,
+          channel,
+          notes: page.notes.map(({ note, step }) => [
+            step - page.start,
+            note.pitch,
+            Math.round(note.velocity),
+            note.durationBeats,
+          ]),
+        }));
+        for (const { note, step } of page.notes) {
+          frames.push(...notePropFrames(cursor, channel, note, step - page.start));
+        }
+      }
+      frames.push(frame(WIRE.cursorScrollToStep, { cursor, step: 0 }));
       return frames;
     }
 
@@ -283,9 +346,33 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       ];
       // Deliberately NO setNotes here: re-issuing setStep would reset the very
       // properties the preceding stage just wrote.
-      for (const note of op.notes) {
-        frames.push(...notePropFrames(cursor, channel, note, Math.round(note.startBeats / stepSize)));
+      if (ctx.writerPageStart !== undefined) {
+        if (ctx.writerSteps === undefined) {
+          throw new InvalidOpError('note.props', 'a page-local property turn needs the writer width');
+        }
+        const page = notePages(op.notes, stepSize, ctx.writerSteps)
+          .find((candidate) => candidate.start === ctx.writerPageStart);
+        if (page === undefined) {
+          throw new InvalidOpError('note.props', `writer page ${ctx.writerPageStart} has no notes`);
+        }
+        for (const { note, step } of page.notes) {
+          frames.push(...notePropFrames(cursor, channel, note, step - page.start));
+        }
+        return frames;
       }
+      if (ctx.writerSteps === undefined) {
+        for (const note of op.notes) {
+          frames.push(...notePropFrames(cursor, channel, note, Math.round(note.startBeats / stepSize)));
+        }
+        return frames;
+      }
+      for (const page of notePages(op.notes, stepSize, ctx.writerSteps)) {
+        frames.push(frame(WIRE.cursorScrollToStep, { cursor, step: page.start }));
+        for (const { note, step } of page.notes) {
+          frames.push(...notePropFrames(cursor, channel, note, step - page.start));
+        }
+      }
+      frames.push(frame(WIRE.cursorScrollToStep, { cursor, step: 0 }));
       return frames;
     }
 
@@ -321,7 +408,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       const s = ctx.sceneRow(op.clip.slot.scene);
       const cursor = ctx.cursorFor(op.clip);
       return [
-        ...pointFrames(cursor, t, s),
+        ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),
         frame(WIRE.cursorSetClipMetadata, {
           cursor,
           name: op.metadata.name,

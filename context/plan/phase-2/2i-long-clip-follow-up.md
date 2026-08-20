@@ -1,13 +1,13 @@
 ---
 title: Phase 2, session 2i follow-up — long-clip editing
 kind: plan
-state: planned
+state: complete
 updated: 2026-08-19
 parent: README.md
 prev: 2i-dogfood-1.md
 next: ../phase-1/6-async.md
 scope: Existing long-clip metadata, note writes, and reversal qualification
-evidence: E45
+evidence: E45, E46
 ---
 
 # Phase 2, session 2i follow-up — long-clip editing
@@ -52,7 +52,29 @@ in `26.05-2 moon`.
 5. Focused offline and live tests, the full offline check, extension build,
    context check, and `git diff --check` pass.
 
+## Outcome
+
+Complete. `set_clip_metadata` provides one reversible public request for the
+complete measured state and exact readback. Note writes page the fixed writer
+window, confirm the exact pinned target on every required page before mutation,
+use page-local positions, and restore page zero. Batch-wide preflight prevents a
+later staged failure from leaving an earlier write unrecorded. Read-based note
+properties use one settled turn per required page. Captured durations that no
+writable grid can replay now fail the fidelity floor before mutation.
+
+E46 records the live proof. A disposable Lead clip after the accepted rows
+extended from 32 to 128 beats. An exact channel-7 note with `pan: -0.25` landed
+at beat 96. Reversal restored the prior 32-beat empty clip, and final cleanup
+removed it. The accepted rows were not changed.
+
 ## Retrospective prompt
 
 Check whether one cursor-window reference can define both reader and writer
 paging rules. Add it only if it prevents another partial implementation.
+
+## Retrospective
+
+The encoder's page calculation now drives preflight, identity writes, and
+settled property turns. Keep the reader separate because it reconciles binary
+and triplet grids across different page counts. No broader cursor-window
+reference is needed.

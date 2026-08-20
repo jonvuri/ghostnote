@@ -73,6 +73,7 @@ class CursorModelTransport implements Transport {
     private readonly slots: ReadonlyMap<number, SlotModel>,
     private readonly selection = { trackIndex: -1, slotIndex: -1 },
     private readonly pinSettleCount = 0,
+    private readonly failWriterPage?: number,
   ) {}
 
   settlePins(): void {
@@ -184,14 +185,16 @@ class CursorModelTransport implements Transport {
       }
 
       case WIRE.cursorStatus: {
-        const on = this.cursorOn.get(params['cursor'] as string);
+        const cursor = params['cursor'] as string;
+        const on = this.cursorOn.get(cursor);
         const model = on === undefined ? undefined : this.slots.get(on);
         return model === undefined ? {} : {
           loopLength: model.lengthBeats,
           trackPosition: 0,
-          sceneIndex: on,
-          isPinned: this.pinned.get(params['cursor'] as string) === true,
-          cursorTrackPinned: this.trackPinned.get(params['cursor'] as string) === true,
+          sceneIndex: this.failWriterPage !== undefined
+            && this.stepOffset.get(cursor) === this.failWriterPage ? on! + 1 : on,
+          isPinned: this.pinned.get(cursor) === true,
+          cursorTrackPinned: this.trackPinned.get(cursor) === true,
         };
       }
 
@@ -839,14 +842,16 @@ test('2h: a clip-wide reconstruction verifies its cursor before the write turn',
   const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
   assert.ok(batchAt > 0);
   assert.equal(wire.frames.slice(0, batchAt)
-    .filter((frame) => frame.method === WIRE.cursorStatus).length, 2);
+    .filter((frame) => frame.method === WIRE.cursorStatus).length, 4);
   const batch = wire.frames[batchAt]!.params as {
     ops: { method: string }[];
   };
   assert.deepEqual(batch.ops.map((frame) => frame.method), [
     WIRE.cursorClearNotes,
     WIRE.cursorSetStepSize,
+    WIRE.cursorScrollToStep,
     WIRE.cursorSetNotes,
+    WIRE.cursorScrollToStep,
   ]);
 });
 
@@ -863,12 +868,54 @@ test('2i: an additive note write verifies and pins its exact clip before the wri
   assert.ok(batchAt > 0);
   assert.equal(wire.where('0'), 2);
   assert.equal(wire.frames.slice(0, batchAt)
-    .filter((frame) => frame.method === WIRE.cursorStatus).length, 2);
+    .filter((frame) => frame.method === WIRE.cursorStatus).length, 4);
   const batch = wire.frames[batchAt]!.params as { ops: { method: string }[] };
   assert.deepEqual(batch.ops.map((frame) => frame.method), [
     WIRE.cursorSetStepSize,
+    WIRE.cursorScrollToStep,
     WIRE.cursorSetNotes,
+    WIRE.cursorScrollToStep,
   ]);
+});
+
+test('2i follow-up: clip metadata verifies the occupied exact target before the write turn', async () => {
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 32, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await adapter.apply({ ops: [{
+    op: 'clip.update', clip: CLIP(0),
+    metadata: {
+      name: 'four phrases', color: { red: 31, green: 159, blue: 223 },
+      lengthBeats: 128, playStartBeats: 0, loopEnabled: true,
+      loopStartBeats: 0, loopEndBeats: 128,
+    },
+  }] });
+
+  const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+  assert.ok(batchAt > 0);
+  assert.equal(wire.frames.slice(0, batchAt)
+    .filter((frame) => frame.method === WIRE.slotStatus).length, 1);
+  assert.equal(wire.frames.slice(0, batchAt)
+    .filter((frame) => frame.method === WIRE.cursorStatus).length, 2);
+  const batch = wire.frames[batchAt]!.params as { ops: { method: string }[] };
+  assert.deepEqual(batch.ops.map((frame) => frame.method), [WIRE.cursorSetClipMetadata]);
+});
+
+test('2i follow-up: metadata targets wider than the cursor pool refuse before mutation', async () => {
+  const wire = new CursorModelTransport(new Map(Array.from(
+    { length: 4 }, (_, row) => [row, { lengthBeats: 32, pitch: 60 + row }] as const,
+  )));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(adapter.apply({ ops: Array.from({ length: 4 }, (_, row) => ({
+    op: 'clip.update' as const, clip: CLIP(row),
+    metadata: {
+      name: `clip ${row}`, color: { red: 31, green: 159, blue: 223 },
+      lengthBeats: 128, playStartBeats: 0, loopEnabled: true,
+      loopStartBeats: 0, loopEndBeats: 128,
+    },
+  })) }), InvalidOpError);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
 });
 
 test('2i: one note stage wider than the verified cursor pool is refused before mutation', async () => {
@@ -885,14 +932,120 @@ test('2i: one note stage wider than the verified cursor pool is refused before m
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
 });
 
-test('2i: a note beyond the fixed writer window is refused before mutation', async () => {
+test('2i follow-up: a note beyond the first writer page uses a local step and restores page zero', async () => {
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 32, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
+
+  await adapter.apply({ ops: [{
+    op: 'note.write', clip: CLIP(0),
+    notes: [{ startBeats: 9, pitch: 72, velocity: 90, durationBeats: 1 / 64 }],
+  }] });
+
+  const batch = wire.frames.find((frame) => frame.method === WIRE.batchRun);
+  assert.ok(batch !== undefined);
+  const ops = batch.params?.['ops'] as { method: string; params: Record<string, unknown> }[];
+  assert.deepEqual(ops.map((frame) => frame.method), [
+    WIRE.cursorSetStepSize,
+    WIRE.cursorScrollToStep,
+    WIRE.cursorSetNotes,
+    WIRE.cursorScrollToStep,
+  ]);
+  assert.equal(ops[1]?.params['step'], 512);
+  assert.deepEqual(ops[2]?.params['notes'], [[64, 72, 90, 1 / 64]]);
+  assert.equal(ops[3]?.params['step'], 0);
+  assert.equal(
+    wire.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).at(-1)?.params?.['step'],
+    0,
+  );
+});
+
+test('2i follow-up: property reads use separate settled page turns', async () => {
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 32, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
+
+  await adapter.apply({ ops: [{
+    op: 'note.write', clip: CLIP(0),
+    notes: [
+      { startBeats: 1, pitch: 67, velocity: 90, durationBeats: 1 / 64, pan: 0.25 },
+      { startBeats: 9, pitch: 72, velocity: 90, durationBeats: 1 / 64, pan: -0.25 },
+    ],
+  }] });
+
+  const batchIndices = wire.frames.flatMap((frame, index) =>
+    frame.method === WIRE.batchRun ? [index] : []);
+  assert.equal(batchIndices.length, 3, 'one identity turn and one settled turn per property page');
+  const propertyPages = batchIndices.slice(1).map((batchIndex) => {
+    const priorScroll = wire.frames.slice(0, batchIndex)
+      .filter((frame) => frame.method === WIRE.cursorScrollToStep).at(-1);
+    const batch = wire.frames[batchIndex]!.params?.['ops'] as {
+      method: string;
+      params: Record<string, unknown>;
+    }[];
+    return {
+      page: priorScroll?.params?.['step'],
+      methods: batch.map((frame) => frame.method),
+      x: batch.find((frame) => frame.method === WIRE.cursorSetNoteProps)?.params['x'],
+    };
+  });
+  assert.deepEqual(propertyPages, [
+    { page: 0, methods: [WIRE.cursorSetStepSize, WIRE.cursorSetNoteProps], x: 64 },
+    { page: 512, methods: [WIRE.cursorSetStepSize, WIRE.cursorSetNoteProps], x: 64 },
+  ]);
+  assert.equal(
+    wire.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).at(-1)?.params?.['step'],
+    0,
+  );
+});
+
+test('2i follow-up: a failed later page target check causes no partial write', async () => {
+  const wire = new CursorModelTransport(
+    new Map([[0, { lengthBeats: 32, pitch: 60 }]]),
+    { trackIndex: -1, slotIndex: -1 },
+    0,
+    512,
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
 
   await assert.rejects(adapter.apply({ ops: [{
     op: 'note.write', clip: CLIP(0),
-    notes: [{ startBeats: 9, pitch: 72, velocity: 90, durationBeats: 1 / 64 }],
-  }] }), InvalidOpError);
+    notes: [
+      { startBeats: 1, pitch: 67, velocity: 90, durationBeats: 1 / 64 },
+      { startBeats: 9, pitch: 72, velocity: 90, durationBeats: 1 / 64 },
+    ],
+  }] }), AddressUnresolvedError);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
+  assert.equal(
+    wire.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).at(-1)?.params?.['step'],
+    0,
+  );
+});
+
+test('2i follow-up: a later staged page failure leaves no earlier expressive write', async () => {
+  const wire = new CursorModelTransport(
+    new Map([
+      [0, { lengthBeats: 32, pitch: 60 }],
+      [1, { lengthBeats: 32, pitch: 67 }],
+    ]),
+    { trackIndex: -1, slotIndex: -1 },
+    0,
+    512,
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
+
+  await assert.rejects(adapter.apply({ ops: [
+    {
+      op: 'note.write', clip: CLIP(0),
+      notes: [{ startBeats: 1, pitch: 72, velocity: 90, durationBeats: 1 / 64, pan: 0.25 }],
+    },
+    {
+      op: 'note.write', clip: CLIP(1),
+      notes: [{ startBeats: 9, pitch: 74, velocity: 90, durationBeats: 1 / 64, pan: -0.25 }],
+    },
+  ] }), AddressUnresolvedError);
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
 });
 
