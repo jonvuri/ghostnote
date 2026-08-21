@@ -109,6 +109,12 @@ public final class DeviceHandlers extends HandlerGroup {
         result.add("devices", devices);
         result.addProperty("count", devices.size());
         result.addProperty("itemCount", bank.itemCount().get());
+        // E22/4a: a cursor-bound bank read must name its track. The scale sweep
+        // accepts a row only after this identity is the expected channelId and
+        // the complete reply repeats unchanged on two consecutive reads.
+        result.addProperty("trackChannelId", rig.cursorTracks[i].channelId().get());
+        result.addProperty("trackPosition", rig.cursorTracks[i].position().get());
+        result.addProperty("bankSize", rig.config.deviceBank);
         return result;
     }
 

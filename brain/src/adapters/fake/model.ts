@@ -115,7 +115,7 @@ export class ProjectModel {
    * The bank WINDOW, not the project size. Tracks beyond it are invisible —
    * absent, not slow (E5). Default matches RigConfig's shipped default.
    */
-  trackBankSize = 16;
+  trackBankSize = 256;
   /**
    * ⚠ The SCENE window, and it now does work rather than being decoration.
    *
@@ -126,7 +126,7 @@ export class ProjectModel {
    * failure mode in the one direction it must never point: the fake being MORE
    * PERMISSIVE than the thing it stands in for.
    */
-  sceneBankSize = 16;
+  sceneBankSize = 128;
 
   /**
    * ⚠⚠ THE CONTAINER WINDOWS, and they are small on purpose — these are
@@ -145,7 +145,7 @@ export class ProjectModel {
   chainBankSize = 4;
   chainDeviceBankSize = 4;
   /** The top-level device bank mirrors RigConfig's shipped default. */
-  deviceBankSize = 8;
+  deviceBankSize = 16;
 
   /**
    * ⚠ What a freshly inserted container SHIPS WITH, by device uuid (`e17ai`,

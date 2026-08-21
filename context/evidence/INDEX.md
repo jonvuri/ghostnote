@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E50 | Device-populated scale confirms D7 [K] (2026-08-20) | [open](experiments/e50-device-populated-scale-confirms-d7.md) |
 | E49 | Phase 2 closes with exact live baseline and final remote CI [K] (2026-08-20) | [open](experiments/e49-phase-2-closeout-and-final-remote-ci.md) |
 | E48 | Second musical dogfood passes with measured operation latency [K] (2026-08-20) | [open](experiments/e48-second-musical-dogfood-and-operation-latency.md) |
 | E47 | Background musical completion and cancellation pass live [K] (2026-08-19) | [open](experiments/e47-background-musical-completion-and-cancellation.md) |

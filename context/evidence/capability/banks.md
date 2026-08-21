@@ -2,9 +2,9 @@
 title: Banks — windows, eviction order and pre-allocation
 kind: capability
 state: active
-updated: 2026-08-16
+updated: 2026-08-20
 scope: bank windows, cursor pools, scaffold sizes and init-time allocation
-evidence: E1, E5, E14, E15, E16r, E16u, E22; D6, D7, D20
+evidence: E1, E5, E14, E15, E16r, E16u, E22, E50; D6, D7, D20
 ---
 
 # Banks
@@ -160,19 +160,17 @@ first [K, E17 `e17am`].
 
 ---
 
-## 6. Scaffold sizes — D7
+## 6. Scaffold sizes — D7 and E50
 
 D7's selected target is `TRACKS=256`, `SCENES=128`, `CURSOR_POOL=8`,
 `DEVICE_BANK=16`, `paramHandles=64`. All values are tunable through
 `~/.ghostnote/rig.json` [K,
 [D7](../../decisions/d7-pre-allocation-scaffold-sizes-settled-2026-07-25.md)].
 
-⚠ **The repository fallback does not implement that target.** `RigConfig`
-defaults to `16/16/3/8/16`, and the fake uses the same small bank windows. The
-E5 probes also restore the smaller baseline [K, source read 2026-08-20]. Phase 4
-[session 4a](../../plan/phase-4/4a-device-side-scale.md) must remeasure the
-current rig and align the decision, implementation, probes, and capability page.
-Until then, neither set is called shipped.
+The repository now implements that target. `RigConfig` defaults to
+`256/128/8/16/64`. The fake uses track, scene, and device windows of 256, 128,
+and 16. The E5 probes restore the same selected baseline [K,
+[E50](../experiments/e50-device-populated-scale-confirms-d7.md)].
 
 Measured [K, [E5](../experiments/e5-scale-limits-12-5-the-last-open-question-2026-07-19.md), via D7]:
 
@@ -185,6 +183,12 @@ Measured [K, [E5](../experiments/e5-scale-limits-12-5-the-last-open-question-202
 ⇒ ⚠ **The binding constraint is not performance. It is the bank window.** Scale
 therefore bounds maximum project size, which is a correctness limit rather than a
 tuning preference [K, D7].
+
+E50 closes E5's device-side caveat with 48 created tracks and 384 alternating
+Polysynth and Polymer devices. Complete stable sweeps found zero blind rows.
+Ping p95 stayed at about 25 ms. Device density raised the 48-row cursor sweep
+from about 3.5 to 4.6 seconds, which is a sequential operation cost rather than
+continuous observer load [K, E50].
 
 ---
 
@@ -245,6 +249,7 @@ actually ask [K, E16r].
 
 | Date | Change |
 |---|---|
+| 2026-08-20 | E50 confirmed D7 on 384 native devices. The repository defaults, fake, and probes now match the decision. |
 | 2026-08-20 | Corrected the false claim that D7's selected sizes are the repository defaults. Session 4a owns the measurement and alignment. |
 | 2026-08-16 | Added the measured high-to-low rule for several track removals after the 3g-e cleanup incident and recovery. |
 | 2026-08-15 | Page created. It supersedes the *reading* of E5's "state outside the window is unsnapshottable", which E16r sharpened to "unaddressable and un-cleanable". |

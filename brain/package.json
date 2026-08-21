@@ -207,6 +207,7 @@
     "probe:2x-async": "tsx src/probes/phase2x-background-operations.ts",
     "probe:2j-dogfood": "tsx src/probes/phase2j-dogfood.ts",
     "probe:2k-baseline": "tsx src/probes/phase2k-baseline.ts",
+    "probe:4a-scale": "tsx src/probes/phase4a-device-scale.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

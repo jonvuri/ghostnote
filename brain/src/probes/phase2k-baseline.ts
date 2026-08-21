@@ -128,9 +128,9 @@ try {
   const rowsInfo = connection['rows'] as { addressable?: number; inProject?: number };
   check('2k-L0: the project and complete bank coverage match the accepted baseline',
     connection['project'] === '26.05-2 moon'
-      && tracksInfo.addressable === 16
+      && tracksInfo.addressable === 256
       && tracksInfo.inProject === 7
-      && rowsInfo.addressable === 16
+      && rowsInfo.addressable === 128
       && rowsInfo.inProject === 8,
     connection);
 
@@ -214,21 +214,22 @@ try {
   };
   const entries = observed.record.entries;
   const byId = new Map(entries.map((entry) => [entry.id, entry]));
-  const acceptedV2 = entries.find((entry) => entry.type === 'instruction-observation'
-    && entry.descriptionVersion === 'ghostnote-description-v2'
+  const acceptedPhrases = entries.find((entry) => entry.type === 'instruction-observation'
+    && entry.descriptionVersion === 'ghostnote-description-v4'
     && entry.operatorResponse === 'accepted'
     && entry.resultIds?.length === 6);
-  const acceptedV4 = entries.find((entry) => entry.type === 'instruction-observation'
+  const acceptedOpenMinor = entries.find((entry) => entry.type === 'instruction-observation'
     && entry.descriptionVersion === 'ghostnote-description-v4'
     && entry.operatorResponse === 'accepted'
     && entry.resultIds?.length === 2);
-  check('2k-L7: schema v2 keeps the two accepted dogfood instructions and result links',
+  check('2k-L7: schema v2 keeps the two accepted reconstruction instructions and result links',
     observed.record.format === 'ghostnote-observation-record'
       && observed.record.schemaVersion === 2
-      && acceptedV2?.resultIds?.every((id) => byId.get(id)?.structure === 'clip-block') === true
-      && acceptedV4?.resultIds?.some((id) => byId.get(id)?.outcome === 'copy-track') === true
-      && acceptedV4?.resultIds?.some((id) => byId.get(id)?.tool === 'generate_clip_music') === true,
-    { acceptedV2, acceptedV4 });
+      && acceptedPhrases?.resultIds?.every((id) => byId.get(id)?.structure === 'clip-block') === true
+      && acceptedOpenMinor?.resultIds?.some((id) => byId.get(id)?.outcome === 'copy-track') === true
+      && acceptedOpenMinor?.resultIds?.some(
+        (id) => byId.get(id)?.tool === 'generate_clip_music') === true,
+    { acceptedPhrases, acceptedOpenMinor });
 
   console.log('Phase 2 live baseline: PASS');
 } finally {

@@ -11,6 +11,22 @@ source: phase-2-session-2k
 its complete launcher baseline, and both remote CI jobs pass for the exact final
 product candidate. Phase 3 has no evidence to run now. Phase 4 is next.**
 
+## Persistence correction — 2026-08-21
+
+The original closeout baseline verified the accepted project in memory, but the
+operator later confirmed that they did not save those changes. The saved file
+still contained the two original clips and an empty observation record.
+
+The exact E45 and E48 results were reconstructed from their probes. The current
+surface recorded both replayed instructions as accepted description-v4 uses.
+One refused recovery attempt cleaned up its six copied clips and its silent
+observation before the final save. Bitwig resolved the Save action, and the
+project file changed to 137,350 bytes at 2026-08-21 00:14:33 -0500. The complete
+2k baseline then passed again.
+
+The baseline now checks the persisted reconstruction records. E45 still records
+the original description-v2 use and acceptance as historical evidence.
+
 ## Final remote CI
 
 [GitHub Actions run 32338482416](https://github.com/jonvuri/ghostnote/actions/runs/32338482416)
@@ -58,5 +74,5 @@ is next.
 
 ## Retrospective
 
-Keep one read-only closeout probe for the complete accepted project. This makes
-content residue and observation linkage one standing regression.
+Keep one read-only closeout probe for the complete accepted project. Save the
+project and confirm its file state before calling the live baseline persistent.

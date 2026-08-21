@@ -12,20 +12,18 @@ import com.google.gson.JsonObject;
  * E5: scaffold sizes, loaded from disk at init so the scale sweep can vary
  * them without a rebuild.
  *
- * Read from ~/.ghostnote/rig.json (absent/unreadable → the spike defaults,
- * which are the E0–E4 sizes). Bitwig hot-reloads the .bwextension on file
- * change, so `touch`ing the deployed extension re-runs init() and picks up a
- * new config — that is the sweep loop.
+ * Read from ~/.ghostnote/rig.json. An absent or unreadable file uses the D7
+ * defaults, confirmed with device-populated scale evidence in E50.
  */
 public class RigConfig {
     public static final Path PATH =
         Paths.get(System.getProperty("user.home"), ".ghostnote", "rig.json");
 
-    public int tracks = 16;
-    public int scenes = 16;
+    public int tracks = 256;
+    public int scenes = 128;
     public int gridSteps = 64;    // 16 beats at 1/16 grid
     public int gridKeys = 128;    // full MIDI range: y == pitch
-    public int cursorPool = 3;
+    public int cursorPool = 8;
     /**
      * Sends per track (E16 row B5/E2).
      *
@@ -39,9 +37,9 @@ public class RigConfig {
      * EVERY track, so it is a config knob rather than a constant.
      */
     public int sends = 4;
-    public int deviceBank = 8;
+    public int deviceBank = 16;
     public int fineSteps = 512;
-    public int paramHandles = 16; // typed createParameter handles (E4)
+    public int paramHandles = 64; // typed createParameter handles (E4/E50)
     public boolean directObservers = true; // DirectParameter observers (E4b)
     /**
      * ⚠ E16: what the flat track bank is allowed to SEE.

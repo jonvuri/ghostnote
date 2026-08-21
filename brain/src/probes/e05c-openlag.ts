@@ -156,9 +156,9 @@ if (mode === 'teardown') {
   if (absent > 0) {
     note(`${absent} were not in this project — teardown only affects the project that is open`);
   }
-  await reload(16, 16, 'baseline-restored');
+  await reload(256, 128, 'baseline-restored');
   fs.rmSync(CONFIG_PATH, { force: true });
-  await reload(16, 16, 'default').catch(() => {});
+  await reload(256, 128, 'default').catch(() => {});
   client.disconnect();
   process.exit(failureCount() === 0 ? 0 : 1);
 }

@@ -7,6 +7,10 @@ source: FINDINGS.md
 
 # E5 — Scale limits (§12 #5, the last open question) (2026-07-19)
 
+> **Superseded caveat, 2026-08-20.** E50 measured 48 created tracks with 384
+> native devices and confirmed the D7 candidate. The empty-device caveat below
+> is historical.
+
 **Verdict: ● no knee exists in any plausible range — pre-allocation is far
 cheaper than §3a feared, and the binding constraint is not performance but
 the bank WINDOW.** Probes `e05` (12-config sweep) + `e05b` (re-measured

@@ -1,10 +1,10 @@
 ---
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
-state: planned
-status: Session 4a is planned and next. It measures device-side scale and aligns
-        the scaffold baseline before parameter work starts.
-updated: 2026-08-20
+state: active
+status: Session 4a is complete. E50 confirms the scaffold baseline. Plan the
+        parameter surface next.
+updated: 2026-08-21
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
 next: ../phase-5/README.md
@@ -33,10 +33,10 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 ## Execution order
 
 1. [4a — device-side scale and scaffold baseline](4a-device-side-scale.md) —
-   measure the remaining E5 caveat and resolve the D7 baseline discrepancy.
+   complete. E50 closes the E5 caveat and confirms D7.
 
-Later session boundaries follow the 4a result. Do not add per-device views or a
-catalog before the measured scaffold is fixed.
+Plan the parameter surface from the confirmed scaffold. Do not add per-device
+views before the general direct-parameter and typed-handle roles are explicit.
 
 ## Scope
 
@@ -90,10 +90,8 @@ catalog before the measured scaffold is fixed.
 
 ## Decisions this phase must make
 
-- **Scaffold implementation.** D7 names `256/128/8/16/64`, but the current
-  `RigConfig` fallback and fake model use `16/16/3/8/16`. Session 4a remeasures
-  the evolved rig and makes the decision, implementation, tests, and probes
-  agree before new observer classes increase the cost.
+- **Scaffold implementation.** Resolved by E50. D7's `256/128/8/16/64` holds on
+  384 native devices and is the repository default.
 - **Catalog scope and shipping form.** Native devices only, or VST/CLAP index scans
   too? In-repo asset or generated on first run? This is the "personal but releasable"
   decision in miniature — the catalog is the most plausibly publishable artifact
@@ -128,8 +126,8 @@ catalog before the measured scaffold is fixed.
   entirely for their own reasons (Stochas did — plugin-specific, not an API limit).
   Mitigation: readback is structural, and a write that does not take must be
   *reported*, per §8c.
-- **Device-side scale is genuinely unmeasured** and is the one place E5's "no knee
-  anywhere" result does not yet apply. Measure early in the phase, not late.
+- **Device-side scale is measured.** E50 found sequential cursor-sweep cost but
+  no warm-up or control-thread latency trend through 384 native devices.
 - **The catalog rots** across Bitwig versions. Mitigation: it is generated from the
   installed bundle, so regeneration is a script run, not a re-harvest.
 - **Per-type views multiply.** Resist supporting every device deeply; DirectParameter

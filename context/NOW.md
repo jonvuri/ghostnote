@@ -2,15 +2,15 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-20
+updated: 2026-08-21
 phase: phase-4
-session: 4a-planning
+session: 4a-device-side-scale
 ---
 
 # Now
 
-Phase 2 is complete. E49 records the exact live baseline, local checks, and
-passing final remote CI. Phase 4 session 4a is planned and next.
+Phase 2 is complete. Phase 4 session 4a is complete. E50 closes E5's remaining
+device-side scale caveat and confirms D7.
 
 ## Accepted live result
 
@@ -20,41 +20,48 @@ new `Harmony – Open Minor` track copies Harmony and adds two accepted 32-beat
 clips. Zero-based row 5 contains Fm9–Gm11–Ebmaj9–Cm11. Row 6 contains
 Fm11–Abmaj9–Bb13–Ebmaj9. The first new clip is open in Bitwig.
 
-## Session 2k result
+The accepted changes were not saved after the original Phase 2 session. On
+2026-08-21, the exact E45 and E48 results were reconstructed from their probes,
+verified, and saved. The post-save 2k baseline passes.
 
-- The Phase 2 outcome maps all four criteria to E24 and E41–E49 with explicit
-  theory, pressure, grid, metadata, and live-skip qualifications.
-- Both distinct dogfood uses are accepted and satisfy the gate.
-- The final description v4 cohort has 31 tools and SHA-256
-  `0289ae1611a7c8c6c13b296a0749bd11dc8969df586859e10903b5e6d08d1ca4`.
-- Tool-name permission grain and observation schema 2 are final.
-- Async completion was built from E45. Unsafe expression-stage coalescing was
-  declined from E44 and E15-F.
-- The read-only Phase 2 baseline check confirms the accepted project and no clip
-  residue. E44 remains the exact conformance-fixture baseline.
-- Optional Phase 3 has no evidence to run. Phase 4 is selected next.
+## Session 4a result
+
+- The maximum scratch fixture contained 48 created tracks and 384 alternating
+  Polysynth and Polymer devices.
+- All 28 controlled measurements used a full track window. Stable sweeps found
+  zero blind or unstable rows.
+- Project density raised the 48-row cursor sweep from about 3.5 to 4.6 seconds.
+  Warm-up and ping latency stayed flat. No cold-start sample stalled above
+  100 ms.
+- Direct parameter observers did not produce a consistent cost.
+- D7 holds. `RigConfig`, the fake, probes, decision, and capability page now
+  agree on `256/128/8/16/64`.
+- Cleanup removed all recorded tracks. The original 42-byte `rig.json` was
+  restored byte for byte.
 
 ## Next action
 
-Implement [session 4a](plan/phase-4/4a-device-side-scale.md) in a scratch
-project. Measure the remaining E5 device-side scale caveat, then resolve the
-disagreement between D7's selected scaffold and the smaller repository defaults.
+Plan the next Phase 4 parameter-surface session from
+[the Phase 4 overview](plan/phase-4/README.md). Keep DirectParameter as the
+general enumeration path and typed handles as the deep native-device path.
 
 ## Verification
 
-- Full offline check: 646/646 pass, including typecheck.
-- Extension Gradle test build: pass; no extension or wire change.
-- Context check: 176 active documents and links pass. `git diff --check` passes.
-- Live handshake: pass for Bitwig 6.0.6/API 25, the 139-method golden, and
-  deployment age.
-- Read-only accepted-project baseline: pass for the complete 7-track by 8-row
-  launcher grid, all 14 accepted clips, and both observation links.
-- GitHub Actions run 32338482416: both jobs pass on the first attempt for exact
-  candidate `5e51b4ce6131437adbab0ab8cd38a0150d0355d3`.
-- Phase 4 planning context check: 178 active documents and links pass.
-  `git diff --check` passes.
+- Focused scale tests: 7/7 pass. Full brain check: 653/653 pass, including
+  typecheck. Extension build passes.
+- Live entry and maximum stable sweeps: pass. The maximum accounts for all 384
+  devices.
+- Saved-project open and one cold start: pass with zero control-thread stalls.
+- Scratch cleanup and exact rig configuration restoration: pass.
+- Context check: 179 active documents and links pass. `git diff --check` passes.
+- Final live handshake: pass for Bitwig 6.0.6/API 25, the 139-method golden,
+  deployment age, and the selected `256/128/8/16/64` rig.
+- The reconstructed `26.05-2 moon` project passes the complete read-only 2k
+  baseline before and after Save. The saved file contains 7 tracks, 14 clips,
+  both accepted instructions, and the exact 43-note progression result.
 
 ## Retrospective
 
-Compare settled decisions with implementation defaults before planning a scale
-session. This exposed the D7 baseline mismatch before new observers amplified it.
+Checkpoint native-device population by durable row because an insert can outlive
+the probe process. Save accepted live results and confirm the saved file before
+closeout.

@@ -208,7 +208,7 @@ type ClipNoteChannels = ReadonlyMap<number, readonly NoteRecord[]>;
  * contract says `hello()` is called "once, before anything else", and every
  * production path (`Session.ready()`, both harnesses, every probe) does.
  */
-const RIG_DEFAULT_SCENES = 16;
+const RIG_DEFAULT_SCENES = 128;
 
 export interface LiveOptions {
   readonly transport?: Transport;

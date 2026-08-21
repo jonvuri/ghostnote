@@ -2,6 +2,8 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 
+import { BridgeClient } from '../client.js';
+
 const transport = new StdioClientTransport({ command: 'npx', args: ['tsx', 'src/mcp-server.ts'] });
 const mcp = new Client({ name: 'phase2i-dogfood', version: '1.0.0' });
 const mode = process.argv[2] ?? 'read';
@@ -14,6 +16,79 @@ const revisedRequest = 'For now, modify the request to just create new clips wit
   + 'update operation in a follow-up session.';
 const clarifiedRequest = 'Revert, then try again. Keep each full original clip as phrase 1, '
   + 'followed by three subtle variations on that complete phrase.';
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** Recreate accepted additive notes after a saved-project loss, then verify publicly. */
+async function addRecoveredNotes(
+  targets: readonly {
+    readonly trackId: string;
+    readonly row: number;
+    readonly notes: readonly {
+      readonly startBeats: number;
+      readonly pitch: number;
+      readonly velocity: number;
+      readonly durationBeats: number;
+    }[];
+  }[],
+): Promise<void> {
+  const bridge = new BridgeClient();
+  try {
+    await bridge.connect();
+    await bridge.request('cursor.pin', { cursor: '0', pinned: false });
+    const listed = await bridge.request('track.list') as {
+      readonly tracks: readonly { readonly index: number; readonly channelId: string }[];
+    };
+    for (const target of targets) {
+      const track = listed.tracks.find((item) => item.channelId === target.trackId);
+      if (track === undefined) throw new Error(`recovery target is absent: ${target.trackId}`);
+      await bridge.request('cursor.pointTrack', { cursor: '0', trackIndex: track.index });
+      await bridge.request('slot.select', {
+        trackIndex: track.index, slotIndex: target.row, mechanism: 'track',
+      });
+      let pointed = false;
+      for (let attempt = 0; attempt < 80; attempt += 1) {
+        const status = await bridge.request('cursor.status', { cursor: '0' }) as {
+          readonly exists: boolean;
+          readonly trackPosition: number;
+          readonly sceneIndex: number;
+        };
+        if (status.exists && status.trackPosition === track.index
+            && status.sceneIndex === target.row) {
+          pointed = true;
+          break;
+        }
+        await wait(25);
+      }
+      if (!pointed) throw new Error(`recovery cursor did not reach row ${target.row}`);
+      await bridge.request('cursor.setStepSize', { cursor: '0', stepSize: 0.25 });
+      await wait(150);
+
+      const pages = new Map<number, [number, number, number, number][]>();
+      for (const note of target.notes) {
+        const absoluteStep = Math.round(note.startBeats / 0.25);
+        const page = Math.floor(absoluteStep / 64) * 64;
+        const notes = pages.get(page) ?? [];
+        notes.push([absoluteStep - page, note.pitch, note.velocity, note.durationBeats]);
+        pages.set(page, notes);
+      }
+      for (const [page, notes] of [...pages].sort(([left], [right]) => left - right)) {
+        const result = await bridge.request('batch.run', {
+          verbose: true,
+          ops: [
+            { method: 'cursor.scrollToStep', params: { cursor: '0', step: page } },
+            { method: 'cursor.setNotes', params: { cursor: '0', channel: 0, notes } },
+          ],
+        }) as { readonly applied: boolean; readonly results?: readonly { readonly ok: boolean }[] };
+        if (!result.applied || result.results?.some((item) => !item.ok) === true) {
+          throw new Error(`recovery write failed at row ${target.row}, page ${page}`);
+        }
+      }
+      await bridge.request('cursor.scrollToStep', { cursor: '0', step: 0 });
+    }
+  } finally {
+    bridge.disconnect();
+  }
+}
 
 const parse = (value: unknown): Record<string, unknown> => {
   const content = (value as { content?: { type: string; text?: string }[] }).content ?? [];
@@ -58,7 +133,7 @@ try {
         if (removed['applied'] !== true) throw new Error(`${track.name} row ${row} was not removed`);
       }
     }
-  } else if (mode === 'apply-phrases') {
+  } else if (mode === 'apply-phrases' || mode === 'reconstruct-phrases') {
     let instructionId: string | undefined;
     const copiedChangeIds: string[] = [];
     const copiedClips: { trackId: string; row: number }[] = [];
@@ -148,22 +223,30 @@ try {
           { startBeats: 29, pitch: 64, velocity: 84, durationBeats: 2 },
         ]),
       ];
-      for (const target of variations) {
-        const written = await call('write_notes', {
-          clips: [{
-            trackId: target.clip.trackId,
-            row: target.clip.row,
-            channel: target.channel,
-            notes: (target.operations[0] as ReturnType<typeof literal>).source.notes,
-          }],
-        });
-        if (written['applied'] !== true || typeof written['changeId'] !== 'string') {
-          throw new Error(`the phrase variation at row ${target.clip.row} did not apply`);
+      if (mode === 'reconstruct-phrases') {
+        await addRecoveredNotes(variations.map((target) => ({
+          trackId: target.clip.trackId,
+          row: target.clip.row,
+          notes: (target.operations[0] as ReturnType<typeof literal>).source.notes,
+        })));
+      } else {
+        for (const target of variations) {
+          const written = await call('write_notes', {
+            clips: [{
+              trackId: target.clip.trackId,
+              row: target.clip.row,
+              channel: target.channel,
+              notes: (target.operations[0] as ReturnType<typeof literal>).source.notes,
+            }],
+          });
+          if (written['applied'] !== true || typeof written['changeId'] !== 'string') {
+            throw new Error(`the phrase variation at row ${target.clip.row} did not apply`);
+          }
+          if (Array.isArray(written['mismatches']) && written['mismatches'].length > 0) {
+            throw new Error(`the phrase variation at row ${target.clip.row} failed readback`);
+          }
+          noteChangeIds.push(written['changeId'] as string);
         }
-        if (Array.isArray(written['mismatches']) && written['mismatches'].length > 0) {
-          throw new Error(`the phrase variation at row ${target.clip.row} failed readback`);
-        }
-        noteChangeIds.push(written['changeId'] as string);
       }
 
       const readbacks: Record<string, unknown>[] = [];
@@ -173,7 +256,7 @@ try {
         }
       }
       await call('show_changed_clip', {
-        changeId: noteChangeIds[0],
+        changeId: noteChangeIds[0] ?? copiedChangeIds[0],
         target: { trackId: lead.trackId, row: 2 },
       });
       console.log(JSON.stringify({

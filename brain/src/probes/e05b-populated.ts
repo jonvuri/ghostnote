@@ -238,9 +238,9 @@ check('no pre-existing track was harmed', lost.length === 0, { lostChannelIds: l
 note(`project back to ${final.count} tracks (started at ${before.count})`);
 
 // ------------------------------------------------- 6. restore baseline rig
-await reload({ stamp: 'baseline-restored', tracks: 16, scenes: 16 });
+await reload({ stamp: 'baseline-restored', tracks: 256, scenes: 128 });
 await warmup();
-check('baseline rig config restored', (await stats()).config.tracks === 16);
+check('baseline rig config restored', (await stats()).config.tracks === 256);
 
 // ------------------------------------------------- summary
 console.log('\n== E5b populated-project results ==');

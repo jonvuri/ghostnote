@@ -13,6 +13,13 @@ slots** (512×128 = 81ms init) and latency flat at the ~24ms control-surface tic
 floor in every configuration, loaded or empty. Cold init was 108ms inside a 13.4s
 Bitwig launch; project-open cost was below measurement resolution.
 
+**Confirmed and implemented 2026-08-20 by E50.** A 48-track fixture with 384
+native devices kept observer warm-up and ping latency flat. The full D7 scaffold
+completed init in at most 171.3 ms during the hot-reload matrix. One cold start
+reported 339.1 ms of construction and 20 ms of bank settlement, with zero
+control-thread stalls. `RigConfig` and the fake now use these values as their
+actual defaults.
+
 **The binding constraint is not performance — it is the bank window** (D6). Scale
 therefore bounds maximum project size, which is a correctness limit rather than a
 tuning preference.

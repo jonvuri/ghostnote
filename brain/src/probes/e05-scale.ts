@@ -66,7 +66,10 @@ const SWEEP: RigCfg[] = [
   { stamp: 's11-candidate', tracks: 64, scenes: 64, cursorPool: 8, deviceBank: 16, paramHandles: 64 },
 ];
 
-const BASELINE: RigCfg = { stamp: 'baseline-restored', tracks: 16, scenes: 16 };
+const BASELINE: RigCfg = {
+  stamp: 'baseline-restored', tracks: 256, scenes: 128,
+  cursorPool: 8, deviceBank: 16, paramHandles: 64,
+};
 
 interface RigStats {
   config: Required<RigCfg> & { gridKeys: number; fineSteps: number; fromFile: boolean };

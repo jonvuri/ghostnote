@@ -1859,6 +1859,7 @@ test('T-collapse: unknown winner state refuses before any device moves', async (
 
 test('T-collapse: an unprovable extraction overflow refuses before the first move', async () => {
   const fx = fixture();
+  fx.fake.model.deviceBankSize = 8;
   const made = await call(fx, 'create_device_alternates', {
     trackId: fx.trackA,
     containerType: 'effect',
@@ -2150,6 +2151,7 @@ test('T-clip-block: an overlapping move is ordered safely and its reported rever
 
 test('T-refusal: more rows than can be addressed is refused before anything happens', async () => {
   const fx = fixture();
+  fx.fake.model.sceneBankSize = 8;
   const result = await call(fx, 'add_scenes', { count: 100 });
   assert.ok(refused(result));
   assert.match(result['why'] as string, /rig\.json/, 'the refusal names the only fix');

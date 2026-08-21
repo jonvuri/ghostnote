@@ -107,6 +107,36 @@ public final class CoreHandlers extends HandlerGroup {
         // which is only interpretable if this count stays honest).
         result.addProperty("markedValues", slots * 6 + (long) rig.config.tracks * 5);
 
+        // Session 4a: report the device and parameter scaffold explicitly. These
+        // values let the scale probe separate project density from resources that
+        // exist only because the extension allocated them during init.
+        int cursorDeviceBanks = rig.config.cursorPool;
+        int layerDeviceBanks = Rig.LAYER_BANK;
+        int slotDeviceBanks = Rig.SLOT_SCOPES * Rig.SLOT_LAYER_BANK;
+        JsonObject resources = new JsonObject();
+        resources.addProperty("cursorDeviceBanks", cursorDeviceBanks);
+        resources.addProperty("layerDeviceBanks", layerDeviceBanks);
+        resources.addProperty("slotDeviceBanks", slotDeviceBanks);
+        resources.addProperty("deviceBanks",
+            cursorDeviceBanks + layerDeviceBanks + slotDeviceBanks);
+        resources.addProperty("cursorDeviceSlots",
+            (long) cursorDeviceBanks * rig.config.deviceBank);
+        resources.addProperty("layerDeviceSlots",
+            (long) layerDeviceBanks * Rig.LAYER_DEVICE_BANK);
+        resources.addProperty("slotDeviceSlots",
+            (long) slotDeviceBanks * Rig.SLOT_LAYER_DEVICE_BANK);
+        resources.addProperty("deviceSlots",
+            (long) cursorDeviceBanks * rig.config.deviceBank
+                + (long) layerDeviceBanks * Rig.LAYER_DEVICE_BANK
+                + (long) slotDeviceBanks * Rig.SLOT_LAYER_DEVICE_BANK);
+        resources.addProperty("cursorDevices", 1);
+        resources.addProperty("specificDeviceViews", 1);
+        resources.addProperty("typedParameterHandles", rig.config.paramHandles);
+        resources.addProperty("remoteParameterHandles", Rig.REMOTE_BANK);
+        resources.addProperty("directParameterObservers",
+            rig.config.directObservers ? 4 : 0);
+        result.add("resources", resources);
+
         // Whole-JVM heap (shared with Bitwig): a coarse trend signal only.
         Runtime runtime = Runtime.getRuntime();
         result.addProperty("heapUsedMb",

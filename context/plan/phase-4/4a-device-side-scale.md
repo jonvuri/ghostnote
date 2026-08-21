@@ -1,14 +1,13 @@
 ---
 title: Phase 4, session 4a — device-side scale and scaffold baseline
 kind: plan
-state: planned
-status: Ready. This session measures the remaining E5 caveat before Phase 4
-        adds more device and parameter observers.
-updated: 2026-08-20
+state: complete
+status: Complete 2026-08-21. E50 confirms D7, cleanup, and the final baseline.
+updated: 2026-08-21
 parent: README.md
 prev: ../phase-2/2k-closeout.md
 scope: Device-populated project scale and D7 scaffold alignment
-evidence: E5, E22 · D6, D7, D15
+evidence: E5, E22, E50 · D6, D7, D15
 ---
 
 # Phase 4, session 4a — device-side scale and scaffold baseline
@@ -100,3 +99,28 @@ are therefore separate measurements.
 Record whether the scale harness cleanly separated host project load from
 extension observer cost. Note any measurement that should become a standing
 Phase 4 check.
+
+## Result
+
+E50 measured the zero-, one-, four-, and eight-device loads across seven
+controlled scaffold configurations. The maximum fixture contained 48 created
+tracks and 384 alternating native devices. Every stable sweep accounted for all
+devices with no blind row.
+
+Project density did not move warm-up or ping latency. It raised the complete
+48-row cursor sweep to about 4.6 seconds. Direct observers did not produce a
+consistent cost. Saved-project open and cold-start settlement had zero
+control-thread stalls.
+
+D7 holds. `RigConfig`, the fake, E5 restoration probes, D7, and the bank
+capability page now use `256/128/8/16/64`. Cleanup removed all recorded tracks
+and restored the exact entry `rig.json` bytes.
+
+The harness separated host project load from extension observer cost, but its
+population stage needed a repair. A pending native-device insert can outlive the
+probe process. Keep bounded, durable-row population as a standing Phase 4 rule.
+
+The final 2k check found that the earlier accepted Phase 2 changes had not been
+saved. The operator authorized reconstruction. The E45 and E48 probes recreated
+the exact accepted clips and observation links. Bitwig saved the project, and
+the complete read-only baseline passed after the save.
