@@ -4,13 +4,13 @@ kind: status
 state: active
 updated: 2026-08-20
 phase: phase-4
-session: planning
+session: 4a-planning
 ---
 
 # Now
 
 Phase 2 is complete. E49 records the exact live baseline, local checks, and
-passing final remote CI. Phase 4 is next.
+passing final remote CI. Phase 4 session 4a is planned and next.
 
 ## Accepted live result
 
@@ -36,9 +36,9 @@ Fm11–Abmaj9–Bb13–Ebmaj9. The first new clip is open in Bitwig.
 
 ## Next action
 
-Plan the first Phase 4 session from the device and parameter scope. Measure
-device-side scale early. It is the remaining scale caveat from E5 and a named
-Phase 4 risk.
+Implement [session 4a](plan/phase-4/4a-device-side-scale.md) in a scratch
+project. Measure the remaining E5 device-side scale caveat, then resolve the
+disagreement between D7's selected scaffold and the smaller repository defaults.
 
 ## Verification
 
@@ -51,8 +51,10 @@ Phase 4 risk.
   launcher grid, all 14 accepted clips, and both observation links.
 - GitHub Actions run 32338482416: both jobs pass on the first attempt for exact
   candidate `5e51b4ce6131437adbab0ab8cd38a0150d0355d3`.
+- Phase 4 planning context check: 178 active documents and links pass.
+  `git diff --check` passes.
 
 ## Retrospective
 
-Use one read-only baseline command for the complete accepted project. This makes
-content residue and observation linkage one standing check.
+Compare settled decisions with implementation defaults before planning a scale
+session. This exposed the D7 baseline mismatch before new observers amplified it.

@@ -162,9 +162,17 @@ first [K, E17 `e17am`].
 
 ## 6. Scaffold sizes — D7
 
-Shipped: `TRACKS=256`, `SCENES=128`, `CURSOR_POOL=8`, `DEVICE_BANK=16`,
-`paramHandles=64`. All are tunable through `~/.ghostnote/rig.json`
-[K, [D7](../../decisions/d7-pre-allocation-scaffold-sizes-settled-2026-07-25.md)].
+D7's selected target is `TRACKS=256`, `SCENES=128`, `CURSOR_POOL=8`,
+`DEVICE_BANK=16`, `paramHandles=64`. All values are tunable through
+`~/.ghostnote/rig.json` [K,
+[D7](../../decisions/d7-pre-allocation-scaffold-sizes-settled-2026-07-25.md)].
+
+⚠ **The repository fallback does not implement that target.** `RigConfig`
+defaults to `16/16/3/8/16`, and the fake uses the same small bank windows. The
+E5 probes also restore the smaller baseline [K, source read 2026-08-20]. Phase 4
+[session 4a](../../plan/phase-4/4a-device-side-scale.md) must remeasure the
+current rig and align the decision, implementation, probes, and capability page.
+Until then, neither set is called shipped.
 
 Measured [K, [E5](../experiments/e5-scale-limits-12-5-the-last-open-question-2026-07-19.md), via D7]:
 
@@ -237,5 +245,6 @@ actually ask [K, E16r].
 
 | Date | Change |
 |---|---|
+| 2026-08-20 | Corrected the false claim that D7's selected sizes are the repository defaults. Session 4a owns the measurement and alignment. |
 | 2026-08-16 | Added the measured high-to-low rule for several track removals after the 3g-e cleanup incident and recovery. |
 | 2026-08-15 | Page created. It supersedes the *reading* of E5's "state outside the window is unsnapshottable", which E16r sharpened to "unaddressable and un-cleanable". |

@@ -2,7 +2,8 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: planned
-status: next
+status: Session 4a is planned and next. It measures device-side scale and aligns
+        the scaffold baseline before parameter work starts.
 updated: 2026-08-20
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -28,6 +29,14 @@ clips — no per-slot allocation explosion.
 It lands after the musical phases because it is the second-most-useful capability,
 not the first, and because Phase 5 depends on it: **a modulator edit is verified by
 remote-page readback**, so the param layer is Phase 5's test instrument.
+
+## Execution order
+
+1. [4a — device-side scale and scaffold baseline](4a-device-side-scale.md) —
+   measure the remaining E5 caveat and resolve the D7 baseline discrepancy.
+
+Later session boundaries follow the 4a result. Do not add per-device views or a
+catalog before the measured scaffold is fixed.
 
 ## Scope
 
@@ -81,6 +90,10 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 
 ## Decisions this phase must make
 
+- **Scaffold implementation.** D7 names `256/128/8/16/64`, but the current
+  `RigConfig` fallback and fake model use `16/16/3/8/16`. Session 4a remeasures
+  the evolved rig and makes the decision, implementation, tests, and probes
+  agree before new observer classes increase the cost.
 - **Catalog scope and shipping form.** Native devices only, or VST/CLAP index scans
   too? In-repo asset or generated on first run? This is the "personal but releasable"
   decision in miniature — the catalog is the most plausibly publishable artifact
