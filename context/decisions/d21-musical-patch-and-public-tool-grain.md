@@ -2,7 +2,7 @@
 id: D21
 kind: decision
 state: active
-updated: 2026-08-18
+updated: 2026-08-20
 source: phase-2-session-2a
 ---
 
@@ -114,3 +114,17 @@ The representative corpus and golden report shapes are in
 Session 2c changed only the report vocabulary. Re-voice now declares
 `octave-displaced` as possible loss so that octave moves are not silent. The
 patch grammar and representative requests did not change.
+
+## Phase 2 closeout
+
+E45 and E48 record two distinct accepted uses through the ordinary MCP surface.
+The first used clip-block copies and exact note writes. The second used ordinary
+track copy and one two-output generation operation. They did not repeat a tool-
+grain, wording, refusal, or musical-usefulness problem. The two-tool grain and
+patch version 1 therefore close unchanged.
+
+`ghostnote-description-v4` is the final Phase 2 cohort identity. It contains 31
+tools and has SHA-256
+`0289ae1611a7c8c6c13b296a0749bd11dc8969df586859e10903b5e6d08d1ca4`.
+Version 4 identifies the operation-status timing result. The public artifact is
+otherwise byte-identical to the frozen version-3 cohort.

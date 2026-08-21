@@ -2,8 +2,8 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: planned
-status: not started
-updated: 2026-07-24
+status: next
+updated: 2026-08-20
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
 next: ../phase-5/README.md

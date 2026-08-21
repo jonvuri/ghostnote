@@ -2,7 +2,7 @@
 title: Capability index
 kind: index
 state: active
-updated: 2026-08-15
+updated: 2026-08-20
 scope: current Bitwig host-API capability, organized by subject
 ---
 
@@ -55,6 +55,7 @@ that the subject is understood.
 | Devices | ● | Devices are addressed by type UUID, driven by two parameter APIs, and relocated with their state intact. Parameter IDs are harvestable offline. | [devices](devices.md) |
 | Banks | ⚠ ● | A bank window is a hard budget. The Master and the FX returns leave it first, and a create past the ceiling mints a track you can never address. | [banks](banks.md) |
 | Named actions | ⚠⚠ ○ | A named action dispatches on primary UI focus, which no observer reports. It is product-banned. Chain create and delete no longer need one. | [actions](actions.md) |
+| Launcher clips | ⚠ ● | Notes and measured metadata have typed paths. Long reads and writes page fixed cursor windows. Clip recreation remains lossy for play-stop and automation. | [clips](clips.md) |
 | Host API | ◐ | The API 25 source resolves from Maven with one command, so enumeration is a source read. Plus three mechanisms ghostnote does not use: a type-filtered device bank, process spawn, and OSC. | [host-api](host-api.md) |
 
 ## Related

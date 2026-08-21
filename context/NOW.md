@@ -3,14 +3,14 @@ title: Current state
 kind: status
 state: active
 updated: 2026-08-20
-phase: phase-2
-session: 2k
+phase: phase-4
+session: planning
 ---
 
 # Now
 
-Session 2j is complete. E48 records the accepted second dogfood use and measured
-operation latency. Session 2k is next.
+Phase 2 is complete. E49 records the exact live baseline, local checks, and
+passing final remote CI. Phase 4 is next.
 
 ## Accepted live result
 
@@ -20,37 +20,39 @@ new `Harmony – Open Minor` track copies Harmony and adds two accepted 32-beat
 clips. Zero-based row 5 contains Fm9–Gm11–Ebmaj9–Cm11. Row 6 contains
 Fm11–Abmaj9–Bb13–Ebmaj9. The first new clip is open in Bitwig.
 
-## Session 2j result
+## Session 2k result
 
-- The task used one track copy, one two-clip creation, one background musical
-  operation, and two final independent clip reads.
-- Independent readback found 21 and 22 notes with no warning or mismatch.
-- The operator auditioned and kept the result.
-- The v4 observation links the accepted instruction to the ordinary track copy
-  and the two-output musical result.
-- Operation status now reports live `elapsedMs` and freezes it at terminal state.
-- The accepted operation measured 34,470 ms at the server and 34,569 ms through
-  client polling. The measured post-key subtotal was 60,630 ms.
-- E45 and E48 repeat the slow exact-read finding. Background completion prevents
-  it from blocking one MCP request. No other problem repeated.
+- The Phase 2 outcome maps all four criteria to E24 and E41–E49 with explicit
+  theory, pressure, grid, metadata, and live-skip qualifications.
+- Both distinct dogfood uses are accepted and satisfy the gate.
+- The final description v4 cohort has 31 tools and SHA-256
+  `0289ae1611a7c8c6c13b296a0749bd11dc8969df586859e10903b5e6d08d1ca4`.
+- Tool-name permission grain and observation schema 2 are final.
+- Async completion was built from E45. Unsafe expression-stage coalescing was
+  declined from E44 and E15-F.
+- The read-only Phase 2 baseline check confirms the accepted project and no clip
+  residue. E44 remains the exact conformance-fixture baseline.
+- Optional Phase 3 has no evidence to run. Phase 4 is selected next.
 
 ## Next action
 
-Begin session 2k. Audit the Phase 2 exit criteria, final cohort, qualifications,
-dogfood evidence, and project baseline. Decide whether optional Phase 3 has
-enough evidence to run or whether work proceeds to Phase 4.
+Plan the first Phase 4 session from the device and parameter scope. Measure
+device-side scale early. It is the remaining scale caveat from E5 and a named
+Phase 4 risk.
 
 ## Verification
 
-- Focused operation, surface, and description tests: 15/15 pass.
-- Full offline check: 646/646 pass.
-- Extension build: pass; no extension or wire change.
-- Live handshake: pass, including the 139-method golden and deployment age.
-- Cleanup-safe live timing path: pass with exact restoration.
-- Ordinary-MCP dogfood task, independent readback, and accepted observation:
-  pass.
+- Full offline check: 646/646 pass, including typecheck.
+- Extension Gradle test build: pass; no extension or wire change.
+- Context check: 176 active documents and links pass. `git diff --check` passes.
+- Live handshake: pass for Bitwig 6.0.6/API 25, the 139-method golden, and
+  deployment age.
+- Read-only accepted-project baseline: pass for the complete 7-track by 8-row
+  launcher grid, all 14 accepted clips, and both observation links.
+- GitHub Actions run 32338482416: both jobs pass on the first attempt for exact
+  candidate `5e51b4ce6131437adbab0ab8cd38a0150d0355d3`.
 
 ## Retrospective
 
-Record server and polling-client time separately. This keeps polling delay out
-of project-work latency.
+Use one read-only baseline command for the complete accepted project. This makes
+content residue and observation linkage one standing check.

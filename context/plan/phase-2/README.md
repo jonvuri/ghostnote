@@ -1,8 +1,9 @@
 ---
 title: Phase 2 — The clip surface
 kind: plan
-state: active
-status: Session 2j is complete. Session 2k closes Phase 2.
+state: complete
+status: Phase 2 is complete. Session 2k closed every exit criterion. Phase 4 is
+        next.
 updated: 2026-08-20
 parent: ../ROADMAP.md
 prev: ../phase-1/README.md
@@ -96,7 +97,7 @@ first-use findings, prove a second use, and close the phase.
 13. [2j — dogfood round two and revision](2j-dogfood-2.md) — complete; E48
     records an accepted track-copy and two-progression task plus batch timing.
 14. [2k — closeout](2k-closeout.md) — audit evidence, record qualifications, and
-    hand off the next phase.
+    hand off Phase 4; complete, E49.
 
 ### Dependency rule
 
@@ -176,6 +177,18 @@ work.
 [Async batch completion](../phase-1/6-async.md) moved out of Phase 1. E45
 activated it after one musical request exceeded the client timeout and continued
 to mutate during recovery. It now precedes the second dogfood use.
+
+## Outcome
+
+The [Phase 2 outcome](../../archive/outcomes/PHASE-2.md) maps every criterion to
+offline, live, and dogfood evidence. It records the final public cohort,
+permission partition, observation schema, async verdict, qualifications, and
+standing regression matrix.
+
+Optional Phase 3 is not selected. Two natural uses did not show a repeated need
+for a session renderer, and its project-wide human-change log is still blocked.
+Final remote CI passed for exact candidate
+`5e51b4ce6131437adbab0ab8cd38a0150d0355d3`. Phase 4 is next.
 
 ## Exit criteria
 

@@ -206,6 +206,7 @@
     "probe:2i-long": "tsx src/probes/phase2i-long-clip-follow-up.ts",
     "probe:2x-async": "tsx src/probes/phase2x-background-operations.ts",
     "probe:2j-dogfood": "tsx src/probes/phase2j-dogfood.ts",
+    "probe:2k-baseline": "tsx src/probes/phase2k-baseline.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

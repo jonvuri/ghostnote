@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-08-18
+updated: 2026-08-20
 ---
 
 # Decision index
@@ -19,7 +19,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D5 | Checkpoints are branchable takes, not a linear undo stack **[SETTLED 2026-07-24]** | [open](d5-checkpoints-are-branchable-takes-not-a-linear-undo-stack-settled.md) |
 | D6 | Addressing: pinned non-following cursors, identity never index **[SETTLED 2026-07-25]** | [open](d6-addressing-pinned-non-following-cursors-identity-never-index-set.md) |
 | D7 | Pre-allocation scaffold sizes **[SETTLED 2026-07-25]** | [open](d7-pre-allocation-scaffold-sizes-settled-2026-07-25.md) |
-| D8 | Checkpoint fidelity, measured **[SETTLED 2026-07-25]** | [open](d8-checkpoint-fidelity-measured-settled-2026-07-25.md) |
+| D8 | Checkpoint fidelity, measured **[SETTLED 2026-07-25, AMENDED 2026-08-19]** | [open](d8-checkpoint-fidelity-measured-settled-2026-07-25.md) |
 | D9 | Grid and units **[SETTLED 2026-07-25, AMENDED 2026-08-18]** | [open](d9-grid-and-units-settled-2026-07-25.md) |
 | D10 | Batch execution mechanics **[SETTLED 2026-07-25]** | [open](d10-batch-execution-mechanics-settled-2026-07-25.md) |
 | D11 | Toolchain **[SETTLED 2026-07-25]** | [open](d11-toolchain-settled-2026-07-25.md) |

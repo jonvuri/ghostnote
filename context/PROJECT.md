@@ -2,7 +2,7 @@
 title: ghostnote project context
 kind: project
 state: active
-updated: 2026-08-14
+updated: 2026-08-20
 ---
 
 # ghostnote
@@ -32,6 +32,9 @@ surface without relying on the user's UI selection.
   ghostnote and is bounded to changes it can identify and restore safely.
 - Destructive initiative is zero. Directed destructive operations are separated
   behind the D20 tool seam.
+- The Phase 2 musical surface uses one versioned patch grammar for generation
+  and transformation. Long musical work has explicit background completion and
+  cooperative cancellation.
 - Modulator topology is authored by tested `.bwpreset` surgery through `bwmod`.
 
 ## Stable constraints

@@ -1,18 +1,22 @@
 ---
 title: Phase 3 — The session view
 kind: plan
-state: optional
-status: ⚠⚠ OPTIONAL as of 2026-08-07 (operator; D4 rev) — re-evaluated after the
-        core is built. Default: forego what needs a web view, or build TEXTUAL
-        versions agents naturally produce and render. The daemon-served premise
-        is retired; see the banner below. Original text kept as the record.
-updated: 2026-08-14
+state: deferred
+status: Phase 2 closeout found no evidence to run this phase. Phase 4 is next.
+updated: 2026-08-20
 parent: ../ROADMAP.md
 prev: ../phase-2/README.md
 next: ../phase-4/README.md
 ---
 
 # Phase 3 — The session view
+
+> **2026-08-20 closeout verdict.** Defer this optional phase. Two natural Phase
+> 2 tasks used textual results and `show_changed_clip` without a repeated
+> comparison, navigation, or partial-revert problem. The project-wide human-
+> change log also remains blocked by incomplete observer coverage. Phase 4 is
+> next. Reopen this phase only from new use evidence or after its observer and
+> retention prerequisites are designed.
 
 > ⚠⚠ **RE-SCOPED 2026-08-07 (operator; D4 rev, D14 rev, D17 rev, D18). This
 > phase is OPTIONAL and DEFERRED — evaluated again after the core is built.**
