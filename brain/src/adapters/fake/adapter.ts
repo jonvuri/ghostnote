@@ -14,13 +14,14 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
   assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
-  chain as chainAt, chainCopyUnnamed, contentDelta,
+  chain as chainAt, chainCopyUnnamed, chainPath, contentDelta,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
   type Op, type OpReceipt, type ResolveResult,
-  type ParamState, type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
+  type ParamState, type RemoteControlState, type RemoteControlsState, type ResolvedAddress,
+  type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
   type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { INSTRUMENT_LAYER_SEED_BASENAME } from '../../device-alternates/assets.js';
@@ -170,6 +171,77 @@ export class FakeAdapter implements BitwigAdapter {
     return row.index >= this.model.sceneCount ? 'absent' : 'unreachable';
   }
 
+  /** Walk the same configured recursive cursor route as the live adapter. */
+  private deepDevice(
+    track: FakeTrack,
+    address: DeviceAddress,
+  ): { ok: true; device: FakeDevice } | {
+    ok: false;
+    miss: 'absent' | 'outside-bank-window' | 'ambiguous' | 'unsupported';
+  } {
+    const path = chainPath(address);
+    if (path.length > this.model.parameterDepth) return { ok: false, miss: 'unsupported' };
+    const top = path[0]?.container ?? address;
+    if (top.chain !== undefined) return { ok: false, miss: 'unsupported' };
+    if (top.chainIndex >= this.model.deviceBankSize) {
+      return { ok: false, miss: 'outside-bank-window' };
+    }
+    let current = track.devices[top.chainIndex];
+    if (current === undefined) return { ok: false, miss: 'absent' };
+
+    for (const [at, step] of path.entries()) {
+      const target = path[at + 1]?.container ?? address;
+      if (step.kind === 'drumPad') {
+        if (step.channel >= this.model.drumPadBankSize) {
+          return { ok: false, miss: 'outside-bank-window' };
+        }
+        if (target.chainIndex !== 0) return { ok: false, miss: 'unsupported' };
+        const channel = current.drumPads?.[step.channel];
+        const first = channel?.[0];
+        if (first === undefined) return { ok: false, miss: 'absent' };
+        current = first;
+        continue;
+      }
+
+      const chains = current.chains ?? [];
+      if (chains.length > this.model.chainBankSize) {
+        return { ok: false, miss: 'outside-bank-window' };
+      }
+      const visible = chains.slice(0, this.model.chainBankSize);
+      const matches = visible.filter((candidate) => candidate.name === step.name);
+      if (matches.length > 1) return { ok: false, miss: 'ambiguous' };
+      const found = matches[0];
+      if (found === undefined) return { ok: false, miss: 'absent' };
+      if (target.chainIndex >= this.model.chainDeviceBankSize) {
+        return { ok: false, miss: 'outside-bank-window' };
+      }
+      current = found.devices[target.chainIndex];
+      if (current === undefined) {
+        return { ok: false, miss: found.devices.length <= this.model.chainDeviceBankSize
+          ? 'absent' : 'outside-bank-window' };
+      }
+    }
+    return { ok: true, device: current };
+  }
+
+  private fakeRemoteInventory(device: FakeDevice): RemoteControlsState {
+    this.model.remoteObservationGeneration++;
+    return {
+      pages: (device.remotePages ?? []).map((page, pageIndex) => ({
+        index: pageIndex,
+        name: page.name,
+        controls: page.controls.map((control, index): RemoteControlState => ({
+          index,
+          name: control.name,
+          value: control.value,
+          modulatedValue: control.modulatedValue ?? control.value,
+          isBeingMapped: control.isBeingMapped ?? false,
+          ...(control.hasAutomation === undefined ? {} : { hasAutomation: control.hasAutomation }),
+        })),
+      })),
+    };
+  }
+
   async revision(): Promise<RevisionMark> {
     return this.mark();
   }
@@ -228,15 +300,22 @@ export class FakeAdapter implements BitwigAdapter {
             ? { address, found: false, reason: 'absent' as const }
             : { address, found: true, index: address.chainIndex };
         }
-        if (address.kind === 'param' && address.device.chain === undefined) {
-          const device = hit.track.devices[address.device.chainIndex];
-          if (address.device.chainIndex >= this.model.deviceBankSize) {
-            return { address, found: false, reason: 'outside-bank-window' as const };
-          }
-          if (device === undefined) return { address, found: false, reason: 'absent' as const };
+        if (address.kind === 'param' || address.kind === 'remotes' || address.kind === 'remote') {
+          const target = this.deepDevice(hit.track, address.device);
+          if (!target.ok) return { address, found: false, reason: target.miss };
+          const device = target.device;
           this.model.parameterObservationGeneration++;
           if (!device.paramsLive || consumeStaleParameterInventory(this.model)) {
             return { address, found: false, reason: 'unstable' as const };
+          }
+          if (address.kind === 'remotes') return { address, found: true, index: address.device.chainIndex };
+          if (address.kind === 'remote') {
+            const page = device.remotePages?.[address.pageIndex];
+            const control = page?.controls[address.controlIndex];
+            const found = page?.name === address.pageName && control?.name === address.controlName;
+            return found
+              ? { address, found: true, index: address.device.chainIndex }
+              : { address, found: false, reason: 'absent' as const };
           }
           const found = address.directId !== undefined
             ? device.params.some((item, at) =>
@@ -246,7 +325,17 @@ export class FakeAdapter implements BitwigAdapter {
             ? { address, found: true, index: address.device.chainIndex }
             : { address, found: false, reason: 'absent' as const };
         }
-        if (address.kind === 'chain' || address.kind === 'device' || address.kind === 'param') {
+        if (address.kind === 'drumPad') {
+          const container = this.deepDevice(hit.track, address.container);
+          if (!container.ok) return { address, found: false, reason: container.miss };
+          if (address.channel >= this.model.drumPadBankSize) {
+            return { address, found: false, reason: 'outside-bank-window' as const };
+          }
+          return container.device.drumPads?.[address.channel]?.[0] === undefined
+            ? { address, found: false, reason: 'absent' as const }
+            : { address, found: true, index: address.channel };
+        }
+        if (address.kind === 'chain' || address.kind === 'device') {
           const nested = this.resolveNested(address, hit.track);
           if (nested !== undefined) return nested;
         }
@@ -488,16 +577,27 @@ export class FakeAdapter implements BitwigAdapter {
         // empty list would claim a device with no controls.
         if (address.chain !== undefined) {
           if (track === undefined) return undefined;
-          const observed = this.model.observeContainer(track, address.chain.container.chainIndex);
-          if (observed === undefined) return 'unreachable';
-          const found = lookupNestedDevice(observed, address);
-          return found.ok
-            ? {
-              address,
-              fidelity: 'none',
-              value: { of: 'device', device: { chainIndex: found.device.index, name: found.device.name } },
-            }
-            : undefined;
+          const found = this.deepDevice(track, address);
+          if (!found.ok) return found.miss === 'absent' || found.miss === 'ambiguous'
+            ? undefined : 'unreachable';
+          const key = addressKey(address);
+          let params = parameterReads.get(key);
+          if (params === undefined) {
+            this.model.parameterObservationGeneration++;
+            params = !found.device.paramsLive || consumeStaleParameterInventory(this.model)
+              ? 'unstable'
+              : found.device.params.map((item, at) => fakeParamState(item, at, false));
+            parameterReads.set(key, params);
+          }
+          if (params === 'unstable') return 'unstable';
+          return {
+            address,
+            fidelity: 'none',
+            value: {
+              of: 'device',
+              device: { chainIndex: address.chainIndex, name: found.device.name, params },
+            },
+          };
         }
         if (track === undefined) return undefined;
         // ⚠⚠ UNREACHABLE past the container scopes, and the fake reports it even
@@ -540,11 +640,11 @@ export class FakeAdapter implements BitwigAdapter {
         };
       }
       case 'param': {
-        // Same reason as the device case above: a param on a nested device hangs
-        // off a list this model does not have.
-        if (address.device.chain !== undefined) return undefined;
-        const dev = track?.devices[address.device.chainIndex];
-        if (dev === undefined) return undefined;
+        if (track === undefined) return undefined;
+        const target = this.deepDevice(track, address.device);
+        if (!target.ok) return target.miss === 'absent' || target.miss === 'ambiguous'
+          ? undefined : 'unreachable';
+        const dev = target.device;
         const deviceKey = addressKey(address.device);
         let inventory = parameterReads.get(deviceKey);
         if (inventory === undefined) {
@@ -564,6 +664,30 @@ export class FakeAdapter implements BitwigAdapter {
           : fakeParamState(found as FakeDevice['params'][number], address.index!, true);
         return { address, fidelity: 'exact', value: { of: 'param', param: state } };
       }
+      case 'remotes': {
+        if (track === undefined) return undefined;
+        const target = this.deepDevice(track, address.device);
+        if (!target.ok) return target.miss === 'absent' || target.miss === 'ambiguous'
+          ? undefined : 'unreachable';
+        return {
+          address,
+          fidelity: 'none',
+          value: { of: 'remotes', remotes: this.fakeRemoteInventory(target.device) },
+        };
+      }
+      case 'remote': {
+        if (track === undefined) return undefined;
+        const target = this.deepDevice(track, address.device);
+        if (!target.ok) return target.miss === 'absent' || target.miss === 'ambiguous'
+          ? undefined : 'unreachable';
+        const inventory = this.fakeRemoteInventory(target.device);
+        const page = inventory.pages[address.pageIndex];
+        const control = page?.controls[address.controlIndex];
+        if (page?.name !== address.pageName || control?.name !== address.controlName) return undefined;
+        return { address, fidelity: 'exact', value: { of: 'remote', remote: control } };
+      }
+      case 'drumPad':
+        return undefined;
       case 'scene':
         return undefined;
       default:
@@ -644,6 +768,38 @@ export class FakeAdapter implements BitwigAdapter {
         bankSize: this.model.deviceBankSize,
       };
     });
+    // Parameter and remote writes own the recursive route. Confirm their exact
+    // target before staging, as the live adapter does.
+    for (const op of batch.ops) {
+      if (op.op === 'param.set') {
+        const target = this.deepDevice(
+          this.requireTrack(op.param.device.track, op.op), op.param.device,
+        );
+        if (!target.ok) {
+          throw new AddressUnresolvedError(op.param, `parameter target is ${target.miss}`);
+        }
+        const found = op.param.directId !== undefined
+          ? target.device.params.find((item, at) =>
+            (item.id ?? `param-${at}`) === op.param.directId)
+          : target.device.params[op.param.index ?? -1];
+        if (!target.device.paramsLive || found === undefined) {
+          throw new AddressUnresolvedError(op.param, 'parameter target is absent or unstable');
+        }
+      }
+      if (op.op === 'remote.set') {
+        const target = this.deepDevice(
+          this.requireTrack(op.remote.device.track, op.op), op.remote.device,
+        );
+        if (!target.ok) {
+          throw new AddressUnresolvedError(op.remote, `remote target is ${target.miss}`);
+        }
+        const page = target.device.remotePages?.[op.remote.pageIndex];
+        const control = page?.controls[op.remote.controlIndex];
+        if (page?.name !== op.remote.pageName || control?.name !== op.remote.controlName) {
+          throw new AddressUnresolvedError(op.remote, 'remote target is absent or stale');
+        }
+      }
+    }
 
     // ⚠ E8-D: a stale guard rejects the batch WHOLE, applying zero ops.
     if (batch.ifRevision !== undefined && batch.ifRevision !== this.model.revision) {
@@ -1109,8 +1265,11 @@ export class FakeAdapter implements BitwigAdapter {
 
       case 'param.set': {
         const track = this.requireTrack(op.param.device.track, op.op);
-        const device = track.devices[op.param.device.chainIndex];
-        if (device === undefined) throw new UnsupportedOpError(`param.set on missing device`, 'fake');
+        const target = this.deepDevice(track, op.param.device);
+        if (!target.ok) {
+          throw new UnsupportedOpError(`param.set target is ${target.miss}`, 'fake');
+        }
+        const device = target.device;
         const index = op.param.directId !== undefined
           ? device.params.findIndex((param, at) => (param.id ?? `param-${at}`) === op.param.directId)
           : op.param.index ?? -1;
@@ -1209,6 +1368,9 @@ export class FakeAdapter implements BitwigAdapter {
       }
 
       case 'chain.relocate': {
+        if (op.source.chain?.kind === 'drumPad') {
+          throw new UnsupportedOpError(`${op.op}: a drum pad is not a layer chain`, 'fake');
+        }
         const track = this.requireTrack(op.source.track, op.op);
         const findChain = (address: typeof op.destination & { kind: 'chain' }) => {
           const chains = track.devices[address.container.chainIndex]?.chains;
@@ -1298,6 +1460,22 @@ export class FakeAdapter implements BitwigAdapter {
         // E8-C: interleaved notifies fire spaced across a paced batch without
         // stalling it. Nothing to model beyond "it is free".
         return;
+
+      case 'remote.set':
+      {
+        const track = this.requireTrack(op.remote.device.track, op.op);
+        const target = this.deepDevice(track, op.remote.device);
+        if (!target.ok) throw new UnsupportedOpError(`remote.set target is ${target.miss}`, 'fake');
+        const page = target.device.remotePages?.[op.remote.pageIndex];
+        const control = page?.controls[op.remote.controlIndex];
+        if (page?.name !== op.remote.pageName || control?.name !== op.remote.controlName) {
+          throw new UnsupportedOpError('remote.set target is absent or stale', 'fake');
+        }
+        this.clock.stage(() => {
+          if (this.model.parameterWritesTake) control.value = op.value;
+        });
+        return;
+      }
 
       default:
         assertNever(op, 'FakeAdapter.runOp');

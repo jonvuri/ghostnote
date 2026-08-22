@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4f — deep parameters and remote controls
 kind: plan
-state: planned
-status: Planned after 4c. Extend confirmed parameter routing into nested chains
-        and add the remote-control checkpoint instrument.
-updated: 2026-08-21
+state: complete
+status: Complete. E58 records confirmed depth-2 and drum-pad parameter control,
+        remote-control replay, selection isolation, and cleanup.
+updated: 2026-08-22
 parent: README.md
 prev: 4e-plugin-parameter-proof.md
 next: 4g-managed-fx-chain.md
 scope: Nested device parameters, drum pads, and remote-control pages
-evidence: E4c, E4d, E7, E18e · D6, D7, D8
+evidence: E4c, E4d, E7, E18e, E58 · D6, D7, D8
 ---
 
 # Phase 4, session 4f — deep parameters and remote controls
@@ -64,3 +64,42 @@ evidence: E4c, E4d, E7, E18e · D6, D7, D8
 
 Record whether path confirmation can share observations with parameter
 stabilization. Do not merge them unless the identity proof stays explicit.
+
+## Result
+
+Device addresses now carry recursive named-chain or drum-pad parents. Each
+named descent confirms one complete layer inventory, rejects duplicate names,
+selects the observed position, and confirms the nested cursor before the next
+step. A current-chain sibling bank supplies the position proof because Bitwig
+reports `-1` from `Device.position()` on a nested cursor.
+
+The same DirectParameter contract enumerated 55 named Polysynth parameters at
+depth 1 and depth 2. `OSC1 Pulse Width` moved from `0.5` to `0.55` and restored
+to `0.5` at each depth. A Polysynth on Drum Machine channel 3 passed the same
+proof through `selectFirstInChannel`.
+
+The depth-2 device exposed nine named remote pages. `Osc1Pitch` moved from
+`0.5` to `0.55` and restored to `0.5`. Readback included its finite
+`modulatedValue`. Remote addresses keep both names and indices, and writes use
+`setImmediately` with independent readback. A separate observer generation
+binds page data to the confirmed track, device name, and current-chain position.
+Complete page readback requires all eight bank rows and the exact existing-
+control count.
+
+A selection change at the batch boundary did not retarget the held depth-2
+write. The borrowed selection was restored. Duplicate, empty, stale, and
+outside-window routes remain separate refusals.
+
+The full brain check passes 703 tests, including typecheck. Extension tests and
+the fresh 146-method handshake pass. The focused live proof passes. Full live
+conformance passes 54/54 with six expected skips. Exact fixture cleanup and the
+final read-only 2k baseline pass. The context and staged diff checks pass. E58
+records the complete proof.
+
+Path confirmation and parameter stabilization share the serialized cursor and
+target observations. Their acceptance rules remain separate: identity proves
+the route, then two equal current-generation inventories prove parameter or
+remote stability.
+
+The review repair added regression coverage for stale remote generations and
+malformed existing controls. Both cases now stay unstable.

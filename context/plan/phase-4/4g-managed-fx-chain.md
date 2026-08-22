@@ -2,9 +2,9 @@
 title: Phase 4, session 4g — managed FX-chain workflow
 kind: plan
 state: planned
-status: Planned after 4c through 4f. Compose existing structure operations and
-        parameter control into one checkpointed workflow.
-updated: 2026-08-21
+status: Planned next. Compose structure operations and parameter control into
+        one checkpointed workflow.
+updated: 2026-08-22
 parent: README.md
 prev: 4f-deep-parameters-and-remotes.md
 next: 4h-device-performance-gate.md

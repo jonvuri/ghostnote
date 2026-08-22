@@ -7,10 +7,9 @@
  * below keep existing keys stable. Session 4c gives DirectParameter ids their
  * own escaped namespace so they cannot collide with typed numeric indices.
  *
- * The other half is the seam: a device inside a layer chain is NAMEABLE here and
- * not yet routable on any wire (E17/E18 measured the routes as probe surface
- * only). Every write path refuses it rather than indexing `chainIndex` into the
- * track's own device chain, which would hit a real device nobody addressed.
+ * The other half is the seam: a deep parameter owns a confirmed recursive route.
+ * Other device writes still refuse instead of indexing a nested position into
+ * the track's own device chain.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -93,8 +92,8 @@ test('A-key: nesting composes to arbitrary depth, outermost first', () => {
   const leaf = deviceIn(inner, 2);
 
   assert.equal(addressKey(leaf), 'device:cid-1:0/outer/1/inner/2');
-  assert.deepEqual(chainPath(leaf).map((c) => c.name), ['outer', 'inner']);
-  assert.deepEqual(chainPath(inner).map((c) => c.name), ['outer', 'inner']);
+  assert.deepEqual(chainPath(leaf).map((c) => c.kind === 'chain' ? c.name : c.channel), ['outer', 'inner']);
+  assert.deepEqual(chainPath(inner).map((c) => c.kind === 'chain' ? c.name : c.channel), ['outer', 'inner']);
   assert.deepEqual(chainPath(device(TRACK, 0)), []);
   assert.equal(isNestedDevice(leaf), true);
   assert.equal(isNestedDevice(device(TRACK, 0)), false);
@@ -147,16 +146,15 @@ test('A-anchor: a chain is POSITIONAL despite the durable name inside it', () =>
 
 // --- the seam between naming something and being able to write to it -----------
 
-test('A-route: an op naming a device inside a chain is REFUSED, not indexed', () => {
+test('A-route: only parameter writes own the confirmed nested route', () => {
   const inner = deviceIn(chain(device(TRACK, 1), 'A take'), 0);
 
   assert.throws(
     () => assertDevicesRoutable([{ op: 'device.delete', device: inner }]),
     (error: unknown) => error instanceof InvalidOpError && /device-layer chain/.test(String(error)),
   );
-  assert.throws(
+  assert.doesNotThrow(
     () => assertDevicesRoutable([{ op: 'param.set', param: param(inner, 0), value: 0.5 }]),
-    InvalidOpError,
   );
 });
 

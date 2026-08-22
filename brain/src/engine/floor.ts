@@ -233,6 +233,7 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     case 'device.insert':
     case 'device.delete':
     case 'param.set':
+    case 'remote.set':
     // ⚠ It destroys nothing: the source chain is still there, still named what
     // it was, with the same devices in it. What the op cannot do is be TAKEN
     // BACK, which is a different question — `write-set.ts` files it unrevertable

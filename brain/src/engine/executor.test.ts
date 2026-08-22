@@ -22,7 +22,7 @@ import { control } from '../adapters/fake/control.js';
 import { noteKey } from '../adapters/fake/model.js';
 import {
   AddressUnresolvedError, BlindSpotError, NOTE_PROP_FIDELITY, addressKey, clip, device,
-  clipMetadata, notes as notesAt, param, scene, slot, track,
+  clipMetadata, notes as notesAt, param, remote, scene, slot, track,
   type BitwigAdapter, type ClipMetadataState, type NoteRecord, type Op, type TrackAddress,
 } from '../contract/index.js';
 import { Executor, mutationStateDisagreementsOf } from './executor.js';
@@ -783,6 +783,27 @@ test('X-checkpoint: typed modulation and automation survive as warnings', async 
   const take = await fx.executor.run([{ op: 'param.set', param: address, value: 0.4 }]);
   assert.equal(take.values[0]?.caveats.some((item) => item.includes('modulation')), true);
   assert.equal(take.values[0]?.caveats.some((item) => item.includes('automation')), true);
+});
+
+test('4f checkpoint: a remote write verifies and exact reversal restores its base', async () => {
+  const fx = await fixture();
+  const trackModel = fx.fake.model.findByChannelId(fx.trackA.channelId)!.track;
+  trackModel.devices.push({
+    name: 'Remote device', paramsLive: true, params: [],
+    remotePages: [{
+      name: 'Filter',
+      controls: [{ name: 'Cutoff', value: 0.25, modulatedValue: 0.5 }],
+    }],
+  });
+  const address = remote(device(fx.trackA, 0), 0, 'Filter', 0, 'Cutoff');
+  const take = await fx.executor.run([{ op: 'remote.set', remote: address, value: 0.75 }]);
+  assert.deepEqual(take.report.disagreements, []);
+  assert.equal(take.values[0]?.caveats.some((item) => item.includes('modulated')), true);
+  await fx.executor.revertUnchecked(take);
+  const restored = await fx.fake.read([address]);
+  const restoredEntry = restored.entries[addressKey(address)];
+  assert.equal(restoredEntry?.value.of === 'remote'
+    ? restoredEntry.value.remote.value : undefined, 0.25);
 });
 
 test('X-report: a later delete supersedes an earlier metadata request', async () => {

@@ -4,14 +4,14 @@ kind: status
 state: active
 updated: 2026-08-22
 phase: phase-4
-session: 4f-deep-parameters-and-remotes
+session: 4g-managed-fx-chain
 ---
 
 # Now
 
-Phase 2, bounded clip performance, the DirectParameter core, the native device
-catalog, and plugin parameter proof are complete. Deep parameters and remotes
-are next.
+Phase 2, bounded clip performance, the complete parameter-routing core, the
+native device catalog, and plugin parameter proof are complete. The managed
+FX-chain workflow is next.
 
 ## Accepted live result
 
@@ -142,16 +142,35 @@ verified, and saved. The post-save 2k baseline passes.
 - Cleanup restored the exact empty scratch chain and seven-track project. E57
   records the machine-specific proof.
 
+## Session 4f result
+
+- Recursive addresses now reach named chains and drum-pad channels. Each
+  descent confirms the complete visible bank, selected device identity, nested
+  state, and current-chain position.
+- Polysynth exposed 55 named DirectParameters at depth 1, depth 2, and Drum
+  Machine channel 3. `OSC1 Pulse Width` moved from `0.5` to `0.55` and restored
+  to `0.5` on each route.
+- The depth-2 device exposed nine named remote pages. `Osc1Pitch` moved from
+  `0.5` to `0.55` and restored to `0.5`. Readback includes `modulatedValue`.
+- Remote pages require a target-bound observer generation, all eight bank rows,
+  and an exact existing-control count. Stale and malformed inventories remain
+  unstable.
+- A selection change at the batch boundary did not retarget a held depth-2
+  write. The borrowed selection was restored.
+- Duplicate, empty, stale, and outside-window routes fail distinctly. E58
+  records the live proof and nested sibling-identity finding.
+
 ## Next action
 
-Begin [deep parameters and remote controls](plan/phase-4/4f-deep-parameters-and-remotes.md).
-Keep nested addressing within measured depth and preserve the confirmed cursor
-acquisition boundary.
+Begin the [managed FX-chain workflow](plan/phase-4/4g-managed-fx-chain.md).
+Compose existing minted device addresses and parameter writes. Keep destructive
+existing-device deletion outside exact reversal.
 
 ## Verification
 
-- Focused parameter, settlement, reconciliation, catalog, and plugin tests pass.
-  Full brain check: 690/690 pass, including typecheck. Extension tests pass.
+- Focused parameter, settlement, reconciliation, catalog, plugin, and deep-route
+  tests pass. Full brain check: 703/703 pass, including typecheck. Extension
+  tests pass.
 - The fresh extension handshake and DirectParameter live proof pass. Sampler
   exposes 32 named parameters and exact base-value replay passes.
 - The controlled read-window probe, complete latency workflow, 128-beat
@@ -159,7 +178,7 @@ acquisition boundary.
   pass.
 - The controlled mutation workflow passes its 9,000 ms gate at 7,749 ms median.
   Full live conformance passes 54/54 with six expected skips. The fresh
-  extension handshake passes all 145 methods after restart.
+  extension handshake passes all 146 methods after restart.
 - The archived Phase 2h aggregate refused before mutation because it requires
   the retired `gn-scale-test` fixture. Current focused probes cover its affected
   read boundaries.
@@ -168,7 +187,7 @@ acquisition boundary.
 - Saved-project open and one cold start: pass with zero control-thread stalls.
 - Scratch cleanup and exact rig configuration restoration: pass.
 - Context check and `git diff --check` pass.
-- Final live handshake: pass for Bitwig 6.0.6/API 25, the 145-method golden,
+- Final live handshake: pass for Bitwig 6.0.6/API 25, the 146-method golden,
   deployment age, the selected `256/128/8/16/64` rig, 512-step writers, and the
   2,048-step reader.
 - The `26.05-2 moon` project passes the complete read-only 2k baseline after 4b
@@ -177,8 +196,8 @@ acquisition boundary.
 
 ## Retrospective
 
-Live commands can outlive a tool wrapper that reports completion. Confirm the
-actual process exit. If a live suite is interrupted, remove only its exact
-fixture identities before the baseline check. Paired VST3 and CLAP observers
-settled within 232 ms on this machine, so neither format needs a separate
-settlement rule from this evidence.
+Path confirmation and parameter stabilization can share the serialized cursor
+and its observations. Keep identity and two-equal-generation acceptance as
+separate checks. Nested `Device.position()` reports `-1`, so current-chain
+sibling equality is the explicit position proof.
+Remote completeness must include target identity and population counts.

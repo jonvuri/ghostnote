@@ -405,6 +405,14 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
       sink.scalarOps.push({ op: 'param.set', param: target.address, value: value.param.value });
       return;
 
+    case 'remote':
+      if (target.address.kind !== 'remote') return;
+      sink.scalarOps.push({ op: 'remote.set', remote: target.address, value: value.remote.value });
+      return;
+
+    case 'remotes':
+      return;
+
     case 'device':
       sink.unrestored.push({
         address: target.address,

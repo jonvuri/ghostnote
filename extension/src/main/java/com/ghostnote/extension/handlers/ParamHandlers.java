@@ -35,7 +35,7 @@ public final class ParamHandlers extends HandlerGroup {
         r.on("param.touch", params -> paramTouch(params));
         r.on("directparam.list", params -> directParamList(params));
         r.on("directparam.set", params -> directParamSet(params));
-        r.on("remote.list", params -> remoteList());
+        r.on("remote.list", params -> remoteList(params));
         r.on("remote.set", params -> remoteSet(params));
         r.on("remote.setMapping", params -> remoteSetMapping(params));
         r.on("remote.selectPage", params -> remoteSelectPage(params));
@@ -212,7 +212,10 @@ public final class ParamHandlers extends HandlerGroup {
      * modulation-mapping surface ("use remote controls instead"). Each remote
      * control is a Parameter carrying value/modulatedValue plus isBeingMapped.
      */
-    private JsonElement remoteList() {
+    private JsonElement remoteList(JsonObject request) {
+        if (request.has("begin") && request.get("begin").getAsBoolean()) {
+            rig.beginRemoteObservation();
+        }
         JsonArray remotes = new JsonArray();
         int existing = 0;
         for (int r = 0; r < Rig.REMOTE_BANK; r++) {
@@ -227,12 +230,23 @@ public final class ParamHandlers extends HandlerGroup {
                 obj.addProperty("value", rc.value().get());
                 obj.addProperty("modulatedValue", rc.modulatedValue().get());
                 obj.addProperty("isBeingMapped", rc.isBeingMapped().get());
+                putGuarded(obj, "hasAutomation", () -> rc.hasAutomation().get());
             }
             remotes.add(obj);
         }
         JsonObject result = new JsonObject();
         result.add("remotes", remotes);
         result.addProperty("existing", existing);
+        result.addProperty("bankSize", Rig.REMOTE_BANK);
+        result.addProperty("generation", rig.remoteGeneration);
+        result.addProperty("observedGeneration", rig.remoteObservedGeneration);
+        if (rig.remoteObservedTrackId != null) {
+            result.addProperty("observedTrackChannelId", rig.remoteObservedTrackId);
+        }
+        if (rig.remoteObservedDeviceName != null) {
+            result.addProperty("observedDeviceName", rig.remoteObservedDeviceName);
+        }
+        result.addProperty("observedDeviceIndex", rig.remoteObservedDeviceIndex);
         putGuarded(result, "pageCount", () -> rig.remotePage0.pageCount().get());
         putGuarded(result, "selectedPageIndex", () -> rig.remotePage0.selectedPageIndex().get());
         JsonArray pageNames = new JsonArray();
@@ -246,6 +260,14 @@ public final class ParamHandlers extends HandlerGroup {
         result.add("pageNames", pageNames);
         result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
         result.addProperty("deviceName", rig.cursorDevice0.name().get());
+        putGuarded(result, "isNested", () -> rig.cursorDevice0.isNested().get());
+        if (result.has("selectedPageIndex") && result.has("pageNames")) {
+            int selected = result.get("selectedPageIndex").getAsInt();
+            JsonArray names = result.getAsJsonArray("pageNames");
+            if (selected >= 0 && selected < names.size()) {
+                result.addProperty("selectedPageName", names.get(selected).getAsString());
+            }
+        }
         return result;
     }
 

@@ -85,7 +85,9 @@ export interface Where {
  * nested address through this surface today, so the gap is nameable rather than
  * reachable.
  */
-function trackLevelDevice(address: DeviceAddress | ChainAddress): DeviceAddress {
+function trackLevelDevice(
+  address: DeviceAddress | import('../contract/index.js').DeviceParentAddress,
+): DeviceAddress {
   const path = chainPath(address);
   return path[0]?.container ?? (address.kind === 'device' ? address : address.container);
 }
@@ -115,6 +117,7 @@ export function describeAddress(address: Address): Where {
           : { fromBeat: address.range.startBeats, toBeat: address.range.endBeats }),
       };
     case 'chain':
+    case 'drumPad':
     case 'device':
       return {
         what: 'device',
@@ -127,6 +130,19 @@ export function describeAddress(address: Address): Where {
         trackId: address.device.track.channelId,
         devicePosition: trackLevelDevice(address.device).chainIndex,
         parameter: address.directId ?? address.index,
+      };
+    case 'remotes':
+      return {
+        what: 'parameter',
+        trackId: address.device.track.channelId,
+        devicePosition: trackLevelDevice(address.device).chainIndex,
+      };
+    case 'remote':
+      return {
+        what: 'parameter',
+        trackId: address.device.track.channelId,
+        devicePosition: trackLevelDevice(address.device).chainIndex,
+        parameter: address.controlIndex,
       };
   }
 }
@@ -280,6 +296,8 @@ function valueLosses(value: StateValue): string[] {
       return [NESTED_HOLDER_GONE_FOR_GOOD];
     case 'track':
     case 'param':
+    case 'remote':
+    case 'remotes':
     case 'clipLaunch':
     case 'clipMetadata':
     case 'clipPlay':

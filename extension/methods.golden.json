@@ -14,8 +14,8 @@
   ],
   "extractedAt": "2026-08-22",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 145,
-  "methodsHash": "ce77250e269be152",
+  "count": 146,
+  "methodsHash": "63199228545d4b4d",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -43,6 +43,7 @@
     "cursor.scrollToStep",
     "cursor.setClipMetadata",
     "cursor.setLaunchSettings",
+    "devcursor.selectInLayer",
     "device.insertVst3",
     "device.moveTo",
     "device.selectInEditor",
@@ -160,6 +161,7 @@
     "devcursor.selectFirstInPad",
     "devcursor.selectFirstInSlot",
     "devcursor.selectInChannel",
+    "devcursor.selectInLayer",
     "devcursor.selectParent",
     "devcursor.status",
     "device.delete",
@@ -419,5 +421,8 @@
     "note.observer.arm",
     "note.observer.prepare",
     "note.observer.read"
+  ],
+  "addedInPhase4Session4f": [
+    "devcursor.selectInLayer"
   ]
 }

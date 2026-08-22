@@ -108,6 +108,8 @@ public class Rig {
     // --- E4: direct-parameter apparatus on pool cursor 0 ---
     /** Repointable device cursor on pool cursor track 0. */
     public final PinnableCursorDevice cursorDevice0;
+    /** Current-chain siblings, used to confirm a nested cursor position. */
+    public final DeviceBank cursorDeviceSiblings0;
     public final SpecificBitwigDevice polysynthView0;
     /** IDs actually bound, index-parallel to {@link #polysynthParams0}. */
     public final String[] paramIds;
@@ -189,6 +191,16 @@ public class Rig {
     public static final int REMOTE_BANK = 8;
     public final CursorRemoteControlsPage remotePage0;
     public final RemoteControl[] remotes0 = new RemoteControl[REMOTE_BANK];
+    /** Generation reset before each serialized remote-control acquisition. */
+    public long remoteGeneration = 0;
+    /** Generation in which the page-name observer last followed the cursor. */
+    public long remoteObservedGeneration = -1;
+    public String remoteObservedTrackId = null;
+    public String remoteObservedDeviceName = null;
+    public int remoteObservedDeviceIndex = -1;
+    private long remotePendingGeneration = -1;
+    private String remotePendingTrackId = null;
+    private String remotePendingDeviceName = null;
 
     /** E7e: transport, so probes can hold a note playing (per-voice modulators
      * output nothing while the project is silent). */
@@ -776,15 +788,28 @@ public class Rig {
         cursorDevice0.slotNames().markInterested();
         cursorDevice0.isNested().markInterested();
 
+        // Device.position() reports -1 for a nested cursor. This siblings bank
+        // re-scopes to the cursor's current chain and keeps the position
+        // observable through preallocated equality values.
+        cursorDeviceSiblings0 = cursorDevice0.createSiblingsDeviceBank(config.deviceBank);
+        cursorDeviceSiblings0.itemCount().markInterested();
+        for (int d = 0; d < config.deviceBank; d++) {
+            Device sibling = cursorDeviceSiblings0.getDevice(d);
+            sibling.exists().markInterested();
+            sibling.name().markInterested();
+        }
+
         // E4c: one view per nesting mechanism. These are created against a
         // cursor device whose type changes as it repoints, so a view that
         // does not apply to the current device simply reports nothing.
         layerBank0 = cursorDevice0.createLayerBank(LAYER_BANK);
+        layerBank0.itemCount().markInterested();
         for (int l = 0; l < LAYER_BANK; l++) {
             DeviceLayer layer = layerBank0.getItemAt(l);
             layer.exists().markInterested();
             layer.name().markInterested();
             layerDeviceBanks[l] = layer.createDeviceBank(LAYER_DEVICE_BANK);
+            layerDeviceBanks[l].itemCount().markInterested();
             for (int d = 0; d < LAYER_DEVICE_BANK; d++) {
                 Device nested = layerDeviceBanks[l].getDevice(d);
                 nested.exists().markInterested();
@@ -1053,6 +1078,7 @@ public class Rig {
         cursorLayer0.name().markInterested();
 
         drumPadBank0 = cursorDevice0.createDrumPadBank(DRUM_PAD_BANK);
+        drumPadBank0.itemCount().markInterested();
         for (int p = 0; p < DRUM_PAD_BANK; p++) {
             DrumPad pad = drumPadBank0.getItemAt(p);
             pad.exists().markInterested();
@@ -1070,6 +1096,7 @@ public class Rig {
         remotePage0.pageCount().markInterested();
         remotePage0.selectedPageIndex().markInterested();
         remotePage0.pageNames().markInterested();
+        remotePage0.pageNames().addValueObserver(names -> noteRemotePageObservation());
         for (int r = 0; r < REMOTE_BANK; r++) {
             RemoteControl rc = remotePage0.getParameter(r);
             rc.exists().markInterested();
@@ -1158,11 +1185,57 @@ public class Rig {
         return directParamGeneration;
     }
 
-    /** Current top-level bank position of the device cursor, or -1. */
+    /** Invalidate remote-control observations from the prior cursor target. */
+    public long beginRemoteObservation() {
+        remoteGeneration++;
+        remoteObservedGeneration = -1;
+        remoteObservedTrackId = null;
+        remoteObservedDeviceName = null;
+        remoteObservedDeviceIndex = -1;
+        remotePendingGeneration = -1;
+        remotePendingTrackId = null;
+        remotePendingDeviceName = null;
+        return remoteGeneration;
+    }
+
+    private void noteRemotePageObservation() {
+        remotePendingGeneration = remoteGeneration;
+        remotePendingTrackId = cursorTracks[0].channelId().get();
+        remotePendingDeviceName = cursorDevice0.name().get();
+        finishRemoteObservation();
+    }
+
+    /** Finish only after the page observer and current-chain equality agree. */
+    private void finishRemoteObservation() {
+        if (remotePendingGeneration != remoteGeneration
+            || remotePendingTrackId == null || remotePendingDeviceName == null
+            || !remotePendingTrackId.equals(cursorTracks[0].channelId().get())
+            || !remotePendingDeviceName.equals(cursorDevice0.name().get())) {
+            return;
+        }
+        int index = currentDirectParameterDeviceIndex();
+        if (index < 0) {
+            return;
+        }
+        remoteObservedGeneration = remoteGeneration;
+        remoteObservedTrackId = remotePendingTrackId;
+        remoteObservedDeviceName = remotePendingDeviceName;
+        remoteObservedDeviceIndex = index;
+    }
+
+    /** Current position of the device cursor in its own chain, or -1. */
     public int currentDirectParameterDeviceIndex() {
+        int sibling = uniqueDeviceEquality("dev0=sibling", config.deviceBank);
+        if (sibling >= 0) {
+            return sibling;
+        }
+        return uniqueDeviceEquality("dev0=chain", config.deviceBank);
+    }
+
+    private int uniqueDeviceEquality(String prefix, int size) {
         int found = -1;
-        for (int d = 0; d < config.deviceBank; d++) {
-            var equal = equalsProbes.get("dev0=chain" + d);
+        for (int d = 0; d < size; d++) {
+            var equal = equalsProbes.get(prefix + d);
             if (equal == null || !equal.get()) {
                 continue;
             }
@@ -1183,7 +1256,7 @@ public class Rig {
      * from a bricked deploy from the probe's side, and we would spend a restart
      * finding that out. `not-attempted` / `built:N` / `FAILED@N:…` says which.
      *
-     * The four families, and what each is a guard FOR:
+     * The five families, and what each is a guard FOR:
      *
      *   ct{i}=bank{n}   ⚠ the one D6 would actually use — "is pinned cursor i
      *                   still the track at bank position n?". Name-and-position
@@ -1203,6 +1276,9 @@ public class Rig {
      *   dev0=chain{d}   "is the device cursor still the device at chain index d?",
      *                   which is the E3 hazard — deleting device[0] slides the
      *                   survivor from 1 to 0 under any index we were holding.
+     *   dev0=sibling{d} the same identity check inside the current nested chain.
+     *                   Nested Device.position() reports -1, so this family
+     *                   supplies the confirmed current-chain position.
      */
     private String buildEqualsProbes() {
         int built = 0;
@@ -1229,9 +1305,13 @@ public class Rig {
                 built++;
             }
             for (int d = 0; d < config.deviceBank; d++) {
-                equalsProbes.put("dev0=chain" + d,
-                    cursorDevice0.createEqualsValue(cursorDeviceBanks[0].getDevice(d)));
-                built++;
+                var chainEqual = cursorDevice0.createEqualsValue(cursorDeviceBanks[0].getDevice(d));
+                var siblingEqual = cursorDevice0.createEqualsValue(cursorDeviceSiblings0.getDevice(d));
+                chainEqual.addValueObserver(value -> finishRemoteObservation());
+                siblingEqual.addValueObserver(value -> finishRemoteObservation());
+                equalsProbes.put("dev0=chain" + d, chainEqual);
+                equalsProbes.put("dev0=sibling" + d, siblingEqual);
+                built += 2;
             }
             // ⚠ Marked in a second pass, not inline. Creating and marking are two
             // separate hazards (E2's observer gotcha is about reading an unmarked

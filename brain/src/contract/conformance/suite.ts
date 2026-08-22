@@ -669,15 +669,10 @@ export function runConformance(h: AdapterHarness): void {
   );
 
   test(
-    label('C-nested-device', 'a device inside a layer chain is REFUSED by both adapters, not mis-aimed'),
+    label('C-nested-device', 'nested parameter routing reports absence and does not mis-aim'),
     async () => {
-      // ⚠ The address grammar can NAME a device inside a device-layer chain
-      // before any wire route can reach one, and this is the case that keeps the
-      // gap between those two a refusal instead of a wrong write. Every measured
-      // device route sends `chainIndex` as a position in the TRACK's own chain,
-      // so an unguarded nested address deletes or retunes whatever sits there —
-      // a real device, addressed by nobody, on both adapters for the same reason
-      // (the fake's device model is flat too).
+      // A nested parameter has its own confirmed route. Other device writes
+      // remain refused. A missing path must not fall back to a top-level device.
       const { adapter, trackA } = await h.create();
       try {
         const alt = chain(device(trackA, 0), 'gn-conf-alt');
@@ -687,23 +682,14 @@ export function runConformance(h: AdapterHarness): void {
         assert.deepEqual(
           resolution.resolved.map((r) => ({ found: r.found, reason: r.reason, index: r.index })),
           [
-            // ⚠⚠ AMENDED in step 6b, and the change is the whole point of that
-            // slice: these used to read `unsupported` on the honest grounds that
-            // no lookup had happened. One happens now — the container position
-            // is inside the observable scopes and holds no container — so the
-            // answer is `absent`, which is a claim about the WORLD. The nested
-            // param stays `unsupported`, because its handle is a separate one
-            // that nothing has built or measured; device resolution must not
-            // promote it implicitly.
             { found: false, reason: 'absent', index: undefined },
             { found: false, reason: 'absent', index: undefined },
-            { found: false, reason: 'unsupported', index: undefined },
+            { found: false, reason: 'absent', index: undefined },
           ],
           'a visible track anchor must not be promoted into false chain-family resolution',
         );
-        // ⚠ Depth is where `unsupported` still lives for a DEVICE: no route
-        // enumerates a chain inside a chain, and a truncated walk would answer
-        // about a different device than the one addressed.
+        // General device resolution still stops at one structural level. The
+        // depth-2 parameter route does not use this structural shortcut.
         const deep = deviceIn(chain(deviceIn(chain(device(trackA, 0), 'outer'), 0), 'inner'), 0);
         const deepRes = await adapter.resolve([deep]);
         assert.deepEqual(
@@ -716,16 +702,9 @@ export function runConformance(h: AdapterHarness): void {
         );
         await assert.rejects(
           adapter.apply({ ops: [{ op: 'param.set', param: param(inner, 0), value: 0.5 }] }),
-          /device-layer chain/,
+          /parameter.*(missing|absent)|target is absent/i,
         );
-        // ⚠⚠ OBSERVATION DID NOT RELAX THE WRITE GUARD, and that is the whole
-        // shape of this slice: a chain can now be seen and still cannot be
-        // written through. `assertDevicesRoutable` stays in force for every
-        // nested route until the verb that owns it is measured and promoted.
-        //
-        // ⚠ And nothing was sent on the way to either refusal: the guard runs
-        // ahead of the mark the live adapter would otherwise read, so a refusal
-        // costs no round trip and cannot half-run a batch.
+        // The route looked at the complete nested path and found no target.
         const snapshot = await adapter.read([alt, inner, innerParam]);
         for (const address of [alt, inner, innerParam]) {
           assert.equal(snapshot.entries[addressKey(address)], undefined,
@@ -974,17 +953,15 @@ export function runConformance(h: AdapterHarness): void {
           'the refused batches left the container names unchanged',
         );
 
-        // ⚠⚠ AND THE WRITE GUARD DID NOT MOVE. A chain can now be created and a
-        // device inside one still cannot be deleted or retuned: `chain.create`
-        // is the only nested route promoted, and `assertDevicesRoutable` refuses
-        // every other one exactly as it did before this slice.
+        // Nested device deletion is still unsupported. Nested parameter writes
+        // use their own route and report that this new chain is empty.
         await assert.rejects(
           adapter.apply({ ops: [{ op: 'device.delete', device: deviceIn(minted, 0) }] }),
           /device-layer chain/,
         );
         await assert.rejects(
           adapter.apply({ ops: [{ op: 'param.set', param: param(deviceIn(minted, 0), 0), value: 0.5 }] }),
-          /device-layer chain/,
+          /parameter.*(missing|absent)|target is absent/i,
         );
       } finally {
         // ⚠ LIVE RESIDUE, and worse here than for the rows above: there is no

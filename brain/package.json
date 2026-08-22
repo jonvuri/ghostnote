@@ -217,6 +217,7 @@
     "probe:4c-direct": "tsx src/probes/phase4c-direct-parameters.ts",
     "probe:4d-native-catalog": "tsx src/probes/phase4d-native-catalog.ts",
     "probe:4e-plugin-parameters": "tsx src/probes/phase4e-plugin-parameters.ts",
+    "probe:4f-deep-parameters": "tsx src/probes/phase4f-deep-parameters-and-remotes.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

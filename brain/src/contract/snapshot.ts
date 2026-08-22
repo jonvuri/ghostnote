@@ -16,7 +16,8 @@
 import type { Address, AddressKey } from './address.js';
 import type { ObservedChain } from './chains.js';
 import type {
-  ClipLaunchState, ClipMetadataState, ClipPlayState, DeviceState, NoteRecord, ParamState, TrackState,
+  ClipLaunchState, ClipMetadataState, ClipPlayState, DeviceState, NoteRecord, ParamState,
+  RemoteControlState, RemoteControlsState, TrackState,
 } from './state.js';
 import type { ContractTag } from './version.js';
 
@@ -186,7 +187,9 @@ export type StateValue =
    * files it as unrestored rather than emitting an inverse it cannot honour.
    */
   | { readonly of: 'chain'; readonly chain: ObservedChain }
-  | { readonly of: 'param'; readonly param: ParamState };
+  | { readonly of: 'param'; readonly param: ParamState }
+  | { readonly of: 'remotes'; readonly remotes: RemoteControlsState }
+  | { readonly of: 'remote'; readonly remote: RemoteControlState };
 
 export interface StateEntry {
   readonly address: Address;

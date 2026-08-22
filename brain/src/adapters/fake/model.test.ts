@@ -29,8 +29,10 @@ import assert from 'node:assert/strict';
 import {
   GAIN_READ_SCALE, addressKey, assertOpsWritable, chain as chainAddress, clip,
   device as deviceAddress, deviceIn as deviceInAddress,
+  drumPad as drumPadAddress,
   lookupChain as chainLookup, notes as notesAddress, orderedNoteProps,
-  param as paramAddress, planStages, scene, slot, stepSizeFor, track, type NoteRecord, type Op,
+  param as paramAddress, remote as remoteAddress, remotes as remotesAddress, planStages,
+  scene, slot, stepSizeFor, track, type NoteRecord, type Op,
 } from '../../contract/index.js';
 import { FakeAdapter } from './adapter.js';
 import { VirtualClock } from './clock.js';
@@ -1019,4 +1021,99 @@ test('T-direct-param: device re-indexing invalidates the prior parameter positio
   const resolved = (await adapter.resolve([stale])).resolved[0];
   assert.deepEqual({ found: resolved?.found, reason: resolved?.reason },
     { found: false, reason: 'absent' });
+});
+
+test('4f: recursive parameter routing reads and writes at measured depth 2', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.findByChannelId(first.channelId)!.track;
+  const leaf = {
+    name: 'Leaf', paramsLive: true,
+    params: [{ id: 'P1', name: 'Depth', value: 0.25 }],
+  };
+  const inner = { name: 'Inner container', paramsLive: true, params: [], chains: [someChain('Inner', [leaf])] };
+  model.devices.push({
+    name: 'Outer container', paramsLive: true, params: [], chains: [someChain('Outer', [inner])],
+  });
+  const top = deviceAddress(track(first.channelId), 0);
+  const level1 = deviceInAddress(chainAddress(top, 'Outer'), 0);
+  const deep = deviceInAddress(chainAddress(level1, 'Inner'), 0);
+  const target = paramAddress(deep, 'P1');
+
+  const before = await adapter.read([deep, target]);
+  assert.equal(before.entries[addressKey(deep)]?.value.of, 'device');
+  assert.equal(before.entries[addressKey(target)]?.value.of, 'param');
+  await adapter.apply({ ops: [{ op: 'param.set', param: target, value: 0.75 }] });
+  await adapter.settle('tick');
+  const after = await adapter.read([target]);
+  const afterEntry = after.entries[addressKey(target)];
+  assert.equal(afterEntry?.value.of === 'param' ? afterEntry.value.param.value : undefined, 0.75);
+});
+
+test('4f: duplicate, empty and outside-window layer paths stay distinct', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.findByChannelId(first.channelId)!.track;
+  const leaf = { name: 'Leaf', paramsLive: true, params: [{ id: 'P1', name: 'P1', value: 0.2 }] };
+  model.devices.push({
+    name: 'Container', paramsLive: true, params: [],
+    chains: [someChain('dup', [leaf]), someChain('dup', [leaf])],
+  });
+  const top = deviceAddress(track(first.channelId), 0);
+  const duplicate = paramAddress(deviceInAddress(chainAddress(top, 'dup'), 0), 'P1');
+  const ambiguous = (await adapter.resolve([duplicate])).resolved[0];
+  assert.equal(ambiguous?.reason, 'ambiguous');
+
+  model.devices[0]!.chains = [];
+  const empty = (await adapter.resolve([duplicate])).resolved[0];
+  assert.equal(empty?.reason, 'absent');
+
+  model.devices[0]!.chains = Array.from(
+    { length: adapter.model.chainBankSize + 1 }, (_, index) => someChain(`c${index}`),
+  );
+  const blind = (await adapter.resolve([duplicate])).resolved[0];
+  assert.equal(blind?.reason, 'outside-bank-window');
+});
+
+test('4f: a drum pad is addressed by channel and selects its first device', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.findByChannelId(first.channelId)!.track;
+  const pads: import('./model.js').FakeDevice[][] = [];
+  pads[3] = [{
+    name: 'Pad synth', paramsLive: true,
+    params: [{ id: 'P1', name: 'Tone', value: 0.4 }],
+  }];
+  const container = { name: 'Drum Machine', paramsLive: true, params: [], drumPads: pads };
+  model.devices.push(container);
+  const top = deviceAddress(track(first.channelId), 0);
+  const target = paramAddress(deviceInAddress(drumPadAddress(top, 3), 0), 'P1');
+  assert.equal((await adapter.resolve([target])).resolved[0]?.found, true);
+  assert.equal((await adapter.read([target])).entries[addressKey(target)]?.value.of, 'param');
+});
+
+test('4f: remote pages enumerate and one named control round-trips', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.findByChannelId(first.channelId)!.track;
+  model.devices.push({
+    name: 'Remote device', paramsLive: true, params: [],
+    remotePages: [{
+      name: 'Filter',
+      controls: [{ name: 'Cutoff', value: 0.3, modulatedValue: 0.45 }],
+    }],
+  });
+  const device = deviceAddress(track(first.channelId), 0);
+  const inventoryAddress = remotesAddress(device);
+  const controlAddress = remoteAddress(device, 0, 'Filter', 0, 'Cutoff');
+  const inventory = await adapter.read([inventoryAddress, controlAddress]);
+  const pages = inventory.entries[addressKey(inventoryAddress)];
+  assert.equal(pages?.value.of === 'remotes' ? pages.value.remotes.pages[0]?.name : undefined, 'Filter');
+  const control = inventory.entries[addressKey(controlAddress)];
+  assert.equal(control?.value.of === 'remote' ? control.value.remote.modulatedValue : undefined, 0.45);
+  await adapter.apply({ ops: [{ op: 'remote.set', remote: controlAddress, value: 0.7 }] });
+  await adapter.settle('tick');
+  const after = await adapter.read([controlAddress]);
+  const afterEntry = after.entries[addressKey(controlAddress)];
+  assert.equal(afterEntry?.value.of === 'remote' ? afterEntry.value.remote.value : undefined, 0.7);
 });

@@ -178,6 +178,13 @@ export const WIRE = {
   paramSet: 'param.set',
   directParamList: 'directparam.list',
   directParamSet: 'directparam.set',
+  remoteList: 'remote.list',
+  remoteSet: 'remote.set',
+  remoteSelectPage: 'remote.selectPage',
+  layerList: 'layer.list',
+  drumPadList: 'drumpad.list',
+  deviceCursorSelectInLayer: 'devcursor.selectInLayer',
+  deviceCursorSelectFirstInPad: 'devcursor.selectFirstInPad',
 
   batchRun: 'batch.run',
   revisionGet: 'revision.get',

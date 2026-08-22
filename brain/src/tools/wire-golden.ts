@@ -56,6 +56,7 @@ export interface Golden {
   addedInPhase2Session2i?: string[];
   /** Phase 4 session 4b bulk exact-note read. */
   addedInPhase4Session4b?: string[];
+  addedInPhase4Session4f?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

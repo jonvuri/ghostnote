@@ -98,6 +98,18 @@ export interface FakeDevice {
    * E18a). `ProjectModel.shippedChains` is where that mapping lives.
    */
   chains?: FakeChain[];
+  /** Devices in each drum-pad channel. The measured route selects the first. */
+  drumPads?: FakeDevice[][];
+  remotePages?: {
+    name: string;
+    controls: {
+      name: string;
+      value: number;
+      modulatedValue?: number;
+      isBeingMapped?: boolean;
+      hasAutomation?: boolean;
+    }[];
+  }[];
 }
 
 export interface FakeTrack {
@@ -151,6 +163,9 @@ export class ProjectModel {
   containerScopes = 2;
   chainBankSize = 4;
   chainDeviceBankSize = 4;
+  drumPadBankSize = 16;
+  /** E4c measured recursive cursor routing through depth 2. */
+  parameterDepth = 2;
   /** The top-level device bank mirrors RigConfig's shipped default. */
   deviceBankSize = 16;
   /** DirectParameter writes can be accepted without taking (E4b). */
@@ -159,6 +174,7 @@ export class ProjectModel {
   staleParameterInventories = 0;
   /** One generation per parameter-cursor acquisition. */
   parameterObservationGeneration = 0;
+  remoteObservationGeneration = 0;
 
   /**
    * ⚠ What a freshly inserted container SHIPS WITH, by device uuid (`e17ai`,

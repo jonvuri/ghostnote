@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E58 | Deep parameters and remote controls are live [K] (2026-08-22) | [open](experiments/e58-deep-parameters-and-remote-controls-are-live.md) |
 | E57 | VST3 and CLAP parameter control is live [K] (2026-08-22) | [open](experiments/e57-vst3-and-clap-parameter-control-is-live.md) |
 | E56 | Native device catalog is reproducible and resolved [K] (2026-08-22) | [open](experiments/e56-native-device-catalog-is-reproducible-and-resolved.md) |
 | E55 | DirectParameter core is live [K] (2026-08-22) | [open](experiments/e55-direct-parameter-core-is-live.md) |

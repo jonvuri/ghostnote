@@ -43,6 +43,7 @@ public final class DeviceHandlers extends HandlerGroup {
         r.on("devcursor.selectInChannel", params -> devcursorSelectInChannel(params));
         r.on("devcursor.selectAt", params -> devcursorSelectAt(params));
         r.on("devcursor.selectFirstInLayer", params -> devcursorSelectFirstInLayer(params));
+        r.on("devcursor.selectInLayer", params -> devcursorSelectInLayer(params));
         r.on("devcursor.selectFirstInSlot", params -> devcursorSelectFirstInSlot(params));
         r.on("devcursor.selectFirstInKeyPad", params -> devcursorSelectFirstInKeyPad(params));
         r.on("devcursor.selectFirstInPad", params -> devcursorSelectFirstInPad(params));
@@ -416,6 +417,7 @@ public final class DeviceHandlers extends HandlerGroup {
         result.addProperty("trackChannelId", rig.cursorTracks[0].channelId().get());
         result.addProperty("trackPosition", rig.cursorTracks[0].position().get());
         result.addProperty("cursorTrackPinned", rig.cursorTracks[0].isPinned().get());
+        result.addProperty("isNested", rig.cursorDevice0.isNested().get());
         return result;
     }
 
@@ -444,6 +446,14 @@ public final class DeviceHandlers extends HandlerGroup {
      */
     private JsonElement devcursorSelectFirstInLayer(JsonObject params) {
         rig.cursorDevice0.selectFirstInLayer(params.get("layerIndex").getAsInt());
+        return ok();
+    }
+
+    /** Select one observed device position inside one observed layer. */
+    private JsonElement devcursorSelectInLayer(JsonObject params) {
+        int layerIndex = params.get("layerIndex").getAsInt();
+        int deviceIndex = params.get("deviceIndex").getAsInt();
+        rig.cursorDevice0.selectDevice(rig.layerDeviceBanks[layerIndex].getDevice(deviceIndex));
         return ok();
     }
 

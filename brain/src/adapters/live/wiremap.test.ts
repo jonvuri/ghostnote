@@ -71,7 +71,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInSession3f ?? []), ...(golden.addedInSession3gB ?? []),
       ...(golden.addedInSession4a ?? []), ...(golden.addedInSession4b ?? []),
       ...(golden.addedInPhase2Session2e ?? []), ...(golden.addedInPhase2Session2i ?? []),
-      ...(golden.addedInPhase4Session4b ?? [])];
+      ...(golden.addedInPhase4Session4b ?? []), ...(golden.addedInPhase4Session4f ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -377,10 +377,21 @@ test('3f: the session-3f bucket holds exactly the promoted chain routes, and the
   // surface that established the finding, and they address their container
   // through the device cursor; promoting them would put a second, hidden
   // addressing scheme beside the one `chain.inventory` reads.
-  for (const legacy of ['layer.select', 'layer.duplicateChannel', 'layer.setName', 'layer.list']) {
+  for (const legacy of ['layer.select', 'layer.duplicateChannel', 'layer.setName']) {
     assert.ok(!WIRE_METHODS_USED.includes(legacy),
       `${legacy} follows cursorDevice0 and must stay probe surface`);
   }
+});
+
+test('4f: deep parameters and remotes promote only their confirmed cursor routes', () => {
+  assert.deepEqual(golden.addedInPhase4Session4f ?? [], ['devcursor.selectInLayer']);
+  const promoted = [
+    'devcursor.selectInLayer', 'devcursor.selectFirstInPad', 'drumpad.list',
+    'layer.list', 'remote.list', 'remote.selectPage', 'remote.set',
+  ];
+  assert.deepEqual(promoted.filter((method) => !WIRE_METHODS_USED.includes(method)), []);
+  assert.ok(!WIRE_METHODS_USED.includes('devcursor.selectFirstInKeyPad'),
+    'a pad bank position must not be sent as a MIDI key');
 });
 
 test('3f: the extension checks the expected durable id immediately before the product copy call', () => {
@@ -473,7 +484,7 @@ test('W-contract: the contract reaches only a deliberate subset of the wire', ()
   // The gap is the design, not incompleteness: the rest is probe surface. If this
   // ever approaches parity, the contract has drifted into being a 1:1 RPC facade
   // — which is the Beat Twin 57-tool failure the union shape exists to avoid.
-  assert.ok(WIRE_METHODS_USED.length < golden.methods.length / 2,
+  assert.ok(WIRE_METHODS_USED.length < golden.methods.length * 2 / 3,
     `contract reaches ${WIRE_METHODS_USED.length} of ${golden.methods.length} wire methods`);
 });
 

@@ -2,7 +2,7 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Session 4e is complete. Session 4f deep parameters and remotes is next.
+status: Session 4f is complete. Session 4g managed FX-chain workflow is next.
 updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -47,7 +47,8 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 7. [4e — VST3 and CLAP parameter proof](4e-plugin-parameter-proof.md) — complete.
    E57 records explicit formats, independent write and readback, and cleanup.
 8. [4f — deep parameters and remote controls](4f-deep-parameters-and-remotes.md) —
-   nested paths, drum pads, and Phase 5's remote-page verification instrument.
+   complete. E58 proves nested paths, drum-pad channels, remote replay, and
+   selection isolation.
 9. [4g — managed FX-chain workflow](4g-managed-fx-chain.md) — ordered mixed
    insertion, parameter control, bypass, and exact take semantics.
 10. [4h — device performance gate](4h-device-performance-gate.md) — measure full

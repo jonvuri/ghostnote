@@ -386,7 +386,7 @@ export function lookupNestedDevice(
   address: DeviceAddress,
 ): DeviceLookup {
   const chainRef = address.chain;
-  if (chainRef === undefined || !nestingObservable(address)) {
+  if (chainRef === undefined || chainRef.kind !== 'chain' || !nestingObservable(address)) {
     return { ok: false, miss: 'unsupported' };
   }
   const found = lookupChain(container, chainRef.name);

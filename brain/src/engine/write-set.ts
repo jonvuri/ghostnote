@@ -167,6 +167,9 @@ function targetsOf(op: Op): {
     case 'param.set':
       return [{ address: op.param, restore: 'replay' }];
 
+    case 'remote.set':
+      return [{ address: op.remote, restore: 'replay' }];
+
     // No prior address exists for these.
     //
     // `track.create` and `scene.create` reach the take through `unrevertableOf`.

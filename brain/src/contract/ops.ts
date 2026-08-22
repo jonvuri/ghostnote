@@ -21,7 +21,7 @@
  * expressible. That is the point of a typed seam over a string wire.
  */
 import { addressKey, chainPath, clip, device } from './address.js';
-import type { ChainAddress, ClipAddress, DeviceAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress } from './address.js';
+import type { ChainAddress, ClipAddress, DeviceAddress, ParamAddress, RemoteAddress, SceneAddress, SlotAddress, TrackAddress } from './address.js';
 import {
   lookupChain, nestingObservable, projectedReorder, reorderIndistinguishable,
   type ObservedChain, type ObservedContainer, type ObservedDeviceSequence,
@@ -102,6 +102,7 @@ export type Op =
     readonly before: DeviceAddress;
   }
   | { readonly op: 'param.set'; readonly param: ParamAddress; readonly value: number }
+  | { readonly op: 'remote.set'; readonly remote: RemoteAddress; readonly value: number }
 
   // --- device-layer chains: the FIRST typed verb that reaches inside one -----
   /**
@@ -184,6 +185,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   // One confirmed device cursor serves this route. Each write gets its own turn
   // and independent observer readback.
   'param.set': 'tick',
+  'remote.set': 'tick',
   notify: 'instant',
   'clip.create': 'trackStruct',
   'clip.delete': 'trackStruct',
@@ -270,6 +272,17 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         throw new InvalidOpError(op.op, 'a parameter address needs a DirectParameter id or typed index');
       }
     }
+    if (op.op === 'remote.set') {
+      if (!Number.isFinite(op.value) || op.value < 0 || op.value > 1) {
+        throw new InvalidOpError(op.op, 'a normalized remote-control value must be from 0 through 1');
+      }
+      if (!Number.isInteger(op.remote.pageIndex) || op.remote.pageIndex < 0
+          || op.remote.pageName.trim() === ''
+          || !Number.isInteger(op.remote.controlIndex) || op.remote.controlIndex < 0
+          || op.remote.controlName.trim() === '') {
+        throw new InvalidOpError(op.op, 'a remote control needs confirmed page and control names and indices');
+      }
+    }
     if (op.op === 'clip.update') {
       const { metadata } = op;
       const beats = [
@@ -350,6 +363,9 @@ export function assertOpsWritable(ops: readonly Op[]): void {
       }
     }
     if (op.op === 'chain.relocate') {
+      if (op.source.chain?.kind === 'drumPad') {
+        throw new InvalidOpError(op.op, 'a chain relocation cannot use a drum-pad parent');
+      }
       const destinationTrack = op.destination.kind === 'chain'
         ? op.destination.container.track
         : op.destination;
@@ -446,6 +462,7 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'device.delete':
     case 'device.relocate':
     case 'param.set':
+    case 'remote.set':
     case 'chain.create':
     case 'chain.rename':
     case 'chain.relocate':
@@ -470,7 +487,9 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
     case 'device.delete':
       return [op.device];
     case 'param.set':
-      return [op.param.device];
+    case 'remote.set':
+      // These verbs own the confirmed recursive cursor route.
+      return [];
     case 'device.relocate':
       // This verb owns its top-level-only validation above.
       return [];
@@ -547,7 +566,8 @@ export function assertDevicesRoutable(ops: readonly Op[]): void {
   for (const op of ops) {
     for (const ref of deviceRefsOf(op)) {
       if (ref.chain === undefined) continue;
-      const path = chainPath(ref).map((c) => c.name).join(' > ');
+      const path = chainPath(ref).map((c) =>
+        c.kind === 'chain' ? c.name : `drum pad ${c.channel}`).join(' > ');
       throw new InvalidOpError(
         op.op,
         `this address names a device inside a device-layer chain (${path}), and no measured wire ` +
@@ -879,6 +899,9 @@ export function assertChainRelocatable(
 
   for (const op of ops) {
     if (op.op !== 'chain.relocate') continue;
+    if (op.source.chain?.kind === 'drumPad') {
+      throw new InvalidOpError(op.op, 'a chain relocation cannot use a drum-pad parent');
+    }
     const source = sequence(op.source.chain ?? op.source.track);
     const destination = sequence(op.destination);
     const sourceDevice = source.devices[op.source.chainIndex];

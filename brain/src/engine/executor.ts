@@ -466,10 +466,13 @@ export class Executor {
             'the target device was confirmed, but its DirectParameter observer inventory did not settle',
           );
         default:
-          if (r.reason === 'absent' && r.address.kind === 'param') {
+          if (r.reason === 'absent'
+              && (r.address.kind === 'param' || r.address.kind === 'remote')) {
             throw new AddressUnresolvedError(
               r.address,
-              'the parameter id is not in the confirmed device inventory',
+              r.address.kind === 'param'
+                ? 'the parameter id is not in the confirmed device inventory'
+                : 'the remote page or control does not match the confirmed inventory',
             );
           }
           // `absent` is legitimate — a clip that does not exist yet is exactly
@@ -675,6 +678,34 @@ export function disagreementsOf(
         field: 'value',
         requested: op.value,
         readback: entry.value.param.value,
+      });
+    }
+  }
+
+  const remoteWrites = new Map<string, Extract<Op, { op: 'remote.set' }>>();
+  for (const op of ops) {
+    if (op.op === 'remote.set') remoteWrites.set(addressKey(op.remote), op);
+  }
+  for (const op of remoteWrites.values()) {
+    if (unread.has(addressKey(op.remote))) continue;
+    const entry = verify.entries[addressKey(op.remote)];
+    if (entry?.value.of !== 'remote') {
+      out.push({
+        address: op.remote,
+        at: 'remote-control base value',
+        field: 'exists',
+        requested: true,
+        readback: false,
+      });
+      continue;
+    }
+    if (!equalEnough(op.value, entry.value.remote.value)) {
+      out.push({
+        address: op.remote,
+        at: 'remote-control base value',
+        field: 'value',
+        requested: op.value,
+        readback: entry.value.remote.value,
       });
     }
   }

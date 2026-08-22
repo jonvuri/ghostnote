@@ -19,7 +19,7 @@ import assert from 'node:assert/strict';
 import {
   AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, device as deviceAt,
   deviceIn as deviceInAt,
-  notes as notesAt, param, scene, slot, track,
+  drumPad, notes as notesAt, param, remote, remotes, scene, slot, track,
   type ClipAddress, type RevisionMark, type TrackAddress,
 } from '../../contract/index.js';
 import { LiveAdapter } from './adapter.js';
@@ -1559,8 +1559,22 @@ class ParameterTransport implements Transport {
   ];
   takeWrites = true;
   neverSettles = false;
+  changeSelectionBeforeWrite = false;
+  layerWindowOverflow = false;
+  remoteNeverCurrent = false;
+  malformedRemoteControl = false;
   private selected = 0;
+  private depth = 0;
+  private padSelected = false;
+  private readonly deepParams = new Map([['DP1', { name: 'Deep parameter', value: 0.2 }]]);
+  private readonly padParams = new Map([['PAD1', { name: 'Pad parameter', value: 0.35 }]]);
+  private selectedRemotePage = 0;
+  private readonly remotePages = [
+    { name: 'Filter', controls: [{ name: 'Cutoff', value: 0.25, modulatedValue: 0.4 }] },
+    { name: 'Mod', controls: [{ name: 'Amount', value: 0.5, modulatedValue: 0.5 }] },
+  ];
   private generation = 0;
+  private remoteGeneration = 0;
   private devicePinned = false;
   private trackPinned = false;
   private revision = 1;
@@ -1588,6 +1602,16 @@ class ParameterTransport implements Transport {
         return {};
       case WIRE.deviceCursorSelectAt:
         this.selected = params['deviceIndex'] as number;
+        this.depth = 0;
+        this.padSelected = false;
+        return {};
+      case WIRE.deviceCursorSelectInLayer:
+        this.depth++;
+        this.padSelected = false;
+        return {};
+      case WIRE.deviceCursorSelectFirstInPad:
+        this.depth = 1;
+        this.padSelected = true;
         return {};
       case WIRE.deviceList:
         return {
@@ -1597,6 +1621,19 @@ class ParameterTransport implements Transport {
           trackChannelId: CHANNEL_ID,
         };
       case WIRE.deviceCursorStatus:
+        if (this.depth > 0) {
+          return {
+            exists: true,
+            name: this.padSelected ? 'Pad synth'
+              : this.depth === 1 ? 'Inner container' : 'Deep synth',
+            isPinned: this.devicePinned,
+            deviceIndex: 0,
+            trackChannelId: CHANNEL_ID,
+            trackPosition: 0,
+            cursorTrackPinned: this.trackPinned,
+            isNested: true,
+          };
+        }
         return {
           exists: this.devices[this.selected] !== undefined,
           name: this.devices[this.selected]?.name,
@@ -1605,10 +1642,41 @@ class ParameterTransport implements Transport {
           trackChannelId: CHANNEL_ID,
           trackPosition: 0,
           cursorTrackPinned: this.trackPinned,
+          isNested: false,
+        };
+      case WIRE.layerList: {
+        const result = this.depth === 0
+          ? {
+            layers: [{
+              index: 0, name: 'Outer', deviceCount: 1,
+              devices: [{ index: 0, name: 'Inner container' }],
+            }],
+            itemCount: 1, bankSize: 8, deviceBankSize: 4, hasLayers: true,
+          }
+          : this.depth === 1
+            ? {
+              layers: [{
+                index: 0, name: 'Inner', deviceCount: 1,
+                devices: [{ index: 0, name: 'Deep synth' }],
+              }],
+              itemCount: 1, bankSize: 8, deviceBankSize: 4, hasLayers: true,
+            }
+            : { layers: [], itemCount: 0, bankSize: 8, deviceBankSize: 4, hasLayers: false };
+        return this.layerWindowOverflow && this.depth === 0
+          ? { ...result, itemCount: 9, bankSize: 8 }
+          : result;
+      }
+      case WIRE.drumPadList:
+        return {
+          pads: [{ index: 3, name: 'Pad 4' }], itemCount: 1, bankSize: 16, hasDrumPads: true,
         };
       case WIRE.directParamList: {
         if (params['begin'] === true) this.generation++;
-        const device = this.devices[this.selected];
+        const device = this.padSelected
+          ? { name: 'Pad synth', params: this.padParams }
+          : this.depth === 2
+          ? { name: 'Deep synth', params: this.deepParams }
+          : this.devices[this.selected];
         return {
           params: [...(device?.params ?? [])].map(([id, state]) => ({ id, ...state })),
           count: device?.params.size ?? 0,
@@ -1616,23 +1684,73 @@ class ParameterTransport implements Transport {
           idsGeneration: this.neverSettles ? this.generation - 1 : this.generation,
           deviceExists: device !== undefined,
           deviceName: device?.name,
-          deviceIndex: this.selected,
+          deviceIndex: this.depth === 0 ? this.selected : -1,
           trackChannelId: CHANNEL_ID,
           trackPosition: 0,
           observedTrackChannelId: CHANNEL_ID,
           observedDeviceName: device?.name,
-          observedDeviceIndex: this.selected,
+          observedDeviceIndex: this.depth === 0 ? this.selected : -1,
         };
       }
       case WIRE.paramList:
         return { params: [] };
       case WIRE.directParamSet: {
-        const target = this.devices[this.selected]?.params.get(params['id'] as string);
+        const target = (this.padSelected ? this.padParams
+          : this.depth === 2 ? this.deepParams : this.devices[this.selected]?.params)
+          ?.get(params['id'] as string);
         if (target !== undefined && this.takeWrites) target.value = params['value'] as number;
+        return {};
+      }
+      case WIRE.remoteSelectPage:
+        this.selectedRemotePage = params['index'] as number;
+        return {};
+      case WIRE.remoteList: {
+        if (params['begin'] === true) this.remoteGeneration++;
+        const page = this.remotePages[this.selectedRemotePage];
+        const deviceName = this.depth === 1 ? 'Inner container'
+          : this.depth === 2 ? 'Deep synth' : this.devices[this.selected]?.name;
+        return {
+          remotes: Array.from({ length: 8 }, (_, index) => {
+            const control = page?.controls[index];
+            return control === undefined
+              ? { index, exists: false }
+              : {
+                index, exists: true,
+                ...(this.malformedRemoteControl ? {} : { name: control.name }),
+                value: control.value,
+                modulatedValue: control.modulatedValue, isBeingMapped: false,
+                hasAutomation: false,
+              };
+          }),
+          existing: page?.controls.length ?? 0,
+          bankSize: 8,
+          pageCount: this.remotePages.length,
+          selectedPageIndex: this.selectedRemotePage,
+          selectedPageName: page?.name,
+          pageNames: this.remotePages.map((item) => item.name),
+          deviceExists: true,
+          deviceName,
+          isNested: this.depth > 0,
+          generation: this.remoteGeneration,
+          observedGeneration: this.remoteNeverCurrent
+            ? this.remoteGeneration - 1 : this.remoteGeneration,
+          observedTrackChannelId: CHANNEL_ID,
+          observedDeviceName: deviceName,
+          observedDeviceIndex: this.depth === 0 ? this.selected : 0,
+        };
+      }
+      case WIRE.remoteSet: {
+        const control = this.remotePages[this.selectedRemotePage]?.controls[params['index'] as number];
+        if (control !== undefined && this.takeWrites) control.value = params['value'] as number;
         return {};
       }
       case WIRE.batchRun: {
         const ops = (params['ops'] ?? []) as { method: string; params: Record<string, unknown> }[];
+        if (this.changeSelectionBeforeWrite && (!this.devicePinned || !this.trackPinned)) {
+          this.selected = 1;
+          this.depth = 0;
+          this.padSelected = false;
+        }
         for (const op of ops) await this.send({ method: op.method, params: op.params });
         this.revision++;
         return { applied: true, revision: this.revision,
@@ -1721,6 +1839,111 @@ test('L-direct-param: an observer generation that never settles is separate from
   const snapshot = await adapter.read([address]);
   assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(address)]);
   assert.deepEqual(snapshot.missing, []);
+});
+
+test('4f live route: depth-2 DirectParameter write uses two confirmed named descents', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const outer = chainAt(deviceAt(TRACK, 0), 'Outer');
+  const inner = chainAt(deviceInAt(outer, 0), 'Inner');
+  const address = param(deviceInAt(inner, 0), 'DP1');
+
+  const before = await adapter.read([address.device, address]);
+  const deviceEntry = before.entries[addressKey(address.device)];
+  const beforeEntry = before.entries[addressKey(address)];
+  assert.equal(deviceEntry?.value.of === 'device' ? deviceEntry.value.device.params?.length : undefined, 1);
+  assert.equal(beforeEntry?.value.of === 'param' ? beforeEntry.value.param.value : undefined, 0.2);
+  const receipt = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.8 }] });
+  assert.equal(receipt.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const restored = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.2 }] });
+  assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.deviceCursorSelectInLayer).length >= 4, true);
+  assert.equal(wire.frames.some((frame) => frame.method === 'devcursor.selectFirstInKeyPad'), false);
+});
+
+test('4f live route: a selection change cannot retarget a pinned depth-2 write', async () => {
+  const wire = new ParameterTransport();
+  wire.changeSelectionBeforeWrite = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const outer = chainAt(deviceAt(TRACK, 0), 'Outer');
+  const inner = chainAt(deviceInAt(outer, 0), 'Inner');
+  const address = param(deviceInAt(inner, 0), 'DP1');
+
+  const changed = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.7 }] });
+  assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.cursorPinTrack
+    && (frame.params as Record<string, unknown>)['pinned'] === true), true);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorPin
+    && (frame.params as Record<string, unknown>)['pinned'] === true), true);
+  const restored = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.2 }] });
+  assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+});
+
+test('4f live route: a matching name in an incomplete layer window stays unreachable', async () => {
+  const wire = new ParameterTransport();
+  wire.layerWindowOverflow = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const outer = chainAt(deviceAt(TRACK, 0), 'Outer');
+  const address = param(deviceInAt(outer, 0), 'DP1');
+  const snapshot = await adapter.read([address]);
+  assert.deepEqual(snapshot.unreachable.map(addressKey), [addressKey(address)]);
+  assert.deepEqual(snapshot.missing, []);
+});
+
+test('4f live route: remote pages settle twice and one control restores exactly', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const device = deviceAt(TRACK, 0);
+  const inventoryAddress = remotes(device);
+  const address = remote(device, 0, 'Filter', 0, 'Cutoff');
+  const inventory = await adapter.read([inventoryAddress, address]);
+  const pages = inventory.entries[addressKey(inventoryAddress)];
+  assert.deepEqual(
+    pages?.value.of === 'remotes' ? pages.value.remotes.pages.map((page) => page.name) : undefined,
+    ['Filter', 'Mod'],
+  );
+  const changed = await adapter.apply({ ops: [{ op: 'remote.set', remote: address, value: 0.75 }] });
+  assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const restored = await adapter.apply({ ops: [{ op: 'remote.set', remote: address, value: 0.25 }] });
+  assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const after = await adapter.read([address]);
+  const afterEntry = after.entries[addressKey(address)];
+  assert.equal(afterEntry?.value.of === 'remote' ? afterEntry.value.remote.value : undefined, 0.25);
+});
+
+test('4f repair: a remote inventory from an earlier target generation stays unstable', async () => {
+  const wire = new ParameterTransport();
+  wire.remoteNeverCurrent = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = remotes(deviceAt(TRACK, 0));
+
+  const snapshot = await adapter.read([address]);
+
+  assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(address)]);
+  assert.equal(snapshot.entries[addressKey(address)], undefined);
+});
+
+test('4f repair: a malformed existing remote control cannot settle as complete', async () => {
+  const wire = new ParameterTransport();
+  wire.malformedRemoteControl = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = remotes(deviceAt(TRACK, 0));
+
+  const snapshot = await adapter.read([address]);
+
+  assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(address)]);
+  assert.equal(snapshot.entries[addressKey(address)], undefined);
+});
+
+test('4f live route: a drum-pad channel uses selectFirstInChannel semantics', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceInAt(drumPad(deviceAt(TRACK, 0), 3), 0), 'PAD1');
+  const snapshot = await adapter.read([address]);
+  const entry = snapshot.entries[addressKey(address)];
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.value : undefined, 0.35);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorSelectFirstInPad), true);
+  assert.equal(wire.frames.some((frame) => frame.method === 'devcursor.selectFirstInKeyPad'), false);
 });
 
 test('L-chain: a chain resolves by name, at the bank position the container reported', async () => {

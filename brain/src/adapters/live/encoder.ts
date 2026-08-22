@@ -625,6 +625,9 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
 
     case 'chain.relocate': {
       const sourceChain = op.source.chain;
+      if (sourceChain?.kind === 'drumPad') {
+        throw new Error('chain.relocate cannot encode a drum-pad parent');
+      }
       const destinationChain = op.destination.kind === 'chain' ? op.destination : undefined;
       return [frame(WIRE.chainMove, {
         src: sourceChain === undefined ? 'top' : 'chain',
@@ -662,6 +665,12 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         : op.param.index !== undefined
           ? [frame(WIRE.paramSet, { index: op.param.index, value: op.value, mode: 'immediate' })]
           : assertNever(op.param as never, 'encodeOp.param.set');
+
+    case 'remote.set':
+      return [frame(WIRE.remoteSet, {
+        index: op.remote.controlIndex,
+        value: op.value,
+      })];
 
     case 'notify':
       return [frame(WIRE.notify, { message: op.message })];

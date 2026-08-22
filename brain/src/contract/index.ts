@@ -11,11 +11,13 @@
  */
 export {
   ADDRESS_IDENTITY, addressKey, addressScene, addressTrack, chainPath, isNestedDevice,
-  chain, clip, clipLaunch, clipMetadata, clipPlay, device, deviceIn, notes, param, scene, slot, track,
+  chain, clip, clipLaunch, clipMetadata, clipPlay, device, deviceIn, drumPad, notes, param,
+  remote, remotes, scene, slot, track,
 } from './address.js';
 export type {
-  Address, AddressKey, AddressKind, BeatRange, ChainAddress, ClipAddress, ClipLaunchAddress, ClipMetadataAddress, ClipPlayAddress, DeviceAddress,
-  NotesAddress, ParamAddress, SceneAddress, SlotAddress, TrackAddress,
+  Address, AddressKey, AddressKind, BeatRange, ChainAddress, ClipAddress, ClipLaunchAddress,
+  ClipMetadataAddress, ClipPlayAddress, DeviceAddress, DeviceParentAddress, DrumPadAddress,
+  NotesAddress, ParamAddress, RemoteAddress, RemotesAddress, SceneAddress, SlotAddress, TrackAddress,
 } from './address.js';
 
 export {
@@ -51,7 +53,9 @@ export {
   UNWRITABLE_NOTE_PROPS, hasUnverifiedProps, orderedNoteProps, unwritableProps,
 } from './state.js';
 export type {
-  ClipColor, ClipLaunchState, ClipMetadataState, ClipPlayState, DeviceState, LaunchMode, LaunchQuantization, NoteProp, NoteRecord, ParamState, PropFidelity, Recurrence, TrackState,
+  ClipColor, ClipLaunchState, ClipMetadataState, ClipPlayState, DeviceState, LaunchMode,
+  LaunchQuantization, NoteProp, NoteRecord, ParamState, PropFidelity, Recurrence,
+  RemoteControlState, RemoteControlsState, RemotePageState, TrackState,
 } from './state.js';
 
 export { blindCount, failures, fullyApplied, windowCovers } from './snapshot.js';

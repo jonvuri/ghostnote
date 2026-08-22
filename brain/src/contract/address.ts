@@ -115,6 +115,22 @@ export interface ChainAddress {
   readonly name: string;
 }
 
+/**
+ * One drum-pad channel inside a Drum Machine container.
+ *
+ * The channel is the bank position passed to `selectFirstInChannel(pad)`. It is
+ * not a MIDI key. E4d proved that `selectFirstInKeyPad` takes a key and silently
+ * leaves the cursor on the container when it receives a pad index.
+ */
+export interface DrumPadAddress {
+  readonly kind: 'drumPad';
+  readonly container: DeviceAddress;
+  readonly channel: number;
+}
+
+/** One measured parent route for a nested device. */
+export type DeviceParentAddress = ChainAddress | DrumPadAddress;
+
 export interface DeviceAddress {
   readonly kind: 'device';
   /** The durable anchor every address hangs off, at any depth (E2f). */
@@ -133,7 +149,7 @@ export interface DeviceAddress {
    * write path that cannot yet reach inside a chain refuses on this field
    * (`assertDevicesRoutable`) instead of indexing past it.
    */
-  readonly chain?: ChainAddress;
+  readonly chain?: DeviceParentAddress;
 }
 
 export interface ParamAddress {
@@ -151,6 +167,22 @@ export interface ParamAddress {
   readonly index?: number;
 }
 
+/** Explicit remote-control inventory for one confirmed device target. */
+export interface RemotesAddress {
+  readonly kind: 'remotes';
+  readonly device: DeviceAddress;
+}
+
+/** One control on one confirmed remote-control page. */
+export interface RemoteAddress {
+  readonly kind: 'remote';
+  readonly device: DeviceAddress;
+  readonly pageIndex: number;
+  readonly pageName: string;
+  readonly controlIndex: number;
+  readonly controlName: string;
+}
+
 export type Address =
   | TrackAddress
   | SceneAddress
@@ -161,8 +193,11 @@ export type Address =
   | ClipMetadataAddress
   | NotesAddress
   | ChainAddress
+  | DrumPadAddress
   | DeviceAddress
-  | ParamAddress;
+  | ParamAddress
+  | RemotesAddress
+  | RemoteAddress;
 
 export type AddressKind = Address['kind'];
 
@@ -185,8 +220,11 @@ export const ADDRESS_IDENTITY: Record<AddressKind, 'durable' | 'positional'> = {
   // one cannot promise a lossless revert across a structural op, which is exactly
   // what this table is read for.
   chain: 'positional',
+  drumPad: 'positional',
   device: 'positional',
   param: 'positional',
+  remotes: 'positional',
+  remote: 'positional',
 };
 
 /** Canonical string form, for write-set diffing and partial-revert slicing. */
@@ -200,9 +238,11 @@ export type AddressKey = string;
  * and walking `.chain` by hand at each call site is how one of them ends up
  * reading the path in the other order.
  */
-export function chainPath(a: DeviceAddress | ChainAddress): readonly ChainAddress[] {
-  const path: ChainAddress[] = [];
-  let step: ChainAddress | undefined = a.kind === 'chain' ? a : a.chain;
+export function chainPath(
+  a: DeviceAddress | DeviceParentAddress,
+): readonly DeviceParentAddress[] {
+  const path: DeviceParentAddress[] = [];
+  let step: DeviceParentAddress | undefined = a.kind === 'device' ? a.chain : a;
   while (step !== undefined) {
     path.unshift(step);
     step = step.container.chain;
@@ -242,11 +282,19 @@ const encodeChainName = (name: string): string => encodeURIComponent(name);
 function deviceBody(a: DeviceAddress): string {
   return a.chain === undefined
     ? `${a.track.channelId}:${a.chainIndex}`
-    : `${chainBody(a.chain)}/${a.chainIndex}`;
+    : `${parentBody(a.chain)}/${a.chainIndex}`;
 }
 
 function chainBody(a: ChainAddress): string {
   return `${deviceBody(a.container)}/${encodeChainName(a.name)}`;
+}
+
+function drumPadBody(a: DrumPadAddress): string {
+  return `${deviceBody(a.container)}/pad-${a.channel}`;
+}
+
+function parentBody(a: DeviceParentAddress): string {
+  return a.kind === 'chain' ? chainBody(a) : drumPadBody(a);
 }
 
 export function addressKey(a: Address): AddressKey {
@@ -272,6 +320,8 @@ export function addressKey(a: Address): AddressKey {
     }
     case 'chain':
       return `chain:${chainBody(a)}`;
+    case 'drumPad':
+      return `drumPad:${drumPadBody(a)}`;
     case 'device':
       return `device:${deviceBody(a)}`;
     case 'param': {
@@ -283,6 +333,11 @@ export function addressKey(a: Address): AddressKey {
         : `direct:${encodeURIComponent(a.directId)}`;
       return `param:${deviceBody(a.device)}:${key}`;
     }
+    case 'remotes':
+      return `remotes:${deviceBody(a.device)}`;
+    case 'remote':
+      return `remote:${deviceBody(a.device)}:${a.pageIndex}:${encodeURIComponent(a.pageName)}`
+        + `:${a.controlIndex}:${encodeURIComponent(a.controlName)}`;
   }
 }
 
@@ -312,9 +367,14 @@ export function addressTrack(a: Address): TrackAddress | undefined {
     // five layers down costs the same lookup as one on the track itself.
     case 'chain':
       return a.container.track;
+    case 'drumPad':
+      return a.container.track;
     case 'device':
       return a.track;
     case 'param':
+      return a.device.track;
+    case 'remotes':
+    case 'remote':
       return a.device.track;
   }
 }
@@ -387,6 +447,14 @@ export const chain = (container: DeviceAddress, name: string): ChainAddress => {
   return { kind: 'chain', container, name };
 };
 
+/** A drum-pad channel. The value is a bank index, not a MIDI key. */
+export const drumPad = (container: DeviceAddress, channel: number): DrumPadAddress => {
+  if (!Number.isInteger(channel) || channel < 0) {
+    throw new Error('a drum-pad channel must be a non-negative integer.');
+  }
+  return { kind: 'drumPad', container, channel };
+};
+
 /**
  * A device INSIDE a chain.
  *
@@ -395,7 +463,7 @@ export const chain = (container: DeviceAddress, name: string): ChainAddress => {
  * disagree. A hand-written object literal could still disagree; that is why this
  * module's header says the constructors are the only sanctioned way to build one.
  */
-export const deviceIn = (c: ChainAddress, chainIndex: number): DeviceAddress => ({
+export const deviceIn = (c: DeviceParentAddress, chainIndex: number): DeviceAddress => ({
   kind: 'device',
   track: c.container.track,
   chainIndex,
@@ -410,3 +478,15 @@ export function param(d: DeviceAddress, key: number | string, directId?: string)
     ? { kind: 'param', device: d, index: key }
     : { kind: 'param', device: d, index: key, directId };
 }
+
+export const remotes = (d: DeviceAddress): RemotesAddress => ({ kind: 'remotes', device: d });
+
+export const remote = (
+  d: DeviceAddress,
+  pageIndex: number,
+  pageName: string,
+  controlIndex: number,
+  controlName: string,
+): RemoteAddress => ({
+  kind: 'remote', device: d, pageIndex, pageName, controlIndex, controlName,
+});

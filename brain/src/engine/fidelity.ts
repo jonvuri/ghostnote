@@ -211,6 +211,18 @@ function valueCaveats(value: StateValue): string[] {
       }
       return warnings;
     }
+    case 'remote': {
+      const warnings: string[] = [];
+      if (Math.abs(value.remote.modulatedValue - value.remote.value) > 1e-9) {
+        warnings.push('the remote control is modulated, so its base value is not the value heard');
+      }
+      if (value.remote.hasAutomation === true) {
+        warnings.push('host automation can override the remote control base value');
+      }
+      return warnings;
+    }
+    case 'remotes':
+      return [];
   }
 }
 

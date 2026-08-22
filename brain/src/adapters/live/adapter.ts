@@ -29,7 +29,8 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
-  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed, chooseStepSize, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
+  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
+  chainPath, chooseStepSize, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
   lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
@@ -180,7 +181,21 @@ type ParameterInventory =
     readonly params: readonly ParamState[];
     readonly typed: readonly ParamState[];
   }
-  | { readonly standing: 'missing' | 'unreachable' }
+  | { readonly standing: 'missing' | 'unreachable' | 'ambiguous' }
+  | { readonly standing: 'unstable'; readonly deviceName?: string };
+
+type DeviceTarget =
+  | { readonly standing: 'stable'; readonly deviceName: string }
+  | { readonly standing: 'missing' | 'unreachable' | 'ambiguous' }
+  | { readonly standing: 'unstable'; readonly deviceName?: string };
+
+type RemoteInventory =
+  | {
+    readonly standing: 'stable';
+    readonly deviceName: string;
+    readonly remotes: import('../../contract/index.js').RemoteControlsState;
+  }
+  | { readonly standing: 'missing' | 'unreachable' | 'ambiguous' }
   | { readonly standing: 'unstable'; readonly deviceName?: string };
 
 interface DeviceCursorStatus {
@@ -191,6 +206,55 @@ interface DeviceCursorStatus {
   readonly trackChannelId?: string;
   readonly trackPosition?: number;
   readonly cursorTrackPinned?: boolean;
+  readonly isNested?: boolean;
+}
+
+interface WireLayerInventory {
+  readonly layers?: readonly {
+    readonly index?: number;
+    readonly name?: string;
+    readonly devices?: readonly WireDevice[];
+    readonly deviceCount?: number;
+  }[];
+  readonly itemCount?: number;
+  readonly bankSize?: number;
+  readonly deviceBankSize?: number;
+  readonly hasLayers?: boolean;
+}
+
+interface WireDrumPadInventory {
+  readonly pads?: readonly { readonly index?: number; readonly name?: string }[];
+  readonly itemCount?: number;
+  readonly bankSize?: number;
+  readonly hasDrumPads?: boolean;
+}
+
+interface WireRemoteControl {
+  readonly index?: number;
+  readonly exists?: boolean;
+  readonly name?: string;
+  readonly value?: number;
+  readonly modulatedValue?: number;
+  readonly isBeingMapped?: boolean;
+  readonly hasAutomation?: boolean;
+}
+
+interface WireRemotePage {
+  readonly remotes?: readonly WireRemoteControl[];
+  readonly existing?: number;
+  readonly bankSize?: number;
+  readonly pageCount?: number;
+  readonly selectedPageIndex?: number;
+  readonly selectedPageName?: string;
+  readonly pageNames?: readonly string[];
+  readonly deviceExists?: boolean;
+  readonly deviceName?: string;
+  readonly isNested?: boolean;
+  readonly generation?: number;
+  readonly observedGeneration?: number;
+  readonly observedTrackChannelId?: string;
+  readonly observedDeviceName?: string;
+  readonly observedDeviceIndex?: number;
 }
 
 /**
@@ -378,6 +442,7 @@ const borrowsSelection = (op: Op): boolean =>
   op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear'
   || op.op === 'clip.update'
   || op.op === 'device.insert' || op.op === 'device.delete' || op.op === 'param.set'
+  || op.op === 'remote.set'
   // ⚠ `chain.create` borrows it TWICE over: `containerScope` points cursor 0 at
   // the track before every observation it takes, and the create takes three.
   // ⚠⚠ And the verb's own middle step is a SELECTION — `layer.select` is how
@@ -801,6 +866,160 @@ export class LiveAdapter implements BitwigAdapter {
     return { devices, blind, ...(this.deviceBankSize === undefined ? {} : { bankSize: this.deviceBankSize }) };
   }
 
+  /** Point the serialized device cursor through one confirmed recursive path. */
+  private async acquireDeviceTarget(device: DeviceAddress, row: WireTrack): Promise<DeviceTarget> {
+    const path = chainPath(device);
+    if (path.length > 2) return { standing: 'unreachable' };
+
+    // Force every cursor-bound observer to leave the prior target first.
+    const detour = this.bank.find((candidate) => candidate.channelId !== device.track.channelId);
+    if (detour !== undefined) {
+      await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
+      await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
+      await this.transport.send({
+        method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex: detour.index },
+      });
+      let confirmed = false;
+      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+        await this.settle('cursorPoint');
+        const status = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+        confirmed = status.trackChannelId === detour.channelId
+          && status.trackPosition === detour.index;
+        if (confirmed) break;
+      }
+      if (!confirmed) return { standing: 'unstable' };
+      await this.settle('paramsLive');
+    }
+
+    await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
+    await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
+    await this.transport.send({
+      method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex: row.index },
+    });
+
+    type ParameterDeviceList = {
+      readonly devices?: readonly WireDevice[];
+      readonly itemCount?: number;
+      readonly trackChannelId?: string;
+    };
+    let top: ParameterDeviceList | undefined;
+    for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+      await this.settle('cursorPoint');
+      const observed = await this.transport.send({
+        method: WIRE.deviceList, params: { cursor: '0' },
+      }) as ParameterDeviceList;
+      if (observed.trackChannelId === device.track.channelId) {
+        top = observed;
+        break;
+      }
+    }
+    if (top === undefined) return { standing: 'unstable' };
+
+    const topAddress = path[0]?.container ?? device;
+    if (topAddress.chain !== undefined) return { standing: 'unstable' };
+    const topDevices = top.devices ?? [];
+    const topTarget = topDevices.find((item) => item.index === topAddress.chainIndex);
+    if (topTarget === undefined) {
+      const blind = typeof top.itemCount === 'number' && top.itemCount > topDevices.length;
+      return { standing: blind ? 'unreachable' : 'missing' };
+    }
+    await this.transport.send({
+      method: WIRE.deviceCursorSelectAt, params: { deviceIndex: topAddress.chainIndex },
+    });
+
+    let targetName = topTarget.name;
+    for (const [at, step] of path.entries()) {
+      const nestedAddress = path[at + 1]?.container ?? device;
+      if (nestedAddress.chain === undefined
+          || addressKey(nestedAddress.chain) !== addressKey(step)) {
+        return { standing: 'unstable', deviceName: targetName };
+      }
+      await this.settle('cursorPoint');
+      const parentStatus = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+      if (parentStatus.exists !== true || parentStatus.name !== targetName
+          || parentStatus.trackChannelId !== device.track.channelId
+          || parentStatus.trackPosition !== row.index
+          || parentStatus.deviceIndex !== step.container.chainIndex) {
+        return { standing: 'unstable', deviceName: targetName };
+      }
+
+      if (step.kind === 'drumPad') {
+        if (nestedAddress.chainIndex !== 0) return { standing: 'unreachable' };
+        const pads = await this.transport.send({ method: WIRE.drumPadList }) as WireDrumPadInventory;
+        if (typeof pads.bankSize !== 'number' || step.channel >= pads.bankSize) {
+          return { standing: 'unreachable' };
+        }
+        const pad = (pads.pads ?? []).find((item) => item.index === step.channel);
+        if (pad === undefined) return { standing: 'missing' };
+        await this.transport.send({
+          method: WIRE.deviceCursorSelectFirstInPad, params: { padIndex: step.channel },
+        });
+        targetName = '';
+      } else {
+        const inventory = await this.transport.send({ method: WIRE.layerList }) as WireLayerInventory;
+        const layers = inventory.layers ?? [];
+        const complete = typeof inventory.itemCount === 'number'
+          && typeof inventory.bankSize === 'number'
+          && inventory.itemCount <= inventory.bankSize;
+        if (!complete) return { standing: 'unreachable' };
+        const matches = layers.filter((item) => item.name === step.name);
+        if (matches.length > 1) return { standing: 'ambiguous' };
+        const layer = matches[0];
+        if (layer === undefined) {
+          return { standing: 'missing' };
+        }
+        const devices = layer.devices ?? [];
+        const nested = devices.find((item) => item.index === nestedAddress.chainIndex);
+        if (nested === undefined) {
+          const complete = typeof layer.deviceCount === 'number'
+            && typeof inventory.deviceBankSize === 'number'
+            && layer.deviceCount <= inventory.deviceBankSize;
+          return { standing: complete ? 'missing' : 'unreachable' };
+        }
+        if (!Number.isInteger(layer.index)) return { standing: 'unstable', deviceName: targetName };
+        await this.transport.send({
+          method: WIRE.deviceCursorSelectInLayer,
+          params: { layerIndex: layer.index, deviceIndex: nestedAddress.chainIndex },
+        });
+        targetName = nested.name;
+      }
+
+      let descended = false;
+      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+        await this.settle('cursorPoint');
+        const status = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+        const nameMatches = targetName === ''
+          ? status.exists === true && typeof status.name === 'string' && status.name.length > 0
+          : status.name === targetName;
+        descended = nameMatches && status.isNested === true
+          && status.trackChannelId === device.track.channelId
+          && status.trackPosition === row.index
+          && status.deviceIndex === nestedAddress.chainIndex;
+        if (descended) {
+          targetName = status.name!;
+          break;
+        }
+      }
+      if (!descended) return { standing: 'unstable', deviceName: targetName || undefined };
+    }
+
+    await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: true } });
+    await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: true } });
+    let pinned = false;
+    for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+      await this.settle('cursorPoint');
+      const status = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+      pinned = status.exists === true && status.name === targetName
+        && status.trackChannelId === device.track.channelId && status.trackPosition === row.index
+        && status.isPinned === true && status.cursorTrackPinned === true
+        && status.deviceIndex === device.chainIndex;
+      if (pinned) break;
+    }
+    return pinned
+      ? { standing: 'stable', deviceName: targetName }
+      : { standing: 'unstable', deviceName: targetName };
+  }
+
   /**
    * Resolve, point and confirm one top-level device before reading observers.
    * A generation reset removes every id and value from the prior target.
@@ -810,115 +1029,14 @@ export class LiveAdapter implements BitwigAdapter {
     row: WireTrack,
   ): Promise<ParameterInventory> {
     return this.withParameterCursor(async () => {
-      if (device.chain !== undefined) return { standing: 'unreachable' };
-
-      // A generation reset does not make Bitwig repeat DirectParameter ids when
-      // the cursor already holds this device. Detour through another visible
-      // track so the return to the target must produce a new observer sequence.
-      const detour = this.bank.find((candidate) =>
-        candidate.channelId !== device.track.channelId);
-      if (detour !== undefined) {
-        await this.transport.send({
-          method: WIRE.cursorPinTrack,
-          params: { cursor: '0', pinned: false },
-        });
-        await this.transport.send({
-          method: WIRE.deviceCursorPin,
-          params: { pinned: false },
-        });
-        await this.transport.send({
-          method: WIRE.cursorPointTrack,
-          params: { cursor: '0', trackIndex: detour.index },
-        });
-        let detourConfirmed = false;
-        for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
-          await this.settle('cursorPoint');
-          const status = await this.transport.send({
-            method: WIRE.deviceCursorStatus,
-          }) as DeviceCursorStatus;
-          detourConfirmed = status.trackChannelId === detour.channelId
-            && status.trackPosition === detour.index;
-          if (detourConfirmed) break;
-        }
-        if (!detourConfirmed) return { standing: 'unstable' };
-        // The parent cursor can report the detour before DirectParameter
-        // observers follow it. Let that observer transition complete too.
-        await this.settle('paramsLive');
-      }
-
       const begun = await this.transport.send({
         method: WIRE.directParamList,
         params: { begin: true },
       }) as WireDirectInventory;
       if (!Number.isInteger(begun.generation)) return { standing: 'unstable' };
       const generation = begun.generation!;
-
-      await this.transport.send({
-        method: WIRE.cursorPinTrack,
-        params: { cursor: '0', pinned: false },
-      });
-      await this.transport.send({
-        method: WIRE.deviceCursorPin,
-        params: { pinned: false },
-      });
-      await this.transport.send({
-        method: WIRE.cursorPointTrack,
-        params: { cursor: '0', trackIndex: row.index },
-      });
-      type ParameterDeviceList = {
-        readonly devices?: readonly WireDevice[];
-        readonly itemCount?: number;
-        readonly trackChannelId?: string;
-      };
-      let chain: ParameterDeviceList | undefined;
-      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
-        await this.settle('cursorPoint');
-        const observed = await this.transport.send({
-          method: WIRE.deviceList,
-          params: { cursor: '0' },
-        }) as ParameterDeviceList;
-        if (observed.trackChannelId === device.track.channelId) {
-          chain = observed;
-          break;
-        }
-      }
-      if (chain === undefined) return { standing: 'unstable' };
-      const devices = chain.devices ?? [];
-      const target = devices.find((item) => item.index === device.chainIndex);
-      if (target === undefined) {
-        const blind = typeof chain.itemCount === 'number' && chain.itemCount > devices.length;
-        return { standing: blind ? 'unreachable' : 'missing' };
-      }
-
-      await this.transport.send({
-        method: WIRE.deviceCursorSelectAt,
-        params: { deviceIndex: device.chainIndex },
-      });
-      await this.transport.send({
-        method: WIRE.cursorPinTrack,
-        params: { cursor: '0', pinned: true },
-      });
-      await this.transport.send({
-        method: WIRE.deviceCursorPin,
-        params: { pinned: true },
-      });
-
-      let confirmed = false;
-      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
-        await this.settle('cursorPoint');
-        const status = await this.transport.send({
-          method: WIRE.deviceCursorStatus,
-        }) as DeviceCursorStatus;
-        confirmed = status.exists === true
-          && status.name === target.name
-          && status.deviceIndex === device.chainIndex
-          && status.trackChannelId === device.track.channelId
-          && status.trackPosition === row.index
-          && status.isPinned === true
-          && status.cursorTrackPinned === true;
-        if (confirmed) break;
-      }
-      if (!confirmed) return { standing: 'unstable', deviceName: target.name };
+      const target = await this.acquireDeviceTarget(device, row);
+      if (target.standing !== 'stable') return target;
 
       // DirectParameter observers can follow the device cursor more slowly than
       // its identity fields. Give them the measured live budget before polling.
@@ -934,12 +1052,12 @@ export class LiveAdapter implements BitwigAdapter {
         const complete = observed.generation === generation
           && observed.idsGeneration === generation
           && observed.deviceExists === true
-          && observed.deviceName === target.name
-          && observed.deviceIndex === device.chainIndex
+          && observed.deviceName === target.deviceName
+          && (device.chain !== undefined || observed.deviceIndex === device.chainIndex)
           && observed.trackChannelId === device.track.channelId
           && observed.trackPosition === row.index
           && observed.observedTrackChannelId === device.track.channelId
-          && observed.observedDeviceName === target.name
+          && observed.observedDeviceName === target.deviceName
           && (observed.observedDeviceIndex === undefined
             || observed.observedDeviceIndex < 0
             || observed.observedDeviceIndex === device.chainIndex)
@@ -995,7 +1113,7 @@ export class LiveAdapter implements BitwigAdapter {
                   ? { hasAutomation: item.hasAutomation } : {}),
               }];
             });
-            return { standing: 'stable', deviceName: target.name, params, typed };
+            return { standing: 'stable', deviceName: target.deviceName, params, typed };
           }
           prior = signature;
         } else {
@@ -1003,7 +1121,7 @@ export class LiveAdapter implements BitwigAdapter {
         }
         await this.settle('cursorPoint');
       }
-      return { standing: 'unstable', deviceName: target.name };
+      return { standing: 'unstable', deviceName: target.deviceName };
     });
   }
 
@@ -1014,6 +1132,151 @@ export class LiveAdapter implements BitwigAdapter {
     return address.directId !== undefined
       ? inventory.params.find((item) => item.id === address.directId)
       : inventory.typed.find((item) => item.index === address.index);
+  }
+
+  /** Enumerate every remote page after one confirmed device acquisition. */
+  private remoteInventory(device: DeviceAddress, row: WireTrack): Promise<RemoteInventory> {
+    return this.withParameterCursor(async () => {
+      const begun = await this.transport.send({
+        method: WIRE.remoteList,
+        params: { begin: true },
+      }) as WireRemotePage;
+      if (!Number.isInteger(begun.generation)) return { standing: 'unstable' };
+      const generation = begun.generation!;
+      const target = await this.acquireDeviceTarget(device, row);
+      if (target.standing !== 'stable') return target;
+      await this.settle('paramsLive');
+
+      let pageNames: readonly string[] | undefined;
+      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+        const first = await this.transport.send({ method: WIRE.remoteList }) as WireRemotePage;
+        const names = first.pageNames ?? [];
+        const current = first.generation === generation
+          && first.observedGeneration === generation
+          && first.observedTrackChannelId === device.track.channelId
+          && first.observedDeviceName === target.deviceName
+          && first.observedDeviceIndex === device.chainIndex
+          && first.deviceExists === true
+          && first.deviceName === target.deviceName
+          && first.pageCount === names.length
+          && names.every((name) => typeof name === 'string' && name.trim() !== '');
+        if (current) {
+          pageNames = names;
+          break;
+        }
+        await this.settle('cursorPoint');
+      }
+      if (pageNames === undefined) {
+        return { standing: 'unstable', deviceName: target.deviceName };
+      }
+
+      const pages: import('../../contract/index.js').RemotePageState[] = [];
+      for (const [pageIndex, pageName] of pageNames.entries()) {
+        await this.transport.send({
+          method: WIRE.remoteSelectPage, params: { index: pageIndex },
+        });
+        let prior: string | undefined;
+        let accepted: import('../../contract/index.js').RemotePageState | undefined;
+        for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+          await this.settle('cursorPoint');
+          const observed = await this.transport.send({ method: WIRE.remoteList }) as WireRemotePage;
+          const rows = observed.remotes ?? [];
+          const controls = rows.flatMap((item): import('../../contract/index.js').RemoteControlState[] => {
+            if (item.exists !== true || !Number.isInteger(item.index)
+                || typeof item.name !== 'string' || item.name.trim() === ''
+                || typeof item.value !== 'number' || !Number.isFinite(item.value)
+                || item.value < 0 || item.value > 1
+                || typeof item.modulatedValue !== 'number' || !Number.isFinite(item.modulatedValue)
+                || typeof item.isBeingMapped !== 'boolean') return [];
+            return [{
+              index: item.index!,
+              name: item.name,
+              value: item.value,
+              modulatedValue: item.modulatedValue,
+              isBeingMapped: item.isBeingMapped,
+              ...(typeof item.hasAutomation === 'boolean'
+                ? { hasAutomation: item.hasAutomation } : {}),
+            }];
+          });
+          const bankComplete = Number.isInteger(observed.bankSize) && observed.bankSize! >= 0
+            && rows.length === observed.bankSize
+            && rows.every((item, index) => item.index === index
+              && typeof item.exists === 'boolean');
+          const complete = observed.generation === generation
+            && observed.observedGeneration === generation
+            && observed.observedTrackChannelId === device.track.channelId
+            && observed.observedDeviceName === target.deviceName
+            && observed.observedDeviceIndex === device.chainIndex
+            && observed.deviceExists === true
+            && observed.deviceName === target.deviceName
+            && observed.pageCount === pageNames.length
+            && JSON.stringify(observed.pageNames ?? []) === JSON.stringify(pageNames)
+            && observed.selectedPageIndex === pageIndex
+            && observed.selectedPageName === pageName
+            && bankComplete
+            && Number.isInteger(observed.existing)
+            && controls.length === observed.existing;
+          if (complete) {
+            const page = { index: pageIndex, name: pageName, controls };
+            const signature = JSON.stringify(page);
+            if (signature === prior) {
+              accepted = page;
+              break;
+            }
+            prior = signature;
+          } else {
+            prior = undefined;
+          }
+        }
+        if (accepted === undefined) {
+          return { standing: 'unstable', deviceName: target.deviceName };
+        }
+        pages.push(accepted);
+      }
+      return {
+        standing: 'stable',
+        deviceName: target.deviceName,
+        remotes: { pages },
+      };
+    });
+  }
+
+  private remoteState(
+    address: import('../../contract/index.js').RemoteAddress,
+    inventory: Extract<RemoteInventory, { standing: 'stable' }>,
+  ): import('../../contract/index.js').RemoteControlState | undefined {
+    const page = inventory.remotes.pages[address.pageIndex];
+    if (page?.name !== address.pageName) return undefined;
+    const control = page.controls.find((item) => item.index === address.controlIndex);
+    return control?.name === address.controlName ? control : undefined;
+  }
+
+  /** Select and confirm one page before a remote write uses its control index. */
+  private async selectRemotePage(
+    address: import('../../contract/index.js').RemoteAddress,
+    deviceName: string,
+  ): Promise<boolean> {
+    await this.transport.send({
+      method: WIRE.remoteSelectPage, params: { index: address.pageIndex },
+    });
+    let prior: string | undefined;
+    for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+      await this.settle('cursorPoint');
+      const observed = await this.transport.send({ method: WIRE.remoteList }) as WireRemotePage;
+      const control = (observed.remotes ?? []).find((item) => item.index === address.controlIndex);
+      const complete = observed.deviceExists === true && observed.deviceName === deviceName
+        && observed.selectedPageIndex === address.pageIndex
+        && observed.selectedPageName === address.pageName
+        && control?.exists === true && control.name === address.controlName;
+      if (complete) {
+        const signature = JSON.stringify(observed);
+        if (signature === prior) return true;
+        prior = signature;
+      } else {
+        prior = undefined;
+      }
+    }
+    return false;
   }
 
   /**
@@ -1720,7 +1983,8 @@ export class LiveAdapter implements BitwigAdapter {
         // ⚠ The track bank resolves only the durable ANCHOR, and a chain-family
         // address is not resolved until its whole path has been walked. Marked
         // for the second pass rather than answered here.
-        if (address.kind === 'chain' || address.kind === 'device' || address.kind === 'param') {
+        if (address.kind === 'chain' || address.kind === 'drumPad' || address.kind === 'device'
+            || address.kind === 'param' || address.kind === 'remotes' || address.kind === 'remote') {
           return WALK;
         }
         return { address, found: true, index };
@@ -1754,7 +2018,7 @@ export class LiveAdapter implements BitwigAdapter {
             ? 'outside-bank-window' : 'absent' });
         continue;
       }
-      if (address.kind === 'param' && address.device.chain === undefined) {
+      if (address.kind === 'param') {
         const row = this.bank.find((item) => item.channelId === trackRef.channelId);
         if (row === undefined) {
           resolved.push({ address, found: false, reason: 'absent' });
@@ -1766,13 +2030,57 @@ export class LiveAdapter implements BitwigAdapter {
             address,
             found: false,
             reason: inventory.standing === 'missing' ? 'absent'
-              : inventory.standing === 'unreachable' ? 'outside-bank-window' : 'unstable',
+              : inventory.standing === 'unreachable' ? 'outside-bank-window'
+                : inventory.standing === 'ambiguous' ? 'ambiguous' : 'unstable',
           });
           continue;
         }
         resolved.push(this.parameterState(address, inventory) === undefined
           ? { address, found: false, reason: 'absent' }
           : { address, found: true, index: address.device.chainIndex });
+        continue;
+      }
+      if (address.kind === 'remotes' || address.kind === 'remote') {
+        const row = this.bank.find((item) => item.channelId === trackRef.channelId);
+        if (row === undefined) {
+          resolved.push({ address, found: false, reason: 'absent' });
+          continue;
+        }
+        const inventory = await this.remoteInventory(address.device, row);
+        if (inventory.standing !== 'stable') {
+          resolved.push({
+            address,
+            found: false,
+            reason: inventory.standing === 'missing' ? 'absent'
+              : inventory.standing === 'unreachable' ? 'outside-bank-window'
+                : inventory.standing === 'ambiguous' ? 'ambiguous' : 'unstable',
+          });
+          continue;
+        }
+        resolved.push(address.kind === 'remotes' || this.remoteState(address, inventory) !== undefined
+          ? { address, found: true, index: address.device.chainIndex }
+          : { address, found: false, reason: 'absent' });
+        continue;
+      }
+      if (address.kind === 'drumPad') {
+        const row = this.bank.find((item) => item.channelId === trackRef.channelId);
+        if (row === undefined) {
+          resolved.push({ address, found: false, reason: 'absent' });
+          continue;
+        }
+        const target: DeviceAddress = {
+          kind: 'device', track: address.container.track, chainIndex: 0, chain: address,
+        };
+        const inventory = await this.parameterInventory(target, row);
+        resolved.push(inventory.standing === 'stable'
+          ? { address, found: true, index: address.channel }
+          : {
+            address,
+            found: false,
+            reason: inventory.standing === 'missing' ? 'absent'
+              : inventory.standing === 'unreachable' ? 'outside-bank-window'
+                : inventory.standing === 'ambiguous' ? 'ambiguous' : 'unstable',
+          });
         continue;
       }
       // ⚠ `resolveNested` is the only thing that may answer `found` for a
@@ -1804,7 +2112,8 @@ export class LiveAdapter implements BitwigAdapter {
     const selection = await this.beginSelectionBorrow(sel.some((a) =>
       a.kind === 'notes' || a.kind === 'clip' || a.kind === 'slot'
       || a.kind === 'clipLaunch' || a.kind === 'clipPlay' || a.kind === 'clipMetadata'
-      || a.kind === 'device' || a.kind === 'param'));
+      || a.kind === 'device' || a.kind === 'param' || a.kind === 'remotes'
+      || a.kind === 'remote' || a.kind === 'drumPad'));
     // Where each pool cursor is actually pointed, so the common shape — a clip
     // target and its notes target, side by side in one write-set — costs one
     // point and one settle rather than two.
@@ -1822,6 +2131,7 @@ export class LiveAdapter implements BitwigAdapter {
     // not 32 grid changes and 32 waits.
     const noteReads = new Map<AddressKey, Promise<ClipNoteChannels>>();
     const parameterReads = new Map<AddressKey, Promise<ParameterInventory>>();
+    const remoteReads = new Map<AddressKey, Promise<RemoteInventory>>();
 
     for (const address of sel) {
       const sceneRef = addressScene(address);
@@ -1853,7 +2163,9 @@ export class LiveAdapter implements BitwigAdapter {
         else missing.push(address);
         continue;
       }
-      const entry = await this.readOne(address, row, pointedAt, noteReads, parameterReads);
+      const entry = await this.readOne(
+        address, row, pointedAt, noteReads, parameterReads, remoteReads,
+      );
       // ⚠ A chain-family address whose container has no observable scope is
       // UNREACHABLE, not missing — the same E5 distinction the track bank makes
       // one level up. The layer banks are init-allocated and narrow (D7), so
@@ -2204,6 +2516,7 @@ export class LiveAdapter implements BitwigAdapter {
     pointedAt: Map<string, AddressKey>,
     noteReads: Map<AddressKey, Promise<ClipNoteChannels>>,
     parameterReads: Map<AddressKey, Promise<ParameterInventory>>,
+    remoteReads: Map<AddressKey, Promise<RemoteInventory>>,
   ): Promise<StateEntry | 'unreachable' | 'unstable' | undefined> {
     switch (address.kind) {
       case 'track':
@@ -2413,22 +2726,51 @@ export class LiveAdapter implements BitwigAdapter {
       }
 
       case 'device': {
-        if (row === undefined || !nestingObservable(address)) return undefined;
-        // ⚠ A device INSIDE a chain reports its observed name and position and
-        // NO PARAMETERS. The container enumeration has no parameter handle, and
-        // an empty list would assert a device with no controls — a claim about
-        // the instrument rather than about our reach (`DeviceState.params`).
+        if (row === undefined) return undefined;
+        // A nested device first uses the confirmed parameter cursor. The old
+        // structural fallback remains bounded to the one level it can observe.
         if (address.chain !== undefined) {
-          const scope = await this.containerScope(address.chain.container.track, address.chain.container.chainIndex);
-          if (!scope.ok) return scope.miss === 'absent' ? undefined : 'unreachable';
-          const found = lookupNestedDevice(scope.container, address);
-          return found.ok
-            ? {
-              address,
-              fidelity: 'none',
-              value: { of: 'device', device: { chainIndex: found.device.index, name: found.device.name } },
+          const key = addressKey(address);
+          let reading = parameterReads.get(key);
+          if (reading === undefined) {
+            reading = this.parameterInventory(address, row);
+            parameterReads.set(key, reading);
+          }
+          const inventory = await reading;
+          if (inventory.standing !== 'stable') {
+            if (address.chain.kind === 'chain' && nestingObservable(address)) {
+              const scope = await this.containerScope(
+                address.chain.container.track, address.chain.container.chainIndex,
+              );
+              if (scope.ok) {
+                const found = lookupNestedDevice(scope.container, address);
+                if (found.ok) {
+                  return {
+                    address,
+                    fidelity: 'none',
+                    value: {
+                      of: 'device',
+                      device: { chainIndex: found.device.index, name: found.device.name },
+                    },
+                  };
+                }
+              }
             }
-            : undefined;
+            return inventory.standing === 'missing' || inventory.standing === 'ambiguous'
+              ? undefined : inventory.standing === 'unstable' ? 'unstable' : 'unreachable';
+          }
+          return {
+            address,
+            fidelity: 'none',
+            value: {
+              of: 'device',
+              device: {
+                chainIndex: address.chainIndex,
+                name: inventory.deviceName,
+                params: inventory.params,
+              },
+            },
+          };
         }
         const key = addressKey(address);
         let reading = parameterReads.get(key);
@@ -2456,7 +2798,9 @@ export class LiveAdapter implements BitwigAdapter {
               },
             };
           }
-          if (inventory.standing !== 'missing') return inventory.standing;
+          if (inventory.standing === 'unstable') return 'unstable';
+          if (inventory.standing === 'unreachable') return 'unreachable';
+          if (inventory.standing === 'ambiguous') return undefined;
           const absentScope = await this.containerScope(address.track, address.chainIndex);
           return absentScope.ok || absentScope.miss === 'absent' ? undefined : 'unreachable';
         }
@@ -2477,7 +2821,7 @@ export class LiveAdapter implements BitwigAdapter {
       }
 
       case 'param': {
-        if (row === undefined || address.device.chain !== undefined) return undefined;
+        if (row === undefined) return undefined;
         const key = addressKey(address.device);
         let reading = parameterReads.get(key);
         if (reading === undefined) {
@@ -2486,7 +2830,8 @@ export class LiveAdapter implements BitwigAdapter {
         }
         const inventory = await reading;
         if (inventory.standing !== 'stable') {
-          return inventory.standing === 'missing' ? undefined : inventory.standing;
+          return inventory.standing === 'missing' || inventory.standing === 'ambiguous'
+            ? undefined : inventory.standing;
         }
         const found = address.directId !== undefined
           ? inventory.params.find((item) => item.id === address.directId)
@@ -2494,6 +2839,41 @@ export class LiveAdapter implements BitwigAdapter {
         if (found === undefined) return undefined;
         return { address, fidelity: 'exact', value: { of: 'param', param: found } };
       }
+      case 'remotes': {
+        if (row === undefined) return undefined;
+        const key = addressKey(address.device);
+        let reading = remoteReads.get(key);
+        if (reading === undefined) {
+          reading = this.remoteInventory(address.device, row);
+          remoteReads.set(key, reading);
+        }
+        const inventory = await reading;
+        if (inventory.standing !== 'stable') {
+          return inventory.standing === 'missing' || inventory.standing === 'ambiguous'
+            ? undefined : inventory.standing === 'unstable' ? 'unstable' : 'unreachable';
+        }
+        return { address, fidelity: 'none', value: { of: 'remotes', remotes: inventory.remotes } };
+      }
+      case 'remote': {
+        if (row === undefined) return undefined;
+        const key = addressKey(address.device);
+        let reading = remoteReads.get(key);
+        if (reading === undefined) {
+          reading = this.remoteInventory(address.device, row);
+          remoteReads.set(key, reading);
+        }
+        const inventory = await reading;
+        if (inventory.standing !== 'stable') {
+          return inventory.standing === 'missing' || inventory.standing === 'ambiguous'
+            ? undefined : inventory.standing === 'unstable' ? 'unstable' : 'unreachable';
+        }
+        const found = this.remoteState(address, inventory);
+        return found === undefined
+          ? undefined
+          : { address, fidelity: 'exact', value: { of: 'remote', remote: found } };
+      }
+      case 'drumPad':
+        return undefined;
       case 'scene':
         return undefined;
     }
@@ -2631,6 +3011,9 @@ export class LiveAdapter implements BitwigAdapter {
     op: Extract<Op, { op: 'chain.relocate' }>,
     preflight: boolean,
   ): Promise<RelocationReading> {
+    if (op.source.chain?.kind === 'drumPad') {
+      throw new InvalidOpError(op.op, 'a chain relocation cannot use a drum-pad parent');
+    }
     const sourceEndpoint = op.source.chain ?? op.source.track;
     const source = await this.relocationSequence(sourceEndpoint);
     // A top-level MOVE from before the destination container compacts the top
@@ -3229,6 +3612,29 @@ export class LiveAdapter implements BitwigAdapter {
         }
         parameterBefore = inventory;
       }
+      const remoteOp = stage.ops.length === 1 && stage.ops[0]?.op === 'remote.set'
+        ? stage.ops[0]
+        : undefined;
+      let remoteBefore: Extract<RemoteInventory, { standing: 'stable' }> | undefined;
+      if (remoteOp !== undefined) {
+        const row = this.bank.find((item) =>
+          item.channelId === remoteOp.remote.device.track.channelId);
+        if (row === undefined) {
+          await this.restoreSelection(selection);
+          throw new AddressUnresolvedError(remoteOp.remote, 'the remote-control track is not visible');
+        }
+        const inventory = await this.remoteInventory(remoteOp.remote.device, row);
+        if (inventory.standing !== 'stable'
+            || this.remoteState(remoteOp.remote, inventory) === undefined
+            || !await this.selectRemotePage(remoteOp.remote, inventory.deviceName)) {
+          await this.restoreSelection(selection);
+          throw new AddressUnresolvedError(
+            remoteOp.remote,
+            `the remote-control inventory is ${inventory.standing} or its target did not settle`,
+          );
+        }
+        remoteBefore = inventory;
+      }
 
       let result: BatchRunResult;
       try {
@@ -3297,6 +3703,29 @@ export class LiveAdapter implements BitwigAdapter {
           const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
             (entry.op === WIRE.directParamSet || entry.op === WIRE.paramSet
               || entry.op === 'param.set')
+              ? { ...entry, ok: false, error: why }
+              : entry);
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
+        }
+      }
+      if (remoteOp !== undefined && remoteBefore !== undefined
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const row = this.bank.find((item) =>
+          item.channelId === remoteOp.remote.device.track.channelId);
+        const after = row === undefined
+          ? { standing: 'missing' as const }
+          : await this.remoteInventory(remoteOp.remote.device, row);
+        const state = after.standing === 'stable'
+          ? this.remoteState(remoteOp.remote, after)
+          : undefined;
+        const sameTarget = after.standing === 'stable'
+          && after.deviceName === remoteBefore.deviceName;
+        if (!sameTarget || state === undefined || Math.abs(state.value - remoteOp.value) > 2e-3) {
+          const why = after.standing === 'stable'
+            ? `remote readback disagreed: requested ${remoteOp.value}, got ${state?.value ?? 'missing'}`
+            : `remote readback was ${after.standing}`;
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            entry.op === WIRE.remoteSet || entry.op === 'remote.set'
               ? { ...entry, ok: false, error: why }
               : entry);
           receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };

@@ -256,6 +256,27 @@ export interface ParamState {
   readonly hasAutomation?: boolean;
 }
 
+export interface RemoteControlState {
+  readonly index: number;
+  readonly name: string;
+  /** Normalized base value, from 0 through 1. */
+  readonly value: number;
+  readonly modulatedValue: number;
+  /** True only while Bitwig is waiting for a manual mapping gesture. */
+  readonly isBeingMapped: boolean;
+  readonly hasAutomation?: boolean;
+}
+
+export interface RemotePageState {
+  readonly index: number;
+  readonly name: string;
+  readonly controls: readonly RemoteControlState[];
+}
+
+export interface RemoteControlsState {
+  readonly pages: readonly RemotePageState[];
+}
+
 export interface DeviceState {
   readonly chainIndex: number;
   readonly name: string;

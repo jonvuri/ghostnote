@@ -74,6 +74,7 @@ public final class ContainerHandlers extends HandlerGroup {
         JsonArray layers = new JsonArray();
         int existing = 0;
         for (int l = 0; l < Rig.LAYER_BANK; l++) {
+            final int layerIndex = l;
             DeviceLayer layer = rig.layerBank0.getItemAt(l);
             if (!layer.exists().get()) {
                 continue;
@@ -139,11 +140,15 @@ public final class ContainerHandlers extends HandlerGroup {
                 devices.add(dev);
             }
             obj.add("devices", devices);
+            putGuarded(obj, "deviceCount", () -> rig.layerDeviceBanks[layerIndex].itemCount().get());
             layers.add(obj);
         }
         JsonObject result = new JsonObject();
         result.add("layers", layers);
         result.addProperty("count", existing);
+        putGuarded(result, "itemCount", () -> rig.layerBank0.itemCount().get());
+        result.addProperty("bankSize", Rig.LAYER_BANK);
+        result.addProperty("deviceBankSize", Rig.LAYER_DEVICE_BANK);
         putGuarded(result, "hasLayers", () -> rig.cursorDevice0.hasLayers().get());
         // Whether the layer mixer handles survived init at all — see Rig. A row
         // that reads `mute` as ERR everywhere means something different depending
@@ -1544,6 +1549,8 @@ public final class ContainerHandlers extends HandlerGroup {
         JsonObject result = new JsonObject();
         result.add("pads", pads);
         result.addProperty("count", pads.size());
+        putGuarded(result, "itemCount", () -> rig.drumPadBank0.itemCount().get());
+        result.addProperty("bankSize", Rig.DRUM_PAD_BANK);
         putGuarded(result, "hasDrumPads", () -> rig.cursorDevice0.hasDrumPads().get());
         return result;
     }

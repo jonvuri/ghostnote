@@ -39,8 +39,8 @@ const brandNew = methods.filter((m) => !golden.methods.includes(m));
 // ⚠ E16 joined them when session 3b opened: it is finished, and its list is the
 // record of what the branching mini-spike put on the wire. E20, the session-3e
 // probe, E22, session 3f, sessions 3g-b through 4b, and Phase 2 session 2e are
-// frozen too. Phase 2 session 2i is also frozen. New methods accumulate in
-// Phase 4 session 4b's bucket.
+// frozen too. Phase 2 session 2i and Phase 4 session 4b are also frozen. New
+// methods accumulate in Phase 4 session 4f's bucket.
 const addedInSession1 = golden.addedInSession1 ?? ['contract.hello', 'rig.methods'];
 const addedInSession2 = golden.addedInSession2 ?? [];
 const addedInE16 = golden.addedInE16 ?? [];
@@ -53,14 +53,15 @@ const addedInSession4a = golden.addedInSession4a ?? [];
 const addedInSession4b = golden.addedInSession4b ?? [];
 const addedInPhase2Session2e = golden.addedInPhase2Session2e ?? [];
 const addedInPhase2Session2i = golden.addedInPhase2Session2i ?? [];
+const addedInPhase4Session4b = golden.addedInPhase4Session4b ?? [];
 const earlier = new Set([
   ...addedInSession1, ...addedInSession2, ...addedInE16, ...addedInE20,
   ...addedInSession3eProbe, ...addedInE22Probe, ...addedInSession3f, ...addedInSession3gB,
   ...addedInSession4a, ...addedInSession4b, ...addedInPhase2Session2e,
-  ...addedInPhase2Session2i,
+  ...addedInPhase2Session2i, ...addedInPhase4Session4b,
 ]);
-const addedInPhase4Session4b = [...new Set([
-  ...(golden.addedInPhase4Session4b ?? []),
+const addedInPhase4Session4f = [...new Set([
+  ...(golden.addedInPhase4Session4f ?? []),
   ...added.filter((m) => !earlier.has(m)),
 ])].sort();
 
@@ -84,6 +85,7 @@ const next = {
   addedInPhase2Session2e,
   addedInPhase2Session2i,
   addedInPhase4Session4b,
+  addedInPhase4Session4f,
   methods,
 };
 
