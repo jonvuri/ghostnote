@@ -55,6 +55,7 @@ test('4a live replies self-name the cursor track and rig.stats reports resources
   assert.match(devices, /"bankSize"/);
   assert.match(core, /"deviceSlots"/);
   assert.match(core, /"typedParameterHandles"/);
+  assert.match(core, /"remotePageCursors"/);
   assert.match(core, /"directParameterObservers"/);
 });
 
@@ -68,6 +69,7 @@ test('4a selected defaults match in RigConfig and the fake model', () => {
   assert.match(config, /fineSteps = 512/);
   assert.match(config, /noteReadSteps = 2048/);
   assert.match(config, /paramHandles = 64/);
+  assert.match(config, /remotePages = 16/);
   assert.match(fake, /trackBankSize = 256/);
   assert.match(fake, /sceneBankSize = 128/);
   assert.match(fake, /deviceBankSize = 16/);

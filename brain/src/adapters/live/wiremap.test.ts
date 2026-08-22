@@ -72,7 +72,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInSession4a ?? []), ...(golden.addedInSession4b ?? []),
       ...(golden.addedInPhase2Session2e ?? []), ...(golden.addedInPhase2Session2i ?? []),
       ...(golden.addedInPhase4Session4b ?? []), ...(golden.addedInPhase4Session4f ?? []),
-      ...(golden.addedInPhase4Session4g ?? [])];
+      ...(golden.addedInPhase4Session4g ?? []), ...(golden.addedInPhase4Session4h1 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -388,7 +388,7 @@ test('4f: deep parameters and remotes promote only their confirmed cursor routes
   assert.deepEqual(golden.addedInPhase4Session4f ?? [], ['devcursor.selectInLayer']);
   const promoted = [
     'devcursor.selectInLayer', 'devcursor.selectFirstInPad', 'drumpad.list',
-    'layer.list', 'remote.list', 'remote.selectPage', 'remote.set',
+    'layer.list', 'remote.list', 'remote.set',
   ];
   assert.deepEqual(promoted.filter((method) => !WIRE_METHODS_USED.includes(method)), []);
   assert.ok(!WIRE_METHODS_USED.includes('devcursor.selectFirstInKeyPad'),
@@ -398,6 +398,12 @@ test('4f: deep parameters and remotes promote only their confirmed cursor routes
 test('4g: device enabled state has one guarded exact route', () => {
   assert.deepEqual(golden.addedInPhase4Session4g ?? [], ['device.setEnabled']);
   assert.ok(WIRE_METHODS_USED.includes('device.setEnabled'));
+});
+
+test('4h1: targeted scalar completion replaces post-write full inventory', () => {
+  assert.deepEqual(golden.addedInPhase4Session4h1 ?? [], ['directparam.completion']);
+  assert.ok(WIRE_METHODS_USED.includes('directparam.completion'));
+  assert.ok(!WIRE_METHODS_USED.includes('remote.selectPage'));
 });
 
 test('4g: guarded device mutations check durable track identity before mutation', () => {
@@ -465,8 +471,8 @@ test('4g: guarded parameter writes recheck the top-level target immediately befo
   assert.ok(directGuard >= 0 && directGuard < directWrite,
     'directparam.set must guard the cursor target before its typed write');
   assert.match(direct,
-    /verifyParameterTarget\(params, "directparam\.set"\);\s*rig\.cursorDevice0\.setDirectParameterValueNormalized/,
-    'no other work can separate the direct-parameter target guard from its write');
+    /verifyParameterTarget\(params, "directparam\.set"\);\s*long completionGeneration = rig\.beginDirectParameterCompletion\(id\);\s*rig\.cursorDevice0\.setDirectParameterValueNormalized/,
+    'only the target-bound completion arm can separate the guard from the write');
   const typed = methodBody('paramSet');
   const typedGuard = typed.indexOf('verifyParameterTarget(params, "param.set")');
   assert.ok(typedGuard >= 0

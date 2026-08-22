@@ -78,6 +78,7 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("stepSize", Rig.STEP_SIZE);
         result.addProperty("cursorPool", rig.config.cursorPool);
         result.addProperty("deviceBank", rig.config.deviceBank);
+        result.addProperty("remotePages", rig.config.remotePages);
         result.addProperty("sceneCount", rig.sceneBank.itemCount().get());
         return result;
     }
@@ -135,7 +136,9 @@ public final class CoreHandlers extends HandlerGroup {
         resources.addProperty("cursorDevices", 1);
         resources.addProperty("specificDeviceViews", 1);
         resources.addProperty("typedParameterHandles", rig.config.paramHandles);
-        resources.addProperty("remoteParameterHandles", Rig.REMOTE_BANK);
+        resources.addProperty("remotePageCursors", rig.config.remotePages);
+        resources.addProperty("remoteParameterHandles",
+            (long) rig.config.remotePages * Rig.REMOTE_BANK);
         resources.addProperty("directParameterObservers",
             rig.config.directObservers ? 4 : 0);
         resources.addProperty("noteObserverCursors", 1);

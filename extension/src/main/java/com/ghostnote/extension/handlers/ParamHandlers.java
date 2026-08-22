@@ -38,6 +38,7 @@ public final class ParamHandlers extends HandlerGroup {
         r.on("param.touch", params -> paramTouch(params));
         r.on("directparam.list", params -> directParamList(params));
         r.on("directparam.set", params -> directParamSet(params));
+        r.on("directparam.completion", params -> directParamCompletion());
         r.on("remote.list", params -> remoteList(params));
         r.on("remote.set", params -> remoteSet(params));
         r.on("remote.setMapping", params -> remoteSetMapping(params));
@@ -206,8 +207,35 @@ public final class ParamHandlers extends HandlerGroup {
         double value = params.get("value").getAsDouble();
         double resolution = params.has("resolution") ? params.get("resolution").getAsDouble() : 128.0;
         verifyParameterTarget(params, "directparam.set");
+        long completionGeneration = rig.beginDirectParameterCompletion(id);
         rig.cursorDevice0.setDirectParameterValueNormalized(id, value, resolution);
-        return ok();
+        JsonObject result = ok();
+        result.addProperty("completionGeneration", completionGeneration);
+        return result;
+    }
+
+    /** Read the exact targeted callback armed by the last direct write. */
+    private JsonElement directParamCompletion() {
+        JsonObject result = new JsonObject();
+        result.addProperty("generation", rig.directParamCompletionGeneration);
+        result.addProperty("observedGeneration", rig.directParamCompletionObservedGeneration);
+        if (rig.directParamCompletionId != null) {
+            result.addProperty("id", rig.directParamCompletionId);
+        }
+        if (rig.directParamCompletionValue != null) {
+            result.addProperty("value", rig.directParamCompletionValue);
+        }
+        if (rig.directParamCompletionTrackId != null) {
+            result.addProperty("trackChannelId", rig.directParamCompletionTrackId);
+        }
+        if (rig.directParamCompletionDeviceName != null) {
+            result.addProperty("deviceName", rig.directParamCompletionDeviceName);
+        }
+        result.addProperty("deviceIndex", rig.directParamCompletionDeviceIndex);
+        result.addProperty("currentTrackChannelId", rig.cursorTracks[0].channelId().get());
+        result.addProperty("currentDeviceName", rig.cursorDevice0.name().get());
+        result.addProperty("currentDeviceIndex", rig.currentDirectParameterDeviceIndex());
+        return result;
     }
 
     /** Verify a top-level parameter target when a product guard is present. */
@@ -352,27 +380,34 @@ public final class ParamHandlers extends HandlerGroup {
         if (request.has("begin") && request.get("begin").getAsBoolean()) {
             rig.beginRemoteObservation();
         }
-        JsonArray remotes = new JsonArray();
-        int existing = 0;
-        for (int r = 0; r < Rig.REMOTE_BANK; r++) {
-            RemoteControl rc = rig.remotes0[r];
-            JsonObject obj = new JsonObject();
-            obj.addProperty("index", r);
-            boolean exists = rc.exists().get();
-            obj.addProperty("exists", exists);
-            if (exists) {
-                existing++;
-                obj.addProperty("name", rc.name().get());
-                obj.addProperty("value", rc.value().get());
-                obj.addProperty("modulatedValue", rc.modulatedValue().get());
-                obj.addProperty("isBeingMapped", rc.isBeingMapped().get());
-                putGuarded(obj, "hasAutomation", () -> rc.hasAutomation().get());
+        JsonArray pageNames = new JsonArray();
+        try {
+            for (String n : rig.remotePage0.pageNames().get()) {
+                pageNames.add(n);
             }
-            remotes.add(obj);
+        } catch (Exception e) {
+            // The empty array makes the bounded reply incomplete.
         }
+        int pageCount = guardedInt(() -> rig.remotePage0.pageCount().get(), -1);
+        int visiblePages = Math.min(Math.max(pageCount, 0), rig.config.remotePages);
+        JsonArray pages = new JsonArray();
+        for (int page = 0; page < visiblePages; page++) {
+            JsonObject pageResult = remotePage(page);
+            if (page < pageNames.size()) {
+                pageResult.addProperty("name", pageNames.get(page).getAsString());
+            }
+            pages.add(pageResult);
+        }
+        JsonObject first = visiblePages > 0
+            ? pages.get(0).getAsJsonObject() : new JsonObject();
         JsonObject result = new JsonObject();
-        result.add("remotes", remotes);
-        result.addProperty("existing", existing);
+        result.add("pages", pages);
+        result.addProperty("pageBankSize", rig.config.remotePages);
+        result.addProperty("pagesComplete", pageCount >= 0 && pageCount <= rig.config.remotePages);
+        result.add("remotes", first.has("remotes")
+            ? first.getAsJsonArray("remotes") : new JsonArray());
+        result.addProperty("existing", first.has("existing")
+            ? first.get("existing").getAsInt() : 0);
         result.addProperty("bankSize", Rig.REMOTE_BANK);
         result.addProperty("generation", rig.remoteGeneration);
         result.addProperty("observedGeneration", rig.remoteObservedGeneration);
@@ -383,15 +418,9 @@ public final class ParamHandlers extends HandlerGroup {
             result.addProperty("observedDeviceName", rig.remoteObservedDeviceName);
         }
         result.addProperty("observedDeviceIndex", rig.remoteObservedDeviceIndex);
-        putGuarded(result, "pageCount", () -> rig.remotePage0.pageCount().get());
-        putGuarded(result, "selectedPageIndex", () -> rig.remotePage0.selectedPageIndex().get());
-        JsonArray pageNames = new JsonArray();
-        try {
-            for (String n : rig.remotePage0.pageNames().get()) {
-                pageNames.add(n);
-            }
-        } catch (Exception e) {
-            result.addProperty("pageNamesError", e.getMessage());
+        if (pageCount >= 0) result.addProperty("pageCount", pageCount);
+        if (first.has("selectedPageIndex")) {
+            result.add("selectedPageIndex", first.get("selectedPageIndex"));
         }
         result.add("pageNames", pageNames);
         result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
@@ -407,15 +436,81 @@ public final class ParamHandlers extends HandlerGroup {
         return result;
     }
 
+    /** Read one independent page cursor for the bounded complete reply. */
+    private JsonObject remotePage(int page) {
+        JsonArray remotes = new JsonArray();
+        int existing = 0;
+        for (int r = 0; r < Rig.REMOTE_BANK; r++) {
+            RemoteControl rc = rig.remoteControls0[page][r];
+            JsonObject obj = new JsonObject();
+            obj.addProperty("index", r);
+            boolean exists = rc.exists().get();
+            obj.addProperty("exists", exists);
+            if (exists) {
+                existing++;
+                obj.addProperty("name", rc.name().get());
+                obj.addProperty("value", rc.value().get());
+                obj.addProperty("modulatedValue", rc.modulatedValue().get());
+                obj.addProperty("isBeingMapped", rc.isBeingMapped().get());
+                putGuarded(obj, "hasAutomation", () -> rc.hasAutomation().get());
+            }
+            remotes.add(obj);
+        }
+        JsonObject result = new JsonObject();
+        result.addProperty("index", page);
+        result.add("remotes", remotes);
+        result.addProperty("existing", existing);
+        result.addProperty("bankSize", Rig.REMOTE_BANK);
+        putGuarded(result, "selectedPageIndex",
+            () -> rig.remotePages0[page].selectedPageIndex().get());
+        result.addProperty("observedGeneration", rig.remotePageObservedGeneration[page]);
+        if (rig.remotePageObservedTrackId[page] != null) {
+            result.addProperty("observedTrackChannelId", rig.remotePageObservedTrackId[page]);
+        }
+        if (rig.remotePageObservedDeviceName[page] != null) {
+            result.addProperty("observedDeviceName", rig.remotePageObservedDeviceName[page]);
+        }
+        result.addProperty("observedDeviceIndex", rig.remotePageObservedDeviceIndex[page]);
+        return result;
+    }
+
+    private int guardedInt(IntReader reader, int fallback) {
+        try {
+            return reader.get();
+        } catch (Exception e) {
+            return fallback;
+        }
+    }
+
+    @FunctionalInterface
+    private interface IntReader {
+        int get();
+    }
+
     /**
      * Write a remote control's value (normalized 0..1). RemoteControl extends
      * Parameter, so setImmediately bypasses the take-over strategy (E4). Tests
      * whether the agent can DRIVE a remote-mapped control end to end.
      */
     private JsonElement remoteSet(JsonObject params) {
+        int page = params.has("pageIndex") ? params.get("pageIndex").getAsInt() : 0;
         int index = params.get("index").getAsInt();
         double value = params.get("value").getAsDouble();
-        rig.remotes0[index].value().setImmediately(value);
+        if (page < 0 || page >= rig.config.remotePages) {
+            throw new IllegalArgumentException("remote page is outside the configured window: " + page);
+        }
+        if (params.has("pageName")) {
+            String[] names = rig.remotePage0.pageNames().get();
+            if (page >= names.length || !params.get("pageName").getAsString().equals(names[page])) {
+                throw new IllegalArgumentException("remote page name changed at index " + page);
+            }
+        }
+        RemoteControl control = rig.remoteControls0[page][index];
+        if (params.has("controlName")
+            && !params.get("controlName").getAsString().equals(control.name().get())) {
+            throw new IllegalArgumentException("remote control name changed at index " + index);
+        }
+        control.value().setImmediately(value);
         return ok();
     }
 

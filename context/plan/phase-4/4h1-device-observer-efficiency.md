@@ -1,8 +1,8 @@
 ---
 title: Phase 4, session 4h1 — device observer efficiency
 kind: plan
-state: planned
-status: Planned next. Remove the measured remote and parameter observer loops.
+state: complete
+status: Complete. E61 removes the remote page loop and stabilizes plugin scalar completion.
 updated: 2026-08-22
 parent: README.md
 prev: 4h-device-performance-gate.md
@@ -50,3 +50,23 @@ with more than 2,000 parameters. Cold and warm managed builds both took about
 6. The public device surface is unblocked or one host API limit is explicit.
 7. Focused tests, the brain check, extension tests, context check, and both diff
    checks pass.
+
+## Result
+
+Complete. One bounded reply now returns up to 16 remote pages with exact page,
+control, target, and generation proof. The accepted nine-page route uses no
+page-selection calls. Remote replay fell from 335 to 182 bridge requests.
+
+Direct parameter writes now use one exact target-bound completion generation.
+They do not repeat the mutation or request a full post-write inventory. Read and
+preflight inventories can re-arm a stale observer generation at most three
+times without a write.
+
+Three cold and three warm managed trials passed VST3 and CLAP exact readback,
+reversal, interference, and cleanup. E61 replaces the provisional budgets and
+accepts the serialized device cursor. Session 4i is unblocked.
+
+## Retrospective
+
+A longer poll did not repair a generation that stayed stale. Keep bounded
+generation re-arm separate from mutation completion.

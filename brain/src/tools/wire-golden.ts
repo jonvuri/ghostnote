@@ -59,6 +59,8 @@ export interface Golden {
   addedInPhase4Session4f?: string[];
   /** Phase 4 session 4g exact device enabled-state route. */
   addedInPhase4Session4g?: string[];
+  /** Phase 4 session 4h1 targeted DirectParameter completion route. */
+  addedInPhase4Session4h1?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

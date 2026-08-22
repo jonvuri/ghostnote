@@ -4,14 +4,15 @@ kind: status
 state: active
 updated: 2026-08-22
 phase: phase-4
-session: 4h1-device-observer-efficiency
+session: 4i-device-surface
 ---
 
 # Now
 
 Phase 2, bounded clip performance, the complete parameter-routing core, the
 native device catalog, plugin parameter proof, deep routing, and the managed
-FX-chain workflow are complete. The device performance gate is next.
+FX-chain workflow, performance gate, and observer-efficiency repair are
+complete. The public device surface is next.
 
 ## Accepted live result
 
@@ -204,15 +205,38 @@ verified, and saved. The post-save 2k baseline passes.
 - The 4b exact-read median was 1,936 ms. The two-empty-clip workflow was 6,352
   ms. Both accepted gates still pass.
 
+## Session 4h1 result
+
+- One bounded reply returns up to 16 complete remote pages. The accepted
+  nine-page Polysynth route uses three `remote.list` calls and no page-selection
+  calls for one inventory.
+- Remote inventory took 1,395 ms and 31 requests. Change, readback, and replay
+  took 8,263 ms and 182 requests. E60 measured 14,243 ms and 335 requests.
+- Direct parameter writes use one exact target-bound completion generation.
+  Post-write proof does not request a full inventory or replay a mutation.
+- Read and preflight inventories can re-arm at most three stale observer
+  generations. Recovery is read-only and stays in one serialized cursor hold.
+- Three cold and three warm managed trials passed native, preset, VST3, and CLAP
+  scalar readback and exact reversal. Builds ranged from 46,968 to 49,458 ms.
+- E61 replaces the provisional budgets, accepts the serialized cursor, and
+  unblocks session 4i.
+
 ## Next action
 
-Begin [device observer efficiency](plan/phase-4/4h1-device-observer-efficiency.md).
-Remove the repeated remote-page loop where the host API permits one bounded
-reply. Stabilize large-plugin post-write readback without mutation replay. Then
-repeat the E60 cold and warm gate before session 4i.
+Begin [device and parameter MCP surface](plan/phase-4/4i-device-surface.md).
+Revise the thin probe-era tools against the E61 completion contract and final
+performance budgets. Freeze one measured public cohort.
 
 ## Verification
 
+- The final device performance regression passes native, plugin, deep, remote,
+  managed, interference, reversal, cleanup, and clip workloads.
+- The full brain check passes 755/755, including typecheck. Extension tests
+  pass. The fresh extension handshake passes all 148 methods with hash
+  `eb3391803ef4eea4`.
+- Full live conformance passes 54/54 with six expected skips. Cleanup removed
+  its two fixture tracks. The final read-only 2k baseline passes with seven
+  tracks and no launcher residue.
 - Session 4h native, plugin, deep-route, remote, managed cold and warm,
   reversal, and clip-regression measurements completed. Exact live cleanup
   restored every owned fixture and the entry selection.
@@ -260,6 +284,6 @@ repeat the E60 cold and warm gate before session 4i.
 
 ## Retrospective
 
-The performance gate found a product design problem, not only a slow loop. One
-remote cursor page forces sequential page observation. Measure complete request
-shape before adding concurrency. No context-process change is needed.
+A longer poll did not repair one observer generation that stayed stale. A
+bounded generation re-arm was clearer and more reliable. Keep read recovery
+separate from mutation completion.

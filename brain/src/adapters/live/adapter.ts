@@ -62,7 +62,7 @@ interface BatchRunResult {
   readonly expected?: number;
   readonly actual?: number;
   readonly revision: number;
-  readonly results?: readonly { method: string; ok: boolean; error?: string }[];
+  readonly results?: readonly { method: string; ok: boolean; error?: string; result?: unknown }[];
 }
 
 interface TrackListResult {
@@ -241,6 +241,9 @@ interface WireRemoteControl {
 }
 
 interface WireRemotePage {
+  readonly pages?: readonly WireBoundedRemotePage[];
+  readonly pageBankSize?: number;
+  readonly pagesComplete?: boolean;
   readonly remotes?: readonly WireRemoteControl[];
   readonly existing?: number;
   readonly bankSize?: number;
@@ -256,6 +259,32 @@ interface WireRemotePage {
   readonly observedTrackChannelId?: string;
   readonly observedDeviceName?: string;
   readonly observedDeviceIndex?: number;
+}
+
+interface WireBoundedRemotePage {
+  readonly index?: number;
+  readonly name?: string;
+  readonly remotes?: readonly WireRemoteControl[];
+  readonly existing?: number;
+  readonly bankSize?: number;
+  readonly selectedPageIndex?: number;
+  readonly observedGeneration?: number;
+  readonly observedTrackChannelId?: string;
+  readonly observedDeviceName?: string;
+  readonly observedDeviceIndex?: number;
+}
+
+interface WireDirectCompletion {
+  readonly generation?: number;
+  readonly observedGeneration?: number;
+  readonly id?: string;
+  readonly value?: number;
+  readonly trackChannelId?: string;
+  readonly deviceName?: string;
+  readonly deviceIndex?: number;
+  readonly currentTrackChannelId?: string;
+  readonly currentDeviceName?: string;
+  readonly currentDeviceIndex?: number;
 }
 
 /**
@@ -318,6 +347,10 @@ interface SelectionState {
 
 /** Eight attempts keep target and dual-pin confirmation bounded. */
 const CLIP_POINT_ATTEMPTS = 8;
+/** About two seconds after paramsLive for large plugin observer generations. */
+const PARAMETER_INVENTORY_ATTEMPTS = 80;
+/** Re-arm an observer that does not complete within its bounded generation. */
+const PARAMETER_INVENTORY_ACQUISITIONS = 3;
 
 interface ClipCursorStatus {
   readonly trackPosition?: number;
@@ -1130,6 +1163,22 @@ export class LiveAdapter implements BitwigAdapter {
     row: WireTrack,
   ): Promise<ParameterInventory> {
     return this.withParameterCursor(async () => {
+      let last: ParameterInventory = { standing: 'unstable' };
+      for (let acquisition = 0;
+        acquisition < PARAMETER_INVENTORY_ACQUISITIONS;
+        acquisition++) {
+        last = await this.parameterInventoryAttempt(device, row);
+        if (last.standing !== 'unstable') return last;
+      }
+      return last;
+    });
+  }
+
+  /** Read one target-bound observer generation without changing project state. */
+  private async parameterInventoryAttempt(
+    device: DeviceAddress,
+    row: WireTrack,
+  ): Promise<ParameterInventory> {
       const begun = await this.transport.send({
         method: WIRE.directParamList,
         params: { begin: true },
@@ -1144,7 +1193,7 @@ export class LiveAdapter implements BitwigAdapter {
       await this.settle('paramsLive');
 
       let prior: string | undefined;
-      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+      for (let attempt = 0; attempt < PARAMETER_INVENTORY_ATTEMPTS; attempt++) {
         const observed = await this.transport.send({
           method: WIRE.directParamList,
           params: { generation },
@@ -1223,7 +1272,6 @@ export class LiveAdapter implements BitwigAdapter {
         await this.settle('cursorPoint');
       }
       return { standing: 'unstable', deviceName: target.deviceName };
-    });
   }
 
   private parameterState(
@@ -1235,7 +1283,50 @@ export class LiveAdapter implements BitwigAdapter {
       : inventory.typed.find((item) => item.index === address.index);
   }
 
-  /** Enumerate every remote page after one confirmed device acquisition. */
+  /** Confirm one direct write from its exact value callback on the held target. */
+  private async directParameterCompletion(
+    address: import('../../contract/index.js').ParamAddress,
+    deviceName: string,
+    generation: number,
+    requested: number,
+  ): Promise<ParamState | undefined> {
+    if (address.directId === undefined) return undefined;
+    let prior: string | undefined;
+    for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+      const observed = await this.transport.send({
+        method: WIRE.directParamCompletion,
+      }) as WireDirectCompletion;
+      const complete = observed.generation === generation
+        && observed.observedGeneration === generation
+        && observed.id === address.directId
+        && typeof observed.value === 'number' && Number.isFinite(observed.value)
+        && observed.trackChannelId === address.device.track.channelId
+        && observed.deviceName === deviceName
+        && observed.deviceIndex === address.device.chainIndex
+        && observed.currentTrackChannelId === address.device.track.channelId
+        && observed.currentDeviceName === deviceName
+        && observed.currentDeviceIndex === address.device.chainIndex
+        && Math.abs(observed.value - requested) <= 2e-3;
+      if (complete) {
+        const signature = JSON.stringify(observed);
+        if (signature === prior) {
+          return {
+            id: address.directId,
+            name: '',
+            value: observed.value!,
+            observed: { display: false, modulatedValue: false, hasAutomation: false },
+          };
+        }
+        prior = signature;
+      } else {
+        prior = undefined;
+      }
+      await this.settle('cursorPoint');
+    }
+    return undefined;
+  }
+
+  /** Enumerate the complete configured remote-page window in one bounded reply. */
   private remoteInventory(device: DeviceAddress, row: WireTrack): Promise<RemoteInventory> {
     return this.withParameterCursor(async () => {
       const begun = await this.transport.send({
@@ -1248,40 +1339,13 @@ export class LiveAdapter implements BitwigAdapter {
       if (target.standing !== 'stable') return target;
       await this.settle('paramsLive');
 
-      let pageNames: readonly string[] | undefined;
+      let prior: string | undefined;
       for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
-        const first = await this.transport.send({ method: WIRE.remoteList }) as WireRemotePage;
-        const names = first.pageNames ?? [];
-        const current = first.generation === generation
-          && first.observedGeneration === generation
-          && first.observedTrackChannelId === device.track.channelId
-          && first.observedDeviceName === target.deviceName
-          && first.observedDeviceIndex === device.chainIndex
-          && first.deviceExists === true
-          && first.deviceName === target.deviceName
-          && first.pageCount === names.length
-          && names.every((name) => typeof name === 'string' && name.trim() !== '');
-        if (current) {
-          pageNames = names;
-          break;
-        }
-        await this.settle('cursorPoint');
-      }
-      if (pageNames === undefined) {
-        return { standing: 'unstable', deviceName: target.deviceName };
-      }
-
-      const pages: import('../../contract/index.js').RemotePageState[] = [];
-      for (const [pageIndex, pageName] of pageNames.entries()) {
-        await this.transport.send({
-          method: WIRE.remoteSelectPage, params: { index: pageIndex },
-        });
-        let prior: string | undefined;
-        let accepted: import('../../contract/index.js').RemotePageState | undefined;
-        for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
-          await this.settle('cursorPoint');
-          const observed = await this.transport.send({ method: WIRE.remoteList }) as WireRemotePage;
-          const rows = observed.remotes ?? [];
+        const observed = await this.transport.send({ method: WIRE.remoteList }) as WireRemotePage;
+        const pageNames = observed.pageNames ?? [];
+        const wirePages = observed.pages ?? [];
+        const pages = wirePages.flatMap((wirePage): import('../../contract/index.js').RemotePageState[] => {
+          const rows = wirePage.remotes ?? [];
           const controls = rows.flatMap((item): import('../../contract/index.js').RemoteControlState[] => {
             if (item.exists !== true || !Number.isInteger(item.index)
                 || typeof item.name !== 'string' || item.name.trim() === ''
@@ -1299,46 +1363,57 @@ export class LiveAdapter implements BitwigAdapter {
                 ? { hasAutomation: item.hasAutomation } : {}),
             }];
           });
-          const bankComplete = Number.isInteger(observed.bankSize) && observed.bankSize! >= 0
-            && rows.length === observed.bankSize
+          const bankComplete = Number.isInteger(wirePage.bankSize) && wirePage.bankSize! >= 0
+            && rows.length === wirePage.bankSize
             && rows.every((item, index) => item.index === index
               && typeof item.exists === 'boolean');
-          const complete = observed.generation === generation
-            && observed.observedGeneration === generation
-            && observed.observedTrackChannelId === device.track.channelId
-            && observed.observedDeviceName === target.deviceName
-            && observed.observedDeviceIndex === device.chainIndex
-            && observed.deviceExists === true
-            && observed.deviceName === target.deviceName
-            && observed.pageCount === pageNames.length
-            && JSON.stringify(observed.pageNames ?? []) === JSON.stringify(pageNames)
-            && observed.selectedPageIndex === pageIndex
-            && observed.selectedPageName === pageName
+          const pageIndex = wirePage.index;
+          const pageName = Number.isInteger(pageIndex) ? pageNames[pageIndex!] : undefined;
+          const complete = Number.isInteger(pageIndex)
+            && typeof pageName === 'string' && pageName.trim() !== ''
+            && wirePage.name === pageName
+            && wirePage.selectedPageIndex === pageIndex
+            && wirePage.observedGeneration === generation
+            && wirePage.observedTrackChannelId === device.track.channelId
+            && wirePage.observedDeviceName === target.deviceName
+            && wirePage.observedDeviceIndex === device.chainIndex
             && bankComplete
-            && Number.isInteger(observed.existing)
-            && controls.length === observed.existing;
-          if (complete) {
-            const page = { index: pageIndex, name: pageName, controls };
-            const signature = JSON.stringify(page);
-            if (signature === prior) {
-              accepted = page;
-              break;
-            }
-            prior = signature;
-          } else {
-            prior = undefined;
+            && Number.isInteger(wirePage.existing)
+            && controls.length === wirePage.existing;
+          return complete ? [{ index: pageIndex!, name: pageName, controls }] : [];
+        });
+        const complete = observed.generation === generation
+          && observed.observedGeneration === generation
+          && observed.observedTrackChannelId === device.track.channelId
+          && observed.observedDeviceName === target.deviceName
+          && observed.observedDeviceIndex === device.chainIndex
+          && observed.deviceExists === true
+          && observed.deviceName === target.deviceName
+          && observed.pagesComplete === true
+          && Number.isInteger(observed.pageBankSize)
+          && Number.isInteger(observed.pageCount)
+          && observed.pageCount === pageNames.length
+          && observed.pageCount! <= observed.pageBankSize!
+          && pageNames.every((name) => typeof name === 'string' && name.trim() !== '')
+          && wirePages.length === pageNames.length
+          && pages.length === pageNames.length
+          && pages.every((page, index) => page.index === index && page.name === pageNames[index]);
+        if (complete) {
+          const signature = JSON.stringify(pages);
+          if (signature === prior) {
+            return {
+              standing: 'stable',
+              deviceName: target.deviceName,
+              remotes: { pages },
+            };
           }
+          prior = signature;
+        } else {
+          prior = undefined;
         }
-        if (accepted === undefined) {
-          return { standing: 'unstable', deviceName: target.deviceName };
-        }
-        pages.push(accepted);
+        await this.settle('cursorPoint');
       }
-      return {
-        standing: 'stable',
-        deviceName: target.deviceName,
-        remotes: { pages },
-      };
+      return { standing: 'unstable', deviceName: target.deviceName };
     });
   }
 
@@ -1350,34 +1425,6 @@ export class LiveAdapter implements BitwigAdapter {
     if (page?.name !== address.pageName) return undefined;
     const control = page.controls.find((item) => item.index === address.controlIndex);
     return control?.name === address.controlName ? control : undefined;
-  }
-
-  /** Select and confirm one page before a remote write uses its control index. */
-  private async selectRemotePage(
-    address: import('../../contract/index.js').RemoteAddress,
-    deviceName: string,
-  ): Promise<boolean> {
-    await this.transport.send({
-      method: WIRE.remoteSelectPage, params: { index: address.pageIndex },
-    });
-    let prior: string | undefined;
-    for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
-      await this.settle('cursorPoint');
-      const observed = await this.transport.send({ method: WIRE.remoteList }) as WireRemotePage;
-      const control = (observed.remotes ?? []).find((item) => item.index === address.controlIndex);
-      const complete = observed.deviceExists === true && observed.deviceName === deviceName
-        && observed.selectedPageIndex === address.pageIndex
-        && observed.selectedPageName === address.pageName
-        && control?.exists === true && control.name === address.controlName;
-      if (complete) {
-        const signature = JSON.stringify(observed);
-        if (signature === prior) return true;
-        prior = signature;
-      } else {
-        prior = undefined;
-      }
-    }
-    return false;
   }
 
   /**
@@ -3908,8 +3955,7 @@ export class LiveAdapter implements BitwigAdapter {
         }
         const inventory = await this.remoteInventory(remoteOp.remote.device, row);
         if (inventory.standing !== 'stable'
-            || this.remoteState(remoteOp.remote, inventory) === undefined
-            || !await this.selectRemotePage(remoteOp.remote, inventory.deviceName)) {
+            || this.remoteState(remoteOp.remote, inventory) === undefined) {
           await this.restoreSelection(selection);
           throw new AddressUnresolvedError(
             remoteOp.remote,
@@ -3970,19 +4016,32 @@ export class LiveAdapter implements BitwigAdapter {
           && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
         const row = this.bank.find((item) =>
           item.channelId === parameterOp.param.device.track.channelId);
-        const after = row === undefined
-          ? { standing: 'missing' as const }
-          : await this.parameterInventory(parameterOp.param.device, row);
-        const state = after.standing === 'stable'
-          ? this.parameterState(parameterOp.param, after)
+        const wireCompletion = result.results?.find((entry) =>
+          entry.method === WIRE.directParamSet)?.result as {
+            readonly completionGeneration?: unknown;
+          } | undefined;
+        const completionGeneration = wireCompletion?.completionGeneration;
+        const completed = typeof completionGeneration === 'number'
+          ? await this.directParameterCompletion(
+            parameterOp.param,
+            parameterBefore.deviceName,
+            completionGeneration,
+            parameterOp.value,
+          )
           : undefined;
-        const sameTarget = after.standing === 'stable'
-          && after.deviceName === parameterBefore.deviceName;
+        const after = completed !== undefined || row === undefined
+          ? undefined
+          : await this.parameterInventory(parameterOp.param.device, row);
+        const state = completed ?? (after?.standing === 'stable'
+          ? this.parameterState(parameterOp.param, after)
+          : undefined);
+        const sameTarget = completed !== undefined
+          || (after?.standing === 'stable' && after.deviceName === parameterBefore.deviceName);
         if (!sameTarget || state === undefined || Math.abs(state.value - parameterOp.value) > 2e-3) {
           const readback = state?.value;
-          const why = after.standing === 'stable'
+          const why = after?.standing === 'stable'
             ? `parameter readback disagreed: requested ${parameterOp.value}, got ${readback ?? 'missing'}`
-            : `parameter readback was ${after.standing}`;
+            : `parameter readback was ${after?.standing ?? 'unstable'}`;
           const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
             (entry.op === WIRE.directParamSet || entry.op === WIRE.paramSet
               || entry.op === 'param.set')

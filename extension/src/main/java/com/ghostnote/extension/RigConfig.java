@@ -41,6 +41,7 @@ public class RigConfig {
     public int fineSteps = 512; // pointable writer cursors (E44)
     public int noteReadSteps = 2048; // independent exact-read cursor (E52)
     public int paramHandles = 64; // typed createParameter handles (E4/E50)
+    public int remotePages = 16; // independent complete-page cursors (E61)
     public boolean directObservers = true; // DirectParameter observers (E4b)
     /**
      * ⚠ E16: what the flat track bank is allowed to SEE.
@@ -87,6 +88,7 @@ public class RigConfig {
             config.fineSteps = intOr(obj, "fineSteps", config.fineSteps);
             config.noteReadSteps = intOr(obj, "noteReadSteps", config.noteReadSteps);
             config.paramHandles = intOr(obj, "paramHandles", config.paramHandles);
+            config.remotePages = Math.max(1, intOr(obj, "remotePages", config.remotePages));
             if (obj.has("contentFilter")) {
                 config.contentFilter = obj.get("contentFilter").getAsString();
             }
@@ -120,6 +122,7 @@ public class RigConfig {
         obj.addProperty("fineSteps", fineSteps);
         obj.addProperty("noteReadSteps", noteReadSteps);
         obj.addProperty("paramHandles", paramHandles);
+        obj.addProperty("remotePages", remotePages);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);
         obj.addProperty("stamp", stamp);

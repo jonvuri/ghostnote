@@ -189,8 +189,11 @@ public class Rig {
      * plus isBeingMapped() — the modern equivalent of the map idiom.
      */
     public static final int REMOTE_BANK = 8;
+    public final CursorRemoteControlsPage[] remotePages0;
+    public final RemoteControl[][] remoteControls0;
+    /** Legacy probe aliases for the first independent page cursor. */
     public final CursorRemoteControlsPage remotePage0;
-    public final RemoteControl[] remotes0 = new RemoteControl[REMOTE_BANK];
+    public final RemoteControl[] remotes0;
     /** Generation reset before each serialized remote-control acquisition. */
     public long remoteGeneration = 0;
     /** Generation in which the page-name observer last followed the cursor. */
@@ -198,9 +201,13 @@ public class Rig {
     public String remoteObservedTrackId = null;
     public String remoteObservedDeviceName = null;
     public int remoteObservedDeviceIndex = -1;
-    private long remotePendingGeneration = -1;
-    private String remotePendingTrackId = null;
-    private String remotePendingDeviceName = null;
+    public final long[] remotePageObservedGeneration;
+    public final String[] remotePageObservedTrackId;
+    public final String[] remotePageObservedDeviceName;
+    public final int[] remotePageObservedDeviceIndex;
+    private final long[] remotePagePendingGeneration;
+    private final String[] remotePagePendingTrackId;
+    private final String[] remotePagePendingDeviceName;
 
     /** E7e: transport, so probes can hold a note playing (per-voice modulators
      * output nothing while the project is silent). */
@@ -224,6 +231,14 @@ public class Rig {
     public String directParamObservedTrackId = null;
     public String directParamObservedDeviceName = null;
     public int directParamObservedDeviceIndex = -1;
+    /** One exact callback receipt armed by a direct-parameter mutation. */
+    public long directParamCompletionGeneration = 0;
+    public long directParamCompletionObservedGeneration = -1;
+    public String directParamCompletionId = null;
+    public Double directParamCompletionValue = null;
+    public String directParamCompletionTrackId = null;
+    public String directParamCompletionDeviceName = null;
+    public int directParamCompletionDeviceIndex = -1;
 
     // --- E16: mixer state + the audibility oracle ---
     /**
@@ -509,6 +524,18 @@ public class Rig {
         cursorTracks = new CursorTrack[config.cursorPool];
         cursorClips = new PinnableCursorClip[config.cursorPool];
         cursorDeviceBanks = new DeviceBank[config.cursorPool];
+        remotePages0 = new CursorRemoteControlsPage[config.remotePages];
+        remoteControls0 = new RemoteControl[config.remotePages][REMOTE_BANK];
+        remotePageObservedGeneration = new long[config.remotePages];
+        remotePageObservedTrackId = new String[config.remotePages];
+        remotePageObservedDeviceName = new String[config.remotePages];
+        remotePageObservedDeviceIndex = new int[config.remotePages];
+        remotePagePendingGeneration = new long[config.remotePages];
+        remotePagePendingTrackId = new String[config.remotePages];
+        remotePagePendingDeviceName = new String[config.remotePages];
+        java.util.Arrays.fill(remotePageObservedGeneration, -1);
+        java.util.Arrays.fill(remotePageObservedDeviceIndex, -1);
+        java.util.Arrays.fill(remotePagePendingGeneration, -1);
         sendBanks = new SendBank[config.tracks];
         vuNow = new int[config.tracks];
         vuHold = new int[config.tracks];
@@ -1091,22 +1118,32 @@ public class Rig {
         chainSelector0.activeChainIndex().markInterested();
         chainSelector0.chainCount().markInterested();
 
-        // E7: remote-controls page on cursorDevice0 (the modern modulation-
-        // mapping surface Bitwig points to). Re-scopes as the cursor repoints.
-        remotePage0 = cursorDevice0.createCursorRemoteControlsPage(REMOTE_BANK);
-        remotePage0.pageCount().markInterested();
-        remotePage0.selectedPageIndex().markInterested();
-        remotePage0.pageNames().markInterested();
-        remotePage0.pageNames().addValueObserver(names -> noteRemotePageObservation());
-        for (int r = 0; r < REMOTE_BANK; r++) {
-            RemoteControl rc = remotePage0.getParameter(r);
-            rc.exists().markInterested();
-            rc.name().markInterested();
-            rc.value().markInterested();
-            rc.modulatedValue().markInterested();
-            rc.isBeingMapped().markInterested();
-            remotes0[r] = rc;
+        // E61: one independent cursor per bounded remote page. Each cursor keeps
+        // its page index while cursorDevice0 moves. One handler can therefore
+        // return the complete configured page window without page turns.
+        for (int page = 0; page < config.remotePages; page++) {
+            final int pageIndex = page;
+            CursorRemoteControlsPage remotePage = cursorDevice0.createCursorRemoteControlsPage(
+                "ghostnote-page-" + page, REMOTE_BANK, "");
+            remotePages0[page] = remotePage;
+            remotePage.pageCount().markInterested();
+            remotePage.selectedPageIndex().markInterested();
+            remotePage.pageNames().markInterested();
+            remotePage.pageNames().addValueObserver(
+                names -> noteRemotePageObservation(pageIndex));
+            remotePage.selectedPageIndex().set(page);
+            for (int r = 0; r < REMOTE_BANK; r++) {
+                RemoteControl rc = remotePage.getParameter(r);
+                rc.exists().markInterested();
+                rc.name().markInterested();
+                rc.value().markInterested();
+                rc.modulatedValue().markInterested();
+                rc.isBeingMapped().markInterested();
+                remoteControls0[page][r] = rc;
+            }
         }
+        remotePage0 = remotePages0[0];
+        remotes0 = remoteControls0[0];
 
         // Typed IDs come from the generated native catalog. Cycle them only when
         // the D7 scale configuration asks for more handles than the device has.
@@ -1158,6 +1195,7 @@ public class Rig {
             });
             cursorDevice0.addDirectParameterNormalizedValueObserver((id, value) -> {
                 directParamValues.put(id, value);
+                noteDirectParameterCompletion(id, value);
             });
             cursorDevice0.addDirectParameterValueDisplayObserver(48, (id, display) -> {
                 directParamDisplays.put(id, display);
@@ -1193,35 +1231,70 @@ public class Rig {
         remoteObservedTrackId = null;
         remoteObservedDeviceName = null;
         remoteObservedDeviceIndex = -1;
-        remotePendingGeneration = -1;
-        remotePendingTrackId = null;
-        remotePendingDeviceName = null;
+        java.util.Arrays.fill(remotePageObservedGeneration, -1);
+        java.util.Arrays.fill(remotePageObservedTrackId, null);
+        java.util.Arrays.fill(remotePageObservedDeviceName, null);
+        java.util.Arrays.fill(remotePageObservedDeviceIndex, -1);
+        java.util.Arrays.fill(remotePagePendingGeneration, -1);
+        java.util.Arrays.fill(remotePagePendingTrackId, null);
+        java.util.Arrays.fill(remotePagePendingDeviceName, null);
         return remoteGeneration;
     }
 
-    private void noteRemotePageObservation() {
-        remotePendingGeneration = remoteGeneration;
-        remotePendingTrackId = cursorTracks[0].channelId().get();
-        remotePendingDeviceName = cursorDevice0.name().get();
-        finishRemoteObservation();
+    private void noteRemotePageObservation(int page) {
+        remotePagePendingGeneration[page] = remoteGeneration;
+        remotePagePendingTrackId[page] = cursorTracks[0].channelId().get();
+        remotePagePendingDeviceName[page] = cursorDevice0.name().get();
+        finishRemoteObservation(page);
     }
 
-    /** Finish only after the page observer and current-chain equality agree. */
-    private void finishRemoteObservation() {
-        if (remotePendingGeneration != remoteGeneration
-            || remotePendingTrackId == null || remotePendingDeviceName == null
-            || !remotePendingTrackId.equals(cursorTracks[0].channelId().get())
-            || !remotePendingDeviceName.equals(cursorDevice0.name().get())) {
+    /** Finish one page only after its observer and current-chain equality agree. */
+    private void finishRemoteObservation(int page) {
+        if (remotePagePendingGeneration[page] != remoteGeneration
+            || remotePagePendingTrackId[page] == null
+            || remotePagePendingDeviceName[page] == null
+            || !remotePagePendingTrackId[page].equals(cursorTracks[0].channelId().get())
+            || !remotePagePendingDeviceName[page].equals(cursorDevice0.name().get())) {
             return;
         }
         int index = currentDirectParameterDeviceIndex();
         if (index < 0) {
             return;
         }
-        remoteObservedGeneration = remoteGeneration;
-        remoteObservedTrackId = remotePendingTrackId;
-        remoteObservedDeviceName = remotePendingDeviceName;
-        remoteObservedDeviceIndex = index;
+        remotePageObservedGeneration[page] = remoteGeneration;
+        remotePageObservedTrackId[page] = remotePagePendingTrackId[page];
+        remotePageObservedDeviceName[page] = remotePagePendingDeviceName[page];
+        remotePageObservedDeviceIndex[page] = index;
+        if (page == 0) {
+            remoteObservedGeneration = remoteGeneration;
+            remoteObservedTrackId = remotePagePendingTrackId[page];
+            remoteObservedDeviceName = remotePagePendingDeviceName[page];
+            remoteObservedDeviceIndex = index;
+        }
+    }
+
+    /** Arm one exact DirectParameter callback before its mutation. */
+    public long beginDirectParameterCompletion(String id) {
+        directParamCompletionGeneration++;
+        directParamCompletionObservedGeneration = -1;
+        directParamCompletionId = id;
+        directParamCompletionValue = null;
+        directParamCompletionTrackId = cursorTracks[0].channelId().get();
+        directParamCompletionDeviceName = cursorDevice0.name().get();
+        directParamCompletionDeviceIndex = currentDirectParameterDeviceIndex();
+        return directParamCompletionGeneration;
+    }
+
+    private void noteDirectParameterCompletion(String id, double value) {
+        if (directParamCompletionId == null || !directParamCompletionId.equals(id)
+            || directParamCompletionTrackId == null || directParamCompletionDeviceName == null
+            || !directParamCompletionTrackId.equals(cursorTracks[0].channelId().get())
+            || !directParamCompletionDeviceName.equals(cursorDevice0.name().get())
+            || directParamCompletionDeviceIndex != currentDirectParameterDeviceIndex()) {
+            return;
+        }
+        directParamCompletionValue = value;
+        directParamCompletionObservedGeneration = directParamCompletionGeneration;
     }
 
     /** Current position of the device cursor in its own chain, or -1. */
@@ -1308,8 +1381,16 @@ public class Rig {
             for (int d = 0; d < config.deviceBank; d++) {
                 var chainEqual = cursorDevice0.createEqualsValue(cursorDeviceBanks[0].getDevice(d));
                 var siblingEqual = cursorDevice0.createEqualsValue(cursorDeviceSiblings0.getDevice(d));
-                chainEqual.addValueObserver(value -> finishRemoteObservation());
-                siblingEqual.addValueObserver(value -> finishRemoteObservation());
+                chainEqual.addValueObserver(value -> {
+                    for (int page = 0; page < config.remotePages; page++) {
+                        finishRemoteObservation(page);
+                    }
+                });
+                siblingEqual.addValueObserver(value -> {
+                    for (int page = 0; page < config.remotePages; page++) {
+                        finishRemoteObservation(page);
+                    }
+                });
                 equalsProbes.put("dev0=chain" + d, chainEqual);
                 equalsProbes.put("dev0=sibling" + d, siblingEqual);
                 built += 2;

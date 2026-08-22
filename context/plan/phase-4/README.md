@@ -2,7 +2,7 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Session 4h is complete. Session 4h1 observer efficiency is next.
+status: Session 4h1 is complete. Session 4i public surface is next.
 updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -55,9 +55,9 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 10. [4h — device performance gate](4h-device-performance-gate.md) — complete.
    E60 measures full workflows and finds repeated observer work.
 11. [4h1 — device observer efficiency](4h1-device-observer-efficiency.md) —
-   next. Remove the remote-page loop and stabilize large plugin readback.
+   complete. E61 removes the remote-page loop and stabilizes plugin readback.
 12. [4i — device and parameter MCP surface](4i-device-surface.md) — revise the
-   thin probe-era tools and freeze one measured public cohort.
+   thin probe-era tools and freeze one measured public cohort. Next.
 13. [4j — dogfood and closeout](4j-dogfood-and-closeout.md) — natural use, the
     complete live matrix, cleanup, evidence audit, and Phase 5 handoff.
 
@@ -76,6 +76,8 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
   workflow. E59 keeps mint provenance separate from current observed position.
 - E60 activates session 4h1 before the public freeze. It owns the measured
   remote-page loop and unstable large-plugin completion.
+- E61 closes the observer gate. Session 4i can freeze the public cohort against
+  the final budgets and exact completion contract.
 - Session 4j starts only after the public cohort and performance budgets are
   fixed.
 

@@ -1887,6 +1887,7 @@ class ParameterTransport implements Transport {
   ];
   takeWrites = true;
   neverSettles = false;
+  staleInventoryReads = 0;
   changeSelectionBeforeWrite = false;
   layerWindowOverflow = false;
   remoteNeverCurrent = false;
@@ -1903,6 +1904,10 @@ class ParameterTransport implements Transport {
   ];
   private generation = 0;
   private remoteGeneration = 0;
+  private completionGeneration = 0;
+  private completionObservedGeneration = -1;
+  private completionId: string | undefined;
+  private completionValue: number | undefined;
   private devicePinned = false;
   private trackPinned = false;
   private revision = 1;
@@ -2001,6 +2006,8 @@ class ParameterTransport implements Transport {
         };
       case WIRE.directParamList: {
         if (params['begin'] === true) this.generation++;
+        const stale = params['begin'] !== true && this.staleInventoryReads > 0;
+        if (stale) this.staleInventoryReads--;
         const device = this.padSelected
           ? { name: 'Pad synth', params: this.padParams }
           : this.depth === 2
@@ -2010,7 +2017,7 @@ class ParameterTransport implements Transport {
           params: [...(device?.params ?? [])].map(([id, state]) => ({ id, ...state })),
           count: device?.params.size ?? 0,
           generation: this.generation,
-          idsGeneration: this.neverSettles ? this.generation - 1 : this.generation,
+          idsGeneration: this.neverSettles || stale ? this.generation - 1 : this.generation,
           deviceExists: device !== undefined,
           deviceName: device?.name,
           deviceIndex: this.depth === 0 ? this.selected : -1,
@@ -2027,10 +2034,34 @@ class ParameterTransport implements Transport {
         const target = (this.padSelected ? this.padParams
           : this.depth === 2 ? this.deepParams : this.devices[this.selected]?.params)
           ?.get(params['id'] as string);
-        if (target !== undefined && this.takeWrites) target.value = params['value'] as number;
-        return {};
+        this.completionGeneration++;
+        this.completionObservedGeneration = -1;
+        this.completionId = params['id'] as string;
+        this.completionValue = undefined;
+        if (target !== undefined && this.takeWrites) {
+          target.value = params['value'] as number;
+          this.completionValue = target.value;
+          this.completionObservedGeneration = this.completionGeneration;
+        }
+        return { completionGeneration: this.completionGeneration };
       }
-      case WIRE.remoteSelectPage:
+      case WIRE.directParamCompletion: {
+        const deviceName = this.padSelected ? 'Pad synth'
+          : this.depth === 2 ? 'Deep synth' : this.devices[this.selected]?.name;
+        return {
+          generation: this.completionGeneration,
+          observedGeneration: this.completionObservedGeneration,
+          id: this.completionId,
+          value: this.completionValue,
+          trackChannelId: CHANNEL_ID,
+          deviceName,
+          deviceIndex: this.depth === 0 ? this.selected : 0,
+          currentTrackChannelId: CHANNEL_ID,
+          currentDeviceName: deviceName,
+          currentDeviceIndex: this.depth === 0 ? this.selected : 0,
+        };
+      }
+      case 'remote.selectPage':
         this.selectedRemotePage = params['index'] as number;
         return {};
       case WIRE.remoteList: {
@@ -2038,7 +2069,34 @@ class ParameterTransport implements Transport {
         const page = this.remotePages[this.selectedRemotePage];
         const deviceName = this.depth === 1 ? 'Inner container'
           : this.depth === 2 ? 'Deep synth' : this.devices[this.selected]?.name;
+        const pages = this.remotePages.map((remotePage, pageIndex) => ({
+          index: pageIndex,
+          name: remotePage.name,
+          remotes: Array.from({ length: 8 }, (_, index) => {
+            const control = remotePage.controls[index];
+            return control === undefined
+              ? { index, exists: false }
+              : {
+                index, exists: true,
+                ...(this.malformedRemoteControl ? {} : { name: control.name }),
+                value: control.value,
+                modulatedValue: control.modulatedValue, isBeingMapped: false,
+                hasAutomation: false,
+              };
+          }),
+          existing: remotePage.controls.length,
+          bankSize: 8,
+          selectedPageIndex: pageIndex,
+          observedGeneration: this.remoteNeverCurrent
+            ? this.remoteGeneration - 1 : this.remoteGeneration,
+          observedTrackChannelId: CHANNEL_ID,
+          observedDeviceName: deviceName,
+          observedDeviceIndex: this.depth === 0 ? this.selected : 0,
+        }));
         return {
+          pages,
+          pageBankSize: 16,
+          pagesComplete: true,
           remotes: Array.from({ length: 8 }, (_, index) => {
             const control = page?.controls[index];
             return control === undefined
@@ -2069,7 +2127,8 @@ class ParameterTransport implements Transport {
         };
       }
       case WIRE.remoteSet: {
-        const control = this.remotePages[this.selectedRemotePage]?.controls[params['index'] as number];
+        const pageIndex = (params['pageIndex'] as number | undefined) ?? this.selectedRemotePage;
+        const control = this.remotePages[pageIndex]?.controls[params['index'] as number];
         if (control !== undefined && this.takeWrites) control.value = params['value'] as number;
         return {};
       }
@@ -2080,10 +2139,15 @@ class ParameterTransport implements Transport {
           this.depth = 0;
           this.padSelected = false;
         }
-        for (const op of ops) await this.send({ method: op.method, params: op.params });
+        const results = [];
+        for (const op of ops) {
+          const opResult = await this.send({ method: op.method, params: op.params });
+          results.push({ method: op.method, ok: true,
+            ...(op.method === WIRE.directParamSet ? { result: opResult } : {}) });
+        }
         this.revision++;
         return { applied: true, revision: this.revision,
-          results: ops.map((op) => ({ method: op.method, ok: true })) };
+          results };
       }
       case WIRE.chainInventory:
         return { trackChannelId: CHANNEL_ID, scopes: [] };
@@ -2134,6 +2198,11 @@ test('L-direct-param: a write reads back independently and exact reversal restor
 
   const changed = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.75 }] });
   assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const writeAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+  const completionFrames = wire.frames.slice(writeAt + 1);
+  assert.equal(completionFrames.filter((frame) =>
+    frame.method === WIRE.directParamCompletion).length, 2);
+  assert.equal(completionFrames.some((frame) => frame.method === WIRE.directParamList), false);
   const restored = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0 }] });
   assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   const after = await adapter.read([address]);
@@ -2189,6 +2258,34 @@ test('L-direct-param: an observer generation that never settles is separate from
   const snapshot = await adapter.read([address]);
   assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(address)]);
   assert.deepEqual(snapshot.missing, []);
+});
+
+test('4h1: a large parameter generation can settle after the cursor retry window', async () => {
+  const wire = new ParameterTransport();
+  wire.staleInventoryReads = 12;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'P1');
+
+  const snapshot = await adapter.read([address]);
+
+  const entry = snapshot.entries[addressKey(address)];
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.value : undefined, 0);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.directParamList).length, 15);
+});
+
+test('4h1: an unstable parameter generation is re-armed without a mutation', async () => {
+  const wire = new ParameterTransport();
+  wire.staleInventoryReads = 80;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'P1');
+
+  const snapshot = await adapter.read([address]);
+
+  const entry = snapshot.entries[addressKey(address)];
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.value : undefined, 0);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.directParamList
+    && frame.params?.['begin'] === true).length, 2);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.directParamSet), false);
 });
 
 test('4f live route: depth-2 DirectParameter write uses two confirmed named descents', async () => {
@@ -2252,6 +2349,8 @@ test('4f live route: remote pages settle twice and one control restores exactly'
     pages?.value.of === 'remotes' ? pages.value.remotes.pages.map((page) => page.name) : undefined,
     ['Filter', 'Mod'],
   );
+  assert.equal(wire.frames.some((frame) => frame.method === 'remote.selectPage'), false);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList).length, 3);
   const changed = await adapter.apply({ ops: [{ op: 'remote.set', remote: address, value: 0.75 }] });
   assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   const restored = await adapter.apply({ ops: [{ op: 'remote.set', remote: address, value: 0.25 }] });

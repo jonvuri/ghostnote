@@ -132,8 +132,13 @@ public final class BatchHandlers extends HandlerGroup {
             if (m.startsWith("batch.")) {
                 throw new IllegalArgumentException("nested batch not allowed");
             }
-            registry.dispatch(m, p);
+            JsonElement opResult = registry.dispatch(m, p);
             r.addProperty("ok", true);
+            // E61 needs the target-bound generation from the write turn. Keep
+            // every other handler result out of the established batch reply.
+            if ("directparam.set".equals(m) && opResult != null && !opResult.isJsonNull()) {
+                r.add("result", opResult);
+            }
         } catch (Exception e) {
             r.addProperty("ok", false);
             r.addProperty("error", String.valueOf(e.getMessage()));

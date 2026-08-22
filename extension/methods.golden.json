@@ -14,8 +14,8 @@
   ],
   "extractedAt": "2026-08-22",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 147,
-  "methodsHash": "f58c5ded93d5f743",
+  "count": 148,
+  "methodsHash": "eb3391803ef4eea4",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -48,6 +48,7 @@
     "device.moveTo",
     "device.selectInEditor",
     "device.setEnabled",
+    "directparam.completion",
     "equals.status",
     "equals.tryCreate",
     "layer.delete",
@@ -177,6 +178,7 @@
     "device.nesting",
     "device.selectInEditor",
     "device.setEnabled",
+    "directparam.completion",
     "directparam.list",
     "directparam.set",
     "drumpad.duplicate",
@@ -429,5 +431,8 @@
   ],
   "addedInPhase4Session4g": [
     "device.setEnabled"
+  ],
+  "addedInPhase4Session4h1": [
+    "directparam.completion"
   ]
 }

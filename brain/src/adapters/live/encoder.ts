@@ -729,7 +729,10 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
 
     case 'remote.set':
       return [frame(WIRE.remoteSet, {
+        pageIndex: op.remote.pageIndex,
+        pageName: op.remote.pageName,
         index: op.remote.controlIndex,
+        controlName: op.remote.controlName,
         value: op.value,
       })];
 
