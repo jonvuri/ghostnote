@@ -99,6 +99,11 @@ export interface EncodeContext {
   readonly chainId: (chain: ChainAddress) => string;
   /** Source name from the structural reading that immediately precedes relocation. */
   readonly deviceName?: (device: import('../../contract/index.js').DeviceAddress) => string;
+  readonly deviceEnabled?: (device: import('../../contract/index.js').DeviceAddress) => boolean;
+  /** Complete top-level names observed immediately before a device mutation. */
+  readonly deviceChainNames?: (track: TrackAddress) => readonly string[];
+  /** Enabled flags aligned with the complete top-level name reading. */
+  readonly deviceChainEnabled?: (track: TrackAddress) => readonly boolean[];
   /** Absolute source position resolved from a complete tail-relative reading. */
   readonly deviceTailIndex?: (track: TrackAddress, fromEnd: number, expectedName: string) => number;
   /**
@@ -528,15 +533,30 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       validateDeviceSource(op);
       const cursor = ctx.cursorForTrack(op.track);
       const point = frame(WIRE.cursorPointTrack, { cursor, trackIndex: ctx.trackIndex(op.track) });
+      const guards = {
+        expectedTrackChannelId: op.track.channelId,
+        expectedDeviceNames: op.expectedChain ?? ctx.deviceChainNames?.(op.track),
+        ...((op.expectedEnabledChain ?? ctx.deviceChainEnabled?.(op.track)) === undefined
+          ? {}
+          : { expectedDeviceEnabled: op.expectedEnabledChain ?? ctx.deviceChainEnabled?.(op.track) }),
+      };
       switch (op.source.from) {
         case 'bitwig':
-          return [point, frame(WIRE.deviceInsertBitwig, { cursor, uuid: op.source.uuid })];
+          return [point, frame(WIRE.deviceInsertBitwig, {
+            cursor, uuid: op.source.uuid, ...guards,
+          })];
         case 'vst3':
-          return [point, frame(WIRE.deviceInsertVst3, { cursor, vst3Id: op.source.classUid })];
+          return [point, frame(WIRE.deviceInsertVst3, {
+            cursor, vst3Id: op.source.classUid, ...guards,
+          })];
         case 'clap':
-          return [point, frame(WIRE.deviceInsertClap, { cursor, clapId: op.source.id })];
+          return [point, frame(WIRE.deviceInsertClap, {
+            cursor, clapId: op.source.id, ...guards,
+          })];
         case 'file':
-          return [point, frame(WIRE.deviceInsertFile, { cursor, path: op.source.path })];
+          return [point, frame(WIRE.deviceInsertFile, {
+            cursor, path: op.source.path, ...guards,
+          })];
       }
       break;
     }
@@ -563,7 +583,30 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
           cursor,
           deviceIndex: op.device.chainIndex,
           expectedTrackChannelId: op.device.track.channelId,
+          expectedDeviceNames: op.expectedChain ?? ctx.deviceChainNames?.(op.device.track),
+          ...((op.expectedEnabledChain ?? ctx.deviceChainEnabled?.(op.device.track)) === undefined
+            ? {}
+            : { expectedDeviceEnabled: op.expectedEnabledChain ?? ctx.deviceChainEnabled?.(op.device.track) }),
           ...(op.expectedName === undefined ? {} : { expectedName: op.expectedName }),
+        }),
+      ];
+    }
+
+    case 'device.setEnabled': {
+      const cursor = ctx.cursorForTrack(op.device.track);
+      return [
+        frame(WIRE.cursorPointTrack, { cursor, trackIndex: ctx.trackIndex(op.device.track) }),
+        frame(WIRE.deviceSetEnabled, {
+          cursor,
+          deviceIndex: op.device.chainIndex,
+          enabled: op.enabled,
+          expectedTrackChannelId: op.device.track.channelId,
+          expectedDeviceNames: op.expectedChain ?? ctx.deviceChainNames?.(op.device.track),
+          ...((op.expectedEnabledChain ?? ctx.deviceChainEnabled?.(op.device.track)) === undefined
+            ? {}
+            : { expectedDeviceEnabled: op.expectedEnabledChain ?? ctx.deviceChainEnabled?.(op.device.track) }),
+          expectedName: op.expectedName ?? ctx.deviceName?.(op.device),
+          expectedEnabled: op.expectedEnabled ?? ctx.deviceEnabled?.(op.device),
         }),
       ];
     }
@@ -582,6 +625,10 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
           where: 'before',
           anchorIndex: op.before.chainIndex,
           expectedTrackChannelId: op.track.channelId,
+          expectedDeviceNames: op.expectedChain ?? ctx.deviceChainNames?.(op.track),
+          ...((op.expectedEnabledChain ?? ctx.deviceChainEnabled?.(op.track)) === undefined
+            ? {}
+            : { expectedDeviceEnabled: op.expectedEnabledChain ?? ctx.deviceChainEnabled?.(op.track) }),
           expectedSourceName: op.expectedName,
           expectedAnchorName: ctx.deviceName?.(op.before),
         }),
@@ -657,14 +704,28 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         expectedTrackChannelId: op.chain.container.track.channelId,
       })];
 
-    case 'param.set':
+    case 'param.set': {
       // ⚠ Two different APIs, two different traps. Neither is selectable by the
       // caller, because the wrong choice is a SILENT no-op in both directions.
+      const guard = op.expectedChain === undefined ? {} : {
+        expectedTrackChannelId: op.param.device.track.channelId,
+        expectedDeviceNames: op.expectedChain,
+        ...(op.expectedEnabledChain === undefined
+          ? {}
+          : { expectedDeviceEnabled: op.expectedEnabledChain }),
+        expectedDeviceName: op.expectedName ?? ctx.deviceName?.(op.param.device),
+        expectedDeviceIndex: op.param.device.chainIndex,
+      };
       return op.param.directId !== undefined
-        ? [frame(WIRE.directParamSet, { id: op.param.directId, value: op.value, resolution: 1 })]
+        ? [frame(WIRE.directParamSet, {
+          id: op.param.directId, value: op.value, resolution: 1, ...guard,
+        })]
         : op.param.index !== undefined
-          ? [frame(WIRE.paramSet, { index: op.param.index, value: op.value, mode: 'immediate' })]
+          ? [frame(WIRE.paramSet, {
+            index: op.param.index, value: op.value, mode: 'immediate', ...guard,
+          })]
           : assertNever(op.param as never, 'encodeOp.param.set');
+    }
 
     case 'remote.set':
       return [frame(WIRE.remoteSet, {

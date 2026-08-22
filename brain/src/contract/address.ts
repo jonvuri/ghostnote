@@ -152,6 +152,12 @@ export interface DeviceAddress {
   readonly chain?: DeviceParentAddress;
 }
 
+/** The readable and writable enabled flag of one top-level device. */
+export interface DeviceEnabledAddress {
+  readonly kind: 'deviceEnabled';
+  readonly device: DeviceAddress;
+}
+
 export interface ParamAddress {
   readonly kind: 'param';
   readonly device: DeviceAddress;
@@ -195,6 +201,7 @@ export type Address =
   | ChainAddress
   | DrumPadAddress
   | DeviceAddress
+  | DeviceEnabledAddress
   | ParamAddress
   | RemotesAddress
   | RemoteAddress;
@@ -222,6 +229,7 @@ export const ADDRESS_IDENTITY: Record<AddressKind, 'durable' | 'positional'> = {
   chain: 'positional',
   drumPad: 'positional',
   device: 'positional',
+  deviceEnabled: 'positional',
   param: 'positional',
   remotes: 'positional',
   remote: 'positional',
@@ -324,6 +332,8 @@ export function addressKey(a: Address): AddressKey {
       return `drumPad:${drumPadBody(a)}`;
     case 'device':
       return `device:${deviceBody(a)}`;
+    case 'deviceEnabled':
+      return `deviceEnabled:${deviceBody(a.device)}`;
     case 'param': {
       // A DirectParameter id is a string and can contain a numeric value such as
       // "0". Keep it outside the typed-index namespace before maps deduplicate
@@ -371,6 +381,8 @@ export function addressTrack(a: Address): TrackAddress | undefined {
       return a.container.track;
     case 'device':
       return a.track;
+    case 'deviceEnabled':
+      return a.device.track;
     case 'param':
       return a.device.track;
     case 'remotes':
@@ -422,6 +434,12 @@ export const device = (t: TrackAddress, chainIndex: number): DeviceAddress => ({
   kind: 'device',
   track: t,
   chainIndex,
+});
+
+/** The enabled flag of one confirmed device. */
+export const deviceEnabled = (d: DeviceAddress): DeviceEnabledAddress => ({
+  kind: 'deviceEnabled',
+  device: d,
 });
 
 /**

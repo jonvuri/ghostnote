@@ -42,6 +42,11 @@ export class TrapControl {
     this.fake.model.parameterWritesTake = take;
   }
 
+  /** Make accepted device enabled writes remain unchanged. */
+  setDeviceEnabledWritesTake(take: boolean): void {
+    this.fake.model.deviceEnabledWritesTake = take;
+  }
+
   /** Return stale observer generations before the next stable inventory. */
   staleParameterInventories(count: number): void {
     this.fake.model.staleParameterInventories = count;

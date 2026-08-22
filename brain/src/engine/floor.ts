@@ -232,6 +232,7 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     case 'scene.delete':
     case 'device.insert':
     case 'device.delete':
+    case 'device.setEnabled':
     case 'param.set':
     case 'remote.set':
     // ⚠ It destroys nothing: the source chain is still there, still named what

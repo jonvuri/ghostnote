@@ -177,6 +177,7 @@ export type StateValue =
   | { readonly of: 'clipLaunch'; readonly launch: ClipLaunchState }
   | { readonly of: 'clipPlay'; readonly play: ClipPlayState }
   | { readonly of: 'device'; readonly device: DeviceState }
+  | { readonly of: 'deviceEnabled'; readonly enabled: boolean }
   /**
    * ⚠ A chain, as OBSERVED — its position, its name, and the devices in it.
    *

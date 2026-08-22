@@ -124,6 +124,12 @@ export function describeAddress(address: Address): Where {
         trackId: addressTrack(address)!.channelId,
         devicePosition: trackLevelDevice(address).chainIndex,
       };
+    case 'deviceEnabled':
+      return {
+        what: 'device',
+        trackId: address.device.track.channelId,
+        devicePosition: trackLevelDevice(address.device).chainIndex,
+      };
     case 'param':
       return {
         what: 'parameter',
@@ -292,6 +298,8 @@ function valueLosses(value: StateValue): string[] {
       return notePropertyLosses(value.notes);
     case 'device':
       return [DEVICE_GONE_FOR_GOOD];
+    case 'deviceEnabled':
+      return [];
     case 'chain':
       return [NESTED_HOLDER_GONE_FOR_GOOD];
     case 'track':
@@ -524,9 +532,9 @@ const RECREATED_CLIP_CAVEAT = CLIP_UNRESTORED_STATE;
 
 const REMOVED_DEVICE_CAVEAT =
   'this removes a device at the position its insertion was seen to produce. A track\'s device '
-  + 'list has no readback, so unlike every clip and note here the occupant of that position '
-  + 'cannot be checked first — if the devices have been rearranged by hand since, the removal '
-  + 'lands on whatever is there now.';
+  + 'list exposes names and order but no durable device identity. This generic reversal did not '
+  + 'retain a full managed-chain witness, so a later rearrangement can make the position name a '
+  + 'different device.';
 
 export interface ReversalReport {
   readonly changeId: string;

@@ -28,7 +28,7 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
   ContractVersionError, StaleAddressError, WireDriftError,
-  addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
+  addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
   chainPath, chooseStepSize, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
   lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
@@ -75,6 +75,7 @@ interface TrackListResult {
 interface WireDevice {
   index: number;
   name: string;
+  enabled?: boolean;
 }
 
 /**
@@ -441,7 +442,8 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
 const borrowsSelection = (op: Op): boolean =>
   op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear'
   || op.op === 'clip.update'
-  || op.op === 'device.insert' || op.op === 'device.delete' || op.op === 'param.set'
+  || op.op === 'device.insert' || op.op === 'device.delete' || op.op === 'device.setEnabled'
+  || op.op === 'device.relocate' || op.op === 'param.set'
   || op.op === 'remote.set'
   // ⚠ `chain.create` borrows it TWICE over: `containerScope` points cursor 0 at
   // the track before every observation it takes, and the create takes three.
@@ -455,6 +457,14 @@ const borrowsSelection = (op: Op): boolean =>
   || op.op === 'chain.relocate'
   || op.op === 'chain.activate'
   || op.op === 'clip.launchSettings';
+
+/** Does reading or resolving this address move a pool cursor? */
+const addressBorrowsSelection = (address: Address): boolean =>
+  address.kind === 'notes' || address.kind === 'clip' || address.kind === 'slot'
+  || address.kind === 'clipLaunch' || address.kind === 'clipPlay' || address.kind === 'clipMetadata'
+  || address.kind === 'device' || address.kind === 'deviceEnabled' || address.kind === 'param'
+  || address.kind === 'remotes' || address.kind === 'remote' || address.kind === 'drumPad'
+  || address.kind === 'chain';
 
 export class LiveAdapter implements BitwigAdapter {
   private readonly transport: Transport;
@@ -502,6 +512,12 @@ export class LiveAdapter implements BitwigAdapter {
   private chainIds = new Map<AddressKey, string>();
   /** Device names from the relocation reading immediately preceding the wire call. */
   private deviceNames = new Map<AddressKey, string>();
+  /** Device enabled values from the read immediately before one scalar write. */
+  private deviceEnabledValues = new Map<AddressKey, boolean>();
+  /** Complete device-name sequences read in the turn before a device mutation. */
+  private deviceChainNames = new Map<string, readonly string[]>();
+  /** Enabled flags aligned with the complete device-name reading. */
+  private deviceChainEnabled = new Map<string, readonly boolean[]>();
   /** Tail-relative reorder source -> absolute position from the same fresh reading. */
   private deviceTailIndices = new Map<string, number>();
 
@@ -772,6 +788,27 @@ export class LiveAdapter implements BitwigAdapter {
         if (name === undefined) throw new AddressUnresolvedError(d, 'no fresh structural reading named this device');
         return name;
       },
+      deviceEnabled: (d) => {
+        const enabled = this.deviceEnabledValues.get(addressKey(d));
+        if (enabled === undefined) {
+          throw new AddressUnresolvedError(d, 'no fresh structural reading observed the device enabled flag');
+        }
+        return enabled;
+      },
+      deviceChainNames: (trackRef) => {
+        const names = this.deviceChainNames.get(trackRef.channelId);
+        if (names === undefined) {
+          throw new AddressUnresolvedError(trackRef, 'no fresh complete device-chain reading is available');
+        }
+        return names;
+      },
+      deviceChainEnabled: (trackRef) => {
+        const enabled = this.deviceChainEnabled.get(trackRef.channelId);
+        if (enabled === undefined) {
+          throw new AddressUnresolvedError(trackRef, 'no fresh complete device-enabled reading is available');
+        }
+        return enabled;
+      },
       deviceTailIndex: (trackRef, fromEnd, expectedName) => {
         const key = `${trackRef.channelId}\u0000${fromEnd}\u0000${expectedName}`;
         const index = this.deviceTailIndices.get(key);
@@ -855,15 +892,79 @@ export class LiveAdapter implements BitwigAdapter {
     const res = (await this.transport.send({
       method: WIRE.deviceList,
       params: { cursor },
-    })) as { devices?: WireDevice[]; count?: number; itemCount?: number };
+    })) as {
+      devices?: WireDevice[];
+      count?: number;
+      itemCount?: number;
+      trackChannelId?: string;
+      bankSize?: number;
+    };
     const devices = res.devices ?? [];
     // ⚠ E5's rule, one level down. `deviceList` walks `rig.config.deviceBank`
     // slots while `itemCount` is the CHAIN's true length, so a chain longer than
     // the bank window is partially visible — and a diff over a partial view
     // cannot tell an insert from something scrolling into frame. Looking is
     // allowed; concluding from a half-view is not.
-    const blind = typeof res.itemCount === 'number' && res.itemCount > devices.length;
-    return { devices, blind, ...(this.deviceBankSize === undefined ? {} : { bankSize: this.deviceBankSize }) };
+    const bankSize = res.bankSize ?? this.deviceBankSize;
+    const contiguous = devices.every((device, index) => device.index === index);
+    const complete = res.trackChannelId === trackRef.channelId
+      && Number.isInteger(res.itemCount) && res.itemCount! >= 0
+      && res.itemCount === devices.length
+      && res.count === devices.length
+      && bankSize !== undefined && devices.length <= bankSize
+      && contiguous;
+    return { devices, blind: !complete, ...(bankSize === undefined ? {} : { bankSize }) };
+  }
+
+  /** Accept completeness only after two equal consecutive device-bank replies. */
+  private async stableDeviceChain(trackRef: TrackAddress): Promise<ChainSnapshot | undefined> {
+    const first = await this.deviceChain(trackRef);
+    const second = await this.deviceChain(trackRef);
+    if (first === undefined || second === undefined) return undefined;
+    const same = JSON.stringify(first.devices) === JSON.stringify(second.devices)
+      && first.bankSize === second.bankSize;
+    return { ...second, blind: first.blind || second.blind || !same };
+  }
+
+  /** Validate one caller-owned full-chain boundary before a device mutation. */
+  private guardedDeviceNames(
+    trackRef: TrackAddress,
+    observed: ChainSnapshot | undefined,
+    expected: readonly string[] | undefined,
+    expectedEnabled: readonly boolean[] | undefined,
+    op: Op['op'],
+  ): readonly string[] {
+    if (observed === undefined || observed.blind) {
+      throw new AddressUnresolvedError(
+        trackRef,
+        'the complete top-level device chain is unavailable at the mutation boundary',
+      );
+    }
+    const actual = observed.devices.map((item) => item.name);
+    if (expected !== undefined
+        && (actual.length !== expected.length
+          || actual.some((name, index) => name !== expected[index]))) {
+      throw new InvalidOpError(
+        op,
+        `the top-level device chain changed: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`,
+      );
+    }
+    const actualEnabled = observed.devices.map((item) => item.enabled);
+    if (expectedEnabled !== undefined
+        && (expected === undefined
+          || expectedEnabled.length !== expected.length
+          || actualEnabled.some((enabled, index) => enabled !== expectedEnabled[index]))) {
+      throw new InvalidOpError(
+        op,
+        `the top-level device enabled chain changed: expected ${JSON.stringify(expectedEnabled)}, got ${JSON.stringify(actualEnabled)}`,
+      );
+    }
+    if (expectedEnabled !== undefined) {
+      this.deviceChainEnabled.set(trackRef.channelId, expectedEnabled);
+    } else if (actualEnabled.every((enabled): enabled is boolean => enabled !== undefined)) {
+      this.deviceChainEnabled.set(trackRef.channelId, actualEnabled);
+    }
+    return expected ?? actual;
   }
 
   /** Point the serialized device cursor through one confirmed recursive path. */
@@ -1934,16 +2035,21 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   async devices(trackRef: TrackAddress) {
-    await this.scanTracks();
-    const observed = await this.deviceChain(trackRef);
-    if (observed === undefined) {
-      throw new AddressUnresolvedError(trackRef, 'the track device order is absent');
+    const selection = await this.beginSelectionBorrow(true);
+    try {
+      await this.scanTracks();
+      const observed = await this.stableDeviceChain(trackRef);
+      if (observed === undefined) {
+        throw new AddressUnresolvedError(trackRef, 'the track device order is absent');
+      }
+      return {
+        devices: observed.devices,
+        devicesComplete: !observed.blind,
+        ...(observed.bankSize === undefined ? {} : { bankSize: observed.bankSize }),
+      };
+    } finally {
+      await this.restoreSelection(selection);
     }
-    return {
-      devices: observed.devices,
-      devicesComplete: !observed.blind,
-      ...(observed.bankSize === undefined ? {} : { bankSize: observed.bankSize }),
-    };
   }
 
   async resolve(refs: readonly Address[]): Promise<ResolveResult> {
@@ -1953,6 +2059,8 @@ export class LiveAdapter implements BitwigAdapter {
     // the returned mark then sees any foreign edit that happened DURING this
     // call. A mark taken at the end would swallow exactly those.
     const at = await this.revision();
+    const selection = await this.beginSelectionBorrow(refs.some(addressBorrowsSelection));
+    try {
     // ⚠ Chain-family addresses cost a ROUND TRIP each — a point and an inventory
     // read — where every other kind is answered from the bank scan already in
     // hand. They are therefore resolved in a second pass, after the cheap
@@ -1984,6 +2092,7 @@ export class LiveAdapter implements BitwigAdapter {
         // address is not resolved until its whole path has been walked. Marked
         // for the second pass rather than answered here.
         if (address.kind === 'chain' || address.kind === 'drumPad' || address.kind === 'device'
+            || address.kind === 'deviceEnabled'
             || address.kind === 'param' || address.kind === 'remotes' || address.kind === 'remote') {
           return WALK;
         }
@@ -2016,6 +2125,21 @@ export class LiveAdapter implements BitwigAdapter {
           ? { address, found: true, index: found.index }
           : { address, found: false, reason: chain?.blind
             ? 'outside-bank-window' : 'absent' });
+        continue;
+      }
+      if (address.kind === 'deviceEnabled') {
+        if (address.device.chain !== undefined) {
+          resolved.push({ address, found: false, reason: 'unsupported' });
+          continue;
+        }
+        const chain = await this.deviceChain(trackRef);
+        const found = chain?.devices.find((item) => item.index === address.device.chainIndex);
+        resolved.push(found === undefined
+          ? { address, found: false, reason: chain?.blind
+            ? 'outside-bank-window' : 'absent' }
+          : found.enabled === undefined
+            ? { address, found: false, reason: 'unstable' }
+            : { address, found: true, index: found.index });
         continue;
       }
       if (address.kind === 'param') {
@@ -2088,7 +2212,10 @@ export class LiveAdapter implements BitwigAdapter {
       resolved.push(await this.resolveNested(address, trackRef)
         ?? { address, found: false, reason: 'unsupported' as const });
     }
-    return { at, resolved };
+      return { at, resolved };
+    } finally {
+      await this.restoreSelection(selection);
+    }
   }
 
   async read(sel: readonly Address[]): Promise<Snapshot> {
@@ -2109,11 +2236,7 @@ export class LiveAdapter implements BitwigAdapter {
     // as of the D16 amendment a `clip` read of an OCCUPIED slot points too, to
     // capture the clip's length. An empty slot still costs nothing — and must
     // not be pointed at in any case (E2).
-    const selection = await this.beginSelectionBorrow(sel.some((a) =>
-      a.kind === 'notes' || a.kind === 'clip' || a.kind === 'slot'
-      || a.kind === 'clipLaunch' || a.kind === 'clipPlay' || a.kind === 'clipMetadata'
-      || a.kind === 'device' || a.kind === 'param' || a.kind === 'remotes'
-      || a.kind === 'remote' || a.kind === 'drumPad'));
+    const selection = await this.beginSelectionBorrow(sel.some(addressBorrowsSelection));
     // Where each pool cursor is actually pointed, so the common shape — a clip
     // target and its notes target, side by side in one write-set — costs one
     // point and one settle rather than two.
@@ -2820,6 +2943,21 @@ export class LiveAdapter implements BitwigAdapter {
         };
       }
 
+      case 'deviceEnabled': {
+        if (row === undefined) return undefined;
+        if (address.device.chain !== undefined) return 'unreachable';
+        const chain = await this.deviceChain(address.device.track);
+        if (chain === undefined || chain.blind) return 'unreachable';
+        const found = chain.devices.find((item) => item.index === address.device.chainIndex);
+        if (found === undefined) return undefined;
+        if (found.enabled === undefined) return 'unstable';
+        return {
+          address,
+          fidelity: 'exact',
+          value: { of: 'deviceEnabled', enabled: found.enabled },
+        };
+      }
+
       case 'param': {
         if (row === undefined) return undefined;
         const key = addressKey(address.device);
@@ -3117,6 +3255,15 @@ export class LiveAdapter implements BitwigAdapter {
     if (!reading.devicesComplete) {
       throw new InvalidOpError(op.op, 'the complete top-level device order must be observable');
     }
+    const names = preflight
+      ? this.guardedDeviceNames(
+        op.track,
+        { devices: reading.devices, blind: false, bankSize: reading.bankSize },
+        op.expectedChain,
+        op.expectedEnabledChain,
+        op.op,
+      )
+      : reading.devices.map((item) => item.name);
     const sourceIndex = reading.devices.length - 1 - op.sourceFromEnd;
     if (preflight) {
       const source = reading.devices.find((item) => item.index === sourceIndex);
@@ -3125,6 +3272,10 @@ export class LiveAdapter implements BitwigAdapter {
         throw new InvalidOpError(op.op, 'the source and anchor must both exist in the current device order');
       }
       this.deviceNames.set(addressKey(op.before), anchor.name);
+      this.deviceChainNames.set(
+        op.track.channelId,
+        names,
+      );
       this.deviceTailIndices.set(
         `${op.track.channelId}\u0000${op.sourceFromEnd}\u0000${op.expectedName}`,
         sourceIndex,
@@ -3364,6 +3515,23 @@ export class LiveAdapter implements BitwigAdapter {
     const occupancy = await this.readOccupancy(batch.ops);
     assertSlotsFree(batch.ops, (s) => occupancy.get(addressKey(s)));
     assertClipSources(batch.ops, (s) => occupancy.get(addressKey(s)));
+    const preflightSelection = await this.beginSelectionBorrow(batch.ops.some((op) =>
+      op.op === 'device.insert' || op.op === 'device.relocate'));
+    try {
+      const insertChains = new Map<string, RelocationSequence>();
+      for (const trackRef of new Map(batch.ops
+        .filter((op): op is Extract<Op, { op: 'device.insert' }> => op.op === 'device.insert')
+        .map((op) => [op.track.channelId, op.track])).values()) {
+        const observed = await this.stableDeviceChain(trackRef);
+        if (observed !== undefined) {
+          insertChains.set(trackRef.channelId, {
+            devices: observed.devices,
+            devicesComplete: !observed.blind,
+            ...(observed.bankSize === undefined ? {} : { bankSize: observed.bankSize }),
+          });
+        }
+      }
+      assertDeviceInsertable(batch.ops, (trackRef) => insertChains.get(trackRef.channelId));
     // ⚠⚠ The chain-create preconditions, from the same shared contract function
     // the fake calls — the container is observable, the source names exactly one
     // chain, the new name is provably free, and the bank has room. Only the
@@ -3373,13 +3541,19 @@ export class LiveAdapter implements BitwigAdapter {
     // position, which is why the observations are recorded rather than
     // discarded: a chain has no position in its address, so the only honest one
     // comes from a reply, and it must come from a reply this batch took.
-    const containers = await this.readContainers(batch.ops);
-    assertChainCreatable(batch.ops, (container) => containers.get(addressKey(container)));
-    assertChainRenamable(batch.ops, (container) => containers.get(addressKey(container)));
-    assertChainActivatable(batch.ops, (container) => containers.get(addressKey(container)));
-    await this.assertRelocationsPreflight(batch.ops);
-    await this.assertDeviceReordersPreflight(batch.ops);
+      const containers = await this.readContainers(batch.ops);
+      assertChainCreatable(batch.ops, (container) => containers.get(addressKey(container)));
+      assertChainRenamable(batch.ops, (container) => containers.get(addressKey(container)));
+      assertChainActivatable(batch.ops, (container) => containers.get(addressKey(container)));
+      await this.assertRelocationsPreflight(batch.ops);
+      await this.assertDeviceReordersPreflight(batch.ops);
+    } finally {
+      await this.restoreSelection(preflightSelection);
+    }
     this.deviceNames.clear();
+    this.deviceEnabledValues.clear();
+    this.deviceChainNames.clear();
+    this.deviceChainEnabled.clear();
     this.deviceTailIndices.clear();
 
     type LiveStage = Stage & { readonly writerPageStart?: number };
@@ -3481,6 +3655,22 @@ export class LiveAdapter implements BitwigAdapter {
       const chainBefore = insertOp?.op === 'device.insert'
         ? await this.deviceChain(insertOp.track)
         : undefined;
+      if (insertOp?.op === 'device.insert') {
+        let names: readonly string[];
+        try {
+          names = this.guardedDeviceNames(
+            insertOp.track, chainBefore, insertOp.expectedChain,
+            insertOp.expectedEnabledChain, insertOp.op,
+          );
+        } catch (error) {
+          await this.restoreSelection(selection);
+          throw error;
+        }
+        this.deviceChainNames.set(
+          insertOp.track.channelId,
+          names,
+        );
+      }
 
       // ⚠⚠ And a chain create needs the same bracket, one level down and with a
       // WRITE in the middle of it — see `finishChainCreate`. Taken here, freshly,
@@ -3565,6 +3755,71 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
 
+      const enabledOp = stage.ops.length === 1 && stage.ops[0]?.op === 'device.setEnabled'
+        ? stage.ops[0]
+        : undefined;
+      let enabledBefore: WireDevice | undefined;
+      if (enabledOp !== undefined) {
+        const chain = await this.deviceChain(enabledOp.device.track);
+        let names: readonly string[];
+        try {
+          names = this.guardedDeviceNames(
+            enabledOp.device.track, chain, enabledOp.expectedChain,
+            enabledOp.expectedEnabledChain, enabledOp.op,
+          );
+        } catch (error) {
+          await this.restoreSelection(selection);
+          throw error;
+        }
+        const found = chain?.devices.find((item) => item.index === enabledOp.device.chainIndex);
+        if (found === undefined
+            || found.enabled === undefined
+            || (enabledOp.expectedName !== undefined && found.name !== enabledOp.expectedName)) {
+          await this.restoreSelection(selection);
+          throw new AddressUnresolvedError(
+            enabledOp.device,
+            'the complete device chain did not confirm the enabled-state target',
+          );
+        }
+        enabledBefore = found;
+        this.deviceNames.set(addressKey(enabledOp.device), found.name);
+        this.deviceEnabledValues.set(addressKey(enabledOp.device), found.enabled);
+        this.deviceChainNames.set(
+          enabledOp.device.track.channelId,
+          names,
+        );
+      }
+
+      const deleteOp = stage.ops.length === 1 && stage.ops[0]?.op === 'device.delete'
+        ? stage.ops[0]
+        : undefined;
+      if (deleteOp !== undefined) {
+        const chain = await this.deviceChain(deleteOp.device.track);
+        let names: readonly string[];
+        try {
+          names = this.guardedDeviceNames(
+            deleteOp.device.track, chain, deleteOp.expectedChain,
+            deleteOp.expectedEnabledChain, deleteOp.op,
+          );
+        } catch (error) {
+          await this.restoreSelection(selection);
+          throw error;
+        }
+        const found = chain?.devices.find((item) => item.index === deleteOp.device.chainIndex);
+        if (found === undefined
+            || (deleteOp.expectedName !== undefined && found.name !== deleteOp.expectedName)) {
+          await this.restoreSelection(selection);
+          throw new AddressUnresolvedError(
+            deleteOp.device,
+            'the complete device chain did not confirm the deletion target',
+          );
+        }
+        this.deviceChainNames.set(
+          deleteOp.device.track.channelId,
+          names,
+        );
+      }
+
       // Confirm targets that the batch-wide preflight could not yet resolve,
       // such as a clip that an earlier stage created. Cached targets keep their
       // confirmed writer view through the remaining dependency turns.
@@ -3598,6 +3853,22 @@ export class LiveAdapter implements BitwigAdapter {
           await this.restoreSelection(selection);
           throw new AddressUnresolvedError(parameterOp.param, 'the parameter track is not visible');
         }
+        let names: readonly string[] | undefined;
+        if (parameterOp.expectedChain !== undefined) {
+          const chain = await this.deviceChain(parameterOp.param.device.track);
+          try {
+            names = this.guardedDeviceNames(
+              parameterOp.param.device.track,
+              chain,
+              parameterOp.expectedChain,
+              parameterOp.expectedEnabledChain,
+              parameterOp.op,
+            );
+          } catch (error) {
+            await this.restoreSelection(selection);
+            throw error;
+          }
+        }
         const inventory = await this.parameterInventory(parameterOp.param.device, row);
         if (inventory.standing !== 'stable') {
           await this.restoreSelection(selection);
@@ -3609,6 +3880,18 @@ export class LiveAdapter implements BitwigAdapter {
         if (this.parameterState(parameterOp.param, inventory) === undefined) {
           await this.restoreSelection(selection);
           throw new AddressUnresolvedError(parameterOp.param, 'the parameter id is not in the stable inventory');
+        }
+        if (parameterOp.expectedName !== undefined
+            && inventory.deviceName !== parameterOp.expectedName) {
+          await this.restoreSelection(selection);
+          throw new AddressUnresolvedError(
+            parameterOp.param,
+            `the parameter device was "${inventory.deviceName}", expected "${parameterOp.expectedName}"`,
+          );
+        }
+        if (names !== undefined) {
+          this.deviceChainNames.set(parameterOp.param.device.track.channelId, names);
+          this.deviceNames.set(addressKey(parameterOp.param.device), inventory.deviceName);
         }
         parameterBefore = inventory;
       }
@@ -3726,6 +4009,24 @@ export class LiveAdapter implements BitwigAdapter {
             : `remote readback was ${after.standing}`;
           const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
             entry.op === WIRE.remoteSet || entry.op === 'remote.set'
+              ? { ...entry, ok: false, error: why }
+              : entry);
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
+        }
+      }
+      if (enabledOp !== undefined && enabledBefore !== undefined
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const after = await this.deviceChain(enabledOp.device.track);
+        const state = after?.devices.find((item) => item.index === enabledOp.device.chainIndex);
+        const sameStructure = after !== undefined && !after.blind
+          && after.devices.length > enabledOp.device.chainIndex
+          && state?.name === enabledBefore.name;
+        if (!sameStructure || state?.enabled !== enabledOp.enabled) {
+          const why = state === undefined
+            ? 'device enabled readback was missing'
+            : `device enabled readback disagreed: requested ${enabledOp.enabled}, got ${state.enabled ?? 'unobserved'}`;
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            entry.op === WIRE.deviceSetEnabled || entry.op === 'device.setEnabled'
               ? { ...entry, ok: false, error: why }
               : entry);
           receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };

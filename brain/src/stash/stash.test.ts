@@ -676,9 +676,9 @@ test('B-device: an insert is undone at the chain index its receipt minted', asyn
     [0],
   );
   assert.equal(fx.fake.model.tracks[0]!.devices.length, 0);
-  // ⚠ And it says the thing no fidelity label produces: a chain index is a COUNT,
-  // and devices have no readback to fingerprint the occupant with first (D20).
-  assert.match(plan.caveats.join(' '), /cannot be fingerprinted first/);
+  // ⚠ The generic changeset has no managed full-chain witness. A later move
+  // can make the observed insertion index name a different device (D20, E59).
+  assert.match(plan.caveats.join(' '), /did not retain a managed full-chain witness/);
 });
 
 test('B-device: a SLICED reversal declines to un-insert, and says which move would', async () => {

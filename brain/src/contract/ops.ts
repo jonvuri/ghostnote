@@ -91,8 +91,37 @@ export type Op =
   | { readonly op: 'scene.delete'; readonly scene: SceneAddress }
 
   // --- devices & params -----------------------------------------------------
-  | { readonly op: 'device.insert'; readonly track: TrackAddress; readonly source: DeviceSource }
-  | { readonly op: 'device.delete'; readonly device: DeviceAddress; readonly expectedName?: string }
+  | {
+    readonly op: 'device.insert';
+    readonly track: TrackAddress;
+    readonly source: DeviceSource;
+    /** Complete top-level names from the caller's last accepted observation. */
+    readonly expectedChain?: readonly string[];
+    /** Aligned top-level enabled flags from the same observation. */
+    readonly expectedEnabledChain?: readonly boolean[];
+  }
+  | {
+    readonly op: 'device.delete';
+    readonly device: DeviceAddress;
+    readonly expectedName?: string;
+    /** Complete top-level names from the caller's last accepted observation. */
+    readonly expectedChain?: readonly string[];
+    /** Aligned top-level enabled flags from the same observation. */
+    readonly expectedEnabledChain?: readonly boolean[];
+  }
+  /** Set one top-level device's enabled flag after an independent readback. */
+  | {
+    readonly op: 'device.setEnabled';
+    readonly device: DeviceAddress;
+    readonly enabled: boolean;
+    readonly expectedName?: string;
+    /** Enabled state from the caller's last accepted observation. */
+    readonly expectedEnabled?: boolean;
+    /** Complete top-level names from the caller's last accepted observation. */
+    readonly expectedChain?: readonly string[];
+    /** Aligned top-level enabled flags from the same observation. */
+    readonly expectedEnabledChain?: readonly boolean[];
+  }
   /** Move one named top-level device from the observed tail immediately before another. */
   | {
     readonly op: 'device.relocate';
@@ -100,8 +129,22 @@ export type Op =
     readonly sourceFromEnd: number;
     readonly expectedName: string;
     readonly before: DeviceAddress;
+    /** Complete top-level names from the caller's last accepted observation. */
+    readonly expectedChain?: readonly string[];
+    /** Aligned top-level enabled flags from the same observation. */
+    readonly expectedEnabledChain?: readonly boolean[];
   }
-  | { readonly op: 'param.set'; readonly param: ParamAddress; readonly value: number }
+  | {
+    readonly op: 'param.set';
+    readonly param: ParamAddress;
+    readonly value: number;
+    /** Device name from the same observation that minted the parameter address. */
+    readonly expectedName?: string;
+    /** Complete top-level names from the caller's last accepted observation. */
+    readonly expectedChain?: readonly string[];
+    /** Aligned top-level enabled flags from the same observation. */
+    readonly expectedEnabledChain?: readonly boolean[];
+  }
   | { readonly op: 'remote.set'; readonly remote: RemoteAddress; readonly value: number }
 
   // --- device-layer chains: the FIRST typed verb that reaches inside one -----
@@ -202,6 +245,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   'scene.delete': 'tick',
   'device.insert': 'deviceInsert',
   'device.delete': 'trackStruct',
+  'device.setEnabled': 'tick',
   'device.relocate': 'deviceInsert',
   // ⚠ `deviceInsert`, the slowest budget measured (600ms, E3), and NOT
   // `trackStruct`. Duplicating a chain instantiates a copy of every device in
@@ -460,6 +504,7 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'track.delete':
     case 'device.insert':
     case 'device.delete':
+    case 'device.setEnabled':
     case 'device.relocate':
     case 'param.set':
     case 'remote.set':
@@ -485,6 +530,8 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
 function deviceRefsOf(op: Op): readonly DeviceAddress[] {
   switch (op.op) {
     case 'device.delete':
+      return [op.device];
+    case 'device.setEnabled':
       return [op.device];
     case 'param.set':
     case 'remote.set':
@@ -798,6 +845,43 @@ export function assertChainRenamable(
 /** A complete device enumeration plus the fixed bank width it must fit inside. */
 export interface ObservedDeviceBank extends ObservedDeviceSequence {
   readonly bankSize?: number;
+}
+
+/** Refuse inserts unless every affected top-level chain is complete and has room. */
+export function assertDeviceInsertable(
+  ops: readonly Op[],
+  observeTrack: (track: TrackAddress) => ObservedDeviceBank | undefined,
+): void {
+  const requested = new Map<string, { track: TrackAddress; count: number }>();
+  for (const op of ops) {
+    if (op.op !== 'device.insert') continue;
+    const current = requested.get(op.track.channelId);
+    requested.set(op.track.channelId, {
+      track: op.track,
+      count: (current?.count ?? 0) + 1,
+    });
+  }
+  for (const { track, count } of requested.values()) {
+    const observed = observeTrack(track);
+    if (observed === undefined || !observed.devicesComplete) {
+      throw new InvalidOpError(
+        'device.insert',
+        `the complete top-level device chain on ${track.channelId} must be observable`,
+      );
+    }
+    if (observed.bankSize === undefined) {
+      throw new InvalidOpError(
+        'device.insert',
+        `device-bank room on ${track.channelId} cannot be proved because the bank size was not observed`,
+      );
+    }
+    if (observed.devices.length + count > observed.bankSize) {
+      throw new InvalidOpError(
+        'device.insert',
+        `the top-level device bank would hold ${observed.devices.length + count} devices, but its width is ${observed.bankSize}`,
+      );
+    }
+  }
 }
 
 /**

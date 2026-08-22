@@ -21,7 +21,7 @@ import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
 import { noteKey } from '../adapters/fake/model.js';
 import {
-  AddressUnresolvedError, BlindSpotError, NOTE_PROP_FIDELITY, addressKey, clip, device,
+  AddressUnresolvedError, BlindSpotError, NOTE_PROP_FIDELITY, addressKey, clip, device, deviceEnabled,
   clipMetadata, notes as notesAt, param, remote, scene, slot, track,
   type BitwigAdapter, type ClipMetadataState, type NoteRecord, type Op, type TrackAddress,
 } from '../contract/index.js';
@@ -767,6 +767,46 @@ test('X-report: a non-taking DirectParameter write is a disagreement', async () 
   assert.deepEqual(take.report.disagreements.map((item) => ({
     field: item.field, requested: item.requested, readback: item.readback,
   })), [{ field: 'value', requested: 0.75, readback: 0.25 }]);
+});
+
+test('4g checkpoint: device enabled state writes, reads, and reverses exactly', async () => {
+  const fx = await fixture();
+  const trackModel = fx.fake.model.findByChannelId(fx.trackA.channelId)!.track;
+  trackModel.devices.push({ name: 'Tool', enabled: true, paramsLive: true, params: [] });
+  const target = device(fx.trackA, 0);
+  const address = deviceEnabled(target);
+
+  const before = await fx.fake.read([address]);
+  const beforeEntry = before.entries[addressKey(address)];
+  assert.equal(beforeEntry?.value.of === 'deviceEnabled' ? beforeEntry.value.enabled : undefined, true);
+
+  const take = await fx.executor.run([{
+    op: 'device.setEnabled', device: target, enabled: false, expectedName: 'Tool',
+  }]);
+  assert.deepEqual(take.report.disagreements, []);
+  assert.equal(take.fidelity, 'exact');
+  const changed = await fx.fake.read([address]);
+  const changedEntry = changed.entries[addressKey(address)];
+  assert.equal(changedEntry?.value.of === 'deviceEnabled' ? changedEntry.value.enabled : undefined, false);
+
+  await fx.executor.revertUnchecked(take);
+  const restored = await fx.fake.read([address]);
+  const restoredEntry = restored.entries[addressKey(address)];
+  assert.equal(restoredEntry?.value.of === 'deviceEnabled' ? restoredEntry.value.enabled : undefined, true);
+});
+
+test('4g checkpoint: a non-taking device enabled write is a disagreement', async () => {
+  const fx = await fixture();
+  const trackModel = fx.fake.model.findByChannelId(fx.trackA.channelId)!.track;
+  trackModel.devices.push({ name: 'Tool', enabled: true, paramsLive: true, params: [] });
+  control(fx.fake).setDeviceEnabledWritesTake(false);
+
+  const take = await fx.executor.run([{
+    op: 'device.setEnabled', device: device(fx.trackA, 0), enabled: false, expectedName: 'Tool',
+  }]);
+  assert.deepEqual(take.report.disagreements.map((item) => ({
+    field: item.field, requested: item.requested, readback: item.readback,
+  })), [{ field: 'enabled', requested: false, readback: true }]);
 });
 
 test('X-checkpoint: typed modulation and automation survive as warnings', async () => {

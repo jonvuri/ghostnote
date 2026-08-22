@@ -49,6 +49,8 @@ import { chainPath, type ChainAddress, type DeviceAddress } from './address.js';
 export interface ObservedDevice {
   readonly index: number;
   readonly name: string;
+  /** Present when the enumerator observed the device enabled flag. */
+  readonly enabled?: boolean;
 }
 
 /** One independently enumerated device chain, top-level or nested. */

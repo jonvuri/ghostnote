@@ -171,6 +171,7 @@ export const WIRE = {
   deviceInsertClap: 'device.insertClap',
   deviceInsertFile: 'device.insertFile',
   deviceDelete: 'device.delete',
+  deviceSetEnabled: 'device.setEnabled',
   deviceCursorStatus: 'devcursor.status',
   deviceCursorPin: 'devcursor.pin',
   deviceCursorSelectAt: 'devcursor.selectAt',

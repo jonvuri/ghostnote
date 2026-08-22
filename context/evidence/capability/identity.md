@@ -2,9 +2,9 @@
 title: Identity — what can be addressed durably, and what cannot
 kind: capability
 state: active
-updated: 2026-08-15
+updated: 2026-08-22
 scope: runtime object identity across tracks, chains, devices, clips and scenes
-evidence: E2c, E2f, E3, E16l, E16t, E17, E18b; D6
+evidence: E2c, E2f, E3, E16l, E16t, E17, E18b, E59; D6
 ---
 
 # Identity
@@ -137,6 +137,18 @@ from, and `keep_device_alternate` projects the whole restoration **before the
 container is destroyed**, which is the only point at which a refusal is still
 worth anything [K, live, 2026-08-15].
 
+E59 applies the same rule to managed top-level FX chains. Each mutation carries
+the prior accepted complete device-name and enabled-state sequences. A change in
+either sequence refuses before the target write. After an accepted relocation,
+the checkpoint derives owned current positions from that observation. It keeps
+minted positions only as ownership provenance [K,
+[E59](../experiments/e59-managed-fx-chain-is-live.md)].
+
+This guard detects an unrelated insertion, deletion, move, rename, or enabled-
+state change. It still cannot detect replacement by another device with the
+same name and enabled state. The workflow therefore narrows positional drift.
+It does not create device identity [K, E59].
+
 ⚠ **No stronger observable exists to fall back on.** If a device identity is ever
 measured, that is what relaxes this. The fingerprint fields in
 [devices](devices.md) §4 would narrow the gap and would not close it.
@@ -243,7 +255,7 @@ coming that would supply one [K, E16l].
 | # | Question | Tag | Probe |
 |---|---|---|---|
 | 1 | Does a clip `moveTo` bump the scene epoch? | `[U]` | Move a clip between scenes, then present a stale address and see whether it is refused |
-| 2 | Is any device fingerprint stable enough to disambiguate two same-named siblings? | `[U]` | Mark `presetName`, `deviceType`, `isPlugin`, `sampleName` on a bank and test two deliberately identical devices. ⚠ Expect a narrowing, not a closure |
+| 2 | Can more device fields narrow same-name and same-enabled replacements? | `[U]` | Mark `presetName`, `deviceType`, `isPlugin`, and `sampleName`, then test two deliberately identical devices. ⚠ Expect a narrowing, not identity |
 
 ---
 
@@ -251,5 +263,6 @@ coming that would supply one [K, E16l].
 
 | Date | Change |
 |---|---|
+| 2026-08-22 | E59 adds a complete name-and-enabled guard and current-position recovery. It also records the remaining same-name and same-enabled replacement limit. |
 | 2026-08-15 | Page created. It supersedes the *reading* of E2c's "no stable track addressing" (already amended by E2f) and of E16w's "layer chains have their own `channelId`" as an identity story, which E17 retired. |
 | 2026-08-15 | E16l's *"`createEqualsValue` … Unprobed"* superseded — it is measured by E16t and in use at `Rig.java:1174`. §5. |

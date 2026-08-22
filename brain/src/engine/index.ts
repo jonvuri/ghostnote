@@ -14,6 +14,18 @@ export type { ExecutorOptions, ExecutorTimingEvent, RevertResult, RunOptions } f
 export { labelTarget, notePropCaveats, splitReplayable, worse, worstOf } from './fidelity.js';
 
 export {
+  ManagedFxChainError, buildManagedFxChain, reverseManagedFxChain,
+} from './managed-fx-chain.js';
+export type {
+  ManagedFxChainCheckpoint, ManagedFxChainHost, ManagedFxChainObservation, ManagedFxChainRecovery,
+  ManagedFxChainReport, ManagedFxChainRequest, ManagedFxChainReversal,
+  ManagedFxDeviceRequest, ManagedFxEnabledCheckpoint, ManagedFxExistingEnabledRequest,
+  ManagedFxFailedWrite, ManagedFxInsertedDevice, ManagedFxLogicalDevice,
+  ManagedFxNonTakingWrite, ManagedFxParameterCheckpoint, ManagedFxParameterSetting,
+  ManagedFxScalarCheckpoint, ManagedFxStage, ManagedFxWarning,
+} from './managed-fx-chain.js';
+
+export {
   branchProtected, directedDestruction, floorRefusal, gateBeforeReading, ownChangesetReversal,
   UnprotectedWriteError,
 } from './floor.js';

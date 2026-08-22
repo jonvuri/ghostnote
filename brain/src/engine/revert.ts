@@ -405,6 +405,15 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
       sink.scalarOps.push({ op: 'param.set', param: target.address, value: value.param.value });
       return;
 
+    case 'deviceEnabled':
+      if (target.address.kind !== 'deviceEnabled') return;
+      sink.scalarOps.push({
+        op: 'device.setEnabled',
+        device: target.address.device,
+        enabled: value.enabled,
+      });
+      return;
+
     case 'remote':
       if (target.address.kind !== 'remote') return;
       sink.scalarOps.push({ op: 'remote.set', remote: target.address, value: value.remote.value });
@@ -417,7 +426,7 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
       sink.unrestored.push({
         address: target.address,
         what: 'device',
-        why: 'a device chain has no readback that could reproduce it (E3, D8).',
+        why: 'the observed device fields do not include opaque plugin and preset state, so they cannot recreate a deleted device (D8).',
       });
       return;
 

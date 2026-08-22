@@ -122,6 +122,8 @@ public final class CoreHandlers extends HandlerGroup {
             cursorDeviceBanks + layerDeviceBanks + slotDeviceBanks);
         resources.addProperty("cursorDeviceSlots",
             (long) cursorDeviceBanks * rig.config.deviceBank);
+        resources.addProperty("cursorDeviceEnabledValues",
+            (long) cursorDeviceBanks * rig.config.deviceBank);
         resources.addProperty("layerDeviceSlots",
             (long) layerDeviceBanks * Rig.LAYER_DEVICE_BANK);
         resources.addProperty("slotDeviceSlots",

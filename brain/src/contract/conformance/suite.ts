@@ -101,6 +101,24 @@ const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
 export function runConformance(h: AdapterHarness): void {
   const label = (id: string, what: string) => `${id} [${h.name}]: ${what}`;
 
+  /** Acquire one complete caller-owned boundary before a top-level insert. */
+  async function acceptedDeviceBoundary(
+    adapter: BitwigAdapter,
+    target: TrackAddress,
+  ): Promise<{ readonly names: readonly string[]; readonly enabled: readonly boolean[] }> {
+    for (let attempt = 0; attempt < 8; attempt += 1) {
+      const observed = await adapter.devices(target);
+      const enabled = observed.devices.map((item) => item.enabled);
+      if (observed.devicesComplete
+          && observed.bankSize !== undefined
+          && enabled.every((value): value is boolean => value !== undefined)) {
+        return { names: observed.devices.map((item) => item.name), enabled };
+      }
+      await adapter.settle('trackStruct');
+    }
+    assert.fail('the complete top-level device boundary did not settle');
+  }
+
   /** Boilerplate: fresh adapter, a clip at scene 0 on track A, ready to write. */
   async function withClip(
     body: (ctx: {
@@ -631,7 +649,15 @@ export function runConformance(h: AdapterHarness): void {
       };
 
       try {
-        const first = await executor.run([{ op: 'device.insert', track: trackA, source }]);
+        const insert = async () => {
+          const boundary = await acceptedDeviceBoundary(adapter, trackA);
+          return executor.run([{
+            op: 'device.insert', track: trackA, source,
+            expectedChain: boundary.names,
+            expectedEnabledChain: boundary.enabled,
+          }]);
+        };
+        const first = await insert();
         const firstIndex = chainIndexOf(first.receipt);
         assert.equal(first.unrevertable.length, 0, 'an insert is no longer filed as having no inverse');
 
@@ -640,7 +666,7 @@ export function runConformance(h: AdapterHarness): void {
         // the request rather than read off the chain, passes a single-insert case
         // and fails here. It also says nothing about where the chain started, so
         // it holds on a fixture track that already carries an instrument.
-        const second = await executor.run([{ op: 'device.insert', track: trackA, source }]);
+        const second = await insert();
         assert.equal(chainIndexOf(second.receipt), firstIndex + 1,
           'the second device lands one further along the chain the first one grew');
 
@@ -652,7 +678,7 @@ export function runConformance(h: AdapterHarness): void {
         // ⚠ And this is how we know both deletes actually landed, using nothing
         // but contract surface: there is no device READBACK in v0, so the chain's
         // state is only observable through where the NEXT insert reports landing.
-        const again = await executor.run([{ op: 'device.insert', track: trackA, source }]);
+        const again = await insert();
         assert.equal(chainIndexOf(again.receipt), firstIndex,
           'the chain is back to the length it started at, so the reverts removed what they claimed');
         await executor.revertUnchecked(again);
@@ -1404,7 +1430,12 @@ export function runConformance(h: AdapterHarness): void {
       let containerA: Address | undefined;
       let containerB: Address | undefined;
       const insertContainer = async (track: TrackAddress): Promise<Address | undefined> => {
-        const inserted = await executor.run([{ op: 'device.insert', track, source: FX_LAYER }]);
+        const boundary = await acceptedDeviceBoundary(adapter, track);
+        const inserted = await executor.run([{
+          op: 'device.insert', track, source: FX_LAYER,
+          expectedChain: boundary.names,
+          expectedEnabledChain: boundary.enabled,
+        }]);
         const minted = inserted.receipt.minted[0];
         if (minted?.kind === 'device') return minted;
         // Device insertion acknowledgement can precede the observer used by

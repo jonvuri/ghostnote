@@ -2,6 +2,8 @@ package com.ghostnote.extension.handlers;
 
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.ControllerHost;
+import com.bitwig.extension.controller.api.Device;
+import com.bitwig.extension.controller.api.DeviceBank;
 import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.RemoteControl;
 import com.google.gson.JsonArray;
@@ -20,7 +22,8 @@ import com.google.gson.JsonObject;
  * `param.modulated` is the modulation-liveness oracle — a base value holding
  * still while modulatedValue() sweeps is how a modulator edit is verified (E7).
  *
- * Split out of ProbeHandlers.java in Phase 0; the method bodies are unchanged.
+ * Split out of ProbeHandlers.java in Phase 0. Product parameter writes also
+ * verify caller-owned complete-chain guards.
  */
 public final class ParamHandlers extends HandlerGroup {
     public ParamHandlers(ControllerHost host, Rig rig, ExecState state) {
@@ -110,6 +113,7 @@ public final class ParamHandlers extends HandlerGroup {
         if (idx < 0) {
             throw new IllegalArgumentException("unknown param id: " + id);
         }
+        verifyParameterTarget(params, "param.set");
         if ("smoothed".equals(mode)) {
             rig.polysynthParams0[idx].value().set(value);
         } else {
@@ -201,8 +205,140 @@ public final class ParamHandlers extends HandlerGroup {
         String id = params.get("id").getAsString();
         double value = params.get("value").getAsDouble();
         double resolution = params.has("resolution") ? params.get("resolution").getAsDouble() : 128.0;
+        verifyParameterTarget(params, "directparam.set");
         rig.cursorDevice0.setDirectParameterValueNormalized(id, value, resolution);
         return ok();
+    }
+
+    /** Verify a top-level parameter target when a product guard is present. */
+    private void verifyParameterTarget(JsonObject params, String method) {
+        if (!params.has("expectedDeviceNames") || params.get("expectedDeviceNames").isJsonNull()) {
+            return;
+        }
+        JsonElement namesValue = params.get("expectedDeviceNames");
+        if (!namesValue.isJsonArray()) {
+            throw new IllegalArgumentException(method + " expectedDeviceNames must be an array");
+        }
+        if (!params.has("expectedTrackChannelId")
+                || params.get("expectedTrackChannelId").isJsonNull()) {
+            throw new IllegalArgumentException(method + " expectedTrackChannelId is required");
+        }
+        if (!params.has("expectedDeviceName") || params.get("expectedDeviceName").isJsonNull()) {
+            throw new IllegalArgumentException(method + " expectedDeviceName is required");
+        }
+        if (!params.has("expectedDeviceIndex") || params.get("expectedDeviceIndex").isJsonNull()) {
+            throw new IllegalArgumentException(method + " expectedDeviceIndex is required");
+        }
+
+        JsonArray namesArray = namesValue.getAsJsonArray();
+        if (namesArray.size() > rig.config.deviceBank) {
+            throw new IllegalArgumentException(
+                method + " expectedDeviceNames exceeds the device bank");
+        }
+        String[] expectedNames = new String[namesArray.size()];
+        for (int i = 0; i < namesArray.size(); i++) {
+            JsonElement name = namesArray.get(i);
+            if (name == null || !name.isJsonPrimitive() || !name.getAsJsonPrimitive().isString()) {
+                throw new IllegalArgumentException(
+                    method + " expectedDeviceNames[" + i + "] must be a string");
+            }
+            expectedNames[i] = name.getAsString();
+        }
+        boolean[] expectedEnabled = null;
+        if (params.has("expectedDeviceEnabled")
+                && !params.get("expectedDeviceEnabled").isJsonNull()) {
+            JsonElement enabledValue = params.get("expectedDeviceEnabled");
+            if (!enabledValue.isJsonArray()) {
+                throw new IllegalArgumentException(
+                    method + " expectedDeviceEnabled must be an array");
+            }
+            JsonArray enabledArray = enabledValue.getAsJsonArray();
+            if (enabledArray.size() != expectedNames.length) {
+                throw new IllegalArgumentException(
+                    method + " expectedDeviceEnabled must align with expectedDeviceNames");
+            }
+            expectedEnabled = new boolean[enabledArray.size()];
+            for (int i = 0; i < enabledArray.size(); i++) {
+                JsonElement enabled = enabledArray.get(i);
+                if (enabled == null || !enabled.isJsonPrimitive()
+                        || !enabled.getAsJsonPrimitive().isBoolean()) {
+                    throw new IllegalArgumentException(
+                        method + " expectedDeviceEnabled[" + i + "] must be a boolean");
+                }
+                expectedEnabled[i] = enabled.getAsBoolean();
+            }
+        }
+
+        int expectedDeviceIndex = params.get("expectedDeviceIndex").getAsInt();
+        if (expectedDeviceIndex < 0 || expectedDeviceIndex >= expectedNames.length) {
+            throw new IllegalArgumentException(
+                method + " expectedDeviceIndex is outside expectedDeviceNames: "
+                    + expectedDeviceIndex);
+        }
+        String expectedDeviceName = params.get("expectedDeviceName").getAsString();
+        if (!expectedDeviceName.equals(expectedNames[expectedDeviceIndex])) {
+            throw new IllegalArgumentException(
+                method + " expectedDeviceName disagrees with expectedDeviceNames["
+                    + expectedDeviceIndex + "]");
+        }
+
+        String expectedTrackChannelId = params.get("expectedTrackChannelId").getAsString();
+        String actualTrackChannelId = rig.cursorTracks[0].channelId().get();
+        if (!expectedTrackChannelId.equals(actualTrackChannelId)) {
+            throw new IllegalArgumentException(
+                method + " track identity changed: expected " + expectedTrackChannelId
+                    + ", got " + actualTrackChannelId);
+        }
+
+        DeviceBank bank = rig.cursorDeviceBanks[0];
+        int itemCount = bank.itemCount().get();
+        if (itemCount < 0 || itemCount > rig.config.deviceBank) {
+            throw new IllegalArgumentException(
+                method + " device bank is incomplete: itemCount " + itemCount
+                    + ", bank size " + rig.config.deviceBank);
+        }
+        if (itemCount != expectedNames.length) {
+            throw new IllegalArgumentException(
+                method + " device chain length changed: expected " + expectedNames.length
+                    + ", got " + itemCount);
+        }
+        for (int i = 0; i < expectedNames.length; i++) {
+            Device device = bank.getDevice(i);
+            if (!device.exists().get()) {
+                throw new IllegalArgumentException(
+                    method + " device chain is incomplete at index " + i);
+            }
+            String actualName = device.name().get();
+            if (!expectedNames[i].equals(actualName)) {
+                throw new IllegalArgumentException(
+                    method + " device chain changed at index " + i + ": expected \""
+                        + expectedNames[i] + "\", got \"" + actualName + "\"");
+            }
+            if (expectedEnabled != null) {
+                boolean actualEnabled = device.isEnabled().get();
+                if (expectedEnabled[i] != actualEnabled) {
+                    throw new IllegalArgumentException(
+                        method + " device enabled chain changed at index " + i
+                            + ": expected " + expectedEnabled[i] + ", got " + actualEnabled);
+                }
+            }
+        }
+
+        int actualDeviceIndex = rig.currentDirectParameterDeviceIndex();
+        if (actualDeviceIndex != expectedDeviceIndex) {
+            throw new IllegalArgumentException(
+                method + " target index changed: expected " + expectedDeviceIndex
+                    + ", got " + actualDeviceIndex);
+        }
+        if (!rig.cursorDevice0.exists().get()) {
+            throw new IllegalArgumentException(method + " target device does not exist");
+        }
+        String actualDeviceName = rig.cursorDevice0.name().get();
+        if (!expectedDeviceName.equals(actualDeviceName)) {
+            throw new IllegalArgumentException(
+                method + " target changed: expected \"" + expectedDeviceName
+                    + "\", got \"" + actualDeviceName + "\"");
+        }
     }
 
     // -------------------------------------------- E7: modulators / remotes

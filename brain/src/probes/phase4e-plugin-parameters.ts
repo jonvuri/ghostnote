@@ -102,7 +102,12 @@ async function proveParameter(
   format: 'VST3' | 'CLAP',
   address: DeviceAddress,
   state: DeviceState,
-): Promise<{ readonly name: string; readonly before: number; readonly changed: number }> {
+): Promise<{
+  readonly id: string;
+  readonly name: string;
+  readonly before: number;
+  readonly changed: number;
+}> {
   for (const candidate of rankedParameters(state.params ?? []).slice(0, 10)) {
     const before = candidate.value;
     const requested = before <= 0.9 ? before + 0.05 : before - 0.05;
@@ -117,7 +122,7 @@ async function proveParameter(
     if (!fullyApplied(restore) || restored === undefined || Math.abs(restored - before) > TOLERANCE) {
       throw new Error(`${format} parameter ${candidate.name} did not restore to ${before}; read ${restored}`);
     }
-    if (changed) return { name: candidate.name, before, changed: landed! };
+    if (changed) return { id: candidate.id, name: candidate.name, before, changed: landed! };
   }
   throw new Error(`${format} exposed no writable non-destructive parameter in the first ten candidates`);
 }

@@ -741,6 +741,7 @@ public class Rig {
                 Device device = cursorDeviceBanks[i].getDevice(d);
                 device.exists().markInterested();
                 device.name().markInterested();
+                device.isEnabled().markInterested();
             }
         }
 

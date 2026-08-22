@@ -51,6 +51,7 @@ const ctx: EncodeContext = {
   chainIndex: (c) => (c.name === 'A take' ? 2 : (c.name === 'B take' ? 3 : -1)),
   chainId: (c) => `id-${c.name}`,
   deviceName: () => 'Polysynth',
+  deviceEnabled: () => true,
   deviceTailIndex: () => 5,
   sceneRow: sceneRowIn(SCENE_WINDOW),
 };
@@ -169,6 +170,25 @@ test('E-resolution: a DirectParameter write ALWAYS carries resolution=1 (E4b)', 
   assert.equal(p['value'], 0.25);
 });
 
+test('4g-parameter: a managed write carries its prior chain and exact target', () => {
+  const expectedChain = ['Tool', 'Polysynth'] as const;
+  const expectedEnabledChain = [true, false] as const;
+  const op: Op = {
+    op: 'param.set',
+    param: param(device(TRACK_A, 1), 0, 'OSC1 Pulse Width'),
+    value: 0.61,
+    expectedName: 'Polysynth',
+    expectedChain,
+    expectedEnabledChain,
+  };
+  const params = paramsOf(encodeOp(op, ctx), WIRE.directParamSet);
+  assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+  assert.deepEqual(params?.['expectedDeviceNames'], expectedChain);
+  assert.deepEqual(params?.['expectedDeviceEnabled'], expectedEnabledChain);
+  assert.equal(params?.['expectedDeviceName'], 'Polysynth');
+  assert.equal(params?.['expectedDeviceIndex'], 1);
+});
+
 test('E-immediate: neither param path is caller-selectable', () => {
   // The op union has no `mode` and no `resolution` field, so there is no way to
   // express the swallowed variant. This asserts the *shape*, which is the actual
@@ -265,6 +285,39 @@ test('E-insertfile: an absolute .bwpreset path is accepted', () => {
   assert.equal(paramsOf(frames, WIRE.deviceInsertFile)?.['path'], '/tmp/gn/lfo.bwpreset');
 });
 
+test('4g-device-insert: every route carries the durable track and complete-chain guards', () => {
+  const expectedDeviceNames = ['Tool', 'Delay+'] as const;
+  const expectedDeviceEnabled = [true, false] as const;
+  const guarded = {
+    ...ctx,
+    deviceChainNames: () => expectedDeviceNames,
+    deviceChainEnabled: () => expectedDeviceEnabled,
+  };
+  const cases = [
+    [WIRE.deviceInsertBitwig, encodeOp({
+      op: 'device.insert', track: TRACK_A, source: { from: 'bitwig', uuid: 'abc' },
+    }, guarded)],
+    [WIRE.deviceInsertVst3, encodeOp({
+      op: 'device.insert', track: TRACK_A,
+      source: { from: 'vst3', classUid: 'D39D5B69D6AF42FA123456785A334D44' },
+    }, guarded)],
+    [WIRE.deviceInsertClap, encodeOp({
+      op: 'device.insert', track: TRACK_A, source: { from: 'clap', id: 'com.example.synth' },
+    }, guarded)],
+    [WIRE.deviceInsertFile, encodeOp({
+      op: 'device.insert', track: TRACK_A,
+      source: { from: 'file', path: '/tmp/gn/lfo.bwpreset' },
+    }, guarded)],
+  ] as const;
+
+  for (const [method, frames] of cases) {
+    const params = paramsOf(frames, method);
+    assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+    assert.deepEqual(params?.['expectedDeviceNames'], expectedDeviceNames);
+    assert.deepEqual(params?.['expectedDeviceEnabled'], expectedDeviceEnabled);
+  }
+});
+
 test('E-chain: a create names its container by SLOT and its source by OBSERVED position', () => {
   // ⚠ The whole reason `chainIndex` is a context function. A chain is addressed
   // by NAME (E17ad, E18b), so its bank position exists nowhere in the address —
@@ -348,12 +401,16 @@ test('E-chain-activate: exclusive switching carries stable identity guards', () 
 
 test('E-device-relocate: a fresh tail source and before-anchor carry identity guards', () => {
   const before = device(TRACK_A, 1);
+  const expectedChain = ['Tool', 'Polysynth'] as const;
+  const expectedEnabledChain = [true, false] as const;
   const frames = encodeOp({
     op: 'device.relocate',
     track: TRACK_A,
     sourceFromEnd: 0,
     expectedName: 'Polysynth',
     before,
+    expectedChain,
+    expectedEnabledChain,
   }, ctx);
   assert.deepEqual(methods(frames), [WIRE.cursorPointTrack, WIRE.deviceMoveTo]);
   const params = paramsOf(frames, WIRE.deviceMoveTo);
@@ -361,6 +418,8 @@ test('E-device-relocate: a fresh tail source and before-anchor carry identity gu
   assert.equal(params?.['anchorIndex'], 1);
   assert.equal(params?.['where'], 'before');
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+  assert.deepEqual(params?.['expectedDeviceNames'], expectedChain);
+  assert.deepEqual(params?.['expectedDeviceEnabled'], expectedEnabledChain);
   assert.equal(params?.['expectedSourceName'], 'Polysynth');
   assert.equal(params?.['expectedAnchorName'], 'Polysynth');
 });
@@ -373,11 +432,38 @@ test('E-device-delete: a removal carries the durable track identity, not just a 
   // a delete is the one that cannot be taken back, so it must too.
   const frames = encodeOp({
     op: 'device.delete', device: device(TRACK_A, 2), expectedName: 'FX Layer',
+    expectedChain: ['Tool', 'Delay+', 'FX Layer'],
+    expectedEnabledChain: [true, false, true],
   }, ctx);
   const params = paramsOf(frames, WIRE.deviceDelete);
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
   assert.equal(params?.['expectedName'], 'FX Layer');
   assert.equal(params?.['deviceIndex'], 2);
+  assert.deepEqual(params?.['expectedDeviceEnabled'], [true, false, true]);
+});
+
+test('4g-device-enabled: a scalar write carries target and prior-value guards', () => {
+  const frames = encodeOp({
+    op: 'device.setEnabled',
+    device: device(TRACK_A, 2),
+    enabled: true,
+    expectedName: 'Polysynth',
+    expectedEnabled: false,
+    expectedChain: ['Tool', 'Delay+', 'Polysynth'],
+    expectedEnabledChain: [true, true, false],
+  }, ctx);
+
+  assert.deepEqual(methods(frames), [WIRE.cursorPointTrack, WIRE.deviceSetEnabled]);
+  assert.deepEqual(paramsOf(frames, WIRE.deviceSetEnabled), {
+    cursor: '0',
+    deviceIndex: 2,
+    enabled: true,
+    expectedTrackChannelId: TRACK_A.channelId,
+    expectedDeviceNames: ['Tool', 'Delay+', 'Polysynth'],
+    expectedDeviceEnabled: [true, true, false],
+    expectedName: 'Polysynth',
+    expectedEnabled: false,
+  });
 });
 
 test('E-device: a device op POINTS a cursor at its track, and addresses that cursor', () => {

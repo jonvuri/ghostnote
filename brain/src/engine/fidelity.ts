@@ -183,7 +183,9 @@ function valueCaveats(value: StateValue): string[] {
     case 'clipPlay':
       return [];
     case 'device':
-      return ['device state has no readback that could reproduce the chain (E3, D8)'];
+      return ['device readback omits opaque plugin and preset state, so it cannot recreate a deletion (D8)'];
+    case 'deviceEnabled':
+      return [];
     // ⚠ A chain entry is a RECORD, not a restore plan, and the reason is measured
     // rather than architectural: chain creation exists only as duplication of a
     // chain that is already there (`e17ak`) and every typed chain DELETE refuses

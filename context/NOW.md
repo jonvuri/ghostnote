@@ -4,14 +4,14 @@ kind: status
 state: active
 updated: 2026-08-22
 phase: phase-4
-session: 4g-managed-fx-chain
+session: 4h-device-performance-gate
 ---
 
 # Now
 
 Phase 2, bounded clip performance, the complete parameter-routing core, the
-native device catalog, and plugin parameter proof are complete. The managed
-FX-chain workflow is next.
+native device catalog, plugin parameter proof, deep routing, and the managed
+FX-chain workflow are complete. The device performance gate is next.
 
 ## Accepted live result
 
@@ -160,17 +160,52 @@ verified, and saved. The post-save 2k baseline passes.
 - Duplicate, empty, stale, and outside-window routes fail distinctly. E58
   records the live proof and nested sibling-identity finding.
 
+## Session 4g result
+
+- Device enabled state is readable, writable, independently verified, and
+  exactly replayed.
+- A small orchestration layer appends each requested device, accepts complete
+  readback, and resolves dependent parameter and relocation work from that
+  observation. The static executor still owns each guarded apply and take.
+- The managed fixture composes a native Polysynth, Zebra3 VST3, Zebra3 CLAP,
+  and a Sampler preset around the entry `Tool` and `Delay+` devices.
+- Append readback mints positions `2, 3, 4, 5`. The accepted final current
+  positions are `1, 2, 3, 5` in the order `Tool`, `Polysynth`, `Zebra3`,
+  `Zebra3`, `Delay+`, `Sampler`.
+- Every mutation uses the prior accepted complete device-name and enabled-state
+  sequences. Incomplete or full banks refuse before mutation.
+- A concurrent `EQ+` move shifts an owned Polysynth away from its stale scalar
+  address. Guarded acquisition refuses the wrong write, and recovery excludes
+  the unrelated device.
+- Reversal restores the entry enabled state and deletes owned devices by
+  highest current position. A failed attempt returns the last proved retryable
+  continuation. Existing-device deletion remains `none`.
+- The complete fingerprint is not device identity. A same-name and same-enabled
+  replacement remains indistinguishable. E59 records this limit.
+
 ## Next action
 
-Begin the [managed FX-chain workflow](plan/phase-4/4g-managed-fx-chain.md).
-Compose existing minted device addresses and parameter writes. Keep destructive
-existing-device deletion outside exact reversal.
+Begin the [device performance gate](plan/phase-4/4h-device-performance-gate.md).
+Measure the complete E59 managed workflow with native, VST3, CLAP, deep-route,
+remote, verification, recovery, and reversal costs separated. Add concurrency
+only if the serialized cursor is a measured bottleneck.
 
 ## Verification
 
-- Focused parameter, settlement, reconciliation, catalog, plugin, and deep-route
-  tests pass. Full brain check: 703/703 pass, including typecheck. Extension
-  tests pass.
+- Session 4g focused adapter and managed-workflow tests pass 108/108. Shared
+  fake conformance passes 60/60. The full brain check passes 750/750, including
+  typecheck. Extension tests pass.
+- The fresh Bitwig 6.0.6/API 25 handshake passes all 147 methods with hash
+  `f58c5ded93d5f743` and the selected `256/128/8/16/64` rig.
+- The managed live proof passes all ten rows. Full live conformance passes 54/54
+  with six expected skips.
+- Conformance cleanup removed its two generated fixture tracks. The final
+  read-only 2k baseline passes with seven tracks and no launcher residue.
+- Context check passes for 199 active documents. Both working-tree and staged
+  `git diff --check` pass.
+- The accepted Session 4f focused parameter, settlement, reconciliation,
+  catalog, plugin, and deep-route tests pass. Its full brain check passed
+  703/703, including typecheck. Extension tests passed.
 - The fresh extension handshake and DirectParameter live proof pass. Sampler
   exposes 32 named parameters and exact base-value replay passes.
 - The controlled read-window probe, complete latency workflow, 128-beat
@@ -187,7 +222,8 @@ existing-device deletion outside exact reversal.
 - Saved-project open and one cold start: pass with zero control-thread stalls.
 - Scratch cleanup and exact rig configuration restoration: pass.
 - Context check and `git diff --check` pass.
-- Final live handshake: pass for Bitwig 6.0.6/API 25, the 146-method golden,
+- The Session 4f closing live handshake passed for Bitwig 6.0.6/API 25, the
+  146-method golden,
   deployment age, the selected `256/128/8/16/64` rig, 512-step writers, and the
   2,048-step reader.
 - The `26.05-2 moon` project passes the complete read-only 2k baseline after 4b
@@ -196,8 +232,8 @@ existing-device deletion outside exact reversal.
 
 ## Retrospective
 
-Path confirmation and parameter stabilization can share the serialized cursor
-and its observations. Keep identity and two-equal-generation acceptance as
-separate checks. Nested `Device.position()` reports `-1`, so current-chain
-sibling equality is the explicit position proof.
-Remote completeness must include target identity and population counts.
+Dependent minted-address work needs a small orchestration layer because the
+executor derives a static write set. Keep mint provenance for ownership. Use
+only the last accepted complete observation for current positions and recovery.
+Use distinguishable fixture devices when cursor identity must be unique. No
+context-process change is needed.

@@ -13,7 +13,7 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
+  assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceInsertable, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, chainPath, contentDelta,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
@@ -132,7 +132,7 @@ export class FakeAdapter implements BitwigAdapter {
     const track = this.requireTrack(trackRef, 'devices');
     return {
       devices: track.devices.slice(0, this.model.deviceBankSize)
-        .map((item, index) => ({ index, name: item.name })),
+        .map((item, index) => ({ index, name: item.name, enabled: item.enabled ?? true })),
       devicesComplete: track.devices.length <= this.model.deviceBankSize,
       bankSize: this.model.deviceBankSize,
     };
@@ -299,6 +299,17 @@ export class FakeAdapter implements BitwigAdapter {
           return hit.track.devices[address.chainIndex] === undefined
             ? { address, found: false, reason: 'absent' as const }
             : { address, found: true, index: address.chainIndex };
+        }
+        if (address.kind === 'deviceEnabled') {
+          if (address.device.chain !== undefined) {
+            return { address, found: false, reason: 'unsupported' as const };
+          }
+          if (address.device.chainIndex >= this.model.deviceBankSize) {
+            return { address, found: false, reason: 'outside-bank-window' as const };
+          }
+          return hit.track.devices[address.device.chainIndex] === undefined
+            ? { address, found: false, reason: 'absent' as const }
+            : { address, found: true, index: address.device.chainIndex };
         }
         if (address.kind === 'param' || address.kind === 'remotes' || address.kind === 'remote') {
           const target = this.deepDevice(hit.track, address.device);
@@ -639,6 +650,15 @@ export class FakeAdapter implements BitwigAdapter {
           },
         };
       }
+      case 'deviceEnabled': {
+        if (address.device.chain !== undefined) return 'unreachable';
+        const dev = track?.devices[address.device.chainIndex];
+        return dev === undefined ? undefined : {
+          address,
+          fidelity: 'exact',
+          value: { of: 'deviceEnabled', enabled: dev.enabled ?? true },
+        };
+      }
       case 'param': {
         if (track === undefined) return undefined;
         const target = this.deepDevice(track, address.device);
@@ -736,6 +756,16 @@ export class FakeAdapter implements BitwigAdapter {
     assertClipSources(batch.ops, (s) => {
       const hit = this.model.findByChannelId(s.track.channelId);
       return hit?.track.slots[s.scene.index]?.hasContent;
+    });
+    assertDeviceInsertable(batch.ops, (trackRef) => {
+      const hit = this.model.findByChannelId(trackRef.channelId);
+      if (hit === undefined) return undefined;
+      return {
+        devices: hit.track.devices.slice(0, this.model.deviceBankSize)
+          .map((item, index) => ({ index, name: item.name, enabled: item.enabled ?? true })),
+        devicesComplete: hit.track.devices.length <= this.model.deviceBankSize,
+        bankSize: this.model.deviceBankSize,
+      };
     });
     // ⚠⚠ The chain-create preconditions, from the same shared contract function
     // the live adapter calls: the container is observable, the source names
@@ -897,6 +927,35 @@ export class FakeAdapter implements BitwigAdapter {
       );
     }
     return hit.track;
+  }
+
+  /** Refuse a positional device write when the caller's complete chain changed. */
+  private assertExpectedDeviceChain(
+    op: string,
+    track: FakeTrack,
+    expected: readonly string[] | undefined,
+    expectedEnabled: readonly boolean[] | undefined,
+  ): void {
+    const actual = track.devices.map((item) => item.name);
+    if (expected !== undefined
+        && (actual.length !== expected.length
+          || actual.some((name, index) => name !== expected[index]))) {
+      throw new UnsupportedOpError(
+        `${op}: device chain changed; expected [${expected.join(', ')}], got [${actual.join(', ')}]`,
+        'fake',
+      );
+    }
+    if (expectedEnabled === undefined) return;
+    const actualEnabled = track.devices.map((item) => item.enabled ?? true);
+    if (expected === undefined || expectedEnabled.length !== expected.length) {
+      throw new UnsupportedOpError(`${op}: the enabled fingerprint is not aligned with the device chain`, 'fake');
+    }
+    if (actualEnabled.length === expectedEnabled.length
+        && actualEnabled.every((enabled, index) => enabled === expectedEnabled[index])) return;
+    throw new UnsupportedOpError(
+      `${op}: device enabled chain changed; expected [${expectedEnabled.join(', ')}], got [${actualEnabled.join(', ')}]`,
+      'fake',
+    );
   }
 
   private runOp(op: Op, opIndex: number, minted: Record<number, Address>): void {
@@ -1176,6 +1235,7 @@ export class FakeAdapter implements BitwigAdapter {
 
       case 'device.insert': {
         const track = this.requireTrack(op.track, op.op);
+        this.assertExpectedDeviceChain(op.op, track, op.expectedChain, op.expectedEnabledChain);
         const isInstrumentSeed = op.source.from === 'file'
           && basename(op.source.path) === INSTRUMENT_LAYER_SEED_BASENAME;
         const sourceId = op.source.from === 'bitwig' ? op.source.uuid
@@ -1204,6 +1264,7 @@ export class FakeAdapter implements BitwigAdapter {
           : sourceId === undefined ? undefined : this.model.shippedChains(sourceId);
         const device: FakeDevice = {
           name,
+          enabled: true,
           paramsLive: false,
           params: Array.from({ length: 12 }, (_, index) => ({
             id: `P${index + 1}`,
@@ -1227,6 +1288,7 @@ export class FakeAdapter implements BitwigAdapter {
 
       case 'device.delete': {
         const track = this.requireTrack(op.device.track, op.op);
+        this.assertExpectedDeviceChain(op.op, track, op.expectedChain, op.expectedEnabledChain);
         const current = track.devices[op.device.chainIndex];
         if (op.expectedName !== undefined && current?.name !== op.expectedName) {
           throw new UnsupportedOpError(
@@ -1238,8 +1300,32 @@ export class FakeAdapter implements BitwigAdapter {
         return;
       }
 
+      case 'device.setEnabled': {
+        const track = this.requireTrack(op.device.track, op.op);
+        this.assertExpectedDeviceChain(op.op, track, op.expectedChain, op.expectedEnabledChain);
+        const current = track.devices[op.device.chainIndex];
+        if (current === undefined || (op.expectedName !== undefined && current.name !== op.expectedName)) {
+          throw new UnsupportedOpError(
+            `${op.op}: expected "${op.expectedName ?? 'a device'}" at position ${op.device.chainIndex}, got "${current?.name ?? ''}"`,
+            'fake',
+          );
+        }
+        const actualEnabled = current.enabled ?? true;
+        if (op.expectedEnabled !== undefined && actualEnabled !== op.expectedEnabled) {
+          throw new UnsupportedOpError(
+            `${op.op}: enabled state changed from ${op.expectedEnabled} to ${actualEnabled}`,
+            'fake',
+          );
+        }
+        this.clock.stage(() => {
+          if (this.model.deviceEnabledWritesTake) current.enabled = op.enabled;
+        });
+        return;
+      }
+
       case 'device.relocate': {
         const track = this.requireTrack(op.track, op.op);
+        this.assertExpectedDeviceChain(op.op, track, op.expectedChain, op.expectedEnabledChain);
         const before = {
           devices: track.devices.map((item, index) => ({ index, name: item.name })),
           devicesComplete: track.devices.length <= this.model.deviceBankSize,
@@ -1265,11 +1351,18 @@ export class FakeAdapter implements BitwigAdapter {
 
       case 'param.set': {
         const track = this.requireTrack(op.param.device.track, op.op);
+        this.assertExpectedDeviceChain(op.op, track, op.expectedChain, op.expectedEnabledChain);
         const target = this.deepDevice(track, op.param.device);
         if (!target.ok) {
           throw new UnsupportedOpError(`param.set target is ${target.miss}`, 'fake');
         }
         const device = target.device;
+        if (op.expectedName !== undefined && device.name !== op.expectedName) {
+          throw new UnsupportedOpError(
+            `${op.op}: expected "${op.expectedName}" at the parameter target, got "${device.name}"`,
+            'fake',
+          );
+        }
         const index = op.param.directId !== undefined
           ? device.params.findIndex((param, at) => (param.id ?? `param-${at}`) === op.param.directId)
           : op.param.index ?? -1;

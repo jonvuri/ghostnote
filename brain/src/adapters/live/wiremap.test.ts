@@ -71,7 +71,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInSession3f ?? []), ...(golden.addedInSession3gB ?? []),
       ...(golden.addedInSession4a ?? []), ...(golden.addedInSession4b ?? []),
       ...(golden.addedInPhase2Session2e ?? []), ...(golden.addedInPhase2Session2i ?? []),
-      ...(golden.addedInPhase4Session4b ?? []), ...(golden.addedInPhase4Session4f ?? [])];
+      ...(golden.addedInPhase4Session4b ?? []), ...(golden.addedInPhase4Session4f ?? []),
+      ...(golden.addedInPhase4Session4g ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -392,6 +393,107 @@ test('4f: deep parameters and remotes promote only their confirmed cursor routes
   assert.deepEqual(promoted.filter((method) => !WIRE_METHODS_USED.includes(method)), []);
   assert.ok(!WIRE_METHODS_USED.includes('devcursor.selectFirstInKeyPad'),
     'a pad bank position must not be sent as a MIDI key');
+});
+
+test('4g: device enabled state has one guarded exact route', () => {
+  assert.deepEqual(golden.addedInPhase4Session4g ?? [], ['device.setEnabled']);
+  assert.ok(WIRE_METHODS_USED.includes('device.setEnabled'));
+});
+
+test('4g: guarded device mutations check durable track identity before mutation', () => {
+  const source = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'DeviceHandlers.java'),
+    'utf8',
+  );
+  const routes = [
+    ['deviceInsertBitwig', 'insertBitwigDevice'],
+    ['deviceInsertVst3', 'insertVST3Device'],
+    ['deviceInsertClap', 'insertCLAPDevice'],
+    ['deviceInsertFile', 'insertFile(path)'],
+  ] as const;
+  for (const [handler, typedCall] of routes) {
+    const start = source.indexOf(`private JsonElement ${handler}(`);
+    const end = source.indexOf('\n    /**', start);
+    const body = source.slice(start, end);
+    const trackGuard = body.indexOf('verifyExpectedTrackChannelId(');
+    const chainGuard = body.indexOf('verifyExpectedDeviceChain(');
+    const mutation = body.indexOf(typedCall);
+    assert.ok(start >= 0 && trackGuard >= 0 && trackGuard < chainGuard && chainGuard < mutation,
+      `${handler} must check track identity, then the complete chain, before its typed mutation`);
+  }
+
+  const helperStart = source.indexOf('private void verifyExpectedTrackChannelId(');
+  const helperEnd = source.indexOf('\n    /** Compare the current complete bank', helperStart);
+  const helper = source.slice(helperStart, helperEnd);
+  assert.match(helper, /if \(expectedNames == null\) \{\s*return;/,
+    'legacy raw probes without a chain fingerprint stay compatible');
+  assert.match(helper, /!params\.has\("expectedTrackChannelId"\)/,
+    'a guarded insert must supply the durable track identity');
+  assert.match(helper, /channelId\(\)\.get\(\)/,
+    'the guard must read the cursor track identity in the mutation callback');
+  assert.match(helper, /!expected\.equals\(actual\)/,
+    'the observed cursor track must match the durable expected identity');
+
+  for (const handler of ['deviceDelete', 'deviceMoveTo']) {
+    const start = source.indexOf(`private JsonElement ${handler}(`);
+    const end = source.indexOf('\n    /**', start);
+    const body = source.slice(start, end);
+    const trackGuard = body.indexOf('verifyExpectedTrackChannelId(');
+    const chainGuard = body.indexOf('verifyExpectedDeviceChain(');
+    assert.ok(start >= 0 && trackGuard >= 0 && trackGuard < chainGuard,
+      `${handler} must require durable track identity before its complete-chain guard`);
+  }
+});
+
+test('4g: guarded parameter writes recheck the top-level target immediately before mutation', () => {
+  const source = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'ParamHandlers.java'),
+    'utf8',
+  );
+  const methodBody = (name: string): string => {
+    const start = source.indexOf(`private JsonElement ${name}(`);
+    const end = source.indexOf('\n    /**', start);
+    assert.ok(start >= 0 && end > start, `${name} must remain a distinct guarded handler`);
+    return source.slice(start, end);
+  };
+
+  const direct = methodBody('directParamSet');
+  const directGuard = direct.indexOf('verifyParameterTarget(params, "directparam.set")');
+  const directWrite = direct.indexOf('setDirectParameterValueNormalized');
+  assert.ok(directGuard >= 0 && directGuard < directWrite,
+    'directparam.set must guard the cursor target before its typed write');
+  assert.match(direct,
+    /verifyParameterTarget\(params, "directparam\.set"\);\s*rig\.cursorDevice0\.setDirectParameterValueNormalized/,
+    'no other work can separate the direct-parameter target guard from its write');
+  const typed = methodBody('paramSet');
+  const typedGuard = typed.indexOf('verifyParameterTarget(params, "param.set")');
+  assert.ok(typedGuard >= 0
+      && typedGuard < typed.indexOf('value().set(value)')
+      && typedGuard < typed.indexOf('value().setImmediately(value)'),
+    'param.set must guard the cursor target before either typed write mode');
+  assert.match(typed, /verifyParameterTarget\(params, "param\.set"\);\s*if \("smoothed"\.equals\(mode\)\)/,
+    'no other work can separate the typed-parameter target guard from its write branch');
+
+  const helperStart = source.indexOf('private void verifyParameterTarget(');
+  const helperEnd = source.indexOf('\n    // -------------------------------------------- E7', helperStart);
+  const helper = source.slice(helperStart, helperEnd);
+  assert.match(helper, /if \(!params\.has\("expectedDeviceNames"\)[\s\S]{0,220}return;/,
+    'legacy raw parameter probes without a fingerprint stay compatible');
+  for (const field of [
+    'expectedDeviceNames', 'expectedTrackChannelId', 'expectedDeviceName', 'expectedDeviceIndex',
+  ]) {
+    assert.ok(helper.includes(`"${field}"`), `guarded parameter writes require ${field}`);
+  }
+  const track = helper.indexOf('cursorTracks[0].channelId().get()');
+  const chain = helper.indexOf('bank.itemCount().get()');
+  const targetIndex = helper.indexOf('currentDirectParameterDeviceIndex()');
+  const targetName = helper.indexOf('cursorDevice0.name().get()');
+  assert.ok(track >= 0 && track < chain && chain < targetIndex && targetIndex < targetName,
+    'the helper must check track, complete chain, cursor index, then cursor name');
+  assert.ok(helper.includes('device.exists().get()') && helper.includes('device.name().get()'),
+    'the complete-chain guard checks every bank row for existence and name');
 });
 
 test('3f: the extension checks the expected durable id immediately before the product copy call', () => {

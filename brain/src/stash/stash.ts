@@ -825,14 +825,15 @@ const NO_LAUNCHER_WINDOW_CAVEAT =
  * the chain index the receipt MINTED, and `revertOps` emits it only from an
  * observed mint — never a computed one. What no mint can supply is the other half
  * of D20's execution discipline: *name the survivor, never count it.* A chain
- * index is a count, and devices have no readback (D8) that could confirm the
- * occupant is still the device we inserted. So the reversal says so.
+ * index is a count, and the observable name and order are not durable device
+ * identity. This generic changeset does not retain the managed full-chain
+ * witness that session 4g uses, so the reversal says so.
  */
 const DEVICE_INDEX_CAVEAT =
   'this reversal deletes a device at the chain index its insert was OBSERVED to produce (D16 ' +
-  'amendment 2). A device chain has no readback (D8), so unlike every clip and note address in ' +
-  'this plan the occupant of that index cannot be fingerprinted first — if the chain has been ' +
-  'rearranged by hand since, the delete lands on whatever is there now.';
+  'amendment 2). Device names and order are observable, but devices have no durable identity and ' +
+  'this generic changeset did not retain a managed full-chain witness. If the chain was rearranged, ' +
+  'the original index can now name a different device.';
 
 /**
  * ⚠ Did this snapshot actually LOOK at `key`?

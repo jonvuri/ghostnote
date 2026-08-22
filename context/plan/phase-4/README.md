@@ -2,7 +2,7 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Session 4f is complete. Session 4g managed FX-chain workflow is next.
+status: Session 4g is complete. Session 4h device performance gate is next.
 updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -49,10 +49,12 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 8. [4f — deep parameters and remote controls](4f-deep-parameters-and-remotes.md) —
    complete. E58 proves nested paths, drum-pad channels, remote replay, and
    selection isolation.
-9. [4g — managed FX-chain workflow](4g-managed-fx-chain.md) — ordered mixed
-   insertion, parameter control, bypass, and exact take semantics.
-10. [4h — device performance gate](4h-device-performance-gate.md) — measure full
-   workflows and remove repeated software overhead before the schema freezes.
+9. [4g — managed FX-chain workflow](4g-managed-fx-chain.md) — complete. E59
+   records guarded mixed insertion, scalar control, current-position reversal,
+   retryable recovery, and cleanup.
+10. [4h — device performance gate](4h-device-performance-gate.md) — next.
+   Measure full workflows and remove repeated software overhead before the
+   schema freezes.
 11. [4i — device and parameter MCP surface](4i-device-surface.md) — revise the
    thin probe-era tools and freeze one measured public cohort.
 12. [4j — dogfood and closeout](4j-dogfood-and-closeout.md) — natural use, the
@@ -69,7 +71,8 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
   follow-ups close. Device-specific optimization remains in session 4h.
 - Sessions 4d, 4e, and 4f depend on the 4c parameter core. Their catalog,
   plugin, and deep-routing work stays separate.
-- Session 4g composes the completed parameter paths into one managed workflow.
+- Session 4g composes the completed parameter paths into one guarded managed
+  workflow. E59 keeps mint provenance separate from current observed position.
 - Session 4h blocks the public freeze. A repeated unexplained bottleneck gets a
   focused repair before session 4i.
 - Session 4j starts only after the public cohort and performance budgets are
@@ -107,8 +110,11 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
    like `CONTENTS`, `MODULATORS`, `FAKE1` — E10d Finding C explains these are object
    names at a different tree depth, so a structural read could replace the check).
 4. **Device chain operations.** Insert by UUID / VST3 ID / CLAP ID / `insertFile`;
-   delete; enumerate; bypass; position. Budget **~600ms per device insert** (E3) —
-   the executor's staged pacing exists for this.
+   delete; enumerate; enable or bypass; position. E59 composes these operations
+   under the prior accepted complete name-and-enabled chain. It keeps minted
+   ownership provenance and uses current observed positions for later work.
+   Budget **~600ms per device insert** (E3) — the executor's staged pacing
+   exists for this.
 5. **Deep addressing.** `selectFirstInLayer` repoints a cursor into a nested chain
    and all param handles follow, recursively, verified at depth 2 (E4c). Drum-pad
    addressing via `selectFirstInChannel(pad)`.
@@ -143,9 +149,11 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 - **Per-device-type views.** Polysynth is the first typed deep view. Add another
   only after real use needs its typed-only fields. DirectParameter is the
   general fallback.
-- **Checkpoint fidelity.** An inserted device reverts by deleting the exact
-  position execution minted. Scalar base values and bypass restore exactly after
-  readback. Deleting an existing device remains directed and unrecoverable.
+- **Checkpoint fidelity.** An inserted device reverts by deleting its current
+  observed owned position under the last accepted complete name-and-enabled
+  chain. Minted position is ownership provenance, not a durable address. Scalar
+  base values and enabled state restore exactly after readback. Deleting an
+  existing device remains directed and unrecoverable.
 - **Plugin source identity.** Use explicit `vst3` and `clap` variants. The old
   generic `plugin` source is too ambiguous.
 - **Display strings.** The DirectParameter display observer is not a Phase 4

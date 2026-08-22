@@ -16,7 +16,7 @@ import assert from 'node:assert/strict';
 
 import {
   ADDRESS_IDENTITY, InvalidOpError, addressKey, addressScene, addressTrack, assertDevicesRoutable,
-  chain, chainPath, clip, clipLaunch, clipMetadata, clipPlay, device, deviceIn, isNestedDevice, notes as notesAt,
+  chain, chainPath, clip, clipLaunch, clipMetadata, clipPlay, device, deviceEnabled, deviceIn, isNestedDevice, notes as notesAt,
   param, scene, slot, track,
   type Op,
 } from './index.js';
@@ -41,6 +41,7 @@ test('A-key: the canonical address grammar is explicit', () => {
     'notes:cid-1:2@7:ch0:1-5',
   );
   assert.equal(addressKey(device(TRACK, 4)), 'device:cid-1:4');
+  assert.equal(addressKey(deviceEnabled(device(TRACK, 4))), 'deviceEnabled:cid-1:4');
   assert.equal(addressKey(param(device(TRACK, 4), 9)), 'param:cid-1:4:9');
   assert.equal(
     addressKey(param(device(TRACK, 4), 9, 'direct-id')),
@@ -131,6 +132,7 @@ test('A-anchor: the durable track survives every level of nesting', () => {
   const deep = deviceIn(chain(deviceIn(chain(device(TRACK, 0), 'a'), 0), 'b'), 0);
   assert.equal(addressTrack(deep)?.channelId, 'cid-1');
   assert.equal(addressTrack(chain(device(TRACK, 3), 'a'))?.channelId, 'cid-1');
+  assert.equal(addressTrack(deviceEnabled(device(TRACK, 4)))?.channelId, 'cid-1');
   assert.equal(addressTrack(param(deep, 0))?.channelId, 'cid-1');
   // A device address hangs off no scene row, at any depth — so a scene op cannot
   // stale one, and `addressScene` must not start claiming otherwise.
@@ -153,6 +155,10 @@ test('A-route: only parameter writes own the confirmed nested route', () => {
     () => assertDevicesRoutable([{ op: 'device.delete', device: inner }]),
     (error: unknown) => error instanceof InvalidOpError && /device-layer chain/.test(String(error)),
   );
+  assert.throws(
+    () => assertDevicesRoutable([{ op: 'device.setEnabled', device: inner, enabled: false }]),
+    (error: unknown) => error instanceof InvalidOpError && /device-layer chain/.test(String(error)),
+  );
   assert.doesNotThrow(
     () => assertDevicesRoutable([{ op: 'param.set', param: param(inner, 0), value: 0.5 }]),
   );
@@ -169,6 +175,7 @@ test('A-route: the refusal names the path, so a caller can see WHICH chain', () 
 test('A-route: top-level device ops still pass, so the refusal is not blanket', () => {
   const ops: Op[] = [
     { op: 'device.delete', device: device(TRACK, 0) },
+    { op: 'device.setEnabled', device: device(TRACK, 0), enabled: false },
     { op: 'param.set', param: param(device(TRACK, 1), 0), value: 0.25 },
     { op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: 'u' } },
     { op: 'note.clear', clip: clip(slot(TRACK, ROW)) },

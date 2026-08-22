@@ -2,14 +2,14 @@
 title: Phase 4, session 4h — device performance gate
 kind: plan
 state: planned
-status: Planned after 4g. Measure complete device workflows before the public
+status: Planned next. Measure complete device workflows before the public
         schema freezes.
 updated: 2026-08-22
 parent: README.md
 prev: 4g-managed-fx-chain.md
 next: 4i-device-surface.md
 scope: Device workflow latency, observer cost, and targeted optimization
-evidence: E5, E45, E48, E50, E55 · D7, D10
+evidence: E5, E45, E48, E50, E55, E59 · D7, D10
 ---
 
 # Phase 4, session 4h — device performance gate
@@ -20,22 +20,25 @@ evidence: E5, E45, E48, E50, E55 · D7, D10
 ## Carry-in
 
 E55 proves that one serialized device cursor is sufficient for correct
-parameter enumeration, write, independent readback, and exact reversal. It does
-not prove that the serialized path is fast enough for real parameter batches.
-Measure complete batch latency before you allocate a wider observer pool. Add
-cursor concurrency only when the serialized cursor is a measured bottleneck and
-each concurrent target can keep the same isolation proof.
+parameter enumeration, write, independent readback, and exact reversal. E59
+adds the complete managed workload: mixed insertion, relocation, parameter and
+enabled-state writes, guarded observation, retryable recovery, and reversal. It
+does not prove that the serialized path is fast enough for real parameter
+batches. Measure complete batch latency before you allocate a wider observer
+pool. Add cursor concurrency only when the serialized cursor is a measured
+bottleneck and each concurrent target can keep the same isolation proof.
 
 ## Scope
 
 1. Define repeatable workloads for native enumeration and write, VST3 and CLAP
-   enumeration and write, depth-2 routing, remote-page access, mixed three-device
-   chain construction, verification, and reversal.
+   enumeration and write, depth-2 routing, remote-page access, and the E59
+   managed mixed-chain workflow. Include construction, guarded verification,
+   recovery, and reversal.
 2. Record end-to-end time and separate target acquisition, observer
    stabilization, bridge traffic, host insertion, planned settlement, readback,
    and checkpoint recording.
 3. Count cursor repoints, device selections, observer generations, bridge
-   requests, and complete chain sweeps.
+   requests, complete chain sweeps, and managed accepted-boundary reads.
 4. Compare cold and warm runs. Keep plugin load time separate from ghostnote
    overhead.
 5. Remove repeated work only where the measurement identifies it. Reuse a

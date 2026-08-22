@@ -23,7 +23,7 @@
  */
 import {
   ADDRESS_IDENTITY, OP_BUMPS_SCENE_EPOCH, addressKey, assertNever, clip as clipAt,
-  clipLaunch, clipMetadata, notes as notesAt,
+  clipLaunch, clipMetadata, deviceEnabled, notes as notesAt,
   type Address, type AddressKey, type Op, type OpKind,
 } from '../contract/index.js';
 
@@ -77,9 +77,9 @@ const NO_SCENE_READBACK =
   'scene deletion COMPACTS the rows below it (E3); the prior layout has no readback, and ' +
   'every scene-relative address minted before it is refused rather than resolved.';
 
-const NO_DEVICE_READBACK =
-  'a device insert/delete has no readback that could reproduce the chain (E3, D8). Phase 5 ' +
-  'authors devices by file surgery, which is where an inverse could come from.';
+const NO_DEVICE_RECREATION =
+  'device deletion loses opaque plugin and preset state. The API can observe names, order, ' +
+  'enabled state, and parameters, but that is not enough to recreate the deleted device (D8).';
 
 /** One op -> the addresses it touches, with what a stash of each could promise. */
 function targetsOf(op: Op): {
@@ -162,7 +162,10 @@ function targetsOf(op: Op): {
       return [{ address: op.scene, restore: 'none', reason: NO_SCENE_READBACK }];
 
     case 'device.delete':
-      return [{ address: op.device, restore: 'none', reason: NO_DEVICE_READBACK }];
+      return [{ address: op.device, restore: 'none', reason: NO_DEVICE_RECREATION }];
+
+    case 'device.setEnabled':
+      return [{ address: deviceEnabled(op.device), restore: 'replay' }];
 
     case 'param.set':
       return [{ address: op.param, restore: 'replay' }];
@@ -397,6 +400,7 @@ export function isAtRisk(address: Address, risk: StructuralRisk): boolean {
     // The durable name inside the address does not rescue it.
     case 'chain':
     case 'device':
+    case 'deviceEnabled':
     case 'param':
       return risk.deviceChains;
     default:

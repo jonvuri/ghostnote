@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4g — managed FX-chain workflow
 kind: plan
-state: planned
-status: Planned next. Compose structure operations and parameter control into
-        one checkpointed workflow.
+state: complete
+status: Complete. E59 records the guarded mixed-format workflow, exact scalar
+        replay, current-position owned reversal, recovery, and cleanup.
 updated: 2026-08-22
 parent: README.md
 prev: 4f-deep-parameters-and-remotes.md
 next: 4h-device-performance-gate.md
 scope: Multi-device chain construction, position, bypass, and take semantics
-evidence: E3, E4, E4d, E16, E18 · D5, D8, D16, D20
+evidence: E3, E4, E4d, E16, E18, E59 · D5, D8, D16, D20
 ---
 
 # Phase 4, session 4g — managed FX-chain workflow
@@ -19,8 +19,9 @@ evidence: E3, E4, E4d, E16, E18 · D5, D8, D16, D20
 
 ## Checkpoint promise
 
-- An agent-inserted device has an exact structural inverse: delete the device at
-  the position that execution minted.
+- An agent-inserted device has an exact structural inverse under the last
+  accepted complete name-and-enabled chain. Delete it at its current observed
+  owned position, not at a stale minted position.
 - A scalar base-parameter or bypass change is exact after independent readback.
 - Deleting a device that existed before the take remains `none`. Its opaque
   state cannot be recreated. It stays a directed destructive operation.
@@ -76,3 +77,53 @@ evidence: E3, E4, E4d, E16, E18 · D5, D8, D16, D20
 
 Record whether dependent minted-address workflows fit the current executor or
 need a small orchestration layer. Do not hide a second executor in a tool.
+
+## Result
+
+The managed workflow uses a small host seam above the executor. It appends one
+device, accepts a complete chain observation, resolves that minted address, and
+then applies dependent scalar writes. It relocates the appended device before a
+confirmed anchor when the requested position differs. The static executor
+cannot derive those later addresses from readback in one precomputed write set,
+so the dependent sequence belongs in this orchestration layer. The layer reuses
+the executor for each guarded apply and take.
+
+One owned live fixture starts with `Tool` and `Delay+`. The workflow inserts a
+native Polysynth, Zebra3 VST3, Zebra3 CLAP, and a Sampler preset. The intended
+observed order is `Tool`, `Polysynth`, `Zebra3`, `Zebra3`, `Delay+`,
+`Sampler`. Append readback mints positions `2, 3, 4, 5`; relocation produces
+current positions `1, 2, 3, 5`. Each inserted device receives one verified
+parameter setting. The workflow also changes and records the entry `Delay+`
+enabled state.
+
+Every structure, parameter, and enabled-state mutation carries the prior
+accepted complete top-level name and enabled sequences. An incomplete or full
+bank refuses before mutation. A concurrent `EQ+` insertion and relocation shifts
+an owned Polysynth away from its stale parameter address. The complete-chain
+boundary makes guarded acquisition refuse before that write. Recovery excludes
+the unrelated device and returns the last proved continuation.
+
+The checkpoint keeps mint provenance for ownership and current positions for
+later work. Normal reversal restores the entry enabled state, then deletes
+owned devices from the highest current position to the lowest. A failed
+reversal also returns the last proved continuation. It never replays an
+uncertain mutation. Existing-device deletion remains `none`.
+
+This complete name-and-enabled boundary is still a fingerprint. It cannot
+detect replacement by another device with the same name and enabled state.
+There is no device identity to close that case.
+
+Focused adapter and managed-workflow tests pass 108/108. Shared fake
+conformance passes 60/60. The full brain check passes 750/750, including
+typecheck. Extension tests pass. The fresh Bitwig 6.0.6/API 25 handshake passes
+all 147 methods with hash `f58c5ded93d5f743`. The managed live proof passes all
+ten rows. Full live conformance passes 54/54 with six expected skips.
+Conformance cleanup removes its two generated fixture tracks, and the final
+read-only 2k baseline passes with seven tracks and no launcher residue. Context
+check passes for 199 active documents. Working-tree and staged diff checks pass.
+
+The retrospective confirms that a small orchestration layer is necessary. Its
+checkpoint is the last accepted complete observation. Minted positions remain
+ownership provenance and do not become durable addresses. Live fixtures must
+use distinguishable devices when cursor identity must be unique. No
+context-process change is needed.

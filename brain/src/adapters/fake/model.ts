@@ -79,6 +79,8 @@ export interface FakeChain {
 
 export interface FakeDevice {
   name: string;
+  /** Bitwig devices start enabled. Absent keeps old fixtures equivalent to true. */
+  enabled?: boolean;
   /** Live only after E4's ~194ms settle; until then reads report `paramsLive: false`. */
   paramsLive: boolean;
   params: {
@@ -170,6 +172,8 @@ export class ProjectModel {
   deviceBankSize = 16;
   /** DirectParameter writes can be accepted without taking (E4b). */
   parameterWritesTake = true;
+  /** Device enabled writes can be accepted without taking. */
+  deviceEnabledWritesTake = true;
   /** Complete inventories to reject before current observer data settles. */
   staleParameterInventories = 0;
   /** One generation per parameter-cursor acquisition. */

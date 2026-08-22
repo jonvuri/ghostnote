@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-08-22
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E57; D2; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E59; D2; reference/BitX
 ---
 
 # Devices
@@ -124,6 +124,31 @@ CLAP exposed 2,193. `Attack Rate` moved from `0.5` to `0.55` and restored to
 1,470 ms for CLAP. These installed-plugin counts and timings are machine-
 specific [K, E57].
 
+### Managed top-level chains
+
+The product composes native, VST3, CLAP, and preset insertion with parameter
+and device enabled-state writes. It appends each device, accepts a complete
+chain observation, and uses the observed minted address for dependent work. A
+requested earlier position uses the proven relocation primitive before a
+confirmed anchor [K,
+[E59](../experiments/e59-managed-fx-chain-is-live.md)].
+
+Every managed mutation carries the prior accepted complete device-name and
+enabled-state sequences. The adapter refuses an incomplete or full bank before
+insertion. It also refuses any structure or scalar write when either sequence
+changed. A fresh read at the write cannot replace the caller-owned expected
+boundary [K, E59].
+
+A managed checkpoint stores mint provenance and the current address from each
+accepted observation. Reversal restores entry enabled state and deletes owned
+devices from the highest current position to the lowest. A device that existed
+before the take is never deleted by automatic reversal. Such deletion remains
+`none` because its opaque state cannot be recreated [K, E59].
+
+⚠ The complete name-and-enabled sequence is a fingerprint, not identity. It
+detects many positional changes. It cannot detect replacement by a different
+device with the same name and enabled state [K, E59 and E16l].
+
 ### `SpecificBitwigDevice` is a two-method interface
 
 Verified against the resolved `extension-api:25:sources` jar,
@@ -199,14 +224,14 @@ discoverable by guessing. Directly relevant to Phase 4:
 subset is a **deliberate budget**, not an oversight — every `markInterested()`
 costs a subscription for the life of the session.
 
-### What ghostnote marks today — `[K]`, source read 2026-08-15
+### What ghostnote marks today — `[K]`, source read 2026-08-22
 
 | Bank | Per-`Device` marks |
 |---|---|
-| `cursorDeviceBanks[i]` (`Rig.java:724`) | `exists()`, `name()` |
-| `cursorDeviceBanks[0]` slots 0-1 (`Rig.java:791`) | the above, plus **`hasLayers()`** |
-| `layerDeviceBanks[l]` (`Rig.java:771`) | `exists()`, `name()` |
-| `slotLayerDeviceBanks[s][l]` (`Rig.java:816`) | `exists()`, `name()` |
+| `cursorDeviceBanks[i]` (`Rig.java:738`) | `exists()`, `name()`, **`isEnabled()`** |
+| `cursorDeviceBanks[0]` slots 0-1 (`Rig.java:832`) | the above, plus **`hasLayers()`** |
+| `layerDeviceBanks[l]` (`Rig.java:812`) | `exists()`, `name()` |
+| `slotLayerDeviceBanks[s][l]` (`Rig.java:858`) | `exists()`, `name()` |
 
 ⚠ **A shorter reading of this was in circulation and is wrong:** *"only
 `exists()` and `name()` are marked, at `Rig.java:728`"*. `hasLayers()` is marked
@@ -231,7 +256,6 @@ resolve and read that source.
 | `position()` | 48 |
 | `sampleName()` | 830 |
 | `slotNames()`, `hasSlots()` | 614, 607 |
-| `isEnabled()` | 587 |
 | `isNested()`, `hasDrumPads()` | 643, 659 |
 
 ⚠⚠ **State the limit honestly: these are fingerprint fields, not identity.** They
@@ -253,9 +277,10 @@ correctness fix for 3f-g.
 | `InsertionPoint.copyDevices` | ● works into a layer chain, from top level and from a nested source |
 | `Device.duplicateObject()` on a container | ● clones **with** contents |
 | `Device.deleteObject()` | ● |
+| `Device.isEnabled().set(...)` | ● exact scalar write after independent readback |
 | `DrumPad.insertionPoint()` | ● filling an empty pad **creates** the chain |
 
-[K, [E4d](../experiments/e4d-chain-creation-e4c-s-was-wrong-2026-07-19.md), [E16n/o](../experiments/e16n-e16o-e4d-route-3-is-wrong-relocates-a-device-into-a-layer-and-it.md), [E18c](../experiments/e18c-the-rebuild-strategy-is-mechanically-available-a-device-can-leav.md), [E18d](../experiments/e18d-e4d-route-3-is-a-false-negative-into-a-layer-chain-works-k-2026-.md)]
+[K, [E4d](../experiments/e4d-chain-creation-e4c-s-was-wrong-2026-07-19.md), [E16n/o](../experiments/e16n-e16o-e4d-route-3-is-wrong-relocates-a-device-into-a-layer-and-it.md), [E18c](../experiments/e18c-the-rebuild-strategy-is-mechanically-available-a-device-can-leav.md), [E18d](../experiments/e18d-e4d-route-3-is-a-false-negative-into-a-layer-chain-works-k-2026-.md), and [E59](../experiments/e59-managed-fx-chain-is-live.md)]
 
 ⚠ `DeviceLayer` has **no** `insertionPoint()`; `DrumPad` does. That asymmetry is
 the architectural reason a drum pad is addressable while empty and a layer chain
@@ -289,6 +314,7 @@ is measured [carried forward, session 3f].
 
 | Date | Change |
 |---|---|
+| 2026-08-22 | E59 adds readable and writable enabled state, complete name-and-enabled mutation guards, mixed managed construction, current-position reversal, and retryable recovery. |
 | 2026-08-22 | E57 adds explicit VST3 and CLAP insertion, parameter write and replay, failed missing-plugin receipts, and exact cleanup. |
 | 2026-08-22 | E56 replaces the `strings` harvest and hand-maintained Polysynth list with the generated catalog and live resolution result. |
 | 2026-08-22 | E55 adds the confirmed serialized DirectParameter acquisition, write, readback, and replay boundary. |

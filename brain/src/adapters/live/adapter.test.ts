@@ -17,7 +17,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, device as deviceAt,
+  AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, track,
   type ClipAddress, type RevisionMark, type TrackAddress,
@@ -1254,9 +1254,11 @@ class DeviceChainTransport implements Transport {
       case WIRE.deviceList: {
         const chain = this.chainOf(params['cursor'] as string);
         return {
-          devices: chain.map((name, index) => ({ index, name })),
+          devices: chain.map((name, index) => ({ index, name, enabled: true })),
           count: chain.length,
           itemCount: this.itemCountOf(chain),
+          trackChannelId: CHANNEL_ID,
+          bankSize: 8,
         };
       }
 
@@ -1280,6 +1282,17 @@ class DeviceChainTransport implements Transport {
 
       case WIRE.deviceDelete: {
         this.chainOf(params['cursor'] as string).splice(params['deviceIndex'] as number, 1);
+        this.revision++;
+        return {};
+      }
+
+      case WIRE.deviceMoveTo: {
+        const chain = this.chainOf(params['cursor'] as string);
+        const source = chain[params['deviceIndex'] as number];
+        const anchor = chain[params['anchorIndex'] as number];
+        if (source === undefined || anchor === undefined) throw new Error('device move target is absent');
+        chain.splice(chain.indexOf(source), 1);
+        chain.splice(chain.indexOf(anchor), 0, source);
         this.revision++;
         return {};
       }
@@ -1314,6 +1327,323 @@ class DeviceChainTransport implements Transport {
     return chain;
   }
 }
+
+/** A device chain that also models the user's current clip selection. */
+class SelectedDeviceChainTransport extends DeviceChainTransport {
+  readonly selection = { trackIndex: 3, slotIndex: 2 };
+  failDeviceList = false;
+
+  override async send(frame: Frame): Promise<unknown> {
+    const params = (frame.params ?? {}) as Record<string, unknown>;
+    if (frame.method === WIRE.selectionStatus) {
+      this.frames.push(frame);
+      return { ...this.selection };
+    }
+    if (frame.method === WIRE.slotSelect) {
+      this.frames.push(frame);
+      this.selection.trackIndex = params['trackIndex'] as number;
+      this.selection.slotIndex = params['slotIndex'] as number;
+      return {};
+    }
+    if (frame.method === WIRE.cursorPointTrack) {
+      this.selection.trackIndex = params['trackIndex'] as number;
+      this.selection.slotIndex = -1;
+    }
+    if (frame.method === WIRE.deviceList && this.failDeviceList) {
+      this.frames.push(frame);
+      throw new Error('device list failed');
+    }
+    return super.send(frame);
+  }
+}
+
+test('4g-device-selection: public chain reads and resolution restore selection', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = deviceEnabled(deviceAt(TRACK, 0));
+
+  await adapter.devices(TRACK);
+  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  const snapshot = await adapter.read([address]);
+  assert.equal(snapshot.entries[addressKey(address)]?.value.of, 'deviceEnabled');
+  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  const resolved = await adapter.resolve([address]);
+  assert.equal(resolved.resolved[0]?.found, true);
+  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+
+  const restores = wire.frames.filter((frame) => frame.method === WIRE.slotSelect);
+  assert.equal(restores.length, 3);
+  assert.ok(restores.every((frame) => frame.params?.['trackIndex'] === 3
+    && frame.params?.['slotIndex'] === 2));
+});
+
+test('4g-device-selection: a failed public chain read restores selection', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  wire.failDeviceList = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(adapter.devices(TRACK), /device list failed/);
+  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 1);
+});
+
+test('4g-device-selection: direct insert preflight and apply both restore selection', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({ ops: [{
+    op: 'device.insert',
+    track: TRACK,
+    source: { from: 'bitwig', uuid: 'Phaser' },
+    expectedChain: ['Polysynth'],
+    expectedEnabledChain: [true],
+  }] });
+
+  assert.deepEqual(receipt.minted[0], deviceAt(TRACK, 1));
+  assert.deepEqual(wire.chains.get(0), ['Polysynth', 'Phaser']);
+  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
+});
+
+test('4g-device-selection: a failed direct insert proof restores selection', async () => {
+  const wire = new SelectedDeviceChainTransport((chain, name) => chain.unshift(name));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({ ops: [{
+    op: 'device.insert',
+    track: TRACK,
+    source: { from: 'bitwig', uuid: 'Phaser' },
+    expectedChain: ['Polysynth'],
+    expectedEnabledChain: [true],
+  }] });
+
+  assert.equal(receipt.stages.flatMap((stage) => stage.ops).every((op) => op.ok), false);
+  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
+});
+
+test('4g-device-selection: direct relocation preflight and apply both restore selection', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  wire.chains.set(0, ['Polysynth', 'Phaser']);
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({ ops: [{
+    op: 'device.relocate',
+    track: TRACK,
+    sourceFromEnd: 0,
+    expectedName: 'Phaser',
+    before: deviceAt(TRACK, 0),
+    expectedChain: ['Polysynth', 'Phaser'],
+    expectedEnabledChain: [true, true],
+  }] });
+
+  assert.equal(receipt.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  assert.deepEqual(wire.chains.get(0), ['Phaser', 'Polysynth']);
+  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
+});
+
+test('4g-device-selection: a failed direct relocation guard restores selection', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  wire.chains.set(0, ['Polysynth', 'Phaser']);
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(adapter.apply({ ops: [{
+    op: 'device.relocate',
+    track: TRACK,
+    sourceFromEnd: 0,
+    expectedName: 'Phaser',
+    before: deviceAt(TRACK, 0),
+    expectedChain: ['Wrong device', 'Phaser'],
+    expectedEnabledChain: [true, true],
+  }] }), /top-level device chain changed/);
+
+  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
+});
+
+/** One top-level device with an independently observed enabled flag. */
+class DeviceEnabledTransport implements Transport {
+  readonly frames: Frame[] = [];
+  enabled = true;
+  otherEnabled = true;
+  takeWrites = true;
+  private readonly cursorOn = new Map<string, number>();
+  private revision = 1;
+
+  async send(frame: Frame): Promise<unknown> {
+    this.frames.push(frame);
+    return this.dispatch(frame.method, (frame.params ?? {}) as Record<string, unknown>);
+  }
+
+  private dispatch(method: string, params: Record<string, unknown>): unknown {
+    switch (method) {
+      case WIRE.trackList:
+        return {
+          tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }],
+          count: 1,
+          bankSize: 8,
+          itemCount: 1,
+        };
+      case WIRE.revisionGet:
+        return {
+          revision: this.revision,
+          generation: 'enabled-gen',
+          sceneEpoch: 1,
+          contentEpoch: 0,
+          contentEvents: [],
+        };
+      case WIRE.selectionStatus:
+        return { trackIndex: -1, slotIndex: -1 };
+      case WIRE.cursorPointTrack:
+        this.cursorOn.set(params['cursor'] as string, params['trackIndex'] as number);
+        return {};
+      case WIRE.deviceList: {
+        const visible = this.cursorOn.get(params['cursor'] as string) === 0;
+        const devices = visible
+          ? [
+            { index: 0, name: 'Tool', enabled: this.enabled },
+            { index: 1, name: 'Delay+', enabled: this.otherEnabled },
+          ]
+          : [];
+        return {
+          devices,
+          count: devices.length,
+          itemCount: devices.length,
+          trackChannelId: visible ? CHANNEL_ID : undefined,
+          bankSize: 8,
+        };
+      }
+      case WIRE.deviceSetEnabled: {
+        assert.equal(params['expectedTrackChannelId'], CHANNEL_ID);
+        const names = ['Tool', 'Delay+'];
+        const enabled = [this.enabled, this.otherEnabled];
+        if (params['expectedDeviceNames'] !== undefined) {
+          assert.deepEqual(params['expectedDeviceNames'], names);
+        }
+        if (params['expectedDeviceEnabled'] !== undefined
+            && JSON.stringify(params['expectedDeviceEnabled']) !== JSON.stringify(enabled)) {
+          throw new Error('device.setEnabled device enabled chain changed');
+        }
+        const index = params['deviceIndex'] as number;
+        assert.equal(params['expectedName'], names[index]);
+        if (params['expectedEnabled'] !== enabled[index]) {
+          throw new Error(`device.setEnabled state changed from ${String(params['expectedEnabled'])} to ${String(enabled[index])}`);
+        }
+        if (this.takeWrites) {
+          if (index === 0) this.enabled = params['enabled'] as boolean;
+          else this.otherEnabled = params['enabled'] as boolean;
+        }
+        this.revision++;
+        return {};
+      }
+      case WIRE.batchRun: {
+        const ops = (params['ops'] ?? []) as { method: string; params: Record<string, unknown> }[];
+        for (const op of ops) this.dispatch(op.method, op.params);
+        return {
+          applied: true,
+          revision: this.revision,
+          results: ops.map((op) => ({ method: op.method, ok: true })),
+        };
+      }
+      default:
+        return {};
+    }
+  }
+
+  async close(): Promise<void> {}
+}
+
+test('4g-device-enabled: live write uses independent readback and restores the base', async () => {
+  const wire = new DeviceEnabledTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const target = deviceAt(TRACK, 0);
+  const address = deviceEnabled(target);
+
+  const before = await adapter.read([address]);
+  const beforeEntry = before.entries[addressKey(address)];
+  assert.equal(beforeEntry?.value.of === 'deviceEnabled' ? beforeEntry.value.enabled : undefined, true);
+
+  const changed = await adapter.apply({ ops: [{
+    op: 'device.setEnabled', device: target, enabled: false, expectedName: 'Tool',
+  }] });
+  assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const after = await adapter.read([address]);
+  const afterEntry = after.entries[addressKey(address)];
+  assert.equal(afterEntry?.value.of === 'deviceEnabled' ? afterEntry.value.enabled : undefined, false);
+
+  const restored = await adapter.apply({ ops: [{
+    op: 'device.setEnabled', device: target, enabled: true, expectedName: 'Tool',
+  }] });
+  assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const final = await adapter.read([address]);
+  const finalEntry = final.entries[addressKey(address)];
+  assert.equal(finalEntry?.value.of === 'deviceEnabled' ? finalEntry.value.enabled : undefined, true);
+  assert.ok(wire.frames.filter((frame) => frame.method === WIRE.deviceList).length >= 5,
+    'each write uses a fresh before and after observation');
+});
+
+test('4g-device-enabled: a silent live no-op fails independent readback', async () => {
+  const wire = new DeviceEnabledTransport();
+  wire.takeWrites = false;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const receipt = await adapter.apply({ ops: [{
+    op: 'device.setEnabled', device: deviceAt(TRACK, 0), enabled: false, expectedName: 'Tool',
+  }] });
+
+  const failed = receipt.stages.flatMap((stage) => stage.ops).find((op) => !op.ok);
+  assert.match(failed?.error ?? '', /readback disagreed/);
+  const address = deviceEnabled(deviceAt(TRACK, 0));
+  const unchanged = await adapter.read([address]);
+  const unchangedEntry = unchanged.entries[addressKey(address)];
+  assert.equal(unchangedEntry?.value.of === 'deviceEnabled'
+    ? unchangedEntry.value.enabled : undefined, true);
+});
+
+test('4g-device-enabled: caller-owned prior state reaches the immediate wire guard', async () => {
+  const wire = new DeviceEnabledTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  wire.enabled = false;
+
+  await assert.rejects(
+    adapter.apply({ ops: [{
+      op: 'device.setEnabled',
+      device: deviceAt(TRACK, 0),
+      enabled: true,
+      expectedName: 'Tool',
+      expectedEnabled: true,
+      expectedChain: ['Tool', 'Delay+'],
+    }] }),
+    /device\.setEnabled state changed from true to false/,
+  );
+  assert.equal(wire.enabled, false);
+  const batch = wire.frames.find((frame) => frame.method === WIRE.batchRun);
+  const ops = (batch?.params?.['ops'] ?? []) as { method: string; params: Record<string, unknown> }[];
+  const frame = ops.find((op) => op.method === WIRE.deviceSetEnabled);
+  assert.equal(frame?.params['expectedEnabled'], true);
+});
+
+test('4g-device-enabled: a raw unrelated toggle fails the full enabled fingerprint', async () => {
+  const wire = new DeviceEnabledTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  wire.otherEnabled = false;
+
+  await assert.rejects(
+    adapter.apply({ ops: [{
+      op: 'device.setEnabled',
+      device: deviceAt(TRACK, 0),
+      enabled: false,
+      expectedName: 'Tool',
+      expectedEnabled: true,
+      expectedChain: ['Tool', 'Delay+'],
+      expectedEnabledChain: [true, true],
+    }] }),
+    /top-level device enabled chain changed/,
+  );
+  assert.equal(wire.enabled, true);
+  assert.equal(wire.otherEnabled, false);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
+});
 
 test('L-mint: an insert reports the chain index it OBSERVED, and the delete undoes it', async () => {
   const wire = new DeviceChainTransport();
@@ -1360,13 +1690,11 @@ test('L-mint: a chain longer than the device bank window mints NOTHING (E5, one 
   const wire = new DeviceChainTransport(undefined, (chain) => chain.length + 4);
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
-  const receipt = await adapter.apply({
+  await assert.rejects(adapter.apply({
     ops: [{ op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: 'Phaser' } }],
-  });
-
-  assert.deepEqual(receipt.minted, {});
-  assert.equal(receipt.stages.flatMap((stage) => stage.ops)
-    .find((op) => op.op === WIRE.deviceInsertBitwig)?.ok, false);
+  }), /complete top-level device chain/);
+  assert.deepEqual(wire.chains.get(0), ['Polysynth'], 'the refusal happens before insertion');
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
 });
 
 test('4e-mint: a missing plugin has no mint and a failed insertion receipt', async () => {
@@ -1615,10 +1943,11 @@ class ParameterTransport implements Transport {
         return {};
       case WIRE.deviceList:
         return {
-          devices: this.devices.map((device, index) => ({ index, name: device.name })),
+          devices: this.devices.map((device, index) => ({ index, name: device.name, enabled: true })),
           count: this.devices.length,
           itemCount: this.devices.length,
           trackChannelId: CHANNEL_ID,
+          bankSize: 16,
         };
       case WIRE.deviceCursorStatus:
         if (this.depth > 0) {
@@ -1810,6 +2139,27 @@ test('L-direct-param: a write reads back independently and exact reversal restor
   const after = await adapter.read([address]);
   const afterEntry = after.entries[addressKey(address)];
   assert.equal(afterEntry?.value.of === 'param' ? afterEntry.value.param.value : undefined, 0);
+});
+
+test('4g parameter guard refuses a raw positional shift before the wire write', async () => {
+  const wire = new ParameterTransport();
+  const expectedChain = wire.devices.map((item) => item.name);
+  wire.devices.unshift({
+    name: 'Human replacement',
+    params: new Map([['P1', { name: 'Wrong P1', value: 0.4 }]]),
+  });
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'P1');
+
+  await assert.rejects(adapter.apply({ ops: [{
+    op: 'param.set',
+    param: address,
+    value: 0.75,
+    expectedName: 'Polysynth',
+    expectedChain,
+  }] }), /top-level device chain changed/);
+  assert.equal(wire.devices[0]!.params.get('P1')!.value, 0.4);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
 });
 
 test('L-direct-param: a silent no-op is reported as a readback disagreement', async () => {

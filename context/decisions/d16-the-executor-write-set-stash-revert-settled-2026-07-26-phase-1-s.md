@@ -146,4 +146,24 @@ refuses unless it has the complete set.
 > are the inert play-stop setter and automation lanes, which have no complete
 > readback. The positional identity rule does not change.
 
+> ⚠ **AMENDED 2026-08-22 (E59).** A generic `device.insert` inverse can use its
+> minted position only while no later structure mutation changes that position.
+> The managed FX-chain workflow can relocate an inserted device, so it retains
+> mint provenance for ownership and derives each current address from the last
+> accepted complete observation. Reversal deletes owned devices from the
+> highest current position to the lowest.
+>
+> Every managed structure, parameter, and enabled-state mutation carries the
+> prior accepted complete device-name and enabled-state sequences. It never
+> derives the expected boundary from a fresh echo at the write. A failed build
+> or reversal returns the last proved continuation. It does not replay a
+> mutation whose landing state is uncertain. Deletion of a device that existed
+> before the take remains `none` because no device identity or opaque state
+> snapshot exists. The complete fingerprint narrows positional drift. It cannot
+> detect a same-name and same-enabled replacement.
+>
+> The dependent read-after-insert sequence belongs in a small orchestration
+> layer above the executor. The executor still derives one static write set and
+> handles each guarded apply, stash, receipt, and report.
+
 ---

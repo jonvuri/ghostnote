@@ -11,12 +11,12 @@
  */
 export {
   ADDRESS_IDENTITY, addressKey, addressScene, addressTrack, chainPath, isNestedDevice,
-  chain, clip, clipLaunch, clipMetadata, clipPlay, device, deviceIn, drumPad, notes, param,
+  chain, clip, clipLaunch, clipMetadata, clipPlay, device, deviceEnabled, deviceIn, drumPad, notes, param,
   remote, remotes, scene, slot, track,
 } from './address.js';
 export type {
   Address, AddressKey, AddressKind, BeatRange, ChainAddress, ClipAddress, ClipLaunchAddress,
-  ClipMetadataAddress, ClipPlayAddress, DeviceAddress, DeviceParentAddress, DrumPadAddress,
+  ClipMetadataAddress, ClipPlayAddress, DeviceAddress, DeviceEnabledAddress, DeviceParentAddress, DrumPadAddress,
   NotesAddress, ParamAddress, RemoteAddress, RemotesAddress, SceneAddress, SlotAddress, TrackAddress,
 } from './address.js';
 
@@ -42,7 +42,7 @@ export {
 export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 
 export {
-  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceRelocatable, assertDevicesRoutable,
+  OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDevicesRoutable,
   assertNever, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom,
   assertSlotsFree, assertClipSources,
 } from './ops.js';

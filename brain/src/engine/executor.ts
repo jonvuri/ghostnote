@@ -682,6 +682,38 @@ export function disagreementsOf(
     }
   }
 
+  const enabledWrites = new Map<string, Extract<Op, { op: 'device.setEnabled' }>>();
+  for (const op of ops) {
+    if (op.op === 'device.setEnabled') {
+      const address = { kind: 'deviceEnabled', device: op.device } as const;
+      enabledWrites.set(addressKey(address), op);
+    }
+  }
+  for (const op of enabledWrites.values()) {
+    const address = { kind: 'deviceEnabled', device: op.device } as const;
+    if (unread.has(addressKey(address))) continue;
+    const entry = verify.entries[addressKey(address)];
+    if (entry?.value.of !== 'deviceEnabled') {
+      out.push({
+        address,
+        at: 'device enabled state',
+        field: 'exists',
+        requested: true,
+        readback: false,
+      });
+      continue;
+    }
+    if (entry.value.enabled !== op.enabled) {
+      out.push({
+        address,
+        at: 'device enabled state',
+        field: 'enabled',
+        requested: op.enabled,
+        readback: entry.value.enabled,
+      });
+    }
+  }
+
   const remoteWrites = new Map<string, Extract<Op, { op: 'remote.set' }>>();
   for (const op of ops) {
     if (op.op === 'remote.set') remoteWrites.set(addressKey(op.remote), op);
