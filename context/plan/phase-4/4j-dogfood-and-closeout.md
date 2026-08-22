@@ -1,10 +1,9 @@
 ---
 title: Phase 4, session 4j — dogfood and closeout
 kind: plan
-state: planned
-status: Planned after 4i. Use the public surface for a natural sound-design task,
-        prove the complete matrix, and close Phase 4.
-updated: 2026-08-21
+state: active
+status: Dogfood accepted. Save, the complete matrix, and closeout remain.
+updated: 2026-08-22
 parent: README.md
 prev: 4i-device-surface.md
 next: ../phase-5/README.md
@@ -74,3 +73,17 @@ is frozen. No unresolved performance gate remains.
 
 Record whether the public parameter inventory was sufficient for a natural
 sound-design request. Add no speculative device-specific view.
+
+## Current result
+
+[E63](../../evidence/experiments/e63-device-dogfood-exposes-ab-selection-gap.md)
+records the accepted `Harmony – Open Minor` sound-design task. The public
+inventory was sufficient. The operator kept the colder Chorus+ and Reverb
+revision after a managed A/B comparison. Directed collapse restored the winning
+chain to the top level and removed the alternate container.
+
+The task exposed an A/B selection-policy gap. The factual descriptions do not
+tell an agent when subjective revision language should create an alternate. E63
+records the operator-accepted candidate policy as evidence only. The frozen
+cohort does not change from one session. The accepted live change still needs a
+manual save. The complete matrix and Phase 4 closeout remain.

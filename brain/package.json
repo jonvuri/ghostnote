@@ -221,6 +221,7 @@
     "probe:4g-managed-fx-chain": "tsx src/probes/phase4g-managed-fx-chain.ts",
     "probe:4h-device-performance": "tsx src/probes/phase4c-direct-parameters.ts && tsx src/probes/phase4e-plugin-parameters.ts && tsx src/probes/phase4f-deep-parameters-and-remotes.ts && tsx src/probes/phase4g-managed-fx-chain.ts && tsx src/probes/phase4b-clip-latency.ts",
     "probe:4i-device-surface": "tsx src/probes/phase4i-device-surface.ts",
+    "probe:4j-dogfood": "tsx src/probes/phase4j-dogfood.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

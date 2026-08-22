@@ -2,7 +2,7 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Session 4i is complete. Session 4j dogfood and closeout is next.
+status: Session 4j dogfood is accepted. Save, final proof, and closeout remain.
 updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -58,8 +58,9 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
    complete. E61 removes the remote-page loop and stabilizes plugin readback.
 12. [4i — device and parameter MCP surface](4i-device-surface.md) — complete.
    E62 records the frozen six-tool cohort and registered MCP proof.
-13. [4j — dogfood and closeout](4j-dogfood-and-closeout.md) — natural use, the
-    complete live matrix, cleanup, evidence audit, and Phase 5 handoff.
+13. [4j — dogfood and closeout](4j-dogfood-and-closeout.md) — dogfood accepted;
+    save, the complete live matrix, cleanup, evidence audit, and Phase 5 handoff
+    remain.
 
 ### Dependency rule
 

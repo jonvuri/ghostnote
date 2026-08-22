@@ -13,7 +13,7 @@ Phase 2, bounded clip performance, the complete parameter-routing core, the
 native device catalog, plugin parameter proof, deep routing, and the managed
 FX-chain workflow, performance gate, and observer-efficiency repair are
 complete. The public device surface is frozen and live. Phase 4 dogfood and
-closeout are next.
+closeout are in progress.
 
 ## Accepted live result
 
@@ -239,11 +239,28 @@ verified, and saved. The post-save 2k baseline passes.
   cleanup, and exact entry-selection restoration passed. E62 records the proof.
 - The old generic plugin wording caused no caller migration. No alias remains.
 
+## Session 4j dogfood result
+
+- The public surface appended Chorus+ and Reverb to `Harmony – Open Minor` and
+  set nine returned DirectParameter ids. The operator asked for a colder, more
+  prominent revision and accepted it after A/B comparison.
+- The accepted top-level chain is `Key Filter+`, `Repro-5`, `Chorus+`, and
+  `Reverb`. Independent inventories confirmed every retained Chorus+ and Reverb
+  value after alternate collapse.
+- The public parameter inventory was sufficient. No device-specific view is
+  needed.
+- E63 records an A/B selection gap. Current descriptions explain alternate
+  mechanics but do not say when subjective revision language should choose an
+  alternate. The operator accepted a candidate intent policy for evidence only.
+- The alternate container was removed with `Revised` as the directed winner.
+  The accepted project change is not yet saved.
+
 ## Next action
 
-Begin [dogfood and closeout](plan/phase-4/4j-dogfood-and-closeout.md). Use the
-registered public surface for one natural sound-design task, record the operator
-verdict, run the complete Phase 4 matrix, and prepare the Phase 5 handoff.
+Save the accepted `Harmony – Open Minor` device chain. Then continue
+[dogfood and closeout](plan/phase-4/4j-dogfood-and-closeout.md): run the complete
+Phase 4 matrix, confirm the saved baseline and cleanup, and prepare the Phase 5
+handoff.
 
 ## Verification
 
