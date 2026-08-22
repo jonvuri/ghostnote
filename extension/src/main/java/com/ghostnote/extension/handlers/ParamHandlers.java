@@ -33,7 +33,7 @@ public final class ParamHandlers extends HandlerGroup {
         r.on("param.set", params -> paramSet(params));
         r.on("param.modulated", params -> paramModulated());
         r.on("param.touch", params -> paramTouch(params));
-        r.on("directparam.list", params -> directParamList());
+        r.on("directparam.list", params -> directParamList(params));
         r.on("directparam.set", params -> directParamSet(params));
         r.on("remote.list", params -> remoteList());
         r.on("remote.set", params -> remoteSet(params));
@@ -69,6 +69,7 @@ public final class ParamHandlers extends HandlerGroup {
                 // beside `value` turns "does modulation survive a relocation" into a
                 // direct comparison on a known parameter.
                 putGuarded(obj, "modulatedValue", () -> p.modulatedValue().get());
+                putGuarded(obj, "hasAutomation", () -> p.hasAutomation().get());
             }
             params.add(obj);
         }
@@ -150,7 +151,10 @@ public final class ParamHandlers extends HandlerGroup {
      * path that reaches CLAP/VST/Bitwig without a typed specific-device.
      * Reads observer-populated maps (E4b).
      */
-    private JsonElement directParamList() {
+    private JsonElement directParamList(JsonObject request) {
+        if (request.has("begin") && request.get("begin").getAsBoolean()) {
+            rig.beginDirectParameterObservation();
+        }
         JsonArray params = new JsonArray();
         for (String id : rig.directParamIds) {
             JsonObject obj = new JsonObject();
@@ -168,6 +172,18 @@ public final class ParamHandlers extends HandlerGroup {
         result.addProperty("count", rig.directParamIds.length);
         result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
         result.addProperty("deviceName", rig.cursorDevice0.name().get());
+        result.addProperty("generation", rig.directParamGeneration);
+        result.addProperty("idsGeneration", rig.directParamIdsGeneration);
+        result.addProperty("trackChannelId", rig.cursorTracks[0].channelId().get());
+        result.addProperty("trackPosition", rig.cursorTracks[0].position().get());
+        result.addProperty("deviceIndex", rig.currentDirectParameterDeviceIndex());
+        if (rig.directParamObservedTrackId != null) {
+            result.addProperty("observedTrackChannelId", rig.directParamObservedTrackId);
+        }
+        if (rig.directParamObservedDeviceName != null) {
+            result.addProperty("observedDeviceName", rig.directParamObservedDeviceName);
+        }
+        result.addProperty("observedDeviceIndex", rig.directParamObservedDeviceIndex);
         return result;
     }
 

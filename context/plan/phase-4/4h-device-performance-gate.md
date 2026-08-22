@@ -4,18 +4,27 @@ kind: plan
 state: planned
 status: Planned after 4g. Measure complete device workflows before the public
         schema freezes.
-updated: 2026-08-21
+updated: 2026-08-22
 parent: README.md
 prev: 4g-managed-fx-chain.md
 next: 4i-device-surface.md
 scope: Device workflow latency, observer cost, and targeted optimization
-evidence: E5, E45, E48, E50 · D7, D10
+evidence: E5, E45, E48, E50, E55 · D7, D10
 ---
 
 # Phase 4, session 4h — device performance gate
 
 > **Purpose.** Explain and reduce repeated software overhead in the completed
 > device workflow before public tool wording makes it harder to change.
+
+## Carry-in
+
+E55 proves that one serialized device cursor is sufficient for correct
+parameter enumeration, write, independent readback, and exact reversal. It does
+not prove that the serialized path is fast enough for real parameter batches.
+Measure complete batch latency before you allocate a wider observer pool. Add
+cursor concurrency only when the serialized cursor is a measured bottleneck and
+each concurrent target can keep the same isolation proof.
 
 ## Scope
 
@@ -59,9 +68,11 @@ evidence: E5, E45, E48, E50 · D7, D10
    and cleanup checks as its baseline.
 5. The session 4b exact-read benchmark has no material regression.
 6. Device progress thresholds and settle budgets cite the new measurements.
-7. The public-surface session is either unblocked or the remaining blocker is
+7. The result records whether the serialized parameter cursor remains sufficient
+   or a measured bottleneck justifies a wider isolated pool.
+8. The public-surface session is either unblocked or the remaining blocker is
    named with a focused successor plan.
-8. Focused tests, the brain check, extension tests, context check, and
+9. Focused tests, the brain check, extension tests, context check, and
    `git diff --check` pass.
 
 ## Retrospective target

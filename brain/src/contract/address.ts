@@ -139,13 +139,16 @@ export interface DeviceAddress {
 export interface ParamAddress {
   readonly kind: 'param';
   readonly device: DeviceAddress;
-  readonly index: number;
   /**
-   * When present this is a DirectParameter id, which is a different API with a
-   * different trap (E4b: `resolution=1` or the write silently does nothing) and
-   * is the only path that works for CLAP plugins.
+   * The primary general key. DirectParameter self-enumerates this id for native,
+   * VST and CLAP devices (E4b).
    */
   readonly directId?: string;
+  /**
+   * A legacy typed-view position. It is present only when a specific device or
+   * plugin view requires a numeric handle.
+   */
+  readonly index?: number;
 }
 
 export type Address =
@@ -271,8 +274,15 @@ export function addressKey(a: Address): AddressKey {
       return `chain:${chainBody(a)}`;
     case 'device':
       return `device:${deviceBody(a)}`;
-    case 'param':
-      return `param:${deviceBody(a.device)}:${a.directId ?? a.index}`;
+    case 'param': {
+      // A DirectParameter id is a string and can contain a numeric value such as
+      // "0". Keep it outside the typed-index namespace before maps deduplicate
+      // write targets and stash entries.
+      const key = a.directId === undefined
+        ? String(a.index)
+        : `direct:${encodeURIComponent(a.directId)}`;
+      return `param:${deviceBody(a.device)}:${key}`;
+    }
   }
 }
 
@@ -392,5 +402,11 @@ export const deviceIn = (c: ChainAddress, chainIndex: number): DeviceAddress => 
   chain: c,
 });
 
-export const param = (d: DeviceAddress, index: number, directId?: string): ParamAddress =>
-  directId === undefined ? { kind: 'param', device: d, index } : { kind: 'param', device: d, index, directId };
+export function param(d: DeviceAddress, directId: string): ParamAddress;
+export function param(d: DeviceAddress, index: number, directId?: string): ParamAddress;
+export function param(d: DeviceAddress, key: number | string, directId?: string): ParamAddress {
+  if (typeof key === 'string') return { kind: 'param', device: d, directId: key };
+  return directId === undefined
+    ? { kind: 'param', device: d, index: key }
+    : { kind: 'param', device: d, index: key, directId };
+}

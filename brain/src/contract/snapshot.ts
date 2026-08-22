@@ -214,6 +214,8 @@ export interface Snapshot {
    * past the project's scene COUNT does not exist and is `missing`.
    */
   readonly unreachable: readonly Address[];
+  /** The target was reachable, but its observer inventory did not settle. */
+  readonly unstable: readonly Address[];
 }
 
 export interface OpReceipt {

@@ -2,9 +2,9 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Clip read and mutation performance are complete. Session 4c direct
-        parameter implementation is next.
-updated: 2026-08-21
+status: DirectParameter core is complete. Session 4d native catalog generation
+        is next.
+updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
 next: ../phase-5/README.md
@@ -40,8 +40,8 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
    complete. E53 classifies scoped note events as a partial wake hint.
 4. [4b follow-up — clip mutation settlement](4b-clip-mutation-settlement.md) —
    complete. E54 bounds writer settlement and complete exact reconciliation.
-5. [4c — direct-parameter core](4c-direct-parameter-core.md) — safe top-level
-   enumeration, read, write, verification, and checkpoint replay.
+5. [4c — direct-parameter core](4c-direct-parameter-core.md) — complete. E55
+   proves safe top-level enumeration, write, independent readback, and replay.
 6. [4d — native device catalog](4d-native-device-catalog.md) — deterministic
    bundle generation, checked-in provenance, and live resolution for the native
    devices this phase uses.

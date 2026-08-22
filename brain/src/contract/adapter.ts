@@ -47,7 +47,7 @@ export interface ResolvedAddress {
    * we looked, we could look, and we found too much. `ChainAddress` names the
    * refusal as an obligation on any resolver; this is where it lands.
    */
-  readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch' | 'unsupported' | 'ambiguous';
+  readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch' | 'unsupported' | 'ambiguous' | 'unstable';
 }
 
 export interface ResolveResult {

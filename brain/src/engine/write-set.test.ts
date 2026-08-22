@@ -50,6 +50,20 @@ test('W-merge: several ops on one clip merge indices on each protected channel',
   assert.ok(targets.every((target) => target.opIndices.join(',') === '0,1,2'));
 });
 
+test('W-param-key: a typed index and a numeric DirectParameter id stay separate', () => {
+  const target = device(T, 0);
+  const typed = param(target, 0);
+  const direct = param(target, '0');
+  const { targets } = writeSetOf([
+    { op: 'param.set', param: typed, value: 0.25 },
+    { op: 'param.set', param: direct, value: 0.75 },
+  ]);
+
+  assert.deepEqual(targets.map((item) => item.address), [typed, direct]);
+  assert.deepEqual(targets.map((item) => item.opIndices), [[0], [1]]);
+  assert.notEqual(targets[0]?.key, targets[1]?.key);
+});
+
 test('W-pessim: a batch that writes notes and then deletes their clip restores BOTH (D16 rev)', () => {
   const { targets } = writeSetOf([
     { op: 'note.write', clip: CLIP, notes: [note] },

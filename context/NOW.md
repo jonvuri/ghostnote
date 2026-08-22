@@ -2,15 +2,15 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-21
+updated: 2026-08-22
 phase: phase-4
-session: 4c-direct-parameter-core
+session: 4d-native-device-catalog
 ---
 
 # Now
 
-Phase 2 and the bounded Phase 4 clip-performance work are complete. Direct
-parameter implementation is next.
+Phase 2, bounded clip performance, and the DirectParameter core are complete.
+Native catalog generation is next.
 
 ## Accepted live result
 
@@ -90,16 +90,34 @@ verified, and saved. The post-save 2k baseline passes.
 - E54 records that fewer controller and page turns saved the time. The sample
   kept four stages and all eight exact bulk page reads.
 
+## Session 4c result
+
+- One serialized device cursor now enumerates, reads, writes, verifies, and
+  replays top-level DirectParameter values.
+- Each acquisition resets its observer generation, confirms a detour and the
+  returned device-bank target, pins both cursors, and requires two equal current-
+  generation inventories.
+- The accepted Sampler exposed 32 named parameters. Pitch Transpose moved from
+  0.5 to 0.55, independent readback agreed, and exact replay restored 0.5.
+- Missing, unreachable, and unstable parameter targets remain separate. A
+  stable device or container remains readable when only parameters are unstable.
+- Silent non-taking writes become failed receipts and executor disagreements.
+  Typed modulation and automation state remain optional warnings.
+- DirectParameter IDs use an escaped canonical-key namespace. Numeric IDs cannot
+  collide with legacy typed parameter indices in a stash or write set.
+
 ## Next action
 
-Run [direct-parameter core](plan/phase-4/4c-direct-parameter-core.md). Keep the
-completed clip settlement and exact-read boundaries intact. Device-specific
-performance remains in session 4h.
+Run [native device catalog](plan/phase-4/4d-native-device-catalog.md). Keep the
+DirectParameter runtime inventory as the general path. Generate typed native
+inputs only for the supported deep cohort.
 
 ## Verification
 
-- Focused settlement and reconciliation tests pass. Full brain check: 670/670
+- Focused parameter, settlement, and reconciliation tests pass. Full brain check: 681/681
   pass, including typecheck. Extension tests pass.
+- The fresh extension handshake and DirectParameter live proof pass. Sampler
+  exposes 32 named parameters and exact base-value replay passes.
 - The controlled read-window probe, complete latency workflow, 128-beat
   long-clip workflow, background cancellation, and final read-only 2k baseline
   pass.
@@ -122,6 +140,8 @@ performance remains in session 4h.
 
 ## Retrospective
 
-Fewer controller and writer-page turns saved the mutation time. The observer
-and exact-read count did not. Keep performance causes explicit. Keep complete
-request acceptance separate from evidence that an earlier stage changed state.
+One serialized parameter cursor is sufficient for correct enumeration, write,
+readback, and reversal. Do not add a wider observer pool without the session 4h
+batch measurement. Keep stable device state separate from unstable parameter
+state. Give heterogeneous address keys explicit namespaces before they enter a
+canonical map.

@@ -232,15 +232,28 @@ export interface TrackState {
 }
 
 export interface ParamState {
-  readonly index: number;
+  /** DirectParameter id, or the typed handle's catalog id. */
+  readonly id: string;
+  /** Present only for a typed specific-device or plugin view. */
+  readonly index?: number;
   readonly name: string;
+  /** Normalized base value, from 0 through 1. */
   readonly value: number;
+  /** Which supplementary fields this reading could observe. */
+  readonly observed: {
+    readonly display: boolean;
+    readonly modulatedValue: boolean;
+    readonly hasAutomation: boolean;
+  };
+  readonly display?: string;
   /**
    * Diverges from `value` exactly when something is modulating the parameter —
    * a base value holding still while this sweeps is the modulation-liveness
    * oracle (E7). Its presence is also a signal that a static write will not hold.
    */
   readonly modulatedValue?: number;
+  /** True when host automation can override the static base-value write. */
+  readonly hasAutomation?: boolean;
 }
 
 export interface DeviceState {

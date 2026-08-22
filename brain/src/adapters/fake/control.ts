@@ -37,6 +37,16 @@ export class TrapControl {
     this.fake.clock.advance(ticks);
   }
 
+  /** Make accepted parameter writes remain unchanged. */
+  setParameterWritesTake(take: boolean): void {
+    this.fake.model.parameterWritesTake = take;
+  }
+
+  /** Return stale observer generations before the next stable inventory. */
+  staleParameterInventories(count: number): void {
+    this.fake.model.staleParameterInventories = count;
+  }
+
   /**
    * A competing writer — the user nudging a clip by hand mid-batch. E8 proved a
    * batch tagged with the old revision then applies ZERO of its ops.

@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-08-21
+updated: 2026-08-22
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E55 | DirectParameter core is live [K] (2026-08-22) | [open](experiments/e55-direct-parameter-core-is-live.md) |
 | E54 | Clip mutation settlement is bounded [K] (2026-08-21) | [open](experiments/e54-clip-mutation-settlement-is-bounded.md) |
 | E53 | Note-step observer is a partial wake hint [K] (2026-08-21) | [open](experiments/e53-note-step-observer-is-a-partial-wake-hint.md) |
 | E52 | Dedicated read window closes the exact-read gate [K] (2026-08-21) | [open](experiments/e52-dedicated-read-window-closes-the-exact-read-gate.md) |

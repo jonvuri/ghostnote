@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4c — direct-parameter core
 kind: plan
-state: planned
-status: Planned after 4b. Build safe top-level enumeration, read, write, and
-        checkpoint replay.
-updated: 2026-08-21
+state: complete
+status: Complete. E55 proves safe top-level enumeration, read, write,
+        independent readback, and exact checkpoint replay.
+updated: 2026-08-22
 parent: README.md
 prev: 4b-clip-operation-latency.md
 next: 4d-native-device-catalog.md
 scope: General top-level DirectParameter contract and live adapter
-evidence: E4, E4b, E7, E18e · D5, D6, D8, D10
+evidence: E4, E4b, E7, E18e, E55 · D5, D6, D8, D10
 ---
 
 # Phase 4, session 4c — direct-parameter core
@@ -88,3 +88,38 @@ parameters. Typed handles remain a supplementary deep path.
 
 Record whether one serialized cursor is sufficient for real parameter batches.
 Do not allocate a wider observer pool without a measured need.
+
+## Result
+
+E55 closes the session. DirectParameter IDs are the primary general keys. The
+contract exposes normalized base values and explicit observation availability.
+Typed indices remain optional. Snapshot reporting separates missing,
+unreachable, and unstable parameter targets.
+
+The live adapter uses one serialized device cursor. It forces an observer
+transition, clears the generation, confirms the target device-bank reply, pins
+the track and device, and requires two equal current-generation inventories.
+Device and container state remain readable when only the parameter observer is
+unstable.
+
+Each write reacquires the parameter before mutation and again for independent
+readback. Direct writes use `resolution=1`. A non-taking write fails its receipt
+and appears as an executor disagreement. Exact replay uses the captured base
+value. Typed modulation and automation state produce warnings when available.
+
+The fake models settlement, stale generations, non-taking writes, and positional
+device re-indexing. The full offline suite passed 679 tests. Full live
+conformance passed 54 cases with six expected skips. Typecheck, extension tests,
+the fresh handshake, the direct live probe, cleanup, and the accepted-project
+baseline passed.
+
+One serialized cursor is sufficient for correctness. This session did not
+measure a need for more cursors. Session 4h owns that performance decision.
+
+## Review follow-up
+
+Review found that a numeric DirectParameter ID could share a canonical key with
+the same typed parameter index. Direct IDs now use an escaped `direct:` key
+namespace. Typed numeric keys keep their prior form. Address and write-set tests
+prove that typed index `0` and DirectParameter ID `"0"` remain separate. The
+full offline suite now passes 681 tests.

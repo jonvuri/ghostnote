@@ -30,7 +30,7 @@ import {
   GAIN_READ_SCALE, addressKey, assertOpsWritable, chain as chainAddress, clip,
   device as deviceAddress, deviceIn as deviceInAddress,
   lookupChain as chainLookup, notes as notesAddress, orderedNoteProps,
-  planStages, scene, slot, stepSizeFor, track, type NoteRecord, type Op,
+  param as paramAddress, planStages, scene, slot, stepSizeFor, track, type NoteRecord, type Op,
 } from '../../contract/index.js';
 import { FakeAdapter } from './adapter.js';
 import { VirtualClock } from './clock.js';
@@ -961,4 +961,62 @@ test('T-ambig: the fake ADAPTER refuses a duplicated chain name, exactly as live
   const snapshot = await adapter.read([target]);
   assert.equal(snapshot.entries[addressKey(target)], undefined);
   assert.deepEqual(snapshot.missing.map(addressKey), [addressKey(target)]);
+});
+
+test('T-direct-param: observer settlement and stale generations are explicit', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.findByChannelId(first.channelId)!.track;
+  const device = {
+    name: 'Polysynth',
+    paramsLive: false,
+    params: Array.from({ length: 12 }, (_, index) => ({
+      id: `P${index + 1}`, name: `Parameter ${index + 1}`, value: index / 12,
+    })),
+  };
+  model.devices.push(device);
+  const address = paramAddress(deviceAddress(track(first.channelId), 0), 'P1');
+
+  const settling = await adapter.read([address]);
+  assert.deepEqual(settling.unstable.map(addressKey), [addressKey(address)]);
+  device.paramsLive = true;
+  adapter.model.staleParameterInventories = 1;
+  const stale = await adapter.read([address]);
+  assert.deepEqual(stale.unstable.map(addressKey), [addressKey(address)]);
+  const stable = await adapter.read([address]);
+  assert.equal(stable.entries[addressKey(address)]?.value.of, 'param');
+  assert.equal(adapter.model.parameterObservationGeneration, 3);
+});
+
+test('T-direct-param: a non-taking write is accepted but leaves exact readback unchanged', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.findByChannelId(first.channelId)!.track;
+  model.devices.push({
+    name: 'Polysynth', paramsLive: true,
+    params: [{ id: 'P1', name: 'Parameter 1', value: 0.25 }],
+  });
+  const address = paramAddress(deviceAddress(track(first.channelId), 0), 'P1');
+  adapter.model.parameterWritesTake = false;
+  await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.75 }] });
+  await adapter.settle('tick');
+  const readback = await adapter.read([address]);
+  const entry = readback.entries[addressKey(address)];
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.value : undefined, 0.25);
+});
+
+test('T-direct-param: device re-indexing invalidates the prior parameter position', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.findByChannelId(first.channelId)!.track;
+  model.devices.push(
+    { name: 'A', paramsLive: true, params: [{ id: 'A1', name: 'A 1', value: 0.1 }] },
+    { name: 'B', paramsLive: true, params: [{ id: 'B1', name: 'B 1', value: 0.2 }] },
+  );
+  const stale = paramAddress(deviceAddress(track(first.channelId), 1), 'B1');
+  assert.equal((await adapter.resolve([stale])).resolved[0]?.found, true);
+  adapter.model.deleteDevice(model, 0);
+  const resolved = (await adapter.resolve([stale])).resolved[0];
+  assert.deepEqual({ found: resolved?.found, reason: resolved?.reason },
+    { found: false, reason: 'absent' });
 });

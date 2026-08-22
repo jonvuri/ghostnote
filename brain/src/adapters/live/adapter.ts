@@ -33,7 +33,7 @@ import {
   lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
-  type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type Op, type ResolveResult, type ResolvedAddress, type RevisionMark,
+  type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type Op, type ParamState, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
@@ -150,6 +150,47 @@ interface ChainSnapshot {
   /** The chain is longer than the device bank window, so this view is partial. */
   readonly blind: boolean;
   readonly bankSize?: number;
+}
+
+interface WireDirectParameter {
+  readonly id?: string;
+  readonly name?: string;
+  readonly value?: number;
+  readonly displayed?: string;
+}
+
+interface WireDirectInventory {
+  readonly params?: readonly WireDirectParameter[];
+  readonly generation?: number;
+  readonly idsGeneration?: number;
+  readonly deviceExists?: boolean;
+  readonly deviceName?: string;
+  readonly deviceIndex?: number;
+  readonly trackChannelId?: string;
+  readonly trackPosition?: number;
+  readonly observedTrackChannelId?: string;
+  readonly observedDeviceName?: string;
+  readonly observedDeviceIndex?: number;
+}
+
+type ParameterInventory =
+  | {
+    readonly standing: 'stable';
+    readonly deviceName: string;
+    readonly params: readonly ParamState[];
+    readonly typed: readonly ParamState[];
+  }
+  | { readonly standing: 'missing' | 'unreachable' }
+  | { readonly standing: 'unstable'; readonly deviceName?: string };
+
+interface DeviceCursorStatus {
+  readonly exists?: boolean;
+  readonly name?: string;
+  readonly isPinned?: boolean;
+  readonly deviceIndex?: number;
+  readonly trackChannelId?: string;
+  readonly trackPosition?: number;
+  readonly cursorTrackPinned?: boolean;
 }
 
 /**
@@ -336,7 +377,7 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
 const borrowsSelection = (op: Op): boolean =>
   op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear'
   || op.op === 'clip.update'
-  || op.op === 'device.insert' || op.op === 'device.delete'
+  || op.op === 'device.insert' || op.op === 'device.delete' || op.op === 'param.set'
   // ⚠ `chain.create` borrows it TWICE over: `containerScope` points cursor 0 at
   // the track before every observation it takes, and the create takes three.
   // ⚠⚠ And the verb's own middle step is a SELECTION — `layer.select` is how
@@ -461,6 +502,8 @@ export class LiveAdapter implements BitwigAdapter {
   private readonly heldClips = new Map<string, AddressKey>();
   /** One armed single-clip wake. Exact bulk readback remains the proof. */
   private pendingNoteWake: NoteWake | undefined;
+  /** One confirmed device cursor is the complete DirectParameter route. */
+  private parameterQueue: Promise<void> = Promise.resolve();
 
   constructor(options: LiveOptions = {}) {
     this.transport = options.transport ?? new BridgeTransport();
@@ -483,6 +526,13 @@ export class LiveAdapter implements BitwigAdapter {
     } finally {
       this.onTiming?.({ phase, elapsedMs: performance.now() - start });
     }
+  }
+
+  /** Serialize work through the one DirectParameter cursor. */
+  private withParameterCursor<T>(work: () => Promise<T>): Promise<T> {
+    const run = this.parameterQueue.then(work, work);
+    this.parameterQueue = run.then(() => undefined, () => undefined);
+    return run;
   }
 
   async hello(): Promise<AdapterInfo> {
@@ -749,6 +799,221 @@ export class LiveAdapter implements BitwigAdapter {
     // allowed; concluding from a half-view is not.
     const blind = typeof res.itemCount === 'number' && res.itemCount > devices.length;
     return { devices, blind, ...(this.deviceBankSize === undefined ? {} : { bankSize: this.deviceBankSize }) };
+  }
+
+  /**
+   * Resolve, point and confirm one top-level device before reading observers.
+   * A generation reset removes every id and value from the prior target.
+   */
+  private parameterInventory(
+    device: DeviceAddress,
+    row: WireTrack,
+  ): Promise<ParameterInventory> {
+    return this.withParameterCursor(async () => {
+      if (device.chain !== undefined) return { standing: 'unreachable' };
+
+      // A generation reset does not make Bitwig repeat DirectParameter ids when
+      // the cursor already holds this device. Detour through another visible
+      // track so the return to the target must produce a new observer sequence.
+      const detour = this.bank.find((candidate) =>
+        candidate.channelId !== device.track.channelId);
+      if (detour !== undefined) {
+        await this.transport.send({
+          method: WIRE.cursorPinTrack,
+          params: { cursor: '0', pinned: false },
+        });
+        await this.transport.send({
+          method: WIRE.deviceCursorPin,
+          params: { pinned: false },
+        });
+        await this.transport.send({
+          method: WIRE.cursorPointTrack,
+          params: { cursor: '0', trackIndex: detour.index },
+        });
+        let detourConfirmed = false;
+        for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+          await this.settle('cursorPoint');
+          const status = await this.transport.send({
+            method: WIRE.deviceCursorStatus,
+          }) as DeviceCursorStatus;
+          detourConfirmed = status.trackChannelId === detour.channelId
+            && status.trackPosition === detour.index;
+          if (detourConfirmed) break;
+        }
+        if (!detourConfirmed) return { standing: 'unstable' };
+        // The parent cursor can report the detour before DirectParameter
+        // observers follow it. Let that observer transition complete too.
+        await this.settle('paramsLive');
+      }
+
+      const begun = await this.transport.send({
+        method: WIRE.directParamList,
+        params: { begin: true },
+      }) as WireDirectInventory;
+      if (!Number.isInteger(begun.generation)) return { standing: 'unstable' };
+      const generation = begun.generation!;
+
+      await this.transport.send({
+        method: WIRE.cursorPinTrack,
+        params: { cursor: '0', pinned: false },
+      });
+      await this.transport.send({
+        method: WIRE.deviceCursorPin,
+        params: { pinned: false },
+      });
+      await this.transport.send({
+        method: WIRE.cursorPointTrack,
+        params: { cursor: '0', trackIndex: row.index },
+      });
+      type ParameterDeviceList = {
+        readonly devices?: readonly WireDevice[];
+        readonly itemCount?: number;
+        readonly trackChannelId?: string;
+      };
+      let chain: ParameterDeviceList | undefined;
+      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+        await this.settle('cursorPoint');
+        const observed = await this.transport.send({
+          method: WIRE.deviceList,
+          params: { cursor: '0' },
+        }) as ParameterDeviceList;
+        if (observed.trackChannelId === device.track.channelId) {
+          chain = observed;
+          break;
+        }
+      }
+      if (chain === undefined) return { standing: 'unstable' };
+      const devices = chain.devices ?? [];
+      const target = devices.find((item) => item.index === device.chainIndex);
+      if (target === undefined) {
+        const blind = typeof chain.itemCount === 'number' && chain.itemCount > devices.length;
+        return { standing: blind ? 'unreachable' : 'missing' };
+      }
+
+      await this.transport.send({
+        method: WIRE.deviceCursorSelectAt,
+        params: { deviceIndex: device.chainIndex },
+      });
+      await this.transport.send({
+        method: WIRE.cursorPinTrack,
+        params: { cursor: '0', pinned: true },
+      });
+      await this.transport.send({
+        method: WIRE.deviceCursorPin,
+        params: { pinned: true },
+      });
+
+      let confirmed = false;
+      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+        await this.settle('cursorPoint');
+        const status = await this.transport.send({
+          method: WIRE.deviceCursorStatus,
+        }) as DeviceCursorStatus;
+        confirmed = status.exists === true
+          && status.name === target.name
+          && status.deviceIndex === device.chainIndex
+          && status.trackChannelId === device.track.channelId
+          && status.trackPosition === row.index
+          && status.isPinned === true
+          && status.cursorTrackPinned === true;
+        if (confirmed) break;
+      }
+      if (!confirmed) return { standing: 'unstable', deviceName: target.name };
+
+      // DirectParameter observers can follow the device cursor more slowly than
+      // its identity fields. Give them the measured live budget before polling.
+      await this.settle('paramsLive');
+
+      let prior: string | undefined;
+      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+        const observed = await this.transport.send({
+          method: WIRE.directParamList,
+          params: { generation },
+        }) as WireDirectInventory;
+        const rows = observed.params ?? [];
+        const complete = observed.generation === generation
+          && observed.idsGeneration === generation
+          && observed.deviceExists === true
+          && observed.deviceName === target.name
+          && observed.deviceIndex === device.chainIndex
+          && observed.trackChannelId === device.track.channelId
+          && observed.trackPosition === row.index
+          && observed.observedTrackChannelId === device.track.channelId
+          && observed.observedDeviceName === target.name
+          && (observed.observedDeviceIndex === undefined
+            || observed.observedDeviceIndex < 0
+            || observed.observedDeviceIndex === device.chainIndex)
+          && new Set(rows.map((item) => item.id)).size === rows.length
+          && rows.every((item) => typeof item.id === 'string'
+            && typeof item.name === 'string'
+            && typeof item.value === 'number'
+            && Number.isFinite(item.value)
+            && item.value >= 0
+            && item.value <= 1);
+        if (complete) {
+          const params = rows.map((item): ParamState => ({
+            id: item.id!,
+            name: item.name!,
+            value: item.value!,
+            observed: {
+              display: typeof item.displayed === 'string',
+              modulatedValue: false,
+              hasAutomation: false,
+            },
+            ...(typeof item.displayed === 'string' ? { display: item.displayed } : {}),
+          }));
+          const signature = JSON.stringify(params);
+          if (signature === prior) {
+            const typedReply = await this.transport.send({ method: WIRE.paramList }) as {
+              readonly params?: readonly {
+                readonly id?: string;
+                readonly exists?: boolean;
+                readonly name?: string;
+                readonly value?: number;
+                readonly displayed?: string;
+                readonly modulatedValue?: number;
+                readonly hasAutomation?: boolean;
+              }[];
+            };
+            const typed = (typedReply.params ?? []).flatMap((item, index): ParamState[] => {
+              if (item.exists !== true || typeof item.id !== 'string'
+                  || typeof item.name !== 'string' || typeof item.value !== 'number') return [];
+              return [{
+                id: item.id,
+                index,
+                name: item.name,
+                value: item.value,
+                observed: {
+                  display: typeof item.displayed === 'string',
+                  modulatedValue: typeof item.modulatedValue === 'number',
+                  hasAutomation: typeof item.hasAutomation === 'boolean',
+                },
+                ...(typeof item.displayed === 'string' ? { display: item.displayed } : {}),
+                ...(typeof item.modulatedValue === 'number'
+                  ? { modulatedValue: item.modulatedValue } : {}),
+                ...(typeof item.hasAutomation === 'boolean'
+                  ? { hasAutomation: item.hasAutomation } : {}),
+              }];
+            });
+            return { standing: 'stable', deviceName: target.name, params, typed };
+          }
+          prior = signature;
+        } else {
+          prior = undefined;
+        }
+        await this.settle('cursorPoint');
+      }
+      return { standing: 'unstable', deviceName: target.name };
+    });
+  }
+
+  private parameterState(
+    address: import('../../contract/index.js').ParamAddress,
+    inventory: Extract<ParameterInventory, { standing: 'stable' }>,
+  ): ParamState | undefined {
+    return address.directId !== undefined
+      ? inventory.params.find((item) => item.id === address.directId)
+      : inventory.typed.find((item) => item.index === address.index);
   }
 
   /**
@@ -1455,9 +1720,7 @@ export class LiveAdapter implements BitwigAdapter {
         // ⚠ The track bank resolves only the durable ANCHOR, and a chain-family
         // address is not resolved until its whole path has been walked. Marked
         // for the second pass rather than answered here.
-        if (address.kind === 'chain'
-          || (address.kind === 'device' && address.chain !== undefined)
-          || (address.kind === 'param' && address.device.chain !== undefined)) {
+        if (address.kind === 'chain' || address.kind === 'device' || address.kind === 'param') {
           return WALK;
         }
         return { address, found: true, index };
@@ -1482,6 +1745,36 @@ export class LiveAdapter implements BitwigAdapter {
         continue;
       }
       const trackRef = addressTrack(address)!;
+      if (address.kind === 'device' && address.chain === undefined) {
+        const chain = await this.deviceChain(trackRef);
+        const found = chain?.devices.find((item) => item.index === address.chainIndex);
+        resolved.push(found !== undefined
+          ? { address, found: true, index: found.index }
+          : { address, found: false, reason: chain?.blind
+            ? 'outside-bank-window' : 'absent' });
+        continue;
+      }
+      if (address.kind === 'param' && address.device.chain === undefined) {
+        const row = this.bank.find((item) => item.channelId === trackRef.channelId);
+        if (row === undefined) {
+          resolved.push({ address, found: false, reason: 'absent' });
+          continue;
+        }
+        const inventory = await this.parameterInventory(address.device, row);
+        if (inventory.standing !== 'stable') {
+          resolved.push({
+            address,
+            found: false,
+            reason: inventory.standing === 'missing' ? 'absent'
+              : inventory.standing === 'unreachable' ? 'outside-bank-window' : 'unstable',
+          });
+          continue;
+        }
+        resolved.push(this.parameterState(address, inventory) === undefined
+          ? { address, found: false, reason: 'absent' }
+          : { address, found: true, index: address.device.chainIndex });
+        continue;
+      }
       // ⚠ `resolveNested` is the only thing that may answer `found` for a
       // chain-family address, and it is shared, line for line, with the fake.
       resolved.push(await this.resolveNested(address, trackRef)
@@ -1494,6 +1787,7 @@ export class LiveAdapter implements BitwigAdapter {
     const entries: Record<string, StateEntry> = {};
     const missing: Address[] = [];
     const unreachable: Address[] = [];
+    const unstable: Address[] = [];
     // ⚠ Before the read, and it is the mark the snapshot carries — see `resolve`.
     // A stash is the thing a reversal later asks "what has happened since?", so
     // the window it opens has to START no later than the read it describes.
@@ -1509,7 +1803,8 @@ export class LiveAdapter implements BitwigAdapter {
     // not be pointed at in any case (E2).
     const selection = await this.beginSelectionBorrow(sel.some((a) =>
       a.kind === 'notes' || a.kind === 'clip' || a.kind === 'slot'
-      || a.kind === 'clipLaunch' || a.kind === 'clipPlay' || a.kind === 'clipMetadata'));
+      || a.kind === 'clipLaunch' || a.kind === 'clipPlay' || a.kind === 'clipMetadata'
+      || a.kind === 'device' || a.kind === 'param'));
     // Where each pool cursor is actually pointed, so the common shape — a clip
     // target and its notes target, side by side in one write-set — costs one
     // point and one settle rather than two.
@@ -1526,6 +1821,7 @@ export class LiveAdapter implements BitwigAdapter {
     // result for this snapshot so 16 channel addresses cost two grid changes,
     // not 32 grid changes and 32 waits.
     const noteReads = new Map<AddressKey, Promise<ClipNoteChannels>>();
+    const parameterReads = new Map<AddressKey, Promise<ParameterInventory>>();
 
     for (const address of sel) {
       const sceneRef = addressScene(address);
@@ -1557,13 +1853,14 @@ export class LiveAdapter implements BitwigAdapter {
         else missing.push(address);
         continue;
       }
-      const entry = await this.readOne(address, row, pointedAt, noteReads);
+      const entry = await this.readOne(address, row, pointedAt, noteReads, parameterReads);
       // ⚠ A chain-family address whose container has no observable scope is
       // UNREACHABLE, not missing — the same E5 distinction the track bank makes
       // one level up. The layer banks are init-allocated and narrow (D7), so
       // "there is no container scope at that position" is a fact about our
       // reach and never about the music.
       if (entry === 'unreachable') unreachable.push(address);
+      else if (entry === 'unstable') unstable.push(address);
       else if (entry === undefined) missing.push(address);
       else entries[addressKey(address)] = entry;
     }
@@ -1572,7 +1869,7 @@ export class LiveAdapter implements BitwigAdapter {
     // clip selection. Restoring it is what Phase 1 owes.
     await this.restoreSelection(selection);
 
-    return { contract: CONTRACT_TAG, at, entries, missing, unreachable };
+    return { contract: CONTRACT_TAG, at, entries, missing, unreachable, unstable };
   }
 
   /**
@@ -1906,7 +2203,8 @@ export class LiveAdapter implements BitwigAdapter {
     row: WireTrack | undefined,
     pointedAt: Map<string, AddressKey>,
     noteReads: Map<AddressKey, Promise<ClipNoteChannels>>,
-  ): Promise<StateEntry | 'unreachable' | undefined> {
+    parameterReads: Map<AddressKey, Promise<ParameterInventory>>,
+  ): Promise<StateEntry | 'unreachable' | 'unstable' | undefined> {
     switch (address.kind) {
       case 'track':
         return row === undefined ? undefined : {
@@ -2132,20 +2430,37 @@ export class LiveAdapter implements BitwigAdapter {
             }
             : undefined;
         }
-        // ⚠⚠ A TOP-LEVEL device answers with its container structure when it has
-        // an observable scope — and this is the bootstrap, not a bonus. A chain
-        // is addressed by NAME, so something has to be able to say what the
-        // names are, and a chain has no address of its own to be enumerated by.
-        // Its container has one. Beyond the scopes the answer is `unreachable`,
-        // which is the honest half of the same fact.
-        //
-        // ⚠ Parameters are still absent here: reading them needs the
-        // device-cursor apparatus, which is Phase-4 work. `params` is optional
-        // precisely so this entry can be silent about them instead of shipping
-        // an empty list that reads as "no controls".
+        const key = addressKey(address);
+        let reading = parameterReads.get(key);
+        if (reading === undefined) {
+          reading = this.parameterInventory(address, row);
+          parameterReads.set(key, reading);
+        }
+        const inventory = await reading;
+        if (inventory.standing !== 'stable') {
+          // A device-bank observation can be stable while its separate
+          // DirectParameter observer is not. Keep the device and any container
+          // inventory readable. Only a parameter address is unstable here.
+          if (inventory.standing === 'unstable' && inventory.deviceName !== undefined) {
+            const scope = await this.containerScope(address.track, address.chainIndex);
+            return {
+              address,
+              fidelity: 'none',
+              value: {
+                of: 'device',
+                device: {
+                  chainIndex: address.chainIndex,
+                  name: inventory.deviceName,
+                  ...(scope.ok ? { container: scope.container } : {}),
+                },
+              },
+            };
+          }
+          if (inventory.standing !== 'missing') return inventory.standing;
+          const absentScope = await this.containerScope(address.track, address.chainIndex);
+          return absentScope.ok || absentScope.miss === 'absent' ? undefined : 'unreachable';
+        }
         const scope = await this.containerScope(address.track, address.chainIndex);
-        if (!scope.ok) return scope.miss === 'absent' ? undefined : 'unreachable';
-        if (scope.deviceName === undefined) return undefined;
         return {
           address,
           fidelity: 'none',
@@ -2153,19 +2468,33 @@ export class LiveAdapter implements BitwigAdapter {
             of: 'device',
             device: {
               chainIndex: address.chainIndex,
-              name: scope.deviceName,
-              container: scope.container,
+              name: inventory.deviceName,
+              params: inventory.params,
+              ...(scope.ok ? { container: scope.container } : {}),
             },
           },
         };
       }
 
-      case 'param':
+      case 'param': {
+        if (row === undefined || address.device.chain !== undefined) return undefined;
+        const key = addressKey(address.device);
+        let reading = parameterReads.get(key);
+        if (reading === undefined) {
+          reading = this.parameterInventory(address.device, row);
+          parameterReads.set(key, reading);
+        }
+        const inventory = await reading;
+        if (inventory.standing !== 'stable') {
+          return inventory.standing === 'missing' ? undefined : inventory.standing;
+        }
+        const found = address.directId !== undefined
+          ? inventory.params.find((item) => item.id === address.directId)
+          : inventory.typed.find((item) => item.index === address.index);
+        if (found === undefined) return undefined;
+        return { address, fidelity: 'exact', value: { of: 'param', param: found } };
+      }
       case 'scene':
-        // Param READS need the device-cursor apparatus, which is Phase-4 work.
-        // Writing them already works; reading them back does not, so v0 reports
-        // them missing rather than inventing a value — and a param inside a
-        // chain is refused before it gets here in any case.
         return undefined;
     }
   }
@@ -2875,6 +3204,32 @@ export class LiveAdapter implements BitwigAdapter {
         throw error;
       }
 
+      const parameterOp = stage.ops.length === 1 && stage.ops[0]?.op === 'param.set'
+        ? stage.ops[0]
+        : undefined;
+      let parameterBefore: Extract<ParameterInventory, { standing: 'stable' }> | undefined;
+      if (parameterOp !== undefined) {
+        const row = this.bank.find((item) =>
+          item.channelId === parameterOp.param.device.track.channelId);
+        if (row === undefined) {
+          await this.restoreSelection(selection);
+          throw new AddressUnresolvedError(parameterOp.param, 'the parameter track is not visible');
+        }
+        const inventory = await this.parameterInventory(parameterOp.param.device, row);
+        if (inventory.standing !== 'stable') {
+          await this.restoreSelection(selection);
+          throw new AddressUnresolvedError(
+            parameterOp.param,
+            `the parameter inventory is ${inventory.standing}`,
+          );
+        }
+        if (this.parameterState(parameterOp.param, inventory) === undefined) {
+          await this.restoreSelection(selection);
+          throw new AddressUnresolvedError(parameterOp.param, 'the parameter id is not in the stable inventory');
+        }
+        parameterBefore = inventory;
+      }
+
       let result: BatchRunResult;
       try {
         result = await this.sendStage(stage.ops, guard, writerViews, stage.writerPageStart);
@@ -2921,6 +3276,32 @@ export class LiveAdapter implements BitwigAdapter {
       guard = result.revision;
 
       if (stage.settle !== undefined) await this.settle(stage.settle);
+
+      if (parameterOp !== undefined && parameterBefore !== undefined
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const row = this.bank.find((item) =>
+          item.channelId === parameterOp.param.device.track.channelId);
+        const after = row === undefined
+          ? { standing: 'missing' as const }
+          : await this.parameterInventory(parameterOp.param.device, row);
+        const state = after.standing === 'stable'
+          ? this.parameterState(parameterOp.param, after)
+          : undefined;
+        const sameTarget = after.standing === 'stable'
+          && after.deviceName === parameterBefore.deviceName;
+        if (!sameTarget || state === undefined || Math.abs(state.value - parameterOp.value) > 2e-3) {
+          const readback = state?.value;
+          const why = after.standing === 'stable'
+            ? `parameter readback disagreed: requested ${parameterOp.value}, got ${readback ?? 'missing'}`
+            : `parameter readback was ${after.standing}`;
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            (entry.op === WIRE.directParamSet || entry.op === WIRE.paramSet
+              || entry.op === 'param.set')
+              ? { ...entry, ok: false, error: why }
+              : entry);
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
+        }
+      }
 
       // ⚠ AFTER the settle and BEFORE `pool.invalidate()`. `deviceInsert` is the
       // slowest budget measured (600ms, E3) precisely because the device is not

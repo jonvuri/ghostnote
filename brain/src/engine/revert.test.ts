@@ -68,6 +68,7 @@ function stashOf(entries: readonly StateEntry[], unreachable: Snapshot['unreacha
     entries: Object.fromEntries(expanded.map((e) => [addressKey(e.address), e])),
     missing: [],
     unreachable: expandedUnreachable,
+    unstable: [],
   };
 }
 

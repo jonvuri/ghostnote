@@ -3,11 +3,9 @@
  * nothing that already existed.
  *
  * `addressKey` is the canonical form the stash indexes by, the write-set diffs
- * on, and the partial-revert slice matches prefixes against — so a grammar change
- * that shifted an existing key would silently orphan every stashed entry a
- * running session holds, and a revert would report success having restored a key
- * nobody wrote. The golden strings below are that guarantee, written out in full
- * rather than derived, because a derived expectation changes when the code does.
+ * on, and the partial-revert slice matches prefixes against. The golden strings
+ * below keep existing keys stable. Session 4c gives DirectParameter ids their
+ * own escaped namespace so they cannot collide with typed numeric indices.
  *
  * The other half is the seam: a device inside a layer chain is NAMEABLE here and
  * not yet routable on any wire (E17/E18 measured the routes as probe surface
@@ -27,11 +25,10 @@ import {
 const TRACK = track('cid-1');
 const ROW = scene(2, 7);
 
-// --- the keys that already existed --------------------------------------------
+// --- stable keys and the DirectParameter namespace -----------------------------
 
-test('A-key: every pre-nesting address keys exactly as it always has', () => {
-  // ⚠ Written out, not computed. This case exists to fail if the grammar moves,
-  // so it must not be able to move with it.
+test('A-key: the canonical address grammar is explicit', () => {
+  // ⚠ Written out, not computed. This case catches unintended grammar changes.
   assert.equal(addressKey(TRACK), 'track:cid-1');
   assert.equal(addressKey(ROW), 'scene:2@7');
   assert.equal(addressKey(slot(TRACK, ROW)), 'slot:cid-1:2@7');
@@ -46,7 +43,24 @@ test('A-key: every pre-nesting address keys exactly as it always has', () => {
   );
   assert.equal(addressKey(device(TRACK, 4)), 'device:cid-1:4');
   assert.equal(addressKey(param(device(TRACK, 4), 9)), 'param:cid-1:4:9');
-  assert.equal(addressKey(param(device(TRACK, 4), 9, 'direct-id')), 'param:cid-1:4:direct-id');
+  assert.equal(
+    addressKey(param(device(TRACK, 4), 9, 'direct-id')),
+    'param:cid-1:4:direct:direct-id',
+  );
+});
+
+test('A-key: typed indices and DirectParameter ids have separate namespaces', () => {
+  const target = device(TRACK, 4);
+  const typed = param(target, 0);
+  const direct = param(target, '0');
+
+  assert.equal(addressKey(typed), 'param:cid-1:4:0');
+  assert.equal(addressKey(direct), 'param:cid-1:4:direct:0');
+  assert.notEqual(addressKey(typed), addressKey(direct));
+  assert.equal(
+    addressKey(param(target, 'group:id/0')),
+    'param:cid-1:4:direct:group%3Aid%2F0',
+  );
 });
 
 test('A-key: a top-level device key holds no nesting separator at all', () => {

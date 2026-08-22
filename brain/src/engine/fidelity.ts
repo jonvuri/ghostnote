@@ -194,8 +194,23 @@ function valueCaveats(value: StateValue): string[] {
         + '(e17ak creates only by duplication; e17al/e17am exhaust delete), so this entry '
         + 'records the chain and its devices and restores neither'];
     case 'track':
-    case 'param':
       return [];
+    case 'param': {
+      const warnings: string[] = [];
+      if (value.param.observed.modulatedValue
+          && value.param.modulatedValue !== undefined
+          && Math.abs(value.param.modulatedValue - value.param.value) > 1e-9) {
+        warnings.push(
+          'the typed handle observed modulation, so the captured base value is not the value heard',
+        );
+      }
+      if (value.param.observed.hasAutomation && value.param.hasAutomation === true) {
+        warnings.push(
+          'the typed handle observed automation, so host automation can override a static base-value write',
+        );
+      }
+      return warnings;
+    }
   }
 }
 

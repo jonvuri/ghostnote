@@ -218,6 +218,13 @@ public class Rig {
     public final java.util.Map<String, String> directParamNames = new java.util.LinkedHashMap<>();
     public final java.util.Map<String, Double> directParamValues = new java.util.LinkedHashMap<>();
     public final java.util.Map<String, String> directParamDisplays = new java.util.LinkedHashMap<>();
+    /** Generation reset before each serialized device-cursor acquisition. */
+    public long directParamGeneration = 0;
+    /** Generation in which the id observer last delivered a complete list. */
+    public long directParamIdsGeneration = -1;
+    public String directParamObservedTrackId = null;
+    public String directParamObservedDeviceName = null;
+    public int directParamObservedDeviceIndex = -1;
 
     // --- E16: mixer state + the audibility oracle ---
     /**
@@ -1101,6 +1108,7 @@ public class Rig {
             param.value().markInterested();
             param.value().displayedValue().markInterested();
             param.modulatedValue().markInterested(); // E7: post-modulation value
+            param.hasAutomation().markInterested();
             paramIds[p] = id;
             polysynthParams0[p] = param;
         }
@@ -1117,6 +1125,15 @@ public class Rig {
         if (config.directObservers) {
             cursorDevice0.addDirectParameterIdObserver(ids -> {
                 directParamIds = ids != null ? ids : new String[0];
+                java.util.Set<String> current = new java.util.HashSet<>(
+                    java.util.Arrays.asList(directParamIds));
+                directParamNames.keySet().retainAll(current);
+                directParamValues.keySet().retainAll(current);
+                directParamDisplays.keySet().retainAll(current);
+                directParamIdsGeneration = directParamGeneration;
+                directParamObservedTrackId = cursorTracks[0].channelId().get();
+                directParamObservedDeviceName = cursorDevice0.name().get();
+                directParamObservedDeviceIndex = currentDirectParameterDeviceIndex();
             });
             cursorDevice0.addDirectParameterNameObserver(48, (id, name) -> {
                 directParamNames.put(id, name);
@@ -1135,6 +1152,36 @@ public class Rig {
         equalsStatus = buildEqualsProbes();
 
         constructNanos = System.nanoTime() - start;
+    }
+
+    /** Clear all state that can belong to the prior cursor target. */
+    public long beginDirectParameterObservation() {
+        directParamGeneration++;
+        directParamIdsGeneration = -1;
+        directParamIds = new String[0];
+        directParamNames.clear();
+        directParamValues.clear();
+        directParamDisplays.clear();
+        directParamObservedTrackId = null;
+        directParamObservedDeviceName = null;
+        directParamObservedDeviceIndex = -1;
+        return directParamGeneration;
+    }
+
+    /** Current top-level bank position of the device cursor, or -1. */
+    public int currentDirectParameterDeviceIndex() {
+        int found = -1;
+        for (int d = 0; d < config.deviceBank; d++) {
+            var equal = equalsProbes.get("dev0=chain" + d);
+            if (equal == null || !equal.get()) {
+                continue;
+            }
+            if (found >= 0) {
+                return -1;
+            }
+            found = d;
+        }
+        return found;
     }
 
     /**

@@ -50,7 +50,7 @@ test('S-stage: a settling op never shares with the instant ops around it', () =>
     ['device.insert'],
     ['param.set'],
   ]);
-  assert.deepEqual(stages.map((s) => s.settle), [undefined, 'deviceInsert', undefined]);
+  assert.deepEqual(stages.map((s) => s.settle), [undefined, 'deviceInsert', 'tick']);
 });
 
 test('S-order: caller order is never rearranged', () => {

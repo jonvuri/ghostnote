@@ -2,9 +2,9 @@
 title: Devices — type UUIDs, parameters and observables
 kind: capability
 state: active
-updated: 2026-08-15
+updated: 2026-08-22
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l; D2; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55; D2; reference/BitX
 ---
 
 # Devices
@@ -90,6 +90,21 @@ therefore carries one view per device type you support deeply [K, E4].
 ⚠ **Pin the track cursor, not the device cursor.** A device cursor's `isPinned`
 is subordinate to its track cursor, so the robust hold is a pinned track cursor
 plus `selectDevice(index)` [K, E4].
+
+### Product DirectParameter route
+
+The product serializes DirectParameter work through one device cursor. Each
+generation detours through another confirmed track before it clears prior IDs
+and values. The return confirms the target device-bank track, device position,
+device name, track pin, and device pin. Two equal consecutive inventories must
+agree in the current generation [K,
+[E55](../experiments/e55-direct-parameter-core-is-live.md)].
+
+The live Sampler returned 32 unique named parameters. `Pitch Transpose` moved
+from `0.5` to `0.55`, independent readback agreed, and exact replay restored
+`0.5` [K, E55]. Missing, unreachable, and unstable results stay separate. A
+stable device or container remains readable without `params` when only the
+parameter observer is unstable [K, E55].
 
 ### `SpecificBitwigDevice` is a two-method interface
 
@@ -251,6 +266,7 @@ is measured [carried forward, session 3f].
 
 | Date | Change |
 |---|---|
+| 2026-08-22 | E55 adds the confirmed serialized DirectParameter acquisition, write, readback, and replay boundary. |
 | 2026-08-15 | Page created. It supersedes the *reading* of E4's "CLAP direct params are not accessible", which E4b already overturned in place. |
 | 2026-08-15 | Corrected the marked-observable set: `hasLayers()` is marked too, and the `DeviceLayer` surface is far wider than the `Device` one. §4. |
 | 2026-08-15 | Every API declaration re-anchored from the third-party `BitwigAPI25.txt` dump to the `extension-api:25:sources` jar resolved from `maven.bitwig.com`. `Device` is 81 declarations / 43 live, not "~84". §2, §4. |

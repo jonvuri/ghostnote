@@ -20,7 +20,7 @@ import {
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter,
   type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
   type Op, type OpReceipt, type ResolveResult,
-  type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
+  type ParamState, type ResolvedAddress, type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
   type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { INSTRUMENT_LAYER_SEED_BASENAME } from '../../device-alternates/assets.js';
@@ -45,6 +45,34 @@ const clipMetadataState = (slot: import('./model.js').FakeSlot): ClipMetadataSta
   loopStartBeats: slot.loopStartBeats,
   loopEndBeats: slot.loopStartBeats + slot.lengthBeats,
 });
+
+function fakeParamState(
+  param: FakeDevice['params'][number],
+  index: number,
+  typed: boolean,
+): ParamState {
+  const observed = {
+    display: param.display !== undefined,
+    modulatedValue: param.modulatedValue !== undefined,
+    hasAutomation: param.hasAutomation !== undefined,
+  };
+  return {
+    id: param.id ?? `param-${index}`,
+    ...(typed ? { index } : {}),
+    name: param.name,
+    value: param.value,
+    observed,
+    ...(param.display === undefined ? {} : { display: param.display }),
+    ...(param.modulatedValue === undefined ? {} : { modulatedValue: param.modulatedValue }),
+    ...(param.hasAutomation === undefined ? {} : { hasAutomation: param.hasAutomation }),
+  };
+}
+
+function consumeStaleParameterInventory(model: ProjectModel): boolean {
+  if (model.staleParameterInventories <= 0) return false;
+  model.staleParameterInventories--;
+  return true;
+}
 
 export interface FakeOptions {
   /** Tracks to start with, by name. All Instrument type. */
@@ -192,6 +220,32 @@ export class FakeAdapter implements BitwigAdapter {
         // hanging off it. Every chain-family address is walked to the end
         // through the container scopes, or refused with the reason that says
         // which of the four things happened — see `resolveNested`.
+        if (address.kind === 'device' && address.chain === undefined) {
+          if (address.chainIndex >= this.model.deviceBankSize) {
+            return { address, found: false, reason: 'outside-bank-window' as const };
+          }
+          return hit.track.devices[address.chainIndex] === undefined
+            ? { address, found: false, reason: 'absent' as const }
+            : { address, found: true, index: address.chainIndex };
+        }
+        if (address.kind === 'param' && address.device.chain === undefined) {
+          const device = hit.track.devices[address.device.chainIndex];
+          if (address.device.chainIndex >= this.model.deviceBankSize) {
+            return { address, found: false, reason: 'outside-bank-window' as const };
+          }
+          if (device === undefined) return { address, found: false, reason: 'absent' as const };
+          this.model.parameterObservationGeneration++;
+          if (!device.paramsLive || consumeStaleParameterInventory(this.model)) {
+            return { address, found: false, reason: 'unstable' as const };
+          }
+          const found = address.directId !== undefined
+            ? device.params.some((item, at) =>
+              (item.id ?? `param-${at}`) === address.directId)
+            : address.index !== undefined && device.params[address.index] !== undefined;
+          return found
+            ? { address, found: true, index: address.device.chainIndex }
+            : { address, found: false, reason: 'absent' as const };
+        }
         if (address.kind === 'chain' || address.kind === 'device' || address.kind === 'param') {
           const nested = this.resolveNested(address, hit.track);
           if (nested !== undefined) return nested;
@@ -279,6 +333,8 @@ export class FakeAdapter implements BitwigAdapter {
     const entries: Record<string, StateEntry> = {};
     const missing: Address[] = [];
     const unreachable: Address[] = [];
+    const unstable: Address[] = [];
+    const parameterReads = new Map<string, readonly ParamState[] | 'unstable'>();
 
     for (const address of sel) {
       const sceneRef = addressScene(address);
@@ -302,23 +358,25 @@ export class FakeAdapter implements BitwigAdapter {
         else missing.push(address);
         continue;
       }
-      const entry = this.readOne(address, hit?.track, hit?.index ?? -1);
+      const entry = this.readOne(address, hit?.track, hit?.index ?? -1, parameterReads);
       // ⚠ Same three-way answer the live adapter gives: an entry, "nothing is
       // there" (missing), or "we could not look" (unreachable). The third one is
       // what a chain-family address gets when its container has no scope.
       if (entry === 'unreachable') unreachable.push(address);
+      else if (entry === 'unstable') unstable.push(address);
       else if (entry === undefined) missing.push(address);
       else entries[addressKey(address)] = entry;
     }
 
-    return { contract: CONTRACT_TAG, at: this.mark(), entries, missing, unreachable };
+    return { contract: CONTRACT_TAG, at: this.mark(), entries, missing, unreachable, unstable };
   }
 
   private readOne(
     address: Address,
     track: FakeTrack | undefined,
     index: number,
-  ): StateEntry | 'unreachable' | undefined {
+    parameterReads: Map<string, readonly ParamState[] | 'unstable'>,
+  ): StateEntry | 'unreachable' | 'unstable' | undefined {
     switch (address.kind) {
       case 'track':
         return track === undefined ? undefined : {
@@ -449,10 +507,21 @@ export class FakeAdapter implements BitwigAdapter {
         // `containerScopes` positions and nowhere else. A fake that answered
         // here would certify a read live Bitwig has no route for, which is
         // PHASE-0 §Risks' named failure mode pointed the wrong way.
-        const observed = this.model.observeContainer(track, address.chainIndex);
-        if (observed === undefined) return 'unreachable';
         const dev = track.devices[address.chainIndex];
-        if (dev === undefined) return undefined;
+        if (dev === undefined) {
+          return address.chainIndex >= this.model.containerScopes ? 'unreachable' : undefined;
+        }
+        const key = addressKey(address);
+        let params = parameterReads.get(key);
+        if (params === undefined) {
+          this.model.parameterObservationGeneration++;
+          params = !dev.paramsLive || consumeStaleParameterInventory(this.model)
+            ? 'unstable'
+            : dev.params.map((item, at) => fakeParamState(item, at, false));
+          parameterReads.set(key, params);
+        }
+        if (params === 'unstable') return 'unstable';
+        const observed = this.model.observeContainer(track, address.chainIndex);
         return {
           address,
           fidelity: 'none',
@@ -461,11 +530,11 @@ export class FakeAdapter implements BitwigAdapter {
             device: {
               chainIndex: address.chainIndex,
               name: dev.name,
-              params: dev.params.map((p, i) => ({ index: i, name: p.name, value: p.value })),
+              params,
               // ⚠ The bootstrap: a container's read is how anything ever learns
               // what its chains are CALLED, because a chain is addressed by name
               // and has no address of its own to be enumerated by.
-              container: observed,
+              ...(observed === undefined ? {} : { container: observed }),
             },
           },
         };
@@ -475,11 +544,25 @@ export class FakeAdapter implements BitwigAdapter {
         // off a list this model does not have.
         if (address.device.chain !== undefined) return undefined;
         const dev = track?.devices[address.device.chainIndex];
-        const p = dev?.params[address.index];
-        if (dev === undefined || p === undefined) return undefined;
-        // ⚠ E4: parameters are not readable until ~194ms AFTER the insert lands.
-        if (!dev.paramsLive) return undefined;
-        return { address, fidelity: 'exact', value: { of: 'param', param: { index: address.index, name: p.name, value: p.value } } };
+        if (dev === undefined) return undefined;
+        const deviceKey = addressKey(address.device);
+        let inventory = parameterReads.get(deviceKey);
+        if (inventory === undefined) {
+          this.model.parameterObservationGeneration++;
+          inventory = !dev.paramsLive || consumeStaleParameterInventory(this.model)
+            ? 'unstable'
+            : dev.params.map((item, at) => fakeParamState(item, at, false));
+          parameterReads.set(deviceKey, inventory);
+        }
+        if (inventory === 'unstable') return 'unstable';
+        const found = address.directId !== undefined
+          ? inventory.find((item) => item.id === address.directId)
+          : address.index === undefined ? undefined : dev.params[address.index];
+        if (found === undefined) return undefined;
+        const state = address.directId !== undefined
+          ? found as ParamState
+          : fakeParamState(found as FakeDevice['params'][number], address.index!, true);
+        return { address, fidelity: 'exact', value: { of: 'param', param: state } };
       }
       case 'scene':
         return undefined;
@@ -962,7 +1045,11 @@ export class FakeAdapter implements BitwigAdapter {
         const device: FakeDevice = {
           name,
           paramsLive: false,
-          params: [{ name: 'Param 1', value: 0.5 }],
+          params: Array.from({ length: 12 }, (_, index) => ({
+            id: `P${index + 1}`,
+            name: `Param ${index + 1}`,
+            value: 0.5,
+          })),
           ...(shipped === undefined ? {} : { chains: shipped }),
         };
         track.devices.push(device);
@@ -1020,11 +1107,13 @@ export class FakeAdapter implements BitwigAdapter {
         const track = this.requireTrack(op.param.device.track, op.op);
         const device = track.devices[op.param.device.chainIndex];
         if (device === undefined) throw new UnsupportedOpError(`param.set on missing device`, 'fake');
-        const index = op.param.index;
+        const index = op.param.directId !== undefined
+          ? device.params.findIndex((param, at) => (param.id ?? `param-${at}`) === op.param.directId)
+          : op.param.index ?? -1;
         const value = op.value;
         this.clock.stage(() => {
           const p = device.params[index];
-          if (p !== undefined) p.value = value;
+          if (p !== undefined && this.model.parameterWritesTake) p.value = value;
         });
         return;
       }

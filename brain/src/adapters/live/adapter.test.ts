@@ -19,7 +19,7 @@ import assert from 'node:assert/strict';
 import {
   AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, device as deviceAt,
   deviceIn as deviceInAt,
-  notes as notesAt, scene, slot, track,
+  notes as notesAt, param, scene, slot, track,
   type ClipAddress, type RevisionMark, type TrackAddress,
 } from '../../contract/index.js';
 import { LiveAdapter } from './adapter.js';
@@ -1395,6 +1395,10 @@ class InventoryTransport implements Transport {
   readonly frames: Frame[] = [];
   /** Which track cursor 0 is pointed at, by bank index. Nothing points it at first. */
   private pointed: number | undefined;
+  private selectedDevice = 0;
+  private directGeneration = 0;
+  private devicePinned = false;
+  private trackPinned = false;
 
   constructor(
     /** bank index -> that track's channelId. */
@@ -1431,6 +1435,61 @@ class InventoryTransport implements Transport {
           this.pointed = params['trackIndex'] as number;
         }
         return {};
+      case WIRE.cursorPinTrack:
+        this.trackPinned = params['pinned'] === true;
+        return {};
+      case WIRE.deviceCursorPin:
+        this.devicePinned = params['pinned'] === true;
+        return {};
+      case WIRE.deviceCursorSelectAt:
+        this.selectedDevice = params['deviceIndex'] as number;
+        return {};
+      case WIRE.deviceList: {
+        const on = this.pointed === undefined ? undefined : this.tracks.get(this.pointed);
+        const scopes = (on === undefined ? undefined : this.inventory.get(on)) ?? [];
+        const devices = (scopes as { slot: number; deviceExists?: boolean; deviceName?: string }[])
+          .filter((scope) => scope.deviceExists === true)
+          .map((scope) => ({ index: scope.slot, name: scope.deviceName ?? '' }));
+        return { devices, count: devices.length, itemCount: devices.length, trackChannelId: on };
+      }
+      case WIRE.deviceCursorStatus: {
+        const on = this.pointed === undefined ? undefined : this.tracks.get(this.pointed);
+        const scopes = (on === undefined ? undefined : this.inventory.get(on)) ?? [];
+        const scope = (scopes as { slot: number; deviceExists?: boolean; deviceName?: string }[])
+          .find((item) => item.slot === this.selectedDevice);
+        return {
+          exists: scope?.deviceExists === true,
+          name: scope?.deviceName,
+          isPinned: this.devicePinned,
+          deviceIndex: this.selectedDevice,
+          trackChannelId: on,
+          trackPosition: this.pointed,
+          cursorTrackPinned: this.trackPinned,
+        };
+      }
+      case WIRE.directParamList: {
+        if (params['begin'] === true) this.directGeneration++;
+        const on = this.pointed === undefined ? undefined : this.tracks.get(this.pointed);
+        const scopes = (on === undefined ? undefined : this.inventory.get(on)) ?? [];
+        const scope = (scopes as { slot: number; deviceExists?: boolean; deviceName?: string }[])
+          .find((item) => item.slot === this.selectedDevice);
+        return {
+          params: [],
+          count: 0,
+          generation: this.directGeneration,
+          idsGeneration: this.directGeneration,
+          deviceExists: scope?.deviceExists === true,
+          deviceName: scope?.deviceName,
+          deviceIndex: this.selectedDevice,
+          trackChannelId: on,
+          trackPosition: this.pointed,
+          observedTrackChannelId: on,
+          observedDeviceName: scope?.deviceName,
+          observedDeviceIndex: this.selectedDevice,
+        };
+      }
+      case WIRE.paramList:
+        return { params: [] };
       case WIRE.chainInventory: {
         const on = this.pointed === undefined ? undefined : this.tracks.get(this.pointed);
         const scopes = (on === undefined ? undefined : this.inventory.get(on)) ?? [];
@@ -1441,6 +1500,112 @@ class InventoryTransport implements Transport {
           ? { scopes: stripped, trackName: 'whoever' }
           : { scopes: stripped, trackName: 'whoever', trackChannelId: on };
       }
+      default:
+        return {};
+    }
+  }
+
+  async close(): Promise<void> {}
+}
+
+/** A two-device DirectParameter model with one serialized cursor. */
+class ParameterTransport implements Transport {
+  readonly frames: Frame[] = [];
+  readonly devices: { name: string; params: Map<string, { name: string; value: number }> }[] = [
+    {
+      name: 'Polysynth',
+      params: new Map(Array.from({ length: 12 }, (_, index) =>
+        [`P${index + 1}`, { name: `Poly ${index + 1}`, value: index / 12 }] as const)),
+    },
+    {
+      name: 'Polymer',
+      params: new Map(Array.from({ length: 10 }, (_, index) =>
+        [`M${index + 1}`, { name: `Polymer ${index + 1}`, value: (index + 1) / 12 }] as const)),
+    },
+  ];
+  takeWrites = true;
+  neverSettles = false;
+  private selected = 0;
+  private generation = 0;
+  private devicePinned = false;
+  private trackPinned = false;
+  private revision = 1;
+
+  async send(frame: Frame): Promise<unknown> {
+    this.frames.push(frame);
+    const params = (frame.params ?? {}) as Record<string, unknown>;
+    switch (frame.method) {
+      case WIRE.trackList:
+        return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1,
+          bankSize: 8, itemCount: 1 };
+      case WIRE.revisionGet:
+        return { revision: this.revision, generation: 'param-gen', project: 'param-project',
+          sceneEpoch: 1, contentEpoch: 0, sceneCount: 8, contentEvents: [] };
+      case WIRE.selectionStatus:
+        return { trackIndex: -1, slotIndex: -1 };
+      case WIRE.slotSelect:
+      case WIRE.cursorPointTrack:
+        return {};
+      case WIRE.cursorPinTrack:
+        this.trackPinned = params['pinned'] === true;
+        return {};
+      case WIRE.deviceCursorPin:
+        this.devicePinned = params['pinned'] === true;
+        return {};
+      case WIRE.deviceCursorSelectAt:
+        this.selected = params['deviceIndex'] as number;
+        return {};
+      case WIRE.deviceList:
+        return {
+          devices: this.devices.map((device, index) => ({ index, name: device.name })),
+          count: this.devices.length,
+          itemCount: this.devices.length,
+          trackChannelId: CHANNEL_ID,
+        };
+      case WIRE.deviceCursorStatus:
+        return {
+          exists: this.devices[this.selected] !== undefined,
+          name: this.devices[this.selected]?.name,
+          isPinned: this.devicePinned,
+          deviceIndex: this.selected,
+          trackChannelId: CHANNEL_ID,
+          trackPosition: 0,
+          cursorTrackPinned: this.trackPinned,
+        };
+      case WIRE.directParamList: {
+        if (params['begin'] === true) this.generation++;
+        const device = this.devices[this.selected];
+        return {
+          params: [...(device?.params ?? [])].map(([id, state]) => ({ id, ...state })),
+          count: device?.params.size ?? 0,
+          generation: this.generation,
+          idsGeneration: this.neverSettles ? this.generation - 1 : this.generation,
+          deviceExists: device !== undefined,
+          deviceName: device?.name,
+          deviceIndex: this.selected,
+          trackChannelId: CHANNEL_ID,
+          trackPosition: 0,
+          observedTrackChannelId: CHANNEL_ID,
+          observedDeviceName: device?.name,
+          observedDeviceIndex: this.selected,
+        };
+      }
+      case WIRE.paramList:
+        return { params: [] };
+      case WIRE.directParamSet: {
+        const target = this.devices[this.selected]?.params.get(params['id'] as string);
+        if (target !== undefined && this.takeWrites) target.value = params['value'] as number;
+        return {};
+      }
+      case WIRE.batchRun: {
+        const ops = (params['ops'] ?? []) as { method: string; params: Record<string, unknown> }[];
+        for (const op of ops) await this.send({ method: op.method, params: op.params });
+        this.revision++;
+        return { applied: true, revision: this.revision,
+          results: ops.map((op) => ({ method: op.method, ok: true })) };
+      }
+      case WIRE.chainInventory:
+        return { trackChannelId: CHANNEL_ID, scopes: [] };
       default:
         return {};
     }
@@ -1461,6 +1626,68 @@ const CONTAINER_SCOPE = (chains: { index: number; name: string; devices?: { inde
 });
 
 const OTHER_ID = 'e4a1c0de-0000-4000-8000-000000000002';
+
+test('L-direct-param: stable inventories do not retain the prior device values', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const first = deviceAt(TRACK, 0);
+  const second = deviceAt(TRACK, 1);
+  const snapshot = await adapter.read([first, second]);
+  const one = snapshot.entries[addressKey(first)];
+  const two = snapshot.entries[addressKey(second)];
+  const oneParams = one?.value.of === 'device' ? one.value.device.params : undefined;
+  const twoParams = two?.value.of === 'device' ? two.value.device.params : undefined;
+  assert.equal(oneParams?.length, 12);
+  assert.equal(twoParams?.length, 10);
+  assert.equal(twoParams?.some((item) => item.id.startsWith('P')), false);
+  assert.equal(oneParams?.every((item) => item.observed.modulatedValue === false), true);
+});
+
+test('L-direct-param: a write reads back independently and exact reversal restores the base', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'P1');
+  const before = await adapter.read([address]);
+  const captured = before.entries[addressKey(address)];
+  assert.equal(captured?.value.of === 'param' ? captured.value.param.value : undefined, 0);
+
+  const changed = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.75 }] });
+  assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const restored = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0 }] });
+  assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const after = await adapter.read([address]);
+  const afterEntry = after.entries[addressKey(address)];
+  assert.equal(afterEntry?.value.of === 'param' ? afterEntry.value.param.value : undefined, 0);
+});
+
+test('L-direct-param: a silent no-op is reported as a readback disagreement', async () => {
+  const wire = new ParameterTransport();
+  wire.takeWrites = false;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'P1');
+  const receipt = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.75 }] });
+  const failed = receipt.stages.flatMap((stage) => stage.ops).find((op) => !op.ok);
+  assert.match(failed?.error ?? '', /readback disagreed/);
+});
+
+test('L-direct-param: an observer generation that never settles is separate from missing', async () => {
+  const wire = new ParameterTransport();
+  wire.neverSettles = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const target = deviceAt(TRACK, 0);
+  const deviceSnapshot = await adapter.read([target]);
+  const deviceEntry = deviceSnapshot.entries[addressKey(target)];
+  assert.equal(deviceEntry?.value.of === 'device' ? deviceEntry.value.device.name : undefined,
+    'Polysynth');
+  assert.equal(deviceEntry?.value.of === 'device' ? deviceEntry.value.device.params : undefined,
+    undefined);
+  assert.deepEqual(deviceSnapshot.unstable, []);
+
+  const address = param(target, 'P1');
+  const snapshot = await adapter.read([address]);
+  assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(address)]);
+  assert.deepEqual(snapshot.missing, []);
+});
 
 test('L-chain: a chain resolves by name, at the bank position the container reported', async () => {
   const wire = new InventoryTransport(
@@ -1563,9 +1790,7 @@ test('L-chain: a container read carries the chains — the only way a name is ev
   const observed = entry?.value.of === 'device' ? entry.value.device : undefined;
   assert.equal(observed?.container?.chains[0]?.name, 'A take');
   assert.equal(observed?.container?.chains[0]?.devices[0]?.name, 'Polysynth');
-  // ⚠ NO PARAMETERS, and absent rather than empty: this route has no parameter
-  // handle at all, and `[]` would assert a device with no controls.
-  assert.equal(observed?.params, undefined);
+  assert.deepEqual(observed?.params, [], 'the settled DirectParameter inventory is explicit');
 });
 
 test('L-chain: an inventory still naming the PREVIOUS track is retried, not reported as a miss', async () => {
@@ -1605,7 +1830,7 @@ test('L-chain: an inventory still naming the PREVIOUS track is retried, not repo
   // the stale reply is stale about, so a bare re-read could wait forever.
   assert.equal(
     wire.frames.filter((f) => f.method === WIRE.cursorPointTrack).length,
-    wire.frames.filter((f) => f.method === WIRE.chainInventory).length,
+    wire.frames.filter((f) => f.method === WIRE.chainInventory).length + 1,
   );
 });
 

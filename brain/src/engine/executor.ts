@@ -241,6 +241,13 @@ export class Executor {
       : [];
     const unread = new Set(unverified.map((item) => addressKey(item.address)));
     let verify = await this.timed('verification', () => this.adapter.read(readable));
+    for (const address of verify.unstable) {
+      unread.add(addressKey(address));
+      unverified.push({
+        address,
+        why: 'the target device was confirmed, but its parameter observer inventory did not settle',
+      });
+    }
     let reconcileStarted = performance.now();
     let mutationConflicts = mutationStateDisagreementsOf(ops, stash, verify, unread);
     this.onTiming?.({
@@ -453,7 +460,18 @@ export class Executor {
             'that neither adapter can inspect yet. Refused rather than treating the track anchor ' +
             'as proof that the nested address exists.',
           );
+        case 'unstable':
+          throw new AddressUnresolvedError(
+            r.address,
+            'the target device was confirmed, but its DirectParameter observer inventory did not settle',
+          );
         default:
+          if (r.reason === 'absent' && r.address.kind === 'param') {
+            throw new AddressUnresolvedError(
+              r.address,
+              'the parameter id is not in the confirmed device inventory',
+            );
+          }
           // `absent` is legitimate — a clip that does not exist yet is exactly
           // what `clip.create` is for, and a stash of "nothing was here" is a
           // restorable state.
@@ -465,6 +483,12 @@ export class Executor {
   /** ⚠ E5, standing rule 5: never operate on a partially-visible project. */
   private assertVisible(stash: Snapshot): void {
     if (stash.unreachable.length > 0) throw blindSpotError(stash.unreachable, stash.at.window);
+    if (stash.unstable.length > 0) {
+      throw new AddressUnresolvedError(
+        stash.unstable[0]!,
+        'the DirectParameter observer inventory did not settle for the confirmed device target',
+      );
+    }
   }
 
   /**
@@ -625,6 +649,34 @@ export function disagreementsOf(
       continue;
     }
     out.push(...compareClipMetadata(address, op.metadata, entry.value.metadata));
+  }
+
+  const parameterWrites = new Map<string, Extract<Op, { op: 'param.set' }>>();
+  for (const op of ops) {
+    if (op.op === 'param.set') parameterWrites.set(addressKey(op.param), op);
+  }
+  for (const op of parameterWrites.values()) {
+    if (unread.has(addressKey(op.param))) continue;
+    const entry = verify.entries[addressKey(op.param)];
+    if (entry?.value.of !== 'param') {
+      out.push({
+        address: op.param,
+        at: 'parameter base value',
+        field: 'exists',
+        requested: true,
+        readback: false,
+      });
+      continue;
+    }
+    if (!equalEnough(op.value, entry.value.param.value)) {
+      out.push({
+        address: op.param,
+        at: 'parameter base value',
+        field: 'value',
+        requested: op.value,
+        readback: entry.value.param.value,
+      });
+    }
   }
 
   for (const op of ops) {

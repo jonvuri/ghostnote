@@ -641,7 +641,9 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       // caller, because the wrong choice is a SILENT no-op in both directions.
       return op.param.directId !== undefined
         ? [frame(WIRE.directParamSet, { id: op.param.directId, value: op.value, resolution: 1 })]
-        : [frame(WIRE.paramSet, { index: op.param.index, value: op.value, mode: 'immediate' })];
+        : op.param.index !== undefined
+          ? [frame(WIRE.paramSet, { index: op.param.index, value: op.value, mode: 'immediate' })]
+          : assertNever(op.param as never, 'encodeOp.param.set');
 
     case 'notify':
       return [frame(WIRE.notify, { message: op.message })];

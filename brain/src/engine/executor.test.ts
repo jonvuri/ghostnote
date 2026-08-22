@@ -735,6 +735,38 @@ test('X-report: missing clip metadata readback is a mismatch, not silent success
   }]);
 });
 
+test('X-report: a non-taking DirectParameter write is a disagreement', async () => {
+  const fx = await fixture();
+  const trackModel = fx.fake.model.findByChannelId(fx.trackA.channelId)!.track;
+  trackModel.devices.push({
+    name: 'Polysynth', paramsLive: true,
+    params: [{ id: 'P1', name: 'Parameter 1', value: 0.25 }],
+  });
+  const address = param(device(fx.trackA, 0), 'P1');
+  control(fx.fake).setParameterWritesTake(false);
+
+  const take = await fx.executor.run([{ op: 'param.set', param: address, value: 0.75 }]);
+  assert.deepEqual(take.report.disagreements.map((item) => ({
+    field: item.field, requested: item.requested, readback: item.readback,
+  })), [{ field: 'value', requested: 0.75, readback: 0.25 }]);
+});
+
+test('X-checkpoint: typed modulation and automation survive as warnings', async () => {
+  const fx = await fixture();
+  const trackModel = fx.fake.model.findByChannelId(fx.trackA.channelId)!.track;
+  trackModel.devices.push({
+    name: 'Polysynth', paramsLive: true,
+    params: [{
+      id: 'P1', name: 'Parameter 1', value: 0.25,
+      modulatedValue: 0.5, hasAutomation: true,
+    }],
+  });
+  const address = param(device(fx.trackA, 0), 0);
+  const take = await fx.executor.run([{ op: 'param.set', param: address, value: 0.4 }]);
+  assert.equal(take.values[0]?.caveats.some((item) => item.includes('modulation')), true);
+  assert.equal(take.values[0]?.caveats.some((item) => item.includes('automation')), true);
+});
+
 test('X-report: a later delete supersedes an earlier metadata request', async () => {
   const fx = await fixture();
   const take = await fx.executor.run([

@@ -81,7 +81,14 @@ export interface FakeDevice {
   name: string;
   /** Live only after E4's ~194ms settle; until then reads report `paramsLive: false`. */
   paramsLive: boolean;
-  params: { name: string; value: number }[];
+  params: {
+    id?: string;
+    name: string;
+    value: number;
+    display?: string;
+    modulatedValue?: number;
+    hasAutomation?: boolean;
+  }[];
   /**
    * ⚠ Present only on a CONTAINER device, and the two container kinds do not
    * ship alike — which is the whole bootstrap question for the layer-chain
@@ -146,6 +153,12 @@ export class ProjectModel {
   chainDeviceBankSize = 4;
   /** The top-level device bank mirrors RigConfig's shipped default. */
   deviceBankSize = 16;
+  /** DirectParameter writes can be accepted without taking (E4b). */
+  parameterWritesTake = true;
+  /** Complete inventories to reject before current observer data settles. */
+  staleParameterInventories = 0;
+  /** One generation per parameter-cursor acquisition. */
+  parameterObservationGeneration = 0;
 
   /**
    * ⚠ What a freshly inserted container SHIPS WITH, by device uuid (`e17ai`,

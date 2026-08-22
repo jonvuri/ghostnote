@@ -180,7 +180,9 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   // the write that created the note (E15-B). Giving it a settle class is what
   // forces `planStages` to break the batch here.
   'note.props': 'noteWrite',
-  'param.set': 'instant',
+  // One confirmed device cursor serves this route. Each write gets its own turn
+  // and independent observer readback.
+  'param.set': 'tick',
   notify: 'instant',
   'clip.create': 'trackStruct',
   'clip.delete': 'trackStruct',
@@ -259,6 +261,14 @@ export const OP_BUMPS_SCENE_EPOCH: ReadonlySet<OpKind> = new Set<OpKind>(['scene
  */
 export function assertOpsWritable(ops: readonly Op[]): void {
   for (const op of ops) {
+    if (op.op === 'param.set') {
+      if (!Number.isFinite(op.value) || op.value < 0 || op.value > 1) {
+        throw new InvalidOpError(op.op, 'a normalized parameter value must be from 0 through 1');
+      }
+      if (op.param.directId === undefined && op.param.index === undefined) {
+        throw new InvalidOpError(op.op, 'a parameter address needs a DirectParameter id or typed index');
+      }
+    }
     if (op.op === 'clip.update') {
       const { metadata } = op;
       const beats = [

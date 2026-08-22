@@ -407,6 +407,10 @@ public final class DeviceHandlers extends HandlerGroup {
         result.addProperty("exists", rig.cursorDevice0.exists().get());
         result.addProperty("name", rig.cursorDevice0.name().get());
         result.addProperty("isPinned", rig.cursorDevice0.isPinned().get());
+        result.addProperty("deviceIndex", rig.currentDirectParameterDeviceIndex());
+        result.addProperty("trackChannelId", rig.cursorTracks[0].channelId().get());
+        result.addProperty("trackPosition", rig.cursorTracks[0].position().get());
+        result.addProperty("cursorTrackPinned", rig.cursorTracks[0].isPinned().get());
         return result;
     }
 

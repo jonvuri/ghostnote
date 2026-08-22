@@ -170,8 +170,12 @@ export const WIRE = {
   deviceInsertClap: 'device.insertClap',
   deviceInsertFile: 'device.insertFile',
   deviceDelete: 'device.delete',
+  deviceCursorStatus: 'devcursor.status',
+  deviceCursorPin: 'devcursor.pin',
+  deviceCursorSelectAt: 'devcursor.selectAt',
   paramList: 'param.list',
   paramSet: 'param.set',
+  directParamList: 'directparam.list',
   directParamSet: 'directparam.set',
 
   batchRun: 'batch.run',
