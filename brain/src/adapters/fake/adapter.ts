@@ -1022,9 +1022,13 @@ export class FakeAdapter implements BitwigAdapter {
         const track = this.requireTrack(op.track, op.op);
         const isInstrumentSeed = op.source.from === 'file'
           && basename(op.source.path) === INSTRUMENT_LAYER_SEED_BASENAME;
+        const sourceId = op.source.from === 'bitwig' ? op.source.uuid
+          : op.source.from === 'vst3' ? op.source.classUid
+          : op.source.from === 'clap' ? op.source.id
+          : undefined;
         const name = isInstrumentSeed
           ? 'Instrument Layer'
-          : op.source.from === 'file' ? op.source.path.split('/').pop()! : op.source.uuid;
+          : op.source.from === 'file' ? op.source.path.split('/').pop()! : sourceId!;
         // ⚠ A container inserted by uuid arrives with the chains its type ships
         // with — one for an FX Layer, none for an Instrument Layer (`e17ai`,
         // E18a at three destinations). That asymmetry is the bootstrap fact the
@@ -1041,7 +1045,7 @@ export class FakeAdapter implements BitwigAdapter {
             id: this.model.mintChannelId(),
             devices: [],
           }]
-          : op.source.from === 'file' ? undefined : this.model.shippedChains(op.source.uuid);
+          : sourceId === undefined ? undefined : this.model.shippedChains(sourceId);
         const device: FakeDevice = {
           name,
           paramsLive: false,

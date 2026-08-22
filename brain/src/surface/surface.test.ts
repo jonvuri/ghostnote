@@ -630,6 +630,30 @@ test('4a: concurrent execution scopes capture only their own recorded changes', 
 
 // --- exit criterion 7: it all runs, and what it sends is what it declared ----
 
+test('4e-surface: plugin formats are explicit and the generic source is rejected', async () => {
+  const fx = fixture();
+  await call(fx, 'add_device', { devices: [
+    {
+      trackId: fx.trackA,
+      from: 'vst3',
+      id: 'D39D5B69D6AF42FA123456785A334D44',
+    },
+    { trackId: fx.trackA, from: 'clap', id: 'com.u-he.Zebra3' },
+  ] });
+
+  assert.deepEqual(
+    fx.sent.filter((op) => op.op === 'device.insert').map((op) =>
+      op.op === 'device.insert' ? op.source : undefined),
+    [
+      { from: 'vst3', classUid: 'D39D5B69D6AF42FA123456785A334D44' },
+      { from: 'clap', id: 'com.u-he.Zebra3' },
+    ],
+  );
+  await assert.rejects(call(fx, 'add_device', {
+    devices: [{ trackId: fx.trackA, from: 'plugin', id: 'com.u-he.Zebra3' }],
+  }));
+});
+
 test('T-surface: every tool runs offline, and emits only what it declares', async () => {
   const fx = fixture();
   const ran = new Set<string>();

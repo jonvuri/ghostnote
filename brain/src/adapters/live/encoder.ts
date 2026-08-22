@@ -20,10 +20,11 @@
  *     NOT AMONG THEM: the write never reaches the clip, it only populates the
  *     writing cursor's own NoteStep cache (E15-E). `assertOpsWritable` refuses it
  *     in the contract, so it cannot arrive here at all.
- *   - `device.insert` from a file is REFUSED unless the path is absolute and ends
- *     `.bwpreset`. A relative path, a wrong extension and a missing file are all
- *     silent no-ops — Bitwig dispatches on the filename, not the content, so
- *     byte-identical data named `.template` is simply ignored (E4h).
+ *   - plugin insertion keeps VST3 class UIDs and CLAP IDs distinct. It rejects
+ *     malformed identifiers before the silent insertion API runs.
+ *   - `device.insert` from a file is REFUSED unless the path is absolute and
+ *     ends `.bwpreset`. A relative path, a wrong extension and a missing file
+ *     are silent no-ops (E4h).
  *   - pointing uses track-then-slot, the only mechanism of three that works (E1).
  *
  * Time is beats throughout; the beats <-> step conversion happens here and only
@@ -235,16 +236,31 @@ export function notePropertyPageStarts(
 
 function validateDeviceSource(op: Extract<Op, { op: 'device.insert' }>): void {
   const { source } = op;
-  if (source.from !== 'file') return;
-  if (!isAbsolute(source.path)) {
-    throw new InvalidOpError('device.insert', `insertFile needs an ABSOLUTE path, got "${source.path}" (E4h)`);
-  }
-  if (extname(source.path) !== '.bwpreset') {
-    throw new InvalidOpError(
-      'device.insert',
-      `insertFile dispatches on the FILENAME, not the content: "${source.path}" must end .bwpreset ` +
-        'or Bitwig ignores it silently (E4h)',
-    );
+  switch (source.from) {
+    case 'bitwig':
+      return;
+    case 'vst3':
+      if (!/^[0-9A-Fa-f]{32}$/.test(source.classUid)) {
+        throw new InvalidOpError('device.insert', 'a VST3 class UID must contain exactly 32 hexadecimal characters');
+      }
+      return;
+    case 'clap':
+      if (source.id.trim() === '' || source.id !== source.id.trim() || /[\u0000-\u001f\u007f]/.test(source.id)) {
+        throw new InvalidOpError('device.insert', 'a CLAP id must be a non-empty string without surrounding space or control characters');
+      }
+      return;
+    case 'file':
+      if (!isAbsolute(source.path)) {
+        throw new InvalidOpError('device.insert', `insertFile needs an ABSOLUTE path, got "${source.path}" (E4h)`);
+      }
+      if (extname(source.path) !== '.bwpreset') {
+        throw new InvalidOpError(
+          'device.insert',
+          `insertFile dispatches on the FILENAME, not the content: "${source.path}" must end .bwpreset ` +
+            'or Bitwig ignores it silently (E4h)',
+        );
+      }
+      return;
   }
 }
 
@@ -515,8 +531,10 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       switch (op.source.from) {
         case 'bitwig':
           return [point, frame(WIRE.deviceInsertBitwig, { cursor, uuid: op.source.uuid })];
+        case 'vst3':
+          return [point, frame(WIRE.deviceInsertVst3, { cursor, vst3Id: op.source.classUid })];
         case 'clap':
-          return [point, frame(WIRE.deviceInsertClap, { cursor, clapId: op.source.uuid })];
+          return [point, frame(WIRE.deviceInsertClap, { cursor, clapId: op.source.id })];
         case 'file':
           return [point, frame(WIRE.deviceInsertFile, { cursor, path: op.source.path })];
       }

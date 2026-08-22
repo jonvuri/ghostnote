@@ -167,6 +167,7 @@ export const WIRE = {
   /** Container-local exclusive solo, addressed through the same slot scope as observation. */
   chainActivate: 'chain.activate',
   deviceInsertBitwig: 'device.insertBitwig',
+  deviceInsertVst3: 'device.insertVst3',
   deviceInsertClap: 'device.insertClap',
   deviceInsertFile: 'device.insertFile',
   deviceDelete: 'device.delete',

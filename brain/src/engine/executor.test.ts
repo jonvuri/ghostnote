@@ -539,6 +539,24 @@ test('X-device: an insert is undone at the chain index the RECEIPT minted (D16 r
   assert.equal(control(fake).model.tracks[0]!.devices.length, 0, 'the chain is back where it was');
 });
 
+test('4e-device: the fake keeps VST3 and CLAP sources distinct', async () => {
+  const { fake, executor, trackA } = await fixture();
+  const classUid = 'D39D5B69D6AF42FA123456785A334D44';
+  const clapId = 'com.u-he.Zebra3';
+  const take = await executor.run([
+    { op: 'device.insert', track: trackA, source: { from: 'vst3', classUid } },
+    { op: 'device.insert', track: trackA, source: { from: 'clap', id: clapId } },
+  ]);
+
+  assert.deepEqual(control(fake).model.tracks[0]!.devices.map((device) => device.name), [
+    classUid, clapId,
+  ]);
+  assert.deepEqual(take.receipt.minted, {
+    0: device(trackA, 0),
+    1: device(trackA, 1),
+  });
+});
+
 // --- exit criterion 5 --------------------------------------------------------
 
 test('X-label: a take value is labelled from its write-set, not by its caller (D5)', async () => {

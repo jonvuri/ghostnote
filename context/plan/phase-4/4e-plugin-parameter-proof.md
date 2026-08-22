@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4e — VST3 and CLAP parameter proof
 kind: plan
-state: planned
-status: Planned after 4c. Separate plugin source types and prove both formats
-        through the general parameter path.
-updated: 2026-08-21
+state: complete
+status: Complete. E57 records explicit VST3 and CLAP insertion, parameter
+        write, independent readback, replay, failure, and cleanup.
+updated: 2026-08-22
 parent: README.md
 prev: 4d-native-device-catalog.md
 next: 4f-deep-parameters-and-remotes.md
 scope: VST3 and CLAP insertion, enumeration, write, and readback
-evidence: E4b, E4h, E16 · D2, D8
+evidence: E4b, E4h, E16, E57 · D2, D8
 ---
 
 # Phase 4, session 4e — VST3 and CLAP parameter proof
@@ -67,3 +67,32 @@ cannot satisfy the phase write criterion.
 
 Record whether paired plugin formats gave comparable observer settlement. Keep
 the result machine-specific.
+
+## Result
+
+The contract and public tool now use explicit `vst3` and `clap` sources. The
+encoder validates a 32-hex-character VST3 class UID and a non-empty CLAP ID
+before it emits a frame. The prior generic `plugin` source is removed.
+
+The installed Zebra3 pair passed on one owned empty track. VST3 inserted at
+position 0 and exposed 2,185 named DirectParameters. CLAP inserted at position
+1 and exposed 2,193. `Attack Rate` changed from `0.5` to `0.55` on each format.
+Independent readback agreed, and replay restored `0.5`.
+
+VST3 insertion took 1,388 ms and its inventory settled in 1,238 ms. CLAP
+insertion took 1,346 ms and its inventory settled in 1,470 ms. The paired
+observer results are comparable on this machine. They are not a general
+performance claim.
+
+A valid but absent CLAP ID changed no chain state. Its receipt failed and minted
+no device. Cleanup restored the exact empty scratch chain, removed the owned
+track, and returned the accepted project to seven tracks.
+
+The full brain check passes 690 tests, including typecheck. Extension tests and
+the fresh 145-method handshake pass. Live conformance passes 54/54 with six
+expected skips. Exact fixture cleanup and the final read-only 2k baseline pass.
+The context and staged diff checks pass. E57 records the complete proof.
+
+The live results showed comparable settlement. The process-control finding was
+more actionable: a live command can outlive a completed tool wrapper. Confirm
+the process exit, then run exact-ID cleanup after an interrupted suite.

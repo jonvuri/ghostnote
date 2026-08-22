@@ -1681,8 +1681,8 @@ export const TOOLS: readonly ToolSpec[] = [
     kind: 'write',
     title: 'Add a device to a track',
     description:
-      'Insert a device at the end of a track\'s device list. Three sources: a Bitwig device by '
-      + 'id, a plugin by id, or a preset file.\n'
+      'Insert a device at the end of a track\'s device list. Sources are a Bitwig device UUID, '
+      + 'a VST3 class UID, a CLAP id, or a preset file.\n'
       + 'A preset path must be absolute and must end in `.bwpreset`. A relative path, another '
       + 'extension, or a file that is not there are all accepted by the API and silently do '
       + 'nothing, so all three are refused here before anything is sent.\n'
@@ -1690,14 +1690,30 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'insertion is recorded as one that cannot be undone, because removing a counted position '
       + 'could remove a different device.',
     inputSchema: {
-      devices: z.array(z.object({
-        trackId,
-        from: z.enum(['bitwig', 'plugin', 'preset']).describe(
-          '`bitwig` and `plugin` name a device by id; `preset` loads a .bwpreset file.',
-        ),
-        id: z.string().optional().describe('Required for `bitwig` and `plugin`.'),
-        path: z.string().optional().describe('Required for `preset`: an absolute .bwpreset path.'),
-      })).min(1),
+      devices: z.array(z.discriminatedUnion('from', [
+        z.object({
+          trackId,
+          from: z.literal('bitwig'),
+          id: z.string().min(1).describe('Bitwig device UUID.'),
+        }),
+        z.object({
+          trackId,
+          from: z.literal('vst3'),
+          id: z.string().regex(/^[0-9A-Fa-f]{32}$/).describe('VST3 class UID as 32 hexadecimal characters.'),
+        }),
+        z.object({
+          trackId,
+          from: z.literal('clap'),
+          id: z.string().min(1).refine((id) =>
+            id === id.trim() && !/[\u0000-\u001f\u007f]/.test(id),
+          'A CLAP id cannot have surrounding space or control characters.'),
+        }),
+        z.object({
+          trackId,
+          from: z.literal('preset'),
+          path: z.string().describe('Absolute .bwpreset path.'),
+        }),
+      ])).min(1),
     },
     emits: ['device.insert'],
     async run(workspace, args) {
@@ -2974,7 +2990,9 @@ function sourceOf(d: { from: string; id?: string; path?: string }): DeviceSource
     return { from: 'file', path: d.path };
   }
   if (d.id === undefined) throw new Error(`a ${d.from} source needs \`id\``);
-  return d.from === 'plugin' ? { from: 'clap', uuid: d.id } : { from: 'bitwig', uuid: d.id };
+  if (d.from === 'vst3') return { from: 'vst3', classUid: d.id };
+  if (d.from === 'clap') return { from: 'clap', id: d.id };
+  return { from: 'bitwig', uuid: d.id };
 }
 
 export const toolNamed = (name: string): ToolSpec | undefined => TOOLS.find((t) => t.name === name);

@@ -1266,6 +1266,18 @@ class DeviceChainTransport implements Transport {
         return {};
       }
 
+      case WIRE.deviceInsertVst3: {
+        this.onInsert(this.chainOf(params['cursor'] as string), params['vst3Id'] as string);
+        this.revision++;
+        return {};
+      }
+
+      case WIRE.deviceInsertClap: {
+        this.onInsert(this.chainOf(params['cursor'] as string), params['clapId'] as string);
+        this.revision++;
+        return {};
+      }
+
       case WIRE.deviceDelete: {
         this.chainOf(params['cursor'] as string).splice(params['deviceIndex'] as number, 1);
         this.revision++;
@@ -1336,6 +1348,8 @@ test('L-mint: a chain that did not change the way an append changes it mints NOT
   });
 
   assert.deepEqual(receipt.minted, {}, 'the prefix moved, so the observation is not an append');
+  assert.equal(receipt.stages.flatMap((stage) => stage.ops)
+    .find((op) => op.op === WIRE.deviceInsertBitwig)?.ok, false);
   assert.deepEqual(wire.chains.get(0), ['Phaser', 'Polysynth'], 'the device is really there');
 });
 
@@ -1351,6 +1365,26 @@ test('L-mint: a chain longer than the device bank window mints NOTHING (E5, one 
   });
 
   assert.deepEqual(receipt.minted, {});
+  assert.equal(receipt.stages.flatMap((stage) => stage.ops)
+    .find((op) => op.op === WIRE.deviceInsertBitwig)?.ok, false);
+});
+
+test('4e-mint: a missing plugin has no mint and a failed insertion receipt', async () => {
+  const wire = new DeviceChainTransport(() => {});
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({
+    ops: [{
+      op: 'device.insert', track: TRACK,
+      source: { from: 'clap', id: 'com.ghostnote.missing' },
+    }],
+  });
+
+  assert.deepEqual(receipt.minted, {});
+  const insert = receipt.stages.flatMap((stage) => stage.ops)
+    .find((op) => op.op === WIRE.deviceInsertClap);
+  assert.equal(insert?.ok, false);
+  assert.match(insert?.error ?? '', /not proved by structural readback/);
 });
 
 test('L-mint: the insert is addressed to a POINTED cursor, not to a bank row', async () => {

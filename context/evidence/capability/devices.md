@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-08-22
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55, E56; D2; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E57; D2; reference/BitX
 ---
 
 # Devices
@@ -110,6 +110,19 @@ from `0.5` to `0.55`, independent readback agreed, and exact replay restored
 `0.5` [K, E55]. Missing, unreachable, and unstable results stay separate. A
 stable device or container remains readable without `params` when only the
 parameter observer is unstable [K, E55].
+
+### Explicit VST3 and CLAP sources
+
+The product keeps VST3 class UIDs and CLAP IDs as separate source types. It
+validates each identifier before the insertion frame. A missing plugin that
+does not change the chain returns a failed receipt and no minted device [K,
+[E57](../experiments/e57-vst3-and-clap-parameter-control-is-live.md)].
+
+On this machine, Zebra3 VST3 exposed 2,185 named DirectParameters and Zebra3
+CLAP exposed 2,193. `Attack Rate` moved from `0.5` to `0.55` and restored to
+`0.5` on each format. Observer inventories settled in 1,238 ms for VST3 and
+1,470 ms for CLAP. These installed-plugin counts and timings are machine-
+specific [K, E57].
 
 ### `SpecificBitwigDevice` is a two-method interface
 
@@ -276,6 +289,7 @@ is measured [carried forward, session 3f].
 
 | Date | Change |
 |---|---|
+| 2026-08-22 | E57 adds explicit VST3 and CLAP insertion, parameter write and replay, failed missing-plugin receipts, and exact cleanup. |
 | 2026-08-22 | E56 replaces the `strings` harvest and hand-maintained Polysynth list with the generated catalog and live resolution result. |
 | 2026-08-22 | E55 adds the confirmed serialized DirectParameter acquisition, write, readback, and replay boundary. |
 | 2026-08-15 | Page created. It supersedes the *reading* of E4's "CLAP direct params are not accessible", which E4b already overturned in place. |

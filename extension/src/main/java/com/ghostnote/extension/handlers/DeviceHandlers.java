@@ -67,12 +67,17 @@ public final class DeviceHandlers extends HandlerGroup {
     private JsonElement deviceInsertClap(JsonObject params) {
         String ref = params.get("cursor").getAsString();
         String clapId = params.get("clapId").getAsString();
+        if (clapId.isBlank() || !clapId.equals(clapId.trim())
+                || clapId.chars().anyMatch(c -> c < 0x20 || c == 0x7f)) {
+            throw new IllegalArgumentException(
+                "clapId must be non-empty and contain no surrounding space or control characters");
+        }
         rig.cursorTrack(ref).endOfDeviceChainInsertionPoint().insertCLAPDevice(clapId);
         return ok();
     }
 
     /**
-     * Insert a VST3 by its plugin ID (E16 row B2).
+     * Insert a VST3 by its class UID (E16 row B2).
      *
      * E4 reached VST3s only through presets; kill criterion 2 asks specifically
      * whether duplication carries **opaque VST3 state**, which needs a real one

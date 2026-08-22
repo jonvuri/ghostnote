@@ -264,8 +264,11 @@ test('E16: the branch probe surface is probe surface, and the contract cannot re
   // The handler remains slot-scoped and the encoder has no other route to it.
   assert.deepEqual(
     reachable.sort(),
-    ['branch.duplicateTrack', 'chain.inventory', 'chain.move', 'device.moveTo', 'slot.moveTo'],
-    'typed relocation verbs own the two measured device-move routes they promote',
+    [
+      'branch.duplicateTrack', 'chain.inventory', 'chain.move',
+      'device.insertVst3', 'device.moveTo', 'slot.moveTo',
+    ],
+    'typed product verbs include the measured VST3 insertion and device-move routes',
   );
 });
 

@@ -4,13 +4,14 @@ kind: status
 state: active
 updated: 2026-08-22
 phase: phase-4
-session: 4e-plugin-parameter-proof
+session: 4f-deep-parameters-and-remotes
 ---
 
 # Now
 
-Phase 2, bounded clip performance, the DirectParameter core, and the native
-device catalog are complete. VST3 and CLAP parameter proof is next.
+Phase 2, bounded clip performance, the DirectParameter core, the native device
+catalog, and plugin parameter proof are complete. Deep parameters and remotes
+are next.
 
 ## Accepted live result
 
@@ -126,22 +127,39 @@ verified, and saved. The post-save 2k baseline passes.
 - The probe removed its owned scratch track and restored the entry selection.
   E56 records the generation and live proof.
 
+## Session 4e result
+
+- Device sources now keep VST3 class UIDs and CLAP IDs explicit. The old generic
+  plugin source is removed. Invalid identifiers fail before a wire frame.
+- Installed Zebra3 VST3 and CLAP devices inserted by explicit ID at observed
+  positions 0 and 1 on one owned empty track.
+- VST3 exposed 2,185 named DirectParameters. CLAP exposed 2,193. `Attack Rate`
+  changed from 0.5 to 0.55 and restored to 0.5 on each format.
+- VST3 insertion and inventory settlement took 1,388 and 1,238 ms. CLAP took
+  1,346 and 1,470 ms. The single paired sample was comparable on this machine.
+- A missing CLAP ID changed no chain state. It returned a failed receipt and no
+  minted device.
+- Cleanup restored the exact empty scratch chain and seven-track project. E57
+  records the machine-specific proof.
+
 ## Next action
 
-Begin [VST3 and CLAP parameter proof](plan/phase-4/4e-plugin-parameter-proof.md).
-Keep plugin formats explicit and keep the result machine-specific.
+Begin [deep parameters and remote controls](plan/phase-4/4f-deep-parameters-and-remotes.md).
+Keep nested addressing within measured depth and preserve the confirmed cursor
+acquisition boundary.
 
 ## Verification
 
-- Focused parameter, settlement, reconciliation, and catalog tests pass. Full brain check: 686/686
-  pass, including typecheck. Extension tests pass.
+- Focused parameter, settlement, reconciliation, catalog, and plugin tests pass.
+  Full brain check: 690/690 pass, including typecheck. Extension tests pass.
 - The fresh extension handshake and DirectParameter live proof pass. Sampler
   exposes 32 named parameters and exact base-value replay passes.
 - The controlled read-window probe, complete latency workflow, 128-beat
   long-clip workflow, background cancellation, and final read-only 2k baseline
   pass.
 - The controlled mutation workflow passes its 9,000 ms gate at 7,749 ms median.
-  Full live conformance passes 54/54 with six expected skips.
+  Full live conformance passes 54/54 with six expected skips. The fresh
+  extension handshake passes all 145 methods after restart.
 - The archived Phase 2h aggregate refused before mutation because it requires
   the retired `gn-scale-test` fixture. Current focused probes cover its affected
   read boundaries.
@@ -159,8 +177,8 @@ Keep plugin formats explicit and keep the result machine-specific.
 
 ## Retrospective
 
-Use code-point sorting for generated assets. Locale-aware sorting can make
-otherwise identical source bundles produce different bytes. Keep live
-resolution separate from offline extraction so stale evidence fails on the
-bundle fingerprint. DirectParameter IDs include a structural `CONTENTS/`
-prefix, so compare their normalized path to candidate IDs.
+Live commands can outlive a tool wrapper that reports completion. Confirm the
+actual process exit. If a live suite is interrupted, remove only its exact
+fixture identities before the baseline check. Paired VST3 and CLAP observers
+settled within 232 ms on this machine, so neither format needs a separate
+settlement rule from this evidence.

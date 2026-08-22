@@ -33,10 +33,11 @@ import {
 } from './errors.js';
 import type { WindowCoverage } from './snapshot.js';
 
-/** A device to insert. Both forms are checked before a frame is emitted (E4h). */
+/** A device to insert. Each identifier is checked before a frame is emitted. */
 export type DeviceSource =
   | { readonly from: 'bitwig'; readonly uuid: string }
-  | { readonly from: 'clap'; readonly uuid: string }
+  | { readonly from: 'vst3'; readonly classUid: string }
+  | { readonly from: 'clap'; readonly id: string }
   /** ⚠ MUST be absolute and MUST end `.bwpreset` — both fail silently otherwise (E4h). */
   | { readonly from: 'file'; readonly path: string };
 

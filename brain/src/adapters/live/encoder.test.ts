@@ -420,16 +420,35 @@ test('E-device: a device op POINTS a cursor at its track, and addresses that cur
 });
 
 test('E-device: a CLAP insert sends `clapId`, which is the key its handler reads', () => {
-  // `deviceInsertClap` does `params.get("clapId")`; the encoder sent `uuid`, so
-  // the handler would have dereferenced null. Same shape of defect as the cursor
-  // confusion above and found the same way — by reading the Java, which is the
-  // only source of truth for a wire this side cannot exercise offline.
   const frames = encodeOp(
-    { op: 'device.insert', track: TRACK_A, source: { from: 'clap', uuid: 'com.example.synth' } },
+    { op: 'device.insert', track: TRACK_A, source: { from: 'clap', id: 'com.example.synth' } },
     ctx,
   );
   assert.deepEqual(methods(frames), [WIRE.cursorPointTrack, WIRE.deviceInsertClap]);
   assert.equal(paramsOf(frames, WIRE.deviceInsertClap)?.['clapId'], 'com.example.synth');
+});
+
+test('4e-device: VST3 and CLAP use distinct validated identifiers', () => {
+  const classUid = 'D39D5B69D6AF42FA123456785A334D44';
+  const vst3 = encodeOp(
+    { op: 'device.insert', track: TRACK_A, source: { from: 'vst3', classUid } },
+    ctx,
+  );
+  assert.deepEqual(methods(vst3), [WIRE.cursorPointTrack, WIRE.deviceInsertVst3]);
+  assert.equal(paramsOf(vst3, WIRE.deviceInsertVst3)?.['vst3Id'], classUid);
+
+  assert.throws(() => encodeOp(
+    { op: 'device.insert', track: TRACK_A, source: { from: 'vst3', classUid: 'not-a-uid' } },
+    ctx,
+  ), InvalidOpError);
+  assert.throws(() => encodeOp(
+    { op: 'device.insert', track: TRACK_A, source: { from: 'clap', id: ' bad.id ' } },
+    ctx,
+  ), InvalidOpError);
+  assert.throws(() => encodeOp(
+    { op: 'device.insert', track: TRACK_A, source: { from: 'clap', id: '' } },
+    ctx,
+  ), InvalidOpError);
 });
 
 // --- E2: beats are the unit; the grid is a per-op view ----------------------

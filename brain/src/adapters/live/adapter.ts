@@ -3308,14 +3308,26 @@ export class LiveAdapter implements BitwigAdapter {
       // in the chain until it lands, so a diff taken any earlier would report the
       // chain we already had and mint nothing — the failure that looks like a
       // missing capability rather than a race.
-      if (insertOp?.op === 'device.insert' && chainBefore !== undefined) {
-        const chainAfter = await this.deviceChain(insertOp.track);
+      if (insertOp?.op === 'device.insert') {
+        const chainAfter = chainBefore === undefined
+          ? undefined
+          : await this.deviceChain(insertOp.track);
         const at = stage.opIndices[insertAt];
-        const chainIndex = chainAfter === undefined
+        const chainIndex = chainBefore === undefined || chainAfter === undefined
           ? undefined
           : mintedChainIndex(chainBefore, chainAfter);
         if (at !== undefined && chainIndex !== undefined) {
           minted[at] = { kind: 'device', track: insertOp.track, chainIndex };
+        } else {
+          const insertMethods = new Set<string>([
+            WIRE.deviceInsertBitwig, WIRE.deviceInsertVst3,
+            WIRE.deviceInsertClap, WIRE.deviceInsertFile,
+          ]);
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            insertMethods.has(entry.op)
+              ? { ...entry, ok: false, error: 'device insertion was not proved by structural readback' }
+              : entry);
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
         }
       }
 
