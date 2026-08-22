@@ -3,6 +3,7 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { LiveAdapter } from '../adapters/live/adapter.js';
+import { BridgeTransport } from '../adapters/live/transport.js';
 import { BridgeClient } from '../client.js';
 import {
   addressKey, device, deviceEnabled, failures, fullyApplied, track,
@@ -11,8 +12,12 @@ import {
 import {
   Executor, ManagedFxChainError, buildManagedFxChain, reverseManagedFxChain,
   type ManagedFxChainCheckpoint, type ManagedFxChainHost, type ManagedFxChainRecovery,
+  type ManagedFxChainRequest,
 } from '../engine/index.js';
 import { check, failureCount, note, pollUntil } from './lib.js';
+import {
+  DevicePerformanceRecorder, DeviceTimingTransport, type DevicePerformanceSample,
+} from './phase4h-device-performance-lib.js';
 
 const PROJECT = '26.05-2 moon';
 const TRACK_NAME = 'gn-4g-managed-fx-chain';
@@ -41,12 +46,31 @@ interface Selection {
 }
 
 const bridge = new BridgeClient();
-const adapter = new LiveAdapter();
-const executor = new Executor(adapter);
+const timingTransport = new DeviceTimingTransport(new BridgeTransport());
+const performanceRecorder = new DevicePerformanceRecorder(timingTransport);
+let activeApplyPhase = 'plannedSettlement';
+const adapter = new LiveAdapter({
+  transport: timingTransport,
+  onTiming: (event) => performanceRecorder.record(event.phase, event.elapsedMs),
+});
+const executor = new Executor(adapter, {
+  onTiming: (event) => performanceRecorder.record(
+    event.phase === 'apply' ? activeApplyPhase
+      : event.phase === 'verification' || event.phase === 'verificationRetry'
+        ? 'verification'
+        : event.phase,
+    event.elapsedMs,
+  ),
+});
 const host: ManagedFxChainHost = {
-  devices: (target) => adapter.devices(target),
-  read: (addresses) => adapter.read(addresses),
+  devices: (target) => performanceRecorder.phase('observerStabilization', () => adapter.devices(target)),
+  read: (addresses) => performanceRecorder.phase(
+    addresses.length === 0 ? 'targetAcquisition' : 'readback',
+    () => adapter.read(addresses),
+  ),
   async apply(ops, options) {
+    activeApplyPhase = ops.some((op) => op.op === 'device.insert')
+      ? 'hostInsertion' : 'plannedSettlement';
     return { take: await executor.run(ops, options) };
   },
 };
@@ -60,6 +84,7 @@ let checkpoint: ManagedFxChainCheckpoint | undefined;
 let reversed = false;
 let seedsRemoved = false;
 let cleanupTrackRemoved = false;
+const performanceSamples: DevicePerformanceSample[] = [];
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const errorText = (error: unknown) => error instanceof Error
@@ -184,6 +209,42 @@ async function seedEntry(target: TrackAddress): Promise<readonly ObservedDevice[
     throw new Error(`the entry fixture was ${JSON.stringify(chainShape(chain))}`);
   }
   return chain;
+}
+
+function managedRequest(target: TrackAddress, delayEnabled: boolean): ManagedFxChainRequest {
+  return {
+    track: target,
+    devices: [
+      {
+        token: 'native-polysynth',
+        source: { from: 'bitwig', uuid: POLYSYNTH },
+        position: 1,
+        parameters: [{ name: 'OSC1 Pulse Width', value: 0.61 }],
+      },
+      {
+        token: 'preset-sampler',
+        source: { from: 'file', path: SAMPLER_PRESET },
+        parameters: [{ directId: 'CONTENTS/TRANSPOSE', value: 0.64 }],
+      },
+      {
+        token: 'zebra3-vst3',
+        source: { from: 'vst3', classUid: VST3_CLASS_UID },
+        position: 2,
+        parameters: [{ directId: 'CONTENTS/PID111', value: 0.62 }],
+      },
+      {
+        token: 'zebra3-clap',
+        source: { from: 'clap', id: CLAP_ID },
+        position: 3,
+        parameters: [{ directId: 'CONTENTS/PID111', value: 0.63 }],
+      },
+    ],
+    existingEnabled: [{
+      device: device(target, 1),
+      expectedName: 'Delay+',
+      enabled: !delayEnabled,
+    }],
+  };
 }
 
 async function proveIncompleteBankRefusal(
@@ -494,39 +555,10 @@ try {
   await proveIncompleteBankRefusal(owned, entryChain);
   await proveConcurrentEditRefusal(owned, entryChain);
 
-  checkpoint = await buildManagedFxChain(host, {
-    track: owned,
-    devices: [
-      {
-        token: 'native-polysynth',
-        source: { from: 'bitwig', uuid: POLYSYNTH },
-        position: 1,
-        parameters: [{ name: 'OSC1 Pulse Width', value: 0.61 }],
-      },
-      {
-        token: 'preset-sampler',
-        source: { from: 'file', path: SAMPLER_PRESET },
-        parameters: [{ directId: 'CONTENTS/TRANSPOSE', value: 0.64 }],
-      },
-      {
-        token: 'zebra3-vst3',
-        source: { from: 'vst3', classUid: VST3_CLASS_UID },
-        position: 2,
-        parameters: [{ directId: 'CONTENTS/PID111', value: 0.62 }],
-      },
-      {
-        token: 'zebra3-clap',
-        source: { from: 'clap', id: CLAP_ID },
-        position: 3,
-        parameters: [{ directId: 'CONTENTS/PID111', value: 0.63 }],
-      },
-    ],
-    existingEnabled: [{
-      device: device(owned, 1),
-      expectedName: 'Delay+',
-      enabled: !delayEnabled,
-    }],
-  });
+  const coldBuild = await performanceRecorder.sample('managed-cold-build', () =>
+    buildManagedFxChain(host, managedRequest(owned, delayEnabled)));
+  checkpoint = coldBuild.value;
+  performanceSamples.push(coldBuild.sample);
 
   const finalNames = checkpoint.final.devices.map((item) => item.name);
   const mintedPositions = checkpoint.inserted.map((item) => item.minted.chainIndex);
@@ -584,7 +616,10 @@ try {
       warnings: checkpoint.report.warnings,
     });
 
-  const reversal = await reverseManagedFxChain(host, checkpoint);
+  const coldReverse = await performanceRecorder.sample('managed-cold-reversal', () =>
+    reverseManagedFxChain(host, checkpoint!));
+  const reversal = coldReverse.value;
+  performanceSamples.push(coldReverse.sample);
   reversed = true;
   const independentEntry = await completeChain(owned);
   check('4g-L8: reversal restores scalars and deletes non-contiguous owned positions safely',
@@ -599,6 +634,29 @@ try {
       restoredScalars: reversal.restoredScalars,
       after: chainShape(independentEntry),
     });
+
+  reversed = false;
+  const warmBuild = await performanceRecorder.sample('managed-warm-build', () =>
+    buildManagedFxChain(host, managedRequest(owned, delayEnabled)));
+  checkpoint = warmBuild.value;
+  performanceSamples.push(warmBuild.sample);
+  const warmReverse = await performanceRecorder.sample('managed-warm-reversal', () =>
+    reverseManagedFxChain(host, checkpoint!));
+  performanceSamples.push(warmReverse.sample);
+  reversed = true;
+  check('4h-L1: a warm managed run preserves exact readback and reversal',
+    warmBuild.value.report.nonTaking.length === 0
+      && warmBuild.value.scalars.every((item) => item.took)
+      && sameChain(warmReverse.value.after.devices, entryChain), {
+      build: warmBuild.sample,
+      failed: warmBuild.value.report.failed,
+      nonTaking: warmBuild.value.report.nonTaking,
+      after: chainShape(warmReverse.value.after.devices),
+      reversal: warmReverse.sample,
+    });
+  if (warmBuild.value.report.failed.length > 0) {
+    note(`warm managed intermediate receipt failures: ${JSON.stringify(warmBuild.value.report.failed)}`);
+  }
 
   await removeEntrySeeds(owned, entryChain);
   check('4g-L9: fixture cleanup restores the exact empty scratch chain',
@@ -631,4 +689,5 @@ try {
 }
 
 note(`Phase 4 session 4g live proof: ${failureCount() === 0 ? 'PASS' : 'FAILED'}`);
+note(`Phase 4 session 4h managed performance: ${JSON.stringify(performanceSamples, null, 2)}`);
 if (failureCount() > 0) process.exitCode = 1;

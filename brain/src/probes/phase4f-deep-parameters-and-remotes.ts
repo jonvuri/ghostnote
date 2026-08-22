@@ -8,6 +8,9 @@ import {
   type DeviceAddress, type ParamState, type RemoteControlState, type RemotePageState,
 } from '../contract/index.js';
 import { check, failureCount, note, pollUntil } from './lib.js';
+import {
+  DevicePerformanceRecorder, DeviceTimingTransport, type DevicePerformanceSample,
+} from './phase4h-device-performance-lib.js';
 
 const PROJECT = '26.05-2 moon';
 const TRACK_NAME = 'gn-4f-deep-parameter-proof';
@@ -52,7 +55,7 @@ interface PadInventory {
 }
 
 class InterferenceTransport implements Transport {
-  private readonly inner = new BridgeTransport();
+  readonly timing = new DeviceTimingTransport(new BridgeTransport());
   private interference: (() => Promise<void>) | undefined;
   readonly trace: unknown[] = [];
 
@@ -66,7 +69,7 @@ class InterferenceTransport implements Transport {
       this.interference = undefined;
       await interference();
     }
-    const result = await this.inner.send(frame);
+    const result = await this.timing.send(frame);
     if (frame.method === WIRE.deviceCursorStatus || frame.method === WIRE.deviceCursorSelectInLayer
         || frame.method === WIRE.layerList
         || frame.method === WIRE.directParamList) {
@@ -101,16 +104,31 @@ class InterferenceTransport implements Transport {
   }
 
   close(): Promise<void> {
-    return this.inner.close();
+    return this.timing.close();
   }
 }
 
-const bridge = new BridgeClient();
 const transport = new InterferenceTransport();
-const adapter = new LiveAdapter({ transport });
+const performanceRecorder = new DevicePerformanceRecorder(transport.timing);
+const rawBridge = new BridgeClient();
+const bridge = {
+  connect: () => rawBridge.connect(),
+  disconnect: () => rawBridge.disconnect(),
+  async request(method: string, params?: Record<string, unknown>): Promise<unknown> {
+    const started = performance.now();
+    const result = await rawBridge.request(method, params);
+    transport.timing.recordExternal(method, performance.now() - started, result);
+    return result;
+  },
+};
+const adapter = new LiveAdapter({
+  transport,
+  onTiming: (event) => performanceRecorder.record(event.phase, event.elapsedMs),
+});
 let ownedTrackId: string | undefined;
 let entryTrackCount = 0;
 let entrySelection: Selection | undefined;
+const performanceSamples: DevicePerformanceSample[] = [];
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -314,22 +332,37 @@ try {
   await bridge.connect();
   entrySelection = await bridge.request('selection.status') as Selection;
   await createOwnedTrack();
-  const targets = await buildFixture();
+  const construction = await performanceRecorder.sample('deep-route-construction', () =>
+    performanceRecorder.phase('construction', buildFixture));
+  const targets = construction.value;
+  performanceSamples.push(construction.sample);
   const info = await adapter.hello();
   const revision = await adapter.revision();
   check('4f-L1: the accepted project and new extension contract are live',
     revision.project === PROJECT && info.methodsHash !== undefined,
     { project: revision.project, methodsHash: info.methodsHash });
 
-  await proveParameter('4f-L2 depth 1', targets.depth1);
-  await proveParameter('4f-L3 depth 2', targets.depth2);
-  await proveParameter('4f-L4 drum-pad channel 3', targets.padDevice);
+  for (const [name, label, target] of [
+    ['depth-1-parameter', '4f-L2 depth 1', targets.depth1],
+    ['depth-2-parameter', '4f-L3 depth 2', targets.depth2],
+    ['drum-pad-parameter', '4f-L4 drum-pad channel 3', targets.padDevice],
+  ] as const) {
+    const measured = await performanceRecorder.sample(name, () =>
+      performanceRecorder.phase('verification', () => proveParameter(label, target)));
+    performanceSamples.push(measured.sample);
+  }
 
-  const remoteInventoryAddress = remotes(targets.depth2);
-  const inventory = await adapter.read([remoteInventoryAddress]);
-  const entry = inventory.entries[addressKey(remoteInventoryAddress)];
-  const pages = entry?.value.of === 'remotes' ? entry.value.remotes.pages : [];
-  const picked = safeRemote(pages);
+  const remoteMeasured = await performanceRecorder.sample('depth-2-remote', async () => {
+    const remoteInventoryAddress = remotes(targets.depth2);
+    const inventory = await performanceRecorder.phase('observerStabilization', () =>
+      adapter.read([remoteInventoryAddress]));
+    const entry = inventory.entries[addressKey(remoteInventoryAddress)];
+    const pages = entry?.value.of === 'remotes' ? entry.value.remotes.pages : [];
+    const picked = safeRemote(pages);
+    return { pages, picked };
+  });
+  performanceSamples.push(remoteMeasured.sample);
+  const { pages, picked } = remoteMeasured.value;
   check('4f-L5: remote pages enumerate names and indexes with modulated values',
     pages.length > 0 && pages.every((page, index) => page.index === index && page.name.trim() !== '')
       && picked !== undefined && Number.isFinite(picked.control.modulatedValue),
@@ -340,18 +373,24 @@ try {
     picked.control.index, picked.control.name);
   const requestedRemote = picked.control.value <= 0.9
     ? picked.control.value + 0.05 : picked.control.value - 0.05;
-  const remoteWrite = await adapter.apply({
-    ops: [{ op: 'remote.set', remote: remoteAddress, value: requestedRemote }],
-  });
-  const remoteChanged = await adapter.read([remoteAddress]);
-  const changedEntry = remoteChanged.entries[addressKey(remoteAddress)];
-  const changedControl = changedEntry?.value.of === 'remote' ? changedEntry.value.remote : undefined;
-  const remoteRestore = await adapter.apply({
-    ops: [{ op: 'remote.set', remote: remoteAddress, value: picked.control.value }],
-  });
-  const remoteAfter = await adapter.read([remoteAddress]);
-  const afterEntry = remoteAfter.entries[addressKey(remoteAddress)];
-  const afterControl = afterEntry?.value.of === 'remote' ? afterEntry.value.remote : undefined;
+  const remoteReplay = await performanceRecorder.sample('depth-2-remote-write-replay', () =>
+    performanceRecorder.phase('verification', async () => {
+      const remoteWrite = await adapter.apply({
+        ops: [{ op: 'remote.set', remote: remoteAddress, value: requestedRemote }],
+      });
+      const remoteChanged = await adapter.read([remoteAddress]);
+      const changedEntry = remoteChanged.entries[addressKey(remoteAddress)];
+      const changedControl = changedEntry?.value.of === 'remote' ? changedEntry.value.remote : undefined;
+      const remoteRestore = await adapter.apply({
+        ops: [{ op: 'remote.set', remote: remoteAddress, value: picked.control.value }],
+      });
+      const remoteAfter = await adapter.read([remoteAddress]);
+      const afterEntry = remoteAfter.entries[addressKey(remoteAddress)];
+      const afterControl = afterEntry?.value.of === 'remote' ? afterEntry.value.remote : undefined;
+      return { remoteWrite, changedControl, remoteRestore, afterControl };
+    }));
+  performanceSamples.push(remoteReplay.sample);
+  const { remoteWrite, changedControl, remoteRestore, afterControl } = remoteReplay.value;
   check('4f-L6: one remote write lands and exact replay restores its base value',
     fullyApplied(remoteWrite) && changedControl !== undefined
       && Math.abs(changedControl.value - requestedRemote) <= TOLERANCE
@@ -418,4 +457,5 @@ try {
 }
 
 note(`Phase 4 session 4f live proof: ${failureCount() === 0 ? 'PASS' : 'FAILED'}`);
+note(`Phase 4 session 4h deep performance: ${JSON.stringify(performanceSamples, null, 2)}`);
 if (failureCount() > 0) process.exitCode = 1;

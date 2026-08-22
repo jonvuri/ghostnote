@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-22
 phase: phase-4
-session: 4h-device-performance-gate
+session: 4h1-device-observer-efficiency
 ---
 
 # Now
@@ -183,15 +183,43 @@ verified, and saved. The post-save 2k baseline passes.
 - The complete fingerprint is not device identity. A same-name and same-enabled
   replacement remains indistinguishable. E59 records this limit.
 
+## Session 4h result
+
+- Complete native, VST3, CLAP, deep, remote, managed, reversal, and clip-
+  regression workloads now emit wall, server, bridge, host-settle, phase, and
+  request-count measurements.
+- Native enumeration took 2,797 ms. Native replay took 6,059 ms. VST3 and CLAP
+  insert, inventory, and replay took 11,872 and 12,499 ms.
+- Depth-1 and depth-2 replay took 8,169 and 9,403 ms. Remote inventory took
+  2,337 ms. Remote replay took 14,243 ms and used 335 requests.
+- Managed cold and warm builds took 50,203 and 50,426 ms. They used 1,163 and
+  1,170 requests. Cold plugin load is not the dominant cost.
+- One remote replay used 124 remote-list reads and 56 page selections. Large
+  plugin post-write generations can be unstable even when later exact readback
+  proves restoration.
+- A same-generation plugin readback trial returned stale values and was
+  removed. No settle budget was reduced. No concurrency was added.
+- E60 sets provisional budgets and a 2,000 ms background-progress threshold.
+  Session 4i remains blocked by the focused 4h1 observer repair.
+- The 4b exact-read median was 1,936 ms. The two-empty-clip workflow was 6,352
+  ms. Both accepted gates still pass.
+
 ## Next action
 
-Begin the [device performance gate](plan/phase-4/4h-device-performance-gate.md).
-Measure the complete E59 managed workflow with native, VST3, CLAP, deep-route,
-remote, verification, recovery, and reversal costs separated. Add concurrency
-only if the serialized cursor is a measured bottleneck.
+Begin [device observer efficiency](plan/phase-4/4h1-device-observer-efficiency.md).
+Remove the repeated remote-page loop where the host API permits one bounded
+reply. Stabilize large-plugin post-write readback without mutation replay. Then
+repeat the E60 cold and warm gate before session 4i.
 
 ## Verification
 
+- Session 4h native, plugin, deep-route, remote, managed cold and warm,
+  reversal, and clip-regression measurements completed. Exact live cleanup
+  restored every owned fixture and the entry selection.
+- The full brain check passes 752/752, including typecheck. Extension tests
+  pass. Context check passes for 201 active documents.
+- The final read-only 2k baseline passes with seven tracks, 14 clips, and no
+  launcher residue.
 - Session 4g focused adapter and managed-workflow tests pass 108/108. Shared
   fake conformance passes 60/60. The full brain check passes 750/750, including
   typecheck. Extension tests pass.
@@ -232,8 +260,6 @@ only if the serialized cursor is a measured bottleneck.
 
 ## Retrospective
 
-Dependent minted-address work needs a small orchestration layer because the
-executor derives a static write set. Keep mint provenance for ownership. Use
-only the last accepted complete observation for current positions and recovery.
-Use distinguishable fixture devices when cursor identity must be unique. No
-context-process change is needed.
+The performance gate found a product design problem, not only a slow loop. One
+remote cursor page forces sequential page observation. Measure complete request
+shape before adding concurrency. No context-process change is needed.

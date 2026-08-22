@@ -2,11 +2,11 @@
 title: Phase 4, session 4i — device and parameter MCP surface
 kind: plan
 state: planned
-status: Planned after 4h. Replace the thin probe-era device tools with one
-        measured, versioned public cohort.
+status: Blocked by 4h1. Replace the thin probe-era device tools only after the
+        measured observer loops close.
 updated: 2026-08-21
 parent: README.md
-prev: 4h-device-performance-gate.md
+prev: 4h1-device-observer-efficiency.md
 next: 4j-dogfood-and-closeout.md
 scope: Public device inspection, insertion, parameter, bypass, and deletion tools
 evidence: E4, E4b, E48 · D18, D20, D21

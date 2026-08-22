@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4h — device performance gate
 kind: plan
-state: planned
-status: Planned next. Measure complete device workflows before the public
-        schema freezes.
+state: complete
+status: Complete. E60 measures the complete workflows and identifies remote and
+        plugin observer loops. Session 4h1 blocks the public schema freeze.
 updated: 2026-08-22
 parent: README.md
 prev: 4g-managed-fx-chain.md
-next: 4i-device-surface.md
+next: 4h1-device-observer-efficiency.md
 scope: Device workflow latency, observer cost, and targeted optimization
-evidence: E5, E45, E48, E50, E55, E59 · D7, D10
+evidence: E5, E45, E48, E50, E55, E59, E60 · D7, D10
 ---
 
 # Phase 4, session 4h — device performance gate
@@ -82,3 +82,33 @@ bottleneck and each concurrent target can keep the same isolation proof.
 
 Record whether the performance gate found a product design problem or only an
 implementation loop. Carry forward only the distinction that changes work.
+
+## Result
+
+E60 records native, VST3, CLAP, depth-1, depth-2, drum-pad, remote, managed,
+reversal, and clip-regression measurements. Verification and observer work
+dominate. Extension server time is small.
+
+The managed cold and warm builds took 50,203 and 50,426 ms. The cold run used
+1,163 bridge requests. The warm run used 1,170. Plugin load is not the dominant
+cost. One remote change and replay took 14,243 ms and used 335 requests. It
+included 124 remote-list reads and 56 page selections.
+
+A same-generation DirectParameter readback trial kept the settle budget but
+returned stale plugin values. The trial was removed. A wider cursor pool would
+not remove the measured same-target and per-page loops, so no concurrency was
+added.
+
+The existing settle budgets remain. E60 sets provisional device ceilings and
+requires background progress after 2,000 ms. The 4b clip median was 1,936 ms,
+and the two-empty-clip workflow was 6,352 ms. Both stay within the accepted
+gates.
+
+The session found a product design problem in the one-page remote observer and
+an implementation completion problem for large plugin inventories. Session
+4h1 is the focused repair. Session 4i remains blocked.
+
+The full brain check passes 752/752, including typecheck. Extension tests pass.
+The context check passes for 201 active documents. The final read-only accepted-
+project baseline passes with seven tracks and no launcher residue. Both diff
+checks pass.

@@ -1,11 +1,15 @@
 /** Phase 4 session 4e: prove explicit VST3 and CLAP parameter control. */
 import { LiveAdapter } from '../adapters/live/adapter.js';
+import { BridgeTransport } from '../adapters/live/transport.js';
 import { BridgeClient } from '../client.js';
 import {
   addressKey, device, failures, fullyApplied, param, track,
   type DeviceAddress, type DeviceState, type ParamState,
 } from '../contract/index.js';
 import { check, failureCount, note, pollUntil } from './lib.js';
+import {
+  DevicePerformanceRecorder, DeviceTimingTransport, type DevicePerformanceSample,
+} from './phase4h-device-performance-lib.js';
 
 const PROJECT = '26.05-2 moon';
 const TRACK_NAME = 'gn-4e-plugin-parameter-proof';
@@ -28,12 +32,15 @@ interface Selection {
 }
 
 const bridge = new BridgeClient();
-const adapter = new LiveAdapter();
+const timingTransport = new DeviceTimingTransport(new BridgeTransport());
+const performanceRecorder = new DevicePerformanceRecorder(timingTransport);
+const adapter = new LiveAdapter({ transport: timingTransport });
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 let ownedTrackId: string | undefined;
 let entrySelection: Selection | undefined;
 let entryTrackCount = 0;
 let cleanupChainConfirmed = false;
+const performanceSamples: DevicePerformanceSample[] = [];
 
 async function tracks(): Promise<readonly TrackRow[]> {
   return ((await bridge.request('track.list')) as { readonly tracks: readonly TrackRow[] }).tracks;
@@ -78,16 +85,52 @@ async function createOwnedTrack(): Promise<void> {
 }
 
 async function readDevice(address: DeviceAddress): Promise<DeviceState | undefined> {
-  const snapshot = await adapter.read([address]);
-  const entry = snapshot.entries[addressKey(address)];
-  return entry?.value.of === 'device' ? entry.value.device : undefined;
+  let lastError: unknown;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      const snapshot = await adapter.read([address]);
+      const entry = snapshot.entries[addressKey(address)];
+      if (entry?.value.of === 'device' && (entry.value.device.params?.length ?? 0) > 0) {
+        return entry.value.device;
+      }
+    } catch (error) {
+      lastError = error;
+    }
+    if (attempt < 2) await wait(300);
+  }
+  if (lastError !== undefined) throw lastError;
+  return undefined;
 }
 
 async function readParameter(address: DeviceAddress, id: string): Promise<number | undefined> {
   const at = param(address, id);
-  const snapshot = await adapter.read([at]);
-  const entry = snapshot.entries[addressKey(at)];
-  return entry?.value.of === 'param' ? entry.value.param.value : undefined;
+  let lastError: unknown;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const snapshot = await adapter.read([at]);
+      const entry = snapshot.entries[addressKey(at)];
+      if (entry?.value.of === 'param') return entry.value.param.value;
+    } catch (error) {
+      lastError = error;
+    }
+    if (attempt === 0) await wait(200);
+  }
+  if (lastError !== undefined) throw lastError;
+  return undefined;
+}
+
+async function writeParameter(address: DeviceAddress, id: string, value: number) {
+  const at = param(address, id);
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      return await adapter.apply({ ops: [{ op: 'param.set', param: at, value }] });
+    } catch (error) {
+      if (attempt > 0 || !(error instanceof Error)
+          || error.name !== 'AddressUnresolvedError'
+          || !/parameter inventory is unstable/.test(error.message)) throw error;
+      await wait(200);
+    }
+  }
 }
 
 function rankedParameters(params: readonly ParamState[]): readonly ParamState[] {
@@ -111,16 +154,16 @@ async function proveParameter(
   for (const candidate of rankedParameters(state.params ?? []).slice(0, 10)) {
     const before = candidate.value;
     const requested = before <= 0.9 ? before + 0.05 : before - 0.05;
-    const at = param(address, candidate.id);
-    const write = await adapter.apply({ ops: [{ op: 'param.set', param: at, value: requested }] });
+    const write = await writeParameter(address, candidate.id, requested);
     const landed = await readParameter(address, candidate.id);
     const changed = fullyApplied(write)
       && landed !== undefined && Math.abs(landed - requested) <= TOLERANCE;
 
-    const restore = await adapter.apply({ ops: [{ op: 'param.set', param: at, value: before }] });
+    const restore = await writeParameter(address, candidate.id, before);
     const restored = await readParameter(address, candidate.id);
     if (!fullyApplied(restore) || restored === undefined || Math.abs(restored - before) > TOLERANCE) {
-      throw new Error(`${format} parameter ${candidate.name} did not restore to ${before}; read ${restored}`);
+      throw new Error(`${format} parameter ${candidate.name} did not restore to ${before}; read ${restored}; `
+        + `receipt ${JSON.stringify(failures(restore))}`);
     }
     if (changed) return { id: candidate.id, name: candidate.name, before, changed: landed! };
   }
@@ -174,29 +217,42 @@ try {
   ];
 
   for (const [expectedPosition, target] of formats.entries()) {
-    const started = Date.now();
-    const inserted = await adapter.apply({
-      ops: [{ op: 'device.insert', track: owned, source: target.source }],
+    const measured = await performanceRecorder.sample(`${target.format.toLowerCase()}-complete`, async () => {
+      const insertionStarted = performance.now();
+      const inserted = await performanceRecorder.phase('hostInsertion', () => adapter.apply({
+        ops: [{ op: 'device.insert', track: owned, source: target.source }],
+      }));
+      note(`${target.format} insertion phase completed`);
+      const elapsedMs = performance.now() - insertionStarted;
+      const minted = inserted.minted[0];
+      if (minted?.kind !== 'device') {
+        return { inserted, minted, elapsedMs, inventoryMs: 0, state: undefined, proof: undefined };
+      }
+      const inventoryStarted = performance.now();
+      const state = await performanceRecorder.phase('observerStabilization', () => readDevice(minted));
+      note(`${target.format} inventory phase completed with ${state?.params?.length ?? 0} parameters`);
+      const inventoryMs = performance.now() - inventoryStarted;
+      const proof = state === undefined ? undefined
+        : await performanceRecorder.phase('verification', () => proveParameter(target.format, minted, state));
+      note(`${target.format} verification and replay phase completed`);
+      return { inserted, minted, elapsedMs, inventoryMs, state, proof };
     });
-    const minted = inserted.minted[0];
-    const elapsedMs = Date.now() - started;
+    performanceSamples.push(measured.sample);
+    const { inserted, minted, elapsedMs, inventoryMs, state, proof } = measured.value;
     check(`4e-L${expectedPosition + 2}: ${target.format} inserts by explicit id and mints its observed position`,
       fullyApplied(inserted) && minted?.kind === 'device'
         && minted.chainIndex === expectedPosition,
       { elapsedMs, minted, failures: failures(inserted) });
     if (minted?.kind !== 'device') throw new Error(`${target.format} insertion did not mint a device`);
 
-    const inventoryStarted = Date.now();
-    const state = await readDevice(minted);
-    const inventoryMs = Date.now() - inventoryStarted;
     check(`4e-L${expectedPosition + 4}: ${target.format} exposes more than eight named DirectParameters`,
       (state?.params?.length ?? 0) > 8
         && state!.params!.filter((candidate) => candidate.name.trim() !== '').length > 8,
       { name: state?.name, count: state?.params?.length, inventoryMs });
     if (state === undefined) throw new Error(`${target.format} device state did not settle`);
 
-    const proof = await proveParameter(target.format, minted, state);
-    check(`4e-L${expectedPosition + 6}: ${target.format} changes and restores one parameter`, true, proof);
+    check(`4e-L${expectedPosition + 6}: ${target.format} changes and restores one parameter`,
+      proof !== undefined, proof);
     note(`${target.format} observer inventory settled in ${inventoryMs} ms; insertion took ${elapsedMs} ms`);
   }
 
@@ -231,4 +287,5 @@ try {
 }
 
 console.log(`\n${failureCount() === 0 ? 'ALL PASS' : `${failureCount()} FAILURE(S)`}`);
+note(`Phase 4 session 4h plugin performance: ${JSON.stringify(performanceRecorder.samples, null, 2)}`);
 if (failureCount() > 0) process.exitCode = 1;

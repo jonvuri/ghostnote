@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E60 | Device performance gate finds observer loops [K] (2026-08-22) | [open](experiments/e60-device-performance-gate-finds-observer-loops.md) |
 | E59 | Managed FX-chain workflow is live [K] (2026-08-22) | [open](experiments/e59-managed-fx-chain-is-live.md) |
 | E58 | Deep parameters and remote controls are live [K] (2026-08-22) | [open](experiments/e58-deep-parameters-and-remote-controls-are-live.md) |
 | E57 | VST3 and CLAP parameter control is live [K] (2026-08-22) | [open](experiments/e57-vst3-and-clap-parameter-control-is-live.md) |
