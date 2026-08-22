@@ -4,13 +4,13 @@ kind: status
 state: active
 updated: 2026-08-21
 phase: phase-4
-session: 4b-note-completion-signals
+session: 4b-clip-mutation-settlement
 ---
 
 # Now
 
-Phase 2, Phase 4 session 4a, and the exact-read session 4b are complete. The
-note-completion evidence follow-up is next.
+Phase 2, Phase 4 session 4a, exact read, and note-completion evidence are
+complete. Clip mutation settlement is next.
 
 ## Accepted live result
 
@@ -54,17 +54,35 @@ verified, and saved. The post-save 2k baseline passes.
 - Current live probes passed long-clip paging, triplet and expression readback,
   selection interference, background cancellation, reversal, and cleanup.
 
+## Note-completion result
+
+- Basic note count did not increase requests, stages, page turns, settles, or
+  verification from one through 64 notes. Distinct clips, writer pages, and
+  property dependency turns increased cost.
+- Note-step callbacks covered add, clear, move, full clear, all channels,
+  binary and triplet grids, four writer pages, and the 32-beat edge.
+- Numeric fields, enum fields, recurrence, and mute produced callbacks. The
+  four chance, occurrence, recurrence, and repeat enable fields were silent.
+- A target generation rejects initial, stale, and unrelated events. A
+  same-target foreign edit can still wake the observer. Exact readback exposed
+  that conflict.
+- E53 classifies the observer as a partial wake hint, not a completion fence.
+  Exact bulk readback remains the proof. Silent fields and timeout require
+  bounded polling or the fixed fallback.
+- The accepted D7 scaffold with one observer had 27.70 ms maximum ping latency.
+  Cleanup removed the owned track and restored the exact entry selection.
+
 ## Next action
 
-Run
-[note-completion evidence](plan/phase-4/4b-note-completion-signals.md), then
-[clip mutation settlement](plan/phase-4/4b-clip-mutation-settlement.md). These
-two bounded follow-ups precede session 4c. Device-specific performance remains
-in session 4h.
+Run [clip mutation settlement](plan/phase-4/4b-clip-mutation-settlement.md).
+Use eligible note events only to wake exact verification early. Keep bounded
+polling or the fixed fallback for silent fields and timeout. This is the last
+bounded follow-up before session 4c. Device-specific performance remains in
+session 4h.
 
 ## Verification
 
-- Focused 4b cursor and live regression tests pass. Full brain check: 657/657
+- Focused 4b cursor, note-event, and live regression tests pass. Full brain check: 660/660
   pass, including typecheck. Extension build passes.
 - The controlled read-window probe, complete latency workflow, 128-beat
   long-clip workflow, background cancellation, and final read-only 2k baseline
@@ -76,8 +94,8 @@ in session 4h.
   devices.
 - Saved-project open and one cold start: pass with zero control-thread stalls.
 - Scratch cleanup and exact rig configuration restoration: pass.
-- Context check: 192 active documents and links pass. `git diff --check` passes.
-- Final live handshake: pass for Bitwig 6.0.6/API 25, the 140-method golden,
+- Context check: 193 active documents and links pass. `git diff --check` passes.
+- Final live handshake: pass for Bitwig 6.0.6/API 25, the 145-method golden,
   deployment age, the selected `256/128/8/16/64` rig, 512-step writers, and the
   2,048-step reader.
 - The `26.05-2 moon` project passes the complete read-only 2k baseline after 4b
@@ -86,5 +104,5 @@ in session 4h.
 
 ## Retrospective
 
-Writer and reader windows need different sizes. Keep them separate when their
-coverage requirements differ.
+Callback support differs by property. Test each control field. Do not infer its
+signal from the related value field.

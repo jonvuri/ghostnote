@@ -12,10 +12,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-08-21",
+  "extractedAt": "2026-08-22",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 140,
-  "methodsHash": "3cb831540c60b056",
+  "count": 145,
+  "methodsHash": "ce77250e269be152",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -33,10 +33,12 @@
     "chain.select",
     "chain.setName",
     "contract.hello",
+    "cursor.clearNote",
     "cursor.clipMetadata",
     "cursor.duplicateContent",
     "cursor.getNotesVerboseAllChannels",
     "cursor.launchSettings",
+    "cursor.moveNote",
     "cursor.playState",
     "cursor.scrollToStep",
     "cursor.setClipMetadata",
@@ -63,6 +65,9 @@
     "layer.setName",
     "layer.soloToggle",
     "navigation.showChangedClip",
+    "note.observer.arm",
+    "note.observer.prepare",
+    "note.observer.read",
     "observation.read",
     "observation.replace",
     "rig.methods",
@@ -126,6 +131,7 @@
     "chainselector.status",
     "clip.create",
     "contract.hello",
+    "cursor.clearNote",
     "cursor.clearNotes",
     "cursor.clipMetadata",
     "cursor.duplicateContent",
@@ -133,6 +139,7 @@
     "cursor.getNotesVerbose",
     "cursor.getNotesVerboseAllChannels",
     "cursor.launchSettings",
+    "cursor.moveNote",
     "cursor.pin",
     "cursor.pinTrack",
     "cursor.playState",
@@ -199,6 +206,9 @@
     "layer.setName",
     "layer.soloToggle",
     "navigation.showChangedClip",
+    "note.observer.arm",
+    "note.observer.prepare",
+    "note.observer.read",
     "notify",
     "observation.read",
     "observation.replace",
@@ -403,6 +413,11 @@
     "cursor.scrollToStep"
   ],
   "addedInPhase4Session4b": [
-    "cursor.getNotesVerboseAllChannels"
+    "cursor.clearNote",
+    "cursor.getNotesVerboseAllChannels",
+    "cursor.moveNote",
+    "note.observer.arm",
+    "note.observer.prepare",
+    "note.observer.read"
   ]
 }

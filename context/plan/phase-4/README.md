@@ -2,9 +2,8 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Session 4b closes the exact-read gate with a dedicated 2,048-step
-        reader. Two bounded clip-performance follow-ups now precede device
-        implementation.
+status: Exact read and note-completion evidence are complete. Clip mutation
+        settlement is the last bounded follow-up before device implementation.
 updated: 2026-08-21
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -38,7 +37,7 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 2. [4b — exact clip-operation latency](4b-clip-operation-latency.md) — complete.
    The 2,048-step reader closes the half-time gate. Writers stay at 512 steps.
 3. [4b follow-up — note completion signals](4b-note-completion-signals.md) —
-   measure note-stage scaling and classify scoped note events.
+   complete. E53 classifies scoped note events as a partial wake hint.
 4. [4b follow-up — clip mutation settlement](4b-clip-mutation-settlement.md) —
    apply measured O(1)-in-note-count settlement and exact verification.
 5. [4c — direct-parameter core](4c-direct-parameter-core.md) — safe top-level
@@ -63,8 +62,9 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 
 - Session 4b is a measured prerequisite. It changes shared adapter and bridge
   read behavior before the parameter implementation adds another live path.
-- The note-completion follow-up measures signal strength before product use.
-  The mutation follow-up applies only reductions that its evidence supports.
+- E53 permits note events only as an early wake hint. Silent enable fields and
+  callback timeout keep bounded polling or the fixed fallback. Exact readback
+  remains the proof.
 - Session 4c starts after the exact-read gate and both clip-performance
   follow-ups close. Device-specific optimization remains in session 4h.
 - Sessions 4d, 4e, and 4f depend on the 4c parameter core. Their catalog,

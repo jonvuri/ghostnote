@@ -211,6 +211,7 @@
     "probe:4b-latency": "tsx src/probes/phase4b-clip-latency.ts",
     "probe:4b-read-window": "tsx src/probes/phase4b-read-window.ts",
     "probe:4b-read-regression": "tsx src/probes/phase4b-read-regression.ts",
+    "probe:4b-note-completion": "tsx src/probes/phase4b-note-completion.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

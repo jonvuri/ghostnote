@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4b follow-up — note completion signals
 kind: plan
-state: planned
-status: Planned after the exact-read gate. Measure whether scoped note events
-        can replace fixed completion waits.
+state: complete
+status: Complete. E53 classifies note-step events as a partial wake hint. Four
+        enable fields stay silent, and exact readback remains the proof.
 updated: 2026-08-21
 parent: README.md
 prev: 4b-clip-operation-latency.md
 next: 4b-clip-mutation-settlement.md
 scope: Note mutation scaling and scoped completion evidence
-evidence: E2, E8, E15, E19, E20b, E51, E52 · D6, D9, D10, D15
+evidence: E2, E8, E15, E19, E20b, E51–E53 · D6, D9, D10, D15
 ---
 
 # Phase 4, session 4b follow-up — note completion signals
@@ -94,3 +94,20 @@ does not arrive before exact readback can observe the change.
 
 Record whether the event reports host completion or only host activity. Keep
 the distinction explicit in the next session.
+
+## Result
+
+E53 closes this evidence session. Existing request, stage, settle, page, and
+verification counts are constant from one through 64 basic notes. They grow
+with expression dependency stages, writer pages, and clips.
+
+The dedicated observer covered add, clear, move, full clear, all channels, both
+grids, the 32-beat edge, four writer pages, and all 20 writable note entries.
+Most operations produced an early callback. The four enable fields produced no
+callback. A same-target foreign edit produced an eligible callback, so no
+callback proves ownership or complete settlement.
+
+The observer is a wake hint for event-producing operations and unusable for the
+silent fields. The next session must keep exact bulk readback, bounded polling,
+and a fixed timeout fallback. Cleanup restored the accepted project and entry
+selection.

@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-08-21
 scope: launcher-clip notes, metadata, exact reads, writes, and copies
-evidence: E2, E24, E41–E46, E51, E52; D8, D9, D15, D16, D21
+evidence: E2, E24, E41–E46, E51–E53; D8, D9, D15, D16, D21
 ---
 
 # Launcher clips
@@ -83,10 +83,23 @@ Long writes group notes by page. They confirm the pinned track and row on every
 required page before mutation, use page-local steps, and restore page zero.
 Read-based note properties use a separate settled turn for each page [K, E46].
 
+## Completion signals
+
+`Clip.addNoteStepObserver()` is a target-scoped wake hint for note existence,
+numeric and enum properties, recurrence, and mute. It is not a completion
+fence. The four chance, occurrence, recurrence, and repeat enable fields are
+silent. Same-target foreign activity is indistinguishable until exact readback
+[K, [E53](../experiments/e53-note-step-observer-is-a-partial-wake-hint.md)].
+
+Use an eligible callback only to start exact verification early. Keep bounded
+polling or a fixed fallback for silent fields and timeout. Exact bulk readback
+remains the success proof [K, E53].
+
 ## Supersession record
 
 | Date | Change |
 |---|---|
+| 2026-08-21 | E53 classifies note-step callbacks as an operation-specific wake hint. |
 | 2026-08-21 | E52 selects the 2,048-step read cursor and closes the latency gate. |
 | 2026-08-21 | E51 adds the bounded bulk-page path and its measured latency limit. |
 | 2026-08-20 | Page created from the Phase 2 closeout audit. It consolidates E2, E24, and E41–E46 without changing any experiment record. |

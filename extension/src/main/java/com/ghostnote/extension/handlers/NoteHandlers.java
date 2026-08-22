@@ -31,6 +31,8 @@ public final class NoteHandlers extends HandlerGroup {
     @Override
     public void register(HandlerRegistry r) {
         r.on("cursor.setNotes", params -> cursorSetNotes(params));
+        r.on("cursor.clearNote", params -> cursorClearNote(params));
+        r.on("cursor.moveNote", params -> cursorMoveNote(params));
         r.on("cursor.getNotes", params -> cursorGetNotes(params));
         r.on("cursor.clearNotes", params -> cursorClearNotes(params));
         r.on("cursor.setStepSize", params -> cursorSetStepSize(params));
@@ -39,6 +41,9 @@ public final class NoteHandlers extends HandlerGroup {
         r.on("cursor.setNoteProps", params -> cursorSetNoteProps(params));
         r.on("cursor.getNotesVerbose", params -> cursorGetNotesVerbose(params));
         r.on("cursor.getNotesVerboseAllChannels", params -> cursorGetNotesVerboseAllChannels(params));
+        r.on("note.observer.prepare", params -> noteObserverPrepare());
+        r.on("note.observer.arm", params -> noteObserverArm(params));
+        r.on("note.observer.read", params -> noteObserverRead(params));
     }
 
     /** notes: [[x(step), y(pitch), velocity(0-127), duration(beats)], ...] */
@@ -57,6 +62,26 @@ public final class NoteHandlers extends HandlerGroup {
         JsonObject result = ok();
         result.addProperty("written", notes.size());
         return result;
+    }
+
+    /** Remove one note without clearing other channels or cells. */
+    private JsonElement cursorClearNote(JsonObject params) {
+        rig.clip(params.get("cursor").getAsString()).clearStep(
+            params.get("channel").getAsInt(),
+            params.get("x").getAsInt(),
+            params.get("y").getAsInt());
+        return ok();
+    }
+
+    /** Move one note by a grid-relative offset. */
+    private JsonElement cursorMoveNote(JsonObject params) {
+        rig.clip(params.get("cursor").getAsString()).moveStep(
+            params.get("channel").getAsInt(),
+            params.get("x").getAsInt(),
+            params.get("y").getAsInt(),
+            params.get("dx").getAsInt(),
+            params.get("dy").getAsInt());
+        return ok();
     }
 
     /** Pull-based scan over the full grid; lean format [x, y, vel, dur]. */
@@ -96,16 +121,51 @@ public final class NoteHandlers extends HandlerGroup {
     // ------------------------------------------------- E2: fidelity & grid
 
     private JsonElement cursorSetStepSize(JsonObject params) {
-        rig.clip(params.get("cursor").getAsString())
-            .setStepSize(params.get("stepSize").getAsDouble());
+        String ref = params.get("cursor").getAsString();
+        double stepSize = params.get("stepSize").getAsDouble();
+        rig.clip(ref).setStepSize(stepSize);
+        if ("observer".equals(ref)) rig.noteObserver.setGrid(stepSize);
         return ok();
     }
 
     /** Put the first visible grid step at one absolute step offset. */
     private JsonElement cursorScrollToStep(JsonObject params) {
-        rig.clip(params.get("cursor").getAsString())
-            .scrollToStep(params.get("step").getAsInt());
+        String ref = params.get("cursor").getAsString();
+        int step = params.get("step").getAsInt();
+        rig.clip(ref).scrollToStep(step);
+        if ("observer".equals(ref)) rig.noteObserver.setPage(step);
         return ok();
+    }
+
+    private JsonElement noteObserverPrepare() {
+        return rig.noteObserver.prepare();
+    }
+
+    /** Arm only after the dedicated cursor has the exact pinned target. */
+    private JsonElement noteObserverArm(JsonObject params) {
+        int generation = params.get("generation").getAsInt();
+        JsonObject state = rig.noteObserver.read(Long.MAX_VALUE);
+        if (generation != state.get("generation").getAsInt()) {
+            throw new IllegalArgumentException("note observer generation is stale");
+        }
+        String trackId = params.get("trackId").getAsString();
+        int trackIndex = params.get("trackIndex").getAsInt();
+        int slotIndex = params.get("slotIndex").getAsInt();
+        if (!rig.noteObserverClip.exists().get()
+                || rig.noteObserverTrack.position().get() != trackIndex
+                || !rig.noteObserverTrack.channelId().get().equals(trackId)
+                || rig.noteObserverClip.clipLauncherSlot().sceneIndex().get() != slotIndex
+                || !rig.noteObserverTrack.isPinned().get()
+                || !rig.noteObserverClip.isPinned().get()) {
+            throw new IllegalStateException("note observer target is not confirmed and pinned");
+        }
+        return rig.noteObserver.arm(trackId, trackIndex, slotIndex);
+    }
+
+    private JsonElement noteObserverRead(JsonObject params) {
+        long afterSequence = params.has("afterSequence")
+            ? params.get("afterSequence").getAsLong() : 0;
+        return rig.noteObserver.read(afterSequence);
     }
 
     /**

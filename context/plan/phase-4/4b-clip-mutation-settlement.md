@@ -2,14 +2,14 @@
 title: Phase 4, session 4b follow-up — clip mutation settlement
 kind: plan
 state: planned
-status: Planned after note-completion evidence. Remove repeated safe waits and
-        verification without crossing Bitwig's measured cursor boundaries.
+status: Next. Apply E53 wake hints, bounded polling, and one exact final read
+        without crossing Bitwig's measured cursor boundaries.
 updated: 2026-08-21
 parent: README.md
 prev: 4b-note-completion-signals.md
 next: 4c-direct-parameter-core.md
 scope: Ordered clip mutation batches, bounded completion, and exact verification
-evidence: E2, E8, E15, E19, E20b, E51, E52 · D6, D9, D10, D15
+evidence: E2, E8, E15, E19, E20b, E51–E53 · D6, D9, D10, D15
 ---
 
 # Phase 4, session 4b follow-up — clip mutation settlement
@@ -19,9 +19,14 @@ evidence: E2, E8, E15, E19, E20b, E51, E52 · D6, D9, D10, D15
 
 ## Carry-in
 
-The note-completion session identifies the actual repeated costs and classifies
-`addNoteStepObserver()`. This session implements only the reductions supported
-by that evidence.
+E53 finds that basic note count does not increase the current request, stage,
+settle, page, or verification counts. Distinct clips, writer pages, and
+property dependency turns do. `addNoteStepObserver()` is a wake hint for most
+mutations, not a completion fence. Four enable fields produce no callback.
+
+Use an eligible event only to start exact verification early. Use bounded
+polling or the fixed fallback for the silent fields and callback timeout. Exact
+bulk readback remains the success proof.
 
 E15-F remains binding. `note.props` reads the `NoteStep` data held when the
 controller turn began. Property stages for different clips cannot be hoisted

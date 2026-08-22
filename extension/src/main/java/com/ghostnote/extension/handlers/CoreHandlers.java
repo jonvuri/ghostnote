@@ -136,6 +136,8 @@ public final class CoreHandlers extends HandlerGroup {
         resources.addProperty("remoteParameterHandles", Rig.REMOTE_BANK);
         resources.addProperty("directParameterObservers",
             rig.config.directObservers ? 4 : 0);
+        resources.addProperty("noteObserverCursors", 1);
+        resources.addProperty("noteStepObservers", 1);
         result.add("resources", resources);
 
         // Whole-JVM heap (shared with Bitwig): a coarse trend signal only.

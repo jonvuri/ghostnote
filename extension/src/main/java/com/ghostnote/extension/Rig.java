@@ -96,6 +96,11 @@ public class Rig {
     public final CursorTrack fineTrack;
     public final PinnableCursorClip fineClip;
 
+    /** Dedicated note-event cursor and bounded evidence log. */
+    public final CursorTrack noteObserverTrack;
+    public final PinnableCursorClip noteObserverClip;
+    public final NoteObserverProbe noteObserver = new NoteObserverProbe();
+
     /** Arrangement cursor clip (follows arranger clip selection). */
     public final Clip arrangerClip;
 
@@ -747,6 +752,19 @@ public class Rig {
         markClip(fineClip);
         fineClip.isPinned().markInterested();
 
+        noteObserverTrack = host.createCursorTrack(
+            "GN_CT_NOTE_OBSERVER", "ghostnote note observer", 0, config.scenes, false);
+        noteObserverTrack.exists().markInterested();
+        noteObserverTrack.name().markInterested();
+        noteObserverTrack.position().markInterested();
+        noteObserverTrack.channelId().markInterested();
+        noteObserverTrack.isPinned().markInterested();
+        noteObserverClip = noteObserverTrack.createLauncherCursorClip(
+            config.noteReadSteps, config.gridKeys);
+        markClip(noteObserverClip);
+        noteObserverClip.isPinned().markInterested();
+        noteObserver.attach(noteObserverClip);
+
         arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
         markClip(arrangerClip);
 
@@ -1228,12 +1246,13 @@ public class Rig {
         clip.playingStep().markInterested();
     }
 
-    /** Resolve "0".."N-1", "follower", "bare", "fine", or "arranger". */
+    /** Resolve the fixed clip cursor references. */
     public Clip clip(String ref) {
         switch (ref) {
             case "follower": return followerClip;
             case "bare": return bareClip;
             case "fine": return fineClip;
+            case "observer": return noteObserverClip;
             case "arranger": return arrangerClip;
             default:
                 int i = Integer.parseInt(ref);
@@ -1249,6 +1268,7 @@ public class Rig {
         switch (ref) {
             case "bare": return bareTrack;
             case "fine": return fineTrack;
+            case "observer": return noteObserverTrack;
             default:
                 return cursorTracks[Integer.parseInt(ref)];
         }
@@ -1256,7 +1276,7 @@ public class Rig {
 
     /** Grid width of a clip cursor. Writers and the note reader use separate widths. */
     public int gridSteps(String ref) {
-        if ("fine".equals(ref)) return config.noteReadSteps;
+        if ("fine".equals(ref) || "observer".equals(ref)) return config.noteReadSteps;
         try {
             int i = Integer.parseInt(ref);
             if (i >= 0 && i < config.cursorPool) return config.fineSteps;

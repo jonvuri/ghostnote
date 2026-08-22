@@ -93,9 +93,21 @@ test('2i: exact long-clip reads can page the fixed cursor window', () => {
   assert.ok(WIRE_METHODS_USED.includes('cursor.scrollToStep'));
 });
 
-test('Phase 4 session 4b: exact reads use one bulk request per page', () => {
-  assert.deepEqual(golden.addedInPhase4Session4b, ['cursor.getNotesVerboseAllChannels']);
+test('Phase 4 session 4b: exact reads and note-event evidence stay explicit', () => {
+  assert.deepEqual(golden.addedInPhase4Session4b, [
+    'cursor.clearNote',
+    'cursor.getNotesVerboseAllChannels',
+    'cursor.moveNote',
+    'note.observer.arm',
+    'note.observer.prepare',
+    'note.observer.read',
+  ]);
   assert.ok(WIRE_METHODS_USED.includes('cursor.getNotesVerboseAllChannels'));
+  assert.deepEqual(
+    golden.addedInPhase4Session4b.filter((method) => WIRE_METHODS_USED.includes(method)),
+    ['cursor.getNotesVerboseAllChannels'],
+    'note-event evidence methods must stay outside the product contract',
+  );
 });
 
 test('E16: the branch probe surface is probe surface, and the contract cannot reach it', () => {
