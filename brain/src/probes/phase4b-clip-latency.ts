@@ -161,8 +161,8 @@ try {
   }
   check('4b-L1: three exact 32-beat reads preserve the accepted 21-note result',
     reads.every((sample) => sample['noteCount'] === 21), reads);
-  check('4b-L2: each long read uses seven bulk page requests, not 112 channel requests',
-    reads.every((sample) => sample['bulkPageRequests'] === 7), reads);
+  check('4b-L2: each long read uses one bulk page request for each grid',
+    reads.every((sample) => sample['bulkPageRequests'] === 2), reads);
   const medianReadMs = [...reads]
     .map((sample) => sample['elapsedMs'] as number)
     .sort((left, right) => left - right)[1]!;

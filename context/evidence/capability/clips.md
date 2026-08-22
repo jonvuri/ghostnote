@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-08-21
 scope: launcher-clip notes, metadata, exact reads, writes, and copies
-evidence: E2, E24, E41–E46, E51; D8, D9, D15, D16, D21
+evidence: E2, E24, E41–E46, E51, E52; D8, D9, D15, D16, D21
 ---
 
 # Launcher clips
@@ -68,15 +68,16 @@ route [K, E43].
 ## Cursor windows and paging
 
 A 64-step writer can silently lose fine-grid notes after its window. Production
-writers use a fixed 512-step window [K, E44]. Exact reads page that window and
-reconcile binary and triplet scans across all 16 MIDI channels [K, E45]. One
-bounded reply returns all 16 verbose channels for each page. A 32-beat read uses
-seven page replies instead of 112 channel replies [K,
-[E51](../experiments/e51-bulk-clip-read-removes-channel-loop-but-misses-latency-gate.md)].
+writers use a fixed 512-step window [K, E44]. Exact reads use a separate
+2,048-step cursor. They reconcile binary and triplet scans across all 16 MIDI
+channels [K, E45, E52]. One bounded reply returns all 16 verbose channels for
+each page. A 32-beat read uses two page replies instead of 112 channel replies
+[K, E51, [E52](../experiments/e52-dedicated-read-window-closes-the-exact-read-gate.md)].
 
-The bulk path reduced the measured median by 35 percent. It did not meet the
-50-percent Phase 4 gate. Grid and page settlement is now the largest named cost
-[K, E51].
+The selected read window reduced the measured median from 5,323 to 1,744 ms.
+It passed the 50-percent Phase 4 gate. Grid and page zero share one complete
+144 ms settlement. Multi-page reads still restore and settle page zero [K,
+E52].
 
 Long writes group notes by page. They confirm the pinned track and row on every
 required page before mutation, use page-local steps, and restore page zero.
@@ -86,5 +87,6 @@ Read-based note properties use a separate settled turn for each page [K, E46].
 
 | Date | Change |
 |---|---|
+| 2026-08-21 | E52 selects the 2,048-step read cursor and closes the latency gate. |
 | 2026-08-21 | E51 adds the bounded bulk-page path and its measured latency limit. |
 | 2026-08-20 | Page created from the Phase 2 closeout audit. It consolidates E2, E24, and E41–E46 without changing any experiment record. |

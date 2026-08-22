@@ -394,8 +394,10 @@ export class LiveAdapter implements BitwigAdapter {
   private lastMark: RevisionMark | undefined;
   /** The rig's cursor-clip width, learned at hello(); bounds the scan window. */
   private gridSteps: number | undefined;
-  /** The dedicated fine cursor width, learned at hello(). */
+  /** The writer cursor width, learned at hello(). */
   private fineSteps: number | undefined;
+  /** The dedicated exact-note reader width, learned at hello(). */
+  private noteReadSteps: number | undefined;
   /** A dedicated cursor for dual-grid note reads. */
   private noteReadCursorRef: 'fine' | undefined;
   /** True when a harness selected the note-read cursor. */
@@ -482,13 +484,15 @@ export class LiveAdapter implements BitwigAdapter {
     const rig = (await this.transport.send({ method: WIRE.rigInfo })) as {
       gridSteps?: number;
       fineSteps?: number;
+      noteReadSteps?: number;
       cursorPool?: number;
       scenes?: number;
       deviceBank?: number;
     };
     this.gridSteps = rig.gridSteps;
     this.fineSteps = rig.fineSteps;
-    if (!this.fixedNoteReadCursorRef && !this.fixedCursorRefs && rig.fineSteps !== undefined) {
+    this.noteReadSteps = rig.noteReadSteps ?? rig.fineSteps;
+    if (!this.fixedNoteReadCursorRef && !this.fixedCursorRefs && this.noteReadSteps !== undefined) {
       this.noteReadCursorRef = 'fine';
     }
     this.deviceBankSize = rig.deviceBank;
@@ -954,7 +958,7 @@ export class LiveAdapter implements BitwigAdapter {
     pointedAt: Map<string, AddressKey>,
   ): Promise<ClipNoteChannels> {
     const cursor = this.noteReadCursorRef;
-    const steps = this.fineSteps;
+    const steps = this.noteReadSteps;
     if (cursor !== 'fine' || steps === undefined) {
       throw new AddressUnresolvedError(
         clipRef,
@@ -970,21 +974,20 @@ export class LiveAdapter implements BitwigAdapter {
     const binaryStep = 1 / 64;
     const tripletStep = 1 / 48;
     const scan = async (stepSize: number): Promise<ReadonlyMap<number, readonly NoteRecord[]>> => {
-      await this.timed('gridSettlement', async () => {
-        await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
-        await this.settle('gridChange');
-      });
+      await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
       const channels = new Map<number, NoteRecord[]>();
       for (let channel = 0; channel < 16; channel += 1) channels.set(channel, []);
       const totalSteps = Math.max(1, Math.ceil(lengthBeats / stepSize));
+      let currentPageStart = 0;
       try {
         for (let pageStart = 0; pageStart < totalSteps; pageStart += steps) {
+          currentPageStart = pageStart;
           await this.timed('pageTurn', () => this.transport.send({
             method: WIRE.cursorScrollToStep,
             params: { cursor, step: pageStart },
           }));
-          // Scrolling changes which NoteStep objects the fixed cursor window
-          // exposes. It has no readback, so use the measured grid-change wait.
+          // One full settlement covers the grid and page-zero transition. Later
+          // pages keep the same measured budget. Neither transition has readback.
           await this.timed('gridSettlement', () => this.settle('gridChange'));
           const pageSteps = Math.min(steps, totalSteps - pageStart);
           const result = (await this.timed('bulkPageRead', () => this.transport.send({
@@ -1027,15 +1030,16 @@ export class LiveAdapter implements BitwigAdapter {
           }
         }
       } finally {
-        // The fine cursor is shared across reads. Do not leak a page offset into
-        // the next clip or the next client call.
-        await this.timed('pageReset', async () => {
-          await this.transport.send({
-            method: WIRE.cursorScrollToStep,
-            params: { cursor, step: 0 },
+        if (currentPageStart !== 0) {
+          // The reader is shared across calls. Do not leak a nonzero page.
+          await this.timed('pageReset', async () => {
+            await this.transport.send({
+              method: WIRE.cursorScrollToStep,
+              params: { cursor, step: 0 },
+            });
+            await this.settle('gridChange');
           });
-          await this.settle('gridChange');
-        });
+        }
       }
       return channels;
     };

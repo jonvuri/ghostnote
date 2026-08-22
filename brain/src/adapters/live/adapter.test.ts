@@ -76,6 +76,7 @@ class CursorModelTransport implements Transport {
     private readonly selection = { trackIndex: -1, slotIndex: -1 },
     private readonly pinSettleCount = 0,
     private readonly failWriterPage?: number,
+    private readonly noteReadSteps = 2048,
   ) {}
 
   settlePins(): void {
@@ -114,7 +115,14 @@ class CursorModelTransport implements Transport {
         return { hostApiVersion: 18, hostProduct: 'Bitwig Studio', hostVersion: 'test' };
 
       case WIRE.rigInfo:
-        return { gridSteps: 64, fineSteps: 512, cursorPool: 3, scenes: 8, deviceBank: 8 };
+        return {
+          gridSteps: 64,
+          fineSteps: 512,
+          noteReadSteps: this.noteReadSteps,
+          cursorPool: 3,
+          scenes: 8,
+          deviceBank: 8,
+        };
 
       case WIRE.trackList:
         return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1, bankSize: 8, itemCount: 1 };
@@ -309,7 +317,7 @@ test('2h: the production fine cursor preserves a triplet start across exact read
 test('2i: the exact reader pages through a clip longer than its fine window', async () => {
   const transport = new CursorModelTransport(new Map([
     [0, { lengthBeats: 32, pitch: 67, startBeats: 24 }],
-  ]));
+  ]), { trackIndex: -1, slotIndex: -1 }, 0, undefined, 512);
   const adapter = new UntimedAdapter({ transport });
   await adapter.hello();
 
@@ -356,8 +364,15 @@ test('4b: one bulk page reply preserves all 16 verbose MIDI channels', async () 
   );
   assert.deepEqual(new Set(phases), new Set([
     'targetAcquisition', 'metadata', 'gridSettlement', 'pageTurn',
-    'bulkPageRead', 'reconciliation', 'pageReset', 'selectionRestoration',
+    'bulkPageRead', 'reconciliation', 'selectionRestoration',
   ]));
+  assert.equal(phases.filter((phase) => phase === 'gridSettlement').length, 2,
+    'each grid and page-zero transition uses one full settlement');
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).length,
+    2,
+    'each grid sets page zero before one complete settlement',
+  );
 });
 
 test('4b: an incomplete bulk page refuses instead of hiding one MIDI channel', async () => {

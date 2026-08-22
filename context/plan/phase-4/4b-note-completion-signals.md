@@ -9,7 +9,7 @@ parent: README.md
 prev: 4b-clip-operation-latency.md
 next: 4b-clip-mutation-settlement.md
 scope: Note mutation scaling and scoped completion evidence
-evidence: E2, E8, E15, E19, E20b, E51 · D6, D9, D10, D15
+evidence: E2, E8, E15, E19, E20b, E51, E52 · D6, D9, D10, D15
 ---
 
 # Phase 4, session 4b follow-up — note completion signals

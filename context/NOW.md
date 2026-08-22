@@ -4,14 +4,13 @@ kind: status
 state: active
 updated: 2026-08-21
 phase: phase-4
-session: 4b-dedicated-read-window
+session: 4b-note-completion-signals
 ---
 
 # Now
 
-Phase 2 and Phase 4 session 4a are complete. Session 4b is active. Its first
-implementation removed the repeated per-channel bridge loop but did not pass the
-required half-time gate.
+Phase 2, Phase 4 session 4a, and the exact-read session 4b are complete. The
+note-completion evidence follow-up is next.
 
 ## Accepted live result
 
@@ -42,24 +41,22 @@ verified, and saved. The post-save 2k baseline passes.
 
 ## Session 4b result
 
-- One bounded page reply returns all 16 verbose MIDI channels. A 32-beat read
-  uses seven bulk requests instead of 112 channel requests.
-- The accepted 21-note read stayed exact. The median fell from 5,323 to 3,446
-  ms, a 35-percent reduction. The required maximum is 2,661.5 ms.
-- Grid and page settlement now dominates at about 1.35 seconds. Median host
-  scan time was 757 ms. Reconciliation used less than 1 ms.
-- The two-empty-clip workflow fell from 13,436 to 10,072 ms. Reversal restored
+- One bounded page reply returns all 16 verbose MIDI channels. A dedicated
+  2,048-step reader covers a 32-beat clip in one binary and one triplet page.
+- Writer cursors stay at 512 steps. The larger read cursor did not increase
+  measured extension init cost.
+- The controlled 21-note median fell from 5,323 to 1,744 ms. A second run
+  measured 1,666 ms. Both pass the required 2,661.5 ms maximum.
+- Grid and page zero share one complete 144 ms settlement. Multi-page reads
+  still restore and settle page zero.
+- The two-empty-clip workflow fell from 13,436 to 6,265 ms. Reversal restored
   both slots. Cleanup removed the owned track and restored the entry selection.
+- Current live probes passed long-clip paging, triplet and expression readback,
+  selection interference, background cancellation, reversal, and cleanup.
 
 ## Next action
 
-The next session continues
-[4b exact-read latency](plan/phase-4/4b-clip-operation-latency.md). Measure a
-2,048-step dedicated note-read cursor while the 512-step writer cursors stay
-unchanged. Measure init cost and 32-beat latency before selecting a default. Test
-one settled page-zero and grid transition without reducing the 144 ms budget.
-
-After the read gate closes, run
+Run
 [note-completion evidence](plan/phase-4/4b-note-completion-signals.md), then
 [clip mutation settlement](plan/phase-4/4b-clip-mutation-settlement.md). These
 two bounded follow-ups precede session 4c. Device-specific performance remains
@@ -67,20 +64,27 @@ in session 4h.
 
 ## Verification
 
-- Focused 4b adapter, wire, and executor tests pass. Full brain check: 657/657
+- Focused 4b cursor and live regression tests pass. Full brain check: 657/657
   pass, including typecheck. Extension build passes.
+- The controlled read-window probe, complete latency workflow, 128-beat
+  long-clip workflow, background cancellation, and final read-only 2k baseline
+  pass.
+- The archived Phase 2h aggregate refused before mutation because it requires
+  the retired `gn-scale-test` fixture. Current focused probes cover its affected
+  read boundaries.
 - Live entry and maximum stable sweeps: pass. The maximum accounts for all 384
   devices.
 - Saved-project open and one cold start: pass with zero control-thread stalls.
 - Scratch cleanup and exact rig configuration restoration: pass.
-- Context check: 191 active documents and links pass. `git diff --check` passes.
+- Context check: 192 active documents and links pass. `git diff --check` passes.
 - Final live handshake: pass for Bitwig 6.0.6/API 25, the 140-method golden,
-  deployment age, and the selected `256/128/8/16/64` rig.
+  deployment age, the selected `256/128/8/16/64` rig, 512-step writers, and the
+  2,048-step reader.
 - The `26.05-2 moon` project passes the complete read-only 2k baseline after 4b
   cleanup. It contains 7 tracks, 14 clips, both accepted instructions, and the
   exact 43-note progression result.
 
 ## Retrospective
 
-Bridge call count was not the only dominant cost. Measure host work and settle
-time separately before predicting a latency result from request count.
+Writer and reader windows need different sizes. Keep them separate when their
+coverage requirements differ.

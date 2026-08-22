@@ -2,9 +2,9 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Session 4b removed the per-channel bridge loop but missed its half-time
-        gate. The read-window measurement and two bounded clip-performance
-        follow-ups now precede device implementation.
+status: Session 4b closes the exact-read gate with a dedicated 2,048-step
+        reader. Two bounded clip-performance follow-ups now precede device
+        implementation.
 updated: 2026-08-21
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -35,8 +35,8 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 
 1. [4a — device-side scale and scaffold baseline](4a-device-side-scale.md) —
    complete. E50 closes the E5 caveat and confirms D7.
-2. [4b — exact clip-operation latency](4b-clip-operation-latency.md) — active.
-   The bulk page path is built. A dedicated read-window measurement remains.
+2. [4b — exact clip-operation latency](4b-clip-operation-latency.md) — complete.
+   The 2,048-step reader closes the half-time gate. Writers stay at 512 steps.
 3. [4b follow-up — note completion signals](4b-note-completion-signals.md) —
    measure note-stage scaling and classify scoped note events.
 4. [4b follow-up — clip mutation settlement](4b-clip-mutation-settlement.md) —

@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4b — exact clip-operation latency
 kind: plan
-state: active
-status: The 16-channel bulk page path is implemented and measured. It cuts the
-        median by 35 percent, so the required half-time gate remains open.
+state: complete
+status: A dedicated 2,048-step reader reduces the median to 1,744 ms and closes
+        the required half-time gate. Writer cursors remain at 512 steps.
 updated: 2026-08-21
 parent: README.md
 prev: 4a-device-side-scale.md
 next: 4b-note-completion-signals.md
 scope: Exact long-clip read and verification latency
-evidence: E45, E47, E48, E51 · D9, D10, D15
+evidence: E45, E47, E48, E51, E52 · D9, D10, D15
 ---
 
 # Phase 4, session 4b — exact clip-operation latency
@@ -101,6 +101,25 @@ Close this session on the exact-read gate and its deferred regression matrix.
 Do not add note observers or mutation scheduling to this changeset. Then run
 [note-completion evidence](4b-note-completion-signals.md) and
 [clip mutation settlement](4b-clip-mutation-settlement.md) before session 4c.
+
+## Final result
+
+E52 splits the cursor widths. Writer cursors keep the measured 512-step window.
+The independent note reader uses 2,048 steps. A 32-beat exact read now needs one
+binary page and one triplet page.
+
+The controlled candidate median was 1,744 ms. A second run measured 1,666 ms.
+Both pass the 2,661.5 ms maximum. The larger window did not increase measured
+extension init cost.
+
+Page zero and a grid change now share one complete 144 ms settlement. The
+budget is unchanged. A one-page scan does not reset an already-zero page. A
+multi-page scan still restores page zero and settles it.
+
+The two-empty-clip workflow took 6,265 ms and reversed exactly. The long-clip,
+triplet, expression, interference, background cancellation, selection, and
+cleanup regressions passed. The accepted project returned to its exact 7-by-8
+baseline.
 
 ## Retrospective target
 

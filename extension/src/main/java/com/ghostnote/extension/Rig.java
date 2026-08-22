@@ -92,7 +92,7 @@ public class Rig {
     public final CursorTrack bareTrack;
     public final PinnableCursorClip bareClip;
 
-    /** Large-grid cursor for grid-resolution and scan-cost probing. */
+    /** Dedicated cursor for exact note reads and grid-resolution probes. */
     public final CursorTrack fineTrack;
     public final PinnableCursorClip fineClip;
 
@@ -743,7 +743,7 @@ public class Rig {
         fineTrack = host.createCursorTrack("GN_CT_FINE", "ghostnote fine cursor", 0, config.scenes, false);
         fineTrack.position().markInterested();
         fineTrack.isPinned().markInterested();
-        fineClip = fineTrack.createLauncherCursorClip(config.fineSteps, config.gridKeys);
+        fineClip = fineTrack.createLauncherCursorClip(config.noteReadSteps, config.gridKeys);
         markClip(fineClip);
         fineClip.isPinned().markInterested();
 
@@ -1254,9 +1254,9 @@ public class Rig {
         }
     }
 
-    /** Grid width of a clip cursor. Pointable writer cursors use the fine width. */
+    /** Grid width of a clip cursor. Writers and the note reader use separate widths. */
     public int gridSteps(String ref) {
-        if ("fine".equals(ref)) return config.fineSteps;
+        if ("fine".equals(ref)) return config.noteReadSteps;
         try {
             int i = Integer.parseInt(ref);
             if (i >= 0 && i < config.cursorPool) return config.fineSteps;

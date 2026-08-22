@@ -9,7 +9,7 @@ parent: README.md
 prev: 4b-note-completion-signals.md
 next: 4c-direct-parameter-core.md
 scope: Ordered clip mutation batches, bounded completion, and exact verification
-evidence: E2, E8, E15, E19, E20b, E51 · D6, D9, D10, D15
+evidence: E2, E8, E15, E19, E20b, E51, E52 · D6, D9, D10, D15
 ---
 
 # Phase 4, session 4b follow-up — clip mutation settlement

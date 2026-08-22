@@ -38,7 +38,8 @@ public class RigConfig {
      */
     public int sends = 4;
     public int deviceBank = 16;
-    public int fineSteps = 512;
+    public int fineSteps = 512; // pointable writer cursors (E44)
+    public int noteReadSteps = 2048; // independent exact-read cursor (E52)
     public int paramHandles = 64; // typed createParameter handles (E4/E50)
     public boolean directObservers = true; // DirectParameter observers (E4b)
     /**
@@ -84,6 +85,7 @@ public class RigConfig {
             config.sends = intOr(obj, "sends", config.sends);
             config.deviceBank = intOr(obj, "deviceBank", config.deviceBank);
             config.fineSteps = intOr(obj, "fineSteps", config.fineSteps);
+            config.noteReadSteps = intOr(obj, "noteReadSteps", config.noteReadSteps);
             config.paramHandles = intOr(obj, "paramHandles", config.paramHandles);
             if (obj.has("contentFilter")) {
                 config.contentFilter = obj.get("contentFilter").getAsString();
@@ -116,6 +118,7 @@ public class RigConfig {
         obj.addProperty("sends", sends);
         obj.addProperty("deviceBank", deviceBank);
         obj.addProperty("fineSteps", fineSteps);
+        obj.addProperty("noteReadSteps", noteReadSteps);
         obj.addProperty("paramHandles", paramHandles);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);
