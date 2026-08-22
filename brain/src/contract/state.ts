@@ -244,6 +244,9 @@ export interface ParamState {
     readonly display: boolean;
     readonly modulatedValue: boolean;
     readonly hasAutomation: boolean;
+    readonly origin: boolean;
+    readonly discreteValueCount: boolean;
+    readonly discreteValueNames: boolean;
   };
   readonly display?: string;
   /**
@@ -254,6 +257,12 @@ export interface ParamState {
   readonly modulatedValue?: number;
   /** True when host automation can override the static base-value write. */
   readonly hasAutomation?: boolean;
+  /** Typed value origin, when the device-specific view supplies it. */
+  readonly origin?: number;
+  /** Count of discrete values, when the typed view supplies it. */
+  readonly discreteValueCount?: number;
+  /** Display names for discrete values, when the typed view supplies them. */
+  readonly discreteValueNames?: readonly string[];
 }
 
 export interface RemoteControlState {

@@ -1227,6 +1227,9 @@ export class LiveAdapter implements BitwigAdapter {
               display: typeof item.displayed === 'string',
               modulatedValue: false,
               hasAutomation: false,
+              origin: false,
+              discreteValueCount: false,
+              discreteValueNames: false,
             },
             ...(typeof item.displayed === 'string' ? { display: item.displayed } : {}),
           }));
@@ -1241,6 +1244,9 @@ export class LiveAdapter implements BitwigAdapter {
                 readonly displayed?: string;
                 readonly modulatedValue?: number;
                 readonly hasAutomation?: boolean;
+                readonly origin?: number;
+                readonly discreteValueCount?: number;
+                readonly discreteValueNames?: readonly string[];
               }[];
             };
             const typed = (typedReply.params ?? []).flatMap((item, index): ParamState[] => {
@@ -1255,15 +1261,57 @@ export class LiveAdapter implements BitwigAdapter {
                   display: typeof item.displayed === 'string',
                   modulatedValue: typeof item.modulatedValue === 'number',
                   hasAutomation: typeof item.hasAutomation === 'boolean',
+                  origin: typeof item.origin === 'number',
+                  discreteValueCount: typeof item.discreteValueCount === 'number',
+                  discreteValueNames: Array.isArray(item.discreteValueNames)
+                    && item.discreteValueNames.every((name) => typeof name === 'string'),
                 },
                 ...(typeof item.displayed === 'string' ? { display: item.displayed } : {}),
                 ...(typeof item.modulatedValue === 'number'
                   ? { modulatedValue: item.modulatedValue } : {}),
                 ...(typeof item.hasAutomation === 'boolean'
                   ? { hasAutomation: item.hasAutomation } : {}),
+                ...(typeof item.origin === 'number' ? { origin: item.origin } : {}),
+                ...(typeof item.discreteValueCount === 'number'
+                  ? { discreteValueCount: item.discreteValueCount } : {}),
+                ...(Array.isArray(item.discreteValueNames)
+                    && item.discreteValueNames.every((name) => typeof name === 'string')
+                  ? { discreteValueNames: item.discreteValueNames } : {}),
               }];
             });
-            return { standing: 'stable', deviceName: target.deviceName, params, typed };
+            const typedById = new Map<string, ParamState>();
+            for (const item of typed) {
+              typedById.set(item.id, item);
+              typedById.set(`CONTENTS/${item.id}`, item);
+            }
+            const enriched = params.map((item): ParamState => {
+              const supplement = typedById.get(item.id);
+              if (supplement === undefined) return item;
+              return {
+                ...item,
+                observed: {
+                  display: item.observed.display || supplement.observed.display,
+                  modulatedValue: supplement.observed.modulatedValue,
+                  hasAutomation: supplement.observed.hasAutomation,
+                  origin: supplement.observed.origin,
+                  discreteValueCount: supplement.observed.discreteValueCount,
+                  discreteValueNames: supplement.observed.discreteValueNames,
+                },
+                ...(item.display !== undefined
+                  ? { display: item.display }
+                  : supplement.display === undefined ? {} : { display: supplement.display }),
+                ...(supplement.modulatedValue === undefined
+                  ? {} : { modulatedValue: supplement.modulatedValue }),
+                ...(supplement.hasAutomation === undefined
+                  ? {} : { hasAutomation: supplement.hasAutomation }),
+                ...(supplement.origin === undefined ? {} : { origin: supplement.origin }),
+                ...(supplement.discreteValueCount === undefined
+                  ? {} : { discreteValueCount: supplement.discreteValueCount }),
+                ...(supplement.discreteValueNames === undefined
+                  ? {} : { discreteValueNames: supplement.discreteValueNames }),
+              };
+            });
+            return { standing: 'stable', deviceName: target.deviceName, params: enriched, typed };
           }
           prior = signature;
         } else {
@@ -1314,7 +1362,14 @@ export class LiveAdapter implements BitwigAdapter {
             id: address.directId,
             name: '',
             value: observed.value!,
-            observed: { display: false, modulatedValue: false, hasAutomation: false },
+            observed: {
+              display: false,
+              modulatedValue: false,
+              hasAutomation: false,
+              origin: false,
+              discreteValueCount: false,
+              discreteValueNames: false,
+            },
           };
         }
         prior = signature;

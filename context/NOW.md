@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-22
 phase: phase-4
-session: 4i-device-surface
+session: 4j-dogfood-and-closeout
 ---
 
 # Now
@@ -12,7 +12,8 @@ session: 4i-device-surface
 Phase 2, bounded clip performance, the complete parameter-routing core, the
 native device catalog, plugin parameter proof, deep routing, and the managed
 FX-chain workflow, performance gate, and observer-efficiency repair are
-complete. The public device surface is next.
+complete. The public device surface is frozen and live. Phase 4 dogfood and
+closeout are next.
 
 ## Accepted live result
 
@@ -221,14 +222,41 @@ verified, and saved. The post-save 2k baseline passes.
 - E61 replaces the provisional budgets, accepts the serialized cursor, and
   unblocks session 4i.
 
+## Session 4i result
+
+- Description version `ghostnote-description-v5` freezes six public tools for
+  device inspection, parameter inventory, explicit insertion, scalar control,
+  bypass, and directed deletion. Its fingerprint is
+  `0bda24861be2f57ddd1f39188d4f3c7d70cd3da67ea6ffd81d9ae4fe6d98cb68`.
+- The public inventory returned all 55 named Polysynth DirectParameters. Typed
+  display, modulation, automation, origin, and discrete metadata appear only
+  when observed. Optional remote controls use exact returned selectors or report
+  explicit instability without partial results.
+- Registered MCP calls inserted native, VST3, CLAP, and preset devices. VST3 and
+  CLAP insertion took 1,728 and 1,729 ms. Native inventory took 1,199 ms. One
+  returned parameter id changed and read back exactly in 5,938 ms.
+- Bypass, scalar replay, destructive highest-first deletion, exact track-id
+  cleanup, and exact entry-selection restoration passed. E62 records the proof.
+- The old generic plugin wording caused no caller migration. No alias remains.
+
 ## Next action
 
-Begin [device and parameter MCP surface](plan/phase-4/4i-device-surface.md).
-Revise the thin probe-era tools against the E61 completion contract and final
-performance budgets. Freeze one measured public cohort.
+Begin [dogfood and closeout](plan/phase-4/4j-dogfood-and-closeout.md). Use the
+registered public surface for one natural sound-design task, record the operator
+verdict, run the complete Phase 4 matrix, and prepare the Phase 5 handoff.
 
 ## Verification
 
+- The Session 4i registered MCP proof passes the six-tool privilege cohort,
+  native, VST3, CLAP, and preset insertion, 55-parameter discovery, scalar and
+  bypass readback, reversal, directed deletion, and exact cleanup.
+- VST3 insert, CLAP insert, native inventory, and top-level scalar readback pass
+  the E61 budgets at 1,728, 1,729, 1,199, and 5,938 ms.
+- The full brain check passes 758/758, including typecheck. Extension tests pass.
+  Full live conformance passes 54/54 with six expected skips. Cleanup removed
+  both conformance fixture tracks.
+- The final read-only 2k baseline passes with seven tracks, 14 clips, and no
+  launcher residue. Context and diff checks pass.
 - The final device performance regression passes native, plugin, deep, remote,
   managed, interference, reversal, cleanup, and clip workloads.
 - The full brain check passes 755/755, including typecheck. Extension tests
@@ -284,6 +312,6 @@ performance budgets. Freeze one measured public cohort.
 
 ## Retrospective
 
-A longer poll did not repair one observer generation that stayed stale. A
-bounded generation re-arm was clearer and more reliable. Keep read recovery
-separate from mutation completion.
+The generic plugin wording had no current caller, so an alias would add only
+ambiguity. Direct and remote observers need separate public views. Preserve
+explicit unstable standing instead of returning partial remote selectors.

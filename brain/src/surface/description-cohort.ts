@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v4';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v5';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -155,8 +155,37 @@ export const DESCRIPTION_COHORT_V3: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v4 adds wall-clock timing to operation status results. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V4: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V3,
+] as const;
+
+/** v5 adds the measured public device and parameter surface. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V4,
+  {
+    name: 'inspect_devices', kind: 'read',
+    reason: 'Reads complete positional device-chain state and bank coverage.',
+  },
+  {
+    name: 'inspect_device_parameters', kind: 'read',
+    reason: 'Discovers DirectParameter ids, typed metadata, and remote controls.',
+  },
+  {
+    name: 'add_device', kind: 'write',
+    reason: 'Inserts explicit native, VST3, CLAP, and preset sources.',
+  },
+  {
+    name: 'set_parameter', kind: 'write',
+    reason: 'Writes returned parameter selectors with exact readback.',
+  },
+  {
+    name: 'set_device_enabled', kind: 'write',
+    reason: 'Writes exact device enabled or bypass state.',
+  },
+  {
+    name: 'delete_device', kind: 'destructive',
+    reason: 'Keeps directed unreconstructable device removal separate.',
+  },
 ] as const;
 
 interface ToolAnnotations {
@@ -234,3 +263,7 @@ export const TOOL_DESCRIPTION_V3_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V4_SHA256 =
   '0289ae1611a7c8c6c13b296a0749bd11dc8969df586859e10903b5e6d08d1ca4';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V5_SHA256 =
+  '0bda24861be2f57ddd1f39188d4f3c7d70cd3da67ea6ffd81d9ae4fe6d98cb68';

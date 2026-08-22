@@ -1,14 +1,14 @@
 ---
 title: Phase 4, session 4i — device and parameter MCP surface
 kind: plan
-state: planned
-status: Ready next. Replace the thin probe-era device tools against E61.
+state: complete
+status: Complete. E62 records the frozen six-tool public cohort and live MCP proof.
 updated: 2026-08-22
 parent: README.md
 prev: 4h1-device-observer-efficiency.md
 next: 4j-dogfood-and-closeout.md
 scope: Public device inspection, insertion, parameter, bypass, and deletion tools
-evidence: E4, E4b, E48, E61 · D18, D20, D21
+evidence: E4, E4b, E48, E61, E62 · D18, D20, D21
 ---
 
 # Phase 4, session 4i — device and parameter MCP surface
@@ -71,3 +71,17 @@ without need.
 
 Record whether the old generic `plugin` wording caused any migration cost. Keep
 aliases only when an actual caller needs them.
+
+## Result
+
+Complete. Description version `ghostnote-description-v5` freezes six device
+tools. Registered MCP calls passed native, VST3, CLAP, and preset insertion,
+55-parameter discovery, DirectParameter-id control, bypass, reversal, and
+directed cleanup. VST3 and CLAP insertion took 1,728 and 1,729 ms. Native
+inventory took 1,199 ms, and scalar change with exact readback took 5,938 ms.
+All measured E61 gates passed.
+
+The optional top-level remote view reported explicit observer instability and
+returned no partial selectors. E62 records the public contract, timings, and
+exact seven-track cleanup. The old generic plugin wording caused no caller
+migration, so no alias remains.

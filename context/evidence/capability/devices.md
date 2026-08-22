@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-08-22
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E59; D2; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E59, E62; D2; reference/BitX
 ---
 
 # Devices
@@ -123,6 +123,19 @@ CLAP exposed 2,193. `Attack Rate` moved from `0.5` to `0.55` and restored to
 `0.5` on each format. Observer inventories settled in 1,238 ms for VST3 and
 1,470 ms for CLAP. These installed-plugin counts and timings are machine-
 specific [K, E57].
+
+### Public MCP surface
+
+Six registered tools expose complete top-level inspection, DirectParameter and
+optional remote-control inventory, explicit insertion, scalar writes, bypass,
+and directed deletion. Each result states positional, bank, normalized-value,
+latency, warning, verification, and reversal limits [K,
+[E62](../experiments/e62-public-device-surface-is-live.md)].
+
+The live public route returned 55 Polysynth parameters without prior ids. A
+returned id wrote and restored one scalar base exactly. Native, VST3, CLAP, and
+preset insertion passed with exact cleanup. VST3 and CLAP insertion took 1,728
+and 1,729 ms [K, E62].
 
 ### Managed top-level chains
 
@@ -314,6 +327,7 @@ is measured [carried forward, session 3f].
 
 | Date | Change |
 |---|---|
+| 2026-08-22 | E62 adds the frozen registered MCP device cohort, live budget proof, and exact cleanup. |
 | 2026-08-22 | E59 adds readable and writable enabled state, complete name-and-enabled mutation guards, mixed managed construction, current-position reversal, and retryable recovery. |
 | 2026-08-22 | E57 adds explicit VST3 and CLAP insertion, parameter write and replay, failed missing-plugin receipts, and exact cleanup. |
 | 2026-08-22 | E56 replaces the `strings` harvest and hand-maintained Polysynth list with the generated catalog and live resolution result. |

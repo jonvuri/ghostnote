@@ -56,6 +56,9 @@ function fakeParamState(
     display: param.display !== undefined,
     modulatedValue: param.modulatedValue !== undefined,
     hasAutomation: param.hasAutomation !== undefined,
+    origin: param.origin !== undefined,
+    discreteValueCount: param.discreteValueCount !== undefined,
+    discreteValueNames: param.discreteValueNames !== undefined,
   };
   return {
     id: param.id ?? `param-${index}`,
@@ -66,6 +69,11 @@ function fakeParamState(
     ...(param.display === undefined ? {} : { display: param.display }),
     ...(param.modulatedValue === undefined ? {} : { modulatedValue: param.modulatedValue }),
     ...(param.hasAutomation === undefined ? {} : { hasAutomation: param.hasAutomation }),
+    ...(param.origin === undefined ? {} : { origin: param.origin }),
+    ...(param.discreteValueCount === undefined
+      ? {} : { discreteValueCount: param.discreteValueCount }),
+    ...(param.discreteValueNames === undefined
+      ? {} : { discreteValueNames: [...param.discreteValueNames] }),
   };
 }
 

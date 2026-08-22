@@ -13,6 +13,7 @@ import { MUSICAL_REQUEST_CORPUS } from '../musical/index.js';
 import { decodeObservationRecord, FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { callTool, registerTools, TOOLS } from './tools.js';
+import { TOOL_DESCRIPTION_VERSION } from './description-cohort.js';
 import { workspaceOf } from './workspace.js';
 
 const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
@@ -183,7 +184,7 @@ test('an ordinary MCP client generates, transforms, reads, opens, and reverts', 
   assert.deepEqual(uses.map((entry) => entry.tool), [
     'generate_clip_music', 'transform_clip_music',
   ]);
-  assert.ok(uses.every((entry) => entry.descriptionVersion === 'ghostnote-description-v4'));
+  assert.ok(uses.every((entry) => entry.descriptionVersion === TOOL_DESCRIPTION_VERSION));
   const instruction = stored.entries.find((entry) => entry.type === 'instruction-observation');
   assert.equal(instruction?.rawScope, 'Add a C minor chord to channel 2.');
   assert.equal(instruction?.operatorResponse, 'accepted');

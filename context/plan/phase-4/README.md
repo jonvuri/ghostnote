@@ -2,7 +2,7 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Session 4h1 is complete. Session 4i public surface is next.
+status: Session 4i is complete. Session 4j dogfood and closeout is next.
 updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -56,8 +56,8 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
    E60 measures full workflows and finds repeated observer work.
 11. [4h1 — device observer efficiency](4h1-device-observer-efficiency.md) —
    complete. E61 removes the remote-page loop and stabilizes plugin readback.
-12. [4i — device and parameter MCP surface](4i-device-surface.md) — revise the
-   thin probe-era tools and freeze one measured public cohort. Next.
+12. [4i — device and parameter MCP surface](4i-device-surface.md) — complete.
+   E62 records the frozen six-tool cohort and registered MCP proof.
 13. [4j — dogfood and closeout](4j-dogfood-and-closeout.md) — natural use, the
     complete live matrix, cleanup, evidence audit, and Phase 5 handoff.
 

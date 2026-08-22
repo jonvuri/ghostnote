@@ -654,6 +654,133 @@ test('4e-surface: plugin formats are explicit and the generic source is rejected
   }));
 });
 
+test('4i-surface: native, VST3, CLAP, and preset inserts use ordinary tools and clean up exactly', async () => {
+  const fx = fixture();
+  const presetPath = join(HERE, '../../fixtures/Sampler/gn_sampler_bare.bwpreset');
+  const added = await call(fx, 'add_device', { devices: [
+    { trackId: fx.trackA, from: 'bitwig', id: 'native-device-uuid' },
+    { trackId: fx.trackA, from: 'vst3', id: 'D39D5B69D6AF42FA123456785A334D44' },
+    { trackId: fx.trackA, from: 'clap', id: 'com.u-he.Zebra3' },
+    { trackId: fx.trackA, from: 'preset', path: presetPath },
+  ] }) as {
+    applied: boolean;
+    added: { source: string; position: number }[];
+  };
+  assert.equal(added.applied, true, JSON.stringify(added));
+  assert.deepEqual(added.added.map((item) => item.source), ['bitwig', 'vst3', 'clap', 'preset']);
+  assert.deepEqual(added.added.map((item) => item.position), [0, 1, 2, 3]);
+
+  const inspected = await call(fx, 'inspect_devices', { trackId: fx.trackA }) as {
+    complete: boolean; devices: { position: number }[];
+  };
+  assert.equal(inspected.complete, true);
+  assert.deepEqual(inspected.devices.map((item) => item.position), [0, 1, 2, 3]);
+
+  const removed = await call(fx, 'delete_device', {
+    devices: [0, 1, 2, 3].map((position) => ({ trackId: fx.trackA, position })),
+  }) as { applied: boolean; verified: boolean };
+  assert.equal(removed.applied, true, JSON.stringify(removed));
+  assert.equal(removed.verified, true);
+  assert.deepEqual(fx.fake.model.findByChannelId(fx.trackA)!.track.devices, []);
+});
+
+test('4i-surface: discovery returns more than eight ids and scalar writes verify and reverse', async () => {
+  const fx = fixture();
+  await call(fx, 'add_device', {
+    devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'metadata-device' }],
+  });
+  const modelDevice = fx.fake.model.findByChannelId(fx.trackA)!.track.devices[0]!;
+  Object.assign(modelDevice.params[0]!, {
+    display: '50.0 %',
+    modulatedValue: 0.7,
+    hasAutomation: true,
+    origin: 0,
+    discreteValueCount: 2,
+    discreteValueNames: ['Off', 'On'],
+  });
+  modelDevice.remotePages = [{
+    name: 'Filter',
+    controls: [{ name: 'Cutoff', value: 0.25, modulatedValue: 0.4, hasAutomation: true }],
+  }];
+
+  const inventory = await call(fx, 'inspect_device_parameters', {
+    device: { trackId: fx.trackA, devicePosition: 0 },
+  }) as {
+    standing: string;
+    parameters: Array<Record<string, unknown>>;
+    warnings: unknown[];
+  };
+  assert.equal(inventory.standing, 'stable');
+  assert.ok(inventory.parameters.length > 8);
+  assert.deepEqual(inventory.parameters[0], {
+    id: 'P1',
+    name: 'Param 1',
+    normalizedValue: 0.5,
+    display: '50.0 %',
+    modulatedValue: 0.7,
+    hasAutomation: true,
+    origin: 0,
+    discreteValueCount: 2,
+    discreteValueNames: ['Off', 'On'],
+  });
+  assert.ok(inventory.warnings.length >= 2);
+
+  const remotes = await call(fx, 'inspect_device_parameters', {
+    device: { trackId: fx.trackA, devicePosition: 0 },
+    view: 'remote-controls',
+  }) as {
+    standing: string;
+    remotePages: { name: string; controls: { name: string }[] }[];
+    warnings: unknown[];
+  };
+  assert.equal(remotes.standing, 'stable');
+  assert.equal(remotes.remotePages[0]?.name, 'Filter');
+  assert.equal(remotes.remotePages[0]?.controls[0]?.name, 'Cutoff');
+  assert.ok(remotes.warnings.length >= 2);
+
+  const set = await call(fx, 'set_parameter', { settings: [
+    {
+      kind: 'direct',
+      device: { trackId: fx.trackA, devicePosition: 0 },
+      parameterId: 'P1',
+      normalizedValue: 0.75,
+    },
+    {
+      kind: 'remote',
+      device: { trackId: fx.trackA, devicePosition: 0 },
+      pagePosition: 0,
+      pageName: 'Filter',
+      controlPosition: 0,
+      controlName: 'Cutoff',
+      normalizedValue: 0.6,
+    },
+  ] }) as {
+    verified: boolean; changes: { changeId: string }[];
+  };
+  assert.equal(set.verified, true, JSON.stringify(set));
+  assert.equal(modelDevice.params[0]!.value, 0.75);
+  assert.equal(modelDevice.remotePages[0]!.controls[0]!.value, 0.6);
+
+  const bypass = await call(fx, 'set_device_enabled', {
+    settings: [{ trackId: fx.trackA, devicePosition: 0, enabled: false }],
+  }) as { verified: boolean; changes: { changeId: string }[] };
+  assert.equal(bypass.verified, true, JSON.stringify(bypass));
+  assert.equal(modelDevice.enabled, false);
+
+  assert.equal((await call(fx, 'revert_change', {
+    changeId: bypass.changes[0]!.changeId,
+  }))['applied'], true);
+  assert.equal((await call(fx, 'revert_change', {
+    changeId: set.changes[1]!.changeId,
+  }))['applied'], true);
+  assert.equal((await call(fx, 'revert_change', {
+    changeId: set.changes[0]!.changeId,
+  }))['applied'], true);
+  assert.equal(modelDevice.enabled, true);
+  assert.equal(modelDevice.params[0]!.value, 0.5);
+  assert.equal(modelDevice.remotePages[0]!.controls[0]!.value, 0.25);
+});
+
 test('T-surface: every tool runs offline, and emits only what it declares', async () => {
   const fx = fixture();
   const ran = new Set<string>();
@@ -868,9 +995,33 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(addedDevice.applied, true);
   assert.equal(addedDevice.added[0]?.devicePosition, 0, 'the position is read back, never assumed');
 
+  const devices = await exercise('inspect_devices', { trackId: fx.trackA }) as {
+    complete: boolean; devices: { position: number; name: string; enabled: boolean }[];
+  };
+  assert.equal(devices.complete, true);
+  assert.deepEqual(devices.devices[0], {
+    position: 0, name: 'gn-test-device', enabled: true,
+  });
+
+  const parameterInventory = await exercise('inspect_device_parameters', {
+    device: { trackId: fx.trackA, devicePosition: 0 },
+  }) as {
+    standing: string; parameters: { id: string }[];
+  };
+  assert.equal(parameterInventory.standing, 'stable');
+  assert.ok(parameterInventory.parameters.length > 8);
   assert.equal((await exercise('set_parameter', {
-    settings: [{ trackId: fx.trackA, devicePosition: 0, index: 0, value: 0.25 }],
-  }))['applied'], true);
+    settings: [{
+      kind: 'direct',
+      device: { trackId: fx.trackA, devicePosition: 0 },
+      parameterId: parameterInventory.parameters[0]!.id,
+      normalizedValue: 0.25,
+    }],
+  }))['verified'], true);
+
+  assert.equal((await exercise('set_device_enabled', {
+    settings: [{ trackId: fx.trackA, devicePosition: 0, enabled: false }],
+  }))['verified'], true);
 
   const createdAlternates = await exercise('create_device_alternates', {
     trackId: fx.trackA,
@@ -961,7 +1112,7 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(collapsed.finalPositionConfirmed, true);
 
   // -- the record of all of it, and putting one of them back.
-  const changes = await exercise('list_changes', {}) as { changes: { changeId: string }[] };
+  const changes = await exercise('list_changes', { limit: 200 }) as { changes: { changeId: string }[] };
   assert.ok(changes.changes.length >= 8);
 
   const renameChange = changes.changes.find((c) => c.changeId === renameChangeId);
@@ -1781,12 +1932,15 @@ test('T-selective-reduction: an unobservable temporary container position refuse
 });
 
 test('T-selective-reduction: an unreadable old-container removal is partial, never completion', async () => {
+  let armed = false;
+  let armedReads = 0;
   const fx = fixture({
-    devices: (call, actual) => call === 2
+    devices: (_call, actual) => armed && ++armedReads === 2
       ? { ...actual, devices: [], devicesComplete: false }
       : actual,
   });
   const { position } = await selectiveReductionFixture(fx);
+  armed = true;
   const result = await call(fx, 'remove_device_alternate', {
     trackId: fx.trackA,
     containerPosition: position,
@@ -1972,10 +2126,12 @@ test('T-collapse: a container the readback still sees is reported as NOT removed
   // The delete is acknowledged and the confirming reading still shows the
   // container: exactly what a refused or lost removal looks like from here.
   let extracted: Awaited<ReturnType<FakeAdapter['devices']>> | undefined;
+  let armed = false;
+  let armedReads = 0;
   const fx = fixture({
-    devices: (call, actual) => {
-      if (call === 2) extracted = actual;
-      return call === 3 && extracted !== undefined ? extracted : actual;
+    devices: (_call, actual) => {
+      if (armed && ++armedReads === 2) extracted = actual;
+      return armed && armedReads === 3 && extracted !== undefined ? extracted : actual;
     },
   });
   await call(fx, 'add_device', { devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'gn-before' }] });
@@ -1991,6 +2147,7 @@ test('T-collapse: a container the readback still sees is reported as NOT removed
     sourceDevicePositions: [position + 1],
     mode: 'move',
   });
+  armed = true;
 
   const result = await call(fx, 'keep_device_alternate', {
     trackId: fx.trackA,
@@ -2016,8 +2173,12 @@ test('T-collapse: a container the readback still sees is reported as NOT removed
 test('T-collapse: a removal no reading could confirm says so, and claims neither outcome', async () => {
   // The confirming reading comes back partial. Removed and not-removed are both
   // still possible, and the answer must be exactly that — not either one.
+  let armed = false;
+  let armedReads = 0;
   const fx = fixture({
-    devices: (call, actual) => (call === 3 ? { ...actual, devices: [], devicesComplete: false } : actual),
+    devices: (_call, actual) => armed && ++armedReads === 3
+      ? { ...actual, devices: [], devicesComplete: false }
+      : actual,
   });
   await call(fx, 'add_device', { devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'gn-before' }] });
   const made = await call(fx, 'create_device_alternates', {
@@ -2032,6 +2193,7 @@ test('T-collapse: a removal no reading could confirm says so, and claims neither
     sourceDevicePositions: [position + 1],
     mode: 'move',
   });
+  armed = true;
 
   const result = await call(fx, 'keep_device_alternate', {
     trackId: fx.trackA,

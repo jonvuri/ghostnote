@@ -50,17 +50,20 @@
  */
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { existsSync } from 'node:fs';
+import { isAbsolute } from 'node:path';
 import { z } from 'zod';
 
 import {
   chain as chainAt, clip as clipAt, clipLaunch as launchAt, clipMetadata as metadataAt,
   clipPlay as playAt, notes as notesAt,
-  param as paramAt, scene as sceneAt, slot as slotAt, track as trackAt, device as deviceAt,
-  deviceIn, addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, lookupChain,
+  param as paramAt, remote as remoteAt, remotes as remotesAt,
+  scene as sceneAt, slot as slotAt, track as trackAt, device as deviceAt,
+  deviceEnabled as deviceEnabledAt, deviceIn, drumPad as drumPadAt,
+  addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, lookupChain,
   projectedReorder,
   AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
-  type Address, type ClipAddress, type DeviceSource, type NoteRecord, type Op, type OpKind,
-  type RevisionMark,
+  type Address, type ClipAddress, type DeviceAddress, type DeviceSource, type NoteRecord,
+  type ObservedDeviceBank, type Op, type OpKind, type ParamState, type RevisionMark,
 } from '../contract/index.js';
 import { branchProtected, directedDestruction } from '../engine/index.js';
 import { FX_LAYER_UUID, INSTRUMENT_LAYER_SEED_PATH } from '../device-alternates/assets.js';
@@ -188,6 +191,42 @@ function tool<S extends z.ZodRawShape>(spec: {
 const trackId = z.string().describe(
   'The track\'s durable id, from list_tracks. It survives renaming and reordering; a position '
   + 'does not, and is never an address here.',
+);
+
+const nestedDeviceStep = z.discriminatedUnion('through', [
+  z.object({
+    through: z.literal('named-container-entry'),
+    name: z.string().min(1).describe('The exact named entry returned by container inspection.'),
+    devicePosition: z.number().int().min(0).describe(
+      'Device position inside the named container entry, from 0.',
+    ),
+  }),
+  z.object({
+    through: z.literal('drum-pad'),
+    channel: z.number().int().min(0).max(15).describe(
+      'Drum-pad channel, from 0 through 15. The route reaches its first device.',
+    ),
+  }),
+]);
+
+const deviceTarget = z.object({
+  trackId,
+  devicePosition: z.number().int().min(0).describe(
+    'Top-level device position, from 0. This is positional and changes after a device-order edit.',
+  ),
+  route: z.array(nestedDeviceStep).max(2).optional().describe(
+    'Optional measured route through named container entries or drum-pad channels. Read names again after '
+    + 'a structural edit. Two descents are supported.',
+  ),
+});
+
+type DeviceTargetInput = z.infer<typeof deviceTarget>;
+
+const expectedDeviceOrder = z.array(z.object({
+  name: z.string(),
+  enabled: z.boolean(),
+})).describe(
+  'Optional exact complete order from the latest inspect_devices result. The write refuses if it changed.',
 );
 
 const row = z.number().int().min(0).describe(
@@ -326,6 +365,59 @@ async function writing<T>(run: () => Promise<T>): Promise<T | ReturnType<typeof 
   } catch (error) {
     return refusalOf(error);
   }
+}
+
+function addressedDevice(target: DeviceTargetInput): DeviceAddress {
+  let current = deviceAt(trackAt(target.trackId), target.devicePosition);
+  for (const step of target.route ?? []) {
+    current = step.through === 'named-container-entry'
+      ? deviceIn(chainAt(current, step.name), step.devicePosition)
+      : deviceIn(drumPadAt(current, step.channel), 0);
+  }
+  return current;
+}
+
+function completeDeviceBank(bank: ObservedDeviceBank): bank is ObservedDeviceBank & {
+  readonly devicesComplete: true;
+  readonly bankSize: number;
+} {
+  return bank.devicesComplete && bank.bankSize !== undefined;
+}
+
+function enabledFingerprint(bank: ObservedDeviceBank): readonly boolean[] | undefined {
+  const values = bank.devices.map((item) => item.enabled);
+  return values.every((value): value is boolean => typeof value === 'boolean') ? values : undefined;
+}
+
+function publicParameter(parameter: ParamState): Record<string, unknown> {
+  return {
+    id: parameter.id,
+    name: parameter.name,
+    normalizedValue: parameter.value,
+    ...(parameter.index === undefined ? {} : { typedIndex: parameter.index }),
+    ...(parameter.display === undefined ? {} : { display: parameter.display }),
+    ...(parameter.modulatedValue === undefined
+      ? {} : { modulatedValue: parameter.modulatedValue }),
+    ...(parameter.hasAutomation === undefined
+      ? {} : { hasAutomation: parameter.hasAutomation }),
+    ...(parameter.origin === undefined ? {} : { origin: parameter.origin }),
+    ...(parameter.discreteValueCount === undefined || parameter.discreteValueCount < 0
+      ? {} : { discreteValueCount: parameter.discreteValueCount }),
+    ...(parameter.discreteValueNames === undefined || parameter.discreteValueNames.length === 0
+      ? {} : { discreteValueNames: parameter.discreteValueNames }),
+  };
+}
+
+function parameterWarnings(parameter: ParamState): string[] {
+  return [
+    ...(parameter.modulatedValue !== undefined
+        && Math.abs(parameter.modulatedValue - parameter.value) > 1e-9
+      ? ['The modulated value differs from the stored base value. A static write is not the value heard.']
+      : []),
+    ...(parameter.hasAutomation === true
+      ? ['Host automation can override the stored base value.']
+      : []),
+  ];
 }
 
 function sliceFor(
@@ -1677,29 +1769,200 @@ export const TOOLS: readonly ToolSpec[] = [
   }),
 
   tool({
+    name: 'inspect_devices',
+    kind: 'read',
+    title: 'Inspect track devices',
+    description:
+      'Read the complete visible top-level device order on one track. Each device reports its '
+      + 'current position, name, and enabled state when observed. Positions are not ids. Adding, '
+      + 'moving, or removing a device changes later positions, so inspect the device order again after '
+      + 'each structural edit. The result states the fixed bank size and whether the view is '
+      + 'complete. A partial view is not evidence that the hidden tail is empty.',
+    inputSchema: { trackId },
+    resultContract: {
+      devices: 'Current top-level positions, names, and observed enabled states.',
+      complete: 'True only when the fixed device bank covers the complete device order.',
+      bankSize: 'The fixed top-level device-bank width, when observed.',
+      elapsedMs: 'Wall-clock time for this call.',
+    },
+    async run(workspace, args) {
+      const started = performance.now();
+      try {
+        const bank = await workspace.devices(trackAt(args.trackId));
+        return {
+          trackId: args.trackId,
+          devices: bank.devices.map((item) => ({
+            position: item.index,
+            name: item.name,
+            ...(item.enabled === undefined ? {} : { enabled: item.enabled }),
+          })),
+          complete: bank.devicesComplete,
+          ...(bank.bankSize === undefined ? {} : { bankSize: bank.bankSize }),
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      } catch (error) {
+        return {
+          trackId: args.trackId,
+          devices: [],
+          complete: false,
+          unreachable: true,
+          reason: error instanceof Error ? error.message : String(error),
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      }
+    },
+  }),
+
+  tool({
+    name: 'inspect_device_parameters',
+    kind: 'read',
+    title: 'Inspect device parameters',
+    description:
+      'Read a device and discover its complete stable DirectParameter inventory. Each returned id '
+      + 'is the general selector for set_parameter on native, VST3, and CLAP devices. Values are '
+      + 'normalized from 0 through 1 and do not share one physical unit. Display text, typed '
+      + 'discrete values, origin, automation, and modulatedValue appear only when Bitwig observed '
+      + 'them. The remote-controls view reads remote pages instead; it uses returned page and '
+      + 'control names and positions. The two views are separate because their observer generations '
+      + 'do not stay stable together. The '
+      + 'result distinguishes a missing target, an unreachable bank window, and observer instability.',
+    inputSchema: {
+      device: deviceTarget,
+      view: z.enum(['direct', 'remote-controls']).optional().describe(
+        'DirectParameter inventory by default, or the complete visible remote-control page bank.',
+      ),
+    },
+    resultContract: {
+      standing: 'stable, missing, unreachable, or unstable.',
+      parameters: 'Complete DirectParameter inventory when standing is stable.',
+      remotePages: 'Optional complete visible remote pages with exact existing controls.',
+      warnings: 'Observed modulation or automation that can make a base value differ from the value heard.',
+      elapsedMs: 'Wall-clock time for this call.',
+    },
+    async run(workspace, args) {
+      const started = performance.now();
+      const target = addressedDevice(args.device);
+      const remoteInventory = remotesAt(target);
+      const targetKey = addressKey(target);
+      const remoteKey = addressKey(remoteInventory);
+      if (args.view === 'remote-controls') {
+        const snapshot = await workspace.read([remoteInventory]);
+        const standing = snapshot.unreachable.some((item) => addressKey(item) === remoteKey)
+          ? 'unreachable'
+          : snapshot.unstable.some((item) => addressKey(item) === remoteKey)
+            ? 'unstable'
+            : snapshot.missing.some((item) => addressKey(item) === remoteKey)
+              ? 'missing'
+              : 'stable';
+        const entry = snapshot.entries[remoteKey];
+        if (standing !== 'stable' || entry?.value.of !== 'remotes') {
+          return {
+            device: args.device,
+            view: 'remote-controls',
+            standing: standing === 'stable' ? 'unstable' : standing,
+            remotePages: [],
+            warnings: [],
+            elapsedMs: Math.round(performance.now() - started),
+          };
+        }
+        const pages = entry.value.remotes.pages.map((page) => ({
+          position: page.index,
+          name: page.name,
+          controls: page.controls.map((control) => ({
+            position: control.index,
+            name: control.name,
+            normalizedValue: control.value,
+            modulatedValue: control.modulatedValue,
+            isBeingMapped: control.isBeingMapped,
+            ...(control.hasAutomation === undefined
+              ? {} : { hasAutomation: control.hasAutomation }),
+          })),
+        }));
+        return {
+          device: args.device,
+          view: 'remote-controls',
+          standing: 'stable',
+          remotePages: pages,
+          warnings: pages.flatMap((page) => page.controls.flatMap((control) => [
+            ...(Math.abs(control.modulatedValue - control.normalizedValue) > 1e-9
+              ? [{
+                remote: { pagePosition: page.position, controlPosition: control.position },
+                message: 'The modulated value differs from the stored base value.',
+              }] : []),
+            ...(control.hasAutomation === true
+              ? [{
+                remote: { pagePosition: page.position, controlPosition: control.position },
+                message: 'Host automation can override the stored base value.',
+              }] : []),
+          ])),
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      }
+
+      const snapshot = await workspace.read([target]);
+      const standing = snapshot.unreachable.some((item) => addressKey(item) === targetKey)
+        ? 'unreachable'
+        : snapshot.unstable.some((item) => addressKey(item) === targetKey)
+          ? 'unstable'
+          : snapshot.missing.some((item) => addressKey(item) === targetKey)
+            ? 'missing'
+            : 'stable';
+      const deviceEntry = snapshot.entries[targetKey];
+      if (standing !== 'stable' || deviceEntry?.value.of !== 'device'
+          || deviceEntry.value.device.params === undefined) {
+        return {
+          device: args.device,
+          view: 'direct',
+          standing: standing === 'stable' ? 'unstable' : standing,
+          parameters: [],
+          warnings: [],
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      }
+      const parameters = deviceEntry.value.device.params;
+      const warnings = parameters.flatMap((parameter) =>
+        parameterWarnings(parameter).map((message) => ({ parameterId: parameter.id, message })));
+      return {
+        device: args.device,
+        view: 'direct',
+        deviceName: deviceEntry.value.device.name,
+        standing: 'stable',
+        parameters: parameters.map(publicParameter),
+        warnings,
+        elapsedMs: Math.round(performance.now() - started),
+      };
+    },
+  }),
+
+  tool({
     name: 'add_device',
     kind: 'write',
-    title: 'Add a device to a track',
+    title: 'Add devices to tracks',
     description:
-      'Insert a device at the end of a track\'s device list. Sources are a Bitwig device UUID, '
-      + 'a VST3 class UID, a CLAP id, or a preset file.\n'
+      'Append devices after a fresh complete device-order inspection. Sources are an explicit Bitwig '
+      + 'device UUID, VST3 class UID, CLAP id, or preset file. Each insertion requires a new '
+      + 'complete prior order, and every inserted position comes from complete readback. Pass '
+      + 'expectedDevices from the latest complete inspect_devices result to use that order directly. '
+      + 'When it is absent, this call reads the prior order first.\n'
       + 'A preset path must be absolute and must end in `.bwpreset`. A relative path, another '
       + 'extension, or a file that is not there are all accepted by the API and silently do '
       + 'nothing, so all three are refused here before anything is sent.\n'
-      + 'Where the device landed is read back rather than assumed. If that reading fails, the '
-      + 'insertion is recorded as one that cannot be undone, because removing a counted position '
-      + 'could remove a different device.',
+      + 'The result reports every completed insertion, partial completion, wall time, and the exact '
+      + 'reversal limit. An inserted device can be reversed only by deleting its last proved '
+      + 'current position while the complete device order still agrees.',
     inputSchema: {
       devices: z.array(z.discriminatedUnion('from', [
         z.object({
           trackId,
           from: z.literal('bitwig'),
           id: z.string().min(1).describe('Bitwig device UUID.'),
+          expectedDevices: expectedDeviceOrder.optional(),
         }),
         z.object({
           trackId,
           from: z.literal('vst3'),
           id: z.string().regex(/^[0-9A-Fa-f]{32}$/).describe('VST3 class UID as 32 hexadecimal characters.'),
+          expectedDevices: expectedDeviceOrder.optional(),
         }),
         z.object({
           trackId,
@@ -1707,28 +1970,127 @@ export const TOOLS: readonly ToolSpec[] = [
           id: z.string().min(1).refine((id) =>
             id === id.trim() && !/[\u0000-\u001f\u007f]/.test(id),
           'A CLAP id cannot have surrounding space or control characters.'),
+          expectedDevices: expectedDeviceOrder.optional(),
         }),
         z.object({
           trackId,
           from: z.literal('preset'),
           path: z.string().describe('Absolute .bwpreset path.'),
+          expectedDevices: expectedDeviceOrder.optional(),
         }),
       ])).min(1),
     },
     emits: ['device.insert'],
+    resultContract: {
+      added: 'Each inserted source with its read-back current position.',
+      changes: 'One recorded write receipt per insertion stage.',
+      partialSuccess: 'True when a later stage failed after an earlier insertion landed.',
+      reversal: 'Inserted devices can be removed only at their last proved current positions.',
+      elapsedMs: 'Wall-clock time for this call.',
+    },
     async run(workspace, args) {
-      return writing(async () => {
-        const ops: Op[] = args.devices.map((d) => ({
-          op: 'device.insert', track: trackAt(d.trackId), source: sourceOf(d),
+      const started = performance.now();
+      let requests: Array<{
+        index: number;
+        trackId: string;
+        source: DeviceSource;
+        expectedDevices?: readonly { name: string; enabled: boolean }[];
+      }>;
+      try {
+        requests = args.devices.map((item, index) => ({
+          index,
+          trackId: item.trackId,
+          source: sourceOf(item),
+          ...(item.expectedDevices === undefined
+            ? {} : { expectedDevices: item.expectedDevices }),
         }));
-        const change = await workspace.apply(ops);
-        return {
-          ...receiptOf(change),
-          added: Object.values(change.take.receipt.minted)
-            .filter((a: Address) => a.kind === 'device')
-            .map(describeAddress),
-        };
-      });
+      } catch (error) {
+        return refusalOf(error);
+      }
+      const added: Array<Record<string, unknown>> = [];
+      const changes: ReturnType<typeof receiptOf>[] = [];
+      for (const request of requests) {
+        let currentApplied = false;
+        try {
+          const track = trackAt(request.trackId);
+          const before = request.expectedDevices === undefined
+            ? await workspace.devices(track)
+            : undefined;
+          const enabled = before === undefined
+            ? request.expectedDevices!.map((item) => item.enabled)
+            : enabledFingerprint(before);
+          if (before !== undefined && (!completeDeviceBank(before) || enabled === undefined)) {
+            throw new Error('the complete top-level device names and enabled states are not visible');
+          }
+          if (before !== undefined
+              && (before.bankSize === undefined || before.devices.length >= before.bankSize)) {
+            throw new Error('the device bank has no addressable position for another device');
+          }
+          const names = before === undefined
+            ? request.expectedDevices!.map((item) => item.name)
+            : before.devices.map((item) => item.name);
+          const change = await workspace.apply([{
+            op: 'device.insert',
+            track,
+            source: request.source,
+            expectedChain: names,
+            expectedEnabledChain: enabled!,
+          }]);
+          const receipt = receiptOf(change);
+          changes.push(receipt);
+          currentApplied = receipt.applied;
+          const minted = Object.values(change.take.receipt.minted)
+            .filter((address): address is DeviceAddress => address.kind === 'device');
+          if (!receipt.applied || receipt.failed !== undefined || receipt.mismatches !== undefined
+              || receipt.notReadBack !== undefined || minted.length !== 1) {
+            return {
+              applied: false,
+              partialSuccess: added.length > 0 || currentApplied,
+              why: 'Insertion did not finish with one exact positional readback.',
+              changes,
+              added,
+              reversal: {
+                insertedDevice: 'delete-last-proved-current-position',
+                existingDeviceDelete: 'none',
+              },
+              elapsedMs: Math.round(performance.now() - started),
+            };
+          }
+          const position = minted[0]!.chainIndex;
+          added.push({
+            requestIndex: request.index,
+            trackId: request.trackId,
+            source: args.devices[request.index]?.from,
+            position,
+            devicePosition: position,
+          });
+        } catch (error) {
+          if (changes.length === 0) return refusalOf(error);
+          return {
+            applied: false,
+            partialSuccess: added.length > 0 || currentApplied,
+            why: 'A later insertion did not finish after earlier project writes completed.',
+            changes,
+            added,
+            reversal: {
+              insertedDevice: 'delete-last-proved-current-position',
+              existingDeviceDelete: 'none',
+            },
+            elapsedMs: Math.round(performance.now() - started),
+          };
+        }
+      }
+      return {
+        applied: true,
+        partialSuccess: false,
+        changes,
+        added,
+        reversal: {
+          insertedDevice: 'delete-last-proved-current-position',
+          existingDeviceDelete: 'none',
+        },
+        elapsedMs: Math.round(performance.now() - started),
+      };
     },
   }),
 
@@ -1737,33 +2099,224 @@ export const TOOLS: readonly ToolSpec[] = [
     kind: 'write',
     title: 'Set device parameters',
     description:
-      'Set a device parameter to a value. A device is named by its position in the track, '
-      + 'counting from 0 — that is a position, not an id, and it shifts whenever devices are '
-      + 'added or removed, so it is worth reading again after either.\n'
-      + 'A parameter something is modulating will not hold a value written here; the reading '
-      + 'reported back is what actually landed.',
+      'Set DirectParameters by ids returned from inspect_device_parameters, or set one returned '
+      + 'remote control by its exact page and control names and positions. Values are normalized '
+      + 'from 0 through 1 and do not share one physical unit. Each write uses a fresh inventory '
+      + 'and exact readback. The result does not say verified when readback disagrees. Modulation '
+      + 'and automation warnings state when a static base value can differ from the value heard.',
+    inputSchema: {
+      settings: z.array(z.discriminatedUnion('kind', [
+        z.object({
+          kind: z.literal('direct'),
+          device: deviceTarget,
+          parameterId: z.string().min(1).describe(
+            'Exact DirectParameter id returned by inspect_device_parameters.',
+          ),
+          normalizedValue: z.number().min(0).max(1),
+        }),
+        z.object({
+          kind: z.literal('remote'),
+          device: deviceTarget,
+          pagePosition: z.number().int().min(0),
+          pageName: z.string().min(1),
+          controlPosition: z.number().int().min(0),
+          controlName: z.string().min(1),
+          normalizedValue: z.number().min(0).max(1),
+        }),
+      ])).min(1),
+    },
+    emits: ['param.set', 'remote.set'],
+    resultContract: {
+      partialSuccess: 'True when an earlier verified write finished before a later setting failed.',
+      verified: 'True only when every requested normalized base value agrees with readback.',
+      changes: 'One recorded write receipt per scalar target.',
+      warnings: 'Observed modulation or automation that can override a static base value.',
+      elapsedMs: 'Wall-clock time for this call.',
+      reversal: 'Exact base-value replay while the positional device target remains valid.',
+    },
+    async run(workspace, args) {
+      const started = performance.now();
+      const changes: ReturnType<typeof receiptOf>[] = [];
+      const warnings: Array<Record<string, unknown>> = [];
+      try {
+        let verified = true;
+        for (const [settingIndex, setting] of args.settings.entries()) {
+          const target = addressedDevice(setting.device);
+          const bank = await workspace.devices(trackAt(setting.device.trackId));
+          const enabled = enabledFingerprint(bank);
+          if (!completeDeviceBank(bank) || enabled === undefined) {
+            throw new Error('the complete top-level device names and enabled states are not visible');
+          }
+          const expectedChain = bank.devices.map((item) => item.name);
+          const top = bank.devices[setting.device.devicePosition];
+          if (top === undefined) throw new Error('the top-level device position is absent');
+
+          let op: Op;
+          if (setting.kind === 'direct') {
+            const snapshot = await workspace.read([target]);
+            const entry = snapshot.entries[addressKey(target)];
+            if (snapshot.unreachable.length > 0) throw new Error('the parameter target is outside its bank window');
+            if (snapshot.unstable.length > 0) throw new Error('the parameter observer inventory is unstable');
+            if (entry?.value.of !== 'device' || entry.value.device.params === undefined) {
+              throw new Error('the parameter target or its complete inventory is missing');
+            }
+            const matches = entry.value.device.params.filter((item) => item.id === setting.parameterId);
+            if (matches.length !== 1) {
+              throw new Error(`the DirectParameter id matched ${matches.length} parameters`);
+            }
+            warnings.push(...parameterWarnings(matches[0]!).map((message) => ({
+              settingIndex, parameterId: setting.parameterId, message,
+            })));
+            op = {
+              op: 'param.set',
+              param: paramAt(target, setting.parameterId),
+              value: setting.normalizedValue,
+              expectedName: entry.value.device.name,
+              expectedChain,
+              expectedEnabledChain: enabled,
+            };
+          } else {
+            const inventoryAddress = remotesAt(target);
+            const snapshot = await workspace.read([inventoryAddress]);
+            const entry = snapshot.entries[addressKey(inventoryAddress)];
+            if (snapshot.unreachable.length > 0) throw new Error('the remote target is outside its bank window');
+            if (snapshot.unstable.length > 0) throw new Error('the remote observer inventory is unstable');
+            if (entry?.value.of !== 'remotes') throw new Error('the remote inventory is missing');
+            const page = entry.value.remotes.pages[setting.pagePosition];
+            const control = page?.controls[setting.controlPosition];
+            if (page?.name !== setting.pageName || control?.name !== setting.controlName) {
+              throw new Error('the remote page or control does not match the fresh inventory');
+            }
+            if (Math.abs(control.modulatedValue - control.value) > 1e-9) {
+              warnings.push({
+                settingIndex,
+                message: 'The modulated value differs from the stored base value.',
+              });
+            }
+            if (control.hasAutomation === true) {
+              warnings.push({
+                settingIndex,
+                message: 'Host automation can override the stored base value.',
+              });
+            }
+            op = {
+              op: 'remote.set',
+              remote: remoteAt(
+                target,
+                setting.pagePosition,
+                setting.pageName,
+                setting.controlPosition,
+                setting.controlName,
+              ),
+              value: setting.normalizedValue,
+            };
+          }
+          const change = await workspace.apply([op]);
+          const receipt = receiptOf(change);
+          changes.push(receipt);
+          if (!receipt.applied || receipt.failed !== undefined || receipt.mismatches !== undefined
+              || receipt.notReadBack !== undefined) verified = false;
+        }
+        return {
+          applied: changes.every((change) => change.applied),
+          partialSuccess: false,
+          verified,
+          changes,
+          warnings,
+          reversal: 'exact-base-value-while-the-device-route-remains-valid',
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      } catch (error) {
+        if (changes.length === 0) return refusalOf(error);
+        return {
+          applied: false,
+          partialSuccess: true,
+          verified: false,
+          why: 'A later setting did not finish after earlier writes completed.',
+          changes,
+          warnings,
+          reversal: 'exact-base-value-while-the-device-route-remains-valid',
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      }
+    },
+  }),
+
+  tool({
+    name: 'set_device_enabled',
+    kind: 'write',
+    title: 'Enable or bypass devices',
+    description:
+      'Set the enabled state of top-level devices after a fresh complete device-order inspection. '
+      + 'False bypasses the device. Each position is positional and must be read again after a '
+      + 'device-order edit. Exact readback proves each result, and the prior enabled '
+      + 'state is available for exact reversal.',
     inputSchema: {
       settings: z.array(z.object({
         trackId,
-        devicePosition: z.number().int().min(0).describe('Position in the track, from 0.'),
-        index: z.number().int().min(0).describe('Which parameter of that device.'),
-        id: z.string().optional().describe(
-          'A plugin\'s own parameter id, where it has one. Required for CLAP plugins, which '
-          + 'cannot be reached by index.',
+        devicePosition: z.number().int().min(0).describe(
+          'Current top-level position returned by inspect_devices.',
         ),
-        value: z.number().describe('Normalised 0..1 unless the device says otherwise.'),
+        enabled: z.boolean(),
       })).min(1),
     },
-    emits: ['param.set'],
+    emits: ['device.setEnabled'],
+    resultContract: {
+      partialSuccess: 'True when an earlier verified write finished before a later setting failed.',
+      verified: 'True only when every enabled state agrees with independent readback.',
+      changes: 'One recorded write receipt per device.',
+      elapsedMs: 'Wall-clock time for this call.',
+      reversal: 'Exact prior enabled-state replay while the positional device target remains valid.',
+    },
     async run(workspace, args) {
-      return writing(async () => {
-        const ops: Op[] = args.settings.map((s) => ({
-          op: 'param.set',
-          param: paramAt(deviceAt(trackAt(s.trackId), s.devicePosition), s.index, s.id),
-          value: s.value,
-        }));
-        return receiptOf(await workspace.apply(ops));
-      });
+      const started = performance.now();
+      const changes: ReturnType<typeof receiptOf>[] = [];
+      try {
+        let verified = true;
+        for (const setting of args.settings) {
+          const track = trackAt(setting.trackId);
+          const bank = await workspace.devices(track);
+          const enabled = enabledFingerprint(bank);
+          if (!completeDeviceBank(bank) || enabled === undefined) {
+            throw new Error('the complete top-level device names and enabled states are not visible');
+          }
+          const target = deviceAt(track, setting.devicePosition);
+          const observed = bank.devices[setting.devicePosition];
+          if (observed === undefined) throw new Error('the device position is absent');
+          const change = await workspace.apply([{
+            op: 'device.setEnabled',
+            device: target,
+            enabled: setting.enabled,
+            expectedName: observed.name,
+            expectedEnabled: enabled[setting.devicePosition],
+            expectedChain: bank.devices.map((item) => item.name),
+            expectedEnabledChain: enabled,
+          }]);
+          const receipt = receiptOf(change);
+          changes.push(receipt);
+          if (!receipt.applied || receipt.failed !== undefined || receipt.mismatches !== undefined
+              || receipt.notReadBack !== undefined) verified = false;
+        }
+        return {
+          applied: changes.every((change) => change.applied),
+          partialSuccess: false,
+          verified,
+          changes,
+          reversal: 'exact-prior-enabled-state-while-the-device-position-remains-valid',
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      } catch (error) {
+        if (changes.length === 0) return refusalOf(error);
+        return {
+          applied: false,
+          partialSuccess: true,
+          verified: false,
+          why: 'A later setting did not finish after earlier writes completed.',
+          changes,
+          reversal: 'exact-prior-enabled-state-while-the-device-position-remains-valid',
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      }
     },
   }),
 
@@ -2952,12 +3505,14 @@ export const TOOLS: readonly ToolSpec[] = [
     kind: 'destructive',
     title: 'Remove devices from a track',
     description:
-      'Remove devices from a track by position, counting from 0.\n'
-      + 'This cannot be undone by anything here: a device\'s settings cannot be read back through '
-      + 'this API, so nothing recorded could rebuild it.\n'
+      'Remove top-level devices by current position after a fresh complete device-order inspection.\n'
+      + 'This cannot be undone by anything here. Parameter and enabled-state reads are not a '
+      + 'complete device reconstruction: presets, internal state, modulation topology, and plugin '
+      + 'state cannot all be rebuilt.\n'
       + 'Removing a device moves everything after it up one position. Within a single call the '
       + 'higher positions are removed first so the numbers given all refer to the same starting '
-      + 'arrangement; across calls, read the positions again.',
+      + 'arrangement. The result verifies the complete device order after each removal. Across calls, '
+      + 'inspect the device order again.',
     inputSchema: {
       devices: z.array(z.object({
         trackId,
@@ -2965,15 +3520,106 @@ export const TOOLS: readonly ToolSpec[] = [
       })).min(1),
     },
     emits: ['device.delete'],
+    resultContract: {
+      verified: 'True only when every complete post-delete device order matches the requested removal.',
+      changes: 'One recorded destructive write receipt per removed device.',
+      partialSuccess: 'True when a later removal failed after an earlier removal landed.',
+      reversal: 'none. An existing device cannot be reconstructed.',
+      elapsedMs: 'Wall-clock time for this call.',
+    },
     async run(workspace, args) {
-      return writing(async () => {
-        const ops: Op[] = [...args.devices]
-          .sort((a, b) => b.position - a.position)
-          .map((d) => ({ op: 'device.delete', device: deviceAt(trackAt(d.trackId), d.position) }));
-        return receiptOf(
-          await workspace.apply(ops, { clearance: directedDestruction('delete_device') }),
-        );
-      });
+      const started = performance.now();
+      const changes: ReturnType<typeof receiptOf>[] = [];
+      const removed: Array<{ trackId: string; position: number; name: string }> = [];
+      try {
+        const unique = new Set(args.devices.map((item) => `${item.trackId}:${item.position}`));
+        if (unique.size !== args.devices.length) {
+          throw new Error('each starting device position can appear only once');
+        }
+        const byTrack = new Map<string, typeof args.devices>();
+        for (const item of args.devices) {
+          const group = byTrack.get(item.trackId) ?? [];
+          group.push(item);
+          byTrack.set(item.trackId, group);
+        }
+        for (const [id, group] of byTrack) {
+          const initial = await workspace.devices(trackAt(id));
+          if (!completeDeviceBank(initial) || enabledFingerprint(initial) === undefined) {
+            throw new Error('the complete top-level device name and enabled-state chain is not visible');
+          }
+          for (const item of [...group].sort((a, b) => b.position - a.position)) {
+            if (initial.devices[item.position] === undefined) {
+              throw new Error(`device position ${item.position} is absent on track ${id}`);
+            }
+          }
+        }
+
+        for (const [id, group] of byTrack) {
+          for (const item of [...group].sort((a, b) => b.position - a.position)) {
+            const track = trackAt(id);
+            const before = await workspace.devices(track);
+            const enabled = enabledFingerprint(before);
+            if (!completeDeviceBank(before) || enabled === undefined) {
+              throw new Error('the complete top-level device name and enabled-state chain is not visible');
+            }
+            const observed = before.devices[item.position];
+            if (observed === undefined) throw new Error('the current device position is absent');
+            const expectedAfter = before.devices.filter((_, index) => index !== item.position)
+              .map((entry, index) => ({ ...entry, index }));
+            const change = await workspace.apply([{
+              op: 'device.delete',
+              device: deviceAt(track, item.position),
+              expectedName: observed.name,
+              expectedChain: before.devices.map((entry) => entry.name),
+              expectedEnabledChain: enabled,
+            }], { clearance: directedDestruction('delete_device') });
+            const receipt = receiptOf(change);
+            changes.push(receipt);
+            const after = await workspace.devices(track);
+            const matches = completeDeviceBank(after)
+              && after.devices.length === expectedAfter.length
+              && after.devices.every((entry, index) => {
+                const expected = expectedAfter[index];
+                return entry.index === expected?.index
+                  && entry.name === expected.name
+                  && entry.enabled === expected.enabled;
+              });
+            if (!receipt.applied || receipt.failed !== undefined || !matches) {
+              return {
+                applied: false,
+                verified: false,
+                partialSuccess: removed.length > 0,
+                changes,
+                removed,
+                reversal: 'none-existing-device-cannot-be-reconstructed',
+                elapsedMs: Math.round(performance.now() - started),
+              };
+            }
+            removed.push({ trackId: id, position: item.position, name: observed.name });
+          }
+        }
+        return {
+          applied: true,
+          verified: true,
+          partialSuccess: false,
+          changes,
+          removed,
+          reversal: 'none-existing-device-cannot-be-reconstructed',
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      } catch (error) {
+        if (changes.length === 0) return refusalOf(error);
+        return {
+          applied: false,
+          verified: false,
+          partialSuccess: true,
+          why: error instanceof Error ? error.message : String(error),
+          changes,
+          removed,
+          reversal: 'none-existing-device-cannot-be-reconstructed',
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      }
     },
   }),
 ];
@@ -2987,6 +3633,11 @@ const coverage = (c: { count: number; bankSize: number }): {
 function sourceOf(d: { from: string; id?: string; path?: string }): DeviceSource {
   if (d.from === 'preset') {
     if (d.path === undefined) throw new Error('a preset source needs `path`');
+    if (!isAbsolute(d.path)) throw new Error('a preset path must be absolute');
+    if (!d.path.toLowerCase().endsWith('.bwpreset')) {
+      throw new Error('a preset path must end in `.bwpreset`');
+    }
+    if (!existsSync(d.path)) throw new Error('the preset file does not exist');
     return { from: 'file', path: d.path };
   }
   if (d.id === undefined) throw new Error(`a ${d.from} source needs \`id\``);

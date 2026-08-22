@@ -90,6 +90,9 @@ export interface FakeDevice {
     display?: string;
     modulatedValue?: number;
     hasAutomation?: boolean;
+    origin?: number;
+    discreteValueCount?: number;
+    discreteValueNames?: readonly string[];
   }[];
   /**
    * ⚠ Present only on a CONTAINER device, and the two container kinds do not
