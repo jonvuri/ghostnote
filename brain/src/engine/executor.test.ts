@@ -25,7 +25,7 @@ import {
   clipMetadata, notes as notesAt, param, scene, slot, track,
   type BitwigAdapter, type ClipMetadataState, type NoteRecord, type Op, type TrackAddress,
 } from '../contract/index.js';
-import { Executor } from './executor.js';
+import { Executor, mutationStateDisagreementsOf } from './executor.js';
 import { branchProtected, gateBeforeReading, UnprotectedWriteError } from './floor.js';
 
 /** Addresses for the pure cases below — well-formed, and never resolved. */
@@ -183,6 +183,139 @@ test('X-roundtrip: a revert is a take of its own, so the branch it left is still
   );
 });
 
+test('4b settlement: complete reconciliation exposes a same-target foreign note', async () => {
+  const { fake, clipA } = await fixture();
+  const addresses = Array.from({ length: 16 }, (_, channel) => notesAt(clipA, channel));
+  const before = await fake.read(addresses);
+  const ops: Op[] = [{ op: 'note.write', clip: clipA, notes: [note({ pitch: 64 })] }];
+  await fake.apply({ ops });
+  await fake.settle('noteWrite');
+  await fake.apply({ ops: [{
+    op: 'note.write', clip: clipA,
+    notes: [note({ startBeats: 2, pitch: 79 })],
+  }] });
+  await fake.settle('noteWrite');
+  const after = await fake.read(addresses);
+
+  assert.deepEqual(mutationStateDisagreementsOf(ops, before, after).map((item) => ({
+    field: item.field,
+    requested: item.requested,
+    readback: item.readback,
+  })), [{ field: 'completeState.exists', requested: false, readback: true }]);
+});
+
+test('4b settlement: complete reconciliation accepts the exact merged result', async () => {
+  const { fake, clipA } = await fixture();
+  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ pitch: 55 })] }] });
+  await fake.settle('noteWrite');
+  const addresses = Array.from({ length: 16 }, (_, channel) => notesAt(clipA, channel));
+  const before = await fake.read(addresses);
+  const ops: Op[] = [{
+    op: 'note.write', clip: clipA,
+    notes: [note({ startBeats: 1, pitch: 64, pan: 0.25 })],
+  }];
+  await fake.apply({ ops });
+  await fake.settle('noteWrite');
+  const after = await fake.read(addresses);
+  assert.deepEqual(mutationStateDisagreementsOf(ops, before, after), []);
+});
+
+test('4b settlement: complete reconciliation accepts observed host note defaults', async () => {
+  const { fake, clipA } = await fixture();
+  const addresses = Array.from({ length: 16 }, (_, channel) => notesAt(clipA, channel));
+  const before = await fake.read(addresses);
+  const ops: Op[] = [{ op: 'note.write', clip: clipA, notes: [note({ pitch: 64 })] }];
+  await fake.apply({ ops: [{
+    op: 'note.write', clip: clipA, notes: [note({
+      pitch: 64,
+      releaseVelocity: 100 / 127,
+      isOccurrenceEnabled: true,
+      isRecurrenceEnabled: true,
+      recurrence: [1, 1],
+      isRepeatEnabled: true,
+    })],
+  }] });
+  await fake.settle('noteWrite');
+  const after = await fake.read(addresses);
+  assert.deepEqual(mutationStateDisagreementsOf(ops, before, after), []);
+});
+
+test('4b settlement: delayed exact state retries the read and never replays the write', async () => {
+  const fx = await fixture();
+  let applied = false;
+  let applyCalls = 0;
+  let stale: Awaited<ReturnType<BitwigAdapter['read']>> | undefined;
+  const timings: string[] = [];
+  const delayed: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    read: async (selection) => {
+      if (!applied) {
+        stale = await fx.fake.read(selection);
+        return stale;
+      }
+      if (stale !== undefined) {
+        const first = stale;
+        stale = undefined;
+        return first;
+      }
+      return await fx.fake.read(selection);
+    },
+    apply: async (batch) => {
+      applyCalls += 1;
+      const receipt = await fx.fake.apply(batch);
+      applied = true;
+      return receipt;
+    },
+  };
+  const executor = new Executor(delayed, {
+    onTiming: (event) => timings.push(event.phase),
+  });
+
+  const take = await executor.run([{
+    op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 64 })],
+  }]);
+
+  assert.equal(applyCalls, 1);
+  assert.deepEqual(take.report.disagreements, []);
+  assert.ok(timings.includes('verificationRetry'));
+});
+
+test('4b settlement: a rejected later stage reports partial state without replay', async () => {
+  const fx = await fixture();
+  await fx.fake.apply({
+    ops: [{ op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 55 })] }],
+  });
+  await fx.fake.settle('noteWrite');
+  let applyCalls = 0;
+  const partial: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    apply: async (batch) => {
+      applyCalls += 1;
+      const first = await fx.fake.apply({ ops: [batch.ops[0]!] });
+      return {
+        ...first,
+        accepted: false,
+        rejected: {
+          reason: 'stale-revision' as const,
+          expected: first.at.revision,
+          actual: first.at.revision + 1,
+        },
+      };
+    },
+  };
+  const executor = new Executor(partial);
+
+  const take = await executor.run([
+    { op: 'note.clear', clip: fx.clipA },
+    { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 72 })] },
+  ]);
+
+  assert.equal(applyCalls, 1);
+  assert.equal(take.report.applied, false);
+  assert.ok(take.report.disagreements.some((item) =>
+    item.field === 'completeState.exists' && item.requested === true));
+});
+
 test('B4: the executor gives one selection scope the complete pipeline', async () => {
   const fx = await fixture();
   let scopes = 0;
@@ -233,7 +366,9 @@ test('4b: executor timing names stash, apply, and independent verification', asy
   ]);
 
   assert.equal(take.report.applied, true);
-  assert.deepEqual(phases, ['resolve', 'stash', 'apply', 'verification']);
+  assert.deepEqual(phases, [
+    'resolve', 'stash', 'apply', 'verification', 'finalReconciliation',
+  ]);
 });
 
 // --- exit criterion 3 --------------------------------------------------------

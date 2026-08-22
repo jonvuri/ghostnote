@@ -114,8 +114,9 @@ export interface ConcurrentEdit {
 
 /** §8c: what applied, what didn't take, and where readback disagrees. */
 export interface ApplyReport {
+  /** True only when the complete request was accepted. */
   readonly applied: boolean;
-  /** Set when the revision guard rejected the batch WHOLE, applying zero ops (E8-D). */
+  /** Set when a revision guard rejected the current stage (E8-D). */
   readonly rejected?: BatchReceipt['rejected'];
   readonly failed: readonly OpReceipt[];
   readonly disagreements: readonly Disagreement[];
@@ -150,6 +151,11 @@ export interface Take {
   /** The worst label across `values`. A take is only as restorable as its weakest address. */
   readonly fidelity: Fidelity;
   readonly report: ApplyReport;
+}
+
+/** Did at least one stage reach the project, including before a later rejection? */
+export function takeAppliedAnything(take: Pick<Take, 'receipt' | 'report'>): boolean {
+  return take.report.applied || take.receipt.stages.length > 0;
 }
 
 /** The addresses a take covers — what session 2's partial revert slices. */

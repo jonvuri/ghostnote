@@ -116,6 +116,34 @@ interface WireInventory {
   trackChannelId?: string;
 }
 
+interface WriterView {
+  readonly clipKey: AddressKey;
+  readonly clip: ClipAddress;
+  readonly stepSize: number;
+  readonly page: number;
+}
+
+interface NoteWake {
+  readonly generation: number;
+  readonly afterSequence: number;
+  readonly trackId: string;
+  readonly trackIndex: number;
+  readonly slotIndex: number;
+}
+
+interface NoteWakeRead {
+  readonly dropped?: number;
+  readonly firstRetainedSequence?: number;
+  readonly events?: readonly {
+    readonly sequence?: number;
+    readonly generation?: number;
+    readonly armed?: boolean;
+    readonly trackId?: string;
+    readonly trackIndex?: number;
+    readonly slotIndex?: number;
+  }[];
+}
+
 /** A device chain as one observation, with whether we could see all of it. */
 interface ChainSnapshot {
   readonly devices: readonly WireDevice[];
@@ -267,7 +295,10 @@ export interface LiveTimingEvent {
     | 'bulkPageRead'
     | 'reconciliation'
     | 'pageReset'
-    | 'selectionRestoration';
+    | 'selectionRestoration'
+    | 'observerArm'
+    | 'firstCallback'
+    | 'observerFallback';
   readonly elapsedMs: number;
 }
 
@@ -428,6 +459,8 @@ export class LiveAdapter implements BitwigAdapter {
   private selectionRestore: Promise<void> | undefined;
   /** Cursor ref -> clip target confirmed by live cursor readback. */
   private readonly heldClips = new Map<string, AddressKey>();
+  /** One armed single-clip wake. Exact bulk readback remains the proof. */
+  private pendingNoteWake: NoteWake | undefined;
 
   constructor(options: LiveOptions = {}) {
     this.transport = options.transport ?? new BridgeTransport();
@@ -1657,44 +1690,44 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /** Check every writer page before the stage can mutate project state. */
-  private async confirmWriterPages(ops: readonly Op[], writerPageStart?: number): Promise<void> {
+  private async confirmWriterPages(
+    ops: readonly Op[],
+    views: Map<string, WriterView>,
+    writerPageStart?: number,
+  ): Promise<void> {
     const writerSteps = this.fineSteps ?? this.gridSteps ?? 64;
-    const touched = new Set<string>();
-    try {
-      for (const op of ops) {
-        if ((op.op !== 'note.write' && op.op !== 'note.props') || op.notes.length === 0) continue;
-        const cursor = this.pool.cursorFor(op.clip);
-        touched.add(cursor);
-        const stepSize = chooseStepSize(op.notes);
-        await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
-        await this.settle('gridChange');
-        const requiredPages = op.op === 'note.props'
-          ? notePropertyPageStarts(op.notes, writerSteps)
-          : notePageStarts(op.notes, writerSteps);
-        const pages = writerPageStart === undefined
-          ? requiredPages
-          : requiredPages.filter((page) => page === writerPageStart);
-        for (const page of pages) {
-          await this.confirmWriterPage(op.clip, cursor, page);
-        }
+    for (const op of ops) {
+      if ((op.op !== 'note.write' && op.op !== 'note.props') || op.notes.length === 0) continue;
+      const cursor = this.pool.cursorFor(op.clip);
+      const stepSize = chooseStepSize(op.notes);
+      const requiredPages = op.op === 'note.props'
+        ? notePropertyPageStarts(op.notes, writerSteps)
+        : notePageStarts(op.notes, writerSteps);
+      const pages = writerPageStart === undefined
+        ? requiredPages
+        : requiredPages.filter((page) => page === writerPageStart);
+      for (const page of pages) {
+        await this.confirmWriterPage(op.clip, cursor, stepSize, page, views);
       }
-    } finally {
-      for (const cursor of touched) {
-        await this.transport.send({
-          method: WIRE.cursorScrollToStep,
-          params: { cursor, step: 0 },
-        });
-      }
-      if (touched.size > 0) await this.settle('gridChange');
     }
   }
 
-  /** Settle one page and confirm that its cursor still owns the exact target. */
-  private async confirmWriterPage(clipRef: ClipAddress, cursor: string, page: number): Promise<void> {
-    await this.transport.send({
-      method: WIRE.cursorScrollToStep,
-      params: { cursor, step: page },
-    });
+  /** Settle one grid and page together, then confirm the exact pinned target. */
+  private async confirmWriterPage(
+    clipRef: ClipAddress,
+    cursor: string,
+    stepSize: number,
+    page: number,
+    views: Map<string, WriterView>,
+  ): Promise<void> {
+    const clipKey = addressKey(clipRef);
+    const current = views.get(cursor);
+    if (current?.clipKey === clipKey && current.stepSize === stepSize && current.page === page) return;
+    await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
+    await this.transport.send({ method: WIRE.cursorScrollToStep, params: { cursor, step: page } });
+    // Record the attempted view before its status check. If the check fails,
+    // cleanup must still reset the physical cursor that already moved.
+    views.set(cursor, { clipKey, clip: clipRef, stepSize, page });
     await this.settle('gridChange');
     const status = (await this.transport.send({
       method: WIRE.cursorStatus,
@@ -1704,7 +1737,10 @@ export class LiveAdapter implements BitwigAdapter {
       && status.sceneIndex === clipRef.slot.scene.index
       && status.isPinned === true
       && status.cursorTrackPinned === true;
-    if (confirmed) return;
+    if (confirmed) {
+      views.set(cursor, { clipKey, clip: clipRef, stepSize, page });
+      return;
+    }
     this.heldClips.delete(cursor);
     throw new AddressUnresolvedError(
       clipRef,
@@ -1712,10 +1748,42 @@ export class LiveAdapter implements BitwigAdapter {
     );
   }
 
+  /** Restore every writer to page zero and verify the reset once. */
+  private async resetWriterViews(views: Map<string, WriterView>): Promise<void> {
+    const moved = [...views.entries()].filter(([, view]) => view.page !== 0);
+    if (moved.length === 0) return;
+    for (const [cursor] of moved) {
+      await this.transport.send({
+        method: WIRE.cursorScrollToStep,
+        params: { cursor, step: 0 },
+      });
+    }
+    await this.settle('gridChange');
+    for (const [cursor, view] of moved) {
+      const status = (await this.transport.send({
+        method: WIRE.cursorStatus,
+        params: { cursor },
+      })) as ClipCursorStatus;
+      const confirmed = status.trackPosition === this.trackIndex(view.clip.slot.track)
+        && status.sceneIndex === view.clip.slot.scene.index
+        && status.isPinned === true
+        && status.cursorTrackPinned === true;
+      if (!confirmed) {
+        this.heldClips.delete(cursor);
+        throw new AddressUnresolvedError(
+          view.clip,
+          `writer cursor ${cursor} did not confirm page zero after reset`,
+        );
+      }
+      views.set(cursor, { ...view, page: 0 });
+    }
+  }
+
   /** Send one stage after settling its optional read-based property page. */
   private async sendStage(
     ops: readonly Op[],
     guard: number | undefined,
+    views: Map<string, WriterView>,
     writerPageStart?: number,
   ): Promise<BatchRunResult> {
     if (writerPageStart === undefined) {
@@ -1726,25 +1794,24 @@ export class LiveAdapter implements BitwigAdapter {
       throw new InvalidOpError('note.props', 'a settled writer page must contain one property op');
     }
     const cursor = this.pool.cursorFor(props.clip);
-    try {
-      await this.confirmWriterPage(props.clip, cursor, writerPageStart);
-      return await this.transport.send(encodeStage(
-        ops,
-        { ...this.ctx, writerPageStart },
-        guard,
-      )) as BatchRunResult;
-    } finally {
-      await this.transport.send({
-        method: WIRE.cursorScrollToStep,
-        params: { cursor, step: 0 },
-      });
-      await this.settle('gridChange');
-    }
+    await this.confirmWriterPage(
+      props.clip,
+      cursor,
+      chooseStepSize(props.notes),
+      writerPageStart,
+      views,
+    );
+    return await this.transport.send(encodeStage(
+      ops,
+      { ...this.ctx, writerPageStart },
+      guard,
+    )) as BatchRunResult;
   }
 
   /** Confirm every existing cursor-clip target and writer page for one stage. */
   private async confirmClipMutationStage(
     ops: readonly Op[],
+    views: Map<string, WriterView>,
     skip: ReadonlySet<AddressKey> = new Set(),
     writerPageStart?: number,
   ): Promise<void> {
@@ -1764,7 +1831,74 @@ export class LiveAdapter implements BitwigAdapter {
     await this.confirmWriterPages(ops.filter((op) => {
       if (op.op !== 'note.write' && op.op !== 'note.props') return true;
       return !skip.has(addressKey(op.clip));
-    }), writerPageStart);
+    }), views, writerPageStart);
+  }
+
+  /** Arm the measured note-step wake only for one confirmed existing clip. */
+  private async armNoteWake(ops: readonly Op[]): Promise<void> {
+    this.pendingNoteWake = undefined;
+    const clips = new Map<AddressKey, ClipAddress>();
+    const created = new Set<AddressKey>();
+    const notes: NoteRecord[] = [];
+    for (const op of ops) {
+      if (op.op === 'clip.create') created.add(addressKey(clipAt(op.slot)));
+      if (op.op === 'clip.duplicate' || op.op === 'clip.move') {
+        created.add(addressKey(clipAt(op.destination)));
+      }
+      if (op.op === 'note.write' || op.op === 'note.clear') clips.set(addressKey(op.clip), op.clip);
+      if (op.op === 'note.write') notes.push(...op.notes);
+    }
+    if (clips.size !== 1) return;
+    const [clipKey, clipRef] = clips.entries().next().value as [AddressKey, ClipAddress];
+    if (created.has(clipKey)) return;
+
+    await this.timed('observerArm', async () => {
+      try {
+        const prepared = await this.transport.send({ method: WIRE.noteObserverPrepare }) as {
+          readonly generation?: number;
+        };
+        if (!Number.isInteger(prepared.generation)) return;
+        await this.pointAtClip(
+          clipRef,
+          this.trackIndex(clipRef.slot.track),
+          new Map(),
+          'observer',
+        );
+        if (notes.length > 0) {
+          const stepSize = chooseStepSize(notes);
+          await this.transport.send({
+            method: WIRE.cursorSetStepSize,
+            params: { cursor: 'observer', stepSize },
+          });
+          await this.transport.send({
+            method: WIRE.cursorScrollToStep,
+            params: { cursor: 'observer', step: 0 },
+          });
+          await this.settle('gridChange');
+        }
+        const trackIndex = this.trackIndex(clipRef.slot.track);
+        const armed = await this.transport.send({
+          method: WIRE.noteObserverArm,
+          params: {
+            generation: prepared.generation,
+            trackId: clipRef.slot.track.channelId,
+            trackIndex,
+            slotIndex: clipRef.slot.scene.index,
+          },
+        }) as { readonly afterSequence?: number };
+        if (!Number.isInteger(armed.afterSequence)) return;
+        this.pendingNoteWake = {
+          generation: prepared.generation!,
+          afterSequence: armed.afterSequence!,
+          trackId: clipRef.slot.track.channelId,
+          trackIndex,
+          slotIndex: clipRef.slot.scene.index,
+        };
+      } catch {
+        // The signal is optional. The fixed fallback remains safe.
+        this.pendingNoteWake = undefined;
+      }
+    });
   }
 
   private async readOne(
@@ -2562,6 +2696,8 @@ export class LiveAdapter implements BitwigAdapter {
     }
     const receipts: StageReceipt[] = [];
     const minted: Record<number, Address> = {};
+    const writerViews = new Map<string, WriterView>();
+    const confirmedMutationTargets = new Set<AddressKey>();
     let guard = batch.ifRevision;
     // ⚠ D6, E14-F: pointing borrows the user's clip selection, and a whole batch
     // costs exactly ONE observable selection change — so one restore at the end
@@ -2585,13 +2721,28 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
       for (const stage of stages) {
+        const preflightSkip = new Set<AddressKey>([
+          ...createdClipKeys,
+          ...confirmedMutationTargets,
+        ]);
         await this.confirmClipMutationStage(
           stage.ops,
-          createdClipKeys,
+          writerViews,
+          preflightSkip,
           stage.writerPageStart,
         );
+        for (const op of stage.ops) {
+          if (op.op === 'note.write' || op.op === 'note.props') {
+            const key = addressKey(op.clip);
+            if (!createdClipKeys.has(key)) confirmedMutationTargets.add(key);
+          }
+        }
       }
+      await this.resetWriterViews(writerViews);
+      await this.armNoteWake(batch.ops);
     } catch (error) {
+      this.pendingNoteWake = undefined;
+      try { await this.resetWriterViews(writerViews); } catch {}
       await this.restoreSelection(selection);
       throw error;
     }
@@ -2667,6 +2818,7 @@ export class LiveAdapter implements BitwigAdapter {
           ? await this.relocationReading(relocateOp, true)
           : undefined;
       } catch (error) {
+        this.pendingNoteWake = undefined;
         await this.restoreSelection(selection);
         throw error;
       }
@@ -2678,6 +2830,7 @@ export class LiveAdapter implements BitwigAdapter {
           ? await this.deviceReorderReading(reorderOp, true)
           : undefined;
       } catch (error) {
+        this.pendingNoteWake = undefined;
         await this.restoreSelection(selection);
         throw error;
       }
@@ -2700,22 +2853,44 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
 
-      // Reconfirm immediately before this stage. The batch-wide preflight above
-      // prevents a later deterministic refusal from leaving earlier writes. This
-      // check protects against cursor drift between preflight and execution.
+      // Confirm targets that the batch-wide preflight could not yet resolve,
+      // such as a clip that an earlier stage created. Cached targets keep their
+      // confirmed writer view through the remaining dependency turns.
       try {
-        await this.confirmClipMutationStage(stage.ops, new Set(), stage.writerPageStart);
+        await this.confirmClipMutationStage(
+          stage.ops,
+          writerViews,
+          confirmedMutationTargets,
+          stage.writerPageStart,
+        );
+        for (const op of stage.ops) {
+          if (op.op === 'note.write' || op.op === 'note.props') {
+            confirmedMutationTargets.add(addressKey(op.clip));
+          }
+        }
       } catch (error) {
+        this.pendingNoteWake = undefined;
+        try { await this.resetWriterViews(writerViews); } catch {}
         await this.restoreSelection(selection);
         throw error;
       }
 
-      const result = await this.sendStage(stage.ops, guard, stage.writerPageStart);
+      let result: BatchRunResult;
+      try {
+        result = await this.sendStage(stage.ops, guard, writerViews, stage.writerPageStart);
+      } catch (error) {
+        this.pendingNoteWake = undefined;
+        try { await this.resetWriterViews(writerViews); } catch {}
+        await this.restoreSelection(selection);
+        throw error;
+      }
 
-      // ⚠ E8-D: rejected means the WHOLE batch applied nothing. Stop here — and
-      // still give the user their selection back, because we pointed on the way
-      // in whether or not anything landed.
+      // ⚠ E8-D: this guarded stage applied nothing. Earlier dependency turns
+      // can already have landed, so keep their receipts and stop without replay.
+      // Restore the user's selection in both cases.
       if (result.rejected) {
+        this.pendingNoteWake = undefined;
+        await this.resetWriterViews(writerViews);
         await this.restoreSelection(selection);
         return {
           contract: CONTRACT_TAG,
@@ -2854,6 +3029,9 @@ export class LiveAdapter implements BitwigAdapter {
       // stale after compaction while looking perfectly healthy (E3), so the
       // damage is silent and arbitrarily delayed.
       if (stage.ops.some((o) => STRUCTURAL.has(o.op))) {
+        await this.resetWriterViews(writerViews);
+        writerViews.clear();
+        confirmedMutationTargets.clear();
         this.pool.invalidate();
         this.heldClips.clear();
         // Logical invalidation is not enough. Reads pin the physical writer
@@ -2894,6 +3072,7 @@ export class LiveAdapter implements BitwigAdapter {
       }
     }
 
+    await this.resetWriterViews(writerViews);
     await this.restoreSelection(selection);
     return { contract: CONTRACT_TAG, accepted: true, stages: receipts, minted, at: await this.revision() };
   }
@@ -2915,7 +3094,39 @@ export class LiveAdapter implements BitwigAdapter {
    * by channelId rather than assuming a create landed.
    */
   async settle(budget: SettleBudget): Promise<void> {
-    await new Promise((resolve) => setTimeout(resolve, SETTLE_MS[budget]));
+    const wake = budget === 'noteWrite' ? this.pendingNoteWake : undefined;
+    if (wake === undefined) {
+      await new Promise((resolve) => setTimeout(resolve, SETTLE_MS[budget]));
+      return;
+    }
+    this.pendingNoteWake = undefined;
+    const started = performance.now();
+    try {
+      const read = await this.transport.send({
+        method: WIRE.noteObserverRead,
+        params: { afterSequence: wake.afterSequence },
+      }) as NoteWakeRead;
+      const eligible = read.dropped === 0
+        && (read.firstRetainedSequence === undefined
+          || read.firstRetainedSequence <= wake.afterSequence + 1)
+        && (read.events ?? []).some((event) => event.armed === true
+          && event.generation === wake.generation
+          && event.trackId === wake.trackId
+          && event.trackIndex === wake.trackIndex
+          && event.slotIndex === wake.slotIndex
+          && typeof event.sequence === 'number'
+          && event.sequence > wake.afterSequence);
+      if (eligible) {
+        this.onTiming?.({ phase: 'firstCallback', elapsedMs: performance.now() - started });
+        return;
+      }
+    } catch {
+      // The fixed budget below is the recorded fallback.
+    }
+    const elapsed = performance.now() - started;
+    const remaining = Math.max(0, SETTLE_MS.noteWrite - elapsed);
+    if (remaining > 0) await new Promise((resolve) => setTimeout(resolve, remaining));
+    this.onTiming?.({ phase: 'observerFallback', elapsedMs: performance.now() - started });
   }
 
   async showClipInEditor(

@@ -119,6 +119,24 @@ async function human(fx: Fixture, ops: readonly Op[]): Promise<void> {
   await fx.fake.settle('noteWrite');
 }
 
+/** The fake as a plain adapter, so one test can replace the apply boundary. */
+function adapterOf(fake: FakeAdapter): BitwigAdapter {
+  return {
+    hello: () => fake.hello(),
+    resolve: (refs) => fake.resolve(refs),
+    tracks: () => fake.tracks(),
+    devices: (trackRef) => fake.devices(trackRef),
+    read: (selection) => fake.read(selection),
+    apply: (batch) => fake.apply(batch),
+    settle: (budget) => fake.settle(budget),
+    revision: () => fake.revision(),
+    contentSince: (since) => fake.contentSince(since),
+    preserveSelection: (work) => fake.preserveSelection(work),
+    showClipInEditor: (clipRef, verifiedAt) => fake.showClipInEditor(clipRef, verifiedAt),
+    close: () => fake.close(),
+  };
+}
+
 /**
  * The reversal protocol, written out here rather than hidden inside the stash:
  * read the set, plan against what came back, apply with the plan's own clearance.
@@ -158,8 +176,12 @@ test('B-record: a REJECTED batch is recorded, and is nobody\'s last writer', asy
   // Its stash is still a true record of that moment — so it is kept — but it
   // wrote nothing, and treating it as the last writer would make the NEXT
   // reversal think an untouched address had been superseded.
-  const stale = await fx.executor.run([{ op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 99 })] }]);
-  const rejected: Take = { ...stale, report: { ...stale.report, applied: false } };
+  const stale = await fx.fake.revision();
+  control(fx.fake).bumpRevision();
+  const rejected = await fx.executor.run(
+    [{ op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 99 })] }],
+    { ifRevision: stale.revision },
+  );
   fx.stash.record(rejected);
 
   assert.equal(fx.stash.log.summary(rejected.id).applied, false);
@@ -173,6 +195,89 @@ test('B-record: a REJECTED batch is recorded, and is nobody\'s last writer', asy
   const plan = fx.stash.log.planReversal(rejected.id, current);
   assert.deepEqual(plan.ops, []);
   assert.match(plan.caveats.join(' '), /applied nothing/);
+});
+
+test('B-record: a later-stage rejection remains reversible and is the last writer', async () => {
+  const fx = await fixture();
+  const key = addressKey(notesAt(fx.clipA));
+  await commit(fx, [{ op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 55 })] }]);
+
+  const partialAdapter: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    apply: async (batch) => {
+      const first = await fx.fake.apply({ ops: [batch.ops[0]!], ifRevision: batch.ifRevision });
+      return {
+        ...first,
+        accepted: false,
+        rejected: {
+          reason: 'stale-revision' as const,
+          expected: first.at.revision,
+          actual: first.at.revision + 1,
+        },
+      };
+    },
+  };
+  const executor = new Executor(partialAdapter, {
+    newId: () => 'partial-rejection',
+    now: () => 2_000_000,
+  });
+  const partial = await executor.run([
+    { op: 'note.clear', clip: fx.clipA },
+    { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 72 })] },
+  ]);
+  fx.stash.record(partial);
+
+  assert.equal(partial.report.applied, false, 'the complete request did not apply');
+  assert.equal(partial.receipt.stages.length, 1, 'the clear stage landed');
+  assert.equal(fx.stash.log.lastWriterOf(key), partial.id);
+  assert.deepEqual(await pitches(fx.fake, fx.clipA), []);
+
+  const plan = await reverse(fx, partial.id);
+  assert.ok(plan.ops.length > 0, 'the landed stage has an inverse');
+  assert.deepEqual(await pitches(fx.fake, fx.clipA), [55]);
+});
+
+test('B-record: a partial request does not claim an untouched later target', async () => {
+  const fx = await fixture();
+  const priorA = await commit(fx, [
+    { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 55 })] },
+  ]);
+  const priorB = await commit(fx, [
+    { op: 'note.write', clip: fx.clipB, notes: [note({ pitch: 67 })] },
+  ]);
+  const partialAdapter: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    apply: async (batch) => {
+      const first = await fx.fake.apply({ ops: [batch.ops[0]!], ifRevision: batch.ifRevision });
+      return {
+        ...first,
+        accepted: false,
+        rejected: {
+          reason: 'stale-revision' as const,
+          expected: first.at.revision,
+          actual: first.at.revision + 1,
+        },
+      };
+    },
+  };
+  const partial = await new Executor(partialAdapter, {
+    newId: () => 'partial-two-targets',
+    now: () => 2_000_000,
+  }).run([
+    { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 72, pan: 0.25 })] },
+    { op: 'note.write', clip: fx.clipB, notes: [note({ pitch: 79, pan: -0.25 })] },
+  ]);
+  fx.stash.record(partial);
+
+  assert.equal(fx.stash.log.lastWriterOf(addressKey(notesAt(fx.clipA))), partial.id);
+  assert.equal(fx.stash.log.lastWriterOf(addressKey(notesAt(fx.clipB))), priorB.id);
+  assert.notEqual(fx.stash.log.lastWriterOf(addressKey(notesAt(fx.clipA))), priorA.id);
+  assert.ok(fx.stash.log.readSetFor(partial.id).every((address) =>
+    address.kind !== 'notes' || addressKey(address.clip) === addressKey(fx.clipA)));
+
+  await reverse(fx, partial.id);
+  assert.deepEqual(await pitches(fx.fake, fx.clipA), [55]);
+  assert.deepEqual(await pitches(fx.fake, fx.clipB), [67]);
 });
 
 test('B-record: recording the same changeset twice is refused, not silently overwritten', async () => {

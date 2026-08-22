@@ -78,6 +78,9 @@ export const WIRE = {
   cursorSetLaunchSettings: 'cursor.setLaunchSettings',
   cursorClearNotes: 'cursor.clearNotes',
   cursorSetNoteProps: 'cursor.setNoteProps',
+  noteObserverPrepare: 'note.observer.prepare',
+  noteObserverArm: 'note.observer.arm',
+  noteObserverRead: 'note.observer.read',
 
   sceneCreate: 'scene.create',
   sceneCount: 'scene.count',

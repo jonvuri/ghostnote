@@ -234,7 +234,7 @@ export interface StageReceipt {
 export interface BatchReceipt {
   readonly contract: ContractTag;
   readonly accepted: boolean;
-  /** Set when the revision guard rejected the batch WHOLE, applying zero ops (E8-D). */
+  /** Set when the revision guard rejected the current stage (E8-D). */
   readonly rejected?: { readonly reason: 'stale-revision'; readonly expected: number; readonly actual: number };
   /**
    * Per stage, in order.

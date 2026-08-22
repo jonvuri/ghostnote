@@ -70,6 +70,8 @@ class CursorModelTransport implements Transport {
   private readonly stepOffset = new Map<string, number>();
   /** Cursor ref -> current step size. */
   private readonly stepSize = new Map<string, number>();
+  private observerGeneration = 0;
+  private observerArmed = false;
 
   constructor(
     private readonly slots: ReadonlyMap<number, SlotModel>,
@@ -77,6 +79,7 @@ class CursorModelTransport implements Transport {
     private readonly pinSettleCount = 0,
     private readonly failWriterPage?: number,
     private readonly noteReadSteps = 2048,
+    private readonly noteObserver = false,
   ) {}
 
   settlePins(): void {
@@ -258,6 +261,31 @@ class CursorModelTransport implements Transport {
         this.stepOffset.set(params['cursor'] as string, params['step'] as number);
         return {};
 
+      case WIRE.noteObserverPrepare:
+        if (!this.noteObserver) return {};
+        this.observerArmed = false;
+        return { generation: ++this.observerGeneration, afterSequence: 0 };
+
+      case WIRE.noteObserverArm:
+        if (!this.noteObserver) return {};
+        this.observerArmed = true;
+        return { afterSequence: 0 };
+
+      case WIRE.noteObserverRead:
+        if (!this.noteObserver) return {};
+        return {
+          dropped: 0,
+          firstRetainedSequence: 1,
+          events: this.observerArmed ? [{
+            sequence: 1,
+            generation: this.observerGeneration,
+            armed: true,
+            trackId: CHANNEL_ID,
+            trackIndex: 0,
+            slotIndex: 0,
+          }] : [],
+        };
+
       case WIRE.batchRun:
         return { applied: true, revision: 2, results: [] };
 
@@ -286,6 +314,12 @@ class DelayedPinAdapter extends LiveAdapter {
 
   override async settle(): Promise<void> {
     this.model.settlePins();
+  }
+}
+
+class ObserverAdapter extends LiveAdapter {
+  override async settle(budget: import('../../contract/index.js').SettleBudget): Promise<void> {
+    if (budget === 'noteWrite') return super.settle(budget);
   }
 }
 
@@ -924,7 +958,7 @@ test('2h: a clip-wide reconstruction verifies its cursor before the write turn',
   const batchAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
   assert.ok(batchAt > 0);
   assert.equal(wire.frames.slice(0, batchAt)
-    .filter((frame) => frame.method === WIRE.cursorStatus).length, 4);
+    .filter((frame) => frame.method === WIRE.cursorStatus).length, 3);
   const batch = wire.frames[batchAt]!.params as {
     ops: { method: string }[];
   };
@@ -950,7 +984,7 @@ test('2i: an additive note write verifies and pins its exact clip before the wri
   assert.ok(batchAt > 0);
   assert.equal(wire.where('0'), 2);
   assert.equal(wire.frames.slice(0, batchAt)
-    .filter((frame) => frame.method === WIRE.cursorStatus).length, 4);
+    .filter((frame) => frame.method === WIRE.cursorStatus).length, 3);
   const batch = wire.frames[batchAt]!.params as { ops: { method: string }[] };
   assert.deepEqual(batch.ops.map((frame) => frame.method), [
     WIRE.cursorSetStepSize,
@@ -958,6 +992,39 @@ test('2i: an additive note write verifies and pins its exact clip before the wri
     WIRE.cursorSetNotes,
     WIRE.cursorScrollToStep,
   ]);
+});
+
+test('4b settlement: an eligible note event wakes but does not replace verification', async () => {
+  const phases: string[] = [];
+  const wire = new CursorModelTransport(
+    new Map([[0, { lengthBeats: 32, pitch: 60 }]]),
+    { trackIndex: -1, slotIndex: -1 },
+    0,
+    undefined,
+    2048,
+    true,
+  );
+  const adapter = new ObserverAdapter({
+    transport: wire,
+    cursorPool: 3,
+    onTiming: (event) => phases.push(event.phase),
+  });
+  await adapter.hello();
+  await adapter.apply({ ops: [{
+    op: 'note.write', clip: CLIP(0),
+    notes: [{ startBeats: 0, pitch: 64, velocity: 90, durationBeats: 1 }],
+  }] });
+  await adapter.settle('noteWrite');
+
+  assert.ok(wire.frames.some((frame) => frame.method === WIRE.noteObserverArm));
+  assert.ok(wire.frames.some((frame) => frame.method === WIRE.noteObserverRead));
+  assert.ok(phases.includes('observerArm'));
+  assert.ok(phases.includes('firstCallback'));
+  assert.equal(
+    wire.frames.some((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels),
+    false,
+    'the wake does not claim success or perform the executor exact read',
+  );
 });
 
 test('2i follow-up: clip metadata verifies the occupied exact target before the write turn', async () => {

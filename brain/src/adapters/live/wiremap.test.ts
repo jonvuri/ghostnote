@@ -105,8 +105,13 @@ test('Phase 4 session 4b: exact reads and note-event evidence stay explicit', ()
   assert.ok(WIRE_METHODS_USED.includes('cursor.getNotesVerboseAllChannels'));
   assert.deepEqual(
     golden.addedInPhase4Session4b.filter((method) => WIRE_METHODS_USED.includes(method)),
-    ['cursor.getNotesVerboseAllChannels'],
-    'note-event evidence methods must stay outside the product contract',
+    [
+      'cursor.getNotesVerboseAllChannels',
+      'note.observer.arm',
+      'note.observer.prepare',
+      'note.observer.read',
+    ],
+    'the measured note wake and exact read are explicit product dependencies',
   );
 });
 

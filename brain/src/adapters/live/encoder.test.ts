@@ -508,6 +508,30 @@ test('E-batch: nothing the encoder emits is a nested batch (E8 refuses them)', (
   assert.ok(wireOps.every((o) => !o.method.startsWith('batch.')));
 });
 
+test('4b settlement: adjacent compatible note writes share one wire frame', () => {
+  const f = encodeStage([
+    { op: 'note.write', clip: CLIP_A, channel: 3, notes: [note({ pitch: 60 })] },
+    { op: 'note.write', clip: CLIP_A, channel: 3, notes: [note({ startBeats: 1, pitch: 64 })] },
+  ], ctx);
+  const wireOps = f.params!['ops'] as { method: string; params: Record<string, unknown> }[];
+  assert.equal(wireOps.filter((op) => op.method === WIRE.cursorSetNotes).length, 1);
+  assert.deepEqual(
+    wireOps.find((op) => op.method === WIRE.cursorSetNotes)?.params['notes'],
+    [[0, 60, 100, 1], [1, 64, 100, 1]],
+  );
+});
+
+test('4b settlement: transport merging stops at a grid or channel boundary', () => {
+  const f = encodeStage([
+    { op: 'note.write', clip: CLIP_A, channel: 0, notes: [note({ pitch: 60 })] },
+    { op: 'note.write', clip: CLIP_A, channel: 0,
+      notes: [note({ startBeats: 0.5, pitch: 64, durationBeats: 0.5 })] },
+    { op: 'note.write', clip: CLIP_A, channel: 1, notes: [note({ pitch: 67 })] },
+  ], ctx);
+  const wireOps = f.params!['ops'] as { method: string }[];
+  assert.equal(wireOps.filter((op) => op.method === WIRE.cursorSetNotes).length, 3);
+});
+
 // --- E1/E15-F: the cursor pool ----------------------------------------------
 
 test('E-pool: the same clip always gets the same cursor, so a props op never re-points (E15-F)', () => {

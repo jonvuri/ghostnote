@@ -4,7 +4,10 @@ import {
   blindSpotError, chooseStepSize, clip as clipAt, notes as notesAt, scene, slot, track,
   type ClipAddress, type NoteRecord, type Op, type Snapshot,
 } from '../contract/index.js';
-import { branchProtected, revertOps, type Clearance, type Disagreement, type Unverified } from '../engine/index.js';
+import {
+  branchProtected, revertOps, takeAppliedAnything,
+  type Clearance, type Disagreement, type Unverified,
+} from '../engine/index.js';
 import { sameValue, type StashedChangeset } from '../stash/index.js';
 import type { Workspace } from '../surface/workspace.js';
 import {
@@ -390,7 +393,7 @@ export async function applyMusicalPatch(
     ifRevision: plan.ifRevision,
     ...(plan.clearance === undefined ? {} : { clearance: plan.clearance }),
   });
-  const reversal = change.take.report.applied
+  const reversal = takeAppliedAnything(change.take)
     ? { fidelity: change.take.fidelity, ...revertOps(change.take) }
     : { fidelity: 'exact' as const, unrestored: [] };
   return {

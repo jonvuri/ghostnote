@@ -2,8 +2,8 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Exact read and note-completion evidence are complete. Clip mutation
-        settlement is the last bounded follow-up before device implementation.
+status: Clip read and mutation performance are complete. Session 4c direct
+        parameter implementation is next.
 updated: 2026-08-21
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -39,7 +39,7 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 3. [4b follow-up — note completion signals](4b-note-completion-signals.md) —
    complete. E53 classifies scoped note events as a partial wake hint.
 4. [4b follow-up — clip mutation settlement](4b-clip-mutation-settlement.md) —
-   apply measured O(1)-in-note-count settlement and exact verification.
+   complete. E54 bounds writer settlement and complete exact reconciliation.
 5. [4c — direct-parameter core](4c-direct-parameter-core.md) — safe top-level
    enumeration, read, write, verification, and checkpoint replay.
 6. [4d — native device catalog](4d-native-device-catalog.md) — deterministic

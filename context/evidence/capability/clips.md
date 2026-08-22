@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-08-21
 scope: launcher-clip notes, metadata, exact reads, writes, and copies
-evidence: E2, E24, E41–E46, E51–E53; D8, D9, D15, D16, D21
+evidence: E2, E24, E41–E46, E51–E54; D8, D9, D15, D16, D21
 ---
 
 # Launcher clips
@@ -95,10 +95,31 @@ Use an eligible callback only to start exact verification early. Keep bounded
 polling or a fixed fallback for silent fields and timeout. Exact bulk readback
 remains the success proof [K, E53].
 
+## Mutation settlement
+
+Compatible adjacent note writes share one transport frame only within the same
+clip, channel, and exact grid. One batch caches confirmed writer targets, grids,
+and pages. It restores and verifies page zero once. Structural operations clear
+the cache [K, [E54](../experiments/e54-clip-mutation-settlement-is-bounded.md)].
+
+Final exact reconciliation compares the complete expected state on all 16 MIDI
+channels. It detects missing, changed, and unexpected notes. A delayed result
+gets one exact read retry. A mutation is not replayed after an ambiguous result
+[K, E54].
+
+If a later dependency stage rejects, changed targets from completed stages stay
+reversible. Exact before-and-after state excludes untouched later clips. A
+changed note clip keeps all 16 captured channels in its inverse [K, E54].
+
+The controlled two-clip expression workflow fell from 11,444 ms to a 7,749 ms
+median. It passed the fixed 9,000 ms gate with all eight exact bulk page reads,
+exact reversal, and cleanup [K, E54].
+
 ## Supersession record
 
 | Date | Change |
 |---|---|
+| 2026-08-21 | E54 bounds mutation settlement and complete exact reconciliation. |
 | 2026-08-21 | E53 classifies note-step callbacks as an operation-specific wake hint. |
 | 2026-08-21 | E52 selects the 2,048-step read cursor and closes the latency gate. |
 | 2026-08-21 | E51 adds the bounded bulk-page path and its measured latency limit. |

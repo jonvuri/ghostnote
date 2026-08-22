@@ -70,7 +70,7 @@ import {
 } from '../contract/index.js';
 import {
   ownChangesetReversal, revertOps, worstOf,
-  type Clearance, type InsertBatch, type RevertInput, type Take, type TakeValue,
+  takeAppliedAnything, type Clearance, type InsertBatch, type RevertInput, type Take, type TakeValue,
   type Unrestored, type UnrevertableOp, type WriteTarget,
 } from '../engine/index.js';
 import { ChangesetNotFoundError, DuplicateChangesetError } from './errors.js';
@@ -310,11 +310,10 @@ export class Stash implements StashLog, StashWriter {
   lastWriterOf(key: AddressKey): string | undefined {
     for (let i = this.order.length - 1; i >= 0; i -= 1) {
       const change = this.order[i]!;
-      // ⚠ A batch the revision guard rejected applied ZERO ops (D10), so it wrote
-      // nothing and cannot be anybody's last writer — its stash is still a true
-      // record of that moment, which is why it is kept rather than dropped.
-      if (!change.take.report.applied) continue;
-      if (change.take.targets.some((t) => t.key === key)) return change.take.id;
+      // A first-stage rejection writes nothing. A later-stage rejection does not
+      // erase the stages that already landed, so the change remains a writer.
+      if (!takeAppliedAnything(change.take)) continue;
+      if (effectiveTargets(change.take).some((t) => t.key === key)) return change.take.id;
     }
     return undefined;
   }
@@ -322,7 +321,7 @@ export class Stash implements StashLog, StashWriter {
   readSetFor(id: string): readonly Address[] {
     const take = this.requireInternal(id).take;
     const unverified = new Set(take.report.unverified.map((u) => addressKey(u.address)));
-    return take.targets
+    return effectiveTargets(take)
       // ⚠ An address the batch could not verify is EXCLUDED, and not as an
       // optimisation. E3's case is a scene op, which bumps the epoch — so the
       // address is now stale and both adapters THROW rather than resolve it
@@ -377,7 +376,7 @@ export class Stash implements StashLog, StashWriter {
    */
   boundary(id: string, current: Snapshot, launcher?: ContentDelta): readonly BoundaryCheck[] {
     const change = this.requireInternal(id);
-    return change.take.targets.map(
+    return effectiveTargets(change.take).map(
       (target) => this.checkOne(target.address, target.key, change, current, launcher),
     );
   }
@@ -568,18 +567,15 @@ export class Stash implements StashLog, StashWriter {
   planReversal(id: string, current: Snapshot, options: ReversalOptions = {}): ReversalPlan {
     const change = this.requireInternal(id);
     const take = change.take;
+    const effective = effectiveTargets(take);
     const slice = options.slice;
     const whole = isWholeTake(slice);
 
-    assertSelects(slice, take.targets.map((t) => t.key));
+    assertSelects(slice, effective.map((t) => t.key));
 
-    // ⚠ A batch the revision guard rejected applied ZERO ops (D10/E8-D), so its
-    // reversal is nothing — not "restore the stash". The stash and the verify are
-    // the SAME snapshot for a rejected take, so the boundary would read `ours` and
-    // `revertOps` would happily emit a `note.clear`/`note.write` pair that rewrites
-    // a clip to itself. Writing is never free: E8-E's same-pitch truncation means
-    // "restore this to what it already is" can still change durations.
-    if (!take.report.applied) {
+    // A rejection before stage zero has no inverse because it changed nothing.
+    // A later rejection keeps the completed stages and must restore the stash.
+    if (!takeAppliedAnything(take)) {
       return {
         of: take.id,
         ops: [],
@@ -615,9 +611,9 @@ export class Stash implements StashLog, StashWriter {
     // terms, and reporting that while refusing to delete it would put a verdict
     // in `withheld` that contradicts the withholding.
     const undeletable = new Map<AddressKey, { verdict: BoundaryVerdict; why: string }>();
-    for (const target of take.targets) {
+    for (const target of effective) {
       if (!deletesTheClip(target, take)) continue;
-      const content = take.targets.filter((t) => coversClipContent(t, target.key));
+      const content = effective.filter((t) => coversClipContent(t, target.key));
       if (content.length === 0) {
         // ⚠ Unreachable today, and worth keeping because WHY it is unreachable is
         // a coupling that would otherwise be silent: `clip.create` pairs its clip
@@ -655,7 +651,7 @@ export class Stash implements StashLog, StashWriter {
     const unreachable: Address[] = [];
     const labels: TakeValue[] = [];
     const blockedNoteClips = new Map<string, BoundaryCheck>();
-    for (const target of take.targets) {
+    for (const target of effective) {
       if (!selects(slice, target.key) || target.address.kind !== 'notes') continue;
       const check = verdict.get(target.key)!;
       if (!inBounds(check) && !blockedNoteClips.has(addressKey(target.address.clip))) {
@@ -664,7 +660,7 @@ export class Stash implements StashLog, StashWriter {
     }
     const reportedNoteClips = new Set<string>();
 
-    for (const target of take.targets) {
+    for (const target of effective) {
       if (!selects(slice, target.key)) continue;
       const label = take.values.find((v) => v.key === target.key);
 
@@ -737,7 +733,7 @@ export class Stash implements StashLog, StashWriter {
     const caveats = dedupe([
       ...labels.flatMap((l) => l.caveats),
       ...(plan.ops.some((o) => o.op === 'device.delete') ? [DEVICE_INDEX_CAVEAT] : []),
-      ...(options.launcher === undefined && take.targets.some((t) => isLauncherCell(t.address))
+      ...(options.launcher === undefined && effective.some((t) => isLauncherCell(t.address))
         ? [NO_LAUNCHER_WINDOW_CAVEAT]
         : []),
     ]);
@@ -850,6 +846,28 @@ const DEVICE_INDEX_CAVEAT =
 function observed(snapshot: Snapshot, key: AddressKey): boolean {
   return snapshot.entries[key] !== undefined
     || snapshot.missing.some((a) => addressKey(a) === key);
+}
+
+/** Targets that a complete or partially rejected request can still own. */
+function effectiveTargets(take: Take): readonly WriteTarget[] {
+  if (take.report.applied) return take.targets;
+  if (!takeAppliedAnything(take)) return [];
+  const direct = new Set(take.targets.filter((target) => {
+    // An unread result cannot prove that an applied stage left this target
+    // unchanged. Keep it so the boundary returns `unverified` and writes nothing.
+    if (!observed(take.verify, target.key)) return true;
+    return !sameValue(
+      take.stash.entries[target.key]?.value,
+      take.verify.entries[target.key]?.value,
+    );
+  }).map((target) => target.key));
+  // A note restore clears the complete clip. If one channel changed, retain all
+  // 16 captured channels so the reversal cannot erase untouched MIDI channels.
+  const noteClips = new Set(take.targets
+    .filter((target) => direct.has(target.key) && target.address.kind === 'notes')
+    .map((target) => target.address.kind === 'notes' ? addressKey(target.address.clip) : ''));
+  return take.targets.filter((target) => direct.has(target.key)
+    || (target.address.kind === 'notes' && noteClips.has(addressKey(target.address.clip))));
 }
 
 function summarize(change: StashedChangeset): ChangesetSummary {

@@ -33,7 +33,8 @@
 import { isAbsolute, extname } from 'node:path';
 
 import {
-  BlindSpotError, InvalidOpError, assertNever, chooseStepSize, orderedNoteProps,
+  BlindSpotError, InvalidOpError, addressKey, assertNever, chooseStepSize, orderedNoteProps,
+  stepSizeFor,
   type ChainAddress, type ClipAddress, type NoteRecord, type Op, type SceneAddress,
   type TrackAddress, type WindowCoverage,
 } from '../../contract/index.js';
@@ -657,10 +658,35 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
  * report of what applied and what did not.
  */
 export function encodeStage(ops: readonly Op[], ctx: EncodeContext, ifRevision?: number): Frame {
-  const wireOps = ops.flatMap((op) => encodeOp(op, ctx)).map((f) => ({ method: f.method, params: f.params ?? {} }));
+  const wireOps = mergeNoteWritesForTransport(ops)
+    .flatMap((op) => encodeOp(op, ctx))
+    .map((f) => ({ method: f.method, params: f.params ?? {} }));
   const params: Record<string, unknown> = { ops: wireOps, verbose: true };
   if (ifRevision !== undefined) params['ifRevision'] = ifRevision;
   return frame(WIRE.batchRun, params);
+}
+
+/**
+ * Merge adjacent note writes when one cursor view can represent both exactly.
+ *
+ * The merge is wire-only. It never moves a write across another op, clip,
+ * channel, or grid. These limits keep the create-before-properties and E15-F
+ * ordering unchanged.
+ */
+export function mergeNoteWritesForTransport(ops: readonly Op[]): readonly Op[] {
+  const merged: Op[] = [];
+  for (const op of ops) {
+    const prior = merged[merged.length - 1];
+    if (op.op !== 'note.write' || prior?.op !== 'note.write'
+        || addressKey(op.clip) !== addressKey(prior.clip)
+        || (op.channel ?? 0) !== (prior.channel ?? 0)
+        || stepSizeFor(op.notes) !== stepSizeFor(prior.notes)) {
+      merged.push(op);
+      continue;
+    }
+    merged[merged.length - 1] = { ...prior, notes: [...prior.notes, ...op.notes] };
+  }
+  return merged;
 }
 
 /** Wire note tuple `[x, y, velocity, duration]` -> a contract note, in beats. */

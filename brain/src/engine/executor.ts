@@ -55,7 +55,14 @@ export interface ExecutorOptions {
 }
 
 export interface ExecutorTimingEvent {
-  readonly phase: 'resolve' | 'stash' | 'apply' | 'verification';
+  readonly phase:
+    | 'resolve'
+    | 'stash'
+    | 'apply'
+    | 'verification'
+    | 'verificationRetry'
+    | 'finalReconciliation'
+    | 'conflict';
   readonly elapsedMs: number;
 }
 
@@ -167,6 +174,26 @@ export class Executor {
     }));
 
     if (receipt.rejected !== undefined) {
+      if (receipt.stages.length > 0) {
+        // A later dependency turn can lose its revision guard after an earlier
+        // turn landed. Read the complete state and report the remaining delta.
+        // Never replay the mutation after this ambiguous partial result.
+        await this.adapter.settle('noteWrite');
+        const verify = await this.timed('verification', () => this.adapter.read(addresses));
+        const seen = await this.concurrent(stash.at, targets, true);
+        const reconcileStarted = performance.now();
+        const mutationConflicts = mutationStateDisagreementsOf(ops, stash, verify);
+        this.onTiming?.({
+          phase: 'finalReconciliation',
+          elapsedMs: performance.now() - reconcileStarted,
+        });
+        this.onTiming?.({ phase: 'conflict', elapsedMs: 0 });
+        return this.take({
+          ops, targets, unrevertable, stash, receipt, verify, values,
+          disagreements: [...disagreementsOf(ops, verify), ...mutationConflicts],
+          unverified: [], ...seen,
+        });
+      }
       // ⚠ A rejected batch applied ZERO ops (E8-D), so every launcher event in
       // the window is somebody else's by construction — the cleanest reading of
       // this detector there is, and worth reporting rather than dropping: the
@@ -212,7 +239,30 @@ export class Executor {
           'refuse to claim so from an address we can no longer trust. Re-resolve and re-read.',
       }))
       : [];
-    const verify = await this.timed('verification', () => this.adapter.read(readable));
+    const unread = new Set(unverified.map((item) => addressKey(item.address)));
+    let verify = await this.timed('verification', () => this.adapter.read(readable));
+    let reconcileStarted = performance.now();
+    let mutationConflicts = mutationStateDisagreementsOf(ops, stash, verify, unread);
+    this.onTiming?.({
+      phase: 'finalReconciliation',
+      elapsedMs: performance.now() - reconcileStarted,
+    });
+    if (mutationConflicts.length > 0 && mutationConflicts.every(retryableMutationDifference)) {
+      // Read again. Do not replay a mutation after an ambiguous result. The
+      // second exact snapshot separates delayed visibility from a stable
+      // conflict without risking a duplicate non-idempotent action.
+      await this.adapter.settle('noteWrite');
+      verify = await this.timed('verificationRetry', () => this.adapter.read(readable));
+      reconcileStarted = performance.now();
+      mutationConflicts = mutationStateDisagreementsOf(ops, stash, verify, unread);
+      this.onTiming?.({
+        phase: 'finalReconciliation',
+        elapsedMs: performance.now() - reconcileStarted,
+      });
+    }
+    if (mutationConflicts.length > 0) {
+      this.onTiming?.({ phase: 'conflict', elapsedMs: 0 });
+    }
 
     // ⚠ Asked AFTER the verify read, so the window covers the whole pipeline —
     // stash, apply, settle and verify. PHASE-1's open question is *"what happens
@@ -223,7 +273,10 @@ export class Executor {
 
     return this.take({
       ops, targets, unrevertable: [...unrevertable, ...unobserved], stash, receipt, verify, values,
-      disagreements: disagreementsOf(ops, verify, new Set(unverified.map((u) => addressKey(u.address)))),
+      disagreements: [
+        ...disagreementsOf(ops, verify, unread),
+        ...mutationConflicts,
+      ],
       unverified, ...seen,
     });
   }
@@ -603,6 +656,155 @@ export function disagreementsOf(
   return out;
 }
 
+/**
+ * Compare the complete expected note state for each touched clip.
+ *
+ * `disagreementsOf` proves that requested notes landed. This second comparison
+ * also finds an added, removed, or changed note that another writer introduced
+ * on the same clip while the mutation settled. Note writes merge, so the prior
+ * snapshot is part of the expected result.
+ */
+export function mutationStateDisagreementsOf(
+  ops: readonly Op[],
+  before: Snapshot,
+  after: Snapshot,
+  unread: ReadonlySet<string> = new Set(),
+): Disagreement[] {
+  const touched = new Map<string, { clip: Extract<Op, { op: 'note.write' }>['clip']; channels: Map<number, NoteRecord[]> }>();
+  for (const op of ops) {
+    if (op.op !== 'note.write' && op.op !== 'note.clear') continue;
+    const key = addressKey(op.clip);
+    let target = touched.get(key);
+    if (target === undefined) {
+      const channels = new Map<number, NoteRecord[]>();
+      for (let channel = 0; channel < 16; channel += 1) {
+        const entry = before.entries[addressKey(notesAt(op.clip, channel))];
+        channels.set(channel, entry?.value.of === 'notes' ? [...entry.value.notes] : []);
+      }
+      target = { clip: op.clip, channels };
+      touched.set(key, target);
+    }
+    if (op.op === 'note.clear') {
+      for (let channel = 0; channel < 16; channel += 1) target.channels.set(channel, []);
+      continue;
+    }
+    const channel = op.channel ?? 0;
+    const notes = [...(target.channels.get(channel) ?? [])];
+    for (const note of op.notes) {
+      const at = notes.findIndex((candidate) => sameNoteCell(candidate, note));
+      if (at === -1) notes.push(note);
+      else notes[at] = note;
+    }
+    target.channels.set(channel, truncateAdjacentNotes(notes));
+  }
+
+  const out: Disagreement[] = [];
+  for (const target of touched.values()) {
+    for (let channel = 0; channel < 16; channel += 1) {
+      const address = notesAt(target.clip, channel);
+      if (unread.has(addressKey(address))) continue;
+      const entry = after.entries[addressKey(address)];
+      const found = entry?.value.of === 'notes' ? entry.value.notes : [];
+      const expected = target.channels.get(channel) ?? [];
+      for (const wanted of expected) {
+        const got = found.find((candidate) => sameNoteCell(candidate, wanted));
+        if (got === undefined) {
+          out.push({
+            address,
+            at: noteLabel(wanted),
+            field: 'completeState.exists',
+            requested: true,
+            readback: false,
+          });
+          continue;
+        }
+        out.push(...compareCompleteNote(address, wanted, got));
+      }
+      for (const got of found) {
+        if (expected.some((wanted) => sameNoteCell(wanted, got))) continue;
+        out.push({
+          address,
+          at: noteLabel(got),
+          field: 'completeState.exists',
+          requested: false,
+          readback: true,
+        });
+      }
+    }
+  }
+  return out;
+}
+
+const COMPLETE_NOTE_DEFAULTS: Readonly<Record<string, unknown>> = {
+  velocitySpread: 0,
+  gain: 0,
+  pan: 0,
+  pressure: 0,
+  timbre: 0,
+  transpose: 0,
+  chance: 1,
+  isChanceEnabled: true,
+  isMuted: false,
+  isOccurrenceEnabled: true,
+  occurrence: 'ALWAYS',
+  isRecurrenceEnabled: true,
+  recurrence: [1, 1],
+  isRepeatEnabled: true,
+  repeatCount: 0,
+  repeatCurve: 0,
+  repeatVelocityCurve: 0,
+  repeatVelocityEnd: 0,
+};
+
+function compareCompleteNote(address: Address, wanted: NoteRecord, got: NoteRecord): Disagreement[] {
+  const fields = ['velocity', 'durationBeats', 'releaseVelocity', ...Object.keys(COMPLETE_NOTE_DEFAULTS)];
+  return fields.flatMap((field): Disagreement[] => {
+    const expected = noteFieldValue(wanted, field);
+    const actual = noteFieldValue(got, field);
+    if (equalEnough(expected, actual)) return [];
+    return [{
+      address,
+      at: noteLabel(wanted),
+      field: `completeState.${field}`,
+      requested: expected,
+      readback: actual,
+    }];
+  });
+}
+
+function noteFieldValue(note: NoteRecord, field: string): unknown {
+  const value = (note as unknown as Record<string, unknown>)[field];
+  if (value !== undefined) return value;
+  if (field === 'releaseVelocity') return 100 / 127;
+  return COMPLETE_NOTE_DEFAULTS[field];
+}
+
+function sameNoteCell(left: NoteRecord, right: NoteRecord): boolean {
+  return left.pitch === right.pitch && Math.abs(left.startBeats - right.startBeats) < 1e-9;
+}
+
+function truncateAdjacentNotes(notes: readonly NoteRecord[]): NoteRecord[] {
+  const byPitch = new Map<number, NoteRecord[]>();
+  for (const note of notes) {
+    const group = byPitch.get(note.pitch) ?? [];
+    group.push(note);
+    byPitch.set(note.pitch, group);
+  }
+  return [...byPitch.values()].flatMap((group) => {
+    const ordered = [...group].sort((left, right) => left.startBeats - right.startBeats);
+    return ordered.map((note, index) => {
+      const next = ordered[index + 1];
+      if (next === undefined) return note;
+      const room = next.startBeats - note.startBeats;
+      return note.durationBeats > room ? { ...note, durationBeats: room } : note;
+    });
+  }).sort((left, right) => left.startBeats - right.startBeats || left.pitch - right.pitch);
+}
+
+function retryableMutationDifference(disagreement: Disagreement): boolean {
+  return disagreement.field !== 'completeState.exists' || disagreement.readback === false;
+}
+
 /** Keep only metadata requests that still describe the clip at batch end. */
 function finalClipMetadataUpdates(
   ops: readonly Op[],
@@ -657,12 +859,11 @@ const FIDELITY_KEY: Record<string, string> = { durationBeats: 'duration' };
 function compareNote(address: Address, wanted: NoteRecord, got: NoteRecord): Disagreement[] {
   const out: Disagreement[] = [];
   const a = wanted as unknown as Record<string, unknown>;
-  const b = got as unknown as Record<string, unknown>;
 
   for (const field of Object.keys(a)) {
     if (field === 'startBeats' || field === 'pitch') continue;
-    const requested = a[field];
-    const readback = b[field];
+    const requested = noteFieldValue(wanted, field);
+    const readback = noteFieldValue(got, field);
     if (equalEnough(requested, readback)) continue;
     const known = knownDivergence(field, requested, readback);
     out.push({ address, at: noteLabel(wanted), field, requested, readback, ...(known === undefined ? {} : { known }) });

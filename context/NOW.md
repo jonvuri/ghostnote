@@ -4,13 +4,13 @@ kind: status
 state: active
 updated: 2026-08-21
 phase: phase-4
-session: 4b-clip-mutation-settlement
+session: 4c-direct-parameter-core
 ---
 
 # Now
 
-Phase 2, Phase 4 session 4a, exact read, and note-completion evidence are
-complete. Clip mutation settlement is next.
+Phase 2 and the bounded Phase 4 clip-performance work are complete. Direct
+parameter implementation is next.
 
 ## Accepted live result
 
@@ -72,21 +72,39 @@ verified, and saved. The post-save 2k baseline passes.
 - The accepted D7 scaffold with one observer had 27.70 ms maximum ping latency.
   Cleanup removed the owned track and restored the exact entry selection.
 
+## Mutation-settlement result
+
+- Compatible adjacent note writes share one transport frame only within the
+  same clip, channel, and exact grid. E15-F ordering remains unchanged.
+- One batch caches confirmed writer target, grid, and page boundaries. It
+  restores and verifies page zero once.
+- A scoped note event can wake verification for one existing clip. Silence,
+  mismatch, or failure uses the fixed fallback. Exact readback proves success.
+- Complete reconciliation covers all 16 MIDI channels. It retries one delayed
+  exact read, never replays the mutation, and reports same-target or partial-
+  stage conflicts.
+- A later-stage rejection keeps the landed targets reversible. The stash uses
+  exact before-and-after state and does not claim an untouched later clip.
+- The two-clip expression workflow measured 7,524 and 7,749 ms. Its 7,749 ms
+  median passes the fixed 9,000 ms gate and is 32 percent below E53.
+- E54 records that fewer controller and page turns saved the time. The sample
+  kept four stages and all eight exact bulk page reads.
+
 ## Next action
 
-Run [clip mutation settlement](plan/phase-4/4b-clip-mutation-settlement.md).
-Use eligible note events only to wake exact verification early. Keep bounded
-polling or the fixed fallback for silent fields and timeout. This is the last
-bounded follow-up before session 4c. Device-specific performance remains in
-session 4h.
+Run [direct-parameter core](plan/phase-4/4c-direct-parameter-core.md). Keep the
+completed clip settlement and exact-read boundaries intact. Device-specific
+performance remains in session 4h.
 
 ## Verification
 
-- Focused 4b cursor, note-event, and live regression tests pass. Full brain check: 660/660
-  pass, including typecheck. Extension build passes.
+- Focused settlement and reconciliation tests pass. Full brain check: 670/670
+  pass, including typecheck. Extension tests pass.
 - The controlled read-window probe, complete latency workflow, 128-beat
   long-clip workflow, background cancellation, and final read-only 2k baseline
   pass.
+- The controlled mutation workflow passes its 9,000 ms gate at 7,749 ms median.
+  Full live conformance passes 54/54 with six expected skips.
 - The archived Phase 2h aggregate refused before mutation because it requires
   the retired `gn-scale-test` fixture. Current focused probes cover its affected
   read boundaries.
@@ -94,7 +112,7 @@ session 4h.
   devices.
 - Saved-project open and one cold start: pass with zero control-thread stalls.
 - Scratch cleanup and exact rig configuration restoration: pass.
-- Context check: 193 active documents and links pass. `git diff --check` passes.
+- Context check and `git diff --check` pass.
 - Final live handshake: pass for Bitwig 6.0.6/API 25, the 145-method golden,
   deployment age, the selected `256/128/8/16/64` rig, 512-step writers, and the
   2,048-step reader.
@@ -104,5 +122,6 @@ session 4h.
 
 ## Retrospective
 
-Callback support differs by property. Test each control field. Do not infer its
-signal from the related value field.
+Fewer controller and writer-page turns saved the mutation time. The observer
+and exact-read count did not. Keep performance causes explicit. Keep complete
+request acceptance separate from evidence that an earlier stage changed state.

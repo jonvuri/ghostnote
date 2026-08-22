@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4b follow-up — clip mutation settlement
 kind: plan
-state: planned
-status: Next. Apply E53 wake hints, bounded polling, and one exact final read
-        without crossing Bitwig's measured cursor boundaries.
+state: complete
+status: Complete. E54 bounds writer settlement, observer wake-up, exact retry,
+        and complete-state conflict reporting without mutation replay.
 updated: 2026-08-21
 parent: README.md
 prev: 4b-note-completion-signals.md
 next: 4c-direct-parameter-core.md
 scope: Ordered clip mutation batches, bounded completion, and exact verification
-evidence: E2, E8, E15, E19, E20b, E51–E53 · D6, D9, D10, D15
+evidence: E2, E8, E15, E19, E20b, E51–E54 · D6, D9, D10, D15
 ---
 
 # Phase 4, session 4b follow-up — clip mutation settlement
@@ -89,7 +89,43 @@ confirmed clip and page set, not unrestricted concurrent requests.
 9. Focused tests, full conformance, the brain check, extension tests, context
    check, and `git diff --check` pass.
 
+## Performance gate
+
+E53 measured 11,444 ms for one controlled two-clip expression write. The final
+representative workflow must complete in at most 9,000 ms. This bound requires
+at least a 20% reduction. It must keep both exact 32-beat reads, all expression
+fields, reversal, and cleanup.
+
 ## Retrospective target
 
 Record whether the saved time came from fewer controller turns, earlier wake-up,
 or fewer exact reads. Do not describe one source as another.
+
+## Result
+
+E54 closes the session. Compatible adjacent note writes merge only within one
+clip, channel, and grid. Confirmed writer targets, grids, and pages remain valid
+for one batch. Page zero is restored and verified once. E15-F ordering remains
+unchanged.
+
+The product can use one exact target-generation note event as a wake hint. The
+fixed fallback remains active for silence or mismatch. Exact bulk readback is
+still the success proof.
+
+Final reconciliation compares the complete expected note state on all 16 MIDI
+channels. One incomplete read can retry after settlement. The executor never
+replays an ambiguous mutation. It reports unexpected same-target notes and
+partial staged rejection as conflicts. A rejected later stage does not erase
+the ownership or inverse of a stage that already landed. Exact before-and-after
+state limits that ownership to changed targets and all channels of a changed
+clip.
+
+The controlled two-clip expression workflow measured 7,524 and 7,749 ms. Its
+7,749 ms median passes the 9,000 ms gate and is 32 percent below the 11,444 ms
+baseline. It kept four dependency stages and eight exact bulk page reads. The
+saved time came from fewer controller and page turns, not fewer exact reads or
+the single-clip observer.
+
+Full conformance passed 54 cases with six expected skips. The brain check
+passed 670 tests. Long-clip, interference, cancellation, reversal, cleanup,
+extension, context, diff, and accepted-project baseline checks passed.
