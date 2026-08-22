@@ -4,13 +4,13 @@ kind: status
 state: active
 updated: 2026-08-22
 phase: phase-4
-session: 4d-native-device-catalog
+session: 4e-plugin-parameter-proof
 ---
 
 # Now
 
-Phase 2, bounded clip performance, and the DirectParameter core are complete.
-Native catalog generation is next.
+Phase 2, bounded clip performance, the DirectParameter core, and the native
+device catalog are complete. VST3 and CLAP parameter proof is next.
 
 ## Accepted live result
 
@@ -106,15 +106,34 @@ verified, and saved. The post-save 2k baseline passes.
 - DirectParameter IDs use an escaped canonical-key namespace. Numeric IDs cannot
   collide with legacy typed parameter indices in a stash or write set.
 
+## Session 4d result
+
+- The deterministic Bitwig 6.0.6 catalog contains all 151 native preset
+  directories, 2,047 parameter candidates, and 636 separate object tokens.
+- Structured META fields supply each device name and UUID. All seven known
+  12-character device names are correct.
+- Repeated generation is byte-identical. VST, module, and modulator settings are
+  excluded.
+- DirectParameter IDs use `CONTENTS/<candidate>`. Live resolution strips only
+  this exact prefix before it compares a structural candidate.
+- Polysynth resolved 55 of 56 candidates through both DirectParameter and the
+  generated typed view. Sampler resolved 32 of 33 through DirectParameter.
+  `GLIDE_TIME` was the only unresolved candidate for both devices. Neither
+  device returned a live-only ID.
+- The generated Polysynth input replaces the hand-maintained Java ID list. All
+  55 typed handles exist and report complete base, display, modulated,
+  automation, origin, and discrete metadata.
+- The probe removed its owned scratch track and restored the entry selection.
+  E56 records the generation and live proof.
+
 ## Next action
 
-Run [native device catalog](plan/phase-4/4d-native-device-catalog.md). Keep the
-DirectParameter runtime inventory as the general path. Generate typed native
-inputs only for the supported deep cohort.
+Begin [VST3 and CLAP parameter proof](plan/phase-4/4e-plugin-parameter-proof.md).
+Keep plugin formats explicit and keep the result machine-specific.
 
 ## Verification
 
-- Focused parameter, settlement, and reconciliation tests pass. Full brain check: 681/681
+- Focused parameter, settlement, reconciliation, and catalog tests pass. Full brain check: 686/686
   pass, including typecheck. Extension tests pass.
 - The fresh extension handshake and DirectParameter live proof pass. Sampler
   exposes 32 named parameters and exact base-value replay passes.
@@ -140,8 +159,8 @@ inputs only for the supported deep cohort.
 
 ## Retrospective
 
-One serialized parameter cursor is sufficient for correct enumeration, write,
-readback, and reversal. Do not add a wider observer pool without the session 4h
-batch measurement. Keep stable device state separate from unstable parameter
-state. Give heterogeneous address keys explicit namespaces before they enter a
-canonical map.
+Use code-point sorting for generated assets. Locale-aware sorting can make
+otherwise identical source bundles produce different bytes. Keep live
+resolution separate from offline extraction so stale evidence fails on the
+bundle fingerprint. DirectParameter IDs include a structural `CONTENTS/`
+prefix, so compare their normalized path to candidate IDs.

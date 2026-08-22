@@ -1,0 +1,4511 @@
+{
+  "schemaVersion": 1,
+  "bitwigVersion": "6.0.6",
+  "source": {
+    "kind": "bitwig-native-device-settings",
+    "fingerprint": "sha256:0cac85cee28d4b70c5d939873d71551b2c828e8d2c19e00a5272ff7db3668964",
+    "nativePresetDirectories": 151
+  },
+  "devices": [
+    {
+      "uuid": "41be8f3a-6d24-4442-9508-8548dbe62d47",
+      "name": "Amp",
+      "candidateParameterIds": [
+        "BIAS",
+        "CAB_COLOR",
+        "CAB_DEPTH",
+        "CAB_HEIGHT",
+        "CAB_HUE",
+        "CAB_MIX",
+        "CAB_REFLECTION",
+        "CAB_REVERSE",
+        "CAB_WIDTH",
+        "CLIP_MODEL",
+        "DRIVE",
+        "GAIN",
+        "MIX",
+        "POST_HP_FREQ",
+        "POST_HP_Q",
+        "POST_HP_TYPE",
+        "POST_LP_FREQ",
+        "POST_LP_Q",
+        "POST_LP_TYPE",
+        "POST_MID_FREQ",
+        "POST_MID_GAIN",
+        "POST_MID_Q",
+        "PRE_HP_FREQ",
+        "PRE_HP_Q",
+        "PRE_HP_TYPE",
+        "PRE_LP_FREQ",
+        "PRE_LP_Q",
+        "PRE_LP_TYPE",
+        "PRE_MID_FREQ",
+        "PRE_MID_GAIN",
+        "PRE_MID_Q",
+        "SAG",
+        "STEREO"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "POST_FX",
+        "PRE_FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "4d407a2b-c91b-4e4c-9a89-c53c19fe6251",
+      "name": "Arpeggiator",
+      "candidateParameterIds": [
+        "ENABLE_TRANSPOSITION",
+        "FREE_NOTE_START",
+        "GATE_1",
+        "GATE_10",
+        "GATE_11",
+        "GATE_12",
+        "GATE_13",
+        "GATE_14",
+        "GATE_15",
+        "GATE_16",
+        "GATE_2",
+        "GATE_3",
+        "GATE_4",
+        "GATE_5",
+        "GATE_6",
+        "GATE_7",
+        "GATE_8",
+        "GATE_9",
+        "GLOBAL_GATE",
+        "GLOBAL_VEL",
+        "HUMANIZE",
+        "IMMEDIATELY_TERMINATE_NOTES",
+        "MODE",
+        "OCTAVES",
+        "OCTAVE_BEHAVIOR",
+        "OVERLAPPING_NOTES",
+        "PRESSURE_TO_VELOCITY",
+        "RATE",
+        "RATE_IN_TIME",
+        "RATE_MODE",
+        "RETRIGGER",
+        "SHUFFLE",
+        "SKIP_1",
+        "SKIP_10",
+        "SKIP_11",
+        "SKIP_12",
+        "SKIP_13",
+        "SKIP_14",
+        "SKIP_15",
+        "SKIP_16",
+        "SKIP_2",
+        "SKIP_3",
+        "SKIP_4",
+        "SKIP_5",
+        "SKIP_6",
+        "SKIP_7",
+        "SKIP_8",
+        "SKIP_9",
+        "STEPS",
+        "STEP_1",
+        "STEP_10",
+        "STEP_10_TRANSPOSE",
+        "STEP_11",
+        "STEP_11_TRANSPOSE",
+        "STEP_12",
+        "STEP_12_TRANSPOSE",
+        "STEP_13",
+        "STEP_13_TRANSPOSE",
+        "STEP_14",
+        "STEP_14_TRANSPOSE",
+        "STEP_15",
+        "STEP_15_TRANSPOSE",
+        "STEP_16",
+        "STEP_16_TRANSPOSE",
+        "STEP_1_TRANSPOSE",
+        "STEP_2",
+        "STEP_2_TRANSPOSE",
+        "STEP_3",
+        "STEP_3_TRANSPOSE",
+        "STEP_4",
+        "STEP_4_TRANSPOSE",
+        "STEP_5",
+        "STEP_5_TRANSPOSE",
+        "STEP_6",
+        "STEP_6_TRANSPOSE",
+        "STEP_7",
+        "STEP_7_TRANSPOSE",
+        "STEP_8",
+        "STEP_8_TRANSPOSE",
+        "STEP_9",
+        "STEP_9_TRANSPOSE",
+        "SYNCED_TIMES",
+        "USE_GLOBAL_KEY"
+      ],
+      "objectTokens": [
+        "ARPEGGIATOR",
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "01c7c48f-40cd-40cd-8a9a-1f258f1cc7d5",
+      "name": "Audio MOD",
+      "candidateParameterIds": [
+        "AUDIOMOD_CUTOFF",
+        "AUDIOMOD_DEPTH",
+        "AUDIOMOD_FILTER_TYPE",
+        "AUDIOMOD_RESO",
+        "CURVE",
+        "EF_ATTACK",
+        "EF_RELEASE",
+        "ENVELOPE_FOLLOWER_ON",
+        "GAIN",
+        "MIX"
+      ],
+      "objectTokens": [
+        "AUDIOMOD",
+        "CONTENTS",
+        "Chain",
+        "FX",
+        "SIDECHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "46b3e40a-629c-42c2-9e14-a1ccbcaa903b",
+      "name": "Audio Receiver",
+      "candidateParameterIds": [
+        "GAIN",
+        "MIX"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "SOURCE"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "6aec6e78-9c1e-4c0b-8a88-0c2c37890a1d",
+      "name": "Bend",
+      "candidateParameterIds": [
+        "BEND",
+        "DELAY_ON",
+        "DURATION_IN_BEATS",
+        "DURATION_IN_SECONDS",
+        "ENV_DELAY_BEATS",
+        "ENV_DELAY_BEATS_OFFSET",
+        "ENV_DELAY_SECONDS",
+        "ENV_DELAY_SYNC",
+        "OFFSET",
+        "SEMITONES",
+        "SYNC"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "43875255-6f1f-4d54-a5ad-c45bff793477",
+      "name": "Bit-8",
+      "candidateParameterIds": [
+        "ANTIALIAS",
+        "CHANCE",
+        "DIFFUSION",
+        "DRIVE",
+        "DRIVE_MODE",
+        "FREQUENCY",
+        "JITTER",
+        "MIX",
+        "MODE",
+        "NOISEFLOOR",
+        "RECTIFY",
+        "SQUARE",
+        "STEREO_NOISE",
+        "STEREO_WIDTH",
+        "THRESHOLD"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "WET_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "72a3018d-788b-472c-b1d7-16419d00f4c6",
+      "name": "Blur",
+      "candidateParameterIds": [
+        "INNER_FEEBACK_R",
+        "INNER_FEEDBACK_L",
+        "INNER_TIME_L",
+        "INNER_TIME_R",
+        "MIX",
+        "OUTER_FEEDBACK_L",
+        "OUTER_FEEDBACK_R",
+        "OUTER_TIME_L",
+        "OUTER_TIME_R"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "c86d21fb-d544-4daf-a1bf-57de22aa320c",
+      "name": "Chain",
+      "candidateParameterIds": [
+        "GAIN",
+        "MIX"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "c5a1bb2d-a589-4fda-b3cf-911cfd6297be",
+      "name": "Channel Filter",
+      "candidateParameterIds": [
+        "SELECT_CHANNEL_1",
+        "SELECT_CHANNEL_10",
+        "SELECT_CHANNEL_11",
+        "SELECT_CHANNEL_12",
+        "SELECT_CHANNEL_13",
+        "SELECT_CHANNEL_14",
+        "SELECT_CHANNEL_15",
+        "SELECT_CHANNEL_16",
+        "SELECT_CHANNEL_2",
+        "SELECT_CHANNEL_3",
+        "SELECT_CHANNEL_4",
+        "SELECT_CHANNEL_5",
+        "SELECT_CHANNEL_6",
+        "SELECT_CHANNEL_7",
+        "SELECT_CHANNEL_8",
+        "SELECT_CHANNEL_9"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "0f003fa3-adcc-4684-81f7-f0e11c09c5b4",
+      "name": "Channel Map",
+      "candidateParameterIds": [
+        "CHANNEL_1",
+        "CHANNEL_10",
+        "CHANNEL_11",
+        "CHANNEL_12",
+        "CHANNEL_13",
+        "CHANNEL_14",
+        "CHANNEL_15",
+        "CHANNEL_16",
+        "CHANNEL_2",
+        "CHANNEL_3",
+        "CHANNEL_4",
+        "CHANNEL_5",
+        "CHANNEL_6",
+        "CHANNEL_7",
+        "CHANNEL_8",
+        "CHANNEL_9"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "d275f9a6-0e4a-409c-9dc4-d74af90bc7ae",
+      "name": "Chorus",
+      "candidateParameterIds": [
+        "HIGHCUT",
+        "LFO_WAVEFORM",
+        "MIX",
+        "MOD",
+        "RATE",
+        "RPHASE",
+        "TIME",
+        "WIDE",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "WET_FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "1b8f2226-c432-4a0a-9830-69bc76d1a276",
+      "name": "Chorus+",
+      "candidateParameterIds": [
+        "DEPTH",
+        "MIX",
+        "RATE",
+        "TYPE",
+        "X",
+        "Y"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "20e18780-8438-48d3-b234-40dcbaa947b8",
+      "name": "Comb",
+      "candidateParameterIds": [
+        "FEEDBACK",
+        "FREQ",
+        "MIX"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "2b1b4787-8d74-4138-877b-9197209eef0f",
+      "name": "Compressor",
+      "candidateParameterIds": [
+        "ATTACK",
+        "INPUT",
+        "MAKEUP_GAIN",
+        "OUTPUT",
+        "RATIO",
+        "RELEASE",
+        "THRESHOLD"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "42b32cd2-6275-4ff1-970f-4fac71d15ad9",
+      "name": "Compressor+",
+      "candidateParameterIds": [
+        "ATTACK",
+        "AUTO_TIMING",
+        "ENVELOPE_MODE",
+        "EXPAND_MID",
+        "GR_MODE",
+        "INPUT",
+        "INTENSITY_HIGH",
+        "INTENSITY_LMID",
+        "INTENSITY_LOW",
+        "INTENSITY_MID",
+        "LATCH",
+        "LINK_AMOUNT",
+        "LINK_MODE",
+        "MAKEUP",
+        "MIX",
+        "RATIO",
+        "RATIO_EXTENDED",
+        "RELAX",
+        "RELEASE",
+        "SMOOTH",
+        "THRESHOLD",
+        "TIMING_HIGH",
+        "TIMING_LMID",
+        "TIMING_LOW",
+        "TIMING_MID",
+        "VCA_MODE"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "CONTROL_SIGNAL_CHAIN",
+        "Chain",
+        "SHOW_ADVANCED",
+        "SIDECHAIN_SOURCE"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "528f7939-87c0-4997-8e71-6331d2eee388",
+      "name": "Convolution",
+      "candidateParameterIds": [
+        "BRIGHTNESS",
+        "END_LEVEL",
+        "END_TIME",
+        "GAIN",
+        "MID_LEVEL",
+        "MID_TIME",
+        "MIX",
+        "PRE_DELAY",
+        "START_LEVEL",
+        "START_TIME",
+        "TUNE",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "CONVOLUTION",
+        "Chain",
+        "EDIT_ENVELOPE",
+        "WET_FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "ee445061-a0ee-4322-991a-b60212db04ed",
+      "name": "DC Offset",
+      "candidateParameterIds": [
+        "DC"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "8750db61-e9d3-4d0e-a610-e734006a64dc",
+      "name": "De-Esser",
+      "candidateParameterIds": [
+        "AMOUNT",
+        "FREQ",
+        "MONITOR"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "f2baa2a8-36c5-4a79-b1d9-a4e461c45ee9",
+      "name": "Delay+",
+      "candidateParameterIds": [
+        "FEEDBACK",
+        "FOREVER",
+        "HICUT",
+        "LEVEL_CONTROL",
+        "LOCUT",
+        "MIX",
+        "MODEL",
+        "OFFSET",
+        "PATTERN",
+        "STEPS",
+        "THRESHOLD",
+        "TIME",
+        "UNIT",
+        "UPDATE_RATE"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "2a7a7328-3f7a-4afb-95eb-5230c298bb90",
+      "name": "Delay-1",
+      "candidateParameterIds": [
+        "BEATTIME",
+        "FEEDBACK",
+        "HICUT",
+        "LOCUT",
+        "MIX",
+        "OFFSET",
+        "SYNC",
+        "TIME"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "71539d5d-1c7a-4dac-8f74-29e23b89b599",
+      "name": "Delay-2",
+      "candidateParameterIds": [
+        "CROSSFEEDL",
+        "CROSSFEEDR",
+        "DETUNE",
+        "FEEDBACKL",
+        "FEEDBACKR",
+        "HICUT",
+        "INPUTL",
+        "INPUTR",
+        "LBEATTIME",
+        "LOCUT",
+        "LTIME",
+        "MIX",
+        "OFFSETL",
+        "OFFSETR",
+        "RATE",
+        "RBEATTIME",
+        "RTIME",
+        "SYNCL",
+        "SYNCR",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "f95a0e18-5a8b-4f53-93ad-8be73fd668bd",
+      "name": "Delay-4",
+      "candidateParameterIds": [
+        "D1_BEATTIME",
+        "D1_HICUT",
+        "D1_LOCUT",
+        "D1_OFFSET",
+        "D1_OUT",
+        "D1_PAN",
+        "D1_SYNC",
+        "D1_TIME",
+        "D2_BEATTIME",
+        "D2_HICUT",
+        "D2_LOCUT",
+        "D2_OFFSET",
+        "D2_OUT",
+        "D2_PAN",
+        "D2_SYNC",
+        "D2_TIME",
+        "D3_BEATTIME",
+        "D3_HICUT",
+        "D3_LOCUT",
+        "D3_OFFSET",
+        "D3_OUT",
+        "D3_PAN",
+        "D3_SYNC",
+        "D3_TIME",
+        "D4_BEATTIME",
+        "D4_HICUT",
+        "D4_LOCUT",
+        "D4_MIX",
+        "D4_OFFSET",
+        "D4_PAN",
+        "D4_SYNC",
+        "D4_TIME",
+        "FB_1_1",
+        "FB_1_2",
+        "FB_1_3",
+        "FB_1_4",
+        "FB_2_1",
+        "FB_2_2",
+        "FB_2_3",
+        "FB_2_4",
+        "FB_3_1",
+        "FB_3_2",
+        "FB_3_3",
+        "FB_3_4",
+        "FB_4_1",
+        "FB_4_2",
+        "FB_4_3",
+        "FB_4_4",
+        "FB_PRE_1",
+        "FB_PRE_2",
+        "FB_PRE_3",
+        "FB_PRE_4",
+        "FEEDBACK",
+        "MIX"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FB_FX1_CHAIN",
+        "FB_FX2_CHAIN",
+        "FB_FX3_CHAIN",
+        "FB_FX4_CHAIN",
+        "MASTER_CHAIN",
+        "PRE_FX1_CHAIN",
+        "PRE_FX2_CHAIN",
+        "PRE_FX3_CHAIN",
+        "PRE_FX4_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "b5b2b08e-730e-4192-be71-f572ceb5069b",
+      "name": "Distortion",
+      "candidateParameterIds": [
+        "BIAS",
+        "DRIVE",
+        "EQ_HIGH_CUT",
+        "EQ_LOW_CUT",
+        "LEVEL",
+        "MIX",
+        "PRE_EQ_FREQ",
+        "PRE_EQ_GAIN",
+        "PRE_EQ_Q",
+        "SLEW",
+        "STEREO_WIDTH",
+        "SYMMETRY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "d98f7ce5-564e-4b95-926a-4e7b50a251c6",
+      "name": "Dribble",
+      "candidateParameterIds": [
+        "BEAT_TIME_OFFSET",
+        "DAMPING",
+        "DEBOUNCE_TIME",
+        "DELAY",
+        "HOLD_LAST_NOTE",
+        "LENGTH_IN_BEATS",
+        "SYNC"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "8ea97e45-0255-40fd-bc7e-94419741e9d1",
+      "name": "Drum Machine",
+      "candidateParameterIds": [
+        "MASTER_VOLUME"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "DRUM_PADS",
+        "GLOBAL_EFFECT_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "c94820f8-3779-438b-a85b-868e57b746cc",
+      "name": "Dual Pan",
+      "candidateParameterIds": [
+        "PAN_L",
+        "PAN_LAW",
+        "PAN_R"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "22e785a2-a187-41e9-a0f2-66343694014c",
+      "name": "Dynamics",
+      "candidateParameterIds": [
+        "ATTACK",
+        "DETECTOR_TYPE",
+        "HIGH_KNEE",
+        "HIGH_RATIO",
+        "HIGH_THRESHOLD",
+        "INPUT_GAIN",
+        "LOW_KNEE",
+        "LOW_RATIO",
+        "LOW_THRESHOLD",
+        "OUTPUT_GAIN",
+        "RELEASE"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "CONTROL_SIGNAL_CHAIN",
+        "Chain",
+        "SIDECHAIN_SOURCE"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "e4815188-ba6f-4d14-bcfc-2dcb8f778ccb",
+      "name": "EQ+",
+      "candidateParameterIds": [
+        "ADAPTIVE_Q",
+        "BAND",
+        "DECIBEL_RANGE",
+        "ENABLE1",
+        "ENABLE2",
+        "ENABLE3",
+        "ENABLE4",
+        "ENABLE5",
+        "ENABLE6",
+        "ENABLE7",
+        "ENABLE8",
+        "FREQ1",
+        "FREQ2",
+        "FREQ3",
+        "FREQ4",
+        "FREQ5",
+        "FREQ6",
+        "FREQ7",
+        "FREQ8",
+        "GAIN1",
+        "GAIN2",
+        "GAIN3",
+        "GAIN4",
+        "GAIN5",
+        "GAIN6",
+        "GAIN7",
+        "GAIN8",
+        "GLOBAL_SHIFT",
+        "MAX_Y",
+        "MODEL",
+        "OUTPUT_GAIN",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5",
+        "Q6",
+        "Q7",
+        "Q8",
+        "RANGE_Y",
+        "SOLO",
+        "TILT",
+        "TYPE1",
+        "TYPE2",
+        "TYPE3",
+        "TYPE4",
+        "TYPE5",
+        "TYPE6",
+        "TYPE7",
+        "TYPE8"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "REFERENCE",
+        "SHOW_POST",
+        "SHOW_PRE"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "01af068e-1e49-4777-a6e6-7f1dc679227a",
+      "name": "EQ-2",
+      "candidateParameterIds": [
+        "HI_ENABLE",
+        "HI_FREQ",
+        "HI_GAIN",
+        "HI_Q",
+        "HI_TYPE",
+        "LO_ENABLE",
+        "LO_FREQ",
+        "LO_GAIN",
+        "LO_Q",
+        "TYPE1"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "227e2e3c-75d5-46f3-960d-8fb5529fe29f",
+      "name": "EQ-5",
+      "candidateParameterIds": [
+        "ENABLE1",
+        "ENABLE2",
+        "ENABLE3",
+        "ENABLE4",
+        "ENABLE5",
+        "FREQ1",
+        "FREQ2",
+        "FREQ3",
+        "FREQ4",
+        "FREQ5",
+        "GAIN1",
+        "GAIN2",
+        "GAIN3",
+        "GAIN4",
+        "GAIN5",
+        "GLOBAL_AMOUNT",
+        "GLOBAL_SHIFT",
+        "OUTPUT_GAIN",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5",
+        "SPECTRUM_SELECTOR",
+        "TYPE1",
+        "TYPE2",
+        "TYPE3",
+        "TYPE4",
+        "TYPE5"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "3cc1b71a-e22a-42cf-89f0-316475368fb3",
+      "name": "EQ-DJ",
+      "candidateParameterIds": [
+        "HIGH_FREQ",
+        "HIGH_GAIN",
+        "KILL_HIGHS",
+        "KILL_LOWS",
+        "KILL_MIDS",
+        "LOW_FREQ",
+        "LOW_GAIN",
+        "MID_GAIN"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "43c102c9-ce32-4dd8-b207-f0831733b17b",
+      "name": "Echo",
+      "candidateParameterIds": [
+        "DELAY_LEVEL",
+        "FEEDBACK_DELAY",
+        "FEEDBACK_GATETIME",
+        "FEEDBACK_TRANSPOSE",
+        "FEEDBACK_VELOCITY",
+        "INFINTE_REPEAT",
+        "KEY_WRAP_CEILING",
+        "KEY_WRAP_FLOOR",
+        "MONO",
+        "MUTE_INITIAL_NOTE",
+        "OFFSET",
+        "PITCH_MODE",
+        "RANDOM",
+        "REPEAT_MOD",
+        "REPEAT_TIMES",
+        "STOP_WITH_TRANSPORT",
+        "SYNC",
+        "SYNC_DELAY",
+        "TIME",
+        "USE_GLOBAL_KEY",
+        "VOICE_COUNT"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "7a0a94df-3aa4-4bb5-8e24-2511999871ad",
+      "name": "FM-4",
+      "candidateParameterIds": [
+        "AEG_ATTACK",
+        "AEG_DECAY",
+        "AEG_RELEASE",
+        "AEG_SUSTAIN",
+        "GLIDE_TIME",
+        "NOISE_CUTOFF",
+        "NOISE_DRIVE",
+        "NOISE_ENABLE",
+        "NOISE_MIX",
+        "NOISE_Q",
+        "N_MOD",
+        "OP1_ENABLE",
+        "OP1_FREQ_OFFSET",
+        "OP1_MIX",
+        "OP1_MOD",
+        "OP1_RATIO",
+        "OP2_ENABLE",
+        "OP2_FREQ_OFFSET",
+        "OP2_MIX",
+        "OP2_MOD",
+        "OP2_RATIO",
+        "OP3_ENABLE",
+        "OP3_FREQ_OFFSET",
+        "OP3_MIX",
+        "OP3_MOD",
+        "OP3_RATIO",
+        "OP4_ENABLE",
+        "OP4_FREQ_OFFSET",
+        "OP4_MIX",
+        "OP4_MOD",
+        "OP4_RATIO",
+        "OUTPUT",
+        "PAN",
+        "PITCH",
+        "VOICE_GAIN"
+      ],
+      "objectTokens": [
+        "AEG",
+        "CONTENTS",
+        "Chain",
+        "FX",
+        "MATRIX",
+        "NOTE_FX",
+        "POLY",
+        "STACK_SPREAD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "d641f61b-d4db-4006-930e-cdd7aeb3e9d7",
+      "name": "FX Grid",
+      "candidateParameterIds": [
+        "AFFECT_VOICE_LIFETIME",
+        "AUTO_GATE",
+        "AUTO_RELEASE",
+        "CLIP_LEVEL",
+        "CLIP_MODE",
+        "CONTROL_THRU",
+        "FREERUN",
+        "GLIDE_TIME",
+        "HOLD_TIME",
+        "LENGTH",
+        "MIX",
+        "NOTE_THRU",
+        "OFFSET",
+        "PITCH_TRANSPOSE",
+        "SHUFFLE",
+        "SILENCE_THRESHOLD",
+        "TIMEBASE"
+      ],
+      "objectTokens": [
+        "0",
+        "1",
+        "CONTENTS",
+        "Chain",
+        "IN",
+        "MODULES",
+        "Note Source",
+        "POLY",
+        "POST_FX",
+        "PRE_FX",
+        "STACK_SPREAD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "a0913b7f-096b-4ac9-bddd-33c775314b42",
+      "name": "FX Layer",
+      "candidateParameterIds": [
+        "AMOUNT",
+        "GAIN",
+        "MIX",
+        "MUTE",
+        "PANORAMA",
+        "VOLUME"
+      ],
+      "objectTokens": [
+        "CHAIN0",
+        "CHAIN_LIST",
+        "CONTENTS",
+        "MIXER",
+        "TRACK_SEND(288fd268-a652-455f-8600-529539ee30a6)"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "956e396b-07c5-4430-a58d-8dcfc316522a",
+      "name": "FX Selector",
+      "candidateParameterIds": [
+        "INDEX",
+        "MIX"
+      ],
+      "objectTokens": [
+        "CHAIN_SELECTOR",
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "4ccfc70e-59bd-4e97-a8a7-d8cdce88bf42",
+      "name": "Filter",
+      "candidateParameterIds": [
+        "CUTOFF",
+        "FILTER_TYPE",
+        "POST_GAIN",
+        "PRE_GAIN",
+        "RESONANCE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "6d621c1c-ab64-43b4-aea3-dad37e6f649c",
+      "name": "Filter+",
+      "candidateParameterIds": [
+        "AA",
+        "AFFECT_VOICE_LIFETIME",
+        "AMOUNT2",
+        "AMOUNT3",
+        "AMOUNT4",
+        "AMOUNT5",
+        "AMOUNT6",
+        "AUTO_GATE",
+        "AUTO_RELEASE",
+        "BIPOLAR",
+        "CLIP_LEVEL",
+        "CLIP_MODE",
+        "CONTROL_THRU",
+        "CUTOFF",
+        "CUTOFF_MOD",
+        "DRIVE",
+        "FREERUN",
+        "GAIN",
+        "GLIDE_TIME",
+        "HOLD_TIME",
+        "KEYTRACK",
+        "LENGTH",
+        "MIX",
+        "NOTE_THRU",
+        "OFFSET",
+        "PAN",
+        "PHASE",
+        "PHASE_MOD",
+        "PITCH_TRANSPOSE",
+        "POLES",
+        "Q_LIMIT",
+        "RATE",
+        "RATE_MOD",
+        "RESONANCE",
+        "RETRIGGER",
+        "RPHASE",
+        "SHUFFLE",
+        "SILENCE_THRESHOLD",
+        "SKEW",
+        "THRU2",
+        "THRU3",
+        "THRU4",
+        "THRU5",
+        "THRU6",
+        "TIMEBASE",
+        "TRANSPORT_SYNC",
+        "VALUE",
+        "WAVE",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "0",
+        "1",
+        "10",
+        "11",
+        "12",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "CONTENTS",
+        "Chain",
+        "GATE_IN",
+        "IN",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5",
+        "IN6",
+        "LFO",
+        "MODULES",
+        "MOD_IN",
+        "Note Source",
+        "PHASE_IN",
+        "POLY",
+        "POST_FX",
+        "PRE_FX",
+        "RATE_IN",
+        "SOURCE",
+        "STACK_SPREAD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "8393c436-b11b-4fee-85dd-b2ef0a2ed380",
+      "name": "Flanger",
+      "candidateParameterIds": [
+        "FEEDBACK",
+        "LFO_AMOUNT",
+        "LFO_RATE",
+        "LFO_WAVEFORM",
+        "MIX",
+        "NEGATIVE_FEEDBACK",
+        "RETRIGGER_LFO",
+        "TIME",
+        "WIDE",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "a99f8c3c-7813-4e6b-a18a-302c74286efc",
+      "name": "Flanger+",
+      "candidateParameterIds": [
+        "CENTER",
+        "DEPTH",
+        "DIRTY",
+        "FEEDBACK",
+        "INVERT",
+        "MANUAL",
+        "MIX",
+        "OVERRIDE",
+        "RATE",
+        "STEREO",
+        "TYPE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "42208fc5-02fd-42b4-9681-a8fadb46575f",
+      "name": "Focus",
+      "candidateParameterIds": [
+        "CHANNEL_MODE",
+        "CHANNEL_SEPARATION",
+        "COLOR",
+        "HIFREQS",
+        "HI_BOOST",
+        "LO_BOOST",
+        "LO_FREQS",
+        "MIDDIP",
+        "MID_FREQS"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "7ec87fdf-0bf8-42e7-b54b-5d8b68e330b1",
+      "name": "Freq Shifter",
+      "candidateParameterIds": [
+        "LR_SPLIT",
+        "MIX",
+        "RANGE",
+        "SHIFT"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "eb28831d-2478-4918-bd51-bcc1ff4c7eed",
+      "name": "Freq Shifter+",
+      "candidateParameterIds": [
+        "ANTIREFLECTION",
+        "CENTER",
+        "DELAYTIME",
+        "EXTRA_PHASE",
+        "FBUD",
+        "FEEDBACK",
+        "HIPASS",
+        "LOPASS",
+        "MIX",
+        "MODE",
+        "PHASE",
+        "RATE",
+        "RPHASE",
+        "TIMEBASE",
+        "USE_DELAY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "WET_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "3f3c3200-e6aa-4578-8e06-f573ed65206e",
+      "name": "Freq Split",
+      "candidateParameterIds": [
+        "AMP1",
+        "AMP2",
+        "AMP3",
+        "AMP4",
+        "BEND",
+        "CLIPPING_THRESHOLD",
+        "CLIP_SPECTRUM",
+        "DIVISIONS",
+        "FADE",
+        "MIX",
+        "OFFSET",
+        "ON1",
+        "ON2",
+        "ON3",
+        "ON4",
+        "ORIGIN",
+        "PAN1",
+        "PAN2",
+        "PAN3",
+        "PAN4",
+        "PINCH",
+        "ROTATE",
+        "SOLO",
+        "VISUALIZATION"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "HIGH_CHAIN",
+        "LOWMID_CHAIN",
+        "LOW_CHAIN",
+        "MID_CHAIN",
+        "POST_CHAIN",
+        "PRE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "556300ac-3a6e-4423-966a-5d5dde459a1b",
+      "name": "Gate",
+      "candidateParameterIds": [
+        "ATTACK",
+        "DEPTH",
+        "RELEASE",
+        "THRESHOLD_LEVEL"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "SIDECHAIN",
+        "SIDECHAIN_FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "c511bc17-9ebf-43de-a20c-4a9e40028fdf",
+      "name": "HW CV Instrument",
+      "candidateParameterIds": [
+        "AC_GATE",
+        "AC_PITCH",
+        "GAIN",
+        "GATE_LEVEL",
+        "GLIDE",
+        "INVERT_GATE",
+        "OUTPUT",
+        "PITCH_OFFSET",
+        "RANGE",
+        "ROOT_KEY",
+        "TUNE_MODE"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "CV_OUT",
+        "CV_SLOT",
+        "Chain",
+        "FX",
+        "GATE_OUT",
+        "IN_ROUTING",
+        "LATENCY",
+        "SHOW_TUNING",
+        "TUNING_DATA"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "d0e71e2d-d491-4cce-a227-fbe118cc4e52",
+      "name": "HW CV Out",
+      "candidateParameterIds": [
+        "AC",
+        "LEGACY_MODE",
+        "SMOOTH",
+        "VALUE_L"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "CV_OUT"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "a2b59797-2b25-4860-862d-6ab72393b4ca",
+      "name": "HW Clock Out",
+      "candidateParameterIds": [
+        "GATE",
+        "MODE_L",
+        "MODE_R",
+        "OFFSET",
+        "PULSE_L",
+        "PULSE_R",
+        "RATE_COUNT_L",
+        "RATE_COUNT_R",
+        "RATE_LEFT",
+        "RATE_RIGHT",
+        "SHUFFLE"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "NAME_L",
+        "NAME_R",
+        "OUT1",
+        "OUT2"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "29b93a99-eb3a-4b19-8c12-8b4391f5a1ea",
+      "name": "HW FX",
+      "candidateParameterIds": [
+        "IN_GAIN",
+        "MIX",
+        "OUT_GAIN"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "IN_ROUTING",
+        "LATENCY",
+        "OUT_ROUTING"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "6a27aef7-bba5-4b0d-af98-7c192f84fbc2",
+      "name": "HW Instrument",
+      "candidateParameterIds": [
+        "ENABLE_MIDI_CLOCK",
+        "GAIN",
+        "MIDI_CHANNEL",
+        "OUTPUT"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX",
+        "IN_ROUTING",
+        "LATENCY",
+        "NOTES",
+        "NOTE_FX",
+        "OUT_ROUTING"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "c90b6d52-898b-4dad-aa58-2c58add7c94f",
+      "name": "Harmonic Split",
+      "candidateParameterIds": [
+        "ATTACK_MAX",
+        "DECAY_MAX",
+        "FUNDAMENTAL_THRESHOLD",
+        "HIGH_CUT",
+        "LEVEL_EVENS",
+        "LEVEL_NONHARMONIC",
+        "LEVEL_ODD",
+        "LOW_CUT",
+        "MIX",
+        "NONHARMONIC_THRESHOLD",
+        "NUM_PARTIALS_TO_TRACK",
+        "ON1",
+        "ON2",
+        "ON3",
+        "PAN_EVENS",
+        "PAN_NONHARMONICS",
+        "PAN_ODDS",
+        "PATTERN",
+        "SOLO",
+        "TILT",
+        "VISUALIZATION"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "EVEN_CHAIN",
+        "ODD_CHAIN",
+        "POST_CHAIN",
+        "PRE_CHAIN",
+        "RES_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "ff299d28-d822-4686-ac0a-03c0ae69b32d",
+      "name": "Harmonize",
+      "candidateParameterIds": [
+        "IN_KEY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "SOURCE"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "f7b6f2a6-bfca-41ec-8646-b68e0f4cf12b",
+      "name": "Humanize",
+      "candidateParameterIds": [
+        "CHANCE",
+        "MAX_DELAY",
+        "TIME",
+        "USE_PLUGIN_DELAY_COMPENSATION",
+        "VELOCITY"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "5024be2e-65d6-4d40-bbfe-8b2ea993c445",
+      "name": "Instrument Layer",
+      "candidateParameterIds": [
+        "GAIN"
+      ],
+      "objectTokens": [
+        "CHAIN_LIST",
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "9588fbcf-721a-438b-8555-97e4231f7d2c",
+      "name": "Instrument Selector",
+      "candidateParameterIds": [
+        "INDEX"
+      ],
+      "objectTokens": [
+        "CHAIN_SELECTOR",
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "f14bacde-084c-4f14-8bdf-d8c4fda8b368",
+      "name": "Key Filter",
+      "candidateParameterIds": [
+        "FOREIGN_NOTES",
+        "KEY",
+        "MODE_SHIFT",
+        "SCALE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "ad13588c-fe39-4bd0-8615-d56e495eb05d",
+      "name": "Key Filter+",
+      "candidateParameterIds": [
+        "MODE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "613dd120-9f55-4d24-97ac-f7902ffa7ce7",
+      "name": "LFO MOD",
+      "candidateParameterIds": [
+        "LFO1_AMOUNT",
+        "LFO1_BIPOLAR",
+        "LFO1_PHASE",
+        "LFO1_RATE",
+        "LFO1_RATE_BEAT",
+        "LFO1_RATE_MODE",
+        "LFO1_RETRIGGER",
+        "LFO1_SHAPE",
+        "LFO2_AMOUNT",
+        "LFO2_BIPOLAR",
+        "LFO2_PHASE",
+        "LFO2_RATE",
+        "LFO2_RATE_BEAT",
+        "LFO2_RATE_MODE",
+        "LFO2_RETRIGGER",
+        "LFO2_SHAPE",
+        "MIX"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX",
+        "LFO1",
+        "LFO2"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "abfbbd63-8801-4bdb-a1ad-4b197f4d41e0",
+      "name": "Ladder",
+      "candidateParameterIds": [
+        "ENVELOPE_AMOUNT",
+        "ENVELOPE_ATTACK",
+        "ENVELOPE_DECAY",
+        "ENVELOPE_FOLLOWER_AMOUNT",
+        "ENVELOPE_FOLLOWER_ATTACK",
+        "ENVELOPE_FOLLOWER__RELEASE",
+        "ENVELOPE_RELEASE",
+        "ENVELOPE_SUSTAIN",
+        "ENVELOPE_VELOCITY_SENSITIVITY",
+        "FILTER_TYPE",
+        "FREQUENCY",
+        "LFO_AMOUNT",
+        "LFO_PHASE",
+        "LFO_RATE",
+        "LFO_RETRIG",
+        "LFO_WAVEFORM",
+        "POST-GAIN",
+        "PRE-GAIN",
+        "RESONANCE"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "NOTE_SIDECHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "93c9d566-4cc9-4895-bf5b-475cab44eba9",
+      "name": "Latch",
+      "candidateParameterIds": [
+        "MONO",
+        "TRIGGER",
+        "VELOCITY_THRESHOLD"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "6e75a854-ceab-475b-94c5-75188ee998b8",
+      "name": "Loud Split",
+      "candidateParameterIds": [
+        "ATTACK_MAX",
+        "DECAY_MAX",
+        "KNEE_MAX",
+        "KNEE_MID",
+        "LEVEL_LOW",
+        "LEVEL_MAX",
+        "LEVEL_MID",
+        "MIX",
+        "ON1",
+        "ON2",
+        "ON3",
+        "PAN_LOW",
+        "PAN_MAX",
+        "PAN_MID",
+        "RELATIVE_LOUDNESS",
+        "SOLO",
+        "THRESH_MAX",
+        "THRESH_MAX_RELATIVE",
+        "THRESH_MID",
+        "THRESH_MID_RELATIVE",
+        "TILT",
+        "VISUALIZATION"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "HIGH_CHAIN",
+        "LOW_CHAIN",
+        "MID_CHAIN",
+        "POST_CHAIN",
+        "PRE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "a0b8f27a-128e-4f72-b9fc-a277060b87ee",
+      "name": "MIDI CC",
+      "candidateParameterIds": [
+        "CC1",
+        "CC2",
+        "CC3",
+        "CC4",
+        "CC5",
+        "CC6",
+        "CC7",
+        "CC8",
+        "MIDI_CHANNEL",
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7",
+        "P8"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6",
+        "L7",
+        "L8"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "429c7dcb-6863-48bc-becc-508463841e3b",
+      "name": "MIDI Program Change",
+      "candidateParameterIds": [
+        "ANTI_CLICK",
+        "AUTO_LOAD",
+        "BANK_LSB",
+        "BANK_MSB",
+        "CHANNEL",
+        "DECAY_DURATION",
+        "PROGRAM",
+        "SCOPED",
+        "SEND_LSB",
+        "SEND_MSB"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "754fdba1-2c16-494c-a47c-16f7a7ad9363",
+      "name": "MIDI Song Select",
+      "candidateParameterIds": [
+        "AUTO_LOAD",
+        "SONG"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "4ac40334-99cc-43a3-b693-f3dc63211f0c",
+      "name": "Micro-pitch",
+      "candidateParameterIds": [
+        "AMOUNT",
+        "EDO_DIVISIONS",
+        "MODE",
+        "NOTE1",
+        "NOTE10",
+        "NOTE11",
+        "NOTE2",
+        "NOTE3",
+        "NOTE4",
+        "NOTE5",
+        "NOTE6",
+        "NOTE7",
+        "NOTE8",
+        "NOTE8VA",
+        "NOTE9",
+        "ROOT_KEY",
+        "TUNE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "a6c9b12f-45a5-43e3-b100-b74ecf77367b",
+      "name": "Mid-Side Split",
+      "candidateParameterIds": [
+        "MID_GAIN",
+        "SIDE_GAIN"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "MID_CHAIN",
+        "SIDE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "0a015261-7546-4f6d-9197-098a26ff2c20",
+      "name": "Multi-note",
+      "candidateParameterIds": [
+        "CHANCE_1",
+        "CHANCE_2",
+        "CHANCE_3",
+        "CHANCE_4",
+        "CHANCE_5",
+        "CHANCE_6",
+        "CHANCE_7",
+        "CHANCE_8",
+        "ENABLE_1",
+        "ENABLE_2",
+        "ENABLE_3",
+        "ENABLE_4",
+        "ENABLE_5",
+        "ENABLE_6",
+        "ENABLE_7",
+        "ENABLE_8",
+        "LIVE_UPDATE_NOTES",
+        "PITCH_1",
+        "PITCH_2",
+        "PITCH_3",
+        "PITCH_4",
+        "PITCH_5",
+        "PITCH_6",
+        "PITCH_7",
+        "PITCH_8",
+        "USE_GLOBAL_KEY",
+        "VELOCITY_1",
+        "VELOCITY_2",
+        "VELOCITY_3",
+        "VELOCITY_4",
+        "VELOCITY_5",
+        "VELOCITY_6",
+        "VELOCITY_7",
+        "VELOCITY_8",
+        "VELOCITY_SPREAD_1",
+        "VELOCITY_SPREAD_2",
+        "VELOCITY_SPREAD_3",
+        "VELOCITY_SPREAD_4",
+        "VELOCITY_SPREAD_5",
+        "VELOCITY_SPREAD_6",
+        "VELOCITY_SPREAD_7",
+        "VELOCITY_SPREAD_8"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "214857d6-b468-4257-9bc9-92f017af1782",
+      "name": "Multiband FX-2",
+      "candidateParameterIds": [
+        "FREQ",
+        "HIGH",
+        "LOW",
+        "MIX"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "HIGH_CHAIN",
+        "LOW_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "f97699d1-3b8e-4363-8ede-4994e276cc97",
+      "name": "Multiband FX-3",
+      "candidateParameterIds": [
+        "HIGH",
+        "LOW",
+        "LOW_MID_SPLIT",
+        "MID",
+        "MID_HIGH_SPLIT",
+        "MIX",
+        "MUTE_HIGH",
+        "MUTE_LOW",
+        "MUTE_MID",
+        "SOLO"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "HIGH_CHAIN",
+        "LOW_CHAIN",
+        "MID_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "9f3cc825-3284-4c5a-b51f-01219de13b7c",
+      "name": "Note Delay",
+      "candidateParameterIds": [
+        "DELAY_NOTE_OFFS",
+        "OFFSET",
+        "SYNC",
+        "SYNC_DELAY",
+        "TIME"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "96456481-4c52-423a-8485-4604b15d0183",
+      "name": "Note FX Layer",
+      "candidateParameterIds": [],
+      "objectTokens": [
+        "CONTENTS",
+        "DEVICE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "8fd471db-15df-44c6-b497-4bb851d4fd46",
+      "name": "Note FX Selector",
+      "candidateParameterIds": [
+        "INDEX"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "DEVICE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "ef7559c8-49ae-4657-95be-11abb896c969",
+      "name": "Note Filter",
+      "candidateParameterIds": [
+        "MAX_KEY",
+        "MAX_VELOCITY",
+        "MIN_KEY",
+        "MIN_VELOCITY"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "264d6f4e-5067-46c9-a4fa-a75a295d9e01",
+      "name": "Note Grid",
+      "candidateParameterIds": [
+        "AFFECT_VOICE_LIFETIME",
+        "ALL_VELOCITIES",
+        "AUDIO_THRU",
+        "CONTROL_THRU",
+        "ENABLE_EXPRESSIONS",
+        "FREERUN",
+        "GLIDE_TIME",
+        "KEY",
+        "LENGTH",
+        "MIDI_CHANNEL",
+        "NOTE_THRU",
+        "OFFSET",
+        "PITCH_TRANSPOSE",
+        "RELATIVE_TIMBRE",
+        "SHUFFLE",
+        "SMOOTH",
+        "TIMEBASE",
+        "VELOCITY"
+      ],
+      "objectTokens": [
+        "0",
+        "1",
+        "CHANNEL_IN",
+        "CONTENTS",
+        "Chain",
+        "GAIN_IN",
+        "GATE_IN",
+        "MODULES",
+        "PAN_IN",
+        "PITCH_IN",
+        "POLY",
+        "POST_FX",
+        "PRESSURE_IN",
+        "PRE_FX",
+        "STACK_SPREAD",
+        "TIMBRE_IN",
+        "VELOCITY_IN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "4c396eb6-953d-4de0-afaa-63276fc1150b",
+      "name": "Note Length",
+      "candidateParameterIds": [
+        "FIXED_VELOCITY",
+        "MODE",
+        "OFFSET",
+        "RELEASE_VELOCITY_MODE",
+        "SYNC",
+        "SYNC_DELAY",
+        "TIME",
+        "VELOCITY"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "1179be46-4d43-4a26-bb5f-430bc3fef9ba",
+      "name": "Note MOD",
+      "candidateParameterIds": [
+        "ADSR_DEPTH",
+        "ATTACK",
+        "DECAY",
+        "GLIDE",
+        "MIX",
+        "RELEASE",
+        "SMOOTH",
+        "SUSTAIN"
+      ],
+      "objectTokens": [
+        "AMP",
+        "CONTENTS",
+        "Chain",
+        "ENVELOPE",
+        "FX",
+        "KEY",
+        "NOTE_FX_CHAIN",
+        "NOTE_SOURCE",
+        "PAN",
+        "PRESSURE",
+        "TIMBRE",
+        "VEL"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "c6153773-ed96-4cca-a767-5cf3d5dceacb",
+      "name": "Note Receiver",
+      "candidateParameterIds": [
+        "MUTE"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "SOURCE"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "a68e0f1b-bcc6-45c2-b09e-8c8771f83e50",
+      "name": "Note Repeats",
+      "candidateParameterIds": [
+        "ACCENT",
+        "ACCENT_INVERT",
+        "ACCENT_VEL_FACTOR",
+        "CHANCE",
+        "DISABLE_REPEATS",
+        "FILL",
+        "GATE_LENGTH",
+        "HOLD_UNTIL_NEXT_TRIGGER",
+        "MODE",
+        "PHASE_FOR_CLOCK",
+        "PRESERVE_ACCENTS",
+        "RATE",
+        "ROTATE",
+        "STEPS",
+        "TIMEBASE",
+        "TRIGGER",
+        "VELOCITY_DECAY"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "0815cd9e-3a31-4429-a268-dabd952a3b68",
+      "name": "Note Transpose",
+      "candidateParameterIds": [
+        "COARSE",
+        "FINE",
+        "OCTAVES",
+        "STEPS",
+        "USE_GLOBAL_KEY"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "f2dcfe9a-7b66-4c84-984a-b25685a1c21a",
+      "name": "Organ",
+      "candidateParameterIds": [
+        "ATTACK",
+        "GAIN",
+        "GLIDE_TIME",
+        "LEVEL_12TH",
+        "LEVEL_15TH",
+        "LEVEL_17TH",
+        "LEVEL_19TH",
+        "LEVEL_22ND",
+        "LEVEL_5TH",
+        "LEVEL_8TH",
+        "LEVEL_PRIMARY",
+        "LEVEL_SUB",
+        "MODEL",
+        "OUTPUT",
+        "PAN",
+        "PITCH",
+        "RELEASE",
+        "RETRIGGER"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX",
+        "NOTE_FX",
+        "POLY",
+        "STACK_SPREAD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "ffe670a2-09aa-4c9b-8822-5161a9cca686",
+      "name": "Oscilloscope",
+      "candidateParameterIds": [
+        "DEVICE_VIEW",
+        "GAIN_A",
+        "GAIN_B",
+        "INPUT_SELECT_A",
+        "INPUT_SELECT_B",
+        "KEYFOLLOW",
+        "LINK",
+        "OFFSET",
+        "SCALE",
+        "TRIGGERRSELECT",
+        "TRIGGER_HOLDOFF",
+        "TRIGGER_LEVEL",
+        "TRIGGER_SLOPE"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "EXT_INPUT_B",
+        "IS_FROZEN",
+        "SETTINGS",
+        "SHOW_B"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "41b34699-8e5d-4534-a429-a67d488ba6ac",
+      "name": "Over",
+      "candidateParameterIds": [
+        "CLIP",
+        "DELTA",
+        "KNEE",
+        "MAKEUP",
+        "MB_MIX",
+        "MB_TILT"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "8da7251e-2578-4bcc-b3c4-8f4ec2e115d0",
+      "name": "Peak Limiter",
+      "candidateParameterIds": [
+        "CEILING",
+        "GAIN",
+        "RELEASE",
+        "RELEASE_BIAS"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "252723bf-68a6-4ee6-81f8-95ba4d0fb467",
+      "name": "Phase-4",
+      "candidateParameterIds": [
+        "AEG_ATTACK",
+        "AEG_DECAY",
+        "AEG_RELEASE",
+        "AEG_SUSTAIN",
+        "AEG_VELOCITY",
+        "DENOMINATOR_1",
+        "DENOMINATOR_2",
+        "DENOMINATOR_3",
+        "DENOMINATOR_4",
+        "ENABLE_1",
+        "ENABLE_2",
+        "ENABLE_3",
+        "ENABLE_4",
+        "FCFM1",
+        "FCFM2",
+        "FCFM3",
+        "FCFM4",
+        "FEEDBACK",
+        "FEG_AMOUNT",
+        "FEG_ATTACK",
+        "FEG_DECAY",
+        "FEG_RELEASE",
+        "FEG_SUSTAIN",
+        "FEG_VELOCITY",
+        "FILTER_DRIVE",
+        "FILTER_FREQ",
+        "FILTER_KEYTRACK",
+        "FILTER_RESO",
+        "FILTER_TYPE",
+        "FORMANT1",
+        "FORMANT2",
+        "FORMANT3",
+        "FORMANT4",
+        "FREQ_1",
+        "FREQ_2",
+        "FREQ_3",
+        "FREQ_4",
+        "FREQ_OFFSET_1",
+        "FREQ_OFFSET_2",
+        "FREQ_OFFSET_3",
+        "FREQ_OFFSET_4",
+        "GLIDE_TIME",
+        "GLOBAL_MODULATION",
+        "GLOBAL_SHAPE",
+        "KEYTRACK1",
+        "KEYTRACK2",
+        "KEYTRACK3",
+        "KEYTRACK4",
+        "MIX_1",
+        "MIX_2",
+        "MIX_3",
+        "MIX_4",
+        "NUMERATOR_1",
+        "NUMERATOR_2",
+        "NUMERATOR_3",
+        "NUMERATOR_4",
+        "OUTPUT",
+        "PAN",
+        "PHASE_1",
+        "PHASE_2",
+        "PHASE_3",
+        "PHASE_4",
+        "PITCH",
+        "PITCH_MOD_1",
+        "PITCH_MOD_2",
+        "PITCH_MOD_3",
+        "PITCH_MOD_4",
+        "PM11",
+        "PM12",
+        "PM13",
+        "PM14",
+        "PM1M",
+        "PM21",
+        "PM22",
+        "PM23",
+        "PM24",
+        "PM2M",
+        "PM31",
+        "PM32",
+        "PM33",
+        "PM34",
+        "PM3M",
+        "PM41",
+        "PM42",
+        "PM43",
+        "PM44",
+        "PM4M",
+        "PRE1",
+        "PRE2",
+        "PRE3",
+        "PRE4",
+        "SHAPE1",
+        "SHAPE2",
+        "SHAPE3",
+        "SHAPE4",
+        "SHAPE_AMOUNT_1",
+        "SHAPE_AMOUNT_2",
+        "SHAPE_AMOUNT_3",
+        "SHAPE_AMOUNT_4",
+        "STEREO1",
+        "STEREO2",
+        "STEREO3",
+        "STEREO4",
+        "VOICE_GAIN"
+      ],
+      "objectTokens": [
+        "AEG",
+        "CONTENTS",
+        "Chain",
+        "FEG",
+        "FX",
+        "NOTE_FX",
+        "POLY",
+        "STACK_SPREAD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "fc87ae07-1624-449f-8dae-2db5d93e1aa9",
+      "name": "Phaser",
+      "candidateParameterIds": [
+        "BASS_FREQ",
+        "FEEDBACK",
+        "FREQ",
+        "L",
+        "MIX",
+        "POLES",
+        "R"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "fd7a9e6c-6992-40c2-be3b-ac8ed48553e9",
+      "name": "Phaser+",
+      "candidateParameterIds": [
+        "ALTERNATE_MODE",
+        "AMOUNT",
+        "CENTER",
+        "CURVE",
+        "FEEDBACK",
+        "MANUAL",
+        "MIX",
+        "OVERRIDE",
+        "RATE",
+        "STEREO",
+        "TYPE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "384fe469-6023-4f69-9560-e0c2eec2da49",
+      "name": "Pitch Shifter",
+      "candidateParameterIds": [
+        "GRAIN_RATE",
+        "MIX",
+        "PITCH"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "a33bba66-8cd4-4f89-aee5-68bf67f70a54",
+      "name": "Poly Grid",
+      "candidateParameterIds": [
+        "AFFECT_VOICE_LIFETIME",
+        "ATTACK",
+        "ATTACK_CURVE",
+        "CLIP_MODE",
+        "CONTROL_THRU",
+        "DECAY",
+        "DECAY_CURVE",
+        "DENOMINATOR",
+        "DETUNE",
+        "FREERUN",
+        "GATE",
+        "GLIDE_TIME",
+        "HOLD_TIME",
+        "KEYTRACK",
+        "LENGTH",
+        "MODEL",
+        "NOTE_THRU",
+        "NUMERATOR",
+        "OFFSET",
+        "OUTPUT",
+        "PHASE_MOD",
+        "PITCH",
+        "PITCH_MOD",
+        "PITCH_TRANSPOSE",
+        "PULSE",
+        "PW",
+        "RELEASE",
+        "RELEASE_CURVE",
+        "RETRIGGER",
+        "SAW",
+        "SHUFFLE",
+        "SILENCE_THRESHOLD",
+        "STEREO",
+        "SUSTAIN",
+        "TIMEBASE",
+        "TRI"
+      ],
+      "objectTokens": [
+        "0",
+        "1",
+        "2",
+        "CONTENTS",
+        "Chain",
+        "ENVELOPE",
+        "GATE_IN",
+        "IN",
+        "MODULES",
+        "PHASE_IN",
+        "PITCH_IN",
+        "POLY",
+        "POST_FX",
+        "PRE_FX",
+        "STACK_SPREAD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "8f58138b-03aa-4e9d-83bd-a038c99a4ed5",
+      "name": "Polymer",
+      "candidateParameterIds": [
+        "AFFECT_VOICE_LIFETIME",
+        "ATTACK",
+        "ATTACK_CURVE",
+        "BIPOLAR",
+        "CLIP_LEVEL",
+        "CLIP_MODE",
+        "CUTOFF",
+        "CUTOFF_MOD",
+        "DECAY",
+        "DECAY_CURVE",
+        "DENOMINATOR",
+        "DEPTH",
+        "DETUNE",
+        "DRIVE",
+        "FREERUN",
+        "GATE",
+        "GLIDE_TIME",
+        "HOLD_TIME",
+        "INVERT",
+        "KEYTRACK",
+        "LENGTH",
+        "MODE",
+        "MODEL",
+        "NUMERATOR",
+        "OCTAVE",
+        "OFFSET",
+        "OUTPUT",
+        "PAN",
+        "PHASE_MOD",
+        "PITCH",
+        "PITCH_MOD",
+        "PITCH_TRANSPOSE",
+        "POLES",
+        "PULSE",
+        "PW",
+        "Q_LIMIT",
+        "RELEASE",
+        "RELEASE_CURVE",
+        "RESONANCE",
+        "RESPONSE",
+        "RETRIGGER",
+        "SAW",
+        "SHUFFLE",
+        "SILENCE_THRESHOLD",
+        "STEREO",
+        "SUSTAIN",
+        "TIME",
+        "TIMEBASE",
+        "TRI",
+        "TYPE",
+        "VALUE",
+        "WAVEFORM"
+      ],
+      "objectTokens": [
+        "0",
+        "1",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "CONTENTS",
+        "Chain",
+        "ENVELOPE",
+        "GATE_IN",
+        "IN",
+        "IN2",
+        "MODULES",
+        "MOD_IN",
+        "OFF_TEXT",
+        "ON_TEXT",
+        "PHASE_IN",
+        "PITCH_IN",
+        "POLY",
+        "POST_FX",
+        "PRE_FX",
+        "SEL",
+        "STACK_SPREAD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "a9ffacb5-33e9-4fc7-8621-b1af31e410ef",
+      "name": "Polysynth",
+      "candidateParameterIds": [
+        "A",
+        "AMP_VELOCITY_SENSETIVITY",
+        "D",
+        "F1A",
+        "F1D",
+        "F1FREQ",
+        "F1R",
+        "F1RESO",
+        "F1S",
+        "FEEDBACK",
+        "FEGDEPTH",
+        "FILTER_OSCILLATOR_FM",
+        "FILTER_TYPE",
+        "FITLER_EG_CURVE",
+        "GAIN",
+        "GLIDE_TIME",
+        "HPFFREQ",
+        "HPF_RESONANCE",
+        "HPF_TYPE",
+        "KEY > F",
+        "NOISE",
+        "OSC1OCT",
+        "OSC1_PAN",
+        "OSC1_PITCH",
+        "OSC1_SHAPE",
+        "OSC1_SUB_LEVEL",
+        "OSC1_SUB_PW",
+        "OSC1_SYNC",
+        "OSC1_UNISON_SPREAD",
+        "OSC1_UNISON_VOICES",
+        "OSC1_WIDTH",
+        "OSC2OCT",
+        "OSC2PITCH",
+        "OSC2_PAN",
+        "OSC2_RETRIG",
+        "OSC2_SHAPE",
+        "OSC2_SUB_LEVEL",
+        "OSC2_SUB_PW",
+        "OSC2_SYNC",
+        "OSC2_UNISON_SPREAD",
+        "OSC2_UNISON_VOICES",
+        "OSC2_WIDTH",
+        "OSCMIX",
+        "OSC_1_RETRIG",
+        "OSC_BLEND_OPERATOR",
+        "OUTPUT",
+        "PAN",
+        "PITCH",
+        "PRE-FITLER_GAIN",
+        "PW1",
+        "PW2",
+        "R",
+        "S",
+        "SHAPER",
+        "SHAPER_MODE",
+        "USE_LEGACY_RESONANCE_RANGE"
+      ],
+      "objectTokens": [
+        "AEG",
+        "CONTENTS",
+        "Chain",
+        "EFFECT_CHAIN",
+        "FEG",
+        "NOTE_FX",
+        "POLY",
+        "STACK_SPREAD"
+      ],
+      "parameterResolution": {
+        "status": "live-resolved",
+        "resolvedIds": [
+          "A",
+          "AMP_VELOCITY_SENSETIVITY",
+          "D",
+          "F1A",
+          "F1D",
+          "F1FREQ",
+          "F1R",
+          "F1RESO",
+          "F1S",
+          "FEEDBACK",
+          "FEGDEPTH",
+          "FILTER_OSCILLATOR_FM",
+          "FILTER_TYPE",
+          "FITLER_EG_CURVE",
+          "GAIN",
+          "HPFFREQ",
+          "HPF_RESONANCE",
+          "HPF_TYPE",
+          "KEY > F",
+          "NOISE",
+          "OSC1OCT",
+          "OSC1_PAN",
+          "OSC1_PITCH",
+          "OSC1_SHAPE",
+          "OSC1_SUB_LEVEL",
+          "OSC1_SUB_PW",
+          "OSC1_SYNC",
+          "OSC1_UNISON_SPREAD",
+          "OSC1_UNISON_VOICES",
+          "OSC1_WIDTH",
+          "OSC2OCT",
+          "OSC2PITCH",
+          "OSC2_PAN",
+          "OSC2_RETRIG",
+          "OSC2_SHAPE",
+          "OSC2_SUB_LEVEL",
+          "OSC2_SUB_PW",
+          "OSC2_SYNC",
+          "OSC2_UNISON_SPREAD",
+          "OSC2_UNISON_VOICES",
+          "OSC2_WIDTH",
+          "OSCMIX",
+          "OSC_1_RETRIG",
+          "OSC_BLEND_OPERATOR",
+          "OUTPUT",
+          "PAN",
+          "PITCH",
+          "PRE-FITLER_GAIN",
+          "PW1",
+          "PW2",
+          "R",
+          "S",
+          "SHAPER",
+          "SHAPER_MODE",
+          "USE_LEGACY_RESONANCE_RANGE"
+        ],
+        "unresolvedCandidateIds": [
+          "GLIDE_TIME"
+        ],
+        "liveOnlyIds": [],
+        "typedResolvedIds": [
+          "A",
+          "AMP_VELOCITY_SENSETIVITY",
+          "D",
+          "F1A",
+          "F1D",
+          "F1FREQ",
+          "F1R",
+          "F1RESO",
+          "F1S",
+          "FEEDBACK",
+          "FEGDEPTH",
+          "FILTER_OSCILLATOR_FM",
+          "FILTER_TYPE",
+          "FITLER_EG_CURVE",
+          "GAIN",
+          "HPFFREQ",
+          "HPF_RESONANCE",
+          "HPF_TYPE",
+          "KEY > F",
+          "NOISE",
+          "OSC1OCT",
+          "OSC1_PAN",
+          "OSC1_PITCH",
+          "OSC1_SHAPE",
+          "OSC1_SUB_LEVEL",
+          "OSC1_SUB_PW",
+          "OSC1_SYNC",
+          "OSC1_UNISON_SPREAD",
+          "OSC1_UNISON_VOICES",
+          "OSC1_WIDTH",
+          "OSC2OCT",
+          "OSC2PITCH",
+          "OSC2_PAN",
+          "OSC2_RETRIG",
+          "OSC2_SHAPE",
+          "OSC2_SUB_LEVEL",
+          "OSC2_SUB_PW",
+          "OSC2_SYNC",
+          "OSC2_UNISON_SPREAD",
+          "OSC2_UNISON_VOICES",
+          "OSC2_WIDTH",
+          "OSCMIX",
+          "OSC_1_RETRIG",
+          "OSC_BLEND_OPERATOR",
+          "OUTPUT",
+          "PAN",
+          "PITCH",
+          "PRE-FITLER_GAIN",
+          "PW1",
+          "PW2",
+          "R",
+          "S",
+          "SHAPER",
+          "SHAPER_MODE",
+          "USE_LEGACY_RESONANCE_RANGE"
+        ]
+      }
+    },
+    {
+      "uuid": "1c116b76-2b07-4b16-bf2a-ed5f0bdcc661",
+      "name": "Quantize",
+      "candidateParameterIds": [
+        "DELAY_NOTE_OFFS",
+        "PHASE_OF_NO_RETURN",
+        "TIMEBASE",
+        "TRIGGER"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "dc06a9a5-b0b7-41f1-af45-a3a1d2173fb8",
+      "name": "Randomize",
+      "candidateParameterIds": [
+        "PITCH_BIPOLAR",
+        "PITCH_QUANTIZE",
+        "RANDOMIZE_GAIN",
+        "RANDOMIZE_GAIN_AMOUNT",
+        "RANDOMIZE_PAN",
+        "RANDOMIZE_PAN_AMOUNT",
+        "RANDOMIZE_PITCH",
+        "RANDOMIZE_PITCH_AMOUNT",
+        "RANDOMIZE_PRESSURE",
+        "RANDOMIZE_PRESSURE_AMOUNT",
+        "RANDOMIZE_TIMBRE",
+        "RANDOMIZE_TIMBRE_AMOUNT",
+        "RANDOMIZE_VELOCITY",
+        "RANDOMIZE_VELOCITY_AMOUNT",
+        "USE_GLOBAL_KEY"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "c8ed6372-d24f-47e0-9e9b-5b2a37949c45",
+      "name": "Replacer",
+      "candidateParameterIds": [
+        "FILTER_TYPE",
+        "FREQ",
+        "HOLD_TIME",
+        "HYSTERESIS",
+        "KEY",
+        "MIX",
+        "MONITOR_BPF",
+        "Q",
+        "THRESHOLD",
+        "VELOCITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "INST_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "b64070ae-5a59-4640-bb6a-194619bc12d8",
+      "name": "Resonator Bank",
+      "candidateParameterIds": [
+        "FREQ1",
+        "FREQ2",
+        "FREQ3",
+        "FREQ4",
+        "FREQ5",
+        "FREQ6",
+        "GAIN",
+        "GAIN1",
+        "GAIN2",
+        "GAIN3",
+        "GAIN4",
+        "GAIN5",
+        "GAIN6",
+        "GLIDE",
+        "GLOBAL_Q",
+        "KEYTRACK",
+        "MIX",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5",
+        "Q6",
+        "SHIFT"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "5a1cb339-1c4a-4cc7-9cae-bd7a2058153d",
+      "name": "Reverb",
+      "candidateParameterIds": [
+        "BUILDUP",
+        "DIFFUSION",
+        "EARLY_LATE",
+        "HIFREQ",
+        "HIX",
+        "LOFREQ",
+        "LOX",
+        "MIX",
+        "PRE-DELAY",
+        "REVERB_TIME",
+        "ROOM_SIZE",
+        "SHAPE",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "TANK_FX",
+        "WET_FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "0645879b-efea-4bbe-8e41-9a176247b808",
+      "name": "Ricochet",
+      "candidateParameterIds": [
+        "BALL_RADIUS",
+        "DAMPING",
+        "FIRST_NOTE",
+        "LAUNCH_ANGLE",
+        "LAUNCH_ANGLE_TYPE",
+        "NUM_SIDES",
+        "PHASE",
+        "PHASE_FOR_CLOCK",
+        "POSITION_TO_PARAMETERS",
+        "RATE",
+        "SPEED",
+        "TIMEBASE",
+        "TRIGGER"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "374feaeb-c785-4243-9d08-3f9099b4c0cb",
+      "name": "Ring-Mod",
+      "candidateParameterIds": [
+        "FREQUENCY",
+        "GAIN",
+        "MIX"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "POST_CHAIN",
+        "PRE_CHAIN",
+        "SOURCE",
+        "SOURCE_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "8fc25e70-b92b-4096-8270-42e492df501a",
+      "name": "Rotary",
+      "candidateParameterIds": [
+        "AMPMOD",
+        "DELAY_MODULATION",
+        "RATE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "468bc14b-b2e7-45a1-9666-e83117fe404e",
+      "name": "Sampler",
+      "candidateParameterIds": [
+        "AMP_ATTACK_SHAPE",
+        "AMP_ATTACK_TIME",
+        "AMP_DECAY_SHAPE",
+        "AMP_DECAY_TIME",
+        "AMP_HOLD_TIME",
+        "AMP_RELEASE_SHAPE",
+        "AMP_RELEASE_TIME",
+        "AMP_SUSTAIN_LEVEL",
+        "FADE_IN",
+        "FADE_OUT",
+        "FILTER_KEYTRACK",
+        "FILTER_TYPE",
+        "FILT_FREQ",
+        "FILT_RESO",
+        "FORMANT",
+        "FREEZE_PLAYHEAD",
+        "GAIN",
+        "GLIDE_TIME",
+        "GRAIN_SIZE",
+        "LOOP_LENGTH",
+        "LOOP_START",
+        "MODE",
+        "OUTPUT",
+        "PAN",
+        "PLAYHEAD_MOTION",
+        "PLAY_MODE",
+        "RELEASE_NOTE_LENGTH",
+        "RELEASE_VELOCITY_MODE",
+        "SAMPLE_START",
+        "SELECT",
+        "SPEED",
+        "TRANSPOSE",
+        "VELOCITY_SENSITIVETY"
+      ],
+      "objectTokens": [
+        "AEG",
+        "CONTENTS",
+        "Chain",
+        "FX",
+        "NOTE_FX",
+        "POLY",
+        "RELEASE_CHAIN",
+        "SAMPLE",
+        "STACK_SPREAD",
+        "ZONEPARAM_1",
+        "ZONEPARAM_2",
+        "ZONEPARAM_3"
+      ],
+      "parameterResolution": {
+        "status": "live-resolved",
+        "resolvedIds": [
+          "AMP_ATTACK_SHAPE",
+          "AMP_ATTACK_TIME",
+          "AMP_DECAY_SHAPE",
+          "AMP_DECAY_TIME",
+          "AMP_HOLD_TIME",
+          "AMP_RELEASE_SHAPE",
+          "AMP_RELEASE_TIME",
+          "AMP_SUSTAIN_LEVEL",
+          "FADE_IN",
+          "FADE_OUT",
+          "FILTER_KEYTRACK",
+          "FILTER_TYPE",
+          "FILT_FREQ",
+          "FILT_RESO",
+          "FORMANT",
+          "FREEZE_PLAYHEAD",
+          "GAIN",
+          "GRAIN_SIZE",
+          "LOOP_LENGTH",
+          "LOOP_START",
+          "MODE",
+          "OUTPUT",
+          "PAN",
+          "PLAYHEAD_MOTION",
+          "PLAY_MODE",
+          "RELEASE_NOTE_LENGTH",
+          "RELEASE_VELOCITY_MODE",
+          "SAMPLE_START",
+          "SELECT",
+          "SPEED",
+          "TRANSPOSE",
+          "VELOCITY_SENSITIVETY"
+        ],
+        "unresolvedCandidateIds": [
+          "GLIDE_TIME"
+        ],
+        "liveOnlyIds": [],
+        "typedResolvedIds": []
+      }
+    },
+    {
+      "uuid": "93d11348-86ae-4ead-9fe7-84ac03b9369c",
+      "name": "Saturator",
+      "candidateParameterIds": [
+        "CUTOFF",
+        "DRIVE",
+        "HIGH_KNEE",
+        "HIGH_RATIO",
+        "HIGH_THRESHOLD",
+        "KNEE_SKEW",
+        "LOW_KNEE",
+        "LOW_RATIO",
+        "LOW_THRESHOLD",
+        "NORMALIZE",
+        "OUTPUT",
+        "POLES",
+        "RATIO_SKEW",
+        "SKEW_THRESHOLD"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "EDIT_TRANSFER"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "8d9d63db-9991-4e46-8b4c-77755d1fcaab",
+      "name": "Sculpt",
+      "candidateParameterIds": [
+        "BANDWIDTH",
+        "CHANNEL_MODE",
+        "CHANNEL_SEPARATION",
+        "COLOR",
+        "HI_ATTEN",
+        "HI_ATTEN_FREQ",
+        "HI_BOOST",
+        "HI_FREQ",
+        "LO_ATTEN",
+        "LO_BOOST",
+        "LO_FREQ"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "fcd9aa65-ebbb-4337-a97e-69929322ef47",
+      "name": "Spectrum",
+      "candidateParameterIds": [
+        "DEVICE_VIEW",
+        "INPUT_SELECT_A",
+        "INPUT_SELECT_B",
+        "MAX_Y",
+        "RANGE_Y",
+        "SCALE_X",
+        "STYLE_1",
+        "STYLE_2",
+        "TILT"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "INPUT_B",
+        "SHOW_B"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "18a37a4d-8613-442d-a6eb-931002ba9a36",
+      "name": "Step MOD",
+      "candidateParameterIds": [
+        "MIX",
+        "RETRIGGER",
+        "SETP_16",
+        "SHUFFLE",
+        "SPEED",
+        "STEPS",
+        "STEP_1",
+        "STEP_10",
+        "STEP_11",
+        "STEP_12",
+        "STEP_13",
+        "STEP_14",
+        "STEP_15",
+        "STEP_2",
+        "STEP_3",
+        "STEP_4",
+        "STEP_5",
+        "STEP_6",
+        "STEP_7",
+        "STEP_8",
+        "STEP_9",
+        "STEP_RATE_BEAT",
+        "STEP_RATE_FREE",
+        "STEP_RATE_MODE"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX",
+        "MOD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "c278d0d9-3e48-432a-a3b8-b33eff9533d2",
+      "name": "Stepwise",
+      "candidateParameterIds": [
+        "ACCENT_VELOCITY",
+        "KEY_1",
+        "KEY_2",
+        "KEY_3",
+        "KEY_4",
+        "KEY_5",
+        "KEY_6",
+        "KEY_7",
+        "KEY_8",
+        "LENGTH_1",
+        "LENGTH_2",
+        "LENGTH_3",
+        "LENGTH_4",
+        "LENGTH_5",
+        "LENGTH_6",
+        "LENGTH_7",
+        "LENGTH_8",
+        "MODE",
+        "MUTE_1",
+        "MUTE_2",
+        "MUTE_3",
+        "MUTE_4",
+        "MUTE_5",
+        "MUTE_6",
+        "MUTE_7",
+        "MUTE_8",
+        "MUTE_WHEN_STOPPED",
+        "PHO1",
+        "PHO2",
+        "PHO3",
+        "PHO4",
+        "PHO5",
+        "PHO6",
+        "PHO7",
+        "PHO8",
+        "SHUFFLE_1",
+        "SHUFFLE_2",
+        "SHUFFLE_3",
+        "SHUFFLE_4",
+        "SHUFFLE_5",
+        "SHUFFLE_6",
+        "SHUFFLE_7",
+        "SHUFFLE_8",
+        "SOLO",
+        "TEST_1",
+        "TEST_2",
+        "TEST_3",
+        "TIMEBASE_1",
+        "TIMEBASE_2",
+        "TIMEBASE_3",
+        "TIMEBASE_4",
+        "TIMEBASE_5",
+        "TIMEBASE_6",
+        "TIMEBASE_7",
+        "TIMEBASE_8",
+        "USE_MIDI_CHANNELS",
+        "VELOCITY_1",
+        "VELOCITY_2",
+        "VELOCITY_3",
+        "VELOCITY_4",
+        "VELOCITY_5",
+        "VELOCITY_6",
+        "VELOCITY_7",
+        "VELOCITY_8"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "DATA_1",
+        "DATA_2",
+        "DATA_3",
+        "DATA_4",
+        "DATA_5",
+        "DATA_6",
+        "DATA_7",
+        "DATA_8",
+        "SHOW_ACTIONS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "96196ffe-658f-46c4-84ba-153799be3657",
+      "name": "Stereo Split",
+      "candidateParameterIds": [
+        "LEFT_GAIN",
+        "RIGHT_GAIN"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "LEFT_CHAIN",
+        "RIGHT_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "109d747c-ec75-4255-b495-7adba6ea66b6",
+      "name": "Strum",
+      "candidateParameterIds": [
+        "DELAY_FIRST_NOTE",
+        "GRACE_WINDOW",
+        "RATE",
+        "STEPS",
+        "STEP_1_STRUM_DIRECTION",
+        "STEP_2_STRUM_DIRECTION",
+        "STEP_3_STRUM_DIRECTION",
+        "STEP_4_STRUM_DIRECTION",
+        "STRIDE",
+        "TIMEBASE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "ab52804f-1169-4657-b8c8-8db5532cf717",
+      "name": "Sweep",
+      "candidateParameterIds": [
+        "AA",
+        "AFFECT_VOICE_LIFETIME",
+        "AMOUNT2",
+        "AMOUNT3",
+        "AMOUNT4",
+        "AMOUNT5",
+        "AMOUNT6",
+        "AUTO_GATE",
+        "AUTO_RELEASE",
+        "BIPOLAR",
+        "CLIP_LEVEL",
+        "CLIP_MODE",
+        "COLOR",
+        "CONTROL_THRU",
+        "COUNT",
+        "CUTOFF",
+        "CUTOFF2",
+        "CUTOFF_MOD",
+        "DEPTH",
+        "DRIVE",
+        "FBK_GAIN",
+        "FILTER_TYPE",
+        "FREERUN",
+        "GAIN",
+        "GLIDE_TIME",
+        "HOLD_TIME",
+        "INTERPOLATION",
+        "INVERT",
+        "KEYTRACK",
+        "LENGTH",
+        "MIX",
+        "MODE",
+        "NORMALIZE",
+        "NOTE_THRU",
+        "OFFSET",
+        "PAN",
+        "PHASE",
+        "PHASE_MOD",
+        "PITCH_TRANSPOSE",
+        "POLES",
+        "Q_LIMIT",
+        "RATE",
+        "RATE_MOD",
+        "RESONANCE",
+        "RETRIGGER",
+        "RPHASE",
+        "SHUFFLE",
+        "SILENCE_THRESHOLD",
+        "SKEW",
+        "STEREOIZE",
+        "STEREONESS",
+        "SYNC",
+        "THRU2",
+        "THRU3",
+        "THRU4",
+        "THRU5",
+        "THRU6",
+        "TIMEBASE",
+        "TRANSPORT_SYNC",
+        "VALUE",
+        "WAVE",
+        "WIDTH",
+        "WRAP"
+      ],
+      "objectTokens": [
+        "0",
+        "1",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "2",
+        "20",
+        "21",
+        "22",
+        "23",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "CONTENTS",
+        "Chain",
+        "GATE_IN",
+        "IN",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5",
+        "IN6",
+        "IN7",
+        "IN8",
+        "LFO",
+        "MODULES",
+        "MOD_IN",
+        "Note Source",
+        "PHASE_IN",
+        "POLY",
+        "POST_FX",
+        "PRE_FX",
+        "RATE_IN",
+        "SOURCE",
+        "STACK_SPREAD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "20b72dbc-0fe1-47c5-867c-f0ab1510f723",
+      "name": "Test Tone",
+      "candidateParameterIds": [
+        "FREQUENCY",
+        "GAIN",
+        "MIX"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "061dcec6-543f-46f6-b679-f092eeefdbe4",
+      "name": "Tilt",
+      "candidateParameterIds": [
+        "CHANNEL_MODE",
+        "CHANNEL_SEPARATION",
+        "FREQUENCY",
+        "GAIN",
+        "SLOPE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "861bb5b0-5cd6-4066-9681-1cc561cb898f",
+      "name": "Time Shift",
+      "candidateParameterIds": [
+        "SHIFT",
+        "SHIFT_SAMPLES",
+        "UNIT"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "e67b9c56-838d-4fba-8e3e-ae4e02cccbcb",
+      "name": "Tool",
+      "candidateParameterIds": [
+        "AMPLITUDE",
+        "INVERT_LEFT",
+        "INVERT_RIGHT",
+        "PAN",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "71e6dbd8-a117-4ff0-85e8-5650f5a76d98",
+      "name": "Transient Control",
+      "candidateParameterIds": [
+        "ATTACK_GAIN",
+        "ATTACK_TIME",
+        "MIX",
+        "SUSTAIN",
+        "SUSTAIN_TIME"
+      ],
+      "objectTokens": [
+        "ATTACK_MOD",
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN",
+        "SOURCE",
+        "SUSTAIN_MOD"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "7c3c7bb2-625d-4915-ae95-943ee9aa807d",
+      "name": "Transient Split",
+      "candidateParameterIds": [
+        "ANALYSISMODEL",
+        "BIAS",
+        "BLEND",
+        "DISPLAY",
+        "FREQBIAS",
+        "FREQBIASTYPE",
+        "FREQ_BIAS",
+        "LEVEL_TONES",
+        "LEVEL_TRANS",
+        "MIX",
+        "ON1",
+        "ON2",
+        "PAN_TONES",
+        "PAN_TRANSIENTS",
+        "SOLO",
+        "TRANSIENT_DECAY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "HARMONIC_CHAIN",
+        "POST_CHAIN",
+        "PRE_CHAIN",
+        "TRANSIENT_CHAIN"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "284a1949-29d5-4dd4-8315-86cef92fd2cd",
+      "name": "Transpose Map",
+      "candidateParameterIds": [
+        "OCTAVE",
+        "OUTPUT_PITCH_CLASS_00",
+        "OUTPUT_PITCH_CLASS_01",
+        "OUTPUT_PITCH_CLASS_02",
+        "OUTPUT_PITCH_CLASS_03",
+        "OUTPUT_PITCH_CLASS_04",
+        "OUTPUT_PITCH_CLASS_05",
+        "OUTPUT_PITCH_CLASS_06",
+        "OUTPUT_PITCH_CLASS_07",
+        "OUTPUT_PITCH_CLASS_08",
+        "OUTPUT_PITCH_CLASS_09",
+        "OUTPUT_PITCH_CLASS_10",
+        "OUTPUT_PITCH_CLASS_11",
+        "ROOT",
+        "TRANSPOSE"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "e45e00d2-85a0-4c05-8321-819694befa09",
+      "name": "Treemonster",
+      "candidateParameterIds": [
+        "HIGH_FREQ",
+        "LOW_FREQ",
+        "MIX",
+        "PITCH",
+        "RING",
+        "SPEED",
+        "THRESHOLD"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "WET_FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "f3b90fff-402b-4187-9aab-620f441577b9",
+      "name": "Tremolo",
+      "candidateParameterIds": [
+        "DEPTH",
+        "LFO_WAVEFORM",
+        "RATE",
+        "RETRIG"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "066d0065-99a4-47da-b0f7-9468ef69c1cf",
+      "name": "Velocity Curve",
+      "candidateParameterIds": [
+        "RANDOM",
+        "X1",
+        "Y0",
+        "Y1",
+        "Y2"
+      ],
+      "objectTokens": [
+        "CONTENTS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "a0cb2ec0-2464-461c-8165-296f98905539",
+      "name": "Vocoder",
+      "candidateParameterIds": [
+        "AFFECT_VOICE_LIFETIME",
+        "ATTACK",
+        "BANDS",
+        "BRIGHTNESS",
+        "CARRIER_GAIN",
+        "CEILING",
+        "CHANNELS",
+        "CLIP_MODE",
+        "CUTOFF",
+        "DRIVE",
+        "FLOOR",
+        "FOCUS",
+        "FORMANT",
+        "FREERUN",
+        "FREEZE",
+        "GAIN",
+        "GLIDE_TIME",
+        "HI_FREQ",
+        "HOLD_TIME",
+        "LENGTH",
+        "LO_FREQ",
+        "MIX",
+        "MODULATOR_GAIN",
+        "OFFSET",
+        "PITCH_TRANSPOSE",
+        "POLES",
+        "PREVIEW_CARRIER",
+        "PREVIEW_MODULATOR",
+        "RELEASE",
+        "SECTIONS",
+        "SHUFFLE",
+        "SILENCE_THRESHOLD",
+        "STEREO",
+        "TIMEBASE",
+        "TYPE"
+      ],
+      "objectTokens": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "CARRIER",
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN",
+        "IN",
+        "MODULATOR",
+        "MODULATORS",
+        "MODULES",
+        "Note Source",
+        "POLY",
+        "POST_FX",
+        "PRE_FX",
+        "SOURCE",
+        "STACK_SPREAD",
+        "WET_FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "51169152-c144-4a38-95ba-1390fb579a1f",
+      "name": "XY FX",
+      "candidateParameterIds": [
+        "LEVEL",
+        "MIX",
+        "MIX_LR",
+        "MIX_UD",
+        "MUTE_A",
+        "MUTE_B",
+        "MUTE_C",
+        "MUTE_D",
+        "SOLO"
+      ],
+      "objectTokens": [
+        "CHAIN_A",
+        "CHAIN_B",
+        "CHAIN_C",
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN",
+        "MODX",
+        "MODY",
+        "POST_FX",
+        "SHOW_XY"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "bab3f04d-d3b6-4dfa-86f9-506e0b091ca8",
+      "name": "XY Instrument",
+      "candidateParameterIds": [
+        "MIX_LR",
+        "MIX_UD",
+        "MUTE_A",
+        "MUTE_B",
+        "MUTE_C",
+        "MUTE_D",
+        "OUTPUT",
+        "SOLO"
+      ],
+      "objectTokens": [
+        "CHAIN_A",
+        "CHAIN_B",
+        "CHAIN_C",
+        "CONTENTS",
+        "Chain",
+        "DEVICE_CHAIN",
+        "GLOBAL_CHAIN",
+        "MODX",
+        "MODY",
+        "PRE_FX",
+        "SHOW_XY"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "7b21c41e-67c3-4dd0-aa64-4fbb03d95cdb",
+      "name": "v0 Cymbal",
+      "candidateParameterIds": [
+        "CARRIER_SPREAD",
+        "DECAY",
+        "KEYTRACK",
+        "MODULATOR_SPREAD",
+        "OSC_RANGE",
+        "OUTPUT",
+        "PHASER",
+        "SHIFT",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "212c6aa0-04b6-49b7-a77f-c1fcee5d33a1",
+      "name": "v0 Hat",
+      "candidateParameterIds": [
+        "CARRIER_SPREAD",
+        "DECAY",
+        "KEYTRACK",
+        "LEGACY_MODE",
+        "MODULATOR_SPREAD",
+        "OSC_RANGE",
+        "OUTPUT",
+        "PHASER",
+        "SHIFT",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "8415c7af-1379-4730-97bf-16380f96d0fe",
+      "name": "v0 Kick",
+      "candidateParameterIds": [
+        "BODY",
+        "DECAY",
+        "KEYTRACK",
+        "NOISE",
+        "OUTPUT",
+        "PUNCH",
+        "SHAPE",
+        "STEREO_MODULATION",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "446c58e3-ee39-4a22-b1e1-a62c614f98d4",
+      "name": "v0 Snare",
+      "candidateParameterIds": [
+        "CLICK",
+        "DECAY",
+        "KEYTRACK",
+        "NOISE",
+        "OUTPUT",
+        "RINGING",
+        "SHELL",
+        "SIZE",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "3c6105ad-176e-4403-993b-3eedefdf6dda",
+      "name": "v0 Tom",
+      "candidateParameterIds": [
+        "AIR",
+        "CLICK",
+        "DECAY",
+        "KEYTRACK",
+        "OUTPUT",
+        "PUNCH",
+        "RUMBLE",
+        "SHAPE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "eef2e851-925b-4e86-81c6-67463e17c5f7",
+      "name": "v0 Zap Kick",
+      "candidateParameterIds": [
+        "DECAY",
+        "FREQ_MOD",
+        "GATE",
+        "OUTPUT",
+        "PHASE_MOD",
+        "PITCH_MOD",
+        "SWEEP",
+        "SWEEP_DECAY",
+        "TUNE",
+        "TUNED",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX",
+        "SHOW_MODS"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "89eba41d-46d3-4506-8ce6-ba9fe3e3bee4",
+      "name": "v1 Clap",
+      "candidateParameterIds": [
+        "DECAY",
+        "FREQ",
+        "OUTPUT",
+        "Q",
+        "REPEAT_DURATION",
+        "REPEAT_TIME",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "dd594db1-a908-453f-a1b9-0a1b6c4c3b32",
+      "name": "v1 Cowbell",
+      "candidateParameterIds": [
+        "AEG_ATTACK",
+        "AEG_DECAY",
+        "FILTER_FREQ",
+        "FILTER_RESONANCE",
+        "GEN_MIX",
+        "GEN_OFFSET",
+        "GEN_PITCH",
+        "GEN_SHAPE",
+        "KEY_TRACK",
+        "OUTPUT",
+        "RING_FREQ",
+        "RING_MIX",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "742e4a89-df78-4ca5-b6b0-ca78889d5953",
+      "name": "v1 Hat",
+      "candidateParameterIds": [
+        "ATTACK",
+        "BEND",
+        "COMB_FEEDBACK",
+        "COMB_MIX",
+        "COM_FREQ",
+        "DECAY",
+        "HIGHPASS_FREQUENCY",
+        "HIGHPASS_Q",
+        "HIT_DECAY",
+        "HIT_FREQ",
+        "HIT_MIX",
+        "HIT_MOD_AMOUNT",
+        "HIT_MOD_FREQ",
+        "OUTPUT",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "c6d5de18-a6f1-4daa-90a9-d9254527601a",
+      "name": "v1 Kick",
+      "candidateParameterIds": [
+        "ATTACK_CLICK",
+        "DECAY",
+        "DECAY_SHAPE",
+        "OUTPUT",
+        "PITCH_MOD_AMOUNT",
+        "PITCH_MOD_DECAY",
+        "TONE",
+        "TUNING",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "db22eb41-c8a0-4055-b617-637614dfa185",
+      "name": "v1 Snare",
+      "candidateParameterIds": [
+        "HIGH_CUT",
+        "LOW_CUT",
+        "NOISE_ATTACK",
+        "NOISE_DECAY",
+        "NOISE_DECAY_SLOPE",
+        "NOISE_MIX",
+        "NOISE_Q",
+        "OSC_1_DECAY",
+        "OSC_1_TUNING",
+        "OSC_2_DECAY",
+        "OSC_2_TUNINGOFFSET",
+        "OSC_MIX",
+        "OUTPUT",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "b5c7c298-e6af-42b3-8f14-26e25bb72d48",
+      "name": "v1 Tom",
+      "candidateParameterIds": [
+        "ATTACK_CLICK",
+        "DECAY",
+        "DECAY_SHAPE",
+        "OUTPUT",
+        "PITCH_MOD_AMOUNT",
+        "PITCH_MOD_DECAY",
+        "TONE",
+        "TUNING",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "b13d3937-6002-4e88-8e50-e99119708072",
+      "name": "v8 Clap",
+      "candidateParameterIds": [
+        "DECAY",
+        "FLAM",
+        "KEYTRACK",
+        "OUTPUT",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "1b709991-7d7d-45d1-aec8-847c01611bfb",
+      "name": "v8 Claves",
+      "candidateParameterIds": [
+        "DECAY",
+        "KEYTRACK",
+        "OUTPUT",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "f3e8fa57-dd7a-4d94-91dd-1376c1c8304a",
+      "name": "v8 Cowbell",
+      "candidateParameterIds": [
+        "DECAY",
+        "KEYTRACK",
+        "OUTPUT",
+        "RETRIGGER",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "0af9f363-ff81-4e72-b2b2-31c8c9682e28",
+      "name": "v8 Cymbal",
+      "candidateParameterIds": [
+        "DECAY",
+        "KEYTRACK",
+        "LEGACY_MODE",
+        "NOISE",
+        "OUTPUT",
+        "RETRIGGER",
+        "TILT",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "85d9c654-088f-4a8a-bbfc-e98af9eafb7b",
+      "name": "v8 Hat",
+      "candidateParameterIds": [
+        "DECAY",
+        "DIRT",
+        "KEYTRACK",
+        "LEGACY_MODE",
+        "NOISE",
+        "OUTPUT",
+        "RETRIGGER",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "10fba33b-8e65-4eea-a5cf-312986178240",
+      "name": "v8 Kick",
+      "candidateParameterIds": [
+        "CLICK",
+        "DECAY",
+        "DRIVE",
+        "KEYTRACK",
+        "OUTPUT",
+        "PUNCH",
+        "RETRIGGER",
+        "SHAPE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "03ec3a24-b3c9-4ba4-b6dc-855178d60de7",
+      "name": "v8 Maracas",
+      "candidateParameterIds": [
+        "ATTACK",
+        "DECAY",
+        "KEYTRACK",
+        "OUTPUT",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "9412c72e-acec-4345-acd1-ff5dc20bc2a4",
+      "name": "v8 Rimshot",
+      "candidateParameterIds": [
+        "BITE",
+        "KEYTRACK",
+        "NOISE",
+        "OUTPUT",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "97938f59-c3d2-4b2c-8640-21c2fd2cc516",
+      "name": "v8 Snare",
+      "candidateParameterIds": [
+        "ALTERNATE_TUNING",
+        "CLICK",
+        "DECAY",
+        "KEYTRACK",
+        "NOISE",
+        "OUTPUT",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "e1be73d9-ba43-4011-91b7-2178bc4af5ea",
+      "name": "v8 Tom",
+      "candidateParameterIds": [
+        "CLICK",
+        "DECAY",
+        "KEYTRACK",
+        "NOISE",
+        "OUTPUT",
+        "PUNCH",
+        "RETRIGGER",
+        "TAIL",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "3df67ed2-4d70-4a86-a966-14762e2aeea4",
+      "name": "v9 Clap",
+      "candidateParameterIds": [
+        "DECAY",
+        "FLAM",
+        "KEYTRACK",
+        "OUTPUT",
+        "SOUND_VARIATION",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "84bd7819-2007-46e0-b930-b4dacff1974a",
+      "name": "v9 Crash",
+      "candidateParameterIds": [
+        "DECAY",
+        "DENSITY",
+        "IMPACT",
+        "KEYTRACK",
+        "OUTPUT",
+        "SOUND_VARIATION",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "5c147bc8-7b62-408b-b057-c4023c4e1adb",
+      "name": "v9 Hat Closed",
+      "candidateParameterIds": [
+        "DECAY",
+        "DENSITY",
+        "IMPACT",
+        "KEYTRACK",
+        "OUTPUT",
+        "SOUND_VARIATION",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "94fc934e-a4ba-44f1-aaaa-ae30920fab17",
+      "name": "v9 Hat Open",
+      "candidateParameterIds": [
+        "DECAY",
+        "DENSITY",
+        "IMPACT",
+        "KEYTRACK",
+        "OUTPUT",
+        "SOUND_VARIATION",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "32a4c607-039a-4998-be9c-578468f25454",
+      "name": "v9 Kick",
+      "candidateParameterIds": [
+        "CLICK",
+        "COMPRESSION",
+        "DECAY",
+        "KEYTRACK",
+        "NOISE",
+        "OUTPUT",
+        "PUNCH",
+        "RETRIGGER",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "38f52e07-2339-491e-9dd4-8bf6a95c2dae",
+      "name": "v9 Ride",
+      "candidateParameterIds": [
+        "DECAY",
+        "DENSITY",
+        "IMPACT",
+        "KEYTRACK",
+        "OUTPUT",
+        "SOUND_VARIATION",
+        "TUNE",
+        "VELOCITY_SENSITIVITY",
+        "WIDTH"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "f88c7dda-c8cd-456f-8bdf-ac25fa5bfea1",
+      "name": "v9 Rimshot",
+      "candidateParameterIds": [
+        "KEYTRACK",
+        "OUTPUT",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "90600c24-04c5-412e-b978-6d3cef1522da",
+      "name": "v9 Snare",
+      "candidateParameterIds": [
+        "CLICK",
+        "DECAY",
+        "DRIVE",
+        "KEYTRACK",
+        "NOISE",
+        "OUTPUT",
+        "TONE",
+        "TUNE",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    },
+    {
+      "uuid": "60f69854-fda1-4538-9ff1-c1553ea25224",
+      "name": "v9 Tom",
+      "candidateParameterIds": [
+        "CLICK",
+        "DECAY",
+        "KEYTRACK",
+        "OUTPUT",
+        "PUNCH",
+        "RETRIGGER",
+        "SHAPE",
+        "TONE",
+        "TUNING",
+        "VELOCITY_SENSITIVITY"
+      ],
+      "objectTokens": [
+        "CONTENTS",
+        "Chain",
+        "FX"
+      ],
+      "parameterResolution": {
+        "status": "unresolved"
+      }
+    }
+  ]
+}

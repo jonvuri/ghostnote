@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-08-22
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55; D2; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55, E56; D2; reference/BitX
 ---
 
 # Devices
@@ -28,9 +28,14 @@ accepted by `InsertionPoint.insertBitwigDevice(UUID)`,
 
 ### Confirmed by a live load in this project — `[K]`
 
+The generated Bitwig 6.0.6 catalog contains all 151 native device UUIDs and
+structured names. Its source fingerprint and live resolution state are in
+`brain/assets/native-devices/catalog.json` [K,
+[E56](../experiments/e56-native-device-catalog-is-reproducible-and-resolved.md)].
+
 | Device | UUID | Where |
 |---|---|---|
-| Polysynth | `a9ffacb5-33e9-4fc7-8621-b1af31e410ef` | `Rig.java:104` |
+| Polysynth | `a9ffacb5-33e9-4fc7-8621-b1af31e410ef` | generated catalog and E56 |
 | Instrument Layer | `5024be2e-65d6-4d40-bbfe-8b2ea993c445` | `Rig.java:126` |
 | Instrument Selector | `9588fbcf-721a-438b-8555-97e4231f7d2c` | `Rig.java:127` |
 | FX Layer | `a0913b7f-096b-4ac9-bddd-33c775314b42` | `brain/src/probes/e17ai-typedrebuild.ts:55` and the conformance suite |
@@ -129,31 +134,36 @@ each harvested ID token and record which ones resolve.
 
 ## 3. Parameter IDs
 
-### Harvest route — offline, from the app bundle
+### Generated route — offline, from the app bundle
 
 ```
-…/Bitwig Studio.app/Contents/Resources/Library/device-settings/<uuid>/Default.bwpreset
-strings <file> | grep -E '^[A-Z][A-Z0-9_]{2,}$'
+cd brain
+npm run catalog:native -- --bitwig-app-root "/Applications/Bitwig Studio.app"
 ```
 
-Polysynth yielded 63 tokens [K, E4]. ⚠ The dump includes non-parameter section
-markers (`CONTENTS`, `MODULATORS`, `FAKE1`…), so every ID needs a resolve-check
-against a live device before you trust it. 14 of 16 sampled tokens were valid.
+The command requires an explicit application root. It reads structured META
+names, UUIDs, and the Bitwig version. It verifies the stream UUID and writes a
+sorted, schema-versioned asset. It excludes VST, module, and modulator settings.
+The Bitwig 6.0.6 asset contains 151 devices, 2,047 scalar candidates, and 636
+separate object tokens [K, E56].
 
-⚠ **A name of exactly 12 characters breaks an anchored grep.** Preset files store
-names as `<length-byte><name>`, and macOS `strings` keeps `0x0C` because it is
-printable. Seven of 151 devices are affected: Drum Machine, Freq Shifter,
-HW Clock Out, Note Repeats, Oscilloscope, Peak Limiter, Stereo Split. Extract
-the structured field instead — `grep -A1 '^device_name$' | sed -n 2p | tr -d '\f'`
-[K, E4c].
+Four scalar class and value shapes separate candidates from named object tokens.
+This rejects section markers such as `CONTENTS`, `MODULATORS`, and `FAKE1`
+without a live check. Structured META names also avoid the 12-character
+control-byte trap [K, E56].
+
+Live DirectParameter IDs use `CONTENTS/<candidate>`. The resolver removes only
+this exact prefix. Polysynth resolved 55 of 56 candidates. Sampler resolved 32
+of 33. `GLIDE_TIME` was the only unresolved candidate for each device. Neither
+device returned a live-only ID [K, E56].
 
 ### Known ID maps
 
-**Polysynth — `[K]`**, held at `Rig.java:110` and resolved live 14/16:
-
-`F1FREQ`, `F1RESO`, `HPFFREQ`, `HPF_RESONANCE`, `OSCMIX`, `OSC1_SHAPE`,
-`OSC2_SHAPE`, `OSC1_PITCH`, `OSC2PITCH`, `OSC1_UNISON_VOICES`, `GAIN`,
-`GLIDE_TIME`, `NOISE`, `FEGDEPTH`, `FEEDBACK`, `DEPTH`
+**Polysynth — `[K]`**, generated from the catalog and resolved live 55/56.
+`NativeDeviceCatalog.java` contains the 55 resolved typed IDs. All 55 typed
+handles exist and report the available display, base value, modulated value,
+automation, origin, and discrete metadata. The unresolved `GLIDE_TIME`
+candidate is not generated [K, E56].
 
 **Mined from `reference/BitX` — `[I]`**, undocumented and otherwise only
 discoverable by guessing. Directly relevant to Phase 4:
@@ -266,6 +276,7 @@ is measured [carried forward, session 3f].
 
 | Date | Change |
 |---|---|
+| 2026-08-22 | E56 replaces the `strings` harvest and hand-maintained Polysynth list with the generated catalog and live resolution result. |
 | 2026-08-22 | E55 adds the confirmed serialized DirectParameter acquisition, write, readback, and replay boundary. |
 | 2026-08-15 | Page created. It supersedes the *reading* of E4's "CLAP direct params are not accessible", which E4b already overturned in place. |
 | 2026-08-15 | Corrected the marked-observable set: `hasLayers()` is marked too, and the `DeviceLayer` surface is far wider than the `Device` one. §4. |

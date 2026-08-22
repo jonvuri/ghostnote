@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4d — native device catalog
 kind: plan
-state: planned
-status: Planned after 4c. Generate the native catalog and prove the supported
-        deep cohort live.
-updated: 2026-08-21
+state: complete
+status: Complete. E56 records deterministic generation and live resolution for
+        Polysynth and Sampler.
+updated: 2026-08-22
 parent: README.md
 prev: 4c-direct-parameter-core.md
 next: 4e-plugin-parameter-proof.md
 scope: Generated native device and parameter catalog
-evidence: E3, E4, E4c, E10d · D2, D7
+evidence: E3, E4, E4c, E10d, E56 · D2, D7
 ---
 
 # Phase 4, session 4d — native device catalog
@@ -72,3 +72,30 @@ evidence: E3, E4, E4c, E10d · D2, D7
 
 Record which preset structure was sufficient to reject non-parameter tokens.
 Do not add a live check where a stable structural rule is enough.
+
+## Result
+
+The generator reads structured META names, UUIDs, and Bitwig versions from an
+explicit application root. It includes all 151 native preset directories and
+excludes VST, module, and modulator settings. Four scalar object shapes produce
+2,047 parameter candidates. Other named objects remain separate tokens.
+
+The checked-in asset has a source fingerprint and per-device resolution status.
+Repeated generation from Bitwig 6.0.6 produced identical catalog and Java
+hashes. The generated Polysynth input replaces the hand-maintained list. Typed
+replies now include origin, discrete count, and discrete names.
+
+DirectParameter exposes each scalar ID as `CONTENTS/<candidate>`. The resolver
+removes only this exact prefix. Polysynth resolved 55 of 56 candidates through
+DirectParameter and the generated typed view. Sampler resolved 32 of 33 through
+DirectParameter. `GLIDE_TIME` was the only unresolved candidate on each device.
+Neither device returned a live-only ID.
+
+All 55 generated Polysynth handles exist. Their replies include name, base
+value, display, modulated value, automation, origin, discrete count, and
+discrete names. The probe removed its owned scratch track and restored the
+entry selection.
+
+Five focused catalog tests pass. The full brain check passes 686 tests,
+including typecheck. Extension tests, the context check, and diff checks pass.
+E56 records the complete proof.

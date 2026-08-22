@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E56 | Native device catalog is reproducible and resolved [K] (2026-08-22) | [open](experiments/e56-native-device-catalog-is-reproducible-and-resolved.md) |
 | E55 | DirectParameter core is live [K] (2026-08-22) | [open](experiments/e55-direct-parameter-core-is-live.md) |
 | E54 | Clip mutation settlement is bounded [K] (2026-08-21) | [open](experiments/e54-clip-mutation-settlement-is-bounded.md) |
 | E53 | Note-step observer is a partial wake hint [K] (2026-08-21) | [open](experiments/e53-note-step-observer-is-a-partial-wake-hint.md) |

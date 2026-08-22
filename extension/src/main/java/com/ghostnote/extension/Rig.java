@@ -30,6 +30,7 @@ import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBankContentFilter;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
+import com.ghostnote.extension.generated.NativeDeviceCatalog;
 
 /**
  * All pre-allocated Bitwig API objects. Everything here must be created
@@ -105,20 +106,6 @@ public class Rig {
     public final Clip arrangerClip;
 
     // --- E4: direct-parameter apparatus on pool cursor 0 ---
-    /** Polysynth device UUID (harvested from the app bundle, E3). */
-    public static final String POLYSYNTH_UUID = "a9ffacb5-33e9-4fc7-8621-b1af31e410ef";
-    /**
-     * Curated Polysynth parameter IDs (harvested from the device's
-     * Default.bwpreset). 16 handles = proof past the 8-per-remote-page
-     * ceiling (§6a). Section markers (CONTENTS/MODULATORS/FAKE*) excluded.
-     */
-    public static final String[] POLYSYNTH_PARAM_IDS = {
-        "F1FREQ", "F1RESO", "HPFFREQ", "HPF_RESONANCE",
-        "OSCMIX", "OSC1_SHAPE", "OSC2_SHAPE", "OSC1_PITCH",
-        "OSC2PITCH", "OSC1_UNISON_VOICES", "GAIN", "GLIDE_TIME",
-        "NOISE", "FEGDEPTH", "FEEDBACK", "DEPTH",
-    };
-
     /** Repointable device cursor on pool cursor track 0. */
     public final PinnableCursorDevice cursorDevice0;
     public final SpecificBitwigDevice polysynthView0;
@@ -1093,20 +1080,23 @@ public class Rig {
             remotes0[r] = rc;
         }
 
-        // Param handles: the curated ID list, cycled if the E5 config asks for
-        // more handles than we have distinct IDs. Duplicates still allocate
-        // distinct handles, which is what the scale measurement is about.
+        // Typed IDs come from the generated native catalog. Cycle them only when
+        // the D7 scale configuration asks for more handles than the device has.
         polysynthView0 = cursorDevice0.createSpecificBitwigDevice(
-            java.util.UUID.fromString(POLYSYNTH_UUID));
+            java.util.UUID.fromString(NativeDeviceCatalog.POLYSYNTH_UUID));
         paramIds = new String[config.paramHandles];
         polysynthParams0 = new Parameter[config.paramHandles];
         for (int p = 0; p < config.paramHandles; p++) {
-            String id = POLYSYNTH_PARAM_IDS[p % POLYSYNTH_PARAM_IDS.length];
+            String id = NativeDeviceCatalog.POLYSYNTH_PARAMETER_IDS[
+                p % NativeDeviceCatalog.POLYSYNTH_PARAMETER_IDS.length];
             Parameter param = polysynthView0.createParameter(id);
             param.exists().markInterested();
             param.name().markInterested();
             param.value().markInterested();
             param.value().displayedValue().markInterested();
+            param.value().getOrigin().markInterested();
+            param.value().discreteValueCount().markInterested();
+            param.value().discreteValueNames().markInterested();
             param.modulatedValue().markInterested(); // E7: post-modulation value
             param.hasAutomation().markInterested();
             paramIds[p] = id;

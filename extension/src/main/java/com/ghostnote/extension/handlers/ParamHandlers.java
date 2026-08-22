@@ -59,6 +59,15 @@ public final class ParamHandlers extends HandlerGroup {
                 obj.addProperty("name", p.name().get());
                 obj.addProperty("value", p.value().get());
                 obj.addProperty("displayed", p.value().displayedValue().get());
+                putGuarded(obj, "origin", () -> p.value().getOrigin().get());
+                putGuarded(obj, "discreteValueCount", () -> p.value().discreteValueCount().get());
+                try {
+                    JsonArray names = new JsonArray();
+                    for (String name : p.value().discreteValueNames().get()) names.add(name);
+                    obj.add("discreteValueNames", names);
+                } catch (Exception e) {
+                    obj.addProperty("discreteValueNamesError", e.getMessage());
+                }
                 // ⚠⚠ E18 §3.4 — the MODULATION oracle, and the reason the row was
                 // unprobeable. Liveness has only ever been readable through
                 // `remote.list`, which exposes the 8 controls of the SELECTED remote

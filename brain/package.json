@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm test",
     "build:donors": "tsx src/tools/build-donor-assets.ts",
+    "catalog:native": "tsx src/tools/build-native-catalog.ts",
     "wire:golden": "tsx src/tools/regen-wire-golden.ts",
     "probe:list": "node -e \"const s=require('./package.json').scripts;for(const k of Object.keys(s))if(k.startsWith('probe:'))console.log(k.slice(6).padEnd(14),s[k].replace('tsx src/probes/',''))\"",
     "probe:conformance": "tsx --test src/probes/conformance.live.ts",
@@ -214,6 +215,7 @@
     "probe:4b-note-completion": "tsx src/probes/phase4b-note-completion.ts",
     "probe:4b-settlement": "tsx src/probes/phase4b-mutation-settlement.ts",
     "probe:4c-direct": "tsx src/probes/phase4c-direct-parameters.ts",
+    "probe:4d-native-catalog": "tsx src/probes/phase4d-native-catalog.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
     "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
   },

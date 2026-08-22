@@ -2,8 +2,7 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: DirectParameter core is complete. Session 4d native catalog generation
-        is next.
+status: Session 4d is complete. Session 4e plugin parameter proof is next.
 updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -42,9 +41,9 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
    complete. E54 bounds writer settlement and complete exact reconciliation.
 5. [4c — direct-parameter core](4c-direct-parameter-core.md) — complete. E55
    proves safe top-level enumeration, write, independent readback, and replay.
-6. [4d — native device catalog](4d-native-device-catalog.md) — deterministic
-   bundle generation, checked-in provenance, and live resolution for the native
-   devices this phase uses.
+6. [4d — native device catalog](4d-native-device-catalog.md) — complete. E56
+   records deterministic bundle generation and live Polysynth and Sampler
+   resolution.
 7. [4e — VST3 and CLAP parameter proof](4e-plugin-parameter-proof.md) — explicit
    plugin formats and independent enumeration, write, readback, and cleanup.
 8. [4f — deep parameters and remote controls](4f-deep-parameters-and-remotes.md) —
