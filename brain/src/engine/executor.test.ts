@@ -221,6 +221,21 @@ test('B4: the executor gives one selection scope the complete pipeline', async (
   assert.equal(inside, false, 'the scope must close after reporting completes');
 });
 
+test('4b: executor timing names stash, apply, and independent verification', async () => {
+  const fx = await fixture();
+  const phases: string[] = [];
+  const executor = new Executor(fx.fake, {
+    onTiming: (event) => phases.push(event.phase),
+  });
+
+  const take = await executor.run([
+    { op: 'note.write', clip: fx.clipA, notes: [note({ pitch: 65 })] },
+  ]);
+
+  assert.equal(take.report.applied, true);
+  assert.deepEqual(phases, ['resolve', 'stash', 'apply', 'verification']);
+});
+
 // --- exit criterion 3 --------------------------------------------------------
 
 /** A human nudging a clip in the window between our stash and our apply. */

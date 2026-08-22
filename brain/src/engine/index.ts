@@ -9,7 +9,7 @@
  * possible because nothing here is global.
  */
 export { Executor, disagreementsOf } from './executor.js';
-export type { ExecutorOptions, RevertResult, RunOptions } from './executor.js';
+export type { ExecutorOptions, ExecutorTimingEvent, RevertResult, RunOptions } from './executor.js';
 
 export { labelTarget, notePropCaveats, splitReplayable, worse, worstOf } from './fidelity.js';
 

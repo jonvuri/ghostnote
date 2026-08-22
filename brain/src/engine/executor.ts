@@ -50,6 +50,13 @@ export interface ExecutorOptions {
   readonly newId?: () => string;
   /** Injected for the same reason. */
   readonly now?: () => number;
+  /** Optional phase timing for focused performance probes. */
+  readonly onTiming?: (event: ExecutorTimingEvent) => void;
+}
+
+export interface ExecutorTimingEvent {
+  readonly phase: 'resolve' | 'stash' | 'apply' | 'verification';
+  readonly elapsedMs: number;
 }
 
 export interface RunOptions {
@@ -84,11 +91,22 @@ export class Executor {
   private readonly adapter: BitwigAdapter;
   private readonly newId: () => string;
   private readonly now: () => number;
+  private readonly onTiming: ((event: ExecutorTimingEvent) => void) | undefined;
 
   constructor(adapter: BitwigAdapter, options: ExecutorOptions = {}) {
     this.adapter = adapter;
     this.newId = options.newId ?? (() => randomUUID());
     this.now = options.now ?? (() => Date.now());
+    this.onTiming = options.onTiming;
+  }
+
+  private async timed<T>(phase: ExecutorTimingEvent['phase'], work: () => Promise<T>): Promise<T> {
+    const start = performance.now();
+    try {
+      return await work();
+    } finally {
+      this.onTiming?.({ phase, elapsedMs: performance.now() - start });
+    }
   }
 
   /**
@@ -127,8 +145,8 @@ export class Executor {
     const addresses: Address[] = targets.map((t) => t.address);
     const risk = structuralRisk(ops);
 
-    await this.assertResolvable(addresses);
-    const stash = await this.adapter.read(addresses);
+    await this.timed('resolve', () => this.assertResolvable(addresses));
+    const stash = await this.timed('stash', () => this.adapter.read(addresses));
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
 
@@ -143,10 +161,10 @@ export class Executor {
     // concurrent write between reading prior state and applying rejects the
     // batch WHOLE. Without it the take would claim a "before" that was already
     // someone else's "after".
-    const receipt = await this.adapter.apply({
+    const receipt = await this.timed('apply', () => this.adapter.apply({
       ops,
       ifRevision: options.ifRevision ?? stash.at.revision,
-    });
+    }));
 
     if (receipt.rejected !== undefined) {
       // ⚠ A rejected batch applied ZERO ops (E8-D), so every launcher event in
@@ -194,7 +212,7 @@ export class Executor {
           'refuse to claim so from an address we can no longer trust. Re-resolve and re-read.',
       }))
       : [];
-    const verify = await this.adapter.read(readable);
+    const verify = await this.timed('verification', () => this.adapter.read(readable));
 
     // ⚠ Asked AFTER the verify read, so the window covers the whole pipeline —
     // stash, apply, settle and verify. PHASE-1's open question is *"what happens

@@ -12,10 +12,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-08-19",
+  "extractedAt": "2026-08-21",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 139,
-  "methodsHash": "cc068aff9bd8b907",
+  "count": 140,
+  "methodsHash": "3cb831540c60b056",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -35,6 +35,7 @@
     "contract.hello",
     "cursor.clipMetadata",
     "cursor.duplicateContent",
+    "cursor.getNotesVerboseAllChannels",
     "cursor.launchSettings",
     "cursor.playState",
     "cursor.scrollToStep",
@@ -130,6 +131,7 @@
     "cursor.duplicateContent",
     "cursor.getNotes",
     "cursor.getNotesVerbose",
+    "cursor.getNotesVerboseAllChannels",
     "cursor.launchSettings",
     "cursor.pin",
     "cursor.pinTrack",
@@ -399,5 +401,8 @@
   ],
   "addedInPhase2Session2i": [
     "cursor.scrollToStep"
+  ],
+  "addedInPhase4Session4b": [
+    "cursor.getNotesVerboseAllChannels"
   ]
 }

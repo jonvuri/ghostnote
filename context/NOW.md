@@ -4,13 +4,14 @@ kind: status
 state: active
 updated: 2026-08-21
 phase: phase-4
-session: 4b-clip-operation-latency
+session: 4b-dedicated-read-window
 ---
 
 # Now
 
-Phase 2 is complete. Phase 4 session 4a is complete. The remaining Phase 4 work
-is planned as sessions 4b through 4j. Session 4b is next.
+Phase 2 and Phase 4 session 4a are complete. Session 4b is active. Its first
+implementation removed the repeated per-channel bridge loop but did not pass the
+required half-time gate.
 
 ## Accepted live result
 
@@ -39,40 +40,47 @@ verified, and saved. The post-save 2k baseline passes.
 - Cleanup removed all recorded tracks. The original 42-byte `rig.json` was
   restored byte for byte.
 
+## Session 4b result
+
+- One bounded page reply returns all 16 verbose MIDI channels. A 32-beat read
+  uses seven bulk requests instead of 112 channel requests.
+- The accepted 21-note read stayed exact. The median fell from 5,323 to 3,446
+  ms, a 35-percent reduction. The required maximum is 2,661.5 ms.
+- Grid and page settlement now dominates at about 1.35 seconds. Median host
+  scan time was 757 ms. Reconciliation used less than 1 ms.
+- The two-empty-clip workflow fell from 13,436 to 10,072 ms. Reversal restored
+  both slots. Cleanup removed the owned track and restored the entry selection.
+
 ## Next action
 
-Run [session 4b](plan/phase-4/4b-clip-operation-latency.md). Measure the exact
-32-beat read path, replace repeated per-channel page requests with one bounded
-bulk read, and preserve every dual-grid, expression, pin, page, selection, and
-checkpoint guarantee.
+The next session continues
+[4b exact-read latency](plan/phase-4/4b-clip-operation-latency.md). Measure a
+2,048-step dedicated note-read cursor while the 512-step writer cursors stay
+unchanged. Measure init cost and 32-beat latency before selecting a default. Test
+one settled page-zero and grid transition without reducing the 144 ms budget.
 
-After 4b, build the DirectParameter core. Keep DirectParameter as the general
-enumeration path. Keep Polysynth as the first typed deep view. The
-[Phase 4 overview](plan/phase-4/README.md) owns the complete order.
+After the read gate closes, run
+[note-completion evidence](plan/phase-4/4b-note-completion-signals.md), then
+[clip mutation settlement](plan/phase-4/4b-clip-mutation-settlement.md). These
+two bounded follow-ups precede session 4c. Device-specific performance remains
+in session 4h.
 
 ## Verification
 
-- Focused scale tests: 7/7 pass. Full brain check: 653/653 pass, including
-  typecheck. Extension build passes.
+- Focused 4b adapter, wire, and executor tests pass. Full brain check: 657/657
+  pass, including typecheck. Extension build passes.
 - Live entry and maximum stable sweeps: pass. The maximum accounts for all 384
   devices.
 - Saved-project open and one cold start: pass with zero control-thread stalls.
 - Scratch cleanup and exact rig configuration restoration: pass.
-- Context check: 179 active documents and links pass. `git diff --check` passes.
-- Phase 4 planning check: 188 active documents and links pass. The planning diff
-  check passes.
-- Final live handshake: pass for Bitwig 6.0.6/API 25, the 139-method golden,
+- Context check: 191 active documents and links pass. `git diff --check` passes.
+- Final live handshake: pass for Bitwig 6.0.6/API 25, the 140-method golden,
   deployment age, and the selected `256/128/8/16/64` rig.
-- The reconstructed `26.05-2 moon` project passes the complete read-only 2k
-  baseline before and after Save. The saved file contains 7 tracks, 14 clips,
-  both accepted instructions, and the exact 43-note progression result.
+- The `26.05-2 moon` project passes the complete read-only 2k baseline after 4b
+  cleanup. It contains 7 tracks, 14 clips, both accepted instructions, and the
+  exact 43-note progression result.
 
 ## Retrospective
 
-Checkpoint native-device population by durable row because an insert can outlive
-the probe process. Save accepted live results and confirm the saved file before
-closeout.
-
-The Phase 4 planning pass found that exact clip reads still pay one bridge
-request per MIDI channel and page. Optimize a measured shared bottleneck before
-adding a new live path. Measure device performance again before public freeze.
+Bridge call count was not the only dominant cost. Measure host work and settle
+time separately before predicting a latency result from request count.

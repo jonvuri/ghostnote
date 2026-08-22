@@ -20,7 +20,8 @@ import com.google.gson.JsonObject;
  * A setStep is also not visible to a getStep in the SAME request — only on the
  * next one (E2), which is what `cursor.setAndReadNote` exists to demonstrate.
  *
- * Split out of ProbeHandlers.java in Phase 0; the method bodies are unchanged.
+ * Split out of ProbeHandlers.java in Phase 0. Later product methods keep the
+ * same measured note semantics.
  */
 public final class NoteHandlers extends HandlerGroup {
     public NoteHandlers(ControllerHost host, Rig rig, ExecState state) {
@@ -37,6 +38,7 @@ public final class NoteHandlers extends HandlerGroup {
         r.on("cursor.setAndReadNote", params -> cursorSetAndReadNote(params));
         r.on("cursor.setNoteProps", params -> cursorSetNoteProps(params));
         r.on("cursor.getNotesVerbose", params -> cursorGetNotesVerbose(params));
+        r.on("cursor.getNotesVerboseAllChannels", params -> cursorGetNotesVerboseAllChannels(params));
     }
 
     /** notes: [[x(step), y(pitch), velocity(0-127), duration(beats)], ...] */
@@ -226,9 +228,53 @@ public final class NoteHandlers extends HandlerGroup {
         String ref = params.get("cursor").getAsString();
         Clip clip = rig.clip(ref);
         int channel = params.has("channel") ? params.get("channel").getAsInt() : 0;
-        int maxX = params.has("maxX") ? params.get("maxX").getAsInt() : rig.gridSteps(ref);
+        int maxX = boundedMaxX(params, ref);
 
         long start = System.nanoTime();
+        JsonArray notes = verboseChannelNotes(clip, channel, maxX);
+        JsonObject result = new JsonObject();
+        result.add("notes", notes);
+        result.addProperty("count", notes.size());
+        result.addProperty("scanMicros", (System.nanoTime() - start) / 1000);
+        putGuarded(result, "clipExists", () -> clip.exists().get());
+        return result;
+    }
+
+    /** One bounded page scan for every MIDI channel. */
+    private JsonElement cursorGetNotesVerboseAllChannels(JsonObject params) {
+        String ref = params.get("cursor").getAsString();
+        Clip clip = rig.clip(ref);
+        int maxX = boundedMaxX(params, ref);
+        long start = System.nanoTime();
+        JsonArray channels = new JsonArray();
+        int count = 0;
+        for (int channel = 0; channel < 16; channel++) {
+            JsonArray notes = verboseChannelNotes(clip, channel, maxX);
+            JsonObject result = new JsonObject();
+            result.addProperty("channel", channel);
+            result.add("notes", notes);
+            result.addProperty("count", notes.size());
+            channels.add(result);
+            count += notes.size();
+        }
+        JsonObject result = new JsonObject();
+        result.add("channels", channels);
+        result.addProperty("count", count);
+        result.addProperty("scanMicros", (System.nanoTime() - start) / 1000);
+        putGuarded(result, "clipExists", () -> clip.exists().get());
+        return result;
+    }
+
+    private int boundedMaxX(JsonObject params, String ref) {
+        int limit = rig.gridSteps(ref);
+        int maxX = params.has("maxX") ? params.get("maxX").getAsInt() : limit;
+        if (maxX < 1 || maxX > limit) {
+            throw new IllegalArgumentException("maxX must be from 1 through " + limit);
+        }
+        return maxX;
+    }
+
+    private JsonArray verboseChannelNotes(Clip clip, int channel, int maxX) {
         JsonArray notes = new JsonArray();
         for (int x = 0; x < maxX; x++) {
             for (int y = 0; y < rig.config.gridKeys; y++) {
@@ -238,12 +284,7 @@ public final class NoteHandlers extends HandlerGroup {
                 }
             }
         }
-        JsonObject result = new JsonObject();
-        result.add("notes", notes);
-        result.addProperty("count", notes.size());
-        result.addProperty("scanMicros", (System.nanoTime() - start) / 1000);
-        putGuarded(result, "clipExists", () -> clip.exists().get());
-        return result;
+        return notes;
     }
 
     private static JsonObject noteStepToJson(NoteStep step) {

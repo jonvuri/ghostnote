@@ -54,6 +54,8 @@ export interface Golden {
   addedInPhase2Session2e?: string[];
   /** Phase 2 session 2i long-clip paging repair. */
   addedInPhase2Session2i?: string[];
+  /** Phase 4 session 4b bulk exact-note read. */
+  addedInPhase4Session4b?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

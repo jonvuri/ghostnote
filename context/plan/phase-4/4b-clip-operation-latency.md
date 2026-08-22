@@ -1,15 +1,15 @@
 ---
 title: Phase 4, session 4b — exact clip-operation latency
 kind: plan
-state: planned
-status: Ready. Measure and remove the repeated exact-read bottleneck before
-        device implementation starts.
+state: active
+status: The 16-channel bulk page path is implemented and measured. It cuts the
+        median by 35 percent, so the required half-time gate remains open.
 updated: 2026-08-21
 parent: README.md
 prev: 4a-device-side-scale.md
-next: 4c-direct-parameter-core.md
+next: 4b-note-completion-signals.md
 scope: Exact long-clip read and verification latency
-evidence: E45, E47, E48 · D9, D10, D15
+evidence: E45, E47, E48, E51 · D9, D10, D15
 ---
 
 # Phase 4, session 4b — exact clip-operation latency
@@ -77,6 +77,30 @@ project work. Do not reopen that protocol.
 6. The scratch fixture and accepted project return to their exact entry state.
 7. Focused tests, the full brain check, extension tests, context check, and
    `git diff --check` pass.
+
+## Interim result
+
+E51 removes the repeated channel loop. One page request returns all 16 verbose
+channels and validates their bounds and counts. The accepted 21-note fixture is
+unchanged. A 32-beat read now uses seven bulk page requests instead of 112
+channel requests.
+
+The 5,323 ms baseline median fell to 3,446 ms. This is a 35-percent reduction,
+not the required 50 percent. The two-empty-clip workflow fell from 13,436 to
+10,072 ms and reversed exactly. Settlement is now the largest cost. Per the
+third exit criterion, session 4b stops here and revises its next action.
+
+Measure a 2,048-step dedicated read cursor while keeping the 512-step writer
+cursors unchanged. Measure its init cost and long-read time. Also test whether
+page zero and a grid change can share one complete 144 ms settlement. Do not
+change the default until the measurement passes the half-time gate.
+
+## Follow-up boundary
+
+Close this session on the exact-read gate and its deferred regression matrix.
+Do not add note observers or mutation scheduling to this changeset. Then run
+[note-completion evidence](4b-note-completion-signals.md) and
+[clip mutation settlement](4b-clip-mutation-settlement.md) before session 4c.
 
 ## Retrospective target
 

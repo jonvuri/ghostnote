@@ -195,6 +195,19 @@ interface ClipCursorStatus {
 /** One exact, reconciled note reading for all 16 MIDI channels in a clip. */
 type ClipNoteChannels = ReadonlyMap<number, readonly NoteRecord[]>;
 
+interface WireVerboseChannel {
+  readonly channel: number;
+  readonly notes: readonly Record<string, number | boolean | string>[];
+  readonly count: number;
+}
+
+interface WireVerboseAllChannels {
+  readonly channels: readonly WireVerboseChannel[];
+  readonly count: number;
+  readonly scanMicros: number;
+  readonly clipExists?: boolean;
+}
+
 /**
  * ⚠ `RigConfig.scenes`' shipped default, and a PLACEHOLDER, not a reading.
  *
@@ -241,6 +254,21 @@ export interface LiveOptions {
   readonly sceneBankSize?: number;
   /** Expected wire methodsHash from extension/methods.golden.json, if checking. */
   readonly expectMethodsHash?: string;
+  /** Optional phase timing for focused performance probes. */
+  readonly onTiming?: (event: LiveTimingEvent) => void;
+}
+
+export interface LiveTimingEvent {
+  readonly phase:
+    | 'targetAcquisition'
+    | 'metadata'
+    | 'gridSettlement'
+    | 'pageTurn'
+    | 'bulkPageRead'
+    | 'reconciliation'
+    | 'pageReset'
+    | 'selectionRestoration';
+  readonly elapsedMs: number;
 }
 
 /**
@@ -294,6 +322,7 @@ const borrowsSelection = (op: Op): boolean =>
 export class LiveAdapter implements BitwigAdapter {
   private readonly transport: Transport;
   private readonly expectMethodsHash: string | undefined;
+  private readonly onTiming: ((event: LiveTimingEvent) => void) | undefined;
   /** Allocated at `hello()` from the rig's real pool size; see `pool.ts`. */
   private pool: CursorPool;
   /** The caller supplied an exact cursor partition that `hello()` must keep. */
@@ -401,6 +430,7 @@ export class LiveAdapter implements BitwigAdapter {
   constructor(options: LiveOptions = {}) {
     this.transport = options.transport ?? new BridgeTransport();
     this.expectMethodsHash = options.expectMethodsHash;
+    this.onTiming = options.onTiming;
     // A pool of one until `hello()` learns the rig's real size — which is the
     // Phase-0 behaviour exactly, so an adapter used before the handshake is no
     // worse than it was, merely no better.
@@ -409,6 +439,15 @@ export class LiveAdapter implements BitwigAdapter {
     this.fixedNoteReadCursorRef = options.noteReadCursorRef !== undefined;
     this.noteReadCursorRef = options.noteReadCursorRef;
     this.sceneBankSize = options.sceneBankSize ?? RIG_DEFAULT_SCENES;
+  }
+
+  private async timed<T>(phase: LiveTimingEvent['phase'], work: () => Promise<T>): Promise<T> {
+    const start = performance.now();
+    try {
+      return await work();
+    } finally {
+      this.onTiming?.({ phase, elapsedMs: performance.now() - start });
+    }
   }
 
   async hello(): Promise<AdapterInfo> {
@@ -922,34 +961,56 @@ export class LiveAdapter implements BitwigAdapter {
         'exact note read requires the dedicated fine cursor and its measured width',
       );
     }
-    await this.pointAtClip(clipRef, trackIndex, pointedAt, cursor);
-    const observed = await this.readClipMetadata(clipRef, trackIndex, pointedAt, cursor);
+    await this.timed('targetAcquisition', () =>
+      this.pointAtClip(clipRef, trackIndex, pointedAt, cursor));
+    const observed = await this.timed('metadata', () =>
+      this.readClipMetadata(clipRef, trackIndex, pointedAt, cursor));
     const extent = Math.max(observed.playStopBeats, observed.metadata.loopEndBeats);
     const lengthBeats = extent > 0 ? extent : 4;
     const binaryStep = 1 / 64;
     const tripletStep = 1 / 48;
     const scan = async (stepSize: number): Promise<ReadonlyMap<number, readonly NoteRecord[]>> => {
-      await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
-      await this.settle('gridChange');
+      await this.timed('gridSettlement', async () => {
+        await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
+        await this.settle('gridChange');
+      });
       const channels = new Map<number, NoteRecord[]>();
       for (let channel = 0; channel < 16; channel += 1) channels.set(channel, []);
       const totalSteps = Math.max(1, Math.ceil(lengthBeats / stepSize));
       try {
         for (let pageStart = 0; pageStart < totalSteps; pageStart += steps) {
-          await this.transport.send({
+          await this.timed('pageTurn', () => this.transport.send({
             method: WIRE.cursorScrollToStep,
             params: { cursor, step: pageStart },
-          });
+          }));
           // Scrolling changes which NoteStep objects the fixed cursor window
           // exposes. It has no readback, so use the measured grid-change wait.
-          await this.settle('gridChange');
+          await this.timed('gridSettlement', () => this.settle('gridChange'));
           const pageSteps = Math.min(steps, totalSteps - pageStart);
-          for (let channel = 0; channel < 16; channel += 1) {
-            const result = (await this.transport.send({
-              method: WIRE.cursorGetNotesVerbose,
-              params: { cursor, channel, maxX: pageSteps },
-            })) as { notes: Record<string, number | boolean | string>[] };
-            channels.get(channel)!.push(...result.notes.map((note) => {
+          const result = (await this.timed('bulkPageRead', () => this.transport.send({
+            method: WIRE.cursorGetNotesVerboseAllChannels,
+            params: { cursor, maxX: pageSteps },
+          }))) as WireVerboseAllChannels;
+          if (!Array.isArray(result.channels) || result.channels.length !== 16) {
+            throw new AddressUnresolvedError(
+              clipRef,
+              'the bulk note reply did not return all 16 MIDI channels',
+            );
+          }
+          const seen = new Set<number>();
+          let returnedCount = 0;
+          for (const returned of result.channels) {
+            const channel = returned.channel;
+            if (!Number.isInteger(channel) || channel < 0 || channel > 15 || seen.has(channel)
+                || !Array.isArray(returned.notes) || returned.count !== returned.notes.length) {
+              throw new AddressUnresolvedError(
+                clipRef,
+                'the bulk note reply returned an invalid or duplicate MIDI channel',
+              );
+            }
+            seen.add(channel);
+            returnedCount += returned.count;
+            channels.get(channel)!.push(...returned.notes.map((note: Record<string, number | boolean | string>) => {
               const x = note['x'];
               if (typeof x !== 'number') {
                 throw new AddressUnresolvedError(clipRef, 'a note step returned no numeric position');
@@ -957,31 +1018,42 @@ export class LiveAdapter implements BitwigAdapter {
               return decodeVerboseNote({ ...note, x: x + pageStart }, stepSize);
             }));
           }
+          if (result.count !== returnedCount || result.clipExists === false
+              || !Number.isFinite(result.scanMicros) || result.scanMicros < 0) {
+            throw new AddressUnresolvedError(
+              clipRef,
+              'the bulk note reply returned inconsistent page bounds or counts',
+            );
+          }
         }
       } finally {
         // The fine cursor is shared across reads. Do not leak a page offset into
         // the next clip or the next client call.
-        await this.transport.send({
-          method: WIRE.cursorScrollToStep,
-          params: { cursor, step: 0 },
+        await this.timed('pageReset', async () => {
+          await this.transport.send({
+            method: WIRE.cursorScrollToStep,
+            params: { cursor, step: 0 },
+          });
+          await this.settle('gridChange');
         });
-        await this.settle('gridChange');
       }
       return channels;
     };
 
     const binary = await scan(binaryStep);
     const triplet = await scan(tripletStep);
-    const reconciled = new Map<number, readonly NoteRecord[]>();
-    for (let channel = 0; channel < 16; channel += 1) {
-      reconciled.set(channel, this.reconcileNoteScans(
-        clipRef,
-        channel,
-        binary.get(channel) ?? [],
-        triplet.get(channel) ?? [],
-      ));
-    }
-    return reconciled;
+    return this.timed('reconciliation', async () => {
+      const reconciled = new Map<number, readonly NoteRecord[]>();
+      for (let channel = 0; channel < 16; channel += 1) {
+        reconciled.set(channel, this.reconcileNoteScans(
+          clipRef,
+          channel,
+          binary.get(channel) ?? [],
+          triplet.get(channel) ?? [],
+        ));
+      }
+      return reconciled;
+    });
   }
 
   /** Pair notes by pitch and order, and keep the scan that did not round down. */
@@ -1170,6 +1242,10 @@ export class LiveAdapter implements BitwigAdapter {
    * mechanism would be a second unmeasured thing.
    */
   private async restoreSelection(saved: SelectionState | undefined): Promise<void> {
+    await this.timed('selectionRestoration', () => this.restoreSelectionNow(saved));
+  }
+
+  private async restoreSelectionNow(saved: SelectionState | undefined): Promise<void> {
     // A direct call has no ownership across its return boundary. Another adapter
     // or probe can move the same physical cursor before the next call. Keep a
     // hold only inside `preserveSelection`, where this adapter owns the complete

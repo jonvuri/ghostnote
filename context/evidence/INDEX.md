@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-08-20
+updated: 2026-08-21
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E51 | Bulk clip read removes the channel loop but misses the latency gate [K] (2026-08-21) | [open](experiments/e51-bulk-clip-read-removes-channel-loop-but-misses-latency-gate.md) |
 | E50 | Device-populated scale confirms D7 [K] (2026-08-20) | [open](experiments/e50-device-populated-scale-confirms-d7.md) |
 | E49 | Phase 2 closes with exact live baseline and final remote CI [K] (2026-08-20) | [open](experiments/e49-phase-2-closeout-and-final-remote-ci.md) |
 | E48 | Second musical dogfood passes with measured operation latency [K] (2026-08-20) | [open](experiments/e48-second-musical-dogfood-and-operation-latency.md) |

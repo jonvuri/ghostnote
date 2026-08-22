@@ -72,6 +72,7 @@ export const WIRE = {
   cursorSetNotes: 'cursor.setNotes',
   cursorGetNotes: 'cursor.getNotes',
   cursorGetNotesVerbose: 'cursor.getNotesVerbose',
+  cursorGetNotesVerboseAllChannels: 'cursor.getNotesVerboseAllChannels',
   cursorPlayState: 'cursor.playState',
   cursorLaunchSettings: 'cursor.launchSettings',
   cursorSetLaunchSettings: 'cursor.setLaunchSettings',

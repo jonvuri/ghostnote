@@ -46,6 +46,8 @@ interface SlotModel {
   /** One note per clip, pitched so a mispoint is legible in the assertion. */
   readonly pitch: number;
   readonly startBeats?: number;
+  /** Optional distinct pitch for each MIDI channel. */
+  readonly channelPitches?: readonly number[];
 }
 
 /**
@@ -208,7 +210,8 @@ class CursorModelTransport implements Transport {
         };
       }
 
-      case WIRE.cursorGetNotesVerbose: {
+      case WIRE.cursorGetNotesVerbose:
+      case WIRE.cursorGetNotesVerboseAllChannels: {
         const cursor = params['cursor'] as string;
         const on = this.cursorOn.get(cursor);
         const model = on === undefined ? undefined : this.slots.get(on);
@@ -217,14 +220,26 @@ class CursorModelTransport implements Transport {
         const absolute = Math.floor((model?.startBeats ?? 0) / stepSize + 1e-9);
         const maxX = params['maxX'] as number | undefined;
         const local = absolute - offset;
-        return model === undefined || local < 0 || (maxX !== undefined && local >= maxX)
-          ? { notes: [] }
-          : { notes: [{
-            x: local,
-            y: model.pitch,
-            velocity: 100 / 127,
-            duration: 1,
-          }] };
+        const notesFor = (channel: number) =>
+          model === undefined || local < 0 || (maxX !== undefined && local >= maxX)
+            ? []
+            : [{
+              x: local,
+              y: model.channelPitches?.[channel] ?? model.pitch,
+              velocity: 100 / 127,
+              duration: 1,
+            }];
+        const notes = notesFor((params['channel'] as number | undefined) ?? 0);
+        if (frame.method === WIRE.cursorGetNotesVerbose) return { notes };
+        return {
+          channels: Array.from({ length: 16 }, (_, channel) => ({
+            channel,
+            notes: notesFor(channel),
+            count: notesFor(channel).length,
+          })),
+          count: notes.length * 16,
+          scanMicros: 1,
+        };
       }
 
       case WIRE.cursorSetStepSize:
@@ -284,9 +299,9 @@ test('2h: the production fine cursor preserves a triplet start across exact read
     [1 / 64, 1 / 48],
   );
   assert.equal(
-    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerbose).length,
-    32,
-    'one clip scans all channels once per grid',
+    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels).length,
+    2,
+    'one clip sends one bounded bulk request for each grid',
   );
   assert.equal(transport.where('fine'), 0);
 });
@@ -309,9 +324,61 @@ test('2i: the exact reader pages through a clip longer than its fine window', as
     [0, 512, 1024, 1536, 0, 0, 512, 1024, 0],
   );
   assert.equal(
-    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerbose).length,
-    112,
-    'four binary pages and three triplet pages each scan all channels',
+    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels).length,
+    7,
+    'four binary pages and three triplet pages each use one bulk request',
+  );
+});
+
+test('4b: one bulk page reply preserves all 16 verbose MIDI channels', async () => {
+  const channelPitches = Array.from({ length: 16 }, (_, channel) => 48 + channel);
+  const phases: string[] = [];
+  const transport = new CursorModelTransport(new Map([
+    [0, { lengthBeats: 4, pitch: 48, channelPitches }],
+  ]));
+  const adapter = new UntimedAdapter({
+    transport,
+    onTiming: (event) => phases.push(event.phase),
+  });
+  await adapter.hello();
+
+  const addresses = channelPitches.map((_, channel) => notesAt(CLIP(0), channel));
+  const snapshot = await adapter.read(addresses);
+
+  assert.deepEqual(addresses.map((address) => {
+    const value = snapshot.entries[addressKey(address)]?.value;
+    return value?.of === 'notes' ? value.notes[0]?.pitch : undefined;
+  }), channelPitches);
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels).length,
+    2,
+    'the snapshot reuses one binary and one triplet bulk reply for all channels',
+  );
+  assert.deepEqual(new Set(phases), new Set([
+    'targetAcquisition', 'metadata', 'gridSettlement', 'pageTurn',
+    'bulkPageRead', 'reconciliation', 'pageReset', 'selectionRestoration',
+  ]));
+});
+
+test('4b: an incomplete bulk page refuses instead of hiding one MIDI channel', async () => {
+  const inner = new CursorModelTransport(new Map([
+    [0, { lengthBeats: 4, pitch: 60 }],
+  ]));
+  const transport: Transport = {
+    send: async (frame) => {
+      const result = await inner.send(frame);
+      if (frame.method !== WIRE.cursorGetNotesVerboseAllChannels) return result;
+      const bulk = result as { readonly channels: readonly unknown[] };
+      return { ...bulk, channels: bulk.channels.slice(0, 15) };
+    },
+    close: () => inner.close(),
+  };
+  const adapter = new UntimedAdapter({ transport });
+  await adapter.hello();
+
+  await assert.rejects(
+    adapter.read([notesAt(CLIP(0), 0)]),
+    /did not return all 16 MIDI channels/,
   );
 });
 

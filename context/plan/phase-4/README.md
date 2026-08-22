@@ -2,8 +2,9 @@
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
 state: active
-status: Sessions 4b through 4j are planned. Session 4b exact clip-operation
-        latency is next.
+status: Session 4b removed the per-channel bridge loop but missed its half-time
+        gate. The read-window measurement and two bounded clip-performance
+        follow-ups now precede device implementation.
 updated: 2026-08-21
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -34,30 +35,38 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 
 1. [4a — device-side scale and scaffold baseline](4a-device-side-scale.md) —
    complete. E50 closes the E5 caveat and confirms D7.
-2. [4b — exact clip-operation latency](4b-clip-operation-latency.md) — measure
-   and remove the repeated long-clip read bottleneck before device work starts.
-3. [4c — direct-parameter core](4c-direct-parameter-core.md) — safe top-level
+2. [4b — exact clip-operation latency](4b-clip-operation-latency.md) — active.
+   The bulk page path is built. A dedicated read-window measurement remains.
+3. [4b follow-up — note completion signals](4b-note-completion-signals.md) —
+   measure note-stage scaling and classify scoped note events.
+4. [4b follow-up — clip mutation settlement](4b-clip-mutation-settlement.md) —
+   apply measured O(1)-in-note-count settlement and exact verification.
+5. [4c — direct-parameter core](4c-direct-parameter-core.md) — safe top-level
    enumeration, read, write, verification, and checkpoint replay.
-4. [4d — native device catalog](4d-native-device-catalog.md) — deterministic
+6. [4d — native device catalog](4d-native-device-catalog.md) — deterministic
    bundle generation, checked-in provenance, and live resolution for the native
    devices this phase uses.
-5. [4e — VST3 and CLAP parameter proof](4e-plugin-parameter-proof.md) — explicit
+7. [4e — VST3 and CLAP parameter proof](4e-plugin-parameter-proof.md) — explicit
    plugin formats and independent enumeration, write, readback, and cleanup.
-6. [4f — deep parameters and remote controls](4f-deep-parameters-and-remotes.md) —
+8. [4f — deep parameters and remote controls](4f-deep-parameters-and-remotes.md) —
    nested paths, drum pads, and Phase 5's remote-page verification instrument.
-7. [4g — managed FX-chain workflow](4g-managed-fx-chain.md) — ordered mixed
+9. [4g — managed FX-chain workflow](4g-managed-fx-chain.md) — ordered mixed
    insertion, parameter control, bypass, and exact take semantics.
-8. [4h — device performance gate](4h-device-performance-gate.md) — measure full
+10. [4h — device performance gate](4h-device-performance-gate.md) — measure full
    workflows and remove repeated software overhead before the schema freezes.
-9. [4i — device and parameter MCP surface](4i-device-surface.md) — revise the
+11. [4i — device and parameter MCP surface](4i-device-surface.md) — revise the
    thin probe-era tools and freeze one measured public cohort.
-10. [4j — dogfood and closeout](4j-dogfood-and-closeout.md) — natural use, the
+12. [4j — dogfood and closeout](4j-dogfood-and-closeout.md) — natural use, the
     complete live matrix, cleanup, evidence audit, and Phase 5 handoff.
 
 ### Dependency rule
 
 - Session 4b is a measured prerequisite. It changes shared adapter and bridge
   read behavior before the parameter implementation adds another live path.
+- The note-completion follow-up measures signal strength before product use.
+  The mutation follow-up applies only reductions that its evidence supports.
+- Session 4c starts after the exact-read gate and both clip-performance
+  follow-ups close. Device-specific optimization remains in session 4h.
 - Sessions 4d, 4e, and 4f depend on the 4c parameter core. Their catalog,
   plugin, and deep-routing work stays separate.
 - Session 4g composes the completed parameter paths into one managed workflow.
@@ -70,10 +79,12 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
 
 ### In
 
-1. **The measured clip-latency follow-up.** E45 and E48 show that exact 32-beat
+1. **The bounded clip-performance track.** E45 and E48 show that exact 32-beat
    clip reads remain slow after safe asynchronous completion shipped. Session 4b
    measures the complete path and replaces repeated per-channel page traffic
-   with a bounded bulk read. It does not weaken dual-grid or checkpoint rules.
+   with a bounded bulk read. Two follow-ups then measure scoped note events and
+   remove repeated safe mutation settlement. They keep dual-grid, E15-F,
+   checkpoint, interference, and exact-read rules.
 2. **The two-API parameter layer.** E4b established they are complementary, not
    redundant — carry both, per role:
 
