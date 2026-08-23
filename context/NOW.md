@@ -3,15 +3,15 @@ title: Current state
 kind: status
 state: active
 updated: 2026-08-23
-phase: phase-6
-session: phase-6a-bwmod-publication-review
+phase: dogfooding
+session: open-dogfooding-loop
 ---
 
 # Now
 
-Phases 1, 2, 4, and 5 are complete. Phase 3 remains deferred. Phase 6 is an
-independently scheduled breadth and release backlog. Session 6a is selected
-next and has not started.
+Phases 1, 2, 4, and 5 are complete. Phase 3 remains deferred. An open-ended
+dogfooding loop now precedes Phase 6 work. It stays open until the operator
+explicitly closes it. Session 6a remains selected after this loop.
 
 ## Phase 5 closeout
 
@@ -40,17 +40,22 @@ musical results remain exact. `Harmony – Open Minor` keeps
 values. No scratch track, device, clip, temporary file, or launcher residue
 remains.
 
+## Current dogfood
+
+[D01](plan/dogfooding/d01-native-codex-lofi-jungle.md) proved native Codex MCP
+startup and local Bitwig access. It changed no Bitwig content. Codex exposed
+only 40 of 45 Ghostnote tools, excluding all five core clip-authoring tools. The
+available selection-preserving reads then failed with stale track index `5` in
+the four-track project `New 2`.
+
 ## Next action
 
-Implement
-[Phase 6a — `bwmod` publication review and extraction](plan/phase-6/6a-bwmod-publication-review.md).
-Inventory every proposed package file first. Record origin, license,
-attribution, and redistribution state. Exclude unapproved binary donors,
-templates, and fixtures. Do not publish externally without explicit approval.
-
-Session source: [Phase 6](plan/phase-6/README.md).
+Continue the [open dogfooding loop](plan/dogfooding/README.md). First isolate the
+40-of-45 host exposure and the stale selection index as separate defects. Fix
+only a proved boundary, verify it, then retry through a new real musical chat.
+Do not begin Phase 6a until the operator closes this loop.
 
 ## Retrospective
 
-Test the maximum advertised cardinality before closeout. It exposed the
-observer-window equality blind spot.
+Keep host exposure, agent behavior, tool-surface gaps, and bridge defects as
+separate leads. D01 exposed all four in one short workflow.

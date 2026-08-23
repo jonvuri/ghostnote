@@ -15,6 +15,7 @@ history so an agent does not have to reconstruct authority from chronology.
 | Goal | Read, in order |
 |---|---|
 | Continue implementation | [NOW](NOW.md) → active session brief → cited decisions |
+| Continue dogfooding | [NOW](NOW.md) → [dogfooding loop](plan/dogfooding/README.md) → latest run record |
 | Understand the product or architecture | [PROJECT](PROJECT.md) → [decision index](decisions/INDEX.md) |
 | Investigate a Bitwig capability | [capability index](evidence/capability/INDEX.md) → subject page → cited experiment |
 | Find what one experiment measured | [evidence index](evidence/INDEX.md) → named experiment |
@@ -64,4 +65,3 @@ references. They route to the canonical indexes and are not ledgers anymore.
 - Add a capability page only when something measured stands behind it. An empty
   page is a claim that the subject is understood. This axis needs no plan of its
   own — extend it whenever a session measures something.
-

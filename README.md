@@ -11,14 +11,14 @@ Two halves:
 | `extension/` | A Bitwig controller extension (Java). Exposes the API over newline-delimited JSON-RPC 2.0 on TCP `127.0.0.1:8686`. |
 | `brain/` | The TypeScript side: the adapter contract, the fake adapter, `bwmod`, and the MCP server. |
 
-Design lives in [`context/`](context/) — [`PROJECT_PLAN.md`](context/PROJECT_PLAN.md)
-for the phased build, [`DECISIONS.md`](context/DECISIONS.md) for settled decisions
-with evidence, and [`spike/FINDINGS.md`](context/spike/FINDINGS.md) for the
-experiment record every behavioural rule in the code cites.
+Planning and evidence live in [`context/`](context/). Start with the current
+[`NOW`](context/NOW.md) handoff, then use the
+[`PROJECT`](context/PROJECT.md), [decision index](context/decisions/INDEX.md),
+and [evidence index](context/evidence/INDEX.md) as needed.
 
-> **Status: Phase 0.** Personal project, built in the open. No support
-> commitment and no stability promise — the adapter contract is explicitly
-> versioned so it can break.
+> **Status:** Phases 1, 2, 4, and 5 are complete. Phase 3 is deferred. An open
+> dogfooding loop precedes the Phase 6 backlog. This personal project has no
+> support commitment or stability promise.
 
 ## Requirements
 
@@ -45,6 +45,28 @@ declares zero MIDI ports; all communication is over TCP.
 Bitwig hot-reloads the extension when the deployed file's **content** changes, so
 `./gradlew copyExtension` re-runs `init()` without restarting the DAW. Note that
 `touch` alone does *not* trigger it.
+
+## Connect Codex
+
+Install the brain dependencies, then add this server to `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.ghostnote]
+enabled = true
+required = true
+command = "node"
+args = ["--import", "tsx", "src/mcp-server.ts"]
+cwd = "/absolute/path/to/ghostnote/brain"
+startup_timeout_sec = 20
+```
+
+Each array entry in `args` is one process argument. Do not combine `tsx` and the
+source path in one entry. The direct Node command also avoids `npx` package
+resolution and the `tsx` command-line IPC path.
+
+Quit and restart Codex after a configuration change. The Codex desktop app, CLI,
+and IDE extensions share this configuration. Start one Ghostnote chat at a time:
+each chat starts its own MCP server and bridge connection.
 
 ## Run the offline suite
 

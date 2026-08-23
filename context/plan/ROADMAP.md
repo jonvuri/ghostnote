@@ -15,7 +15,8 @@ updated: 2026-08-23
 | [3 — session view](phase-3/README.md) | deferred | Phase 2 found no evidence to run it now |
 | [4 — sound design](phase-4/README.md) | done | Device and parameter surface |
 | [5 — authoring](phase-5/README.md) | done | Checkpointed topology edits, public modulator authoring, and owned structure composition |
-| [6 — breadth and release](phase-6/README.md) | active | Independently schedulable breadth, packaging, and release work |
+| [Dogfooding](dogfooding/README.md) | active | Open real-workflow iteration until the operator closes it |
+| [6 — breadth and release](phase-6/README.md) | planned | Independently schedulable breadth, packaging, and release work |
 
 ## Cross-phase work
 
