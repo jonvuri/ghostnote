@@ -22,6 +22,7 @@ import {
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, track,
   type ClipAddress, type RevisionMark, type TrackAddress,
 } from '../../contract/index.js';
+import { BridgeError } from '../../client.js';
 import { LiveAdapter } from './adapter.js';
 import type { Transport } from './transport.js';
 import { WIRE, type Frame } from './wiremap.js';
@@ -141,7 +142,11 @@ class CursorModelTransport implements Transport {
         return this.selection;
 
       case WIRE.slotStatus:
-        return { hasContent: this.slots.has(params['slotIndex'] as number) };
+        return {
+          hasContent: this.slots.has(params['slotIndex'] as number),
+          isSelected: this.selection.trackIndex === params['trackIndex']
+            && this.selection.slotIndex === params['slotIndex'],
+        };
 
       // ⚠ The two frames that MOVE a cursor, paired exactly as the adapter emits
       // them. The trailing selection restore also sends `slot.select`, with no
@@ -541,6 +546,11 @@ test('B4: one selection scope covers repeated live reads and restores once', asy
     transport.frames.filter((frame) => frame.method === WIRE.selectionStatus).length,
     2,
     'the full pipeline captures once and confirms the final restore once',
+  );
+  assert.equal(
+    transport.frames.filter((frame) => frame.method === WIRE.slotStatus).length,
+    3,
+    'one slot status validates the selection and two read the target clip',
   );
   const selects = transport.frames.filter((frame) => frame.method === WIRE.slotSelect);
   assert.equal(selects.length, 2, 'one verified cursor point and one final restore are sent');
@@ -1330,14 +1340,42 @@ class DeviceChainTransport implements Transport {
 
 /** A device chain that also models the user's current clip selection. */
 class SelectedDeviceChainTransport extends DeviceChainTransport {
-  readonly selection = { trackIndex: 3, slotIndex: 2 };
+  readonly selection = { trackIndex: 0, slotIndex: 2 };
   failDeviceList = false;
+  selectionValidationError: Error | undefined;
 
   override async send(frame: Frame): Promise<unknown> {
     const params = (frame.params ?? {}) as Record<string, unknown>;
+    if (frame.method === WIRE.trackList) {
+      this.frames.push(frame);
+      return {
+        tracks: [
+          { index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' },
+          { index: 1, channelId: 'track-1', name: 'track-1' },
+          { index: 2, channelId: 'track-2', name: 'track-2' },
+          { index: 3, channelId: 'track-3', name: 'track-3' },
+        ],
+        count: 4,
+        bankSize: 8,
+        itemCount: 4,
+      };
+    }
     if (frame.method === WIRE.selectionStatus) {
       this.frames.push(frame);
       return { ...this.selection };
+    }
+    if (frame.method === WIRE.slotStatus) {
+      this.frames.push(frame);
+      if (this.selectionValidationError !== undefined) throw this.selectionValidationError;
+      if ((params['trackIndex'] as number) >= 4) {
+        throw new BridgeError(-32602, `Invalid params: no track at index: ${params['trackIndex']}`);
+      }
+      return {
+        exists: true,
+        hasContent: false,
+        isSelected: this.selection.trackIndex === params['trackIndex']
+          && this.selection.slotIndex === params['slotIndex'],
+      };
     }
     if (frame.method === WIRE.slotSelect) {
       this.frames.push(frame);
@@ -1363,18 +1401,58 @@ test('4g-device-selection: public chain reads and resolution restore selection',
   const address = deviceEnabled(deviceAt(TRACK, 0));
 
   await adapter.devices(TRACK);
-  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
   const snapshot = await adapter.read([address]);
   assert.equal(snapshot.entries[addressKey(address)]?.value.of, 'deviceEnabled');
-  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
   const resolved = await adapter.resolve([address]);
   assert.equal(resolved.resolved[0]?.found, true);
-  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
 
   const restores = wire.frames.filter((frame) => frame.method === WIRE.slotSelect);
   assert.equal(restores.length, 3);
-  assert.ok(restores.every((frame) => frame.params?.['trackIndex'] === 3
+  assert.ok(restores.every((frame) => frame.params?.['trackIndex'] === 0
     && frame.params?.['slotIndex'] === 2));
+});
+
+test('dogfood selection: a stale cached track cannot mask a device read', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  wire.selection.trackIndex = 5;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const result = await adapter.devices(TRACK);
+
+  assert.deepEqual(result.devices.map((device) => device.name), ['Polysynth']);
+  assert.deepEqual(wire.frames.filter((frame) => frame.method === WIRE.selectionStatus), [
+    { method: WIRE.selectionStatus },
+  ]);
+  assert.deepEqual(wire.frames.filter((frame) => frame.method === WIRE.slotStatus), [{
+    method: WIRE.slotStatus,
+    params: { trackIndex: 5, slotIndex: 2 },
+  }]);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.slotSelect), false);
+});
+
+test('dogfood selection: a cached row outside the current window is not restored', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  wire.selection.slotIndex = 8;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3, sceneBankSize: 8 });
+
+  const result = await adapter.devices(TRACK);
+
+  assert.deepEqual(result.devices.map((device) => device.name), ['Polysynth']);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.slotStatus), false);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.slotSelect), false);
+});
+
+test('dogfood selection: an unrelated selection validation failure propagates', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  wire.selectionValidationError = new BridgeError(-32603, 'Internal error: observer failed');
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(adapter.devices(TRACK), /observer failed/);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceList), false);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.slotSelect), false);
 });
 
 test('4g-device-selection: a failed public chain read restores selection', async () => {
@@ -1383,7 +1461,7 @@ test('4g-device-selection: a failed public chain read restores selection', async
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
   await assert.rejects(adapter.devices(TRACK), /device list failed/);
-  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 1);
 });
 
@@ -1401,7 +1479,7 @@ test('4g-device-selection: direct insert preflight and apply both restore select
 
   assert.deepEqual(receipt.minted[0], deviceAt(TRACK, 1));
   assert.deepEqual(wire.chains.get(0), ['Polysynth', 'Phaser']);
-  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
 });
 
@@ -1418,7 +1496,7 @@ test('4g-device-selection: a failed direct insert proof restores selection', asy
   }] });
 
   assert.equal(receipt.stages.flatMap((stage) => stage.ops).every((op) => op.ok), false);
-  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
 });
 
@@ -1439,7 +1517,7 @@ test('4g-device-selection: direct relocation preflight and apply both restore se
 
   assert.equal(receipt.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   assert.deepEqual(wire.chains.get(0), ['Phaser', 'Polysynth']);
-  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
 });
 
@@ -1458,7 +1536,7 @@ test('4g-device-selection: a failed direct relocation guard restores selection',
     expectedEnabledChain: [true, true],
   }] }), /top-level device chain changed/);
 
-  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 2 });
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
 });
 

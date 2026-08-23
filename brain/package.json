@@ -13,6 +13,7 @@
     "probe:list": "node -e \"const s=require('./package.json').scripts;for(const k of Object.keys(s))if(k.startsWith('probe:'))console.log(k.slice(6).padEnd(14),s[k].replace('tsx src/probes/',''))\"",
     "probe:conformance": "tsx --test src/probes/conformance.live.ts",
     "probe:hello": "tsx src/probes/gn-hello.ts",
+    "probe:d01-selection": "tsx src/probes/d01-stale-selection.ts",
     "probe:e13": "tsx src/probes/e13-bwmod.ts",
     "probe:phase5a-authoring": "tsx src/probes/phase5a-modulator-authoring.ts",
     "probe:phase5b-authoring": "tsx src/probes/phase5b-modulator-authoring.ts",

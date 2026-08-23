@@ -183,8 +183,25 @@ that no longer names the selected slot in the foreground project.
 - Offline regressions and the full brain and extension checks pass.
 - The live project-switch check changes no Bitwig content.
 
+### Outcome — complete
+
+[E75](../../evidence/experiments/e75-stale-selection-restoration-is-invalidated.md)
+records the offline and live results. Selection capture now saves a cached pair
+only when the exact current `slot.status` reports `isSelected: true`. An invalid
+cached track or row becomes no saved selection. Other bridge failures propagate.
+
+The four-track offline regression uses cached track `5`. The device read returns
+its content and sends no restore. The valid-selection regression still restores
+the current human selection once. Focused adapter tests pass 88/88. The full
+brain check passes 829/829, and the extension check passes.
+
+The live read-only check reproduced project `New 2` with four tracks and cached
+selection `(5, 0)`. `slot.status` rejected track `5`, the device read returned a
+complete result, and the trace contained no restore frame. Revision, content
+epoch, project shape, and selection stayed unchanged. No extension wire behavior
+changed, so no deploy was required.
+
 ## Dogfood gate
 
-Complete and verify both focused sessions before the next musical dogfood chat.
-Then retry a goal that the current public surface can express fully. Keep the
-drum-rack product gap separate from these two fixes.
+Both focused sessions are complete. Retry a goal that the current public surface
+can express fully. Keep the drum-rack product gap separate from these two fixes.

@@ -40,6 +40,7 @@ import {
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { SETTLE_MS } from '../../contract/index.js';
+import { BridgeError } from '../../client.js';
 import {
   STEP_SIZES, decodeVerboseNote, encodeStage, notePageStarts, notePropertyPageStarts,
   sceneRowIn, type EncodeContext,
@@ -2056,9 +2057,25 @@ export class LiveAdapter implements BitwigAdapter {
       trackIndex: number;
       slotIndex: number;
     };
-    return status.trackIndex >= 0 && status.slotIndex >= 0
-      ? { trackIndex: status.trackIndex, slotIndex: status.slotIndex }
-      : undefined;
+    if (status.trackIndex < 0 || status.slotIndex < 0 || status.slotIndex >= this.sceneBankSize) {
+      return undefined;
+    }
+
+    try {
+      const slot = (await this.transport.send({
+        method: WIRE.slotStatus,
+        params: { trackIndex: status.trackIndex, slotIndex: status.slotIndex },
+      })) as { isSelected?: boolean };
+      return slot.isSelected === true
+        ? { trackIndex: status.trackIndex, slotIndex: status.slotIndex }
+        : undefined;
+    } catch (error) {
+      if (error instanceof BridgeError && error.code === -32602 && (
+        error.message === `Invalid params: no track at index: ${status.trackIndex}`
+        || error.message === `Invalid params: trackIndex out of bank range: ${status.trackIndex}`
+      )) return undefined;
+      throw error;
+    }
   }
 
   /**

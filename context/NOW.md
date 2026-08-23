@@ -43,27 +43,25 @@ remains.
 ## Current dogfood
 
 [D01](plan/dogfooding/d01-native-codex-lofi-jungle.md) proved native Codex MCP
-startup and local Bitwig access. It changed no Bitwig content. The first focused
-follow-up is complete. Exact-length homogeneous recurrence arrays removed the
-tuple schema from five clip-authoring tools. MCP still lists the same 45 names,
-and a fresh Codex session exposes all 45. The full brain check passes 826/826.
-[E74](evidence/experiments/e74-homogeneous-recurrence-schemas-restore-codex-tools.md)
-records the A/B result.
+startup and local Bitwig access. Both focused follow-ups are complete.
+Exact-length homogeneous recurrence arrays expose all 45 public tools in fresh
+Codex. Selection capture now validates the cached pair through `slot.status` and
+does not restore an invalid track or row.
 
-The remaining defect is stale selection restoration. Selection-preserving reads
-failed with saved track index `5` in the four-track project `New 2`. The stale
-index comes from an unvalidated saved clip selection that restoration replays
-before the read can return.
+A live read-only check reproduced cached track `5` in the four-track project
+`New 2`. The fixed adapter returned the complete device result and sent no
+restore. Revision, content epoch, project shape, and selection stayed unchanged.
+The full brain check passes 829/829, and the extension check passes.
+[E74](evidence/experiments/e74-homogeneous-recurrence-schemas-restore-codex-tools.md)
+and [E75](evidence/experiments/e75-stale-selection-restoration-is-invalidated.md)
+record both follow-ups.
 
 ## Next action
 
-Complete focused follow-up session 2 in
-[D01](plan/dogfooding/d01-native-codex-lofi-jungle.md). Invalidate stale
-selection restoration and verify one read-only live project switch. Complete it
-before the next musical dogfood chat. Do not begin Phase 6a until the operator
-closes this loop.
+Run the next musical dogfood chat with a goal that the current public surface can
+express fully. Keep the drum-rack product gap separate. Do not begin Phase 6a
+until the operator closes this loop.
 
 ## Retrospective
 
-Check both draft-7 array-valued `items` and draft 2020-12 `prefixItems` when a
-host rejects tuple schemas. The two forms describe the same boundary.
+Validate cached observer coordinates through current object state before replay.
