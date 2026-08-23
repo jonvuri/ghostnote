@@ -13,7 +13,7 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION,
   StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
-  assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceInsertable, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
+  assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, chainPath, contentDelta,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
@@ -143,6 +143,30 @@ export class FakeAdapter implements BitwigAdapter {
         .map((item, index) => ({ index, name: item.name, enabled: item.enabled ?? true })),
       devicesComplete: track.devices.length <= this.model.deviceBankSize,
       bankSize: this.model.deviceBankSize,
+    };
+  }
+
+  async drumPads(container: DeviceAddress) {
+    const track = this.requireTrack(container.track, 'drumPads');
+    const device = track.devices[container.chainIndex];
+    if (device?.drumPads === undefined) {
+      throw new AddressUnresolvedError(container, 'the Drum Machine pad bank is absent');
+    }
+    const topLevel = await this.devices(container.track);
+    const pads = device.drumPads.flatMap((nested, channel) => nested.length === 0 ? [] : [{
+      channel,
+      devices: nested.slice(0, this.model.deviceBankSize)
+        .map((item, index) => ({ index, name: item.name })),
+      devicesComplete: nested.length <= this.model.deviceBankSize,
+      deviceBankSize: this.model.deviceBankSize,
+    }]);
+    return {
+      containerName: device.name,
+      topLevel,
+      pads,
+      padsComplete: device.drumPads.length === this.model.drumPadBankSize
+        && pads.every((item) => item.devicesComplete),
+      bankSize: this.model.drumPadBankSize,
     };
   }
 
@@ -782,6 +806,7 @@ export class FakeAdapter implements BitwigAdapter {
         bankSize: this.model.deviceBankSize,
       };
     });
+    assertDrumPadInsertable(batch.ops);
     // ⚠⚠ The chain-create preconditions, from the same shared contract function
     // the live adapter calls: the container is observable, the source names
     // exactly one chain, the new name is provably free, and the chain bank has
@@ -1259,7 +1284,8 @@ export class FakeAdapter implements BitwigAdapter {
           : undefined;
         const name = isInstrumentSeed
           ? 'Instrument Layer'
-          : op.source.from === 'file' ? op.source.path.split('/').pop()! : sourceId!;
+          : sourceId === ProjectModel.DRUM_MACHINE_UUID ? 'Drum Machine'
+            : op.source.from === 'file' ? op.source.path.split('/').pop()! : sourceId!;
         // ⚠ A container inserted by uuid arrives with the chains its type ships
         // with — one for an FX Layer, none for an Instrument Layer (`e17ai`,
         // E18a at three destinations). That asymmetry is the bootstrap fact the
@@ -1287,6 +1313,9 @@ export class FakeAdapter implements BitwigAdapter {
             value: 0.5,
           })),
           ...(shipped === undefined ? {} : { chains: shipped }),
+          ...(sourceId === ProjectModel.DRUM_MACHINE_UUID
+            ? { drumPads: Array.from({ length: this.model.drumPadBankSize }, () => []) }
+            : {}),
         };
         track.devices.push(device);
         // ⚠ The chain index the insert PRODUCED, read off the chain rather than
@@ -1311,7 +1340,42 @@ export class FakeAdapter implements BitwigAdapter {
             'fake',
           );
         }
+        if (op.expectedDrumPads !== undefined) {
+          const occupied = (current?.drumPads ?? []).flatMap((devices, channel) =>
+            devices.length === 0 ? [] : [{ channel, deviceName: devices[0]!.name, count: devices.length }]);
+          const expected = [...op.expectedDrumPads].sort((a, b) => a.channel - b.channel);
+          if (occupied.length !== expected.length || occupied.some((item, index) =>
+            item.count !== 1 || item.channel !== expected[index]?.channel
+              || item.deviceName !== expected[index]?.deviceName)) {
+            throw new UnsupportedOpError(
+              `${op.op}: the owned Drum Machine pad structure changed`,
+              'fake',
+            );
+          }
+        }
         this.model.deleteDevice(track, op.device.chainIndex);
+        return;
+      }
+
+      case 'drumPad.insert': {
+        const track = this.requireTrack(op.pad.container.track, op.op);
+        this.assertExpectedDeviceChain(
+          op.op, track, op.expectedChain, op.expectedEnabledChain,
+        );
+        const container = track.devices[op.pad.container.chainIndex];
+        const pad = container?.drumPads?.[op.pad.channel];
+        if (container?.name !== op.expectedContainerName || pad === undefined) {
+          throw new UnsupportedOpError(`${op.op}: the Drum Machine target is absent`, 'fake');
+        }
+        if (pad.length !== 0) {
+          throw new UnsupportedOpError(`${op.op}: target pad ${op.pad.channel} is occupied`, 'fake');
+        }
+        pad.push({
+          name: op.expectedDeviceName,
+          enabled: true,
+          paramsLive: true,
+          params: [],
+        });
         return;
       }
 

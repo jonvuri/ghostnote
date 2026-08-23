@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v8';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v9';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -207,8 +207,17 @@ export const DESCRIPTION_COHORT_V7: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v8 replaces recurrence tuples with host-compatible exact-length arrays. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V8: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V7,
+] as const;
+
+/** v9 adds native per-note Drum Machine composition. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V8,
+  {
+    name: 'compose_drum_machine', kind: 'write',
+    reason: 'Creates one native Drum Machine with separate per-note pad routing.',
+  },
 ] as const;
 
 interface ToolAnnotations {
@@ -302,3 +311,7 @@ export const TOOL_DESCRIPTION_V7_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V8_SHA256 =
   '16b190a515a2262d8e225d2631562b51e1e061d09616a2ffa41abdd430b3b919';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V9_SHA256 =
+  '101c3b85d700014a08e87692ed25b1d766c38acc73b55647148b84486370b1be';

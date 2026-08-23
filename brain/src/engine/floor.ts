@@ -244,6 +244,7 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     case 'chain.relocate':
     case 'device.relocate':
     case 'chain.activate':
+    case 'drumPad.insert':
     case 'notify':
       return undefined;
     default:

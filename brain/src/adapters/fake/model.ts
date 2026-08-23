@@ -133,6 +133,7 @@ export const noteKey = (channel: number, pitch: number, startBeats: number): str
   `${channel}:${pitch}:${startBeats}`;
 
 export class ProjectModel {
+  static readonly DRUM_MACHINE_UUID = '8ea97e45-0255-40fd-bc7e-94419741e9d1';
   /** Ordered exactly as the flat TrackBank presents them — see `bankView()`. */
   tracks: FakeTrack[] = [];
   sceneCount = 8;

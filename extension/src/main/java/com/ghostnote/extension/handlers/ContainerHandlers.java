@@ -1544,6 +1544,20 @@ public final class ContainerHandlers extends HandlerGroup {
             JsonObject obj = new JsonObject();
             obj.addProperty("index", p);
             obj.addProperty("name", pad.name().get());
+            JsonArray devices = new JsonArray();
+            for (int d = 0; d < rig.config.deviceBank; d++) {
+                Device nested = rig.drumPadDeviceBanks0[p].getDevice(d);
+                if (!nested.exists().get()) {
+                    continue;
+                }
+                JsonObject device = new JsonObject();
+                device.addProperty("index", d);
+                device.addProperty("name", nested.name().get());
+                devices.add(device);
+            }
+            obj.add("devices", devices);
+            obj.addProperty("deviceCount", rig.drumPadDeviceBanks0[p].itemCount().get());
+            obj.addProperty("deviceBankSize", rig.config.deviceBank);
             pads.add(obj);
         }
         JsonObject result = new JsonObject();
@@ -1562,7 +1576,33 @@ public final class ContainerHandlers extends HandlerGroup {
     private JsonElement drumPadInsertDevice(JsonObject params) {
         int padIndex = params.get("padIndex").getAsInt();
         String uuid = params.get("uuid").getAsString();
-        rig.drumPadBank0.getItemAt(padIndex).insertionPoint()
+        if (params.has("expectedTrackChannelId")) {
+            String expectedTrack = params.get("expectedTrackChannelId").getAsString();
+            String actualTrack = rig.cursorTracks[0].channelId().get();
+            if (!expectedTrack.equals(actualTrack)) {
+                throw new IllegalArgumentException(
+                    "drumpad.insertDevice track identity changed: expected "
+                        + expectedTrack + ", got " + actualTrack);
+            }
+            int expectedIndex = params.get("expectedDeviceIndex").getAsInt();
+            int actualIndex = rig.currentDirectParameterDeviceIndex();
+            String expectedName = params.get("expectedContainerName").getAsString();
+            String actualName = rig.cursorDevice0.name().get();
+            if (rig.cursorDevice0.isNested().get() || expectedIndex != actualIndex
+                    || !expectedName.equals(actualName)) {
+                throw new IllegalArgumentException(
+                    "drumpad.insertDevice container identity changed");
+            }
+        }
+        if (padIndex < 0 || padIndex >= Rig.DRUM_PAD_BANK) {
+            throw new IllegalArgumentException("drumpad.insertDevice padIndex is outside the bank");
+        }
+        DrumPad pad = rig.drumPadBank0.getItemAt(padIndex);
+        if (params.has("expectedTrackChannelId") && pad.exists().get()) {
+            throw new IllegalArgumentException(
+                "drumpad.insertDevice target pad " + padIndex + " is occupied");
+        }
+        pad.insertionPoint()
             .insertBitwigDevice(java.util.UUID.fromString(uuid));
         return ok();
     }

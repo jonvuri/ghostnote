@@ -10,8 +10,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { SETTLE_MS, planBudgetMs, planStages, stepSizeFor } from './index.js';
-import { clip, device, param, scene, slot, track } from './address.js';
+import { SETTLE_MS, assertDrumPadInsertable, planBudgetMs, planStages, stepSizeFor } from './index.js';
+import { clip, device, drumPad, param, scene, slot, track } from './address.js';
 import type { Op } from './ops.js';
 
 const T = track('b07f6b06-8f4f-4f4f-802d-ddf1a5190515');
@@ -35,6 +35,35 @@ test('S-stage: a settling op gets its own stage with its budget', () => {
   assert.equal(stages.length, 1);
   // ~600ms: a real plugin load, the slowest op measured (E3).
   assert.equal(stages[0]!.settle, 'deviceInsert');
+});
+
+test('d02-s1-contract: pad inserts follow and guard one owned container', () => {
+  const container = device(T, 0);
+  const ops: Op[] = [
+    {
+      op: 'device.insert', track: T,
+      source: { from: 'bitwig', uuid: '8ea97e45-0255-40fd-bc7e-94419741e9d1' },
+      expectedChain: [], expectedEnabledChain: [],
+    },
+    {
+      op: 'drumPad.insert', pad: drumPad(container, 0),
+      source: { from: 'bitwig', uuid: 'c6d5de18-a6f1-4daa-90a9-d9254527601a' },
+      expectedDeviceName: 'v1 Kick', expectedContainerName: 'Drum Machine',
+      expectedChain: ['Drum Machine'], expectedEnabledChain: [true],
+    },
+  ];
+  assert.doesNotThrow(() => assertDrumPadInsertable(ops));
+  assert.deepEqual(planStages(ops).map((stage) => stage.ops[0]!.op), [
+    'device.insert', 'drumPad.insert',
+  ]);
+  assert.throws(
+    () => assertDrumPadInsertable([ops[1]!]),
+    /must follow its guarded top-level container insert/,
+  );
+  assert.throws(
+    () => assertDrumPadInsertable([...ops, ops[1]!]),
+    /same Drum Machine pad twice/,
+  );
 });
 
 test('S-stage: a settling op never shares with the instant ops around it', () => {

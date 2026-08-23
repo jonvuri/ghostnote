@@ -719,7 +719,7 @@ export class Stash implements StashLog, StashWriter {
       ...(whole ? [] : slicedInserts(take)),
     ];
     const batches: InsertBatch[] = whole
-      ? [{ ops: take.ops, minted: take.receipt.minted }]
+      ? [{ ops: take.ops, minted: take.receipt.minted, stages: take.receipt.stages }]
       : [];
 
     const input: RevertInput = {

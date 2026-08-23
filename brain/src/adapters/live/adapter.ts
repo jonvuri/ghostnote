@@ -28,14 +28,14 @@
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
   ContractVersionError, StaleAddressError, WireDriftError,
-  addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
+  addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
   chainPath, chooseStepSize, clip as clipAt, contentDelta, device as deviceAt, deviceIn,
   hasUnverifiedProps, planStages,
   lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
-  type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type Op, type ParamState, type ResolveResult, type ResolvedAddress, type RevisionMark,
+  type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type ObservedDrumPadBank, type Op, type ParamState, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
@@ -226,7 +226,13 @@ interface WireLayerInventory {
 }
 
 interface WireDrumPadInventory {
-  readonly pads?: readonly { readonly index?: number; readonly name?: string }[];
+  readonly pads?: readonly {
+    readonly index?: number;
+    readonly name?: string;
+    readonly devices?: readonly WireDevice[];
+    readonly deviceCount?: number;
+    readonly deviceBankSize?: number;
+  }[];
   readonly itemCount?: number;
   readonly bankSize?: number;
   readonly hasDrumPads?: boolean;
@@ -455,7 +461,7 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
   'clip.create', 'clip.delete', 'track.create', 'track.duplicate', 'track.delete',
   'clip.duplicate', 'clip.move',
   'scene.create', 'scene.delete', 'device.insert', 'device.delete',
-  'device.relocate', 'chain.relocate',
+  'device.relocate', 'chain.relocate', 'drumPad.insert',
   // ⚠ `chain.create` is deliberately NOT here, and the omission is a claim: it
   // re-indexes a container's LAYER bank and nothing else. No track bank row
   // moves, no scene row moves, and the track's own device chain is untouched —
@@ -491,6 +497,7 @@ const borrowsSelection = (op: Op): boolean =>
   || op.op === 'chain.create'
   || op.op === 'chain.relocate'
   || op.op === 'chain.activate'
+  || op.op === 'drumPad.insert'
   || op.op === 'clip.launchSettings';
 
 /** Does reading or resolving this address move a pool cursor? */
@@ -1000,6 +1007,90 @@ export class LiveAdapter implements BitwigAdapter {
       this.deviceChainEnabled.set(trackRef.channelId, actualEnabled);
     }
     return expected ?? actual;
+  }
+
+  /** Point at one guarded Drum Machine and read its complete reachable pad bank. */
+  private async drumPadInventory(
+    container: DeviceAddress,
+    expectedContainerName: string,
+    expectedChain: readonly string[],
+    expectedEnabledChain: readonly boolean[],
+    op: Op['op'],
+  ): Promise<WireDrumPadInventory> {
+    const chain = await this.deviceChain(container.track);
+    const names = this.guardedDeviceNames(
+      container.track, chain, expectedChain, expectedEnabledChain, op,
+    );
+    const found = chain?.devices.find((item) => item.index === container.chainIndex);
+    if (names[container.chainIndex] !== expectedContainerName
+        || found?.name !== expectedContainerName) {
+      throw new AddressUnresolvedError(container, 'the complete device chain did not confirm the Drum Machine');
+    }
+    const row = this.bank.find((item) => item.channelId === container.track.channelId);
+    if (row === undefined) throw new AddressUnresolvedError(container, 'the Drum Machine track is not visible');
+    const target = await this.acquireDeviceTarget(container, row);
+    if (target.standing !== 'stable' || target.deviceName !== expectedContainerName) {
+      throw new AddressUnresolvedError(container, `the Drum Machine target is ${target.standing}`);
+    }
+    const pads = await this.transport.send({ method: WIRE.drumPadList }) as WireDrumPadInventory;
+    if (pads.hasDrumPads !== true || pads.bankSize !== 16
+        || (pads.pads ?? []).some((item) => !Number.isInteger(item.index)
+          || item.index! < 0 || item.index! >= 16)) {
+      throw new AddressUnresolvedError(container, 'the complete 16-channel Drum Machine pad bank is unavailable');
+    }
+    this.deviceChainNames.set(container.track.channelId, names);
+    return pads;
+  }
+
+  /** Confirm that one requested pad is empty and leave the cursor on its container. */
+  private async prepareDrumPadInsert(
+    op: Extract<Op, { op: 'drumPad.insert' }>,
+  ): Promise<void> {
+    const inventory = await this.drumPadInventory(
+      op.pad.container,
+      op.expectedContainerName,
+      op.expectedChain,
+      op.expectedEnabledChain,
+      op.op,
+    );
+    if ((inventory.pads ?? []).some((item) => item.index === op.pad.channel)) {
+      throw new InvalidOpError(op.op, `target pad ${op.pad.channel} is occupied`);
+    }
+  }
+
+  /** Confirm the complete owned pad structure before its container is removed. */
+  private async assertOwnedDrumMachineDelete(
+    op: Extract<Op, { op: 'device.delete' }>,
+  ): Promise<void> {
+    if (op.expectedDrumPads === undefined) return;
+    if (op.expectedName === undefined || op.expectedChain === undefined
+        || op.expectedEnabledChain === undefined) {
+      throw new InvalidOpError(op.op, 'an owned Drum Machine removal needs complete guards');
+    }
+    const inventory = await this.drumPadInventory(
+      op.device, op.expectedName, op.expectedChain, op.expectedEnabledChain, op.op,
+    );
+    const occupied = [...(inventory.pads ?? [])].sort((a, b) => a.index! - b.index!);
+    const expected = [...op.expectedDrumPads].sort((a, b) => a.channel - b.channel);
+    if (occupied.length !== expected.length
+        || occupied.some((pad, index) => pad.index !== expected[index]?.channel)) {
+      throw new InvalidOpError(op.op, 'the owned Drum Machine occupied-pad structure changed');
+    }
+    for (const [index, item] of expected.entries()) {
+      const pad = occupied[index]!;
+      const devices = pad.devices ?? [];
+      const complete = typeof pad.deviceCount === 'number'
+        && typeof pad.deviceBankSize === 'number'
+        && pad.deviceCount <= pad.deviceBankSize
+        && devices.length === pad.deviceCount;
+      if (!complete || devices.length !== 1 || devices[0]?.index !== 0
+          || devices[0]?.name !== item.deviceName) {
+        throw new InvalidOpError(
+          op.op,
+          `pad ${item.channel} did not confirm one exact ${JSON.stringify(item.deviceName)} device`,
+        );
+      }
+    }
   }
 
   /** Point the serialized device cursor through one confirmed recursive path. */
@@ -2224,6 +2315,79 @@ export class LiveAdapter implements BitwigAdapter {
         devices: observed.devices,
         devicesComplete: !observed.blind,
         ...(observed.bankSize === undefined ? {} : { bankSize: observed.bankSize }),
+      };
+    } finally {
+      await this.restoreSelection(selection);
+    }
+  }
+
+  async drumPads(container: DeviceAddress): Promise<ObservedDrumPadBank> {
+    const selection = await this.beginSelectionBorrow(true);
+    try {
+      await this.scanTracks();
+      const observed = await this.stableDeviceChain(container.track);
+      if (observed === undefined || observed.blind) {
+        throw new AddressUnresolvedError(
+          container,
+          'the complete top-level device chain is unavailable',
+        );
+      }
+      const found = observed.devices.find((item) => item.index === container.chainIndex);
+      const enabled = observed.devices.map((item) => item.enabled);
+      if (found === undefined || enabled.some((item) => item === undefined)) {
+        throw new AddressUnresolvedError(
+          container,
+          'the complete Drum Machine identity and enabled state are unavailable',
+        );
+      }
+      const names = observed.devices.map((item) => item.name);
+      const firstInventory = await this.drumPadInventory(
+        container,
+        found.name,
+        names,
+        enabled as boolean[],
+        'drumPad.insert',
+      );
+      const inventory = await this.drumPadInventory(
+        container,
+        found.name,
+        names,
+        enabled as boolean[],
+        'drumPad.insert',
+      );
+      const rawPads = inventory.pads ?? [];
+      const channels = new Set<number>();
+      const pads = rawPads.map((pad) => {
+        const devices = pad.devices ?? [];
+        const devicesComplete = typeof pad.deviceCount === 'number'
+          && typeof pad.deviceBankSize === 'number'
+          && pad.deviceCount >= 0
+          && pad.deviceCount <= pad.deviceBankSize
+          && devices.length === pad.deviceCount
+          && devices.every((device, index) => device.index === index);
+        if (pad.index !== undefined) channels.add(pad.index);
+        return {
+          channel: pad.index ?? -1,
+          devices: devices.map((device) => ({ index: device.index, name: device.name })),
+          devicesComplete,
+          ...(pad.deviceBankSize === undefined ? {} : { deviceBankSize: pad.deviceBankSize }),
+        };
+      });
+      const padsComplete = inventory.pads !== undefined
+        && inventory.bankSize === 16
+        && JSON.stringify(firstInventory) === JSON.stringify(inventory)
+        && channels.size === rawPads.length
+        && pads.every((pad) => pad.channel >= 0 && pad.channel < 16 && pad.devicesComplete);
+      return {
+        containerName: found.name,
+        topLevel: {
+          devices: observed.devices,
+          devicesComplete: true,
+          ...(observed.bankSize === undefined ? {} : { bankSize: observed.bankSize }),
+        },
+        pads,
+        padsComplete,
+        ...(inventory.bankSize === undefined ? {} : { bankSize: inventory.bankSize }),
       };
     } finally {
       await this.restoreSelection(selection);
@@ -3710,6 +3874,7 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
       assertDeviceInsertable(batch.ops, (trackRef) => insertChains.get(trackRef.channelId));
+      assertDrumPadInsertable(batch.ops);
     // ⚠⚠ The chain-create preconditions, from the same shared contract function
     // the fake calls — the container is observable, the source names exactly one
     // chain, the new name is provably free, and the bank has room. Only the
@@ -3933,6 +4098,34 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
 
+      const drumPadOp = stage.ops.length === 1 && stage.ops[0]?.op === 'drumPad.insert'
+        ? stage.ops[0]
+        : undefined;
+      if (drumPadOp !== undefined) {
+        try {
+          await this.prepareDrumPadInsert(drumPadOp);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          receipts.push({
+            index: i,
+            ...(stage.settle === undefined ? {} : { settled: stage.settle }),
+            applied: false,
+            ops: [{ op: drumPadOp.op, ok: false, error: message }],
+            revision: guard ?? 0,
+          });
+          this.pendingNoteWake = undefined;
+          try { await this.resetWriterViews(writerViews); } catch {}
+          await this.restoreSelection(selection);
+          return {
+            contract: CONTRACT_TAG,
+            accepted: true,
+            stages: receipts,
+            minted,
+            at: await this.revision(),
+          };
+        }
+      }
+
       const enabledOp = stage.ops.length === 1 && stage.ops[0]?.op === 'device.setEnabled'
         ? stage.ops[0]
         : undefined;
@@ -3996,6 +4189,7 @@ export class LiveAdapter implements BitwigAdapter {
           deleteOp.device.track.channelId,
           names,
         );
+        await this.assertOwnedDrumMachineDelete(deleteOp);
       }
 
       // Confirm targets that the batch-wide preflight could not yet resolve,

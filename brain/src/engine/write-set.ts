@@ -195,6 +195,7 @@ function targetsOf(op: Op): {
     case 'chain.relocate':
     case 'device.relocate':
     case 'chain.activate':
+    case 'drumPad.insert':
     case 'notify':
       return [];
 
@@ -282,6 +283,9 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
           + 'the static write record cannot name that sibling set. The final state is proved by '
           + 'complete container readback, but automatic reversal does not guess the prior one.',
       };
+    case 'drumPad.insert':
+      // The owned top-level insertion is the inverse for all of its pad writes.
+      return undefined;
     // `notify` mutates nothing; its absence here is a positive statement. So is
     // `device.insert`'s, as of the D16 amendment — see this function's header.
     default:
@@ -379,7 +383,7 @@ export function structuralRisk(ops: readonly Op[]): StructuralRisk {
     // into the extension. A second copy left behind is how the two drift.
     scenes: ops.some((o) => OP_BUMPS_SCENE_EPOCH.has(o.op)),
     deviceChains: ops.some((o) =>
-      o.op === 'device.insert' || o.op === 'device.delete'
+      o.op === 'device.insert' || o.op === 'device.delete' || o.op === 'drumPad.insert'
       || o.op === 'device.relocate' || o.op === 'chain.relocate'),
   };
 }

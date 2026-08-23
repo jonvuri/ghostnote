@@ -21,7 +21,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  CONTRACT_TAG, addressKey, assertOpsWritable, clip, clipLaunch, clipMetadata, device, notes as notesAt, planStages, scene,
+  CONTRACT_TAG, addressKey, assertOpsWritable, clip, clipLaunch, clipMetadata, device, drumPad, notes as notesAt, planStages, scene,
   slot, track, type NoteRecord, type Op, type Snapshot, type StateEntry,
 } from '../contract/index.js';
 import { labelTarget } from './fidelity.js';
@@ -274,6 +274,49 @@ test('R-device: an insert is undone at the chain index the receipt MINTED (D16 r
   // device — a bug that looks like it works on any one-device batch.
   assert.deepEqual(plan.ops.map((o) => (o.op === 'device.delete' ? o.device.chainIndex : -1)), [4, 3]);
   assert.deepEqual(plan.unrestored, []);
+});
+
+test('d02-s1-revert: a partial composition guards only pad writes that succeeded', () => {
+  const container = device(TA, 0);
+  const ops: Op[] = [
+    {
+      op: 'device.insert', track: TA,
+      source: { from: 'bitwig', uuid: '8ea97e45-0255-40fd-bc7e-94419741e9d1' },
+      expectedChain: [], expectedEnabledChain: [],
+    },
+    {
+      op: 'drumPad.insert', pad: drumPad(container, 0),
+      source: { from: 'bitwig', uuid: 'c6d5de18-a6f1-4daa-90a9-d9254527601a' },
+      expectedDeviceName: 'v1 Kick', expectedContainerName: 'Drum Machine',
+      expectedChain: ['Drum Machine'], expectedEnabledChain: [true],
+    },
+    {
+      op: 'drumPad.insert', pad: drumPad(container, 2),
+      source: { from: 'bitwig', uuid: '742e4a89-df78-4ca5-b6b0-ca78889d5953' },
+      expectedDeviceName: 'v1 Hat', expectedContainerName: 'Drum Machine',
+      expectedChain: ['Drum Machine'], expectedEnabledChain: [true],
+    },
+  ];
+  const plan = revertOps({
+    ...writeSetOf(ops),
+    stash: stashOf([]),
+    batches: [{
+      ops,
+      minted: { 0: container },
+      stages: [
+        { index: 0, applied: true, ops: [{ op: 'device.insert', ok: true }], revision: 1 },
+        { index: 1, applied: true, ops: [{ op: 'drumPad.insert', ok: true }], revision: 2 },
+        { index: 2, applied: false, ops: [{ op: 'drumPad.insert', ok: false }], revision: 2 },
+      ],
+    }],
+  });
+
+  const removal = plan.ops[0];
+  assert.equal(removal?.op, 'device.delete');
+  assert.deepEqual(
+    removal?.op === 'device.delete' ? removal.expectedDrumPads : undefined,
+    [{ channel: 0, deviceName: 'v1 Kick' }],
+  );
 });
 
 test('R-device: SEVERAL batches keep their own op indices, and order across all of them', () => {

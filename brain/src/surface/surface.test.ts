@@ -110,6 +110,7 @@ function fixture(
       deviceReads += 1;
       return hooks.devices?.(deviceReads, actual) ?? actual;
     },
+    drumPads: (container) => fake.drumPads(container),
     read: (sel) => fake.read(sel),
     settle: (budget) => fake.settle(budget),
     revision: () => {
@@ -208,7 +209,7 @@ function schemaPaths(
 }
 
 test('D01: every public tool schema uses only homogeneous arrays', () => {
-  assert.equal(TOOLS.length, 45);
+  assert.equal(TOOLS.length, 46);
   const incompatible: string[] = [];
   for (const tool of TOOLS) {
     const validator = tool.inputValidator ?? z.object(tool.inputSchema);
@@ -1113,6 +1114,19 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(composed.applied, true, JSON.stringify(composed));
   assert.equal((await callTool(fx.workspace, 'revert_change', {
     changeId: composed.change.changeId,
+  }) as Record<string, unknown>)['applied'], true);
+
+  const drumMachine = await exercise('compose_drum_machine', {
+    trackId: fx.trackA,
+    pads: [
+      { midiNote: 36, deviceName: 'v1 Kick' },
+      { midiNote: 38, deviceName: 'v1 Snare' },
+    ],
+  }) as { applied: boolean; verification: { verified: boolean }; change: { changeId: string } };
+  assert.equal(drumMachine.applied, true, JSON.stringify(drumMachine));
+  assert.equal(drumMachine.verification.verified, true, JSON.stringify(drumMachine));
+  assert.equal((await callTool(fx.workspace, 'revert_change', {
+    changeId: drumMachine.change.changeId,
   }) as Record<string, unknown>)['applied'], true);
 
   const createdAlternates = await exercise('create_device_alternates', {

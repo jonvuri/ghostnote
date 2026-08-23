@@ -582,7 +582,8 @@ export function reversalReport(
     // removing a device lands on a position nothing can fingerprint first.
     caveats: [
       ...(plan.ops.some((o) => o.op === 'clip.create') ? [RECREATED_CLIP_CAVEAT] : []),
-      ...(plan.ops.some((o) => o.op === 'device.delete') ? [REMOVED_DEVICE_CAVEAT] : []),
+      ...(plan.ops.some((o) => o.op === 'device.delete' && o.expectedDrumPads === undefined)
+        ? [REMOVED_DEVICE_CAVEAT] : []),
     ],
   };
 }

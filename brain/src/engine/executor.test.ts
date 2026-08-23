@@ -381,6 +381,7 @@ function racing(fake: FakeAdapter): BitwigAdapter {
     resolve: (refs) => fake.resolve(refs),
     tracks: () => fake.tracks(),
     devices: (trackRef) => fake.devices(trackRef),
+    drumPads: (container) => fake.drumPads(container),
     read: async (sel) => {
       const snapshot = await fake.read(sel);
       if (!fired) {
@@ -1109,6 +1110,7 @@ function adapterOf(fake: FakeAdapter): BitwigAdapter {
     resolve: (refs) => fake.resolve(refs),
     tracks: () => fake.tracks(),
     devices: (trackRef) => fake.devices(trackRef),
+    drumPads: (container) => fake.drumPads(container),
     read: (sel) => fake.read(sel),
     apply: (batch) => fake.apply(batch),
     settle: (budget) => fake.settle(budget),

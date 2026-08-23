@@ -40,7 +40,7 @@
  * track that is no longer there. The dependencies are therefore getters.
  */
 import type {
-  Address, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, ObservedDeviceBank, Op, RevisionMark, Snapshot, TrackAddress, TrackState,
+  Address, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, ObservedDeviceBank, ObservedDrumPadBank, Op, RevisionMark, Snapshot, TrackAddress, TrackState,
 } from '../contract/index.js';
 import type { Executor, RunOptions } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
@@ -71,6 +71,8 @@ export interface Workspace {
   tracks(): Promise<readonly TrackState[]>;
   /** Complete observable top-level device order on one track. */
   devices(track: TrackAddress): Promise<ObservedDeviceBank>;
+  /** Complete top-level and reachable-pad structure for one Drum Machine. */
+  drumPads(container: DeviceAddress): Promise<ObservedDrumPadBank>;
   read(addresses: readonly Address[]): Promise<Snapshot>;
   /**
    * ⚠ The ONLY write, and it records what it did. See the header for why that is
@@ -130,6 +132,10 @@ export function cancellableWorkspace(
     async devices(track) {
       before();
       return after(await workspace.devices(track));
+    },
+    async drumPads(container) {
+      before();
+      return after(await workspace.drumPads(container));
     },
     async read(addresses) {
       before();
@@ -199,6 +205,11 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
     async devices(trackRef: TrackAddress): Promise<ObservedDeviceBank> {
       await deps.ready();
       return deps.adapter.devices(trackRef);
+    },
+
+    async drumPads(container: DeviceAddress): Promise<ObservedDrumPadBank> {
+      await deps.ready();
+      return deps.adapter.drumPads(container);
     },
 
     async read(addresses: readonly Address[]): Promise<Snapshot> {

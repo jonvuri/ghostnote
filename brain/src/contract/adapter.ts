@@ -1,14 +1,15 @@
 /**
  * `BitwigAdapter` — the versioned seam between the brain and *some* Bitwig.
  *
- * Twelve narrow methods; operation breadth lives in the `Op` and `Address` unions,
+ * Thirteen narrow methods; operation breadth lives in the `Op` and `Address` unions,
  * never in adapter method proliferation. That is the Beat Twin lesson (a
  * 57-tool surface, abandoned) applied at the one place it is cheap to apply.
  *
- * The two enumerators are deliberate exceptions: `tracks()` discovers durable
+ * The three enumerators are deliberate exceptions: `tracks()` discovers durable
  * track addresses, while `devices(track)` proves a complete top-level signal
- * order. Neither fact can be represented as a read of addresses the caller
- * already holds.
+ * order. `drumPads(container)` proves the complete reachable pad structure.
+ * These facts cannot be represented as reads of addresses the caller already
+ * holds.
  *
  * The structural proof that the JSON-RPC frame is an implementation detail: the
  * FAKE NEVER SEES A WIRE FRAME. If any type in `contract/` ever mentions a
@@ -25,7 +26,7 @@
 import type { Address, ClipAddress } from './address.js';
 import type { SettleBudget } from './budgets.js';
 import type { ContentDelta } from './observers.js';
-import type { ObservedDeviceBank, Op } from './ops.js';
+import type { ObservedDeviceBank, ObservedDrumPadBank, Op } from './ops.js';
 import type { BatchReceipt, RevisionMark, Snapshot } from './snapshot.js';
 import type { TrackState } from './state.js';
 import type { AdapterInfo } from './version.js';
@@ -106,6 +107,9 @@ export interface BitwigAdapter {
 
   /** Complete observable top-level device order for one durable track id. */
   devices(track: import('./address.js').TrackAddress): Promise<ObservedDeviceBank>;
+
+  /** Complete top-level and reachable-pad structure for one Drum Machine. */
+  drumPads(container: import('./address.js').DeviceAddress): Promise<ObservedDrumPadBank>;
 
   /**
    * Read exactly these addresses. This is both the §8b stash and the verify

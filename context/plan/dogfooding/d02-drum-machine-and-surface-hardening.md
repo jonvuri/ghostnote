@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 parent: README.md
-session: public-drum-machine-composition
+session: correct-nested-direct-parameter-guards
 ---
 
 # D02 — Drum Machine and surface hardening
@@ -89,6 +89,28 @@ names. It does not supply UUIDs, preset paths, binary edits, or UI state.
 - MCP `tools/list` and a fresh Codex chat expose the new tool with a compatible
   schema. Focused tests, the full brain check, extension tests, the handshake,
   and the live check pass. The live project has no test residue.
+
+### Outcome — complete
+
+[E76](../../evidence/experiments/e76-public-native-drum-machine-composition-is-live.md)
+records the implementation and live proof. `compose_drum_machine` resolves all
+native names before one recorded write. It maps notes 36 through 51 to separate
+pads 0 through 15 and returns exact top-level and nested witnesses.
+
+The four-pad MCP check created `v1 Kick`, `v1 Snare`, `v1 Hat`, and `v0 Hat` on
+pads 0, 2, 6, and 10. Complete readback passed. Guarded reversal removed the
+owned Drum Machine, and cleanup restored the exact entry track list. MCP
+`tools/list` returned 46 tools. Fresh Codex session
+`01a030d1-b936-7460-841b-12d685238356` exposed the compatible public schema and
+made no Bitwig change. The full brain check passes 842/842, extension tests pass,
+and the 148-method handshake passes.
+
+Staged review hardening fixed two completion gaps. A late pad-preflight failure
+now returns and records a partial receipt. Reversal guards only the pad stages
+that succeeded. Final verification requires two equal, complete pad inventories
+and rejects extra nested devices and occupied unrequested pads. The repeated
+live four-pad check passed and restored the exact entry track list. The full
+brain check now passes 846/846.
 
 ## Session 2 — Correct nested DirectParameter guards
 
@@ -240,5 +262,6 @@ about Layers, Selectors, pad routing, grid limits, or prior agent behavior.
 
 ## Retrospective
 
-State container execution and MIDI-routing semantics at the public boundary.
-Do not rely on an agent to infer them from product history or Bitwig vocabulary.
+Return a partial receipt when a later stage fails after an earlier write. Verify
+owned containers from a complete inventory. State container execution and
+MIDI-routing semantics at the public boundary.

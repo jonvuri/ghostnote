@@ -94,6 +94,10 @@ import {
   deviceStructureCompositionInputSchema, deviceStructureCompositionInputValidator,
   runDeviceStructureComposition,
 } from './device-structure-composition.js';
+import {
+  drumMachineCompositionInputSchema, drumMachineCompositionInputValidator,
+  runDrumMachineComposition,
+} from './drum-machine-composition.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -2001,6 +2005,36 @@ export const TOOLS: readonly ToolSpec[] = [
     },
     async run(workspace, args) {
       return runDeviceStructureComposition(workspace, args);
+    },
+  }),
+
+  tool({
+    name: 'compose_drum_machine',
+    kind: 'write',
+    title: 'Compose a Drum Machine',
+    description:
+      'Create one new native Drum Machine and fill one through 16 reachable pads with native '
+      + 'Bitwig drum devices. MIDI notes 36 through 51 map directly to pad channels 0 through '
+      + '15. One note reaches one separate pad device. Exact native-device names are resolved '
+      + 'before any write. Repeated notes, unreachable notes, unknown or non-unique devices, '
+      + 'an occupied pad, stale top-level device state, and incomplete readback do not produce a '
+      + 'verified result. This tool does not edit an existing container. The result includes one '
+      + 'recorded change id. Reversal removes only the owned Drum Machine while its complete '
+      + 'device order and pad structure remains valid.',
+    inputSchema: drumMachineCompositionInputSchema,
+    inputValidator: drumMachineCompositionInputValidator,
+    emits: ['device.insert', 'drumPad.insert'],
+    resultContract: {
+      containerKind: 'The observed top-level Drum Machine kind.',
+      routing: 'One MIDI note addresses one separate pad and nested device.',
+      requested: 'The exact MIDI-note, pad-channel, and native-device mapping.',
+      observed: 'The exact nested-device witness for every requested pad.',
+      verification: 'True only after complete top-level and nested readback.',
+      change: 'One recorded composition receipt and change id.',
+      reversal: 'Removes only the complete owned Drum Machine while all guards remain valid.',
+    },
+    async run(workspace, args) {
+      return runDrumMachineComposition(workspace, args);
     },
   }),
 

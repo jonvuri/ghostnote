@@ -21,7 +21,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  BlindSpotError, InvalidOpError, assertOpsWritable, chain as chainAt, clip, device, deviceIn, param,
+  BlindSpotError, InvalidOpError, assertOpsWritable, chain as chainAt, clip, device, deviceIn, drumPad, param,
   scene, slot, track,
   type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
@@ -397,6 +397,27 @@ test('E-chain-activate: exclusive switching carries stable identity guards', () 
   assert.equal(params?.['layerIndex'], 3);
   assert.equal(params?.['expectedName'], 'B take');
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+});
+
+test('d02-s1-encoder: a pad insert uses only the guarded typed primitive', () => {
+  const container = device(TRACK_A, 1);
+  const frames = encodeOp({
+    op: 'drumPad.insert',
+    pad: drumPad(container, 6),
+    source: { from: 'bitwig', uuid: '742e4a89-df78-4ca5-b6b0-ca78889d5953' },
+    expectedDeviceName: 'v1 Hat',
+    expectedContainerName: 'Drum Machine',
+    expectedChain: ['Polysynth', 'Drum Machine'],
+    expectedEnabledChain: [true, true],
+  }, ctx);
+  assert.deepEqual(methods(frames), [WIRE.drumPadInsertDevice]);
+  assert.deepEqual(paramsOf(frames, WIRE.drumPadInsertDevice), {
+    padIndex: 6,
+    uuid: '742e4a89-df78-4ca5-b6b0-ca78889d5953',
+    expectedTrackChannelId: TRACK_A.channelId,
+    expectedDeviceIndex: 1,
+    expectedContainerName: 'Drum Machine',
+  });
 });
 
 test('E-device-relocate: a fresh tail source and before-anchor carry identity guards', () => {

@@ -176,6 +176,8 @@ public class Rig {
     public final DeviceBank[] layerDeviceBanks = new DeviceBank[LAYER_BANK];
     public final CursorDeviceLayer cursorLayer0;
     public final DrumPadBank drumPadBank0;
+    /** Complete device-chain views for the 16 reachable Drum Machine pads. */
+    public final DeviceBank[] drumPadDeviceBanks0 = new DeviceBank[DRUM_PAD_BANK];
     public final ChainSelector chainSelector0;
 
     // --- E7: modulation access via remote controls ---
@@ -1111,6 +1113,13 @@ public class Rig {
             DrumPad pad = drumPadBank0.getItemAt(p);
             pad.exists().markInterested();
             pad.name().markInterested();
+            drumPadDeviceBanks0[p] = pad.createDeviceBank(config.deviceBank);
+            drumPadDeviceBanks0[p].itemCount().markInterested();
+            for (int d = 0; d < config.deviceBank; d++) {
+                Device nested = drumPadDeviceBanks0[p].getDevice(d);
+                nested.exists().markInterested();
+                nested.name().markInterested();
+            }
         }
 
         chainSelector0 = cursorDevice0.createChainSelector();

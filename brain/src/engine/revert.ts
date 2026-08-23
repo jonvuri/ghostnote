@@ -36,8 +36,9 @@
  * the phase be tested as a function of two values.
  */
 import {
-  addressKey, assertNever,
-  type Address, type DeviceAddress, type NoteRecord, type Op, type Snapshot, type StateValue,
+  addressKey, assertNever, planStages,
+  type Address, type DeviceAddress, type NoteRecord, type Op, type Snapshot, type StageReceipt,
+  type StateValue,
 } from '../contract/index.js';
 import { splitReplayable } from './fidelity.js';
 import type { Take } from './take.js';
@@ -87,6 +88,8 @@ export interface RevertInput {
 export interface InsertBatch {
   readonly ops: readonly Op[];
   readonly minted: Readonly<Record<number, Address>>;
+  /** Executed stages, when the adapter returned a partial or complete receipt. */
+  readonly stages?: readonly StageReceipt[];
 }
 
 /**
@@ -114,7 +117,7 @@ export const NO_MINT_NO_INVERSE =
 export function revertOps(input: Take | RevertInput): RevertPlan {
   const { targets, unrevertable, stash } = input;
   const batches: readonly InsertBatch[] = 'receipt' in input
-    ? [{ ops: input.ops, minted: input.receipt.minted }]
+    ? [{ ops: input.ops, minted: input.receipt.minted, stages: input.receipt.stages }]
     : input.batches ?? [];
   const unrestored: Unrestored[] = [];
 
@@ -285,13 +288,45 @@ function deviceRemovals(
   const alreadySaid = new Set(
     unrevertable.filter((u) => u.op === 'device.insert').map((u) => u.opIndex),
   );
-  const devices: DeviceAddress[] = [];
+  const devices: { readonly address: DeviceAddress; readonly op: Extract<Op, { op: 'device.delete' }> }[] = [];
   for (const batch of batches) {
+    const successful = batch.stages === undefined
+      ? undefined
+      : new Set(batch.stages.flatMap((receipt) => {
+        if (!receipt.applied || receipt.ops.some((item) => !item.ok)) return [];
+        return planStages(batch.ops)[receipt.index]?.opIndices ?? [];
+      }));
     batch.ops.forEach((op, opIndex) => {
       if (op.op !== 'device.insert') return;
       const address = batch.minted[opIndex];
       if (address?.kind === 'device') {
-        devices.push(address);
+        const requestedPads = batch.ops
+          .map((candidate, index) => ({ candidate, index }))
+          .filter((item): item is {
+            candidate: Extract<Op, { op: 'drumPad.insert' }>;
+            index: number;
+          } => item.candidate.op === 'drumPad.insert'
+            && addressKey(item.candidate.pad.container) === addressKey(address));
+        const guard = requestedPads[0]?.candidate;
+        const pads = requestedPads
+          .filter((item) => successful === undefined || successful.has(item.index))
+          .map((item) => item.candidate);
+        devices.push({
+          address,
+          op: guard === undefined
+            ? { op: 'device.delete', device: address }
+            : {
+              op: 'device.delete',
+              device: address,
+              expectedName: guard.expectedContainerName,
+              expectedChain: guard.expectedChain,
+              expectedEnabledChain: guard.expectedEnabledChain,
+              expectedDrumPads: pads.map((pad) => ({
+                channel: pad.pad.channel,
+                deviceName: pad.expectedDeviceName,
+              })),
+            },
+        });
         return;
       }
       if (alreadySaid.has(opIndex)) return;
@@ -304,8 +339,8 @@ function deviceRemovals(
   // one-device batch. Sorting across ALL batches is what makes a multi-take undo
   // safe too — the hazard is the chain's shape, not which take caused it.
   return devices
-    .sort((a, b) => b.chainIndex - a.chainIndex)
-    .map((device) => ({ op: 'device.delete', device }));
+    .sort((a, b) => b.address.chainIndex - a.address.chainIndex)
+    .map((item) => item.op);
 }
 
 interface Sink {

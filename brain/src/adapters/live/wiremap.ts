@@ -184,6 +184,7 @@ export const WIRE = {
   remoteSet: 'remote.set',
   layerList: 'layer.list',
   drumPadList: 'drumpad.list',
+  drumPadInsertDevice: 'drumpad.insertDevice',
   deviceCursorSelectInLayer: 'devcursor.selectInLayer',
   deviceCursorSelectFirstInPad: 'devcursor.selectFirstInPad',
   deviceCursorSelectFirstInSlot: 'devcursor.selectFirstInSlot',

@@ -704,6 +704,15 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         expectedTrackChannelId: op.chain.container.track.channelId,
       })];
 
+    case 'drumPad.insert':
+      return [frame(WIRE.drumPadInsertDevice, {
+        padIndex: op.pad.channel,
+        uuid: op.source.uuid,
+        expectedTrackChannelId: op.pad.container.track.channelId,
+        expectedDeviceIndex: op.pad.container.chainIndex,
+        expectedContainerName: op.expectedContainerName,
+      })];
+
     case 'param.set': {
       // ⚠ Two different APIs, two different traps. Neither is selectable by the
       // caller, because the wrong choice is a SILENT no-op in both directions.

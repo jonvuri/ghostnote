@@ -21,10 +21,10 @@
  * expressible. That is the point of a typed seam over a string wire.
  */
 import { addressKey, chainPath, clip, device } from './address.js';
-import type { ChainAddress, ClipAddress, DeviceAddress, ParamAddress, RemoteAddress, SceneAddress, SlotAddress, TrackAddress } from './address.js';
+import type { ChainAddress, ClipAddress, DeviceAddress, DrumPadAddress, ParamAddress, RemoteAddress, SceneAddress, SlotAddress, TrackAddress } from './address.js';
 import {
   lookupChain, nestingObservable, projectedReorder, reorderIndistinguishable,
-  type ObservedChain, type ObservedContainer, type ObservedDeviceSequence,
+  type ObservedChain, type ObservedContainer, type ObservedDevice, type ObservedDeviceSequence,
 } from './chains.js';
 import { unwritableProps, type ClipMetadataState, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
@@ -108,6 +108,11 @@ export type Op =
     readonly expectedChain?: readonly string[];
     /** Aligned top-level enabled flags from the same observation. */
     readonly expectedEnabledChain?: readonly boolean[];
+    /** Exact occupied-pad structure for an owned Drum Machine removal. */
+    readonly expectedDrumPads?: readonly {
+      readonly channel: number;
+      readonly deviceName: string;
+    }[];
   }
   /** Set one top-level device's enabled flag after an independent readback. */
   | {
@@ -203,6 +208,18 @@ export type Op =
   /** Make one named chain the sole soloed chain in its container. */
   | { readonly op: 'chain.activate'; readonly chain: ChainAddress }
 
+  /** Fill one empty pad in the Drum Machine inserted earlier in this batch. */
+  | {
+    readonly op: 'drumPad.insert';
+    readonly pad: DrumPadAddress;
+    readonly source: { readonly from: 'bitwig'; readonly uuid: string };
+    readonly expectedDeviceName: string;
+    readonly expectedContainerName: 'Drum Machine';
+    /** Complete top-level state after the owned container insertion. */
+    readonly expectedChain: readonly string[];
+    readonly expectedEnabledChain: readonly boolean[];
+  }
+
   // --- progress signal ------------------------------------------------------
   // Free: E8-C interleaved notify ops into a paced batch and all fired, spaced
   // across it, without stalling it. Under optimistic apply this is not politeness
@@ -258,6 +275,7 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   'chain.rename': 'trackStruct',
   'chain.relocate': 'deviceInsert',
   'chain.activate': 'tick',
+  'drumPad.insert': 'deviceInsert',
 };
 
 /**
@@ -308,6 +326,34 @@ export const OP_BUMPS_SCENE_EPOCH: ReadonlySet<OpKind> = new Set<OpKind>(['scene
  */
 export function assertOpsWritable(ops: readonly Op[]): void {
   for (const op of ops) {
+    if (op.op === 'drumPad.insert') {
+      if (op.source.from !== 'bitwig'
+          || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(op.source.uuid)) {
+        throw new InvalidOpError(op.op, 'a native pad device needs one valid Bitwig UUID');
+      }
+      if (op.pad.container.chain !== undefined
+          || op.pad.channel < 0 || op.pad.channel > 15
+          || op.expectedDeviceName.trim() === '') {
+        throw new InvalidOpError(
+          op.op,
+          'the target must be channel 0 through 15 of one top-level Drum Machine',
+        );
+      }
+      if (op.expectedEnabledChain.length !== op.expectedChain.length
+          || op.expectedChain[op.pad.container.chainIndex] !== op.expectedContainerName) {
+        throw new InvalidOpError(op.op, 'the complete chain guard must identify the Drum Machine');
+      }
+    }
+    if (op.op === 'device.delete' && op.expectedDrumPads !== undefined) {
+      const channels = new Set<number>();
+      for (const item of op.expectedDrumPads) {
+        if (!Number.isInteger(item.channel) || item.channel < 0 || item.channel > 15
+            || item.deviceName.trim() === '' || channels.has(item.channel)) {
+          throw new InvalidOpError(op.op, 'the owned Drum Machine guard has invalid pad witnesses');
+        }
+        channels.add(item.channel);
+      }
+    }
     if (op.op === 'param.set') {
       if (!Number.isFinite(op.value) || op.value < 0 || op.value > 1) {
         throw new InvalidOpError(op.op, 'a normalized parameter value must be from 0 through 1');
@@ -512,6 +558,7 @@ function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'chain.rename':
     case 'chain.relocate':
     case 'chain.activate':
+    case 'drumPad.insert':
     case 'notify':
       return [];
     default:
@@ -559,6 +606,9 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
       return [];
     case 'chain.activate':
       return [op.chain.container];
+    case 'drumPad.insert':
+      // This route owns the top-level container and pad checks.
+      return [];
     // ⚠ `device.insert` names a TRACK, not a device, so it cannot be nested today.
     // When an insert into a chain is measured it gains its own addressing, and
     // this switch is where that fact has to be restated.
@@ -848,6 +898,23 @@ export interface ObservedDeviceBank extends ObservedDeviceSequence {
   readonly bankSize?: number;
 }
 
+/** One occupied reachable Drum Machine pad and its complete nested device chain. */
+export interface ObservedDrumPad {
+  readonly channel: number;
+  readonly devices: readonly ObservedDevice[];
+  readonly devicesComplete: boolean;
+  readonly deviceBankSize?: number;
+}
+
+/** One Drum Machine plus the complete top-level and reachable-pad structure. */
+export interface ObservedDrumPadBank {
+  readonly containerName: string;
+  readonly topLevel: ObservedDeviceBank;
+  readonly pads: readonly ObservedDrumPad[];
+  readonly padsComplete: boolean;
+  readonly bankSize?: number;
+}
+
 /** Refuse inserts unless every affected top-level chain is complete and has room. */
 export function assertDeviceInsertable(
   ops: readonly Op[],
@@ -882,6 +949,44 @@ export function assertDeviceInsertable(
         `the top-level device bank would hold ${observed.devices.length + count} devices, but its width is ${observed.bankSize}`,
       );
     }
+  }
+}
+
+/** Refuse pad composition unless it belongs to one new container in this batch. */
+export function assertDrumPadInsertable(ops: readonly Op[]): void {
+  const inserts = ops
+    .map((op, index) => ({ op, index }))
+    .filter((item): item is { op: Extract<Op, { op: 'device.insert' }>; index: number } =>
+      item.op.op === 'device.insert');
+  const pads = ops
+    .map((op, index) => ({ op, index }))
+    .filter((item): item is { op: Extract<Op, { op: 'drumPad.insert' }>; index: number } =>
+      item.op.op === 'drumPad.insert');
+  if (pads.length === 0) return;
+  const channels = new Set<string>();
+  for (const { op, index } of pads) {
+    const parent = inserts.find((candidate) => candidate.index < index
+      && candidate.op.track.channelId === op.pad.container.track.channelId
+      && candidate.op.expectedChain !== undefined
+      && candidate.op.expectedEnabledChain !== undefined
+      && candidate.op.expectedChain.length === op.pad.container.chainIndex);
+    if (parent === undefined) {
+      throw new InvalidOpError(
+        op.op,
+        'a pad insert must follow its guarded top-level container insert in the same batch',
+      );
+    }
+    const expectedChain = [...parent.op.expectedChain!, op.expectedContainerName];
+    const expectedEnabled = [...parent.op.expectedEnabledChain!, true];
+    if (JSON.stringify(op.expectedChain) !== JSON.stringify(expectedChain)
+        || JSON.stringify(op.expectedEnabledChain) !== JSON.stringify(expectedEnabled)) {
+      throw new InvalidOpError(op.op, 'the pad guard does not match the inserted container projection');
+    }
+    const key = `${op.pad.container.track.channelId}:${op.pad.container.chainIndex}:${op.pad.channel}`;
+    if (channels.has(key)) {
+      throw new InvalidOpError(op.op, 'one batch cannot address the same Drum Machine pad twice');
+    }
+    channels.add(key);
   }
 }
 

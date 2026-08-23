@@ -96,6 +96,7 @@ function independentlyRead(writer: BitwigAdapter, witness: BitwigAdapter): Bitwi
     resolve: (refs) => writer.resolve(refs),
     tracks: () => writer.tracks(),
     devices: (trackRef) => writer.devices(trackRef),
+    drumPads: (container) => writer.drumPads(container),
     read: (refs) => witness.read(refs),
     apply: (batch: BatchRequest) => writer.apply(batch),
     settle: (budget) => writer.settle(budget),

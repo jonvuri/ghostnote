@@ -2217,6 +2217,7 @@ export function runConformance(h: AdapterHarness): void {
           resolve: (refs) => adapter.resolve(refs),
           tracks: () => adapter.tracks(),
           devices: (trackRef) => adapter.devices(trackRef),
+          drumPads: (container) => adapter.drumPads(container),
           read: async (sel) => {
             const snap = await adapter.read(sel);
             await bump(adapter);

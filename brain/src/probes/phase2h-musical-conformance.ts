@@ -80,6 +80,7 @@ function routedAdapter(
     resolve: (refs) => writer.resolve(refs),
     tracks: () => writer.tracks(),
     devices: (trackRef) => writer.devices(trackRef),
+    drumPads: (container) => writer.drumPads(container),
     read: (refs) => witness.read(refs),
     apply: async (batch: BatchRequest) => {
       await beforeApply();

@@ -1223,7 +1223,7 @@ class DeviceChainTransport implements Transport {
   private readonly cursorOn = new Map<string, number>();
   /** track index -> device names, in chain order. */
   readonly chains = new Map<number, string[]>([[0, ['Polysynth']]]);
-  private revision = 1;
+  protected revision = 1;
 
   /**
    * What the insert does to the chain. The default appends, which is what
@@ -1240,7 +1240,7 @@ class DeviceChainTransport implements Transport {
     return this.dispatch(frame.method, (frame.params ?? {}) as Record<string, unknown>);
   }
 
-  private dispatch(method: string, params: Record<string, unknown>): unknown {
+  protected dispatch(method: string, params: Record<string, unknown>): unknown {
     switch (method) {
       case WIRE.trackList:
         return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture' }], count: 1, bankSize: 8, itemCount: 1 };
@@ -1394,6 +1394,152 @@ class SelectedDeviceChainTransport extends DeviceChainTransport {
     return super.send(frame);
   }
 }
+
+/** Device and pad state for the promoted Drum Machine composition route. */
+class DrumMachineTransport extends DeviceChainTransport {
+  readonly pads = new Map<number, string[]>();
+  private selectedDevice = 0;
+
+  constructor() {
+    super((chain, uuid) => chain.push(
+      uuid === '8ea97e45-0255-40fd-bc7e-94419741e9d1' ? 'Drum Machine' : uuid,
+    ));
+  }
+
+  protected override dispatch(method: string, params: Record<string, unknown>): unknown {
+    switch (method) {
+      case WIRE.deviceCursorSelectAt:
+        this.selectedDevice = params['deviceIndex'] as number;
+        return {};
+      case WIRE.deviceCursorStatus: {
+        const name = this.chains.get(0)?.[this.selectedDevice];
+        return {
+          exists: name !== undefined,
+          name,
+          isPinned: true,
+          deviceIndex: this.selectedDevice,
+          trackChannelId: CHANNEL_ID,
+          trackPosition: 0,
+          cursorTrackPinned: true,
+          isNested: false,
+        };
+      }
+      case WIRE.drumPadList:
+        return {
+          pads: [...this.pads].map(([index, names]) => ({
+            index,
+            name: `Pad ${index + 1}`,
+            devices: names.map((name, deviceIndex) => ({ index: deviceIndex, name })),
+            deviceCount: names.length,
+            deviceBankSize: 8,
+          })),
+          itemCount: this.pads.size,
+          bankSize: 16,
+          hasDrumPads: this.chains.get(0)?.[this.selectedDevice] === 'Drum Machine',
+        };
+      case WIRE.drumPadInsertDevice:
+        this.pads.set(params['padIndex'] as number, [
+          params['uuid'] === 'c6d5de18-a6f1-4daa-90a9-d9254527601a' ? 'v1 Kick' : 'v1 Hat',
+        ]);
+        this.revision++;
+        return {};
+      default:
+        return super.dispatch(method, params);
+    }
+  }
+}
+
+/** Add a foreign device after the first owned pad write. */
+class OccupiedSecondPadTransport extends DrumMachineTransport {
+  private padWrites = 0;
+
+  protected override dispatch(method: string, params: Record<string, unknown>): unknown {
+    const result = super.dispatch(method, params);
+    if (method === WIRE.drumPadInsertDevice && ++this.padWrites === 1) {
+      this.pads.set(2, ['Human device']);
+    }
+    return result;
+  }
+}
+
+test('d02-s1-live-adapter: a new Drum Machine settles before its guarded pad insert', async () => {
+  const wire = new DrumMachineTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const container = deviceAt(TRACK, 1);
+  const receipt = await adapter.apply({ ops: [
+    {
+      op: 'device.insert', track: TRACK,
+      source: { from: 'bitwig', uuid: '8ea97e45-0255-40fd-bc7e-94419741e9d1' },
+      expectedChain: ['Polysynth'], expectedEnabledChain: [true],
+    },
+    {
+      op: 'drumPad.insert', pad: drumPad(container, 0),
+      source: { from: 'bitwig', uuid: 'c6d5de18-a6f1-4daa-90a9-d9254527601a' },
+      expectedDeviceName: 'v1 Kick', expectedContainerName: 'Drum Machine',
+      expectedChain: ['Polysynth', 'Drum Machine'], expectedEnabledChain: [true, true],
+    },
+  ] });
+
+  assert.deepEqual(receipt.minted[0], container);
+  assert.deepEqual(wire.chains.get(0), ['Polysynth', 'Drum Machine']);
+  assert.deepEqual([...wire.pads], [[0, ['v1 Kick']]]);
+  assert.equal(receipt.stages.length, 2);
+  const methods = wire.frames.flatMap((frame) => frame.method === WIRE.batchRun
+    ? ((frame.params?.['ops'] ?? []) as { method: string }[]).map((op) => op.method)
+    : []);
+  assert.ok(methods.includes(WIRE.deviceInsertBitwig));
+  assert.ok(methods.includes(WIRE.drumPadInsertDevice));
+});
+
+test('d02-s1-live-adapter: a late occupied pad returns a recorded partial receipt', async () => {
+  const wire = new OccupiedSecondPadTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const container = deviceAt(TRACK, 1);
+  const receipt = await adapter.apply({ ops: [
+    {
+      op: 'device.insert', track: TRACK,
+      source: { from: 'bitwig', uuid: '8ea97e45-0255-40fd-bc7e-94419741e9d1' },
+      expectedChain: ['Polysynth'], expectedEnabledChain: [true],
+    },
+    {
+      op: 'drumPad.insert', pad: drumPad(container, 0),
+      source: { from: 'bitwig', uuid: 'c6d5de18-a6f1-4daa-90a9-d9254527601a' },
+      expectedDeviceName: 'v1 Kick', expectedContainerName: 'Drum Machine',
+      expectedChain: ['Polysynth', 'Drum Machine'], expectedEnabledChain: [true, true],
+    },
+    {
+      op: 'drumPad.insert', pad: drumPad(container, 2),
+      source: { from: 'bitwig', uuid: '742e4a89-df78-4ca5-b6b0-ca78889d5953' },
+      expectedDeviceName: 'v1 Hat', expectedContainerName: 'Drum Machine',
+      expectedChain: ['Polysynth', 'Drum Machine'], expectedEnabledChain: [true, true],
+    },
+  ] });
+
+  assert.equal(receipt.accepted, true);
+  assert.deepEqual(receipt.minted[0], container);
+  assert.equal(receipt.stages.length, 3);
+  assert.equal(receipt.stages[2]!.applied, false);
+  assert.match(receipt.stages[2]!.ops[0]!.error ?? '', /target pad 2 is occupied/);
+  assert.deepEqual([...wire.pads], [[0, ['v1 Kick']], [2, ['Human device']]]);
+});
+
+test('d02-s1-live-adapter: an extra nested pad device blocks guarded removal', async () => {
+  const wire = new DrumMachineTransport();
+  wire.chains.set(0, ['Polysynth', 'Drum Machine']);
+  wire.pads.set(0, ['v1 Kick', 'Human device']);
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await assert.rejects(adapter.apply({ ops: [{
+    op: 'device.delete',
+    device: deviceAt(TRACK, 1),
+    expectedName: 'Drum Machine',
+    expectedChain: ['Polysynth', 'Drum Machine'],
+    expectedEnabledChain: [true, true],
+    expectedDrumPads: [{ channel: 0, deviceName: 'v1 Kick' }],
+  }] }), /did not confirm one exact/);
+
+  assert.deepEqual(wire.chains.get(0), ['Polysynth', 'Drum Machine']);
+});
 
 test('4g-device-selection: public chain reads and resolution restore selection', async () => {
   const wire = new SelectedDeviceChainTransport();
