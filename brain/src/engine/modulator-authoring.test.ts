@@ -10,7 +10,8 @@ import { listModulators, validate } from '../bwmod/index.js';
 import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import { Executor } from './executor.js';
 import {
-  ModulatorAuthoringError, authorModulatorAdd, type ModulatorAuthoringHost,
+  ModulatorAuthoringError, authorModulatorAdd, authorModulatorEdit,
+  type ModulatorAuthoringHost, type ModulatorEditRequest,
 } from './modulator-authoring.js';
 
 interface AuthoringFixture {
@@ -81,6 +82,72 @@ const request = (trackRef: TrackAddress) => ({
   expectedChain: [],
   expectedEnabledChain: [],
 } as const);
+
+function topologyFixture(): AuthoringFixture {
+  const fake = new FakeAdapter({ tracks: ['Authoring'], scenes: 1 });
+  const trackRef = track(fake.model.visibleTracks()[0]!.channelId);
+  const executor = new Executor(fake, { newId: () => 'topology-take', now: () => 2 });
+  const calls: Op[][] = [];
+  const appliedPresets: Buffer[] = [];
+  const host: ModulatorAuthoringHost = {
+    read: (addresses) => fake.read(addresses),
+    async apply(ops, options) {
+      calls.push([...ops]);
+      const insertedOp = ops[0];
+      let preset: Buffer | undefined;
+      if (insertedOp?.op === 'device.insert' && insertedOp.source.from === 'file') {
+        preset = await readFile(insertedOp.source.path);
+        appliedPresets.push(preset);
+      }
+      const take = await executor.run(ops, options);
+      const minted = take.receipt.minted[0];
+      if (minted?.kind === 'device' && preset !== undefined) {
+        const inserted = fake.model.findByChannelId(trackRef.channelId)!.track.devices[minted.chainIndex]!;
+        const modulators = listModulators(preset);
+        const routes = modulators.flatMap((modulator) => modulator.routes);
+        inserted.name = 'Polysynth';
+        inserted.remotePages = [
+          {
+            name: 'FILTER',
+            controls: [
+              {
+                name: 'Filt Freq', value: 0.4,
+                modulatedValue: routes.some((route) => route.target === 'CONTENTS/F1FREQ') ? 0.75 : 0.4,
+                hasAutomation: false,
+              },
+              {
+                name: 'Reso', value: 0.3,
+                modulatedValue: routes.some((route) => route.target === 'CONTENTS/F1RESO') ? 0.65 : 0.3,
+                hasAutomation: false,
+              },
+            ],
+          },
+          ...modulators
+            .filter((modulator) => modulator.deviceName !== 'Expressions')
+            .map((modulator) => ({
+              name: modulator.deviceName,
+              controls: [{ name: 'Rate', value: 0.5, modulatedValue: 0.5, hasAutomation: false }],
+            })),
+        ];
+      }
+      return { take };
+    },
+  };
+  return { fake, executor, host, track: trackRef, calls, appliedPresets };
+}
+
+const topologyRequest = (
+  trackRef: TrackAddress,
+  edit: ModulatorEditRequest['edit'],
+  proof: Pick<ModulatorEditRequest, 'pageWitnesses' | 'behaviorWitnesses'>,
+): ModulatorEditRequest => ({
+  track: trackRef,
+  templatePath: join(FIXTURE_DIR, 'Polysynth', 'modtest.bwpreset'),
+  edit,
+  ...proof,
+  expectedChain: [],
+  expectedEnabledChain: [],
+});
 
 test('5a-add: edits, validates, checkpoints, proves one exact selector, and reverses', async () => {
   const fx = fixture();
@@ -236,6 +303,175 @@ test('5a-request: a relative template path refuses before file access or apply',
   await assert.rejects(
     authorModulatorAdd(fx.host, { ...request(fx.track), templatePath: 'mp_bare.bwpreset' }),
     (error: unknown) => error instanceof ModulatorAuthoringError && error.stage === 'request',
+  );
+  assert.equal(fx.calls.length, 0);
+});
+
+test('5b-replace: checkpoints a type swap, proves page replacement, and reverses', async () => {
+  const fx = topologyFixture();
+  const input = topologyRequest(fx.track, {
+    kind: 'replace', index: 0, donorId: 'classiclfo-poly',
+  }, {
+    pageWitnesses: [
+      { pageName: 'Classic LFO', expectedCount: 1 },
+      { pageName: 'Vibrato', expectedCount: 0 },
+    ],
+  });
+  const template = await readFile(input.templatePath);
+  const result = await authorModulatorEdit(fx.host, input, { wait: async () => undefined });
+
+  assert.equal(fx.calls.length, 1);
+  assert.equal(result.take.report.applied, true);
+  assert.equal(result.take.id, 'topology-take');
+  assert.equal(result.edit.kind, 'modulator.replace');
+  assert.equal(result.edit.structural, true);
+  assert.equal(result.edit.restoreFidelity, 'exact');
+  assert.deepEqual(result.edit.modulatorsBefore.map((modulator) => modulator.deviceName),
+    ['Vibrato', 'Expressions', 'LFO']);
+  assert.deepEqual(result.edit.modulatorsAfter.map((modulator) => modulator.deviceName),
+    ['Classic LFO', 'Expressions', 'LFO']);
+  assert.equal(result.verification.verified, true);
+  assert.deepEqual(result.minted, { kind: 'device', track: fx.track, chainIndex: 0 });
+  const source = fx.calls[0]![0]?.op === 'device.insert' ? fx.calls[0]![0].source : undefined;
+  assert.equal(source?.from === 'file' ? existsSync(source.path) : true, false,
+    'the temp preset is removed');
+  assert.equal(validate(fx.appliedPresets[0]!, { reference: template }).ok, true);
+
+  const reversed = await fx.executor.revertUnchecked(result.take);
+  assert.deepEqual(reversed.unrestored, []);
+  assert.equal(fx.fake.model.findByChannelId(fx.track.channelId)!.track.devices.length, 0);
+});
+
+test('5b-retarget: proves modulation left the old control and reached the new control', async () => {
+  const fx = topologyFixture();
+  const result = await authorModulatorEdit(fx.host, topologyRequest(fx.track, {
+    kind: 'retarget', index: 2, target: 'CONTENTS/F1RESO',
+  }, {
+    behaviorWitnesses: [
+      {
+        expected: 'inactive', pageName: 'FILTER', controlName: 'Filt Freq',
+        samples: 3, sampleIntervalMs: 0,
+      },
+      {
+        expected: 'active', pageName: 'FILTER', controlName: 'Reso',
+        samples: 3, sampleIntervalMs: 0,
+      },
+    ],
+  }), { wait: async () => undefined });
+
+  assert.equal(result.verification.verified, true);
+  assert.deepEqual(result.edit.modulatorsAfter[2]?.routing?.target, 'CONTENTS/F1RESO');
+  assert.deepEqual(result.verification.behaviors.map((behavior) => behavior.verified), [true, true]);
+  assert.deepEqual(result.verification.behaviors.map((behavior) => behavior.selector?.controlName),
+    ['Filt Freq', 'Reso']);
+});
+
+test('5b-delete: proves the page and modulation are absent while a sibling remains', async () => {
+  const fx = topologyFixture();
+  const result = await authorModulatorEdit(fx.host, topologyRequest(fx.track, {
+    kind: 'delete', index: 2,
+  }, {
+    pageWitnesses: [
+      { pageName: 'LFO', expectedCount: 0 },
+      { pageName: 'Vibrato', expectedCount: 1 },
+    ],
+    behaviorWitnesses: [{
+      expected: 'inactive', pageName: 'FILTER', controlName: 'Filt Freq',
+      samples: 3, sampleIntervalMs: 0,
+    }],
+  }), { wait: async () => undefined });
+
+  assert.equal(result.verification.verified, true);
+  assert.deepEqual(result.edit.modulatorsAfter.map((modulator) => modulator.deviceName),
+    ['Vibrato', 'Expressions']);
+  assert.equal(result.verification.behaviors[0]?.maximumDivergence, 0);
+});
+
+test('5b-readback: an unexpected active route fails an inactive witness', async () => {
+  const fx = topologyFixture();
+  const result = await authorModulatorEdit(fx.host, topologyRequest(fx.track, {
+    kind: 'retarget', index: 2, target: 'CONTENTS/F1RESO',
+  }, {
+    behaviorWitnesses: [{
+      expected: 'inactive', pageName: 'FILTER', controlName: 'Reso',
+      samples: 2, sampleIntervalMs: 0,
+    }],
+  }), { wait: async () => undefined });
+
+  assert.equal(result.verification.verified, false);
+  assert.match(result.verification.behaviors[0]?.verified ? '' : result.verification.behaviors[0]!.why,
+    /inactive limit/);
+});
+
+test('5b-pages: a wrong expected page count fails structural verification', async () => {
+  const fx = topologyFixture();
+  const result = await authorModulatorEdit(fx.host, topologyRequest(fx.track, {
+    kind: 'delete', index: 2,
+  }, {
+    pageWitnesses: [{ pageName: 'LFO', expectedCount: 1 }],
+  }), { wait: async () => undefined });
+
+  assert.equal(result.verification.verified, false);
+  assert.match(result.verification.pages.why ?? '', /expected 1, got 0/);
+});
+
+test('5b-validation: edited bytes are validated before apply', async () => {
+  const fx = topologyFixture();
+  let validationPassed = false;
+  const host: ModulatorAuthoringHost = {
+    read: (addresses) => fx.host.read(addresses),
+    async apply(ops, options) {
+      assert.equal(validationPassed, true);
+      return fx.host.apply(ops, options);
+    },
+  };
+  await authorModulatorEdit(host, topologyRequest(fx.track, {
+    kind: 'delete', index: 2,
+  }, {
+    pageWitnesses: [{ pageName: 'LFO', expectedCount: 0 }],
+  }), {
+    wait: async () => undefined,
+    onValidated(_preset, checked) {
+      assert.equal(checked.ok, true);
+      validationPassed = true;
+    },
+  });
+  assert.equal(validationPassed, true);
+});
+
+test('5b-footprint: sampled replace and delete refuse unknown footprints before apply', async () => {
+  for (const edit of [
+    { kind: 'replace', index: 0, donorId: 'vibrato-poly' },
+    { kind: 'delete', index: 0 },
+  ] as const) {
+    const fx = topologyFixture();
+    const input: ModulatorEditRequest = {
+      track: fx.track,
+      templatePath: join(FIXTURE_DIR, 'Sampler', 'gn_sampler_multi_one_lfo.bwpreset'),
+      edit,
+      pageWitnesses: [{ pageName: 'LFO', expectedCount: 0 }],
+    };
+    await assert.rejects(
+      authorModulatorEdit(fx.host, input, { wait: async () => undefined }),
+      (error: unknown) => error instanceof ModulatorAuthoringError
+        && error.stage === 'edit'
+        && /footprint/.test(error.message),
+    );
+    assert.equal(fx.calls.length, 0);
+  }
+});
+
+test('5b-request: behavior proof requires an exact page selector before apply', async () => {
+  const fx = topologyFixture();
+  await assert.rejects(
+    authorModulatorEdit(fx.host, topologyRequest(fx.track, {
+      kind: 'retarget', index: 2, target: 'CONTENTS/F1RESO',
+    }, {
+      behaviorWitnesses: [{ expected: 'active', controlName: 'Reso' }],
+    })),
+    (error: unknown) => error instanceof ModulatorAuthoringError
+      && error.stage === 'request'
+      && /pageName is required/.test(error.message),
   );
   assert.equal(fx.calls.length, 0);
 });

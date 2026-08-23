@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Session 5a is complete. Plan the remaining Tier-1 topology editors next.
-updated: 2026-08-22
+status: Session 5b is complete. Plan sampled-preset integration next.
+updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -79,8 +79,11 @@ that first integration unless the proof needs one new owned asset.
 1. [5a — checkpointed modulator add](5a-modulator-add-integration.md) — done.
    Add one curated modulator, load it through the executor, verify live
    divergence through the exact returned remote selector, and reverse it.
-2. Next, integrate replace, retarget, and delete on unsampled Tier-1 templates.
-   Reuse the 5a checkpoint, exact witness, refusal, and cleanup rules.
+2. [5b — Tier-1 topology editors](5b-tier-1-topology-editors.md) — done.
+   Replace, retarget, and delete use the same checkpoint and pass exact live
+   page and behavior readback.
+3. Next, prove the checkpointed editor path on sampled presets. Keep container
+   and cross-device routing in a later session.
 
 Later sessions add sampled integration, container routing, asset curation, and
 the public surface only after the Tier-1 editor set is proved.

@@ -15,6 +15,7 @@
     "probe:hello": "tsx src/probes/gn-hello.ts",
     "probe:e13": "tsx src/probes/e13-bwmod.ts",
     "probe:phase5a-authoring": "tsx src/probes/phase5a-modulator-authoring.ts",
+    "probe:phase5b-authoring": "tsx src/probes/phase5b-modulator-authoring.ts",
     "probe:e00": "tsx src/probes/e00-ping.ts",
     "probe:e01a": "tsx src/probes/e01a-pointing.ts",
     "probe:e01b": "tsx src/probes/e01b-interference.ts",

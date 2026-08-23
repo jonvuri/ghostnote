@@ -1139,6 +1139,7 @@ public class Rig {
                 rc.value().markInterested();
                 rc.modulatedValue().markInterested();
                 rc.isBeingMapped().markInterested();
+                rc.hasAutomation().markInterested();
                 remoteControls0[page][r] = rc;
             }
         }

@@ -406,6 +406,20 @@ test('4h1: targeted scalar completion replaces post-write full inventory', () =>
   assert.ok(!WIRE_METHODS_USED.includes('remote.selectPage'));
 });
 
+test('5b: remote automation state is subscribed before live route proof', () => {
+  const source = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'Rig.java'),
+    'utf8',
+  );
+  const start = source.indexOf('RemoteControl rc = remotePage.getParameter(r);');
+  const end = source.indexOf('remoteControls0[page][r] = rc;', start);
+  const observer = source.slice(start, end);
+  assert.ok(start >= 0 && end > start, 'the remote-control observer loop must exist');
+  assert.match(observer, /rc\.hasAutomation\(\)\.markInterested\(\);/,
+    'inactive and active route proof must observe host automation explicitly');
+});
+
 test('4g: guarded device mutations check durable track identity before mutation', () => {
   const source = readFileSync(
     join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',

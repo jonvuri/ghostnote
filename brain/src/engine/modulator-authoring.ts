@@ -14,8 +14,11 @@ import {
   type Address, type DeviceAddress, type Op, type RemoteAddress, type RemoteControlState,
   type Snapshot, type TrackAddress,
 } from '../contract/index.js';
-import { addModulator, listModulators, loadDonor, validate } from '../bwmod/index.js';
-import type { Routing, ValidationResult } from '../bwmod/index.js';
+import {
+  addModulator, deleteModulator, listModulators, loadDonor, replaceModulator, retarget,
+  stubValues, validate,
+} from '../bwmod/index.js';
+import type { Modulator, Routing, ValidationResult } from '../bwmod/index.js';
 import type { RunOptions } from './executor.js';
 import type { Take } from './take.js';
 
@@ -44,6 +47,16 @@ export interface ModulatorRemoteWitness {
   readonly inventoryRetryMs?: number;
   readonly minimumDivergence?: number;
   readonly maximumBaseSpread?: number;
+}
+
+export interface ModulatorBehaviorWitness extends ModulatorRemoteWitness {
+  /** `active` requires divergence. `inactive` requires its absence. */
+  readonly expected: 'active' | 'inactive';
+}
+
+export interface ModulatorPageWitness {
+  readonly pageName: string;
+  readonly expectedCount: number;
 }
 
 export interface AddModulatorRequest {
@@ -114,6 +127,68 @@ export interface AddModulatorOptions {
   /** Test seam for observing the validated bytes before the project write. */
   readonly onValidated?: (preset: Buffer, result: ValidationResult) => void;
 }
+
+export type ModulatorEdit =
+  | {
+    readonly kind: 'replace';
+    readonly index: number;
+    readonly donorId: string;
+    readonly removedFootprint?: number;
+  }
+  | {
+    readonly kind: 'retarget';
+    readonly index: number;
+    readonly target: string;
+    readonly routeIndex?: number;
+  }
+  | {
+    readonly kind: 'delete';
+    readonly index: number;
+    readonly removedFootprint?: number;
+  };
+
+export interface ModulatorEditRequest {
+  readonly track: TrackAddress;
+  /** Absolute path to one human-saved `.bwpreset` template. */
+  readonly templatePath: string;
+  readonly edit: ModulatorEdit;
+  readonly pageWitnesses?: readonly ModulatorPageWitness[];
+  readonly behaviorWitnesses?: readonly ModulatorBehaviorWitness[];
+  /** Complete top-level names from the caller's last accepted observation. */
+  readonly expectedChain?: readonly string[];
+  /** Aligned top-level enabled flags from the same observation. */
+  readonly expectedEnabledChain?: readonly boolean[];
+}
+
+export interface ModulatorPageVerification {
+  readonly verified: boolean;
+  readonly actualPages: readonly string[];
+  readonly witnesses: readonly (ModulatorPageWitness & { readonly actualCount: number })[];
+  readonly why?: string;
+}
+
+export interface ModulatorEditResult {
+  readonly take: Take;
+  readonly minted?: DeviceAddress;
+  readonly edit: {
+    readonly kind: `modulator.${ModulatorEdit['kind']}`;
+    readonly structural: true;
+    readonly templatePath: string;
+    readonly operation: ModulatorEdit;
+    readonly modulatorsBefore: readonly Modulator[];
+    readonly modulatorsAfter: readonly Modulator[];
+    readonly validationWarnings: readonly string[];
+    /** Fidelity of restoring the prior absence, not preset-state readback. */
+    readonly restoreFidelity: Take['fidelity'];
+  };
+  readonly verification: {
+    readonly verified: boolean;
+    readonly pages: ModulatorPageVerification;
+    readonly behaviors: readonly ModulationVerification[];
+  };
+}
+
+export type ModulatorEditOptions = AddModulatorOptions;
 
 export class ModulatorAuthoringError extends Error {
   readonly stage: 'request' | 'edit' | 'validate';
@@ -206,11 +281,110 @@ export async function authorModulatorAdd(
   };
 }
 
+/** Apply one Tier-1 topology edit, checkpoint its load, and prove live readback. */
+export async function authorModulatorEdit(
+  host: ModulatorAuthoringHost,
+  request: ModulatorEditRequest,
+  options: ModulatorEditOptions = {},
+): Promise<ModulatorEditResult> {
+  assertEditRequest(request);
+
+  let template: Buffer;
+  let edited: Buffer;
+  let warnings: readonly string[];
+  let modulatorsBefore: readonly Modulator[];
+  let modulatorsAfter: readonly Modulator[];
+  try {
+    template = await readFile(request.templatePath);
+    modulatorsBefore = listModulators(template);
+    edited = applyEdit(template, request.edit);
+    modulatorsAfter = listModulators(edited);
+    const beforeStubs = stubValues(template);
+    const afterStubs = stubValues(edited);
+    const stubDelta = beforeStubs.length === 0 || afterStubs.length === 0
+      ? undefined
+      : afterStubs[0]! - beforeStubs[0]!;
+    const checked = validate(edited, {
+      reference: template,
+      ...(stubDelta === undefined ? {} : { stubDelta }),
+    });
+    if (!checked.ok) {
+      throw new ModulatorAuthoringError(
+        'validate',
+        `the edited preset failed validation: ${checked.problems.join('; ')}`,
+      );
+    }
+    options.onValidated?.(Buffer.from(edited), {
+      ok: checked.ok,
+      problems: [...checked.problems],
+      warnings: [...checked.warnings],
+    });
+    warnings = checked.warnings;
+  } catch (error) {
+    if (error instanceof ModulatorAuthoringError) throw error;
+    throw new ModulatorAuthoringError('edit', errorMessage(error));
+  }
+
+  const directory = await mkdtemp(join(options.tempRoot ?? tmpdir(), 'ghostnote-bwmod-'));
+  const outputPath = join(directory, `${safeName(request.edit.kind)}.bwpreset`);
+  let take: Take;
+  try {
+    await writeFile(outputPath, edited);
+    ({ take } = await host.apply([{
+      op: 'device.insert',
+      track: request.track,
+      source: { from: 'file', path: outputPath },
+      ...(request.expectedChain === undefined ? {} : { expectedChain: request.expectedChain }),
+      ...(request.expectedEnabledChain === undefined
+        ? {} : { expectedEnabledChain: request.expectedEnabledChain }),
+    }], options.run));
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+
+  const minted = take.receipt.minted[0];
+  const device = minted?.kind === 'device' ? minted : undefined;
+  const pause = options.wait ?? wait;
+  const pages = device === undefined
+    ? failedPageVerification('the preset insert returned no observed device address')
+    : await verifyPages(host, device, request.pageWitnesses ?? [], pause);
+  const behaviors: ModulationVerification[] = [];
+  if (device !== undefined) {
+    for (const witness of request.behaviorWitnesses ?? []) {
+      behaviors.push(await verifyModulation(host, device, witness, pause, witness.expected));
+    }
+  }
+  const allBehaviorsVerified = device !== undefined
+    && behaviors.length === (request.behaviorWitnesses?.length ?? 0)
+    && behaviors.every((verification) => verification.verified);
+
+  return {
+    take,
+    ...(device === undefined ? {} : { minted: device }),
+    edit: {
+      kind: `modulator.${request.edit.kind}`,
+      structural: true,
+      templatePath: request.templatePath,
+      operation: request.edit,
+      modulatorsBefore,
+      modulatorsAfter,
+      validationWarnings: warnings,
+      restoreFidelity: take.fidelity,
+    },
+    verification: {
+      verified: pages.verified && allBehaviorsVerified,
+      pages,
+      behaviors,
+    },
+  };
+}
+
 async function verifyModulation(
   host: ModulatorAuthoringHost,
   device: DeviceAddress,
   witness: ModulatorRemoteWitness,
   pause: (milliseconds: number) => Promise<void>,
+  expected: 'active' | 'inactive' = 'active',
 ): Promise<ModulationVerification> {
   const inventoryAddress = remotes(device);
   let inventory: Snapshot | undefined;
@@ -305,14 +479,65 @@ async function verifyModulation(
       samples,
     );
   }
-  if (maximumDivergence < minimumDivergence) {
+  if (expected === 'active' && maximumDivergence < minimumDivergence) {
     return failedVerification(
       `base and modulated values never diverged by ${minimumDivergence}`,
       selector,
       samples,
     );
   }
+  if (expected === 'inactive' && maximumDivergence >= minimumDivergence) {
+    return failedVerification(
+      `base and modulated values diverged by ${maximumDivergence}; the inactive limit is ${minimumDivergence}`,
+      selector,
+      samples,
+    );
+  }
   return { verified: true, selector, samples, maximumDivergence, baseSpread };
+}
+
+async function verifyPages(
+  host: ModulatorAuthoringHost,
+  device: DeviceAddress,
+  witnesses: readonly ModulatorPageWitness[],
+  pause: (milliseconds: number) => Promise<void>,
+): Promise<ModulatorPageVerification> {
+  const inventoryAddress = remotes(device);
+  let failure = 'the inserted device returned no complete remote inventory';
+  for (let attempt = 0; attempt < DEFAULT_INVENTORY_ATTEMPTS; attempt++) {
+    try {
+      const snapshot = await host.read([inventoryAddress]);
+      const value = snapshot.entries[addressKey(inventoryAddress)]?.value;
+      if (value?.of === 'remotes') {
+        const actualPages = value.remotes.pages.map((page) => page.name);
+        const observed = witnesses.map((witness) => ({
+          ...witness,
+          actualCount: actualPages.filter((page) => page === witness.pageName).length,
+        }));
+        const failed = observed.filter((witness) => witness.actualCount !== witness.expectedCount);
+        return failed.length === 0
+          ? { verified: true, actualPages, witnesses: observed }
+          : {
+            verified: false,
+            actualPages,
+            witnesses: observed,
+            why: `remote page counts did not match: ${failed.map((item) =>
+              `${JSON.stringify(item.pageName)} expected ${item.expectedCount}, got ${item.actualCount}`).join('; ')}`,
+          };
+      }
+      failure = snapshot.unstable.some((address) => addressKey(address) === addressKey(inventoryAddress))
+        ? 'the remote inventory did not settle'
+        : failure;
+    } catch (error) {
+      failure = `remote inventory failed: ${errorMessage(error)}`;
+    }
+    if (attempt + 1 < DEFAULT_INVENTORY_ATTEMPTS) await pause(DEFAULT_INVENTORY_RETRY_MS);
+  }
+  return failedPageVerification(failure);
+}
+
+function failedPageVerification(why: string): ModulatorPageVerification {
+  return { verified: false, actualPages: [], witnesses: [], why };
 }
 
 function sampleOf(control: RemoteControlState): ModulationSample {
@@ -340,45 +565,113 @@ function failedVerification(
   };
 }
 
+function applyEdit(template: Buffer, edit: ModulatorEdit): Buffer {
+  switch (edit.kind) {
+    case 'replace':
+      return replaceModulator(template, edit.index, loadDonor(edit.donorId), {
+        ...(edit.removedFootprint === undefined ? {} : { removedFootprint: edit.removedFootprint }),
+      });
+    case 'retarget':
+      return retarget(template, edit.index, edit.target, edit.routeIndex ?? 0);
+    case 'delete':
+      return deleteModulator(template, edit.index, {
+        ...(edit.removedFootprint === undefined ? {} : { removedFootprint: edit.removedFootprint }),
+      });
+  }
+}
+
+function assertEditRequest(request: ModulatorEditRequest): void {
+  assertTemplatePath(request.templatePath);
+  if (!Number.isInteger(request.edit.index) || request.edit.index < 0) {
+    throw new ModulatorAuthoringError('request', 'edit.index is out of range');
+  }
+  if (request.edit.kind === 'replace' && request.edit.donorId.trim() === '') {
+    throw new ModulatorAuthoringError('request', 'edit.donorId must not be empty');
+  }
+  if (request.edit.kind === 'retarget') {
+    if (request.edit.target.trim() === '') {
+      throw new ModulatorAuthoringError('request', 'edit.target must not be empty');
+    }
+    if (request.edit.routeIndex !== undefined
+        && (!Number.isInteger(request.edit.routeIndex) || request.edit.routeIndex < 0)) {
+      throw new ModulatorAuthoringError('request', 'edit.routeIndex is out of range');
+    }
+  }
+  if (request.edit.kind !== 'retarget' && request.edit.removedFootprint !== undefined
+      && (!Number.isInteger(request.edit.removedFootprint) || request.edit.removedFootprint < 0)) {
+    throw new ModulatorAuthoringError('request', 'edit.removedFootprint is out of range');
+  }
+  const pageWitnesses = request.pageWitnesses ?? [];
+  const behaviorWitnesses = request.behaviorWitnesses ?? [];
+  if (pageWitnesses.length + behaviorWitnesses.length === 0) {
+    throw new ModulatorAuthoringError('request', 'at least one live witness is required');
+  }
+  for (const witness of pageWitnesses) {
+    if (witness.pageName.trim() === '') {
+      throw new ModulatorAuthoringError('request', 'pageWitness.pageName must not be empty');
+    }
+    if (!Number.isInteger(witness.expectedCount) || witness.expectedCount < 0) {
+      throw new ModulatorAuthoringError('request', 'pageWitness.expectedCount is out of range');
+    }
+  }
+  for (const witness of behaviorWitnesses) {
+    assertWitness(witness);
+    if (witness.pageName === undefined) {
+      throw new ModulatorAuthoringError(
+        'request',
+        'behaviorWitness.pageName is required for an exact selector',
+      );
+    }
+  }
+}
+
 function assertRequest(request: AddModulatorRequest): void {
-  if (!isAbsolute(request.templatePath)) {
-    throw new ModulatorAuthoringError('request', 'templatePath must be absolute');
-  }
-  if (!request.templatePath.toLowerCase().endsWith('.bwpreset')) {
-    throw new ModulatorAuthoringError('request', 'templatePath must end with .bwpreset');
-  }
+  assertTemplatePath(request.templatePath);
   if (request.donorId.trim() === '') {
     throw new ModulatorAuthoringError('request', 'donorId must not be empty');
   }
   if (request.routing.target.trim() === '') {
     throw new ModulatorAuthoringError('request', 'routing.target must not be empty');
   }
-  if (request.witness.controlName.trim() === '') {
-    throw new ModulatorAuthoringError('request', 'witness.controlName must not be empty');
-  }
-  if (request.witness.pageName !== undefined && request.witness.pageName.trim() === '') {
-    throw new ModulatorAuthoringError('request', 'witness.pageName must not be blank');
-  }
+  assertWitness(request.witness);
   if (!Number.isFinite(request.routing.amount)) {
     throw new ModulatorAuthoringError('request', 'routing.amount must be finite');
   }
+}
+
+function assertTemplatePath(templatePath: string): void {
+  if (!isAbsolute(templatePath)) {
+    throw new ModulatorAuthoringError('request', 'templatePath must be absolute');
+  }
+  if (!templatePath.toLowerCase().endsWith('.bwpreset')) {
+    throw new ModulatorAuthoringError('request', 'templatePath must end with .bwpreset');
+  }
+}
+
+function assertWitness(witness: ModulatorRemoteWitness): void {
+  if (witness.controlName.trim() === '') {
+    throw new ModulatorAuthoringError('request', 'witness.controlName must not be empty');
+  }
+  if (witness.pageName !== undefined && witness.pageName.trim() === '') {
+    throw new ModulatorAuthoringError('request', 'witness.pageName must not be blank');
+  }
   for (const [name, value] of [
-    ['samples', request.witness.samples],
-    ['sampleIntervalMs', request.witness.sampleIntervalMs],
-    ['inventoryAttempts', request.witness.inventoryAttempts],
-    ['inventoryRetryMs', request.witness.inventoryRetryMs],
+    ['samples', witness.samples],
+    ['sampleIntervalMs', witness.sampleIntervalMs],
+    ['inventoryAttempts', witness.inventoryAttempts],
+    ['inventoryRetryMs', witness.inventoryRetryMs],
   ] as const) {
     const positive = name === 'samples' || name === 'inventoryAttempts';
     if (value !== undefined && (!Number.isInteger(value) || value < (positive ? 1 : 0))) {
       throw new ModulatorAuthoringError('request', `${name} is out of range`);
     }
   }
-  const minimumDivergence = request.witness.minimumDivergence;
+  const minimumDivergence = witness.minimumDivergence;
   if (minimumDivergence !== undefined
       && (!Number.isFinite(minimumDivergence) || minimumDivergence <= 0)) {
     throw new ModulatorAuthoringError('request', 'minimumDivergence must be positive');
   }
-  const maximumBaseSpread = request.witness.maximumBaseSpread;
+  const maximumBaseSpread = witness.maximumBaseSpread;
   if (maximumBaseSpread !== undefined
       && (!Number.isFinite(maximumBaseSpread) || maximumBaseSpread < 0)) {
     throw new ModulatorAuthoringError('request', 'maximumBaseSpread is out of range');
