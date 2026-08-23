@@ -10,7 +10,7 @@ import { createHash } from 'node:crypto';
 
 import { z } from 'zod';
 
-import type { ClipAddress, Op } from '../contract/index.js';
+import type { ClipAddress, Op, Recurrence } from '../contract/index.js';
 import type { NoteRecord } from '../contract/state.js';
 
 export const MUSICAL_PATCH_SCHEMA = 'ghostnote-musical-patch';
@@ -21,6 +21,9 @@ const beat = finite.nonnegative();
 const positiveBeat = finite.positive();
 const midiPitch = finite.int().min(0).max(127);
 const midiChannel = finite.int().min(0).max(15);
+// The array stays homogeneous in JSON Schema. The length check makes its output
+// safe to use as the contract tuple.
+const recurrenceSchema = z.array(finite).length(2) as unknown as z.ZodType<Recurrence>;
 
 const expressionSchema = z.object({
   releaseVelocity: finite.min(0).max(1).optional(),
@@ -35,7 +38,7 @@ const expressionSchema = z.object({
   isOccurrenceEnabled: z.boolean().optional(),
   occurrence: z.string().optional(),
   isRecurrenceEnabled: z.boolean().optional(),
-  recurrence: z.tuple([finite, finite]).optional(),
+  recurrence: recurrenceSchema.optional(),
   isRepeatEnabled: z.boolean().optional(),
   repeatCount: finite.int().optional(),
   repeatCurve: finite.optional(),

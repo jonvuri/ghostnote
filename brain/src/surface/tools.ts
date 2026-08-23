@@ -63,7 +63,8 @@ import {
   projectedReorder,
   AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
   type Address, type ClipAddress, type DeviceAddress, type DeviceSource, type NoteRecord,
-  type ObservedDeviceBank, type Op, type OpKind, type ParamState, type RevisionMark,
+  type ObservedDeviceBank, type Op, type OpKind, type ParamState, type Recurrence,
+  type RevisionMark,
 } from '../contract/index.js';
 import { branchProtected, directedDestruction } from '../engine/index.js';
 import { FX_LAYER_UUID, INSTRUMENT_LAYER_SEED_PATH } from '../device-alternates/assets.js';
@@ -288,6 +289,9 @@ const jsonInput: z.ZodType<JsonValue> = z.lazy(() => z.union([
   z.null(), z.boolean(), z.number().finite(), z.string(), z.array(jsonInput),
   z.record(z.string(), jsonInput),
 ]));
+// The array stays homogeneous in JSON Schema. The length check makes its output
+// safe to use as the contract tuple.
+const recurrenceInput = z.array(z.number()).length(2) as unknown as z.ZodType<Recurrence>;
 
 /**
  * ⚠ Every property that can be written, and NOT the one that cannot.
@@ -324,7 +328,7 @@ const noteInput = z.object({
   isOccurrenceEnabled: z.boolean().optional(),
   occurrence: z.string().optional(),
   isRecurrenceEnabled: z.boolean().optional(),
-  recurrence: z.tuple([z.number(), z.number()]).optional().describe(
+  recurrence: recurrenceInput.optional().describe(
     'Length and mask together; the API has no way to set one alone.',
   ),
   isRepeatEnabled: z.boolean().optional(),
@@ -337,7 +341,7 @@ const noteInput = z.object({
 type NoteInput = z.infer<typeof noteInput>;
 
 /** The surface's note shape IS the contract's, minus what cannot be written. */
-const toNote = (note: NoteInput): NoteRecord => note as NoteRecord;
+const toNote = (note: NoteInput): NoteRecord => note;
 
 const scopeInput = z.object({
   trackId: z.string().describe('Restrict to one track.'),

@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E74 | Homogeneous recurrence schemas restore Codex tools [K] (2026-08-23) | [open](experiments/e74-homogeneous-recurrence-schemas-restore-codex-tools.md) |
 | E73 | Four-entry composition dogfood passes live [K] (2026-08-23) | [open](experiments/e73-four-entry-composition-dogfood-passes-live.md) |
 | E72 | Public device-structure composition is live [K] (2026-08-23) | [open](experiments/e72-public-device-structure-composition-is-live.md) |
 | E71 | Owned-template composition is live [K] (2026-08-23) | [open](experiments/e71-owned-template-composition-is-live.md) |

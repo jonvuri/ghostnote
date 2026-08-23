@@ -43,22 +43,27 @@ remains.
 ## Current dogfood
 
 [D01](plan/dogfooding/d01-native-codex-lofi-jungle.md) proved native Codex MCP
-startup and local Bitwig access. It changed no Bitwig content. Codex exposed
-only 40 of 45 Ghostnote tools, excluding all five core clip-authoring tools. The
-available selection-preserving reads then failed with stale track index `5` in
-the four-track project `New 2`. The five missing tools are the exact schemas that
-emit `prefixItems`. The stale index comes from an unvalidated saved clip
-selection that restoration replays before the read can return.
+startup and local Bitwig access. It changed no Bitwig content. The first focused
+follow-up is complete. Exact-length homogeneous recurrence arrays removed the
+tuple schema from five clip-authoring tools. MCP still lists the same 45 names,
+and a fresh Codex session exposes all 45. The full brain check passes 826/826.
+[E74](evidence/experiments/e74-homogeneous-recurrence-schemas-restore-codex-tools.md)
+records the A/B result.
+
+The remaining defect is stale selection restoration. Selection-preserving reads
+failed with saved track index `5` in the four-track project `New 2`. The stale
+index comes from an unvalidated saved clip selection that restoration replays
+before the read can return.
 
 ## Next action
 
-Complete the two focused follow-up sessions in [D01](plan/dogfooding/d01-native-codex-lofi-jungle.md).
-First replace the unsupported homogeneous tuple schemas and prove all 45 tools
-in a fresh Codex chat. Then invalidate stale selection restoration and verify one
-read-only live project switch. Complete both sessions before the next musical
-dogfood chat. Do not begin Phase 6a until the operator closes this loop.
+Complete focused follow-up session 2 in
+[D01](plan/dogfooding/d01-native-codex-lofi-jungle.md). Invalidate stale
+selection restoration and verify one read-only live project switch. Complete it
+before the next musical dogfood chat. Do not begin Phase 6a until the operator
+closes this loop.
 
 ## Retrospective
 
-Give each dogfood defect one focused session with its own boundary and acceptance
-criteria. Do not combine independent fixes in one verification result.
+Check both draft-7 array-valued `items` and draft 2020-12 `prefixItems` when a
+host rejects tuple schemas. The two forms describe the same boundary.

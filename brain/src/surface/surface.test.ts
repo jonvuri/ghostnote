@@ -192,6 +192,77 @@ test('T-partition: the names are the boundary, and no verb sits on two of them',
   }
 });
 
+function schemaPaths(
+  value: unknown,
+  matches: (key: string, item: unknown) => boolean,
+  path: readonly string[] = [],
+): string[] {
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) => schemaPaths(item, matches, [...path, String(index)]));
+  }
+  if (value === null || typeof value !== 'object') return [];
+  return Object.entries(value as Record<string, unknown>).flatMap(([key, item]) => [
+    ...(matches(key, item) ? [[...path, key].join('.')] : []),
+    ...schemaPaths(item, matches, [...path, key]),
+  ]);
+}
+
+test('D01: every public tool schema uses only homogeneous arrays', () => {
+  assert.equal(TOOLS.length, 45);
+  const incompatible: string[] = [];
+  for (const tool of TOOLS) {
+    const validator = tool.inputValidator ?? z.object(tool.inputSchema);
+    const current = z.toJSONSchema(validator, { io: 'input' });
+    const draft7 = z.toJSONSchema(validator, { target: 'draft-7', io: 'input' });
+    incompatible.push(
+      ...schemaPaths(current, (key) => key === 'prefixItems')
+        .map((path) => `${tool.name}: ${path}`),
+      ...schemaPaths(draft7, (key, item) => key === 'items' && Array.isArray(item))
+        .map((path) => `${tool.name}: ${path}`),
+    );
+  }
+  assert.deepEqual(incompatible, []);
+});
+
+test('D01: recurrence remains one exact length-and-mask pair on all five tools', () => {
+  const lowLevel = (lengthAndMask: readonly number[]) => ({ clips: [{
+    trackId: 'track-a', row: 0, lengthBeats: 4,
+    notes: [{
+      startBeats: 0, pitch: 60, velocity: 100, durationBeats: 1,
+      recurrence: lengthAndMask,
+    }],
+  }] });
+  const musical = (lengthAndMask: readonly number[]) => ({
+    schema: 'ghostnote-musical-patch', version: 1, protection: { kind: 'direct' },
+    targets: [{
+      clip: { trackId: 'track-a', row: 0 }, channel: 0, write: 'merge',
+      operations: [{ op: 'generate', source: { kind: 'notes', notes: [{
+        startBeats: 0, pitch: 60, velocity: 100, durationBeats: 1,
+        recurrence: lengthAndMask,
+      }] } }],
+    }],
+  });
+  const inputFor = (name: string, recurrence: readonly number[]) => {
+    if (name === 'write_notes') return lowLevel(recurrence);
+    if (name === 'add_clip') return lowLevel(recurrence);
+    if (name === 'start_clip_music_operation') {
+      return { operation: 'generation', patch: musical(recurrence) };
+    }
+    return musical(recurrence);
+  };
+
+  for (const name of [
+    'generate_clip_music', 'transform_clip_music', 'start_clip_music_operation',
+    'write_notes', 'add_clip',
+  ]) {
+    const tool = TOOLS.find((candidate) => candidate.name === name)!;
+    const validator = tool.inputValidator ?? z.object(tool.inputSchema);
+    assert.equal(validator.safeParse(inputFor(name, [4, 5])).success, true, name);
+    assert.equal(validator.safeParse(inputFor(name, [4])).success, false, name);
+    assert.equal(validator.safeParse(inputFor(name, [4, 5, 6])).success, false, name);
+  }
+});
+
 test('T-partition: every tool carries the annotations its class implies', () => {
   for (const spec of TOOLS) {
     const expected = ANNOTATIONS[spec.kind];

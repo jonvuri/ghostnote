@@ -136,6 +136,22 @@ values.
 - The compatibility regression and full brain check pass.
 - No Bitwig content changes.
 
+### Outcome — complete
+
+[E74](../../evidence/experiments/e74-homogeneous-recurrence-schemas-restore-codex-tools.md)
+records the completed A/B result. MCP `tools/list` kept the same 45 names. The
+five tuple-style schemas became homogeneous number arrays with exact length two.
+The compatibility regression rejects both `prefixItems` and draft-7
+array-valued `items` across every public schema.
+
+Fresh Codex session `01a03069-d710-7150-885e-74845fb88f50` named `write_notes`
+in its initial prompt and exposed all 45 Ghostnote tools. It reported the five
+previously missing tools as callable. It called no Ghostnote tool. The focused
+tests pass 80/80, the description cohort tests pass 9/9, and the full brain
+check passes 826/826. No Bitwig content changed. Public schema cohort v8 records
+the schema change without changing tool names, descriptions, or recurrence
+values.
+
 ## Focused follow-up session 2 — invalidate stale selection restoration
 
 ### Objective

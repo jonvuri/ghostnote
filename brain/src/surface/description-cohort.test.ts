@@ -9,6 +9,7 @@ import {
   DESCRIPTION_COHORT_V4,
   DESCRIPTION_COHORT_V5,
   DESCRIPTION_COHORT_V6,
+  DESCRIPTION_COHORT_V7,
   TOOL_DESCRIPTION_V1_SHA256,
   TOOL_DESCRIPTION_V2_SHA256,
   TOOL_DESCRIPTION_V3_SHA256,
@@ -16,6 +17,7 @@ import {
   TOOL_DESCRIPTION_V5_SHA256,
   TOOL_DESCRIPTION_V6_SHA256,
   TOOL_DESCRIPTION_V7_SHA256,
+  TOOL_DESCRIPTION_V8_SHA256,
   TOOL_DESCRIPTION_VERSION,
   descriptionCohortArtifact,
   fingerprintDescriptionCohort,
@@ -64,8 +66,8 @@ const EXPECTED_COHORT = [
   'compose_device_structure',
 ] as const;
 
-test('description v7 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v7');
+test('description v8 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v8');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -132,11 +134,20 @@ test('description v6 matches its frozen public artifact', () => {
 });
 
 test('description v7 matches its frozen public artifact', () => {
+  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V7);
+  assert.equal(
+    fingerprintDescriptionCohort(artifact),
+    TOOL_DESCRIPTION_V7_SHA256,
+    'the frozen v7 public wording or schema changed',
+  );
+});
+
+test('description v8 matches its frozen public artifact', () => {
   const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
   assert.deepEqual(artifact.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V7_SHA256,
+    TOOL_DESCRIPTION_V8_SHA256,
     'public wording or schema changed; assign a new description version before updating the golden',
   );
 });
