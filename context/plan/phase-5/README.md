@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Session 5f is complete. Plan the composition layer next.
+status: Sessions 5a through 5f are complete. Sessions 5g through 5i are planned.
 updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -69,7 +69,9 @@ that first integration unless the proof needs one new owned asset.
   **arbitrary within the container**, reached by the ordinary retarget primitive
   (E11e). This retires E7's curated slot-bank as the default model.
 - **Layer chains can be trimmed** (E10d), collapsing "a template per shape" to one
-  wide template plus a trim step. Growing a container is still impossible (E4d/E4e).
+  wide template plus a trim step. The preset file cannot grow beyond that width.
+  A seeded live layer can grow through typed duplication (E17), which is a
+  separate product path.
 - **Verification is by live load + readback, never by inspection.** `validate()`
   predicts a *load*; it cannot predict *modulation*. A wrong Ramona route path passes
   every offline check and silently does nothing (E10b).
@@ -94,8 +96,15 @@ that first integration unless the proof needs one new owned asset.
 6. [5f — public modulator authoring surface](5f-public-modulator-surface.md) — done.
    Express all four topology edits with named modulator types, named targets,
    exact live witnesses, and recorded reversal bounds.
-
-Later sessions complete composition.
+7. [5g — owned-template composition core](5g-owned-template-composition-core.md) — next.
+   Trim one owned four-entry template, substitute native devices, author nested
+   modulation, verify the complete live structure, and reverse it.
+8. [5h — public structure composition](5h-public-structure-composition.md) — planned.
+   Expose one format-hidden composition tool with named devices, modulators,
+   targets, exact witnesses, and a recorded insertion.
+9. [5i — composition dogfood and closeout](5i-composition-dogfood-and-closeout.md) — planned.
+   Build one useful layered patch through the public surface, reverse it, audit
+   the phase, and hand off to Phase 6.
 
 ## Scope
 
@@ -123,27 +132,24 @@ Later sessions complete composition.
 
 ### Out
 
-- Growing new layers in a layer container. Reasoned ○ (E4d/E4e).
+- Growing the preset file beyond its shipped template capacity. A seeded live
+  layer can grow through typed duplication (E17), but that is a separate path.
 - Grid patch synthesis (§9).
 - Runtime modulator creation or routing (E7 ○, exhaustive — including foregrounded).
 - Any Python at runtime. `tools/bwformat/*.py` remains the CI oracle only (D3).
 
 ## Decisions this phase must make
 
-- **Template library scope and provenance.** How many devices, how many shapes, and
-  how the assets are documented so a future session knows what each donor is and
-  where it came from. `brain/assets/modulators/index.json` is the existing pattern.
-- **Redistribution.** Templates derived from Bitwig's bundled content are a licensing
-  question if the repo is ever published — worth deciding before the library grows,
-  not after. Generating assets from the user's own install sidesteps it.
-- **How much of the library ships vs. is generated on first run.** Related to the
-  Phase-4 catalog decision; they should be answered together.
-- **Whether `bwmod` is published separately.** It is a self-contained, tested library
-  solving a problem the Bitwig community has documented as unsolved. Low cost to
-  extract, real value to others.
-- **How a modulator edit is expressed in the tool surface.** "Add an LFO to the
-  filter" must not require the agent to know about sentinels or footprints — the
-  library's job is to be boring at the call site.
+- **Template library scope and provenance — planned for 5g/5i.** Ship one
+  user-authored four-entry Instrument Layer template with an exact manifest.
+- **Redistribution — planned for 5g/5i.** Do not ship copied bundled content.
+  Keep external redistribution review in Phase 6.
+- **Shipped vs. first-run generation — planned for 5g/5i.** Ship the one required
+  asset. Do not require runtime operator setup.
+- **Standalone `bwmod` publication — deferred to Phase 6.** It does not gate
+  composition or Phase 5 closeout.
+- **Public modulator edit expression — settled by 5f.** Named types, targets, and
+  witnesses hide sentinels, list indexes, routes, and footprints.
 
 ## Exit criteria
 
@@ -157,6 +163,11 @@ Later sessions complete composition.
    revertible.
 5. The donor library has measured footprints for every donor intended for sampled
    presets, and refuses — loudly — for those that do not.
+6. One request composes an exact retained-entry count from the owned wide
+   template, substitutes every requested device, authors nested modulation,
+   verifies the complete live structure and behavior, and reverses it.
+7. The public composition surface hides every binary and asset control and
+   passes one useful dogfood request before Phase 5 closes.
 
 ## Risks
 

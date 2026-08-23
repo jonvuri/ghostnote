@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: phase-5
-session: phase-5f-public-modulator-surface
+session: phase-5g-owned-template-composition-core
 ---
 
 # Now
@@ -18,6 +18,7 @@ Five donor assets support sampled presets with measured provenance. Two assets
 stay Tier 1 only and refuse sampled edits before write. The public
 `author_modulators` tool expresses all four editors with named types, named
 targets, exact witnesses, recorded changes, and no binary format controls.
+Sessions 5g through 5i are planned to complete composition and close the phase.
 
 ## Accepted live baseline
 
@@ -46,11 +47,12 @@ remains.
 
 ## Next action
 
-Plan the next small Phase 5 session around composition. Start with one owned
-wide template, trim it to an exact requested size, substitute one measured
-device id per retained entry, author its modulators and routes, load it through
-the recorded executor path, prove the complete live structure and behavior, and
-reverse it. Keep template provenance and unsupported growth explicit.
+Implement [session 5g](plan/phase-5/5g-owned-template-composition-core.md).
+Promote the existing human-authored four-chain fixture only after its manifest
+proves the exact asset layout. No new human preset save is expected. Trim it to
+the requested size, substitute one cataloged native device per retained entry,
+author its modulators and routes, load it through the recorded executor path,
+prove the complete live structure and behavior, and reverse it.
 
 Session source: [Phase 5](plan/phase-5/README.md). Completed proofs:
 [E65](evidence/experiments/e65-checkpointed-modulator-add-is-live.md),
@@ -59,8 +61,10 @@ Session source: [Phase 5](plan/phase-5/README.md). Completed proofs:
 [E68](evidence/experiments/e68-container-cross-device-routing-is-live.md),
 [E69](evidence/experiments/e69-donor-scope-and-footprints-are-complete.md), and
 [E70](evidence/experiments/e70-public-modulator-authoring-is-live.md).
+Remaining plans: [5h](plan/phase-5/5h-public-structure-composition.md) and
+[5i](plan/phase-5/5i-composition-dogfood-and-closeout.md).
 
 ## Retrospective
 
-Use the recorded change as the write boundary. Do not convert a later error
-into a pre-write refusal.
+Read the current container capability page before repeating historical limits.
+E17 narrowed the unsupported growth claim to the preset-file composition path.
