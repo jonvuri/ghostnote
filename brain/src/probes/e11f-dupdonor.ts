@@ -4,7 +4,7 @@
  *
  * The handoff hypothesised a 0x2ab8 "Chain" GUID collision on same-donor adds, but
  * measurement showed a modulator object embeds NO 0x2ab8 — the only per-object ids
- * are 0x1a1b (unique, proven) and 0x18c6 (the TYPE guid, shared by all instances of
+ * are 0x1a1b (unique within this list, proven) and 0x18c6 (the TYPE guid, shared by all instances of
  * a type and copied verbatim into referenced_modulator_ids). So two same-type
  * modulators necessarily DUPLICATE 0x18c6 and duplicate the meta ref. This probe
  * loads such files and REPORTS load/reject + the resulting modulator pages.

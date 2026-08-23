@@ -46,7 +46,7 @@ export function listModulators(buf: Buffer, listIndex?: number): Modulator[] {
   });
 }
 
-/** Every `0x1a1b` value currently in use. Uniqueness across these is the one load gate. */
+/** Every `0x1a1b` value in one selected list. Values can repeat across container lists. */
 export function instanceIds(buf: Buffer, listIndex?: number): number[] {
   return listModulators(buf, listIndex).map((m) => m.instanceId);
 }
@@ -54,9 +54,9 @@ export function instanceIds(buf: Buffer, listIndex?: number): number[] {
 /**
  * `max(existing) + 1`, or 0 when there are none.
  *
- * Ids need not be contiguous or zero-based — uniqueness is the whole rule
- * (E11a) — so this is a convenience, not a constraint. It is also what Bitwig
- * itself writes, which is what makes the golden reconstructions byte-identical.
+ * Ids need not be contiguous or zero-based. They must be unique only within the
+ * selected list (E11a/E71). This is a convenience, not a constraint. It is also
+ * what Bitwig writes, which makes the golden reconstructions byte-identical.
  */
 export function nextFreeInstanceId(buf: Buffer, listIndex?: number): number {
   const ids = instanceIds(buf, listIndex);

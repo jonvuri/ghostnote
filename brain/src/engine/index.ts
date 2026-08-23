@@ -28,6 +28,13 @@ export type {
 export {
   authorModulatorAdd, authorModulatorEdit, ModulatorAuthoringError,
 } from './modulator-authoring.js';
+
+export { buildOwnedTemplateComposition } from './owned-template-composition.js';
+export type {
+  CompositionLiveWitness, CompositionStructureVerification, ObservedCompositionEntry,
+  OwnedTemplateCompositionHost, OwnedTemplateCompositionOptions, OwnedTemplateCompositionRequest,
+  OwnedTemplateCompositionResult,
+} from './owned-template-composition.js';
 export type {
   AddModulatorOptions, AddModulatorRequest, AddModulatorResult, ModulationSample,
   ModulationVerification, ModulatorAuthoringHost, ModulatorBehaviorWitness, ModulatorEdit,

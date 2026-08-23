@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "id": "instrument-layer-4",
+  "assetPath": "fixtures/InstrumentLayer/gn_layer_4chain.bwpreset",
+  "sha256": "b953135a8c744b0796c6fdef86485012790e0533a137c7b59c6c2d21bc77b1f5",
+  "byteLength": 25011,
+  "authoring": {
+    "bitwigVersion": "6.0.6",
+    "creator": "jrajav",
+    "sourceEvidence": "E4g",
+    "origin": "human-authored"
+  },
+  "container": {
+    "name": "Instrument Layer",
+    "guid": "5024be2e-65d6-4d40-bbfe-8b2ea993c445",
+    "guidOffset": 6346,
+    "outerModulatorList": {
+      "sourceIndex": 0,
+      "fieldOffset": 6212
+    }
+  },
+  "maximumEntries": 4,
+  "entries": [
+    {
+      "sourceIndex": 0,
+      "chainName": "CHAIN0",
+      "chainStart": 6421,
+      "chainEnd": 12708,
+      "sourceDevice": {
+        "name": "Phase-4",
+        "guid": "252723bf-68a6-4ee6-81f8-95ba4d0fb467",
+        "guidOffset": 8023
+      },
+      "modulatorList": {
+        "sourceIndex": 1,
+        "fieldOffset": 6657
+      }
+    },
+    {
+      "sourceIndex": 1,
+      "chainName": "CHAIN1",
+      "chainStart": 12708,
+      "chainEnd": 17414,
+      "sourceDevice": {
+        "name": "Polysynth",
+        "guid": "a9ffacb5-33e9-4fc7-8621-b1af31e410ef",
+        "guidOffset": 14312
+      },
+      "modulatorList": {
+        "sourceIndex": 2,
+        "fieldOffset": 12946
+      }
+    },
+    {
+      "sourceIndex": 2,
+      "chainName": "CHAIN2",
+      "chainStart": 17414,
+      "chainEnd": 20564,
+      "sourceDevice": {
+        "name": "Organ",
+        "guid": "f2dcfe9a-7b66-4c84-984a-b25685a1c21a",
+        "guidOffset": 19014
+      },
+      "modulatorList": {
+        "sourceIndex": 3,
+        "fieldOffset": 17648
+      }
+    },
+    {
+      "sourceIndex": 3,
+      "chainName": "CHAIN3",
+      "chainStart": 20564,
+      "chainEnd": null,
+      "sourceDevice": {
+        "name": "Sampler",
+        "guid": "468bc14b-b2e7-45a1-9666-e83117fe404e",
+        "guidOffset": 22174
+      },
+      "modulatorList": {
+        "sourceIndex": 4,
+        "fieldOffset": 20800
+      }
+    }
+  ],
+  "externalReferences": {
+    "packagedFileIds": [],
+    "sampledPresetReferenceStubs": 0
+  }
+}

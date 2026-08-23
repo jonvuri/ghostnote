@@ -1,0 +1,18 @@
+export {
+  NATIVE_CATALOG_PATH, OWNED_LAYER_MANIFEST_PATH, OWNED_LAYER_TEMPLATE_PATH,
+} from './assets.js';
+export {
+  COMPOSITION_TARGET_IDS, COMPOSITION_TARGETS,
+} from './targets.js';
+export type {
+  CompositionTargetId, CompositionTargetRecipe,
+} from './targets.js';
+export {
+  COMPOSITION_MODULATOR_TYPES, TemplateCompositionError, composeOwnedTemplate,
+  compositionModulatorSemantics,
+} from './template-composer.js';
+export type {
+  ComposeTemplateOptions, ComposedTemplate, CompositionBinding, CompositionEditWitness,
+  CompositionEntryRequest, CompositionModulatorRequest, CompositionModulatorType,
+  OwnedTemplateEntryManifest, OwnedTemplateManifest,
+} from './template-composer.js';

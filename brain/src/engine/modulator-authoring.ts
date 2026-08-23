@@ -421,7 +421,7 @@ export async function authorModulatorEdit(
   };
 }
 
-async function verifyModulation(
+export async function verifyModulation(
   host: ModulatorAuthoringHost,
   device: DeviceAddress,
   witness: ModulatorRemoteWitness,
@@ -538,7 +538,7 @@ async function verifyModulation(
   return { verified: true, selector, samples, maximumDivergence, baseSpread };
 }
 
-async function verifyPages(
+export async function verifyPages(
   host: ModulatorAuthoringHost,
   device: DeviceAddress,
   witnesses: readonly ModulatorPageWitness[],

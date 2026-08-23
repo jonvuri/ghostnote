@@ -4,21 +4,18 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: phase-5
-session: phase-5g-owned-template-composition-core
+session: phase-5h-public-structure-composition
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 sessions 5a
-through 5f are complete. Checkpointed add, replace, retarget, and delete are live
-and revertible on Tier-1 and multisample presets. Selected-list cross-device
-retarget is live on a Chain container. Named-slot addresses use distinct keys,
-prove the parent-child cursor edge, and refuse unsupported indexes before write.
-Five donor assets support sampled presets with measured provenance. Two assets
-stay Tier 1 only and refuse sampled edits before write. The public
-`author_modulators` tool expresses all four editors with named types, named
-targets, exact witnesses, recorded changes, and no binary format controls.
-Sessions 5g through 5i are planned to complete composition and close the phase.
+through 5g are complete. The internal owned-template composer trims one
+human-authored Instrument Layer to one through four entries, resolves exact
+native catalog names, binds logical entries to measured nested modulator lists,
+supports all five topology edits, validates before write, proves complete live
+structure and behavior, and reverses the one recorded insertion. Sessions 5h
+and 5i remain to expose and dogfood composition, then close the phase.
 
 ## Accepted live baseline
 
@@ -47,24 +44,24 @@ remains.
 
 ## Next action
 
-Implement [session 5g](plan/phase-5/5g-owned-template-composition-core.md).
-Promote the existing human-authored four-chain fixture only after its manifest
-proves the exact asset layout. No new human preset save is expected. Trim it to
-the requested size, substitute one cataloged native device per retained entry,
-author its modulators and routes, load it through the recorded executor path,
-prove the complete live structure and behavior, and reverse it.
+Implement [session 5h](plan/phase-5/5h-public-structure-composition.md). Expose
+the proved internal workflow through one public composition tool. Hide every
+asset and binary control, guard with the complete current top-level device
+chain, record the insertion, return requested and observed structure plus exact
+witnesses, and reverse it through `revert_change`.
 
 Session source: [Phase 5](plan/phase-5/README.md). Completed proofs:
 [E65](evidence/experiments/e65-checkpointed-modulator-add-is-live.md),
 [E66](evidence/experiments/e66-tier-1-topology-editors-are-live.md),
 [E67](evidence/experiments/e67-sampled-preset-authoring-is-live.md),
 [E68](evidence/experiments/e68-container-cross-device-routing-is-live.md),
-[E69](evidence/experiments/e69-donor-scope-and-footprints-are-complete.md), and
-[E70](evidence/experiments/e70-public-modulator-authoring-is-live.md).
+[E69](evidence/experiments/e69-donor-scope-and-footprints-are-complete.md),
+[E70](evidence/experiments/e70-public-modulator-authoring-is-live.md), and
+[E71](evidence/experiments/e71-owned-template-composition-is-live.md).
 Remaining plans: [5h](plan/phase-5/5h-public-structure-composition.md) and
 [5i](plan/phase-5/5i-composition-dogfood-and-closeout.md).
 
 ## Retrospective
 
-Read the current container capability page before repeating historical limits.
-E17 narrowed the unsupported growth claim to the preset-file composition path.
+Check every live witness against final composed state before the project write.
+Treat modulator instance-id uniqueness as local to one modulator list.

@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Sessions 5a through 5f are complete. Sessions 5g through 5i are planned.
+status: Sessions 5a through 5g are complete. Sessions 5h and 5i are planned.
 updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -54,7 +54,8 @@ that first integration unless the proof needs one new owned asset.
 - **It is durable and first-class**, not a load-time illusion: a surgically-authored
   modulator survives project save → Bitwig restart → reopen, and Bitwig re-serialises
   it cleanly on save (E11g).
-- **One load gate:** a unique `0x1a1b` instance id per modulator. Ids need not be
+- **One list-local load gate:** each `0x1a1b` instance id is unique within one
+  modulator list. Ids can repeat in separate container lists. They need not be
   contiguous; the `0x02b9` name is cosmetic; same-type duplicates are fine.
 - **The sentinel rule is the one that bites.** The `0x1a46` list ends with an empty
   `cls 0x0003` sentinel; a diff-derived bound can land 2 bytes inside it and corrupt
@@ -96,10 +97,10 @@ that first integration unless the proof needs one new owned asset.
 6. [5f — public modulator authoring surface](5f-public-modulator-surface.md) — done.
    Express all four topology edits with named modulator types, named targets,
    exact live witnesses, and recorded reversal bounds.
-7. [5g — owned-template composition core](5g-owned-template-composition-core.md) — next.
+7. [5g — owned-template composition core](5g-owned-template-composition-core.md) — done.
    Trim one owned four-entry template, substitute native devices, author nested
    modulation, verify the complete live structure, and reverse it.
-8. [5h — public structure composition](5h-public-structure-composition.md) — planned.
+8. [5h — public structure composition](5h-public-structure-composition.md) — next.
    Expose one format-hidden composition tool with named devices, modulators,
    targets, exact witnesses, and a recorded insertion.
 9. [5i — composition dogfood and closeout](5i-composition-dogfood-and-closeout.md) — planned.
@@ -140,11 +141,13 @@ that first integration unless the proof needs one new owned asset.
 
 ## Decisions this phase must make
 
-- **Template library scope and provenance — planned for 5g/5i.** Ship one
+- **Template library scope and provenance — settled by 5g.** Ship one
   user-authored four-entry Instrument Layer template with an exact manifest.
-- **Redistribution — planned for 5g/5i.** Do not ship copied bundled content.
-  Keep external redistribution review in Phase 6.
-- **Shipped vs. first-run generation — planned for 5g/5i.** Ship the one required
+  Do not expand the library before the external review.
+- **Redistribution — current scope settled by 5g.** The one asset is
+  user-authored. No bundled Bitwig content is copied. Keep external
+  redistribution review in Phase 6.
+- **Shipped vs. first-run generation — settled by 5g.** Ship the one required
   asset. Do not require runtime operator setup.
 - **Standalone `bwmod` publication — deferred to Phase 6.** It does not gate
   composition or Phase 5 closeout.

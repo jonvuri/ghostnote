@@ -1,11 +1,11 @@
 ---
 title: Phase 5g — owned-template composition core
 kind: plan
-state: planned
-status: Planned. Implement the first complete wide-template composition path.
+state: complete
+status: Complete. E71 proves the owned-template composition path offline and live.
 updated: 2026-08-23
 parent: README.md
-evidence: D1, D2, D3, E4f, E4g, E4h, E10d, E13, E65-E70
+evidence: D1, D2, D3, E4f, E4g, E4h, E10d, E13, E65-E71
 ---
 
 # Phase 5g — owned-template composition core
@@ -79,7 +79,8 @@ the candidate fails a required manifest check.
   sibling lists keep the same semantic content unless the request names them.
 - A zero-entry request, a request above capacity, an unknown or ambiguous
   native device, asset drift, a missing list binding, an unsupported route, or
-  failed validation refuses before `apply()`.
+  a witness that conflicts with final composed state, or failed validation
+  refuses before `apply()`.
 - The focused live proof composes two distinct retained devices, including
   Polysynth and a sample-less Sampler, and gives each one an exact active
   modulation witness.

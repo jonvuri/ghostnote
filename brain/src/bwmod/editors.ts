@@ -4,8 +4,8 @@
  *
  * Every editor maintains the same five invariants (DECISIONS D1):
  *   1. object bounds snap to the list SENTINEL — insert before it, end at it (E11h);
- *   2. `0x1a1b` stays unique across modulators — the one proven load gate (E10f);
- *   3. meta `referenced_modulator_ids` tracks the modulator GUIDs, in order (E10c/E10f);
+ *   2. `0x1a1b` stays unique within its modulator list (E10f/E71);
+ *   3. meta `referenced_modulator_ids` tracks the required modulator GUIDs (E10c/E71);
  *   4. header `f4` is patched whenever META changed size;
  *   5. header `f6` is re-pointed whenever it is non-zero and byte length changed (E11i);
  * plus, on a preset that embeds a sample, the Tier-2 count-stub relocation (E12).
@@ -17,16 +17,18 @@
 import type { DonorObject, Routing } from './types.js';
 import { fail, patchString, spliceBuffer } from './format.js';
 import { repointF6 } from './header.js';
-import { appendMetaRef, removeMetaRefAt, replaceMetaRefAt } from './meta.js';
+import { writeModulatorRefs } from './meta.js';
 import { identifyCuratedDonor } from './donors.js';
 import {
-  findModulatorList, instanceIdOffset, modulatorBounds, nameFieldOffset, routeSlots,
+  findModulatorList, instanceIdOffset, modulatorBounds, modulatorListOffsets, nameFieldOffset, routeSlots,
 } from './stream.js';
 import { listModulators, nextFreeInstanceId } from './readers.js';
 import { hasCountStubs, relocateStubs } from './stubs.js';
 
 /** Options shared by the editors that add or remove objects. */
 export interface FootprintOptions {
+  /** Exact MODULATORS list in a container preset. Omit for a plain device. */
+  listIndex?: number;
   /**
    * Object footprint of the modulator being REMOVED, for Tier-2 relocation.
    * Only consulted when the preset embeds a sample; ignored otherwise.
@@ -40,7 +42,9 @@ export interface FootprintOptions {
 }
 
 export interface AddOptions {
-  /** override the auto-assigned `0x1a1b` (must stay unique — the load gate) */
+  /** Exact MODULATORS list in a container preset. Omit for a plain device. */
+  listIndex?: number;
+  /** Override `0x1a1b`. It must stay unique within the selected modulator list. */
   instanceId?: number;
   /** override the cosmetic `0x02b9` name; defaults to the instance id, as Bitwig writes it */
   name?: string;
@@ -91,13 +95,13 @@ export function setAmount(
  * relocate the sample count stubs, re-point `f6`. (E10f-B1, E12.)
  */
 export function addModulator(buf: Buffer, donor: DonorObject, routing?: Routing, opts: AddOptions = {}): Buffer {
-  const list = findModulatorList(buf);
-  const instanceId = opts.instanceId ?? nextFreeInstanceId(buf);
-  assertFreeId(buf, instanceId);
+  const list = findModulatorList(buf, opts.listIndex);
+  const instanceId = opts.instanceId ?? nextFreeInstanceId(buf, opts.listIndex);
+  assertFreeId(buf, instanceId, -1, opts.listIndex);
   const object = prepareDonor(donor, instanceId, opts.name ?? String(instanceId), routing);
 
   let out = spliceBuffer(buf, list.listEnd, list.listEnd, object); // insert BEFORE the sentinel
-  out = appendMetaRef(out, donor.guid);
+  out = synchronizeModulatorRefs(out);
   out = relocate(out, footprintFor(out, donor, 'insert'));
   return repointF6(out);
 }
@@ -113,14 +117,14 @@ export function replaceModulator(
   donor: DonorObject,
   opts: FootprintOptions & AddOptions = {},
 ): Buffer {
-  const list = findModulatorList(buf);
+  const list = findModulatorList(buf, opts.listIndex);
   const [start, end] = modulatorBounds(buf, index, list);
-  const instanceId = opts.instanceId ?? nextFreeInstanceId(buf);
-  assertFreeId(buf, instanceId, index);
+  const instanceId = opts.instanceId ?? nextFreeInstanceId(buf, opts.listIndex);
+  assertFreeId(buf, instanceId, index, opts.listIndex);
   const object = prepareDonor(donor, instanceId, opts.name ?? String(instanceId));
 
   let out = spliceBuffer(buf, start, end, object);
-  out = replaceMetaRefAt(out, index, donor.guid);
+  out = synchronizeModulatorRefs(out);
   if (hasCountStubs(out)) {
     const inserted = footprintFor(out, donor, 'insert');
     const gone = removedFootprint(buf, index, start, end, opts, 'replace');
@@ -131,11 +135,11 @@ export function replaceModulator(
 
 /** Remove a modulator — object plus its meta ref (E10c/E10d), sentinel untouched. */
 export function deleteModulator(buf: Buffer, index: number, opts: FootprintOptions = {}): Buffer {
-  const list = findModulatorList(buf);
+  const list = findModulatorList(buf, opts.listIndex);
   const [start, end] = modulatorBounds(buf, index, list);
 
   let out = spliceBuffer(buf, start, end, Buffer.alloc(0));
-  out = removeMetaRefAt(out, index);
+  out = synchronizeModulatorRefs(out);
   if (hasCountStubs(out)) {
     out = relocateStubs(out, -removedFootprint(buf, index, start, end, opts, 'delete'));
   }
@@ -144,12 +148,25 @@ export function deleteModulator(buf: Buffer, index: number, opts: FootprintOptio
 
 // ---------------------------------------------------------------------------
 
-function assertFreeId(buf: Buffer, id: number, ignoreIndex = -1): void {
+function assertFreeId(buf: Buffer, id: number, ignoreIndex = -1, listIndex?: number): void {
   if (!Number.isInteger(id) || id < 0 || id > 0xff) {
     fail(`instance id ${id} is out of range — 0x1a1b is a u8`);
   }
-  const clash = listModulators(buf).find((m) => m.index !== ignoreIndex && m.instanceId === id);
+  const clash = listModulators(buf, listIndex)
+    .find((m) => m.index !== ignoreIndex && m.instanceId === id);
   if (clash) fail(`instance id ${id} is already used by modulator ${clash.index} — duplicates reject the preset`);
+}
+
+/**
+ * Keep META aligned after an edit. Plain presets preserve one ref per object.
+ * Container presets use the ordered unique GUID set across their device lists.
+ */
+function synchronizeModulatorRefs(buf: Buffer): Buffer {
+  const offsets = modulatorListOffsets(buf);
+  const guids = offsets.flatMap((_, listIndex) =>
+    listModulators(buf, listIndex).map((modulator) => modulator.guid));
+  const refs = offsets.length === 1 ? guids : [...new Set(guids)];
+  return writeModulatorRefs(buf, refs);
 }
 
 /** Stamp the donor's identity fields (and optional route) into a private copy. */
@@ -207,7 +224,7 @@ function removedFootprint(
   what: string,
 ): number {
   if (opts.removedFootprint !== undefined) return opts.removedFootprint;
-  const resident = listModulators(buf)[index];
+  const resident = listModulators(buf, opts.listIndex)[index];
   const asset = identifyCuratedDonor(buf.subarray(start, end));
   if (asset?.footprint != null) return asset.footprint;
   return fail(

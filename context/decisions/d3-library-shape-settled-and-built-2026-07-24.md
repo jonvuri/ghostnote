@@ -40,9 +40,10 @@ carrying (details in BWMOD_DESIGN §8, evidence in FINDINGS E13):
 
 ### Carry-forward
 
-**Modulator authoring is a template-time file-surgery capability with a single load
-invariant — a unique `0x1a1b` per modulator — and it is verified by readback, not by
-inspection.** `validate()` is the cheap offline gate that predicts a LOAD; only a live
+**Modulator authoring is a template-time file-surgery capability with one
+list-local load invariant: each `0x1a1b` is unique within its modulator list.
+Separate container lists can reuse ids (E71). The result is verified by
+readback, not by inspection.** `validate()` is the cheap offline gate that predicts a LOAD; only a live
 load plus a remote-page readback proves the modulation is actually live (a wrong Ramona
 path passes every offline check and does nothing, E10b). Workstream B builds on
 `bwmod` + a curated template/donor library; it does not need any further format work.

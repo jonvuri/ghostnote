@@ -3,9 +3,9 @@ title: bwmod — modulator-surgery library design (interfaces + tests)
 status: BUILT (2026-07-24) — `brain/src/bwmod/`; 42 unit tests + the Python oracle
         cross-check green offline, all 12 integration cases green on live Bitwig
         6.0.6. See §8 for what the build changed. Evidence: FINDINGS E13.
-updated: 2026-07-24
+updated: 2026-08-23
 depends-on: BWFORMAT_SPEC.md (the byte layout), FINDINGS.md E10–E12 (esp. E11h sentinel,
-            E11i f6, E12 stub relocation)
+            E11i f6, E12 stub relocation), E71 (container list scope)
 ---
 
 # `bwmod` — a `.bwpreset` modulator-surgery library
@@ -53,11 +53,11 @@ depends-on: BWFORMAT_SPEC.md (the byte layout), FINDINGS.md E10–E12 (esp. E11h
    sample-less template is still simplest, but a sampled template is fully general too.
    Keep load+readback mandatory regardless; do NOT assume a new host/preset works without
    a live load test. Port source: `tools/bwformat/build_e12d2_cases.py` (`relocate_stubs`).
-6. **Ids: unique, not contiguous (E11a).** `nextFreeInstanceId = max+1` is a safe
-   convenience; any value absent from the current `0x1a1b` set is valid, so `delete`
-   need not renumber. Same-type duplicates are fine — `referenced_modulator_ids` may
-   legitimately contain a repeated guid (E11f), so `addModulator` needs no id/guid
-   "freshening" beyond the unique `0x1a1b`.
+6. **Ids: list-local and not contiguous (E11a/E71).**
+   `nextFreeInstanceId = max+1` is safe within the selected list. Separate
+   container lists can reuse ids. Deletion does not renumber ids. Same-type
+   duplicates are valid (E11f). Plain presets can repeat a GUID in
+   `referenced_modulator_ids`; containers keep one ordered unique GUID set.
 7. **Object bounds MUST snap to the list SENTINEL (E11h) — hard correctness rule.**
    The `0x1a46` list ends with an empty `cls 0x0003` sentinel `00 00 00 03 00 00 00 00`
    (not a bare `classId 0`). A modulator object's true end is the byte before that
@@ -97,7 +97,7 @@ interface Modulator {
   deviceName: string;     // 0x009a e.g. "LFO"
   category: string;       // 0x009c e.g. "LFO" | "Note-driven" (informational)
   guid: string;           // 0x18c6, canonical 8-4-4-4-12
-  instanceId: number;     // 0x1a1b — the uniqueness-gated field
+  instanceId: number;     // 0x1a1b — unique within one modulator list
   routing: Routing | null;
   span: [number, number]; // absolute byte bounds of the object (see caveats)
 }
@@ -200,8 +200,9 @@ Checks, in order, the invariants that predict a load (cheap; run before insertFi
 - **`0x1a46` list ends with an intact `00 00 00 03 00 00 00 00` sentinel**, and the
   last modulator object's terminator abuts it exactly (the E11h/E11i off-by-2 guard —
   the single most common way an edit silently rejects).
-- `0x1a1b` values across modulators are **unique** (the proven gate).
-- meta `referenced_modulator_ids` set == modulator-GUID set; count matches.
+- `0x1a1b` values are **unique within the selected modulator list**.
+- meta `referenced_modulator_ids` matches the list for a plain preset. For a
+  container, it contains the required ordered unique GUID set across lists.
 - if the preset embeds a sample (count-field lists present): every class-1 stub in
   every count list (`0x129c`/`0x1422`) has been relocated by `(inserted − removed)
   footprint` (BE payloads); no stub left stale. (New-type introduction is allowed — it

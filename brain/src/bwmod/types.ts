@@ -43,7 +43,7 @@ export interface Modulator {
   category: string;
   /** field `0x18c6`, canonical 8-4-4-4-12 */
   guid: string;
-  /** field `0x1a1b` — the uniqueness-gated field; the one proven load gate (E10f) */
+  /** field `0x1a1b` — unique within one modulator list (E10f/E71) */
   instanceId: number;
   /** the first modulation entry, or null when the modulator routes nowhere */
   routing: Routing | null;

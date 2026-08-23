@@ -34,12 +34,14 @@ the right shape only for the Tier-2 case, D2). Recorded per handoff exit criteri
    whole-preset reject; the error is **alignment-dependent** (it manufactured the false
    "Zebra wall"). End objects at, and insert before, the sentinel. **[E11h — the key
    discovery of this session]**
-2. **`0x1a1b` instance id unique** across modulators — the one proven load gate (E10f).
-   Need not be contiguous/zero-based (E11a); the `0x02b9` name is cosmetic (E11b);
-   same-type duplicates (shared `0x18c6` type-guid, duplicate meta ref) are fine (E11f).
-   No embedded-id "freshening" beyond the unique `0x1a1b`.
-3. **Meta `referenced_modulator_ids`** = the ordered set of modulator `0x18c6` GUIDs;
-   count correct (E10c/E10f). Patch header **`f4`** by the meta byte-delta.
+2. **`0x1a1b` instance id unique within one modulator list** — the proven load
+   gate (E10f/E71). Separate container lists can reuse ids. Ids need not be
+   contiguous or zero-based (E11a); the `0x02b9` name is cosmetic (E11b);
+   same-type duplicates are fine (E11f). No embedded-id freshening is required.
+3. **Meta `referenced_modulator_ids`** contains the modulator `0x18c6` GUIDs.
+   Plain presets keep one ordered ref per object. Containers keep the ordered
+   unique GUID set across lists (E10c/E10f/E71). Patch header **`f4`** by the
+   meta byte-delta.
 4. **`f6`** (when present) = absolute offset of an embedded DEFLATE-ZIP plugin-state
    blob; re-point it (locate `PK\x03\x04`) after any stream-size change (E11i).
 5. **Every edit MUST be verified by live load + remote-page readback** — a bad Ramona

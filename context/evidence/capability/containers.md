@@ -2,9 +2,9 @@
 title: Containers — device layers, selectors and drum machines
 kind: capability
 state: active
-updated: 2026-08-15
+updated: 2026-08-23
 scope: nested device containers; chain lifecycle, switching, addressing and state
-evidence: E4c, E4d, E16 §3.4e, E16n/o, E16w, E17, E18a-h; D6, D18
+evidence: E4c, E4d, E16 §3.4e, E16n/o, E16w, E17, E18a-h, E71; D6, D18
 ---
 
 # Containers
@@ -37,6 +37,13 @@ model and cannot be used for live A/B. §"Why the Selector is out" states why.
   bundled build-time seed asset
   (`brain/assets/device-alternates/instrument-layer-seed.bwpreset`) [K, live
   conformance, 2026-08-14].
+- A separate owned four-entry Instrument Layer template composes an exact stack
+  of one through four native devices. It trims only measured chain spans,
+  substitutes each device GUID, edits each bound nested modulator list, loads in
+  one insertion, and proves the complete live result [K,
+  [E71](../experiments/e71-owned-template-composition-is-live.md)]. This is the
+  internal construction path. The one-entry seed remains the typed duplication
+  path.
 - `hasLayers=true` does **not** mean a chain exists. Read the layer bank count,
   never the capability flag [K, [E4c](../experiments/e4c-device-nesting-layers-pads-slots-selectors-2026-07-19.md)].
 - A container can be placed on an ordinary track, on an **FX return** and on the

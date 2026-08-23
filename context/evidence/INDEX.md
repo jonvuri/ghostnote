@@ -12,6 +12,9 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E71 | Owned-template composition is live [K] (2026-08-23) | [open](experiments/e71-owned-template-composition-is-live.md) |
+| E70 | Public modulator authoring is live [K] (2026-08-23) | [open](experiments/e70-public-modulator-authoring-is-live.md) |
+| E69 | Donor scope and footprints are complete [K] (2026-08-23) | [open](experiments/e69-donor-scope-and-footprints-are-complete.md) |
 | E68 | Container cross-device routing is live [K] (2026-08-23) | [open](experiments/e68-container-cross-device-routing-is-live.md) |
 | E67 | Sampled-preset authoring is live [K] (2026-08-23) | [open](experiments/e67-sampled-preset-authoring-is-live.md) |
 | E66 | Tier-1 topology editors are live [K] (2026-08-23) | [open](experiments/e66-tier-1-topology-editors-are-live.md) |

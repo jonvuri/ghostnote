@@ -1,7 +1,7 @@
 ---
 title: Bitwig `.bwpreset` format — working specification
-status: evidence-backed draft (spike E10–E12); enough to build modulator surgery
-updated: 2026-07-24
+status: evidence-backed draft (E10–E12, E71); enough to build modulator surgery
+updated: 2026-08-23
 scope: the plain (encoding 0002) container, focused on modulator topology
 ---
 
@@ -166,7 +166,7 @@ snap object bounds to the sentinel; insert new objects BEFORE it.**
 | 0x0e3d | **routing target** | str — Ramona model path, e.g. `CONTENTS/F1FREQ`; editable any length (E10/E10b) |
 | 0x12de | preset_name | embedded name; per-file, expected to differ |
 | 0x18c6 | device_guid | 16-byte identity; substitutable (E4g) |
-| **0x1a1b** | **instance id** | **u8; MUST be unique per modulator; duplicate ⇒ whole-preset reject (E10f)** |
+| **0x1a1b** | **instance id** | **u8; MUST be unique within one `0x1a46` list; duplicate in that list ⇒ whole-preset reject (E10f/E71)** |
 | 0x1a46 | modulator_list | the `MODULATORS` list (type 0x12) |
 | 0x2ab8 | "Chain" GUID | 16-byte, **device/chain-level, NOT per-modulator** (fixed count ~2/file regardless of modulator count; absent from modulator objects); regenerated per save; NOT required unique for load (E10f/E11f) |
 
@@ -223,17 +223,19 @@ MODULATORS wrapper (0x075f)
 - ⚠ Not every enumerable param forms a valid `0x0e3d` target path — a wrong path
   is a **silent no-op** (loads, no modulation). Verify by readback **[K, E10b]**.
 
-### 4.1 The one load-time invariant proven so far
+### 4.1 The list-local load-time invariant
 
-**Every modulator's `0x1a1b` instance id must be unique within the preset. A
-duplicate causes Bitwig to reject the ENTIRE preset (silently — 0 devices load).**
+**Every modulator's `0x1a1b` instance id must be unique within its `0x1a46`
+list. A duplicate in one list causes Bitwig to reject the ENTIRE preset
+(silently — 0 devices load). Separate container lists can reuse ids [K, E71].**
 Category, slot position, object length, and donor origin are all **irrelevant**
 **[K, E10f: the one-byte M1 test + B1/B1n + C1/C1n controls]**. The id set need not
 be contiguous or zero-based — sparse `[0,1,5]`, high `[9,4,7]`, and permuted `[2,0,1]`
-all load; **uniqueness is the whole rule** **[K, E11a]**. Same-type duplicates are
+all load; **list-local uniqueness is the whole rule** **[K, E11a/E71]**. Same-type duplicates are
 fine: two modulators may share a `0x18c6` type guid and produce a duplicate
-`referenced_modulator_ids` entry (Bitwig disambiguates display names itself)
-**[K, E11f]**.
+`referenced_modulator_ids` entry in a plain preset (Bitwig disambiguates display
+names itself) **[K, E11f]**. A container instead keeps the ordered unique GUID
+set across its lists **[K, E71]**.
 
 ⚠ **The recipe is broad; the one complication is an EMBEDDED SAMPLE/BULK BLOB, not any
 device class and NOT plugin opaque state [K, E11d/E11d-2/E11h/E11i-corrected/E12].** The
@@ -279,8 +281,8 @@ Adding/creating chains from nothing is still ○ (E4d/E4e, API side).
 | op | recipe | evidence |
 |---|---|---|
 | **retarget** | rewrite `0x0e3d` string (any length) | E10/E10b |
-| **replace / type-swap** | swap the whole 0x06c9 object; assign a **unique** `0x1a1b`; sync meta ref | E10f-C1 |
-| **add** | insert object into 0x1a46 list; unique `0x1a1b`; append meta ref; patch `f4` | E10f-B1 |
+| **replace / type-swap** | swap the whole 0x06c9 object; assign a list-local **unique** `0x1a1b`; sync meta ref | E10f-C1/E71 |
+| **add** | insert object into 0x1a46 list; assign a list-local unique `0x1a1b`; sync meta refs; patch `f4` | E10f-B1/E71 |
 | **delete** | remove the object; (sync meta ref) | E10c/E10d |
 | **vary settings (runtime)** | remote-control page writes; drive `amount` to 0 to disable | E7d |
 
