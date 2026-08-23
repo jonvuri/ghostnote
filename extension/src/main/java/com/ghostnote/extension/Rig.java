@@ -1238,6 +1238,12 @@ public class Rig {
         java.util.Arrays.fill(remotePagePendingGeneration, -1);
         java.util.Arrays.fill(remotePagePendingTrackId, null);
         java.util.Arrays.fill(remotePagePendingDeviceName, null);
+        // Selecting the current device again emits no page-name callback. Seed
+        // this generation from the current marked state. A later target change
+        // still fails track, name, and index equality until its callbacks run.
+        for (int page = 0; page < remotePages0.length; page++) {
+            noteRemotePageObservation(page);
+        }
         return remoteGeneration;
     }
 

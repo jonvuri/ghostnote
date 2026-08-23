@@ -4,12 +4,13 @@ kind: status
 state: active
 updated: 2026-08-22
 phase: phase-5
-session: phase-5-handoff
+session: phase-5b-tier-1-topology-editors
 ---
 
 # Now
 
-Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 is next.
+Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 session 5a
+is complete. Checkpointed modulator add is live and revertible.
 
 ## Accepted live baseline
 
@@ -38,16 +39,17 @@ remains.
 
 ## Next action
 
-Continue [Phase 5](plan/phase-5/README.md). Start with one focused executor and
-take integration for a proved `bwmod` edit. Load the result and verify live
-modulation through the exact returned remote-control selector. Compare its base
-value and `modulatedValue`; do not treat `bwmod.validate()` as modulation proof.
+Plan the next small Phase 5 session around Tier-1 replace, retarget, and delete.
+Reuse the checkpointed preset-load seam, exact page-and-control witness, sampled
+footprint refusal, structural fidelity wording, and exact cleanup from 5a. Keep
+sampled integration and container routing in later sessions.
 
-Keep the first integration small. Add a new template or donor asset only when
-the proof needs it, and preserve the sampled-preset footprint refusal.
+Session source: [Phase 5](plan/phase-5/README.md). Completed proof:
+[E65](evidence/experiments/e65-checkpointed-modulator-add-is-live.md).
 
 ## Retrospective
 
-The general parameter inventory was sufficient for natural sound design. No
-device-specific view is needed. E61 made closeout efficient by defining one
-complete performance command and fixed budgets. No process change is needed.
+The live host exposed the witness name on three pages. Future modulation probes
+must specify the page and control in advance. The improved refusal now reports
+all name-matched candidates, which makes this lookup direct. Proof thresholds
+and optional observer fields must have fail-closed boundary tests.

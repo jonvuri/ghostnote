@@ -2,8 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Next. Start executor and take integration. The `bwmod` library it uses
-        is already built and tested.
+status: Session 5a is complete. Plan the remaining Tier-1 topology editors next.
 updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -74,6 +73,17 @@ that first integration unless the proof needs one new owned asset.
 - **Verification is by live load + readback, never by inspection.** `validate()`
   predicts a *load*; it cannot predict *modulation*. A wrong Ramona route path passes
   every offline check and silently does nothing (E10b).
+
+## Execution order
+
+1. [5a — checkpointed modulator add](5a-modulator-add-integration.md) — done.
+   Add one curated modulator, load it through the executor, verify live
+   divergence through the exact returned remote selector, and reverse it.
+2. Next, integrate replace, retarget, and delete on unsampled Tier-1 templates.
+   Reuse the 5a checkpoint, exact witness, refusal, and cleanup rules.
+
+Later sessions add sampled integration, container routing, asset curation, and
+the public surface only after the Tier-1 editor set is proved.
 
 ## Scope
 

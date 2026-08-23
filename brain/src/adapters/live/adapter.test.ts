@@ -1892,6 +1892,7 @@ class ParameterTransport implements Transport {
   layerWindowOverflow = false;
   remoteNeverCurrent = false;
   malformedRemoteControl = false;
+  movingRemote = false;
   private selected = 0;
   private depth = 0;
   private padSelected = false;
@@ -1904,6 +1905,7 @@ class ParameterTransport implements Transport {
   ];
   private generation = 0;
   private remoteGeneration = 0;
+  private remoteValueRead = 0;
   private completionGeneration = 0;
   private completionObservedGeneration = -1;
   private completionId: string | undefined;
@@ -2066,6 +2068,10 @@ class ParameterTransport implements Transport {
         return {};
       case WIRE.remoteList: {
         if (params['begin'] === true) this.remoteGeneration++;
+        if (params['begin'] !== true && this.movingRemote) this.remoteValueRead++;
+        const modulated = (value: number): number => this.movingRemote
+          ? Math.min(1, value + this.remoteValueRead / 100)
+          : value;
         const page = this.remotePages[this.selectedRemotePage];
         const deviceName = this.depth === 1 ? 'Inner container'
           : this.depth === 2 ? 'Deep synth' : this.devices[this.selected]?.name;
@@ -2080,7 +2086,7 @@ class ParameterTransport implements Transport {
                 index, exists: true,
                 ...(this.malformedRemoteControl ? {} : { name: control.name }),
                 value: control.value,
-                modulatedValue: control.modulatedValue, isBeingMapped: false,
+                modulatedValue: modulated(control.modulatedValue), isBeingMapped: false,
                 hasAutomation: false,
               };
           }),
@@ -2105,7 +2111,7 @@ class ParameterTransport implements Transport {
                 index, exists: true,
                 ...(this.malformedRemoteControl ? {} : { name: control.name }),
                 value: control.value,
-                modulatedValue: control.modulatedValue, isBeingMapped: false,
+                modulatedValue: modulated(control.modulatedValue), isBeingMapped: false,
                 hasAutomation: false,
               };
           }),
@@ -2358,6 +2364,26 @@ test('4f live route: remote pages settle twice and one control restores exactly'
   const after = await adapter.read([address]);
   const afterEntry = after.entries[addressKey(address)];
   assert.equal(afterEntry?.value.of === 'remote' ? afterEntry.value.remote.value : undefined, 0.25);
+});
+
+test('5a remote proof: changing modulated values do not prevent selector settlement', async () => {
+  const wire = new ParameterTransport();
+  wire.movingRemote = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const device = deviceAt(TRACK, 0);
+  const address = remote(device, 0, 'Filter', 0, 'Cutoff');
+
+  const snapshot = await adapter.read([remotes(device), address]);
+  const entry = snapshot.entries[addressKey(address)];
+
+  assert.equal(entry?.value.of, 'remote');
+  assert.ok(entry?.value.of === 'remote'
+    && entry.value.remote.modulatedValue > entry.value.remote.value);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList).length, 3);
+  const selectedAt = wire.frames.findIndex((frame) => frame.method === WIRE.deviceCursorSelectAt);
+  const begunAt = wire.frames.findIndex((frame) => frame.method === WIRE.remoteList
+    && frame.params?.['begin'] === true);
+  assert.ok(selectedAt >= 0 && begunAt > selectedAt, 'the exact target is confirmed before reset');
 });
 
 test('4f repair: a remote inventory from an earlier target generation stays unstable', async () => {

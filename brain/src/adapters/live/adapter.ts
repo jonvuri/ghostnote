@@ -1384,14 +1384,18 @@ export class LiveAdapter implements BitwigAdapter {
   /** Enumerate the complete configured remote-page window in one bounded reply. */
   private remoteInventory(device: DeviceAddress, row: WireTrack): Promise<RemoteInventory> {
     return this.withParameterCursor(async () => {
+      // Confirm and pin the target before resetting the remote generation. If
+      // this cursor already names the target, selecting it again emits no page
+      // callback. The extension seeds the new generation from this confirmed
+      // current state.
+      const target = await this.acquireDeviceTarget(device, row);
+      if (target.standing !== 'stable') return target;
       const begun = await this.transport.send({
         method: WIRE.remoteList,
         params: { begin: true },
       }) as WireRemotePage;
       if (!Number.isInteger(begun.generation)) return { standing: 'unstable' };
       const generation = begun.generation!;
-      const target = await this.acquireDeviceTarget(device, row);
-      if (target.standing !== 'stable') return target;
       await this.settle('paramsLive');
 
       let prior: string | undefined;
@@ -1454,7 +1458,19 @@ export class LiveAdapter implements BitwigAdapter {
           && pages.length === pageNames.length
           && pages.every((page, index) => page.index === index && page.name === pageNames[index]);
         if (complete) {
-          const signature = JSON.stringify(pages);
+          // Selector stability is structural. A live modulator changes
+          // `modulatedValue` between these reads by design, so including values
+          // makes the inventory impossible to settle on the exact devices this
+          // path exists to inspect. Return the latest values after two equal
+          // page/control layouts.
+          const signature = JSON.stringify(pages.map((page) => ({
+            index: page.index,
+            name: page.name,
+            controls: page.controls.map((control) => ({
+              index: control.index,
+              name: control.name,
+            })),
+          })));
           if (signature === prior) {
             return {
               standing: 'stable',

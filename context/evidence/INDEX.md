@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E65 | Checkpointed modulator add is live [K] (2026-08-22) | [open](experiments/e65-checkpointed-modulator-add-is-live.md) |
 | E64 | Phase 4 closes with a saved device baseline [K] (2026-08-22) | [open](experiments/e64-phase-4-closes-with-saved-device-baseline.md) |
 | E63 | Device dogfood exposes an A/B selection gap [K] (2026-08-22) | [open](experiments/e63-device-dogfood-exposes-ab-selection-gap.md) |
 | E62 | The public device surface is live [K] (2026-08-22) | [open](experiments/e62-public-device-surface-is-live.md) |

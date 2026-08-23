@@ -25,6 +25,12 @@ export type {
   ManagedFxScalarCheckpoint, ManagedFxStage, ManagedFxWarning,
 } from './managed-fx-chain.js';
 
+export { authorModulatorAdd, ModulatorAuthoringError } from './modulator-authoring.js';
+export type {
+  AddModulatorOptions, AddModulatorRequest, AddModulatorResult, ModulationSample,
+  ModulationVerification, ModulatorAuthoringHost, ModulatorRemoteWitness,
+} from './modulator-authoring.js';
+
 export {
   branchProtected, directedDestruction, floorRefusal, gateBeforeReading, ownChangesetReversal,
   UnprotectedWriteError,
