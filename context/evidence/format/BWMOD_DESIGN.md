@@ -289,11 +289,12 @@ each item is a place the design was silent and the code had to make a call:
   donor byte-for-byte (`identifyCuratedDonor`, normalizing only id/name/route —
   the fields the editors themselves rewrite, which E12e proved add no objects).
   No match and no explicit value ⇒ a loud refusal. Never a guess.
-- **Unmeasured footprints ship as `null`.** Only `lfo-sampler` (0x10),
-  `random-sampler` (0x0d) and `random-poly` (0x0b) are measured; the other four
-  curated donors carry `null` + provenance, are fine on Tier 1, and are refused
-  on a sampled preset. A CI test re-derives 0x10/0x0d from the fixtures' own
-  `bare -> one_X` stub deltas.
+- **Unmeasured footprints ship as `null`.** At the initial build, only
+  `lfo-sampler` (0x10), `random-sampler` (0x0d), and `random-poly` (0x0b) were
+  measured. Phase 5e added `classiclfo-poly` (0x0c) and `vibrato-poly` (0x0f).
+  `lfo-poly` and `expressions-poly` remain Tier 1 only and refuse on a sampled
+  preset. A CI test re-derives 0x10/0x0d from the fixtures' own `bare -> one_X`
+  stub deltas and checks all five sampled donors.
 - **`routes: Routing[]`** alongside `routing` — a modulator may drive several
   targets, so `retarget`/`setAmount` take an optional `routeIndex` (default 0).
 - **`ValidationResult.warnings`**, for the conditions §5 called warnings (empty

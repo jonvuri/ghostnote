@@ -394,12 +394,14 @@ test('U-stub-relocate: a Tier-1 preset needs no footprint at all', () => {
   assertValid(addModulator(fixture('Polysynth/mp_bare'), unmeasured), 'unmeasured donor on Tier 1');
 });
 
-test('U-stub-relocate: an unmeasured footprint is refused on a sampled preset, never guessed', () => {
-  assert.throws(
-    () => addModulator(fixture(SAMPLED), loadDonor('lfo-poly')),
-    /no measured footprint/,
-    'a guessed footprint rejects the preset silently — it must fail loudly instead',
-  );
+test('U-stub-relocate: every Tier-1-only donor is refused on a sampled preset', () => {
+  for (const donorId of ['lfo-poly', 'expressions-poly']) {
+    assert.throws(
+      () => addModulator(fixture(SAMPLED), loadDonor(donorId)),
+      /no measured footprint/,
+      `${donorId}: a guessed footprint rejects the preset silently`,
+    );
+  }
 });
 
 test('U-stub-relocate: the removed footprint comes from an exact donor match, else it is demanded', () => {
@@ -439,6 +441,29 @@ test('U-stub-relocate: curated footprints agree with the fixtures they were meas
   assert.equal(byId.get('lfo-sampler')?.footprint, 0x10);
   assert.equal(byId.get('random-sampler')?.footprint, 0x0d);
   assert.equal(byId.get('random-poly')?.footprint, 0x0b);
+  assert.equal(byId.get('classiclfo-poly')?.footprint, 0x0c);
+  assert.equal(byId.get('vibrato-poly')?.footprint, 0x0f);
+  assert.equal(byId.get('lfo-poly')?.footprint, null);
+  assert.equal(byId.get('expressions-poly')?.footprint, null);
+});
+
+test('U-stub-relocate: every sampled-preset cohort donor relocates all stubs', () => {
+  const base = fixture(SAMPLED);
+  const before = stubValues(base);
+  for (const donorId of [
+    'lfo-sampler', 'random-sampler', 'random-poly', 'classiclfo-poly', 'vibrato-poly',
+  ]) {
+    const donor = loadDonor(donorId);
+    assert.notEqual(donor.footprint, null, `${donorId}: cohort footprint is missing`);
+    const footprint = donor.footprint as number;
+    const out = addModulator(base, donor);
+    assert.deepEqual(
+      stubValues(out),
+      before.map((value) => value + footprint),
+      `${donorId}: every sampled stub moves by the measured footprint`,
+    );
+    assertValid(out, donorId, { reference: base, stubDelta: footprint });
+  }
 });
 
 // ---------------------------------------------------------------------------

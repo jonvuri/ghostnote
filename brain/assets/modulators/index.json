@@ -49,8 +49,8 @@
       "deviceName": "Classic LFO",
       "category": "LFO",
       "guid": "39f4b136-2946-4ac5-b34c-e5fde1e58fd8",
-      "footprint": null,
-      "footprintSource": "NOT MEASURED — Tier-1 use only (this is the E10f-A1/C1 cross-category donor)",
+      "footprint": 12,
+      "footprintSource": "Phase 5e live load-triangulation on sampled Sampler: loads at +0x0c and rejects at +0x0b/+0x0d",
       "file": "classiclfo-poly.bwmodobj",
       "source": "Polysynth/modzoo.bwpreset#0",
       "route": null
@@ -60,8 +60,8 @@
       "deviceName": "Vibrato",
       "category": "LFO",
       "guid": "ca8cc421-bcbc-44d9-8ef3-6e570e528d2b",
-      "footprint": null,
-      "footprintSource": "NOT MEASURED — Tier-1 use only",
+      "footprint": 15,
+      "footprintSource": "Phase 5e live load-triangulation on sampled Sampler: loads at +0x0f and rejects at +0x0e/+0x10",
       "file": "vibrato-poly.bwmodobj",
       "source": "Polysynth/modtest.bwpreset#0",
       "route": "CONTENTS/PITCH"
@@ -72,7 +72,7 @@
       "category": "Note-driven",
       "guid": "dcacb71b-0f1a-4493-8916-bd460eee71d5",
       "footprint": null,
-      "footprintSource": "NOT MEASURED — Tier-1 use only (a Note-driven donor; category is not a load gate, E10f)",
+      "footprintSource": "TIER 1 ONLY — Phase 5e sampled-Sampler sweep rejected every possible footprint from 0x0a through 0x39; the 459-byte donor cannot contain more than 57 minimum-sized objects",
       "file": "expressions-poly.bwmodobj",
       "source": "Polysynth/modtest.bwpreset#1",
       "route": null

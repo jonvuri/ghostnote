@@ -4,16 +4,18 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: phase-5
-session: phase-5d-container-cross-device-routing
+session: phase-5e-donor-footprints
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 sessions 5a
-through 5d are complete. Checkpointed add, replace, retarget, and delete are live
+through 5e are complete. Checkpointed add, replace, retarget, and delete are live
 and revertible on Tier-1 and multisample presets. Selected-list cross-device
 retarget is live on a Chain container. Named-slot addresses use distinct keys,
 prove the parent-child cursor edge, and refuse unsupported indexes before write.
+Five donor assets support sampled presets with measured provenance. Two assets
+stay Tier 1 only and refuse sampled edits before write.
 
 ## Accepted live baseline
 
@@ -42,18 +44,19 @@ remains.
 
 ## Next action
 
-Plan the next small Phase 5 session around donor-library scope and footprint
-completion. Define which donors must support sampled presets. Measure and record
-each required footprint with provenance. Keep loud refusal for every donor that
-is not in that sampled cohort.
+Plan the next small Phase 5 session around the public modulator-authoring
+surface. Express add, replace, retarget, and delete without exposing format
+details. Keep exact page and behavior witnesses, checkpoint semantics, donor
+scope, and sampled-preset refusals explicit.
 
 Session source: [Phase 5](plan/phase-5/README.md). Completed proofs:
 [E65](evidence/experiments/e65-checkpointed-modulator-add-is-live.md),
 [E66](evidence/experiments/e66-tier-1-topology-editors-are-live.md),
-[E67](evidence/experiments/e67-sampled-preset-authoring-is-live.md), and
-[E68](evidence/experiments/e68-container-cross-device-routing-is-live.md).
+[E67](evidence/experiments/e67-sampled-preset-authoring-is-live.md),
+[E68](evidence/experiments/e68-container-cross-device-routing-is-live.md), and
+[E69](evidence/experiments/e69-donor-scope-and-footprints-are-complete.md).
 
 ## Retrospective
 
-A cursor selection call can succeed without moving. Prove a parent-child edge
-before a nested observer can report stable data.
+A failed footprint bracket does not prove that the footprint is farther away.
+Bound the full candidate range by donor size before expanding a sweep.

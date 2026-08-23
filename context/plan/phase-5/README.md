@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Session 5d is complete. Plan donor-library scope and footprint completion next.
+status: Session 5e is complete. Plan the public authoring surface next.
 updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -88,8 +88,11 @@ that first integration unless the proof needs one new owned asset.
 4. [5d — container cross-device routing](5d-container-cross-device-routing.md) — done.
    An explicit outer-container list retarget reaches one exact nested control,
    passes live behavior readback, and reverses exactly.
+5. [5e — donor scope and footprint completion](5e-donor-footprints.md) — done.
+   Five donors support sampled presets with measured provenance. Two Tier-1-only
+   donors keep loud refusals.
 
-Later sessions complete asset curation and add the public surface.
+Later sessions add the public surface and complete composition.
 
 ## Scope
 
@@ -103,10 +106,10 @@ Later sessions complete asset curation and add the public surface.
    API** — E4f, unchanged by the format decode), so this is a curated,
    human-in-the-loop asset pipeline: capture, catalogue, measure footprints, record
    provenance.
-3. **Footprint discipline.** Only 3 of the 7 current donors have measured footprints;
-   the rest ship `null` and are **refused on a sampled preset rather than guessed** —
-   a wrong delta is a silent whole-preset reject. Measuring the remainder is
-   straightforward and belongs here.
+3. **Footprint discipline.** Five of the seven current donors form the sampled
+   cohort and have measured footprints. The two Tier-1-only donors ship `null`
+   and are **refused on a sampled preset rather than guessed**. A wrong delta is
+   a silent whole-preset reject.
 4. **The composition layer.** Trim a wide template to N chains; substitute device
    GUIDs per chain (E4g — verified independently per chain); add/replace modulators;
    route, including cross-device from a container. This is the "boring setup is

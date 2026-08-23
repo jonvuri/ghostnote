@@ -20,12 +20,17 @@ rejects the whole preset silently. To measure a new one, use E12a
 load-triangulation: sweep the stub delta on a sampled preset; exactly one value
 loads, and that value is the footprint.
 
+The sampled-preset cohort is `lfo-sampler`, `random-sampler`, `random-poly`,
+`classiclfo-poly`, and `vibrato-poly`. `lfo-poly` is redundant with the measured
+Sampler LFO donor. `expressions-poly` rejected the full bounded Phase 5e sweep.
+Both stay Tier 1 only and keep a `null` footprint.
+
 | id | device | footprint | source |
 |---|---|---|---|
 | `lfo-sampler` | LFO | 0x10 | `Sampler/gn_sampler_one_lfo.bwpreset#0` |
 | `random-sampler` | Random | 0xd | `Sampler/gn_sampler_one_random.bwpreset#0` |
 | `random-poly` | Random | 0xb | `Polysynth/mp_one_random.bwpreset#0` |
 | `lfo-poly` | LFO | — (unmeasured) | `Polysynth/mp_one_lfo.bwpreset#0` |
-| `classiclfo-poly` | Classic LFO | — (unmeasured) | `Polysynth/modzoo.bwpreset#0` |
-| `vibrato-poly` | Vibrato | — (unmeasured) | `Polysynth/modtest.bwpreset#0` |
+| `classiclfo-poly` | Classic LFO | 0xc | `Polysynth/modzoo.bwpreset#0` |
+| `vibrato-poly` | Vibrato | 0xf | `Polysynth/modtest.bwpreset#0` |
 | `expressions-poly` | Expressions | — (unmeasured) | `Polysynth/modtest.bwpreset#1` |

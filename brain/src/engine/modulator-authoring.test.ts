@@ -287,24 +287,6 @@ test('5a-readback: a name-only ambiguous selector refuses and reports its candid
     /1:"Filter"\/0:"Filt Freq", 2:"Common"\/0:"Filt Freq"/);
 });
 
-test('5a-footprint: an unmeasured donor on a sampled preset refuses before apply', async () => {
-  const fx = fixture();
-  const sampled = {
-    ...request(fx.track),
-    templatePath: join(FIXTURE_DIR, 'Sampler', 'gn_sampler_one_lfo.bwpreset'),
-    donorId: 'vibrato-poly',
-    routing: { target: 'CONTENTS/AMP_DECAY_TIME', amount: 1 },
-  };
-
-  await assert.rejects(
-    authorModulatorAdd(fx.host, sampled, { wait: async () => undefined }),
-    (error: unknown) => error instanceof ModulatorAuthoringError
-      && error.stage === 'edit'
-      && /no measured footprint/.test(error.message),
-  );
-  assert.equal(fx.calls.length, 0, 'the sampled-preset refusal happens before the executor');
-});
-
 test('5c-add: a sampled add reports the measured footprint and every shifted stub', async () => {
   const fx = fixture();
   const templatePath = join(FIXTURE_DIR, 'Sampler', 'gn_sampler_bare.bwpreset');
@@ -649,7 +631,8 @@ test('5c-delete: a multisample delete reports the measured removed footprint', a
 
 test('5b-footprint: sampled replace and delete refuse unknown footprints before apply', async () => {
   for (const edit of [
-    { kind: 'replace', index: 0, donorId: 'vibrato-poly' },
+    { kind: 'replace', index: 0, donorId: 'lfo-poly' },
+    { kind: 'replace', index: 0, donorId: 'expressions-poly' },
     { kind: 'delete', index: 0 },
   ] as const) {
     const fx = topologyFixture();

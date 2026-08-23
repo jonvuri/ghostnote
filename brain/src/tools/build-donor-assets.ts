@@ -69,22 +69,26 @@ const SPECS: Spec[] = [
     id: 'classiclfo-poly',
     fixture: 'Polysynth/modzoo.bwpreset',
     index: 0,
-    footprint: null,
-    footprintSource: 'NOT MEASURED — Tier-1 use only (this is the E10f-A1/C1 cross-category donor)',
+    footprint: 0x0c,
+    footprintSource:
+      'Phase 5e live load-triangulation on sampled Sampler: loads at +0x0c and rejects at +0x0b/+0x0d',
   },
   {
     id: 'vibrato-poly',
     fixture: 'Polysynth/modtest.bwpreset',
     index: 0,
-    footprint: null,
-    footprintSource: 'NOT MEASURED — Tier-1 use only',
+    footprint: 0x0f,
+    footprintSource:
+      'Phase 5e live load-triangulation on sampled Sampler: loads at +0x0f and rejects at +0x0e/+0x10',
   },
   {
     id: 'expressions-poly',
     fixture: 'Polysynth/modtest.bwpreset',
     index: 1,
     footprint: null,
-    footprintSource: 'NOT MEASURED — Tier-1 use only (a Note-driven donor; category is not a load gate, E10f)',
+    footprintSource:
+      'TIER 1 ONLY — Phase 5e sampled-Sampler sweep rejected every possible footprint from 0x0a through 0x39; ' +
+      'the 459-byte donor cannot contain more than 57 minimum-sized objects',
   },
 ];
 
@@ -133,6 +137,11 @@ Tier-1 preset and is REFUSED on a sampled one, because a guessed footprint
 rejects the whole preset silently. To measure a new one, use E12a
 load-triangulation: sweep the stub delta on a sampled preset; exactly one value
 loads, and that value is the footprint.
+
+The sampled-preset cohort is \`lfo-sampler\`, \`random-sampler\`, \`random-poly\`,
+\`classiclfo-poly\`, and \`vibrato-poly\`. \`lfo-poly\` is redundant with the measured
+Sampler LFO donor. \`expressions-poly\` rejected the full bounded Phase 5e sweep.
+Both stay Tier 1 only and keep a \`null\` footprint.
 
 | id | device | footprint | source |
 |---|---|---|---|
