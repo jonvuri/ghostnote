@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { track, type Op, type TrackAddress } from '../contract/index.js';
-import { listModulators, validate } from '../bwmod/index.js';
+import { listModulators, stubValues, validate } from '../bwmod/index.js';
 import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import { Executor } from './executor.js';
 import {
@@ -256,6 +256,28 @@ test('5a-footprint: an unmeasured donor on a sampled preset refuses before apply
   assert.equal(fx.calls.length, 0, 'the sampled-preset refusal happens before the executor');
 });
 
+test('5c-add: a sampled add reports the measured footprint and every shifted stub', async () => {
+  const fx = fixture();
+  const templatePath = join(FIXTURE_DIR, 'Sampler', 'gn_sampler_bare.bwpreset');
+  const template = await readFile(templatePath);
+  const result = await authorModulatorAdd(fx.host, {
+    ...request(fx.track),
+    templatePath,
+    donorId: 'random-sampler',
+    routing: { target: 'CONTENTS/AMP_ATTACK_TIME', amount: 1 },
+  }, { wait: async () => undefined });
+
+  const relocation = result.edit.stubRelocation;
+  assert.ok(relocation);
+  assert.equal(relocation.stubCount, 2);
+  assert.equal(relocation.insertedFootprint, 0x0d);
+  assert.equal(relocation.removedFootprint, 0);
+  assert.equal(relocation.delta, 0x0d);
+  assert.deepEqual(relocation.before, stubValues(template));
+  assert.deepEqual(relocation.after, relocation.before.map((value) => value + 0x0d));
+  assert.equal(validate(fx.appliedPresets[0]!, { reference: template, stubDelta: 0x0d }).ok, true);
+});
+
 test('5a-validation: edited bytes are validated before apply', async () => {
   const fx = fixture();
   let validatedPreset: Buffer | undefined;
@@ -437,6 +459,59 @@ test('5b-validation: edited bytes are validated before apply', async () => {
     },
   });
   assert.equal(validationPassed, true);
+});
+
+test('5c-replace: a multisample replace reports both measured footprints and all four stubs', async () => {
+  const fx = topologyFixture();
+  const templatePath = join(FIXTURE_DIR, 'Sampler', 'gn_sampler_multi_one_lfo.bwpreset');
+  const template = await readFile(templatePath);
+  const result = await authorModulatorEdit(fx.host, {
+    track: fx.track,
+    templatePath,
+    edit: { kind: 'replace', index: 0, donorId: 'random-sampler', removedFootprint: 0x10 },
+    pageWitnesses: [
+      { pageName: 'Random', expectedCount: 1 },
+      { pageName: 'LFO', expectedCount: 0 },
+    ],
+    expectedChain: [],
+    expectedEnabledChain: [],
+  }, { wait: async () => undefined });
+
+  const relocation = result.edit.stubRelocation;
+  assert.ok(relocation);
+  assert.equal(result.verification.verified, true);
+  assert.equal(relocation.stubCount, 4);
+  assert.equal(relocation.insertedFootprint, 0x0d);
+  assert.equal(relocation.removedFootprint, 0x10);
+  assert.equal(relocation.delta, -3);
+  assert.deepEqual(relocation.before, stubValues(template));
+  assert.deepEqual(relocation.after, relocation.before.map((value) => value - 3));
+  assert.equal(validate(fx.appliedPresets[0]!, { reference: template, stubDelta: -3 }).ok, true);
+});
+
+test('5c-delete: a multisample delete reports the measured removed footprint', async () => {
+  const fx = topologyFixture();
+  const templatePath = join(FIXTURE_DIR, 'Sampler', 'gn_sampler_multi_one_lfo.bwpreset');
+  const template = await readFile(templatePath);
+  const result = await authorModulatorEdit(fx.host, {
+    track: fx.track,
+    templatePath,
+    edit: { kind: 'delete', index: 0, removedFootprint: 0x10 },
+    pageWitnesses: [{ pageName: 'LFO', expectedCount: 0 }],
+    expectedChain: [],
+    expectedEnabledChain: [],
+  }, { wait: async () => undefined });
+
+  const relocation = result.edit.stubRelocation;
+  assert.ok(relocation);
+  assert.equal(result.verification.verified, true);
+  assert.equal(relocation.stubCount, 4);
+  assert.equal(relocation.insertedFootprint, 0);
+  assert.equal(relocation.removedFootprint, 0x10);
+  assert.equal(relocation.delta, -0x10);
+  assert.deepEqual(relocation.before, stubValues(template));
+  assert.deepEqual(relocation.after, relocation.before.map((value) => value - 0x10));
+  assert.equal(validate(fx.appliedPresets[0]!, { reference: template, stubDelta: -0x10 }).ok, true);
 });
 
 test('5b-footprint: sampled replace and delete refuse unknown footprints before apply', async () => {

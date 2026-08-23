@@ -33,6 +33,7 @@ export type {
   ModulationVerification, ModulatorAuthoringHost, ModulatorBehaviorWitness, ModulatorEdit,
   ModulatorEditOptions, ModulatorEditRequest, ModulatorEditResult,
   ModulatorPageVerification, ModulatorPageWitness, ModulatorRemoteWitness,
+  ModulatorStubRelocation,
 } from './modulator-authoring.js';
 
 export {

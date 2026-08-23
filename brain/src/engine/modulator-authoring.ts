@@ -15,8 +15,8 @@ import {
   type Snapshot, type TrackAddress,
 } from '../contract/index.js';
 import {
-  addModulator, deleteModulator, listModulators, loadDonor, replaceModulator, retarget,
-  stubValues, validate,
+  addModulator, deleteModulator, identifyCuratedDonor, listModulators, loadDonor,
+  modulatorBounds, replaceModulator, retarget, stubValues, validate,
 } from '../bwmod/index.js';
 import type { Modulator, Routing, ValidationResult } from '../bwmod/index.js';
 import type { RunOptions } from './executor.js';
@@ -57,6 +57,16 @@ export interface ModulatorBehaviorWitness extends ModulatorRemoteWitness {
 export interface ModulatorPageWitness {
   readonly pageName: string;
   readonly expectedCount: number;
+}
+
+/** Measured Tier-2 reference-stub movement for one topology edit. */
+export interface ModulatorStubRelocation {
+  readonly stubCount: number;
+  readonly before: readonly number[];
+  readonly after: readonly number[];
+  readonly insertedFootprint: number;
+  readonly removedFootprint: number;
+  readonly delta: number;
 }
 
 export interface AddModulatorRequest {
@@ -108,6 +118,7 @@ export interface AddModulatorResult {
     readonly routing: Routing;
     readonly modulatorCountBefore: number;
     readonly modulatorCountAfter: number;
+    readonly stubRelocation?: ModulatorStubRelocation;
     readonly validationWarnings: readonly string[];
     /**
      * This is the fidelity of restoring the prior absence. It does not claim
@@ -177,6 +188,7 @@ export interface ModulatorEditResult {
     readonly operation: ModulatorEdit;
     readonly modulatorsBefore: readonly Modulator[];
     readonly modulatorsAfter: readonly Modulator[];
+    readonly stubRelocation?: ModulatorStubRelocation;
     readonly validationWarnings: readonly string[];
     /** Fidelity of restoring the prior absence, not preset-state readback. */
     readonly restoreFidelity: Take['fidelity'];
@@ -213,15 +225,19 @@ export async function authorModulatorAdd(
   let warnings: readonly string[];
   let beforeCount: number;
   let afterCount: number;
+  let stubRelocation: ModulatorStubRelocation | undefined;
   try {
     template = await readFile(request.templatePath);
     beforeCount = listModulators(template).length;
     const donor = loadDonor(request.donorId);
     edited = addModulator(template, donor, request.routing);
     afterCount = listModulators(edited).length;
+    stubRelocation = relocationEvidence(
+      stubValues(template), stubValues(edited), donor.footprint ?? 0, 0,
+    );
     const checked = validate(edited, {
       reference: template,
-      ...(donor.footprint === null ? {} : { stubDelta: donor.footprint }),
+      ...(stubRelocation === undefined ? {} : { stubDelta: stubRelocation.delta }),
     });
     if (!checked.ok) {
       throw new ModulatorAuthoringError(
@@ -274,6 +290,7 @@ export async function authorModulatorAdd(
       routing: request.routing,
       modulatorCountBefore: beforeCount,
       modulatorCountAfter: afterCount,
+      ...(stubRelocation === undefined ? {} : { stubRelocation }),
       validationWarnings: warnings,
       restoreFidelity: take.fidelity,
     },
@@ -281,7 +298,7 @@ export async function authorModulatorAdd(
   };
 }
 
-/** Apply one Tier-1 topology edit, checkpoint its load, and prove live readback. */
+/** Apply one topology edit, checkpoint its load, and prove live readback. */
 export async function authorModulatorEdit(
   host: ModulatorAuthoringHost,
   request: ModulatorEditRequest,
@@ -294,19 +311,21 @@ export async function authorModulatorEdit(
   let warnings: readonly string[];
   let modulatorsBefore: readonly Modulator[];
   let modulatorsAfter: readonly Modulator[];
+  let stubRelocation: ModulatorStubRelocation | undefined;
   try {
     template = await readFile(request.templatePath);
     modulatorsBefore = listModulators(template);
+    const footprints = editFootprints(template, request.edit);
     edited = applyEdit(template, request.edit);
     modulatorsAfter = listModulators(edited);
     const beforeStubs = stubValues(template);
     const afterStubs = stubValues(edited);
-    const stubDelta = beforeStubs.length === 0 || afterStubs.length === 0
-      ? undefined
-      : afterStubs[0]! - beforeStubs[0]!;
+    stubRelocation = relocationEvidence(
+      beforeStubs, afterStubs, footprints.inserted, footprints.removed,
+    );
     const checked = validate(edited, {
       reference: template,
-      ...(stubDelta === undefined ? {} : { stubDelta }),
+      ...(stubRelocation === undefined ? {} : { stubDelta: stubRelocation.delta }),
     });
     if (!checked.ok) {
       throw new ModulatorAuthoringError(
@@ -368,6 +387,7 @@ export async function authorModulatorEdit(
       operation: request.edit,
       modulatorsBefore,
       modulatorsAfter,
+      ...(stubRelocation === undefined ? {} : { stubRelocation }),
       validationWarnings: warnings,
       restoreFidelity: take.fidelity,
     },
@@ -563,6 +583,52 @@ function failedVerification(
     maximumDivergence: max(samples.map((sample) => sample.divergence)),
     baseSpread: bases.length === 0 ? 0 : max(bases) - min(bases),
   };
+}
+
+function relocationEvidence(
+  before: readonly number[],
+  after: readonly number[],
+  insertedFootprint: number,
+  removedFootprint: number,
+): ModulatorStubRelocation | undefined {
+  if (before.length === 0 && after.length === 0) return undefined;
+  return {
+    stubCount: before.length,
+    before: [...before],
+    after: [...after],
+    insertedFootprint,
+    removedFootprint,
+    delta: insertedFootprint - removedFootprint,
+  };
+}
+
+function editFootprints(
+  template: Buffer,
+  edit: ModulatorEdit,
+): { readonly inserted: number; readonly removed: number } {
+  if (stubValues(template).length === 0 || edit.kind === 'retarget') {
+    return { inserted: 0, removed: 0 };
+  }
+  const removed = residentFootprint(template, edit.index, edit.removedFootprint);
+  if (edit.kind === 'delete') return { inserted: 0, removed };
+  const donor = loadDonor(edit.donorId);
+  if (donor.footprint === null) {
+    throw new Error(
+      `this preset embeds a sample, but donor ${edit.donorId} has no measured footprint; `
+      + 'a guessed footprint rejects the whole preset silently',
+    );
+  }
+  return { inserted: donor.footprint, removed };
+}
+
+function residentFootprint(template: Buffer, index: number, explicit?: number): number {
+  if (explicit !== undefined) return explicit;
+  const asset = identifyCuratedDonor(template.subarray(...modulatorBounds(template, index)));
+  if (asset?.footprint != null) return asset.footprint;
+  throw new Error(
+    `the sampled preset modulator at index ${index} has no measured removed footprint; `
+    + 'pass removedFootprint explicitly because a guess rejects the whole preset silently',
+  );
 }
 
 function applyEdit(template: Buffer, edit: ModulatorEdit): Buffer {

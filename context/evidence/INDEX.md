@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-08-22
+updated: 2026-08-23
 ---
 
 # Evidence index
@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E67 | Sampled-preset authoring is live [K] (2026-08-23) | [open](experiments/e67-sampled-preset-authoring-is-live.md) |
+| E66 | Tier-1 topology editors are live [K] (2026-08-23) | [open](experiments/e66-tier-1-topology-editors-are-live.md) |
 | E65 | Checkpointed modulator add is live [K] (2026-08-22) | [open](experiments/e65-checkpointed-modulator-add-is-live.md) |
 | E64 | Phase 4 closes with a saved device baseline [K] (2026-08-22) | [open](experiments/e64-phase-4-closes-with-saved-device-baseline.md) |
 | E63 | Device dogfood exposes an A/B selection gap [K] (2026-08-22) | [open](experiments/e63-device-dogfood-exposes-ab-selection-gap.md) |
