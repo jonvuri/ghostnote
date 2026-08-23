@@ -50,12 +50,22 @@ The agent explicitly checked `start_clip_music_operation` and `write_notes`; bot
 were `undefined`. It also looked for a deferred tool-search mechanism and found
 none. The missing set prevented the MIDI part of the requested workflow.
 
-Treat this as a host-exposure defect until isolated. In a new chat, name one
-missing tool explicitly in the initial prompt and inspect the exposed tool set.
-Compare that set with the server's `tools/list` result. Determine whether this is
-a 40-tool limit, deferred discovery failure, schema rejection, description budget,
-or another Codex host rule. Do not remove tools or shorten descriptions before
-that comparison.
+The missing set is not consistent with a 40-tool limit or an ordering cutoff.
+The exposed list is alphabetized and has five holes. A local schema inventory
+found one exact shared property: these five schemas emit JSON Schema
+`prefixItems`. No exposed schema emits it.
+
+Two recurrence tuples cause the shared property:
+
+- `surface/tools.ts` uses a two-number tuple for `write_notes` and `add_clip`.
+- `musical/patch.ts` uses the same tuple for `generate_clip_music`,
+  `transform_clip_music`, and the nested patch in
+  `start_clip_music_operation`.
+
+OpenAI documents support for ordinary arrays with `minItems` and `maxItems`, but
+does not list `prefixItems` in its supported JSON Schema subset. This makes
+host-side schema rejection the leading cause. It remains an inference until a
+fresh Codex chat proves the A/B result.
 
 ## Lead 2 — a stale selected track index blocks reads
 
@@ -69,8 +79,7 @@ The agent then refreshed `list_tracks`, retried `inspect_devices`, refreshed
 `check_connection`, and retried one `read_clip`. The same error remained. The
 project had four tracks, so index `5` could not name a current track.
 
-The leading code hypothesis is stale UI-selection restoration after a project
-change:
+The code trace isolates stale UI-selection restoration after a project change:
 
 - `LiveAdapter.captureSelection()` accepts any nonnegative observed track and
   slot indexes.
@@ -80,11 +89,11 @@ change:
 - `HandlerGroup.requireTrack()` then rejects saved index `5` because the current
   four-track bank has no such item.
 
-This is not yet proved. Reproduce it with the smallest focused call after a
-project switch. Observe selection status before the call. Confirm whether the
-read itself succeeds and only restoration fails. A fix must preserve valid human
-selection and skip or safely invalidate a selection that belongs to the prior
-project. Add an offline regression and a focused live project-switch check.
+The requested reads resolve the durable target to current track index `0`. The
+only index `5` used by these paths comes from the saved selection. Both device
+and clip reads restore that saved pair before returning, so a restore failure can
+mask a successful content read. A focused live check must still confirm the wire
+sequence after a project switch.
 
 ## Product-surface gap
 
@@ -98,10 +107,68 @@ Keep this separate from both defects above. After the defects are fixed, decide
 whether a real musical retry should use a narrower goal or whether dogfooding has
 justified a new Phase 6 drum-rack composition item.
 
-## Next engineering session
+## Focused follow-up session 1 — restore Codex clip-tool exposure
 
-1. Reproduce and classify the 40-of-45 Codex exposure issue.
-2. Reproduce the stale selection index with one read-only call.
-3. Fix the proved boundary and add regression coverage.
-4. Start a new Codex musical chat and retry a goal the public surface can fully
-   express.
+### Objective
+
+Prove the schema rejection and make all 45 public tools available in a fresh
+native Codex chat. Do not change tool names, descriptions, or public recurrence
+values.
+
+### Work
+
+1. Record the server's 45-name `tools/list` result. Start a fresh Codex chat that
+   names `write_notes` in the initial prompt, then record the exposed tool names.
+2. Replace both homogeneous two-number tuple schemas with arrays that require
+   exactly two numbers. Preserve the public `[length, mask]` value and narrow it
+   to the contract tuple after validation.
+3. Add a host-schema compatibility regression. It must inspect every public tool
+   schema and reject `prefixItems`.
+4. Run the focused surface tests and the full brain check.
+5. Start another fresh Codex chat. Confirm that all five previously missing tools
+   are exposed and callable. Do not make a Bitwig write in this exposure check.
+
+### Acceptance criteria
+
+- MCP `tools/list` still returns the same 45 public names.
+- Codex exposes all 45 names, including the five clip-authoring tools.
+- Recurrence still accepts exactly `[length, mask]` and rejects other lengths.
+- The compatibility regression and full brain check pass.
+- No Bitwig content changes.
+
+## Focused follow-up session 2 — invalidate stale selection restoration
+
+### Objective
+
+Preserve a valid current human clip selection, but never restore a cached pair
+that no longer names the selected slot in the foreground project.
+
+### Work
+
+1. Reproduce one read-only call after a project switch. Record
+   `selection.status`, the content-read result, and the restore frame separately.
+2. Make `LiveAdapter.captureSelection()` accept a nonnegative pair only after
+   `slot.status` confirms that the exact current slot has `isSelected: true`.
+   Treat only an invalid cached track or row as no saved selection. Propagate an
+   unrelated bridge failure.
+3. Add an offline regression with cached track index `5` and a current four-track
+   project. The device or clip read must return its content and must not send an
+   invalid restore.
+4. Keep the existing valid-selection regression. It must prove that a current
+   human selection is restored exactly once.
+5. Deploy the extension if the fix changes its wire behavior. Run one focused
+   live project-switch check and leave both projects unchanged.
+
+### Acceptance criteria
+
+- A stale selection cannot mask a successful device or clip read.
+- No restore frame names a track or row that is absent from the current project.
+- A valid current human clip selection is preserved.
+- Offline regressions and the full brain and extension checks pass.
+- The live project-switch check changes no Bitwig content.
+
+## Dogfood gate
+
+Complete and verify both focused sessions before the next musical dogfood chat.
+Then retry a goal that the current public surface can express fully. Keep the
+drum-rack product gap separate from these two fixes.

@@ -46,16 +46,19 @@ remains.
 startup and local Bitwig access. It changed no Bitwig content. Codex exposed
 only 40 of 45 Ghostnote tools, excluding all five core clip-authoring tools. The
 available selection-preserving reads then failed with stale track index `5` in
-the four-track project `New 2`.
+the four-track project `New 2`. The five missing tools are the exact schemas that
+emit `prefixItems`. The stale index comes from an unvalidated saved clip
+selection that restoration replays before the read can return.
 
 ## Next action
 
-Continue the [open dogfooding loop](plan/dogfooding/README.md). First isolate the
-40-of-45 host exposure and the stale selection index as separate defects. Fix
-only a proved boundary, verify it, then retry through a new real musical chat.
-Do not begin Phase 6a until the operator closes this loop.
+Complete the two focused follow-up sessions in [D01](plan/dogfooding/d01-native-codex-lofi-jungle.md).
+First replace the unsupported homogeneous tuple schemas and prove all 45 tools
+in a fresh Codex chat. Then invalidate stale selection restoration and verify one
+read-only live project switch. Complete both sessions before the next musical
+dogfood chat. Do not begin Phase 6a until the operator closes this loop.
 
 ## Retrospective
 
-Keep host exposure, agent behavior, tool-surface gaps, and bridge defects as
-separate leads. D01 exposed all four in one short workflow.
+Give each dogfood defect one focused session with its own boundary and acceptance
+criteria. Do not combine independent fixes in one verification result.
