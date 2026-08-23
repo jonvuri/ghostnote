@@ -337,13 +337,14 @@ Modulator topology is not authored through this API. It is authored by tested
 [`BWFORMAT_SPEC.md`](../format/BWFORMAT_SPEC.md) for that domain, and
 [D2](../../decisions/d2-host-capability-tiers-tier-1-settled-tier-2-tier-1-stub-relocati.md) for the tier gate.
 
-Phase 4 does not author modulator topology. E11e already proves that `bwmod` can
-author one indexed cross-device route from a container and that live modulation
-results [K,
-[E11e](../experiments/e11e-cross-device-routing-works-from-container-modulators-and-is-synt.md)].
-Phase 5 owns product integration. It must verify an edit through the exact
-remote-control selector and compare base value with `modulatedValue`. Offline
-`validate()` predicts a load and does not prove modulation [K, E11e and E64].
+Phase 4 does not author modulator topology. E68 proves the Phase 5 product path.
+It selects the outer list, retargets its LFO, loads the result through the
+executor, and verifies nested `FILTER/Filt Freq` behavior [K,
+[E68](../experiments/e68-container-cross-device-routing-is-live.md)]. The
+observer descends through the Chain device's named `CHAIN` slot. Offline
+`validate()` predicts a load and does not prove modulation [K, E11e, E64, E68].
+The slot route confirms its parent and repeats the descent, so an empty slot
+cannot silently resolve to the parent device.
 
 ---
 
@@ -351,6 +352,7 @@ remote-control selector and compare base value with `modulatedValue`. Offline
 
 | Date | Change |
 |---|---|
+| 2026-08-23 | E68 adds explicit container-list retarget, named device-slot observation, checkpointed cross-device behavior, and exact cleanup. |
 | 2026-08-22 | E64 adds the final performance matrix, saved accepted chain, exact cleanup, and Phase 5 remote-readback handoff. It also removes the obsolete statement that indexed cross-device modulation is unmeasured; E11e already proved it. |
 | 2026-08-22 | E63 records that the general inventory was sufficient for natural Chorus+ and Reverb work. |
 | 2026-08-22 | E62 adds the frozen registered MCP device cohort, live budget proof, and exact cleanup. |

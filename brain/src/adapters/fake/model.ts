@@ -105,6 +105,8 @@ export interface FakeDevice {
   chains?: FakeChain[];
   /** Devices in each drum-pad channel. The measured route selects the first. */
   drumPads?: FakeDevice[][];
+  /** Devices in named device-chain slots. The measured route selects the first. */
+  deviceSlots?: Record<string, FakeDevice[]>;
   remotePages?: {
     name: string;
     controls: {

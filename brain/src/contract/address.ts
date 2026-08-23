@@ -128,18 +128,24 @@ export interface DrumPadAddress {
   readonly channel: number;
 }
 
+/** One named device-chain slot on a container, such as a Chain device's `CHAIN` slot. */
+export interface DeviceSlotAddress {
+  readonly kind: 'deviceSlot';
+  readonly container: DeviceAddress;
+  readonly name: string;
+}
+
 /** One measured parent route for a nested device. */
-export type DeviceParentAddress = ChainAddress | DrumPadAddress;
+export type DeviceParentAddress = ChainAddress | DrumPadAddress | DeviceSlotAddress;
 
 export interface DeviceAddress {
   readonly kind: 'device';
   /** The durable anchor every address hangs off, at any depth (E2f). */
   readonly track: TrackAddress;
   /**
-   * Position in the device chain named by `chain`, or in the TRACK's top-level
-   * device chain when that is absent. Positional and fragile: a chain RE-INDEXES
-   * on delete, exactly like tracks (E3) — deleting device[0] shifts the survivor
-   * from 1 to 0. Re-resolve after any chain edit.
+   * Position in the device chain named by `chain`, or in the track's top-level
+   * device chain when that is absent. Positional and fragile: a device-chain
+   * delete re-indexes its survivors. Re-resolve after any chain edit.
    */
   readonly chainIndex: number;
   /**
@@ -258,12 +264,12 @@ export function chainPath(
   return path;
 }
 
-/** Is this device inside a layer chain rather than on the track itself? */
+/** Is this device below any container parent rather than on the track itself? */
 export const isNestedDevice = (a: DeviceAddress): boolean => a.chain !== undefined;
 
 /**
- * ⚠ A chain name goes into a key ESCAPED, and the escape is what makes the key
- * unambiguous rather than merely readable.
+ * ⚠ A chain or slot name goes into a key escaped. The escape makes the key
+ * unambiguous rather than only readable.
  *
  * The grammar's delimiters are `:` and `/`, and `encodeURIComponent` escapes both
  * (plus space). Unescaped they would be forgeable: a chain named `A/0/B` holding
@@ -301,8 +307,18 @@ function drumPadBody(a: DrumPadAddress): string {
   return `${deviceBody(a.container)}/pad-${a.channel}`;
 }
 
+function deviceSlotBody(a: DeviceSlotAddress): string {
+  // The raw `:` separates this scope from a chain name. A chain name must pass
+  // through `encodeChainName()`, so `slot:CHAIN` becomes `slot%3ACHAIN`.
+  return `${deviceBody(a.container)}/slot:${encodeChainName(a.name)}`;
+}
+
 function parentBody(a: DeviceParentAddress): string {
-  return a.kind === 'chain' ? chainBody(a) : drumPadBody(a);
+  switch (a.kind) {
+    case 'chain': return chainBody(a);
+    case 'drumPad': return drumPadBody(a);
+    case 'deviceSlot': return deviceSlotBody(a);
+  }
 }
 
 export function addressKey(a: Address): AddressKey {
@@ -473,8 +489,14 @@ export const drumPad = (container: DeviceAddress, channel: number): DrumPadAddre
   return { kind: 'drumPad', container, channel };
 };
 
+/** A named device-chain slot. The cursor route selects the first device in it. */
+export const deviceSlot = (container: DeviceAddress, name: string): DeviceSlotAddress => {
+  if (name.trim() === '') throw new Error('a device-slot address needs a non-empty name.');
+  return { kind: 'deviceSlot', container, name };
+};
+
 /**
- * A device INSIDE a chain.
+ * A device inside a container parent.
  *
  * ⚠ The track is derived from the chain rather than taken as an argument, which
  * is what makes `address.track` and `address.chain.container.track` unable to

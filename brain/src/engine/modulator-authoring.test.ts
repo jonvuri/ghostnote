@@ -136,6 +136,55 @@ function topologyFixture(): AuthoringFixture {
   return { fake, executor, host, track: trackRef, calls, appliedPresets };
 }
 
+function containerFixture(): AuthoringFixture {
+  const fake = new FakeAdapter({ tracks: ['Authoring'], scenes: 1 });
+  const trackRef = track(fake.model.visibleTracks()[0]!.channelId);
+  const executor = new Executor(fake, { newId: () => 'container-take', now: () => 3 });
+  const calls: Op[][] = [];
+  const appliedPresets: Buffer[] = [];
+  const host: ModulatorAuthoringHost = {
+    read: (addresses) => fake.read(addresses),
+    async apply(ops, options) {
+      calls.push([...ops]);
+      const insertedOp = ops[0];
+      let preset: Buffer | undefined;
+      if (insertedOp?.op === 'device.insert' && insertedOp.source.from === 'file') {
+        preset = await readFile(insertedOp.source.path);
+        appliedPresets.push(preset);
+      }
+      const take = await executor.run(ops, options);
+      const minted = take.receipt.minted[0];
+      if (minted?.kind === 'device' && preset !== undefined) {
+        const inserted = fake.model.findByChannelId(trackRef.channelId)!.track.devices[minted.chainIndex]!;
+        const route = listModulators(preset, 1)[0]?.routing?.target;
+        inserted.name = 'Chain';
+        inserted.remotePages = [{
+          name: 'LFO',
+          controls: [{ name: 'Rate', value: 0.5, modulatedValue: 0.5, hasAutomation: false }],
+        }];
+        inserted.deviceSlots = {
+          CHAIN: [{
+            name: 'Polysynth',
+            paramsLive: true,
+            params: [],
+            remotePages: [{
+              name: 'FILTER',
+              controls: [{
+                name: 'Filt Freq',
+                value: 0.4,
+                modulatedValue: route?.endsWith('0:CONTENTS/F1FREQ') ? 0.7 : 0.4,
+                hasAutomation: false,
+              }],
+            }],
+          }],
+        };
+      }
+      return { take };
+    },
+  };
+  return { fake, executor, host, track: trackRef, calls, appliedPresets };
+}
+
 const topologyRequest = (
   trackRef: TrackAddress,
   edit: ModulatorEditRequest['edit'],
@@ -386,6 +435,90 @@ test('5b-retarget: proves modulation left the old control and reached the new co
   assert.deepEqual(result.verification.behaviors.map((behavior) => behavior.verified), [true, true]);
   assert.deepEqual(result.verification.behaviors.map((behavior) => behavior.selector?.controlName),
     ['Filt Freq', 'Reso']);
+});
+
+test('5d-container: selects one list and proves the route on one nested device', async () => {
+  const fx = containerFixture();
+  const templatePath = join(FIXTURE_DIR, 'InstrumentLayer', 'gn_layer_4chain.bwpreset');
+  const target = 'CONTENTS/DEVICE_CHAIN/Chain/DEVICE_CHAIN/0:CONTENTS/F1FREQ';
+  const result = await authorModulatorEdit(fx.host, {
+    track: fx.track,
+    templatePath,
+    listIndex: 1,
+    edit: { kind: 'retarget', index: 0, target },
+    pageWitnesses: [{ pageName: 'LFO', expectedCount: 1 }],
+    behaviorWitnesses: [{
+      expected: 'active',
+      pageName: 'FILTER',
+      controlName: 'Filt Freq',
+      nestedDevice: { slotName: 'CHAIN', chainIndex: 0 },
+      samples: 3,
+      sampleIntervalMs: 0,
+    }],
+    expectedChain: [],
+    expectedEnabledChain: [],
+  }, { wait: async () => undefined });
+
+  assert.equal(result.verification.verified, true);
+  assert.equal(result.edit.listIndex, 1);
+  assert.equal(result.edit.modulatorsAfter[0]?.routing?.target, target);
+  assert.equal(listModulators(fx.appliedPresets[0]!, 0).length, 0);
+  assert.deepEqual(result.verification.behaviors[0]?.selector?.device.chain, {
+    kind: 'deviceSlot',
+    container: result.minted,
+    name: 'CHAIN',
+  });
+});
+
+test('5d-container: omitting list selection refuses before apply', async () => {
+  const fx = containerFixture();
+  await assert.rejects(
+    authorModulatorEdit(fx.host, {
+      track: fx.track,
+      templatePath: join(FIXTURE_DIR, 'InstrumentLayer', 'gn_layer_4chain.bwpreset'),
+      edit: {
+        kind: 'retarget',
+        index: 0,
+        target: 'CONTENTS/DEVICE_CHAIN/Chain/DEVICE_CHAIN/0:CONTENTS/F1FREQ',
+      },
+      behaviorWitnesses: [{
+        expected: 'active',
+        pageName: 'FILTER',
+        controlName: 'Filt Freq',
+        nestedDevice: { slotName: 'CHAIN', chainIndex: 0 },
+      }],
+    }),
+    (error: unknown) => error instanceof ModulatorAuthoringError
+      && error.stage === 'edit'
+      && /pass a listIndex/.test(error.message),
+  );
+  assert.equal(fx.calls.length, 0);
+});
+
+test('5d-container: a non-first device-slot witness refuses before apply', async () => {
+  const fx = containerFixture();
+  await assert.rejects(
+    authorModulatorEdit(fx.host, {
+      track: fx.track,
+      templatePath: join(FIXTURE_DIR, 'InstrumentLayer', 'gn_layer_4chain.bwpreset'),
+      listIndex: 1,
+      edit: {
+        kind: 'retarget',
+        index: 0,
+        target: 'CONTENTS/DEVICE_CHAIN/Chain/DEVICE_CHAIN/0:CONTENTS/F1FREQ',
+      },
+      behaviorWitnesses: [{
+        expected: 'active',
+        pageName: 'FILTER',
+        controlName: 'Filt Freq',
+        nestedDevice: { slotName: 'CHAIN', chainIndex: 1 },
+      }],
+    }),
+    (error: unknown) => error instanceof ModulatorAuthoringError
+      && error.stage === 'request'
+      && /chainIndex 0/.test(error.message),
+  );
+  assert.equal(fx.calls.length, 0);
 });
 
 test('5b-delete: proves the page and modulation are absent while a sibling remains', async () => {

@@ -186,6 +186,8 @@ export const WIRE = {
   drumPadList: 'drumpad.list',
   deviceCursorSelectInLayer: 'devcursor.selectInLayer',
   deviceCursorSelectFirstInPad: 'devcursor.selectFirstInPad',
+  deviceCursorSelectFirstInSlot: 'devcursor.selectFirstInSlot',
+  deviceCursorSelectParent: 'devcursor.selectParent',
 
   batchRun: 'batch.run',
   revisionGet: 'revision.get',

@@ -145,6 +145,23 @@ test('U-roundtrip: a container preset is read per nested device and refuses a bl
   }
 });
 
+test('U-container-retarget: an explicit list changes only that device list', () => {
+  const layer = fixture('InstrumentLayer/gn_layer_4chain');
+  const target = 'CONTENTS/DEVICE_CHAIN/Chain/DEVICE_CHAIN/0:CONTENTS/F1FREQ';
+  const semantic = (buf: Buffer, index: number) => listModulators(buf, index)
+    .map(({ span: _span, ...modulator }) => modulator);
+  const before = modulatorListOffsets(layer).map((_, index) => semantic(layer, index));
+  const edited = retarget(layer, 0, target, 0, 1);
+  const after = modulatorListOffsets(edited).map((_, index) => semantic(edited, index));
+
+  assert.equal(after[1]?.[0]?.routing?.target, target);
+  assert.deepEqual(after[0], before[0]);
+  assert.deepEqual(after.slice(2), before.slice(2));
+  const checked = validate(edited, { reference: layer, listIndex: 1 });
+  assert.equal(checked.ok, true, checked.problems.join('; '));
+  assert.match(checked.warnings.join(' '), /explicit list 1/);
+});
+
 // ---------------------------------------------------------------------------
 // U-golden — the recipe must reproduce what Bitwig itself writes
 // ---------------------------------------------------------------------------

@@ -210,6 +210,13 @@ export class FakeAdapter implements BitwigAdapter {
         current = first;
         continue;
       }
+      if (step.kind === 'deviceSlot') {
+        if (target.chainIndex !== 0) return { ok: false, miss: 'unsupported' };
+        const first = current.deviceSlots?.[step.name]?.[0];
+        if (first === undefined) return { ok: false, miss: 'absent' };
+        current = first;
+        continue;
+      }
 
       const chains = current.chains ?? [];
       if (chains.length > this.model.chainBankSize) {
@@ -1469,8 +1476,8 @@ export class FakeAdapter implements BitwigAdapter {
       }
 
       case 'chain.relocate': {
-        if (op.source.chain?.kind === 'drumPad') {
-          throw new UnsupportedOpError(`${op.op}: a drum pad is not a layer chain`, 'fake');
+        if (op.source.chain !== undefined && op.source.chain.kind !== 'chain') {
+          throw new UnsupportedOpError(`${op.op}: the source parent is not a layer chain`, 'fake');
         }
         const track = this.requireTrack(op.source.track, op.op);
         const findChain = (address: typeof op.destination & { kind: 'chain' }) => {

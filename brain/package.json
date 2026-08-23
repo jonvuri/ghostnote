@@ -17,6 +17,7 @@
     "probe:phase5a-authoring": "tsx src/probes/phase5a-modulator-authoring.ts",
     "probe:phase5b-authoring": "tsx src/probes/phase5b-modulator-authoring.ts",
     "probe:phase5c-authoring": "tsx src/probes/phase5c-sampled-authoring.ts",
+    "probe:phase5d-authoring": "tsx src/probes/phase5d-container-routing.ts",
     "probe:e00": "tsx src/probes/e00-ping.ts",
     "probe:e01a": "tsx src/probes/e01a-pointing.ts",
     "probe:e01b": "tsx src/probes/e01b-interference.ts",

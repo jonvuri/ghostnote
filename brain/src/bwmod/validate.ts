@@ -27,6 +27,8 @@ export interface ValidateOptions {
   reference?: Buffer;
   /** the `(inserted − removed) footprint` the edit should have applied */
   stubDelta?: number;
+  /** The exact device list to check when a container holds several lists. */
+  listIndex?: number;
 }
 
 export function validate(buf: Buffer, opts: ValidateOptions = {}): ValidationResult {
@@ -94,18 +96,23 @@ export function validate(buf: Buffer, opts: ValidateOptions = {}): ValidationRes
       return 0;
     }
   })();
-  if (listCount > 1) {
+  if (listCount > 1 && opts.listIndex === undefined) {
     warnings.push(
       `this preset holds ${listCount} MODULATORS lists (a container: one per nested device) — ` +
         'the modulator checks below are skipped; select a list explicitly to edit it',
     );
     return { ok: problems.length === 0, problems, warnings };
   }
+  if (listCount > 1) {
+    warnings.push(
+      `this preset holds ${listCount} MODULATORS lists; checks are limited to explicit list ${opts.listIndex}`,
+    );
+  }
 
   let modulators: ReturnType<typeof listModulators> = [];
   let listOk = false;
   guard('MODULATORS list', () => {
-    const list = findModulatorList(buf);
+    const list = findModulatorList(buf, opts.listIndex);
     if (!isSentinel(buf, list.listEnd)) {
       throw new Error('the list does not end with the 00 00 00 03 00 00 00 00 sentinel');
     }
@@ -121,7 +128,7 @@ export function validate(buf: Buffer, opts: ValidateOptions = {}): ValidationRes
       }
     }
     if (list.listEnd + SENTINEL.length > buf.length) throw new Error('the sentinel runs past the end of the file');
-    modulators = listModulators(buf);
+    modulators = listModulators(buf, opts.listIndex);
     listOk = true;
   });
 
@@ -144,14 +151,23 @@ export function validate(buf: Buffer, opts: ValidateOptions = {}): ValidationRes
     guard('referenced_modulator_ids', () => {
       const refs = readModulatorRefs(buf);
       const guids = modulators.map((m) => m.guid);
-      if (refs.length !== guids.length) {
-        throw new Error(`${refs.length} ref(s) for ${guids.length} modulator(s)`);
-      }
-      const sortedRefs = [...refs].sort();
-      const sortedGuids = [...guids].sort();
-      for (let i = 0; i < sortedRefs.length; i++) {
-        if (sortedRefs[i] !== sortedGuids[i]) {
-          throw new Error(`set mismatch — refs ${JSON.stringify(refs)} vs modulator GUIDs ${JSON.stringify(guids)}`);
+      if (listCount > 1) {
+        const missing = [...new Set(guids)].filter((guid) => !refs.includes(guid));
+        if (missing.length > 0) {
+          throw new Error(
+            `selected-list GUIDs are absent from the container refs: ${JSON.stringify(missing)}`,
+          );
+        }
+      } else {
+        if (refs.length !== guids.length) {
+          throw new Error(`${refs.length} ref(s) for ${guids.length} modulator(s)`);
+        }
+        const sortedRefs = [...refs].sort();
+        const sortedGuids = [...guids].sort();
+        for (let i = 0; i < sortedRefs.length; i++) {
+          if (sortedRefs[i] !== sortedGuids[i]) {
+            throw new Error(`set mismatch — refs ${JSON.stringify(refs)} vs modulator GUIDs ${JSON.stringify(guids)}`);
+          }
         }
       }
     });

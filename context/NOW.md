@@ -4,14 +4,16 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: phase-5
-session: phase-5c-sampled-preset-integration
+session: phase-5d-container-cross-device-routing
 ---
 
 # Now
 
-Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 sessions 5a,
-5b, and 5c are complete. Checkpointed add, replace, retarget, and delete are live
-and revertible on Tier-1 and multisample presets.
+Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 sessions 5a
+through 5d are complete. Checkpointed add, replace, retarget, and delete are live
+and revertible on Tier-1 and multisample presets. Selected-list cross-device
+retarget is live on a Chain container. Named-slot addresses use distinct keys,
+prove the parent-child cursor edge, and refuse unsupported indexes before write.
 
 ## Accepted live baseline
 
@@ -40,17 +42,18 @@ remains.
 
 ## Next action
 
-Plan the next small Phase 5 session around container list selection and
-cross-device routing. Prove one container modulator reaches one exact control on
-a nested device through the checkpointed executor path. Keep explicit list
-selection, live behavior readback, reversal, and exact cleanup.
+Plan the next small Phase 5 session around donor-library scope and footprint
+completion. Define which donors must support sampled presets. Measure and record
+each required footprint with provenance. Keep loud refusal for every donor that
+is not in that sampled cohort.
 
 Session source: [Phase 5](plan/phase-5/README.md). Completed proofs:
 [E65](evidence/experiments/e65-checkpointed-modulator-add-is-live.md),
-[E66](evidence/experiments/e66-tier-1-topology-editors-are-live.md), and
-[E67](evidence/experiments/e67-sampled-preset-authoring-is-live.md).
+[E66](evidence/experiments/e66-tier-1-topology-editors-are-live.md),
+[E67](evidence/experiments/e67-sampled-preset-authoring-is-live.md), and
+[E68](evidence/experiments/e68-container-cross-device-routing-is-live.md).
 
 ## Retrospective
 
-A modulator page proves structure, not behavior. Use a free-running source for
-live divergence unless the probe also supplies the required trigger.
+A cursor selection call can succeed without moving. Prove a parent-child edge
+before a nested observer can report stable data.

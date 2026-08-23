@@ -16,7 +16,8 @@ import assert from 'node:assert/strict';
 
 import {
   ADDRESS_IDENTITY, InvalidOpError, addressKey, addressScene, addressTrack, assertDevicesRoutable,
-  chain, chainPath, clip, clipLaunch, clipMetadata, clipPlay, device, deviceEnabled, deviceIn, isNestedDevice, notes as notesAt,
+  chain, chainPath, clip, clipLaunch, clipMetadata, clipPlay, device, deviceEnabled, deviceIn, deviceSlot,
+  isNestedDevice, notes as notesAt,
   param, scene, slot, track,
   type Op,
 } from './index.js';
@@ -93,11 +94,24 @@ test('A-key: nesting composes to arbitrary depth, outermost first', () => {
   const leaf = deviceIn(inner, 2);
 
   assert.equal(addressKey(leaf), 'device:cid-1:0/outer/1/inner/2');
-  assert.deepEqual(chainPath(leaf).map((c) => c.kind === 'chain' ? c.name : c.channel), ['outer', 'inner']);
-  assert.deepEqual(chainPath(inner).map((c) => c.kind === 'chain' ? c.name : c.channel), ['outer', 'inner']);
+  const parentName = (parent: ReturnType<typeof chainPath>[number]) => parent.kind === 'chain'
+    ? parent.name
+    : parent.kind === 'drumPad' ? parent.channel : parent.name;
+  assert.deepEqual(chainPath(leaf).map(parentName), ['outer', 'inner']);
+  assert.deepEqual(chainPath(inner).map(parentName), ['outer', 'inner']);
   assert.deepEqual(chainPath(device(TRACK, 0)), []);
   assert.equal(isNestedDevice(leaf), true);
   assert.equal(isNestedDevice(device(TRACK, 0)), false);
+});
+
+test('A-key: a named device slot cannot collide with a layer-chain name', () => {
+  const container = device(TRACK, 0);
+  const inSlot = deviceIn(deviceSlot(container, 'CHAIN'), 0);
+  const inChain = deviceIn(chain(container, 'slot:CHAIN'), 0);
+
+  assert.equal(addressKey(inSlot), 'device:cid-1:0/slot:CHAIN/0');
+  assert.equal(addressKey(inChain), 'device:cid-1:0/slot%3ACHAIN/0');
+  assert.notEqual(addressKey(inSlot), addressKey(inChain));
 });
 
 test('A-key: a chain NAME cannot forge another address\'s key', () => {

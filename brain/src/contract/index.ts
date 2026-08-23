@@ -11,12 +11,13 @@
  */
 export {
   ADDRESS_IDENTITY, addressKey, addressScene, addressTrack, chainPath, isNestedDevice,
-  chain, clip, clipLaunch, clipMetadata, clipPlay, device, deviceEnabled, deviceIn, drumPad, notes, param,
+  chain, clip, clipLaunch, clipMetadata, clipPlay, device, deviceEnabled, deviceIn, deviceSlot, drumPad, notes, param,
   remote, remotes, scene, slot, track,
 } from './address.js';
 export type {
   Address, AddressKey, AddressKind, BeatRange, ChainAddress, ClipAddress, ClipLaunchAddress,
-  ClipMetadataAddress, ClipPlayAddress, DeviceAddress, DeviceEnabledAddress, DeviceParentAddress, DrumPadAddress,
+  ClipMetadataAddress, ClipPlayAddress, DeviceAddress, DeviceEnabledAddress, DeviceParentAddress, DeviceSlotAddress,
+  DrumPadAddress,
   NotesAddress, ParamAddress, RemoteAddress, RemotesAddress, SceneAddress, SlotAddress, TrackAddress,
 } from './address.js';
 

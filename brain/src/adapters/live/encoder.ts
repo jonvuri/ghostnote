@@ -672,8 +672,8 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
 
     case 'chain.relocate': {
       const sourceChain = op.source.chain;
-      if (sourceChain?.kind === 'drumPad') {
-        throw new Error('chain.relocate cannot encode a drum-pad parent');
+      if (sourceChain !== undefined && sourceChain.kind !== 'chain') {
+        throw new Error('chain.relocate cannot encode a non-layer-chain parent');
       }
       const destinationChain = op.destination.kind === 'chain' ? op.destination : undefined;
       return [frame(WIRE.chainMove, {

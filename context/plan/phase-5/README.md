@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Session 5c is complete. Plan container and cross-device routing next.
+status: Session 5d is complete. Plan donor-library scope and footprint completion next.
 updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -85,10 +85,11 @@ that first integration unless the proof needs one new owned asset.
 3. [5c — sampled-preset integration](5c-sampled-preset-integration.md) — done.
    Checkpointed add and delete relocate all four multisample stubs by measured
    footprints and pass exact live behavior readback.
-4. Next, prove container list selection and cross-device routing through the
-   checkpointed executor path.
+4. [5d — container cross-device routing](5d-container-cross-device-routing.md) — done.
+   An explicit outer-container list retarget reaches one exact nested control,
+   passes live behavior readback, and reverses exactly.
 
-Later sessions add container routing, asset curation, and the public surface.
+Later sessions complete asset curation and add the public surface.
 
 ## Scope
 

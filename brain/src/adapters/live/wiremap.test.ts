@@ -420,6 +420,11 @@ test('5b: remote automation state is subscribed before live route proof', () => 
     'inactive and active route proof must observe host automation explicitly');
 });
 
+test('5d: a named slot descent proves its parent before remote readback', () => {
+  assert.ok(WIRE_METHODS_USED.includes('devcursor.selectFirstInSlot'));
+  assert.ok(WIRE_METHODS_USED.includes('devcursor.selectParent'));
+});
+
 test('4g: guarded device mutations check durable track identity before mutation', () => {
   const source = readFileSync(
     join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',

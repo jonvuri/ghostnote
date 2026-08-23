@@ -407,8 +407,8 @@ export function assertOpsWritable(ops: readonly Op[]): void {
       }
     }
     if (op.op === 'chain.relocate') {
-      if (op.source.chain?.kind === 'drumPad') {
-        throw new InvalidOpError(op.op, 'a chain relocation cannot use a drum-pad parent');
+      if (op.source.chain !== undefined && op.source.chain.kind !== 'chain') {
+        throw new InvalidOpError(op.op, 'a chain relocation needs a layer-chain parent');
       }
       const destinationTrack = op.destination.kind === 'chain'
         ? op.destination.container.track
@@ -425,7 +425,7 @@ export function assertOpsWritable(ops: readonly Op[]): void {
       if (op.destination.kind === 'chain' && !nestingObservable(op.destination)) {
         throw new InvalidOpError(op.op, 'the destination is deeper than the measured one-chain slot scopes');
       }
-      if (op.source.chain !== undefined && op.destination.kind === 'chain'
+      if (op.source.chain?.kind === 'chain' && op.destination.kind === 'chain'
           && addressKey(op.source.chain) === addressKey(op.destination)) {
         throw new InvalidOpError(op.op, 'source and destination chains must be different');
       }
@@ -613,8 +613,9 @@ export function assertDevicesRoutable(ops: readonly Op[]): void {
   for (const op of ops) {
     for (const ref of deviceRefsOf(op)) {
       if (ref.chain === undefined) continue;
-      const path = chainPath(ref).map((c) =>
-        c.kind === 'chain' ? c.name : `drum pad ${c.channel}`).join(' > ');
+      const path = chainPath(ref).map((c) => c.kind === 'chain'
+        ? c.name
+        : c.kind === 'drumPad' ? `drum pad ${c.channel}` : `slot ${c.name}`).join(' > ');
       throw new InvalidOpError(
         op.op,
         `this address names a device inside a device-layer chain (${path}), and no measured wire ` +
@@ -983,8 +984,8 @@ export function assertChainRelocatable(
 
   for (const op of ops) {
     if (op.op !== 'chain.relocate') continue;
-    if (op.source.chain?.kind === 'drumPad') {
-      throw new InvalidOpError(op.op, 'a chain relocation cannot use a drum-pad parent');
+    if (op.source.chain !== undefined && op.source.chain.kind !== 'chain') {
+      throw new InvalidOpError(op.op, 'a chain relocation needs a layer-chain parent');
     }
     const source = sequence(op.source.chain ?? op.source.track);
     const destination = sequence(op.destination);

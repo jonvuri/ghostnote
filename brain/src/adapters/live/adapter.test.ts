@@ -18,7 +18,7 @@ import assert from 'node:assert/strict';
 
 import {
   AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, device as deviceAt, deviceEnabled,
-  deviceIn as deviceInAt,
+  deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, track,
   type ClipAddress, type RevisionMark, type TrackAddress,
 } from '../../contract/index.js';
@@ -1893,6 +1893,7 @@ class ParameterTransport implements Transport {
   remoteNeverCurrent = false;
   malformedRemoteControl = false;
   movingRemote = false;
+  emptySlot = false;
   private selected = 0;
   private depth = 0;
   private padSelected = false;
@@ -1947,6 +1948,16 @@ class ParameterTransport implements Transport {
       case WIRE.deviceCursorSelectFirstInPad:
         this.depth = 1;
         this.padSelected = true;
+        return {};
+      case WIRE.deviceCursorSelectFirstInSlot:
+        if (!this.emptySlot) {
+          this.depth++;
+          this.padSelected = true;
+        }
+        return {};
+      case WIRE.deviceCursorSelectParent:
+        this.depth = Math.max(0, this.depth - 1);
+        this.padSelected = false;
         return {};
       case WIRE.deviceList:
         return {
@@ -2073,7 +2084,7 @@ class ParameterTransport implements Transport {
           ? Math.min(1, value + this.remoteValueRead / 100)
           : value;
         const page = this.remotePages[this.selectedRemotePage];
-        const deviceName = this.depth === 1 ? 'Inner container'
+        const deviceName = this.padSelected ? 'Pad synth' : this.depth === 1 ? 'Inner container'
           : this.depth === 2 ? 'Deep synth' : this.devices[this.selected]?.name;
         const pages = this.remotePages.map((remotePage, pageIndex) => ({
           index: pageIndex,
@@ -2419,6 +2430,36 @@ test('4f live route: a drum-pad channel uses selectFirstInChannel semantics', as
   assert.equal(entry?.value.of === 'param' ? entry.value.param.value : undefined, 0.35);
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorSelectFirstInPad), true);
   assert.equal(wire.frames.some((frame) => frame.method === 'devcursor.selectFirstInKeyPad'), false);
+});
+
+test('5d live route: a named device slot selects its first nested device', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const nested = deviceInAt(deviceSlot(deviceAt(TRACK, 0), 'CHAIN'), 0);
+  const address = remotes(nested);
+
+  const snapshot = await adapter.read([address]);
+  const entry = snapshot.entries[addressKey(address)];
+
+  assert.equal(entry?.value.of, 'remotes');
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorSelectFirstInSlot), true);
+  assert.equal(wire.frames.find((frame) => frame.method === WIRE.deviceCursorSelectFirstInSlot)
+    ?.params?.['slot'], 'CHAIN');
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorSelectParent), true);
+});
+
+test('5d live route: an empty slot below a nested container cannot resolve to its parent', async () => {
+  const wire = new ParameterTransport();
+  wire.emptySlot = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const inner = deviceInAt(chainAt(deviceAt(TRACK, 0), 'Outer'), 0);
+  const address = remotes(deviceInAt(deviceSlot(inner, 'CHAIN'), 0));
+
+  const snapshot = await adapter.read([address]);
+
+  assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(address)]);
+  assert.equal(snapshot.entries[addressKey(address)], undefined);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorSelectParent), true);
 });
 
 test('L-chain: a chain resolves by name, at the bank position the container reported', async () => {

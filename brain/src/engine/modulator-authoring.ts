@@ -10,12 +10,12 @@ import { isAbsolute, join } from 'node:path';
 import { tmpdir } from 'node:os';
 
 import {
-  addressKey, remote, remotes,
+  addressKey, chain, deviceIn, deviceSlot, remote, remotes,
   type Address, type DeviceAddress, type Op, type RemoteAddress, type RemoteControlState,
   type Snapshot, type TrackAddress,
 } from '../contract/index.js';
 import {
-  addModulator, deleteModulator, identifyCuratedDonor, listModulators, loadDonor,
+  addModulator, deleteModulator, findModulatorList, identifyCuratedDonor, listModulators, loadDonor,
   modulatorBounds, replaceModulator, retarget, stubValues, validate,
 } from '../bwmod/index.js';
 import type { Modulator, Routing, ValidationResult } from '../bwmod/index.js';
@@ -47,6 +47,12 @@ export interface ModulatorRemoteWitness {
   readonly inventoryRetryMs?: number;
   readonly minimumDivergence?: number;
   readonly maximumBaseSpread?: number;
+  /** Select one nested device below the inserted container. */
+  readonly nestedDevice?: {
+    readonly chainName?: string;
+    readonly slotName?: string;
+    readonly chainIndex: number;
+  };
 }
 
 export interface ModulatorBehaviorWitness extends ModulatorRemoteWitness {
@@ -162,6 +168,8 @@ export interface ModulatorEditRequest {
   readonly track: TrackAddress;
   /** Absolute path to one human-saved `.bwpreset` template. */
   readonly templatePath: string;
+  /** Required to edit a container preset that holds several device lists. */
+  readonly listIndex?: number;
   readonly edit: ModulatorEdit;
   readonly pageWitnesses?: readonly ModulatorPageWitness[];
   readonly behaviorWitnesses?: readonly ModulatorBehaviorWitness[];
@@ -186,6 +194,7 @@ export interface ModulatorEditResult {
     readonly structural: true;
     readonly templatePath: string;
     readonly operation: ModulatorEdit;
+    readonly listIndex?: number;
     readonly modulatorsBefore: readonly Modulator[];
     readonly modulatorsAfter: readonly Modulator[];
     readonly stubRelocation?: ModulatorStubRelocation;
@@ -277,7 +286,12 @@ export async function authorModulatorAdd(
   const device = minted?.kind === 'device' ? minted : undefined;
   const verification = device === undefined
     ? failedVerification('the preset insert returned no observed device address')
-    : await verifyModulation(host, device, request.witness, options.wait ?? wait);
+    : await verifyModulation(
+      host,
+      witnessDevice(device, request.witness),
+      request.witness,
+      options.wait ?? wait,
+    );
 
   return {
     take,
@@ -314,10 +328,10 @@ export async function authorModulatorEdit(
   let stubRelocation: ModulatorStubRelocation | undefined;
   try {
     template = await readFile(request.templatePath);
-    modulatorsBefore = listModulators(template);
-    const footprints = editFootprints(template, request.edit);
-    edited = applyEdit(template, request.edit);
-    modulatorsAfter = listModulators(edited);
+    modulatorsBefore = listModulators(template, request.listIndex);
+    const footprints = editFootprints(template, request.edit, request.listIndex);
+    edited = applyEdit(template, request.edit, request.listIndex);
+    modulatorsAfter = listModulators(edited, request.listIndex);
     const beforeStubs = stubValues(template);
     const afterStubs = stubValues(edited);
     stubRelocation = relocationEvidence(
@@ -325,6 +339,7 @@ export async function authorModulatorEdit(
     );
     const checked = validate(edited, {
       reference: template,
+      ...(request.listIndex === undefined ? {} : { listIndex: request.listIndex }),
       ...(stubRelocation === undefined ? {} : { stubDelta: stubRelocation.delta }),
     });
     if (!checked.ok) {
@@ -370,7 +385,13 @@ export async function authorModulatorEdit(
   const behaviors: ModulationVerification[] = [];
   if (device !== undefined) {
     for (const witness of request.behaviorWitnesses ?? []) {
-      behaviors.push(await verifyModulation(host, device, witness, pause, witness.expected));
+      behaviors.push(await verifyModulation(
+        host,
+        witnessDevice(device, witness),
+        witness,
+        pause,
+        witness.expected,
+      ));
     }
   }
   const allBehaviorsVerified = device !== undefined
@@ -385,6 +406,7 @@ export async function authorModulatorEdit(
       structural: true,
       templatePath: request.templatePath,
       operation: request.edit,
+      ...(request.listIndex === undefined ? {} : { listIndex: request.listIndex }),
       modulatorsBefore,
       modulatorsAfter,
       ...(stubRelocation === undefined ? {} : { stubRelocation }),
@@ -605,11 +627,12 @@ function relocationEvidence(
 function editFootprints(
   template: Buffer,
   edit: ModulatorEdit,
+  listIndex?: number,
 ): { readonly inserted: number; readonly removed: number } {
   if (stubValues(template).length === 0 || edit.kind === 'retarget') {
     return { inserted: 0, removed: 0 };
   }
-  const removed = residentFootprint(template, edit.index, edit.removedFootprint);
+  const removed = residentFootprint(template, edit.index, edit.removedFootprint, listIndex);
   if (edit.kind === 'delete') return { inserted: 0, removed };
   const donor = loadDonor(edit.donorId);
   if (donor.footprint === null) {
@@ -621,9 +644,15 @@ function editFootprints(
   return { inserted: donor.footprint, removed };
 }
 
-function residentFootprint(template: Buffer, index: number, explicit?: number): number {
+function residentFootprint(
+  template: Buffer,
+  index: number,
+  explicit?: number,
+  listIndex?: number,
+): number {
   if (explicit !== undefined) return explicit;
-  const asset = identifyCuratedDonor(template.subarray(...modulatorBounds(template, index)));
+  const list = findModulatorList(template, listIndex);
+  const asset = identifyCuratedDonor(template.subarray(...modulatorBounds(template, index, list)));
   if (asset?.footprint != null) return asset.footprint;
   throw new Error(
     `the sampled preset modulator at index ${index} has no measured removed footprint; `
@@ -631,15 +660,21 @@ function residentFootprint(template: Buffer, index: number, explicit?: number): 
   );
 }
 
-function applyEdit(template: Buffer, edit: ModulatorEdit): Buffer {
+function applyEdit(template: Buffer, edit: ModulatorEdit, listIndex?: number): Buffer {
   switch (edit.kind) {
     case 'replace':
+      if (listIndex !== undefined) {
+        throw new Error('container list selection currently supports retarget only');
+      }
       return replaceModulator(template, edit.index, loadDonor(edit.donorId), {
         ...(edit.removedFootprint === undefined ? {} : { removedFootprint: edit.removedFootprint }),
       });
     case 'retarget':
-      return retarget(template, edit.index, edit.target, edit.routeIndex ?? 0);
+      return retarget(template, edit.index, edit.target, edit.routeIndex ?? 0, listIndex);
     case 'delete':
+      if (listIndex !== undefined) {
+        throw new Error('container list selection currently supports retarget only');
+      }
       return deleteModulator(template, edit.index, {
         ...(edit.removedFootprint === undefined ? {} : { removedFootprint: edit.removedFootprint }),
       });
@@ -650,6 +685,10 @@ function assertEditRequest(request: ModulatorEditRequest): void {
   assertTemplatePath(request.templatePath);
   if (!Number.isInteger(request.edit.index) || request.edit.index < 0) {
     throw new ModulatorAuthoringError('request', 'edit.index is out of range');
+  }
+  if (request.listIndex !== undefined
+      && (!Number.isInteger(request.listIndex) || request.listIndex < 0)) {
+    throw new ModulatorAuthoringError('request', 'listIndex is out of range');
   }
   if (request.edit.kind === 'replace' && request.edit.donorId.trim() === '') {
     throw new ModulatorAuthoringError('request', 'edit.donorId must not be empty');
@@ -721,6 +760,27 @@ function assertWitness(witness: ModulatorRemoteWitness): void {
   if (witness.pageName !== undefined && witness.pageName.trim() === '') {
     throw new ModulatorAuthoringError('request', 'witness.pageName must not be blank');
   }
+  if (witness.nestedDevice !== undefined) {
+    const names = [witness.nestedDevice.chainName, witness.nestedDevice.slotName]
+      .filter((name) => name !== undefined);
+    if (names.length !== 1 || names[0]!.trim() === '') {
+      throw new ModulatorAuthoringError(
+        'request',
+        'nestedDevice needs exactly one non-empty chainName or slotName',
+      );
+    }
+    if (!Number.isInteger(witness.nestedDevice.chainIndex)
+        || witness.nestedDevice.chainIndex < 0) {
+      throw new ModulatorAuthoringError('request', 'nestedDevice.chainIndex is out of range');
+    }
+    if (witness.nestedDevice.slotName !== undefined
+        && witness.nestedDevice.chainIndex !== 0) {
+      throw new ModulatorAuthoringError(
+        'request',
+        'a device-slot witness can select only its first device at chainIndex 0',
+      );
+    }
+  }
   for (const [name, value] of [
     ['samples', witness.samples],
     ['sampleIntervalMs', witness.sampleIntervalMs],
@@ -742,6 +802,17 @@ function assertWitness(witness: ModulatorRemoteWitness): void {
       && (!Number.isFinite(maximumBaseSpread) || maximumBaseSpread < 0)) {
     throw new ModulatorAuthoringError('request', 'maximumBaseSpread is out of range');
   }
+}
+
+function witnessDevice(container: DeviceAddress, witness: ModulatorRemoteWitness): DeviceAddress {
+  if (witness.nestedDevice === undefined) return container;
+  const parent = witness.nestedDevice.slotName === undefined
+    ? chain(container, witness.nestedDevice.chainName!)
+    : deviceSlot(container, witness.nestedDevice.slotName);
+  return deviceIn(
+    parent,
+    witness.nestedDevice.chainIndex,
+  );
 }
 
 function max(values: readonly number[]): number {

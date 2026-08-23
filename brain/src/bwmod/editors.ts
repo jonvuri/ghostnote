@@ -47,8 +47,15 @@ export interface AddOptions {
 }
 
 /** Retarget a modulation route — rewrite the `0x0e3d` Ramona path, any length (E10/E10b). */
-export function retarget(buf: Buffer, index: number, target: string, routeIndex = 0): Buffer {
-  const [start, end] = modulatorBounds(buf, index);
+export function retarget(
+  buf: Buffer,
+  index: number,
+  target: string,
+  routeIndex = 0,
+  listIndex?: number,
+): Buffer {
+  const list = findModulatorList(buf, listIndex);
+  const [start, end] = modulatorBounds(buf, index, list);
   const slots = routeSlots(buf, start, end);
   if (routeIndex >= slots.length) {
     fail(`modulator ${index} has ${slots.length} route(s); cannot retarget route ${routeIndex}`);
@@ -59,8 +66,15 @@ export function retarget(buf: Buffer, index: number, target: string, routeIndex 
 }
 
 /** Set a route's modulation amount. `0` leaves the route present but dormant (E7d). */
-export function setAmount(buf: Buffer, index: number, amount: number, routeIndex = 0): Buffer {
-  const [start, end] = modulatorBounds(buf, index);
+export function setAmount(
+  buf: Buffer,
+  index: number,
+  amount: number,
+  routeIndex = 0,
+  listIndex?: number,
+): Buffer {
+  const list = findModulatorList(buf, listIndex);
+  const [start, end] = modulatorBounds(buf, index, list);
   const slots = routeSlots(buf, start, end);
   if (routeIndex >= slots.length) {
     fail(`modulator ${index} has ${slots.length} route(s); cannot set amount on route ${routeIndex}`);

@@ -30,7 +30,8 @@ import {
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
-  chainPath, chooseStepSize, clip as clipAt, contentDelta, device as deviceAt, hasUnverifiedProps, planStages,
+  chainPath, chooseStepSize, clip as clipAt, contentDelta, device as deviceAt, deviceIn,
+  hasUnverifiedProps, planStages,
   lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
@@ -1065,7 +1066,7 @@ export class LiveAdapter implements BitwigAdapter {
     for (const [at, step] of path.entries()) {
       const nestedAddress = path[at + 1]?.container ?? device;
       if (nestedAddress.chain === undefined
-          || addressKey(nestedAddress.chain) !== addressKey(step)) {
+          || addressKey(deviceIn(nestedAddress.chain, 0)) !== addressKey(deviceIn(step, 0))) {
         return { standing: 'unstable', deviceName: targetName };
       }
       await this.settle('cursorPoint');
@@ -1087,6 +1088,12 @@ export class LiveAdapter implements BitwigAdapter {
         if (pad === undefined) return { standing: 'missing' };
         await this.transport.send({
           method: WIRE.deviceCursorSelectFirstInPad, params: { padIndex: step.channel },
+        });
+        targetName = '';
+      } else if (step.kind === 'deviceSlot') {
+        if (nestedAddress.chainIndex !== 0) return { standing: 'unreachable' };
+        await this.transport.send({
+          method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: step.name },
         });
         targetName = '';
       } else {
@@ -1135,6 +1142,42 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
       if (!descended) return { standing: 'unstable', deviceName: targetName || undefined };
+
+      if (step.kind === 'deviceSlot') {
+        // An empty slot leaves the cursor on its parent. Prove the parent edge,
+        // then repeat the descent before this cursor can serve an observer.
+        const childName = targetName;
+        await this.transport.send({ method: WIRE.deviceCursorSelectParent });
+        let parentRestored = false;
+        for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+          await this.settle('cursorPoint');
+          const status = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+          parentRestored = status.exists === true
+            && status.name === parentStatus.name
+            && status.isNested === parentStatus.isNested
+            && status.trackChannelId === parentStatus.trackChannelId
+            && status.trackPosition === parentStatus.trackPosition
+            && status.deviceIndex === parentStatus.deviceIndex;
+          if (parentRestored) break;
+        }
+        if (!parentRestored) return { standing: 'unstable', deviceName: childName };
+
+        await this.transport.send({
+          method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: step.name },
+        });
+        let childRestored = false;
+        for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+          await this.settle('cursorPoint');
+          const status = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
+          childRestored = status.exists === true && status.name === childName
+            && status.isNested === true
+            && status.trackChannelId === device.track.channelId
+            && status.trackPosition === row.index
+            && status.deviceIndex === nestedAddress.chainIndex;
+          if (childRestored) break;
+        }
+        if (!childRestored) return { standing: 'unstable', deviceName: childName };
+      }
     }
 
     await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: true } });
@@ -3267,8 +3310,8 @@ export class LiveAdapter implements BitwigAdapter {
     op: Extract<Op, { op: 'chain.relocate' }>,
     preflight: boolean,
   ): Promise<RelocationReading> {
-    if (op.source.chain?.kind === 'drumPad') {
-      throw new InvalidOpError(op.op, 'a chain relocation cannot use a drum-pad parent');
+    if (op.source.chain !== undefined && op.source.chain.kind !== 'chain') {
+      throw new InvalidOpError(op.op, 'a chain relocation needs a layer-chain parent');
     }
     const sourceEndpoint = op.source.chain ?? op.source.track;
     const source = await this.relocationSequence(sourceEndpoint);
