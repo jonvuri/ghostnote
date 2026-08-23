@@ -86,6 +86,9 @@ import {
   MUSICAL_RESULT_CONTRACT, musicalToolInputSchema, musicalToolInputValidator,
   publicMusicalResult,
 } from './musical.js';
+import {
+  modulatorAuthoringInputSchema, modulatorAuthoringInputValidator, runModulatorAuthoring,
+} from './modulator-authoring.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -1931,6 +1934,35 @@ export const TOOLS: readonly ToolSpec[] = [
         warnings,
         elapsedMs: Math.round(performance.now() - started),
       };
+    },
+  }),
+
+  tool({
+    name: 'author_modulators',
+    kind: 'write',
+    title: 'Author preset modulators',
+    description:
+      'Create an edited copy of one human-saved preset and append it as a new device. The saved '
+      + 'preset is not changed, and no device already in the project is changed. Add, replace, '
+      + 'retarget, and delete use named modulator types and named targets. Each operation runs '
+      + 'complete pre-write checks and must pass exact remote page or live behavior checks after '
+      + 'insertion. Add supports LFO, Random, and Vibrato. Replace also supports Classic LFO and '
+      + 'Expressions. Expressions refuses on sampled presets because it has no exact measured '
+      + 'adjustment. A sampled delete also refuses when its resident modulator has no exact '
+      + 'measurement. The result includes one recorded change id. Reversal removes only the '
+      + 'inserted device while its last proved position remains valid.',
+    inputSchema: modulatorAuthoringInputSchema,
+    inputValidator: modulatorAuthoringInputValidator,
+    emits: ['device.insert'],
+    resultContract: {
+      operation: 'The named add, replace, retarget, or delete request.',
+      verification: 'Exact remote page counts and live base-to-modulated behavior checks.',
+      change: 'The recorded insertion receipt and change id.',
+      sampledPreset: 'True when sampled-preset references required measured adjustment.',
+      reversal: 'Removes only the inserted device while its proved position remains valid.',
+    },
+    async run(workspace, args) {
+      return runModulatorAuthoring(workspace, args);
     },
   }),
 

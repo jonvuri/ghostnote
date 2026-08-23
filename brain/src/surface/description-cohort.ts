@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v5';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v6';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -160,7 +160,7 @@ export const DESCRIPTION_COHORT_V4: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v5 adds the measured public device and parameter surface. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V5: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V4,
   {
     name: 'inspect_devices', kind: 'read',
@@ -185,6 +185,15 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   {
     name: 'delete_device', kind: 'destructive',
     reason: 'Keeps directed unreconstructable device removal separate.',
+  },
+] as const;
+
+/** v6 adds public modulator authoring. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V5,
+  {
+    name: 'author_modulators', kind: 'write',
+    reason: 'Authors named preset modulator edits with exact live verification.',
   },
 ] as const;
 
@@ -267,3 +276,7 @@ export const TOOL_DESCRIPTION_V4_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V5_SHA256 =
   '0bda24861be2f57ddd1f39188d4f3c7d70cd3da67ea6ffd81d9ae4fe6d98cb68';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V6_SHA256 =
+  'fb4125f8da686a15463ab210e4b91ffa1a587b97ea97f3867c1e141ae760dc65';

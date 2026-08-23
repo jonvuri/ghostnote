@@ -1023,6 +1023,18 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
     settings: [{ trackId: fx.trackA, devicePosition: 0, enabled: false }],
   }))['verified'], true);
 
+  const authored = await exercise('author_modulators', {
+    trackId: fx.trackA,
+    presetPath: join(HERE, '../../fixtures/Polysynth/mp_bare.bwpreset'),
+    operation: {
+      kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 1,
+    },
+  }) as { applied: boolean; change: { changeId: string } };
+  assert.equal(authored.applied, true, JSON.stringify(authored));
+  assert.equal((await callTool(fx.workspace, 'revert_change', {
+    changeId: authored.change.changeId,
+  }) as Record<string, unknown>)['applied'], true);
+
   const createdAlternates = await exercise('create_device_alternates', {
     trackId: fx.trackA,
     containerType: 'instrument',

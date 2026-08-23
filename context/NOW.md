@@ -4,18 +4,20 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: phase-5
-session: phase-5e-donor-footprints
+session: phase-5f-public-modulator-surface
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 sessions 5a
-through 5e are complete. Checkpointed add, replace, retarget, and delete are live
+through 5f are complete. Checkpointed add, replace, retarget, and delete are live
 and revertible on Tier-1 and multisample presets. Selected-list cross-device
 retarget is live on a Chain container. Named-slot addresses use distinct keys,
 prove the parent-child cursor edge, and refuse unsupported indexes before write.
 Five donor assets support sampled presets with measured provenance. Two assets
-stay Tier 1 only and refuse sampled edits before write.
+stay Tier 1 only and refuse sampled edits before write. The public
+`author_modulators` tool expresses all four editors with named types, named
+targets, exact witnesses, recorded changes, and no binary format controls.
 
 ## Accepted live baseline
 
@@ -44,19 +46,21 @@ remains.
 
 ## Next action
 
-Plan the next small Phase 5 session around the public modulator-authoring
-surface. Express add, replace, retarget, and delete without exposing format
-details. Keep exact page and behavior witnesses, checkpoint semantics, donor
-scope, and sampled-preset refusals explicit.
+Plan the next small Phase 5 session around composition. Start with one owned
+wide template, trim it to an exact requested size, substitute one measured
+device id per retained entry, author its modulators and routes, load it through
+the recorded executor path, prove the complete live structure and behavior, and
+reverse it. Keep template provenance and unsupported growth explicit.
 
 Session source: [Phase 5](plan/phase-5/README.md). Completed proofs:
 [E65](evidence/experiments/e65-checkpointed-modulator-add-is-live.md),
 [E66](evidence/experiments/e66-tier-1-topology-editors-are-live.md),
 [E67](evidence/experiments/e67-sampled-preset-authoring-is-live.md),
-[E68](evidence/experiments/e68-container-cross-device-routing-is-live.md), and
-[E69](evidence/experiments/e69-donor-scope-and-footprints-are-complete.md).
+[E68](evidence/experiments/e68-container-cross-device-routing-is-live.md),
+[E69](evidence/experiments/e69-donor-scope-and-footprints-are-complete.md), and
+[E70](evidence/experiments/e70-public-modulator-authoring-is-live.md).
 
 ## Retrospective
 
-A failed footprint bracket does not prove that the footprint is farther away.
-Bound the full candidate range by donor size before expanding a sweep.
+Use the recorded change as the write boundary. Do not convert a later error
+into a pre-write refusal.

@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Session 5e is complete. Plan the public authoring surface next.
+status: Session 5f is complete. Plan the composition layer next.
 updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -91,8 +91,11 @@ that first integration unless the proof needs one new owned asset.
 5. [5e — donor scope and footprint completion](5e-donor-footprints.md) — done.
    Five donors support sampled presets with measured provenance. Two Tier-1-only
    donors keep loud refusals.
+6. [5f — public modulator authoring surface](5f-public-modulator-surface.md) — done.
+   Express all four topology edits with named modulator types, named targets,
+   exact live witnesses, and recorded reversal bounds.
 
-Later sessions add the public surface and complete composition.
+Later sessions complete composition.
 
 ## Scope
 
