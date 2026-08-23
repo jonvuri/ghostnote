@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Sessions 5a through 5g are complete. Sessions 5h and 5i are planned.
+status: Sessions 5a through 5h are complete. Session 5i is planned.
 updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -100,10 +100,10 @@ that first integration unless the proof needs one new owned asset.
 7. [5g — owned-template composition core](5g-owned-template-composition-core.md) — done.
    Trim one owned four-entry template, substitute native devices, author nested
    modulation, verify the complete live structure, and reverse it.
-8. [5h — public structure composition](5h-public-structure-composition.md) — next.
+8. [5h — public structure composition](5h-public-structure-composition.md) — done.
    Expose one format-hidden composition tool with named devices, modulators,
    targets, exact witnesses, and a recorded insertion.
-9. [5i — composition dogfood and closeout](5i-composition-dogfood-and-closeout.md) — planned.
+9. [5i — composition dogfood and closeout](5i-composition-dogfood-and-closeout.md) — next.
    Build one useful layered patch through the public surface, reverse it, audit
    the phase, and hand off to Phase 6.
 

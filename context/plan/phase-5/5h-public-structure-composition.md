@@ -1,14 +1,20 @@
 ---
 title: Phase 5h — public structure composition
 kind: plan
-state: planned
-status: Planned after 5g. Expose one format-hidden composition tool.
+state: complete
+status: Complete. E72 records the public tool, live witnesses, and exact reversal.
 updated: 2026-08-23
 parent: README.md
-evidence: D1, D3, D15, D16, E4g, E4h, E62, E65-E71
+evidence: D1, D3, D15, D16, E4g, E4h, E62, E65-E72
 ---
 
 # Phase 5h — public structure composition
+
+> **Result.** `compose_device_structure` exposes the owned composer through the
+> recorded Workspace seam. Version 7 freezes the public schema and wording.
+> The focused two-entry live call passed every structure and behavior witness,
+> reversed through `revert_change`, and restored the exact entry track list
+> [K, E72].
 
 ## Purpose
 

@@ -1035,6 +1035,15 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
     changeId: authored.change.changeId,
   }) as Record<string, unknown>)['applied'], true);
 
+  const composed = await exercise('compose_device_structure', {
+    trackId: fx.trackA,
+    entries: [{ deviceName: 'Sampler' }],
+  }) as { applied: boolean; change: { changeId: string } };
+  assert.equal(composed.applied, true, JSON.stringify(composed));
+  assert.equal((await callTool(fx.workspace, 'revert_change', {
+    changeId: composed.change.changeId,
+  }) as Record<string, unknown>)['applied'], true);
+
   const createdAlternates = await exercise('create_device_alternates', {
     trackId: fx.trackA,
     containerType: 'instrument',

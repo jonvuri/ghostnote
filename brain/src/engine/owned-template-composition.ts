@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 
 import {
   NATIVE_CATALOG_PATH, OWNED_LAYER_MANIFEST_PATH, OWNED_LAYER_TEMPLATE_PATH,
-  composeOwnedTemplate,
+  composeOwnedTemplate, compositionModulatorSemantics,
   type ComposeTemplateOptions, type CompositionEditWitness, type CompositionEntryRequest,
   type OwnedTemplateManifest,
 } from '../composition/index.js';
@@ -68,6 +68,7 @@ export interface OwnedTemplateCompositionResult {
     readonly manifestId: string;
     readonly templatePath: string;
     readonly requested: readonly CompositionEntryRequest[];
+    readonly validatedEntries: readonly ValidatedCompositionEntry[];
     readonly validationWarnings: readonly string[];
     /** Restores prior absence. It does not claim byte-exact preset readback. */
     readonly restoreFidelity: Take['fidelity'];
@@ -78,6 +79,17 @@ export interface OwnedTemplateCompositionResult {
     readonly structure: CompositionStructureVerification;
     readonly witnesses: readonly CompositionLiveWitness[];
   };
+}
+
+export interface ValidatedCompositionEntry {
+  readonly index: number;
+  readonly deviceName: string;
+  readonly modulators: readonly {
+    readonly index: number;
+    readonly name: string;
+    readonly category: string;
+    readonly routed: boolean;
+  }[];
 }
 
 export interface OwnedTemplateCompositionOptions {
@@ -171,6 +183,17 @@ export async function buildOwnedTemplateComposition(
       manifestId: composed.manifestId,
       templatePath,
       requested: composed.requested,
+      validatedEntries: composed.bindings.map((binding) => ({
+        index: binding.entryIndex,
+        deviceName: binding.deviceName,
+        modulators: compositionModulatorSemantics(composed.preset, binding.modulatorListIndex)
+          .map((modulator) => ({
+            index: modulator.index,
+            name: modulator.deviceName,
+            category: modulator.category,
+            routed: modulator.routes.length > 0,
+          })),
+      })),
       validationWarnings: composed.validationWarnings,
       restoreFidelity: take.fidelity,
       reversalBoundary: 'remove-observed-container',
@@ -212,6 +235,7 @@ async function verifyStructure(
         why = 'the inserted container address did not read back';
       }
     } catch (error) {
+      throwIfCancellation(host, error);
       why = `container readback failed: ${errorMessage(error)}`;
     }
     if (attempt + 1 < attempts && retryMs > 0) await pause(retryMs);
@@ -293,6 +317,11 @@ function safeName(value: string): string {
 
 function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
+}
+
+function throwIfCancellation(host: OwnedTemplateCompositionHost, error: unknown): void {
+  host.throwIfCancelled?.();
+  if (!(error instanceof Error) || error.name === 'AbortError') throw error;
 }
 
 function wait(milliseconds: number): Promise<void> {

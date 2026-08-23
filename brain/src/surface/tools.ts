@@ -89,6 +89,10 @@ import {
 import {
   modulatorAuthoringInputSchema, modulatorAuthoringInputValidator, runModulatorAuthoring,
 } from './modulator-authoring.js';
+import {
+  deviceStructureCompositionInputSchema, deviceStructureCompositionInputValidator,
+  runDeviceStructureComposition,
+} from './device-structure-composition.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -1963,6 +1967,36 @@ export const TOOLS: readonly ToolSpec[] = [
     },
     async run(workspace, args) {
       return runModulatorAuthoring(workspace, args);
+    },
+  }),
+
+  tool({
+    name: 'compose_device_structure',
+    kind: 'write',
+    title: 'Compose a device structure',
+    description:
+      'Create one complete Instrument container with one through four ordered entries and append '
+      + 'it after a fresh complete inspection of the track device order and enabled state. Each '
+      + 'entry accepts one exact native-device catalog name and optional named modulator edits. '
+      + 'Repeated device names, unknown or non-unique catalog matches, unsupported targets, and '
+      + 'invalid edit requests are refused before the project write. The result separates the '
+      + 'request, the validated modulator inventory, observed device names, and exact remote page '
+      + 'and behavior witnesses. It includes one recorded change id. A failed live witness reports '
+      + 'a post-write verification failure and keeps that recorded change visible. Reversal removes '
+      + 'only the inserted container while its last proved position remains valid.',
+    inputSchema: deviceStructureCompositionInputSchema,
+    inputValidator: deviceStructureCompositionInputValidator,
+    emits: ['device.insert'],
+    resultContract: {
+      requested: 'The ordered entries and named edits that were requested.',
+      validated: 'The public modulator inventory after complete pre-write checks.',
+      observed: 'The complete ordered entry and device names read from the inserted container.',
+      verification: 'Exact remote page counts and live base-to-modulated behavior witnesses.',
+      change: 'The recorded insertion receipt and change id.',
+      reversal: 'Removes only the inserted container while its proved position remains valid.',
+    },
+    async run(workspace, args) {
+      return runDeviceStructureComposition(workspace, args);
     },
   }),
 

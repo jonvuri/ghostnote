@@ -4,18 +4,18 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: phase-5
-session: phase-5h-public-structure-composition
+session: phase-5i-composition-dogfood-and-closeout
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 sessions 5a
-through 5g are complete. The internal owned-template composer trims one
-human-authored Instrument Layer to one through four entries, resolves exact
-native catalog names, binds logical entries to measured nested modulator lists,
-supports all five topology edits, validates before write, proves complete live
-structure and behavior, and reverses the one recorded insertion. Sessions 5h
-and 5i remain to expose and dogfood composition, then close the phase.
+through 5h are complete. `compose_device_structure` exposes the owned native
+composer through one format-hidden public tool. It guards on complete current
+device order and enabled state, validates all named requests before write,
+returns requested, validated, observed, and verified facts, records one
+insertion, and reverses it through `revert_change`. Session 5i remains to
+dogfood composition and close the phase.
 
 ## Accepted live baseline
 
@@ -44,11 +44,10 @@ remains.
 
 ## Next action
 
-Implement [session 5h](plan/phase-5/5h-public-structure-composition.md). Expose
-the proved internal workflow through one public composition tool. Hide every
-asset and binary control, guard with the complete current top-level device
-chain, record the insertion, return requested and observed structure plus exact
-witnesses, and reverse it through `revert_change`.
+Implement [session 5i](plan/phase-5/5i-composition-dogfood-and-closeout.md).
+Build one useful patch through `compose_device_structure`, use the existing
+parameter tools on its nested devices, reverse it, audit every Phase 5 exit
+criterion, and close the phase with exact baseline and remote CI evidence.
 
 Session source: [Phase 5](plan/phase-5/README.md). Completed proofs:
 [E65](evidence/experiments/e65-checkpointed-modulator-add-is-live.md),
@@ -56,12 +55,12 @@ Session source: [Phase 5](plan/phase-5/README.md). Completed proofs:
 [E67](evidence/experiments/e67-sampled-preset-authoring-is-live.md),
 [E68](evidence/experiments/e68-container-cross-device-routing-is-live.md),
 [E69](evidence/experiments/e69-donor-scope-and-footprints-are-complete.md),
-[E70](evidence/experiments/e70-public-modulator-authoring-is-live.md), and
-[E71](evidence/experiments/e71-owned-template-composition-is-live.md).
-Remaining plans: [5h](plan/phase-5/5h-public-structure-composition.md) and
-[5i](plan/phase-5/5i-composition-dogfood-and-closeout.md).
+[E70](evidence/experiments/e70-public-modulator-authoring-is-live.md),
+[E71](evidence/experiments/e71-owned-template-composition-is-live.md), and
+[E72](evidence/experiments/e72-public-device-structure-composition-is-live.md).
+Remaining plan: [5i](plan/phase-5/5i-composition-dogfood-and-closeout.md).
 
 ## Retrospective
 
-Check every live witness against final composed state before the project write.
-Treat modulator instance-id uniqueness as local to one modulator list.
+Carry cancellation as explicit host state. Do not infer it from the shape of a
+caught error.

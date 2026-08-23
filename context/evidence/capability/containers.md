@@ -41,9 +41,13 @@ model and cannot be used for live A/B. §"Why the Selector is out" states why.
   of one through four native devices. It trims only measured chain spans,
   substitutes each device GUID, edits each bound nested modulator list, loads in
   one insertion, and proves the complete live result [K,
-  [E71](../experiments/e71-owned-template-composition-is-live.md)]. This is the
-  internal construction path. The one-entry seed remains the typed duplication
-  path.
+  [E71](../experiments/e71-owned-template-composition-is-live.md)]. The public
+  `compose_device_structure` tool accepts exact native names and named edits. It
+  hides all asset and format controls, records the insertion, returns distinct
+  requested, validated, observed, and verified facts, and reverses through
+  `revert_change` [K,
+  [E72](../experiments/e72-public-device-structure-composition-is-live.md)].
+  The one-entry seed remains the typed duplication path.
 - `hasLayers=true` does **not** mean a chain exists. Read the layer bank count,
   never the capability flag [K, [E4c](../experiments/e4c-device-nesting-layers-pads-slots-selectors-2026-07-19.md)].
 - A container can be placed on an ordinary track, on an **FX return** and on the

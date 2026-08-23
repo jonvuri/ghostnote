@@ -63,6 +63,8 @@ export interface WorkspaceDeps {
 }
 
 export interface Workspace {
+  /** Throw the exact cancellation reason when this workspace is cancellable. */
+  readonly throwIfCancelled?: () => void;
   /** Where the world is now. Every row address the surface mints is minted here. */
   mark(): Promise<RevisionMark>;
   /** Where a caller's first durable track id comes from. */
@@ -114,6 +116,9 @@ export function cancellableWorkspace(
   };
   return Object.freeze<Workspace>({
     ...workspace,
+    throwIfCancelled() {
+      signal.throwIfAborted();
+    },
     async mark() {
       before();
       return after(await workspace.mark());

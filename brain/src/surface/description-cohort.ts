@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v6';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v7';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -189,11 +189,20 @@ export const DESCRIPTION_COHORT_V5: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v6 adds public modulator authoring. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V6: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V5,
   {
     name: 'author_modulators', kind: 'write',
     reason: 'Authors named preset modulator edits with exact live verification.',
+  },
+] as const;
+
+/** v7 adds owned public device-structure composition. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V6,
+  {
+    name: 'compose_device_structure', kind: 'write',
+    reason: 'Creates one complete named native-device and modulation structure.',
   },
 ] as const;
 
@@ -280,3 +289,7 @@ export const TOOL_DESCRIPTION_V5_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V6_SHA256 =
   'fb4125f8da686a15463ab210e4b91ffa1a587b97ea97f3867c1e141ae760dc65';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V7_SHA256 =
+  '5a50863774ac5eb0eda41d68ce4c11604d5a9271c773edb0a50e6a68c3bfd419';

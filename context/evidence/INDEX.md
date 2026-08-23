@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E72 | Public device-structure composition is live [K] (2026-08-23) | [open](experiments/e72-public-device-structure-composition-is-live.md) |
 | E71 | Owned-template composition is live [K] (2026-08-23) | [open](experiments/e71-owned-template-composition-is-live.md) |
 | E70 | Public modulator authoring is live [K] (2026-08-23) | [open](experiments/e70-public-modulator-authoring-is-live.md) |
 | E69 | Donor scope and footprints are complete [K] (2026-08-23) | [open](experiments/e69-donor-scope-and-footprints-are-complete.md) |

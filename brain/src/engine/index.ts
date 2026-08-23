@@ -33,7 +33,7 @@ export { buildOwnedTemplateComposition } from './owned-template-composition.js';
 export type {
   CompositionLiveWitness, CompositionStructureVerification, ObservedCompositionEntry,
   OwnedTemplateCompositionHost, OwnedTemplateCompositionOptions, OwnedTemplateCompositionRequest,
-  OwnedTemplateCompositionResult,
+  OwnedTemplateCompositionResult, ValidatedCompositionEntry,
 } from './owned-template-composition.js';
 export type {
   AddModulatorOptions, AddModulatorRequest, AddModulatorResult, ModulationSample,

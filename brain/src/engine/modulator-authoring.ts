@@ -31,6 +31,8 @@ const DEFAULT_MAXIMUM_BASE_SPREAD = 2e-3;
 
 /** A small seam that both an executor fixture and a production Workspace satisfy. */
 export interface ModulatorAuthoringHost {
+  /** Throw the exact cancellation reason when the host supports cancellation. */
+  readonly throwIfCancelled?: () => void;
   read(addresses: readonly Address[]): Promise<Snapshot>;
   apply(ops: readonly Op[], options?: RunOptions): Promise<{ readonly take: Take }>;
 }
@@ -445,6 +447,7 @@ export async function verifyModulation(
         ? 'the remote inventory did not settle'
         : 'the inserted device returned no complete remote inventory';
     } catch (error) {
+      throwIfCancellation(host, error);
       inventoryFailure = `remote inventory failed: ${errorMessage(error)}`;
     }
     if (attempt + 1 < inventoryAttempts && inventoryRetryMs > 0) await pause(inventoryRetryMs);
@@ -477,6 +480,7 @@ export async function verifyModulation(
     try {
       snapshot = await host.read([selector]);
     } catch (error) {
+      throwIfCancellation(host, error);
       return failedVerification(
         `remote sample ${index + 1} failed: ${errorMessage(error)}`,
         selector,
@@ -571,6 +575,7 @@ export async function verifyPages(
         ? 'the remote inventory did not settle'
         : failure;
     } catch (error) {
+      throwIfCancellation(host, error);
       failure = `remote inventory failed: ${errorMessage(error)}`;
     }
     if (attempt + 1 < DEFAULT_INVENTORY_ATTEMPTS) await pause(DEFAULT_INVENTORY_RETRY_MS);
@@ -580,6 +585,11 @@ export async function verifyPages(
 
 function failedPageVerification(why: string): ModulatorPageVerification {
   return { verified: false, actualPages: [], witnesses: [], why };
+}
+
+function throwIfCancellation(host: ModulatorAuthoringHost, error: unknown): void {
+  host.throwIfCancelled?.();
+  if (!(error instanceof Error) || error.name === 'AbortError') throw error;
 }
 
 function sampleOf(control: RemoteControlState): ModulationSample {
