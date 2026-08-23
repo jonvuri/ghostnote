@@ -238,7 +238,7 @@ public final class ParamHandlers extends HandlerGroup {
         return result;
     }
 
-    /** Verify a top-level parameter target when a product guard is present. */
+    /** Verify the top-level chain, nested route, and final parameter target. */
     private void verifyParameterTarget(JsonObject params, String method) {
         if (!params.has("expectedDeviceNames") || params.get("expectedDeviceNames").isJsonNull()) {
             return;
@@ -251,11 +251,28 @@ public final class ParamHandlers extends HandlerGroup {
                 || params.get("expectedTrackChannelId").isJsonNull()) {
             throw new IllegalArgumentException(method + " expectedTrackChannelId is required");
         }
-        if (!params.has("expectedDeviceName") || params.get("expectedDeviceName").isJsonNull()) {
-            throw new IllegalArgumentException(method + " expectedDeviceName is required");
+        if (!params.has("expectedTopLevelDeviceName")
+                || params.get("expectedTopLevelDeviceName").isJsonNull()) {
+            throw new IllegalArgumentException(method + " expectedTopLevelDeviceName is required");
         }
-        if (!params.has("expectedDeviceIndex") || params.get("expectedDeviceIndex").isJsonNull()) {
-            throw new IllegalArgumentException(method + " expectedDeviceIndex is required");
+        if (!params.has("expectedTopLevelDeviceIndex")
+                || params.get("expectedTopLevelDeviceIndex").isJsonNull()) {
+            throw new IllegalArgumentException(method + " expectedTopLevelDeviceIndex is required");
+        }
+        if (!params.has("expectedNestedRoute") || !params.get("expectedNestedRoute").isJsonArray()) {
+            throw new IllegalArgumentException(method + " expectedNestedRoute must be an array");
+        }
+        if (!params.has("expectedTargetDeviceName")
+                || params.get("expectedTargetDeviceName").isJsonNull()) {
+            throw new IllegalArgumentException(method + " expectedTargetDeviceName is required");
+        }
+        if (!params.has("expectedTargetDeviceIndex")
+                || params.get("expectedTargetDeviceIndex").isJsonNull()) {
+            throw new IllegalArgumentException(method + " expectedTargetDeviceIndex is required");
+        }
+        if (!params.has("expectedTargetNested")
+                || params.get("expectedTargetNested").isJsonNull()) {
+            throw new IllegalArgumentException(method + " expectedTargetNested is required");
         }
 
         JsonArray namesArray = namesValue.getAsJsonArray();
@@ -297,17 +314,17 @@ public final class ParamHandlers extends HandlerGroup {
             }
         }
 
-        int expectedDeviceIndex = params.get("expectedDeviceIndex").getAsInt();
-        if (expectedDeviceIndex < 0 || expectedDeviceIndex >= expectedNames.length) {
+        int expectedTopLevelIndex = params.get("expectedTopLevelDeviceIndex").getAsInt();
+        if (expectedTopLevelIndex < 0 || expectedTopLevelIndex >= expectedNames.length) {
             throw new IllegalArgumentException(
-                method + " expectedDeviceIndex is outside expectedDeviceNames: "
-                    + expectedDeviceIndex);
+                method + " expectedTopLevelDeviceIndex is outside expectedDeviceNames: "
+                    + expectedTopLevelIndex);
         }
-        String expectedDeviceName = params.get("expectedDeviceName").getAsString();
-        if (!expectedDeviceName.equals(expectedNames[expectedDeviceIndex])) {
+        String expectedTopLevelName = params.get("expectedTopLevelDeviceName").getAsString();
+        if (!expectedTopLevelName.equals(expectedNames[expectedTopLevelIndex])) {
             throw new IllegalArgumentException(
-                method + " expectedDeviceName disagrees with expectedDeviceNames["
-                    + expectedDeviceIndex + "]");
+                method + " expectedTopLevelDeviceName disagrees with expectedDeviceNames["
+                    + expectedTopLevelIndex + "]");
         }
 
         String expectedTrackChannelId = params.get("expectedTrackChannelId").getAsString();
@@ -352,19 +369,67 @@ public final class ParamHandlers extends HandlerGroup {
             }
         }
 
-        int actualDeviceIndex = rig.currentDirectParameterDeviceIndex();
-        if (actualDeviceIndex != expectedDeviceIndex) {
+        if (rig.directParameterTopLevelIndex != expectedTopLevelIndex) {
             throw new IllegalArgumentException(
-                method + " target index changed: expected " + expectedDeviceIndex
+                method + " top-level cursor route changed: expected " + expectedTopLevelIndex
+                    + ", got " + rig.directParameterTopLevelIndex);
+        }
+
+        JsonArray expectedRoute = params.get("expectedNestedRoute").getAsJsonArray();
+        if (expectedRoute.size() != rig.directParameterRouteKinds.size()) {
+            throw new IllegalArgumentException(
+                method + " nested route depth changed: expected " + expectedRoute.size()
+                    + ", got " + rig.directParameterRouteKinds.size());
+        }
+        for (int i = 0; i < expectedRoute.size(); i++) {
+            JsonElement routeValue = expectedRoute.get(i);
+            if (!routeValue.isJsonObject()) {
+                throw new IllegalArgumentException(
+                    method + " expectedNestedRoute[" + i + "] must be an object");
+            }
+            JsonObject step = routeValue.getAsJsonObject();
+            String kind = step.get("kind").getAsString();
+            int deviceIndex = step.get("deviceIndex").getAsInt();
+            if (!kind.equals(rig.directParameterRouteKinds.get(i))
+                    || deviceIndex != rig.directParameterRouteDeviceIndices.get(i)) {
+                throw new IllegalArgumentException(method + " nested route changed at step " + i);
+            }
+            if ("drumPad".equals(kind)) {
+                if (!step.has("channel")
+                        || step.get("channel").getAsInt()
+                            != rig.directParameterRouteChannels.get(i)) {
+                    throw new IllegalArgumentException(
+                        method + " drum-pad route changed at step " + i);
+                }
+            } else {
+                String expectedName = step.get("name").getAsString();
+                if (!expectedName.equals(rig.directParameterRouteNames.get(i))) {
+                    throw new IllegalArgumentException(
+                        method + " named route changed at step " + i);
+                }
+            }
+        }
+
+        int expectedTargetIndex = params.get("expectedTargetDeviceIndex").getAsInt();
+        int actualDeviceIndex = rig.currentDirectParameterDeviceIndex();
+        if (actualDeviceIndex != expectedTargetIndex) {
+            throw new IllegalArgumentException(
+                method + " target index changed: expected " + expectedTargetIndex
                     + ", got " + actualDeviceIndex);
         }
         if (!rig.cursorDevice0.exists().get()) {
             throw new IllegalArgumentException(method + " target device does not exist");
         }
+        boolean expectedNested = params.get("expectedTargetNested").getAsBoolean();
+        boolean actualNested = rig.cursorDevice0.isNested().get();
+        if (expectedNested != actualNested || expectedNested != (expectedRoute.size() > 0)) {
+            throw new IllegalArgumentException(method + " target nesting changed");
+        }
+        String expectedTargetName = params.get("expectedTargetDeviceName").getAsString();
         String actualDeviceName = rig.cursorDevice0.name().get();
-        if (!expectedDeviceName.equals(actualDeviceName)) {
+        if (!expectedTargetName.equals(actualDeviceName)) {
             throw new IllegalArgumentException(
-                method + " target changed: expected \"" + expectedDeviceName
+                method + " target changed: expected \"" + expectedTargetName
                     + "\", got \"" + actualDeviceName + "\"");
         }
     }

@@ -31,6 +31,8 @@ import com.bitwig.extension.controller.api.TrackBankContentFilter;
 import com.bitwig.extension.controller.api.TrackBank;
 import com.bitwig.extension.controller.api.Transport;
 import com.ghostnote.extension.generated.NativeDeviceCatalog;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * All pre-allocated Bitwig API objects. Everything here must be created
@@ -110,10 +112,43 @@ public class Rig {
     public final PinnableCursorDevice cursorDevice0;
     /** Current-chain siblings, used to confirm a nested cursor position. */
     public final DeviceBank cursorDeviceSiblings0;
+    /** Route selected for the current DirectParameter cursor target. */
+    public int directParameterTopLevelIndex = -1;
+    public final List<String> directParameterRouteKinds = new ArrayList<>();
+    public final List<String> directParameterRouteNames = new ArrayList<>();
+    public final List<Integer> directParameterRouteChannels = new ArrayList<>();
+    public final List<Integer> directParameterRouteDeviceIndices = new ArrayList<>();
     public final SpecificBitwigDevice polysynthView0;
     /** IDs actually bound, index-parallel to {@link #polysynthParams0}. */
     public final String[] paramIds;
     public final Parameter[] polysynthParams0;
+
+    public void beginDirectParameterRoute(int topLevelIndex) {
+        directParameterTopLevelIndex = topLevelIndex;
+        directParameterRouteKinds.clear();
+        directParameterRouteNames.clear();
+        directParameterRouteChannels.clear();
+        directParameterRouteDeviceIndices.clear();
+    }
+
+    public void addDirectParameterRouteStep(
+            String kind, String name, Integer channel, int deviceIndex) {
+        directParameterRouteKinds.add(kind);
+        directParameterRouteNames.add(name);
+        directParameterRouteChannels.add(channel);
+        directParameterRouteDeviceIndices.add(deviceIndex);
+    }
+
+    public void removeDirectParameterRouteStep() {
+        int last = directParameterRouteKinds.size() - 1;
+        if (last < 0) {
+            return;
+        }
+        directParameterRouteKinds.remove(last);
+        directParameterRouteNames.remove(last);
+        directParameterRouteChannels.remove(last);
+        directParameterRouteDeviceIndices.remove(last);
+    }
 
     // --- E4c: device nesting (layers / drum pads / slots / chain selector) ---
     /** Container-device UUIDs, harvested from the bundle like E3/E4. */

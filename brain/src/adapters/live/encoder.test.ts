@@ -185,8 +185,37 @@ test('4g-parameter: a managed write carries its prior chain and exact target', (
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
   assert.deepEqual(params?.['expectedDeviceNames'], expectedChain);
   assert.deepEqual(params?.['expectedDeviceEnabled'], expectedEnabledChain);
-  assert.equal(params?.['expectedDeviceName'], 'Polysynth');
-  assert.equal(params?.['expectedDeviceIndex'], 1);
+  assert.equal(params?.['expectedTopLevelDeviceName'], 'Polysynth');
+  assert.equal(params?.['expectedTopLevelDeviceIndex'], 1);
+  assert.deepEqual(params?.['expectedNestedRoute'], []);
+  assert.equal(params?.['expectedTargetDeviceName'], 'Polysynth');
+  assert.equal(params?.['expectedTargetDeviceIndex'], 1);
+  assert.equal(params?.['expectedTargetNested'], false);
+});
+
+test('d02-s2-parameter: a nested target keeps its root and route guards separate', () => {
+  const root = device(TRACK_A, 1);
+  const level1 = deviceIn(chainAt(root, 'Outer'), 0);
+  const target = deviceIn(chainAt(level1, 'Inner'), 0);
+  const op: Op = {
+    op: 'param.set',
+    param: param(target, 0, 'P1'),
+    value: 0.61,
+    expectedName: 'Leaf',
+    expectedChain: ['Tool', 'FX Layer'],
+    expectedEnabledChain: [true, true],
+  };
+
+  const params = paramsOf(encodeOp(op, ctx), WIRE.directParamSet);
+  assert.equal(params?.['expectedTopLevelDeviceName'], 'FX Layer');
+  assert.equal(params?.['expectedTopLevelDeviceIndex'], 1);
+  assert.deepEqual(params?.['expectedNestedRoute'], [
+    { kind: 'chain', name: 'Outer', deviceIndex: 0 },
+    { kind: 'chain', name: 'Inner', deviceIndex: 0 },
+  ]);
+  assert.equal(params?.['expectedTargetDeviceName'], 'Leaf');
+  assert.equal(params?.['expectedTargetDeviceIndex'], 0);
+  assert.equal(params?.['expectedTargetNested'], true);
 });
 
 test('E-immediate: neither param path is caller-selectable', () => {

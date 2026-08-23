@@ -34,9 +34,9 @@
 import { isAbsolute, extname } from 'node:path';
 
 import {
-  BlindSpotError, InvalidOpError, addressKey, assertNever, chooseStepSize, orderedNoteProps,
+  BlindSpotError, InvalidOpError, addressKey, assertNever, chainPath, chooseStepSize, orderedNoteProps,
   stepSizeFor,
-  type ChainAddress, type ClipAddress, type NoteRecord, type Op, type SceneAddress,
+  type ChainAddress, type ClipAddress, type DeviceAddress, type NoteRecord, type Op, type SceneAddress,
   type TrackAddress, type WindowCoverage,
 } from '../../contract/index.js';
 import { WIRE, frame, type Frame } from './wiremap.js';
@@ -44,6 +44,19 @@ import { WIRE, frame, type Frame } from './wiremap.js';
 // Re-exported because the grid used to be defined here, and because this is
 // still the only module that turns one into a step index on a wire.
 export { STEP_SIZES, chooseStepSize } from '../../contract/index.js';
+
+const topLevelDevice = (device: DeviceAddress): DeviceAddress =>
+  chainPath(device)[0]?.container ?? device;
+
+const nestedParameterRoute = (device: DeviceAddress): readonly Record<string, unknown>[] =>
+  chainPath(device).map((step, index, path) => {
+    const target = path[index + 1]?.container ?? device;
+    return step.kind === 'chain'
+      ? { kind: step.kind, name: step.name, deviceIndex: target.chainIndex }
+      : step.kind === 'drumPad'
+        ? { kind: step.kind, channel: step.channel, deviceIndex: target.chainIndex }
+        : { kind: step.kind, name: step.name, deviceIndex: target.chainIndex };
+  });
 
 /** What the encoder needs to know that an address alone cannot tell it. */
 export interface EncodeContext {
@@ -716,14 +729,20 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
     case 'param.set': {
       // ⚠ Two different APIs, two different traps. Neither is selectable by the
       // caller, because the wrong choice is a SILENT no-op in both directions.
+      const top = topLevelDevice(op.param.device);
+      const route = nestedParameterRoute(op.param.device);
       const guard = op.expectedChain === undefined ? {} : {
         expectedTrackChannelId: op.param.device.track.channelId,
         expectedDeviceNames: op.expectedChain,
         ...(op.expectedEnabledChain === undefined
           ? {}
           : { expectedDeviceEnabled: op.expectedEnabledChain }),
-        expectedDeviceName: op.expectedName ?? ctx.deviceName?.(op.param.device),
-        expectedDeviceIndex: op.param.device.chainIndex,
+        expectedTopLevelDeviceName: op.expectedChain[top.chainIndex],
+        expectedTopLevelDeviceIndex: top.chainIndex,
+        expectedNestedRoute: route,
+        expectedTargetDeviceName: op.expectedName ?? ctx.deviceName?.(op.param.device),
+        expectedTargetDeviceIndex: op.param.device.chainIndex,
+        expectedTargetNested: route.length > 0,
       };
       return op.param.directId !== undefined
         ? [frame(WIRE.directParamSet, {

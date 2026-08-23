@@ -149,6 +149,23 @@ without weakening the complete top-level device-order and enabled-state guard.
 - Focused tests, the full brain check, extension tests, the handshake, and the
   live reversal pass. No fixture state changes remain.
 
+### Outcome — complete
+
+[E77](../../evidence/experiments/e77-nested-direct-parameter-guards-are-live.md)
+records the correction and live proof. The write guard now treats the complete
+top-level fingerprint, the nested route, and the final cursor target as separate
+identities. Named descents verify their live entry names before selection. The
+extension records each route step and compares the full route immediately before
+the scalar write.
+
+Fake, live-adapter, and public-surface regressions cover top-level, depth-1,
+depth-2, and drum-pad targets. Negative cases cover each identity boundary. The
+focused cohort passes 306/306, and the full brain check passes 850/850.
+
+The live probe changed and restored `OSC1 Pulse Width` on native Polysynth at
+depth 1, depth 2, and Drum Machine channel 3. The 148-method handshake and
+extension tests pass. Cleanup restored the exact four-track `New 2` entry list.
+
 ## Session 3 — Cohort parameter writes
 
 ### Objective
@@ -263,5 +280,6 @@ about Layers, Selectors, pad routing, grid limits, or prior agent behavior.
 ## Retrospective
 
 Return a partial receipt when a later stage fails after an earlier write. Verify
-owned containers from a complete inventory. State container execution and
-MIDI-routing semantics at the public boundary.
+owned containers from a complete inventory. Name each positional guard for its
+coordinate system. State container execution and MIDI-routing semantics at the
+public boundary.

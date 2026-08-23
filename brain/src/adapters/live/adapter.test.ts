@@ -2122,6 +2122,7 @@ class ParameterTransport implements Transport {
   private depth = 0;
   private padSelected = false;
   private readonly deepParams = new Map([['DP1', { name: 'Deep parameter', value: 0.2 }]]);
+  private readonly level1Params = new Map([['L1', { name: 'Nested parameter', value: 0.15 }]]);
   private readonly padParams = new Map([['PAD1', { name: 'Pad parameter', value: 0.35 }]]);
   private selectedRemotePage = 0;
   private readonly remotePages = [
@@ -2249,6 +2250,8 @@ class ParameterTransport implements Transport {
           ? { name: 'Pad synth', params: this.padParams }
           : this.depth === 2
           ? { name: 'Deep synth', params: this.deepParams }
+          : this.depth === 1
+          ? { name: 'Inner container', params: this.level1Params }
           : this.devices[this.selected];
         return {
           params: [...(device?.params ?? [])].map(([id, state]) => ({ id, ...state })),
@@ -2269,7 +2272,8 @@ class ParameterTransport implements Transport {
         return { params: [] };
       case WIRE.directParamSet: {
         const target = (this.padSelected ? this.padParams
-          : this.depth === 2 ? this.deepParams : this.devices[this.selected]?.params)
+          : this.depth === 2 ? this.deepParams
+          : this.depth === 1 ? this.level1Params : this.devices[this.selected]?.params)
           ?.get(params['id'] as string);
         this.completionGeneration++;
         this.completionObservedGeneration = -1;
@@ -2284,7 +2288,8 @@ class ParameterTransport implements Transport {
       }
       case WIRE.directParamCompletion: {
         const deviceName = this.padSelected ? 'Pad synth'
-          : this.depth === 2 ? 'Deep synth' : this.devices[this.selected]?.name;
+          : this.depth === 2 ? 'Deep synth'
+          : this.depth === 1 ? 'Inner container' : this.devices[this.selected]?.name;
         return {
           generation: this.completionGeneration,
           observedGeneration: this.completionObservedGeneration,
@@ -2541,12 +2546,56 @@ test('4f live route: depth-2 DirectParameter write uses two confirmed named desc
   const beforeEntry = before.entries[addressKey(address)];
   assert.equal(deviceEntry?.value.of === 'device' ? deviceEntry.value.device.params?.length : undefined, 1);
   assert.equal(beforeEntry?.value.of === 'param' ? beforeEntry.value.param.value : undefined, 0.2);
-  const receipt = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.8 }] });
+  const guard = {
+    expectedName: 'Deep synth',
+    expectedChain: ['Polysynth', 'Polymer'],
+    expectedEnabledChain: [true, true],
+  } as const;
+  const receipt = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.8, ...guard }] });
   assert.equal(receipt.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
-  const restored = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.2 }] });
+  const write = wire.frames.find((frame) => frame.method === WIRE.directParamSet
+    && frame.params?.['value'] === 0.8);
+  assert.deepEqual(write?.params?.['expectedNestedRoute'], [
+    { kind: 'chain', name: 'Outer', deviceIndex: 0 },
+    { kind: 'chain', name: 'Inner', deviceIndex: 0 },
+  ]);
+  assert.equal(write?.params?.['expectedTopLevelDeviceIndex'], 0);
+  assert.equal(write?.params?.['expectedTargetDeviceIndex'], 0);
+  const restored = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.2, ...guard }] });
   assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.deviceCursorSelectInLayer).length >= 4, true);
   assert.equal(wire.frames.some((frame) => frame.method === 'devcursor.selectFirstInKeyPad'), false);
+});
+
+test('d02-s2 live route: depth-1 and drum-pad DirectParameters keep guarded routes', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const top = deviceAt(TRACK, 0);
+  const depth1 = param(deviceInAt(chainAt(top, 'Outer'), 0), 'L1');
+  const pad = param(deviceInAt(drumPad(top, 3), 0), 'PAD1');
+  const chainGuard = {
+    expectedChain: ['Polysynth', 'Polymer'],
+    expectedEnabledChain: [true, true],
+  } as const;
+
+  const nested = await adapter.apply({ ops: [{
+    op: 'param.set', param: depth1, value: 0.65,
+    expectedName: 'Inner container', ...chainGuard,
+  }] });
+  assert.equal(nested.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const padded = await adapter.apply({ ops: [{
+    op: 'param.set', param: pad, value: 0.7,
+    expectedName: 'Pad synth', ...chainGuard,
+  }] });
+  assert.equal(padded.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+
+  const writes = wire.frames.filter((frame) => frame.method === WIRE.directParamSet);
+  assert.deepEqual(writes.at(-2)?.params?.['expectedNestedRoute'], [
+    { kind: 'chain', name: 'Outer', deviceIndex: 0 },
+  ]);
+  assert.deepEqual(writes.at(-1)?.params?.['expectedNestedRoute'], [
+    { kind: 'drumPad', channel: 3, deviceIndex: 0 },
+  ]);
 });
 
 test('4f live route: a selection change cannot retarget a pinned depth-2 write', async () => {

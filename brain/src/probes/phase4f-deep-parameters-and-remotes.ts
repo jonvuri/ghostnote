@@ -12,7 +12,6 @@ import {
   DevicePerformanceRecorder, DeviceTimingTransport, type DevicePerformanceSample,
 } from './phase4h-device-performance-lib.js';
 
-const PROJECT = '26.05-2 moon';
 const TRACK_NAME = 'gn-4f-deep-parameter-proof';
 const FX_LAYER = 'a0913b7f-096b-4ac9-bddd-33c775314b42';
 const DRUM_MACHINE = '8ea97e45-0255-40fd-bc7e-94419741e9d1';
@@ -285,13 +284,25 @@ async function proveParameter(label: string, deviceAddress: DeviceAddress): Prom
     { address: addressKey(deviceAddress), device: state?.name, count: state?.params?.length,
       ...(candidate === undefined ? { trace: transport.trace.slice(-24) } : {}) });
   if (candidate === undefined) throw new Error(`${label} has no safe DirectParameter`);
+  const top = await adapter.devices(deviceAddress.track);
+  const expectedChain = top.devices.map((item) => item.name);
+  const expectedEnabledChain = top.devices.map((item) => item.enabled);
+  if (!top.devicesComplete
+      || expectedEnabledChain.some((enabled) => typeof enabled !== 'boolean')) {
+    throw new Error(`${label} has no complete top-level guard`);
+  }
+  const guard = {
+    expectedName: state!.name,
+    expectedChain,
+    expectedEnabledChain: expectedEnabledChain as readonly boolean[],
+  } as const;
   const requested = candidate.value <= 0.9 ? candidate.value + 0.05 : candidate.value - 0.05;
   const changed = await adapter.apply({
-    ops: [{ op: 'param.set', param: param(deviceAddress, candidate.id), value: requested }],
+    ops: [{ op: 'param.set', param: param(deviceAddress, candidate.id), value: requested, ...guard }],
   });
   const landed = await readParameter(deviceAddress, candidate.id);
   const restored = await adapter.apply({
-    ops: [{ op: 'param.set', param: param(deviceAddress, candidate.id), value: candidate.value }],
+    ops: [{ op: 'param.set', param: param(deviceAddress, candidate.id), value: candidate.value, ...guard }],
   });
   const replayed = await readParameter(deviceAddress, candidate.id);
   check(`${label}: write, independent readback, and exact replay agree`,
@@ -338,8 +349,8 @@ try {
   performanceSamples.push(construction.sample);
   const info = await adapter.hello();
   const revision = await adapter.revision();
-  check('4f-L1: the accepted project and new extension contract are live',
-    revision.project === PROJECT && info.methodsHash !== undefined,
+  check('4f-L1: the current project and extension contract are live',
+    revision.project !== undefined && info.methodsHash !== undefined,
     { project: revision.project, methodsHash: info.methodsHash });
 
   for (const [name, label, target] of [

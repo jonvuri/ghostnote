@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: dogfooding
-session: correct-nested-direct-parameter-guards
+session: cohort-parameter-writes
 ---
 
 # Now
@@ -79,14 +79,28 @@ public tools. Fresh Codex exposes the compatible schema. The full brain check
 passes 846/846. Extension tests and the 148-method handshake pass. [E76](evidence/experiments/e76-public-native-drum-machine-composition-is-live.md)
 records the result.
 
+D02 Session 2 is complete. Guarded DirectParameter writes now keep the complete
+top-level name and enabled fingerprint separate from the nested route and final
+cursor target. Each named entry, drum-pad channel, and local device position is
+checked before the write. A nested position cannot alias the same numeric
+position in the top-level chain.
+
+Fake, live-adapter, and public-surface regressions cover top-level, depth-1,
+depth-2, and drum-pad targets. The live probe changed and exactly restored one
+native Polysynth value at all three nested shapes. Cleanup restored the exact
+four-track `New 2` entry list. The focused cohort passes 306/306. The full brain
+check passes 850/850. Extension tests, deploy freshness, and the 148-method
+handshake pass. [E77](evidence/experiments/e77-nested-direct-parameter-guards-are-live.md)
+records the result.
+
 ## Next action
 
-Run D02 Session 2: correct nested DirectParameter guards at depth 1, depth 2,
-and inside Drum Machine pads. Then complete the remaining D02 engineering
-sessions before the same-prompt musical retry. Do not begin Phase 6a until the
-operator closes this loop.
+Run D02 Session 3: cohort parameter writes by stable device route and parameter
+view. Then complete D02 Session 4 before the same-prompt musical retry. Do not
+begin Phase 6a until the operator closes this loop.
 
 ## Retrospective
 
 Return a partial receipt when a later stage fails after an earlier write. Verify
 owned containers from a complete inventory, not from first-device witnesses.
+Name each positional guard for its coordinate system.

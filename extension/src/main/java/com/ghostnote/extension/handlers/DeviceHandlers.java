@@ -4,6 +4,7 @@ import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.Device;
 import com.bitwig.extension.controller.api.DeviceBank;
+import com.bitwig.extension.controller.api.DeviceLayer;
 import com.bitwig.extension.controller.api.DrumPad;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -707,6 +708,7 @@ public final class DeviceHandlers extends HandlerGroup {
 
     /** Point the device cursor at the first device of its current track. */
     private JsonElement devcursorSelectInChannel(JsonObject params) {
+        rig.beginDirectParameterRoute(0);
         rig.cursorDevice0.selectFirstInChannel(rig.cursorTracks[0]);
         return ok();
     }
@@ -714,6 +716,7 @@ public final class DeviceHandlers extends HandlerGroup {
     /** Point the device cursor at a specific chain index (via device bank). */
     private JsonElement devcursorSelectAt(JsonObject params) {
         int deviceIndex = params.get("deviceIndex").getAsInt();
+        rig.beginDirectParameterRoute(deviceIndex);
         rig.cursorDevice0.selectDevice(rig.cursorDeviceBanks[0].getDevice(deviceIndex));
         return ok();
     }
@@ -732,12 +735,23 @@ public final class DeviceHandlers extends HandlerGroup {
     private JsonElement devcursorSelectInLayer(JsonObject params) {
         int layerIndex = params.get("layerIndex").getAsInt();
         int deviceIndex = params.get("deviceIndex").getAsInt();
+        DeviceLayer layer = rig.layerBank0.getItemAt(layerIndex);
+        String expectedName = params.has("expectedLayerName")
+            ? params.get("expectedLayerName").getAsString() : null;
+        if (expectedName != null
+                && (!layer.exists().get() || !expectedName.equals(layer.name().get()))) {
+            throw new IllegalArgumentException(
+                "devcursor.selectInLayer named route changed at layer " + layerIndex);
+        }
         rig.cursorDevice0.selectDevice(rig.layerDeviceBanks[layerIndex].getDevice(deviceIndex));
+        rig.addDirectParameterRouteStep("chain", expectedName, null, deviceIndex);
         return ok();
     }
 
     private JsonElement devcursorSelectFirstInSlot(JsonObject params) {
-        rig.cursorDevice0.selectFirstInSlot(params.get("slot").getAsString());
+        String slot = params.get("slot").getAsString();
+        rig.cursorDevice0.selectFirstInSlot(slot);
+        rig.addDirectParameterRouteStep("deviceSlot", slot, null, 0);
         return ok();
     }
 
@@ -751,13 +765,16 @@ public final class DeviceHandlers extends HandlerGroup {
      * the same idiom that points the cursor at a track's first device.
      */
     private JsonElement devcursorSelectFirstInPad(JsonObject params) {
+        int padIndex = params.get("padIndex").getAsInt();
         rig.cursorDevice0.selectFirstInChannel(
-            rig.drumPadBank0.getItemAt(params.get("padIndex").getAsInt()));
+            rig.drumPadBank0.getItemAt(padIndex));
+        rig.addDirectParameterRouteStep("drumPad", null, padIndex, 0);
         return ok();
     }
 
     private JsonElement devcursorSelectParent() {
         rig.cursorDevice0.selectParent();
+        rig.removeDirectParameterRouteStep();
         return ok();
     }
 }

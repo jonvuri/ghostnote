@@ -853,6 +853,71 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
   assert.equal(modelDevice.remotePages[0]!.controls[0]!.value, 0.25);
 });
 
+test('d02-s2-surface: nested and drum-pad DirectParameters verify and reverse', async () => {
+  const fx = fixture();
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  const depth2 = {
+    name: 'Leaf', paramsLive: true,
+    params: [{ id: 'P2', name: 'Depth 2', value: 0.2 }],
+  };
+  const depth1 = {
+    name: 'Inner container', paramsLive: true,
+    params: [{ id: 'P1', name: 'Depth 1', value: 0.1 }],
+    chains: [{ name: 'Inner', solo: false, id: 'd02-inner', devices: [depth2] }],
+  };
+  track.devices.push({
+    name: 'Outer container', paramsLive: true, params: [],
+    chains: [{ name: 'Outer', solo: false, id: 'd02-outer', devices: [depth1] }],
+  });
+  const pads: import('../adapters/fake/model.js').FakeDevice[][] = [];
+  const padDevice = {
+    name: 'Pad synth', paramsLive: true,
+    params: [{ id: 'PAD1', name: 'Pad tone', value: 0.3 }],
+  };
+  pads[3] = [padDevice];
+  track.devices.push({ name: 'Drum Machine', paramsLive: true, params: [], drumPads: pads });
+
+  const result = await call(fx, 'set_parameter', { settings: [
+    {
+      kind: 'direct',
+      device: {
+        trackId: fx.trackA, devicePosition: 0,
+        route: [{ through: 'named-container-entry', name: 'Outer', devicePosition: 0 }],
+      },
+      parameterId: 'P1', normalizedValue: 0.6,
+    },
+    {
+      kind: 'direct',
+      device: {
+        trackId: fx.trackA, devicePosition: 0,
+        route: [
+          { through: 'named-container-entry', name: 'Outer', devicePosition: 0 },
+          { through: 'named-container-entry', name: 'Inner', devicePosition: 0 },
+        ],
+      },
+      parameterId: 'P2', normalizedValue: 0.7,
+    },
+    {
+      kind: 'direct',
+      device: {
+        trackId: fx.trackA, devicePosition: 1,
+        route: [{ through: 'drum-pad', channel: 3 }],
+      },
+      parameterId: 'PAD1', normalizedValue: 0.8,
+    },
+  ] }) as { verified: boolean; changes: { changeId: string }[] };
+
+  assert.equal(result.verified, true, JSON.stringify(result));
+  assert.deepEqual([depth1.params[0]!.value, depth2.params[0]!.value, padDevice.params[0]!.value],
+    [0.6, 0.7, 0.8]);
+  for (const change of [...result.changes].reverse()) {
+    const reversed = await call(fx, 'revert_change', { changeId: change.changeId });
+    assert.equal(reversed['applied'], true, JSON.stringify(reversed));
+  }
+  assert.deepEqual([depth1.params[0]!.value, depth2.params[0]!.value, padDevice.params[0]!.value],
+    [0.1, 0.2, 0.3]);
+});
+
 test('T-surface: every tool runs offline, and emits only what it declares', async () => {
   const fx = fixture();
   const ran = new Set<string>();

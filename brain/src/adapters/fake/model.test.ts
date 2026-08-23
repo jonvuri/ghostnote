@@ -1043,11 +1043,63 @@ test('4f: recursive parameter routing reads and writes at measured depth 2', asy
   const before = await adapter.read([deep, target]);
   assert.equal(before.entries[addressKey(deep)]?.value.of, 'device');
   assert.equal(before.entries[addressKey(target)]?.value.of, 'param');
-  await adapter.apply({ ops: [{ op: 'param.set', param: target, value: 0.75 }] });
+  await adapter.apply({ ops: [{
+    op: 'param.set', param: target, value: 0.75,
+    expectedName: 'Leaf', expectedChain: ['Outer container'],
+    expectedEnabledChain: [true],
+  }] });
   await adapter.settle('tick');
   const after = await adapter.read([target]);
   const afterEntry = after.entries[addressKey(target)];
   assert.equal(afterEntry?.value.of === 'param' ? afterEntry.value.param.value : undefined, 0.75);
+});
+
+test('d02-s2: fake parameter guards reject each nested identity boundary', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.findByChannelId(first.channelId)!.track;
+  const leaf = {
+    name: 'Leaf', paramsLive: true,
+    params: [{ id: 'P1', name: 'Depth', value: 0.25 }],
+  };
+  const inner = {
+    name: 'Inner container', paramsLive: true, params: [],
+    chains: [someChain('Inner', [leaf])],
+  };
+  const padLeaf = {
+    name: 'Pad synth', paramsLive: true,
+    params: [{ id: 'PAD1', name: 'Tone', value: 0.4 }],
+  };
+  const pads: import('./model.js').FakeDevice[][] = [];
+  pads[3] = [padLeaf];
+  model.devices.push({
+    name: 'Outer container', enabled: true, paramsLive: true, params: [],
+    chains: [someChain('Outer', [inner])], drumPads: pads,
+  });
+  const top = deviceAddress(track(first.channelId), 0);
+  const level1 = deviceInAddress(chainAddress(top, 'Outer'), 0);
+  const depth2 = paramAddress(
+    deviceInAddress(chainAddress(level1, 'Inner'), 0), 'P1');
+  const pad = paramAddress(deviceInAddress(drumPadAddress(top, 3), 0), 'PAD1');
+  const guard = { expectedChain: ['Outer container'], expectedEnabledChain: [true] } as const;
+  const failed = (receipt: Awaited<ReturnType<FakeAdapter['apply']>>): string =>
+    receipt.stages.flatMap((stage) => stage.ops).find((op) => !op.ok)?.error ?? '';
+
+  assert.match(failed(await adapter.apply({ ops: [{
+    op: 'param.set', param: depth2, value: 0.5, expectedName: 'Leaf',
+    expectedChain: ['Wrong root'], expectedEnabledChain: [true],
+  }] })), /device chain changed/);
+  await assert.rejects(adapter.apply({ ops: [{
+    op: 'param.set',
+    param: paramAddress(deviceInAddress(chainAddress(level1, 'Wrong inner'), 0), 'P1'),
+    value: 0.5, expectedName: 'Leaf', ...guard,
+  }] }), /parameter target is absent/);
+  assert.match(failed(await adapter.apply({ ops: [{
+    op: 'param.set', param: depth2, value: 0.5, expectedName: 'Wrong leaf', ...guard,
+  }] })), /expected "Wrong leaf"/);
+  assert.match(failed(await adapter.apply({ ops: [{
+    op: 'param.set', param: pad, value: 0.5, expectedName: 'Wrong pad device', ...guard,
+  }] })), /expected "Wrong pad device"/);
 });
 
 test('4f: duplicate, empty and outside-window layer paths stay distinct', async () => {
@@ -1090,6 +1142,14 @@ test('4f: a drum pad is addressed by channel and selects its first device', asyn
   const target = paramAddress(deviceInAddress(drumPadAddress(top, 3), 0), 'P1');
   assert.equal((await adapter.resolve([target])).resolved[0]?.found, true);
   assert.equal((await adapter.read([target])).entries[addressKey(target)]?.value.of, 'param');
+  await adapter.apply({ ops: [{
+    op: 'param.set', param: target, value: 0.7,
+    expectedName: 'Pad synth', expectedChain: ['Drum Machine'],
+  }] });
+  await adapter.settle('tick');
+  const after = await adapter.read([target]);
+  const entry = after.entries[addressKey(target)];
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.value : undefined, 0.7);
 });
 
 test('4f: remote pages enumerate and one named control round-trips', async () => {

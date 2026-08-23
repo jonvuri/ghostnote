@@ -1212,7 +1212,11 @@ export class LiveAdapter implements BitwigAdapter {
         if (!Number.isInteger(layer.index)) return { standing: 'unstable', deviceName: targetName };
         await this.transport.send({
           method: WIRE.deviceCursorSelectInLayer,
-          params: { layerIndex: layer.index, deviceIndex: nestedAddress.chainIndex },
+          params: {
+            layerIndex: layer.index,
+            deviceIndex: nestedAddress.chainIndex,
+            expectedLayerName: step.name,
+          },
         });
         targetName = nested.name;
       }

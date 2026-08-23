@@ -105,6 +105,12 @@ device name, track pin, and device pin. Two equal consecutive inventories must
 agree in the current generation [K,
 [E55](../experiments/e55-direct-parameter-core-is-live.md)].
 
+Guarded writes keep the complete top-level name and enabled fingerprint
+separate from the nested route and final local target. Named entries, drum-pad
+channels, and local device positions must match the route recorded during cursor
+selection [K,
+[E77](../experiments/e77-nested-direct-parameter-guards-are-live.md)].
+
 The live Sampler returned 32 unique named parameters. `Pitch Transpose` moved
 from `0.5` to `0.55`, independent readback agreed, and exact replay restored
 `0.5` [K, E55]. Missing, unreachable, and unstable results stay separate. A
@@ -359,6 +365,7 @@ grammar [K, E70, E72, and E73].
 
 | Date | Change |
 |---|---|
+| 2026-08-23 | E77 separates top-level, nested-route, and final-target guards for scalar parameter writes. |
 | 2026-08-23 | E70, E72, and E73 add the public modulator and composition surfaces, maximum-width behavior proof, and nested parameter reuse. |
 | 2026-08-23 | E68 adds explicit container-list retarget, named device-slot observation, checkpointed cross-device behavior, and exact cleanup. |
 | 2026-08-22 | E64 adds the final performance matrix, saved accepted chain, exact cleanup, and Phase 5 remote-readback handoff. It also removes the obsolete statement that indexed cross-device modulation is unmeasured; E11e already proved it. |

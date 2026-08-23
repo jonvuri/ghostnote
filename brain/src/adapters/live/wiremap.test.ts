@@ -507,18 +507,23 @@ test('4g: guarded parameter writes recheck the top-level target immediately befo
   assert.match(helper, /if \(!params\.has\("expectedDeviceNames"\)[\s\S]{0,220}return;/,
     'legacy raw parameter probes without a fingerprint stay compatible');
   for (const field of [
-    'expectedDeviceNames', 'expectedTrackChannelId', 'expectedDeviceName', 'expectedDeviceIndex',
+    'expectedDeviceNames', 'expectedTrackChannelId', 'expectedTopLevelDeviceName',
+    'expectedTopLevelDeviceIndex', 'expectedNestedRoute', 'expectedTargetDeviceName',
+    'expectedTargetDeviceIndex', 'expectedTargetNested',
   ]) {
     assert.ok(helper.includes(`"${field}"`), `guarded parameter writes require ${field}`);
   }
   const track = helper.indexOf('cursorTracks[0].channelId().get()');
   const chain = helper.indexOf('bank.itemCount().get()');
+  const route = helper.indexOf('directParameterRouteKinds');
   const targetIndex = helper.indexOf('currentDirectParameterDeviceIndex()');
   const targetName = helper.indexOf('cursorDevice0.name().get()');
-  assert.ok(track >= 0 && track < chain && chain < targetIndex && targetIndex < targetName,
-    'the helper must check track, complete chain, cursor index, then cursor name');
+  assert.ok(track >= 0 && track < chain && chain < route && route < targetIndex && targetIndex < targetName,
+    'the helper checks the track, complete chain, nested route, target index, then target name');
   assert.ok(helper.includes('device.exists().get()') && helper.includes('device.name().get()'),
     'the complete-chain guard checks every bank row for existence and name');
+  assert.equal(helper.includes('expectedDeviceName disagrees with expectedDeviceNames'), false,
+    'a nested target name is never compared with the top-level device list');
 });
 
 test('3f: the extension checks the expected durable id immediately before the product copy call', () => {
