@@ -80,8 +80,10 @@ original JSONL as the authoritative record.
 ## Run records
 
 - [D01 — native Codex lo-fi jungle attempt](d01-native-codex-lofi-jungle.md) —
-  native MCP startup passed; no Bitwig content changed; two defects need
-  isolation.
+  native MCP startup passed; both focused defects are fixed.
+- [D02 — Drum Machine and surface hardening](d02-drum-machine-and-surface-hardening.md)
+  — add public pad composition, correct nested parameter writes, reduce repeated
+  acquisition cost, clarify the surface, and repeat the same musical prompt.
 
 ## Close condition
 

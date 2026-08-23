@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: dogfooding
-session: open-dogfooding-loop
+session: public-drum-machine-composition
 ---
 
 # Now
@@ -56,12 +56,18 @@ The full brain check passes 829/829, and the extension check passes.
 and [E75](evidence/experiments/e75-stale-selection-restoration-is-invalidated.md)
 record both follow-ups.
 
+[D02](plan/dogfooding/d02-drum-machine-and-surface-hardening.md) records the
+second musical run and the selected improvement sequence. The run exposed a
+public Drum Machine composition gap, an incorrect nested DirectParameter guard,
+repeated parameter-acquisition cost, and unclear container and note-refusal
+descriptions. The final Ghost Hat solo was intentional operator auditioning.
+
 ## Next action
 
-Run the next musical dogfood chat with a goal that the current public surface can
-express fully. Keep the drum-rack product gap separate. Do not begin Phase 6a
-until the operator closes this loop.
+Run D02 Session 1: add and prove public native Drum Machine composition. Then
+complete the remaining D02 engineering sessions before the same-prompt musical
+retry. Do not begin Phase 6a until the operator closes this loop.
 
 ## Retrospective
 
-Validate cached observer coordinates through current object state before replay.
+State container execution and MIDI-routing semantics at the public boundary.
