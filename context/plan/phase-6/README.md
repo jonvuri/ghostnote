@@ -1,8 +1,8 @@
 ---
 title: Phase 6 — Breadth & release
 kind: plan
-state: planned
-status: Not started. Session 6a is selected after the Phase 5 remote CI gate.
+state: active
+status: Phase 5 is complete. Session 6a is selected next and not started.
 updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md

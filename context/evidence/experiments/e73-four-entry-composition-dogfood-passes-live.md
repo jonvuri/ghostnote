@@ -89,8 +89,12 @@ writes, and reversal.
 - `./gradlew test`: passes from `extension/`.
 - `ruby check.rb`: all 224 active context documents and links pass.
 
-The exact-candidate remote CI run remains pending. Phase 5 stays active until
-that run passes.
+## Final remote CI
+
+[GitHub Actions run 32660690914](https://github.com/jonvuri/ghostnote/actions/runs/32660690914)
+passed on its first attempt for exact candidate
+`894bc608ca3c872c693bfdd9454038f819359458`. The `extension (compile)` and
+`brain (offline suite)` jobs both passed. Phase 5 is complete.
 
 ## Retrospective
 

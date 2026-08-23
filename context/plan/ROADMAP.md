@@ -2,7 +2,7 @@
 title: ghostnote roadmap
 kind: plan
 state: active
-updated: 2026-08-22
+updated: 2026-08-23
 ---
 
 # Roadmap
@@ -14,8 +14,8 @@ updated: 2026-08-22
 | [2 — clip surface](phase-2/README.md) | done | Musical clip vocabulary, public surface, long-clip support, dogfood, and final proof |
 | [3 — session view](phase-3/README.md) | deferred | Phase 2 found no evidence to run it now |
 | [4 — sound design](phase-4/README.md) | done | Device and parameter surface |
-| [5 — authoring](phase-5/README.md) | active | Structure and modulation authoring; checkpointed add is live |
-| [6 — breadth and release](phase-6/README.md) | planned | Independently schedulable breadth, packaging, and release work |
+| [5 — authoring](phase-5/README.md) | done | Checkpointed topology edits, public modulator authoring, and owned structure composition |
+| [6 — breadth and release](phase-6/README.md) | active | Independently schedulable breadth, packaging, and release work |
 
 ## Cross-phase work
 

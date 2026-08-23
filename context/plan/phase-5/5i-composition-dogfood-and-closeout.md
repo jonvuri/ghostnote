@@ -1,8 +1,8 @@
 ---
 title: Phase 5i — composition dogfood and Phase 5 closeout
 kind: plan
-state: active
-status: Local and live gates pass. Exact-candidate remote CI remains.
+state: complete
+status: Complete. E73 records the live audit and exact-candidate CI pass.
 updated: 2026-08-23
 parent: README.md
 evidence: D1, D2, D3, D7, D15, E64-E73
@@ -15,7 +15,8 @@ evidence: D1, D2, D3, D7, D15, E64-E73
 > temporary-file cleanup. Maximum-width dogfood found and corrected the
 > four-slot observer blind spot. The full public device matrix, public modulator
 > matrix, shared conformance, cleanup, handshake, and saved baselines pass.
-> Exact-candidate remote CI follows the staged handoff.
+> GitHub Actions run 32660690914 passes both jobs for exact candidate
+> `894bc608ca3c872c693bfdd9454038f819359458`.
 
 ## Purpose
 

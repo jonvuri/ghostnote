@@ -1,8 +1,8 @@
 ---
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
-state: active
-status: Session 5i local and live gates pass. Exact-candidate remote CI remains.
+state: complete
+status: Complete 2026-08-23. E65-E73, exact cleanup, and final remote CI pass.
 updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -20,16 +20,13 @@ evidence: DECISIONS D1/D2/D3, FINDINGS E10–E13, BWMOD_DESIGN.md, BWFORMAT_SPEC
 
 ## Where this actually stands
 
-Unusually for a phase plan, the hard part is done. `brain/src/bwmod/` ships all five
-editors, `validate()`, the readers and a curated donor library; **42 offline tests
-pass** including four byte-identical golden reconstructions and a byte-for-byte
-cross-check against the Python reference, and **12 live cases pass against Bitwig
-6.0.6**, each confirmed by remote-page readback, with a negative control proving the
-reject guard fires (D3/E13).
-
-So Phase 5 is not "figure out modulator authoring." It is **"wire a proven library
-into the executor and build the asset library it consumes."** No further format work
-is required — E13 noted every recipe worked as documented on the first live run.
+Phase 5 is complete. `brain/src/bwmod/` ships all five editors, `validate()`,
+readers, measured donors, and a Python-oracle boundary. The executor records and
+reverses authored insertions. Public tools expose named topology edits and
+one-through-four-entry native composition. E73 proves the maximum-width patch,
+nested parameter reuse, exact cleanup, and final verification. The
+[outcome](../../archive/outcomes/PHASE-5.md) records the complete result and
+qualifications.
 
 ## Phase 4 handoff
 
@@ -103,10 +100,10 @@ that first integration unless the proof needs one new owned asset.
 8. [5h — public structure composition](5h-public-structure-composition.md) — done.
    Expose one format-hidden composition tool with named devices, modulators,
    targets, exact witnesses, and a recorded insertion.
-9. [5i — composition dogfood and closeout](5i-composition-dogfood-and-closeout.md) — active.
+9. [5i — composition dogfood and closeout](5i-composition-dogfood-and-closeout.md) — done.
    E73 proves the four-entry public patch, nested parameter work, two active
-   routes, reversal, exact cleanup, and every local and live gate. The exact
-   candidate still needs remote CI before Phase 5 closes.
+   routes, reversal, exact cleanup, and every local and live gate. GitHub
+   Actions run 32660690914 passes the exact candidate.
 
 ## Scope
 
@@ -173,8 +170,9 @@ that first integration unless the proof needs one new owned asset.
 7. The public composition surface hides every binary and asset control and
    passes one useful dogfood request before Phase 5 closes.
 
-E73 audits all seven criteria as complete. Phase completion remains gated only
-on remote CI for the exact candidate.
+E73 audits all seven criteria as complete. The
+[Phase 5 outcome](../../archive/outcomes/PHASE-5.md) records the final matrix,
+qualifications, policy, remote CI, and Phase 6 handoff.
 
 ## Risks
 
