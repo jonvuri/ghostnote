@@ -33,3 +33,10 @@ with the original decision heading and preserves its amendments and rationale.
 | D19 | Undo: Bitwig's stack is the human's; agent-edit reversal is ours **[SETTLED 2026-08-06; separated out 2026-08-07]** | [open](d19-undo-bitwig-s-stack-is-the-human-s-agent-edit-reversal-is-ours-s.md) |
 | D20 | Destruction: zero initiative, directed execution behind an annotated seam **[SETTLED 2026-08-07]** | [open](d20-destruction-zero-initiative-directed-execution-behind-an-annotat.md) |
 | D21 | One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16, AMENDED 2026-08-18]** | [open](d21-musical-patch-and-public-tool-grain.md) |
+
+## Phase 4 closeout audit
+
+E64 requires no new decision or amendment. D8 already owns scalar, enabled-
+state, inserted-device, and existing-device-delete fidelity. D16 owns guarded
+execution and reversal. D20 owns directed device deletion. E63's candidate A/B
+selection policy remains evidence only under D18's repeated-use rule.

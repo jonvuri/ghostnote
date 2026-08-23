@@ -2,7 +2,7 @@
 title: ghostnote roadmap
 kind: plan
 state: active
-updated: 2026-08-20
+updated: 2026-08-22
 ---
 
 # Roadmap
@@ -13,8 +13,8 @@ updated: 2026-08-20
 | [1 — write engine and managed takes](phase-1/README.md) | done | Safe writes, track-copy CRUD, two scoped take representations, observation, status, navigation, live proof |
 | [2 — clip surface](phase-2/README.md) | done | Musical clip vocabulary, public surface, long-clip support, dogfood, and final proof |
 | [3 — session view](phase-3/README.md) | deferred | Phase 2 found no evidence to run it now |
-| [4 — sound design](phase-4/README.md) | next | Device and parameter surface |
-| [5 — authoring](phase-5/README.md) | planned | Structure and modulation authoring; `bwmod` already exists |
+| [4 — sound design](phase-4/README.md) | done | Device and parameter surface |
+| [5 — authoring](phase-5/README.md) | next | Structure and modulation authoring; `bwmod` already exists |
 | [6 — breadth and release](phase-6/README.md) | planned | Independently schedulable breadth, packaging, and release work |
 
 ## Cross-phase work

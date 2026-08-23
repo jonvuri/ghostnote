@@ -1,8 +1,9 @@
 ---
 title: Phase 4 — Sound design: devices & parameters
 kind: plan
-state: active
-status: Session 4j dogfood is accepted. Save, final proof, and closeout remain.
+state: complete
+status: Phase 4 is complete. E64 records the saved baseline, complete matrix,
+        final remote CI, and Phase 5 handoff.
 updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-3/README.md
@@ -58,9 +59,9 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
    complete. E61 removes the remote-page loop and stabilizes plugin readback.
 12. [4i — device and parameter MCP surface](4i-device-surface.md) — complete.
    E62 records the frozen six-tool cohort and registered MCP proof.
-13. [4j — dogfood and closeout](4j-dogfood-and-closeout.md) — dogfood accepted;
-    save, the complete live matrix, cleanup, evidence audit, and Phase 5 handoff
-    remain.
+13. [4j — dogfood and closeout](4j-dogfood-and-closeout.md) — complete. E63
+    records the accepted natural task. E64 records the saved baseline, final
+    matrix, cleanup, closeout audit, and Phase 5 handoff.
 
 ### Dependency rule
 
@@ -180,6 +181,16 @@ remote-page readback**, so the param layer is Phase 5's test instrument.
    the identical measured baseline by at least half without reduced fidelity.
 6. Complete device workflows have measured host, observer, bridge, and
    verification costs before the MCP cohort freezes.
+
+## Outcome
+
+The [Phase 4 outcome](../../archive/outcomes/PHASE-4.md) maps every criterion to
+exact evidence. It records the final public cohort, device and parameter
+qualifications, standing regression matrix, final remote CI, saved dogfood
+baseline, and Phase 5 handoff.
+
+[E64](../../evidence/experiments/e64-phase-4-closes-with-saved-device-baseline.md)
+confirms that all criteria pass. Phase 5 is next.
 
 ## Risks
 

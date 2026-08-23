@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-08-22
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E59, E62; D2; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E64; D2; reference/BitX
 ---
 
 # Devices
@@ -137,6 +137,11 @@ returned id wrote and restored one scalar base exactly. Native, VST3, CLAP, and
 preset insertion passed with exact cleanup. VST3 and CLAP insertion took 1,728
 and 1,729 ms [K, E62].
 
+E63 records one accepted natural sound-design task. The general inventory was
+sufficient for Chorus+ and Reverb. No device-specific view was needed. The
+operator kept a colder revision after A/B comparison [K,
+[E63](../experiments/e63-device-dogfood-exposes-ab-selection-gap.md)].
+
 ### Managed top-level chains
 
 The product composes native, VST3, CLAP, and preset insertion with parameter
@@ -161,6 +166,20 @@ before the take is never deleted by automatic reversal. Such deletion remains
 ⚠ The complete name-and-enabled sequence is a fingerprint, not identity. It
 detects many positional changes. It cannot detect replacement by a different
 device with the same name and enabled state [K, E59 and E16l].
+
+### Final performance and closeout
+
+The final matrix passed every E61 budget. Native inventory took 2,964 ms.
+Native replay took 4,606 ms. Complete VST3 and CLAP workloads took 11,431 and
+12,586 ms. Depth-2 replay took 7,177 ms. Remote inventory and replay took 1,357
+and 8,219 ms. Managed construction stayed below 50 seconds, and reversal stayed
+below 16.5 seconds [K,
+[E64](../experiments/e64-phase-4-closes-with-saved-device-baseline.md)].
+
+The saved accepted chain is `Key Filter+ → Repro-5 → Chorus+ → Reverb`. Fresh
+stable inventories confirmed all nine retained Chorus+ and Reverb values after
+the complete scratch matrix. Cleanup restored seven tracks, 14 clips, the exact
+entry selection, and no launcher residue [K, E64].
 
 ### `SpecificBitwigDevice` is a two-method interface
 
@@ -318,8 +337,13 @@ Modulator topology is not authored through this API. It is authored by tested
 [`BWFORMAT_SPEC.md`](../format/BWFORMAT_SPEC.md) for that domain, and
 [D2](../../decisions/d2-host-capability-tiers-tier-1-settled-tier-2-tier-1-stub-relocati.md) for the tier gate.
 
-⚠ Cross-device modulation stays **outside every claim** until its indexed route
-is measured [carried forward, session 3f].
+Phase 4 does not author modulator topology. E11e already proves that `bwmod` can
+author one indexed cross-device route from a container and that live modulation
+results [K,
+[E11e](../experiments/e11e-cross-device-routing-works-from-container-modulators-and-is-synt.md)].
+Phase 5 owns product integration. It must verify an edit through the exact
+remote-control selector and compare base value with `modulatedValue`. Offline
+`validate()` predicts a load and does not prove modulation [K, E11e and E64].
 
 ---
 
@@ -327,6 +351,8 @@ is measured [carried forward, session 3f].
 
 | Date | Change |
 |---|---|
+| 2026-08-22 | E64 adds the final performance matrix, saved accepted chain, exact cleanup, and Phase 5 remote-readback handoff. It also removes the obsolete statement that indexed cross-device modulation is unmeasured; E11e already proved it. |
+| 2026-08-22 | E63 records that the general inventory was sufficient for natural Chorus+ and Reverb work. |
 | 2026-08-22 | E62 adds the frozen registered MCP device cohort, live budget proof, and exact cleanup. |
 | 2026-08-22 | E59 adds readable and writable enabled state, complete name-and-enabled mutation guards, mixed managed construction, current-position reversal, and retryable recovery. |
 | 2026-08-22 | E57 adds explicit VST3 and CLAP insertion, parameter write and replay, failed missing-plugin receipts, and exact cleanup. |

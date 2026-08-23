@@ -2,7 +2,7 @@
 title: ghostnote project context
 kind: project
 state: active
-updated: 2026-08-20
+updated: 2026-08-22
 ---
 
 # ghostnote
@@ -35,6 +35,12 @@ surface without relying on the user's UI selection.
 - The Phase 2 musical surface uses one versioned patch grammar for generation
   and transformation. Long musical work has explicit background completion and
   cooperative cancellation.
+- The Phase 4 device surface discovers arbitrary DirectParameter ids, keeps
+  native, VST3, CLAP, and preset sources explicit, and verifies scalar writes,
+  bypass, insertion, and directed deletion by readback.
+- Device positions are not identities. Managed chain work uses complete
+  name-and-enabled guards and keeps mint provenance separate from current
+  observed position.
 - Modulator topology is authored by tested `.bwpreset` surgery through `bwmod`.
 
 ## Stable constraints

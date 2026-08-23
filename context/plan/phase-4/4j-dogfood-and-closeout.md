@@ -1,8 +1,9 @@
 ---
 title: Phase 4, session 4j — dogfood and closeout
 kind: plan
-state: active
-status: Dogfood accepted. Save, the complete matrix, and closeout remain.
+state: complete
+status: Complete 2026-08-22. E63 records dogfood. E64 records the saved
+        baseline, complete matrix, cleanup, remote CI, and Phase 5 handoff.
 updated: 2026-08-22
 parent: README.md
 prev: 4i-device-surface.md
@@ -74,7 +75,7 @@ is frozen. No unresolved performance gate remains.
 Record whether the public parameter inventory was sufficient for a natural
 sound-design request. Add no speculative device-specific view.
 
-## Current result
+## Result
 
 [E63](../../evidence/experiments/e63-device-dogfood-exposes-ab-selection-gap.md)
 records the accepted `Harmony – Open Minor` sound-design task. The public
@@ -85,5 +86,9 @@ chain to the top level and removed the alternate container.
 The task exposed an A/B selection-policy gap. The factual descriptions do not
 tell an agent when subjective revision language should create an alternate. E63
 records the operator-accepted candidate policy as evidence only. The frozen
-cohort does not change from one session. The accepted live change still needs a
-manual save. The complete matrix and Phase 4 closeout remain.
+cohort does not change from one session.
+
+[E64](../../evidence/experiments/e64-phase-4-closes-with-saved-device-baseline.md)
+records the saved accepted chain, complete scratch matrix, final baseline,
+local and live checks, and remote CI. Every exit criterion passes. The
+[Phase 4 outcome](../../archive/outcomes/PHASE-4.md) is the durable closeout.

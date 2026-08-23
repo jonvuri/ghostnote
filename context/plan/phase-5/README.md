@@ -1,9 +1,10 @@
 ---
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
-state: planned
-status: not started — the library it depends on is already BUILT
-updated: 2026-07-24
+state: active
+status: Next. Start executor and take integration. The `bwmod` library it uses
+        is already built and tested.
+updated: 2026-08-22
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -30,6 +31,21 @@ reject guard fires (D3/E13).
 So Phase 5 is not "figure out modulator authoring." It is **"wire a proven library
 into the executor and build the asset library it consumes."** No further format work
 is required — E13 noted every recipe worked as documented on the first live run.
+
+## Phase 4 handoff
+
+Phase 4 is complete. [E64](../../evidence/experiments/e64-phase-4-closes-with-saved-device-baseline.md)
+records the final matrix and saved baseline.
+
+Use remote-control readback as the live modulation verification instrument.
+Resolve the exact page and control selector, then compare its base value and
+`modulatedValue`. `bwmod.validate()` proves only that a preset can load. It does
+not prove that the authored route produces modulation.
+
+Start with one focused executor operation that applies a proved `bwmod` edit,
+loads the result, verifies it through remote readback, records an honest
+structural-fidelity take, and reverses it. Keep template-library growth outside
+that first integration unless the proof needs one new owned asset.
 
 ## What the spike established (do not re-derive)
 
