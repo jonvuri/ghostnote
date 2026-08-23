@@ -48,6 +48,18 @@ load plus a remote-page readback proves the modulation is actually live (a wrong
 path passes every offline check and does nothing, E10b). Workstream B builds on
 `bwmod` + a curated template/donor library; it does not need any further format work.
 
+### Phase 5 product library policy
+
+**Settled 2026-08-23 by E71–E73.** The product ships one human-authored,
+four-entry Instrument Layer template with recorded provenance. It does not copy
+a Bitwig bundled preset. It needs no first-run generation or runtime operator
+setup. The file composer can retain one through four entries. A seeded live
+layer can grow through typed duplication, which is a separate product path.
+
+Standalone `bwmod` publication and external redistribution review remain Phase
+6 work. A wider file template, another container shape, or another binary asset
+needs a new measured asset and provenance record.
+
 ---
 
 ## Sampler (Tier-2) scrutiny — RESOLVED by E12 (2026-07-24)

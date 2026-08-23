@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-08-23
 scope: nested device containers; chain lifecycle, switching, addressing and state
-evidence: E4c, E4d, E16 §3.4e, E16n/o, E16w, E17, E18a-h, E71; D6, D18
+evidence: E4c, E4d, E16 §3.4e, E16n/o, E16w, E17, E18a-h, E71-E73; D6, D7, D18
 ---
 
 # Containers
@@ -47,7 +47,14 @@ model and cannot be used for live A/B. §"Why the Selector is out" states why.
   requested, validated, observed, and verified facts, and reverses through
   `revert_change` [K,
   [E72](../experiments/e72-public-device-structure-composition-is-live.md)].
+  Maximum-width dogfood proves all four entries, two active nested routes,
+  existing parameter control, reversal, and exact cleanup [K,
+  [E73](../experiments/e73-four-entry-composition-dogfood-passes-live.md)].
   The one-entry seed remains the typed duplication path.
+- The fixed slot-scoped layer observer is five entries wide. Four entries use
+  the shipped file-template capacity. The fifth slot proves that a four-entry
+  result is complete. A create that would exceed the observer still refuses
+  before write [K, E73 and D7].
 - `hasLayers=true` does **not** mean a chain exists. Read the layer bank count,
   never the capability flag [K, [E4c](../experiments/e4c-device-nesting-layers-pads-slots-selectors-2026-07-19.md)].
 - A container can be placed on an ordinary track, on an **FX return** and on the
@@ -398,6 +405,7 @@ nothing about it** [K, E18e scope note].
 
 | Date | Change |
 |---|---|
+| 2026-08-23 | E73 proves maximum-width public composition and adds the five-slot observer qualification. |
 | 2026-08-15 | Page created. It supersedes the *reading* of E4c's "layers cannot be created", E4d route 3's ○, and E17's early "a chain is not addressable" drafts. Every one of those E-files is already self-corrected and is left frozen. |
 | 2026-08-15 | *"Selectors cannot be seeded"* split into two claims; the shell half superseded. §5. |
 | 2026-08-15 | Selector deactivation recorded at `[I]`; Selector closed for live A/B. §4. |

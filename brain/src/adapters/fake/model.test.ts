@@ -842,8 +842,8 @@ test('T-create: two creates in ONE batch are SUMMED against the bank, not checke
   // independently is a post-hoc check wearing a precondition's clothes.
   //
   // Measured before the fix, on exactly this fixture: two creates against a
-  // 3-of-4 container produced FIVE chains — one stranded past a bank that can
-  // address four, unresolvable and with no typed delete to remove it — and both
+  // 4-of-5 container produced SIX chains — one stranded past a bank that can
+  // address five, unresolvable and with no typed delete to remove it — and both
   // stage receipts reported `ok: true`.
   const adapter = new FakeAdapter({ tracks: ['gn-A'] });
   const first = (await adapter.tracks())[0]!;
@@ -865,7 +865,7 @@ test('T-create: two creates in ONE batch are SUMMED against the bank, not checke
         { op: 'chain.create', source, name: 'x2' },
       ],
     }),
-    /would leave the container holding 5 chains in a bank 4 wide/,
+    /would leave the container holding 6 chains in a bank 5 wide/,
   );
   // ⚠ The WHOLE batch is refused, so not even the first create ran. A create
   // that landed and a create that was refused cannot be mixed here: there is no

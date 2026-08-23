@@ -955,9 +955,9 @@ export function runConformance(h: AdapterHarness): void {
         );
 
         // ⚠⚠ DISTINCT names do not make a batch safe when its projected total
-        // outgrows the fixed four-wide chain bank. The container has two chains
-        // here (the shipped source and MADE), so this three-create batch would
-        // place the last copy at position 4, outside every observable slot scope.
+        // outgrows the fixed five-wide chain bank. The container has two chains
+        // here (the shipped source and MADE), so this four-create batch would
+        // place the last copy at position 5, outside every observable slot scope.
         // The projection must reject the WHOLE batch before even its first copy.
         await assert.rejects(
           adapter.apply({
@@ -965,9 +965,10 @@ export function runConformance(h: AdapterHarness): void {
               { op: 'chain.create', source, name: 'gn-conf-cap-a' },
               { op: 'chain.create', source, name: 'gn-conf-cap-b' },
               { op: 'chain.create', source, name: 'gn-conf-cap-c' },
+              { op: 'chain.create', source, name: 'gn-conf-cap-d' },
             ],
           }),
-          /would leave the container holding 5 chains in a bank 4 wide/,
+          /would leave the container holding 6 chains in a bank 5 wide/,
         );
         const unchanged = (await adapter.read([container])).entries[addressKey(container)];
         const chainsNow = unchanged?.value.of === 'device' ? unchanged.value.device.container : undefined;

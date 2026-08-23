@@ -1,14 +1,21 @@
 ---
 title: Phase 5i — composition dogfood and Phase 5 closeout
 kind: plan
-state: planned
-status: Planned after 5h. Prove useful composition and close Phase 5.
+state: active
+status: Local and live gates pass. Exact-candidate remote CI remains.
 updated: 2026-08-23
 parent: README.md
-evidence: D1, D2, D3, D15, E64-E72
+evidence: D1, D2, D3, D7, D15, E64-E73
 ---
 
 # Phase 5i — composition dogfood and Phase 5 closeout
+
+> **Current result.** E73 proves the four-entry Instrument Layer, two active LFO
+> routes, two exact nested parameter bases, reversal, and exact project and
+> temporary-file cleanup. Maximum-width dogfood found and corrected the
+> four-slot observer blind spot. The full public device matrix, public modulator
+> matrix, shared conformance, cleanup, handshake, and saved baselines pass.
+> Exact-candidate remote CI follows the staged handoff.
 
 ## Purpose
 

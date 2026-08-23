@@ -2,8 +2,8 @@
 title: Phase 6 — Breadth & release
 kind: plan
 state: planned
-status: not started — a bag of independently schedulable items, not a sequenced phase
-updated: 2026-07-24
+status: Not started. Session 6a is selected after the Phase 5 remote CI gate.
+updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
 ---
@@ -22,6 +22,14 @@ Controller API permits, in rough order of feasibility and personal usefulness."*
 Phases 0–5 are in, feasibility is largely settled — the API sweep found typed
 primitives for nearly all of this — so the ordering criterion collapses to **personal
 usefulness**, which cannot be predicted in advance and should not be pre-committed.
+
+## Next selected item
+
+[6a — `bwmod` publication review and extraction](6a-bwmod-publication-review.md)
+is next after Phase 5 closes. Phase 5 settled the internal asset policy and
+deferred external redistribution review. Session 6a checks that boundary before
+it prepares the standalone package. It does not publish externally without
+explicit approval.
 
 ## Candidate items
 

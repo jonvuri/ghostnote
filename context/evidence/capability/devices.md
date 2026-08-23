@@ -2,9 +2,9 @@
 title: Devices — type UUIDs, parameters and observables
 kind: capability
 state: active
-updated: 2026-08-22
+updated: 2026-08-23
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E64; D2; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73; D2; reference/BitX
 ---
 
 # Devices
@@ -337,14 +337,21 @@ Modulator topology is not authored through this API. It is authored by tested
 [`BWFORMAT_SPEC.md`](../format/BWFORMAT_SPEC.md) for that domain, and
 [D2](../../decisions/d2-host-capability-tiers-tier-1-settled-tier-2-tier-1-stub-relocati.md) for the tier gate.
 
-Phase 4 does not author modulator topology. E68 proves the Phase 5 product path.
-It selects the outer list, retargets its LFO, loads the result through the
-executor, and verifies nested `FILTER/Filt Freq` behavior [K,
+The Phase 5 product path authors topology before load. E68 selects the outer
+list, retargets its LFO, loads the result through the executor, and verifies
+nested `FILTER/Filt Freq` behavior [K,
 [E68](../experiments/e68-container-cross-device-routing-is-live.md)]. The
 observer descends through the Chain device's named `CHAIN` slot. Offline
 `validate()` predicts a load and does not prove modulation [K, E11e, E64, E68].
 The slot route confirms its parent and repeats the descent, so an empty slot
 cannot silently resolve to the parent device.
+
+`author_modulators` exposes add, replace, retarget, amount, and delete through
+named operations. `compose_device_structure` applies those operations while it
+builds one through four native entries. Existing inspection and parameter tools
+then reach each nested device by its named container entry. Maximum-width
+dogfood set and read exact Polysynth and Sampler bases without a new parameter
+grammar [K, E70, E72, and E73].
 
 ---
 
@@ -352,6 +359,7 @@ cannot silently resolve to the parent device.
 
 | Date | Change |
 |---|---|
+| 2026-08-23 | E70, E72, and E73 add the public modulator and composition surfaces, maximum-width behavior proof, and nested parameter reuse. |
 | 2026-08-23 | E68 adds explicit container-list retarget, named device-slot observation, checkpointed cross-device behavior, and exact cleanup. |
 | 2026-08-22 | E64 adds the final performance matrix, saved accepted chain, exact cleanup, and Phase 5 remote-readback handoff. It also removes the obsolete statement that indexed cross-device modulation is unmeasured; E11e already proved it. |
 | 2026-08-22 | E63 records that the general inventory was sufficient for natural Chorus+ and Reverb work. |

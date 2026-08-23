@@ -24,6 +24,13 @@ actual defaults.
 therefore bounds maximum project size, which is a correctness limit rather than a
 tuning preference.
 
+**Amended 2026-08-23 by Phase 5i.** The fixed slot-scoped layer bank is five
+wide. The shipped composer must prove a complete four-entry template, and a
+four-wide observer cannot distinguish four entries from an overflow. One spare
+observer slot makes four entries complete and keeps a fifth-entry create behind
+the existing standing-rule-5 refusal. This small fixed bank is not a user
+configuration value.
+
 ⚠ **Init-time allocation is not merely a convention, it is enforced.** E14-C2:
 `getDocumentState()` settings cannot be created after `init()` — *"This can only be
 called during driver initialization"*. INITIAL_PROMPT §3a's first structural

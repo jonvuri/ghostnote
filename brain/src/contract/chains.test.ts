@@ -13,8 +13,8 @@
  *
  * ⚠ The pair that matters most is the last two, and the reason is the same one
  * `LiveAdapter.resolve` gives for tracks: a blind spot reported as a tombstone
- * makes a reversal silently under-deliver (E5, D5). A layer bank is FOUR wide,
- * so this is not a theoretical distinction — the fourth chain of a container is
+ * makes a reversal silently under-deliver (E5, D5). A layer bank is FIVE wide,
+ * so this is not a theoretical distinction — the fifth chain of a container is
  * the case, not the corner.
  */
 import { test } from 'node:test';

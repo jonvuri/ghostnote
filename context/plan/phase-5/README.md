@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Sessions 5a through 5h are complete. Session 5i is planned.
+status: Session 5i local and live gates pass. Exact-candidate remote CI remains.
 updated: 2026-08-23
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -103,9 +103,10 @@ that first integration unless the proof needs one new owned asset.
 8. [5h — public structure composition](5h-public-structure-composition.md) — done.
    Expose one format-hidden composition tool with named devices, modulators,
    targets, exact witnesses, and a recorded insertion.
-9. [5i — composition dogfood and closeout](5i-composition-dogfood-and-closeout.md) — next.
-   Build one useful layered patch through the public surface, reverse it, audit
-   the phase, and hand off to Phase 6.
+9. [5i — composition dogfood and closeout](5i-composition-dogfood-and-closeout.md) — active.
+   E73 proves the four-entry public patch, nested parameter work, two active
+   routes, reversal, exact cleanup, and every local and live gate. The exact
+   candidate still needs remote CI before Phase 5 closes.
 
 ## Scope
 
@@ -171,6 +172,9 @@ that first integration unless the proof needs one new owned asset.
    verifies the complete live structure and behavior, and reverses it.
 7. The public composition surface hides every binary and asset control and
    passes one useful dogfood request before Phase 5 closes.
+
+E73 audits all seven criteria as complete. Phase completion remains gated only
+on remote CI for the exact candidate.
 
 ## Risks
 

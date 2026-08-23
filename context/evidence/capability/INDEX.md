@@ -2,7 +2,7 @@
 title: Capability index
 kind: index
 state: active
-updated: 2026-08-22
+updated: 2026-08-23
 scope: current Bitwig host-API capability, organized by subject
 ---
 
@@ -50,9 +50,9 @@ that the subject is understood.
 
 | Subject | Verdict | Current statement | Page |
 |---|---|---|---|
-| Containers | ⚠ ◐ | Layer chains are the product path. A Layer chain is created and filled autonomously; every typed chain delete refuses. A Selector switches by one integer but fully disables the inactive chain, so it cannot do live A/B. | [containers](containers.md) |
+| Containers | ⚠ ● | Layer chains are the product path. Typed duplication grows a seeded layer. The file composer builds one through four exact entries, and a five-slot observer proves completeness. Typed chain delete still refuses. | [containers](containers.md) |
 | Identity | ⚠ ◐ | `Channel.channelId()` is the only runtime object identity in the API. It is durable for a track and re-minted at project load for a chain. A device has none at all. | [identity](identity.md) |
-| Devices | ● | Devices use explicit native, VST3, CLAP, or preset sources. Arbitrary named parameters, deep routes, remotes, bypass, guarded mixed chains, and exact scalar replay are live. Device instances still have no identity. | [devices](devices.md) |
+| Devices | ● | Devices use explicit native, VST3, CLAP, or preset sources. Arbitrary named parameters, deep routes, modulator topology, owned composition, bypass, guarded chains, and exact scalar replay are live. Device instances still have no identity. | [devices](devices.md) |
 | Banks | ⚠ ● | A bank window is a hard budget. The Master and the FX returns leave it first, and a create past the ceiling mints a track you can never address. | [banks](banks.md) |
 | Named actions | ⚠⚠ ○ | A named action dispatches on primary UI focus, which no observer reports. It is product-banned. Chain create and delete no longer need one. | [actions](actions.md) |
 | Launcher clips | ⚠ ● | Notes and measured metadata have typed paths. Long reads and writes page fixed cursor windows. Clip recreation remains lossy for play-stop and automation. | [clips](clips.md) |

@@ -151,7 +151,7 @@ public class Rig {
      * and new container, side by side on one track) and no more.
      */
     public static final int SLOT_SCOPES = 2;
-    public static final int SLOT_LAYER_BANK = 4;
+    public static final int SLOT_LAYER_BANK = 5;
     public static final int SLOT_LAYER_DEVICE_BANK = 4;
     public final DeviceLayerBank[] slotLayerBanks = new DeviceLayerBank[SLOT_SCOPES];
     public final DeviceBank[][] slotLayerDeviceBanks = new DeviceBank[SLOT_SCOPES][SLOT_LAYER_BANK];

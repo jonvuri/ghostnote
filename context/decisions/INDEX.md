@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-08-22
+updated: 2026-08-23
 ---
 
 # Decision index
@@ -14,11 +14,11 @@ with the original decision heading and preserves its amendments and rationale.
 |---|---|---|
 | D1 | Modulator topology is authored by template-time `.bwpreset` file surgery **[SETTLED]** | [open](d1-modulator-topology-is-authored-by-template-time-file-surgery-set.md) |
 | D2 | Host capability tiers **[Tier 1 SETTLED; Tier 2 = "Tier 1 + stub relocation", SETTLED by E12]** | [open](d2-host-capability-tiers-tier-1-settled-tier-2-tier-1-stub-relocati.md) |
-| D3 | `bwmod` library shape **[SETTLED and BUILT 2026-07-24 — `brain/src/bwmod/`]** | [open](d3-library-shape-settled-and-built-2026-07-24.md) |
+| D3 | `bwmod` library and Phase 5 asset policy **[SETTLED, BUILT, AMENDED 2026-08-23]** | [open](d3-library-shape-settled-and-built-2026-07-24.md) |
 | D4 | Process topology and the human surface **[SETTLED 2026-07-24]** | [open](d4-process-topology-and-the-human-surface-settled-2026-07-24.md) |
 | D5 | Checkpoints are branchable takes, not a linear undo stack **[SETTLED 2026-07-24]** | [open](d5-checkpoints-are-branchable-takes-not-a-linear-undo-stack-settled.md) |
 | D6 | Addressing: pinned non-following cursors, identity never index **[SETTLED 2026-07-25]** | [open](d6-addressing-pinned-non-following-cursors-identity-never-index-set.md) |
-| D7 | Pre-allocation scaffold sizes **[SETTLED 2026-07-25]** | [open](d7-pre-allocation-scaffold-sizes-settled-2026-07-25.md) |
+| D7 | Pre-allocation scaffold sizes **[SETTLED 2026-07-25, AMENDED 2026-08-23]** | [open](d7-pre-allocation-scaffold-sizes-settled-2026-07-25.md) |
 | D8 | Checkpoint fidelity, measured **[SETTLED 2026-07-25, AMENDED 2026-08-22]** | [open](d8-checkpoint-fidelity-measured-settled-2026-07-25.md) |
 | D9 | Grid and units **[SETTLED 2026-07-25, AMENDED 2026-08-18]** | [open](d9-grid-and-units-settled-2026-07-25.md) |
 | D10 | Batch execution mechanics **[SETTLED 2026-07-25]** | [open](d10-batch-execution-mechanics-settled-2026-07-25.md) |
@@ -40,3 +40,11 @@ E64 requires no new decision or amendment. D8 already owns scalar, enabled-
 state, inserted-device, and existing-device-delete fidelity. D16 owns guarded
 execution and reversal. D20 owns directed device deletion. E63's candidate A/B
 selection policy remains evidence only under D18's repeated-use rule.
+
+## Phase 5 decision audit
+
+E73 requires two amendments and no new decision. D3 now records the shipped
+template, provenance, generation, capacity, and publication policy. D7 now
+records the five-slot observer bank needed to prove a four-entry result
+complete. D1, D2, D15, and D16 continue to own the authoring model, host tiers,
+live proof, recorded writes, and reversal.

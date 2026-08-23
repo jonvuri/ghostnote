@@ -688,7 +688,7 @@ export function assertChainActivatable(
  *      built is a write nothing could then observe or name.
  *   2. ⚠⚠ **Standing rule 5, one population down, and CUMULATIVE.** The same
  *      hazard E19 paid for with a scene stranded at project index 99 of a
- *      16-wide window: the chain bank is FOUR wide (`Rig.SLOT_LAYER_BANK`), the
+ *      16-wide window: the chain bank is FIVE wide (`Rig.SLOT_LAYER_BANK`), the
  *      enumeration reports nothing past it, and a chain created out there can be
  *      resolved by nothing, renamed by nothing and removed by nothing — there is
  *      no typed chain delete at all. Counting requires the bank SIZE, which is

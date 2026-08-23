@@ -2,7 +2,7 @@
 title: ghostnote project context
 kind: project
 state: active
-updated: 2026-08-22
+updated: 2026-08-23
 ---
 
 # ghostnote
@@ -42,6 +42,12 @@ surface without relying on the user's UI selection.
   name-and-enabled guards and keeps mint provenance separate from current
   observed position.
 - Modulator topology is authored by tested `.bwpreset` surgery through `bwmod`.
+- The public authoring surface uses named modulator operations and one native
+  Instrument Layer composer. Binary format, donor, route, and asset controls
+  stay below the public boundary.
+- The product ships one provenance-recorded four-entry template. The composer
+  can retain one through four entries. A separate one-entry seed supports typed
+  live duplication.
 
 ## Stable constraints
 

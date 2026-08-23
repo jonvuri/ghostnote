@@ -168,7 +168,7 @@ export class ProjectModel {
    * silence, and "we could not look" would ship as "it is not there".
    */
   containerScopes = 2;
-  chainBankSize = 4;
+  chainBankSize = 5;
   chainDeviceBankSize = 4;
   drumPadBankSize = 16;
   /** E4c measured recursive cursor routing through depth 2. */
