@@ -67,6 +67,50 @@ export interface NativeCatalog {
   readonly devices: readonly NativeCatalogDevice[];
 }
 
+export interface NativeNameFailure {
+  readonly deviceName: string;
+  readonly reason: 'absent' | 'non-unique';
+  readonly exactMatches: number;
+}
+
+export class NativeNameResolutionError extends Error {
+  constructor(readonly failures: readonly NativeNameFailure[]) {
+    super('one or more exact native-device names did not resolve');
+    this.name = 'NativeNameResolutionError';
+  }
+}
+
+/** Return true only for the UUID form used by the generated native catalog. */
+export function isNativeDeviceUuid(value: string): boolean {
+  return UUID_RE.test(value);
+}
+
+/** Resolve all exact names, or report every failed caller-supplied name. */
+export function resolveExactNativeDevices(
+  catalog: NativeCatalog,
+  names: readonly string[],
+): readonly NativeCatalogDevice[] {
+  if (catalog.schemaVersion !== NATIVE_CATALOG_SCHEMA_VERSION || !Array.isArray(catalog.devices)) {
+    throw new Error('the native-device catalog schema is unsupported');
+  }
+  const matches = names.map((name) =>
+    catalog.devices.filter((device) => device.name === name));
+  const failures = matches.flatMap((items, index): NativeNameFailure[] => {
+    if (items.length === 1) return [];
+    return [{
+      deviceName: names[index]!,
+      reason: items.length === 0 ? 'absent' : 'non-unique',
+      exactMatches: items.length,
+    }];
+  });
+  if (failures.length > 0) throw new NativeNameResolutionError(failures);
+  const resolved = matches.map((items) => items[0]!);
+  if (resolved.some((device) => !isNativeDeviceUuid(device.uuid))) {
+    throw new Error('the native-device catalog contains an invalid UUID');
+  }
+  return resolved;
+}
+
 interface ParsedPreset {
   readonly uuid: string;
   readonly name: string;

@@ -580,10 +580,10 @@ export function reversalReport(
     // ⚠ Derived from the ops the plan actually contains, not from the internal
     // caveat text. The two caveats that matter are both facts about an op:
     // rebuilding a clip loses everything about it that has no readback, and
-    // removing a device lands on a position nothing can fingerprint first.
+    // an unguarded device removal lands on a position nothing can fingerprint first.
     caveats: [
       ...(plan.ops.some((o) => o.op === 'clip.create') ? [RECREATED_CLIP_CAVEAT] : []),
-      ...(plan.ops.some((o) => o.op === 'device.delete' && o.expectedDrumPads === undefined)
+      ...(plan.ops.some((op) => op.op === 'device.delete' && op.expectedChain === undefined)
         ? [REMOVED_DEVICE_CAVEAT] : []),
     ],
   };

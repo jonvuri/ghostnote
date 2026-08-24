@@ -4648,7 +4648,12 @@ export class LiveAdapter implements BitwigAdapter {
         const chainIndex = chainBefore === undefined || chainAfter === undefined
           ? undefined
           : mintedChainIndex(chainBefore, chainAfter);
-        if (at !== undefined && chainIndex !== undefined) {
+        const insertedName = chainIndex === undefined
+          ? undefined
+          : chainAfter?.devices.find((device) => device.index === chainIndex)?.name;
+        if (at !== undefined && chainIndex !== undefined
+            && (insertOp.expectedDeviceName === undefined
+              || insertedName === insertOp.expectedDeviceName)) {
           minted[at] = { kind: 'device', track: insertOp.track, chainIndex };
         } else {
           const insertMethods = new Set<string>([
@@ -4657,7 +4662,14 @@ export class LiveAdapter implements BitwigAdapter {
           ]);
           const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
             insertMethods.has(entry.op)
-              ? { ...entry, ok: false, error: 'device insertion was not proved by structural readback' }
+              ? {
+                ...entry,
+                ok: false,
+                error: insertOp.expectedDeviceName !== undefined
+                    && chainIndex !== undefined && insertedName !== insertOp.expectedDeviceName
+                  ? `inserted device name disagreed: expected ${insertOp.expectedDeviceName}, got ${insertedName ?? 'missing'}`
+                  : 'device insertion was not proved by structural readback',
+              }
               : entry);
           receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
         }

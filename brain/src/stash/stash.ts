@@ -732,7 +732,9 @@ export class Stash implements StashLog, StashWriter {
 
     const caveats = dedupe([
       ...labels.flatMap((l) => l.caveats),
-      ...(plan.ops.some((o) => o.op === 'device.delete') ? [DEVICE_INDEX_CAVEAT] : []),
+      ...(plan.ops.some((op) => op.op === 'device.delete' && op.expectedChain === undefined)
+        ? [DEVICE_INDEX_CAVEAT]
+        : []),
       ...(options.launcher === undefined && effective.some((t) => isLauncherCell(t.address))
         ? [NO_LAUNCHER_WINDOW_CAVEAT]
         : []),

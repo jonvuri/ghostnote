@@ -104,10 +104,17 @@ test('d02-s1-refusal: unknown and ambiguous exact names write nothing', async ()
   const unknown = fixture();
   const result = await callTool(unknown.workspace, 'compose_drum_machine', {
     trackId: unknown.trackId,
-    pads: [{ midiNote: 36, deviceName: 'No Such Device' }],
+    pads: [
+      { midiNote: 36, deviceName: 'No Such Device' },
+      { midiNote: 38, deviceName: 'Also Missing' },
+    ],
   }) as Record<string, unknown>;
   assert.equal(result['refused'], true);
   assert.equal(result['nothingWasWritten'], true);
+  assert.deepEqual(result['failedDeviceNames'], [
+    { deviceName: 'No Such Device', reason: 'absent', exactMatches: 0 },
+    { deviceName: 'Also Missing', reason: 'absent', exactMatches: 0 },
+  ]);
   assert.equal(unknown.workspace.changes.list().length, 0);
 
   const directory = await mkdtemp(join(tmpdir(), 'ghostnote-d02-s1-'));
@@ -126,6 +133,9 @@ test('d02-s1-refusal: unknown and ambiguous exact names write nothing', async ()
       pads: [{ midiNote: 36, deviceName: 'v1 Kick' }],
     }, { catalogPath }) as Record<string, unknown>;
     assert.equal(refused['refused'], true);
+    assert.deepEqual(refused['failedDeviceNames'], [
+      { deviceName: 'v1 Kick', reason: 'non-unique', exactMatches: 2 },
+    ]);
     assert.equal(ambiguous.workspace.changes.list().length, 0);
   } finally {
     await rm(directory, { recursive: true, force: true });

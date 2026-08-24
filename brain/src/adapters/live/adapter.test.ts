@@ -29,6 +29,7 @@ import { WIRE, type Frame } from './wiremap.js';
 
 const CHANNEL_ID = 'e4a1c0de-0000-4000-8000-000000000001';
 const TRACK: TrackAddress = track(CHANNEL_ID);
+const PHASER_UUID = 'fc87ae07-1624-449f-8dae-2db5d93e1aa9';
 const CLIP = (sceneIndex: number): ClipAddress => clip(slot(TRACK, scene(sceneIndex, 1)));
 const NAV_MARK: RevisionMark = {
   revision: 7,
@@ -1273,7 +1274,9 @@ class DeviceChainTransport implements Transport {
       }
 
       case WIRE.deviceInsertBitwig: {
-        this.onInsert(this.chainOf(params['cursor'] as string), params['uuid'] as string);
+        const uuid = params['uuid'] as string;
+        this.onInsert(this.chainOf(params['cursor'] as string),
+          uuid === PHASER_UUID ? 'Phaser' : uuid);
         this.revision++;
         return {};
       }
@@ -1618,7 +1621,7 @@ test('4g-device-selection: direct insert preflight and apply both restore select
   const receipt = await adapter.apply({ ops: [{
     op: 'device.insert',
     track: TRACK,
-    source: { from: 'bitwig', uuid: 'Phaser' },
+    source: { from: 'bitwig', uuid: PHASER_UUID },
     expectedChain: ['Polysynth'],
     expectedEnabledChain: [true],
   }] });
@@ -1636,7 +1639,7 @@ test('4g-device-selection: a failed direct insert proof restores selection', asy
   const receipt = await adapter.apply({ ops: [{
     op: 'device.insert',
     track: TRACK,
-    source: { from: 'bitwig', uuid: 'Phaser' },
+    source: { from: 'bitwig', uuid: PHASER_UUID },
     expectedChain: ['Polysynth'],
     expectedEnabledChain: [true],
   }] });
@@ -1874,7 +1877,7 @@ test('L-mint: an insert reports the chain index it OBSERVED, and the delete undo
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
   const receipt = await adapter.apply({
-    ops: [{ op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: 'Phaser' } }],
+    ops: [{ op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: PHASER_UUID } }],
   });
 
   // The fixture chain already held one device, so the insert landed at 1 — read
@@ -1898,7 +1901,7 @@ test('L-mint: a chain that did not change the way an append changes it mints NOT
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
   const receipt = await adapter.apply({
-    ops: [{ op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: 'Phaser' } }],
+    ops: [{ op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: PHASER_UUID } }],
   });
 
   assert.deepEqual(receipt.minted, {}, 'the prefix moved, so the observation is not an append');
@@ -1915,7 +1918,7 @@ test('L-mint: a chain longer than the device bank window mints NOTHING (E5, one 
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
   await assert.rejects(adapter.apply({
-    ops: [{ op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: 'Phaser' } }],
+    ops: [{ op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: PHASER_UUID } }],
   }), /complete top-level device chain/);
   assert.deepEqual(wire.chains.get(0), ['Polysynth'], 'the refusal happens before insertion');
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
@@ -1947,7 +1950,7 @@ test('L-mint: the insert is addressed to a POINTED cursor, not to a bank row', a
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
   await adapter.apply({
-    ops: [{ op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: 'Phaser' } }],
+    ops: [{ op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: PHASER_UUID } }],
   });
 
   // The stage's frames travel INSIDE one `batch.run`, which is where "point, then

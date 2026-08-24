@@ -93,6 +93,7 @@ export interface FakeOptions {
 export class FakeAdapter implements BitwigAdapter {
   readonly model = new ProjectModel();
   readonly clock = new VirtualClock();
+  private readonly nativeDeviceNames = new Map<string, string>();
   private closed = false;
   /** Where the cursor was when the current stage (== one turn) began (E15-F). */
   private turnStartClip: string | undefined = undefined;
@@ -114,6 +115,11 @@ export class FakeAdapter implements BitwigAdapter {
       channelId: this.model.mintChannelId(), name: 'Master', type: 'Master',
       slots: this.model.makeSlots(), devices: [],
     });
+  }
+
+  /** Give a fixture the host name that one valid native UUID will create. */
+  registerNativeDeviceName(uuid: string, name: string): void {
+    this.nativeDeviceNames.set(uuid, name);
   }
 
   async hello(): Promise<AdapterInfo> {
@@ -1299,10 +1305,12 @@ export class FakeAdapter implements BitwigAdapter {
           : op.source.from === 'vst3' ? op.source.classUid
           : op.source.from === 'clap' ? op.source.id
           : undefined;
-        const name = isInstrumentSeed
+        const name = op.expectedDeviceName ?? (sourceId === undefined
+          ? undefined
+          : this.nativeDeviceNames.get(sourceId)) ?? (isInstrumentSeed
           ? 'Instrument Layer'
           : sourceId === ProjectModel.DRUM_MACHINE_UUID ? 'Drum Machine'
-            : op.source.from === 'file' ? op.source.path.split('/').pop()! : sourceId!;
+            : op.source.from === 'file' ? op.source.path.split('/').pop()! : sourceId!);
         // ⚠ A container inserted by uuid arrives with the chains its type ships
         // with — one for an FX Layer, none for an Instrument Layer (`e17ai`,
         // E18a at three destinations). That asymmetry is the bootstrap fact the

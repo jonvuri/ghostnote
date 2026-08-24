@@ -39,6 +39,7 @@ import {
   type ChainAddress, type ClipAddress, type DeviceAddress, type NoteRecord, type Op, type SceneAddress,
   type TrackAddress, type WindowCoverage,
 } from '../../contract/index.js';
+import { isNativeDeviceUuid } from '../../native-catalog/catalog.js';
 import { WIRE, frame, type Frame } from './wiremap.js';
 
 // Re-exported because the grid used to be defined here, and because this is
@@ -256,6 +257,9 @@ function validateDeviceSource(op: Extract<Op, { op: 'device.insert' }>): void {
   const { source } = op;
   switch (source.from) {
     case 'bitwig':
+      if (!isNativeDeviceUuid(source.uuid)) {
+        throw new InvalidOpError('device.insert', 'a Bitwig device id must be a lowercase UUID');
+      }
       return;
     case 'vst3':
       if (!/^[0-9A-Fa-f]{32}$/.test(source.classUid)) {

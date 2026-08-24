@@ -97,6 +97,8 @@ export type Op =
     readonly op: 'device.insert';
     readonly track: TrackAddress;
     readonly source: DeviceSource;
+    /** Exact inserted name when the native catalog supplied it. */
+    readonly expectedDeviceName?: string;
     /** Complete top-level names from the caller's last accepted observation. */
     readonly expectedChain?: readonly string[];
     /** Aligned top-level enabled flags from the same observation. */
@@ -359,6 +361,11 @@ export function assertOpsWritable(ops: readonly Op[]): void {
           || op.expectedChain[op.pad.container.chainIndex] !== op.expectedContainerName) {
         throw new InvalidOpError(op.op, 'the complete chain guard must identify the Drum Machine');
       }
+    }
+    if (op.op === 'device.insert'
+        && op.expectedDeviceName !== undefined
+        && op.expectedDeviceName.trim() === '') {
+      throw new InvalidOpError(op.op, 'the expected native-device name must not be empty');
     }
     if (op.op === 'device.delete' && op.expectedDrumPads !== undefined) {
       const channels = new Set<number>();

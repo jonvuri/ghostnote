@@ -98,6 +98,11 @@ import {
   drumMachineCompositionInputSchema, drumMachineCompositionInputValidator,
   runDrumMachineComposition,
 } from './drum-machine-composition.js';
+import { isNativeDeviceUuid } from '../native-catalog/catalog.js';
+import {
+  nativeDeviceInsertionInputSchema, nativeDeviceInsertionInputValidator,
+  runNativeDeviceInsertion,
+} from './native-device-insertion.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -2041,6 +2046,7 @@ export const TOOLS: readonly ToolSpec[] = [
       containerKind: 'The observed top-level Drum Machine kind.',
       routing: 'One MIDI note addresses one separate pad and nested device.',
       requested: 'The exact MIDI-note, pad-channel, and native-device mapping.',
+      failedDeviceNames: 'Every absent or non-unique caller-supplied native-device name.',
       observed: 'The exact nested-device witness for every requested pad.',
       verification: 'True only after complete top-level and nested readback.',
       change: 'One recorded composition receipt and change id.',
@@ -2048,6 +2054,33 @@ export const TOOLS: readonly ToolSpec[] = [
     },
     async run(workspace, args) {
       return runDrumMachineComposition(workspace, args);
+    },
+  }),
+
+  tool({
+    name: 'add_native_devices',
+    kind: 'write',
+    title: 'Add native devices by name',
+    description:
+      'Append one through 16 top-level native Bitwig devices by exact catalog name. All names '
+      + 'resolve before the first project write. The tool appends devices in caller order after '
+      + 'a fresh complete read of the device names and enabled states for each stage. Unknown and '
+      + 'non-unique names refuse together and identify each failed input. Each completed insertion '
+      + 'returns its exact position, verification witness, and reversible receipt. This tool does '
+      + 'not create an Instrument Layer and does not expose UUID, preset, asset, or file inputs.',
+    inputSchema: nativeDeviceInsertionInputSchema,
+    inputValidator: nativeDeviceInsertionInputValidator,
+    emits: ['device.insert'],
+    resultContract: {
+      requestedDeviceNames: 'The exact ordered native-device names from the request.',
+      failedDeviceNames: 'Every absent or non-unique caller-supplied native-device name.',
+      added: 'Each verified name, exact top-level position, and reversible receipt.',
+      changes: 'One recorded write receipt per insertion stage that ran.',
+      partialSuccess: 'True only when an earlier insertion was proved before a later stage failed.',
+      reversal: 'Remove inserted devices in reverse order while each complete guard remains valid.',
+    },
+    async run(workspace, args) {
+      return runNativeDeviceInsertion(workspace, args);
     },
   }),
 
@@ -2072,7 +2105,8 @@ export const TOOLS: readonly ToolSpec[] = [
         z.object({
           trackId,
           from: z.literal('bitwig'),
-          id: z.string().min(1).describe('Bitwig device UUID.'),
+          id: z.string().refine(isNativeDeviceUuid, 'A Bitwig device id must be a lowercase UUID.')
+            .describe('Bitwig device UUID in lowercase canonical form.'),
           expectedDevices: expectedDeviceOrder.optional(),
         }),
         z.object({
@@ -2127,7 +2161,6 @@ export const TOOLS: readonly ToolSpec[] = [
       const added: Array<Record<string, unknown>> = [];
       const changes: ReturnType<typeof receiptOf>[] = [];
       for (const request of requests) {
-        let currentApplied = false;
         try {
           const track = trackAt(request.trackId);
           const before = request.expectedDevices === undefined
@@ -2155,14 +2188,13 @@ export const TOOLS: readonly ToolSpec[] = [
           }]);
           const receipt = receiptOf(change);
           changes.push(receipt);
-          currentApplied = receipt.applied;
           const minted = Object.values(change.take.receipt.minted)
             .filter((address): address is DeviceAddress => address.kind === 'device');
           if (!receipt.applied || receipt.failed !== undefined || receipt.mismatches !== undefined
               || receipt.notReadBack !== undefined || minted.length !== 1) {
             return {
               applied: false,
-              partialSuccess: added.length > 0 || currentApplied,
+              partialSuccess: added.length > 0,
               why: 'Insertion did not finish with one exact positional readback.',
               changes,
               added,
@@ -2185,7 +2217,7 @@ export const TOOLS: readonly ToolSpec[] = [
           if (changes.length === 0) return refusalOf(error);
           return {
             applied: false,
-            partialSuccess: added.length > 0 || currentApplied,
+            partialSuccess: added.length > 0,
             why: 'A later insertion did not finish after earlier project writes completed.',
             changes,
             added,
@@ -3836,6 +3868,7 @@ function sourceOf(d: { from: string; id?: string; path?: string }): DeviceSource
   if (d.id === undefined) throw new Error(`a ${d.from} source needs \`id\``);
   if (d.from === 'vst3') return { from: 'vst3', classUid: d.id };
   if (d.from === 'clap') return { from: 'clap', id: d.id };
+  if (!isNativeDeviceUuid(d.id)) throw new Error('a Bitwig device id must be a lowercase UUID');
   return { from: 'bitwig', uuid: d.id };
 }
 

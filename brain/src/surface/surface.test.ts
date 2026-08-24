@@ -159,9 +159,34 @@ const note = (over: Partial<NoteRecord> = {}): NoteRecord => ({
 
 /** Every JSON an agent could be handed, so the word guard can read all of it. */
 const emitted: string[] = [];
+let syntheticNativeId = 0;
+
+function validNativeFixtureArgs(fx: Fixture, name: string, args: unknown): unknown {
+  if (name !== 'add_device' || args === null || typeof args !== 'object') return args;
+  const record = args as { devices?: unknown[] };
+  if (!Array.isArray(record.devices)) return args;
+  return {
+    ...record,
+    devices: record.devices.map((item) => {
+      if (item === null || typeof item !== 'object') return item;
+      const device = item as Record<string, unknown>;
+      if (device['from'] !== 'bitwig' || typeof device['id'] !== 'string'
+          || /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(device['id'])) {
+        return item;
+      }
+      const uuid = `00000000-0000-4000-8000-${String(++syntheticNativeId).padStart(12, '0')}`;
+      fx.fake.registerNativeDeviceName(uuid, device['id']);
+      return { ...device, id: uuid };
+    }),
+  };
+}
 
 async function call(fx: Fixture, name: string, args: unknown = {}): Promise<Record<string, unknown>> {
-  const result = await callTool(fx.workspace, name, args) as Record<string, unknown>;
+  const result = await callTool(
+    fx.workspace,
+    name,
+    validNativeFixtureArgs(fx, name, args),
+  ) as Record<string, unknown>;
   emitted.push(`${name}: ${JSON.stringify(result)}`);
   return result;
 }
@@ -209,7 +234,7 @@ function schemaPaths(
 }
 
 test('D01: every public tool schema uses only homogeneous arrays', () => {
-  assert.equal(TOOLS.length, 46);
+  assert.equal(TOOLS.length, 47);
   const incompatible: string[] = [];
   for (const tool of TOOLS) {
     const validator = tool.inputValidator ?? z.object(tool.inputSchema);
@@ -724,6 +749,11 @@ test('4e-surface: plugin formats are explicit and the generic source is rejected
   await assert.rejects(call(fx, 'add_device', {
     devices: [{ trackId: fx.trackA, from: 'plugin', id: 'com.u-he.Zebra3' }],
   }));
+  const sentBefore = fx.sent.length;
+  await assert.rejects(callTool(fx.workspace, 'add_device', {
+    devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'Delay+' }],
+  }), /lowercase UUID/);
+  assert.equal(fx.sent.length, sentBefore);
 });
 
 test('4i-surface: native, VST3, CLAP, and preset inserts use ordinary tools and clean up exactly', async () => {
@@ -1197,6 +1227,15 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   );
 
   assert.equal((await exercise('add_scenes', { count: 1 }))['applied'], true);
+
+  const nativeDevice = await exercise('add_native_devices', {
+    trackId: fx.trackA,
+    deviceNames: ['Sampler'],
+  }) as { applied: boolean; added: Array<{ change: { changeId: string } }> };
+  assert.equal(nativeDevice.applied, true, JSON.stringify(nativeDevice));
+  assert.equal((await callTool(fx.workspace, 'revert_change', {
+    changeId: nativeDevice.added[0]!.change.changeId,
+  }) as Record<string, unknown>)['applied'], true);
 
   const addedDevice = await exercise('add_device', {
     devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'gn-test-device' }],

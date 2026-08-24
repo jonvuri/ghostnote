@@ -274,6 +274,24 @@ function unrecreatableClips(
  * only other op that mints. An insert nobody watched land is REPORTED, not
  * guessed at.
  */
+function insertedDeviceRemoval(
+  op: Extract<Op, { op: 'device.insert' }>,
+  address: DeviceAddress,
+): Extract<Op, { op: 'device.delete' }> {
+  if (op.expectedDeviceName === undefined
+      || op.expectedChain === undefined
+      || op.expectedEnabledChain === undefined) {
+    return { op: 'device.delete', device: address };
+  }
+  return {
+    op: 'device.delete',
+    device: address,
+    expectedName: op.expectedDeviceName,
+    expectedChain: [...op.expectedChain, op.expectedDeviceName],
+    expectedEnabledChain: [...op.expectedEnabledChain, true],
+  };
+}
+
 function deviceRemovals(
   batches: readonly InsertBatch[],
   unrevertable: readonly UnrevertableOp[],
@@ -314,7 +332,7 @@ function deviceRemovals(
         devices.push({
           address,
           op: guard === undefined
-            ? { op: 'device.delete', device: address }
+            ? insertedDeviceRemoval(op, address)
             : {
               op: 'device.delete',
               device: address,

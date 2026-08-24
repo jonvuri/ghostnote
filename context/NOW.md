@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: dogfooding
-session: d02-native-insertion-and-catalog-correctness
+session: d02-direct-parameter-domains-and-collateral-integrity
 ---
 
 # Now
@@ -34,11 +34,10 @@ qualifications, policy, live baseline, and remote CI.
 
 ## Accepted live baseline
 
-Project `26.05-2 moon` has seven tracks and 14 clips. The accepted Phase 2
-musical results remain exact. `Harmony – Open Minor` keeps
-`Key Filter+ → Repro-5 → Chorus+ → Reverb` with the accepted Chorus+ and Reverb
-values. No scratch track, device, clip, temporary file, or launcher residue
-remains.
+Project `New 3` has five tracks and eight launcher rows. `Drum Machine` keeps
+the accepted six-pad native rack and 31-note clip. `Ice Shells` keeps the
+accepted Instrument Layer, nested Polysynth, and 51-note chord and echo clip.
+No engineering scratch track or device remains.
 
 ## Current dogfood
 
@@ -137,6 +136,20 @@ bytes, and an observation model that cannot express a partial verdict.
 [E80](evidence/experiments/e80-repeat-drum-dogfood-succeeds-with-qualifications.md)
 records the exact timing, calls, final state, and lower-priority inefficiencies.
 
+D02 Session 6 is complete. Public `add_native_devices` appends one through 16
+ordered native devices by exact catalog name. It resolves all names before the
+first write and returns one exact position and guarded receipt per insertion.
+Catalog refusals now identify every absent or non-unique caller input, including
+Drum Machine requests.
+
+Explicit `add_device` Bitwig IDs must use the lowercase canonical UUID form.
+A failed first stage with no proved position reports no partial success. The
+live proof created `Polysynth → Delay+` as two top-level devices, reversed both
+under complete top-level guards, and restored the exact five-track `New 3`
+entry list. MCP exposes 47 tools. The full brain check passes 867/867.
+Extension tests, deploy freshness, and the 148-method handshake pass. [E81](evidence/experiments/e81-exact-name-native-insertion-is-live.md)
+records the result.
+
 D02 now separates these findings into four focused sessions. Session 6 owns
 native insertion, UUID validation, truthful partial results, and catalog
 diagnostics. Session 7 owns DirectParameter domains and collateral integrity.
@@ -147,7 +160,7 @@ and version provenance.
 
 ## Next action
 
-Run D02 Session 6. Complete Sessions 6 through 9 before the next musical
+Run D02 Session 7. Complete Sessions 7 through 9 before the next musical
 dogfood chat. Do not begin Phase 6a until the operator closes this loop.
 
 ## Retrospective
@@ -160,3 +173,4 @@ run. Allow built-in capability discovery during exposure-only checks.
 Name every failed catalog input in one refusal. Use direct top-level native
 insertion when the request does not need a Layer. Record session version fields
 with their provenance. Do not infer a host version from a public session.
+Carry the resolved catalog name through insertion completion and reversal.

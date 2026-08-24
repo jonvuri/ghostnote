@@ -461,6 +461,27 @@ report insertion and catalog failures without false partial success.
 - Focused tests, the full brain check, extension tests, the handshake, and live
   cleanup pass.
 
+### Outcome — complete
+
+[E81](../../evidence/experiments/e81-exact-name-native-insertion-is-live.md)
+records the implementation and live proof. Public `add_native_devices` resolves
+one through 16 ordered native-device names before writing. It appends each
+resolved device at the top level after a fresh complete name and enabled-state
+read. Each successful stage returns an exact position and reversible receipt.
+
+Exact-name catalog failures now return every absent or non-unique caller input.
+Drum Machine composition uses the same diagnostic. Explicit `add_device`
+Bitwig identifiers must use the lowercase canonical UUID form before the
+adapter or encoder can run. A failed first insertion with no proved position
+returns `applied: false`, `partialSuccess: false`, and `added: []`.
+
+The live MCP check created `Polysynth → Delay+` as two top-level devices on one
+owned track. Complete readback passed. Guarded reversal removed both devices in
+reverse order with no positional caveat. Cleanup restored the exact five-track
+entry list in project `New 3`. MCP `tools/list` returned 47 tools. The full
+brain check passes 867/867. Extension tests, deploy freshness, and the
+148-method handshake pass.
+
 ## Session 7 — DirectParameter domains and collateral integrity
 
 ### Objective

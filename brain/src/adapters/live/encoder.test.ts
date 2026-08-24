@@ -342,6 +342,15 @@ test('E-insertfile: an absolute .bwpreset path is accepted', () => {
   assert.equal(paramsOf(frames, WIRE.deviceInsertFile)?.['path'], '/tmp/gn/lfo.bwpreset');
 });
 
+test('d02-s6-device-insert: a non-UUID Bitwig id emits no frame', () => {
+  assert.throws(
+    () => encodeOp({
+      op: 'device.insert', track: TRACK_A, source: { from: 'bitwig', uuid: 'Delay+' },
+    }, ctx),
+    /lowercase UUID/,
+  );
+});
+
 test('4g-device-insert: every route carries the durable track and complete-chain guards', () => {
   const expectedDeviceNames = ['Tool', 'Delay+'] as const;
   const expectedDeviceEnabled = [true, false] as const;
@@ -352,7 +361,8 @@ test('4g-device-insert: every route carries the durable track and complete-chain
   };
   const cases = [
     [WIRE.deviceInsertBitwig, encodeOp({
-      op: 'device.insert', track: TRACK_A, source: { from: 'bitwig', uuid: 'abc' },
+      op: 'device.insert', track: TRACK_A,
+      source: { from: 'bitwig', uuid: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef' },
     }, guarded)],
     [WIRE.deviceInsertVst3, encodeOp({
       op: 'device.insert', track: TRACK_A,
@@ -558,7 +568,10 @@ test('E-device: a device op POINTS a cursor at its track, and addresses that cur
   };
 
   const inserted = encodeOp(
-    { op: 'device.insert', track: TRACK_A, source: { from: 'bitwig', uuid: 'abc' } },
+    {
+      op: 'device.insert', track: TRACK_A,
+      source: { from: 'bitwig', uuid: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef' },
+    },
     poolCtx,
   );
   assert.deepEqual(methods(inserted), [WIRE.cursorPointTrack, WIRE.deviceInsertBitwig]);
@@ -567,7 +580,10 @@ test('E-device: a device op POINTS a cursor at its track, and addresses that cur
   // that happened to be spelled the same way before.
   assert.equal(paramsOf(inserted, WIRE.cursorPointTrack)?.['trackIndex'], 3);
   assert.equal(paramsOf(inserted, WIRE.deviceInsertBitwig)?.['cursor'], cursor);
-  assert.equal(paramsOf(inserted, WIRE.deviceInsertBitwig)?.['uuid'], 'abc');
+  assert.equal(
+    paramsOf(inserted, WIRE.deviceInsertBitwig)?.['uuid'],
+    'a9ffacb5-33e9-4fc7-8621-b1af31e410ef',
+  );
 
   // A delete on the SAME track reuses that cursor rather than re-pointing a
   // second one, which is the allocator doing its job (E1, E15-F).

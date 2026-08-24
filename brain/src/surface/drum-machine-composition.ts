@@ -8,7 +8,9 @@ import {
   drumPad as drumPadAt, track as trackAt,
   type DeviceAddress, type Op,
 } from '../contract/index.js';
-import type { NativeCatalog, NativeCatalogDevice } from '../native-catalog/catalog.js';
+import {
+  NativeNameResolutionError, resolveExactNativeDevices, type NativeCatalog,
+} from '../native-catalog/catalog.js';
 import { receiptOf } from './report.js';
 import type { Workspace } from './workspace.js';
 
@@ -57,25 +59,19 @@ export interface DrumMachineCompositionOptions {
   readonly wait?: (milliseconds: number) => Promise<void>;
 }
 
-function exactNative(catalog: NativeCatalog, name: string): NativeCatalogDevice {
-  if (catalog.schemaVersion !== 1) throw new Error('the native-device catalog schema is unsupported');
-  const matches = catalog.devices.filter((device) => device.name === name);
-  if (matches.length === 0) throw new Error(`native device ${JSON.stringify(name)} is unknown`);
-  if (matches.length !== 1) {
-    throw new Error(`native device ${JSON.stringify(name)} is ambiguous (${matches.length} exact matches)`);
-  }
-  return matches[0]!;
-}
-
 function refusal(error: unknown): Record<string, unknown> {
+  if (error instanceof NativeNameResolutionError) {
+    return {
+      refused: true,
+      nothingWasWritten: true,
+      why: 'Nothing was written. One or more exact native-device names did not resolve.',
+      failedDeviceNames: error.failures,
+    };
+  }
   const message = error instanceof Error ? error.message : String(error);
-  const why = /unknown/.test(message)
-    ? 'The exact native-device name is not in the current catalog.'
-    : /ambiguous/.test(message)
-      ? 'The exact native-device name matched more than one catalog entry.'
-      : /catalog/.test(message)
-        ? 'The native-device catalog could not be validated.'
-        : 'Drum Machine composition stopped before the project write completed.';
+  const why = /catalog/.test(message)
+    ? 'The native-device catalog could not be validated.'
+    : 'Drum Machine composition stopped before the project write completed.';
   return { refused: true, nothingWasWritten: true, why: `Nothing was written. ${why}` };
 }
 
@@ -92,11 +88,17 @@ export async function runDrumMachineComposition(
       options.catalogPath ?? NATIVE_CATALOG_PATH,
       'utf8',
     )) as NativeCatalog;
-    const containerSource = exactNative(catalog, DRUM_MACHINE_NAME);
-    const resolved = input.pads.map((item) => ({
+    const devices = resolveExactNativeDevices(catalog, input.pads.map((item) => item.deviceName));
+    let containerSource;
+    try {
+      containerSource = resolveExactNativeDevices(catalog, [DRUM_MACHINE_NAME])[0]!;
+    } catch {
+      throw new Error('the native-device catalog has no unique Drum Machine entry');
+    }
+    const resolved = input.pads.map((item, index) => ({
       ...item,
       padChannel: item.midiNote - MIDI_NOTE_MIN,
-      device: exactNative(catalog, item.deviceName),
+      device: devices[index]!,
     }));
 
     const track = trackAt(input.trackId);

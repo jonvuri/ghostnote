@@ -6,8 +6,9 @@ import test from 'node:test';
 
 import { readMeta } from '../bwmod/index.js';
 import {
-  buildNativeCatalog, catalogJson, javaCatalogSource, parseNativePreset, POLYSYNTH_UUID,
-  type NativeResolution,
+  buildNativeCatalog, catalogJson, isNativeDeviceUuid, javaCatalogSource,
+  NativeNameResolutionError, parseNativePreset, POLYSYNTH_UUID, resolveExactNativeDevices,
+  type NativeCatalog, type NativeResolution,
 } from './catalog.js';
 
 const POLYSYNTH = join('fixtures', 'Polysynth', 'mp_bare.bwpreset');
@@ -102,5 +103,23 @@ test('checked-in catalog and typed Java input agree', () => {
   assert.equal(
     readFileSync('../extension/src/main/java/com/ghostnote/extension/generated/NativeDeviceCatalog.java', 'utf8'),
     javaCatalogSource(catalog),
+  );
+});
+
+test('public catalog identity validates UUIDs and reports all exact-name failures', () => {
+  assert.equal(isNativeDeviceUuid(POLYSYNTH_UUID), true);
+  assert.equal(isNativeDeviceUuid('Delay+'), false);
+  const catalog = JSON.parse(readFileSync('assets/native-devices/catalog.json', 'utf8')) as NativeCatalog;
+  assert.deepEqual(
+    resolveExactNativeDevices(catalog, ['Polysynth', 'Delay+']).map((device) => device.name),
+    ['Polysynth', 'Delay+'],
+  );
+  const polysynth = catalog.devices.find((device) => device.name === 'Polysynth')!;
+  const ambiguous = { ...catalog, devices: [...catalog.devices, polysynth] };
+  assert.throws(
+    () => resolveExactNativeDevices(ambiguous, ['Missing A', 'Polysynth', 'Missing B']),
+    (error) => error instanceof NativeNameResolutionError
+      && error.failures.map((failure) => failure.deviceName).join(',')
+        === 'Missing A,Polysynth,Missing B',
   );
 });
