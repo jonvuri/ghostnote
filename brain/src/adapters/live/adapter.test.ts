@@ -17,7 +17,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, device as deviceAt, deviceEnabled,
+  AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, clipMetadata, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, track,
   type ClipAddress, type RevisionMark, type TrackAddress,
@@ -1059,6 +1059,18 @@ test('2i follow-up: clip metadata verifies the occupied exact target before the 
     .filter((frame) => frame.method === WIRE.cursorStatus).length, 2);
   const batch = wire.frames[batchAt]!.params as { ops: { method: string }[] };
   assert.deepEqual(batch.ops.map((frame) => frame.method), [WIRE.cursorSetClipMetadata]);
+});
+
+test('d02-s8: clip colour host floats read back as exact public bytes', async () => {
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 8, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const snapshot = await adapter.read([clipMetadata(CLIP(0))]);
+  const value = snapshot.entries[addressKey(clipMetadata(CLIP(0)))]?.value;
+
+  assert.deepEqual(value?.of === 'clipMetadata' ? value.metadata.color : undefined, {
+    red: 87, green: 97, blue: 198,
+  });
 });
 
 test('2i follow-up: metadata targets wider than the cursor pool refuse before mutation', async () => {

@@ -91,7 +91,12 @@ public final class CursorHandlers extends HandlerGroup {
             clip.getPlayStart().set(playStart);
             clip.isLoopEnabled().set(params.get("loopEnabled").getAsBoolean());
             clip.setName(name);
-            clip.color().set(red / 255f, green / 255f, blue / 255f);
+            // D02 Session 8: target the launcher slot by its verified position.
+            // The brain supplies the live-measured wire bytes for this route.
+            int trackIndex = params.get("trackIndex").getAsInt();
+            int slotIndex = params.get("slotIndex").getAsInt();
+            rig.trackBank.getItemAt(trackIndex).clipLauncherSlotBank().getItemAt(slotIndex)
+                .color().set(colorByteCenter(red), colorByteCenter(green), colorByteCenter(blue));
             return ok();
         }
         boolean touched = false;
@@ -165,6 +170,10 @@ public final class CursorHandlers extends HandlerGroup {
             throw new IllegalArgumentException(name + " must be between 0 and 255");
         }
         return value;
+    }
+
+    private static float colorByteCenter(int value) {
+        return value == 255 ? 1f : (value + 0.5f) / 255f;
     }
 
     private JsonElement cursorPin(JsonObject params) {

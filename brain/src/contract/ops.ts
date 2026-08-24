@@ -28,6 +28,7 @@ import {
 } from './chains.js';
 import { unwritableProps, type ClipMetadataState, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
+import { exactClipColor } from './clip-color.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, InvalidOpError,
   NoteTimingUnrepresentableError, SlotOccupiedError,
@@ -422,6 +423,12 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         if (!Number.isInteger(value) || value < 0 || value > 255) {
           throw new InvalidOpError(op.op, `${name} must be an integer from 0 to 255`);
         }
+      }
+      if (exactClipColor(metadata.color) === undefined) {
+        throw new InvalidOpError(
+          op.op,
+          'clip colour must be one of the exact supported Bitwig palette colours',
+        );
       }
     }
     if (op.op === 'clip.duplicate') {

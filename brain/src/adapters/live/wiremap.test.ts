@@ -445,6 +445,18 @@ test('d02-s7: the extension observes the v1 Kick discrete parameter domain', () 
     'param.list must return the typed v1 Kick metadata');
 });
 
+test('d02-s8: the extension writes clip colours through the exact launcher slot', () => {
+  const handlers = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'CursorHandlers.java'),
+    'utf8',
+  );
+  assert.match(handlers,
+    /clipLauncherSlotBank\(\)\.getItemAt\(slotIndex\)[\s\S]*?\.color\(\)\.set\(colorByteCenter\(red\), colorByteCenter\(green\), colorByteCenter\(blue\)\);/);
+  assert.match(handlers, /value == 255 \? 1f : \(value \+ 0\.5f\) \/ 255f/);
+  assert.doesNotMatch(handlers, /red \/ 255f, green \/ 255f, blue \/ 255f/);
+});
+
 test('5d: a named slot descent proves its parent before remote readback', () => {
   assert.ok(WIRE_METHODS_USED.includes('devcursor.selectFirstInSlot'));
   assert.ok(WIRE_METHODS_USED.includes('devcursor.selectParent'));

@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-23
+updated: 2026-08-24
 phase: dogfooding
-session: d02-exact-clip-color-bytes
+session: d02-observation-revision-and-partial-verdicts
 ---
 
 # Now
@@ -164,6 +164,20 @@ exactly. Cleanup restored the accepted five-track list. The full brain check,
 [E82](evidence/experiments/e82-direct-parameter-domains-and-integrity-are-live.md)
 records the result.
 
+D02 Session 8 is complete. Arbitrary RGB bytes are not safely invertible
+through Bitwig's host color conversion. `set_clip_metadata` now accepts 27
+live-proved colors with explicit requested-to-wire mappings. Unsupported
+requested or prior colors refuse before a write and return the exact named
+palette. The result rejects a blind one-byte retry.
+
+The live matrix returned every supported color exactly on all three channels.
+The known lossy `[145,105,78]` request caused no mutation. Public red verified
+through independent readback, and ordinary reversal restored the complete prior
+metadata. Cleanup restored the accepted five-track list. The focused suite
+passes 309/309. The full brain check passes 881/881. Extension tests, deploy
+freshness, and the 148-method handshake pass. [E83](evidence/experiments/e83-exact-clip-color-palette-is-live.md)
+records the result.
+
 D02 now separates these findings into four focused sessions. Session 6 owns
 native insertion, UUID validation, truthful partial results, and catalog
 diagnostics. Session 7 owns DirectParameter domains and collateral integrity.
@@ -174,8 +188,8 @@ and version provenance.
 
 ## Next action
 
-Run D02 Session 8. Complete Sessions 8 and 9 before the next musical
-dogfood chat. Do not begin Phase 6a until the operator closes this loop.
+Run D02 Session 9 before the next musical dogfood chat. Do not begin Phase 6a
+until the operator closes this loop.
 
 ## Retrospective
 
@@ -189,3 +203,4 @@ insertion when the request does not need a Layer. Record session version fields
 with their provenance. Do not infer a host version from a public session.
 Carry the resolved catalog name through insertion completion and reversal.
 Run deploy freshness before a live probe that depends on new observer handles.
+Measure complete host color tuples before defining a component conversion.

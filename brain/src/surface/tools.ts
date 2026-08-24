@@ -60,7 +60,7 @@ import {
   scene as sceneAt, slot as slotAt, track as trackAt, device as deviceAt,
   deviceEnabled as deviceEnabledAt, deviceIn, drumPad as drumPadAt,
   addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, lookupChain,
-  projectedReorder,
+  projectedReorder, exactClipColor, supportedClipColors,
   AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
   type Address, type ClipAddress, type DeviceAddress, type DeviceSource, type NoteRecord,
   type ObservedDeviceBank, type Op, type OpKind, type ParamState, type Recurrence,
@@ -271,7 +271,10 @@ const clipMetadataInput = z.object({
     red: z.number().int().min(0).max(255),
     green: z.number().int().min(0).max(255),
     blue: z.number().int().min(0).max(255),
-  }).describe('The complete clip colour as red, green, and blue bytes.'),
+  }).describe(
+    'The complete clip colour as red, green, and blue bytes. The tool accepts only colours in '
+    + 'its exact supported Bitwig palette.',
+  ),
   lengthBeats: z.number().positive().describe('The complete loop length in beats.'),
   playStartBeats: z.number().min(0).describe('The play start in beats.'),
   loopEnabled: z.boolean(),
@@ -1258,8 +1261,10 @@ export const TOOLS: readonly ToolSpec[] = [
       'Set the complete measured metadata of clips that already exist. Each item must include '
       + 'the name, colour, loop length, play start, loop state, loop start, and loop end. The '
       + 'complete state prevents omitted fields from inheriting side effects from another field. '
-      + 'The prior state is recorded for reversal. The result includes readback taken after the '
-      + 'write; a mismatch is reported and never hidden.',
+      + 'Colour is limited to the exact supported Bitwig palette returned by a refusal. An '
+      + 'unsupported requested or prior colour is refused before any write. Do not retry by '
+      + 'changing one byte. The prior state is recorded for exact reversal. The result includes '
+      + 'readback taken after the write; a mismatch is reported and never hidden.',
     inputSchema: {
       clips: z.array(z.object({
         trackId,
@@ -1270,11 +1275,47 @@ export const TOOLS: readonly ToolSpec[] = [
     emits: ['clip.update'],
     async run(workspace, args) {
       return writing(async () => {
+        const unsupported = args.clips.filter(
+          (item) => exactClipColor(item.metadata.color) === undefined,
+        );
+        if (unsupported.length > 0) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'A requested clip colour is outside the exact supported Bitwig palette. '
+              + 'Use one of the colors in supportedClipColors. Do not retry by changing one byte.',
+            unsupportedClipColors: unsupported.map((item) => ({
+              trackId: item.trackId, row: item.row, color: item.metadata.color,
+            })),
+            supportedClipColors: supportedClipColors(),
+          };
+        }
         const at = await workspace.mark();
         const targets = args.clips.map((item) => ({
           clip: clipOf(item.trackId, item.row, at),
           metadata: item.metadata,
         }));
+        const prior = await workspace.read(targets.map((item) => metadataAt(item.clip)));
+        const unsupportedPrior = targets.flatMap((item, index) => {
+          const entry = prior.entries[addressKey(metadataAt(item.clip))];
+          if (entry?.value.of !== 'clipMetadata'
+              || exactClipColor(entry.value.metadata.color) !== undefined) return [];
+          return [{
+            trackId: args.clips[index]!.trackId,
+            row: args.clips[index]!.row,
+            color: entry.value.metadata.color,
+          }];
+        });
+        if (unsupportedPrior.length > 0) {
+          return {
+            refused: true,
+            nothingWasWritten: true,
+            why: 'A prior clip colour is outside the exact supported Bitwig palette, so this '
+              + 'metadata edit cannot be reversed exactly.',
+            unsupportedPriorClipColors: unsupportedPrior,
+            supportedClipColors: supportedClipColors(),
+          };
+        }
         const change = await workspace.apply(targets.map((item) => ({
           op: 'clip.update' as const,
           clip: item.clip,

@@ -34,7 +34,7 @@ import {
   ParameterValueUnrepresentableError,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
   blindSpotError, clipMetadata as clipMetadataAt, deltaComplete,
-  discreteNormalizedValues, discreteValueIsRepresentable, failures, notes as notesAt,
+  discreteNormalizedValues, discreteValueIsRepresentable, exactClipColor, failures, notes as notesAt,
   param as paramAt,
   type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
   type ClipMetadataState, type Op, type RevisionMark, type Snapshot,
@@ -233,6 +233,7 @@ export class Executor {
     const stash = supplied ?? await this.timed('stash', () => this.adapter.read(addresses));
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
+    this.assertClipColorsReversible(ops, stash);
     assertParameterDomains(ops, stash);
 
     // ⚠ THE FLOOR (D18c, §3.3.5). The labels are derived here rather than after
@@ -610,6 +611,30 @@ export class Executor {
           'either write into a clip nobody addressed or write nowhere at all. Emit `clip.create` ' +
           'or `clip.duplicate` for the slot in the same batch, or create it first.',
       );
+    }
+  }
+
+  /** Refuse a metadata edit whose prior colour cannot be restored exactly. */
+  private assertClipColorsReversible(ops: readonly Op[], stash: Snapshot): void {
+    const created = new Set<string>();
+    for (const op of ops) {
+      if (op.op === 'clip.create') created.add(addressKey(op.slot));
+      if (op.op === 'clip.duplicate' || op.op === 'clip.move') {
+        created.add(addressKey(op.destination));
+      }
+      if (op.op !== 'clip.update' || created.has(addressKey(op.clip.slot))) continue;
+      const address = clipMetadataAt(op.clip);
+      const entry = stash.entries[addressKey(address)];
+      if (entry?.value.of !== 'clipMetadata') {
+        throw new AddressUnresolvedError(address, 'the prior clip metadata is unavailable');
+      }
+      if (exactClipColor(entry.value.metadata.color) === undefined) {
+        throw new InvalidOpError(
+          op.op,
+          'the prior clip colour is outside the exact supported Bitwig palette, '
+          + 'so this metadata edit cannot be reversed exactly',
+        );
+      }
     }
   }
 

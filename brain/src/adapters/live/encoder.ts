@@ -34,7 +34,7 @@
 import { isAbsolute, extname } from 'node:path';
 
 import {
-  BlindSpotError, InvalidOpError, addressKey, assertNever, chainPath, chooseStepSize, orderedNoteProps,
+  BlindSpotError, InvalidOpError, addressKey, assertNever, chainPath, chooseStepSize, exactClipColor, orderedNoteProps,
   stepSizeFor,
   type ChainAddress, type ClipAddress, type DeviceAddress, type NoteRecord, type Op, type SceneAddress,
   type TrackAddress, type WindowCoverage,
@@ -446,16 +446,18 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       const t = ctx.trackIndex(op.clip.slot.track);
       const s = ctx.sceneRow(op.clip.slot.scene);
       const cursor = ctx.cursorFor(op.clip);
+      const encodedColor = exactClipColor(op.metadata.color);
+      if (encodedColor === undefined) {
+        throw new InvalidOpError(op.op, 'clip colour is outside the exact supported palette');
+      }
       return [
         ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),
         frame(WIRE.cursorSetClipMetadata, {
           cursor,
+          trackIndex: t,
+          slotIndex: s,
           name: op.metadata.name,
-          colorBytes: [
-            op.metadata.color.red,
-            op.metadata.color.green,
-            op.metadata.color.blue,
-          ],
+          colorBytes: encodedColor.wireBytes,
           lengthBeats: op.metadata.lengthBeats,
           playStartBeats: op.metadata.playStartBeats,
           loopEnabled: op.metadata.loopEnabled,

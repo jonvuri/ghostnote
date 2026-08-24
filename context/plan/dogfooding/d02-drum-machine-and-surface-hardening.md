@@ -2,9 +2,9 @@
 title: D02 — Drum Machine and surface hardening
 kind: status
 state: active
-updated: 2026-08-23
+updated: 2026-08-24
 parent: README.md
-session: d02-native-insertion-and-catalog-correctness
+session: d02-observation-revision-and-partial-verdicts
 ---
 
 # D02 — Drum Machine and surface hardening
@@ -621,6 +621,27 @@ narrow the public input domain to values that Bitwig can return exactly.
 - Exact metadata reversal, focused tests, the full brain check, extension
   tests, the handshake, and live cleanup pass.
 
+### Outcome — complete
+
+[E83](../../evidence/experiments/e83-exact-clip-color-palette-is-live.md)
+records the implementation and live proof. Arbitrary RGB bytes are not safely
+invertible through the host color conversion. The public contract now accepts
+27 live-proved colors: 26 Bitwig palette colors and the existing Ghostnote
+legacy blue. Each has one explicit requested-to-wire mapping.
+
+An unsupported requested color returns the complete named palette and refuses
+before any read or write. An unsupported prior color also refuses before a
+write because exact reversal is not possible. The result explicitly rejects a
+blind one-byte retry. The executor and encoder repeat these guards below the
+public surface.
+
+The live matrix returned the exact requested bytes for all 27 colors on all
+three channels. Public `[145,105,78]` refusal left the complete clip metadata
+unchanged. Public red `[217,46,36]` verified independently, and ordinary
+reversal restored the complete prior metadata. Cleanup restored the accepted
+five-track list. The focused suite passes 309/309. The full brain check passes
+881/881. Extension tests, deploy freshness, and the 148-method handshake pass.
+
 ## Session 9 — Observation revision and partial verdicts
 
 ### Objective
@@ -681,4 +702,5 @@ coordinate system. State container execution and MIDI-routing semantics at the
 public boundary. Assert all required guarded wire fields in the encoder before
 the first live run. Record root run identities and version provenance in one
 ledger. Separate confirmed bugs from capability gaps and unresolved integrity
-risks.
+risks. Measure complete host color tuples before defining a component
+conversion.

@@ -1596,6 +1596,104 @@ test('2i follow-up: complete public clip metadata readback and reversal are exac
   assert.deepEqual(restored.entries[addressKey(notesAt(target))], before.entries[addressKey(notesAt(target))]);
 });
 
+test('d02-s8-surface: supported clip colours verify and reverse exactly', async () => {
+  const fx = fixture();
+  await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 2, lengthBeats: 8 }],
+  });
+  const target = clipAt(slotAt(trackAt(fx.trackA), sceneAt(2, 1)));
+  const before = await fx.fake.read([metadataAt(target)]);
+
+  for (const color of [
+    { red: 87, green: 97, blue: 198 },
+    { red: 217, green: 46, blue: 36 },
+    { red: 0, green: 153, blue: 217 },
+  ]) {
+    const result = await call(fx, 'set_clip_metadata', {
+      clips: [{
+        trackId: fx.trackA,
+        row: 2,
+        metadata: {
+          name: 'byte boundary', color,
+          lengthBeats: 8, playStartBeats: 0, loopEnabled: true,
+          loopStartBeats: 0, loopEndBeats: 8,
+        },
+      }],
+    }) as { changeId: string; clips: { metadataVerified: boolean }[] };
+    assert.equal(result.clips[0]?.metadataVerified, true);
+    assert.equal((await call(fx, 'revert_change', { changeId: result.changeId }))['applied'], true);
+  }
+
+  const restored = await fx.fake.read([metadataAt(target)]);
+  assert.deepEqual(restored.entries[addressKey(metadataAt(target))],
+    before.entries[addressKey(metadataAt(target))]);
+
+  const sentBeforeRefusal = fx.sent.length;
+  const refused = await call(fx, 'set_clip_metadata', {
+    clips: [{
+      trackId: fx.trackA,
+      row: 2,
+      metadata: {
+        name: 'unsupported', color: { red: 145, green: 105, blue: 78 },
+        lengthBeats: 8, playStartBeats: 0, loopEnabled: true,
+        loopStartBeats: 0, loopEndBeats: 8,
+      },
+    }],
+  }) as {
+    refused: boolean;
+    nothingWasWritten: boolean;
+    supportedClipColors: unknown[];
+  };
+  assert.equal(refused.refused, true);
+  assert.equal(refused.nothingWasWritten, true);
+  assert.ok(refused.supportedClipColors.length > 0);
+  assert.equal(fx.sent.length, sentBeforeRefusal);
+  assert.deepEqual((await fx.fake.read([metadataAt(target)])).entries[addressKey(metadataAt(target))],
+    before.entries[addressKey(metadataAt(target))]);
+
+  const spec = TOOLS.find((tool) => tool.name === 'set_clip_metadata')!;
+  const parse = (blue: number) => z.object(spec.inputSchema).safeParse({ clips: [{
+    trackId: fx.trackA,
+    row: 2,
+    metadata: {
+      name: 'boundary', color: { red: 0, green: 0, blue },
+      lengthBeats: 8, playStartBeats: 0, loopEnabled: true,
+      loopStartBeats: 0, loopEndBeats: 8,
+    },
+  }] });
+  assert.equal(parse(0).success, true);
+  assert.equal(parse(255).success, true);
+  assert.equal(parse(-1).success, false);
+  assert.equal(parse(256).success, false);
+});
+
+test('d02-s8-surface: an unsupported prior colour is refused before a write', async () => {
+  const fx = fixture();
+  await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 2, lengthBeats: 8 }],
+  });
+  const track = control(fx.fake).model.tracks.find((item) => item.channelId === fx.trackA)!;
+  track.slots[2]!.color = { red: 145, green: 105, blue: 78 };
+  const sentBefore = fx.sent.length;
+
+  const result = await call(fx, 'set_clip_metadata', {
+    clips: [{
+      trackId: fx.trackA,
+      row: 2,
+      metadata: {
+        name: 'supported', color: { red: 217, green: 46, blue: 36 },
+        lengthBeats: 8, playStartBeats: 0, loopEnabled: true,
+        loopStartBeats: 0, loopEndBeats: 8,
+      },
+    }],
+  }) as { refused: boolean; nothingWasWritten: boolean };
+
+  assert.equal(result.refused, true);
+  assert.equal(result.nothingWasWritten, true);
+  assert.equal(fx.sent.length, sentBefore);
+  assert.deepEqual(track.slots[2]!.color, { red: 145, green: 105, blue: 78 });
+});
+
 test('T-roundtrip: a partial undo touches only what it was scoped to', async () => {
   const fx = fixture();
   await call(fx, 'add_clip', {

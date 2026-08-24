@@ -34,6 +34,9 @@ export type {
 export { SETTLE_MS, TICK_MS, budgetTicks } from './budgets.js';
 export type { SettleBudget } from './budgets.js';
 
+export { EXACT_CLIP_COLORS, exactClipColor, supportedClipColors } from './clip-color.js';
+export type { ClipColorBytes, ExactClipColor } from './clip-color.js';
+
 export { STEP_SIZES, chooseStepSize, stepSizeFor } from './grid.js';
 
 export {
