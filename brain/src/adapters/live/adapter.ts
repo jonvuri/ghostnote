@@ -627,6 +627,8 @@ export class LiveAdapter implements BitwigAdapter {
   private pendingNoteWake: NoteWake | undefined;
   /** One confirmed device cursor is the complete DirectParameter route. */
   private parameterQueue: Promise<void> = Promise.resolve();
+  /** Keep complete scalar write pipelines from interleaving on that cursor. */
+  private parameterMutationQueue: Promise<void> = Promise.resolve();
 
   constructor(options: LiveOptions = {}) {
     this.transport = options.transport ?? new BridgeTransport();
@@ -655,6 +657,12 @@ export class LiveAdapter implements BitwigAdapter {
   private withParameterCursor<T>(work: () => Promise<T>): Promise<T> {
     const run = this.parameterQueue.then(work, work);
     this.parameterQueue = run.then(() => undefined, () => undefined);
+    return run;
+  }
+
+  private withParameterMutation<T>(work: () => Promise<T>): Promise<T> {
+    const run = this.parameterMutationQueue.then(work, work);
+    this.parameterMutationQueue = run.then(() => undefined, () => undefined);
     return run;
   }
 
@@ -1614,7 +1622,7 @@ export class LiveAdapter implements BitwigAdapter {
             return {
               standing: 'stable',
               deviceName: target.deviceName,
-              remotes: { pages },
+              remotes: { deviceName: target.deviceName, pages },
             };
           }
           prior = signature;
@@ -2457,6 +2465,10 @@ export class LiveAdapter implements BitwigAdapter {
       };
     });
     const resolved: ResolvedAddress[] = [];
+    // One resolve call can name many controls on one device. Their route and
+    // observer generation are one fact, so acquire each parameter view once.
+    const parameterInventories = new Map<AddressKey, Promise<ParameterInventory>>();
+    const remoteInventories = new Map<AddressKey, Promise<RemoteInventory>>();
     for (const [at_, entry] of first.entries()) {
       const address = refs[at_]!;
       if (entry !== WALK) {
@@ -2494,7 +2506,13 @@ export class LiveAdapter implements BitwigAdapter {
           resolved.push({ address, found: false, reason: 'absent' });
           continue;
         }
-        const inventory = await this.parameterInventory(address.device, row);
+        const key = addressKey(address.device);
+        let reading = parameterInventories.get(key);
+        if (reading === undefined) {
+          reading = this.parameterInventory(address.device, row);
+          parameterInventories.set(key, reading);
+        }
+        const inventory = await reading;
         if (inventory.standing !== 'stable') {
           resolved.push({
             address,
@@ -2516,7 +2534,13 @@ export class LiveAdapter implements BitwigAdapter {
           resolved.push({ address, found: false, reason: 'absent' });
           continue;
         }
-        const inventory = await this.remoteInventory(address.device, row);
+        const key = addressKey(address.device);
+        let reading = remoteInventories.get(key);
+        if (reading === undefined) {
+          reading = this.remoteInventory(address.device, row);
+          remoteInventories.set(key, reading);
+        }
+        const inventory = await reading;
         if (inventory.standing !== 'stable') {
           resolved.push({
             address,
@@ -3710,6 +3734,134 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /**
+   * Validate one multi-scalar parameter cohort from one fresh inventory. The
+   * caller keeps route and view stable, so later stages must not reacquire the
+   * same observer generation.
+   */
+  private async prepareParameterCohort(
+    ops: readonly Op[],
+    preflight?: Snapshot,
+  ): Promise<
+    | {
+      readonly kind: 'direct';
+      readonly device: DeviceAddress;
+      readonly deviceName: string;
+    }
+    | {
+      readonly kind: 'remote';
+      readonly device: DeviceAddress;
+      readonly deviceName: string;
+    }
+    | undefined
+  > {
+    if (ops.length < 2) return undefined;
+    const first = ops[0]!;
+    if (first.op !== 'param.set' && first.op !== 'remote.set') return undefined;
+    const device = first.op === 'param.set' ? first.param.device : first.remote.device;
+    const deviceKey = addressKey(device);
+    const guards = JSON.stringify({
+      expectedName: first.expectedName,
+      expectedChain: first.expectedChain,
+      expectedEnabledChain: first.expectedEnabledChain,
+    });
+    if (ops.some((op) => op.op !== first.op
+        || addressKey(op.op === 'param.set' ? op.param.device : op.remote.device) !== deviceKey
+        || JSON.stringify({
+          expectedName: op.expectedName,
+          expectedChain: op.expectedChain,
+          expectedEnabledChain: op.expectedEnabledChain,
+        }) !== guards)) return undefined;
+    const scalarOps = ops as readonly (
+      | Extract<Op, { op: 'param.set' }>
+      | Extract<Op, { op: 'remote.set' }>
+    )[];
+
+    const row = this.bank.find((item) => item.channelId === device.track.channelId);
+    if (row === undefined) {
+      throw new AddressUnresolvedError(device, 'the parameter track is not visible');
+    }
+    let names: readonly string[] | undefined;
+    if (first.expectedChain !== undefined) {
+      const chain = await this.deviceChain(device.track);
+      names = this.guardedDeviceNames(
+        device.track,
+        chain,
+        first.expectedChain,
+        first.expectedEnabledChain,
+        first.op,
+      );
+    }
+
+    if (preflight !== undefined) {
+      const target = await this.acquireDeviceTarget(device, row);
+      if (target.standing !== 'stable') {
+        throw new AddressUnresolvedError(device, `the parameter target is ${target.standing}`);
+      }
+      for (const op of scalarOps) {
+        const address = op.op === 'param.set' ? op.param : op.remote;
+        const entry = preflight.entries[addressKey(address)];
+        const expectedValue = op.op === 'param.set' ? 'param' : 'remote';
+        if (entry?.value.of !== expectedValue) {
+          throw new AddressUnresolvedError(address, 'the fresh cohort inventory is missing its scalar target');
+        }
+        if (op.expectedName !== undefined && target.deviceName !== op.expectedName) {
+          throw new AddressUnresolvedError(
+            address,
+            `the parameter device was "${target.deviceName}", expected "${op.expectedName}"`,
+          );
+        }
+      }
+      if (names !== undefined) this.deviceChainNames.set(device.track.channelId, names);
+      this.deviceNames.set(deviceKey, target.deviceName);
+      return { kind: first.op === 'param.set' ? 'direct' : 'remote', device, deviceName: target.deviceName };
+    }
+
+    if (first.op === 'param.set') {
+      const inventory = await this.parameterInventory(device, row);
+      if (inventory.standing !== 'stable') {
+        throw new AddressUnresolvedError(device, `the parameter inventory is ${inventory.standing}`);
+      }
+      for (const op of ops as readonly Extract<Op, { op: 'param.set' }>[]) {
+        if (this.parameterState(op.param, inventory) === undefined) {
+          throw new AddressUnresolvedError(op.param, 'the parameter id is not in the stable inventory');
+        }
+        if (op.expectedName !== undefined && inventory.deviceName !== op.expectedName) {
+          throw new AddressUnresolvedError(
+            op.param,
+            `the parameter device was "${inventory.deviceName}", expected "${op.expectedName}"`,
+          );
+        }
+      }
+      if (names !== undefined) {
+        this.deviceChainNames.set(device.track.channelId, names);
+        this.deviceNames.set(deviceKey, inventory.deviceName);
+      }
+      return { kind: 'direct', device, deviceName: inventory.deviceName };
+    }
+
+    const inventory = await this.remoteInventory(device, row);
+    if (inventory.standing !== 'stable') {
+      throw new AddressUnresolvedError(device, `the remote-control inventory is ${inventory.standing}`);
+    }
+    for (const op of ops as readonly Extract<Op, { op: 'remote.set' }>[]) {
+      if (this.remoteState(op.remote, inventory) === undefined) {
+        throw new AddressUnresolvedError(op.remote, 'the remote target is not in the stable inventory');
+      }
+      if (op.expectedName !== undefined && inventory.deviceName !== op.expectedName) {
+        throw new AddressUnresolvedError(
+          op.remote,
+          `the remote device was "${inventory.deviceName}", expected "${op.expectedName}"`,
+        );
+      }
+    }
+    if (names !== undefined) {
+      this.deviceChainNames.set(device.track.channelId, names);
+      this.deviceNames.set(deviceKey, inventory.deviceName);
+    }
+    return { kind: 'remote', device, deviceName: inventory.deviceName };
+  }
+
+  /**
    * ⚠⚠ Select the chain about to be copied — `e17ak`'s enabling half, sent as
    * ITS OWN REQUEST.
    *
@@ -3828,6 +3980,14 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   async apply(batch: BatchRequest): Promise<BatchReceipt> {
+    const scalar = batch.ops.length > 0
+      && batch.ops.every((op) => op.op === 'param.set' || op.op === 'remote.set');
+    return scalar
+      ? this.withParameterMutation(() => this.applyInside(batch))
+      : this.applyInside(batch);
+  }
+
+  private async applyInside(batch: BatchRequest): Promise<BatchReceipt> {
     // ⚠ E15-E: refuse a write the API would accept and discard, BEFORE anything
     // is applied. Shared with the fake so both adapters refuse identically.
     assertOpsWritable(batch.ops);
@@ -3902,6 +4062,10 @@ export class LiveAdapter implements BitwigAdapter {
     this.deviceChainNames.clear();
     this.deviceChainEnabled.clear();
     this.deviceTailIndices.clear();
+    const parameterCohort = await this.prepareParameterCohort(
+      batch.ops,
+      batch.parameterPreflight,
+    );
 
     type LiveStage = Stage & { readonly writerPageStart?: number };
     const writerSteps = this.fineSteps ?? this.gridSteps ?? 64;
@@ -4218,7 +4382,8 @@ export class LiveAdapter implements BitwigAdapter {
         throw error;
       }
 
-      const parameterOp = stage.ops.length === 1 && stage.ops[0]?.op === 'param.set'
+      const parameterOp = parameterCohort === undefined
+        && stage.ops.length === 1 && stage.ops[0]?.op === 'param.set'
         ? stage.ops[0]
         : undefined;
       let parameterBefore: Extract<ParameterInventory, { standing: 'stable' }> | undefined;
@@ -4271,7 +4436,8 @@ export class LiveAdapter implements BitwigAdapter {
         }
         parameterBefore = inventory;
       }
-      const remoteOp = stage.ops.length === 1 && stage.ops[0]?.op === 'remote.set'
+      const remoteOp = parameterCohort === undefined
+        && stage.ops.length === 1 && stage.ops[0]?.op === 'remote.set'
         ? stage.ops[0]
         : undefined;
       let remoteBefore: Extract<RemoteInventory, { standing: 'stable' }> | undefined;
@@ -4282,6 +4448,22 @@ export class LiveAdapter implements BitwigAdapter {
           await this.restoreSelection(selection);
           throw new AddressUnresolvedError(remoteOp.remote, 'the remote-control track is not visible');
         }
+        let names: readonly string[] | undefined;
+        if (remoteOp.expectedChain !== undefined) {
+          const chain = await this.deviceChain(remoteOp.remote.device.track);
+          try {
+            names = this.guardedDeviceNames(
+              remoteOp.remote.device.track,
+              chain,
+              remoteOp.expectedChain,
+              remoteOp.expectedEnabledChain,
+              remoteOp.op,
+            );
+          } catch (error) {
+            await this.restoreSelection(selection);
+            throw error;
+          }
+        }
         const inventory = await this.remoteInventory(remoteOp.remote.device, row);
         if (inventory.standing !== 'stable'
             || this.remoteState(remoteOp.remote, inventory) === undefined) {
@@ -4291,6 +4473,18 @@ export class LiveAdapter implements BitwigAdapter {
             `the remote-control inventory is ${inventory.standing} or its target did not settle`,
           );
         }
+        if (remoteOp.expectedName !== undefined
+            && inventory.deviceName !== remoteOp.expectedName) {
+          await this.restoreSelection(selection);
+          throw new AddressUnresolvedError(
+            remoteOp.remote,
+            `the remote device was "${inventory.deviceName}", expected "${remoteOp.expectedName}"`,
+          );
+        }
+        if (names !== undefined) {
+          this.deviceChainNames.set(remoteOp.remote.device.track.channelId, names);
+        }
+        this.deviceNames.set(addressKey(remoteOp.remote.device), inventory.deviceName);
         remoteBefore = inventory;
       }
 
@@ -4301,6 +4495,26 @@ export class LiveAdapter implements BitwigAdapter {
         this.pendingNoteWake = undefined;
         try { await this.resetWriterViews(writerViews); } catch {}
         await this.restoreSelection(selection);
+        if (parameterCohort !== undefined && receipts.length > 0) {
+          const at = await this.revision();
+          receipts.push({
+            index: i,
+            applied: false,
+            ops: stage.ops.map((op) => ({
+              op: op.op,
+              ok: false,
+              error: error instanceof Error ? error.message : String(error),
+            })),
+            revision: at.revision,
+          });
+          return {
+            contract: CONTRACT_TAG,
+            accepted: true,
+            stages: receipts,
+            minted,
+            at,
+          };
+        }
         throw error;
       }
 
@@ -4579,6 +4793,59 @@ export class LiveAdapter implements BitwigAdapter {
           if (created !== undefined && at !== undefined) {
             minted[at] = { kind: 'track', channelId: created.channelId };
           }
+        }
+      }
+      // One failed scalar means the shared guard can no longer authorize later
+      // cohort members. Keep the completed receipts and stop in caller order.
+      if (parameterCohort !== undefined
+          && !receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) break;
+    }
+
+    if (parameterCohort !== undefined && batch.parameterPreflight === undefined
+        && receipts.length > 0) {
+      const row = this.bank.find((item) =>
+        item.channelId === parameterCohort.device.track.channelId);
+      if (parameterCohort.kind === 'direct') {
+        const after = row === undefined
+          ? { standing: 'missing' as const }
+          : await this.parameterInventory(parameterCohort.device, row);
+        for (let index = 0; index < receipts.length; index++) {
+          const op = batch.ops[index];
+          if (op?.op !== 'param.set' || !receipts[index]!.ops.every((entry) => entry.ok)) continue;
+          const state = after.standing === 'stable'
+            ? this.parameterState(op.param, after)
+            : undefined;
+          const sameTarget = after.standing === 'stable'
+            && after.deviceName === parameterCohort.deviceName;
+          if (sameTarget && state !== undefined && Math.abs(state.value - op.value) <= 2e-3) continue;
+          const why = after.standing === 'stable'
+            ? `parameter readback disagreed: requested ${op.value}, got ${state?.value ?? 'missing'}`
+            : `parameter readback was ${after.standing}`;
+          receipts[index] = {
+            ...receipts[index]!,
+            ops: receipts[index]!.ops.map((entry) => ({ ...entry, ok: false, error: why })),
+          };
+        }
+      } else {
+        const after = row === undefined
+          ? { standing: 'missing' as const }
+          : await this.remoteInventory(parameterCohort.device, row);
+        for (let index = 0; index < receipts.length; index++) {
+          const op = batch.ops[index];
+          if (op?.op !== 'remote.set' || !receipts[index]!.ops.every((entry) => entry.ok)) continue;
+          const state = after.standing === 'stable'
+            ? this.remoteState(op.remote, after)
+            : undefined;
+          const sameTarget = after.standing === 'stable'
+            && after.deviceName === parameterCohort.deviceName;
+          if (sameTarget && state !== undefined && Math.abs(state.value - op.value) <= 2e-3) continue;
+          const why = after.standing === 'stable'
+            ? `remote readback disagreed: requested ${op.value}, got ${state?.value ?? 'missing'}`
+            : `remote readback was ${after.standing}`;
+          receipts[index] = {
+            ...receipts[index]!,
+            ops: receipts[index]!.ops.map((entry) => ({ ...entry, ok: false, error: why })),
+          };
         }
       }
     }

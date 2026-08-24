@@ -561,6 +561,7 @@ public final class ParamHandlers extends HandlerGroup {
         int page = params.has("pageIndex") ? params.get("pageIndex").getAsInt() : 0;
         int index = params.get("index").getAsInt();
         double value = params.get("value").getAsDouble();
+        verifyParameterTarget(params, "remote.set");
         if (page < 0 || page >= rig.config.remotePages) {
             throw new IllegalArgumentException("remote page is outside the configured window: " + page);
         }

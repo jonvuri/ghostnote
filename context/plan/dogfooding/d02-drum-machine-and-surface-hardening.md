@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 parent: README.md
-session: correct-nested-direct-parameter-guards
+session: clear-container-semantics-and-note-refusals
 ---
 
 # D02 — Drum Machine and surface hardening
@@ -204,6 +204,30 @@ readback.
 - Focused tests, the full brain check, extension tests, and the live reversal
   pass. No fixture state changes remain.
 
+### Outcome — complete
+
+[E78](../../evidence/experiments/e78-cohort-parameter-writes-are-live.md)
+records the implementation and live proof. `set_parameter` now partitions
+ordered settings into stable device-route and parameter-view cohorts. One fresh
+inventory supplies the scalar prior values and guards. One complete inventory
+verifies all cohort values after the writes.
+
+Each scalar target keeps its own change ID, prior value, receipt, and reversal.
+The live adapter serializes complete parameter mutation pipelines. A target or
+structural failure stops later settings in that cohort. Earlier verified
+cohorts remain in the partial result.
+
+Fake, live-adapter, public-surface, encoder, and extension-source regressions
+cover trace count, failure, concurrency, mixed routes, durable guards, and
+reversal. The focused cohort passes 247/247. The full brain check passes
+856/856, and extension tests pass.
+
+The live depth-2 Polysynth case changed four remote controls in 4.383 seconds.
+This is 86.8 percent faster than the 33.3-second source baseline. The trace had
+one preflight inventory, four guarded writes, and one complete readback. Four
+independent reversals restored the exact prior values. Cleanup restored the
+exact four-track `New 2` entry list.
+
 ## Session 4 — Clear container semantics and note refusals
 
 ### Objective
@@ -282,4 +306,5 @@ about Layers, Selectors, pad routing, grid limits, or prior agent behavior.
 Return a partial receipt when a later stage fails after an earlier write. Verify
 owned containers from a complete inventory. Name each positional guard for its
 coordinate system. State container execution and MIDI-routing semantics at the
-public boundary.
+public boundary. Assert all required guarded wire fields in the encoder before
+the first live run.

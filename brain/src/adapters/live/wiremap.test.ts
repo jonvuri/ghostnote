@@ -500,6 +500,11 @@ test('4g: guarded parameter writes recheck the top-level target immediately befo
     'param.set must guard the cursor target before either typed write mode');
   assert.match(typed, /verifyParameterTarget\(params, "param\.set"\);\s*if \("smoothed"\.equals\(mode\)\)/,
     'no other work can separate the typed-parameter target guard from its write branch');
+  const remote = methodBody('remoteSet');
+  const remoteGuard = remote.indexOf('verifyParameterTarget(params, "remote.set")');
+  const remoteWrite = remote.indexOf('control.value().setImmediately(value)');
+  assert.ok(remoteGuard >= 0 && remoteGuard < remoteWrite,
+    'remote.set must guard the cursor target before its typed write');
 
   const helperStart = source.indexOf('private void verifyParameterTarget(');
   const helperEnd = source.indexOf('\n    // -------------------------------------------- E7', helperStart);

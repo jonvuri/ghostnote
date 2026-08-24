@@ -30,7 +30,7 @@
 import { randomUUID } from 'node:crypto';
 
 import {
-  AddressUnresolvedError, CONTRACT_TAG, NOTE_PROP_FIDELITY,
+  AddressUnresolvedError, CONTRACT_TAG, InvalidOpError, NOTE_PROP_FIDELITY,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
   blindSpotError, clipMetadata as clipMetadataAt, deltaComplete,
   failures, notes as notesAt,
@@ -79,6 +79,8 @@ export interface RunOptions {
   readonly clearance?: Clearance;
   /** Refuse if the project changed after a caller's content preflight. */
   readonly ifRevision?: number;
+  /** Fresh scalar cohort state. It replaces duplicate resolve and stash reads. */
+  readonly parameterPreflight?: Snapshot;
 }
 
 /** What a revert did, and what it could not do (D5). */
@@ -132,6 +134,63 @@ export class Executor {
     return this.adapter.preserveSelection(() => this.runInside(ops, options));
   }
 
+  /**
+   * Run one same-route parameter cohort through one engine pipeline, then keep
+   * one independent take for each scalar target. A scalar can therefore be put
+   * back without also changing its cohort siblings.
+   */
+  async runParameterCohort(
+    ops: readonly Op[],
+    options: RunOptions = {},
+  ): Promise<readonly Take[]> {
+    if (ops.length === 0 || ops.some((op) => op.op !== 'param.set' && op.op !== 'remote.set')) {
+      throw new InvalidOpError('parameter cohort', 'only parameter and remote-control writes are allowed');
+    }
+    const scalarOps = ops as readonly (
+      | Extract<Op, { op: 'param.set' }>
+      | Extract<Op, { op: 'remote.set' }>
+    )[];
+    const keys = scalarOps.map((op) => addressKey(op.op === 'param.set' ? op.param : op.remote));
+    if (new Set(keys).size !== keys.length) {
+      throw new InvalidOpError('parameter cohort', 'each scalar target must occur once');
+    }
+    return this.adapter.preserveSelection(async () => {
+      const batch = await this.runInside(ops, options);
+      if (batch.receipt.rejected !== undefined || batch.receipt.stages.length === 0) return [batch];
+      return scalarOps.slice(0, batch.receipt.stages.length).map((op, opIndex) => {
+        const writeSet = writeSetOf([op]);
+        const key = writeSet.targets[0]!.key;
+        const stage = batch.receipt.stages[opIndex];
+        const stash = snapshotFor(batch.stash, key);
+        const verify = snapshotFor(batch.verify, key);
+        const values = batch.values.filter((value) => addressKey(value.address) === key);
+        return this.take({
+          ops: [op],
+          targets: writeSet.targets,
+          unrevertable: writeSet.unrevertable,
+          stash,
+          receipt: {
+            ...batch.receipt,
+            accepted: stage !== undefined && stage.applied && batch.receipt.accepted,
+            stages: stage === undefined ? [] : [{ ...stage, index: 0 }],
+            minted: {},
+          },
+          verify,
+          values,
+          disagreements: batch.report.disagreements.filter(
+            (item) => addressKey(item.address) === key,
+          ),
+          unverified: batch.report.unverified.filter(
+            (item) => addressKey(item.address) === key,
+          ),
+          concurrent: opIndex === 0 ? batch.report.concurrent : [],
+          ...(opIndex === 0 && batch.report.undecidable !== undefined
+            ? { undecidable: batch.report.undecidable } : {}),
+        });
+      });
+    });
+  }
+
   /** Run inside the one selection scope that covers the complete pipeline. */
   private async runInside(ops: readonly Op[], options: RunOptions): Promise<Take> {
     // ⚠ E15-E, first and before anything reads: a batch asking for `pressure`
@@ -152,8 +211,19 @@ export class Executor {
     const addresses: Address[] = targets.map((t) => t.address);
     const risk = structuralRisk(ops);
 
-    await this.timed('resolve', () => this.assertResolvable(addresses));
-    const stash = await this.timed('stash', () => this.adapter.read(addresses));
+    const supplied = options.parameterPreflight;
+    if (supplied === undefined) {
+      await this.timed('resolve', () => this.assertResolvable(addresses));
+    } else {
+      const suppliedKeys = new Set(Object.keys(supplied.entries));
+      if (addresses.some((address) => !suppliedKeys.has(addressKey(address)))) {
+        throw new InvalidOpError(
+          'parameter cohort',
+          'the fresh preflight does not contain every scalar target',
+        );
+      }
+    }
+    const stash = supplied ?? await this.timed('stash', () => this.adapter.read(addresses));
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
 
@@ -171,6 +241,7 @@ export class Executor {
     const receipt = await this.timed('apply', () => this.adapter.apply({
       ops,
       ifRevision: options.ifRevision ?? stash.at.revision,
+      ...(supplied === undefined ? {} : { parameterPreflight: supplied }),
     }));
 
     if (receipt.rejected !== undefined) {
@@ -575,6 +646,19 @@ export class Executor {
       report,
     };
   }
+}
+
+/** Keep one address and its standing in a cohort member's independent record. */
+function snapshotFor(snapshot: Snapshot, key: string): Snapshot {
+  const entry = snapshot.entries[key];
+  const matches = (address: Address): boolean => addressKey(address) === key;
+  return {
+    ...snapshot,
+    entries: entry === undefined ? {} : { [key]: entry },
+    missing: snapshot.missing.filter(matches),
+    unreachable: snapshot.unreachable.filter(matches),
+    unstable: snapshot.unstable.filter(matches),
+  };
 }
 
 /**

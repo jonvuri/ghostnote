@@ -2244,82 +2244,148 @@ export const TOOLS: readonly ToolSpec[] = [
       const warnings: Array<Record<string, unknown>> = [];
       try {
         let verified = true;
+        const cohorts: Array<Array<{
+          settingIndex: number;
+          setting: (typeof args.settings)[number];
+        }>> = [];
         for (const [settingIndex, setting] of args.settings.entries()) {
-          const target = addressedDevice(setting.device);
-          const bank = await workspace.devices(trackAt(setting.device.trackId));
+          const prior = cohorts.at(-1);
+          const routeKey = JSON.stringify({ kind: setting.kind, device: setting.device });
+          const targetKey = setting.kind === 'direct'
+            ? setting.parameterId
+            : `${setting.pagePosition}:${setting.pageName}:${setting.controlPosition}:${setting.controlName}`;
+          const priorRouteKey = prior === undefined ? undefined : JSON.stringify({
+            kind: prior[0]!.setting.kind,
+            device: prior[0]!.setting.device,
+          });
+          const repeatsTarget = prior?.some((item) => setting.kind === 'direct'
+            ? item.setting.kind === 'direct' && item.setting.parameterId === targetKey
+            : item.setting.kind === 'remote'
+              && `${item.setting.pagePosition}:${item.setting.pageName}:`
+                + `${item.setting.controlPosition}:${item.setting.controlName}` === targetKey) ?? false;
+          if (prior === undefined || priorRouteKey !== routeKey || repeatsTarget) {
+            cohorts.push([{ settingIndex, setting }]);
+          } else {
+            prior.push({ settingIndex, setting });
+          }
+        }
+
+        for (const cohort of cohorts) {
+          const first = cohort[0]!.setting;
+          const target = addressedDevice(first.device);
+          const bank = await workspace.devices(trackAt(first.device.trackId));
           const enabled = enabledFingerprint(bank);
           if (!completeDeviceBank(bank) || enabled === undefined) {
             throw new Error('the complete top-level device names and enabled states are not visible');
           }
           const expectedChain = bank.devices.map((item) => item.name);
-          const top = bank.devices[setting.device.devicePosition];
+          const top = bank.devices[first.device.devicePosition];
           if (top === undefined) throw new Error('the top-level device position is absent');
 
-          let op: Op;
-          if (setting.kind === 'direct') {
-            const snapshot = await workspace.read([target]);
+          const ops: Op[] = [];
+          let preflight: Awaited<ReturnType<Workspace['read']>>;
+          if (first.kind === 'direct') {
+            const parameterAddresses = cohort.map((item) => {
+              if (item.setting.kind !== 'direct') throw new Error('the parameter cohort view changed');
+              return paramAt(target, item.setting.parameterId);
+            });
+            const snapshot = await workspace.read([target, ...parameterAddresses]);
+            preflight = snapshot;
             const entry = snapshot.entries[addressKey(target)];
             if (snapshot.unreachable.length > 0) throw new Error('the parameter target is outside its bank window');
             if (snapshot.unstable.length > 0) throw new Error('the parameter observer inventory is unstable');
             if (entry?.value.of !== 'device' || entry.value.device.params === undefined) {
               throw new Error('the parameter target or its complete inventory is missing');
             }
-            const matches = entry.value.device.params.filter((item) => item.id === setting.parameterId);
-            if (matches.length !== 1) {
-              throw new Error(`the DirectParameter id matched ${matches.length} parameters`);
+            for (const item of cohort) {
+              const setting = item.setting;
+              if (setting.kind !== 'direct') throw new Error('the parameter cohort view changed');
+              const matches = entry.value.device.params.filter(
+                (parameter) => parameter.id === setting.parameterId,
+              );
+              if (matches.length !== 1) {
+                throw new Error(`the DirectParameter id matched ${matches.length} parameters`);
+              }
+              warnings.push(...parameterWarnings(matches[0]!).map((message) => ({
+                settingIndex: item.settingIndex,
+                parameterId: setting.parameterId,
+                message,
+              })));
+              ops.push({
+                op: 'param.set',
+                param: paramAt(target, setting.parameterId),
+                value: setting.normalizedValue,
+                expectedName: entry.value.device.name,
+                expectedChain,
+                expectedEnabledChain: enabled,
+              });
             }
-            warnings.push(...parameterWarnings(matches[0]!).map((message) => ({
-              settingIndex, parameterId: setting.parameterId, message,
-            })));
-            op = {
-              op: 'param.set',
-              param: paramAt(target, setting.parameterId),
-              value: setting.normalizedValue,
-              expectedName: entry.value.device.name,
-              expectedChain,
-              expectedEnabledChain: enabled,
-            };
           } else {
             const inventoryAddress = remotesAt(target);
-            const snapshot = await workspace.read([inventoryAddress]);
-            const entry = snapshot.entries[addressKey(inventoryAddress)];
-            if (snapshot.unreachable.length > 0) throw new Error('the remote target is outside its bank window');
-            if (snapshot.unstable.length > 0) throw new Error('the remote observer inventory is unstable');
-            if (entry?.value.of !== 'remotes') throw new Error('the remote inventory is missing');
-            const page = entry.value.remotes.pages[setting.pagePosition];
-            const control = page?.controls[setting.controlPosition];
-            if (page?.name !== setting.pageName || control?.name !== setting.controlName) {
-              throw new Error('the remote page or control does not match the fresh inventory');
-            }
-            if (Math.abs(control.modulatedValue - control.value) > 1e-9) {
-              warnings.push({
-                settingIndex,
-                message: 'The modulated value differs from the stored base value.',
-              });
-            }
-            if (control.hasAutomation === true) {
-              warnings.push({
-                settingIndex,
-                message: 'Host automation can override the stored base value.',
-              });
-            }
-            op = {
-              op: 'remote.set',
-              remote: remoteAt(
+            const remoteAddresses = cohort.map((item) => {
+              const setting = item.setting;
+              if (setting.kind !== 'remote') throw new Error('the parameter cohort view changed');
+              return remoteAt(
                 target,
                 setting.pagePosition,
                 setting.pageName,
                 setting.controlPosition,
                 setting.controlName,
-              ),
-              value: setting.normalizedValue,
-            };
+              );
+            });
+            const snapshot = await workspace.read([inventoryAddress, ...remoteAddresses]);
+            preflight = snapshot;
+            const entry = snapshot.entries[addressKey(inventoryAddress)];
+            if (snapshot.unreachable.length > 0) throw new Error('the remote target is outside its bank window');
+            if (snapshot.unstable.length > 0) throw new Error('the remote observer inventory is unstable');
+            if (entry?.value.of !== 'remotes') throw new Error('the remote inventory is missing');
+            for (const item of cohort) {
+              const setting = item.setting;
+              if (setting.kind !== 'remote') throw new Error('the parameter cohort view changed');
+              const page = entry.value.remotes.pages[setting.pagePosition];
+              const control = page?.controls[setting.controlPosition];
+              if (page?.name !== setting.pageName || control?.name !== setting.controlName) {
+                throw new Error('the remote page or control does not match the fresh inventory');
+              }
+              if (Math.abs(control.modulatedValue - control.value) > 1e-9) {
+                warnings.push({
+                  settingIndex: item.settingIndex,
+                  message: 'The modulated value differs from the stored base value.',
+                });
+              }
+              if (control.hasAutomation === true) {
+                warnings.push({
+                  settingIndex: item.settingIndex,
+                  message: 'Host automation can override the stored base value.',
+                });
+              }
+              ops.push({
+                op: 'remote.set',
+                remote: remoteAt(
+                  target,
+                  setting.pagePosition,
+                  setting.pageName,
+                  setting.controlPosition,
+                  setting.controlName,
+                ),
+                value: setting.normalizedValue,
+                expectedName: entry.value.remotes.deviceName,
+                expectedChain,
+                expectedEnabledChain: enabled,
+              });
+            }
           }
-          const change = await workspace.apply([op]);
-          const receipt = receiptOf(change);
-          changes.push(receipt);
-          if (!receipt.applied || receipt.failed !== undefined || receipt.mismatches !== undefined
-              || receipt.notReadBack !== undefined) verified = false;
+          const cohortChanges = await workspace.applyParameterCohort(ops, {
+            parameterPreflight: preflight,
+          });
+          const receipts = cohortChanges.map(receiptOf);
+          changes.push(...receipts);
+          if (receipts.length !== ops.length || receipts.some((receipt) =>
+            !receipt.applied || receipt.failed !== undefined || receipt.mismatches !== undefined
+              || receipt.notReadBack !== undefined)) {
+            verified = false;
+            throw new Error('the parameter cohort did not complete and verify every scalar target');
+          }
         }
         return {
           applied: changes.every((change) => change.applied),

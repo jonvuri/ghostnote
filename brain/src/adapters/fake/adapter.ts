@@ -266,6 +266,7 @@ export class FakeAdapter implements BitwigAdapter {
   private fakeRemoteInventory(device: FakeDevice): RemoteControlsState {
     this.model.remoteObservationGeneration++;
     return {
+      deviceName: device.name,
       pages: (device.remotePages ?? []).map((page, pageIndex) => ({
         index: pageIndex,
         name: page.name,
@@ -308,6 +309,7 @@ export class FakeAdapter implements BitwigAdapter {
    * because conflating them is how a revert silently under-delivers.
    */
   async resolve(refs: readonly Address[]): Promise<ResolveResult> {
+    const parameterStanding = new Map<string, boolean>();
     const resolved: ResolvedAddress[] = refs.map((address) => {
       const sceneRef = addressScene(address);
       if (sceneRef !== undefined && sceneRef.epoch !== this.model.sceneEpoch) {
@@ -354,8 +356,15 @@ export class FakeAdapter implements BitwigAdapter {
           const target = this.deepDevice(hit.track, address.device);
           if (!target.ok) return { address, found: false, reason: target.miss };
           const device = target.device;
-          this.model.parameterObservationGeneration++;
-          if (!device.paramsLive || consumeStaleParameterInventory(this.model)) {
+          const inventoryKey = `${address.kind === 'param' ? 'direct' : 'remote'}:`
+            + addressKey(address.device);
+          let stable = parameterStanding.get(inventoryKey);
+          if (stable === undefined) {
+            this.model.parameterObservationGeneration++;
+            stable = device.paramsLive && !consumeStaleParameterInventory(this.model);
+            parameterStanding.set(inventoryKey, stable);
+          }
+          if (!stable) {
             return { address, found: false, reason: 'unstable' as const };
           }
           if (address.kind === 'remotes') return { address, found: true, index: address.device.chainIndex };
@@ -857,11 +866,19 @@ export class FakeAdapter implements BitwigAdapter {
         }
       }
       if (op.op === 'remote.set') {
-        const target = this.deepDevice(
-          this.requireTrack(op.remote.device.track, op.op), op.remote.device,
+        const track = this.requireTrack(op.remote.device.track, op.op);
+        this.assertExpectedDeviceChain(
+          op.op, track, op.expectedChain, op.expectedEnabledChain,
         );
+        const target = this.deepDevice(track, op.remote.device);
         if (!target.ok) {
           throw new AddressUnresolvedError(op.remote, `remote target is ${target.miss}`);
+        }
+        if (op.expectedName !== undefined && target.device.name !== op.expectedName) {
+          throw new AddressUnresolvedError(
+            op.remote,
+            `remote device is "${target.device.name}", expected "${op.expectedName}"`,
+          );
         }
         const page = target.device.remotePages?.[op.remote.pageIndex];
         const control = page?.controls[op.remote.controlIndex];

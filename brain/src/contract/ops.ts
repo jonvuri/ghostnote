@@ -150,7 +150,17 @@ export type Op =
     /** Aligned top-level enabled flags from the same observation. */
     readonly expectedEnabledChain?: readonly boolean[];
   }
-  | { readonly op: 'remote.set'; readonly remote: RemoteAddress; readonly value: number }
+  | {
+    readonly op: 'remote.set';
+    readonly remote: RemoteAddress;
+    readonly value: number;
+    /** Device name from the inventory that minted the remote address. */
+    readonly expectedName?: string;
+    /** Complete top-level names from the caller's last accepted observation. */
+    readonly expectedChain?: readonly string[];
+    /** Aligned top-level enabled flags from the same observation. */
+    readonly expectedEnabledChain?: readonly boolean[];
+  }
 
   // --- device-layer chains: the FIRST typed verb that reaches inside one -----
   /**

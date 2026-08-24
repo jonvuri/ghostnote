@@ -58,6 +58,8 @@ export interface ResolveResult {
 
 export interface BatchRequest {
   readonly ops: readonly Op[];
+  /** Fresh scalar cohort state that also serves as the engine stash. */
+  readonly parameterPreflight?: Snapshot;
   /**
    * Optimistic-concurrency guard. When set and stale, the batch is rejected
    * WHOLE — zero ops applied (E8-D). Acceptance claims the next revision

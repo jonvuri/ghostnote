@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: dogfooding
-session: cohort-parameter-writes
+session: clear-container-semantics-and-note-refusals
 ---
 
 # Now
@@ -93,14 +93,30 @@ check passes 850/850. Extension tests, deploy freshness, and the 148-method
 handshake pass. [E77](evidence/experiments/e77-nested-direct-parameter-guards-are-live.md)
 records the result.
 
+D02 Session 3 is complete. `set_parameter` now groups consecutive settings by
+stable device route and parameter view. One fresh inventory supplies every
+scalar prior value and guard. One complete inventory verifies the cohort after
+the writes. Each scalar retains an independent receipt and exact reversal.
+
+The live depth-2 Polysynth case changed four remote controls in 4.383 seconds,
+which is 86.8 percent faster than the 33.3-second source baseline. The trace had
+one preflight inventory, four guarded writes, and one complete readback. Four
+reversals restored the exact prior values. Cleanup restored the exact four-track
+`New 2` entry list. The focused cohort passes 247/247. The full brain check
+passes 856/856. Extension tests, deploy freshness, and the 148-method handshake
+pass. [E78](evidence/experiments/e78-cohort-parameter-writes-are-live.md) records
+the result.
+
 ## Next action
 
-Run D02 Session 3: cohort parameter writes by stable device route and parameter
-view. Then complete D02 Session 4 before the same-prompt musical retry. Do not
-begin Phase 6a until the operator closes this loop.
+Run D02 Session 4: clear container semantics and note refusals. Then run the
+same-prompt musical retry in D02 Session 5. Do not begin Phase 6a until the
+operator closes this loop.
 
 ## Retrospective
 
 Return a partial receipt when a later stage fails after an earlier write. Verify
 owned containers from a complete inventory, not from first-device witnesses.
 Name each positional guard for its coordinate system.
+Assert all required guarded wire fields in the encoder before the first live
+run.

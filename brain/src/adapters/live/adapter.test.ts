@@ -2117,6 +2117,7 @@ class ParameterTransport implements Transport {
   remoteNeverCurrent = false;
   malformedRemoteControl = false;
   movingRemote = false;
+  failRemoteIndex: number | undefined;
   emptySlot = false;
   private selected = 0;
   private depth = 0;
@@ -2126,7 +2127,12 @@ class ParameterTransport implements Transport {
   private readonly padParams = new Map([['PAD1', { name: 'Pad parameter', value: 0.35 }]]);
   private selectedRemotePage = 0;
   private readonly remotePages = [
-    { name: 'Filter', controls: [{ name: 'Cutoff', value: 0.25, modulatedValue: 0.4 }] },
+    { name: 'Filter', controls: [
+      { name: 'Cutoff', value: 0.25, modulatedValue: 0.4 },
+      { name: 'Resonance', value: 0.3, modulatedValue: 0.3 },
+      { name: 'Drive', value: 0.35, modulatedValue: 0.35 },
+      { name: 'Mix', value: 0.4, modulatedValue: 0.4 },
+    ] },
     { name: 'Mod', controls: [{ name: 'Amount', value: 0.5, modulatedValue: 0.5 }] },
   ];
   private generation = 0;
@@ -2374,6 +2380,9 @@ class ParameterTransport implements Transport {
       }
       case WIRE.remoteSet: {
         const pageIndex = (params['pageIndex'] as number | undefined) ?? this.selectedRemotePage;
+        if (params['index'] === this.failRemoteIndex) {
+          throw new Error(`remote target ${this.failRemoteIndex} changed`);
+        }
         const control = this.remotePages[pageIndex]?.controls[params['index'] as number];
         if (control !== undefined && this.takeWrites) control.value = params['value'] as number;
         return {};
@@ -2648,6 +2657,106 @@ test('4f live route: remote pages settle twice and one control restores exactly'
   const after = await adapter.read([address]);
   const afterEntry = after.entries[addressKey(address)];
   assert.equal(afterEntry?.value.of === 'remote' ? afterEntry.value.remote.value : undefined, 0.25);
+});
+
+test('d02-s3 live route: four depth-2 remotes use one preflight and one readback', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const outer = chainAt(deviceAt(TRACK, 0), 'Outer');
+  const inner = chainAt(deviceInAt(outer, 0), 'Inner');
+  const device = deviceInAt(inner, 0);
+  const names = ['Cutoff', 'Resonance', 'Drive', 'Mix'];
+  const addresses = names.map((name, index) => remote(device, 0, 'Filter', index, name));
+  const inventoryAddress = remotes(device);
+  const preflight = await adapter.read([inventoryAddress, ...addresses]);
+  const guard = {
+    expectedName: 'Deep synth',
+    expectedChain: ['Polysynth', 'Polymer'],
+    expectedEnabledChain: [true, true],
+  } as const;
+  const requested = [0.6, 0.7, 0.8, 0.9];
+  const ops = addresses.map((target, index) => ({
+    op: 'remote.set' as const,
+    remote: target,
+    value: requested[index]!,
+    ...guard,
+  }));
+
+  const changed = await adapter.apply({
+    ops,
+    ifRevision: preflight.at.revision,
+    parameterPreflight: preflight,
+  });
+  assert.equal(changed.stages.length, 4);
+  assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const readback = await adapter.read(addresses);
+  assert.deepEqual(addresses.map((address) => {
+    const entry = readback.entries[addressKey(address)];
+    return entry?.value.of === 'remote' ? entry.value.remote.value : undefined;
+  }), requested);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList
+    && frame.params?.['begin'] === true).length, 2);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.batchRun).length, 4);
+  const writes = wire.frames.filter((frame) => frame.method === WIRE.remoteSet);
+  assert.equal(writes.length, 4);
+  assert.equal(writes.every((frame) => frame.params?.['expectedTargetDeviceName'] === 'Deep synth'), true);
+  assert.equal(writes.every((frame) => Array.isArray(frame.params?.['expectedNestedRoute'])), true);
+
+  const restore = addresses.map((target, index) => ({
+    op: 'remote.set' as const,
+    remote: target,
+    value: 0.25 + index * 0.05,
+    ...guard,
+  }));
+  const restored = await adapter.apply({ ops: restore, parameterPreflight: readback });
+  assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  const final = await adapter.read(addresses);
+  assert.deepEqual(addresses.map((address) => {
+    const entry = final.entries[addressKey(address)];
+    return entry?.value.of === 'remote' ? entry.value.remote.value : undefined;
+  }), [0.25, 0.3, 0.35, 0.4]);
+});
+
+test('d02-s3 concurrency: scalar cohorts do not interleave one device cursor', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const device = deviceAt(TRACK, 0);
+  const addresses = ['P1', 'P2'].map((id) => param(device, id));
+  const firstValues = [0.7, 0.8];
+  const secondValues = [0.2, 0.3];
+  const first = addresses.map((target, index) => ({
+    op: 'param.set' as const, param: target, value: firstValues[index]!,
+  }));
+  const second = addresses.map((target, index) => ({
+    op: 'param.set' as const, param: target, value: secondValues[index]!,
+  }));
+
+  await Promise.all([adapter.apply({ ops: first }), adapter.apply({ ops: second })]);
+
+  assert.deepEqual(wire.frames.filter((frame) => frame.method === WIRE.directParamSet)
+    .map((frame) => frame.params?.['value']), [...firstValues, ...secondValues]);
+});
+
+test('d02-s3 failure: a changed shared target stops later cohort settings', async () => {
+  const wire = new ParameterTransport();
+  wire.failRemoteIndex = 1;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const device = deviceAt(TRACK, 0);
+  const names = ['Cutoff', 'Resonance', 'Drive', 'Mix'];
+  const addresses = names.map((name, index) => remote(device, 0, 'Filter', index, name));
+  const preflight = await adapter.read([remotes(device), ...addresses]);
+  const receipt = await adapter.apply({
+    ops: addresses.map((target, index) => ({
+      op: 'remote.set', remote: target, value: 0.6 + index / 10,
+    })),
+    parameterPreflight: preflight,
+  });
+
+  assert.equal(receipt.stages.length, 2);
+  assert.equal(receipt.stages[0]!.ops.every((op) => op.ok), true);
+  assert.match(receipt.stages[1]!.ops[0]!.error ?? '', /target 1 changed/);
+  assert.deepEqual(wire.frames.filter((frame) => frame.method === WIRE.remoteSet)
+    .map((frame) => frame.params?.['index']), [0, 1]);
 });
 
 test('5a remote proof: changing modulated values do not prevent selector settlement', async () => {

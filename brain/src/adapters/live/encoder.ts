@@ -755,14 +755,34 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
           : assertNever(op.param as never, 'encodeOp.param.set');
     }
 
-    case 'remote.set':
+    case 'remote.set': {
+      const top = topLevelDevice(op.remote.device);
+      if (op.expectedChain !== undefined
+          && op.expectedEnabledChain !== undefined
+          && op.expectedEnabledChain.length !== op.expectedChain.length) {
+        throw new InvalidOpError(
+          op.op,
+          'expectedEnabledChain must align with expectedChain',
+        );
+      }
+      const route = nestedParameterRoute(op.remote.device);
       return [frame(WIRE.remoteSet, {
         pageIndex: op.remote.pageIndex,
         pageName: op.remote.pageName,
         index: op.remote.controlIndex,
         controlName: op.remote.controlName,
         value: op.value,
+        expectedTrackChannelId: op.remote.device.track.channelId,
+        expectedDeviceNames: op.expectedChain,
+        expectedDeviceEnabled: op.expectedEnabledChain,
+        expectedTopLevelDeviceName: op.expectedChain?.[top.chainIndex],
+        expectedTopLevelDeviceIndex: top.chainIndex,
+        expectedNestedRoute: route,
+        expectedTargetDeviceName: op.expectedName ?? ctx.deviceName?.(op.remote.device),
+        expectedTargetDeviceIndex: op.remote.device.chainIndex,
+        expectedTargetNested: route.length > 0,
       })];
+    }
 
     case 'notify':
       return [frame(WIRE.notify, { message: op.message })];

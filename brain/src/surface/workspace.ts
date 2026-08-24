@@ -79,6 +79,10 @@ export interface Workspace {
    * one function rather than two calls.
    */
   apply(ops: readonly Op[], options?: RunOptions): Promise<StashedChangeset>;
+  /** One same-route parameter pipeline with an independent record per scalar. */
+  applyParameterCohort(
+    ops: readonly Op[], options?: RunOptions,
+  ): Promise<readonly StashedChangeset[]>;
   /** The read half of the session's record. No `record`, no `forget`. */
   readonly changes: StashLog;
   /** Per-project observation capture. Tool execution wraps confirmed results. */
@@ -147,6 +151,12 @@ export function cancellableWorkspace(
       record(change);
       return after(change);
     },
+    async applyParameterCohort(ops, options) {
+      before();
+      const changes = await workspace.applyParameterCohort(ops, options);
+      changes.forEach(record);
+      return after(changes);
+    },
     async planRevert(changeId, slice) {
       before();
       return after(await workspace.planRevert(changeId, slice));
@@ -180,6 +190,13 @@ export async function captureWorkspaceChanges<T>(
       const change = await workspace.apply(ops, options);
       changes.push(change);
       return change;
+    },
+    async applyParameterCohort(
+      ops: readonly Op[], options?: RunOptions,
+    ): Promise<readonly StashedChangeset[]> {
+      const cohort = await workspace.applyParameterCohort(ops, options);
+      changes.push(...cohort);
+      return cohort;
     },
   });
   return { result: await run(scoped), changes };
@@ -238,6 +255,14 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
       // zero ops and is recorded anyway, because "someone else wrote first" is a
       // fact about the session worth being able to read back).
       return deps.stash.record(await deps.executor.run(ops, options));
+    },
+
+    async applyParameterCohort(
+      ops: readonly Op[], options: RunOptions = {},
+    ): Promise<readonly StashedChangeset[]> {
+      await deps.ready();
+      return (await deps.executor.runParameterCohort(ops, options))
+        .map((take) => deps.stash.record(take));
     },
 
     async planRevert(changeId: string, slice?: Slice): Promise<ReversalPlan> {

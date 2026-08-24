@@ -918,6 +918,78 @@ test('d02-s2-surface: nested and drum-pad DirectParameters verify and reverse', 
     [0.1, 0.2, 0.3]);
 });
 
+test('d02-s3-surface: one stable cohort keeps scalar receipts and exact reversal', async () => {
+  const fx = fixture();
+  const device = {
+    name: 'Cohort synth', paramsLive: true,
+    params: Array.from({ length: 4 }, (_, index) => ({
+      id: `P${index + 1}`, name: `Parameter ${index + 1}`, value: 0.1 * (index + 1),
+    })),
+  };
+  fx.fake.model.findByChannelId(fx.trackA)!.track.devices.push(device);
+  const baseline = device.params.map((parameter) => parameter.value);
+  const generationBefore = fx.fake.model.parameterObservationGeneration;
+  const requested = [0.55, 0.65, 0.75, 0.85];
+
+  const result = await call(fx, 'set_parameter', {
+    settings: device.params.map((parameter, index) => ({
+      kind: 'direct',
+      device: { trackId: fx.trackA, devicePosition: 0 },
+      parameterId: parameter.id,
+      normalizedValue: requested[index],
+    })),
+  }) as { verified: boolean; changes: { changeId: string }[] };
+
+  assert.equal(result.verified, true, JSON.stringify(result));
+  assert.equal(new Set(result.changes.map((change) => change.changeId)).size, 4);
+  assert.equal(
+    fx.fake.model.parameterObservationGeneration - generationBefore,
+    2,
+    'one complete preflight and one complete readback',
+  );
+  assert.deepEqual(device.params.map((parameter) => parameter.value), requested);
+
+  const second = await call(fx, 'revert_change', { changeId: result.changes[1]!.changeId });
+  assert.equal(second['applied'], true, JSON.stringify(second));
+  assert.deepEqual(device.params.map((parameter) => parameter.value), [0.55, 0.2, 0.75, 0.85]);
+  for (const index of [3, 2, 0]) {
+    const reversed = await call(fx, 'revert_change', { changeId: result.changes[index]!.changeId });
+    assert.equal(reversed['applied'], true, JSON.stringify(reversed));
+  }
+  assert.deepEqual(device.params.map((parameter) => parameter.value), baseline);
+});
+
+test('d02-s3-surface: mixed routes keep order and a failed cohort stops later settings', async () => {
+  const fx = fixture();
+  const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  track.devices.push(
+    { name: 'First', paramsLive: true, params: [{ id: 'A', name: 'A', value: 0.1 }] },
+    { name: 'Second', paramsLive: true, params: [{ id: 'B', name: 'B', value: 0.2 }] },
+  );
+
+  const result = await call(fx, 'set_parameter', { settings: [
+    {
+      kind: 'direct', device: { trackId: fx.trackA, devicePosition: 0 },
+      parameterId: 'A', normalizedValue: 0.6,
+    },
+    {
+      kind: 'direct', device: { trackId: fx.trackA, devicePosition: 1 },
+      parameterId: 'missing', normalizedValue: 0.7,
+    },
+    {
+      kind: 'direct', device: { trackId: fx.trackA, devicePosition: 1 },
+      parameterId: 'B', normalizedValue: 0.8,
+    },
+  ] }) as { partialSuccess: boolean; verified: boolean; changes: { changeId: string }[] };
+
+  assert.equal(result.partialSuccess, true, JSON.stringify(result));
+  assert.equal(result.verified, false);
+  assert.equal(result.changes.length, 1);
+  assert.deepEqual(fx.sent.filter((op) => op.op === 'param.set').map((op) =>
+    op.op === 'param.set' ? op.param.device.chainIndex : -1), [0]);
+  assert.deepEqual(track.devices.map((item) => item.params[0]!.value), [0.6, 0.2]);
+});
+
 test('T-surface: every tool runs offline, and emits only what it declares', async () => {
   const fx = fixture();
   const ran = new Set<string>();

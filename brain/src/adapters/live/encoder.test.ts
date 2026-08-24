@@ -22,7 +22,7 @@ import assert from 'node:assert/strict';
 
 import {
   BlindSpotError, InvalidOpError, assertOpsWritable, chain as chainAt, clip, device, deviceIn, drumPad, param,
-  scene, slot, track,
+  remote, scene, slot, track,
   type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
 import {
@@ -207,6 +207,34 @@ test('d02-s2-parameter: a nested target keeps its root and route guards separate
   };
 
   const params = paramsOf(encodeOp(op, ctx), WIRE.directParamSet);
+  assert.equal(params?.['expectedTopLevelDeviceName'], 'FX Layer');
+  assert.equal(params?.['expectedTopLevelDeviceIndex'], 1);
+  assert.deepEqual(params?.['expectedNestedRoute'], [
+    { kind: 'chain', name: 'Outer', deviceIndex: 0 },
+    { kind: 'chain', name: 'Inner', deviceIndex: 0 },
+  ]);
+  assert.equal(params?.['expectedTargetDeviceName'], 'Leaf');
+  assert.equal(params?.['expectedTargetDeviceIndex'], 0);
+  assert.equal(params?.['expectedTargetNested'], true);
+});
+
+test('d02-s3-remote: a nested target carries its durable track and route guards', () => {
+  const root = device(TRACK_A, 1);
+  const level1 = deviceIn(chainAt(root, 'Outer'), 0);
+  const target = deviceIn(chainAt(level1, 'Inner'), 0);
+  const op: Op = {
+    op: 'remote.set',
+    remote: remote(target, 0, 'Macros', 2, 'Tone'),
+    value: 0.61,
+    expectedName: 'Leaf',
+    expectedChain: ['Tool', 'FX Layer'],
+    expectedEnabledChain: [true, true],
+  };
+
+  const params = paramsOf(encodeOp(op, ctx), WIRE.remoteSet);
+  assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+  assert.deepEqual(params?.['expectedDeviceNames'], ['Tool', 'FX Layer']);
+  assert.deepEqual(params?.['expectedDeviceEnabled'], [true, true]);
   assert.equal(params?.['expectedTopLevelDeviceName'], 'FX Layer');
   assert.equal(params?.['expectedTopLevelDeviceIndex'], 1);
   assert.deepEqual(params?.['expectedNestedRoute'], [

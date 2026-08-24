@@ -283,6 +283,8 @@ export interface RemotePageState {
 }
 
 export interface RemoteControlsState {
+  /** Exact device identity that owned this complete remote inventory. */
+  readonly deviceName: string;
   readonly pages: readonly RemotePageState[];
 }
 
