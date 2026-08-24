@@ -301,6 +301,10 @@ const jsonInput: z.ZodType<JsonValue> = z.lazy(() => z.union([
   z.null(), z.boolean(), z.number().finite(), z.string(), z.array(jsonInput),
   z.record(z.string(), jsonInput),
 ]));
+const scopedOperatorResponseInput = z.object({
+  scope: jsonInput.describe('Exact caller-supplied sub-scope for this response.'),
+  response: z.enum(['accepted', 'vetoed']).describe('Explicit response for this sub-scope.'),
+}).strict();
 // The array stays homogeneous in JSON Schema. The length check makes its output
 // safe to use as the contract tuple.
 const recurrenceInput = z.array(z.number()).length(2) as unknown as z.ZodType<Recurrence>;
@@ -932,7 +936,9 @@ export const TOOLS: readonly ToolSpec[] = [
       'Store caller-supplied context for later measurement without changing tracks, clips, or '
       + 'devices. Begin before related tool calls to link their independently confirmed results, '
       + 'including musical results. '
-      + 'Enrich after the calls to add a rationale or an explicit accepted or vetoed response. '
+      + 'Enrich after the calls to add a rationale, one whole-instruction response, or accepted '
+      + 'and vetoed responses for different sub-scopes. The first explicit rationale and first '
+      + 'explicit response are write-once. Repeating the same value is idempotent. '
       + 'Enrichment completes the active observation unless complete is false. No response is '
       + 'inferred from tool success, permission, or silence.',
     inputSchema: {
@@ -949,9 +955,14 @@ export const TOOLS: readonly ToolSpec[] = [
       resultIds: z.array(z.string().min(1)).optional().describe(
         'Already recorded result ids to relate. Results from an active observation are linked automatically.',
       ),
-      rationale: z.string().optional().describe('Caller-supplied rationale. It is never inferred.'),
+      rationale: z.string().optional().describe(
+        'Caller-supplied rationale. It is never inferred. The first explicit value is write-once.',
+      ),
       operatorResponse: z.enum(['accepted', 'vetoed']).optional().describe(
-        'An explicit operator response. Omission preserves silent.',
+        'One explicit whole-instruction response. Use responseItems for a partial verdict. The first response is write-once.',
+      ),
+      responseItems: z.array(scopedOperatorResponseInput).min(2).max(16).optional().describe(
+        'Partial verdict items. Include accepted and vetoed sub-scopes. This stores the whole response as mixed.',
       ),
       complete: z.boolean().optional().describe(
         'For enrich only. Defaults to true and clears the active observation for this session.',
@@ -964,9 +975,9 @@ export const TOOLS: readonly ToolSpec[] = [
             throw new Error('begin needs requestedScope and rawScope.');
           }
           if (args.instructionId !== undefined || args.operatorResponse !== undefined
-              || args.complete !== undefined) {
+              || args.responseItems !== undefined || args.complete !== undefined) {
             throw new Error(
-              'begin does not accept instructionId, operatorResponse, or complete. Use enrich.',
+              'begin does not accept instructionId, operatorResponse, responseItems, or complete. Use enrich.',
             );
           }
           const observation = await workspace.observations.begin({
@@ -980,6 +991,9 @@ export const TOOLS: readonly ToolSpec[] = [
             instructionId: observation.id,
             correlationId: observation.correlationId,
             operatorResponse: observation.operatorResponse,
+            ...(observation.responseItems === undefined
+              ? {}
+              : { responseItems: observation.responseItems }),
             resultIds: observation.resultIds,
             active: true,
           };
@@ -996,6 +1010,7 @@ export const TOOLS: readonly ToolSpec[] = [
           ...(args.operatorResponse === undefined
             ? {}
             : { operatorResponse: args.operatorResponse }),
+          ...(args.responseItems === undefined ? {} : { responseItems: args.responseItems }),
           ...(args.resultIds === undefined ? {} : { resultIds: args.resultIds }),
           ...(args.complete === undefined ? {} : { complete: args.complete }),
         });
@@ -1004,6 +1019,9 @@ export const TOOLS: readonly ToolSpec[] = [
           instructionId: observation.id,
           correlationId: observation.correlationId,
           operatorResponse: observation.operatorResponse,
+          ...(observation.responseItems === undefined
+            ? {}
+            : { responseItems: observation.responseItems }),
           resultIds: observation.resultIds,
           active: args.complete === false,
         };

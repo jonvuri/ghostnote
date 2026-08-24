@@ -69,6 +69,15 @@ interface Fixture {
   readonly statuses: string[];
 }
 
+class CountingObservationStore extends FakeObservationStore {
+  replacements = 0;
+
+  override async replace(value: string) {
+    this.replacements += 1;
+    return super.replace(value);
+  }
+}
+
 /**
  * ⚠ The ONE place a fixture is allowed to stop being the fake's own behaviour,
  * and it may only weaken an OBSERVATION — never a write.
@@ -451,6 +460,47 @@ test('3g-d: one direct mixed instruction keeps two confirmed event identities', 
   assert.ok(stored.entries.every((entry) => entry.descriptionVersion === TOOL_DESCRIPTION_VERSION));
 });
 
+test('d02-s9-surface: partial verdicts and write-once conflicts are explicit', async () => {
+  const store = new CountingObservationStore();
+  const fx = fixture({}, store);
+  const begun = await call(fx, 'record_observation', {
+    operation: 'begin',
+    requestedScope: 'mixed',
+    rawScope: 'Keep the rhythm, but revise the chord timbre.',
+    rationale: 'The instruction has rhythm and timbre scopes.',
+  });
+  const responseItems = [
+    { scope: 'rhythm', response: 'accepted' },
+    { scope: 'chord timbre', response: 'vetoed' },
+  ];
+  const enriched = await call(fx, 'record_observation', {
+    operation: 'enrich', instructionId: begun['instructionId'], responseItems,
+  });
+  assert.equal(enriched['operatorResponse'], 'mixed');
+  assert.deepEqual(enriched['responseItems'], responseItems);
+  assert.equal(store.replacements, 2);
+
+  const conflict = await call(fx, 'record_observation', {
+    operation: 'enrich',
+    instructionId: begun['instructionId'],
+    rationale: 'Replace the rationale.',
+  });
+  assert.equal(conflict['refused'], true);
+  assert.match(
+    JSON.stringify(conflict),
+    /Rationale is write-once.*preserved rationale.*record was not changed/,
+  );
+  assert.equal(store.replacements, 2, 'a rationale conflict must refuse before replacement');
+
+  const stored = decodeObservationRecord((await store.read()).value);
+  const observation = stored.entries[0];
+  assert.equal(observation?.type, 'instruction-observation');
+  if (observation?.type !== 'instruction-observation') return;
+  assert.equal(observation.rawScope, 'Keep the rhythm, but revise the chord timbre.');
+  assert.equal(observation.operatorResponse, 'mixed');
+  assert.deepEqual(observation.responseItems, responseItems);
+});
+
 test('3g-d: track copy is ordinary use, and refusals and no-action context add no event', async () => {
   const fx = fixture();
   const refusedCreation = await call(fx, 'create_device_alternates', {
@@ -575,7 +625,9 @@ test('3g-e: raw view and descriptive report use the same complete record', async
   assert.equal(report.totals['ordinaryUses'], 1);
   assert.deepEqual(report.managedEvents, { deviceAlternate: 0, clipBlock: 0 });
   assert.deepEqual(report.ordinaryUses, { copyTrack: 1 });
-  assert.deepEqual(report.operatorResponses, { silent: 0, accepted: 0, vetoed: 1 });
+  assert.deepEqual(report.operatorResponses, {
+    silent: 0, accepted: 0, vetoed: 1, mixed: 0,
+  });
   assert.deepEqual(report.crossTab[0]?.actualResults, {
     deviceAlternateEvents: 0,
     clipBlockEvents: 0,

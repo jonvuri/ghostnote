@@ -1,6 +1,7 @@
 export {
   OBSERVATION_RECORD_FORMAT,
   OBSERVATION_SCHEMA_VERSION,
+  PREVIOUS_OBSERVATION_SCHEMA_VERSION,
   LEGACY_OBSERVATION_SCHEMA_VERSION,
   MalformedObservationRecordError,
   ObservationCapacityError,
@@ -29,6 +30,7 @@ export {
 export type {
   ClipBlockEvent,
   DeviceAlternateEvent,
+  ExplicitOperatorResponse,
   InstructionEnrichment,
   InstructionObservation,
   JsonValue,
@@ -43,6 +45,7 @@ export type {
   OrdinaryUse,
   ProjectWriteObservationFailure,
   RequestedScope,
+  ScopedOperatorResponse,
 } from './record.js';
 
 export type { ObservationStore, StoredObservationRecord } from './store.js';
@@ -65,4 +68,6 @@ export type {
   ObservationScopeSummary,
   OperatorResponseCounts,
   OperatorResponseRates,
+  ScopedOperatorResponseCounts,
+  ScopedOperatorResponseRates,
 } from './report.js';

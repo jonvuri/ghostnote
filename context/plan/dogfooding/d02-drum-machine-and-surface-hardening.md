@@ -1,10 +1,10 @@
 ---
 title: D02 — Drum Machine and surface hardening
 kind: status
-state: active
+state: complete
 updated: 2026-08-24
 parent: README.md
-session: d02-observation-revision-and-partial-verdicts
+session: d02-complete
 ---
 
 # D02 — Drum Machine and surface hardening
@@ -694,6 +694,25 @@ instruction.
 - Existing observations and reports keep their meaning after migration.
 - Focused tests and the full brain check pass. No Bitwig write is required.
 
+### Outcome — complete
+
+[E84](../../evidence/experiments/e84-observation-partial-verdicts-are-explicit.md)
+records the model, public contract, migration, aggregation, and focused proof.
+Observation schema v3 represents a partial verdict as one `mixed` instruction
+with exact caller-supplied accepted and vetoed response items. The original raw
+instruction and result links stay unchanged.
+
+The first explicit rationale and first explicit response are write-once. A
+different value refuses with stable wording that names the preserved field and
+states that the record did not change. Repeating the same value is idempotent.
+The public regression proves that a rationale conflict does not call the record
+replacement boundary.
+
+Reports count `mixed` once at the instruction level and count accepted and
+vetoed scoped items separately. Schemas v1 and v2 migrate without changing old
+verdict meaning. The focused cohort passes 115/115, and the complete brain check
+passes 885/885. No Bitwig write was required or made.
+
 ## Retrospective
 
 Return a partial receipt when a later stage fails after an earlier write. Verify
@@ -704,3 +723,4 @@ the first live run. Record root run identities and version provenance in one
 ledger. Separate confirmed bugs from capability gaps and unresolved integrity
 risks. Measure complete host color tuples before defining a component
 conversion.
+Count a partial verdict at both the instruction and scoped-item levels.

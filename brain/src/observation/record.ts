@@ -9,11 +9,13 @@
 import { z } from 'zod';
 
 export const OBSERVATION_RECORD_FORMAT = 'ghostnote-observation-record' as const;
-export const OBSERVATION_SCHEMA_VERSION = 2 as const;
+export const OBSERVATION_SCHEMA_VERSION = 3 as const;
+export const PREVIOUS_OBSERVATION_SCHEMA_VERSION = 2 as const;
 export const LEGACY_OBSERVATION_SCHEMA_VERSION = 1 as const;
 
 export type RequestedScope = 'device-only' | 'launcher-clip-only' | 'mixed' | 'unsupported';
-export type OperatorResponse = 'silent' | 'accepted' | 'vetoed';
+export type OperatorResponse = 'silent' | 'accepted' | 'vetoed' | 'mixed';
+export type ExplicitOperatorResponse = 'accepted' | 'vetoed';
 export type ManagedStructure = 'device-alternate' | 'clip-block';
 export type JsonValue = null | boolean | number | string | JsonValue[] | {
   readonly [key: string]: JsonValue;
@@ -31,10 +33,18 @@ export interface InstructionObservation {
   /** Caller-supplied instruction text or structured write scope, unchanged. */
   readonly rawScope: JsonValue;
   readonly rationale?: string;
-  /** Starts as silent. Only explicit enrichment can set accepted or vetoed. */
+  /** Starts as silent. Only explicit enrichment can set a verdict. */
   readonly operatorResponse: OperatorResponse;
+  /** Present only when accepted and vetoed responses apply to different sub-scopes. */
+  readonly responseItems?: readonly ScopedOperatorResponse[];
   /** Independent managed-event or ordinary-use entry ids. */
   readonly resultIds: readonly string[];
+}
+
+export interface ScopedOperatorResponse {
+  /** Caller-supplied sub-scope, unchanged. */
+  readonly scope: JsonValue;
+  readonly response: ExplicitOperatorResponse;
 }
 
 export interface DeviceAlternateEvent {
@@ -129,8 +139,9 @@ export class UnsupportedObservationSchemaError extends ObservationRecordError {
   constructor(readonly schemaVersion: unknown) {
     super(
       `observation schema ${JSON.stringify(schemaVersion)} is not supported. `
-      + `This checkout reads schemas ${LEGACY_OBSERVATION_SCHEMA_VERSION} and `
-      + `${OBSERVATION_SCHEMA_VERSION}; the record was not changed.`,
+      + `This checkout reads schemas ${LEGACY_OBSERVATION_SCHEMA_VERSION}, `
+      + `${PREVIOUS_OBSERVATION_SCHEMA_VERSION}, and ${OBSERVATION_SCHEMA_VERSION}; `
+      + 'the record was not changed.',
     );
   }
 }
@@ -199,7 +210,23 @@ const commonEntry = {
   descriptionVersion,
 } as const;
 
+const scopedOperatorResponseSchema = z.object({
+  scope: jsonValue,
+  response: z.enum(['accepted', 'vetoed']),
+}).strict();
+
 const instructionSchema = z.object({
+  type: z.literal('instruction-observation'),
+  ...commonEntry,
+  requestedScope: z.enum(['device-only', 'launcher-clip-only', 'mixed', 'unsupported']),
+  rawScope: jsonValue,
+  rationale: z.string().optional(),
+  operatorResponse: z.enum(['silent', 'accepted', 'vetoed', 'mixed']),
+  responseItems: z.array(scopedOperatorResponseSchema).min(2).max(16).optional(),
+  resultIds: z.array(identifier),
+}).strict();
+
+const previousInstructionSchema = z.object({
   type: z.literal('instruction-observation'),
   ...commonEntry,
   requestedScope: z.enum(['device-only', 'launcher-clip-only', 'mixed', 'unsupported']),
@@ -273,9 +300,16 @@ const entrySchema = z.discriminatedUnion('type', [
 ]);
 
 const legacyEntrySchema = z.discriminatedUnion('type', [
-  instructionSchema,
+  previousInstructionSchema,
   z.discriminatedUnion('structure', [deviceEventSchema, clipEventSchema]),
   ordinaryUseSchema,
+]);
+
+const previousEntrySchema = z.discriminatedUnion('type', [
+  previousInstructionSchema,
+  z.discriminatedUnion('structure', [deviceEventSchema, clipEventSchema]),
+  ordinaryUseSchema,
+  musicalUseSchema,
 ]);
 
 const recordSchema = z.object({
@@ -309,6 +343,23 @@ const recordSchema = z.object({
 
   for (const [index, entry] of record.entries.entries()) {
     if (entry.type !== 'instruction-observation') continue;
+    const responseItems = entry.responseItems ?? [];
+    if (entry.operatorResponse === 'mixed') {
+      const responses = new Set(responseItems.map((item) => item.response));
+      if (!responses.has('accepted') || !responses.has('vetoed')) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['entries', index, 'responseItems'],
+          message: 'a mixed response needs accepted and vetoed scoped items',
+        });
+      }
+    } else if (responseItems.length > 0) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['entries', index, 'responseItems'],
+        message: 'scoped response items require operator response mixed',
+      });
+    }
     const seen = new Set<string>();
     for (const [resultIndex, resultId] of entry.resultIds.entries()) {
       const path = ['entries', index, 'resultIds', resultIndex] as const;
@@ -345,6 +396,12 @@ const legacyRecordSchema = z.object({
   entries: z.array(legacyEntrySchema),
 }).strict();
 
+const previousRecordSchema = z.object({
+  format: z.literal(OBSERVATION_RECORD_FORMAT),
+  schemaVersion: z.literal(PREVIOUS_OBSERVATION_SCHEMA_VERSION),
+  entries: z.array(previousEntrySchema),
+}).strict();
+
 /** Start an empty record. Storage is not consulted by this pure constructor. */
 export function emptyObservationRecord(): ObservationRecord {
   return {
@@ -356,7 +413,7 @@ export function emptyObservationRecord(): ObservationRecord {
 
 export type NewInstructionObservation = Omit<
   InstructionObservation,
-  'type' | 'operatorResponse' | 'resultIds'
+  'type' | 'operatorResponse' | 'responseItems' | 'resultIds'
 >;
 
 /** Capture caller context before work. Operator response always starts silent. */
@@ -383,7 +440,9 @@ export interface InstructionEnrichment {
   /** The recording caller must supply this value explicitly. */
   readonly rationale?: string;
   /** Tool success and host permission never supply this value implicitly. */
-  readonly operatorResponse?: Exclude<OperatorResponse, 'silent'>;
+  readonly operatorResponse?: ExplicitOperatorResponse;
+  /** Use this instead of a whole-instruction response for a partial verdict. */
+  readonly responseItems?: readonly ScopedOperatorResponse[];
 }
 
 /** Enrich one instruction after work without changing its raw request or identity. */
@@ -402,24 +461,38 @@ export function enrichInstructionObservation(
       && current.rationale !== undefined
       && enrichment.rationale !== current.rationale) {
     throw new ObservationConflictError(
-      `instruction observation ${enrichment.instructionId} already has another rationale. `
-      + 'The existing text was not replaced.',
+      `instruction observation ${enrichment.instructionId} already has a rationale. `
+      + `Rationale is write-once. The preserved rationale is ${JSON.stringify(current.rationale)}. `
+      + 'The record was not changed.',
     );
   }
-  if (enrichment.operatorResponse !== undefined
-      && current.operatorResponse !== 'silent'
-      && enrichment.operatorResponse !== current.operatorResponse) {
+  if (enrichment.operatorResponse !== undefined && enrichment.responseItems !== undefined) {
     throw new ObservationConflictError(
-      `instruction observation ${enrichment.instructionId} already has operator response `
-      + `${current.operatorResponse}. The existing response was not replaced.`,
+      'Supply either operatorResponse or responseItems, not both. The record was not changed.',
+    );
+  }
+  const requestedResponse = enrichment.responseItems === undefined
+    ? enrichment.operatorResponse
+    : 'mixed';
+  const sameResponse = requestedResponse === current.operatorResponse
+    && (requestedResponse !== 'mixed'
+      || sameScopedResponses(enrichment.responseItems ?? [], current.responseItems ?? []));
+  if (requestedResponse !== undefined
+      && current.operatorResponse !== 'silent'
+      && !sameResponse) {
+    throw new ObservationConflictError(
+      `instruction observation ${enrichment.instructionId} already has an operator response. `
+      + `Operator response is write-once. The preserved response is ${current.operatorResponse}. `
+      + 'The record was not changed.',
     );
   }
   const replacement: InstructionObservation = {
     ...current,
     ...(enrichment.rationale === undefined ? {} : { rationale: enrichment.rationale }),
-    ...(enrichment.operatorResponse === undefined
+    ...(requestedResponse === undefined ? {} : { operatorResponse: requestedResponse }),
+    ...(enrichment.responseItems === undefined
       ? {}
-      : { operatorResponse: enrichment.operatorResponse }),
+      : { responseItems: enrichment.responseItems }),
     resultIds: [...current.resultIds, ...(enrichment.resultIds ?? [])],
   };
   const entries = [...record.entries];
@@ -427,7 +500,7 @@ export function enrichInstructionObservation(
   return parseRecord({ ...record, entries });
 }
 
-/** Decode schema v2. Exact v1 entries migrate without changing their content. */
+/** Decode schema v3. Older verdicts migrate without changing their meaning. */
 export function decodeObservationRecord(encoded: string): ObservationRecord {
   let value: unknown;
   try {
@@ -444,6 +517,15 @@ export function decodeObservationRecord(encoded: string): ObservationRecord {
       format: legacy.data.format,
       schemaVersion: OBSERVATION_SCHEMA_VERSION,
       entries: legacy.data.entries,
+    });
+  }
+  if (isObject(value) && value.schemaVersion === PREVIOUS_OBSERVATION_SCHEMA_VERSION) {
+    const previous = previousRecordSchema.safeParse(value);
+    if (!previous.success) throw malformed(previous.error);
+    return parseRecord({
+      format: previous.data.format,
+      schemaVersion: OBSERVATION_SCHEMA_VERSION,
+      entries: previous.data.entries,
     });
   }
   if (isObject(value) && 'schemaVersion' in value
@@ -549,6 +631,18 @@ function stableJson(value: JsonValue | ObservationRecord): string {
     .sort(([left], [right]) => (left < right ? -1 : left > right ? 1 : 0));
   return `{${entries.map(([key, item]) => `${JSON.stringify(key)}:${stableJson(item as JsonValue)}`)
     .join(',')}}`;
+}
+
+function sameScopedResponses(
+  left: readonly ScopedOperatorResponse[],
+  right: readonly ScopedOperatorResponse[],
+): boolean {
+  return left.length === right.length && left.every((item, index) => {
+    const other = right[index];
+    return other !== undefined
+      && item.response === other.response
+      && stableJson(item.scope) === stableJson(other.scope);
+  });
 }
 
 function isObject(value: unknown): value is Record<string, unknown> {

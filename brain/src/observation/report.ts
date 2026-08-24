@@ -10,10 +10,22 @@ export interface OperatorResponseCounts {
   readonly silent: number;
   readonly accepted: number;
   readonly vetoed: number;
+  readonly mixed: number;
 }
 
 export interface OperatorResponseRates {
   readonly silent: number;
+  readonly accepted: number;
+  readonly vetoed: number;
+  readonly mixed: number;
+}
+
+export interface ScopedOperatorResponseCounts {
+  readonly accepted: number;
+  readonly vetoed: number;
+}
+
+export interface ScopedOperatorResponseRates {
   readonly accepted: number;
   readonly vetoed: number;
 }
@@ -34,6 +46,8 @@ export interface ObservationCrossTabRow {
   readonly instructionCount: number;
   readonly operatorResponses: OperatorResponseCounts;
   readonly operatorResponseRates: OperatorResponseRates;
+  readonly scopedOperatorResponses: ScopedOperatorResponseCounts;
+  readonly scopedOperatorResponseRates: ScopedOperatorResponseRates;
 }
 
 export interface ObservationScopeSummary {
@@ -44,6 +58,8 @@ export interface ObservationScopeSummary {
   readonly choiceDiversity: number;
   readonly operatorResponses: OperatorResponseCounts;
   readonly operatorResponseRates: OperatorResponseRates;
+  readonly scopedOperatorResponses: ScopedOperatorResponseCounts;
+  readonly scopedOperatorResponseRates: ScopedOperatorResponseRates;
 }
 
 export interface ObservationReport {
@@ -74,6 +90,7 @@ export interface ObservationReport {
     readonly musicalUses: number;
   };
   readonly operatorResponses: OperatorResponseCounts;
+  readonly scopedOperatorResponses: ScopedOperatorResponseCounts;
   readonly descriptionVersions: readonly {
     readonly descriptionVersion: string;
     readonly instructionObservations: number;
@@ -90,8 +107,10 @@ const REQUESTED_SCOPE_ORDER: readonly RequestedScope[] = [
 ];
 
 const emptyResponses = (): OperatorResponseCounts => ({
-  silent: 0, accepted: 0, vetoed: 0,
+  silent: 0, accepted: 0, vetoed: 0, mixed: 0,
 });
+
+const emptyScopedResponses = (): ScopedOperatorResponseCounts => ({ accepted: 0, vetoed: 0 });
 
 const addResponse = (
   counts: OperatorResponseCounts,
@@ -99,15 +118,41 @@ const addResponse = (
 ): OperatorResponseCounts => ({ ...counts, [response]: counts[response] + 1 });
 
 const rates = (counts: OperatorResponseCounts): OperatorResponseRates => {
-  const total = counts.silent + counts.accepted + counts.vetoed;
+  const total = counts.silent + counts.accepted + counts.vetoed + counts.mixed;
   return total === 0
-    ? { silent: 0, accepted: 0, vetoed: 0 }
+    ? { silent: 0, accepted: 0, vetoed: 0, mixed: 0 }
     : {
       silent: counts.silent / total,
       accepted: counts.accepted / total,
       vetoed: counts.vetoed / total,
+      mixed: counts.mixed / total,
     };
 };
+
+const scopedRates = (
+  counts: ScopedOperatorResponseCounts,
+): ScopedOperatorResponseRates => {
+  const total = counts.accepted + counts.vetoed;
+  return total === 0
+    ? { accepted: 0, vetoed: 0 }
+    : { accepted: counts.accepted / total, vetoed: counts.vetoed / total };
+};
+
+const scopedResponses = (instruction: InstructionObservation): ScopedOperatorResponseCounts => {
+  let counts = emptyScopedResponses();
+  for (const item of instruction.responseItems ?? []) {
+    counts = { ...counts, [item.response]: counts[item.response] + 1 };
+  }
+  return counts;
+};
+
+const addScopedResponses = (
+  left: ScopedOperatorResponseCounts,
+  right: ScopedOperatorResponseCounts,
+): ScopedOperatorResponseCounts => ({
+  accepted: left.accepted + right.accepted,
+  vetoed: left.vetoed + right.vetoed,
+});
 
 const profileKey = (profile: ActualResultProfile): string => [
   profile.deviceAlternateEvents,
@@ -159,8 +204,13 @@ export function reportObservationRecord(record: ObservationRecord): ObservationR
   const referenced = new Set(instructions.flatMap((entry) => [...entry.resultIds]));
 
   let operatorResponses = emptyResponses();
+  let scopedOperatorResponses = emptyScopedResponses();
   for (const instruction of instructions) {
     operatorResponses = addResponse(operatorResponses, instruction.operatorResponse);
+    scopedOperatorResponses = addScopedResponses(
+      scopedOperatorResponses,
+      scopedResponses(instruction),
+    );
   }
 
   const versionRows = new Map<string, {
@@ -186,6 +236,7 @@ export function reportObservationRecord(record: ObservationRecord): ObservationR
     actualResults: ActualResultProfile;
     instructionCount: number;
     operatorResponses: OperatorResponseCounts;
+    scopedOperatorResponses: ScopedOperatorResponseCounts;
   }>();
   for (const instruction of instructions) {
     const profile = actualResults(instruction, entries);
@@ -196,9 +247,14 @@ export function reportObservationRecord(record: ObservationRecord): ObservationR
       actualResults: profile,
       instructionCount: 0,
       operatorResponses: emptyResponses(),
+      scopedOperatorResponses: emptyScopedResponses(),
     };
     row.instructionCount += 1;
     row.operatorResponses = addResponse(row.operatorResponses, instruction.operatorResponse);
+    row.scopedOperatorResponses = addScopedResponses(
+      row.scopedOperatorResponses,
+      scopedResponses(instruction),
+    );
     crossRows.set(key, row);
   }
 
@@ -219,7 +275,11 @@ export function reportObservationRecord(record: ObservationRecord): ObservationR
 
   const crossTab: ObservationCrossTabRow[] = [...crossRows.values()]
     .sort(compareRows)
-    .map((row) => ({ ...row, operatorResponseRates: rates(row.operatorResponses) }));
+    .map((row) => ({
+      ...row,
+      operatorResponseRates: rates(row.operatorResponses),
+      scopedOperatorResponseRates: scopedRates(row.scopedOperatorResponses),
+    }));
 
   const scopeRows = new Map<string, {
     descriptionVersion: string;
@@ -227,6 +287,7 @@ export function reportObservationRecord(record: ObservationRecord): ObservationR
     instructionCount: number;
     profiles: Set<string>;
     operatorResponses: OperatorResponseCounts;
+    scopedOperatorResponses: ScopedOperatorResponseCounts;
   }>();
   for (const row of crossTab) {
     const key = `${row.descriptionVersion}\u0000${row.requestedScope}`;
@@ -236,6 +297,7 @@ export function reportObservationRecord(record: ObservationRecord): ObservationR
       instructionCount: 0,
       profiles: new Set<string>(),
       operatorResponses: emptyResponses(),
+      scopedOperatorResponses: emptyScopedResponses(),
     };
     summary.instructionCount += row.instructionCount;
     summary.profiles.add(profileKey(row.actualResults));
@@ -243,7 +305,12 @@ export function reportObservationRecord(record: ObservationRecord): ObservationR
       silent: summary.operatorResponses.silent + row.operatorResponses.silent,
       accepted: summary.operatorResponses.accepted + row.operatorResponses.accepted,
       vetoed: summary.operatorResponses.vetoed + row.operatorResponses.vetoed,
+      mixed: summary.operatorResponses.mixed + row.operatorResponses.mixed,
     };
+    summary.scopedOperatorResponses = addScopedResponses(
+      summary.scopedOperatorResponses,
+      row.scopedOperatorResponses,
+    );
     scopeRows.set(key, summary);
   }
 
@@ -275,6 +342,7 @@ export function reportObservationRecord(record: ObservationRecord): ObservationR
       musicalUses: musical.filter((entry) => !referenced.has(entry.id)).length,
     },
     operatorResponses,
+    scopedOperatorResponses,
     descriptionVersions: [...versionRows.entries()]
       .sort(([left], [right]) => left.localeCompare(right))
       .map(([descriptionVersion, counts]) => ({ descriptionVersion, ...counts })),
@@ -287,6 +355,8 @@ export function reportObservationRecord(record: ObservationRecord): ObservationR
         choiceDiversity: row.profiles.size,
         operatorResponses: row.operatorResponses,
         operatorResponseRates: rates(row.operatorResponses),
+        scopedOperatorResponses: row.scopedOperatorResponses,
+        scopedOperatorResponseRates: scopedRates(row.scopedOperatorResponses),
       })),
     crossTab,
   };

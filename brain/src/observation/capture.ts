@@ -13,8 +13,9 @@ import {
   type JsonValue,
   type ObservationEntry,
   type ObservationRecord,
-  type OperatorResponse,
+  type ExplicitOperatorResponse,
   type RequestedScope,
+  type ScopedOperatorResponse,
 } from './record.js';
 import type { ObservationStore } from './store.js';
 
@@ -45,7 +46,8 @@ export interface BeginInstructionInput {
 export interface EnrichInstructionInput {
   readonly instructionId: string;
   readonly rationale?: string;
-  readonly operatorResponse?: Exclude<OperatorResponse, 'silent'>;
+  readonly operatorResponse?: ExplicitOperatorResponse;
+  readonly responseItems?: readonly ScopedOperatorResponse[];
   readonly resultIds?: readonly string[];
   readonly complete?: boolean;
 }
@@ -161,6 +163,7 @@ export class ObservationCapture {
         ...(input.operatorResponse === undefined
           ? {}
           : { operatorResponse: input.operatorResponse }),
+        ...(input.responseItems === undefined ? {} : { responseItems: input.responseItems }),
         ...(resultIds.length === 0 ? {} : { resultIds }),
       });
       await this.replace(next, stored.capacityChars);

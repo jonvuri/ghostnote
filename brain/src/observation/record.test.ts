@@ -141,14 +141,57 @@ test('enrichment never silently replaces explicit rationale or response', () => 
     () => enrichInstructionObservation(record, {
       instructionId: 'instruction-1', rationale: 'Replace the earlier text.',
     }),
-    /existing text was not replaced/,
+    /Rationale is write-once.*preserved rationale.*record was not changed/s,
   );
   assert.throws(
     () => enrichInstructionObservation(record, {
       instructionId: 'instruction-1', operatorResponse: 'vetoed',
     }),
-    /existing response was not replaced/,
+    /Operator response is write-once.*preserved response is accepted.*record was not changed/s,
   );
+  assert.deepEqual(enrichInstructionObservation(record, {
+    instructionId: 'instruction-1',
+    rationale: 'The scoped tools match both requested objects.',
+    operatorResponse: 'accepted',
+  }), record);
+});
+
+test('one mixed instruction keeps accepted rhythm and vetoed timbre scopes', () => {
+  let record = appendObservationEntry(emptyObservationRecord(), instruction());
+  record = appendObservationEntry(record, deviceEvent);
+  const responseItems = [
+    { scope: 'rhythm', response: 'accepted' as const },
+    { scope: { chord: 'timbre' }, response: 'vetoed' as const },
+  ];
+  record = enrichInstructionObservation(record, {
+    instructionId: 'instruction-1', responseItems, resultIds: ['event-device-1'],
+  });
+  const observed = record.entries[0];
+  assert.equal(observed?.type, 'instruction-observation');
+  if (observed?.type !== 'instruction-observation') return;
+  assert.equal(observed.operatorResponse, 'mixed');
+  assert.deepEqual(observed.responseItems, responseItems);
+  assert.deepEqual(observed.rawScope, instruction().rawScope);
+  assert.deepEqual(observed.resultIds, ['event-device-1']);
+  assert.deepEqual(enrichInstructionObservation(record, {
+    instructionId: 'instruction-1', responseItems,
+  }), record);
+  assert.throws(() => enrichInstructionObservation(record, {
+    instructionId: 'instruction-1',
+    responseItems: [
+      { scope: 'rhythm', response: 'vetoed' },
+      { scope: { chord: 'timbre' }, response: 'accepted' },
+    ],
+  }), /Operator response is write-once.*preserved response is mixed/s);
+
+  const silent = appendObservationEntry(emptyObservationRecord(), instruction());
+  assert.throws(() => enrichInstructionObservation(silent, {
+    instructionId: 'instruction-1',
+    responseItems: [
+      { scope: 'rhythm', response: 'accepted' },
+      { scope: 'chord timbre', response: 'accepted' },
+    ],
+  }), /mixed response needs accepted and vetoed scoped items/);
 });
 
 test('canonical round trip preserves raw scope and free-form rationale exactly', () => {
@@ -229,7 +272,7 @@ test('managed events accept only the two creation tools and structures', () => {
   assert.equal(ordinaryUse.outcome, 'copy-track');
 });
 
-test('schema v1 migrates exactly and unknown schemas are refused', () => {
+test('schemas v1 and v2 migrate without changing old verdict meaning', () => {
   assert.throws(
     () => decodeObservationRecord('{'),
     MalformedObservationRecordError,
@@ -237,12 +280,21 @@ test('schema v1 migrates exactly and unknown schemas are refused', () => {
   assert.deepEqual(decodeObservationRecord(JSON.stringify({
     format: 'ghostnote-observation-record', schemaVersion: 1, entries: [],
   })), emptyObservationRecord());
+  const accepted = {
+    ...instruction(), operatorResponse: 'accepted', resultIds: ['musical-1'],
+  };
+  assert.deepEqual(decodeObservationRecord(JSON.stringify({
+    format: 'ghostnote-observation-record', schemaVersion: 2,
+    entries: [accepted, musicalUse],
+  })), {
+    ...emptyObservationRecord(), entries: [accepted, musicalUse],
+  });
   assert.throws(() => decodeObservationRecord(JSON.stringify({
-    format: 'ghostnote-observation-record', schemaVersion: 3, entries: [],
+    format: 'ghostnote-observation-record', schemaVersion: 4, entries: [],
   })), UnsupportedObservationSchemaError);
   assert.throws(
     () => decodeObservationRecord(JSON.stringify({
-      ...emptyObservationRecord(), extra: 'not schema v2',
+      ...emptyObservationRecord(), extra: 'not schema v3',
     })),
     MalformedObservationRecordError,
   );

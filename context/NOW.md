@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-24
 phase: dogfooding
-session: d02-observation-revision-and-partial-verdicts
+session: dogfooding-next-musical-run
 ---
 
 # Now
@@ -178,18 +178,29 @@ passes 309/309. The full brain check passes 881/881. Extension tests, deploy
 freshness, and the 148-method handshake pass. [E83](evidence/experiments/e83-exact-clip-color-palette-is-live.md)
 records the result.
 
-D02 now separates these findings into four focused sessions. Session 6 owns
-native insertion, UUID validation, truthful partial results, and catalog
-diagnostics. Session 7 owns DirectParameter domains and collateral integrity.
-Session 8 owns exact clip-color bytes. Session 9 owns observation revision and
-partial verdicts. The [run ledger](plan/dogfooding/runs.md) records every root
-musical and exposure session with agent, model, surface, host baseline, project,
-and version provenance.
+D02 Session 9 is complete. Observation schema v3 stores accepted and vetoed
+sub-scopes as one `mixed` instruction without changing the original raw
+instruction or result links. Schemas v1 and v2 migrate without changing their
+verdict meaning.
+
+The first explicit rationale and first explicit response are write-once. A
+different value refuses before record replacement and names the preserved
+field. Equal repeats are idempotent. Reports count one mixed instruction and
+also count its accepted and vetoed scoped items. The focused cohort passes
+115/115, and the complete brain check passes 885/885. No Bitwig write was
+required or made. [E84](evidence/experiments/e84-observation-partial-verdicts-are-explicit.md)
+records the result.
+
+D02 is complete. Sessions 6 through 9 resolved native insertion, catalog
+correctness, DirectParameter domains and collateral integrity, exact clip
+colors, and partial observation verdicts. The [run ledger](plan/dogfooding/runs.md)
+records every root musical and exposure session with agent, model, surface,
+host baseline, project, and version provenance.
 
 ## Next action
 
-Run D02 Session 9 before the next musical dogfood chat. Do not begin Phase 6a
-until the operator closes this loop.
+Start the next projectless musical dogfood chat with one concrete musical goal.
+Do not begin Phase 6a until the operator closes this loop.
 
 ## Retrospective
 
@@ -204,3 +215,4 @@ with their provenance. Do not infer a host version from a public session.
 Carry the resolved catalog name through insertion completion and reversal.
 Run deploy freshness before a live probe that depends on new observer handles.
 Measure complete host color tuples before defining a component conversion.
+Count a partial verdict at both the instruction and scoped-item levels.

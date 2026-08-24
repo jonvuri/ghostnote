@@ -9,8 +9,12 @@ const version = 'ghostnote-description-v1';
 const instruction = (
   id: string,
   requestedScope: 'device-only' | 'launcher-clip-only' | 'mixed' | 'unsupported',
-  operatorResponse: 'silent' | 'accepted' | 'vetoed',
+  operatorResponse: 'silent' | 'accepted' | 'vetoed' | 'mixed',
   resultIds: string[],
+  responseItems?: readonly {
+    readonly scope: string;
+    readonly response: 'accepted' | 'vetoed';
+  }[],
 ) => ({
   type: 'instruction-observation' as const,
   id,
@@ -20,6 +24,7 @@ const instruction = (
   requestedScope,
   rawScope: { id },
   operatorResponse,
+  ...(responseItems === undefined ? {} : { responseItems }),
   resultIds,
 });
 
@@ -94,7 +99,8 @@ test('report totals reconcile with every raw entry type', () => {
   assert.deepEqual(report.unreferencedResults, {
     managedEvents: 0, ordinaryUses: 0, musicalUses: 0,
   });
-  assert.deepEqual(report.operatorResponses, { silent: 2, accepted: 2, vetoed: 2 });
+  assert.deepEqual(report.operatorResponses, { silent: 2, accepted: 2, vetoed: 2, mixed: 0 });
+  assert.deepEqual(report.scopedOperatorResponses, { accepted: 0, vetoed: 0 });
   assert.deepEqual(report.descriptionVersions, [{
     descriptionVersion: version,
     instructionObservations: 6,
@@ -121,8 +127,10 @@ test('requested scope cross-tab keeps independent structures and track copies di
       transformationUses: 0,
     },
     instructionCount: 1,
-    operatorResponses: { silent: 0, accepted: 1, vetoed: 0 },
-    operatorResponseRates: { silent: 0, accepted: 1, vetoed: 0 },
+    operatorResponses: { silent: 0, accepted: 1, vetoed: 0, mixed: 0 },
+    operatorResponseRates: { silent: 0, accepted: 1, vetoed: 0, mixed: 0 },
+    scopedOperatorResponses: { accepted: 0, vetoed: 0 },
+    scopedOperatorResponseRates: { accepted: 0, vetoed: 0 },
   });
 
   const copy = report.crossTab.find((row) => row.actualResults.copyTrackUses === 1);
@@ -148,8 +156,31 @@ test('choice diversity is beside explicit response counts and rates', () => {
     requestedScope: 'device-only',
     instructionCount: 3,
     choiceDiversity: 3,
-    operatorResponses: { silent: 1, accepted: 1, vetoed: 1 },
-    operatorResponseRates: { silent: 1 / 3, accepted: 1 / 3, vetoed: 1 / 3 },
+    operatorResponses: { silent: 1, accepted: 1, vetoed: 1, mixed: 0 },
+    operatorResponseRates: { silent: 1 / 3, accepted: 1 / 3, vetoed: 1 / 3, mixed: 0 },
+    scopedOperatorResponses: { accepted: 0, vetoed: 0 },
+    scopedOperatorResponseRates: { accepted: 0, vetoed: 0 },
+  });
+});
+
+test('a partial verdict counts one mixed instruction and its scoped responses', () => {
+  const mixedRecord = decodeObservationRecord(JSON.stringify({
+    format: 'ghostnote-observation-record', schemaVersion: 3,
+    entries: [instruction('instruction-partial', 'mixed', 'mixed', [], [
+      { scope: 'rhythm', response: 'accepted' },
+      { scope: 'chord timbre', response: 'vetoed' },
+    ])],
+  }));
+  const report = reportObservationRecord(mixedRecord);
+  assert.deepEqual(report.operatorResponses, {
+    silent: 0, accepted: 0, vetoed: 0, mixed: 1,
+  });
+  assert.deepEqual(report.scopedOperatorResponses, { accepted: 1, vetoed: 1 });
+  assert.deepEqual(report.crossTab[0]?.operatorResponseRates, {
+    silent: 0, accepted: 0, vetoed: 0, mixed: 1,
+  });
+  assert.deepEqual(report.crossTab[0]?.scopedOperatorResponseRates, {
+    accepted: 0.5, vetoed: 0.5,
   });
 });
 
@@ -158,7 +189,8 @@ test('empty reporting is complete and does not invent rows', () => {
     format: 'ghostnote-observation-record', schemaVersion: 1, entries: [],
   })));
   assert.equal(empty.totals.entries, 0);
-  assert.deepEqual(empty.operatorResponses, { silent: 0, accepted: 0, vetoed: 0 });
+  assert.deepEqual(empty.operatorResponses, { silent: 0, accepted: 0, vetoed: 0, mixed: 0 });
+  assert.deepEqual(empty.scopedOperatorResponses, { accepted: 0, vetoed: 0 });
   assert.deepEqual(empty.scopeSummaries, []);
   assert.deepEqual(empty.crossTab, []);
 });
