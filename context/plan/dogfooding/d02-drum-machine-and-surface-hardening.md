@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 parent: README.md
-session: repeat-same-musical-dogfood
+session: d02-native-insertion-and-catalog-correctness
 ---
 
 # D02 — Drum Machine and surface hardening
@@ -320,10 +320,324 @@ about Layers, Selectors, pad routing, grid limits, or prior agent behavior.
   accept or veto result.
 - The project finishes at the accepted result or its exact recorded baseline.
 
+### Outcome — complete with qualifications
+
+[E80](../../evidence/experiments/e80-repeat-drum-dogfood-succeeds-with-qualifications.md)
+records fresh Codex session `01a0313d-a405-7063-a184-d7263ac256d6`.
+The unchanged prompt produced one verified native Drum Machine with six
+separately routed synthesized pad voices. Its eight-beat clip contained 31
+notes. Every note fit the writable grid on the first attempt. The operator
+accepted the result.
+
+The prompt-to-audition time fell from 21 minutes 9 seconds in the source run to
+5 minutes 39 seconds. The new run used 99.5 seconds of recorded Ghostnote call
+time before its first audition request. Five retired native-device name
+refusals consumed 19.9 seconds. The run did not record its entry project
+revision or content epoch.
+
+One likely binary kick value did not verify. The result reported the mismatch,
+but the agent did not correct or reverse it. Every later pad cohort verified.
+This qualifies the nested-tone acceptance criterion without invalidating the
+routed Drum Machine result.
+
+The continued chord run did not use device-alternate operations. It called the
+one-entry structure composer, which always creates an Instrument Layer, and
+left the Polysynth nested there. A failed `add_device` call treated `Delay+` as
+a UUID, added nothing, and returned partial success. The agent rendered delay
+as MIDI echo notes instead. The operator accepted the tonal revision and the
+final musical result.
+
+E80 also records an unexplained Polysynth release change, two metadata color
+mismatches, one avoidable full-clip rewrite, one rationale-conflict retry, and a
+partial operator verdict that the three-state observation record cannot express
+exactly.
+
+## Finding classification
+
+The repeat run found more than description problems.
+
+- `add_device` reported partial success although its first and only insertion
+  added no device. This is a confirmed result-classification bug.
+- The Bitwig UUID field accepted `Delay+` and sent it to the live adapter. This
+  is a confirmed preflight-validation bug.
+- Exact-name top-level insertion is absent. This is a public capability gap.
+- Drum composition refusals did not name the failed catalog inputs. This is a
+  confirmed result-diagnostic defect.
+- Attack Click accepted a value that its readback did not represent. The result
+  detected the mismatch, but the interface did not prevent earlier cohort
+  writes. This is a parameter-domain correctness gap.
+- The temporary Polysynth release change is an integrity risk. The transcript
+  does not prove whether the operator or Ghostnote changed it.
+- Clip-color bytes did not read back exactly. This is a confirmed live contract
+  mismatch. The responsible boundary is not yet isolated.
+- The observation model cannot record a partial verdict. This is a data-model
+  gap. Its rationale replacement rule is also missing from the public
+  description.
+
+No material description error caused the Layer or delay result.
+`compose_device_structure` stated that it creates a parallel Instrument Layer.
+`add_device` stated that a Bitwig identifier must be a UUID. The agent chose the
+wrong operations despite those descriptions. `set_parameter` also stated that
+readback must agree, and its result reported the Attack Click mismatch.
+
+Two smaller description or diagnostic issues did affect the run. The
+`record_observation` description did not state that an explicit rationale is
+write-once. The catalog refusal did not identify the invalid name. Parameter
+domain metadata is an interface-data issue, not primarily a prose issue.
+
+Complete Sessions 6 through 9 before the next musical dogfood chat.
+
+## Session 6 — Native insertion and catalog correctness
+
+### Objective
+
+Add exact-name top-level native insertion. Reject invalid explicit UUIDs and
+report insertion and catalog failures without false partial success.
+
+### Evidence
+
+- The agent inspected three alternate tool descriptions but called no alternate
+  lifecycle operation. It called `compose_device_structure` with one
+  `Polysynth`. The final top-level inventory contained only `Instrument Layer`.
+- The agent passed `{from: "bitwig", id: "Delay+"}` to `add_device`. The public
+  description called this field a Bitwig UUID, but its schema required only a
+  non-empty string.
+- The call took 6.0 seconds. It returned `applied: false`,
+  `partialSuccess: true`, and `added: []`. Its only change receipt contained a
+  failed `device.insertBitwig` stage. No insertion landed.
+- The surface computes partial success from `receipt.applied` even when the
+  insertion stage failed and minted no device. This conflicts with its stated
+  contract, which reserves partial success for an earlier landed insertion.
+- Five `compose_drum_machine` calls refused obsolete `E-*` names. Each result
+  omitted the failed input. The retries took 19.9 seconds before the agent
+  isolated `E-Kick` and searched outside Ghostnote.
+
+### Interfaces
+
+- Public tools and result contracts: `add_device` and
+  `compose_drum_machine` in `brain/src/surface/tools.ts`.
+- Drum composition orchestration:
+  `brain/src/surface/drum-machine-composition.ts`.
+- Catalog identity and exact-name resolution:
+  `brain/src/native-catalog/catalog.ts` and
+  `brain/assets/native-devices/catalog.json`.
+- Shared mutation contract and execution: `device.insert` in
+  `brain/src/contract`, `Workspace.apply`, and `Executor.run`.
+- Live encoding and completion: `brain/src/adapters/live/encoder.ts`,
+  `brain/src/adapters/live/adapter.ts`, and
+  `brain/src/adapters/live/wiremap.ts`.
+- Extension write boundary: `device.insertBitwig` in
+  `extension/src/main/java/com/ghostnote/extension/handlers/DeviceHandlers.java`.
+
+### Work
+
+1. Add the minimum public operation for one or more ordered exact native-device
+   names. Resolve all names before the first write.
+2. Append each resolved UUID through the current typed insertion path. Keep the
+   complete top-level name and enabled-state guard for each stage.
+3. Return absent and non-unique caller-supplied names in one safe refusal.
+   Apply the same diagnostic to Drum Machine composition.
+4. Apply the catalog UUID validator to explicit Bitwig UUID inputs before the
+   adapter runs.
+5. Derive `partialSuccess` only from a proved earlier insertion. A failed first
+   stage with `added: []` must report no partial success.
+6. Return one exact position and reversible receipt per inserted device.
+7. Add schema, surface, fake, live-adapter, failure-classification, and reversal
+   regressions. Run one live `Polysynth` then `Delay+` insertion and exact
+   cleanup.
+
+### Acceptance criteria
+
+- One exact-name call produces `Polysynth → Delay+` as two top-level devices.
+- No Instrument Layer, alternate lifecycle, public UUID, preset path, or asset
+  path is required for that result.
+- Unknown and non-unique names refuse before a write and identify every failed
+  caller-supplied name.
+- A non-UUID explicit Bitwig identifier refuses before the adapter.
+- A failed first insertion returns `applied: false`, `partialSuccess: false`,
+  and `added: []`.
+- Each successful insertion has exact readback and safe reversal while its
+  complete top-level guard remains valid.
+- Focused tests, the full brain check, extension tests, the handshake, and live
+  cleanup pass.
+
+## Session 7 — DirectParameter domains and collateral integrity
+
+### Objective
+
+Refuse unrepresentable DirectParameter values before any cohort write. Detect
+or prevent changes to parameters that the cohort did not request.
+
+### Evidence
+
+- The first drum call requested 42 settings. Four kick settings verified.
+  `CONTENTS/ATTACK_CLICK` requested `0.28` and read back as `0`. The result then
+  reported partial success and stopped the cohort.
+- The public inventory returned the parameter and its normalized value, but it
+  did not return a usable discrete domain for this control. The observed
+  behavior was binary. The agent did not reverse or correct the mismatch.
+- The first complete Polysynth read at session time 01:04 returned
+  `CONTENTS/R = 0.01`. Neither later tonal revision cohort requested that
+  parameter. The next complete read at 01:09 returned `0.325`. The agent reset
+  it to `0.01`, and independent readback showed `1.00 %`.
+- The public surface supplies a full preflight inventory to
+  `applyParameterCohort`. The live adapter skips its internal complete cohort
+  postread when that supplied preflight exists. The executor verifies requested
+  scalar addresses, but it does not compare unrelated parameters in the stable
+  inventory. The current path can therefore miss collateral changes.
+- The transcript cannot distinguish an operator edit from a write-path side
+  effect. A focused live reproduction must do so before a code fix.
+
+### Interfaces
+
+- Public discovery and mutation: `inspect_device_parameters` and
+  `set_parameter` in `brain/src/surface/tools.ts`.
+- Parameter state types: `brain/src/contract/state.ts` and parameter addresses
+  in `brain/src/contract/address.ts`.
+- Cohort orchestration: `Workspace.applyParameterCohort` in
+  `brain/src/surface/workspace.ts` and `Executor.runParameterCohort` in
+  `brain/src/engine/executor.ts`.
+- Live inventory, preflight, postread, and comparison:
+  `prepareParameterCohort` and cohort completion in
+  `brain/src/adapters/live/adapter.ts`.
+- Extension inventory and write boundary:
+  `ParamHandlers.directparam.set`, `DeviceHandlers` route guards, and the
+  DirectParameter observers and completion state in `Rig.java`.
+
+### Work
+
+1. Use a scratch device to measure Attack Click at `0`, `0.28`, and `1`.
+   Record its observed discrete count, names, display values, and normalized
+   readback.
+2. Find why its public inventory did not provide a usable domain. Preserve
+   optional metadata only when the host proves it.
+3. Refuse a normalized value that is not representable before any scalar in its
+   cohort writes. Return the allowed domain in safe result data.
+4. Reproduce the two tonal revision cohorts exactly. Read the complete stable
+   inventory after each scalar or smallest safe stage. Exclude operator edits.
+5. If a write changes an unrequested parameter, stop and report that collateral
+   delta. If no drift reproduces, add a complete-inventory comparison that can
+   distinguish a concurrent edit from an owned write.
+6. Restore every parameter and remove all scratch content. Add fake,
+   live-adapter, surface, and extension regressions for both boundaries.
+
+### Acceptance criteria
+
+- Attack Click `0.28` either verifies exactly or refuses before any cohort
+  write with its measured representable domain.
+- A failed domain check cannot leave four earlier kick changes behind.
+- The exact tonal revision sequence does not change `CONTENTS/R`, or the result
+  reports the unrequested change and does not claim full verification.
+- Complete-inventory comparison has a documented concurrency rule. It does not
+  attribute an operator edit to Ghostnote without evidence.
+- Exact reversal restores every measured scalar. Focused tests, the full brain
+  check, extension tests, the handshake, and live cleanup pass.
+
+## Session 8 — Exact clip-color bytes
+
+### Objective
+
+Make the public clip-color contract exact for all supported byte values, or
+narrow the public input domain to values that Bitwig can return exactly.
+
+### Evidence
+
+- The first metadata call requested blue byte `78` and read back `77`.
+- A retry requested `77` and read back `76`. The second predictable mismatch
+  did not identify a safe replacement value.
+- The encoder sends integer `colorBytes`. The extension writes each byte as
+  `byte / 255f`. The live adapter reads a host float and uses
+  `Math.round(value * 255)`. A one-byte loss can occur across this boundary.
+- Current encoder and fake-adapter tests prove the requested wire values. They
+  do not prove the complete live byte round trip.
+
+### Interfaces
+
+- Public contract: `set_clip_metadata` in `brain/src/surface/tools.ts`.
+- Wire encoding: `colorBytes` in `brain/src/adapters/live/encoder.ts`.
+- Live readback conversion: clip metadata handling in
+  `brain/src/adapters/live/adapter.ts`.
+- Extension set and read routes: `cursor.setClipMetadata` and
+  `cursor.clipMetadata` in
+  `extension/src/main/java/com/ghostnote/extension/handlers/CursorHandlers.java`.
+
+### Work
+
+1. Run a focused live matrix around the failing values and byte boundaries.
+   Record requested bytes, sent floats, host floats, and returned bytes.
+2. Isolate float conversion from host color quantization. Do not add a retry
+   heuristic before this measurement.
+3. Correct the conversion if every byte is representable. Otherwise, define
+   and validate the exact supported byte domain before a write.
+4. Add encoder, extension-source, live-adapter, surface, and reversal
+   regressions. Restore the exact prior clip metadata.
+
+### Acceptance criteria
+
+- Requested supported color bytes read back exactly on all three channels.
+- Unsupported bytes refuse before a write and return the exact supported rule.
+- The result does not recommend a blind one-byte retry.
+- Exact metadata reversal, focused tests, the full brain check, extension
+  tests, the handshake, and live cleanup pass.
+
+## Session 9 — Observation revision and partial verdicts
+
+### Objective
+
+Make observation enrichment rules explicit. Represent a verdict that accepts
+one requested scope and vetoes another without falsifying the original
+instruction.
+
+### Evidence
+
+- The first acceptance enrichment supplied a second rationale. The record
+  refused replacement with `ObservationConflictError`. The agent retried
+  without the rationale.
+- The public description said that enrichment can add a rationale. It did not
+  say that the first explicit rationale is immutable.
+- The operator accepted the rhythm but rejected the first chord timbre. The
+  agent marked the complete chord instruction as `vetoed`, then began a new
+  device-only instruction. The stored verdict loses the accepted rhythm part.
+- `operatorResponse` has only `silent`, `accepted`, and `vetoed`. Current reports
+  count one state per instruction.
+
+### Interfaces
+
+- Public schema and wording: `record_observation` in
+  `brain/src/surface/tools.ts`.
+- Session correlation: `ObservationCapture` in
+  `brain/src/observation/capture.ts`.
+- Stored schema, enrichment conflicts, and migration:
+  `brain/src/observation/record.ts`.
+- Aggregation and response rates: `brain/src/observation/report.ts`.
+
+### Work
+
+1. State that each first explicit rationale and operator response is
+   write-once. Return an actionable conflict that names the preserved field.
+2. Choose the smallest stable partial-verdict model. It can use scoped response
+   items or an explicit mixed response, but it must preserve the original raw
+   instruction and result links.
+3. Define report aggregation for the new representation. Migrate old records
+   without changing their meaning.
+4. Add record, capture, public-surface, schema, conflict, migration, and report
+   regressions. Repeat the exact accepted-rhythm and vetoed-timbre case.
+
+### Acceptance criteria
+
+- “Rhythm accepted; chord timbre vetoed” is stored without marking the whole
+  mixed instruction accepted or vetoed.
+- A second different rationale refuses with stable public wording before a
+  record write. Repeating the same value is idempotent.
+- Existing observations and reports keep their meaning after migration.
+- Focused tests and the full brain check pass. No Bitwig write is required.
+
 ## Retrospective
 
 Return a partial receipt when a later stage fails after an earlier write. Verify
 owned containers from a complete inventory. Name each positional guard for its
 coordinate system. State container execution and MIDI-routing semantics at the
 public boundary. Assert all required guarded wire fields in the encoder before
-the first live run.
+the first live run. Record root run identities and version provenance in one
+ledger. Separate confirmed bugs from capability gaps and unresolved integrity
+risks.

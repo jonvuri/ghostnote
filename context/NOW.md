@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: dogfooding
-session: repeat-same-musical-dogfood
+session: d02-native-insertion-and-catalog-correctness
 ---
 
 # Now
@@ -121,10 +121,34 @@ The focused cohort passes 156/156. The full brain check passes 859/859.
 [E79](evidence/experiments/e79-container-and-note-refusals-are-explicit.md)
 records the result.
 
+D02 Session 5 is complete with qualifications. Fresh Codex session
+`01a0313d-a405-7063-a184-d7263ac256d6` used the unchanged prompt and produced a
+verified native six-pad Drum Machine with separate per-note routing. The
+eight-beat, 31-note clip needed no grid retry. The operator accepted it. The
+prompt-to-audition time fell from 21 minutes 9 seconds to 5 minutes 39 seconds.
+
+The continued chord run used no alternate lifecycle operation. The agent used
+the one-entry structure composer, which always creates an Instrument Layer, and
+left the Polysynth nested. It could not add `Delay+` by exact name and rendered
+the delay as MIDI echo notes. The operator accepted the tonal revision. The run
+also exposed five blind catalog retries, one unverified likely binary kick
+setting, an unexplained temporary Polysynth release change, inexact clip-color
+bytes, and an observation model that cannot express a partial verdict.
+[E80](evidence/experiments/e80-repeat-drum-dogfood-succeeds-with-qualifications.md)
+records the exact timing, calls, final state, and lower-priority inefficiencies.
+
+D02 now separates these findings into four focused sessions. Session 6 owns
+native insertion, UUID validation, truthful partial results, and catalog
+diagnostics. Session 7 owns DirectParameter domains and collateral integrity.
+Session 8 owns exact clip-color bytes. Session 9 owns observation revision and
+partial verdicts. The [run ledger](plan/dogfooding/runs.md) records every root
+musical and exposure session with agent, model, surface, host baseline, project,
+and version provenance.
+
 ## Next action
 
-Run D02 Session 5 with the original source prompt unchanged. Do not begin Phase
-6a until the operator closes this loop.
+Run D02 Session 6. Complete Sessions 6 through 9 before the next musical
+dogfood chat. Do not begin Phase 6a until the operator closes this loop.
 
 ## Retrospective
 
@@ -133,3 +157,6 @@ owned containers from a complete inventory, not from first-device witnesses.
 Name each positional guard for its coordinate system.
 Assert all required guarded wire fields in the encoder before the first live
 run. Allow built-in capability discovery during exposure-only checks.
+Name every failed catalog input in one refusal. Use direct top-level native
+insertion when the request does not need a Layer. Record session version fields
+with their provenance. Do not infer a host version from a public session.

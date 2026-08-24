@@ -79,11 +79,18 @@ original JSONL as the authoritative record.
 
 ## Run records
 
+- [Run ledger](runs.md) — session IDs, transcripts, agent builds, models, public
+  surfaces, Bitwig baselines, and provenance.
 - [D01 — native Codex lo-fi jungle attempt](d01-native-codex-lofi-jungle.md) —
   native MCP startup passed; both focused defects are fixed.
 - [D02 — Drum Machine and surface hardening](d02-drum-machine-and-surface-hardening.md)
   — add public pad composition, correct nested parameter writes, reduce repeated
   acquisition cost, clarify the surface, and repeat the same musical prompt.
+
+Add each new root musical or exposure session to the run ledger. Mark whether a
+version was observed in that transcript, derived from the source timeline, or
+taken from an adjacent live baseline. Do not present a baseline as a
+session-observed value.
 
 ## Close condition
 
