@@ -29,8 +29,10 @@ import {
 import { unwritableProps, type ClipMetadataState, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
 import type { SettleBudget } from './budgets.js';
 import {
-  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, InvalidOpError, SlotOccupiedError,
+  AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, InvalidOpError,
+  NoteTimingUnrepresentableError, SlotOccupiedError,
 } from './errors.js';
+import { STEP_SIZES, stepSizeFor } from './grid.js';
 import type { WindowCoverage } from './snapshot.js';
 
 /** A device to insert. Each identifier is checked before a frame is emitted. */
@@ -336,6 +338,10 @@ export const OP_BUMPS_SCENE_EPOCH: ReadonlySet<OpKind> = new Set<OpKind>(['scene
  */
 export function assertOpsWritable(ops: readonly Op[]): void {
   for (const op of ops) {
+    if ((op.op === 'note.write' || op.op === 'note.props')
+        && op.notes.length > 0 && stepSizeFor(op.notes) === undefined) {
+      throw new NoteTimingUnrepresentableError(STEP_SIZES[STEP_SIZES.length - 1]!, op.op);
+    }
     if (op.op === 'drumPad.insert') {
       if (op.source.from !== 'bitwig'
           || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(op.source.uuid)) {

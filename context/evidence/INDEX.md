@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E79 | Container and note refusals are explicit [K] (2026-08-23) | [open](experiments/e79-container-and-note-refusals-are-explicit.md) |
+| E78 | Cohort parameter writes are live [K] (2026-08-23) | [open](experiments/e78-cohort-parameter-writes-are-live.md) |
 | E77 | Nested DirectParameter guards are live [K] (2026-08-23) | [open](experiments/e77-nested-direct-parameter-guards-are-live.md) |
 | E76 | Public native Drum Machine composition is live [K] (2026-08-23) | [open](experiments/e76-public-native-drum-machine-composition-is-live.md) |
 | E75 | Stale selection restoration is invalidated [K] (2026-08-23) | [open](experiments/e75-stale-selection-restoration-is-invalidated.md) |

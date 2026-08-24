@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 parent: README.md
-session: clear-container-semantics-and-note-refusals
+session: repeat-same-musical-dogfood
 ---
 
 # D02 — Drum Machine and surface hardening
@@ -266,6 +266,25 @@ grid.
 - The description and schema cohort advances. MCP `tools/list`, a fresh Codex
   exposure check, focused tests, and the full brain check pass.
 - No Bitwig content changes during the exposure check.
+
+### Outcome — complete
+
+[E79](../../evidence/experiments/e79-container-and-note-refusals-are-explicit.md)
+records the public wording, result semantics, note refusal, and exposure proof.
+The Layer composer now states that its entries run in parallel and receive the
+same MIDI input. Instrument alternates name Instrument Layer, reject the
+Instrument Selector interpretation, and define exclusive solo as auditioning.
+Drum Machine composition states its per-MIDI-note pad routing.
+
+Successful structure results include the observed container kind and routing
+semantics. Note-grid validation now runs in the shared contract. An off-grid
+start or duration returns one safe correction with the 1/64-beat grid floor
+before either adapter writes.
+
+The registered MCP server exposes 46 tools. Fresh Codex session
+`01a03121-6f22-7461-b357-18053b3d272a` distinguished the three container tools
+through capability discovery and made no Ghostnote, shell, file, or Bitwig call.
+The focused cohort passes 156/156. The full brain check passes 859/859.
 
 ## Session 5 — Repeat the same musical dogfood
 

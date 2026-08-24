@@ -15,7 +15,7 @@
  * one the conformance suite cannot assert, which is the same reason
  * `orderedNoteProps` lives in the contract rather than in the encoder.
  */
-import { InvalidOpError } from './errors.js';
+import { NoteTimingUnrepresentableError } from './errors.js';
 import type { NoteRecord } from './state.js';
 
 /**
@@ -80,10 +80,5 @@ export function chooseStepSize(notes: readonly NoteRecord[]): number {
   const size = stepSizeFor(notes);
   if (size !== undefined) return size;
   const finest = STEP_SIZES[STEP_SIZES.length - 1]!;
-  throw new InvalidOpError(
-    'note.write',
-    `note positions are finer than the ${finest}-beat grid floor; ` +
-      'Bitwig would report them snapped DOWN to the nearest step (E2), silently ' +
-      'corrupting any snapshot taken afterwards.',
-  );
+  throw new NoteTimingUnrepresentableError(finest);
 }

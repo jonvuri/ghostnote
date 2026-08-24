@@ -32,7 +32,8 @@
  * **relaxation candidates** — marked as such, to be reopened DELIBERATELY AND ONE
  * AT A TIME by the session that writes the tool needing the word, never as a
  * side effect of a description edit. The complete v1 cohort needs none of the
- * candidate words. Every ban stays in force for `ghostnote-description-v1`.
+ * candidate words. Instrument Layer is now open because D02 requires the public
+ * boundary to name the observed Bitwig container kind and its routing semantics.
  *
  * ⚠ **False positives are expected and are not a defect.** *"A guard that never
  * fires is not a guard, and the remedy is to widen the exemption list
@@ -65,10 +66,6 @@ export const SURFACE_WORDS_BANNED: Readonly<Record<string, string>> = {
   branch:
     'PERMANENT. The category the retired three-mechanism model lived in. A surface that offers to '
     + '"branch" has mapped a change onto take machinery instead of naming the object it changes.',
-  layer:
-    'REVIEWED AND KEPT (3f-f). The device-alternate tools now inspect, create, fill and switch '
-    + 'their object directly, and "device alternate" plus "container" describes that object '
-    + 'without exposing the DAW mechanism or colliding with ordinary track-device wording.',
   chain:
     'REVIEWED AND KEPT (3f-f). It names both the DAW mechanism and an ordinary ordered device '
     + 'sequence. The production tools need neither meaning: they say "device alternate", '

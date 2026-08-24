@@ -202,8 +202,13 @@ export async function runDeviceStructureComposition(
     }, options);
     const change = receiptOf(workspace.changes.require(result.take.id));
     const observed = result.verification.structure.entries;
+    const containerKind = result.verification.structure.containerName ?? null;
+    const routing = 'All entries run in parallel and receive the same MIDI input. '
+      + 'This Instrument Layer does not route MIDI notes to separate entries.';
     return {
       applied: change.applied,
+      containerKind,
+      routing,
       requested: {
         entryOrder: input.entries.map((item) => item.deviceName),
         entries: input.entries.map((item, index) => ({ entryPosition: index, ...item })),
@@ -223,6 +228,8 @@ export async function runDeviceStructureComposition(
       },
       observed: {
         verified: result.verification.structure.verified,
+        containerKind,
+        routing,
         entryOrder: observed.map((item) => item.deviceNames[0] ?? null),
         entries: observed.map((item) => ({
           entryPosition: item.index,

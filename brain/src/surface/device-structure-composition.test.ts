@@ -155,8 +155,16 @@ test('5h-public: one complete request reports distinct facts and reverses its re
   }) as Record<string, unknown>;
 
   assert.equal(result['applied'], true, JSON.stringify(result));
+  assert.equal(result['containerKind'], 'Instrument Layer');
+  assert.match(result['routing'] as string, /parallel/);
+  assert.match(result['routing'] as string, /same MIDI input/);
+  assert.match(result['routing'] as string, /does not route MIDI notes/);
   assert.deepEqual((result['requested'] as { entryOrder: string[] }).entryOrder, ['Polysynth', 'Sampler']);
-  assert.deepEqual((result['observed'] as { entryOrder: string[] }).entryOrder, ['Polysynth', 'Sampler']);
+  const observed = result['observed'] as {
+    containerKind: string; routing: string; entryOrder: string[];
+  };
+  assert.equal(observed.containerKind, 'Instrument Layer');
+  assert.deepEqual(observed.entryOrder, ['Polysynth', 'Sampler']);
   const validated = result['validated'] as {
     entries: { modulators: { name: string }[] }[]; warnings: string[];
   };

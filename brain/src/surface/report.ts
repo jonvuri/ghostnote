@@ -36,7 +36,8 @@ import {
   NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS, UNWRITABLE_NOTE_PROPS,
   addressKey, addressTrack, assertNever, chainPath, stepSizeFor,
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
-  InvalidOpError, SlotOccupiedError, StaleAddressError, WireDriftError,
+  InvalidOpError, NoteTimingUnrepresentableError, SlotOccupiedError, StaleAddressError,
+  WireDriftError,
   type Address, type ChainAddress, type DeviceAddress, type NoteRecord, type StateValue,
 } from '../contract/index.js';
 import { StaleExtensionError } from '../deploy.js';
@@ -754,6 +755,13 @@ export function refusalOf(error: unknown): Refusal {
     return refusal('nothing in that change is inside the part of the project you named.');
   }
   if (error instanceof InvalidOpError) {
+    if (error instanceof NoteTimingUnrepresentableError) {
+      return refusal(
+        'nothing was written. Note timing caused the refusal: one or more startBeats or '
+        + `durationBeats values do not fit any writable grid. The finest supported grid is ${error.finestGridBeats} `
+        + 'beat (1/64 beat). Put each note start and duration on a supported grid, then repeat the call.',
+      );
+    }
     if (error.op === 'chain.relocate') {
       return refusal(
         'nothing was written. The complete requested fill could not be proved safe from the '

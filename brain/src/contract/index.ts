@@ -75,8 +75,8 @@ export type { AdapterCapabilities, AdapterInfo, BankLimits, ContractTag } from '
 
 export {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractError,
-  ContractVersionError, InvalidOpError, SlotOccupiedError, StaleAddressError, UnsupportedOpError,
-  WireDriftError, blindSpotError,
+  ContractVersionError, InvalidOpError, NoteTimingUnrepresentableError, SlotOccupiedError,
+  StaleAddressError, UnsupportedOpError, WireDriftError, blindSpotError,
 } from './errors.js';
 export type { BankDimension, OccupiedSlotHazard } from './errors.js';
 

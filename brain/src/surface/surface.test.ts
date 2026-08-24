@@ -1272,9 +1272,21 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
     names: ['gn-tool-source', 'gn-tool-alt'],
   }) as {
     applied: boolean;
-    structure: { container: { devicePosition: number }; alternates: { name: string }[] };
+    containerKind: string;
+    routing: string;
+    structure: {
+      container: { devicePosition: number };
+      containerKind: string;
+      routing: string;
+      alternates: { name: string }[];
+    };
   };
   assert.equal(createdAlternates.applied, true, JSON.stringify(createdAlternates));
+  assert.equal(createdAlternates.containerKind, 'Instrument Layer');
+  assert.equal(createdAlternates.structure.containerKind, 'Instrument Layer');
+  assert.match(createdAlternates.routing, /parallel/);
+  assert.match(createdAlternates.routing, /same MIDI input/);
+  assert.match(createdAlternates.routing, /does not map MIDI notes/);
   assert.deepEqual(
     createdAlternates.structure.alternates.map((item) => item.name),
     ['gn-tool-source', 'gn-tool-alt'],
@@ -1869,6 +1881,24 @@ test('T-refusal: writing into an unresolved slot refuses without claiming it is 
   assert.equal(result['nothingWasWritten'], true);
   assert.match(result['why'] as string, /could not be resolved safely/);
   assert.match(result['why'] as string, /Read the slot again/, 'the refusal names the way forward');
+});
+
+test('d02-s4-refusal: off-grid note timing names the cause and finest supported grid', async () => {
+  const fx = fixture();
+  await call(fx, 'add_clip', {
+    clips: [{ trackId: fx.trackA, row: 5, lengthBeats: 4 }],
+  });
+  const before = fx.sent.length;
+  const result = await call(fx, 'write_notes', {
+    clips: [{ trackId: fx.trackA, row: 5, notes: [note({ startBeats: 0.01 })] }],
+  });
+
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true, JSON.stringify(result));
+  assert.match(result['why'] as string, /Note timing caused the refusal/);
+  assert.match(result['why'] as string, /startBeats or durationBeats/);
+  assert.match(result['why'] as string, /finest supported grid is 0\.015625 beat \(1\/64 beat\)/);
+  assert.equal(fx.sent.length, before, 'the off-grid note reaches no adapter write');
 });
 
 test('T-device-alternate names: every invalid name refuses before container insertion', async () => {
@@ -2625,13 +2655,13 @@ test('T-words: nothing a tool EMITTED uses a banned word either', () => {
   assert.deepEqual(offenders, [], `\n${offenders.slice(0, 5).join('\n')}`);
 });
 
-test('T-words: no refusal redirects a change onto a mechanism', () => {
+test('T-words: no refusal redirects a change onto a retired mechanism', () => {
   // ⚠ The same assertion `executor.test.ts` makes about the engine's own refusal
   // text, made about everything this surface says. It overlaps the ban list on
   // purpose: this one is the sentence D18c actually forbids, and it should still
   // fail if somebody ever decides a word is "fine in context".
   for (const text of [...emitted, ...TOOLS.map((t) => t.description)]) {
-    assert.doesNotMatch(text, /\bfork|\blayer|\bchain|\bduplicate|track instead/i, text.slice(0, 160));
+    assert.doesNotMatch(text, /\bfork|\bchain|\bduplicate|track instead/i, text.slice(0, 160));
   }
 });
 

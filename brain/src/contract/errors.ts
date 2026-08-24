@@ -242,6 +242,16 @@ export class InvalidOpError extends ContractError {
   }
 }
 
+/** Note timing is finer than every exact writable grid. */
+export class NoteTimingUnrepresentableError extends InvalidOpError {
+  constructor(readonly finestGridBeats: number, op: 'note.write' | 'note.props' = 'note.write') {
+    super(
+      op,
+      `note timing is finer than the ${finestGridBeats}-beat writable grid`,
+    );
+  }
+}
+
 /** A variant this adapter does not model — the fake's honest answer for device state. */
 export class UnsupportedOpError extends ContractError {
   constructor(readonly op: string, readonly adapter: string) {

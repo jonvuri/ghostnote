@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: dogfooding
-session: clear-container-semantics-and-note-refusals
+session: repeat-same-musical-dogfood
 ---
 
 # Now
@@ -107,11 +107,24 @@ passes 856/856. Extension tests, deploy freshness, and the 148-method handshake
 pass. [E78](evidence/experiments/e78-cohort-parameter-writes-are-live.md) records
 the result.
 
+D02 Session 4 is complete. Public descriptions and results now state the exact
+container kind and MIDI-routing semantics. Instrument Layer entries run in
+parallel and receive the same MIDI input. Instrument alternates use an
+Instrument Layer, and exclusive solo only auditions one entry. Drum Machine
+pads provide per-MIDI-note routing.
+
+Off-grid note timing now refuses in the shared contract before either adapter.
+The result names note timing, the affected beat fields, and the 1/64-beat grid
+floor. The registered MCP server exposes 46 tools. A fresh Codex exposure check
+distinguished all three container tools and made no Ghostnote or Bitwig call.
+The focused cohort passes 156/156. The full brain check passes 859/859.
+[E79](evidence/experiments/e79-container-and-note-refusals-are-explicit.md)
+records the result.
+
 ## Next action
 
-Run D02 Session 4: clear container semantics and note refusals. Then run the
-same-prompt musical retry in D02 Session 5. Do not begin Phase 6a until the
-operator closes this loop.
+Run D02 Session 5 with the original source prompt unchanged. Do not begin Phase
+6a until the operator closes this loop.
 
 ## Retrospective
 
@@ -119,4 +132,4 @@ Return a partial receipt when a later stage fails after an earlier write. Verify
 owned containers from a complete inventory, not from first-device witnesses.
 Name each positional guard for its coordinate system.
 Assert all required guarded wire fields in the encoder before the first live
-run.
+run. Allow built-in capability discovery during exposure-only checks.

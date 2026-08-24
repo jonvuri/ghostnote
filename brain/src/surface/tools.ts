@@ -501,9 +501,16 @@ async function deviceAlternatesAt(
     return { readable: false, why: 'the device at that position does not expose named alternates.' };
   }
   const observedState = observedAlternateStates(device.container);
+  const routing = device.name === 'Instrument Layer'
+    ? 'All entries run in parallel and receive the same MIDI input. Exclusive solo auditions one entry; it does not map MIDI notes.'
+    : device.name === 'FX Layer'
+      ? 'All entries run in parallel and receive the same audio input. Exclusive solo auditions one entry.'
+      : 'The container exposes named entries and exclusive solo state. Its input routing was not identified.';
   return {
     readable: true,
     container: { trackId: id, devicePosition: position },
+    containerKind: device.name,
+    routing,
     complete: device.container.chainsComplete,
     capacity: device.container.chainsBankSize ?? null,
     exclusiveActive: observedState.exclusiveActive,
@@ -1462,7 +1469,8 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'an empty slot lands on a different clip and reports success. Create it with add_clip, '
       + 'which can carry the notes in the same call.\n'
       + 'A write that would replace something whose exact state cannot be recorded first is '
-      + 'refused and nothing is written; what is in the way is named in the refusal.',
+      + 'refused and nothing is written; what is in the way is named in the refusal. Note starts '
+      + 'and durations must fit a supported writable grid. The finest supported grid is 1/64 beat.',
     inputSchema: {
       clips: z.array(z.object({
         trackId,
@@ -1983,8 +1991,10 @@ export const TOOLS: readonly ToolSpec[] = [
     kind: 'write',
     title: 'Compose a device structure',
     description:
-      'Create one complete Instrument container with one through four ordered entries and append '
-      + 'it after a fresh complete inspection of the track device order and enabled state. Each '
+      'Create one complete Instrument Layer with one through four ordered entries and append it '
+      + 'after a fresh complete inspection of the track device order and enabled state. The entries '
+      + 'run in parallel and receive the same MIDI input. This tool does not create Drum Machine '
+      + 'pads and does not route MIDI notes to separate entries. Each '
       + 'entry accepts one exact native-device catalog name and optional named modulator edits. '
       + 'Repeated device names, unknown or non-unique catalog matches, unsupported targets, and '
       + 'invalid edit requests are refused before the project write. The result separates the '
@@ -1996,6 +2006,8 @@ export const TOOLS: readonly ToolSpec[] = [
     inputValidator: deviceStructureCompositionInputValidator,
     emits: ['device.insert'],
     resultContract: {
+      containerKind: 'The observed Instrument Layer kind.',
+      routing: 'All entries run in parallel and receive the same MIDI input; there is no per-note routing.',
       requested: 'The ordered entries and named edits that were requested.',
       validated: 'The public modulator inventory after complete pre-write checks.',
       observed: 'The complete ordered entry and device names read from the inserted container.',
@@ -2015,7 +2027,8 @@ export const TOOLS: readonly ToolSpec[] = [
     description:
       'Create one new native Drum Machine and fill one through 16 reachable pads with native '
       + 'Bitwig drum devices. MIDI notes 36 through 51 map directly to pad channels 0 through '
-      + '15. One note reaches one separate pad device. Exact native-device names are resolved '
+      + '15. This is per-MIDI-note routing: one note reaches one separate pad device. Exact '
+      + 'native-device names are resolved '
       + 'before any write. Repeated notes, unreachable notes, unknown or non-unique devices, '
       + 'an occupied pad, stale top-level device state, and incomplete readback do not produce a '
       + 'verified result. This tool does not edit an existing container. The result includes one '
@@ -2496,8 +2509,10 @@ export const TOOLS: readonly ToolSpec[] = [
     title: 'Create named device alternates',
     description:
       'Add one device container at the end of a track and create one to four explicitly named '
-      + 'alternates inside it. `instrument` loads the bundled empty seed; `effect` uses the '
-      + 'shipped empty entry and is also supported on effect returns and the master. No '
+      + 'alternates inside it. `instrument` creates an Instrument Layer, not an Instrument '
+      + 'Selector. `effect` creates an FX Layer and is also supported on effect returns and the '
+      + 'master. Layer entries run in parallel. Instrument Layer entries receive the same MIDI '
+      + 'input. Exclusive solo auditions one entry; it does not map MIDI notes. No '
       + 'operator-authored setup file is required. Every supplied name must be unique. Success '
       + 'reports only the complete structure independently read after insertion and naming.\n'
       + 'A device alternate carries devices and device state. It carries no clips, sends, routing '
@@ -2642,7 +2657,13 @@ export const TOOLS: readonly ToolSpec[] = [
           })));
         const structure = await deviceAlternatesAt(
           workspace, args.trackId, container.chainIndex,
-        ) as { readable?: boolean; complete?: boolean; alternates?: { name: string }[] };
+        ) as {
+          readable?: boolean;
+          complete?: boolean;
+          containerKind?: string;
+          routing?: string;
+          alternates?: { name: string }[];
+        };
         const resolvedNames = structure.alternates?.map((item) => item.name) ?? [];
         const creationConfirmed = structure.readable === true
           && structure.complete === true
@@ -2650,6 +2671,8 @@ export const TOOLS: readonly ToolSpec[] = [
           && args.names.every((name, index) => resolvedNames[index] === name);
         return {
           applied: creationConfirmed,
+          containerKind: structure.containerKind,
+          routing: structure.routing,
           containerConfirmed: true,
           namingConfirmed: true,
           creationConfirmed,

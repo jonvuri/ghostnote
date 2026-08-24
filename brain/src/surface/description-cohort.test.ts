@@ -11,6 +11,8 @@ import {
   DESCRIPTION_COHORT_V6,
   DESCRIPTION_COHORT_V7,
   DESCRIPTION_COHORT_V8,
+  DESCRIPTION_COHORT_V9,
+  TOOL_DESCRIPTION_V10_SHA256,
   TOOL_DESCRIPTION_V1_SHA256,
   TOOL_DESCRIPTION_V2_SHA256,
   TOOL_DESCRIPTION_V3_SHA256,
@@ -69,8 +71,8 @@ const EXPECTED_COHORT = [
   'compose_drum_machine',
 ] as const;
 
-test('description v9 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v9');
+test('description v10 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v10');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -155,11 +157,40 @@ test('description v8 matches its frozen public artifact', () => {
 });
 
 test('description v9 matches its frozen public artifact', () => {
+  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V9);
+  assert.equal(
+    fingerprintDescriptionCohort(artifact),
+    TOOL_DESCRIPTION_V9_SHA256,
+    'the frozen v9 public wording or schema changed',
+  );
+});
+
+test('description v10 matches its frozen public artifact', () => {
   const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
   assert.deepEqual(artifact.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V9_SHA256,
+    TOOL_DESCRIPTION_V10_SHA256,
     'public wording or schema changed; assign a new description version before updating the golden',
   );
+});
+
+test('description v10 distinguishes the three public container writers by MIDI routing', () => {
+  const descriptions = Object.fromEntries(TOOLS
+    .filter((tool) => [
+      'compose_device_structure', 'create_device_alternates', 'compose_drum_machine',
+    ].includes(tool.name))
+    .map((tool) => [tool.name, tool.description]));
+
+  assert.match(descriptions['compose_device_structure'] ?? '', /Instrument Layer/);
+  assert.match(descriptions['compose_device_structure'] ?? '', /parallel/);
+  assert.match(descriptions['compose_device_structure'] ?? '', /same MIDI input/);
+  assert.match(descriptions['compose_device_structure'] ?? '', /does not route MIDI notes/);
+
+  assert.match(descriptions['create_device_alternates'] ?? '', /Instrument Layer, not an Instrument Selector/);
+  assert.match(descriptions['create_device_alternates'] ?? '', /Exclusive solo auditions one entry/);
+  assert.match(descriptions['create_device_alternates'] ?? '', /does not map MIDI notes/);
+
+  assert.match(descriptions['compose_drum_machine'] ?? '', /per-MIDI-note routing/);
+  assert.match(descriptions['compose_drum_machine'] ?? '', /one note reaches one separate pad device/);
 });
