@@ -554,6 +554,26 @@ or prevent changes to parameters that the cohort did not request.
 - Exact reversal restores every measured scalar. Focused tests, the full brain
   check, extension tests, the handshake, and live cleanup pass.
 
+### Outcome — complete
+
+[E82](../../evidence/experiments/e82-direct-parameter-domains-and-integrity-are-live.md)
+records the implementation and live proof. A typed v1 Kick observer now
+returns the host-proved discrete domain for Attack Click. The measured domain
+is `[0, 1]`, with `Off` and `On` display values. A request for `0.28` refuses
+before the first scalar in its same-route cohort and returns the allowed values.
+
+The live adapter reads the complete DirectParameter inventory after each
+scalar. An unrequested delta stops later writes. The report attributes the
+delta only to the cohort write window because the host does not identify its
+author. The executor also compares the supplied complete preflight inventory
+with final readback.
+
+The exact two Polysynth tonal cohorts left `CONTENTS/R` at `0.01` before,
+between, and after the cohorts. All 19 requested tonal scalars and both Attack
+Click endpoint writes reversed exactly. Cleanup restored the accepted
+five-track list. The full brain check passes 873/873. Extension tests, deploy
+freshness, and the 148-method handshake pass.
+
 ## Session 8 — Exact clip-color bytes
 
 ### Objective

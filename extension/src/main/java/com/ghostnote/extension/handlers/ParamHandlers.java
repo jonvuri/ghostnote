@@ -45,17 +45,27 @@ public final class ParamHandlers extends HandlerGroup {
         r.on("remote.selectPage", params -> remoteSelectPage(params));
     }
 
-    /**
-     * Read every pre-allocated Polysynth param handle. This is the §6a
-     * "effective enumeration" test: 16 named, valued handles at once.
-     */
+    /** Read typed parameter metadata for each supported current native device. */
     private JsonElement paramList() {
         JsonArray params = new JsonArray();
+        int existing = appendTypedParams(params, rig.paramIds, rig.polysynthParams0);
+        existing += appendTypedParams(params, rig.v1KickParamIds, rig.v1KickParams0);
+        JsonObject result = new JsonObject();
+        result.add("params", params);
+        result.addProperty("total", rig.polysynthParams0.length + rig.v1KickParams0.length);
+        result.addProperty("existing", existing);
+        result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
+        result.addProperty("deviceName", rig.cursorDevice0.name().get());
+        return result;
+    }
+
+    /** Append one typed parameter family and return its existing row count. */
+    private int appendTypedParams(JsonArray params, String[] ids, Parameter[] handles) {
         int existing = 0;
-        for (int i = 0; i < rig.polysynthParams0.length; i++) {
-            Parameter p = rig.polysynthParams0[i];
+        for (int i = 0; i < handles.length; i++) {
+            Parameter p = handles[i];
             JsonObject obj = new JsonObject();
-            obj.addProperty("id", rig.paramIds[i]);
+            obj.addProperty("id", ids[i]);
             boolean exists = p.exists().get();
             obj.addProperty("exists", exists);
             if (exists) {
@@ -76,7 +86,7 @@ public final class ParamHandlers extends HandlerGroup {
                 // unprobeable. Liveness has only ever been readable through
                 // `remote.list`, which exposes the 8 controls of the SELECTED remote
                 // page — so answering "is this parameter modulated" meant guessing
-                // which page it lives on and scanning. These 16 handles are named,
+                // which page it lives on and scanning. These handles are named,
                 // pre-allocated and stable, and `F1FREQ`/`F1RESO` are already the
                 // ones `e18c` marks for its state check. Reading `modulatedValue`
                 // beside `value` turns "does modulation survive a relocation" into a
@@ -86,13 +96,7 @@ public final class ParamHandlers extends HandlerGroup {
             }
             params.add(obj);
         }
-        JsonObject result = new JsonObject();
-        result.add("params", params);
-        result.addProperty("total", rig.polysynthParams0.length);
-        result.addProperty("existing", existing);
-        result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
-        result.addProperty("deviceName", rig.cursorDevice0.name().get());
-        return result;
+        return existing;
     }
 
     /**

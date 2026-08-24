@@ -31,9 +31,11 @@ import { randomUUID } from 'node:crypto';
 
 import {
   AddressUnresolvedError, CONTRACT_TAG, InvalidOpError, NOTE_PROP_FIDELITY,
+  ParameterValueUnrepresentableError,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
   blindSpotError, clipMetadata as clipMetadataAt, deltaComplete,
-  failures, notes as notesAt,
+  discreteNormalizedValues, discreteValueIsRepresentable, failures, notes as notesAt,
+  param as paramAt,
   type Address, type AdapterInfo, type BitwigAdapter, type ContentDelta, type NoteRecord,
   type ClipMetadataState, type Op, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
@@ -157,6 +159,10 @@ export class Executor {
     return this.adapter.preserveSelection(async () => {
       const batch = await this.runInside(ops, options);
       if (batch.receipt.rejected !== undefined || batch.receipt.stages.length === 0) return [batch];
+      const scalarKeys = new Set(keys);
+      const collateral = batch.report.disagreements.filter(
+        (item) => !scalarKeys.has(addressKey(item.address)),
+      );
       return scalarOps.slice(0, batch.receipt.stages.length).map((op, opIndex) => {
         const writeSet = writeSetOf([op]);
         const key = writeSet.targets[0]!.key;
@@ -177,9 +183,10 @@ export class Executor {
           },
           verify,
           values,
-          disagreements: batch.report.disagreements.filter(
-            (item) => addressKey(item.address) === key,
-          ),
+          disagreements: [
+            ...batch.report.disagreements.filter((item) => addressKey(item.address) === key),
+            ...(opIndex === 0 ? collateral : []),
+          ],
           unverified: batch.report.unverified.filter(
             (item) => addressKey(item.address) === key,
           ),
@@ -226,6 +233,7 @@ export class Executor {
     const stash = supplied ?? await this.timed('stash', () => this.adapter.read(addresses));
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
+    assertParameterDomains(ops, stash);
 
     // ⚠ THE FLOOR (D18c, §3.3.5). The labels are derived here rather than after
     // the apply — same inputs, same answer — because the one instant this
@@ -300,7 +308,9 @@ export class Executor {
     // the clip was really at row 9 — so the verify skips them and the report
     // says which, instead of a silent "nothing to disagree about".
     const staled = receipt.at.sceneEpoch !== stash.at.sceneEpoch;
-    const readable = staled ? addresses.filter((a) => addressScene(a) === undefined) : addresses;
+    const scalarReadable = staled ? addresses.filter((a) => addressScene(a) === undefined) : addresses;
+    const integrityDevices = supplied === undefined ? [] : uniqueParameterDevices(ops);
+    const readable = uniqueAddresses([...scalarReadable, ...integrityDevices]);
     const unverified: Unverified[] = staled
       ? addresses.filter((a) => addressScene(a) !== undefined).map((address) => ({
         address,
@@ -354,6 +364,7 @@ export class Executor {
       disagreements: [
         ...disagreementsOf(ops, verify, unread),
         ...mutationConflicts,
+        ...(supplied === undefined ? [] : parameterIntegrityDisagreementsOf(ops, supplied, verify)),
       ],
       unverified, ...seen,
     });
@@ -659,6 +670,107 @@ function snapshotFor(snapshot: Snapshot, key: string): Snapshot {
     unreachable: snapshot.unreachable.filter(matches),
     unstable: snapshot.unstable.filter(matches),
   };
+}
+
+/** Keep the first occurrence of each address. */
+function uniqueAddresses(addresses: readonly Address[]): Address[] {
+  const seen = new Set<string>();
+  return addresses.filter((address) => {
+    const key = addressKey(address);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+/** Complete device inventories needed to check DirectParameter collateral state. */
+function uniqueParameterDevices(ops: readonly Op[]): Address[] {
+  return uniqueAddresses(ops.flatMap((op) => op.op === 'param.set' ? [op.param.device] : []));
+}
+
+/** Refuse every unrepresentable value before the adapter receives the cohort. */
+function assertParameterDomains(ops: readonly Op[], snapshot: Snapshot): void {
+  for (const op of ops) {
+    if (op.op !== 'param.set') continue;
+    const entry = snapshot.entries[addressKey(op.param)];
+    if (entry?.value.of !== 'param') continue;
+    const parameter = entry.value.param;
+    const count = parameter.discreteValueCount;
+    if (count === undefined || count < 1 || discreteValueIsRepresentable(op.value, count)) continue;
+    throw new ParameterValueUnrepresentableError(
+      op.param,
+      op.value,
+      count,
+      discreteNormalizedValues(count),
+      parameter.discreteValueNames,
+    );
+  }
+}
+
+/**
+ * Compare every unrequested DirectParameter around one cohort. A delta is
+ * attributed only to the write window. The host API does not identify its
+ * author, so the report does not call it an operator edit or a Ghostnote edit.
+ */
+function parameterIntegrityDisagreementsOf(
+  ops: readonly Op[],
+  before: Snapshot,
+  after: Snapshot,
+): Disagreement[] {
+  const out: Disagreement[] = [];
+  for (const device of uniqueParameterDevices(ops)) {
+    if (device.kind !== 'device') continue;
+    const beforeEntry = before.entries[addressKey(device)];
+    const afterEntry = after.entries[addressKey(device)];
+    if (beforeEntry?.value.of !== 'device' || afterEntry?.value.of !== 'device') continue;
+    const beforeParams = beforeEntry.value.device.params;
+    const afterParams = afterEntry.value.device.params;
+    if (beforeParams === undefined || afterParams === undefined) continue;
+    const requested = new Set(ops.flatMap((op) => {
+      if (op.op !== 'param.set' || addressKey(op.param.device) !== addressKey(device)) return [];
+      if (op.param.directId !== undefined) return [op.param.directId];
+      const id = beforeParams[op.param.index ?? -1]?.id;
+      return id === undefined ? [] : [id];
+    }));
+    const priorById = new Map(beforeParams.map((parameter) => [parameter.id, parameter]));
+    const currentById = new Map(afterParams.map((parameter) => [parameter.id, parameter]));
+    const ids = new Set([...priorById.keys(), ...currentById.keys()]);
+    for (const id of ids) {
+      if (requested.has(id)) continue;
+      const prior = priorById.get(id);
+      const current = currentById.get(id);
+      const address = paramAt(device, id);
+      if (prior === undefined || current === undefined) {
+        out.push({
+          address,
+          at: 'unrequested parameter changed during the cohort write window; author unknown',
+          field: 'present',
+          requested: prior !== undefined,
+          readback: current !== undefined,
+        });
+        continue;
+      }
+      if (!equalEnough(prior.value, current.value)) {
+        out.push({
+          address,
+          at: 'unrequested parameter changed during the cohort write window; author unknown',
+          field: 'value',
+          requested: prior.value,
+          readback: current.value,
+        });
+      }
+      if (prior.name !== current.name) {
+        out.push({
+          address,
+          at: 'unrequested parameter changed during the cohort write window; author unknown',
+          field: 'name',
+          requested: prior.name,
+          readback: current.name,
+        });
+      }
+    }
+  }
+  return out;
 }
 
 /**

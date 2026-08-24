@@ -6,13 +6,26 @@
  * posture: "detect and fail loud; never operate on a partially-visible project"
  * (standing rule 5), "readback is the only truth" (rule 1).
  */
-import { addressScene, type Address } from './address.js';
+import { addressScene, type Address, type ParamAddress } from './address.js';
 import type { WindowCoverage } from './snapshot.js';
 
 export class ContractError extends Error {
   constructor(message: string) {
     super(message);
     this.name = new.target.name;
+  }
+}
+
+/** A normalized DirectParameter value is outside its observed discrete domain. */
+export class ParameterValueUnrepresentableError extends ContractError {
+  constructor(
+    readonly address: ParamAddress,
+    readonly requested: number,
+    readonly discreteValueCount: number,
+    readonly normalizedValues: readonly number[],
+    readonly discreteValueNames?: readonly string[],
+  ) {
+    super('the normalized DirectParameter value is outside its host-proved discrete domain');
   }
 }
 

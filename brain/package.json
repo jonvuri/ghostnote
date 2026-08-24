@@ -16,6 +16,7 @@
     "probe:d01-selection": "tsx src/probes/d01-stale-selection.ts",
     "probe:d02-drum-machine": "tsx src/probes/d02-drum-machine-composition.ts",
     "probe:d02-parameter-cohort": "tsx src/probes/d02-parameter-cohort.ts",
+    "probe:d02-parameter-domain": "tsx src/probes/d02-parameter-domain.ts",
     "probe:d02-native-insertion": "tsx src/probes/d02-native-insertion.ts",
     "probe:e13": "tsx src/probes/e13-bwmod.ts",
     "probe:phase5a-authoring": "tsx src/probes/phase5a-modulator-authoring.ts",

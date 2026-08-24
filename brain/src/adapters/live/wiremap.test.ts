@@ -420,6 +420,31 @@ test('5b: remote automation state is subscribed before live route proof', () => 
     'inactive and active route proof must observe host automation explicitly');
 });
 
+test('d02-s7: the extension observes the v1 Kick discrete parameter domain', () => {
+  const rig = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'Rig.java'),
+    'utf8',
+  );
+  const handlers = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'ParamHandlers.java'),
+    'utf8',
+  );
+  const start = rig.indexOf('v1KickView0 = cursorDevice0.createSpecificBitwigDevice(');
+  const end = rig.indexOf('v1KickParams0[p] = param;', start);
+  const observer = rig.slice(start, end);
+
+  assert.ok(start >= 0 && end > start, 'the typed v1 Kick observer loop must exist');
+  assert.match(observer, /NativeDeviceCatalog\.V1_KICK_UUID/);
+  assert.match(observer, /param\.value\(\)\.displayedValue\(\)\.markInterested\(\);/);
+  assert.match(observer, /param\.value\(\)\.discreteValueCount\(\)\.markInterested\(\);/);
+  assert.match(observer, /param\.value\(\)\.discreteValueNames\(\)\.markInterested\(\);/);
+  assert.match(handlers,
+    /appendTypedParams\(params, rig\.v1KickParamIds, rig\.v1KickParams0\)/,
+    'param.list must return the typed v1 Kick metadata');
+});
+
 test('5d: a named slot descent proves its parent before remote readback', () => {
   assert.ok(WIRE_METHODS_USED.includes('devcursor.selectFirstInSlot'));
   assert.ok(WIRE_METHODS_USED.includes('devcursor.selectParent'));

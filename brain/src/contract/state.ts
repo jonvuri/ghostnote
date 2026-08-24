@@ -265,6 +265,18 @@ export interface ParamState {
   readonly discreteValueNames?: readonly string[];
 }
 
+/** Exact normalized values for a host-proved discrete parameter domain. */
+export function discreteNormalizedValues(count: number): readonly number[] {
+  if (!Number.isInteger(count) || count < 1) return [];
+  if (count === 1) return [0];
+  return Array.from({ length: count }, (_, index) => index / (count - 1));
+}
+
+/** True when a normalized value is in the host-proved discrete domain. */
+export function discreteValueIsRepresentable(value: number, count: number): boolean {
+  return discreteNormalizedValues(count).some((allowed) => Math.abs(allowed - value) <= 1e-6);
+}
+
 export interface RemoteControlState {
   readonly index: number;
   readonly name: string;

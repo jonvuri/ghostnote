@@ -8,6 +8,7 @@ import { streamOffset } from '../bwmod/header.js';
 
 export const NATIVE_CATALOG_SCHEMA_VERSION = 1;
 export const POLYSYNTH_UUID = 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef';
+export const V1_KICK_UUID = 'c6d5de18-a6f1-4daa-90a9-d9254527601a';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const OBJECT_NAME_FIELD = 0x02b9;
@@ -274,14 +275,26 @@ export function polysynthTypedIds(catalog: NativeCatalog): readonly string[] {
     : device.candidateParameterIds;
 }
 
+function typedIds(catalog: NativeCatalog, uuid: string): readonly string[] {
+  const device = catalog.devices.find((candidate) => candidate.uuid === uuid);
+  if (device === undefined) return [];
+  return device.parameterResolution.status === 'live-resolved'
+    ? device.parameterResolution.typedResolvedIds
+    : device.candidateParameterIds;
+}
+
 export function javaCatalogSource(catalog: NativeCatalog): string {
   const ids = polysynthTypedIds(catalog);
   const rows = ids.map((id) => `        ${JSON.stringify(id)},`).join('\n');
+  const kickIds = typedIds(catalog, V1_KICK_UUID);
+  const kickRows = kickIds.map((id) => `        ${JSON.stringify(id)},`).join('\n');
   return `package com.ghostnote.extension.generated;\n\n` +
     `/** Generated native catalog input. Run npm run catalog:native in brain. */\n` +
     `public final class NativeDeviceCatalog {\n` +
     `    public static final String POLYSYNTH_UUID = ${JSON.stringify(POLYSYNTH_UUID)};\n` +
     `    public static final String[] POLYSYNTH_PARAMETER_IDS = {\n${rows}\n    };\n\n` +
+    `    public static final String V1_KICK_UUID = ${JSON.stringify(V1_KICK_UUID)};\n` +
+    `    public static final String[] V1_KICK_PARAMETER_IDS = {\n${kickRows}\n    };\n\n` +
     `    private NativeDeviceCatalog() {}\n` +
     `}\n`;
 }

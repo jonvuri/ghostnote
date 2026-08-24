@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v11';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v12';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -226,12 +226,17 @@ export const DESCRIPTION_COHORT_V10: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v11 adds exact-name top-level native insertion. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V11: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V10,
   {
     name: 'add_native_devices', kind: 'write',
     reason: 'Appends ordered top-level native devices by exact catalog name.',
   },
+] as const;
+
+/** v12 adds discrete DirectParameter domains and complete integrity checks. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V11,
 ] as const;
 
 interface ToolAnnotations {
@@ -312,28 +317,32 @@ export const TOOL_DESCRIPTION_V4_SHA256 =
 
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V5_SHA256 =
-  'c2397652703a8cfe1a152a50f51b6ef482012b040d62bc817fad7515266bd28d';
+  '1bc433d222199f7e7b46964b75435884185c9dd8a067b3a8b1c6723486a2089e';
 
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V6_SHA256 =
-  '5059e2f86988e046749aa0cfdc3c4c7c2aa72b18b2d603dd26498a9af931b39e';
+  '4fa442967b4178464acc252ba9643e3ceab463bb82b91c487fd774017b2e5ba9';
 
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V7_SHA256 =
-  '469ba0ff18a436a9836231f5b997c6160941502715e14629aeef6fcb197257bf';
+  '45e585a8cbae5b5ab3a0556290dd066bce30dec4f2334a3b8a89572a5c7f1196';
 
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V8_SHA256 =
-  '469ba0ff18a436a9836231f5b997c6160941502715e14629aeef6fcb197257bf';
+  '45e585a8cbae5b5ab3a0556290dd066bce30dec4f2334a3b8a89572a5c7f1196';
 
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V9_SHA256 =
-  '620884ea0b90878324ed10fd59e605e988707f4874c832c99321259a8c6a4f77';
+  '66cbabaf13e5c72def9354bad4a33da6e3849027e2c55a183adf321410039750';
 
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V10_SHA256 =
-  '620884ea0b90878324ed10fd59e605e988707f4874c832c99321259a8c6a4f77';
+  '66cbabaf13e5c72def9354bad4a33da6e3849027e2c55a183adf321410039750';
 
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V11_SHA256 =
-  '4c4905cde49fa21978ecc990b13bec9bb591ecd49921971563b9e7aab9fbe62a';
+  '7e2ff13e5ea6a017806040e14f8a3929c1ac6776d353efdce41d4dc546d82dba';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V12_SHA256 =
+  '7e2ff13e5ea6a017806040e14f8a3929c1ac6776d353efdce41d4dc546d82dba';

@@ -61,5 +61,18 @@ public final class NativeDeviceCatalog {
         "USE_LEGACY_RESONANCE_RANGE",
     };
 
+    public static final String V1_KICK_UUID = "c6d5de18-a6f1-4daa-90a9-d9254527601a";
+    public static final String[] V1_KICK_PARAMETER_IDS = {
+        "ATTACK_CLICK",
+        "DECAY",
+        "DECAY_SHAPE",
+        "OUTPUT",
+        "PITCH_MOD_AMOUNT",
+        "PITCH_MOD_DECAY",
+        "TONE",
+        "TUNING",
+        "VELOCITY_SENSITIVITY",
+    };
+
     private NativeDeviceCatalog() {}
 }

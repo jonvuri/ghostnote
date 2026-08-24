@@ -54,6 +54,7 @@ export type {
 export {
   GAIN_READ_SCALE, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, NOTE_PROP_FIDELITY, NOTE_PROP_WRITE_ORDER, UNVERIFIED_NOTE_PROPS,
   UNWRITABLE_NOTE_PROPS, hasUnverifiedProps, orderedNoteProps, unwritableProps,
+  discreteNormalizedValues, discreteValueIsRepresentable,
 } from './state.js';
 export type {
   ClipColor, ClipLaunchState, ClipMetadataState, ClipPlayState, DeviceState, LaunchMode,
@@ -76,7 +77,8 @@ export type { AdapterCapabilities, AdapterInfo, BankLimits, ContractTag } from '
 export {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractError,
   ContractVersionError, InvalidOpError, NoteTimingUnrepresentableError, SlotOccupiedError,
-  StaleAddressError, UnsupportedOpError, WireDriftError, blindSpotError,
+  ParameterValueUnrepresentableError, StaleAddressError, UnsupportedOpError, WireDriftError,
+  blindSpotError,
 } from './errors.js';
 export type { BankDimension, OccupiedSlotHazard } from './errors.js';
 

@@ -87,6 +87,8 @@ interface FixtureHooks {
   readonly statusPush?: (value: string, target: StatusTarget) => Promise<void>;
   /** Inject a state change before a numbered revision read. */
   readonly beforeRevision?: (call: number, fake: FakeAdapter) => void;
+  /** Inject an external edit after one fake adapter batch lands. */
+  readonly afterApply?: (batch: readonly Op[], fake: FakeAdapter) => void;
 }
 
 /** Two tracks, eight rows, nothing written yet. */
@@ -125,6 +127,7 @@ function fixture(
     apply: async (batch) => {
       const receipt = await fake.apply(batch);
       sent.push(...batch.ops);
+      hooks.afterApply?.(batch.ops, fake);
       return receipt;
     },
   };
@@ -793,7 +796,8 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
   });
   const modelDevice = fx.fake.model.findByChannelId(fx.trackA)!.track.devices[0]!;
   Object.assign(modelDevice.params[0]!, {
-    display: '50.0 %',
+    value: 0,
+    display: 'Off',
     modulatedValue: 0.7,
     hasAutomation: true,
     origin: 0,
@@ -817,8 +821,8 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
   assert.deepEqual(inventory.parameters[0], {
     id: 'P1',
     name: 'Param 1',
-    normalizedValue: 0.5,
-    display: '50.0 %',
+    normalizedValue: 0,
+    display: 'Off',
     modulatedValue: 0.7,
     hasAutomation: true,
     origin: 0,
@@ -845,7 +849,7 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
       kind: 'direct',
       device: { trackId: fx.trackA, devicePosition: 0 },
       parameterId: 'P1',
-      normalizedValue: 0.75,
+      normalizedValue: 1,
     },
     {
       kind: 'remote',
@@ -860,7 +864,7 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
     verified: boolean; changes: { changeId: string }[];
   };
   assert.equal(set.verified, true, JSON.stringify(set));
-  assert.equal(modelDevice.params[0]!.value, 0.75);
+  assert.equal(modelDevice.params[0]!.value, 1);
   assert.equal(modelDevice.remotePages[0]!.controls[0]!.value, 0.6);
 
   const bypass = await call(fx, 'set_device_enabled', {
@@ -879,8 +883,74 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
     changeId: set.changes[0]!.changeId,
   }))['applied'], true);
   assert.equal(modelDevice.enabled, true);
-  assert.equal(modelDevice.params[0]!.value, 0.5);
+  assert.equal(modelDevice.params[0]!.value, 0);
   assert.equal(modelDevice.remotePages[0]!.controls[0]!.value, 0.25);
+});
+
+test('d02-s7-surface: one invalid discrete value refuses the complete cohort before writes', async () => {
+  const fx = fixture();
+  const device = {
+    name: 'Domain synth', paramsLive: true,
+    params: [
+      { id: 'P1', name: 'Tone', value: 0.2 },
+      {
+        id: 'ATTACK_CLICK', name: 'Attack Click', value: 1,
+        discreteValueCount: 2, discreteValueNames: ['Off', 'On'],
+      },
+    ],
+  };
+  fx.fake.model.findByChannelId(fx.trackA)!.track.devices.push(device);
+
+  const result = await call(fx, 'set_parameter', { settings: [
+    {
+      kind: 'direct', device: { trackId: fx.trackA, devicePosition: 0 },
+      parameterId: 'P1', normalizedValue: 0.7,
+    },
+    {
+      kind: 'direct', device: { trackId: fx.trackA, devicePosition: 0 },
+      parameterId: 'ATTACK_CLICK', normalizedValue: 0.28,
+    },
+  ] });
+
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.deepEqual(result['allowedParameterDomain'], {
+    parameterId: 'ATTACK_CLICK', discreteValueCount: 2,
+    normalizedValues: [0, 1], discreteValueNames: ['Off', 'On'],
+  });
+  assert.deepEqual(device.params.map((parameter) => parameter.value), [0.2, 1]);
+  assert.deepEqual(fx.sent.filter((op) => op.op === 'param.set'), []);
+});
+
+test('d02-s7-surface: an unrelated parameter delta is reported without author attribution', async () => {
+  let injected = false;
+  const fx = fixture({
+    afterApply: (ops, fake) => {
+      if (injected || !ops.some((op) => op.op === 'param.set')) return;
+      const target = fake.model.visibleTracks()[0]!.devices[0];
+      if (target !== undefined) target.params[2]!.value = 0.91;
+      injected = true;
+    },
+  });
+  const device = {
+    name: 'Integrity synth', paramsLive: true,
+    params: [
+      { id: 'P1', name: 'Tone', value: 0.2 },
+      { id: 'P2', name: 'Shape', value: 0.3 },
+      { id: 'P3', name: 'Release', value: 0.4 },
+    ],
+  };
+  fx.fake.model.findByChannelId(fx.trackA)!.track.devices.push(device);
+
+  const result = await call(fx, 'set_parameter', { settings: [{
+    kind: 'direct', device: { trackId: fx.trackA, devicePosition: 0 },
+    parameterId: 'P1', normalizedValue: 0.7,
+  }] });
+
+  assert.equal(result['verified'], false, JSON.stringify(result));
+  assert.match(JSON.stringify(result), /unrequested parameter changed.*author unknown/);
+  assert.doesNotMatch(JSON.stringify(result), /Ghostnote changed|operator changed/i);
+  assert.deepEqual(device.params.map((parameter) => parameter.value), [0.7, 0.3, 0.91]);
 });
 
 test('d02-s2-surface: nested and drum-pad DirectParameters verify and reverse', async () => {

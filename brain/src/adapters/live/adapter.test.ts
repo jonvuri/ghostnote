@@ -2120,6 +2120,8 @@ class ParameterTransport implements Transport {
   remoteNeverCurrent = false;
   malformedRemoteControl = false;
   movingRemote = false;
+  typedMetadata = false;
+  collateralAfterWrite: { readonly id: string; readonly value: number } | undefined;
   failRemoteIndex: number | undefined;
   emptySlot = false;
   private selected = 0;
@@ -2277,8 +2279,16 @@ class ParameterTransport implements Transport {
           observedDeviceIndex: this.depth === 0 ? this.selected : -1,
         };
       }
-      case WIRE.paramList:
-        return { params: [] };
+      case WIRE.paramList: {
+        const first = this.devices[this.selected]?.params.get('P1');
+        return this.typedMetadata && first !== undefined
+          ? { params: [{
+            id: 'P1', exists: true, name: first.name, value: first.value,
+            displayed: first.value === 0 ? 'Off' : 'On',
+            discreteValueCount: 2, discreteValueNames: ['Off', 'On'],
+          }] }
+          : { params: [] };
+      }
       case WIRE.directParamSet: {
         const target = (this.padSelected ? this.padParams
           : this.depth === 2 ? this.deepParams
@@ -2292,6 +2302,12 @@ class ParameterTransport implements Transport {
           target.value = params['value'] as number;
           this.completionValue = target.value;
           this.completionObservedGeneration = this.completionGeneration;
+          const collateral = this.collateralAfterWrite;
+          if (collateral !== undefined) {
+            const unrelated = this.devices[this.selected]?.params.get(collateral.id);
+            if (unrelated !== undefined) unrelated.value = collateral.value;
+            this.collateralAfterWrite = undefined;
+          }
         }
         return { completionGeneration: this.completionGeneration };
       }
@@ -2446,7 +2462,22 @@ test('L-direct-param: stable inventories do not retain the prior device values',
   assert.equal(oneParams?.every((item) => item.observed.modulatedValue === false), true);
 });
 
-test('L-direct-param: a write reads back independently and exact reversal restores the base', async () => {
+test('d02-s7 live inventory: typed metadata proves the binary normalized domain', async () => {
+  const wire = new ParameterTransport();
+  wire.typedMetadata = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'P1');
+  const snapshot = await adapter.read([address]);
+  const entry = snapshot.entries[addressKey(address)];
+
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.discreteValueCount : undefined, 2);
+  assert.deepEqual(
+    entry?.value.of === 'param' ? entry.value.param.discreteValueNames : undefined,
+    ['Off', 'On'],
+  );
+});
+
+test('L-direct-param: each write reads a complete inventory and exact reversal restores the base', async () => {
   const wire = new ParameterTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
   const address = param(deviceAt(TRACK, 0), 'P1');
@@ -2457,15 +2488,36 @@ test('L-direct-param: a write reads back independently and exact reversal restor
   const changed = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.75 }] });
   assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   const writeAt = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
-  const completionFrames = wire.frames.slice(writeAt + 1);
-  assert.equal(completionFrames.filter((frame) =>
-    frame.method === WIRE.directParamCompletion).length, 2);
-  assert.equal(completionFrames.some((frame) => frame.method === WIRE.directParamList), false);
+  const readbackFrames = wire.frames.slice(writeAt + 1);
+  assert.equal(readbackFrames.filter((frame) =>
+    frame.method === WIRE.directParamList && frame.params?.['begin'] === true).length, 1);
+  assert.equal(readbackFrames.some((frame) => frame.method === WIRE.directParamCompletion), false);
   const restored = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0 }] });
   assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   const after = await adapter.read([address]);
   const afterEntry = after.entries[addressKey(address)];
   assert.equal(afterEntry?.value.of === 'param' ? afterEntry.value.param.value : undefined, 0);
+});
+
+test('d02-s7 live integrity: an unrequested delta stops later scalar writes', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const device = deviceAt(TRACK, 0);
+  const addresses = ['P1', 'P2', 'P3'].map((id) => param(device, id));
+  const preflight = await adapter.read([device, ...addresses]);
+  wire.collateralAfterWrite = { id: 'P12', value: 0.99 };
+
+  const receipt = await adapter.apply({
+    ops: addresses.map((address, index) => ({
+      op: 'param.set', param: address, value: 0.6 + index / 10,
+    })),
+    parameterPreflight: preflight,
+  });
+
+  assert.equal(receipt.stages.length, 1);
+  assert.match(receipt.stages[0]!.ops[0]!.error ?? '', /unrequested parameter P12.*author unknown/);
+  assert.deepEqual(wire.frames.filter((frame) => frame.method === WIRE.directParamSet)
+    .map((frame) => frame.params?.['id']), ['P1']);
 });
 
 test('4g parameter guard refuses a raw positional shift before the wire write', async () => {

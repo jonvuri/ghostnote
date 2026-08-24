@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-23
 phase: dogfooding
-session: d02-direct-parameter-domains-and-collateral-integrity
+session: d02-exact-clip-color-bytes
 ---
 
 # Now
@@ -150,6 +150,20 @@ entry list. MCP exposes 47 tools. The full brain check passes 867/867.
 Extension tests, deploy freshness, and the 148-method handshake pass. [E81](evidence/experiments/e81-exact-name-native-insertion-is-live.md)
 records the result.
 
+D02 Session 7 is complete. The v1 Kick typed observer now returns the host
+discrete domain for Attack Click. Its domain is `[0, 1]`, with `Off` and `On`
+display values. A request for `0.28` refuses before any scalar in the same
+route cohort writes and returns the allowed domain.
+
+Each DirectParameter scalar now gets a complete stable inventory readback. An
+unrequested parameter delta stops later writes and reports that its author is
+unknown. The exact two Polysynth tonal cohorts left `CONTENTS/R` at `0.01`.
+All 19 requested tonal scalars and both Attack Click endpoint writes reversed
+exactly. Cleanup restored the accepted five-track list. The full brain check,
+873/873, extension tests, deploy freshness, and the 148-method handshake pass.
+[E82](evidence/experiments/e82-direct-parameter-domains-and-integrity-are-live.md)
+records the result.
+
 D02 now separates these findings into four focused sessions. Session 6 owns
 native insertion, UUID validation, truthful partial results, and catalog
 diagnostics. Session 7 owns DirectParameter domains and collateral integrity.
@@ -160,7 +174,7 @@ and version provenance.
 
 ## Next action
 
-Run D02 Session 7. Complete Sessions 7 through 9 before the next musical
+Run D02 Session 8. Complete Sessions 8 and 9 before the next musical
 dogfood chat. Do not begin Phase 6a until the operator closes this loop.
 
 ## Retrospective
@@ -174,3 +188,4 @@ Name every failed catalog input in one refusal. Use direct top-level native
 insertion when the request does not need a Layer. Record session version fields
 with their provenance. Do not infer a host version from a public session.
 Carry the resolved catalog name through insertion completion and reversal.
+Run deploy freshness before a live probe that depends on new observer handles.

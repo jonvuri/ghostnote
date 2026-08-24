@@ -122,6 +122,10 @@ public class Rig {
     /** IDs actually bound, index-parallel to {@link #polysynthParams0}. */
     public final String[] paramIds;
     public final Parameter[] polysynthParams0;
+    /** Typed v1 Kick parameters that supplement format-agnostic observers. */
+    public final SpecificBitwigDevice v1KickView0;
+    public final String[] v1KickParamIds;
+    public final Parameter[] v1KickParams0;
 
     public void beginDirectParameterRoute(int topLevelIndex) {
         directParameterTopLevelIndex = topLevelIndex;
@@ -1211,6 +1215,23 @@ public class Rig {
             param.hasAutomation().markInterested();
             paramIds[p] = id;
             polysynthParams0[p] = param;
+        }
+        v1KickView0 = cursorDevice0.createSpecificBitwigDevice(
+            java.util.UUID.fromString(NativeDeviceCatalog.V1_KICK_UUID));
+        v1KickParamIds = NativeDeviceCatalog.V1_KICK_PARAMETER_IDS.clone();
+        v1KickParams0 = new Parameter[v1KickParamIds.length];
+        for (int p = 0; p < v1KickParamIds.length; p++) {
+            Parameter param = v1KickView0.createParameter(v1KickParamIds[p]);
+            param.exists().markInterested();
+            param.name().markInterested();
+            param.value().markInterested();
+            param.value().displayedValue().markInterested();
+            param.value().getOrigin().markInterested();
+            param.value().discreteValueCount().markInterested();
+            param.value().discreteValueNames().markInterested();
+            param.modulatedValue().markInterested();
+            param.hasAutomation().markInterested();
+            v1KickParams0[p] = param;
         }
 
         transport = host.createTransport();

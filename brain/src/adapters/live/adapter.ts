@@ -3746,6 +3746,7 @@ export class LiveAdapter implements BitwigAdapter {
       readonly kind: 'direct';
       readonly device: DeviceAddress;
       readonly deviceName: string;
+      readonly initialParams: readonly ParamState[];
     }
     | {
       readonly kind: 'remote';
@@ -3754,7 +3755,7 @@ export class LiveAdapter implements BitwigAdapter {
     }
     | undefined
   > {
-    if (ops.length < 2) return undefined;
+    if (ops.length < 1) return undefined;
     const first = ops[0]!;
     if (first.op !== 'param.set' && first.op !== 'remote.set') return undefined;
     const device = first.op === 'param.set' ? first.param.device : first.remote.device;
@@ -3813,7 +3814,17 @@ export class LiveAdapter implements BitwigAdapter {
       }
       if (names !== undefined) this.deviceChainNames.set(device.track.channelId, names);
       this.deviceNames.set(deviceKey, target.deviceName);
-      return { kind: first.op === 'param.set' ? 'direct' : 'remote', device, deviceName: target.deviceName };
+      if (first.op === 'param.set') {
+        const entry = preflight.entries[deviceKey];
+        if (entry?.value.of !== 'device' || entry.value.device.params === undefined) {
+          throw new AddressUnresolvedError(device, 'the fresh cohort inventory is incomplete');
+        }
+        return {
+          kind: 'direct', device, deviceName: target.deviceName,
+          initialParams: entry.value.device.params,
+        };
+      }
+      return { kind: 'remote', device, deviceName: target.deviceName };
     }
 
     if (first.op === 'param.set') {
@@ -3834,9 +3845,12 @@ export class LiveAdapter implements BitwigAdapter {
       }
       if (names !== undefined) {
         this.deviceChainNames.set(device.track.channelId, names);
-        this.deviceNames.set(deviceKey, inventory.deviceName);
       }
-      return { kind: 'direct', device, deviceName: inventory.deviceName };
+      this.deviceNames.set(deviceKey, inventory.deviceName);
+      return {
+        kind: 'direct', device, deviceName: inventory.deviceName,
+        initialParams: inventory.params,
+      };
     }
 
     const inventory = await this.remoteInventory(device, row);
@@ -3856,9 +3870,43 @@ export class LiveAdapter implements BitwigAdapter {
     }
     if (names !== undefined) {
       this.deviceChainNames.set(device.track.channelId, names);
-      this.deviceNames.set(deviceKey, inventory.deviceName);
     }
+    this.deviceNames.set(deviceKey, inventory.deviceName);
     return { kind: 'remote', device, deviceName: inventory.deviceName };
+  }
+
+  /**
+   * Compare one complete DirectParameter inventory after a scalar stage. An
+   * unrequested delta stops the cohort, but its author stays unknown because
+   * the host observer does not identify who made the edit.
+   */
+  private parameterCohortIntegrityWhy(
+    initial: readonly ParamState[],
+    current: readonly ParamState[],
+    applied: readonly Extract<Op, { op: 'param.set' }>[],
+  ): string | undefined {
+    const initialById = new Map(initial.map((parameter) => [parameter.id, parameter]));
+    const currentById = new Map(current.map((parameter) => [parameter.id, parameter]));
+    if (initialById.size !== currentById.size
+        || [...initialById.keys()].some((id) => !currentById.has(id))) {
+      return 'the complete parameter inventory changed during the cohort write window; author unknown';
+    }
+    const requested = new Map(applied.flatMap((op) => {
+      const id = op.param.directId ?? initial[op.param.index ?? -1]?.id;
+      return id === undefined ? [] : [[id, op.value] as const];
+    }));
+    for (const [id, prior] of initialById) {
+      const after = currentById.get(id)!;
+      const wanted = requested.get(id);
+      if (wanted !== undefined) {
+        if (Math.abs(after.value - wanted) > 2e-3) {
+          return `parameter readback disagreed: requested ${wanted}, got ${after.value}`;
+        }
+      } else if (Math.abs(after.value - prior.value) > 2e-3 || after.name !== prior.name) {
+        return `unrequested parameter ${id} changed during the cohort write window; author unknown`;
+      }
+    }
+    return undefined;
   }
 
   /**
@@ -4616,6 +4664,32 @@ export class LiveAdapter implements BitwigAdapter {
           receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
         }
       }
+      if (parameterCohort?.kind === 'direct'
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const row = this.bank.find((item) =>
+          item.channelId === parameterCohort.device.track.channelId);
+        const after = row === undefined
+          ? { standing: 'missing' as const }
+          : await this.parameterInventory(parameterCohort.device, row);
+        const applied = batch.ops.slice(0, receipts.length)
+          .filter((op): op is Extract<Op, { op: 'param.set' }> => op.op === 'param.set');
+        const why = after.standing !== 'stable'
+          ? `the complete parameter inventory was ${after.standing} after the scalar write`
+          : after.deviceName !== parameterCohort.deviceName
+            ? 'the parameter target identity changed during the cohort write window'
+            : this.parameterCohortIntegrityWhy(
+              parameterCohort.initialParams,
+              after.params,
+              applied,
+            );
+        if (why !== undefined) {
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            entry.op === WIRE.directParamSet || entry.op === 'param.set'
+              ? { ...entry, ok: false, error: why }
+              : entry);
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
+        }
+      }
       if (enabledOp !== undefined && enabledBefore !== undefined
           && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
         const after = await this.deviceChain(enabledOp.device.track);
@@ -4813,52 +4887,29 @@ export class LiveAdapter implements BitwigAdapter {
           && !receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) break;
     }
 
-    if (parameterCohort !== undefined && batch.parameterPreflight === undefined
+    if (parameterCohort?.kind === 'remote' && batch.parameterPreflight === undefined
         && receipts.length > 0) {
       const row = this.bank.find((item) =>
         item.channelId === parameterCohort.device.track.channelId);
-      if (parameterCohort.kind === 'direct') {
-        const after = row === undefined
-          ? { standing: 'missing' as const }
-          : await this.parameterInventory(parameterCohort.device, row);
-        for (let index = 0; index < receipts.length; index++) {
-          const op = batch.ops[index];
-          if (op?.op !== 'param.set' || !receipts[index]!.ops.every((entry) => entry.ok)) continue;
-          const state = after.standing === 'stable'
-            ? this.parameterState(op.param, after)
-            : undefined;
-          const sameTarget = after.standing === 'stable'
-            && after.deviceName === parameterCohort.deviceName;
-          if (sameTarget && state !== undefined && Math.abs(state.value - op.value) <= 2e-3) continue;
-          const why = after.standing === 'stable'
-            ? `parameter readback disagreed: requested ${op.value}, got ${state?.value ?? 'missing'}`
-            : `parameter readback was ${after.standing}`;
-          receipts[index] = {
-            ...receipts[index]!,
-            ops: receipts[index]!.ops.map((entry) => ({ ...entry, ok: false, error: why })),
-          };
-        }
-      } else {
-        const after = row === undefined
-          ? { standing: 'missing' as const }
-          : await this.remoteInventory(parameterCohort.device, row);
-        for (let index = 0; index < receipts.length; index++) {
-          const op = batch.ops[index];
-          if (op?.op !== 'remote.set' || !receipts[index]!.ops.every((entry) => entry.ok)) continue;
-          const state = after.standing === 'stable'
-            ? this.remoteState(op.remote, after)
-            : undefined;
-          const sameTarget = after.standing === 'stable'
-            && after.deviceName === parameterCohort.deviceName;
-          if (sameTarget && state !== undefined && Math.abs(state.value - op.value) <= 2e-3) continue;
-          const why = after.standing === 'stable'
-            ? `remote readback disagreed: requested ${op.value}, got ${state?.value ?? 'missing'}`
-            : `remote readback was ${after.standing}`;
-          receipts[index] = {
-            ...receipts[index]!,
-            ops: receipts[index]!.ops.map((entry) => ({ ...entry, ok: false, error: why })),
-          };
-        }
+      const after = row === undefined
+        ? { standing: 'missing' as const }
+        : await this.remoteInventory(parameterCohort.device, row);
+      for (let index = 0; index < receipts.length; index++) {
+        const op = batch.ops[index];
+        if (op?.op !== 'remote.set' || !receipts[index]!.ops.every((entry) => entry.ok)) continue;
+        const state = after.standing === 'stable'
+          ? this.remoteState(op.remote, after)
+          : undefined;
+        const sameTarget = after.standing === 'stable'
+          && after.deviceName === parameterCohort.deviceName;
+        if (sameTarget && state !== undefined && Math.abs(state.value - op.value) <= 2e-3) continue;
+        const why = after.standing === 'stable'
+          ? `remote readback disagreed: requested ${op.value}, got ${state?.value ?? 'missing'}`
+          : `remote readback was ${after.standing}`;
+        receipts[index] = {
+          ...receipts[index]!,
+          ops: receipts[index]!.ops.map((entry) => ({ ...entry, ok: false, error: why })),
+        };
       }
     }
 

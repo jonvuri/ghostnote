@@ -2250,9 +2250,12 @@ export const TOOLS: readonly ToolSpec[] = [
     description:
       'Set DirectParameters by ids returned from inspect_device_parameters, or set one returned '
       + 'remote control by its exact page and control names and positions. Values are normalized '
-      + 'from 0 through 1 and do not share one physical unit. Each write uses a fresh inventory '
-      + 'and exact readback. The result does not say verified when readback disagrees. Modulation '
-      + 'and automation warnings state when a static base value can differ from the value heard.',
+      + 'from 0 through 1 and do not share one physical unit. A host-proved discrete domain '
+      + 'allows only its returned normalized values. One invalid value refuses its same-route '
+      + 'cohort before the first scalar write. Each DirectParameter scalar gets complete inventory '
+      + 'readback. An unrequested parameter delta stops the cohort and stays unattributed because '
+      + 'the host does not identify its author. Modulation and automation warnings state when a '
+      + 'static base value can differ from the value heard.',
     inputSchema: {
       settings: z.array(z.discriminatedUnion('kind', [
         z.object({
@@ -2279,6 +2282,7 @@ export const TOOLS: readonly ToolSpec[] = [
       partialSuccess: 'True when an earlier verified write finished before a later setting failed.',
       verified: 'True only when every requested normalized base value agrees with readback.',
       changes: 'One recorded write receipt per scalar target.',
+      allowedParameterDomain: 'On a discrete-domain refusal, the exact normalized values and optional names.',
       warnings: 'Observed modulation or automation that can override a static base value.',
       elapsedMs: 'Wall-clock time for this call.',
       reversal: 'Exact base-value replay while the positional device target remains valid.',

@@ -36,7 +36,8 @@ import {
   NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS, UNWRITABLE_NOTE_PROPS,
   addressKey, addressTrack, assertNever, chainPath, stepSizeFor,
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
-  InvalidOpError, NoteTimingUnrepresentableError, SlotOccupiedError, StaleAddressError,
+  InvalidOpError, NoteTimingUnrepresentableError, ParameterValueUnrepresentableError,
+  SlotOccupiedError, StaleAddressError,
   WireDriftError,
   type Address, type ChainAddress, type DeviceAddress, type NoteRecord, type StateValue,
 } from '../contract/index.js';
@@ -652,6 +653,12 @@ export interface Refusal {
   readonly why: string;
   readonly where?: readonly Where[];
   readonly inTheWay?: readonly { readonly where: Where; readonly why: readonly string[] }[];
+  readonly allowedParameterDomain?: {
+    readonly parameterId: string | number;
+    readonly discreteValueCount: number;
+    readonly normalizedValues: readonly number[];
+    readonly discreteValueNames?: readonly string[];
+  };
   /** ⚠ Present only for a failure nothing anticipated — a bug report, not a message. */
   readonly unexpected?: string;
 }
@@ -753,6 +760,22 @@ export function refusalOf(error: unknown): Refusal {
   }
   if (error instanceof EmptySliceError) {
     return refusal('nothing in that change is inside the part of the project you named.');
+  }
+  if (error instanceof ParameterValueUnrepresentableError) {
+    return refusal(
+      'nothing was written. The requested normalized value is not in this parameter\'s '
+      + 'host-proved discrete domain. Use one of the returned normalized values.',
+      {
+        where: [describeAddress(error.address)],
+        allowedParameterDomain: {
+          parameterId: error.address.directId ?? error.address.index ?? -1,
+          discreteValueCount: error.discreteValueCount,
+          normalizedValues: error.normalizedValues,
+          ...(error.discreteValueNames === undefined
+            ? {} : { discreteValueNames: error.discreteValueNames }),
+        },
+      },
+    );
   }
   if (error instanceof InvalidOpError) {
     if (error instanceof NoteTimingUnrepresentableError) {
