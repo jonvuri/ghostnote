@@ -2,7 +2,7 @@
 title: Open dogfooding loop
 kind: plan
 state: active
-updated: 2026-08-23
+updated: 2026-08-25
 parent: ../ROADMAP.md
 ---
 
@@ -59,8 +59,9 @@ do not read it.
    its documented baseline.
 7. Start a new musical chat and retry the real workflow. Do not treat a probe as
    a substitute for this retry.
-8. Add a run record and update `context/NOW.md`. Promote a durable measurement to
-   evidence or a decision only after it is proved.
+8. Add a run record and update `context/NOW.md`. Add one vote to a matching
+   cross-session finding when the run supplies relevant evidence. Promote a
+   durable measurement to evidence or a decision only after it is proved.
 
 ## Transcript lookup
 
@@ -81,6 +82,8 @@ original JSONL as the authoritative record.
 
 - [Run ledger](runs.md) — session IDs, transcripts, agent builds, models, public
   surfaces, Bitwig baselines, and provenance.
+- [Behavioral findings](findings.md) — cross-session hypotheses, votes,
+  qualifications, and promotion rules for public guidance and workflows.
 - [D01 — native Codex lo-fi jungle attempt](d01-native-codex-lofi-jungle.md) —
   native MCP startup passed; both focused defects are fixed.
 - [D02 — Drum Machine and surface hardening](d02-drum-machine-and-surface-hardening.md)
@@ -90,7 +93,8 @@ original JSONL as the authoritative record.
 Add each new root musical or exposure session to the run ledger. Mark whether a
 version was observed in that transcript, derived from the source timeline, or
 taken from an adjacent live baseline. Do not present a baseline as a
-session-observed value.
+session-observed value. Count at most one vote per root session for each
+behavioral finding.
 
 ## Close condition
 

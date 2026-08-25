@@ -2,7 +2,7 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-24
+updated: 2026-08-25
 phase: dogfooding
 session: dogfooding-next-musical-run
 ---
@@ -197,10 +197,27 @@ colors, and partial observation verdicts. The [run ledger](plan/dogfooding/runs.
 records every root musical and exposure session with agent, model, surface,
 host baseline, project, and version provenance.
 
+A later musical run used fresh session
+`01a035f0-78a4-7b00-9854-78460d6f8476`. It started from an empty `New 2`
+project. Ghostnote could set only one scalar expression value per note, so the
+agent approximated the requested pitch curve with note fragments. The operator
+identified the mismatch; no acceptance was recorded.
+
+The Codex permission reviewer denied one exact reversal of a session-created
+clip as unauthorized deletion. It later allowed a similar owned reversal in the
+same root session. [DF-001](plan/dogfooding/findings.md#df-001--owned-reversal-can-look-like-unauthorized-deletion)
+records one incidental supporting vote at `watching` confidence. The transcript
+records one incidental supporting vote. Its state is `watching`, and its
+confidence is `[I]`. The transcript is sufficient evidence;
+`record_observation` was not required. Do not revise the public description from
+this vote alone.
+
 ## Next action
 
 Start the next projectless musical dogfood chat with one concrete musical goal.
-Do not begin Phase 6a until the operator closes this loop.
+If it naturally needs an owned clip reversal, preserve the exact permission
+context as a second DF-001 vote. Do not manufacture a destructive test. Do not
+begin Phase 6a until the operator closes this loop.
 
 ## Retrospective
 
@@ -216,3 +233,5 @@ Carry the resolved catalog name through insertion completion and reversal.
 Run deploy freshness before a live probe that depends on new observer handles.
 Measure complete host color tuples before defining a component conversion.
 Count a partial verdict at both the instruction and scoped-item levels.
+Link unexpected cross-session behavior to a stable finding. Count at most one
+vote from each root session and retain counterevidence from that session.

@@ -2,14 +2,15 @@
 title: Dogfooding run ledger
 kind: status
 state: active
-updated: 2026-08-23
+updated: 2026-08-25
 parent: README.md
 ---
 
 # Dogfooding run ledger
 
 This ledger is the index for root musical and tool-exposure sessions. Detailed
-behavior and evidence stay in D01, D02, and their linked evidence records.
+behavior and evidence stay in D01, D02, their linked evidence records, and the
+[behavioral findings ledger](findings.md).
 
 ## Provenance
 
@@ -117,6 +118,27 @@ host build. Record the adjacent live baseline separately.
   public session did not return these values (**baseline**).
 - Project: `New 3` (**observed**). See
   [E80](../../evidence/experiments/e80-repeat-drum-dogfood-succeeds-with-qualifications.md).
+
+### `01a035f0-78a4-7b00-9854-78460d6f8476` — piano expression run
+
+- Transcript: `~/.codex/sessions/2026/08/24/rollout-2026-08-24T17-42-27-01a035f0-78a4-7b00-9854-78460d6f8476.jsonl`.
+- Agent: Codex Desktop `0.149.0-alpha.4.1`; `gpt-5.6-sol`, high effort
+  (**observed**).
+- Ghostnote: `ghostnote-description-v13`, 47 public tools at repository revision
+  `70a7abd85ee210793c8bbc96869b7f7d29367962` (**timeline** for the version and
+  revision; **observed** for exposure).
+- Bitwig: Studio 6.0.6, host API 25, 148 extension methods, and extension hash
+  `eb3391803ef4eea4` were the adjacent deployed baseline. The public session did
+  not return these values (**baseline**).
+- Project: `New 2`, with four tracks, eight launcher rows, and no entry clips
+  (**observed**). The final row-0 clip used stepped notes to approximate the
+  requested continuous pitch curve. Row 1 was empty (**observed**).
+- Outcome: Ghostnote could set one scalar expression value per note but could
+  not write a continuous curve within a note. The agent substituted note
+  fragments. The operator identified the mismatch; no acceptance was recorded.
+  A permission reviewer denied one exact owned row-0 reversal, then allowed a
+  similar row-1 reversal after another user message. This is one incidental
+  supporting vote for [DF-001](findings.md#df-001--owned-reversal-can-look-like-unauthorized-deletion).
 
 ## Required fields for the next run
 
