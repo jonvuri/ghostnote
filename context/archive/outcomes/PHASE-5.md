@@ -11,7 +11,12 @@ evidence: E65-E73 · D1-D3, D7, D15, D16
 
 # Phase 5 outcome
 
-Phase 5 is complete. It delivers checkpointed modulator topology edits,
+> **Historical baseline.** This outcome records the first closeout on
+> 2026-08-23. Dogfood reopened Phase 5 on 2026-08-25 because the public surface
+> did not expose the core's general targets, hosts, sources, or container
+> workflows. Sessions 5j through 5s own the generalized closeout.
+
+The first Phase 5 closeout delivered checkpointed modulator topology edits,
 sampled-preset relocation, cross-device routes, a measured donor library, one
 owned four-entry Instrument Layer template, and public authoring and composition
 tools that hide binary format controls.

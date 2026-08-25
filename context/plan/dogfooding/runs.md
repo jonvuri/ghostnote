@@ -140,6 +140,26 @@ host build. Record the adjacent live baseline separately.
   similar row-1 reversal after another user message. This is one incidental
   supporting vote for [DF-001](findings.md#df-001--owned-reversal-can-look-like-unauthorized-deletion).
 
+### `01a03744-e6c4-7be0-b210-e999c8f17081` — ColourCopy modulation run
+
+- Transcript: `~/.codex/sessions/2026/08/24/rollout-2026-08-24T23-54-17-01a03744-e6c4-7be0-b210-e999c8f17081.jsonl`.
+- Agent: Codex Desktop `0.149.0-alpha.4.3`; `gpt-5.6-sol`, high effort
+  (**observed**).
+- Ghostnote: `ghostnote-description-v13`, 47 public tools at repository revision
+  `70a7abd85ee210793c8bbc96869b7f7d29367962` (**timeline** for the version and
+  revision; **observed** for exposure).
+- Bitwig: Studio 6.0.6, host API 25, 148 extension methods, and extension hash
+  `eb3391803ef4eea4` were the adjacent deployed baseline. The public session did
+  not return these values (**baseline**).
+- Project: `26.01-1 spread burial guit`, with seven tracks and eight launcher
+  rows (**observed**). ColourCopy was device position 1 on the third track. Its
+  direct parameter inventory was stable (**observed**).
+- Outcome: The public surface could not add modulators to the existing
+  ColourCopy or mint an FX Layer with arbitrary nested plug-in targets. No
+  Bitwig project content changed. Before the operator responded, the agent
+  recorded the instruction as vetoed. This is one incidental supporting vote
+  for [DF-002](findings.md#df-002--agent-can-invent-an-operator-verdict).
+
 ## Required fields for the next run
 
 Record the root session ID, transcript path, client and client version, model,

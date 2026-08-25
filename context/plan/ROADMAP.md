@@ -2,7 +2,7 @@
 title: ghostnote roadmap
 kind: plan
 state: active
-updated: 2026-08-23
+updated: 2026-08-25
 ---
 
 # Roadmap
@@ -14,9 +14,9 @@ updated: 2026-08-23
 | [2 — clip surface](phase-2/README.md) | done | Musical clip vocabulary, public surface, long-clip support, dogfood, and final proof |
 | [3 — session view](phase-3/README.md) | deferred | Phase 2 found no evidence to run it now |
 | [4 — sound design](phase-4/README.md) | done | Device and parameter surface |
-| [5 — authoring](phase-5/README.md) | done | Checkpointed topology edits, public modulator authoring, and owned structure composition |
+| [5 — authoring](phase-5/README.md) | active | Reopened to generalize public targets, hosts, sources, lists, and container workflows |
 | [Dogfooding](dogfooding/README.md) | active | Open real-workflow iteration until the operator closes it |
-| [6 — breadth and release](phase-6/README.md) | planned | Independently schedulable breadth, packaging, and release work |
+| [6 — breadth and release](phase-6/README.md) | planned | Starts after Phase 5 public generalization and the open dogfood loop close |
 
 ## Cross-phase work
 

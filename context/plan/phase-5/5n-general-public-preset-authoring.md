@@ -1,0 +1,59 @@
+---
+title: Phase 5n — general public preset authoring
+kind: plan
+state: planned
+status: Planned after 5j through 5m. Generalize author_modulators across targets, types, hosts, and lists.
+updated: 2026-08-25
+parent: README.md
+evidence: D1, D2, D3, E65-E71
+---
+
+# Phase 5n — general public preset authoring
+
+## Purpose
+
+Expose the proved general engine through one format-hidden public preset
+authoring workflow. Remove the Polysynth and Sampler target restriction.
+
+## Scope
+
+1. Publish the semantic preset inspection from 5k.
+2. Extend `author_modulators` with the inspected file fingerprint, semantic
+   modulator location, manifest-backed modulator type, general DirectParameter
+   target, and normalized amount.
+3. Expose add, replace, retarget, amount, and delete with one result contract.
+4. Support plain and container presets across native instruments, native FX,
+   VST3, CLAP, sample-less Sampler, and sampled Sampler.
+5. Keep the existing three target recipes as documented compatibility inputs.
+   Map them to the general target path.
+6. Return requested, decoded, edited, observed, and verified facts separately.
+   Keep every recorded insertion visible after a verification failure.
+7. Add a new frozen description cohort and fresh Codex exposure check.
+
+## Acceptance criteria
+
+- A caller can discover and use a target without a built-in target recipe.
+- A caller can discover and edit an outer or nested modulator location without
+  a raw list index.
+- Every type returned by the donor catalog is accepted where its recorded tier
+  permits it.
+- No public schema or result contains a route string, donor id, list index,
+  footprint, reference stub, GUID, or byte offset.
+- The old named recipes keep their exact meaning and verification behavior.
+- The live matrix includes native instrument, native FX, VST3, CLAP, sampled
+  preset, and selected container-list cases.
+- Each live case records one insertion, passes its witness, reverses, and
+  restores the exact entry state.
+- Surface conformance, fresh Codex exposure, the full brain check, and extension
+  tests pass.
+
+## Out of scope
+
+- Mutating a device that is already in the project.
+- Creating a new container around an existing device.
+- General multi-device composition.
+
+## Handoff
+
+Session 5o proves the host behavior needed to preserve and modulate an existing
+device through an owned container.

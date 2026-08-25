@@ -1,9 +1,9 @@
 ---
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
-state: complete
-status: Complete 2026-08-23. E65-E73, exact cleanup, and final remote CI pass.
-updated: 2026-08-23
+state: active
+status: Reopened 2026-08-25. Sessions 5j through 5s generalize the public modulation surface; 5j is next.
+updated: 2026-08-25
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -20,13 +20,18 @@ evidence: DECISIONS D1/D2/D3, FINDINGS E10–E13, BWMOD_DESIGN.md, BWFORMAT_SPEC
 
 ## Where this actually stands
 
-Phase 5 is complete. `brain/src/bwmod/` ships all five editors, `validate()`,
-readers, measured donors, and a Python-oracle boundary. The executor records and
-reverses authored insertions. Public tools expose named topology edits and
-one-through-four-entry native composition. E73 proves the maximum-width patch,
-nested parameter reuse, exact cleanup, and final verification. The
-[outcome](../../archive/outcomes/PHASE-5.md) records the complete result and
+Sessions 5a through 5i form the first complete baseline. `brain/src/bwmod/`
+ships all five editors, `validate()`, readers, measured donors, and a
+Python-oracle boundary. The executor records and reverses authored insertions.
+E73 proves the four-entry native composition baseline and exact cleanup. The
+[first outcome](../../archive/outcomes/PHASE-5.md) records that result and its
 qualifications.
+
+Dogfood session `01a03744-e6c4-7be0-b210-e999c8f17081` showed that the public
+surface did not share the core's generality. Public targets were limited to
+three Polysynth and Sampler recipes. Composition was limited to one native
+Instrument Layer template and could not preserve and modulate an existing
+plug-in. Sessions 5j through 5s reopen the phase to remove those public limits.
 
 ## Phase 4 handoff
 
@@ -104,6 +109,54 @@ that first integration unless the proof needs one new owned asset.
    E73 proves the four-entry public patch, nested parameter work, two active
    routes, reversal, exact cleanup, and every local and live gate. GitHub
    Actions run 32660690914 passes the exact candidate.
+10. [5j — general modulation targets](5j-general-modulation-targets.md) — next.
+    Use stable DirectParameter ids and names instead of built-in target recipes.
+11. [5k — semantic preset modulation inspection](5k-semantic-preset-modulation-inspection.md)
+    — planned. Discover hosts, semantic modulator locations, types, and targets
+    without exposing binary selectors.
+12. [5l — complete list-scoped topology](5l-complete-list-scoped-topology.md) —
+    planned. Run add, replace, retarget, amount, and delete on any selected list.
+13. [5m — general donor catalog](5m-general-donor-catalog.md) — planned. Make
+    public modulator types manifest-driven and complete for the current host.
+14. [5n — general public preset authoring](5n-general-public-preset-authoring.md)
+    — planned. Combine general targets, semantic lists, all editors, and the
+    donor catalog across every proved host tier.
+15. [5o — late-bound container modulation](5o-late-bound-container-modulation.md)
+    — planned. Prove that an owned container route can bind to a device moved
+    into it after load.
+16. [5p — existing-device modulation wrapper](5p-existing-device-modulation-wrapper.md)
+    — planned. Preserve one existing device while an owned container supplies
+    its modulators and routes.
+17. [5q — general device-source composition](5q-general-device-source-composition.md)
+    — planned. Compose native, VST3, CLAP, preset, and existing device sources.
+18. [5r — container shape and capacity](5r-container-shape-and-capacity.md) —
+    planned. Support Chain, Instrument Layer, and FX Layer at measured complete
+    observer limits.
+19. [5s — public generalization dogfood and closeout](5s-public-generalization-dogfood-and-closeout.md)
+    — planned. Retry ColourCopy and close only after the full public breadth
+    matrix passes.
+
+The dependency split is `5j → 5k → 5l`, with `5m` independent after 5j. Both
+branches join at 5n. Sessions 5o through 5s then run in order because each one
+depends on the prior host or lifecycle proof.
+
+## Public-gap coverage
+
+| First-closeout limit | Owning sessions |
+|---|---|
+| Three fixed Polysynth and Sampler targets | 5j, 5n |
+| No semantic preset or modulator-list discovery | 5k, 5n |
+| Selected container lists support only internal retarget | 5l, 5n |
+| Fixed public modulator-type enums and incomplete donor cohort | 5m, 5n |
+| No general native FX, VST3, CLAP, or sampled-preset public matrix | 5n |
+| Cannot preserve and modulate an existing project device | 5o, 5p |
+| Composer accepts only distinct native devices | 5q |
+| One Instrument Layer shape, four entries, and two observable positions | 5r |
+| No real public retry of the exposed ColourCopy gap | 5s |
+
+Direct parameter-base writes are already general through `set_parameter` and
+stay separate. Runtime modulator creation and routing remain host-API
+impossibilities. External publication and redistribution remain Phase 6 work.
 
 ## Scope
 
@@ -128,11 +181,19 @@ that first integration unless the proof needs one new owned asset.
 5. **Structure construction.** `insertFile` materialises arbitrary structure in one
    call (~268ms); drum pads create chains on insert; containers duplicate wholesale.
    Prefer Drum Machine when the agent must build N chains (E4d).
+6. **General public target identity.** Use the DirectParameter ids and names
+   returned by stable inspection. Keep Ramona routes internal.
+7. **Semantic preset and container identity.** Expose device and entry paths,
+   not modulator-list indexes.
+8. **General public hosts and sources.** Support native instruments and FX,
+   VST3, CLAP, sampled presets, and preserved existing devices.
+9. **Bounded general containers.** Support Chain, Instrument Layer, and FX
+   Layer through complete observed limits. Report those limits explicitly.
 
 ### Out
 
-- Growing the preset file beyond its shipped template capacity. A seeded live
-  layer can grow through typed duplication (E17), but that is a separate path.
+- Unbounded device and container structure. Controller API observer banks have
+  fixed sizes. Session 5r selects and reports complete safe limits.
 - Grid patch synthesis (§9).
 - Runtime modulator creation or routing (E7 ○, exhaustive — including foregrounded).
 - Any Python at runtime. `tools/bwformat/*.py` remains the CI oracle only (D3).
@@ -149,8 +210,16 @@ that first integration unless the proof needs one new owned asset.
   asset. Do not require runtime operator setup.
 - **Standalone `bwmod` publication — deferred to Phase 6.** It does not gate
   composition or Phase 5 closeout.
-- **Public modulator edit expression — settled by 5f.** Named types, targets, and
-  witnesses hide sentinels, list indexes, routes, and footprints.
+- **Public target identity — reopened for 5j.** General DirectParameter
+  identities replace the fixed recipe requirement. Raw routes stay hidden.
+- **Public modulator locations — planned for 5k/5l.** Semantic device and entry
+  paths replace list indexes and support all five topology operations.
+- **Public donor breadth — planned for 5m.** One manifest drives the complete
+  supported type catalog for the current host.
+- **Existing-device preservation — planned for 5o/5p.** A proved owned
+  container supplies topology while the existing device instance moves intact.
+- **General composition — planned for 5q/5r.** Explicit device sources and
+  bounded container shapes replace native-only four-entry composition.
 
 ## Exit criteria
 
@@ -169,10 +238,23 @@ that first integration unless the proof needs one new owned asset.
    verifies the complete live structure and behavior, and reverses it.
 7. The public composition surface hides every binary and asset control and
    passes one useful dogfood request before Phase 5 closes.
+8. A public caller can target any stable DirectParameter on a proved native,
+   VST3, or CLAP host without a built-in recipe.
+9. Public preset authoring exposes all five topology operations at semantic
+   plain or container locations and supports every catalogued donor type.
+10. One guarded public workflow preserves an existing device instance while an
+    owned container supplies active modulation to its observed parameters.
+11. Public composition accepts native, VST3, CLAP, preset, and existing-device
+    sources, including repeated device names.
+12. Chain, Instrument Layer, and FX Layer work at explicit, completely observed
+    capacity limits.
+13. A fresh projectless musical run completes the ColourCopy request through
+    only public tools and receives an explicit operator verdict.
 
-E73 audits all seven criteria as complete. The
-[Phase 5 outcome](../../archive/outcomes/PHASE-5.md) records the final matrix,
-qualifications, policy, remote CI, and Phase 6 handoff.
+E73 audits criteria 1 through 7 as the first closeout baseline. Session 5s owns
+criteria 8 through 13 and the final generalized closeout. The
+[first Phase 5 outcome](../../archive/outcomes/PHASE-5.md) remains the baseline,
+not the final claim for this continuation.
 
 ## Risks
 

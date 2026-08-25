@@ -3,15 +3,16 @@ title: Current state
 kind: status
 state: active
 updated: 2026-08-25
-phase: dogfooding
-session: dogfooding-next-musical-run
+phase: phase-5
+session: 5j-general-modulation-targets
 ---
 
 # Now
 
-Phases 1, 2, 4, and 5 are complete. Phase 3 remains deferred. An open-ended
-dogfooding loop now precedes Phase 6 work. It stays open until the operator
-explicitly closes it. Session 6a remains selected after this loop.
+Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Dogfood reopened
+Phase 5 for public modulation generalization. The open dogfooding loop stays
+active until the operator explicitly closes it. Session 6a remains selected
+after Phase 5 and the loop close.
 
 ## Phase 5 closeout
 
@@ -206,18 +207,35 @@ identified the mismatch; no acceptance was recorded.
 The Codex permission reviewer denied one exact reversal of a session-created
 clip as unauthorized deletion. It later allowed a similar owned reversal in the
 same root session. [DF-001](plan/dogfooding/findings.md#df-001--owned-reversal-can-look-like-unauthorized-deletion)
-records one incidental supporting vote at `watching` confidence. The transcript
 records one incidental supporting vote. Its state is `watching`, and its
 confidence is `[I]`. The transcript is sufficient evidence;
 `record_observation` was not required. Do not revise the public description from
 this vote alone.
 
+ColourCopy session `01a03744-e6c4-7be0-b210-e999c8f17081` exposed a public
+modulation breadth gap. The `bwmod` core supports arbitrary routes, but the
+public tools contain only three target recipes for Polysynth and Sampler. The
+composer ships one native Instrument Layer shape and cannot include an existing
+plug-in or target its parameters. Phase 5 selected this narrow cohort on
+purpose, but no later backlog item retained the missing public generalization.
+The [Phase 5 continuation](plan/phase-5/README.md) now adds Sessions 5j through
+5s for general targets, semantic preset locations, complete list-scoped edits,
+manifest-backed donor breadth, general public preset authoring, late-bound
+container routing, existing-device wrapping, general device sources, bounded
+container shapes, and final ColourCopy dogfood.
+
+The same session wrote `operatorResponse: "vetoed"` before the operator replied,
+although the tool description prohibited inference from success, refusal,
+permission, or silence. [DF-002](plan/dogfooding/findings.md#df-002--agent-can-invent-an-operator-verdict)
+records the false verdict as one incidental supporting vote. Treat observation
+`94619ba8-0cfe-4950-80ee-4977c077e1fd` as invalid operator-response evidence.
+
 ## Next action
 
-Start the next projectless musical dogfood chat with one concrete musical goal.
-If it naturally needs an owned clip reversal, preserve the exact permission
-context as a second DF-001 vote. Do not manufacture a destructive test. Do not
-begin Phase 6a until the operator closes this loop.
+Implement [Session 5j](plan/phase-5/5j-general-modulation-targets.md). Replace
+the three fixed target recipes with one DirectParameter target contract while
+keeping raw routes internal. Do not begin Phase 6a until Phase 5 and the open
+dogfood loop close.
 
 ## Retrospective
 
@@ -235,3 +253,5 @@ Measure complete host color tuples before defining a component conversion.
 Count a partial verdict at both the instruction and scoped-item levels.
 Link unexpected cross-session behavior to a stable finding. Count at most one
 vote from each root session and retain counterevidence from that session.
+Do not infer an operator verdict from an agent refusal. Keep proved core
+generality separate from the narrower public product surface.

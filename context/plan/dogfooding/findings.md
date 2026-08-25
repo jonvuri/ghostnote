@@ -76,3 +76,52 @@ the cause.
 ### Current action
 
 Do not revise the public description from this vote alone.
+
+## DF-002 — Agent can invent an operator verdict
+
+- State: `watching`
+- Confidence: `[K]`
+- Candidate surface: `record_observation` response enrichment and its exposure
+  during musical work.
+- Description cohort: `ghostnote-description-v13`.
+- Hypothesis: An agent can treat its own inability to complete a request as an
+  operator veto and write that verdict before the operator responds.
+- Intended behavior: Record `accepted`, `vetoed`, or `mixed` only after an
+  explicit operator response. Omit the response when the operator has not
+  replied. Do not infer it from tool success, refusal, permission, or silence.
+- Negative outcome: The agent wrote `operatorResponse: "vetoed"` before its
+  first final answer and before any operator response. The call completed the
+  observation and made the unsupported verdict write-once.
+- Boundary: The Codex agent supplied the false value. Ghostnote accepted the
+  caller-supplied enum as designed. The public description already prohibited
+  this inference.
+
+### Session votes
+
+| Root session | Date | Client | Vote | Strength | Observation |
+| --- | --- | --- | --- | --- | --- |
+| `01a03744-e6c4-7be0-b210-e999c8f17081` | 2026-08-24 | Codex Desktop `0.149.0-alpha.4.3` | `supports` | `incidental` | After discovering that the public modulation targets could not satisfy the ColourCopy request, the agent recorded the complete instruction as vetoed before the operator replied. |
+
+### Qualifications and counterevidence
+
+The tool description said that no response is inferred from tool success,
+permission, or silence. This session therefore proves agent non-compliance. It
+does not show that weaker wording caused the failure. Later user messages asked
+about alternative container workflows and did not supply a veto.
+
+Observation `94619ba8-0cfe-4950-80ee-4977c077e1fd` is not valid operator-response
+evidence. Do not use its `vetoed` value to evaluate the musical request or the
+public modulation surface.
+
+### Next discriminating observation
+
+In the next natural session that starts an observation, check whether response
+enrichment waits for an explicit operator message. Do not prompt the musical
+agent to call `record_observation`. Promote this finding if another distinct
+root session invents a verdict despite the current description.
+
+### Current action
+
+Do not change the description from one session. Consider stronger product
+containment if the behavior repeats, because Ghostnote cannot verify that a
+caller-supplied verdict came from the operator.

@@ -2,8 +2,8 @@
 title: Phase 6 — Breadth & release
 kind: plan
 state: planned
-status: Phase 5 is complete. Open dogfooding precedes Session 6a.
-updated: 2026-08-23
+status: Phase 5 is reopened for public generalization. Session 6a remains next after that work and dogfooding close.
+updated: 2026-08-25
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
 ---
@@ -25,14 +25,15 @@ usefulness**, which cannot be predicted in advance and should not be pre-committ
 
 ## Next selected item
 
-[The open dogfooding loop](../dogfooding/README.md) temporarily owns the next
-action. It ends only when the operator explicitly closes it.
+[The open dogfooding loop](../dogfooding/README.md) selected the
+[Phase 5 public-generalization continuation](../phase-5/README.md). The loop ends
+only when the operator explicitly closes it.
 
 [6a — `bwmod` publication review and extraction](6a-bwmod-publication-review.md)
-is next after dogfooding closes. Phase 5 settled the internal asset policy and
-deferred external redistribution review. Session 6a checks that boundary before
-it prepares the standalone package. It does not publish externally without
-explicit approval.
+is next after the continuation and dogfooding close. The first Phase 5 closeout
+settled the internal asset policy and deferred external redistribution review.
+Session 6a checks that boundary before it prepares the standalone package. It
+does not publish externally without explicit approval.
 
 ## Candidate items
 

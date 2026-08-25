@@ -10,7 +10,9 @@ parent: ../ROADMAP.md
 
 This loop owns the work between Phase 5 and the first Phase 6 backlog item. It
 stays open until the operator explicitly closes it. Real musical work chooses
-the next task. Phase 6a remains next after this loop closes.
+the next task. The ColourCopy run reopened Phase 5 for the
+[public-generalization continuation](../phase-5/README.md). Phase 6a remains
+next after that work and this loop close.
 
 ## Environment
 
@@ -84,6 +86,8 @@ original JSONL as the authoritative record.
   surfaces, Bitwig baselines, and provenance.
 - [Behavioral findings](findings.md) — cross-session hypotheses, votes,
   qualifications, and promotion rules for public guidance and workflows.
+- [Phase 5 public generalization](../phase-5/README.md) — the selected
+  engineering response to the ColourCopy scope gap.
 - [D01 — native Codex lo-fi jungle attempt](d01-native-codex-lofi-jungle.md) —
   native MCP startup passed; both focused defects are fixed.
 - [D02 — Drum Machine and surface hardening](d02-drum-machine-and-surface-hardening.md)
