@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5j is complete; 5k is next.
-updated: 2026-08-26
+status: Reopened 2026-08-25. Session 5k is complete; 5l is next.
+updated: 2026-08-27
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -113,10 +113,10 @@ that first integration unless the proof needs one new owned asset.
     One exact DirectParameter target serves native and plug-in routes. Native
     and Zebra3 VST3 behavior pass live with exact cleanup.
 11. [5k — semantic preset modulation inspection](5k-semantic-preset-modulation-inspection.md)
-    — next. Discover hosts, semantic modulator locations, types, and targets
+    — done. Discover hosts, semantic modulator locations, types, and targets
     without exposing binary selectors.
 12. [5l — complete list-scoped topology](5l-complete-list-scoped-topology.md) —
-    planned. Run add, replace, retarget, amount, and delete on any selected list.
+    next. Run add, replace, retarget, amount, and delete on any selected list.
 13. [5m — general donor catalog](5m-general-donor-catalog.md) — planned. Make
     public modulator types manifest-driven and complete for the current host.
 14. [5n — general public preset authoring](5n-general-public-preset-authoring.md)
@@ -213,8 +213,9 @@ impossibilities. External publication and redistribution remain Phase 6 work.
   composition or Phase 5 closeout.
 - **Public target identity — reopened for 5j.** General DirectParameter
   identities replace the fixed recipe requirement. Raw routes stay hidden.
-- **Public modulator locations — planned for 5k/5l.** Semantic device and entry
-  paths replace list indexes and support all five topology operations.
+- **Public modulator locations — inspection settled by 5k; writes planned for
+  5l.** Semantic device and entry paths replace list indexes and support all
+  five topology operations.
 - **Public donor breadth — planned for 5m.** One manifest drives the complete
   supported type catalog for the current host.
 - **Existing-device preservation — planned for 5o/5p.** A proved owned

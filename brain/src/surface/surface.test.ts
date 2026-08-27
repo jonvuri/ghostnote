@@ -32,6 +32,7 @@ import { z } from 'zod';
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
 import { ProjectModel } from '../adapters/fake/model.js';
+import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractVersionError,
   InvalidOpError, NOTE_PROP_FIDELITY, SlotOccupiedError, StaleAddressError, WireDriftError,
@@ -246,7 +247,7 @@ function schemaPaths(
 }
 
 test('D01: every public tool schema uses only homogeneous arrays', () => {
-  assert.equal(TOOLS.length, 47);
+  assert.equal(TOOLS.length, 48);
   const incompatible: string[] = [];
   for (const tool of TOOLS) {
     const validator = tool.inputValidator ?? z.object(tool.inputSchema);
@@ -1165,6 +1166,11 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   // -- reading first: an agent with no ids has nowhere else to start.
   const connection = await exercise('check_connection', {});
   assert.equal(connection['reachable'], true);
+
+  const presetInspection = await exercise('inspect_preset_modulation', {
+    presetPath: join(FIXTURE_DIR, 'Polysynth', 'mp_bare.bwpreset'),
+  });
+  assert.equal(presetInspection['supported'], true);
 
   const rawObservations = await exercise('read_observation_record', {}) as {
     record: { entries: unknown[] };

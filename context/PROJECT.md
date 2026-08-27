@@ -2,7 +2,7 @@
 title: ghostnote project context
 kind: project
 state: active
-updated: 2026-08-23
+updated: 2026-08-27
 ---
 
 # ghostnote
@@ -45,6 +45,8 @@ surface without relying on the user's UI selection.
 - The public authoring surface uses named modulator operations and one native
   Instrument Layer composer. Binary format, donor, route, and asset controls
   stay below the public boundary.
+- Read-only preset inspection binds public device and entry paths to complete
+  modulator inventories. It returns a file fingerprint for later guarded writes.
 - The product ships one provenance-recorded four-entry template. The composer
   can retain one through four entries. A separate one-entry seed supports typed
   live duplication.

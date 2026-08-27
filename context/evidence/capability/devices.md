@@ -368,12 +368,20 @@ then reach each nested device by its named container entry. Maximum-width
 dogfood set and read exact Polysynth and Sampler bases without a new parameter
 grammar [K, E70, E72, E73, and E85].
 
+`inspect_preset_modulation` reads one explicit human-saved preset without a
+Bitwig call. It binds each modulator inventory to `self`, the container, or an
+ordered entry and device path. Repeated names stay distinct by position. A
+complete binding is required. Ambiguous or incomplete structure is unsupported.
+Known routes return the exact 5j DirectParameter id and name. Unknown routes are
+explicit and do not expose the internal route [K, E86].
+
 ---
 
 ## Supersession record
 
 | Date | Change |
 |---|---|
+| 2026-08-27 | E86 adds read-only semantic preset locations, complete public modulator inventories, stale-file fingerprints, and the six-class fixture matrix. |
 | 2026-08-26 | E85 adds general DirectParameter modulation targets, internal native and plug-in route conversion, and live native and VST3 behavior proof. |
 | 2026-08-23 | E77 separates top-level, nested-route, and final-target guards for scalar parameter writes. |
 | 2026-08-23 | E70, E72, and E73 add the public modulator and composition surfaces, maximum-width behavior proof, and nested parameter reuse. |

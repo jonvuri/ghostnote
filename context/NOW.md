@@ -2,270 +2,64 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-26
+updated: 2026-08-27
 phase: phase-5
-session: 5k-semantic-preset-modulation-inspection
+session: 5l-complete-list-scoped-topology
 ---
 
 # Now
 
-Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Dogfood reopened
-Phase 5 for public modulation generalization. The open dogfooding loop stays
-active until the operator explicitly closes it. Session 6a remains selected
-after Phase 5 and the loop close.
+Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 is open for
+the public modulation generalization selected by ColourCopy dogfood. The open
+dogfood loop stays active until the operator explicitly closes it. Session 6a
+remains selected after Phase 5 and the loop close.
 
-## Phase 5 closeout
+## Stable baseline
 
-- Public `author_modulators` supports named add, replace, retarget, and delete
-  operations with exact live witnesses.
-- Public `compose_device_structure` builds one through four ordered native
-  Instrument Layer entries and hides every binary and asset control.
-- Four-entry dogfood proves two active LFO routes, exact nested parameter bases,
-  ordinary reversal, and exact cleanup.
-- The fixed slot-scoped layer observer is five entries wide. One spare slot
-  proves a four-entry result complete.
-- The full brain check passes 823/823. Extension tests, deploy freshness, the
-  148-method handshake, all public live matrices, and shared conformance pass.
-- GitHub Actions run 32660690914 passes both jobs for exact candidate
-  `894bc608ca3c872c693bfdd9454038f819359458`.
+The first Phase 5 closeout remains valid. Public named modulation edits, native
+Instrument Layer composition, four-entry live behavior, exact reversal, and
+remote CI passed. [E73](evidence/experiments/e73-four-entry-composition-dogfood-passes-live.md)
+and the [Phase 5 outcome](archive/outcomes/PHASE-5.md) record that baseline.
 
-[E73](evidence/experiments/e73-four-entry-composition-dogfood-passes-live.md)
-and the [Phase 5 outcome](archive/outcomes/PHASE-5.md) record the exit audit,
-qualifications, policy, live baseline, and remote CI.
+D02 is complete. Its nine sessions resolved Drum Machine composition, nested
+parameter guards, cohort writes, public descriptions, native insertion,
+parameter domains and integrity, clip colors, and partial observation verdicts.
+The [dogfood plan](plan/dogfooding/d02-drum-machine-and-surface-hardening.md)
+and [run ledger](plan/dogfooding/runs.md) hold the full history. DF-001 remains
+watching. DF-002 marks one invented operator verdict as invalid evidence.
 
-## Accepted live baseline
+The accepted live project baseline remains `New 3`: five tracks, eight launcher
+rows, the accepted six-pad Drum Machine, and the accepted Instrument Layer with
+nested Polysynth. No engineering scratch content remains.
 
-Project `New 3` has five tracks and eight launcher rows. `Drum Machine` keeps
-the accepted six-pad native rack and 31-note clip. `Ice Shells` keeps the
-accepted Instrument Layer, nested Polysynth, and 51-note chord and echo clip.
-No engineering scratch track or device remains.
+## Phase 5 continuation
 
-## Current dogfood
-
-[D01](plan/dogfooding/d01-native-codex-lofi-jungle.md) proved native Codex MCP
-startup and local Bitwig access. Both focused follow-ups are complete.
-Exact-length homogeneous recurrence arrays expose all 45 public tools in fresh
-Codex. Selection capture now validates the cached pair through `slot.status` and
-does not restore an invalid track or row.
-
-A live read-only check reproduced cached track `5` in the four-track project
-`New 2`. The fixed adapter returned the complete device result and sent no
-restore. Revision, content epoch, project shape, and selection stayed unchanged.
-The full brain check passes 829/829, and the extension check passes.
-[E74](evidence/experiments/e74-homogeneous-recurrence-schemas-restore-codex-tools.md)
-and [E75](evidence/experiments/e75-stale-selection-restoration-is-invalidated.md)
-record both follow-ups.
-
-[D02](plan/dogfooding/d02-drum-machine-and-surface-hardening.md) records the
-second musical run and the selected improvement sequence. The run exposed a
-public Drum Machine composition gap, an incorrect nested DirectParameter guard,
-repeated parameter-acquisition cost, and unclear container and note-refusal
-descriptions. The final Ghost Hat solo was intentional operator auditioning.
-
-D02 Session 1 is complete. Public `compose_drum_machine` creates one native Drum
-Machine and maps MIDI notes 36 through 51 to separate native devices on pads 0
-through 15. Exact catalog resolution occurs before the write. One owned change
-retains complete top-level and pad-structure guards for reversal.
-
-Review hardening makes a late pad-preflight failure return a recorded partial
-receipt instead of escaping after earlier stages wrote. Partial reversal guards
-only the pad stages that succeeded. Final verification now requires two equal,
-complete reachable-pad inventories. An extra nested device or an occupied
-unrequested pad cannot produce `verified: true`.
-
-The registered MCP live check created and verified the four requested drum
-devices, then reversed and cleaned up all owned content. `tools/list` returns 46
-public tools. Fresh Codex exposes the compatible schema. The full brain check
-passes 846/846. Extension tests and the 148-method handshake pass. [E76](evidence/experiments/e76-public-native-drum-machine-composition-is-live.md)
+Session 5j is complete. Public modulation targets use exact DirectParameter ids
+and names for native, VST3, and CLAP hosts. Raw routes remain internal. Native
+and VST3 behavior passed live with exact cleanup. [E85](evidence/experiments/e85-general-directparameter-modulation-targets-are-live.md)
 records the result.
 
-D02 Session 2 is complete. Guarded DirectParameter writes now keep the complete
-top-level name and enabled fingerprint separate from the nested route and final
-cursor target. Each named entry, drum-pad channel, and local device position is
-checked before the write. A nested position cannot alias the same numeric
-position in the top-level chain.
+Session 5k is complete. Public `inspect_preset_modulation` reads one explicit
+human-saved preset and returns its SHA-256 fingerprint, host tier and format,
+ordered entries and devices, semantic modulator locations, and public modulator
+inventories. Each internal list must map exactly once. An ambiguous or
+incomplete mapping is unsupported.
 
-Fake, live-adapter, and public-surface regressions cover top-level, depth-1,
-depth-2, and drum-pad targets. The live probe changed and exactly restored one
-native Polysynth value at all three nested shapes. Cleanup restored the exact
-four-track `New 2` entry list. The focused cohort passes 306/306. The full brain
-check passes 850/850. Extension tests, deploy freshness, and the 148-method
-handshake pass. [E77](evidence/experiments/e77-nested-direct-parameter-guards-are-live.md)
-records the result.
-
-D02 Session 3 is complete. `set_parameter` now groups consecutive settings by
-stable device route and parameter view. One fresh inventory supplies every
-scalar prior value and guard. One complete inventory verifies the cohort after
-the writes. Each scalar retains an independent receipt and exact reversal.
-
-The live depth-2 Polysynth case changed four remote controls in 4.383 seconds,
-which is 86.8 percent faster than the 33.3-second source baseline. The trace had
-one preflight inventory, four guarded writes, and one complete readback. Four
-reversals restored the exact prior values. Cleanup restored the exact four-track
-`New 2` entry list. The focused cohort passes 247/247. The full brain check
-passes 856/856. Extension tests, deploy freshness, and the 148-method handshake
-pass. [E78](evidence/experiments/e78-cohort-parameter-writes-are-live.md) records
-the result.
-
-D02 Session 4 is complete. Public descriptions and results now state the exact
-container kind and MIDI-routing semantics. Instrument Layer entries run in
-parallel and receive the same MIDI input. Instrument alternates use an
-Instrument Layer, and exclusive solo only auditions one entry. Drum Machine
-pads provide per-MIDI-note routing.
-
-Off-grid note timing now refuses in the shared contract before either adapter.
-The result names note timing, the affected beat fields, and the 1/64-beat grid
-floor. The registered MCP server exposes 46 tools. A fresh Codex exposure check
-distinguished all three container tools and made no Ghostnote or Bitwig call.
-The focused cohort passes 156/156. The full brain check passes 859/859.
-[E79](evidence/experiments/e79-container-and-note-refusals-are-explicit.md)
-records the result.
-
-D02 Session 5 is complete with qualifications. Fresh Codex session
-`01a0313d-a405-7063-a184-d7263ac256d6` used the unchanged prompt and produced a
-verified native six-pad Drum Machine with separate per-note routing. The
-eight-beat, 31-note clip needed no grid retry. The operator accepted it. The
-prompt-to-audition time fell from 21 minutes 9 seconds to 5 minutes 39 seconds.
-
-The continued chord run used no alternate lifecycle operation. The agent used
-the one-entry structure composer, which always creates an Instrument Layer, and
-left the Polysynth nested. It could not add `Delay+` by exact name and rendered
-the delay as MIDI echo notes. The operator accepted the tonal revision. The run
-also exposed five blind catalog retries, one unverified likely binary kick
-setting, an unexplained temporary Polysynth release change, inexact clip-color
-bytes, and an observation model that cannot express a partial verdict.
-[E80](evidence/experiments/e80-repeat-drum-dogfood-succeeds-with-qualifications.md)
-records the exact timing, calls, final state, and lower-priority inefficiencies.
-
-D02 Session 6 is complete. Public `add_native_devices` appends one through 16
-ordered native devices by exact catalog name. It resolves all names before the
-first write and returns one exact position and guarded receipt per insertion.
-Catalog refusals now identify every absent or non-unique caller input, including
-Drum Machine requests.
-
-Explicit `add_device` Bitwig IDs must use the lowercase canonical UUID form.
-A failed first stage with no proved position reports no partial success. The
-live proof created `Polysynth → Delay+` as two top-level devices, reversed both
-under complete top-level guards, and restored the exact five-track `New 3`
-entry list. MCP exposes 47 tools. The full brain check passes 867/867.
-Extension tests, deploy freshness, and the 148-method handshake pass. [E81](evidence/experiments/e81-exact-name-native-insertion-is-live.md)
-records the result.
-
-D02 Session 7 is complete. The v1 Kick typed observer now returns the host
-discrete domain for Attack Click. Its domain is `[0, 1]`, with `Off` and `On`
-display values. A request for `0.28` refuses before any scalar in the same
-route cohort writes and returns the allowed domain.
-
-Each DirectParameter scalar now gets a complete stable inventory readback. An
-unrequested parameter delta stops later writes and reports that its author is
-unknown. The exact two Polysynth tonal cohorts left `CONTENTS/R` at `0.01`.
-All 19 requested tonal scalars and both Attack Click endpoint writes reversed
-exactly. Cleanup restored the accepted five-track list. The full brain check,
-873/873, extension tests, deploy freshness, and the 148-method handshake pass.
-[E82](evidence/experiments/e82-direct-parameter-domains-and-integrity-are-live.md)
-records the result.
-
-D02 Session 8 is complete. Arbitrary RGB bytes are not safely invertible
-through Bitwig's host color conversion. `set_clip_metadata` now accepts 27
-live-proved colors with explicit requested-to-wire mappings. Unsupported
-requested or prior colors refuse before a write and return the exact named
-palette. The result rejects a blind one-byte retry.
-
-The live matrix returned every supported color exactly on all three channels.
-The known lossy `[145,105,78]` request caused no mutation. Public red verified
-through independent readback, and ordinary reversal restored the complete prior
-metadata. Cleanup restored the accepted five-track list. The focused suite
-passes 309/309. The full brain check passes 881/881. Extension tests, deploy
-freshness, and the 148-method handshake pass. [E83](evidence/experiments/e83-exact-clip-color-palette-is-live.md)
-records the result.
-
-D02 Session 9 is complete. Observation schema v3 stores accepted and vetoed
-sub-scopes as one `mixed` instruction without changing the original raw
-instruction or result links. Schemas v1 and v2 migrate without changing their
-verdict meaning.
-
-The first explicit rationale and first explicit response are write-once. A
-different value refuses before record replacement and names the preserved
-field. Equal repeats are idempotent. Reports count one mixed instruction and
-also count its accepted and vetoed scoped items. The focused cohort passes
-115/115, and the complete brain check passes 885/885. No Bitwig write was
-required or made. [E84](evidence/experiments/e84-observation-partial-verdicts-are-explicit.md)
-records the result.
-
-D02 is complete. Sessions 6 through 9 resolved native insertion, catalog
-correctness, DirectParameter domains and collateral integrity, exact clip
-colors, and partial observation verdicts. The [run ledger](plan/dogfooding/runs.md)
-records every root musical and exposure session with agent, model, surface,
-host baseline, project, and version provenance.
-
-A later musical run used fresh session
-`01a035f0-78a4-7b00-9854-78460d6f8476`. It started from an empty `New 2`
-project. Ghostnote could set only one scalar expression value per note, so the
-agent approximated the requested pitch curve with note fragments. The operator
-identified the mismatch; no acceptance was recorded.
-
-The Codex permission reviewer denied one exact reversal of a session-created
-clip as unauthorized deletion. It later allowed a similar owned reversal in the
-same root session. [DF-001](plan/dogfooding/findings.md#df-001--owned-reversal-can-look-like-unauthorized-deletion)
-records one incidental supporting vote. Its state is `watching`, and its
-confidence is `[I]`. The transcript is sufficient evidence;
-`record_observation` was not required. Do not revise the public description from
-this vote alone.
-
-ColourCopy session `01a03744-e6c4-7be0-b210-e999c8f17081` exposed a public
-modulation breadth gap. The `bwmod` core supports arbitrary routes, but the
-public tools contain only three target recipes for Polysynth and Sampler. The
-composer ships one native Instrument Layer shape and cannot include an existing
-plug-in or target its parameters. Phase 5 selected this narrow cohort on
-purpose, but no later backlog item retained the missing public generalization.
-The [Phase 5 continuation](plan/phase-5/README.md) now adds Sessions 5j through
-5s for general targets, semantic preset locations, complete list-scoped edits,
-manifest-backed donor breadth, general public preset authoring, late-bound
-container routing, existing-device wrapping, general device sources, bounded
-container shapes, and final ColourCopy dogfood.
-
-The same session wrote `operatorResponse: "vetoed"` before the operator replied,
-although the tool description prohibited inference from success, refusal,
-permission, or silence. [DF-002](plan/dogfooding/findings.md#df-002--agent-can-invent-an-operator-verdict)
-records the false verdict as one incidental supporting vote. Treat observation
-`94619ba8-0cfe-4950-80ee-4977c077e1fd` as invalid operator-response evidence.
-
-Phase 5j is complete. Public `author_modulators` accepts one exact
-DirectParameter id and name for native, VST3, and CLAP routes. Ghostnote keeps
-Ramona routes, list positions, byte offsets, and remote positions internal. The
-three original target names resolve through the same implementation.
-
-The combined live proof verified native Polysynth and Zebra3 VST3 active
-targets, stable bases, false automation, reversal, and exact four-track cleanup.
-The full brain check passes 895/895. Extension tests, deploy freshness, and the
-148-method handshake pass. [E85](evidence/experiments/e85-general-directparameter-modulation-targets-are-live.md)
-records the result and the host observation qualification.
+The required native, container, VST3, CLAP, sample-less Sampler, and sampled
+Sampler fixture matrix passes. Repeated names remain distinct by ordered path.
+Known targets use the 5j DirectParameter identity. Unknown targets are explicit.
+Results expose no raw route or binary selector. The operation makes no Bitwig or
+preset-file change. The full brain check passes 906/906. [E86](evidence/experiments/e86-semantic-preset-modulation-inspection-is-complete.md)
+records the implementation and qualifications.
 
 ## Next action
 
-Implement
-[Session 5k](plan/phase-5/5k-semantic-preset-modulation-inspection.md). Add one
-read-only semantic preset inventory that binds public device and entry paths to
-internal modulator lists. Do not begin Phase 6a until Phase 5 and the open
-dogfood loop close.
+Implement [Session 5l](plan/phase-5/5l-complete-list-scoped-topology.md). Resolve
+one 5k semantic location to its internal list, require the exact file
+fingerprint, and complete all selected-list topology operations. Do not begin
+Phase 6a until Phase 5 and the open dogfood loop close.
 
 ## Retrospective
 
-Return a partial receipt when a later stage fails after an earlier write. Verify
-owned containers from a complete inventory, not from first-device witnesses.
-Name each positional guard for its coordinate system.
-Assert all required guarded wire fields in the encoder before the first live
-run. Allow built-in capability discovery during exposure-only checks.
-Name every failed catalog input in one refusal. Use direct top-level native
-insertion when the request does not need a Layer. Record session version fields
-with their provenance. Do not infer a host version from a public session.
-Carry the resolved catalog name through insertion completion and reversal.
-Run deploy freshness before a live probe that depends on new observer handles.
-Measure complete host color tuples before defining a component conversion.
-Count a partial verdict at both the instruction and scoped-item levels.
-Measure DirectParameter ids and internal routes on each host type before a
-combined live proof. Native and plug-in ids need different route forms.
-Link unexpected cross-session behavior to a stable finding. Count at most one
-vote from each root session and retain counterevidence from that session.
-Do not infer an operator verdict from an agent refusal. Keep proved core
-generality separate from the narrower public product surface.
+Bind each device owner only inside explicit structural bounds. Never use the
+nearest global name for a semantic preset mapping.

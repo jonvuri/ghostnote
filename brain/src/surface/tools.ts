@@ -103,6 +103,10 @@ import {
   nativeDeviceInsertionInputSchema, nativeDeviceInsertionInputValidator,
   runNativeDeviceInsertion,
 } from './native-device-insertion.js';
+import {
+  presetModulationInspectionInputSchema, presetModulationInspectionInputValidator,
+  runPresetModulationInspection,
+} from './preset-modulation-inspection.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -548,6 +552,35 @@ async function deviceAlternatesAt(
 
 export const TOOLS: readonly ToolSpec[] = [
   // ============================== read ======================================
+  tool({
+    name: 'inspect_preset_modulation',
+    kind: 'read',
+    title: 'Inspect preset modulation',
+    description:
+      'Read one human-saved Bitwig preset from an explicit absolute path. Return its SHA-256 '
+      + 'fingerprint, host tier and format, container kind, ordered entries, device positions and '
+      + 'names, semantic modulator locations, and complete public modulator inventories. Locations '
+      + 'name the plain device, the container, or one ordered entry and device path. Repeated '
+      + 'names stay distinct through their positions. A target returns an exact DirectParameter id '
+      + 'and name only when both resolve. An unresolved target is marked explicitly. An ambiguous '
+      + 'or incomplete structure is unsupported and is never guessed. The result does not expose '
+      + 'binary selectors or change Bitwig or the preset file. Supply the returned fingerprint to '
+      + 'the later semantic write so changed file bytes are refused.',
+    inputSchema: presetModulationInspectionInputSchema,
+    inputValidator: presetModulationInspectionInputValidator,
+    resultContract: {
+      fingerprint: 'SHA-256 and byte length that a later semantic write must match.',
+      host: 'Tier 1 or Tier 2, native, VST3, or CLAP, with the saved device name and creator.',
+      containerKind: 'The saved container kind, or null for a plain device.',
+      entries: 'Complete ordered entry and device inventories.',
+      modulation: 'One public modulator inventory at each semantic location.',
+      supported: 'False when the complete semantic mapping is ambiguous or incomplete.',
+    },
+    async run(_workspace, args) {
+      return runPresetModulationInspection(args);
+    },
+  }),
+
   tool({
     name: 'check_connection',
     kind: 'read',

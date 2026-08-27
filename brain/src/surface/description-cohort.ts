@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v14';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v15';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -245,8 +245,17 @@ export const DESCRIPTION_COHORT_V13: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v14 replaces fixed modulation targets with exact DirectParameter identity. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V14: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V13,
+] as const;
+
+/** v15 adds read-only semantic preset modulation inspection. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V14,
+  {
+    name: 'inspect_preset_modulation', kind: 'read',
+    reason: 'Binds preset modulator inventories to semantic device locations.',
+  },
 ] as const;
 
 interface ToolAnnotations {
@@ -364,3 +373,7 @@ export const TOOL_DESCRIPTION_V13_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V14_SHA256 =
   '5e814cce18db34f76fe975fa3ecf8df07b35d28c79f68553d06f6933bf160f2b';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V15_SHA256 =
+  'c9bc6a2a64b5b458fefd7be183d53bb4ba8b4a9e895f16930bab28e6fbe660ab';

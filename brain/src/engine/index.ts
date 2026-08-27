@@ -34,6 +34,15 @@ export type {
   ModulationTarget, ResolvedModulationTargetLocation,
 } from './modulation-target.js';
 
+export {
+  assertPresetFingerprint, fingerprintPreset, inspectPresetModulation, PresetInspectionError,
+} from './preset-modulation-inspection.js';
+export type {
+  PresetEntryInventory, PresetFingerprint, PresetHostFormat, PresetModulationInspection,
+  PublicModulationTarget, PublicPresetModulator, SemanticDeviceStep, SemanticModulatorInventory,
+  SemanticModulatorLocation,
+} from './preset-modulation-inspection.js';
+
 export { buildOwnedTemplateComposition } from './owned-template-composition.js';
 export type {
   CompositionLiveWitness, CompositionStructureVerification, ObservedCompositionEntry,

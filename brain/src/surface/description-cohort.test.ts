@@ -16,6 +16,8 @@ import {
   DESCRIPTION_COHORT_V11,
   DESCRIPTION_COHORT_V12,
   DESCRIPTION_COHORT_V13,
+  DESCRIPTION_COHORT_V14,
+  TOOL_DESCRIPTION_V15_SHA256,
   TOOL_DESCRIPTION_V14_SHA256,
   TOOL_DESCRIPTION_V13_SHA256,
   TOOL_DESCRIPTION_V12_SHA256,
@@ -78,10 +80,11 @@ const EXPECTED_COHORT = [
   'compose_device_structure',
   'compose_drum_machine',
   'add_native_devices',
+  'inspect_preset_modulation',
 ] as const;
 
-test('description v14 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v14');
+test('description v15 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v15');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -99,6 +102,15 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
     fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V1_SHA256,
     'the frozen v1 public wording or schema changed',
+  );
+});
+
+test('description v15 matches its public artifact', () => {
+  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
+  assert.equal(
+    fingerprintDescriptionCohort(artifact),
+    TOOL_DESCRIPTION_V15_SHA256,
+    'the v15 public wording or schema changed',
   );
 });
 
@@ -210,13 +222,12 @@ test('description v13 matches its public artifact', () => {
   );
 });
 
-test('description v14 matches its public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
-  assert.deepEqual(artifact.map((member) => member.name), EXPECTED_COHORT);
+test('description v14 stays frozen', () => {
+  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V14);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V14_SHA256,
-    'public wording or schema changed; assign a new description version before updating the golden',
+    'the frozen v14 public wording or schema changed',
   );
 });
 

@@ -1,11 +1,11 @@
 ---
 title: Phase 5k — semantic preset modulation inspection
 kind: plan
-state: planned
-status: Next. Expose preset structure and modulator locations without binary selectors.
-updated: 2026-08-26
+state: complete
+status: Complete. Public semantic inspection binds every list or refuses the complete result.
+updated: 2026-08-27
 parent: README.md
-evidence: D1, D2, D3, E13, E68, E70, E71
+evidence: D1, D2, D3, E13, E68, E70, E71, E86
 ---
 
 # Phase 5k — semantic preset modulation inspection
@@ -55,3 +55,15 @@ indexes.
 
 Session 5l uses the internal binding to complete every operation on a selected
 container list. Session 5n exposes the read result beside public authoring.
+
+## Result
+
+Complete. `inspect_preset_modulation` returns a fingerprint, host tier and
+format, container and entry structure, semantic locations, and public modulator
+inventories. It supports the required six fixture classes. Repeated names remain
+addressable by ordered positions. An incomplete mapping is unsupported.
+
+The result contains no binary selector. Known targets use the 5j
+DirectParameter identity. Unknown targets are explicit. The fingerprint guard
+is ready for the 5l write boundary. The full brain check passes 906/906. [E86](../../evidence/experiments/e86-semantic-preset-modulation-inspection-is-complete.md)
+records the exact matrix and qualifications.
