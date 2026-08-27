@@ -1,11 +1,11 @@
 ---
 title: Phase 5j — general modulation targets
 kind: plan
-state: planned
-status: Next. Replace the three fixed target recipes with one proved DirectParameter target contract.
-updated: 2026-08-25
+state: done
+status: Complete. One exact DirectParameter target serves native, VST3, and CLAP routing; native and VST3 behavior pass live.
+updated: 2026-08-26
 parent: README.md
-evidence: D1, D2, E10b, E61, E64, E70
+evidence: D1, D2, E10b, E61, E64, E70, E85
 ---
 
 # Phase 5j — general modulation targets
@@ -56,3 +56,24 @@ need to add code for each parameter target.
 ## Handoff
 
 Session 5k uses this target value in a semantic, read-only preset inventory.
+
+## Result
+
+The public input now accepts one exact DirectParameter id and name. Internal
+conversion keeps native ids unchanged and adds the measured generic plug-in
+route segment for plug-in ids. The three original recipe names resolve to the
+same target value and use the same verifier.
+
+Focused tests cover exact identity, hidden internal selectors, plain and
+resolved container routes, active and inactive behavior, automation, unstable
+inventories, base spread, duplicate names, missing targets, and silent routes.
+The full brain check passes 895/895. Extension tests, deploy freshness, and the
+148-method live handshake pass. Native Polysynth and Zebra3 VST3 targets pass
+exact behavior verification, reversal, and cleanup. The combined probe restores
+the exact four-track entry list. [E85](../../evidence/experiments/e85-general-directparameter-modulation-targets-are-live.md)
+records the contract, live values, host observation qualification, and result.
+
+## Retrospective
+
+Measure DirectParameter ids and internal routes on each host type before the
+first combined live proof. Native and plug-in ids need different route forms.

@@ -50,9 +50,11 @@ public final class ParamHandlers extends HandlerGroup {
         JsonArray params = new JsonArray();
         int existing = appendTypedParams(params, rig.paramIds, rig.polysynthParams0);
         existing += appendTypedParams(params, rig.v1KickParamIds, rig.v1KickParams0);
+        existing += appendTypedParams(params, rig.zebra3Vst3ParamIds, rig.zebra3Vst3Params0);
         JsonObject result = new JsonObject();
         result.add("params", params);
-        result.addProperty("total", rig.polysynthParams0.length + rig.v1KickParams0.length);
+        result.addProperty("total", rig.polysynthParams0.length + rig.v1KickParams0.length
+            + rig.zebra3Vst3Params0.length);
         result.addProperty("existing", existing);
         result.addProperty("deviceExists", rig.cursorDevice0.exists().get());
         result.addProperty("deviceName", rig.cursorDevice0.name().get());

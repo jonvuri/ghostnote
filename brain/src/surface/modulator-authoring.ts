@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import { track as trackAt } from '../contract/index.js';
 import {
-  ModulatorAuthoringError, authorModulatorAdd, authorModulatorEdit,
+  ModulatorAuthoringError, authorModulatorAdd, authorModulatorEdit, modulationRoute,
   type ModulationVerification, type ModulatorPageVerification,
 } from '../engine/index.js';
 import { receiptOf } from './report.js';
@@ -24,22 +24,25 @@ const TARGET_RECIPE_IDS = [
 
 type ReplaceModulatorType = typeof REPLACE_MODULATOR_TYPES[number];
 type TargetRecipeId = typeof TARGET_RECIPE_IDS[number];
+type DirectParameterTarget = {
+  readonly parameterId: string;
+  readonly parameterName: string;
+};
 
 interface TargetRecipe {
-  readonly route: string;
-  readonly pageName: string;
-  readonly controlName: string;
+  readonly parameterId: string;
+  readonly parameterName: string;
 }
 
 const TARGET_RECIPES: Readonly<Record<TargetRecipeId, TargetRecipe>> = {
   'polysynth-filter-frequency': {
-    route: 'CONTENTS/F1FREQ', pageName: 'FILTER', controlName: 'Filt Freq',
+    parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency',
   },
   'polysynth-filter-resonance': {
-    route: 'CONTENTS/F1RESO', pageName: 'FILTER', controlName: 'Reso',
+    parameterId: 'CONTENTS/F1RESO', parameterName: 'Filter Resonance',
   },
   'sampler-amp-attack': {
-    route: 'CONTENTS/AMP_ATTACK_TIME', pageName: 'Amp EG', controlName: 'Attack',
+    parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'Amp Attack',
   },
 };
 
@@ -64,8 +67,20 @@ const presetPath = z.string().min(1).superRefine((path, context) => {
 }).describe('Absolute path to one human-saved Bitwig preset file.');
 
 const targetRecipe = z.enum(TARGET_RECIPE_IDS).describe(
-  'Named modulation target and exact live control: Polysynth FILTER/Filt Freq, '
-  + 'Polysynth FILTER/Reso, or Sampler Amp EG/Attack.',
+  'Compatibility name for one of the three original native-device targets.',
+);
+
+const directParameterTarget = z.object({
+  parameterId: z.string().min(1).describe(
+    'Exact DirectParameter id returned by inspect_device_parameters.',
+  ),
+  parameterName: z.string().min(1).describe(
+    'Exact parameter name returned with parameterId in the same stable inventory.',
+  ),
+}).strict();
+
+const modulationTarget = z.union([directParameterTarget, targetRecipe]).describe(
+  'An exact DirectParameter id and name, or one original compatibility name.',
 );
 
 const pageCheck = z.object({
@@ -77,16 +92,16 @@ const behaviorCheck = z.object({
   expected: z.enum(['active', 'inactive']).describe(
     'Active requires live base-to-modulated divergence. Inactive requires no divergence.',
   ),
-  target: targetRecipe,
+  target: modulationTarget,
 }).strict();
 
 const operation = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('add'),
     modulator: z.enum(ROUTED_MODULATOR_TYPES).describe(
-      'LFO, Random, or Vibrato. These three assets contain a route that can be assigned safely.',
+      'LFO, Random, or Vibrato. These three assets support safe target assignment.',
     ),
-    target: targetRecipe,
+    target: modulationTarget,
     amount: z.number().finite().min(-1).max(1).describe('Normalized modulation amount from -1 through 1.'),
   }).strict(),
   z.object({
@@ -99,7 +114,7 @@ const operation = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('retarget'),
     position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
-    target: targetRecipe,
+    target: modulationTarget,
   }).strict(),
   z.object({
     kind: z.literal('delete'),
@@ -163,16 +178,17 @@ function publicBehavior(verification: ModulationVerification): Record<string, un
     ...(verification.verified ? {} : { why: verification.why }),
     ...(selector === undefined ? {} : {
       selector: {
-        pagePosition: selector.pageIndex,
-        pageName: selector.pageName,
-        controlPosition: selector.controlIndex,
-        controlName: selector.controlName,
+        parameterId: selector.directId,
       },
     }),
     samples: verification.samples,
     maximumDivergence: verification.maximumDivergence,
     baseSpread: verification.baseSpread,
   };
+}
+
+function resolveTarget(target: TargetRecipeId | DirectParameterTarget): TargetRecipe {
+  return typeof target === 'string' ? TARGET_RECIPES[target] : target;
 }
 
 function publicPages(verification: ModulatorPageVerification): Record<string, unknown> {
@@ -244,13 +260,13 @@ export async function runModulatorAuthoring(
     const expectedEnabledChain = enabled as boolean[];
 
     if (input.operation.kind === 'add') {
-      const target = TARGET_RECIPES[input.operation.target];
+      const target = resolveTarget(input.operation.target);
       const result = await authorModulatorAdd(workspace, {
         track: trackAt(input.trackId),
         templatePath: input.presetPath,
         donorId: DONOR_FOR_TYPE[input.operation.modulator],
-        routing: { target: target.route, amount: input.operation.amount },
-        witness: { pageName: target.pageName, controlName: target.controlName },
+        routing: { target: modulationRoute(target), amount: input.operation.amount },
+        witness: target,
         expectedChain,
         expectedEnabledChain,
       });
@@ -289,7 +305,7 @@ export async function runModulatorAuthoring(
         ? {
           kind: 'retarget' as const,
           index: input.operation.position,
-          target: TARGET_RECIPES[input.operation.target].route,
+          target: modulationRoute(resolveTarget(input.operation.target)),
         }
         : { kind: 'delete' as const, index: input.operation.position };
     const result = await authorModulatorEdit(workspace, {
@@ -298,11 +314,10 @@ export async function runModulatorAuthoring(
       edit,
       pageWitnesses: input.pageChecks,
       behaviorWitnesses: input.behaviorChecks?.map((check) => {
-        const target = TARGET_RECIPES[check.target];
+        const target = resolveTarget(check.target);
         return {
           expected: check.expected,
-          pageName: target.pageName,
-          controlName: target.controlName,
+          ...target,
         };
       }),
       expectedChain,

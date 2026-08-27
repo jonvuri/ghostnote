@@ -9,8 +9,8 @@ export type CompositionTargetId = typeof COMPOSITION_TARGET_IDS[number];
 export interface CompositionTargetRecipe {
   readonly deviceName: string;
   readonly route: string;
-  readonly pageName: string;
-  readonly controlName: string;
+  readonly parameterId: string;
+  readonly parameterName: string;
 }
 
 /** Named routes that have exact live remote-control witnesses. */
@@ -18,19 +18,19 @@ export const COMPOSITION_TARGETS: Readonly<Record<CompositionTargetId, Compositi
   'polysynth-filter-frequency': {
     deviceName: 'Polysynth',
     route: 'CONTENTS/F1FREQ',
-    pageName: 'FILTER',
-    controlName: 'Filt Freq',
+    parameterId: 'CONTENTS/F1FREQ',
+    parameterName: 'Filter Frequency',
   },
   'polysynth-filter-resonance': {
     deviceName: 'Polysynth',
     route: 'CONTENTS/F1RESO',
-    pageName: 'FILTER',
-    controlName: 'Reso',
+    parameterId: 'CONTENTS/F1RESO',
+    parameterName: 'Filter Resonance',
   },
   'sampler-amp-attack': {
     deviceName: 'Sampler',
     route: 'CONTENTS/AMP_ATTACK_TIME',
-    pageName: 'Amp EG',
-    controlName: 'Attack',
+    parameterId: 'CONTENTS/AMP_ATTACK_TIME',
+    parameterName: 'Amp Attack',
   },
 };

@@ -2028,8 +2028,12 @@ export const TOOLS: readonly ToolSpec[] = [
     description:
       'Create an edited copy of one human-saved preset and append it as a new device. The saved '
       + 'preset is not changed, and no device already in the project is changed. Add, replace, '
-      + 'retarget, and delete use named modulator types and named targets. Each operation runs '
-      + 'complete pre-write checks and must pass exact remote page or live behavior checks after '
+      + 'retarget, and delete use named modulator types. Add and retarget accept the exact '
+      + 'DirectParameter id and name returned by inspect_device_parameters on native, VST3, and '
+      + 'CLAP devices. The three original named targets remain compatible. Ghostnote derives the '
+      + 'internal route. The caller cannot provide a route, list position, byte offset, or remote '
+      + 'page position. Each operation runs complete pre-write checks and must pass exact remote '
+      + 'page or DirectParameter behavior checks after '
       + 'insertion. Add supports LFO, Random, and Vibrato. Replace also supports Classic LFO and '
       + 'Expressions. Expressions refuses on sampled presets because it has no exact measured '
       + 'adjustment. A sampled delete also refuses when its resident modulator has no exact '
@@ -2040,7 +2044,7 @@ export const TOOLS: readonly ToolSpec[] = [
     emits: ['device.insert'],
     resultContract: {
       operation: 'The named add, replace, retarget, or delete request.',
-      verification: 'Exact remote page counts and live base-to-modulated behavior checks.',
+      verification: 'Exact remote page counts and DirectParameter base-to-modulated behavior checks.',
       change: 'The recorded insertion receipt and change id.',
       sampledPreset: 'True when sampled-preset references required measured adjustment.',
       reversal: 'Removes only the inserted device while its proved position remains valid.',
@@ -2062,7 +2066,7 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'entry accepts one exact native-device catalog name and optional named modulator edits. '
       + 'Repeated device names, unknown or non-unique catalog matches, unsupported targets, and '
       + 'invalid edit requests are refused before the project write. The result separates the '
-      + 'request, the validated modulator inventory, observed device names, and exact remote page '
+      + 'request, the validated modulator inventory, observed device names, and exact modulator page '
       + 'and behavior witnesses. It includes one recorded change id. A failed live witness reports '
       + 'a post-write verification failure and keeps that recorded change visible. Reversal removes '
       + 'only the inserted container while its last proved position remains valid.',
@@ -2075,7 +2079,7 @@ export const TOOLS: readonly ToolSpec[] = [
       requested: 'The ordered entries and named edits that were requested.',
       validated: 'The public modulator inventory after complete pre-write checks.',
       observed: 'The complete ordered entry and device names read from the inserted container.',
-      verification: 'Exact remote page counts and live base-to-modulated behavior witnesses.',
+      verification: 'Exact modulator page counts and DirectParameter behavior witnesses.',
       change: 'The recorded insertion receipt and change id.',
       reversal: 'Removes only the inserted container while its proved position remains valid.',
     },

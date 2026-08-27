@@ -161,8 +161,8 @@ export async function buildOwnedTemplateComposition(
       const behavior = edit.behavior === undefined
         ? undefined
         : await verifyModulation(host, nested, {
-          pageName: edit.behavior.pageName,
-          controlName: edit.behavior.controlName,
+          parameterId: edit.behavior.parameterId,
+          parameterName: edit.behavior.parameterName,
         }, pause, edit.behavior.expected);
       witnesses.push({
         request: edit,

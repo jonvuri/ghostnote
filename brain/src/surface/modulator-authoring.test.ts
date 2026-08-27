@@ -56,6 +56,24 @@ function fixture(): Fixture {
           const routes = modulators.flatMap((modulator) => modulator.routes);
           const active = (target: string): boolean => routes.some((route) => route.target === target);
           device.name = 'Authored preset';
+          device.params = [
+            {
+              id: 'CONTENTS/F1FREQ', name: 'Filter Frequency', value: 0.4,
+              modulatedValue: active('CONTENTS/F1FREQ') ? 0.7 : 0.4, hasAutomation: false,
+            },
+            {
+              id: 'CONTENTS/F1RESO', name: 'Filter Resonance', value: 0.3,
+              modulatedValue: active('CONTENTS/F1RESO') ? 0.65 : 0.3, hasAutomation: false,
+            },
+            {
+              id: 'CONTENTS/AMP_ATTACK_TIME', name: 'Amp Attack', value: 0.2,
+              modulatedValue: active('CONTENTS/AMP_ATTACK_TIME') ? 0.55 : 0.2,
+              hasAutomation: false,
+            },
+            {
+              id: 'CONTENTS/PID411', name: 'Cutoff', value: 0.25,
+            },
+          ];
           device.remotePages = [
             {
               name: 'FILTER',
@@ -77,6 +95,14 @@ function fixture(): Fixture {
               controls: [{
                 name: 'Attack', value: 0.2,
                 modulatedValue: active('CONTENTS/AMP_ATTACK_TIME') ? 0.55 : 0.2,
+                hasAutomation: false,
+              }],
+            },
+            {
+              name: 'Plugin',
+              controls: [{
+                name: 'Cutoff', value: 0.25,
+                modulatedValue: active('CONTENTS/ROOT_GENERIC_MODULE/PID411') ? 0.6 : 0.25,
                 hasAutomation: false,
               }],
             },
@@ -105,10 +131,70 @@ test('5f-schema: the public contract hides all format and donor controls', () =>
   const schema = JSON.stringify(z.toJSONSchema(z.object(modulatorAuthoringInputSchema)));
   for (const hidden of [
     'donorId', 'templatePath', 'listIndex', 'routeIndex', 'removedFootprint',
-    'insertedFootprint', 'stubDelta', 'CONTENTS/',
+    'insertedFootprint', 'stubDelta', 'route', 'byteOffset', 'remotePagePosition',
+    'CONTENTS/',
   ]) {
     assert.equal(schema.includes(hidden), false, `${hidden} crossed the public schema`);
   }
+});
+
+test('5j-general: an exact plug-in id and name derive the route and use one behavior verifier', async () => {
+  const fx = fixture();
+  const parameterId = 'CONTENTS/PID411';
+  const result = await callTool(fx.workspace, 'author_modulators', {
+    trackId: fx.trackId,
+    presetPath: poly('mp_bare'),
+    operation: {
+      kind: 'add',
+      modulator: 'lfo',
+      target: { parameterId, parameterName: 'Cutoff' },
+      amount: 1,
+    },
+  }) as Record<string, unknown>;
+
+  assert.equal(result['applied'], true, JSON.stringify(result));
+  assert.equal((result['verification'] as { verified: boolean }).verified, true, JSON.stringify(result));
+  assert.equal(listModulators(fx.appliedPresets[0]!)[0]?.routing?.target,
+    'CONTENTS/ROOT_GENERIC_MODULE/PID411');
+});
+
+test('5j-general: an id and name mismatch is a post-write verification failure', async () => {
+  const fx = fixture();
+  const result = await callTool(fx.workspace, 'author_modulators', {
+    trackId: fx.trackId,
+    presetPath: poly('mp_bare'),
+    operation: {
+      kind: 'add',
+      modulator: 'lfo',
+      target: { parameterId: 'CONTENTS/F1FREQ', parameterName: 'Wrong name' },
+      amount: 1,
+    },
+  }) as Record<string, unknown>;
+
+  assert.equal(result['applied'], true, JSON.stringify(result));
+  assert.equal((result['verification'] as { verified: boolean }).verified, false, JSON.stringify(result));
+  assert.equal(fx.workspace.changes.list().length, 1);
+  assert.match(JSON.stringify(result), /has name.*not.*Wrong name/i);
+});
+
+test('5j-general: a missing target stays a recorded post-write failure', async () => {
+  const fx = fixture();
+  const result = await callTool(fx.workspace, 'author_modulators', {
+    trackId: fx.trackId,
+    presetPath: poly('mp_bare'),
+    operation: {
+      kind: 'add',
+      modulator: 'lfo',
+      target: { parameterId: 'CONTENTS/MISSING', parameterName: 'Missing' },
+      amount: 1,
+    },
+  }) as Record<string, unknown>;
+
+  assert.equal(result['applied'], true, JSON.stringify(result));
+  assert.equal((result['verification'] as { verified: boolean }).verified, false, JSON.stringify(result));
+  assert.equal(fx.workspace.changes.list().length, 1);
+  assert.match(JSON.stringify(result), /missing after the preset load/i);
+  assert.equal(result['nothingWasWritten'], undefined);
 });
 
 test('5f-add: named type and target record one insertion and prove exact live behavior', async () => {
@@ -154,7 +240,7 @@ test('5f-sampled-add: the public measured asset adjusts every sample reference',
   assert.equal(result['sampledPreset'], true);
   assert.equal(result['adjustedSampleReferences'], 4);
   assert.equal((result['verification'] as { verified: boolean }).verified, true, JSON.stringify(result));
-  assert.doesNotMatch(JSON.stringify(result), /footprint|stub|offset|CONTENTS\//i);
+  assert.doesNotMatch(JSON.stringify(result), /footprint|stub|offset/i);
 });
 
 test('5f-edit: replace, retarget, and delete use exact public witnesses', async () => {
@@ -199,7 +285,7 @@ test('5f-edit: replace, retarget, and delete use exact public witnesses', async 
       item.after,
     );
     const encoded = JSON.stringify(result);
-    assert.doesNotMatch(encoded, /CONTENTS\/|Footprint|donorId|stubDelta/);
+    assert.doesNotMatch(encoded, /Footprint|donorId|stubDelta/);
   }
 });
 

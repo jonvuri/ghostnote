@@ -2,8 +2,8 @@
 title: Phase 5k — semantic preset modulation inspection
 kind: plan
 state: planned
-status: Planned after 5j. Expose preset structure and modulator locations without binary selectors.
-updated: 2026-08-25
+status: Next. Expose preset structure and modulator locations without binary selectors.
+updated: 2026-08-26
 parent: README.md
 evidence: D1, D2, D3, E13, E68, E70, E71
 ---

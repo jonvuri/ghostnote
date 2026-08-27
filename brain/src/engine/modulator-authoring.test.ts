@@ -34,7 +34,8 @@ function fixture(
   const calls: Op[][] = [];
   const appliedPresets: Buffer[] = [];
   const witnessControl = () => ({
-    name: 'Filt Freq',
+    id: 'CONTENTS/F1FREQ',
+    name: 'Filter Frequency',
     value: 0.4,
     modulatedValue,
     ...(automation === 'unknown' ? {} : { hasAutomation: automation }),
@@ -52,6 +53,10 @@ function fixture(
       if (minted?.kind === 'device') {
         const inserted = fake.model.findByChannelId(trackRef.channelId)!.track.devices[minted.chainIndex]!;
         inserted.name = 'Polysynth';
+        inserted.params = [
+          witnessControl(),
+          ...(duplicateWitness ? [{ ...witnessControl(), id: 'CONTENTS/F1FREQ_COPY' }] : []),
+        ];
         inserted.remotePages = [
           {
             name: 'Main',
@@ -78,7 +83,10 @@ const request = (trackRef: TrackAddress) => ({
   templatePath: join(FIXTURE_DIR, 'Polysynth', 'mp_bare.bwpreset'),
   donorId: 'lfo-sampler',
   routing: { target: 'CONTENTS/F1FREQ', amount: 1 },
-  witness: { pageName: 'Filter', controlName: 'Filt Freq', samples: 3, sampleIntervalMs: 0 },
+  witness: {
+    parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency',
+    samples: 3, sampleIntervalMs: 0,
+  },
   expectedChain: [],
   expectedEnabledChain: [],
 } as const);
@@ -106,6 +114,18 @@ function topologyFixture(): AuthoringFixture {
         const modulators = listModulators(preset);
         const routes = modulators.flatMap((modulator) => modulator.routes);
         inserted.name = 'Polysynth';
+        inserted.params = [
+          {
+            id: 'CONTENTS/F1FREQ', name: 'Filter Frequency', value: 0.4,
+            modulatedValue: routes.some((route) => route.target === 'CONTENTS/F1FREQ') ? 0.75 : 0.4,
+            hasAutomation: false,
+          },
+          {
+            id: 'CONTENTS/F1RESO', name: 'Filter Resonance', value: 0.3,
+            modulatedValue: routes.some((route) => route.target === 'CONTENTS/F1RESO') ? 0.65 : 0.3,
+            hasAutomation: false,
+          },
+        ];
         inserted.remotePages = [
           {
             name: 'FILTER',
@@ -166,7 +186,13 @@ function containerFixture(): AuthoringFixture {
           CHAIN: [{
             name: 'Polysynth',
             paramsLive: true,
-            params: [],
+            params: [{
+              id: 'CONTENTS/F1FREQ',
+              name: 'Filter Frequency',
+              value: 0.4,
+              modulatedValue: route?.endsWith('0:CONTENTS/F1FREQ') ? 0.7 : 0.4,
+              hasAutomation: false,
+            }],
             remotePages: [{
               name: 'FILTER',
               controls: [{
@@ -230,12 +256,9 @@ test('5a-add: edits, validates, checkpoints, proves one exact selector, and reve
 
   assert.equal(result.verification.verified, true);
   assert.deepEqual(result.verification.selector, {
-    kind: 'remote',
+    kind: 'param',
     device: result.minted,
-    pageIndex: 1,
-    pageName: 'Filter',
-    controlIndex: 0,
-    controlName: 'Filt Freq',
+    directId: 'CONTENTS/F1FREQ',
   });
   assert.equal(result.verification.samples.length, 3);
   assert.ok(result.verification.maximumDivergence > 0.3);
@@ -271,20 +294,64 @@ test('5a-readback: host automation is not modulation proof', async () => {
   assert.match(result.verification.verified ? '' : result.verification.why, /has host automation/);
 });
 
-test('5a-readback: a name-only ambiguous selector refuses and reports its candidates', async () => {
-  const fx = fixture(0.75, true);
+test('5j-readback: an id and name mismatch fails after the recorded insert', async () => {
+  const fx = fixture();
   const input = request(fx.track);
-  const { pageName: _pageName, ...nameOnlyWitness } = input.witness;
   const result = await authorModulatorAdd(fx.host, {
     ...input,
-    witness: nameOnlyWitness,
+    witness: { ...input.witness, parameterName: 'Wrong name' },
   }, { wait: async () => undefined });
 
+  assert.equal(result.take.report.applied, true);
   assert.equal(result.verification.verified, false);
-  assert.match(result.verification.verified ? '' : result.verification.why,
-    /matched 2 remote selectors/);
-  assert.match(result.verification.verified ? '' : result.verification.why,
-    /1:"Filter"\/0:"Filt Freq", 2:"Common"\/0:"Filt Freq"/);
+  assert.match(result.verification.verified ? '' : result.verification.why, /has name.*not.*Wrong name/);
+});
+
+test('5j-readback: an unstable DirectParameter inventory fails after insertion', async () => {
+  const fx = fixture();
+  const host: ModulatorAuthoringHost = {
+    read: (addresses) => fx.host.read(addresses),
+    async apply(ops, options) {
+      const applied = await fx.host.apply(ops, options);
+      fx.fake.model.staleParameterInventories = 10;
+      return applied;
+    },
+  };
+  const result = await authorModulatorAdd(host, request(fx.track), { wait: async () => undefined });
+
+  assert.equal(result.take.report.applied, true);
+  assert.equal(result.verification.verified, false);
+  assert.match(result.verification.verified ? '' : result.verification.why, /did not settle/);
+});
+
+test('5j-readback: moving base values cannot prove an active route', async () => {
+  const fx = fixture();
+  let reads = 0;
+  const host: ModulatorAuthoringHost = {
+    async read(addresses) {
+      if (reads > 0) {
+        const parameter = fx.fake.model.findByChannelId(fx.track.channelId)
+          ?.track.devices[0]?.params[0];
+        if (parameter !== undefined) parameter.value += 0.01;
+      }
+      reads += 1;
+      return fx.host.read(addresses);
+    },
+    apply: (ops, options) => fx.host.apply(ops, options),
+  };
+  const result = await authorModulatorAdd(host, request(fx.track), { wait: async () => undefined });
+
+  assert.equal(result.take.report.applied, true);
+  assert.equal(result.verification.verified, false);
+  assert.match(result.verification.verified ? '' : result.verification.why, /base moved/);
+});
+
+test('5j-readback: duplicate names remain distinct through exact parameter ids', async () => {
+  const fx = fixture(0.75, true);
+  const result = await authorModulatorAdd(fx.host, request(fx.track), { wait: async () => undefined });
+
+  assert.equal(result.verification.verified, true);
+  assert.equal(result.verification.selector?.directId, 'CONTENTS/F1FREQ');
 });
 
 test('5c-add: a sampled add reports the measured footprint and every shifted stub', async () => {
@@ -402,11 +469,11 @@ test('5b-retarget: proves modulation left the old control and reached the new co
   }, {
     behaviorWitnesses: [
       {
-        expected: 'inactive', pageName: 'FILTER', controlName: 'Filt Freq',
+        expected: 'inactive', parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency',
         samples: 3, sampleIntervalMs: 0,
       },
       {
-        expected: 'active', pageName: 'FILTER', controlName: 'Reso',
+        expected: 'active', parameterId: 'CONTENTS/F1RESO', parameterName: 'Filter Resonance',
         samples: 3, sampleIntervalMs: 0,
       },
     ],
@@ -415,8 +482,8 @@ test('5b-retarget: proves modulation left the old control and reached the new co
   assert.equal(result.verification.verified, true);
   assert.deepEqual(result.edit.modulatorsAfter[2]?.routing?.target, 'CONTENTS/F1RESO');
   assert.deepEqual(result.verification.behaviors.map((behavior) => behavior.verified), [true, true]);
-  assert.deepEqual(result.verification.behaviors.map((behavior) => behavior.selector?.controlName),
-    ['Filt Freq', 'Reso']);
+  assert.deepEqual(result.verification.behaviors.map((behavior) => behavior.selector?.directId),
+    ['CONTENTS/F1FREQ', 'CONTENTS/F1RESO']);
 });
 
 test('5d-container: selects one list and proves the route on one nested device', async () => {
@@ -431,8 +498,8 @@ test('5d-container: selects one list and proves the route on one nested device',
     pageWitnesses: [{ pageName: 'LFO', expectedCount: 1 }],
     behaviorWitnesses: [{
       expected: 'active',
-      pageName: 'FILTER',
-      controlName: 'Filt Freq',
+      parameterId: 'CONTENTS/F1FREQ',
+      parameterName: 'Filter Frequency',
       nestedDevice: { slotName: 'CHAIN', chainIndex: 0 },
       samples: 3,
       sampleIntervalMs: 0,
@@ -465,8 +532,8 @@ test('5d-container: omitting list selection refuses before apply', async () => {
       },
       behaviorWitnesses: [{
         expected: 'active',
-        pageName: 'FILTER',
-        controlName: 'Filt Freq',
+        parameterId: 'CONTENTS/F1FREQ',
+        parameterName: 'Filter Frequency',
         nestedDevice: { slotName: 'CHAIN', chainIndex: 0 },
       }],
     }),
@@ -491,8 +558,8 @@ test('5d-container: a non-first device-slot witness refuses before apply', async
       },
       behaviorWitnesses: [{
         expected: 'active',
-        pageName: 'FILTER',
-        controlName: 'Filt Freq',
+        parameterId: 'CONTENTS/F1FREQ',
+        parameterName: 'Filter Frequency',
         nestedDevice: { slotName: 'CHAIN', chainIndex: 1 },
       }],
     }),
@@ -513,7 +580,7 @@ test('5b-delete: proves the page and modulation are absent while a sibling remai
       { pageName: 'Vibrato', expectedCount: 1 },
     ],
     behaviorWitnesses: [{
-      expected: 'inactive', pageName: 'FILTER', controlName: 'Filt Freq',
+      expected: 'inactive', parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency',
       samples: 3, sampleIntervalMs: 0,
     }],
   }), { wait: async () => undefined });
@@ -530,7 +597,7 @@ test('5b-readback: an unexpected active route fails an inactive witness', async 
     kind: 'retarget', index: 2, target: 'CONTENTS/F1RESO',
   }, {
     behaviorWitnesses: [{
-      expected: 'inactive', pageName: 'FILTER', controlName: 'Reso',
+      expected: 'inactive', parameterId: 'CONTENTS/F1RESO', parameterName: 'Filter Resonance',
       samples: 2, sampleIntervalMs: 0,
     }],
   }), { wait: async () => undefined });
@@ -652,17 +719,19 @@ test('5b-footprint: sampled replace and delete refuse unknown footprints before 
   }
 });
 
-test('5b-request: behavior proof requires an exact page selector before apply', async () => {
+test('5j-request: behavior proof requires an exact parameter name before apply', async () => {
   const fx = topologyFixture();
   await assert.rejects(
     authorModulatorEdit(fx.host, topologyRequest(fx.track, {
       kind: 'retarget', index: 2, target: 'CONTENTS/F1RESO',
     }, {
-      behaviorWitnesses: [{ expected: 'active', controlName: 'Reso' }],
+      behaviorWitnesses: [{
+        expected: 'active', parameterId: 'CONTENTS/F1RESO', parameterName: '',
+      }],
     })),
     (error: unknown) => error instanceof ModulatorAuthoringError
       && error.stage === 'request'
-      && /pageName is required/.test(error.message),
+      && /parameterName must not be empty/.test(error.message),
   );
   assert.equal(fx.calls.length, 0);
 });

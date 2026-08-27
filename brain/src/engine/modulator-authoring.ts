@@ -10,9 +10,9 @@ import { isAbsolute, join } from 'node:path';
 import { tmpdir } from 'node:os';
 
 import {
-  addressKey, chain, deviceIn, deviceSlot, remote, remotes,
-  type Address, type DeviceAddress, type Op, type RemoteAddress, type RemoteControlState,
-  type Snapshot, type TrackAddress,
+  addressKey, chain, deviceIn, deviceSlot, param, remote, remotes,
+  type Address, type DeviceAddress, type Op, type ParamAddress, type ParamState,
+  type RemoteAddress, type RemoteControlState, type Snapshot, type TrackAddress,
 } from '../contract/index.js';
 import {
   addModulator, deleteModulator, findModulatorList, identifyCuratedDonor, listModulators, loadDonor,
@@ -37,11 +37,11 @@ export interface ModulatorAuthoringHost {
   apply(ops: readonly Op[], options?: RunOptions): Promise<{ readonly take: Take }>;
 }
 
-export interface ModulatorRemoteWitness {
-  /** Control name to find in the complete remote inventory. */
-  readonly controlName: string;
-  /** Optional disambiguation when the same control name occurs on several pages. */
-  readonly pageName?: string;
+export interface ModulatorParameterWitness {
+  /** Exact DirectParameter id returned by `inspect_device_parameters`. */
+  readonly parameterId: string;
+  /** Exact name returned with `parameterId` in the same stable inventory. */
+  readonly parameterName: string;
   readonly samples?: number;
   readonly sampleIntervalMs?: number;
   /** Complete-inventory attempts after a new preset load. */
@@ -57,7 +57,7 @@ export interface ModulatorRemoteWitness {
   };
 }
 
-export interface ModulatorBehaviorWitness extends ModulatorRemoteWitness {
+export interface ModulatorBehaviorWitness extends ModulatorParameterWitness {
   /** `active` requires divergence. `inactive` requires its absence. */
   readonly expected: 'active' | 'inactive';
 }
@@ -84,7 +84,7 @@ export interface AddModulatorRequest {
   /** Curated id from `assets/modulators/index.json`. */
   readonly donorId: string;
   readonly routing: Routing;
-  readonly witness: ModulatorRemoteWitness;
+  readonly witness: ModulatorParameterWitness;
   /** Complete top-level names from the caller's last accepted observation. */
   readonly expectedChain?: readonly string[];
   /** Aligned top-level enabled flags from the same observation. */
@@ -101,7 +101,7 @@ export interface ModulationSample {
 export type ModulationVerification =
   | {
     readonly verified: true;
-    readonly selector: RemoteAddress;
+    readonly selector: ParamAddress;
     readonly samples: readonly ModulationSample[];
     readonly maximumDivergence: number;
     readonly baseSpread: number;
@@ -109,7 +109,7 @@ export type ModulationVerification =
   | {
     readonly verified: false;
     readonly why: string;
-    readonly selector?: RemoteAddress;
+    readonly selector?: ParamAddress;
     readonly samples: readonly ModulationSample[];
     readonly maximumDivergence: number;
     readonly baseSpread: number;
@@ -426,59 +426,55 @@ export async function authorModulatorEdit(
 export async function verifyModulation(
   host: ModulatorAuthoringHost,
   device: DeviceAddress,
-  witness: ModulatorRemoteWitness,
+  witness: ModulatorParameterWitness,
   pause: (milliseconds: number) => Promise<void>,
   expected: 'active' | 'inactive' = 'active',
 ): Promise<ModulationVerification> {
-  const inventoryAddress = remotes(device);
-  let inventory: Snapshot | undefined;
-  let inventoryFailure = 'the inserted device returned no complete remote inventory';
+  const selector = param(device, witness.parameterId);
+  let selected: ParamState | undefined;
+  let inventoryFailure = 'the inserted device returned no stable DirectParameter inventory';
   const inventoryAttempts = witness.inventoryAttempts ?? DEFAULT_INVENTORY_ATTEMPTS;
   const inventoryRetryMs = witness.inventoryRetryMs ?? DEFAULT_INVENTORY_RETRY_MS;
   for (let attempt = 0; attempt < inventoryAttempts; attempt++) {
     try {
-      const candidate = await host.read([inventoryAddress]);
-      const value = candidate.entries[addressKey(inventoryAddress)]?.value;
-      if (value?.of === 'remotes') {
-        inventory = candidate;
+      const candidate = await host.read([selector]);
+      const value = candidate.entries[addressKey(selector)]?.value;
+      if (value?.of === 'param') {
+        selected = value.param;
         break;
       }
-      inventoryFailure = candidate.unstable.some((address) => addressKey(address) === addressKey(inventoryAddress))
-        ? 'the remote inventory did not settle'
-        : 'the inserted device returned no complete remote inventory';
+      inventoryFailure = candidate.unstable.some((address) => addressKey(address) === addressKey(selector))
+        ? 'the DirectParameter inventory did not settle'
+        : `DirectParameter id ${JSON.stringify(witness.parameterId)} is missing after the preset load`;
     } catch (error) {
       throwIfCancellation(host, error);
-      inventoryFailure = `remote inventory failed: ${errorMessage(error)}`;
+      inventoryFailure = `DirectParameter inventory failed: ${errorMessage(error)}`;
     }
     if (attempt + 1 < inventoryAttempts && inventoryRetryMs > 0) await pause(inventoryRetryMs);
   }
-  if (inventory === undefined) return failedVerification(inventoryFailure);
-  const entry = inventory.entries[addressKey(inventoryAddress)];
-  if (entry?.value.of !== 'remotes') return failedVerification(inventoryFailure);
-
-  const namedMatches = entry.value.remotes.pages.flatMap((page) => page.controls
-    .filter((control) => control.name === witness.controlName)
-    .map((control) => remote(device, page.index, page.name, control.index, control.name)));
-  const matches = namedMatches.filter((selector) => witness.pageName === undefined
-    || selector.pageName === witness.pageName);
-  if (matches.length !== 1) {
-    const scope = witness.pageName === undefined
-      ? `control ${JSON.stringify(witness.controlName)}`
-      : `control ${JSON.stringify(witness.controlName)} on page ${JSON.stringify(witness.pageName)}`;
+  if (selected === undefined) return failedVerification(inventoryFailure);
+  if (selected.name !== witness.parameterName) {
     return failedVerification(
-      `${scope} matched ${matches.length} remote selectors; exact verification requires one; `
-      + `name matches: ${selectorSummary(namedMatches)}`,
+      `DirectParameter id ${JSON.stringify(witness.parameterId)} has name `
+      + `${JSON.stringify(selected.name)}, not ${JSON.stringify(witness.parameterName)}`,
+      selector,
     );
   }
 
-  const selector = matches[0]!;
+  let sampleSelector: ParamAddress | RemoteAddress = selector;
+  if (!selected.observed.modulatedValue || selected.modulatedValue === undefined) {
+    const fallback = await exactNamedRemote(host, device, witness.parameterName, pause, witness);
+    if (typeof fallback === 'string') return failedVerification(fallback, selector);
+    sampleSelector = fallback;
+  }
+
   const samples: ModulationSample[] = [];
   const count = witness.samples ?? DEFAULT_SAMPLES;
   const interval = witness.sampleIntervalMs ?? DEFAULT_SAMPLE_INTERVAL_MS;
   for (let index = 0; index < count; index++) {
     let snapshot: Snapshot;
     try {
-      snapshot = await host.read([selector]);
+      snapshot = await host.read([sampleSelector]);
     } catch (error) {
       throwIfCancellation(host, error);
       return failedVerification(
@@ -487,15 +483,41 @@ export async function verifyModulation(
         samples,
       );
     }
-    const value = snapshot.entries[addressKey(selector)]?.value;
-    if (value?.of !== 'remote') {
+    const value = snapshot.entries[addressKey(sampleSelector)]?.value;
+    if (value?.of !== 'param' && value?.of !== 'remote') {
       return failedVerification(
-        `remote sample ${index + 1} did not return the exact selector`,
+        `DirectParameter sample ${index + 1} did not return the exact id`,
         selector,
         samples,
       );
     }
-    samples.push(sampleOf(value.remote));
+    if (value.of === 'param' && value.param.name !== witness.parameterName) {
+      return failedVerification(
+        `DirectParameter id ${JSON.stringify(witness.parameterId)} changed name from `
+        + `${JSON.stringify(witness.parameterName)} to ${JSON.stringify(value.param.name)}`,
+        selector,
+        samples,
+      );
+    }
+    if (value.of === 'remote' && value.remote.name !== witness.parameterName) {
+      return failedVerification(
+        `the supplementary remote changed name from ${JSON.stringify(witness.parameterName)} `
+        + `to ${JSON.stringify(value.remote.name)}`,
+        selector,
+        samples,
+      );
+    }
+    const sample = value.of === 'param'
+      ? sampleOfParameter(value.param)
+      : sampleOfRemote(value.remote);
+    if (sample === undefined) {
+      return failedVerification(
+        `DirectParameter ${JSON.stringify(witness.parameterId)} did not expose both base and modulated values`,
+        selector,
+        samples,
+      );
+    }
+    samples.push(sample);
     if (index + 1 < count && interval > 0) await pause(interval);
   }
 
@@ -592,7 +614,52 @@ function throwIfCancellation(host: ModulatorAuthoringHost, error: unknown): void
   if (!(error instanceof Error) || error.name === 'AbortError') throw error;
 }
 
-function sampleOf(control: RemoteControlState): ModulationSample {
+async function exactNamedRemote(
+  host: ModulatorAuthoringHost,
+  device: DeviceAddress,
+  parameterName: string,
+  pause: (milliseconds: number) => Promise<void>,
+  witness: ModulatorParameterWitness,
+): Promise<RemoteAddress | string> {
+  const inventoryAddress = remotes(device);
+  const attempts = witness.inventoryAttempts ?? DEFAULT_INVENTORY_ATTEMPTS;
+  const retryMs = witness.inventoryRetryMs ?? DEFAULT_INVENTORY_RETRY_MS;
+  let failure = 'the DirectParameter has no modulated value and no complete remote inventory was available';
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    try {
+      const snapshot = await host.read([inventoryAddress]);
+      const value = snapshot.entries[addressKey(inventoryAddress)]?.value;
+      if (value?.of === 'remotes') {
+        const matches = value.remotes.pages.flatMap((page) => page.controls
+          .filter((control) => control.name === parameterName)
+          .map((control) => remote(device, page.index, page.name, control.index, control.name)));
+        if (matches.length === 1) return matches[0]!;
+        return `DirectParameter ${JSON.stringify(parameterName)} has no modulated value; `
+          + `its name matched ${matches.length} supplementary remote controls`;
+      }
+      failure = snapshot.unstable.some((address) => addressKey(address) === addressKey(inventoryAddress))
+        ? 'the supplementary remote inventory did not settle'
+        : failure;
+    } catch (error) {
+      throwIfCancellation(host, error);
+      failure = `supplementary remote inventory failed: ${errorMessage(error)}`;
+    }
+    if (attempt + 1 < attempts && retryMs > 0) await pause(retryMs);
+  }
+  return failure;
+}
+
+function sampleOfParameter(parameter: ParamState): ModulationSample | undefined {
+  if (!parameter.observed.modulatedValue || parameter.modulatedValue === undefined) return undefined;
+  return {
+    value: parameter.value,
+    modulatedValue: parameter.modulatedValue,
+    divergence: Math.abs(parameter.modulatedValue - parameter.value),
+    ...(parameter.hasAutomation === undefined ? {} : { hasAutomation: parameter.hasAutomation }),
+  };
+}
+
+function sampleOfRemote(control: RemoteControlState): ModulationSample {
   return {
     value: control.value,
     modulatedValue: control.modulatedValue,
@@ -603,7 +670,7 @@ function sampleOf(control: RemoteControlState): ModulationSample {
 
 function failedVerification(
   why: string,
-  selector?: RemoteAddress,
+  selector?: ParamAddress,
   samples: readonly ModulationSample[] = [],
 ): ModulationVerification {
   const bases = samples.map((sample) => sample.value);
@@ -731,12 +798,6 @@ function assertEditRequest(request: ModulatorEditRequest): void {
   }
   for (const witness of behaviorWitnesses) {
     assertWitness(witness);
-    if (witness.pageName === undefined) {
-      throw new ModulatorAuthoringError(
-        'request',
-        'behaviorWitness.pageName is required for an exact selector',
-      );
-    }
   }
 }
 
@@ -763,12 +824,12 @@ function assertTemplatePath(templatePath: string): void {
   }
 }
 
-function assertWitness(witness: ModulatorRemoteWitness): void {
-  if (witness.controlName.trim() === '') {
-    throw new ModulatorAuthoringError('request', 'witness.controlName must not be empty');
+function assertWitness(witness: ModulatorParameterWitness): void {
+  if (witness.parameterId.trim() === '') {
+    throw new ModulatorAuthoringError('request', 'witness.parameterId must not be empty');
   }
-  if (witness.pageName !== undefined && witness.pageName.trim() === '') {
-    throw new ModulatorAuthoringError('request', 'witness.pageName must not be blank');
+  if (witness.parameterName.trim() === '') {
+    throw new ModulatorAuthoringError('request', 'witness.parameterName must not be empty');
   }
   if (witness.nestedDevice !== undefined) {
     const names = [witness.nestedDevice.chainName, witness.nestedDevice.slotName]
@@ -814,7 +875,7 @@ function assertWitness(witness: ModulatorRemoteWitness): void {
   }
 }
 
-function witnessDevice(container: DeviceAddress, witness: ModulatorRemoteWitness): DeviceAddress {
+function witnessDevice(container: DeviceAddress, witness: ModulatorParameterWitness): DeviceAddress {
   if (witness.nestedDevice === undefined) return container;
   const parent = witness.nestedDevice.slotName === undefined
     ? chain(container, witness.nestedDevice.chainName!)
@@ -835,12 +896,6 @@ function min(values: readonly number[]): number {
 
 function safeName(value: string): string {
   return value.replace(/[^a-zA-Z0-9._-]/g, '_');
-}
-
-function selectorSummary(selectors: readonly RemoteAddress[]): string {
-  if (selectors.length === 0) return 'none';
-  return selectors.map((selector) => `${selector.pageIndex}:${JSON.stringify(selector.pageName)}`
-    + `/${selector.controlIndex}:${JSON.stringify(selector.controlName)}`).join(', ');
 }
 
 function errorMessage(error: unknown): string {

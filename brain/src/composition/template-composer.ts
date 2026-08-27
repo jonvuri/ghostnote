@@ -127,8 +127,8 @@ export interface CompositionEditWitness {
   readonly target?: CompositionTargetId;
   readonly behavior?: {
     readonly expected: 'active' | 'inactive';
-    readonly pageName: string;
-    readonly controlName: string;
+    readonly parameterId: string;
+    readonly parameterName: string;
   };
 }
 
@@ -495,8 +495,8 @@ function applyNamedEdit(
         target: edit.target,
         behavior: {
           expected: amount === 0 ? 'inactive' : 'active',
-          pageName: target.pageName,
-          controlName: target.controlName,
+          parameterId: target.parameterId,
+          parameterName: target.parameterName,
         },
       }),
     },

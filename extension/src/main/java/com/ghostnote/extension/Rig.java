@@ -25,6 +25,7 @@ import com.bitwig.extension.controller.api.PinnableCursorDevice;
 import com.bitwig.extension.controller.api.Send;
 import com.bitwig.extension.controller.api.SendBank;
 import com.bitwig.extension.controller.api.SpecificBitwigDevice;
+import com.bitwig.extension.controller.api.SpecificPluginDevice;
 import com.bitwig.extension.controller.api.SceneBank;
 import com.bitwig.extension.controller.api.Track;
 import com.bitwig.extension.controller.api.TrackBankContentFilter;
@@ -126,6 +127,10 @@ public class Rig {
     public final SpecificBitwigDevice v1KickView0;
     public final String[] v1KickParamIds;
     public final Parameter[] v1KickParams0;
+    /** One measured VST3 parameter witness for general public target proof. */
+    public final SpecificPluginDevice zebra3Vst3View0;
+    public final String[] zebra3Vst3ParamIds;
+    public final Parameter[] zebra3Vst3Params0;
 
     public void beginDirectParameterRoute(int topLevelIndex) {
         directParameterTopLevelIndex = topLevelIndex;
@@ -1232,6 +1237,21 @@ public class Rig {
             param.modulatedValue().markInterested();
             param.hasAutomation().markInterested();
             v1KickParams0[p] = param;
+        }
+        zebra3Vst3View0 = cursorDevice0.createSpecificVst3Device(
+            "D39D5B69D6AF42FA123456785A334D44");
+        zebra3Vst3ParamIds = new String[] {"PID411"};
+        zebra3Vst3Params0 = new Parameter[] {zebra3Vst3View0.createParameter(0x411)};
+        for (Parameter param : zebra3Vst3Params0) {
+            param.exists().markInterested();
+            param.name().markInterested();
+            param.value().markInterested();
+            param.value().displayedValue().markInterested();
+            param.value().getOrigin().markInterested();
+            param.value().discreteValueCount().markInterested();
+            param.value().discreteValueNames().markInterested();
+            param.modulatedValue().markInterested();
+            param.hasAutomation().markInterested();
         }
 
         transport = host.createTransport();

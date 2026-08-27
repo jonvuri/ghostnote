@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Sessions 5j through 5s generalize the public modulation surface; 5j is next.
-updated: 2026-08-25
+status: Reopened 2026-08-25. Session 5j is complete; 5k is next.
+updated: 2026-08-26
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -109,10 +109,11 @@ that first integration unless the proof needs one new owned asset.
    E73 proves the four-entry public patch, nested parameter work, two active
    routes, reversal, exact cleanup, and every local and live gate. GitHub
    Actions run 32660690914 passes the exact candidate.
-10. [5j — general modulation targets](5j-general-modulation-targets.md) — next.
-    Use stable DirectParameter ids and names instead of built-in target recipes.
+10. [5j — general modulation targets](5j-general-modulation-targets.md) — done.
+    One exact DirectParameter target serves native and plug-in routes. Native
+    and Zebra3 VST3 behavior pass live with exact cleanup.
 11. [5k — semantic preset modulation inspection](5k-semantic-preset-modulation-inspection.md)
-    — planned. Discover hosts, semantic modulator locations, types, and targets
+    — next. Discover hosts, semantic modulator locations, types, and targets
     without exposing binary selectors.
 12. [5l — complete list-scoped topology](5l-complete-list-scoped-topology.md) —
     planned. Run add, replace, retarget, amount, and delete on any selected list.

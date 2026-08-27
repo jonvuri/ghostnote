@@ -53,7 +53,7 @@ try {
     donorId: 'lfo-sampler',
     routing: { target: 'CONTENTS/AMP_ATTACK_TIME', amount: 1 },
     witness: {
-      pageName: 'Amp EG', controlName: 'Attack', samples: 10,
+      parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'Amp Attack', samples: 10,
       sampleIntervalMs: 80, minimumDivergence: 1e-3,
     },
     expectedChain: [],
@@ -72,8 +72,7 @@ try {
         (value, index) => value === addRelocation.before[index]! + 0x10,
       ), addRelocation);
   if (added.verification.selector !== undefined) {
-    note(`add ${added.verification.selector.pageIndex}:${JSON.stringify(added.verification.selector.pageName)}`
-      + `/${added.verification.selector.controlIndex}:${JSON.stringify(added.verification.selector.controlName)}`
+    note(`add ${JSON.stringify(added.verification.selector.directId)}`
       + ` divergence=${added.verification.maximumDivergence.toFixed(6)}`
       + ` baseSpread=${added.verification.baseSpread.toFixed(6)}`);
   }
@@ -91,7 +90,7 @@ try {
     edit: { kind: 'delete', index: 0, removedFootprint: 0x10 },
     pageWitnesses: [{ pageName: 'LFO', expectedCount: 0 }],
     behaviorWitnesses: [{
-      expected: 'inactive', pageName: 'Amp EG', controlName: 'Attack', samples: 10,
+      expected: 'inactive', parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'Amp Attack', samples: 10,
       sampleIntervalMs: 80, minimumDivergence: 1e-3,
     }],
     expectedChain: [],
@@ -112,8 +111,7 @@ try {
       ), deleteRelocation);
   for (const behavior of deleted.verification.behaviors) {
     if (behavior.selector !== undefined) {
-      note(`delete ${behavior.selector.pageIndex}:${JSON.stringify(behavior.selector.pageName)}`
-        + `/${behavior.selector.controlIndex}:${JSON.stringify(behavior.selector.controlName)}`
+      note(`delete ${JSON.stringify(behavior.selector.directId)}`
         + ` divergence=${behavior.maximumDivergence.toFixed(6)}`
         + ` baseSpread=${behavior.baseSpread.toFixed(6)}`);
     }

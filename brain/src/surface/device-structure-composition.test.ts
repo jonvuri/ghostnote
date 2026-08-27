@@ -94,7 +94,7 @@ function fixture(
             devices: [{
               name: entry.deviceName,
               paramsLive: true,
-              params: [],
+              params: directParameters(preset, index + 1),
               remotePages: remotePages(preset, index + 1),
             }],
           }));
@@ -104,6 +104,22 @@ function fixture(
     },
   });
   return { fake, workspace, trackId, presets };
+}
+
+function directParameters(preset: Buffer, listIndex: number) {
+  const routes = listModulators(preset, listIndex).flatMap((modulator) => modulator.routes);
+  return [
+    {
+      id: 'CONTENTS/F1FREQ', name: 'Filter Frequency', value: 0.4,
+      modulatedValue: routes.some((route) => route.target === 'CONTENTS/F1FREQ') ? 0.75 : 0.4,
+      hasAutomation: false,
+    },
+    {
+      id: 'CONTENTS/AMP_ATTACK_TIME', name: 'Amp Attack', value: 0.2,
+      modulatedValue: routes.some((route) => route.target === 'CONTENTS/AMP_ATTACK_TIME') ? 0.6 : 0.2,
+      hasAutomation: false,
+    },
+  ];
 }
 
 function remotePages(preset: Buffer, listIndex: number) {
@@ -182,7 +198,7 @@ test('5h-public: one complete request reports distinct facts and reverses its re
   assert.equal(fx.presets.length, 1);
 
   const encoded = JSON.stringify(result);
-  assert.doesNotMatch(encoded, /bwpreset|template|manifest|uuid|guid|listIndex|donor|footprint|offset|CONTENTS\//i);
+  assert.doesNotMatch(encoded, /bwpreset|template|manifest|uuid|guid|listIndex|donor|footprint|offset/i);
 
   const reversed = await callTool(fx.workspace, 'revert_change', { changeId: change.changeId }) as {
     applied: boolean;

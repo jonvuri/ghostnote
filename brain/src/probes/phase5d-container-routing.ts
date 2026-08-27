@@ -64,8 +64,8 @@ try {
     pageWitnesses: [{ pageName: 'LFO', expectedCount: 1 }],
     behaviorWitnesses: [{
       expected: 'active',
-      pageName: 'FILTER',
-      controlName: 'Filt Freq',
+      parameterId: 'CONTENTS/F1FREQ',
+      parameterName: 'Filter Frequency',
       nestedDevice: { slotName: 'CHAIN', chainIndex: 0 },
       samples: 10,
       sampleIntervalMs: 80,
@@ -95,8 +95,7 @@ try {
     result.verification);
   const behavior = result.verification.behaviors[0];
   if (behavior?.selector !== undefined) {
-    note(`nested selector ${behavior.selector.pageIndex}:${JSON.stringify(behavior.selector.pageName)}`
-      + `/${behavior.selector.controlIndex}:${JSON.stringify(behavior.selector.controlName)}`
+    note(`nested selector ${JSON.stringify(behavior.selector.directId)}`
       + ` divergence=${behavior.maximumDivergence.toFixed(6)}`
       + ` baseSpread=${behavior.baseSpread.toFixed(6)}`);
   }

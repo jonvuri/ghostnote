@@ -52,8 +52,8 @@ try {
     donorId: 'lfo-sampler',
     routing: { target: 'CONTENTS/F1FREQ', amount: 1 },
     witness: {
-      pageName: 'FILTER',
-      controlName: 'Filt Freq',
+      parameterId: 'CONTENTS/F1FREQ',
+      parameterName: 'Filter Frequency',
       samples: 10,
       sampleIntervalMs: 80,
       minimumDivergence: 1e-3,
@@ -69,13 +69,10 @@ try {
     });
   check('5a-L2: the take records a structural preset insert with exact absence restore',
     result.edit.structural && result.edit.restoreFidelity === 'exact', result.edit);
-  check('5a-L3: one exact remote selector proves live modulation',
+  check('5a-L3: one exact DirectParameter proves live modulation',
     result.verification.verified, result.verification);
   if (result.verification.selector !== undefined) {
-    note(`selector page=${result.verification.selector.pageIndex} `
-      + `${JSON.stringify(result.verification.selector.pageName)} control=`
-      + `${result.verification.selector.controlIndex} `
-      + `${JSON.stringify(result.verification.selector.controlName)}`);
+    note(`selector parameter=${JSON.stringify(result.verification.selector.directId)}`);
     note(`maximum divergence=${result.verification.maximumDivergence.toFixed(6)} `
       + `base spread=${result.verification.baseSpread.toFixed(6)}`);
   }

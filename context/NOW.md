@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-25
+updated: 2026-08-26
 phase: phase-5
-session: 5j-general-modulation-targets
+session: 5k-semantic-preset-modulation-inspection
 ---
 
 # Now
@@ -230,11 +230,23 @@ permission, or silence. [DF-002](plan/dogfooding/findings.md#df-002--agent-can-i
 records the false verdict as one incidental supporting vote. Treat observation
 `94619ba8-0cfe-4950-80ee-4977c077e1fd` as invalid operator-response evidence.
 
+Phase 5j is complete. Public `author_modulators` accepts one exact
+DirectParameter id and name for native, VST3, and CLAP routes. Ghostnote keeps
+Ramona routes, list positions, byte offsets, and remote positions internal. The
+three original target names resolve through the same implementation.
+
+The combined live proof verified native Polysynth and Zebra3 VST3 active
+targets, stable bases, false automation, reversal, and exact four-track cleanup.
+The full brain check passes 895/895. Extension tests, deploy freshness, and the
+148-method handshake pass. [E85](evidence/experiments/e85-general-directparameter-modulation-targets-are-live.md)
+records the result and the host observation qualification.
+
 ## Next action
 
-Implement [Session 5j](plan/phase-5/5j-general-modulation-targets.md). Replace
-the three fixed target recipes with one DirectParameter target contract while
-keeping raw routes internal. Do not begin Phase 6a until Phase 5 and the open
+Implement
+[Session 5k](plan/phase-5/5k-semantic-preset-modulation-inspection.md). Add one
+read-only semantic preset inventory that binds public device and entry paths to
+internal modulator lists. Do not begin Phase 6a until Phase 5 and the open
 dogfood loop close.
 
 ## Retrospective
@@ -251,6 +263,8 @@ Carry the resolved catalog name through insertion completion and reversal.
 Run deploy freshness before a live probe that depends on new observer handles.
 Measure complete host color tuples before defining a component conversion.
 Count a partial verdict at both the instruction and scoped-item levels.
+Measure DirectParameter ids and internal routes on each host type before a
+combined live proof. Native and plug-in ids need different route forms.
 Link unexpected cross-session behavior to a stable finding. Count at most one
 vote from each root session and retain counterevidence from that session.
 Do not infer an operator verdict from an agent refusal. Keep proved core

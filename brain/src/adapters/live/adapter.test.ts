@@ -2133,6 +2133,7 @@ class ParameterTransport implements Transport {
   malformedRemoteControl = false;
   movingRemote = false;
   typedMetadata = false;
+  typedPluginMetadata = false;
   collateralAfterWrite: { readonly id: string; readonly value: number } | undefined;
   failRemoteIndex: number | undefined;
   emptySlot = false;
@@ -2292,6 +2293,12 @@ class ParameterTransport implements Transport {
         };
       }
       case WIRE.paramList: {
+        if (this.typedPluginMetadata) {
+          return { params: [{
+            id: 'PID411', exists: true, name: 'Cutoff', value: 0.2,
+            modulatedValue: 0.5, hasAutomation: false,
+          }] };
+        }
         const first = this.devices[this.selected]?.params.get('P1');
         return this.typedMetadata && first !== undefined
           ? { params: [{
@@ -2487,6 +2494,21 @@ test('d02-s7 live inventory: typed metadata proves the binary normalized domain'
     entry?.value.of === 'param' ? entry.value.param.discreteValueNames : undefined,
     ['Off', 'On'],
   );
+});
+
+test('5j live inventory: a typed VST3 id supplements its exact DirectParameter row', async () => {
+  const wire = new ParameterTransport();
+  wire.devices[0]!.params.set('CONTENTS/PID411', { name: 'Cutoff', value: 0.2 });
+  wire.typedPluginMetadata = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'CONTENTS/PID411');
+  const snapshot = await adapter.read([address]);
+  const entry = snapshot.entries[addressKey(address)];
+
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.name : undefined, 'Cutoff');
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.modulatedValue : undefined, 0.5);
+  assert.equal(entry?.value.of === 'param'
+    ? entry.value.param.observed.modulatedValue : undefined, true);
 });
 
 test('L-direct-param: each write reads a complete inventory and exact reversal restores the base', async () => {

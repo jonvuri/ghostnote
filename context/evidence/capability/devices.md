@@ -111,6 +111,13 @@ channels, and local device positions must match the route recorded during cursor
 selection [K,
 [E77](../experiments/e77-nested-direct-parameter-guards-are-live.md)].
 
+Public modulation targets use the exact DirectParameter id and name from this
+inventory. Native ids remain unchanged. Plug-in ids gain the internal generic
+module segment. Bitwig DirectParameter observers do not expose
+`modulatedValue`; an exact remote control or a typed VST3 handle supplies the
+internal behavior witness [K,
+[E85](../experiments/e85-general-directparameter-modulation-targets-are-live.md)].
+
 The live Sampler returned 32 unique named parameters. `Pitch Transpose` moved
 from `0.5` to `0.55`, independent readback agreed, and exact replay restored
 `0.5` [K, E55]. Missing, unreachable, and unstable results stay separate. A
@@ -353,11 +360,13 @@ The slot route confirms its parent and repeats the descent, so an empty slot
 cannot silently resolve to the parent device.
 
 `author_modulators` exposes add, replace, retarget, amount, and delete through
-named operations. `compose_device_structure` applies those operations while it
+named operations. Add and retarget accept one exact DirectParameter id and name.
+The caller cannot supply a Ramona route or binary position.
+`compose_device_structure` applies those operations while it
 builds one through four native entries. Existing inspection and parameter tools
 then reach each nested device by its named container entry. Maximum-width
 dogfood set and read exact Polysynth and Sampler bases without a new parameter
-grammar [K, E70, E72, and E73].
+grammar [K, E70, E72, E73, and E85].
 
 ---
 
@@ -365,6 +374,7 @@ grammar [K, E70, E72, and E73].
 
 | Date | Change |
 |---|---|
+| 2026-08-26 | E85 adds general DirectParameter modulation targets, internal native and plug-in route conversion, and live native and VST3 behavior proof. |
 | 2026-08-23 | E77 separates top-level, nested-route, and final-target guards for scalar parameter writes. |
 | 2026-08-23 | E70, E72, and E73 add the public modulator and composition surfaces, maximum-width behavior proof, and nested parameter reuse. |
 | 2026-08-23 | E68 adds explicit container-list retarget, named device-slot observation, checkpointed cross-device behavior, and exact cleanup. |

@@ -75,11 +75,11 @@ try {
         edit: { kind: 'retarget', index: 2, target: 'CONTENTS/F1RESO' },
         behaviorWitnesses: [
           {
-            expected: 'inactive', pageName: 'FILTER', controlName: 'Filt Freq',
+            expected: 'inactive', parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency',
             samples: 10, sampleIntervalMs: 80, minimumDivergence: 1e-3,
           },
           {
-            expected: 'active', pageName: 'FILTER', controlName: 'Reso',
+            expected: 'active', parameterId: 'CONTENTS/F1RESO', parameterName: 'Filter Resonance',
             samples: 10, sampleIntervalMs: 80, minimumDivergence: 1e-3,
           },
         ],
@@ -95,7 +95,7 @@ try {
           { pageName: 'Vibrato', expectedCount: 1 },
         ],
         behaviorWitnesses: [{
-          expected: 'inactive', pageName: 'FILTER', controlName: 'Filt Freq',
+          expected: 'inactive', parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency',
           samples: 10, sampleIntervalMs: 80, minimumDivergence: 1e-3,
         }],
       },
@@ -116,8 +116,7 @@ try {
       });
     for (const behavior of result.verification.behaviors) {
       if (behavior.selector !== undefined) {
-        note(`${item.key}: ${behavior.selector.pageIndex}:${JSON.stringify(behavior.selector.pageName)}`
-          + `/${behavior.selector.controlIndex}:${JSON.stringify(behavior.selector.controlName)}`
+        note(`${item.key}: ${JSON.stringify(behavior.selector.directId)}`
           + ` divergence=${behavior.maximumDivergence.toFixed(6)}`
           + ` baseSpread=${behavior.baseSpread.toFixed(6)}`);
       }

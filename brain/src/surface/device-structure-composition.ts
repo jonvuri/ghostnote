@@ -118,10 +118,7 @@ function publicBehavior(witness: CompositionLiveWitness): Record<string, unknown
     ...(behavior.verified ? {} : { why: behavior.why }),
     ...(behavior.selector === undefined ? {} : {
       selector: {
-        pagePosition: behavior.selector.pageIndex,
-        pageName: behavior.selector.pageName,
-        controlPosition: behavior.selector.controlIndex,
-        controlName: behavior.selector.controlName,
+        parameterId: behavior.selector.directId,
       },
     }),
     samples: behavior.samples,

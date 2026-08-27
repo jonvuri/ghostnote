@@ -29,6 +29,11 @@ export {
   authorModulatorAdd, authorModulatorEdit, ModulatorAuthoringError,
 } from './modulator-authoring.js';
 
+export { modulationRoute } from './modulation-target.js';
+export type {
+  ModulationTarget, ResolvedModulationTargetLocation,
+} from './modulation-target.js';
+
 export { buildOwnedTemplateComposition } from './owned-template-composition.js';
 export type {
   CompositionLiveWitness, CompositionStructureVerification, ObservedCompositionEntry,
@@ -39,7 +44,7 @@ export type {
   AddModulatorOptions, AddModulatorRequest, AddModulatorResult, ModulationSample,
   ModulationVerification, ModulatorAuthoringHost, ModulatorBehaviorWitness, ModulatorEdit,
   ModulatorEditOptions, ModulatorEditRequest, ModulatorEditResult,
-  ModulatorPageVerification, ModulatorPageWitness, ModulatorRemoteWitness,
+  ModulatorPageVerification, ModulatorPageWitness, ModulatorParameterWitness,
   ModulatorStubRelocation,
 } from './modulator-authoring.js';
 
