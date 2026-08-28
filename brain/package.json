@@ -30,6 +30,7 @@
     "probe:phase5h-composition": "tsx src/probes/phase5h-device-structure-composition.ts",
     "probe:phase5i-closeout": "tsx src/probes/phase5i-composition-closeout.ts",
     "probe:phase5j-targets": "tsx src/probes/phase5j-general-modulation-targets.ts",
+    "probe:phase5l-topology": "tsx src/probes/phase5l-list-scoped-topology.ts",
     "probe:e00": "tsx src/probes/e00-ping.ts",
     "probe:e01a": "tsx src/probes/e01a-pointing.ts",
     "probe:e01b": "tsx src/probes/e01b-interference.ts",

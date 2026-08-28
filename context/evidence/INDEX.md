@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E87 | List-scoped topology is complete [K] (2026-08-27) | [open](experiments/e87-list-scoped-topology-is-complete.md) |
 | E86 | Semantic preset modulation inspection is complete [K] (2026-08-27) | [open](experiments/e86-semantic-preset-modulation-inspection-is-complete.md) |
 | E79 | Container and note refusals are explicit [K] (2026-08-23) | [open](experiments/e79-container-and-note-refusals-are-explicit.md) |
 | E78 | Cohort parameter writes are live [K] (2026-08-23) | [open](experiments/e78-cohort-parameter-writes-are-live.md) |

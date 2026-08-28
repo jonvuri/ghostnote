@@ -26,7 +26,7 @@ export type {
 } from './managed-fx-chain.js';
 
 export {
-  authorModulatorAdd, authorModulatorEdit, ModulatorAuthoringError,
+  authorModulatorAdd, authorModulatorEdit, authorSemanticModulatorEdit, ModulatorAuthoringError,
 } from './modulator-authoring.js';
 
 export { modulationRoute } from './modulation-target.js';
@@ -54,7 +54,7 @@ export type {
   ModulationVerification, ModulatorAuthoringHost, ModulatorBehaviorWitness, ModulatorEdit,
   ModulatorEditOptions, ModulatorEditRequest, ModulatorEditResult,
   ModulatorPageVerification, ModulatorPageWitness, ModulatorParameterWitness,
-  ModulatorStubRelocation,
+  ModulatorStubRelocation, SemanticModulatorEditRequest, SemanticModulatorEditResult,
 } from './modulator-authoring.js';
 
 export {

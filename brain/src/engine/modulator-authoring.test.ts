@@ -1,18 +1,23 @@
 import { existsSync } from 'node:fs';
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { track, type Op, type TrackAddress } from '../contract/index.js';
-import { listModulators, stubValues, validate } from '../bwmod/index.js';
+import {
+  listModulators, modulatorListOffsets, readModulatorRefs, stubValues, validate,
+} from '../bwmod/index.js';
 import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import { Executor } from './executor.js';
 import {
   ModulatorAuthoringError, authorModulatorAdd, authorModulatorEdit,
+  authorSemanticModulatorEdit,
   type ModulatorAuthoringHost, type ModulatorEditRequest,
 } from './modulator-authoring.js';
+import { fingerprintPreset } from './preset-modulation-inspection.js';
 
 interface AuthoringFixture {
   readonly fake: FakeAdapter;
@@ -733,5 +738,247 @@ test('5j-request: behavior proof requires an exact parameter name before apply',
       && error.stage === 'request'
       && /parameterName must not be empty/.test(error.message),
   );
+  assert.equal(fx.calls.length, 0);
+});
+
+test('5l-selected-list: all five edits use one semantic nested-device location', async () => {
+  const templatePath = join(FIXTURE_DIR, 'InstrumentLayer', 'gn_layer_4chain.bwpreset');
+  const template = await readFile(templatePath);
+  const location = {
+    kind: 'entry' as const,
+    entry: { position: 0, name: 'CHAIN0' },
+    devicePath: [{ position: 0, name: 'Phase-4' }],
+  };
+  const cases: readonly {
+    readonly edit: ModulatorEditRequest['edit'];
+    readonly before: number;
+    readonly after: number;
+  }[] = [
+    {
+      edit: {
+        kind: 'add', donorId: 'random-sampler',
+        routing: { target: 'CONTENTS/PITCH', amount: 0.5 },
+      },
+      before: 2,
+      after: 3,
+    },
+    { edit: { kind: 'replace', index: 0, donorId: 'random-poly' }, before: 2, after: 2 },
+    { edit: { kind: 'retarget', index: 0, target: 'CONTENTS/F1FREQ' }, before: 2, after: 2 },
+    { edit: { kind: 'amount', index: 0, amount: 0.25 }, before: 2, after: 2 },
+    { edit: { kind: 'delete', index: 0 }, before: 2, after: 1 },
+  ];
+
+  for (const item of cases) {
+    const fx = containerFixture();
+    let validated: Buffer | undefined;
+    const result = await authorSemanticModulatorEdit(fx.host, {
+      track: fx.track,
+      templatePath,
+      fingerprint: fingerprintPreset(template),
+      location,
+      edit: item.edit,
+      pageWitnesses: [{ pageName: 'LFO', expectedCount: 1 }],
+      expectedChain: [],
+      expectedEnabledChain: [],
+    }, {
+      wait: async () => undefined,
+      onValidated(preset) {
+        validated = Buffer.from(preset);
+      },
+    });
+
+    assert.equal(result.edit.modulatorsBefore.length, item.before, item.edit.kind);
+    assert.equal(result.edit.modulatorsAfter.length, item.after, item.edit.kind);
+    assert.deepEqual(result.edit.location, location, item.edit.kind);
+    assert.equal(result.edit.siblingInventoriesUnchanged, true, item.edit.kind);
+    assert.equal(result.verification.verified, true, item.edit.kind);
+    assert.doesNotMatch(JSON.stringify(result.edit), /listIndex|rawRoute|routeString|guid/i);
+    assert.ok(validated);
+    const expectedRefs = [...new Set(modulatorListOffsets(validated).flatMap((_, listIndex) =>
+      listModulators(validated!, listIndex).map((modulator) => modulator.guid)))];
+    assert.deepEqual(readModulatorRefs(validated), expectedRefs, item.edit.kind);
+  }
+});
+
+test('5l-pages: a page witness can select the edited nested device', async () => {
+  const fx = containerFixture();
+  const templatePath = join(FIXTURE_DIR, 'InstrumentLayer', 'gn_layer_4chain.bwpreset');
+  const template = await readFile(templatePath);
+  const result = await authorSemanticModulatorEdit(fx.host, {
+    track: fx.track,
+    templatePath,
+    fingerprint: fingerprintPreset(template),
+    location: {
+      kind: 'entry',
+      entry: { position: 0, name: 'CHAIN0' },
+      devicePath: [{ position: 0, name: 'Phase-4' }],
+    },
+    edit: { kind: 'retarget', index: 0, target: 'CONTENTS/F1FREQ' },
+    pageWitnesses: [{
+      pageName: 'FILTER',
+      expectedCount: 1,
+      nestedDevice: { slotName: 'CHAIN', chainIndex: 0 },
+    }],
+  }, { wait: async () => undefined });
+
+  assert.equal(result.verification.pages.verified, true);
+  assert.deepEqual(result.verification.pages.actualPages, ['FILTER']);
+});
+
+test('5l-plain: all five semantic edits work at self', async () => {
+  const templatePath = join(FIXTURE_DIR, 'Polysynth', 'modtest.bwpreset');
+  const template = await readFile(templatePath);
+  const cases: readonly {
+    readonly edit: ModulatorEditRequest['edit'];
+    readonly pageWitnesses: ModulatorEditRequest['pageWitnesses'];
+  }[] = [
+    {
+      edit: {
+        kind: 'add', donorId: 'random-sampler',
+        routing: { target: 'CONTENTS/F1FREQ', amount: 0.5 },
+      },
+      pageWitnesses: [{ pageName: 'Random', expectedCount: 1 }],
+    },
+    {
+      edit: { kind: 'replace', index: 2, donorId: 'random-poly' },
+      pageWitnesses: [{ pageName: 'Random', expectedCount: 1 }],
+    },
+    {
+      edit: { kind: 'retarget', index: 2, target: 'CONTENTS/F1RESO' },
+      pageWitnesses: [{ pageName: 'LFO', expectedCount: 1 }],
+    },
+    {
+      edit: { kind: 'amount', index: 2, amount: 0.25 },
+      pageWitnesses: [{ pageName: 'LFO', expectedCount: 1 }],
+    },
+    {
+      edit: { kind: 'delete', index: 2 },
+      pageWitnesses: [{ pageName: 'LFO', expectedCount: 0 }],
+    },
+  ];
+
+  for (const item of cases) {
+    const fx = topologyFixture();
+    const result = await authorSemanticModulatorEdit(fx.host, {
+      track: fx.track,
+      templatePath,
+      fingerprint: fingerprintPreset(template),
+      location: { kind: 'self' },
+      edit: item.edit,
+      pageWitnesses: item.pageWitnesses,
+      expectedChain: [],
+      expectedEnabledChain: [],
+    }, { wait: async () => undefined });
+    assert.equal(result.verification.verified, true, item.edit.kind);
+    assert.equal(result.edit.siblingInventoriesUnchanged, true, item.edit.kind);
+  }
+});
+
+test('5l-guard: stale and missing semantic selections refuse before apply', async () => {
+  const templatePath = join(FIXTURE_DIR, 'InstrumentLayer', 'gn_layer_4chain.bwpreset');
+  const template = await readFile(templatePath);
+  const base = {
+    track: containerFixture().track,
+    templatePath,
+    edit: { kind: 'delete' as const, index: 0 },
+    pageWitnesses: [{ pageName: 'LFO', expectedCount: 0 }],
+  };
+  const cases = [
+    {
+      fingerprint: { ...fingerprintPreset(template), sha256: '0'.repeat(64) },
+      location: { kind: 'container' as const, name: 'Instrument Layer' },
+      message: /changed after inspection/,
+    },
+    {
+      fingerprint: fingerprintPreset(template),
+      location: { kind: 'container' as const, name: 'Missing' },
+      message: /location is missing/,
+    },
+  ];
+  for (const item of cases) {
+    const fx = containerFixture();
+    await assert.rejects(
+      authorSemanticModulatorEdit(fx.host, {
+        ...base,
+        track: fx.track,
+        fingerprint: item.fingerprint,
+        location: item.location,
+      }),
+      (error: unknown) => error instanceof ModulatorAuthoringError
+        && error.stage === 'edit'
+        && item.message.test(error.message),
+    );
+    assert.equal(fx.calls.length, 0);
+  }
+});
+
+test('5l-guard: an unsupported semantic mapping refuses before apply', async () => {
+  const sourcePath = join(FIXTURE_DIR, 'Polysynth', 'modtest.bwpreset');
+  const damaged = Buffer.from(await readFile(sourcePath));
+  damaged.write('0001', 8, 4, 'latin1');
+  const directory = await mkdtemp(join(tmpdir(), 'ghostnote-5l-unsupported-'));
+  const templatePath = join(directory, 'unsupported.bwpreset');
+  await writeFile(templatePath, damaged);
+  try {
+    const fx = topologyFixture();
+    await assert.rejects(authorSemanticModulatorEdit(fx.host, {
+      track: fx.track,
+      templatePath,
+      fingerprint: fingerprintPreset(damaged),
+      location: { kind: 'self' },
+      edit: { kind: 'delete', index: 0 },
+      pageWitnesses: [{ pageName: 'LFO', expectedCount: 0 }],
+    }), (error: unknown) => error instanceof ModulatorAuthoringError
+      && error.stage === 'edit'
+      && /complete, unambiguous semantic modulator mapping/.test(error.message));
+    assert.equal(fx.calls.length, 0);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('5l-sampled: semantic object edits relocate every stub and unknown footprints refuse', async () => {
+  const templatePath = join(FIXTURE_DIR, 'Sampler', 'gn_sampler_multi_one_lfo.bwpreset');
+  const template = await readFile(templatePath);
+  for (const item of [
+    {
+      edit: {
+        kind: 'add' as const, donorId: 'random-sampler',
+        routing: { target: 'CONTENTS/TRANSPOSE', amount: 0.5 },
+      },
+      delta: 0x0d,
+    },
+    {
+      edit: {
+        kind: 'replace' as const, index: 0, donorId: 'random-sampler', removedFootprint: 0x10,
+      },
+      delta: -3,
+    },
+    { edit: { kind: 'delete' as const, index: 0, removedFootprint: 0x10 }, delta: -0x10 },
+  ]) {
+    const fx = topologyFixture();
+    const result = await authorSemanticModulatorEdit(fx.host, {
+      track: fx.track,
+      templatePath,
+      fingerprint: fingerprintPreset(template),
+      location: { kind: 'self' },
+      edit: item.edit,
+      pageWitnesses: [{ pageName: 'LFO', expectedCount: item.edit.kind === 'add' ? 1 : 0 }],
+    }, { wait: async () => undefined });
+    assert.equal(result.edit.stubRelocation?.stubCount, 4);
+    assert.equal(result.edit.stubRelocation?.delta, item.delta);
+    assert.deepEqual(result.edit.stubRelocation?.after,
+      stubValues(template).map((value) => value + item.delta));
+  }
+
+  const fx = topologyFixture();
+  await assert.rejects(authorSemanticModulatorEdit(fx.host, {
+    track: fx.track,
+    templatePath,
+    fingerprint: fingerprintPreset(template),
+    location: { kind: 'self' },
+    edit: { kind: 'replace', index: 0, donorId: 'lfo-poly' },
+    pageWitnesses: [{ pageName: 'LFO', expectedCount: 1 }],
+  }), /footprint/);
   assert.equal(fx.calls.length, 0);
 });

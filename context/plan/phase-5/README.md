@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5k is complete; 5l is next.
+status: Reopened 2026-08-25. Session 5l is complete; 5m is next.
 updated: 2026-08-27
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -116,9 +116,9 @@ that first integration unless the proof needs one new owned asset.
     — done. Discover hosts, semantic modulator locations, types, and targets
     without exposing binary selectors.
 12. [5l — complete list-scoped topology](5l-complete-list-scoped-topology.md) —
-    next. Run add, replace, retarget, amount, and delete on any selected list.
+    done. Run add, replace, retarget, amount, and delete on any semantic list.
 13. [5m — general donor catalog](5m-general-donor-catalog.md) — planned. Make
-    public modulator types manifest-driven and complete for the current host.
+    next. Make public modulator types manifest-driven and complete for the current host.
 14. [5n — general public preset authoring](5n-general-public-preset-authoring.md)
     — planned. Combine general targets, semantic lists, all editors, and the
     donor catalog across every proved host tier.

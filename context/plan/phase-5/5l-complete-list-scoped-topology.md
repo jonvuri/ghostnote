@@ -1,9 +1,9 @@
 ---
 title: Phase 5l — complete list-scoped topology
 kind: plan
-state: planned
-status: Planned after 5k. Complete all five editors on one semantic container location.
-updated: 2026-08-25
+state: complete
+status: Complete. E87 proves all five semantic list-scoped editors and live outer and nested pages.
+updated: 2026-08-27
 parent: README.md
 evidence: D1, D2, D3, E13, E66, E67, E68, E71
 ---
@@ -54,3 +54,10 @@ semantic modulator location.
 
 Session 5n exposes these complete operations after Session 5m completes the
 general donor catalog.
+
+## Outcome
+
+[E87](../../evidence/experiments/e87-list-scoped-topology-is-complete.md)
+records the fingerprint guard, semantic resolution, complete editor matrix,
+container-wide GUID reference rebuild, sampled-stub proof, live page witnesses,
+reversal, and exact cleanup.

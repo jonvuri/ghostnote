@@ -152,11 +152,22 @@ export function validate(buf: Buffer, opts: ValidateOptions = {}): ValidationRes
       const refs = readModulatorRefs(buf);
       const guids = modulators.map((m) => m.guid);
       if (listCount > 1) {
+        let expected: readonly string[] | undefined;
+        try {
+          expected = [...new Set(modulatorListOffsets(buf).flatMap((_, listIndex) =>
+            listModulators(buf, listIndex).map((modulator) => modulator.guid)))];
+        } catch {
+          // A later selected-list check reports the exact damaged structure.
+        }
+        if (expected !== undefined && JSON.stringify(refs) !== JSON.stringify(expected)) {
+          throw new Error(
+            `container refs are not the ordered unique GUID set: `
+              + `${JSON.stringify(refs)} vs ${JSON.stringify(expected)}`,
+          );
+        }
         const missing = [...new Set(guids)].filter((guid) => !refs.includes(guid));
         if (missing.length > 0) {
-          throw new Error(
-            `selected-list GUIDs are absent from the container refs: ${JSON.stringify(missing)}`,
-          );
+          throw new Error(`selected-list GUIDs are absent from the container refs: ${JSON.stringify(missing)}`);
         }
       } else {
         if (refs.length !== guids.length) {

@@ -16,11 +16,15 @@ import {
 } from '../contract/index.js';
 import {
   addModulator, deleteModulator, findModulatorList, identifyCuratedDonor, listModulators, loadDonor,
-  modulatorBounds, replaceModulator, retarget, stubValues, validate,
+  modulatorBounds, replaceModulator, retarget, setAmount, stubValues, validate,
 } from '../bwmod/index.js';
 import type { Modulator, Routing, ValidationResult } from '../bwmod/index.js';
 import type { RunOptions } from './executor.js';
 import type { Take } from './take.js';
+import {
+  assertPresetFingerprint, inspectPresetModulation,
+  type PresetFingerprint, type PublicPresetModulator, type SemanticModulatorLocation,
+} from './preset-modulation-inspection.js';
 
 const DEFAULT_SAMPLES = 8;
 const DEFAULT_SAMPLE_INTERVAL_MS = 60;
@@ -65,6 +69,8 @@ export interface ModulatorBehaviorWitness extends ModulatorParameterWitness {
 export interface ModulatorPageWitness {
   readonly pageName: string;
   readonly expectedCount: number;
+  /** Select one nested device below the inserted container. */
+  readonly nestedDevice?: ModulatorParameterWitness['nestedDevice'];
 }
 
 /** Measured Tier-2 reference-stub movement for one topology edit. */
@@ -149,6 +155,11 @@ export interface AddModulatorOptions {
 
 export type ModulatorEdit =
   | {
+    readonly kind: 'add';
+    readonly donorId: string;
+    readonly routing: Routing;
+  }
+  | {
     readonly kind: 'replace';
     readonly index: number;
     readonly donorId: string;
@@ -158,6 +169,12 @@ export type ModulatorEdit =
     readonly kind: 'retarget';
     readonly index: number;
     readonly target: string;
+    readonly routeIndex?: number;
+  }
+  | {
+    readonly kind: 'amount';
+    readonly index: number;
+    readonly amount: number;
     readonly routeIndex?: number;
   }
   | {
@@ -212,6 +229,30 @@ export interface ModulatorEditResult {
 }
 
 export type ModulatorEditOptions = AddModulatorOptions;
+
+/** A fingerprinted edit addressed only by the semantic location from inspection. */
+export interface SemanticModulatorEditRequest extends Omit<ModulatorEditRequest, 'listIndex'> {
+  readonly fingerprint: PresetFingerprint;
+  readonly location: SemanticModulatorLocation;
+}
+
+export interface SemanticModulatorEditResult {
+  readonly take: Take;
+  readonly minted?: DeviceAddress;
+  readonly edit: {
+    readonly kind: `modulator.${ModulatorEdit['kind']}`;
+    readonly structural: true;
+    readonly templatePath: string;
+    readonly location: SemanticModulatorLocation;
+    readonly modulatorsBefore: readonly PublicPresetModulator[];
+    readonly modulatorsAfter: readonly PublicPresetModulator[];
+    readonly siblingInventoriesUnchanged: true;
+    readonly stubRelocation?: ModulatorStubRelocation;
+    readonly validationWarnings: readonly string[];
+    readonly restoreFidelity: Take['fidelity'];
+  };
+  readonly verification: ModulatorEditResult['verification'];
+}
 
 export class ModulatorAuthoringError extends Error {
   readonly stage: 'request' | 'edit' | 'validate';
@@ -423,6 +464,91 @@ export async function authorModulatorEdit(
   };
 }
 
+/** Resolve one inspected semantic location, apply an edit, and report public inventories. */
+export async function authorSemanticModulatorEdit(
+  host: ModulatorAuthoringHost,
+  request: SemanticModulatorEditRequest,
+  options: ModulatorEditOptions = {},
+): Promise<SemanticModulatorEditResult> {
+  assertTemplatePath(request.templatePath);
+  let template: Buffer;
+  let beforeInspection: Extract<ReturnType<typeof inspectPresetModulation>, { supported: true }>;
+  let listIndex: number;
+  try {
+    template = await readFile(request.templatePath);
+    assertPresetFingerprint(template, request.fingerprint);
+    const inspection = inspectPresetModulation(template);
+    if (!inspection.supported) throw new Error(inspection.why);
+    beforeInspection = inspection;
+    listIndex = semanticListIndex(inspection, request.location);
+  } catch (error) {
+    throw new ModulatorAuthoringError('edit', errorMessage(error));
+  }
+
+  const directory = await mkdtemp(join(options.tempRoot ?? tmpdir(), 'ghostnote-semantic-bwmod-'));
+  const snapshotPath = join(directory, 'inspected.bwpreset');
+  let afterInspection:
+    | Extract<ReturnType<typeof inspectPresetModulation>, { supported: true }>
+    | undefined;
+  try {
+    await writeFile(snapshotPath, template);
+    const result = await authorModulatorEdit(host, {
+      track: request.track,
+      templatePath: snapshotPath,
+      listIndex,
+      edit: request.edit,
+      ...(request.pageWitnesses === undefined ? {} : { pageWitnesses: request.pageWitnesses }),
+      ...(request.behaviorWitnesses === undefined
+        ? {} : { behaviorWitnesses: request.behaviorWitnesses }),
+      ...(request.expectedChain === undefined ? {} : { expectedChain: request.expectedChain }),
+      ...(request.expectedEnabledChain === undefined
+        ? {} : { expectedEnabledChain: request.expectedEnabledChain }),
+    }, {
+      ...options,
+      onValidated(preset, checked) {
+        const inspection = inspectPresetModulation(preset);
+        if (!inspection.supported) {
+          throw new ModulatorAuthoringError(
+            'validate',
+            'the edit removed the complete semantic modulator mapping',
+          );
+        }
+        const afterListIndex = semanticListIndex(inspection, request.location);
+        if (afterListIndex !== listIndex) {
+          throw new ModulatorAuthoringError('validate', 'the selected semantic location changed position');
+        }
+        assertSiblingInventories(beforeInspection, inspection, listIndex);
+        afterInspection = inspection;
+        options.onValidated?.(preset, checked);
+      },
+    });
+    if (afterInspection === undefined) {
+      throw new ModulatorAuthoringError('validate', 'the semantic edit produced no validated preset');
+    }
+
+    return {
+      take: result.take,
+      ...(result.minted === undefined ? {} : { minted: result.minted }),
+      edit: {
+        kind: result.edit.kind,
+        structural: true,
+        templatePath: request.templatePath,
+        location: request.location,
+        modulatorsBefore: beforeInspection.modulation[listIndex]!.modulators,
+        modulatorsAfter: afterInspection.modulation[listIndex]!.modulators,
+        siblingInventoriesUnchanged: true,
+        ...(result.edit.stubRelocation === undefined
+          ? {} : { stubRelocation: result.edit.stubRelocation }),
+        validationWarnings: result.edit.validationWarnings,
+        restoreFidelity: result.edit.restoreFidelity,
+      },
+      verification: result.verification,
+    };
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+}
+
 export async function verifyModulation(
   host: ModulatorAuthoringHost,
   device: DeviceAddress,
@@ -570,6 +696,41 @@ export async function verifyPages(
   witnesses: readonly ModulatorPageWitness[],
   pause: (milliseconds: number) => Promise<void>,
 ): Promise<ModulatorPageVerification> {
+  if (witnesses.length === 0) {
+    const result = await remotePageNames(host, device, pause);
+    return typeof result === 'string'
+      ? failedPageVerification(result)
+      : { verified: true, actualPages: result, witnesses: [] };
+  }
+  const actualPages: string[] = [];
+  const observed: (ModulatorPageWitness & { readonly actualCount: number })[] = [];
+  for (const witness of witnesses) {
+    const selected = nestedWitnessDevice(device, witness.nestedDevice);
+    const result = await remotePageNames(host, selected, pause);
+    if (typeof result === 'string') return failedPageVerification(result);
+    actualPages.push(...result);
+    observed.push({
+      ...witness,
+      actualCount: result.filter((page) => page === witness.pageName).length,
+    });
+  }
+  const failed = observed.filter((witness) => witness.actualCount !== witness.expectedCount);
+  return failed.length === 0
+    ? { verified: true, actualPages, witnesses: observed }
+    : {
+      verified: false,
+      actualPages,
+      witnesses: observed,
+      why: `remote page counts did not match: ${failed.map((item) =>
+        `${JSON.stringify(item.pageName)} expected ${item.expectedCount}, got ${item.actualCount}`).join('; ')}`,
+    };
+}
+
+async function remotePageNames(
+  host: ModulatorAuthoringHost,
+  device: DeviceAddress,
+  pause: (milliseconds: number) => Promise<void>,
+): Promise<readonly string[] | string> {
   const inventoryAddress = remotes(device);
   let failure = 'the inserted device returned no complete remote inventory';
   for (let attempt = 0; attempt < DEFAULT_INVENTORY_ATTEMPTS; attempt++) {
@@ -577,21 +738,7 @@ export async function verifyPages(
       const snapshot = await host.read([inventoryAddress]);
       const value = snapshot.entries[addressKey(inventoryAddress)]?.value;
       if (value?.of === 'remotes') {
-        const actualPages = value.remotes.pages.map((page) => page.name);
-        const observed = witnesses.map((witness) => ({
-          ...witness,
-          actualCount: actualPages.filter((page) => page === witness.pageName).length,
-        }));
-        const failed = observed.filter((witness) => witness.actualCount !== witness.expectedCount);
-        return failed.length === 0
-          ? { verified: true, actualPages, witnesses: observed }
-          : {
-            verified: false,
-            actualPages,
-            witnesses: observed,
-            why: `remote page counts did not match: ${failed.map((item) =>
-              `${JSON.stringify(item.pageName)} expected ${item.expectedCount}, got ${item.actualCount}`).join('; ')}`,
-          };
+        return value.remotes.pages.map((page) => page.name);
       }
       failure = snapshot.unstable.some((address) => addressKey(address) === addressKey(inventoryAddress))
         ? 'the remote inventory did not settle'
@@ -602,7 +749,7 @@ export async function verifyPages(
     }
     if (attempt + 1 < DEFAULT_INVENTORY_ATTEMPTS) await pause(DEFAULT_INVENTORY_RETRY_MS);
   }
-  return failedPageVerification(failure);
+  return failure;
 }
 
 function failedPageVerification(why: string): ModulatorPageVerification {
@@ -706,8 +853,18 @@ function editFootprints(
   edit: ModulatorEdit,
   listIndex?: number,
 ): { readonly inserted: number; readonly removed: number } {
-  if (stubValues(template).length === 0 || edit.kind === 'retarget') {
+  if (stubValues(template).length === 0 || edit.kind === 'retarget' || edit.kind === 'amount') {
     return { inserted: 0, removed: 0 };
+  }
+  if (edit.kind === 'add') {
+    const donor = loadDonor(edit.donorId);
+    if (donor.footprint === null) {
+      throw new Error(
+        `this preset embeds a sample, but donor ${edit.donorId} has no measured footprint; `
+        + 'a guessed footprint rejects the whole preset silently',
+      );
+    }
+    return { inserted: donor.footprint, removed: 0 };
   }
   const removed = residentFootprint(template, edit.index, edit.removedFootprint, listIndex);
   if (edit.kind === 'delete') return { inserted: 0, removed };
@@ -739,36 +896,82 @@ function residentFootprint(
 
 function applyEdit(template: Buffer, edit: ModulatorEdit, listIndex?: number): Buffer {
   switch (edit.kind) {
+    case 'add':
+      return addModulator(template, loadDonor(edit.donorId), edit.routing, { listIndex });
     case 'replace':
-      if (listIndex !== undefined) {
-        throw new Error('container list selection currently supports retarget only');
-      }
       return replaceModulator(template, edit.index, loadDonor(edit.donorId), {
+        listIndex,
         ...(edit.removedFootprint === undefined ? {} : { removedFootprint: edit.removedFootprint }),
       });
     case 'retarget':
       return retarget(template, edit.index, edit.target, edit.routeIndex ?? 0, listIndex);
+    case 'amount':
+      return setAmount(template, edit.index, edit.amount, edit.routeIndex ?? 0, listIndex);
     case 'delete':
-      if (listIndex !== undefined) {
-        throw new Error('container list selection currently supports retarget only');
-      }
       return deleteModulator(template, edit.index, {
+        listIndex,
         ...(edit.removedFootprint === undefined ? {} : { removedFootprint: edit.removedFootprint }),
       });
   }
 }
 
+function semanticListIndex(
+  inspection: Extract<ReturnType<typeof inspectPresetModulation>, { supported: true }>,
+  location: SemanticModulatorLocation,
+): number {
+  const wanted = JSON.stringify(location);
+  const matches = inspection.modulation
+    .map((inventory, listIndex) => ({ inventory, listIndex }))
+    .filter(({ inventory }) => JSON.stringify(inventory.location) === wanted);
+  if (matches.length === 0) {
+    throw new Error('The semantic modulator location is missing. Inspect the preset again.');
+  }
+  if (matches.length !== 1) {
+    throw new Error('The semantic modulator location is ambiguous. No edit was applied.');
+  }
+  return matches[0]!.listIndex;
+}
+
+function assertSiblingInventories(
+  before: Extract<ReturnType<typeof inspectPresetModulation>, { supported: true }>,
+  after: Extract<ReturnType<typeof inspectPresetModulation>, { supported: true }>,
+  selectedListIndex: number,
+): void {
+  if (before.modulation.length !== after.modulation.length) {
+    throw new ModulatorAuthoringError('validate', 'the edit changed the semantic modulator-list count');
+  }
+  for (let listIndex = 0; listIndex < before.modulation.length; listIndex++) {
+    if (listIndex === selectedListIndex) continue;
+    if (JSON.stringify(before.modulation[listIndex]) !== JSON.stringify(after.modulation[listIndex])) {
+      throw new ModulatorAuthoringError(
+        'validate',
+        `the edit changed sibling semantic inventory ${listIndex}`,
+      );
+    }
+  }
+}
+
 function assertEditRequest(request: ModulatorEditRequest): void {
   assertTemplatePath(request.templatePath);
-  if (!Number.isInteger(request.edit.index) || request.edit.index < 0) {
+  if (request.edit.kind !== 'add'
+      && (!Number.isInteger(request.edit.index) || request.edit.index < 0)) {
     throw new ModulatorAuthoringError('request', 'edit.index is out of range');
   }
   if (request.listIndex !== undefined
       && (!Number.isInteger(request.listIndex) || request.listIndex < 0)) {
     throw new ModulatorAuthoringError('request', 'listIndex is out of range');
   }
-  if (request.edit.kind === 'replace' && request.edit.donorId.trim() === '') {
+  if ((request.edit.kind === 'add' || request.edit.kind === 'replace')
+      && request.edit.donorId.trim() === '') {
     throw new ModulatorAuthoringError('request', 'edit.donorId must not be empty');
+  }
+  if (request.edit.kind === 'add') {
+    if (request.edit.routing.target.trim() === '') {
+      throw new ModulatorAuthoringError('request', 'edit.routing.target must not be empty');
+    }
+    if (!Number.isFinite(request.edit.routing.amount)) {
+      throw new ModulatorAuthoringError('request', 'edit.routing.amount must be finite');
+    }
   }
   if (request.edit.kind === 'retarget') {
     if (request.edit.target.trim() === '') {
@@ -779,7 +982,17 @@ function assertEditRequest(request: ModulatorEditRequest): void {
       throw new ModulatorAuthoringError('request', 'edit.routeIndex is out of range');
     }
   }
-  if (request.edit.kind !== 'retarget' && request.edit.removedFootprint !== undefined
+  if (request.edit.kind === 'amount') {
+    if (!Number.isFinite(request.edit.amount)) {
+      throw new ModulatorAuthoringError('request', 'edit.amount must be finite');
+    }
+    if (request.edit.routeIndex !== undefined
+        && (!Number.isInteger(request.edit.routeIndex) || request.edit.routeIndex < 0)) {
+      throw new ModulatorAuthoringError('request', 'edit.routeIndex is out of range');
+    }
+  }
+  if ((request.edit.kind === 'replace' || request.edit.kind === 'delete')
+      && request.edit.removedFootprint !== undefined
       && (!Number.isInteger(request.edit.removedFootprint) || request.edit.removedFootprint < 0)) {
     throw new ModulatorAuthoringError('request', 'edit.removedFootprint is out of range');
   }
@@ -795,6 +1008,7 @@ function assertEditRequest(request: ModulatorEditRequest): void {
     if (!Number.isInteger(witness.expectedCount) || witness.expectedCount < 0) {
       throw new ModulatorAuthoringError('request', 'pageWitness.expectedCount is out of range');
     }
+    assertNestedDevice(witness.nestedDevice);
   }
   for (const witness of behaviorWitnesses) {
     assertWitness(witness);
@@ -831,8 +1045,13 @@ function assertWitness(witness: ModulatorParameterWitness): void {
   if (witness.parameterName.trim() === '') {
     throw new ModulatorAuthoringError('request', 'witness.parameterName must not be empty');
   }
-  if (witness.nestedDevice !== undefined) {
-    const names = [witness.nestedDevice.chainName, witness.nestedDevice.slotName]
+  assertNestedDevice(witness.nestedDevice);
+  assertWitnessNumbers(witness);
+}
+
+function assertNestedDevice(nested: ModulatorParameterWitness['nestedDevice']): void {
+  if (nested !== undefined) {
+    const names = [nested.chainName, nested.slotName]
       .filter((name) => name !== undefined);
     if (names.length !== 1 || names[0]!.trim() === '') {
       throw new ModulatorAuthoringError(
@@ -840,18 +1059,19 @@ function assertWitness(witness: ModulatorParameterWitness): void {
         'nestedDevice needs exactly one non-empty chainName or slotName',
       );
     }
-    if (!Number.isInteger(witness.nestedDevice.chainIndex)
-        || witness.nestedDevice.chainIndex < 0) {
+    if (!Number.isInteger(nested.chainIndex) || nested.chainIndex < 0) {
       throw new ModulatorAuthoringError('request', 'nestedDevice.chainIndex is out of range');
     }
-    if (witness.nestedDevice.slotName !== undefined
-        && witness.nestedDevice.chainIndex !== 0) {
+    if (nested.slotName !== undefined && nested.chainIndex !== 0) {
       throw new ModulatorAuthoringError(
         'request',
         'a device-slot witness can select only its first device at chainIndex 0',
       );
     }
   }
+}
+
+function assertWitnessNumbers(witness: ModulatorParameterWitness): void {
   for (const [name, value] of [
     ['samples', witness.samples],
     ['sampleIntervalMs', witness.sampleIntervalMs],
@@ -876,13 +1096,20 @@ function assertWitness(witness: ModulatorParameterWitness): void {
 }
 
 function witnessDevice(container: DeviceAddress, witness: ModulatorParameterWitness): DeviceAddress {
-  if (witness.nestedDevice === undefined) return container;
-  const parent = witness.nestedDevice.slotName === undefined
-    ? chain(container, witness.nestedDevice.chainName!)
-    : deviceSlot(container, witness.nestedDevice.slotName);
+  return nestedWitnessDevice(container, witness.nestedDevice);
+}
+
+function nestedWitnessDevice(
+  container: DeviceAddress,
+  nested: ModulatorParameterWitness['nestedDevice'],
+): DeviceAddress {
+  if (nested === undefined) return container;
+  const parent = nested.slotName === undefined
+    ? chain(container, nested.chainName!)
+    : deviceSlot(container, nested.slotName);
   return deviceIn(
     parent,
-    witness.nestedDevice.chainIndex,
+    nested.chainIndex,
   );
 }
 

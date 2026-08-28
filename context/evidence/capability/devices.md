@@ -2,7 +2,7 @@
 title: Devices — type UUIDs, parameters and observables
 kind: capability
 state: active
-updated: 2026-08-23
+updated: 2026-08-27
 scope: device identification, parameter access and the observable surface
 evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73; D2; reference/BitX
 ---
@@ -375,12 +375,20 @@ complete binding is required. Ambiguous or incomplete structure is unsupported.
 Known routes return the exact 5j DirectParameter id and name. Unknown routes are
 explicit and do not expose the internal route [K, E86].
 
+A later file edit must match that inspection's SHA-256 and byte length. It can
+select any semantic modulator location for add, replace, retarget, amount, or
+delete. The result reports public before and after inventories. It keeps the
+internal list selector private. Container edits rebuild the complete ordered
+unique GUID reference set and preserve all sibling semantic inventories [K,
+E87].
+
 ---
 
 ## Supersession record
 
 | Date | Change |
 |---|---|
+| 2026-08-27 | E87 completes all five fingerprinted semantic list-scoped editors, sampled-stub proof, and live outer and nested page witnesses. |
 | 2026-08-27 | E86 adds read-only semantic preset locations, complete public modulator inventories, stale-file fingerprints, and the six-class fixture matrix. |
 | 2026-08-26 | E85 adds general DirectParameter modulation targets, internal native and plug-in route conversion, and live native and VST3 behavior proof. |
 | 2026-08-23 | E77 separates top-level, nested-route, and final-target guards for scalar parameter writes. |

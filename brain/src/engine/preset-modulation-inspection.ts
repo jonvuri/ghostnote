@@ -167,7 +167,8 @@ export function inspectPresetModulation(preset: Buffer): PresetModulationInspect
     }
 
     if (bindings.length !== lists.length
-        || new Set(bindings.map((binding) => binding.listPosition)).size !== lists.length) {
+        || new Set(bindings.map((binding) => binding.listPosition)).size !== lists.length
+        || new Set(bindings.map((binding) => JSON.stringify(binding.location))).size !== lists.length) {
       return unsupported(fingerprint);
     }
 

@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-08-27
 phase: phase-5
-session: 5l-complete-list-scoped-topology
+session: 5m-general-donor-catalog
 ---
 
 # Now
@@ -52,14 +52,25 @@ Results expose no raw route or binary selector. The operation makes no Bitwig or
 preset-file change. The full brain check passes 906/906. [E86](evidence/experiments/e86-semantic-preset-modulation-inspection-is-complete.md)
 records the implementation and qualifications.
 
+Session 5l is complete. One exact 5k semantic location now selects one internal
+list for add, replace, retarget, amount, or delete. The write requires the exact
+inspected fingerprint. Its result returns the selected semantic location and
+public before and after inventories without a list selector.
+
+Container object edits rebuild the ordered unique GUID reference set across all
+lists. Sibling semantic inventories stay unchanged. Sampled edits relocate all
+four tested reference stubs by exact measured deltas or refuse before apply.
+Outer and nested Instrument Layer cases passed live with exact page witnesses,
+reversal, and track-list cleanup. [E87](evidence/experiments/e87-list-scoped-topology-is-complete.md)
+records the result. The full brain check passes 912/912.
+
 ## Next action
 
-Implement [Session 5l](plan/phase-5/5l-complete-list-scoped-topology.md). Resolve
-one 5k semantic location to its internal list, require the exact file
-fingerprint, and complete all selected-list topology operations. Do not begin
-Phase 6a until Phase 5 and the open dogfood loop close.
+Implement [Session 5m](plan/phase-5/5m-general-donor-catalog.md). Replace fixed
+public modulator enums with one measured donor catalog for the current host. Do
+not begin Phase 6a until Phase 5 and the open dogfood loop close.
 
 ## Retrospective
 
-Bind each device owner only inside explicit structural bounds. Never use the
-nearest global name for a semantic preset mapping.
+Let page witnesses select a nested device. A container-level page inventory
+cannot prove a modulator page on one selected nested list.
