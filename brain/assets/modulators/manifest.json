@@ -1,0 +1,1630 @@
+{
+  "schemaVersion": 1,
+  "host": {
+    "product": "Bitwig Studio",
+    "version": "6.0.6",
+    "inventorySource": "/Applications/Bitwig Studio.app/Contents/Resources/Library/modulators",
+    "unsupportedReasons": {
+      "external-companion-state": "The routed Wavetable LFO adds linked state outside its modulator object. A raw 0x06c9 transplant is incomplete, so public add and replace refuse it."
+    },
+    "inventory": [
+      {
+        "name": "4-Stage",
+        "supportedType": "4-stage"
+      },
+      {
+        "name": "ADSR",
+        "supportedType": "adsr"
+      },
+      {
+        "name": "AHD on Release",
+        "supportedType": "ahd-on-release"
+      },
+      {
+        "name": "AHDSR",
+        "supportedType": "ahdsr"
+      },
+      {
+        "name": "Audio Rate",
+        "supportedType": "audio-rate"
+      },
+      {
+        "name": "Audio Sidechain",
+        "supportedType": "audio-sidechain"
+      },
+      {
+        "name": "Beat LFO",
+        "supportedType": "beat-lfo"
+      },
+      {
+        "name": "Button",
+        "supportedType": "button"
+      },
+      {
+        "name": "Buttons",
+        "supportedType": "buttons"
+      },
+      {
+        "name": "Channel-16",
+        "supportedType": "channel-16"
+      },
+      {
+        "name": "Classic LFO",
+        "supportedType": "classic-lfo"
+      },
+      {
+        "name": "Curves",
+        "supportedType": "curves"
+      },
+      {
+        "name": "Envelope Follower",
+        "supportedType": "envelope-follower"
+      },
+      {
+        "name": "Expressions",
+        "supportedType": "expressions"
+      },
+      {
+        "name": "Globals",
+        "supportedType": "globals"
+      },
+      {
+        "name": "HW CV In",
+        "supportedType": "hw-cv-in"
+      },
+      {
+        "name": "Keytrack+",
+        "supportedType": "keytrack-plus"
+      },
+      {
+        "name": "LFO",
+        "supportedType": "lfo"
+      },
+      {
+        "name": "MIDI",
+        "supportedType": "midi"
+      },
+      {
+        "name": "Macro",
+        "supportedType": "macro"
+      },
+      {
+        "name": "Macro-4",
+        "supportedType": "macro-4"
+      },
+      {
+        "name": "Math",
+        "supportedType": "math"
+      },
+      {
+        "name": "Mix",
+        "supportedType": "mix"
+      },
+      {
+        "name": "Note Counter",
+        "supportedType": "note-counter"
+      },
+      {
+        "name": "Note Sidechain",
+        "supportedType": "note-sidechain"
+      },
+      {
+        "name": "ParSeq-8",
+        "supportedType": "parseq-8"
+      },
+      {
+        "name": "Pitch-12",
+        "supportedType": "pitch-12"
+      },
+      {
+        "name": "Polynom",
+        "supportedType": "polynom"
+      },
+      {
+        "name": "Quantize",
+        "supportedType": "quantize"
+      },
+      {
+        "name": "Ramp",
+        "supportedType": "ramp"
+      },
+      {
+        "name": "Random",
+        "supportedType": "random"
+      },
+      {
+        "name": "Relative Keytrack",
+        "supportedType": "relative-keytrack"
+      },
+      {
+        "name": "Sample and Hold",
+        "supportedType": "sample-and-hold"
+      },
+      {
+        "name": "Segments",
+        "supportedType": "segments"
+      },
+      {
+        "name": "Select-4",
+        "supportedType": "select-4"
+      },
+      {
+        "name": "Stack Spread",
+        "supportedType": "stack-spread"
+      },
+      {
+        "name": "Steps",
+        "supportedType": "steps"
+      },
+      {
+        "name": "Vector-4",
+        "supportedType": "vector-4"
+      },
+      {
+        "name": "Vector-8",
+        "supportedType": "vector-8"
+      },
+      {
+        "name": "Vibrato",
+        "supportedType": "vibrato"
+      },
+      {
+        "name": "Voice Control",
+        "supportedType": "voice-control"
+      },
+      {
+        "name": "Wavetable LFO",
+        "unsupportedReason": "external-companion-state"
+      },
+      {
+        "name": "XY",
+        "supportedType": "xy"
+      }
+    ]
+  },
+  "types": [
+    {
+      "id": "4-stage",
+      "publicName": "4-Stage",
+      "category": "Sequence",
+      "donorId": "4-stage-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "adsr",
+      "publicName": "ADSR",
+      "category": "Envelope",
+      "donorId": "adsr-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "ahd-on-release",
+      "publicName": "AHD on Release",
+      "category": "Envelope",
+      "donorId": "ahd-on-release-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "ahdsr",
+      "publicName": "AHDSR",
+      "category": "Envelope",
+      "donorId": "ahdsr-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "audio-rate",
+      "publicName": "Audio Rate",
+      "category": "Audio-driven",
+      "donorId": "audio-rate-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "audio-signal",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "audio-sidechain",
+      "publicName": "Audio Sidechain",
+      "category": "Audio-driven",
+      "donorId": "audio-sidechain-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "audio-signal",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "beat-lfo",
+      "publicName": "Beat LFO",
+      "category": "LFO",
+      "donorId": "beat-lfo-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "free-running",
+        "requirements": [
+          "transport-running",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "button",
+      "publicName": "Button",
+      "category": "Interface",
+      "donorId": "button-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "operator-control",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "buttons",
+      "publicName": "Buttons",
+      "category": "Interface",
+      "donorId": "buttons-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "operator-control",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "channel-16",
+      "publicName": "Channel-16",
+      "category": "Note-driven",
+      "donorId": "channel-16-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "classic-lfo",
+      "publicName": "Classic LFO",
+      "category": "LFO",
+      "donorId": "classic-lfo-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "supported",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "curves",
+      "publicName": "Curves",
+      "category": "LFO",
+      "donorId": "curves-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "free-running",
+        "requirements": [
+          "transport-running",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "envelope-follower",
+      "publicName": "Envelope Follower",
+      "category": "Audio-driven",
+      "donorId": "envelope-follower-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "audio-signal",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "expressions",
+      "publicName": "Expressions",
+      "category": "Note-driven",
+      "donorId": "expressions-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-expression-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "globals",
+      "publicName": "Globals",
+      "category": "Interface",
+      "donorId": "globals-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "operator-control",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "hw-cv-in",
+      "publicName": "HW CV In",
+      "category": "Audio-driven",
+      "donorId": "hw-cv-in-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "audio-signal",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "keytrack-plus",
+      "publicName": "Keytrack+",
+      "category": "Note-driven",
+      "donorId": "keytrack-plus-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "lfo",
+      "publicName": "LFO",
+      "category": "LFO",
+      "donorId": "lfo-sampler",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "supported",
+      "witness": {
+        "mode": "free-running",
+        "requirements": [
+          "transport-running",
+          "target-divergence"
+        ]
+      },
+      "provenance": "E12, E67, E70"
+    },
+    {
+      "id": "macro-4",
+      "publicName": "Macro-4",
+      "category": "Interface",
+      "donorId": "macro-4-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "operator-control",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "macro",
+      "publicName": "Macro",
+      "category": "Interface",
+      "donorId": "macro-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "operator-control",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "math",
+      "publicName": "Math",
+      "category": "Modifier",
+      "donorId": "math-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "source-input",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "midi",
+      "publicName": "MIDI",
+      "category": "Note-driven",
+      "donorId": "midi-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "mix",
+      "publicName": "Mix",
+      "category": "Modifier",
+      "donorId": "mix-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "source-input",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "note-counter",
+      "publicName": "Note Counter",
+      "category": "Note-driven",
+      "donorId": "note-counter-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "note-sidechain",
+      "publicName": "Note Sidechain",
+      "category": "Envelope",
+      "donorId": "note-sidechain-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "parseq-8",
+      "publicName": "ParSeq-8",
+      "category": "Sequence",
+      "donorId": "parseq-8-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "pitch-12",
+      "publicName": "Pitch-12",
+      "category": "Note-driven",
+      "donorId": "pitch-12-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "polynom",
+      "publicName": "Polynom",
+      "category": "Modifier",
+      "donorId": "polynom-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "source-input",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "quantize",
+      "publicName": "Quantize",
+      "category": "Modifier",
+      "donorId": "quantize-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "source-input",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "ramp",
+      "publicName": "Ramp",
+      "category": "Envelope",
+      "donorId": "ramp-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "random",
+      "publicName": "Random",
+      "category": "LFO",
+      "donorId": "random-sampler",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "supported",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "target-divergence"
+        ]
+      },
+      "provenance": "E12, E67, E69"
+    },
+    {
+      "id": "relative-keytrack",
+      "publicName": "Relative Keytrack",
+      "category": "Note-driven",
+      "donorId": "relative-keytrack-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "sample-and-hold",
+      "publicName": "Sample and Hold",
+      "category": "Modifier",
+      "donorId": "sample-and-hold-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "source-input",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "segments",
+      "publicName": "Segments",
+      "category": "Envelope",
+      "donorId": "segments-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "select-4",
+      "publicName": "Select-4",
+      "category": "Interface",
+      "donorId": "select-4-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "operator-control",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "stack-spread",
+      "publicName": "Stack Spread",
+      "category": "Voice Stacking",
+      "donorId": "stack-spread-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "steps",
+      "publicName": "Steps",
+      "category": "Sequence",
+      "donorId": "steps-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "vector-4",
+      "publicName": "Vector-4",
+      "category": "Interface",
+      "donorId": "vector-4-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "operator-control",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "vector-8",
+      "publicName": "Vector-8",
+      "category": "Interface",
+      "donorId": "vector-8-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "operator-control",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "vibrato",
+      "publicName": "Vibrato",
+      "category": "LFO",
+      "donorId": "vibrato-poly",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "supported",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "target-divergence"
+        ]
+      },
+      "provenance": "E7, E69"
+    },
+    {
+      "id": "voice-control",
+      "publicName": "Voice Control",
+      "category": "Voice Stacking",
+      "donorId": "voice-control-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "note-driven",
+        "requirements": [
+          "note-trigger",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    },
+    {
+      "id": "xy",
+      "publicName": "XY",
+      "category": "Interface",
+      "donorId": "xy-zoo",
+      "capabilities": [
+        "add",
+        "replace"
+      ],
+      "sampledPreset": "tier-1-only",
+      "witness": {
+        "mode": "structural",
+        "requirements": [
+          "operator-control",
+          "exact-page"
+        ]
+      },
+      "provenance": "Operator-authored gn-preset-zoo; isolated donor loads in Bitwig Studio 6.0.6."
+    }
+  ],
+  "donors": [
+    {
+      "id": "lfo-sampler",
+      "deviceName": "LFO",
+      "category": "LFO",
+      "guid": "ad947004-f1d3-40a1-bd15-3ec721ee7c65",
+      "footprint": 16,
+      "footprintSource": "E12a load-triangulation: +0x10 loads and 0x0f or 0x11 rejects. E12f corroborates the result.",
+      "file": "lfo-sampler.bwmodobj",
+      "source": {
+        "fixture": "Sampler/gn_sampler_one_lfo.bwpreset",
+        "index": 0
+      },
+      "route": "CONTENTS/AMP_ATTACK_TIME"
+    },
+    {
+      "id": "random-sampler",
+      "deviceName": "Random",
+      "category": "LFO",
+      "guid": "bf29a7b0-91dc-4851-8a94-c63f358f3cda",
+      "footprint": 13,
+      "footprintSource": "E12c reconstructs the human-saved preset at +0x0d. E12f corroborates the result.",
+      "file": "random-sampler.bwmodobj",
+      "source": {
+        "fixture": "Sampler/gn_sampler_one_random.bwpreset",
+        "index": 0
+      },
+      "route": "CONTENTS/AMP_ATTACK_TIME"
+    },
+    {
+      "id": "random-poly",
+      "deviceName": "Random",
+      "category": "LFO",
+      "guid": "bf29a7b0-91dc-4851-8a94-c63f358f3cda",
+      "footprint": 11,
+      "footprintSource": "E12a load-triangulation: +0x0b loads and 0x0a or 0x0c rejects.",
+      "file": "random-poly.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/mp_one_random.bwpreset",
+        "index": 0
+      },
+      "route": null
+    },
+    {
+      "id": "lfo-poly",
+      "deviceName": "LFO",
+      "category": "LFO",
+      "guid": "ad947004-f1d3-40a1-bd15-3ec721ee7c65",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. The measured lfo-sampler donor covers public sampled-preset use.",
+      "file": "lfo-poly.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/mp_one_lfo.bwpreset",
+        "index": 0
+      },
+      "route": null
+    },
+    {
+      "id": "classiclfo-poly",
+      "deviceName": "Classic LFO",
+      "category": "LFO",
+      "guid": "39f4b136-2946-4ac5-b34c-e5fde1e58fd8",
+      "footprint": 12,
+      "footprintSource": "E69 live load-triangulation: +0x0c loads and +0x0b or +0x0d rejects.",
+      "file": "classiclfo-poly.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/modzoo.bwpreset",
+        "index": 0
+      },
+      "route": null
+    },
+    {
+      "id": "vibrato-poly",
+      "deviceName": "Vibrato",
+      "category": "LFO",
+      "guid": "ca8cc421-bcbc-44d9-8ef3-6e570e528d2b",
+      "footprint": 15,
+      "footprintSource": "E69 live load-triangulation: +0x0f loads and +0x0e or +0x10 rejects.",
+      "file": "vibrato-poly.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/modtest.bwpreset",
+        "index": 0
+      },
+      "route": "CONTENTS/PITCH"
+    },
+    {
+      "id": "expressions-poly",
+      "deviceName": "Expressions",
+      "category": "Note-driven",
+      "guid": "dcacb71b-0f1a-4493-8916-bd460eee71d5",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. E69 proves that every bounded candidate from 0x0a through 0x39 rejects.",
+      "file": "expressions-poly.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/modtest.bwpreset",
+        "index": 1
+      },
+      "route": null
+    },
+    {
+      "id": "4-stage-zoo",
+      "deviceName": "4-Stage",
+      "category": "Sequence",
+      "guid": "65cd4274-cede-4ff6-a3d5-c09e89108d8d",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "4-stage-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 0
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "adsr-zoo",
+      "deviceName": "ADSR",
+      "category": "Envelope",
+      "guid": "fad02a39-b88e-48da-9c54-8413ae396264",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "adsr-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 1
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "ahd-on-release-zoo",
+      "deviceName": "AHD on Release",
+      "category": "Envelope",
+      "guid": "2910c363-f5bf-409d-9cb5-3ad5354447c7",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "ahd-on-release-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 2
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "ahdsr-zoo",
+      "deviceName": "AHDSR",
+      "category": "Envelope",
+      "guid": "aaf4f8c0-0847-4331-9cb2-cdd764c86602",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "ahdsr-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 3
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "audio-rate-zoo",
+      "deviceName": "Audio Rate",
+      "category": "Audio-driven",
+      "guid": "8c3b21c1-8e3b-4b5a-89ca-d9c781bdb368",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "audio-rate-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 4
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "audio-sidechain-zoo",
+      "deviceName": "Audio Sidechain",
+      "category": "Audio-driven",
+      "guid": "def3115e-319c-46ce-924f-6adb4f4cf95f",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "audio-sidechain-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 5
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "beat-lfo-zoo",
+      "deviceName": "Beat LFO",
+      "category": "LFO",
+      "guid": "b7b0b046-ed3c-4b0c-ac85-3191a0c0ba82",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "beat-lfo-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 6
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "button-zoo",
+      "deviceName": "Button",
+      "category": "Interface",
+      "guid": "f689e51a-99c1-47ba-8dca-b1de17a3cb20",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "button-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 7
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "buttons-zoo",
+      "deviceName": "Buttons",
+      "category": "Interface",
+      "guid": "5314e15a-38ce-4f81-a3ab-3db284b365c4",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "buttons-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 8
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "channel-16-zoo",
+      "deviceName": "Channel-16",
+      "category": "Note-driven",
+      "guid": "f2ece24b-b122-46cd-96fb-b7a8ea25d0dd",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "channel-16-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 9
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "classic-lfo-zoo",
+      "deviceName": "Classic LFO",
+      "category": "LFO",
+      "guid": "39f4b136-2946-4ac5-b34c-e5fde1e58fd8",
+      "footprint": 14,
+      "footprintSource": "Phase 5m live load-triangulation: +0x0e loads and +0x0d or +0x0f rejects.",
+      "file": "classic-lfo-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 10
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "curves-zoo",
+      "deviceName": "Curves",
+      "category": "LFO",
+      "guid": "d662f4a9-9b4c-4dd4-92a9-f93e7e0b6dcb",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "curves-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 11
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "envelope-follower-zoo",
+      "deviceName": "Envelope Follower",
+      "category": "Audio-driven",
+      "guid": "1098af6b-60dc-4599-b644-c4c28eef6524",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "envelope-follower-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 12
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "expressions-zoo",
+      "deviceName": "Expressions",
+      "category": "Note-driven",
+      "guid": "dcacb71b-0f1a-4493-8916-bd460eee71d5",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "expressions-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 13
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "globals-zoo",
+      "deviceName": "Globals",
+      "category": "Interface",
+      "guid": "35278d0e-c71b-405e-8a3f-222a327e54f0",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "globals-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 14
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "hw-cv-in-zoo",
+      "deviceName": "HW CV In",
+      "category": "Audio-driven",
+      "guid": "4b0db404-458f-47c0-910b-fe7f9e8ceae2",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "hw-cv-in-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 15
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "keytrack-plus-zoo",
+      "deviceName": "Keytrack+",
+      "category": "Note-driven",
+      "guid": "eaa04e7c-f9ca-4723-8473-e1c50a045bd0",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "keytrack-plus-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 16
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "macro-4-zoo",
+      "deviceName": "Macro-4",
+      "category": "Interface",
+      "guid": "24a03de2-154d-4000-a2de-c1152bd54979",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "macro-4-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 18
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "macro-zoo",
+      "deviceName": "Macro",
+      "category": "Interface",
+      "guid": "fe2f9584-cc26-4aef-bb4c-c52299b5b77e",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "macro-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 19
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "math-zoo",
+      "deviceName": "Math",
+      "category": "Modifier",
+      "guid": "6146bcd7-f813-44c6-96e5-2e9d77093a81",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "math-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 20
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "midi-zoo",
+      "deviceName": "MIDI",
+      "category": "Note-driven",
+      "guid": "6cbedeb6-83aa-4c19-97ae-ba7c37741cae",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "midi-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 21
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "mix-zoo",
+      "deviceName": "Mix",
+      "category": "Modifier",
+      "guid": "5b0303fb-00ec-4eaf-95a4-f41eae466cea",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "mix-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 22
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "note-counter-zoo",
+      "deviceName": "Note Counter",
+      "category": "Note-driven",
+      "guid": "11793867-9005-4557-8a69-f1fdc79acecd",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "note-counter-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 23
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "note-sidechain-zoo",
+      "deviceName": "Note Sidechain",
+      "category": "Envelope",
+      "guid": "23110165-fccc-46a1-b3c2-1e324ce46d08",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "note-sidechain-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 24
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "parseq-8-zoo",
+      "deviceName": "ParSeq-8",
+      "category": "Sequence",
+      "guid": "4cc996fe-6206-437e-a636-ba8a2e76a641",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "parseq-8-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 25
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "pitch-12-zoo",
+      "deviceName": "Pitch-12",
+      "category": "Note-driven",
+      "guid": "8a193648-7e65-4534-be4f-dd8de7b742aa",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "pitch-12-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 26
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "polynom-zoo",
+      "deviceName": "Polynom",
+      "category": "Modifier",
+      "guid": "22e48024-bdf8-440a-b9ea-f8b4f4715e1b",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "polynom-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 27
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "quantize-zoo",
+      "deviceName": "Quantize",
+      "category": "Modifier",
+      "guid": "492ca6d9-1976-4a9d-9a32-492ac71b3c1c",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "quantize-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 28
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "ramp-zoo",
+      "deviceName": "Ramp",
+      "category": "Envelope",
+      "guid": "f5a3483f-ac74-4a89-8edc-dce396b4fca1",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "ramp-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 29
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "relative-keytrack-zoo",
+      "deviceName": "Relative Keytrack",
+      "category": "Note-driven",
+      "guid": "2faa9947-7144-47c4-bc76-1a151fb09e34",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "relative-keytrack-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 31
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "sample-and-hold-zoo",
+      "deviceName": "Sample and Hold",
+      "category": "Modifier",
+      "guid": "fa5f5025-9831-447a-941a-ac7b8f42fc4b",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "sample-and-hold-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 32
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "segments-zoo",
+      "deviceName": "Segments",
+      "category": "Envelope",
+      "guid": "f892ec59-fe4f-4e32-8951-ee1fa3e941ad",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "segments-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 33
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "select-4-zoo",
+      "deviceName": "Select-4",
+      "category": "Interface",
+      "guid": "914474de-d080-451c-8a62-f820da50ba6b",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "select-4-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 34
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "stack-spread-zoo",
+      "deviceName": "Stack Spread",
+      "category": "Voice Stacking",
+      "guid": "4b995d35-bd32-4891-b6db-9789a3295537",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "stack-spread-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 35
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "steps-zoo",
+      "deviceName": "Steps",
+      "category": "Sequence",
+      "guid": "ed2dcfa1-3fa1-41aa-9d05-c680f31f4478",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "steps-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 36
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "vector-4-zoo",
+      "deviceName": "Vector-4",
+      "category": "Interface",
+      "guid": "57ecd20d-5c8d-4bc5-8f31-968cbb2cd144",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "vector-4-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 37
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "vector-8-zoo",
+      "deviceName": "Vector-8",
+      "category": "Interface",
+      "guid": "f0e3192a-2cfb-4576-ae27-0b49c0442c24",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "vector-8-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 38
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "voice-control-zoo",
+      "deviceName": "Voice Control",
+      "category": "Voice Stacking",
+      "guid": "1f961e61-20e8-4499-b921-29ab0f12e41d",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "voice-control-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 40
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    },
+    {
+      "id": "xy-zoo",
+      "deviceName": "XY",
+      "category": "Interface",
+      "guid": "962cfcad-aaf7-433d-ab17-601f3843dd79",
+      "footprint": null,
+      "footprintSource": "Tier 1 only. Phase 5m proves the isolated donor loads; no sampled-preset footprint is claimed.",
+      "file": "xy-zoo.bwmodobj",
+      "source": {
+        "fixture": "Polysynth/gn-preset-zoo.bwpreset",
+        "index": 42
+      },
+      "route": "CONTENTS/OSC1_PITCH"
+    }
+  ]
+}

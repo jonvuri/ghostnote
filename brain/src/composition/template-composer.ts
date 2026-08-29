@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 
 import {
   addModulator, deleteModulator, findModulatorList, listChains, listModulators,
-  loadDonor, modulatorListOffsets, readMeta, replaceModulator, retarget, setAmount,
+  donorType, listDonorTypes, loadDonor, modulatorListOffsets, readMeta, replaceModulator, retarget, setAmount,
   stubValues, validate,
   type Modulator, type ValidationResult,
 } from '../bwmod/index.js';
@@ -14,18 +14,10 @@ import {
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
-export const COMPOSITION_MODULATOR_TYPES = [
-  'lfo', 'random', 'classic-lfo', 'vibrato', 'expressions',
-] as const;
+export const COMPOSITION_MODULATOR_TYPES = listDonorTypes()
+  .filter((type) => type.capabilities.includes('replace'))
+  .map((type) => type.id) as [string, ...string[]];
 export type CompositionModulatorType = typeof COMPOSITION_MODULATOR_TYPES[number];
-
-const DONOR_FOR_TYPE: Readonly<Record<CompositionModulatorType, string>> = {
-  lfo: 'lfo-sampler',
-  random: 'random-sampler',
-  'classic-lfo': 'classiclfo-poly',
-  vibrato: 'vibrato-poly',
-  expressions: 'expressions-poly',
-};
 
 export interface OwnedTemplateManifest {
   readonly schemaVersion: 1;
@@ -436,7 +428,7 @@ function applyNamedEdit(
   let expectedPageCount = 1;
   switch (edit.kind) {
     case 'add': {
-      const donor = loadDonor(DONOR_FOR_TYPE[edit.modulator]);
+      const donor = loadDonor(donorType(edit.modulator, 'add').donorId);
       out = addModulator(out, donor, { target: target!.route, amount: edit.amount }, {
         listIndex: binding.modulatorListIndex,
       });
@@ -445,7 +437,7 @@ function applyNamedEdit(
     }
     case 'replace': {
       const index = exactModulatorIndex(out, binding.modulatorListIndex, edit.existing);
-      const donor = loadDonor(DONOR_FOR_TYPE[edit.modulator]);
+      const donor = loadDonor(donorType(edit.modulator, 'replace').donorId);
       out = replaceModulator(out, index, donor, { listIndex: binding.modulatorListIndex });
       pageName = donor.deviceName;
       if (target !== undefined) {

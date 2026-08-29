@@ -1,154 +1,88 @@
-/**
- * Maintenance script — regenerate `brain/assets/modulators/` from the fixtures.
- *
- *   npx tsx src/tools/build-donor-assets.ts
- *
- * Donors are EXTRACTED, never synthesized (BWMOD_DESIGN decision 3): each asset
- * is the exact `0x06c9` object bytes lifted from a human-authored template, with
- * bounds snapped to the list sentinel.
- *
- * ⚠ FOOTPRINTS ARE NOT DERIVED — they are curated constants recorded below with
- * their provenance. A donor's footprint is a property of the exact object (a
- * routed Random costs 0x0d, an unrouted one 0x0b), it cannot be computed from
- * the bytes (the deep-list schema limit, BWFORMAT_SPEC §3.1), and a guessed
- * value rejects the preset. `null` means "never measured": such a donor works
- * on any Tier-1 preset and is refused, loudly, on a sampled one.
- *
- * To measure a new one: E12a load-triangulation — sweep the stub delta on a
- * sampled preset; exactly one value loads, and that value is the footprint.
- */
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+/** Validate the donor manifest and rebuild its extracted object assets. */
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ASSET_DIR, extractModulator, listModulators } from '../bwmod/index.js';
-import type { DonorAsset } from '../bwmod/donors.js';
+
+import {
+  ASSET_DIR, DONOR_MANIFEST_PATH, extractModulator, listModulators,
+} from '../bwmod/index.js';
+import type { DonorManifest } from '../bwmod/donors.js';
 
 const FIXTURES = join(import.meta.dirname, '..', '..', 'fixtures');
+const manifest = JSON.parse(readFileSync(DONOR_MANIFEST_PATH, 'utf8')) as DonorManifest;
 
-interface Spec {
-  id: string;
-  fixture: string;
-  index: number;
-  footprint: number | null;
-  footprintSource: string;
+if (existsSync(manifest.host.inventorySource)) {
+  const installed = readdirSync(manifest.host.inventorySource)
+    .filter((name) => name.endsWith('.bwmodulator'))
+    .map((name) => name.slice(0, -'.bwmodulator'.length))
+    .sort();
+  const recorded = manifest.host.inventory.map((entry) => entry.name).sort();
+  if (JSON.stringify(installed) !== JSON.stringify(recorded)) {
+    throw new Error('the installed host modulator inventory differs from the manifest');
+  }
 }
 
-const SPECS: Spec[] = [
-  {
-    id: 'lfo-sampler',
-    fixture: 'Sampler/gn_sampler_one_lfo.bwpreset',
-    index: 0,
-    footprint: 0x10,
-    footprintSource:
-      'E12a load-triangulation (loads at +0x10, rejects at 0x0f/0x11); corroborated offline by the ' +
-      'gn_sampler_bare -> gn_sampler_one_lfo stub delta and by Bitwig itself in E12f',
-  },
-  {
-    id: 'random-sampler',
-    fixture: 'Sampler/gn_sampler_one_random.bwpreset',
-    index: 0,
-    footprint: 0x0d,
-    footprintSource:
-      'E12c golden (+0x0d reconstructs gn_sampler_one_random from bare); corroborated offline by the ' +
-      'gn_sampler_bare -> gn_sampler_one_random stub delta and by Bitwig itself in E12f',
-  },
-  {
-    id: 'random-poly',
-    fixture: 'Polysynth/mp_one_random.bwpreset',
-    index: 0,
-    footprint: 0x0b,
-    footprintSource: 'E12a load-triangulation (loads at +0x0b, rejects at 0x0a/0x0c) — the unrouted donor is 2 objects cheaper than the routed Sampler one',
-  },
-  {
-    id: 'lfo-poly',
-    fixture: 'Polysynth/mp_one_lfo.bwpreset',
-    index: 0,
-    footprint: null,
-    footprintSource: 'NOT MEASURED — Tier-1 use only; measure by E12a triangulation before using on a sampled preset',
-  },
-  {
-    id: 'classiclfo-poly',
-    fixture: 'Polysynth/modzoo.bwpreset',
-    index: 0,
-    footprint: 0x0c,
-    footprintSource:
-      'Phase 5e live load-triangulation on sampled Sampler: loads at +0x0c and rejects at +0x0b/+0x0d',
-  },
-  {
-    id: 'vibrato-poly',
-    fixture: 'Polysynth/modtest.bwpreset',
-    index: 0,
-    footprint: 0x0f,
-    footprintSource:
-      'Phase 5e live load-triangulation on sampled Sampler: loads at +0x0f and rejects at +0x0e/+0x10',
-  },
-  {
-    id: 'expressions-poly',
-    fixture: 'Polysynth/modtest.bwpreset',
-    index: 1,
-    footprint: null,
-    footprintSource:
-      'TIER 1 ONLY — Phase 5e sampled-Sampler sweep rejected every possible footprint from 0x0a through 0x39; ' +
-      'the 459-byte donor cannot contain more than 57 minimum-sized objects',
-  },
-];
-
 mkdirSync(ASSET_DIR, { recursive: true });
-const donors: DonorAsset[] = [];
-for (const spec of SPECS) {
-  const preset = readFileSync(join(FIXTURES, spec.fixture));
-  const donor = extractModulator(preset, spec.index, spec.footprint);
-  const file = `${spec.id}.bwmodobj`;
-  writeFileSync(join(ASSET_DIR, file), donor.bytes);
-  donors.push({
-    id: spec.id,
+for (const asset of manifest.donors) {
+  const preset = readFileSync(join(FIXTURES, asset.source.fixture));
+  const donor = extractModulator(preset, asset.source.index, asset.footprint);
+  const modulator = listModulators(preset)[asset.source.index];
+  const route = modulator?.routing?.target ?? null;
+  const actual = {
     deviceName: donor.deviceName,
     category: donor.category,
     guid: donor.guid,
-    footprint: spec.footprint,
-    footprintSource: spec.footprintSource,
-    file,
-    source: `${spec.fixture}#${spec.index}`,
-    route: listModulators(preset)[spec.index].routing?.target ?? null,
-  });
+    route,
+    file: `${asset.id}.bwmodobj`,
+  };
+  for (const [field, value] of Object.entries(actual)) {
+    if (asset[field as keyof typeof actual] !== value) {
+      throw new Error(`${asset.id} ${field} is ${JSON.stringify(value)}, not the manifest value`);
+    }
+  }
+  const addType = manifest.types.find((type) =>
+    type.donorId === asset.id && type.capabilities.includes('add'));
+  if (addType !== undefined && (modulator?.routes.length ?? 0) < 1) {
+    throw new Error(`${asset.id} must contain a safely retargetable route`);
+  }
+  writeFileSync(join(ASSET_DIR, asset.file), donor.bytes);
   console.log(
-    `${spec.id.padEnd(18)} ${donor.deviceName.padEnd(14)} ${String(donor.bytes.length).padStart(4)}B ` +
-      `footprint=${spec.footprint === null ? 'unmeasured' : `0x${spec.footprint.toString(16)}`}`,
+    `${asset.id.padEnd(18)} ${donor.deviceName.padEnd(14)} ${String(donor.bytes.length).padStart(4)}B `
+      + `footprint=${asset.footprint === null ? 'unmeasured' : `0x${asset.footprint.toString(16)}`}`,
   );
 }
 
-const readme = `# curated modulator donors
+const readme = `# Curated modulator donors
 
-Generated by \`src/tools/build-donor-assets.ts\` — run \`npm run build:donors\` to
-regenerate. Do not hand-edit: each \`.bwmodobj\` is the exact \`0x06c9\` object bytes
-lifted from the fixture named in its \`source\`, with bounds snapped to the list
-sentinel (E11h).
+\`manifest.json\` is the single catalog source. Run \`npm run build:donors\` to
+validate it and regenerate each \`.bwmodobj\`. Each object is the exact \`0x06c9\`
+bytes lifted from the human-saved fixture named in its source. Bounds snap to
+the list sentinel (E11h).
 
-A donor is TRANSPLANTED, never synthesized (BWMOD_DESIGN decision 3). \`route\`
-records the donor's own Ramona path so a caller knows to retarget it for a
-different host — a path from the wrong device loads fine and silently modulates
-nothing (E10b).
+A donor is transplanted. It is never synthesized (BWMOD_DESIGN decision 3).
+\`route\` records the donor's internal source route. Public results do not expose
+it.
 
-\`footprint\` is the donor subtree's OBJECT count, needed only to relocate the
-count-list reference stubs of a preset that embeds a sample (Tier 2, E12). It
-**cannot be computed from the bytes** — a full recursive walk stalls in the
-deep-list schema limit — so it is a measured constant, and \`footprintSource\`
-records how it was measured. \`null\` means never measured: that donor works on any
-Tier-1 preset and is REFUSED on a sampled one, because a guessed footprint
-rejects the whole preset silently. To measure a new one, use E12a
-load-triangulation: sweep the stub delta on a sampled preset; exactly one value
-loads, and that value is the footprint.
+\`footprint\` is the donor subtree object count. A sampled preset needs it to
+relocate count-list reference stubs (Tier 2, E12). The value cannot be computed
+from the bytes. \`footprintSource\` records its measurement. A null value limits
+the donor to Tier 1.
 
-The sampled-preset cohort is \`lfo-sampler\`, \`random-sampler\`, \`random-poly\`,
-\`classiclfo-poly\`, and \`vibrato-poly\`. \`lfo-poly\` is redundant with the measured
-Sampler LFO donor. \`expressions-poly\` rejected the full bounded Phase 5e sweep.
-Both stay Tier 1 only and keep a \`null\` footprint.
+The manifest records the complete ${manifest.host.inventory.length}-type factory
+inventory for ${manifest.host.product} ${manifest.host.version}. It maps public
+types to owned donors. It records one proved refusal for each excluded host type.
+Runtime catalogs and write-tool vocabularies read the same manifest.
+
+| public type | name | operations | sampled preset | witness |
+|---|---|---|---|---|
+${manifest.types
+  .map((type) => `| \`${type.id}\` | ${type.publicName} | ${type.capabilities.join(', ')} | ${type.sampledPreset} | ${type.witness.mode} |`)
+  .join('\n')}
 
 | id | device | footprint | source |
 |---|---|---|---|
-${donors
-  .map((d) => `| \`${d.id}\` | ${d.deviceName} | ${d.footprint === null ? '— (unmeasured)' : `0x${d.footprint.toString(16)}`} | \`${d.source}\` |`)
+${manifest.donors
+  .map((donor) => `| \`${donor.id}\` | ${donor.deviceName} | ${donor.footprint === null ? '—' : `0x${donor.footprint.toString(16)}`} | \`${donor.source.fixture}#${donor.source.index}\` |`)
   .join('\n')}
 `;
 writeFileSync(join(ASSET_DIR, 'README.md'), readme);
-writeFileSync(join(ASSET_DIR, 'index.json'), `${JSON.stringify({ donors }, null, 2)}\n`);
-console.log(`\nwrote ${donors.length} donors to ${ASSET_DIR}`);
+console.log(`\nwrote ${manifest.donors.length} donors to ${ASSET_DIR}`);

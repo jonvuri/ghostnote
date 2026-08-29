@@ -34,8 +34,8 @@ the right shape only for the Tier-2 case, D2). Recorded per handoff exit criteri
    whole-preset reject; the error is **alignment-dependent** (it manufactured the false
    "Zebra wall"). End objects at, and insert before, the sentinel. **[E11h — the key
    discovery of this session]**
-2. **`0x1a1b` instance id unique within one modulator list** — the proven load
-   gate (E10f/E71). Separate container lists can reuse ids. Ids need not be
+2. **`0x1a1a`/`0x1a1b` identity unique within one modulator list** — the proven
+   load gate (E88). Separate groups and container lists can reuse `0x1a1b`. Ids need not be
    contiguous or zero-based (E11a); the `0x02b9` name is cosmetic (E11b);
    same-type duplicates are fine (E11f). No embedded-id freshening is required.
 3. **Meta `referenced_modulator_ids`** contains the modulator `0x18c6` GUIDs.

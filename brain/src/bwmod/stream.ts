@@ -178,6 +178,13 @@ export function instanceIdOffset(buf: Buffer, start: number, end: number): numbe
   return at;
 }
 
+/** Offset of the `0x1a1a` instance-group byte inside `[start, end)`. */
+export function instanceGroupOffset(buf: Buffer, start: number, end: number): number {
+  const at = findField(buf, start, end, FID.INSTANCE_GROUP, TYPE.U8);
+  if (at === -1) fail(`no 0x1a1a instance group in the modulator at 0x${start.toString(16)}`);
+  return at;
+}
+
 /** Where one modulation entry's fields live; `-1` for anything the entry omits. */
 export interface RouteSlot {
   /** offset of the `0x0e3d` target string's `u32` length prefix */

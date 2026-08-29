@@ -97,7 +97,8 @@ interface Modulator {
   deviceName: string;     // 0x009a e.g. "LFO"
   category: string;       // 0x009c e.g. "LFO" | "Note-driven" (informational)
   guid: string;           // 0x18c6, canonical 8-4-4-4-12
-  instanceId: number;     // 0x1a1b — unique within one modulator list
+  instanceGroup: number;  // 0x1a1a — first part of the list-local identity
+  instanceId: number;     // 0x1a1b — second part of the list-local identity
   routing: Routing | null;
   span: [number, number]; // absolute byte bounds of the object (see caveats)
 }
@@ -200,7 +201,7 @@ Checks, in order, the invariants that predict a load (cheap; run before insertFi
 - **`0x1a46` list ends with an intact `00 00 00 03 00 00 00 00` sentinel**, and the
   last modulator object's terminator abuts it exactly (the E11h/E11i off-by-2 guard —
   the single most common way an edit silently rejects).
-- `0x1a1b` values are **unique within the selected modulator list**.
+- each `0x1a1a`/`0x1a1b` pair is **unique within the selected list**.
 - meta `referenced_modulator_ids` matches the list for a plain preset. For a
   container, it contains the required ordered unique GUID set across lists.
 - if the preset embeds a sample (count-field lists present): every class-1 stub in

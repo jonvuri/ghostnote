@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-27
+updated: 2026-08-28
 phase: phase-5
-session: 5m-general-donor-catalog
+session: 5n-general-public-preset-authoring
 ---
 
 # Now
@@ -64,13 +64,29 @@ Outer and nested Instrument Layer cases passed live with exact page witnesses,
 reversal, and track-list cleanup. [E87](evidence/experiments/e87-list-scoped-topology-is-complete.md)
 records the result. The full brain check passes 912/912.
 
+Session 5m is complete. The operator-authored `gn-preset-zoo` fixture contains
+all 43 Bitwig 6.0.6 factory modulator types. The complete fixture and 42
+isolated donor objects pass live loads with exact cleanup. Wavetable LFO is the
+one explicit exclusion because it needs linked companion state outside its
+modulator object.
+
+The manifest drives runtime donor selection, both public type vocabularies,
+asset generation, and `list_modulator_types`. It exposes 42 public add and
+replace types. LFO, Random, Vibrato, and Classic LFO support sampled presets;
+the other new donors are Tier 1 only. Multi-output donors keep one active public
+route. The list-local identity gate is the `0x1a1a`/`0x1a1b` pair. [E88](evidence/experiments/e88-general-donor-catalog-is-manifest-driven.md)
+records the result. The full brain check passes 919/919. Extension tests and the
+Bitwig 6.0.6 deployment-freshness probe pass.
+
 ## Next action
 
-Implement [Session 5m](plan/phase-5/5m-general-donor-catalog.md). Replace fixed
-public modulator enums with one measured donor catalog for the current host. Do
+Implement [Session 5n](plan/phase-5/5n-general-public-preset-authoring.md).
+Combine semantic preset locations, general targets, all five editors, and the
+manifest-backed donor catalog through one public workflow. Do
 not begin Phase 6a until Phase 5 and the open dogfood loop close.
 
 ## Retrospective
 
-Let page witnesses select a nested device. A container-level page inventory
-cannot prove a modulator page on one selected nested list.
+Test a dense host-authored list before treating one field as the complete
+instance identity.
+Keep historical description fingerprints separate from current tool schemas.

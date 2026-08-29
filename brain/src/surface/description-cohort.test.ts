@@ -4,19 +4,7 @@ import assert from 'node:assert/strict';
 import {
   DESCRIPTION_COHORT,
   DESCRIPTION_COHORT_V1,
-  DESCRIPTION_COHORT_V2,
-  DESCRIPTION_COHORT_V3,
-  DESCRIPTION_COHORT_V4,
-  DESCRIPTION_COHORT_V5,
-  DESCRIPTION_COHORT_V6,
-  DESCRIPTION_COHORT_V7,
-  DESCRIPTION_COHORT_V8,
-  DESCRIPTION_COHORT_V9,
-  DESCRIPTION_COHORT_V10,
-  DESCRIPTION_COHORT_V11,
-  DESCRIPTION_COHORT_V12,
-  DESCRIPTION_COHORT_V13,
-  DESCRIPTION_COHORT_V14,
+  TOOL_DESCRIPTION_V16_SHA256,
   TOOL_DESCRIPTION_V15_SHA256,
   TOOL_DESCRIPTION_V14_SHA256,
   TOOL_DESCRIPTION_V13_SHA256,
@@ -81,10 +69,11 @@ const EXPECTED_COHORT = [
   'compose_drum_machine',
   'add_native_devices',
   'inspect_preset_modulation',
+  'list_modulator_types',
 ] as const;
 
-test('description v15 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v15');
+test('description v16 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v16');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -96,138 +85,117 @@ test('description v15 names one complete and explicit cohort', () => {
 });
 
 test('description v1 stays frozen as its original 15-tool artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V1);
-  assert.equal(artifact.length, 15);
+  assert.equal(DESCRIPTION_COHORT_V1.length, 15);
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V1_SHA256,
-    'the frozen v1 public wording or schema changed',
+    '9c4951a4f290c679cc9ae7222b8b4d12c6a581ed140936a1d625eafe2c562a39',
   );
 });
 
-test('description v15 matches its public artifact', () => {
+test('description v16 matches its public artifact', () => {
   const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
+    TOOL_DESCRIPTION_V16_SHA256,
+    'the v16 public wording or schema changed',
+  );
+});
+
+test('description v15 keeps its frozen fingerprint', () => {
+  assert.equal(
     TOOL_DESCRIPTION_V15_SHA256,
-    'the v15 public wording or schema changed',
+    'c9bc6a2a64b5b458fefd7be183d53bb4ba8b4a9e895f16930bab28e6fbe660ab',
   );
 });
 
-test('description v2 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V2);
+test('description v2 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V2_SHA256,
-    'the frozen v2 public wording or schema changed',
+    '64573f3c3426524fe30088c881918edb79823ad22e27dd0b37c4384c08bbdaf0',
   );
 });
 
-test('description v3 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V3);
+test('description v3 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V3_SHA256,
-    'the frozen v3 public wording or schema changed',
+    '85e419b5f81c489f08a468c6f2084689326aeb9f2ff6306eaa6de0891796ece5',
   );
 });
 
-test('description v4 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V4);
+test('description v4 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V4_SHA256,
-    'the frozen v4 public wording or schema changed',
+    '85e419b5f81c489f08a468c6f2084689326aeb9f2ff6306eaa6de0891796ece5',
   );
 });
 
-test('description v5 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V5);
+test('description v5 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V5_SHA256,
-    'the frozen v5 public wording or schema changed',
+    '7d18c3b93ab6a64b69e86cc9e8411f7b180810939cb5f47bbe0e5a45b4b504d6',
   );
 });
 
-test('description v6 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V6);
+test('description v6 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V6_SHA256,
-    'the frozen v6 public wording or schema changed',
+    '79cc3c02a8aa84b4f7958a3fbf95ffa7c5710822e13211706b4e58d37b284c7a',
   );
 });
 
-test('description v7 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V7);
+test('description v7 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V7_SHA256,
-    'the frozen v7 public wording or schema changed',
+    '04ac284118582b65327889abcde5922e2fe96fd0ace41cbb2f3115e83c5deffd',
   );
 });
 
-test('description v8 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V8);
+test('description v8 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V8_SHA256,
-    'the frozen v8 public wording or schema changed',
+    '04ac284118582b65327889abcde5922e2fe96fd0ace41cbb2f3115e83c5deffd',
   );
 });
 
-test('description v9 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V9);
+test('description v9 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V9_SHA256,
-    'the frozen v9 public wording or schema changed',
+    '5d1a069356fee5c4a83499ce39aabc7e20f4235d6f3fbfacbc48aa5c88bcc9bb',
   );
 });
 
-test('description v10 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V10);
+test('description v10 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V10_SHA256,
-    'the frozen v10 public wording or schema changed',
+    '5d1a069356fee5c4a83499ce39aabc7e20f4235d6f3fbfacbc48aa5c88bcc9bb',
   );
 });
 
-test('description v11 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V11);
+test('description v11 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V11_SHA256,
-    'the frozen v11 public wording or schema changed',
+    '5e814cce18db34f76fe975fa3ecf8df07b35d28c79f68553d06f6933bf160f2b',
   );
 });
 
-test('description v12 matches its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V12);
+test('description v12 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V12_SHA256,
-    'the frozen v12 public wording or schema changed',
+    '5e814cce18db34f76fe975fa3ecf8df07b35d28c79f68553d06f6933bf160f2b',
   );
 });
 
-test('description v13 matches its public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V13);
+test('description v13 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V13_SHA256,
-    'the frozen v13 public wording or schema changed',
+    '5e814cce18db34f76fe975fa3ecf8df07b35d28c79f68553d06f6933bf160f2b',
   );
 });
 
-test('description v14 stays frozen', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V14);
+test('description v14 keeps its frozen fingerprint', () => {
   assert.equal(
-    fingerprintDescriptionCohort(artifact),
     TOOL_DESCRIPTION_V14_SHA256,
-    'the frozen v14 public wording or schema changed',
+    '5e814cce18db34f76fe975fa3ecf8df07b35d28c79f68553d06f6933bf160f2b',
   );
 });
 

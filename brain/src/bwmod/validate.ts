@@ -4,7 +4,7 @@
  * Bitwig rejects an invalid preset SILENTLY (0 devices load), so these are the
  * cheap offline checks that predict a load, run before the brain pays an
  * `insertFile` round-trip. They are ordered by how often each one is the actual
- * culprit: sentinel first, then the list-local `0x1a1b` uniqueness gate.
+ * culprit: sentinel first, then the list-local instance-identity gate.
  *
  * ⚠ `ok` is NECESSARY BUT NOT SUFFICIENT. A bad Ramona route path passes every
  * check here and still carries no modulation (E10b). The sufficient check is a
@@ -132,18 +132,19 @@ export function validate(buf: Buffer, opts: ValidateOptions = {}): ValidationRes
     listOk = true;
   });
 
-  // --- the load gate: unique 0x1a1b within the selected list --------------
+  // --- the load gate: unique 0x1a1a/0x1a1b identity within the list -------
   if (listOk) {
-    const seen = new Map<number, number>();
+    const seen = new Map<string, number>();
     for (const m of modulators) {
-      const first = seen.get(m.instanceId);
+      const identity = `${m.instanceGroup}:${m.instanceId}`;
+      const first = seen.get(identity);
       if (first !== undefined) {
         problems.push(
-          `duplicate 0x1a1b instance id ${m.instanceId} on modulators ${first} (${modulators[first].deviceName}) ` +
+          `duplicate instance identity ${identity} on modulators ${first} (${modulators[first].deviceName}) ` +
             `and ${m.index} (${m.deviceName}) in one list — this rejects the ENTIRE preset`,
         );
       } else {
-        seen.set(m.instanceId, m.index);
+        seen.set(identity, m.index);
       }
     }
 

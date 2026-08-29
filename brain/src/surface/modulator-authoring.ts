@@ -5,6 +5,7 @@ import { isAbsolute } from 'node:path';
 import { z } from 'zod';
 
 import { track as trackAt } from '../contract/index.js';
+import { donorType, listDonorTypes } from '../bwmod/index.js';
 import {
   ModulatorAuthoringError, authorModulatorAdd, authorModulatorEdit, modulationRoute,
   type ModulationVerification, type ModulatorPageVerification,
@@ -12,17 +13,18 @@ import {
 import { receiptOf } from './report.js';
 import type { Workspace } from './workspace.js';
 
-const ROUTED_MODULATOR_TYPES = ['lfo', 'random', 'vibrato'] as const;
-const REPLACE_MODULATOR_TYPES = [
-  'lfo', 'random', 'classic-lfo', 'vibrato', 'expressions',
-] as const;
+const ROUTED_MODULATOR_TYPES = listDonorTypes()
+  .filter((type) => type.capabilities.includes('add'))
+  .map((type) => type.id) as [string, ...string[]];
+const REPLACE_MODULATOR_TYPES = listDonorTypes()
+  .filter((type) => type.capabilities.includes('replace'))
+  .map((type) => type.id) as [string, ...string[]];
 const TARGET_RECIPE_IDS = [
   'polysynth-filter-frequency',
   'polysynth-filter-resonance',
   'sampler-amp-attack',
 ] as const;
 
-type ReplaceModulatorType = typeof REPLACE_MODULATOR_TYPES[number];
 type TargetRecipeId = typeof TARGET_RECIPE_IDS[number];
 type DirectParameterTarget = {
   readonly parameterId: string;
@@ -44,14 +46,6 @@ const TARGET_RECIPES: Readonly<Record<TargetRecipeId, TargetRecipe>> = {
   'sampler-amp-attack': {
     parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'Amp Attack',
   },
-};
-
-const DONOR_FOR_TYPE: Readonly<Record<ReplaceModulatorType, string>> = {
-  lfo: 'lfo-sampler',
-  random: 'random-sampler',
-  'classic-lfo': 'classiclfo-poly',
-  vibrato: 'vibrato-poly',
-  expressions: 'expressions-poly',
 };
 
 const presetPath = z.string().min(1).superRefine((path, context) => {
@@ -99,7 +93,7 @@ const operation = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('add'),
     modulator: z.enum(ROUTED_MODULATOR_TYPES).describe(
-      'LFO, Random, or Vibrato. These three assets support safe target assignment.',
+      'Manifest-backed modulator type that supports add and safe target assignment.',
     ),
     target: modulationTarget,
     amount: z.number().finite().min(-1).max(1).describe('Normalized modulation amount from -1 through 1.'),
@@ -108,7 +102,7 @@ const operation = z.discriminatedUnion('kind', [
     kind: z.literal('replace'),
     position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
     modulator: z.enum(REPLACE_MODULATOR_TYPES).describe(
-      'LFO, Random, Classic LFO, Vibrato, or Expressions. Expressions refuses on sampled presets.',
+      'Manifest-backed modulator type that supports replace. Tier-1-only types refuse on sampled presets.',
     ),
   }).strict(),
   z.object({
@@ -264,7 +258,7 @@ export async function runModulatorAuthoring(
       const result = await authorModulatorAdd(workspace, {
         track: trackAt(input.trackId),
         templatePath: input.presetPath,
-        donorId: DONOR_FOR_TYPE[input.operation.modulator],
+        donorId: donorType(input.operation.modulator, 'add').donorId,
         routing: { target: modulationRoute(target), amount: input.operation.amount },
         witness: target,
         expectedChain,
@@ -299,7 +293,7 @@ export async function runModulatorAuthoring(
       ? {
         kind: 'replace' as const,
         index: input.operation.position,
-        donorId: DONOR_FOR_TYPE[input.operation.modulator],
+        donorId: donorType(input.operation.modulator, 'replace').donorId,
       }
       : input.operation.kind === 'retarget'
         ? {

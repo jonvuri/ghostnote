@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v15';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v16';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -250,11 +250,20 @@ export const DESCRIPTION_COHORT_V14: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v15 adds read-only semantic preset modulation inspection. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V15: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V14,
   {
     name: 'inspect_preset_modulation', kind: 'read',
     reason: 'Binds preset modulator inventories to semantic device locations.',
+  },
+] as const;
+
+/** v16 adds the manifest-backed modulator catalog. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V15,
+  {
+    name: 'list_modulator_types', kind: 'read',
+    reason: 'Publishes exact donor support, host inventory, tiers, and witness requirements.',
   },
 ] as const;
 
@@ -318,6 +327,9 @@ export const encodeDescriptionCohort = (artifact: DescriptionCohortArtifact): st
 export const fingerprintDescriptionCohort = (artifact: DescriptionCohortArtifact): string =>
   createHash('sha256').update(encodeDescriptionCohort(artifact), 'utf8').digest('hex');
 
+// V1 through V15 record shipped artifacts. Do not recompute them from current
+// tool schemas. Only the current version follows the current public surface.
+
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V1_SHA256 =
   '9c4951a4f290c679cc9ae7222b8b4d12c6a581ed140936a1d625eafe2c562a39';
@@ -377,3 +389,7 @@ export const TOOL_DESCRIPTION_V14_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V15_SHA256 =
   'c9bc6a2a64b5b458fefd7be183d53bb4ba8b4a9e895f16930bab28e6fbe660ab';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V16_SHA256 =
+  '6007b05597f401b487b12a67091610b797b1534d2ae7a9cdd6aac14e3e774b66';

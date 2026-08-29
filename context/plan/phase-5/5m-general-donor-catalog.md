@@ -1,11 +1,11 @@
 ---
 title: Phase 5m — general donor catalog
 kind: plan
-state: planned
-status: Planned after 5j. Make public modulator types manifest-driven and complete for the current host.
-updated: 2026-08-25
+state: done
+status: Complete. E88 records 42 manifest-backed public types and one specific exclusion.
+updated: 2026-08-28
 parent: README.md
-evidence: D1, D2, D3, E12, E13, E67, E69
+evidence: D1, D2, D3, E12, E13, E67, E69, E88
 ---
 
 # Phase 5m — general donor catalog

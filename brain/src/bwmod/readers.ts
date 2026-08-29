@@ -4,7 +4,7 @@
 import type { Chain, Modulator, Routing } from './types.js';
 import { CLASS_CHAIN, FID, TYPE, fieldSig, formatGuid, readStr } from './format.js';
 import {
-  findField, findModulatorList, instanceIdOffset, modulatorBounds, nameFieldOffset, readStrField,
+  findField, findModulatorList, instanceGroupOffset, instanceIdOffset, modulatorBounds, nameFieldOffset, readStrField,
   routeSlots,
 } from './stream.js';
 import { streamOffset } from './header.js';
@@ -38,6 +38,7 @@ export function listModulators(buf: Buffer, listIndex?: number): Modulator[] {
       deviceName: readStrField(buf, start, end, FID.DEVICE_NAME),
       category: readStrField(buf, start, end, FID.DEVICE_CATEGORY),
       guid: guidAt === -1 ? '' : formatGuid(buf.subarray(guidAt, guidAt + 16)),
+      instanceGroup: buf.readUInt8(instanceGroupOffset(buf, start, end)),
       instanceId: buf.readUInt8(instanceIdOffset(buf, start, end)),
       routing: routes[0] ?? null,
       routes,
@@ -46,20 +47,22 @@ export function listModulators(buf: Buffer, listIndex?: number): Modulator[] {
   });
 }
 
-/** Every `0x1a1b` value in one selected list. Values can repeat across container lists. */
-export function instanceIds(buf: Buffer, listIndex?: number): number[] {
-  return listModulators(buf, listIndex).map((m) => m.instanceId);
+/** Every `0x1a1b` value in one selected group. */
+export function instanceIds(buf: Buffer, listIndex?: number, instanceGroup?: number): number[] {
+  return listModulators(buf, listIndex)
+    .filter((modulator) => instanceGroup === undefined || modulator.instanceGroup === instanceGroup)
+    .map((modulator) => modulator.instanceId);
 }
 
 /**
  * `max(existing) + 1`, or 0 when there are none.
  *
- * Ids need not be contiguous or zero-based. They must be unique only within the
- * selected list (E11a/E71). This is a convenience, not a constraint. It is also
- * what Bitwig writes, which makes the golden reconstructions byte-identical.
+ * Ids need not be contiguous or zero-based. The load gate applies to the
+ * `0x1a1a`/`0x1a1b` pair. This allocator stays globally conservative so its
+ * cosmetic names also stay distinct. Golden reconstructions remain identical.
  */
-export function nextFreeInstanceId(buf: Buffer, listIndex?: number): number {
-  const ids = instanceIds(buf, listIndex);
+export function nextFreeInstanceId(buf: Buffer, listIndex?: number, instanceGroup?: number): number {
+  const ids = instanceIds(buf, listIndex, instanceGroup);
   return ids.length === 0 ? 0 : Math.max(...ids) + 1;
 }
 

@@ -107,6 +107,7 @@ import {
   presetModulationInspectionInputSchema, presetModulationInspectionInputValidator,
   runPresetModulationInspection,
 } from './preset-modulation-inspection.js';
+import { runModulatorCatalog } from './modulator-catalog.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -552,6 +553,29 @@ async function deviceAlternatesAt(
 
 export const TOOLS: readonly ToolSpec[] = [
   // ============================== read ======================================
+  tool({
+    name: 'list_modulator_types',
+    kind: 'read',
+    title: 'List supported modulator types',
+    description:
+      'Read the measured modulator catalog for the current Bitwig host. Return every supported '
+      + 'public type, category, operation, sampled-preset standing, witness mode, witness '
+      + 'requirement, and provenance. Also return the complete host inventory. Each excluded host '
+      + 'type has an explicit reason. Structural, free-running, and note-driven witnesses are '
+      + 'distinct. A note-driven witness requires its recorded trigger. This tool does not expose '
+      + 'asset identities or binary fields and changes nothing.',
+    inputSchema: {},
+    resultContract: {
+      host: 'The exact product and version measured by the catalog.',
+      supportedTypes: 'Manifest-backed public types and their operation, tier, and witness standing.',
+      inventory: 'Every current host type with supported or explicitly excluded standing.',
+      totals: 'Host, supported, and excluded type counts.',
+    },
+    async run() {
+      return runModulatorCatalog();
+    },
+  }),
+
   tool({
     name: 'inspect_preset_modulation',
     kind: 'read',
@@ -2067,8 +2091,8 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'internal route. The caller cannot provide a route, list position, byte offset, or remote '
       + 'page position. Each operation runs complete pre-write checks and must pass exact remote '
       + 'page or DirectParameter behavior checks after '
-      + 'insertion. Add supports LFO, Random, and Vibrato. Replace also supports Classic LFO and '
-      + 'Expressions. Expressions refuses on sampled presets because it has no exact measured '
+      + 'insertion. Add and replace accept each matching type from list_modulator_types. A type '
+      + 'marked tier-1-only refuses on a sampled preset because it has no exact measured '
       + 'adjustment. A sampled delete also refuses when its resident modulator has no exact '
       + 'measurement. The result includes one recorded change id. Reversal removes only the '
       + 'inserted device while its last proved position remains valid.',

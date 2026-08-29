@@ -87,7 +87,7 @@ export interface AddModulatorRequest {
   readonly track: TrackAddress;
   /** Absolute path to one human-saved `.bwpreset` template. */
   readonly templatePath: string;
-  /** Curated id from `assets/modulators/index.json`. */
+  /** Curated id from `assets/modulators/manifest.json`. */
   readonly donorId: string;
   readonly routing: Routing;
   readonly witness: ModulatorParameterWitness;

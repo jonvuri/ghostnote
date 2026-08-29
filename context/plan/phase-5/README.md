@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5l is complete; 5m is next.
-updated: 2026-08-27
+status: Reopened 2026-08-25. Session 5m is complete; 5n is next.
+updated: 2026-08-28
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -56,8 +56,8 @@ that first integration unless the proof needs one new owned asset.
 - **It is durable and first-class**, not a load-time illusion: a surgically-authored
   modulator survives project save → Bitwig restart → reopen, and Bitwig re-serialises
   it cleanly on save (E11g).
-- **One list-local load gate:** each `0x1a1b` instance id is unique within one
-  modulator list. Ids can repeat in separate container lists. They need not be
+- **One list-local load gate:** each `0x1a1a`/`0x1a1b` identity pair is unique
+  within one modulator list. Ids can repeat across groups and container lists. They need not be
   contiguous; the `0x02b9` name is cosmetic; same-type duplicates are fine.
 - **The sentinel rule is the one that bites.** The `0x1a46` list ends with an empty
   `cls 0x0003` sentinel; a diff-derived bound can land 2 bytes inside it and corrupt
@@ -117,8 +117,8 @@ that first integration unless the proof needs one new owned asset.
     without exposing binary selectors.
 12. [5l — complete list-scoped topology](5l-complete-list-scoped-topology.md) —
     done. Run add, replace, retarget, amount, and delete on any semantic list.
-13. [5m — general donor catalog](5m-general-donor-catalog.md) — planned. Make
-    next. Make public modulator types manifest-driven and complete for the current host.
+13. [5m — general donor catalog](5m-general-donor-catalog.md) — done. One
+    manifest records all 43 host types and drives 42 supported public types.
 14. [5n — general public preset authoring](5n-general-public-preset-authoring.md)
     — planned. Combine general targets, semantic lists, all editors, and the
     donor catalog across every proved host tier.
@@ -216,8 +216,8 @@ impossibilities. External publication and redistribution remain Phase 6 work.
 - **Public modulator locations — inspection settled by 5k; writes planned for
   5l.** Semantic device and entry paths replace list indexes and support all
   five topology operations.
-- **Public donor breadth — planned for 5m.** One manifest drives the complete
-  supported type catalog for the current host.
+- **Public donor breadth — settled by 5m.** One manifest records the complete
+  43-type host inventory and drives the five-type supported catalog.
 - **Existing-device preservation — planned for 5o/5p.** A proved owned
   container supplies topology while the existing device instance moves intact.
 - **General composition — planned for 5q/5r.** Explicit device sources and

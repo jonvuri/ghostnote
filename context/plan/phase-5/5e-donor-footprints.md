@@ -33,7 +33,7 @@ and the field walk reached 14 objects before the known deep-list limit.
 1. Triangulate the Classic LFO and Vibrato footprints on a sampled Sampler
    preset.
 2. Require the predicted delta to load and both neighboring deltas to reject.
-3. Record each result and its provenance in the generated donor index.
+3. Record each result and its provenance in the donor manifest.
 4. Prove all five cohort donors can be added to a sampled preset offline.
 5. Prove `lfo-poly` and `expressions-poly` still refuse before execution on a
    sampled preset.

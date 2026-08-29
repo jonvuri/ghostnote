@@ -4,7 +4,7 @@
  *
  * Every editor maintains the same five invariants (DECISIONS D1):
  *   1. object bounds snap to the list SENTINEL — insert before it, end at it (E11h);
- *   2. `0x1a1b` stays unique within its modulator list (E10f/E71);
+ *   2. each `0x1a1a`/`0x1a1b` identity stays unique within its list (E88);
  *   3. meta `referenced_modulator_ids` tracks the required modulator GUIDs (E10c/E71);
  *   4. header `f4` is patched whenever META changed size;
  *   5. header `f6` is re-pointed whenever it is non-zero and byte length changed (E11i);
@@ -20,7 +20,8 @@ import { repointF6 } from './header.js';
 import { writeModulatorRefs } from './meta.js';
 import { identifyCuratedDonor } from './donors.js';
 import {
-  findModulatorList, instanceIdOffset, modulatorBounds, modulatorListOffsets, nameFieldOffset, routeSlots,
+  findModulatorList, instanceGroupOffset, instanceIdOffset, modulatorBounds, modulatorListOffsets, nameFieldOffset,
+  routeSlots,
 } from './stream.js';
 import { listModulators, nextFreeInstanceId } from './readers.js';
 import { hasCountStubs, relocateStubs } from './stubs.js';
@@ -44,7 +45,7 @@ export interface FootprintOptions {
 export interface AddOptions {
   /** Exact MODULATORS list in a container preset. Omit for a plain device. */
   listIndex?: number;
-  /** Override `0x1a1b`. It must stay unique within the selected modulator list. */
+  /** Override `0x1a1b`. Its pair with the donor's `0x1a1a` must stay unique. */
   instanceId?: number;
   /** override the cosmetic `0x02b9` name; defaults to the instance id, as Bitwig writes it */
   name?: string;
@@ -96,8 +97,9 @@ export function setAmount(
  */
 export function addModulator(buf: Buffer, donor: DonorObject, routing?: Routing, opts: AddOptions = {}): Buffer {
   const list = findModulatorList(buf, opts.listIndex);
+  const instanceGroup = donor.bytes.readUInt8(instanceGroupOffset(donor.bytes, 0, donor.bytes.length));
   const instanceId = opts.instanceId ?? nextFreeInstanceId(buf, opts.listIndex);
-  assertFreeId(buf, instanceId, -1, opts.listIndex);
+  assertFreeId(buf, instanceGroup, instanceId, -1, opts.listIndex);
   const object = prepareDonor(donor, instanceId, opts.name ?? String(instanceId), routing);
 
   let out = spliceBuffer(buf, list.listEnd, list.listEnd, object); // insert BEFORE the sentinel
@@ -119,9 +121,12 @@ export function replaceModulator(
 ): Buffer {
   const list = findModulatorList(buf, opts.listIndex);
   const [start, end] = modulatorBounds(buf, index, list);
+  const instanceGroup = donor.bytes.readUInt8(instanceGroupOffset(donor.bytes, 0, donor.bytes.length));
   const instanceId = opts.instanceId ?? nextFreeInstanceId(buf, opts.listIndex);
-  assertFreeId(buf, instanceId, index, opts.listIndex);
-  const object = prepareDonor(donor, instanceId, opts.name ?? String(instanceId));
+  assertFreeId(buf, instanceGroup, instanceId, index, opts.listIndex);
+  const object = deactivateSecondaryRoutes(
+    prepareDonor(donor, instanceId, opts.name ?? String(instanceId)),
+  );
 
   let out = spliceBuffer(buf, start, end, object);
   out = synchronizeModulatorRefs(out);
@@ -148,13 +153,21 @@ export function deleteModulator(buf: Buffer, index: number, opts: FootprintOptio
 
 // ---------------------------------------------------------------------------
 
-function assertFreeId(buf: Buffer, id: number, ignoreIndex = -1, listIndex?: number): void {
+function assertFreeId(
+  buf: Buffer,
+  group: number,
+  id: number,
+  ignoreIndex = -1,
+  listIndex?: number,
+): void {
   if (!Number.isInteger(id) || id < 0 || id > 0xff) {
     fail(`instance id ${id} is out of range — 0x1a1b is a u8`);
   }
   const clash = listModulators(buf, listIndex)
-    .find((m) => m.index !== ignoreIndex && m.instanceId === id);
-  if (clash) fail(`instance id ${id} is already used by modulator ${clash.index} — duplicates reject the preset`);
+    .find((m) => m.index !== ignoreIndex && m.instanceGroup === group && m.instanceId === id);
+  if (clash) {
+    fail(`instance identity ${group}:${id} is already used by modulator ${clash.index} — duplicates reject the preset`);
+  }
 }
 
 /**
@@ -190,6 +203,15 @@ function applyRouting(object: Buffer, routing: Routing): Buffer {
   if (after.amountAt !== -1) out.writeDoubleBE(routing.amount, after.amountAt);
   if (routing.rangeLo !== undefined && after.rangeLoAt !== -1) out.writeDoubleBE(routing.rangeLo, after.rangeLoAt);
   if (routing.rangeHi !== undefined && after.rangeHiAt !== -1) out.writeDoubleBE(routing.rangeHi, after.rangeHiAt);
+  return deactivateSecondaryRoutes(out);
+}
+
+/** Keep the selected first donor output active and make all others dormant. */
+function deactivateSecondaryRoutes(object: Buffer): Buffer {
+  const out = Buffer.from(object);
+  for (const dormant of routeSlots(out, 0, out.length).slice(1)) {
+    if (dormant.amountAt !== -1) out.writeDoubleBE(0, dormant.amountAt);
+  }
   return out;
 }
 
@@ -204,7 +226,7 @@ function footprintFor(buf: Buffer, donor: DonorObject, what: string): number {
     fail(
       `this preset embeds a sample, so a ${what} must relocate its count stubs, but donor ` +
         `${donor.deviceName} (${donor.guid}) has no measured footprint. Measure it by E12a ` +
-        'load-triangulation and record it in assets/modulators/index.json — a guess rejects the preset.',
+        'load-triangulation and record it in assets/modulators/manifest.json — a guess rejects the preset.',
     );
   }
   return donor.footprint;

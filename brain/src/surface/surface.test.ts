@@ -247,7 +247,7 @@ function schemaPaths(
 }
 
 test('D01: every public tool schema uses only homogeneous arrays', () => {
-  assert.equal(TOOLS.length, 48);
+  assert.equal(TOOLS.length, 49);
   const incompatible: string[] = [];
   for (const tool of TOOLS) {
     const validator = tool.inputValidator ?? z.object(tool.inputSchema);
@@ -1166,6 +1166,13 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   // -- reading first: an agent with no ids has nowhere else to start.
   const connection = await exercise('check_connection', {});
   assert.equal(connection['reachable'], true);
+
+  const modulatorCatalog = await exercise('list_modulator_types', {}) as {
+    totals: { hostTypes: number; supportedTypes: number };
+  };
+  assert.deepEqual(modulatorCatalog.totals, {
+    hostTypes: 43, supportedTypes: 42, excludedTypes: 1,
+  });
 
   const presetInspection = await exercise('inspect_preset_modulation', {
     presetPath: join(FIXTURE_DIR, 'Polysynth', 'mp_bare.bwpreset'),

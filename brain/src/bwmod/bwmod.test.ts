@@ -516,6 +516,32 @@ test('addModulator can attach a route at build time (the composed edit)', () => 
   );
 });
 
+test('addModulator leaves only the selected output active on a multi-output donor', () => {
+  const zoo = fixture('Polysynth/gn-preset-zoo');
+  const donor = extractModulator(zoo, 9);
+  const out = addModulator(fixture('Polysynth/mp_bare'), donor, {
+    target: 'CONTENTS/F1FREQ', amount: 0.75,
+  });
+  const routes = listModulators(out)[0]?.routes ?? [];
+  assert.equal(routes.length, 16);
+  assert.equal(routes[0]?.target, 'CONTENTS/F1FREQ');
+  assert.equal(routes[0]?.amount, 0.75);
+  assert.ok(routes.slice(1).every((route) => route.amount === 0));
+});
+
+test('replaceModulator leaves only the selected output active on a multi-output donor', () => {
+  const out = replaceModulator(
+    fixture('Polysynth/modtest'),
+    0,
+    loadDonor('channel-16-zoo'),
+  );
+  const routes = listModulators(out)[0]?.routes ?? [];
+  assert.equal(routes.length, 16);
+  assert.notEqual(routes[0]?.amount, 0);
+  assert.ok(routes.slice(1).every((route) => route.amount === 0));
+  assertValid(out, 'multi-output replace');
+});
+
 // ---------------------------------------------------------------------------
 // U-immutable
 // ---------------------------------------------------------------------------
@@ -550,7 +576,7 @@ test('U-immutable: donor assets are not mutated by being planted', () => {
 // U-validate-neg
 // ---------------------------------------------------------------------------
 
-test('U-validate-neg: a duplicate 0x1a1b is caught and the collision is named', () => {
+test('U-validate-neg: a duplicate instance identity is caught and the collision is named', () => {
   // The E10f M1 control: modtest with slot 1's instance id flipped 1 -> 0.
   const base = fixture('Polysynth/modtest');
   const [start, end] = modulatorBounds(base, 1);
@@ -561,9 +587,17 @@ test('U-validate-neg: a duplicate 0x1a1b is caught and the collision is named', 
 
   const result = validate(dup);
   assert.equal(result.ok, false);
-  assert.match(result.problems.join(' '), /duplicate 0x1a1b instance id 0/);
+  assert.match(result.problems.join(' '), /duplicate instance identity 0:0/);
   assert.match(result.problems.join(' '), /Vibrato/);
   assert.match(result.problems.join(' '), /Expressions/);
+});
+
+test('U-validate-zoo: instance ids can repeat across host-authored groups', () => {
+  const result = validate(fixture('Polysynth/gn-preset-zoo'));
+  assert.equal(result.ok, true, result.problems.join('\n'));
+  assert.equal(new Set(listModulators(fixture('Polysynth/gn-preset-zoo')).map(
+    (modulator) => `${modulator.instanceGroup}:${modulator.instanceId}`,
+  )).size, 43);
 });
 
 test('U-validate-neg2: a dropped meta ref is caught', () => {

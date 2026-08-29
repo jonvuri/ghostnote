@@ -21,21 +21,21 @@ const amount = z.number().finite().min(-1).max(1).describe(
   'Normalized modulation amount from -1 through 1.',
 );
 
-const modulatorType = z.enum(COMPOSITION_MODULATOR_TYPES).describe(
-  'LFO, Random, Classic LFO, Vibrato, or Expressions.',
+const replaceModulatorType = z.enum(COMPOSITION_MODULATOR_TYPES).describe(
+  'Manifest-backed modulator type that supports structure composition.',
 );
 
 const modulatorEdit = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('add'),
-    modulator: modulatorType,
+    modulator: replaceModulatorType,
     target,
     amount,
   }).strict(),
   z.object({
     kind: z.literal('replace'),
     existing: z.string().min(1).describe('Exact current modulator name in this entry.'),
-    modulator: modulatorType,
+    modulator: replaceModulatorType,
     target: target.optional(),
     amount: amount.optional(),
   }).strict(),

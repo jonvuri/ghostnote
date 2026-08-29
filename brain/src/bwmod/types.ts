@@ -43,7 +43,9 @@ export interface Modulator {
   category: string;
   /** field `0x18c6`, canonical 8-4-4-4-12 */
   guid: string;
-  /** field `0x1a1b` — unique within one modulator list (E10f/E71) */
+  /** field `0x1a1a` — the first part of the list-local instance identity */
+  instanceGroup: number;
+  /** field `0x1a1b` — unique within its `0x1a1a` group in one list */
   instanceId: number;
   /** the first modulation entry, or null when the modulator routes nowhere */
   routing: Routing | null;
