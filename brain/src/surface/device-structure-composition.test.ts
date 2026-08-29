@@ -115,7 +115,7 @@ function directParameters(preset: Buffer, listIndex: number) {
       hasAutomation: false,
     },
     {
-      id: 'CONTENTS/AMP_ATTACK_TIME', name: 'Amp Attack', value: 0.2,
+      id: 'CONTENTS/AMP_ATTACK_TIME', name: 'AEG Attack Time', value: 0.2,
       modulatedValue: routes.some((route) => route.target === 'CONTENTS/AMP_ATTACK_TIME') ? 0.6 : 0.2,
       hasAutomation: false,
     },

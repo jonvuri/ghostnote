@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -6,14 +7,15 @@ import assert from 'node:assert/strict';
 import { z } from 'zod';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
-import { listModulators } from '../bwmod/index.js';
+import { listDonorTypes, listModulators } from '../bwmod/index.js';
 import { FIXTURE_DIR } from '../bwmod/fixtures.js';
-import { Executor } from '../engine/index.js';
+import { Executor, fingerprintPreset } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { callTool, TOOLS } from './tools.js';
 import {
   modulatorAuthoringInputSchema,
+  modulatorAuthoringInputValidator,
 } from './modulator-authoring.js';
 import { cancellableWorkspace, workspaceOf, type Workspace } from './workspace.js';
 
@@ -55,7 +57,6 @@ function fixture(): Fixture {
           const modulators = listModulators(preset);
           const routes = modulators.flatMap((modulator) => modulator.routes);
           const active = (target: string): boolean => routes.some((route) => route.target === target);
-          device.name = 'Authored preset';
           device.params = [
             {
               id: 'CONTENTS/F1FREQ', name: 'Filter Frequency', value: 0.4,
@@ -66,7 +67,7 @@ function fixture(): Fixture {
               modulatedValue: active('CONTENTS/F1RESO') ? 0.65 : 0.3, hasAutomation: false,
             },
             {
-              id: 'CONTENTS/AMP_ATTACK_TIME', name: 'Amp Attack', value: 0.2,
+              id: 'CONTENTS/AMP_ATTACK_TIME', name: 'AEG Attack Time', value: 0.2,
               modulatedValue: active('CONTENTS/AMP_ATTACK_TIME') ? 0.55 : 0.2,
               hasAutomation: false,
             },
@@ -122,6 +123,10 @@ function fixture(): Fixture {
 }
 
 const poly = (name: string): string => join(FIXTURE_DIR, 'Polysynth', `${name}.bwpreset`);
+const semanticSelf = (path: string) => ({
+  fingerprint: fingerprintPreset(readFileSync(path)),
+  location: { kind: 'self' as const },
+});
 
 test('5f-schema: the public contract hides all format and donor controls', () => {
   const tool = TOOLS.find((candidate) => candidate.name === 'author_modulators');
@@ -136,6 +141,13 @@ test('5f-schema: the public contract hides all format and donor controls', () =>
   ]) {
     assert.equal(schema.includes(hidden), false, `${hidden} crossed the public schema`);
   }
+  assert.equal(modulatorAuthoringInputValidator.safeParse({
+    trackId: 'track', presetPath: poly('mp_bare'), ...semanticSelf(poly('mp_bare')),
+    operation: {
+      kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 1,
+    },
+    pageChecks: [], behaviorChecks: [],
+  }).success, false, 'an empty check set is not an implicit structural witness');
 });
 
 test('5j-general: an exact plug-in id and name derive the route and use one behavior verifier', async () => {
@@ -144,6 +156,7 @@ test('5j-general: an exact plug-in id and name derive the route and use one beha
   const result = await callTool(fx.workspace, 'author_modulators', {
     trackId: fx.trackId,
     presetPath: poly('mp_bare'),
+    ...semanticSelf(poly('mp_bare')),
     operation: {
       kind: 'add',
       modulator: 'lfo',
@@ -153,7 +166,7 @@ test('5j-general: an exact plug-in id and name derive the route and use one beha
   }) as Record<string, unknown>;
 
   assert.equal(result['applied'], true, JSON.stringify(result));
-  assert.equal((result['verification'] as { verified: boolean }).verified, true, JSON.stringify(result));
+  assert.equal((result['verified'] as { passed: boolean }).passed, true, JSON.stringify(result));
   assert.equal(listModulators(fx.appliedPresets[0]!)[0]?.routing?.target,
     'CONTENTS/ROOT_GENERIC_MODULE/PID411');
 });
@@ -163,6 +176,7 @@ test('5j-general: an id and name mismatch is a post-write verification failure',
   const result = await callTool(fx.workspace, 'author_modulators', {
     trackId: fx.trackId,
     presetPath: poly('mp_bare'),
+    ...semanticSelf(poly('mp_bare')),
     operation: {
       kind: 'add',
       modulator: 'lfo',
@@ -172,7 +186,7 @@ test('5j-general: an id and name mismatch is a post-write verification failure',
   }) as Record<string, unknown>;
 
   assert.equal(result['applied'], true, JSON.stringify(result));
-  assert.equal((result['verification'] as { verified: boolean }).verified, false, JSON.stringify(result));
+  assert.equal((result['verified'] as { passed: boolean }).passed, false, JSON.stringify(result));
   assert.equal(fx.workspace.changes.list().length, 1);
   assert.match(JSON.stringify(result), /has name.*not.*Wrong name/i);
 });
@@ -182,6 +196,7 @@ test('5j-general: a missing target stays a recorded post-write failure', async (
   const result = await callTool(fx.workspace, 'author_modulators', {
     trackId: fx.trackId,
     presetPath: poly('mp_bare'),
+    ...semanticSelf(poly('mp_bare')),
     operation: {
       kind: 'add',
       modulator: 'lfo',
@@ -191,7 +206,7 @@ test('5j-general: a missing target stays a recorded post-write failure', async (
   }) as Record<string, unknown>;
 
   assert.equal(result['applied'], true, JSON.stringify(result));
-  assert.equal((result['verification'] as { verified: boolean }).verified, false, JSON.stringify(result));
+  assert.equal((result['verified'] as { passed: boolean }).passed, false, JSON.stringify(result));
   assert.equal(fx.workspace.changes.list().length, 1);
   assert.match(JSON.stringify(result), /missing after the preset load/i);
   assert.equal(result['nothingWasWritten'], undefined);
@@ -202,13 +217,14 @@ test('5f-add: named type and target record one insertion and prove exact live be
   const result = await callTool(fx.workspace, 'author_modulators', {
     trackId: fx.trackId,
     presetPath: poly('mp_bare'),
+    ...semanticSelf(poly('mp_bare')),
     operation: {
       kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 1,
     },
   }) as Record<string, unknown>;
 
   assert.equal(result['applied'], true, JSON.stringify(result));
-  assert.equal((result['verification'] as { verified: boolean }).verified, true, JSON.stringify(result));
+  assert.equal((result['verified'] as { passed: boolean }).passed, true, JSON.stringify(result));
   const change = result['change'] as { changeId: string; canBeUndone: boolean };
   assert.equal(change.changeId, 'surface-change-1');
   assert.equal(change.canBeUndone, true);
@@ -228,22 +244,25 @@ test('5f-add: named type and target record one insertion and prove exact live be
 
 test('5f-sampled-add: the public measured asset adjusts every sample reference', async () => {
   const fx = fixture();
+  const sampledPath = join(FIXTURE_DIR, 'Sampler', 'gn_sampler_multi_bare.bwpreset');
   const result = await callTool(fx.workspace, 'author_modulators', {
     trackId: fx.trackId,
-    presetPath: join(FIXTURE_DIR, 'Sampler', 'gn_sampler_multi_bare.bwpreset'),
+    presetPath: sampledPath,
+    ...semanticSelf(sampledPath),
     operation: {
       kind: 'add', modulator: 'lfo', target: 'sampler-amp-attack', amount: 1,
     },
   }) as Record<string, unknown>;
 
   assert.equal(result['applied'], true, JSON.stringify(result));
-  assert.equal(result['sampledPreset'], true);
-  assert.equal(result['adjustedSampleReferences'], 4);
-  assert.equal((result['verification'] as { verified: boolean }).verified, true, JSON.stringify(result));
+  const edited = result['edited'] as { sampledPreset: boolean; adjustedSampleReferences: number };
+  assert.equal(edited.sampledPreset, true);
+  assert.equal(edited.adjustedSampleReferences, 4);
+  assert.equal((result['verified'] as { passed: boolean }).passed, true, JSON.stringify(result));
   assert.doesNotMatch(JSON.stringify(result), /footprint|stub|offset/i);
 });
 
-test('5f-edit: replace, retarget, and delete use exact public witnesses', async () => {
+test('5n-edit: replace, retarget, amount, and delete use exact public witnesses', async () => {
   const cases = [
     {
       operation: { kind: 'replace', position: 0, modulator: 'classic-lfo' },
@@ -267,6 +286,11 @@ test('5f-edit: replace, retarget, and delete use exact public witnesses', async 
       behaviorChecks: [{ expected: 'inactive', target: 'polysynth-filter-frequency' }],
       after: ['Vibrato', 'Expressions'],
     },
+    {
+      operation: { kind: 'amount', position: 2, amount: 0.25 },
+      pageChecks: [{ pageName: 'LFO', expectedCount: 1 }],
+      after: ['Vibrato', 'Expressions', 'LFO'],
+    },
   ] as const;
 
   for (const item of cases) {
@@ -274,14 +298,15 @@ test('5f-edit: replace, retarget, and delete use exact public witnesses', async 
     const result = await callTool(fx.workspace, 'author_modulators', {
       trackId: fx.trackId,
       presetPath: poly('modtest'),
+      ...semanticSelf(poly('modtest')),
       operation: item.operation,
       ...('pageChecks' in item ? { pageChecks: item.pageChecks } : {}),
       ...('behaviorChecks' in item ? { behaviorChecks: item.behaviorChecks } : {}),
     }) as Record<string, unknown>;
     assert.equal(result['applied'], true, JSON.stringify(result));
-    assert.equal((result['verification'] as { verified: boolean }).verified, true, JSON.stringify(result));
+    assert.equal((result['verified'] as { passed: boolean }).passed, true, JSON.stringify(result));
     assert.deepEqual(
-      (result['modulatorsAfter'] as { name: string }[]).map((modulator) => modulator.name),
+      ((result['edited'] as { after: { name: string }[] }).after).map((modulator) => modulator.name),
       item.after,
     );
     const encoded = JSON.stringify(result);
@@ -289,11 +314,124 @@ test('5f-edit: replace, retarget, and delete use exact public witnesses', async 
   }
 });
 
-test('5f-refusal: an unmeasured sampled asset refuses before apply without internal details', async () => {
+test('5n-result: requested, decoded, edited, observed, and verified facts stay separate', async () => {
   const fx = fixture();
+  const path = poly('mp_bare');
   const result = await callTool(fx.workspace, 'author_modulators', {
     trackId: fx.trackId,
-    presetPath: join(FIXTURE_DIR, 'Sampler', 'gn_sampler_multi_one_lfo.bwpreset'),
+    presetPath: path,
+    ...semanticSelf(path),
+    operation: {
+      kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 0.5,
+    },
+  }) as Record<string, unknown>;
+
+  for (const fact of ['requested', 'decoded', 'edited', 'observed', 'verified']) {
+    assert.equal(typeof result[fact], 'object', `${fact} is separate`);
+  }
+  assert.deepEqual((result['edited'] as { location: unknown }).location, { kind: 'self' });
+  assert.equal((result['verified'] as { passed: boolean }).passed, true);
+  assert.doesNotMatch(
+    JSON.stringify(result),
+    /donorId|listIndex|routeString|rawRoute|footprint|referenceStub|guid|byteOffset/i,
+  );
+});
+
+test('5n-structural: an explicit inserted-host check uses exact structural readback', async () => {
+  const fx = fixture();
+  const path = poly('mp_bare');
+  const result = await callTool(fx.workspace, 'author_modulators', {
+    trackId: fx.trackId,
+    presetPath: path,
+    ...semanticSelf(path),
+    operation: {
+      kind: 'add', modulator: 'lfo',
+      target: { parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency' },
+      amount: 0.5,
+    },
+    structuralCheck: { kind: 'inserted-host' },
+  }) as Record<string, unknown>;
+
+  assert.equal(result['applied'], true, JSON.stringify(result));
+  assert.deepEqual(result['observed'], {
+    insertedDevicePosition: 0,
+    pages: { verified: true, actualPages: [], checks: [] },
+    behaviors: [],
+  });
+  assert.deepEqual(result['verified'], {
+    passed: true, insertedHost: true, pages: true, behaviors: [],
+  });
+  assert.deepEqual(
+    (result['requested'] as { structuralCheck: unknown }).structuralCheck,
+    { kind: 'inserted-host' },
+  );
+});
+
+test('5n-structural: a non-add editor accepts one explicit inserted-host witness', async () => {
+  const fx = fixture();
+  const path = poly('modtest');
+  const result = await callTool(fx.workspace, 'author_modulators', {
+    trackId: fx.trackId,
+    presetPath: path,
+    ...semanticSelf(path),
+    operation: { kind: 'amount', position: 2, amount: 0.25 },
+    structuralCheck: { kind: 'inserted-host' },
+  }) as Record<string, unknown>;
+
+  assert.equal(result['applied'], true, JSON.stringify(result));
+  assert.deepEqual(result['verified'], {
+    passed: true, insertedHost: true, pages: true, behaviors: [],
+  });
+  assert.equal(
+    (result['edited'] as Record<string, unknown>)['validationWarnings'],
+    undefined,
+  );
+});
+
+test('5n-guard: a stale inspected fingerprint refuses before the project write', async () => {
+  const fx = fixture();
+  const path = poly('mp_bare');
+  const result = await callTool(fx.workspace, 'author_modulators', {
+    trackId: fx.trackId,
+    presetPath: path,
+    fingerprint: { ...semanticSelf(path).fingerprint, sha256: '0'.repeat(64) },
+    location: { kind: 'self' },
+    operation: {
+      kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 1,
+    },
+  }) as Record<string, unknown>;
+
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.equal(fx.appliedPresets.length, 0);
+  assert.equal(fx.workspace.changes.list().length, 0);
+});
+
+test('5n-catalog: every manifest-backed type reaches a Tier-1 semantic project write', async () => {
+  const path = poly('mp_bare');
+  for (const type of listDonorTypes()) {
+    const fx = fixture();
+    const result = await callTool(fx.workspace, 'author_modulators', {
+      trackId: fx.trackId,
+      presetPath: path,
+      ...semanticSelf(path),
+      operation: {
+        kind: 'add', modulator: type.id, target: 'polysynth-filter-frequency', amount: 0.5,
+      },
+      behaviorChecks: [],
+    }) as Record<string, unknown>;
+    assert.equal(result['applied'], true, `${type.id}: ${JSON.stringify(result)}`);
+    assert.equal(typeof (result['change'] as { changeId?: unknown }).changeId, 'string', type.id);
+  }
+});
+
+test('5f-refusal: an unmeasured sampled asset refuses before apply without internal details', async () => {
+  const fx = fixture();
+  const sampledPath = join(FIXTURE_DIR, 'Sampler', 'gn_sampler_multi_one_lfo.bwpreset');
+  const result = await callTool(fx.workspace, 'author_modulators', {
+    trackId: fx.trackId,
+    presetPath: sampledPath,
+    ...semanticSelf(sampledPath),
     operation: { kind: 'replace', position: 0, modulator: 'expressions' },
     pageChecks: [{ pageName: 'Expressions', expectedCount: 1 }],
   }) as Record<string, unknown>;
@@ -325,6 +463,7 @@ test('5f-cancellation: an abort after a recorded insert cannot claim that nothin
     callTool(cancellableWorkspace(abortAfterApply, controller.signal), 'author_modulators', {
       trackId: fx.trackId,
       presetPath: poly('mp_bare'),
+      ...semanticSelf(poly('mp_bare')),
       operation: {
         kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 1,
       },

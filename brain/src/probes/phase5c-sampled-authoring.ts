@@ -53,7 +53,7 @@ try {
     donorId: 'lfo-sampler',
     routing: { target: 'CONTENTS/AMP_ATTACK_TIME', amount: 1 },
     witness: {
-      parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'Amp Attack', samples: 10,
+      parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'AEG Attack Time', samples: 10,
       sampleIntervalMs: 80, minimumDivergence: 1e-3,
     },
     expectedChain: [],
@@ -90,7 +90,7 @@ try {
     edit: { kind: 'delete', index: 0, removedFootprint: 0x10 },
     pageWitnesses: [{ pageName: 'LFO', expectedCount: 0 }],
     behaviorWitnesses: [{
-      expected: 'inactive', parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'Amp Attack', samples: 10,
+      expected: 'inactive', parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'AEG Attack Time', samples: 10,
       sampleIntervalMs: 80, minimumDivergence: 1e-3,
     }],
     expectedChain: [],

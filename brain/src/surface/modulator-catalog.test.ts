@@ -10,6 +10,10 @@ import { runModulatorCatalog } from './modulator-catalog.js';
 import { TOOLS } from './tools.js';
 
 const PRESET = join(import.meta.dirname, '../../fixtures/Polysynth/mp_bare.bwpreset');
+const SEMANTIC_SELECTION = {
+  fingerprint: { algorithm: 'sha256' as const, sha256: '0'.repeat(64), byteLength: 1 },
+  location: { kind: 'self' as const },
+};
 
 function keys(value: unknown): string[] {
   if (Array.isArray(value)) return value.flatMap(keys);
@@ -55,6 +59,7 @@ test('5m public write vocabularies come from manifest capabilities', () => {
   for (const type of listDonorTypes()) {
     const addInput = {
       trackId: 'track', presetPath: PRESET,
+      ...SEMANTIC_SELECTION,
       operation: {
         kind: 'add', modulator: type.id,
         target: 'polysynth-filter-frequency', amount: 1,
@@ -78,6 +83,7 @@ test('5m public write vocabularies come from manifest capabilities', () => {
 
     const replaceInput = {
       trackId: 'track', presetPath: PRESET,
+      ...SEMANTIC_SELECTION,
       operation: { kind: 'replace', position: 0, modulator: type.id },
       pageChecks: [{ pageName: type.publicName, expectedCount: 1 }],
     };
@@ -90,6 +96,7 @@ test('5m public write vocabularies come from manifest capabilities', () => {
   const excluded = listHostModulatorInventory().find((entry) => entry.supportedType === null)!;
   assert.equal(modulatorAuthoringInputValidator.safeParse({
     trackId: 'track', presetPath: PRESET,
+    ...SEMANTIC_SELECTION,
     operation: {
       kind: 'add', modulator: excluded.name,
       target: 'polysynth-filter-frequency', amount: 1,

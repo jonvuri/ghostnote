@@ -1,10 +1,11 @@
 /** Phase 5f live proof through the public modulator tool. */
+import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { LiveAdapter } from '../adapters/live/adapter.js';
 import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import { track, type TrackAddress, type TrackState } from '../contract/index.js';
-import { Executor } from '../engine/index.js';
+import { Executor, inspectPresetModulation } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { callTool } from '../surface/tools.js';
@@ -87,19 +88,23 @@ try {
     : cases.filter((item) => item.name === requestedCase);
   if (selected.length === 0) throw new Error(`unknown Phase 5f case ${requestedCase}`);
   for (const item of selected) {
+    const inspection = inspectPresetModulation(await readFile(item.presetPath));
+    if (!inspection.supported) throw new Error(inspection.why);
     const result = await callTool(workspace, 'author_modulators', {
       trackId: ownedTrack.channelId,
       presetPath: item.presetPath,
+      fingerprint: inspection.fingerprint,
+      location: inspection.modulation[0]!.location,
       operation: item.operation,
       ...('pageChecks' in item ? { pageChecks: item.pageChecks } : {}),
       ...('behaviorChecks' in item ? { behaviorChecks: item.behaviorChecks } : {}),
     }) as {
       applied?: boolean;
-      verification?: { verified: boolean };
+      verified?: { passed: boolean };
       change?: { changeId: string };
     };
     check(`5f-${item.name}: public insertion and exact witnesses pass`,
-      result.applied === true && result.verification?.verified === true
+      result.applied === true && result.verified?.passed === true
         && typeof result.change?.changeId === 'string', result);
     if (result.change?.changeId !== undefined) {
       const reversed = await callTool(workspace, 'revert_change', {

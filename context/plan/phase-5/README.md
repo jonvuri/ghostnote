@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5m is complete; 5n is next.
-updated: 2026-08-28
+status: Reopened 2026-08-25. Session 5n is complete; 5o is next.
+updated: 2026-08-29
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -120,8 +120,8 @@ that first integration unless the proof needs one new owned asset.
 13. [5m — general donor catalog](5m-general-donor-catalog.md) — done. One
     manifest records all 43 host types and drives 42 supported public types.
 14. [5n — general public preset authoring](5n-general-public-preset-authoring.md)
-    — planned. Combine general targets, semantic lists, all editors, and the
-    donor catalog across every proved host tier.
+    — done. Fingerprinted semantic authoring combines general targets, all five
+    editors, and 42 donor types across the proved host matrix.
 15. [5o — late-bound container modulation](5o-late-bound-container-modulation.md)
     — planned. Prove that an owned container route can bind to a device moved
     into it after load.
@@ -213,11 +213,12 @@ impossibilities. External publication and redistribution remain Phase 6 work.
   composition or Phase 5 closeout.
 - **Public target identity — reopened for 5j.** General DirectParameter
   identities replace the fixed recipe requirement. Raw routes stay hidden.
-- **Public modulator locations — inspection settled by 5k; writes planned for
-  5l.** Semantic device and entry paths replace list indexes and support all
-  five topology operations.
-- **Public donor breadth — settled by 5m.** One manifest records the complete
-  43-type host inventory and drives the five-type supported catalog.
+- **Public modulator locations — settled by 5k, 5l, and 5n.** Semantic device
+  and entry paths replace list indexes and support all five topology
+  operations through the public workflow.
+- **Public donor breadth — settled by 5m and exposed by 5n.** One manifest
+  records the complete 43-type host inventory and drives the 42-type supported
+  catalog.
 - **Existing-device preservation — planned for 5o/5p.** A proved owned
   container supplies topology while the existing device instance moves intact.
 - **General composition — planned for 5q/5r.** Explicit device sources and

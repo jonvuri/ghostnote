@@ -190,6 +190,8 @@ export interface ModulatorEditRequest {
   /** Required to edit a container preset that holds several device lists. */
   readonly listIndex?: number;
   readonly edit: ModulatorEdit;
+  /** Exact saved host name that structural insertion readback must observe. */
+  readonly expectedDeviceName?: string;
   readonly pageWitnesses?: readonly ModulatorPageWitness[];
   readonly behaviorWitnesses?: readonly ModulatorBehaviorWitness[];
   /** Complete top-level names from the caller's last accepted observation. */
@@ -411,6 +413,8 @@ export async function authorModulatorEdit(
       op: 'device.insert',
       track: request.track,
       source: { from: 'file', path: outputPath },
+      ...(request.expectedDeviceName === undefined
+        ? {} : { expectedDeviceName: request.expectedDeviceName }),
       ...(request.expectedChain === undefined ? {} : { expectedChain: request.expectedChain }),
       ...(request.expectedEnabledChain === undefined
         ? {} : { expectedEnabledChain: request.expectedEnabledChain }),
@@ -424,7 +428,9 @@ export async function authorModulatorEdit(
   const pause = options.wait ?? wait;
   const pages = device === undefined
     ? failedPageVerification('the preset insert returned no observed device address')
-    : await verifyPages(host, device, request.pageWitnesses ?? [], pause);
+    : request.expectedDeviceName !== undefined && (request.pageWitnesses?.length ?? 0) === 0
+      ? { verified: true, actualPages: [], witnesses: [] }
+      : await verifyPages(host, device, request.pageWitnesses ?? [], pause);
   const behaviors: ModulationVerification[] = [];
   if (device !== undefined) {
     for (const witness of request.behaviorWitnesses ?? []) {
@@ -497,6 +503,7 @@ export async function authorSemanticModulatorEdit(
       templatePath: snapshotPath,
       listIndex,
       edit: request.edit,
+      expectedDeviceName: beforeInspection.host.name,
       ...(request.pageWitnesses === undefined ? {} : { pageWitnesses: request.pageWitnesses }),
       ...(request.behaviorWitnesses === undefined
         ? {} : { behaviorWitnesses: request.behaviorWitnesses }),
@@ -998,7 +1005,11 @@ function assertEditRequest(request: ModulatorEditRequest): void {
   }
   const pageWitnesses = request.pageWitnesses ?? [];
   const behaviorWitnesses = request.behaviorWitnesses ?? [];
-  if (pageWitnesses.length + behaviorWitnesses.length === 0) {
+  if (request.expectedDeviceName !== undefined && request.expectedDeviceName.trim() === '') {
+    throw new ModulatorAuthoringError('request', 'expectedDeviceName must not be empty');
+  }
+  if (pageWitnesses.length + behaviorWitnesses.length === 0
+      && request.expectedDeviceName === undefined) {
     throw new ModulatorAuthoringError('request', 'at least one live witness is required');
   }
   for (const witness of pageWitnesses) {

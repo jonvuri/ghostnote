@@ -70,8 +70,8 @@ export const SETTLE_MS: Record<SettleBudget, number> = {
   insertFile: 268,
   /** Parameters become readable this long AFTER a device insert lands (E4). */
   paramsLive: 194,
-  /** insertBitwigDevice — a real plugin load, the slowest op measured (E3). */
-  deviceInsert: 600,
+  /** Cold plug-in preset insertion and its first complete device-chain readback. */
+  deviceInsert: 4000,
 };
 
 /** How many control-surface ticks a budget spans. The fake advances exactly this many. */

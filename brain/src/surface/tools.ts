@@ -2084,26 +2084,32 @@ export const TOOLS: readonly ToolSpec[] = [
     title: 'Author preset modulators',
     description:
       'Create an edited copy of one human-saved preset and append it as a new device. The saved '
-      + 'preset is not changed, and no device already in the project is changed. Add, replace, '
-      + 'retarget, and delete use named modulator types. Add and retarget accept the exact '
+      + 'preset is not changed, and no device already in the project is changed. Supply the exact '
+      + 'fingerprint and semantic modulator location from inspect_preset_modulation. Changed bytes, '
+      + 'a missing location, or an ambiguous location refuse before a project write. Add, replace, '
+      + 'retarget, amount, and delete use the selected location. Add and retarget accept the exact '
       + 'DirectParameter id and name returned by inspect_device_parameters on native, VST3, and '
       + 'CLAP devices. The three original named targets remain compatible. Ghostnote derives the '
-      + 'internal route. The caller cannot provide a route, list position, byte offset, or remote '
-      + 'page position. Each operation runs complete pre-write checks and must pass exact remote '
-      + 'page or DirectParameter behavior checks after '
-      + 'insertion. Add and replace accept each matching type from list_modulator_types. A type '
+      + 'internal target. The caller cannot provide a binary selector. Each operation runs complete '
+      + 'pre-write checks and must pass an exact inserted-host, remote-page, or DirectParameter '
+      + 'behavior check after insertion. Use the explicit inserted-host structural check when the '
+      + 'host exposes no usable page or DirectParameter witness. Add and replace accept each '
+      + 'matching type from list_modulator_types. A type '
       + 'marked tier-1-only refuses on a sampled preset because it has no exact measured '
       + 'adjustment. A sampled delete also refuses when its resident modulator has no exact '
-      + 'measurement. The result includes one recorded change id. Reversal removes only the '
-      + 'inserted device while its last proved position remains valid.',
+      + 'measurement. The result separates requested, decoded, edited, observed, and verified '
+      + 'facts. It includes one recorded change id even when a post-write witness fails. Reversal '
+      + 'removes only the inserted device while its last proved position remains valid.',
     inputSchema: modulatorAuthoringInputSchema,
     inputValidator: modulatorAuthoringInputValidator,
     emits: ['device.insert'],
     resultContract: {
-      operation: 'The named add, replace, retarget, or delete request.',
-      verification: 'Exact remote page counts and DirectParameter base-to-modulated behavior checks.',
+      requested: 'The fingerprinted semantic add, replace, retarget, amount, or delete request.',
+      decoded: 'The host, container, and ordered entry facts decoded before the edit.',
+      edited: 'The selected semantic location and public before and after inventories.',
+      observed: 'The inserted host position, remote pages, and DirectParameter samples.',
+      verified: 'Separate inserted-host, page, and behavior verdicts with one combined pass value.',
       change: 'The recorded insertion receipt and change id.',
-      sampledPreset: 'True when sampled-preset references required measured adjustment.',
       reversal: 'Removes only the inserted device while its proved position remains valid.',
     },
     async run(workspace, args) {

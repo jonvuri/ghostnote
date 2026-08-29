@@ -31,6 +31,6 @@ export const COMPOSITION_TARGETS: Readonly<Record<CompositionTargetId, Compositi
     deviceName: 'Sampler',
     route: 'CONTENTS/AMP_ATTACK_TIME',
     parameterId: 'CONTENTS/AMP_ATTACK_TIME',
-    parameterName: 'Amp Attack',
+    parameterName: 'AEG Attack Time',
   },
 };

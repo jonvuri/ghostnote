@@ -1,9 +1,9 @@
 ---
 title: Phase 5n — general public preset authoring
 kind: plan
-state: planned
-status: Planned after 5j through 5m. Generalize author_modulators across targets, types, hosts, and lists.
-updated: 2026-08-25
+state: complete
+status: Complete. Fingerprinted semantic authoring now covers all five editors, 42 public donor types, and the proved host matrix.
+updated: 2026-08-29
 parent: README.md
 evidence: D1, D2, D3, E65-E71
 ---
@@ -57,3 +57,18 @@ authoring workflow. Remove the Polysynth and Sampler target restriction.
 
 Session 5o proves the host behavior needed to preserve and modulate an existing
 device through an owned container.
+
+## Outcome
+
+`inspect_preset_modulation` supplies the required fingerprint and semantic
+location. `author_modulators` accepts all five editors, general
+DirectParameter targets, and the manifest-backed donor catalog. It returns
+requested, decoded, edited, observed, and verified facts separately.
+An explicit inserted-host check supports operations where the controller API
+provides no usable page or DirectParameter witness. Internal validation
+warnings do not cross the public result boundary.
+
+The Bitwig 6.0.6 matrix passes for native instrument, native FX, VST3, CLAP,
+sample-less Sampler, sampled Sampler, and one selected container entry. Each
+case reverses and restores the exact entry state. [E89](../../evidence/experiments/e89-general-public-preset-authoring-is-live.md)
+records the result and the host witness qualifications.

@@ -91,9 +91,10 @@ const PARAMETER_NAMES: Readonly<Record<string, Readonly<Record<string, string>>>
     'CONTENTS/PITCH': 'Pitch',
   },
   Sampler: {
-    'CONTENTS/AMP_ATTACK_TIME': 'Amp Attack',
+    'CONTENTS/AMP_ATTACK_TIME': 'AEG Attack Time',
     'CONTENTS/TRANSPOSE': 'Transpose',
   },
+  'Delay+': { 'CONTENTS/BLUR': 'Blur Amount' },
   'Phase-4': { 'CONTENTS/PITCH': 'Pitch' },
   Organ: { 'CONTENTS/PITCH': 'Pitch' },
   Zebra3: { 'CONTENTS/PID411': 'Cutoff' },

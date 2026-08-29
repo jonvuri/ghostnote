@@ -1,5 +1,6 @@
-/** Public modulator authoring vocabulary and tool runner. */
+/** Public semantic preset-modulator authoring vocabulary and tool runner. */
 import { existsSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import { isAbsolute } from 'node:path';
 
 import { z } from 'zod';
@@ -7,7 +8,7 @@ import { z } from 'zod';
 import { track as trackAt } from '../contract/index.js';
 import { donorType, listDonorTypes } from '../bwmod/index.js';
 import {
-  ModulatorAuthoringError, authorModulatorAdd, authorModulatorEdit, modulationRoute,
+  ModulatorAuthoringError, authorSemanticModulatorEdit, inspectPresetModulation, modulationRoute,
   type ModulationVerification, type ModulatorPageVerification,
 } from '../engine/index.js';
 import { receiptOf } from './report.js';
@@ -44,7 +45,7 @@ const TARGET_RECIPES: Readonly<Record<TargetRecipeId, TargetRecipe>> = {
     parameterId: 'CONTENTS/F1RESO', parameterName: 'Filter Resonance',
   },
   'sampler-amp-attack': {
-    parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'Amp Attack',
+    parameterId: 'CONTENTS/AMP_ATTACK_TIME', parameterName: 'AEG Attack Time',
   },
 };
 
@@ -77,6 +78,37 @@ const modulationTarget = z.union([directParameterTarget, targetRecipe]).describe
   'An exact DirectParameter id and name, or one original compatibility name.',
 );
 
+const fingerprint = z.object({
+  algorithm: z.literal('sha256'),
+  sha256: z.string().regex(/^[0-9a-f]{64}$/).describe(
+    'Exact SHA-256 returned by inspect_preset_modulation.',
+  ),
+  byteLength: z.number().int().min(1).describe(
+    'Exact byte length returned with the SHA-256.',
+  ),
+}).strict().describe('Exact preset fingerprint returned by inspect_preset_modulation.');
+
+const semanticDeviceStep = z.object({
+  position: z.number().int().min(0),
+  name: z.string().min(1),
+}).strict();
+
+const semanticLocation = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('self') }).strict(),
+  z.object({
+    kind: z.literal('container'),
+    name: z.string().min(1),
+  }).strict(),
+  z.object({
+    kind: z.literal('entry'),
+    entry: z.object({
+      position: z.number().int().min(0),
+      name: z.string().min(1),
+    }).strict(),
+    devicePath: z.array(semanticDeviceStep).min(1),
+  }).strict(),
+]).describe('Exact semantic modulator location returned by inspect_preset_modulation.');
+
 const pageCheck = z.object({
   pageName: z.string().min(1).describe('Exact remote page name.'),
   expectedCount: z.number().int().min(0).describe('Required count for that exact page name.'),
@@ -88,6 +120,10 @@ const behaviorCheck = z.object({
   ),
   target: modulationTarget,
 }).strict();
+
+const structuralCheck = z.object({
+  kind: z.literal('inserted-host'),
+}).strict().describe('Require the exact inspected host name after insertion.');
 
 const operation = z.discriminatedUnion('kind', [
   z.object({
@@ -114,56 +150,51 @@ const operation = z.discriminatedUnion('kind', [
     kind: z.literal('delete'),
     position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
   }).strict(),
+  z.object({
+    kind: z.literal('amount'),
+    position: z.number().int().min(0).describe('Modulator position in the saved preset, from 0.'),
+    amount: z.number().finite().min(-1).max(1).describe('Normalized modulation amount from -1 through 1.'),
+  }).strict(),
 ]);
 
 export const modulatorAuthoringInputSchema = {
   trackId: z.string().min(1).describe('Durable track id from list_tracks.'),
   presetPath,
+  fingerprint,
+  location: semanticLocation,
   operation,
+  structuralCheck: structuralCheck.optional(),
   pageChecks: z.array(pageCheck).optional().describe(
-    'Exact remote page counts that must hold after replace, retarget, or delete.',
+    'Exact remote page counts that must hold at the selected semantic location.',
   ),
   behaviorChecks: z.array(behaviorCheck).optional().describe(
-    'Exact named controls that must prove active or inactive behavior after the edit.',
+    'Exact DirectParameter controls that must prove active or inactive behavior after the edit.',
   ),
 } as const;
 
 export const modulatorAuthoringInputValidator = z.object(modulatorAuthoringInputSchema)
   .strict()
   .superRefine((input, context) => {
-    if (input.operation.kind === 'add'
-        && ((input.pageChecks?.length ?? 0) > 0 || (input.behaviorChecks?.length ?? 0) > 0)) {
+    const structuralOnly = input.structuralCheck !== undefined
+      && input.pageChecks === undefined
+      && input.behaviorChecks === undefined;
+    const derivedPageCount = input.operation.kind === 'add'
+      && input.pageChecks === undefined && !structuralOnly ? 1 : 0;
+    const derivedBehaviorCount = input.operation.kind === 'add'
+      && input.behaviorChecks === undefined && !structuralOnly ? 1 : 0;
+    const witnessCount = (input.structuralCheck === undefined ? 0 : 1)
+      + (input.pageChecks?.length ?? derivedPageCount)
+      + (input.behaviorChecks?.length ?? derivedBehaviorCount);
+    if (witnessCount === 0) {
       context.addIssue({
         code: 'custom',
-        path: ['operation', 'target'],
-        message: 'Add derives its one exact active behavior check from the named target.',
-      });
-    }
-    if (input.operation.kind !== 'add'
-        && (input.pageChecks?.length ?? 0) + (input.behaviorChecks?.length ?? 0) === 0) {
-      context.addIssue({
-        code: 'custom',
-        path: ['pageChecks'],
-        message: 'Replace, retarget, and delete require at least one exact page or behavior check.',
+        path: ['structuralCheck'],
+        message: 'The operation requires an exact structural, page, or behavior check.',
       });
     }
   });
 
 export type ModulatorAuthoringInput = z.infer<typeof modulatorAuthoringInputValidator>;
-
-function publicModulator(modulator: {
-  readonly index: number;
-  readonly deviceName: string;
-  readonly category: string;
-  readonly routes: readonly unknown[];
-}): Record<string, unknown> {
-  return {
-    position: modulator.index,
-    name: modulator.deviceName,
-    category: modulator.category,
-    routed: modulator.routes.length > 0,
-  };
-}
 
 function publicBehavior(verification: ModulationVerification): Record<string, unknown> {
   const selector = verification.selector;
@@ -178,6 +209,26 @@ function publicBehavior(verification: ModulationVerification): Record<string, un
     samples: verification.samples,
     maximumDivergence: verification.maximumDivergence,
     baseSpread: verification.baseSpread,
+  };
+}
+
+function witnessSelection(location: ModulatorAuthoringInput['location']):
+  | { readonly chainName: string; readonly chainIndex: number }
+  | undefined {
+  if (location.kind !== 'entry') return undefined;
+  const first = location.devicePath[0]!;
+  const selected = location.devicePath[location.devicePath.length - 1]!;
+  return { chainName: first.name, chainIndex: selected.position };
+}
+
+function requestedFacts(input: ModulatorAuthoringInput): Record<string, unknown> {
+  return {
+    fingerprint: input.fingerprint,
+    location: input.location,
+    operation: input.operation,
+    structuralCheck: input.structuralCheck ?? null,
+    pageChecks: input.pageChecks ?? [],
+    behaviorChecks: input.behaviorChecks ?? [],
   };
 }
 
@@ -233,7 +284,7 @@ function authoringRefusal(error: unknown): Record<string, unknown> {
   };
 }
 
-/** Run one format-hidden modulator operation through the recorded write seam. */
+/** Run one fingerprinted semantic edit through the recorded write seam. */
 export async function runModulatorAuthoring(
   workspace: Workspace,
   input: ModulatorAuthoringInput,
@@ -253,43 +304,18 @@ export async function runModulatorAuthoring(
     const expectedChain = bank.devices.map((device) => device.name);
     const expectedEnabledChain = enabled as boolean[];
 
-    if (input.operation.kind === 'add') {
-      const target = resolveTarget(input.operation.target);
-      const result = await authorModulatorAdd(workspace, {
-        track: trackAt(input.trackId),
-        templatePath: input.presetPath,
+    const preset = await readFile(input.presetPath);
+    const inspection = inspectPresetModulation(preset);
+    const edit = input.operation.kind === 'add'
+      ? {
+        kind: 'add' as const,
         donorId: donorType(input.operation.modulator, 'add').donorId,
-        routing: { target: modulationRoute(target), amount: input.operation.amount },
-        witness: target,
-        expectedChain,
-        expectedEnabledChain,
-      });
-      const change = receiptOf(workspace.changes.require(result.take.id));
-      return {
-        applied: change.applied,
-        operation: {
-          kind: 'add',
-          modulator: input.operation.modulator,
-          target: input.operation.target,
+        routing: {
+          target: modulationRoute(resolveTarget(input.operation.target)),
           amount: input.operation.amount,
         },
-        insertedDevicePosition: result.minted?.chainIndex,
-        modulatorCountBefore: result.edit.modulatorCountBefore,
-        modulatorCountAfter: result.edit.modulatorCountAfter,
-        sampledPreset: result.edit.stubRelocation !== undefined,
-        adjustedSampleReferences: result.edit.stubRelocation?.stubCount ?? 0,
-        validationWarnings: result.edit.validationWarnings,
-        verification: {
-          verified: result.verification.verified,
-          pages: { verified: true, actualPages: [], checks: [] },
-          behaviors: [publicBehavior(result.verification)],
-        },
-        change,
-        reversal: 'revert_change removes the inserted device while its last proved position remains valid.',
-      };
-    }
-
-    const edit = input.operation.kind === 'replace'
+      }
+      : input.operation.kind === 'replace'
       ? {
         kind: 'replace' as const,
         index: input.operation.position,
@@ -301,36 +327,88 @@ export async function runModulatorAuthoring(
           index: input.operation.position,
           target: modulationRoute(resolveTarget(input.operation.target)),
         }
-        : { kind: 'delete' as const, index: input.operation.position };
-    const result = await authorModulatorEdit(workspace, {
+        : input.operation.kind === 'amount'
+          ? {
+            kind: 'amount' as const,
+            index: input.operation.position,
+            amount: input.operation.amount,
+          }
+          : { kind: 'delete' as const, index: input.operation.position };
+    const nestedDevice = witnessSelection(input.location);
+    const structuralOnly = input.structuralCheck !== undefined
+      && input.pageChecks === undefined
+      && input.behaviorChecks === undefined;
+    const pageWitnesses = input.pageChecks?.map((check) => ({
+      ...check,
+      ...(nestedDevice === undefined ? {} : { nestedDevice }),
+    })) ?? [];
+    const behaviorInputs = input.behaviorChecks ?? (input.operation.kind === 'add' && !structuralOnly
+      ? [{ expected: 'active' as const, target: input.operation.target }]
+      : []);
+    const behaviorWitnesses = behaviorInputs.map((check) => {
+      const target = resolveTarget(check.target);
+      return {
+        expected: check.expected,
+        ...target,
+        ...(nestedDevice === undefined ? {} : { nestedDevice }),
+      };
+    });
+    if (input.operation.kind === 'add' && input.pageChecks === undefined && !structuralOnly) {
+      const type = donorType(input.operation.modulator, 'add');
+      const selected = inspection.supported
+        ? inspection.modulation.find((item) => JSON.stringify(item.location) === JSON.stringify(input.location))
+        : undefined;
+      const count = selected?.modulators.filter((item) => item.name === type.publicName).length ?? 0;
+      pageWitnesses.push({
+        pageName: type.publicName,
+        expectedCount: count + 1,
+        ...(nestedDevice === undefined ? {} : { nestedDevice }),
+      });
+    }
+    const result = await authorSemanticModulatorEdit(workspace, {
       track: trackAt(input.trackId),
       templatePath: input.presetPath,
+      fingerprint: input.fingerprint,
+      location: input.location,
       edit,
-      pageWitnesses: input.pageChecks,
-      behaviorWitnesses: input.behaviorChecks?.map((check) => {
-        const target = resolveTarget(check.target);
-        return {
-          expected: check.expected,
-          ...target,
-        };
-      }),
+      pageWitnesses,
+      behaviorWitnesses,
       expectedChain,
       expectedEnabledChain,
     });
     const change = receiptOf(workspace.changes.require(result.take.id));
     return {
       applied: change.applied,
-      operation: input.operation,
-      insertedDevicePosition: result.minted?.chainIndex,
-      modulatorsBefore: result.edit.modulatorsBefore.map(publicModulator),
-      modulatorsAfter: result.edit.modulatorsAfter.map(publicModulator),
-      sampledPreset: result.edit.stubRelocation !== undefined,
-      adjustedSampleReferences: result.edit.stubRelocation?.stubCount ?? 0,
-      validationWarnings: result.edit.validationWarnings,
-      verification: {
-        verified: result.verification.verified,
+      requested: requestedFacts(input),
+      decoded: inspection.supported
+        ? {
+          host: inspection.host,
+          containerKind: inspection.containerKind,
+          entries: inspection.entries,
+          complete: inspection.complete,
+        }
+        : { supported: false, why: inspection.why },
+      edited: {
+        location: result.edit.location,
+        before: result.edit.modulatorsBefore,
+        after: result.edit.modulatorsAfter,
+        siblingInventoriesUnchanged: result.edit.siblingInventoriesUnchanged,
+        sampledPreset: result.edit.stubRelocation !== undefined,
+        adjustedSampleReferences: result.edit.stubRelocation?.stubCount ?? 0,
+      },
+      observed: {
+        insertedDevicePosition: result.minted?.chainIndex,
         pages: publicPages(result.verification.pages),
         behaviors: result.verification.behaviors.map(publicBehavior),
+      },
+      verified: {
+        passed: result.verification.verified,
+        insertedHost: result.minted !== undefined,
+        pages: result.verification.pages.verified,
+        behaviors: result.verification.behaviors.map((item) => ({
+          passed: item.verified,
+          ...(!item.verified && 'why' in item ? { why: item.why } : {}),
+        })),
       },
       change,
       reversal: 'revert_change removes the inserted device while its last proved position remains valid.',

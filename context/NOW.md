@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-28
+updated: 2026-08-29
 phase: phase-5
-session: 5n-general-public-preset-authoring
+session: 5o-late-bound-container-modulation
 ---
 
 # Now
@@ -78,15 +78,32 @@ route. The list-local identity gate is the `0x1a1a`/`0x1a1b` pair. [E88](evidenc
 records the result. The full brain check passes 919/919. Extension tests and the
 Bitwig 6.0.6 deployment-freshness probe pass.
 
+Session 5n is complete. `inspect_preset_modulation` supplies the fingerprint
+and semantic location required by the public `author_modulators` workflow. The
+write accepts general DirectParameter targets, all five editors, and all 42
+supported manifest types at their recorded tier. Requested, decoded, edited,
+observed, and verified facts stay separate. Binary controls remain private.
+
+The Bitwig 6.0.6 matrix passes for native instrument, native FX, VST3, CLAP,
+sample-less Sampler, sampled Sampler, and one selected container entry. VST3
+and the container entry prove active modulation. Other hosts use exact
+structural and available page witnesses at their measured controller-API
+boundary. Every insertion reverses. Cleanup restores the exact five-track
+entry state of the disposable project. [E89](evidence/experiments/e89-general-public-preset-authoring-is-live.md)
+records the result. The full brain check passes 925/925. Extension tests,
+deployment freshness, description cohort v17, and fresh Codex exposure pass.
+The review repair adds an explicit inserted-host check for every editor and
+keeps internal validation warnings out of the public result.
+
 ## Next action
 
-Implement [Session 5n](plan/phase-5/5n-general-public-preset-authoring.md).
-Combine semantic preset locations, general targets, all five editors, and the
-manifest-backed donor catalog through one public workflow. Do
-not begin Phase 6a until Phase 5 and the open dogfood loop close.
+Implement [Session 5o](plan/phase-5/5o-late-bound-container-modulation.md).
+Prove that an owned container route can bind to a native device and a plug-in
+that move into it after load. Do not begin Phase 6a until Phase 5 and the open
+dogfood loop close.
 
 ## Retrospective
 
-Test a dense host-authored list before treating one field as the complete
-instance identity.
-Keep historical description fingerprints separate from current tool schemas.
+Measure cold plug-in settlement through the first complete chain readback.
+Use the current DirectParameter name from live inspection in every witness.
+Map every engine diagnostic to public terms before returning it.

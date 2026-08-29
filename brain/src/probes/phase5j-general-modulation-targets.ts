@@ -1,11 +1,12 @@
 /** Phase 5j live proof for exact native and plug-in DirectParameter targets. */
+import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { homedir } from 'node:os';
 
 import { LiveAdapter } from '../adapters/live/adapter.js';
 import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import { track, type TrackAddress, type TrackState } from '../contract/index.js';
-import { Executor } from '../engine/index.js';
+import { Executor, inspectPresetModulation } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { callTool } from '../surface/tools.js';
@@ -112,21 +113,25 @@ async function prove(
   presetPath: string,
   target: PublicParameter,
 ): Promise<void> {
+  const inspection = inspectPresetModulation(await readFile(presetPath));
+  if (!inspection.supported) throw new Error(inspection.why);
   const result = await callTool(workspace, 'author_modulators', {
     trackId: ownedTrack!.channelId,
     presetPath,
+    fingerprint: inspection.fingerprint,
+    location: inspection.modulation[0]!.location,
     operation: { kind: 'add', modulator: 'lfo', target: {
       parameterId: target.id,
       parameterName: target.name,
     }, amount: 1 },
   }) as {
     readonly applied?: boolean;
-    readonly verification?: { readonly verified: boolean; readonly behaviors?: readonly unknown[] };
+    readonly verified?: { readonly passed: boolean; readonly behaviors?: readonly unknown[] };
     readonly change?: { readonly changeId: string };
   };
   check(`5j-${label}: exact DirectParameter target loads and is active`,
     result.applied === true
-      && result.verification?.verified === true
+      && result.verified?.passed === true
       && typeof result.change?.changeId === 'string', result);
   if (result.change?.changeId === undefined) return;
   const reversed = await callTool(workspace, 'revert_change', { changeId: result.change.changeId }) as {

@@ -1176,8 +1176,12 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
 
   const presetInspection = await exercise('inspect_preset_modulation', {
     presetPath: join(FIXTURE_DIR, 'Polysynth', 'mp_bare.bwpreset'),
-  });
-  assert.equal(presetInspection['supported'], true);
+  }) as {
+    supported: boolean;
+    fingerprint: { algorithm: 'sha256'; sha256: string; byteLength: number };
+    modulation: readonly { location: { kind: 'self' } }[];
+  };
+  assert.equal(presetInspection.supported, true);
 
   const rawObservations = await exercise('read_observation_record', {}) as {
     record: { entries: unknown[] };
@@ -1409,6 +1413,8 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   const authored = await exercise('author_modulators', {
     trackId: fx.trackA,
     presetPath: join(HERE, '../../fixtures/Polysynth/mp_bare.bwpreset'),
+    fingerprint: presetInspection.fingerprint,
+    location: presetInspection.modulation[0]!.location,
     operation: {
       kind: 'add', modulator: 'lfo', target: 'polysynth-filter-frequency', amount: 1,
     },

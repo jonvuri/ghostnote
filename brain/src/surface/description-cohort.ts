@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v16';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v17';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -259,12 +259,17 @@ export const DESCRIPTION_COHORT_V15: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v16 adds the manifest-backed modulator catalog. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V16: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V15,
   {
     name: 'list_modulator_types', kind: 'read',
     reason: 'Publishes exact donor support, host inventory, tiers, and witness requirements.',
   },
+] as const;
+
+/** v17 publishes fingerprinted semantic authoring with all five editors. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V16,
 ] as const;
 
 interface ToolAnnotations {
@@ -327,7 +332,7 @@ export const encodeDescriptionCohort = (artifact: DescriptionCohortArtifact): st
 export const fingerprintDescriptionCohort = (artifact: DescriptionCohortArtifact): string =>
   createHash('sha256').update(encodeDescriptionCohort(artifact), 'utf8').digest('hex');
 
-// V1 through V15 record shipped artifacts. Do not recompute them from current
+// V1 through V16 record shipped artifacts. Do not recompute them from current
 // tool schemas. Only the current version follows the current public surface.
 
 /** Changing this fingerprint requires a new description version. */
@@ -393,3 +398,7 @@ export const TOOL_DESCRIPTION_V15_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V16_SHA256 =
   '6007b05597f401b487b12a67091610b797b1534d2ae7a9cdd6aac14e3e774b66';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V17_SHA256 =
+  '7bd3bc42aa7bbf6793e0b40dcef40967aa7381eeb99b867ea748ffd4283117fe';

@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {
   DESCRIPTION_COHORT,
   DESCRIPTION_COHORT_V1,
+  TOOL_DESCRIPTION_V17_SHA256,
   TOOL_DESCRIPTION_V16_SHA256,
   TOOL_DESCRIPTION_V15_SHA256,
   TOOL_DESCRIPTION_V14_SHA256,
@@ -72,8 +73,8 @@ const EXPECTED_COHORT = [
   'list_modulator_types',
 ] as const;
 
-test('description v16 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v16');
+test('description v17 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v17');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -92,12 +93,19 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
   );
 });
 
-test('description v16 matches its public artifact', () => {
+test('description v17 matches its public artifact', () => {
   const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
+    TOOL_DESCRIPTION_V17_SHA256,
+    'the v17 public wording or schema changed',
+  );
+});
+
+test('description v16 keeps its frozen fingerprint', () => {
+  assert.equal(
     TOOL_DESCRIPTION_V16_SHA256,
-    'the v16 public wording or schema changed',
+    '6007b05597f401b487b12a67091610b797b1534d2ae7a9cdd6aac14e3e774b66',
   );
 });
 
