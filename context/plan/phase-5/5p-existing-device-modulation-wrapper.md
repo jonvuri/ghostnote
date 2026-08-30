@@ -2,10 +2,10 @@
 title: Phase 5p — existing-device modulation wrapper
 kind: plan
 state: planned
-status: Planned after 5o. Wrap one existing device without replacing its state.
-updated: 2026-08-25
+status: Next after 5o. Wrap one existing device with the proved FX Layer lifecycle.
+updated: 2026-08-29
 parent: README.md
-evidence: D1, D7, D15, D16, E18c, E18e, E68
+evidence: D1, D7, D15, D16, E18c, E18e, E68, E90
 ---
 
 # Phase 5p — existing-device modulation wrapper
@@ -15,6 +15,9 @@ evidence: D1, D7, D15, D16, E18c, E18e, E68
 Add one public workflow that places an existing project device inside an owned
 modulated container, targets its observed parameters, and preserves the device
 instance and state.
+
+Use FX Layer only. E90 proves that Chain cannot select an empty named slot and
+that Instrument Layer placeholder routes do not transfer to a replacement.
 
 ## Scope
 

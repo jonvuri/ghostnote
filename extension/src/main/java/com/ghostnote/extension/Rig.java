@@ -15,6 +15,7 @@ import com.bitwig.extension.controller.api.Device;
 import com.bitwig.extension.controller.api.DeviceBank;
 import com.bitwig.extension.controller.api.DeviceLayer;
 import com.bitwig.extension.controller.api.DeviceLayerBank;
+import com.bitwig.extension.controller.api.DeviceSlot;
 import com.bitwig.extension.controller.api.CursorRemoteControlsPage;
 import com.bitwig.extension.controller.api.DrumPad;
 import com.bitwig.extension.controller.api.DrumPadBank;
@@ -216,6 +217,8 @@ public class Rig {
      * and chain selectors (Instrument/FX Selector).
      */
     public final DeviceLayerBank layerBank0;
+    /** Selected named slot of the current device, used for guarded slot moves. */
+    public final DeviceSlot cursorDeviceSlot0;
     /** Device chains INSIDE each layer — how we see/insert one level down. */
     public final DeviceBank[] layerDeviceBanks = new DeviceBank[LAYER_BANK];
     public final CursorDeviceLayer cursorLayer0;
@@ -854,6 +857,7 @@ public class Rig {
             "GN_DEV_0", "ghostnote device 0", 0, CursorDeviceFollowMode.FIRST_INSTRUMENT);
         cursorDevice0.exists().markInterested();
         cursorDevice0.name().markInterested();
+        cursorDevice0.isEnabled().markInterested();
         cursorDevice0.isPinned().markInterested();
         // E4c: nesting introspection on whatever the cursor points at.
         cursorDevice0.hasLayers().markInterested();
@@ -861,6 +865,13 @@ public class Rig {
         cursorDevice0.hasSlots().markInterested();
         cursorDevice0.slotNames().markInterested();
         cursorDevice0.isNested().markInterested();
+
+        // A DeviceSlot is a DeviceChain. Build this cursor during init so a
+        // handler can move a device into the selected slot without a lazy
+        // resource allocation.
+        cursorDeviceSlot0 = cursorDevice0.getCursorSlot();
+        cursorDeviceSlot0.exists().markInterested();
+        cursorDeviceSlot0.name().markInterested();
 
         // Device.position() reports -1 for a nested cursor. This siblings bank
         // re-scopes to the cursor's current chain and keeps the position
@@ -936,6 +947,7 @@ public class Rig {
                         Device nested = slotLayerDeviceBanks[s][l].getDevice(d);
                         nested.exists().markInterested();
                         nested.name().markInterested();
+                        nested.isEnabled().markInterested();
                     }
                 }
                 slotScopeStatus[s] = "held";

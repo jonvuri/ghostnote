@@ -12,10 +12,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-08-22",
+  "extractedAt": "2026-08-29",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 148,
-  "methodsHash": "eb3391803ef4eea4",
+  "count": 149,
+  "methodsHash": "c231da5179df3b0f",
   "addedInPhase0": [
     "app.selectionNotifications",
     "branch.contentFilter",
@@ -45,6 +45,7 @@
     "cursor.setLaunchSettings",
     "devcursor.selectInLayer",
     "device.insertVst3",
+    "device.moveIntoSlot",
     "device.moveTo",
     "device.selectInEditor",
     "device.setEnabled",
@@ -174,6 +175,7 @@
     "device.insertFileAt",
     "device.insertVst3",
     "device.list",
+    "device.moveIntoSlot",
     "device.moveTo",
     "device.nesting",
     "device.selectInEditor",
@@ -434,5 +436,8 @@
   ],
   "addedInPhase4Session4h1": [
     "directparam.completion"
+  ],
+  "addedInPhase5Session5o": [
+    "device.moveIntoSlot"
   ]
 }

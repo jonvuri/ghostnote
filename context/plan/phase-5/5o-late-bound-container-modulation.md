@@ -1,14 +1,25 @@
 ---
 title: Phase 5o — late-bound container modulation
 kind: plan
-state: planned
-status: Planned after 5n. Prove an owned container route can bind to a device that arrives after load.
-updated: 2026-08-25
+state: complete
+status: Complete. FX Layer late-binds native and VST3 devices; other tested shapes are unsupported.
+updated: 2026-08-29
 parent: README.md
-evidence: D1, D3, E11e, E17, E18e, E68
+evidence: D1, D3, E11e, E17, E18e, E68, E90
 ---
 
 # Phase 5o — late-bound container modulation
+
+## Result
+
+Session 5o is complete. The human-authored FX Layer seed supports an initially
+empty target at device position 0. Existing Polysynth and Zebra3 VST3 instances
+keep their observed state and receive active modulation after relocation.
+
+Chain cannot address its empty named slot. Instrument Layer cannot address an
+empty entry, and its placeholder route stays bound to the placeholder instance.
+[E90](../../evidence/experiments/e90-fx-layer-late-binding-is-live.md) records
+the complete matrix, asset manifest, and exact cleanup.
 
 ## Purpose
 

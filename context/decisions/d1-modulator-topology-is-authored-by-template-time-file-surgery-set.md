@@ -51,10 +51,12 @@ the right shape only for the Tier-2 case, D2). Recorded per handoff exit criteri
 ### Routing
 - Retarget = rewrite the `0x0e3d` Ramona path (any length; stream-only, no meta/f4)
   (E10/E10b). Proven load-safe on every host including plugins.
-- **Cross-device routing** works from a **container** modulator (Chain / Instrument-
-  or FX-Layer) into a nested device, and is synthesizable + live (E11e). Path form:
-  `CONTENTS/DEVICE_CHAIN/<Container>/DEVICE_CHAIN/<idx>:CONTENTS/<PARAM>`. Simple
-  (non-container) devices cannot cross-route. Target set is **arbitrary within the
-  container**, via the ordinary retarget primitive (no new op).
+- **Cross-device routing** works from a **container** modulator into a nested
+  device and is synthesizable and live (E11e/E90). Chain uses
+  `CONTENTS/DEVICE_CHAIN/Chain/DEVICE_CHAIN/<idx>:<parameter route>`. Layer
+  containers use
+  `CONTENTS/CHAIN_LIST/CHAIN<n>/DEVICE_CHAIN/<idx>:<parameter route>`. Simple
+  devices cannot cross-route. The target set is arbitrary within the container
+  through the ordinary retarget primitive.
 
 ---

@@ -1044,6 +1044,7 @@ public final class ContainerHandlers extends HandlerGroup {
                         JsonObject dev = new JsonObject();
                         dev.addProperty("index", d);
                         putGuarded(dev, "name", () -> nested.name().get());
+                        putGuarded(dev, "enabled", () -> nested.isEnabled().get());
                         devices.add(dev);
                     }
                     chain.add("devices", devices);

@@ -61,6 +61,8 @@ export interface Golden {
   addedInPhase4Session4g?: string[];
   /** Phase 4 session 4h1 targeted DirectParameter completion route. */
   addedInPhase4Session4h1?: string[];
+  /** Phase 5 session 5o guarded move into one selected named device slot. */
+  addedInPhase5Session5o?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

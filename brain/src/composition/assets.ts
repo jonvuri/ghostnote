@@ -19,6 +19,25 @@ export const OWNED_LAYER_MANIFEST_PATH = join(
   'instrument-layer-4.json',
 );
 
+/** Human-authored Session 5o FX Layer seed with one empty target entry. */
+export const OWNED_FX_LAYER_TEMPLATE_PATH = join(
+  import.meta.dirname,
+  '..',
+  '..',
+  'fixtures',
+  'FXLayer',
+  'gn_latebound_fx_layer.bwpreset',
+);
+
+export const OWNED_FX_LAYER_MANIFEST_PATH = join(
+  import.meta.dirname,
+  '..',
+  '..',
+  'assets',
+  'composition',
+  'fx-layer-late-bound.json',
+);
+
 export const NATIVE_CATALOG_PATH = join(
   import.meta.dirname,
   '..',

@@ -382,12 +382,20 @@ internal list selector private. Container edits rebuild the complete ordered
 unique GUID reference set and preserve all sibling semantic inventories [K,
 E87].
 
+FX Layer keeps an outer route to an initially empty first device position. The
+route becomes active when an existing native or VST3 device moves into that
+position. Layer routes use `CHAIN_LIST/CHAIN<n>`, not the Chain device's named
+slot form. Chain cannot select an empty `CHAIN` slot. Instrument Layer
+placeholder routes stay bound to the placeholder instance and do not transfer
+to a replacement [K, E90].
+
 ---
 
 ## Supersession record
 
 | Date | Change |
 |---|---|
+| 2026-08-29 | E90 proves owned FX Layer late binding for native and VST3 devices, records the wrong-position control, and limits Chain and Instrument Layer. |
 | 2026-08-27 | E87 completes all five fingerprinted semantic list-scoped editors, sampled-stub proof, and live outer and nested page witnesses. |
 | 2026-08-27 | E86 adds read-only semantic preset locations, complete public modulator inventories, stale-file fingerprints, and the six-class fixture matrix. |
 | 2026-08-26 | E85 adds general DirectParameter modulation targets, internal native and plug-in route conversion, and live native and VST3 behavior proof. |

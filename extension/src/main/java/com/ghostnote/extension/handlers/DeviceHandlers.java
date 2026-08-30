@@ -37,6 +37,7 @@ public final class DeviceHandlers extends HandlerGroup {
         r.on("device.delete", params -> deviceDelete(params));
         r.on("device.duplicate", params -> deviceDuplicate(params));
         r.on("device.moveTo", params -> deviceMoveTo(params));
+        r.on("device.moveIntoSlot", params -> deviceMoveIntoSlot(params));
         r.on("device.insertFile", params -> deviceInsertFile(params));
         r.on("device.insertFileAt", params -> deviceInsertFileAt(params));
         r.on("device.nesting", params -> deviceNesting());
@@ -615,6 +616,57 @@ public final class DeviceHandlers extends HandlerGroup {
         return r;
     }
 
+    /** Move one top-level device into the selected named slot of a container. */
+    private JsonElement deviceMoveIntoSlot(JsonObject params) {
+        int cursorIndex = params.has("cursor") ? params.get("cursor").getAsInt() : 0;
+        if (cursorIndex != 0) {
+            throw new IllegalArgumentException(
+                "device.moveIntoSlot supports only cursor 0");
+        }
+        int sourceIndex = params.get("sourceDeviceIndex").getAsInt();
+        String[] expectedNames = readExpectedDeviceNames(
+            params, cursorIndex, "device.moveIntoSlot", true);
+        verifyExpectedTrackChannelId(
+            params, cursorIndex, expectedNames, "device.moveIntoSlot");
+        verifyExpectedDeviceChain(
+            params, cursorIndex, expectedNames, "device.moveIntoSlot");
+        if (sourceIndex < 0 || sourceIndex >= expectedNames.length) {
+            throw new IllegalArgumentException(
+                "device.moveIntoSlot sourceDeviceIndex is outside expectedDeviceNames");
+        }
+
+        Device source = rig.cursorDeviceBanks[cursorIndex].getDevice(sourceIndex);
+        String expectedSource = params.get("expectedSourceName").getAsString();
+        if (!source.exists().get() || !expectedSource.equals(source.name().get())) {
+            throw new IllegalArgumentException(
+                "device.moveIntoSlot source changed at index " + sourceIndex);
+        }
+        String expectedContainer = params.get("expectedContainerName").getAsString();
+        if (!rig.cursorDevice0.exists().get()
+                || rig.cursorDevice0.isNested().get()
+                || !expectedContainer.equals(rig.cursorDevice0.name().get())) {
+            throw new IllegalArgumentException(
+                "device.moveIntoSlot container cursor is not on \"" + expectedContainer + "\"");
+        }
+        String expectedSlot = params.get("expectedSlotName").getAsString();
+        if (!rig.cursorDeviceSlot0.exists().get()
+                || !expectedSlot.equals(rig.cursorDeviceSlot0.name().get())) {
+            throw new IllegalArgumentException(
+                "device.moveIntoSlot selected slot is not \"" + expectedSlot + "\"");
+        }
+        if (sourceIndex == rig.directParameterTopLevelIndex) {
+            throw new IllegalArgumentException(
+                "device.moveIntoSlot source is the selected container");
+        }
+
+        JsonObject result = ok();
+        result.addProperty("sourceName", source.name().get());
+        result.addProperty("containerName", rig.cursorDevice0.name().get());
+        result.addProperty("slotName", rig.cursorDeviceSlot0.name().get());
+        rig.cursorDeviceSlot0.endOfDeviceChainInsertionPoint().moveDevices(source);
+        return result;
+    }
+
     /**
      * Insert a file at the end of the track's device chain. A .bwpreset of a
      * multi-layer container would create the whole structure in one call.
@@ -692,6 +744,7 @@ public final class DeviceHandlers extends HandlerGroup {
         JsonObject result = new JsonObject();
         result.addProperty("exists", rig.cursorDevice0.exists().get());
         result.addProperty("name", rig.cursorDevice0.name().get());
+        result.addProperty("enabled", rig.cursorDevice0.isEnabled().get());
         result.addProperty("isPinned", rig.cursorDevice0.isPinned().get());
         result.addProperty("deviceIndex", rig.currentDirectParameterDeviceIndex());
         result.addProperty("trackChannelId", rig.cursorTracks[0].channelId().get());

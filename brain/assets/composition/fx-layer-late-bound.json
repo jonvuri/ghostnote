@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "fx-layer-late-bound",
+  "assetPath": "fixtures/FXLayer/gn_latebound_fx_layer.bwpreset",
+  "sha256": "fdc1f2d64132d8aabe277c090e052b9a6dfb76ba3c80e1c9e0a1748c60e71f50",
+  "byteLength": 6687,
+  "authoring": {
+    "bitwigVersion": "6.0.6",
+    "creator": "jrajav",
+    "sourceEvidence": "E90",
+    "origin": "human-authored"
+  },
+  "container": {
+    "name": "FX Layer",
+    "guid": "a0913b7f-096b-4ac9-bddd-33c775314b42",
+    "outerModulatorList": {
+      "sourceIndex": 0,
+      "fieldOffset": 5950
+    }
+  },
+  "targetEntry": {
+    "position": 0,
+    "serializedName": "CHAIN0",
+    "liveName": "Layer 1",
+    "devicePosition": 0,
+    "initiallyEmpty": true
+  },
+  "externalReferences": {
+    "packagedFileIds": [],
+    "sampledPresetReferenceStubs": 0
+  }
+}

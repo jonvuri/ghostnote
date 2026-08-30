@@ -2,12 +2,12 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5n is complete; 5o is next.
+status: Reopened 2026-08-25. Session 5o is complete; 5p is next.
 updated: 2026-08-29
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
-evidence: DECISIONS D1/D2/D3, FINDINGS E10–E13, BWMOD_DESIGN.md, BWFORMAT_SPEC.md
+evidence: DECISIONS D1/D2/D3, FINDINGS E10–E13, E90, BWMOD_DESIGN.md, BWFORMAT_SPEC.md
 ---
 
 # Phase 5 — Structure & modulation authoring
@@ -123,8 +123,8 @@ that first integration unless the proof needs one new owned asset.
     — done. Fingerprinted semantic authoring combines general targets, all five
     editors, and 42 donor types across the proved host matrix.
 15. [5o — late-bound container modulation](5o-late-bound-container-modulation.md)
-    — planned. Prove that an owned container route can bind to a device moved
-    into it after load.
+    — done. An owned FX Layer route late-binds native and VST3 devices at its
+    initially empty first position. Chain and Instrument Layer are unsupported.
 16. [5p — existing-device modulation wrapper](5p-existing-device-modulation-wrapper.md)
     — planned. Preserve one existing device while an owned container supplies
     its modulators and routes.
@@ -219,8 +219,10 @@ impossibilities. External publication and redistribution remain Phase 6 work.
 - **Public donor breadth — settled by 5m and exposed by 5n.** One manifest
   records the complete 43-type host inventory and drives the 42-type supported
   catalog.
-- **Existing-device preservation — planned for 5o/5p.** A proved owned
-  container supplies topology while the existing device instance moves intact.
+- **Existing-device preservation — host recipe settled by 5o; public lifecycle
+  planned for 5p.** The owned FX Layer supplies topology while the existing
+  device instance moves intact. Chain and Instrument Layer do not share this
+  late-binding behavior.
 - **General composition — planned for 5q/5r.** Explicit device sources and
   bounded container shapes replace native-only four-entry composition.
 

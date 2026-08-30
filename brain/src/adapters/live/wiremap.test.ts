@@ -72,7 +72,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInSession4a ?? []), ...(golden.addedInSession4b ?? []),
       ...(golden.addedInPhase2Session2e ?? []), ...(golden.addedInPhase2Session2i ?? []),
       ...(golden.addedInPhase4Session4b ?? []), ...(golden.addedInPhase4Session4f ?? []),
-      ...(golden.addedInPhase4Session4g ?? []), ...(golden.addedInPhase4Session4h1 ?? [])];
+      ...(golden.addedInPhase4Session4g ?? []), ...(golden.addedInPhase4Session4h1 ?? []),
+      ...(golden.addedInPhase5Session5o ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -404,6 +405,22 @@ test('4h1: targeted scalar completion replaces post-write full inventory', () =>
   assert.deepEqual(golden.addedInPhase4Session4h1 ?? [], ['directparam.completion']);
   assert.ok(WIRE_METHODS_USED.includes('directparam.completion'));
   assert.ok(!WIRE_METHODS_USED.includes('remote.selectPage'));
+});
+
+test('5o: the refused empty named-slot move remains probe-only', () => {
+  assert.deepEqual(golden.addedInPhase5Session5o ?? [], ['device.moveIntoSlot']);
+  assert.ok(!WIRE_METHODS_USED.includes('device.moveIntoSlot'));
+  const source = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'DeviceHandlers.java'),
+    'utf8',
+  );
+  const start = source.indexOf('private JsonElement deviceMoveIntoSlot(JsonObject params)');
+  const end = source.indexOf('private JsonElement deviceInsertFile(JsonObject params)', start);
+  const handler = source.slice(start, end);
+  assert.ok(start >= 0 && end > start, 'the named-slot move handler must exist');
+  assert.match(handler, /if \(cursorIndex != 0\)/,
+    'the cursor-0 destination must reject sources from other cursor tracks');
 });
 
 test('5b: remote automation state is subscribed before live route proof', () => {
