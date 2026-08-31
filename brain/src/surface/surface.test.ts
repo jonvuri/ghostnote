@@ -247,7 +247,7 @@ function schemaPaths(
 }
 
 test('D01: every public tool schema uses only homogeneous arrays', () => {
-  assert.equal(TOOLS.length, 49);
+  assert.equal(TOOLS.length, 51);
   const incompatible: string[] = [];
   for (const tool of TOOLS) {
     const validator = tool.inputValidator ?? z.object(tool.inputSchema);
@@ -1592,6 +1592,43 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal((await exercise('delete_track', {
     trackIds: [addedTrack.created[0]!.trackId, copiedTrack.copied.trackId],
   }))['applied'], true);
+
+  const refusedWrap = await exercise('wrap_existing_device_modulation', {
+    trackId: fx.trackA,
+    devicePosition: 0,
+    expectedDeviceOrder: [{ name: 'stale-order-control', enabled: true }],
+    containerKind: 'FX Layer',
+    entryName: 'Layer 1',
+    modulators: [{
+      modulator: 'lfo',
+      target: { parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency' },
+      amount: 1,
+    }],
+  });
+  assert.equal(refusedWrap['refused'], true);
+  const refusedWrapperReversal = await exercise('reverse_existing_device_modulation_wrap', {
+    checkpoint: {
+      schemaVersion: 1,
+      state: 'wrapped',
+      trackId: fx.trackA,
+      containerKind: 'FX Layer',
+      entryName: 'Layer 1',
+      currentEntryName: 'Layer 1',
+      containerInsertChangeId: 'not-a-session-change',
+      insertedContainerPosition: 1,
+      currentContainerPosition: 0,
+      originalDeviceOrder: [{ name: 'Polysynth', enabled: true }],
+      device: {
+        originalPosition: 0,
+        name: 'Polysynth',
+        enabled: true,
+        parameterFingerprint: {
+          algorithm: 'sha256', sha256: '0'.repeat(64), parameterCount: 1,
+        },
+      },
+    },
+  });
+  assert.equal(refusedWrapperReversal['refused'], true);
 
   const observation = await exercise('record_observation', {
     operation: 'begin', requestedScope: 'unsupported', rawScope: 'No project change.',

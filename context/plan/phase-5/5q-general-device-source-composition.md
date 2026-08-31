@@ -2,8 +2,8 @@
 title: Phase 5q — general device-source composition
 kind: plan
 state: planned
-status: Planned after 5p. Compose native, plug-in, preset, and existing device sources.
-updated: 2026-08-25
+status: Next after 5p. Compose native, plug-in, preset, and existing device sources.
+updated: 2026-08-30
 parent: README.md
 evidence: D1, D2, D7, D15, D16, E62, E71-E73
 ---

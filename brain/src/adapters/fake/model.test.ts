@@ -698,6 +698,18 @@ test('T-scope: a container is observable only in the first few device positions'
     'past the scopes nothing was looked at — which is not the same as nothing being there');
 });
 
+test('5p fake adapter: container inventory preserves nested enabled state', () => {
+  const model = new ProjectModel();
+  const track = model.createTrack('gn-A');
+  track.devices.push({
+    name: 'FX Layer', enabled: true, paramsLive: true, params: [],
+    chains: [someChain('Layer 1', [{
+      name: 'Bypassed plug-in', enabled: false, paramsLive: true, params: [],
+    }])],
+  });
+  assert.equal(model.observeContainer(track, 0)?.chains[0]?.devices[0]?.enabled, false);
+});
+
 test('T-full: a chain bank filled to its size reads as INCOMPLETE, not as complete', () => {
   // ⚠⚠ The asymmetry that keeps a blind spot from reading as a tombstone. The
   // enumeration omits empty bank slots, so a dead-full bank and an overflowing

@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5o is complete; 5p is next.
-updated: 2026-08-29
+status: Reopened 2026-08-25. Session 5p is complete; 5q is next.
+updated: 2026-08-30
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -126,8 +126,8 @@ that first integration unless the proof needs one new owned asset.
     — done. An owned FX Layer route late-binds native and VST3 devices at its
     initially empty first position. Chain and Instrument Layer are unsupported.
 16. [5p — existing-device modulation wrapper](5p-existing-device-modulation-wrapper.md)
-    — planned. Preserve one existing device while an owned container supplies
-    its modulators and routes.
+    — done. Preserve one existing device while an owned FX Layer supplies its
+    modulators, routes, state proof, and guarded reversal.
 17. [5q — general device-source composition](5q-general-device-source-composition.md)
     — planned. Compose native, VST3, CLAP, preset, and existing device sources.
 18. [5r — container shape and capacity](5r-container-shape-and-capacity.md) —
@@ -219,10 +219,9 @@ impossibilities. External publication and redistribution remain Phase 6 work.
 - **Public donor breadth — settled by 5m and exposed by 5n.** One manifest
   records the complete 43-type host inventory and drives the 42-type supported
   catalog.
-- **Existing-device preservation — host recipe settled by 5o; public lifecycle
-  planned for 5p.** The owned FX Layer supplies topology while the existing
-  device instance moves intact. Chain and Instrument Layer do not share this
-  late-binding behavior.
+- **Existing-device preservation — settled by 5o and 5p.** The owned FX Layer
+  supplies topology while the existing device instance moves intact. Chain and
+  Instrument Layer do not share this late-binding behavior.
 - **General composition — planned for 5q/5r.** Explicit device sources and
   bounded container shapes replace native-only four-entry composition.
 

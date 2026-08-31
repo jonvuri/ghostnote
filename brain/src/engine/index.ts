@@ -49,6 +49,15 @@ export type {
   OwnedTemplateCompositionHost, OwnedTemplateCompositionOptions, OwnedTemplateCompositionRequest,
   OwnedTemplateCompositionResult, ValidatedCompositionEntry,
 } from './owned-template-composition.js';
+export {
+  reverseExistingDeviceModulation, wrapExistingDeviceModulation,
+} from './existing-device-wrapper.js';
+export type {
+  DeviceParameterFingerprint, ExistingDeviceOrderItem, ExistingDeviceWrapperCheckpoint,
+  ExistingDeviceWrapperHost, ExistingDeviceWrapperOptions, ExistingDeviceWrapperRequest,
+  ExistingDeviceWrapperResult, ExistingDeviceWrapperReversal,
+  ExistingDeviceWrapperStageReceipt, ExistingDeviceWrapperVerification,
+} from './existing-device-wrapper.js';
 export type {
   AddModulatorOptions, AddModulatorRequest, AddModulatorResult, ModulationSample,
   ModulationVerification, ModulatorAuthoringHost, ModulatorBehaviorWitness, ModulatorEdit,

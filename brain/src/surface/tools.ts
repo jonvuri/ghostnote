@@ -108,6 +108,14 @@ import {
   runPresetModulationInspection,
 } from './preset-modulation-inspection.js';
 import { runModulatorCatalog } from './modulator-catalog.js';
+import {
+  existingDeviceModulationReversalInputSchema,
+  existingDeviceModulationReversalInputValidator,
+  existingDeviceModulationWrapperInputSchema,
+  existingDeviceModulationWrapperInputValidator,
+  runExistingDeviceModulationReversal,
+  runExistingDeviceModulationWrapper,
+} from './existing-device-modulation-wrapper.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -190,6 +198,10 @@ export const WRITE_TOOLS_THAT_MAY_REMOVE: Readonly<Record<string, string>> = {
     + 'made, and only in places that still hold exactly what that change left, so a clip it '
     + 'removes is one it created and nobody has touched since. Anything else is reported and '
     + 'left alone.',
+  reverse_existing_device_modulation_wrap:
+    'Session 5p: this tool removes only the empty FX Layer that its supplied and validated '
+    + 'insertion checkpoint identifies. It first moves the preserved existing device out and '
+    + 'refuses the removal when any complete structural or scalar guard disagrees.',
 };
 
 function tool<S extends z.ZodRawShape>(spec: {
@@ -2180,6 +2192,65 @@ export const TOOLS: readonly ToolSpec[] = [
     },
     async run(workspace, args) {
       return runDrumMachineComposition(workspace, args);
+    },
+  }),
+
+  tool({
+    name: 'wrap_existing_device_modulation',
+    kind: 'write',
+    title: 'Wrap an existing device with modulation',
+    description:
+      'Place one current top-level device inside one owned FX Layer without creating a replacement '
+      + 'device instance. Supply the exact complete top-level name and enabled-state order from a '
+      + 'fresh inspection, the proved Layer 1 entry, and one or more manifest-backed modulators '
+      + 'with exact DirectParameter ids and names. The workflow reads the complete stable parameter '
+      + 'inventory before writing, inserts and positions the owned container, marks its entry name '
+      + 'as explicit, verifies its modulator pages, moves the device, and proves the parent-child '
+      + 'edge, enabled state, parameter-base fingerprint, and active modulation. Results list each '
+      + 'completed stage in order. A failed post-move witness reports the device location and a '
+      + 'reversal checkpoint. Relocation preserves opaque device state because the same instance '
+      + 'moves; Ghostnote does not claim byte-exact opaque-state readback.',
+    inputSchema: existingDeviceModulationWrapperInputSchema,
+    inputValidator: existingDeviceModulationWrapperInputValidator,
+    emits: ['device.insert', 'device.relocate', 'chain.rename', 'chain.relocate'],
+    resultContract: {
+      complete: 'True only after insertion, positioning, relocation, complete state, and behavior proof.',
+      partialCompletion: 'True when a completed project-write stage remains after a later failure.',
+      stages: 'Ordered receipts for insertion, positioning, explicit entry naming, and relocation.',
+      currentLocation: 'Exact proved top-level or owned-entry position after the last completed stage.',
+      verification: 'Scalar fingerprints, opaque-state qualification, pages, and active behavior witnesses.',
+      reversalCheckpoint: 'Guarded input for reverse_existing_device_modulation_wrap.',
+    },
+    async run(workspace, args) {
+      return runExistingDeviceModulationWrapper(workspace, args);
+    },
+  }),
+
+  tool({
+    name: 'reverse_existing_device_modulation_wrap',
+    kind: 'write',
+    title: 'Reverse an existing-device modulation wrap',
+    description:
+      'Reverse one exact checkpoint returned by wrap_existing_device_modulation. The tool verifies '
+      + 'the checkpoint against this session\'s recorded FX Layer insertion, the complete current '
+      + 'top-level order, the complete parent-child edge, enabled state, and the preserved device\'s '
+      + 'complete parameter-base fingerprint. It then moves the same device out, restores its exact '
+      + 'prior top-level position, and removes only the now-empty owned container. Interference '
+      + 'refuses before the affected stage. A partial reversal reports every completed receipt and '
+      + 'never removes a container that still holds the target device.',
+    inputSchema: existingDeviceModulationReversalInputSchema,
+    inputValidator: existingDeviceModulationReversalInputValidator,
+    emits: ['chain.relocate', 'device.relocate', 'device.delete'],
+    resultContract: {
+      complete: 'True only when the exact prior top-level order is restored and the owned container is absent.',
+      partialReversal: 'True when one or more reversal writes completed before a later guard failed.',
+      stages: 'Ordered recorded receipts for extraction, position restore, and empty-container removal.',
+      currentLocation: 'The last proved device and container location.',
+      containerRemoved: 'True only after guarded deletion and complete top-level readback.',
+      restoredDeviceOrder: 'True only when the complete original name and enabled-state order reads back.',
+    },
+    async run(workspace, args) {
+      return runExistingDeviceModulationReversal(workspace, args);
     },
   }),
 

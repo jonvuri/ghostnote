@@ -699,7 +699,11 @@ export class ProjectModel {
           // See `FakeChain.id`: it is a within-session witness, and nothing in
           // either adapter resolves an address through it.
           id: c.id,
-          devices: devices.map((d, at) => ({ index: at, name: d.name })),
+          devices: devices.map((d, at) => ({
+            index: at,
+            name: d.name,
+            enabled: d.enabled ?? true,
+          })),
           devicesComplete: c.devices.length <= this.chainDeviceBankSize,
           devicesBankSize: this.chainDeviceBankSize,
         };

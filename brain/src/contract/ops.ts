@@ -219,6 +219,10 @@ export type Op =
     readonly source: DeviceAddress;
     readonly destination: ChainAddress | TrackAddress;
     readonly mode: 'move' | 'copy';
+    /** Complete top-level names from the caller's last accepted observation. */
+    readonly expectedChain?: readonly string[];
+    /** Aligned top-level enabled flags from the same observation. */
+    readonly expectedEnabledChain?: readonly boolean[];
   }
   /** Make one named chain the sole soloed chain in its container. */
   | { readonly op: 'chain.activate'; readonly chain: ChainAddress }
@@ -483,6 +487,14 @@ export function assertOpsWritable(ops: readonly Op[]): void {
       }
     }
     if (op.op === 'chain.relocate') {
+      if ((op.expectedChain === undefined) !== (op.expectedEnabledChain === undefined)
+          || (op.expectedChain !== undefined
+            && op.expectedEnabledChain?.length !== op.expectedChain.length)) {
+        throw new InvalidOpError(
+          op.op,
+          'the complete top-level name and enabled-state guards must be supplied together',
+        );
+      }
       if (op.source.chain !== undefined && op.source.chain.kind !== 'chain') {
         throw new InvalidOpError(op.op, 'a chain relocation needs a layer-chain parent');
       }

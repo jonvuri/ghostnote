@@ -128,6 +128,10 @@ public class Rig {
     public final SpecificBitwigDevice v1KickView0;
     public final String[] v1KickParamIds;
     public final Parameter[] v1KickParams0;
+    /** One native FX parameter witness for existing-device wrapper proof. */
+    public final SpecificBitwigDevice delayPlusView0;
+    public final String[] delayPlusParamIds;
+    public final Parameter[] delayPlusParams0;
     /** One measured VST3 parameter witness for general public target proof. */
     public final SpecificPluginDevice zebra3Vst3View0;
     public final String[] zebra3Vst3ParamIds;
@@ -273,13 +277,15 @@ public class Rig {
     public final java.util.Map<String, String> directParamNames = new java.util.LinkedHashMap<>();
     public final java.util.Map<String, Double> directParamValues = new java.util.LinkedHashMap<>();
     public final java.util.Map<String, String> directParamDisplays = new java.util.LinkedHashMap<>();
-    /** Generation reset before each serialized device-cursor acquisition. */
+    /** Target-bound generation for serialized DirectParameter reads. */
     public long directParamGeneration = 0;
     /** Generation in which the id observer last delivered a complete list. */
     public long directParamIdsGeneration = -1;
     public String directParamObservedTrackId = null;
     public String directParamObservedDeviceName = null;
     public int directParamObservedDeviceIndex = -1;
+    public boolean directParamObservedNested = false;
+    public String directParamObservedRoute = null;
     /** One exact callback receipt armed by a direct-parameter mutation. */
     public long directParamCompletionGeneration = 0;
     public long directParamCompletionObservedGeneration = -1;
@@ -1250,6 +1256,21 @@ public class Rig {
             param.hasAutomation().markInterested();
             v1KickParams0[p] = param;
         }
+        delayPlusView0 = cursorDevice0.createSpecificBitwigDevice(
+            java.util.UUID.fromString("f2baa2a8-36c5-4a79-b1d9-a4e461c45ee9"));
+        delayPlusParamIds = new String[] {"BLUR"};
+        delayPlusParams0 = new Parameter[] {delayPlusView0.createParameter("BLUR")};
+        for (Parameter param : delayPlusParams0) {
+            param.exists().markInterested();
+            param.name().markInterested();
+            param.value().markInterested();
+            param.value().displayedValue().markInterested();
+            param.value().getOrigin().markInterested();
+            param.value().discreteValueCount().markInterested();
+            param.value().discreteValueNames().markInterested();
+            param.modulatedValue().markInterested();
+            param.hasAutomation().markInterested();
+        }
         zebra3Vst3View0 = cursorDevice0.createSpecificVst3Device(
             "D39D5B69D6AF42FA123456785A334D44");
         zebra3Vst3ParamIds = new String[] {"PID411"};
@@ -1287,6 +1308,8 @@ public class Rig {
                 directParamObservedTrackId = cursorTracks[0].channelId().get();
                 directParamObservedDeviceName = cursorDevice0.name().get();
                 directParamObservedDeviceIndex = currentDirectParameterDeviceIndex();
+                directParamObservedNested = cursorDevice0.isNested().get();
+                directParamObservedRoute = directParameterRouteSignature();
             });
             cursorDevice0.addDirectParameterNameObserver(48, (id, name) -> {
                 directParamNames.put(id, name);
@@ -1308,9 +1331,22 @@ public class Rig {
         constructNanos = System.nanoTime() - start;
     }
 
-    /** Clear all state that can belong to the prior cursor target. */
+    /** Start one target-bound generation and discard rows from any prior target. */
     public long beginDirectParameterObservation() {
         directParamGeneration++;
+        boolean nested = cursorDevice0.isNested().get();
+        boolean sameTarget = directParamIdsGeneration >= 0
+            && directParamObservedTrackId != null
+            && directParamObservedDeviceName != null
+            && directParamObservedTrackId.equals(cursorTracks[0].channelId().get())
+            && directParamObservedDeviceName.equals(cursorDevice0.name().get())
+            && directParamObservedDeviceIndex == currentDirectParameterDeviceIndex()
+            && directParamObservedNested == nested
+            && (!nested || directParameterRouteSignature().equals(directParamObservedRoute));
+        if (sameTarget) {
+            directParamIdsGeneration = directParamGeneration;
+            return directParamGeneration;
+        }
         directParamIdsGeneration = -1;
         directParamIds = new String[0];
         directParamNames.clear();
@@ -1319,7 +1355,15 @@ public class Rig {
         directParamObservedTrackId = null;
         directParamObservedDeviceName = null;
         directParamObservedDeviceIndex = -1;
+        directParamObservedNested = false;
+        directParamObservedRoute = null;
         return directParamGeneration;
+    }
+
+    private String directParameterRouteSignature() {
+        return directParameterTopLevelIndex + ":" + directParameterRouteKinds + ":"
+            + directParameterRouteNames + ":" + directParameterRouteChannels + ":"
+            + directParameterRouteDeviceIndices;
     }
 
     /** Invalidate remote-control observations from the prior cursor target. */

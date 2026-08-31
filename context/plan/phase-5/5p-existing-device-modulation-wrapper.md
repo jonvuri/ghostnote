@@ -1,11 +1,11 @@
 ---
 title: Phase 5p — existing-device modulation wrapper
 kind: plan
-state: planned
-status: Next after 5o. Wrap one existing device with the proved FX Layer lifecycle.
-updated: 2026-08-29
+state: complete
+status: Complete. Public native-FX and VST3 wrap, proof, and reversal pass live.
+updated: 2026-08-30
 parent: README.md
-evidence: D1, D7, D15, D16, E18c, E18e, E68, E90
+evidence: D1, D7, D15, D16, E18c, E18e, E68, E90, E91
 ---
 
 # Phase 5p — existing-device modulation wrapper
@@ -64,3 +64,18 @@ that Instrument Layer placeholder routes do not transfer to a replacement.
 
 Session 5q reuses this guarded insertion and relocation pipeline for general
 multi-device composition.
+
+## Result
+
+Complete. The public wrapper inserts and positions the owned FX Layer, marks
+`Layer 1` as an explicit stable name, moves the existing device, and proves its
+complete observed state and active modulation. The checkpointed reversal moves
+the same device back and deletes only the proved empty owned container.
+
+Delay+ and Zebra3 VST3 pass live with exact scalar fingerprints, active routes,
+reversal, and cleanup. [E91](../../evidence/experiments/e91-existing-device-modulation-wrapper-is-live.md)
+records the matrix and qualifications.
+
+The public reversal also requires the exact checkpoint issued in this session.
+Post-write read errors return the last proved checkpoint. Reversal can move an
+owned tail insertion into the observable window before guarded removal.

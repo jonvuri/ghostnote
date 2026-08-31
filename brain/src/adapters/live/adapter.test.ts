@@ -2452,7 +2452,11 @@ class ParameterTransport implements Transport {
   async close(): Promise<void> {}
 }
 
-const CONTAINER_SCOPE = (chains: { index: number; name: string; devices?: { index: number; name: string }[] }[]) => ({
+const CONTAINER_SCOPE = (chains: {
+  index: number;
+  name: string;
+  devices?: { index: number; name: string; enabled?: boolean }[];
+}[]) => ({
   slot: 0,
   status: 'held',
   deviceExists: true,
@@ -2479,6 +2483,19 @@ test('L-direct-param: stable inventories do not retain the prior device values',
   assert.equal(twoParams?.length, 10);
   assert.equal(twoParams?.some((item) => item.id.startsWith('P')), false);
   assert.equal(oneParams?.every((item) => item.observed.modulatedValue === false), true);
+});
+
+test('5p live inventory: the generation starts after exact device acquisition', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await adapter.read([deviceAt(TRACK, 0)]);
+
+  const selected = wire.frames.findIndex((frame) => frame.method === WIRE.deviceCursorSelectAt);
+  const begun = wire.frames.findIndex((frame) =>
+    frame.method === WIRE.directParamList && frame.params?.['begin'] === true);
+  assert.ok(selected >= 0);
+  assert.ok(begun > selected);
 });
 
 test('d02-s7 live inventory: typed metadata proves the binary normalized domain', async () => {
@@ -3023,7 +3040,7 @@ test('L-chain: a container read carries the chains — the only way a name is ev
   const wire = new InventoryTransport(
     new Map([[0, CHANNEL_ID]]),
     new Map([[CHANNEL_ID, [CONTAINER_SCOPE([
-      { index: 0, name: 'A take', devices: [{ index: 0, name: 'Polysynth' }] },
+      { index: 0, name: 'A take', devices: [{ index: 0, name: 'Polysynth', enabled: false }] },
     ])]]]),
   );
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
@@ -3034,6 +3051,7 @@ test('L-chain: a container read carries the chains — the only way a name is ev
   const observed = entry?.value.of === 'device' ? entry.value.device : undefined;
   assert.equal(observed?.container?.chains[0]?.name, 'A take');
   assert.equal(observed?.container?.chains[0]?.devices[0]?.name, 'Polysynth');
+  assert.equal(observed?.container?.chains[0]?.devices[0]?.enabled, false);
   assert.deepEqual(observed?.params, [], 'the settled DirectParameter inventory is explicit');
 });
 

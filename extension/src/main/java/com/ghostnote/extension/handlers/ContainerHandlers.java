@@ -1146,6 +1146,7 @@ public final class ContainerHandlers extends HandlerGroup {
                     "chain.move track identity changed: expected " + expectedTrack + ", got " + actualTrack);
             }
         }
+        verifyExpectedTopLevelDevices(params);
         if ("chain".equals(src) && rig.slotLayerBanks[srcSlot] == null) {
             throw new IllegalArgumentException(
                 "source scope " + srcSlot + " was never built: " + rig.slotScopeStatus[srcSlot]
@@ -1253,6 +1254,66 @@ public final class ContainerHandlers extends HandlerGroup {
             target.copyDevices(source);
         }
         return r;
+    }
+
+    /** Verify the complete top-level name and enabled-state guard before relocation. */
+    private void verifyExpectedTopLevelDevices(JsonObject params) {
+        if (!params.has("expectedDeviceNames") || params.get("expectedDeviceNames").isJsonNull()) {
+            if (params.has("expectedDeviceEnabled")
+                    && !params.get("expectedDeviceEnabled").isJsonNull()) {
+                throw new IllegalArgumentException(
+                    "chain.move expectedDeviceEnabled requires expectedDeviceNames");
+            }
+            return;
+        }
+        JsonElement namesValue = params.get("expectedDeviceNames");
+        if (!namesValue.isJsonArray()) {
+            throw new IllegalArgumentException("chain.move expectedDeviceNames must be an array");
+        }
+        JsonArray names = namesValue.getAsJsonArray();
+        if (names.size() > rig.config.deviceBank) {
+            throw new IllegalArgumentException("chain.move expected device chain exceeds the bank");
+        }
+        if (rig.cursorDeviceBanks[0].itemCount().get() != names.size()) {
+            throw new IllegalArgumentException("chain.move top-level device count changed");
+        }
+        JsonArray enabled = null;
+        if (params.has("expectedDeviceEnabled")
+                && !params.get("expectedDeviceEnabled").isJsonNull()) {
+            JsonElement enabledValue = params.get("expectedDeviceEnabled");
+            if (!enabledValue.isJsonArray()) {
+                throw new IllegalArgumentException("chain.move expectedDeviceEnabled must be an array");
+            }
+            enabled = enabledValue.getAsJsonArray();
+            if (enabled.size() != names.size()) {
+                throw new IllegalArgumentException(
+                    "chain.move expectedDeviceEnabled must align with expectedDeviceNames");
+            }
+        }
+        for (int i = 0; i < names.size(); i++) {
+            JsonElement expectedName = names.get(i);
+            if (!expectedName.isJsonPrimitive() || !expectedName.getAsJsonPrimitive().isString()) {
+                throw new IllegalArgumentException(
+                    "chain.move expectedDeviceNames[" + i + "] must be a string");
+            }
+            Device actual = rig.cursorDeviceBanks[0].getDevice(i);
+            if (!actual.exists().get() || !expectedName.getAsString().equals(actual.name().get())) {
+                throw new IllegalArgumentException(
+                    "chain.move top-level device name changed at index " + i);
+            }
+            if (enabled != null) {
+                JsonElement expectedEnabled = enabled.get(i);
+                if (!expectedEnabled.isJsonPrimitive()
+                        || !expectedEnabled.getAsJsonPrimitive().isBoolean()) {
+                    throw new IllegalArgumentException(
+                        "chain.move expectedDeviceEnabled[" + i + "] must be a boolean");
+                }
+                if (expectedEnabled.getAsBoolean() != actual.isEnabled().get()) {
+                    throw new IllegalArgumentException(
+                        "chain.move top-level enabled state changed at index " + i);
+                }
+            }
+        }
     }
 
     // ======================================================================

@@ -463,7 +463,10 @@ test('E-chain-relocate: all directions use one guarded slot-scoped mover', () =>
   const a = chainAt(device(TRACK_A, 0), 'A take');
   const b = chainAt(device(TRACK_A, 1), 'B take');
   const cases: Op[] = [
-    { op: 'chain.relocate', source: device(TRACK_A, 1), destination: a, mode: 'move' },
+    {
+      op: 'chain.relocate', source: device(TRACK_A, 1), destination: a, mode: 'move',
+      expectedChain: ['Tool', 'Polysynth'], expectedEnabledChain: [true, false],
+    },
     { op: 'chain.relocate', source: deviceIn(a, 0), destination: TRACK_A, mode: 'move' },
     { op: 'chain.relocate', source: deviceIn(a, 0), destination: b, mode: 'copy' },
   ];
@@ -472,6 +475,8 @@ test('E-chain-relocate: all directions use one guarded slot-scoped mover', () =>
     ['top', 'chain', 'move'], ['chain', 'top', 'move'], ['chain', 'chain', 'copy'],
   ]);
   assert.equal(params[0]?.['dstLayer'], 2);
+  assert.deepEqual(params[0]?.['expectedDeviceNames'], ['Tool', 'Polysynth']);
+  assert.deepEqual(params[0]?.['expectedDeviceEnabled'], [true, false]);
   assert.equal(params[1]?.['srcLayer'], 2);
   assert.equal(params[2]?.['dstLayer'], 3);
   for (const value of params) {

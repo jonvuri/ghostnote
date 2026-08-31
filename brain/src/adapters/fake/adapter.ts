@@ -1569,6 +1569,9 @@ export class FakeAdapter implements BitwigAdapter {
           throw new UnsupportedOpError(`${op.op}: the source parent is not a layer chain`, 'fake');
         }
         const track = this.requireTrack(op.source.track, op.op);
+        this.assertExpectedDeviceChain(
+          op.op, track, op.expectedChain, op.expectedEnabledChain,
+        );
         const findChain = (address: typeof op.destination & { kind: 'chain' }) => {
           const chains = track.devices[address.container.chainIndex]?.chains;
           const matches = chains?.filter((chain) => chain.name === address.name) ?? [];

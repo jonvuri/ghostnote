@@ -99,7 +99,7 @@ interface WireInventoryChain {
   volume?: number | string;
   pan?: number | string;
   color?: string;
-  devices?: { index: number; name?: string }[];
+  devices?: { index: number; name?: string; enabled?: boolean }[];
   deviceCount?: number;
 }
 
@@ -1326,14 +1326,14 @@ export class LiveAdapter implements BitwigAdapter {
     device: DeviceAddress,
     row: WireTrack,
   ): Promise<ParameterInventory> {
+      const target = await this.acquireDeviceTarget(device, row);
+      if (target.standing !== 'stable') return target;
       const begun = await this.transport.send({
         method: WIRE.directParamList,
         params: { begin: true },
       }) as WireDirectInventory;
       if (!Number.isInteger(begun.generation)) return { standing: 'unstable' };
       const generation = begun.generation!;
-      const target = await this.acquireDeviceTarget(device, row);
-      if (target.standing !== 'stable') return target;
 
       // DirectParameter observers can follow the device cursor more slowly than
       // its identity fields. Give them the measured live budget before polling.
@@ -1763,7 +1763,11 @@ export class LiveAdapter implements BitwigAdapter {
           ...(typeof c.channelId === 'string' && !c.channelId.startsWith('ERR')
             ? { id: c.channelId }
             : {}),
-          devices: (c.devices ?? []).map((d) => ({ index: d.index, name: d.name ?? '' })),
+          devices: (c.devices ?? []).map((d) => ({
+            index: d.index,
+            name: d.name ?? '',
+            ...(typeof d.enabled === 'boolean' ? { enabled: d.enabled } : {}),
+          })),
           devicesComplete: deviceBank !== undefined && typeof c.deviceCount === 'number'
             && c.deviceCount <= deviceBank && (c.devices ?? []).length === c.deviceCount,
           ...(deviceBank === undefined ? {} : { devicesBankSize: deviceBank }),

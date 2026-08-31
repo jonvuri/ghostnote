@@ -712,6 +712,9 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         verb: op.mode,
         expectedTrackChannelId: op.source.track.channelId,
         expectedSourceName: ctx.deviceName?.(op.source),
+        ...(op.expectedChain === undefined ? {} : { expectedDeviceNames: op.expectedChain }),
+        ...(op.expectedEnabledChain === undefined
+          ? {} : { expectedDeviceEnabled: op.expectedEnabledChain }),
       })];
     }
 

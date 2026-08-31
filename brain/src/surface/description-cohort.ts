@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v17';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v18';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -268,8 +268,21 @@ export const DESCRIPTION_COHORT_V16: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v17 publishes fingerprinted semantic authoring with all five editors. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V17: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V16,
+] as const;
+
+/** v18 adds the existing-device modulation wrapper and its guarded reversal. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V17,
+  {
+    name: 'wrap_existing_device_modulation', kind: 'write',
+    reason: 'Moves one existing device into an owned modulated FX Layer.',
+  },
+  {
+    name: 'reverse_existing_device_modulation_wrap', kind: 'write',
+    reason: 'Restores that device and removes only its empty owned container.',
+  },
 ] as const;
 
 interface ToolAnnotations {
@@ -402,3 +415,7 @@ export const TOOL_DESCRIPTION_V16_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V17_SHA256 =
   '7bd3bc42aa7bbf6793e0b40dcef40967aa7381eeb99b867ea748ffd4283117fe';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V18_SHA256 =
+  '56e8db1cb0ceb56579400b00e0011622054bd7a1ef9a042787937f4ed6dbd3ae';
