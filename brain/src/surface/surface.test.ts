@@ -247,7 +247,7 @@ function schemaPaths(
 }
 
 test('D01: every public tool schema uses only homogeneous arrays', () => {
-  assert.equal(TOOLS.length, 51);
+  assert.equal(TOOLS.length, 53);
   const incompatible: string[] = [];
   for (const tool of TOOLS) {
     const validator = tool.inputValidator ?? z.object(tool.inputSchema);
@@ -1629,6 +1629,37 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
     },
   });
   assert.equal(refusedWrapperReversal['refused'], true);
+
+  const refusedGeneralComposition = await exercise('compose_device_sources', {
+    trackId: fx.trackA,
+    expectedDeviceOrder: [{ name: 'stale-general-control', enabled: true }],
+    containerKind: 'FX Layer',
+    entries: [{
+      entryName: 'Moved', source: { kind: 'existing-move', devicePosition: 0 },
+      modulators: [{
+        location: 'container', modulator: 'lfo',
+        target: { parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency' },
+        amount: 1,
+      }],
+    }],
+  });
+  assert.equal(refusedGeneralComposition['refused'], true);
+  const refusedGeneralReversal = await exercise('reverse_device_source_composition', {
+    checkpoint: {
+      schemaVersion: 1,
+      state: 'composing',
+      trackId: fx.trackA,
+      containerKind: 'FX Layer',
+      containerInsertChangeId: 'not-a-general-session-change',
+      insertedContainerPosition: 1,
+      currentContainerPosition: 0,
+      originalDeviceOrder: [{ name: 'Polysynth', enabled: true }],
+      entryNames: ['Moved'],
+      preparedEntryNames: ['Moved'],
+      completedEntries: [],
+    },
+  });
+  assert.equal(refusedGeneralReversal['refused'], true);
 
   const observation = await exercise('record_observation', {
     operation: 'begin', requestedScope: 'unsupported', rawScope: 'No project change.',

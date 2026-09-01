@@ -9,11 +9,13 @@ export type {
   CompositionTargetId, CompositionTargetRecipe,
 } from './targets.js';
 export {
-  composeExistingDeviceWrapperPreset, EXISTING_DEVICE_WRAPPER_ENTRY,
+  composeExistingDeviceWrapperPreset, composeGeneralDeviceContainerPreset,
+  EXISTING_DEVICE_WRAPPER_ENTRY,
   EXISTING_DEVICE_WRAPPER_KIND, ExistingDeviceWrapperPresetError,
 } from './existing-device-wrapper.js';
 export type {
   ExistingDeviceWrapperModulation, ExistingDeviceWrapperPreset,
+  GeneralDeviceContainerModulation,
 } from './existing-device-wrapper.js';
 export {
   COMPOSITION_MODULATOR_TYPES, TemplateCompositionError, composeOwnedTemplate,

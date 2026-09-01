@@ -36,6 +36,7 @@
     "probe:phase5n-authoring": "tsx src/probes/phase5n-general-public-authoring.ts",
     "probe:phase5o-late-bound": "tsx src/probes/phase5o-late-bound-container.ts",
     "probe:phase5p-wrapper": "tsx src/probes/phase5p-existing-device-wrapper.ts",
+    "probe:phase5q-composition": "tsx src/probes/phase5q-general-device-composition.ts",
     "probe:e00": "tsx src/probes/e00-ping.ts",
     "probe:e01a": "tsx src/probes/e01a-pointing.ts",
     "probe:e01b": "tsx src/probes/e01b-interference.ts",

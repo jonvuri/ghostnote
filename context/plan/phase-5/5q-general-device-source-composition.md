@@ -1,11 +1,11 @@
 ---
 title: Phase 5q — general device-source composition
 kind: plan
-state: planned
-status: Next after 5p. Compose native, plug-in, preset, and existing device sources.
-updated: 2026-08-30
+state: complete
+status: Complete at the current four-entry boundary. Session 5r owns wider composition.
+updated: 2026-08-31
 parent: README.md
-evidence: D1, D2, D7, D15, D16, E62, E71-E73
+evidence: D1, D2, D7, D15, D16, E62, E71-E73, E92
 ---
 
 # Phase 5q — general device-source composition
@@ -35,10 +35,32 @@ explicit source kinds that Ghostnote already inserts or moves.
 7. Add guarded reversal in reverse stage order. Preserve pre-existing devices
    unless their exact move-back guards agree.
 
+## Result
+
+`compose_device_sources` and `reverse_device_source_composition` implement the
+complete guarded lifecycle. One request composes native, VST3, CLAP, and
+sampled-preset sources in caller order. A separate request composes an existing
+copy and move. This split is required because the current complete chain window
+accepts at most four entries. Session 5r owns the wider entry bank.
+
+Outer FX Layer routes late-bind only to entry 0. Live routes that targeted
+entries that did not yet exist caused the complete outer list to disappear.
+Later entries can use preset-local modulation or no modulation. Session 5r owns
+later-entry outer routes with a wider pre-authored or measured shape.
+
+Each accepted stage returns a receipt and updates one exact issued checkpoint.
+The checkpoint records the entry names that exist during partial preparation.
+Reversal uses those names, restores moved existing devices, deletes only owned
+insertions and copies, and removes only a proved empty owned container.
+Review repairs require that empty proof for every checkpoint state. They reject
+intervening top-level edits after extraction and compare the final nested state
+with every completed entry.
+
 ## Acceptance criteria
 
-- One request composes native, VST3, CLAP, sampled preset, and existing-device
-  sources in caller order.
+- One request composes native, VST3, CLAP, and sampled-preset sources in caller
+  order. A separate request covers existing move and copy sources. Combining
+  all five categories needs a fifth entry and remains in 5r.
 - Two entries can contain devices with the same observed name and remain
   independently addressable through unique entry names.
 - An invalid source refuses before its stage. Earlier completed stages remain

@@ -116,6 +116,11 @@ import {
   runExistingDeviceModulationReversal,
   runExistingDeviceModulationWrapper,
 } from './existing-device-modulation-wrapper.js';
+import {
+  generalDeviceCompositionInputSchema, generalDeviceCompositionInputValidator,
+  generalDeviceCompositionReversalInputSchema, generalDeviceCompositionReversalInputValidator,
+  runGeneralDeviceComposition, runGeneralDeviceCompositionReversal,
+} from './general-device-composition.js';
 
 // --- the shape of a tool -----------------------------------------------------
 
@@ -183,8 +188,7 @@ export const REMOVAL_OPS: ReadonlySet<OpKind> = new Set<OpKind>([
 ]);
 
 /**
- * ⚠⚠ The ONE crossing, named the way `WIRE_METHODS_BANNED` names its exceptions:
- * a tool on the ordinary write surface that may nonetheless remove something.
+ * Each named crossing can remove only work that this session owns.
  *
  * Adding an entry here is the reviewable act. It should be very hard to justify a
  * second one, because every entry is a name an operator might have granted
@@ -202,6 +206,10 @@ export const WRITE_TOOLS_THAT_MAY_REMOVE: Readonly<Record<string, string>> = {
     'Session 5p: this tool removes only the empty FX Layer that its supplied and validated '
     + 'insertion checkpoint identifies. It first moves the preserved existing device out and '
     + 'refuses the removal when any complete structural or scalar guard disagrees.',
+  reverse_device_source_composition:
+    'Session 5q: this tool accepts only an exact issued composition checkpoint. It restores '
+    + 'moved existing devices, removes only inserted or copied source instances tied to their '
+    + 'recorded changes, and removes the owned FX Layer only after every entry is proved empty.',
 };
 
 function tool<S extends z.ZodRawShape>(spec: {
@@ -2251,6 +2259,61 @@ export const TOOLS: readonly ToolSpec[] = [
     },
     async run(workspace, args) {
       return runExistingDeviceModulationReversal(workspace, args);
+    },
+  }),
+
+  tool({
+    name: 'compose_device_sources',
+    kind: 'write',
+    title: 'Compose general device sources',
+    description:
+      'Create one owned FX Layer with one through four uniquely named entries. Sources can be an '
+      + 'exact native catalog name, VST3 class UID, CLAP id, explicit preset path, existing-device '
+      + 'move, or existing-device copy. New sources insert through the guarded top-level path and '
+      + 'then move into their entries. Existing moves preserve the same instance. Copies are new '
+      + 'instances and carry no state-identity claim. Modulators can live on the outer container or '
+      + 'inside an inspected preset source. The proved late-bound outer target is the first entry; '
+      + 'later entries accept preset-local modulation. Results keep every completed receipt, source identity, '
+      + 'preset-name comparison, complete structure, scalar proof, and behavior witness. A later '
+      + 'failure returns a guarded checkpoint for the completed stages.',
+    inputSchema: generalDeviceCompositionInputSchema,
+    inputValidator: generalDeviceCompositionInputValidator,
+    emits: ['device.insert', 'device.relocate', 'chain.rename', 'chain.create', 'chain.relocate'],
+    resultContract: {
+      complete: 'True only after every source, entry, enabled state, target, and complete structure passes.',
+      partialCompletion: 'True when an earlier project-write stage remains after a later failure.',
+      stages: 'Ordered container, entry, insertion, and relocation receipts.',
+      entries: 'Each explicit source identity, observed instance, scalar proof, and modulation witness.',
+      structure: 'Complete caller-named entry and nested-device order.',
+      reversalCheckpoint: 'Exact guarded input for reverse_device_source_composition.',
+    },
+    async run(workspace, args) {
+      return runGeneralDeviceComposition(workspace, args);
+    },
+  }),
+
+  tool({
+    name: 'reverse_device_source_composition',
+    kind: 'write',
+    title: 'Reverse a device-source composition',
+    description:
+      'Reverse one exact checkpoint returned by compose_device_sources. The workflow checks the '
+      + 'complete top-level and nested structure and every scalar fingerprint. It extracts sources '
+      + 'in reverse stage order, restores moved existing devices, removes only owned inserted or '
+      + 'copied instances, and deletes only the proved empty owned container. Interference stops '
+      + 'the affected stage and keeps all completed reversal receipts explicit.',
+    inputSchema: generalDeviceCompositionReversalInputSchema,
+    inputValidator: generalDeviceCompositionReversalInputValidator,
+    emits: ['chain.relocate', 'device.relocate', 'device.delete'],
+    resultContract: {
+      complete: 'True only after the exact original top-level order is restored.',
+      partialReversal: 'True when an earlier reversal stage completed before a later refusal.',
+      stages: 'Ordered extraction, restoration, owned-source removal, and container-removal receipts.',
+      containerRemoved: 'True only after the complete owned container is empty and removed.',
+      restoredDeviceOrder: 'True only after exact final name and enabled-state readback.',
+    },
+    async run(workspace, args) {
+      return runGeneralDeviceCompositionReversal(workspace, args);
     },
   }),
 

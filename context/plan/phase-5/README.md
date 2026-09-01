@@ -2,12 +2,12 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5p is complete; 5q is next.
-updated: 2026-08-30
+status: Reopened 2026-08-25. Session 5q is complete; 5r is next.
+updated: 2026-08-31
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
-evidence: DECISIONS D1/D2/D3, FINDINGS E10–E13, E90, BWMOD_DESIGN.md, BWFORMAT_SPEC.md
+evidence: DECISIONS D1/D2/D3, FINDINGS E10–E13, E90–E92, BWMOD_DESIGN.md, BWFORMAT_SPEC.md
 ---
 
 # Phase 5 — Structure & modulation authoring
@@ -129,7 +129,8 @@ that first integration unless the proof needs one new owned asset.
     — done. Preserve one existing device while an owned FX Layer supplies its
     modulators, routes, state proof, and guarded reversal.
 17. [5q — general device-source composition](5q-general-device-source-composition.md)
-    — planned. Compose native, VST3, CLAP, preset, and existing device sources.
+    — done. Compose native, VST3, CLAP, preset, and existing device sources
+    through one guarded four-entry contract and exact reversal checkpoints.
 18. [5r — container shape and capacity](5r-container-shape-and-capacity.md) —
     planned. Support Chain, Instrument Layer, and FX Layer at measured complete
     observer limits.
@@ -222,8 +223,11 @@ impossibilities. External publication and redistribution remain Phase 6 work.
 - **Existing-device preservation — settled by 5o and 5p.** The owned FX Layer
   supplies topology while the existing device instance moves intact. Chain and
   Instrument Layer do not share this late-binding behavior.
-- **General composition — planned for 5q/5r.** Explicit device sources and
-  bounded container shapes replace native-only four-entry composition.
+- **General source composition — settled by 5q.** Explicit native, VST3, CLAP,
+  preset, existing-move, and existing-copy sources share one guarded contract.
+  The current complete limit is four entries, and outer late binding is entry 0.
+- **General shape and capacity — planned for 5r.** Bounded container shapes,
+  wider entry banks, later outer targets, and wider positions remain next.
 
 ## Exit criteria
 

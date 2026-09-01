@@ -19,6 +19,10 @@ export interface ExistingDeviceWrapperModulation {
   readonly amount: number;
 }
 
+export interface GeneralDeviceContainerModulation extends ExistingDeviceWrapperModulation {
+  readonly entryIndex: number;
+}
+
 export interface ExistingDeviceWrapperPreset {
   readonly preset: Buffer;
   readonly modulatorPages: readonly string[];
@@ -94,6 +98,66 @@ export async function composeExistingDeviceWrapperPreset(
   if (!checked.ok) {
     throw new ExistingDeviceWrapperPresetError(
       `the wrapper preset failed validation: ${checked.problems.join('; ')}`,
+    );
+  }
+  const modulators = listModulators(preset, 0);
+  if (modulators.length !== requests.length) {
+    throw new ExistingDeviceWrapperPresetError('the complete outer modulator inventory did not read back');
+  }
+  for (const [index, route] of routes.entries()) {
+    if (!modulators[index]?.routes.some((item) => item.target === route.route)) {
+      throw new ExistingDeviceWrapperPresetError(
+        `outer modulator ${index} did not read back its exact target`,
+      );
+    }
+  }
+  return {
+    preset,
+    modulatorPages: modulators.map((item) => item.deviceName),
+    routes,
+  };
+}
+
+/** Author outer routes for several late-bound FX Layer entries. */
+export async function composeGeneralDeviceContainerPreset(
+  requests: readonly GeneralDeviceContainerModulation[],
+  options: {
+    readonly templatePath?: string;
+    readonly manifestPath?: string;
+  } = {},
+): Promise<ExistingDeviceWrapperPreset> {
+  if (requests.some((item) => !Number.isInteger(item.entryIndex)
+      || item.entryIndex < 0 || item.entryIndex > 4)) {
+    throw new ExistingDeviceWrapperPresetError('entry index must be from 0 through 4');
+  }
+  const templatePath = options.templatePath ?? OWNED_FX_LAYER_TEMPLATE_PATH;
+  const manifestPath = options.manifestPath ?? OWNED_FX_LAYER_MANIFEST_PATH;
+  const [source, manifestText] = await Promise.all([
+    readFile(templatePath),
+    readFile(manifestPath, 'utf8'),
+  ]);
+  const manifest = JSON.parse(manifestText) as FxLayerManifest;
+  assertManifest(source, manifest);
+
+  let preset: Buffer = Buffer.from(source);
+  const routes: ExistingDeviceWrapperPreset['routes'][number][] = [];
+  for (const request of requests) {
+    if (!Number.isFinite(request.amount) || request.amount < -1 || request.amount > 1) {
+      throw new ExistingDeviceWrapperPresetError('modulation amount must be from -1 through 1');
+    }
+    const type = donorType(request.modulator, 'add');
+    const target = `CONTENTS/CHAIN_LIST/CHAIN${request.entryIndex}/DEVICE_CHAIN/0:`
+      + modulationRoute(request.target);
+    preset = addModulator(
+      preset, loadDonor(type.donorId), { target, amount: request.amount }, { listIndex: 0 },
+    );
+    routes.push({ ...request.target, route: target });
+  }
+
+  const checked = validate(preset, { reference: source, listIndex: 0 });
+  if (!checked.ok) {
+    throw new ExistingDeviceWrapperPresetError(
+      `the general container preset failed validation: ${checked.problems.join('; ')}`,
     );
   }
   const modulators = listModulators(preset, 0);

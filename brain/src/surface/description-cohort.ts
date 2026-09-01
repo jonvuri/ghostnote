@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v18';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v19';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -273,7 +273,7 @@ export const DESCRIPTION_COHORT_V17: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v18 adds the existing-device modulation wrapper and its guarded reversal. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V18: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V17,
   {
     name: 'wrap_existing_device_modulation', kind: 'write',
@@ -282,6 +282,19 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   {
     name: 'reverse_existing_device_modulation_wrap', kind: 'write',
     reason: 'Restores that device and removes only its empty owned container.',
+  },
+] as const;
+
+/** v19 adds general device-source composition and guarded reversal. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V18,
+  {
+    name: 'compose_device_sources', kind: 'write',
+    reason: 'Composes named native, plug-in, preset, and existing device sources.',
+  },
+  {
+    name: 'reverse_device_source_composition', kind: 'write',
+    reason: 'Restores existing sources and removes only owned composition devices.',
   },
 ] as const;
 
@@ -419,3 +432,7 @@ export const TOOL_DESCRIPTION_V17_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V18_SHA256 =
   '56e8db1cb0ceb56579400b00e0011622054bd7a1ef9a042787937f4ed6dbd3ae';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V19_SHA256 =
+  'b2c9a1c4f9e4dfd6e202821da94e5a25a4f4218fd46e3b4c0eef33c714a4fdd1';

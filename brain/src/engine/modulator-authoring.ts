@@ -256,6 +256,23 @@ export interface SemanticModulatorEditResult {
   readonly verification: ModulatorEditResult['verification'];
 }
 
+export interface SemanticPresetModulatorAdd {
+  readonly donorId: string;
+  readonly routing: Routing;
+}
+
+export interface AuthoredSemanticPreset {
+  readonly preset: Buffer;
+  readonly hostName: string;
+  readonly location: SemanticModulatorLocation;
+  readonly modulatorsBefore: readonly PublicPresetModulator[];
+  readonly modulatorsAfter: readonly PublicPresetModulator[];
+  readonly siblingInventoriesUnchanged: true;
+  readonly sampledPreset: boolean;
+  readonly adjustedSampleReferences: number;
+  readonly validationWarnings: readonly string[];
+}
+
 export class ModulatorAuthoringError extends Error {
   readonly stage: 'request' | 'edit' | 'validate';
 
@@ -263,6 +280,65 @@ export class ModulatorAuthoringError extends Error {
     super(message);
     this.name = 'ModulatorAuthoringError';
     this.stage = stage;
+  }
+}
+
+/** Add several modulators to one semantic preset location without loading it. */
+export async function authorSemanticPreset(
+  templatePath: string,
+  fingerprint: PresetFingerprint,
+  location: SemanticModulatorLocation,
+  additions: readonly SemanticPresetModulatorAdd[],
+): Promise<AuthoredSemanticPreset> {
+  assertTemplatePath(templatePath);
+  if (additions.length === 0) {
+    throw new ModulatorAuthoringError('request', 'at least one preset modulator is required');
+  }
+  try {
+    const template = await readFile(templatePath);
+    assertPresetFingerprint(template, fingerprint);
+    const before = inspectPresetModulation(template);
+    if (!before.supported) throw new Error(before.why);
+    const listIndex = semanticListIndex(before, location);
+    let edited: Buffer = Buffer.from(template);
+    let insertedFootprint = 0;
+    for (const addition of additions) {
+      const edit: ModulatorEdit = { kind: 'add', ...addition };
+      insertedFootprint += editFootprints(edited, edit, listIndex).inserted;
+      edited = applyEdit(edited, edit, listIndex);
+    }
+    const beforeStubs = stubValues(template);
+    const checked = validate(edited, {
+      reference: template,
+      listIndex,
+      ...(beforeStubs.length === 0 ? {} : { stubDelta: insertedFootprint }),
+    });
+    if (!checked.ok) {
+      throw new ModulatorAuthoringError(
+        'validate', `the edited preset failed validation: ${checked.problems.join('; ')}`,
+      );
+    }
+    const after = inspectPresetModulation(edited);
+    if (!after.supported || semanticListIndex(after, location) !== listIndex) {
+      throw new ModulatorAuthoringError(
+        'validate', 'the edit removed or changed the semantic modulator location',
+      );
+    }
+    assertSiblingInventories(before, after, listIndex);
+    return {
+      preset: edited,
+      hostName: before.host.name,
+      location,
+      modulatorsBefore: before.modulation[listIndex]!.modulators,
+      modulatorsAfter: after.modulation[listIndex]!.modulators,
+      siblingInventoriesUnchanged: true,
+      sampledPreset: beforeStubs.length > 0,
+      adjustedSampleReferences: beforeStubs.length,
+      validationWarnings: checked.warnings,
+    };
+  } catch (error) {
+    if (error instanceof ModulatorAuthoringError) throw error;
+    throw new ModulatorAuthoringError('edit', errorMessage(error));
   }
 }
 

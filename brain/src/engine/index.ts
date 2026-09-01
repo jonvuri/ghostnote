@@ -26,7 +26,8 @@ export type {
 } from './managed-fx-chain.js';
 
 export {
-  authorModulatorAdd, authorModulatorEdit, authorSemanticModulatorEdit, ModulatorAuthoringError,
+  authorModulatorAdd, authorModulatorEdit, authorSemanticModulatorEdit,
+  authorSemanticPreset, ModulatorAuthoringError,
 } from './modulator-authoring.js';
 
 export { modulationRoute } from './modulation-target.js';
@@ -52,6 +53,18 @@ export type {
 export {
   reverseExistingDeviceModulation, wrapExistingDeviceModulation,
 } from './existing-device-wrapper.js';
+export {
+  composeGeneralDeviceSources, reverseGeneralDeviceSources,
+} from './general-device-composition.js';
+export type {
+  GeneralDeviceCheckpointEntry, GeneralDeviceCompositionCheckpoint,
+  GeneralDeviceCompositionHost, GeneralDeviceCompositionOptions,
+  GeneralDeviceCompositionRequest, GeneralDeviceCompositionResult,
+  GeneralDeviceCompositionReversal, GeneralDeviceEntryRequest,
+  GeneralDeviceEntryVerification, GeneralDeviceFingerprint,
+  GeneralDeviceModulationRequest, GeneralDeviceOrderItem,
+  GeneralDeviceSourceRequest, GeneralDeviceStageReceipt,
+} from './general-device-composition.js';
 export type {
   DeviceParameterFingerprint, ExistingDeviceOrderItem, ExistingDeviceWrapperCheckpoint,
   ExistingDeviceWrapperHost, ExistingDeviceWrapperOptions, ExistingDeviceWrapperRequest,
@@ -64,6 +77,7 @@ export type {
   ModulatorEditOptions, ModulatorEditRequest, ModulatorEditResult,
   ModulatorPageVerification, ModulatorPageWitness, ModulatorParameterWitness,
   ModulatorStubRelocation, SemanticModulatorEditRequest, SemanticModulatorEditResult,
+  AuthoredSemanticPreset, SemanticPresetModulatorAdd,
 } from './modulator-authoring.js';
 
 export {
