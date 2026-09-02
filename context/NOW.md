@@ -79,26 +79,29 @@ lifecycle, so the public shape enum contains only Instrument Layer and FX Layer.
 
 ## Next action
 
-Continue session 5s. Verify and deploy the wrapper position repair. Use the
-exact pre-fix checkpoint only if it remains valid to restore the dogfood project.
-Then retry ColourCopy and require its FX Layer to stay after Serato Sample.
-Require active behavior and an explicit operator audition verdict before the
-generalized closeout matrix. Keep Chain outside the public composition claim.
+Continue session 5s. Verify and deploy the compact modulator-grid repair. Retry
+the same four ColourCopy modulators. Require every tile to be visible and
+interactive, the FX Layer to stay after Serato Sample, active behavior, and an
+explicit operator audition verdict before the generalized closeout matrix.
+Keep Chain outside the public composition claim.
 
 ## Session 5s status
 
-ColourCopy retry `01a06052-39bc-71a3-a155-278872cdfac3` reached the public
-wrapper. It preserved the same instance, all 30 parameter bases, and both
-requested modulator pages. It failed active behavior because the supplementary
-remote inventory did not settle.
+ColourCopy retry `01a06065-f052-79e2-9f4a-19c07231869e` proved the E94 wrapper-
+position repair. The FX Layer stayed at position 1 after Serato Sample. The same
+ColourCopy instance, its 30-row scalar fingerprint, all four modulator objects,
+and all four routes remained present.
 
-The wrapper also moved its FX Layer to position 0 instead of replacing
-ColourCopy at position 1 after Serato Sample. The cause was a hard-coded
-position-0 relocation and witness model. A local repair and focused regression
-tests now preserve position 1 and reverse both new and pre-fix checkpoint
-layouts. E94 records the exact run. Live proof and project cleanup remain open.
+The run exposed a modulator-grid defect. Beat LFO appeared after empty spaces.
+Classic LFO was active and present in the inspector but had no visible tile.
+The `0x1a1a`/`0x1a1b` identity pair is also the three-row UI coordinate. The old
+code kept donor columns and assigned global rows, which wrote sparse pairs
+`0:0`, `0:1`, `2:2`, and `3:3`. The local repair allocates compact pairs
+`0:0`, `0:1`, `0:2`, and `1:0`; replacement keeps its resident slot. Focused
+tests pass. E95 records the run. Live proof and an explicit audition verdict
+remain open.
 
 ## Retrospective
 
-Test wrapper placement with a source after an instrument. A position-0 fixture
-cannot prove signal-order preservation.
+Treat a host-authored dense fixture as UI evidence, not only load evidence.
+Pair uniqueness did not prove usable tile placement.

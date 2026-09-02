@@ -184,6 +184,31 @@ host build. Record the adjacent live baseline separately.
   second wrapper remained in the project when the transcript ended. No
   operator audition verdict was recorded. See [E94](../../evidence/experiments/e94-colourcopy-retry-exposes-wrapper-position-gap.md).
 
+### `01a06065-f052-79e2-9f4a-19c07231869e` — ColourCopy wrapper position retry
+
+- Transcript:
+  `~/.codex/sessions/2026/09/01/rollout-2026-09-01T21-34-48-01a06065-f052-79e2-9f4a-19c07231869e.jsonl`.
+- Agent: Codex Desktop `0.150.0-alpha.8`; `gpt-5.6-sol`, high effort
+  (**observed**).
+- Ghostnote: 53 exposed tools from `ghostnote-description-v20` at repository
+  revision `1edf227e8f9a5ffcecd0d81018a7c8df978d487a` (**observed** for tool
+  exposure; **timeline** for the version and revision).
+- Bitwig: Studio 6.0.6, host API 25, 150 extension methods, and extension hash
+  `73677cd82e4c7cd2` were the adjacent deployed baseline. The transcript did
+  not return these values (**baseline**).
+- Project: `26.01-1 spread burial guit`, with seven tracks and eight launcher
+  rows (**observed**). ColourCopy was device position 1 after Serato Sample on
+  the third track. Its 30-row DirectParameter inventory was stable
+  (**observed**).
+- Outcome: The position repair passed. The wrapper preserved ColourCopy at
+  position 1, kept the same instance and scalar fingerprint, and created all
+  four requested objects and routes. Later reads found all four remote pages.
+  Beat LFO appeared after empty grid spaces. Classic LFO was active and visible
+  in the inspector but had no visible modulator tile (**operator report**). The
+  wrapper call returned partial because its immediate supplementary inventory
+  did not settle. No explicit audition verdict was recorded. See
+  [E95](../../evidence/experiments/e95-modulator-identity-pair-controls-grid-placement.md).
+
 ## Required fields for the next run
 
 Record the root session ID, transcript path, client and client version, model,

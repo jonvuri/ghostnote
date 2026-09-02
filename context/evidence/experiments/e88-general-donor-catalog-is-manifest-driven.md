@@ -36,6 +36,10 @@ preset loads. The earlier negative control repeats both values and still
 rejects. The list-local load gate is therefore the `0x1a1a`/`0x1a1b` pair, not
 `0x1a1b` alone.
 
+E95 adds the UI meaning that this experiment did not test. `0x1a1a` is the
+modulator-grid column and `0x1a1b` is its row. Pair uniqueness is sufficient to
+load, but compact three-row allocation is required for usable tile placement.
+
 ## Sampled-preset standing
 
 LFO, Random, Vibrato, and the newly routed Classic LFO have measured footprints.

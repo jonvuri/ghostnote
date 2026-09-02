@@ -53,10 +53,11 @@ depends-on: BWFORMAT_SPEC.md (the byte layout), FINDINGS.md E10–E12 (esp. E11h
    sample-less template is still simplest, but a sampled template is fully general too.
    Keep load+readback mandatory regardless; do NOT assume a new host/preset works without
    a live load test. Port source: `tools/bwformat/build_e12d2_cases.py` (`relocate_stubs`).
-6. **Ids: list-local and not contiguous (E11a/E71).**
-   `nextFreeInstanceId = max+1` is safe within the selected list. Separate
-   container lists can reuse ids. Deletion does not renumber ids. Same-type
-   duplicates are valid (E11f). Plain presets can repeat a GUID in
+6. **Grid pairs: list-local, unique, and compact for new objects (E88/E95).**
+   The pair is the load identity and the UI coordinate. Add uses the first free
+   position in a three-row, column-major grid. Replace keeps its resident pair.
+   Separate container lists can reuse pairs. Deletion does not renumber
+   residents. Same-type duplicates are valid (E11f). Plain presets can repeat a GUID in
    `referenced_modulator_ids`; containers keep one ordered unique GUID set.
 7. **Object bounds MUST snap to the list SENTINEL (E11h) — hard correctness rule.**
    The `0x1a46` list ends with an empty `cls 0x0003` sentinel `00 00 00 03 00 00 00 00`
@@ -97,8 +98,8 @@ interface Modulator {
   deviceName: string;     // 0x009a e.g. "LFO"
   category: string;       // 0x009c e.g. "LFO" | "Note-driven" (informational)
   guid: string;           // 0x18c6, canonical 8-4-4-4-12
-  instanceGroup: number;  // 0x1a1a — first part of the list-local identity
-  instanceId: number;     // 0x1a1b — second part of the list-local identity
+  instanceGroup: number;  // 0x1a1a — grid column and first identity part
+  instanceId: number;     // 0x1a1b — grid row and second identity part
   routing: Routing | null;
   span: [number, number]; // absolute byte bounds of the object (see caveats)
 }
@@ -169,11 +170,10 @@ function extractModulator(templatePreset: Buffer, index: number, footprint: numb
 or the E12b field-walk) and passed in. Only Tier-2 (sampled) edits consume it.
 
 **Invariants every editor MUST maintain (this is the library's correctness spec):**
-1. **Unique `0x1a1b`** across all modulators (the load gate, E10f); need not be
-   contiguous (E11a). `addModulator`/`replaceModulator` assign `nextFreeInstanceId`.
-   The `0x02b9` name is **cosmetic — not validated against the id (E11b)**; keeping
-   `name == id` is the tidy default (what Bitwig writes) but not required, so
-   add/delete need do no name-renumbering.
+1. Each `0x1a1a`/`0x1a1b` pair is unique within its list (the load gate, E88).
+   The pair is also the UI grid coordinate (E95). Add allocates the first free
+   slot in a three-row, column-major grid. Replace keeps the resident slot. The
+   `0x02b9` name is cosmetic (E11b); new objects use the linear grid slot number.
 2. **meta `referenced_modulator_ids` == the set of modulator GUIDs**, in order,
    count correct (E10c/E10f).
 3. **`f4` == meta-end offset** after any meta size change (E10f).
@@ -227,7 +227,8 @@ carries no modulation, E10b). Keep both.
 | U-parse | `listModulators(modtest)` | `[Vibrato/0, Expressions/1, LFO/2]` with ids `[0,1,2]` |
 | U-roundtrip | `parse(x)` then re-serialize | byte-identical to `x` for all fixtures |
 | **U-golden** | `addModulator(mp_bare, LFO-donor)` | **byte-identical to real `mp_one_lfo`** except name + `0x2ab8` GUID (the E10f reconstruction) |
-| U-unique | `addModulator` / `replaceModulator` twice | assigned ids are distinct and `= nextFreeInstanceId` |
+| U-unique | `addModulator` twice and `replaceModulator` twice | added pairs are unique; replacements keep the resident pair |
+| U-grid | add LFO, Random, Beat LFO, and Classic LFO from mixed donor sources | pairs are compact `0:0`, `0:1`, `0:2`, `1:0`; a deleted gap is reused |
 | U-metasync | after add/replace/delete | `referenced_modulator_ids` set == modulator-GUID set; count correct |
 | U-f4 | after any meta size change | `f4-1` indexes a `0x0a`; meta length matches |
 | U-f6 | add/delete on a plugin-state-bearing fixture (`gn_zebra3clap_one_lfo`) | `f6` == the post-edit offset of `PK\x03\x04`; a preset with `f6 == 0` leaves it 0 |
@@ -235,7 +236,7 @@ carries no modulation, E10b). Keep both.
 | U-stub-relocate | add/delete/replace on a sample-bearing preset (incl. multisample + NEW type) | EVERY class-1 stub in EVERY count list deltaed by `(inserted − removed) footprint` (BE); golden: reconstruct `gn_sampler_one_random` from `gn_sampler_bare` byte-identical modulo name + per-save GUIDs (E12c); new-type add LOADS (not refused) |
 | U-retarget-len | retarget to shorter AND longer paths | length delta reflected; `f4` unchanged (stream-only edit) |
 | U-immutable | every editor | input buffer unchanged (deep-equal to a pre-copy) |
-| U-validate-neg | hand-build a duplicate `0x1a1b` | `validate().ok === false`, names the collision |
+| U-validate-neg | hand-build a duplicate identity pair | `validate().ok === false`, names the collision |
 | U-validate-neg2 | drop a meta ref | `validate().ok === false` |
 
 ### 6.2 Integration tests (against live Bitwig via the bridge)
@@ -249,7 +250,7 @@ fixtures. Each asserts **load + the expected modulator page(s)**.
 | I-replace | `replaceModulator(modtest, 1, ClassicLFO)` | loads; `Classic LFO` live at slot 1 |
 | I-retarget | `retarget(modtest, LFO-idx, "CONTENTS/F1RESO")` | loads; modulation on F1RESO, not F1FREQ (divergence readback) |
 | I-delete | `deleteModulator(modtest, 1)` | loads; slot gone; siblings intact |
-| I-dup-neg | force a duplicate `0x1a1b` | **rejected** (0 devices) — the negative control |
+| I-dup-neg | force a duplicate identity pair | **rejected** (0 devices) — the negative control |
 | I-crosscat | replace a Note-driven slot with an LFO donor | loads (category is not a gate) |
 | I-compose | add + retarget + setAmount in one build | loads; the composed route is live |
 

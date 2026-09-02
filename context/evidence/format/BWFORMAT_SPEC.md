@@ -166,8 +166,8 @@ snap object bounds to the sentinel; insert new objects BEFORE it.**
 | 0x0e3d | **routing target** | str — Ramona model path, e.g. `CONTENTS/F1FREQ`; editable any length (E10/E10b) |
 | 0x12de | preset_name | embedded name; per-file, expected to differ |
 | 0x18c6 | device_guid | 16-byte identity; substitutable (E4g) |
-| **0x1a1a** | **instance group** | **u8; first part of the list-local identity (E88)** |
-| **0x1a1b** | **instance id** | **u8; the `0x1a1a`/`0x1a1b` pair must be unique within one list (E88)** |
+| **0x1a1a** | **instance group** | **u8; grid column and first part of the list-local identity (E88/E95)** |
+| **0x1a1b** | **instance id** | **u8; grid row and second part of the list-local identity; the pair must be unique within one list (E88/E95)** |
 | 0x1a46 | modulator_list | the `MODULATORS` list (type 0x12) |
 | 0x2ab8 | "Chain" GUID | 16-byte, **device/chain-level, NOT per-modulator** (fixed count ~2/file regardless of modulator count; absent from modulator objects); regenerated per save; NOT required unique for load (E10f/E11f) |
 
@@ -208,11 +208,12 @@ MODULATORS wrapper (0x075f)
    │    0x009a device_name "LFO"
    │    0x009c category    "LFO"               (not a gate)
    │    0x18c6 guid        <16 bytes>          type identity
-   │    0x1a1b instanceId  0                   UNIQUE within preset  ← the gate
+   │    0x1a1a instanceGroup 0                 grid column
+   │    0x1a1b instanceId    0                 grid row; pair is the gate
    │    0x18c7 CONTENTS (object)
    │         params (RATE/DEPTH/FORM/…) as f64/u8/bool
    │         routing: 0x0e3d target-path (str) + amount (0x0e32) + range (0x0124/5)
-   ├─ modulator (0x06c9)  instanceId 1  …
+   ├─ modulator (0x06c9)  grid pair 0:1  …
    └─ …
 ```
 
@@ -237,6 +238,13 @@ fine: two modulators may share a `0x18c6` type guid and produce a duplicate
 `referenced_modulator_ids` entry in a plain preset (Bitwig disambiguates display
 names itself) **[K, E11f]**. A container instead keeps the ordered unique GUID
 set across its lists **[K, E71]**.
+
+Pair uniqueness is the load gate, but it is not the complete UI rule. The pair
+also selects the tile position: `0x1a1a` is the column and `0x1a1b` is the row.
+The host uses three rows per column. Add operations must allocate the first free
+slot in column-major order. Replace operations must keep the resident pair.
+Sparse pairs load, but they create gaps or put a tile outside the visible panel
+**[O/K, E95]**.
 
 ⚠ **The recipe is broad; the one complication is an EMBEDDED SAMPLE/BULK BLOB, not any
 device class and NOT plugin opaque state [K, E11d/E11d-2/E11h/E11i-corrected/E12].** The
@@ -282,14 +290,15 @@ Adding/creating chains from nothing is still ○ (E4d/E4e, API side).
 | op | recipe | evidence |
 |---|---|---|
 | **retarget** | rewrite `0x0e3d` string (any length) | E10/E10b |
-| **replace / type-swap** | swap the whole 0x06c9 object; assign a unique `0x1a1a`/`0x1a1b` pair; sync meta ref | E10f-C1/E88 |
-| **add** | insert object into 0x1a46 list; assign a unique identity pair; sync meta refs; patch `f4` | E10f-B1/E88 |
+| **replace / type-swap** | swap the whole 0x06c9 object; preserve its grid pair; sync meta ref | E10f-C1/E88/E95 |
+| **add** | insert object into 0x1a46 list; assign the first free three-row grid pair; sync meta refs; patch `f4` | E10f-B1/E88/E95 |
 | **delete** | remove the object; (sync meta ref) | E10c/E10d |
 | **vary settings (runtime)** | remote-control page writes; drive `amount` to 0 to disable | E7d |
 
 **Add/replace recipe, in full (the reference is `tools/bwformat/build_e10f_cases.py`):**
 1. object → the `MODULATORS` list (adjacent, no separators, no count field);
-2. its `0x1a1b` **and** `0x02b9` set to an id unused by any sibling (max+1 is safe);
+2. its `0x1a1a`/`0x1a1b` pair set to the first free three-row grid slot; set
+   `0x02b9` to the linear slot number;
 3. its GUID appended to / replaced in meta `referenced_modulator_ids` (bump the
    `0x19` str[] count);
 4. if META size changed, patch header `f4` by the byte delta.

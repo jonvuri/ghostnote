@@ -9,6 +9,8 @@
  *   4. header `f4` is patched whenever META changed size;
  *   5. header `f6` is re-pointed whenever it is non-zero and byte length changed (E11i);
  * plus, on a preset that embeds a sample, the Tier-2 count-stub relocation (E12).
+ * New objects also use compact three-row grid identities so every tile remains
+ * visible and interactive (E95).
  *
  * ⚠ `validate()` passing is necessary but NOT sufficient. A wrong Ramona route
  * path loads fine and carries no modulation (E10b) — every edit still has to be
@@ -25,6 +27,8 @@ import {
 } from './stream.js';
 import { listModulators, nextFreeInstanceId } from './readers.js';
 import { hasCountStubs, relocateStubs } from './stubs.js';
+
+const MODULATOR_GRID_ROWS = 3;
 
 /** Options shared by the editors that add or remove objects. */
 export interface FootprintOptions {
@@ -45,9 +49,11 @@ export interface FootprintOptions {
 export interface AddOptions {
   /** Exact MODULATORS list in a container preset. Omit for a plain device. */
   listIndex?: number;
-  /** Override `0x1a1b`. Its pair with the donor's `0x1a1a` must stay unique. */
+  /** Override grid column `0x1a1a`. Its pair with `0x1a1b` must stay unique. */
+  instanceGroup?: number;
+  /** Override grid row `0x1a1b`. Its pair with `0x1a1a` must stay unique. */
   instanceId?: number;
-  /** override the cosmetic `0x02b9` name; defaults to the instance id, as Bitwig writes it */
+  /** Override cosmetic `0x02b9`; defaults to the grid slot number that Bitwig writes. */
   name?: string;
 }
 
@@ -92,15 +98,20 @@ export function setAmount(
 
 /**
  * Add a donor as a NEW modulator: insert the object before the list sentinel,
- * give it an unused `0x1a1b`, append its GUID to the meta refs, patch `f4`,
+ * give it the first free grid identity, append its GUID to the meta refs, patch `f4`,
  * relocate the sample count stubs, re-point `f6`. (E10f-B1, E12.)
  */
 export function addModulator(buf: Buffer, donor: DonorObject, routing?: Routing, opts: AddOptions = {}): Buffer {
   const list = findModulatorList(buf, opts.listIndex);
-  const instanceGroup = donor.bytes.readUInt8(instanceGroupOffset(donor.bytes, 0, donor.bytes.length));
-  const instanceId = opts.instanceId ?? nextFreeInstanceId(buf, opts.listIndex);
-  assertFreeId(buf, instanceGroup, instanceId, -1, opts.listIndex);
-  const object = prepareDonor(donor, instanceId, opts.name ?? String(instanceId), routing);
+  const identity = addIdentity(buf, donor, opts);
+  assertFreeIdentity(buf, identity.group, identity.id, -1, opts.listIndex);
+  const object = prepareDonor(
+    donor,
+    identity.group,
+    identity.id,
+    opts.name ?? String(identity.group * MODULATOR_GRID_ROWS + identity.id),
+    routing,
+  );
 
   let out = spliceBuffer(buf, list.listEnd, list.listEnd, object); // insert BEFORE the sentinel
   out = synchronizeModulatorRefs(out);
@@ -110,8 +121,8 @@ export function addModulator(buf: Buffer, donor: DonorObject, routing?: Routing,
 
 /**
  * Replace a modulator with a donor object — a type-swap, across any category
- * (E10f-C1; category is not a gate). The donor gets a fresh unique id and the
- * meta ref is swapped in place, keeping ref order aligned with the list.
+ * (E10f-C1; category is not a gate). The donor keeps the resident grid slot and
+ * the meta ref is swapped in place, keeping ref order aligned with the list.
  */
 export function replaceModulator(
   buf: Buffer,
@@ -121,11 +132,12 @@ export function replaceModulator(
 ): Buffer {
   const list = findModulatorList(buf, opts.listIndex);
   const [start, end] = modulatorBounds(buf, index, list);
-  const instanceGroup = donor.bytes.readUInt8(instanceGroupOffset(donor.bytes, 0, donor.bytes.length));
-  const instanceId = opts.instanceId ?? nextFreeInstanceId(buf, opts.listIndex);
-  assertFreeId(buf, instanceGroup, instanceId, index, opts.listIndex);
+  const resident = listModulators(buf, opts.listIndex)[index];
+  const instanceGroup = opts.instanceGroup ?? resident.instanceGroup;
+  const instanceId = opts.instanceId ?? resident.instanceId;
+  assertFreeIdentity(buf, instanceGroup, instanceId, index, opts.listIndex);
   const object = deactivateSecondaryRoutes(
-    prepareDonor(donor, instanceId, opts.name ?? String(instanceId)),
+    prepareDonor(donor, instanceGroup, instanceId, opts.name ?? resident.name),
   );
 
   let out = spliceBuffer(buf, start, end, object);
@@ -153,13 +165,16 @@ export function deleteModulator(buf: Buffer, index: number, opts: FootprintOptio
 
 // ---------------------------------------------------------------------------
 
-function assertFreeId(
+function assertFreeIdentity(
   buf: Buffer,
   group: number,
   id: number,
   ignoreIndex = -1,
   listIndex?: number,
 ): void {
+  if (!Number.isInteger(group) || group < 0 || group > 0xff) {
+    fail(`instance group ${group} is out of range — 0x1a1a is a u8`);
+  }
   if (!Number.isInteger(id) || id < 0 || id > 0xff) {
     fail(`instance id ${id} is out of range — 0x1a1b is a u8`);
   }
@@ -168,6 +183,26 @@ function assertFreeId(
   if (clash) {
     fail(`instance identity ${group}:${id} is already used by modulator ${clash.index} — duplicates reject the preset`);
   }
+}
+
+function addIdentity(buf: Buffer, donor: DonorObject, opts: AddOptions): { group: number; id: number } {
+  if (opts.instanceGroup !== undefined || opts.instanceId !== undefined) {
+    const donorGroup = donor.bytes.readUInt8(instanceGroupOffset(donor.bytes, 0, donor.bytes.length));
+    const group = opts.instanceGroup ?? donorGroup;
+    return {
+      group,
+      id: opts.instanceId ?? nextFreeInstanceId(buf, opts.listIndex, group),
+    };
+  }
+
+  const occupied = new Set(listModulators(buf, opts.listIndex)
+    .map((modulator) => `${modulator.instanceGroup}:${modulator.instanceId}`));
+  for (let group = 0; group <= 0xff; group += 1) {
+    for (let id = 0; id < MODULATOR_GRID_ROWS; id += 1) {
+      if (!occupied.has(`${group}:${id}`)) return { group, id };
+    }
+  }
+  fail('the modulator grid has no free slot');
 }
 
 /**
@@ -182,9 +217,16 @@ function synchronizeModulatorRefs(buf: Buffer): Buffer {
   return writeModulatorRefs(buf, refs);
 }
 
-/** Stamp the donor's identity fields (and optional route) into a private copy. */
-function prepareDonor(donor: DonorObject, instanceId: number, name: string, routing?: Routing): Buffer {
+/** Stamp the donor's grid identity fields (and optional route) into a private copy. */
+function prepareDonor(
+  donor: DonorObject,
+  instanceGroup: number,
+  instanceId: number,
+  name: string,
+  routing?: Routing,
+): Buffer {
   let object: Buffer = Buffer.from(donor.bytes);
+  object.writeUInt8(instanceGroup, instanceGroupOffset(object, 0, object.length));
   object.writeUInt8(instanceId, instanceIdOffset(object, 0, object.length));
   object = patchString(object, nameFieldOffset(object, 0), name);
   if (routing) object = applyRouting(object, routing);

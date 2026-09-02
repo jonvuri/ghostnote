@@ -199,7 +199,7 @@ for (const [label, bareName, realName, footprint] of GOLDENS) {
 // U-unique — the one proven load gate
 // ---------------------------------------------------------------------------
 
-test('U-unique: repeated add/replace assign distinct ids, each = nextFreeInstanceId', () => {
+test('U-unique: repeated adds assign distinct ids, each = nextFreeInstanceId', () => {
   const base = fixture('Polysynth/mp_one_lfo');
   const donor = loadDonor('random-poly');
 
@@ -220,8 +220,51 @@ test('U-unique: repeated add/replace assign distinct ids, each = nextFreeInstanc
   const replacedOnce = replaceModulator(fixture('Polysynth/modtest'), 1, donor);
   const replacedTwice = replaceModulator(replacedOnce, 1, loadDonor('classiclfo-poly'));
   assert.equal(new Set(instanceIds(replacedTwice)).size, 3);
-  assert.notEqual(listModulators(replacedOnce)[1].instanceId, listModulators(replacedTwice)[1].instanceId);
+  assert.deepEqual(
+    listModulators(replacedTwice).map((modulator) => [modulator.instanceGroup, modulator.instanceId]),
+    listModulators(fixture('Polysynth/modtest')).map((modulator) =>
+      [modulator.instanceGroup, modulator.instanceId]),
+  );
   assertValid(replacedTwice, 'double replace');
+});
+
+test('U-grid: mixed donors fill the three-row modulator grid without gaps', () => {
+  let out = fixture('Polysynth/mp_bare');
+  for (const donor of ['lfo-sampler', 'random-sampler', 'beat-lfo-zoo', 'classic-lfo-zoo']) {
+    out = addModulator(out, loadDonor(donor));
+  }
+
+  assert.deepEqual(
+    listModulators(out).map((modulator) =>
+      [modulator.deviceName, modulator.instanceGroup, modulator.instanceId, modulator.name]),
+    [
+      ['LFO', 0, 0, '0'],
+      ['Random', 0, 1, '1'],
+      ['Beat LFO', 0, 2, '2'],
+      ['Classic LFO', 1, 0, '3'],
+    ],
+  );
+
+  const replaced = replaceModulator(out, 0, loadDonor('beat-lfo-zoo'));
+  assert.deepEqual(
+    [
+      listModulators(replaced)[0].instanceGroup,
+      listModulators(replaced)[0].instanceId,
+      listModulators(replaced)[0].name,
+    ],
+    [0, 0, '0'],
+  );
+
+  const withGap = deleteModulator(out, 1);
+  const refilled = addModulator(withGap, loadDonor('random-poly'));
+  assert.deepEqual(
+    listModulators(refilled).at(-1) && [
+      listModulators(refilled).at(-1)!.instanceGroup,
+      listModulators(refilled).at(-1)!.instanceId,
+    ],
+    [0, 1],
+  );
+  assertValid(refilled, 'refilled grid');
 });
 
 test('U-unique: ids need not be contiguous, and an explicit collision is refused', () => {

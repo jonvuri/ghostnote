@@ -2,10 +2,10 @@
 title: Phase 5s — public generalization dogfood and closeout
 kind: plan
 state: active
-status: Active. The first retry exposed incorrect wrapper placement. A local regression fix awaits live proof.
+status: Active. Wrapper placement passes live. The second retry exposed sparse and hidden modulator tiles.
 updated: 2026-09-01
 parent: README.md
-evidence: D1, D2, D3, D7, D15, D16, E65-E73, E94, dogfood sessions 01a03744-e6c4-7be0-b210-e999c8f17081 and 01a06052-39bc-71a3-a155-278872cdfac3
+evidence: D1, D2, D3, D7, D15, D16, E65-E73, E94, E95, dogfood sessions 01a03744-e6c4-7be0-b210-e999c8f17081, 01a06052-39bc-71a3-a155-278872cdfac3, and 01a06065-f052-79e2-9f4a-19c07231869e
 ---
 
 # Phase 5s — public generalization dogfood and closeout
@@ -48,6 +48,7 @@ lists, sources, and containers.
 
 - The operator can audition modulation on the preserved existing ColourCopy.
 - The owned FX Layer replaces ColourCopy at its prior top-level signal position.
+- Every requested modulator has a compact, visible, and interactive tile.
 - The transcript contains no repository, shell, test, or probe fallback.
 - A new run-ledger entry records all required provenance and the exact outcome.
 - No public input exposes a raw route, donor id, list index, GUID, footprint,
@@ -79,6 +80,19 @@ The wrapper moved its owned FX Layer to top-level position 0. ColourCopy had
 been at position 1 after Serato Sample, so the wrap changed the signal order.
 The retry is not accepted. No operator audition verdict was recorded. E94
 records the transcript, exact exit state, cause, and local regression repair.
+
+## Second retry result
+
+Session `01a06065-f052-79e2-9f4a-19c07231869e` proved the wrapper-position
+repair live. The FX Layer stayed at position 1 after Serato Sample. The same
+ColourCopy instance, its 30 observed parameter bases, all four modulator
+objects, and all four routes remained present.
+
+The modulator panel exposed a new manufacturing defect. Beat LFO appeared after
+empty spaces. Classic LFO was active and visible in the inspector, but its tile
+was outside the visible modulator grid. The authoring code combined donor grid
+columns with global row ids. E95 records the run, the three-row grid semantics,
+and the compact local repair. No explicit audition verdict was recorded.
 
 ## Retrospective target
 

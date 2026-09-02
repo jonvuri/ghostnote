@@ -11,7 +11,8 @@ import {
   OWNED_FX_LAYER_MANIFEST_PATH, OWNED_FX_LAYER_TEMPLATE_PATH,
 } from './assets.js';
 import {
-  composeGeneralDeviceContainerPreset, type GeneralDeviceContainerKind,
+  composeExistingDeviceWrapperPreset, composeGeneralDeviceContainerPreset,
+  type GeneralDeviceContainerKind,
 } from './existing-device-wrapper.js';
 import { fiveEntryLayerSeedPreset } from './layer-seeds.js';
 
@@ -181,4 +182,40 @@ test('5r-layer-routes: retained suffixes use normalized live route positions', a
       kind,
     );
   }
+});
+
+test('5s-wrapper-grid: mixed donor types occupy compact visible slots', async () => {
+  const result = await composeExistingDeviceWrapperPreset([
+    {
+      modulator: 'lfo',
+      target: { parameterId: 'PID5', parameterName: 'Delay Rate' },
+      amount: 0.36,
+    },
+    {
+      modulator: 'random',
+      target: { parameterId: 'PIDc', parameterName: 'Regeneration' },
+      amount: 0.22,
+    },
+    {
+      modulator: 'beat-lfo',
+      target: { parameterId: 'PIDe', parameterName: 'Brightness' },
+      amount: 0.45,
+    },
+    {
+      modulator: 'classic-lfo',
+      target: { parameterId: 'PID1', parameterName: 'Stereo Phase' },
+      amount: 0.5,
+    },
+  ]);
+
+  assert.deepEqual(
+    listModulators(result.preset, 0).map((modulator) =>
+      [modulator.deviceName, modulator.instanceGroup, modulator.instanceId]),
+    [
+      ['LFO', 0, 0],
+      ['Random', 0, 1],
+      ['Beat LFO', 0, 2],
+      ['Classic LFO', 1, 0],
+    ],
+  );
 });
