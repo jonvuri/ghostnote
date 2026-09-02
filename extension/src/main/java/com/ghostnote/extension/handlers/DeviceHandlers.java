@@ -49,6 +49,7 @@ public final class DeviceHandlers extends HandlerGroup {
         r.on("devcursor.selectFirstInLayer", params -> devcursorSelectFirstInLayer(params));
         r.on("devcursor.selectInLayer", params -> devcursorSelectInLayer(params));
         r.on("devcursor.selectFirstInSlot", params -> devcursorSelectFirstInSlot(params));
+        r.on("devcursor.selectInSlot", params -> devcursorSelectInSlot(params));
         r.on("devcursor.selectFirstInKeyPad", params -> devcursorSelectFirstInKeyPad(params));
         r.on("devcursor.selectFirstInPad", params -> devcursorSelectFirstInPad(params));
         r.on("devcursor.selectParent", params -> devcursorSelectParent());
@@ -796,15 +797,62 @@ public final class DeviceHandlers extends HandlerGroup {
             throw new IllegalArgumentException(
                 "devcursor.selectInLayer named route changed at layer " + layerIndex);
         }
-        rig.cursorDevice0.selectDevice(rig.layerDeviceBanks[layerIndex].getDevice(deviceIndex));
+        // Record the route before the cursor-native selection emits observer
+        // callbacks. A fixed-bank selectDevice moves the cursor but does not
+        // emit nested DirectParameter IDs in Bitwig 6.0.6.
         rig.addDirectParameterRouteStep("chain", expectedName, null, deviceIndex);
+        rig.cursorDevice0.selectFirstInLayer(layerIndex);
+        for (int index = 0; index < deviceIndex; index++) {
+            rig.cursorDevice0.selectNext();
+        }
         return ok();
     }
 
     private JsonElement devcursorSelectFirstInSlot(JsonObject params) {
         String slot = params.get("slot").getAsString();
-        rig.cursorDevice0.selectFirstInSlot(slot);
         rig.addDirectParameterRouteStep("deviceSlot", slot, null, 0);
+        rig.cursorDevice0.selectFirstInSlot(slot);
+        return ok();
+    }
+
+    /** Select one observed device position inside one observed named slot. */
+    private JsonElement devcursorSelectInSlot(JsonObject params) {
+        int containerIndex = params.get("containerIndex").getAsInt();
+        int deviceIndex = params.get("deviceIndex").getAsInt();
+        String slot = params.get("slot").getAsString();
+        if (containerIndex < 0 || containerIndex >= Rig.SLOT_SCOPES) {
+            throw new IllegalArgumentException(
+                "devcursor.selectInSlot container index is outside the observed scope");
+        }
+        if (deviceIndex < 0 || deviceIndex >= Rig.SLOT_LAYER_DEVICE_BANK) {
+            throw new IllegalArgumentException(
+                "devcursor.selectInSlot device index is outside the observed bank");
+        }
+        if (rig.directParameterTopLevelIndex != containerIndex
+                || !rig.directParameterRouteKinds.isEmpty()) {
+            throw new IllegalArgumentException(
+                "devcursor.selectInSlot cursor route changed before selection");
+        }
+        Device parent = rig.cursorDeviceBanks[0].getDevice(containerIndex);
+        if (!parent.exists().get() || rig.currentDirectParameterDeviceIndex() != containerIndex
+                || !parent.name().get().equals(rig.cursorDevice0.name().get())) {
+            throw new IllegalArgumentException(
+                "devcursor.selectInSlot container changed before selection");
+        }
+        String[] slotNames = rig.cursorDevice0.slotNames().get();
+        if (!rig.cursorDevice0.hasSlots().get() || slotNames.length != 1
+                || !slot.equals(slotNames[0])) {
+            throw new IllegalArgumentException(
+                "devcursor.selectInSlot named slot changed before selection");
+        }
+        // Record the route before the cursor-native selection emits observer
+        // callbacks. A fixed-bank selectDevice moves the cursor but does not
+        // emit nested DirectParameter IDs in Bitwig 6.0.6.
+        rig.addDirectParameterRouteStep("deviceSlot", slot, null, deviceIndex);
+        rig.cursorDevice0.selectFirstInSlot(slot);
+        for (int index = 0; index < deviceIndex; index++) {
+            rig.cursorDevice0.selectNext();
+        }
         return ok();
     }
 

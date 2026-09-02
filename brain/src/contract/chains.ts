@@ -43,7 +43,7 @@
  * lookups do — both adapters must identify a minted chain by the same rule, or
  * the offline suite is certifying a discipline the live one does not have.
  */
-import { chainPath, type ChainAddress, type DeviceAddress } from './address.js';
+import { chainPath, type ChainAddress, type DeviceAddress, type DeviceParentAddress } from './address.js';
 
 /** One device seen inside a chain, at the position the container reported. */
 export interface ObservedDevice {
@@ -58,6 +58,13 @@ export interface ObservedDeviceSequence {
   readonly devices: readonly ObservedDevice[];
   /** True only when the enumeration proved that no device was hidden. */
   readonly devicesComplete: boolean;
+  /** Width of the device bank; absent on an older deployment. */
+  readonly devicesBankSize?: number;
+}
+
+/** One named device-chain slot, such as the Chain device's `CHAIN` slot. */
+export interface ObservedDeviceSlot extends ObservedDeviceSequence {
+  readonly name: string;
 }
 
 /**
@@ -313,6 +320,10 @@ export interface ObservedContainer {
    * either way — but a guard must never treat a missing size as room.
    */
   readonly chainsBankSize?: number;
+  /** Named device-chain slots observed independently from layer chains. */
+  readonly slots?: readonly ObservedDeviceSlot[];
+  /** True only when the named-slot enumeration is exact. */
+  readonly slotsComplete?: boolean;
 }
 
 /**
@@ -331,8 +342,12 @@ export type DeviceLookup =
   | { readonly ok: true; readonly device: ObservedDevice }
   | { readonly ok: false; readonly miss: ChainMiss };
 
+export type DeviceSlotLookup =
+  | { readonly ok: true; readonly slot: ObservedDeviceSlot }
+  | { readonly ok: false; readonly miss: ChainMiss };
+
 /** How deep the nesting goes. 0 is a top-level device; 1 is inside one chain. */
-export const nestingDepth = (a: ChainAddress | DeviceAddress): number => chainPath(a).length;
+export const nestingDepth = (a: DeviceAddress | DeviceParentAddress): number => chainPath(a).length;
 
 /**
  * ⚠ Can any measured route observe this address at all?
@@ -340,7 +355,7 @@ export const nestingDepth = (a: ChainAddress | DeviceAddress): number => chainPa
  * The container of an observable chain is a device on the TRACK's own chain, and
  * nothing deeper. Everything else is `unsupported` — see the module header.
  */
-export const nestingObservable = (a: ChainAddress | DeviceAddress): boolean => nestingDepth(a) <= 1;
+export const nestingObservable = (a: DeviceAddress | DeviceParentAddress): boolean => nestingDepth(a) <= 1;
 
 /**
  * Find the chain this address names, or say precisely why not.
@@ -358,6 +373,15 @@ export function lookupChain(container: ObservedContainer, name: string): ChainLo
   return { ok: false, miss: container.chainsComplete ? 'absent' : 'outside-bank-window' };
 }
 
+/** Find one unique named device-chain slot. */
+export function lookupDeviceSlot(container: ObservedContainer, name: string): DeviceSlotLookup {
+  const matches = (container.slots ?? []).filter((slot) => slot.name === name);
+  if (matches.length > 1) return { ok: false, miss: 'ambiguous' };
+  const hit = matches[0];
+  if (hit !== undefined) return { ok: true, slot: hit };
+  return { ok: false, miss: container.slotsComplete === true ? 'absent' : 'outside-bank-window' };
+}
+
 /**
  * Find a device at `chainIndex` INSIDE an already-resolved chain.
  *
@@ -366,7 +390,7 @@ export function lookupChain(container: ObservedContainer, name: string): ChainLo
  * way out, so `devices[2]` and *"the device at chain index 2"* are different
  * questions the moment a chain has a hole in it.
  */
-export function lookupDevice(chain: ObservedChain, chainIndex: number): DeviceLookup {
+export function lookupDevice(chain: ObservedDeviceSequence, chainIndex: number): DeviceLookup {
   if (chainIndex < 0) return { ok: false, miss: 'absent' };
   const hit = chain.devices.find((d) => d.index === chainIndex);
   if (hit !== undefined) return { ok: true, device: hit };
@@ -388,9 +412,15 @@ export function lookupNestedDevice(
   address: DeviceAddress,
 ): DeviceLookup {
   const chainRef = address.chain;
-  if (chainRef === undefined || chainRef.kind !== 'chain' || !nestingObservable(address)) {
+  if (chainRef === undefined || !nestingObservable(address)) {
     return { ok: false, miss: 'unsupported' };
   }
+  if (chainRef.kind === 'deviceSlot') {
+    const found = lookupDeviceSlot(container, chainRef.name);
+    if (!found.ok) return { ok: false, miss: found.miss };
+    return lookupDevice(found.slot, address.chainIndex);
+  }
+  if (chainRef.kind !== 'chain') return { ok: false, miss: 'unsupported' };
   const found = lookupChain(container, chainRef.name);
   if (!found.ok) return { ok: false, miss: found.miss };
   return lookupDevice(found.chain, address.chainIndex);

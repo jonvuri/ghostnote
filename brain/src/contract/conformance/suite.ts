@@ -34,6 +34,7 @@ import assert from 'node:assert/strict';
 import {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, InvalidOpError, NOTE_PROP_FIDELITY,
   SlotOccupiedError, addressKey, chain, clip, clipLaunch, clipMetadata, contentTouching, deltaComplete, device, deviceIn,
+  deviceSlot,
   notes as notesAt, param, scene, slot, track,
   type Address, type BitwigAdapter, type DeviceAddress, type NoteRecord, type ObservedContainer,
   type Op, type Snapshot, type TrackAddress,
@@ -701,6 +702,9 @@ export function runConformance(h: AdapterHarness): void {
       // remain refused. A missing path must not fall back to a top-level device.
       const { adapter, trackA } = await h.create();
       try {
+        // A prior structural case can leave the shared live observer between
+        // targets. Settle before this case classifies an absent top device.
+        await adapter.settle('trackStruct');
         const alt = chain(device(trackA, 0), 'gn-conf-alt');
         const inner = deviceIn(alt, 0);
         const innerParam = param(inner, 0);
@@ -1284,6 +1288,59 @@ export function runConformance(h: AdapterHarness): void {
           const at = device(trackA, 0);
           if ((await adapter.read([at])).entries[addressKey(at)] === undefined) break;
           await adapter.apply({ ops: [{ op: 'device.delete', device: at }] });
+          await adapter.settle('trackStruct');
+        }
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-device-slot-relocate', 'an empty named slot refuses before a write'),
+    { skip: !h.capabilities.hasDeviceModel },
+    async () => {
+      const { adapter, trackA } = await h.create();
+      const executor = new Executor(adapter);
+      const CHAIN = { from: 'bitwig', uuid: 'c86d21fb-d544-4daf-a1bf-57de22aa320c' } as const;
+      const POLYSYNTH = { from: 'bitwig', uuid: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef' } as const;
+      let container: DeviceAddress | undefined;
+      try {
+        await executor.run([{
+          op: 'device.insert', track: trackA, source: POLYSYNTH,
+          expectedDeviceName: 'Polysynth',
+        }]);
+        const inserted = await executor.run([{
+          op: 'device.insert', track: trackA, source: CHAIN, expectedDeviceName: 'Chain',
+        }]);
+        const minted = inserted.receipt.minted[0];
+        assert.ok(minted?.kind === 'device');
+        container = minted;
+        const slot = deviceSlot(container, 'CHAIN');
+        const beforeValue = (await adapter.read([container])).entries[addressKey(container)]?.value;
+        const beforeSlot = beforeValue?.of === 'device'
+          ? beforeValue.device.container?.slots?.find((item) => item.name === 'CHAIN') : undefined;
+        assert.ok(beforeSlot === undefined || beforeSlot.devicesComplete === false,
+          'the empty named slot is not completely observable');
+
+        const beforeMove = await adapter.revision();
+        await assert.rejects(
+          adapter.apply({ ops: [{
+            op: 'chain.relocate', source: device(trackA, 0), destination: slot, mode: 'move',
+          }] }),
+          /empty.*slot|slot.*empty|not independently observable|complete destination container/i,
+        );
+        assert.equal((await adapter.revision()).revision, beforeMove.revision,
+          'the empty named-slot move refused before a write');
+        assert.deepEqual((await adapter.devices(trackA)).devices.map((item) => item.name),
+          ['Polysynth', 'Chain']);
+      } finally {
+        if (container !== undefined) {
+          await adapter.apply({ ops: [{ op: 'device.delete', device: container }] });
+          await adapter.settle('trackStruct');
+        }
+        const remaining = await adapter.devices(trackA);
+        if (remaining.devices[0]?.name === 'Polysynth') {
+          await adapter.apply({ ops: [{ op: 'device.delete', device: device(trackA, 0) }] });
           await adapter.settle('trackStruct');
         }
         await h.dispose(adapter);

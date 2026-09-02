@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "authoring": {
+    "bitwigVersion": "6.0.6",
+    "creator": "jrajav",
+    "origin": "human-authored",
+    "sourceEvidence": "phase-5-session-5r"
+  },
+  "assets": [
+    {
+      "id": "instrument-layer-five-empty",
+      "libraryName": "gn_instr_five_empty",
+      "containerName": "Instrument Layer",
+      "containerGuid": "5024be2e-65d6-4d40-bbfe-8b2ea993c445",
+      "containerGuidOffset": 6097,
+      "sha256": "fc9b2e3786e8edba1a31619c7dd3643a91a83be6d6e41ed540992689e09ce7d4",
+      "byteLength": 8493,
+      "outerModulatorListOffset": 5963,
+      "maximumEntries": 5,
+      "chains": [
+        { "index": 0, "name": "CHAIN0", "start": 6172, "end": 6586 },
+        { "index": 1, "name": "CHAIN1", "start": 6586, "end": 7000 },
+        { "index": 2, "name": "CHAIN2", "start": 7000, "end": 7414 },
+        { "index": 3, "name": "CHAIN3", "start": 7414, "end": 7828 },
+        { "index": 4, "name": "CHAIN4", "start": 7828, "end": null }
+      ],
+      "sampleReferenceStubs": 0
+    },
+    {
+      "id": "fx-layer-five-empty",
+      "libraryName": "gn_fx_five_empty",
+      "containerName": "FX Layer",
+      "containerGuid": "a0913b7f-096b-4ac9-bddd-33c775314b42",
+      "containerGuidOffset": 6075,
+      "sha256": "c555b4d95355327f604f4a6213a7dd35bbb3deeeab44462449f18bde7eab31a3",
+      "byteLength": 8338,
+      "outerModulatorListOffset": 5945,
+      "maximumEntries": 5,
+      "chains": [
+        { "index": 0, "name": "CHAIN0", "start": 6150, "end": 6564 },
+        { "index": 1, "name": "CHAIN1", "start": 6564, "end": 6978 },
+        { "index": 2, "name": "CHAIN2", "start": 6978, "end": 7392 },
+        { "index": 3, "name": "CHAIN3", "start": 7392, "end": 7806 },
+        { "index": 4, "name": "CHAIN4", "start": 7806, "end": null }
+      ],
+      "sampleReferenceStubs": 0
+    }
+  ]
+}

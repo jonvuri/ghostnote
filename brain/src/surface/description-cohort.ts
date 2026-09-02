@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v19';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v20';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -286,7 +286,7 @@ export const DESCRIPTION_COHORT_V18: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v19 adds general device-source composition and guarded reversal. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V19: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V18,
   {
     name: 'compose_device_sources', kind: 'write',
@@ -296,6 +296,11 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
     name: 'reverse_device_source_composition', kind: 'write',
     reason: 'Restores existing sources and removes only owned composition devices.',
   },
+] as const;
+
+/** v20 publishes bounded container shapes and capacities. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V19,
 ] as const;
 
 interface ToolAnnotations {
@@ -436,3 +441,7 @@ export const TOOL_DESCRIPTION_V18_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V19_SHA256 =
   'b2c9a1c4f9e4dfd6e202821da94e5a25a4f4218fd46e3b4c0eef33c714a4fdd1';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V20_SHA256 =
+  'bfa88cb58ebcf59058b570454623d3fa7d2a28d0923ac3d25320dc50587ec776';

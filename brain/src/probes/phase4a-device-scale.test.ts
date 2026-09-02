@@ -57,6 +57,11 @@ test('4a live replies self-name the cursor track and rig.stats reports resources
   assert.match(core, /"typedParameterHandles"/);
   assert.match(core, /"remotePageCursors"/);
   assert.match(core, /"directParameterObservers"/);
+  assert.match(core, /"namedSlotDeviceBanks"/);
+  assert.match(core, /"namedSlotDeviceSlots"/);
+  assert.match(core, /Rig\.SLOT_SCOPES \* Rig\.SLOT_LAYER_BANK/);
+  assert.match(core, /"containerEntryBank"/);
+  assert.match(core, /"parameterRouteDepth"/);
 });
 
 test('4a selected defaults match in RigConfig and the fake model', () => {

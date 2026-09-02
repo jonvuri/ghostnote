@@ -6,7 +6,9 @@ import { isAbsolute } from 'node:path';
 import { z } from 'zod';
 
 import { listDonorTypes } from '../bwmod/index.js';
-import { NATIVE_CATALOG_PATH, EXISTING_DEVICE_WRAPPER_KIND } from '../composition/index.js';
+import {
+  GENERAL_DEVICE_COMPOSITION_CAPACITIES, GENERAL_DEVICE_CONTAINER_KINDS, NATIVE_CATALOG_PATH,
+} from '../composition/index.js';
 import { track as trackAt } from '../contract/index.js';
 import {
   composeGeneralDeviceSources, reverseGeneralDeviceSources,
@@ -82,12 +84,18 @@ export const generalDeviceCompositionInputSchema = {
   expectedDeviceOrder: z.array(orderItem).max(15).describe(
     'Exact complete top-level name and enabled-state order from inspect_devices.',
   ),
-  containerKind: z.literal(EXISTING_DEVICE_WRAPPER_KIND),
-  entries: z.array(z.object({
+  containerKind: z.enum(GENERAL_DEVICE_CONTAINER_KINDS),
+  containerPosition: z.number().int().min(0).default(0),
+  entries: z.array(z.union([z.object({
     entryName: z.string().min(1).describe('Unique caller-supplied stable entry name.'),
     source,
     modulators: z.array(modulation).max(16),
-  }).strict()).min(1).max(4),
+  }).strict(), z.object({
+    entryName: z.string().min(1).describe('Unique caller-supplied stable entry name.'),
+    devices: z.array(z.object({
+      source, modulators: z.array(modulation).max(16),
+    }).strict()).min(1),
+  }).strict()])).min(1),
 } as const;
 
 export const generalDeviceCompositionInputValidator = z.object(
@@ -98,53 +106,71 @@ export const generalDeviceCompositionInputValidator = z.object(
     context.addIssue({ code: 'custom', path: ['entries'], message: 'Each entryName must be unique.' });
   }
   for (const [index, entry] of input.entries.entries()) {
-    const local = entry.modulators.some((item) => item.location === 'device');
-    if (local && entry.source.kind !== 'preset') {
-      context.addIssue({
-        code: 'custom', path: ['entries', index, 'source'],
-        message: 'Device-local modulator authoring requires a preset source.',
-      });
-    }
-    if (local && entry.source.kind === 'preset'
-        && (entry.source.fingerprint === undefined || entry.source.modulatorLocation === undefined)) {
-      context.addIssue({
-        code: 'custom', path: ['entries', index, 'source'],
-        message: 'Preset-local authoring requires fingerprint and modulatorLocation.',
-      });
-    }
-    if (index > 0 && entry.modulators.some((item) => item.location === 'container')) {
-      context.addIssue({
-        code: 'custom', path: ['entries', index, 'modulators'],
-        message: 'Outer modulation is supported only for the first late-bound FX Layer entry.',
-      });
+    for (const [deviceIndex, entryDevice] of inputDevices(entry).entries()) {
+      const local = entryDevice.modulators.some((item) => item.location === 'device');
+      if (local && entryDevice.source.kind !== 'preset') {
+        context.addIssue({
+          code: 'custom', path: ['entries', index, 'devices', deviceIndex, 'source'],
+          message: 'Device-local modulator authoring requires a preset source.',
+        });
+      }
+      if (local && entryDevice.source.kind === 'preset'
+          && (entryDevice.source.fingerprint === undefined
+            || entryDevice.source.modulatorLocation === undefined)) {
+        context.addIssue({
+          code: 'custom', path: ['entries', index, 'devices', deviceIndex, 'source'],
+          message: 'Preset-local authoring requires fingerprint and modulatorLocation.',
+        });
+      }
     }
   }
 });
 
 const checkpointEntry = z.object({
-  entryIndex: z.number().int().min(0), entryName: z.string().min(1),
+  entryIndex: z.number().int().min(0), deviceIndex: z.number().int().min(0),
+  entryName: z.string().min(1),
   sourceKind: z.enum(['native', 'vst3', 'clap', 'preset', 'existing-move', 'existing-copy']),
   observedName: z.string().min(1), enabled: z.boolean(),
   fingerprint: z.object({
     algorithm: z.literal('sha256'), sha256: z.string().regex(/^[0-9a-f]{64}$/),
-    parameterCount: z.number().int().min(1),
+    parameterCount: z.number().int().min(0),
   }).strict().optional(),
+  fingerprintLocation: semanticLocation.optional(),
   ownedChangeId: z.string().min(1).optional(), originalPosition: z.number().int().min(0).optional(),
 }).strict();
 
 const publicCheckpoint = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(5),
   state: z.enum(['container-inserted', 'container-positioned', 'entries-prepared', 'composing']),
-  trackId: z.string().min(1), containerKind: z.literal(EXISTING_DEVICE_WRAPPER_KIND),
+  trackId: z.string().min(1), containerKind: z.enum(GENERAL_DEVICE_CONTAINER_KINDS),
+  requestedContainerPosition: z.number().int().min(0)
+    .max(GENERAL_DEVICE_COMPOSITION_CAPACITIES.topLevelContainerPositions - 1),
   containerInsertChangeId: z.string().min(1), insertedContainerPosition: z.number().int().min(0),
   currentContainerPosition: z.number().int().min(0),
+  seedUnchanged: z.boolean(),
+  lastWriteAt: z.object({
+    revision: z.number().int().min(0), generation: z.string(), project: z.string(),
+  }).strict(),
   originalDeviceOrder: z.array(orderItem).max(15),
-  entryNames: z.array(z.string().min(1)).min(1).max(4),
-  preparedEntryNames: z.array(z.string().min(1)).min(1).max(4),
-  completedEntries: z.array(checkpointEntry).max(4),
+  entryNames: z.array(z.string().min(1)).min(1).max(5),
+  preparedEntryNames: z.array(z.string().min(1)).max(5),
+  completedEntries: z.array(checkpointEntry).max(20),
+  pendingUnwitnessedSource: z.object({
+    entryIndex: z.number().int().min(0), deviceIndex: z.number().int().min(0),
+    sourceKind: z.enum(['native', 'vst3', 'clap', 'preset', 'existing-move', 'existing-copy']),
+    ownedChangeId: z.string().min(1), chainIndex: z.number().int().min(0),
+    at: z.object({
+      revision: z.number().int().min(0), generation: z.string(), project: z.string(),
+    }).strict(),
+  }).strict().optional(),
   pendingEntry: checkpointEntry.extend({
     location: z.enum(['top-level', 'container-entry']),
   }).strict().optional(),
+  reversalRemainingEntries: z.array(checkpointEntry).max(20).optional(),
+  reversalPendingTopLevel: checkpointEntry.extend({
+    position: z.number().int().min(0),
+  }).strict().optional(),
+  reversalContainerRemoved: z.literal(true).optional(),
 }).strict();
 
 export const generalDeviceCompositionReversalInputSchema = {
@@ -177,8 +203,8 @@ export async function runGeneralDeviceComposition(
   } catch (error) {
     return refusal(error);
   }
-  const nativeNames = input.entries.flatMap((entry) =>
-    entry.source.kind === 'native' ? [entry.source.name] : []);
+  const nativeNames = input.entries.flatMap((entry) => inputDevices(entry).flatMap((entryDevice) =>
+    entryDevice.source.kind === 'native' ? [entryDevice.source.name] : []));
   let nativeByName = new Map<string, string>();
   try {
     nativeByName = new Map(resolveExactNativeDevices(catalog, nativeNames)
@@ -189,18 +215,23 @@ export async function runGeneralDeviceComposition(
 
   const result = await composeGeneralDeviceSources(workspace, {
     track: trackAt(input.trackId), expectedDeviceOrder: input.expectedDeviceOrder,
-    containerKind: input.containerKind,
+    containerKind: input.containerKind, containerPosition: input.containerPosition,
     entries: input.entries.map((entry) => {
-      const resolvedSource = entry.source.kind === 'native'
-        ? { ...entry.source, uuid: nativeByName.get(entry.source.name)! }
-        : entry.source;
       return {
-        entryName: entry.entryName, source: resolvedSource,
-        modulators: entry.modulators.map((item) => {
-          const type = TYPES.find((candidate) => candidate.id === item.modulator)!;
+        entryName: entry.entryName,
+        devices: inputDevices(entry).map((entryDevice) => {
+          const resolvedSource = entryDevice.source.kind === 'native'
+            ? { ...entryDevice.source, uuid: nativeByName.get(entryDevice.source.name)! }
+            : entryDevice.source;
           return {
-            ...item, donorId: type.donorId, pageName: type.publicName,
-            behaviorCheck: item.behaviorCheck ?? 'active',
+            source: resolvedSource,
+            modulators: entryDevice.modulators.map((item) => {
+              const type = TYPES.find((candidate) => candidate.id === item.modulator)!;
+              return {
+                ...item, donorId: type.donorId, pageName: type.publicName,
+                behaviorCheck: item.behaviorCheck ?? 'active',
+              };
+            }),
           };
         }),
       };
@@ -230,7 +261,11 @@ export async function runGeneralDeviceCompositionReversal(
     };
   }
   const result = await reverseGeneralDeviceSources(workspace, checkpoint);
-  if (result.complete) issued.get(workspace.changes)?.delete(checkpoint.containerInsertTakeId);
+  if (result.complete) {
+    issued.get(workspace.changes)?.delete(checkpoint.containerInsertTakeId);
+  } else if (result.checkpoint !== undefined) {
+    remember(workspace, externalCheckpoint(result.checkpoint));
+  }
   return publicReversal(workspace, result);
 }
 
@@ -238,7 +273,10 @@ function publicResult(
   workspace: Workspace, input: GeneralDeviceCompositionInput, result: GeneralDeviceCompositionResult,
 ): Record<string, unknown> {
   if (result.checkpoint === undefined && result.stages.length === 0) {
-    return { refused: true, nothingWasWritten: true, why: result.why ?? 'Nothing was written.' };
+    return {
+      refused: true, nothingWasWritten: true, capacities: result.capacities,
+      why: result.why ?? 'Nothing was written.',
+    };
   }
   const checkpoint = result.checkpoint === undefined ? undefined : externalCheckpoint(result.checkpoint);
   if (checkpoint !== undefined) remember(workspace, checkpoint);
@@ -247,7 +285,11 @@ function publicResult(
     partialCompletion: !result.complete && result.stages.some((item) => item.applied),
     ...(result.failedStage === undefined ? {} : { failedStage: result.failedStage }),
     ...(result.why === undefined ? {} : { why: result.why }),
-    requested: { containerKind: input.containerKind, entries: input.entries },
+    requested: {
+      containerKind: input.containerKind, containerPosition: input.containerPosition,
+      entries: input.entries,
+    },
+    capacities: result.capacities,
     stages: result.stages.map((item) => ({
       stage: item.stage, ...(item.entryIndex === undefined ? {} : { entryIndex: item.entryIndex }),
       change: receiptOf(workspace.changes.require(item.changeId)),
@@ -264,6 +306,7 @@ function publicResult(
 function publicReversal(
   workspace: Workspace, result: GeneralDeviceCompositionReversal,
 ): Record<string, unknown> {
+  const checkpoint = result.checkpoint === undefined ? undefined : externalCheckpoint(result.checkpoint);
   return {
     applied: result.stages.some((item) => item.applied), complete: result.complete,
     partialReversal: !result.complete && result.stages.some((item) => item.applied),
@@ -274,6 +317,10 @@ function publicReversal(
       change: receiptOf(workspace.changes.require(item.changeId)),
     })),
     containerRemoved: result.containerRemoved, restoredDeviceOrder: result.restoredDeviceOrder,
+    ...(checkpoint === undefined ? {} : {
+      reversalCheckpoint: checkpoint,
+      reversal: 'Retry reverse_device_source_composition with reversalCheckpoint.',
+    }),
   };
 }
 
@@ -281,13 +328,27 @@ function externalCheckpoint(checkpoint: GeneralDeviceCompositionCheckpoint) {
   return {
     schemaVersion: checkpoint.schemaVersion, state: checkpoint.state,
     trackId: checkpoint.track.channelId, containerKind: checkpoint.containerKind,
+    requestedContainerPosition: checkpoint.requestedContainerPosition,
     containerInsertChangeId: checkpoint.containerInsertTakeId,
     insertedContainerPosition: checkpoint.insertedContainerPosition,
     currentContainerPosition: checkpoint.currentContainerPosition,
+    seedUnchanged: checkpoint.seedUnchanged, lastWriteAt: checkpoint.lastWriteAt,
     originalDeviceOrder: checkpoint.originalDeviceOrder,
     entryNames: checkpoint.entryNames, preparedEntryNames: checkpoint.preparedEntryNames,
     completedEntries: checkpoint.completedEntries,
+    ...(checkpoint.pendingUnwitnessedSource === undefined ? {} : {
+      pendingUnwitnessedSource: checkpoint.pendingUnwitnessedSource,
+    }),
     ...(checkpoint.pendingEntry === undefined ? {} : { pendingEntry: checkpoint.pendingEntry }),
+    ...(checkpoint.reversalRemainingEntries === undefined ? {} : {
+      reversalRemainingEntries: checkpoint.reversalRemainingEntries,
+    }),
+    ...(checkpoint.reversalPendingTopLevel === undefined ? {} : {
+      reversalPendingTopLevel: checkpoint.reversalPendingTopLevel,
+    }),
+    ...(checkpoint.reversalContainerRemoved === undefined ? {} : {
+      reversalContainerRemoved: checkpoint.reversalContainerRemoved,
+    }),
   };
 }
 
@@ -297,13 +358,27 @@ function internalCheckpoint(
   return {
     schemaVersion: checkpoint.schemaVersion, state: checkpoint.state,
     track: trackAt(checkpoint.trackId), containerKind: checkpoint.containerKind,
+    requestedContainerPosition: checkpoint.requestedContainerPosition,
     containerInsertTakeId: checkpoint.containerInsertChangeId,
     insertedContainerPosition: checkpoint.insertedContainerPosition,
     currentContainerPosition: checkpoint.currentContainerPosition,
+    seedUnchanged: checkpoint.seedUnchanged, lastWriteAt: checkpoint.lastWriteAt,
     originalDeviceOrder: checkpoint.originalDeviceOrder,
     entryNames: checkpoint.entryNames, preparedEntryNames: checkpoint.preparedEntryNames,
     completedEntries: checkpoint.completedEntries,
+    ...(checkpoint.pendingUnwitnessedSource === undefined ? {} : {
+      pendingUnwitnessedSource: checkpoint.pendingUnwitnessedSource,
+    }),
     ...(checkpoint.pendingEntry === undefined ? {} : { pendingEntry: checkpoint.pendingEntry }),
+    ...(checkpoint.reversalRemainingEntries === undefined ? {} : {
+      reversalRemainingEntries: checkpoint.reversalRemainingEntries,
+    }),
+    ...(checkpoint.reversalPendingTopLevel === undefined ? {} : {
+      reversalPendingTopLevel: checkpoint.reversalPendingTopLevel,
+    }),
+    ...(checkpoint.reversalContainerRemoved === undefined ? {} : {
+      reversalContainerRemoved: checkpoint.reversalContainerRemoved,
+    }),
   };
 }
 
@@ -325,7 +400,21 @@ function isIssued(
 
 function refusal(error: unknown): Record<string, unknown> {
   return {
-    refused: true, nothingWasWritten: true,
+    refused: true, nothingWasWritten: true, capacities: GENERAL_DEVICE_COMPOSITION_CAPACITIES,
     why: `Nothing was written. ${error instanceof Error ? error.message : String(error)}`,
   };
+}
+
+function inputDevices(entry: {
+  readonly entryName: string;
+  readonly source: z.infer<typeof source>;
+  readonly modulators: readonly z.infer<typeof modulation>[];
+} | {
+  readonly entryName: string;
+  readonly devices: readonly {
+    readonly source: z.infer<typeof source>;
+    readonly modulators: readonly z.infer<typeof modulation>[];
+  }[];
+}) {
+  return 'devices' in entry ? entry.devices : [{ source: entry.source, modulators: entry.modulators }];
 }

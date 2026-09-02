@@ -7,8 +7,13 @@ import {
   listChains, listModulators, modulatorListOffsets, readMeta, stubValues, validate,
 } from '../bwmod/index.js';
 import {
+  GENERAL_CONTAINER_SEED_MANIFEST_PATH,
   OWNED_FX_LAYER_MANIFEST_PATH, OWNED_FX_LAYER_TEMPLATE_PATH,
 } from './assets.js';
+import {
+  composeGeneralDeviceContainerPreset, type GeneralDeviceContainerKind,
+} from './existing-device-wrapper.js';
+import { fiveEntryLayerSeedPreset } from './layer-seeds.js';
 
 interface LateBoundManifest {
   readonly schemaVersion: number;
@@ -38,6 +43,34 @@ interface LateBoundManifest {
     readonly packagedFileIds: readonly string[];
     readonly sampledPresetReferenceStubs: number;
   };
+}
+
+interface GeneralContainerSeedManifest {
+  readonly schemaVersion: number;
+  readonly authoring: {
+    readonly bitwigVersion: string;
+    readonly creator: string;
+    readonly origin: string;
+    readonly sourceEvidence: string;
+  };
+  readonly assets: readonly {
+    readonly id: string;
+    readonly libraryName: string;
+    readonly containerName: GeneralDeviceContainerKind;
+    readonly containerGuid: string;
+    readonly containerGuidOffset: number;
+    readonly sha256: string;
+    readonly byteLength: number;
+    readonly outerModulatorListOffset: number;
+    readonly maximumEntries: number;
+    readonly chains: readonly {
+      readonly index: number;
+      readonly name: string;
+      readonly start: number;
+      readonly end: number | null;
+    }[];
+    readonly sampleReferenceStubs: number;
+  }[];
 }
 
 test('5o-asset: the human-authored empty FX Layer seed matches its manifest', () => {
@@ -74,4 +107,78 @@ test('5o-asset: the human-authored empty FX Layer seed matches its manifest', ()
   assert.equal(stubValues(preset).length,
     manifest.externalReferences.sampledPresetReferenceStubs);
   assert.equal(validate(preset, { listIndex: 0 }).ok, true);
+});
+
+test('5r-assets: both supported human-saved seeds match their exact manifest facts', () => {
+  const manifest = JSON.parse(
+    readFileSync(GENERAL_CONTAINER_SEED_MANIFEST_PATH, 'utf8'),
+  ) as GeneralContainerSeedManifest;
+  assert.equal(manifest.schemaVersion, 1);
+  assert.deepEqual(manifest.authoring, {
+    bitwigVersion: '6.0.6', creator: 'jrajav', origin: 'human-authored',
+    sourceEvidence: 'phase-5-session-5r',
+  });
+
+  const sources = new Map<GeneralDeviceContainerKind, Buffer>([
+    ['Instrument Layer', fiveEntryLayerSeedPreset('Instrument Layer')],
+    ['FX Layer', fiveEntryLayerSeedPreset('FX Layer')],
+  ]);
+  assert.deepEqual(manifest.assets.map((asset) => asset.containerName), [...sources.keys()]);
+  for (const asset of manifest.assets) {
+    const preset = sources.get(asset.containerName)!;
+    const meta = readMeta(preset);
+    const guid = Buffer.from(asset.containerGuid.replaceAll('-', ''), 'hex');
+    assert.equal(createHash('sha256').update(preset).digest('hex'), asset.sha256, asset.id);
+    assert.equal(preset.length, asset.byteLength, asset.id);
+    assert.deepEqual(
+      preset.subarray(asset.containerGuidOffset, asset.containerGuidOffset + guid.length),
+      guid,
+      asset.id,
+    );
+    assert.equal(meta.get('application_version_name'), manifest.authoring.bitwigVersion, asset.id);
+    assert.equal(meta.get('creator'), manifest.authoring.creator, asset.id);
+    assert.equal(meta.get('device_name'), asset.containerName, asset.id);
+    assert.equal(meta.get('device_id'), asset.containerGuid, asset.id);
+    assert.deepEqual(modulatorListOffsets(preset), [asset.outerModulatorListOffset], asset.id);
+    assert.deepEqual(listModulators(preset, 0), [], asset.id);
+    assert.deepEqual(listChains(preset), asset.chains, asset.id);
+    assert.equal(asset.maximumEntries, 5, asset.id);
+    assert.equal(stubValues(preset).length, asset.sampleReferenceStubs, asset.id);
+    assert.equal(validate(preset, { listIndex: 0 }).ok, true, asset.id);
+  }
+});
+
+for (const kind of ['Instrument Layer', 'FX Layer'] as const) {
+  for (let width = 1; width <= 5; width++) {
+    test(`5r-${kind}-width-${width}: retains one exact complete layer suffix`, async () => {
+      const result = await composeGeneralDeviceContainerPreset(kind, [], { entryCount: width });
+      const first = 5 - width;
+      assert.deepEqual(
+        listChains(result.preset).map((entry) => entry.name),
+        Array.from({ length: width }, (_, index) => `CHAIN${first + index}`),
+      );
+      assert.deepEqual(listModulators(result.preset, 0), []);
+      assert.equal(validate(result.preset, { listIndex: 0 }).ok, true);
+    });
+  }
+}
+
+test('5r-layer-routes: retained suffixes use normalized live route positions', async () => {
+  const target = { parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency' };
+  for (const kind of ['Instrument Layer', 'FX Layer'] as const) {
+    const result = await composeGeneralDeviceContainerPreset(kind, [
+      { entryIndex: 0, deviceIndex: 0, modulator: 'lfo', target, amount: 0.5 },
+      { entryIndex: 1, deviceIndex: 2, modulator: 'lfo', target, amount: 1 },
+    ], { entryCount: 2 });
+    assert.deepEqual(result.routes.map((route) => route.route), [
+      'CONTENTS/CHAIN_LIST/CHAIN0/DEVICE_CHAIN/0:CONTENTS/F1FREQ',
+      'CONTENTS/CHAIN_LIST/CHAIN1/DEVICE_CHAIN/2:CONTENTS/F1FREQ',
+    ], kind);
+    assert.deepEqual(
+      listModulators(result.preset, 0).flatMap((modulator) =>
+        modulator.routes.map((route) => route.target)),
+      result.routes.map((route) => route.route),
+      kind,
+    );
+  }
 });

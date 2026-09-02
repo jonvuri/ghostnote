@@ -73,7 +73,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase2Session2e ?? []), ...(golden.addedInPhase2Session2i ?? []),
       ...(golden.addedInPhase4Session4b ?? []), ...(golden.addedInPhase4Session4f ?? []),
       ...(golden.addedInPhase4Session4g ?? []), ...(golden.addedInPhase4Session4h1 ?? []),
-      ...(golden.addedInPhase5Session5o ?? [])];
+      ...(golden.addedInPhase5Session5o ?? []), ...(golden.addedInPhase5Session5r ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -421,6 +421,11 @@ test('5o: the refused empty named-slot move remains probe-only', () => {
   assert.ok(start >= 0 && end > start, 'the named-slot move handler must exist');
   assert.match(handler, /if \(cursorIndex != 0\)/,
     'the cursor-0 destination must reject sources from other cursor tracks');
+});
+
+test('5r: indexed named-slot selection is product wire', () => {
+  assert.deepEqual(golden.addedInPhase5Session5r ?? [], ['devcursor.selectInSlot']);
+  assert.ok(WIRE_METHODS_USED.includes('devcursor.selectInSlot'));
 });
 
 test('5b: remote automation state is subscribed before live route proof', () => {

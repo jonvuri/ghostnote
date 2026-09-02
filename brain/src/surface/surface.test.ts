@@ -543,6 +543,7 @@ test('3g-d: an inserted but unconfirmed device container creates no managed even
   for (const id of [
     'a9ffacb5-33e9-4fc7-8621-b1af31e410ef',
     'f2dcfe9a-7b66-4c84-984a-b25685a1c21a',
+    'a9ffacb5-33e9-4fc7-8621-b1af31e410ef',
   ]) {
     assert.equal((await call(fx, 'add_device', {
       devices: [{ trackId: fx.trackA, from: 'bitwig', id }],
@@ -1646,13 +1647,16 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
   assert.equal(refusedGeneralComposition['refused'], true);
   const refusedGeneralReversal = await exercise('reverse_device_source_composition', {
     checkpoint: {
-      schemaVersion: 1,
+      schemaVersion: 5,
       state: 'composing',
       trackId: fx.trackA,
       containerKind: 'FX Layer',
+      requestedContainerPosition: 0,
       containerInsertChangeId: 'not-a-general-session-change',
       insertedContainerPosition: 1,
       currentContainerPosition: 0,
+      seedUnchanged: false,
+      lastWriteAt: { revision: 0, generation: '', project: '' },
       originalDeviceOrder: [{ name: 'Polysynth', enabled: true }],
       entryNames: ['Moved'],
       preparedEntryNames: ['Moved'],
@@ -2531,7 +2535,10 @@ test('T-selective-reduction: an unobservable temporary container position refuse
     names: ['gn-keep-a', 'gn-remove', 'gn-keep-b'],
   }) as { structure: { container: { devicePosition: number } } };
   await call(fx, 'add_device', {
-    devices: [{ trackId: fx.trackA, from: 'bitwig', id: 'gn-anchor' }],
+    devices: [
+      { trackId: fx.trackA, from: 'bitwig', id: 'gn-anchor' },
+      { trackId: fx.trackA, from: 'bitwig', id: 'gn-anchor-2' },
+    ],
   });
   const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
   const before = JSON.stringify(track.devices);

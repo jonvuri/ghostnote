@@ -120,6 +120,7 @@ export function describeAddress(address: Address): Where {
       };
     case 'chain':
     case 'drumPad':
+    case 'deviceSlot':
     case 'device':
       return {
         what: 'device',

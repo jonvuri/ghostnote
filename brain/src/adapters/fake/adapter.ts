@@ -241,10 +241,18 @@ export class FakeAdapter implements BitwigAdapter {
         continue;
       }
       if (step.kind === 'deviceSlot') {
-        if (target.chainIndex !== 0) return { ok: false, miss: 'unsupported' };
-        const first = current.deviceSlots?.[step.name]?.[0];
-        if (first === undefined) return { ok: false, miss: 'absent' };
-        current = first;
+        if (target.chainIndex > 0 && at > 0) return { ok: false, miss: 'unsupported' };
+        if (target.chainIndex >= this.model.chainDeviceBankSize) {
+          return { ok: false, miss: 'outside-bank-window' };
+        }
+        const slot = current.deviceSlots?.[step.name];
+        const nested = slot?.[target.chainIndex];
+        if (nested === undefined) {
+          return { ok: false, miss: slot === undefined
+            || slot.length <= this.model.chainDeviceBankSize
+            ? 'absent' : 'outside-bank-window' };
+        }
+        current = nested;
         continue;
       }
 
@@ -761,6 +769,7 @@ export class FakeAdapter implements BitwigAdapter {
         return { address, fidelity: 'exact', value: { of: 'remote', remote: control } };
       }
       case 'drumPad':
+      case 'deviceSlot':
         return undefined;
       case 'scene':
         return undefined;
@@ -1338,6 +1347,9 @@ export class FakeAdapter implements BitwigAdapter {
             value: 0.5,
           })),
           ...(shipped === undefined ? {} : { chains: shipped }),
+          ...(op.expectedDeviceName === 'Chain' ? {
+            deviceSlots: { CHAIN: [] },
+          } : {}),
           ...(sourceId === ProjectModel.DRUM_MACHINE_UUID
             ? { drumPads: Array.from({ length: this.model.drumPadBankSize }, () => []) }
             : {}),
@@ -1565,16 +1577,28 @@ export class FakeAdapter implements BitwigAdapter {
       }
 
       case 'chain.relocate': {
-        if (op.source.chain !== undefined && op.source.chain.kind !== 'chain') {
-          throw new UnsupportedOpError(`${op.op}: the source parent is not a layer chain`, 'fake');
+        if (op.source.chain?.kind === 'drumPad') {
+          throw new UnsupportedOpError(`${op.op}: the source parent is a drum pad`, 'fake');
         }
         const track = this.requireTrack(op.source.track, op.op);
         this.assertExpectedDeviceChain(
           op.op, track, op.expectedChain, op.expectedEnabledChain,
         );
-        const findChain = (address: typeof op.destination & { kind: 'chain' }) => {
-          const chains = track.devices[address.container.chainIndex]?.chains;
-          const matches = chains?.filter((chain) => chain.name === address.name) ?? [];
+        const findNested = (address: Exclude<typeof op.destination, { kind: 'track' }>) => {
+          const container = track.devices[address.container.chainIndex];
+          if (address.kind === 'deviceSlot') {
+            const devices = container?.deviceSlots?.[address.name];
+            if (devices === undefined) {
+              throw new UnsupportedOpError(`${op.op}: device slot "${address.name}" is absent`, 'fake');
+            }
+            if (devices.length === 0) {
+              throw new UnsupportedOpError(
+                `${op.op}: an empty device slot is not independently observable`, 'fake',
+              );
+            }
+            return devices;
+          }
+          const matches = container?.chains?.filter((chain) => chain.name === address.name) ?? [];
           if (matches.length !== 1) {
             throw new UnsupportedOpError(
               `${op.op}: chain "${address.name}" ${matches.length === 0 ? 'is absent' : 'is ambiguous'}`,
@@ -1585,10 +1609,10 @@ export class FakeAdapter implements BitwigAdapter {
         };
         const sourceDevices = op.source.chain === undefined
           ? track.devices
-          : findChain(op.source.chain);
+          : findNested(op.source.chain);
         const destinationDevices = op.destination.kind === 'track'
           ? track.devices
-          : findChain(op.destination);
+          : findNested(op.destination);
         const sourceLimit = op.source.chain === undefined
           ? this.model.deviceBankSize
           : this.model.chainDeviceBankSize;
@@ -1618,6 +1642,10 @@ export class FakeAdapter implements BitwigAdapter {
               id: this.model.mintChannelId(),
               devices: chain.devices.map(clone),
             })),
+          }),
+          ...(device.deviceSlots === undefined ? {} : {
+            deviceSlots: Object.fromEntries(Object.entries(device.deviceSlots)
+              .map(([name, devices]) => [name, devices.map(clone)])),
           }),
         });
         if (op.mode === 'move') sourceDevices.splice(op.source.chainIndex, 1);

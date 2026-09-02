@@ -188,6 +188,7 @@ export const WIRE = {
   deviceCursorSelectInLayer: 'devcursor.selectInLayer',
   deviceCursorSelectFirstInPad: 'devcursor.selectFirstInPad',
   deviceCursorSelectFirstInSlot: 'devcursor.selectFirstInSlot',
+  deviceCursorSelectInSlot: 'devcursor.selectInSlot',
   deviceCursorSelectParent: 'devcursor.selectParent',
 
   batchRun: 'batch.run',

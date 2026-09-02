@@ -105,7 +105,7 @@ export interface FakeDevice {
   chains?: FakeChain[];
   /** Devices in each drum-pad channel. The measured route selects the first. */
   drumPads?: FakeDevice[][];
-  /** Devices in named device-chain slots. The measured route selects the first. */
+  /** Devices in named device-chain slots. */
   deviceSlots?: Record<string, FakeDevice[]>;
   remotePages?: {
     name: string;
@@ -168,7 +168,7 @@ export class ProjectModel {
    * see every chain everywhere would certify resolution live Bitwig answers with
    * silence, and "we could not look" would ship as "it is not there".
    */
-  containerScopes = 2;
+  containerScopes = 3;
   chainBankSize = 5;
   chainDeviceBankSize = 4;
   drumPadBankSize = 16;
@@ -681,7 +681,8 @@ export class ProjectModel {
    */
   observeContainer(track: FakeTrack, containerIndex: number): ObservedContainer | undefined {
     if (containerIndex < 0 || containerIndex >= this.containerScopes) return undefined;
-    const held = track.devices[containerIndex]?.chains ?? [];
+    const device = track.devices[containerIndex];
+    const held = device?.chains ?? [];
     const visible = held.slice(0, this.chainBankSize);
     return {
       chains: visible.map((c, index) => {
@@ -708,12 +709,28 @@ export class ProjectModel {
           devicesBankSize: this.chainDeviceBankSize,
         };
       }),
-      chainsComplete: visible.length < this.chainBankSize,
+      chainsComplete: held.length <= this.chainBankSize && visible.length === held.length,
       // ⚠ Reported for the guards that have to reason about a container two
       // creates from now — see `ObservedContainer.chainsBankSize`. The fake
       // carries the same number the rig does (`Rig.SLOT_LAYER_BANK`), because a
       // fake with a roomier bank would pass batches live Bitwig strands.
       chainsBankSize: this.chainBankSize,
+      slots: Object.entries(device?.deviceSlots ?? {}).map(([name, heldDevices]) => {
+        const devices = heldDevices.slice(0, this.chainDeviceBankSize);
+        return {
+          name,
+          devices: devices.map((nested, index) => ({
+            index, name: nested.name, enabled: nested.enabled ?? true,
+          })),
+          // E90/E93: an empty named slot has no selectable device cursor.
+          // The host cannot prove its device bank until one device exists.
+          devicesComplete: heldDevices.length > 0
+            && heldDevices.length <= this.chainDeviceBankSize,
+          devicesBankSize: this.chainDeviceBankSize,
+        };
+      }),
+      slotsComplete: Object.values(device?.deviceSlots ?? {}).every((devices) =>
+        devices.length > 0 && devices.length <= this.chainDeviceBankSize),
     };
   }
 

@@ -31,10 +31,11 @@ import {
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
   chainPath, chooseStepSize, clip as clipAt, contentDelta, device as deviceAt, deviceIn,
+  deviceSlot,
   hasUnverifiedProps, planStages,
-  lookupChain, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
+  lookupChain, lookupDevice, lookupDeviceSlot, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
-  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type Fidelity,
+  type BitwigAdapter, type ChainAddress, type ChainMiss, type ClipAddress, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type DeviceSlotAddress, type Fidelity,
   type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type ObservedDrumPadBank, type Op, type ParamState, type ResolveResult, type ResolvedAddress, type RevisionMark,
   type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
@@ -108,14 +109,39 @@ interface WireInventoryScope {
   status?: string;
   deviceExists?: boolean;
   deviceName?: string;
+  hasSlots?: boolean;
+  slotNames?: string[];
   chains?: WireInventoryChain[];
+  visibleChainCount?: number;
   chainCount?: number;
   chainBankSize?: number;
   deviceBankSize?: number;
+  namedSlotStatus?: string;
+  namedSlotComplete?: boolean;
+  namedSlot?: {
+    name?: string;
+    devices?: { index: number; name?: string; enabled?: boolean }[];
+    deviceCount?: number;
+    deviceBankSize?: number;
+  };
+}
+
+interface WireCursorInventoryScope {
+  status?: string;
+  deviceExists?: boolean;
+  deviceName?: string;
+  deviceIndex?: number;
+  isNested?: boolean;
+  parentDeviceIndex?: number;
+  parentDeviceName?: string;
+  slotName?: string;
+  namedSlotComplete?: boolean;
+  namedSlot?: WireInventoryScope['namedSlot'];
 }
 
 interface WireInventory {
   scopes?: WireInventoryScope[];
+  cursorScope?: WireCursorInventoryScope;
   trackName?: string;
   trackChannelId?: string;
 }
@@ -599,6 +625,8 @@ export class LiveAdapter implements BitwigAdapter {
   private readonly fixedNoteReadCursorRef: boolean;
   /** Top-level device-bank width, fixed at extension init. */
   private deviceBankSize: number | undefined;
+  /** Top-level container positions with complete fixed observation scopes. */
+  private containerScopeSize = 3;
   /**
    * ⚠ How wide the SCENE window is — the number rule 5's second population is an
    * inequality over, and the one nothing in this file used to hold.
@@ -702,6 +730,7 @@ export class LiveAdapter implements BitwigAdapter {
       cursorPool?: number;
       scenes?: number;
       deviceBank?: number;
+      containerScopes?: number;
     };
     this.gridSteps = rig.gridSteps;
     this.fineSteps = rig.fineSteps;
@@ -710,6 +739,7 @@ export class LiveAdapter implements BitwigAdapter {
       this.noteReadCursorRef = 'fine';
     }
     this.deviceBankSize = rig.deviceBank;
+    this.containerScopeSize = rig.containerScopes ?? this.containerScopeSize;
     // The rig allocates its cursor pool at init and cannot grow it afterwards
     // (D7 — allocation is init-only and enforced), so this is the real ceiling.
     if (!this.fixedCursorRefs && rig.cursorPool !== undefined) {
@@ -1164,6 +1194,7 @@ export class LiveAdapter implements BitwigAdapter {
 
     let targetName = topTarget.name;
     for (const [at, step] of path.entries()) {
+      let indexedSlotSelection = false;
       const nestedAddress = path[at + 1]?.container ?? device;
       if (nestedAddress.chain === undefined
           || addressKey(deviceIn(nestedAddress.chain, 0)) !== addressKey(deviceIn(step, 0))) {
@@ -1191,11 +1222,40 @@ export class LiveAdapter implements BitwigAdapter {
         });
         targetName = '';
       } else if (step.kind === 'deviceSlot') {
-        if (nestedAddress.chainIndex !== 0) return { standing: 'unreachable' };
-        await this.transport.send({
-          method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: step.name },
-        });
-        targetName = '';
+        if (nestedAddress.chainIndex === 0) {
+          await this.transport.send({
+            method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: step.name },
+          });
+          targetName = '';
+        } else {
+          // Fixed named-slot banks exist only for top-level container scopes.
+          if (at !== 0) return { standing: 'unreachable' };
+          const scope = await this.containerScope(device.track, step.container.chainIndex);
+          if (!scope.ok) {
+            return { standing: scope.miss === 'absent' ? 'missing' : 'unreachable' };
+          }
+          const foundSlot = lookupDeviceSlot(scope.container, step.name);
+          if (!foundSlot.ok) {
+            return { standing: foundSlot.miss === 'absent' ? 'missing'
+              : foundSlot.miss === 'ambiguous' ? 'ambiguous' : 'unreachable' };
+          }
+          const foundDevice = lookupDevice(foundSlot.slot, nestedAddress.chainIndex);
+          if (!foundDevice.ok) {
+            return { standing: foundDevice.miss === 'absent' ? 'missing'
+              : foundDevice.miss === 'ambiguous' ? 'ambiguous' : 'unreachable' };
+          }
+          await this.transport.send({
+            method: WIRE.deviceCursorSelectInSlot,
+            params: {
+              containerIndex: step.container.chainIndex,
+              slot: step.name,
+              deviceIndex: nestedAddress.chainIndex,
+              expectedDeviceName: foundDevice.device.name,
+            },
+          });
+          targetName = foundDevice.device.name;
+          indexedSlotSelection = true;
+        }
       } else {
         const inventory = await this.transport.send({ method: WIRE.layerList }) as WireLayerInventory;
         const layers = inventory.layers ?? [];
@@ -1247,7 +1307,7 @@ export class LiveAdapter implements BitwigAdapter {
       }
       if (!descended) return { standing: 'unstable', deviceName: targetName || undefined };
 
-      if (step.kind === 'deviceSlot') {
+      if (step.kind === 'deviceSlot' && !indexedSlotSelection) {
         // An empty slot leaves the cursor on its parent. Prove the parent edge,
         // then repeat the descent before this cursor can serve an observer.
         const childName = targetName;
@@ -1706,11 +1766,17 @@ export class LiveAdapter implements BitwigAdapter {
     // it means live is not a bound. Eight passes is ~1s at the structural budget
     // against a measured need of ~100ms.
     let reply: WireInventory | undefined;
+    let trackReply: WireInventory | undefined;
     for (let attempt = 0; attempt < 8; attempt += 1) {
       this.heldClips.delete('0');
       await this.transport.send({
         method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex },
       });
+      if (containerIndex < this.containerScopeSize) {
+        await this.transport.send({
+          method: WIRE.deviceCursorSelectAt, params: { deviceIndex: containerIndex },
+        });
+      }
       // The fast path stays fast: a cursor already on this track answers on the
       // first pass at the cursor budget. Only a mismatch pays the structural one.
       await this.settle(attempt === 0 ? 'cursorPoint' : 'trackStruct');
@@ -1718,9 +1784,40 @@ export class LiveAdapter implements BitwigAdapter {
       // ⚠ The identity guard, before anything in the reply is believed. `trackName`
       // rides along too and is deliberately NOT used for this: a name is not an
       // identity (standing rule 2), and two tracks may share one.
-      if (reply.trackChannelId === trackRef.channelId) break;
+      if (reply.trackChannelId !== trackRef.channelId) {
+        reply = undefined;
+        continue;
+      }
+      trackReply = reply;
+      const fixedScope = (reply.scopes ?? [])[containerIndex];
+      const slotName = fixedScope?.hasSlots === true && fixedScope.slotNames?.length === 1
+        ? fixedScope.slotNames[0] : undefined;
+      if (slotName === undefined || fixedScope?.deviceExists !== true
+          || containerIndex >= this.containerScopeSize) break;
+      await this.transport.send({
+        method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: slotName },
+      });
+      await this.settle('trackStruct');
+      const nestedReply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
+      if (nestedReply.trackChannelId !== trackRef.channelId) {
+        reply = undefined;
+        continue;
+      }
+      trackReply = nestedReply;
+      const cursorScope = nestedReply.cursorScope;
+      const cursorSettled = cursorScope?.status === 'held'
+        && cursorScope.deviceExists === true
+        && cursorScope.isNested === true
+        && cursorScope.parentDeviceIndex === containerIndex
+        && cursorScope.parentDeviceName === fixedScope.deviceName
+        && cursorScope.slotName === slotName;
+      if (cursorSettled) {
+        reply = nestedReply;
+        break;
+      }
       reply = undefined;
     }
+    reply ??= trackReply;
     if (reply === undefined) return { ok: false, miss: 'unsupported' };
     const scope = (reply.scopes ?? [])[containerIndex];
     if (scope === undefined) return { ok: false, miss: 'outside-bank-window' };
@@ -1728,6 +1825,22 @@ export class LiveAdapter implements BitwigAdapter {
     const chainBank = scope.chainBankSize;
     const deviceBank = scope.deviceBankSize;
     const chains = scope.chains ?? [];
+    const cursorScope = reply.cursorScope;
+    const cursorSlotMatches = cursorScope?.status === 'held'
+      && cursorScope.deviceExists === true
+      && cursorScope.isNested === true
+      && cursorScope.parentDeviceName === scope.deviceName
+      && cursorScope.parentDeviceIndex === containerIndex
+      && scope.slotNames?.length === 1
+      && cursorScope.slotName === scope.slotNames[0];
+    const useCursorSlot = cursorSlotMatches;
+    const namedSlot = useCursorSlot ? cursorScope?.namedSlot : scope.namedSlot;
+    const cursorSlotRequired = scope.deviceExists === true && scope.hasSlots === true
+      && scope.slotNames?.length === 1 && containerIndex < this.containerScopeSize;
+    const namedSlotComplete = cursorSlotRequired
+      ? cursorSlotMatches && cursorScope?.namedSlotComplete === true
+      : scope.namedSlotStatus === 'held' && scope.namedSlotComplete === true;
+    const namedSlotDevices = namedSlot?.devices ?? [];
     return {
       ok: true,
       // ⚠ `undefined` means the position holds NO DEVICE — which is a real
@@ -1772,12 +1885,30 @@ export class LiveAdapter implements BitwigAdapter {
             && c.deviceCount <= deviceBank && (c.devices ?? []).length === c.deviceCount,
           ...(deviceBank === undefined ? {} : { devicesBankSize: deviceBank }),
         })),
-        chainsComplete: chainBank !== undefined && chains.length < chainBank,
+        chainsComplete: chainBank !== undefined && typeof scope.chainCount === 'number'
+          && scope.chainCount <= chainBank && chains.length === scope.chainCount
+          && chains.every((chain, index) => chain.index === index),
         // ⚠ Carried through so a guard can count a container it has no second
         // reading of — see `ObservedContainer.chainsBankSize`. Absent from an
         // older extension, which also makes `chainsComplete` false above, so a
         // create is refused either way rather than counted against a guess.
         ...(chainBank === undefined ? {} : { chainsBankSize: chainBank }),
+        slots: namedSlot === undefined ? [] : [{
+          name: namedSlot.name ?? '',
+          devices: namedSlotDevices.map((device) => ({
+            index: device.index,
+            name: device.name ?? '',
+            ...(typeof device.enabled === 'boolean' ? { enabled: device.enabled } : {}),
+          })),
+          devicesComplete: typeof namedSlot.deviceCount === 'number'
+            && typeof namedSlot.deviceBankSize === 'number'
+            && namedSlot.deviceCount <= namedSlot.deviceBankSize
+            && namedSlotDevices.length === namedSlot.deviceCount
+            && namedSlotDevices.every((device, index) => device.index === index),
+          ...(namedSlot.deviceBankSize === undefined
+            ? {} : { devicesBankSize: namedSlot.deviceBankSize }),
+        }],
+        slotsComplete: namedSlotComplete,
       },
     };
   }
@@ -1804,6 +1935,21 @@ export class LiveAdapter implements BitwigAdapter {
     if (address.kind !== 'chain' && address.kind !== 'device') return undefined;
     if (!nestingObservable(address)) return { address, found: false, reason: 'unsupported' as const };
     const container = address.kind === 'chain' ? address.container : address.chain!.container;
+    if (container.chainIndex >= this.containerScopeSize) {
+      return { address, found: false, reason: 'outside-bank-window' as const };
+    }
+    // Prove the top-level anchor before the shared container cursor is moved.
+    // An empty device position is absent even if that cursor still holds an
+    // older nested target from another request.
+    const top = await this.deviceChain(trackRef);
+    if (top === undefined) return { address, found: false, reason: 'absent' as const };
+    if (!top.devices.some((device) => device.index === container.chainIndex)) {
+      return {
+        address,
+        found: false,
+        reason: top.blind ? 'outside-bank-window' as const : 'absent' as const,
+      };
+    }
     const scope = await this.containerScope(trackRef, container.chainIndex);
     if (!scope.ok) return { address, found: false, reason: scope.miss };
     if (address.kind === 'chain') {
@@ -3484,7 +3630,7 @@ export class LiveAdapter implements BitwigAdapter {
 
   /** Enumerate one relocation endpoint through a handle other than the writer. */
   private async relocationSequence(
-    endpoint: TrackAddress | ChainAddress,
+    endpoint: TrackAddress | ChainAddress | DeviceSlotAddress,
   ): Promise<RelocationSequence> {
     if (endpoint.kind === 'track') {
       const observed = await this.deviceChain(endpoint);
@@ -3502,19 +3648,29 @@ export class LiveAdapter implements BitwigAdapter {
       throw new AddressUnresolvedError(endpoint, `container structure is ${scope.miss}`);
     }
     this.recordChainPositions(endpoint.container, scope.container);
-    const found = lookupChain(scope.container, endpoint.name);
-    if (!found.ok) {
-      const observed = scope.container.chains.map((item) => item.name).join(', ');
-      throw new AddressUnresolvedError(
-        endpoint,
-        `chain name is ${found.miss}; observed chain names: [${observed}]`,
-      );
+    let devices: ObservedDeviceSequence;
+    if (endpoint.kind === 'chain') {
+      const found = lookupChain(scope.container, endpoint.name);
+      if (!found.ok) {
+        const observed = scope.container.chains.map((item) => item.name).join(', ');
+        throw new AddressUnresolvedError(
+          endpoint, `chain name is ${found.miss}; observed names: [${observed}]`);
+      }
+      devices = found.chain;
+    } else {
+      const found = lookupDeviceSlot(scope.container, endpoint.name);
+      if (!found.ok) {
+        const observed = (scope.container.slots ?? []).map((item) => item.name).join(', ');
+        throw new AddressUnresolvedError(
+          endpoint, `deviceSlot name is ${found.miss}; observed names: [${observed}]`);
+      }
+      devices = found.slot;
     }
     return {
-      devices: found.chain.devices,
-      devicesComplete: found.chain.devicesComplete,
-      ...(found.chain.devicesBankSize === undefined
-        ? {} : { bankSize: found.chain.devicesBankSize }),
+      devices: devices.devices,
+      devicesComplete: devices.devicesComplete,
+      ...(devices.devicesBankSize === undefined
+        ? {} : { bankSize: devices.devicesBankSize }),
     };
   }
 
@@ -3523,8 +3679,8 @@ export class LiveAdapter implements BitwigAdapter {
     op: Extract<Op, { op: 'chain.relocate' }>,
     preflight: boolean,
   ): Promise<RelocationReading> {
-    if (op.source.chain !== undefined && op.source.chain.kind !== 'chain') {
-      throw new InvalidOpError(op.op, 'a chain relocation needs a layer-chain parent');
+    if (op.source.chain?.kind === 'drumPad') {
+      throw new InvalidOpError(op.op, 'a chain relocation cannot use a drum-pad parent');
     }
     const sourceEndpoint = op.source.chain ?? op.source.track;
     const source = await this.relocationSequence(sourceEndpoint);
@@ -3537,12 +3693,17 @@ export class LiveAdapter implements BitwigAdapter {
       !preflight
         && op.mode === 'move'
         && op.source.chain === undefined
-        && op.destination.kind === 'chain'
+        && op.destination.kind !== 'track'
         && op.source.chainIndex < op.destination.container.chainIndex
-        ? chainAt(
-          deviceAt(op.destination.container.track, op.destination.container.chainIndex - 1),
-          op.destination.name,
-        )
+        ? op.destination.kind === 'chain'
+          ? chainAt(
+            deviceAt(op.destination.container.track, op.destination.container.chainIndex - 1),
+            op.destination.name,
+          )
+          : deviceSlot(
+            deviceAt(op.destination.container.track, op.destination.container.chainIndex - 1),
+            op.destination.name,
+          )
         : op.destination,
     );
     if (preflight) {

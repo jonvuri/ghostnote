@@ -3,7 +3,9 @@ package com.ghostnote.extension.handlers;
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.Device;
+import com.bitwig.extension.controller.api.DeviceChain;
 import com.bitwig.extension.controller.api.DeviceLayer;
+import com.bitwig.extension.controller.api.DeviceSlot;
 import com.bitwig.extension.controller.api.DrumPad;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -1013,6 +1015,15 @@ public final class ContainerHandlers extends HandlerGroup {
             putGuarded(scope, "deviceExists", () -> slot.exists().get());
             putGuarded(scope, "deviceName", () -> slot.name().get());
             putGuarded(scope, "hasLayers", () -> slot.hasLayers().get());
+            putGuarded(scope, "hasSlots", () -> slot.hasSlots().get());
+            JsonArray slotNames = new JsonArray();
+            try {
+                for (String name : slot.slotNames().get()) slotNames.add(name);
+            } catch (Throwable t) {
+                scope.addProperty("slotNamesError",
+                    t.getClass().getSimpleName() + ":" + t.getMessage());
+            }
+            scope.add("slotNames", slotNames);
             JsonArray chains = new JsonArray();
             int existing = 0;
             if (rig.slotLayerBanks[s] != null) {
@@ -1054,23 +1065,77 @@ public final class ContainerHandlers extends HandlerGroup {
                 }
             }
             scope.add("chains", chains);
-            scope.addProperty("chainCount", existing);
-            // ⚠⚠ Session 3f step 6b — THE BANK SIZES, and they are not decoration.
-            // This enumeration SKIPS empty bank slots, so a full bank and an
-            // overflowing one produce byte-identical replies: "four chains, none
-            // of them named X" is either a complete answer or a partial one, and
-            // only the size separates the two. The resolver reports a chain it
-            // cannot see as outside the window rather than as absent, and without
-            // these numbers it cannot tell which it is looking at. An extension
-            // too old to send them makes the reader treat EVERY view as partial
-            // (`methodsHash` is over method names and cannot see a field appear,
-            // so silence has to fail closed).
+            scope.addProperty("visibleChainCount", existing);
+            if (rig.slotLayerBanks[s] != null) {
+                scope.addProperty("chainCount", rig.slotLayerBanks[s].itemCount().get());
+            }
+            // Session 5r: itemCount distinguishes a full bank from overflow.
+            // The bank sizes remain explicit so a projected create can refuse
+            // before it writes past the complete window. Older extensions omit
+            // itemCount, and the adapter treats that omission as incomplete.
             scope.addProperty("chainBankSize", Rig.SLOT_LAYER_BANK);
             scope.addProperty("deviceBankSize", Rig.SLOT_LAYER_DEVICE_BANK);
+            scope.addProperty("namedSlotStatus", "held");
+            try {
+                scope.addProperty("namedSlotComplete",
+                    !slot.hasSlots().get() && slot.slotNames().get().length == 0);
+            } catch (Throwable t) {
+                scope.addProperty("namedSlotComplete", false);
+                scope.addProperty("namedSlotError",
+                    t.getClass().getSimpleName() + ":" + t.getMessage());
+            }
             scopes.add(scope);
         }
         JsonObject result = new JsonObject();
         result.add("scopes", scopes);
+        // Chain's slot devices are visible only after the device cursor enters
+        // its nonempty CHAIN slot. Report the sibling bank with the recorded
+        // parent route, so the brain can bind it to one top-level container.
+        JsonObject cursorScope = new JsonObject();
+        cursorScope.addProperty("status", "held");
+        putGuarded(cursorScope, "deviceExists", () -> rig.cursorDevice0.exists().get());
+        putGuarded(cursorScope, "deviceName", () -> rig.cursorDevice0.name().get());
+        cursorScope.addProperty("deviceIndex", rig.currentDirectParameterDeviceIndex());
+        putGuarded(cursorScope, "isNested", () -> rig.cursorDevice0.isNested().get());
+        cursorScope.addProperty("namedSlotComplete", false);
+        try {
+            int topIndex = rig.directParameterTopLevelIndex;
+            boolean namedRoute = rig.directParameterRouteKinds.size() == 1
+                && "deviceSlot".equals(rig.directParameterRouteKinds.get(0));
+            if (rig.cursorDevice0.isNested().get() && namedRoute
+                    && topIndex >= 0 && topIndex < Rig.SLOT_SCOPES) {
+                Device parent = rig.cursorDeviceBanks[0].getDevice(topIndex);
+                String slotName = rig.directParameterRouteNames.get(0);
+                cursorScope.addProperty("parentDeviceIndex", topIndex);
+                putGuarded(cursorScope, "parentDeviceName", () -> parent.name().get());
+                putGuarded(cursorScope, "slotName", () -> rig.cursorDeviceChain0.name().get());
+                JsonObject entry = new JsonObject();
+                entry.addProperty("name", slotName);
+                JsonArray devices = new JsonArray();
+                for (int d = 0; d < Rig.SLOT_LAYER_DEVICE_BANK; d++) {
+                    Device nested = rig.cursorDeviceSiblings0.getDevice(d);
+                    if (!nested.exists().get()) continue;
+                    JsonObject dev = new JsonObject();
+                    dev.addProperty("index", d);
+                    putGuarded(dev, "name", () -> nested.name().get());
+                    putGuarded(dev, "enabled", () -> nested.isEnabled().get());
+                    devices.add(dev);
+                }
+                entry.add("devices", devices);
+                int count = rig.cursorDeviceSiblings0.itemCount().get();
+                entry.addProperty("deviceCount", count);
+                entry.addProperty("deviceBankSize", Rig.SLOT_LAYER_DEVICE_BANK);
+                cursorScope.add("namedSlot", entry);
+                cursorScope.addProperty("namedSlotComplete",
+                    parent.exists().get()
+                        && slotName.equals(rig.cursorDeviceChain0.name().get())
+                        && count <= Rig.SLOT_LAYER_DEVICE_BANK && devices.size() == count);
+            }
+        } catch (Throwable t) {
+            cursorScope.addProperty("namedSlotError",
+                t.getClass().getSimpleName() + ":" + t.getMessage());
+        }
+        result.add("cursorScope", cursorScope);
         // Named beside the scopes: an index means nothing without knowing which
         // TRACK the device bank is on (the e16o trap, one level up).
         putGuarded(result, "trackName", () -> rig.cursorTracks[0].name().get());
@@ -1115,22 +1180,22 @@ public final class ContainerHandlers extends HandlerGroup {
         String where = params.has("where") ? params.get("where").getAsString() : "chainEnd";
         String ref = params.has("cursor") ? params.get("cursor").getAsString() : "0";
 
-        if (!"top".equals(src) && !"chain".equals(src)) {
-            throw new IllegalArgumentException("src must be top or chain: " + src);
+        if (!"top".equals(src) && !"chain".equals(src) && !"slot".equals(src)) {
+            throw new IllegalArgumentException("src must be top, chain, or slot: " + src);
         }
-        if ("chain".equals(src) && (srcSlot < 0 || srcSlot >= Rig.SLOT_SCOPES)) {
+        if (!"top".equals(src) && (srcSlot < 0 || srcSlot >= Rig.SLOT_SCOPES)) {
             throw new IllegalArgumentException("srcSlot out of scope range: " + srcSlot);
         }
         if ("chain".equals(src) && (srcLayer < 0 || srcLayer >= Rig.SLOT_LAYER_BANK)) {
             throw new IllegalArgumentException("srcLayer out of bank range: " + srcLayer);
         }
-        int sourceBankSize = "chain".equals(src)
+        int sourceBankSize = !"top".equals(src)
             ? Rig.SLOT_LAYER_DEVICE_BANK : rig.config.deviceBank;
         if (srcDevice < 0 || srcDevice >= sourceBankSize) {
             throw new IllegalArgumentException("srcDevice out of bank range: " + srcDevice);
         }
-        if (!"top".equals(dst) && !"chain".equals(dst)) {
-            throw new IllegalArgumentException("dst must be top or chain: " + dst);
+        if (!"top".equals(dst) && !"chain".equals(dst) && !"slot".equals(dst)) {
+            throw new IllegalArgumentException("dst must be top, chain, or slot: " + dst);
         }
         if (!"move".equals(verb) && !"copy".equals(verb)) {
             throw new IllegalArgumentException("verb must be move or copy: " + verb);
@@ -1152,9 +1217,13 @@ public final class ContainerHandlers extends HandlerGroup {
                 "source scope " + srcSlot + " was never built: " + rig.slotScopeStatus[srcSlot]
                 + " (standing rule 13 — a missing handle and an API refusal look identical)");
         }
+        DeviceChain sourceNamedSlot = "slot".equals(src)
+            ? requireCursorNamedSlot(srcSlot, params, "expectedSourceChain") : null;
 
         Device source = "chain".equals(src)
             ? rig.slotLayerDeviceBanks[srcSlot][srcLayer].getDevice(srcDevice)
+            : "slot".equals(src)
+                ? rig.cursorDeviceSiblings0.getDevice(srcDevice)
             : rig.cursorDeviceBanks[0].getDevice(srcDevice);
         if ("chain".equals(src) && params.has("expectedSourceChain")) {
             String expected = params.get("expectedSourceChain").getAsString();
@@ -1162,6 +1231,15 @@ public final class ContainerHandlers extends HandlerGroup {
             if (!expected.equals(actual)) {
                 throw new IllegalArgumentException(
                     "source chain identity changed: expected \"" + expected + "\", got \"" + actual + "\"");
+            }
+        }
+        if ("slot".equals(src) && params.has("expectedSourceChain")) {
+            String expected = params.get("expectedSourceChain").getAsString();
+            String actual = sourceNamedSlot.name().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "source named-slot identity changed: expected \"" + expected
+                    + "\", got \"" + actual + "\"");
             }
         }
         if (params.has("expectedSourceName")) {
@@ -1177,6 +1255,9 @@ public final class ContainerHandlers extends HandlerGroup {
         r.addProperty("dst", dst);
         r.addProperty("where", where);
         if ("chain".equals(src)) r.addProperty("srcScopeStatus", rig.slotScopeStatus[srcSlot]);
+        if ("slot".equals(src)) {
+            r.addProperty("srcScopeStatus", "cursor-held");
+        }
         // ⚠ Read the source BEFORE the verb fires. Afterwards the banks re-index
         // (E3: deleting device[0] shifts the survivor from 1 to 0), so this handle
         // no longer necessarily refers to what moved — and a name read after the
@@ -1186,6 +1267,11 @@ public final class ContainerHandlers extends HandlerGroup {
         if ("chain".equals(src)) {
             putGuarded(r, "sourceChain",
                 () -> rig.slotLayerBanks[srcSlot].getItemAt(srcLayer).name().get());
+            putGuarded(r, "sourceContainer",
+                () -> rig.cursorDeviceBanks[0].getDevice(srcSlot).name().get());
+        }
+        if ("slot".equals(src)) {
+            putGuarded(r, "sourceChain", () -> sourceNamedSlot.name().get());
             putGuarded(r, "sourceContainer",
                 () -> rig.cursorDeviceBanks[0].getDevice(srcSlot).name().get());
         }
@@ -1201,7 +1287,7 @@ public final class ContainerHandlers extends HandlerGroup {
             target = "chainStart".equals(where)
                 ? rig.cursorTrack(ref).startOfDeviceChainInsertionPoint()
                 : rig.cursorTrack(ref).endOfDeviceChainInsertionPoint();
-        } else {
+        } else if ("chain".equals(dst)) {
             int dstSlot = params.get("dstSlot").getAsInt();
             int dstLayer = params.get("dstLayer").getAsInt();
             if (dstSlot < 0 || dstSlot >= Rig.SLOT_SCOPES) {
@@ -1246,6 +1332,42 @@ public final class ContainerHandlers extends HandlerGroup {
             target = "chainStart".equals(where)
                 ? destination.startOfDeviceChainInsertionPoint()
                 : destination.endOfDeviceChainInsertionPoint();
+        } else {
+            int dstSlot = params.get("dstSlot").getAsInt();
+            if (dstSlot < 0 || dstSlot >= Rig.SLOT_SCOPES) {
+                throw new IllegalArgumentException("dstSlot out of scope range: " + dstSlot);
+            }
+            if (!"top".equals(src) && dstSlot == srcSlot) {
+                throw new IllegalArgumentException(
+                    "the destination named slot is the source chain, so the move is a no-op");
+            }
+            if ("slot".equals(src)) {
+                throw new IllegalArgumentException(
+                    "a named-slot to named-slot move has only one cursor-bound slot handle");
+            }
+            DeviceChain destination = requireCursorNamedSlot(
+                dstSlot, params, "expectedDestinationChain");
+            if ("top".equals(src) && srcDevice == dstSlot) {
+                throw new IllegalArgumentException(
+                    "a container cannot be relocated into one of its own named slots");
+            }
+            if (params.has("expectedDestinationChain")) {
+                String expected = params.get("expectedDestinationChain").getAsString();
+                String actual = destination.name().get();
+                if (!destination.exists().get() || !expected.equals(actual)) {
+                    throw new IllegalArgumentException(
+                        "destination named-slot identity changed: expected \"" + expected
+                        + "\", got \"" + actual + "\"");
+                }
+            }
+            r.addProperty("dstSlot", dstSlot);
+            r.addProperty("dstScopeStatus", "cursor-held");
+            putGuarded(r, "dstChain", () -> destination.name().get());
+            putGuarded(r, "dstContainer",
+                () -> rig.cursorDeviceBanks[0].getDevice(dstSlot).name().get());
+            target = "chainStart".equals(where)
+                ? destination.startOfDeviceChainInsertionPoint()
+                : destination.endOfDeviceChainInsertionPoint();
         }
 
         if ("move".equals(verb)) {
@@ -1254,6 +1376,35 @@ public final class ContainerHandlers extends HandlerGroup {
             target.copyDevices(source);
         }
         return r;
+    }
+
+    /** Return the one cursor-bound named slot after exact parent validation. */
+    private DeviceChain requireCursorNamedSlot(
+            int containerIndex, JsonObject params, String expectedNameField) {
+        Device parent = rig.cursorDeviceBanks[0].getDevice(containerIndex);
+        if (!parent.exists().get() || !rig.cursorDevice0.exists().get()
+                || !rig.cursorDevice0.isNested().get()
+                || rig.directParameterTopLevelIndex != containerIndex
+                || rig.directParameterRouteKinds.size() != 1
+                || !"deviceSlot".equals(rig.directParameterRouteKinds.get(0))) {
+            throw new IllegalArgumentException(
+                "cursor named-slot container changed before relocation");
+        }
+        String slotName = rig.directParameterRouteNames.get(0);
+        if (!rig.cursorDeviceChain0.exists().get()
+                || !slotName.equals(rig.cursorDeviceChain0.name().get())) {
+            throw new IllegalArgumentException(
+                "cursor named-slot scope is not complete");
+        }
+        if (params.has(expectedNameField)) {
+            String expected = params.get(expectedNameField).getAsString();
+            if (!expected.equals(slotName)) {
+                throw new IllegalArgumentException(
+                    "cursor named-slot identity changed: expected \"" + expected
+                    + "\", got \"" + slotName + "\"");
+            }
+        }
+        return rig.cursorDeviceChain0;
     }
 
     /** Verify the complete top-level name and enabled-state guard before relocation. */

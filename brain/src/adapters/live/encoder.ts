@@ -691,22 +691,27 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
 
     case 'chain.relocate': {
       const sourceChain = op.source.chain;
-      if (sourceChain !== undefined && sourceChain.kind !== 'chain') {
-        throw new Error('chain.relocate cannot encode a non-layer-chain parent');
+      if (sourceChain !== undefined
+          && sourceChain.kind !== 'chain' && sourceChain.kind !== 'deviceSlot') {
+        throw new Error('chain.relocate cannot encode this nested parent');
       }
-      const destinationChain = op.destination.kind === 'chain' ? op.destination : undefined;
+      const destinationChain = op.destination.kind === 'chain'
+        || op.destination.kind === 'deviceSlot' ? op.destination : undefined;
       return [frame(WIRE.chainMove, {
-        src: sourceChain === undefined ? 'top' : 'chain',
+        src: sourceChain === undefined ? 'top'
+          : sourceChain.kind === 'chain' ? 'chain' : 'slot',
         srcDevice: op.source.chainIndex,
         ...(sourceChain === undefined ? {} : {
           srcSlot: sourceChain.container.chainIndex,
-          srcLayer: ctx.chainIndex(sourceChain),
+          ...(sourceChain.kind === 'chain' ? { srcLayer: ctx.chainIndex(sourceChain) } : {}),
           expectedSourceChain: sourceChain.name,
         }),
-        dst: destinationChain === undefined ? 'top' : 'chain',
+        dst: destinationChain === undefined ? 'top'
+          : destinationChain.kind === 'chain' ? 'chain' : 'slot',
         ...(destinationChain === undefined ? { where: 'chainEnd' } : {
           dstSlot: destinationChain.container.chainIndex,
-          dstLayer: ctx.chainIndex(destinationChain),
+          ...(destinationChain.kind === 'chain'
+            ? { dstLayer: ctx.chainIndex(destinationChain) } : {}),
           expectedDestinationChain: destinationChain.name,
         }),
         verb: op.mode,

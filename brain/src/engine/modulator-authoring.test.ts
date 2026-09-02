@@ -207,6 +207,25 @@ function containerFixture(): AuthoringFixture {
                 hasAutomation: false,
               }],
             }],
+          }, {
+            name: 'Polysynth',
+            paramsLive: true,
+            params: [{
+              id: 'CONTENTS/F1FREQ',
+              name: 'Filter Frequency',
+              value: 0.4,
+              modulatedValue: route?.endsWith('1:CONTENTS/F1FREQ') ? 0.7 : 0.4,
+              hasAutomation: false,
+            }],
+            remotePages: [{
+              name: 'FILTER',
+              controls: [{
+                name: 'Filt Freq',
+                value: 0.4,
+                modulatedValue: route?.endsWith('1:CONTENTS/F1FREQ') ? 0.7 : 0.4,
+                hasAutomation: false,
+              }],
+            }],
           }],
         };
       }
@@ -549,17 +568,16 @@ test('5d-container: omitting list selection refuses before apply', async () => {
   assert.equal(fx.calls.length, 0);
 });
 
-test('5d-container: a non-first device-slot witness refuses before apply', async () => {
+test('5r-container: a later device-slot witness uses its observed index', async () => {
   const fx = containerFixture();
-  await assert.rejects(
-    authorModulatorEdit(fx.host, {
+  const result = await authorModulatorEdit(fx.host, {
       track: fx.track,
       templatePath: join(FIXTURE_DIR, 'InstrumentLayer', 'gn_layer_4chain.bwpreset'),
       listIndex: 1,
       edit: {
         kind: 'retarget',
         index: 0,
-        target: 'CONTENTS/DEVICE_CHAIN/Chain/DEVICE_CHAIN/0:CONTENTS/F1FREQ',
+        target: 'CONTENTS/DEVICE_CHAIN/Chain/DEVICE_CHAIN/1:CONTENTS/F1FREQ',
       },
       behaviorWitnesses: [{
         expected: 'active',
@@ -567,12 +585,9 @@ test('5d-container: a non-first device-slot witness refuses before apply', async
         parameterName: 'Filter Frequency',
         nestedDevice: { slotName: 'CHAIN', chainIndex: 1 },
       }],
-    }),
-    (error: unknown) => error instanceof ModulatorAuthoringError
-      && error.stage === 'request'
-      && /chainIndex 0/.test(error.message),
-  );
-  assert.equal(fx.calls.length, 0);
+    }, { wait: async () => undefined });
+  assert.equal(result.verification.behaviors[0]?.verified, true);
+  assert.equal(fx.calls.length, 1);
 });
 
 test('5b-delete: proves the page and modulation are absent while a sibling remains', async () => {

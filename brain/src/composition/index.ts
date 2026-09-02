@@ -10,12 +10,13 @@ export type {
 } from './targets.js';
 export {
   composeExistingDeviceWrapperPreset, composeGeneralDeviceContainerPreset,
+  GENERAL_DEVICE_COMPOSITION_CAPACITIES, GENERAL_DEVICE_CONTAINER_KINDS,
   EXISTING_DEVICE_WRAPPER_ENTRY,
   EXISTING_DEVICE_WRAPPER_KIND, ExistingDeviceWrapperPresetError,
 } from './existing-device-wrapper.js';
 export type {
   ExistingDeviceWrapperModulation, ExistingDeviceWrapperPreset,
-  GeneralDeviceContainerModulation,
+  GeneralDeviceContainerKind, GeneralDeviceContainerModulation,
 } from './existing-device-wrapper.js';
 export {
   COMPOSITION_MODULATOR_TYPES, TemplateCompositionError, composeOwnedTemplate,

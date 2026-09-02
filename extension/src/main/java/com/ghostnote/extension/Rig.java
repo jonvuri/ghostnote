@@ -13,6 +13,7 @@ import com.bitwig.extension.controller.api.CursorDeviceFollowMode;
 import com.bitwig.extension.controller.api.CursorDeviceLayer;
 import com.bitwig.extension.controller.api.Device;
 import com.bitwig.extension.controller.api.DeviceBank;
+import com.bitwig.extension.controller.api.DeviceChain;
 import com.bitwig.extension.controller.api.DeviceLayer;
 import com.bitwig.extension.controller.api.DeviceLayerBank;
 import com.bitwig.extension.controller.api.DeviceSlot;
@@ -147,6 +148,10 @@ public class Rig {
 
     public void addDirectParameterRouteStep(
             String kind, String name, Integer channel, int deviceIndex) {
+        if (directParameterRouteKinds.size() >= PARAMETER_ROUTE_DEPTH) {
+            throw new IllegalArgumentException(
+                "parameter route depth exceeds the supported limit " + PARAMETER_ROUTE_DEPTH);
+        }
         directParameterRouteKinds.add(kind);
         directParameterRouteNames.add(name);
         directParameterRouteChannels.add(channel);
@@ -195,13 +200,13 @@ public class Rig {
      * on the container; a slot-scoped bank has no such hidden argument, because the
      * container is named by the parameter rather than by cursor state.
      *
-     * ⚠ Scoped to the track `cursorTracks[0]` points at, and to its FIRST TWO
-     * top-level device slots — which is what the rebuild shape needs (old container
-     * and new container, side by side on one track) and no more.
+     * ⚠ Scoped to the track `cursorTracks[0]` points at, and to the first three
+     * top-level device slots. Session 5r needs one container after position 1.
      */
-    public static final int SLOT_SCOPES = 2;
+    public static final int SLOT_SCOPES = 3;
     public static final int SLOT_LAYER_BANK = 5;
     public static final int SLOT_LAYER_DEVICE_BANK = 4;
+    public static final int PARAMETER_ROUTE_DEPTH = 2;
     public final DeviceLayerBank[] slotLayerBanks = new DeviceLayerBank[SLOT_SCOPES];
     public final DeviceBank[][] slotLayerDeviceBanks = new DeviceBank[SLOT_SCOPES][SLOT_LAYER_BANK];
     /**
@@ -223,6 +228,8 @@ public class Rig {
     public final DeviceLayerBank layerBank0;
     /** Selected named slot of the current device, used for guarded slot moves. */
     public final DeviceSlot cursorDeviceSlot0;
+    /** The current cursor device's parent chain. */
+    public final DeviceChain cursorDeviceChain0;
     /** Device chains INSIDE each layer — how we see/insert one level down. */
     public final DeviceBank[] layerDeviceBanks = new DeviceBank[LAYER_BANK];
     public final CursorDeviceLayer cursorLayer0;
@@ -878,6 +885,9 @@ public class Rig {
         cursorDeviceSlot0 = cursorDevice0.getCursorSlot();
         cursorDeviceSlot0.exists().markInterested();
         cursorDeviceSlot0.name().markInterested();
+        cursorDeviceChain0 = cursorDevice0.deviceChain();
+        cursorDeviceChain0.exists().markInterested();
+        cursorDeviceChain0.name().markInterested();
 
         // Device.position() reports -1 for a nested cursor. This siblings bank
         // re-scopes to the cursor's current chain and keeps the position
@@ -888,6 +898,7 @@ public class Rig {
             Device sibling = cursorDeviceSiblings0.getDevice(d);
             sibling.exists().markInterested();
             sibling.name().markInterested();
+            sibling.isEnabled().markInterested();
         }
 
         // E4c: one view per nesting mechanism. These are created against a
@@ -925,7 +936,10 @@ public class Rig {
                 // that cannot say whether the slot IS a container cannot tell "no
                 // chains" from "not a container".
                 slot.hasLayers().markInterested();
+                slot.hasSlots().markInterested();
+                slot.slotNames().markInterested();
                 slotLayerBanks[s] = slot.createLayerBank(SLOT_LAYER_BANK);
+                slotLayerBanks[s].itemCount().markInterested();
                 for (int l = 0; l < SLOT_LAYER_BANK; l++) {
                     DeviceLayer layer = slotLayerBanks[s].getItemAt(l);
                     layer.exists().markInterested();
@@ -1335,15 +1349,23 @@ public class Rig {
     public long beginDirectParameterObservation() {
         directParamGeneration++;
         boolean nested = cursorDevice0.isNested().get();
+        int currentDeviceIndex = currentDirectParameterDeviceIndex();
+        boolean sameNestedRoute = !nested
+            || directParameterRouteSignature().equals(directParamObservedRoute);
         boolean sameTarget = directParamIdsGeneration >= 0
             && directParamObservedTrackId != null
             && directParamObservedDeviceName != null
             && directParamObservedTrackId.equals(cursorTracks[0].channelId().get())
             && directParamObservedDeviceName.equals(cursorDevice0.name().get())
-            && directParamObservedDeviceIndex == currentDirectParameterDeviceIndex()
             && directParamObservedNested == nested
-            && (!nested || directParameterRouteSignature().equals(directParamObservedRoute));
+            && sameNestedRoute
+            // Bitwig 6.0.6 can emit nested DirectParameter IDs before its
+            // sibling-equality observers report an index. Adopt the settled
+            // index only while the full named route still matches.
+            && (directParamObservedDeviceIndex == currentDeviceIndex
+                || (nested && directParamObservedDeviceIndex < 0));
         if (sameTarget) {
+            directParamObservedDeviceIndex = currentDeviceIndex;
             directParamIdsGeneration = directParamGeneration;
             return directParamGeneration;
         }

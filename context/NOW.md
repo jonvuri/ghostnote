@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-08-31
+updated: 2026-09-01
 phase: phase-5
-session: 5r-container-shape-and-capacity
+session: 5s-public-generalization-dogfood-and-closeout
 ---
 
 # Now
@@ -15,10 +15,10 @@ explicit dogfood-loop close.
 
 ## Stable baseline
 
-The accepted live project is `New 3`. It has exactly five tracks, eight launcher
-rows, the accepted six-pad Drum Machine, and the accepted Instrument Layer with
-nested Polysynth. Session 5q restored this exact track list and left no scratch
-content.
+The accepted live project has exactly five tracks and eight launcher rows. Its
+track list is `gn-preset-zoo | Audio 2 | Inst 3 | FX 1 | Master`. It keeps the
+accepted six-pad Drum Machine and the accepted Instrument Layer with nested
+Polysynth. Session 5r restored this exact baseline and left no scratch content.
 
 Sessions 5j through 5n provide general DirectParameter targets, semantic preset
 inspection, complete list-scoped topology, the 42-type donor catalog, and the
@@ -43,11 +43,8 @@ existing Delay+ copy and move with the same observed device name. The move kept
 the same 23-row fingerprint. The copy is a new instance and has no state-
 identity claim. Both reversals restored the exact baseline.
 
-The current safe limit is four entries. A full five-entry bank is not complete.
-Outer FX Layer modulation is limited to entry 0 because routes to entries that
-do not yet exist drop the complete outer list. Later entries can use preset-
-local modulation or no modulation. Session 5r owns wider capacity and later
-outer targets.
+Session 5r supersedes the four-entry and first-entry limits for layer
+containers. Chain remains outside general device-source composition.
 
 [E92](evidence/experiments/e92-general-device-source-composition-is-live.md)
 records the public lifecycle, live matrices, guards, and host boundaries.
@@ -55,16 +52,38 @@ records the public lifecycle, live matrices, guards, and host boundaries.
 Verification passes: brain 957/957, extension tests, deployed 149-method
 contract freshness, the focused Bitwig 6.0.6 matrix, and exact cleanup.
 
+## Session 5r result
+
+Session 5r is complete. Instrument Layer and FX Layer share one public bounded
+contract. The selected complete limits are three top-level container positions,
+five layer entries, four devices per entry, and total parameter route depth two
+from the track. The two human-saved five-entry seeds are exact product assets.
+Checkpoint schema 5 records partial composition and reversal state. It resumes
+an extracted source or final container proof without repeating an accepted
+write.
+
+Live Bitwig 6.0.6 verification passes FX Layer at position 2 with four devices
+and Instrument Layer with five entries. Both shapes have active outer
+modulation on caller devices and reverse exactly. A total depth-2 route to a
+Polysynth inside a preset Instrument Layer also passes active behavior and exact
+reversal. The next position, entry, and device values refuse before a write.
+Brain verification passes 983/983. Extension tests, the 150-method table,
+resource accounting, live conformance cases, and exact five-track/eight-row
+cleanup pass.
+
+Chain was tested and rejected. An empty `CHAIN` slot cannot select its first
+device through the Controller API. A populated control proved active routing to
+its embedded Polysynth, but the route did not transfer after that device and a
+second placeholder were removed. Chain routes are instance-bound in this
+lifecycle, so the public shape enum contains only Instrument Layer and FX Layer.
+
 ## Next action
 
-Implement [Session 5r](plan/phase-5/5r-container-shape-and-capacity.md). Measure
-complete limits before widening entries, devices per entry, container positions,
-or route depth. Support Chain, Instrument Layer, and FX Layer only at proved
-limits. Do not begin Phase 6a until Phase 5 and the open dogfood loop close.
+Begin session 5s. Run the ColourCopy public dogfood retry and the generalized
+closeout matrix. Keep Chain outside the public composition claim.
 
 ## Retrospective
 
-Checkpoint each accepted structural name before the next stage. Do not author
-outer routes to entries that do not yet exist. Move a new source into its final
-observable location before requiring its complete parameter inventory. Carry
-the exact expected order and revision across each destructive reversal stage.
+Distinguish serialized preset entry names from live layer names. Keep the
+semantic location in a reversal checkpoint when verification uses a nested
+device.

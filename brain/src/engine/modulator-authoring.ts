@@ -1149,12 +1149,6 @@ function assertNestedDevice(nested: ModulatorParameterWitness['nestedDevice']): 
     if (!Number.isInteger(nested.chainIndex) || nested.chainIndex < 0) {
       throw new ModulatorAuthoringError('request', 'nestedDevice.chainIndex is out of range');
     }
-    if (nested.slotName !== undefined && nested.chainIndex !== 0) {
-      throw new ModulatorAuthoringError(
-        'request',
-        'a device-slot witness can select only its first device at chainIndex 0',
-      );
-    }
   }
 }
 

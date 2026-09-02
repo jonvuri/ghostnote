@@ -63,6 +63,8 @@ export interface Golden {
   addedInPhase4Session4h1?: string[];
   /** Phase 5 session 5o guarded move into one selected named device slot. */
   addedInPhase5Session5o?: string[];
+  /** Phase 5 session 5r indexed selection inside one observed named slot. */
+  addedInPhase5Session5r?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

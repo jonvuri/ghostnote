@@ -2267,24 +2267,26 @@ export const TOOLS: readonly ToolSpec[] = [
     kind: 'write',
     title: 'Compose general device sources',
     description:
-      'Create one owned FX Layer with one through four uniquely named entries. Sources can be an '
-      + 'exact native catalog name, VST3 class UID, CLAP id, explicit preset path, existing-device '
-      + 'move, or existing-device copy. New sources insert through the guarded top-level path and '
+      'Create one owned supported container at a supported top-level position. '
+      + 'A layer has one through five unique entries. Each entry has one through four ordered devices. '
+      + 'Sources can be an exact native catalog name, VST3 class UID, CLAP id, explicit preset '
+      + 'path, existing-device move, or existing-device copy. New sources insert through the guarded top-level path and '
       + 'then move into their entries. Existing moves preserve the same instance. Copies are new '
       + 'instances and carry no state-identity claim. Modulators can live on the outer container or '
-      + 'inside an inspected preset source. The proved late-bound outer target is the first entry; '
-      + 'later entries accept preset-local modulation. Results keep every completed receipt, source identity, '
+      + 'inside an inspected preset source. An outer target can address any accepted entry and device. '
+      + 'Results keep every completed receipt, source identity, '
       + 'preset-name comparison, complete structure, scalar proof, and behavior witness. A later '
       + 'failure returns a guarded checkpoint for the completed stages.',
     inputSchema: generalDeviceCompositionInputSchema,
     inputValidator: generalDeviceCompositionInputValidator,
-    emits: ['device.insert', 'device.relocate', 'chain.rename', 'chain.create', 'chain.relocate'],
+    emits: ['device.insert', 'device.relocate', 'chain.rename', 'chain.relocate'],
     resultContract: {
       complete: 'True only after every source, entry, enabled state, target, and complete structure passes.',
       partialCompletion: 'True when an earlier project-write stage remains after a later failure.',
       stages: 'Ordered container, entry, insertion, and relocation receipts.',
       entries: 'Each explicit source identity, observed instance, scalar proof, and modulation witness.',
       structure: 'Complete caller-named entry and nested-device order.',
+      capacities: 'Exact top-level position, layer-entry, entry-device, and route-depth limits.',
       reversalCheckpoint: 'Exact guarded input for reverse_device_source_composition.',
     },
     async run(workspace, args) {

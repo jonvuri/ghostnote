@@ -38,6 +38,16 @@ export const OWNED_FX_LAYER_MANIFEST_PATH = join(
   'fx-layer-late-bound.json',
 );
 
+/** Exact manifests for the two supported human-saved container seeds. */
+export const GENERAL_CONTAINER_SEED_MANIFEST_PATH = join(
+  import.meta.dirname,
+  '..',
+  '..',
+  'assets',
+  'composition',
+  'general-container-seeds.json',
+);
+
 export const NATIVE_CATALOG_PATH = join(
   import.meta.dirname,
   '..',

@@ -79,6 +79,10 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("cursorPool", rig.config.cursorPool);
         result.addProperty("deviceBank", rig.config.deviceBank);
         result.addProperty("remotePages", rig.config.remotePages);
+        result.addProperty("containerScopes", Rig.SLOT_SCOPES);
+        result.addProperty("containerEntryBank", Rig.SLOT_LAYER_BANK);
+        result.addProperty("containerEntryDeviceBank", Rig.SLOT_LAYER_DEVICE_BANK);
+        result.addProperty("parameterRouteDepth", Rig.PARAMETER_ROUTE_DEPTH);
         result.addProperty("sceneCount", rig.sceneBank.itemCount().get());
         return result;
     }
@@ -115,12 +119,18 @@ public final class CoreHandlers extends HandlerGroup {
         int cursorDeviceBanks = rig.config.cursorPool;
         int layerDeviceBanks = Rig.LAYER_BANK;
         int slotDeviceBanks = Rig.SLOT_SCOPES * Rig.SLOT_LAYER_BANK;
+        int namedSlotDeviceBanks = 0;
+        int drumPadDeviceBanks = Rig.DRUM_PAD_BANK;
         JsonObject resources = new JsonObject();
         resources.addProperty("cursorDeviceBanks", cursorDeviceBanks);
+        resources.addProperty("siblingDeviceBanks", 1);
         resources.addProperty("layerDeviceBanks", layerDeviceBanks);
         resources.addProperty("slotDeviceBanks", slotDeviceBanks);
+        resources.addProperty("namedSlotDeviceBanks", namedSlotDeviceBanks);
+        resources.addProperty("drumPadDeviceBanks", drumPadDeviceBanks);
         resources.addProperty("deviceBanks",
-            cursorDeviceBanks + layerDeviceBanks + slotDeviceBanks);
+            cursorDeviceBanks + 1 + layerDeviceBanks + slotDeviceBanks
+                + namedSlotDeviceBanks + drumPadDeviceBanks);
         resources.addProperty("cursorDeviceSlots",
             (long) cursorDeviceBanks * rig.config.deviceBank);
         resources.addProperty("cursorDeviceEnabledValues",
@@ -129,13 +139,22 @@ public final class CoreHandlers extends HandlerGroup {
             (long) layerDeviceBanks * Rig.LAYER_DEVICE_BANK);
         resources.addProperty("slotDeviceSlots",
             (long) slotDeviceBanks * Rig.SLOT_LAYER_DEVICE_BANK);
+        resources.addProperty("drumPadDeviceSlots",
+            (long) drumPadDeviceBanks * rig.config.deviceBank);
+        resources.addProperty("namedSlotDeviceSlots",
+            (long) namedSlotDeviceBanks * Rig.SLOT_LAYER_DEVICE_BANK);
         resources.addProperty("deviceSlots",
             (long) cursorDeviceBanks * rig.config.deviceBank
+                + rig.config.deviceBank
                 + (long) layerDeviceBanks * Rig.LAYER_DEVICE_BANK
-                + (long) slotDeviceBanks * Rig.SLOT_LAYER_DEVICE_BANK);
+                + (long) slotDeviceBanks * Rig.SLOT_LAYER_DEVICE_BANK
+                + (long) namedSlotDeviceBanks * Rig.SLOT_LAYER_DEVICE_BANK
+                + (long) drumPadDeviceBanks * rig.config.deviceBank);
         resources.addProperty("cursorDevices", 1);
-        resources.addProperty("specificDeviceViews", 1);
-        resources.addProperty("typedParameterHandles", rig.config.paramHandles);
+        resources.addProperty("specificDeviceViews", 4);
+        resources.addProperty("typedParameterHandles",
+            rig.config.paramHandles + rig.v1KickParamIds.length
+                + rig.delayPlusParamIds.length + rig.zebra3Vst3ParamIds.length);
         resources.addProperty("remotePageCursors", rig.config.remotePages);
         resources.addProperty("remoteParameterHandles",
             (long) rig.config.remotePages * Rig.REMOTE_BANK);

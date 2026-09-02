@@ -3,7 +3,7 @@ title: Phase 5s — public generalization dogfood and closeout
 kind: plan
 state: planned
 status: Planned after 5r. Retry ColourCopy, audit the generalized surface, and close the continuation.
-updated: 2026-08-25
+updated: 2026-09-01
 parent: README.md
 evidence: D1, D2, D3, D7, D15, D16, E65-E73, dogfood session 01a03744-e6c4-7be0-b210-e999c8f17081
 ---
@@ -38,8 +38,8 @@ lists, sources, and containers.
    tier.
 4. Prove native, plug-in, preset, and existing-device composition sources,
    including duplicate device names.
-5. Prove Chain, Instrument Layer, and FX Layer at their selected capacity
-   boundaries.
+5. Prove Instrument Layer and FX Layer at their selected capacity boundaries
+   with active later outer targets. Preserve the measured Chain refusal.
 6. Reverse every owned test case and restore each documented live baseline.
 7. Run fresh Codex exposure, shared conformance, the full brain check, extension
    tests, deploy freshness, method-table handshake, and remote CI.
@@ -52,6 +52,8 @@ lists, sources, and containers.
 - No public input exposes a raw route, donor id, list index, GUID, footprint,
   stub, template-asset path, or byte offset.
 - The complete closeout matrix passes with exact cleanup.
+- The closeout reports Chain as an explicit host boundary. It does not
+  generalize embedded Chain routing into late binding for caller devices.
 - D1, D3, the Phase 5 overview, capability evidence, outcome archive, roadmap,
   and `context/NOW.md` agree on the generalized public result and bounded host
   limits.

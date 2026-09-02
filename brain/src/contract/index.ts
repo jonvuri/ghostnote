@@ -22,13 +22,13 @@ export type {
 } from './address.js';
 
 export {
-  chainCopyUnnamed, lookupChain, lookupDevice, lookupNestedDevice, mintedChain, nestingDepth,
+  chainCopyUnnamed, lookupChain, lookupDevice, lookupDeviceSlot, lookupNestedDevice, mintedChain, nestingDepth,
   nestingObservable, projectedReorder, reorderIndistinguishable, verifyDeviceRelocation,
   verifyDeviceReorder, verifyExclusiveChain,
 } from './chains.js';
 export type {
-  ChainLookup, ChainMint, ChainMiss, DeviceLookup, ObservedChain, ObservedContainer, ObservedDevice,
-  ObservedDeviceSequence,
+  ChainLookup, ChainMint, ChainMiss, DeviceLookup, DeviceSlotLookup, ObservedChain, ObservedContainer,
+  ObservedDevice, ObservedDeviceSequence, ObservedDeviceSlot,
 } from './chains.js';
 
 export { SETTLE_MS, TICK_MS, budgetTicks } from './budgets.js';

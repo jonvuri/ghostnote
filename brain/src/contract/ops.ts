@@ -21,9 +21,9 @@
  * expressible. That is the point of a typed seam over a string wire.
  */
 import { addressKey, chainPath, clip, device } from './address.js';
-import type { ChainAddress, ClipAddress, DeviceAddress, DrumPadAddress, ParamAddress, RemoteAddress, SceneAddress, SlotAddress, TrackAddress } from './address.js';
+import type { ChainAddress, ClipAddress, DeviceAddress, DeviceSlotAddress, DrumPadAddress, ParamAddress, RemoteAddress, SceneAddress, SlotAddress, TrackAddress } from './address.js';
 import {
-  lookupChain, nestingObservable, projectedReorder, reorderIndistinguishable,
+  lookupChain, lookupDeviceSlot, nestingObservable, projectedReorder, reorderIndistinguishable,
   type ObservedChain, type ObservedContainer, type ObservedDevice, type ObservedDeviceSequence,
 } from './chains.js';
 import { unwritableProps, type ClipMetadataState, type LaunchMode, type LaunchQuantization, type NoteRecord } from './state.js';
@@ -217,7 +217,7 @@ export type Op =
   | {
     readonly op: 'chain.relocate';
     readonly source: DeviceAddress;
-    readonly destination: ChainAddress | TrackAddress;
+    readonly destination: ChainAddress | DeviceSlotAddress | TrackAddress;
     readonly mode: 'move' | 'copy';
     /** Complete top-level names from the caller's last accepted observation. */
     readonly expectedChain?: readonly string[];
@@ -495,10 +495,11 @@ export function assertOpsWritable(ops: readonly Op[]): void {
           'the complete top-level name and enabled-state guards must be supplied together',
         );
       }
-      if (op.source.chain !== undefined && op.source.chain.kind !== 'chain') {
-        throw new InvalidOpError(op.op, 'a chain relocation needs a layer-chain parent');
+      if (op.source.chain !== undefined
+          && op.source.chain.kind !== 'chain' && op.source.chain.kind !== 'deviceSlot') {
+        throw new InvalidOpError(op.op, 'a chain relocation needs a layer-chain or named-slot parent');
       }
-      const destinationTrack = op.destination.kind === 'chain'
+      const destinationTrack = op.destination.kind === 'chain' || op.destination.kind === 'deviceSlot'
         ? op.destination.container.track
         : op.destination;
       if (op.source.track.channelId !== destinationTrack.channelId) {
@@ -510,14 +511,16 @@ export function assertOpsWritable(ops: readonly Op[]): void {
       if (op.source.chain !== undefined && !nestingObservable(op.source)) {
         throw new InvalidOpError(op.op, 'the source is deeper than the measured one-chain slot scopes');
       }
-      if (op.destination.kind === 'chain' && !nestingObservable(op.destination)) {
+      if (op.destination.kind !== 'track' && !nestingObservable(op.destination)) {
         throw new InvalidOpError(op.op, 'the destination is deeper than the measured one-chain slot scopes');
       }
-      if (op.source.chain?.kind === 'chain' && op.destination.kind === 'chain'
-          && addressKey(op.source.chain) === addressKey(op.destination)) {
+      if (op.source.chain !== undefined && op.destination.kind !== 'track'
+          && op.source.chain.kind === op.destination.kind
+          && op.source.chain.name === op.destination.name
+          && addressKey(op.source.chain.container) === addressKey(op.destination.container)) {
         throw new InvalidOpError(op.op, 'source and destination chains must be different');
       }
-      if (op.source.chain === undefined && op.destination.kind === 'chain'
+      if (op.source.chain === undefined && op.destination.kind !== 'track'
           && op.source.chainIndex === op.destination.container.chainIndex) {
         throw new InvalidOpError(op.op, 'a container cannot be relocated into one of its own chains');
       }
@@ -1085,7 +1088,7 @@ export function assertChainRelocatable(
     return state;
   };
 
-  const sequence = (endpoint: TrackAddress | ChainAddress): ProjectedSequence => {
+  const sequence = (endpoint: TrackAddress | ChainAddress | DeviceSlotAddress): ProjectedSequence => {
     if (endpoint.kind === 'track') return top(endpoint);
     const parent = top(endpoint.container.track);
     const holder = parent.devices[endpoint.container.chainIndex];
@@ -1101,29 +1104,41 @@ export function assertChainRelocatable(
         'the projected destination container has no pre-write structural identity',
       );
     }
-    const key = `${holder.token}\u0000${endpoint.name}`;
+    const key = `${holder.token}\u0000${endpoint.kind}\u0000${endpoint.name}`;
     let state = nested.get(key);
     if (state !== undefined) return state;
     const observed = observeContainer(holder.origin);
-    if (observed === undefined || !observed.chainsComplete) {
+    const complete = endpoint.kind === 'chain'
+      ? observed?.chainsComplete === true : observed?.slotsComplete === true;
+    if (observed === undefined || !complete) {
       throw new InvalidOpError(
         'chain.relocate',
         'the complete destination container structure must be observable before filling it',
       );
     }
-    const found = lookupChain(observed, endpoint.name);
-    if (!found.ok) {
-      throw new InvalidOpError('chain.relocate', `the addressed device alternate is ${found.miss}`);
+    let entry: ObservedDeviceSequence;
+    if (endpoint.kind === 'chain') {
+      const found = lookupChain(observed, endpoint.name);
+      if (!found.ok) {
+        throw new InvalidOpError('chain.relocate', `the addressed device alternate is ${found.miss}`);
+      }
+      entry = found.chain;
+    } else {
+      const found = lookupDeviceSlot(observed, endpoint.name);
+      if (!found.ok) {
+        throw new InvalidOpError('chain.relocate', `the addressed device alternate is ${found.miss}`);
+      }
+      entry = found.slot;
     }
-    if (!found.chain.devicesComplete) {
+    if (!entry.devicesComplete) {
       throw new InvalidOpError('chain.relocate', 'the complete device order of the addressed alternate must be observable');
     }
-    if (found.chain.devicesBankSize === undefined) {
+    if (entry.devicesBankSize === undefined) {
       throw new InvalidOpError('chain.relocate', 'the destination device bank did not report its width');
     }
     state = {
-      bankSize: found.chain.devicesBankSize,
-      devices: found.chain.devices.map((item) => ({ token: nextToken++, name: item.name })),
+      bankSize: entry.devicesBankSize,
+      devices: entry.devices.map((item) => ({ token: nextToken++, name: item.name })),
     };
     nested.set(key, state);
     return state;
@@ -1131,8 +1146,8 @@ export function assertChainRelocatable(
 
   for (const op of ops) {
     if (op.op !== 'chain.relocate') continue;
-    if (op.source.chain !== undefined && op.source.chain.kind !== 'chain') {
-      throw new InvalidOpError(op.op, 'a chain relocation needs a layer-chain parent');
+    if (op.source.chain?.kind === 'drumPad') {
+      throw new InvalidOpError(op.op, 'a chain relocation cannot use a drum-pad parent');
     }
     const source = sequence(op.source.chain ?? op.source.track);
     const destination = sequence(op.destination);

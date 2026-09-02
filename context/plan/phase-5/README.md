@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5q is complete; 5r is next.
-updated: 2026-08-31
+status: Reopened 2026-08-25. Session 5r is complete. Session 5s owns closeout.
+updated: 2026-09-01
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -132,8 +132,8 @@ that first integration unless the proof needs one new owned asset.
     — done. Compose native, VST3, CLAP, preset, and existing device sources
     through one guarded four-entry contract and exact reversal checkpoints.
 18. [5r — container shape and capacity](5r-container-shape-and-capacity.md) —
-    planned. Support Chain, Instrument Layer, and FX Layer at measured complete
-    observer limits.
+    done. Instrument Layer and FX Layer pass live at the selected 3/5/4/2
+    limits. Chain remains unsupported after two negative live controls.
 19. [5s — public generalization dogfood and closeout](5s-public-generalization-dogfood-and-closeout.md)
     — planned. Retry ColourCopy and close only after the full public breadth
     matrix passes.
@@ -189,8 +189,9 @@ impossibilities. External publication and redistribution remain Phase 6 work.
    not modulator-list indexes.
 8. **General public hosts and sources.** Support native instruments and FX,
    VST3, CLAP, sampled presets, and preserved existing devices.
-9. **Bounded general containers.** Support Chain, Instrument Layer, and FX
-   Layer through complete observed limits. Report those limits explicitly.
+9. **Bounded general containers.** Support Instrument Layer and FX Layer
+   through complete observed limits. Report those limits explicitly. Keep
+   Chain as a measured host boundary.
 
 ### Out
 
@@ -225,9 +226,12 @@ impossibilities. External publication and redistribution remain Phase 6 work.
   Instrument Layer do not share this late-binding behavior.
 - **General source composition — settled by 5q.** Explicit native, VST3, CLAP,
   preset, existing-move, and existing-copy sources share one guarded contract.
-  The current complete limit is four entries, and outer late binding is entry 0.
-- **General shape and capacity — planned for 5r.** Bounded container shapes,
-  wider entry banks, later outer targets, and wider positions remain next.
+  Session 5r supersedes its four-entry and first-entry limits.
+- **General shape and capacity — settled by 5r.** Instrument Layer and FX Layer
+  share one bounded contract. The selected complete limits are three top-level
+  positions, five layer entries, four devices per entry, and route depth two.
+  Chain cannot use the same lifecycle because its empty slot is inaccessible
+  and populated outer routes bind to embedded device instances.
 
 ## Exit criteria
 
@@ -254,8 +258,9 @@ impossibilities. External publication and redistribution remain Phase 6 work.
     owned container supplies active modulation to its observed parameters.
 11. Public composition accepts native, VST3, CLAP, preset, and existing-device
     sources, including repeated device names.
-12. Chain, Instrument Layer, and FX Layer work at explicit, completely observed
-    capacity limits.
+12. Instrument Layer and FX Layer work at explicit, completely observed
+    capacity limits with active outer modulation. Chain is an explicit host
+    boundary and is not exposed by the public composition contract.
 13. A fresh projectless musical run completes the ColourCopy request through
     only public tools and receives an explicit operator verdict.
 

@@ -5,13 +5,14 @@ import { basename, join } from 'node:path';
 import { tmpdir } from 'node:os';
 
 import {
-  composeGeneralDeviceContainerPreset, EXISTING_DEVICE_WRAPPER_KIND,
-  type GeneralDeviceContainerModulation,
+  composeGeneralDeviceContainerPreset, GENERAL_DEVICE_COMPOSITION_CAPACITIES,
+  type GeneralDeviceContainerKind, type GeneralDeviceContainerModulation,
 } from '../composition/index.js';
 import {
   addressKey, chain, device, deviceIn,
   type Address, type DeviceAddress, type DeviceSource, type ObservedDevice,
-  type ObservedDeviceBank, type Op, type ParamState, type RevisionMark,
+  type ObservedContainer, type ObservedDeviceBank, type ObservedDeviceSequence,
+  type Op, type ParamState, type RevisionMark,
   type Snapshot, type TrackAddress,
 } from '../contract/index.js';
 import {
@@ -61,16 +62,21 @@ export interface GeneralDeviceModulationRequest {
   readonly behaviorCheck: 'active' | 'page-only';
 }
 
-export interface GeneralDeviceEntryRequest {
-  readonly entryName: string;
+export interface GeneralDeviceEntryDeviceRequest {
   readonly source: GeneralDeviceSourceRequest;
   readonly modulators: readonly GeneralDeviceModulationRequest[];
+}
+
+export interface GeneralDeviceEntryRequest {
+  readonly entryName: string;
+  readonly devices: readonly GeneralDeviceEntryDeviceRequest[];
 }
 
 export interface GeneralDeviceCompositionRequest {
   readonly track: TrackAddress;
   readonly expectedDeviceOrder: readonly GeneralDeviceOrderItem[];
-  readonly containerKind: typeof EXISTING_DEVICE_WRAPPER_KIND;
+  readonly containerKind: GeneralDeviceContainerKind;
+  readonly containerPosition: number;
   readonly entries: readonly GeneralDeviceEntryRequest[];
 }
 
@@ -82,7 +88,7 @@ export interface GeneralDeviceFingerprint {
 
 export interface GeneralDeviceStageReceipt {
   readonly stage: 'insert-container' | 'position-container' | 'prepare-entry-name'
-    | 'confirm-entry-name' | 'create-entry' | 'insert-source' | 'relocate-source'
+    | 'confirm-entry-name' | 'insert-source' | 'relocate-source'
     | 'extract-source' | 'restore-position' | 'remove-source' | 'remove-container';
   readonly entryIndex?: number;
   readonly changeId: string;
@@ -91,38 +97,57 @@ export interface GeneralDeviceStageReceipt {
 
 export interface GeneralDeviceCheckpointEntry {
   readonly entryIndex: number;
+  readonly deviceIndex: number;
   readonly entryName: string;
   readonly sourceKind: GeneralDeviceSourceRequest['kind'];
   readonly observedName: string;
   readonly enabled: boolean;
   readonly fingerprint?: GeneralDeviceFingerprint;
+  readonly fingerprintLocation?: SemanticModulatorLocation;
   readonly ownedChangeId?: string;
   readonly originalPosition?: number;
 }
 
 export interface GeneralDeviceCompositionCheckpoint {
-  readonly schemaVersion: 1;
+  readonly schemaVersion: 5;
   readonly state: 'container-inserted' | 'container-positioned' | 'entries-prepared' | 'composing';
   readonly track: TrackAddress;
-  readonly containerKind: typeof EXISTING_DEVICE_WRAPPER_KIND;
+  readonly containerKind: GeneralDeviceContainerKind;
+  readonly requestedContainerPosition: number;
   readonly containerInsertTakeId: string;
   readonly insertedContainerPosition: number;
   readonly currentContainerPosition: number;
+  readonly seedUnchanged: boolean;
+  readonly lastWriteAt: { readonly revision: number; readonly generation: string; readonly project: string };
   readonly originalDeviceOrder: readonly GeneralDeviceOrderItem[];
   readonly entryNames: readonly string[];
   readonly preparedEntryNames: readonly string[];
   readonly completedEntries: readonly GeneralDeviceCheckpointEntry[];
+  readonly pendingUnwitnessedSource?: {
+    readonly entryIndex: number;
+    readonly deviceIndex: number;
+    readonly sourceKind: GeneralDeviceSourceRequest['kind'];
+    readonly ownedChangeId: string;
+    readonly chainIndex: number;
+    readonly at: { readonly revision: number; readonly generation: string; readonly project: string };
+  };
   readonly pendingEntry?: GeneralDeviceCheckpointEntry & {
     readonly location: 'top-level' | 'container-entry';
   };
+  readonly reversalRemainingEntries?: readonly GeneralDeviceCheckpointEntry[];
+  readonly reversalPendingTopLevel?: GeneralDeviceCheckpointEntry & {
+    readonly position: number;
+  };
+  readonly reversalContainerRemoved?: true;
 }
 
 export interface GeneralDeviceEntryVerification {
   readonly entryIndex: number;
+  readonly deviceIndex: number;
   readonly entryName: string;
   readonly sourceKind: GeneralDeviceSourceRequest['kind'];
   readonly sourceIdentity: Record<string, unknown>;
-  readonly observed: { readonly deviceName: string; readonly enabled: boolean; readonly position: 0 };
+  readonly observed: { readonly deviceName: string; readonly enabled: boolean; readonly position: number };
   readonly instance: 'preserved' | 'new';
   readonly stateClaim: string;
   readonly scalarFingerprint?: {
@@ -143,6 +168,7 @@ export interface GeneralDeviceCompositionResult {
   readonly stages: readonly GeneralDeviceStageReceipt[];
   readonly checkpoint?: GeneralDeviceCompositionCheckpoint;
   readonly entries: readonly GeneralDeviceEntryVerification[];
+  readonly capacities: typeof GENERAL_DEVICE_COMPOSITION_CAPACITIES;
   readonly structure?: readonly {
     readonly entryIndex: number; readonly entryName: string;
     readonly devices: readonly { readonly position: number; readonly name: string; readonly enabled: boolean }[];
@@ -156,6 +182,7 @@ export interface GeneralDeviceCompositionReversal {
   readonly stages: readonly GeneralDeviceStageReceipt[];
   readonly containerRemoved: boolean;
   readonly restoredDeviceOrder: boolean;
+  readonly checkpoint?: GeneralDeviceCompositionCheckpoint;
 }
 
 export interface GeneralDeviceCompositionOptions {
@@ -163,10 +190,9 @@ export interface GeneralDeviceCompositionOptions {
   readonly wait?: (milliseconds: number) => Promise<void>;
   readonly tempRoot?: string;
   readonly templatePath?: string;
-  readonly manifestPath?: string;
 }
 
-/** Compose ordered sources inside one owned FX Layer and prove each stage. */
+/** Compose ordered sources inside one owned bounded container. */
 export async function composeGeneralDeviceSources(
   host: GeneralDeviceCompositionHost,
   request: GeneralDeviceCompositionRequest,
@@ -180,15 +206,17 @@ export async function composeGeneralDeviceSources(
     const initial = await stableTop(host, request.track, request.expectedDeviceOrder);
     assertRequest(request, initial.bankSize);
     const outerRequests: GeneralDeviceContainerModulation[] = request.entries.flatMap(
-      (entry, entryIndex) => entry.modulators
-        .filter((item) => item.location === 'container')
-        .map((item) => ({
-          entryIndex, modulator: item.modulator, target: item.target, amount: item.amount,
-        })),
+      (entry, entryIndex) => entry.devices.flatMap((entryDevice, deviceIndex) =>
+        entryDevice.modulators
+          .filter((item) => item.location === 'container')
+          .map((item) => ({
+            entryIndex, deviceIndex,
+            modulator: item.modulator, target: item.target, amount: item.amount,
+          }))),
     );
-    const containerPreset = await composeGeneralDeviceContainerPreset(outerRequests, {
+    const containerPreset = await composeGeneralDeviceContainerPreset(request.containerKind, outerRequests, {
       ...(options.templatePath === undefined ? {} : { templatePath: options.templatePath }),
-      ...(options.manifestPath === undefined ? {} : { manifestPath: options.manifestPath }),
+      entryCount: request.entries.length,
     });
     const directory = await mkdtemp(join(options.tempRoot ?? tmpdir(), 'ghostnote-general-compose-'));
     try {
@@ -207,99 +235,136 @@ export async function composeGeneralDeviceSources(
         return failure(failedStage, 'The owned container insertion was not proved.', stages, verified);
       }
       checkpoint = {
-        schemaVersion: 1, state: 'container-inserted', track: request.track,
+        schemaVersion: 5, state: 'container-inserted', track: request.track,
         containerKind: request.containerKind, containerInsertTakeId: insertion.id,
+        requestedContainerPosition: request.containerPosition,
         insertedContainerPosition: minted.chainIndex, currentContainerPosition: minted.chainIndex,
+        seedUnchanged: true, lastWriteAt: minimalMark(insertion.verify.at),
         originalDeviceOrder: request.expectedDeviceOrder,
         entryNames: request.entries.map((item) => item.entryName),
-        preparedEntryNames: ['Layer 1'], completedEntries: [],
+        preparedEntryNames: [],
+        completedEntries: [],
       };
 
       const inserted = await stableTop(host, request.track, [
         ...request.expectedDeviceOrder, { name: request.containerKind, enabled: true },
       ]);
-      if (minted.chainIndex > 0) {
+      let lastWriteAt = checkpoint.lastWriteAt;
+      if (minted.chainIndex !== request.containerPosition) {
         failedStage = 'position-container';
         const positioning = (await host.apply([{
           op: 'device.relocate', track: request.track, sourceFromEnd: 0,
-          expectedName: request.containerKind, before: device(request.track, 0),
+          expectedName: request.containerKind, before: device(request.track, request.containerPosition),
           expectedChain: names(inserted.devices), expectedEnabledChain: enabled(inserted.devices),
         }], { ...options.run, ifRevision: inserted.at.revision })).take;
         stages.push(receipt('position-container', positioning));
         if (!accepted(positioning)) {
           return failure(failedStage, 'The owned container position was not proved.', stages, verified, checkpoint);
         }
+        lastWriteAt = minimalMark(positioning.verify.at);
       }
-      checkpoint = { ...checkpoint, state: 'container-positioned', currentContainerPosition: 0 };
-      let current = await stableTop(host, request.track, [
-        { name: request.containerKind, enabled: true }, ...request.expectedDeviceOrder,
-      ]);
-      const container = device(request.track, 0);
-      if (!await exactEntries(host, container, ['Layer 1'], [])) {
-        return failure('container-witness', 'The owned seed entry was not empty and complete.', stages, verified, checkpoint);
+      checkpoint = {
+        ...checkpoint, state: 'container-positioned',
+        currentContainerPosition: request.containerPosition,
+        lastWriteAt,
+      };
+      let current = await stableTop(
+        host, request.track, withContainer(request.expectedDeviceOrder, request),
+      );
+      let container = device(request.track, request.containerPosition);
+      const initialStructure = await observedContainer(host, container, request.containerKind);
+      const initialEntries = initialStructure === undefined
+        ? undefined : observedEntries(initialStructure, request.containerKind);
+      const initialNames = initialEntries?.map((entry) => entry.name) ?? [];
+      if (initialEntries === undefined || initialEntries.length !== request.entries.length
+          || new Set(initialNames).size !== initialNames.length
+          || initialEntries.some((entry) =>
+            !entry.sequence.devicesComplete || entry.sequence.devices.length !== 0)) {
+        return failure('container-witness', 'The exact empty seed structure did not read back.', stages, verified, checkpoint);
       }
-
-      const temporaryName = uniqueTemporaryName(request.entries.map((item) => item.entryName));
-      failedStage = 'prepare-entries';
-      const prepare = (await host.apply([{
-        op: 'chain.rename', chain: chain(container, 'Layer 1'), name: temporaryName,
-      }], { ...options.run, ifRevision: current.at.revision })).take;
-      stages.push(receipt('prepare-entry-name', prepare));
-      if (!accepted(prepare)) {
-        return failure('prepare-entries', 'The temporary entry name was not proved.', stages, verified, checkpoint);
-      }
-      checkpoint = { ...checkpoint, preparedEntryNames: [temporaryName] };
-      current = await stableTop(host, request.track);
-      const confirm = (await host.apply([{
-        op: 'chain.rename', chain: chain(container, temporaryName), name: request.entries[0]!.entryName,
-      }], { ...options.run, ifRevision: current.at.revision })).take;
-      stages.push(receipt('confirm-entry-name', confirm, 0));
-      if (!accepted(confirm)) {
-        return failure('prepare-entries', 'The first explicit entry name was not proved.', stages, verified, checkpoint);
-      }
-      checkpoint = { ...checkpoint, preparedEntryNames: [request.entries[0]!.entryName] };
-      for (let index = 1; index < request.entries.length; index++) {
-        current = await stableTop(host, request.track);
-        const created = (await host.apply([{
-          op: 'chain.create', source: chain(container, request.entries[index - 1]!.entryName),
-          name: request.entries[index]!.entryName,
-        }], { ...options.run, ifRevision: current.at.revision })).take;
-        stages.push(receipt('create-entry', created, index));
-        if (!accepted(created)) {
-          return failure('prepare-entries', `Entry ${index} was not created.`, stages, verified, checkpoint);
+      checkpoint = { ...checkpoint, preparedEntryNames: initialNames };
+      const requestedNames = request.entries.map((item) => item.entryName);
+      if (JSON.stringify(initialNames) !== JSON.stringify(requestedNames)) {
+        const temporaryNames = uniqueTemporaryNames(
+          [...initialNames, ...requestedNames], request.entries.length,
+        );
+        failedStage = 'prepare-entries';
+        for (const [index, initialName] of initialNames.entries()) {
+          const prepare = (await host.apply([{
+            op: 'chain.rename', chain: chain(container, initialName), name: temporaryNames[index]!,
+          }], { ...options.run, ifRevision: current.at.revision })).take;
+          stages.push(receipt('prepare-entry-name', prepare, index));
+          if (!accepted(prepare)) {
+            return failure('prepare-entries', `Temporary entry ${index} was not proved.`, stages, verified, checkpoint);
+          }
+          checkpoint = {
+            ...checkpoint,
+            seedUnchanged: false,
+            lastWriteAt: minimalMark(prepare.verify.at),
+            preparedEntryNames: checkpoint.preparedEntryNames.map((name, entryIndex) =>
+              entryIndex === index ? temporaryNames[index]! : name),
+          };
+          current = await stableTop(host, request.track);
         }
-        checkpoint = {
-          ...checkpoint,
-          preparedEntryNames: [...checkpoint.preparedEntryNames, request.entries[index]!.entryName],
-        };
+        for (const [index, temporaryName] of temporaryNames.entries()) {
+          const confirm = (await host.apply([{
+            op: 'chain.rename', chain: chain(container, temporaryName),
+            name: requestedNames[index]!,
+          }], { ...options.run, ifRevision: current.at.revision })).take;
+          stages.push(receipt('confirm-entry-name', confirm, index));
+          if (!accepted(confirm)) {
+            return failure('prepare-entries', `Explicit entry ${index} was not proved.`, stages, verified, checkpoint);
+          }
+          checkpoint = {
+            ...checkpoint,
+            preparedEntryNames: checkpoint.preparedEntryNames.map((name, entryIndex) =>
+              entryIndex === index ? requestedNames[index]! : name),
+          };
+          current = await stableTop(host, request.track);
+        }
       }
-      if (!await exactEntries(host, container, checkpoint.preparedEntryNames, [])) {
+      if (!await exactEntries(host, container, checkpoint.preparedEntryNames, [], request.containerKind)) {
         return failure('prepare-entries', 'The complete empty entry order did not read back.', stages, verified, checkpoint);
       }
       checkpoint = { ...checkpoint, state: 'entries-prepared' };
 
       for (const [entryIndex, entry] of request.entries.entries()) {
-        failedStage = `source-${entryIndex}`;
-        const completed = await addEntry(
-          host, request, entry, entryIndex, directory, checkpoint, stages,
-          options,
-          (pendingEntry) => {
-            checkpoint = { ...checkpoint!, state: 'composing', pendingEntry };
-          },
-        );
-        if ('why' in completed) {
-          return failure(failedStage, completed.why, stages, verified, checkpoint);
+        for (const [deviceIndex, entryDevice] of entry.devices.entries()) {
+          failedStage = `source-${entryIndex}-${deviceIndex}`;
+          const completed = await addEntry(
+            host, request, entry.entryName, entryDevice, entryIndex, deviceIndex,
+            directory, checkpoint, stages, options,
+            (pendingEntry, currentContainerPosition) => {
+              checkpoint = {
+                ...checkpoint!, state: 'composing', pendingEntry,
+                pendingUnwitnessedSource: undefined,
+                currentContainerPosition, seedUnchanged: false,
+              };
+            },
+            (pendingUnwitnessedSource) => {
+              checkpoint = {
+                ...checkpoint!, state: 'composing', pendingUnwitnessedSource,
+                seedUnchanged: false,
+              };
+            },
+          );
+          if ('why' in completed) {
+            return failure(failedStage, completed.why, stages, verified, checkpoint);
+          }
+          verified.push(completed.verification);
+          const completedEntries: GeneralDeviceCheckpointEntry[] = [
+            ...checkpoint.completedEntries, completed.checkpoint,
+          ];
+          checkpoint = {
+            ...checkpoint, state: 'composing', completedEntries, pendingEntry: undefined,
+            currentContainerPosition: containerPosition(request, completedEntries),
+          };
         }
-        verified.push(completed.verification);
-        checkpoint = {
-          ...checkpoint, state: 'composing',
-          completedEntries: [...checkpoint.completedEntries, completed.checkpoint],
-          pendingEntry: undefined,
-        };
       }
 
+      container = device(request.track, checkpoint.currentContainerPosition);
       const structure = await readStructure(
-        host, container, checkpoint.entryNames, checkpoint.completedEntries,
+        host, container, checkpoint.entryNames, checkpoint.completedEntries, request.containerKind,
       );
       const complete = structure !== undefined && verified.every((item) => item.verified);
       return {
@@ -308,7 +373,7 @@ export async function composeGeneralDeviceSources(
           failedStage: 'final-witness',
           why: 'The complete structure or one modulation witness did not pass.',
         }),
-        stages, checkpoint, entries: verified,
+        stages, checkpoint, entries: verified, capacities: GENERAL_DEVICE_COMPOSITION_CAPACITIES,
         ...(structure === undefined ? {} : { structure }),
       };
     } finally {
@@ -327,21 +392,28 @@ export async function composeGeneralDeviceSources(
 async function addEntry(
   host: GeneralDeviceCompositionHost,
   request: GeneralDeviceCompositionRequest,
-  entry: GeneralDeviceEntryRequest,
+  entryName: string,
+  entryDevice: GeneralDeviceEntryDeviceRequest,
   entryIndex: number,
+  deviceIndex: number,
   directory: string,
   checkpoint: GeneralDeviceCompositionCheckpoint,
   stages: GeneralDeviceStageReceipt[],
   options: GeneralDeviceCompositionOptions,
   onPending: (
     entry: GeneralDeviceCheckpointEntry & { readonly location: 'top-level' | 'container-entry' },
+    currentContainerPosition: number,
+  ) => void,
+  onUnwitnessed: (
+    source: NonNullable<GeneralDeviceCompositionCheckpoint['pendingUnwitnessedSource']>,
   ) => void,
 ): Promise<{ readonly why: string } | {
   readonly checkpoint: GeneralDeviceCheckpointEntry;
   readonly verification: GeneralDeviceEntryVerification;
 }> {
-  const container = device(request.track, 0);
-  const source = entry.source;
+  let currentContainerPosition = containerPosition(request, checkpoint.completedEntries);
+  let container = device(request.track, currentContainerPosition);
+  const source = entryDevice.source;
   let top = await stableTop(host, request.track, projectedTop(request, checkpoint.completedEntries));
   let sourcePosition: number;
   let observedName: string;
@@ -351,7 +423,7 @@ async function addEntry(
   let presetIdentity: Record<string, unknown> = {};
 
   if (source.kind === 'existing-move' || source.kind === 'existing-copy') {
-    sourcePosition = currentExistingPosition(source.devicePosition, checkpoint.completedEntries);
+    sourcePosition = currentExistingPosition(request, source.devicePosition, checkpoint.completedEntries);
     const observed = top.devices[sourcePosition];
     const expected = request.expectedDeviceOrder[source.devicePosition];
     if (observed === undefined || expected === undefined
@@ -373,7 +445,7 @@ async function addEntry(
     } else if (source.kind === 'clap') {
       insertSource = { from: 'clap', id: source.id };
     } else {
-      const deviceMods = entry.modulators.filter((item) => item.location === 'device');
+      const deviceMods = entryDevice.modulators.filter((item) => item.location === 'device');
       let path = source.path;
       if (deviceMods.length > 0) {
         if (source.fingerprint === undefined || source.modulatorLocation === undefined) {
@@ -386,7 +458,7 @@ async function addEntry(
             routing: { target: modulationRoute(item.target), amount: item.amount },
           })),
         );
-        path = join(directory, `${entryIndex}-${basename(source.path)}`);
+        path = join(directory, `${entryIndex}-${deviceIndex}-${basename(source.path)}`);
         await writeFile(path, authored.preset);
         presetIdentity = {
           presetMetadataName: authored.hostName,
@@ -418,6 +490,15 @@ async function addEntry(
     }
     ownedChangeId = inserted.id;
     sourcePosition = minted.chainIndex;
+    onUnwitnessed({
+      entryIndex, deviceIndex, sourceKind: source.kind, ownedChangeId,
+      chainIndex: sourcePosition,
+      at: {
+        revision: inserted.verify.at.revision,
+        generation: inserted.verify.at.generation,
+        project: inserted.verify.at.project,
+      },
+    });
     top = await stableTop(host, request.track);
     const observed = top.devices[sourcePosition];
     if (observed === undefined || observed.enabled === undefined) {
@@ -425,6 +506,10 @@ async function addEntry(
     }
     observedName = observed.name;
     observedEnabled = observed.enabled;
+    onPending({
+      entryIndex, deviceIndex, entryName, sourceKind: source.kind,
+      observedName, enabled: observedEnabled, ownedChangeId, location: 'top-level',
+    }, currentContainerPosition);
     if (source.kind === 'preset') {
       const metadataName = presetIdentity['presetMetadataName'];
       presetIdentity = {
@@ -434,60 +519,77 @@ async function addEntry(
           ? metadataName === observedName : 'not-observed',
       };
     }
-    onPending({
-      entryIndex, entryName: entry.entryName, sourceKind: source.kind,
-      observedName, enabled: observedEnabled, ownedChangeId, location: 'top-level',
-    });
   }
 
   top = await stableTop(host, request.track);
   const relocation = (await host.apply([{
     op: 'chain.relocate', source: device(request.track, sourcePosition),
-    destination: chain(container, entry.entryName),
+    destination: chain(container, entryName),
     mode: source.kind === 'existing-copy' ? 'copy' : 'move',
     expectedChain: names(top.devices), expectedEnabledChain: enabled(top.devices),
   }], { ...options.run, ifRevision: top.at.revision })).take;
   stages.push(receipt('relocate-source', relocation, entryIndex));
   if (!accepted(relocation)) return { why: 'The source relocation was not proved.' };
   if (source.kind === 'existing-copy') ownedChangeId = relocation.id;
-  onPending({
-    entryIndex, entryName: entry.entryName, sourceKind: source.kind,
+  const pendingEntry = {
+    entryIndex, deviceIndex, entryName, sourceKind: source.kind,
     observedName, enabled: observedEnabled,
     ...(beforeFingerprint === undefined ? {} : { fingerprint: beforeFingerprint }),
     ...(ownedChangeId === undefined ? {} : { ownedChangeId }),
     ...(source.kind === 'existing-move' || source.kind === 'existing-copy'
       ? { originalPosition: source.devicePosition } : {}),
-    location: 'container-entry',
-  });
+    location: 'container-entry' as const,
+  };
+  currentContainerPosition = containerPosition(request, [...checkpoint.completedEntries, pendingEntry]);
+  container = device(request.track, currentContainerPosition);
+  onPending({
+    ...pendingEntry,
+  }, currentContainerPosition);
 
-  const nested = deviceIn(chain(container, entry.entryName), 0);
-  const inventory = await stableInventory(host, nested, options.wait ?? wait);
+  const nested = deviceIn(chain(container, entryName), deviceIndex);
+  const deviceMods = entryDevice.modulators.filter((item) => item.location === 'device');
+  const containerMods = entryDevice.modulators.filter((item) => item.location === 'container');
+  const deviceWitness = deviceMods.length === 0
+    ? { address: nested }
+    : deviceModulationWitness(
+      nested, source.kind === 'preset' ? source.modulatorLocation : undefined,
+    );
+  const fingerprintLocation = deviceMods.length > 0 && source.kind === 'preset'
+      && source.modulatorLocation?.kind === 'entry'
+    ? source.modulatorLocation : undefined;
+  const inventory = await stableInventory(host, deviceWitness.address, options.wait ?? wait);
+  if (deviceWitness.expectedName !== undefined
+      && inventory.name !== deviceWitness.expectedName) {
+    return { why: 'The preset device modulation host did not match its semantic location.' };
+  }
   const afterFingerprint = fingerprint(inventory.params);
-  const expectedEntries = [...checkpoint.completedEntries.map((item) => ({
-    name: item.entryName, device: { name: item.observedName, enabled: item.enabled },
-  })), { name: entry.entryName, device: { name: observedName, enabled: observedEnabled } }];
-  if (!await exactEntries(host, container, checkpoint.entryNames, expectedEntries)) {
+  const expectedEntries = [...checkpoint.completedEntries, {
+    entryIndex, deviceIndex, entryName, sourceKind: source.kind,
+    observedName, enabled: observedEnabled,
+  }];
+  if (!await exactEntries(host, container, checkpoint.entryNames, expectedEntries, request.containerKind)) {
     return { why: 'The complete entry and device order did not read back.' };
   }
 
-  const deviceMods = entry.modulators.filter((item) => item.location === 'device');
-  const containerMods = entry.modulators.filter((item) => item.location === 'container');
   const relevantPages = deviceMods.map((item) => item.pageName);
   const pages = relevantPages.length === 0
     ? { verified: true, actualPages: [], witnesses: [] }
-    : await verifyPages(host, nested, pageWitnesses(relevantPages), options.wait ?? wait);
+    : await verifyPages(
+      host, deviceWitness.address, pageWitnesses(relevantPages), options.wait ?? wait,
+    );
   const behaviors: ModulationVerification[] = [];
-  for (const item of entry.modulators.filter((modulator) => modulator.behaviorCheck === 'active')) {
+  for (const item of entryDevice.modulators.filter((modulator) => modulator.behaviorCheck === 'active')) {
     behaviors.push(await verifyActiveModulation(
-      host, nested, item.target, options.wait ?? wait,
+      host, item.location === 'device' ? deviceWitness.address : nested,
+      item.target, options.wait ?? wait,
     ));
   }
   let containerPages: ModulatorPageVerification = {
     verified: true, actualPages: [], witnesses: [],
   };
   if (containerMods.length > 0) {
-    const allOuterPages = request.entries.flatMap((item) =>
-      item.modulators.filter((mod) => mod.location === 'container').map((mod) => mod.pageName));
+    const allOuterPages = request.entries.flatMap((item) => item.devices.flatMap((entryItem) =>
+      entryItem.modulators.filter((mod) => mod.location === 'container').map((mod) => mod.pageName)));
     containerPages = await verifyPages(
       host, container, pageWitnesses(allOuterPages), options.wait ?? wait,
     );
@@ -506,8 +608,8 @@ async function addEntry(
         : source.kind === 'preset' ? { kind: source.kind, path: source.path, ...presetIdentity }
           : { kind: source.kind, originalDevicePosition: source.devicePosition };
   const verification: GeneralDeviceEntryVerification = {
-    entryIndex, entryName: entry.entryName, sourceKind: source.kind, sourceIdentity,
-    observed: { deviceName: observedName, enabled: observedEnabled, position: 0 },
+    entryIndex, deviceIndex, entryName, sourceKind: source.kind, sourceIdentity,
+    observed: { deviceName: observedName, enabled: observedEnabled, position: deviceIndex },
     instance,
     stateClaim: source.kind === 'existing-move'
       ? 'The same device instance moved. Opaque state was not read back byte for byte.'
@@ -521,13 +623,14 @@ async function addEntry(
     },
     pages, containerPages, behaviors,
     verified: (preserved ?? true) && pages.verified && containerPages.verified
-      && behaviors.length === entry.modulators.filter((item) => item.behaviorCheck === 'active').length
+      && behaviors.length === entryDevice.modulators.filter((item) => item.behaviorCheck === 'active').length
       && behaviors.every((item) => item.verified),
   };
   return {
     checkpoint: {
-      entryIndex, entryName: entry.entryName, sourceKind: source.kind,
+      entryIndex, deviceIndex, entryName, sourceKind: source.kind,
       observedName, enabled: observedEnabled, fingerprint: afterFingerprint,
+      ...(fingerprintLocation === undefined ? {} : { fingerprintLocation }),
       ...(ownedChangeId === undefined ? {} : { ownedChangeId }),
       ...(source.kind === 'existing-move' || source.kind === 'existing-copy'
         ? { originalPosition: source.devicePosition } : {}),
@@ -543,38 +646,109 @@ export async function reverseGeneralDeviceSources(
   options: Pick<GeneralDeviceCompositionOptions, 'run'> = {},
 ): Promise<GeneralDeviceCompositionReversal> {
   const stages: GeneralDeviceStageReceipt[] = [];
+  let progress = checkpoint;
+  const failed = (stage: string, why?: string) =>
+    reversalFailure(stage, stages, why, progress);
   try {
-    let current = await stableTop(host, checkpoint.track, projectedTopFromCheckpoint(checkpoint));
+    if (progress.reversalContainerRemoved === true) {
+      await stableTop(host, progress.track, progress.originalDeviceOrder);
+      return { complete: true, stages, containerRemoved: true, restoredDeviceOrder: true };
+    }
+    let current: StableTop;
+    if (checkpoint.pendingUnwitnessedSource !== undefined) {
+      const pending = checkpoint.pendingUnwitnessedSource;
+      current = await stableTop(host, checkpoint.track);
+      const expected = projectedNestedTop(checkpoint, checkpoint.completedEntries);
+      if (current.at.revision !== pending.at.revision
+          || current.at.generation !== pending.at.generation
+          || current.at.project !== pending.at.project
+          || pending.chainIndex !== expected.length
+          || current.devices.length !== expected.length + 1
+          || JSON.stringify(current.devices.slice(0, -1).map((item) => ({
+            name: item.name, enabled: item.enabled,
+          }))) !== JSON.stringify(expected)) {
+        return failed('reversal-boundary', 'The unwitnessed inserted source boundary changed.');
+      }
+      const tail = current.devices.length - 1;
+      const removed = (await host.apply([{
+        op: 'device.delete', device: device(checkpoint.track, tail),
+        expectedName: current.devices[tail]!.name,
+        expectedChain: names(current.devices), expectedEnabledChain: enabled(current.devices),
+      }], {
+        ...options.run, ifRevision: current.at.revision,
+        clearance: ownChangesetReversal(pending.ownedChangeId),
+      })).take;
+      stages.push(receipt('remove-source', removed, pending.entryIndex));
+      if (!accepted(removed)) return failed('remove-source');
+      progress = {
+        ...progress, pendingUnwitnessedSource: undefined,
+        lastWriteAt: minimalMark(removed.verify.at),
+      };
+      current = await stableTopAfter(host, checkpoint.track, removed, expected);
+    } else {
+      current = await stableTop(host, checkpoint.track, projectedTopFromCheckpoint(checkpoint));
+    }
+    if (checkpoint.seedUnchanged
+        && (checkpoint.state === 'container-inserted' || checkpoint.state === 'container-positioned')) {
+      if (current.at.revision !== checkpoint.lastWriteAt.revision
+          || current.at.generation !== checkpoint.lastWriteAt.generation
+          || current.at.project !== checkpoint.lastWriteAt.project
+          || current.devices[checkpoint.currentContainerPosition]?.name !== checkpoint.containerKind) {
+        return failed('reversal-boundary', 'The untouched seed boundary changed.');
+      }
+      const removal = (await host.apply([{
+        op: 'device.delete', device: device(checkpoint.track, checkpoint.currentContainerPosition),
+        expectedName: checkpoint.containerKind,
+        expectedChain: names(current.devices), expectedEnabledChain: enabled(current.devices),
+      }], {
+        ...options.run, ifRevision: current.at.revision,
+        clearance: ownChangesetReversal(checkpoint.containerInsertTakeId),
+      })).take;
+      stages.push(receipt('remove-container', removal));
+      if (!accepted(removal)) return failed('remove-container');
+      progress = {
+        ...progress, reversalContainerRemoved: true,
+        lastWriteAt: minimalMark(removal.verify.at),
+      };
+      await stableTop(host, checkpoint.track, checkpoint.originalDeviceOrder);
+      return { complete: true, stages, containerRemoved: true, restoredDeviceOrder: true };
+    }
     let containerPosition = checkpoint.currentContainerPosition;
-    if (checkpoint.state === 'container-inserted' && containerPosition > 0) {
+    if (checkpoint.state === 'container-inserted'
+        && containerPosition !== checkpoint.requestedContainerPosition) {
       const positioning = (await host.apply([{
         op: 'device.relocate', track: checkpoint.track, sourceFromEnd: 0,
-        expectedName: checkpoint.containerKind, before: device(checkpoint.track, 0),
+        expectedName: checkpoint.containerKind,
+        before: device(checkpoint.track, checkpoint.requestedContainerPosition),
         expectedChain: names(current.devices), expectedEnabledChain: enabled(current.devices),
       }], { ...options.run, ifRevision: current.at.revision })).take;
       stages.push(receipt('position-container', positioning));
-      if (!accepted(positioning)) return reversalFailure('position-container', stages);
-      containerPosition = 0;
-      current = await stableTopAfter(host, checkpoint.track, positioning, [
-        { name: checkpoint.containerKind, enabled: true }, ...checkpoint.originalDeviceOrder,
-      ]);
+      if (!accepted(positioning)) return failed('position-container');
+      progress = {
+        ...progress, state: 'container-positioned',
+        currentContainerPosition: checkpoint.requestedContainerPosition,
+        lastWriteAt: minimalMark(positioning.verify.at),
+      };
+      containerPosition = checkpoint.requestedContainerPosition;
+      current = await stableTopAfter(
+        host, checkpoint.track, positioning, projectedNestedTop(checkpoint, []),
+      );
     }
     const container = device(checkpoint.track, containerPosition);
-    const nestedEntries = [
+    const nestedEntries = progress.reversalRemainingEntries ?? [
       ...checkpoint.completedEntries,
       ...(checkpoint.pendingEntry?.location === 'container-entry' ? [checkpoint.pendingEntry] : []),
     ];
-    const expectedNested = nestedEntries.map((item) => ({
-      name: item.entryName, device: { name: item.observedName, enabled: item.enabled },
-    }));
-    if (!await exactEntries(host, container, checkpoint.preparedEntryNames, expectedNested)) {
-      return reversalFailure('reversal-boundary', stages, 'The owned container structure changed.');
+    if (!await exactEntries(
+      host, container, checkpoint.preparedEntryNames, nestedEntries, checkpoint.containerKind,
+    )) {
+      return failed('reversal-boundary', 'The owned container structure changed.');
     }
 
     if (checkpoint.pendingEntry?.location === 'top-level') {
       const item = checkpoint.pendingEntry;
       if (item.ownedChangeId === undefined) {
-        return reversalFailure('remove-source', stages, 'The pending owned source change is missing.');
+        return failed('remove-source', 'The pending owned source change is missing.');
       }
       const tail = current.devices.length - 1;
       const removed = (await host.apply([{
@@ -586,43 +760,103 @@ export async function reverseGeneralDeviceSources(
         clearance: ownChangesetReversal(item.ownedChangeId),
       })).take;
       stages.push(receipt('remove-source', removed, item.entryIndex));
-      if (!accepted(removed)) return reversalFailure('remove-source', stages);
+      if (!accepted(removed)) return failed('remove-source');
+      progress = {
+        ...progress, pendingEntry: undefined,
+        lastWriteAt: minimalMark(removed.verify.at),
+      };
       current = await stableTopAfter(
         host, checkpoint.track, removed, projectedNestedTop(checkpoint, nestedEntries),
       );
     }
 
     const remaining = [...nestedEntries];
+    const resumed = progress.reversalPendingTopLevel;
+    if (resumed !== undefined) {
+      const position = resumed.position;
+      const observed = current.devices[position];
+      if (observed?.name !== resumed.observedName || observed.enabled !== resumed.enabled) {
+        return failed('reversal-boundary', 'The extracted source boundary changed.');
+      }
+      if (resumed.sourceKind === 'existing-move') {
+        const desired = desiredWithContainer(checkpoint, remaining);
+        const desiredOrder = projectedNestedTop(checkpoint, remaining);
+        const target = desired.findIndex((entry) =>
+          entry.originalPosition === resumed.originalPosition && entry.restored);
+        if (target < 0) return failed('restore-position', 'The original source position is missing.');
+        if (target !== position) {
+          const reordered = (await host.apply([{
+            op: 'device.relocate', track: checkpoint.track,
+            sourceFromEnd: current.devices.length - 1 - position,
+            expectedName: resumed.observedName, before: device(checkpoint.track, target),
+            expectedChain: names(current.devices), expectedEnabledChain: enabled(current.devices),
+          }], { ...options.run, ifRevision: current.at.revision })).take;
+          stages.push(receipt('restore-position', reordered, resumed.entryIndex));
+          if (!accepted(reordered)) return failed('restore-position');
+          progress = clearReversalPending(progress, reordered.verify.at);
+          current = await stableTopAfter(host, checkpoint.track, reordered, desiredOrder);
+        } else {
+          progress = clearReversalPending(progress, current.at);
+          current = await stableTop(host, checkpoint.track, desiredOrder);
+        }
+      } else {
+        if (resumed.ownedChangeId === undefined) {
+          return failed('remove-source', 'The owned source change is missing.');
+        }
+        const removed = (await host.apply([{
+          op: 'device.delete', device: device(checkpoint.track, position),
+          expectedName: resumed.observedName,
+          expectedChain: names(current.devices), expectedEnabledChain: enabled(current.devices),
+        }], {
+          ...options.run, ifRevision: current.at.revision,
+          clearance: ownChangesetReversal(resumed.ownedChangeId),
+        })).take;
+        stages.push(receipt('remove-source', removed, resumed.entryIndex));
+        if (!accepted(removed)) return failed('remove-source');
+        progress = clearReversalPending(progress, removed.verify.at);
+        current = await stableTopAfter(
+          host, checkpoint.track, removed, projectedNestedTop(checkpoint, remaining),
+        );
+      }
+    }
     for (const item of [...remaining].reverse()) {
-      const nested = deviceIn(chain(container, item.entryName), 0);
-      const inventory = await stableInventory(host, nested, wait, 80);
-      if (inventory.name !== item.observedName
+      const currentContainer = device(
+        checkpoint.track, checkpointContainerPosition(checkpoint, remaining),
+      );
+      const nested = deviceIn(chain(currentContainer, item.entryName), item.deviceIndex);
+      const fingerprintWitness = deviceModulationWitness(nested, item.fingerprintLocation);
+      const inventory = await stableInventory(host, fingerprintWitness.address, wait, 80);
+      if (inventory.name !== (fingerprintWitness.expectedName ?? item.observedName)
           || (item.fingerprint !== undefined
             && !sameFingerprint(fingerprint(inventory.params), item.fingerprint))) {
-        return reversalFailure('reversal-boundary', stages, `Entry ${item.entryIndex} changed.`);
+        return failed('reversal-boundary', `Entry ${item.entryIndex} changed.`);
       }
       current = await stableTop(host, checkpoint.track, projectedNestedTop(checkpoint, remaining));
       if (!sameMark(inventory.at, current.at)) {
-        return reversalFailure(
-          'reversal-boundary', stages, `Entry ${item.entryIndex} changed during inspection.`,
-        );
+        return failed('reversal-boundary', `Entry ${item.entryIndex} changed during inspection.`);
       }
       const extracted = (await host.apply([{
         op: 'chain.relocate', source: nested, destination: checkpoint.track, mode: 'move',
         expectedChain: names(current.devices), expectedEnabledChain: enabled(current.devices),
       }], { ...options.run, ifRevision: current.at.revision })).take;
       stages.push(receipt('extract-source', extracted, item.entryIndex));
-      if (!accepted(extracted)) return reversalFailure('extract-source', stages);
+      if (!accepted(extracted)) return failed('extract-source');
       const extractedOrder = [
         ...projectedNestedTop(checkpoint, remaining),
         { name: item.observedName, enabled: item.enabled },
       ];
+      const nextRemaining = remaining.filter((candidate) => candidate !== item);
+      progress = {
+        ...progress,
+        reversalRemainingEntries: nextRemaining,
+        reversalPendingTopLevel: { ...item, position: extractedOrder.length - 1 },
+        lastWriteAt: minimalMark(extracted.verify.at),
+      };
       current = await stableTopAfter(host, checkpoint.track, extracted, extractedOrder);
 
       if (item.sourceKind === 'existing-move') {
-        remaining.splice(remaining.indexOf(item), 1);
-        const desired = desiredWithContainer(checkpoint, remaining);
-        const desiredOrder = projectedNestedTop(checkpoint, remaining);
+        const desired = desiredWithContainer(checkpoint, nextRemaining);
+        const desiredOrder = projectedNestedTop(checkpoint, nextRemaining);
         const target = desired.findIndex((entry) =>
           entry.originalPosition === item.originalPosition && entry.restored);
         if (target < current.devices.length - 1) {
@@ -632,14 +866,16 @@ export async function reverseGeneralDeviceSources(
             expectedChain: names(current.devices), expectedEnabledChain: enabled(current.devices),
           }], { ...options.run, ifRevision: current.at.revision })).take;
           stages.push(receipt('restore-position', reordered, item.entryIndex));
-          if (!accepted(reordered)) return reversalFailure('restore-position', stages);
+          if (!accepted(reordered)) return failed('restore-position');
+          progress = clearReversalPending(progress, reordered.verify.at);
           current = await stableTopAfter(host, checkpoint.track, reordered, desiredOrder);
         } else {
+          progress = clearReversalPending(progress, current.at);
           current = await stableTop(host, checkpoint.track, desiredOrder);
         }
       } else {
         if (item.ownedChangeId === undefined) {
-          return reversalFailure('remove-source', stages, 'The owned source change is missing.');
+          return failed('remove-source', 'The owned source change is missing.');
         }
         const tail = current.devices.length - 1;
         const removed = (await host.apply([{
@@ -651,22 +887,24 @@ export async function reverseGeneralDeviceSources(
           clearance: ownChangesetReversal(item.ownedChangeId),
         })).take;
         stages.push(receipt('remove-source', removed, item.entryIndex));
-        if (!accepted(removed)) return reversalFailure('remove-source', stages);
-        remaining.splice(remaining.indexOf(item), 1);
+        if (!accepted(removed)) return failed('remove-source');
+        progress = clearReversalPending(progress, removed.verify.at);
         current = await stableTopAfter(
-          host, checkpoint.track, removed, projectedNestedTop(checkpoint, remaining),
+          host, checkpoint.track, removed, projectedNestedTop(checkpoint, nextRemaining),
         );
       }
+      remaining.splice(0, remaining.length, ...nextRemaining);
     }
 
-    current = await stableTop(host, checkpoint.track, [
-      { name: checkpoint.containerKind, enabled: true }, ...checkpoint.originalDeviceOrder,
-    ]);
-    if (!await exactEntries(host, device(checkpoint.track, 0), checkpoint.preparedEntryNames, [])) {
-      return reversalFailure('remove-container', stages, 'The owned container is not empty.');
+    current = await stableTop(host, checkpoint.track, projectedNestedTop(checkpoint, []));
+    if (!await exactEntries(
+      host, device(checkpoint.track, checkpoint.requestedContainerPosition),
+      checkpoint.preparedEntryNames, [], checkpoint.containerKind,
+    )) {
+      return failed('remove-container', 'The owned container is not empty.');
     }
     const removal = (await host.apply([{
-      op: 'device.delete', device: device(checkpoint.track, 0),
+      op: 'device.delete', device: device(checkpoint.track, checkpoint.requestedContainerPosition),
       expectedName: checkpoint.containerKind,
       expectedChain: names(current.devices), expectedEnabledChain: enabled(current.devices),
     }], {
@@ -674,11 +912,15 @@ export async function reverseGeneralDeviceSources(
       clearance: ownChangesetReversal(checkpoint.containerInsertTakeId),
     })).take;
     stages.push(receipt('remove-container', removal));
-    if (!accepted(removal)) return reversalFailure('remove-container', stages);
+    if (!accepted(removal)) return failed('remove-container');
+    progress = {
+      ...progress, reversalContainerRemoved: true,
+      lastWriteAt: minimalMark(removal.verify.at),
+    };
     await stableTop(host, checkpoint.track, checkpoint.originalDeviceOrder);
     return { complete: true, stages, containerRemoved: true, restoredDeviceOrder: true };
   } catch (error) {
-    return reversalFailure('reversal-boundary', stages, message(error));
+    return failed('reversal-boundary', message(error));
   }
 }
 
@@ -745,7 +987,6 @@ async function stableInventory(
       if (!snapshot.unreachable.some((item) => addressKey(item) === key)
           && !snapshot.unstable.some((item) => addressKey(item) === key)
           && value?.of === 'device' && value.device.params !== undefined
-          && value.device.params.length > 0
           && new Set(value.device.params.map((item) => item.id)).size === value.device.params.length) {
         return { at: snapshot.at, name: value.device.name, params: value.device.params };
       }
@@ -785,20 +1026,21 @@ async function exactEntries(
   host: GeneralDeviceCompositionHost,
   container: DeviceAddress,
   names: readonly string[],
-  occupied: readonly { readonly name: string; readonly device: GeneralDeviceOrderItem }[],
+  occupied: readonly Pick<GeneralDeviceCheckpointEntry,
+  'entryIndex' | 'deviceIndex' | 'entryName' | 'observedName' | 'enabled'>[],
+  containerKind: GeneralDeviceContainerKind,
 ): Promise<boolean> {
-  const snapshot = await host.read([container]);
-  const value = snapshot.entries[addressKey(container)]?.value;
-  const structure = value?.of === 'device' ? value.device.container : undefined;
-  if (value?.of !== 'device' || value.device.name !== EXISTING_DEVICE_WRAPPER_KIND
-      || structure?.chainsComplete !== true || structure.chains.length !== names.length) return false;
-  return structure.chains.every((entry, index) => {
-    const expected = occupied.find((item) => item.name === names[index]);
-    return entry.index === index && entry.name === names[index] && entry.devicesComplete
-      && entry.devices.length === (expected === undefined ? 0 : 1)
-      && (expected === undefined || (entry.devices[0]?.index === 0
-        && entry.devices[0]?.name === expected.device.name
-        && entry.devices[0]?.enabled === expected.device.enabled));
+  const structure = await observedContainer(host, container, containerKind);
+  const entries = structure === undefined ? undefined : observedEntries(structure, containerKind);
+  if (entries === undefined || entries.length !== names.length) return false;
+  return entries.every((entry, index) => {
+    const expected = occupied.filter((item) => item.entryIndex === index)
+      .sort((left, right) => left.deviceIndex - right.deviceIndex);
+    return entry.name === names[index] && entry.sequence.devicesComplete
+      && entry.sequence.devices.length === expected.length
+      && entry.sequence.devices.every((item, deviceIndex) => item.index === deviceIndex
+        && item.name === expected[deviceIndex]?.observedName
+        && item.enabled === expected[deviceIndex]?.enabled);
   });
 }
 
@@ -807,57 +1049,94 @@ async function readStructure(
   container: DeviceAddress,
   names: readonly string[],
   expected: readonly GeneralDeviceCheckpointEntry[],
+  containerKind: GeneralDeviceContainerKind,
 ): Promise<GeneralDeviceCompositionResult['structure'] | undefined> {
-  const snapshot = await host.read([container]);
-  const value = snapshot.entries[addressKey(container)]?.value;
-  const structure = value?.of === 'device' ? value.device.container : undefined;
-  if (value?.of !== 'device' || value.device.name !== EXISTING_DEVICE_WRAPPER_KIND
-      || structure?.chainsComplete !== true || structure.chains.length !== names.length
-      || expected.length !== names.length) return undefined;
-  if (structure.chains.some((entry, index) => {
-    const wanted = expected[index];
-    return wanted === undefined || wanted.entryIndex !== index || wanted.entryName !== names[index]
-      || entry.index !== index || entry.name !== names[index] || !entry.devicesComplete
-      || entry.devices.length !== 1 || entry.devices[0]?.index !== 0
-      || entry.devices[0]?.name !== wanted.observedName
-      || entry.devices[0]?.enabled !== wanted.enabled;
+  const structure = await observedContainer(host, container, containerKind);
+  const entries = structure === undefined ? undefined : observedEntries(structure, containerKind);
+  if (entries === undefined || entries.length !== names.length) return undefined;
+  if (entries.some((entry, entryIndex) => {
+    const wanted = expected.filter((item) => item.entryIndex === entryIndex)
+      .sort((left, right) => left.deviceIndex - right.deviceIndex);
+    return entry.name !== names[entryIndex] || !entry.sequence.devicesComplete
+      || entry.sequence.devices.length !== wanted.length
+      || entry.sequence.devices.some((item, deviceIndex) => item.index !== deviceIndex
+        || item.name !== wanted[deviceIndex]?.observedName
+        || item.enabled !== wanted[deviceIndex]?.enabled);
   })) return undefined;
-  return structure.chains.map((entry) => ({
-    entryIndex: entry.index, entryName: entry.name,
-    devices: entry.devices.map((item) => ({
+  return entries.map((entry, entryIndex) => ({
+    entryIndex, entryName: entry.name,
+    devices: entry.sequence.devices.map((item) => ({
       position: item.index, name: item.name, enabled: item.enabled as boolean,
     })),
   }));
 }
 
+async function observedContainer(
+  host: GeneralDeviceCompositionHost,
+  container: DeviceAddress,
+  containerKind: GeneralDeviceContainerKind,
+): Promise<ObservedContainer | undefined> {
+  const snapshot = await host.read([container]);
+  const value = snapshot.entries[addressKey(container)]?.value;
+  if (value?.of !== 'device' || value.device.name !== containerKind) return undefined;
+  return value.device.container;
+}
+
+function observedEntries(
+  structure: ObservedContainer,
+  containerKind: GeneralDeviceContainerKind,
+): readonly { readonly name: string; readonly sequence: ObservedDeviceSequence }[] | undefined {
+  if (!structure.chainsComplete) return undefined;
+  return structure.chains.map((entry) => ({ name: entry.name, sequence: entry }));
+}
+
 function assertRequest(request: GeneralDeviceCompositionRequest, topBankSize: number): void {
-  if (request.entries.length < 1 || request.entries.length > 4) {
-    throw new Error('one through four entries are required by the current complete chain bank');
+  if (!Number.isInteger(request.containerPosition) || request.containerPosition < 0
+      || request.containerPosition >= GENERAL_DEVICE_COMPOSITION_CAPACITIES.topLevelContainerPositions
+      || request.containerPosition > request.expectedDeviceOrder.length) {
+    throw new Error('containerPosition is outside the complete top-level container scope');
+  }
+  const maxEntries = GENERAL_DEVICE_COMPOSITION_CAPACITIES.entriesPerLayer;
+  if (request.entries.length < 1 || request.entries.length > maxEntries) {
+    throw new Error(`the container accepts one through ${maxEntries} entries`);
   }
   const entryNames = request.entries.map((item) => item.entryName);
   if (new Set(entryNames).size !== entryNames.length) throw new Error('each entry name must be unique');
   if (request.expectedDeviceOrder.length + 1 > topBankSize) {
     throw new Error('the top-level device bank has no room for the owned container');
   }
+  const devices = request.entries.flatMap((entry) => entry.devices);
+  if (devices.some((item) => item.source.kind !== 'existing-move')
+      && request.expectedDeviceOrder.length + 2 > topBankSize) {
+    throw new Error('the top-level device bank has no scratch slot for exact reversal');
+  }
   for (const entry of request.entries) {
-    if (entry.source.kind !== 'preset'
-        && entry.modulators.some((item) => item.location === 'device')) {
-      throw new Error('device-local modulator authoring requires an explicit preset source');
+    if (entry.devices.length < 1
+        || entry.devices.length > GENERAL_DEVICE_COMPOSITION_CAPACITIES.devicesPerEntry) {
+      throw new Error('each entry accepts one through four ordered devices');
     }
-    if ((entry.source.kind === 'existing-move' || entry.source.kind === 'existing-copy')
-        && request.expectedDeviceOrder[entry.source.devicePosition] === undefined) {
-      throw new Error('an existing source position is missing from expectedDeviceOrder');
+    for (const entryDevice of entry.devices) {
+      if (entryDevice.source.kind === 'preset'
+          && entryDevice.source.modulatorLocation?.kind === 'entry'
+          && 1 + entryDevice.source.modulatorLocation.devicePath.length
+            > GENERAL_DEVICE_COMPOSITION_CAPACITIES.parameterRouteDepth) {
+        throw new Error('the total preset device route exceeds the supported depth of two');
+      }
+      if (entryDevice.source.kind !== 'preset'
+          && entryDevice.modulators.some((item) => item.location === 'device')) {
+        throw new Error('device-local modulator authoring requires an explicit preset source');
+      }
+      if ((entryDevice.source.kind === 'existing-move' || entryDevice.source.kind === 'existing-copy')
+          && request.expectedDeviceOrder[entryDevice.source.devicePosition] === undefined) {
+        throw new Error('an existing source position is missing from expectedDeviceOrder');
+      }
     }
   }
-  if (request.entries.slice(1).some((entry) =>
-    entry.modulators.some((item) => item.location === 'container'))) {
-    throw new Error('outer modulation is supported only for the first late-bound entry');
-  }
-  const moved = request.entries.filter((item) => item.source.kind === 'existing-move')
+  const moved = devices.filter((item) => item.source.kind === 'existing-move')
     .map((item) => (item.source as Extract<GeneralDeviceSourceRequest, { kind: 'existing-move' }>).devicePosition);
   if (new Set(moved).size !== moved.length) throw new Error('one existing device cannot move twice');
   const alreadyMoved = new Set<number>();
-  for (const entry of request.entries) {
+  for (const entry of devices) {
     if ((entry.source.kind === 'existing-move' || entry.source.kind === 'existing-copy')
         && alreadyMoved.has(entry.source.devicePosition)) {
       throw new Error('an existing source cannot be used again after it moves');
@@ -867,33 +1146,46 @@ function assertRequest(request: GeneralDeviceCompositionRequest, topBankSize: nu
 }
 
 function currentExistingPosition(
-  original: number, completed: readonly GeneralDeviceCheckpointEntry[],
+  request: GeneralDeviceCompositionRequest,
+  original: number,
+  completed: readonly GeneralDeviceCheckpointEntry[],
 ): number {
-  return original + 1 - completed.filter((item) =>
-    item.sourceKind === 'existing-move' && (item.originalPosition ?? -1) < original).length;
+  return topTokens(
+    request.expectedDeviceOrder, request.containerKind, request.containerPosition, completed,
+  ).findIndex((item) => item.originalPosition === original);
 }
 
 function projectedTop(
   request: GeneralDeviceCompositionRequest, completed: readonly GeneralDeviceCheckpointEntry[],
 ): GeneralDeviceOrderItem[] {
-  const moved = new Set(completed.filter((item) => item.sourceKind === 'existing-move')
-    .map((item) => item.originalPosition));
-  return [{ name: request.containerKind, enabled: true },
-    ...request.expectedDeviceOrder.filter((_, index) => !moved.has(index))];
+  return topTokens(
+    request.expectedDeviceOrder, request.containerKind, request.containerPosition, completed,
+  ).map((item) => item.order);
 }
 
-function projectedTopFromCheckpoint(checkpoint: GeneralDeviceCompositionCheckpoint): GeneralDeviceOrderItem[] {
+function projectedTopFromCheckpoint(
+  checkpoint: GeneralDeviceCompositionCheckpoint,
+): GeneralDeviceOrderItem[] {
+  if (checkpoint.reversalContainerRemoved === true) return [...checkpoint.originalDeviceOrder];
   if (checkpoint.state === 'container-inserted') {
     return [...checkpoint.originalDeviceOrder, { name: checkpoint.containerKind, enabled: true }];
   }
-  const effective = [
+  const effective = checkpoint.reversalRemainingEntries ?? [
     ...checkpoint.completedEntries,
     ...(checkpoint.pendingEntry?.location === 'container-entry' ? [checkpoint.pendingEntry] : []),
   ];
-  const moved = new Set(effective
-    .filter((item) => item.sourceKind === 'existing-move').map((item) => item.originalPosition));
-  const base = [{ name: checkpoint.containerKind, enabled: true },
-    ...checkpoint.originalDeviceOrder.filter((_, index) => !moved.has(index))];
+  const pendingReversal = checkpoint.reversalPendingTopLevel;
+  const base = topTokens(
+    checkpoint.originalDeviceOrder, checkpoint.containerKind,
+    checkpoint.requestedContainerPosition,
+    pendingReversal === undefined ? effective : [...effective, pendingReversal],
+  ).map((item) => item.order);
+  if (pendingReversal !== undefined) {
+    base.splice(pendingReversal.position, 0, {
+      name: pendingReversal.observedName, enabled: pendingReversal.enabled,
+    });
+    return base;
+  }
   return checkpoint.pendingEntry?.location === 'top-level'
     ? [...base, {
       name: checkpoint.pendingEntry.observedName, enabled: checkpoint.pendingEntry.enabled,
@@ -905,20 +1197,62 @@ function projectedNestedTop(
   checkpoint: GeneralDeviceCompositionCheckpoint,
   remaining: readonly GeneralDeviceCheckpointEntry[],
 ): GeneralDeviceOrderItem[] {
-  const moved = new Set(remaining.filter((item) => item.sourceKind === 'existing-move')
-    .map((item) => item.originalPosition));
-  return [{ name: checkpoint.containerKind, enabled: true },
-    ...checkpoint.originalDeviceOrder.filter((_, index) => !moved.has(index))];
+  return topTokens(
+    checkpoint.originalDeviceOrder, checkpoint.containerKind,
+    checkpoint.requestedContainerPosition, remaining,
+  ).map((item) => item.order);
 }
 
 function desiredWithContainer(
   checkpoint: GeneralDeviceCompositionCheckpoint,
   remaining: readonly GeneralDeviceCheckpointEntry[],
 ): readonly { readonly originalPosition?: number; readonly restored: boolean }[] {
-  const stillMoved = new Set(remaining.filter((item) => item.sourceKind === 'existing-move')
+  return topTokens(
+    checkpoint.originalDeviceOrder, checkpoint.containerKind,
+    checkpoint.requestedContainerPosition, remaining,
+  ).map((item) => ({ ...item, restored: true }));
+}
+
+function withContainer(
+  order: readonly GeneralDeviceOrderItem[], request: GeneralDeviceCompositionRequest,
+): GeneralDeviceOrderItem[] {
+  return topTokens(order, request.containerKind, request.containerPosition, []).map((item) => item.order);
+}
+
+function containerPosition(
+  request: GeneralDeviceCompositionRequest,
+  completed: readonly GeneralDeviceCheckpointEntry[],
+): number {
+  return topTokens(
+    request.expectedDeviceOrder, request.containerKind, request.containerPosition, completed,
+  ).findIndex((item) => item.container);
+}
+
+function checkpointContainerPosition(
+  checkpoint: GeneralDeviceCompositionCheckpoint,
+  nested: readonly GeneralDeviceCheckpointEntry[],
+): number {
+  return topTokens(
+    checkpoint.originalDeviceOrder, checkpoint.containerKind,
+    checkpoint.requestedContainerPosition, nested,
+  ).findIndex((item) => item.container);
+}
+
+function topTokens(
+  original: readonly GeneralDeviceOrderItem[],
+  containerKind: GeneralDeviceContainerKind,
+  requestedPosition: number,
+  nested: readonly GeneralDeviceCheckpointEntry[],
+): { readonly order: GeneralDeviceOrderItem; readonly container: boolean; readonly originalPosition?: number }[] {
+  const moved = new Set(nested.filter((item) => item.sourceKind === 'existing-move')
     .map((item) => item.originalPosition));
-  return [{ restored: true }, ...checkpoint.originalDeviceOrder.flatMap((_, index) =>
-    stillMoved.has(index) ? [] : [{ originalPosition: index, restored: true }])];
+  const tokens: {
+    order: GeneralDeviceOrderItem; container: boolean; originalPosition?: number;
+  }[] = original.map((order, originalPosition) => ({ order, container: false, originalPosition }));
+  tokens.splice(requestedPosition, 0, {
+    order: { name: containerKind, enabled: true }, container: true,
+  });
+  return tokens.filter((item) => item.container || !moved.has(item.originalPosition));
 }
 
 function fingerprint(params: readonly ParamState[]): GeneralDeviceFingerprint {
@@ -952,25 +1286,62 @@ function pageWitnesses(pages: readonly string[]): { pageName: string; expectedCo
   }));
 }
 
+function deviceModulationWitness(
+  sourceRoot: DeviceAddress,
+  location: SemanticModulatorLocation | undefined,
+): { readonly address: DeviceAddress; readonly expectedName?: string } {
+  if (location?.kind !== 'entry') {
+    return { address: sourceRoot };
+  }
+  const selected = location.devicePath[0];
+  if (selected === undefined) return { address: sourceRoot };
+  return {
+    address: deviceIn(chain(sourceRoot, selected.name), selected.position),
+    expectedName: selected.name,
+  };
+}
+
 function failure(
   failedStage: string, why: string,
   stages: readonly GeneralDeviceStageReceipt[], entries: readonly GeneralDeviceEntryVerification[],
   checkpoint?: GeneralDeviceCompositionCheckpoint,
 ): GeneralDeviceCompositionResult {
-  return { complete: false, failedStage, why, stages, entries, ...(checkpoint === undefined ? {} : { checkpoint }) };
+  return {
+    complete: false, failedStage, why, stages, entries,
+    capacities: GENERAL_DEVICE_COMPOSITION_CAPACITIES,
+    ...(checkpoint === undefined ? {} : { checkpoint }),
+  };
 }
 
 function reversalFailure(
   failedStage: string, stages: readonly GeneralDeviceStageReceipt[],
   why = 'The guarded reversal stage was not proved.',
+  checkpoint?: GeneralDeviceCompositionCheckpoint,
 ): GeneralDeviceCompositionReversal {
-  return { complete: false, failedStage, why, stages, containerRemoved: false, restoredDeviceOrder: false };
+  return {
+    complete: false, failedStage, why, stages,
+    containerRemoved: checkpoint?.reversalContainerRemoved === true,
+    restoredDeviceOrder: false,
+    ...(checkpoint === undefined ? {} : { checkpoint }),
+  };
 }
 
-function uniqueTemporaryName(names: readonly string[]): string {
-  let name = 'ghostnote pending general entry';
-  while (names.includes(name)) name += ' pending';
-  return name;
+function clearReversalPending(
+  checkpoint: GeneralDeviceCompositionCheckpoint,
+  at: RevisionMark,
+): GeneralDeviceCompositionCheckpoint {
+  const { reversalPendingTopLevel: _pending, ...rest } = checkpoint;
+  return { ...rest, lastWriteAt: minimalMark(at) };
+}
+
+function uniqueTemporaryNames(names: readonly string[], count: number): string[] {
+  const reserved = new Set(names);
+  return Array.from({ length: count }, (_, index) => {
+    let name = `ghostnote pending general entry ${index + 1}`;
+    while (reserved.has(name)) name += ' pending';
+    reserved.add(name);
+    return name;
+  });
 }
 
 function names(devices: readonly ObservedDevice[]): string[] {
@@ -985,6 +1356,10 @@ function sameMark(left: RevisionMark, right: RevisionMark): boolean {
   return left.revision === right.revision && left.sceneEpoch === right.sceneEpoch
     && left.contentEpoch === right.contentEpoch && left.generation === right.generation
     && left.project === right.project;
+}
+
+function minimalMark(mark: RevisionMark): GeneralDeviceCompositionCheckpoint['lastWriteAt'] {
+  return { revision: mark.revision, generation: mark.generation, project: mark.project };
 }
 
 function message(error: unknown): string {

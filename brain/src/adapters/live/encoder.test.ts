@@ -21,7 +21,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  BlindSpotError, InvalidOpError, assertOpsWritable, chain as chainAt, clip, device, deviceIn, drumPad, param,
+  BlindSpotError, InvalidOpError, assertOpsWritable, chain as chainAt, clip, device, deviceIn,
+  deviceSlot, drumPad, param,
   remote, scene, slot, track,
   type NoteRecord, type Op, type TrackAddress,
 } from '../../contract/index.js';
@@ -462,6 +463,7 @@ test('E-chain-rename: a durable name write targets the freshly observed identity
 test('E-chain-relocate: all directions use one guarded slot-scoped mover', () => {
   const a = chainAt(device(TRACK_A, 0), 'A take');
   const b = chainAt(device(TRACK_A, 1), 'B take');
+  const named = deviceSlot(device(TRACK_A, 1), 'CHAIN');
   const cases: Op[] = [
     {
       op: 'chain.relocate', source: device(TRACK_A, 1), destination: a, mode: 'move',
@@ -469,16 +471,21 @@ test('E-chain-relocate: all directions use one guarded slot-scoped mover', () =>
     },
     { op: 'chain.relocate', source: deviceIn(a, 0), destination: TRACK_A, mode: 'move' },
     { op: 'chain.relocate', source: deviceIn(a, 0), destination: b, mode: 'copy' },
+    { op: 'chain.relocate', source: device(TRACK_A, 0), destination: named, mode: 'move' },
+    { op: 'chain.relocate', source: deviceIn(named, 0), destination: TRACK_A, mode: 'move' },
   ];
   const params = cases.map((op) => paramsOf(encodeOp(op, ctx), WIRE.chainMove));
   assert.deepEqual(params.map((value) => [value?.['src'], value?.['dst'], value?.['verb']]), [
     ['top', 'chain', 'move'], ['chain', 'top', 'move'], ['chain', 'chain', 'copy'],
+    ['top', 'slot', 'move'], ['slot', 'top', 'move'],
   ]);
   assert.equal(params[0]?.['dstLayer'], 2);
   assert.deepEqual(params[0]?.['expectedDeviceNames'], ['Tool', 'Polysynth']);
   assert.deepEqual(params[0]?.['expectedDeviceEnabled'], [true, false]);
   assert.equal(params[1]?.['srcLayer'], 2);
   assert.equal(params[2]?.['dstLayer'], 3);
+  assert.equal(params[3]?.['expectedDestinationChain'], 'CHAIN');
+  assert.equal(params[4]?.['expectedSourceChain'], 'CHAIN');
   for (const value of params) {
     assert.equal(value?.['expectedTrackChannelId'], TRACK_A.channelId);
     assert.equal(value?.['expectedSourceName'], 'Polysynth');

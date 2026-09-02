@@ -29,7 +29,7 @@ import assert from 'node:assert/strict';
 import {
   GAIN_READ_SCALE, addressKey, assertOpsWritable, chain as chainAddress, clip,
   device as deviceAddress, deviceIn as deviceInAddress,
-  drumPad as drumPadAddress,
+  deviceSlot as deviceSlotAddress, drumPad as drumPadAddress,
   lookupChain as chainLookup, notes as notesAddress, orderedNoteProps,
   param as paramAddress, remote as remoteAddress, remotes as remotesAddress, planStages,
   scene, slot, stepSizeFor, track, type NoteRecord, type Op,
@@ -710,21 +710,17 @@ test('5p fake adapter: container inventory preserves nested enabled state', () =
   assert.equal(model.observeContainer(track, 0)?.chains[0]?.devices[0]?.enabled, false);
 });
 
-test('T-full: a chain bank filled to its size reads as INCOMPLETE, not as complete', () => {
-  // ⚠⚠ The asymmetry that keeps a blind spot from reading as a tombstone. The
-  // enumeration omits empty bank slots, so a dead-full bank and an overflowing
-  // one produce identical replies — and only `chainsComplete: false` stops the
-  // resolver answering `absent` for a chain it simply could not see.
+test('T-full: an exact item count distinguishes a full bank from overflow', () => {
   const model = new ProjectModel();
   const track = model.createTrack('gn-A');
   const chains = Array.from({ length: model.chainBankSize }, (_, i) => someChain(`c${i}`));
   track.devices.push({ name: 'container', paramsLive: true, params: [], chains });
   const observed = model.observeContainer(track, 0)!;
   assert.equal(observed.chains.length, model.chainBankSize);
-  assert.equal(observed.chainsComplete, false);
+  assert.equal(observed.chainsComplete, true);
 
-  track.devices[0]!.chains = chains.slice(0, model.chainBankSize - 1);
-  assert.equal(model.observeContainer(track, 0)!.chainsComplete, true);
+  track.devices[0]!.chains = [...chains, someChain('overflow')];
+  assert.equal(model.observeContainer(track, 0)!.chainsComplete, false);
 });
 
 test('T-dupname: copying a container gives two chains ONE name (e17n)', () => {
@@ -842,7 +838,7 @@ test('T-create: the LAST bank slot is usable, and the create after it refuses', 
   // nothing and removed by nothing — there is no typed chain delete at all.
   await assert.rejects(
     adapter.apply({ ops: [{ op: 'chain.create', source, name: 'overflow' }] }),
-    /chain bank is full/,
+    /outside the window/,
   );
   assert.equal(model.devices[0]!.chains!.length, bank, 'nothing was copied');
 });
@@ -1064,6 +1060,39 @@ test('4f: recursive parameter routing reads and writes at measured depth 2', asy
   const after = await adapter.read([target]);
   const afterEntry = after.entries[addressKey(target)];
   assert.equal(afterEntry?.value.of === 'param' ? afterEntry.value.param.value : undefined, 0.75);
+});
+
+test('5r: a parameter route reaches a later device in a top-level named slot', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const first = (await adapter.tracks())[0]!;
+  const model = adapter.model.findByChannelId(first.channelId)!.track;
+  model.devices.push({
+    name: 'Chain', paramsLive: true, params: [],
+    deviceSlots: {
+      CHAIN: [
+        { name: 'First', paramsLive: true, params: [] },
+        {
+          name: 'Later', paramsLive: true,
+          params: [{ id: 'P1', name: 'Depth', value: 0.25 }],
+        },
+      ],
+    },
+  });
+  const top = deviceAddress(track(first.channelId), 0);
+  const later = deviceInAddress(deviceSlotAddress(top, 'CHAIN'), 1);
+  const target = paramAddress(later, 'P1');
+
+  const before = await adapter.read([later, target]);
+  assert.equal(before.entries[addressKey(later)]?.value.of, 'device');
+  assert.equal(before.entries[addressKey(target)]?.value.of, 'param');
+  await adapter.apply({ ops: [{
+    op: 'param.set', param: target, value: 0.75,
+    expectedName: 'Later', expectedChain: ['Chain'], expectedEnabledChain: [true],
+  }] });
+  await adapter.settle('tick');
+  const after = await adapter.read([target]);
+  const entry = after.entries[addressKey(target)];
+  assert.equal(entry?.value.of === 'param' ? entry.value.param.value : undefined, 0.75);
 });
 
 test('d02-s2: fake parameter guards reject each nested identity boundary', async () => {

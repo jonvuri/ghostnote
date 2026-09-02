@@ -206,6 +206,7 @@ export type Address =
   | NotesAddress
   | ChainAddress
   | DrumPadAddress
+  | DeviceSlotAddress
   | DeviceAddress
   | DeviceEnabledAddress
   | ParamAddress
@@ -234,6 +235,7 @@ export const ADDRESS_IDENTITY: Record<AddressKind, 'durable' | 'positional'> = {
   // what this table is read for.
   chain: 'positional',
   drumPad: 'positional',
+  deviceSlot: 'positional',
   device: 'positional',
   deviceEnabled: 'positional',
   param: 'positional',
@@ -346,6 +348,8 @@ export function addressKey(a: Address): AddressKey {
       return `chain:${chainBody(a)}`;
     case 'drumPad':
       return `drumPad:${drumPadBody(a)}`;
+    case 'deviceSlot':
+      return `deviceSlot:${deviceSlotBody(a)}`;
     case 'device':
       return `device:${deviceBody(a)}`;
     case 'deviceEnabled':
@@ -489,7 +493,7 @@ export const drumPad = (container: DeviceAddress, channel: number): DrumPadAddre
   return { kind: 'drumPad', container, channel };
 };
 
-/** A named device-chain slot. The cursor route selects the first device in it. */
+/** A named device-chain slot. Fixed top-level scopes select an observed device index. */
 export const deviceSlot = (container: DeviceAddress, name: string): DeviceSlotAddress => {
   if (name.trim() === '') throw new Error('a device-slot address needs a non-empty name.');
   return { kind: 'deviceSlot', container, name };

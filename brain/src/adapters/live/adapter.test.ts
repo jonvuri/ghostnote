@@ -2140,6 +2140,7 @@ class ParameterTransport implements Transport {
   private selected = 0;
   private depth = 0;
   private padSelected = false;
+  private nestedIndex = 0;
   private readonly deepParams = new Map([['DP1', { name: 'Deep parameter', value: 0.2 }]]);
   private readonly level1Params = new Map([['L1', { name: 'Nested parameter', value: 0.15 }]]);
   private readonly padParams = new Map([['PAD1', { name: 'Pad parameter', value: 0.35 }]]);
@@ -2163,6 +2164,10 @@ class ParameterTransport implements Transport {
   private devicePinned = false;
   private trackPinned = false;
   private revision = 1;
+
+  private selectedNestedName(): string {
+    return this.nestedIndex === 1 ? 'Later synth' : 'Pad synth';
+  }
 
   async send(frame: Frame): Promise<unknown> {
     this.frames.push(frame);
@@ -2189,20 +2194,29 @@ class ParameterTransport implements Transport {
         this.selected = params['deviceIndex'] as number;
         this.depth = 0;
         this.padSelected = false;
+        this.nestedIndex = 0;
         return {};
       case WIRE.deviceCursorSelectInLayer:
         this.depth++;
         this.padSelected = false;
+        this.nestedIndex = params['deviceIndex'] as number;
         return {};
       case WIRE.deviceCursorSelectFirstInPad:
         this.depth = 1;
         this.padSelected = true;
+        this.nestedIndex = 0;
         return {};
       case WIRE.deviceCursorSelectFirstInSlot:
         if (!this.emptySlot) {
           this.depth++;
           this.padSelected = true;
+          this.nestedIndex = 0;
         }
+        return {};
+      case WIRE.deviceCursorSelectInSlot:
+        this.depth++;
+        this.padSelected = true;
+        this.nestedIndex = params['deviceIndex'] as number;
         return {};
       case WIRE.deviceCursorSelectParent:
         this.depth = Math.max(0, this.depth - 1);
@@ -2220,10 +2234,10 @@ class ParameterTransport implements Transport {
         if (this.depth > 0) {
           return {
             exists: true,
-            name: this.padSelected ? 'Pad synth'
+            name: this.padSelected ? this.selectedNestedName()
               : this.depth === 1 ? 'Inner container' : 'Deep synth',
             isPinned: this.devicePinned,
-            deviceIndex: 0,
+            deviceIndex: this.nestedIndex,
             trackChannelId: CHANNEL_ID,
             trackPosition: 0,
             cursorTrackPinned: this.trackPinned,
@@ -2271,7 +2285,7 @@ class ParameterTransport implements Transport {
         const stale = params['begin'] !== true && this.staleInventoryReads > 0;
         if (stale) this.staleInventoryReads--;
         const device = this.padSelected
-          ? { name: 'Pad synth', params: this.padParams }
+          ? { name: this.selectedNestedName(), params: this.padParams }
           : this.depth === 2
           ? { name: 'Deep synth', params: this.deepParams }
           : this.depth === 1
@@ -2284,12 +2298,12 @@ class ParameterTransport implements Transport {
           idsGeneration: this.neverSettles || stale ? this.generation - 1 : this.generation,
           deviceExists: device !== undefined,
           deviceName: device?.name,
-          deviceIndex: this.depth === 0 ? this.selected : -1,
+          deviceIndex: this.depth === 0 ? this.selected : this.nestedIndex,
           trackChannelId: CHANNEL_ID,
           trackPosition: 0,
           observedTrackChannelId: CHANNEL_ID,
           observedDeviceName: device?.name,
-          observedDeviceIndex: this.depth === 0 ? this.selected : -1,
+          observedDeviceIndex: this.depth === 0 ? this.selected : this.nestedIndex,
         };
       }
       case WIRE.paramList: {
@@ -2331,7 +2345,7 @@ class ParameterTransport implements Transport {
         return { completionGeneration: this.completionGeneration };
       }
       case WIRE.directParamCompletion: {
-        const deviceName = this.padSelected ? 'Pad synth'
+        const deviceName = this.padSelected ? this.selectedNestedName()
           : this.depth === 2 ? 'Deep synth'
           : this.depth === 1 ? 'Inner container' : this.devices[this.selected]?.name;
         return {
@@ -2341,10 +2355,10 @@ class ParameterTransport implements Transport {
           value: this.completionValue,
           trackChannelId: CHANNEL_ID,
           deviceName,
-          deviceIndex: this.depth === 0 ? this.selected : 0,
+          deviceIndex: this.depth === 0 ? this.selected : this.nestedIndex,
           currentTrackChannelId: CHANNEL_ID,
           currentDeviceName: deviceName,
-          currentDeviceIndex: this.depth === 0 ? this.selected : 0,
+          currentDeviceIndex: this.depth === 0 ? this.selected : this.nestedIndex,
         };
       }
       case 'remote.selectPage':
@@ -2357,7 +2371,8 @@ class ParameterTransport implements Transport {
           ? Math.min(1, value + this.remoteValueRead / 100)
           : value;
         const page = this.remotePages[this.selectedRemotePage];
-        const deviceName = this.padSelected ? 'Pad synth' : this.depth === 1 ? 'Inner container'
+        const deviceName = this.padSelected ? this.selectedNestedName()
+          : this.depth === 1 ? 'Inner container'
           : this.depth === 2 ? 'Deep synth' : this.devices[this.selected]?.name;
         const pages = this.remotePages.map((remotePage, pageIndex) => ({
           index: pageIndex,
@@ -2381,7 +2396,7 @@ class ParameterTransport implements Transport {
             ? this.remoteGeneration - 1 : this.remoteGeneration,
           observedTrackChannelId: CHANNEL_ID,
           observedDeviceName: deviceName,
-          observedDeviceIndex: this.depth === 0 ? this.selected : 0,
+          observedDeviceIndex: this.depth === 0 ? this.selected : this.nestedIndex,
         }));
         return {
           pages,
@@ -2413,7 +2428,7 @@ class ParameterTransport implements Transport {
             ? this.remoteGeneration - 1 : this.remoteGeneration,
           observedTrackChannelId: CHANNEL_ID,
           observedDeviceName: deviceName,
-          observedDeviceIndex: this.depth === 0 ? this.selected : 0,
+          observedDeviceIndex: this.depth === 0 ? this.selected : this.nestedIndex,
         };
       }
       case WIRE.remoteSet: {
@@ -2443,7 +2458,30 @@ class ParameterTransport implements Transport {
           results };
       }
       case WIRE.chainInventory:
-        return { trackChannelId: CHANNEL_ID, scopes: [] };
+        return {
+          trackChannelId: CHANNEL_ID,
+          scopes: [{
+            slot: 0,
+            status: 'held',
+            deviceExists: true,
+            deviceName: this.devices[0]?.name,
+            chains: [],
+            chainCount: 0,
+            chainBankSize: 5,
+            deviceBankSize: 4,
+            namedSlotStatus: 'held',
+            namedSlotComplete: true,
+            namedSlot: {
+              name: 'CHAIN',
+              devices: [
+                { index: 0, name: 'Pad synth', enabled: true },
+                { index: 1, name: 'Later synth', enabled: true },
+              ],
+              deviceCount: 2,
+              deviceBankSize: 4,
+            },
+          }],
+        };
       default:
         return {};
     }
@@ -2936,6 +2974,28 @@ test('5d live route: a named device slot selects its first nested device', async
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorSelectParent), true);
 });
 
+test('5r live route: a named device slot selects a later observed device', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const nested = deviceInAt(deviceSlot(deviceAt(TRACK, 0), 'CHAIN'), 1);
+  const address = remotes(nested);
+
+  const snapshot = await adapter.read([address]);
+  const entry = snapshot.entries[addressKey(address)];
+
+  assert.equal(entry?.value.of, 'remotes');
+  const selection = wire.frames.find((frame) => frame.method === WIRE.deviceCursorSelectInSlot);
+  assert.deepEqual(selection?.params, {
+    containerIndex: 0,
+    slot: 'CHAIN',
+    deviceIndex: 1,
+    expectedDeviceName: 'Later synth',
+  });
+  assert.equal(wire.frames.some(
+    (frame) => frame.method === WIRE.deviceCursorSelectFirstInSlot), false);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.deviceCursorSelectParent), false);
+});
+
 test('5d live route: an empty slot below a nested container cannot resolve to its parent', async () => {
   const wire = new ParameterTransport();
   wire.emptySlot = true;
@@ -3053,6 +3113,67 @@ test('L-chain: a container read carries the chains — the only way a name is ev
   assert.equal(observed?.container?.chains[0]?.devices[0]?.name, 'Polysynth');
   assert.equal(observed?.container?.chains[0]?.devices[0]?.enabled, false);
   assert.deepEqual(observed?.params, [], 'the settled DirectParameter inventory is explicit');
+});
+
+test('5r Chain: a confirmed cursor slot completes an incomplete fixed slot scope', async () => {
+  class CursorSlotInventory extends InventoryTransport {
+    override async send(frame: Frame): Promise<unknown> {
+      const reply = await super.send(frame);
+      if (frame.method !== WIRE.chainInventory) return reply;
+      return {
+        ...(reply as Record<string, unknown>),
+        cursorScope: {
+          status: 'held',
+          deviceExists: true,
+          deviceName: 'First',
+          deviceIndex: 0,
+          isNested: true,
+          parentDeviceIndex: 0,
+          parentDeviceName: 'Chain',
+          slotName: 'CHAIN',
+          namedSlotComplete: true,
+          namedSlot: {
+            name: 'CHAIN',
+            devices: [
+              { index: 0, name: 'First', enabled: true },
+              { index: 1, name: 'Later', enabled: false },
+            ],
+            deviceCount: 2,
+            deviceBankSize: 4,
+          },
+        },
+      };
+    }
+  }
+  const fixed = {
+    ...CONTAINER_SCOPE([]),
+    deviceName: 'Chain',
+    hasSlots: true,
+    slotNames: ['CHAIN'],
+    namedSlotStatus: 'held',
+    namedSlotComplete: true,
+  };
+  const wire = new CursorSlotInventory(
+    new Map([[0, CHANNEL_ID]]),
+    new Map([[CHANNEL_ID, [fixed]]]),
+  );
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const target = deviceAt(TRACK, 0);
+  const entry = (await adapter.read([target])).entries[addressKey(target)];
+  const observed = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+
+  assert.equal(observed?.slotsComplete, true);
+  assert.equal(observed?.slots?.[0]?.name, 'CHAIN');
+  assert.deepEqual(observed?.slots?.[0]?.devices.map((device) => ({
+    index: device.index, name: device.name, enabled: device.enabled,
+  })), [
+    { index: 0, name: 'First', enabled: true },
+    { index: 1, name: 'Later', enabled: false },
+  ]);
+  const selectAt = wire.frames.findIndex((frame) => frame.method === WIRE.deviceCursorSelectAt);
+  const inventoryAt = wire.frames.findIndex((frame) => frame.method === WIRE.chainInventory);
+  assert.ok(selectAt >= 0 && inventoryAt > selectAt);
 });
 
 test('L-chain: an inventory still naming the PREVIOUS track is retried, not reported as a miss', async () => {
