@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-09-01
 phase: phase-5
-session: 5s-public-generalization-dogfood-and-closeout
+session: 5t-grid-generalization-and-colourcopy-closeout
 ---
 
 # Now
@@ -79,13 +79,14 @@ lifecycle, so the public shape enum contains only Instrument Layer and FX Layer.
 
 ## Next action
 
-Continue session 5s. Verify and deploy the compact modulator-grid repair. Retry
-the same four ColourCopy modulators. Require every tile to be visible and
-interactive, the FX Layer to stay after Serato Sample, active behavior, and an
-explicit operator audition verdict before the generalized closeout matrix.
-Keep Chain outside the public composition claim.
+Run session 5t. First repair numbered duplicate-page verification and normalize
+both grid identity fields during curated-donor matching. Then discriminate the
+Envelope Follower failure across Polysynth and FX Layer at original and compact
+pairs. Prove all supported donors in compact public cohorts, repair the nested
+active witness, and finish with an explicit ColourCopy audition verdict and the
+complete Phase 5 closeout matrix.
 
-## Session 5s status
+## Session 5s result and 5t queue
 
 ColourCopy retry `01a06065-f052-79e2-9f4a-19c07231869e` proved the E94 wrapper-
 position repair. The FX Layer stayed at position 1 after Serato Sample. The same
@@ -101,7 +102,16 @@ code kept donor columns and assigned global rows, which wrote sparse pairs
 tests pass. E95 records the run. Live proof and an explicit audition verdict
 remain open.
 
+Session `01a0607f-fc2a-7042-bfdd-0175a19986c1` proved the compact surface layout
+for Classic LFO, Beat LFO, Curves, and Random. It also exposed two new gaps:
+Bitwig numbers duplicate pages, while the verifier expects bare names; and
+Envelope Follower did not appear at compact pair `1:0` in the FX Layer. Both
+failed attempts reversed exactly. The final wrapper preserved position and the
+30-parameter fingerprint, but its active witnesses did not settle. Session 5t
+is queued next with the bounded discrimination and closeout plan.
+
 ## Retrospective
 
-Treat a host-authored dense fixture as UI evidence, not only load evidence.
-Pair uniqueness did not prove usable tile placement.
+When one field has both identity and UI meaning, re-run the complete donor
+cohort after changing it. An isolated donor at its source coordinate is not a
+relocation proof.

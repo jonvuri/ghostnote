@@ -209,6 +209,33 @@ host build. Record the adjacent live baseline separately.
   did not settle. No explicit audition verdict was recorded. See
   [E95](../../evidence/experiments/e95-modulator-identity-pair-controls-grid-placement.md).
 
+### `01a0607f-fc2a-7042-bfdd-0175a19986c1` — ColourCopy compact-grid retry
+
+- Transcript:
+  `~/.codex/sessions/2026/09/01/rollout-2026-09-01T22-03-15-01a0607f-fc2a-7042-bfdd-0175a19986c1.jsonl`.
+- Agent: Codex Desktop `0.150.0-alpha.8`; `gpt-5.6-sol`, high effort
+  (**observed**).
+- Ghostnote: 53 exposed tools from `ghostnote-description-v20` at repository
+  revision `7d65eddbf44b1ca8861b1eddd70ac46b65b24eb6` (**observed** for tool
+  exposure; **timeline** for the version and revision).
+- Bitwig: Studio 6.0.6, host API 25, 150 extension methods, and extension hash
+  `73677cd82e4c7cd2` were the adjacent deployed baseline. The transcript did
+  not return these values (**baseline**).
+- Project: `26.01-1 spread burial guit`, with seven tracks and eight launcher
+  rows (**observed**). ColourCopy was device position 1 after Serato Sample on
+  the third track. Its 30-row DirectParameter inventory was stable
+  (**observed**).
+- Outcome: Five repeated Classic LFOs loaded with numbered pages, but exact bare-
+  name verification rejected them. A second request omitted the expected
+  Envelope Follower page. Both partial containers reversed exactly before the
+  final request. The final FX Layer stayed at position 1, preserved the same
+  ColourCopy instance and scalar fingerprint, and exposed compact Classic LFO,
+  Beat LFO, Curves, and Random pages. All active witnesses failed because the
+  supplementary remote inventory did not settle. Fresh structure, parameter,
+  and page reads settled. The agent called the work completed with this
+  qualification. No explicit operator audition verdict was recorded. Session
+  5t owns the repairs and final closeout.
+
 ## Required fields for the next run
 
 Record the root session ID, transcript path, client and client version, model,

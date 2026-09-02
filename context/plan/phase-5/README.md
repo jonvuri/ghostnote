@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5r is complete. Session 5s owns closeout.
+status: Reopened 2026-08-25. Session 5s found final dogfood defects. Session 5t is queued next.
 updated: 2026-09-01
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -135,11 +135,14 @@ that first integration unless the proof needs one new owned asset.
     done. Instrument Layer and FX Layer pass live at the selected 3/5/4/2
     limits. Chain remains unsupported after two negative live controls.
 19. [5s — public generalization dogfood and closeout](5s-public-generalization-dogfood-and-closeout.md)
-    — planned. Retry ColourCopy and close only after the full public breadth
-    matrix passes.
+    — done as a dogfood investigation. It proved position and compact layout
+    repairs and exposed three final verification gaps.
+20. [5t — modulator-grid generalization and ColourCopy closeout](5t-grid-generalization-and-colourcopy-closeout.md)
+    — queued next. Repair numbered pages and donor matching, discriminate
+    Envelope Follower, prove compact donor breadth, and finish closeout.
 
 The dependency split is `5j → 5k → 5l`, with `5m` independent after 5j. Both
-branches join at 5n. Sessions 5o through 5s then run in order because each one
+branches join at 5n. Sessions 5o through 5t then run in order because each one
 depends on the prior host or lifecycle proof.
 
 ## Public-gap coverage
@@ -154,7 +157,7 @@ depends on the prior host or lifecycle proof.
 | Cannot preserve and modulate an existing project device | 5o, 5p |
 | Composer accepts only distinct native devices | 5q |
 | One Instrument Layer shape, four entries, and two observable positions | 5r |
-| No real public retry of the exposed ColourCopy gap | 5s |
+| No accepted public retry of the exposed ColourCopy gap | 5s, 5t |
 
 Direct parameter-base writes are already general through `set_parameter` and
 stay separate. Runtime modulator creation and routing remain host-API
@@ -264,8 +267,8 @@ impossibilities. External publication and redistribution remain Phase 6 work.
 13. A fresh projectless musical run completes the ColourCopy request through
     only public tools and receives an explicit operator verdict.
 
-E73 audits criteria 1 through 7 as the first closeout baseline. Session 5s owns
-criteria 8 through 13 and the final generalized closeout. The
+E73 audits criteria 1 through 7 as the first closeout baseline. Sessions 5s and
+5t own criteria 8 through 13 and the final generalized closeout. The
 [first Phase 5 outcome](../../archive/outcomes/PHASE-5.md) remains the baseline,
 not the final claim for this continuation.
 

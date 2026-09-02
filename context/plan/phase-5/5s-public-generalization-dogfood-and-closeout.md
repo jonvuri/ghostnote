@@ -1,11 +1,11 @@
 ---
 title: Phase 5s — public generalization dogfood and closeout
 kind: plan
-state: active
-status: Active. Wrapper placement passes live. The second retry exposed sparse and hidden modulator tiles.
+state: complete
+status: Complete as dogfood investigation. Session 5t owns the discovered repairs and final closeout.
 updated: 2026-09-01
 parent: README.md
-evidence: D1, D2, D3, D7, D15, D16, E65-E73, E94, E95, dogfood sessions 01a03744-e6c4-7be0-b210-e999c8f17081, 01a06052-39bc-71a3-a155-278872cdfac3, and 01a06065-f052-79e2-9f4a-19c07231869e
+evidence: D1, D2, D3, D7, D15, D16, E65-E73, E94, E95, dogfood sessions 01a03744-e6c4-7be0-b210-e999c8f17081, 01a06052-39bc-71a3-a155-278872cdfac3, 01a06065-f052-79e2-9f4a-19c07231869e, and 01a0607f-fc2a-7042-bfdd-0175a19986c1
 ---
 
 # Phase 5s — public generalization dogfood and closeout
@@ -94,6 +94,25 @@ was outside the visible modulator grid. The authoring code combined donor grid
 columns with global row ids. E95 records the run, the three-row grid semantics,
 and the compact local repair. No explicit audition verdict was recorded.
 
-## Retrospective target
+## Third retry result
 
-Do not equate a general internal primitive with a general public workflow.
+Session `01a0607f-fc2a-7042-bfdd-0175a19986c1` proved the compact surface layout
+for Classic LFO, Beat LFO, Curves, and Random. The FX Layer stayed at position 1.
+The same ColourCopy instance and 30-parameter fingerprint remained present.
+Both earlier partial containers reversed exactly before the final request.
+
+The run also exposed numbered duplicate-page verification, one missing Envelope
+Follower page, and the recurring post-move active-witness timeout. The final
+structure and pages settled, but the wrapper returned a partial result and the
+transcript contains no explicit audition verdict. Session 5t owns these repairs,
+the complete compact donor matrix, and final closeout.
+
+## Handoff
+
+Run [5t](5t-grid-generalization-and-colourcopy-closeout.md) next. Phase 6a stays
+blocked until 5t and the open dogfood loop close.
+
+## Retrospective
+
+Treat runtime page naming and donor relocation as separate evidence axes. A
+donor that loads at its source coordinate does not prove compact placement.
