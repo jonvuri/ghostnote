@@ -69,7 +69,8 @@ function fixture() {
         }
       }
       if (op?.op === 'chain.relocate' && op.destination.kind === 'chain') {
-        const nested = row.devices[0]!.chains![0]!.devices[0]!;
+        const container = row.devices.find((item) => item.name === 'FX Layer')!;
+        const nested = container.chains![0]!.devices[0]!;
         nested.params[0]!.modulatedValue = 0.7;
       }
       return change;
@@ -142,6 +143,39 @@ test('5p-public: one ordered receipt preserves the instance and reverses through
     ['Polysynth', true], ['Tool', false],
   ]);
   assert.equal(fx.row.devices[0], fx.target);
+});
+
+test('5s-public: the wrapper replaces a second-position device in place', async () => {
+  const fx = fixture();
+  const [target, instrument] = fx.row.devices;
+  fx.row.devices.splice(0, 2, instrument!, target!);
+  const input = {
+    ...request(fx.trackId),
+    devicePosition: 1,
+    expectedDeviceOrder: [
+      { name: 'Tool', enabled: false },
+      { name: 'Polysynth', enabled: true },
+    ],
+  };
+  const wrapped = await callTool(
+    fx.workspace, 'wrap_existing_device_modulation', input,
+  ) as Record<string, unknown>;
+
+  assert.equal(wrapped['complete'], true, JSON.stringify(wrapped));
+  assert.deepEqual(fx.row.devices.map((item) => item.name), ['Tool', 'FX Layer']);
+  assert.equal(fx.row.devices[1]!.chains![0]!.devices[0], fx.target);
+  assert.equal(
+    (wrapped['reversalCheckpoint'] as { currentContainerPosition: number })
+      .currentContainerPosition,
+    1,
+  );
+
+  const reversed = await callTool(fx.workspace, 'reverse_existing_device_modulation_wrap', {
+    checkpoint: wrapped['reversalCheckpoint'],
+  }) as Record<string, unknown>;
+  assert.equal(reversed['complete'], true, JSON.stringify(reversed));
+  assert.deepEqual(fx.row.devices.map((item) => item.name), ['Tool', 'Polysynth']);
+  assert.equal(fx.row.devices[1], fx.target);
 });
 
 test('5p-public: a post-insertion read error returns a reversible partial result', async () => {

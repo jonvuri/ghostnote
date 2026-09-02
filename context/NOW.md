@@ -79,11 +79,26 @@ lifecycle, so the public shape enum contains only Instrument Layer and FX Layer.
 
 ## Next action
 
-Begin session 5s. Run the ColourCopy public dogfood retry and the generalized
-closeout matrix. Keep Chain outside the public composition claim.
+Continue session 5s. Verify and deploy the wrapper position repair. Use the
+exact pre-fix checkpoint only if it remains valid to restore the dogfood project.
+Then retry ColourCopy and require its FX Layer to stay after Serato Sample.
+Require active behavior and an explicit operator audition verdict before the
+generalized closeout matrix. Keep Chain outside the public composition claim.
+
+## Session 5s status
+
+ColourCopy retry `01a06052-39bc-71a3-a155-278872cdfac3` reached the public
+wrapper. It preserved the same instance, all 30 parameter bases, and both
+requested modulator pages. It failed active behavior because the supplementary
+remote inventory did not settle.
+
+The wrapper also moved its FX Layer to position 0 instead of replacing
+ColourCopy at position 1 after Serato Sample. The cause was a hard-coded
+position-0 relocation and witness model. A local repair and focused regression
+tests now preserve position 1 and reverse both new and pre-fix checkpoint
+layouts. E94 records the exact run. Live proof and project cleanup remain open.
 
 ## Retrospective
 
-Distinguish serialized preset entry names from live layer names. Keep the
-semantic location in a reversal checkpoint when verification uses a nested
-device.
+Test wrapper placement with a source after an instrument. A position-0 fixture
+cannot prove signal-order preservation.

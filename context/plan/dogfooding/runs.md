@@ -2,7 +2,7 @@
 title: Dogfooding run ledger
 kind: status
 state: active
-updated: 2026-08-25
+updated: 2026-09-01
 parent: README.md
 ---
 
@@ -159,6 +159,30 @@ host build. Record the adjacent live baseline separately.
   Bitwig project content changed. Before the operator responded, the agent
   recorded the instruction as vetoed. This is one incidental supporting vote
   for [DF-002](findings.md#df-002--agent-can-invent-an-operator-verdict).
+
+### `01a06052-39bc-71a3-a155-278872cdfac3` — ColourCopy wrapper retry
+
+- Transcript:
+  `~/.codex/sessions/2026/09/01/rollout-2026-09-01T21-13-16-01a06052-39bc-71a3-a155-278872cdfac3.jsonl`.
+- Agent: Codex Desktop `0.150.0-alpha.8`; `gpt-5.6-sol`, high effort
+  (**observed**).
+- Ghostnote: 53 exposed tools from `ghostnote-description-v20` at repository
+  revision `6dd70b4aa096ea36c16665c5925d42c5484cc320` (**observed** for tool
+  exposure; **timeline** for the version and revision).
+- Bitwig: Studio 6.0.6, host API 25, 150 extension methods, and extension hash
+  `73677cd82e4c7cd2` were the adjacent deployed baseline. The transcript did
+  not return these values (**baseline**).
+- Project: `26.01-1 spread burial guit`, with seven tracks and eight launcher
+  rows (**observed**). ColourCopy was device position 1 after Serato Sample on
+  the third track. Its 30-row DirectParameter inventory was stable
+  (**observed**).
+- Outcome: The public wrapper moved the same ColourCopy instance, preserved its
+  exact scalar fingerprint, and exposed the requested LFO and Classic LFO
+  pages. Both active witnesses failed because the supplementary remote
+  inventory did not settle. The FX Layer also replaced position 0 instead of
+  ColourCopy's original position 1. The first attempt reversed exactly. The
+  second wrapper remained in the project when the transcript ended. No
+  operator audition verdict was recorded. See [E94](../../evidence/experiments/e94-colourcopy-retry-exposes-wrapper-position-gap.md).
 
 ## Required fields for the next run
 

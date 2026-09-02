@@ -216,7 +216,7 @@ export async function wrapExistingDeviceModulation(
       track: request.track,
       sourceFromEnd: 0,
       expectedName: EXISTING_DEVICE_WRAPPER_KIND,
-      before: device(request.track, 0),
+      before: device(request.track, request.devicePosition),
       expectedChain: names(inserted.devices),
       expectedEnabledChain: enabled(inserted.devices),
     }], { ...options.run, ifRevision: inserted.at.revision })).take;
@@ -234,17 +234,18 @@ export async function wrapExistingDeviceModulation(
       };
     }
 
-    const positionedOrder = [{ name: EXISTING_DEVICE_WRAPPER_KIND, enabled: true },
-      ...request.expectedDeviceOrder];
+    const positionedOrder = insertContainerAt(
+      request.expectedDeviceOrder, request.devicePosition, request.containerKind,
+    );
     const positionedCheckpoint: ExistingDeviceWrapperCheckpoint = {
       ...insertedCheckpoint,
       state: 'container-positioned',
-      currentContainerPosition: 0,
+      currentContainerPosition: request.devicePosition,
     };
     recoveryCheckpoint = positionedCheckpoint;
     failureStage = 'container-witness';
     const positioned = await stableTop(host, request.track, 'container-witness', positionedOrder);
-    const positionedContainer = device(request.track, 0);
+    const positionedContainer = device(request.track, request.devicePosition);
     const empty = await exactContainer(host, positionedContainer, request.entryName, 0);
     const pageChecks = pageWitnesses(composed.modulatorPages);
     const pages = empty
@@ -258,7 +259,8 @@ export async function wrapExistingDeviceModulation(
         stages,
         checkpoint: positionedCheckpoint,
         currentLocation: {
-          kind: 'top-level', devicePosition: request.devicePosition + 1, containerPosition: 0,
+          kind: 'top-level', devicePosition: request.devicePosition + 1,
+          containerPosition: request.devicePosition,
         },
         verification: verification(beforeFingerprint, undefined, pages, []),
       };
@@ -286,7 +288,8 @@ export async function wrapExistingDeviceModulation(
         stages,
         checkpoint: preparedCheckpoint,
         currentLocation: {
-          kind: 'top-level', devicePosition: request.devicePosition + 1, containerPosition: 0,
+          kind: 'top-level', devicePosition: request.devicePosition + 1,
+          containerPosition: request.devicePosition,
         },
         verification: verification(beforeFingerprint, undefined, pages, []),
       };
@@ -313,7 +316,8 @@ export async function wrapExistingDeviceModulation(
         stages,
         checkpoint: namedCheckpoint,
         currentLocation: {
-          kind: 'top-level', devicePosition: request.devicePosition + 1, containerPosition: 0,
+          kind: 'top-level', devicePosition: request.devicePosition + 1,
+          containerPosition: request.devicePosition,
         },
         verification: verification(beforeFingerprint, undefined, pages, []),
       };
@@ -330,9 +334,10 @@ export async function wrapExistingDeviceModulation(
       expectedEnabledChain: enabled(namedTop.devices),
     }], { ...options.run, ifRevision: namedTop.at.revision })).take;
     stages.push(stageReceipt('relocate-device', relocation));
-    const wrappedOrder = [{ name: EXISTING_DEVICE_WRAPPER_KIND, enabled: true },
-      ...request.expectedDeviceOrder.filter((_, index) => index !== request.devicePosition)];
-    const containerPosition = 0;
+    const wrappedOrder = replaceSourceWithContainer(
+      request.expectedDeviceOrder, request.devicePosition, request.containerKind,
+    );
+    const containerPosition = request.devicePosition;
     const wrappedCheckpoint: ExistingDeviceWrapperCheckpoint = {
       ...namedCheckpoint,
       state: 'wrapped',
@@ -352,7 +357,7 @@ export async function wrapExistingDeviceModulation(
             stages,
             checkpoint: movedCheckpoint,
             currentLocation: {
-              kind: 'container-entry', containerPosition: 0,
+              kind: 'container-entry', containerPosition,
               entryName: movedEntry, devicePosition: 0,
             },
             verification: verification(beforeFingerprint, undefined, pages, []),
@@ -368,7 +373,8 @@ export async function wrapExistingDeviceModulation(
         stages,
         checkpoint: namedCheckpoint,
         currentLocation: {
-          kind: 'top-level', devicePosition: request.devicePosition + 1, containerPosition: 0,
+          kind: 'top-level', devicePosition: request.devicePosition + 1,
+          containerPosition,
         },
         verification: verification(beforeFingerprint, undefined, pages, []),
       };
@@ -439,9 +445,17 @@ export async function reverseExistingDeviceModulation(
   const original = checkpoint.originalDeviceOrder;
   const source = checkpoint.device;
   const insertedOrder = [...original, { name: checkpoint.containerKind, enabled: true }];
-  const positionedOrder = [{ name: checkpoint.containerKind, enabled: true }, ...original];
-  const wrappedOrder = [{ name: checkpoint.containerKind, enabled: true },
-    ...original.filter((_, index) => index !== source.originalPosition)];
+  const positionedContainerPosition = checkpoint.state === 'container-inserted'
+    ? source.originalPosition
+    : checkpoint.currentContainerPosition;
+  const positionedOrder = insertContainerAt(
+    original, positionedContainerPosition, checkpoint.containerKind,
+  );
+  const wrappedOrder = insertContainerAt(
+    original.filter((_, index) => index !== source.originalPosition),
+    checkpoint.currentContainerPosition,
+    checkpoint.containerKind,
+  );
   let current: StableTop;
   try {
     current = checkpoint.state === 'container-inserted'
@@ -460,7 +474,7 @@ export async function reverseExistingDeviceModulation(
       track: checkpoint.track,
       sourceFromEnd: 0,
       expectedName: checkpoint.containerKind,
-      before: device(checkpoint.track, 0),
+      before: device(checkpoint.track, source.originalPosition),
       expectedChain: names(current.devices),
       expectedEnabledChain: enabled(current.devices),
     }], { ...options.run, ifRevision: current.at.revision })).take;
@@ -476,10 +490,14 @@ export async function reverseExistingDeviceModulation(
     const moved = current.devices[current.devices.length - 1]!;
     current = {
       at: positioning.verify.at,
-      devices: [moved, ...current.devices.slice(0, -1)],
+      devices: [
+        ...current.devices.slice(0, source.originalPosition),
+        moved,
+        ...current.devices.slice(source.originalPosition, -1),
+      ],
       bankSize: current.bankSize,
     };
-    containerPosition = 0;
+    containerPosition = source.originalPosition;
   }
   if (checkpoint.state === 'wrapped') {
     const container = device(checkpoint.track, containerPosition);
@@ -540,7 +558,6 @@ export async function reverseExistingDeviceModulation(
     }
 
     if (source.originalPosition < original.length - 1) {
-      const restoredWithContainer = [{ name: checkpoint.containerKind, enabled: true }, ...original];
       const reorder = (await host.apply([{
         op: 'device.relocate',
         track: checkpoint.track,
@@ -557,13 +574,10 @@ export async function reverseExistingDeviceModulation(
         });
       }
       try {
-        current = await stableTop(host, checkpoint.track, 'post-move-witness', restoredWithContainer);
+        current = await stableTop(host, checkpoint.track, 'post-move-witness', positionedOrder);
       } catch (error) {
         return reversalFailure('restore-position', message(error), stages, { kind: 'unknown' });
       }
-      containerPosition = 0;
-    } else {
-      containerPosition = 0;
     }
   }
 
@@ -605,6 +619,24 @@ export async function reverseExistingDeviceModulation(
     containerRemoved: true,
     restoredDeviceOrder: true,
   };
+}
+
+function insertContainerAt(
+  order: readonly ExistingDeviceOrderItem[], position: number, containerKind: string,
+): ExistingDeviceOrderItem[] {
+  return [
+    ...order.slice(0, position),
+    { name: containerKind, enabled: true },
+    ...order.slice(position),
+  ];
+}
+
+function replaceSourceWithContainer(
+  order: readonly ExistingDeviceOrderItem[], sourcePosition: number, containerKind: string,
+): ExistingDeviceOrderItem[] {
+  return order.map((item, index) => index === sourcePosition
+    ? { name: containerKind, enabled: true }
+    : item);
 }
 
 interface StableTop {

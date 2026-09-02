@@ -164,6 +164,59 @@ test('5p-workflow: a plug-in-shaped inventory wraps and tail reversal needs no r
   assert.deepEqual(fx.row.devices.map((item) => item.name), ['Zebra3']);
 });
 
+test('5s-regression: a second-position FX stays after the instrument when wrapped', async () => {
+  const fx = fixture();
+  const [target, instrument] = fx.row.devices;
+  fx.row.devices.splice(0, 2, instrument!, target!);
+  const result = await wrapExistingDeviceModulation(fx.workspace, {
+    track: fx.track,
+    devicePosition: 1,
+    expectedDeviceOrder: [
+      { name: 'Tool', enabled: true },
+      { name: 'Polysynth', enabled: false },
+    ],
+    containerKind: 'FX Layer',
+    entryName: 'Layer 1',
+    modulators: [TARGET],
+  }, { wait: async () => undefined });
+
+  assert.equal(result.complete, true, JSON.stringify(result));
+  assert.equal(result.checkpoint?.currentContainerPosition, 1);
+  assert.deepEqual(fx.row.devices.map((item) => item.name), ['Tool', 'FX Layer']);
+  assert.equal(fx.row.devices[1]!.chains![0]!.devices[0], fx.target);
+
+  const reversed = await reverseExistingDeviceModulation(fx.workspace, result.checkpoint!);
+  assert.equal(reversed.complete, true, JSON.stringify(reversed));
+  assert.deepEqual(reversed.stages.map((item) => item.stage), [
+    'relocate-device', 'remove-container',
+  ]);
+  assert.deepEqual(fx.row.devices.map((item) => item.name), ['Tool', 'Polysynth']);
+  assert.equal(fx.row.devices[1], fx.target);
+});
+
+test('5s-reversal: a pre-fix first-position wrapper checkpoint still reverses', async () => {
+  const fx = fixture();
+  const [target, instrument] = fx.row.devices;
+  fx.row.devices.splice(0, 2, instrument!, target!);
+  const result = await wrapExistingDeviceModulation(fx.workspace, {
+    track: fx.track,
+    devicePosition: 1,
+    expectedDeviceOrder: [
+      { name: 'Tool', enabled: true },
+      { name: 'Polysynth', enabled: false },
+    ],
+    containerKind: 'FX Layer', entryName: 'Layer 1', modulators: [TARGET],
+  }, { wait: async () => undefined });
+  const [instrumentAfterWrap, container] = fx.row.devices;
+  fx.row.devices.splice(0, 2, container!, instrumentAfterWrap!);
+  const legacyCheckpoint = { ...result.checkpoint!, currentContainerPosition: 0 };
+
+  const reversed = await reverseExistingDeviceModulation(fx.workspace, legacyCheckpoint);
+  assert.equal(reversed.complete, true, JSON.stringify(reversed));
+  assert.deepEqual(fx.row.devices.map((item) => item.name), ['Tool', 'Polysynth']);
+  assert.equal(fx.row.devices[1], fx.target);
+});
+
 test('5p-guard: stale order and a changed target inventory refuse before insertion', async () => {
   const fx = fixture();
   await assert.rejects(

@@ -1,11 +1,11 @@
 ---
 title: Phase 5s — public generalization dogfood and closeout
 kind: plan
-state: planned
-status: Planned after 5r. Retry ColourCopy, audit the generalized surface, and close the continuation.
+state: active
+status: Active. The first retry exposed incorrect wrapper placement. A local regression fix awaits live proof.
 updated: 2026-09-01
 parent: README.md
-evidence: D1, D2, D3, D7, D15, D16, E65-E73, dogfood session 01a03744-e6c4-7be0-b210-e999c8f17081
+evidence: D1, D2, D3, D7, D15, D16, E65-E73, E94, dogfood sessions 01a03744-e6c4-7be0-b210-e999c8f17081 and 01a06052-39bc-71a3-a155-278872cdfac3
 ---
 
 # Phase 5s — public generalization dogfood and closeout
@@ -47,6 +47,7 @@ lists, sources, and containers.
 ## Acceptance criteria
 
 - The operator can audition modulation on the preserved existing ColourCopy.
+- The owned FX Layer replaces ColourCopy at its prior top-level signal position.
 - The transcript contains no repository, shell, test, or probe fallback.
 - A new run-ledger entry records all required provenance and the exact outcome.
 - No public input exposes a raw route, donor id, list index, GUID, footprint,
@@ -66,6 +67,18 @@ lists, sources, and containers.
 - Unbounded observer capacity.
 - Grid patch synthesis.
 - Publishing `bwmod` or product assets externally.
+
+## First retry result
+
+Session `01a06052-39bc-71a3-a155-278872cdfac3` reached the public wrapper. It
+preserved the same ColourCopy instance and its 30 observed parameter bases. It
+also proved the LFO and Classic LFO pages. The active behavior witnesses did not
+settle.
+
+The wrapper moved its owned FX Layer to top-level position 0. ColourCopy had
+been at position 1 after Serato Sample, so the wrap changed the signal order.
+The retry is not accepted. No operator audition verdict was recorded. E94
+records the transcript, exact exit state, cause, and local regression repair.
 
 ## Retrospective target
 
