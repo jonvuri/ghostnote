@@ -25,6 +25,7 @@ import {
   assertPresetFingerprint, inspectPresetModulation,
   type PresetFingerprint, type PublicPresetModulator, type SemanticModulatorLocation,
 } from './preset-modulation-inspection.js';
+import { matchPageFamily } from './page-family.js';
 
 const DEFAULT_SAMPLES = 8;
 const DEFAULT_SAMPLE_INTERVAL_MS = 60;
@@ -786,18 +787,19 @@ export async function verifyPages(
       : { verified: true, actualPages: result, witnesses: [] };
   }
   const actualPages: string[] = [];
-  const observed: (ModulatorPageWitness & { readonly actualCount: number })[] = [];
+  const observed: (ModulatorPageWitness & {
+    readonly actualCount: number;
+    readonly matches: boolean;
+  })[] = [];
   for (const witness of witnesses) {
     const selected = nestedWitnessDevice(device, witness.nestedDevice);
     const result = await remotePageNames(host, selected, pause);
     if (typeof result === 'string') return failedPageVerification(result);
     actualPages.push(...result);
-    observed.push({
-      ...witness,
-      actualCount: result.filter((page) => page === witness.pageName).length,
-    });
+    const family = matchPageFamily(result, witness.pageName, witness.expectedCount);
+    observed.push({ ...witness, ...family });
   }
-  const failed = observed.filter((witness) => witness.actualCount !== witness.expectedCount);
+  const failed = observed.filter((witness) => !witness.matches);
   return failed.length === 0
     ? { verified: true, actualPages, witnesses: observed }
     : {

@@ -312,6 +312,11 @@ All failure modes are **graceful** (whole-file reject, or silent no-op for a bad
 path) — never a host crash — but also **silent**, so **every edit must be verified
 by load + remote-page readback**.
 
+Repeated instances use exact ordinal page families. One instance has the bare
+page name. N repeated instances must expose `<name> 1` through `<name> N` with
+no missing or extra member. Public names that contain digits stay literal. This
+rule does not use a general suffix strip [K, E96].
+
 ---
 
 ## 7. Do-not-pursue / dead ends (so a fresh session doesn't re-walk them)

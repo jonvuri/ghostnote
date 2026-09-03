@@ -9,6 +9,8 @@ import type { DonorManifest } from '../bwmod/donors.js';
 
 const FIXTURES = join(import.meta.dirname, '..', '..', 'fixtures');
 const manifest = JSON.parse(readFileSync(DONOR_MANIFEST_PATH, 'utf8')) as DonorManifest;
+const supportedTypeIds = new Set(manifest.host.inventory.flatMap((entry) =>
+  entry.supportedType === undefined ? [] : [entry.supportedType]));
 
 if (existsSync(manifest.host.inventorySource)) {
   const installed = readdirSync(manifest.host.inventorySource)
@@ -74,7 +76,7 @@ Runtime catalogs and write-tool vocabularies read the same manifest.
 
 | public type | name | operations | sampled preset | witness |
 |---|---|---|---|---|
-${manifest.types
+${manifest.types.filter((type) => supportedTypeIds.has(type.id))
   .map((type) => `| \`${type.id}\` | ${type.publicName} | ${type.capabilities.join(', ')} | ${type.sampledPreset} | ${type.witness.mode} |`)
   .join('\n')}
 

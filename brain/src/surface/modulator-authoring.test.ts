@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import { z } from 'zod';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
-import { listDonorTypes, listModulators } from '../bwmod/index.js';
+import { listDonorTypes, listModulators, listSupportedDonorTypes } from '../bwmod/index.js';
 import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import { Executor, fingerprintPreset } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
@@ -407,9 +407,9 @@ test('5n-guard: a stale inspected fingerprint refuses before the project write',
   assert.equal(fx.workspace.changes.list().length, 0);
 });
 
-test('5n-catalog: every manifest-backed type reaches a Tier-1 semantic project write', async () => {
+test('5n-catalog: every supported type reaches a Tier-1 semantic project write', async () => {
   const path = poly('mp_bare');
-  for (const type of listDonorTypes()) {
+  for (const type of listSupportedDonorTypes()) {
     const fx = fixture();
     const result = await callTool(fx.workspace, 'author_modulators', {
       trackId: fx.trackId,
@@ -425,6 +425,25 @@ test('5n-catalog: every manifest-backed type reaches a Tier-1 semantic project w
   }
 });
 
+test('5t-catalog: a type without an exact live witness refuses before project write', async () => {
+  const fx = fixture();
+  const path = poly('mp_bare');
+  const result = await callTool(fx.workspace, 'author_modulators', {
+    trackId: fx.trackId,
+    presetPath: path,
+    ...semanticSelf(path),
+    operation: {
+      kind: 'add', modulator: 'envelope-follower',
+      target: 'polysynth-filter-frequency', amount: 0.5,
+    },
+  }) as Record<string, unknown>;
+
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.equal(fx.appliedPresets.length, 0);
+  assert.equal(fx.workspace.changes.list().length, 0);
+});
+
 test('5f-refusal: an unmeasured sampled asset refuses before apply without internal details', async () => {
   const fx = fixture();
   const sampledPath = join(FIXTURE_DIR, 'Sampler', 'gn_sampler_multi_one_lfo.bwpreset');
@@ -432,8 +451,8 @@ test('5f-refusal: an unmeasured sampled asset refuses before apply without inter
     trackId: fx.trackId,
     presetPath: sampledPath,
     ...semanticSelf(sampledPath),
-    operation: { kind: 'replace', position: 0, modulator: 'expressions' },
-    pageChecks: [{ pageName: 'Expressions', expectedCount: 1 }],
+    operation: { kind: 'replace', position: 0, modulator: 'adsr' },
+    pageChecks: [{ pageName: 'ADSR', expectedCount: 1 }],
   }) as Record<string, unknown>;
 
   assert.equal(result['refused'], true, JSON.stringify(result));

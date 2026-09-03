@@ -276,7 +276,8 @@ function footprintFor(buf: Buffer, donor: DonorObject, what: string): number {
 
 /**
  * The removed side of the delta. An explicit value wins; otherwise the resident
- * object must match a curated donor BYTE FOR BYTE (modulo id and name), because
+ * object must match a curated donor byte for byte after grid identity, name,
+ * and route normalization, because
  * footprint belongs to the object and not to its type — see identifyCuratedDonor.
  */
 function removedFootprint(

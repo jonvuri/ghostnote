@@ -48,6 +48,10 @@ the right shape only for the Tier-2 case, D2). Recorded per handoff exit criteri
    route path is a *silent* no-op (loads, no modulation, E10b); `validate()` is
    necessary but not sufficient.
 
+E96 sharpens invariant 5. A supported donor must expose one exact bare page or
+one complete ordinal page family after relocation. An isolated load is not
+sufficient evidence for public support.
+
 ### Routing
 - Retarget = rewrite the `0x0e3d` Ramona path (any length; stream-only, no meta/f4)
   (E10/E10b). Proven load-safe on every host including plugins.

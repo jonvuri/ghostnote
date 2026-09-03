@@ -2,8 +2,8 @@
 title: Phase 5m — general donor catalog
 kind: plan
 state: done
-status: Complete. E88 records 42 manifest-backed public types and one specific exclusion.
-updated: 2026-08-28
+status: Complete as asset curation. E96 narrows the public catalog to 12 exact relocated live witnesses.
+updated: 2026-09-01
 parent: README.md
 evidence: D1, D2, D3, E12, E13, E67, E69, E88
 ---

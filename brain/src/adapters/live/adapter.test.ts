@@ -2130,6 +2130,7 @@ class ParameterTransport implements Transport {
   changeSelectionBeforeWrite = false;
   layerWindowOverflow = false;
   remoteNeverCurrent = false;
+  remoteStaleAcquisitions = 0;
   malformedRemoteControl = false;
   movingRemote = false;
   typedMetadata = false;
@@ -2156,6 +2157,7 @@ class ParameterTransport implements Transport {
   ];
   private generation = 0;
   private remoteGeneration = 0;
+  private remoteAcquisitionStale = false;
   private remoteValueRead = 0;
   private completionGeneration = 0;
   private completionObservedGeneration = -1;
@@ -2365,7 +2367,11 @@ class ParameterTransport implements Transport {
         this.selectedRemotePage = params['index'] as number;
         return {};
       case WIRE.remoteList: {
-        if (params['begin'] === true) this.remoteGeneration++;
+        if (params['begin'] === true) {
+          this.remoteGeneration++;
+          this.remoteAcquisitionStale = this.remoteStaleAcquisitions > 0;
+          if (this.remoteAcquisitionStale) this.remoteStaleAcquisitions--;
+        }
         if (params['begin'] !== true && this.movingRemote) this.remoteValueRead++;
         const modulated = (value: number): number => this.movingRemote
           ? Math.min(1, value + this.remoteValueRead / 100)
@@ -2392,7 +2398,7 @@ class ParameterTransport implements Transport {
           existing: remotePage.controls.length,
           bankSize: 8,
           selectedPageIndex: pageIndex,
-          observedGeneration: this.remoteNeverCurrent
+          observedGeneration: this.remoteNeverCurrent || this.remoteAcquisitionStale
             ? this.remoteGeneration - 1 : this.remoteGeneration,
           observedTrackChannelId: CHANNEL_ID,
           observedDeviceName: deviceName,
@@ -2424,7 +2430,7 @@ class ParameterTransport implements Transport {
           deviceName,
           isNested: this.depth > 0,
           generation: this.remoteGeneration,
-          observedGeneration: this.remoteNeverCurrent
+          observedGeneration: this.remoteNeverCurrent || this.remoteAcquisitionStale
             ? this.remoteGeneration - 1 : this.remoteGeneration,
           observedTrackChannelId: CHANNEL_ID,
           observedDeviceName: deviceName,
@@ -2933,6 +2939,22 @@ test('4f repair: a remote inventory from an earlier target generation stays unst
 
   assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(address)]);
   assert.equal(snapshot.entries[addressKey(address)], undefined);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList
+    && frame.params?.['begin'] === true).length, 3);
+});
+
+test('5t remote proof: a delayed inventory re-arms and settles as one generation', async () => {
+  const wire = new ParameterTransport();
+  wire.remoteStaleAcquisitions = 1;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = remotes(deviceAt(TRACK, 0));
+
+  const snapshot = await adapter.read([address]);
+
+  assert.equal(snapshot.entries[addressKey(address)]?.value.of, 'remotes');
+  assert.deepEqual(snapshot.unstable, []);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList
+    && frame.params?.['begin'] === true).length, 2);
 });
 
 test('4f repair: a malformed existing remote control cannot settle as complete', async () => {

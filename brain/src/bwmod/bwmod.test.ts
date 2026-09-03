@@ -467,6 +467,29 @@ test('U-stub-relocate: the removed footprint comes from an exact donor match, el
   );
 });
 
+test('5t stub relocation: a later-column donor matches for sampled replace and delete', () => {
+  const base = fixture('Sampler/gn_sampler_bare');
+  const planted = addModulator(
+    base,
+    loadDonor('random-sampler'),
+    { target: 'CONTENTS/AMP_DECAY_TIME', amount: 0.75 },
+    { instanceGroup: 4, instanceId: 0 },
+  );
+  const plantedBounds = modulatorBounds(planted, 0);
+  assert.equal(listModulators(planted)[0]?.instanceGroup, 4);
+  assert.equal(identifyCuratedDonor(planted.subarray(...plantedBounds))?.id, 'random-sampler');
+  assert.deepEqual(stubValues(planted), stubValues(base).map((value) => value + 0x0d));
+
+  const replaced = replaceModulator(planted, 0, loadDonor('lfo-sampler'));
+  const replacedBounds = modulatorBounds(replaced, 0);
+  assert.equal(listModulators(replaced)[0]?.instanceGroup, 4, 'replace keeps the resident tile');
+  assert.equal(identifyCuratedDonor(replaced.subarray(...replacedBounds))?.id, 'lfo-sampler');
+  assert.deepEqual(stubValues(replaced), stubValues(base).map((value) => value + 0x10));
+
+  const deleted = deleteModulator(replaced, 0);
+  assert.deepEqual(stubValues(deleted), stubValues(base));
+});
+
 test('U-stub-relocate: curated footprints agree with the fixtures they were measured on', () => {
   // An offline cross-check of the two footprints that have a bare/one fixture
   // pair: the stub delta a real Bitwig save produced IS the donor's footprint.

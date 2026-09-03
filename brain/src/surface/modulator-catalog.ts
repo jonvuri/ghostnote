@@ -1,10 +1,10 @@
 /** Public, format-hidden view of the current host donor catalog. */
 import {
-  donorHost, listDonorTypes, listHostModulatorInventory,
+  donorHost, listHostModulatorInventory, listSupportedDonorTypes,
 } from '../bwmod/index.js';
 
 export function runModulatorCatalog(): Record<string, unknown> {
-  const supportedTypes = listDonorTypes().map((type) => ({
+  const supportedTypes = listSupportedDonorTypes().map((type) => ({
     type: type.id,
     name: type.publicName,
     category: type.category,

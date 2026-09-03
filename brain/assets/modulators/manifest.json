@@ -5,12 +5,14 @@
     "version": "6.0.6",
     "inventorySource": "/Applications/Bitwig Studio.app/Contents/Resources/Library/modulators",
     "unsupportedReasons": {
-      "external-companion-state": "The routed Wavetable LFO adds linked state outside its modulator object. A raw 0x06c9 transplant is incomplete, so public add and replace refuse it."
+      "external-companion-state": "The routed Wavetable LFO adds linked state outside its modulator object. A raw 0x06c9 transplant is incomplete, so public add and replace refuse it.",
+      "no-exact-live-witness": "The transplanted object exposes no exact remote page on Polysynth or FX Layer in Bitwig Studio 6.0.6. Public add and replace refuse it because relocation cannot be proved after load.",
+      "non-family-page-shape": "One transplanted object exposes two bare same-name pages instead of one bare page or a numbered instance family. Public add and replace refuse it because exact instance count cannot be proved."
     },
     "inventory": [
       {
         "name": "4-Stage",
-        "supportedType": "4-stage"
+        "unsupportedReason": "non-family-page-shape"
       },
       {
         "name": "ADSR",
@@ -18,19 +20,19 @@
       },
       {
         "name": "AHD on Release",
-        "supportedType": "ahd-on-release"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "AHDSR",
-        "supportedType": "ahdsr"
+        "unsupportedReason": "non-family-page-shape"
       },
       {
         "name": "Audio Rate",
-        "supportedType": "audio-rate"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Audio Sidechain",
-        "supportedType": "audio-sidechain"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Beat LFO",
@@ -38,15 +40,15 @@
       },
       {
         "name": "Button",
-        "supportedType": "button"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Buttons",
-        "supportedType": "buttons"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Channel-16",
-        "supportedType": "channel-16"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Classic LFO",
@@ -58,23 +60,23 @@
       },
       {
         "name": "Envelope Follower",
-        "supportedType": "envelope-follower"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Expressions",
-        "supportedType": "expressions"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Globals",
-        "supportedType": "globals"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "HW CV In",
-        "supportedType": "hw-cv-in"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Keytrack+",
-        "supportedType": "keytrack-plus"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "LFO",
@@ -82,47 +84,47 @@
       },
       {
         "name": "MIDI",
-        "supportedType": "midi"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Macro",
-        "supportedType": "macro"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Macro-4",
-        "supportedType": "macro-4"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Math",
-        "supportedType": "math"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Mix",
-        "supportedType": "mix"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Note Counter",
-        "supportedType": "note-counter"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Note Sidechain",
-        "supportedType": "note-sidechain"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "ParSeq-8",
-        "supportedType": "parseq-8"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Pitch-12",
-        "supportedType": "pitch-12"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Polynom",
-        "supportedType": "polynom"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Quantize",
-        "supportedType": "quantize"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Ramp",
@@ -134,11 +136,11 @@
       },
       {
         "name": "Relative Keytrack",
-        "supportedType": "relative-keytrack"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Sample and Hold",
-        "supportedType": "sample-and-hold"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Segments",
@@ -146,15 +148,15 @@
       },
       {
         "name": "Select-4",
-        "supportedType": "select-4"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Stack Spread",
-        "supportedType": "stack-spread"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Steps",
-        "supportedType": "steps"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Vector-4",
@@ -170,7 +172,7 @@
       },
       {
         "name": "Voice Control",
-        "supportedType": "voice-control"
+        "unsupportedReason": "no-exact-live-witness"
       },
       {
         "name": "Wavetable LFO",

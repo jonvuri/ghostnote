@@ -109,8 +109,9 @@ the complete compact donor matrix, and final closeout.
 
 ## Handoff
 
-Run [5t](5t-grid-generalization-and-colourcopy-closeout.md) next. Phase 6a stays
-blocked until 5t and the open dogfood loop close.
+[5t](5t-grid-generalization-and-colourcopy-closeout.md) now has passing grid,
+page, catalog, and observer repairs. Start its final projectless ColourCopy task
+next. Phase 6a stays blocked until the explicit dogfood verdict and closeout.
 
 ## Retrospective
 

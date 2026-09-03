@@ -12,8 +12,8 @@ import { dirname, join } from 'node:path';
 import type { DonorObject } from './types.js';
 import { CLASS_MODULATOR, FID, OBJ_TERMINATOR, TYPE, fail, findAll, formatGuid, patchString } from './format.js';
 import {
-  findField, findModulatorList, instanceIdOffset, modulatorBounds, nameFieldOffset, readStrField,
-  routeSlots,
+  findField, findModulatorList, instanceGroupOffset, instanceIdOffset, modulatorBounds,
+  nameFieldOffset, readStrField, routeSlots,
 } from './stream.js';
 
 export const ASSET_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'assets', 'modulators');
@@ -105,14 +105,22 @@ export function listDonorAssets(): DonorAsset[] {
   return donorManifest().donors.slice();
 }
 
-/** Public type entries for the current host. */
+/** All curated type entries, including types that the current host refuses. */
 export function listDonorTypes(): DonorType[] {
   return donorManifest().types.slice();
 }
 
+/** Public type entries with a complete live witness on the current host. */
+export function listSupportedDonorTypes(): DonorType[] {
+  const manifest = donorManifest();
+  const supported = new Set(manifest.host.inventory.flatMap((entry) =>
+    entry.supportedType === undefined ? [] : [entry.supportedType]));
+  return manifest.types.filter((type) => supported.has(type.id));
+}
+
 /** Resolve one public type to its curated donor. */
 export function donorType(id: string, capability?: DonorCapability): DonorType {
-  const entry = donorManifest().types.find((type) => type.id === id);
+  const entry = listSupportedDonorTypes().find((type) => type.id === id);
   if (!entry) fail(`no supported modulator type ${JSON.stringify(id)}`);
   if (capability !== undefined && !entry.capabilities.includes(capability)) {
     fail(`modulator type ${JSON.stringify(id)} does not support ${capability}`);
@@ -234,17 +242,12 @@ function assertManifest(manifest: DonorManifest): void {
     }
     inventoryNames.add(entry.name);
   }
-  for (const type of manifest.types) {
-    if (!manifest.host.inventory.some((entry) => entry.supportedType === type.id)) {
-      fail(`public type ${JSON.stringify(type.id)} is absent from the host inventory`);
-    }
-  }
 }
 
 /**
  * Blank everything the editors themselves rewrite, so a planted donor still
- * matches its asset after being retargeted or re-amounted: the `0x1a1b` id, the
- * `0x02b9` name, and each modulation entry's target/amount/range.
+ * matches its asset after being moved, retargeted, or re-amounted: both grid
+ * identity fields, the `0x02b9` name, and each route target/amount/range.
  *
  * Normalizing those is sound for FOOTPRINT purposes specifically: retarget and
  * setAmount add and remove no objects (E12e — they need no relocation), so an
@@ -255,6 +258,7 @@ function assertManifest(manifest: DonorManifest): void {
 function normalizeForMatch(object: Buffer): Buffer | null {
   try {
     let out: Buffer = Buffer.from(object);
+    out.writeUInt8(0, instanceGroupOffset(out, 0, out.length));
     out.writeUInt8(0, instanceIdOffset(out, 0, out.length));
     out = patchString(out, nameFieldOffset(out, 0), '');
     for (let i = routeSlots(out, 0, out.length).length - 1; i >= 0; i--) {

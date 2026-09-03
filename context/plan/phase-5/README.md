@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5s found final dogfood defects. Session 5t is queued next.
-updated: 2026-09-01
+status: Reopened 2026-08-25. Session 5t repairs pass. Final projectless dogfood and closeout remain.
+updated: 2026-09-02
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -118,10 +118,10 @@ that first integration unless the proof needs one new owned asset.
 12. [5l — complete list-scoped topology](5l-complete-list-scoped-topology.md) —
     done. Run add, replace, retarget, amount, and delete on any semantic list.
 13. [5m — general donor catalog](5m-general-donor-catalog.md) — done. One
-    manifest records all 43 host types and drives 42 supported public types.
+    manifest records all 43 host types and retains 42 curated donor assets.
 14. [5n — general public preset authoring](5n-general-public-preset-authoring.md)
     — done. Fingerprinted semantic authoring combines general targets, all five
-    editors, and 42 donor types across the proved host matrix.
+    editors, and the supported donor catalog across the proved host matrix.
 15. [5o — late-bound container modulation](5o-late-bound-container-modulation.md)
     — done. An owned FX Layer route late-binds native and VST3 devices at its
     initially empty first position. Chain and Instrument Layer are unsupported.
@@ -138,8 +138,8 @@ that first integration unless the proof needs one new owned asset.
     — done as a dogfood investigation. It proved position and compact layout
     repairs and exposed three final verification gaps.
 20. [5t — modulator-grid generalization and ColourCopy closeout](5t-grid-generalization-and-colourcopy-closeout.md)
-    — queued next. Repair numbered pages and donor matching, discriminate
-    Envelope Follower, prove compact donor breadth, and finish closeout.
+    — active. The repaired grid, exact page families, donor matching, remote
+    retry, and 12-type live catalog pass. Final dogfood and closeout remain.
 
 The dependency split is `5j → 5k → 5l`, with `5m` independent after 5j. Both
 branches join at 5n. Sessions 5o through 5t then run in order because each one
@@ -221,9 +221,9 @@ impossibilities. External publication and redistribution remain Phase 6 work.
 - **Public modulator locations — settled by 5k, 5l, and 5n.** Semantic device
   and entry paths replace list indexes and support all five topology
   operations through the public workflow.
-- **Public donor breadth — settled by 5m and exposed by 5n.** One manifest
-  records the complete 43-type host inventory and drives the 42-type supported
-  catalog.
+- **Public donor breadth — corrected by 5t.** One manifest records the complete
+  43-type host inventory and retains 42 curated assets. Twelve types have exact
+  relocated live page witnesses and form the supported catalog.
 - **Existing-device preservation — settled by 5o and 5p.** The owned FX Layer
   supplies topology while the existing device instance moves intact. Chain and
   Instrument Layer do not share this late-binding behavior.

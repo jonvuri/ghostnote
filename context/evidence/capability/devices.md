@@ -2,7 +2,7 @@
 title: Devices — type UUIDs, parameters and observables
 kind: capability
 state: active
-updated: 2026-08-27
+updated: 2026-09-02
 scope: device identification, parameter access and the observable surface
 evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73; D2; reference/BitX
 ---
@@ -382,6 +382,12 @@ internal list selector private. Container edits rebuild the complete ordered
 unique GUID reference set and preserve all sibling semantic inventories [K,
 E87].
 
+The Bitwig 6.0.6 manifest records 43 factory types and retains 42 curated donor
+objects. Twelve types expose an exact remote page after compact relocation and
+form the supported public catalog. The other 31 types refuse before a project
+write. Repeated supported instances use a complete ordinal page family [K,
+E96].
+
 FX Layer keeps an outer route to an initially empty first device position. The
 route becomes active when an existing native or VST3 device moves into that
 position. Layer routes use `CHAIN_LIST/CHAIN<n>`, not the Chain device's named
@@ -395,6 +401,7 @@ to a replacement [K, E90].
 
 | Date | Change |
 |---|---|
+| 2026-09-01 | E96 proves compact relocation for 12 supported donor types, exact ordinal page families, complete fresh remote-inventory retry, and 31 pre-write catalog refusals. |
 | 2026-08-29 | E90 proves owned FX Layer late binding for native and VST3 devices, records the wrong-position control, and limits Chain and Instrument Layer. |
 | 2026-08-27 | E87 completes all five fingerprinted semantic list-scoped editors, sampled-stub proof, and live outer and nested page witnesses. |
 | 2026-08-27 | E86 adds read-only semantic preset locations, complete public modulator inventories, stale-file fingerprints, and the six-class fixture matrix. |

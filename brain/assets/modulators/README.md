@@ -21,47 +21,17 @@ Runtime catalogs and write-tool vocabularies read the same manifest.
 
 | public type | name | operations | sampled preset | witness |
 |---|---|---|---|---|
-| `4-stage` | 4-Stage | add, replace | tier-1-only | note-driven |
 | `adsr` | ADSR | add, replace | tier-1-only | note-driven |
-| `ahd-on-release` | AHD on Release | add, replace | tier-1-only | note-driven |
-| `ahdsr` | AHDSR | add, replace | tier-1-only | note-driven |
-| `audio-rate` | Audio Rate | add, replace | tier-1-only | structural |
-| `audio-sidechain` | Audio Sidechain | add, replace | tier-1-only | structural |
 | `beat-lfo` | Beat LFO | add, replace | tier-1-only | free-running |
-| `button` | Button | add, replace | tier-1-only | structural |
-| `buttons` | Buttons | add, replace | tier-1-only | structural |
-| `channel-16` | Channel-16 | add, replace | tier-1-only | note-driven |
 | `classic-lfo` | Classic LFO | add, replace | supported | structural |
 | `curves` | Curves | add, replace | tier-1-only | free-running |
-| `envelope-follower` | Envelope Follower | add, replace | tier-1-only | structural |
-| `expressions` | Expressions | add, replace | tier-1-only | note-driven |
-| `globals` | Globals | add, replace | tier-1-only | structural |
-| `hw-cv-in` | HW CV In | add, replace | tier-1-only | structural |
-| `keytrack-plus` | Keytrack+ | add, replace | tier-1-only | note-driven |
 | `lfo` | LFO | add, replace | supported | free-running |
-| `macro-4` | Macro-4 | add, replace | tier-1-only | structural |
-| `macro` | Macro | add, replace | tier-1-only | structural |
-| `math` | Math | add, replace | tier-1-only | structural |
-| `midi` | MIDI | add, replace | tier-1-only | note-driven |
-| `mix` | Mix | add, replace | tier-1-only | structural |
-| `note-counter` | Note Counter | add, replace | tier-1-only | note-driven |
-| `note-sidechain` | Note Sidechain | add, replace | tier-1-only | note-driven |
-| `parseq-8` | ParSeq-8 | add, replace | tier-1-only | note-driven |
-| `pitch-12` | Pitch-12 | add, replace | tier-1-only | note-driven |
-| `polynom` | Polynom | add, replace | tier-1-only | structural |
-| `quantize` | Quantize | add, replace | tier-1-only | structural |
 | `ramp` | Ramp | add, replace | tier-1-only | note-driven |
 | `random` | Random | add, replace | supported | note-driven |
-| `relative-keytrack` | Relative Keytrack | add, replace | tier-1-only | note-driven |
-| `sample-and-hold` | Sample and Hold | add, replace | tier-1-only | structural |
 | `segments` | Segments | add, replace | tier-1-only | note-driven |
-| `select-4` | Select-4 | add, replace | tier-1-only | structural |
-| `stack-spread` | Stack Spread | add, replace | tier-1-only | note-driven |
-| `steps` | Steps | add, replace | tier-1-only | note-driven |
 | `vector-4` | Vector-4 | add, replace | tier-1-only | structural |
 | `vector-8` | Vector-8 | add, replace | tier-1-only | structural |
 | `vibrato` | Vibrato | add, replace | supported | note-driven |
-| `voice-control` | Voice Control | add, replace | tier-1-only | note-driven |
 | `xy` | XY | add, replace | tier-1-only | structural |
 
 | id | device | footprint | source |

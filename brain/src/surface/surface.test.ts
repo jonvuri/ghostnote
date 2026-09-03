@@ -1172,7 +1172,7 @@ test('T-surface: every tool runs offline, and emits only what it declares', asyn
     totals: { hostTypes: number; supportedTypes: number };
   };
   assert.deepEqual(modulatorCatalog.totals, {
-    hostTypes: 43, supportedTypes: 42, excludedTypes: 1,
+    hostTypes: 43, supportedTypes: 12, excludedTypes: 31,
   });
 
   const presetInspection = await exercise('inspect_preset_modulation', {

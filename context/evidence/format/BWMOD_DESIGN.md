@@ -289,8 +289,9 @@ each item is a place the design was silent and the code had to make a call:
 - **`removedFootprint`.** §5's `(inserted − removed) footprint` needs the REMOVED
   side, which the design left implicit. `deleteModulator`/`replaceModulator` take
   `{ removedFootprint }`; when omitted, the resident object must match a curated
-  donor byte-for-byte (`identifyCuratedDonor`, normalizing only id/name/route —
-  the fields the editors themselves rewrite, which E12e proved add no objects).
+  donor byte-for-byte (`identifyCuratedDonor`, normalizing both grid
+  coordinates, id, name, and route — the fields that editors rewrite, which
+  E12e proved add no objects).
   No match and no explicit value ⇒ a loud refusal. Never a guess.
 - **Unmeasured footprints ship as `null`.** At the initial build, only
   `lfo-sampler` (0x10), `random-sampler` (0x0d), and `random-poly` (0x0b) were
@@ -313,7 +314,10 @@ each item is a place the design was silent and the code had to make a call:
   oracle test asserts the difference is confined to those header bytes.
 
 Live readback needs one calibration the design did not mention: modulator pages
-are appended AFTER the device's own remote pages, a Note-driven modulator
-contributes no page at all, and Bitwig disambiguates duplicates as `LFO 1`/`LFO 2`.
-`e13-bwmod.ts` therefore loads each device's modulator-free `bare` fixture first
-to learn its page count instead of assuming one.
+are appended AFTER the device's own remote pages, a Note-driven modulator can
+contribute no page, and Bitwig disambiguates repeated instances as `LFO 1` and
+`LFO 2`. Exact verification accepts one bare page or the complete ordinal family
+from 1 through N. It rejects missing, extra, and malformed families. It does not
+remove numeric suffixes from public names. `e13-bwmod.ts` loads each device's
+modulator-free `bare` fixture first to learn its page count instead of assuming
+one. E96 narrows public support to types with an exact relocated live page.

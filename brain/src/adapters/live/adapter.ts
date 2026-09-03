@@ -385,6 +385,8 @@ const CLIP_POINT_ATTEMPTS = 8;
 const PARAMETER_INVENTORY_ATTEMPTS = 80;
 /** Re-arm an observer that does not complete within its bounded generation. */
 const PARAMETER_INVENTORY_ACQUISITIONS = 3;
+/** Re-arm a remote observer that does not complete within one generation. */
+const REMOTE_INVENTORY_ACQUISITIONS = 3;
 
 interface ClipCursorStatus {
   readonly trackPosition?: number;
@@ -1591,6 +1593,17 @@ export class LiveAdapter implements BitwigAdapter {
   /** Enumerate the complete configured remote-page window in one bounded reply. */
   private remoteInventory(device: DeviceAddress, row: WireTrack): Promise<RemoteInventory> {
     return this.withParameterCursor(async () => {
+      let last: RemoteInventory = { standing: 'unstable' };
+      for (let acquisition = 0; acquisition < REMOTE_INVENTORY_ACQUISITIONS; acquisition++) {
+        last = await this.remoteInventoryAttempt(device, row);
+        if (last.standing !== 'unstable') return last;
+      }
+      return last;
+    });
+  }
+
+  /** Read one complete remote inventory from one newly armed generation. */
+  private async remoteInventoryAttempt(device: DeviceAddress, row: WireTrack): Promise<RemoteInventory> {
       // Confirm and pin the target before resetting the remote generation. If
       // this cursor already names the target, selecting it again emits no page
       // callback. The extension seeds the new generation from this confirmed
@@ -1692,7 +1705,6 @@ export class LiveAdapter implements BitwigAdapter {
         await this.settle('cursorPoint');
       }
       return { standing: 'unstable', deviceName: target.deviceName };
-    });
   }
 
   private remoteState(

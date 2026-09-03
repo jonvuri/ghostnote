@@ -35,15 +35,16 @@ test('5m catalog records the complete host inventory and public standing', () =>
     totals: { hostTypes: number; supportedTypes: number; excludedTypes: number };
   };
   assert.deepEqual(result.host, { product: 'Bitwig Studio', version: '6.0.6' });
-  assert.deepEqual(result.totals, { hostTypes: 43, supportedTypes: 42, excludedTypes: 1 });
+  assert.deepEqual(result.totals, { hostTypes: 43, supportedTypes: 12, excludedTypes: 31 });
   assert.equal(result.inventory.length, 43);
   assert.equal(new Set(result.inventory.map((entry) => entry.name)).size, 43);
   assert.ok(result.inventory.filter((entry) => entry.standing === 'excluded')
     .every((entry) => (entry.why?.length ?? 0) > 40));
-  assert.deepEqual(
-    result.inventory.filter((entry) => entry.standing === 'excluded').map((entry) => entry.name),
-    ['Wavetable LFO'],
-  );
+  const excluded = result.inventory.filter((entry) => entry.standing === 'excluded')
+    .map((entry) => entry.name);
+  assert.equal(excluded.length, 31);
+  assert.ok(excluded.includes('Envelope Follower'));
+  assert.ok(excluded.includes('Wavetable LFO'));
   assert.deepEqual(
     new Set(result.supportedTypes.map((type) => type.witness.mode)),
     new Set(['structural', 'free-running', 'note-driven']),

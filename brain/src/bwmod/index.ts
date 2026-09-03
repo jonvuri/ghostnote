@@ -35,7 +35,8 @@ export type { CountStub } from './stubs.js';
 export { instanceIds, listChains, listModulators, nextFreeInstanceId, readRoutes } from './readers.js';
 export {
   ASSET_DIR, DONOR_MANIFEST_PATH, donorHost, donorType, extractModulator,
-  identifyCuratedDonor, listDonorAssets, listDonorTypes, listHostModulatorInventory, loadDonor,
+  identifyCuratedDonor, listDonorAssets, listDonorTypes, listHostModulatorInventory,
+  listSupportedDonorTypes, loadDonor,
 } from './donors.js';
 export type {
   DonorAsset, DonorCapability, DonorManifest, DonorType, DonorWitnessMode,

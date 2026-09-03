@@ -16,8 +16,9 @@ manifest donor.**
 `inspect_preset_modulation` returns the SHA-256 fingerprint, host facts,
 semantic locations, and public inventories. `author_modulators` requires that
 fingerprint and one returned location. It supports add, replace, retarget,
-amount, and delete. Add and replace accept all 42 supported manifest types at
-their recorded host tier.
+amount, and delete. This experiment accepted all 42 then-claimed manifest types
+at their recorded host tier. E96 supersedes that breadth claim. Add and replace
+now accept only the 12 types with exact relocated live witnesses.
 
 The write result separates requested, decoded, edited, observed, and verified
 facts. A failed witness cannot hide an applied insertion or its reversal. The

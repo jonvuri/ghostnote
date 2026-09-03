@@ -75,11 +75,11 @@ request writes `0:0`, `0:1`, `0:2`, and `1:0`. A deleted gap is reused. Replace
 keeps the resident grid pair instead of moving the replacement to donor state.
 
 Focused binary and wrapper-composition regressions pass. They cover the exact
-four donor types and the compact pair sequence. Live Bitwig verification of
-the repaired grid remains open.
+four donor types and the compact pair sequence. E96 proves the repaired grid
+live across the supported catalog and across all 42 curated donors offline.
 
 ## Verdict
 
-The wrapper-position repair is live. The generalized musical retry is still
-open because modulator-grid usability needs a repaired live retry and the
-workflow still needs an explicit operator audition verdict.
+The wrapper-position and modulator-grid repairs are live. The generalized
+musical retry is still open because the workflow needs a new projectless task
+and an explicit operator audition verdict.

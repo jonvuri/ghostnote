@@ -38,6 +38,12 @@ carrying (details in BWMOD_DESIGN §8, evidence in FINDINGS E13):
 - **unmeasured footprints ship as `null`** and are refused on a sampled preset, never
   guessed (a wrong delta is a silent whole-preset reject).
 
+**2026-09-01 refinement (E96).** Curated-donor matching normalizes both grid
+coordinates, id, name, and route because editors can rewrite every one of these
+fields. The public catalog contains only donors with an exact relocated live
+page witness. The 42 curated assets remain available for offline study; 12 are
+currently supported public types.
+
 ### Carry-forward
 
 **Modulator authoring is a template-time file-surgery capability with one

@@ -1,9 +1,9 @@
 ---
 title: Phase 5t — modulator-grid generalization and ColourCopy closeout
 kind: plan
-state: planned
-status: Queued next. Repair numbered-page verification, prove donor relocation, repair active witnesses, and close the ColourCopy loop.
-updated: 2026-09-01
+state: active
+status: Grid, page, catalog, and observer repairs pass. Final projectless ColourCopy dogfood and closeout remain.
+updated: 2026-09-02
 parent: README.md
 evidence: D1, D2, D3, E11f, E65, E88, E94, E95, dogfood session 01a0607f-fc2a-7042-bfdd-0175a19986c1
 ---
@@ -12,10 +12,10 @@ evidence: D1, D2, D3, E11f, E65, E88, E94, E95, dogfood session 01a0607f-fc2a-70
 
 ## Purpose
 
-Finish the grid repair without narrowing the public donor claim. Correct two
-known offline defects, determine why Envelope Follower disappears in one
-compact FX Layer composition, prove the complete public donor cohort at compact
-positions, repair the active witness, and finish the ColourCopy dogfood loop.
+Finish the grid repair and state the public donor boundary from exact live
+evidence. Correct two known offline defects, determine why Envelope Follower
+disappears, prove compact placement, repair the active witness, and finish the
+ColourCopy dogfood loop.
 
 ## Starting facts
 
@@ -87,7 +87,7 @@ Do not weaken or remove the exact-page witness.
 
 ### 3. Prove compact placement across the donor catalog
 
-1. Compose all 42 supported donors offline in manifest order. Confirm compact
+1. Compose all 42 curated donors offline in manifest order. Confirm compact
    pairs across every row and column transition and validate the complete
    preset.
 2. Exercise the public cohort live in requests of at most 16 modulators, which
@@ -168,4 +168,25 @@ overview, capability evidence, outcome archive, roadmap, dogfood ledger, and
 
 ## Handoff
 
-Phase 6a starts only after this plan passes and the open dogfood loop closes.
+Start the final ColourCopy work in a new projectless Codex task. Use only public
+Ghostnote tools. Record the operator's explicit accept or veto. If accepted,
+run the complete closeout matrix and update the final Phase 5 records. Phase 6a
+starts only after this plan passes and the open dogfood loop closes.
+
+## Session result to date
+
+E96 records the implemented and live-proved repairs. Exact ordinal page
+families pass. Both grid coordinates are normalized during donor matching.
+Complete fresh remote-inventory retries pass. All 42 curated donors relocate in
+compact offline cohorts. Twelve donor types pass exact relocated live pages and
+manifest-specific witnesses. One sustained note covers note-driven and
+transport-running cases. XY, Vector-4, and Vector-8 pass exact operator-control
+changes and restoration. The other 31 host types refuse before a project write.
+
+Envelope Follower has no exact page on Polysynth or FX Layer at source or
+compact pairs. Adjacent LFO controls pass. The failure follows the donor, so it
+is outside the supported catalog.
+
+The live probe restored its exact disposable entry state. The final ColourCopy
+task cannot run inside this repository session because its acceptance criteria
+require a new projectless task and the operator's explicit audition verdict.

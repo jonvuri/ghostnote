@@ -8,7 +8,8 @@ source: phase-5-session-5m-general-donor-catalog
 # E88 — General donor catalog is manifest-driven [K] (2026-08-28)
 
 **Verdict: one manifest records the complete Bitwig 6.0.6 factory modulator
-inventory. It exposes 42 public types and one specific format refusal.**
+inventory. It retains 42 curated transplant donors. E96 narrows the supported
+public catalog to the 12 types with exact relocated live witnesses.**
 
 ## Operator-authored cohort
 
@@ -23,10 +24,13 @@ Public add and replace operations keep the first output active and set the other
 donor route amounts to zero. The full isolated-donor run restores the exact
 entry track list.
 
-Wavetable LFO is the sole exclusion. Its saved preset contains one linked
+Wavetable LFO was the sole format exclusion in this experiment. Its saved preset contains one linked
 reference inside the modulator object and companion state outside that object.
 A raw `0x06c9` transplant is incomplete. Public add and replace refuse this type
 until the companion-state boundary is implemented.
+
+This experiment proved that 42 donors load alone. It did not prove that all 42
+produce an exact page after relocation. E96 corrects that product claim.
 
 ## Corrected instance identity
 
@@ -53,7 +57,7 @@ stubs.
 
 `brain/assets/modulators/manifest.json` drives asset extraction, runtime donor
 selection, both public write vocabularies, and `list_modulator_types`. The public
-catalog reports 43 host types, 42 supported types, and one exclusion. It exposes
+catalog reports 43 host types, 12 supported types, and 31 exclusions. It exposes
 operations, tier standing, witness requirements, provenance, and refusal text.
 It does not expose donor ids, routes, footprints, GUIDs, list indexes, or offsets.
 
@@ -72,9 +76,9 @@ It does not expose donor ids, routes, footprints, GUIDs, list indexes, or offset
 
 ## Qualification
 
-The 37 new Tier-1-only types do not claim sampled-preset support. Wavetable LFO
-needs a new companion-state editor, not another donor preset. Session 5n can use
-the 42 public types through the manifest without a write-tool source change.
+The curated assets remain useful offline candidates. The public catalog exposes
+only types that pass exact relocated page verification. Wavetable LFO needs a
+new companion-state editor, not another donor preset.
 
 ## Retrospective
 
