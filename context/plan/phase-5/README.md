@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Session 5t repairs pass. Final projectless dogfood and closeout remain.
-updated: 2026-09-02
+status: Reopened 2026-08-25. Sessions 5u through 5x address the post-fix dogfood findings.
+updated: 2026-09-03
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -138,12 +138,25 @@ that first integration unless the proof needs one new owned asset.
     — done as a dogfood investigation. It proved position and compact layout
     repairs and exposed three final verification gaps.
 20. [5t — modulator-grid generalization and ColourCopy closeout](5t-grid-generalization-and-colourcopy-closeout.md)
-    — active. The repaired grid, exact page families, donor matching, remote
-    retry, and 12-type live catalog pass. Final dogfood and closeout remain.
+    — active as the parent closeout. The repaired grid, exact page families,
+    donor matching, remote retry, and 12-type live catalog pass. Post-fix
+    dogfood exposed four focused follow-up issues.
+21. [5u — settlement budget and nested remote reliability](5u-settlement-budget-and-nested-remote-reliability.md)
+    — active next. Measure host settlement variance and repair the short nested
+    ColourCopy verification path.
+22. [5v — semantic parameter units and fail-closed guidance](5v-semantic-parameter-units-and-fail-closed-guidance.md)
+    — planned. Recheck API 25 unit support and stop unproved normalized-to-unit
+    conversion.
+23. [5w — selection borrowing and background stability](5w-selection-borrowing-and-background-stability.md)
+    — planned. Isolate intermittent Bitwig activation and reduce repeated
+    selection and cursor work.
+24. [5x — existing-wrapper update operation](5x-existing-wrapper-update-operation.md)
+    — planned. Evaluate and, if bounded, add a guarded wrapper update workflow.
 
 The dependency split is `5j → 5k → 5l`, with `5m` independent after 5j. Both
-branches join at 5n. Sessions 5o through 5t then run in order because each one
-depends on the prior host or lifecycle proof.
+branches join at 5n. Sessions 5o through 5t then run in order. The post-fix
+queue is `5u → 5v → 5w → 5x`, then returns to 5t for final dogfood and
+closeout. Session 5x depends on the settlement, value, and selection contracts.
 
 ## Public-gap coverage
 
@@ -157,7 +170,7 @@ depends on the prior host or lifecycle proof.
 | Cannot preserve and modulate an existing project device | 5o, 5p |
 | Composer accepts only distinct native devices | 5q |
 | One Instrument Layer shape, four entries, and two observable positions | 5r |
-| No accepted public retry of the exposed ColourCopy gap | 5s, 5t |
+| No accepted public retry of the exposed ColourCopy gap | 5s, 5t, 5u-5x |
 
 Direct parameter-base writes are already general through `set_parameter` and
 stay separate. Runtime modulator creation and routing remain host-API

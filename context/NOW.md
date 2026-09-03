@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-09-02
+updated: 2026-09-03
 phase: phase-5
-session: 5t-grid-generalization-and-colourcopy-closeout
+session: 5u-settlement-budget-and-nested-remote-reliability
 ---
 
 # Now
@@ -46,18 +46,33 @@ Verification passes `npm run probe:phase5t-grid`, donor asset generation,
 `npm run check` with 998 tests, extension tests, and `npm run probe:hello` with
 the live 150-method contract. The probe restored exact entry state.
 
+## Post-fix dogfood review
+
+Session `01a0690e-1761-76b1-9e8e-635bfa35e583` produced the three-modulator
+ColourCopy wrapper and then rebuilt it with a requested fourth modulator. The
+review found four issues:
+
+1. Nested remote inventory timed out during both final behavior checks.
+2. The agent guessed a normalized value for `1.5 measures` and tried web and
+   computer-use fallbacks instead of reporting an unproved semantic value.
+3. Bitwig repeatedly returned to the foreground, with repeated selection and
+   cursor retargeting as a possible cause.
+4. The surface had no update operation, so the agent reversed and rebuilt the
+   wrapper without proving all prior modulator state.
+
+The focused queue is 5u settlement policy, 5v semantic units, 5w selection and
+background stability, and 5x wrapper update feasibility. Return to 5t for the
+final dogfood and closeout after 5x.
+
 ## Next action
 
-Start a new projectless Codex task for the final ColourCopy dogfood. Use only
-public Ghostnote tools. Preserve ColourCopy after Serato Sample, add at least
-four useful compact modulators, prove state and active behavior, make the result
-auditionable, and wait for the operator's explicit accept or veto.
-
-After an accepted result, run the complete Phase 5 closeout matrix and update
-the outcome archive and roadmap. Do not close Phase 5 before that verdict.
+Run session 5u. Measure all settlement policies, reproduce the nested
+ColourCopy timeout, and replace the short retry path with a measured bounded
+policy. Prove two free-running nested ColourCopy routes on cold and warm runs.
+Then continue through 5v, 5w, and 5x before a new final dogfood task.
 
 ## Retrospective
 
-A donor that loads alone does not prove exact instance count after relocation.
-Require an exact relocated page before public support.
-Convert manifest witness requirements into executable probe setup.
+The post-fix dogfood reached the musical task but exposed cross-cutting issues
+late in one long turn. Keep each repair in one focused session and require the
+final dogfood only after all four contracts are settled.

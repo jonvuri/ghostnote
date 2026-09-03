@@ -2,10 +2,10 @@
 title: Phase 5t — modulator-grid generalization and ColourCopy closeout
 kind: plan
 state: active
-status: Grid, page, catalog, and observer repairs pass. Final projectless ColourCopy dogfood and closeout remain.
-updated: 2026-09-02
+status: Grid repairs pass. Sessions 5u through 5x own four post-fix dogfood issues before final closeout.
+updated: 2026-09-03
 parent: README.md
-evidence: D1, D2, D3, E11f, E65, E88, E94, E95, dogfood session 01a0607f-fc2a-7042-bfdd-0175a19986c1
+evidence: D1, D2, D3, E11f, E65, E88, E94-E96, dogfood sessions 01a0607f-fc2a-7042-bfdd-0175a19986c1 and 01a0690e-1761-76b1-9e8e-635bfa35e583
 ---
 
 # Phase 5t — modulator-grid generalization and ColourCopy closeout
@@ -168,10 +168,11 @@ overview, capability evidence, outcome archive, roadmap, dogfood ledger, and
 
 ## Handoff
 
-Start the final ColourCopy work in a new projectless Codex task. Use only public
-Ghostnote tools. Record the operator's explicit accept or veto. If accepted,
-run the complete closeout matrix and update the final Phase 5 records. Phase 6a
-starts only after this plan passes and the open dogfood loop closes.
+Run sessions 5u through 5x in order. Then start the final ColourCopy work in a
+new projectless Codex task. Use only public Ghostnote tools. Record the
+operator's explicit accept or veto. If accepted, run the complete closeout
+matrix and update the final Phase 5 records. Phase 6a starts only after this
+plan passes and the open dogfood loop closes.
 
 ## Session result to date
 
@@ -190,3 +191,23 @@ is outside the supported catalog.
 The live probe restored its exact disposable entry state. The final ColourCopy
 task cannot run inside this repository session because its acceptance criteria
 require a new projectless task and the operator's explicit audition verdict.
+
+## Post-fix dogfood review
+
+Dogfood session `01a0690e-1761-76b1-9e8e-635bfa35e583` completed the first
+three-modulator pass well enough for the operator to request a fourth. The
+follow-up exposed four issues that must be resolved before another final run:
+
+1. Both wrapper calls ended incomplete because nested supplementary remote
+   inventory did not settle during active verification.
+2. The agent guessed a normalized value for `1.5 measures`, then described the
+   semantic setting without host proof. It also tried web and computer-use
+   fallbacks.
+3. Bitwig repeatedly returned to the foreground. The run also appeared to
+   repeat track selection and retargeting across wrapper stages.
+4. No wrapper update operation existed. The agent reversed the three-modulator
+   wrapper and rebuilt a four-modulator wrapper without proving all prior
+   modulator state.
+
+Sessions 5u through 5x own these issues separately. Do not run the final
+dogfood or close Phase 5 until they finish.
