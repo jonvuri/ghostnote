@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
-import { track, type Op, type TrackAddress } from '../contract/index.js';
+import { device, track, type Op, type TrackAddress } from '../contract/index.js';
 import {
   listModulators, modulatorListOffsets, readModulatorRefs, stubValues, validate,
 } from '../bwmod/index.js';
@@ -14,7 +14,7 @@ import { FIXTURE_DIR } from '../bwmod/fixtures.js';
 import { Executor } from './executor.js';
 import {
   ModulatorAuthoringError, authorModulatorAdd, authorModulatorEdit,
-  authorSemanticModulatorEdit,
+  authorSemanticModulatorEdit, verifyModulations, verifyPages,
   type ModulatorAuthoringHost, type ModulatorEditRequest,
 } from './modulator-authoring.js';
 import { fingerprintPreset } from './preset-modulation-inspection.js';
@@ -376,6 +376,100 @@ test('5j-readback: duplicate names remain distinct through exact parameter ids',
 
   assert.equal(result.verification.verified, true);
   assert.equal(result.verification.selector?.directId, 'CONTENTS/F1FREQ');
+});
+
+test('5u readback: several supplementary routes share inventory and sample reads', async () => {
+  const fake = new FakeAdapter({ tracks: ['Batch'], scenes: 1 });
+  const row = fake.model.visibleTracks()[0]!;
+  row.devices.push({
+    name: 'ColourCopy', enabled: true, paramsLive: true,
+    params: [
+      { id: 'PID17', name: 'Mix', value: 0.5 },
+      { id: 'PIDe', name: 'Brightness', value: 0.4 },
+    ],
+    remotePages: [{
+      name: 'Page 1',
+      controls: [
+        { name: 'Mix', value: 0.5, modulatedValue: 0.72, hasAutomation: false },
+        { name: 'Brightness', value: 0.4, modulatedValue: 0.25, hasAutomation: false },
+      ],
+    }],
+  });
+  const reads: number[] = [];
+  const host: ModulatorAuthoringHost = {
+    async read(addresses) {
+      reads.push(addresses.length);
+      return fake.read(addresses);
+    },
+    async apply() { throw new Error('not used'); },
+  };
+  const results = await verifyModulations(host, device(track(row.channelId), 0), [
+    { parameterId: 'PID17', parameterName: 'Mix', samples: 3, sampleIntervalMs: 0 },
+    { parameterId: 'PIDe', parameterName: 'Brightness', samples: 3, sampleIntervalMs: 0 },
+  ], async () => undefined);
+
+  assert.deepEqual(results.map((result) => result.verified), [true, true]);
+  assert.deepEqual(reads, [2, 1, 2, 2, 2]);
+  assert.equal(results.every((result) => result.settlement?.cause === 'complete'), true);
+});
+
+test('5u readback: each batched route keeps its own settlement stage', async () => {
+  const fake = new FakeAdapter({ tracks: ['Reports'], scenes: 1 });
+  const row = fake.model.visibleTracks()[0]!;
+  row.devices.push({
+    name: 'Target', enabled: true, paramsLive: true,
+    params: [
+      {
+        id: 'PID17', name: 'Mix', value: 0.5,
+        modulatedValue: 0.72, hasAutomation: false,
+      },
+      {
+        id: 'PIDe', name: 'Brightness', value: 0.4,
+        modulatedValue: 0.25, hasAutomation: false,
+      },
+    ],
+  });
+  const host: ModulatorAuthoringHost = {
+    read: (addresses) => fake.read(addresses),
+    async apply() { throw new Error('not used'); },
+  };
+  const results = await verifyModulations(host, device(track(row.channelId), 0), [
+    { parameterId: 'PID17', parameterName: 'Wrong', samples: 2, sampleIntervalMs: 0 },
+    { parameterId: 'PIDe', parameterName: 'Brightness', samples: 2, sampleIntervalMs: 0 },
+  ], async () => undefined);
+
+  assert.deepEqual(results.map((result) => result.verified), [false, true]);
+  assert.equal(results[0]?.settlement?.lastProgress.stage, 'direct-parameters');
+  assert.equal(results[1]?.settlement?.lastProgress.stage, 'behavior-samples');
+});
+
+test('5u readback: same-device page witnesses share one inventory', async () => {
+  const fake = new FakeAdapter({ tracks: ['Pages'], scenes: 1 });
+  const row = fake.model.visibleTracks()[0]!;
+  row.devices.push({
+    name: 'Target', enabled: true, paramsLive: true, params: [],
+    remotePages: [
+      { name: 'LFO', controls: [] },
+      { name: 'Classic LFO', controls: [] },
+    ],
+  });
+  let reads = 0;
+  const host: ModulatorAuthoringHost = {
+    async read(addresses) {
+      reads += 1;
+      return fake.read(addresses);
+    },
+    async apply() { throw new Error('not used'); },
+  };
+
+  const result = await verifyPages(host, device(track(row.channelId), 0), [
+    { pageName: 'LFO', expectedCount: 1 },
+    { pageName: 'Classic LFO', expectedCount: 1 },
+  ], async () => undefined);
+
+  assert.equal(result.verified, true);
+  assert.equal(reads, 1);
+  assert.deepEqual(result.actualPages, ['LFO', 'Classic LFO']);
 });
 
 test('5c-add: a sampled add reports the measured footprint and every shifted stub', async () => {

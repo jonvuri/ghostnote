@@ -54,6 +54,11 @@ export {
   reverseExistingDeviceModulation, wrapExistingDeviceModulation,
 } from './existing-device-wrapper.js';
 export {
+  HOST_SETTLEMENT_POLICY, settleObservation,
+  type SettlementObservation, type SettlementOptions, type SettlementPolicy,
+  type SettlementProgress, type SettlementReport, type SettlementResult,
+} from './settlement.js';
+export {
   composeGeneralDeviceSources, reverseGeneralDeviceSources,
 } from './general-device-composition.js';
 export type {

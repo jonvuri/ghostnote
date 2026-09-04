@@ -245,9 +245,27 @@ test('5p-guard: stale order and a changed target inventory refuse before inserti
   assert.equal(fx.workspace.changes.list().length, 0);
 });
 
-test('5p-guard: unstable inventory refuses before insertion; missing or occupied entry stops relocation', async () => {
+test('5u settlement: a delayed initial wrapper inventory settles before insertion', async () => {
+  const fx = fixture();
+  fx.fake.model.staleParameterInventories = 1;
+  const result = await wrapExistingDeviceModulation(fx.workspace, {
+    track: fx.track,
+    devicePosition: 0,
+    expectedDeviceOrder: [
+      { name: 'Polysynth', enabled: false }, { name: 'Tool', enabled: true },
+    ],
+    containerKind: 'FX Layer', entryName: 'Layer 1', modulators: [TARGET],
+  }, { wait: async () => undefined });
+
+  assert.equal(result.complete, true, JSON.stringify(result));
+  assert.equal(fx.fake.model.staleParameterInventories, 0);
+  const reversed = await reverseExistingDeviceModulation(fx.workspace, result.checkpoint!);
+  assert.equal(reversed.complete, true, JSON.stringify(reversed));
+});
+
+test('5p-guard: an inventory that never settles refuses; missing or occupied entry stops relocation', async () => {
   const unstable = fixture();
-  unstable.fake.model.staleParameterInventories = 1;
+  unstable.fake.model.staleParameterInventories = 3;
   await assert.rejects(
     wrapExistingDeviceModulation(unstable.workspace, {
       track: unstable.track,
@@ -256,7 +274,7 @@ test('5p-guard: unstable inventory refuses before insertion; missing or occupied
         { name: 'Polysynth', enabled: false }, { name: 'Tool', enabled: true },
       ],
       containerKind: 'FX Layer', entryName: 'Layer 1', modulators: [TARGET],
-    }),
+    }, { wait: async () => undefined }),
     /unstable/,
   );
   assert.equal(unstable.workspace.changes.list().length, 0);

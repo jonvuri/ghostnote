@@ -449,8 +449,42 @@ public final class ParamHandlers extends HandlerGroup {
      * control is a Parameter carrying value/modulatedValue plus isBeingMapped.
      */
     private JsonElement remoteList(JsonObject request) {
-        if (request.has("begin") && request.get("begin").getAsBoolean()) {
+        boolean begin = request.has("begin") && request.get("begin").getAsBoolean();
+        if (begin) {
             rig.beginRemoteObservation();
+        }
+        int pageCount = guardedInt(() -> rig.remotePage0.pageCount().get(), -1);
+        int visiblePages = Math.min(Math.max(pageCount, 0), rig.config.remotePages);
+        if (begin) {
+            rig.seedRemotePageObservations(visiblePages);
+        }
+        if (request.has("preparePage")) {
+            int page = request.get("preparePage").getAsInt();
+            if (page < 0 || page >= visiblePages) {
+                throw new IllegalArgumentException("remote page is outside the visible window");
+            }
+            if (!request.has("generation")
+                    || request.get("generation").getAsLong() != rig.remoteGeneration) {
+                throw new IllegalArgumentException("remote generation changed");
+            }
+            rig.prepareRemotePage(page);
+            JsonObject pending = new JsonObject();
+            pending.addProperty("generation", rig.remoteGeneration);
+            if (pageCount >= 0) pending.addProperty("pageCount", pageCount);
+            return pending;
+        }
+        JsonArray preparePages = new JsonArray();
+        for (int page = 0; page < visiblePages; page++) {
+            if (rig.remotePages0[page].selectedPageIndex().get() != page) {
+                preparePages.add(page);
+            }
+        }
+        if (begin || preparePages.size() > 0) {
+            JsonObject pending = new JsonObject();
+            pending.addProperty("generation", rig.remoteGeneration);
+            if (pageCount >= 0) pending.addProperty("pageCount", pageCount);
+            pending.add("preparePages", preparePages);
+            return pending;
         }
         JsonArray pageNames = new JsonArray();
         try {
@@ -460,8 +494,6 @@ public final class ParamHandlers extends HandlerGroup {
         } catch (Exception e) {
             // The empty array makes the bounded reply incomplete.
         }
-        int pageCount = guardedInt(() -> rig.remotePage0.pageCount().get(), -1);
-        int visiblePages = Math.min(Math.max(pageCount, 0), rig.config.remotePages);
         JsonArray pages = new JsonArray();
         for (int page = 0; page < visiblePages; page++) {
             JsonObject pageResult = remotePage(page);

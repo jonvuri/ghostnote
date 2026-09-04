@@ -142,11 +142,11 @@ that first integration unless the proof needs one new owned asset.
     donor matching, remote retry, and 12-type live catalog pass. Post-fix
     dogfood exposed four focused follow-up issues.
 21. [5u — settlement budget and nested remote reliability](5u-settlement-budget-and-nested-remote-reliability.md)
-    — active next. Measure host settlement variance and repair the short nested
-    ColourCopy verification path.
+    — done. One bounded policy now reports observer progress. Cold and warm
+    nested ColourCopy verification and exact reversal pass.
 22. [5v — semantic parameter units and fail-closed guidance](5v-semantic-parameter-units-and-fail-closed-guidance.md)
-    — planned. Recheck API 25 unit support and stop unproved normalized-to-unit
-    conversion.
+    — active next. Recheck API 25 unit support and stop unproved
+    normalized-to-unit conversion.
 23. [5w — selection borrowing and background stability](5w-selection-borrowing-and-background-stability.md)
     — planned. Isolate intermittent Bitwig activation and reduce repeated
     selection and cursor work.

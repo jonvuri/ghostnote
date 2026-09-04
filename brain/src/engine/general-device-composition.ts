@@ -25,6 +25,7 @@ import {
   authorSemanticPreset, verifyModulation, verifyPages,
   type ModulationVerification, type ModulatorPageVerification,
 } from './modulator-authoring.js';
+import { settleObservation } from './settlement.js';
 import type { ModulationTarget } from './modulation-target.js';
 import { modulationRoute } from './modulation-target.js';
 import type { Take } from './take.js';
@@ -825,7 +826,7 @@ export async function reverseGeneralDeviceSources(
       );
       const nested = deviceIn(chain(currentContainer, item.entryName), item.deviceIndex);
       const fingerprintWitness = deviceModulationWitness(nested, item.fingerprintLocation);
-      const inventory = await stableInventory(host, fingerprintWitness.address, wait, 80);
+      const inventory = await stableInventory(host, fingerprintWitness.address, wait);
       if (inventory.name !== (fingerprintWitness.expectedName ?? item.observedName)
           || (item.fingerprint !== undefined
             && !sameFingerprint(fingerprint(inventory.params), item.fingerprint))) {
@@ -972,7 +973,6 @@ async function stableTopAfter(
 async function stableInventory(
   host: GeneralDeviceCompositionHost, address: DeviceAddress,
   pause: (milliseconds: number) => Promise<void> = wait,
-  attempts = 40,
 ): Promise<{
   readonly at: RevisionMark;
   readonly name: string;
@@ -980,7 +980,11 @@ async function stableInventory(
 }> {
   const key = addressKey(address);
   let lastError: unknown;
-  for (let attempt = 0; attempt < attempts; attempt++) {
+  const settled = await settleObservation<{
+    readonly at: RevisionMark;
+    readonly name: string;
+    readonly params: readonly ParamState[];
+  }>(async () => {
     try {
       const snapshot = await host.read([address]);
       const value = snapshot.entries[key]?.value;
@@ -988,16 +992,32 @@ async function stableInventory(
           && !snapshot.unstable.some((item) => addressKey(item) === key)
           && value?.of === 'device' && value.device.params !== undefined
           && new Set(value.device.params.map((item) => item.id)).size === value.device.params.length) {
-        return { at: snapshot.at, name: value.device.name, params: value.device.params };
+        return {
+          complete: true as const,
+          value: { at: snapshot.at, name: value.device.name, params: value.device.params },
+          progress: { stage: 'direct-parameters', detail: 'the complete inventory is stable' },
+        };
       }
     } catch (error) {
       host.throwIfCancelled?.();
       lastError = error;
     }
-    if (attempt < attempts - 1) await pause(250);
-  }
+    return {
+      complete: false as const,
+      progress: {
+        stage: 'direct-parameters',
+        detail: lastError === undefined ? 'the inventory is incomplete' : message(lastError),
+      },
+    };
+  }, {
+    wait: pause,
+    throwIfCancelled: host.throwIfCancelled,
+  });
+  if (settled.complete) return settled.value;
   throw new Error(
-    `the complete stable DirectParameter inventory did not settle${lastError === undefined ? '' : `: ${message(lastError)}`}`,
+    `the complete stable DirectParameter inventory did not settle after `
+    + `${settled.report.elapsedMs} ms and ${settled.report.attempts} observations; `
+    + `last progress: ${settled.report.lastProgress.detail}`,
   );
 }
 
@@ -1007,19 +1027,7 @@ async function verifyActiveModulation(
   target: ModulationTarget,
   pause: (milliseconds: number) => Promise<void>,
 ): Promise<ModulationVerification> {
-  let verification: ModulationVerification | undefined;
-  for (let attempt = 0; attempt < 3; attempt++) {
-    verification = await verifyModulation(host, address, {
-      ...target, inventoryAttempts: 40, inventoryRetryMs: 250,
-    }, pause);
-    if (verification.verified || !isTransientVerification(verification.why)) return verification;
-    if (attempt < 2) await pause(250);
-  }
-  return verification!;
-}
-
-function isTransientVerification(why: string | undefined): boolean {
-  return why !== undefined && (/did not settle|did not return the exact id|inventory failed|sample \d+ failed/.test(why));
+  return verifyModulation(host, address, target, pause);
 }
 
 async function exactEntries(

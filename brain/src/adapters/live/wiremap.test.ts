@@ -442,6 +442,33 @@ test('5b: remote automation state is subscribed before live route proof', () => 
     'inactive and active route proof must observe host automation explicitly');
 });
 
+test('5u: every remote-page cursor restores its page after a controller reload', () => {
+  const source = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'Rig.java'),
+    'utf8',
+  );
+  assert.match(source,
+    /remotePage\.selectedPageIndex\(\)\.addValueObserver\(/,
+    'page selection changes must retry observation completion');
+  assert.match(source,
+    /remotePages0\[page\]\.selectedPageIndex\(\)\.set\(page\);/,
+    'page restoration must use the proven absolute-index route');
+  const handlers = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'ParamHandlers.java'),
+    'utf8',
+  );
+  assert.match(handlers, /request\.has\("preparePage"\)/,
+    'each independent cursor must get a separate bridge frame');
+  assert.match(handlers,
+    /rig\.prepareRemotePage\(page\);[\s\S]*return pending;/,
+    'page selection must finish before any control read');
+  assert.match(source,
+    /remotePages0\[page\]\.selectedPageIndex\(\)\.get\(\) != page/,
+    'a generation must not complete from the wrong page');
+});
+
 test('d02-s7: the extension observes the v1 Kick discrete parameter domain', () => {
   const rig = readFileSync(
     join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',

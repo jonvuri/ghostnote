@@ -26,11 +26,12 @@ import {
   type PresetFingerprint, type PublicPresetModulator, type SemanticModulatorLocation,
 } from './preset-modulation-inspection.js';
 import { matchPageFamily } from './page-family.js';
+import {
+  settleObservation, type SettlementOptions, type SettlementReport,
+} from './settlement.js';
 
 const DEFAULT_SAMPLES = 8;
 const DEFAULT_SAMPLE_INTERVAL_MS = 60;
-const DEFAULT_INVENTORY_ATTEMPTS = 3;
-const DEFAULT_INVENTORY_RETRY_MS = 200;
 const DEFAULT_MINIMUM_DIVERGENCE = 1e-3;
 const DEFAULT_MAXIMUM_BASE_SPREAD = 2e-3;
 
@@ -65,6 +66,10 @@ export interface ModulatorParameterWitness {
 export interface ModulatorBehaviorWitness extends ModulatorParameterWitness {
   /** `active` requires divergence. `inactive` requires its absence. */
   readonly expected: 'active' | 'inactive';
+}
+
+export interface ModulationBatchWitness extends ModulatorParameterWitness {
+  readonly expected?: 'active' | 'inactive';
 }
 
 export interface ModulatorPageWitness {
@@ -112,6 +117,7 @@ export type ModulationVerification =
     readonly samples: readonly ModulationSample[];
     readonly maximumDivergence: number;
     readonly baseSpread: number;
+    readonly settlement?: SettlementReport;
   }
   | {
     readonly verified: false;
@@ -120,6 +126,7 @@ export type ModulationVerification =
     readonly samples: readonly ModulationSample[];
     readonly maximumDivergence: number;
     readonly baseSpread: number;
+    readonly settlement?: SettlementReport;
   };
 
 export interface AddModulatorResult {
@@ -639,98 +646,200 @@ export async function verifyModulation(
   witness: ModulatorParameterWitness,
   pause: (milliseconds: number) => Promise<void>,
   expected: 'active' | 'inactive' = 'active',
+  settlementOptions: SettlementOptions = {},
 ): Promise<ModulationVerification> {
-  const selector = param(device, witness.parameterId);
-  let selected: ParamState | undefined;
-  let inventoryFailure = 'the inserted device returned no stable DirectParameter inventory';
-  const inventoryAttempts = witness.inventoryAttempts ?? DEFAULT_INVENTORY_ATTEMPTS;
-  const inventoryRetryMs = witness.inventoryRetryMs ?? DEFAULT_INVENTORY_RETRY_MS;
-  for (let attempt = 0; attempt < inventoryAttempts; attempt++) {
+  return (await verifyModulations(
+    host, device, [{ ...witness, expected }], pause, settlementOptions,
+  ))[0]!;
+}
+
+/** Prove several targets with one inventory and one read for each sample round. */
+export async function verifyModulations(
+  host: ModulatorAuthoringHost,
+  device: DeviceAddress,
+  witnesses: readonly ModulationBatchWitness[],
+  pause: (milliseconds: number) => Promise<void>,
+  settlementOptions: SettlementOptions = {},
+): Promise<readonly ModulationVerification[]> {
+  if (witnesses.length === 0) return [];
+  const singleWitness = witnesses.length === 1 ? witnesses[0] : undefined;
+  const selectors = witnesses.map((witness) => param(device, witness.parameterId));
+  let failure = 'the DirectParameter inventories did not settle';
+  const initial = await settleObservation<Snapshot>(async () => {
     try {
-      const candidate = await host.read([selector]);
-      const value = candidate.entries[addressKey(selector)]?.value;
-      if (value?.of === 'param') {
-        selected = value.param;
-        break;
+      const snapshot = await host.read(selectors);
+      const complete = selectors.every((selector) =>
+        snapshot.entries[addressKey(selector)]?.value.of === 'param');
+      if (complete) {
+        return {
+          complete: true as const,
+          value: snapshot,
+          progress: { stage: 'direct-parameters', detail: 'all exact parameters are stable' },
+        };
       }
-      inventoryFailure = candidate.unstable.some((address) => addressKey(address) === addressKey(selector))
-        ? 'the DirectParameter inventory did not settle'
-        : `DirectParameter id ${JSON.stringify(witness.parameterId)} is missing after the preset load`;
+      failure = snapshot.unstable.some((address) =>
+        selectors.some((selector) => addressKey(address) === addressKey(selector)))
+        ? 'the DirectParameter inventories did not settle'
+        : witnesses.length === 1
+          ? `DirectParameter id ${JSON.stringify(witnesses[0]!.parameterId)} is missing after the preset load`
+          : 'one or more exact DirectParameter ids are missing after the preset load';
     } catch (error) {
       throwIfCancellation(host, error);
-      inventoryFailure = `DirectParameter inventory failed: ${errorMessage(error)}`;
+      failure = `DirectParameter inventory failed: ${errorMessage(error)}`;
     }
-    if (attempt + 1 < inventoryAttempts && inventoryRetryMs > 0) await pause(inventoryRetryMs);
-  }
-  if (selected === undefined) return failedVerification(inventoryFailure);
-  if (selected.name !== witness.parameterName) {
-    return failedVerification(
-      `DirectParameter id ${JSON.stringify(witness.parameterId)} has name `
-      + `${JSON.stringify(selected.name)}, not ${JSON.stringify(witness.parameterName)}`,
-      selector,
-    );
-  }
-
-  let sampleSelector: ParamAddress | RemoteAddress = selector;
-  if (!selected.observed.modulatedValue || selected.modulatedValue === undefined) {
-    const fallback = await exactNamedRemote(host, device, witness.parameterName, pause, witness);
-    if (typeof fallback === 'string') return failedVerification(fallback, selector);
-    sampleSelector = fallback;
+    return {
+      complete: false as const,
+      progress: { stage: 'direct-parameters', detail: failure },
+    };
+  }, settlementFor(host, pause, singleWitness, settlementOptions));
+  if (!initial.complete) {
+    const why = settlementFailure(failure, initial.report);
+    return selectors.map((selector) => failedVerification(why, selector, [], initial.report));
   }
 
-  const samples: ModulationSample[] = [];
-  const count = witness.samples ?? DEFAULT_SAMPLES;
-  const interval = witness.sampleIntervalMs ?? DEFAULT_SAMPLE_INTERVAL_MS;
-  for (let index = 0; index < count; index++) {
-    let snapshot: Snapshot;
-    try {
-      snapshot = await host.read([sampleSelector]);
-    } catch (error) {
-      throwIfCancellation(host, error);
-      return failedVerification(
-        `remote sample ${index + 1} failed: ${errorMessage(error)}`,
-        selector,
-        samples,
-      );
+  const originals = selectors.map((selector) => {
+    const value = initial.value.entries[addressKey(selector)]?.value;
+    return value?.of === 'param' ? value.param : undefined;
+  });
+  const sampleSelectors: (ParamAddress | RemoteAddress | undefined)[] = [...selectors];
+  const failures: (string | undefined)[] = witnesses.map((witness, index) => {
+    const selected = originals[index];
+    if (selected?.name === witness.parameterName) return undefined;
+    return `DirectParameter id ${JSON.stringify(witness.parameterId)} has name `
+      + `${JSON.stringify(selected?.name ?? 'missing')}, not ${JSON.stringify(witness.parameterName)}`;
+  });
+
+  const fallbackIndices = originals.flatMap((selected, index) =>
+    selected !== undefined && (!selected.observed.modulatedValue || selected.modulatedValue === undefined)
+      && failures[index] === undefined ? [index] : []);
+  const reports = witnesses.map(() => initial.report);
+  if (fallbackIndices.length > 0) {
+    const inventoryAddress = remotes(device);
+    let remoteFailure = 'the supplementary remote inventory did not settle';
+    const remoteResult = await settleObservation<Snapshot>(async () => {
+      try {
+        const snapshot = await host.read([inventoryAddress]);
+        if (snapshot.entries[addressKey(inventoryAddress)]?.value.of === 'remotes') {
+          return {
+            complete: true as const,
+            value: snapshot,
+            progress: { stage: 'supplementary-remotes', detail: 'the complete inventory is stable' },
+          };
+        }
+        remoteFailure = snapshot.unstable.some((address) =>
+          addressKey(address) === addressKey(inventoryAddress))
+          ? 'the supplementary remote inventory did not settle'
+          : 'the supplementary remote inventory is missing';
+      } catch (error) {
+        throwIfCancellation(host, error);
+        remoteFailure = `supplementary remote inventory failed: ${errorMessage(error)}`;
+      }
+      return {
+        complete: false as const,
+        progress: { stage: 'supplementary-remotes', detail: remoteFailure },
+      };
+    }, settlementFor(host, pause, singleWitness, settlementOptions));
+    for (const index of fallbackIndices) reports[index] = remoteResult.report;
+    if (!remoteResult.complete) {
+      const why = settlementFailure(remoteFailure, remoteResult.report);
+      for (const index of fallbackIndices) failures[index] = why;
+    } else {
+      const value = remoteResult.value.entries[addressKey(inventoryAddress)]?.value;
+      const pages = value?.of === 'remotes' ? value.remotes.pages : [];
+      for (const index of fallbackIndices) {
+        const name = witnesses[index]!.parameterName;
+        const matches = pages.flatMap((page) => page.controls
+          .filter((control) => control.name === name)
+          .map((control) => remote(device, page.index, page.name, control.index, control.name)));
+        if (matches.length === 1) sampleSelectors[index] = matches[0]!;
+        else failures[index] = `DirectParameter ${JSON.stringify(name)} has no modulated value; `
+          + `its name matched ${matches.length} supplementary remote controls`;
+      }
     }
-    const value = snapshot.entries[addressKey(sampleSelector)]?.value;
-    if (value?.of !== 'param' && value?.of !== 'remote') {
-      return failedVerification(
-        `DirectParameter sample ${index + 1} did not return the exact id`,
-        selector,
-        samples,
-      );
-    }
-    if (value.of === 'param' && value.param.name !== witness.parameterName) {
-      return failedVerification(
-        `DirectParameter id ${JSON.stringify(witness.parameterId)} changed name from `
-        + `${JSON.stringify(witness.parameterName)} to ${JSON.stringify(value.param.name)}`,
-        selector,
-        samples,
-      );
-    }
-    if (value.of === 'remote' && value.remote.name !== witness.parameterName) {
-      return failedVerification(
-        `the supplementary remote changed name from ${JSON.stringify(witness.parameterName)} `
-        + `to ${JSON.stringify(value.remote.name)}`,
-        selector,
-        samples,
-      );
-    }
-    const sample = value.of === 'param'
-      ? sampleOfParameter(value.param)
-      : sampleOfRemote(value.remote);
-    if (sample === undefined) {
-      return failedVerification(
-        `DirectParameter ${JSON.stringify(witness.parameterId)} did not expose both base and modulated values`,
-        selector,
-        samples,
-      );
-    }
-    samples.push(sample);
-    if (index + 1 < count && interval > 0) await pause(interval);
   }
 
+  let samples = witnesses.map((): ModulationSample[] => []);
+  const maximumSamples = max(witnesses.map((witness) => witness.samples ?? DEFAULT_SAMPLES));
+  const sampledIndices = witnesses.flatMap((_, index) =>
+    failures[index] === undefined ? [index] : []);
+  if (sampledIndices.length > 0) {
+    const sampled = await settleObservation<readonly ModulationSample[][]>(async () => {
+      const attemptSamples = witnesses.map((): ModulationSample[] => []);
+      for (let round = 0; round < maximumSamples; round++) {
+        const active = sampledIndices.filter((index) =>
+          round < (witnesses[index]!.samples ?? DEFAULT_SAMPLES));
+        if (active.length === 0) break;
+        const addresses = active.map((index) => sampleSelectors[index]!);
+        let snapshot: Snapshot;
+        try {
+          snapshot = await host.read(addresses);
+        } catch (error) {
+          throwIfCancellation(host, error);
+          return { complete: false as const, progress: {
+            stage: 'behavior-samples', detail: `sample ${round + 1} failed: ${errorMessage(error)}`,
+          } };
+        }
+        for (const index of active) {
+          const address = sampleSelectors[index]!;
+          const value = snapshot.entries[addressKey(address)]?.value;
+          const witness = witnesses[index]!;
+          if (value?.of !== 'param' && value?.of !== 'remote') {
+            return { complete: false as const, progress: {
+              stage: 'behavior-samples', detail: `sample ${round + 1} did not return the exact target`,
+            } };
+          }
+          const name = value.of === 'param' ? value.param.name : value.remote.name;
+          if (name !== witness.parameterName) {
+            return { complete: false as const, progress: {
+              stage: 'behavior-samples',
+              detail: `sample ${round + 1} changed name to ${JSON.stringify(name)}`,
+            } };
+          }
+          const sample = value.of === 'param'
+            ? sampleOfParameter(value.param) : sampleOfRemote(value.remote);
+          if (sample === undefined) {
+            return { complete: false as const, progress: {
+              stage: 'behavior-samples',
+              detail: `sample ${round + 1} did not expose base and modulated values`,
+            } };
+          }
+          attemptSamples[index]!.push(sample);
+        }
+        if (round + 1 < maximumSamples) {
+          const interval = max(active.map((index) =>
+            witnesses[index]!.sampleIntervalMs ?? DEFAULT_SAMPLE_INTERVAL_MS));
+          if (interval > 0) await pause(interval);
+        }
+      }
+      return {
+        complete: true as const,
+        value: attemptSamples,
+        progress: { stage: 'behavior-samples', detail: 'all exact sample rounds completed' },
+      };
+    }, settlementFor(host, pause, singleWitness, settlementOptions));
+    for (const index of sampledIndices) reports[index] = sampled.report;
+    if (sampled.complete) {
+      samples = sampled.value.map((rows) => [...rows]);
+    } else {
+      const why = settlementFailure(sampled.report.lastProgress.detail, sampled.report);
+      for (const index of sampledIndices) failures[index] = why;
+    }
+  }
+
+  return witnesses.map((witness, index) => failures[index] === undefined
+    ? evaluateSamples(
+      witness, witness.expected ?? 'active', selectors[index]!, samples[index]!, reports[index],
+    )
+    : failedVerification(failures[index]!, selectors[index], samples[index], reports[index]));
+}
+
+function evaluateSamples(
+  witness: ModulatorParameterWitness,
+  expected: 'active' | 'inactive',
+  selector: ParamAddress,
+  samples: readonly ModulationSample[],
+  settlement?: SettlementReport,
+): ModulationVerification {
   const maximumDivergence = max(samples.map((sample) => sample.divergence));
   const bases = samples.map((sample) => sample.value);
   const baseSpread = max(bases) - min(bases);
@@ -741,6 +850,7 @@ export async function verifyModulation(
       'the witness has host automation, so divergence does not prove the authored route',
       selector,
       samples,
+      settlement,
     );
   }
   if (samples.some((sample) => sample.hasAutomation === undefined)) {
@@ -748,6 +858,7 @@ export async function verifyModulation(
       'the witness automation state was not observed, so divergence does not prove the authored route',
       selector,
       samples,
+      settlement,
     );
   }
   if (baseSpread > maximumBaseSpread) {
@@ -755,6 +866,7 @@ export async function verifyModulation(
       `the remote base moved by ${baseSpread}; the limit is ${maximumBaseSpread}`,
       selector,
       samples,
+      settlement,
     );
   }
   if (expected === 'active' && maximumDivergence < minimumDivergence) {
@@ -762,6 +874,7 @@ export async function verifyModulation(
       `base and modulated values never diverged by ${minimumDivergence}`,
       selector,
       samples,
+      settlement,
     );
   }
   if (expected === 'inactive' && maximumDivergence >= minimumDivergence) {
@@ -769,9 +882,13 @@ export async function verifyModulation(
       `base and modulated values diverged by ${maximumDivergence}; the inactive limit is ${minimumDivergence}`,
       selector,
       samples,
+      settlement,
     );
   }
-  return { verified: true, selector, samples, maximumDivergence, baseSpread };
+  return {
+    verified: true, selector, samples, maximumDivergence, baseSpread,
+    ...(settlement === undefined ? {} : { settlement }),
+  };
 }
 
 export async function verifyPages(
@@ -787,15 +904,21 @@ export async function verifyPages(
       : { verified: true, actualPages: result, witnesses: [] };
   }
   const actualPages: string[] = [];
+  const pagesByDevice = new Map<string, readonly string[] | string>();
   const observed: (ModulatorPageWitness & {
     readonly actualCount: number;
     readonly matches: boolean;
   })[] = [];
   for (const witness of witnesses) {
     const selected = nestedWitnessDevice(device, witness.nestedDevice);
-    const result = await remotePageNames(host, selected, pause);
+    const key = addressKey(selected);
+    let result = pagesByDevice.get(key);
+    if (result === undefined) {
+      result = await remotePageNames(host, selected, pause);
+      pagesByDevice.set(key, result);
+      if (typeof result !== 'string') actualPages.push(...result);
+    }
     if (typeof result === 'string') return failedPageVerification(result);
-    actualPages.push(...result);
     const family = matchPageFamily(result, witness.pageName, witness.expectedCount);
     observed.push({ ...witness, ...family });
   }
@@ -818,12 +941,16 @@ async function remotePageNames(
 ): Promise<readonly string[] | string> {
   const inventoryAddress = remotes(device);
   let failure = 'the inserted device returned no complete remote inventory';
-  for (let attempt = 0; attempt < DEFAULT_INVENTORY_ATTEMPTS; attempt++) {
+  const result = await settleObservation<readonly string[]>(async () => {
     try {
       const snapshot = await host.read([inventoryAddress]);
       const value = snapshot.entries[addressKey(inventoryAddress)]?.value;
       if (value?.of === 'remotes') {
-        return value.remotes.pages.map((page) => page.name);
+        return {
+          complete: true as const,
+          value: value.remotes.pages.map((page) => page.name),
+          progress: { stage: 'remote-pages', detail: 'the complete page inventory is stable' },
+        };
       }
       failure = snapshot.unstable.some((address) => addressKey(address) === addressKey(inventoryAddress))
         ? 'the remote inventory did not settle'
@@ -832,9 +959,9 @@ async function remotePageNames(
       throwIfCancellation(host, error);
       failure = `remote inventory failed: ${errorMessage(error)}`;
     }
-    if (attempt + 1 < DEFAULT_INVENTORY_ATTEMPTS) await pause(DEFAULT_INVENTORY_RETRY_MS);
-  }
-  return failure;
+    return { complete: false as const, progress: { stage: 'remote-pages', detail: failure } };
+  }, settlementFor(host, pause));
+  return result.complete ? result.value : settlementFailure(failure, result.report);
 }
 
 function failedPageVerification(why: string): ModulatorPageVerification {
@@ -844,41 +971,6 @@ function failedPageVerification(why: string): ModulatorPageVerification {
 function throwIfCancellation(host: ModulatorAuthoringHost, error: unknown): void {
   host.throwIfCancelled?.();
   if (!(error instanceof Error) || error.name === 'AbortError') throw error;
-}
-
-async function exactNamedRemote(
-  host: ModulatorAuthoringHost,
-  device: DeviceAddress,
-  parameterName: string,
-  pause: (milliseconds: number) => Promise<void>,
-  witness: ModulatorParameterWitness,
-): Promise<RemoteAddress | string> {
-  const inventoryAddress = remotes(device);
-  const attempts = witness.inventoryAttempts ?? DEFAULT_INVENTORY_ATTEMPTS;
-  const retryMs = witness.inventoryRetryMs ?? DEFAULT_INVENTORY_RETRY_MS;
-  let failure = 'the DirectParameter has no modulated value and no complete remote inventory was available';
-  for (let attempt = 0; attempt < attempts; attempt++) {
-    try {
-      const snapshot = await host.read([inventoryAddress]);
-      const value = snapshot.entries[addressKey(inventoryAddress)]?.value;
-      if (value?.of === 'remotes') {
-        const matches = value.remotes.pages.flatMap((page) => page.controls
-          .filter((control) => control.name === parameterName)
-          .map((control) => remote(device, page.index, page.name, control.index, control.name)));
-        if (matches.length === 1) return matches[0]!;
-        return `DirectParameter ${JSON.stringify(parameterName)} has no modulated value; `
-          + `its name matched ${matches.length} supplementary remote controls`;
-      }
-      failure = snapshot.unstable.some((address) => addressKey(address) === addressKey(inventoryAddress))
-        ? 'the supplementary remote inventory did not settle'
-        : failure;
-    } catch (error) {
-      throwIfCancellation(host, error);
-      failure = `supplementary remote inventory failed: ${errorMessage(error)}`;
-    }
-    if (attempt + 1 < attempts && retryMs > 0) await pause(retryMs);
-  }
-  return failure;
 }
 
 function sampleOfParameter(parameter: ParamState): ModulationSample | undefined {
@@ -904,6 +996,7 @@ function failedVerification(
   why: string,
   selector?: ParamAddress,
   samples: readonly ModulationSample[] = [],
+  settlement?: SettlementReport,
 ): ModulationVerification {
   const bases = samples.map((sample) => sample.value);
   return {
@@ -913,7 +1006,36 @@ function failedVerification(
     samples,
     maximumDivergence: max(samples.map((sample) => sample.divergence)),
     baseSpread: bases.length === 0 ? 0 : max(bases) - min(bases),
+    ...(settlement === undefined ? {} : { settlement }),
   };
+}
+
+function settlementFor(
+  host: ModulatorAuthoringHost,
+  pause: (milliseconds: number) => Promise<void>,
+  witness?: ModulatorParameterWitness,
+  options: SettlementOptions = {},
+): SettlementOptions {
+  const legacyAttempts = witness?.inventoryAttempts;
+  const legacyRetry = witness?.inventoryRetryMs;
+  return {
+    ...options,
+    wait: pause,
+    throwIfCancelled: host.throwIfCancelled,
+    ...((legacyAttempts === undefined && legacyRetry === undefined) ? {} : {
+      policy: {
+        deadlineMs: Math.max(1, legacyAttempts ?? 3) * Math.max(1, legacyRetry ?? 200),
+        retryMs: legacyRetry ?? 200,
+        maximumAttempts: legacyAttempts ?? 3,
+      },
+    }),
+  };
+}
+
+function settlementFailure(why: string, report: SettlementReport): string {
+  return `${why}; stopped after ${report.elapsedMs} ms and ${report.attempts} `
+    + `observation${report.attempts === 1 ? '' : 's'} (${report.cause}); last progress: `
+    + `${report.lastProgress.stage}: ${report.lastProgress.detail}`;
 }
 
 function relocationEvidence(

@@ -1216,7 +1216,9 @@ public class Rig {
             remotePage.pageNames().markInterested();
             remotePage.pageNames().addValueObserver(
                 names -> noteRemotePageObservation(pageIndex));
-            remotePage.selectedPageIndex().set(page);
+            remotePage.selectedPageIndex().addValueObserver(
+                index -> noteRemotePageObservation(pageIndex));
+            prepareRemotePage(page);
             for (int r = 0; r < REMOTE_BANK; r++) {
                 RemoteControl rc = remotePage.getParameter(r);
                 rc.exists().markInterested();
@@ -1388,6 +1390,19 @@ public class Rig {
             + directParameterRouteDeviceIndices;
     }
 
+    /** Select one independent remote page by its observed absolute index. */
+    public void prepareRemotePage(int page) {
+        remotePages0[page].selectedPageIndex().set(page);
+    }
+
+    /** Seed the generation from the current marked page identities. */
+    public void seedRemotePageObservations(int pageCount) {
+        int limit = Math.min(Math.max(pageCount, 0), remotePages0.length);
+        for (int page = 0; page < limit; page++) {
+            noteRemotePageObservation(page);
+        }
+    }
+
     /** Invalidate remote-control observations from the prior cursor target. */
     public long beginRemoteObservation() {
         remoteGeneration++;
@@ -1402,12 +1417,8 @@ public class Rig {
         java.util.Arrays.fill(remotePagePendingGeneration, -1);
         java.util.Arrays.fill(remotePagePendingTrackId, null);
         java.util.Arrays.fill(remotePagePendingDeviceName, null);
-        // Selecting the current device again emits no page-name callback. Seed
-        // this generation from the current marked state. A later target change
-        // still fails track, name, and index equality until its callbacks run.
-        for (int page = 0; page < remotePages0.length; page++) {
-            noteRemotePageObservation(page);
-        }
+        // A read-only frame follows this reset. It restores the pages after
+        // Bitwig applies the device-cursor move.
         return remoteGeneration;
     }
 
@@ -1424,10 +1435,20 @@ public class Rig {
             || remotePagePendingTrackId[page] == null
             || remotePagePendingDeviceName[page] == null
             || !remotePagePendingTrackId[page].equals(cursorTracks[0].channelId().get())
-            || !remotePagePendingDeviceName[page].equals(cursorDevice0.name().get())) {
+            || !remotePagePendingDeviceName[page].equals(cursorDevice0.name().get())
+            || remotePages0[page].selectedPageIndex().get() != page) {
             return;
         }
         int index = currentDirectParameterDeviceIndex();
+        if (index < 0 && cursorDevice0.isNested().get()
+                && !directParameterRouteDeviceIndices.isEmpty()) {
+            // Bitwig can keep nested sibling equality false after the cursor
+            // and the full route are current. Use the last confirmed route
+            // index. The adapter confirmed the track, name, index, and full
+            // route before it started this generation.
+            index = directParameterRouteDeviceIndices.get(
+                directParameterRouteDeviceIndices.size() - 1);
+        }
         if (index < 0) {
             return;
         }

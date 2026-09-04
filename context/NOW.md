@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-09-03
 phase: phase-5
-session: 5u-settlement-budget-and-nested-remote-reliability
+session: 5v-semantic-parameter-units-and-fail-closed-guidance
 ---
 
 # Now
@@ -20,31 +20,34 @@ list is `gn-preset-zoo | Audio 2 | Inst 3 | FX 1 | Master`. It keeps the accepte
 six-pad Drum Machine and Instrument Layer with nested Polysynth. Session 5r
 restored this baseline.
 
-## Session 5t result to date
+## Session 5u result
 
-The implementation repairs pass:
+Nested ColourCopy settlement is repaired:
 
-- Exact page verification accepts one bare page or a complete numbered family.
-- Curated-donor matching normalizes both grid coordinates.
-- Supplementary remote inventory retries complete fresh generations.
-- All 42 curated donors use compact offline grid pairs.
-- Twelve donor types pass exact relocated live pages and manifest-specific
-  witnesses. A sustained note supplies note-driven and transport-running
-  cases. XY, Vector-4, and Vector-8 pass operator-control changes and reversal.
-- The other 31 host types refuse before a project write.
+- One shared workflow policy uses a 12-second deadline, 250 ms retries, and a
+  maximum of three observations. It reports elapsed time, cause, and last
+  progress. It rejects a result that arrives after the deadline and distinguishes
+  an attempt limit from no progress.
+- The adapter accepts complete remote pages that contain an existing unnamed
+  slot. It does not expose that slot as a target.
+- Nested remote generations can use the final confirmed route index when
+  Bitwig reports sibling equality late.
+- Remote pages use separate preparation frames before a complete bank read.
+  This handles a new controller instance whose observers all start on page 0.
+- Same-device page and behavior witnesses share inventories and sample reads.
+- Each behavior witness keeps the settlement report from its own verification
+  stage. Initial wrapper fingerprints use the same shared policy.
+- General composition no longer nests 40- or 80-read inventory loops inside
+  outer behavior retries.
 
-Envelope Follower has no exact page on Polysynth or FX Layer at pairs `4:0`,
-`0:0`, and `1:0`. Adjacent LFO controls pass. The failure follows the donor, not
-the pair or host. E96 records the complete matrix.
+Live cold and warm wrappers both proved LFO to `Frequency` and Classic LFO to
+`Stereo Phase` on nested ColourCopy. The complete calls took 50,677 ms and
+50,409 ms. A forced stale generation settled in 2,111 ms. Both reversals
+restored the exact source device order and seven-track entry list. E97 records
+the policy table and measurements.
 
-Five Classic LFO instances return `Classic LFO 1` through `Classic LFO 5` and
-pass. Replacement keeps pair `0:1`. The Polysynth 55-parameter fingerprint stays
-unchanged. The live probe restored its exact disposable entry track list and
-stopped transport state. This does not replace the saved five-track baseline.
-
-Verification passes `npm run probe:phase5t-grid`, donor asset generation,
-`npm run check` with 998 tests, extension tests, and `npm run probe:hello` with
-the live 150-method contract. The probe restored exact entry state.
+`npm run check` passes 1,011 tests and type checking. Extension tests, deploy
+freshness, the complete 5u live probe, and exact cleanup pass.
 
 ## Post-fix dogfood review
 
@@ -66,13 +69,14 @@ final dogfood and closeout after 5x.
 
 ## Next action
 
-Run session 5u. Measure all settlement policies, reproduce the nested
-ColourCopy timeout, and replace the short retry path with a measured bounded
-policy. Prove two free-running nested ColourCopy routes on cold and warm runs.
-Then continue through 5v, 5w, and 5x before a new final dogfood task.
+Run session 5v. Audit semantic parameter units and add fail-closed guidance for
+unproved normalized-to-unit conversions. Then continue through 5w and 5x before
+a new final dogfood task.
 
 ## Retrospective
 
-The post-fix dogfood reached the musical task but exposed cross-cutting issues
-late in one long turn. Keep each repair in one focused session and require the
-final dogfood only after all four contracts are settled.
+The timeout combined identity, completeness, page preparation, and
+repeated-work defects. A larger retry count alone would not fix it. A controller
+power toggle can reuse a cached class, so use a verified reload path for new JAR
+code. Check a deadline after each awaited observation, and keep batch reports
+scoped to their witnesses.

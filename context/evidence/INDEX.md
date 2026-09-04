@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-01
+updated: 2026-09-03
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E97 | Bounded settlement and nested ColourCopy reliability [K] (2026-09-03) | [open](experiments/e97-bounded-settlement-and-nested-colourcopy-reliability.md) |
 | E95 | Modulator identity pair controls grid placement [O/K] (2026-09-01) | [open](experiments/e95-modulator-identity-pair-controls-grid-placement.md) |
 | E88 | General donor catalog is manifest-driven [K] (2026-08-27) | [open](experiments/e88-general-donor-catalog-is-manifest-driven.md) |
 | E87 | List-scoped topology is complete [K] (2026-08-27) | [open](experiments/e87-list-scoped-topology-is-complete.md) |

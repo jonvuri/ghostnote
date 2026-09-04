@@ -2132,6 +2132,7 @@ class ParameterTransport implements Transport {
   remoteNeverCurrent = false;
   remoteStaleAcquisitions = 0;
   malformedRemoteControl = false;
+  unnamedRemoteControl = false;
   movingRemote = false;
   typedMetadata = false;
   typedPluginMetadata = false;
@@ -2371,8 +2372,16 @@ class ParameterTransport implements Transport {
           this.remoteGeneration++;
           this.remoteAcquisitionStale = this.remoteStaleAcquisitions > 0;
           if (this.remoteAcquisitionStale) this.remoteStaleAcquisitions--;
+          return {
+            generation: this.remoteGeneration,
+            pageCount: this.remotePages.length,
+            preparePages: this.remotePages.map((_, index) => index),
+          };
         }
-        if (params['begin'] !== true && this.movingRemote) this.remoteValueRead++;
+        if (Number.isInteger(params['preparePage'])) {
+          return { generation: this.remoteGeneration, pageCount: this.remotePages.length };
+        }
+        if (this.movingRemote) this.remoteValueRead++;
         const modulated = (value: number): number => this.movingRemote
           ? Math.min(1, value + this.remoteValueRead / 100)
           : value;
@@ -2389,7 +2398,10 @@ class ParameterTransport implements Transport {
               ? { index, exists: false }
               : {
                 index, exists: true,
-                ...(this.malformedRemoteControl ? {} : { name: control.name }),
+                ...(this.malformedRemoteControl ? {} : {
+                  name: this.unnamedRemoteControl && pageIndex === 0 && index === 0
+                    ? '' : control.name,
+                }),
                 value: control.value,
                 modulatedValue: modulated(control.modulatedValue), isBeingMapped: false,
                 hasAutomation: false,
@@ -2799,7 +2811,7 @@ test('4f live route: remote pages settle twice and one control restores exactly'
     ['Filter', 'Mod'],
   );
   assert.equal(wire.frames.some((frame) => frame.method === 'remote.selectPage'), false);
-  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList).length, 3);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList).length, 5);
   const changed = await adapter.apply({ ops: [{ op: 'remote.set', remote: address, value: 0.75 }] });
   assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   const restored = await adapter.apply({ ops: [{ op: 'remote.set', remote: address, value: 0.25 }] });
@@ -2922,7 +2934,7 @@ test('5a remote proof: changing modulated values do not prevent selector settlem
   assert.equal(entry?.value.of, 'remote');
   assert.ok(entry?.value.of === 'remote'
     && entry.value.remote.modulatedValue > entry.value.remote.value);
-  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList).length, 3);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList).length, 5);
   const selectedAt = wire.frames.findIndex((frame) => frame.method === WIRE.deviceCursorSelectAt);
   const begunAt = wire.frames.findIndex((frame) => frame.method === WIRE.remoteList
     && frame.params?.['begin'] === true);
@@ -2967,6 +2979,22 @@ test('4f repair: a malformed existing remote control cannot settle as complete',
 
   assert.deepEqual(snapshot.unstable.map(addressKey), [addressKey(address)]);
   assert.equal(snapshot.entries[addressKey(address)], undefined);
+});
+
+test('5u remote proof: an existing unnamed slot does not block named controls', async () => {
+  const wire = new ParameterTransport();
+  wire.unnamedRemoteControl = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const target = deviceAt(TRACK, 0);
+
+  const snapshot = await adapter.read([remotes(target)]);
+  const entry = snapshot.entries[addressKey(remotes(target))];
+
+  assert.equal(entry?.value.of, 'remotes');
+  assert.deepEqual(entry?.value.of === 'remotes'
+    ? entry.value.remotes.pages[0]?.controls.map((control) => control.name) : undefined,
+  ['Resonance', 'Drive', 'Mix']);
+  assert.deepEqual(snapshot.unstable, []);
 });
 
 test('4f live route: a drum-pad channel uses selectFirstInChannel semantics', async () => {

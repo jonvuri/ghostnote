@@ -2,12 +2,12 @@
 title: Phase 5u — settlement budget and nested remote reliability
 kind: plan
 state: active
-status: Active next. Measure settlement variance and repair the short nested remote path.
+status: Done. Shared bounded settlement and nested ColourCopy verification pass.
 updated: 2026-09-03
 parent: README.md
 prev: 5t-grid-generalization-and-colourcopy-closeout.md
 next: 5v-semantic-parameter-units-and-fail-closed-guidance.md
-evidence: E55, E58, E61, E91, E96, dogfood session 01a0690e-1761-76b1-9e8e-635bfa35e583
+evidence: E55, E58, E61, E91, E96, E97, dogfood session 01a0690e-1761-76b1-9e8e-635bfa35e583
 ---
 
 # Phase 5u — settlement budget and nested remote reliability
@@ -86,6 +86,46 @@ Investigate the operator's questions without assuming their answers:
 - Selection or application-focus behavior.
 - Updating an existing wrapper in place.
 - A new final musical verdict. Session 5t resumes that gate after 5x.
+
+## Result
+
+The short retry count was not the primary failure. ColourCopy has one valid
+remote slot with an empty name, and the adapter treated that permanent slot as
+an incomplete page. The nested observer also required sibling equality at the
+callback instant after the route was already confirmed. A new controller could
+also start with all remote observers on page 0. The adapter now prepares one
+page per bridge frame before the complete bank read.
+
+Equivalent parameter and remote workflow waits now use one 12-second deadline,
+a 250 ms retry interval, and a maximum of three observations. The deadline is
+5.7 times the largest valid live measurement of 2,111 ms. The workflow rejects
+an observation that completes after the deadline. The adapter still owns its
+in-flight read limit. Each incomplete result reports elapsed time, attempts,
+cause, and last progress. Same-device page and behavior witnesses share
+inventories and sample reads. Each witness keeps its own settlement report.
+
+The cold and warm live wrappers both returned `complete: true`. Each proved LFO
+to `Frequency` and Classic LFO to `Stereo Phase` on nested ColourCopy. The
+complete calls took 50,677 ms and 50,409 ms. Both exact reversals restored
+`Serato Sample | PITCHMAP | ColourCopy` and the exact seven-track entry list.
+E97 records the complete policy table and measurements.
+
+## Verification
+
+- `npm run probe:phase5u-settlement`: all cases and exact cleanup pass.
+- `npm run check`: 1,011 tests and type checking pass.
+- `./gradlew test`: extension tests and assembly pass.
+- `npm run probe:hello`: the running controller starts after the deployed JAR.
+
+## Retrospective
+
+Do not classify an unnamed but existing control as a partial observer row.
+Keep target eligibility separate from page completeness. Share one complete
+inventory across related witnesses before changing time limits. A controller
+power toggle can restart a cached extension class. Use a verified class reload
+or a build identity before a live probe claims that new JAR code is active.
+Check elapsed time after an awaited observation, and keep batch reports scoped
+to their witnesses.
 
 ## Handoff
 

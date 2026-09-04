@@ -17,9 +17,10 @@ import {
 import type { RunOptions } from './executor.js';
 import { ownChangesetReversal } from './floor.js';
 import {
-  verifyModulation, verifyPages,
+  verifyModulations, verifyPages,
   type ModulationVerification, type ModulatorPageVerification,
 } from './modulator-authoring.js';
+import { settleObservation } from './settlement.js';
 import type { Take } from './take.js';
 
 export interface ExistingDeviceWrapperHost {
@@ -143,7 +144,9 @@ export async function wrapExistingDeviceModulation(
   if (source === undefined || source.enabled === undefined) {
     throw new WrapperError('container-witness', 'the requested top-level device is missing');
   }
-  const before = await stableInventory(host, device(request.track, request.devicePosition));
+  const before = await stableInventory(
+    host, device(request.track, request.devicePosition), options.wait ?? wait,
+  );
   if (before.name !== source.name) {
     throw new WrapperError('container-witness', 'the device name disagreed with its parameter inventory');
   }
@@ -399,15 +402,17 @@ export async function wrapExistingDeviceModulation(
         verification: verification(beforeFingerprint, undefined, pages, []),
       };
     }
-    const after = await stableInventory(host, nested);
+    const after = await stableInventory(host, nested, options.wait ?? wait);
     const afterFingerprint = parameterFingerprint(after.params);
     const afterPages = await verifyPages(
       host, currentContainer, pageChecks, options.wait ?? wait,
     );
-    const behaviors: ModulationVerification[] = [];
-    for (const item of request.modulators) {
-      behaviors.push(await verifyModulation(host, nested, item.target, options.wait ?? wait));
-    }
+    const behaviors = await verifyModulations(
+      host,
+      nested,
+      request.modulators.map((item) => item.target),
+      options.wait ?? wait,
+    );
     const checked = verification(beforeFingerprint, afterFingerprint, afterPages, behaviors);
     return {
       complete: checked.verified,
@@ -439,7 +444,7 @@ export async function wrapExistingDeviceModulation(
 export async function reverseExistingDeviceModulation(
   host: ExistingDeviceWrapperHost,
   checkpoint: ExistingDeviceWrapperCheckpoint,
-  options: Pick<ExistingDeviceWrapperOptions, 'run'> = {},
+  options: Pick<ExistingDeviceWrapperOptions, 'run' | 'wait'> = {},
 ): Promise<ExistingDeviceWrapperReversal> {
   const stages: ExistingDeviceWrapperStageReceipt[] = [];
   const original = checkpoint.originalDeviceOrder;
@@ -513,7 +518,7 @@ export async function reverseExistingDeviceModulation(
     }
     let inventory: StableInventory;
     try {
-      inventory = await stableInventory(host, target);
+      inventory = await stableInventory(host, target, options.wait ?? wait);
     } catch (error) {
       return reversalFailure('reversal-boundary', message(error), stages, {
         kind: 'container-entry', containerPosition,
@@ -681,24 +686,40 @@ function assertExpectedOrder(
 
 async function stableInventory(
   host: ExistingDeviceWrapperHost, address: DeviceAddress,
+  pause: (milliseconds: number) => Promise<void>,
 ): Promise<StableInventory> {
-  const snapshot = await host.read([address]);
   const key = addressKey(address);
-  if (snapshot.unreachable.some((item) => addressKey(item) === key)) {
-    throw new WrapperError('post-move-witness', 'the device is outside the observer window');
-  }
-  if (snapshot.unstable.some((item) => addressKey(item) === key)) {
-    throw new WrapperError('post-move-witness', 'the DirectParameter inventory is unstable');
-  }
-  const value = snapshot.entries[key]?.value;
-  if (value?.of !== 'device' || value.device.params === undefined) {
-    throw new WrapperError('post-move-witness', 'the complete DirectParameter inventory is missing');
-  }
-  if (value.device.params.length === 0
-      || new Set(value.device.params.map((item) => item.id)).size !== value.device.params.length) {
-    throw new WrapperError('post-move-witness', 'the DirectParameter inventory is empty or has duplicate ids');
-  }
-  return { name: value.device.name, params: value.device.params };
+  const settled = await settleObservation<StableInventory>(async () => {
+    const snapshot = await host.read([address]);
+    if (snapshot.unreachable.some((item) => addressKey(item) === key)) {
+      throw new WrapperError('post-move-witness', 'the device is outside the observer window');
+    }
+    const value = snapshot.entries[key]?.value;
+    if (!snapshot.unstable.some((item) => addressKey(item) === key)
+        && value?.of === 'device' && value.device.params !== undefined
+        && value.device.params.length > 0
+        && new Set(value.device.params.map((item) => item.id)).size === value.device.params.length) {
+      return {
+        complete: true as const,
+        value: { name: value.device.name, params: value.device.params },
+        progress: { stage: 'direct-parameters', detail: 'the complete inventory is stable' },
+      };
+    }
+    return { complete: false as const, progress: {
+      stage: 'direct-parameters', detail: snapshot.unstable.some((item) => addressKey(item) === key)
+        ? 'the DirectParameter inventory is unstable'
+        : 'the complete DirectParameter inventory is missing or invalid',
+    } };
+  }, {
+    wait: pause,
+    throwIfCancelled: host.throwIfCancelled,
+  });
+  if (settled.complete) return settled.value;
+  throw new WrapperError(
+    'post-move-witness',
+    `${settled.report.lastProgress.detail}; stopped after ${settled.report.elapsedMs} ms and `
+      + `${settled.report.attempts} observations (${settled.report.cause})`,
+  );
 }
 
 async function exactContainer(

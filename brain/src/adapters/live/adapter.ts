@@ -282,6 +282,7 @@ interface WireRemotePage {
   readonly existing?: number;
   readonly bankSize?: number;
   readonly pageCount?: number;
+  readonly preparePages?: readonly number[];
   readonly selectedPageIndex?: number;
   readonly selectedPageName?: string;
   readonly pageNames?: readonly string[];
@@ -1616,11 +1617,17 @@ export class LiveAdapter implements BitwigAdapter {
       }) as WireRemotePage;
       if (!Number.isInteger(begun.generation)) return { standing: 'unstable' };
       const generation = begun.generation!;
+      await this.prepareRemotePages(begun.preparePages, generation);
       await this.settle('paramsLive');
 
       let prior: string | undefined;
       for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
         const observed = await this.transport.send({ method: WIRE.remoteList }) as WireRemotePage;
+        if (observed.preparePages !== undefined) {
+          await this.prepareRemotePages(observed.preparePages, generation);
+          await this.settle('cursorPoint');
+          continue;
+        }
         const pageNames = observed.pageNames ?? [];
         const wirePages = observed.pages ?? [];
         const pages = wirePages.flatMap((wirePage): import('../../contract/index.js').RemotePageState[] => {
@@ -1645,7 +1652,14 @@ export class LiveAdapter implements BitwigAdapter {
           const bankComplete = Number.isInteger(wirePage.bankSize) && wirePage.bankSize! >= 0
             && rows.length === wirePage.bankSize
             && rows.every((item, index) => item.index === index
-              && typeof item.exists === 'boolean');
+              && typeof item.exists === 'boolean')
+            && rows.filter((item) => item.exists === true).every((item) =>
+              typeof item.name === 'string'
+              && typeof item.value === 'number' && Number.isFinite(item.value)
+              && item.value >= 0 && item.value <= 1
+              && typeof item.modulatedValue === 'number'
+              && Number.isFinite(item.modulatedValue)
+              && typeof item.isBeingMapped === 'boolean');
           const pageIndex = wirePage.index;
           const pageName = Number.isInteger(pageIndex) ? pageNames[pageIndex!] : undefined;
           const complete = Number.isInteger(pageIndex)
@@ -1658,7 +1672,7 @@ export class LiveAdapter implements BitwigAdapter {
             && wirePage.observedDeviceIndex === device.chainIndex
             && bankComplete
             && Number.isInteger(wirePage.existing)
-            && controls.length === wirePage.existing;
+            && rows.filter((item) => item.exists === true).length === wirePage.existing;
           return complete ? [{ index: pageIndex!, name: pageName, controls }] : [];
         });
         const complete = observed.generation === generation
@@ -1705,6 +1719,20 @@ export class LiveAdapter implements BitwigAdapter {
         await this.settle('cursorPoint');
       }
       return { standing: 'unstable', deviceName: target.deviceName };
+  }
+
+  /** Give each independent remote-page cursor its own host frame. */
+  private async prepareRemotePages(
+    pages: readonly number[] | undefined,
+    generation: number,
+  ): Promise<void> {
+    for (const page of pages ?? []) {
+      if (!Number.isInteger(page) || page < 0) continue;
+      await this.transport.send({
+        method: WIRE.remoteList,
+        params: { preparePage: page, generation },
+      });
+    }
   }
 
   private remoteState(

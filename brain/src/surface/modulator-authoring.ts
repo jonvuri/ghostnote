@@ -209,6 +209,7 @@ function publicBehavior(verification: ModulationVerification): Record<string, un
     samples: verification.samples,
     maximumDivergence: verification.maximumDivergence,
     baseSpread: verification.baseSpread,
+    ...(verification.settlement === undefined ? {} : { settlement: verification.settlement }),
   };
 }
 
