@@ -1224,6 +1224,10 @@ public class Rig {
                 rc.exists().markInterested();
                 rc.name().markInterested();
                 rc.value().markInterested();
+                rc.value().displayedValue().markInterested();
+                rc.value().getOrigin().markInterested();
+                rc.value().discreteValueCount().markInterested();
+                rc.value().discreteValueNames().markInterested();
                 rc.modulatedValue().markInterested();
                 rc.isBeingMapped().markInterested();
                 rc.hasAutomation().markInterested();

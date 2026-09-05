@@ -112,6 +112,10 @@ export interface FakeDevice {
     controls: {
       name: string;
       value: number;
+      display?: string;
+      origin?: number;
+      discreteValueCount?: number;
+      discreteValueNames?: readonly string[];
       modulatedValue?: number;
       isBeingMapped?: boolean;
       hasAutomation?: boolean;

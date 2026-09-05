@@ -288,6 +288,12 @@ export class FakeAdapter implements BitwigAdapter {
           index,
           name: control.name,
           value: control.value,
+          ...(control.display === undefined ? {} : { display: control.display }),
+          ...(control.origin === undefined ? {} : { origin: control.origin }),
+          ...(control.discreteValueCount === undefined
+            ? {} : { discreteValueCount: control.discreteValueCount }),
+          ...(control.discreteValueNames === undefined
+            ? {} : { discreteValueNames: control.discreteValueNames }),
           modulatedValue: control.modulatedValue ?? control.value,
           isBeingMapped: control.isBeingMapped ?? false,
           ...(control.hasAutomation === undefined ? {} : { hasAutomation: control.hasAutomation }),

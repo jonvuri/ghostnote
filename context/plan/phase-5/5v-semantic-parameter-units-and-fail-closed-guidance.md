@@ -1,13 +1,13 @@
 ---
 title: Phase 5v — semantic parameter units and fail-closed guidance
 kind: plan
-state: planned
-status: Planned. Recheck Controller API unit support and stop unproved value conversion.
-updated: 2026-09-03
+state: complete
+status: Complete. API 25 has display readback but no exact semantic write conversion.
+updated: 2026-09-04
 parent: README.md
 prev: 5u-settlement-budget-and-nested-remote-reliability.md
 next: 5w-selection-borrowing-and-background-stability.md
-evidence: E4, E4b, E55, E58, E64, E82, dogfood session 01a0690e-1761-76b1-9e8e-635bfa35e583
+evidence: E4, E4b, E55, E58, E64, E82, E98, dogfood session 01a0690e-1761-76b1-9e8e-635bfa35e583
 ---
 
 # Phase 5v — semantic parameter units and fail-closed guidance
@@ -88,6 +88,38 @@ unsupported conversion explicit.
 - Approximate calibration tables learned from UI screenshots.
 - Selection and application-focus repair.
 - Existing-wrapper updates.
+
+## Result
+
+API 25 supplies normalized reads and writes, formatted display observation, and
+typed discrete domains. Its raw-value range is undefined. It supplies no text
+parser or inverse display-to-value conversion.
+
+The public surface now reports normalized, displayed, discrete, and semantic
+capabilities separately. Remote controls include observed display and discrete
+metadata. A semantic `set_parameter` request returns a structured unsupported
+result before workspace access. The description forbids guessed scalars and
+web, repository, or computer-input conversion fallbacks. Direct and remote
+discrete-domain violations refuse the complete scalar cohort before any write.
+
+Classic LFO live readback proved a continuous Rate at `0.08 Hz`, `0.71 Hz`, and
+`5.96 Hz`. Timebase proved 12 exact divisions from `32/1` through `1/64`. A
+`1.5 measures` request refused with zero changes. All test writes and the
+wrapper reversed to the exact entry baseline. E98 records the method matrix and
+measurements.
+
+## Verification
+
+- `npm run probe:phase5v-units`: all cases and exact cleanup pass.
+- `npm run check`: tests and type checking pass.
+- `./gradlew test`: extension compilation passes.
+- `npm run probe:hello`: deployment freshness passes.
+
+## Retrospective
+
+State whether a modulator page belongs to its owning container or nested target.
+This distinction prevents an avoidable probe retry. Apply shared scalar guards
+to both direct and remote parameter routes.
 
 ## Handoff
 

@@ -716,14 +716,17 @@ function uniqueParameterDevices(ops: readonly Op[]): Address[] {
 /** Refuse every unrepresentable value before the adapter receives the cohort. */
 function assertParameterDomains(ops: readonly Op[], snapshot: Snapshot): void {
   for (const op of ops) {
-    if (op.op !== 'param.set') continue;
-    const entry = snapshot.entries[addressKey(op.param)];
-    if (entry?.value.of !== 'param') continue;
-    const parameter = entry.value.param;
+    if (op.op !== 'param.set' && op.op !== 'remote.set') continue;
+    const address = op.op === 'param.set' ? op.param : op.remote;
+    const entry = snapshot.entries[addressKey(address)];
+    const parameter = op.op === 'param.set'
+      ? entry?.value.of === 'param' ? entry.value.param : undefined
+      : entry?.value.of === 'remote' ? entry.value.remote : undefined;
+    if (parameter === undefined) continue;
     const count = parameter.discreteValueCount;
     if (count === undefined || count < 1 || discreteValueIsRepresentable(op.value, count)) continue;
     throw new ParameterValueUnrepresentableError(
-      op.param,
+      address,
       op.value,
       count,
       discreteNormalizedValues(count),

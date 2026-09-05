@@ -860,7 +860,10 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
   });
   modelDevice.remotePages = [{
     name: 'Filter',
-    controls: [{ name: 'Cutoff', value: 0.25, modulatedValue: 0.4, hasAutomation: true }],
+    controls: [{
+      name: 'Cutoff', value: 0.25, display: '75.4 Hz', origin: 0,
+      discreteValueCount: -1, modulatedValue: 0.4, hasAutomation: true,
+    }],
   }];
 
   const inventory = await call(fx, 'inspect_device_parameters', {
@@ -881,6 +884,7 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
     hasAutomation: true,
     origin: 0,
     discreteValueCount: 2,
+    discreteNormalizedValues: [0, 1],
     discreteValueNames: ['Off', 'On'],
   });
   assert.ok(inventory.warnings.length >= 2);
@@ -890,12 +894,23 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
     view: 'remote-controls',
   }) as {
     standing: string;
-    remotePages: { name: string; controls: { name: string }[] }[];
+    remotePages: { name: string; controls: Record<string, unknown>[] }[];
+    valueCapabilities: Record<string, Record<string, unknown>>;
     warnings: unknown[];
   };
   assert.equal(remotes.standing, 'stable');
   assert.equal(remotes.remotePages[0]?.name, 'Filter');
-  assert.equal(remotes.remotePages[0]?.controls[0]?.name, 'Cutoff');
+  assert.deepEqual(remotes.remotePages[0]?.controls[0], {
+    position: 0,
+    name: 'Cutoff',
+    normalizedValue: 0.25,
+    display: '75.4 Hz',
+    origin: 0,
+    modulatedValue: 0.4,
+    isBeingMapped: false,
+    hasAutomation: true,
+  });
+  assert.equal(remotes.valueCapabilities.semantic?.['writable'], false);
   assert.ok(remotes.warnings.length >= 2);
 
   const set = await call(fx, 'set_parameter', { settings: [
@@ -941,6 +956,39 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
   assert.equal(modelDevice.remotePages[0]!.controls[0]!.value, 0.25);
 });
 
+test('5v-agent-boundary: a semantic parameter request refuses before project access', async () => {
+  const fx = fixture();
+  const before = JSON.stringify(fx.fake.model.tracks);
+  const result = await call(fx, 'set_parameter', { settings: [{
+    kind: 'remote',
+    device: { trackId: fx.trackA, devicePosition: 0 },
+    pagePosition: 0,
+    pageName: 'Classic LFO',
+    controlPosition: 0,
+    controlName: 'Rate',
+    valueKind: 'semantic',
+    semanticValue: '1.5 measures',
+  }] });
+
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.equal(result['partialSuccess'], false);
+  assert.deepEqual(result['changes'], []);
+  assert.deepEqual(result['unsupportedValue'], {
+    settingIndex: 0,
+    valueKind: 'semantic',
+    semanticValue: '1.5 measures',
+    reason: 'API 25 has no text parser or exact displayed-value inverse conversion.',
+  });
+  assert.equal(JSON.stringify(fx.fake.model.tracks), before);
+  assert.deepEqual(fx.sent, [], 'the boundary must not read or write the workspace');
+
+  const description = TOOLS.find((tool) => tool.name === 'set_parameter')!.description;
+  assert.match(description, /Do not substitute a guessed normalized value\./);
+  assert.match(description, /Do not search the web or repository/);
+  assert.match(description, /do not use computer input as a conversion fallback/);
+});
+
 test('d02-s7-surface: one invalid discrete value refuses the complete cohort before writes', async () => {
   const fx = fixture();
   const device = {
@@ -974,6 +1022,61 @@ test('d02-s7-surface: one invalid discrete value refuses the complete cohort bef
   });
   assert.deepEqual(device.params.map((parameter) => parameter.value), [0.2, 1]);
   assert.deepEqual(fx.sent.filter((op) => op.op === 'param.set'), []);
+});
+
+test('5v-surface: an invalid discrete remote value refuses before writes', async () => {
+  const fx = fixture();
+  const device = {
+    name: 'Remote domain synth',
+    paramsLive: true,
+    params: [],
+    remotePages: [{
+      name: 'Mode',
+      controls: [
+        { name: 'Rate', value: 0.2 },
+        {
+          name: 'Timebase', value: 0, discreteValueCount: 3,
+          discreteValueNames: ['1/1', '1/2', '1/4'],
+        },
+      ],
+    }],
+  };
+  fx.fake.model.findByChannelId(fx.trackA)!.track.devices.push(device);
+
+  const result = await call(fx, 'set_parameter', { settings: [
+    {
+      kind: 'remote',
+      device: { trackId: fx.trackA, devicePosition: 0 },
+      pagePosition: 0,
+      pageName: 'Mode',
+      controlPosition: 0,
+      controlName: 'Rate',
+      normalizedValue: 0.7,
+    },
+    {
+      kind: 'remote',
+      device: { trackId: fx.trackA, devicePosition: 0 },
+      pagePosition: 0,
+      pageName: 'Mode',
+      controlPosition: 1,
+      controlName: 'Timebase',
+      normalizedValue: 0.25,
+    },
+  ] });
+
+  assert.equal(result['refused'], true, JSON.stringify(result));
+  assert.equal(result['nothingWasWritten'], true);
+  assert.deepEqual(result['allowedParameterDomain'], {
+    pagePosition: 0,
+    pageName: 'Mode',
+    controlPosition: 1,
+    controlName: 'Timebase',
+    discreteValueCount: 3,
+    normalizedValues: [0, 0.5, 1],
+    discreteValueNames: ['1/1', '1/2', '1/4'],
+  });
+  assert.deepEqual(device.remotePages[0]!.controls.map((control) => control.value), [0.2, 0]);
+  assert.deepEqual(fx.sent.filter((op) => op.op === 'remote.set'), []);
 });
 
 test('d02-s7-surface: an unrelated parameter delta is reported without author attribution', async () => {

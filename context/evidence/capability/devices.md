@@ -2,7 +2,7 @@
 title: Devices — type UUIDs, parameters and observables
 kind: capability
 state: active
-updated: 2026-09-02
+updated: 2026-09-04
 scope: device identification, parameter access and the observable surface
 evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73; D2; reference/BitX
 ---
@@ -77,10 +77,17 @@ harvest [K, [E4c](../experiments/e4c-device-nesting-layers-pads-slots-selectors-
 | Devices | VST2 / VST3 / Bitwig | **any, including CLAP** |
 | Discovery | IDs known upfront | **self-enumerates every ID** |
 | Access | pull, `get()` | push, observers set at init |
-| Displayed values | ● `displayedValue()`, e.g. "2.59 kHz" | ◐ the observer did not populate |
+| Displayed values | ● `displayedValue()`, e.g. "2.59 kHz" | ● targeted display observer; ids must be selected |
 | Write | `setImmediately` | `setDirectParameterValueNormalized(id, v, 1)` |
 
 [K, [E4](../experiments/e4-direct-parameter-layer-6a-differentiator-2026-07-19.md) and [E4b](../experiments/e4b-clap-params-via-the-directparameter-api-2026-07-19.md)]
+
+API 25 has no text parser or inverse display-to-value conversion. Its raw-value
+methods expose an internal value with an undefined range, not a typed semantic
+unit. Classic LFO proved continuous Rate displays in Hz and a separate 12-step
+Timebase domain. Ghostnote exposes display and discrete metadata, but semantic
+writes fail closed before project access [K,
+[E98](../experiments/e98-parameter-units-and-semantic-writes-fail-closed.md)].
 
 ⚠⚠ **`param.value().set(v)` is silently swallowed** by the controller take-over
 strategy. Every agent parameter write must use `setImmediately` [K, E4].
@@ -144,6 +151,11 @@ optional remote-control inventory, explicit insertion, scalar writes, bypass,
 and directed deletion. Each result states positional, bank, normalized-value,
 latency, warning, verification, and reversal limits [K,
 [E62](../experiments/e62-public-device-surface-is-live.md)].
+
+Parameter inspection also reports separate normalized, displayed, discrete,
+and semantic capabilities. An unsupported semantic request returns a structured
+zero-write boundary. It does not authorize a guessed normalized scalar [K,
+[E98](../experiments/e98-parameter-units-and-semantic-writes-fail-closed.md)].
 
 The live public route returned 55 Polysynth parameters without prior ids. A
 returned id wrote and restored one scalar base exactly. Native, VST3, CLAP, and

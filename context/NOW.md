@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-09-03
+updated: 2026-09-04
 phase: phase-5
-session: 5v-semantic-parameter-units-and-fail-closed-guidance
+session: 5w-selection-borrowing-and-background-stability
 ---
 
 # Now
@@ -15,10 +15,9 @@ and the closeout matrix passes. Phase 6a stays blocked.
 
 ## Stable baseline
 
-The accepted live project has five tracks and eight launcher rows. Its track
-list is `gn-preset-zoo | Audio 2 | Inst 3 | FX 1 | Master`. It keeps the accepted
-six-pad Drum Machine and Instrument Layer with nested Polysynth. Session 5r
-restored this baseline.
+The accepted live project has seven tracks and eight launcher rows. Its track
+list is `guit sample src | guit sample | Serato Sample | Pigments | XO | FX 1 |
+Master`. The first track keeps `Serato Sample | PITCHMAP | ColourCopy`.
 
 ## Session 5u result
 
@@ -46,8 +45,28 @@ Live cold and warm wrappers both proved LFO to `Frequency` and Classic LFO to
 restored the exact source device order and seven-track entry list. E97 records
 the policy table and measurements.
 
-`npm run check` passes 1,011 tests and type checking. Extension tests, deploy
-freshness, the complete 5u live probe, and exact cleanup pass.
+`npm run check`, extension tests, deployment freshness, the complete 5u live
+probe, and exact cleanup pass.
+
+## Session 5v result
+
+API 25 exposes normalized values, formatted display text, and typed discrete
+domains. Its raw-value range is undefined, and it has no text parser or inverse
+display-to-value conversion.
+
+The public surface now reports normalized, displayed, discrete, and semantic
+capabilities separately. Remote controls return display and discrete metadata.
+An explicit semantic request fails before workspace access. The `1.5 measures`
+live request returned zero changes and did not substitute a normalized value.
+Direct and remote discrete-domain violations refuse the complete scalar cohort
+before any write.
+
+Classic LFO Rate proved continuous Hz displays at three normalized values.
+Timebase proved 12 exact divisions from `32/1` through `1/64`. Every scalar and
+the wrapper reversed. E98 records the complete API matrix and live result.
+
+`npm run check`, extension compilation, deployment freshness, the complete 5v
+live probe, and exact cleanup pass.
 
 ## Post-fix dogfood review
 
@@ -69,14 +88,12 @@ final dogfood and closeout after 5x.
 
 ## Next action
 
-Run session 5v. Audit semantic parameter units and add fail-closed guidance for
-unproved normalized-to-unit conversions. Then continue through 5w and 5x before
-a new final dogfood task.
+Run session 5w. Isolate selection borrowing, repeated retargeting, and Bitwig
+foreground changes. Then run 5x before a new final dogfood task.
 
 ## Retrospective
 
-The timeout combined identity, completeness, page preparation, and
-repeated-work defects. A larger retry count alone would not fix it. A controller
-power toggle can reuse a cached class, so use a verified reload path for new JAR
-code. Check a deadline after each awaited observation, and keep batch reports
-scoped to their witnesses.
+A modulator page belongs to its owning container, not its nested target. State
+that distinction in live probe plans to prevent an avoidable retry. Controller
+reload remains an operator action; always verify deployment freshness after it.
+Apply shared scalar guards to both direct and remote parameter routes.

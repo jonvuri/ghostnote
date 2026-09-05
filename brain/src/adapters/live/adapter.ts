@@ -269,6 +269,10 @@ interface WireRemoteControl {
   readonly exists?: boolean;
   readonly name?: string;
   readonly value?: number;
+  readonly displayed?: string;
+  readonly origin?: number;
+  readonly discreteValueCount?: number;
+  readonly discreteValueNames?: readonly string[];
   readonly modulatedValue?: number;
   readonly isBeingMapped?: boolean;
   readonly hasAutomation?: boolean;
@@ -1643,6 +1647,13 @@ export class LiveAdapter implements BitwigAdapter {
               index: item.index!,
               name: item.name,
               value: item.value,
+              ...(typeof item.displayed === 'string' ? { display: item.displayed } : {}),
+              ...(typeof item.origin === 'number' ? { origin: item.origin } : {}),
+              ...(typeof item.discreteValueCount === 'number'
+                ? { discreteValueCount: item.discreteValueCount } : {}),
+              ...(Array.isArray(item.discreteValueNames)
+                  && item.discreteValueNames.every((name) => typeof name === 'string')
+                ? { discreteValueNames: item.discreteValueNames } : {}),
               modulatedValue: item.modulatedValue,
               isBeingMapped: item.isBeingMapped,
               ...(typeof item.hasAutomation === 'boolean'

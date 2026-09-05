@@ -282,6 +282,14 @@ export interface RemoteControlState {
   readonly name: string;
   /** Normalized base value, from 0 through 1. */
   readonly value: number;
+  /** Formatted host display text. It is not an invertible semantic value. */
+  readonly display?: string;
+  /** Normalized default or center, when the host reports it. */
+  readonly origin?: number;
+  /** Count of exact discrete choices, or -1 for a continuous range. */
+  readonly discreteValueCount?: number;
+  /** Host labels for discrete choices. The list can be incomplete. */
+  readonly discreteValueNames?: readonly string[];
   readonly modulatedValue: number;
   /** True only while Bitwig is waiting for a manual mapping gesture. */
   readonly isBeingMapped: boolean;

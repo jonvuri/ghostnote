@@ -554,6 +554,17 @@ public final class ParamHandlers extends HandlerGroup {
                 existing++;
                 obj.addProperty("name", rc.name().get());
                 obj.addProperty("value", rc.value().get());
+                obj.addProperty("displayed", rc.value().displayedValue().get());
+                putGuarded(obj, "origin", () -> rc.value().getOrigin().get());
+                putGuarded(obj, "discreteValueCount",
+                    () -> rc.value().discreteValueCount().get());
+                try {
+                    JsonArray names = new JsonArray();
+                    for (String name : rc.value().discreteValueNames().get()) names.add(name);
+                    obj.add("discreteValueNames", names);
+                } catch (Exception e) {
+                    obj.addProperty("discreteValueNamesError", e.getMessage());
+                }
                 obj.addProperty("modulatedValue", rc.modulatedValue().get());
                 obj.addProperty("isBeingMapped", rc.isBeingMapped().get());
                 putGuarded(obj, "hasAutomation", () -> rc.hasAutomation().get());

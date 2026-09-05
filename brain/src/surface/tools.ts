@@ -60,7 +60,7 @@ import {
   scene as sceneAt, slot as slotAt, track as trackAt, device as deviceAt,
   deviceEnabled as deviceEnabledAt, deviceIn, drumPad as drumPadAt,
   addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, lookupChain,
-  projectedReorder, exactClipColor, supportedClipColors,
+  projectedReorder, exactClipColor, supportedClipColors, discreteNormalizedValues,
   AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
   type Address, type ClipAddress, type DeviceAddress, type DeviceSource, type NoteRecord,
   type ObservedDeviceBank, type Op, type OpKind, type ParamState, type Recurrence,
@@ -264,6 +264,82 @@ const deviceTarget = z.object({
 
 type DeviceTargetInput = z.infer<typeof deviceTarget>;
 
+const normalizedDirectParameterSetting = z.object({
+  kind: z.literal('direct'),
+  device: deviceTarget,
+  parameterId: z.string().min(1).describe(
+    'Exact DirectParameter id returned by inspect_device_parameters.',
+  ),
+  valueKind: z.literal('normalized').default('normalized'),
+  normalizedValue: z.number().min(0).max(1),
+}).strict();
+
+const semanticDirectParameterSetting = z.object({
+  kind: z.literal('direct'),
+  device: deviceTarget,
+  parameterId: z.string().min(1).describe(
+    'Exact DirectParameter id returned by inspect_device_parameters.',
+  ),
+  valueKind: z.literal('semantic'),
+  semanticValue: z.string().min(1).describe(
+    'Requested value with its unit, such as "1.5 measures". API 25 cannot convert this to a scalar.',
+  ),
+}).strict();
+
+const normalizedRemoteParameterSetting = z.object({
+  kind: z.literal('remote'),
+  device: deviceTarget,
+  pagePosition: z.number().int().min(0),
+  pageName: z.string().min(1),
+  controlPosition: z.number().int().min(0),
+  controlName: z.string().min(1),
+  valueKind: z.literal('normalized').default('normalized'),
+  normalizedValue: z.number().min(0).max(1),
+}).strict();
+
+const semanticRemoteParameterSetting = z.object({
+  kind: z.literal('remote'),
+  device: deviceTarget,
+  pagePosition: z.number().int().min(0),
+  pageName: z.string().min(1),
+  controlPosition: z.number().int().min(0),
+  controlName: z.string().min(1),
+  valueKind: z.literal('semantic'),
+  semanticValue: z.string().min(1).describe(
+    'Requested value with its unit, such as "1.5 measures". API 25 cannot convert this to a scalar.',
+  ),
+}).strict();
+
+const parameterSetting = z.union([
+  normalizedDirectParameterSetting,
+  semanticDirectParameterSetting,
+  normalizedRemoteParameterSetting,
+  semanticRemoteParameterSetting,
+]);
+
+type ParameterSetting = z.infer<typeof parameterSetting>;
+type NormalizedParameterSetting = Extract<ParameterSetting, { valueKind: 'normalized' }>;
+type SemanticParameterSetting = Extract<ParameterSetting, { valueKind: 'semantic' }>;
+
+function isSemanticParameterSetting(setting: ParameterSetting): setting is SemanticParameterSetting {
+  return setting.valueKind === 'semantic';
+}
+
+const parameterValueCapabilities = {
+  normalized: { readable: true, writable: true, minimum: 0, maximum: 1 },
+  displayed: {
+    readable: 'when-observed', writable: false, invertible: false,
+    meaning: 'Opaque host-formatted text for the current normalized value.',
+  },
+  discrete: {
+    readable: 'when-host-proved', writable: 'returned-normalized-values-only',
+  },
+  semantic: {
+    readable: false, writable: false,
+    reason: 'API 25 has no text parser or exact displayed-value inverse conversion.',
+  },
+} as const;
+
 const expectedDeviceOrder = z.array(z.object({
   name: z.string(),
   enabled: z.boolean(),
@@ -455,6 +531,8 @@ function publicParameter(parameter: ParamState): Record<string, unknown> {
     ...(parameter.origin === undefined ? {} : { origin: parameter.origin }),
     ...(parameter.discreteValueCount === undefined || parameter.discreteValueCount < 0
       ? {} : { discreteValueCount: parameter.discreteValueCount }),
+    ...(parameter.discreteValueCount === undefined || parameter.discreteValueCount < 0
+      ? {} : { discreteNormalizedValues: discreteNormalizedValues(parameter.discreteValueCount) }),
     ...(parameter.discreteValueNames === undefined || parameter.discreteValueNames.length === 0
       ? {} : { discreteValueNames: parameter.discreteValueNames }),
   };
@@ -2000,6 +2078,7 @@ export const TOOLS: readonly ToolSpec[] = [
       standing: 'stable, missing, unreachable, or unstable.',
       parameters: 'Complete DirectParameter inventory when standing is stable.',
       remotePages: 'Optional complete visible remote pages with exact existing controls.',
+      valueCapabilities: 'Separate normalized, displayed, discrete, and semantic read and write support.',
       warnings: 'Observed modulation or automation that can make a base value differ from the value heard.',
       elapsedMs: 'Wall-clock time for this call.',
     },
@@ -2025,6 +2104,7 @@ export const TOOLS: readonly ToolSpec[] = [
             view: 'remote-controls',
             standing: standing === 'stable' ? 'unstable' : standing,
             remotePages: [],
+            valueCapabilities: parameterValueCapabilities,
             warnings: [],
             elapsedMs: Math.round(performance.now() - started),
           };
@@ -2036,6 +2116,15 @@ export const TOOLS: readonly ToolSpec[] = [
             position: control.index,
             name: control.name,
             normalizedValue: control.value,
+            ...(control.display === undefined ? {} : { display: control.display }),
+            ...(control.origin === undefined ? {} : { origin: control.origin }),
+            ...(control.discreteValueCount === undefined || control.discreteValueCount < 0
+              ? {} : {
+                discreteValueCount: control.discreteValueCount,
+                discreteNormalizedValues: discreteNormalizedValues(control.discreteValueCount),
+              }),
+            ...(control.discreteValueNames === undefined || control.discreteValueNames.length === 0
+              ? {} : { discreteValueNames: control.discreteValueNames }),
             modulatedValue: control.modulatedValue,
             isBeingMapped: control.isBeingMapped,
             ...(control.hasAutomation === undefined
@@ -2047,6 +2136,7 @@ export const TOOLS: readonly ToolSpec[] = [
           view: 'remote-controls',
           standing: 'stable',
           remotePages: pages,
+          valueCapabilities: parameterValueCapabilities,
           warnings: pages.flatMap((page) => page.controls.flatMap((control) => [
             ...(Math.abs(control.modulatedValue - control.normalizedValue) > 1e-9
               ? [{
@@ -2079,6 +2169,7 @@ export const TOOLS: readonly ToolSpec[] = [
           view: 'direct',
           standing: standing === 'stable' ? 'unstable' : standing,
           parameters: [],
+          valueCapabilities: parameterValueCapabilities,
           warnings: [],
           elapsedMs: Math.round(performance.now() - started),
         };
@@ -2092,6 +2183,7 @@ export const TOOLS: readonly ToolSpec[] = [
         deviceName: deviceEntry.value.device.name,
         standing: 'stable',
         parameters: parameters.map(publicParameter),
+        valueCapabilities: parameterValueCapabilities,
         warnings,
         elapsedMs: Math.round(performance.now() - started),
       };
@@ -2511,33 +2603,19 @@ export const TOOLS: readonly ToolSpec[] = [
     title: 'Set device parameters',
     description:
       'Set DirectParameters by ids returned from inspect_device_parameters, or set one returned '
-      + 'remote control by its exact page and control names and positions. Values are normalized '
-      + 'from 0 through 1 and do not share one physical unit. A host-proved discrete domain '
+      + 'remote control by its exact page and control names and positions. Normalized values '
+      + 'range from 0 through 1 and do not share one physical unit. Display text is read-only and '
+      + 'does not supply an inverse conversion. API 25 has no exact semantic-value write. A '
+      + 'semantic request returns an unsupported boundary before any project read or scalar write. '
+      + 'Do not substitute a guessed normalized value. Do not search the web or repository, and do '
+      + 'not use computer input as a conversion fallback. A host-proved discrete domain '
       + 'allows only its returned normalized values. One invalid value refuses its same-route '
       + 'cohort before the first scalar write. Each DirectParameter scalar gets complete inventory '
       + 'readback. An unrequested parameter delta stops the cohort and stays unattributed because '
       + 'the host does not identify its author. Modulation and automation warnings state when a '
       + 'static base value can differ from the value heard.',
     inputSchema: {
-      settings: z.array(z.discriminatedUnion('kind', [
-        z.object({
-          kind: z.literal('direct'),
-          device: deviceTarget,
-          parameterId: z.string().min(1).describe(
-            'Exact DirectParameter id returned by inspect_device_parameters.',
-          ),
-          normalizedValue: z.number().min(0).max(1),
-        }),
-        z.object({
-          kind: z.literal('remote'),
-          device: deviceTarget,
-          pagePosition: z.number().int().min(0),
-          pageName: z.string().min(1),
-          controlPosition: z.number().int().min(0),
-          controlName: z.string().min(1),
-          normalizedValue: z.number().min(0).max(1),
-        }),
-      ])).min(1),
+      settings: z.array(parameterSetting).min(1),
     },
     emits: ['param.set', 'remote.set'],
     resultContract: {
@@ -2545,6 +2623,8 @@ export const TOOLS: readonly ToolSpec[] = [
       verified: 'True only when every requested normalized base value agrees with readback.',
       changes: 'One recorded write receipt per scalar target.',
       allowedParameterDomain: 'On a discrete-domain refusal, the exact normalized values and optional names.',
+      unsupportedValue: 'A semantic request and the API boundary that refused it before project access.',
+      valueCapabilities: 'Separate normalized, displayed, discrete, and semantic read and write support.',
       warnings: 'Observed modulation or automation that can override a static base value.',
       elapsedMs: 'Wall-clock time for this call.',
       reversal: 'Exact base-value replay while the positional device target remains valid.',
@@ -2553,13 +2633,36 @@ export const TOOLS: readonly ToolSpec[] = [
       const started = performance.now();
       const changes: ReturnType<typeof receiptOf>[] = [];
       const warnings: Array<Record<string, unknown>> = [];
+      const unsupportedIndex = args.settings.findIndex(isSemanticParameterSetting);
+      if (unsupportedIndex >= 0) {
+        const setting = args.settings[unsupportedIndex] as SemanticParameterSetting;
+        return {
+          applied: false,
+          partialSuccess: false,
+          verified: false,
+          refused: true,
+          nothingWasWritten: true,
+          why: 'API 25 cannot convert an exact semantic parameter value to a writable scalar.',
+          unsupportedValue: {
+            settingIndex: unsupportedIndex,
+            valueKind: 'semantic',
+            semanticValue: setting.semanticValue,
+            reason: parameterValueCapabilities.semantic.reason,
+          },
+          valueCapabilities: parameterValueCapabilities,
+          changes,
+          warnings,
+          elapsedMs: Math.round(performance.now() - started),
+        };
+      }
+      const normalizedSettings = args.settings as NormalizedParameterSetting[];
       try {
         let verified = true;
         const cohorts: Array<Array<{
           settingIndex: number;
-          setting: (typeof args.settings)[number];
+          setting: NormalizedParameterSetting;
         }>> = [];
-        for (const [settingIndex, setting] of args.settings.entries()) {
+        for (const [settingIndex, setting] of normalizedSettings.entries()) {
           const prior = cohorts.at(-1);
           const routeKey = JSON.stringify({ kind: setting.kind, device: setting.device });
           const targetKey = setting.kind === 'direct'
@@ -2703,6 +2806,7 @@ export const TOOLS: readonly ToolSpec[] = [
           partialSuccess: false,
           verified,
           changes,
+          valueCapabilities: parameterValueCapabilities,
           warnings,
           reversal: 'exact-base-value-while-the-device-route-remains-valid',
           elapsedMs: Math.round(performance.now() - started),
@@ -2715,6 +2819,7 @@ export const TOOLS: readonly ToolSpec[] = [
           verified: false,
           why: 'A later setting did not finish after earlier writes completed.',
           changes,
+          valueCapabilities: parameterValueCapabilities,
           warnings,
           reversal: 'exact-base-value-while-the-device-route-remains-valid',
           elapsedMs: Math.round(performance.now() - started),

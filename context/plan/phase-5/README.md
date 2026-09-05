@@ -3,7 +3,7 @@ title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
 status: Reopened 2026-08-25. Sessions 5u through 5x address the post-fix dogfood findings.
-updated: 2026-09-03
+updated: 2026-09-04
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -145,10 +145,10 @@ that first integration unless the proof needs one new owned asset.
     — done. One bounded policy now reports observer progress. Cold and warm
     nested ColourCopy verification and exact reversal pass.
 22. [5v — semantic parameter units and fail-closed guidance](5v-semantic-parameter-units-and-fail-closed-guidance.md)
-    — active next. Recheck API 25 unit support and stop unproved
-    normalized-to-unit conversion.
+    — done. API 25 has display and discrete readback but no exact semantic
+    inverse. Semantic write requests now fail before project access.
 23. [5w — selection borrowing and background stability](5w-selection-borrowing-and-background-stability.md)
-    — planned. Isolate intermittent Bitwig activation and reduce repeated
+    — active next. Isolate intermittent Bitwig activation and reduce repeated
     selection and cursor work.
 24. [5x — existing-wrapper update operation](5x-existing-wrapper-update-operation.md)
     — planned. Evaluate and, if bounded, add a guarded wrapper update workflow.

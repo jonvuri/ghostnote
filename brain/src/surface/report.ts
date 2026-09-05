@@ -654,8 +654,14 @@ export interface Refusal {
   readonly why: string;
   readonly where?: readonly Where[];
   readonly inTheWay?: readonly { readonly where: Where; readonly why: readonly string[] }[];
-  readonly allowedParameterDomain?: {
+  readonly allowedParameterDomain?: ({
     readonly parameterId: string | number;
+  } | {
+    readonly pagePosition: number;
+    readonly pageName: string;
+    readonly controlPosition: number;
+    readonly controlName: string;
+  }) & {
     readonly discreteValueCount: number;
     readonly normalizedValues: readonly number[];
     readonly discreteValueNames?: readonly string[];
@@ -769,7 +775,14 @@ export function refusalOf(error: unknown): Refusal {
       {
         where: [describeAddress(error.address)],
         allowedParameterDomain: {
-          parameterId: error.address.directId ?? error.address.index ?? -1,
+          ...(error.address.kind === 'param'
+            ? { parameterId: error.address.directId ?? error.address.index ?? -1 }
+            : {
+              pagePosition: error.address.pageIndex,
+              pageName: error.address.pageName,
+              controlPosition: error.address.controlIndex,
+              controlName: error.address.controlName,
+            }),
           discreteValueCount: error.discreteValueCount,
           normalizedValues: error.normalizedValues,
           ...(error.discreteValueNames === undefined

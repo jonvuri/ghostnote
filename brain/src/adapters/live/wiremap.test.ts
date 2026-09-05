@@ -442,6 +442,27 @@ test('5b: remote automation state is subscribed before live route proof', () => 
     'inactive and active route proof must observe host automation explicitly');
 });
 
+test('5v: remote controls observe formatted and discrete value metadata', () => {
+  const rig = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'Rig.java'),
+    'utf8',
+  );
+  const handlers = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'ParamHandlers.java'),
+    'utf8',
+  );
+  const start = rig.indexOf('RemoteControl rc = remotePage.getParameter(r);');
+  const end = rig.indexOf('remoteControls0[page][r] = rc;', start);
+  const observer = rig.slice(start, end);
+  assert.match(observer, /rc\.value\(\)\.displayedValue\(\)\.markInterested\(\);/);
+  assert.match(observer, /rc\.value\(\)\.getOrigin\(\)\.markInterested\(\);/);
+  assert.match(observer, /rc\.value\(\)\.discreteValueCount\(\)\.markInterested\(\);/);
+  assert.match(observer, /rc\.value\(\)\.discreteValueNames\(\)\.markInterested\(\);/);
+  assert.match(handlers, /obj\.addProperty\("displayed", rc\.value\(\)\.displayedValue\(\)\.get\(\)\);/);
+});
+
 test('5u: every remote-page cursor restores its page after a controller reload', () => {
   const source = readFileSync(
     join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',

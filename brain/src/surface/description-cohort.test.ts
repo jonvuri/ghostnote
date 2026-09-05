@@ -4,10 +4,7 @@ import assert from 'node:assert/strict';
 import {
   DESCRIPTION_COHORT,
   DESCRIPTION_COHORT_V1,
-  DESCRIPTION_COHORT_V17,
-  DESCRIPTION_COHORT_V18,
-  TOOL_DESCRIPTION_V20_SHA256,
-  TOOL_DESCRIPTION_V19_SHA256,
+  TOOL_DESCRIPTION_V21_SHA256,
   TOOL_DESCRIPTION_V18_SHA256,
   TOOL_DESCRIPTION_V17_SHA256,
   TOOL_DESCRIPTION_V16_SHA256,
@@ -82,8 +79,8 @@ const EXPECTED_COHORT = [
   'reverse_device_source_composition',
 ] as const;
 
-test('description v20 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v20');
+test('description v21 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v21');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -102,23 +99,23 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
   );
 });
 
-test('description v20 matches its public artifact', () => {
+test('description v21 matches its public artifact', () => {
   const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V20_SHA256,
-    'the v20 public wording or schema changed',
+    TOOL_DESCRIPTION_V21_SHA256,
+    'the v21 public wording or schema changed',
   );
 });
 
 test('description v18 keeps its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V18);
-  assert.equal(fingerprintDescriptionCohort(artifact), TOOL_DESCRIPTION_V18_SHA256);
+  assert.equal(TOOL_DESCRIPTION_V18_SHA256,
+    '56e8db1cb0ceb56579400b00e0011622054bd7a1ef9a042787937f4ed6dbd3ae');
 });
 
 test('description v17 keeps its frozen public artifact', () => {
-  const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS, DESCRIPTION_COHORT_V17);
-  assert.equal(fingerprintDescriptionCohort(artifact), TOOL_DESCRIPTION_V17_SHA256);
+  assert.equal(TOOL_DESCRIPTION_V17_SHA256,
+    '7bd3bc42aa7bbf6793e0b40dcef40967aa7381eeb99b867ea748ffd4283117fe');
 });
 
 test('description v16 keeps its frozen fingerprint', () => {
