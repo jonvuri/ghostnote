@@ -347,6 +347,59 @@ public class Rig {
     /** The actual action-facing channel selection; unlike the two fields above, this is not slot-derived. */
     public int selectedMixerTrackIndex = -1;
     public int selectionChanges = 0;
+    /** All observed mixer-track and launcher-slot selection events. */
+    public long selectionRevision = 0;
+    /** Selection lease held only while the UI still shows Ghostnote's last target. */
+    private String selectionOwnerToken;
+    private int selectionOwnerTrackIndex = -1;
+    private int selectionOwnerSlotIndex = -1;
+
+    /** Claim the current selection for one bounded brain workflow. */
+    public void claimSelectionOwnership(String token, int trackIndex, int slotIndex) {
+        selectionOwnerToken = token;
+        selectionOwnerTrackIndex = trackIndex;
+        selectionOwnerSlotIndex = slotIndex;
+    }
+
+    /** Clear a prior workflow lease before an unowned selection command. */
+    public void clearSelectionOwnership() {
+        selectionOwnerToken = null;
+        selectionOwnerTrackIndex = -1;
+        selectionOwnerSlotIndex = -1;
+    }
+
+    /** Retain a lease only when the selected mixer track is its expected track. */
+    public void observeMixerSelection(int trackIndex) {
+        selectionRevision++;
+        selectedMixerTrackIndex = trackIndex;
+        if (selectionOwnerToken != null && selectionOwnerTrackIndex != trackIndex) {
+            clearSelectionOwnership();
+        }
+    }
+
+    /** Retain a lease only when the selected launcher slot is its exact target. */
+    public void observeSlotSelection(int trackIndex, int slotIndex) {
+        selectionRevision++;
+        selectedTrackIndex = trackIndex;
+        selectedSlotIndex = slotIndex;
+        selectionChanges++;
+        if (selectionOwnerToken != null
+                && (selectionOwnerTrackIndex != trackIndex
+                    || selectionOwnerSlotIndex != slotIndex)) {
+            clearSelectionOwnership();
+        }
+    }
+
+    /** Test one lease without a separate read-before-write boundary. */
+    public boolean selectionOwnedBy(String token, int trackIndex, int slotIndex) {
+        return selectionOwnerToken != null
+            && selectionOwnerToken.equals(token)
+            && selectionOwnerTrackIndex == trackIndex
+            && selectionOwnerSlotIndex == slotIndex
+            && selectedMixerTrackIndex == trackIndex
+            && (slotIndex < 0
+                || (selectedTrackIndex == trackIndex && selectedSlotIndex == slotIndex));
+    }
 
     // --- E16 §3.4f: is a clip move DETECTABLE, and by what? ---
     /**
@@ -721,7 +774,7 @@ public class Rig {
             // primary-focus state consumed by the Group action.
             final int mixerTrackIdx = i;
             track.addIsSelectedInMixerObserver(selected -> {
-                if (selected) selectedMixerTrackIndex = mixerTrackIdx;
+                if (selected) observeMixerSelection(mixerTrackIdx);
             });
 
             // Guarded on config.sends because sendBank() THROWS at size 0, and a
@@ -778,9 +831,7 @@ public class Rig {
             final int trackIdx = i;
             slots.addIsSelectedObserver((slotIdx, selected) -> {
                 if (selected) {
-                    selectedTrackIndex = trackIdx;
-                    selectedSlotIndex = slotIdx;
-                    selectionChanges++;
+                    observeSlotSelection(trackIdx, slotIdx);
                 }
             });
 
@@ -1392,6 +1443,11 @@ public class Rig {
         return directParameterTopLevelIndex + ":" + directParameterRouteKinds + ":"
             + directParameterRouteNames + ":" + directParameterRouteChannels + ":"
             + directParameterRouteDeviceIndices;
+    }
+
+    /** Return the exact route recorded for the current serialized device cursor. */
+    public String currentDirectParameterRouteSignature() {
+        return directParameterRouteSignature();
     }
 
     /** Select one independent remote page by its observed absolute index. */

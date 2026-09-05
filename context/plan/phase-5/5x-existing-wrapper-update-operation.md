@@ -1,9 +1,9 @@
 ---
 title: Phase 5x — existing-wrapper update operation
 kind: plan
-state: planned
-status: Planned. Evaluate a safe operation that adds or changes wrapper modulators.
-updated: 2026-09-03
+state: active
+status: Active next. Evaluate a safe operation that adds or changes wrapper modulators.
+updated: 2026-09-05
 parent: README.md
 prev: 5w-selection-borrowing-and-background-stability.md
 evidence: D1, D3, D5, D15, E4f, E87, E89-E91, E96, dogfood session 01a0690e-1761-76b1-9e8e-635bfa35e583

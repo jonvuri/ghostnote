@@ -53,11 +53,12 @@ export const WIRE = {
   slotMoveTo: 'slot.moveTo',
 
   /**
-   * The user's own clip selection, as an observer's last value.
+   * The user's own selection, as the observers' last value.
    *
    * ⚠ Read to SAVE it, not to act on it. Pointing steals the selection (E1) and
    * D6 makes restoring it Phase 1's debt; E14-F measured that the save/restore
-   * round trip works and does not disturb the pool cursor.
+   * round trip works and does not disturb the pool cursor. The reply also
+   * carries one revision for measured mixer-track and launcher-slot events.
    */
   selectionStatus: 'selection.status',
 

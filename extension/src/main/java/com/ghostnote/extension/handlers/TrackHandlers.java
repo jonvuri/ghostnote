@@ -215,9 +215,27 @@ public final class TrackHandlers extends HandlerGroup {
      *  - "track": Track.selectSlot(slotIndex)
      */
     private JsonElement slotSelect(JsonObject params) {
-        Track track = requireTrack(params.get("trackIndex").getAsInt());
+        int trackIndex = params.get("trackIndex").getAsInt();
+        Track track = requireTrack(trackIndex);
         int slotIndex = params.get("slotIndex").getAsInt();
         String mechanism = params.has("mechanism") ? params.get("mechanism").getAsString() : "slot";
+
+        JsonObject result = ok();
+        if (params.has("restoreOwnerToken")) {
+            String token = params.get("restoreOwnerToken").getAsString();
+            int expectedTrackIndex = params.get("expectedBorrowedTrackIndex").getAsInt();
+            int expectedSlotIndex = params.get("expectedBorrowedSlotIndex").getAsInt();
+            if (!rig.selectionOwnedBy(token, expectedTrackIndex, expectedSlotIndex)) {
+                result.addProperty("selected", false);
+                return result;
+            }
+            rig.clearSelectionOwnership();
+        } else if (params.has("selectionOwnerToken")) {
+            rig.claimSelectionOwnership(
+                params.get("selectionOwnerToken").getAsString(), trackIndex, slotIndex);
+        } else {
+            rig.clearSelectionOwnership();
+        }
 
         switch (mechanism) {
             case "slot":
@@ -229,7 +247,8 @@ public final class TrackHandlers extends HandlerGroup {
             default:
                 throw new IllegalArgumentException("unknown mechanism: " + mechanism);
         }
-        return ok();
+        result.addProperty("selected", true);
+        return result;
     }
 
     /**

@@ -3,7 +3,7 @@ title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
 status: Reopened 2026-08-25. Sessions 5u through 5x address the post-fix dogfood findings.
-updated: 2026-09-04
+updated: 2026-09-05
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -148,10 +148,11 @@ that first integration unless the proof needs one new owned asset.
     — done. API 25 has display and discrete readback but no exact semantic
     inverse. Semantic write requests now fail before project access.
 23. [5w — selection borrowing and background stability](5w-selection-borrowing-and-background-stability.md)
-    — active next. Isolate intermittent Bitwig activation and reduce repeated
-    selection and cursor work.
+    — done. Atomic selection ownership, safe cursor reuse, scalar controls, the
+    background wrapper, reversal, and exact cleanup pass.
 24. [5x — existing-wrapper update operation](5x-existing-wrapper-update-operation.md)
-    — planned. Evaluate and, if bounded, add a guarded wrapper update workflow.
+    — active next. Evaluate and, if bounded, add a guarded wrapper update
+    workflow after 5w closes.
 
 The dependency split is `5j → 5k → 5l`, with `5m` independent after 5j. Both
 branches join at 5n. Sessions 5o through 5t then run in order. The post-fix

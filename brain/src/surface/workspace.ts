@@ -74,6 +74,8 @@ export interface Workspace {
   /** Complete top-level and reachable-pad structure for one Drum Machine. */
   drumPads(container: DeviceAddress): Promise<ObservedDrumPadBank>;
   read(addresses: readonly Address[]): Promise<Snapshot>;
+  /** Preserve one UI selection across a composed workflow. */
+  preserveSelection?<T>(work: () => Promise<T>): Promise<T>;
   /**
    * ⚠ The ONLY write, and it records what it did. See the header for why that is
    * one function rather than two calls.
@@ -232,6 +234,11 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
     async read(addresses: readonly Address[]): Promise<Snapshot> {
       await deps.ready();
       return deps.adapter.read(addresses);
+    },
+
+    async preserveSelection<T>(work: () => Promise<T>): Promise<T> {
+      await deps.ready();
+      return deps.adapter.preserveSelection(work);
     },
 
     async contentSince(since: RevisionMark): Promise<ContentDelta> {

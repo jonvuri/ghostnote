@@ -25,6 +25,8 @@
  * passes against real Bitwig — including this session's executor cases. Until
  * that runs, treat this file as unproven.
  */
+import { randomUUID } from 'node:crypto';
+
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
   ContractVersionError, StaleAddressError, WireDriftError,
@@ -236,6 +238,8 @@ interface DeviceCursorStatus {
   readonly trackPosition?: number;
   readonly cursorTrackPinned?: boolean;
   readonly isNested?: boolean;
+  /** Exact route recorded by the extension for the current device cursor. */
+  readonly routeSignature?: string;
 }
 
 interface WireLayerInventory {
@@ -384,10 +388,27 @@ interface SelectionState {
   readonly slotIndex: number;
 }
 
+interface HeldCursorTrack {
+  readonly channelId: string;
+  readonly trackIndex: number;
+  readonly structuralRevision: number;
+  readonly extensionGeneration: string | undefined;
+}
+
+interface HeldDeviceTarget extends HeldCursorTrack {
+  readonly key: AddressKey;
+  readonly deviceName: string;
+  readonly deviceIndex: number;
+  readonly nested: boolean;
+  readonly routeSignature: string;
+}
+
 /** Eight attempts keep target and dual-pin confirmation bounded. */
 const CLIP_POINT_ATTEMPTS = 8;
 /** About two seconds after paramsLive for large plugin observer generations. */
 const PARAMETER_INVENTORY_ATTEMPTS = 80;
+/** Give a plug-in write callback the same bounded observer window. */
+const PARAMETER_WRITE_COMPLETION_ATTEMPTS = 80;
 /** Re-arm an observer that does not complete within its bounded generation. */
 const PARAMETER_INVENTORY_ACQUISITIONS = 3;
 /** Re-arm a remote observer that does not complete within one generation. */
@@ -464,6 +485,21 @@ export interface LiveOptions {
   readonly expectMethodsHash?: string;
   /** Optional phase timing for focused performance probes. */
   readonly onTiming?: (event: LiveTimingEvent) => void;
+  /** Optional ordered trace for selection and target diagnostics. */
+  readonly onTrace?: (event: LiveTraceEvent) => void;
+}
+
+export interface LiveTraceEvent {
+  readonly action:
+    | 'cursor-point'
+    | 'track-reuse'
+    | 'device-retarget'
+    | 'device-reuse'
+    | 'device-reuse-invalid'
+    | 'selection-restore'
+    | 'selection-restore-skipped'
+    | 'structural-invalidation';
+  readonly target?: string;
 }
 
 export interface LiveTimingEvent {
@@ -545,6 +581,7 @@ export class LiveAdapter implements BitwigAdapter {
   private readonly transport: Transport;
   private readonly expectMethodsHash: string | undefined;
   private readonly onTiming: ((event: LiveTimingEvent) => void) | undefined;
+  private readonly onTrace: ((event: LiveTraceEvent) => void) | undefined;
   /** Allocated at `hello()` from the rig's real pool size; see `pool.ts`. */
   private pool: CursorPool;
   /** The caller supplied an exact cursor partition that `hello()` must keep. */
@@ -652,12 +689,21 @@ export class LiveAdapter implements BitwigAdapter {
       borrowed: boolean;
       capture: Promise<SelectionState | undefined> | undefined;
       users: number;
+      token: string;
+      lastBorrowedTrackIndex: number | undefined;
+      lastBorrowedSlotIndex: number | undefined;
     }
     | undefined;
   /** A completed scope must finish its UI restore before a new scope can start. */
   private selectionRestore: Promise<void> | undefined;
   /** Cursor ref -> clip target confirmed by live cursor readback. */
   private readonly heldClips = new Map<string, AddressKey>();
+  /** Cursor ref -> track target confirmed by a target-bound reply. */
+  private readonly heldCursorTracks = new Map<string, HeldCursorTrack>();
+  /** One device target confirmed by exact status readback. */
+  private heldDeviceTarget: HeldDeviceTarget | undefined;
+  /** Local invalidation generation for structural operations. */
+  private structuralRevision = 0;
   /** One armed single-clip wake. Exact bulk readback remains the proof. */
   private pendingNoteWake: NoteWake | undefined;
   /** One confirmed device cursor is the complete DirectParameter route. */
@@ -669,6 +715,7 @@ export class LiveAdapter implements BitwigAdapter {
     this.transport = options.transport ?? new BridgeTransport();
     this.expectMethodsHash = options.expectMethodsHash;
     this.onTiming = options.onTiming;
+    this.onTrace = options.onTrace;
     // A pool of one until `hello()` learns the rig's real size — which is the
     // Phase-0 behaviour exactly, so an adapter used before the handshake is no
     // worse than it was, merely no better.
@@ -686,6 +733,63 @@ export class LiveAdapter implements BitwigAdapter {
     } finally {
       this.onTiming?.({ phase, elapsedMs: performance.now() - start });
     }
+  }
+
+  /** Record the last UI selection target borrowed inside the active pipeline. */
+  private recordSelectionBorrow(trackIndex: number, slotIndex?: number): void {
+    const scope = this.selectionScope;
+    if (scope === undefined) return;
+    scope.lastBorrowedTrackIndex = trackIndex;
+    scope.lastBorrowedSlotIndex = slotIndex;
+  }
+
+  /** Send the selection-coupled cursor-track point and invalidate moved handles. */
+  private async pointCursorTrack(
+    cursor: string,
+    trackIndex: number,
+    invalidateDevice = true,
+  ): Promise<void> {
+    this.heldCursorTracks.delete(cursor);
+    if (cursor === '0' && invalidateDevice) this.heldDeviceTarget = undefined;
+    this.recordSelectionBorrow(trackIndex);
+    this.onTrace?.({ action: 'cursor-point', target: `${cursor}:${trackIndex}` });
+    await this.transport.send({
+      method: WIRE.cursorPointTrack,
+      params: {
+        cursor,
+        trackIndex,
+        ...(this.selectionScope === undefined
+          ? {} : { selectionOwnerToken: this.selectionScope.token }),
+      },
+    });
+  }
+
+  /** Keep a confirmed track target only inside one complete selection scope. */
+  private rememberCursorTrack(cursor: string, row: Pick<WireTrack, 'channelId' | 'index'>): void {
+    if (this.selectionScope === undefined) return;
+    this.heldCursorTracks.set(cursor, {
+      channelId: row.channelId,
+      trackIndex: row.index,
+      structuralRevision: this.structuralRevision,
+      extensionGeneration: this.lastMark?.generation,
+    });
+  }
+
+  private cursorTrackHeld(cursor: string, row: Pick<WireTrack, 'channelId' | 'index'>): boolean {
+    const held = this.heldCursorTracks.get(cursor);
+    return this.selectionScope !== undefined
+      && held?.channelId === row.channelId
+      && held.trackIndex === row.index
+      && held.structuralRevision === this.structuralRevision
+      && held.extensionGeneration === this.lastMark?.generation;
+  }
+
+  /** Invalidate every target whose positional proof a structural edit can stale. */
+  private invalidateStructuralTargets(): void {
+    this.structuralRevision += 1;
+    this.heldCursorTracks.clear();
+    this.heldDeviceTarget = undefined;
+    this.onTrace?.({ action: 'structural-invalidation' });
   }
 
   /** Serialize work through the one DirectParameter cursor. */
@@ -964,18 +1068,28 @@ export class LiveAdapter implements BitwigAdapter {
    *
    * ⚠ `device.list` reads `rig.cursorDeviceBanks[cursor]`, i.e. the bank of
    * whatever track that cursor is pointed at — so the point is part of the
-   * observation, not a precondition someone else is trusted to have met. Re-pointed
-   * on every call rather than relying on an assignment to have survived, because
-   * the whole reason this is being read is that a structural op just ran
-   * (standing rule 2).
+   * observation, not a precondition someone else is trusted to have met. One
+   * selection scope can reuse a confirmed assignment. A target-bound reply must
+   * confirm the durable track id before the adapter retains the assignment.
+   * Structural operations clear it (standing rule 2).
    */
   private async deviceChain(trackRef: TrackAddress): Promise<ChainSnapshot | undefined> {
     const trackIndex = this.index.get(trackRef.channelId);
     if (trackIndex === undefined) return undefined;
     const cursor = this.pool.cursorForTrack(trackRef);
     this.heldClips.delete(cursor);
-    await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
-    await this.settle('cursorPoint');
+    const held = this.cursorTrackHeld(cursor, { channelId: trackRef.channelId, index: trackIndex });
+    if (!held) {
+      if (cursor === '0') {
+        await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
+        this.heldDeviceTarget = undefined;
+      }
+      await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor, pinned: false } });
+      await this.pointCursorTrack(cursor, trackIndex);
+      await this.settle('cursorPoint');
+    } else {
+      this.onTrace?.({ action: 'track-reuse', target: `${cursor}:${trackIndex}` });
+    }
     const res = (await this.transport.send({
       method: WIRE.deviceList,
       params: { cursor },
@@ -1000,17 +1114,29 @@ export class LiveAdapter implements BitwigAdapter {
       && res.count === devices.length
       && bankSize !== undefined && devices.length <= bankSize
       && contiguous;
+    if (res.trackChannelId === trackRef.channelId) {
+      this.rememberCursorTrack(cursor, { channelId: trackRef.channelId, index: trackIndex });
+    } else {
+      this.heldCursorTracks.delete(cursor);
+      if (cursor === '0') this.heldDeviceTarget = undefined;
+    }
     return { devices, blind: !complete, ...(bankSize === undefined ? {} : { bankSize }) };
   }
 
   /** Accept completeness only after two equal consecutive device-bank replies. */
   private async stableDeviceChain(trackRef: TrackAddress): Promise<ChainSnapshot | undefined> {
-    const first = await this.deviceChain(trackRef);
-    const second = await this.deviceChain(trackRef);
-    if (first === undefined || second === undefined) return undefined;
-    const same = JSON.stringify(first.devices) === JSON.stringify(second.devices)
-      && first.bankSize === second.bankSize;
-    return { ...second, blind: first.blind || second.blind || !same };
+    let prior: ChainSnapshot | undefined;
+    for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+      const current = await this.deviceChain(trackRef);
+      if (current === undefined) return undefined;
+      const same = prior !== undefined
+        && JSON.stringify(prior.devices) === JSON.stringify(current.devices)
+        && prior.bankSize === current.bankSize;
+      if (prior !== undefined && same && !prior.blind && !current.blind) return current;
+      prior = current;
+      await this.settle('cursorPoint');
+    }
+    return prior === undefined ? undefined : { ...prior, blind: true };
   }
 
   /** Validate one caller-owned full-chain boundary before a device mutation. */
@@ -1143,31 +1269,49 @@ export class LiveAdapter implements BitwigAdapter {
     const path = chainPath(device);
     if (path.length > 2) return { standing: 'unreachable' };
 
-    // Force every cursor-bound observer to leave the prior target first.
-    const detour = this.bank.find((candidate) => candidate.channelId !== device.track.channelId);
-    if (detour !== undefined) {
-      await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
-      await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
-      await this.transport.send({
-        method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex: detour.index },
-      });
-      let confirmed = false;
-      for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
-        await this.settle('cursorPoint');
-        const status = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
-        confirmed = status.trackChannelId === detour.channelId
-          && status.trackPosition === detour.index;
-        if (confirmed) break;
+    const key = addressKey(device);
+    const held = this.heldDeviceTarget;
+    if (this.selectionScope !== undefined
+        && held?.key === key
+        && held.channelId === device.track.channelId
+        && held.trackIndex === row.index
+        && held.deviceIndex === device.chainIndex
+        && held.structuralRevision === this.structuralRevision
+        && held.extensionGeneration === this.lastMark?.generation) {
+      const status = await this.transport.send({
+        method: WIRE.deviceCursorStatus,
+      }) as DeviceCursorStatus;
+      const confirmed = status.exists === true
+        && status.name === held.deviceName
+        && status.trackChannelId === held.channelId
+        && status.trackPosition === held.trackIndex
+        && status.deviceIndex === held.deviceIndex
+        && status.isNested === held.nested
+        && status.isPinned === true
+        && status.cursorTrackPinned === true
+        && status.routeSignature === held.routeSignature;
+      if (confirmed) {
+        this.onTrace?.({ action: 'device-reuse', target: key });
+        return { standing: 'stable', deviceName: held.deviceName };
       }
-      if (!confirmed) return { standing: 'unstable' };
-      await this.settle('paramsLive');
+      this.onTrace?.({ action: 'device-reuse-invalid', target: key });
+      if (status.trackChannelId !== held.channelId
+          || status.trackPosition !== held.trackIndex
+          || status.cursorTrackPinned !== true) {
+        this.heldCursorTracks.delete('0');
+      }
     }
+
+    this.heldDeviceTarget = undefined;
+    this.onTrace?.({ action: 'device-retarget', target: key });
 
     await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
     await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
-    await this.transport.send({
-      method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex: row.index },
-    });
+    if (!this.cursorTrackHeld('0', row)) {
+      await this.pointCursorTrack('0', row.index, false);
+    } else {
+      this.onTrace?.({ action: 'track-reuse', target: `0:${row.index}` });
+    }
 
     type ParameterDeviceList = {
       readonly devices?: readonly WireDevice[];
@@ -1182,6 +1326,7 @@ export class LiveAdapter implements BitwigAdapter {
       }) as ParameterDeviceList;
       if (observed.trackChannelId === device.track.channelId) {
         top = observed;
+        this.rememberCursorTrack('0', row);
         break;
       }
     }
@@ -1354,6 +1499,7 @@ export class LiveAdapter implements BitwigAdapter {
     await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: true } });
     await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: true } });
     let pinned = false;
+    let pinnedStatus: DeviceCursorStatus | undefined;
     for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
       await this.settle('cursorPoint');
       const status = await this.transport.send({ method: WIRE.deviceCursorStatus }) as DeviceCursorStatus;
@@ -1361,7 +1507,25 @@ export class LiveAdapter implements BitwigAdapter {
         && status.trackChannelId === device.track.channelId && status.trackPosition === row.index
         && status.isPinned === true && status.cursorTrackPinned === true
         && status.deviceIndex === device.chainIndex;
-      if (pinned) break;
+      if (pinned) {
+        pinnedStatus = status;
+        break;
+      }
+    }
+    if (pinned && this.selectionScope !== undefined
+        && typeof pinnedStatus?.routeSignature === 'string') {
+      this.heldDeviceTarget = {
+        key,
+        channelId: device.track.channelId,
+        trackIndex: row.index,
+        deviceName: targetName,
+        deviceIndex: device.chainIndex,
+        nested: path.length > 0,
+        routeSignature: pinnedStatus.routeSignature,
+        structuralRevision: this.structuralRevision,
+        extensionGeneration: this.lastMark?.generation,
+      };
+      this.rememberCursorTrack('0', row);
     }
     return pinned
       ? { standing: 'stable', deviceName: targetName }
@@ -1554,7 +1718,7 @@ export class LiveAdapter implements BitwigAdapter {
   ): Promise<ParamState | undefined> {
     if (address.directId === undefined) return undefined;
     let prior: string | undefined;
-    for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
+    for (let attempt = 0; attempt < PARAMETER_WRITE_COMPLETION_ATTEMPTS; attempt++) {
       const observed = await this.transport.send({
         method: WIRE.directParamCompletion,
       }) as WireDirectCompletion;
@@ -1820,9 +1984,14 @@ export class LiveAdapter implements BitwigAdapter {
     let trackReply: WireInventory | undefined;
     for (let attempt = 0; attempt < 8; attempt += 1) {
       this.heldClips.delete('0');
-      await this.transport.send({
-        method: WIRE.cursorPointTrack, params: { cursor: '0', trackIndex },
-      });
+      this.heldDeviceTarget = undefined;
+      if (!this.cursorTrackHeld('0', { channelId: trackRef.channelId, index: trackIndex })) {
+        await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
+        await this.transport.send({ method: WIRE.cursorPinTrack, params: { cursor: '0', pinned: false } });
+        await this.pointCursorTrack('0', trackIndex);
+      } else {
+        this.onTrace?.({ action: 'track-reuse', target: `0:${trackIndex}` });
+      }
       if (containerIndex < this.containerScopeSize) {
         await this.transport.send({
           method: WIRE.deviceCursorSelectAt, params: { deviceIndex: containerIndex },
@@ -1837,8 +2006,10 @@ export class LiveAdapter implements BitwigAdapter {
       // identity (standing rule 2), and two tracks may share one.
       if (reply.trackChannelId !== trackRef.channelId) {
         reply = undefined;
+        this.heldCursorTracks.delete('0');
         continue;
       }
+      this.rememberCursorTrack('0', { channelId: trackRef.channelId, index: trackIndex });
       trackReply = reply;
       const fixedScope = (reply.scopes ?? [])[containerIndex];
       const slotName = fixedScope?.hasSlots === true && fixedScope.slotNames?.length === 1
@@ -1852,8 +2023,10 @@ export class LiveAdapter implements BitwigAdapter {
       const nestedReply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
       if (nestedReply.trackChannelId !== trackRef.channelId) {
         reply = undefined;
+        this.heldCursorTracks.delete('0');
         continue;
       }
+      this.rememberCursorTrack('0', { channelId: trackRef.channelId, index: trackIndex });
       trackReply = nestedReply;
       const cursorScope = nestedReply.cursorScope;
       const cursorSettled = cursorScope?.status === 'held'
@@ -2383,26 +2556,64 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /**
-   * Put it back — one call, at the end, exactly as E14-F2/F3/F4 measured.
+   * Put it back with one guarded call at the end.
    *
-   * The same `track.selectSlot` mechanism pointing uses, because it is the only
-   * one of three that works (E1) and because restoring through a different
-   * mechanism would be a second unmeasured thing.
+   * The same `track.selectSlot` mechanism pointing uses is the only measured
+   * route that works (E1). A composed scope sends its selection lease to the
+   * extension. The handler tests and consumes that lease before it selects the
+   * saved slot. A newer operator selection clears the lease.
    */
-  private async restoreSelection(saved: SelectionState | undefined): Promise<void> {
-    await this.timed('selectionRestoration', () => this.restoreSelectionNow(saved));
+  private async restoreSelection(
+    saved: SelectionState | undefined,
+    scope?: NonNullable<LiveAdapter['selectionScope']>,
+  ): Promise<void> {
+    await this.timed('selectionRestoration', () => this.restoreSelectionNow(saved, scope));
   }
 
-  private async restoreSelectionNow(saved: SelectionState | undefined): Promise<void> {
+  private async restoreSelectionNow(
+    saved: SelectionState | undefined,
+    scope?: NonNullable<LiveAdapter['selectionScope']>,
+  ): Promise<void> {
     // A direct call has no ownership across its return boundary. Another adapter
     // or probe can move the same physical cursor before the next call. Keep a
     // hold only inside `preserveSelection`, where this adapter owns the complete
     // pipeline and both the cursor track and clip remain pinned.
-    if (this.selectionScope === undefined) this.heldClips.clear();
+    if (this.selectionScope === undefined) {
+      this.heldClips.clear();
+      this.heldCursorTracks.clear();
+      this.heldDeviceTarget = undefined;
+    }
     if (saved === undefined) return;
-    await this.transport.send({
+    if (scope !== undefined && scope.lastBorrowedTrackIndex === undefined) {
+      this.onTrace?.({
+        action: 'selection-restore-skipped',
+        target: `${saved.trackIndex}:${saved.slotIndex}`,
+      });
+      return;
+    }
+    const reply = await this.transport.send({
       method: WIRE.slotSelect,
-      params: { trackIndex: saved.trackIndex, slotIndex: saved.slotIndex, mechanism: 'track' },
+      params: {
+        trackIndex: saved.trackIndex,
+        slotIndex: saved.slotIndex,
+        mechanism: 'track',
+        ...(scope === undefined ? {} : {
+          restoreOwnerToken: scope.token,
+          expectedBorrowedTrackIndex: scope.lastBorrowedTrackIndex,
+          expectedBorrowedSlotIndex: scope.lastBorrowedSlotIndex ?? -1,
+        }),
+      },
+    }) as { selected?: boolean };
+    if (scope !== undefined && reply.selected !== true) {
+      this.onTrace?.({
+        action: 'selection-restore-skipped',
+        target: `${saved.trackIndex}:${saved.slotIndex}`,
+      });
+      return;
+    }
+    this.onTrace?.({
+      action: 'selection-restore',
+      target: `${saved.trackIndex}:${saved.slotIndex}`,
     });
     // The call returns before the selection observer moves. Do not let the
     // executor return while the UI still shows the borrowed target. Poll the
@@ -2453,6 +2664,9 @@ export class LiveAdapter implements BitwigAdapter {
       // work can let a human selection replace the pipeline-entry state.
       capture: this.captureSelection(),
       users: 1,
+      token: randomUUID(),
+      lastBorrowedTrackIndex: undefined as number | undefined,
+      lastBorrowedSlotIndex: undefined as number | undefined,
     };
     this.selectionScope = scope;
     try {
@@ -2471,8 +2685,10 @@ export class LiveAdapter implements BitwigAdapter {
     // A verified hold belongs to this pipeline. Do not carry it across a gap in
     // which an external structural edit can move the track or scene layout.
     this.heldClips.clear();
+    this.heldCursorTracks.clear();
+    this.heldDeviceTarget = undefined;
     if (!scope.borrowed) return;
-    const restore = this.restoreSelection(scope.saved);
+    const restore = this.restoreSelection(scope.saved, scope);
     this.selectionRestore = restore;
     try {
       await restore;
@@ -2926,11 +3142,18 @@ export class LiveAdapter implements BitwigAdapter {
           method: WIRE.cursorPinTrack,
           params: { cursor, pinned: false },
         });
-        await this.transport.send({ method: WIRE.cursorPointTrack, params: { cursor, trackIndex } });
+        await this.pointCursorTrack(cursor, trackIndex);
         await this.transport.send({
           method: WIRE.slotSelect,
-          params: { trackIndex, slotIndex: clipRef.slot.scene.index, mechanism: 'track' },
+          params: {
+            trackIndex,
+            slotIndex: clipRef.slot.scene.index,
+            mechanism: 'track',
+            ...(this.selectionScope === undefined
+              ? {} : { selectionOwnerToken: this.selectionScope.token }),
+          },
         });
+        this.recordSelectionBorrow(trackIndex, clipRef.slot.scene.index);
       }
       // A re-send restarts the follower. Later checks use the structural budget
       // instead of treating several 25 ms waits as one longer wait.
@@ -4819,6 +5042,35 @@ export class LiveAdapter implements BitwigAdapter {
 
       if (stage.settle !== undefined) await this.settle(stage.settle);
 
+      const cohortParameterOp = parameterCohort?.kind === 'direct'
+        && stage.ops.length === 1 && stage.ops[0]?.op === 'param.set'
+        ? stage.ops[0]
+        : undefined;
+      if (cohortParameterOp !== undefined && parameterCohort?.kind === 'direct'
+          && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        const wireCompletion = result.results?.find((entry) =>
+          entry.method === WIRE.directParamSet)?.result as {
+            readonly completionGeneration?: unknown;
+          } | undefined;
+        const completionGeneration = wireCompletion?.completionGeneration;
+        const completed = typeof completionGeneration === 'number'
+          ? await this.directParameterCompletion(
+            cohortParameterOp.param,
+            parameterCohort.deviceName,
+            completionGeneration,
+            cohortParameterOp.value,
+          )
+          : undefined;
+        if (completed === undefined) {
+          const why = 'the target-bound parameter write callback did not settle';
+          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
+            entry.op === WIRE.directParamSet || entry.op === 'param.set'
+              ? { ...entry, ok: false, error: why }
+              : entry);
+          receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
+        }
+      }
+
       if (parameterOp !== undefined && parameterBefore !== undefined
           && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
         const row = this.bank.find((item) =>
@@ -5061,6 +5313,7 @@ export class LiveAdapter implements BitwigAdapter {
         confirmedMutationTargets.clear();
         this.pool.invalidate();
         this.heldClips.clear();
+        this.invalidateStructuralTargets();
         // Logical invalidation is not enough. Reads pin the physical writer
         // cursors, and a pinned cursor ignores later selection changes. Release
         // every writer cursor and wait before the next stage.

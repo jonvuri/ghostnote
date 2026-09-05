@@ -1,13 +1,13 @@
 ---
 title: Phase 5w — selection borrowing and background stability
 kind: plan
-state: planned
-status: Planned. Isolate intermittent Bitwig foreground changes and repeated retargeting.
-updated: 2026-09-03
+state: done
+status: Atomic selection ownership, safe target reuse, and the expanded background matrix pass.
+updated: 2026-09-05
 parent: README.md
 prev: 5v-semantic-parameter-units-and-fail-closed-guidance.md
 next: 5x-existing-wrapper-update-operation.md
-evidence: D6, D15, E1, E14, E32, E36, E55, E58, dogfood session 01a0690e-1761-76b1-9e8e-635bfa35e583
+evidence: D6, D15, E1, E14, E32, E36, E55, E58, E99, dogfood session 01a0690e-1761-76b1-9e8e-635bfa35e583
 ---
 
 # Phase 5w — selection borrowing and background stability
@@ -96,3 +96,50 @@ and back for each operation.
 
 Session 5x evaluates and, if bounded, adds an existing-wrapper update operation.
 Use the proved selection scope and target-reuse rules in that design.
+
+## Result
+
+The public wrapper and reversal now share one selection scope. Stable track and
+device targets are reused only after exact status checks. Track identity, bank
+position, route signature, device name and position, nested state, both pins,
+extension generation, and local structural revision guard the fast path.
+Structural stages clear every hold. Cursor drift or a target mismatch forces a
+complete retarget.
+
+Selection restoration now checks current host selection. It does not overwrite
+a newer operator track or launcher-slot selection. The extension reports the
+exact device route signature that makes same-target confirmation possible.
+
+The final live trace recorded 20 actual cursor points, 141 avoided points, and
+31 device-target reuses across scalar controls, the wrapper, and reversal. The
+repeatable read control reduced cursor points from 34 to four and observed
+selection events from one to zero. Bitwig stayed in the background.
+
+A follow-up review found three gaps. Selection restoration used separate check
+and write calls. Track-cursor drift did not clear its cached track hold. The
+live matrix omitted scalar writes and repeatable frontmost and background
+controls.
+
+The repair gives each composed scope an extension-owned selection lease. A
+different observed operator selection clears it. The restore handler checks
+and consumes the lease before it writes. Track-cursor drift now clears the
+track hold and re-points. The expanded probe compares repeated frontmost and
+background reads, measures observed selection events, runs direct and remote
+scalar writes and reversals, and then runs the wrapper and reversal. Delayed
+device banks now settle to two complete readings. Direct scalar cohorts wait
+for the exact target-bound write callback before the full integrity read.
+
+## Verification
+
+- `npm run probe:phase5w-selection`: all live cases and exact cleanup pass.
+- `npm run check`: type checking and 1,023 tests pass.
+- `./gradlew test`: pass.
+- `./gradlew copyExtension`: pass.
+- `npm run probe:hello`: deployment freshness passes.
+
+## Retrospective
+
+Include nested batch methods when a probe measures wire cost. Keep target reuse
+inside the workflow scope that owns selection borrowing. Put an ownership check
+in the same extension handler as its write. A prior coordinate read cannot
+close a restore race.

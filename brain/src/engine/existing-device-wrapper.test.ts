@@ -54,8 +54,13 @@ function fixture(options: {
     observationStore: new FakeObservationStore(),
   });
   let preset: Buffer | undefined;
+  let workflowScopes = 0;
   const workspace: Workspace = Object.freeze({
     ...base,
+    async preserveSelection<T>(work: () => Promise<T>): Promise<T> {
+      workflowScopes += 1;
+      return base.preserveSelection === undefined ? work() : base.preserveSelection(work);
+    },
     async apply(
       ops: Parameters<Workspace['apply']>[0],
       run?: Parameters<Workspace['apply']>[1],
@@ -99,7 +104,10 @@ function fixture(options: {
       return change;
     },
   });
-  return { fake, workspace, row, target, track: track(row.channelId) };
+  return {
+    fake, workspace, row, target, track: track(row.channelId),
+    workflowScopes: () => workflowScopes,
+  };
 }
 
 test('5p-workflow: native FX wraps, preserves its scalar fingerprint, and reverses exactly', async () => {
@@ -136,6 +144,7 @@ test('5p-workflow: native FX wraps, preserves its scalar fingerprint, and revers
   assert.equal(fx.row.devices[0], fx.target);
   assert.equal(fx.row.devices[0]!.params[0]!.value, 0.37);
   assert.equal(fx.row.devices[0]!.enabled, false);
+  assert.equal(fx.workflowScopes(), 2, 'wrap and reversal each use one workflow-wide scope');
 });
 
 test('5p-workflow: a plug-in-shaped inventory wraps and tail reversal needs no reorder', async () => {

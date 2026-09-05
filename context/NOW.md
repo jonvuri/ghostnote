@@ -2,9 +2,9 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-09-04
+updated: 2026-09-05
 phase: phase-5
-session: 5w-selection-borrowing-and-background-stability
+session: 5x-existing-wrapper-update-operation
 ---
 
 # Now
@@ -68,6 +68,29 @@ the wrapper reversed. E98 records the complete API matrix and live result.
 `npm run check`, extension compilation, deployment freshness, the complete 5v
 live probe, and exact cleanup pass.
 
+## Session 5w result
+
+The public existing-device wrapper and reversal now share one selection scope.
+Confirmed track and device targets are reused only while exact identity, route,
+pin, generation, and structural-revision guards agree. Structural change,
+cursor drift, or target mismatch forces a complete retarget. A newer operator
+selection suppresses stale restoration.
+
+A review follow-up repaired three gaps. Selection restoration now uses an
+extension-owned lease and one atomic guarded handler. Track-cursor drift clears
+the cached track hold before retargeting. The live probe now has repeatable
+frontmost and background controls, observed selection-event measurements, and
+direct and remote scalar write and reversal cases.
+
+The final control reduced cursor points from 34 to four and observed selection
+events from one to zero. Across the background scalar controls, wrapper, and
+reversal, target reuse avoided 141 cursor points and reused 31 device targets.
+Bitwig stayed backgrounded. Both scalar reversals, the wrapper reversal, exact
+source order, and the seven-track baseline passed. E99 records the full matrix.
+
+`npm run check` passes 1,023 tests. Extension compilation, deployment freshness,
+the complete live probe, and exact cleanup pass.
+
 ## Post-fix dogfood review
 
 Session `01a0690e-1761-76b1-9e8e-635bfa35e583` produced the three-modulator
@@ -82,18 +105,18 @@ review found four issues:
 4. The surface had no update operation, so the agent reversed and rebuilt the
    wrapper without proving all prior modulator state.
 
-The focused queue is 5u settlement policy, 5v semantic units, 5w selection and
-background stability, and 5x wrapper update feasibility. Return to 5t for the
-final dogfood and closeout after 5x.
+The focused queue completed 5u settlement policy, 5v semantic units, and 5w
+selection stability. Session 5x now evaluates wrapper update feasibility. Return
+to 5t for the final dogfood and closeout after 5x.
 
 ## Next action
 
-Run session 5w. Isolate selection borrowing, repeated retargeting, and Bitwig
-foreground changes. Then run 5x before a new final dogfood task.
+Run session 5x. Evaluate a guarded update operation for an existing wrapper.
 
 ## Retrospective
 
-A modulator page belongs to its owning container, not its nested target. State
-that distinction in live probe plans to prevent an avoidable retry. Controller
-reload remains an operator action; always verify deployment freshness after it.
-Apply shared scalar guards to both direct and remote parameter routes.
+Count nested batch methods in the same trace as direct wire calls. Keep cursor
+and device reuse inside the workflow scope that owns selection borrowing.
+Put the ownership check in the same extension handler as its selection write.
+Use a native scalar when the test controls a public method rather than plug-in
+callback timing.

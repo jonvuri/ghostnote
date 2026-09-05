@@ -46,7 +46,13 @@ outlives the request that resolved it.**
   eviction, device pointing, and every structural operation invalidate the
   applicable hold. **Amended by E36:** only an active executor selection scope
   can reuse a hold across calls. A direct adapter call clears its holds when it
-  returns.
+  returns. **Amended by E99:** one composed wrapper can own the same scope. A
+  confirmed track or device target is reused only while durable track identity,
+  route, position, pin, extension generation, and structural revision still
+  agree. Each workflow selection command carries an extension-owned lease.
+  Selection observers clear the lease when the operator selects a different
+  target. The restore handler checks and consumes the lease before it writes, so
+  a newer operator selection cannot race between a check and the restore.
 - ⚠ **Pointing at an EMPTY slot silently lands on the WRONG clip** and
   `cursor.status` looks healthy (E2). Create the clip first, always.
 - **Bank-window overflow is a refusal, not a knob** (E5, standing rule 5).

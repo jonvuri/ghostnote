@@ -105,12 +105,14 @@ plus `selectDevice(index)` [K, E4].
 
 ### Product DirectParameter route
 
-The product serializes DirectParameter work through one device cursor. Each
-generation detours through another confirmed track before it clears prior IDs
-and values. The return confirms the target device-bank track, device position,
-device name, track pin, and device pin. Two equal consecutive inventories must
-agree in the current generation [K,
-[E55](../experiments/e55-direct-parameter-core-is-live.md)].
+The product serializes DirectParameter work through one device cursor. A new or
+invalid target gets a complete retarget before a new observer generation. One
+composed selection scope can reuse the same target after exact status confirms
+track identity and position, device name and position, nested state, both pins,
+route signature, extension generation, and structural revision. A mismatch or
+structural change clears the hold [K,
+[E55](../experiments/e55-direct-parameter-core-is-live.md) and
+[E99](../experiments/e99-selection-borrowing-and-background-stability.md)].
 
 Guarded writes keep the complete top-level name and enabled fingerprint
 separate from the nested route and final local target. Named entries, drum-pad

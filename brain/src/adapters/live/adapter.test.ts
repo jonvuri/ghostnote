@@ -62,6 +62,8 @@ class CursorModelTransport implements Transport {
   private readonly cursorOn = new Map<string, number>();
   /** The cursor named by the last `cursor.pointTrack`, awaiting its `slot.select`. */
   private pending: string | undefined;
+  /** Extension-owned token for an atomic workflow restore. */
+  private selectionOwnerToken: string | undefined;
   /** Cursor ref -> whether it no longer follows launcher selection. */
   private readonly pinned = new Map<string, boolean>();
   /** Cursor ref -> whether its owning track no longer follows track selection. */
@@ -155,9 +157,18 @@ class CursorModelTransport implements Transport {
       // the restore from being mistaken for a point.
       case WIRE.cursorPointTrack:
         this.pending = params['cursor'] as string;
+        this.selectionOwnerToken = params['selectionOwnerToken'] as string | undefined;
         return {};
 
       case WIRE.slotSelect: {
+        const restoreOwnerToken = params['restoreOwnerToken'] as string | undefined;
+        if (restoreOwnerToken !== undefined && restoreOwnerToken !== this.selectionOwnerToken) {
+          return { selected: false };
+        }
+        if (restoreOwnerToken !== undefined) this.selectionOwnerToken = undefined;
+        if (params['selectionOwnerToken'] !== undefined) {
+          this.selectionOwnerToken = params['selectionOwnerToken'] as string;
+        }
         const slotIndex = params['slotIndex'] as number;
         // E36: every cursor whose pin has not settled still follows selection.
         for (const cursor of this.cursorOn.keys()) {
@@ -172,7 +183,7 @@ class CursorModelTransport implements Transport {
           this.selection.trackIndex = params['trackIndex'] as number;
           this.selection.slotIndex = slotIndex;
         }
-        return {};
+        return { selected: true };
       }
 
       case WIRE.cursorPin: {
@@ -546,7 +557,7 @@ test('B4: one selection scope covers repeated live reads and restores once', asy
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.selectionStatus).length,
     2,
-    'the full pipeline captures once and confirms the final restore once',
+    'the pipeline captures once and confirms the atomically guarded restore',
   );
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.slotStatus).length,
@@ -555,11 +566,10 @@ test('B4: one selection scope covers repeated live reads and restores once', asy
   );
   const selects = transport.frames.filter((frame) => frame.method === WIRE.slotSelect);
   assert.equal(selects.length, 2, 'one verified cursor point and one final restore are sent');
-  assert.deepEqual(selects.at(-1)?.params, {
-    trackIndex: 3,
-    slotIndex: 2,
-    mechanism: 'track',
-  });
+  assert.equal(selects.at(-1)?.params?.['trackIndex'], 3);
+  assert.equal(selects.at(-1)?.params?.['slotIndex'], 2);
+  assert.equal(selects.at(-1)?.params?.['mechanism'], 'track');
+  assert.equal(typeof selects.at(-1)?.params?.['restoreOwnerToken'], 'string');
 });
 
 test('5d repair: a pipeline captures selection eagerly but does not restore without a borrow', async () => {
@@ -589,11 +599,12 @@ test('5d repair: entry selection wins over a change before the first cursor borr
   assert.deepEqual(selected, { trackIndex: 3, slotIndex: 2 });
   const restores = transport.frames.filter((frame) =>
     frame.method === WIRE.slotSelect && frame.params?.['mechanism'] === 'track');
-  assert.deepEqual(restores.at(-1)?.params, {
-    trackIndex: 3,
-    slotIndex: 2,
-    mechanism: 'track',
-  });
+  assert.equal(restores.at(-1)?.params?.['trackIndex'], 3);
+  assert.equal(restores.at(-1)?.params?.['slotIndex'], 2);
+  assert.equal(restores.at(-1)?.params?.['mechanism'], 'track');
+  assert.equal(typeof restores.at(-1)?.params?.['restoreOwnerToken'], 'string');
+  assert.equal(restores.at(-1)?.params?.['expectedBorrowedTrackIndex'], 0);
+  assert.equal(restores.at(-1)?.params?.['expectedBorrowedSlotIndex'], 0);
 });
 
 test('5d repair: selection changes do not re-point a verified held clip between stages', async () => {
@@ -634,7 +645,11 @@ test('5d repair: a structural stage invalidates the verified held clip', async (
     [0, { lengthBeats: 4, pitch: 60 }],
     [1, { lengthBeats: 4, pitch: 62 }],
   ]));
-  const adapter = new UntimedAdapter({ transport, cursorPool: 1, sceneBankSize: 8 });
+  const trace: string[] = [];
+  const adapter = new UntimedAdapter({
+    transport, cursorPool: 1, sceneBankSize: 8,
+    onTrace: (event) => trace.push(event.action),
+  });
 
   await adapter.read([notesAt(CLIP(0))]);
   await adapter.apply({ ops: [{ op: 'clip.delete', slot: CLIP(1).slot }] });
@@ -645,6 +660,7 @@ test('5d repair: a structural stage invalidates the verified held clip', async (
     2,
     'the next read must re-point after a structural operation',
   );
+  assert.equal(trace.includes('structural-invalidation'), true);
 });
 
 test('B4: overlapping pipelines share one capture and restore after both finish', async () => {
@@ -679,14 +695,13 @@ test('B4: overlapping pipelines share one capture and restore after both finish'
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.selectionStatus).length,
     2,
-    'the final call is the one restore confirmation',
+    'the final scope uses one atomic guard and then confirms its restore',
   );
   const selects = transport.frames.filter((frame) => frame.method === WIRE.slotSelect);
-  assert.deepEqual(selects.at(-1)?.params, {
-    trackIndex: 3,
-    slotIndex: 2,
-    mechanism: 'track',
-  });
+  assert.equal(selects.at(-1)?.params?.['trackIndex'], 3);
+  assert.equal(selects.at(-1)?.params?.['slotIndex'], 2);
+  assert.equal(selects.at(-1)?.params?.['mechanism'], 'track');
+  assert.equal(typeof selects.at(-1)?.params?.['restoreOwnerToken'], 'string');
 });
 
 test('4b: live navigation resolves the durable track id before the UI-only frame', async () => {
@@ -1356,6 +1371,9 @@ class DeviceChainTransport implements Transport {
 /** A device chain that also models the user's current clip selection. */
 class SelectedDeviceChainTransport extends DeviceChainTransport {
   readonly selection = { trackIndex: 0, slotIndex: 2 };
+  private mixerTrackIndex = 0;
+  private selectionOwnerToken: string | undefined;
+  private interfereBeforeRestore: (() => void) | undefined;
   failDeviceList = false;
   selectionValidationError: Error | undefined;
 
@@ -1377,7 +1395,7 @@ class SelectedDeviceChainTransport extends DeviceChainTransport {
     }
     if (frame.method === WIRE.selectionStatus) {
       this.frames.push(frame);
-      return { ...this.selection };
+      return { ...this.selection, mixerTrackIndex: this.mixerTrackIndex };
     }
     if (frame.method === WIRE.slotStatus) {
       this.frames.push(frame);
@@ -1394,19 +1412,42 @@ class SelectedDeviceChainTransport extends DeviceChainTransport {
     }
     if (frame.method === WIRE.slotSelect) {
       this.frames.push(frame);
+      const restoreOwnerToken = params['restoreOwnerToken'] as string | undefined;
+      if (restoreOwnerToken !== undefined) {
+        this.interfereBeforeRestore?.();
+        this.interfereBeforeRestore = undefined;
+        if (restoreOwnerToken !== this.selectionOwnerToken) return { selected: false };
+        this.selectionOwnerToken = undefined;
+      } else {
+        this.selectionOwnerToken = params['selectionOwnerToken'] as string | undefined;
+      }
       this.selection.trackIndex = params['trackIndex'] as number;
       this.selection.slotIndex = params['slotIndex'] as number;
-      return {};
+      this.mixerTrackIndex = params['trackIndex'] as number;
+      return { selected: true };
     }
     if (frame.method === WIRE.cursorPointTrack) {
+      this.selectionOwnerToken = params['selectionOwnerToken'] as string | undefined;
       this.selection.trackIndex = params['trackIndex'] as number;
       this.selection.slotIndex = -1;
+      this.mixerTrackIndex = params['trackIndex'] as number;
     }
     if (frame.method === WIRE.deviceList && this.failDeviceList) {
       this.frames.push(frame);
       throw new Error('device list failed');
     }
     return super.send(frame);
+  }
+
+  selectAsUser(trackIndex: number, slotIndex: number): void {
+    this.selectionOwnerToken = undefined;
+    this.selection.trackIndex = trackIndex;
+    this.selection.slotIndex = slotIndex;
+    this.mixerTrackIndex = trackIndex;
+  }
+
+  selectAsUserBeforeRestore(trackIndex: number, slotIndex: number): void {
+    this.interfereBeforeRestore = () => this.selectAsUser(trackIndex, slotIndex);
   }
 }
 
@@ -1576,6 +1617,48 @@ test('4g-device-selection: public chain reads and resolution restore selection',
     && frame.params?.['slotIndex'] === 2));
 });
 
+test('5w selection scope: a newer user selection suppresses stale restoration', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await adapter.preserveSelection(async () => {
+    await adapter.devices(TRACK);
+    wire.selectAsUser(2, 1);
+  });
+
+  assert.deepEqual(wire.selection, { trackIndex: 2, slotIndex: 1 });
+  assert.equal(wire.frames.filter((frame) =>
+    frame.method === WIRE.slotSelect && frame.params?.['restoreOwnerToken'] !== undefined).length, 1);
+});
+
+test('5w selection scope: returning to the borrowed coordinates does not renew ownership', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await adapter.preserveSelection(async () => {
+    await adapter.devices(TRACK);
+    wire.selectAsUser(2, 1);
+    wire.selectAsUser(0, -1);
+  });
+
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: -1 });
+});
+
+test('5w selection scope: the extension guard closes a final restore race', async () => {
+  const wire = new SelectedDeviceChainTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  await adapter.preserveSelection(async () => {
+    await adapter.devices(TRACK);
+    wire.selectAsUserBeforeRestore(3, 0);
+  });
+
+  assert.deepEqual(wire.selection, { trackIndex: 3, slotIndex: 0 });
+  const restore = wire.frames.find((frame) =>
+    frame.method === WIRE.slotSelect && frame.params?.['restoreOwnerToken'] !== undefined);
+  assert.equal(restore !== undefined, true);
+});
+
 test('dogfood selection: a stale cached track cannot mask a device read', async () => {
   const wire = new SelectedDeviceChainTransport();
   wire.selection.trackIndex = 5;
@@ -1592,6 +1675,21 @@ test('dogfood selection: a stale cached track cannot mask a device read', async 
     params: { trackIndex: 5, slotIndex: 2 },
   }]);
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.slotSelect), false);
+});
+
+test('5w device settlement: a delayed complete chain settles before public use', async () => {
+  let reads = 0;
+  const wire = new DeviceChainTransport(undefined, (chain) => {
+    reads += 1;
+    return reads <= 2 ? chain.length + 1 : chain.length;
+  });
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const result = await adapter.devices(TRACK);
+
+  assert.equal(result.devicesComplete, true);
+  assert.deepEqual(result.devices.map((item) => item.name), ['Polysynth']);
+  assert.equal(reads, 4);
 });
 
 test('dogfood selection: a cached row outside the current window is not restored', async () => {
@@ -2166,7 +2264,28 @@ class ParameterTransport implements Transport {
   private completionValue: number | undefined;
   private devicePinned = false;
   private trackPinned = false;
+  private cursorTrackChannelId = CHANNEL_ID;
+  private cursorTrackPosition = 0;
   private revision = 1;
+
+  driftDeviceCursor(deviceIndex: number): void {
+    this.selected = deviceIndex;
+    this.depth = 0;
+    this.padSelected = false;
+    this.nestedIndex = 0;
+    this.devicePinned = false;
+  }
+
+  driftTrackCursor(): void {
+    this.cursorTrackChannelId = 'other-track';
+    this.cursorTrackPosition = 1;
+    this.devicePinned = false;
+    this.trackPinned = false;
+  }
+
+  private routeSignature(): string {
+    return `${this.selected}:${this.depth}:${this.padSelected}:${this.nestedIndex}`;
+  }
 
   private selectedNestedName(): string {
     return this.nestedIndex === 1 ? 'Later synth' : 'Pad synth';
@@ -2186,6 +2305,8 @@ class ParameterTransport implements Transport {
         return { trackIndex: -1, slotIndex: -1 };
       case WIRE.slotSelect:
       case WIRE.cursorPointTrack:
+        this.cursorTrackChannelId = CHANNEL_ID;
+        this.cursorTrackPosition = params['trackIndex'] as number;
         return {};
       case WIRE.cursorPinTrack:
         this.trackPinned = params['pinned'] === true;
@@ -2230,7 +2351,7 @@ class ParameterTransport implements Transport {
           devices: this.devices.map((device, index) => ({ index, name: device.name, enabled: true })),
           count: this.devices.length,
           itemCount: this.devices.length,
-          trackChannelId: CHANNEL_ID,
+          trackChannelId: this.cursorTrackChannelId,
           bankSize: 16,
         };
       case WIRE.deviceCursorStatus:
@@ -2241,10 +2362,11 @@ class ParameterTransport implements Transport {
               : this.depth === 1 ? 'Inner container' : 'Deep synth',
             isPinned: this.devicePinned,
             deviceIndex: this.nestedIndex,
-            trackChannelId: CHANNEL_ID,
-            trackPosition: 0,
+            trackChannelId: this.cursorTrackChannelId,
+            trackPosition: this.cursorTrackPosition,
             cursorTrackPinned: this.trackPinned,
             isNested: true,
+            routeSignature: this.routeSignature(),
           };
         }
         return {
@@ -2252,10 +2374,11 @@ class ParameterTransport implements Transport {
           name: this.devices[this.selected]?.name,
           isPinned: this.devicePinned,
           deviceIndex: this.selected,
-          trackChannelId: CHANNEL_ID,
-          trackPosition: 0,
+          trackChannelId: this.cursorTrackChannelId,
+          trackPosition: this.cursorTrackPosition,
           cursorTrackPinned: this.trackPinned,
           isNested: false,
+          routeSignature: this.routeSignature(),
         };
       case WIRE.layerList: {
         const result = this.depth === 0
@@ -2554,6 +2677,66 @@ test('5p live inventory: the generation starts after exact device acquisition', 
   assert.ok(begun > selected);
 });
 
+test('5w target reuse: repeated same-device reads confirm without retargeting', async () => {
+  const wire = new ParameterTransport();
+  const trace: string[] = [];
+  const adapter = new UntimedAdapter({
+    transport: wire, cursorPool: 3, onTrace: (event) => trace.push(event.action),
+  });
+  const target = param(deviceAt(TRACK, 0), 'P1');
+
+  await adapter.preserveSelection(async () => {
+    await adapter.read([target]);
+    await adapter.read([target]);
+  });
+
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.deviceCursorSelectAt).length, 1);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.directParamList
+    && frame.params?.['begin'] === true).length, 2);
+  assert.equal(trace.filter((action) => action === 'device-reuse').length, 1);
+});
+
+test('5w target reuse: cursor drift forces a safe same-target retarget', async () => {
+  const wire = new ParameterTransport();
+  const trace: string[] = [];
+  const adapter = new UntimedAdapter({
+    transport: wire, cursorPool: 3, onTrace: (event) => trace.push(event.action),
+  });
+  const target = param(deviceAt(TRACK, 0), 'P1');
+
+  await adapter.preserveSelection(async () => {
+    await adapter.read([target]);
+    wire.driftDeviceCursor(1);
+    await adapter.read([target]);
+  });
+
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.deviceCursorSelectAt).length, 2);
+  assert.equal(trace.filter((action) => action === 'device-reuse-invalid').length, 1);
+  const second = await adapter.read([target]);
+  assert.equal(second.entries[addressKey(target)]?.value.of, 'param');
+});
+
+test('5w target reuse: track-cursor drift clears the track hold and re-points', async () => {
+  const wire = new ParameterTransport();
+  const trace: string[] = [];
+  const adapter = new UntimedAdapter({
+    transport: wire, cursorPool: 3, onTrace: (event) => trace.push(event.action),
+  });
+  const target = param(deviceAt(TRACK, 0), 'P1');
+
+  await adapter.preserveSelection(async () => {
+    await adapter.read([target]);
+    wire.driftTrackCursor();
+    const after = await adapter.read([target]);
+    assert.equal(after.entries[addressKey(target)]?.value.of, 'param');
+  });
+
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 2);
+  assert.equal(trace.filter((action) => action === 'device-reuse-invalid').length, 1);
+});
+
 test('d02-s7 live inventory: typed metadata proves the binary normalized domain', async () => {
   const wire = new ParameterTransport();
   wire.typedMetadata = true;
@@ -2598,12 +2781,25 @@ test('L-direct-param: each write reads a complete inventory and exact reversal r
   const readbackFrames = wire.frames.slice(writeAt + 1);
   assert.equal(readbackFrames.filter((frame) =>
     frame.method === WIRE.directParamList && frame.params?.['begin'] === true).length, 1);
-  assert.equal(readbackFrames.some((frame) => frame.method === WIRE.directParamCompletion), false);
+  assert.equal(readbackFrames.filter((frame) =>
+    frame.method === WIRE.directParamCompletion).length, 2);
   const restored = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0 }] });
   assert.equal(restored.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   const after = await adapter.read([address]);
   const afterEntry = after.entries[addressKey(address)];
   assert.equal(afterEntry?.value.of === 'param' ? afterEntry.value.param.value : undefined, 0);
+});
+
+test('5w direct write: cohort readback uses the exact write callback', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'P1');
+
+  const changed = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.75 }] });
+
+  assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 2);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.directParamCompletion).length, 2);
 });
 
 test('d02-s7 live integrity: an unrequested delta stops later scalar writes', async () => {
@@ -2648,14 +2844,14 @@ test('4g parameter guard refuses a raw positional shift before the wire write', 
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
 });
 
-test('L-direct-param: a silent no-op is reported as a readback disagreement', async () => {
+test('L-direct-param: a silent no-op is reported as an unsettled write callback', async () => {
   const wire = new ParameterTransport();
   wire.takeWrites = false;
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
   const address = param(deviceAt(TRACK, 0), 'P1');
   const receipt = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.75 }] });
   const failed = receipt.stages.flatMap((stage) => stage.ops).find((op) => !op.ok);
-  assert.match(failed?.error ?? '', /readback disagreed/);
+  assert.match(failed?.error ?? '', /target-bound parameter write callback did not settle/);
 });
 
 test('L-direct-param: an observer generation that never settles is separate from missing', async () => {

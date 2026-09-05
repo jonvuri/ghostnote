@@ -29,6 +29,8 @@ export interface ExistingDeviceWrapperHost {
   devices(track: TrackAddress): Promise<ObservedDeviceBank>;
   read(addresses: readonly Address[]): Promise<Snapshot>;
   apply(ops: readonly Op[], options?: RunOptions): Promise<{ readonly take: Take }>;
+  /** Preserve one user selection across the complete wrapper workflow. */
+  preserveSelection?<T>(work: () => Promise<T>): Promise<T>;
 }
 
 export interface ExistingDeviceOrderItem {
@@ -136,6 +138,16 @@ export async function wrapExistingDeviceModulation(
   host: ExistingDeviceWrapperHost,
   request: ExistingDeviceWrapperRequest,
   options: ExistingDeviceWrapperOptions = {},
+): Promise<ExistingDeviceWrapperResult> {
+  return host.preserveSelection === undefined
+    ? wrapExistingDeviceModulationInside(host, request, options)
+    : host.preserveSelection(() => wrapExistingDeviceModulationInside(host, request, options));
+}
+
+async function wrapExistingDeviceModulationInside(
+  host: ExistingDeviceWrapperHost,
+  request: ExistingDeviceWrapperRequest,
+  options: ExistingDeviceWrapperOptions,
 ): Promise<ExistingDeviceWrapperResult> {
   const stages: ExistingDeviceWrapperStageReceipt[] = [];
   const entry = await stableTop(host, request.track, 'container-witness');
@@ -445,6 +457,16 @@ export async function reverseExistingDeviceModulation(
   host: ExistingDeviceWrapperHost,
   checkpoint: ExistingDeviceWrapperCheckpoint,
   options: Pick<ExistingDeviceWrapperOptions, 'run' | 'wait'> = {},
+): Promise<ExistingDeviceWrapperReversal> {
+  return host.preserveSelection === undefined
+    ? reverseExistingDeviceModulationInside(host, checkpoint, options)
+    : host.preserveSelection(() => reverseExistingDeviceModulationInside(host, checkpoint, options));
+}
+
+async function reverseExistingDeviceModulationInside(
+  host: ExistingDeviceWrapperHost,
+  checkpoint: ExistingDeviceWrapperCheckpoint,
+  options: Pick<ExistingDeviceWrapperOptions, 'run' | 'wait'>,
 ): Promise<ExistingDeviceWrapperReversal> {
   const stages: ExistingDeviceWrapperStageReceipt[] = [];
   const original = checkpoint.originalDeviceOrder;

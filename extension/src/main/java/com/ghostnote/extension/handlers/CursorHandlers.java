@@ -189,7 +189,14 @@ public final class CursorHandlers extends HandlerGroup {
 
     private JsonElement cursorPointTrack(JsonObject params) {
         String ref = params.get("cursor").getAsString();
-        Track target = requireTrack(params.get("trackIndex").getAsInt());
+        int trackIndex = params.get("trackIndex").getAsInt();
+        Track target = requireTrack(trackIndex);
+        if (params.has("selectionOwnerToken")) {
+            rig.claimSelectionOwnership(
+                params.get("selectionOwnerToken").getAsString(), trackIndex, -1);
+        } else {
+            rig.clearSelectionOwnership();
+        }
         rig.cursorTrack(ref).selectChannel(target);
         return ok();
     }
@@ -433,6 +440,7 @@ public final class CursorHandlers extends HandlerGroup {
         result.addProperty("slotIndex", rig.selectedSlotIndex);
         result.addProperty("mixerTrackIndex", rig.selectedMixerTrackIndex);
         result.addProperty("changes", rig.selectionChanges);
+        result.addProperty("revision", rig.selectionRevision);
         return result;
     }
 }

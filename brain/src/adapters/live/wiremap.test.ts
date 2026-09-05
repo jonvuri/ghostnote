@@ -490,6 +490,34 @@ test('5u: every remote-page cursor restores its page after a controller reload',
     'a generation must not complete from the wrong page');
 });
 
+test('5w: selection restoration is guarded in the extension write handler', () => {
+  const rig = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'Rig.java'),
+    'utf8',
+  );
+  const tracks = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'TrackHandlers.java'),
+    'utf8',
+  );
+  const cursors = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'CursorHandlers.java'),
+    'utf8',
+  );
+  const start = tracks.indexOf('private JsonElement slotSelect(');
+  const end = tracks.indexOf('\n    /**', start);
+  const body = tracks.slice(start, end);
+  assert.match(rig, /selectionOwnedBy\(String token, int trackIndex, int slotIndex\)/);
+  assert.match(rig, /observeMixerSelection\(mixerTrackIdx\)/);
+  assert.match(rig, /observeSlotSelection\(trackIdx, slotIdx\)/);
+  assert.match(cursors, /params\.has\("selectionOwnerToken"\)/);
+  assert.ok(body.indexOf('selectionOwnedBy(') < body.indexOf('track.selectSlot(slotIndex)'),
+    'the lease check and refusal must run in the same handler before restoration');
+  assert.match(body, /result\.addProperty\("selected", false\);[\s\S]*return result;/);
+});
+
 test('d02-s7: the extension observes the v1 Kick discrete parameter domain', () => {
   const rig = readFileSync(
     join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',

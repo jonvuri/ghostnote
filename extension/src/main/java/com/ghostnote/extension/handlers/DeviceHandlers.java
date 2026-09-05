@@ -752,6 +752,7 @@ public final class DeviceHandlers extends HandlerGroup {
         result.addProperty("trackPosition", rig.cursorTracks[0].position().get());
         result.addProperty("cursorTrackPinned", rig.cursorTracks[0].isPinned().get());
         result.addProperty("isNested", rig.cursorDevice0.isNested().get());
+        result.addProperty("routeSignature", rig.currentDirectParameterRouteSignature());
         return result;
     }
 
