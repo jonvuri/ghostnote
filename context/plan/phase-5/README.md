@@ -2,7 +2,7 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Sessions 5u through 5x address the post-fix dogfood findings.
+status: Reopened 2026-08-25. Sessions 5u through 5x are complete. Return to 5t.
 updated: 2026-09-05
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
@@ -151,8 +151,9 @@ that first integration unless the proof needs one new owned asset.
     — done. Atomic selection ownership, safe cursor reuse, scalar controls, the
     background wrapper, reversal, and exact cleanup pass.
 24. [5x — existing-wrapper update operation](5x-existing-wrapper-update-operation.md)
-    — active next. Evaluate and, if bounded, add a guarded wrapper update
-    workflow after 5w closes.
+    — done. No safe update exists without complete live wrapper state capture.
+    The public surface stays unchanged. E100 records the boundary and deferred
+    follow-up.
 
 The dependency split is `5j → 5k → 5l`, with `5m` independent after 5j. Both
 branches join at 5n. Sessions 5o through 5t then run in order. The post-fix

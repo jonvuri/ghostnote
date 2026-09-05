@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-04
+updated: 2026-09-05
 ---
 
 # Evidence index
@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E100 | Existing-wrapper update needs complete live state capture [K] (2026-09-05) | [open](experiments/e100-existing-wrapper-update-needs-live-state-capture.md) |
+| E99 | Selection borrowing and background stability [K] (2026-09-05) | [open](experiments/e99-selection-borrowing-and-background-stability.md) |
 | E98 | Parameter units and semantic writes fail closed [K] (2026-09-04) | [open](experiments/e98-parameter-units-and-semantic-writes-fail-closed.md) |
 | E97 | Bounded settlement and nested ColourCopy reliability [K] (2026-09-03) | [open](experiments/e97-bounded-settlement-and-nested-colourcopy-reliability.md) |
 | E95 | Modulator identity pair controls grid placement [O/K] (2026-09-01) | [open](experiments/e95-modulator-identity-pair-controls-grid-placement.md) |

@@ -1,12 +1,12 @@
 ---
 title: Phase 5x — existing-wrapper update operation
 kind: plan
-state: active
-status: Active next. Evaluate a safe operation that adds or changes wrapper modulators.
+state: complete
+status: Complete. No safe update is available without complete live wrapper state capture.
 updated: 2026-09-05
 parent: README.md
 prev: 5w-selection-borrowing-and-background-stability.md
-evidence: D1, D3, D5, D15, E4f, E87, E89-E91, E96, dogfood session 01a0690e-1761-76b1-9e8e-635bfa35e583
+evidence: D1, D3, D5, D15, E4f, E87, E89-E91, E96, E100, dogfood session 01a0690e-1761-76b1-9e8e-635bfa35e583
 ---
 
 # Phase 5x — existing-wrapper update operation
@@ -95,6 +95,39 @@ state, checkpoint, and host capabilities required for an honest result.
 - Adding a Controller API preset-export capability that the host does not
   provide.
 - The final operator verdict and Phase 5 closeout.
+
+## Result
+
+No candidate meets the required state-fidelity boundary. The Controller API
+cannot edit live modulator topology. It also cannot export the current wrapper
+as a preset or read every modulator object, route, amount, and setting. The
+current checkpoint does not retain the composition request or temporary preset.
+That file is deleted after insertion.
+
+An in-place edit is unavailable. A retained source artifact or guarded rebuild
+can reproduce only the state that Ghostnote originally authored. It cannot
+detect or preserve an operator edit to an unobserved wrapper setting. Refusing
+legacy checkpoints does not repair this gap for new wrappers because the live
+wrapper can change after checkpoint issue.
+
+The public surface is unchanged. It does not claim that reverse-and-rebuild is
+an update. E100 records the state inventory, strategy matrix, and estimates.
+[The focused follow-up](deferred-live-wrapper-state-capture.md) starts only when
+the host supplies complete live wrapper state capture or equivalent runtime
+topology and state APIs.
+
+## Verification
+
+- The current checkpoint, composition, live inventory, remote-page, and
+  reversal implementations were inspected.
+- The API limitation is already live-established by E4f and D1. No new live
+  mutation can close the missing state-capture boundary.
+- `git diff --check` passes for the documentation-only result.
+
+## Retrospective
+
+Put retained source provenance and observable-state limits in the first
+checkpoint design. This makes later update feasibility faster to assess.
 
 ## Handoff
 

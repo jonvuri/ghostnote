@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-09-05
 phase: phase-5
-session: 5x-existing-wrapper-update-operation
+session: 5t-final-colourcopy-dogfood-and-closeout
 ---
 
 # Now
@@ -91,6 +91,22 @@ source order, and the seven-track baseline passed. E99 records the full matrix.
 `npm run check` passes 1,023 tests. Extension compilation, deployment freshness,
 the complete live probe, and exact cleanup pass.
 
+## Session 5x result
+
+No safe existing-wrapper update operation is available with the current host
+API. The host cannot edit live modulator topology, export the current wrapper,
+or read every modulator object, route, amount, setting, and opaque state.
+
+A guarded rebuild can keep the nested device instance and observed scalar
+fingerprint. It cannot detect or preserve an unobserved operator edit to the
+wrapper. A retained source artifact has the same limit. Version 1 checkpoint
+refusal is necessary but does not close the gap for a later live edit.
+
+The public surface is unchanged. E100 records the inventory, strategy matrix,
+estimates, and exact future capability trigger. A focused follow-up stays
+deferred until the host supplies complete live state capture or equivalent
+runtime APIs.
+
 ## Post-fix dogfood review
 
 Session `01a0690e-1761-76b1-9e8e-635bfa35e583` produced the three-modulator
@@ -105,13 +121,15 @@ review found four issues:
 4. The surface had no update operation, so the agent reversed and rebuilt the
    wrapper without proving all prior modulator state.
 
-The focused queue completed 5u settlement policy, 5v semantic units, and 5w
-selection stability. Session 5x now evaluates wrapper update feasibility. Return
-to 5t for the final dogfood and closeout after 5x.
+The focused queue completed sessions 5u through 5x. Session 5x found that a safe
+wrapper update needs a host capability that is not available. Return to 5t for
+the final dogfood and closeout.
 
 ## Next action
 
-Run session 5x. Evaluate a guarded update operation for an existing wrapper.
+Start the final projectless ColourCopy dogfood task from session 5t. Use only
+public Ghostnote tools and get the operator's explicit audition verdict. Then
+run the complete closeout matrix if the operator accepts the result.
 
 ## Retrospective
 
@@ -120,3 +138,5 @@ and device reuse inside the workflow scope that owns selection borrowing.
 Put the ownership check in the same extension handler as its selection write.
 Use a native scalar when the test controls a public method rather than plug-in
 callback timing.
+Require complete current-state capture before an operation claims to update a
+live wrapper.
