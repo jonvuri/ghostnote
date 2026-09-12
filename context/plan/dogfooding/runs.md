@@ -2,7 +2,7 @@
 title: Dogfooding run ledger
 kind: status
 state: active
-updated: 2026-09-01
+updated: 2026-09-12
 parent: README.md
 ---
 
@@ -235,6 +235,36 @@ host build. Record the adjacent live baseline separately.
   and page reads settled. The agent called the work completed with this
   qualification. No explicit operator audition verdict was recorded. Session
   5t owns the repairs and final closeout.
+
+### `01a07268-8b4e-73f1-b307-3f5fb565d1eb` — accepted ColourCopy dogfood
+
+- Transcript:
+  `~/.codex/sessions/2026/09/05/rollout-2026-09-05T11-30-49-01a07268-8b4e-73f1-b307-3f5fb565d1eb.jsonl`.
+- Agent: Codex Desktop `0.153.4`; `gpt-5.6-sol`, medium effort
+  (**observed**).
+- Ghostnote: 53 exposed tools from `ghostnote-description-v21` at repository
+  revision `7928314cb9f435926d03a227f3939a06c946ece9` (**observed** for the
+  exposed Ghostnote tool set; **timeline** for the cohort and revision).
+- Bitwig: Studio 6.0.6, host API 25, 150 extension methods, and extension hash
+  `73677cd82e4c7cd2` were the adjacent deployed baseline. The transcript did
+  not return these values (**baseline**).
+- Project: `26.01-1 spread burial guit`, with seven tracks and eight launcher
+  rows (**observed**). The third track started with `Serato Sample |
+  ColourCopy`. ColourCopy was enabled at position 1 and returned a stable
+  30-parameter fingerprint (**observed**).
+- Outcome: The first request wrapped the same ColourCopy instance in an FX
+  Layer at position 1. It added three verified free-running routes for Mix,
+  Brightness, and Regeneration. The follow-up reversed that owned wrapper
+  exactly, rebuilt it with five routes, and then slowed all five sources. The
+  final result added a wide Colour sweep and a smoothed-random Stereo Phase
+  walk. Every wrapper call was complete, with no warning or partial result.
+  The operator replied, `Great, looks good.` The agent used only public
+  Ghostnote tools and left the accepted wrapper in the project (**observed**).
+- Review: Session `01a07274-28f6-7280-80ea-69d5a179b81c` found no hidden
+  high-priority issue. The transcript cannot observe application focus, but
+  its call sequence does not contradict the operator's report that Bitwig did
+  not steal focus. The reverse-and-rebuild follow-up remains subject to the
+  known deferred live-wrapper update boundary. It did not expose a new defect.
 
 ## Required fields for the next run
 

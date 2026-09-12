@@ -2,10 +2,10 @@
 title: Phase 5t — modulator-grid generalization and ColourCopy closeout
 kind: plan
 state: active
-status: Grid repairs pass. Sessions 5u through 5x own four post-fix dogfood issues before final closeout.
-updated: 2026-09-03
+status: Final ColourCopy dogfood accepted. The complete closeout matrix remains.
+updated: 2026-09-12
 parent: README.md
-evidence: D1, D2, D3, E11f, E65, E88, E94-E96, dogfood sessions 01a0607f-fc2a-7042-bfdd-0175a19986c1 and 01a0690e-1761-76b1-9e8e-635bfa35e583
+evidence: D1, D2, D3, E11f, E65, E88, E94-E100, dogfood sessions 01a0607f-fc2a-7042-bfdd-0175a19986c1, 01a0690e-1761-76b1-9e8e-635bfa35e583, and 01a07268-8b4e-73f1-b307-3f5fb565d1eb
 ---
 
 # Phase 5t — modulator-grid generalization and ColourCopy closeout
@@ -168,11 +168,9 @@ overview, capability evidence, outcome archive, roadmap, dogfood ledger, and
 
 ## Handoff
 
-Run sessions 5u through 5x in order. Then start the final ColourCopy work in a
-new projectless Codex task. Use only public Ghostnote tools. Record the
-operator's explicit accept or veto. If accepted, run the complete closeout
-matrix and update the final Phase 5 records. Phase 6a starts only after this
-plan passes and the open dogfood loop closes.
+The final ColourCopy dogfood passed with an explicit operator acceptance. Run
+the complete closeout matrix and update the final Phase 5 records. Phase 6a
+starts only after this plan passes and the open dogfood loop closes.
 
 ## Session result to date
 
@@ -188,9 +186,15 @@ Envelope Follower has no exact page on Polysynth or FX Layer at source or
 compact pairs. Adjacent LFO controls pass. The failure follows the donor, so it
 is outside the supported catalog.
 
-The live probe restored its exact disposable entry state. The final ColourCopy
-task cannot run inside this repository session because its acceptance criteria
-require a new projectless task and the operator's explicit audition verdict.
+The live probe restored its exact disposable entry state.
+
+Final dogfood session `01a07268-8b4e-73f1-b307-3f5fb565d1eb` then used only
+public Ghostnote tools. It preserved ColourCopy, placed the FX Layer at the
+original device position, and produced five complete active routes. It slowed
+the sources and added the requested wide Colour sweep and smoothed-random
+Stereo Phase walk. The operator replied, `Great, looks good.` Review session
+`01a07274-28f6-7280-80ea-69d5a179b81c` found no hidden high-priority issue.
+The complete Phase 5 closeout matrix remains.
 
 ## Post-fix dogfood review
 
@@ -209,5 +213,7 @@ follow-up exposed four issues that must be resolved before another final run:
    wrapper and rebuilt a four-modulator wrapper without proving all prior
    modulator state.
 
-Sessions 5u through 5x own these issues separately. Do not run the final
-dogfood or close Phase 5 until they finish.
+Sessions 5u through 5w repaired settlement, semantic-value, and selection
+behavior. Session 5x recorded the remaining host boundary for safe live-wrapper
+updates. The accepted final dogfood exposed no new defect. Do not close Phase 5
+until the complete closeout matrix and final records pass.

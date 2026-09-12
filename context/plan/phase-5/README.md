@@ -2,8 +2,8 @@
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
-status: Reopened 2026-08-25. Sessions 5u through 5x are complete. Return to 5t.
-updated: 2026-09-05
+status: Final ColourCopy dogfood accepted. The generalized closeout matrix remains.
+updated: 2026-09-12
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -139,8 +139,9 @@ that first integration unless the proof needs one new owned asset.
     repairs and exposed three final verification gaps.
 20. [5t — modulator-grid generalization and ColourCopy closeout](5t-grid-generalization-and-colourcopy-closeout.md)
     — active as the parent closeout. The repaired grid, exact page families,
-    donor matching, remote retry, and 12-type live catalog pass. Post-fix
-    dogfood exposed four focused follow-up issues.
+    donor matching, remote retry, and 12-type live catalog pass. The final
+    public-tools-only ColourCopy dogfood passed with an explicit operator
+    acceptance. The complete closeout matrix remains.
 21. [5u — settlement budget and nested remote reliability](5u-settlement-budget-and-nested-remote-reliability.md)
     — done. One bounded policy now reports observer progress. Cold and warm
     nested ColourCopy verification and exact reversal pass.
@@ -157,8 +158,8 @@ that first integration unless the proof needs one new owned asset.
 
 The dependency split is `5j → 5k → 5l`, with `5m` independent after 5j. Both
 branches join at 5n. Sessions 5o through 5t then run in order. The post-fix
-queue is `5u → 5v → 5w → 5x`, then returns to 5t for final dogfood and
-closeout. Session 5x depends on the settlement, value, and selection contracts.
+queue `5u → 5v → 5w → 5x` returned to 5t. The final dogfood passed. Session 5t
+now owns only the generalized closeout matrix and final records.
 
 ## Public-gap coverage
 
@@ -172,7 +173,7 @@ closeout. Session 5x depends on the settlement, value, and selection contracts.
 | Cannot preserve and modulate an existing project device | 5o, 5p |
 | Composer accepts only distinct native devices | 5q |
 | One Instrument Layer shape, four entries, and two observable positions | 5r |
-| No accepted public retry of the exposed ColourCopy gap | 5s, 5t, 5u-5x |
+| No accepted public retry of the exposed ColourCopy gap | Closed by 5t after 5u-5x |
 
 Direct parameter-base writes are already general through `set_parameter` and
 stay separate. Runtime modulator creation and routing remain host-API
@@ -280,7 +281,8 @@ impossibilities. External publication and redistribution remain Phase 6 work.
     capacity limits with active outer modulation. Chain is an explicit host
     boundary and is not exposed by the public composition contract.
 13. A fresh projectless musical run completes the ColourCopy request through
-    only public tools and receives an explicit operator verdict.
+    only public tools and receives an explicit operator verdict. **Passed** in
+    session `01a07268-8b4e-73f1-b307-3f5fb565d1eb`.
 
 E73 audits criteria 1 through 7 as the first closeout baseline. Sessions 5s and
 5t own criteria 8 through 13 and the final generalized closeout. The
