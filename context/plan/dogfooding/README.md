@@ -93,6 +93,9 @@ original JSONL as the authoritative record.
 - [D02 — Drum Machine and surface hardening](d02-drum-machine-and-surface-hardening.md)
   — complete. Public pad composition, parameter integrity, exact clip colors,
   and partial observation verdicts are proved.
+- [D03 — Generic plug-in preset loading spike](d03-generic-plugin-preset-loading-spike.md)
+  — planned next. Compare direct file insertion with the popup browser across
+  Bitwig-supported plug-in preset formats.
 
 Add each new root musical or exposure session to the run ledger. Mark whether a
 version was observed in that transcript, derived from the source timeline, or

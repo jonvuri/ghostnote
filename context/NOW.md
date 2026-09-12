@@ -4,15 +4,30 @@ kind: status
 state: active
 updated: 2026-09-12
 phase: phase-5
-session: 5t-closeout-after-accepted-colourcopy-dogfood
+session: d03-generic-plugin-preset-loading-spike
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. The final ColourCopy
-dogfood passed with an explicit operator acceptance. Phase 5 remains active
-until its complete closeout matrix and final records pass. The open dogfood loop
-also remains active. Phase 6a stays blocked until both close.
+dogfood passed with an explicit operator acceptance. The operator selected one
+new dogfood spike before the Phase 5 closeout: compare direct plug-in preset
+file insertion with the popup browser. Phase 5 and the dogfood loop remain
+active. Phase 6a stays blocked until both close.
+
+## Next spike
+
+[D03](plan/dogfooding/d03-generic-plugin-preset-loading-spike.md) responds to
+dogfood session `01a0965e-2ec6-7482-9719-73c51b8a1ea8`. That run needed Repro-5
+and Diva H2P presets. The current public tool accepts only `.bwpreset` files,
+and the agent stopped without a Bitwig write.
+
+Bitwig documents H2P, FXP, FXB, VSTPRESET, and CLAP-discovered vendor formats.
+This machine has trustworthy H2P, FXP, and VSTPRESET fixtures. It has no proved
+user-loadable FXB fixture. The spike must classify all locally found preset
+suffixes, test direct insertion and popup commit for every available documented
+format, measure cold and warm time, and restore one fresh disposable project
+exactly. It must not use either retained music project.
 
 ## Accepted ColourCopy result
 
@@ -65,11 +80,15 @@ observation only after that verdict. Use `list_changes`, `check_revert`, and
 
 ## Next action
 
-Run the complete Phase 5 closeout matrix and update its final records. Then run
-the dogfood menu in any musically useful order. Keep the dogfood loop open until
-the operator explicitly closes it. Phase 6a remains next after both close.
+Run D03 in a fresh disposable Bitwig project. Record one format verdict for
+direct insertion and popup loading, including the explicit FXB fixture gap and
+one non-u-he CLAP discovery case. Use the result to select a product follow-up.
+Then resume the complete Phase 5 closeout matrix. Keep the dogfood loop open
+until the operator explicitly closes it. Phase 6a remains next after both
+close.
 
 ## Retrospective
 
-No instruction change is needed. The run ledger was the fastest way to detect
-that the accepted session had been reviewed but not recorded.
+Scope negative evidence to the exact file class tested. E4h proved that renamed
+`.bwpreset` bytes do not load; it did not prove that valid plug-in preset formats
+fail through `insertFile`.

@@ -266,6 +266,29 @@ host build. Record the adjacent live baseline separately.
   not steal focus. The reverse-and-rebuild follow-up remains subject to the
   known deferred live-wrapper update boundary. It did not expose a new defect.
 
+### `01a0965e-2ec6-7482-9719-73c51b8a1ea8` — plug-in preset loading gap
+
+- Transcript:
+  `~/.codex/sessions/2026/09/12/rollout-2026-09-12T11-05-49-01a0965e-2ec6-7482-9719-73c51b8a1ea8.jsonl`.
+- Agent: Codex Desktop `0.153.4`; `gpt-5.6-sol`, high effort
+  (**observed**).
+- Ghostnote: 53 exposed tools from `ghostnote-description-v21` at repository
+  revision `7928314cb9f435926d03a227f3939a06c946ece9` (**observed** for the
+  public tool set; **timeline** for the cohort and revision).
+- Bitwig: the session contacted Bitwig but did not return the host version,
+  API version, extension method count, or build hash. Bitwig Studio 6.0.6,
+  host API 25, 150 methods, and extension hash `73677cd82e4c7cd2` remain the
+  last adjacent live baseline (**baseline**).
+- Project: `26.11-1 garden synth 1`, with four tracks and eight launcher rows
+  (**observed**). The first two tracks each had one enabled device
+  (**observed**).
+- Outcome: The agent found a Repro-5 H2P flute and a Diva H2P piano preset.
+  The public Ghostnote surface accepts only `.bwpreset` files. After the
+  operator required Ghostnote-only Bitwig interaction, the agent stopped. Its
+  Ghostnote calls were read-only, the attempted computer-use access was denied,
+  and no Bitwig project content changed (**observed**). See
+  [D03](d03-generic-plugin-preset-loading-spike.md).
+
 ## Required fields for the next run
 
 Record the root session ID, transcript path, client and client version, model,
