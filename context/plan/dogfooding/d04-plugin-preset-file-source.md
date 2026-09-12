@@ -1,7 +1,8 @@
 ---
 title: D04 — public plug-in preset file source
 kind: plan
-state: blocked
+state: canceled
+status: Canceled 2026-09-12 by D22.
 updated: 2026-09-12
 parent: README.md
 prev: d03b-clap-discovered-preset-boundary-spike.md
@@ -9,6 +10,12 @@ evidence: E101, E102
 ---
 
 # D04 — public plug-in preset file source
+
+## Closeout
+
+This implementation will not run. D22 puts vendor plug-in preset formats and
+CLAP-discovered preset loading outside the Ghostnote product boundary. The
+original plan remains below as a record of the rejected product direction.
 
 ## Objective
 

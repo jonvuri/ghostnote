@@ -352,6 +352,11 @@ The API 25 popup browser did not accept any tested content-type index write.
 Ghostnote could not enter a safe plug-in preset selection state, so it committed
 no popup result. Keep the popup out of the public surface [K, E101].
 
+[D22](../../decisions/d22-non-native-plugin-preset-loading-is-out-of-scope.md)
+puts H2P, VSTPRESET, FXP, FXB, and CLAP-discovered preset loading out of scope.
+Keep this evidence as host capability knowledge. Do not use it as a pending
+product plan.
+
 ⚠ `DeviceLayer` has **no** `insertionPoint()`; `DrumPad` does. That asymmetry is
 the architectural reason a drum pad is addressable while empty and a layer chain
 is not: an `InsertionPoint` must bind to a referent, and "layer 3" has no

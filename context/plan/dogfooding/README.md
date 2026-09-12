@@ -97,11 +97,10 @@ original JSONL as the authoritative record.
   — complete. H2P is indexed-direct, VSTPRESET is direct, and the API 25 popup
   route cannot establish a safe preset transaction.
 - [D03b — CLAP-discovered preset boundary spike](d03b-clap-discovered-preset-boundary-spike.md)
-  — planned next. Define the filesystem-backed CLAP boundary before a public
-  preset source is implemented.
+  — canceled. E102 proved the indexed CLAP route before D22 closed the product
+  direction.
 - [D04 — Public plug-in preset file source](d04-plugin-preset-file-source.md)
-  — blocked by D03b. Add the selected CLAP-native registry entry and an
-  independent VSTPRESET entry, then retry the blocked orchestration.
+  — canceled. Non-native plug-in preset loading is out of scope.
 
 Add each new root musical or exposure session to the run ledger. Mark whether a
 version was observed in that transcript, derived from the source timeline, or

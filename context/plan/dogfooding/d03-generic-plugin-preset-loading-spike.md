@@ -252,9 +252,8 @@ non-u-he Quanta 2 and Reflection Step entries, but preset discovery remained
 unreachable.
 
 E102 later proved that the indexed H2P route creates CLAP-only Repro-5 and Diva
-devices on this machine. The selected follow-up is
-[D03b](d03b-clap-discovered-preset-boundary-spike.md). D04 stays blocked until
-that spike defines the complete filesystem-backed CLAP boundary.
+devices on this machine. D22 closes the detour with non-native plug-in preset
+loading out of scope. D03b and D04 are canceled.
 
 ## Retrospective
 

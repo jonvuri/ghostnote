@@ -1,7 +1,8 @@
 ---
 title: D03b — CLAP-discovered preset boundary spike
 kind: plan
-state: planned
+state: canceled
+status: Canceled 2026-09-12. D22 puts non-native plug-in preset loading out of scope.
 updated: 2026-09-12
 parent: README.md
 prev: d03-generic-plugin-preset-loading-spike.md
@@ -10,6 +11,14 @@ evidence: E101, E102
 ---
 
 # D03b — CLAP-discovered preset boundary spike
+
+## Closeout
+
+This follow-up will not run. E101 and E102 proved enough host behavior to expose
+the cost of a complete route. The operator closed the discovery spike and put
+non-native plug-in preset loading out of scope in D22. D04 is also canceled.
+
+The original brief remains below as the record of the proposed work.
 
 ## Objective
 

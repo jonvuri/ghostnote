@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-09-12
 phase: phase-5
-session: d03b-clap-discovered-preset-boundary-spike
+session: dogfood-menu
 ---
 
 # Now
@@ -14,15 +14,11 @@ dogfood loop remain active. Phase 6a stays blocked until both close.
 
 ## Next session
 
-Run [D03b](plan/dogfooding/d03b-clap-discovered-preset-boundary-spike.md).
-Define the safe boundary for filesystem-backed CLAP-discovered presets before
-D04 implements a public source. Test Repro-5, Diva, one u-he effect when
-available, and one non-discovery CLAP negative control.
+Resume the dogfood menu below. Use one fresh projectless public-tools-only
+session for the selected item. Non-native plug-in preset loading is not a
+pending dependency.
 
-Keep [D04](plan/dogfooding/d04-plugin-preset-file-source.md) blocked until the
-spike chooses `clap-discovered-file`, `u-he-h2p`, or `unavailable`.
-
-## D03 result
+## Preset detour closeout
 
 [E101](evidence/experiments/e101-plugin-preset-files-have-two-direct-routes.md)
 records the matrix. H2P is `indexed-direct`, VSTPRESET is `direct`, the tested
@@ -30,16 +26,31 @@ FXP is `unsupported`, and FXB is `unproved`. The API 25 popup route could not
 establish a safe preset transaction. Each live probe restored its exact entry
 baseline.
 
-## CLAP feasibility result
-
 [E102](evidence/experiments/e102-clap-discovered-h2p-is-an-indexed-direct-route.md)
 proves that indexed H2P is a CLAP preset route on this machine. Repro-5 and Diva
 are installed only as CLAP devices. Both loaded indexed H2P files with stable
 readback, and both ignored unindexed copies.
 
-The mechanism is feasible for known filesystem paths. It is not a complete
-catalog route. API 25 cannot enumerate CLAP discovery entries, select the
-plug-in preset popup view, or address plug-in-contained presets.
+[D22](decisions/d22-non-native-plugin-preset-loading-is-out-of-scope.md) closes
+the product direction. H2P, VSTPRESET, FXP, FXB, and CLAP-discovered preset
+loading are out of scope. D03b and D04 are canceled. The D03-only extension
+handlers and popup-browser banks are removed.
+
+## Probe surface audit
+
+The extension now registers 150 methods. The product wire can emit 82; 68
+registered methods remain outside the product path. Six are explicitly banned
+by D13. Most of the remainder support historical capability probes. The brain
+also retains 249 files under `src/probes`; the product server does not import
+that directory. Outside it, one client helper supports malformed-frame tests,
+and the wire-golden tools preserve probe method history.
+
+The reduced extension is deployed. The next controller reload must report 150
+methods and wire hash `73677cd82e4c7cd2`.
+
+No general cleanup round existed. [Phase 6b](plan/phase-6/6b-probe-runtime-retirement.md)
+now owns the full classification and retirement pass. Do not remove older
+probe methods ad hoc because some still enforce live regression decisions.
 
 ## Dogfood menu after the preset detour
 
@@ -74,5 +85,5 @@ observation only after that verdict. Use `list_changes`, `check_revert`, and
 
 ## Retrospective
 
-Inventory installed plug-in formats before classifying a preset route. This
-distinguishes a CLAP load from a same-name VST load without another mutation.
+Separate the product extension from optional probe instrumentation. This keeps
+closed investigations from adding permanent observer and wire cost.

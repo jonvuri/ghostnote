@@ -1,12 +1,11 @@
 /**
  * The wire vocabulary — THE ONLY PLACE `category.action` strings live.
  *
- * The extension registers 93 methods (extension/methods.golden.json). The
- * contract reaches ~26 of them. That gap is deliberate, not incompleteness:
+ * The extension registers 150 methods (extension/methods.golden.json). The
+ * product can emit 82 of them. The remaining gap is deliberate:
  *
- *   - the rest are exploration surface the E4c/E4d/E6/E7 probes run against, and
- *     they stay on the wire forever so those probes keep working — they are the
- *     regression suite that keeps the offline fake honest;
+ *   - many are exploration surface for historical live probes. Phase 6b owns
+ *     their classification and retirement boundary;
  *   - some are BANNED and must stay unreachable. `app.invokeAction` is standing
  *     rule 6 (E6: foreground-and-focus gated, zero readback, and it fires against
  *     the UI selection our own addressing sets — it silently created seven orphan

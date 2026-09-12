@@ -429,7 +429,7 @@ test('5r: indexed named-slot selection is product wire', () => {
   assert.ok(WIRE_METHODS_USED.includes('devcursor.selectInSlot'));
 });
 
-test('D03: plug-in preset operations remain probe-only', () => {
+test('D03: retired plug-in preset operations stay off the wire', () => {
   assert.deepEqual(golden.addedInD03 ?? [], [
     'spike.preset.browserCancel',
     'spike.preset.browserCommit',
@@ -446,6 +446,8 @@ test('D03: plug-in preset operations remain probe-only', () => {
   ]);
   assert.deepEqual((golden.addedInD03 ?? [])
     .filter((method) => WIRE_METHODS_USED.includes(method)), []);
+  assert.deepEqual((golden.addedInD03 ?? [])
+    .filter((method) => golden.methods.includes(method)), []);
 });
 
 test('5b: remote automation state is subscribed before live route proof', () => {

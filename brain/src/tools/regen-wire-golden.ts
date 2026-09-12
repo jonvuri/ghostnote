@@ -40,7 +40,7 @@ const brandNew = methods.filter((m) => !golden.methods.includes(m));
 // record of what the branching mini-spike put on the wire. E20, the session-3e
 // probe, E22, session 3f, sessions 3g-b through 4b, and Phase 2 session 2e are
 // frozen too. Phase 2 session 2i and Phase 4 session 4b are also frozen. New
-// D03 has the current probe-only bucket.
+// D03 is closed. Its retired probe-only bucket stays as historical evidence.
 const addedInSession1 = golden.addedInSession1 ?? ['contract.hello', 'rig.methods'];
 const addedInSession2 = golden.addedInSession2 ?? [];
 const addedInE16 = golden.addedInE16 ?? [];

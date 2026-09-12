@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E102 | CLAP-discovered H2P is an indexed direct route [K] (2026-09-12) | [open](experiments/e102-clap-discovered-h2p-is-an-indexed-direct-route.md) |
 | E101 | Plug-in preset files have two direct routes [K] (2026-09-12) | [open](experiments/e101-plugin-preset-files-have-two-direct-routes.md) |
 | E100 | Existing-wrapper update needs complete live state capture [K] (2026-09-05) | [open](experiments/e100-existing-wrapper-update-needs-live-state-capture.md) |
 | E99 | Selection borrowing and background stability [K] (2026-09-05) | [open](experiments/e99-selection-borrowing-and-background-stability.md) |

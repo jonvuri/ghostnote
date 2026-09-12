@@ -3,7 +3,7 @@ title: Phase 6 — Breadth & release
 kind: plan
 state: planned
 status: Phase 5 is reopened for public generalization. Session 6a remains next after that work and dogfooding close.
-updated: 2026-08-25
+updated: 2026-09-12
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
 ---
@@ -82,6 +82,10 @@ product commitment:
 
 ### Packaging & hygiene
 
+- **Probe runtime retirement.** [Session 6b](6b-probe-runtime-retirement.md)
+  will classify the extension methods that production cannot emit, remove
+  retired runtime apparatus, and preserve necessary live regression tools
+  behind an explicit probe boundary.
 - Install documentation, including the one-time manual step nobody can automate:
   Settings → Controllers → Add Controller → vendor "ghostnote".
 - Cross-platform paths. The extension already reads `RigConfig` from
