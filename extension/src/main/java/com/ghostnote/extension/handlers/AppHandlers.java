@@ -32,6 +32,9 @@ public final class AppHandlers extends HandlerGroup {
         r.on("transport.play", params -> transportPlay());
         r.on("transport.stop", params -> transportStop());
         r.on("transport.status", params -> transportStatus());
+        r.on("masterRecorder.start", params -> masterRecorderStart());
+        r.on("masterRecorder.stop", params -> masterRecorderStop());
+        r.on("masterRecorder.status", params -> masterRecorderStatus());
     }
 
     /**
@@ -177,5 +180,23 @@ public final class AppHandlers extends HandlerGroup {
         r.addProperty("sampledAtMs", System.currentTimeMillis());
         putGuarded(r, "playPosition", () -> rig.transport.playPosition().get());
         return r;
+    }
+
+    private JsonElement masterRecorderStart() {
+        rig.masterRecorder.start();
+        return masterRecorderStatus();
+    }
+
+    private JsonElement masterRecorderStop() {
+        rig.masterRecorder.stop();
+        return masterRecorderStatus();
+    }
+
+    private JsonElement masterRecorderStatus() {
+        JsonObject result = new JsonObject();
+        result.addProperty("isActive", rig.masterRecorder.isActive().get());
+        result.addProperty("durationMs", rig.masterRecorder.duration().get());
+        result.addProperty("sampledAtMs", System.currentTimeMillis());
+        return result;
     }
 }

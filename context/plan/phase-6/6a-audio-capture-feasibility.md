@@ -1,10 +1,11 @@
 ---
 title: Phase 6a — Audio capture feasibility
 kind: plan
-state: planned
-status: Next. Prove one safe snippet route before audio analysis work starts.
+state: complete
+status: Complete. E103 proves three exact project-local MasterRecorder WAV files.
 updated: 2026-09-12
 parent: README.md
+next: 6b-exact-version-offline-documentation-retrieval.md
 ---
 
 # Phase 6a — Audio capture feasibility
@@ -110,3 +111,17 @@ the duration, set a conservative level, and stop on an unexpected peak.
 ## Retrospective target
 
 Record which initial API or filesystem fact most reduced the live search space.
+
+## Result
+
+[E103](../../evidence/experiments/e103-master-recorder-produces-exact-project-local-wav.md)
+proves route 1. Three consecutive two-bar captures produced one exact WAV each
+under the saved project's `master-recordings` directory. Each file was stereo
+24-bit PCM at 44.1 kHz, non-silent, unclipped, and independently hashed.
+
+The typed API does not return a path. A capture provider must receive or already
+know the saved project directory, snapshot it before start, and refuse any
+result other than one new stable lossless audio file. Routes 2 through 4 were
+not tested because the first route passed.
+
+Sessions 6c and 6d are open. Session 6b is next.

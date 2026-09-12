@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Session 6a starts with audio capture feasibility.
+status: Session 6a passed. Session 6b exact-version documentation retrieval is next.
 updated: 2026-09-12
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
@@ -142,9 +142,10 @@ considered.
 
 ## Exploration order
 
-1. [6a — audio capture feasibility](6a-audio-capture-feasibility.md). Find one
-   safe, repeatable audio-snippet route without system-level loopback if possible.
-2. **6b — exact-version offline documentation retrieval.** Find stable official
+1. [6a — audio capture feasibility](6a-audio-capture-feasibility.md). Complete.
+   E103 proves three exact project-local MasterRecorder WAV files.
+2. [6b — exact-version offline documentation retrieval](6b-exact-version-offline-documentation-retrieval.md).
+   Find stable official
    user-guide downloads, test version-aware automatic download and caching,
    inventory installed semantic sources, and compare a small lexical index with
    local semantic retrieval.
@@ -194,5 +195,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6a. Use a disposable Bitwig project and leave retained projects
-untouched.
+Start session 6b. Keep downloaded documentation out of the repository unless a
+redistribution decision explicitly permits it.

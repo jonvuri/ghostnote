@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-09-12
 phase: phase-6
-session: 6a-audio-capture-feasibility
+session: 6b-exact-version-offline-documentation-retrieval
 ---
 
 # Now
@@ -16,11 +16,22 @@ breadth and release phase is now Phase 8.
 
 ## Next session
 
-Run [Phase 6a: audio capture feasibility](plan/phase-6/6a-audio-capture-feasibility.md).
-Determine whether Ghostnote can obtain a bounded, exact audio artifact from
-Bitwig without a proprietary or machine-specific system loopback dependency.
-Test the routes in the plan in order. Stop the audio-analysis direction if no
-portable route meets the acceptance criteria.
+Run [Phase 6b: exact-version offline documentation retrieval](plan/phase-6/6b-exact-version-offline-documentation-retrieval.md).
+Prove a stable official download and version-aware cache route. Inventory the
+installed semantic sources, then compare a small lexical index with one local
+semantic retrieval method. Do not add copyrighted Bitwig documentation to the
+repository.
+
+## Audio capture gate
+
+[E103](evidence/experiments/e103-master-recorder-produces-exact-project-local-wav.md)
+opens sessions 6c and 6d. Controller API 25 `MasterRecorder` produced three
+exact project-local WAV files. Each was stereo 24-bit PCM at 44.1 kHz,
+non-silent, unclipped, and independently hashed. The route needs a known saved
+project directory because the API returns no file path.
+
+The extension now registers 153 methods with wire hash `78368fe47ea0e814`.
+The three new methods are probe-only MasterRecorder start, stop, and status.
 
 ## Workstation direction
 
@@ -56,15 +67,15 @@ handlers and popup-browser banks are removed.
 
 ## Probe surface audit
 
-The extension now registers 150 methods. The product wire can emit 82; 68
+The extension now registers 153 methods. The product wire can emit 82; 71
 registered methods remain outside the product path. Six are explicitly banned
 by D13. Most of the remainder support historical capability probes. The brain
-also retains 249 files under `src/probes`; the product server does not import
+also retains 250 files under `src/probes`; the product server does not import
 that directory. Outside it, one client helper supports malformed-frame tests,
 and the wire-golden tools preserve probe method history.
 
-The reduced extension is deployed. The next controller reload must report 150
-methods and wire hash `73677cd82e4c7cd2`.
+The reduced extension with the 6a probe is deployed and loaded. It reports 153
+methods and wire hash `78368fe47ea0e814`.
 
 No general cleanup round existed. [Phase 8b](plan/phase-8/8b-probe-runtime-retirement.md)
 now owns the full classification and retirement pass. Do not remove older
@@ -78,5 +89,6 @@ redistribution, and probe-runtime work from the former Phase 6.
 
 ## Retrospective
 
-Test the mechanical audio-capture gate before audio analysis. This prevents
-tool and model research from depending on an unavailable feedback path.
+The saved-project `master-recordings` rule converted a pathless API into an
+exact one-file directory diff. Check filesystem ownership rules before adding
+more capture mechanisms.

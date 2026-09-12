@@ -20,6 +20,7 @@ import com.bitwig.extension.controller.api.DeviceSlot;
 import com.bitwig.extension.controller.api.CursorRemoteControlsPage;
 import com.bitwig.extension.controller.api.DrumPad;
 import com.bitwig.extension.controller.api.DrumPadBank;
+import com.bitwig.extension.controller.api.MasterRecorder;
 import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.RemoteControl;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
@@ -272,6 +273,9 @@ public class Rig {
     /** E7e: transport, so probes can hold a note playing (per-voice modulators
      * output nothing while the project is silent). */
     public final Transport transport;
+
+    /** Phase 6a: bounded access to Bitwig's project master recording. */
+    public final MasterRecorder masterRecorder;
 
     /**
      * DirectParameter API state for cursorDevice0 — the format-AGNOSTIC path
@@ -1375,6 +1379,10 @@ public class Rig {
         // clock says a launch was DELAYED; only the play position says it landed on
         // a BAR, which is the property `launchWithOptions("1", …)` actually claims.
         transport.playPosition().markInterested();
+
+        masterRecorder = host.createMasterRecorder();
+        masterRecorder.isActive().markInterested();
+        masterRecorder.duration().markInterested();
 
         // Format-agnostic DirectParameter observers (E4b — CLAP access test).
         // Callbacks fire on the control-surface thread.
