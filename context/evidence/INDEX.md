@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E104 | Exact-version document cache and routed lexical retrieval pass [K] (2026-09-12) | [open](experiments/e104-exact-version-document-cache-and-routed-lexical-retrieval-pass.md) |
 | E103 | MasterRecorder produces an exact project-local WAV [K] (2026-09-12) | [open](experiments/e103-master-recorder-produces-exact-project-local-wav.md) |
 | E102 | CLAP-discovered H2P is an indexed direct route [K] (2026-09-12) | [open](experiments/e102-clap-discovered-h2p-is-an-indexed-direct-route.md) |
 | E101 | Plug-in preset files have two direct routes [K] (2026-09-12) | [open](experiments/e101-plugin-preset-files-have-two-direct-routes.md) |

@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-09-12
 phase: phase-6
-session: 6b-exact-version-offline-documentation-retrieval
+session: 6c-deterministic-audio-analysis-tool-survey
 ---
 
 # Now
@@ -16,11 +16,19 @@ breadth and release phase is now Phase 8.
 
 ## Next session
 
-Run [Phase 6b: exact-version offline documentation retrieval](plan/phase-6/6b-exact-version-offline-documentation-retrieval.md).
-Prove a stable official download and version-aware cache route. Inventory the
-installed semantic sources, then compare a small lexical index with one local
-semantic retrieval method. Do not add copyrighted Bitwig documentation to the
-repository.
+Run [Phase 6c: deterministic audio-analysis tool survey](plan/phase-6/6c-deterministic-audio-analysis-tool-survey.md).
+Use E103's exact project-local WAV route and a controlled synthetic cohort.
+Compare established local providers for signal, spectral, temporal, pitch,
+stereo, and modulation facts. Keep perceptual judgment in session 6d.
+
+## Documentation retrieval gate
+
+[E104](evidence/experiments/e104-exact-version-document-cache-and-routed-lexical-retrieval-pass.md)
+selects source-routed SQLite FTS5. It found all nine expected items in its top
+five; local LSA found four. Installed API and localization are exact for 6.0.6.
+Exact release notes have a stable official archive route. No 6.0.6 user guide
+exists, so the 5.3 guide is a general-workflow fallback only. Source bytes and
+indexes stay outside the repository.
 
 ## Audio capture gate
 
@@ -89,6 +97,6 @@ redistribution, and probe-runtime work from the former Phase 6.
 
 ## Retrospective
 
-The saved-project `master-recordings` rule converted a pathless API into an
-exact one-file directory diff. Check filesystem ownership rules before adding
-more capture mechanisms.
+Version compatibility and source-family routing prevented broad older guide
+pages from claiming exact installed behavior. Keep provenance checks ahead of
+ranking.

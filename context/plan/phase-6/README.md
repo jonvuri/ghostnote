@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Session 6a passed. Session 6b exact-version documentation retrieval is next.
+status: Sessions 6a and 6b passed. Session 6c deterministic audio analysis is next.
 updated: 2026-09-12
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
@@ -145,11 +145,12 @@ considered.
 1. [6a — audio capture feasibility](6a-audio-capture-feasibility.md). Complete.
    E103 proves three exact project-local MasterRecorder WAV files.
 2. [6b — exact-version offline documentation retrieval](6b-exact-version-offline-documentation-retrieval.md).
-   Find stable official
+   Complete. Find stable official
    user-guide downloads, test version-aware automatic download and caching,
    inventory installed semantic sources, and compare a small lexical index with
    local semantic retrieval.
-3. **6c — deterministic audio-analysis tool survey.** Benchmark `ffmpeg`,
+3. [6c — deterministic audio-analysis tool survey](6c-deterministic-audio-analysis-tool-survey.md).
+   Benchmark `ffmpeg`,
    spectrogram generation, and mature music-audio libraries. Select independent
    providers for signal, spectral, temporal, pitch, stereo, and modulation facts.
 4. **6d — perceptual audio-model evaluation.** Compare frontier audio models and
@@ -195,5 +196,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6b. Keep downloaded documentation out of the repository unless a
-redistribution decision explicitly permits it.
+Start session 6c. Use the exact project-local WAV route from E103. Keep test
+audio and generated analysis artifacts outside the repository.

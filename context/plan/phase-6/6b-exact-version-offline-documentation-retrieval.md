@@ -1,11 +1,12 @@
 ---
 title: Phase 6b — Exact-version offline documentation retrieval
 kind: plan
-state: planned
-status: Next. Prove a version-aware Bitwig documentation cache and retrieval route.
+state: complete
+status: Complete. E104 selects exact-source routing and SQLite FTS5 retrieval.
 updated: 2026-09-12
 parent: README.md
 prev: 6a-audio-capture-feasibility.md
+next: 6c-deterministic-audio-analysis-tool-survey.md
 ---
 
 # Phase 6b — Exact-version offline documentation retrieval
@@ -55,3 +56,17 @@ routes over the available sources.
 ## Retrospective target
 
 Record which source or version check prevented the most false retrieval claims.
+
+## Result
+
+[E104](../../evidence/experiments/e104-exact-version-document-cache-and-routed-lexical-retrieval-pass.md)
+proves a version-aware private cache and offline retrieval route. The exact
+6.0.6 release archive redirects to a signed official document. No 6.0.6 user
+guide exists. The 5.3 guide remains a general-workflow fallback and cannot
+support version 6 claims.
+
+The routed FTS5 index found all nine expected API, workflow, and device evidence
+items in its top five. Local LSA found four. Select FTS5 with an explicit source
+family. Keep source bytes and generated indexes outside the repository.
+
+Session 6c is next.
