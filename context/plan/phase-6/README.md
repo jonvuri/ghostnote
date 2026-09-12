@@ -1,128 +1,198 @@
 ---
-title: Phase 6 — Breadth & release
+title: Phase 6 — Music workstation direction exploration
 kind: plan
-state: planned
-status: Phase 5 is reopened for public generalization. Session 6a remains next after that work and dogfooding close.
+state: active
+status: Session 6a starts with audio capture feasibility.
 updated: 2026-09-12
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
+next: ../phase-7/README.md
 ---
 
-# Phase 6 — Breadth & release
+# Phase 6 — Music workstation direction exploration
 
-> **Purpose.** Everything that is genuinely useful but does not gate anything else.
-> Unlike Phases 0–5 this is **not a sequenced phase** — it is a backlog of
-> independently schedulable items, several of which will be pulled forward
-> opportunistically when a real session makes one of them the obvious next thing.
+## Purpose
 
-## Why it is structured as a bag
+Explore Ghostnote as a modular music MCP workstation. The Bitwig information,
+operation, and feedback surfaces become one Bitwig adapter. Other modules can
+provide documentation retrieval, music analysis and transformation, audio
+capture, and perceptual feedback.
 
-INITIAL_PROMPT §1 sets the goal as *"expand to as much live DAW control as the
-Controller API permits, in rough order of feasibility and personal usefulness."* Once
-Phases 0–5 are in, feasibility is largely settled — the API sweep found typed
-primitives for nearly all of this — so the ordering criterion collapses to **personal
-usefulness**, which cannot be predicted in advance and should not be pre-committed.
+This phase tests the direction before it expands the product contract. Each
+session must produce evidence, a bounded prototype, or a clear negative result.
 
-## Next selected item
+## Working model
 
-[The open dogfooding loop](../dogfooding/README.md) selected the
-[Phase 5 public-generalization continuation](../phase-5/README.md). The loop ends
-only when the operator explicitly closes it.
+Ghostnote should provide capabilities that agents do not perform quickly or
+reliably on their own:
 
-[6a — `bwmod` publication review and extraction](6a-bwmod-publication-review.md)
-is next after the continuation and dogfooding close. The first Phase 5 closeout
-settled the internal asset policy and deferred external redistribution review.
-Session 6a checks that boundary before it prepares the standalone package. It
-does not publish externally without explicit approval.
+1. Deterministic, reliable, and fast operations.
+2. Reliable feedback loops over project, musical, and audio state.
 
-## Candidate items
+The programming analogy is deliberate:
 
-### Session structure (§4's feature matrix)
+- Operations act like codemods. They apply exact structural changes in bulk or
+  complete one operation faster and more reliably than computer use.
+- Analysis acts like static typing. It reports semantic structure, invariants,
+  incompatibilities, and before-and-after differences.
+- Audio observation acts like testing. It measures the produced signal and can
+  supply bounded perceptual judgments.
+- Computer use acts like the interactive editor. It owns open-ended visual work,
+  plug-in user interfaces, and workflows that have no useful programmatic path.
 
-- **Mixer state** — volume, pan, mute, solo, arm, activated, colour, name. High
-  checkpoint fidelity (scalar readback), so cheap and safe.
-- **Sends** — level, enabled, pre/post. Same fidelity story.
-- **Transport** — tempo, time signature, play/stop, loop, metronome, position. Handles
-  already exist from E7's rig work.
-- **Scenes** — create, delete, name, colour. ⚠ Scene deletion **compacts rows
-  upward** and a held pin's `sceneIndex` goes permanently stale (E3) — this is the
-  one structural op with a known addressing trap.
-- **Track creation and typing** — instrument/audio/effect/group. Note
-  `createInstrumentTrack(position)` does **not** honour position; identify a new
-  track by `channelId` set-difference, never positionally (E2f).
-- **Group-track navigation** — `Track.createTrackBank`/`createMainTrackBank` for
-  nested tracks. Our flat bank is the default; revisit only if groups matter.
+The workstation and computer use should work together. Ghostnote-only operation
+also remains a supported constrained mode. A missing computer-use capability
+must produce an explicit boundary instead of a guessed substitute.
 
-### Musical breadth
+## Design principles
 
-- **The arrangement timeline.** Deliberately deferred throughout — launcher clips are
-  materially more reliable than arrangement clips (§11, E2). Worth a real evaluation
-  rather than a permanent exclusion, but with eyes open.
-- **MPE / per-note expression at scale.** The channel is carried explicitly from
-  Phase 2 precisely so this is not a retrofit (SPIKE_PLAN §2.5).
-- **Groove engine** — capability noted in the API sweep, unexplored.
-- **The browser** — full session API for preset/device/sample loading. Modal and
-  stateful, so awkward for a stateless tool surface (§6b); the exploratory-search
-  case is its real niche, not routine loading.
+### Prefer high-leverage operations
 
-### Publishable artifacts
+Prioritize bulk work and single operations with a material speed or reliability
+advantage. Do not reproduce each Bitwig user-interface gesture as a tool. Prefer
+semantic operations that reduce many slow agent steps to one checked request.
 
-Per the "personal but releasable" decision — each is a cheap extraction, not a
-product commitment:
+### Build independent modules
 
-- **`bwmod`** as a standalone library. Self-contained, tested, and it solves a
-  problem the Bitwig community has documented as unsolved. The most obviously
-  valuable thing this project could give away.
-- **`BWFORMAT_SPEC.md`** — the `.bwpreset` format working spec, including the
-  readings that turned out to be **wrong** and why. The negative results are worth as
-  much as the positive ones to anyone else attempting this.
-- **The device / param-ID catalog** — mechanically generated from the app bundle,
-  and the exact gap WigAI issue #15 describes.
-- **The extension itself**, if the daemon and MCP surface prove stable.
+Each module must have a small, versioned interface. It must work independently
+and compose through explicit artifacts and results. Avoid hidden shared state.
+Use hashes, provenance, capability metadata, and declared observation coverage
+at module boundaries.
 
-### Packaging & hygiene
+Candidate modules are:
 
-- **Probe runtime retirement.** [Session 6b](6b-probe-runtime-retirement.md)
-  will classify the extension methods that production cannot emit, remove
-  retired runtime apparatus, and preserve necessary live regression tools
-  behind an explicit probe boundary.
-- Install documentation, including the one-time manual step nobody can automate:
-  Settings → Controllers → Add Controller → vendor "ghostnote".
-- Cross-platform paths. The extension already reads `RigConfig` from
-  `~/.ghostnote/rig.json`, and the API exposes `platformIsMac/Windows/Linux` — but
-  nothing has been tested off macOS.
-- Licensing and attribution. `NOTICE` already credits daw-mcp (MIT); any lifted code
-  must keep its attribution, and template assets derived from Bitwig's bundled
-  content need a decision before publication (see PHASE-5-AUTHORING).
-- Bitwig version-compatibility policy. The API version tracks the Bitwig version
-  (§11) and the bundled javadoc's version annotations **lag** the host — trust
-  `getHostApiVersion()`, not doc archaeology (E0).
+- a Bitwig adapter for project information and operations;
+- an offline Bitwig documentation provider;
+- a semantic music analysis and transformation engine;
+- an audio capture provider;
+- deterministic audio analysis providers; and
+- optional perceptual-model providers.
 
-## What stays out permanently
+An external provider must be replaceable. One provider failure must not disable
+unrelated workstation capabilities.
 
-Not deferred — decided against, and re-litigating them should require new evidence:
+### Prefer established tools
 
-- A second DAW, a mirror model, local audition, or any sound surface but Bitwig
-  (§2, §8h).
-- A custom chat harness (D4).
-- Offline generation / DAWproject; Grid patch synthesis; a library-cataloguing search
-  engine; building on DrivenByMoss or OSC (§9).
-- Named actions, in any form (E6 — unusable *and* hazardous).
-- Runtime modulator creation or routing (E7 ○, exhaustive).
+Evaluate mature existing tools before custom implementation. Prefer tools that
+are free to use, lightweight, fast, reliable, and actively maintained. Prefer a
+direct TypeScript library or a fast native library with a stable binding. A
+small Rust component or a stable executable adapter is acceptable when it gives
+a measured benefit.
+
+Record license, release activity, supported platforms, startup cost, steady-state
+latency, memory cost, determinism, output stability, and integration complexity.
+Do not select a tool from feature lists alone.
+
+### Keep aesthetic authority with the operator
+
+Audio and musical analysis can classify, compare, and guide construction.
+Aesthetic acceptance stays with the operator. Descriptors such as dark, brittle,
+wide, intimate, or aggressive are valid construction inputs and analysis search
+terms. They are not automatic acceptance criteria.
+
+## Verification and performance policy
+
+Audit the cost of the current verification system during every exploration.
+Measure the latency and host work for target acquisition, guards, settlement,
+readback, reversal preparation, and full-state scans separately.
+
+Do not remove a proved safety check only because it is expensive. Select the
+smallest verification level that matches the operation risk:
+
+- A risk-bearing structural write keeps exact target guards and independent
+  post-write evidence.
+- A bounded scalar or idempotent write should avoid unrelated full-chain reads
+  when a narrow target-bound postcondition is sufficient.
+- A read-only analyzer needs source identity, version, and coverage. It does not
+  need mutation ceremony.
+- A computer-use step can verify visible UI state. The Bitwig adapter should
+  verify only the semantic state it can observe. Neither route can claim the
+  other's evidence.
+- An external UI mutation is not automatically a Ghostnote-owned reversible
+  change.
+
+Prefer fast failure over retries when the target, coverage, or recovery boundary
+is unknown. Treat historical probe instrumentation and product verification as
+separate costs.
+
+## Local starting facts
+
+Bitwig Studio 6.0.6 includes useful offline sources:
+
+- Controller API HTML under
+  `/Applications/Bitwig Studio.app/Contents/Resources/Documentation/control-surface/api`;
+- native device, parameter, modulator, and Grid module descriptions under
+  `Contents/Resources/localization`; and
+- device defaults, presets, and remote maps under `Contents/Resources/Library`.
+
+No complete local user-guide PDF or HTML was found in the application or user
+support directories. Phase 6 must test whether the exact-version guides have a
+stable official download route. Query installed files in place. Do not bundle
+copyrighted documentation without a redistribution decision.
+
+The current computer-use interface observes accessibility state and screenshots.
+It does not capture audio. GPT-5.6 Sol accepts text and images but not audio.
+OpenAI supplies separate audio-capable models, but their music and sound-design
+judgment is unproved for this product.
+
+Bitwig Controller API 25 includes `MasterRecorder`. It can start and stop master
+recording and report duration. It does not expose audio bytes or a file path.
+Session 6a must determine what artifact it creates before any loopback design is
+considered.
+
+## Exploration order
+
+1. [6a — audio capture feasibility](6a-audio-capture-feasibility.md). Find one
+   safe, repeatable audio-snippet route without system-level loopback if possible.
+2. **6b — exact-version offline documentation retrieval.** Find stable official
+   user-guide downloads, test version-aware automatic download and caching,
+   inventory installed semantic sources, and compare a small lexical index with
+   local semantic retrieval.
+3. **6c — deterministic audio-analysis tool survey.** Benchmark `ffmpeg`,
+   spectrogram generation, and mature music-audio libraries. Select independent
+   providers for signal, spectral, temporal, pitch, stereo, and modulation facts.
+4. **6d — perceptual audio-model evaluation.** Compare frontier audio models and
+   smaller music-focused models on controlled blind A/B tasks. Evaluate
+   classification and directional judgment, not aesthetic authority.
+5. **6e — semantic music analysis and manipulation.** Define typed harmony,
+   rhythm, voice-leading, register, motif, and tension analysis. Add only the
+   constrained transformations that give a measured advantage over agent-only
+   editing.
+6. **6f — workstation interface and verification synthesis.** Select module
+   interfaces, record retained prototypes, finish the verification-cost audit,
+   and prepare the Phase 7 dogfood surface.
+
+Sessions 6c and 6d require a successful or otherwise usable 6a capture route.
+If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Exit criteria
 
-There are none, by design. This document is a backlog. The honest completion test for
-the project as a whole is the Phase 2 dogfood gate, applied continuously: **does it
-get used?**
+- Audio capture has a proved route or a precise blocking boundary.
+- Exact-version Bitwig documentation acquisition and local search have measured
+  coverage and update rules.
+- Audio-analysis candidates have license, performance, reliability, and output
+  comparisons on representative snippets.
+- Perceptual models have controlled results for useful sound-design comparisons.
+- Music analysis has a typed semantic contract and at least one useful
+  before-and-after transformation loop.
+- The workstation modules have independent interfaces and compose without a
+  hidden global runtime.
+- The verification audit identifies which costs are essential, reducible, or
+  historical. Any reduction keeps a proved safety basis.
+- Phase 7 has a public dogfood menu and explicit hybrid, solo, provenance, and
+  operator-verdict rules.
 
-## Risks
+## Out of scope
 
-- **Breadth as procrastination.** Adding mixer controls is easier and more visibly
-  productive than curating templates or measuring footprints. Watch for items being
-  pulled forward because they are pleasant rather than because they are needed.
-- **Publishing pulls the project's centre of gravity.** Extracting `bwmod` is cheap;
-  supporting it is not. Extract, document honestly, and set expectations low.
-- **The arrangement timeline is the largest hidden scope in the list** and the one
-  with the weakest API guarantees. If it is attempted, it deserves its own spike in
-  the style of the original — question, method, verdict, evidence.
+- A second production DAW adapter during this exploration.
+- A custom general chat harness.
+- Replacing computer use with a mirror of the Bitwig interface.
+- Treating model output as an operator audition verdict.
+- Installing a proprietary loopback dependency as the default capture route.
+- Relaxing named-action or destructive-operation safety decisions without new
+  controlled evidence.
+
+## Handoff
+
+Start session 6a. Use a disposable Bitwig project and leave retained projects
+untouched.

@@ -1,18 +1,18 @@
 ---
-title: Open dogfooding loop
+title: First dogfooding loop
 kind: plan
-state: active
+state: deferred
 updated: 2026-09-12
 parent: ../ROADMAP.md
 ---
 
-# Open dogfooding loop
+# First dogfooding loop
 
-This loop owns the work between Phase 5 and the first Phase 6 backlog item. It
-stays open until the operator explicitly closes it. Real musical work chooses
-the next task. The ColourCopy run reopened Phase 5 for the
-[public-generalization continuation](../phase-5/README.md). Phase 6a remains
-next after that work and this loop close.
+This loop records the first real-workflow iteration. The operator deferred its
+remaining menu while Phase 6 explores the music workstation direction. The
+ColourCopy run reopened Phase 5 for the
+[public-generalization continuation](../phase-5/README.md). Phase 7 owns the
+next dogfood loop and includes this loop's remaining useful tasks.
 
 ## Environment
 
@@ -110,6 +110,5 @@ behavioral finding.
 
 ## Close condition
 
-Only an explicit operator request closes this loop. At closeout, summarize the
-accepted musical results, remaining defects, verified configuration, and the
-next Phase 6 item. Then restore `context/NOW.md` to the selected Phase 6 work.
+Phase 7 replaces this loop when the workstation exploration is ready for real
+work. Preserve these run records as evidence. Do not resume this menu directly.

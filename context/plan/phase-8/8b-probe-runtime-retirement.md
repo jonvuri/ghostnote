@@ -1,12 +1,12 @@
 ---
-title: Phase 6b — probe runtime retirement
+title: Phase 8b — probe runtime retirement
 kind: plan
 state: planned
 updated: 2026-09-12
 parent: README.md
 ---
 
-# Phase 6b — probe runtime retirement
+# Phase 8b — probe runtime retirement
 
 ## Purpose
 

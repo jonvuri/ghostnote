@@ -105,7 +105,7 @@ would not satisfy the requested from-scratch workflow.
 
 Keep this separate from both defects above. After the defects are fixed, decide
 whether a real musical retry should use a narrower goal or whether dogfooding has
-justified a new Phase 6 drum-rack composition item.
+justified a Phase 7 drum-rack composition item.
 
 ## Focused follow-up session 1 — restore Codex clip-tool exposure
 

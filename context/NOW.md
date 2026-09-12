@@ -3,20 +3,38 @@ title: Current state
 kind: status
 state: active
 updated: 2026-09-12
-phase: phase-5
-session: dogfood-menu
+phase: phase-6
+session: 6a-audio-capture-feasibility
 ---
 
 # Now
 
-Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 and the
-dogfood loop remain active. Phase 6a stays blocked until both close.
+Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 has an
+accepted public result, but its generalized closeout remains. The operator
+moved current work to Phase 6. Phase 7 owns the next dogfood loop. The former
+breadth and release phase is now Phase 8.
 
 ## Next session
 
-Resume the dogfood menu below. Use one fresh projectless public-tools-only
-session for the selected item. Non-native plug-in preset loading is not a
-pending dependency.
+Run [Phase 6a: audio capture feasibility](plan/phase-6/6a-audio-capture-feasibility.md).
+Determine whether Ghostnote can obtain a bounded, exact audio artifact from
+Bitwig without a proprietary or machine-specific system loopback dependency.
+Test the routes in the plan in order. Stop the audio-analysis direction if no
+portable route meets the acceptance criteria.
+
+## Workstation direction
+
+Explore Ghostnote as a modular music MCP workstation. Treat Bitwig information,
+operations, and feedback as one adapter. Optimize modules for deterministic,
+reliable, fast work and for short, reliable feedback loops. Use computer use
+for complex one-off interaction and recovery when it is available.
+
+Prefer high-leverage bulk operations, fast single operations, exact state
+readback, offline exact-version documentation, deterministic audio analysis,
+focused perceptual models, and semantic music theory tools. Prefer interfaces
+to free, lightweight, mature tools over new implementations. Each module must
+compose through a small interface and must also work independently. The
+operator owns aesthetic judgment.
 
 ## Preset detour closeout
 
@@ -48,42 +66,17 @@ and the wire-golden tools preserve probe method history.
 The reduced extension is deployed. The next controller reload must report 150
 methods and wire hash `73677cd82e4c7cd2`.
 
-No general cleanup round existed. [Phase 6b](plan/phase-6/6b-probe-runtime-retirement.md)
+No general cleanup round existed. [Phase 8b](plan/phase-8/8b-probe-runtime-retirement.md)
 now owns the full classification and retirement pass. Do not remove older
 probe methods ad hoc because some still enforce live regression decisions.
 
-## Dogfood menu after the preset detour
+## Later work
 
-Use one new projectless public-tools-only session for each item. Supply the
-musical content and acceptance criteria at run time.
-
-1. **Clip composition and revision.** Create a clip from a musical brief. Read
-   it back, transform it, change metadata and launch behavior, and audition it.
-2. **Long asynchronous composition.** Generate a long or dense clip, inspect
-   progress, revise it after completion, and exercise cancellation only if the
-   musical task calls for it.
-3. **Drum Machine production.** Build a multi-pad kit and beat, change nested
-   device parameters, copy a variation to another row, and audition both clips.
-4. **Device-alternate audition.** Create several alternatives for one device,
-   fill and switch them, compare them by ear, and keep one explicit choice.
-5. **General parameter sound design.** Use a native, VST3, or CLAP device.
-   Inspect direct and remote controls, set continuous and discrete values, and
-   test enabled-state changes without guessing semantic values.
-6. **Preset modulation editing.** Inspect a saved preset, then add, retarget,
-   resize, replace, and delete supported modulators. Require exact live page and
-   behavior readback.
-7. **Layered source composition.** Build an Instrument Layer or FX Layer from a
-   mix of native, plug-in, preset, and existing-device sources. Include nested
-   modulation and an explicit keep-or-reverse verdict.
-8. **Launcher and project structure.** Add and rename an owned track, add
-   scenes, create a small clip block, move or copy it, and remove only rejected
-   owned content with exact change checks.
-
-Across these sessions, ask for an explicit audition verdict. Record an
-observation only after that verdict. Use `list_changes`, `check_revert`, and
-`show_changed_clip` when the task creates or rejects material.
+[Phase 7a](plan/phase-7/7a-workstation-dogfood-menu.md) records the first
+workstation dogfood menu. [Phase 8](plan/phase-8/README.md) retains publication,
+redistribution, and probe-runtime work from the former Phase 6.
 
 ## Retrospective
 
-Separate the product extension from optional probe instrumentation. This keeps
-closed investigations from adding permanent observer and wire cost.
+Test the mechanical audio-capture gate before audio analysis. This prevents
+tool and model research from depending on an unavailable feedback path.

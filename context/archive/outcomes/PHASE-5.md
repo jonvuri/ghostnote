@@ -56,7 +56,7 @@ while its last proved top-level position remains valid.
 - Five donors have measured sampled-preset footprints. Two donors remain
   Tier-1-only and refuse on sampled presets.
 - Standalone `bwmod` publication and external redistribution review remain
-  Phase 6 work.
+  Phase 8 work.
 
 ## Qualifications
 
@@ -94,10 +94,10 @@ passed on its first attempt for exact candidate
 `894bc608ca3c872c693bfdd9454038f819359458`. The `extension (compile)` and
 `brain (offline suite)` jobs both passed.
 
-## Phase 6 handoff
+## Phase 8 handoff
 
-Phase 6 starts with the
-[`bwmod` publication review and extraction](../../plan/phase-6/6a-bwmod-publication-review.md).
+Phase 8 starts with the
+[`bwmod` publication review and extraction](../../plan/phase-8/8a-bwmod-publication-review.md).
 Review provenance, licensing, attribution, and package contents before binary
 assets enter a standalone package. Do not publish externally without explicit
 approval.

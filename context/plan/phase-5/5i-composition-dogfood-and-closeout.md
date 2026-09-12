@@ -46,7 +46,7 @@ audit.
    seeded live layer can grow through typed duplication. Only the file composer
    is limited to the shipped template capacity.
 10. Record the final evidence and Phase 5 outcome. Mark Phase 5 complete and
-    hand `context/NOW.md` to the next selected Phase 6 item.
+    hand `context/NOW.md` to the next selected breadth and release item.
 
 ## Policy closeout
 
@@ -56,7 +56,7 @@ audit.
   generation or runtime operator setup.
 - The product does not ship a copied Bitwig bundled preset.
 - External redistribution review and standalone `bwmod` publication remain
-  Phase 6 work.
+  later breadth and release work.
 - Growth above four entries and new container shapes need a new measured asset
   or a separately planned typed-runtime workflow.
 
@@ -80,7 +80,7 @@ audit.
 - Expanding the donor or target-recipe cohorts without a dogfood need.
 - A second template shape or a wider template.
 - Publishing `bwmod`, the format specification, or binary assets externally.
-- Any Phase 6 breadth item.
+- Any later breadth and release item.
 
 ## Retrospective target
 

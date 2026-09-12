@@ -39,7 +39,7 @@ the candidate fails a required manifest check.
    binding, and external-reference status.
 3. Do not generate the required asset on first run. Runtime work reads the
    immutable asset and writes only a temporary composed preset.
-4. Keep external redistribution review in Phase 6. Do not expand the template
+4. Keep external redistribution review in Phase 8. Do not expand the template
    library before that review.
 
 ## Scope
