@@ -1,11 +1,12 @@
 ---
 title: D03 — Generic plug-in preset loading spike
 kind: plan
-state: planned
+state: complete
 updated: 2026-09-12
 parent: README.md
 session: d03-generic-plugin-preset-loading-spike
 source: 01a0965e-2ec6-7482-9719-73c51b8a1ea8
+evidence: E101
 ---
 
 # D03 — Generic plug-in preset loading spike
@@ -233,3 +234,28 @@ opaque prior state.
 - Existing-device preset replacement.
 - Retrying the full orchestration request before the selected product route is
   implemented and exposed in a fresh Codex session.
+
+## Result
+
+[E101](../../evidence/experiments/e101-plugin-preset-files-have-two-direct-routes.md)
+records the complete matrix. H2P is `indexed-direct`: its indexed Repro-5 source
+loaded after a restart and in all three warm attempts, while an unindexed copy
+was an exact no-op. VSTPRESET is `direct`: indexed and unindexed Weiss sources
+loaded with stable readback. The tested Filterscape FXP is `unsupported`. FXB
+is `unproved` because the only local file is an internal resource bank.
+
+The popup route is unsupported by the safe API 25 transaction on this host.
+The API reported `Plug-in Presets`, but it ignored before-open, after-open, and
+relative content-index writes. No popup preset was committed. Audition disable,
+guard refusal, cancellation, and cleanup passed. The default catalog exposed
+non-u-he Quanta 2 and Reflection Step entries, but preset discovery remained
+unreachable.
+
+The selected follow-up is
+[D04](d04-plugin-preset-file-source.md). It adds a versioned append-only
+`plugin-preset-file` source with independent H2P and VSTPRESET entries.
+
+## Retrospective
+
+Define positive, negative, and indexed-only verdicts before live testing. This
+prevents a valid host-normalized result from appearing as a probe failure.

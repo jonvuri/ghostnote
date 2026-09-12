@@ -4,50 +4,38 @@ kind: status
 state: active
 updated: 2026-09-12
 phase: phase-5
-session: d03-generic-plugin-preset-loading-spike
+session: d04-plugin-preset-file-source
 ---
 
 # Now
 
-Phases 1, 2, and 4 are complete. Phase 3 remains deferred. The final ColourCopy
-dogfood passed with an explicit operator acceptance. The operator selected one
-new dogfood spike before the Phase 5 closeout: compare direct plug-in preset
-file insertion with the popup browser. Phase 5 and the dogfood loop remain
-active. Phase 6a stays blocked until both close.
+Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 and the
+dogfood loop remain active. Phase 6a stays blocked until both close.
 
-## Next spike
+## Next session
 
-[D03](plan/dogfooding/d03-generic-plugin-preset-loading-spike.md) responds to
-dogfood session `01a0965e-2ec6-7482-9719-73c51b8a1ea8`. That run needed Repro-5
-and Diva H2P presets. The current public tool accepts only `.bwpreset` files,
-and the agent stopped without a Bitwig write.
+Implement [D04](plan/dogfooding/d04-plugin-preset-file-source.md). Add a
+versioned append-only `plugin-preset-file` source with two independent entries:
 
-Bitwig documents H2P, FXP, FXB, VSTPRESET, and CLAP-discovered vendor formats.
-This machine has trustworthy H2P, FXP, and VSTPRESET fixtures. It has no proved
-user-loadable FXB fixture. The spike must classify all locally found preset
-suffixes, test direct insertion and popup commit for every available documented
-format, measure cold and warm time, and restore one fresh disposable project
-exactly. It must not use either retained music project.
+- VSTPRESET loads from indexed and unindexed absolute paths.
+- H2P requires a Bitwig-indexed absolute path.
 
-## Accepted ColourCopy result
+Keep `.bwpreset` separate. Reject FXP, FXB, unknown suffixes, and format-suffix
+mismatches before a write. Do not expose the popup browser or replace an
+existing device.
 
-Dogfood session `01a07268-8b4e-73f1-b307-3f5fb565d1eb` passed on 2026-09-05.
-It used only the 53 public Ghostnote tools. The agent preserved ColourCopy,
-wrapped it at position 1, and produced five verified free-running routes. It
-then set slower movement for Mix, Brightness, Regeneration, Colour, and Stereo
-Phase. The operator replied, `Great, looks good.`
+After the public surface passes, retry dogfood session
+`01a0965e-2ec6-7482-9719-73c51b8a1ea8` in a fresh public-tools-only chat.
 
-The follow-up used an exact owned reversal and rebuild because API 25 cannot
-update live wrapper topology safely. This is the known deferred update boundary,
-not a new defect. Transcript review session
-`01a07274-28f6-7280-80ea-69d5a179b81c` found no hidden high-priority issue.
+## D03 result
 
-The last transcript-observed project had seven tracks and eight launcher rows.
-The third track started with `Serato Sample | ColourCopy`. The accepted result
-left `Serato Sample | FX Layer`, with ColourCopy and five modulators in its first
-layer. This is the last recorded state, not a new live handshake.
+[E101](evidence/experiments/e101-plugin-preset-files-have-two-direct-routes.md)
+records the matrix. H2P is `indexed-direct`, VSTPRESET is `direct`, the tested
+FXP is `unsupported`, and FXB is `unproved`. The API 25 popup route could not
+establish a safe preset transaction. Each live probe restored its exact entry
+baseline.
 
-## Dogfood menu
+## Dogfood menu after the preset detour
 
 Use one new projectless public-tools-only session for each item. Supply the
 musical content and acceptance criteria at run time.
@@ -56,7 +44,7 @@ musical content and acceptance criteria at run time.
    it back, transform it, change metadata and launch behavior, and audition it.
 2. **Long asynchronous composition.** Generate a long or dense clip, inspect
    progress, revise it after completion, and exercise cancellation only if the
-   musical task naturally calls for it.
+   musical task calls for it.
 3. **Drum Machine production.** Build a multi-pad kit and beat, change nested
    device parameters, copy a variation to another row, and audition both clips.
 4. **Device-alternate audition.** Create several alternatives for one device,
@@ -78,17 +66,7 @@ Across these sessions, ask for an explicit audition verdict. Record an
 observation only after that verdict. Use `list_changes`, `check_revert`, and
 `show_changed_clip` when the task creates or rejects material.
 
-## Next action
-
-Run D03 in a fresh disposable Bitwig project. Record one format verdict for
-direct insertion and popup loading, including the explicit FXB fixture gap and
-one non-u-he CLAP discovery case. Use the result to select a product follow-up.
-Then resume the complete Phase 5 closeout matrix. Keep the dogfood loop open
-until the operator explicitly closes it. Phase 6a remains next after both
-close.
-
 ## Retrospective
 
-Scope negative evidence to the exact file class tested. E4h proved that renamed
-`.bwpreset` bytes do not load; it did not prove that valid plug-in preset formats
-fail through `insertFile`.
+Define all valid route verdicts before a live run. A host-normalized result must
+not become a probe failure because of an assumed outcome.

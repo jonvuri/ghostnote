@@ -1,6 +1,11 @@
 package com.ghostnote.extension;
 
 import com.bitwig.extension.controller.api.Application;
+import com.bitwig.extension.controller.api.BrowserFilterColumn;
+import com.bitwig.extension.controller.api.BrowserFilterItem;
+import com.bitwig.extension.controller.api.BrowserFilterItemBank;
+import com.bitwig.extension.controller.api.BrowserResultsItem;
+import com.bitwig.extension.controller.api.BrowserResultsItemBank;
 import com.bitwig.extension.controller.api.HardwareActionBindable;
 import com.bitwig.extension.controller.api.NotificationSettings;
 import com.bitwig.extension.controller.api.Clip;
@@ -24,6 +29,7 @@ import com.bitwig.extension.controller.api.Parameter;
 import com.bitwig.extension.controller.api.RemoteControl;
 import com.bitwig.extension.controller.api.PinnableCursorClip;
 import com.bitwig.extension.controller.api.PinnableCursorDevice;
+import com.bitwig.extension.controller.api.PopupBrowser;
 import com.bitwig.extension.controller.api.Send;
 import com.bitwig.extension.controller.api.SendBank;
 import com.bitwig.extension.controller.api.SpecificBitwigDevice;
@@ -76,6 +82,16 @@ public class Rig {
     public NotificationSettings notifications;
     public String notificationsStatus = "not-attempted";
     public final com.bitwig.extension.controller.api.Project project;
+    /** D03-only popup-browser apparatus. It is not part of the public surface. */
+    public static final int PRESET_BROWSER_BANK = 64;
+    public static final String[] PRESET_BROWSER_FILTER_NAMES = new String[] {
+        "smartCollection", "location", "device", "category",
+        "tag", "deviceType", "fileType", "creator"
+    };
+    public final PopupBrowser presetBrowser;
+    public final BrowserFilterColumn[] presetBrowserFilters;
+    public final BrowserFilterItemBank[] presetBrowserFilterBanks;
+    public final BrowserResultsItemBank presetBrowserResults;
     public final TrackBank trackBank;
     public final SceneBank sceneBank;
 
@@ -682,6 +698,67 @@ public class Rig {
         }
         project = host.getProject();
 
+        // D03: the popup browser and all of its banks are init-only resources.
+        // Keep this apparatus internal to the spike.
+        presetBrowser = host.createPopupBrowser();
+        presetBrowser.exists().markInterested();
+        presetBrowser.title().markInterested();
+        presetBrowser.contentTypeNames().markInterested();
+        presetBrowser.selectedContentTypeName().markInterested();
+        presetBrowser.selectedContentTypeIndex().markInterested();
+        presetBrowser.canAudition().markInterested();
+        presetBrowser.shouldAudition().markInterested();
+        presetBrowserFilters = new BrowserFilterColumn[] {
+            presetBrowser.smartCollectionColumn(),
+            presetBrowser.locationColumn(),
+            presetBrowser.deviceColumn(),
+            presetBrowser.categoryColumn(),
+            presetBrowser.tagColumn(),
+            presetBrowser.deviceTypeColumn(),
+            presetBrowser.fileTypeColumn(),
+            presetBrowser.creatorColumn()
+        };
+        presetBrowserFilterBanks = new BrowserFilterItemBank[presetBrowserFilters.length];
+        for (int columnIndex = 0; columnIndex < presetBrowserFilters.length; columnIndex++) {
+            BrowserFilterColumn column = presetBrowserFilters[columnIndex];
+            column.exists().markInterested();
+            column.name().markInterested();
+            column.entryCount().markInterested();
+            BrowserFilterItem wildcard = column.getWildcardItem();
+            wildcard.exists().markInterested();
+            wildcard.name().markInterested();
+            wildcard.isSelected().markInterested();
+            wildcard.hitCount().markInterested();
+            BrowserFilterItemBank bank = column.createItemBank(PRESET_BROWSER_BANK);
+            bank.exists().markInterested();
+            bank.itemCount().markInterested();
+            bank.scrollPosition().markInterested();
+            bank.canScrollBackwards().markInterested();
+            bank.canScrollForwards().markInterested();
+            for (int itemIndex = 0; itemIndex < PRESET_BROWSER_BANK; itemIndex++) {
+                BrowserFilterItem item = bank.getItemAt(itemIndex);
+                item.exists().markInterested();
+                item.name().markInterested();
+                item.isSelected().markInterested();
+                item.hitCount().markInterested();
+            }
+            presetBrowserFilterBanks[columnIndex] = bank;
+        }
+        presetBrowserResults = presetBrowser.resultsColumn().createItemBank(PRESET_BROWSER_BANK);
+        presetBrowser.resultsColumn().exists().markInterested();
+        presetBrowser.resultsColumn().entryCount().markInterested();
+        presetBrowserResults.exists().markInterested();
+        presetBrowserResults.itemCount().markInterested();
+        presetBrowserResults.scrollPosition().markInterested();
+        presetBrowserResults.canScrollBackwards().markInterested();
+        presetBrowserResults.canScrollForwards().markInterested();
+        for (int itemIndex = 0; itemIndex < PRESET_BROWSER_BANK; itemIndex++) {
+            BrowserResultsItem item = presetBrowserResults.getItemAt(itemIndex);
+            item.exists().markInterested();
+            item.name().markInterested();
+            item.isSelected().markInterested();
+        }
+
         // Flat track list so tracks nested in groups are addressable.
         //
         // ⚠ The second argument is the SEND-BANK size and it was 0 until E16.
@@ -882,6 +959,14 @@ public class Rig {
                 device.exists().markInterested();
                 device.name().markInterested();
                 device.isEnabled().markInterested();
+                if (i == 0) {
+                    // D03 reads preset proof only from its one owned cursor.
+                    device.presetName().markInterested();
+                    device.presetCreator().markInterested();
+                    device.presetCategory().markInterested();
+                    device.isPlugin().markInterested();
+                    device.deviceType().markInterested();
+                }
             }
         }
 
@@ -921,6 +1006,9 @@ public class Rig {
             "GN_DEV_0", "ghostnote device 0", 0, CursorDeviceFollowMode.FIRST_INSTRUMENT);
         cursorDevice0.exists().markInterested();
         cursorDevice0.name().markInterested();
+        cursorDevice0.presetName().markInterested();
+        cursorDevice0.presetCreator().markInterested();
+        cursorDevice0.presetCategory().markInterested();
         cursorDevice0.isEnabled().markInterested();
         cursorDevice0.isPinned().markInterested();
         // E4c: nesting introspection on whatever the cursor points at.

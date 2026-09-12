@@ -2,7 +2,7 @@
 title: Open dogfooding loop
 kind: plan
 state: active
-updated: 2026-08-25
+updated: 2026-09-12
 parent: ../ROADMAP.md
 ---
 
@@ -94,8 +94,11 @@ original JSONL as the authoritative record.
   — complete. Public pad composition, parameter integrity, exact clip colors,
   and partial observation verdicts are proved.
 - [D03 — Generic plug-in preset loading spike](d03-generic-plugin-preset-loading-spike.md)
-  — planned next. Compare direct file insertion with the popup browser across
-  Bitwig-supported plug-in preset formats.
+  — complete. H2P is indexed-direct, VSTPRESET is direct, and the API 25 popup
+  route cannot establish a safe preset transaction.
+- [D04 — Public plug-in preset file source](d04-plugin-preset-file-source.md)
+  — planned next. Add independent H2P and VSTPRESET registry entries, then retry
+  the blocked orchestration in a fresh public-tools-only session.
 
 Add each new root musical or exposure session to the run ledger. Mark whether a
 version was observed in that transcript, derived from the source timeline, or

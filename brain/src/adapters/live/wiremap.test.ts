@@ -73,7 +73,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase2Session2e ?? []), ...(golden.addedInPhase2Session2i ?? []),
       ...(golden.addedInPhase4Session4b ?? []), ...(golden.addedInPhase4Session4f ?? []),
       ...(golden.addedInPhase4Session4g ?? []), ...(golden.addedInPhase4Session4h1 ?? []),
-      ...(golden.addedInPhase5Session5o ?? []), ...(golden.addedInPhase5Session5r ?? [])];
+      ...(golden.addedInPhase5Session5o ?? []), ...(golden.addedInPhase5Session5r ?? []),
+      ...(golden.addedInD03 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -426,6 +427,25 @@ test('5o: the refused empty named-slot move remains probe-only', () => {
 test('5r: indexed named-slot selection is product wire', () => {
   assert.deepEqual(golden.addedInPhase5Session5r ?? [], ['devcursor.selectInSlot']);
   assert.ok(WIRE_METHODS_USED.includes('devcursor.selectInSlot'));
+});
+
+test('D03: plug-in preset operations remain probe-only', () => {
+  assert.deepEqual(golden.addedInD03 ?? [], [
+    'spike.preset.browserCancel',
+    'spike.preset.browserCommit',
+    'spike.preset.browserOpen',
+    'spike.preset.browserPrepareContentType',
+    'spike.preset.browserScroll',
+    'spike.preset.browserSelectFilter',
+    'spike.preset.browserSelectResult',
+    'spike.preset.browserSetAudition',
+    'spike.preset.browserSetContentType',
+    'spike.preset.browserStatus',
+    'spike.preset.createTrack',
+    'spike.preset.deviceStatus',
+  ]);
+  assert.deepEqual((golden.addedInD03 ?? [])
+    .filter((method) => WIRE_METHODS_USED.includes(method)), []);
 });
 
 test('5b: remote automation state is subscribed before live route proof', () => {

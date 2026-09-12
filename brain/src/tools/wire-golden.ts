@@ -65,6 +65,8 @@ export interface Golden {
   addedInPhase5Session5o?: string[];
   /** Phase 5 session 5r indexed selection inside one observed named slot. */
   addedInPhase5Session5r?: string[];
+  /** D03 internal plug-in preset file and popup-browser probe surface. */
+  addedInD03?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

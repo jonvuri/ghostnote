@@ -2,7 +2,7 @@
 title: Devices — type UUIDs, parameters and observables
 kind: capability
 state: active
-updated: 2026-09-04
+updated: 2026-09-12
 scope: device identification, parameter access and the observable surface
 evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73; D2; reference/BitX
 ---
@@ -331,7 +331,7 @@ correctness fix for 3f-g.
 | Verb | Result |
 |---|---|
 | `InsertionPoint.insertBitwigDevice(UUID)` | ● ~144 ms |
-| `InsertionPoint.insertFile(preset)` | ● a 12-pad Drum Machine in 268 ms |
+| `InsertionPoint.insertFile(preset)` | ● BWP preset; ● VSTPRESET from indexed and unindexed paths; ● H2P from an indexed path; ⚠ tested FXP was a no-op |
 | `InsertionPoint.moveDevices` | ● relocates, and the device keeps its state |
 | `InsertionPoint.copyDevices` | ● works into a layer chain, from top level and from a nested source |
 | `Device.duplicateObject()` on a container | ● clones **with** contents |
@@ -340,6 +340,17 @@ correctness fix for 3f-g.
 | `DrumPad.insertionPoint()` | ● filling an empty pad **creates** the chain |
 
 [K, [E4d](../experiments/e4d-chain-creation-e4c-s-was-wrong-2026-07-19.md), [E16n/o](../experiments/e16n-e16o-e4d-route-3-is-wrong-relocates-a-device-into-a-layer-and-it.md), [E18c](../experiments/e18c-the-rebuild-strategy-is-mechanically-available-a-device-can-leav.md), [E18d](../experiments/e18d-e4d-route-3-is-a-false-negative-into-a-layer-chain-works-k-2026-.md), and [E59](../experiments/e59-managed-fx-chain-is-live.md)]
+
+E101 adds format-specific plug-in preset evidence. VSTPRESET loaded from both
+indexed and unindexed paths. H2P loaded only from its indexed preset-library
+path. Each route returned one enabled device, the expected preset name, and a
+stable complete DirectParameter fingerprint. One Filterscape FXP was a
+deterministic no-op. The only local FXB was not a user-loadable fixture [K,
+[E101](../experiments/e101-plugin-preset-files-have-two-direct-routes.md)].
+
+The API 25 popup browser did not accept any tested content-type index write.
+Ghostnote could not enter a safe plug-in preset selection state, so it committed
+no popup result. Keep the popup out of the public surface [K, E101].
 
 ⚠ `DeviceLayer` has **no** `insertionPoint()`; `DrumPad` does. That asymmetry is
 the architectural reason a drum pad is addressable while empty and a layer chain
@@ -415,6 +426,7 @@ to a replacement [K, E90].
 
 | Date | Change |
 |---|---|
+| 2026-09-12 | E101 proves direct VSTPRESET, indexed-direct H2P, one FXP no-op, the FXB fixture gap, and the API 25 popup transaction limit. |
 | 2026-09-01 | E96 proves compact relocation for 12 supported donor types, exact ordinal page families, complete fresh remote-inventory retry, and 31 pre-write catalog refusals. |
 | 2026-08-29 | E90 proves owned FX Layer late binding for native and VST3 devices, records the wrong-position control, and limits Chain and Instrument Layer. |
 | 2026-08-27 | E87 completes all five fingerprinted semantic list-scoped editors, sampled-stub proof, and live outer and nested page witnesses. |
