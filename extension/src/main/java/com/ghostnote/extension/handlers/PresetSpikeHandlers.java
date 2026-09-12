@@ -107,7 +107,15 @@ public final class PresetSpikeHandlers extends HandlerGroup {
                 throw new IllegalArgumentException("browser target device chain changed at " + index);
             }
         }
-        rig.cursorTracks[cursorIndex].endOfDeviceChainInsertionPoint().browse();
+        if (params.has("replaceDeviceIndex")) {
+            int deviceIndex = params.get("replaceDeviceIndex").getAsInt();
+            if (deviceIndex < 0 || deviceIndex >= expectedNames.size()) {
+                throw new IllegalArgumentException("replacement device is outside the guarded chain");
+            }
+            bank.getDevice(deviceIndex).replaceDeviceInsertionPoint().browse();
+        } else {
+            rig.cursorTracks[cursorIndex].endOfDeviceChainInsertionPoint().browse();
+        }
         return ok();
     }
 

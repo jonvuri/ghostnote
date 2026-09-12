@@ -1,11 +1,11 @@
 ---
 title: D04 — public plug-in preset file source
 kind: plan
-state: planned
+state: blocked
 updated: 2026-09-12
 parent: README.md
-prev: d03-generic-plugin-preset-loading-spike.md
-evidence: E101
+prev: d03b-clap-discovered-preset-boundary-spike.md
+evidence: E101, E102
 ---
 
 # D04 — public plug-in preset file source
@@ -16,6 +16,10 @@ Add one append-only public `plugin-preset-file` device source. Use a versioned
 format registry with independent H2P and VSTPRESET entries. Retry the blocked
 Repro-5 and Diva orchestration only after the new surface is available in a
 fresh public-tools-only session.
+
+D03b must first decide whether H2P is a narrow u-he source or one entry in a
+broader filesystem-backed CLAP discovery registry. Do not implement this plan
+until that decision is recorded.
 
 ## Contract
 

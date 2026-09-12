@@ -21,6 +21,11 @@ const SOURCES = {
     resultName: 'KEY Peace Flute',
     device: 'Repro-5',
   },
+  'diva-h2p': {
+    path: '/Users/jonvuri/Library/Audio/Presets/u-he/Diva/Tunesurge - Diva Cosmos/Red Planet.h2p',
+    resultName: 'Red Planet',
+    device: 'Diva',
+  },
   fxp: {
     path: '/Users/jonvuri/Library/Audio/Presets/u-he/Filterscape/'
       + 'Patchpool - Edgy Scapes/Heavenly Waves var (Straight).fxp',
@@ -75,8 +80,8 @@ if (!['direct', 'direct-incompatible', 'browser', 'browser-inspect', 'browser-ca
   throw new Error('usage: d03-preset-loading.ts direct|direct-incompatible|browser|browser-inspect|browser-catalog|browser-guard|status|cleanup-residue [format]');
 }
 if (route !== 'status' && route !== 'cleanup-residue'
-    && !['bwpreset', 'h2p', 'fxp', 'vstpreset'].includes(formatArg ?? '')) {
-  throw new Error('format must be bwpreset, h2p, fxp, or vstpreset');
+    && !['bwpreset', 'h2p', 'diva-h2p', 'fxp', 'vstpreset'].includes(formatArg ?? '')) {
+  throw new Error('format must be bwpreset, h2p, diva-h2p, fxp, or vstpreset');
 }
 const format = formatArg as Format;
 const source = SOURCES[format];

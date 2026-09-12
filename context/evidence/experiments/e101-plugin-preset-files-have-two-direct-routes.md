@@ -25,6 +25,10 @@ content types, including `Plug-in Presets`, but all three index-write forms left
 the selected index at `0` and its name empty. No popup preset was committed.
 This is an API 25 result on this host. It is not a claim about manual browser use.
 
+[E102](e102-clap-discovered-h2p-is-an-indexed-direct-route.md) later proved
+that the H2P result is also a CLAP result. Repro-5 and Diva are installed only
+as CLAP devices on this machine.
+
 ## Environment and baseline
 
 - Host: Bitwig Studio 6.0.6.
@@ -56,10 +60,11 @@ FXB was absent from these roots. One machine-wide search found
 `/Library/Application Support/Kilohearts/HeartCore.core/Contents/Resources/kfat/presets.fxb`.
 It is an internal bundled bank and was not sent to Bitwig.
 
-No suffix received a CLAP-discovered classification. The popup could not enter
-its plug-in preset view, so it could not prove a suffix-to-CLAP mapping. Its
-default device catalog did expose non-u-he entries for Quanta 2, Reflection Step
-Rs, sforzando, and TX16Wx.
+H2P later received a CLAP-discovered classification for the tested u-he files.
+Bitwig's discovery index contains the exact sources, and no alternate Repro or
+Diva plug-in format is installed. The default popup device catalog also exposed
+non-u-he entries for Quanta 2, Reflection Step Rs, sforzando, and TX16Wx, but
+those installed binaries do not advertise CLAP preset discovery.
 
 ## Direct matrix
 
@@ -112,8 +117,9 @@ popup remained open for cancellation, and the owned chain stayed empty.
 
 ## Product direction
 
-Add an append-only `plugin-preset-file` source with a versioned registry. Start
-with two independent entries:
+Run D03b before adding an append-only `plugin-preset-file` source. The boundary
+spike must decide whether to expose H2P as u-he-specific or as one measured
+entry in a CLAP-discovered native-file registry. Keep VSTPRESET independent:
 
 - `vstpreset`: direct path loading, including an unindexed path;
 - `h2p`: indexed direct loading, with the index prerequisite explicit.

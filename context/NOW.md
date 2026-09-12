@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-09-12
 phase: phase-5
-session: d04-plugin-preset-file-source
+session: d03b-clap-discovered-preset-boundary-spike
 ---
 
 # Now
@@ -14,18 +14,13 @@ dogfood loop remain active. Phase 6a stays blocked until both close.
 
 ## Next session
 
-Implement [D04](plan/dogfooding/d04-plugin-preset-file-source.md). Add a
-versioned append-only `plugin-preset-file` source with two independent entries:
+Run [D03b](plan/dogfooding/d03b-clap-discovered-preset-boundary-spike.md).
+Define the safe boundary for filesystem-backed CLAP-discovered presets before
+D04 implements a public source. Test Repro-5, Diva, one u-he effect when
+available, and one non-discovery CLAP negative control.
 
-- VSTPRESET loads from indexed and unindexed absolute paths.
-- H2P requires a Bitwig-indexed absolute path.
-
-Keep `.bwpreset` separate. Reject FXP, FXB, unknown suffixes, and format-suffix
-mismatches before a write. Do not expose the popup browser or replace an
-existing device.
-
-After the public surface passes, retry dogfood session
-`01a0965e-2ec6-7482-9719-73c51b8a1ea8` in a fresh public-tools-only chat.
+Keep [D04](plan/dogfooding/d04-plugin-preset-file-source.md) blocked until the
+spike chooses `clap-discovered-file`, `u-he-h2p`, or `unavailable`.
 
 ## D03 result
 
@@ -34,6 +29,17 @@ records the matrix. H2P is `indexed-direct`, VSTPRESET is `direct`, the tested
 FXP is `unsupported`, and FXB is `unproved`. The API 25 popup route could not
 establish a safe preset transaction. Each live probe restored its exact entry
 baseline.
+
+## CLAP feasibility result
+
+[E102](evidence/experiments/e102-clap-discovered-h2p-is-an-indexed-direct-route.md)
+proves that indexed H2P is a CLAP preset route on this machine. Repro-5 and Diva
+are installed only as CLAP devices. Both loaded indexed H2P files with stable
+readback, and both ignored unindexed copies.
+
+The mechanism is feasible for known filesystem paths. It is not a complete
+catalog route. API 25 cannot enumerate CLAP discovery entries, select the
+plug-in preset popup view, or address plug-in-contained presets.
 
 ## Dogfood menu after the preset detour
 
@@ -68,5 +74,5 @@ observation only after that verdict. Use `list_changes`, `check_revert`, and
 
 ## Retrospective
 
-Define all valid route verdicts before a live run. A host-normalized result must
-not become a probe failure because of an assumed outcome.
+Inventory installed plug-in formats before classifying a preset route. This
+distinguishes a CLAP load from a same-name VST load without another mutation.
