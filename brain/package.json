@@ -46,6 +46,7 @@
     "probe:phase6b-docs": "tsx src/probes/phase6b-document-cache.ts",
     "probe:phase6b-retrieval": "python3 src/probes/phase6b-retrieval.py",
     "probe:phase6c-audio": "python3 src/probes/phase6c-audio-analysis.py",
+    "probe:phase6d-audio": "python3 src/probes/phase6d-perceptual-audio.py",
     "probe:e00": "tsx src/probes/e00-ping.ts",
     "probe:e01a": "tsx src/probes/e01a-pointing.ts",
     "probe:e01b": "tsx src/probes/e01b-interference.ts",

@@ -4,7 +4,7 @@ kind: status
 state: active
 updated: 2026-09-12
 phase: phase-6
-session: 6d-perceptual-audio-model-evaluation
+session: 6e-semantic-music-analysis-and-manipulation
 ---
 
 # Now
@@ -16,10 +16,33 @@ probe-runtime retirement.
 
 ## Next session
 
-Run [Phase 6d: perceptual audio-model evaluation](plan/phase-6/6d-perceptual-audio-model-evaluation.md).
-Use E103 for exact project-local audio and E105 for deterministic facts. Test
-blind classification and directional judgment. Keep aesthetic authority with
-the operator.
+Run [Phase 6e: semantic music analysis and manipulation](plan/phase-6/6e-semantic-music-analysis-and-manipulation.md).
+Define typed analysis over exact note data. Compare local libraries with direct
+agent analysis. Test one constrained before-and-after transformation.
+
+## Perceptual audio gate
+
+[E108](evidence/experiments/e108-paid-gemini-fails-blind-controls.md) rejects
+Gemini 3.8 Flash after a paid retry completed all 27 requests. It passed three
+of five classifications on each repeat and two, three, and three of four
+supported direction pairs. Its decisions were not repeatable. Exact silence
+received three different false labels with confidence from `0.95` to `0.98`.
+
+[E107](evidence/experiments/e107-gpt-audio-fails-blind-controls-and-gemini-is-unavailable.md)
+rejects GPT-Audio-1.5 after an authenticated remote run. Its choices repeated
+exactly three times, but it passed only three of five classifications and two
+of four supported direction pairs. Wrong answers reported confidence from
+`0.85` to `0.99`. Gemini 3.8 Flash accepted the key but returned
+`503 UNAVAILABLE` on three bounded inference attempts before the paid retry.
+
+[E106](evidence/experiments/e106-local-clap-does-not-clear-the-perceptual-provider-gate.md)
+rejects two local CLAP checkpoints as a general provider. The general model
+classified four of five controls. The music model classified one of five. Both
+passed four simple direction pairs with exact three-repeat score agreement.
+
+The adapters correctly refused stereo judgment at unknown or mono channel
+boundaries. Do not publish a perceptual tool. No local or remote candidate
+passed the blind gate.
 
 ## Deterministic audio-analysis gate
 
@@ -75,5 +98,5 @@ remove older probe methods ad hoc.
 
 ## Retrospective
 
-Digital silence exposed a plausible but false pitch. Require an independent
-energy or voiced-state gate for every pitch estimate.
+Exact silence exposed both false perception and unstable labels. Keep silence
+as the first control for every perceptual provider.

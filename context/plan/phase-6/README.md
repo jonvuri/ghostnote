@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Sessions 6a through 6c passed. Session 6d perceptual evaluation is next.
+status: Sessions 6a through 6d are complete. Session 6e semantic music analysis is next.
 updated: 2026-09-12
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
@@ -153,10 +153,11 @@ considered.
    Complete. E105 selects FFmpeg and a long-lived librosa worker for typed,
    deterministic facts and bounded estimates.
 4. [6d — perceptual audio-model evaluation](6d-perceptual-audio-model-evaluation.md).
-   Compare frontier audio models and
-   smaller music-focused models on controlled blind A/B tasks. Evaluate
-   classification and directional judgment, not aesthetic authority.
-5. **6e — semantic music analysis and manipulation.** Define typed harmony,
+   Complete. E106 rejects two local CLAP checkpoints. E107 rejects GPT-Audio
+   and records repeated Gemini service unavailability. E108 rejects Gemini
+   after a paid retry completes the blind cohort.
+5. [6e — semantic music analysis and manipulation](6e-semantic-music-analysis-and-manipulation.md).
+   Define typed harmony,
    rhythm, voice-leading, register, motif, and tension analysis. Add only the
    constrained transformations that give a measured advantage over agent-only
    editing.
@@ -196,5 +197,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6d. Use the exact E103 capture route and E105 deterministic fact
-boundary. Keep model judgments separate from facts and operator verdicts.
+Start session 6e. Define typed music semantics over exact note data. Keep
+inferred labels separate from note facts and operator verdicts.
