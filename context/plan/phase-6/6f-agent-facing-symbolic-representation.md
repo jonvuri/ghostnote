@@ -1,12 +1,12 @@
 ---
 title: Phase 6f — Agent-facing symbolic representation
 kind: plan
-state: planned
-status: Next. Select text inputs and exact edit outputs for a host agent.
+state: complete
+status: Complete. E114 selects bar context and guarded JSON patches.
 updated: 2026-09-13
 parent: README.md
 prev: 6d2-perceptual-listener-agreement-evaluation.md
-next: 6g-reference-conditioned-continuation-and-structural-transfer.md
+next: 6f1-established-symbolic-representations-and-model-familiarity.md
 ---
 
 # Phase 6f — Agent-facing symbolic representation
@@ -136,3 +136,20 @@ exact client, model, reasoning effort, prompt, token use, latency, and output.
 
 Record which separation between musical context and exact state prevented the
 most round-trip loss.
+
+## Result
+
+[E114](../../evidence/experiments/e114-bar-context-and-guarded-note-patches-pass-two-models.md)
+selects compact bar-synchronized events for musical context. It selects
+`ghostnote-note-patch-v0` for guarded edit requests. The host keeps complete
+exact state and expands each request before an adapter write.
+
+The selected arm passed all 20 compiler constraints across GPT-5.4 Mini and
+Gemini 3.8 Flash. It used 51% to 56% fewer input tokens than exact JSON. ABC
+could not ground edits against opaque note identities. The pattern arm failed
+one strict default-policy check. All eight invalid patches were repaired in one
+turn after exact validation errors.
+
+The direct API result is cross-model, but it is not a fresh host-agent session
+proof. Phase 7 must test the contract through the real host surface. No output
+was written to Bitwig.

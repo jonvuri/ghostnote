@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Sessions 6a through 6e and 6d2 are complete. Agent-facing exploration starts at 6f.
+status: Sessions 6a through 6f and 6d2 are complete. Symbolic follow-up starts at 6f1.
 updated: 2026-09-13
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
@@ -182,18 +182,24 @@ considered.
    listener-agreement gate. E113 rejects provider selection because the public
    reference and control coverage are not sufficient.
 7. [6f — agent-facing symbolic representation](6f-agent-facing-symbolic-representation.md).
-   Compare exact, bar-synchronized, notation, and patch representations. Select
-   how a host agent reads music and returns exact edits.
-8. [6g — reference-conditioned continuation and structural transfer](6g-reference-conditioned-continuation-and-structural-transfer.md).
+   Complete. E114 selects compact bar context and guarded JSON patches. It
+   confirms the result across GPT-5.4 Mini and Gemini 3.8 Flash.
+8. [6f1 — established symbolic representations and model familiarity](6f1-established-symbolic-representations-and-model-familiarity.md).
+   Compare established MIDI-token and pattern formats with isomorphic controls.
+   Keep harmonic, transformation, continuation, and groove tasks in scope.
+9. [6f2 — groove intent and microtiming reproducibility](6f2-groove-intent-and-microtiming-reproducibility.md).
+   Prove finer Bitwig timing first. Then test explicit nominal, realized, and
+   multi-reference groove forms across jazz, funk, and hip-hop material.
+10. [6g — reference-conditioned continuation and structural transfer](6g-reference-conditioned-continuation-and-structural-transfer.md).
    Test seed continuation, variation, and structural borrowing. Use Notochord
    as a bounded specialized baseline, not a product commitment.
-9. [6h — agent sensory-packet utility](6h-agent-sensory-packet-utility.md).
+11. [6h — agent sensory-packet utility](6h-agent-sensory-packet-utility.md).
    Test whether routed MIDI and audio facts improve host-agent decisions over
    raw exact state.
-10. [6i — workstation contract synthesis](6i-workstation-contract-synthesis.md).
+12. [6i — workstation contract synthesis](6i-workstation-contract-synthesis.md).
     Define shared contracts, isolated module failure, probe disposition, and the
     experimental Phase 7 surface. Do not implement providers.
-11. [6j — verification-cost audit](6j-verification-cost-audit.md).
+13. [6j — verification-cost audit](6j-verification-cost-audit.md).
     Classify target, guard, settlement, readback, recovery, reversal, and scan
     costs before Phase 7 implementation.
 
@@ -212,6 +218,10 @@ If 6a fails, record the gate and revise the audio direction before continuing.
   before-and-after transformation loop.
 - Agent-facing symbolic input and patch output have a measured representation
   boundary for time-precise, multi-track work.
+- Established symbolic formats have controlled model-familiarity results that
+  do not claim private training-data knowledge.
+- Groove has a measured live timing floor, an explicit intent and performance
+  representation, and a reproducible realization contract.
 - Reference-conditioned continuation and structural transfer have controlled
   comparison results, copy-overlap measurements, and operator verdicts.
 - MIDI and audio sensory packets have measured utility or a precise blocker.
@@ -234,5 +244,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6f. Select how the host agent reads exact symbolic state and emits
-checked edits before the workstation contract is designed.
+Start session 6f1. Compare established symbolic representations with controlled
+model-familiarity tests and complete musical tasks.

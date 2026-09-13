@@ -2,10 +2,10 @@
 title: Phase 6g — Reference-conditioned continuation and structural transfer
 kind: plan
 state: planned
-status: Run after 6f selects the agent context and patch forms.
+status: Run after 6f2 selects the groove context and timing contract.
 updated: 2026-09-13
 parent: README.md
-prev: 6f-agent-facing-symbolic-representation.md
+prev: 6f2-groove-intent-and-microtiming-reproducibility.md
 next: 6h-agent-sensory-packet-utility.md
 ---
 
@@ -22,7 +22,9 @@ transfer. It measures both useful similarity and direct copying.
 
 ## Starting facts
 
-- Session 6f selects the text context and exact patch forms.
+- Session 6f selects the initial text context and exact patch forms.
+- Sessions 6f1 and 6f2 must select the representation finalists, live timing
+  floor, and groove form before this session starts.
 - E109 did not test continuation, style transfer, or reference-conditioned
   generation.
 - E110 selects deterministic analysis and voicing helpers, not a creative

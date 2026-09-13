@@ -25,8 +25,8 @@ the provider modules in this session.
 - E113 selects no perceptual provider.
 - E109 and E110 select exact note facts and replaceable theory and voicing
   helpers.
-- Sessions 6f through 6h select the agent context, patch, reference, and sensory
-  packet boundaries.
+- Sessions 6f through 6h, including 6f1 and 6f2, select the agent context,
+  patch, groove, reference, and sensory-packet boundaries.
 
 ## Work
 
