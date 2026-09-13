@@ -2,8 +2,8 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Sessions 6a through 6d are complete. Session 6e semantic music analysis is next.
-updated: 2026-09-12
+status: Sessions 6a through 6e are complete. Session 6f synthesis is next.
+updated: 2026-09-13
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
 next: ../phase-7/README.md
@@ -157,13 +157,11 @@ considered.
    and records repeated Gemini service unavailability. E108 rejects Gemini
    after a paid retry completes the blind cohort.
 5. [6e — semantic music analysis and manipulation](6e-semantic-music-analysis-and-manipulation.md).
-   Define typed harmony,
-   rhythm, voice-leading, register, motif, and tension analysis. Add only the
-   constrained transformations that give a measured advantage over agent-only
-   editing.
-6. **6f — workstation interface and verification synthesis.** Select module
-   interfaces, record retained prototypes, finish the verification-cost audit,
-   and prepare the Phase 7 dogfood surface.
+   Complete. E109 selects the exact contract and checked transformations. E110
+   selects Music21 for analysis and Musicpy as a voicing specialist candidate.
+6. [6f — workstation interface and verification synthesis](6f-workstation-interface-and-verification-synthesis.md).
+   Select module interfaces, record retained prototypes, finish the
+   verification-cost audit, and prepare the Phase 7 dogfood surface.
 
 Sessions 6c and 6d require a successful or otherwise usable 6a capture route.
 If 6a fails, record the gate and revise the audio direction before continuing.
@@ -197,5 +195,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6e. Define typed music semantics over exact note data. Keep
-inferred labels separate from note facts and operator verdicts.
+Start session 6f. Synthesize the module interfaces and verification levels from
+E103 through E110. Prepare the Phase 7 dogfood surface.

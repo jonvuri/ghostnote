@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Evidence index
@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E110 | Wider symbolic provider survey selects Music21 and Musicpy [K] (2026-09-13) | [open](experiments/e110-wider-symbolic-provider-survey-selects-music21-and-musicpy.md) |
+| E109 | Exact note structure is the semantic boundary [K] (2026-09-13) | [open](experiments/e109-exact-note-structure-is-the-semantic-boundary.md) |
 | E108 | Paid Gemini fails blind controls [K] (2026-09-12) | [open](experiments/e108-paid-gemini-fails-blind-controls.md) |
 | E107 | GPT-Audio fails blind controls and Gemini is unavailable [K] (2026-09-12) | [open](experiments/e107-gpt-audio-fails-blind-controls-and-gemini-is-unavailable.md) |
 | E106 | Local CLAP does not clear the perceptual provider gate [K] (2026-09-12) | [open](experiments/e106-local-clap-does-not-clear-the-perceptual-provider-gate.md) |
