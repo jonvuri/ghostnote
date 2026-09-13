@@ -6,7 +6,7 @@ status: Complete. E109 and E110 select a verified, library-backed boundary.
 updated: 2026-09-13
 parent: README.md
 prev: 6d-perceptual-audio-model-evaluation.md
-next: 6f-workstation-interface-and-verification-synthesis.md
+next: 6d2-perceptual-listener-agreement-evaluation.md
 ---
 
 # Phase 6e — Semantic music analysis and manipulation

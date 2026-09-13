@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Sessions 6a through 6e are complete. Session 6f synthesis is next.
+status: Sessions 6a through 6e are complete. A 6d2 perceptual detour is next.
 updated: 2026-09-13
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
@@ -159,7 +159,11 @@ considered.
 5. [6e — semantic music analysis and manipulation](6e-semantic-music-analysis-and-manipulation.md).
    Complete. E109 selects the exact contract and checked transformations. E110
    selects Music21 for analysis and Musicpy as a voicing specialist candidate.
-6. [6f — workstation interface and verification synthesis](6f-workstation-interface-and-verification-synthesis.md).
+6. [6d2 — perceptual listener-agreement evaluation](6d2-perceptual-listener-agreement-evaluation.md).
+   Planned detour. E111 replaces the factual selection gate with a
+   listener-agreement gate and selects specialist candidates for the next
+   controlled run.
+7. [6f — workstation interface and verification synthesis](6f-workstation-interface-and-verification-synthesis.md).
    Select module interfaces, record retained prototypes, finish the
    verification-cost audit, and prepare the Phase 7 dogfood surface.
 
@@ -195,5 +199,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6f. Synthesize the module interfaces and verification levels from
-E103 through E110. Prepare the Phase 7 dogfood surface.
+Start session 6d2. Test specialist perceptual scorers against human judgments.
+Then run session 6f with the result.

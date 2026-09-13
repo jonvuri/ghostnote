@@ -3,7 +3,7 @@ title: Phase 6d — Perceptual audio-model evaluation
 kind: plan
 state: complete
 status: Complete. E106 through E108 reject local CLAP, GPT-Audio, and Gemini.
-updated: 2026-09-12
+updated: 2026-09-13
 parent: README.md
 prev: 6c-deterministic-audio-analysis-tool-survey.md
 next: 6e-semantic-music-analysis-and-manipulation.md
@@ -88,3 +88,10 @@ decision hashes differed. No remote provider is selected.
 The session closes without a Qwen API run. The provider survey is not
 exhaustive. A future candidate must pass the same blind cohort before the
 perceptual boundary can reopen.
+
+[E111](../../evidence/experiments/e111-perceptual-provider-gate-must-measure-listener-agreement.md)
+supersedes that last requirement. The factual cohort remains negative evidence
+for direct audio perception and confidence calibration. It does not measure
+agreement with listeners on the intended perceptual dimensions. Phase 6d2
+reopens the private evaluation with a human-agreement gate and specialist
+classifiers.

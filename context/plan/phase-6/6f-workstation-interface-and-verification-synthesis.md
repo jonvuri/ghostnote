@@ -2,10 +2,10 @@
 title: Phase 6f — Workstation interface and verification synthesis
 kind: plan
 state: planned
-status: Next. Select module interfaces and prepare the Phase 7 dogfood surface.
+status: Planned after 6d2. Select interfaces and prepare the Phase 7 dogfood surface.
 updated: 2026-09-13
 parent: README.md
-prev: 6e-semantic-music-analysis-and-manipulation.md
+prev: 6d2-perceptual-listener-agreement-evaluation.md
 ---
 
 # Phase 6f — Workstation interface and verification synthesis
@@ -20,7 +20,10 @@ smallest safe surface for Phase 7 dogfood.
 - E103 proves exact project-local master capture.
 - E104 selects exact-version SQLite FTS5 document retrieval.
 - E105 selects FFmpeg and a long-lived librosa worker for audio facts.
-- E106 through E108 reject the tested perceptual providers.
+- E106 through E108 reject the tested perceptual providers under the old
+  factual gate.
+- E111 reopens the private perceptual evaluation with a listener-agreement
+  gate. Phase 6d2 must finish before this synthesis.
 - E109 selects a private exact-note boundary for structural analysis and
   constrained transforms.
 - E110 selects Music21 for private semantic analysis and Musicpy as a voicing

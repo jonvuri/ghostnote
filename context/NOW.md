@@ -4,21 +4,24 @@ kind: status
 state: active
 updated: 2026-09-13
 phase: phase-6
-session: 6f-workstation-interface-and-verification-synthesis
+session: 6d2-perceptual-listener-agreement-evaluation
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 has an
 accepted public result, but its generalized closeout remains. Phase 6 sessions
-6a through 6e are complete. Phase 7 owns the next dogfood loop. Phase 8 owns
-breadth, release, and probe-runtime retirement.
+6a through 6e are complete. A bounded 6d2 perceptual detour is next. Phase 7
+owns the next dogfood loop. Phase 8 owns breadth, release, and probe-runtime
+retirement.
 
 ## Next session
 
-Run [Phase 6f: workstation interface and verification synthesis](plan/phase-6/6f-workstation-interface-and-verification-synthesis.md).
-Define independent module interfaces from E103 through E110. Finish the
-verification-cost audit and prepare the Phase 7 dogfood surface.
+Run [Phase 6d2: perceptual listener-agreement evaluation](plan/phase-6/6d2-perceptual-listener-agreement-evaluation.md).
+Test specialist perceptual scorers against human judgments. Measure the free
+deterministic floor first, then Essentia heads through `onnxruntime` and Meta
+Audiobox-Aesthetics. Use Cyanite only with an approved remote boundary. Then
+return to Phase 6f synthesis.
 
 ## Phase 6 provider gates
 
@@ -33,8 +36,17 @@ invariants and restored the four-track baseline.
 [E108](evidence/experiments/e108-paid-gemini-fails-blind-controls.md),
 [E107](evidence/experiments/e107-gpt-audio-fails-blind-controls-and-gemini-is-unavailable.md),
 and [E106](evidence/experiments/e106-local-clap-does-not-clear-the-perceptual-provider-gate.md)
-reject the tested remote and local perceptual providers. Do not publish a
-perceptual tool.
+reject the tested providers under the factual gate. [E111](evidence/experiments/e111-perceptual-provider-gate-must-measure-listener-agreement.md)
+shows that this gate did not measure the product gap. The next gate uses human
+agreement on affect, musical organization, texture, motion, and arrangement.
+No perceptual provider is selected. Do not publish a perceptual tool.
+
+[E112](evidence/experiments/e112-independent-survey-adds-probe-psychoacoustic-and-symbolic-perceptual-routes.md)
+re-surveys the candidates. It adds psychoacoustic metrics, symbolic tension,
+and a probe over a frozen embedding as cheaper routes to the same dimensions.
+It also records that `essentia-tensorflow` has no usable arm64 build here, that
+the VGGish heads are reachable as ONNX, and that a head must not be scored on
+its own training corpus.
 
 [E105](evidence/experiments/e105-ffmpeg-and-librosa-form-the-audio-fact-boundary.md)
 selects FFmpeg and a long-lived librosa worker for typed audio facts and bounded
@@ -65,5 +77,5 @@ remaining probe runtime. Do not remove older probe methods ad hoc.
 
 ## Retrospective
 
-The ambiguous pentatonic control exposed false precision from an established
-library. Keep it in future harmony-provider tests.
+The perceptual survey found that the old gate matched available ground truth,
+not the target decision. Start each future gate from its reference authority.
