@@ -1689,7 +1689,8 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'which can carry the notes in the same call.\n'
       + 'A write that would replace something whose exact state cannot be recorded first is '
       + 'refused and nothing is written; what is in the way is named in the refusal. Note starts '
-      + 'and durations must fit a supported writable grid. The finest supported grid is 1/64 beat.',
+      + 'and durations must fit a supported writable grid. Binary grids extend through 1/512 beat. '
+      + 'The matched triplet family extends through 1/768 beat.',
     inputSchema: {
       clips: z.array(z.object({
         trackId,

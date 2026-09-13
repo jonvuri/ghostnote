@@ -2,9 +2,9 @@
 title: Launcher clips — timing, metadata, paging, and duplication
 kind: capability
 state: active
-updated: 2026-08-21
+updated: 2026-09-13
 scope: launcher-clip notes, metadata, exact reads, writes, and copies
-evidence: E2, E24, E41–E46, E51–E54; D8, D9, D15, D16, D21
+evidence: E2, E24, E41–E46, E51–E54, E116; D8, D9, D15, D16, D21
 ---
 
 # Launcher clips
@@ -29,8 +29,10 @@ not in this contract [K, [D21](../../decisions/d21-musical-patch-and-public-tool
 - Start positions stay exact integer coordinates on one supported per-operation
   grid [K, [E2](../experiments/e2-note-round-trip-fidelity-grid-observer-gotcha-2026-07-18.md),
   [E41](../experiments/e41-triplet-rhythm-readback-and-seeded-transforms.md)].
-- Supported binary grids run from 1 beat through 1/64 beat. Supported triplet
-  grids are 1/3, 1/6, 1/12, 1/24, and 1/48 beat [K, E41].
+- Supported binary grids run from 1 beat through `1/512` beat. This limit equals
+  a conventional 2048th note. Supported triplet grids run from `1/3` through
+  `1/768` beat. The triplet limit equals `1/3072` of a whole note and matches
+  the binary floor [K, [E116](../experiments/e116-fine-timing-and-two-layer-groove-contract-pass.md)].
 - Host durations settle on `2^-20`-beat values. The rule is measured for Bitwig
   6.0.6, host API 25, and the tested grid values. It is not a general epsilon
   [K, [E42](../experiments/e42-host-duration-fixed-point-grid-normalization.md)].
@@ -70,14 +72,15 @@ route [K, E43].
 A 64-step writer can silently lose fine-grid notes after its window. Production
 writers use a fixed 512-step window [K, E44]. Exact reads use a separate
 2,048-step cursor. They reconcile binary and triplet scans across all 16 MIDI
-channels [K, E45, E52]. One bounded reply returns all 16 verbose channels for
-each page. A 32-beat read uses two page replies instead of 112 channel replies
-[K, E51, [E52](../experiments/e52-dedicated-read-window-closes-the-exact-read-gate.md)].
+channels [K, E45, E52, E116]. One bounded reply returns all 16 verbose channels
+for each page. At the E116 limits, a 32-beat read uses 32 binary pages and 48
+triplet pages [K, E116].
 
 The selected read window reduced the measured median from 5,323 to 1,744 ms.
 It passed the 50-percent Phase 4 gate. Grid and page zero share one complete
 144 ms settlement. Multi-page reads still restore and settle page zero [K,
-E52].
+E52]. E116 increases page count to preserve sub-millisecond timing. Session 6j
+must include that cost in its verification audit [K, E116].
 
 Long writes group notes by page. They confirm the pinned track and row on every
 required page before mutation, use page-local steps, and restore page zero.
@@ -119,6 +122,7 @@ exact reversal, and cleanup [K, E54].
 
 | Date | Change |
 |---|---|
+| 2026-09-13 | E116 extends binary timing through 1/512 beat and triplet timing through 1/768 beat. |
 | 2026-08-21 | E54 bounds mutation settlement and complete exact reconciliation. |
 | 2026-08-21 | E53 classifies note-step callbacks as an operation-specific wake hint. |
 | 2026-08-21 | E52 selects the 2,048-step read cursor and closes the latency gate. |

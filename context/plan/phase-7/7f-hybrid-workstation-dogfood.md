@@ -28,7 +28,11 @@ interfaces should graduate, change, or be removed.
 6. Make every subjective result auditionable and wait for the operator verdict.
 7. Record latency, calls, interventions, target errors, verification cost,
    unsupported boundaries, and exact exit state.
-8. Classify every experimental interface as graduate, revise, retain for more
+8. Trace each custom-format seam used in the run. Record producer and consumer
+   versions, projections, translations, defaults, validation, and data loss.
+9. Compare the observed seams with the 6i interface map. Confirm that connected
+   formats have compatible semantics and do not claim the same authority.
+10. Classify every experimental interface as graduate, revise, retain for more
    dogfood, or remove.
 
 ## Acceptance criteria
@@ -39,6 +43,10 @@ interfaces should graduate, change, or be removed.
 - External UI changes do not become Ghostnote-owned reversible changes.
 - Risk-bearing Ghostnote writes keep exact guards and independent readback.
 - Reference-conditioned work records permission and copy-overlap evidence.
+- Every custom-format seam used in the run passes a producer-to-consumer
+  conformance check or records a precise incompatibility.
+- The result identifies redundant formats, hidden translations, duplicate
+  authority, and format ceremony that did not add value.
 - The operator gives the only aesthetic acceptance verdict.
 - The final project and filesystem state are explicit.
 - The result identifies the next Phase 7 run or hands selected work to Phase 8.

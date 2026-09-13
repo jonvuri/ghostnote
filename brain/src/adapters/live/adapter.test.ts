@@ -355,12 +355,12 @@ test('2h: the production fine cursor preserves a triplet start across exact read
     transport.frames
       .filter((frame) => frame.method === WIRE.cursorSetStepSize)
       .map((frame) => frame.params?.['stepSize']),
-    [1 / 64, 1 / 48],
+    [1 / 512, 1 / 768],
   );
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels).length,
-    2,
-    'one clip sends one bounded bulk request for each grid',
+    5,
+    'eight beats need two binary pages and three triplet pages at the measured limits',
   );
   assert.equal(transport.where('fine'), 0);
 });
@@ -376,20 +376,21 @@ test('2i: the exact reader pages through a clip longer than its fine window', as
   const value = snapshot.entries[addressKey(notesAt(CLIP(0), 0))]?.value;
 
   assert.equal(value?.of === 'notes' ? value.notes[0]?.startBeats : undefined, 24);
-  assert.deepEqual(
-    transport.frames
-      .filter((frame) => frame.method === WIRE.cursorScrollToStep)
-      .map((frame) => frame.params?.['step']),
-    [0, 512, 1024, 1536, 0, 0, 512, 1024, 0],
-  );
+  const pageTurns = transport.frames
+    .filter((frame) => frame.method === WIRE.cursorScrollToStep)
+    .map((frame) => frame.params?.['step']);
+  assert.equal(pageTurns.length, 82);
+  assert.deepEqual(pageTurns.slice(0, 3), [0, 512, 1024]);
+  assert.deepEqual(pageTurns.slice(30, 35), [15360, 15872, 0, 0, 512]);
+  assert.deepEqual(pageTurns.slice(-3), [23552, 24064, 0]);
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels).length,
-    7,
-    'four binary pages and three triplet pages each use one bulk request',
+    80,
+    'the 512-step test reader needs 32 binary and 48 triplet pages',
   );
 });
 
-test('4b: one bulk page reply preserves all 16 verbose MIDI channels', async () => {
+test('4b: bounded page replies preserve all 16 verbose MIDI channels', async () => {
   const channelPitches = Array.from({ length: 16 }, (_, channel) => 48 + channel);
   const phases: string[] = [];
   const transport = new CursorModelTransport(new Map([
@@ -410,19 +411,19 @@ test('4b: one bulk page reply preserves all 16 verbose MIDI channels', async () 
   }), channelPitches);
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels).length,
-    2,
-    'the snapshot reuses one binary and one triplet bulk reply for all channels',
+    3,
+    'the snapshot reuses one binary and two triplet bulk replies for all channels',
   );
   assert.deepEqual(new Set(phases), new Set([
     'targetAcquisition', 'metadata', 'gridSettlement', 'pageTurn',
-    'bulkPageRead', 'reconciliation', 'selectionRestoration',
+    'bulkPageRead', 'pageReset', 'reconciliation', 'selectionRestoration',
   ]));
-  assert.equal(phases.filter((phase) => phase === 'gridSettlement').length, 2,
-    'each grid and page-zero transition uses one full settlement');
+  assert.equal(phases.filter((phase) => phase === 'gridSettlement').length, 3,
+    'each binary or triplet page uses one full settlement');
   assert.equal(
     transport.frames.filter((frame) => frame.method === WIRE.cursorScrollToStep).length,
-    2,
-    'each grid sets page zero before one complete settlement',
+    4,
+    'the triplet scan turns one extra page and restores page zero',
   );
 });
 

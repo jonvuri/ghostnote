@@ -2343,14 +2343,15 @@ test('d02-s4-refusal: off-grid note timing names the cause and finest supported 
   });
   const before = fx.sent.length;
   const result = await call(fx, 'write_notes', {
-    clips: [{ trackId: fx.trackA, row: 5, notes: [note({ startBeats: 0.01 })] }],
+    clips: [{ trackId: fx.trackA, row: 5, notes: [note({ startBeats: 0.0001 })] }],
   });
 
   assert.equal(result['refused'], true, JSON.stringify(result));
   assert.equal(result['nothingWasWritten'], true, JSON.stringify(result));
   assert.match(result['why'] as string, /Note timing caused the refusal/);
   assert.match(result['why'] as string, /startBeats or durationBeats/);
-  assert.match(result['why'] as string, /finest supported grid is 0\.015625 beat \(1\/64 beat\)/);
+  assert.match(result['why'] as string, /finest supported grid is 0\.0013020833333333333 beat/);
+  assert.match(result['why'] as string, /1\/768 beat.*1\/512-beat binary limit/);
   assert.equal(fx.sent.length, before, 'the off-grid note reaches no adapter write');
 });
 

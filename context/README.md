@@ -2,7 +2,7 @@
 title: ghostnote context guide
 kind: index
 state: active
-updated: 2026-08-10
+updated: 2026-09-13
 ---
 
 # ghostnote context
@@ -19,6 +19,7 @@ history so an agent does not have to reconstruct authority from chronology.
 | Understand the product or architecture | [PROJECT](PROJECT.md) → [decision index](decisions/INDEX.md) |
 | Investigate a Bitwig capability | [capability index](evidence/capability/INDEX.md) → subject page → cited experiment |
 | Find what one experiment measured | [evidence index](evidence/INDEX.md) → named experiment |
+| Work on the agent musical language | [language reference](evidence/format/AGENT_MUSICAL_LANGUAGE.md) → cited evidence → Phase 7 plan |
 | Work on the `.bwpreset` byte format | [format spec](evidence/format/BWFORMAT_SPEC.md) → [bwmod design](evidence/format/BWMOD_DESIGN.md) |
 | Review the roadmap | [roadmap](plan/ROADMAP.md) → relevant phase README |
 | Audit how the design evolved | Current decision → cited evidence → [archive](archive/README.md) |

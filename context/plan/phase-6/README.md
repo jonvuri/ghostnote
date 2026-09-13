@@ -59,7 +59,9 @@ semantic operations that reduce many slow agent steps to one checked request.
 Each module must have a small, versioned interface. It must work independently
 and compose through explicit artifacts and results. Avoid hidden shared state.
 Use hashes, provenance, capability metadata, and declared observation coverage
-at module boundaries.
+at module boundaries. Treat agent DSLs, wire frames, patch formats, and other
+custom records as interfaces. Give each one a focused purpose and explicit
+compatibility rules at every module seam.
 
 Candidate modules are:
 
@@ -188,8 +190,8 @@ considered.
    Complete. E115 keeps compact bar context as the only finalist. No
    established syntax has a stable cross-model familiarity advantage.
 9. [6f2 — groove intent and microtiming reproducibility](6f2-groove-intent-and-microtiming-reproducibility.md).
-   Prove finer Bitwig timing first. Then test explicit nominal, realized, and
-   multi-reference groove forms across jazz, funk, and hip-hop material.
+   Complete. E116 extends binary timing through 1/512 beat and triplet timing
+   through 1/768 beat. It selects the two-layer groove context.
 10. [6g — reference-conditioned continuation and structural transfer](6g-reference-conditioned-continuation-and-structural-transfer.md).
    Test seed continuation, variation, and structural borrowing. Use Notochord
    as a bounded specialized baseline, not a product commitment.
@@ -197,11 +199,12 @@ considered.
    Test whether routed MIDI and audio facts improve host-agent decisions over
    raw exact state.
 12. [6i — workstation contract synthesis](6i-workstation-contract-synthesis.md).
-    Define shared contracts, isolated module failure, probe disposition, and the
-    experimental Phase 7 surface. Do not implement providers.
+    Audit all custom interfaces, define shared contracts and isolated module
+    failure, record probe disposition, and select the experimental Phase 7
+    surface. Do not implement providers.
 13. [6j — verification-cost audit](6j-verification-cost-audit.md).
-    Classify target, guard, settlement, readback, recovery, reversal, and scan
-    costs before Phase 7 implementation.
+    Classify target, guard, settlement, readback, recovery, reversal, scan, and
+    interface-translation costs before Phase 7 implementation.
 
 Sessions 6c and 6d require a successful or otherwise usable 6a capture route.
 If 6a fails, record the gate and revise the audio direction before continuing.
@@ -226,7 +229,8 @@ If 6a fails, record the gate and revise the audio direction before continuing.
   comparison results, copy-overlap measurements, and operator verdicts.
 - MIDI and audio sensory packets have measured utility or a precise blocker.
 - The workstation modules have independent planned interfaces and an explicit
-  composition contract with no hidden global runtime.
+  composition contract with no hidden global runtime. DSLs and other custom
+  formats have distinct authority, compatible seams, and no unexplained overlap.
 - The verification audit identifies which costs are essential, reducible, or
   historical. Any reduction keeps a proved safety basis.
 - Phase 7 has an experimental dogfood menu and explicit hybrid, solo,

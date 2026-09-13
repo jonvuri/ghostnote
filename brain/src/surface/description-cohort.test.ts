@@ -5,6 +5,7 @@ import {
   DESCRIPTION_COHORT,
   DESCRIPTION_COHORT_V1,
   TOOL_DESCRIPTION_V21_SHA256,
+  TOOL_DESCRIPTION_V22_SHA256,
   TOOL_DESCRIPTION_V18_SHA256,
   TOOL_DESCRIPTION_V17_SHA256,
   TOOL_DESCRIPTION_V16_SHA256,
@@ -79,8 +80,8 @@ const EXPECTED_COHORT = [
   'reverse_device_source_composition',
 ] as const;
 
-test('description v21 names one complete and explicit cohort', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v21');
+test('description v22 names one complete and explicit cohort', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v22');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
   for (const member of DESCRIPTION_COHORT) {
@@ -99,13 +100,18 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
   );
 });
 
-test('description v21 matches its public artifact', () => {
+test('description v22 matches its public artifact', () => {
   const artifact = descriptionCohortArtifact(TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V21_SHA256,
-    'the v21 public wording or schema changed',
+    TOOL_DESCRIPTION_V22_SHA256,
+    'the v22 public wording or schema changed',
   );
+});
+
+test('description v21 keeps its frozen public artifact', () => {
+  assert.equal(TOOL_DESCRIPTION_V21_SHA256,
+    '368e3f50b8807f716e59a6b668c9352b22f9301041627a21c4918deae70b161a');
 });
 
 test('description v18 keeps its frozen public artifact', () => {

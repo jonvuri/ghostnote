@@ -24,6 +24,16 @@ export {
 } from './corpus.js';
 export type { MusicalCorpusCase } from './corpus.js';
 export {
+  AGENT_CONTEXT_MODES, AGENT_CONTEXT_SCHEMA, GROOVE_CONTEXT_SCHEMA,
+  agentContextSchema, fingerprintAgentContext, parseAgentContext, renderAgentContext,
+} from './agent-context.js';
+export type { AgentContext, AgentContextMode, GrooveContext } from './agent-context.js';
+export { AgentContextError } from './agent-context.js';
+export {
+  AGENT_CONTEXT_CORPUS, AGENT_CONTEXT_CORPUS_V0_SHA256,
+  COMPACT_AGENT_CONTEXT, GROOVE_AGENT_CONTEXT, fingerprintAgentContextCorpus,
+} from './agent-context-corpus.js';
+export {
   chordFact, detectHarmony, intervalFact, keyFact, materializeGenerationPatch,
   materializeHarmonicTarget, materializeMusicalTarget, materializeRhythmTarget,
   modeFact, noteFact, pitchClassSetFact, progressionFact,

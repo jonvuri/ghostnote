@@ -4,31 +4,51 @@ kind: status
 state: active
 updated: 2026-09-13
 phase: phase-6
-session: 6f2-groove-intent-and-microtiming-reproducibility
+session: 6g-reference-conditioned-continuation-and-structural-transfer
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 has an
 accepted public result, but its generalized closeout remains. Phase 6 sessions
-6a through 6f1 and 6d2 are complete. Three agent-facing explorations are next.
+6a through 6f2 and 6d2 are complete. Two agent-facing explorations are next.
 Contract synthesis and the verification audit follow them. Phase 7 owns
 focused module implementation and the next dogfood loop. Phase 8 owns breadth,
 release, and probe-runtime retirement.
 
 ## Next session
 
-Run [Phase 6f2: groove intent and microtiming reproducibility](plan/phase-6/6f2-groove-intent-and-microtiming-reproducibility.md).
-First prove the finest reliable Bitwig timing grid. Then test nominal and
-realized timing, simultaneous timing references, deterministic realization,
-and groove transfer across jazz, funk, and hip-hop material. Keep harmonically
-complex pitched material in scope.
+Run [Phase 6g: reference-conditioned continuation and structural transfer](plan/phase-6/6g-reference-conditioned-continuation-and-structural-transfer.md).
+Compare seed-only context, raw licensed references, extracted structure, mixed
+context, Notochord, and a deterministic baseline. Measure useful trait transfer
+and direct copying separately. Keep permission, coverage, and hashes explicit.
 
-Session 6g uses the result for reference-conditioned continuation. Session 6h
-then tests sensory packets. Session 6i defines the workstation contracts.
-Session 6j closes the verification-cost audit.
+Session 6h then tests sensory packets. Session 6i defines the workstation
+contracts. It also audits the agent DSLs and every other custom interface for
+focused ownership, compatible seams, and unexplained overlap. Session 6j closes
+the verification-cost audit, including interface translation. Phase 7f repeats
+the interface check during composed dogfood.
 
 ## Phase 6 symbolic representation
+
+[E116](evidence/experiments/e116-fine-timing-and-two-layer-groove-contract-pass.md)
+extends binary timing through `1/512` beat and the matched triplet family through
+`1/768` beat. Public replay preserved note expression and exact supported
+timing. A `1/1024`-beat start refused before mutation. Fine exact reads need
+many pages, so 6j must audit their cost.
+
+Use `ghostnote-groove-context-v0` when nominal timing, intent, or simultaneous
+timing references matter. Three deterministic runs had one hash. The explicit
+view passed 14 of 14 checks on GPT-5.4 Mini and Gemini 3.8 Flash. It includes
+tempo maps, cross-part offsets, provenance, confidence, and seeded realization.
+No blind operator judgment was collected, so E116 makes no feel claim.
+
+The [agent musical language reference](evidence/format/AGENT_MUSICAL_LANGUAGE.md)
+now defines the experimental mode registry, authority boundaries, grammar, and
+evolution rules. A pure TypeScript module and golden corpus test compact and
+groove modes without a Bitwig dependency. They are not registered as public
+tools. Phase 7a must render the context from real exact clip state and dogfood
+one read-only task.
 
 [E114](evidence/experiments/e114-bar-context-and-guarded-note-patches-pass-two-models.md)
 selects compact bar-synchronized events for agent musical context. It selects
@@ -37,11 +57,6 @@ source and identity guards, pattern expansion, named defaults, and complete
 candidate-state validation. The selected arm passed all 20 constraints across
 GPT-5.4 Mini and Gemini 3.8 Flash. The direct API proof is not a fresh
 host-agent session proof. Phase 7 must test that integration.
-
-Session 6f1 tested established representations and behavioral evidence of
-model familiarity. Session 6f2 tests nominal and realized groove timing,
-simultaneous timing references, deterministic realization, and finer live grid
-support.
 
 [E115](evidence/experiments/e115-established-syntax-does-not-beat-compact-bar-context.md)
 keeps compact bar events as the only 6f2 and 6g context finalist. MIDI-Like,
@@ -118,7 +133,9 @@ remaining probe runtime. Do not remove older probe methods ad hoc.
 
 ## Retrospective
 
-The 6f1 prompt first left patch list grouping implicit. The compiler rejected
-every reasonable one-operation-per-note response. Give every evaluated writer
-the exact patch shape before model calls. Keep schema failures separate from
-musical constraint failures.
+The timing-reference distinction prevented the largest 6f2 interpretation
+error. A performed offset does not identify template swing, layer phase,
+cross-part relation, or a local exception. Keep each component separate. Give
+evaluated writers exact patch shapes before model calls. The language registry
+also separates the experimental agent proposal from the existing public
+musical patch. Keep those names and purposes distinct until 7b integrates them.

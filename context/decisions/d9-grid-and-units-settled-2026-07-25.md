@@ -5,7 +5,7 @@ state: active
 source: DECISIONS.md
 ---
 
-# D9 — Grid and units **[SETTLED 2026-07-25, AMENDED 2026-08-18]**
+# D9 — Grid and units **[SETTLED 2026-07-25, AMENDED 2026-09-13]**
 
 **Beats-native everywhere; the step grid is a per-operation view, not global
 state** (standing rule 12, correcting daw-mcp's design). The beats↔step conversion
@@ -14,7 +14,7 @@ happens in the live encoder and nowhere else.
 - **Choose the COARSEST grid on which every start and duration is exact.** Not an
   optimization: E2 found off-grid notes are reported snapped DOWN (beat 0.09375
   scans as x=0 on a 0.25 grid), so a lossy grid choice corrupts a snapshot
-  silently. Finer than the 1/64-beat floor is REFUSED.
+  silently. Finer than the measured family in E116 is REFUSED.
 - ⚠ **A grid change invalidates the cursor's step data for ~120ms**, and any
   `getStep` in that window returns something unusable — 0 of 3 properties landed
   at gaps of 0/24/48/72/96ms, 3 of 3 at 120/144/192/288ms (E15-D). Hence the
@@ -41,3 +41,11 @@ controls remain bit-exact. Supported triplet durations round to the nearest
 supported grid or equals that grid value after exact `2^-20` quantization. An
 arbitrary nearby value does not pass. This rule is qualified to the supported
 values measured on Bitwig 6.0.6 with host API 25.
+
+**Amended by E116.** The exact binary family now extends through `1/512` beat,
+which equals a conventional 2048th note. The matched triplet family extends
+through `1/768` beat, which equals `1/3072` of a whole note. Independent live
+reads passed page boundaries, long clips, all channels, note properties, and a
+coarse-grid change and return. Binary timing was exact. Triplet starts were
+exact, and durations kept the E42 `2^-20`-beat rule. Precision finer than this
+measured family refuses before mutation.

@@ -2,7 +2,7 @@
 title: Capability index
 kind: index
 state: active
-updated: 2026-08-23
+updated: 2026-09-13
 scope: current Bitwig host-API capability, organized by subject
 ---
 
@@ -55,7 +55,7 @@ that the subject is understood.
 | Devices | ● | Devices use explicit native, VST3, CLAP, or preset sources. Arbitrary named parameters, deep routes, modulator topology, owned composition, bypass, guarded chains, and exact scalar replay are live. Device instances still have no identity. | [devices](devices.md) |
 | Banks | ⚠ ● | A bank window is a hard budget. The Master and the FX returns leave it first, and a create past the ceiling mints a track you can never address. | [banks](banks.md) |
 | Named actions | ⚠⚠ ○ | A named action dispatches on primary UI focus, which no observer reports. It is product-banned. Chain create and delete no longer need one. | [actions](actions.md) |
-| Launcher clips | ⚠ ● | Notes and measured metadata have typed paths. Long reads and writes page fixed cursor windows. Clip recreation remains lossy for play-stop and automation. | [clips](clips.md) |
+| Launcher clips | ⚠ ● | Notes and measured metadata have typed paths. Binary timing reaches 1/512 beat. Triplet timing reaches 1/768 beat. Long reads and writes page fixed cursor windows. | [clips](clips.md) |
 | Host API | ◐ | The API 25 source resolves from Maven with one command, so enumeration is a source read. Plus three mechanisms ghostnote does not use: a type-filtered device bank, process spawn, and OSC. | [host-api](host-api.md) |
 
 ## Related

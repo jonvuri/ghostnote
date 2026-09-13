@@ -1,8 +1,8 @@
 ---
 title: Phase 6f2 — Groove intent and microtiming reproducibility
 kind: plan
-state: planned
-status: Run after 6f1. Prove the timing floor, then select a groove representation.
+state: complete
+status: Complete. E116 selects the fine timing family and two-layer groove context.
 updated: 2026-09-13
 parent: README.md
 prev: 6f1-established-symbolic-representations-and-model-familiarity.md
@@ -173,7 +173,36 @@ in separate fields. A close timing match does not prove the intended feel.
 - Training a groove-generation model.
 - Publishing a public timing or generation tool.
 
+## Result
+
+[E116](../../evidence/experiments/e116-fine-timing-and-two-layer-groove-contract-pass.md)
+extends binary timing through `1/512` beat and the matched triplet family through
+`1/768` beat. Independent live reads passed every required grid case. Public
+replay kept note expression and exact timing under the measured host duration
+rule. A finer `1/1024`-beat request refused before mutation. Both live probes
+restored the four-track, stopped project baseline.
+
+Use `ghostnote-groove-context-v0` when 6g needs nominal timing, timing intent,
+or simultaneous timing references. It separates nominal and realized events,
+tempo maps, references, template, phase, cross-part, and local deviations. It
+also carries confidence, provenance, coverage, and deterministic generation
+identity. Keep the E114 compact bar form for other event context.
+
+The selected groove view passed 14 of 14 checks on GPT-5.4 Mini and Gemini 3.8
+Flash. Three clean symbolic runs had one hash, and another seed changed it.
+Generated MIT fixtures covered jazz, funk, hip-hop, extended harmony, tempo
+drift, simultaneous references, cross-part offsets, and transfer without pitch
+copying.
+
+No blind operator judgment was collected. The result makes no preference or
+feel claim. Session 6g must keep operator judgments separate when it ranks
+continuation and transfer output.
+
 ## Retrospective target
 
 Record which distinction between nominal time, realized time, and timing
 reference prevented the most incorrect groove interpretation.
+
+The timing-reference distinction prevented the largest error. One performed
+offset can come from template swing, layer phase, a cross-part relation, or a
+local exception. Store the cause separately from nominal and realized time.

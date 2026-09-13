@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v21';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v22';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -304,8 +304,13 @@ export const DESCRIPTION_COHORT_V20: readonly DescriptionCohortMember[] = [
 ] as const;
 
 /** v21 publishes explicit parameter value capabilities and semantic refusal. */
-export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+export const DESCRIPTION_COHORT_V21: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V20,
+] as const;
+
+/** v22 publishes the measured fine note timing family. */
+export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
+  ...DESCRIPTION_COHORT_V21,
 ] as const;
 
 interface ToolAnnotations {
@@ -368,7 +373,7 @@ export const encodeDescriptionCohort = (artifact: DescriptionCohortArtifact): st
 export const fingerprintDescriptionCohort = (artifact: DescriptionCohortArtifact): string =>
   createHash('sha256').update(encodeDescriptionCohort(artifact), 'utf8').digest('hex');
 
-// V1 through V20 record shipped artifacts. Do not recompute them from current
+// V1 through V21 record shipped artifacts. Do not recompute them from current
 // tool schemas. Only the current version follows the current public surface.
 
 /** Changing this fingerprint requires a new description version. */
@@ -454,3 +459,7 @@ export const TOOL_DESCRIPTION_V20_SHA256 =
 /** Changing this fingerprint requires a new description version. */
 export const TOOL_DESCRIPTION_V21_SHA256 =
   '368e3f50b8807f716e59a6b668c9352b22f9301041627a21c4918deae70b161a';
+
+/** Changing this fingerprint requires a new description version. */
+export const TOOL_DESCRIPTION_V22_SHA256 =
+  '7d811a03db1f89b9eb48952eec7ad2262ff5f6e058ff444208019e77c007c6e7';

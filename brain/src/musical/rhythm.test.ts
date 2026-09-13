@@ -117,12 +117,18 @@ test('R-grid: duration normalization does not widen start identity or accept nea
   }]), undefined, 'an arbitrary value inside the empirical error bound is not accepted');
 });
 
-test('R-grid: the 1/64-beat floor stays exact', () => {
+test('R-grid: the measured binary and triplet timing floors stay exact', () => {
   assert.equal(stepSizeFor([{
     ...FULL_EXPRESSION_NOTE, startBeats: 1 / 64, durationBeats: 1 / 64,
   }]), 1 / 64);
   assert.equal(stepSizeFor([{
-    ...FULL_EXPRESSION_NOTE, startBeats: 1 / 128, durationBeats: 1 / 64,
+    ...FULL_EXPRESSION_NOTE, startBeats: 1 / 512, durationBeats: 1 / 512,
+  }]), 1 / 512);
+  assert.equal(stepSizeFor([{
+    ...FULL_EXPRESSION_NOTE, startBeats: 1 / 768, durationBeats: 0.0013017654418945312,
+  }]), 1 / 768);
+  assert.equal(stepSizeFor([{
+    ...FULL_EXPRESSION_NOTE, startBeats: 1 / 1024, durationBeats: 1 / 512,
   }]), undefined);
 });
 

@@ -45,6 +45,20 @@ Do not switch modes silently. A computer-use result is UI-observed unless a
 workstation module supplies independent semantic evidence. An external UI write
 does not become a Ghostnote-owned reversible change.
 
+## Interface discipline
+
+Use the 6i interface inventory and seam map as the Phase 7 baseline. Each
+session must name the versions of every custom format that it accepts and
+emits. A new format needs a distinct purpose, owner, authority, version,
+failure rule, and conformance fixture. Do not add one when an existing format
+already owns the same boundary.
+
+Test each implemented seam with producer output that the real consumer accepts.
+Keep projections and translations explicit. Do not silently treat the agent
+context, agent proposal, deterministic public patch, exact-state record, or
+extension wire format as interchangeable. Phase 7f reviews the complete
+composition again with real work.
+
 ## Session order
 
 1. [7a — symbolic context and read-only analysis](7a-symbolic-context-and-read-only-analysis.md).
@@ -73,9 +87,12 @@ next proof. Keep read-only and risk-bearing implementation scopes separate.
    when the recorded boundary makes that safe.
 8. Record latency, tool calls, operator intervention, incorrect targets,
    verification cost, and unsupported boundaries.
+9. Record each custom format version that crossed a module seam and any
+   projection, translation, default, or loss at that seam.
 
 ## Close condition
 
 Close the loop only on an explicit operator request. Graduate experimental
 interfaces one at a time after real-task and failure evidence. Hand selected
-release or breadth work to Phase 8.
+release or breadth work to Phase 8. Do not graduate an interface until its
+producer and consumer pass the documented seam contract.

@@ -2272,8 +2272,8 @@ export class LiveAdapter implements BitwigAdapter {
       this.readClipMetadata(clipRef, trackIndex, pointedAt, cursor));
     const extent = Math.max(observed.playStopBeats, observed.metadata.loopEndBeats);
     const lengthBeats = extent > 0 ? extent : 4;
-    const binaryStep = 1 / 64;
-    const tripletStep = 1 / 48;
+    const binaryStep = 1 / 512;
+    const tripletStep = 1 / 768;
     const scan = async (stepSize: number): Promise<ReadonlyMap<number, readonly NoteRecord[]>> => {
       await this.transport.send({ method: WIRE.cursorSetStepSize, params: { cursor, stepSize } });
       const channels = new Map<number, NoteRecord[]>();
@@ -2355,6 +2355,7 @@ export class LiveAdapter implements BitwigAdapter {
           channel,
           binary.get(channel) ?? [],
           triplet.get(channel) ?? [],
+          Math.max(binaryStep, tripletStep),
         ));
       }
       return reconciled;
@@ -2367,6 +2368,7 @@ export class LiveAdapter implements BitwigAdapter {
     channel: number,
     binary: readonly NoteRecord[],
     triplet: readonly NoteRecord[],
+    maximumStartDifference = 1 / 48,
   ): readonly NoteRecord[] {
     const byPitch = (notes: readonly NoteRecord[]): ReadonlyMap<number, readonly NoteRecord[]> => {
       const grouped = new Map<number, NoteRecord[]>();
@@ -2397,7 +2399,7 @@ export class LiveAdapter implements BitwigAdapter {
         const { startBeats: binaryStart, ...binaryBody } = binaryNote;
         const { startBeats: tripletStart, ...tripletBody } = tripletNote;
         if (JSON.stringify(binaryBody) !== JSON.stringify(tripletBody)
-            || Math.abs(binaryStart - tripletStart) > 1 / 48) {
+            || Math.abs(binaryStart - tripletStart) > maximumStartDifference) {
           throw new AddressUnresolvedError(
             clipRef,
             `binary and triplet scans disagree on channel ${channel}, pitch ${pitch} note identity`,

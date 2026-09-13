@@ -15,7 +15,8 @@ next: ../phase-7/7a-symbolic-context-and-read-only-analysis.md
 
 Finish the verification-cost audit as an evidence and planning session. Identify
 which current checks are essential, reducible, or historical before new modules
-compose with the Bitwig adapter.
+compose with the Bitwig adapter. Include the cost of validating and translating
+the custom interface seams selected in 6i.
 
 Do not combine this audit with provider implementation or an optimization.
 
@@ -26,14 +27,17 @@ Do not combine this audit with provider implementation or an optimization.
    full-state scans.
 2. Map each cost to the operation risk and the defect or boundary that justifies
    it.
-3. Separate product verification from historical probe instrumentation.
-4. Identify repeated reads that already have equivalent target-bound evidence.
-5. Identify missing measurements. Run only focused, non-mutating or disposable
+3. Account for parsing, validation, canonicalization, fingerprinting,
+   projection, and translation at custom format boundaries.
+4. Separate product verification from historical probe instrumentation.
+5. Identify repeated reads and repeated format validation that already have
+   equivalent target-bound evidence.
+6. Identify missing measurements. Run only focused, non-mutating or disposable
    live checks needed to close those gaps.
-6. Classify each cost as essential, reducible, historical, or unknown.
-7. Write a focused successor brief for each worthwhile reduction. Do not make
+7. Classify each cost as essential, reducible, historical, or unknown.
+8. Write a focused successor brief for each worthwhile reduction. Do not make
    the reduction in this session.
-8. Give Phase 7 per-operation verification and timing rules for read-only
+9. Give Phase 7 per-operation verification and timing rules for read-only
    providers, agent patches, capture, and composed workflows.
 
 ## Acceptance criteria
@@ -43,6 +47,8 @@ Do not combine this audit with provider implementation or an optimization.
 - Every essential cost cites the evidence or invariant that requires it.
 - Every reducible cost states the equivalent evidence that must remain.
 - Historical instrumentation is not mistaken for product runtime cost.
+- Each retained custom seam has a measured or bounded validation and translation
+  cost. A proposed reduction keeps its required compatibility evidence.
 - Read-only modules do not inherit mutation ceremony.
 - Agent-proposed writes keep exact validation, target guards, and independent
   readback.

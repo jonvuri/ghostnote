@@ -796,7 +796,8 @@ export function refusalOf(error: unknown): Refusal {
       return refusal(
         'nothing was written. Note timing caused the refusal: one or more startBeats or '
         + `durationBeats values do not fit any writable grid. The finest supported grid is ${error.finestGridBeats} `
-        + 'beat (1/64 beat). Put each note start and duration on a supported grid, then repeat the call.',
+        + 'beat (1/768 beat, the triplet match for a 1/512-beat binary limit). Put each note start and '
+        + 'duration on a supported grid, then repeat the call.',
       );
     }
     if (error.op === 'chain.relocate') {

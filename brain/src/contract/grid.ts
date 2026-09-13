@@ -40,6 +40,13 @@ export const STEP_SIZES: readonly number[] = [
   0.03125,
   1 / 48,
   0.015625,
+  1 / 96,
+  1 / 128,
+  1 / 192,
+  1 / 256,
+  1 / 384,
+  1 / 512,
+  1 / 768,
 ];
 
 const START_EPSILON = 1e-9;
