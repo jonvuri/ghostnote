@@ -1,11 +1,12 @@
 ---
 title: Phase 6c — Deterministic audio-analysis tool survey
 kind: plan
-state: planned
-status: Next. Compare bounded local analysis providers on captured audio.
+state: complete
+status: Complete. E105 selects FFmpeg and a long-lived librosa worker.
 updated: 2026-09-12
 parent: README.md
 prev: 6b-exact-version-offline-documentation-retrieval.md
+next: 6d-perceptual-audio-model-evaluation.md
 ---
 
 # Phase 6c — Deterministic audio-analysis tool survey
@@ -61,3 +62,22 @@ implementation.
 ## Retrospective target
 
 Record which independent signal check caught the most misleading tool output.
+
+## Result
+
+[E105](../../evidence/experiments/e105-ffmpeg-and-librosa-form-the-audio-fact-boundary.md)
+selects two private provider boundaries. Use `ffprobe` and `ffmpeg` for exact
+stream identity, signal aggregates, silence, spectral rolloff, and diagnostic
+spectrograms. Use a long-lived librosa worker for voiced pitch, onsets, stereo
+correlation, and amplitude-modulation rate.
+
+All selected facts passed their declared tolerances and repeated three times
+with stable result hashes. Essentia passed most accuracy checks but had a
+31-second import and a restrictive license boundary. Aubio did not build in the
+current Python and NumPy environment. No public tool or audio artifact remains.
+
+The digital-silence fixture caught the most misleading output. Raw YIN returned
+a numeric pitch for silence. The selected pYIN route requires voiced state and
+returns null for that input.
+
+Session 6d is next.

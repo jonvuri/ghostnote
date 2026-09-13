@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Sessions 6a and 6b passed. Session 6c deterministic audio analysis is next.
+status: Sessions 6a through 6c passed. Session 6d perceptual evaluation is next.
 updated: 2026-09-12
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
@@ -150,10 +150,10 @@ considered.
    inventory installed semantic sources, and compare a small lexical index with
    local semantic retrieval.
 3. [6c — deterministic audio-analysis tool survey](6c-deterministic-audio-analysis-tool-survey.md).
-   Benchmark `ffmpeg`,
-   spectrogram generation, and mature music-audio libraries. Select independent
-   providers for signal, spectral, temporal, pitch, stereo, and modulation facts.
-4. **6d — perceptual audio-model evaluation.** Compare frontier audio models and
+   Complete. E105 selects FFmpeg and a long-lived librosa worker for typed,
+   deterministic facts and bounded estimates.
+4. [6d — perceptual audio-model evaluation](6d-perceptual-audio-model-evaluation.md).
+   Compare frontier audio models and
    smaller music-focused models on controlled blind A/B tasks. Evaluate
    classification and directional judgment, not aesthetic authority.
 5. **6e — semantic music analysis and manipulation.** Define typed harmony,
@@ -196,5 +196,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6c. Use the exact project-local WAV route from E103. Keep test
-audio and generated analysis artifacts outside the repository.
+Start session 6d. Use the exact E103 capture route and E105 deterministic fact
+boundary. Keep model judgments separate from facts and operator verdicts.
