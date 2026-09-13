@@ -4,30 +4,28 @@ kind: status
 state: active
 updated: 2026-09-13
 phase: phase-6
-session: 6f1-established-symbolic-representations-and-model-familiarity
+session: 6f2-groove-intent-and-microtiming-reproducibility
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 has an
 accepted public result, but its generalized closeout remains. Phase 6 sessions
-6a through 6f and 6d2 are complete. Four agent-facing explorations are next.
+6a through 6f1 and 6d2 are complete. Three agent-facing explorations are next.
 Contract synthesis and the verification audit follow them. Phase 7 owns
 focused module implementation and the next dogfood loop. Phase 8 owns breadth,
 release, and probe-runtime retirement.
 
 ## Next session
 
-Run [Phase 6f1: established symbolic representations and model familiarity](plan/phase-6/6f1-established-symbolic-representations-and-model-familiarity.md).
-Compare MIDI-Like, REMI, a compound event form, TidalCycles, synchronized ABC,
-and the E114 bar baseline. Use isomorphic renamed controls to separate apparent
-model familiarity from grammar quality. Keep harmony, existing-input
-transformation, continuation, and groove tasks in scope.
+Run [Phase 6f2: groove intent and microtiming reproducibility](plan/phase-6/6f2-groove-intent-and-microtiming-reproducibility.md).
+First prove the finest reliable Bitwig timing grid. Then test nominal and
+realized timing, simultaneous timing references, deterministic realization,
+and groove transfer across jazz, funk, and hip-hop material. Keep harmonically
+complex pitched material in scope.
 
-Session 6f2 then proves the finest reliable Bitwig timing grid and tests explicit
-groove intent and reproducibility across jazz, funk, and hip-hop material.
-Session 6g uses those results for reference-conditioned continuation. Session
-6h then tests sensory packets. Session 6i defines the workstation contracts.
+Session 6g uses the result for reference-conditioned continuation. Session 6h
+then tests sensory packets. Session 6i defines the workstation contracts.
 Session 6j closes the verification-cost audit.
 
 ## Phase 6 symbolic representation
@@ -40,9 +38,17 @@ candidate-state validation. The selected arm passed all 20 constraints across
 GPT-5.4 Mini and Gemini 3.8 Flash. The direct API proof is not a fresh
 host-agent session proof. Phase 7 must test that integration.
 
-Session 6f1 tests established representations and behavioral evidence of model
-familiarity. Session 6f2 tests nominal and realized groove timing, simultaneous
-timing references, deterministic realization, and finer live grid support.
+Session 6f1 tested established representations and behavioral evidence of
+model familiarity. Session 6f2 tests nominal and realized groove timing,
+simultaneous timing references, deterministic realization, and finer live grid
+support.
+
+[E115](evidence/experiments/e115-established-syntax-does-not-beat-compact-bar-context.md)
+keeps compact bar events as the only 6f2 and 6g context finalist. MIDI-Like,
+REMI+, OctupleMIDI, and synchronized ABC did not show a stable cross-model
+familiarity advantage over renamed controls. Tidal mini-notation failed the
+deterministic exact-identity and performed-duration screen. The bar form passed
+21 of 21 grammar-supplied checks on both models and used the fewest tokens.
 
 ## Phase 6 provider gates
 
@@ -112,7 +118,7 @@ remaining probe runtime. Do not remove older probe methods ad hoc.
 
 ## Retrospective
 
-The archived E2 plan asked for a `1/128`-beat probe, but the retained probe
-stopped at `1/32` beat. Later work selected a `1/64`-beat floor without measuring
-the host maximum. State beat resolution and its conventional note-value
-equivalent together, and do not treat a planned maximum as measured evidence.
+The 6f1 prompt first left patch list grouping implicit. The compiler rejected
+every reasonable one-operation-per-note response. Give every evaluated writer
+the exact patch shape before model calls. Keep schema failures separate from
+musical constraint failures.

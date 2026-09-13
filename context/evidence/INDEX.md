@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E115 | Established syntax does not beat compact bar context [K] (2026-09-13) | [open](experiments/e115-established-syntax-does-not-beat-compact-bar-context.md) |
+| E114 | Bar context and guarded note patches pass two models [K] (2026-09-13) | [open](experiments/e114-bar-context-and-guarded-note-patches-pass-two-models.md) |
 | E113 | Loudness beats the affect head, but the reference gate blocks selection [K] (2026-09-13) | [open](experiments/e113-loudness-beats-the-affect-head-but-the-reference-gate-blocks-selection.md) |
 | E112 | Independent survey adds probe, psychoacoustic, and symbolic perceptual routes [K] (2026-09-13) | [open](experiments/e112-independent-survey-adds-probe-psychoacoustic-and-symbolic-perceptual-routes.md) |
 | E111 | Perceptual provider gate must measure listener agreement [K] (2026-09-13) | [open](experiments/e111-perceptual-provider-gate-must-measure-listener-agreement.md) |

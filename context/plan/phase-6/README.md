@@ -185,8 +185,8 @@ considered.
    Complete. E114 selects compact bar context and guarded JSON patches. It
    confirms the result across GPT-5.4 Mini and Gemini 3.8 Flash.
 8. [6f1 — established symbolic representations and model familiarity](6f1-established-symbolic-representations-and-model-familiarity.md).
-   Compare established MIDI-token and pattern formats with isomorphic controls.
-   Keep harmonic, transformation, continuation, and groove tasks in scope.
+   Complete. E115 keeps compact bar context as the only finalist. No
+   established syntax has a stable cross-model familiarity advantage.
 9. [6f2 — groove intent and microtiming reproducibility](6f2-groove-intent-and-microtiming-reproducibility.md).
    Prove finer Bitwig timing first. Then test explicit nominal, realized, and
    multi-reference groove forms across jazz, funk, and hip-hop material.

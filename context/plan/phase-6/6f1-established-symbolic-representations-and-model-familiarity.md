@@ -1,8 +1,8 @@
 ---
 title: Phase 6f1 — Established symbolic representations and model familiarity
 kind: plan
-state: planned
-status: Run after 6f. Select representation finalists before the groove study.
+state: complete
+status: Complete. E115 keeps compact bar context as the only finalist.
 updated: 2026-09-13
 parent: README.md
 prev: 6f-agent-facing-symbolic-representation.md
@@ -146,7 +146,21 @@ Keep objective results, model explanations, and operator judgments separate.
 - Replacing exact host readback with a token parser.
 - A complete aesthetic ranking of groove. Session 6f2 owns that work.
 
-## Retrospective target
+## Result
 
-Record which control best separates a useful musical grammar from apparent
-model familiarity.
+[E115](../../evidence/experiments/e115-established-syntax-does-not-beat-compact-bar-context.md)
+keeps the E114 compact bar form as the only context finalist for sessions 6f2
+and 6g. MIDI-Like, REMI+, OctupleMIDI, and synchronized ABC did not give a
+stable cross-model advantage over isomorphic renamed controls. Tidal mini-
+notation failed the deterministic screen because an exact side ledger would
+duplicate the tested score.
+
+The bar form passed all 21 grammar-supplied checks on GPT-5.4 Mini and Gemini
+3.8 Flash. It also used the fewest input tokens. All 120 initial patches were
+schema-valid, and all ten exact-feedback repairs passed. No output was written
+to Bitwig. The result does not infer private model-training data.
+
+## Retrospective
+
+The pre-example published-versus-renamed delta was the clearest familiarity
+control. The masked-value control prevented labels alone from passing a task.
