@@ -12,6 +12,9 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E113 | Loudness beats the affect head, but the reference gate blocks selection [K] (2026-09-13) | [open](experiments/e113-loudness-beats-the-affect-head-but-the-reference-gate-blocks-selection.md) |
+| E112 | Independent survey adds probe, psychoacoustic, and symbolic perceptual routes [K] (2026-09-13) | [open](experiments/e112-independent-survey-adds-probe-psychoacoustic-and-symbolic-perceptual-routes.md) |
+| E111 | Perceptual provider gate must measure listener agreement [K] (2026-09-13) | [open](experiments/e111-perceptual-provider-gate-must-measure-listener-agreement.md) |
 | E110 | Wider symbolic provider survey selects Music21 and Musicpy [K] (2026-09-13) | [open](experiments/e110-wider-symbolic-provider-survey-selects-music21-and-musicpy.md) |
 | E109 | Exact note structure is the semantic boundary [K] (2026-09-13) | [open](experiments/e109-exact-note-structure-is-the-semantic-boundary.md) |
 | E108 | Paid Gemini fails blind controls [K] (2026-09-12) | [open](experiments/e108-paid-gemini-fails-blind-controls.md) |

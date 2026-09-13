@@ -93,5 +93,6 @@ perceptual boundary can reopen.
 supersedes that last requirement. The factual cohort remains negative evidence
 for direct audio perception and confidence calibration. It does not measure
 agreement with listeners on the intended perceptual dimensions. Phase 6d2
-reopens the private evaluation with a human-agreement gate and specialist
-classifiers.
+reopened the private evaluation with a human-agreement gate and specialist
+classifiers. [E113](../../evidence/experiments/e113-loudness-beats-the-affect-head-but-the-reference-gate-blocks-selection.md)
+completes that evaluation without selecting a provider.

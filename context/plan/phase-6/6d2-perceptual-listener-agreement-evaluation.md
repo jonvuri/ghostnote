@@ -1,8 +1,8 @@
 ---
 title: Phase 6d2 — Perceptual listener-agreement evaluation
 kind: plan
-state: planned
-status: Next detour. Test specialist perceptual scorers against human judgments.
+state: complete
+status: Complete. E113 selects no provider and records the reference blockers.
 updated: 2026-09-13
 parent: README.md
 prev: 6e-semantic-music-analysis-and-manipulation.md
@@ -115,3 +115,19 @@ facts. Keep aesthetic authority with the operator.
 ## Retrospective target
 
 Record which listener-agreement field best predicted useful operator feedback.
+
+## Result
+
+[E113](../../evidence/experiments/e113-loudness-beats-the-affect-head-but-the-reference-gate-blocks-selection.md)
+completes the session. Integrated loudness predicted 26 of 27 derived arousal
+pair directions. The MuSe affect head predicted 12 of 27. No provider was
+selected because the reference was not a direct pair study, loudness was not
+controlled, the public audio license chain was incomplete, and other
+dimensions lacked matching listener votes. The raw scorers also labeled
+silence. All owned test artifacts were removed, and the Bitwig baseline was not
+changed.
+
+Reference provenance was the decisive field. No provider reached the grounded
+feedback test, so no listener-agreement field could predict operator
+usefulness. A future run must collect direct pair votes and control loudness
+before it downloads models.
