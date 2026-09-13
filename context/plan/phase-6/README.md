@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Sessions 6a through 6e and 6d2 are complete. Session 6f is next.
+status: Sessions 6a through 6e and 6d2 are complete. Agent-facing exploration starts at 6f.
 updated: 2026-09-13
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
@@ -33,10 +33,12 @@ The programming analogy is deliberate:
 
 - Operations act like codemods. They apply exact structural changes in bulk or
   complete one operation faster and more reliably than computer use.
-- Analysis acts like static typing. It reports semantic structure, invariants,
-  incompatibilities, and before-and-after differences.
-- Audio observation acts like testing. It measures the produced signal and can
-  supply bounded perceptual judgments.
+- Symbolic context acts like static typing. It reports exact structure,
+  invariants, incompatibilities, and before-and-after differences. The host
+  agent supplies open-ended musical reasoning.
+- Audio observation acts like testing. It measures the produced signal and
+  supplies bounded facts and estimates. The host agent can interpret this
+  evidence, but the operator owns the verdict.
 - Computer use acts like the interactive editor. It owns open-ended visual work,
   plug-in user interfaces, and workflows that have no useful programmatic path.
 
@@ -63,13 +65,29 @@ Candidate modules are:
 
 - a Bitwig adapter for project information and operations;
 - an offline Bitwig documentation provider;
-- a semantic music analysis and transformation engine;
+- an agent-facing symbolic context and exact patch compiler;
+- replaceable theory, voicing, and measurement providers;
 - an audio capture provider;
 - deterministic audio analysis providers; and
-- optional perceptual-model providers.
+- optional perceptual-model providers after a new provider passes its gate.
 
 An external provider must be replaceable. One provider failure must not disable
 unrelated workstation capabilities.
+
+### Keep open-ended reasoning in the host agent
+
+Do not add a specialist model only because a task requires musical reasoning.
+First test whether the host agent can do the work when Ghostnote supplies better
+musical context, deterministic measurements, constrained edit primitives, and
+exact verification.
+
+Keep complete project state outside model-generated output. Let an agent propose
+a bounded edit against stable identities or musical regions. Compile and verify
+that proposal before a risk-bearing write.
+
+Reference-conditioned work needs exact reference provenance and separate
+measurements for useful structural similarity and direct copying. A similarity
+metric is not an aesthetic or legal verdict.
 
 ### Prefer established tools
 
@@ -163,9 +181,21 @@ considered.
    Complete. E111 replaces the factual selection gate with a
    listener-agreement gate. E113 rejects provider selection because the public
    reference and control coverage are not sufficient.
-7. [6f — workstation interface and verification synthesis](6f-workstation-interface-and-verification-synthesis.md).
-   Select module interfaces, record retained prototypes, finish the
-   verification-cost audit, and prepare the Phase 7 dogfood surface.
+7. [6f — agent-facing symbolic representation](6f-agent-facing-symbolic-representation.md).
+   Compare exact, bar-synchronized, notation, and patch representations. Select
+   how a host agent reads music and returns exact edits.
+8. [6g — reference-conditioned continuation and structural transfer](6g-reference-conditioned-continuation-and-structural-transfer.md).
+   Test seed continuation, variation, and structural borrowing. Use Notochord
+   as a bounded specialized baseline, not a product commitment.
+9. [6h — agent sensory-packet utility](6h-agent-sensory-packet-utility.md).
+   Test whether routed MIDI and audio facts improve host-agent decisions over
+   raw exact state.
+10. [6i — workstation contract synthesis](6i-workstation-contract-synthesis.md).
+    Define shared contracts, isolated module failure, probe disposition, and the
+    experimental Phase 7 surface. Do not implement providers.
+11. [6j — verification-cost audit](6j-verification-cost-audit.md).
+    Classify target, guard, settlement, readback, recovery, reversal, and scan
+    costs before Phase 7 implementation.
 
 Sessions 6c and 6d require a successful or otherwise usable 6a capture route.
 If 6a fails, record the gate and revise the audio direction before continuing.
@@ -180,12 +210,17 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 - Perceptual models have controlled results for useful sound-design comparisons.
 - Music analysis has a typed semantic contract and at least one useful
   before-and-after transformation loop.
-- The workstation modules have independent interfaces and compose without a
-  hidden global runtime.
+- Agent-facing symbolic input and patch output have a measured representation
+  boundary for time-precise, multi-track work.
+- Reference-conditioned continuation and structural transfer have controlled
+  comparison results, copy-overlap measurements, and operator verdicts.
+- MIDI and audio sensory packets have measured utility or a precise blocker.
+- The workstation modules have independent planned interfaces and an explicit
+  composition contract with no hidden global runtime.
 - The verification audit identifies which costs are essential, reducible, or
   historical. Any reduction keeps a proved safety basis.
-- Phase 7 has a public dogfood menu and explicit hybrid, solo, provenance, and
-  operator-verdict rules.
+- Phase 7 has an experimental dogfood menu and explicit hybrid, solo,
+  provenance, and operator-verdict rules.
 
 ## Out of scope
 
@@ -199,5 +234,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6f. Use the 6d2 blocker in the workstation interface and Phase 7
-dogfood rules.
+Start session 6f. Select how the host agent reads exact symbolic state and emits
+checked edits before the workstation contract is designed.

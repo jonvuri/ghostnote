@@ -6,7 +6,7 @@ status: Complete. E113 selects no provider and records the reference blockers.
 updated: 2026-09-13
 parent: README.md
 prev: 6e-semantic-music-analysis-and-manipulation.md
-next: 6f-workstation-interface-and-verification-synthesis.md
+next: 6f-agent-facing-symbolic-representation.md
 ---
 
 # Phase 6d2 — Perceptual listener-agreement evaluation

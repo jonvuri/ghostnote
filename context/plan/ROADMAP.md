@@ -2,7 +2,7 @@
 title: ghostnote roadmap
 kind: plan
 state: active
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Roadmap
@@ -16,8 +16,8 @@ updated: 2026-09-12
 | [4 — sound design](phase-4/README.md) | done | Device and parameter surface |
 | [5 — authoring](phase-5/README.md) | active | Accepted public result; generalized closeout remains while the new direction starts |
 | [First dogfood loop](dogfooding/README.md) | deferred | Historical results remain; Phase 7 owns the next dogfood loop |
-| [6 — music workstation exploration](phase-6/README.md) | active | Test the architecture, audio feedback, knowledge, analysis, and theory directions |
-| [7 — workstation dogfood](phase-7/README.md) | planned | Iterate through real work with standalone modules and hybrid computer use |
+| [6 — music workstation exploration](phase-6/README.md) | active | Test agent-facing symbolic context, sensory evidence, and the modular architecture |
+| [7 — workstation dogfood](phase-7/README.md) | planned | Build focused modules and test them through real host-agent work |
 | [8 — breadth and release](phase-8/README.md) | planned | Review publication and retire probe-only runtime after the new direction is clearer |
 
 ## Cross-phase work

@@ -4,22 +4,28 @@ kind: status
 state: active
 updated: 2026-09-13
 phase: phase-6
-session: 6f-workstation-interface-and-verification-synthesis
+session: 6f-agent-facing-symbolic-representation
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 has an
 accepted public result, but its generalized closeout remains. Phase 6 sessions
-6a through 6e and 6d2 are complete. Phase 6f synthesis is next. Phase 7 owns
-the next dogfood loop. Phase 8 owns breadth, release, and probe-runtime
-retirement.
+6a through 6e and 6d2 are complete. Three agent-facing explorations are next.
+Contract synthesis and the verification audit follow them. Phase 7 owns focused
+module implementation and the next dogfood loop. Phase 8 owns breadth, release,
+and probe-runtime retirement.
 
 ## Next session
 
-Run [Phase 6f: workstation interface and verification synthesis](plan/phase-6/6f-workstation-interface-and-verification-synthesis.md).
-Select the module interfaces, record the retained probes, finish the
-verification-cost audit, and prepare the Phase 7 dogfood surface.
+Run [Phase 6f: agent-facing symbolic representation](plan/phase-6/6f-agent-facing-symbolic-representation.md).
+Compare exact, bar-synchronized, notation, and patch forms. Select one musical
+context form and one exact edit form for host-agent round trips. Do not write
+model output to Bitwig in this session.
+
+Sessions 6g and 6h then test reference-conditioned musical work and sensory
+packets. Session 6i defines the workstation contracts. Session 6j closes the
+verification-cost audit.
 
 ## Phase 6 provider gates
 
@@ -68,11 +74,17 @@ directory because the API returns no file path.
 
 ## Workstation direction
 
+Keep open-ended musical reasoning in the host agent. Give it compact musical
+context, deterministic MIDI and audio evidence, and constrained crafting tools.
+Keep complete exact state outside agent output. Compile proposed patches, guard
+their targets, and verify them through independent readback.
+
 Build independent modules for deterministic operations and short feedback
 loops. Every artifact needs explicit identity, provenance, coverage, and
-provider version. Treat Bitwig as one adapter. Use computer use for complex
-one-off interaction and recovery. Keep rule and model labels separate from
-exact facts. The operator owns aesthetic judgment.
+provider version. Reference-conditioned work also needs source permission and
+copy-overlap evidence. Treat Bitwig as one adapter. Use computer use for complex
+one-off interaction and recovery. Keep measurements, agent interpretations,
+and operator verdicts separate.
 
 ## Existing boundaries
 
@@ -83,6 +95,7 @@ remaining probe runtime. Do not remove older probe methods ad hoc.
 
 ## Retrospective
 
-The 6d2 run confirmed that reference provenance is a selection input, not a
-reporting detail. Collect direct pair votes and control loudness before model
+Feasibility evidence did not justify one combined implementation session.
+Future exploration closeouts must separate a selected provider from scheduled
+product work. Collect direct pair votes and control loudness before model
 download in a future perceptual run.
