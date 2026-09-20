@@ -2,125 +2,91 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-09-13
+updated: 2026-09-20
 phase: phase-6
-session: 6g-reference-conditioned-continuation-and-structural-transfer
+session: 6h-agent-sensory-packet-utility
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 has an
 accepted public result, but its generalized closeout remains. Phase 6 sessions
-6a through 6f2 and 6d2 are complete. Two agent-facing explorations are next.
-Contract synthesis and the verification audit follow them. Phase 7 owns
-focused module implementation and the next dogfood loop. Phase 8 owns breadth,
-release, and probe-runtime retirement.
+6a through 6g and 6d2 are complete. Session 6h is next. Contract
+synthesis and the verification audit follow it. Phase 7 owns focused module
+implementation and the next dogfood loop. Phase 8 owns breadth, release, and
+probe-runtime retirement.
 
 ## Next session
 
-Run [Phase 6g: reference-conditioned continuation and structural transfer](plan/phase-6/6g-reference-conditioned-continuation-and-structural-transfer.md).
-Compare seed-only context, raw licensed references, extracted structure, mixed
-context, Notochord, and a deterministic baseline. Measure useful trait transfer
-and direct copying separately. Keep permission, coverage, and hashes explicit.
+Run [Phase 6h: agent sensory-packet utility](plan/phase-6/6h-agent-sensory-packet-utility.md).
+Compare raw identity, raw deterministic facts, and task-routed packets. Keep
+facts, estimates, agent interpretations, and operator verdicts separate. Use
+level-matched audio unless loudness is the target.
 
-Session 6h then tests sensory packets. Session 6i defines the workstation
-contracts. It also audits the agent DSLs and every other custom interface for
-focused ownership, compatible seams, and unexplained overlap. Session 6j closes
-the verification-cost audit, including interface translation. Phase 7f repeats
-the interface check during composed dogfood.
+Session 6i then defines the workstation contracts. It also audits the agent
+DSLs and other custom interfaces for focused ownership, compatible seams, and
+unexplained overlap. Session 6j closes the verification-cost audit. Phase 7f
+repeats the interface check during composed dogfood.
 
-## Phase 6 symbolic representation
+## Reference-conditioned work
+
+[E117](evidence/experiments/e117-extracted-structure-is-the-reference-default.md)
+selects extracted musical structure as the default reference form. Add a short
+raw excerpt only when the task needs a specific motif, rhythm, or voicing
+detail. Keep seed-only context as a creative control. Mixed context won or tied
+some operator choices, but it was less reliable and copied more exact events.
+
+Keep exact reference identity, permission, hash, coverage, trait-transfer
+scores, and copy measurements. Longer examples, fixed backing, and direct
+listening guidance are required for blind creative evaluation. Give model
+writers a literal patch shape before the first call.
+
+Notochord 0.8.0 was deterministic under fixed controls, but zero of six outputs
+met the exact task contracts. Reject it as a specialist for this direction. The
+result is about task fit, not licensing. Do not add it as a product dependency.
+
+## Symbolic representation
 
 [E116](evidence/experiments/e116-fine-timing-and-two-layer-groove-contract-pass.md)
-extends binary timing through `1/512` beat and the matched triplet family through
-`1/768` beat. Public replay preserved note expression and exact supported
-timing. A `1/1024`-beat start refused before mutation. Fine exact reads need
-many pages, so 6j must audit their cost.
-
-Use `ghostnote-groove-context-v0` when nominal timing, intent, or simultaneous
-timing references matter. Three deterministic runs had one hash. The explicit
-view passed 14 of 14 checks on GPT-5.4 Mini and Gemini 3.8 Flash. It includes
-tempo maps, cross-part offsets, provenance, confidence, and seeded realization.
-No blind operator judgment was collected, so E116 makes no feel claim.
-
-The [agent musical language reference](evidence/format/AGENT_MUSICAL_LANGUAGE.md)
-now defines the experimental mode registry, authority boundaries, grammar, and
-evolution rules. A pure TypeScript module and golden corpus test compact and
-groove modes without a Bitwig dependency. They are not registered as public
-tools. Phase 7a must render the context from real exact clip state and dogfood
-one read-only task.
+selects `ghostnote-groove-context-v0` for groove-sensitive tasks. It extends
+binary timing through `1/512` beat and the matched triplet family through
+`1/768` beat. Use the compact E114 bar view for ordinary performed events.
 
 [E114](evidence/experiments/e114-bar-context-and-guarded-note-patches-pass-two-models.md)
-selects compact bar-synchronized events for agent musical context. It selects
-`ghostnote-note-patch-v0` for edit requests. The compiler owns exact state,
-source and identity guards, pattern expansion, named defaults, and complete
-candidate-state validation. The selected arm passed all 20 constraints across
-GPT-5.4 Mini and Gemini 3.8 Flash. The direct API proof is not a fresh
-host-agent session proof. Phase 7 must test that integration.
+selects compact bar context and `ghostnote-note-patch-v0`. The compiler owns
+exact state, source and identity guards, pattern expansion, defaults, and
+complete candidate-state validation. E115 found no stable cross-model advantage
+for MIDI-Like, REMI+, OctupleMIDI, synchronized ABC, or Tidal mini-notation.
 
-[E115](evidence/experiments/e115-established-syntax-does-not-beat-compact-bar-context.md)
-keeps compact bar events as the only 6f2 and 6g context finalist. MIDI-Like,
-REMI+, OctupleMIDI, and synchronized ABC did not show a stable cross-model
-familiarity advantage over renamed controls. Tidal mini-notation failed the
-deterministic exact-identity and performed-duration screen. The bar form passed
-21 of 21 grammar-supplied checks on both models and used the fewest tokens.
+The [agent musical language reference](evidence/format/AGENT_MUSICAL_LANGUAGE.md)
+defines the experimental mode registry and authority boundaries. These forms
+are not public tools. Phase 7a must render context from real exact clip state.
 
-## Phase 6 provider gates
+## Provider boundaries
 
-[E110](evidence/experiments/e110-wider-symbolic-provider-survey-selects-music21-and-musicpy.md)
-selects Music21 as the primary private semantic-analysis provider and Musicpy
-as a voicing specialist candidate. The exact-note layer from
-[E109](evidence/experiments/e109-exact-note-structure-is-the-semantic-boundary.md)
-owns the input contract, constraints, and exact readback. It wraps the theory
-providers instead of replacing them. The live transform preserved all declared
-invariants and restored the four-track baseline.
+E110 selects Music21 as the primary private semantic-analysis provider and
+Musicpy as a voicing specialist candidate. The E109 exact-note layer owns the
+input contract, constraints, and exact readback.
 
-[E108](evidence/experiments/e108-paid-gemini-fails-blind-controls.md),
-[E107](evidence/experiments/e107-gpt-audio-fails-blind-controls-and-gemini-is-unavailable.md),
-and [E106](evidence/experiments/e106-local-clap-does-not-clear-the-perceptual-provider-gate.md)
-reject the tested providers under the factual gate. [E111](evidence/experiments/e111-perceptual-provider-gate-must-measure-listener-agreement.md)
-shows that this gate did not measure the product gap. The next gate uses human
-agreement on affect, musical organization, texture, motion, and arrangement.
-No perceptual provider is selected. Do not publish a perceptual tool.
+No perceptual provider is selected. E113 found that integrated loudness
+predicted the derived arousal directions, but the source controls and license
+chain did not meet the product gate. E105 selects FFmpeg and a long-lived
+librosa worker for typed audio facts and bounded estimates.
 
-[E113](evidence/experiments/e113-loudness-beats-the-affect-head-but-the-reference-gate-blocks-selection.md)
-completes the listener-agreement run. Integrated loudness predicted 26 of 27
-derived arousal pair directions. The MuSe head predicted 12 of 27. The
-loudness result does not pass the product gate because the reference is derived
-from absolute traces, source loudness was not controlled, and the per-song
-audio license chain is incomplete. Every other dimension lacks matching
-listener pair votes. The tested raw scorers also label silence.
-
-[E112](evidence/experiments/e112-independent-survey-adds-probe-psychoacoustic-and-symbolic-perceptual-routes.md)
-re-surveys the candidates. It adds psychoacoustic metrics, symbolic tension,
-and a probe over a frozen embedding as cheaper routes to the same dimensions.
-It also records that `essentia-tensorflow` has no usable arm64 build here, that
-the VGGish heads are reachable as ONNX, and that a head must not be scored on
-its own training corpus.
-
-[E105](evidence/experiments/e105-ffmpeg-and-librosa-form-the-audio-fact-boundary.md)
-selects FFmpeg and a long-lived librosa worker for typed audio facts and bounded
-estimates.
-
-[E104](evidence/experiments/e104-exact-version-document-cache-and-routed-lexical-retrieval-pass.md)
-selects source-routed SQLite FTS5. Installed API and localization are exact for
-Bitwig 6.0.6. The 5.3 user guide is a general-workflow fallback only.
-
-[E103](evidence/experiments/e103-master-recorder-produces-exact-project-local-wav.md)
-proves the project-local MasterRecorder route. It needs a known saved project
-directory because the API returns no file path.
+E104 selects source-routed SQLite FTS5 for local documentation. Installed API
+and localization are exact for Bitwig 6.0.6. E103 proves the project-local
+MasterRecorder route when the project directory is known.
 
 ## Workstation direction
 
-Keep open-ended musical reasoning in the host agent. Give it compact musical
-context, deterministic MIDI and audio evidence, and constrained crafting tools.
-Keep complete exact state outside agent output. Compile proposed patches, guard
-their targets, and verify them through independent readback.
+Keep open-ended musical reasoning in the host agent. Give it compact context,
+deterministic evidence, and constrained crafting tools. Keep complete exact
+state outside agent output. Compile proposed patches, guard their targets, and
+verify them through independent readback.
 
 Build independent modules for deterministic operations and short feedback
 loops. Every artifact needs explicit identity, provenance, coverage, and
-provider version. Reference-conditioned work also needs source permission and
-copy-overlap evidence. Treat Bitwig as one adapter. Use computer use for complex
+provider version. Treat Bitwig as one adapter. Use computer use for complex
 one-off interaction and recovery. Keep measurements, agent interpretations,
 and operator verdicts separate.
 
@@ -133,9 +99,7 @@ remaining probe runtime. Do not remove older probe methods ad hoc.
 
 ## Retrospective
 
-The timing-reference distinction prevented the largest 6f2 interpretation
-error. A performed offset does not identify template swing, layer phase,
-cross-part relation, or a local exception. Keep each component separate. Give
-evaluated writers exact patch shapes before model calls. The language registry
-also separates the experimental agent proposal from the existing public
-musical patch. Keep those names and purposes distinct until 7b integrates them.
+The 6g follow-up showed that short solo examples can hide the evaluated intent.
+Use longer musical contexts, fixed backing, and one direct listening question.
+Use literal output shapes before model calls to avoid schema-only correction
+turns.

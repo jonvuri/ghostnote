@@ -1,9 +1,9 @@
 ---
 title: Phase 6g — Reference-conditioned continuation and structural transfer
 kind: plan
-state: planned
-status: Ready. E116 selects the groove context and timing contract.
-updated: 2026-09-13
+state: complete
+status: Complete. E117 selects extracted structure as the reference default.
+updated: 2026-09-20
 parent: README.md
 prev: 6f2-groove-intent-and-microtiming-reproducibility.md
 next: 6h-agent-sensory-packet-utility.md
@@ -120,3 +120,28 @@ separate fields. Randomize presentation order for operator comparisons.
 
 Record whether raw excerpts or extracted musical structure supplied the useful
 reference signal.
+
+## Result
+
+[E117](../../evidence/experiments/e117-extracted-structure-is-the-reference-default.md)
+selects extracted musical structure as the default reference form. It was the
+only agent arm that produced six valid first-round patches without correction
+on both tested models. Mixed context remains useful when a task needs selected
+raw detail, but it was less reliable and copied more exact events. Seed-only
+context won the focused motif ballot and remains a required control.
+
+The exact compiler refused unsupported timing, stale source identity, note
+collisions, invalid shape, and broken task constraints before any write. The
+probe kept requested trait transfer separate from exact copying and wider
+structural similarity.
+
+Notochord was deterministic under fixed controls, but none of its six outputs
+met the exact task contracts. Reject it as a specialist for this direction. The
+rejection is about task fit, not the operator-approved Lakh licensing basis.
+No dependency or public tool was added.
+
+The retrospective answer is extracted structure. Raw excerpts did not supply
+the most reliable signal. Longer examples, fixed backing, and direct listening
+guidance improved the operator ballot. Literal patch examples are also needed
+before a model call. A prose-only shape caused one full correction turn in the
+focused rerun.

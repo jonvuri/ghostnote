@@ -2,8 +2,8 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Sessions 6a through 6f and 6d2 are complete. Symbolic follow-up starts at 6f1.
-updated: 2026-09-13
+status: Sessions 6a through 6g and 6d2 are complete. Session 6h is next.
+updated: 2026-09-20
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
 next: ../phase-7/README.md
@@ -193,8 +193,9 @@ considered.
    Complete. E116 extends binary timing through 1/512 beat and triplet timing
    through 1/768 beat. It selects the two-layer groove context.
 10. [6g — reference-conditioned continuation and structural transfer](6g-reference-conditioned-continuation-and-structural-transfer.md).
-   Test seed continuation, variation, and structural borrowing. Use Notochord
-   as a bounded specialized baseline, not a product commitment.
+   Complete. E117 selects extracted structure as the reference default. Mixed
+   context remains a bounded task option. Notochord is rejected as a specialist
+   for this direction.
 11. [6h — agent sensory-packet utility](6h-agent-sensory-packet-utility.md).
    Test whether routed MIDI and audio facts improve host-agent decisions over
    raw exact state.
@@ -248,5 +249,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6f1. Compare established symbolic representations with controlled
-model-familiarity tests and complete musical tasks.
+Start session 6h. Test whether routed MIDI and audio facts improve host-agent
+decisions over raw exact state.

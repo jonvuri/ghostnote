@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-13
+updated: 2026-09-20
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E117 | Extracted structure is the reference default [O/K] (2026-09-20) | [open](experiments/e117-extracted-structure-is-the-reference-default.md) |
 | E116 | Fine timing and the two-layer groove contract pass [K] (2026-09-13) | [open](experiments/e116-fine-timing-and-two-layer-groove-contract-pass.md) |
 | E115 | Established syntax does not beat compact bar context [K] (2026-09-13) | [open](experiments/e115-established-syntax-does-not-beat-compact-bar-context.md) |
 | E114 | Bar context and guarded note patches pass two models [K] (2026-09-13) | [open](experiments/e114-bar-context-and-guarded-note-patches-pass-two-models.md) |

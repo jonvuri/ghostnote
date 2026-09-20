@@ -2,8 +2,8 @@
 title: Phase 6h — Agent sensory-packet utility
 kind: plan
 state: planned
-status: Run after 6g. Test whether deterministic evidence improves agent decisions.
-updated: 2026-09-13
+status: Ready. E117 selects the reference form and copy-measurement boundary.
+updated: 2026-09-20
 parent: README.md
 prev: 6g-reference-conditioned-continuation-and-structural-transfer.md
 next: 6i-workstation-contract-synthesis.md
@@ -30,6 +30,10 @@ estimates, coverage, and uncertainty. The operator owns aesthetic acceptance.
 - [E113](../../evidence/experiments/e113-loudness-beats-the-affect-head-but-the-reference-gate-blocks-selection.md)
   shows that uncontrolled loudness can dominate an affect comparison. It also
   selects no perceptual provider.
+- [E117](../../evidence/experiments/e117-extracted-structure-is-the-reference-default.md)
+  selects extracted musical structure as the reference default. It keeps trait
+  transfer, structural similarity, exact copying, and operator preference
+  separate.
 - [E112](../../evidence/experiments/e112-independent-survey-adds-probe-psychoacoustic-and-symbolic-perceptual-routes.md)
   identifies untested psychoacoustic and symbolic routes. These are candidate
   measurements, not listener judgments.
