@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E118 | Task-routed sensory packets improve bounded decisions [O/K] (2026-09-20) | [open](experiments/e118-task-routed-sensory-packets-improve-bounded-decisions.md) |
 | E117 | Extracted structure is the reference default [O/K] (2026-09-20) | [open](experiments/e117-extracted-structure-is-the-reference-default.md) |
 | E116 | Fine timing and the two-layer groove contract pass [K] (2026-09-13) | [open](experiments/e116-fine-timing-and-two-layer-groove-contract-pass.md) |
 | E115 | Established syntax does not beat compact bar context [K] (2026-09-13) | [open](experiments/e115-established-syntax-does-not-beat-compact-bar-context.md) |

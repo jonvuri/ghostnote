@@ -1,8 +1,8 @@
 ---
 title: Phase 6h — Agent sensory-packet utility
 kind: plan
-state: planned
-status: Ready. E117 selects the reference form and copy-measurement boundary.
+state: complete
+status: Complete. E118 selects task-routed paired evidence and minimal MIDI and audio packets.
 updated: 2026-09-20
 parent: README.md
 prev: 6g-reference-conditioned-continuation-and-structural-transfer.md
@@ -128,3 +128,28 @@ allowed only when static fixtures cannot test the decision.
 
 Record which packet field improved a decision and which field only added
 ceremony.
+
+## Result
+
+[E118](../../evidence/experiments/e118-task-routed-sensory-packets-improve-bounded-decisions.md)
+selects task-routed paired evidence for bounded MIDI and audio decisions. The
+routed arm reached 18 of 18 correct decisions across GPT-5.4 Mini and Gemini
+3.8 Flash. It also handled all 10 silence, no-change, contradiction, and
+undefined-property controls without a confident directional error. Raw facts
+reached 15 of 18 decisions. Raw identity reached 12 of 18.
+
+The selected MIDI packet keeps exact note identity for patch targets and adds
+only task-relevant movement, onset, register, count, or candidate deltas. The
+selected audio packet uses integrated loudness, spectral rolloff, crest, and a
+silence gate only when a declared decision needs them. Every field keeps its
+provider, version, unit or type, source identity, coverage, uncertainty rule,
+and decision purpose.
+
+All six model arms selected the correct fixed edit and produced the same valid
+guarded patch. A level-matched blind ballot compared the shared patch with a
+no-change control. The operator selected the patch and judged the difference
+audible and musically material.
+
+The retrospective answer is paired routing. It improved decisions and cut
+input size. Register span, adjacent movement, and onset density in the edit
+route added ceremony and are not in the minimal edit packet.

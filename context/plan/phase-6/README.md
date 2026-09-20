@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Sessions 6a through 6g and 6d2 are complete. Session 6h is next.
+status: Sessions 6a through 6h and 6d2 are complete. Session 6i is next.
 updated: 2026-09-20
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
@@ -197,8 +197,8 @@ considered.
    context remains a bounded task option. Notochord is rejected as a specialist
    for this direction.
 11. [6h — agent sensory-packet utility](6h-agent-sensory-packet-utility.md).
-   Test whether routed MIDI and audio facts improve host-agent decisions over
-   raw exact state.
+   Complete. E118 selects task-routed paired evidence and minimal MIDI and audio
+   packets. The routed arm passed 18 of 18 decisions across two models.
 12. [6i — workstation contract synthesis](6i-workstation-contract-synthesis.md).
     Audit all custom interfaces, define shared contracts and isolated module
     failure, record probe disposition, and select the experimental Phase 7
@@ -249,5 +249,5 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6h. Test whether routed MIDI and audio facts improve host-agent
-decisions over raw exact state.
+Start session 6i. Audit every custom interface, define shared contracts and
+isolated module failures, and select the experimental Phase 7 surface.

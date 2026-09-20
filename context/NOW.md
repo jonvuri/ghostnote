@@ -4,29 +4,48 @@ kind: status
 state: active
 updated: 2026-09-20
 phase: phase-6
-session: 6h-agent-sensory-packet-utility
+session: 6i-workstation-contract-synthesis
 ---
 
 # Now
 
 Phases 1, 2, and 4 are complete. Phase 3 remains deferred. Phase 5 has an
 accepted public result, but its generalized closeout remains. Phase 6 sessions
-6a through 6g and 6d2 are complete. Session 6h is next. Contract
-synthesis and the verification audit follow it. Phase 7 owns focused module
-implementation and the next dogfood loop. Phase 8 owns breadth, release, and
-probe-runtime retirement.
+6a through 6h and 6d2 are complete. Contract synthesis is next. The verification
+audit follows it. Phase 7 owns focused module implementation and the next
+dogfood loop. Phase 8 owns breadth, release, and probe-runtime retirement.
 
 ## Next session
 
-Run [Phase 6h: agent sensory-packet utility](plan/phase-6/6h-agent-sensory-packet-utility.md).
-Compare raw identity, raw deterministic facts, and task-routed packets. Keep
-facts, estimates, agent interpretations, and operator verdicts separate. Use
-level-matched audio unless loudness is the target.
+Run [Phase 6i: workstation contract synthesis](plan/phase-6/6i-workstation-contract-synthesis.md).
+Inventory every custom interface used at a planned Phase 7 boundary. Define
+owners, authority, compatibility, failure isolation, shared fields, and probe
+disposition. Select the smallest experimental Phase 7 surface. Do not implement
+providers.
 
-Session 6i then defines the workstation contracts. It also audits the agent
-DSLs and other custom interfaces for focused ownership, compatible seams, and
-unexplained overlap. Session 6j closes the verification-cost audit. Phase 7f
-repeats the interface check during composed dogfood.
+Audit `ghostnote-sensory-packet-v0` with the agent context, patch, groove,
+reference, audio-fact, and exact-state interfaces. Retain, merge, revise, or
+retire each format. Session 6j then closes the verification-cost audit. Phase
+7f repeats the interface check during composed dogfood.
+
+## Sensory packets
+
+[E118](evidence/experiments/e118-task-routed-sensory-packets-improve-bounded-decisions.md)
+selects task-routed paired evidence. It reached 18 of 18 correct decisions and
+10 of 10 safe controls across two models. Raw facts reached 15 of 18 decisions.
+Raw identity reached 12 of 18. The routed prompts used less than half the input
+tokens of raw facts.
+
+Keep exact note identity for patch targets. Route only the movement, onset,
+register, count, loudness, rolloff, crest, or silence field needed for the
+declared decision. Include paired deltas and explicit limits. Refuse unmapped
+terms such as `compelling` or `presence` unless the task defines them. The
+packet schema is experimental and must pass the 6i interface audit.
+
+All six arms produced the same valid patch. A level-matched blind ballot chose
+it over the no-change control. The operator judged the difference audible and
+musically material. This validates the patch, not an aesthetic difference
+between packet arms.
 
 ## Reference-conditioned work
 
@@ -99,7 +118,6 @@ remaining probe runtime. Do not remove older probe methods ad hoc.
 
 ## Retrospective
 
-The 6g follow-up showed that short solo examples can hide the evaluated intent.
-Use longer musical contexts, fixed backing, and one direct listening question.
-Use literal output shapes before model calls to avoid schema-only correction
-turns.
+Raw fact inventories can make simple comparisons harder and more expensive.
+Start from the decision, pair the relevant values, and state the refusal rule.
+Do not include available metrics without a declared use.

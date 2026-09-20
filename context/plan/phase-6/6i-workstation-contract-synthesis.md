@@ -2,8 +2,8 @@
 title: Phase 6i — Workstation contract synthesis
 kind: plan
 state: planned
-status: Run after 6h. Define the smallest experimental Phase 7 surface.
-updated: 2026-09-13
+status: Ready. E118 selects the sensory-packet evidence and marks its custom schema for audit.
+updated: 2026-09-20
 parent: README.md
 prev: 6h-agent-sensory-packet-utility.md
 next: 6j-verification-cost-audit.md
@@ -26,6 +26,8 @@ interfaces as one system before Phase 7 implements them.
 - E113 selects no perceptual provider.
 - E109 and E110 select exact note facts and replaceable theory and voicing
   helpers.
+- E118 selects task-routed paired evidence and minimal MIDI and audio packet
+  fields. Its experimental packet schema needs the cross-interface audit.
 - Sessions 6f through 6h, including 6f1 and 6f2, select the agent context,
   patch, groove, reference, and sensory-packet boundaries.
 - The agent musical language has a version registry and a pure conformance
