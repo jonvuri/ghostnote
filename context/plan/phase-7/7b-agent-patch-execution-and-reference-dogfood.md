@@ -2,7 +2,7 @@
 title: Phase 7b — Agent patch execution and reference dogfood
 kind: plan
 state: planned
-updated: 2026-09-13
+updated: 2026-09-20
 parent: README.md
 prev: 7a-symbolic-context-and-read-only-analysis.md
 next: 7c-documentation-provider.md
@@ -19,15 +19,37 @@ and an operator verdict.
 ## Work
 
 1. Parse and validate the 6f patch form against the exact source identity.
-2. Compile regions, patterns, and relative requests into explicit note edits.
+2. Compile the selected `transpose`, `delete`, `move`, and `insert` operations
+   into complete candidate state and explicit typed note operations.
 3. Show the exact planned before and after state and declared invariants before
    the write.
-4. Refuse stale identities, ambiguous regions, lossy defaults, collisions, and
-   impossible ranges.
+4. Refuse stale identities, sequential operation conflicts, lossy defaults,
+   collisions, unsupported host properties, and impossible ranges.
 5. Apply accepted edits only through the existing recorded workspace seam.
 6. Verify complete host-normalized readback and retain exact reversal data.
 7. Run one reference-conditioned dogfood task under the 6g provenance and copy-
    overlap rules.
+
+## Selected implementation boundary
+
+Implement [note-compiler-v0 and reference-context-v0](../../evidence/format/WORKSTATION_CONTRACTS.md).
+Close [S06, S07 and S09](../../evidence/format/WORKSTATION_SEAMS.md). Accept the
+frozen `ghostnote-note-patch-v0` body with the exact source wrapper from 7a and
+explicit invariants. Keep preview read-only. Extend `transform_clip_music` with
+a discriminated proposal input only in the frozen experimental tool profile.
+The stable deterministic v1 input and tool grain stay intact.
+
+Translate complete candidates into the existing `Workspace.apply` path. Keep
+all-channel reconstruction, fidelity protection, exact guards, change records,
+and independent complete readback. Prove neutral insertion defaults without an
+unsupported pressure write. Do not apply overlap shortening without permitted
+and reported loss.
+
+Use extracted reference structure by default. Add a bounded raw v0 context only
+for a named task detail. Measure copying against the complete reference, not
+only the excerpt shown to the agent. Keep reference and seed IDs separate.
+Use longer audition material, fixed backing, and a direct listening instruction.
+Musicpy is optional; the first run does not require it.
 
 ## Acceptance criteria
 
@@ -47,6 +69,8 @@ and an operator verdict.
 - Automatic aesthetic acceptance.
 - Making Notochord a product dependency.
 - A stable public contract.
+- General pattern expansion, relative groove requests, or direct acceptance of
+  `ghostnote-groove-patch-v0`; S08 requires a later task and compiler revision.
 
 ## Retrospective target
 

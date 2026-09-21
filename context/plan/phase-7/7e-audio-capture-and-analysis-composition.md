@@ -2,7 +2,7 @@
 title: Phase 7e — Audio capture and analysis composition
 kind: plan
 state: planned
-updated: 2026-09-13
+updated: 2026-09-20
 parent: README.md
 prev: 7d-audio-facts-and-sensory-packets.md
 next: 7f-hybrid-workstation-dogfood.md
@@ -28,6 +28,21 @@ their lifecycles or failures.
 5. Return artifact identity without starting an analysis provider.
 6. Pass the verified artifact explicitly to 7d in a separate composed call.
 7. Prove capture-only, analysis-only, capture-failure, and analysis-failure arms.
+
+## Selected implementation boundary
+
+Implement [audio-capture-v0](../../evidence/format/WORKSTATION_CONTRACTS.md)
+and close [S11, capture-to-S12, and capture startup in S17](../../evidence/format/WORKSTATION_SEAMS.md).
+The current product wire map does not expose `masterRecorder.*`. Add the typed
+adapter route and make its version/deployment check explicit. Do not call the
+raw probe client from a public tool.
+
+Capture is a state-changing operation. Refuse an already active recorder before
+starting. Establish the saved-directory association, control the master source,
+and use bounded stop/settle handling. Record known artifacts and uncertain
+effects on failure. Use a header reader with an explicit dependency; capture
+does not start loudness or librosa analysis. Musical range and sample coverage
+remain separate because E103 does not prove sample-exact start/stop alignment.
 
 ## Acceptance criteria
 

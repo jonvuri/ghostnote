@@ -2,7 +2,7 @@
 title: Phase 7 — Workstation dogfood menu
 kind: plan
 state: planned
-updated: 2026-09-13
+updated: 2026-09-20
 parent: README.md
 ---
 
@@ -13,6 +13,21 @@ parent: README.md
 Use one fresh projectless session for each selected item. Supply the musical
 content and exact acceptance criteria at run time.
 
+The [6i contract baseline](../../evidence/format/WORKSTATION_CONTRACTS.md)
+limits the first implementation runs:
+
+| Session | First proof | Required surface |
+|---|---|---|
+| 7a | Explain one complete clip and propose an unapplied revision | Exact-source wrapper and compact v0 context; no theory package required |
+| 7b | Revise an owned seed from extracted reference structure | Note proposal v0, exact compiler, guarded write/readback and explicit audition verdict |
+| 7c | Answer one routed installed-API or device question, then use it | Verified source and FTS5 citation result; construction uses the existing Bitwig adapter |
+| 7d | Compare two owned local files for a declared loudness or rolloff task | FFmpeg facts and sensory v1; no capture or librosa required |
+| 7e | Capture one controlled master range and pass its artifact to 7d | Typed capture, exact file identity, separate analysis call |
+| 7f | Complete one goal that needs the proved modules | Frozen experimental profile and composed-seam record |
+
+The wider task menu remains available after these gates. A new field or provider
+must answer a named task question. E118 does not justify a general metric dump.
+
 1. **Reference-conditioned composition and revision.** Give the host agent an
    owned seed and permitted references. Render the selected musical context,
    compile a bounded patch, verify exact invariants, and audition the result.
@@ -20,7 +35,7 @@ content and exact acceptance criteria at run time.
    derived musical evidence, let the host agent select a change, and compare the
    before and after reports.
 3. **Audio-guided sound design.** Make controlled parameter changes, capture
-   matched level-controlled snippets, compare deterministic sensory packets,
+   matched level-controlled snippets, compare task-routed sensory packets,
    and wait for the operator's aesthetic verdict. No perceptual provider is
    currently selected.
 4. **Documentation-guided construction.** Answer one Bitwig workflow or native
@@ -56,6 +71,8 @@ module or integration question.
 - Which verification step repeated already sufficient evidence?
 - Did each module work when another module was absent?
 - Was the final claim supported by the stated evidence source?
+- Did a digest or context alias cross a boundary without its domain or source map?
+- Did a paired delta compare the same formula, units, settings and coverage?
 
 ## Required result
 

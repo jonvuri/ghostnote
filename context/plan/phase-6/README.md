@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: active
-status: Sessions 6a through 6h and 6d2 are complete. Session 6i is next.
+status: Sessions 6a through 6i and 6d2 are complete. Session 6j is next.
 updated: 2026-09-20
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
@@ -200,9 +200,9 @@ considered.
    Complete. E118 selects task-routed paired evidence and minimal MIDI and audio
    packets. The routed arm passed 18 of 18 decisions across two models.
 12. [6i — workstation contract synthesis](6i-workstation-contract-synthesis.md).
-    Audit all custom interfaces, define shared contracts and isolated module
-    failure, record probe disposition, and select the experimental Phase 7
-    surface. Do not implement providers.
+    Complete. The [contract baseline](../../evidence/format/WORKSTATION_CONTRACTS.md)
+    classifies 24 interface families and maps 17 seams to fixtures or precise
+    implementation blockers. Provider implementation remains in Phase 7.
 13. [6j — verification-cost audit](6j-verification-cost-audit.md).
     Classify target, guard, settlement, readback, recovery, reversal, scan, and
     interface-translation costs before Phase 7 implementation.
@@ -249,5 +249,6 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6i. Audit every custom interface, define shared contracts and
-isolated module failures, and select the experimental Phase 7 surface.
+Start session 6j. Use the 6i inventory and seam ledger to classify verification
+and translation costs. Keep unbuilt-seam costs unknown unless evidence can bound
+them. Do not implement providers or reduce checks in the audit.

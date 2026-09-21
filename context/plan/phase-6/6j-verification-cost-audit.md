@@ -2,8 +2,8 @@
 title: Phase 6j — Verification-cost audit
 kind: plan
 state: planned
-status: Final Phase 6 session. Classify costs before Phase 7 implementation.
-updated: 2026-09-13
+status: Ready. Use the 6i contracts, inventory and S01–S17 cost handoff.
+updated: 2026-09-20
 parent: README.md
 prev: 6i-workstation-contract-synthesis.md
 next: ../phase-7/7a-symbolic-context-and-read-only-analysis.md
@@ -19,6 +19,16 @@ compose with the Bitwig adapter. Include the cost of validating and translating
 the custom interface seams selected in 6i.
 
 Do not combine this audit with provider implementation or an optimization.
+
+## Starting artifacts
+
+Read the [6i contracts](../../evidence/format/WORKSTATION_CONTRACTS.md),
+[inventory](../../evidence/format/WORKSTATION_INTERFACES.md), and
+[S01–S17 seam ledger](../../evidence/format/WORKSTATION_SEAMS.md).
+The ledger distinguishes tested components from unbuilt connections. Bound or
+mark costs unknown for unbuilt seams; do not treat their absence as zero cost.
+Keep exact-source hashing, context projection, candidate validation, and
+independent live readback as separate costs.
 
 ## Work
 

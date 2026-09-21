@@ -1,0 +1,121 @@
+---
+title: Workstation seam map and conformance gates
+kind: reference
+state: active
+updated: 2026-09-20
+scope: Producer-to-consumer compatibility for Phase 7
+---
+
+# Workstation seam map
+
+Use the [contracts](WORKSTATION_CONTRACTS.md) and
+[inventory IDs](WORKSTATION_INTERFACES.md) with this map. An existing component
+fixture is not evidence that an unbuilt adapter works. Each new connection below
+has a specific blocker and a successor session. No new provider is implemented
+by this audit.
+
+## Data flow
+
+```mermaid
+flowchart TD
+  Host[Bitwig host] --> Wire[Private wire and live adapter]
+  Wire --> Exact[Complete exact source and guards]
+  Exact --> Context[Compact context and optional groove overlay]
+  Exact --> Symbolic[Typed symbolic evidence]
+  Reference[Permitted reference source] --> RefView[Extracted structure and bounded context]
+  Context --> Agent[Host agent]
+  RefView --> Agent
+  Agent --> Proposal[Guarded note proposal]
+  Proposal --> Compiler[Exact compiler and candidate validation]
+  Exact --> Compiler
+  Compiler --> Workspace[Recorded Workspace.apply]
+  Workspace --> Wire
+  Wire --> Readback[Independent complete readback]
+  Readback --> Outcome[Verified outcome and change record]
+  Host --> Capture[Typed capture and directory attribution]
+  Capture --> Artifact[Verified audio artifact]
+  Artifact --> Facts[Typed audio facts]
+  Symbolic --> Packet[Task projection and paired delta]
+  Facts --> Packet
+  Packet --> Agent
+  Docs[Verified installed or cached source] --> Index[Source-routed FTS5]
+  Index --> Retrieval[Bounded cited result]
+  Retrieval --> Agent
+  Artifact --> Audition[Identified audition]
+  Outcome --> Audition
+  Audition --> Operator[Explicit operator verdict]
+```
+
+Computer use is a separate UI-observation/write path. Serialize its writes with
+Ghostnote writes. Refresh exact source after an external change. Neither path
+can relabel the other's evidence or acquire its ownership by association.
+
+## Compatibility ledger
+
+`Existing` means the listed component has a fixture. `Blocked` means the new
+Phase 7 connection cannot run yet. A block in this table is a precise planned
+implementation gate, not unfinished provider work in 6i.
+
+| Seam | Producer → consumer; explicit adapter | Fixture or blocker; owner |
+|---|---|---|
+| S01 / I01–I03 | MCP request → workspace → typed adapter → wire; surface validator and live encoder | Existing: [surface tests](../../../brain/src/surface/surface.test.ts), [encoder tests](../../../brain/src/adapters/live/encoder.test.ts), [wire map tests](../../../brain/src/adapters/live/wiremap.test.ts). New experimental registration is blocked on a frozen schema profile and local-module startup separation in 7a. |
+| S02 / I03–I05 | Wire observation → Snapshot/receipt → recorded Take/stash; live decoder and `Workspace.apply` | Existing: [live adapter tests](../../../brain/src/adapters/live/adapter.test.ts), [executor tests](../../../brain/src/engine/executor.test.ts), [stash tests](../../../brain/src/stash/stash.test.ts). These tests do not establish new agent-source mapping or current live deployment compatibility. |
+| S03 / I04,I09 | Complete read → exact-source wrapper; `snapshotToExactSource` | Blocked, 7a: no production serializer/hash domain or opaque-ID map. Fixture must include two clips, all 16 channels, optional expression/recurrence, non-ASCII metadata, reordered object keys, fine triplet duration, incomplete channel and stale generation. Preserve every field; refuse duplicates/missing reads. E109 synthetic note JSON is not a complete `NoteRecord`. |
+| S04 / I04,I10 | Exact source → strict v0 context plus metadata; `exactSourceToContext` | Existing context corpus: [agent context tests](../../../brain/src/musical/agent-context.test.ts). Blocked, 7a: no live projection. Map UUIDs to valid aliases, host numbers to exact reduced beats, mute names, omitted fields, and provider/authority entries. Fixture must include empty input refusal, missing tempo, absent intent, derived harmony and two-channel same-pitch notes. No host fields may be recovered from rendered text. |
+| S05 / I09,I10 | Exact source → optional theory → qualified annotations; `symbolicEvidence` | Existing controlled provider input/output in [semantic tests](../../../brain/src/probes/phase6e-semantic-analysis.test.ts). Blocked, 7a if theory is enabled: isolate Python startup, preserve source coverage, expose key alternatives and tested ambiguity rule. Missing Music21 must leave exact context available. No formula substitution between monophonic adjacent motion and rank-paired chord motion. |
+| S06 / I10,I11 | Context/source reference → agent proposal → complete candidate; `compileNoteProposal` | Existing E114 [probe](../../../brain/src/probes/phase6f-symbolic-representation.py) and frozen context corpus. Blocked, 7b: general product validation and complete host-field preservation. Test stale hash, unknown ID, duplicate operation targets, delete-then-move, insert ID reuse, unsupported grid, ambiguous channel, forbidden host fields, pressure and same-pitch collision. Validate literal accepted and rejected proposal JSON. |
+| S07 / I07,I11,I04,I05 | Complete candidate → typed operations → `Workspace.apply` → independent readback; `candidateToOps` | Existing [planner tests](../../../brain/src/musical/planner.test.ts), [patch tests](../../../brain/src/musical/patch.test.ts), [musical surface tests](../../../brain/src/surface/musical-surface.test.ts). Blocked, 7b: connect proposal candidate to recorded execution without recasting IDs as public selectors. Fixture must preserve all channels during clip-wide clear, check preflight revision, neutral defaults and host normalization, and retain partial-apply records. Required live proof follows pure checks. |
+| S08 / I12,I11 | Nominal/component proposal → realized note proposal; future `realizeGrooveProposal` | Blocked and excluded from initial 7b. E116 checks equality to four expected objects, not arbitrary lowering. A future task must add versioned operations, component preservation, target-channel/default policy, generator determinism and complete candidate fixtures. No silent acceptance of `ghostnote-groove-patch-v0`. |
+| S09 / I13,I10,I11 | Reference source → extracted traits/optional raw context → candidate copy/trait report; `referenceProjection` and independent comparator | Existing generated E117 main/follow-up cohorts. Blocked, 7b: schema/profile, permission/coverage propagation and independent comparison adapters. Test seed/reference ID collision, missing permission, full-vs-excerpt coverage, changed reference hash, exact copy and structural-only transfer. The reference hash must never replace the seed patch hash. |
+| S10 / I09,I14 | Typed symbolic facts → paired sensory v1; `routeEvidence` | Existing E118 MIDI controls. Blocked, 7a for a selected MIDI comparison: replace probe provider name, select only task fields, remove note duplication, define formula/tolerance and emit both sources. Test equal metric/different hash, incompatible coverage, polyphonic adjacent-motion refusal and unmapped property. |
+| S11 / I15,I03 | Capture request → typed recorder operations → stable artifact; `captureMasterArtifact` | Existing E103 three-run evidence and [probe](../../../brain/src/probes/phase6a-master-recorder.ts). Blocked, 7e: `masterRecorder.*` is not in the product wire map. Add typed route, bounded lifecycle, known project-directory association, active-recorder refusal and header reader. Test zero/two files, reused path, file changing during hash, stop timeout and reconnect. A directory name or project title alone is not association proof. |
+| S12 / I15,I16 | Capture or supplied file → audio provider; `verifyAudioArtifact` | Existing E105 PCM controls and E103 file identity evidence. Blocked, 7d/7e: shared artifact input consumer. Re-read/hash exact bytes at use, validate range and channels, and reject mutation during analysis. Test capture-free file analysis, missing Bitwig, byte mismatch and missing executable. Report lead/tail coverage rather than assuming sample-exact beat alignment. |
+| S13 / I16,I14 | Audio facts → paired sensory v1; same `routeEvidence` contract as S10 | Existing E118 audio controls. Blocked, 7d: fact adapter, versioned formula/settings and routed result schema. Pin stream-time-base/sample conversion, rolloff cutoff/tails and stereo crest aggregation. Test silence/nulls, no-change, level control at 0.2 LU, mismatched frame/channel settings and undefined presence. An unavailable required field must not trigger broader analysis or a directional answer. |
+| S14 / I17,I18 | Verified cache/installed source → corpus/index → cited result; `verifiedSourceToDocument` | Existing [cache tests](../../../brain/src/probes/phase6b-document-cache-lib.test.ts) and E104 nine-question corpus recipe. Blocked, 7c: probe retrieval reader checks fewer manifest conditions than the TS cache reader. Feed validated bytes to extraction; do not call its weak cache loader as the product gate. Add source locator, compatibility and extractor/index identity to each hit. Test corrupt manifest/bytes, stale index, no match, unavailable family and 5.3-only support for a 6.x claim. |
+| S15 / I19–I22 | Native catalog/donor/seed/file → composition planner → existing guarded workspace | Existing [catalog tests](../../../brain/src/native-catalog/catalog.test.ts), [bwmod tests](../../../brain/src/bwmod/bwmod.test.ts), [composition tests](../../../brain/src/composition/template-composer.test.ts), [late-bound tests](../../../brain/src/composition/late-bound-assets.test.ts). Retain existing internal adapters. A new module-to-module preset export is blocked on byte digest and provenance wrapper; 7f must add it only if the selected task uses that seam. Vendor-preset loading remains outside this route. |
+| S16 / I05,I06,I08,I23,I24 | Changes/status, evidence, UI events, audition and operator response → run record | Existing [observation record](../../../brain/src/observation/record.test.ts), [store tests](../../../brain/src/observation/store.test.ts), [operation tests](../../../brain/src/surface/operations.test.ts). Blocked, 7f: cross-module record must link profile, request/source/artifact/change IDs, timings, UI changes and final baseline. Explicit operator response only; model response and blind key cannot supply it. |
+| S17 / I24 and all new modules | Configured descriptor → isolated startup → correlated request/result | Blocked, 7a then each module session: no module registry or worker protocol exists. Test missing executable, Python environment, cache and Bitwig independently. Assert unrelated capability remains usable, late/mismatched reply refuses, and startup does not install/download. No live write is needed for these controls. |
+
+## Field translations that must be tested
+
+| Source field | Destination | Required rule |
+|---|---|---|
+| `Snapshot.at` and guarded addresses | Exact-source wrapper and compiler preflight | Copy the actual mark/address objects. Keep generation, coverage and project uncertainty. Never derive a target from its display name. |
+| Address MIDI channel + `NoteRecord` key | Opaque context event ID | Store a reversible source-scoped map. Channel omission in compact text does not discard it from exact state. |
+| `startBeats`, `durationBeats`, `isMuted` | Context `atBeats`, `durationBeats`, `mute`; proposal `start`, `duration` | Explicit rational/name conversion. Preserve host-normalized durations separately from requested grid values. |
+| Context `source.sha256` | Proposal `base_sha256` | Same exact-source digest domain. Context-render fingerprint is a separate hash. |
+| E116 probe groove JSON | I10 linked groove overlay | Re-key by existing event IDs; preserve generator/settings and validate realized-time equations. No direct cast between schemas. |
+| E114 probe `release_velocity`/`expression` | `NoteRecord` properties | Rename and scale explicitly; retain all additional host fields absent from probe records. Refuse unsupported writes. |
+| E118 `source_identity`, `coverage`, `uncertainty_rule` | Shared source/coverage and typed metric limits | Preserve both pair members. Replace probe provider identity with the actual adapter and formula version. |
+| E105 prose sample coverage ending at `N-1` | Structured `[0,N)` sample coverage | Convert inclusive final index to exclusive end. Preserve channels, frame tails and estimator coverage. |
+| Byte hash, tree fingerprint, method hash, probe hash | Named shared digest domain | Preserve algorithm/domain/canonicalizer. Strip a `sha256:` display prefix only through an explicit parser; do not truncate or reinterpret. |
+| Cached document vs installed tree | Retrieval source reference | Preserve product version, document version, compatibility, path/page/key and content/tree hash. Rank is not source authority. |
+| Compiled expected state | Verified outcome | Compare with an independent complete host read. Keep expected state, observed state and discrepancies separate. |
+
+## Phase 6j cost handoff
+
+For S01–S17, record validation, canonicalization, hashing, projection and translation
+separately from provider compute, target acquisition, settlement, readback and
+reversal. Existing component tests prove behavior, not runtime bounds. New seams
+currently have unknown cost. Do not report unknown as zero or add a benchmark to
+an unbuilt provider.
+
+Use E103 capture timings, E104 cache/hash/index timings, E105 cold/warm provider
+costs, E109/E110 exact/theory costs, E114/E118 input costs, and E116 fine-grid
+page/read costs. State which cost belongs to a probe. Propose an equivalent
+evidence rule before reducing any repeated validation or read.
+
+## Phase 7 run gate
+
+Each module brief must close its named blockers with real producer output that
+the consumer accepts. Freeze success, refusal, stale-source and missing-provider
+fixtures with the schema profile. Record any defaults and loss. Local component
+checks are sufficient for a pure seam; live guards and readback need their own
+bounded proof. Phase 7f repeats this check for the actual composed path.
+
+The run record contains root session, client/model, mode, permissions, enabled
+module and tool-profile versions, host/API/extension versions, exact baseline,
+source/reference provenance, writes and change IDs, external UI actions, artifacts,
+evidence authority, elapsed times, operator verdict, cleanup and exact exit state.
+If a needed seam is still blocked, stop that path and record the boundary. Do not
+substitute a probe import, UI assertion, or agent interpretation for conformance.

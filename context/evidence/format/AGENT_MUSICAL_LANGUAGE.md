@@ -1,7 +1,7 @@
 ---
 title: Ghostnote agent musical language — experimental reference
 status: evidence-backed experimental draft
-updated: 2026-09-13
+updated: 2026-09-20
 scope: agent context views, proposal languages, exact-state boundary, and conformance
 evidence: E109, E114–E116; D9, D15, D21
 ---
@@ -33,13 +33,15 @@ Agent text never becomes authoritative project state.
 | `compact-bar-v0` | Default realized-note view | Selected by E114 and E115 |
 | `groove-two-layer-v0` | Compact view plus a linked groove overlay | Selected by E116 for groove-sensitive work |
 | `ghostnote-note-patch-v0` | Agent proposal form from E114 and E116 | Evaluated; product compiler is not built |
+| `ghostnote-groove-context-v0` | Linked timing overlay inside groove mode | Retained; shares compact event IDs |
+| `ghostnote-groove-patch-v0` | E116 nominal/component proposal prototype | Merge into a future note-compiler revision; not in initial 7b |
 | `ghostnote-musical-patch`, version 1 | Current deterministic public generation and transformation request | Implemented; distinct from the agent proposal form |
 
 Do not treat the two patch languages as aliases. The current public musical
 patch requests deterministic operations. The experimental agent patch names
 opaque source events and is designed for model proposals against one exact
-source hash. Phase 7b decides how they compose or whether one replaces part of
-the other.
+source hash. The 6i selection keeps both request forms and joins them at complete
+candidate state and typed operations. Phase 7b implements that translation.
 
 ## Modal context rule
 
@@ -185,14 +187,15 @@ cannot mutate a project.
 
 ## Workstation interface review
 
-Phase 6i treats this language as one interface family in the full workstation
-map. The review also covers public tool schemas, the extension wire protocol,
-exact-state and change records, deterministic patch formats, reference and
-sensory packets, documentation records, audio artifacts and facts, and preset
-or donor manifests.
+The [6i contracts](WORKSTATION_CONTRACTS.md),
+[inventory](WORKSTATION_INTERFACES.md), and [seam map](WORKSTATION_SEAMS.md)
+retain this language for compact context and bounded proposals. They keep the
+strict v0 grammar and corpus frozen. A module-result wrapper supplies source
+hash domain, provider, annotation authority, and the exact-source alias map.
+Host UUIDs and complete note state do not pass directly into this grammar.
 
-This language must own only compact agent context and bounded agent proposals.
-It must not duplicate exact project state, deterministic operation requests,
-wire transport, or provider result authority. Phase 6i checks those boundaries
-and their producer-to-consumer seams. Phase 6j audits their verification and
-translation cost. Phase 7f tests the selected seams during composed dogfood.
+Reference context reuses this view. Sensory v1 projects typed measurements and
+does not duplicate its note IDs or host state. The separate groove proposal
+prototype needs a general compiler and is excluded from initial 7b. Phase 6j
+audits verification and translation costs. Phase 7f checks the actual composed
+seams before any public graduation.

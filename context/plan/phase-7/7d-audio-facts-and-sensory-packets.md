@@ -2,7 +2,7 @@
 title: Phase 7d — Audio facts and sensory packets
 kind: plan
 state: planned
-updated: 2026-09-13
+updated: 2026-09-20
 parent: README.md
 prev: 7c-documentation-provider.md
 next: 7e-audio-capture-and-analysis-composition.md
@@ -20,12 +20,27 @@ independent file-analysis module. It must work without Bitwig or audio capture.
 1. Verify the absolute input path, SHA-256, format, sample range, and channels
    before provider startup.
 2. Keep FFprobe and FFmpeg behind a typed executable adapter.
-3. Keep librosa in an isolated long-lived worker.
+3. Keep optional worker startup isolated. Add a long-lived librosa worker only
+   when a selected task requires one of its E105 fields.
 4. Expose only facts and paired deltas selected by the 6h task evidence.
 5. Keep exact facts, estimates, agent interpretations, and operator verdicts
    separate.
 6. Prove silence, no-change, level-controlled, hash-mismatch, and missing-
    provider behavior with owned fixtures.
+
+## Selected implementation boundary
+
+Implement [audio-facts-v0 and sensory v1](../../evidence/format/WORKSTATION_CONTRACTS.md).
+Close [S12, S13 and the audio part of S17](../../evidence/format/WORKSTATION_SEAMS.md).
+The first file comparison uses FFmpeg/FFprobe and the E118 loudness, rolloff,
+crest, and silence fields. It needs no librosa field or Bitwig connection.
+
+Validate bytes before startup and after analysis. Record channel, sample and
+frame coverage, exact formula/settings, unit, provider version, and tolerance.
+Convert the probe's inclusive sample descriptions to structured exclusive ends.
+Revise the frozen `ghostnote-sensory-packet-v0` into a v1 projection of the
+returned facts. Do not create a second measurement provider or exact-note store.
+Reject incompatible pairs and unmapped properties before broad analysis.
 
 ## Acceptance criteria
 

@@ -2,7 +2,7 @@
 title: Phase 7c — Documentation provider
 kind: plan
 state: planned
-updated: 2026-09-13
+updated: 2026-09-20
 parent: README.md
 prev: 7b-agent-patch-execution-and-reference-dogfood.md
 next: 7d-audio-facts-and-sensory-packets.md
@@ -25,6 +25,19 @@ read-only experimental module. Prove it in a documentation-guided task.
 5. Return bounded evidence with exact source provenance and compatibility.
 6. Fail closed on missing, stale, corrupt, ambiguous, or incompatible material.
 7. Run one documentation-guided construction task without web search.
+
+## Selected implementation boundary
+
+Implement [documentation-v0](../../evidence/format/WORKSTATION_CONTRACTS.md)
+and close [S14 and the documentation part of S17](../../evidence/format/WORKSTATION_SEAMS.md).
+Retain the downloaded cache manifest v1. Feed fully validated sources to the
+extractor; the Python probe's hash-only cache loader is not a sufficient gate.
+
+Each hit needs source/manifest identity, product and document versions,
+compatibility, exact locator, excerpt coverage, provider/extractor/index version,
+and retrieval rank. Tie the disposable FTS5 index to these versions and hashes.
+Keep source families independently available. Missing PDF extraction must not
+disable installed API lookup. Do not include the rejected LSA/NumPy dependency.
 
 ## Acceptance criteria
 

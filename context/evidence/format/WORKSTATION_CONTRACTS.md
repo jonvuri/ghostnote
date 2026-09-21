@@ -1,0 +1,321 @@
+---
+title: Workstation contracts — experimental Phase 7 baseline
+kind: reference
+state: active
+updated: 2026-09-20
+scope: Phase 6i contract selection; no provider implementation
+---
+
+# Workstation contracts
+
+## Status and reading route
+
+This is the selected Phase 7 design, not an implemented or stable public API.
+Existing product contracts keep their current versions. New module contracts use
+`v0`; the revised sensory packet uses `v1`. All require explicit experimental
+enablement. A successful probe does not prove that a product consumer accepts
+its output.
+
+Read the [inventory](WORKSTATION_INTERFACES.md) for format owners and disposition.
+Read the [seam map](WORKSTATION_SEAMS.md) for fixtures and implementation blockers.
+The [6i outcome](../../archive/outcomes/PHASE-6I-CONTRACT-SYNTHESIS.md) records the
+audit. Phase 6j owns cost classification. Phase 7 owns implementation and proof.
+
+This design applies E103–E105 and E109–E118. It preserves
+[D9](../../decisions/d9-grid-and-units-settled-2026-07-25.md),
+[D12](../../decisions/d12-transport-and-the-contract-boundary-settled-2026-07-25.md),
+[D15](../../decisions/d15-verification-discipline-settled-2026-07-25.md), and
+[D21](../../decisions/d21-musical-patch-and-public-tool-grain.md).
+
+## Shared fields
+
+These field definitions are shared contract vocabulary. They are not a new
+global store, transport, or replacement for existing records. A module result
+uses its own schema and these fields. Existing records need an explicit wrapper
+or projection at a new boundary. Do not add fields to a strict v0 parser in place.
+
+| Field | Required meaning |
+|---|---|
+| `schema` | Exact payload schema name and version. Unknown versions refuse. No range negotiation. |
+| `requestId` | Caller correlation token. It is not a source, target, or ownership ID. |
+| `source` | Source kind, source ID, digest, digest domain, canonicalization version, permission basis, and declared coverage. Live sources also carry address and observation guards. |
+| `artifact` | Absolute local path, media type, byte count, full byte SHA-256, and creator. A path locates bytes; it does not identify them. |
+| `provider` | Adapter name and version, underlying library or executable version, and effective settings. Include model/checkpoint identity only if a selected provider needs one. |
+| `provenance` | Input source references, operation or formula version, settings, and producer. Keep declared, observed, inferred, and generated origins distinct. |
+| `coverage` | Requested and observed scope, completeness, omitted fields, unavailable fields, and limits. Complete means complete within this scope, not the complete project. |
+| `capabilities` | Available operations and exact accepted/emitted schema versions. Missing capabilities name their dependency and reason. Availability is not permission. |
+| `warnings` | Code, affected source/field, and message. A warning cannot waive a guard, missing coverage, or data loss. Empty means none. |
+| `failure` | Code, module, stage, affected source, retry condition, and effects: `none`, `known`, or `unknown`. Keep any artifact or change ID that already exists. |
+| `ownership` | Creator, scope, and evidence for allowed cleanup or reversal. File access, a hash, and an agent proposal do not prove ownership. |
+
+Every read result carries source, provider, coverage, and authority, including a
+read with no matches. A failure before a source can be identified says that the
+source is unresolved. It must not invent a hash or return a complete empty read.
+Metadata can be shared once per result. Each datum must still resolve to its
+own source, provider, coverage, and authority without ambient process state.
+
+A fact or measurement record has `fieldId`, `value`, `unit`, `kind`, source and
+provider references, coverage, formula/settings, and a tolerance or uncertainty
+rule. Derived values cite their input field IDs. An unavailable value has a
+reason. Failure codes distinguish `missing-dependency`, `unsupported-schema`,
+`source-mismatch`, `incomplete-coverage`, `invalid-proposal`,
+`incompatible-comparison`, `capture-ambiguous`, `timeout`, and
+`verification-failed`. Preserve the original adapter failure under that wrapper.
+
+### Identity and hashes
+
+Use full lowercase SHA-256 for byte and content identity. Record the digest
+domain: `file-bytes`, `exact-note-source-v0`, `agent-context-v0`, or a named
+legacy probe domain. The extension's 16-character method hash is a deployment
+check, not a content hash. Do not compare these domains.
+
+The planned `ghostnote-exact-note-source-v0` is a private wrapper around complete
+host-normalized note reads. It contains guarded clip addresses, the captured
+revision mark, clip metadata needed for the task, all 16 channel note lists,
+and explicit coverage. Include every observed `NoteRecord` property. An absent
+property stays absent; it is not zero. Reject non-finite values.
+
+Its canonical payload excludes its own digest, agent aliases, interpretations,
+and display text. Rebuild objects with keys inserted in JavaScript UTF-16
+code-unit order, then use compact `JSON.stringify` with its standard integer-key
+ordering. Use no Unicode normalization or trailing newline. Reject undefined
+values; normalize negative zero to zero as `JSON.stringify` does.
+Sort clips by their serialized address, channels numerically, and notes by
+start then pitch. Refuse duplicate note keys. Preserve ordered arrays such as
+recurrence tuples. This serializer is named `exact-note-json-v0`; pin numeric,
+Unicode, optional-field, and ordering cases in 7a before use. Python probe JSON
+serialization is not an implementation of this serializer.
+
+Opaque event IDs identify entries only within one source digest. The wrapper
+holds the map from each ID to clip, MIDI channel, pitch, and start. These are
+snapshot IDs, not durable host note UUIDs. Map host track UUIDs to valid context
+aliases such as `t-1`; the context grammar cannot accept every raw UUID. Preserve
+the reverse map outside agent text. A proposal must name the same source digest.
+Refresh state and rebuild IDs after a write. Never resolve stale IDs by index.
+
+Keep the live revision, generation, scene/content epochs, project detector,
+window coverage, and address guards. A project name is a lossy detector, not a
+durable project ID. The source digest supplements these guards; it replaces none.
+An imported file can supply read-only context without acquiring a live target.
+
+### Coverage, units, defaults, and loss
+
+- Musical positions and durations use quarter-note beats. Context and proposal
+  values use reduced rational strings. Host numbers remain in exact state.
+  Convert through a named adapter; never round a start to make it writable.
+- Beat intervals use inclusive starts and exclusive ends for note onsets. State
+  whether notes that extend beyond the interval are included. A write that can
+  clear a clip needs the complete clip, including notes outside the context view.
+- Audio sample ranges are `[start, end)` per channel. Record sample rate, channel
+  indices, mix/downmix policy, frame size, hop, window, padding, and covered frames
+  for each estimate. Seconds equal samples divided by sample rate.
+- Recorder milliseconds, audio seconds, and musical beats are distinct. A beat
+  range does not prove sample alignment. Record capture lead, tail, and observed
+  alignment limits. Do not trim a capture silently.
+- MIDI channel is 0–15; pitch and velocity use the host's MIDI scale. Do not
+  substitute normalized velocity. Keep release velocity and expression scales
+  from `NoteRecord`; the live encoder alone owns wire scaling, including gain.
+- Use `Hz`, `s`, `ms`, `LUFS`, `dB`, `semitones`, `MIDI-note`, `ratio`, and `count`
+  explicitly. A LUFS difference is a loudness-unit delta. Ratios are not percent.
+- No new implicit defaults. Existing public channel-0 compatibility remains at
+  its old boundary. Agent insertions use `track-neutral-v0`: one unique source
+  channel, mute false, release velocity 64, and neutral expression. An empty or
+  mixed-channel source cannot infer that channel. A future policy needs a version.
+- `null` means unavailable with a reason, never zero. Empty means observed empty.
+  Reject unknown required fields or units. List all dropped fields at projections.
+  Preserve omitted host fields from exact state; do not reconstruct them from text.
+- D9 retains binary timing through `1/512` beat and triplet timing through
+  `1/768` beat. Host duration normalization uses the proved `2^-20`-beat rule.
+  This is not permission to accept arbitrary nearby values.
+
+### Authority
+
+| Kind | Owner and allowed claim |
+|---|---|
+| Exact observation | Adapter or byte reader; what it observed within its coverage |
+| Derived measurement | Named deterministic formula; its result over the stated input |
+| Estimate or inferred label | Named provider/rule; alternatives, tolerance, and limits |
+| Agent interpretation | Host agent; explanation linked to evidence IDs |
+| Edit proposal | Host agent; requested changes and invariants, never current state |
+| Verified outcome | Independent readback plus comparisons; applied state and discrepancies |
+| UI observation | Computer-use run; visible state only |
+| Operator verdict | Explicit operator response to identified audition artifacts |
+
+Do not classify a deterministic rule label as exact because repeated calls agree.
+Confidence is not a calibrated probability unless the provider proves it. A
+provider result cannot contain an aesthetic acceptance verdict. The observation
+record can retain an explicit operator response; silence is not acceptance.
+
+## Module contracts
+
+Each row names a logical contract version. It does not add an executable today.
+Shared fields above apply to every new input/output boundary.
+
+| Module and contract | Inputs → outputs | Dependencies and startup | Failure isolation |
+|---|---|---|---|
+| Bitwig adapter, existing `ghostnote/0` | Addressed reads/typed `Op` batches → snapshots, receipts, revision and readback | Existing bridge; lazy connection, exact handshake and deployment check | Disconnect disables live reads/writes and capture. It does not disable local files, context from supplied state, or docs. |
+| Symbolic context, `symbolic-context-v0` | Exact source, task, selected mode, declared tempo/meter → v0 context plus evidence and alias map | Pure TypeScript first; Music21 adapter starts only for a selected theory task | Missing Python/Music21 removes theory capability only. Missing required tempo or coverage refuses that context, not the workstation. |
+| Exact patch compiler, `note-compiler-v0` | Exact source, note proposal v0, invariants → complete candidate, typed operations, losses, guards | Pure code; Bitwig required only for fresh preflight/apply/readback | Compile failure writes nothing. Apply failure keeps the change record and effects state; no blind retry or assumed rollback. |
+| Documentation, `documentation-v0` | Installed product version, source family, query, result bound → cited records | Local sources, verified cache, SQLite FTS5; lazy source validation/index open | Missing cache/source disables that family. Missing guide extractor need not disable installed API records. Offline mode never downloads. |
+| Audio capture, `audio-capture-v0` | Guarded saved-project directory, controlled master source, range and stop bound → audio artifact | Bitwig typed recorder route, filesystem, lossless header reader; validate before start | Unknown path/active recorder refuses before effects. Stop/settle failure reports known files and recorder state; it does not disable file analysis. |
+| Audio facts, `audio-facts-v0` | Verified artifact, sample/channel scope, declared task → typed facts and optional paired projection | Byte validation first; discover FFprobe/FFmpeg separately; optional isolated librosa worker | Missing executable/worker removes only its facts. A crash terminates that worker and fails its pending request. Captures remain available. |
+
+Capture needs stream/header validation, not a librosa or loudness process. If
+7e uses FFprobe for header validation, it must declare that narrow dependency.
+Failure of audio analysis cannot turn a successful capture into a failed capture.
+
+### Discovery and lifecycle
+
+The planned descriptor `ghostnote-workstation-module-v0` contains module ID,
+version, state (`disabled`, `uninitialized`, `available`, `degraded`, or
+`unavailable`), accepted and emitted schemas, capabilities, dependency versions,
+and unavailable reasons.
+Discovery does not connect to Bitwig, import Python models, download files, or
+install dependencies. A configured module starts on its first relevant request.
+Report readiness after its bounded health check, not before it.
+Record the effective startup and request deadlines in the descriptor. A module
+can remain uninitialized while unrelated modules serve requests.
+
+Keep workers and caches module-local. A worker request has an ID, schema, source
+digest, settings, and deadline; the response echoes the request ID and digest.
+Pure TypeScript modules exchange typed values. Optional Python workers use
+newline-framed JSON on private stdin/stdout with the owning module's exact
+contract version. Diagnostics use stderr. Executable adapters pass argument
+arrays and validate output before creating typed facts. They expose no shell
+or arbitrary provider command to the agent.
+Reject mismatches and late responses. Serialize access where a worker cannot
+serve concurrent requests. Do not retry writes automatically. Retry a read only
+with the same verified source and explicit bounded policy. A missing model has
+no effect today: no model provider is selected.
+
+Keep registration separate from `Session.ready()`. Local modules cannot depend
+on the Bitwig workspace startup path. Publish capability state and gate only the
+affected call. Enablement and permission are explicit for each dogfood run.
+
+## Selected projections
+
+### Context and theory
+
+Retain `ghostnote-agent-context-v0`, `compact-bar-v0`, and the linked
+`ghostnote-groove-context-v0` overlay. Add source/provider/authority metadata in
+the `symbolic-context-v0` result, outside the strict context object. Each harmony,
+role, articulation, or inferred timing annotation must resolve to a provenance
+entry. Do not emit an unqualified harmony label merely because v0 permits one.
+
+Compact mode is the default. Groove mode requires observed, declared, or inferred
+timing provenance; realized starts alone do not prove intent. Sparse groove
+coverage must name its covered IDs. No second event identity set is allowed.
+The current parser requires events; empty-source handling is a 7a refusal fixture,
+not permission to invent an event. Music21 remains the primary optional theory
+candidate. The first context task needs no theory package unless it uses a theory
+result. Musicpy, broad tension fields, and model providers are outside that task.
+
+### Proposal and exact execution
+
+Retain the E114 `ghostnote-note-patch-v0` body (`schema`, `base_sha256`, `ops`).
+The compiler call also supplies the exact source reference and task invariants.
+Support only `transpose`, `delete`, `move`, and `insert` initially. Validate the
+whole operation sequence and final candidate, not just each operation against
+the initial notes. Reject stale/missing/deleted IDs, collisions, ambiguous
+channels, unsupported expression, timing loss, and impossible constraints.
+
+`track-neutral-v0` describes logical defaults. It cannot authorize a pressure
+write: the host cannot write pressure. The compiler must prove that omitting
+neutral pressure preserves the expected readback or refuse. Non-neutral or
+unverified properties retain the existing fidelity/protection gate.
+
+The probe rejects same-pitch overlaps. D21's public deterministic compiler can
+shorten them and reports loss. The proposal boundary will reject a candidate
+that needs shortening unless the task explicitly permits that loss. Never apply
+the public normalization as an unreported translation.
+
+Keep `ghostnote-musical-patch` v1 for deterministic generation/transformation.
+Do not pretend that an opaque-ID proposal is one of its selectors. Translate both
+through complete candidates into the existing typed operations and
+`Workspace.apply`. Reuse the current write-set, protection, stash, settlement,
+and readback machinery. D15 requires a different read handle, or a handle after
+re-pointing, to avoid the writer's cached state. A request echo or success receipt
+is not readback.
+
+Merge the separate `ghostnote-groove-patch-v0` proposal family into a future
+revision of the note compiler only when a task needs it. Its probe validates
+four fixed expected objects; it is not a general compiler. Phase 7b initially
+uses realized-note proposals. Pattern expansion and relative groove requests
+remain unavailable until a versioned translation and fixtures exist.
+
+### Reference context
+
+Use a `reference-context-v0` profile in the symbolic module: reference source,
+permission, hash domain, complete/used coverage, extracted evidence, optional
+bounded raw v0 context, and an explicit reason for that excerpt. Seed identity
+and reference identity remain separate. A reference cannot supply write targets.
+
+Use extracted structure by default. Compute trait transfer and copy measurements
+from the complete permitted reference and candidate, independently of the short
+agent view. Report exact-event, sequence, rhythm, and structural comparisons
+separately with formula and coverage. They are neither permission checks nor
+aesthetic verdicts. Use seed-only control, longer examples, fixed backing, and
+one direct listening instruction when comparing creative results.
+
+### Sensory evidence
+
+Revise `ghostnote-sensory-packet-v0` to planned `ghostnote-sensory-packet-v1`.
+The v0 evaluation stays frozen. V1 is a task projection of symbolic or audio
+facts, not a provider and not a second exact-state format. It contains task ID,
+operational property definition, A/B source references, selected field records,
+`B_minus_A`, comparison tolerance, decision purpose, and explicit limits.
+
+The router copies measured values and source metadata; it does not recompute
+provider facts. Each pair requires equal units, formula/settings, and compatible
+coverage. Otherwise return `incompatible-comparison`. Keep provider identity on
+both sides. Compute numeric deltas only for finite available values. Equal
+values within the declared tolerance support no change in that metric only.
+Different hashes do not prove audible change; equal metrics do not prove equal
+music. Patch target IDs stay in context and the exact-source map.
+
+Retain only these E118 routes at first:
+
+| Decision | Fields and limit |
+|---|---|
+| Adjacent movement | Mean absolute adjacent pitch motion in semitones; monophonic ordered notes only, at least two notes. Do not substitute E109 rank-paired chord motion. |
+| Onset placement | Count starts whose reduced quarter-beat denominator is 2, divided by note count; the task must declare this proxy. Empty input is unavailable. |
+| Register/count preservation | Median MIDI pitch and exact note count within the same scope |
+| Candidate edit | Before/candidate values and delta from a validated candidate; this is a prediction, not a verified write |
+| Declared brightness proxy | Rolloff plus integrated loudness and silence gate; require level difference at most 0.2 loudness units, as in E118 |
+| Explicit loudness | Integrated LUFS plus silence gate; no level matching because loudness is the target |
+| Crest/no change | Peak-to-RMS crest in dB plus silence gate; no general dynamic-quality claim |
+| Silence | Threshold duration at -90 dBFS for at least 0.05 s; null dependent spectrum/loudness/crest when the silence gate applies |
+
+E118 uses zero-overlap 8,192-sample Hann frames and a median pooled across both
+channels. Its crest subtracts the largest per-channel RMS dBFS from the largest
+per-channel peak dBFS. These are specific formulas, not generic stereo defaults.
+Phase 7d must verify the rolloff cutoff, tail/padding behavior, and conversion
+from stream time base to sample count. The probe's complete-frame wording is not
+a conformance test of those rules. Pin explicit settings and fixtures before
+reuse; give any changed formula a new field version.
+Unmapped `compelling` or `presence` refuses before broad analysis. Librosa stays
+an optional E105 candidate; no field from it is needed by this first cohort.
+
+## Smallest experimental surface
+
+Keep stable-only registration unchanged. An explicitly selected experimental
+profile adds capability discovery and these focused read operations as their
+sessions implement them: symbolic context, proposal preview, routed document
+lookup, and file audio facts/comparison. Capture is a separate operation that
+changes recorder/transport state and creates a file; it is not read-only.
+
+For proposal application, extend the existing `transform_clip_music` boundary
+only in the experimental profile with a discriminated proposal input. Keep the
+current deterministic v1 input. Do not add a same-purpose write tool or pass an
+agent patch to the current validator. D21's tool grain and D20's destructive-tool
+separation remain. A note deletion does not authorize clip-container deletion.
+Freeze and identify each experimental profile so a run can reproduce its schema.
+
+The minimum first run is exact source → compact context → host-agent explanation
+and unapplied revision. The next run adds proposal preview, guarded application,
+independent readback, and an operator audition. Add docs and file facts in their
+own module-only runs. Add capture after file analysis works. Phase 7f composes
+only the modules required by one selected task.
+
+Do not add a generic provider runner, raw RPC escape hatch, broad theory tool,
+perceptual labels, Notochord, a new preset loader, or automatic acceptance.

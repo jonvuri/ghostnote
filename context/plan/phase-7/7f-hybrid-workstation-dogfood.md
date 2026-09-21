@@ -2,7 +2,7 @@
 title: Phase 7f — Hybrid workstation dogfood
 kind: plan
 state: planned
-updated: 2026-09-13
+updated: 2026-09-20
 parent: README.md
 prev: 7e-audio-capture-and-analysis-composition.md
 next: ../phase-8/README.md
@@ -34,6 +34,20 @@ interfaces should graduate, change, or be removed.
    formats have compatible semantics and do not claim the same authority.
 10. Classify every experimental interface as graduate, revise, retain for more
    dogfood, or remove.
+
+## Selected implementation boundary
+
+Use the [contract baseline](../../evidence/format/WORKSTATION_CONTRACTS.md) and
+close [S16](../../evidence/format/WORKSTATION_SEAMS.md). Repeat conformance for
+every other seam used by the chosen run. Record the exact experimental tool
+profile and accepted/emitted schemas. A component fixture alone does not prove
+a composed path.
+
+Keep the run record separate from provider results and blind keys. Link source,
+artifact, evidence, request, operation and change IDs. Include independent
+readback, external UI changes, the explicit operator verdict and exit state.
+If preset composition crosses a new module boundary, close S15's artifact-wrapper
+blocker first. Do not infer unsaved device state from a saved preset.
 
 ## Acceptance criteria
 

@@ -2,8 +2,8 @@
 title: Phase 7 — Workstation dogfood iteration
 kind: plan
 state: planned
-status: Starts after Phase 6 selects agent-facing contracts and verification rules.
-updated: 2026-09-13
+status: Contracts selected in 6i. Starts after the 6j verification-cost audit.
+updated: 2026-09-20
 parent: ../ROADMAP.md
 prev: ../phase-6/README.md
 next: ../phase-8/README.md
@@ -47,7 +47,9 @@ does not become a Ghostnote-owned reversible change.
 
 ## Interface discipline
 
-Use the 6i interface inventory and seam map as the Phase 7 baseline. Each
+Use the [6i contracts](../../evidence/format/WORKSTATION_CONTRACTS.md),
+[interface inventory](../../evidence/format/WORKSTATION_INTERFACES.md), and
+[seam map](../../evidence/format/WORKSTATION_SEAMS.md) as the Phase 7 baseline. Each
 session must name the versions of every custom format that it accepts and
 emits. A new format needs a distinct purpose, owner, authority, version,
 failure rule, and conformance fixture. Do not add one when an existing format
@@ -58,6 +60,13 @@ Keep projections and translations explicit. Do not silently treat the agent
 context, agent proposal, deterministic public patch, exact-state record, or
 extension wire format as interchangeable. Phase 7f reviews the complete
 composition again with real work.
+
+Start with complete exact state and compact context. Add the four-operation
+agent proposal compiler next. Retain the deterministic musical v1 grammar and
+existing write protections. Revise sensory packets to v1 as projections of
+typed facts. Reference context reuses the same context and evidence boundaries.
+Standalone groove proposals, broad theory, Musicpy, and librosa startup need a
+selected task before implementation. No perceptual model is selected.
 
 ## Session order
 

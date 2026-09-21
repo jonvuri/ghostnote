@@ -2,7 +2,7 @@
 title: Phase 8b — probe runtime retirement
 kind: plan
 state: planned
-updated: 2026-09-12
+updated: 2026-09-20
 parent: README.md
 ---
 
@@ -15,6 +15,11 @@ objects that the product needs. Preserve experimental evidence without keeping
 all historical probe apparatus active at runtime.
 
 ## Scope
+
+Use the [6i probe disposition](../../evidence/format/WORKSTATION_INTERFACES.md)
+as the Phase 6 starting inventory. Extraction and retained regression status do
+not require the complete probe runtime in a normal product build. Recheck the
+product wire map after Phase 7 adds any typed capture route.
 
 1. Inventory every registered extension method against `WIRE_METHODS_USED`.
 2. Classify each unused method as an active regression instrument, historical

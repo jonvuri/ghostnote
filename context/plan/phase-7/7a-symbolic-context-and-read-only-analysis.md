@@ -2,7 +2,7 @@
 title: Phase 7a — Symbolic context and read-only analysis
 kind: plan
 state: planned
-updated: 2026-09-13
+updated: 2026-09-20
 parent: README.md
 prev: ../phase-6/6j-verification-cost-audit.md
 next: 7b-agent-patch-execution-and-reference-dogfood.md
@@ -31,12 +31,31 @@ without writing the proposed revision.
 
 1. Map the exact-note boundary selected by E109 into the draft context module.
 2. Render the selected context mode from complete exact clip state.
-3. Add only the Music21, rule, or measurement fields selected by sessions 6f
-   through 6h.
+3. Add only the measurement fields required by the selected task. Enable
+   Music21 only when the task needs qualified theory evidence.
 4. Report exact facts, derived measurements, and alternatives separately.
 5. Make missing optional providers reduce declared capabilities without
    disabling exact context rendering or the Bitwig adapter.
 6. Run one module-only dogfood task from the priority menu.
+
+## Selected implementation boundary
+
+Use [symbolic-context-v0](../../evidence/format/WORKSTATION_CONTRACTS.md) and
+close [S03–S05 and S17](../../evidence/format/WORKSTATION_SEAMS.md). S05 applies
+only if theory is enabled. Add S10 only for a declared paired MIDI decision.
+The first run renders compact context from one bounded complete clip read and
+returns an unapplied revision. It needs no Python provider.
+
+Implement `ghostnote-exact-note-source-v0` and its canonical serializer, source-
+scoped event map, and valid track aliases. Retain `ghostnote-agent-context-v0`
+and `compact-bar-v0`; keep shared provider and annotation authority metadata
+outside the strict v0 object. Groove mode remains optional and must not infer
+intent from performed time. Preserve all observed host properties in exact state.
+
+Keep module discovery and local context rendering independent of
+`Session.ready()`. Test missing Bitwig with supplied exact state, missing optional
+Python, incomplete channel coverage, empty context refusal, and stale generation.
+No provider installation is required unless the selected task needs it.
 
 ## Acceptance criteria
 
