@@ -2,7 +2,7 @@
 title: Phase 7c — Documentation provider
 kind: plan
 state: planned
-updated: 2026-09-20
+updated: 2026-09-21
 parent: README.md
 prev: 7b-agent-patch-execution-and-reference-dogfood.md
 next: 7d-audio-facts-and-sensory-packets.md
@@ -38,6 +38,13 @@ compatibility, exact locator, excerpt coverage, provider/extractor/index version
 and retrieval rank. Tie the disposable FTS5 index to these versions and hashes.
 Keep source families independently available. Missing PDF extraction must not
 disable installed API lookup. Do not include the rejected LSA/NumPy dependency.
+
+## Verification cost
+
+Use the [6j operation and timing rules](../../evidence/format/WORKSTATION_VERIFICATION.md)
+for this session. Measure implemented seam costs separately from host/provider
+work. Keep unknown costs explicit. Any proposed reuse must pass its
+[equivalent-evidence brief](VERIFICATION_REDUCTIONS.md).
 
 ## Acceptance criteria
 

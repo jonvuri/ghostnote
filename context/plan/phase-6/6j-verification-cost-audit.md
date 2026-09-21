@@ -1,9 +1,9 @@
 ---
 title: Phase 6j — Verification-cost audit
 kind: plan
-state: planned
-status: Ready. Use the 6i contracts, inventory and S01–S17 cost handoff.
-updated: 2026-09-20
+state: complete
+status: Complete. Costs classified; reductions deferred; Phase 7a is next.
+updated: 2026-09-21
 parent: README.md
 prev: 6i-workstation-contract-synthesis.md
 next: ../phase-7/7a-symbolic-context-and-read-only-analysis.md
@@ -11,68 +11,16 @@ next: ../phase-7/7a-symbolic-context-and-read-only-analysis.md
 
 # Phase 6j — Verification-cost audit
 
-## Purpose
+The session is complete. The original scope, acceptance criteria, results,
+verification and retrospective are in the
+[archived outcome](../../archive/outcomes/PHASE-6J-VERIFICATION-COST-AUDIT.md).
 
-Finish the verification-cost audit as an evidence and planning session. Identify
-which current checks are essential, reducible, or historical before new modules
-compose with the Bitwig adapter. Include the cost of validating and translating
-the custom interface seams selected in 6i.
+- [Verification reference](../../evidence/format/WORKSTATION_VERIFICATION.md):
+  host costs, S01–S17 format costs, unknowns and Phase 7 operation rules.
+- [E119](../../evidence/experiments/e119-offline-verification-cost-audit.md):
+  offline page counts and existing context-function timings.
+- [Reduction briefs](../phase-7/VERIFICATION_REDUCTIONS.md): equivalent evidence
+  and proof gates for each proposed reduction.
 
-Do not combine this audit with provider implementation or an optimization.
-
-## Starting artifacts
-
-Read the [6i contracts](../../evidence/format/WORKSTATION_CONTRACTS.md),
-[inventory](../../evidence/format/WORKSTATION_INTERFACES.md), and
-[S01–S17 seam ledger](../../evidence/format/WORKSTATION_SEAMS.md).
-The ledger distinguishes tested components from unbuilt connections. Bound or
-mark costs unknown for unbuilt seams; do not treat their absence as zero cost.
-Keep exact-source hashing, context projection, candidate validation, and
-independent live readback as separate costs.
-
-## Work
-
-1. Consolidate existing measurements for target acquisition, pre-write guards,
-   planned settlement, exact readback, recovery, reversal preparation, and
-   full-state scans.
-2. Map each cost to the operation risk and the defect or boundary that justifies
-   it.
-3. Account for parsing, validation, canonicalization, fingerprinting,
-   projection, and translation at custom format boundaries.
-4. Separate product verification from historical probe instrumentation.
-5. Identify repeated reads and repeated format validation that already have
-   equivalent target-bound evidence.
-6. Identify missing measurements. Run only focused, non-mutating or disposable
-   live checks needed to close those gaps.
-7. Classify each cost as essential, reducible, historical, or unknown.
-8. Write a focused successor brief for each worthwhile reduction. Do not make
-   the reduction in this session.
-9. Give Phase 7 per-operation verification and timing rules for read-only
-   providers, agent patches, capture, and composed workflows.
-
-## Acceptance criteria
-
-- The audit accounts for target guards, settlement, readback, recovery,
-  reversal preparation, and full-state scans.
-- Every essential cost cites the evidence or invariant that requires it.
-- Every reducible cost states the equivalent evidence that must remain.
-- Historical instrumentation is not mistaken for product runtime cost.
-- Each retained custom seam has a measured or bounded validation and translation
-  cost. A proposed reduction keeps its required compatibility evidence.
-- Read-only modules do not inherit mutation ceremony.
-- Agent-proposed writes keep exact validation, target guards, and independent
-  readback.
-- Any live measurement restores the documented project baseline and selection.
-- The context check and `git diff --check` pass.
-
-## Out of scope
-
-- Removing a proved safety check.
-- Implementing a proposed optimization.
-- Productizing a Phase 6 probe.
-- Running the Phase 7 dogfood loop.
-
-## Retrospective target
-
-Record which cost category was previously ambiguous and which evidence resolved
-it.
+No provider, optimization, runtime dependency or live project changed.
+Start [7a](../phase-7/7a-symbolic-context-and-read-only-analysis.md).

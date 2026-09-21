@@ -427,6 +427,39 @@ test('4b: bounded page replies preserve all 16 verbose MIDI channels', async () 
   );
 });
 
+test('6j: exact-read page cost follows the advertised reader width', async () => {
+  for (const [lengthBeats, readerSteps, pages, resets] of [
+    [4, 2048, 3, 1],
+    [8, 2048, 5, 2],
+    [32, 2048, 20, 2],
+    [128, 2048, 80, 2],
+    [32, 512, 80, 2],
+  ]) {
+    const transport = new CursorModelTransport(new Map([
+      [0, { lengthBeats, pitch: 67, startBeats: lengthBeats - 1 }],
+    ]), { trackIndex: -1, slotIndex: -1 }, 0, undefined, readerSteps);
+    const phases: string[] = [];
+    const adapter = new UntimedAdapter({
+      transport, onTiming: (event) => phases.push(event.phase),
+    });
+    await adapter.hello();
+    const snapshot = await adapter.read(
+      Array.from({ length: 16 }, (_, channel) => notesAt(CLIP(0), channel)),
+    );
+    const value = snapshot.entries[addressKey(notesAt(CLIP(0), 0))]?.value;
+    assert.equal(value?.of === 'notes' ? value.notes[0]?.startBeats : undefined, lengthBeats - 1);
+    assert.equal(Object.keys(snapshot.entries).length, 16);
+    assert.equal(transport.frames.filter(
+      (frame) => frame.method === WIRE.cursorGetNotesVerboseAllChannels,
+    ).length, pages);
+    assert.equal(phases.filter((phase) => phase === 'gridSettlement').length, pages);
+    assert.equal(phases.filter((phase) => phase === 'pageReset').length, resets);
+    assert.equal(transport.frames.filter(
+      (frame) => frame.method === WIRE.cursorScrollToStep,
+    ).length, pages + resets);
+  }
+});
+
 test('4b: an incomplete bulk page refuses instead of hiding one MIDI channel', async () => {
   const inner = new CursorModelTransport(new Map([
     [0, { lengthBeats: 4, pitch: 60 }],

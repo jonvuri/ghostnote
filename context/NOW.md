@@ -2,65 +2,60 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-09-20
-phase: phase-6
-session: 6j-verification-cost-audit
+updated: 2026-09-21
+phase: phase-7
+session: 7a-symbolic-context-and-read-only-analysis
 ---
 
 # Now
 
-Phase 6 sessions 6a through 6i and 6d2 are complete. The verification-cost audit
-is next. Phase 7 owns focused module implementation and dogfood. Phase 8 owns
-breadth, release and probe-runtime retirement. Phase 3 remains deferred; Phase 5
-still has generalized closeout work after its accepted public result.
+Phase 6 is complete, including 6d2 and the
+[6j audit](archive/outcomes/PHASE-6J-VERIFICATION-COST-AUDIT.md). Phase 7 owns
+focused module implementation and dogfood. Phase 8 owns breadth, release and
+probe-runtime retirement. Phase 3 remains deferred. Phase 5 still has generalized
+closeout work after its accepted public result.
 
 ## Next session
 
-Run [6j: verification-cost audit](plan/phase-6/6j-verification-cost-audit.md).
+Run [7a: symbolic context and read-only analysis](plan/phase-7/7a-symbolic-context-and-read-only-analysis.md).
 Read the [contracts](evidence/format/WORKSTATION_CONTRACTS.md),
-[inventory](evidence/format/WORKSTATION_INTERFACES.md), and
-[S01–S17 seam ledger](evidence/format/WORKSTATION_SEAMS.md).
-Classify target, guard, settlement, readback, recovery, reversal, scan and
-format-translation costs. State equivalent evidence before proposing a reduction.
-Keep unbuilt-seam costs unknown unless evidence can bound them. Do not implement
-providers or optimize checks in this session.
+[inventory](evidence/format/WORKSTATION_INTERFACES.md),
+[seam ledger](evidence/format/WORKSTATION_SEAMS.md), and
+[verification rules](evidence/format/WORKSTATION_VERIFICATION.md).
+Build the complete exact-source wrapper and compact context connection first.
+Close S03/S04/S17, plus S05 only if theory is enabled and S10 only for a selected
+paired MIDI task. The first proof explains one complete clip and returns an
+unapplied revision. It needs no optional Python provider.
 
-## Contract synthesis result
+## Audit handoff
 
-[6i](archive/outcomes/PHASE-6I-CONTRACT-SYNTHESIS.md) classifies 24 interface
-families and defines six independent module boundaries. New seams have explicit
-fixtures or precise Phase 7 blockers. The contracts are experimental designs.
-Existing stable schemas and guards remain unchanged.
-
-- Keep complete host state outside agent output. Add an exact-source wrapper
-  with a named hash domain, complete coverage and source-scoped event aliases.
-- Retain compact context and the linked groove overlay. Add provider and
-  annotation authority outside the frozen strict v0 context object.
-- Retain note proposal v0 and deterministic musical patch v1 as distinct inputs.
-  Join them at complete candidate state and recorded `Workspace.apply`. The
-  standalone groove proposal needs a later compiler revision.
-- Use extracted reference structure by default. Keep seed/reference identities,
-  permission, copy measurements and operator verdict separate.
-- Revise sensory packet v0 to a v1 task projection of typed facts. Pair only
-  compatible units, formulas and coverage. Refuse unmapped aesthetic terms.
-- Capture returns an artifact; analysis consumes it separately. The current
-  MasterRecorder route still needs a typed product adapter in 7e.
-
-The [Phase 7 menu](plan/phase-7/MENU.md) starts with exact state and compact
-context. The first audio comparison uses E118 FFmpeg fields. Neither first run
-needs an optional Python provider. Music21 remains the primary optional theory
-candidate. Musicpy and librosa require a selected task. No perceptual provider
-or Notochord dependency is selected.
+- [E119](evidence/experiments/e119-offline-verification-cost-audit.md) confirms
+  20 pages and two resets for 32 beats with the selected 2,048-step reader.
+  Scheduled waits total 3,168 ms before host/bridge work. The 80-page count uses
+  a 512-step reader. Record the advertised width; current live latency is unknown.
+- Exact-source hashing, context validation/rendering, provider work and live
+  verification are separate costs. Unbuilt seams have unknown latency.
+- Read-only providers need source, version, coverage and authority, with no
+  mutation stash or reversal. Future writes keep exact candidate validation,
+  target guards, independent readback and recorded partial effects.
+- [R1–R4](plan/phase-7/VERIFICATION_REDUCTIONS.md) are optional successor briefs.
+  No optimization was made. Do not remove a check without equivalent evidence.
 
 ## Existing boundaries
 
-[D22](decisions/d22-non-native-plugin-preset-loading-is-out-of-scope.md) keeps
-non-native preset loading out of scope. The extension registers 153 methods;
-the product wire map uses 82. Phase 8b owns method/allocation classification and
-retirement. Do not remove historical probe methods ad hoc.
+The contracts remain experimental. Stable schemas and guards are unchanged.
+Keep complete host state outside agent output. Exact source and context hashes
+have different domains. Retain deterministic musical v1 and note proposal v0 as
+distinct inputs. Standalone groove proposals need a later compiler revision.
+
+Use extracted references by default. The first audio task uses E118 FFmpeg
+fields; capture is a later separate operation. Music21 is optional for a named
+theory task. No perceptual provider or Notochord dependency is selected.
+[D22](decisions/d22-non-native-plugin-preset-loading-is-out-of-scope.md) retains
+the non-native preset limit. Phase 8b owns the 153 registered/82 used method
+classification. Method counts alone do not measure retirement savings.
 
 ## Retrospective
 
-A hash needs a domain and declared coverage. Use the indexed seam ledger to
-find mappings and blockers before searching probe code. A passing component
-fixture does not prove an unbuilt consumer connection.
+Record reader width beside page counts and label inclusive timings. Use the seam
+and cost ledgers together. A component test does not prove an unbuilt connection.

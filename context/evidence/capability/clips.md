@@ -2,9 +2,9 @@
 title: Launcher clips — timing, metadata, paging, and duplication
 kind: capability
 state: active
-updated: 2026-09-13
+updated: 2026-09-21
 scope: launcher-clip notes, metadata, exact reads, writes, and copies
-evidence: E2, E24, E41–E46, E51–E54, E116; D8, D9, D15, D16, D21
+evidence: E2, E24, E41–E46, E51–E54, E116, E119; D8, D9, D15, D16, D21
 ---
 
 # Launcher clips
@@ -73,14 +73,19 @@ A 64-step writer can silently lose fine-grid notes after its window. Production
 writers use a fixed 512-step window [K, E44]. Exact reads use a separate
 2,048-step cursor. They reconcile binary and triplet scans across all 16 MIDI
 channels [K, E45, E52, E116]. One bounded reply returns all 16 verbose channels
-for each page. At the E116 limits, a 32-beat read uses 32 binary pages and 48
-triplet pages [K, E116].
+for each page. At the E116 limits, a 32-beat read with the selected 2,048-step
+reader uses 8 binary and 12 triplet pages. A 512-step reader uses 32 and 48.
+E119's offline transport proof corrects the reader-width assumption in the E116
+handoff [K, [E119](../experiments/e119-offline-verification-cost-audit.md)].
 
 The selected read window reduced the measured median from 5,323 to 1,744 ms.
 It passed the 50-percent Phase 4 gate. Grid and page zero share one complete
 144 ms settlement. Multi-page reads still restore and settle page zero [K,
-E52]. E116 increases page count to preserve sub-millisecond timing. Session 6j
-must include that cost in its verification audit [K, E116].
+E52]. These historical medians predate E116's finer grids. For 32 beats at the
+selected width, the current reader schedules 3,168 ms of page/reset waits alone
+[K, E119]. Current complete live latency is unknown [U, E119]. Use the
+[verification ledger](../format/WORKSTATION_VERIFICATION.md) for scope and timing
+rules.
 
 Long writes group notes by page. They confirm the pinned track and row on every
 required page before mutation, use page-local steps, and restore page zero.
@@ -122,6 +127,7 @@ exact reversal, and cleanup [K, E54].
 
 | Date | Change |
 |---|---|
+| 2026-09-21 | E119 corrects the E116 page-count reading by reader width and separates scheduled waits from live latency. |
 | 2026-09-13 | E116 extends binary timing through 1/512 beat and triplet timing through 1/768 beat. |
 | 2026-08-21 | E54 bounds mutation settlement and complete exact reconciliation. |
 | 2026-08-21 | E53 classifies note-step callbacks as an operation-specific wake hint. |

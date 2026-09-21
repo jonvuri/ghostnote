@@ -2,8 +2,8 @@
 title: Phase 7 — Workstation dogfood iteration
 kind: plan
 state: planned
-status: Contracts selected in 6i. Starts after the 6j verification-cost audit.
-updated: 2026-09-20
+status: Ready. Contracts and verification rules are selected; start 7a.
+updated: 2026-09-21
 parent: ../ROADMAP.md
 prev: ../phase-6/README.md
 next: ../phase-8/README.md
@@ -67,6 +67,20 @@ existing write protections. Revise sensory packets to v1 as projections of
 typed facts. Reference context reuses the same context and evidence boundaries.
 Standalone groove proposals, broad theory, Musicpy, and librosa startup need a
 selected task before implementation. No perceptual model is selected.
+
+## Verification and timing
+
+Apply the [6j operation rules](../../evidence/format/WORKSTATION_VERIFICATION.md)
+to each selected task. Read-only providers do not need write settlement or a
+reversal stash. Live reads still need target/coverage checks, grid/page settlement
+and safe selection restoration. Agent writes retain exact validation, guards, independent
+readback and partial-effect records. Capture returns an artifact before separate
+analysis. Record cold/warm, host, provider and format spans without double counting.
+
+The [reduction briefs](VERIFICATION_REDUCTIONS.md) are optional successors, not
+permission to omit current checks. New module latency remains unknown until its
+real producer/consumer connection exists. Record the advertised note-reader
+width; the old 1.6–1.8 second exact-read results precede fine-grid expansion.
 
 ## Session order
 

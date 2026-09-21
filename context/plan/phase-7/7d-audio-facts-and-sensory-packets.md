@@ -2,7 +2,7 @@
 title: Phase 7d — Audio facts and sensory packets
 kind: plan
 state: planned
-updated: 2026-09-20
+updated: 2026-09-21
 parent: README.md
 prev: 7c-documentation-provider.md
 next: 7e-audio-capture-and-analysis-composition.md
@@ -41,6 +41,13 @@ Convert the probe's inclusive sample descriptions to structured exclusive ends.
 Revise the frozen `ghostnote-sensory-packet-v0` into a v1 projection of the
 returned facts. Do not create a second measurement provider or exact-note store.
 Reject incompatible pairs and unmapped properties before broad analysis.
+
+## Verification cost
+
+Use the [6j operation and timing rules](../../evidence/format/WORKSTATION_VERIFICATION.md)
+for this session. Measure implemented seam costs separately from host/provider
+work. Keep unknown costs explicit. Any proposed reuse must pass its
+[equivalent-evidence brief](VERIFICATION_REDUCTIONS.md).
 
 ## Acceptance criteria
 

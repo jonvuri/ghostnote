@@ -2,7 +2,7 @@
 title: Phase 7a — Symbolic context and read-only analysis
 kind: plan
 state: planned
-updated: 2026-09-20
+updated: 2026-09-21
 parent: README.md
 prev: ../phase-6/6j-verification-cost-audit.md
 next: 7b-agent-patch-execution-and-reference-dogfood.md
@@ -56,6 +56,13 @@ Keep module discovery and local context rendering independent of
 `Session.ready()`. Test missing Bitwig with supplied exact state, missing optional
 Python, incomplete channel coverage, empty context refusal, and stale generation.
 No provider installation is required unless the selected task needs it.
+
+## Verification cost
+
+Use the [6j operation and timing rules](../../evidence/format/WORKSTATION_VERIFICATION.md)
+for this session. Measure implemented seam costs separately from host/provider
+work. Keep unknown costs explicit. Any proposed reuse must pass its
+[equivalent-evidence brief](VERIFICATION_REDUCTIONS.md).
 
 ## Acceptance criteria
 

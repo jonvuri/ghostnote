@@ -2,7 +2,7 @@
 title: Workstation seam map and conformance gates
 kind: reference
 state: active
-updated: 2026-09-20
+updated: 2026-09-21
 scope: Producer-to-consumer compatibility for Phase 7
 ---
 
@@ -92,18 +92,19 @@ implementation gate, not unfinished provider work in 6i.
 | Cached document vs installed tree | Retrieval source reference | Preserve product version, document version, compatibility, path/page/key and content/tree hash. Rank is not source authority. |
 | Compiled expected state | Verified outcome | Compare with an independent complete host read. Keep expected state, observed state and discrepancies separate. |
 
-## Phase 6j cost handoff
+## Verification-cost audit
 
-For S01–S17, record validation, canonicalization, hashing, projection and translation
-separately from provider compute, target acquisition, settlement, readback and
-reversal. Existing component tests prove behavior, not runtime bounds. New seams
-currently have unknown cost. Do not report unknown as zero or add a benchmark to
-an unbuilt provider.
+The [6j cost ledger](WORKSTATION_VERIFICATION.md) accounts for validation,
+canonicalization, hashing, projection and translation at S01–S17. It separates
+provider compute, target acquisition, settlement, readback and reversal.
+Unbuilt connection costs remain unknown. Component tests prove behavior, not
+runtime bounds or complete consumer compatibility.
 
-Use E103 capture timings, E104 cache/hash/index timings, E105 cold/warm provider
-costs, E109/E110 exact/theory costs, E114/E118 input costs, and E116 fine-grid
-page/read costs. State which cost belongs to a probe. Propose an equivalent
-evidence rule before reducing any repeated validation or read.
+[E119](../experiments/e119-offline-verification-cost-audit.md) measures existing
+context functions and corrects the current page-count reading: 32 beats need
+20 pages with the selected 2,048-step reader, or 80 with a 512-step reader.
+Use the advertised width. The [successor briefs](../../plan/phase-7/VERIFICATION_REDUCTIONS.md)
+state equivalent evidence before any repeated validation or read can be removed.
 
 ## Phase 7 run gate
 

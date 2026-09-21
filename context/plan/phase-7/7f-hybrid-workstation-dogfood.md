@@ -2,7 +2,7 @@
 title: Phase 7f — Hybrid workstation dogfood
 kind: plan
 state: planned
-updated: 2026-09-20
+updated: 2026-09-21
 parent: README.md
 prev: 7e-audio-capture-and-analysis-composition.md
 next: ../phase-8/README.md
@@ -48,6 +48,13 @@ artifact, evidence, request, operation and change IDs. Include independent
 readback, external UI changes, the explicit operator verdict and exit state.
 If preset composition crosses a new module boundary, close S15's artifact-wrapper
 blocker first. Do not infer unsaved device state from a saved preset.
+
+## Verification cost
+
+Use the [6j operation and timing rules](../../evidence/format/WORKSTATION_VERIFICATION.md)
+for this session. Measure implemented seam costs separately from host/provider
+work. Keep unknown costs explicit. Any proposed reuse must pass its
+[equivalent-evidence brief](VERIFICATION_REDUCTIONS.md).
 
 ## Acceptance criteria
 

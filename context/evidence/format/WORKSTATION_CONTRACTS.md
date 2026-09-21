@@ -2,7 +2,7 @@
 title: Workstation contracts — experimental Phase 7 baseline
 kind: reference
 state: active
-updated: 2026-09-20
+updated: 2026-09-21
 scope: Phase 6i contract selection; no provider implementation
 ---
 
@@ -19,7 +19,8 @@ its output.
 Read the [inventory](WORKSTATION_INTERFACES.md) for format owners and disposition.
 Read the [seam map](WORKSTATION_SEAMS.md) for fixtures and implementation blockers.
 The [6i outcome](../../archive/outcomes/PHASE-6I-CONTRACT-SYNTHESIS.md) records the
-audit. Phase 6j owns cost classification. Phase 7 owns implementation and proof.
+audit. The [6j verification reference](WORKSTATION_VERIFICATION.md) classifies
+costs and defines operation rules. Phase 7 owns implementation and proof.
 
 This design applies E103–E105 and E109–E118. It preserves
 [D9](../../decisions/d9-grid-and-units-settled-2026-07-25.md),

@@ -2,7 +2,7 @@
 title: Phase 7b — Agent patch execution and reference dogfood
 kind: plan
 state: planned
-updated: 2026-09-20
+updated: 2026-09-21
 parent: README.md
 prev: 7a-symbolic-context-and-read-only-analysis.md
 next: 7c-documentation-provider.md
@@ -50,6 +50,13 @@ for a named task detail. Measure copying against the complete reference, not
 only the excerpt shown to the agent. Keep reference and seed IDs separate.
 Use longer audition material, fixed backing, and a direct listening instruction.
 Musicpy is optional; the first run does not require it.
+
+## Verification cost
+
+Use the [6j operation and timing rules](../../evidence/format/WORKSTATION_VERIFICATION.md)
+for this session. Measure implemented seam costs separately from host/provider
+work. Keep unknown costs explicit. Any proposed reuse must pass its
+[equivalent-evidence brief](VERIFICATION_REDUCTIONS.md).
 
 ## Acceptance criteria
 

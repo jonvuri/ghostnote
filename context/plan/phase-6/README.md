@@ -1,9 +1,9 @@
 ---
 title: Phase 6 — Music workstation direction exploration
 kind: plan
-state: active
-status: Sessions 6a through 6i and 6d2 are complete. Session 6j is next.
-updated: 2026-09-20
+state: complete
+status: All sessions are complete, including 6d2 and 6j. Phase 7a is next.
+updated: 2026-09-21
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
 next: ../phase-7/README.md
@@ -204,8 +204,9 @@ considered.
     classifies 24 interface families and maps 17 seams to fixtures or precise
     implementation blockers. Provider implementation remains in Phase 7.
 13. [6j — verification-cost audit](6j-verification-cost-audit.md).
-    Classify target, guard, settlement, readback, recovery, reversal, scan, and
-    interface-translation costs before Phase 7 implementation.
+    Complete. The [verification reference](../../evidence/format/WORKSTATION_VERIFICATION.md)
+    classifies costs and sets operation rules. E119 corrects the reader-width
+    page count. Reduction briefs retain equivalent-evidence gates.
 
 Sessions 6c and 6d require a successful or otherwise usable 6a capture route.
 If 6a fails, record the gate and revise the audio direction before continuing.
@@ -249,6 +250,7 @@ If 6a fails, record the gate and revise the audio direction before continuing.
 
 ## Handoff
 
-Start session 6j. Use the 6i inventory and seam ledger to classify verification
-and translation costs. Keep unbuilt-seam costs unknown unless evidence can bound
-them. Do not implement providers or reduce checks in the audit.
+Start [7a](../phase-7/7a-symbolic-context-and-read-only-analysis.md). Use the
+contracts, seam ledger and [verification rules](../../evidence/format/WORKSTATION_VERIFICATION.md).
+Measure unbuilt connections when implemented. Keep optional cost reductions in
+their [successor briefs](../phase-7/VERIFICATION_REDUCTIONS.md).
