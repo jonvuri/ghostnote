@@ -4,58 +4,56 @@ kind: status
 state: active
 updated: 2026-09-21
 phase: phase-7
-session: 7a-symbolic-context-and-read-only-analysis
+session: 7b-agent-patch-execution-and-reference-dogfood
 ---
 
 # Now
 
-Phase 6 is complete, including 6d2 and the
-[6j audit](archive/outcomes/PHASE-6J-VERIFICATION-COST-AUDIT.md). Phase 7 owns
-focused module implementation and dogfood. Phase 8 owns breadth, release and
-probe-runtime retirement. Phase 3 remains deferred. Phase 5 still has generalized
-closeout work after its accepted public result.
+Phase 7a is complete. [E120](evidence/experiments/e120-symbolic-context-connects-complete-live-state.md)
+connects complete exact state to the frozen compact agent context. Phase 6 is
+complete. Phase 3 remains deferred. Phase 5 still has generalized closeout work
+after its accepted public result.
 
 ## Next session
 
-Run [7a: symbolic context and read-only analysis](plan/phase-7/7a-symbolic-context-and-read-only-analysis.md).
+Run [7b: agent patch execution and reference dogfood](plan/phase-7/7b-agent-patch-execution-and-reference-dogfood.md).
 Read the [contracts](evidence/format/WORKSTATION_CONTRACTS.md),
-[inventory](evidence/format/WORKSTATION_INTERFACES.md),
-[seam ledger](evidence/format/WORKSTATION_SEAMS.md), and
-[verification rules](evidence/format/WORKSTATION_VERIFICATION.md).
-Build the complete exact-source wrapper and compact context connection first.
-Close S03/S04/S17, plus S05 only if theory is enabled and S10 only for a selected
-paired MIDI task. The first proof explains one complete clip and returns an
-unapplied revision. It needs no optional Python provider.
+[seam ledger](evidence/format/WORKSTATION_SEAMS.md),
+[verification rules](evidence/format/WORKSTATION_VERIFICATION.md), and E120.
+Implement `note-compiler-v0` and `reference-context-v0`. Close S06, S07 and S09.
+Keep the stable deterministic musical v1 grammar unchanged.
 
-## Audit handoff
+## 7a handoff
 
-- [E119](evidence/experiments/e119-offline-verification-cost-audit.md) confirms
-  20 pages and two resets for 32 beats with the selected 2,048-step reader.
-  Scheduled waits total 3,168 ms before host/bridge work. The 80-page count uses
-  a 512-step reader. Record the advertised width; current live latency is unknown.
-- Exact-source hashing, context validation/rendering, provider work and live
-  verification are separate costs. Unbuilt seams have unknown latency.
-- Read-only providers need source, version, coverage and authority, with no
-  mutation stash or reversal. Future writes keep exact candidate validation,
-  target guards, independent readback and recorded partial effects.
-- [R1–R4](plan/phase-7/VERIFICATION_REDUCTIONS.md) are optional successor briefs.
-  No optimization was made. Do not remove a check without equivalent evidence.
+- `ghostnote-exact-note-source-v0` preserves complete clips, all 16 channels,
+  guarded marks and every observed note field. `exact-note-json-v0` supplies the
+  `exact-note-source-v0` SHA-256 domain, aliases and source-scoped event IDs.
+- `symbolic-context-v0` renders `compact-bar-v0` with source, provider, coverage,
+  capability and authority metadata outside the frozen strict context object.
+- The module registry discovers without startup and checks schemas, request ID,
+  source digest, deadlines and response correlation. Optional Music21 remains
+  missing and isolated.
+- The live four-beat proof used the 2,048-step reader, three pages and one reset.
+  Complete acquisition took 2,321.882 ms. Exact hashing took 10.811 ms. Cold and
+  warm module requests took 18.285 ms and 0.775 ms.
+- The selected clip had C3, G3 and C4 at beat 0 for four beats. The agent proposed
+  transposing `e-2` by 12 semitones against source hash
+  `583479b910d2d3ae10c9ceb7acf56c63813be6672152110208f930bd98084960`.
+  The proposal was not compiled, validated or applied.
 
-## Existing boundaries
+## Boundaries
 
-The contracts remain experimental. Stable schemas and guards are unchanged.
-Keep complete host state outside agent output. Exact source and context hashes
-have different domains. Retain deterministic musical v1 and note proposal v0 as
-distinct inputs. Standalone groove proposals need a later compiler revision.
+S03, S04 and in-process S17 are implemented. S05 remains conditional on a theory
+task. S10 remains conditional on a paired MIDI task. The live decoder omits
+default `isMuted: false`; the context projection applies that named rule only to
+live sources. Supplied exact state without mute refuses.
 
-Use extracted references by default. The first audio task uses E118 FFmpeg
-fields; capture is a later separate operation. Music21 is optional for a named
-theory task. No perceptual provider or Notochord dependency is selected.
-[D22](decisions/d22-non-native-plugin-preset-loading-is-out-of-scope.md) retains
-the non-native preset limit. Phase 8b owns the 153 registered/82 used method
-classification. Method counts alone do not measure retirement savings.
+No project write occurred. Entry and exit revision, scene epoch, content epoch,
+generation and selection were equal. The strict agent-context corpus fingerprint
+and stable public surface did not change.
 
 ## Retrospective
 
-Record reader width beside page counts and label inclusive timings. Use the seam
-and cost ledgers together. A component test does not prove an unbuilt connection.
+The agent used pitch and pitch span. It ignored equal velocity values. Keep
+adapter-specific default elision out of supplied-state projections. Validate
+type-only unions and cross-field guards at each module boundary.

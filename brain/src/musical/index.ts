@@ -30,6 +30,28 @@ export {
 export type { AgentContext, AgentContextMode, GrooveContext } from './agent-context.js';
 export { AgentContextError } from './agent-context.js';
 export {
+  EXACT_NOTE_JSON_VERSION, EXACT_NOTE_SOURCE_DOMAIN, EXACT_NOTE_SOURCE_MAX_CLIPS,
+  EXACT_NOTE_SOURCE_MAX_NOTES, EXACT_NOTE_SOURCE_SCHEMA, ExactNoteSourceError,
+  readExactNoteSource, serializeExactNoteSource, snapshotToExactSource,
+  validateExactNoteSource,
+} from './exact-note-source.js';
+export type {
+  ExactNoteAcquisition, ExactNoteChannel, ExactNoteClip, ExactNoteEventMapEntry,
+  ExactNoteSource, ExactNoteSourcePayload, ExactNoteTrackAlias, SnapshotExactSourceRequest,
+} from './exact-note-source.js';
+export {
+  HOST_BEAT_RATIONAL_VERSION, SYMBOLIC_CONTEXT_MAX_EVENTS, SYMBOLIC_CONTEXT_MODULE_ID,
+  SYMBOLIC_CONTEXT_MODULE_VERSION, SYMBOLIC_CONTEXT_SCHEMA, SymbolicContextError,
+  exactSourceToContext, hostBeatToRational, symbolicContextModule,
+} from './symbolic-context.js';
+export type {
+  AlternativeEvidence, AuthorityEntry, DeclaredRegion, DeclaredTrackRole,
+  DerivedMeasurement, ExactFact, HarmonyAlternative, ProviderVersion,
+  QualifiedHarmonyEvidence, SymbolicContextRequest, SymbolicContextResult,
+  SymbolicContextTask, SymbolicContextTimingEvent, SymbolicContextOptions,
+  SymbolicMeasurement,
+} from './symbolic-context.js';
+export {
   AGENT_CONTEXT_CORPUS, AGENT_CONTEXT_CORPUS_V0_SHA256,
   COMPACT_AGENT_CONTEXT, GROOVE_AGENT_CONTEXT, fingerprintAgentContextCorpus,
 } from './agent-context-corpus.js';

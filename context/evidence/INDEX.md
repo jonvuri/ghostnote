@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E120 | Symbolic context connects complete live state [K] (2026-09-21) | [open](experiments/e120-symbolic-context-connects-complete-live-state.md) |
 | E119 | Offline verification-cost audit [K] (2026-09-21) | [open](experiments/e119-offline-verification-cost-audit.md) |
 | E118 | Task-routed sensory packets improve bounded decisions [O/K] (2026-09-20) | [open](experiments/e118-task-routed-sensory-packets-improve-bounded-decisions.md) |
 | E117 | Extracted structure is the reference default [O/K] (2026-09-20) | [open](experiments/e117-extracted-structure-is-the-reference-default.md) |

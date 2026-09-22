@@ -1,8 +1,8 @@
 ---
 title: Phase 7 — Workstation dogfood iteration
 kind: plan
-state: planned
-status: Ready. Contracts and verification rules are selected; start 7a.
+state: active
+status: 7a is complete. Start the 7b compiler and reference dogfood session.
 updated: 2026-09-21
 parent: ../ROADMAP.md
 prev: ../phase-6/README.md
@@ -85,7 +85,9 @@ width; the old 1.6–1.8 second exact-read results precede fine-grid expansion.
 ## Session order
 
 1. [7a — symbolic context and read-only analysis](7a-symbolic-context-and-read-only-analysis.md).
+   Complete. E120 connects complete live state to compact context.
 2. [7b — agent patch execution and reference dogfood](7b-agent-patch-execution-and-reference-dogfood.md).
+   Next.
 3. [7c — documentation provider](7c-documentation-provider.md).
 4. [7d — audio facts and sensory packets](7d-audio-facts-and-sensory-packets.md).
 5. [7e — audio capture and analysis composition](7e-audio-capture-and-analysis-composition.md).

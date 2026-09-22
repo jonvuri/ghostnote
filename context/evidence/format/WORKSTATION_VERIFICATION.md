@@ -205,8 +205,10 @@ No new live measurement was needed to decide this audit. Existing safety proofs
 and the E119 offline count test settle classification. A live read would add a
 machine-specific latency, but would not implement or bound an absent seam.
 
-- 7a records the actual advertised width and complete read latency for its
-  selected clip; then measures S03/S04 and optional S05/S10/S17 separately.
+- [E120](../experiments/e120-symbolic-context-connects-complete-live-state.md)
+  records the 2,048-step reader, three pages, one reset and 2,321.882 ms complete
+  acquisition for the selected four-beat clip. It measures S03, S04 and the
+  in-process S17 boundary separately. S05 and S10 did not run.
 - 7b separates source/preflight/stash, compiler, final readback and reversal
   preparation. R1 remains blocked until equivalent freshness is proved.
 - 7c measures the strong cache gate and source/index startup separately from

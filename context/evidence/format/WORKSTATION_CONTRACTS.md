@@ -3,7 +3,7 @@ title: Workstation contracts — experimental Phase 7 baseline
 kind: reference
 state: active
 updated: 2026-09-21
-scope: Phase 6i contract selection; no provider implementation
+scope: Phase 7 experimental baseline; 7a symbolic implementation
 ---
 
 # Workstation contracts
@@ -70,7 +70,7 @@ domain: `file-bytes`, `exact-note-source-v0`, `agent-context-v0`, or a named
 legacy probe domain. The extension's 16-character method hash is a deployment
 check, not a content hash. Do not compare these domains.
 
-The planned `ghostnote-exact-note-source-v0` is a private wrapper around complete
+The 7a `ghostnote-exact-note-source-v0` is a private wrapper around complete
 host-normalized note reads. It contains guarded clip addresses, the captured
 revision mark, clip metadata needed for the task, all 16 channel note lists,
 and explicit coverage. Include every observed `NoteRecord` property. An absent
@@ -167,7 +167,7 @@ Failure of audio analysis cannot turn a successful capture into a failed capture
 
 ### Discovery and lifecycle
 
-The planned descriptor `ghostnote-workstation-module-v0` contains module ID,
+The descriptor `ghostnote-workstation-module-v0` contains module ID,
 version, state (`disabled`, `uninitialized`, `available`, `degraded`, or
 `unavailable`), accepted and emitted schemas, capabilities, dependency versions,
 and unavailable reasons.

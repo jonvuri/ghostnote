@@ -2,7 +2,7 @@
 title: Phase 6 — Music workstation direction exploration
 kind: plan
 state: complete
-status: All sessions are complete, including 6d2 and 6j. Phase 7a is next.
+status: All sessions are complete, including 6d2 and 6j. Phase 7 is active; 7b is next.
 updated: 2026-09-21
 parent: ../ROADMAP.md
 prev: ../phase-5/README.md
