@@ -2,8 +2,8 @@
 title: Phase 7 — Workstation dogfood iteration
 kind: plan
 state: active
-status: 7b is complete. Start the 7c documentation-provider session.
-updated: 2026-09-22
+status: 7c is complete. Start the 7d audio-facts and sensory-packets session.
+updated: 2026-09-23
 parent: ../ROADMAP.md
 prev: ../phase-6/README.md
 next: ../phase-8/README.md
@@ -89,8 +89,9 @@ width; the old 1.6–1.8 second exact-read results precede fine-grid expansion.
 2. [7b — agent patch execution and reference dogfood](7b-agent-patch-execution-and-reference-dogfood.md).
    Complete. E121 connects the compiler, reference profile and exact live write.
 3. [7c — documentation provider](7c-documentation-provider.md).
-   Next.
+   Complete. E122 connects verified offline sources to bounded cited results.
 4. [7d — audio facts and sensory packets](7d-audio-facts-and-sensory-packets.md).
+   Next.
 5. [7e — audio capture and analysis composition](7e-audio-capture-and-analysis-composition.md).
 6. [7f — hybrid workstation dogfood](7f-hybrid-workstation-dogfood.md).
 

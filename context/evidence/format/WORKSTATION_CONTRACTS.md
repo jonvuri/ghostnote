@@ -2,8 +2,8 @@
 title: Workstation contracts — experimental Phase 7 baseline
 kind: reference
 state: active
-updated: 2026-09-22
-scope: Phase 7 experimental baseline; 7a symbolic and 7b patch implementation
+updated: 2026-09-23
+scope: Phase 7 experimental baseline; 7a symbolic, 7b patch, and 7c documentation implementation
 ---
 
 # Workstation contracts

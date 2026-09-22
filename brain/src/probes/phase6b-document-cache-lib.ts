@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rename, stat, writeFile } from 'node:fs/promises';
 import { basename, dirname, join } from 'node:path';
 
 export type DocumentCompatibility = 'exact' | 'general-workflow-only';
@@ -25,7 +25,9 @@ export interface CachedDocumentManifest extends OfficialDocumentRequest {
 
 export interface CachedDocument {
   readonly manifest: CachedDocumentManifest;
+  readonly manifestSha256: string;
   readonly path: string;
+  readonly bytes: Uint8Array;
 }
 
 interface FetchResponse {
@@ -41,6 +43,7 @@ export type DocumentFetch = (url: string) => Promise<FetchResponse>;
 const VERSION = /^\d+\.\d+(?:\.\d+)?$/;
 const SOURCE_ID = /^[a-z0-9][a-z0-9-]*$/;
 const SHA256 = /^[a-f0-9]{64}$/;
+const MAX_MANIFEST_BYTES = 64 * 1_024;
 const OFFICIAL_HOSTS = new Set([
   'www.bitwig.com',
   'downloads.bitwig.com',
@@ -51,6 +54,19 @@ function checkRequest(request: OfficialDocumentRequest): void {
   if (!SOURCE_ID.test(request.sourceId)) throw new Error('invalid document source id');
   if (!VERSION.test(request.productVersion)) throw new Error('invalid product version');
   if (!VERSION.test(request.documentVersion)) throw new Error('invalid document version');
+  if (request.compatibility !== 'exact' && request.compatibility !== 'general-workflow-only') {
+    throw new Error('invalid document compatibility');
+  }
+  if (request.mediaType !== 'text/html' && request.mediaType !== 'application/pdf') {
+    throw new Error('invalid document media type');
+  }
+  if (!Number.isSafeInteger(request.minimumBytes) || request.minimumBytes < 1) {
+    throw new Error('invalid minimum document size');
+  }
+  if (request.requiredText !== undefined
+      && (typeof request.requiredText !== 'string' || request.requiredText.length === 0)) {
+    throw new Error('invalid document version marker');
+  }
   if (request.compatibility === 'exact' && request.productVersion !== request.documentVersion) {
     throw new Error('an exact document must match the product version');
   }
@@ -82,6 +98,45 @@ function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex');
 }
 
+function parseManifest(raw: Uint8Array): CachedDocumentManifest {
+  const parsed = JSON.parse(new TextDecoder().decode(raw)) as unknown;
+  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error('cached document manifest is invalid');
+  }
+  const value = parsed as Partial<CachedDocumentManifest>;
+  if (value.schemaVersion !== 1
+      || typeof value.sourceId !== 'string'
+      || typeof value.productVersion !== 'string'
+      || typeof value.documentVersion !== 'string'
+      || (value.compatibility !== 'exact' && value.compatibility !== 'general-workflow-only')
+      || typeof value.sourceUrl !== 'string'
+      || (value.mediaType !== 'text/html' && value.mediaType !== 'application/pdf')
+      || typeof value.minimumBytes !== 'number' || !Number.isSafeInteger(value.minimumBytes)
+      || value.minimumBytes < 1
+      || (value.requiredText !== undefined
+        && (typeof value.requiredText !== 'string' || value.requiredText.length === 0))
+      || typeof value.resolvedUrl !== 'string'
+      || typeof value.sha256 !== 'string'
+      || typeof value.bytes !== 'number' || !Number.isSafeInteger(value.bytes) || value.bytes < 1
+      || typeof value.fileName !== 'string') {
+    throw new Error('cached document manifest is invalid');
+  }
+  return value as CachedDocumentManifest;
+}
+
+function checkDocumentBytes(bytes: Uint8Array, request: OfficialDocumentRequest): void {
+  if (request.mediaType === 'application/pdf') {
+    if (new TextDecoder('ascii').decode(bytes.subarray(0, 5)) !== '%PDF-') {
+      throw new Error('cached document is not a PDF');
+    }
+  } else if (request.requiredText !== undefined) {
+    const text = new TextDecoder().decode(bytes);
+    if (!text.includes(request.requiredText)) {
+      throw new Error('cached document version marker is missing');
+    }
+  }
+}
+
 function sameRequest(manifest: CachedDocumentManifest, request: OfficialDocumentRequest): boolean {
   return manifest.schemaVersion === 1
     && manifest.sourceId === request.sourceId
@@ -98,24 +153,50 @@ function sameRequest(manifest: CachedDocumentManifest, request: OfficialDocument
 export async function readCachedDocument(
   cacheRoot: string,
   request: OfficialDocumentRequest,
+  maximumBytes = Number.MAX_SAFE_INTEGER,
+  validatePath?: (path: string) => Promise<void>,
 ): Promise<CachedDocument> {
   checkRequest(request);
-  const raw = await readFile(manifestPath(cacheRoot, request), 'utf8');
-  const manifest = JSON.parse(raw) as CachedDocumentManifest;
+  if (!Number.isSafeInteger(maximumBytes) || maximumBytes < request.minimumBytes) {
+    throw new Error('invalid maximum document size');
+  }
+  const requestedManifestPath = manifestPath(cacheRoot, request);
+  await validatePath?.(requestedManifestPath);
+  if ((await stat(requestedManifestPath)).size > MAX_MANIFEST_BYTES) {
+    throw new Error('cached document manifest is too large');
+  }
+  const raw = await readFile(requestedManifestPath);
+  const manifest = parseManifest(raw);
   if (!sameRequest(manifest, request)) throw new Error('cached document metadata does not match the request');
   const extension = manifest.mediaType === 'application/pdf' ? 'pdf' : 'html';
   if (!SHA256.test(manifest.sha256)
     || manifest.fileName !== `${manifest.sha256}.${extension}`
     || manifest.bytes < request.minimumBytes
+    || manifest.bytes > maximumBytes
     || publicResolvedUrl(manifest.resolvedUrl) !== manifest.resolvedUrl) {
     throw new Error('cached document manifest is invalid');
   }
   const path = documentPath(cacheRoot, manifest);
+  await validatePath?.(path);
+  const first = await stat(path, { bigint: true });
+  if (first.size !== BigInt(manifest.bytes) || first.size > BigInt(maximumBytes)) {
+    throw new Error('cached document physical size does not match the manifest');
+  }
   const bytes = await readFile(path);
+  const second = await stat(path, { bigint: true });
+  if (first.size !== second.size || first.mtimeNs !== second.mtimeNs) {
+    throw new Error('cached document changed while reading');
+  }
   if (bytes.byteLength !== manifest.bytes || sha256(bytes) !== manifest.sha256) {
     throw new Error('cached document hash does not match the manifest');
   }
-  return { manifest, path };
+  checkDocumentBytes(bytes, request);
+  return {
+    manifest,
+    manifestSha256: sha256(raw),
+    path,
+    bytes: new Uint8Array(bytes),
+  };
 }
 
 /** Download, validate, and atomically cache one official Bitwig document. */
@@ -134,13 +215,11 @@ export async function cacheOfficialDocument(
   }
   const bytes = new Uint8Array(await response.arrayBuffer());
   if (bytes.byteLength < request.minimumBytes) throw new Error('document is smaller than expected');
-  if (request.mediaType === 'application/pdf') {
-    if (new TextDecoder('ascii').decode(bytes.subarray(0, 5)) !== '%PDF-') {
-      throw new Error('downloaded document is not a PDF');
-    }
-  } else if (request.requiredText !== undefined) {
-    const text = new TextDecoder().decode(bytes);
-    if (!text.includes(request.requiredText)) throw new Error('document version marker is missing');
+  try {
+    checkDocumentBytes(bytes, request);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(message.replace('cached document', 'downloaded document'));
   }
 
   const hash = sha256(bytes);

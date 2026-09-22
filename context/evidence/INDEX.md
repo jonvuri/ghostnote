@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-22
+updated: 2026-09-23
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E122 | Documentation provider connects verified offline sources [K] (2026-09-23) | [open](experiments/e122-documentation-provider-connects-verified-offline-sources.md) |
 | E121 | Guarded agent note patches pass live reference dogfood [O/K] (2026-09-22) | [open](experiments/e121-guarded-agent-note-patches-pass-live-reference-dogfood.md) |
 | E120 | Symbolic context connects complete live state [K] (2026-09-21) | [open](experiments/e120-symbolic-context-connects-complete-live-state.md) |
 | E119 | Offline verification-cost audit [K] (2026-09-21) | [open](experiments/e119-offline-verification-cost-audit.md) |

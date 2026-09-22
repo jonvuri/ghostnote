@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { mkdtemp, readFile, rm, truncate, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -110,7 +111,7 @@ test('6b cache refuses version marker, host, and hash failures', async () => {
     await assert.rejects(readCachedDocument(root, request), /manifest is invalid/);
     await writeFile(manifestPath, JSON.stringify(cached.manifest));
     await writeFile(cached.path, 'corrupt');
-    await assert.rejects(readCachedDocument(root, request), /hash/);
+    await assert.rejects(readCachedDocument(root, request), /physical size/);
   } finally {
     await rm(root, { recursive: true, force: true });
   }
@@ -145,6 +146,40 @@ test('6b legacy guide cannot claim exact product compatibility', async () => {
       '6.0.6',
     );
     assert.throws(() => installedVersion('<plist/>'), /cannot read/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test('7c offline cache open rechecks manifest shape and exact content marker', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'ghostnote-7c-cache-'));
+  const request = { ...exactReleaseNotes('6.0.6'), minimumBytes: 1 };
+  const body = 'Changes in Bitwig Studio 6.0.6';
+  try {
+    const cached = await cacheOfficialDocument(
+      root,
+      request,
+      response(body, 'https://downloads-secure.bitwig.com/6.0.6/release-notes.html'),
+    );
+    const manifestPath = join(root, '6.0.6', 'release-notes', 'manifest.json');
+    await truncate(cached.path, body.length + 10);
+    await assert.rejects(readCachedDocument(root, request, 100), /physical size/);
+    await writeFile(cached.path, body);
+    await assert.rejects(readCachedDocument(root, request, 5), /manifest is invalid/);
+    await writeFile(manifestPath, '{"schemaVersion":2}');
+    await assert.rejects(readCachedDocument(root, request), /manifest is invalid/);
+
+    const wrong = new TextEncoder().encode('Changes in Bitwig Studio 6.0.5');
+    const sha256 = createHash('sha256').update(wrong).digest('hex');
+    const fileName = `${sha256}.html`;
+    await writeFile(join(root, '6.0.6', 'release-notes', fileName), wrong);
+    await writeFile(manifestPath, JSON.stringify({
+      ...cached.manifest,
+      sha256,
+      bytes: wrong.byteLength,
+      fileName,
+    }));
+    await assert.rejects(readCachedDocument(root, request), /version marker is missing/);
   } finally {
     await rm(root, { recursive: true, force: true });
   }

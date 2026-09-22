@@ -1,8 +1,9 @@
 ---
 title: Phase 7c — Documentation provider
 kind: plan
-state: planned
-updated: 2026-09-21
+state: complete
+status: Complete. E122 implements S14 and the documentation part of S17.
+updated: 2026-09-23
 parent: README.md
 prev: 7b-agent-patch-execution-and-reference-dogfood.md
 next: 7d-audio-facts-and-sensory-packets.md
@@ -65,3 +66,12 @@ work. Keep unknown costs explicit. Any proposed reuse must pass its
 ## Retrospective target
 
 Record which provenance field prevented the broadest unsupported answer.
+
+## Result
+
+[E122](../../evidence/experiments/e122-documentation-provider-connects-verified-offline-sources.md)
+implements the strong TypeScript source gate, source-routed FTS5 index, bounded
+`documentation-v0` result, and isolated module boundary. The retained offline
+task used the exact installed API to construct a future master-recorder control
+outline. The compatibility field blocked the 5.3 guide from supporting a 6.0.6
+behavior claim. Session 7d is next.
