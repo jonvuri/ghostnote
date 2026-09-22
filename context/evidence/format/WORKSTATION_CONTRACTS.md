@@ -2,19 +2,19 @@
 title: Workstation contracts — experimental Phase 7 baseline
 kind: reference
 state: active
-updated: 2026-09-21
-scope: Phase 7 experimental baseline; 7a symbolic implementation
+updated: 2026-09-22
+scope: Phase 7 experimental baseline; 7a symbolic and 7b patch implementation
 ---
 
 # Workstation contracts
 
 ## Status and reading route
 
-This is the selected Phase 7 design, not an implemented or stable public API.
-Existing product contracts keep their current versions. New module contracts use
-`v0`; the revised sensory packet uses `v1`. All require explicit experimental
-enablement. A successful probe does not prove that a product consumer accepts
-its output.
+This is the selected Phase 7 design and experimental implementation record. It
+is not a stable public API. Existing product contracts keep their current
+versions. New module contracts use `v0`; the revised sensory packet uses `v1`.
+All require explicit experimental enablement. A successful probe does not prove
+that a product consumer accepts its output.
 
 Read the [inventory](WORKSTATION_INTERFACES.md) for format owners and disposition.
 Read the [seam map](WORKSTATION_SEAMS.md) for fixtures and implementation blockers.
@@ -22,7 +22,7 @@ The [6i outcome](../../archive/outcomes/PHASE-6I-CONTRACT-SYNTHESIS.md) records 
 audit. The [6j verification reference](WORKSTATION_VERIFICATION.md) classifies
 costs and defines operation rules. Phase 7 owns implementation and proof.
 
-This design applies E103–E105 and E109–E118. It preserves
+This design applies E103–E105 and E109–E121. It preserves
 [D9](../../decisions/d9-grid-and-units-settled-2026-07-25.md),
 [D12](../../decisions/d12-transport-and-the-contract-boundary-settled-2026-07-25.md),
 [D15](../../decisions/d15-verification-discipline-settled-2026-07-25.md), and
@@ -66,9 +66,10 @@ reason. Failure codes distinguish `missing-dependency`, `unsupported-schema`,
 ### Identity and hashes
 
 Use full lowercase SHA-256 for byte and content identity. Record the digest
-domain: `file-bytes`, `exact-note-source-v0`, `agent-context-v0`, or a named
-legacy probe domain. The extension's 16-character method hash is a deployment
-check, not a content hash. Do not compare these domains.
+domain: `file-bytes`, `exact-note-source-v0`, `agent-context-v0`,
+`note-compiler-preview-v0`, or a named legacy probe domain. The extension's
+16-character method hash is a deployment check, not a content hash. Do not
+compare these domains.
 
 The 7a `ghostnote-exact-note-source-v0` is a private wrapper around complete
 host-normalized note reads. It contains guarded clip addresses, the captured
@@ -122,6 +123,9 @@ An imported file can supply read-only context without acquiring a live target.
   its old boundary. Agent insertions use `track-neutral-v0`: one unique source
   channel, mute false, release velocity 64, and neutral expression. An empty or
   mixed-channel source cannot infer that channel. A future policy needs a version.
+- `track-neutral-v0` uses the host's enabled chance, occurrence, recurrence and
+  repeat controls. Chance is 1, occurrence is `ALWAYS`, recurrence is `[1,1]`,
+  and repeat count is 0. Complete readback compares these normalized defaults.
 - `null` means unavailable with a reason, never zero. Empty means observed empty.
   Reject unknown required fields or units. List all dropped fields at projections.
   Preserve omitted host fields from exact state; do not reconstruct them from text.
@@ -149,13 +153,14 @@ record can retain an explicit operator response; silence is not acceptance.
 
 ## Module contracts
 
-Each row names a logical contract version. It does not add an executable today.
-Shared fields above apply to every new input/output boundary.
+Each row names a logical contract version. The seam map records implementation
+status. Shared fields above apply to every new input/output boundary.
 
 | Module and contract | Inputs → outputs | Dependencies and startup | Failure isolation |
 |---|---|---|---|
 | Bitwig adapter, existing `ghostnote/0` | Addressed reads/typed `Op` batches → snapshots, receipts, revision and readback | Existing bridge; lazy connection, exact handshake and deployment check | Disconnect disables live reads/writes and capture. It does not disable local files, context from supplied state, or docs. |
 | Symbolic context, `symbolic-context-v0` | Exact source, task, selected mode, declared tempo/meter → v0 context plus evidence and alias map | Pure TypeScript first; Music21 adapter starts only for a selected theory task | Missing Python/Music21 removes theory capability only. Missing required tempo or coverage refuses that context, not the workstation. |
+| Reference context, `reference-context-v0` | Separate exact seed/reference sources, permission, task and coverage → extracted evidence, optional bounded raw context and comparison profile | Pure TypeScript; no theory helper is required | Missing permission, identity collision, changed hash or invalid coverage refuses only the reference request. It cannot supply a write target or verdict. |
 | Exact patch compiler, `note-compiler-v0` | Exact source, note proposal v0, invariants → complete candidate, typed operations, losses, guards | Pure code; Bitwig required only for fresh preflight/apply/readback | Compile failure writes nothing. Apply failure keeps the change record and effects state; no blind retry or assumed rollback. |
 | Documentation, `documentation-v0` | Installed product version, source family, query, result bound → cited records | Local sources, verified cache, SQLite FTS5; lazy source validation/index open | Missing cache/source disables that family. Missing guide extractor need not disable installed API records. Offline mode never downloads. |
 | Audio capture, `audio-capture-v0` | Guarded saved-project directory, controlled master source, range and stop bound → audio artifact | Bitwig typed recorder route, filesystem, lossless header reader; validate before start | Unknown path/active recorder refuses before effects. Stop/settle failure reports known files and recorder state; it does not disable file analysis. |
@@ -219,11 +224,15 @@ Support only `transpose`, `delete`, `move`, and `insert` initially. Validate the
 whole operation sequence and final candidate, not just each operation against
 the initial notes. Reject stale/missing/deleted IDs, collisions, ambiguous
 channels, unsupported expression, timing loss, and impossible constraints.
+Refuse a final candidate above the 4,096-note exact-source capacity before a
+write. Required complete readback must be able to represent the result.
 
 `track-neutral-v0` describes logical defaults. It cannot authorize a pressure
-write: the host cannot write pressure. The compiler must prove that omitting
-neutral pressure preserves the expected readback or refuse. Non-neutral or
-unverified properties retain the existing fidelity/protection gate.
+write: the host cannot write pressure. The complete candidate shows every
+normalized default. Typed operations omit neutral pressure only. The compiler
+must prove that this omission preserves the expected readback or refuse.
+Non-neutral or unverified properties retain the existing fidelity/protection
+gate.
 
 The probe rejects same-pitch overlaps. D21's public deterministic compiler can
 shorten them and reports loss. The proposal boundary will reject a candidate
@@ -240,8 +249,8 @@ is not readback.
 
 Merge the separate `ghostnote-groove-patch-v0` proposal family into a future
 revision of the note compiler only when a task needs it. Its probe validates
-four fixed expected objects; it is not a general compiler. Phase 7b initially
-uses realized-note proposals. Pattern expansion and relative groove requests
+four fixed expected objects; it is not a general compiler. Phase 7b uses
+realized-note proposals. Pattern expansion and relative groove requests
 remain unavailable until a versioned translation and fixtures exist.
 
 ### Reference context

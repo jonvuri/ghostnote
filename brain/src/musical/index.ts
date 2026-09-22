@@ -52,6 +52,32 @@ export type {
   SymbolicMeasurement,
 } from './symbolic-context.js';
 export {
+  NOTE_CANDIDATE_SCHEMA, NOTE_COMPILER_MAX_INSERTIONS, NOTE_COMPILER_MAX_OPERATIONS,
+  NOTE_COMPILER_MODULE_ID, NOTE_COMPILER_MODULE_VERSION, NOTE_COMPILER_PREVIEW_DOMAIN,
+  NOTE_COMPILER_SCHEMA, NOTE_INVARIANTS_SCHEMA, NOTE_PROPOSAL_SCHEMA, NoteCompilerError,
+  applyNoteProposal, compareCandidateReadback, compileNoteProposal, noteCompilerModule,
+  noteProposalInvariantsSchema, noteProposalSchema, parseNoteRational,
+} from './note-compiler.js';
+export type {
+  CandidateChannel, CandidateClip, CandidateNote, NoteCandidate,
+  NoteApplicationOptions, NoteApplicationTimingEvent, NoteCompilerOptions,
+  NoteCompilerRequest, NoteCompilerResult, NoteCompilerTimingEvent,
+  NoteProposal, NoteProposalApplicationResult, NoteProposalInvariants,
+  NoteProposalOperation, NoteReadbackDiscrepancy,
+} from './note-compiler.js';
+export {
+  REFERENCE_COMPARISON_SCHEMA, REFERENCE_CONTEXT_MAX_EVENTS, REFERENCE_CONTEXT_MODULE_ID,
+  REFERENCE_CONTEXT_MODULE_VERSION, REFERENCE_CONTEXT_REQUEST_SCHEMA,
+  REFERENCE_CONTEXT_SCHEMA, ReferenceContextError, compareCandidateToReference,
+  referenceContextModule, referenceContextRequestValidator, referenceContextResultValidator,
+  referenceProjection, validateReferenceContextResult,
+} from './reference-context.js';
+export type {
+  ReferenceComparisonMetric, ReferenceComparisonResult, ReferenceContextRequest,
+  ReferenceContextResult, ReferenceContextTask, ReferenceEvidence, ReferenceRawExcerpt,
+  ReferenceTrackRole, ResolvedReferenceRole,
+} from './reference-context.js';
+export {
   AGENT_CONTEXT_CORPUS, AGENT_CONTEXT_CORPUS_V0_SHA256,
   COMPACT_AGENT_CONTEXT, GROOVE_AGENT_CONTEXT, fingerprintAgentContextCorpus,
 } from './agent-context-corpus.js';

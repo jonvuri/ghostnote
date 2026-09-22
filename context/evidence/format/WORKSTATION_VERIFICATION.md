@@ -2,7 +2,7 @@
 title: Workstation verification costs and operation rules
 kind: reference
 state: active
-updated: 2026-09-21
+updated: 2026-09-22
 scope: Phase 6j audit and Phase 7 verification rules
 ---
 
@@ -130,10 +130,10 @@ it does not mean that the entire seam costs zero.
 | S03 / I04,I09 | Every clip, all 16 channels, optional fields, duplicate keys and finite numbers | Planned `exact-note-json-v0`: sort keys/clips/notes; ordered tuples stay ordered | One complete canonical payload in its named domain | Snapshot and guarded address → exact wrapper and alias map | Essential, implementation/time unknown. 7a must measure by notes/bytes; E109 is not this serializer. No numeric upper bound exists yet. |
 | S04 / I04,I10 | Strict v0 parser; E119 measures it | Existing renderer sorts events/references and checks reduced rational text; not S03 canonicalization | Context-render SHA-256 measured separately in E119 | Existing render measured; live UUID, beat and authority projection unknown | Essential checks; repeated render/validation reducible under R2. E119 bounds measured fixture sizes only. 7a closes the live connection. |
 | S05 / I09,I10 | Source/settings and qualified theory response | Provider-specific, unknown adapter cost | Source and response correlation required | Exact events → theory input → qualified annotations | Essential if enabled, otherwise no startup. E110 supplies compute/import, not adapter timing. Worker/translation cost unknown in 7a. |
-| S06 / I10,I11 | Whole proposal sequence, IDs, defaults, constraints, complete candidate | Source canonicalizer retained; no agent-text reconstruction | Compare proposal/source digest and map scope | Resolve each operation against full state; preserve unnamed fields | Essential: E114 and S06 refusal fixtures. Product/compiler cost unknown in 7b; E114 token counts are not compile timings. |
-| S07 / I07,I11,I04,I05 | Complete candidate, writable grids, protection, preflight and readback | Existing note order/default normalization; no new hash domain | Compare independent complete observed state | Candidate → typed ops → recorded apply; new proposal adapter unknown | Essential: D9/D15/E54. Existing page counts follow the extent/width formula; elapsed time remains unknown. Repeated preflight/stash is R1; post-read remains. |
+| S06 / I10,I11 | Whole proposal sequence, IDs, defaults, constraints, complete candidate | Source canonicalizer retained; candidate preview has its own canonical SHA-256 | Compare proposal/source digest, event map and accepted preview digest | Resolve each operation against full state; preserve unnamed fields | Essential and implemented: E121 refusal fixtures. In the 20-note live candidate, source validation was 0.160 ms, proposal validation 0.825 ms, candidate compilation 1.097 ms and operation translation 0.084 ms. |
+| S07 / I07,I11,I04,I05 | Complete candidate, writable grids, protection, preflight and readback | Existing note order/default normalization; no new source hash domain | Compare fresh source and independent complete observed state | Candidate → typed ops → recorded apply; host defaults stay explicit | Essential and implemented: E121. Fresh preflight was 3,801.443 ms, recorded apply 8,173.118 ms and independent readback 3,744.445 ms. R1 remains blocked; post-read remains. |
 | S08 / I12,I11 | Initial profile rejects this proposal schema | Future lowering unknown | Source/context identity still required if later enabled | General groove lowering is unbuilt | Historical fixed-object probe; unknown future cost. Excluded from initial 7b, not a free supported seam. |
-| S09 / I13,I10,I11 | Permission, two identities, complete/used coverage | Explicit event/order forms, adapter unknown | Verify seed and reference separately | Extract traits; independently compare complete reference and candidate | Essential: E117/S09 copy controls. Unknown implementation/time; bound work by both note counts, not excerpt size. 7b must measure comparisons separately. |
+| S09 / I13,I10,I11 | Permission, two identities, complete/used coverage | Explicit event/order forms | Verify seed and reference separately | Extract traits; independently compare complete reference and candidate | Essential and implemented: E121. A 16-note reference projection took 0.849 ms. Complete 16-reference/20-candidate comparison took 1.220 ms. Work stays bounded by both complete note counts, not excerpt size. |
 | S10 / I09,I14 | Compatible formula, units, settings, coverage and finite values | No second exact-state canonicalizer planned | Retain both source digests | Select task fields; compute allowed delta; no provider recomputation | Essential: E118/6i contract. New v1 cost unknown in 7a. Bounded selected field count must be explicit. Broader unused analysis is reducible under R4. |
 | S11 / I15,I03 | Directory association, inactive recorder, bounded stop, exactly one stable file and header | No audio re-encoding | Full file-byte SHA-256; reject change during hash | Recorder state and directory diff → artifact | Essential: E103. E103 lifecycle timings bound only those samples. Product adapter/header/hash split unknown in 7e. Signal analysis belongs to S12/S13. |
 | S12 / I15,I16 | Artifact identity, header, requested range/channels, before/after use checks | Keep original bytes; no implicit resample | Verify exact consumed bytes and detect mutation during analysis | Stream time base → samples, explicit decode/channel policy | Essential: E105/S12. Byte work covers full artifact; provider compute is separate. Current product input consumer/time unknown in 7d/7e. |
@@ -141,7 +141,7 @@ it does not mean that the entire seam costs zero.
 | S14 / I17,I18 | Full TS manifest/bytes rules, index identity and source compatibility | Installed tree and disposable corpus/index recipe | All opened source bytes; index tied to source/extractor/settings | Verified bytes → records → source-routed bounded hits | Essential: E104. Hash/open/build/query measurements above; stronger product adapter unknown. R3 can share the same verified bytes within one open. |
 | S15 / I19–I22 | Catalog version, donor shape/footprint, seed capacity, parser/authoring checks | Preserve supported byte structure and explicit relocation | Catalog tree fingerprint; seed hashes where supplied; donor manifest is not a per-donor hash guarantee | Existing internal binary/catalog adapters remain | Essential: S15 component fixtures and D15. Work bounded by selected bytes/objects/catalog files; isolated wall time unknown. Cross-module export wrapper unknown and only needed if 7f uses it. |
 | S16 / I05,I06,I08,I23,I24 | Existing observation migrations/record validation; run-profile and ID links planned | Existing stable observation JSON | Record equality/conflict checks; artifact IDs must keep their own domains | Take/status/UI/operator evidence → run record | Essential authority and effects record. Work bounded by entries/serialized bytes; new cross-module record/time unknown in 7f. Blind evaluation machinery is historical. |
-| S17 / I24 | Descriptor version, accepted schemas, request ID, source, deadline and response | Per-module framing only; no global state serializer | Source correlation, not a substitute for source validation | Typed in-process calls or private JSON worker frames | Essential: contract failure isolation. Registry/protocol are unbuilt; startup, framing and validation time unknown. Measure only when enabled in each module session. |
+| S17 / I24 | Descriptor version, accepted schemas, request ID, source, deadline and response | Per-module framing only; no global state serializer | Source correlation, not a substitute for source validation | Typed in-process calls or private JSON worker frames | Essential: the in-process registry is implemented. E120 covers registry failure isolation. The 7b compiler and reference fixtures cover source correlation. Executable worker framing remains module-local and unbuilt until selected. |
 
 The [seam ledger](WORKSTATION_SEAMS.md) supplies the component fixture and
 consumer blocker for each row. No reduction can waive those fixtures. Existing
@@ -201,16 +201,17 @@ under the named policy, with actual elapsed time and known effects.
 
 ## Measurement gaps and next gates
 
-No new live measurement was needed to decide this audit. Existing safety proofs
-and the E119 offline count test settle classification. A live read would add a
-machine-specific latency, but would not implement or bound an absent seam.
+E119 needed no live measurement to classify these costs. Phase 7 successor
+sessions now add machine-specific measurements only when they implement a seam.
 
 - [E120](../experiments/e120-symbolic-context-connects-complete-live-state.md)
   records the 2,048-step reader, three pages, one reset and 2,321.882 ms complete
   acquisition for the selected four-beat clip. It measures S03, S04 and the
   in-process S17 boundary separately. S05 and S10 did not run.
-- 7b separates source/preflight/stash, compiler, final readback and reversal
-  preparation. R1 remains blocked until equivalent freshness is proved.
+- [E121](../experiments/e121-guarded-agent-note-patches-pass-live-reference-dogfood.md)
+  separates compiler, complete reference comparison, fresh preflight, recorded
+  apply and final readback. It measures S06, S07 and S09. R1 remains blocked
+  until equivalent freshness is proved.
 - 7c measures the strong cache gate and source/index startup separately from
   query. 7d measures consumed-byte verification and selected fact adapters.
 - 7e separates attribution/hash/header from capture and analysis. Use disposable

@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-21
+updated: 2026-09-22
 ---
 
 # Evidence index
@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E121 | Guarded agent note patches pass live reference dogfood [O/K] (2026-09-22) | [open](experiments/e121-guarded-agent-note-patches-pass-live-reference-dogfood.md) |
 | E120 | Symbolic context connects complete live state [K] (2026-09-21) | [open](experiments/e120-symbolic-context-connects-complete-live-state.md) |
 | E119 | Offline verification-cost audit [K] (2026-09-21) | [open](experiments/e119-offline-verification-cost-audit.md) |
 | E118 | Task-routed sensory packets improve bounded decisions [O/K] (2026-09-20) | [open](experiments/e118-task-routed-sensory-packets-improve-bounded-decisions.md) |

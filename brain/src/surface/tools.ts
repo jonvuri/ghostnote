@@ -82,7 +82,12 @@ import {
 } from './workspace.js';
 import { showChangedClip } from './navigation.js';
 import type { StatusCategory } from './status.js';
-import { applyMusicalPatch } from '../musical/index.js';
+import {
+  applyMusicalPatch, applyNoteProposal, compareCandidateToReference,
+  compileNoteProposal, musicalPatchSchema, noteProposalInvariantsSchema,
+  noteProposalSchema, referenceContextResultValidator, validateExactNoteSource,
+  type ExactNoteSource, type NoteCompilerRequest,
+} from '../musical/index.js';
 import {
   MUSICAL_RESULT_CONTRACT, musicalToolInputSchema, musicalToolInputValidator,
   publicMusicalResult,
@@ -4221,6 +4226,136 @@ export const TOOLS: readonly ToolSpec[] = [
   }),
 ];
 
+export const STABLE_TOOL_PROFILE = 'stable-v1';
+export const EXPERIMENTAL_7B_TOOL_PROFILE = 'phase-7b-agent-note-patch-v0';
+export type ToolProfile = typeof STABLE_TOOL_PROFILE | typeof EXPERIMENTAL_7B_TOOL_PROFILE;
+
+const exactSourceInput = z.custom<ExactNoteSource>((value) => {
+  try {
+    validateExactNoteSource(value as ExactNoteSource);
+    return true;
+  } catch {
+    return false;
+  }
+}).describe(
+  'Complete ghostnote-exact-note-source-v0 state from the experimental symbolic path.',
+);
+const referenceInput = z.object({
+  projection: referenceContextResultValidator.describe(
+    'Validated reference-context-v0 projection.',
+  ),
+  source: exactSourceInput.describe('Complete permitted reference source used by the projection.'),
+}).strict();
+const agentProposalBase = {
+  mode: z.literal('agent-note-proposal-v0'),
+  source: exactSourceInput,
+  proposal: noteProposalSchema,
+  invariants: noteProposalInvariantsSchema,
+  reference: referenceInput.optional(),
+};
+const agentProposalInput = z.discriminatedUnion('action', [
+  z.object({ ...agentProposalBase, action: z.literal('preview') }).strict(),
+  z.object({
+    ...agentProposalBase,
+    action: z.literal('apply'),
+    acceptedPreviewSha256: z.string().regex(/^[0-9a-f]{64}$/),
+  }).strict(),
+]);
+const experimentalTransformationInput = z.union([musicalPatchSchema, agentProposalInput]);
+
+function agentProposalRequest(args: z.infer<typeof agentProposalInput>): NoteCompilerRequest {
+  return {
+    source: args.source,
+    proposal: args.proposal,
+    invariants: args.invariants,
+  };
+}
+
+function proposalReferenceComparison(
+  args: z.infer<typeof agentProposalInput>,
+  candidate: ReturnType<typeof compileNoteProposal>['candidate'],
+) {
+  if (args.reference === undefined) return undefined;
+  return compareCandidateToReference(
+    args.reference.projection,
+    args.reference.source,
+    candidate,
+  );
+}
+
+const stableTransformation = TOOLS.find((item) => item.name === 'transform_clip_music')!;
+const experimentalTransformation: ToolSpec = {
+  ...stableTransformation,
+  title: 'Transform music or execute an accepted agent note proposal',
+  description: `${stableTransformation.description}\n`
+    + `Experimental profile ${EXPERIMENTAL_7B_TOOL_PROFILE}: mode agent-note-proposal-v0 `
+    + 'accepts only ghostnote-note-patch-v0. Preview is read-only and returns the complete exact '
+    + 'before and candidate state, typed operations, guards, invariants, defaults, loss, and a '
+    + 'preview digest. Apply needs that exact digest, refreshes complete state, uses the recorded '
+    + 'workspace write seam, and performs an independent complete readback. Stale state, pressure '
+    + 'loss, unreported overlap shortening, unsupported timing, and invariant failures refuse.',
+  inputValidator: experimentalTransformationInput,
+  resultContract: {
+    format: 'ghostnote-agent-note-proposal-result',
+    version: 0,
+    profile: EXPERIMENTAL_7B_TOOL_PROFILE,
+    actions: ['preview', 'apply'],
+    preview: [
+      'before', 'candidate', 'operations', 'guards', 'invariants', 'insertionDefaults',
+      'losses', 'previewDigest',
+    ],
+    apply: ['change', 'readback', 'reversal'],
+  },
+  async run(workspace, input) {
+    if ((input as { mode?: unknown }).mode !== 'agent-note-proposal-v0') {
+      return stableTransformation.run(workspace, input as never);
+    }
+    const args = input as z.infer<typeof agentProposalInput>;
+    return writing(async () => {
+      const request = agentProposalRequest(args);
+      const preview = compileNoteProposal(request);
+      const referenceComparison = proposalReferenceComparison(args, preview.candidate);
+      if (args.action === 'preview') {
+        return {
+          format: 'ghostnote-agent-note-proposal-result',
+          version: 0,
+          profile: EXPERIMENTAL_7B_TOOL_PROFILE,
+          action: 'preview',
+          applied: false,
+          preview,
+          ...(referenceComparison === undefined ? {} : { referenceComparison }),
+        };
+      }
+      const application = await applyNoteProposal(workspace, {
+        ...request,
+        acceptedPreviewSha256: args.acceptedPreviewSha256,
+      });
+      return {
+        format: 'ghostnote-agent-note-proposal-result',
+        version: 0,
+        profile: EXPERIMENTAL_7B_TOOL_PROFILE,
+        action: 'apply',
+        applied: application.applied,
+        preview: application.preview,
+        ...(referenceComparison === undefined ? {} : { referenceComparison }),
+        change: application.change,
+        ...(application.readback === undefined ? {} : { readback: application.readback }),
+        ...(application.verificationFailure === undefined
+          ? {} : { verificationFailure: application.verificationFailure }),
+        reversal: application.reversal,
+      };
+    });
+  },
+};
+
+export const EXPERIMENTAL_7B_TOOLS: readonly ToolSpec[] = TOOLS.map((item) =>
+  item.name === 'transform_clip_music' ? experimentalTransformation : item);
+
+/** Select a frozen tool profile without changing stable registration. */
+export function toolsForProfile(profile: ToolProfile = STABLE_TOOL_PROFILE): readonly ToolSpec[] {
+  return profile === EXPERIMENTAL_7B_TOOL_PROFILE ? EXPERIMENTAL_7B_TOOLS : TOOLS;
+}
+
 // --- plumbing ----------------------------------------------------------------
 
 const coverage = (c: { count: number; bankSize: number }): {
@@ -4244,7 +4379,10 @@ function sourceOf(d: { from: string; id?: string; path?: string }): DeviceSource
   return { from: 'bitwig', uuid: d.id };
 }
 
-export const toolNamed = (name: string): ToolSpec | undefined => TOOLS.find((t) => t.name === name);
+export const toolNamed = (
+  name: string,
+  profile: ToolProfile = STABLE_TOOL_PROFILE,
+): ToolSpec | undefined => toolsForProfile(profile).find((item) => item.name === name);
 
 function object(value: unknown): Record<string, unknown> | undefined {
   return value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -4417,16 +4555,21 @@ export async function callTool(
   workspace: Workspace,
   name: string,
   args: unknown = {},
+  profile: ToolProfile = STABLE_TOOL_PROFILE,
 ): Promise<unknown> {
-  const spec = toolNamed(name);
+  const spec = toolNamed(name, profile);
   if (spec === undefined) throw new Error(`no such tool: ${name}`);
   const parsed = (spec.inputValidator ?? z.object(spec.inputSchema)).parse(args);
   return executeTool(workspace, spec, parsed);
 }
 
 /** Put every tool on an MCP server, with the annotations its class implies. */
-export function registerTools(server: McpServer, workspace: Workspace): void {
-  for (const spec of TOOLS) {
+export function registerTools(
+  server: McpServer,
+  workspace: Workspace,
+  profile: ToolProfile = STABLE_TOOL_PROFILE,
+): void {
+  for (const spec of toolsForProfile(profile)) {
     server.registerTool(
       spec.name,
       {
@@ -4444,6 +4587,7 @@ export function registerTools(server: McpServer, workspace: Workspace): void {
               : cancellableWorkspace(workspace, extra.signal),
             spec.name,
             args,
+            profile,
           )),
         }],
       }),
