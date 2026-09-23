@@ -826,6 +826,23 @@ test('X-checkpoint: typed modulation and automation survive as warnings', async 
   assert.equal(take.values[0]?.caveats.some((item) => item.includes('automation')), true);
 });
 
+test('7f-follow-up: fidelity ignores host noise but still reports automation', async () => {
+  const fx = await fixture();
+  const trackModel = fx.fake.model.findByChannelId(fx.trackA.channelId)!.track;
+  trackModel.devices.push({
+    name: 'Noisy host value', paramsLive: true,
+    params: [{
+      id: 'P1', name: 'Parameter 1', value: 0.18,
+      modulatedValue: 0.18000000715255737, hasAutomation: true,
+    }],
+  });
+  const take = await fx.executor.run([{
+    op: 'param.set', param: param(device(fx.trackA, 0), 'P1'), value: 0.2,
+  }]);
+  assert.equal(take.values[0]?.caveats.some((item) => item.includes('modulation')), false);
+  assert.equal(take.values[0]?.caveats.some((item) => item.includes('automation')), true);
+});
+
 test('4f checkpoint: a remote write verifies and exact reversal restores its base', async () => {
   const fx = await fixture();
   const trackModel = fx.fake.model.findByChannelId(fx.trackA.channelId)!.track;

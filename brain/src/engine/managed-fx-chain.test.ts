@@ -220,6 +220,28 @@ test('4g managed chain reports modulation and automation that appear after the w
   await reverseManagedFxChain(fx.host, checkpoint);
 });
 
+test('7f-follow-up: managed FX ignores host noise but still reports automation', async () => {
+  const fx = fixture((ops, fake) => {
+    const inserted = fake.model.visibleTracks()[0]!.devices.at(-1);
+    if (inserted === undefined) return;
+    const parameter = inserted.params[0]!;
+    parameter.modulatedValue = parameter.value + 0.00000000715255737;
+    parameter.hasAutomation = true;
+  });
+
+  const checkpoint = await buildManagedFxChain(fx.host, {
+    track: fx.track,
+    devices: [{
+      token: 'host-noise',
+      source: { from: 'bitwig', uuid: 'host-noise' },
+      parameters: [{ directId: 'P1', value: 0.18 }],
+    }],
+  });
+
+  assert.deepEqual(checkpoint.report.warnings.map((item) => item.condition), ['automation']);
+  await reverseManagedFxChain(fx.host, checkpoint);
+});
+
 test('4g managed chain refuses an incomplete device bank before any write', async () => {
   const fx = fixture();
   modelTrack(fx).devices.push(existingDevice('A', 0.1), existingDevice('B', 0.2));

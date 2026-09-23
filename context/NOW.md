@@ -9,6 +9,12 @@ session: 7f-hybrid-workstation-dogfood
 
 # Now
 
+The 7f follow-up is complete. [E126](evidence/experiments/e126-warning-response-and-discovery-reduction.md)
+records the shared warning tolerance, compact successful parameter results,
+and compact MCP instructions. A fresh Codex UI session loaded Ghostnote and
+called `check_connection`. Codex did not surface the server instructions
+separately from tool schemas.
+
 Phase 7e is complete. [E125](evidence/experiments/e125-audio-capture-composes-with-verified-file-analysis.md)
 connects guarded launcher capture to independent verified-file analysis. Phase
 6 is complete. Phase 3 remains deferred. Phase 5 still has generalized
@@ -16,13 +22,12 @@ closeout work after its accepted public result.
 
 ## Next session
 
-Run [7f: hybrid workstation dogfood](plan/phase-7/7f-hybrid-workstation-dogfood.md).
-Read the [contracts](evidence/format/WORKSTATION_CONTRACTS.md),
-[seam ledger](evidence/format/WORKSTATION_SEAMS.md),
-[verification rules](evidence/format/WORKSTATION_VERIFICATION.md), E120–E125,
-and the [dogfood menu](plan/phase-7/MENU.md). Select one real musical goal and
-operating mode. Close S16 with an explicit run record. Close S15 only if the
-selected task crosses its blocked artifact seam.
+Resume [7f](plan/phase-7/7f-hybrid-workstation-dogfood.md). Select one real
+musical goal, state the experimental profile and acceptance criteria, and run
+the composed workstation dogfood. Close S16 with the exact formats used.
+
+The first informal device-alternate task did not run the experimental audio
+profile and did not close S16. Do not add a custom tool-search index.
 
 ## 7e handoff
 
@@ -52,7 +57,8 @@ not remove the fresh note preflight or final readback.
 
 ## Retrospective
 
-The full file SHA-256 let analysis re-identify captured bytes without recorder
-state. The first live fixture refusal showed that a probe must record cleanup
-identity at the first owned creation boundary and must not hide cleanup errors.
-The review found that recorder cleanup alone did not prove transport cleanup.
+One shared tolerance removed false warnings without weakening the authored
+modulation gate. Compact success results removed repeated receipts while the
+change store retained complete reversal evidence. The client check must name
+the data boundary before it starts a second AI session. Codex can call the
+server without presenting its protocol-level instructions as separate context.

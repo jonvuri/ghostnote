@@ -85,8 +85,10 @@ async function reverse(changeIds: readonly string[]): Promise<boolean> {
 }
 
 function changeIds(result: Record<string, unknown>): string[] {
-  return ((result['changes'] as readonly { readonly changeId: string }[] | undefined) ?? [])
-    .map((change) => change.changeId);
+  const routes = (result['parameterChanges'] as readonly {
+    readonly changes: readonly { readonly changeId: string }[];
+  }[] | undefined) ?? [];
+  return routes.flatMap((route) => route.changes).map((change) => change.changeId);
 }
 
 try {

@@ -206,11 +206,14 @@ try {
     normalizedValue: requested,
   }] }) as {
     verified?: boolean;
-    changes?: readonly { changeId: string }[];
+    parameterChanges?: readonly {
+      changes: readonly { changeId: string }[];
+    }[];
     elapsedMs?: number;
   };
+  const parameterChangeId = changed.parameterChanges?.[0]?.changes[0]?.changeId;
   check('4i-L7: a returned DirectParameter id writes with exact readback',
-    changed.verified === true && typeof changed.changes?.[0]?.changeId === 'string', changed);
+    changed.verified === true && typeof parameterChangeId === 'string', changed);
   check('4i-L7-budget: top-level scalar replay stays within E61',
     typeof changed.elapsedMs === 'number' && changed.elapsedMs <= 6_000, changed);
 
@@ -226,7 +229,7 @@ try {
     changeId: bypassed.changes?.[0]?.changeId,
   });
   const restoredParameter = await call('revert_change', {
-    changeId: changed.changes?.[0]?.changeId,
+    changeId: parameterChangeId,
   });
   check('4i-L9: ordinary reversal restores both scalar bases exactly',
     restoredBypass['applied'] === true && restoredParameter['applied'] === true, {

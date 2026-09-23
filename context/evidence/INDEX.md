@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E126 | Warning, response, and discovery reduction passes [K] (2026-09-23) | [open](experiments/e126-warning-response-and-discovery-reduction.md) |
+| E125 | Audio capture composes with verified file analysis [K] (2026-09-23) | [open](experiments/e125-audio-capture-composes-with-verified-file-analysis.md) |
 | E124 | Audio facts and sensory packets connect verified files [K] (2026-09-23) | [open](experiments/e124-audio-facts-and-sensory-packets-connect-verified-files.md) |
 | E123 | Automatic user-guide cache is cold-to-warm [K] (2026-09-23) | [open](experiments/e123-automatic-user-guide-cache-is-cold-to-warm.md) |
 | E122 | Documentation provider connects verified offline sources [K] (2026-09-23) | [open](experiments/e122-documentation-provider-connects-verified-offline-sources.md) |

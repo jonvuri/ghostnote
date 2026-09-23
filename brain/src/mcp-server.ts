@@ -34,7 +34,16 @@ import { workspaceOf } from './surface/workspace.js';
 
 const session = new Session();
 
-const server = new McpServer({ name: 'ghostnote', version: '0.0.1' });
+const server = new McpServer({
+  name: 'ghostnote',
+  version: '0.0.1',
+}, {
+  instructions: 'Ghostnote reads and edits the active Bitwig Studio project: tracks, launcher clips, '
+    + 'notes, devices, parameters, modulation, device alternates, and verified composition workflows. '
+    + 'Clients should use a specific read when current state is needed. Writes return recorded '
+    + 'change IDs; supported writes can be inspected or reversed. Delete tools permanently remove '
+    + 'containers.',
+});
 
 registerTools(server, workspaceOf({
   ready: async () => {

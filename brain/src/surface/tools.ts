@@ -61,6 +61,7 @@ import {
   deviceEnabled as deviceEnabledAt, deviceIn, drumPad as drumPadAt,
   addressKey, blindCount, blindSpotError, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, lookupChain,
   projectedReorder, exactClipColor, supportedClipColors, discreteNormalizedValues,
+  hasMeaningfulBaseToModulatedDivergence,
   AddressUnresolvedError, BankWindowOverflowError, SlotOccupiedError,
   type Address, type ClipAddress, type DeviceAddress, type DeviceSource, type NoteRecord,
   type ObservedDeviceBank, type Op, type OpKind, type ParamState, type Recurrence,
@@ -546,13 +547,101 @@ function publicParameter(parameter: ParamState): Record<string, unknown> {
 function parameterWarnings(parameter: ParamState): string[] {
   return [
     ...(parameter.modulatedValue !== undefined
-        && Math.abs(parameter.modulatedValue - parameter.value) > 1e-9
+        && hasMeaningfulBaseToModulatedDivergence(parameter.value, parameter.modulatedValue)
       ? ['The modulated value differs from the stored base value. A static write is not the value heard.']
       : []),
     ...(parameter.hasAutomation === true
       ? ['Host automation can override the stored base value.']
       : []),
   ];
+}
+
+type ParameterWarningCode = 'base-modulated-divergence' | 'automation-can-override-base';
+
+interface ParameterWarningOccurrence {
+  readonly code: ParameterWarningCode;
+  readonly message: string;
+  readonly settingIndex: number;
+  readonly selector: Record<string, unknown>;
+}
+
+function parameterSelector(setting: NormalizedParameterSetting): Record<string, unknown> {
+  return setting.kind === 'direct'
+    ? { kind: 'direct', parameterId: setting.parameterId }
+    : {
+      kind: 'remote',
+      pagePosition: setting.pagePosition,
+      pageName: setting.pageName,
+      controlPosition: setting.controlPosition,
+      controlName: setting.controlName,
+    };
+}
+
+function parameterWarning(
+  settingIndex: number,
+  setting: NormalizedParameterSetting,
+  message: string,
+): ParameterWarningOccurrence {
+  return {
+    code: message.startsWith('Host automation')
+      ? 'automation-can-override-base'
+      : 'base-modulated-divergence',
+    message,
+    settingIndex,
+    selector: parameterSelector(setting),
+  };
+}
+
+function groupedParameterWarnings(warnings: readonly ParameterWarningOccurrence[]) {
+  const groups: Array<{
+    code: ParameterWarningCode;
+    message: string;
+    settings: Array<{ settingIndex: number; selector: Record<string, unknown> }>;
+  }> = [];
+  const byKey = new Map<string, (typeof groups)[number]>();
+  for (const warning of warnings) {
+    const key = `${warning.code}\u0000${warning.message}`;
+    let group = byKey.get(key);
+    if (group === undefined) {
+      group = { code: warning.code, message: warning.message, settings: [] };
+      byKey.set(key, group);
+      groups.push(group);
+    }
+    group.settings.push({ settingIndex: warning.settingIndex, selector: warning.selector });
+  }
+  return groups;
+}
+
+function compactParameterChanges(
+  settings: readonly NormalizedParameterSetting[],
+  receipts: readonly ReturnType<typeof receiptOf>[],
+) {
+  const routes: Array<{
+    device: DeviceTargetInput;
+    changes: Array<{
+      settingIndex: number;
+      selector: Record<string, unknown>;
+      changeId: string;
+    }>;
+  }> = [];
+  const byRoute = new Map<string, (typeof routes)[number]>();
+  for (const [settingIndex, setting] of settings.entries()) {
+    const receipt = receipts[settingIndex];
+    if (receipt === undefined) throw new Error('the successful parameter result is missing a scalar receipt');
+    const key = JSON.stringify(setting.device);
+    let route = byRoute.get(key);
+    if (route === undefined) {
+      route = { device: setting.device, changes: [] };
+      byRoute.set(key, route);
+      routes.push(route);
+    }
+    route.changes.push({
+      settingIndex,
+      selector: parameterSelector(setting),
+      changeId: receipt.changeId,
+    });
+  }
+  return routes;
 }
 
 function sliceFor(
@@ -2144,7 +2233,10 @@ export const TOOLS: readonly ToolSpec[] = [
           remotePages: pages,
           valueCapabilities: parameterValueCapabilities,
           warnings: pages.flatMap((page) => page.controls.flatMap((control) => [
-            ...(Math.abs(control.modulatedValue - control.normalizedValue) > 1e-9
+            ...(hasMeaningfulBaseToModulatedDivergence(
+              control.normalizedValue,
+              control.modulatedValue,
+            )
               ? [{
                 remote: { pagePosition: page.position, controlPosition: control.position },
                 message: 'The modulated value differs from the stored base value.',
@@ -2619,7 +2711,9 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'cohort before the first scalar write. Each DirectParameter scalar gets complete inventory '
       + 'readback. An unrequested parameter delta stops the cohort and stays unattributed because '
       + 'the host does not identify its author. Modulation and automation warnings state when a '
-      + 'static base value can differ from the value heard.',
+      + 'static base value can differ from the value heard. A complete success groups change IDs '
+      + 'and parameter selectors under each shared device route. A failure or partial result keeps '
+      + 'the full scalar receipts inline. list_changes keeps the complete recorded scalar details.',
     inputSchema: {
       settings: z.array(parameterSetting).min(1),
     },
@@ -2627,18 +2721,19 @@ export const TOOLS: readonly ToolSpec[] = [
     resultContract: {
       partialSuccess: 'True when an earlier verified write finished before a later setting failed.',
       verified: 'True only when every requested normalized base value agrees with readback.',
-      changes: 'One recorded write receipt per scalar target.',
+      parameterChanges: 'On complete success, shared device routes with each setting index, selector, and change ID.',
+      changes: 'Full scalar receipts on a failure or partial result. Empty when a request is refused before writes.',
       allowedParameterDomain: 'On a discrete-domain refusal, the exact normalized values and optional names.',
       unsupportedValue: 'A semantic request and the API boundary that refused it before project access.',
       valueCapabilities: 'Separate normalized, displayed, discrete, and semantic read and write support.',
-      warnings: 'Observed modulation or automation that can override a static base value.',
+      warnings: 'Warnings grouped by code and message, with affected setting indexes and selectors.',
       elapsedMs: 'Wall-clock time for this call.',
       reversal: 'Exact base-value replay while the positional device target remains valid.',
     },
     async run(workspace, args) {
       const started = performance.now();
       const changes: ReturnType<typeof receiptOf>[] = [];
-      const warnings: Array<Record<string, unknown>> = [];
+      const warnings: ParameterWarningOccurrence[] = [];
       const unsupportedIndex = args.settings.findIndex(isSemanticParameterSetting);
       if (unsupportedIndex >= 0) {
         const setting = args.settings[unsupportedIndex] as SemanticParameterSetting;
@@ -2657,7 +2752,7 @@ export const TOOLS: readonly ToolSpec[] = [
           },
           valueCapabilities: parameterValueCapabilities,
           changes,
-          warnings,
+          warnings: groupedParameterWarnings(warnings),
           elapsedMs: Math.round(performance.now() - started),
         };
       }
@@ -2726,11 +2821,8 @@ export const TOOLS: readonly ToolSpec[] = [
               if (matches.length !== 1) {
                 throw new Error(`the DirectParameter id matched ${matches.length} parameters`);
               }
-              warnings.push(...parameterWarnings(matches[0]!).map((message) => ({
-                settingIndex: item.settingIndex,
-                parameterId: setting.parameterId,
-                message,
-              })));
+              warnings.push(...parameterWarnings(matches[0]!).map((message) =>
+                parameterWarning(item.settingIndex, setting, message)));
               ops.push({
                 op: 'param.set',
                 param: paramAt(target, setting.parameterId),
@@ -2767,17 +2859,22 @@ export const TOOLS: readonly ToolSpec[] = [
               if (page?.name !== setting.pageName || control?.name !== setting.controlName) {
                 throw new Error('the remote page or control does not match the fresh inventory');
               }
-              if (Math.abs(control.modulatedValue - control.value) > 1e-9) {
-                warnings.push({
-                  settingIndex: item.settingIndex,
-                  message: 'The modulated value differs from the stored base value.',
-                });
+              if (hasMeaningfulBaseToModulatedDivergence(
+                control.value,
+                control.modulatedValue,
+              )) {
+                warnings.push(parameterWarning(
+                  item.settingIndex,
+                  setting,
+                  'The modulated value differs from the stored base value.',
+                ));
               }
               if (control.hasAutomation === true) {
-                warnings.push({
-                  settingIndex: item.settingIndex,
-                  message: 'Host automation can override the stored base value.',
-                });
+                warnings.push(parameterWarning(
+                  item.settingIndex,
+                  setting,
+                  'Host automation can override the stored base value.',
+                ));
               }
               ops.push({
                 op: 'remote.set',
@@ -2811,9 +2908,9 @@ export const TOOLS: readonly ToolSpec[] = [
           applied: changes.every((change) => change.applied),
           partialSuccess: false,
           verified,
-          changes,
+          parameterChanges: compactParameterChanges(normalizedSettings, changes),
           valueCapabilities: parameterValueCapabilities,
-          warnings,
+          warnings: groupedParameterWarnings(warnings),
           reversal: 'exact-base-value-while-the-device-route-remains-valid',
           elapsedMs: Math.round(performance.now() - started),
         };
@@ -2826,7 +2923,7 @@ export const TOOLS: readonly ToolSpec[] = [
           why: 'A later setting did not finish after earlier writes completed.',
           changes,
           valueCapabilities: parameterValueCapabilities,
-          warnings,
+          warnings: groupedParameterWarnings(warnings),
           reversal: 'exact-base-value-while-the-device-route-remains-valid',
           elapsedMs: Math.round(performance.now() - started),
         };

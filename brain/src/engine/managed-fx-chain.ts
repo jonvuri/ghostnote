@@ -6,7 +6,7 @@
  * structural step and every automatic removal.
  */
 import {
-  addressKey, device, deviceEnabled, param,
+  addressKey, device, deviceEnabled, hasMeaningfulBaseToModulatedDivergence, param,
   type Address, type DeviceAddress, type DeviceSource, type ObservedDevice,
   type ObservedDeviceBank, type Op, type ParamAddress, type ParamState,
   type RevisionMark, type Snapshot, type TrackAddress,
@@ -538,7 +538,7 @@ function warningsOf(parameter: PendingParameter): ManagedFxWarning[] {
   const warnings: ManagedFxWarning[] = [];
   const state = parameter.state;
   if (state.observed.modulatedValue && state.modulatedValue !== undefined
-      && Math.abs(state.modulatedValue - state.value) > 1e-9) {
+      && hasMeaningfulBaseToModulatedDivergence(state.value, state.modulatedValue)) {
     warnings.push({
       token: parameter.token,
       parameter: state.name,

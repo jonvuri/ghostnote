@@ -32,6 +32,19 @@ interface WrapperResult {
   readonly reversalCheckpoint?: unknown;
 }
 
+interface ParameterSuccess {
+  readonly verified?: boolean;
+  readonly parameterChanges?: readonly {
+    readonly changes: readonly { readonly changeId?: string }[];
+  }[];
+}
+
+function parameterChangeIds(result: ParameterSuccess): string[] {
+  return (result.parameterChanges ?? [])
+    .flatMap((route) => route.changes)
+    .flatMap((change) => change.changeId ?? []);
+}
+
 function sameTracks(left: readonly TrackState[], right: readonly TrackState[]): boolean {
   return JSON.stringify(left.map((item) => [item.channelId, item.name, item.position, item.type]))
     === JSON.stringify(right.map((item) => [item.channelId, item.name, item.position, item.type]));
@@ -184,9 +197,9 @@ try {
       controlPosition: timebase.position,
       controlName: timebase.name,
       normalizedValue: mode,
-    }] }) as { readonly verified?: boolean; readonly changes?: readonly { readonly changeId?: string }[] };
+    }] }) as ParameterSuccess;
     if (modeSet.verified !== true) throw new Error(`Timebase write failed: ${JSON.stringify(modeSet)}`);
-    scalarChanges.push(...(modeSet.changes ?? []).flatMap((change) => change.changeId ?? []));
+    scalarChanges.push(...parameterChangeIds(modeSet));
 
     for (const normalizedValue of [0.25, 0.5, 0.75]) {
       const rateSet = await callTool(workspace, 'set_parameter', { settings: [{
@@ -200,9 +213,9 @@ try {
         controlPosition: rate.position,
         controlName: rate.name,
         normalizedValue,
-      }] }) as { readonly verified?: boolean; readonly changes?: readonly { readonly changeId?: string }[] };
+      }] }) as ParameterSuccess;
       if (rateSet.verified !== true) throw new Error(`Rate write failed: ${JSON.stringify(rateSet)}`);
-      scalarChanges.push(...(rateSet.changes ?? []).flatMap((change) => change.changeId ?? []));
+      scalarChanges.push(...parameterChangeIds(rateSet));
       const observedPage = (await publicPages(workspace, container)).find(
         (page) => page.position === classic.position && page.name === classic.name,
       );

@@ -57,7 +57,8 @@ export type {
 export {
   GAIN_READ_SCALE, LAUNCH_MODES, LAUNCH_QUANTIZATIONS, NOTE_PROP_FIDELITY, NOTE_PROP_WRITE_ORDER, UNVERIFIED_NOTE_PROPS,
   UNWRITABLE_NOTE_PROPS, hasUnverifiedProps, orderedNoteProps, unwritableProps,
-  discreteNormalizedValues, discreteValueIsRepresentable,
+  BASE_TO_MODULATED_WARNING_TOLERANCE, discreteNormalizedValues, discreteValueIsRepresentable,
+  hasMeaningfulBaseToModulatedDivergence,
 } from './state.js';
 export type {
   ClipColor, ClipLaunchState, ClipMetadataState, ClipPlayState, DeviceState, LaunchMode,

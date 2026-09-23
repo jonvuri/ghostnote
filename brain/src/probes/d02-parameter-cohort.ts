@@ -216,9 +216,12 @@ try {
   const started = performance.now();
   const result = await callTool(workspace, 'set_parameter', { settings }) as {
     readonly verified?: boolean;
-    readonly changes?: readonly { readonly changeId: string }[];
+    readonly parameterChanges?: readonly {
+      readonly changes: readonly { readonly changeId: string }[];
+    }[];
     readonly elapsedMs?: number;
   };
+  const parameterChanges = result.parameterChanges?.flatMap((route) => route.changes);
   const wallMs = performance.now() - started;
   const begins = trace.frames.filter((frame) =>
     frame.method === WIRE.remoteList && frame.params?.['begin'] === true).length;
@@ -226,10 +229,10 @@ try {
     ? ((frame.params?.['ops'] as readonly { readonly method: string }[] | undefined) ?? [])
     : [frame])
     .filter((frame) => frame.method === WIRE.remoteSet);
-  check('d02-s3-L2: one public cohort returns four independent scalar receipts',
+  check('d02-s3-L2: one public cohort returns four independent scalar change ids',
     result.verified === true
-      && result.changes?.length === 4
-      && new Set(result.changes.map((change) => change.changeId)).size === 4,
+      && parameterChanges?.length === 4
+      && new Set(parameterChanges.map((change) => change.changeId)).size === 4,
     result);
   check('d02-s3-L3: the trace has one preflight inventory and one complete readback',
     begins === 2 && writes.length === 4,
@@ -259,8 +262,8 @@ try {
     }),
     settings.map((setting) => setting.normalizedValue));
 
-  if (result.changes === undefined) throw new Error('the cohort returned no scalar receipts');
-  for (const change of [...result.changes].reverse()) {
+  if (parameterChanges === undefined) throw new Error('the cohort returned no scalar change ids');
+  for (const change of [...parameterChanges].reverse()) {
     const reversed = await callTool(workspace, 'revert_change', { changeId: change.changeId }) as {
       readonly applied?: boolean;
     };

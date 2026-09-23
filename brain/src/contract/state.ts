@@ -231,6 +231,17 @@ export interface TrackState {
   readonly type: string;
 }
 
+/** Host-value tolerance for base-to-modulated warning comparisons. */
+export const BASE_TO_MODULATED_WARNING_TOLERANCE = 1e-6;
+
+/** True when host values differ enough to require a modulation warning. */
+export function hasMeaningfulBaseToModulatedDivergence(
+  baseValue: number,
+  modulatedValue: number,
+): boolean {
+  return Math.abs(modulatedValue - baseValue) > BASE_TO_MODULATED_WARNING_TOLERANCE;
+}
+
 export interface ParamState {
   /** DirectParameter id, or the typed handle's catalog id. */
   readonly id: string;
@@ -250,9 +261,9 @@ export interface ParamState {
   };
   readonly display?: string;
   /**
-   * Diverges from `value` exactly when something is modulating the parameter —
-   * a base value holding still while this sweeps is the modulation-liveness
-   * oracle (E7). Its presence is also a signal that a static write will not hold.
+   * A stable difference from `value` can show parameter modulation. A base
+   * value that holds still while this value sweeps is the modulation-liveness
+   * oracle (E7). Its presence can also show that a static write will not hold.
    */
   readonly modulatedValue?: number;
   /** True when host automation can override the static base-value write. */

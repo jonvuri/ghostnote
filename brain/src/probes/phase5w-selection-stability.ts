@@ -157,7 +157,9 @@ interface WrapperResult {
 
 interface ScalarResult {
   readonly verified?: boolean;
-  readonly changes?: readonly { readonly changeId?: string }[];
+  readonly parameterChanges?: readonly {
+    readonly changes: readonly { readonly changeId?: string }[];
+  }[];
 }
 
 interface SelectionStatus {
@@ -321,7 +323,9 @@ try {
       callTool(workspace, 'set_parameter', {
         settings: [setting],
       })) as ScalarResult;
-    const changes = (result.changes ?? []).flatMap((change) => change.changeId ?? []);
+    const changes = (result.parameterChanges ?? [])
+      .flatMap((route) => route.changes)
+      .flatMap((change) => change.changeId ?? []);
     pendingScalarChanges.push(...changes);
     check(`${label}: the scalar write verifies`,
       result.verified === true && changes.length === 1, result);

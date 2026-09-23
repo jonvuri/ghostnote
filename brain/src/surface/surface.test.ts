@@ -46,7 +46,7 @@ import { decodeObservationRecord, FakeObservationStore } from '../observation/in
 import {
   ChangesetNotFoundError, EmptySliceError, Stash, type BoundaryVerdict,
 } from '../stash/index.js';
-import { refusalOf, verdictSentence } from './report.js';
+import { receiptOf, refusalOf, verdictSentence } from './report.js';
 import { SURFACE_WORDS_BANNED, bannedWordsIn } from './naming.js';
 import {
   ANNOTATIONS, REMOVAL_OPS, TOOLS, WRITE_TOOLS_THAT_MAY_REMOVE, callTool, registerTools,
@@ -202,6 +202,24 @@ async function call(fx: Fixture, name: string, args: unknown = {}): Promise<Reco
   ) as Record<string, unknown>;
   emitted.push(`${name}: ${JSON.stringify(result)}`);
   return result;
+}
+
+interface CompactParameterChange {
+  readonly settingIndex: number;
+  readonly selector: Record<string, unknown>;
+  readonly changeId: string;
+}
+
+interface CompactParameterRoute {
+  readonly device: Record<string, unknown>;
+  readonly changes: readonly CompactParameterChange[];
+}
+
+function compactParameterChanges(
+  result: { readonly parameterChanges?: readonly CompactParameterRoute[] },
+): readonly CompactParameterChange[] {
+  return (result.parameterChanges ?? [])
+    .flatMap((route) => route.changes);
 }
 
 const refused = (result: Record<string, unknown>): boolean => result['refused'] === true;
@@ -930,9 +948,11 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
       normalizedValue: 0.6,
     },
   ] }) as {
-    verified: boolean; changes: { changeId: string }[];
+    verified: boolean; parameterChanges: CompactParameterRoute[];
   };
   assert.equal(set.verified, true, JSON.stringify(set));
+  assert.equal(set.parameterChanges.length, 1, 'direct and remote changes share one device route');
+  assert.equal(set.parameterChanges[0]!.changes.length, 2);
   assert.equal(modelDevice.params[0]!.value, 1);
   assert.equal(modelDevice.remotePages[0]!.controls[0]!.value, 0.6);
 
@@ -946,14 +966,130 @@ test('4i-surface: discovery returns more than eight ids and scalar writes verify
     changeId: bypass.changes[0]!.changeId,
   }))['applied'], true);
   assert.equal((await call(fx, 'revert_change', {
-    changeId: set.changes[1]!.changeId,
+    changeId: compactParameterChanges(set)[1]!.changeId,
   }))['applied'], true);
   assert.equal((await call(fx, 'revert_change', {
-    changeId: set.changes[0]!.changeId,
+    changeId: compactParameterChanges(set)[0]!.changeId,
   }))['applied'], true);
   assert.equal(modelDevice.enabled, true);
   assert.equal(modelDevice.params[0]!.value, 0);
   assert.equal(modelDevice.remotePages[0]!.controls[0]!.value, 0.25);
+});
+
+test('7f-follow-up: parameter warnings ignore host noise and keep automation independent', async () => {
+  const fx = fixture();
+  const base = 0.18;
+  const noise = 0.18000000715255737;
+  const device = {
+    name: 'Warning boundaries',
+    paramsLive: true,
+    params: [
+      { id: 'EQUAL', name: 'Equal', value: base, modulatedValue: base },
+      { id: 'NOISE', name: 'Noise', value: base, modulatedValue: noise },
+      { id: 'DIVERGED', name: 'Diverged', value: base, modulatedValue: 0.180002 },
+      {
+        id: 'AUTOMATED', name: 'Automated', value: base, modulatedValue: noise,
+        hasAutomation: true,
+      },
+    ],
+    remotePages: [{
+      name: 'Boundaries',
+      controls: [
+        { name: 'Equal', value: base, modulatedValue: base },
+        { name: 'Noise', value: base, modulatedValue: noise },
+        { name: 'Diverged', value: base, modulatedValue: 0.180002 },
+        { name: 'Automated', value: base, modulatedValue: noise, hasAutomation: true },
+      ],
+    }],
+  };
+  fx.fake.model.findByChannelId(fx.trackA)!.track.devices.push(device);
+
+  const direct = await call(fx, 'inspect_device_parameters', {
+    device: { trackId: fx.trackA, devicePosition: 0 },
+  }) as { warnings: Array<{ parameterId: string; message: string }> };
+  assert.deepEqual(direct.warnings.map((warning) => [warning.parameterId, warning.message]), [
+    ['DIVERGED', 'The modulated value differs from the stored base value. A static write is not the value heard.'],
+    ['AUTOMATED', 'Host automation can override the stored base value.'],
+  ]);
+
+  const remotes = await call(fx, 'inspect_device_parameters', {
+    device: { trackId: fx.trackA, devicePosition: 0 },
+    view: 'remote-controls',
+  }) as {
+    warnings: Array<{
+      remote: { pagePosition: number; controlPosition: number };
+      message: string;
+    }>;
+  };
+  assert.deepEqual(remotes.warnings.map((warning) => [
+    warning.remote.controlPosition,
+    warning.message,
+  ]), [
+    [2, 'The modulated value differs from the stored base value.'],
+    [3, 'Host automation can override the stored base value.'],
+  ]);
+
+  const settings = [
+    ...device.params.map((parameter) => ({
+      kind: 'direct' as const,
+      device: { trackId: fx.trackA, devicePosition: 0 },
+      parameterId: parameter.id,
+      normalizedValue: parameter.value,
+    })),
+    ...device.remotePages[0]!.controls.map((control, controlPosition) => ({
+      kind: 'remote' as const,
+      device: { trackId: fx.trackA, devicePosition: 0 },
+      pagePosition: 0,
+      pageName: 'Boundaries',
+      controlPosition,
+      controlName: control.name,
+      normalizedValue: control.value,
+    })),
+  ];
+  const set = await call(fx, 'set_parameter', { settings }) as {
+    verified: boolean;
+    warnings: Array<{
+      code: string;
+      message: string;
+      settings: Array<{ settingIndex: number; selector: Record<string, unknown> }>;
+    }>;
+  };
+  assert.equal(set.verified, true, JSON.stringify(set));
+  assert.deepEqual(set.warnings, [
+    {
+      code: 'base-modulated-divergence',
+      message: 'The modulated value differs from the stored base value. A static write is not the value heard.',
+      settings: [{
+        settingIndex: 2,
+        selector: { kind: 'direct', parameterId: 'DIVERGED' },
+      }],
+    },
+    {
+      code: 'automation-can-override-base',
+      message: 'Host automation can override the stored base value.',
+      settings: [
+        { settingIndex: 3, selector: { kind: 'direct', parameterId: 'AUTOMATED' } },
+        {
+          settingIndex: 7,
+          selector: {
+            kind: 'remote', pagePosition: 0, pageName: 'Boundaries',
+            controlPosition: 3, controlName: 'Automated',
+          },
+        },
+      ],
+    },
+    {
+      code: 'base-modulated-divergence',
+      message: 'The modulated value differs from the stored base value.',
+      settings: [{
+        settingIndex: 6,
+        selector: {
+          kind: 'remote', pagePosition: 0, pageName: 'Boundaries',
+          controlPosition: 2, controlName: 'Diverged',
+        },
+      }],
+    },
+  ]);
 });
 
 test('5v-agent-boundary: a semantic parameter request refuses before project access', async () => {
@@ -1107,7 +1243,38 @@ test('d02-s7-surface: an unrelated parameter delta is reported without author at
   assert.equal(result['verified'], false, JSON.stringify(result));
   assert.match(JSON.stringify(result), /unrequested parameter changed.*author unknown/);
   assert.doesNotMatch(JSON.stringify(result), /Ghostnote changed|operator changed/i);
+  assert.equal('parameterChanges' in result, false);
+  const detailed = result['changes'] as Array<Record<string, unknown>>;
+  assert.equal(detailed.length, 1);
+  assert.deepEqual(detailed[0], receiptOf(fx.stash.require(detailed[0]!['changeId'] as string)));
+  assert.ok(Array.isArray(detailed[0]!['mismatches']));
   assert.deepEqual(device.params.map((parameter) => parameter.value), [0.7, 0.3, 0.91]);
+});
+
+test('7f-follow-up: an unread scalar keeps its complete inline receipt', async () => {
+  const fx = fixture({
+    afterApply: (ops, fake) => {
+      if (!ops.some((op) => op.op === 'param.set')) return;
+      const device = fake.model.visibleTracks()[0]!.devices[0];
+      if (device !== undefined) device.paramsLive = false;
+    },
+  });
+  fx.fake.model.findByChannelId(fx.trackA)!.track.devices.push({
+    name: 'Unread synth', paramsLive: true,
+    params: [{ id: 'P1', name: 'Tone', value: 0.2 }],
+  });
+
+  const result = await call(fx, 'set_parameter', { settings: [{
+    kind: 'direct', device: { trackId: fx.trackA, devicePosition: 0 },
+    parameterId: 'P1', normalizedValue: 0.7,
+  }] });
+
+  assert.equal(result['verified'], false, JSON.stringify(result));
+  assert.equal('parameterChanges' in result, false);
+  const detailed = result['changes'] as Array<Record<string, unknown>>;
+  assert.equal(detailed.length, 1);
+  assert.deepEqual(detailed[0], receiptOf(fx.stash.require(detailed[0]!['changeId'] as string)));
+  assert.ok(Array.isArray(detailed[0]!['notReadBack']));
 });
 
 test('d02-s2-surface: nested and drum-pad DirectParameters verify and reverse', async () => {
@@ -1162,12 +1329,12 @@ test('d02-s2-surface: nested and drum-pad DirectParameters verify and reverse', 
       },
       parameterId: 'PAD1', normalizedValue: 0.8,
     },
-  ] }) as { verified: boolean; changes: { changeId: string }[] };
+  ] }) as { verified: boolean; parameterChanges: CompactParameterRoute[] };
 
   assert.equal(result.verified, true, JSON.stringify(result));
   assert.deepEqual([depth1.params[0]!.value, depth2.params[0]!.value, padDevice.params[0]!.value],
     [0.6, 0.7, 0.8]);
-  for (const change of [...result.changes].reverse()) {
+  for (const change of [...compactParameterChanges(result)].reverse()) {
     const reversed = await call(fx, 'revert_change', { changeId: change.changeId });
     assert.equal(reversed['applied'], true, JSON.stringify(reversed));
   }
@@ -1175,7 +1342,7 @@ test('d02-s2-surface: nested and drum-pad DirectParameters verify and reverse', 
     [0.1, 0.2, 0.3]);
 });
 
-test('d02-s3-surface: one stable cohort keeps scalar receipts and exact reversal', async () => {
+test('7f-follow-up: compact success keeps full scalar records and exact reversal', async () => {
   const fx = fixture();
   const device = {
     name: 'Cohort synth', paramsLive: true,
@@ -1195,10 +1362,22 @@ test('d02-s3-surface: one stable cohort keeps scalar receipts and exact reversal
       parameterId: parameter.id,
       normalizedValue: requested[index],
     })),
-  }) as { verified: boolean; changes: { changeId: string }[] };
+  }) as { verified: boolean; parameterChanges: CompactParameterRoute[] };
 
   assert.equal(result.verified, true, JSON.stringify(result));
-  assert.equal(new Set(result.changes.map((change) => change.changeId)).size, 4);
+  const changes = compactParameterChanges(result);
+  assert.equal(new Set(changes.map((change) => change.changeId)).size, 4);
+  assert.equal(result.parameterChanges.length, 1, 'the shared device route appears once');
+  assert.deepEqual(result.parameterChanges[0]!.device, {
+    trackId: fx.trackA, devicePosition: 0,
+  });
+  assert.deepEqual(changes.map((change) => [change.settingIndex, change.selector]), [
+    [0, { kind: 'direct', parameterId: 'P1' }],
+    [1, { kind: 'direct', parameterId: 'P2' }],
+    [2, { kind: 'direct', parameterId: 'P3' }],
+    [3, { kind: 'direct', parameterId: 'P4' }],
+  ]);
+  assert.equal('changes' in result, false, 'a complete success omits full inline receipts');
   assert.equal(
     fx.fake.model.parameterObservationGeneration - generationBefore,
     2,
@@ -1206,14 +1385,73 @@ test('d02-s3-surface: one stable cohort keeps scalar receipts and exact reversal
   );
   assert.deepEqual(device.params.map((parameter) => parameter.value), requested);
 
-  const second = await call(fx, 'revert_change', { changeId: result.changes[1]!.changeId });
+  const listed = await call(fx, 'list_changes', { limit: 4 }) as {
+    changes: Array<Record<string, unknown>>;
+  };
+  assert.deepEqual(listed.changes, [...changes].reverse().map((change, index) => ({
+    ...receiptOf(fx.stash.require(change.changeId)),
+    order: 4 - index,
+    at: 1_000_000,
+  })));
+  for (const change of changes) {
+    const stored = fx.stash.require(change.changeId);
+    assert.equal(stored.take.ops.length, 1);
+    assert.equal(stored.take.ops[0]?.op, 'param.set');
+    assert.equal(stored.take.targets.length, 1);
+    assert.equal(stored.take.values.length, 1);
+  }
+
+  const second = await call(fx, 'revert_change', { changeId: changes[1]!.changeId });
   assert.equal(second['applied'], true, JSON.stringify(second));
   assert.deepEqual(device.params.map((parameter) => parameter.value), [0.55, 0.2, 0.75, 0.85]);
   for (const index of [3, 2, 0]) {
-    const reversed = await call(fx, 'revert_change', { changeId: result.changes[index]!.changeId });
+    const reversed = await call(fx, 'revert_change', { changeId: changes[index]!.changeId });
     assert.equal(reversed['applied'], true, JSON.stringify(reversed));
   }
   assert.deepEqual(device.params.map((parameter) => parameter.value), baseline);
+});
+
+test('7f-follow-up: one and 27-setting successes use the compact result shape', async () => {
+  const measure = async (count: number): Promise<{
+    bytes: number;
+    result: Record<string, unknown>;
+    changes: readonly CompactParameterChange[];
+  }> => {
+    const fx = fixture();
+    const device = {
+      name: 'Size synth', paramsLive: true,
+      params: Array.from({ length: count }, (_, index) => ({
+        id: `P${index + 1}`, name: `Parameter ${index + 1}`, value: 0,
+      })),
+    };
+    fx.fake.model.findByChannelId(fx.trackA)!.track.devices.push(device);
+    const result = await call(fx, 'set_parameter', {
+      settings: device.params.map((parameter, index) => ({
+        kind: 'direct',
+        device: { trackId: fx.trackA, devicePosition: 0 },
+        parameterId: parameter.id,
+        normalizedValue: (index + 1) / (count + 1),
+      })),
+    });
+    return {
+      bytes: Buffer.byteLength(JSON.stringify({ ...result, elapsedMs: 0 }), 'utf8'),
+      result,
+      changes: compactParameterChanges(result as {
+        parameterChanges?: readonly CompactParameterRoute[];
+      }),
+    };
+  };
+  const single = await measure(1);
+  const large = await measure(27);
+  assert.equal(single.bytes, 813);
+  assert.equal(large.bytes, 3181);
+  assert.equal(single.changes.length, 1);
+  assert.equal(large.changes.length, 27);
+  assert.equal(new Set(large.changes.map((change) => change.changeId)).size, 27);
+  assert.deepEqual(large.changes.map((change) => change.selector),
+    Array.from({ length: 27 }, (_, index) => ({ kind: 'direct', parameterId: `P${index + 1}` })));
+  assert.equal('changes' in single.result, false);
+  assert.equal('changes' in large.result, false);
 });
 
 test('d02-s3-surface: mixed routes keep order and a failed cohort stops later settings', async () => {
@@ -1242,6 +1480,8 @@ test('d02-s3-surface: mixed routes keep order and a failed cohort stops later se
   assert.equal(result.partialSuccess, true, JSON.stringify(result));
   assert.equal(result.verified, false);
   assert.equal(result.changes.length, 1);
+  assert.equal('parameterChanges' in result, false);
+  assert.deepEqual(result.changes[0], receiptOf(fx.stash.require(result.changes[0]!.changeId)));
   assert.deepEqual(fx.sent.filter((op) => op.op === 'param.set').map((op) =>
     op.op === 'param.set' ? op.param.device.chainIndex : -1), [0]);
   assert.deepEqual(track.devices.map((item) => item.params[0]!.value), [0.6, 0.2]);

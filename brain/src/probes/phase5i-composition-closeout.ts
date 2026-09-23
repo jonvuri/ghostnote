@@ -202,7 +202,9 @@ try {
   const requestedBases = [0.34, 0.22] as const;
   const tuned: Array<{
     readonly verified?: boolean;
-    readonly changes?: readonly { readonly changeId: string }[];
+    readonly parameterChanges?: readonly {
+      readonly changes: readonly { readonly changeId: string }[];
+    }[];
   }> = [];
   for (const [index, selector] of selectors.entries()) {
     tuned.push(await callTool(workspace, 'set_parameter', {
@@ -227,7 +229,8 @@ try {
     ?.controls.find((control) =>
       control.position === selector?.controlPosition && control.name === selector.controlName));
   check('5i-L4: existing parameter control sets and reads both nested bases exactly',
-    tuned.every((result) => result.verified === true && result.changes?.length === 1)
+    tuned.every((result) => result.verified === true
+      && result.parameterChanges?.flatMap((route) => route.changes).length === 1)
       && after.every((inventory) => inventory.standing === 'stable')
       && tunedControls.every((control, index) =>
         control !== undefined && Math.abs(control.normalizedValue - requestedBases[index]!) <= 1e-6),

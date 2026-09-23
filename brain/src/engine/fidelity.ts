@@ -17,7 +17,7 @@
  */
 import {
   ADDRESS_IDENTITY, NOTE_PROP_FIDELITY, UNVERIFIED_NOTE_PROPS,
-  UNWRITABLE_NOTE_PROPS, addressKey, stepSizeFor,
+  UNWRITABLE_NOTE_PROPS, addressKey, hasMeaningfulBaseToModulatedDivergence, stepSizeFor,
   type Fidelity, type NoteRecord, type Snapshot, type StateValue,
 } from '../contract/index.js';
 import type { TakeValue } from './take.js';
@@ -201,7 +201,10 @@ function valueCaveats(value: StateValue): string[] {
       const warnings: string[] = [];
       if (value.param.observed.modulatedValue
           && value.param.modulatedValue !== undefined
-          && Math.abs(value.param.modulatedValue - value.param.value) > 1e-9) {
+          && hasMeaningfulBaseToModulatedDivergence(
+            value.param.value,
+            value.param.modulatedValue,
+          )) {
         warnings.push(
           'the typed handle observed modulation, so the captured base value is not the value heard',
         );
@@ -215,7 +218,10 @@ function valueCaveats(value: StateValue): string[] {
     }
     case 'remote': {
       const warnings: string[] = [];
-      if (Math.abs(value.remote.modulatedValue - value.remote.value) > 1e-9) {
+      if (hasMeaningfulBaseToModulatedDivergence(
+        value.remote.value,
+        value.remote.modulatedValue,
+      )) {
         warnings.push('the remote control is modulated, so its base value is not the value heard');
       }
       if (value.remote.hasAutomation === true) {
