@@ -3,7 +3,7 @@ title: Workstation contracts — experimental Phase 7 baseline
 kind: reference
 state: active
 updated: 2026-09-23
-scope: Phase 7 experimental baseline; 7a symbolic, 7b patch, and 7c documentation implementation
+scope: Phase 7 experimental baseline; 7a symbolic, 7b patch, 7c documentation, and 7d audio implementation
 ---
 
 # Workstation contracts
@@ -170,6 +170,33 @@ Capture needs stream/header validation, not a librosa or loudness process. If
 7e uses FFprobe for header validation, it must declare that narrow dependency.
 Failure of audio analysis cannot turn a successful capture into a failed capture.
 
+The 7d `audio-facts-v0` profile accepts verified stereo 24-bit PCM WAVE at
+44.1 kHz. A request selects one or both discrete channels and a `[start,end)`
+range from 0.05 to 60 seconds. The file limit is 16 MiB. Cancellation starts
+after 2 seconds for startup, 5 seconds for each child process, and 20 seconds
+for the complete request. The registry permits at most 1 second for terminal
+cleanup after its deadline. The caller verifies and retains the bytes before
+module startup.
+Each FFprobe or FFmpeg process reads a private temporary copy of those bytes.
+The module hashes the original path again after analysis and rejects a change.
+The declaration records the creator and the explicit permission basis. Each
+fact preserves both values with the source identity.
+
+The silence gate uses a -90 dBFS noise floor and a 0.05-second minimum
+interval. It applies to dependent facts only when the complete selected range
+has at most one uncovered sample in total. It does not require digital zero.
+Interval timestamps round to the nearest sample before union. Loudness uses EBU
+R128 integrated LUFS. Crest is the largest
+per-channel peak dBFS minus the largest per-channel RMS dBFS. Rolloff uses the
+FFmpeg 85% magnitude cutoff, 8,192-sample Hann frames, no overlap, no padding,
+and discards an incomplete tail. Its result is the median across complete
+frames and selected channels.
+
+Comparison tolerances are 0.1 LU for loudness, 0.001 dB for crest, one sample
+for silence duration, and two FFT bins for rolloff. The brightness compatibility
+gate remains 0.2 LU. These are starting experimental values, not stable public
+promises.
+
 ### Discovery and lifecycle
 
 The descriptor `ghostnote-workstation-module-v0` contains module ID,
@@ -181,6 +208,8 @@ install dependencies. A configured module starts on its first relevant request.
 Report readiness after its bounded health check, not before it.
 Record the effective startup and request deadlines in the descriptor. A module
 can remain uninitialized while unrelated modules serve requests.
+Request cancellation reaches in-progress startup. A cancelled startup remains
+retryable. A child-process timeout remains distinct from verification failure.
 
 Keep workers and caches module-local. A worker request has an ID, schema, source
 digest, settings, and deadline; the response echoes the request ID and digest.
@@ -269,7 +298,7 @@ one direct listening instruction when comparing creative results.
 
 ### Sensory evidence
 
-Revise `ghostnote-sensory-packet-v0` to planned `ghostnote-sensory-packet-v1`.
+The 7d audio route implements `ghostnote-sensory-packet-v1`.
 The v0 evaluation stays frozen. V1 is a task projection of symbolic or audio
 facts, not a provider and not a second exact-state format. It contains task ID,
 operational property definition, A/B source references, selected field records,
@@ -299,10 +328,10 @@ Retain only these E118 routes at first:
 E118 uses zero-overlap 8,192-sample Hann frames and a median pooled across both
 channels. Its crest subtracts the largest per-channel RMS dBFS from the largest
 per-channel peak dBFS. These are specific formulas, not generic stereo defaults.
-Phase 7d must verify the rolloff cutoff, tail/padding behavior, and conversion
-from stream time base to sample count. The probe's complete-frame wording is not
-a conformance test of those rules. Pin explicit settings and fixtures before
-reuse; give any changed formula a new field version.
+The 7d `spectral-rolloff-85-v0` field pins the hidden 85% magnitude cutoff and
+discards the incomplete tail without padding. FFprobe duration timestamps are
+converted through the stream time base to an exact exclusive sample end.
+Different settings need a new field version.
 Unmapped `compelling` or `presence` refuses before broad analysis. Librosa stays
 an optional E105 candidate; no field from it is needed by this first cohort.
 

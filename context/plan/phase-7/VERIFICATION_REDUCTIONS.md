@@ -89,6 +89,10 @@ No downloads or live Bitwig session are needed for the pure controls.
 **Owner:** 7d; 7a for a selected MIDI comparison; 7e for capture separation.
 **Priority:** Keep the first provider small.
 
+**Status:** The 7d audio route implements this reduction. It computes only the
+task-selected FFmpeg facts and routes them without provider recomputation. MIDI
+routing remains conditional. Session 7e still keeps capture separate.
+
 E118 selects task fields; its broad raw arm and unused edit metrics are
 historical. E103's embedded signal analysis is not part of artifact capture.
 The planned router must project existing typed facts, not call providers again.

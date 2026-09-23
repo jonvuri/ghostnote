@@ -108,3 +108,63 @@ test('7a-S17: mismatched and late responses refuse with no retry', async () => {
   );
   assert.equal(calls, 1, 'the registry must not retry a timed-out request');
 });
+
+test('7d-S17: a timed-out request waits for abort cleanup', async () => {
+  let cleanupFinished = false;
+  const registry = new WorkstationModuleRegistry();
+  registry.register(moduleOf('abort-cleanup', async (_input, signal) => {
+    await new Promise<void>((_resolve, reject) => {
+      signal?.addEventListener('abort', () => {
+        setTimeout(() => {
+          cleanupFinished = true;
+          reject(new Error('cancelled after cleanup'));
+        }, 10);
+      }, { once: true });
+    });
+    assert.fail('the aborted handler must not return a response');
+  }, undefined, 5));
+  await assert.rejects(
+    registry.request('abort-cleanup', request),
+    (error) => error instanceof WorkstationModuleError && error.code === 'timeout',
+  );
+  assert.equal(cleanupFinished, true);
+});
+
+test('7d-S17: a request timeout cancels startup and permits a later request', async () => {
+  let starts = 0;
+  let cleanupFinished = false;
+  const registry = new WorkstationModuleRegistry();
+  registry.register(moduleOf('startup-abort', async (input) => ({
+    schema: WORKSTATION_RESPONSE_SCHEMA,
+    requestId: input.requestId,
+    sourceSha256: input.sourceSha256,
+    outputSchema: 'output-v0',
+    payload: { ok: true },
+  }), async (signal) => {
+    starts += 1;
+    if (starts === 1) {
+      await new Promise<void>((_resolve, reject) => {
+        signal?.addEventListener('abort', () => {
+          cleanupFinished = true;
+          reject(new Error('startup cancelled'));
+        }, { once: true });
+      });
+    }
+    return {
+      state: 'available', capabilities: ['read'], missingCapabilities: [],
+      dependencyVersions: { fixture: '1' },
+    };
+  }, 20));
+
+  await assert.rejects(
+    registry.request('startup-abort', request),
+    (error) => error instanceof WorkstationModuleError && error.code === 'timeout',
+  );
+  assert.equal(cleanupFinished, true);
+  assert.equal(registry.discover()[0]?.state, 'uninitialized');
+
+  const response = await registry.request('startup-abort', request);
+  assert.deepEqual(response.payload, { ok: true });
+  assert.equal(starts, 2);
+  assert.equal(registry.discover()[0]?.state, 'available');
+});

@@ -100,6 +100,7 @@ adds a fresh boundary read and its own guarded execution; it is not free.
 | E104, 1,480-document corpus | Extraction 1,439.5–1,515.1 ms; FTS5 build 90.6–97.7; median routed query 0.404–0.439. | Extraction/build are source/index lifecycle work. Query time excludes those passes. Rejected LSA and repeated determinism runs are historical controls. |
 | E122, installed 306-page API corpus | Source open/hash 66.687 ms; extraction 16.535; FTS5 build 28.145; cold index validation 10.006; cold query 0.478; warm index validation 8.449; warm query 0.444. | Product adapter timings for one machine. Source open is separate. Cold and warm inclusive requests were 61.184 and 15.542 ms. Index validation hashes stored rows and checks SQLite and FTS integrity. |
 | E123, automatic 695-page guide corpus | Cold download 14,035.587 ms; source validation 42.647; extraction 1,455.579; FTS5 build 36.406; cold query 0.503. Offline warm source open 43.358; download 0; warm query 0.495. | Product adapter timings for one machine. Automatic and offline runs used the same source hash and page-426 top result. The cache and index were removed. |
+| E124, nine verified audio requests | Fixture setup 231.827 ms; nine-source verification 5.650; executable discovery 75.336; requests 87.488–249.168; routing 1.076 inclusive. | Product adapter timings for one machine. E124 separates provider processes, output checks and final path verification. The run reproduces eight E118 sources and adds one nonzero single-channel range. |
 | E105, six-source audio cohort | FFmpeg version process 34.3 ms; warm full query 519.4–525.3. Librosa first useful run 4,238.9 ms; warm 482.1–483.9. | Provider compute is separate from byte verification and result translation. The values are cohort totals, not per-file costs. Optional librosa is not needed by the first 7d task. |
 | E109/E110, symbolic cohorts | E109 exact Python analyzer 0.25–0.34 ms for six clips. E110 Music21 import 274.16 ms, warm supported tasks 19.77–29.41 ms. | These are probe/formula costs. They do not measure the planned TypeScript source canonicalizer or worker boundary. Import is startup, not every request. |
 | E114, context prompts | Bar text 7,158 bytes versus 24,425 exact JSON; 3,828/4,625 input tokens across the two models. | Agent input cost, not parser/compiler CPU time. Full-state preservation stays outside the prompt. |
@@ -113,7 +114,8 @@ Sources: [E103](../experiments/e103-master-recorder-produces-exact-project-local
 [E110](../experiments/e110-wider-symbolic-provider-survey-selects-music21-and-musicpy.md),
 [E114](../experiments/e114-bar-context-and-guarded-note-patches-pass-two-models.md),
 [E118](../experiments/e118-task-routed-sensory-packets-improve-bounded-decisions.md),
-[E119](../experiments/e119-offline-verification-cost-audit.md).
+[E119](../experiments/e119-offline-verification-cost-audit.md), and
+[E124](../experiments/e124-audio-facts-and-sensory-packets-connect-verified-files.md).
 
 ## S01–S17 format costs
 
@@ -138,12 +140,12 @@ it does not mean that the entire seam costs zero.
 | S09 / I13,I10,I11 | Permission, two identities, complete/used coverage | Explicit event/order forms | Verify seed and reference separately | Extract traits; independently compare complete reference and candidate | Essential and implemented: E121. A 16-note reference projection took 0.849 ms. Complete 16-reference/20-candidate comparison took 1.220 ms. Work stays bounded by both complete note counts, not excerpt size. |
 | S10 / I09,I14 | Compatible formula, units, settings, coverage and finite values | No second exact-state canonicalizer planned | Retain both source digests | Select task fields; compute allowed delta; no provider recomputation | Essential: E118/6i contract. New v1 cost unknown in 7a. Bounded selected field count must be explicit. Broader unused analysis is reducible under R4. |
 | S11 / I15,I03 | Directory association, inactive recorder, bounded stop, exactly one stable file and header | No audio re-encoding | Full file-byte SHA-256; reject change during hash | Recorder state and directory diff → artifact | Essential: E103. E103 lifecycle timings bound only those samples. Product adapter/header/hash split unknown in 7e. Signal analysis belongs to S12/S13. |
-| S12 / I15,I16 | Artifact identity, header, requested range/channels, before/after use checks | Keep original bytes; no implicit resample | Verify exact consumed bytes and detect mutation during analysis | Stream time base → samples, explicit decode/channel policy | Essential: E105/S12. Byte work covers full artifact; provider compute is separate. Current product input consumer/time unknown in 7d/7e. |
-| S13 / I16,I14 | Silence, nulls, compatible frame/tail/channel settings, tolerance | No second source serialization | Copy each verified input identity | Parsed provider output → typed facts → task delta | Essential: E118. E105 full-cohort compute does not bound this v1 adapter. Unknown in 7d; task field scope/R4 bounds requested work. |
+| S12 / I15,I16 | Artifact identity, header, requested range/channels, before/after use checks | Keep retained bytes; no implicit resample | Verify exact consumed bytes and detect mutation during analysis | Stream time base → samples, explicit decode/channel policy | Essential and implemented for supplied files: E124. Stable bounded reads reject size, identity or hash changes. Provider compute is separate. Capture-to-artifact integration remains 7e. |
+| S13 / I16,I14 | Silence, nulls, compatible frame/tail/channel settings, tolerance | No second source serialization | Copy each verified input identity | Parsed provider output → typed facts → task delta | Essential and implemented for audio: E124. R4 selects only required fields. Pure routing checks source, provider, formula, tolerance and coverage without provider recomputation. |
 | S14 / I17,I18 | Full TS manifest/bytes rules, index identity and source compatibility | Installed tree and disposable corpus/index recipe | All opened source bytes; index tied to source/extractor/settings | Verified bytes → records → source-routed bounded hits | Essential and implemented: E122 and E123. R3 passes the same checked cache bytes to extraction. Automatic mode downloads only a missing approved guide, with a 90-second deadline and 128 MiB limit. Offline mode never downloads. Task timings are above. |
 | S15 / I19–I22 | Catalog version, donor shape/footprint, seed capacity, parser/authoring checks | Preserve supported byte structure and explicit relocation | Catalog tree fingerprint; seed hashes where supplied; donor manifest is not a per-donor hash guarantee | Existing internal binary/catalog adapters remain | Essential: S15 component fixtures and D15. Work bounded by selected bytes/objects/catalog files; isolated wall time unknown. Cross-module export wrapper unknown and only needed if 7f uses it. |
 | S16 / I05,I06,I08,I23,I24 | Existing observation migrations/record validation; run-profile and ID links planned | Existing stable observation JSON | Record equality/conflict checks; artifact IDs must keep their own domains | Take/status/UI/operator evidence → run record | Essential authority and effects record. Work bounded by entries/serialized bytes; new cross-module record/time unknown in 7f. Blind evaluation machinery is historical. |
-| S17 / I24 | Descriptor version, accepted schemas, request ID, source, deadline and response | Per-module framing only; no global state serializer | Source correlation, not a substitute for source validation | Typed in-process calls or private JSON worker frames | Essential: the in-process registry is implemented. E120 covers registry failure isolation. The 7b compiler and reference fixtures cover source correlation. Executable worker framing remains module-local and unbuilt until selected. |
+| S17 / I24 | Descriptor version, accepted schemas, request ID, source, deadline and response | Per-module framing only; no global state serializer | Source correlation, not a substitute for source validation | Typed in-process calls or private JSON worker frames | Essential and implemented for current modules. E124 adds pre-start audio validation, independent executable discovery, cancellation and failure isolation. Private worker framing remains conditional on a selected worker. |
 
 The [seam ledger](WORKSTATION_SEAMS.md) supplies the component fixture and
 consumer blocker for each row. No reduction can waive those fixtures. Existing
@@ -219,8 +221,11 @@ sessions now add machine-specific measurements only when they implement a seam.
   validation, cold request and warm query separately.
 - [E123](../experiments/e123-automatic-user-guide-cache-is-cold-to-warm.md)
   measures the guide download, extraction, index build, offline warm open and
-  query separately. 7d measures consumed-byte verification and selected fact
-  adapters.
+  query separately.
+- [E124](../experiments/e124-audio-facts-and-sensory-packets-connect-verified-files.md)
+  measures consumed-byte verification, selected FFmpeg processes, output
+  validation, final path verification and sensory routing. It closes the
+  supplied-file part of S12, audio S13 and the audio part of S17.
 - 7e separates attribution/hash/header from capture and analysis. Use disposable
   source material; restore the documented recorder, transport and selection state.
 - 7f measures only the composed seams it uses, including S15/S16 when needed.

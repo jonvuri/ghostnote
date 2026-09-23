@@ -2,6 +2,7 @@
 export const WORKSTATION_MODULE_SCHEMA = 'ghostnote-workstation-module-v0';
 export const WORKSTATION_REQUEST_SCHEMA = 'ghostnote-workstation-request-v0';
 export const WORKSTATION_RESPONSE_SCHEMA = 'ghostnote-workstation-response-v0';
+export const WORKSTATION_DEADLINE_CLEANUP_GRACE_MS = 1_000;
 
 export type WorkstationModuleState =
   | 'disabled' | 'uninitialized' | 'available' | 'degraded' | 'unavailable';
@@ -56,8 +57,13 @@ export interface WorkstationModule<TInput, TOutput> {
     readonly missingCapabilities?: readonly MissingCapability[];
     readonly dependencyVersions?: Readonly<Record<string, string>>;
   };
-  readonly start?: () => Promise<ModuleHealth>;
-  readonly handle: (request: WorkstationRequest<TInput>) => Promise<WorkstationResponse<TOutput>>;
+  readonly preflight?: (
+    request: WorkstationRequest<TInput>, signal?: AbortSignal,
+  ) => Promise<void> | void;
+  readonly start?: (signal?: AbortSignal) => Promise<ModuleHealth>;
+  readonly handle: (
+    request: WorkstationRequest<TInput>, signal?: AbortSignal,
+  ) => Promise<WorkstationResponse<TOutput>>;
 }
 
 export class WorkstationModuleError extends Error {
@@ -66,8 +72,9 @@ export class WorkstationModuleError extends Error {
     readonly code: 'missing-dependency' | 'unsupported-schema' | 'source-mismatch'
     | 'timeout' | 'verification-failed',
     readonly moduleId: string,
+    options?: ErrorOptions,
   ) {
-    super(message);
+    super(message, options);
     this.name = 'WorkstationModuleError';
   }
 }
@@ -79,21 +86,51 @@ interface RegisteredModule {
 }
 
 function withDeadline<T>(
-  work: Promise<T>,
+  operation: (signal: AbortSignal) => Promise<T>,
   deadlineMs: number,
   moduleId: string,
   stage: 'startup' | 'request',
+  parentSignal?: AbortSignal,
 ): Promise<T> {
+  const controller = new AbortController();
+  const operationSignal = parentSignal === undefined
+    ? controller.signal
+    : AbortSignal.any([controller.signal, parentSignal]);
   let timeout: ReturnType<typeof setTimeout> | undefined;
-  const expired = new Promise<never>((_resolve, reject) => {
-    timeout = setTimeout(() => reject(new WorkstationModuleError(
-      `${moduleId} ${stage} exceeded its ${deadlineMs} ms deadline`,
-      'timeout',
-      moduleId,
-    )), deadlineMs);
+  let parentAborted: (() => void) | undefined;
+  const timeoutError = new WorkstationModuleError(
+    `${moduleId} ${stage} exceeded its ${deadlineMs} ms deadline`,
+    'timeout',
+    moduleId,
+  );
+  const expired = new Promise<{ readonly kind: 'expired' }>((resolve) => {
+    const expire = (): void => {
+      controller.abort();
+      resolve({ kind: 'expired' });
+    };
+    timeout = setTimeout(expire, deadlineMs);
+    parentAborted = expire;
+    if (parentSignal?.aborted === true) expire();
+    else parentSignal?.addEventListener('abort', expire, { once: true });
   });
-  return Promise.race([work, expired]).finally(() => {
+  const work = operation(operationSignal).then(
+    (value) => ({ kind: 'value' as const, value }),
+    (error: unknown) => ({ kind: 'error' as const, error }),
+  );
+  return Promise.race([work, expired]).then(async (first) => {
+    if (first.kind === 'value') return first.value;
+    if (first.kind === 'error') throw first.error;
+
+    let cleanupTimeout: ReturnType<typeof setTimeout> | undefined;
+    const cleanupGrace = new Promise<void>((resolve) => {
+      cleanupTimeout = setTimeout(resolve, WORKSTATION_DEADLINE_CLEANUP_GRACE_MS);
+    });
+    await Promise.race([work.then(() => undefined), cleanupGrace]);
+    if (cleanupTimeout !== undefined) clearTimeout(cleanupTimeout);
+    throw timeoutError;
+  }).finally(() => {
     if (timeout !== undefined) clearTimeout(timeout);
+    if (parentAborted !== undefined) parentSignal?.removeEventListener('abort', parentAborted);
   });
 }
 
@@ -144,7 +181,7 @@ export class WorkstationModuleRegistry {
     return [...this.modules.values()].map((entry) => structuredClone(entry.descriptor));
   }
 
-  private async start(entry: RegisteredModule): Promise<void> {
+  private async start(entry: RegisteredModule, requestSignal?: AbortSignal): Promise<void> {
     if (entry.descriptor.state !== 'uninitialized') return;
     entry.startup ??= (async () => {
       try {
@@ -157,19 +194,35 @@ export class WorkstationModuleRegistry {
             dependencyVersions: entry.descriptor.dependencyVersions,
           }
           : await withDeadline(
-            entry.module.start(), entry.descriptor.startupDeadlineMs,
-            entry.descriptor.moduleId, 'startup',
+            (signal) => entry.module.start!(signal), entry.descriptor.startupDeadlineMs,
+            entry.descriptor.moduleId, 'startup', requestSignal,
           );
+        if (requestSignal?.aborted === true) {
+          throw new WorkstationModuleError(
+            `module ${entry.descriptor.moduleId} startup was cancelled`,
+            'timeout', entry.descriptor.moduleId,
+          );
+        }
         entry.descriptor = { ...entry.descriptor, ...health };
       } catch (error) {
         const reason = error instanceof Error ? error.message : String(error);
+        if (requestSignal?.aborted === true) {
+          throw new WorkstationModuleError(
+            `module ${entry.descriptor.moduleId} startup was cancelled`,
+            'timeout', entry.descriptor.moduleId, { cause: error },
+          );
+        }
         entry.descriptor = unavailableDescriptor(entry.descriptor, reason);
         throw error instanceof WorkstationModuleError ? error : new WorkstationModuleError(
           reason, 'missing-dependency', entry.descriptor.moduleId,
         );
       }
     })();
-    await entry.startup;
+    try {
+      await entry.startup;
+    } finally {
+      if (entry.descriptor.state === 'uninitialized') entry.startup = undefined;
+    }
   }
 
   async request<TInput, TOutput>(
@@ -193,27 +246,41 @@ export class WorkstationModuleRegistry {
         'verification-failed', moduleId,
       );
     }
-    await this.start(entry);
-    if (entry.descriptor.state === 'disabled' || entry.descriptor.state === 'unavailable') {
-      throw new WorkstationModuleError(
-        `module ${moduleId} is ${entry.descriptor.state}`, 'missing-dependency', moduleId,
+    return withDeadline(async (signal) => {
+      await entry.module.preflight?.(request as WorkstationRequest<unknown>, signal);
+      if (signal.aborted) {
+        throw new WorkstationModuleError(
+          `module ${moduleId} request was cancelled after preflight`, 'timeout', moduleId,
+        );
+      }
+      await this.start(entry, signal);
+      if (signal.aborted) {
+        throw new WorkstationModuleError(
+          `module ${moduleId} request was cancelled after startup`, 'timeout', moduleId,
+        );
+      }
+      if (entry.descriptor.state === 'disabled' || entry.descriptor.state === 'unavailable') {
+        throw new WorkstationModuleError(
+          `module ${moduleId} is ${entry.descriptor.state}`, 'missing-dependency', moduleId,
+        );
+      }
+      const response = await entry.module.handle(
+        request as WorkstationRequest<unknown>, signal,
       );
-    }
-    const response = await withDeadline(
-      entry.module.handle(request as WorkstationRequest<unknown>),
+      if (response.schema !== WORKSTATION_RESPONSE_SCHEMA
+          || response.requestId !== request.requestId
+          || response.sourceSha256 !== request.sourceSha256
+          || !entry.descriptor.emittedSchemas.includes(response.outputSchema)) {
+        throw new WorkstationModuleError(
+          `module ${moduleId} returned a mismatched or unsupported response`,
+          'source-mismatch', moduleId,
+        );
+      }
+      return response as WorkstationResponse<TOutput>;
+    },
       entry.descriptor.requestDeadlineMs,
       moduleId,
       'request',
     );
-    if (response.schema !== WORKSTATION_RESPONSE_SCHEMA
-        || response.requestId !== request.requestId
-        || response.sourceSha256 !== request.sourceSha256
-        || !entry.descriptor.emittedSchemas.includes(response.outputSchema)) {
-      throw new WorkstationModuleError(
-        `module ${moduleId} returned a mismatched or unsupported response`,
-        'source-mismatch', moduleId,
-      );
-    }
-    return response as WorkstationResponse<TOutput>;
   }
 }
