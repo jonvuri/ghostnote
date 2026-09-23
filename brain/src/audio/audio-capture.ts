@@ -54,7 +54,8 @@ export interface AudioCaptureGuard {
 
 export interface AudioCaptureRange {
   readonly policy: 'one-launcher-loop-from-start-v0';
-  readonly startBeats: 0;
+  /** Exact launcher play start. The loop still starts at beat zero. */
+  readonly startBeats: number;
   readonly endBeats: number;
   readonly stepSizeBeats: 0.25;
 }
@@ -105,14 +106,24 @@ export interface AudioCaptureRecorderStatus {
   readonly leaseState: 'none' | 'owned' | 'other';
 }
 
-export interface AudioCaptureRangeObservation {
+interface AudioCaptureRangeObservationBase {
   readonly playbackStartedAtMs: number;
   readonly terminalRangeObservedAtMs: number;
   readonly rangeWrappedAtMs: number;
   readonly transportStoppedAtMs: number;
+}
+
+export type AudioCaptureRangeObservation = AudioCaptureRangeObservationBase & ({
+  readonly observationBasis: 'playing-step-v0';
   readonly terminalStep: number;
   readonly wrappedStep: number;
-}
+} | {
+  readonly observationBasis: 'slot-transport-beats-v0';
+  readonly transportStartBeats: number;
+  readonly transportEndBeats: number;
+  readonly requiredAdvanceBeats: number;
+  readonly observedAdvanceBeats: number;
+});
 
 export interface AudioCaptureDiscovery {
   readonly adapterName: 'ghostnote-bitwig-live-adapter';
@@ -557,7 +568,7 @@ function canonicalSourceManifest(manifest: AudioCaptureSourceManifest): AudioCap
     },
     range: {
       policy: 'one-launcher-loop-from-start-v0',
-      startBeats: 0,
+      startBeats: manifest.range.startBeats,
       endBeats: manifest.range.endBeats,
       stepSizeBeats: 0.25,
     },
@@ -611,8 +622,10 @@ function validateCaptureRequest(request: AudioCaptureRequest): void {
       || !Number.isSafeInteger(manifest.guard.sceneEpoch) || manifest.guard.sceneEpoch < 0
       || !Number.isSafeInteger(manifest.guard.contentEpoch) || manifest.guard.contentEpoch < 0
       || manifest.range.policy !== 'one-launcher-loop-from-start-v0'
-      || manifest.range.startBeats !== 0 || manifest.range.stepSizeBeats !== 0.25
+      || !Number.isFinite(manifest.range.startBeats) || manifest.range.startBeats < 0
+      || manifest.range.stepSizeBeats !== 0.25
       || !Number.isFinite(manifest.range.endBeats) || manifest.range.endBeats < 2
+      || manifest.range.startBeats >= manifest.range.endBeats
       || manifest.range.endBeats > 32 || !Number.isSafeInteger(manifest.range.endBeats / 0.25)
       || manifest.coverage.masterSource !== 'project-master'
       || manifest.coverage.launcherClipRole !== 'range-trigger'
@@ -855,15 +868,22 @@ export async function captureMasterArtifact(
     timing.playback = performance.now() - playbackStarted;
     rangeStatus = await controller.recorderStatus(ownerToken, signal);
     lastStatus = rangeStatus;
-    const steps = request.source.manifest.range.endBeats
-      / request.source.manifest.range.stepSizeBeats;
     const observedRangeMs = observedRange.rangeWrappedAtMs - observedRange.playbackStartedAtMs;
+    const observationInvalid = observedRange.observationBasis === 'playing-step-v0'
+      ? (() => {
+        const steps = request.source.manifest.range.endBeats
+          / request.source.manifest.range.stepSizeBeats;
+        return observedRange.terminalStep < steps - 4 || observedRange.terminalStep >= steps
+          || observedRange.wrappedStep < 0 || observedRange.wrappedStep > 3;
+      })()
+      : observedRange.requiredAdvanceBeats !== request.source.manifest.range.endBeats
+        || observedRange.observedAdvanceBeats < observedRange.requiredAdvanceBeats
+        || observedRange.transportEndBeats < observedRange.transportStartBeats;
     if (!rangeStatus.isActive || rangeStatus.leaseState !== 'owned'
         || observedRange.playbackStartedAtMs > observedRange.terminalRangeObservedAtMs
         || observedRange.terminalRangeObservedAtMs > observedRange.rangeWrappedAtMs
         || observedRange.rangeWrappedAtMs > observedRange.transportStoppedAtMs
-        || observedRange.terminalStep < steps - 4 || observedRange.terminalStep >= steps
-        || observedRange.wrappedStep < 0 || observedRange.wrappedStep > 3
+        || observationInvalid
         || observedRangeMs < 1
         || rangeStatus.durationMs + AUDIO_CAPTURE_DURATION_TOLERANCE_MS < observedRangeMs) {
       throw new Error('the recorder did not preserve the complete observed launcher range');

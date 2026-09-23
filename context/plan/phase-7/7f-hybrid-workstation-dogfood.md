@@ -1,14 +1,28 @@
 ---
 title: Phase 7f — Hybrid workstation dogfood
 kind: plan
-state: planned
-updated: 2026-09-21
+state: complete
+status: Complete. E127 records the real audio-guided run, accepted B, and closes S16.
+updated: 2026-09-23
 parent: README.md
 prev: 7e-audio-capture-and-analysis-composition.md
 next: ../phase-8/README.md
 ---
 
 # Phase 7f — Hybrid workstation dogfood
+
+## Outcome
+
+[E127](../../evidence/experiments/e127-phase7f-hybrid-audio-guided-dogfood.md)
+records the completed real-project run. The operator selected B. The run used
+`audio-capture-v0`, `audio-facts-v0`, sensory v1, guarded parameter changes,
+identified audition files, and the frozen
+`phase-7f-audio-guided-sound-design-v0` profile. Its strict
+`ghostnote-hybrid-run-record-v0` artifact closes S16.
+
+The run added exact non-zero launcher play-start support and an audio-clip
+range observation fallback. The final live parameter is 0.5. Temporary capture
+files were removed after evidence was recorded.
 
 ## Purpose
 

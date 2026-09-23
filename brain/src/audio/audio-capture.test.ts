@@ -219,6 +219,7 @@ class FakeCaptureController implements AudioCaptureController {
       this.guard = { ...this.guard, generation: 'reconnected-during-capture' };
     }
     return {
+      observationBasis: 'playing-step-v0',
       playbackStartedAtMs: 1_100,
       terminalRangeObservedAtMs: 5_300,
       rangeWrappedAtMs: 5_500,
@@ -257,6 +258,23 @@ function captureCause(error: unknown): AudioCaptureError | undefined {
   return error instanceof WorkstationModuleError && error.cause instanceof AudioCaptureError
     ? error.cause : undefined;
 }
+
+test('7f-S11: source identity preserves one exact non-zero play start', async (t) => {
+  const input = await fixture(t);
+  const manifest = input.request.source.manifest;
+  const source = audioCaptureSource({
+    ...manifest,
+    range: { ...manifest.range, startBeats: 0.28698158264160156 },
+  });
+
+  const request = audioCaptureRequest(input.project, source, input.request.bounds);
+
+  assert.equal(request.source.manifest.range.startBeats, 0.28698158264160156);
+  assert.throws(() => audioCaptureRequest(input.project, audioCaptureSource({
+    ...manifest,
+    range: { ...manifest.range, startBeats: manifest.range.endBeats },
+  }), input.request.bounds), /invalid/);
+});
 
 test('7e-S11: one stable PCM WAVE becomes a capture artifact without analysis startup', async (t) => {
   const input = await fixture(t);

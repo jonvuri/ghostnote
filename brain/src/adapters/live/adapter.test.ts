@@ -2257,6 +2257,8 @@ class ParameterTransport implements Transport {
     },
   ];
   takeWrites = true;
+  completionDelayReads = 0;
+  completionNeverSettles = false;
   neverSettles = false;
   staleInventoryReads = 0;
   changeSelectionBeforeWrite = false;
@@ -2505,14 +2507,16 @@ class ParameterTransport implements Transport {
         return { completionGeneration: this.completionGeneration };
       }
       case WIRE.directParamCompletion: {
+        const delayed = this.completionNeverSettles || this.completionDelayReads > 0;
+        if (this.completionDelayReads > 0) this.completionDelayReads--;
         const deviceName = this.padSelected ? this.selectedNestedName()
           : this.depth === 2 ? 'Deep synth'
           : this.depth === 1 ? 'Inner container' : this.devices[this.selected]?.name;
         return {
           generation: this.completionGeneration,
-          observedGeneration: this.completionObservedGeneration,
+          observedGeneration: delayed ? -1 : this.completionObservedGeneration,
           id: this.completionId,
-          value: this.completionValue,
+          value: delayed ? undefined : this.completionValue,
           trackChannelId: CHANNEL_ID,
           deviceName,
           deviceIndex: this.depth === 0 ? this.selected : this.nestedIndex,
@@ -2834,6 +2838,35 @@ test('5w direct write: cohort readback uses the exact write callback', async () 
   assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 2);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.directParamCompletion).length, 2);
+});
+
+test('7f-follow-up: a slow plug-in callback can settle after the prior window', async () => {
+  const wire = new ParameterTransport();
+  wire.completionDelayReads = 100;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'P1');
+
+  const changed = await adapter.apply({ ops: [{ op: 'param.set', param: address, value: 0.75 }] });
+
+  assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.directParamCompletion).length, 102);
+});
+
+test('7f-follow-up: complete inventory can verify a missing plug-in write callback', async () => {
+  const wire = new ParameterTransport();
+  wire.completionNeverSettles = true;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const address = param(deviceAt(TRACK, 0), 'P1');
+  const preflight = await adapter.read([deviceAt(TRACK, 0), address]);
+
+  const changed = await adapter.apply({
+    ops: [{ op: 'param.set', param: address, value: 0.75 }],
+    parameterPreflight: preflight,
+  });
+
+  assert.equal(changed.stages.flatMap((stage) => stage.ops).every((op) => op.ok), true);
+  assert.ok(wire.frames.some((frame) =>
+    frame.method === WIRE.directParamList && frame.params?.['begin'] === true));
 });
 
 test('d02-s7 live integrity: an unrequested delta stops later scalar writes', async () => {

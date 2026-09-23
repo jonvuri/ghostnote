@@ -1,8 +1,8 @@
 ---
 title: Phase 7 — Workstation dogfood menu
 kind: plan
-state: planned
-updated: 2026-09-20
+state: complete
+updated: 2026-09-23
 parent: README.md
 ---
 

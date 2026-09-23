@@ -2,8 +2,8 @@
 title: Phase 8 — Breadth & release
 kind: plan
 state: planned
-status: Starts after the Phase 7 workstation dogfood loop closes.
-updated: 2026-09-12
+status: Phase 7 is complete. Start 8a publication review and extraction.
+updated: 2026-09-23
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 ---

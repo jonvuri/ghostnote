@@ -408,8 +408,10 @@ interface HeldDeviceTarget extends HeldCursorTrack {
 const CLIP_POINT_ATTEMPTS = 8;
 /** About two seconds after paramsLive for large plugin observer generations. */
 const PARAMETER_INVENTORY_ATTEMPTS = 80;
-/** Give a plug-in write callback the same bounded observer window. */
-const PARAMETER_WRITE_COMPLETION_ATTEMPTS = 80;
+/** Give a slow plug-in write callback a bounded observer window of about 22 seconds. */
+const PARAMETER_WRITE_COMPLETION_ATTEMPTS = 160;
+/** Retry complete inventory while a plug-in publishes a delayed base value. */
+const PARAMETER_WRITE_INVENTORY_ATTEMPTS = 40;
 /** Re-arm an observer that does not complete within its bounded generation. */
 const PARAMETER_INVENTORY_ACQUISITIONS = 3;
 /** Re-arm a remote observer that does not complete within one generation. */
@@ -506,19 +508,29 @@ export interface LauncherCaptureGuard {
 }
 
 export interface LauncherCaptureRange {
-  readonly startBeats: 0;
+  readonly startBeats: number;
   readonly endBeats: number;
   readonly stepSizeBeats: 0.25;
 }
 
-export interface LauncherCaptureObservation {
+interface LauncherCaptureObservationBase {
   readonly playbackStartedAtMs: number;
   readonly terminalRangeObservedAtMs: number;
   readonly rangeWrappedAtMs: number;
   readonly transportStoppedAtMs: number;
+}
+
+export type LauncherCaptureObservation = LauncherCaptureObservationBase & ({
+  readonly observationBasis: 'playing-step-v0';
   readonly terminalStep: number;
   readonly wrappedStep: number;
-}
+} | {
+  readonly observationBasis: 'slot-transport-beats-v0';
+  readonly transportStartBeats: number;
+  readonly transportEndBeats: number;
+  readonly requiredAdvanceBeats: number;
+  readonly observedAdvanceBeats: number;
+});
 
 export class MasterRecorderActiveError extends Error {
   constructor(readonly status: MasterRecorderStatus) {
@@ -898,12 +910,12 @@ export class LiveAdapter implements BitwigAdapter {
       throw new AddressUnresolvedError(clip, 'the capture launcher clip metadata is unavailable');
     }
     const metadata = entry.value.metadata;
-    if (range.startBeats !== 0 || range.stepSizeBeats !== 0.25
-        || metadata.playStartBeats !== 0 || metadata.loopEnabled !== true
+    if (range.stepSizeBeats !== 0.25
+        || metadata.playStartBeats !== range.startBeats || metadata.loopEnabled !== true
         || metadata.loopStartBeats !== 0 || metadata.loopEndBeats !== range.endBeats) {
       throw new InvalidOpError(
         'audio capture',
-        'audio-capture-v0 requires one complete launcher loop from beat 0',
+        'audio-capture-v0 requires one complete launcher loop from its exact play start',
       );
     }
   }
@@ -988,6 +1000,8 @@ export class LiveAdapter implements BitwigAdapter {
       }
       const readPlay = async (): Promise<{
         readonly isPlaying: boolean; readonly playingStep: number; readonly sampledAtMs: number;
+        readonly playPosition: number; readonly isPlaybackQueued: boolean;
+        readonly isStopQueued: boolean;
       }> => {
         const value = await this.transport.send({
           method: WIRE.cursorPlayState, params: { cursor },
@@ -1000,47 +1014,84 @@ export class LiveAdapter implements BitwigAdapter {
           readonly sceneIndex?: number;
           readonly trackPosition?: number;
         };
+        const slotPlay = await this.transport.send({
+          method: WIRE.slotPlayState,
+          params: { trackIndex: row.index, slotIndex: clip.slot.scene.index },
+        }) as {
+          readonly hasContent?: boolean;
+          readonly isPlaying?: boolean;
+          readonly isPlaybackQueued?: boolean;
+          readonly isStopQueued?: boolean;
+          readonly playPosition?: number;
+          readonly sampledAtMs?: number;
+        };
         if (typeof value.isPlaying !== 'boolean' || !Number.isSafeInteger(value.playingStep)
             || !Number.isFinite(value.sampledAtMs) || value.exists !== true
             || value.loopLength !== range.endBeats
-            || value.sceneIndex !== clip.slot.scene.index || value.trackPosition !== row.index) {
+            || value.sceneIndex !== clip.slot.scene.index || value.trackPosition !== row.index
+            || slotPlay.hasContent !== true || typeof slotPlay.isPlaying !== 'boolean'
+            || typeof slotPlay.isPlaybackQueued !== 'boolean'
+            || typeof slotPlay.isStopQueued !== 'boolean'
+            || !Number.isFinite(slotPlay.playPosition) || !Number.isFinite(slotPlay.sampledAtMs)) {
           throw new Error('the capture clip returned an invalid playback observation');
         }
         return {
-          isPlaying: value.isPlaying,
+          isPlaying: slotPlay.isPlaying,
           playingStep: value.playingStep!,
-          sampledAtMs: value.sampledAtMs!,
+          sampledAtMs: slotPlay.sampledAtMs!,
+          playPosition: slotPlay.playPosition!,
+          isPlaybackQueued: slotPlay.isPlaybackQueued,
+          isStopQueued: slotPlay.isStopQueued,
         };
       };
       try {
         const started = await this.pollCapture(
           readPlay,
-          (value) => value.isPlaying && value.playingStep >= 0 && value.playingStep <= 3,
+          (value) => value.isPlaying && !value.isPlaybackQueued && !value.isStopQueued
+            && (value.playingStep < 0 || value.playingStep <= 3),
           remainingPlaybackMs(), pollMs, signal,
         );
-        const terminal = await this.pollCapture(
-          readPlay,
-          (value) => value.isPlaying && value.playingStep >= steps - 4,
-          remainingPlaybackMs(), pollMs, signal,
-        );
-        const wrapped = await this.pollCapture(
-          readPlay,
-          (value) => value.isPlaying && value.playingStep >= 0 && value.playingStep <= 3,
-          remainingPlaybackMs(), pollMs, signal,
-        );
+        const stepBasis = started.playingStep >= 0;
+        const terminal = await this.pollCapture(readPlay, (value) => {
+          if (!value.isPlaying || value.isStopQueued) {
+            throw new Error('the capture launcher slot stopped before completion');
+          }
+          return stepBasis
+            ? value.playingStep >= steps - 4
+            : value.playPosition - started.playPosition >= range.endBeats - range.stepSizeBeats;
+        }, remainingPlaybackMs(), pollMs, signal);
+        const wrapped = await this.pollCapture(readPlay, (value) => {
+          if (!value.isPlaying || value.isStopQueued) {
+            throw new Error('the capture launcher slot stopped before completion');
+          }
+          return stepBasis
+            ? value.playingStep >= 0 && value.playingStep <= 3
+            : value.playPosition - started.playPosition >= range.endBeats;
+        }, remainingPlaybackMs(), pollMs, signal);
         await this.transport.send({ method: WIRE.transportStop });
         const stopped = await this.pollCapture(
           () => this.transportIsPlaying(), (value) => !value.isPlaying,
           stopBoundMs, pollMs, signal,
         );
         transportStopped = true;
-        return {
+        const common = {
           playbackStartedAtMs: started.sampledAtMs,
           terminalRangeObservedAtMs: terminal.sampledAtMs,
           rangeWrappedAtMs: wrapped.sampledAtMs,
           transportStoppedAtMs: stopped.sampledAtMs,
+        };
+        return stepBasis ? {
+          ...common,
+          observationBasis: 'playing-step-v0',
           terminalStep: terminal.playingStep,
           wrappedStep: wrapped.playingStep,
+        } : {
+          ...common,
+          observationBasis: 'slot-transport-beats-v0',
+          transportStartBeats: started.playPosition,
+          transportEndBeats: wrapped.playPosition,
+          requiredAdvanceBeats: range.endBeats,
+          observedAdvanceBeats: wrapped.playPosition - started.playPosition,
         };
       } finally {
         if (!transportStopped) {
@@ -5370,7 +5421,7 @@ export class LiveAdapter implements BitwigAdapter {
             readonly completionGeneration?: unknown;
           } | undefined;
         const completionGeneration = wireCompletion?.completionGeneration;
-        const completed = typeof completionGeneration === 'number'
+        let completed = typeof completionGeneration === 'number'
           ? await this.directParameterCompletion(
             cohortParameterOp.param,
             parameterCohort.deviceName,
@@ -5378,6 +5429,25 @@ export class LiveAdapter implements BitwigAdapter {
             cohortParameterOp.value,
           )
           : undefined;
+        if (completed === undefined) {
+          const row = this.bank.find((item) =>
+            item.channelId === cohortParameterOp.param.device.track.channelId);
+          for (let attempt = 0;
+            row !== undefined && attempt < PARAMETER_WRITE_INVENTORY_ATTEMPTS;
+            attempt++) {
+            const after = await this.parameterInventory(cohortParameterOp.param.device, row);
+            const state = after.standing === 'stable'
+              && after.deviceName === parameterCohort.deviceName
+              ? this.parameterState(cohortParameterOp.param, after)
+              : undefined;
+            if (state !== undefined
+                && Math.abs(state.value - cohortParameterOp.value) <= 2e-3) {
+              completed = state;
+              break;
+            }
+            await this.settle('cursorPoint');
+          }
+        }
         if (completed === undefined) {
           const why = 'the target-bound parameter write callback did not settle';
           const ops = receipts[receipts.length - 1]!.ops.map((entry) =>

@@ -1,0 +1,551 @@
+{
+  "schema": "ghostnote-hybrid-run-record-v0",
+  "profile": "phase-7f-audio-guided-sound-design-v0",
+  "status": "complete",
+  "rootSession": {
+    "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7",
+    "client": "Codex IDE session",
+    "model": "GPT-5",
+    "operatingMode": "hybrid",
+    "startedAt": "2026-09-23T14:16:27.727Z",
+    "finishedAt": "2026-09-23T14:20:59.180Z"
+  },
+  "permissions": {
+    "projectPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/26.25-6 fire.bwproject",
+    "temporaryProjectLocalWaveFiles": true,
+    "boundedDeviceParameters": true,
+    "changesRequireRecordedIds": true,
+    "externalReference": false
+  },
+  "versions": {
+    "stableToolProfile": "stable-v1",
+    "description": "ghostnote-description-v23",
+    "reasoningEffort": "not exposed to the run",
+    "node": "24.11.1",
+    "host": "Bitwig Studio 6.0.6",
+    "controllerApi": "25",
+    "extension": "0.0.1",
+    "methodsHash": "78368fe47ea0e814"
+  },
+  "modules": [
+    {
+      "moduleId": "ghostnote-audio-capture",
+      "version": "0",
+      "state": "available",
+      "acceptedSchemas": [
+        "ghostnote-audio-capture-request-v0"
+      ],
+      "emittedSchemas": [
+        "audio-capture-v0"
+      ]
+    },
+    {
+      "moduleId": "ghostnote-audio-facts",
+      "version": "0",
+      "state": "available",
+      "acceptedSchemas": [
+        "ghostnote-audio-facts-request-v0"
+      ],
+      "emittedSchemas": [
+        "audio-facts-v0"
+      ]
+    },
+    {
+      "moduleId": "ghostnote-sensory-router",
+      "version": "1",
+      "state": "available",
+      "acceptedSchemas": [
+        "ghostnote-sensory-request-v1"
+      ],
+      "emittedSchemas": [
+        "ghostnote-sensory-packet-v1"
+      ]
+    },
+    {
+      "moduleId": "ghostnote-hybrid-run-record",
+      "version": "0",
+      "state": "available",
+      "acceptedSchemas": [
+        "ghostnote-hybrid-run-record-v0"
+      ],
+      "emittedSchemas": [
+        "ghostnote-hybrid-run-record-v0"
+      ]
+    }
+  ],
+  "request": {
+    "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-request",
+    "text": "Make one existing sound noticeably brighter without making it louder."
+  },
+  "links": [
+    {
+      "kind": "request",
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-request"
+    },
+    {
+      "kind": "source",
+      "id": "4915cf524fc609a80e7b0e310cf9431fd08aec64bf05c4367391176d1b2b5bd7"
+    },
+    {
+      "kind": "source",
+      "id": "6dfa83ddf170c0d3f7d81c1cff8795f3d79f619f29a500ea95a4d839d1323fe8"
+    },
+    {
+      "kind": "artifact",
+      "id": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589"
+    },
+    {
+      "kind": "artifact",
+      "id": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e"
+    },
+    {
+      "kind": "evidence",
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-facts-common-A"
+    },
+    {
+      "kind": "evidence",
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-facts-common-B"
+    },
+    {
+      "kind": "evidence",
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-paired-brightness"
+    },
+    {
+      "kind": "change",
+      "id": "b64b7f12-dc49-4e65-84ba-e8e6123d10ab"
+    },
+    {
+      "kind": "change",
+      "id": "a6ed5de7-509c-434d-80d2-3a916d6cb0b4"
+    }
+  ],
+  "source": {
+    "id": "4915cf524fc609a80e7b0e310cf9431fd08aec64bf05c4367391176d1b2b5bd7",
+    "projectFileSha256": "f39d4bb301226ec4935e414448d105a1ea2b1bfabf72025f88e6317853ca722a",
+    "trackId": "2598ed2d-9e8c-40f4-8435-33609aad552a",
+    "trackName": "perc a",
+    "launcherRow": 6,
+    "devicePosition": 0,
+    "deviceName": "Dist TUBE-CULTURE",
+    "parameterId": "CONTENTS/PIDd",
+    "parameterName": "Output Tilt Slope"
+  },
+  "artifacts": [
+    {
+      "id": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+      "role": "A",
+      "absolutePath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+      "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+      "byteCount": 931000,
+      "owned": true
+    },
+    {
+      "id": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+      "role": "B",
+      "absolutePath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+      "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+      "byteCount": 943288,
+      "owned": true
+    }
+  ],
+  "evidence": [
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-facts-common-A",
+      "role": "A",
+      "schema": "audio-facts-v0",
+      "authority": "derived-measurement",
+      "sourceId": "phase7f-a-perc-a"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-facts-common-B",
+      "role": "B",
+      "schema": "audio-facts-v0",
+      "authority": "derived-measurement",
+      "sourceId": "phase7f-b-perc-a"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-paired-brightness",
+      "role": "comparison",
+      "schema": "ghostnote-sensory-packet-v1",
+      "authority": "derived-measurement",
+      "sourceId": "phase7f-a-perc-a:phase7f-b-perc-a"
+    }
+  ],
+  "operations": [
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-1",
+      "name": "check_connection",
+      "elapsedMs": 94.08620799999994,
+      "outcome": "pass"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-2",
+      "name": "list_tracks",
+      "elapsedMs": 167.51962500000002,
+      "outcome": "pass"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-3",
+      "name": "read_clip",
+      "elapsedMs": 2248.4809160000004,
+      "outcome": "pass"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-4",
+      "name": "inspect_devices",
+      "elapsedMs": 209.28224999999975,
+      "outcome": "pass"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-5",
+      "name": "inspect_device_parameters",
+      "elapsedMs": 3497.710375,
+      "outcome": "pass"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-6",
+      "name": "set_parameter",
+      "elapsedMs": 29273.620792,
+      "outcome": "pass"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-7",
+      "name": "inspect_device_parameters",
+      "elapsedMs": 3524.184792,
+      "outcome": "pass"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-8",
+      "name": "set_parameter",
+      "elapsedMs": 29202.171209,
+      "outcome": "pass"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-9",
+      "name": "inspect_device_parameters",
+      "elapsedMs": 3548.480666999996,
+      "outcome": "pass"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-10",
+      "name": "inspect_device_parameters",
+      "elapsedMs": 3549.081583000021,
+      "outcome": "pass"
+    }
+  ],
+  "changes": [
+    {
+      "id": "b64b7f12-dc49-4e65-84ba-e8e6123d10ab",
+      "operationId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-6",
+      "verified": true,
+      "finalDisposition": "reverted"
+    },
+    {
+      "id": "a6ed5de7-509c-434d-80d2-3a916d6cb0b4",
+      "operationId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operation-8",
+      "verified": true,
+      "finalDisposition": "retained"
+    }
+  ],
+  "seams": [
+    {
+      "id": "S01",
+      "producer": "Codex client",
+      "consumer": "stable-v1 surface",
+      "formats": [
+        {
+          "name": "MCP tool arguments/results",
+          "producerVersion": "stable-v1",
+          "consumerVersion": "stable-v1"
+        }
+      ],
+      "projection": "Exact public tool request and result.",
+      "translation": "Validated tool arguments become typed workspace calls.",
+      "defaults": [],
+      "validation": [
+        "Tool schemas and exact target checks passed."
+      ],
+      "droppedData": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "S02",
+      "producer": "live adapter",
+      "consumer": "workspace change store",
+      "formats": [
+        {
+          "name": "Snapshot and scalar receipt",
+          "producerVersion": "ghostnote/0",
+          "consumerVersion": "ghostnote/0"
+        }
+      ],
+      "projection": "The recovery and candidate scalar receipts entered the session change store.",
+      "translation": "Normalized DirectParameter values became param.set calls.",
+      "defaults": [],
+      "validation": [
+        "Independent complete parameter readback passed after each write."
+      ],
+      "droppedData": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "S11",
+      "producer": "audio-capture-v0 request",
+      "consumer": "MasterRecorder and storage adapters",
+      "formats": [
+        {
+          "name": "ghostnote-audio-capture-request-v0",
+          "producerVersion": "0",
+          "consumerVersion": "0"
+        },
+        {
+          "name": "audio-capture-v0",
+          "producerVersion": "0",
+          "consumerVersion": "0"
+        }
+      ],
+      "projection": "The launcher clip supplied range; the project master supplied audio.",
+      "translation": "Beat range stayed separate from observed sample coverage.",
+      "defaults": [],
+      "validation": [
+        "Saved-project, guard, recorder, unique-file, hash, and header checks passed."
+      ],
+      "droppedData": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "S12",
+      "producer": "audio-capture-v0",
+      "consumer": "audio-facts-v0",
+      "formats": [
+        {
+          "name": "ghostnote-audio-artifact-v0",
+          "producerVersion": "0",
+          "consumerVersion": "0"
+        },
+        {
+          "name": "ghostnote-verified-audio-artifact-v0",
+          "producerVersion": "0",
+          "consumerVersion": "0"
+        }
+      ],
+      "projection": "Each full artifact was verified, then projected to one 96182-sample common musical range and verified again.",
+      "translation": "The file SHA-256 stayed unchanged; only the declared sample scope narrowed.",
+      "defaults": [],
+      "validation": [
+        "Hash, PCM24 WAVE header, equal sample coverage, and final source check passed."
+      ],
+      "droppedData": [
+        "Unequal recorder lead and tail samples were outside the paired analysis scope."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "S13",
+      "producer": "audio-facts-v0",
+      "consumer": "sensory v1 router",
+      "formats": [
+        {
+          "name": "audio-facts-v0",
+          "producerVersion": "0",
+          "consumerVersion": "1"
+        },
+        {
+          "name": "ghostnote-sensory-packet-v1",
+          "producerVersion": "1",
+          "consumerVersion": "1"
+        }
+      ],
+      "projection": "Only silence, integrated loudness, and rolloff facts were copied.",
+      "translation": "B minus A used finite compatible values.",
+      "defaults": [],
+      "validation": [
+        "Units, formulas, settings, channels, coverage, provider, silence, and 0.2 LU gate passed."
+      ],
+      "droppedData": [
+        "Unselected audio facts were not requested."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "S16",
+      "producer": "cross-module run",
+      "consumer": "hybrid run record",
+      "formats": [
+        {
+          "name": "ghostnote-hybrid-run-record-v0",
+          "producerVersion": "0",
+          "consumerVersion": "0"
+        }
+      ],
+      "projection": "IDs and authority classes link without merging evidence.",
+      "translation": "Operator input will set only the operator verdict and final disposition.",
+      "defaults": [
+        "Verdict is pending until explicit input."
+      ],
+      "validation": [
+        "Strict run-record validation passes before each write."
+      ],
+      "droppedData": [
+        "Raw provider results remain in the separate audio evidence file."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "S17",
+      "producer": "frozen run profile",
+      "consumer": "module registry",
+      "formats": [
+        {
+          "name": "ghostnote-workstation-module-v0",
+          "producerVersion": "0",
+          "consumerVersion": "0"
+        }
+      ],
+      "projection": "Only capture and audio facts modules were enabled.",
+      "translation": "Discovery started no provider; requests started only their selected module.",
+      "defaults": [],
+      "validation": [
+        "Accepted and emitted schemas match the frozen profile."
+      ],
+      "droppedData": [],
+      "verdict": "pass"
+    }
+  ],
+  "authorities": [
+    {
+      "claim": "Track, clip metadata, device, parameter, artifact bytes, and readback.",
+      "authority": "exact-observation",
+      "evidenceId": "4915cf524fc609a80e7b0e310cf9431fd08aec64bf05c4367391176d1b2b5bd7"
+    },
+    {
+      "claim": "Loudness, silence, and rolloff values.",
+      "authority": "derived-measurement",
+      "evidenceId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-paired-brightness"
+    },
+    {
+      "claim": "The Output Tilt Slope change is a plausible brightness adjustment.",
+      "authority": "agent-interpretation",
+      "evidenceId": "a6ed5de7-509c-434d-80d2-3a916d6cb0b4"
+    },
+    {
+      "claim": "The candidate write reached its exact base value.",
+      "authority": "verified-outcome",
+      "evidenceId": "a6ed5de7-509c-434d-80d2-3a916d6cb0b4"
+    },
+    {
+      "claim": "The original non-zero play start stayed exact for capture.",
+      "authority": "exact-observation",
+      "evidenceId": "4915cf524fc609a80e7b0e310cf9431fd08aec64bf05c4367391176d1b2b5bd7"
+    },
+    {
+      "claim": "The operator selected accepted-B.",
+      "authority": "operator-confirmed",
+      "evidenceId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-operator-verdict"
+    },
+    {
+      "claim": "A and B were presented as identified audition files.",
+      "authority": "ui-observation",
+      "evidenceId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-ui-audition"
+    }
+  ],
+  "uiEvents": [
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-ui-play-start-attempt",
+      "action": "Temporarily set perc a play start to zero during an earlier failed attempt.",
+      "observation": "The UI edit was external and did not make either failed artifact valid.",
+      "ownership": "external-ui"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-ui-play-start-undo",
+      "action": "Undo the temporary play-start edits before the successful run.",
+      "observation": "Exact Ghostnote readback restored playStartBeats 0.28698158264160156.",
+      "ownership": "external-ui"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-ui-system-restart",
+      "action": "The operator restarted the system and reopened the Bitwig project.",
+      "observation": "Fresh exact Ghostnote state confirmed the same project, candidate value, and original play start before the run resumed.",
+      "ownership": "external-ui"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-ui-audition",
+      "action": "Play the identified A and B WAVE files for operator audition.",
+      "observation": "Playback and the operator response are external to Ghostnote evidence.",
+      "ownership": "external-ui"
+    },
+    {
+      "id": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-ui-final-state",
+      "action": "Inspect the final Bitwig project window without changing it.",
+      "observation": "The project title has a modified marker, transport is stopped, and the perc a launcher clip in zero-based row 6 is selected.",
+      "ownership": "external-ui"
+    }
+  ],
+  "costs": {
+    "toolCalls": 10,
+    "latencyMs": {
+      "baselineCapture": 4500.277458000004,
+      "candidateCapture": 4551.056209000002,
+      "sensoryRouting": 0.741874999992433
+    },
+    "operatorInterventions": [
+      "The operator selected perc a after the preferred keys track had no device.",
+      "The operator authorized a temporary play-start edit and the non-zero-start capability work.",
+      "The operator restarted the system and reopened the Bitwig project.",
+      "The operator gave one explicit A/B verdict."
+    ],
+    "targetErrors": [
+      "The supplied path omitted the project directory level; the exact existing file was used.",
+      "The preferred keys track has a valid launcher clip but no device.",
+      "The whisper texture clip did not wrap within 55 seconds and cannot fit the capture profile with lead and tail.",
+      "Two earlier perc a baseline attempts failed because audio clips report playingStep -1.",
+      "A temporary play-start reset was undone exactly before the successful composed run.",
+      "Dist TUBE-CULTURE did not settle its target-bound write callback; complete independent inventory verified each requested base value."
+    ],
+    "verificationCost": [
+      "Two saved-project validations and live source preflights.",
+      "Two recorder lifecycle and unique-file attribution checks.",
+      "Two full artifact hashes before and after analysis.",
+      "Two guarded scalar writes plus independent complete inventory readback.",
+      "Exact clip-metadata reads preserved the original non-zero play start."
+    ],
+    "unsupportedBoundaries": [
+      "Bitwig does not expose the loaded project path.",
+      "Capture does not exclude other project-master output.",
+      "API 25 cannot write exact displayed or semantic parameter values."
+    ]
+  },
+  "operatorVerdict": {
+    "state": "accepted-B",
+    "rawResponse": "B"
+  },
+  "finalState": {
+    "project": "26.25-6 fire; the saved project reopened with Output Tilt Slope 0.5; the final live value is 0.5; perc a play start is 0.28698158264160156; UI shows a modified marker; saved file SHA-256 is f39d4bb301226ec4935e414448d105a1ea2b1bfabf72025f88e6317853ca722a",
+    "recorder": "inactive with no owned lease",
+    "transport": "stopped",
+    "selection": "The workspace restored entry selection; the UI shows the perc a launcher clip in zero-based row 6 selected.",
+    "filesystem": "Both exactly owned temporary captures were removed after evidence recording; master-recordings contains no WAVE files."
+  },
+  "interfaceClassifications": [
+    {
+      "interface": "audio-capture-v0",
+      "classification": "retain-for-more-dogfood",
+      "reason": "It produced both real artifacts; audio-clip range proof and paired scope need more runs."
+    },
+    {
+      "interface": "audio-facts-v0",
+      "classification": "graduate",
+      "reason": "It independently verified and analyzed both captures."
+    },
+    {
+      "interface": "ghostnote-sensory-packet-v1 audio brightness route",
+      "classification": "graduate",
+      "reason": "It enforced compatibility, silence, and level gates without making an aesthetic verdict."
+    },
+    {
+      "interface": "ghostnote-hybrid-run-record-v0",
+      "classification": "revise",
+      "reason": "The first real S16 record is useful but its verbose seam text should be reduced after another dogfood run."
+    }
+  ]
+}

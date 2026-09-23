@@ -1,0 +1,2182 @@
+{
+  "runId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7",
+  "profile": "phase-7f-audio-guided-sound-design-v0",
+  "baseline": {
+    "capture": {
+      "schema": "audio-capture-v0",
+      "source": {
+        "manifest": {
+          "schema": "ghostnote-audio-capture-source-v0",
+          "sourceId": "phase7f-a-perc-a",
+          "sourceKind": "project-master-during-launcher-clip",
+          "projectFileSha256": "f39d4bb301226ec4935e414448d105a1ea2b1bfabf72025f88e6317853ca722a",
+          "launcherClip": {
+            "kind": "clip",
+            "slot": {
+              "kind": "slot",
+              "track": {
+                "kind": "track",
+                "channelId": "2598ed2d-9e8c-40f4-8435-33609aad552a"
+              },
+              "scene": {
+                "kind": "scene",
+                "index": 6,
+                "epoch": 2
+              }
+            }
+          },
+          "guard": {
+            "generation": "2941dc9e-bde5-4bc5-8e47-7923663b1316",
+            "project": "26.25-6 fire",
+            "revision": 9,
+            "sceneEpoch": 2,
+            "contentEpoch": 32809
+          },
+          "range": {
+            "policy": "one-launcher-loop-from-start-v0",
+            "startBeats": 0.28698158264160156,
+            "endBeats": 4,
+            "stepSizeBeats": 0.25
+          },
+          "permissionBasis": "operator-authorized real launcher clip and project master output",
+          "coverage": {
+            "masterSource": "project-master",
+            "launcherClipRole": "range-trigger",
+            "otherProjectOutput": "not-excluded"
+          }
+        },
+        "sha256": "4915cf524fc609a80e7b0e310cf9431fd08aec64bf05c4367391176d1b2b5bd7",
+        "digestDomain": "audio-capture-source-v0",
+        "canonicalizationVersion": "capture-source-json-v0"
+      },
+      "project": {
+        "schema": "ghostnote-saved-bitwig-project-v0",
+        "directory": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire",
+        "projectFile": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/26.25-6 fire.bwproject",
+        "projectFileSha256": "f39d4bb301226ec4935e414448d105a1ea2b1bfabf72025f88e6317853ca722a",
+        "liveProjectName": "26.25-6 fire",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files",
+        "associationBasis": "operator-established-path-plus-live-guard-v0"
+      },
+      "requestedRange": {
+        "policy": "one-launcher-loop-from-start-v0",
+        "startBeats": 0.28698158264160156,
+        "endBeats": 4,
+        "stepSizeBeats": 0.25
+      },
+      "observedRange": {
+        "playbackStartedAtMs": 1790173029441,
+        "terminalRangeObservedAtMs": 1790173031507,
+        "rangeWrappedAtMs": 1790173031622,
+        "transportStoppedAtMs": 1790173031717,
+        "observationBasis": "slot-transport-beats-v0",
+        "transportStartBeats": 0.07304232800379395,
+        "transportEndBeats": 4.074614512268454,
+        "requiredAdvanceBeats": 4,
+        "observedAdvanceBeats": 4.00157218426466
+      },
+      "artifact": {
+        "schema": "ghostnote-audio-artifact-v0",
+        "sourceId": "phase7f-a-perc-a",
+        "absolutePath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 931000,
+        "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+        "digestDomain": "file-bytes",
+        "creator": "ghostnote-audio-capture",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files",
+        "format": {
+          "container": "wav",
+          "codec": "pcm_s24le",
+          "sampleRateHz": 44100,
+          "channels": 2,
+          "bitsPerSample": 24
+        },
+        "scope": {
+          "sampleRange": {
+            "start": 0,
+            "end": 155136
+          },
+          "channelIndices": [
+            0,
+            1
+          ]
+        }
+      },
+      "captureArtifact": {
+        "sourceSha256": "4915cf524fc609a80e7b0e310cf9431fd08aec64bf05c4367391176d1b2b5bd7",
+        "requestedRange": {
+          "policy": "one-launcher-loop-from-start-v0",
+          "startBeats": 0.28698158264160156,
+          "endBeats": 4,
+          "stepSizeBeats": 0.25
+        },
+        "absolutePath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 931000,
+        "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+        "format": {
+          "container": "wav",
+          "codec": "pcm_s24le",
+          "sampleRateHz": 44100,
+          "channels": 2,
+          "bitsPerSample": 24
+        },
+        "channels": 2,
+        "sampleRateHz": 44100,
+        "durationSeconds": 3.517823129251701,
+        "recorderDurationMs": 3348,
+        "providerVersions": {
+          "adapter": "ghostnote/0",
+          "bitwig": "6.0.6",
+          "controllerApi": "25",
+          "extension": "0.0.1",
+          "methodsHash": "78368fe47ea0e814",
+          "deployment": "fresh",
+          "captureProvider": "0",
+          "headerReader": "0"
+        }
+      },
+      "provider": {
+        "adapterName": "ghostnote-bitwig-live-adapter",
+        "adapterVersion": "ghostnote/0",
+        "bitwigVersion": "6.0.6",
+        "controllerApiVersion": 25,
+        "extensionVersion": "0.0.1",
+        "methodsHash": "78368fe47ea0e814",
+        "deploymentState": "fresh",
+        "name": "ghostnote-bitwig-master-recorder",
+        "version": "0",
+        "headerReader": "ghostnote-pcm24-wave-header",
+        "headerReaderVersion": "0"
+      },
+      "coverage": {
+        "musicalRangeComplete": true,
+        "sampleRange": {
+          "start": 0,
+          "end": 155136
+        },
+        "channelIndices": [
+          0,
+          1
+        ],
+        "sampleAlignment": "not-proved",
+        "captureLeadMs": 1039,
+        "captureTailMs": 306
+      },
+      "ownership": {
+        "creator": "ghostnote-audio-capture",
+        "scope": "one-created-project-local-file",
+        "evidence": [
+          "The path was absent from the pre-start master-recordings snapshot.",
+          "Exactly one stable regular lossless file appeared after recorder stop.",
+          "Stable read, full byte SHA-256, and PCM WAVE header validation passed."
+        ]
+      },
+      "warnings": [
+        "Bitwig exposes no loaded-project path. Association uses an operator-established exact project file plus the live project detector and source guard.",
+        "The launcher clip controls the musical range. Other project-master output is not excluded.",
+        "The musical range does not prove sample-exact start or stop alignment."
+      ],
+      "timingMs": {
+        "projectAssociation": 1.2404590000005555,
+        "sourcePreflight": 644.8042920000007,
+        "directorySnapshot": 1.2528329999986454,
+        "recorderActivation": 139.63179200000013,
+        "playback": 3315.501707999996,
+        "recorderStop": 140.01662499999657,
+        "artifactSettlement": 105.22641699999804,
+        "artifactReadAndHash": 0.9009169999990263,
+        "headerValidation": 0.15920799999730662,
+        "total": 4500.277458000004
+      }
+    },
+    "analysis": {
+      "schema": "audio-facts-v0",
+      "task": {
+        "taskId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-brightness-A",
+        "property": "brightness",
+        "operationalDefinition": "Compare the 85% spectral-rolloff proxy only after level matching within 0.2 LU."
+      },
+      "source": {
+        "sourceId": "phase7f-a-perc-a",
+        "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 931000,
+        "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+        "digestDomain": "file-bytes",
+        "creator": "ghostnote-audio-capture",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+      },
+      "provider": {
+        "name": "ghostnote-ffmpeg-audio-facts",
+        "version": "0",
+        "ffprobeVersion": "8.1.2",
+        "ffmpegVersion": "8.1.2"
+      },
+      "coverage": {
+        "requestedProperty": "brightness",
+        "selectedFields": [
+          "silence-duration-v0",
+          "integrated-loudness-v0",
+          "spectral-rolloff-85-v0"
+        ],
+        "omittedFields": [
+          "peak-rms-crest-v0",
+          "sample-peak",
+          "pitch",
+          "onsets",
+          "stereo-correlation",
+          "modulation-rate",
+          "spectrogram",
+          "perceptual-label"
+        ],
+        "sampleRange": {
+          "start": 0,
+          "end": 155136
+        },
+        "channelIndices": [
+          0,
+          1
+        ],
+        "complete": true
+      },
+      "authority": "measured-signal-evidence",
+      "facts": [
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "silence-duration-v0",
+          "value": 0,
+          "unit": "s",
+          "kind": "thresholded-fact",
+          "formula": {
+            "id": "ffmpeg-silencedetect-complete-range-v0",
+            "settings": {
+              "thresholdDbfs": -90,
+              "minimumIntervalSeconds": 0.05,
+              "channelRule": "all-selected-channels-below-threshold",
+              "gateRule": "merged-intervals-cover-complete-selected-range-within-one-sample",
+              "timestampRule": "round-to-nearest-sample-before-union"
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.000022675736961451248,
+            "unit": "s",
+            "basis": "one sample"
+          },
+          "uncertainty": "Intervals use a -90 dBFS noise floor and a 0.05-second minimum duration.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-a-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 931000,
+            "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 0,
+              "end": 155136
+            },
+            "observedSamples": {
+              "start": 0,
+              "end": 155136
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "integrated-loudness-v0",
+          "value": -20.5,
+          "unit": "LUFS",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-ebur128-integrated-v0",
+            "settings": {
+              "standard": "EBU R128",
+              "peakMode": "true",
+              "dualMono": false,
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.1,
+            "unit": "LUFS",
+            "basis": "FFmpeg EBU R128 summary precision"
+          },
+          "uncertainty": "This is the integrated EBU R128 estimate for the complete selected range.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-a-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 931000,
+            "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 0,
+              "end": 155136
+            },
+            "observedSamples": {
+              "start": 0,
+              "end": 155136
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "spectral-rolloff-85-v0",
+          "value": 6699.52,
+          "unit": "Hz",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-rolloff-85-v0",
+            "settings": {
+              "cutoffMagnitudeRatio": 0.85,
+              "frameSamples": 8192,
+              "hopSamples": 8192,
+              "window": "hann",
+              "overlap": 0,
+              "padding": "none",
+              "tailPolicy": "discard-incomplete",
+              "aggregation": "median-across-complete-frames-and-selected-channels",
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 10.7666015625,
+            "unit": "Hz",
+            "basis": "two 8,192-sample FFT bins"
+          },
+          "uncertainty": "The value is the median over complete frames and selected channels.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-a-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 931000,
+            "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 0,
+              "end": 155136
+            },
+            "observedSamples": {
+              "start": 0,
+              "end": 155136
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": {
+              "sizeSamples": 8192,
+              "hopSamples": 8192,
+              "count": 18,
+              "coveredSamples": 147456,
+              "tailSamples": 7680,
+              "window": "hann",
+              "padding": "none",
+              "tailPolicy": "discard-incomplete"
+            }
+          }
+        }
+      ],
+      "silenceGateApplied": false,
+      "warnings": [],
+      "timingMs": {
+        "sourceReadAndHash": 1.8421249999955762,
+        "headerAndScopeValidation": 0.18354199999885168,
+        "providerProbe": 73.25116700000217,
+        "silence": 53.549917000003916,
+        "selectedFacts": 165.45083399999567,
+        "outputValidation": 0.04133299999375595,
+        "finalSourceVerification": 0.8096249999944121
+      }
+    }
+  },
+  "candidate": {
+    "capture": {
+      "schema": "audio-capture-v0",
+      "source": {
+        "manifest": {
+          "schema": "ghostnote-audio-capture-source-v0",
+          "sourceId": "phase7f-b-perc-a",
+          "sourceKind": "project-master-during-launcher-clip",
+          "projectFileSha256": "f39d4bb301226ec4935e414448d105a1ea2b1bfabf72025f88e6317853ca722a",
+          "launcherClip": {
+            "kind": "clip",
+            "slot": {
+              "kind": "slot",
+              "track": {
+                "kind": "track",
+                "channelId": "2598ed2d-9e8c-40f4-8435-33609aad552a"
+              },
+              "scene": {
+                "kind": "scene",
+                "index": 6,
+                "epoch": 2
+              }
+            }
+          },
+          "guard": {
+            "generation": "2941dc9e-bde5-4bc5-8e47-7923663b1316",
+            "project": "26.25-6 fire",
+            "revision": 10,
+            "sceneEpoch": 2,
+            "contentEpoch": 32809
+          },
+          "range": {
+            "policy": "one-launcher-loop-from-start-v0",
+            "startBeats": 0.28698158264160156,
+            "endBeats": 4,
+            "stepSizeBeats": 0.25
+          },
+          "permissionBasis": "operator-authorized real launcher clip and project master output",
+          "coverage": {
+            "masterSource": "project-master",
+            "launcherClipRole": "range-trigger",
+            "otherProjectOutput": "not-excluded"
+          }
+        },
+        "sha256": "6dfa83ddf170c0d3f7d81c1cff8795f3d79f619f29a500ea95a4d839d1323fe8",
+        "digestDomain": "audio-capture-source-v0",
+        "canonicalizationVersion": "capture-source-json-v0"
+      },
+      "project": {
+        "schema": "ghostnote-saved-bitwig-project-v0",
+        "directory": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire",
+        "projectFile": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/26.25-6 fire.bwproject",
+        "projectFileSha256": "f39d4bb301226ec4935e414448d105a1ea2b1bfabf72025f88e6317853ca722a",
+        "liveProjectName": "26.25-6 fire",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files",
+        "associationBasis": "operator-established-path-plus-live-guard-v0"
+      },
+      "requestedRange": {
+        "policy": "one-launcher-loop-from-start-v0",
+        "startBeats": 0.28698158264160156,
+        "endBeats": 4,
+        "stepSizeBeats": 0.25
+      },
+      "observedRange": {
+        "playbackStartedAtMs": 1790173067397,
+        "terminalRangeObservedAtMs": 1790173069496,
+        "rangeWrappedAtMs": 1790173069618,
+        "transportStoppedAtMs": 1790173069710,
+        "observationBasis": "slot-transport-beats-v0",
+        "transportStartBeats": 0.09432728635147214,
+        "transportEndBeats": 4.181039304472506,
+        "requiredAdvanceBeats": 4,
+        "observedAdvanceBeats": 4.086712018121034
+      },
+      "artifact": {
+        "schema": "ghostnote-audio-artifact-v0",
+        "sourceId": "phase7f-b-perc-a",
+        "absolutePath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 943288,
+        "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+        "digestDomain": "file-bytes",
+        "creator": "ghostnote-audio-capture",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files",
+        "format": {
+          "container": "wav",
+          "codec": "pcm_s24le",
+          "sampleRateHz": 44100,
+          "channels": 2,
+          "bitsPerSample": 24
+        },
+        "scope": {
+          "sampleRange": {
+            "start": 0,
+            "end": 157184
+          },
+          "channelIndices": [
+            0,
+            1
+          ]
+        }
+      },
+      "captureArtifact": {
+        "sourceSha256": "6dfa83ddf170c0d3f7d81c1cff8795f3d79f619f29a500ea95a4d839d1323fe8",
+        "requestedRange": {
+          "policy": "one-launcher-loop-from-start-v0",
+          "startBeats": 0.28698158264160156,
+          "endBeats": 4,
+          "stepSizeBeats": 0.25
+        },
+        "absolutePath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 943288,
+        "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+        "format": {
+          "container": "wav",
+          "codec": "pcm_s24le",
+          "sampleRateHz": 44100,
+          "channels": 2,
+          "bitsPerSample": 24
+        },
+        "channels": 2,
+        "sampleRateHz": 44100,
+        "durationSeconds": 3.564263038548753,
+        "recorderDurationMs": 3443,
+        "providerVersions": {
+          "adapter": "ghostnote/0",
+          "bitwig": "6.0.6",
+          "controllerApi": "25",
+          "extension": "0.0.1",
+          "methodsHash": "78368fe47ea0e814",
+          "deployment": "fresh",
+          "captureProvider": "0",
+          "headerReader": "0"
+        }
+      },
+      "provider": {
+        "adapterName": "ghostnote-bitwig-live-adapter",
+        "adapterVersion": "ghostnote/0",
+        "bitwigVersion": "6.0.6",
+        "controllerApiVersion": 25,
+        "extensionVersion": "0.0.1",
+        "methodsHash": "78368fe47ea0e814",
+        "deploymentState": "fresh",
+        "name": "ghostnote-bitwig-master-recorder",
+        "version": "0",
+        "headerReader": "ghostnote-pcm24-wave-header",
+        "headerReaderVersion": "0"
+      },
+      "coverage": {
+        "musicalRangeComplete": true,
+        "sampleRange": {
+          "start": 0,
+          "end": 157184
+        },
+        "channelIndices": [
+          0,
+          1
+        ],
+        "sampleAlignment": "not-proved",
+        "captureLeadMs": 1038,
+        "captureTailMs": 307
+      },
+      "ownership": {
+        "creator": "ghostnote-audio-capture",
+        "scope": "one-created-project-local-file",
+        "evidence": [
+          "The path was absent from the pre-start master-recordings snapshot.",
+          "Exactly one stable regular lossless file appeared after recorder stop.",
+          "Stable read, full byte SHA-256, and PCM WAVE header validation passed."
+        ]
+      },
+      "warnings": [
+        "Bitwig exposes no loaded-project path. Association uses an operator-established exact project file plus the live project detector and source guard.",
+        "The launcher clip controls the musical range. Other project-master output is not excluded.",
+        "The musical range does not prove sample-exact start or stop alignment."
+      ],
+      "timingMs": {
+        "projectAssociation": 1.2119169999932637,
+        "sourcePreflight": 652.1886250000098,
+        "directorySnapshot": 1.033792000001995,
+        "recorderActivation": 139.1088749999908,
+        "playback": 3350.7394579999964,
+        "recorderStop": 145.14829199999804,
+        "artifactSettlement": 109.0632079999923,
+        "artifactReadAndHash": 2.708834000004572,
+        "headerValidation": 0.06624999998894054,
+        "total": 4551.056209000002
+      }
+    },
+    "analysis": {
+      "schema": "audio-facts-v0",
+      "task": {
+        "taskId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-brightness-B",
+        "property": "brightness",
+        "operationalDefinition": "Compare the 85% spectral-rolloff proxy only after level matching within 0.2 LU."
+      },
+      "source": {
+        "sourceId": "phase7f-b-perc-a",
+        "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 943288,
+        "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+        "digestDomain": "file-bytes",
+        "creator": "ghostnote-audio-capture",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+      },
+      "provider": {
+        "name": "ghostnote-ffmpeg-audio-facts",
+        "version": "0",
+        "ffprobeVersion": "8.1.2",
+        "ffmpegVersion": "8.1.2"
+      },
+      "coverage": {
+        "requestedProperty": "brightness",
+        "selectedFields": [
+          "silence-duration-v0",
+          "integrated-loudness-v0",
+          "spectral-rolloff-85-v0"
+        ],
+        "omittedFields": [
+          "peak-rms-crest-v0",
+          "sample-peak",
+          "pitch",
+          "onsets",
+          "stereo-correlation",
+          "modulation-rate",
+          "spectrogram",
+          "perceptual-label"
+        ],
+        "sampleRange": {
+          "start": 0,
+          "end": 157184
+        },
+        "channelIndices": [
+          0,
+          1
+        ],
+        "complete": true
+      },
+      "authority": "measured-signal-evidence",
+      "facts": [
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "silence-duration-v0",
+          "value": 0,
+          "unit": "s",
+          "kind": "thresholded-fact",
+          "formula": {
+            "id": "ffmpeg-silencedetect-complete-range-v0",
+            "settings": {
+              "thresholdDbfs": -90,
+              "minimumIntervalSeconds": 0.05,
+              "channelRule": "all-selected-channels-below-threshold",
+              "gateRule": "merged-intervals-cover-complete-selected-range-within-one-sample",
+              "timestampRule": "round-to-nearest-sample-before-union"
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.000022675736961451248,
+            "unit": "s",
+            "basis": "one sample"
+          },
+          "uncertainty": "Intervals use a -90 dBFS noise floor and a 0.05-second minimum duration.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-b-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 943288,
+            "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 0,
+              "end": 157184
+            },
+            "observedSamples": {
+              "start": 0,
+              "end": 157184
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "integrated-loudness-v0",
+          "value": -20.5,
+          "unit": "LUFS",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-ebur128-integrated-v0",
+            "settings": {
+              "standard": "EBU R128",
+              "peakMode": "true",
+              "dualMono": false,
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.1,
+            "unit": "LUFS",
+            "basis": "FFmpeg EBU R128 summary precision"
+          },
+          "uncertainty": "This is the integrated EBU R128 estimate for the complete selected range.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-b-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 943288,
+            "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 0,
+              "end": 157184
+            },
+            "observedSamples": {
+              "start": 0,
+              "end": 157184
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "spectral-rolloff-85-v0",
+          "value": 7227.085,
+          "unit": "Hz",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-rolloff-85-v0",
+            "settings": {
+              "cutoffMagnitudeRatio": 0.85,
+              "frameSamples": 8192,
+              "hopSamples": 8192,
+              "window": "hann",
+              "overlap": 0,
+              "padding": "none",
+              "tailPolicy": "discard-incomplete",
+              "aggregation": "median-across-complete-frames-and-selected-channels",
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 10.7666015625,
+            "unit": "Hz",
+            "basis": "two 8,192-sample FFT bins"
+          },
+          "uncertainty": "The value is the median over complete frames and selected channels.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-b-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 943288,
+            "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 0,
+              "end": 157184
+            },
+            "observedSamples": {
+              "start": 0,
+              "end": 157184
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": {
+              "sizeSamples": 8192,
+              "hopSamples": 8192,
+              "count": 19,
+              "coveredSamples": 155648,
+              "tailSamples": 1536,
+              "window": "hann",
+              "padding": "none",
+              "tailPolicy": "discard-incomplete"
+            }
+          }
+        }
+      ],
+      "silenceGateApplied": false,
+      "warnings": [],
+      "timingMs": {
+        "sourceReadAndHash": 3.085000000006403,
+        "headerAndScopeValidation": 0.06954100000439212,
+        "providerProbe": 115.05420800000138,
+        "silence": 65.2352499999979,
+        "selectedFacts": 185.808125999989,
+        "outputValidation": 0.007625000012922101,
+        "finalSourceVerification": 0.7132500000006985
+      }
+    }
+  },
+  "comparableProjection": {
+    "commonSamples": 96182,
+    "A": {
+      "schema": "audio-facts-v0",
+      "task": {
+        "taskId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-brightness-common-A",
+        "property": "brightness",
+        "operationalDefinition": "Compare the 85% spectral-rolloff proxy only after level matching within 0.2 LU."
+      },
+      "source": {
+        "sourceId": "phase7f-a-perc-a",
+        "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 931000,
+        "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+        "digestDomain": "file-bytes",
+        "creator": "ghostnote-audio-capture",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+      },
+      "provider": {
+        "name": "ghostnote-ffmpeg-audio-facts",
+        "version": "0",
+        "ffprobeVersion": "8.1.2",
+        "ffmpegVersion": "8.1.2"
+      },
+      "coverage": {
+        "requestedProperty": "brightness",
+        "selectedFields": [
+          "silence-duration-v0",
+          "integrated-loudness-v0",
+          "spectral-rolloff-85-v0"
+        ],
+        "omittedFields": [
+          "peak-rms-crest-v0",
+          "sample-peak",
+          "pitch",
+          "onsets",
+          "stereo-correlation",
+          "modulation-rate",
+          "spectrogram",
+          "perceptual-label"
+        ],
+        "sampleRange": {
+          "start": 45819,
+          "end": 142001
+        },
+        "channelIndices": [
+          0,
+          1
+        ],
+        "complete": true
+      },
+      "authority": "measured-signal-evidence",
+      "facts": [
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "silence-duration-v0",
+          "value": 0,
+          "unit": "s",
+          "kind": "thresholded-fact",
+          "formula": {
+            "id": "ffmpeg-silencedetect-complete-range-v0",
+            "settings": {
+              "thresholdDbfs": -90,
+              "minimumIntervalSeconds": 0.05,
+              "channelRule": "all-selected-channels-below-threshold",
+              "gateRule": "merged-intervals-cover-complete-selected-range-within-one-sample",
+              "timestampRule": "round-to-nearest-sample-before-union"
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.000022675736961451248,
+            "unit": "s",
+            "basis": "one sample"
+          },
+          "uncertainty": "Intervals use a -90 dBFS noise floor and a 0.05-second minimum duration.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-a-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 931000,
+            "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "observedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "integrated-loudness-v0",
+          "value": -19.7,
+          "unit": "LUFS",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-ebur128-integrated-v0",
+            "settings": {
+              "standard": "EBU R128",
+              "peakMode": "true",
+              "dualMono": false,
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.1,
+            "unit": "LUFS",
+            "basis": "FFmpeg EBU R128 summary precision"
+          },
+          "uncertainty": "This is the integrated EBU R128 estimate for the complete selected range.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-a-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 931000,
+            "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "observedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "spectral-rolloff-85-v0",
+          "value": 4949.945,
+          "unit": "Hz",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-rolloff-85-v0",
+            "settings": {
+              "cutoffMagnitudeRatio": 0.85,
+              "frameSamples": 8192,
+              "hopSamples": 8192,
+              "window": "hann",
+              "overlap": 0,
+              "padding": "none",
+              "tailPolicy": "discard-incomplete",
+              "aggregation": "median-across-complete-frames-and-selected-channels",
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 10.7666015625,
+            "unit": "Hz",
+            "basis": "two 8,192-sample FFT bins"
+          },
+          "uncertainty": "The value is the median over complete frames and selected channels.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-a-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 931000,
+            "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "observedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": {
+              "sizeSamples": 8192,
+              "hopSamples": 8192,
+              "count": 11,
+              "coveredSamples": 90112,
+              "tailSamples": 6070,
+              "window": "hann",
+              "padding": "none",
+              "tailPolicy": "discard-incomplete"
+            }
+          }
+        }
+      ],
+      "silenceGateApplied": false,
+      "warnings": [],
+      "timingMs": {
+        "sourceReadAndHash": 3.105249999993248,
+        "headerAndScopeValidation": 0.02524999999150168,
+        "providerProbe": 74.6761669999978,
+        "silence": 74.07441700001073,
+        "selectedFacts": 266.2153339999786,
+        "outputValidation": 0.00779099999635946,
+        "finalSourceVerification": 1.0777500000112923
+      }
+    },
+    "B": {
+      "schema": "audio-facts-v0",
+      "task": {
+        "taskId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-brightness-common-B",
+        "property": "brightness",
+        "operationalDefinition": "Compare the 85% spectral-rolloff proxy only after level matching within 0.2 LU."
+      },
+      "source": {
+        "sourceId": "phase7f-b-perc-a",
+        "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 943288,
+        "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+        "digestDomain": "file-bytes",
+        "creator": "ghostnote-audio-capture",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+      },
+      "provider": {
+        "name": "ghostnote-ffmpeg-audio-facts",
+        "version": "0",
+        "ffprobeVersion": "8.1.2",
+        "ffmpegVersion": "8.1.2"
+      },
+      "coverage": {
+        "requestedProperty": "brightness",
+        "selectedFields": [
+          "silence-duration-v0",
+          "integrated-loudness-v0",
+          "spectral-rolloff-85-v0"
+        ],
+        "omittedFields": [
+          "peak-rms-crest-v0",
+          "sample-peak",
+          "pitch",
+          "onsets",
+          "stereo-correlation",
+          "modulation-rate",
+          "spectrogram",
+          "perceptual-label"
+        ],
+        "sampleRange": {
+          "start": 45775,
+          "end": 141957
+        },
+        "channelIndices": [
+          0,
+          1
+        ],
+        "complete": true
+      },
+      "authority": "measured-signal-evidence",
+      "facts": [
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "silence-duration-v0",
+          "value": 0,
+          "unit": "s",
+          "kind": "thresholded-fact",
+          "formula": {
+            "id": "ffmpeg-silencedetect-complete-range-v0",
+            "settings": {
+              "thresholdDbfs": -90,
+              "minimumIntervalSeconds": 0.05,
+              "channelRule": "all-selected-channels-below-threshold",
+              "gateRule": "merged-intervals-cover-complete-selected-range-within-one-sample",
+              "timestampRule": "round-to-nearest-sample-before-union"
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.000022675736961451248,
+            "unit": "s",
+            "basis": "one sample"
+          },
+          "uncertainty": "Intervals use a -90 dBFS noise floor and a 0.05-second minimum duration.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-b-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 943288,
+            "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "observedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "integrated-loudness-v0",
+          "value": -19.7,
+          "unit": "LUFS",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-ebur128-integrated-v0",
+            "settings": {
+              "standard": "EBU R128",
+              "peakMode": "true",
+              "dualMono": false,
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.1,
+            "unit": "LUFS",
+            "basis": "FFmpeg EBU R128 summary precision"
+          },
+          "uncertainty": "This is the integrated EBU R128 estimate for the complete selected range.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-b-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 943288,
+            "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "observedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "spectral-rolloff-85-v0",
+          "value": 5469.43,
+          "unit": "Hz",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-rolloff-85-v0",
+            "settings": {
+              "cutoffMagnitudeRatio": 0.85,
+              "frameSamples": 8192,
+              "hopSamples": 8192,
+              "window": "hann",
+              "overlap": 0,
+              "padding": "none",
+              "tailPolicy": "discard-incomplete",
+              "aggregation": "median-across-complete-frames-and-selected-channels",
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 10.7666015625,
+            "unit": "Hz",
+            "basis": "two 8,192-sample FFT bins"
+          },
+          "uncertainty": "The value is the median over complete frames and selected channels.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-b-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 943288,
+            "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "observedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": {
+              "sizeSamples": 8192,
+              "hopSamples": 8192,
+              "count": 11,
+              "coveredSamples": 90112,
+              "tailSamples": 6070,
+              "window": "hann",
+              "padding": "none",
+              "tailPolicy": "discard-incomplete"
+            }
+          }
+        }
+      ],
+      "silenceGateApplied": false,
+      "warnings": [],
+      "timingMs": {
+        "sourceReadAndHash": 0.7419579999987036,
+        "headerAndScopeValidation": 0.037457999991602264,
+        "providerProbe": 76.90691599999263,
+        "silence": 74.11874999999418,
+        "selectedFacts": 265.83654200000456,
+        "outputValidation": 0.00466700000106357,
+        "finalSourceVerification": 0.741334000005736
+      }
+    }
+  },
+  "sensory": {
+    "schema": "ghostnote-sensory-packet-v1",
+    "taskId": "phase7f-6bceb873-21b7-4410-af10-7c80d87284d7-paired-brightness",
+    "property": {
+      "id": "brightness",
+      "operationalDefinition": "Compare the 85% spectral-rolloff proxy only after level matching within 0.2 LU."
+    },
+    "sources": {
+      "A": {
+        "sourceId": "phase7f-a-perc-a",
+        "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 931000,
+        "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+        "digestDomain": "file-bytes",
+        "creator": "ghostnote-audio-capture",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+      },
+      "B": {
+        "sourceId": "phase7f-b-perc-a",
+        "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+        "mediaType": "audio/wav",
+        "byteCount": 943288,
+        "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+        "digestDomain": "file-bytes",
+        "creator": "ghostnote-audio-capture",
+        "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+      }
+    },
+    "fields": [
+      {
+        "fieldId": "silence-duration-v0",
+        "A": {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "silence-duration-v0",
+          "value": 0,
+          "unit": "s",
+          "kind": "thresholded-fact",
+          "formula": {
+            "id": "ffmpeg-silencedetect-complete-range-v0",
+            "settings": {
+              "thresholdDbfs": -90,
+              "minimumIntervalSeconds": 0.05,
+              "channelRule": "all-selected-channels-below-threshold",
+              "gateRule": "merged-intervals-cover-complete-selected-range-within-one-sample",
+              "timestampRule": "round-to-nearest-sample-before-union"
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.000022675736961451248,
+            "unit": "s",
+            "basis": "one sample"
+          },
+          "uncertainty": "Intervals use a -90 dBFS noise floor and a 0.05-second minimum duration.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-a-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 931000,
+            "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "observedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        "B": {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "silence-duration-v0",
+          "value": 0,
+          "unit": "s",
+          "kind": "thresholded-fact",
+          "formula": {
+            "id": "ffmpeg-silencedetect-complete-range-v0",
+            "settings": {
+              "thresholdDbfs": -90,
+              "minimumIntervalSeconds": 0.05,
+              "channelRule": "all-selected-channels-below-threshold",
+              "gateRule": "merged-intervals-cover-complete-selected-range-within-one-sample",
+              "timestampRule": "round-to-nearest-sample-before-union"
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.000022675736961451248,
+            "unit": "s",
+            "basis": "one sample"
+          },
+          "uncertainty": "Intervals use a -90 dBFS noise floor and a 0.05-second minimum duration.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-b-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 943288,
+            "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "observedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        "B_minus_A": 0,
+        "unit": "s",
+        "comparisonTolerance": {
+          "kind": "absolute",
+          "value": 0.000022675736961451248,
+          "unit": "s",
+          "basis": "one sample"
+        },
+        "decisionPurpose": "Apply the thresholded silence gate.",
+        "status": "no-change"
+      },
+      {
+        "fieldId": "integrated-loudness-v0",
+        "A": {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "integrated-loudness-v0",
+          "value": -19.7,
+          "unit": "LUFS",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-ebur128-integrated-v0",
+            "settings": {
+              "standard": "EBU R128",
+              "peakMode": "true",
+              "dualMono": false,
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.1,
+            "unit": "LUFS",
+            "basis": "FFmpeg EBU R128 summary precision"
+          },
+          "uncertainty": "This is the integrated EBU R128 estimate for the complete selected range.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-a-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 931000,
+            "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "observedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        "B": {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "integrated-loudness-v0",
+          "value": -19.7,
+          "unit": "LUFS",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-ebur128-integrated-v0",
+            "settings": {
+              "standard": "EBU R128",
+              "peakMode": "true",
+              "dualMono": false,
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.1,
+            "unit": "LUFS",
+            "basis": "FFmpeg EBU R128 summary precision"
+          },
+          "uncertainty": "This is the integrated EBU R128 estimate for the complete selected range.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-b-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 943288,
+            "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "observedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": null
+          }
+        },
+        "B_minus_A": 0,
+        "unit": "LUFS",
+        "comparisonTolerance": {
+          "kind": "absolute",
+          "value": 0.1,
+          "unit": "LUFS",
+          "basis": "FFmpeg EBU R128 summary precision"
+        },
+        "decisionPurpose": "Confirm level matching before the rolloff comparison.",
+        "status": "no-change"
+      },
+      {
+        "fieldId": "spectral-rolloff-85-v0",
+        "A": {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "spectral-rolloff-85-v0",
+          "value": 4949.945,
+          "unit": "Hz",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-rolloff-85-v0",
+            "settings": {
+              "cutoffMagnitudeRatio": 0.85,
+              "frameSamples": 8192,
+              "hopSamples": 8192,
+              "window": "hann",
+              "overlap": 0,
+              "padding": "none",
+              "tailPolicy": "discard-incomplete",
+              "aggregation": "median-across-complete-frames-and-selected-channels",
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 10.7666015625,
+            "unit": "Hz",
+            "basis": "two 8,192-sample FFT bins"
+          },
+          "uncertainty": "The value is the median over complete frames and selected channels.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-a-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.08.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 931000,
+            "sha256": "cd89f6c811cca4cb02641b0c8f0770509ef1f19d3c3061a530dcb8462436f589",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "observedSamples": {
+              "start": 45819,
+              "end": 142001
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": {
+              "sizeSamples": 8192,
+              "hopSamples": 8192,
+              "count": 11,
+              "coveredSamples": 90112,
+              "tailSamples": 6070,
+              "window": "hann",
+              "padding": "none",
+              "tailPolicy": "discard-incomplete"
+            }
+          }
+        },
+        "B": {
+          "schema": "ghostnote-audio-fact-v0",
+          "fieldId": "spectral-rolloff-85-v0",
+          "value": 5469.43,
+          "unit": "Hz",
+          "kind": "estimate",
+          "formula": {
+            "id": "ffmpeg-rolloff-85-v0",
+            "settings": {
+              "cutoffMagnitudeRatio": 0.85,
+              "frameSamples": 8192,
+              "hopSamples": 8192,
+              "window": "hann",
+              "overlap": 0,
+              "padding": "none",
+              "tailPolicy": "discard-incomplete",
+              "aggregation": "median-across-complete-frames-and-selected-channels",
+              "resample": false
+            }
+          },
+          "tolerance": {
+            "kind": "absolute",
+            "value": 10.7666015625,
+            "unit": "Hz",
+            "basis": "two 8,192-sample FFT bins"
+          },
+          "uncertainty": "The value is the median over complete frames and selected channels.",
+          "unavailable": null,
+          "source": {
+            "sourceId": "phase7f-b-perc-a",
+            "artifactPath": "/Users/jonvuri/Dropbox/Bitwig Projects/6.0/26.25-6 fire/master-recordings/26.25-6 fire - 2026-09-23 22.17.46.wav",
+            "mediaType": "audio/wav",
+            "byteCount": 943288,
+            "sha256": "83aabe34984f734dc20b108f5b41c6dfa5651fc534817faffdc15d07189aa46e",
+            "digestDomain": "file-bytes",
+            "creator": "ghostnote-audio-capture",
+            "permissionBasis": "operator-authorized real Phase 7f project-local temporary WAVE files"
+          },
+          "provider": {
+            "name": "ghostnote-ffmpeg-audio-facts",
+            "version": "0",
+            "ffprobeVersion": "8.1.2",
+            "ffmpegVersion": "8.1.2"
+          },
+          "coverage": {
+            "requestedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "observedSamples": {
+              "start": 45775,
+              "end": 141957
+            },
+            "sampleRateHz": 44100,
+            "channelIndices": [
+              0,
+              1
+            ],
+            "channelPolicy": "selected-discrete-channels",
+            "complete": true,
+            "frames": {
+              "sizeSamples": 8192,
+              "hopSamples": 8192,
+              "count": 11,
+              "coveredSamples": 90112,
+              "tailSamples": 6070,
+              "window": "hann",
+              "padding": "none",
+              "tailPolicy": "discard-incomplete"
+            }
+          }
+        },
+        "B_minus_A": 519.4850000000006,
+        "unit": "Hz",
+        "comparisonTolerance": {
+          "kind": "absolute",
+          "value": 10.7666015625,
+          "unit": "Hz",
+          "basis": "two 8,192-sample FFT bins"
+        },
+        "decisionPurpose": "Compare only the declared 85% spectral-rolloff brightness proxy.",
+        "status": "comparable"
+      }
+    ],
+    "evidenceStatus": "comparable",
+    "decisionPurpose": "Compare a bounded Dist TUBE-CULTURE tilt change before operator audition.",
+    "limits": [
+      "This packet contains measured signal evidence. It contains no aesthetic or operator verdict.",
+      "Different source hashes do not prove audible change.",
+      "Equal selected metrics do not prove equal music.",
+      "Rolloff is usable only when the integrated loudness difference is at most 0.2 LU."
+    ],
+    "authority": "paired-measurement-projection",
+    "timingMs": {
+      "routing": 0.741874999992433
+    }
+  },
+  "exactParameterReadback": {
+    "before": {
+      "id": "CONTENTS/PIDd",
+      "name": "Output Tilt Slope",
+      "normalizedValue": 0.3749999701976776
+    },
+    "after": {
+      "id": "CONTENTS/PIDd",
+      "name": "Output Tilt Slope",
+      "normalizedValue": 0.5
+    }
+  },
+  "parameterWriteResults": {
+    "recovery": {
+      "applied": false,
+      "partialSuccess": true,
+      "verified": false,
+      "why": "A later setting did not finish after earlier writes completed.",
+      "changes": [
+        {
+          "changeId": "b64b7f12-dc49-4e65-84ba-e8e6123d10ab",
+          "applied": true,
+          "places": [
+            {
+              "what": "parameter",
+              "trackId": "2598ed2d-9e8c-40f4-8435-33609aad552a",
+              "devicePosition": 0,
+              "parameter": "CONTENTS/PIDd"
+            }
+          ],
+          "canBeUndone": true,
+          "cannotBeUndone": [],
+          "failed": [
+            {
+              "op": "directparam.set",
+              "error": "the target-bound parameter write callback did not settle"
+            }
+          ],
+          "mismatches": [
+            {
+              "where": {
+                "what": "parameter",
+                "trackId": "2598ed2d-9e8c-40f4-8435-33609aad552a",
+                "devicePosition": 0,
+                "parameter": "CONTENTS/PIDd"
+              },
+              "note": "parameter base value",
+              "property": "value",
+              "asked": 0.3749999701976776,
+              "found": 0.5
+            }
+          ]
+        }
+      ],
+      "valueCapabilities": {
+        "normalized": {
+          "readable": true,
+          "writable": true,
+          "minimum": 0,
+          "maximum": 1
+        },
+        "displayed": {
+          "readable": "when-observed",
+          "writable": false,
+          "invertible": false,
+          "meaning": "Opaque host-formatted text for the current normalized value."
+        },
+        "discrete": {
+          "readable": "when-host-proved",
+          "writable": "returned-normalized-values-only"
+        },
+        "semantic": {
+          "readable": false,
+          "writable": false,
+          "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+        }
+      },
+      "warnings": [],
+      "reversal": "exact-base-value-while-the-device-route-remains-valid",
+      "elapsedMs": 29272
+    },
+    "candidate": {
+      "applied": false,
+      "partialSuccess": true,
+      "verified": false,
+      "why": "A later setting did not finish after earlier writes completed.",
+      "changes": [
+        {
+          "changeId": "a6ed5de7-509c-434d-80d2-3a916d6cb0b4",
+          "applied": true,
+          "places": [
+            {
+              "what": "parameter",
+              "trackId": "2598ed2d-9e8c-40f4-8435-33609aad552a",
+              "devicePosition": 0,
+              "parameter": "CONTENTS/PIDd"
+            }
+          ],
+          "canBeUndone": true,
+          "cannotBeUndone": [],
+          "failed": [
+            {
+              "op": "directparam.set",
+              "error": "the target-bound parameter write callback did not settle"
+            }
+          ],
+          "mismatches": [
+            {
+              "where": {
+                "what": "parameter",
+                "trackId": "2598ed2d-9e8c-40f4-8435-33609aad552a",
+                "devicePosition": 0,
+                "parameter": "CONTENTS/PIDd"
+              },
+              "note": "parameter base value",
+              "property": "value",
+              "asked": 0.5,
+              "found": 0.3749999701976776
+            }
+          ]
+        }
+      ],
+      "valueCapabilities": {
+        "normalized": {
+          "readable": true,
+          "writable": true,
+          "minimum": 0,
+          "maximum": 1
+        },
+        "displayed": {
+          "readable": "when-observed",
+          "writable": false,
+          "invertible": false,
+          "meaning": "Opaque host-formatted text for the current normalized value."
+        },
+        "discrete": {
+          "readable": "when-host-proved",
+          "writable": "returned-normalized-values-only"
+        },
+        "semantic": {
+          "readable": false,
+          "writable": false,
+          "reason": "API 25 has no text parser or exact displayed-value inverse conversion."
+        }
+      },
+      "warnings": [],
+      "reversal": "exact-base-value-while-the-device-route-remains-valid",
+      "elapsedMs": 29202
+    }
+  },
+  "moduleDiscovery": [
+    {
+      "schema": "ghostnote-workstation-module-v0",
+      "moduleId": "ghostnote-audio-capture",
+      "version": "0",
+      "acceptedSchemas": [
+        "ghostnote-audio-capture-request-v0"
+      ],
+      "emittedSchemas": [
+        "audio-capture-v0"
+      ],
+      "capabilities": [
+        "capture-launcher-loop-v0"
+      ],
+      "startupDeadlineMs": 10000,
+      "requestDeadlineMs": 90000,
+      "state": "available",
+      "missingCapabilities": [],
+      "dependencyVersions": {
+        "bitwig": "6.0.6",
+        "controllerApi": "25",
+        "extension": "0.0.1",
+        "adapter": "ghostnote/0",
+        "methodsHash": "78368fe47ea0e814",
+        "deployment": "fresh",
+        "headerReader": "0",
+        "node": "24.11.1"
+      }
+    },
+    {
+      "schema": "ghostnote-workstation-module-v0",
+      "moduleId": "ghostnote-audio-facts",
+      "version": "0",
+      "acceptedSchemas": [
+        "ghostnote-audio-facts-request-v0"
+      ],
+      "emittedSchemas": [
+        "audio-facts-v0"
+      ],
+      "capabilities": [
+        "compare-brightness-v0",
+        "compare-loudness-v0",
+        "compare-crest-v0",
+        "measure-silence-v0"
+      ],
+      "startupDeadlineMs": 2000,
+      "requestDeadlineMs": 20000,
+      "state": "available",
+      "missingCapabilities": [],
+      "dependencyVersions": {
+        "node": "24.11.1",
+        "ffprobe": "8.1.2",
+        "ffmpeg": "8.1.2"
+      }
+    }
+  ],
+  "timings": {
+    "capture": [
+      {
+        "phase": "bitwig-discovery",
+        "elapsedMs": 41.68466699999408
+      }
+    ],
+    "analysis": [
+      {
+        "phase": "provider-discovery",
+        "elapsedMs": 144.83199999999488
+      },
+      {
+        "phase": "provider-probe",
+        "elapsedMs": 73.25116700000217
+      },
+      {
+        "phase": "provider-silence",
+        "elapsedMs": 53.549917000003916
+      },
+      {
+        "phase": "provider-spectral-rolloff",
+        "elapsedMs": 77.33399999999529
+      },
+      {
+        "phase": "provider-integrated-loudness",
+        "elapsedMs": 88.11683400000038
+      },
+      {
+        "phase": "output-validation",
+        "elapsedMs": 0.04133299999375595
+      },
+      {
+        "phase": "final-source-verification",
+        "elapsedMs": 0.8096249999944121
+      },
+      {
+        "phase": "provider-probe",
+        "elapsedMs": 115.05420800000138
+      },
+      {
+        "phase": "provider-silence",
+        "elapsedMs": 65.2352499999979
+      },
+      {
+        "phase": "provider-spectral-rolloff",
+        "elapsedMs": 86.27808399999049
+      },
+      {
+        "phase": "provider-integrated-loudness",
+        "elapsedMs": 99.5300419999985
+      },
+      {
+        "phase": "output-validation",
+        "elapsedMs": 0.007625000012922101
+      },
+      {
+        "phase": "final-source-verification",
+        "elapsedMs": 0.7132500000006985
+      },
+      {
+        "phase": "provider-probe",
+        "elapsedMs": 74.6761669999978
+      },
+      {
+        "phase": "provider-probe",
+        "elapsedMs": 76.90691599999263
+      },
+      {
+        "phase": "provider-silence",
+        "elapsedMs": 74.07441700001073
+      },
+      {
+        "phase": "provider-silence",
+        "elapsedMs": 74.11874999999418
+      },
+      {
+        "phase": "provider-spectral-rolloff",
+        "elapsedMs": 129.00675000000047
+      },
+      {
+        "phase": "provider-spectral-rolloff",
+        "elapsedMs": 129.0813339999877
+      },
+      {
+        "phase": "provider-integrated-loudness",
+        "elapsedMs": 136.8297920000041
+      },
+      {
+        "phase": "output-validation",
+        "elapsedMs": 0.00466700000106357
+      },
+      {
+        "phase": "provider-integrated-loudness",
+        "elapsedMs": 137.13399999999092
+      },
+      {
+        "phase": "output-validation",
+        "elapsedMs": 0.00779099999635946
+      },
+      {
+        "phase": "final-source-verification",
+        "elapsedMs": 0.741334000005736
+      },
+      {
+        "phase": "final-source-verification",
+        "elapsedMs": 1.0777500000112923
+      }
+    ]
+  }
+}

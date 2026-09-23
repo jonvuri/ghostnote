@@ -65,8 +65,12 @@ test('7e-adapter: a late successful transport read still exceeds its bound', asy
 class CaptureRangeTransport implements Transport {
   readonly frames: Frame[] = [];
   private playRead = 0;
+  private lastPlayIndex = 0;
 
-  constructor(private readonly wrongIdentity = false) {}
+  constructor(
+    private readonly wrongIdentity = false,
+    private readonly audioClip = false,
+  ) {}
 
   async send(frame: Frame): Promise<unknown> {
     this.frames.push(frame);
@@ -95,10 +99,21 @@ class CaptureRangeTransport implements Transport {
       case WIRE.cursorPlayState: {
         const steps = [0, 28, 1];
         const index = this.playRead++;
+        this.lastPlayIndex = index;
         return {
-          isPlaying: true, playingStep: steps[index] ?? 1, sampledAtMs: 1_000 + index * 2_200,
+          isPlaying: true,
+          playingStep: this.audioClip ? -1 : steps[index] ?? 1,
+          sampledAtMs: 1_000 + index * 2_200,
           exists: true, loopLength: 8, sceneIndex: 0,
           trackPosition: this.wrongIdentity && index === 1 ? 1 : 0,
+        };
+      }
+      case WIRE.slotPlayState: {
+        const positions = this.audioClip ? [40, 47.8, 48.05] : [40, 47, 48];
+        return {
+          hasContent: true, isPlaying: true, isPlaybackQueued: false, isStopQueued: false,
+          playPosition: positions[this.lastPlayIndex] ?? 48.05,
+          sampledAtMs: 1_000 + this.lastPlayIndex * 2_200,
         };
       }
       case WIRE.transportStatus:
@@ -128,7 +143,9 @@ test('7e-adapter: loop observation stays tied to the guarded launcher clip', asy
   const accepted = new CaptureRangeTransport();
   const observation = await new LiveAdapter({ transport: accepted, sceneBankSize: 32 })
     .playLauncherCaptureRange(clip, guard, range, 2_000, 100, 10);
-  assert.equal(observation.terminalStep, 28);
+  assert.equal(observation.observationBasis, 'playing-step-v0');
+  assert.equal(observation.observationBasis === 'playing-step-v0'
+    ? observation.terminalStep : undefined, 28);
   const launch = accepted.frames.find((frame) => frame.method === WIRE.slotLaunchWithOptions);
   assert.equal(launch?.params?.expectedChannelId, 'track-7e');
 
@@ -138,4 +155,30 @@ test('7e-adapter: loop observation stays tied to the guarded launcher clip', asy
       .playLauncherCaptureRange(clip, guard, range, 2_000, 100, 10),
     /invalid playback observation/,
   );
+});
+
+test('7f-adapter: an audio clip proves one loop from slot state and transport beats', async () => {
+  const clip = {
+    kind: 'clip',
+    slot: {
+      kind: 'slot',
+      track: { kind: 'track', channelId: 'track-7e' },
+      scene: { kind: 'scene', index: 0, epoch: 4 },
+    },
+  } as const;
+  const guard = {
+    generation: 'generation-7e', project: 'project-7e', revision: 7,
+    sceneEpoch: 4, contentEpoch: 11,
+  };
+  const range = { startBeats: 0.28698158264160156, endBeats: 8, stepSizeBeats: 0.25 } as const;
+  const transport = new CaptureRangeTransport(false, true);
+  const observation = await new LiveAdapter({ transport, sceneBankSize: 32 })
+    .playLauncherCaptureRange(clip, guard, range, 2_000, 100, 10);
+  assert.deepEqual(observation.observationBasis, 'slot-transport-beats-v0');
+  if (observation.observationBasis !== 'slot-transport-beats-v0') {
+    assert.fail('expected the transport-beat observation');
+  }
+  assert.equal(observation.requiredAdvanceBeats, 8);
+  assert.ok(observation.observedAdvanceBeats >= 8);
+  assert.ok(transport.frames.some((frame) => frame.method === WIRE.slotPlayState));
 });

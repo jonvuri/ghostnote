@@ -3,7 +3,7 @@ title: Workstation contracts — experimental Phase 7 baseline
 kind: reference
 state: active
 updated: 2026-09-23
-scope: Phase 7 experimental baseline through 7e capture and audio composition
+scope: Phase 7 experimental baseline through 7f hybrid dogfood
 ---
 
 # Workstation contracts
@@ -22,7 +22,7 @@ The [6i outcome](../../archive/outcomes/PHASE-6I-CONTRACT-SYNTHESIS.md) records 
 audit. The [6j verification reference](WORKSTATION_VERIFICATION.md) classifies
 costs and defines operation rules. Phase 7 owns implementation and proof.
 
-This design applies E103–E105 and E109–E125. It preserves
+This design applies E103–E105 and E109–E127. It preserves
 [D9](../../decisions/d9-grid-and-units-settled-2026-07-25.md),
 [D12](../../decisions/d12-transport-and-the-contract-boundary-settled-2026-07-25.md),
 [D15](../../decisions/d15-verification-discipline-settled-2026-07-25.md), and
@@ -179,8 +179,11 @@ limit as a warning. The project file limit is 512 MiB.
 The source manifest uses `capture-source-json-v0` canonicalization and the
 `audio-capture-source-v0` digest domain. It identifies the project master output
 during one guarded launcher clip. The clip is a range trigger. Other project
-output is not excluded. The initial range is one loop from beat 0, from 2 to 32
-beats, observed at 0.25-beat steps.
+output is not excluded. The range is one complete loop from the clip's exact
+play start. The play start can be at or after beat 0 and must be before the loop
+end. Loop length is from 2 to 32 beats. MIDI clips use 0.25-beat `playingStep`
+observations. Audio clips use owned slot state plus monotonic transport-beat
+advance because API 25 reports their `playingStep` as `-1`.
 
 The extension reserves a recorder owner token before asynchronous activation.
 Status and stop are owner-bound. Launch validates project, revision, scene,
