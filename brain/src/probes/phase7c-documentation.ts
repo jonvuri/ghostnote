@@ -3,6 +3,7 @@ import {
   DOCUMENTATION_MODULE_ID, DOCUMENTATION_REQUEST_SCHEMA, documentationModule,
   openDocumentationSource, type DocumentationCompatibilityRequirement,
   type DocumentationFamily, type DocumentationQuery, type DocumentationResult,
+  type DocumentationSourceMode,
 } from '../documentation/index.js';
 import {
   WORKSTATION_REQUEST_SCHEMA, WorkstationModuleRegistry,
@@ -29,11 +30,16 @@ if (!['exact', 'general-workflow-allowed'].includes(compatibility)) {
 }
 const productVersion = required('--product-version');
 const repositoryRoot = required('--repository-root');
+const sourceMode = (argument('--source-mode') ?? 'automatic') as DocumentationSourceMode;
+if (!['automatic', 'offline'].includes(sourceMode)) {
+  throw new Error('--source-mode must be automatic or offline');
+}
 const sourceStarted = performance.now();
 const source = await openDocumentationSource({
   bitwigAppRoot: required('--bitwig-app-root'),
   cacheRoot: required('--cache-root'),
   repositoryRoot,
+  mode: sourceMode,
 }, { productVersion, family });
 const sourceOpenMs = performance.now() - sourceStarted;
 const query: DocumentationQuery = {
@@ -86,12 +92,15 @@ if (JSON.stringify(cold.result.hits.map((hit) => hit.recordId))
 console.log(JSON.stringify({
   schema: 'ghostnote-phase7c-run-v0',
   mode: 'module-only',
-  permissions: ['read installed documentation', 'read verified offline cache', 'no network', 'no project write'],
+  permissions: sourceMode === 'automatic'
+    ? ['read installed documentation', 'read and populate verified cache', 'network for a missing guide', 'no project write']
+    : ['read installed documentation', 'read verified offline cache', 'no network', 'no project write'],
   enabledModules: registry.discover(),
   input: {
     family,
     productVersion,
     compatibility,
+    sourceMode,
     query: query.query,
     limit: query.limit,
   },
@@ -110,7 +119,13 @@ console.log(JSON.stringify({
     })),
     unavailableSourceIds: source.unavailableSourceIds,
   },
-  timingMs: { sourceOpen: sourceOpenMs, cold: cold.elapsedMs, warm: warm.elapsedMs },
+  timingMs: {
+    sourceOpen: sourceOpenMs,
+    download: source.downloadMs,
+    sourceValidation: source.validationMs,
+    cold: cold.elapsedMs,
+    warm: warm.elapsedMs,
+  },
   coldPhases: cold.phases,
   warmPhases: warm.phases,
   coldResult: cold.result,

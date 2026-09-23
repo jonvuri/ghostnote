@@ -15,13 +15,21 @@ import {
 } from './phase6b-document-cache-lib.js';
 
 function response(body: string, url: string, mediaType = 'text/html'): DocumentFetch {
-  return async () => ({
-    ok: true,
-    status: 200,
-    url,
-    headers: { get: (name) => name.toLowerCase() === 'content-type' ? mediaType : null },
-    arrayBuffer: async () => new TextEncoder().encode(body).buffer,
-  });
+  return async () => {
+    const bytes = new TextEncoder().encode(body);
+    return {
+      ok: true,
+      status: 200,
+      url,
+      headers: { get: (name) => name.toLowerCase() === 'content-type' ? mediaType : null },
+      body: new ReadableStream<Uint8Array>({
+        start(controller) {
+          controller.enqueue(bytes);
+          controller.close();
+        },
+      }),
+    };
+  };
 }
 
 test('6b cache binds exact content to the requested product version', async () => {
@@ -146,6 +154,40 @@ test('6b legacy guide cannot claim exact product compatibility', async () => {
       '6.0.6',
     );
     assert.throws(() => installedVersion('<plist/>'), /cannot read/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test('7c automatic cache stops a streamed response at its byte limit', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'ghostnote-7c-cache-'));
+  const guide = { ...generalGuide53('6.0.6'), minimumBytes: 1 };
+  let cancelled = false;
+  const documentFetch: DocumentFetch = async () => ({
+    ok: true,
+    status: 200,
+    url: guide.sourceUrl,
+    headers: { get: (name) => name.toLowerCase() === 'content-type' ? 'application/pdf' : null },
+    body: new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode('%PDF-123'));
+        controller.enqueue(new TextEncoder().encode('45678'));
+      },
+      cancel() {
+        cancelled = true;
+      },
+    }),
+  });
+  try {
+    await assert.rejects(
+      cacheOfficialDocument(root, guide, documentFetch, { maximumBytes: 12 }),
+      /exceeds the byte limit/,
+    );
+    assert.equal(cancelled, true);
+    await assert.rejects(
+      readFile(join(root, '6.0.6', guide.sourceId, 'manifest.json')),
+      (error) => (error as NodeJS.ErrnoException).code === 'ENOENT',
+    );
   } finally {
     await rm(root, { recursive: true, force: true });
   }

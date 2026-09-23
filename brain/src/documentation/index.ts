@@ -8,6 +8,6 @@ export type {
   DocumentationCompatibilityRequirement, DocumentationFamily, DocumentationHit,
   DocumentationLocator, DocumentationProviderOptions, DocumentationQuery,
   DocumentationResult, DocumentationSourceEntry, DocumentationSourceFile,
-  DocumentationSourceOptions, DocumentationSourceSelection, GuideExtractor,
+  DocumentationSourceMode, DocumentationSourceOptions, DocumentationSourceSelection, GuideExtractor,
   OpenDocumentationSource,
 } from './documentation-provider.js';

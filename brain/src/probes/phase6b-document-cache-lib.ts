@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, rename, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { basename, dirname, join } from 'node:path';
 
 export type DocumentCompatibility = 'exact' | 'general-workflow-only';
@@ -35,10 +35,17 @@ interface FetchResponse {
   readonly status: number;
   readonly url: string;
   readonly headers: { get(name: string): string | null };
-  arrayBuffer(): Promise<ArrayBuffer>;
+  readonly body: ReadableStream<Uint8Array> | null;
 }
 
-export type DocumentFetch = (url: string) => Promise<FetchResponse>;
+export type DocumentFetch = (url: string, signal?: AbortSignal) => Promise<FetchResponse>;
+
+export interface CacheOfficialDocumentOptions {
+  readonly maximumBytes?: number;
+  readonly signal?: AbortSignal;
+}
+
+export const MAX_OFFICIAL_DOCUMENT_BYTES = 128 * 1_024 * 1_024;
 
 const VERSION = /^\d+\.\d+(?:\.\d+)?$/;
 const SOURCE_ID = /^[a-z0-9][a-z0-9-]*$/;
@@ -96,6 +103,52 @@ function documentPath(cacheRoot: string, manifest: CachedDocumentManifest): stri
 
 function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex');
+}
+
+function downloadAborted(signal: AbortSignal | undefined): void {
+  if (!signal?.aborted) return;
+  if (signal.reason instanceof Error) throw signal.reason;
+  throw new Error('document download was aborted');
+}
+
+async function responseBytes(
+  response: FetchResponse,
+  maximumBytes: number,
+  signal: AbortSignal | undefined,
+): Promise<Uint8Array> {
+  const rawLength = response.headers.get('content-length');
+  if (rawLength !== null && /^\d+$/.test(rawLength) && Number(rawLength) > maximumBytes) {
+    throw new Error('downloaded document exceeds the byte limit');
+  }
+  downloadAborted(signal);
+  if (response.body === null) throw new Error('downloaded document body is missing');
+
+  const reader = response.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
+  try {
+    while (true) {
+      downloadAborted(signal);
+      const chunk = await reader.read();
+      downloadAborted(signal);
+      if (chunk.done) break;
+      totalBytes += chunk.value.byteLength;
+      if (totalBytes > maximumBytes) {
+        await reader.cancel('downloaded document exceeds the byte limit');
+        throw new Error('downloaded document exceeds the byte limit');
+      }
+      chunks.push(chunk.value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const bytes = new Uint8Array(totalBytes);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return bytes;
 }
 
 function parseManifest(raw: Uint8Array): CachedDocumentManifest {
@@ -203,17 +256,24 @@ export async function readCachedDocument(
 export async function cacheOfficialDocument(
   cacheRoot: string,
   request: OfficialDocumentRequest,
-  fetchDocument: DocumentFetch = (url) => fetch(url),
+  fetchDocument: DocumentFetch = (url, signal) => fetch(url, { signal }),
+  options: CacheOfficialDocumentOptions = {},
 ): Promise<CachedDocument> {
   checkRequest(request);
-  const response = await fetchDocument(request.sourceUrl);
+  const maximumBytes = options.maximumBytes ?? MAX_OFFICIAL_DOCUMENT_BYTES;
+  if (!Number.isSafeInteger(maximumBytes) || maximumBytes < request.minimumBytes) {
+    throw new Error('invalid maximum document size');
+  }
+  downloadAborted(options.signal);
+  const response = await fetchDocument(request.sourceUrl, options.signal);
+  downloadAborted(options.signal);
   if (!response.ok) throw new Error(`document download failed with HTTP ${response.status}`);
   const resolvedUrl = publicResolvedUrl(response.url || request.sourceUrl);
   const mediaType = response.headers.get('content-type')?.split(';', 1)[0]?.trim();
   if (mediaType !== request.mediaType) {
     throw new Error(`unexpected document media type: ${mediaType ?? 'missing'}`);
   }
-  const bytes = new Uint8Array(await response.arrayBuffer());
+  const bytes = await responseBytes(response, maximumBytes, options.signal);
   if (bytes.byteLength < request.minimumBytes) throw new Error('document is smaller than expected');
   try {
     checkDocumentBytes(bytes, request);
@@ -240,11 +300,26 @@ export async function cacheOfficialDocument(
   const temporaryDocumentPath = join(directory, `.${basename(finalDocumentPath)}.${nonce}.tmp`);
   const temporaryManifestPath = join(directory, `.manifest.${nonce}.tmp`);
   await mkdir(directory, { recursive: true });
-  await writeFile(temporaryDocumentPath, bytes, { flag: 'wx' });
-  await writeFile(temporaryManifestPath, `${JSON.stringify(manifest, null, 2)}\n`, { flag: 'wx' });
-  await rename(temporaryDocumentPath, finalDocumentPath);
-  await rename(temporaryManifestPath, finalManifestPath);
-  return readCachedDocument(cacheRoot, request);
+  try {
+    downloadAborted(options.signal);
+    await writeFile(temporaryDocumentPath, bytes, { flag: 'wx', signal: options.signal });
+    downloadAborted(options.signal);
+    await writeFile(
+      temporaryManifestPath,
+      `${JSON.stringify(manifest, null, 2)}\n`,
+      { flag: 'wx', signal: options.signal },
+    );
+    downloadAborted(options.signal);
+    await rename(temporaryDocumentPath, finalDocumentPath);
+    await rename(temporaryManifestPath, finalManifestPath);
+  } catch (error) {
+    await Promise.all([
+      rm(temporaryDocumentPath, { force: true }),
+      rm(temporaryManifestPath, { force: true }),
+    ]);
+    throw error;
+  }
+  return readCachedDocument(cacheRoot, request, maximumBytes);
 }
 
 /** Read the installed Bitwig version from its application property list. */

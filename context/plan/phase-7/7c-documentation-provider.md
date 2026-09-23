@@ -6,7 +6,7 @@ status: Complete. E122 implements S14 and the documentation part of S17.
 updated: 2026-09-23
 parent: README.md
 prev: 7b-agent-patch-execution-and-reference-dogfood.md
-next: 7d-audio-facts-and-sensory-packets.md
+next: 7c-follow-up-automatic-user-guide-cache.md
 ---
 
 # Phase 7c — Documentation provider
@@ -74,4 +74,4 @@ implements the strong TypeScript source gate, source-routed FTS5 index, bounded
 `documentation-v0` result, and isolated module boundary. The retained offline
 task used the exact installed API to construct a future master-recorder control
 outline. The compatibility field blocked the 5.3 guide from supporting a 6.0.6
-behavior claim. Session 7d is next.
+behavior claim. The automatic user-guide cache follow-up is next.

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, rm, symlink, truncate, unlink, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, symlink, truncate, unlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
@@ -32,13 +32,21 @@ interface Fixture {
 }
 
 function response(body: string, url: string, mediaType: string): DocumentFetch {
-  return async () => ({
-    ok: true,
-    status: 200,
-    url,
-    headers: { get: (name) => name.toLowerCase() === 'content-type' ? mediaType : null },
-    arrayBuffer: async () => new TextEncoder().encode(body).buffer,
-  });
+  return async () => {
+    const bytes = new TextEncoder().encode(body);
+    return {
+      ok: true,
+      status: 200,
+      url,
+      headers: { get: (name) => name.toLowerCase() === 'content-type' ? mediaType : null },
+      body: new ReadableStream<Uint8Array>({
+        start(controller) {
+          controller.enqueue(bytes);
+          controller.close();
+        },
+      }),
+    };
+  };
 }
 
 const guideExtractor: GuideExtractor = {
@@ -507,7 +515,7 @@ test('7c source scan refuses aggregate size before reading installed bytes', asy
       'com', 'bitwig', 'extension', 'controller', 'api', 'Huge.html',
     );
     await writeFile(huge, '');
-    await truncate(huge, 96 * 1_024 * 1_024 + 1);
+    await truncate(huge, 128 * 1_024 * 1_024 + 1);
     await assert.rejects(
       openDocumentationSource(setup.sourceOptions, { productVersion: '6.0.6', family: 'api' }),
       (error) => error instanceof DocumentationError && error.code === 'corrupt-source',
@@ -540,6 +548,320 @@ test('7c request preflight refuses repeated supplied files before copying them',
       ),
       (error) => error instanceof DocumentationError && error.code === 'corrupt-source',
     );
+  } finally {
+    await rm(setup.root, { recursive: true, force: true });
+  }
+});
+
+test('7c follow-up downloads a missing guide once and reuses it offline', async () => {
+  const setup = await fixture();
+  const guideDirectory = join(setup.cacheRoot, '6.0.6', setup.guideRequest.sourceId);
+  await rm(guideDirectory, { recursive: true });
+  let downloads = 0;
+  const documentFetch: DocumentFetch = async (url) => {
+    downloads += 1;
+    return response('%PDF-GUIDE53', setup.guideRequest.sourceUrl, 'application/pdf')(url);
+  };
+  try {
+    const cold = await openDocumentationSource(
+      { ...setup.sourceOptions, documentFetch },
+      { productVersion: '6.0.6', family: 'workflow' },
+    );
+    const coldResult = await queryDocumentation(
+      setup.providerOptions,
+      query(cold, 'Where are master recordings stored?', 'general-workflow-allowed'),
+    );
+    assert.equal(downloads, 1);
+    assert.ok(cold.downloadMs >= 0);
+    assert.equal(coldResult.hits[0]?.source.sourceId, setup.guideRequest.sourceId);
+    assert.equal(coldResult.timingMs.download, cold.downloadMs);
+
+    const warm = await openDocumentationSource(
+      {
+        ...setup.sourceOptions,
+        mode: 'offline',
+        documentFetch: async () => assert.fail('offline mode must not download'),
+      },
+      { productVersion: '6.0.6', family: 'workflow' },
+    );
+    const warmResult = await queryDocumentation(
+      setup.providerOptions,
+      query(warm, 'Where are master recordings stored?', 'general-workflow-allowed'),
+    );
+    assert.equal(downloads, 1);
+    assert.equal(warm.downloadMs, 0);
+    assert.equal(warm.digest.value, cold.digest.value);
+    assert.equal(warmResult.hits[0]?.recordId, coldResult.hits[0]?.recordId);
+  } finally {
+    await rm(setup.root, { recursive: true, force: true });
+  }
+});
+
+test('7c follow-up shares a concurrent cold guide download', async () => {
+  const setup = await fixture();
+  const guideDirectory = join(setup.cacheRoot, '6.0.6', setup.guideRequest.sourceId);
+  const manifest = JSON.parse(
+    await readFile(join(guideDirectory, 'manifest.json'), 'utf8'),
+  ) as { fileName: string };
+  await unlink(join(guideDirectory, manifest.fileName));
+  let downloads = 0;
+  const documentFetch: DocumentFetch = async (url) => {
+    downloads += 1;
+    await new Promise((resolvePromise) => setTimeout(resolvePromise, 10));
+    return response('%PDF-GUIDE53', setup.guideRequest.sourceUrl, 'application/pdf')(url);
+  };
+  try {
+    const options = { ...setup.sourceOptions, documentFetch };
+    const [left, right] = await Promise.all([
+      openDocumentationSource(options, { productVersion: '6.0.6', family: 'workflow' }),
+      openDocumentationSource(options, { productVersion: '6.0.6', family: 'workflow' }),
+    ]);
+    assert.equal(downloads, 1);
+    assert.equal(left.digest.value, right.digest.value);
+  } finally {
+    await rm(setup.root, { recursive: true, force: true });
+  }
+});
+
+test('7c follow-up keeps guide caches separate by product version', async () => {
+  const setup = await fixture();
+  await rm(join(setup.cacheRoot, '6.0.6', setup.guideRequest.sourceId), { recursive: true });
+  let downloads = 0;
+  const documentFetch: DocumentFetch = async (url) => {
+    downloads += 1;
+    return response('%PDF-GUIDE53', setup.guideRequest.sourceUrl, 'application/pdf')(url);
+  };
+  try {
+    await openDocumentationSource(
+      { ...setup.sourceOptions, documentFetch },
+      { productVersion: '6.0.6', family: 'workflow' },
+    );
+    await writeFile(
+      join(setup.appRoot, 'Contents', 'Info.plist'),
+      '<plist><key>CFBundleShortVersionString</key><string>6.0.7</string></plist>',
+    );
+    const guideRequest = { ...generalGuide53('6.0.7'), minimumBytes: 1 };
+    await openDocumentationSource(
+      {
+        bitwigAppRoot: setup.appRoot,
+        cacheRoot: setup.cacheRoot,
+        repositoryRoot: setup.repositoryRoot,
+        releaseNotesRequest: { ...exactReleaseNotes('6.0.7'), minimumBytes: 1 },
+        guideRequest,
+        documentFetch,
+      },
+      { productVersion: '6.0.7', family: 'workflow' },
+    );
+    const manifests = await Promise.all(['6.0.6', '6.0.7'].map(async (version) =>
+      JSON.parse(await readFile(
+        join(setup.cacheRoot, version, setup.guideRequest.sourceId, 'manifest.json'), 'utf8',
+      )) as { productVersion: string }));
+    assert.equal(downloads, 2);
+    assert.deepEqual(manifests.map((manifest) => manifest.productVersion), ['6.0.6', '6.0.7']);
+  } finally {
+    await rm(setup.root, { recursive: true, force: true });
+  }
+});
+
+test('7c follow-up isolates offline and failed guide opens from valid workflow sources', async () => {
+  const setup = await fixture();
+  const guideDirectory = join(setup.cacheRoot, '6.0.6', setup.guideRequest.sourceId);
+  await rm(guideDirectory, { recursive: true });
+  let downloads = 0;
+  try {
+    const offline = await openDocumentationSource(
+      {
+        ...setup.sourceOptions,
+        mode: 'offline',
+        documentFetch: async () => {
+          downloads += 1;
+          throw new Error('offline mode used the network');
+        },
+      },
+      { productVersion: '6.0.6', family: 'workflow' },
+    );
+    assert.equal(downloads, 0);
+    assert.deepEqual(offline.unavailableSourceIds, [setup.guideRequest.sourceId]);
+    assert.deepEqual(offline.sources.map((source) => source.sourceId), ['release-notes']);
+
+    const failed = await openDocumentationSource(
+      {
+        ...setup.sourceOptions,
+        documentFetch: async (url) => {
+          downloads += 1;
+          return response('%PDF-GUIDE53', setup.guideRequest.sourceUrl, 'text/plain')(url);
+        },
+      },
+      { productVersion: '6.0.6', family: 'workflow' },
+    );
+    assert.equal(downloads, 1);
+    assert.deepEqual(failed.unavailableSourceIds, [setup.guideRequest.sourceId]);
+    const releaseResult = await queryDocumentation(
+      setup.providerOptions,
+      query(failed, 'Alias clips share musical content edits'),
+    );
+    assert.equal(releaseResult.hits[0]?.source.sourceId, 'release-notes');
+
+    const retried = await openDocumentationSource(
+      {
+        ...setup.sourceOptions,
+        documentFetch: async (url) => {
+          downloads += 1;
+          return response('%PDF-GUIDE53', setup.guideRequest.sourceUrl, 'application/pdf')(url);
+        },
+      },
+      { productVersion: '6.0.6', family: 'workflow' },
+    );
+    assert.equal(downloads, 2);
+    assert.deepEqual(retried.unavailableSourceIds, []);
+  } finally {
+    await rm(setup.root, { recursive: true, force: true });
+  }
+});
+
+test('7c follow-up bounds a stalled guide download and permits a later retry', async () => {
+  const setup = await fixture();
+  await rm(join(setup.cacheRoot, '6.0.6', setup.guideRequest.sourceId), { recursive: true });
+  let stalledSignal: AbortSignal | undefined;
+  let downloads = 0;
+  const stalledFetch: DocumentFetch = async (_url, signal) => {
+    downloads += 1;
+    stalledSignal = signal;
+    return new Promise<never>(() => {});
+  };
+  try {
+    await assert.rejects(
+      openDocumentationSource(
+        { ...setup.sourceOptions, documentFetch: stalledFetch, downloadTimeoutMs: 90_001 },
+        { productVersion: '6.0.6', family: 'workflow' },
+      ),
+      (error) => error instanceof DocumentationError && error.code === 'invalid-request',
+    );
+    assert.equal(downloads, 0);
+
+    const timedOut = await openDocumentationSource(
+      { ...setup.sourceOptions, documentFetch: stalledFetch, downloadTimeoutMs: 5 },
+      { productVersion: '6.0.6', family: 'workflow' },
+    );
+    assert.equal(downloads, 1);
+    assert.equal(stalledSignal?.aborted, true);
+    assert.deepEqual(timedOut.unavailableSourceIds, [setup.guideRequest.sourceId]);
+    assert.deepEqual(timedOut.sources.map((source) => source.sourceId), ['release-notes']);
+
+    const retried = await openDocumentationSource(
+      {
+        ...setup.sourceOptions,
+        documentFetch: response(
+          '%PDF-GUIDE53', setup.guideRequest.sourceUrl, 'application/pdf',
+        ),
+      },
+      { productVersion: '6.0.6', family: 'workflow' },
+    );
+    assert.deepEqual(retried.unavailableSourceIds, []);
+  } finally {
+    await rm(setup.root, { recursive: true, force: true });
+  }
+});
+
+test('7c follow-up refuses an oversized guide before buffering or caching it', async () => {
+  const setup = await fixture();
+  await rm(join(setup.cacheRoot, '6.0.6', setup.guideRequest.sourceId), { recursive: true });
+  let openedBody = false;
+  const documentFetch: DocumentFetch = async () => ({
+    ok: true,
+    status: 200,
+    url: setup.guideRequest.sourceUrl,
+    headers: {
+      get: (name) => {
+        if (name.toLowerCase() === 'content-type') return 'application/pdf';
+        if (name.toLowerCase() === 'content-length') return String(128 * 1_024 * 1_024 + 1);
+        return null;
+      },
+    },
+    get body() {
+      openedBody = true;
+      return new ReadableStream<Uint8Array>();
+    },
+  });
+  try {
+    const opened = await openDocumentationSource(
+      { ...setup.sourceOptions, documentFetch },
+      { productVersion: '6.0.6', family: 'workflow' },
+    );
+    assert.equal(openedBody, false);
+    assert.deepEqual(opened.unavailableSourceIds, [setup.guideRequest.sourceId]);
+    assert.deepEqual(opened.sources.map((source) => source.sourceId), ['release-notes']);
+    await assert.rejects(
+      readFile(join(
+        setup.cacheRoot, '6.0.6', setup.guideRequest.sourceId, 'manifest.json',
+      )),
+      (error) => (error as NodeJS.ErrnoException).code === 'ENOENT',
+    );
+  } finally {
+    await rm(setup.root, { recursive: true, force: true });
+  }
+});
+
+test('7c follow-up refuses incompatible guide cache metadata without a download', async () => {
+  const setup = await fixture();
+  const manifestPath = join(
+    setup.cacheRoot, '6.0.6', setup.guideRequest.sourceId, 'manifest.json',
+  );
+  const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as Record<string, unknown>;
+  await writeFile(manifestPath, JSON.stringify({ ...manifest, compatibility: 'exact' }));
+  let downloads = 0;
+  try {
+    await assert.rejects(
+      openDocumentationSource(
+        {
+          ...setup.sourceOptions,
+          documentFetch: async () => {
+            downloads += 1;
+            throw new Error('an invalid cache must not download');
+          },
+        },
+        { productVersion: '6.0.6', family: 'workflow' },
+      ),
+      (error) => error instanceof DocumentationError && error.code === 'corrupt-source',
+    );
+    assert.equal(downloads, 0);
+  } finally {
+    await rm(setup.root, { recursive: true, force: true });
+  }
+});
+
+test('7c follow-up keeps guide download and extraction out of API and device requests', async () => {
+  const setup = await fixture();
+  await rm(join(setup.cacheRoot, '6.0.6', setup.guideRequest.sourceId), { recursive: true });
+  let downloads = 0;
+  let extractorStarts = 0;
+  const guideExtractor: GuideExtractor = {
+    name: 'unused-guide-extractor',
+    version: async () => {
+      extractorStarts += 1;
+      throw new Error('the guide extractor must not start');
+    },
+    extract: async () => assert.fail('the guide extractor must not run'),
+  };
+  const sourceOptions = {
+    ...setup.sourceOptions,
+    documentFetch: async () => {
+      downloads += 1;
+      throw new Error('a non-workflow request must not download');
+    },
+  };
+  const providerOptions = { ...setup.providerOptions, guideExtractor };
+  try {
+    const api = await openDocumentationSource(
+      sourceOptions, { productVersion: '6.0.6', family: 'api' },
+    );
+    const device = await openDocumentationSource(
+      sourceOptions, { productVersion: '6.0.6', family: 'device' },
+    );
+    await queryDocumentation(providerOptions, query(api, 'master recording duration'));
+    await queryDocumentation(providerOptions, query(device, 'harsh ess sounds'));
+    assert.equal(downloads, 0);
+    assert.equal(extractorStarts, 0);
   } finally {
     await rm(setup.root, { recursive: true, force: true });
   }

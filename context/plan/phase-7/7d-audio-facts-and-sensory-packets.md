@@ -4,7 +4,7 @@ kind: plan
 state: planned
 updated: 2026-09-21
 parent: README.md
-prev: 7c-documentation-provider.md
+prev: 7c-follow-up-automatic-user-guide-cache.md
 next: 7e-audio-capture-and-analysis-composition.md
 ---
 

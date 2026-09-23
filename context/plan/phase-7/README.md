@@ -2,7 +2,7 @@
 title: Phase 7 — Workstation dogfood iteration
 kind: plan
 state: active
-status: 7c is complete. Start the 7d audio-facts and sensory-packets session.
+status: The 7c cache follow-up is complete. Start 7d audio facts and sensory packets.
 updated: 2026-09-23
 parent: ../ROADMAP.md
 prev: ../phase-6/README.md
@@ -90,10 +90,12 @@ width; the old 1.6–1.8 second exact-read results precede fine-grid expansion.
    Complete. E121 connects the compiler, reference profile and exact live write.
 3. [7c — documentation provider](7c-documentation-provider.md).
    Complete. E122 connects verified offline sources to bounded cited results.
-4. [7d — audio facts and sensory packets](7d-audio-facts-and-sensory-packets.md).
+4. [7c follow-up — automatic user-guide cache](7c-follow-up-automatic-user-guide-cache.md).
+   Complete. E123 adds automatic cold download and explicit offline reuse.
+5. [7d — audio facts and sensory packets](7d-audio-facts-and-sensory-packets.md).
    Next.
-5. [7e — audio capture and analysis composition](7e-audio-capture-and-analysis-composition.md).
-6. [7f — hybrid workstation dogfood](7f-hybrid-workstation-dogfood.md).
+6. [7e — audio capture and analysis composition](7e-audio-capture-and-analysis-composition.md).
+7. [7f — hybrid workstation dogfood](7f-hybrid-workstation-dogfood.md).
 
 The [workstation dogfood menu](MENU.md) remains a living task list. Pull a later
 session forward only when an earlier result makes it the smaller or more useful

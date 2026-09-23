@@ -9,10 +9,11 @@ session: 7d-audio-facts-and-sensory-packets
 
 # Now
 
-Phase 7c is complete. [E122](evidence/experiments/e122-documentation-provider-connects-verified-offline-sources.md)
-connects verified installed and cached documentation to source-routed, bounded
-FTS5 results. Phase 6 is complete. Phase 3 remains deferred. Phase 5 still has
-generalized closeout work after its accepted public result.
+Phase 7c and its cache follow-up are complete.
+[E123](evidence/experiments/e123-automatic-user-guide-cache-is-cold-to-warm.md)
+makes the approved user-guide cache automatic on a missing entry and preserves
+explicit offline reuse. Phase 6 is complete. Phase 3 remains deferred. Phase 5
+still has generalized closeout work after its accepted public result.
 
 ## Next session
 
@@ -20,23 +21,22 @@ Run [7d: audio facts and sensory packets](plan/phase-7/7d-audio-facts-and-sensor
 Read the [contracts](evidence/format/WORKSTATION_CONTRACTS.md),
 [seam ledger](evidence/format/WORKSTATION_SEAMS.md),
 [verification rules](evidence/format/WORKSTATION_VERIFICATION.md), E105, E118,
-E119 and E122. Implement `audio-facts-v0` and sensory packet v1. Close S12, S13
-and the audio part of S17. Keep capture separate until 7e.
+E119, E122 and E123. Implement `audio-facts-v0` and sensory packet v1. Close S12,
+S13 and the audio part of S17. Keep capture separate until 7e.
 
-## 7c handoff
+## 7c cache handoff
 
-- `documentation-v0` uses explicit API, workflow, or device routing. Each hit
-  has source and manifest identity, versions, compatibility, exact locator,
-  excerpt coverage, provider/extractor/index identity, and retrieval rank.
-- The retained cache manifest v1 gate now returns the verified bytes. Extraction
-  consumes those bytes and does not reopen the weaker Python probe path.
-- Disposable FTS5 indexes bind source, extractor, provider, SQLite and tokenizer
-  identity. Stored record and search-row hashes detect corrupt or stale indexes.
-- The offline installed-API task ranked `MasterRecorder.html` first and guided a
-  future capture-control outline. No Bitwig connection or project write occurred.
-- Cold installed-API source open took 66.687 ms. The cold module request took
-  61.184 ms; the warm request took 15.542 ms. Temporary cache and index roots were
-  removed.
+- Normal workflow opens download only a missing approved guide. Offline mode,
+  API requests, and device requests never enter the download path.
+- Concurrent cold opens share one keyed download. Failures permit a later retry.
+  Invalid existing entries fail closed without replacement.
+- Cold downloads abort after 90 seconds. Response headers and streamed bytes
+  enforce the 128 MiB source limit before a cache write.
+- The complete-guide task ranked page 426 first. The offline repeat used the
+  same source hash and top result with zero download time.
+- Cold download took 14,035.587 ms, extraction 1,455.579 ms, index build 36.406
+  ms, and query 0.503 ms. The offline warm source open took 43.358 ms and its
+  query took 0.495 ms. The 62 MiB temporary cache and index were removed.
 
 ## Boundaries
 
@@ -47,7 +47,7 @@ blocked: do not remove the fresh preflight or final readback.
 
 ## Retrospective
 
-The compatibility field prevented the broadest unsupported answer. Keep version
-and compatibility separate when older material is useful only for general
-workflows. Hash index content after SQLite insertion so build and validation use
-the same row order.
+The shared cold path fit inside the existing source opener and cache helper. No
+bootstrap service was needed. The explicit offline mode made network use
+testable and prevented warm-run surprises. When a manual network helper becomes
+automatic, review its deadline and byte limits at the new call site.

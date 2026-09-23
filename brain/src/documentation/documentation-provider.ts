@@ -1,4 +1,4 @@
-/** Version-bound offline documentation retrieval. */
+/** Version-bound documentation retrieval. */
 import { spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, readdir, realpath, rename, stat, unlink } from 'node:fs/promises';
@@ -6,8 +6,9 @@ import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 
 import {
-  exactReleaseNotes, generalGuide53, installedVersion, readCachedDocument,
-  type DocumentCompatibility, type OfficialDocumentRequest,
+  cacheOfficialDocument, exactReleaseNotes, generalGuide53, installedVersion, readCachedDocument,
+  MAX_OFFICIAL_DOCUMENT_BYTES, type CachedDocument, type DocumentCompatibility,
+  type DocumentFetch, type OfficialDocumentRequest,
 } from '../probes/phase6b-document-cache-lib.js';
 import {
   WORKSTATION_RESPONSE_SCHEMA, WorkstationModuleError, type ModuleHealth,
@@ -31,7 +32,7 @@ const MAX_RESULTS = 5;
 const MAX_EXCERPT_CHARACTERS = 360;
 const MAX_SOURCE_FILES = 4_096;
 const MAX_SOURCE_BYTES = 128 * 1_024 * 1_024;
-const MAX_SOURCE_FILE_BYTES = 96 * 1_024 * 1_024;
+const MAX_SOURCE_FILE_BYTES = MAX_OFFICIAL_DOCUMENT_BYTES;
 const MAX_RECORDS = 4_096;
 const MAX_RECORD_CHARACTERS = 2_000_000;
 const MAX_INDEX_TEXT_BYTES = 256 * 1_024 * 1_024;
@@ -39,6 +40,7 @@ const MAX_INDEX_FILE_BYTES = 512 * 1_024 * 1_024;
 const MAX_EXTRACTED_TEXT_BYTES = 16 * 1_024 * 1_024;
 const MAX_EXTRACTOR_STDERR_BYTES = 64 * 1_024;
 const DEFAULT_GUIDE_TIMEOUT_MS = 20_000;
+const DEFAULT_DOWNLOAD_TIMEOUT_MS = 90_000;
 const VERSION = /^\d+\.\d+(?:\.\d+)?$/;
 const SHA256 = /^[a-f0-9]{64}$/;
 const TOKEN = /[a-z0-9]+/g;
@@ -51,6 +53,7 @@ const STOP_WORDS = new Set([
 
 export type DocumentationFamily = 'api' | 'workflow' | 'device';
 export type DocumentationCompatibilityRequirement = 'exact' | 'general-workflow-allowed';
+export type DocumentationSourceMode = 'automatic' | 'offline';
 
 export interface DocumentationSourceSelection {
   readonly productVersion: string;
@@ -90,6 +93,7 @@ export interface OpenDocumentationSource {
   };
   readonly sources: readonly DocumentationSourceEntry[];
   readonly unavailableSourceIds: readonly string[];
+  readonly downloadMs: number;
   readonly validationMs: number;
 }
 
@@ -97,8 +101,11 @@ export interface DocumentationSourceOptions {
   readonly bitwigAppRoot: string;
   readonly cacheRoot: string;
   readonly repositoryRoot: string;
+  readonly downloadTimeoutMs?: number;
+  readonly mode?: DocumentationSourceMode;
   readonly releaseNotesRequest?: OfficialDocumentRequest;
   readonly guideRequest?: OfficialDocumentRequest;
+  readonly documentFetch?: DocumentFetch;
 }
 
 export interface DocumentationQuery {
@@ -187,6 +194,7 @@ export interface DocumentationResult {
     readonly message: string;
   }[];
   readonly timingMs: {
+    readonly download: number;
     readonly sourceValidation: number;
     readonly extraction: number;
     readonly indexBuild: number;
@@ -427,6 +435,102 @@ function missingFile(error: unknown): boolean {
     && (error as { code?: unknown }).code === 'ENOENT';
 }
 
+const pendingGuideDownloads = new Map<string, Promise<void>>();
+
+function sourceMode(options: DocumentationSourceOptions): DocumentationSourceMode {
+  const mode = options.mode ?? 'automatic';
+  if (mode !== 'automatic' && mode !== 'offline') {
+    throw new DocumentationError('the documentation source mode is invalid', 'invalid-request');
+  }
+  return mode;
+}
+
+function effectiveDownloadTimeout(options: DocumentationSourceOptions): number {
+  const value = options.downloadTimeoutMs ?? DEFAULT_DOWNLOAD_TIMEOUT_MS;
+  if (!Number.isSafeInteger(value) || value < 1 || value > DEFAULT_DOWNLOAD_TIMEOUT_MS) {
+    throw new DocumentationError('the documentation download deadline is invalid', 'invalid-request');
+  }
+  return value;
+}
+
+async function withDownloadDeadline<T>(
+  work: (signal: AbortSignal) => Promise<T>,
+  timeoutMs: number,
+): Promise<T> {
+  const controller = new AbortController();
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  const expired = new Promise<never>((_resolve, reject) => {
+    timeout = setTimeout(() => {
+      const error = new Error(`the documentation download exceeded its ${timeoutMs} ms deadline`);
+      controller.abort(error);
+      reject(error);
+    }, timeoutMs);
+  });
+  try {
+    return await Promise.race([work(controller.signal), expired]);
+  } finally {
+    if (timeout !== undefined) clearTimeout(timeout);
+  }
+}
+
+async function downloadGuide(
+  options: DocumentationSourceOptions,
+  request: OfficialDocumentRequest,
+  maximumBytes: number,
+  timeoutMs: number,
+): Promise<number> {
+  const key = canonical([resolve(options.cacheRoot), request.productVersion, request.sourceId]);
+  const started = performance.now();
+  let work = pendingGuideDownloads.get(key);
+  if (work === undefined) {
+    work = withDownloadDeadline(
+      (signal) => cacheOfficialDocument(
+        options.cacheRoot,
+        request,
+        options.documentFetch,
+        { maximumBytes, signal },
+      ).then(() => undefined),
+      timeoutMs,
+    );
+    pendingGuideDownloads.set(key, work);
+    void work.finally(() => {
+      if (pendingGuideDownloads.get(key) === work) pendingGuideDownloads.delete(key);
+    }).catch(() => undefined);
+  }
+  await work;
+  return performance.now() - started;
+}
+
+async function readWorkflowDocument(
+  options: DocumentationSourceOptions,
+  request: OfficialDocumentRequest,
+  maximumBytes: number,
+  downloadMissing: boolean,
+  downloadTimeoutMs: number,
+): Promise<{ readonly document: CachedDocument | null; readonly downloadMs: number }> {
+  const read = () => readCachedDocument(
+    options.cacheRoot,
+    request,
+    maximumBytes,
+    (path) => externalRoot(path, options.repositoryRoot, 'the cached documentation source'),
+  );
+  try {
+    return { document: await read(), downloadMs: 0 };
+  } catch (error) {
+    if (!missingFile(error)) throw error;
+    if (!downloadMissing) return { document: null, downloadMs: 0 };
+  }
+
+  let downloadMs: number;
+  const downloadStarted = performance.now();
+  try {
+    downloadMs = await downloadGuide(options, request, maximumBytes, downloadTimeoutMs);
+  } catch {
+    return { document: null, downloadMs: performance.now() - downloadStarted };
+  }
+  return { document: await read(), downloadMs };
+}
+
 /** Open and hash one selected family. Cached extraction must consume these bytes. */
 export async function openDocumentationSource(
   options: DocumentationSourceOptions,
@@ -434,6 +538,7 @@ export async function openDocumentationSource(
 ): Promise<OpenDocumentationSource> {
   const started = performance.now();
   validateSelection(selection);
+  const mode = sourceMode(options);
   await externalRoot(options.cacheRoot, options.repositoryRoot, 'the documentation cache');
   const info = await readFile(join(options.bitwigAppRoot, 'Contents', 'Info.plist'), 'utf8');
   const observedVersion = installedVersion(info);
@@ -447,6 +552,7 @@ export async function openDocumentationSource(
   const resources = join(options.bitwigAppRoot, 'Contents', 'Resources');
   const sources: DocumentationSourceEntry[] = [];
   const unavailableSourceIds: string[] = [];
+  let downloadMs = 0;
   try {
     if (selection.family === 'api') {
       const root = join(resources, 'Documentation', 'control-surface', 'api', 'com', 'bitwig');
@@ -480,20 +586,34 @@ export async function openDocumentationSource(
         'text/x-java-properties', files,
       ));
     } else {
-      const requests = [
-        options.releaseNotesRequest ?? exactReleaseNotes(observedVersion),
-        options.guideRequest ?? generalGuide53(observedVersion),
+      const downloadTimeoutMs = effectiveDownloadTimeout(options);
+      const requests: readonly [OfficialDocumentRequest, boolean][] = [
+        [options.releaseNotesRequest ?? exactReleaseNotes(observedVersion), false],
+        [options.guideRequest ?? generalGuide53(observedVersion), mode === 'automatic'],
       ];
+      if (requests.some(([request]) => request.productVersion !== observedVersion)) {
+        throw new DocumentationError(
+          'a cached documentation request does not match the installed product version',
+          'source-mismatch',
+        );
+      }
       let cachedBytes = 0;
-      for (const request of requests) {
+      for (const [request, downloadMissing] of requests) {
         try {
           const remainingBytes = MAX_SOURCE_BYTES - cachedBytes;
-          const document = await readCachedDocument(
-            options.cacheRoot,
+          const opened = await readWorkflowDocument(
+            options,
             request,
             Math.min(MAX_SOURCE_FILE_BYTES, remainingBytes),
-            (path) => externalRoot(path, options.repositoryRoot, 'the cached documentation source'),
+            downloadMissing,
+            downloadTimeoutMs,
           );
+          downloadMs += opened.downloadMs;
+          const document = opened.document;
+          if (document === null) {
+            unavailableSourceIds.push(request.sourceId);
+            continue;
+          }
           const entry = cacheEntry(document);
           cachedBytes += entry.byteCount;
           sources.push(entry);
@@ -501,13 +621,16 @@ export async function openDocumentationSource(
           if (error instanceof DocumentationError) throw error;
           if (missingFile(error)) unavailableSourceIds.push(request.sourceId);
           else throw new DocumentationError(
-            `cached source ${request.sourceId} failed validation: ${error instanceof Error ? error.message : String(error)}`,
+            `cached source ${request.sourceId} failed validation: ${error instanceof Error ? error.message : String(error)}; remove or repair the cache entry before retrying`,
             'corrupt-source',
           );
         }
       }
       if (sources.length === 0) {
-        throw new DocumentationError('the workflow documentation family is unavailable', 'source-unavailable');
+        throw new DocumentationError(
+          `the workflow documentation family is unavailable: ${unavailableSourceIds.join(', ')}`,
+          'source-unavailable',
+        );
       }
     }
   } catch (error) {
@@ -530,7 +653,8 @@ export async function openDocumentationSource(
     digest: { algorithm: 'sha256', domain: SOURCE_DIGEST_DOMAIN, value },
     sources,
     unavailableSourceIds,
-    validationMs: performance.now() - started,
+    downloadMs,
+    validationMs: performance.now() - started - downloadMs,
   };
 }
 
@@ -768,6 +892,8 @@ function assertSource(source: OpenDocumentationSource): OpenDocumentationSource 
       || !Array.isArray(source.sources)
       || source.sources.length > MAX_SOURCE_FILES
       || !Array.isArray(source.unavailableSourceIds)
+      || !Number.isFinite(source.downloadMs)
+      || source.downloadMs < 0
       || !Number.isFinite(source.validationMs)
       || source.validationMs < 0) {
     throw new DocumentationError('the opened documentation source is invalid', 'corrupt-source');
@@ -1343,6 +1469,7 @@ export async function queryDocumentation(
       hits,
       warnings,
       timingMs: {
+        download: request.source.downloadMs,
         sourceValidation: request.source.validationMs,
         extraction: indexed.extractionMs,
         indexBuild: indexed.buildMs,
