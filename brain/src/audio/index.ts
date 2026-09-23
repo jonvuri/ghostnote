@@ -4,13 +4,34 @@ export {
   AUDIO_FACT_SCHEMA, AUDIO_PROPERTY_DEFINITIONS, AUDIO_REQUEST_DEADLINE_MS,
   AUDIO_STARTUP_DEADLINE_MS, MAX_AUDIO_ARTIFACT_BYTES, MAX_AUDIO_RANGE_SECONDS,
   VERIFIED_AUDIO_ARTIFACT_SCHEMA, AudioFactsError, analyzeAudioFacts,
-  audioFactsModule, audioFactsRequest, verifyAudioArtifact,
+  audioFactsModule, audioFactsRequest, readPcm24WaveHeader, verifyAudioArtifact,
 } from './audio-facts.js';
 export type {
   AudioArtifactDeclaration, AudioFact, AudioFactCoverage, AudioFactFieldId,
   AudioFactProvider, AudioFactSource, AudioFactsModuleOptions, AudioFactsRequest,
-  AudioFactsResult, AudioFactsTask, AudioProperty, VerifiedAudioArtifact,
+  AudioFactsResult, AudioFactsTask, AudioProperty, Pcm24WaveHeader, VerifiedAudioArtifact,
 } from './audio-facts.js';
+export {
+  AUDIO_CAPTURE_DURATION_TOLERANCE_MS, AUDIO_CAPTURE_HEADER_READER_VERSION,
+  AUDIO_CAPTURE_MODULE_ID,
+  AUDIO_CAPTURE_MODULE_VERSION, AUDIO_CAPTURE_PROJECT_SCHEMA,
+  AUDIO_CAPTURE_PROVIDER_VERSION, AUDIO_CAPTURE_REQUEST_DEADLINE_MS,
+  AUDIO_CAPTURE_REQUEST_SCHEMA, AUDIO_CAPTURE_RESULT_SCHEMA,
+  AUDIO_CAPTURE_SOURCE_SCHEMA, AUDIO_CAPTURE_STARTUP_DEADLINE_MS,
+  AudioCaptureError, AudioCaptureRecorderActiveError, audioCaptureModule, audioCaptureRequest,
+  audioCaptureSource, captureAndAnalyze, captureMasterArtifact,
+  createNodeAudioCaptureStorage,
+} from './audio-capture.js';
+export { createLiveAudioCaptureController } from './live-audio-capture.js';
+export type {
+  AudioCaptureBounds, AudioCaptureCandidate, AudioCaptureController, AudioCaptureGuard,
+  AudioCaptureDirectorySnapshot, AudioCaptureDiscovery, AudioCaptureFailure,
+  AudioCaptureFailureStage, AudioCaptureModuleOptions, AudioCaptureRange,
+  AudioCaptureRangeObservation, AudioCaptureRecorderStatus, AudioCaptureRequest,
+  AudioCaptureResult, AudioCaptureSource, AudioCaptureSourceManifest,
+  AudioCaptureStorage, CaptureAndAnalysisResult, ProjectAssociationEvidence,
+  SavedBitwigProject, SettledCaptureFile,
+} from './audio-capture.js';
 export {
   AUDIO_PROCESS_DEADLINE_MS, ROLLOFF_CUTOFF, ROLLOFF_FRAME_SAMPLES,
   SILENCE_MINIMUM_SECONDS, SILENCE_THRESHOLD_DBFS, AudioExecutableError,

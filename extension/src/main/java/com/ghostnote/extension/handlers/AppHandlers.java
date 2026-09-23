@@ -20,6 +20,12 @@ import com.google.gson.JsonObject;
  * Split out of ProbeHandlers.java in Phase 0; the method bodies are unchanged.
  */
 public final class AppHandlers extends HandlerGroup {
+    private static final long MASTER_RECORDER_START_LEASE_MS = 10_000;
+    private String masterRecorderOwner = null;
+    private long masterRecorderLeaseStartedAtMs = -1;
+    private boolean masterRecorderObservedActive = false;
+    private boolean masterRecorderStopRequested = false;
+
     public AppHandlers(ControllerHost host, Rig rig, ExecState state) {
         super(host, rig, state);
     }
@@ -32,9 +38,9 @@ public final class AppHandlers extends HandlerGroup {
         r.on("transport.play", params -> transportPlay());
         r.on("transport.stop", params -> transportStop());
         r.on("transport.status", params -> transportStatus());
-        r.on("masterRecorder.start", params -> masterRecorderStart());
-        r.on("masterRecorder.stop", params -> masterRecorderStop());
-        r.on("masterRecorder.status", params -> masterRecorderStatus());
+        r.on("masterRecorder.start", params -> masterRecorderStart(params));
+        r.on("masterRecorder.stop", params -> masterRecorderStop(params));
+        r.on("masterRecorder.status", params -> masterRecorderStatus(params));
     }
 
     /**
@@ -182,21 +188,87 @@ public final class AppHandlers extends HandlerGroup {
         return r;
     }
 
-    private JsonElement masterRecorderStart() {
-        rig.masterRecorder.start();
-        return masterRecorderStatus();
+    private JsonElement masterRecorderStart(JsonObject params) {
+        String ownerToken = requireOwnerToken(params);
+        refreshMasterRecorderLease();
+        if (masterRecorderOwner != null || rig.masterRecorder.isActive().get()) {
+            JsonObject result = masterRecorderStatus(params);
+            result.addProperty("started", false);
+            result.addProperty("refusal", "master-recorder-already-active");
+            return result;
+        }
+        masterRecorderOwner = ownerToken;
+        masterRecorderLeaseStartedAtMs = System.currentTimeMillis();
+        masterRecorderObservedActive = false;
+        masterRecorderStopRequested = false;
+        try {
+            rig.masterRecorder.start();
+        } catch (Throwable error) {
+            clearMasterRecorderLease();
+            throw error;
+        }
+        JsonObject result = masterRecorderStatus(params);
+        result.addProperty("started", true);
+        return result;
     }
 
-    private JsonElement masterRecorderStop() {
+    private JsonElement masterRecorderStop(JsonObject params) {
+        String ownerToken = requireOwnerToken(params);
+        refreshMasterRecorderLease();
+        if (masterRecorderOwner == null || !masterRecorderOwner.equals(ownerToken)) {
+            JsonObject result = masterRecorderStatus(params);
+            result.addProperty("stopped", false);
+            result.addProperty("refusal", "master-recorder-not-owned");
+            return result;
+        }
+        masterRecorderStopRequested = true;
         rig.masterRecorder.stop();
-        return masterRecorderStatus();
+        JsonObject result = masterRecorderStatus(params);
+        result.addProperty("stopped", true);
+        return result;
     }
 
-    private JsonElement masterRecorderStatus() {
+    private JsonObject masterRecorderStatus(JsonObject params) {
+        String ownerToken = params.has("ownerToken")
+            ? params.get("ownerToken").getAsString() : "";
+        refreshMasterRecorderLease();
         JsonObject result = new JsonObject();
         result.addProperty("isActive", rig.masterRecorder.isActive().get());
         result.addProperty("durationMs", rig.masterRecorder.duration().get());
         result.addProperty("sampledAtMs", System.currentTimeMillis());
+        result.addProperty("leaseState", masterRecorderOwner == null ? "none"
+            : masterRecorderOwner.equals(ownerToken) ? "owned" : "other");
         return result;
+    }
+
+    private String requireOwnerToken(JsonObject params) {
+        if (!params.has("ownerToken") || !params.get("ownerToken").isJsonPrimitive()
+                || !params.getAsJsonPrimitive("ownerToken").isString()
+                || params.get("ownerToken").getAsString().isEmpty()) {
+            throw new IllegalArgumentException("ownerToken must be a non-empty string");
+        }
+        return params.get("ownerToken").getAsString();
+    }
+
+    /** Release only after inactive state is observed or a start lease expires. */
+    private void refreshMasterRecorderLease() {
+        boolean active = rig.masterRecorder.isActive().get();
+        if (masterRecorderOwner == null) return;
+        if (active) {
+            masterRecorderObservedActive = true;
+            return;
+        }
+        long leaseAgeMs = System.currentTimeMillis() - masterRecorderLeaseStartedAtMs;
+        if (masterRecorderStopRequested || masterRecorderObservedActive
+                || leaseAgeMs >= MASTER_RECORDER_START_LEASE_MS) {
+            clearMasterRecorderLease();
+        }
+    }
+
+    private void clearMasterRecorderLease() {
+        masterRecorderOwner = null;
+        masterRecorderLeaseStartedAtMs = -1;
+        masterRecorderObservedActive = false;
+        masterRecorderStopRequested = false;
     }
 }

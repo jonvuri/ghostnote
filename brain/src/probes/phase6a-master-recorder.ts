@@ -14,6 +14,7 @@ const STEP_SIZE = 0.25;
 const AUDIO_SUFFIX = /\.(?:wav|flac|aif|aiff)$/i;
 const FFMPEG = '/opt/homebrew/bin/ffmpeg';
 const FFPROBE = '/opt/homebrew/bin/ffprobe';
+const RECORDER_OWNER = 'phase6a-master-recorder-probe';
 
 interface TrackRow {
   readonly index: number;
@@ -116,7 +117,7 @@ async function point(trackIndex: number, requireSlot = false): Promise<void> {
 }
 
 async function recorderStatus(): Promise<RecorderStatus> {
-  return await req('masterRecorder.status') as RecorderStatus;
+  return await req('masterRecorder.status', { ownerToken: RECORDER_OWNER }) as RecorderStatus;
 }
 
 async function seedClip(trackIndex: number): Promise<number> {
@@ -207,7 +208,7 @@ async function capture(
   await req('transport.stop');
   const totalStartedAt = Date.now();
   const activationStartedAt = Date.now();
-  await req('masterRecorder.start');
+  await req('masterRecorder.start', { ownerToken: RECORDER_OWNER });
   const armed = await pollUntil(async () => (await recorderStatus()).isActive, 4000, 25);
   if (!armed.ok) throw new Error(`capture ${run}: MasterRecorder did not become active`);
   const activatedAt = Date.now();
@@ -234,7 +235,7 @@ async function capture(
   const playbackFinishedAt = Date.now();
   await req('transport.stop');
   const durationBeforeStop = await recorderStatus();
-  await req('masterRecorder.stop');
+  await req('masterRecorder.stop', { ownerToken: RECORDER_OWNER });
   const stopped = await pollUntil(async () => !(await recorderStatus()).isActive, 4000, 25);
   if (!stopped.ok) throw new Error(`capture ${run}: MasterRecorder did not stop`);
   const stoppedAt = Date.now();
@@ -345,7 +346,9 @@ try {
 } finally {
   try {
     await req('transport.stop');
-    if ((await recorderStatus()).isActive) await req('masterRecorder.stop');
+    if ((await recorderStatus()).isActive) {
+      await req('masterRecorder.stop', { ownerToken: RECORDER_OWNER });
+    }
   } catch {
     // The bridge can be unavailable after an earlier connection failure.
   }

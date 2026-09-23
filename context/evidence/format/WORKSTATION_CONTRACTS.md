@@ -3,7 +3,7 @@ title: Workstation contracts — experimental Phase 7 baseline
 kind: reference
 state: active
 updated: 2026-09-23
-scope: Phase 7 experimental baseline; 7a symbolic, 7b patch, 7c documentation, and 7d audio implementation
+scope: Phase 7 experimental baseline through 7e capture and audio composition
 ---
 
 # Workstation contracts
@@ -22,7 +22,7 @@ The [6i outcome](../../archive/outcomes/PHASE-6I-CONTRACT-SYNTHESIS.md) records 
 audit. The [6j verification reference](WORKSTATION_VERIFICATION.md) classifies
 costs and defines operation rules. Phase 7 owns implementation and proof.
 
-This design applies E103–E105 and E109–E121. It preserves
+This design applies E103–E105 and E109–E125. It preserves
 [D9](../../decisions/d9-grid-and-units-settled-2026-07-25.md),
 [D12](../../decisions/d12-transport-and-the-contract-boundary-settled-2026-07-25.md),
 [D15](../../decisions/d15-verification-discipline-settled-2026-07-25.md), and
@@ -66,8 +66,8 @@ reason. Failure codes distinguish `missing-dependency`, `unsupported-schema`,
 ### Identity and hashes
 
 Use full lowercase SHA-256 for byte and content identity. Record the digest
-domain: `file-bytes`, `exact-note-source-v0`, `agent-context-v0`,
-`note-compiler-preview-v0`, or a named legacy probe domain. The extension's
+domain: `file-bytes`, `audio-capture-source-v0`, `exact-note-source-v0`,
+`agent-context-v0`, `note-compiler-preview-v0`, or a named legacy probe domain. The extension's
 16-character method hash is a deployment check, not a content hash. Do not
 compare these domains.
 
@@ -163,12 +163,38 @@ status. Shared fields above apply to every new input/output boundary.
 | Reference context, `reference-context-v0` | Separate exact seed/reference sources, permission, task and coverage → extracted evidence, optional bounded raw context and comparison profile | Pure TypeScript; no theory helper is required | Missing permission, identity collision, changed hash or invalid coverage refuses only the reference request. It cannot supply a write target or verdict. |
 | Exact patch compiler, `note-compiler-v0` | Exact source, note proposal v0, invariants → complete candidate, typed operations, losses, guards | Pure code; Bitwig required only for fresh preflight/apply/readback | Compile failure writes nothing. Apply failure keeps the change record and effects state; no blind retry or assumed rollback. |
 | Documentation, `documentation-v0` | Installed product version, source family, query, result bound → cited records | Local sources, verified cache, SQLite FTS5; lazy source validation/index open; automatic mode downloads only a missing approved guide within 90 seconds and 128 MiB | A missing or failed guide leaves other valid sources available. Invalid cache entries fail closed. Missing guide extraction does not disable installed API records. Offline mode never downloads. |
-| Audio capture, `audio-capture-v0` | Guarded saved-project directory, controlled master source, range and stop bound → audio artifact | Bitwig typed recorder route, filesystem, lossless header reader; validate before start | Unknown path/active recorder refuses before effects. Stop/settle failure reports known files and recorder state; it does not disable file analysis. |
+| Audio capture, `audio-capture-v0` | Guarded saved-project directory, project master plus launcher range, and lifecycle bounds → exact audio artifact | Bitwig typed recorder route, filesystem, built-in PCM WAVE header reader; validate before live startup and again before recorder start | Unknown path/active recorder refuses before effects. Stop/settle failure reports known files and recorder state; it does not disable file analysis. |
 | Audio facts, `audio-facts-v0` | Verified artifact, sample/channel scope, declared task → typed facts and optional paired projection | Byte validation first; discover FFprobe/FFmpeg separately; optional isolated librosa worker | Missing executable/worker removes only its facts. A crash terminates that worker and fails its pending request. Captures remain available. |
 
-Capture needs stream/header validation, not a librosa or loudness process. If
-7e uses FFprobe for header validation, it must declare that narrow dependency.
+Capture needs stream/header validation, not a librosa, FFmpeg, or loudness
+process. The 7e module uses the shared built-in narrow PCM WAVE header reader.
 Failure of audio analysis cannot turn a successful capture into a failed capture.
+
+The 7e `audio-capture-v0` profile requires an exact real saved `.bwproject`
+path, full project-file SHA-256, operator-established directory association,
+live project detector, and current generation, revision, scene, and content
+guards. Bitwig does not expose the loaded project path. The result carries this
+limit as a warning. The project file limit is 512 MiB.
+
+The source manifest uses `capture-source-json-v0` canonicalization and the
+`audio-capture-source-v0` digest domain. It identifies the project master output
+during one guarded launcher clip. The clip is a range trigger. Other project
+output is not excluded. The initial range is one loop from beat 0, from 2 to 32
+beats, observed at 0.25-beat steps.
+
+The extension reserves a recorder owner token before asynchronous activation.
+Status and stop are owner-bound. Launch validates project, revision, scene,
+content, durable track identity, row, and occupancy in the same handler turn.
+Capture accepts exactly one new stable regular lossless path. The initial
+artifact profile is stereo 24-bit PCM WAVE at 44.1 kHz with a 16 MiB limit.
+It reports requested range, observed range, path, format, channels, sample
+rate, duration, byte count, full SHA-256, providers, coverage, ownership,
+warnings, and phase timings. Musical coverage does not prove sample alignment.
+
+Capture returns an artifact declaration, not verified analysis bytes.
+`captureAndAnalyze` passes that declaration through `verifyAudioArtifact`, then
+makes a separate `audio-facts-v0` registry request. The full file SHA-256 is the
+cross-module identity. Recorder state is not analysis input.
 
 The 7d `audio-facts-v0` profile accepts verified stereo 24-bit PCM WAVE at
 44.1 kHz. A request selects one or both discrete channels and a `[start,end)`

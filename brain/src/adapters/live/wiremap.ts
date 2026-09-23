@@ -205,6 +205,13 @@ export const WIRE = {
   showChangedClip: 'navigation.showChangedClip',
 
   notify: 'notify',
+
+  /** Phase 7e: bounded project-master capture and stopped transport cleanup. */
+  transportStop: 'transport.stop',
+  transportStatus: 'transport.status',
+  masterRecorderStart: 'masterRecorder.start',
+  masterRecorderStop: 'masterRecorder.stop',
+  masterRecorderStatus: 'masterRecorder.status',
 } as const;
 
 export type WireMethod = (typeof WIRE)[keyof typeof WIRE];

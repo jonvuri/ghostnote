@@ -70,7 +70,7 @@ export class WorkstationModuleError extends Error {
   constructor(
     message: string,
     readonly code: 'missing-dependency' | 'unsupported-schema' | 'source-mismatch'
-    | 'timeout' | 'verification-failed',
+    | 'capture-ambiguous' | 'timeout' | 'verification-failed',
     readonly moduleId: string,
     options?: ErrorOptions,
   ) {

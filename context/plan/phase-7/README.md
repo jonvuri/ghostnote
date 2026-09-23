@@ -2,7 +2,7 @@
 title: Phase 7 — Workstation dogfood iteration
 kind: plan
 state: active
-status: Phase 7d is complete. Start 7e audio capture and analysis composition.
+status: Phase 7e is complete. Start 7f hybrid workstation dogfood.
 updated: 2026-09-23
 parent: ../ROADMAP.md
 prev: ../phase-6/README.md
@@ -95,8 +95,9 @@ width; the old 1.6–1.8 second exact-read results precede fine-grid expansion.
 5. [7d — audio facts and sensory packets](7d-audio-facts-and-sensory-packets.md).
    Complete. E124 connects verified files to selected facts and sensory v1.
 6. [7e — audio capture and analysis composition](7e-audio-capture-and-analysis-composition.md).
-   Next.
+   Complete. E125 connects guarded launcher capture to separate file analysis.
 7. [7f — hybrid workstation dogfood](7f-hybrid-workstation-dogfood.md).
+   Next.
 
 The [workstation dogfood menu](MENU.md) remains a living task list. Pull a later
 session forward only when an earlier result makes it the smaller or more useful

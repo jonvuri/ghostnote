@@ -4,52 +4,55 @@ kind: status
 state: active
 updated: 2026-09-23
 phase: phase-7
-session: 7e-audio-capture-and-analysis-composition
+session: 7f-hybrid-workstation-dogfood
 ---
 
 # Now
 
-Phase 7d is complete. [E124](evidence/experiments/e124-audio-facts-and-sensory-packets-connect-verified-files.md)
-connects verified local audio to selected FFmpeg facts and pure sensory v1
-routing. Phase 6 is complete. Phase 3 remains deferred. Phase 5 still has
-generalized closeout work after its accepted public result.
+Phase 7e is complete. [E125](evidence/experiments/e125-audio-capture-composes-with-verified-file-analysis.md)
+connects guarded launcher capture to independent verified-file analysis. Phase
+6 is complete. Phase 3 remains deferred. Phase 5 still has generalized
+closeout work after its accepted public result.
 
 ## Next session
 
-Run [7e: audio capture and analysis composition](plan/phase-7/7e-audio-capture-and-analysis-composition.md).
+Run [7f: hybrid workstation dogfood](plan/phase-7/7f-hybrid-workstation-dogfood.md).
 Read the [contracts](evidence/format/WORKSTATION_CONTRACTS.md),
 [seam ledger](evidence/format/WORKSTATION_SEAMS.md),
-[verification rules](evidence/format/WORKSTATION_VERIFICATION.md), E103, E105,
-E119 and E124. Implement `audio-capture-v0`. Close S11, capture-to-S12 and
-capture startup in S17. Keep capture and 7d analysis as separate calls.
+[verification rules](evidence/format/WORKSTATION_VERIFICATION.md), E120–E125,
+and the [dogfood menu](plan/phase-7/MENU.md). Select one real musical goal and
+operating mode. Close S16 with an explicit run record. Close S15 only if the
+selected task crosses its blocked artifact seam.
 
-## 7d handoff
+## 7e handoff
 
-- `audio-facts-v0` accepts verified stereo PCM24 WAVE at 44.1 kHz. It has a
-  16 MiB artifact limit and a selected range from 0.05 to 60 seconds.
-- Runtime preflight completes before executable discovery. Provider processes
-  consume private copies of retained bytes. Final verification rejects a path
-  change during analysis.
-- Silence uses -90 dBFS and 0.05 seconds. At most one uncovered sample across
-  the complete range can gate dependent facts. Low analog noise can still be
-  silent.
-- Sensory v1 checks source, provider, formula, tolerance, channel, range and
-  frame compatibility. It does not recompute facts or emit a verdict.
-- The real run reproduced E118 brightness, loudness, crest and silence
-  controls. It also passed one nonzero single-channel range. No Bitwig or
-  librosa provider ran.
+- `audio-capture-v0` accepts one exact saved Bitwig project and one guarded
+  launcher loop. It captures the project master and does not claim that other
+  project output is excluded.
+- The extension reserves a recorder owner token before activation. Status and
+  stop are owner-bound. Guarded launch checks the durable source in the launch
+  handler.
+- The capture module accepts one new stable stereo PCM24 WAVE at 44.1 kHz. It
+  returns range, path, format, duration, bytes, full SHA-256, provider versions,
+  sample coverage, ownership, warnings, and timings.
+- Capture does not start an analysis provider. `captureAndAnalyze` verifies the
+  returned artifact again and makes a separate `audio-facts-v0` request.
+- The live proof restored the entry track list and recorder state. It removed
+  the WAVE, disposable project, and temporary directory.
+- Failure cleanup retries bounded transport stop before recorder stop. A failed
+  transport confirmation makes the effects verdict unknown.
 
 ## Boundaries
 
-S03, S04, S06, S07, S09, supplied-file S12, audio S13, S14 and the implemented
-parts of S17 are complete. S05 remains conditional on a theory task. S08 stays
-outside the compiler. S10 is conditional on a paired MIDI task. S11 and
-capture-to-S12 remain for 7e. R1 is still blocked: do not remove the fresh note
-preflight or final readback.
+S03, S04, S06, S07, S09, S11, S12, audio S13, S14 and the implemented parts of
+S17 are complete. S05 remains conditional on a theory task. S08 stays outside
+the compiler. S10 is conditional on a paired MIDI task. S15 remains conditional
+on a cross-module preset artifact. S16 remains for 7f. R1 is still blocked: do
+not remove the fresh note preflight or final readback.
 
 ## Retrospective
 
-Rolloff justified its cost only for level-controlled brightness. Review made
-the silence tolerance global, linked request cancellation to startup, and kept
-provider timeouts distinct. Future external-process modules must validate the
-request and bounded source bytes before discovery.
+The full file SHA-256 let analysis re-identify captured bytes without recorder
+state. The first live fixture refusal showed that a probe must record cleanup
+identity at the first owned creation boundary and must not hide cleanup errors.
+The review found that recorder cleanup alone did not prove transport cleanup.

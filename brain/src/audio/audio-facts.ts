@@ -210,7 +210,7 @@ export class AudioFactsError extends Error {
   }
 }
 
-interface WavHeader {
+export interface Pcm24WaveHeader {
   readonly sampleRateHz: number;
   readonly channels: number;
   readonly bitsPerSample: number;
@@ -231,7 +231,8 @@ function ascii(bytes: Uint8Array, start: number, length: number): string {
   return Buffer.from(bytes.buffer, bytes.byteOffset + start, length).toString('ascii');
 }
 
-function parseWavHeader(bytes: Uint8Array): WavHeader {
+/** Read the narrow PCM WAVE profile shared by capture and analysis. */
+export function readPcm24WaveHeader(bytes: Uint8Array): Pcm24WaveHeader {
   if (bytes.byteLength < 44 || ascii(bytes, 0, 4) !== 'RIFF' || ascii(bytes, 8, 4) !== 'WAVE') {
     throw new AudioFactsError('the artifact is not a RIFF WAVE file', 'unsupported-format');
   }
@@ -327,7 +328,7 @@ function validateDeclaration(
   declaration: AudioArtifactDeclaration,
   bytes: Uint8Array,
   verifyDigest = true,
-): WavHeader {
+): Pcm24WaveHeader {
   validateDeclarationMetadata(declaration);
   if (declaration.byteCount !== bytes.byteLength) {
     throw new AudioFactsError('the audio artifact byte count is invalid', 'invalid-request');
@@ -335,7 +336,7 @@ function validateDeclaration(
   if (verifyDigest && hash(bytes) !== declaration.sha256) {
     throw new AudioFactsError('the audio artifact SHA-256 does not match', 'source-mismatch');
   }
-  const header = parseWavHeader(bytes);
+  const header = readPcm24WaveHeader(bytes);
   const { start, end } = declaration.scope.sampleRange;
   if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 0 || end <= start
       || end > header.sampleCount || end - start > MAX_AUDIO_RANGE_SECONDS * header.sampleRateHz
@@ -404,6 +405,18 @@ export async function verifyAudioArtifact(
   if (digest !== declaration.sha256) {
     throw new AudioFactsError('the audio artifact SHA-256 does not match', 'source-mismatch');
   }
+  return retainVerifiedAudioArtifact(declaration, bytes, { readAndHash, observedSha256: digest });
+}
+
+/** Build a verified artifact from bytes that the stable reader retained. */
+function retainVerifiedAudioArtifact(
+  declaration: AudioArtifactDeclaration,
+  bytes: Uint8Array,
+  timing: { readonly readAndHash: number; readonly observedSha256: string },
+): VerifiedAudioArtifact {
+  if (timing.observedSha256 !== declaration.sha256) {
+    throw new AudioFactsError('the audio artifact SHA-256 does not match', 'source-mismatch');
+  }
   const validationStarted = performance.now();
   const header = validateDeclaration(declaration, bytes, false);
   const headerAndScopeValidation = performance.now() - validationStarted;
@@ -420,7 +433,7 @@ export async function verifyAudioArtifact(
       dataBytes: header.dataBytes,
     },
     bytes: new Uint8Array(bytes),
-    timingMs: { readAndHash, headerAndScopeValidation },
+    timingMs: { readAndHash: timing.readAndHash, headerAndScopeValidation },
   };
 }
 

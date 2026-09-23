@@ -32,7 +32,8 @@ import {
   ContractVersionError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
-  chainPath, chooseStepSize, clip as clipAt, contentDelta, device as deviceAt, deviceIn,
+  chainPath, chooseStepSize, clip as clipAt, clipMetadata as clipMetadataAt, clipPlay as clipPlayAt,
+  contentDelta, device as deviceAt, deviceIn,
   deviceSlot,
   hasUnverifiedProps, planStages,
   lookupChain, lookupDevice, lookupDeviceSlot, lookupNestedDevice, mintedChain, nestingObservable, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain, windowCovers,
@@ -489,6 +490,43 @@ export interface LiveOptions {
   readonly onTrace?: (event: LiveTraceEvent) => void;
 }
 
+export interface MasterRecorderStatus {
+  readonly isActive: boolean;
+  readonly durationMs: number;
+  readonly sampledAtMs: number;
+  readonly leaseState: 'none' | 'owned' | 'other';
+}
+
+export interface LauncherCaptureGuard {
+  readonly generation: string;
+  readonly project: string;
+  readonly revision: number;
+  readonly sceneEpoch: number;
+  readonly contentEpoch: number;
+}
+
+export interface LauncherCaptureRange {
+  readonly startBeats: 0;
+  readonly endBeats: number;
+  readonly stepSizeBeats: 0.25;
+}
+
+export interface LauncherCaptureObservation {
+  readonly playbackStartedAtMs: number;
+  readonly terminalRangeObservedAtMs: number;
+  readonly rangeWrappedAtMs: number;
+  readonly transportStoppedAtMs: number;
+  readonly terminalStep: number;
+  readonly wrappedStep: number;
+}
+
+export class MasterRecorderActiveError extends Error {
+  constructor(readonly status: MasterRecorderStatus) {
+    super('the project MasterRecorder is already active');
+    this.name = 'MasterRecorderActiveError';
+  }
+}
+
 export interface LiveTraceEvent {
   readonly action:
     | 'cursor-point'
@@ -733,6 +771,283 @@ export class LiveAdapter implements BitwigAdapter {
     } finally {
       this.onTiming?.({ phase, elapsedMs: performance.now() - start });
     }
+  }
+
+  private recorderStatusFrom(value: unknown): MasterRecorderStatus {
+    const status = value as Partial<MasterRecorderStatus>;
+    if (typeof status?.isActive !== 'boolean' || !Number.isFinite(status.durationMs)
+        || !Number.isFinite(status.sampledAtMs) || status.durationMs! < 0
+        || !['none', 'owned', 'other'].includes(status.leaseState ?? '')) {
+      throw new Error('the MasterRecorder returned an invalid status');
+    }
+    return {
+      isActive: status.isActive,
+      durationMs: status.durationMs!,
+      sampledAtMs: status.sampledAtMs!,
+      leaseState: status.leaseState!,
+    };
+  }
+
+  /** Read the project MasterRecorder without changing it. */
+  async masterRecorderStatus(ownerToken: string): Promise<MasterRecorderStatus> {
+    return this.recorderStatusFrom(await this.transport.send({
+      method: WIRE.masterRecorderStatus, params: { ownerToken },
+    }));
+  }
+
+  /** Start the recorder through the extension's atomic inactive-state guard. */
+  async startMasterRecorder(ownerToken: string): Promise<MasterRecorderStatus> {
+    const reply = await this.transport.send({
+      method: WIRE.masterRecorderStart, params: { ownerToken },
+    }) as {
+      readonly started?: boolean;
+      readonly refusal?: string;
+    };
+    if (reply.started !== true) {
+      if (reply.refusal === 'master-recorder-already-active') {
+        throw new MasterRecorderActiveError(this.recorderStatusFrom(reply));
+      }
+      throw new Error('the MasterRecorder start reply is invalid');
+    }
+    return this.recorderStatusFrom(reply);
+  }
+
+  /** Request recorder stop. The caller must still observe inactive state. */
+  async stopMasterRecorder(ownerToken: string): Promise<MasterRecorderStatus> {
+    const reply = await this.transport.send({
+      method: WIRE.masterRecorderStop, params: { ownerToken },
+    }) as { readonly stopped?: boolean; readonly refusal?: string };
+    if (reply.stopped !== true) {
+      throw new Error(`the MasterRecorder stop was refused: ${reply.refusal ?? 'invalid reply'}`);
+    }
+    return this.recorderStatusFrom(reply);
+  }
+
+  private async transportIsPlaying(): Promise<{ readonly isPlaying: boolean; readonly sampledAtMs: number }> {
+    const reply = await this.transport.send({ method: WIRE.transportStatus }) as {
+      readonly isPlaying?: boolean;
+      readonly sampledAtMs?: number;
+    };
+    if (typeof reply.isPlaying !== 'boolean' || !Number.isFinite(reply.sampledAtMs)) {
+      throw new Error('the transport returned an invalid status');
+    }
+    return { isPlaying: reply.isPlaying, sampledAtMs: reply.sampledAtMs! };
+  }
+
+  private guardMatchesCapture(actual: RevisionMark, expected: LauncherCaptureGuard): boolean {
+    return actual.generation === expected.generation && actual.project === expected.project
+      && actual.revision === expected.revision && actual.sceneEpoch === expected.sceneEpoch
+      && actual.contentEpoch === expected.contentEpoch;
+  }
+
+  private async pollCapture<T>(
+    read: () => Promise<T>,
+    accept: (value: T) => boolean,
+    boundMs: number,
+    pollMs: number,
+    signal?: AbortSignal,
+  ): Promise<T> {
+    const deadline = performance.now() + boundMs;
+    let latest = await read();
+    if (performance.now() > deadline) {
+      throw new Error(`capture observation exceeded its ${boundMs} ms bound`);
+    }
+    while (!accept(latest)) {
+      if (signal?.aborted === true || performance.now() >= deadline) {
+        throw new Error(`capture observation exceeded its ${boundMs} ms bound`);
+      }
+      await new Promise<void>((resolve, reject) => {
+        const done = (): void => {
+          signal?.removeEventListener('abort', abort);
+          resolve();
+        };
+        const timer = setTimeout(done, pollMs);
+        const abort = (): void => {
+          clearTimeout(timer);
+          signal?.removeEventListener('abort', abort);
+          reject(new Error('capture observation was cancelled'));
+        };
+        signal?.addEventListener('abort', abort, { once: true });
+      });
+      latest = await read();
+      if (performance.now() > deadline) {
+        throw new Error(`capture observation exceeded its ${boundMs} ms bound`);
+      }
+    }
+    return latest;
+  }
+
+  /** Validate the guarded launcher source and leave transport stopped. */
+  async prepareLauncherCapture(
+    clip: ClipAddress,
+    guard: LauncherCaptureGuard,
+    range: LauncherCaptureRange,
+  ): Promise<void> {
+    const current = await this.revision();
+    if (!this.guardMatchesCapture(current, guard)) {
+      throw new AddressUnresolvedError(clip, 'the capture source guard is stale');
+    }
+    const snapshot = await this.read([clipMetadataAt(clip), clipPlayAt(clip)]);
+    if (!this.guardMatchesCapture(snapshot.at, guard)
+        || snapshot.missing.length > 0 || snapshot.unreachable.length > 0
+        || snapshot.unstable.length > 0) {
+      throw new AddressUnresolvedError(clip, 'the capture launcher clip is not exactly readable');
+    }
+    const entry = snapshot.entries[addressKey(clipMetadataAt(clip))];
+    if (entry?.value.of !== 'clipMetadata') {
+      throw new AddressUnresolvedError(clip, 'the capture launcher clip metadata is unavailable');
+    }
+    const metadata = entry.value.metadata;
+    if (range.startBeats !== 0 || range.stepSizeBeats !== 0.25
+        || metadata.playStartBeats !== 0 || metadata.loopEnabled !== true
+        || metadata.loopStartBeats !== 0 || metadata.loopEndBeats !== range.endBeats) {
+      throw new InvalidOpError(
+        'audio capture',
+        'audio-capture-v0 requires one complete launcher loop from beat 0',
+      );
+    }
+  }
+
+  /** Stop transport after this capture owns the recorder lease. */
+  async stopTransportForCapture(
+    stopBoundMs: number,
+    pollMs: number,
+    signal?: AbortSignal,
+  ): Promise<void> {
+    await this.transport.send({ method: WIRE.transportStop });
+    await this.pollCapture(
+      () => this.transportIsPlaying(), (status) => !status.isPlaying,
+      stopBoundMs, pollMs, signal,
+    );
+  }
+
+  /** Launch one prepared loop, observe its first wrap, and stop transport. */
+  async playLauncherCaptureRange(
+    clip: ClipAddress,
+    guard: LauncherCaptureGuard,
+    range: LauncherCaptureRange,
+    playbackBoundMs: number,
+    stopBoundMs: number,
+    pollMs: number,
+    signal?: AbortSignal,
+  ): Promise<LauncherCaptureObservation> {
+    return this.preserveSelection(async () => {
+      const current = await this.revision();
+      if (!this.guardMatchesCapture(current, guard)) {
+        throw new AddressUnresolvedError(clip, 'the capture source changed before playback');
+      }
+      const steps = range.endBeats / range.stepSizeBeats;
+      if (!Number.isSafeInteger(steps) || steps < 8) {
+        throw new InvalidOpError(
+          'audio capture',
+          'the launcher range must contain at least eight quarter-beat steps',
+        );
+      }
+      const list = await this.scanTracks();
+      const row = list.tracks.find((item) => item.channelId === clip.slot.track.channelId);
+      if (row === undefined || clip.slot.scene.epoch !== current.sceneEpoch) {
+        throw new AddressUnresolvedError(clip, 'the capture launcher address is stale or absent');
+      }
+      const status = await this.transport.send({
+        method: WIRE.slotStatus,
+        params: { trackIndex: row.index, slotIndex: clip.slot.scene.index },
+      }) as { readonly hasContent?: boolean };
+      if (status.hasContent !== true) {
+        throw new AddressUnresolvedError(clip, 'the capture launcher slot is empty');
+      }
+      const cursor = await this.pointAtClip(clip, row.index, new Map());
+      await this.transport.send({
+        method: WIRE.cursorSetStepSize,
+        params: { cursor, stepSize: range.stepSizeBeats },
+      });
+      const playbackStarted = performance.now();
+      const remainingPlaybackMs = (): number => Math.max(
+        1, playbackBoundMs - (performance.now() - playbackStarted),
+      );
+      let transportStopped = false;
+      await this.settle('gridChange');
+      const launch = await this.transport.send({
+        method: WIRE.slotLaunchWithOptions,
+        params: {
+          trackIndex: row.index,
+          slotIndex: clip.slot.scene.index,
+          quantization: 'none',
+          launchMode: 'from_start',
+          expectedGeneration: guard.generation,
+          expectedProject: guard.project,
+          expectedRevision: guard.revision,
+          expectedSceneEpoch: guard.sceneEpoch,
+          expectedContentEpoch: guard.contentEpoch,
+          expectedChannelId: clip.slot.track.channelId,
+        },
+      }) as { readonly guardAccepted?: boolean; readonly error?: string };
+      if (launch.guardAccepted !== true) {
+        throw new AddressUnresolvedError(
+          clip, launch.error ?? 'the capture launch guard was not accepted',
+        );
+      }
+      const readPlay = async (): Promise<{
+        readonly isPlaying: boolean; readonly playingStep: number; readonly sampledAtMs: number;
+      }> => {
+        const value = await this.transport.send({
+          method: WIRE.cursorPlayState, params: { cursor },
+        }) as {
+          readonly isPlaying?: boolean;
+          readonly playingStep?: number;
+          readonly sampledAtMs?: number;
+          readonly exists?: boolean;
+          readonly loopLength?: number;
+          readonly sceneIndex?: number;
+          readonly trackPosition?: number;
+        };
+        if (typeof value.isPlaying !== 'boolean' || !Number.isSafeInteger(value.playingStep)
+            || !Number.isFinite(value.sampledAtMs) || value.exists !== true
+            || value.loopLength !== range.endBeats
+            || value.sceneIndex !== clip.slot.scene.index || value.trackPosition !== row.index) {
+          throw new Error('the capture clip returned an invalid playback observation');
+        }
+        return {
+          isPlaying: value.isPlaying,
+          playingStep: value.playingStep!,
+          sampledAtMs: value.sampledAtMs!,
+        };
+      };
+      try {
+        const started = await this.pollCapture(
+          readPlay,
+          (value) => value.isPlaying && value.playingStep >= 0 && value.playingStep <= 3,
+          remainingPlaybackMs(), pollMs, signal,
+        );
+        const terminal = await this.pollCapture(
+          readPlay,
+          (value) => value.isPlaying && value.playingStep >= steps - 4,
+          remainingPlaybackMs(), pollMs, signal,
+        );
+        const wrapped = await this.pollCapture(
+          readPlay,
+          (value) => value.isPlaying && value.playingStep >= 0 && value.playingStep <= 3,
+          remainingPlaybackMs(), pollMs, signal,
+        );
+        await this.transport.send({ method: WIRE.transportStop });
+        const stopped = await this.pollCapture(
+          () => this.transportIsPlaying(), (value) => !value.isPlaying,
+          stopBoundMs, pollMs, signal,
+        );
+        transportStopped = true;
+        return {
+          playbackStartedAtMs: started.sampledAtMs,
+          terminalRangeObservedAtMs: terminal.sampledAtMs,
+          rangeWrappedAtMs: wrapped.sampledAtMs,
+          transportStoppedAtMs: stopped.sampledAtMs,
+          terminalStep: terminal.playingStep,
+          wrappedStep: wrapped.playingStep,
+        };
+      } finally {
+        if (!transportStopped) {
+          await this.transport.send({ method: WIRE.transportStop }).catch(() => undefined);
+        }
+      }
+    });
   }
 
   /** Record the last UI selection target borrowed inside the active pipeline. */

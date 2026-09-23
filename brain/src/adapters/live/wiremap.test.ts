@@ -82,14 +82,45 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
   );
 });
 
-test('Phase 6 session 6a: MasterRecorder remains probe-only', () => {
+test('Phase 7 session 7e: MasterRecorder is promoted through the typed capture adapter', () => {
   assert.deepEqual(golden.addedInPhase6Session6a, [
     'masterRecorder.start', 'masterRecorder.status', 'masterRecorder.stop',
   ]);
   assert.deepEqual(
     golden.addedInPhase6Session6a?.filter((method) => WIRE_METHODS_USED.includes(method)),
-    [],
+    ['masterRecorder.start', 'masterRecorder.status', 'masterRecorder.stop'],
   );
+  assert.ok(WIRE_METHODS_USED.includes('transport.stop'));
+  assert.ok(WIRE_METHODS_USED.includes('transport.status'));
+
+  const appSource = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'AppHandlers.java'),
+    'utf8',
+  );
+  assert.match(appSource,
+    /masterRecorderOwner = ownerToken;[\s\S]*rig\.masterRecorder\.start\(\)/,
+    'the extension must reserve recorder ownership before asynchronous activation');
+  assert.match(appSource,
+    /!masterRecorderOwner\.equals\(ownerToken\)[\s\S]*master-recorder-not-owned[\s\S]*rig\.masterRecorder\.stop\(\)/,
+    'a non-owner must refuse before recorder stop');
+
+  const trackSource = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'TrackHandlers.java'),
+    'utf8',
+  );
+  const captureLaunch = trackSource.slice(trackSource.indexOf('private JsonElement slotLaunchWithOptions'));
+  const launchCall = captureLaunch.indexOf('slot.launchWithOptions(quantization, launchMode)');
+  const guardCall = captureLaunch.indexOf('guardedLaunchRefusal(params, slotIndex)');
+  assert.ok(guardCall >= 0 && guardCall < launchCall
+      && captureLaunch.indexOf('state.revision') >= 0
+      && captureLaunch.indexOf('rig.launcherContentEpoch') >= 0,
+  'capture launch must keep project and launcher guards in the launch handler');
+  assert.ok(captureLaunch.indexOf('channelId.equals(candidate.channelId().get())') >= 0
+      && captureLaunch.indexOf('channelId.equals(candidate.channelId().get())') < launchCall
+      && captureLaunch.indexOf('guardedSlot.hasContent().get()') < launchCall,
+  'capture launch must re-resolve durable track identity and occupancy');
 });
 
 test('2e: metadata is product wire, while rejected duplicate routes stay probe-only', () => {

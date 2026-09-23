@@ -401,12 +401,43 @@ public final class TrackHandlers extends HandlerGroup {
      * from, polled.
      */
     private JsonElement slotLaunchWithOptions(JsonObject params) {
-        Track track = requireTrack(params.get("trackIndex").getAsInt());
         int slotIndex = params.get("slotIndex").getAsInt();
         String quantization = params.get("quantization").getAsString();
         String launchMode = params.get("launchMode").getAsString();
         requireOneOf("quantization", quantization, LAUNCH_QUANTIZATIONS);
         requireOneOf("launchMode", launchMode, LAUNCH_MODES);
+
+        Track track;
+        boolean guardedCapture = params.has("expectedGeneration");
+        if (guardedCapture) {
+            String[] required = {
+                "expectedGeneration", "expectedProject", "expectedRevision",
+                "expectedSceneEpoch", "expectedContentEpoch", "expectedChannelId",
+            };
+            for (String name : required) {
+                if (!params.has(name)) {
+                    throw new IllegalArgumentException("missing guarded launch field: " + name);
+                }
+            }
+            JsonObject refusal = guardedLaunchRefusal(params, slotIndex);
+            if (refusal != null) return refusal;
+            track = null;
+            String channelId = params.get("expectedChannelId").getAsString();
+            for (int i = 0; i < rig.config.tracks; i++) {
+                Track candidate = rig.trackBank.getItemAt(i);
+                if (candidate.exists().get() && channelId.equals(candidate.channelId().get())) {
+                    track = candidate;
+                    break;
+                }
+            }
+            if (track == null) return guardedLaunchRefusal("the capture track is not visible");
+            ClipLauncherSlot guardedSlot = track.clipLauncherSlotBank().getItemAt(slotIndex);
+            if (!guardedSlot.exists().get() || !guardedSlot.hasContent().get()) {
+                return guardedLaunchRefusal("the capture launcher slot no longer holds a clip");
+            }
+        } else {
+            track = requireTrack(params.get("trackIndex").getAsInt());
+        }
 
         ClipLauncherSlot slot = track.clipLauncherSlotBank().getItemAt(slotIndex);
         JsonObject result = ok();
@@ -417,6 +448,43 @@ public final class TrackHandlers extends HandlerGroup {
         putGuarded(result, "hadContent", () -> slot.hasContent().get());
         putGuarded(result, "wasPlaying", () -> slot.isPlaying().get());
         slot.launchWithOptions(quantization, launchMode);
+        if (guardedCapture) result.addProperty("guardAccepted", true);
+        return result;
+    }
+
+    /** Check all durable launcher facts in the same handler turn as launch. */
+    private JsonObject guardedLaunchRefusal(JsonObject params, int slotIndex) {
+        String projectName = "";
+        try {
+            if (rig.projectName != null) projectName = rig.projectName.get();
+        } catch (Throwable ignored) {
+            // An empty project name makes the guard fail closed.
+        }
+        projectName = projectName == null ? "" : projectName;
+        if (!rig.epochGeneration.equals(params.get("expectedGeneration").getAsString())
+                || projectName.isEmpty()
+                || !projectName.equals(params.get("expectedProject").getAsString())) {
+            return guardedLaunchRefusal("the capture project guard changed before launch");
+        }
+        if (state.revision != params.get("expectedRevision").getAsLong()) {
+            return guardedLaunchRefusal("the capture project revision changed before launch");
+        }
+        if (rig.sceneCountChanges != params.get("expectedSceneEpoch").getAsInt()) {
+            return guardedLaunchRefusal("the launcher rows changed before capture launch");
+        }
+        if (rig.launcherContentEpoch != params.get("expectedContentEpoch").getAsInt()) {
+            return guardedLaunchRefusal("the launcher content changed before capture launch");
+        }
+        if (slotIndex < 0 || slotIndex >= rig.config.scenes) {
+            return guardedLaunchRefusal("the capture launcher row is outside the visible window");
+        }
+        return null;
+    }
+
+    private JsonObject guardedLaunchRefusal(String error) {
+        JsonObject result = new JsonObject();
+        result.addProperty("guardAccepted", false);
+        result.addProperty("error", error);
         return result;
     }
 
