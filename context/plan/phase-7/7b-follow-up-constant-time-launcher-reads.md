@@ -1,13 +1,13 @@
 ---
 title: Phase 7b follow-up — Constant-time launcher-clip read search
 kind: plan
-state: active
-status: Planned. Start with a complete Controller API capability inventory, then probe only credible fast read routes.
+state: complete
+status: Complete. E130 selects step-data replay plus targeted channel reads for the next proof.
 updated: 2026-09-24
 parent: 7b-agent-patch-execution-and-reference-dogfood.md
 prev: 7b-follow-up-played-range-consolidation.md
-next: 7b-follow-up-played-range-consolidation.md
-evidence: E2, E19, E24, E45, E51-E54, E116, E119-E121, E129
+next: 7b-follow-up-consolidated-clip-acquisition.md
+evidence: E2, E19, E24, E45, E51-E54, E116, E119-E121, E129-E130
 ---
 
 # Phase 7b follow-up — Constant-time launcher-clip read search
@@ -222,17 +222,19 @@ already disproved.
 
 ## Completion and return route
 
-If a reliable fast read route exists, hand its smallest product integration to
-a new focused implementation session. If no route exists, return with a
-reproducible negative inventory and select the best measured combination of one
-normalized grid, cursor width, caching, and explicit fallback scans.
+E130 records the reproducible inventory and the step-data observer follow-up.
+`addStepDataObserver` replays sparse page occupancy after target, grid, and page
+changes. It supplies no channel, note fields, or completion signal.
 
-Then use that result to design the consolidated agent-facing clip acquisition
-interface. Resume the E129 live trial only after a fresh agent can acquire the
-required clip state through that interface.
+Continue with the
+[consolidated clip acquisition](7b-follow-up-consolidated-clip-acquisition.md).
+Enrich settled `NoteOn` coordinates with targeted 16-channel `getStep` reads.
+Compare the result with the current complete dual-grid reader before promotion.
+Resume the E129 live trial only after a fresh agent can acquire its required
+clip state through that route.
 
 ## Retrospective target
 
-Record whether earlier work searched too narrowly around the step-grid API. If
-the full inventory still leaves only cell scans, retain the inventory method so
-later Bitwig API upgrades can be compared without repeating the manual search.
+Static signatures did not show observer replay semantics. Live-test distinct
+observer families before carrying one family's limits to another. Retain the
+inventory method and focused probes for later API comparisons.

@@ -12,11 +12,12 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-09-12",
+  "extractedAt": "2026-09-24",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 153,
-  "methodsHash": "78368fe47ea0e814",
+  "count": 156,
+  "methodsHash": "c6f38b114c5d9074",
   "addedInPhase0": [
+    "api.runtimeMethods",
     "app.selectionNotifications",
     "branch.contentFilter",
     "branch.createParentTrack",
@@ -86,6 +87,8 @@
     "slot.moveTo",
     "slot.playState",
     "status.push",
+    "stepdata.observer.prepare",
+    "stepdata.observer.read",
     "track.deleteViaAction",
     "transport.play"
   ],
@@ -114,6 +117,7 @@
   "preSplitCount": 82,
   "preSplitHash": "f22d822339fdd402",
   "methods": [
+    "api.runtimeMethods",
     "app.actions",
     "app.invokeAction",
     "app.redo",
@@ -258,6 +262,8 @@
     "slot.select",
     "slot.status",
     "status.push",
+    "stepdata.observer.prepare",
+    "stepdata.observer.read",
     "track.create",
     "track.delete",
     "track.deleteViaAction",
@@ -469,5 +475,10 @@
     "masterRecorder.start",
     "masterRecorder.status",
     "masterRecorder.stop"
+  ],
+  "addedInPhase7bE130": [
+    "api.runtimeMethods",
+    "stepdata.observer.prepare",
+    "stepdata.observer.read"
   ]
 }

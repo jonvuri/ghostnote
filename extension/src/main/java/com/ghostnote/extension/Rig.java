@@ -107,6 +107,7 @@ public class Rig {
     public final CursorTrack noteObserverTrack;
     public final PinnableCursorClip noteObserverClip;
     public final NoteObserverProbe noteObserver = new NoteObserverProbe();
+    public final StepDataObserverProbe stepDataObserver;
 
     /** Arrangement cursor clip (follows arranger clip selection). */
     public final Clip arrangerClip;
@@ -920,9 +921,11 @@ public class Rig {
         noteObserverTrack.isPinned().markInterested();
         noteObserverClip = noteObserverTrack.createLauncherCursorClip(
             config.noteReadSteps, config.gridKeys);
+        stepDataObserver = new StepDataObserverProbe(config.noteReadSteps, config.gridKeys);
         markClip(noteObserverClip);
         noteObserverClip.isPinned().markInterested();
         noteObserver.attach(noteObserverClip);
+        stepDataObserver.attach(noteObserverClip);
 
         arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
         markClip(arrangerClip);

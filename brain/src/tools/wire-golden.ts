@@ -67,6 +67,8 @@ export interface Golden {
   addedInPhase5Session5r?: string[];
   /** Phase 6 session 6a host-native master recording probe. */
   addedInPhase6Session6a?: string[];
+  /** Phase 7b E130 read-only runtime API inventory. */
+  addedInPhase7bE130?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;

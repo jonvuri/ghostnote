@@ -61,7 +61,14 @@ const addedInPhase5Session5o = golden.addedInPhase5Session5o ?? [];
 const d03Prefix = 'spike.preset.';
 const addedInPhase5Session5r = (golden.addedInPhase5Session5r ?? [])
   .filter((method) => !method.startsWith(d03Prefix));
-const addedInPhase6Session6a = golden.addedInPhase6Session6a ?? [];
+const e130Methods = new Set([
+  'api.runtimeMethods',
+  'stepdata.observer.prepare',
+  'stepdata.observer.read',
+]);
+const addedInPhase6Session6a = (golden.addedInPhase6Session6a ?? [])
+  .filter((method) => !e130Methods.has(method));
+const addedInPhase7bE130 = golden.addedInPhase7bE130 ?? [];
 const earlier = new Set([
   ...addedInSession1, ...addedInSession2, ...addedInE16, ...addedInE20,
   ...addedInSession3eProbe, ...addedInE22Probe, ...addedInSession3f, ...addedInSession3gB,
@@ -69,14 +76,15 @@ const earlier = new Set([
   ...addedInPhase2Session2i, ...addedInPhase4Session4b,
   ...addedInPhase4Session4f, ...addedInPhase4Session4g, ...addedInPhase4Session4h1,
   ...addedInPhase5Session5o, ...addedInPhase5Session5r, ...addedInPhase6Session6a,
+  ...addedInPhase7bE130,
 ]);
 const addedInD03 = [...new Set([
   ...(golden.addedInD03 ?? []),
   ...added.filter((method) => !earlier.has(method) && method.startsWith(d03Prefix)),
 ])].sort();
-const currentAddedInPhase6Session6a = [...new Set([
-  ...addedInPhase6Session6a,
-  ...added.filter((method) => !earlier.has(method) && !method.startsWith(d03Prefix)),
+const currentAddedInPhase7bE130 = [...new Set([
+  ...addedInPhase7bE130,
+  ...added.filter((method) => !earlier.has(method) && e130Methods.has(method)),
 ])].sort();
 
 const next = {
@@ -105,7 +113,8 @@ const next = {
   addedInPhase5Session5o,
   addedInPhase5Session5r,
   addedInD03,
-  addedInPhase6Session6a: currentAddedInPhase6Session6a,
+  addedInPhase6Session6a,
+  addedInPhase7bE130: currentAddedInPhase7bE130,
   methods,
 };
 
@@ -120,7 +129,9 @@ const bucketChanged = JSON.stringify(golden.addedInPhase5Session5r ?? [])
     !== JSON.stringify(addedInPhase5Session5r)
   || JSON.stringify(golden.addedInD03 ?? []) !== JSON.stringify(addedInD03)
   || JSON.stringify(golden.addedInPhase6Session6a ?? [])
-    !== JSON.stringify(currentAddedInPhase6Session6a);
+    !== JSON.stringify(addedInPhase6Session6a)
+  || JSON.stringify(golden.addedInPhase7bE130 ?? [])
+    !== JSON.stringify(currentAddedInPhase7bE130);
 if (brandNew.length === 0 && removed.length === 0 && golden.methodsHash === next.methodsHash
     && !bucketChanged) {
   console.log('golden is already current; nothing to do.');

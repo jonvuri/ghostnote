@@ -2,9 +2,9 @@
 title: Launcher clips — timing, metadata, paging, and duplication
 kind: capability
 state: active
-updated: 2026-09-21
+updated: 2026-09-24
 scope: launcher-clip notes, metadata, exact reads, writes, and copies
-evidence: E2, E24, E41–E46, E51–E54, E116, E119; D8, D9, D15, D16, D21
+evidence: E2, E24, E41–E46, E51–E54, E116, E119, E130; D8, D9, D15, D16, D21
 ---
 
 # Launcher clips
@@ -15,11 +15,13 @@ evidence: E2, E24, E41–E46, E51–E54, E116, E119; D8, D9, D15, D16, D21
 
 ## Current statement
 
-**Launcher clips have exact typed note and measured metadata paths. Long reads
-and writes must page fixed cursor windows. A copy is safe only after the next row
-is proved empty.** [K, [E43](../experiments/e43-clip-metadata-and-duplication-routes.md),
+**Launcher clips have exact typed note and measured metadata paths. A step-data
+observer replays sparse occupancy, but complete notes still require targeted or
+full `getStep` reads. A copy is safe only after the next row is proved empty.** [K,
+[E43](../experiments/e43-clip-metadata-and-duplication-routes.md),
 [E45](../experiments/e45-first-real-musical-dogfood.md),
-[E46](../experiments/e46-long-clip-editing-follow-up.md)]
+[E46](../experiments/e46-long-clip-editing-follow-up.md),
+[E130](../experiments/e130-constant-time-launcher-clip-read-search.md)]
 
 The product supports launcher clips only. Arrangement clips and audio clips are
 not in this contract [K, [D21](../../decisions/d21-musical-patch-and-public-tool-grain.md)].
@@ -87,6 +89,21 @@ selected width, the current reader schedules 3,168 ms of page/reset waits alone
 [verification ledger](../format/WORKSTATION_VERIFICATION.md) for scope and timing
 rules.
 
+A complete API 25 and runtime-proxy inventory found no supported direct note
+enumeration, serialization payload, clipboard read, in-memory MIDI export, or
+project-state route. Playback monitoring is incomplete. `Clip.getStep` remains
+the only supported source of complete `NoteStep` fields [K,
+[E130](../experiments/e130-constant-time-launcher-clip-read-search.md)].
+
+`addStepDataObserver` replays occupied cells after target, grid, and page
+changes. It reports `x`, `y`, and state only. It collapses MIDI channels and
+has no completion signal. It can index targeted 16-channel `getStep` reads, but
+that combined route is not yet authoritative [K, E130].
+
+`addNoteStepObserver` remains a partial wake hint. It does not replay initial
+state and misses some note-field changes. Do not carry those limits to the
+separate step-data observer [K, E53, E130].
+
 Long writes group notes by page. They confirm the pinned track and row on every
 required page before mutation, use page-local steps, and restore page zero.
 Read-based note properties use a separate settled turn for each page [K, E46].
@@ -127,6 +144,8 @@ exact reversal, and cleanup [K, E54].
 
 | Date | Change |
 |---|---|
+| 2026-09-24 | E130 follow-up proves sparse occupancy replay from `addStepDataObserver` and selects targeted channel enrichment for the next proof. |
+| 2026-09-24 | E130 finds no direct note-enumeration method in Controller API 25. |
 | 2026-09-21 | E119 corrects the E116 page-count reading by reader width and separates scheduled waits from live latency. |
 | 2026-09-13 | E116 extends binary timing through 1/512 beat and triplet timing through 1/768 beat. |
 | 2026-08-21 | E54 bounds mutation settlement and complete exact reconciliation. |

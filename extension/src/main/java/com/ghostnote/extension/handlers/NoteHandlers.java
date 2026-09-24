@@ -44,6 +44,8 @@ public final class NoteHandlers extends HandlerGroup {
         r.on("note.observer.prepare", params -> noteObserverPrepare());
         r.on("note.observer.arm", params -> noteObserverArm(params));
         r.on("note.observer.read", params -> noteObserverRead(params));
+        r.on("stepdata.observer.prepare", params -> rig.stepDataObserver.prepare());
+        r.on("stepdata.observer.read", params -> rig.stepDataObserver.read());
     }
 
     /** notes: [[x(step), y(pitch), velocity(0-127), duration(beats)], ...] */
@@ -124,7 +126,10 @@ public final class NoteHandlers extends HandlerGroup {
         String ref = params.get("cursor").getAsString();
         double stepSize = params.get("stepSize").getAsDouble();
         rig.clip(ref).setStepSize(stepSize);
-        if ("observer".equals(ref)) rig.noteObserver.setGrid(stepSize);
+        if ("observer".equals(ref)) {
+            rig.noteObserver.setGrid(stepSize);
+            rig.stepDataObserver.setGrid(stepSize);
+        }
         return ok();
     }
 
@@ -133,7 +138,10 @@ public final class NoteHandlers extends HandlerGroup {
         String ref = params.get("cursor").getAsString();
         int step = params.get("step").getAsInt();
         rig.clip(ref).scrollToStep(step);
-        if ("observer".equals(ref)) rig.noteObserver.setPage(step);
+        if ("observer".equals(ref)) {
+            rig.noteObserver.setPage(step);
+            rig.stepDataObserver.setPage(step);
+        }
         return ok();
     }
 

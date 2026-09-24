@@ -4,7 +4,7 @@ kind: design exploration
 state: active
 updated: 2026-09-24
 scope: one normalized agent-facing clip representation for analysis, reads, and writes
-evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E129
+evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E130
 ---
 
 # Consolidated compact-bar direction
@@ -62,11 +62,13 @@ on the realized lattice. For example, an overlay can say that one normalized
 event realizes the second point of a triplet or carries one component of a swing
 template.
 
-This changes the current exact-read requirement. The current reader uses both a
-`1/512` binary scan and a `1/768` triplet scan, then reconciles them. The
-consolidated direction needs one `1/512` scan. E116 remains evidence that both
-fine timing families were readable and writable. It no longer requires two
-agent-facing or acquisition grids.
+This changes the agent-facing timing requirement. The current reader uses both
+a `1/512` binary scan and a `1/768` triplet scan, then reconciles them. The
+consolidated document needs one normalized lattice. It does not prove that one
+host grid discovers all stored notes. E116 remains evidence that both fine
+timing families were readable and writable. The next acquisition proof must
+compare a single `1/512` host scan with the complete dual-grid result before it
+removes the triplet scan.
 
 Open timing details:
 
@@ -213,24 +215,41 @@ each visible time, pitch, and channel cell. Current cost therefore scales mainly
 with clip extent, timing resolution, grids, and page transitions. E53 found
 similar workflow cost for 1, 16, and 64 basic notes.
 
-One normalized grid removes the current triplet scan and reconciliation. For a
-32-beat clip with the 2,048-step reader, the known work changes from 20 pages
-and two resets to eight pages and one reset. Scheduled 144 ms settlement waits
-change from 3,168 ms to 1,296 ms. A four-beat clip changes from four scheduled
-waits to one. These are code-derived work counts, not new live measurements.
+If one `1/512` host scan proves complete, it removes the current triplet scan
+and reconciliation. For a 32-beat clip with the 2,048-step reader, the known
+work changes from 20 pages and two resets to eight pages and one reset.
+Scheduled 144 ms settlement waits change from 3,168 ms to 1,296 ms. A four-beat
+clip changes from four scheduled waits to one. These are code-derived work
+counts, not new live measurements or a completeness proof.
 
-Other promising reductions remain separate questions:
+E130 searched the complete public Controller API 25 surface, installed API
+documentation, legacy helpers, and ten concrete runtime proxy families. It
+found no supported direct note enumeration, serialization, clipboard,
+in-memory MIDI, project-state, or playback route that returns complete live
+content for one identified launcher clip. `Clip.getStep` remains the supported
+source of complete note fields.
 
-- find a direct or indirect host route that enumerates a clip's note data;
-- test a larger cursor window;
+The E130 follow-up proves that `addStepDataObserver` replays sparse occupied
+cells after target, grid, and page changes. The callback has no channel, note
+fields, or completion signal. The selected candidate enriches each settled
+`NoteOn` coordinate with targeted `getStep` calls across all 16 channels. It
+can avoid empty-cell scans, but it remains page-bounded and unproven as a
+complete acquisition route.
+
+The remaining reductions are sparse acquisition and cache optimizations:
+
+- prove sparse observer settlement and targeted 16-channel enrichment;
+- compare one `1/512` occupancy view with the complete mixed timing set;
+- retain the selected 2,048-step cursor or measure a larger window if needed;
 - maintain a warm observer-backed clip cache with explicit invalidation;
 - share a fresh acquisition with the write stash when equivalent freshness is
   proved; and
 - use targeted differences instead of full reconstruction.
 
-The next session searches broadly for a reliable constant-time or near-
-constant-time launcher-clip read route before it optimizes the existing step
-scanner.
+The next session first implements the sparse enrichment probe. It compares the
+normalized result with the current complete reader. It promotes one guarded
+acquisition boundary only after fields, channels, extent, timing, and
+settlement pass.
 
 ## Evidence carried forward
 
@@ -251,6 +270,8 @@ scanner.
 - E24 records the writable note-property boundary.
 - E129 records the played-range boundary and the missing agent acquisition
   interface.
+- E130 records the API inventory, proves sparse step-data occupancy replay, and
+  selects targeted channel enrichment for the next proof.
 
 ## Unsettled questions
 
@@ -258,6 +279,8 @@ scanner.
 - The exact sparse-default and preservation rules.
 - The complete patch vocabulary and conflict report.
 - Event identity behavior after human note edits.
+- Whether one `1/512` host scan discovers every supported triplet note before
+  normalization.
 - Clip-reference recovery after a host restart.
 - Whether normalized full documents can preserve every supported expression
   field without becoming too large.

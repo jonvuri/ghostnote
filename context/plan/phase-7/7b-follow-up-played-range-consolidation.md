@@ -6,7 +6,7 @@ status: Offline gate passes. The live trial is paused while the consolidated cli
 updated: 2026-09-24
 parent: 7b-agent-patch-execution-and-reference-dogfood.md
 prev: 7f-hybrid-workstation-dogfood.md
-next: 7b-follow-up-constant-time-launcher-reads.md
+next: 7b-follow-up-consolidated-clip-acquisition.md
 evidence: E6, E43, E120, E121, E128, E129
 ---
 
@@ -183,11 +183,13 @@ The interface discussion selected a
 [consolidated compact-bar direction](../../evidence/format/CONSOLIDATED_COMPACT_BAR.md)
 instead of adding a narrow exact-source tool only for this trial.
 
+E130 completed the launcher-clip read search and found sparse step-data replay.
 Run the
-[constant-time launcher-clip read search](7b-follow-up-constant-time-launcher-reads.md)
-next. Resume this live gate only after a fresh agent can acquire the required
-clip state through the resulting interface. After the live gate passes, mark
-this plan complete and route back to
+[consolidated clip acquisition](7b-follow-up-consolidated-clip-acquisition.md)
+next. First prove targeted 16-channel enrichment from the occupied coordinates.
+Resume this live gate only after a fresh agent can acquire the required clip
+state through that interface. After the live gate passes, mark this plan
+complete and route back to
 [Phase 8a](../phase-8/8a-bwmod-publication-review.md).
 
 ## Retrospective target

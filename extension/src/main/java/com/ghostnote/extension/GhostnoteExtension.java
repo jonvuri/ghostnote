@@ -3,6 +3,7 @@ package com.ghostnote.extension;
 import com.bitwig.extension.controller.ControllerExtension;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.ghostnote.extension.handlers.AppHandlers;
+import com.ghostnote.extension.handlers.ApiInventoryHandlers;
 import com.ghostnote.extension.handlers.BatchHandlers;
 import com.ghostnote.extension.handlers.BranchHandlers;
 import com.ghostnote.extension.handlers.ContainerHandlers;
@@ -64,6 +65,7 @@ public class GhostnoteExtension extends ControllerExtension {
             new ContainerHandlers(host, rig, state),
             new ParamHandlers(host, rig, state),
             new AppHandlers(host, rig, state),
+            new ApiInventoryHandlers(host, rig, state),
             new BranchHandlers(host, rig, state),
             new ObservationHandlers(host, rig, state, panel, panelError),
             new StatusHandlers(host, rig, state, panel, panelError),
