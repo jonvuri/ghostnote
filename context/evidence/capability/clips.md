@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-09-24
 scope: launcher-clip notes, metadata, exact reads, writes, and copies
-evidence: E2, E24, E41–E46, E51–E54, E116, E119, E130; D8, D9, D15, D16, D21
+evidence: E2, E24, E41–E46, E51–E54, E116, E119, E130-E133; D8, D9, D15, D16, D21, D23
 ---
 
 # Launcher clips
@@ -40,6 +40,10 @@ not in this contract [K, [D21](../../decisions/d21-musical-patch-and-public-tool
   [K, [E42](../experiments/e42-host-duration-fixed-point-grid-normalization.md)].
 - A captured duration that no writable grid represents makes the prior state
   lossy. The fidelity floor refuses before mutation [K, E46].
+- The selected consolidated acquisition contract uses one `1/512` host view.
+  One identity is one MIDI channel, pitch, and cell. Same-channel and same-pitch
+  multiplicity inside one cell is accepted loss. Different pitches and channels
+  remain separate [K, [D23](../../decisions/d23-normalized-clip-acquisition-uses-one-1-512-view.md)].
 
 ## Note fidelity
 
@@ -102,7 +106,15 @@ precede replay, dirty rules cannot classify empty-to-empty changes, and two
 passive quiet flushes can still precede later replay [K,
 [E132](../experiments/e132-flush-boundary-clip-settlement.md)]. It can index
 targeted 16-channel `getStep` reads, but the complete dual-grid reader remains
-authoritative [K, E130-E132].
+authoritative [K, E130-E133]. Requested quiet flushes, a 48 ms unchanged
+confirmation, and a second requested quiet flush all completed early during a
+same-target repin and grid change [K,
+[E133](../experiments/e133-hybrid-observer-acquisition.md)].
+
+D23 selects one fixed `1/512` observer per clip for the next scale experiment.
+Targeted reads still cover all 16 channels. A settled complete `1/512` scan is
+the authority for this normalized route. The current E131 dual-grid reader
+stays unchanged until a later implementation session [K, D23].
 
 `addNoteStepObserver` remains a partial wake hint. It does not replay initial
 state and misses some note-field changes. Do not carry those limits to the
@@ -148,6 +160,8 @@ exact reversal, and cleanup [K, E54].
 
 | Date | Change |
 |---|---|
+| 2026-09-24 | D23 selects one `1/512` acquisition view and accepts same-channel, same-pitch multiplicity loss inside one cell. |
+| 2026-09-24 | E133 rejects the requested dirty-and-quiet hybrid on a repeated grid race. |
 | 2026-09-24 | E132 rejects passive and requested flushes as step-data replay completion fences. |
 | 2026-09-24 | E130 follow-up proves sparse occupancy replay from `addStepDataObserver` and selects targeted channel enrichment for the next proof. |
 | 2026-09-24 | E130 finds no direct note-enumeration method in Controller API 25. |

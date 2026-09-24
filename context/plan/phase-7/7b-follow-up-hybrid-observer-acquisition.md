@@ -1,12 +1,12 @@
 ---
 title: Phase 7b follow-up — Hybrid observer acquisition
 kind: plan
-state: planned
-status: Planned. Prove a requested dirty-and-quiet fast path with an authoritative silent fallback.
+state: complete
+status: Rejected. Every eligible candidate rule completed early on the same grid race.
 updated: 2026-09-24
 parent: 7b-follow-up-consolidated-clip-acquisition.md
 prev: 7b-follow-up-flush-boundary-settlement.md
-next: 7b-follow-up-played-range-consolidation.md
+next: 7b-follow-up-project-observer-scale-sweep.md
 evidence: E14, E51-E53, E119, E130-E132
 ---
 
@@ -254,6 +254,19 @@ Record the result as E133. If the gate passes, keep the hybrid behind
 it fails, remove the probe hooks and keep E131. Then resume the
 [played-range consolidation trial](7b-follow-up-played-range-consolidation.md)
 in a fresh Codex chat.
+
+## Result
+
+E133 rejects the proposed hybrid. The 396-trial shadow screen found five early
+grid-race results in every eligible rule and request-pattern combination. The
+48 ms confirmation and second requested quiet event did not add grid identity.
+The failure stopping rule applied before the full confidence, silent fallback,
+and latency gates.
+
+The temporary recorder and probe were removed. The E131 complete acquisition
+route remains unchanged. Run the
+[project-wide observer scale sweep](7b-follow-up-project-observer-scale-sweep.md)
+in a fresh chat. Then resume the independent played-range consolidation trial.
 
 ## Retrospective target
 

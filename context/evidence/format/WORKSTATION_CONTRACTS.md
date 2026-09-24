@@ -2,7 +2,7 @@
 title: Workstation contracts — experimental Phase 7 baseline
 kind: reference
 state: active
-updated: 2026-09-23
+updated: 2026-09-24
 scope: Phase 7 experimental baseline through 7f hybrid dogfood
 ---
 
@@ -26,7 +26,9 @@ This design applies E103–E105 and E109–E127. It preserves
 [D9](../../decisions/d9-grid-and-units-settled-2026-07-25.md),
 [D12](../../decisions/d12-transport-and-the-contract-boundary-settled-2026-07-25.md),
 [D15](../../decisions/d15-verification-discipline-settled-2026-07-25.md), and
-[D21](../../decisions/d21-musical-patch-and-public-tool-grain.md).
+[D21](../../decisions/d21-musical-patch-and-public-tool-grain.md). The future
+consolidated clip route also applies
+[D23](../../decisions/d23-normalized-clip-acquisition-uses-one-1-512-view.md).
 
 ## Shared fields
 
@@ -132,12 +134,16 @@ An imported file can supply read-only context without acquiring a live target.
 - D9 retains binary timing through `1/512` beat and triplet timing through
   `1/768` beat. Host duration normalization uses the proved `2^-20`-beat rule.
   This is not permission to accept arbitrary nearby values.
+- D23 uses one `1/512` host view for consolidated clip acquisition. One
+  acquired identity is one MIDI channel, pitch, and cell. Same-channel and
+  same-pitch multiplicity inside one cell is outside that route's fidelity.
 
 ### Authority
 
 | Kind | Owner and allowed claim |
 |---|---|
 | Exact observation | Adapter or byte reader; what it observed within its coverage |
+| Normalized clip observation | Adapter projection; complete only for the declared D23 channel, pitch, and `1/512` cell identity |
 | Derived measurement | Named deterministic formula; its result over the stated input |
 | Estimate or inferred label | Named provider/rule; alternatives, tolerance, and limits |
 | Agent interpretation | Host agent; explanation linked to evidence IDs |

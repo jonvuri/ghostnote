@@ -1,9 +1,9 @@
 ---
 title: Ghostnote agent musical language — experimental reference
 status: evidence-backed experimental draft
-updated: 2026-09-20
+updated: 2026-09-24
 scope: agent context views, proposal languages, exact-state boundary, and conformance
-evidence: E109, E114–E116; D9, D15, D21
+evidence: E109, E114–E116; D9, D15, D21, D23
 ---
 
 # Ghostnote agent musical language
@@ -203,7 +203,9 @@ not pass directly into this grammar.
 
 The consolidated direction can revise that boundary. It aims to make one
 normalized compact document the agent-facing state while raw host observations
-remain internal evidence.
+remain internal evidence. D23 selects one `1/512` acquisition view and accepts
+same-channel, same-pitch multiplicity loss inside one cell for that future
+route. It does not change the current exact-source implementation on this page.
 
 Reference context reuses this view. Sensory v1 projects typed measurements and
 does not duplicate its note IDs or host state. The separate groove proposal

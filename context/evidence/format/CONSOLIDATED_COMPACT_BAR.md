@@ -4,7 +4,7 @@ kind: design exploration
 state: active
 updated: 2026-09-24
 scope: one normalized agent-facing clip representation for analysis, reads, and writes
-evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E131
+evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E133; D23
 ---
 
 # Consolidated compact-bar direction
@@ -47,14 +47,15 @@ are implementation evidence, not a second agent-facing music format.
 
 ## Normalized timing plane
 
-Use `1/512` beat as the realized-time lattice for agent clip state. Normalize
-observed starts and durations to that lattice when the host value differs only
-below the accepted resolution. The interface can document this once at a high
-level. Each event does not need a normalization warning.
+Use `1/512` beat as the realized-time lattice for agent clip state. Assign an
+observed onset to the `1/512` cell that the host reports. Normalize durations
+to the same lattice under the selected duration rule. The interface can
+document this once at a high level. Each event does not need a normalization
+warning.
 
-At 120 BPM, `1/512` beat is approximately 0.977 ms. Nearest-lattice rounding has
-a maximum displacement below `1/1024` beat, or approximately 0.488 ms at 120
-BPM. This is below the accepted audible timing boundary for this interface.
+At 120 BPM, `1/512` beat is approximately 0.977 ms. A host view rounds an
+off-grid onset down, so its displacement is less than one cell. This is the
+accepted timing boundary for this interface.
 
 Triplet, quintuplet, septuplet, swing, phase, and local timing intent do not
 require separate storage grids. They are musical descriptions linked to events
@@ -62,19 +63,22 @@ on the realized lattice. For example, an overlay can say that one normalized
 event realizes the second point of a triplet or carries one component of a swing
 template.
 
-This changes the agent-facing timing requirement. The current reader uses both
-a `1/512` binary scan and a `1/768` triplet scan, then reconciles them. The
-consolidated document needs one normalized lattice. It does not mean that one
-host grid discovers all stored notes. E131 proves that one `1/512` sparse view
-can report different exact timing and same-pitch adjacency than the `1/768`
-view. Keep both host acquisition grids. Normalize only after complete
-acquisition and lossless reconciliation.
+This changes the agent-facing timing and acquisition requirement. D23 selects
+one `1/512` host view. One acquired identity is one MIDI channel, pitch, and
+cell. Different pitches and channels remain separate. Multiple same-channel
+and same-pitch onsets inside one cell can collapse. This loss is accepted below
+the selected resolution. Do not describe this route as source-lossless or exact
+below one cell.
+
+The current E131 reader still scans `1/512` and `1/768` and reconciles them.
+That implementation remains available as a diagnostic control. Its exact
+triplet differences are not failures for the normalized D23 contract.
 
 Open timing details:
 
 - Confirm the duration normalization rule against the host's measured
   `2^-20`-beat duration values.
-- Define behavior for a value farther than the accepted lattice tolerance.
+- Define duration behavior for a value outside the accepted lattice rule.
 - Confirm same-pitch adjacency and overlap behavior after normalization.
 - Decide whether a task can request a coarser displayed rhythmic spelling while
   the underlying realized lattice stays unchanged.
@@ -235,18 +239,26 @@ fields, or completion signal. The selected candidate enriches each settled
 `NoteOn` coordinate with targeted `getStep` calls across all 16 channels. It
 can avoid empty-cell scans, but it remains page-bounded.
 
-E131 proves that a `1/512` and `1/768` sparse union matches the complete reader
-on short and long, sparse and dense fixtures. A single `1/512` view is not
-complete. Conservative settlement makes the sparse route slower end to end:
+E131 proves that a `1/512` and `1/768` sparse union matches the exact complete
+reader on short and long, sparse and dense fixtures. A single `1/512` view does
+not match that exact result. Conservative settlement makes the sparse route
+slower end to end:
 approximately 1.65 seconds instead of 0.78 to 0.82 seconds for short fixtures,
 and 2.55 seconds instead of 1.82 to 1.93 seconds for long fixtures. Keep sparse
 enrichment as a probe. No cache is justified by this result.
 
-The experimental acquisition boundary therefore uses the existing complete
+The current experimental acquisition boundary still uses the existing complete
 reader. It resolves a durable track ID and launcher row, reads all 16 channels,
 normalizes timing to `1/512` ticks, detects identity collisions, and returns the
-fresh exact source plus project and content guards. The stable profile remains
-unchanged.
+fresh exact source plus project and content guards. D23 changes the next design
+and scale experiment. It does not change this implementation or the stable
+profile.
+
+E133 rejects the requested dirty-and-quiet hybrid. Each eligible candidate rule
+and request pattern completed early five times in 44 shadow trials during the
+same grid race. An unchanged 48 ms confirmation and a second requested quiet
+flush did not identify the requested grid. The complete reader remains the
+experimental acquisition authority.
 
 The remaining reductions are cache and write-path optimizations:
 
@@ -255,9 +267,10 @@ The remaining reductions are cache and write-path optimizations:
   proved; and
 - use targeted differences instead of full reconstruction.
 
-The next session uses the experimental acquisition route in the independent
-played-range consolidation trial. It must reacquire complete state after the
-visible UI action and before a new preview.
+The next session measures one fixed, persistent `1/512` observer per clip at
+large view widths and across at least 128 observed clips. A settled complete
+`1/512` scan is truth. The session does not implement a cache. The independent
+played-range consolidation trial follows that measurement.
 
 ## Evidence carried forward
 
@@ -282,6 +295,11 @@ visible UI action and before a new preview.
   selects targeted channel enrichment for the next proof.
 - E131 rejects one-grid discovery and sparse promotion. It adds a guarded
   experimental acquisition boundary over the complete dual-grid reader.
+- E133 rejects requested quiet observer acquisition. It leaves the E131 route
+  unchanged.
+- D23 later accepts `1/512` cell identity for consolidated acquisition. It
+  removes the second grid from the planned scale experiment without rewriting
+  E131's exact historical result.
 
 ## Unsettled questions
 

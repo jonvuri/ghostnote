@@ -2,12 +2,12 @@
 title: Phase 7b follow-up — Played-range consolidation guidance
 kind: plan
 state: active
-status: Offline gate passes. Run the E133 hybrid acquisition experiment before the independent live trial.
+status: Offline gate passes. Pause the live trial until the project observer scale sweep completes.
 updated: 2026-09-24
 parent: 7b-agent-patch-execution-and-reference-dogfood.md
-prev: 7f-hybrid-workstation-dogfood.md
+prev: 7b-follow-up-project-observer-scale-sweep.md
 next: 7b-follow-up-consolidated-clip-acquisition.md
-evidence: E6, E43, E120, E121, E128-E132
+evidence: E6, E43, E120, E121, E128-E133
 ---
 
 # Phase 7b follow-up — Played-range consolidation guidance
@@ -197,6 +197,13 @@ to reach the existing played-range refusal and reacquire state after visible
 consolidation. After the live gate passes, mark this plan complete and route
 back to
 [Phase 8a](../phase-8/8a-bwmod-publication-review.md).
+
+E133 rejects every requested dirty-and-quiet hybrid candidate after early grid
+completions. The complete E131 acquisition route remains authoritative. First
+run the
+[project-wide observer scale sweep](7b-follow-up-project-observer-scale-sweep.md)
+in a fresh chat. Then start the independent live agent trial with the complete
+route unless E134 authorizes a different experimental route.
 
 ## Retrospective target
 

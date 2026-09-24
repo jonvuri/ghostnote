@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-09-13
+updated: 2026-09-24
 ---
 
 # Decision index
@@ -34,6 +34,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D20 | Destruction: zero initiative, directed execution behind an annotated seam **[SETTLED 2026-08-07]** | [open](d20-destruction-zero-initiative-directed-execution-behind-an-annotat.md) |
 | D21 | One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16, AMENDED 2026-08-18]** | [open](d21-musical-patch-and-public-tool-grain.md) |
 | D22 | Non-native plug-in preset loading is out of scope **[SETTLED 2026-09-12]** | [open](d22-non-native-plugin-preset-loading-is-out-of-scope.md) |
+| D23 | Normalized clip acquisition uses one `1/512` view **[SETTLED 2026-09-24]** | [open](d23-normalized-clip-acquisition-uses-one-1-512-view.md) |
 
 ## Phase 4 closeout audit
 
