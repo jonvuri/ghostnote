@@ -97,8 +97,12 @@ the only supported source of complete `NoteStep` fields [K,
 
 `addStepDataObserver` replays occupied cells after target, grid, and page
 changes. It reports `x`, `y`, and state only. It collapses MIDI channels and
-has no completion signal. It can index targeted 16-channel `getStep` reads, but
-that combined route is not yet authoritative [K, E130].
+has no completion signal. A flush cannot supply that signal. First flushes can
+precede replay, dirty rules cannot classify empty-to-empty changes, and two
+passive quiet flushes can still precede later replay [K,
+[E132](../experiments/e132-flush-boundary-clip-settlement.md)]. It can index
+targeted 16-channel `getStep` reads, but the complete dual-grid reader remains
+authoritative [K, E130-E132].
 
 `addNoteStepObserver` remains a partial wake hint. It does not replay initial
 state and misses some note-field changes. Do not carry those limits to the
@@ -144,6 +148,7 @@ exact reversal, and cleanup [K, E54].
 
 | Date | Change |
 |---|---|
+| 2026-09-24 | E132 rejects passive and requested flushes as step-data replay completion fences. |
 | 2026-09-24 | E130 follow-up proves sparse occupancy replay from `addStepDataObserver` and selects targeted channel enrichment for the next proof. |
 | 2026-09-24 | E130 finds no direct note-enumeration method in Controller API 25. |
 | 2026-09-21 | E119 corrects the E116 page-count reading by reader width and separates scheduled waits from live latency. |

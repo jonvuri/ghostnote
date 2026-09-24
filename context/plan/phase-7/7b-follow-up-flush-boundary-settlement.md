@@ -1,13 +1,13 @@
 ---
 title: Phase 7b follow-up — Flush-boundary clip settlement
 kind: plan
-state: planned
-status: Planned. Test whether flush cycles can prove note-grid replay completion earlier than fixed settlement.
+state: complete
+status: Complete. E132 rejects flush cycles as note-grid replay completion fences.
 updated: 2026-09-24
 parent: 7b-follow-up-consolidated-clip-acquisition.md
 prev: 7b-follow-up-consolidated-clip-acquisition.md
-next: 7b-follow-up-played-range-consolidation.md
-evidence: E0, E8, E14, E51-E53, E130-E131
+next: 7b-follow-up-hybrid-observer-acquisition.md
+evidence: E0, E8, E14, E51-E53, E130-E132
 ---
 
 # Phase 7b follow-up — Flush-boundary clip settlement
@@ -160,14 +160,15 @@ an explicit best-effort result.
 
 ## Completion and return route
 
-Record the result as E132. If a complete fence passes, update the experimental
-acquisition path and remeasure it before proceeding. If the result is partial
-or rejected, keep the E131 complete reader unchanged. Then resume the
-[played-range consolidation trial](7b-follow-up-played-range-consolidation.md)
-in a fresh agent session.
+E132 rejects the flush boundary. First flushes completed early, dirty rules
+could not classify empty-to-empty changes, and passive second-quiet boundaries
+still completed early. The E131 complete reader and sparse settlement stay
+unchanged. Continue with the
+[hybrid observer acquisition](7b-follow-up-hybrid-observer-acquisition.md)
+experiment. It treats empty-to-empty as an authoritative fallback case and
+tests the requested dirty-and-quiet rule under adversarial timing.
 
 ## Retrospective target
 
-Record whether lifecycle callbacks gave a useful empirical boundary or only an
-output opportunity. Keep an explicit empty-view control whenever silence is
-used as evidence.
+The lifecycle callback supplied only an output opportunity. Empty-view controls
+prevented a dirty-only wake hint from becoming a false completion rule.
