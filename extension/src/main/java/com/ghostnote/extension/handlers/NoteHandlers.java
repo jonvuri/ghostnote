@@ -46,6 +46,7 @@ public final class NoteHandlers extends HandlerGroup {
         r.on("note.observer.read", params -> noteObserverRead(params));
         r.on("stepdata.observer.prepare", params -> rig.stepDataObserver.prepare());
         r.on("stepdata.observer.read", params -> rig.stepDataObserver.read());
+        r.on("stepdata.observer.enrich", params -> stepDataObserverEnrich(params));
     }
 
     /** notes: [[x(step), y(pitch), velocity(0-127), duration(beats)], ...] */
@@ -174,6 +175,37 @@ public final class NoteHandlers extends HandlerGroup {
         long afterSequence = params.has("afterSequence")
             ? params.get("afterSequence").getAsLong() : 0;
         return rig.noteObserver.read(afterSequence);
+    }
+
+    /** Read all channels only at one settled sparse occupancy view. */
+    private JsonElement stepDataObserverEnrich(JsonObject params) {
+        int expectedGeneration = params.get("generation").getAsInt();
+        long expectedCallbacks = params.get("callbacks").getAsLong();
+        int[][] cells = rig.stepDataObserver.noteOnCells(expectedGeneration, expectedCallbacks);
+        long start = System.nanoTime();
+        JsonArray notes = new JsonArray();
+        for (int[] cell : cells) {
+            for (int channel = 0; channel < 16; channel++) {
+                NoteStep step = rig.noteObserverClip.getStep(channel, cell[0], cell[1]);
+                if (step.state() == NoteStep.State.NoteOn) notes.add(noteStepToJson(step));
+            }
+        }
+        long scanMicros = (System.nanoTime() - start) / 1_000;
+        boolean stable = expectedGeneration == rig.stepDataObserver.generation()
+            && expectedCallbacks == rig.stepDataObserver.callbacks();
+        JsonObject result = new JsonObject();
+        result.add("notes", notes);
+        result.addProperty("count", notes.size());
+        result.addProperty("coordinateCount", cells.length);
+        result.addProperty("getStepCalls", cells.length * 16);
+        result.addProperty("scanMicros", scanMicros);
+        result.addProperty("generation", expectedGeneration);
+        result.addProperty("callbacks", expectedCallbacks);
+        result.addProperty("grid", rig.stepDataObserver.grid());
+        result.addProperty("page", rig.stepDataObserver.page());
+        result.addProperty("stable", stable);
+        putGuarded(result, "clipExists", () -> rig.noteObserverClip.exists().get());
+        return result;
     }
 
     /**

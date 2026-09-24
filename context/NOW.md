@@ -4,44 +4,52 @@ kind: status
 state: active
 updated: 2026-09-24
 phase: phase-7-follow-up
-session: phase7b-consolidated-clip-acquisition
+session: phase7b-flush-boundary-settlement
 ---
 
 # Now
 
-Start the
-[consolidated clip acquisition](plan/phase-7/7b-follow-up-consolidated-clip-acquisition.md)
-in a fresh session. First build a probe-only sparse enrichment method. Collect
-settled `NoteOn` coordinates from `addStepDataObserver`, then call `getStep` for
-all 16 MIDI channels only at those coordinates. Compare every field and
-normalized time with the current complete dual-grid reader.
+Run the
+[flush-boundary clip settlement](plan/phase-7/7b-follow-up-flush-boundary-settlement.md)
+experiment in a fresh session. Test whether `ControllerExtension.flush()`
+brackets complete `addStepDataObserver` replay after target, grid, and page
+changes. Measure passive and requested flushes separately. Keep the experiment
+probe-only until every empty and populated transition matches late settled
+truth.
 
-[E130](evidence/experiments/e130-constant-time-launcher-clip-read-search.md)
-records the Controller API inventory and the observer follow-up. Target, grid,
-and page changes clear prior occupied cells and replay the complete occupied
-view. One edit reports one changed cell. The callback gives only `x`, `y`, and
-state. It collapses MIDI channels and has no completion signal.
+[E131](evidence/experiments/e131-consolidated-clip-acquisition.md) completes the
+acquisition session. One `1/512` sparse view is not complete. A `1/512` and
+`1/768` sparse union matches the complete reader on the controlled fixtures,
+but conservative observer settlement makes it slower. Keep sparse enrichment
+as a probe. The complete dual-grid reader remains authoritative. Its
+reconciliation now retains a note that only one grid reports and refuses
+ambiguous nearby identities. No cache was added.
 
-Measure observer settlement, targeted host reads, bridge transfer,
-normalization, and total time on short and long, sparse and dense fixtures.
-Keep the selected 2,048-step cursor. Test page coverage, straight and triplet
-timing, all channels, same-pitch adjacency and overlap, and optional fields.
-Do not promote the route until it matches the complete reader.
+API 25 documents `flush()` only as an output opportunity. E14 measured passive
+flush near 1 Hz, and every Ghostnote bridge request already uses
+`scheduleTask(..., 0)`. Neither mechanism is a documented input completion
+fence. The new experiment must test first, dirty, and quiet flush cycles against
+the complete dual-grid reader. Do not use `addNoteStepObserver`; E53 proves it
+has no initial replay.
 
-The E130 inventory and observer probes remain in the staged changes. The
-deployed extension has 156 methods and method hash `c6f38b114c5d9074`. A
-controller-code change reloads only after the control surface is removed and
-added again. An off/on toggle is not sufficient.
+The experimental acquisition tool remains available at
+`GHOSTNOTE_TOOL_PROFILE=phase-7b-agent-note-patch-v0`. Do not start the
+independent played-range consolidation trial until E132 classifies the flush
+boundary as complete, partial, or rejected.
 
-The E129 played-range implementation remains intact. Its independent live
-agent trial stays paused until the new experimental acquisition route can
-supply fresh clip state. Do not discard or redo that work.
+The deployed extension uses Controller API 25, 157 methods, and method hash
+`905bc2531512025b`. The live sparse fixture probe passed and removed its owned
+track and five owned clips. It restored the four-track selection and stopped
+transport. The live acquisition check was read-only and passed on the selected
+empty clip. No test residue remains.
 
-The observer probe created one owned track and three owned clips. It removed
-them and restored the exact four-track selection and stopped transport
-baseline. It created no file and left no test residue.
+After E132, resume the
+[played-range consolidation guidance](plan/phase-7/7b-follow-up-played-range-consolidation.md)
+in a fresh Codex chat. Prefer one of the two affected row-0 `Deep House Kit`
+clips in project `26.36-4 orangebeat`.
 
 ## Retrospective
 
-Static signatures did not show step-data replay semantics. Live-test each
-observer family before carrying another observer's limits to it.
+Keep an empty-view control whenever silence is used as completion evidence.
+Do not turn an output lifecycle callback into an input guarantee without a
+direct live comparison.

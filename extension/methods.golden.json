@@ -14,8 +14,8 @@
   ],
   "extractedAt": "2026-09-24",
   "extractedFrom": "handlers/*Handlers.java register() blocks (post-split)",
-  "count": 156,
-  "methodsHash": "c6f38b114c5d9074",
+  "count": 157,
+  "methodsHash": "905bc2531512025b",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -87,6 +87,7 @@
     "slot.moveTo",
     "slot.playState",
     "status.push",
+    "stepdata.observer.enrich",
     "stepdata.observer.prepare",
     "stepdata.observer.read",
     "track.deleteViaAction",
@@ -262,6 +263,7 @@
     "slot.select",
     "slot.status",
     "status.push",
+    "stepdata.observer.enrich",
     "stepdata.observer.prepare",
     "stepdata.observer.read",
     "track.create",
@@ -480,5 +482,8 @@
     "api.runtimeMethods",
     "stepdata.observer.prepare",
     "stepdata.observer.read"
+  ],
+  "addedInPhase7bE131": [
+    "stepdata.observer.enrich"
   ]
 }

@@ -1,13 +1,13 @@
 ---
 title: Phase 7b follow-up — Consolidated clip acquisition
 kind: plan
-state: active
-status: Planned. Prove sparse observer enrichment, then expose one guarded normalized acquisition boundary.
+state: complete
+status: Complete. E131 keeps complete dual-grid reads and exposes one guarded experimental acquisition route.
 updated: 2026-09-24
 parent: 7b-agent-patch-execution-and-reference-dogfood.md
 prev: 7b-follow-up-constant-time-launcher-reads.md
-next: 7b-follow-up-played-range-consolidation.md
-evidence: E24, E51-E54, E116, E119-E121, E129-E130
+next: 7b-follow-up-flush-boundary-settlement.md
+evidence: E24, E51-E54, E116, E119-E121, E129-E131
 ---
 
 # Phase 7b follow-up — Consolidated clip acquisition
@@ -105,13 +105,20 @@ independent tests.
 
 ## Completion and return route
 
-After the acquisition route passes, resume the
-[played-range consolidation trial](7b-follow-up-played-range-consolidation.md)
-in a fresh agent session. Use the new route to reacquire state before and after
-visible consolidation.
+E131 proves that sparse dual-grid enrichment is complete on the controlled
+fixtures but slower than the complete reader because settlement dominates. The
+product route therefore keeps the complete dual-grid reader. The experimental
+profile now exposes one guarded normalized acquisition tool without changing
+the stable profile.
+
+Run the
+[flush-boundary settlement experiment](7b-follow-up-flush-boundary-settlement.md)
+next. It tests whether flush cycles can reduce settlement without weakening
+authority. After that result, resume the played-range consolidation trial in a
+fresh agent session.
 
 ## Retrospective target
 
-Record whether the agent-facing timing lattice was incorrectly assumed to be a
-complete host discovery grid. Keep representation and acquisition claims
-separate.
+The agent-facing timing lattice was not a complete host discovery grid. Keep
+representation and acquisition claims separate. Measure settlement before a
+sparse observer route replaces a direct scan.

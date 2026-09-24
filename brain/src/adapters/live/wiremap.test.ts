@@ -75,7 +75,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase4Session4g ?? []), ...(golden.addedInPhase4Session4h1 ?? []),
       ...(golden.addedInPhase5Session5o ?? []), ...(golden.addedInPhase5Session5r ?? []),
       ...(golden.addedInD03 ?? []), ...(golden.addedInPhase6Session6a ?? []),
-      ...(golden.addedInPhase7bE130 ?? [])];
+      ...(golden.addedInPhase7bE130 ?? []), ...(golden.addedInPhase7bE131 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -90,6 +90,11 @@ test('Phase 7b E130: runtime API inventory stays probe-only', () => {
     'stepdata.observer.read',
   ]);
   assert.ok(golden.addedInPhase7bE130?.every((method) => !WIRE_METHODS_USED.includes(method)));
+});
+
+test('Phase 7b E131: sparse enrichment stays probe-only', () => {
+  assert.deepEqual(golden.addedInPhase7bE131, ['stepdata.observer.enrich']);
+  assert.ok(golden.addedInPhase7bE131?.every((method) => !WIRE_METHODS_USED.includes(method)));
 });
 
 test('Phase 7 session 7e: MasterRecorder is promoted through the typed capture adapter', () => {

@@ -4,7 +4,7 @@ kind: design exploration
 state: active
 updated: 2026-09-24
 scope: one normalized agent-facing clip representation for analysis, reads, and writes
-evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E130
+evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E131
 ---
 
 # Consolidated compact-bar direction
@@ -64,11 +64,11 @@ template.
 
 This changes the agent-facing timing requirement. The current reader uses both
 a `1/512` binary scan and a `1/768` triplet scan, then reconciles them. The
-consolidated document needs one normalized lattice. It does not prove that one
-host grid discovers all stored notes. E116 remains evidence that both fine
-timing families were readable and writable. The next acquisition proof must
-compare a single `1/512` host scan with the complete dual-grid result before it
-removes the triplet scan.
+consolidated document needs one normalized lattice. It does not mean that one
+host grid discovers all stored notes. E131 proves that one `1/512` sparse view
+can report different exact timing and same-pitch adjacency than the `1/768`
+view. Keep both host acquisition grids. Normalize only after complete
+acquisition and lossless reconciliation.
 
 Open timing details:
 
@@ -233,23 +233,31 @@ The E130 follow-up proves that `addStepDataObserver` replays sparse occupied
 cells after target, grid, and page changes. The callback has no channel, note
 fields, or completion signal. The selected candidate enriches each settled
 `NoteOn` coordinate with targeted `getStep` calls across all 16 channels. It
-can avoid empty-cell scans, but it remains page-bounded and unproven as a
-complete acquisition route.
+can avoid empty-cell scans, but it remains page-bounded.
 
-The remaining reductions are sparse acquisition and cache optimizations:
+E131 proves that a `1/512` and `1/768` sparse union matches the complete reader
+on short and long, sparse and dense fixtures. A single `1/512` view is not
+complete. Conservative settlement makes the sparse route slower end to end:
+approximately 1.65 seconds instead of 0.78 to 0.82 seconds for short fixtures,
+and 2.55 seconds instead of 1.82 to 1.93 seconds for long fixtures. Keep sparse
+enrichment as a probe. No cache is justified by this result.
 
-- prove sparse observer settlement and targeted 16-channel enrichment;
-- compare one `1/512` occupancy view with the complete mixed timing set;
-- retain the selected 2,048-step cursor or measure a larger window if needed;
+The experimental acquisition boundary therefore uses the existing complete
+reader. It resolves a durable track ID and launcher row, reads all 16 channels,
+normalizes timing to `1/512` ticks, detects identity collisions, and returns the
+fresh exact source plus project and content guards. The stable profile remains
+unchanged.
+
+The remaining reductions are cache and write-path optimizations:
+
 - maintain a warm observer-backed clip cache with explicit invalidation;
 - share a fresh acquisition with the write stash when equivalent freshness is
   proved; and
 - use targeted differences instead of full reconstruction.
 
-The next session first implements the sparse enrichment probe. It compares the
-normalized result with the current complete reader. It promotes one guarded
-acquisition boundary only after fields, channels, extent, timing, and
-settlement pass.
+The next session uses the experimental acquisition route in the independent
+played-range consolidation trial. It must reacquire complete state after the
+visible UI action and before a new preview.
 
 ## Evidence carried forward
 
@@ -272,6 +280,8 @@ settlement pass.
   interface.
 - E130 records the API inventory, proves sparse step-data occupancy replay, and
   selects targeted channel enrichment for the next proof.
+- E131 rejects one-grid discovery and sparse promotion. It adds a guarded
+  experimental acquisition boundary over the complete dual-grid reader.
 
 ## Unsettled questions
 
@@ -279,14 +289,12 @@ settlement pass.
 - The exact sparse-default and preservation rules.
 - The complete patch vocabulary and conflict report.
 - Event identity behavior after human note edits.
-- Whether one `1/512` host scan discovers every supported triplet note before
-  normalization.
 - Clip-reference recovery after a host restart.
 - Whether normalized full documents can preserve every supported expression
   field without becoming too large.
 - Whether independent readback returns the same compact document or a separate
   internal observation that is projected into it.
-- The fastest reliable host acquisition route.
+- Whether a fully invalidated warm cache can improve repeated acquisition.
 - The amount of verification needed after targeted and complete writes.
 
 Resolve these through focused practical sessions. Do not create new public

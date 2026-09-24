@@ -29,10 +29,18 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { Session } from './session.js';
 import { BridgeTransport } from './adapters/live/transport.js';
 import { LiveStatusSink } from './surface/status.js';
-import { registerTools } from './surface/tools.js';
+import {
+  EXPERIMENTAL_7B_TOOL_PROFILE, STABLE_TOOL_PROFILE, registerTools, type ToolProfile,
+} from './surface/tools.js';
 import { workspaceOf } from './surface/workspace.js';
 
 const session = new Session();
+const requestedProfile = process.env['GHOSTNOTE_TOOL_PROFILE'];
+const profile: ToolProfile = requestedProfile === undefined || requestedProfile === STABLE_TOOL_PROFILE
+  ? STABLE_TOOL_PROFILE
+  : requestedProfile === EXPERIMENTAL_7B_TOOL_PROFILE
+    ? EXPERIMENTAL_7B_TOOL_PROFILE
+    : (() => { throw new Error(`unsupported Ghostnote tool profile: ${requestedProfile}`); })();
 
 const server = new McpServer({
   name: 'ghostnote',
@@ -68,7 +76,7 @@ registerTools(server, workspaceOf({
       return { generation: current.generation, project: current.project };
     },
   ),
-}));
+}), profile);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

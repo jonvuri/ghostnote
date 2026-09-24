@@ -60,6 +60,44 @@ public final class StepDataObserverProbe {
         return state();
     }
 
+    /** Copy settled NoteOn cells only when the caller still has the current view. */
+    public int[][] noteOnCells(int expectedGeneration, long expectedCallbacks) {
+        if (generation != expectedGeneration || callbacks != expectedCallbacks) {
+            throw new IllegalStateException("step-data observer view changed before enrichment");
+        }
+        int count = 0;
+        for (byte state : states) {
+            if (state == 2) count++;
+        }
+        int[][] cells = new int[count][2];
+        int found = 0;
+        for (int x = 0; x < steps; x++) {
+            for (int y = 0; y < keys; y++) {
+                if (states[x * keys + y] != 2) continue;
+                cells[found][0] = x;
+                cells[found][1] = y;
+                found++;
+            }
+        }
+        return cells;
+    }
+
+    public int generation() {
+        return generation;
+    }
+
+    public long callbacks() {
+        return callbacks;
+    }
+
+    public double grid() {
+        return grid;
+    }
+
+    public int page() {
+        return page;
+    }
+
     private void record(int x, int y, int state) {
         long now = System.nanoTime();
         if (firstCallbackNanos == 0) firstCallbackNanos = now;

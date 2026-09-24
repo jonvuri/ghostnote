@@ -69,6 +69,8 @@ export interface Golden {
   addedInPhase6Session6a?: string[];
   /** Phase 7b E130 read-only runtime API inventory. */
   addedInPhase7bE130?: string[];
+  /** Phase 7b E131 sparse note-enrichment proof. */
+  addedInPhase7bE131?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;

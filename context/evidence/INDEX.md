@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E131 | Complete dual-grid acquisition remains authoritative; the experimental guarded route is live [K] (2026-09-24) | [open](experiments/e131-consolidated-clip-acquisition.md) |
 | E130 | Step-data replay supplies a sparse launcher-clip occupancy index [K] (2026-09-24) | [open](experiments/e130-constant-time-launcher-clip-read-search.md) |
 | E129 | Played-range consolidation guidance passes offline; the live interface gate remains [K] (2026-09-24) | [open](experiments/e129-played-range-consolidation-guidance.md) |
 | E128 | Targeted note insertion reversal is live [K] (2026-09-24) | [open](experiments/e128-targeted-note-inverse-is-live.md) |

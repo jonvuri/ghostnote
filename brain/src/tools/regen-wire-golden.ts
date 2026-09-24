@@ -69,6 +69,7 @@ const e130Methods = new Set([
 const addedInPhase6Session6a = (golden.addedInPhase6Session6a ?? [])
   .filter((method) => !e130Methods.has(method));
 const addedInPhase7bE130 = golden.addedInPhase7bE130 ?? [];
+const addedInPhase7bE131 = golden.addedInPhase7bE131 ?? [];
 const earlier = new Set([
   ...addedInSession1, ...addedInSession2, ...addedInE16, ...addedInE20,
   ...addedInSession3eProbe, ...addedInE22Probe, ...addedInSession3f, ...addedInSession3gB,
@@ -77,6 +78,7 @@ const earlier = new Set([
   ...addedInPhase4Session4f, ...addedInPhase4Session4g, ...addedInPhase4Session4h1,
   ...addedInPhase5Session5o, ...addedInPhase5Session5r, ...addedInPhase6Session6a,
   ...addedInPhase7bE130,
+  ...addedInPhase7bE131,
 ]);
 const addedInD03 = [...new Set([
   ...(golden.addedInD03 ?? []),
@@ -85,6 +87,10 @@ const addedInD03 = [...new Set([
 const currentAddedInPhase7bE130 = [...new Set([
   ...addedInPhase7bE130,
   ...added.filter((method) => !earlier.has(method) && e130Methods.has(method)),
+])].sort();
+const currentAddedInPhase7bE131 = [...new Set([
+  ...addedInPhase7bE131,
+  ...added.filter((method) => !earlier.has(method)),
 ])].sort();
 
 const next = {
@@ -115,6 +121,7 @@ const next = {
   addedInD03,
   addedInPhase6Session6a,
   addedInPhase7bE130: currentAddedInPhase7bE130,
+  addedInPhase7bE131: currentAddedInPhase7bE131,
   methods,
 };
 
@@ -131,7 +138,9 @@ const bucketChanged = JSON.stringify(golden.addedInPhase5Session5r ?? [])
   || JSON.stringify(golden.addedInPhase6Session6a ?? [])
     !== JSON.stringify(addedInPhase6Session6a)
   || JSON.stringify(golden.addedInPhase7bE130 ?? [])
-    !== JSON.stringify(currentAddedInPhase7bE130);
+    !== JSON.stringify(currentAddedInPhase7bE130)
+  || JSON.stringify(golden.addedInPhase7bE131 ?? [])
+    !== JSON.stringify(currentAddedInPhase7bE131);
 if (brandNew.length === 0 && removed.length === 0 && golden.methodsHash === next.methodsHash
     && !bucketChanged) {
   console.log('golden is already current; nothing to do.');

@@ -10,12 +10,9 @@ parent: ../../plan/phase-7/7b-follow-up-played-range-consolidation.md
 
 ## Current verdict
 
-The offline gate passes. The independent live agent gate is pending one
-interface decision. The subsequent design exploration selected one consolidated
-compact clip direction instead of a narrow exact-source acquisition tool. The
-live gate is paused until that interface has a fast acquisition route. No
-temporary live clip was created, and the project has no test residue from this
-session.
+The offline gate passes. E131 supplies the missing experimental acquisition
+route. The independent live agent gate is now ready. No temporary live clip
+was created, and the project has no test residue from this session.
 
 ## Implementation
 
@@ -64,16 +61,10 @@ method hash `78368fe47ea0e814`.
 
 ## Live-gate boundary
 
-The configured Ghostnote MCP server calls `registerTools` with the stable tool
-profile. The played-range refusal is on the experimental agent-proposal profile.
-That profile accepts a complete exact-note source, but neither profile exposes
-an MCP tool that acquires this source for a fresh agent.
-
-A fresh Codex chat therefore cannot reach the new proposal refusal through its
-configured Ghostnote tools. Enabling the experimental profile alone does not
-solve this. Adding an exact-source acquisition tool, changing the server profile,
-or supplying prepared exact state to the trial would change the interface or
-the trial method. The plan does not select one of these options.
+E131 adds `acquire_clip_note_source` only to the experimental
+`phase-7b-agent-note-patch-v0` profile. It returns the complete guarded exact
+source that the proposal tool accepts. Start the fresh agent's server with
+`GHOSTNOTE_TOOL_PROFILE=phase-7b-agent-note-patch-v0`.
 
 The live inventory was read-only. It confirmed two existing affected clips in
 `26.36-4 orangebeat`: row 0 on each `Deep House Kit` track has an offset loop.
@@ -81,12 +72,11 @@ No duplicate was made because the reachability decision must come first.
 
 The current direction is recorded in
 [the consolidated compact-bar design](../format/CONSOLIDATED_COMPACT_BAR.md).
-The next session searches the full available Bitwig API for a constant-time or
-near-constant-time launcher-clip read before it selects the acquisition
-implementation.
+The next session runs the independent hybrid consolidation trial. It uses the
+new acquisition tool before and after the visible consolidation action.
 
 ## Retrospective
 
-One semantic range check is sufficient offline. The live plan must also name
-how an independent agent acquires exact source and enables the experimental
-profile. Settle that seam before creating a temporary clip.
+One semantic range check is sufficient offline. E131 now names the acquisition
+tool and experimental profile. Verify that a fresh agent follows the refusal
+without bypassing the visible consolidation seam.

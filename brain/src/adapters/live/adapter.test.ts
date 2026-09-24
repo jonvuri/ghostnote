@@ -20,10 +20,10 @@ import {
   AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, clipMetadata, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, track,
-  type ClipAddress, type RevisionMark, type TrackAddress,
+  type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
 } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
-import { LiveAdapter } from './adapter.js';
+import { LiveAdapter, reconcileExactNoteScans } from './adapter.js';
 import type { Transport } from './transport.js';
 import { WIRE, type Frame } from './wiremap.js';
 
@@ -363,6 +363,25 @@ test('2h: the production fine cursor preserves a triplet start across exact read
     'eight beats need two binary pages and three triplet pages at the measured limits',
   );
   assert.equal(transport.where('fine'), 0);
+});
+
+test('E131: exact reconciliation retains a same-pitch note omitted by one grid', () => {
+  const first: NoteRecord = {
+    startBeats: 0, pitch: 60, velocity: 0.75, durationBeats: 1 / 8,
+  };
+  const second: NoteRecord = {
+    startBeats: 1 / 8, pitch: 60, velocity: 0.8, durationBeats: 1 / 8,
+  };
+  assert.deepEqual(reconcileExactNoteScans(CLIP(0), 0, [first, second], [first]), [first, second]);
+});
+
+test('E131: exact reconciliation refuses incompatible nearby grid identities', () => {
+  const binary: NoteRecord = {
+    startBeats: 1 / 8, pitch: 60, velocity: 0.75, durationBeats: 1 / 8,
+  };
+  const triplet: NoteRecord = { ...binary, startBeats: 1 / 8 + 1 / 768, velocity: 0.5 };
+  assert.throws(() => reconcileExactNoteScans(CLIP(0), 0, [binary], [triplet]),
+    /binary and triplet scans disagree.*note identity/);
 });
 
 test('2i: the exact reader pages through a clip longer than its fine window', async () => {

@@ -87,6 +87,7 @@ import {
   applyMusicalPatch, applyNoteProposal, compareCandidateToReference,
   compileNoteProposal, musicalPatchSchema, noteProposalInvariantsSchema,
   noteProposalSchema, referenceContextResultValidator, validateExactNoteSource,
+  exactNoteClipRangeDiagnostic, snapshotToExactSource,
   type ExactNoteSource, type NoteCompilerRequest,
 } from '../musical/index.js';
 import {
@@ -4447,8 +4448,148 @@ const experimentalTransformation: ToolSpec = {
   },
 };
 
-export const EXPERIMENTAL_7B_TOOLS: readonly ToolSpec[] = TOOLS.map((item) =>
-  item.name === 'transform_clip_music' ? experimentalTransformation : item);
+const experimentalAcquisitionInput = z.object({
+  trackId: z.string().min(1).describe('Durable Bitwig track channel ID.'),
+  row: z.number().int().min(0).describe('Zero-based launcher row.'),
+}).strict();
+
+/** Normalize one validated source and reject event identity loss. */
+export function normalizeExactSourceForAcquisition(source: ExactNoteSource) {
+  const eventIds = new Map(source.eventMap.map((item) => [
+    `${item.channel}:${item.pitch}:${item.startBeats}`, item.id,
+  ]));
+  const collisionKeys = new Set<string>();
+  return source.clips[0]!.channels.flatMap((channel) => channel.notes.map((item) => {
+    const startTick = Math.round(item.startBeats * 512);
+    const durationTicks = Math.max(1, Math.round(item.durationBeats * 512));
+    const collisionKey = `${channel.channel}:${item.pitch}:${startTick}`;
+    if (collisionKeys.has(collisionKey)) {
+      throw new Error(`normalization collision at MIDI channel ${channel.channel}, pitch `
+        + `${item.pitch}, tick ${startTick}`);
+    }
+    collisionKeys.add(collisionKey);
+    const eventId = eventIds.get(`${channel.channel}:${item.pitch}:${item.startBeats}`);
+    if (eventId === undefined) throw new Error('the exact event identity map is incomplete');
+    const { startBeats: _start, durationBeats: _duration, ...fields } = item;
+    return { eventId, channel: channel.channel, startTick, durationTicks, ...fields };
+  }));
+}
+
+/** Acquire one guarded clip through the complete reader, then normalize agent timing. */
+const experimentalClipAcquisition: ToolSpec = {
+  name: 'acquire_clip_note_source',
+  kind: 'read',
+  title: 'Acquire one complete launcher clip',
+  description: `Experimental profile ${EXPERIMENTAL_7B_TOOL_PROFILE}. Read one launcher clip by `
+    + 'durable track ID and row. The result uses the complete dual-grid reader, covers all 16 MIDI '
+    + 'channels and note fields, and labels itself authoritative. Normalized note timing uses integer '
+    + '1/512-beat ticks. The call refuses a missing target, unsupported played range, incomplete '
+    + 'coverage, project or target drift, and a normalization collision. It also returns the guarded '
+    + 'exact source accepted by agent-note-proposal-v0.',
+  inputSchema: experimentalAcquisitionInput.shape,
+  inputValidator: experimentalAcquisitionInput,
+  emits: [],
+  resultContract: {
+    format: 'ghostnote-clip-acquisition',
+    version: 0,
+    profile: EXPERIMENTAL_7B_TOOL_PROFILE,
+    authority: 'authoritative-complete-scan',
+    normalizedTiming: { unit: 'beat-tick', ticksPerBeat: 512 },
+    coverage: 'complete-all-16-channels',
+    guards: ['project', 'generation', 'revision', 'sceneEpoch', 'contentEpoch', 'sourceSha256'],
+  },
+  async run(workspace, input) {
+    const args = input as z.infer<typeof experimentalAcquisitionInput>;
+    const started = performance.now();
+    const before = await workspace.mark();
+    if (before.project.length === 0) throw new Error('the live project identity is unavailable');
+    if (before.window.tracks.count < 0 || before.window.scenes.count < 0) {
+      throw new Error('the project track or scene inventory is not settled');
+    }
+    if (before.window.tracks.count > before.window.tracks.bankSize
+        || before.window.scenes.count > before.window.scenes.bankSize) {
+      throw new Error('the complete project target inventory is outside the observed window');
+    }
+    if (args.row >= before.window.scenes.count || args.row >= before.window.scenes.bankSize) {
+      throw new Error(`launcher row ${args.row} is outside the current project`);
+    }
+    const matchingTracks = (await workspace.tracks())
+      .filter((item) => item.channelId === args.trackId);
+    if (matchingTracks.length !== 1) {
+      throw new Error(`durable track ID ${args.trackId} did not resolve to exactly one track`);
+    }
+    const address = clipAt(slotAt(trackAt(args.trackId), sceneAt(args.row, before.sceneEpoch)));
+    const addresses: Address[] = [
+      trackAt(args.trackId), address, metadataAt(address),
+      ...Array.from({ length: 16 }, (_, channel) => notesAt(address, channel)),
+    ];
+    const acquisitionStarted = performance.now();
+    const read = () => workspace.read(addresses);
+    const snapshot = workspace.preserveSelection === undefined
+      ? await read()
+      : await workspace.preserveSelection(read);
+    const acquisitionMs = performance.now() - acquisitionStarted;
+    if (snapshot.at.project !== before.project || snapshot.at.generation !== before.generation
+        || snapshot.at.sceneEpoch !== before.sceneEpoch
+        || snapshot.at.contentEpoch !== before.contentEpoch) {
+      throw new Error('the project or launcher target changed during acquisition');
+    }
+    const source = snapshotToExactSource({
+      snapshot,
+      clips: [address],
+      source: {
+        kind: 'live-bitwig',
+        id: `launcher:${args.trackId}:${args.row}`,
+        permission: 'live project state requested through the experimental Ghostnote profile',
+      },
+      expectedGeneration: before.generation,
+    });
+    const diagnostic = exactNoteClipRangeDiagnostic(source.clips[0]!);
+    if (diagnostic !== undefined) throw new Error(diagnostic.message);
+    const normalizationStarted = performance.now();
+    const notes = normalizeExactSourceForAcquisition(source);
+    const normalizationMs = performance.now() - normalizationStarted;
+    return {
+      format: 'ghostnote-clip-acquisition',
+      version: 0,
+      profile: EXPERIMENTAL_7B_TOOL_PROFILE,
+      authority: 'authoritative-complete-scan',
+      target: {
+        trackId: args.trackId,
+        trackName: matchingTracks[0]!.name,
+        row: args.row,
+      },
+      coverage: {
+        complete: true,
+        channels: 16,
+        notes: notes.length,
+        omittedFields: [],
+        unavailableFields: [],
+      },
+      timingPlane: { unit: 'beat-tick', ticksPerBeat: 512 },
+      clip: { metadata: source.clips[0]!.metadata, notes },
+      guards: {
+        project: snapshot.at.project,
+        generation: snapshot.at.generation,
+        revision: snapshot.at.revision,
+        sceneEpoch: snapshot.at.sceneEpoch,
+        contentEpoch: snapshot.at.contentEpoch,
+        sourceSha256: source.digest.value,
+      },
+      exactSource: source,
+      timing: {
+        acquisitionMs,
+        normalizationMs,
+        totalMs: performance.now() - started,
+      },
+    };
+  },
+};
+
+export const EXPERIMENTAL_7B_TOOLS: readonly ToolSpec[] = [
+  ...TOOLS.map((item) => item.name === 'transform_clip_music' ? experimentalTransformation : item),
+  experimentalClipAcquisition,
+];
 
 /** Select a frozen tool profile without changing stable registration. */
 export function toolsForProfile(profile: ToolProfile = STABLE_TOOL_PROFILE): readonly ToolSpec[] {

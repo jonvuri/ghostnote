@@ -428,6 +428,72 @@ interface ClipCursorStatus {
 /** One exact, reconciled note reading for all 16 MIDI channels in a clip. */
 type ClipNoteChannels = ReadonlyMap<number, readonly NoteRecord[]>;
 
+/** Join two lossy grid views without dropping a note that only one view reports. */
+export function reconcileExactNoteScans(
+  clipRef: ClipAddress,
+  channel: number,
+  binary: readonly NoteRecord[],
+  triplet: readonly NoteRecord[],
+  maximumStartDifference = 1 / 48,
+): readonly NoteRecord[] {
+  const byPitch = (notes: readonly NoteRecord[]): ReadonlyMap<number, readonly NoteRecord[]> => {
+    const grouped = new Map<number, NoteRecord[]>();
+    for (const note of notes) {
+      const found = grouped.get(note.pitch) ?? [];
+      found.push(note);
+      grouped.set(note.pitch, found);
+    }
+    for (const found of grouped.values()) found.sort((left, right) => left.startBeats - right.startBeats);
+    return grouped;
+  };
+  const body = (note: NoteRecord): string => {
+    const { startBeats: _start, ...fields } = note;
+    return JSON.stringify(fields);
+  };
+  const left = byPitch(binary);
+  const right = byPitch(triplet);
+  const pitches = new Set([...left.keys(), ...right.keys()]);
+  const result: NoteRecord[] = [];
+  for (const pitch of pitches) {
+    const binaryPitch = left.get(pitch) ?? [];
+    const tripletPitch = right.get(pitch) ?? [];
+    const unusedTriplet = new Set(tripletPitch.map((_, index) => index));
+    const unmatchedBinary: NoteRecord[] = [];
+    for (const binaryNote of binaryPitch) {
+      const matched = [...unusedTriplet]
+        .filter((index) => body(binaryNote) === body(tripletPitch[index]!))
+        .map((index) => ({
+          index,
+          distance: Math.abs(binaryNote.startBeats - tripletPitch[index]!.startBeats),
+        }))
+        .filter((item) => item.distance <= maximumStartDifference)
+        .sort((first, second) => first.distance - second.distance || first.index - second.index)[0];
+      if (matched === undefined) {
+        unmatchedBinary.push(binaryNote);
+        continue;
+      }
+      unusedTriplet.delete(matched.index);
+      const tripletNote = tripletPitch[matched.index]!;
+      result.push({
+        ...binaryNote,
+        startBeats: Math.max(binaryNote.startBeats, tripletNote.startBeats),
+      });
+    }
+    const unmatchedTriplet = [...unusedTriplet].map((index) => tripletPitch[index]!);
+    const ambiguous = unmatchedBinary.some((binaryNote) => unmatchedTriplet.some((tripletNote) =>
+      Math.abs(binaryNote.startBeats - tripletNote.startBeats) <= maximumStartDifference));
+    if (ambiguous) {
+      throw new AddressUnresolvedError(
+        clipRef,
+        `binary and triplet scans disagree on channel ${channel}, pitch ${pitch} note identity`,
+      );
+    }
+    result.push(...unmatchedBinary, ...unmatchedTriplet);
+  }
+  return result.sort((leftNote, rightNote) =>
+    leftNote.startBeats - rightNote.startBeats || leftNote.pitch - rightNote.pitch);
+}
+
 interface WireVerboseChannel {
   readonly channel: number;
   readonly notes: readonly Record<string, number | boolean | string>[];
@@ -2618,8 +2684,9 @@ export class LiveAdapter implements BitwigAdapter {
    * Bitwig rounds an off-grid note start down. A binary scan alone corrupts a
    * triplet start, and a triplet scan alone corrupts a binary start. The later
    * of the two observed starts is therefore the exact start for every value in
-   * the supported binary-or-triplet grid family. If either scan loses a note or
-   * reports different note data, refuse the reading instead of guessing.
+   * the supported binary-or-triplet grid family. Keep a note that only one grid
+   * reports. Refuse nearby unmatched notes from both grids because their
+   * identities are ambiguous.
    */
   private async readFineClipNotes(
     clipRef: ClipAddress,
@@ -2718,7 +2785,7 @@ export class LiveAdapter implements BitwigAdapter {
     return this.timed('reconciliation', async () => {
       const reconciled = new Map<number, readonly NoteRecord[]>();
       for (let channel = 0; channel < 16; channel += 1) {
-        reconciled.set(channel, this.reconcileNoteScans(
+        reconciled.set(channel, reconcileExactNoteScans(
           clipRef,
           channel,
           binary.get(channel) ?? [],
@@ -2728,59 +2795,6 @@ export class LiveAdapter implements BitwigAdapter {
       }
       return reconciled;
     });
-  }
-
-  /** Pair notes by pitch and order, and keep the scan that did not round down. */
-  private reconcileNoteScans(
-    clipRef: ClipAddress,
-    channel: number,
-    binary: readonly NoteRecord[],
-    triplet: readonly NoteRecord[],
-    maximumStartDifference = 1 / 48,
-  ): readonly NoteRecord[] {
-    const byPitch = (notes: readonly NoteRecord[]): ReadonlyMap<number, readonly NoteRecord[]> => {
-      const grouped = new Map<number, NoteRecord[]>();
-      for (const note of notes) {
-        const found = grouped.get(note.pitch) ?? [];
-        found.push(note);
-        grouped.set(note.pitch, found);
-      }
-      for (const found of grouped.values()) found.sort((left, right) => left.startBeats - right.startBeats);
-      return grouped;
-    };
-    const left = byPitch(binary);
-    const right = byPitch(triplet);
-    const pitches = new Set([...left.keys(), ...right.keys()]);
-    const result: NoteRecord[] = [];
-    for (const pitch of pitches) {
-      const binaryPitch = left.get(pitch) ?? [];
-      const tripletPitch = right.get(pitch) ?? [];
-      if (binaryPitch.length !== tripletPitch.length) {
-        throw new AddressUnresolvedError(
-          clipRef,
-          `binary and triplet scans disagree on channel ${channel}, pitch ${pitch} note count`,
-        );
-      }
-      for (let index = 0; index < binaryPitch.length; index += 1) {
-        const binaryNote = binaryPitch[index]!;
-        const tripletNote = tripletPitch[index]!;
-        const { startBeats: binaryStart, ...binaryBody } = binaryNote;
-        const { startBeats: tripletStart, ...tripletBody } = tripletNote;
-        if (JSON.stringify(binaryBody) !== JSON.stringify(tripletBody)
-            || Math.abs(binaryStart - tripletStart) > maximumStartDifference) {
-          throw new AddressUnresolvedError(
-            clipRef,
-            `binary and triplet scans disagree on channel ${channel}, pitch ${pitch} note identity`,
-          );
-        }
-        result.push({
-          ...binaryNote,
-          startBeats: Math.max(binaryStart, tripletStart),
-        });
-      }
-    }
-    return result.sort((leftNote, rightNote) =>
-      leftNote.startBeats - rightNote.startBeats || leftNote.pitch - rightNote.pitch);
   }
 
   /**

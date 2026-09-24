@@ -2,12 +2,12 @@
 title: Phase 7b follow-up — Played-range consolidation guidance
 kind: plan
 state: active
-status: Offline gate passes. The live trial is paused while the consolidated clip interface and fast acquisition route are explored.
+status: Offline gate passes. E131 supplies acquisition. Run the flush-boundary settlement experiment before the independent live trial.
 updated: 2026-09-24
 parent: 7b-agent-patch-execution-and-reference-dogfood.md
 prev: 7f-hybrid-workstation-dogfood.md
 next: 7b-follow-up-consolidated-clip-acquisition.md
-evidence: E6, E43, E120, E121, E128, E129
+evidence: E6, E43, E120, E121, E128-E131
 ---
 
 # Phase 7b follow-up — Played-range consolidation guidance
@@ -183,13 +183,16 @@ The interface discussion selected a
 [consolidated compact-bar direction](../../evidence/format/CONSOLIDATED_COMPACT_BAR.md)
 instead of adding a narrow exact-source tool only for this trial.
 
-E130 completed the launcher-clip read search and found sparse step-data replay.
-Run the
-[consolidated clip acquisition](7b-follow-up-consolidated-clip-acquisition.md)
-next. First prove targeted 16-channel enrichment from the occupied coordinates.
-Resume this live gate only after a fresh agent can acquire the required clip
-state through that interface. After the live gate passes, mark this plan
-complete and route back to
+E131 completed the
+[consolidated clip acquisition](7b-follow-up-consolidated-clip-acquisition.md).
+It keeps the complete dual-grid reader as authority and adds
+`acquire_clip_note_source` to the experimental profile. Run the
+[flush-boundary settlement experiment](7b-follow-up-flush-boundary-settlement.md)
+before the fresh agent trial. After E132, start the fresh agent's server with
+`GHOSTNOTE_TOOL_PROFILE=phase-7b-agent-note-patch-v0`. Use the acquisition tool
+to reach the existing played-range refusal and reacquire state after visible
+consolidation. After the live gate passes, mark this plan complete and route
+back to
 [Phase 8a](../phase-8/8a-bwmod-publication-review.md).
 
 ## Retrospective target
