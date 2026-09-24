@@ -32,11 +32,12 @@ export { AgentContextError } from './agent-context.js';
 export {
   EXACT_NOTE_JSON_VERSION, EXACT_NOTE_SOURCE_DOMAIN, EXACT_NOTE_SOURCE_MAX_CLIPS,
   EXACT_NOTE_SOURCE_MAX_NOTES, EXACT_NOTE_SOURCE_SCHEMA, ExactNoteSourceError,
-  readExactNoteSource, serializeExactNoteSource, snapshotToExactSource,
+  exactNoteClipRangeDiagnostic, readExactNoteSource, serializeExactNoteSource, snapshotToExactSource,
   validateExactNoteSource,
 } from './exact-note-source.js';
 export type {
-  ExactNoteAcquisition, ExactNoteChannel, ExactNoteClip, ExactNoteEventMapEntry,
+  ExactNoteAcquisition, ExactNoteChannel, ExactNoteClip, ExactNoteClipRangeDiagnostic,
+  ExactNoteEventMapEntry,
   ExactNoteSource, ExactNoteSourcePayload, ExactNoteTrackAlias, SnapshotExactSourceRequest,
 } from './exact-note-source.js';
 export {

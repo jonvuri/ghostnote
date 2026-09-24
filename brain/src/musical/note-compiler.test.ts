@@ -92,6 +92,14 @@ async function fixture(options: { pressure?: boolean; mixedInsertTrack?: boolean
   return { fake, workspace, clips, source };
 }
 
+async function refreshedSource(fx: Fixture): Promise<ExactNoteSource> {
+  return (await readExactNoteSource(fx.fake, {
+    clips: fx.clips,
+    source: fx.source.source,
+    expectedGeneration: fx.source.observedAt.generation,
+  })).source;
+}
+
 function adapterOf(fake: FakeAdapter): BitwigAdapter {
   return {
     hello: () => fake.hello(),
@@ -567,4 +575,99 @@ test('7b-S17: the pure note compiler module correlates the exact source without 
     sourceSha256: 'b'.repeat(64),
     payload,
   }), (error) => error instanceof NoteCompilerError && /source digest/.test(error.message));
+});
+
+test('7b-follow-up: every targeted proposal operation refuses incompatible clip geometry', async () => {
+  const fx = await fixture();
+  fx.fake.model.tracks[0]!.slots[0]!.lengthBeats = 16;
+  fx.fake.model.tracks[0]!.slots[0]!.loopStartBeats = 24;
+  const source = await refreshedSource(fx);
+  const alias = aliasFor(source, 0);
+  const cases: readonly { proposal: NoteProposal; count: number }[] = [
+    {
+      proposal: {
+        schema: NOTE_PROPOSAL_SCHEMA, base_sha256: source.digest.value,
+        ops: [{ op: 'transpose', note_ids: [idFor(source, 60)], semitones: 1 }],
+      },
+      count: 4,
+    },
+    {
+      proposal: {
+        schema: NOTE_PROPOSAL_SCHEMA, base_sha256: source.digest.value,
+        ops: [{ op: 'delete', note_ids: [idFor(source, 62)] }],
+      },
+      count: 3,
+    },
+    {
+      proposal: {
+        schema: NOTE_PROPOSAL_SCHEMA, base_sha256: source.digest.value,
+        ops: [{ op: 'move', note_id: idFor(source, 48), start: '1' }],
+      },
+      count: 4,
+    },
+    {
+      proposal: {
+        schema: NOTE_PROPOSAL_SCHEMA, base_sha256: source.digest.value,
+        ops: [{
+          op: 'insert', default_policy: 'track-neutral-v0', notes: [{
+            id: 'range-insert', track: alias,
+            start: '6', duration: '1', pitch: 80, velocity: 90,
+          }],
+        }],
+      },
+      count: 5,
+    },
+  ];
+  for (const item of cases) {
+    assert.throws(() => compileNoteProposal({
+      source,
+      proposal: item.proposal,
+      invariants: invariants(source, {
+        noteCount: { min: item.count, max: item.count },
+        beatRange: { from: '0', to: '16', noteEndsWithin: true },
+      }),
+    }), /requires consolidation.*use Consolidate.*preview the change again/);
+  }
+});
+
+test('7b-follow-up: incompatible unrelated clips do not block a compatible target', async () => {
+  const fx = await fixture();
+  fx.fake.model.tracks[1]!.slots[0]!.lengthBeats = 16;
+  fx.fake.model.tracks[1]!.slots[0]!.loopStartBeats = 24;
+  const source = await refreshedSource(fx);
+  const result = compileNoteProposal({
+    source,
+    proposal: {
+      schema: NOTE_PROPOSAL_SCHEMA, base_sha256: source.digest.value,
+      ops: [{ op: 'transpose', note_ids: [idFor(source, 60)], semitones: 1 }],
+    },
+    invariants: invariants(source),
+  });
+  assert.equal(result.operations[0]?.op, 'note.clear');
+  assert.equal(result.guards.clipAddresses.length, 1);
+  assert.deepEqual(result.guards.clipAddresses[0], fx.clips[0]);
+});
+
+test('7b-follow-up: apply-time range drift uses the preview refusal and writes nothing', async () => {
+  const fx = await fixture();
+  const proposal: NoteProposal = {
+    schema: NOTE_PROPOSAL_SCHEMA, base_sha256: fx.source.digest.value,
+    ops: [{ op: 'transpose', note_ids: [idFor(fx.source, 60)], semitones: 1 }],
+  };
+  const request = { source: fx.source, proposal, invariants: invariants(fx.source) };
+  const preview = compileNoteProposal(request);
+  const beforeChanges = fx.workspace.changes.list().length;
+  fx.fake.model.tracks[0]!.slots[0]!.lengthBeats = 16;
+  fx.fake.model.tracks[0]!.slots[0]!.loopStartBeats = 24;
+  const drifted = await refreshedSource(fx);
+  let previewMessage = '';
+  assert.throws(() => compileNoteProposal({ ...request, source: drifted }), (error) => {
+    previewMessage = error instanceof Error ? error.message : String(error);
+    return error instanceof NoteCompilerError && /requires consolidation/.test(error.message);
+  });
+  await assert.rejects(applyNoteProposal(fx.workspace, {
+    ...request,
+    acceptedPreviewSha256: preview.previewDigest.value,
+  }), (error) => error instanceof NoteCompilerError && error.message === previewMessage);
+  assert.equal(fx.workspace.changes.list().length, beforeChanges);
 });

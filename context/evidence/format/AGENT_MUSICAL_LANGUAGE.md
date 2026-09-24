@@ -14,6 +14,12 @@ Ghostnote has an agent-oriented musical domain-specific language. It is still
 experimental. It is a context and proposal language, not the project-state
 format and not a direct Bitwig command language.
 
+The [consolidated compact-bar direction](CONSOLIDATED_COMPACT_BAR.md) now
+explores one normalized representation for theory, clip reads, and clip writes.
+It can replace the separations below. This page describes the current
+implementation and its evidence. Its schema names and fingerprints are not
+product constraints while the project remains work in progress.
+
 The language has four boundaries:
 
 1. Canonical exact state owns every host note field and identity.
@@ -165,10 +171,11 @@ The suite has four layers:
 4. Live conformance and timing probes test adapter settlement, exact readback,
    refusal, reversal, and project cleanup.
 
-Add every new language feature to the pure corpus before a model or live test.
-Give each semantic change a new schema, mode, patch, or corpus version. Keep old
-fingerprints frozen. A wording-only change that changes tokenization also needs
-a reviewed corpus fingerprint.
+Add every implemented language feature to the pure corpus before a model or
+live test. Existing fingerprints remain reproducibility records for the tests
+that produced them. They do not prevent a consolidated redesign. When an
+implementation changes the grammar, update its corpus and record the exact
+tested fingerprint.
 
 ## Dogfood gates
 
@@ -189,10 +196,14 @@ cannot mutate a project.
 
 The [6i contracts](WORKSTATION_CONTRACTS.md),
 [inventory](WORKSTATION_INTERFACES.md), and [seam map](WORKSTATION_SEAMS.md)
-retain this language for compact context and bounded proposals. They keep the
-strict v0 grammar and corpus frozen. A module-result wrapper supplies source
-hash domain, provider, annotation authority, and the exact-source alias map.
-Host UUIDs and complete note state do not pass directly into this grammar.
+record this implemented language for compact context and bounded proposals. A
+module-result wrapper supplies source hash domain, provider, annotation
+authority, and the exact-source alias map. Host UUIDs and complete note state do
+not pass directly into this grammar.
+
+The consolidated direction can revise that boundary. It aims to make one
+normalized compact document the agent-facing state while raw host observations
+remain internal evidence.
 
 Reference context reuses this view. Sensory v1 projects typed measurements and
 does not duplicate its note IDs or host state. The separate groove proposal

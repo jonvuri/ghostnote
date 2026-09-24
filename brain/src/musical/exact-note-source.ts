@@ -73,6 +73,17 @@ export interface ExactNoteSource extends ExactNoteSourcePayload {
   readonly eventMap: readonly ExactNoteEventMapEntry[];
 }
 
+export interface ExactNoteClipRangeDiagnostic {
+  readonly clipAddress: string;
+  readonly localRange: { readonly fromBeats: 0; readonly toBeats: number };
+  readonly loopRange: { readonly fromBeats: number; readonly toBeats: number };
+  readonly noteContentRange: {
+    readonly fromBeats: number;
+    readonly toBeats: number;
+  } | null;
+  readonly message: string;
+}
+
 export interface SnapshotExactSourceRequest {
   readonly snapshot: Snapshot;
   readonly clips: readonly ClipAddress[];
@@ -157,8 +168,8 @@ function sourceDigest(payload: ExactNoteSourcePayload): string {
 
 function validateNote(note: NoteRecord, location: string): void {
   canonicalValue(note, location);
-  if (!Number.isFinite(note.startBeats) || note.startBeats < 0) {
-    fail(`${location}.startBeats must be a finite non-negative beat value`);
+  if (!Number.isFinite(note.startBeats)) {
+    fail(`${location}.startBeats must be a finite beat value`);
   }
   if (!Number.isInteger(note.pitch) || note.pitch < 0 || note.pitch > 127) {
     fail(`${location}.pitch must be a MIDI note from 0 through 127`);
@@ -169,6 +180,43 @@ function validateNote(note: NoteRecord, location: string): void {
   if (!Number.isFinite(note.durationBeats) || note.durationBeats <= 0) {
     fail(`${location}.durationBeats must be a finite positive beat value`);
   }
+}
+
+const HOST_BEAT_COMPARISON_TOLERANCE = 1e-9;
+
+/** Report when stored note coordinates do not fit the local editing range. */
+export function exactNoteClipRangeDiagnostic(
+  clip: ExactNoteClip,
+): ExactNoteClipRangeDiagnostic | undefined {
+  const notes = clip.channels.flatMap((channel) => channel.notes);
+  const noteContentRange = notes.length === 0 ? null : {
+    fromBeats: Math.min(...notes.map((note) => note.startBeats)),
+    toBeats: Math.max(...notes.map((note) => note.startBeats + note.durationBeats)),
+  };
+  const lengthBeats = clip.metadata.lengthBeats;
+  const incompatible = Math.abs(clip.metadata.loopStartBeats) > HOST_BEAT_COMPARISON_TOLERANCE
+    || notes.some((note) => note.startBeats < 0
+      || note.startBeats >= lengthBeats
+      || note.startBeats + note.durationBeats > lengthBeats);
+  if (!incompatible) return undefined;
+
+  const clipAddress = addressKey(clip.address);
+  const localRange = { fromBeats: 0 as const, toBeats: lengthBeats };
+  const loopRange = {
+    fromBeats: clip.metadata.loopStartBeats,
+    toBeats: clip.metadata.loopEndBeats,
+  };
+  const noteRange = noteContentRange === null
+    ? 'empty'
+    : `[${noteContentRange.fromBeats}, ${noteContentRange.toBeats}] beats`;
+  const message = `Clip ${clipAddress} requires consolidation. `
+    + `Ghostnote local onset range: [0, ${lengthBeats}) beats; note ends must be at or before `
+    + `${lengthBeats} beats. `
+    + `Bitwig loop range: [${loopRange.fromBeats}, ${loopRange.toBeats}] beats. `
+    + `Complete note-content range: ${noteRange}. `
+    + 'Select this clip in Bitwig and use Consolidate. Then read the clip and preview '
+    + 'the change again.';
+  return { clipAddress, localRange, loopRange, noteContentRange, message };
 }
 
 function normalizedChannels(

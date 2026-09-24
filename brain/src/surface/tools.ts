@@ -4390,7 +4390,9 @@ const experimentalTransformation: ToolSpec = {
     + 'before and candidate state, typed operations, guards, invariants, defaults, loss, and a '
     + 'preview digest. Apply needs that exact digest, refreshes complete state, uses the recorded '
     + 'workspace write seam, and performs an independent complete readback. Stale state, pressure '
-    + 'loss, unreported overlap shortening, unsupported timing, and invariant failures refuse.',
+    + 'loss, unreported overlap shortening, unsupported timing, and invariant failures refuse.'
+    + ' Incompatible stored note coordinates refuse with this remediation: select the clip in '
+    + 'Bitwig and use Consolidate. Then read the clip and preview the change again.',
   inputValidator: experimentalTransformationInput,
   resultContract: {
     format: 'ghostnote-agent-note-proposal-result',

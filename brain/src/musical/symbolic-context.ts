@@ -11,7 +11,7 @@ import {
 } from './agent-context.js';
 import {
   EXACT_NOTE_SOURCE_DOMAIN, EXACT_NOTE_SOURCE_SCHEMA,
-  validateExactNoteSource, type ExactNoteSource,
+  exactNoteClipRangeDiagnostic, validateExactNoteSource, type ExactNoteSource,
 } from './exact-note-source.js';
 
 export const SYMBOLIC_CONTEXT_SCHEMA = 'symbolic-context-v0';
@@ -294,6 +294,10 @@ export function exactSourceToContext(
   if (request.expectedGeneration !== undefined
       && request.expectedGeneration !== request.source.observedAt.generation) {
     fail('the exact source generation is stale for this request');
+  }
+  for (const clip of request.source.clips) {
+    const diagnostic = exactNoteClipRangeDiagnostic(clip);
+    if (diagnostic !== undefined) fail(diagnostic.message);
   }
   const task = request.task;
   if (task.id.length === 0) fail('the task ID must not be empty');

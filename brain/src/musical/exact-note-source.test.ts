@@ -6,7 +6,7 @@ import {
   addressKey, clipMetadata, notes, type NoteRecord, type StateEntry,
 } from '../contract/index.js';
 import {
-  ExactNoteSourceError, serializeExactNoteSource, snapshotToExactSource,
+  ExactNoteSourceError, exactNoteClipRangeDiagnostic, serializeExactNoteSource, snapshotToExactSource,
   validateExactNoteSource,
 } from './exact-note-source.js';
 import {
@@ -120,4 +120,50 @@ test('7a-S03 refusal: missing, unreachable, and unstable required reads never be
       (error) => error instanceof ExactNoteSourceError && error.message.includes(field),
     );
   }
+});
+
+test('7b-follow-up: the exact clip-range diagnostic retains observed ranges', () => {
+  const snapshot = fixtureSnapshot();
+  const clipEntry = snapshot.entries[addressKey(clipA)]!;
+  const metadataEntry = snapshot.entries[addressKey(clipMetadata(clipA))]!;
+  assert.equal(clipEntry.value.of, 'clip');
+  assert.equal(metadataEntry.value.of, 'clipMetadata');
+  if (clipEntry.value.of !== 'clip' || metadataEntry.value.of !== 'clipMetadata') return;
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(clipA)] = entry(clipA, {
+    of: 'clip', exists: true, lengthBeats: 16,
+  });
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(clipMetadata(clipA))] = entry(
+    clipMetadata(clipA), {
+      of: 'clipMetadata',
+      metadata: {
+        ...metadataEntry.value.metadata,
+        lengthBeats: 16,
+        loopStartBeats: 24,
+        loopEndBeats: 40,
+      },
+    },
+  );
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(notes(clipA, 2))] = entry(
+    notes(clipA, 2), { of: 'notes', notes: [note({ startBeats: 24, durationBeats: 16 })] },
+  );
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(notes(clipA, 3))] = entry(
+    notes(clipA, 3), { of: 'notes', notes: [] },
+  );
+  const source = exactNoteSourceFixture(snapshot);
+  const target = source.clips.find((item) => addressKey(item.address) === addressKey(clipA))!;
+  const diagnostic = exactNoteClipRangeDiagnostic(target);
+  assert.deepEqual(diagnostic?.localRange, { fromBeats: 0, toBeats: 16 });
+  assert.deepEqual(diagnostic?.loopRange, { fromBeats: 24, toBeats: 40 });
+  assert.deepEqual(diagnostic?.noteContentRange, { fromBeats: 24, toBeats: 40 });
+  assert.match(diagnostic?.message ?? '', /Select this clip in Bitwig and use Consolidate/);
+});
+
+test('7b-follow-up: negative notes are exact source data and require consolidation', () => {
+  const snapshot = fixtureSnapshot();
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(notes(clipA, 2))] = entry(
+    notes(clipA, 2), { of: 'notes', notes: [note({ startBeats: -0.25 })] },
+  );
+  const source = exactNoteSourceFixture(snapshot);
+  const target = source.clips.find((item) => addressKey(item.address) === addressKey(clipA))!;
+  assert.equal(exactNoteClipRangeDiagnostic(target)?.noteContentRange?.fromBeats, -0.25);
 });

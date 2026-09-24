@@ -3,74 +3,51 @@ title: Current state
 kind: status
 state: active
 updated: 2026-09-24
-phase: phase-8
-session: phase7b-targeted-note-inverse-follow-up
+phase: phase-7-follow-up
+session: phase7b-constant-time-launcher-reads
 ---
 
 # Now
 
-The Phase 7b targeted-note follow-up is complete. [E128](evidence/experiments/e128-targeted-note-inverse-is-live.md)
-adds exact `note.insert` and `note.remove` ownership. A pure insertion no longer
-needs unrelated source notes to fit the writable replay grid. Reversal removes
-only the inserted cells. Mixed note edits keep the prior whole-clip path.
+Start the
+[constant-time launcher-clip read search](plan/phase-7/7b-follow-up-constant-time-launcher-reads.md)
+in a fresh session. Search the complete available Bitwig extension API and its
+indirect MIDI-content routes before optimizing the existing step scanner. The
+goal is a reliable constant-time or near-constant-time sensory read for one
+identified launcher clip. Do not use a physical MIDI export or a focus-dependent
+named action.
 
-The live proof used the real 14-note `Filterbowl` source. All source notes had
-off-grid timing. The insertion and targeted reversal were exact. The owned row
-1 duplicate was removed and read back empty. The exit mark was revision 20,
-scene epoch 2, content epoch 32861, and generation
-`2941dc9e-bde5-4bc5-8e47-7923663b1316`.
+The working interface direction is in
+[Consolidated compact-bar direction](evidence/format/CONSOLIDATED_COMPACT_BAR.md).
+Use one compact representation for theory, clip reads, and clip writes. Use a
+`1/512`-beat realized-time lattice. Treat triplet and higher-cardinality rhythm
+as overlays on that lattice. Support complete desired clips and sparse patches
+through one candidate and host-difference path. Use best-effort live clip
+identity plus fresh content guards.
 
-Phase 7 is complete. [E127](evidence/experiments/e127-phase7f-hybrid-audio-guided-dogfood.md)
-records the real hybrid audio-guided run and closes S16. The operator selected
-B. On `perc a`, `Dist TUBE-CULTURE / Output Tilt Slope` changed from
-`0.3749999701976776` to `0.5`. The paired result was +519.485 Hz rolloff,
-0.0 LU, and 0 s silence.
+The current public API inspection found no direct note-enumeration method on
+`Clip`. That is a starting fact, not the next session's conclusion. Inventory
+all relevant API types, callbacks, transfer paths, MIDI routes, runtime proxy
+methods, and observer or cache options. Probe only credible candidates. Record
+the result in E130.
 
-The saved project reopened with the selected 0.5 value before the final run.
-The final live parameter is also 0.5. The clip play start remains exactly
-`0.28698158264160156`. Transport is stopped. MasterRecorder is inactive with
-no lease. The owned A/B WAVE files were removed. Bitwig shows the live project
-as modified; the run did not issue a whole-project save outside the bounded
-write permission.
+The staged Phase 7b played-range implementation remains intact. Its offline gate
+passes 1,169 brain tests, `context/check.rb`, `git diff --check`, and the live
+extension handshake. [E129](evidence/experiments/e129-played-range-consolidation-guidance.md)
+records the result. Its independent live agent trial is paused until the new
+clip acquisition interface is available. Do not discard or redo those changes.
 
-## Next session
+No temporary clip was created for E129. The live inventory was read-only and
+left no test residue. Two existing affected clips remain at row 0 on the two
+`Deep House Kit` tracks in `26.36-4 orangebeat`.
 
-Start [8a](plan/phase-8/8a-bwmod-publication-review.md). Review publication and
-extraction only. Do not publish without explicit approval.
-
-Phase 5 still has generalized closeout work after its accepted public result.
-Phase 3 remains deferred. Phase 8 is an independently schedulable backlog.
-
-## 7f handoff
-
-- `phase-7f-audio-guided-sound-design-v0` freezes stable-v1, description v23,
-  audio capture v0, audio facts v0, sensory v1, and the S16 record v0.
-- Audio capture accepts an exact non-zero play start. MIDI clips use
-  `playingStep`; audio clips use owned slot state plus transport-beat advance.
-- `audio-facts-v0` and the sensory brightness route graduate. Keep
-  `audio-capture-v0` for more dogfood. Revise the hybrid run record.
-- Dist TUBE-CULTURE did not settle its target-bound write callback. Exact
-  change IDs plus later complete inventories proved both writes.
-- A paired analysis needs a named common-musical-range projection when recorder
-  lead and tail differ.
-- The machine records are
-  [run](evidence/experiments/e127-phase7f-hybrid-run.json) and
-  [audio](evidence/experiments/e127-phase7f-audio-evidence.json).
-
-## Boundaries
-
-S03, S04, S06, S07, S09, S11, S12, audio S13, S14, S16, and the implemented
-parts of S17 are complete. S05 remains conditional on a theory task. S08 stays
-outside the compiler. S10 is conditional on a paired MIDI task. S15 remains
-conditional on a cross-module preset artifact. R1 is still blocked: do not
-remove the fresh note preflight or final readback.
+After the read investigation, select the smallest acquisition implementation
+for the consolidated clip interface. Resume the E129 live trial only after a
+fresh agent can acquire the required clip state through that interface. Phase
+8a remains the later return route.
 
 ## Retrospective
 
-Targeted ownership was the missing layer. The host already had a single-cell
-note removal method. Keep the channel-wide reversal fingerprint until a smaller
-exact address has equal concurrent-edit evidence.
-
-The played-range issue remains separate. When local symbolic coverage excludes
-the played material, the refusal should suggest consolidating the clip. Do not
-silently trim or reinterpret played-in notes.
+The narrow exact-source reachability issue exposed a broader interface design
+opportunity. Keep the next search reproducible so a later Bitwig API upgrade can
+be compared without repeating a manual method survey.

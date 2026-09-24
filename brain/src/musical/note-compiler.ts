@@ -18,7 +18,7 @@ import {
 } from '../workstation/module-registry.js';
 import {
   EXACT_NOTE_SOURCE_DOMAIN, EXACT_NOTE_SOURCE_MAX_NOTES, EXACT_NOTE_SOURCE_SCHEMA,
-  snapshotToExactSource, validateExactNoteSource,
+  exactNoteClipRangeDiagnostic, snapshotToExactSource, validateExactNoteSource,
   type ExactNoteClip, type ExactNoteSource,
 } from './exact-note-source.js';
 
@@ -439,6 +439,35 @@ function findAliasClip(
   return matches[0]!;
 }
 
+function assertTargetClipRanges(
+  source: ExactNoteSource,
+  clips: readonly CandidateClip[],
+  proposal: NoteProposal,
+): void {
+  const noteById = new Map(clips.flatMap((clip) => clip.channels.flatMap((channel) =>
+    channel.notes.map((note) => [note.id, clip] as const))));
+  const targets = new Set<string>();
+  for (const operation of proposal.ops) {
+    if (operation.op === 'insert') {
+      for (const note of operation.notes) {
+        const clip = findAliasClip(clips, note.track);
+        targets.add(addressKey(clip.address));
+      }
+      continue;
+    }
+    const ids = operation.op === 'move' ? [operation.note_id] : operation.note_ids;
+    for (const id of ids) {
+      const clip = noteById.get(id);
+      if (clip !== undefined) targets.add(addressKey(clip.address));
+    }
+  }
+  for (const clip of source.clips) {
+    if (!targets.has(addressKey(clip.address))) continue;
+    const diagnostic = exactNoteClipRangeDiagnostic(clip);
+    if (diagnostic !== undefined) fail(diagnostic.message);
+  }
+}
+
 function uniqueAliasChannel(clip: CandidateClip, alias: string): number {
   const channels = new Set(clip.channels.flatMap((channel) =>
     channel.notes.some((note) => note.trackAlias === alias) ? [channel.channel] : []));
@@ -635,13 +664,14 @@ export function compileNoteProposal(
   const proposal = noteProposalSchema.parse(request.proposal);
   const invariants = noteProposalInvariantsSchema.parse(request.invariants);
   assertInvariantsShape(invariants);
+  const baseClips = candidateClips(request.source);
+  assertTargetClipRanges(request.source, baseClips, proposal);
   if (proposal.base_sha256 !== request.source.digest.value) {
     fail('the proposal base_sha256 does not match the exact source');
   }
   options.onTiming?.({ phase: 'proposal-validation', elapsedMs: now() - started });
   started = now();
 
-  const baseClips = candidateClips(request.source);
   let notes = mutableNotes(baseClips);
   const sourceIds = new Set(notes.map((item) => item.id));
   const insertedIds = new Set<string>();
@@ -919,6 +949,7 @@ export async function applyNoteProposal(
   options.onTiming?.({
     phase: 'fresh-preflight-acquisition-and-hash', elapsedMs: now() - started,
   });
+  assertTargetClipRanges(fresh, candidateClips(fresh), request.proposal);
   if (fresh.digest.value !== request.source.digest.value) {
     fail('the complete live source changed after preview; refresh and preview again');
   }

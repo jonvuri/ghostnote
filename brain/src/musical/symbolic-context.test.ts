@@ -4,9 +4,12 @@ import test from 'node:test';
 import {
   WORKSTATION_REQUEST_SCHEMA, WorkstationModuleRegistry,
 } from '../workstation/index.js';
-import { addressKey, notes, type NoteRecord, type StateEntry } from '../contract/index.js';
+import {
+  addressKey, clipMetadata, notes, type NoteRecord, type StateEntry,
+} from '../contract/index.js';
 import {
   exactNoteSourceFixture, exactSourceFixtureClipA as clipA,
+  exactSourceFixtureEntry as entry, exactSourceFixtureNote as note,
   exactSourceFixtureSnapshot as fixtureSnapshot,
 } from './exact-note-source.fixture.js';
 import {
@@ -187,4 +190,71 @@ test('7a-S17: supplied state renders with no Bitwig session or optional Python p
     () => exactSourceToContext({ ...payload, expectedGeneration: 'stale' }),
     (error) => error instanceof SymbolicContextError && /stale/.test(error.message),
   );
+});
+
+test('7b-follow-up: symbolic context refuses offset played material before filtering', () => {
+  const snapshot = fixtureSnapshot();
+  const metadataEntry = snapshot.entries[addressKey(clipMetadata(clipA))]!;
+  assert.equal(metadataEntry.value.of, 'clipMetadata');
+  if (metadataEntry.value.of !== 'clipMetadata') return;
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(clipA)] = entry(clipA, {
+    of: 'clip', exists: true, lengthBeats: 16,
+  });
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(clipMetadata(clipA))] = entry(
+    clipMetadata(clipA), {
+      of: 'clipMetadata',
+      metadata: {
+        ...metadataEntry.value.metadata,
+        lengthBeats: 16,
+        loopStartBeats: 24,
+        loopEndBeats: 40,
+      },
+    },
+  );
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(notes(clipA, 2))] = entry(
+    notes(clipA, 2), { of: 'notes', notes: [note({ startBeats: 24, durationBeats: 16 })] },
+  );
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(notes(clipA, 3))] = entry(
+    notes(clipA, 3), { of: 'notes', notes: [] },
+  );
+  const source = exactNoteSourceFixture(snapshot);
+  assert.throws(() => exactSourceToContext({ ...request(), source }), (error) => {
+    assert.ok(error instanceof SymbolicContextError);
+    assert.match(error.message, new RegExp(addressKey(clipA).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+    assert.match(error.message, /local onset range: \[0, 16\).*loop range: \[24, 40\]/);
+    assert.match(error.message, /note-content range: \[24, 40\]/);
+    assert.match(error.message, /use Consolidate.*read the clip and preview the change again/);
+    return true;
+  });
+});
+
+test('7b-follow-up: compatible local geometry supports play offsets and partial coverage', () => {
+  const snapshot = fixtureSnapshot();
+  const metadataEntry = snapshot.entries[addressKey(clipMetadata(clipA))]!;
+  assert.equal(metadataEntry.value.of, 'clipMetadata');
+  if (metadataEntry.value.of !== 'clipMetadata') return;
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(clipMetadata(clipA))] = entry(
+    clipMetadata(clipA), {
+      of: 'clipMetadata',
+      metadata: { ...metadataEntry.value.metadata, playStartBeats: 2, loopEnabled: false },
+    },
+  );
+  const source = exactNoteSourceFixture(snapshot);
+  const base = request();
+  const result = exactSourceToContext({
+    ...base,
+    source,
+    task: { ...base.task, coverage: { fromBeats: 0, toBeats: 0.5 } },
+  });
+  assert.equal(result.contextCoverage.toBeats, '1/2');
+  assert.equal(result.context.events.length, 3);
+});
+
+test('7b-follow-up: a zero-based loop refuses a note outside the local range', () => {
+  const snapshot = fixtureSnapshot();
+  (snapshot.entries as Record<string, StateEntry>)[addressKey(notes(clipA, 2))] = entry(
+    notes(clipA, 2), { of: 'notes', notes: [note({ startBeats: 4 })] },
+  );
+  const source = exactNoteSourceFixture(snapshot);
+  assert.throws(() => exactSourceToContext({ ...request(), source }), /requires consolidation/);
 });
