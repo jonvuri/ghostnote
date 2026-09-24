@@ -602,12 +602,12 @@ function candidateToOps(
       insertedByChannel.set(change.channel, notes);
     }
     for (const [channel, notes] of [...insertedByChannel].sort(([left], [right]) => left - right)) {
-      ops.push({ op: 'note.write', clip: clip.address, channel, notes });
+      ops.push({ op: 'note.insert', clip: clip.address, channel, notes });
     }
   }
   assertOpsWritable(ops);
   for (const op of ops) {
-    if (op.op === 'note.write') chooseStepSize(op.notes);
+    if (op.op === 'note.write' || op.op === 'note.insert') chooseStepSize(op.notes);
   }
   return ops;
 }

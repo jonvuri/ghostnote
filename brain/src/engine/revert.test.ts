@@ -95,6 +95,33 @@ test('R-empty: "there were no notes here" is a state, and only a clear can expre
   assert.deepEqual(plan.ops.map((o) => o.op), ['note.clear']);
 });
 
+test('R-owned-notes: an insertion reverses by removing only its exact readback cells', () => {
+  const inserted = note({ startBeats: 2, pitch: 67, durationBeats: 0.5 });
+  const readback = { ...inserted, durationBeats: 0.4999990463256836 };
+  const ops: Op[] = [{ op: 'note.insert', clip: CLIP_A, notes: [inserted] }];
+  const verify = stashOf([notesEntry(notesAt(CLIP_A), [note({ pitch: 48 }), readback])]);
+  const plan = revertOps({
+    ...writeSetOf(ops),
+    stash: stashOf([notesEntry(notesAt(CLIP_A), [note({ pitch: 48 })])]),
+    batches: [{ ops, minted: {}, verify }],
+  });
+
+  assert.deepEqual(plan.ops, [{ op: 'note.remove', clip: CLIP_A, notes: [readback] }]);
+  assert.deepEqual(plan.unrestored, []);
+});
+
+test('R-owned-notes: removing a proved note reverses by inserting that note', () => {
+  const removed = note({ startBeats: 2, pitch: 67 });
+  const ops: Op[] = [{ op: 'note.remove', clip: CLIP_A, notes: [removed] }];
+  const plan = revertOps({
+    ...writeSetOf(ops),
+    stash: stashOf([notesEntry(notesAt(CLIP_A), [note({ pitch: 48 }), removed])]),
+    batches: [{ ops, minted: {} }],
+  });
+
+  assert.deepEqual(plan.ops, [{ op: 'note.insert', clip: CLIP_A, notes: [removed] }]);
+});
+
 test('R-gain: gain is replayed exactly after the measured inverse (E24)', () => {
   const address = notesAt(CLIP_A);
   const plan = revertOps({

@@ -88,8 +88,12 @@ export interface RevertInput {
 export interface InsertBatch {
   readonly ops: readonly Op[];
   readonly minted: Readonly<Record<number, Address>>;
+  /** Original op indices included by a sliced reversal. Omitted for a whole batch. */
+  readonly includeOpIndices?: readonly number[];
   /** Executed stages, when the adapter returned a partial or complete receipt. */
   readonly stages?: readonly StageReceipt[];
+  /** Exact post-write state used to guard targeted note removal. */
+  readonly verify?: Snapshot;
 }
 
 /**
@@ -117,7 +121,7 @@ export const NO_MINT_NO_INVERSE =
 export function revertOps(input: Take | RevertInput): RevertPlan {
   const { targets, unrevertable, stash } = input;
   const batches: readonly InsertBatch[] = 'receipt' in input
-    ? [{ ops: input.ops, minted: input.receipt.minted, stages: input.receipt.stages }]
+    ? [{ ops: input.ops, minted: input.receipt.minted, stages: input.receipt.stages, verify: input.verify }]
     : input.batches ?? [];
   const unrestored: Unrestored[] = [];
 
@@ -138,6 +142,8 @@ export function revertOps(input: Take | RevertInput): RevertPlan {
   const incompleteNoteClips = incompleteNoteRestores(targets, stash, unrestored);
   const clearedNoteClips = new Set<string>();
 
+  noteOps.push(...ownedNoteInverses(batches, targets));
+
   for (const target of targets) {
     if (target.restore === 'none') {
       unrestored.push({
@@ -147,6 +153,8 @@ export function revertOps(input: Take | RevertInput): RevertPlan {
       });
       continue;
     }
+
+    if (target.restore === 'inverse') continue;
 
     if (stash.unreachable.some((a) => addressKey(a) === target.key)) {
       unrestored.push({
@@ -180,6 +188,46 @@ export function revertOps(input: Take | RevertInput): RevertPlan {
   removalOps.push(...deviceRemovals(batches, unrevertable, unrestored));
 
   return { ops: orderOps({ createOps, noteOps, scalarOps, removalOps }), unrestored };
+}
+
+/** Reverse successful targeted note ops without rebuilding their channels. */
+function ownedNoteInverses(
+  batches: readonly InsertBatch[],
+  targets: readonly WriteTarget[],
+): Op[] {
+  const out: Op[] = [];
+  for (const batch of [...batches].reverse()) {
+    const included = batch.includeOpIndices === undefined
+      ? undefined
+      : new Set(batch.includeOpIndices);
+    for (let opIndex = batch.ops.length - 1; opIndex >= 0; opIndex -= 1) {
+      if (included !== undefined && !included.has(opIndex)) continue;
+      const op = batch.ops[opIndex]!;
+      if (op.op !== 'note.insert' && op.op !== 'note.remove') continue;
+      const address = {
+        kind: 'notes' as const,
+        clip: op.clip,
+        channel: op.channel ?? 0,
+      };
+      if (!targets.some((target) => target.restore === 'inverse'
+          && target.key === addressKey(address)
+          && target.opIndices.includes(opIndex))) continue;
+      const channel = op.channel === undefined ? {} : { channel: op.channel };
+      if (op.op === 'note.remove') {
+        out.push({ op: 'note.insert', clip: op.clip, ...channel, notes: op.notes });
+        continue;
+      }
+
+      const readback = batch.verify?.entries[addressKey(address)]?.value;
+      const cells = new Set(op.notes.map((note) => `${note.startBeats}:${note.pitch}`));
+      const notes = readback?.of === 'notes'
+        ? readback.notes.filter((note) => cells.has(`${note.startBeats}:${note.pitch}`))
+        : op.notes;
+      if (notes.length === 0) continue;
+      out.push({ op: 'note.remove', clip: op.clip, ...channel, notes });
+    }
+  }
+  return out;
 }
 
 /**
@@ -308,6 +356,9 @@ function deviceRemovals(
   );
   const devices: { readonly address: DeviceAddress; readonly op: Extract<Op, { op: 'device.delete' }> }[] = [];
   for (const batch of batches) {
+    const included = batch.includeOpIndices === undefined
+      ? undefined
+      : new Set(batch.includeOpIndices);
     const successful = batch.stages === undefined
       ? undefined
       : new Set(batch.stages.flatMap((receipt) => {
@@ -315,6 +366,7 @@ function deviceRemovals(
         return planStages(batch.ops)[receipt.index]?.opIndices ?? [];
       }));
     batch.ops.forEach((op, opIndex) => {
+      if (included !== undefined && !included.has(opIndex)) return;
       if (op.op !== 'device.insert') return;
       const address = batch.minted[opIndex];
       if (address?.kind === 'device') {

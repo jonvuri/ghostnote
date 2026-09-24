@@ -39,6 +39,27 @@ test('W-notes: every note change protects all 16 clip channels', () => {
   }
 });
 
+test('W-owned-notes: targeted note changes own one channel through a paired inverse', () => {
+  for (const op of [
+    { op: 'note.insert', clip: CLIP, channel: 2, notes: [note] },
+    { op: 'note.remove', clip: CLIP, channel: 2, notes: [note] },
+  ] satisfies Op[]) {
+    const { targets } = writeSetOf([op]);
+    assert.equal(targets.length, 1);
+    assert.equal(targets[0]!.restore, 'inverse');
+    assert.equal(targets[0]!.key, addressKey(notesAt(CLIP, 2)));
+  }
+});
+
+test('W-owned-notes: a mixed whole-channel edit remains conservative', () => {
+  const { targets } = writeSetOf([
+    { op: 'note.insert', clip: CLIP, channel: 2, notes: [note] },
+    { op: 'note.write', clip: CLIP, channel: 2, notes: [note] },
+  ]);
+  assert.equal(targets.length, 16);
+  assert.ok(targets.every((target) => target.restore === 'replay'));
+});
+
 test('W-merge: several ops on one clip merge indices on each protected channel', () => {
   const { targets } = writeSetOf([
     { op: 'note.clear', clip: CLIP },

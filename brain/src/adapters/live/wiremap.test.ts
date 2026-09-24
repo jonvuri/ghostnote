@@ -150,6 +150,7 @@ test('Phase 4 session 4b: exact reads and note-event evidence stay explicit', ()
   assert.deepEqual(
     golden.addedInPhase4Session4b.filter((method) => WIRE_METHODS_USED.includes(method)),
     [
+      'cursor.clearNote',
       'cursor.getNotesVerboseAllChannels',
       'note.observer.arm',
       'note.observer.prepare',

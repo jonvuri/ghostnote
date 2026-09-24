@@ -257,7 +257,10 @@ export class InvalidOpError extends ContractError {
 
 /** Note timing is finer than every exact writable grid. */
 export class NoteTimingUnrepresentableError extends InvalidOpError {
-  constructor(readonly finestGridBeats: number, op: 'note.write' | 'note.props' = 'note.write') {
+  constructor(
+    readonly finestGridBeats: number,
+    op: 'note.write' | 'note.insert' | 'note.remove' | 'note.props' = 'note.write',
+  ) {
     super(
       op,
       `note timing is finer than the ${finestGridBeats}-beat writable grid`,

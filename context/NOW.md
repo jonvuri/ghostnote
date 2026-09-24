@@ -2,12 +2,23 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-09-23
+updated: 2026-09-24
 phase: phase-8
-session: 8a-bwmod-publication-review
+session: phase7b-targeted-note-inverse-follow-up
 ---
 
 # Now
+
+The Phase 7b targeted-note follow-up is complete. [E128](evidence/experiments/e128-targeted-note-inverse-is-live.md)
+adds exact `note.insert` and `note.remove` ownership. A pure insertion no longer
+needs unrelated source notes to fit the writable replay grid. Reversal removes
+only the inserted cells. Mixed note edits keep the prior whole-clip path.
+
+The live proof used the real 14-note `Filterbowl` source. All source notes had
+off-grid timing. The insertion and targeted reversal were exact. The owned row
+1 duplicate was removed and read back empty. The exit mark was revision 20,
+scene epoch 2, content epoch 32861, and generation
+`2941dc9e-bde5-4bc5-8e47-7923663b1316`.
 
 Phase 7 is complete. [E127](evidence/experiments/e127-phase7f-hybrid-audio-guided-dogfood.md)
 records the real hybrid audio-guided run and closes S16. The operator selected
@@ -56,7 +67,10 @@ remove the fresh note preflight or final readback.
 
 ## Retrospective
 
-The module composition found two real gaps: audio clips need a different range
-observation, and full recorder files do not guarantee paired sample coverage.
-Add the common-range projection to the composition boundary. Make final S16
-closeout update costs and UI state directly instead of patching the record.
+Targeted ownership was the missing layer. The host already had a single-cell
+note removal method. Keep the channel-wide reversal fingerprint until a smaller
+exact address has equal concurrent-edit evidence.
+
+The played-range issue remains separate. When local symbolic coverage excludes
+the played material, the refusal should suggest consolidating the clip. Do not
+silently trim or reinterpret played-in notes.

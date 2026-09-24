@@ -652,7 +652,8 @@ export class Stash implements StashLog, StashWriter {
     const labels: TakeValue[] = [];
     const blockedNoteClips = new Map<string, BoundaryCheck>();
     for (const target of effective) {
-      if (!selects(slice, target.key) || target.address.kind !== 'notes') continue;
+      if (!selects(slice, target.key) || target.address.kind !== 'notes'
+          || target.restore !== 'replay') continue;
       const check = verdict.get(target.key)!;
       if (!inBounds(check) && !blockedNoteClips.has(addressKey(target.address.clip))) {
         blockedNoteClips.set(addressKey(target.address.clip), check);
@@ -718,8 +719,17 @@ export class Stash implements StashLog, StashWriter {
       ...take.unrevertable,
       ...(whole ? [] : slicedInserts(take)),
     ];
-    const batches: InsertBatch[] = whole
-      ? [{ ops: take.ops, minted: take.receipt.minted, stages: take.receipt.stages }]
+    const inverseOpIndices = [...new Set(targets
+      .filter((target) => target.restore === 'inverse')
+      .flatMap((target) => target.opIndices))];
+    const batches: InsertBatch[] = whole || inverseOpIndices.length > 0
+      ? [{
+        ops: take.ops,
+        minted: take.receipt.minted,
+        stages: take.receipt.stages,
+        verify: take.verify,
+        ...(whole ? {} : { includeOpIndices: inverseOpIndices }),
+      }]
       : [];
 
     const input: RevertInput = {
@@ -867,7 +877,8 @@ function effectiveTargets(take: Take): readonly WriteTarget[] {
   // A note restore clears the complete clip. If one channel changed, retain all
   // 16 captured channels so the reversal cannot erase untouched MIDI channels.
   const noteClips = new Set(take.targets
-    .filter((target) => direct.has(target.key) && target.address.kind === 'notes')
+    .filter((target) => direct.has(target.key) && target.address.kind === 'notes'
+      && target.restore === 'replay')
     .map((target) => target.address.kind === 'notes' ? addressKey(target.address.clip) : ''));
   return take.targets.filter((target) => direct.has(target.key)
     || (target.address.kind === 'notes' && noteClips.has(addressKey(target.address.clip))));

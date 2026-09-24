@@ -101,7 +101,7 @@ function hasWritableProps(n: NoteRecord): boolean {
  * raw wire.
  */
 function splitNoteWrite(op: Op): Op[] {
-  if (op.op !== 'note.write' || !op.notes.some(hasWritableProps)) return [op];
+  if ((op.op !== 'note.write' && op.op !== 'note.insert') || !op.notes.some(hasWritableProps)) return [op];
 
   const channel = op.channel === undefined ? {} : { channel: op.channel };
   return [

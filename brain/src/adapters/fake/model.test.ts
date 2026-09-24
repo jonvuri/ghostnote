@@ -379,6 +379,35 @@ test('T-props: a note with no properties still costs exactly one turn', () => {
   assert.equal(stages[0]!.settle, undefined);
 });
 
+test('note.insert and note.remove preserve unrelated cells and channels', async () => {
+  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
+  const [targetTrack] = adapter.model.tracks;
+  const target = clip(slot(track(targetTrack!.channelId), scene(0, 1)));
+  const kept = note({ startBeats: 0, pitch: 60 });
+  const inserted = note({ startBeats: 1, pitch: 64 });
+  const removalIdentity = { ...inserted, durationBeats: 0.123456789 };
+  const otherChannel = note({ startBeats: 1, pitch: 64, velocity: 80 });
+
+  await adapter.apply({ ops: [{ op: 'clip.create', slot: target.slot, lengthBeats: 4 }] });
+  await adapter.apply({ ops: [
+    { op: 'note.write', clip: target, channel: 0, notes: [kept] },
+    { op: 'note.insert', clip: target, channel: 0, notes: [inserted] },
+    { op: 'note.write', clip: target, channel: 1, notes: [otherChannel] },
+  ] });
+  await adapter.apply({
+    ops: [{ op: 'note.remove', clip: target, channel: 0, notes: [removalIdentity] }],
+  });
+  await adapter.settle('tick');
+
+  const snap = await adapter.read([notesAddress(target, 0), notesAddress(target, 1)]);
+  const channel0 = snap.entries[addressKey(notesAddress(target, 0))]?.value;
+  const channel1 = snap.entries[addressKey(notesAddress(target, 1))]?.value;
+  assert.equal(channel0?.of, 'notes');
+  assert.deepEqual(channel0?.of === 'notes' ? channel0.notes : [], [kept]);
+  assert.equal(channel1?.of, 'notes');
+  assert.deepEqual(channel1?.of === 'notes' ? channel1.notes : [], [otherChannel]);
+});
+
 // --- E2: the empty-slot mispointing trap -------------------------------------
 
 test('T-emptyslot: pointing at an EMPTY slot lands on a different clip (E2)', () => {

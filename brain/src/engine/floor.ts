@@ -215,6 +215,8 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     // Every one of these leaves its prior state readable long enough to capture
     // it. That is the claim `floorRefusal`'s labels then grade.
     case 'note.write':
+    case 'note.insert':
+    case 'note.remove':
     case 'note.clear':
     case 'note.props':
     case 'clip.create':

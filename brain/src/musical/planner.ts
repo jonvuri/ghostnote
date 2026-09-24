@@ -223,7 +223,9 @@ function assertRowsExist(groups: readonly ClipGroup[], patch: MusicalPatch, scen
 function validateCompiledOps(ops: readonly Op[]): void {
   assertOpsWritable(ops);
   for (const op of ops) {
-    if (op.op === 'note.write' || op.op === 'note.props') chooseStepSize(op.notes);
+    if (op.op === 'note.write' || op.op === 'note.insert' || op.op === 'note.props') {
+      chooseStepSize(op.notes);
+    }
   }
 }
 

@@ -1181,6 +1181,30 @@ test('2i follow-up: a note beyond the first writer page uses a local step and re
   );
 });
 
+test('note.remove verifies its page and emits one page-local clearStep', async () => {
+  const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 1024, pitch: 60 }]]));
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  await adapter.hello();
+
+  await adapter.apply({ ops: [{
+    op: 'note.remove', clip: CLIP(0), channel: 4,
+    notes: [{ startBeats: 513, pitch: 72, velocity: 90, durationBeats: 0.123456789 }],
+  }] });
+
+  const batch = wire.frames.find((frame) => frame.method === WIRE.batchRun);
+  assert.ok(batch !== undefined);
+  const ops = batch.params?.['ops'] as { method: string; params: Record<string, unknown> }[];
+  assert.deepEqual(ops.map((frame) => frame.method), [
+    WIRE.cursorSetStepSize,
+    WIRE.cursorScrollToStep,
+    WIRE.cursorClearNote,
+    WIRE.cursorScrollToStep,
+  ]);
+  assert.equal(ops[1]?.params['step'], 512);
+  assert.deepEqual(ops[2]?.params, { cursor: '0', channel: 4, x: 1, y: 72 });
+  assert.equal(ops[3]?.params['step'], 0);
+});
+
 test('2i follow-up: property reads use separate settled page turns', async () => {
   const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 32, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });

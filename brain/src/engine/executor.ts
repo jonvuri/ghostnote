@@ -233,6 +233,7 @@ export class Executor {
     const stash = supplied ?? await this.timed('stash', () => this.adapter.read(addresses));
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
+    this.assertOwnedNotePreconditions(ops, stash);
     this.assertClipColorsReversible(ops, stash);
     assertParameterDomains(ops, stash);
 
@@ -600,7 +601,8 @@ export class Executor {
         created.add(addressKey(op.destination));
         continue;
       }
-      if (op.op !== 'note.write' && op.op !== 'note.props' && op.op !== 'note.clear') continue;
+      if (op.op !== 'note.write' && op.op !== 'note.insert' && op.op !== 'note.remove'
+          && op.op !== 'note.props' && op.op !== 'note.clear') continue;
       if (created.has(addressKey(op.clip.slot))) continue;
       const address = notesAt(op.clip, op.op === 'note.clear' ? 0 : op.channel ?? 0);
       if (stash.entries[addressKey(address)] !== undefined) continue;
@@ -611,6 +613,71 @@ export class Executor {
           'either write into a clip nobody addressed or write nowhere at all. Emit `clip.create` ' +
           'or `clip.duplicate` for the slot in the same batch, or create it first.',
       );
+    }
+  }
+
+  /** Prove targeted note ownership before the revision-guarded write. */
+  private assertOwnedNotePreconditions(ops: readonly Op[], stash: Snapshot): void {
+    const channels = new Map<string, NoteRecord[]>();
+    const notesFor = (op: Extract<Op, { op: 'note.insert' | 'note.remove' }>): NoteRecord[] => {
+      const address = notesAt(op.clip, op.channel ?? 0);
+      const key = addressKey(address);
+      const existing = channels.get(key);
+      if (existing !== undefined) return existing;
+      const value = stash.entries[key]?.value;
+      const notes = value?.of === 'notes' ? [...value.notes] : [];
+      channels.set(key, notes);
+      return notes;
+    };
+    const cell = (note: NoteRecord) => `${note.startBeats}:${note.pitch}`;
+    const same = (left: unknown, right: unknown): boolean => {
+      if (left === right) return true;
+      if (Array.isArray(left) && Array.isArray(right)) {
+        return left.length === right.length && left.every((item, index) => same(item, right[index]));
+      }
+      if (left === null || right === null || typeof left !== 'object' || typeof right !== 'object') {
+        return false;
+      }
+      const leftBag = left as Record<string, unknown>;
+      const rightBag = right as Record<string, unknown>;
+      const keys = new Set([...Object.keys(leftBag), ...Object.keys(rightBag)]);
+      return Object.keys(leftBag).length === Object.keys(rightBag).length
+        && [...keys].every((key) => same(leftBag[key], rightBag[key]));
+    };
+
+    for (const op of ops) {
+      if (op.op !== 'note.insert' && op.op !== 'note.remove') continue;
+      const current = notesFor(op);
+      for (const requested of op.notes) {
+        const index = current.findIndex((candidate) => cell(candidate) === cell(requested));
+        if (op.op === 'note.insert') {
+          if (index >= 0) {
+            throw new InvalidOpError(
+              op.op,
+              `note cell ${cell(requested)} is occupied. Nothing was written.`,
+            );
+          }
+          const overlaps = current.some((candidate) => candidate.pitch === requested.pitch
+            && candidate.startBeats < requested.startBeats + requested.durationBeats
+            && requested.startBeats < candidate.startBeats + candidate.durationBeats);
+          if (overlaps) {
+            throw new InvalidOpError(
+              op.op,
+              `note cell ${cell(requested)} overlaps a same-pitch note. The host would change `
+                + 'another note duration, so nothing was written.',
+            );
+          }
+          current.push(requested);
+          continue;
+        }
+        if (index < 0 || !same(current[index]!, requested)) {
+          throw new InvalidOpError(
+            op.op,
+            `note cell ${cell(requested)} does not match the complete expected note. Nothing was written.`,
+          );
+        }
+        current.splice(index, 1);
+      }
     }
   }
 
@@ -967,7 +1034,7 @@ export function disagreementsOf(
   }
 
   for (const op of ops) {
-    if (op.op !== 'note.write') continue;
+    if (op.op !== 'note.write' && op.op !== 'note.insert' && op.op !== 'note.remove') continue;
     const address = notesAt(op.clip, op.channel ?? 0);
     if (unread.has(addressKey(address))) continue;
     const entry = verify.entries[addressKey(address)];
@@ -976,6 +1043,18 @@ export function disagreementsOf(
       const found = got.find(
         (n) => n.pitch === wanted.pitch && Math.abs(n.startBeats - wanted.startBeats) < 1e-9,
       );
+      if (op.op === 'note.remove') {
+        if (found !== undefined) {
+          out.push({
+            address,
+            at: noteLabel(wanted),
+            field: 'exists',
+            requested: false,
+            readback: true,
+          });
+        }
+        continue;
+      }
       if (found === undefined) {
         out.push({
           address,
@@ -1011,7 +1090,8 @@ export function mutationStateDisagreementsOf(
 ): Disagreement[] {
   const touched = new Map<string, { clip: Extract<Op, { op: 'note.write' }>['clip']; channels: Map<number, NoteRecord[]> }>();
   for (const op of ops) {
-    if (op.op !== 'note.write' && op.op !== 'note.clear') continue;
+    if (op.op !== 'note.write' && op.op !== 'note.insert'
+        && op.op !== 'note.remove' && op.op !== 'note.clear') continue;
     const key = addressKey(op.clip);
     let target = touched.get(key);
     if (target === undefined) {
@@ -1031,6 +1111,10 @@ export function mutationStateDisagreementsOf(
     const notes = [...(target.channels.get(channel) ?? [])];
     for (const note of op.notes) {
       const at = notes.findIndex((candidate) => sameNoteCell(candidate, note));
+      if (op.op === 'note.remove') {
+        if (at >= 0) notes.splice(at, 1);
+        continue;
+      }
       if (at === -1) notes.push(note);
       else notes[at] = note;
     }

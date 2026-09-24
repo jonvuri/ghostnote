@@ -89,6 +89,17 @@ export function labelTarget(target: WriteTarget, stash: Snapshot, risk: Structur
     return { ...base, fidelity: 'none', value: stash.entries[target.key]?.value, caveats: [target.reason ?? 'no inverse exists'] };
   }
 
+  // Targeted insert/remove operations reverse through their paired op. They do
+  // not replay the other notes that happen to share this channel.
+  if (target.restore === 'inverse') {
+    return {
+      ...base,
+      fidelity: 'exact',
+      value: stash.entries[target.key]?.value,
+      caveats: [],
+    };
+  }
+
   if (stash.unreachable.some((a) => addressKey(a) === target.key)) {
     return {
       ...base,

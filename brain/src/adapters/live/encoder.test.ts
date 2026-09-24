@@ -700,6 +700,55 @@ test('E-grid: a position finer than the grid floor is refused, not snapped (E2)'
   assert.throws(() => chooseStepSize([note({ startBeats: 0.01 })]), InvalidOpError);
 });
 
+test('note.insert uses the exact note.write transport path', () => {
+  const frames = encodeOp({
+    op: 'note.insert',
+    clip: CLIP_A,
+    channel: 2,
+    notes: [note({ startBeats: 1.5, pitch: 67, durationBeats: 0.5 })],
+  }, ctx);
+  assert.deepEqual(methods(frames), [
+    WIRE.cursorPointTrack, WIRE.slotSelect, WIRE.cursorSetStepSize, WIRE.cursorSetNotes,
+  ]);
+  assert.deepEqual(paramsOf(frames, WIRE.cursorSetNotes), {
+    cursor: '0', channel: 2, notes: [[3, 67, 100, 0.5]],
+  });
+});
+
+test('note.remove addresses cells by channel, pitch and start, not duration', () => {
+  const frames = encodeOp({
+    op: 'note.remove',
+    clip: CLIP_A,
+    channel: 3,
+    notes: [note({ startBeats: 0.5, pitch: 64, durationBeats: 0.123456789 })],
+  }, ctx);
+  assert.deepEqual(methods(frames), [
+    WIRE.cursorPointTrack, WIRE.slotSelect, WIRE.cursorSetStepSize, WIRE.cursorClearNote,
+  ]);
+  assert.equal(paramsOf(frames, WIRE.cursorSetStepSize)?.['stepSize'], 0.5);
+  assert.deepEqual(paramsOf(frames, WIRE.cursorClearNote), {
+    cursor: '0', channel: 3, x: 1, y: 64,
+  });
+});
+
+test('note.remove scrolls each writer page and restores page zero', () => {
+  const frames = encodeOp({
+    op: 'note.remove',
+    clip: CLIP_A,
+    notes: [note({ startBeats: 0, pitch: 60 }), note({ startBeats: 5, pitch: 72 })],
+  }, { ...ctx, writerSteps: 4 });
+  assert.deepEqual(methods(frames), [
+    WIRE.cursorPointTrack, WIRE.slotSelect, WIRE.cursorSetStepSize,
+    WIRE.cursorScrollToStep, WIRE.cursorClearNote,
+    WIRE.cursorScrollToStep, WIRE.cursorClearNote,
+    WIRE.cursorScrollToStep,
+  ]);
+  const scrolls = frames
+    .filter((frame) => frame.method === WIRE.cursorScrollToStep)
+    .map((frame) => frame.params?.['step']);
+  assert.deepEqual(scrolls, [0, 4, 0]);
+});
+
 // --- E1/E2: pointing ---------------------------------------------------------
 
 test('E-point: note ops point track-then-slot, the only mechanism that works (E1)', () => {

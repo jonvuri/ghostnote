@@ -243,6 +243,24 @@ export function notePageStarts(notes: readonly NoteRecord[], writerSteps: number
   return notePages(notes, chooseStepSize(notes), writerSteps).map((page) => page.start);
 }
 
+/** The coarsest exact grid for note-cell identity. Duration is not part of it. */
+export function noteRemovalStepSize(notes: readonly NoteRecord[]): number {
+  return chooseStepSize(notes.map((note) => ({
+    startBeats: note.startBeats,
+    pitch: note.pitch,
+    velocity: 0,
+    durationBeats: 0,
+  })));
+}
+
+/** Page origins needed to remove note cells without inspecting note duration. */
+export function noteRemovalPageStarts(
+  notes: readonly NoteRecord[],
+  writerSteps: number,
+): readonly number[] {
+  return notePages(notes, noteRemovalStepSize(notes), writerSteps).map((page) => page.start);
+}
+
 /** Page origins that contain at least one expression-property write. */
 export function notePropertyPageStarts(
   notes: readonly NoteRecord[],
@@ -294,7 +312,8 @@ function validateDeviceSource(op: Extract<Op, { op: 'device.insert' }>): void {
  */
 export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
   switch (op.op) {
-    case 'note.write': {
+    case 'note.write':
+    case 'note.insert': {
       if (op.notes.length === 0) return [];
       const t = ctx.trackIndex(op.clip.slot.track);
       const s = ctx.sceneRow(op.clip.slot.scene);
@@ -340,6 +359,43 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         }));
         for (const { note, step } of page.notes) {
           frames.push(...notePropFrames(cursor, channel, note, step - page.start));
+        }
+      }
+      frames.push(frame(WIRE.cursorScrollToStep, { cursor, step: 0 }));
+      return frames;
+    }
+
+    case 'note.remove': {
+      if (op.notes.length === 0) return [];
+      const t = ctx.trackIndex(op.clip.slot.track);
+      const s = ctx.sceneRow(op.clip.slot.scene);
+      const stepSize = noteRemovalStepSize(op.notes);
+      const channel = op.channel ?? 0;
+      const cursor = ctx.cursorFor(op.clip);
+      const frames: Frame[] = [
+        ...pointFrames(cursor, t, s, ctx.shouldPointClip?.(op.clip, cursor) ?? true),
+        frame(WIRE.cursorSetStepSize, { cursor, stepSize }),
+      ];
+      if (ctx.writerSteps === undefined) {
+        for (const note of op.notes) {
+          frames.push(frame(WIRE.cursorClearNote, {
+            cursor,
+            channel,
+            x: Math.round(note.startBeats / stepSize),
+            y: note.pitch,
+          }));
+        }
+        return frames;
+      }
+      for (const page of notePages(op.notes, stepSize, ctx.writerSteps)) {
+        frames.push(frame(WIRE.cursorScrollToStep, { cursor, step: page.start }));
+        for (const { note, step } of page.notes) {
+          frames.push(frame(WIRE.cursorClearNote, {
+            cursor,
+            channel,
+            x: step - page.start,
+            y: note.pitch,
+          }));
         }
       }
       frames.push(frame(WIRE.cursorScrollToStep, { cursor, step: 0 }));

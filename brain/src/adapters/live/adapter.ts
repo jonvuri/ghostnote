@@ -47,6 +47,7 @@ import { SETTLE_MS } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
 import {
   STEP_SIZES, decodeVerboseNote, encodeStage, notePageStarts, notePropertyPageStarts,
+  noteRemovalPageStarts, noteRemovalStepSize,
   sceneRowIn, type EncodeContext,
 } from './encoder.js';
 import { CursorPool } from './pool.js';
@@ -600,7 +601,8 @@ const STRUCTURAL: ReadonlySet<string> = new Set([
  * that never gives the selection back (D6, E14-F).
  */
 const borrowsSelection = (op: Op): boolean =>
-  op.op === 'note.write' || op.op === 'note.props' || op.op === 'note.clear'
+  op.op === 'note.write' || op.op === 'note.insert' || op.op === 'note.remove'
+  || op.op === 'note.props' || op.op === 'note.clear'
   || op.op === 'clip.update'
   || op.op === 'device.insert' || op.op === 'device.delete' || op.op === 'device.setEnabled'
   || op.op === 'device.relocate' || op.op === 'param.set'
@@ -3591,12 +3593,17 @@ export class LiveAdapter implements BitwigAdapter {
   ): Promise<void> {
     const writerSteps = this.fineSteps ?? this.gridSteps ?? 64;
     for (const op of ops) {
-      if ((op.op !== 'note.write' && op.op !== 'note.props') || op.notes.length === 0) continue;
+      if ((op.op !== 'note.write' && op.op !== 'note.insert'
+          && op.op !== 'note.remove' && op.op !== 'note.props') || op.notes.length === 0) continue;
       const cursor = this.pool.cursorFor(op.clip);
-      const stepSize = chooseStepSize(op.notes);
+      const stepSize = op.op === 'note.remove'
+        ? noteRemovalStepSize(op.notes)
+        : chooseStepSize(op.notes);
       const requiredPages = op.op === 'note.props'
         ? notePropertyPageStarts(op.notes, writerSteps)
-        : notePageStarts(op.notes, writerSteps);
+        : op.op === 'note.remove'
+          ? noteRemovalPageStarts(op.notes, writerSteps)
+          : notePageStarts(op.notes, writerSteps);
       const pages = writerPageStart === undefined
         ? requiredPages
         : requiredPages.filter((page) => page === writerPageStart);
@@ -3711,7 +3718,8 @@ export class LiveAdapter implements BitwigAdapter {
   ): Promise<void> {
     const clipTargets = new Map<AddressKey, ClipAddress>();
     for (const op of ops) {
-      if (op.op !== 'clip.update' && op.op !== 'note.clear' && op.op !== 'note.write') continue;
+      if (op.op !== 'clip.update' && op.op !== 'note.clear' && op.op !== 'note.write'
+          && op.op !== 'note.insert' && op.op !== 'note.remove') continue;
       const key = addressKey(op.clip);
       if (!skip.has(key)) clipTargets.set(key, op.clip);
     }
@@ -3723,7 +3731,8 @@ export class LiveAdapter implements BitwigAdapter {
       );
     }
     await this.confirmWriterPages(ops.filter((op) => {
-      if (op.op !== 'note.write' && op.op !== 'note.props') return true;
+      if (op.op !== 'note.write' && op.op !== 'note.insert'
+          && op.op !== 'note.remove' && op.op !== 'note.props') return true;
       return !skip.has(addressKey(op.clip));
     }), views, writerPageStart);
   }
@@ -3739,8 +3748,19 @@ export class LiveAdapter implements BitwigAdapter {
       if (op.op === 'clip.duplicate' || op.op === 'clip.move') {
         created.add(addressKey(clipAt(op.destination)));
       }
-      if (op.op === 'note.write' || op.op === 'note.clear') clips.set(addressKey(op.clip), op.clip);
-      if (op.op === 'note.write') notes.push(...op.notes);
+      if (op.op === 'note.write' || op.op === 'note.insert'
+          || op.op === 'note.remove' || op.op === 'note.clear') {
+        clips.set(addressKey(op.clip), op.clip);
+      }
+      if (op.op === 'note.write' || op.op === 'note.insert') notes.push(...op.notes);
+      if (op.op === 'note.remove') {
+        notes.push(...op.notes.map((note) => ({
+          startBeats: note.startBeats,
+          pitch: note.pitch,
+          velocity: 0,
+          durationBeats: 0,
+        })));
+      }
     }
     if (clips.size !== 1) return;
     const [clipKey, clipRef] = clips.entries().next().value as [AddressKey, ClipAddress];
@@ -4936,7 +4956,8 @@ export class LiveAdapter implements BitwigAdapter {
     });
     for (const stage of stages) {
       const clips = new Set(stage.ops
-        .filter((op) => op.op === 'clip.update' || op.op === 'note.clear' || op.op === 'note.write')
+        .filter((op) => op.op === 'clip.update' || op.op === 'note.clear'
+          || op.op === 'note.write' || op.op === 'note.insert' || op.op === 'note.remove')
         .map((op) => addressKey(op.clip)));
       if (clips.size > this.pool.size) {
         throw new InvalidOpError(
@@ -4968,8 +4989,11 @@ export class LiveAdapter implements BitwigAdapter {
         if (op.op === 'clip.duplicate' || op.op === 'clip.move') {
           createdClipKeys.add(addressKey(clipAt(op.destination)));
         }
-        if (op.op === 'note.write' || op.op === 'note.props') {
+        if (op.op === 'note.write' || op.op === 'note.insert' || op.op === 'note.props') {
           notePageStarts(op.notes, this.fineSteps ?? this.gridSteps ?? 64);
+        }
+        if (op.op === 'note.remove') {
+          noteRemovalPageStarts(op.notes, this.fineSteps ?? this.gridSteps ?? 64);
         }
       }
       for (const stage of stages) {
@@ -4984,7 +5008,8 @@ export class LiveAdapter implements BitwigAdapter {
           stage.writerPageStart,
         );
         for (const op of stage.ops) {
-          if (op.op === 'note.write' || op.op === 'note.props') {
+          if (op.op === 'note.write' || op.op === 'note.insert'
+              || op.op === 'note.remove' || op.op === 'note.props') {
             const key = addressKey(op.clip);
             if (!createdClipKeys.has(key)) confirmedMutationTargets.add(key);
           }
@@ -5226,7 +5251,8 @@ export class LiveAdapter implements BitwigAdapter {
           stage.writerPageStart,
         );
         for (const op of stage.ops) {
-          if (op.op === 'note.write' || op.op === 'note.props') {
+          if (op.op === 'note.write' || op.op === 'note.insert'
+              || op.op === 'note.remove' || op.op === 'note.props') {
             confirmedMutationTargets.add(addressKey(op.clip));
           }
         }

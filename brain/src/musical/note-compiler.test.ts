@@ -162,7 +162,7 @@ test('7b-S06: all four operations preserve complete unnamed state and emit typed
   assert.equal(result.previewDigest.value.length, 64);
   assert.deepEqual(result.losses, []);
   assert.deepEqual(result.operations.map((op) => op.op), [
-    'note.clear', 'note.write', 'note.write', 'note.write',
+    'note.clear', 'note.write', 'note.write', 'note.insert',
   ]);
   const seed = result.candidate.clips[0]!;
   const moved = seed.channels[9]!.notes[0]!.note;
@@ -225,14 +225,40 @@ test('7b-S06: all four operations preserve complete unnamed state and emit typed
     omittedFromOperations: ['pressure'],
     pressureProof: 'candidate pressure 0 is omitted from operations; complete readback compares host 0',
   });
-  const insertedOperation = result.operations.find((op) => op.op === 'note.write'
+  const insertedOperation = result.operations.find((op) => op.op === 'note.insert'
     && op.notes.some((item) => item.pitch === 74));
-  assert.equal(insertedOperation?.op, 'note.write');
-  if (insertedOperation?.op !== 'note.write') throw new Error('insert operation is absent');
+  assert.equal(insertedOperation?.op, 'note.insert');
+  if (insertedOperation?.op !== 'note.insert') throw new Error('insert operation is absent');
   const insertedWireNote = insertedOperation.notes.find((item) => item.pitch === 74)!;
   assert.equal(Object.hasOwn(insertedWireNote, 'pressure'), false);
   assert.equal(insertedWireNote.pan, 0);
   assert.equal(insertedWireNote.isMuted, false);
+});
+
+test('7b-S06: a pure insertion emits only a targeted insertion operation', async () => {
+  const { source } = await fixture();
+  const proposal: NoteProposal = {
+    schema: NOTE_PROPOSAL_SCHEMA,
+    base_sha256: source.digest.value,
+    ops: [{
+      op: 'insert', default_policy: 'track-neutral-v0', notes: [{
+        id: 'pure-insert', track: aliasFor(source, 1),
+        start: '4', duration: '1', pitch: 74, velocity: 88,
+      }],
+    }],
+  };
+  const result = compileNoteProposal({
+    source,
+    proposal,
+    invariants: invariants(source, { noteCount: { min: 5, max: 5 } }),
+  });
+
+  assert.deepEqual(result.operations.map((op) => op.op), ['note.insert']);
+  const operation = result.operations[0];
+  if (operation?.op !== 'note.insert') throw new Error('targeted insertion is absent');
+  assert.equal(operation.channel, 5);
+  assert.deepEqual(operation.notes.map((item) => item.pitch), [74]);
+  assert.equal(operation.notes.some((item) => item.pitch === 72), false);
 });
 
 test('7b-S06: same-clip reconstruction omits only inserted neutral pressure', async () => {
@@ -255,6 +281,7 @@ test('7b-S06: same-clip reconstruction omits only inserted neutral pressure', as
     proposal,
     invariants: invariants(source, { noteCount: { min: 5, max: 5 } }),
   });
+  assert.equal(result.operations.some((op) => op.op === 'note.insert'), false);
   const reconstructed = result.operations.find((op) => op.op === 'note.write'
     && op.notes.some((item) => item.pitch === 72)
     && op.notes.some((item) => item.pitch === 74));

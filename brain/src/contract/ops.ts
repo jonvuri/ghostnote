@@ -47,6 +47,10 @@ export type DeviceSource =
 export type Op =
   // --- notes: Phase 1's only object class -----------------------------------
   | { readonly op: 'note.write'; readonly clip: ClipAddress; readonly channel?: number; readonly notes: readonly NoteRecord[] }
+  /** Add only cells that the pre-write read proved were empty. */
+  | { readonly op: 'note.insert'; readonly clip: ClipAddress; readonly channel?: number; readonly notes: readonly NoteRecord[] }
+  /** Remove only cells whose complete state matches `notes`. */
+  | { readonly op: 'note.remove'; readonly clip: ClipAddress; readonly channel?: number; readonly notes: readonly NoteRecord[] }
   /** Clear all MIDI channels in one clip. The host has no channel-scoped clear. */
   | { readonly op: 'note.clear'; readonly clip: ClipAddress }
   /**
@@ -255,6 +259,8 @@ export type OpKind = Op['op'];
  */
 export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   'note.write': 'instant',
+  'note.insert': 'instant',
+  'note.remove': 'instant',
   'note.clear': 'instant',
   // ⚠ NOT 'instant', and this is the whole point of the op: its handler reads a
   // `NoteStep` before mutating it, so it must land in a different REQUEST from
@@ -345,9 +351,21 @@ export const OP_BUMPS_SCENE_EPOCH: ReadonlySet<OpKind> = new Set<OpKind>(['scene
  */
 export function assertOpsWritable(ops: readonly Op[]): void {
   for (const op of ops) {
-    if ((op.op === 'note.write' || op.op === 'note.props')
-        && op.notes.length > 0 && stepSizeFor(op.notes) === undefined) {
-      throw new NoteTimingUnrepresentableError(STEP_SIZES[STEP_SIZES.length - 1]!, op.op);
+    const timedOp = op.op === 'note.write' || op.op === 'note.insert'
+        || op.op === 'note.remove' || op.op === 'note.props'
+      ? op.op
+      : undefined;
+    const timedNotes = op.op === 'note.remove'
+      ? op.notes.map((note) => ({ ...note, durationBeats: 0 }))
+      : op.op === 'note.write' || op.op === 'note.insert' || op.op === 'note.props'
+        ? op.notes
+        : undefined;
+    if (timedOp !== undefined && timedNotes !== undefined
+        && timedNotes.length > 0 && stepSizeFor(timedNotes) === undefined) {
+      throw new NoteTimingUnrepresentableError(
+        STEP_SIZES[STEP_SIZES.length - 1]!,
+        timedOp,
+      );
     }
     if (op.op === 'drumPad.insert') {
       if (op.source.from !== 'bitwig'
@@ -542,7 +560,7 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         throw new InvalidOpError(op.op, 'the moved device needs an expected name guard');
       }
     }
-    if (op.op !== 'note.write' && op.op !== 'note.props') continue;
+    if (op.op !== 'note.write' && op.op !== 'note.insert' && op.op !== 'note.props') continue;
     for (const note of op.notes) {
       const refused = unwritableProps(note);
       if (refused.length === 0) continue;
@@ -572,6 +590,8 @@ export function assertOpsWritable(ops: readonly Op[]): void {
 function sceneRowsOf(op: Op): readonly SceneAddress[] {
   switch (op.op) {
     case 'note.write':
+    case 'note.insert':
+    case 'note.remove':
     case 'note.clear':
     case 'note.props':
       return [op.clip.slot.scene];
@@ -659,6 +679,8 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
     // this switch is where that fact has to be restated.
     case 'device.insert':
     case 'note.write':
+    case 'note.insert':
+    case 'note.remove':
     case 'note.clear':
     case 'note.props':
     case 'clip.create':

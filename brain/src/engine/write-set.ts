@@ -33,10 +33,12 @@ import {
  *   replay — the captured state IS the restore instruction. What the value can
  *            promise is a separate question, answered per-property in
  *            `fidelity.ts`; this only says an inverse EXISTS.
+ *   inverse — the op owns named note cells and reverses through its paired op.
+ *             Other notes in the channel are evidence, not replay material.
  *   none   — the op that touched it mints or destroys identity, so no readback
  *            could reproduce the prior world (E3, D8's "low / none" row).
  */
-export type Restore = 'replay' | 'none';
+export type Restore = 'replay' | 'inverse' | 'none';
 
 export interface WriteTarget {
   readonly address: Address;
@@ -101,6 +103,15 @@ function targetsOf(op: Op): {
     case 'note.props':
     case 'note.clear':
       return allClipChannels(op.clip);
+
+    // These ops own only the named cells. Their inverse is another targeted op,
+    // so unrelated notes do not need to be replayable.
+    case 'note.insert':
+    case 'note.remove':
+      return [{
+        address: notesAt(op.clip, op.channel ?? 0),
+        restore: 'inverse',
+      }];
 
     // Creating a clip can land on an occupied slot, so the notes go in the
     // write-set too. `exists: false` in the stash is what makes the inverse
@@ -330,8 +341,9 @@ export function writeSetOf(ops: readonly Op[]): WriteSet {
         continue;
       }
       existing.opIndices.push(opIndex);
-      if (t.restore === 'none' && existing.restore !== 'none') {
-        existing.restore = 'none';
+      const rank: Record<Restore, number> = { inverse: 0, replay: 1, none: 2 };
+      if (rank[t.restore] > rank[existing.restore]) {
+        existing.restore = t.restore;
         existing.reason = t.reason;
         existing.unrestoredAs = t.unrestoredAs;
       }

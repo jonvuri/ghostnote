@@ -24,6 +24,7 @@ import assert from 'node:assert/strict';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
+import { noteKey } from '../adapters/fake/model.js';
 import {
   addressKey, clip, notes as notesAt, scene, slot, track,
   type BitwigAdapter, type ClipAddress, type NoteRecord, type Op, type SlotAddress,
@@ -302,6 +303,42 @@ test('B-revert: an unbranched write is put back from the stash, exactly', async 
   assert.equal(plan.fidelity, 'exact');
   assert.deepEqual(plan.unrestored, []);
   assert.deepEqual(await pitches(fx.fake, fx.clipA), [60], 'the hats are back');
+});
+
+test('B-owned-notes: insertion reversal removes only its cell and guards its post-state', async () => {
+  const fx = await fixture();
+  const kept = note({ pitch: 48, durationBeats: 0.123456789 });
+  const inserted = note({ startBeats: 2, pitch: 67 });
+  const trackRow = fx.fake.model.tracks.find((row) => row.channelId === fx.trackA.channelId)!;
+  trackRow.slots[0]!.notes.set(noteKey(0, kept.pitch, kept.startBeats), kept);
+
+  const change = await commit(fx, [{ op: 'note.insert', clip: fx.clipA, notes: [inserted] }]);
+  const current = await fx.fake.read(fx.stash.log.readSetFor(change.id));
+  const clean = fx.stash.log.planReversal(change.id, current);
+  assert.deepEqual(clean.ops.map((op) => op.op), ['note.remove']);
+  assert.equal(clean.fidelity, 'exact');
+
+  await human(fx, [{ op: 'note.write', clip: fx.clipA, notes: [{ ...inserted, velocity: 99 }] }]);
+  const changed = await fx.fake.read(fx.stash.log.readSetFor(change.id));
+  const refused = fx.stash.log.planReversal(change.id, changed);
+  assert.deepEqual(refused.ops, []);
+  assert.equal(refused.withheld[0]?.verdict, 'changed');
+  assert.match(refused.unrestored[0]?.why ?? '', /human edited/);
+});
+
+test('B-owned-notes: a sliced reversal removes only the selected insertion', async () => {
+  const fx = await fixture();
+  const change = await commit(fx, [
+    { op: 'note.insert', clip: fx.clipA, notes: [note({ pitch: 60 })] },
+    { op: 'note.insert', clip: fx.clipB, notes: [note({ pitch: 67 })] },
+  ]);
+  const current = await fx.fake.read(fx.stash.log.readSetFor(change.id));
+  const slice = fx.stash.log.selectClip(change.id, fx.clipA);
+  const plan = fx.stash.log.planReversal(change.id, current, { slice });
+
+  assert.equal(plan.ops.length, 1);
+  assert.equal(plan.ops[0]?.op, 'note.remove');
+  assert.deepEqual(plan.ops[0]?.op === 'note.remove' ? plan.ops[0].notes.map((item) => item.pitch) : [], [60]);
 });
 
 test('B-revert: reversing a `clip.delete` rebuilds the clip and refills it (D16 amendment 1)', async () => {

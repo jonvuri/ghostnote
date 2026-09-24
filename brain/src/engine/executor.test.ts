@@ -183,6 +183,58 @@ test('X-roundtrip: a revert is a take of its own, so the branch it left is still
   );
 });
 
+test('X-owned-notes: insertion bypasses unrelated replay loss and reverses without clearing', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const existing = note({ pitch: 48, durationBeats: 0.123456789 });
+  const inserted = note({ startBeats: 2, pitch: 67 });
+  const target = notesAt(clipA);
+  const trackRow = fake.model.tracks.find((row) => row.channelId === clipA.slot.track.channelId)!;
+  trackRow.slots[0]!.notes.set(noteKey(0, existing.pitch, existing.startBeats), existing);
+
+  const take = await executor.run([{ op: 'note.insert', clip: clipA, notes: [inserted] }]);
+  assert.equal(take.fidelity, 'exact');
+  assert.equal(take.targets.length, 1);
+  const reverted = await executor.revertUnchecked(take);
+  assert.deepEqual(reverted.plan.ops.map((op) => op.op), ['note.remove']);
+  assert.deepEqual(await readNotes(fake, target), [existing]);
+});
+
+test('X-owned-notes: occupied insertion and mismatched removal refuse before apply', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const existing = note({ pitch: 60 });
+  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [existing] }] });
+  await fake.settle('noteWrite');
+  const before = await fake.revision();
+
+  await assert.rejects(
+    executor.run([{ op: 'note.insert', clip: clipA, notes: [existing] }]),
+    /note cell .* is occupied.*Nothing was written/,
+  );
+  await assert.rejects(
+    executor.run([{ op: 'note.remove', clip: clipA, notes: [{ ...existing, velocity: 99 }] }]),
+    /does not match the complete expected note.*Nothing was written/,
+  );
+  assert.equal((await fake.revision()).revision, before.revision);
+});
+
+test('X-owned-notes: an insertion that would truncate another note refuses before apply', async () => {
+  const { fake, executor, clipA } = await fixture();
+  const existing = note({ pitch: 60, durationBeats: 2 });
+  await fake.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [existing] }] });
+  await fake.settle('noteWrite');
+  const before = await fake.revision();
+
+  await assert.rejects(
+    executor.run([{
+      op: 'note.insert', clip: clipA,
+      notes: [note({ startBeats: 1, pitch: 60, durationBeats: 0.5 })],
+    }]),
+    /overlaps a same-pitch note.*nothing was written/,
+  );
+  assert.equal((await fake.revision()).revision, before.revision);
+  assert.deepEqual(await readNotes(fake, notesAt(clipA)), [existing]);
+});
+
 test('4b settlement: complete reconciliation exposes a same-target foreign note', async () => {
   const { fake, clipA } = await fixture();
   const addresses = Array.from({ length: 16 }, (_, channel) => notesAt(clipA, channel));

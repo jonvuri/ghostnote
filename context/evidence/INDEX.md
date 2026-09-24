@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 # Evidence index
@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E128 | Targeted note insertion reversal is live [K] (2026-09-24) | [open](experiments/e128-targeted-note-inverse-is-live.md) |
+| E127 | Hybrid audio-guided sound-design dogfood passes [K] (2026-09-23) | [open](experiments/e127-phase7f-hybrid-audio-guided-dogfood.md) |
 | E126 | Warning, response, and discovery reduction passes [K] (2026-09-23) | [open](experiments/e126-warning-response-and-discovery-reduction.md) |
 | E125 | Audio capture composes with verified file analysis [K] (2026-09-23) | [open](experiments/e125-audio-capture-composes-with-verified-file-analysis.md) |
 | E124 | Audio facts and sensory packets connect verified files [K] (2026-09-23) | [open](experiments/e124-audio-facts-and-sensory-packets-connect-verified-files.md) |

@@ -1038,7 +1038,8 @@ export class FakeAdapter implements BitwigAdapter {
 
   private runOp(op: Op, opIndex: number, minted: Record<number, Address>): void {
     switch (op.op) {
-      case 'note.write': {
+      case 'note.write':
+      case 'note.insert': {
         const track = this.requireTrack(op.clip.slot.track, op.op);
         const channel = op.channel ?? 0;
         const sceneIndex = op.clip.slot.scene.index;
@@ -1070,6 +1071,30 @@ export class FakeAdapter implements BitwigAdapter {
           point.slot.stepDataStaleUntilTick = this.clock.tick + budgetTicks('gridChange');
           // ...and it leaves the CURSOR on that grid, for whatever touches it
           // next. That residue is what the props op below has to match.
+          if (grid !== undefined) this.model.cursorStepSize = grid;
+        });
+        return;
+      }
+
+      case 'note.remove': {
+        const track = this.requireTrack(op.clip.slot.track, op.op);
+        const channel = op.channel ?? 0;
+        const sceneIndex = op.clip.slot.scene.index;
+        const grid = stepSizeFor(op.notes.map((note) => ({
+          startBeats: note.startBeats,
+          pitch: note.pitch,
+          velocity: 0,
+          durationBeats: 0,
+        })));
+        const origin = this.cursorOrigin();
+        this.model.cursorClip = clipKey(op.clip.slot.track.channelId, sceneIndex);
+        this.clock.stage(() => {
+          const point = pointAtSlot(track, sceneIndex, origin);
+          if (point.slot === undefined) return;
+          for (const note of op.notes) {
+            point.slot.notes.delete(noteKey(channel, note.pitch, note.startBeats));
+          }
+          point.slot.stepDataStaleUntilTick = this.clock.tick + budgetTicks('gridChange');
           if (grid !== undefined) this.model.cursorStepSize = grid;
         });
         return;
