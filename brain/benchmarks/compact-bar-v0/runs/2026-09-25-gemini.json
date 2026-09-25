@@ -1,0 +1,2938 @@
+{
+  "client": "Python urllib.request direct HTTPS",
+  "corpus": {
+    "fixtures": {
+      "long": {
+        "bars": 8,
+        "bytes": 21940,
+        "notes": 94,
+        "sha256": "320a98004bab148fbf49c8bebbdce4d95ee55094e492b3950c3a6ff2a93b2fe6"
+      },
+      "medium": {
+        "bars": 4,
+        "bytes": 11173,
+        "notes": 47,
+        "sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5"
+      },
+      "short": {
+        "bars": 1,
+        "bytes": 3289,
+        "notes": 12,
+        "sha256": "1c25dee60c4e0abefe3ab5d2c8899381c6b50cc5fc88b3e722a70dc37de9ba19"
+      }
+    },
+    "license": "MIT",
+    "schema": "ghostnote-compact-bar-corpus-v0",
+    "sha256": "bf17a441b4d69c7e80616dc56755904e65adf9f1fc863f5a9ba75dfed9f9791e"
+  },
+  "manifest_sha256": "e6e80ecd2cab81b8795bb24d8374bd09c8a145679a6f0d7cf218316ee5b8ff08",
+  "platform": "Darwin 24.6.0 arm64",
+  "privacy": "Generated symbolic notes only. No live project, MIDI file, or audio was sent.",
+  "provider": "gemini",
+  "python": "3.14.6",
+  "raw_run_sha256": "f2897f6690a3685a7e89c73ad0e2d1e32e2b6f62cbcb42ee3f63d3885e5705ed",
+  "represented_bars_per_round_trip_prompt": 13,
+  "represented_notes_per_round_trip_prompt": 153,
+  "requested_model": "gemini-3.8-flash",
+  "results": [
+    {
+      "format": "exact-json",
+      "input_tokens_per_bar": 1020.3076923076923,
+      "input_tokens_per_lexeme": 30.990654205607477,
+      "input_tokens_per_note": 86.69281045751634,
+      "latency_ms": 9904.37445800012,
+      "prompt_bytes": 40039,
+      "prompt_lexemes": 428,
+      "prompt_sha256": "19bc3b40df754f1c4dbc142eb18243290e7cf4e0345605e8216d7a415bd4335e",
+      "raw_response_sha256": "62ceb64aef57cd28c6b463924098959921f95323e286556ebeac73e92731a713",
+      "repair": {
+        "latency_ms": 2790.0719579999986,
+        "prompt_sha256": "c933c5fe135c6b307b96dc11ff194d5796e873457a525e68545232304ebd4dec",
+        "raw_response_sha256": "504f27c2cb9422288abf997ba149ff0826970d4d5d5247803298a5fae55af688",
+        "response": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "13/3"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 14699,
+          "output_tokens": 102
+        },
+        "validation": {
+          "correct": true,
+          "differences": [],
+          "errors": [],
+          "valid": true
+        }
+      },
+      "request_id": null,
+      "response": {
+        "continuation_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "2/3",
+                  "id": "new-c1",
+                  "pitch": 68,
+                  "start": "16",
+                  "track": "lead",
+                  "velocity": 88
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c2",
+                  "pitch": 65,
+                  "start": "50/3",
+                  "track": "lead",
+                  "velocity": 84
+                },
+                {
+                  "duration": "2/3",
+                  "id": "new-c3",
+                  "pitch": 59,
+                  "start": "17",
+                  "track": "lead",
+                  "velocity": 90
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c4",
+                  "pitch": 55,
+                  "start": "53/3",
+                  "track": "lead",
+                  "velocity": 86
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "explanation": "The exact-json representation provides fully explicit, rational-timed musical event records allowing exact structural inspection and reconstruction.",
+        "invalid_patch_echo": {
+          "base_sha256": "stale",
+          "ops": [
+            {
+              "note_id": "not-a-note",
+              "op": "move",
+              "start": "1/3"
+            },
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "-1"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "label_control": {
+          "status": "unavailable"
+        },
+        "native_answer": {
+          "articulation": "legato",
+          "note_id": "l-02",
+          "start": "1001/960"
+        },
+        "reconstruction": [
+          {
+            "duration": "4",
+            "id": "b-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "bass",
+            "velocity": 82
+          },
+          {
+            "duration": "1/8",
+            "id": "d-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "drums",
+            "velocity": 108
+          },
+          {
+            "duration": "4",
+            "id": "k1-1",
+            "pitch": 48,
+            "start": "0",
+            "track": "keys",
+            "velocity": 68
+          },
+          {
+            "duration": "4",
+            "id": "k1-2",
+            "pitch": 55,
+            "start": "0",
+            "track": "keys",
+            "velocity": 69
+          },
+          {
+            "duration": "4",
+            "id": "k1-3",
+            "pitch": 59,
+            "start": "0",
+            "track": "keys",
+            "velocity": 70
+          },
+          {
+            "duration": "4",
+            "id": "k1-4",
+            "pitch": 62,
+            "start": "0",
+            "track": "keys",
+            "velocity": 71
+          },
+          {
+            "duration": "4",
+            "id": "k1-5",
+            "pitch": 66,
+            "start": "0",
+            "track": "keys",
+            "velocity": 72
+          },
+          {
+            "duration": "1",
+            "id": "l-01",
+            "pitch": 67,
+            "start": "0",
+            "track": "lead",
+            "velocity": 92
+          },
+          {
+            "duration": "919/960",
+            "id": "l-02",
+            "pitch": 71,
+            "start": "1001/960",
+            "track": "lead",
+            "velocity": 86
+          },
+          {
+            "duration": "2/3",
+            "id": "l-03",
+            "pitch": 74,
+            "start": "2",
+            "track": "lead",
+            "velocity": 90
+          },
+          {
+            "duration": "1/8",
+            "id": "d-02",
+            "pitch": 38,
+            "start": "49/24",
+            "track": "drums",
+            "velocity": 102
+          },
+          {
+            "duration": "1/3",
+            "id": "l-04",
+            "pitch": 76,
+            "start": "8/3",
+            "track": "lead",
+            "velocity": 94
+          }
+        ],
+        "structural": {
+          "bar2_keys_pitches": [
+            52,
+            56,
+            62,
+            65,
+            70
+          ],
+          "descending_bar2_lead_ids": [
+            "l-05",
+            "l-06",
+            "l-07",
+            "l-08"
+          ],
+          "harmony_sequence": [
+            "Cmaj9#11",
+            "E7alt",
+            "Am11",
+            "D-quartal"
+          ],
+          "meter_sequence": [
+            "4/4",
+            "4/4",
+            "3/4",
+            "5/4"
+          ],
+          "performed_offsets": {
+            "d-02": "49/24",
+            "l-02": "1001/960"
+          }
+        },
+        "transfer_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "1",
+                  "id": "new-r1",
+                  "pitch": 44,
+                  "start": "4",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r2",
+                  "pitch": 46,
+                  "start": "5",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r3",
+                  "pitch": 50,
+                  "start": "6",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r4",
+                  "pitch": 56,
+                  "start": "7",
+                  "track": "bass",
+                  "velocity": 82
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "transform_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_ids": [
+                "l-05",
+                "l-06",
+                "l-07",
+                "l-08"
+              ],
+              "op": "transpose",
+              "semitones": 1
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        }
+      },
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "usage": {
+        "cached_input_tokens": 8131,
+        "input_tokens": 13264,
+        "output_tokens": 2123
+      },
+      "validation": {
+        "invalid_patch_errors": [
+          "base_sha256 must be c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "op 0 unknown note ID not-a-note",
+          "op 1 start is below 0"
+        ],
+        "invalid_patch_exposed_all_errors": true,
+        "label_control_pass": true,
+        "missing_keys": [],
+        "native": {
+          "correct": true,
+          "differences": []
+        },
+        "objective_passed": 22,
+        "objective_total": 22,
+        "patches": {
+          "continuation_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 7,
+            "constraints_total": 7,
+            "valid": true
+          },
+          "transfer_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 6,
+            "constraints_total": 6,
+            "valid": true
+          },
+          "transform_patch": {
+            "checks": [
+              true
+            ],
+            "constraints_passed": 1,
+            "constraints_total": 1,
+            "valid": true
+          }
+        },
+        "reconstruction": {
+          "actual_count": 12,
+          "exact": true,
+          "expected_count": 12,
+          "sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2"
+        },
+        "schema_valid": true,
+        "structure": {
+          "correct": 5,
+          "differences": [],
+          "total": 5
+        }
+      }
+    },
+    {
+      "format": "compact-bar",
+      "input_tokens_per_bar": 481.15384615384613,
+      "input_tokens_per_lexeme": 2.4529411764705884,
+      "input_tokens_per_note": 40.88235294117647,
+      "latency_ms": 4834.567874999948,
+      "prompt_bytes": 15865,
+      "prompt_lexemes": 2550,
+      "prompt_sha256": "09e5596a6c24f1eb8fca6ec66bd9df8beb4ebf2fa59a3619a24740b5537bd5dc",
+      "raw_response_sha256": "444bd8d058f44d33d0d6328f81d228532152736cea1b11b77d2be147d0094ba0",
+      "repair": {
+        "latency_ms": 2323.3408329999747,
+        "prompt_sha256": "c933c5fe135c6b307b96dc11ff194d5796e873457a525e68545232304ebd4dec",
+        "raw_response_sha256": "c05f28af98959dcc3c52a601750e26f305badd0e652eab1f713ed5fef67ff4c0",
+        "response": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "13/3"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 7687,
+          "output_tokens": 102
+        },
+        "validation": {
+          "correct": true,
+          "differences": [],
+          "errors": [],
+          "valid": true
+        }
+      },
+      "request_id": null,
+      "response": {
+        "continuation_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "2/3",
+                  "id": "new-c1",
+                  "pitch": 68,
+                  "start": "16",
+                  "track": "lead",
+                  "velocity": 88
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c2",
+                  "pitch": 65,
+                  "start": "50/3",
+                  "track": "lead",
+                  "velocity": 84
+                },
+                {
+                  "duration": "2/3",
+                  "id": "new-c3",
+                  "pitch": 59,
+                  "start": "17",
+                  "track": "lead",
+                  "velocity": 90
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c4",
+                  "pitch": 55,
+                  "start": "53/3",
+                  "track": "lead",
+                  "velocity": 86
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "explanation": "Compact-bar format provides concise, bar-structured symbolic music with exact rational timing and explicit track identities.",
+        "invalid_patch_echo": {
+          "base_sha256": "stale",
+          "ops": [
+            {
+              "note_id": "not-a-note",
+              "op": "move",
+              "start": "1/3"
+            },
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "-1"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "label_control": {
+          "status": "unavailable"
+        },
+        "native_answer": {
+          "note_id": "l-02",
+          "start": "1001/960",
+          "track": "lead"
+        },
+        "reconstruction": [
+          {
+            "duration": "4",
+            "id": "b-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "bass",
+            "velocity": 82
+          },
+          {
+            "duration": "1/8",
+            "id": "d-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "drums",
+            "velocity": 108
+          },
+          {
+            "duration": "4",
+            "id": "k1-1",
+            "pitch": 48,
+            "start": "0",
+            "track": "keys",
+            "velocity": 68
+          },
+          {
+            "duration": "4",
+            "id": "k1-2",
+            "pitch": 55,
+            "start": "0",
+            "track": "keys",
+            "velocity": 69
+          },
+          {
+            "duration": "4",
+            "id": "k1-3",
+            "pitch": 59,
+            "start": "0",
+            "track": "keys",
+            "velocity": 70
+          },
+          {
+            "duration": "4",
+            "id": "k1-4",
+            "pitch": 62,
+            "start": "0",
+            "track": "keys",
+            "velocity": 71
+          },
+          {
+            "duration": "4",
+            "id": "k1-5",
+            "pitch": 66,
+            "start": "0",
+            "track": "keys",
+            "velocity": 72
+          },
+          {
+            "duration": "1",
+            "id": "l-01",
+            "pitch": 67,
+            "start": "0",
+            "track": "lead",
+            "velocity": 92
+          },
+          {
+            "duration": "919/960",
+            "id": "l-02",
+            "pitch": 71,
+            "start": "1001/960",
+            "track": "lead",
+            "velocity": 86
+          },
+          {
+            "duration": "2/3",
+            "id": "l-03",
+            "pitch": 74,
+            "start": "2",
+            "track": "lead",
+            "velocity": 90
+          },
+          {
+            "duration": "1/8",
+            "id": "d-02",
+            "pitch": 38,
+            "start": "49/24",
+            "track": "drums",
+            "velocity": 102
+          },
+          {
+            "duration": "1/3",
+            "id": "l-04",
+            "pitch": 76,
+            "start": "8/3",
+            "track": "lead",
+            "velocity": 94
+          }
+        ],
+        "structural": {
+          "bar2_keys_pitches": [
+            52,
+            56,
+            62,
+            65,
+            70
+          ],
+          "descending_bar2_lead_ids": [
+            "l-05",
+            "l-06",
+            "l-07",
+            "l-08"
+          ],
+          "harmony_sequence": [
+            "Cmaj9#11",
+            "E7alt",
+            "Am11",
+            "D-quartal"
+          ],
+          "meter_sequence": [
+            "4/4",
+            "4/4",
+            "3/4",
+            "5/4"
+          ],
+          "performed_offsets": {
+            "d-02": "49/24",
+            "l-02": "1001/960"
+          }
+        },
+        "transfer_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "1",
+                  "id": "new-r1",
+                  "pitch": 44,
+                  "start": "4",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r2",
+                  "pitch": 46,
+                  "start": "5",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r3",
+                  "pitch": 50,
+                  "start": "6",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r4",
+                  "pitch": 56,
+                  "start": "7",
+                  "track": "bass",
+                  "velocity": 82
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "transform_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_ids": [
+                "l-05",
+                "l-06",
+                "l-07",
+                "l-08"
+              ],
+              "op": "transpose",
+              "semitones": 1
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        }
+      },
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "usage": {
+        "cached_input_tokens": 4032,
+        "input_tokens": 6255,
+        "output_tokens": 1220
+      },
+      "validation": {
+        "invalid_patch_errors": [
+          "base_sha256 must be c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "op 0 unknown note ID not-a-note",
+          "op 1 start is below 0"
+        ],
+        "invalid_patch_exposed_all_errors": true,
+        "label_control_pass": true,
+        "missing_keys": [],
+        "native": {
+          "correct": true,
+          "differences": []
+        },
+        "objective_passed": 22,
+        "objective_total": 22,
+        "patches": {
+          "continuation_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 7,
+            "constraints_total": 7,
+            "valid": true
+          },
+          "transfer_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 6,
+            "constraints_total": 6,
+            "valid": true
+          },
+          "transform_patch": {
+            "checks": [
+              true
+            ],
+            "constraints_passed": 1,
+            "constraints_total": 1,
+            "valid": true
+          }
+        },
+        "reconstruction": {
+          "actual_count": 12,
+          "exact": true,
+          "expected_count": 12,
+          "sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2"
+        },
+        "schema_valid": true,
+        "structure": {
+          "correct": 5,
+          "differences": [],
+          "total": 5
+        }
+      }
+    },
+    {
+      "format": "abc-2.1-side-ledger",
+      "input_tokens_per_bar": 582.0,
+      "input_tokens_per_lexeme": 3.942678478374153,
+      "input_tokens_per_note": 49.450980392156865,
+      "latency_ms": 5028.016707999996,
+      "prompt_bytes": 16341,
+      "prompt_lexemes": 1919,
+      "prompt_sha256": "b11a8e5ccbd3ee2d15a7253d9b5c7c2c2106f582320503610f736c63c8b01014",
+      "raw_response_sha256": "8ddbece2b8e6a2b43f18870e2e87fae5910194337623cfd40898fdd5a5584a32",
+      "repair": {
+        "latency_ms": 2067.4636670000837,
+        "prompt_sha256": "c933c5fe135c6b307b96dc11ff194d5796e873457a525e68545232304ebd4dec",
+        "raw_response_sha256": "170abb86acf70f6acaa87a08a02bfefdf3834dd0f0365ca5a05044a39e0047cd",
+        "response": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "13/3"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 9007,
+          "output_tokens": 102
+        },
+        "validation": {
+          "correct": true,
+          "differences": [],
+          "errors": [],
+          "valid": true
+        }
+      },
+      "request_id": null,
+      "response": {
+        "continuation_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "2/3",
+                  "id": "new-c1",
+                  "pitch": 68,
+                  "start": "16",
+                  "track": "lead",
+                  "velocity": 88
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c2",
+                  "pitch": 65,
+                  "start": "50/3",
+                  "track": "lead",
+                  "velocity": 84
+                },
+                {
+                  "duration": "2/3",
+                  "id": "new-c3",
+                  "pitch": 59,
+                  "start": "17",
+                  "track": "lead",
+                  "velocity": 90
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c4",
+                  "pitch": 55,
+                  "start": "53/3",
+                  "track": "lead",
+                  "velocity": 86
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "explanation": "ABC 2.1 with side ledgers augments traditional portable tune notation with precise, machine-readable performance metadata per note event.",
+        "invalid_patch_echo": {
+          "base_sha256": "stale",
+          "ops": [
+            {
+              "note_id": "not-a-note",
+              "op": "move",
+              "start": "1/3"
+            },
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "-1"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "label_control": {
+          "status": "unavailable"
+        },
+        "native_answer": {
+          "chord_midi": [
+            60,
+            64,
+            67
+          ],
+          "triplet_midi": [
+            60,
+            62,
+            64
+          ]
+        },
+        "reconstruction": [
+          {
+            "duration": "4",
+            "id": "b-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "bass",
+            "velocity": 82
+          },
+          {
+            "duration": "1/8",
+            "id": "d-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "drums",
+            "velocity": 108
+          },
+          {
+            "duration": "4",
+            "id": "k1-1",
+            "pitch": 48,
+            "start": "0",
+            "track": "keys",
+            "velocity": 68
+          },
+          {
+            "duration": "4",
+            "id": "k1-2",
+            "pitch": 55,
+            "start": "0",
+            "track": "keys",
+            "velocity": 69
+          },
+          {
+            "duration": "4",
+            "id": "k1-3",
+            "pitch": 59,
+            "start": "0",
+            "track": "keys",
+            "velocity": 70
+          },
+          {
+            "duration": "4",
+            "id": "k1-4",
+            "pitch": 62,
+            "start": "0",
+            "track": "keys",
+            "velocity": 71
+          },
+          {
+            "duration": "4",
+            "id": "k1-5",
+            "pitch": 66,
+            "start": "0",
+            "track": "keys",
+            "velocity": 72
+          },
+          {
+            "duration": "1",
+            "id": "l-01",
+            "pitch": 67,
+            "start": "0",
+            "track": "lead",
+            "velocity": 92
+          },
+          {
+            "duration": "919/960",
+            "id": "l-02",
+            "pitch": 71,
+            "start": "1001/960",
+            "track": "lead",
+            "velocity": 86
+          },
+          {
+            "duration": "2/3",
+            "id": "l-03",
+            "pitch": 74,
+            "start": "2",
+            "track": "lead",
+            "velocity": 90
+          },
+          {
+            "duration": "1/8",
+            "id": "d-02",
+            "pitch": 38,
+            "start": "49/24",
+            "track": "drums",
+            "velocity": 102
+          },
+          {
+            "duration": "1/3",
+            "id": "l-04",
+            "pitch": 76,
+            "start": "8/3",
+            "track": "lead",
+            "velocity": 94
+          }
+        ],
+        "structural": {
+          "bar2_keys_pitches": [
+            52,
+            56,
+            62,
+            65,
+            70
+          ],
+          "descending_bar2_lead_ids": [
+            "l-05",
+            "l-06",
+            "l-07",
+            "l-08"
+          ],
+          "harmony_sequence": [
+            "Cmaj9#11",
+            "E7alt",
+            "Am11",
+            "D-quartal"
+          ],
+          "meter_sequence": [
+            "4/4",
+            "4/4",
+            "3/4",
+            "5/4"
+          ],
+          "performed_offsets": {
+            "d-02": "49/24",
+            "l-02": "1001/960"
+          }
+        },
+        "transfer_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "1",
+                  "id": "new-r1",
+                  "pitch": 44,
+                  "start": "4",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r2",
+                  "pitch": 46,
+                  "start": "5",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r3",
+                  "pitch": 50,
+                  "start": "6",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r4",
+                  "pitch": 56,
+                  "start": "7",
+                  "track": "bass",
+                  "velocity": 82
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "transform_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_ids": [
+                "l-05",
+                "l-06",
+                "l-07",
+                "l-08"
+              ],
+              "op": "transpose",
+              "semitones": 1
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        }
+      },
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "usage": {
+        "cached_input_tokens": 4043,
+        "input_tokens": 7566,
+        "output_tokens": 1229
+      },
+      "validation": {
+        "invalid_patch_errors": [
+          "base_sha256 must be c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "op 0 unknown note ID not-a-note",
+          "op 1 start is below 0"
+        ],
+        "invalid_patch_exposed_all_errors": true,
+        "label_control_pass": true,
+        "missing_keys": [],
+        "native": {
+          "correct": true,
+          "differences": []
+        },
+        "objective_passed": 22,
+        "objective_total": 22,
+        "patches": {
+          "continuation_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 7,
+            "constraints_total": 7,
+            "valid": true
+          },
+          "transfer_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 6,
+            "constraints_total": 6,
+            "valid": true
+          },
+          "transform_patch": {
+            "checks": [
+              true
+            ],
+            "constraints_passed": 1,
+            "constraints_total": 1,
+            "valid": true
+          }
+        },
+        "reconstruction": {
+          "actual_count": 12,
+          "exact": true,
+          "expected_count": 12,
+          "sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2"
+        },
+        "schema_valid": true,
+        "structure": {
+          "correct": 5,
+          "differences": [],
+          "total": 5
+        }
+      }
+    },
+    {
+      "format": "alda-side-ledger",
+      "input_tokens_per_bar": 572.9230769230769,
+      "input_tokens_per_lexeme": 3.5115511551155114,
+      "input_tokens_per_note": 48.6797385620915,
+      "latency_ms": 4738.913916000001,
+      "prompt_bytes": 16278,
+      "prompt_lexemes": 2121,
+      "prompt_sha256": "cfbfa7b2a6b7d65414a18e7169ae228a2d2f147adc10894a56d3c2530527cc7f",
+      "raw_response_sha256": "25bfc48ebc7705bd5f2de02c098aa3fbe5d2bd78a6920b5a6f43412618a66323",
+      "repair": {
+        "latency_ms": 1965.5382079999981,
+        "prompt_sha256": "c933c5fe135c6b307b96dc11ff194d5796e873457a525e68545232304ebd4dec",
+        "raw_response_sha256": "a2c6a48d9ec178acd3f8935d98660110eade9c7e662e721e84878793b7f16e05",
+        "response": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "13/3"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 8877,
+          "output_tokens": 102
+        },
+        "validation": {
+          "correct": true,
+          "differences": [],
+          "errors": [],
+          "valid": true
+        }
+      },
+      "request_id": null,
+      "response": {
+        "continuation_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "2/3",
+                  "id": "new-c1",
+                  "pitch": 68,
+                  "start": "16",
+                  "track": "lead",
+                  "velocity": 88
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c2",
+                  "pitch": 65,
+                  "start": "50/3",
+                  "track": "lead",
+                  "velocity": 84
+                },
+                {
+                  "duration": "2/3",
+                  "id": "new-c3",
+                  "pitch": 62,
+                  "start": "17",
+                  "track": "lead",
+                  "velocity": 90
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c4",
+                  "pitch": 55,
+                  "start": "53/3",
+                  "track": "lead",
+                  "velocity": 86
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "explanation": "Alda uses an intuitive text-based notation for sequencing and playback, paired here with an exact side ledger defining precise note timings and velocities.",
+        "invalid_patch_echo": {
+          "base_sha256": "stale",
+          "ops": [
+            {
+              "note_id": "not-a-note",
+              "op": "move",
+              "start": "1/3"
+            },
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "-1"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "label_control": {
+          "status": "unavailable"
+        },
+        "native_answer": {
+          "midi": [
+            60,
+            64,
+            67,
+            72
+          ]
+        },
+        "reconstruction": [
+          {
+            "duration": "4",
+            "id": "b-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "bass",
+            "velocity": 82
+          },
+          {
+            "duration": "1/8",
+            "id": "d-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "drums",
+            "velocity": 108
+          },
+          {
+            "duration": "4",
+            "id": "k1-1",
+            "pitch": 48,
+            "start": "0",
+            "track": "keys",
+            "velocity": 68
+          },
+          {
+            "duration": "4",
+            "id": "k1-2",
+            "pitch": 55,
+            "start": "0",
+            "track": "keys",
+            "velocity": 69
+          },
+          {
+            "duration": "4",
+            "id": "k1-3",
+            "pitch": 59,
+            "start": "0",
+            "track": "keys",
+            "velocity": 70
+          },
+          {
+            "duration": "4",
+            "id": "k1-4",
+            "pitch": 62,
+            "start": "0",
+            "track": "keys",
+            "velocity": 71
+          },
+          {
+            "duration": "4",
+            "id": "k1-5",
+            "pitch": 66,
+            "start": "0",
+            "track": "keys",
+            "velocity": 72
+          },
+          {
+            "duration": "1",
+            "id": "l-01",
+            "pitch": 67,
+            "start": "0",
+            "track": "lead",
+            "velocity": 92
+          },
+          {
+            "duration": "919/960",
+            "id": "l-02",
+            "pitch": 71,
+            "start": "1001/960",
+            "track": "lead",
+            "velocity": 86
+          },
+          {
+            "duration": "2/3",
+            "id": "l-03",
+            "pitch": 74,
+            "start": "2",
+            "track": "lead",
+            "velocity": 90
+          },
+          {
+            "duration": "1/8",
+            "id": "d-02",
+            "pitch": 38,
+            "start": "49/24",
+            "track": "drums",
+            "velocity": 102
+          },
+          {
+            "duration": "1/3",
+            "id": "l-04",
+            "pitch": 76,
+            "start": "8/3",
+            "track": "lead",
+            "velocity": 94
+          }
+        ],
+        "structural": {
+          "bar2_keys_pitches": [
+            52,
+            56,
+            62,
+            65,
+            70
+          ],
+          "descending_bar2_lead_ids": [
+            "l-05",
+            "l-06",
+            "l-07",
+            "l-08"
+          ],
+          "harmony_sequence": [
+            "Cmaj9#11",
+            "E7alt",
+            "Am11",
+            "D-quartal"
+          ],
+          "meter_sequence": [
+            "4/4",
+            "4/4",
+            "3/4",
+            "5/4"
+          ],
+          "performed_offsets": {
+            "d-02": "49/24",
+            "l-02": "1001/960"
+          }
+        },
+        "transfer_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "1",
+                  "id": "new-r1",
+                  "pitch": 44,
+                  "start": "4",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r2",
+                  "pitch": 46,
+                  "start": "5",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r3",
+                  "pitch": 50,
+                  "start": "6",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r4",
+                  "pitch": 56,
+                  "start": "7",
+                  "track": "bass",
+                  "velocity": 82
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "transform_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_ids": [
+                "l-05",
+                "l-06",
+                "l-07",
+                "l-08"
+              ],
+              "op": "transpose",
+              "semitones": 1
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        }
+      },
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 7448,
+        "output_tokens": 1218
+      },
+      "validation": {
+        "invalid_patch_errors": [
+          "base_sha256 must be c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "op 0 unknown note ID not-a-note",
+          "op 1 start is below 0"
+        ],
+        "invalid_patch_exposed_all_errors": true,
+        "label_control_pass": true,
+        "missing_keys": [],
+        "native": {
+          "correct": true,
+          "differences": []
+        },
+        "objective_passed": 22,
+        "objective_total": 22,
+        "patches": {
+          "continuation_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 7,
+            "constraints_total": 7,
+            "valid": true
+          },
+          "transfer_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 6,
+            "constraints_total": 6,
+            "valid": true
+          },
+          "transform_patch": {
+            "checks": [
+              true
+            ],
+            "constraints_passed": 1,
+            "constraints_total": 1,
+            "valid": true
+          }
+        },
+        "reconstruction": {
+          "actual_count": 12,
+          "exact": true,
+          "expected_count": 12,
+          "sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2"
+        },
+        "schema_valid": true,
+        "structure": {
+          "correct": 5,
+          "differences": [],
+          "total": 5
+        }
+      }
+    },
+    {
+      "format": "midi-like-task-profile",
+      "input_tokens_per_bar": 721.9230769230769,
+      "input_tokens_per_lexeme": 5.936116382036686,
+      "input_tokens_per_note": 61.33986928104575,
+      "latency_ms": 4768.878708000102,
+      "prompt_bytes": 19053,
+      "prompt_lexemes": 1581,
+      "prompt_sha256": "cfefb7be69b87c3a70142a402d9bba3aea96c4b6080985cbed886f6076683400",
+      "raw_response_sha256": "a56973a8d26cd1a32fcaefef0ed0733d8025d1e4f8feb49cdf6fd45a7061cb6f",
+      "repair": {
+        "latency_ms": 2546.4173750001464,
+        "prompt_sha256": "c933c5fe135c6b307b96dc11ff194d5796e873457a525e68545232304ebd4dec",
+        "raw_response_sha256": "e2e18def1b7b71a483757a2c6f061b4dec659ff65a6b5ebb0b44e190e217ced3",
+        "response": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "13/3"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 10818,
+          "output_tokens": 102
+        },
+        "validation": {
+          "correct": true,
+          "differences": [],
+          "errors": [],
+          "valid": true
+        }
+      },
+      "request_id": null,
+      "response": {
+        "continuation_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "2/3",
+                  "id": "new-c1",
+                  "pitch": 68,
+                  "start": "16",
+                  "track": "lead",
+                  "velocity": 88
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c2",
+                  "pitch": 65,
+                  "start": "50/3",
+                  "track": "lead",
+                  "velocity": 84
+                },
+                {
+                  "duration": "2/3",
+                  "id": "new-c3",
+                  "pitch": 59,
+                  "start": "17",
+                  "track": "lead",
+                  "velocity": 90
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c4",
+                  "pitch": 55,
+                  "start": "53/3",
+                  "track": "lead",
+                  "velocity": 86
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "explanation": "This representation encodes multi-track symbolic performance as an autoregressive token stream with explicit note identifiers and delta time shifts.",
+        "invalid_patch_echo": {
+          "base_sha256": "stale",
+          "ops": [
+            {
+              "note_id": "not-a-note",
+              "op": "move",
+              "start": "1/3"
+            },
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "-1"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "label_control": {
+          "status": "unavailable"
+        },
+        "native_answer": {
+          "duration": "2/3",
+          "note_id": "x",
+          "pitch": 60,
+          "start": "1/3",
+          "velocity": 80
+        },
+        "reconstruction": [
+          {
+            "duration": "1",
+            "id": "l-01",
+            "pitch": 67,
+            "start": "0",
+            "track": "lead",
+            "velocity": 92
+          },
+          {
+            "duration": "919/960",
+            "id": "l-02",
+            "pitch": 71,
+            "start": "41/960",
+            "track": "lead",
+            "velocity": 86
+          },
+          {
+            "duration": "2/3",
+            "id": "l-03",
+            "pitch": 74,
+            "start": "1",
+            "track": "lead",
+            "velocity": 90
+          },
+          {
+            "duration": "1/3",
+            "id": "l-04",
+            "pitch": 76,
+            "start": "5/3",
+            "track": "lead",
+            "velocity": 94
+          },
+          {
+            "duration": "4",
+            "id": "b-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "bass",
+            "velocity": 82
+          },
+          {
+            "duration": "4",
+            "id": "k1-1",
+            "pitch": 48,
+            "start": "0",
+            "track": "keys",
+            "velocity": 68
+          },
+          {
+            "duration": "4",
+            "id": "k1-2",
+            "pitch": 55,
+            "start": "0",
+            "track": "keys",
+            "velocity": 69
+          },
+          {
+            "duration": "4",
+            "id": "k1-3",
+            "pitch": 59,
+            "start": "0",
+            "track": "keys",
+            "velocity": 70
+          },
+          {
+            "duration": "4",
+            "id": "k1-4",
+            "pitch": 62,
+            "start": "0",
+            "track": "keys",
+            "velocity": 71
+          },
+          {
+            "duration": "4",
+            "id": "k1-5",
+            "pitch": 66,
+            "start": "0",
+            "track": "keys",
+            "velocity": 72
+          },
+          {
+            "duration": "1/8",
+            "id": "d-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "drums",
+            "velocity": 108
+          },
+          {
+            "duration": "1/8",
+            "id": "d-02",
+            "pitch": 38,
+            "start": "49/24",
+            "track": "drums",
+            "velocity": 102
+          }
+        ],
+        "structural": {
+          "bar2_keys_pitches": [
+            52,
+            56,
+            62,
+            65,
+            70
+          ],
+          "descending_bar2_lead_ids": [
+            "l-05",
+            "l-06",
+            "l-07",
+            "l-08"
+          ],
+          "harmony_sequence": [
+            "Cmaj9#11",
+            "E7alt",
+            "Am11",
+            "D-quartal"
+          ],
+          "meter_sequence": [
+            "4/4",
+            "4/4",
+            "3/4",
+            "5/4"
+          ],
+          "performed_offsets": {
+            "d-02": "49/24",
+            "l-02": "41/960"
+          }
+        },
+        "transfer_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "1",
+                  "id": "new-r1",
+                  "pitch": 44,
+                  "start": "4",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r2",
+                  "pitch": 46,
+                  "start": "5",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r3",
+                  "pitch": 50,
+                  "start": "6",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r4",
+                  "pitch": 56,
+                  "start": "7",
+                  "track": "bass",
+                  "velocity": 82
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "transform_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_ids": [
+                "l-05",
+                "l-06",
+                "l-07",
+                "l-08"
+              ],
+              "op": "transpose",
+              "semitones": 1
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        }
+      },
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "usage": {
+        "cached_input_tokens": 4053,
+        "input_tokens": 9385,
+        "output_tokens": 1221
+      },
+      "validation": {
+        "invalid_patch_errors": [
+          "base_sha256 must be c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "op 0 unknown note ID not-a-note",
+          "op 1 start is below 0"
+        ],
+        "invalid_patch_exposed_all_errors": true,
+        "label_control_pass": true,
+        "missing_keys": [],
+        "native": {
+          "correct": true,
+          "differences": []
+        },
+        "objective_passed": 20,
+        "objective_total": 22,
+        "patches": {
+          "continuation_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 7,
+            "constraints_total": 7,
+            "valid": true
+          },
+          "transfer_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 6,
+            "constraints_total": 6,
+            "valid": true
+          },
+          "transform_patch": {
+            "checks": [
+              true
+            ],
+            "constraints_passed": 1,
+            "constraints_total": 1,
+            "valid": true
+          }
+        },
+        "reconstruction": {
+          "actual_count": 12,
+          "exact": false,
+          "expected_count": 12,
+          "sha256": "0628ce05043e89bf23092bc0875d837416fe21706d10a80a204d465c1838f1c3"
+        },
+        "schema_valid": true,
+        "structure": {
+          "correct": 4,
+          "differences": [
+            {
+              "actual": {
+                "d-02": "49/24",
+                "l-02": "41/960"
+              },
+              "expected": {
+                "d-02": "49/24",
+                "l-02": "1001/960"
+              },
+              "field": "performed_offsets"
+            }
+          ],
+          "total": 5
+        }
+      }
+    },
+    {
+      "format": "remi-plus-task-profile",
+      "input_tokens_per_bar": 681.3846153846154,
+      "input_tokens_per_lexeme": 5.624126984126984,
+      "input_tokens_per_note": 57.89542483660131,
+      "latency_ms": 4956.784749999997,
+      "prompt_bytes": 18780,
+      "prompt_lexemes": 1575,
+      "prompt_sha256": "c2481080724fd3da7aa6e4eac1953b4be4c324becb64479f09f30e5e76ffa178",
+      "raw_response_sha256": "7c9288045e421e7e65ef89ae42eb6de4408342b3ad573aeed1c9784d104f31d2",
+      "repair": {
+        "latency_ms": 2916.656625000087,
+        "prompt_sha256": "c933c5fe135c6b307b96dc11ff194d5796e873457a525e68545232304ebd4dec",
+        "raw_response_sha256": "de9531bd871e194c19fd7b6f722496ab432ba8b3ac64b1855c0af7e652fc8203",
+        "response": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "13/3"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 10297,
+          "output_tokens": 102
+        },
+        "validation": {
+          "correct": true,
+          "differences": [],
+          "errors": [],
+          "valid": true
+        }
+      },
+      "request_id": null,
+      "response": {
+        "continuation_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "2/3",
+                  "id": "new-c1",
+                  "pitch": 68,
+                  "start": "16",
+                  "track": "lead",
+                  "velocity": 88
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c2",
+                  "pitch": 65,
+                  "start": "50/3",
+                  "track": "lead",
+                  "velocity": 84
+                },
+                {
+                  "duration": "2/3",
+                  "id": "new-c3",
+                  "pitch": 59,
+                  "start": "17",
+                  "track": "lead",
+                  "velocity": 90
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c4",
+                  "pitch": 55,
+                  "start": "53/3",
+                  "track": "lead",
+                  "velocity": 86
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "explanation": "REMI-plus formats symbolic music into a token stream where compound note tokens specify bar-relative timing alongside absolute bar markers.",
+        "invalid_patch_echo": {
+          "base_sha256": "stale",
+          "ops": [
+            {
+              "note_id": "not-a-note",
+              "op": "move",
+              "start": "1/3"
+            },
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "-1"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "label_control": {
+          "status": "unavailable"
+        },
+        "native_answer": {
+          "duration": "2/3",
+          "note_id": "x",
+          "pitch": 60,
+          "start": "1/3",
+          "velocity": 80
+        },
+        "reconstruction": [
+          {
+            "duration": "4",
+            "id": "b-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "bass",
+            "velocity": 82
+          },
+          {
+            "duration": "1/8",
+            "id": "d-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "drums",
+            "velocity": 108
+          },
+          {
+            "duration": "4",
+            "id": "k1-1",
+            "pitch": 48,
+            "start": "0",
+            "track": "keys",
+            "velocity": 68
+          },
+          {
+            "duration": "4",
+            "id": "k1-2",
+            "pitch": 55,
+            "start": "0",
+            "track": "keys",
+            "velocity": 69
+          },
+          {
+            "duration": "4",
+            "id": "k1-3",
+            "pitch": 59,
+            "start": "0",
+            "track": "keys",
+            "velocity": 70
+          },
+          {
+            "duration": "4",
+            "id": "k1-4",
+            "pitch": 62,
+            "start": "0",
+            "track": "keys",
+            "velocity": 71
+          },
+          {
+            "duration": "4",
+            "id": "k1-5",
+            "pitch": 66,
+            "start": "0",
+            "track": "keys",
+            "velocity": 72
+          },
+          {
+            "duration": "1",
+            "id": "l-01",
+            "pitch": 67,
+            "start": "0",
+            "track": "lead",
+            "velocity": 92
+          },
+          {
+            "duration": "919/960",
+            "id": "l-02",
+            "pitch": 71,
+            "start": "1001/960",
+            "track": "lead",
+            "velocity": 86
+          },
+          {
+            "duration": "2/3",
+            "id": "l-03",
+            "pitch": 74,
+            "start": "2",
+            "track": "lead",
+            "velocity": 90
+          },
+          {
+            "duration": "1/8",
+            "id": "d-02",
+            "pitch": 38,
+            "start": "49/24",
+            "track": "drums",
+            "velocity": 102
+          },
+          {
+            "duration": "1/3",
+            "id": "l-04",
+            "pitch": 76,
+            "start": "8/3",
+            "track": "lead",
+            "velocity": 94
+          }
+        ],
+        "structural": {
+          "bar2_keys_pitches": [
+            52,
+            56,
+            62,
+            65,
+            70
+          ],
+          "descending_bar2_lead_ids": [
+            "l-05",
+            "l-06",
+            "l-07",
+            "l-08"
+          ],
+          "harmony_sequence": [
+            "Cmaj9#11",
+            "E7alt",
+            "Am11",
+            "D-quartal"
+          ],
+          "meter_sequence": [
+            "4/4",
+            "4/4",
+            "3/4",
+            "5/4"
+          ],
+          "performed_offsets": {
+            "d-02": "49/24",
+            "l-02": "1001/960"
+          }
+        },
+        "transfer_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "1",
+                  "id": "new-r1",
+                  "pitch": 44,
+                  "start": "4",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r2",
+                  "pitch": 46,
+                  "start": "5",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r3",
+                  "pitch": 50,
+                  "start": "6",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r4",
+                  "pitch": 56,
+                  "start": "7",
+                  "track": "bass",
+                  "velocity": 82
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "transform_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_ids": [
+                "l-05",
+                "l-06",
+                "l-07",
+                "l-08"
+              ],
+              "op": "transpose",
+              "semitones": 1
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        }
+      },
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 8858,
+        "output_tokens": 1227
+      },
+      "validation": {
+        "invalid_patch_errors": [
+          "base_sha256 must be c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "op 0 unknown note ID not-a-note",
+          "op 1 start is below 0"
+        ],
+        "invalid_patch_exposed_all_errors": true,
+        "label_control_pass": true,
+        "missing_keys": [],
+        "native": {
+          "correct": true,
+          "differences": []
+        },
+        "objective_passed": 22,
+        "objective_total": 22,
+        "patches": {
+          "continuation_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 7,
+            "constraints_total": 7,
+            "valid": true
+          },
+          "transfer_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 6,
+            "constraints_total": 6,
+            "valid": true
+          },
+          "transform_patch": {
+            "checks": [
+              true
+            ],
+            "constraints_passed": 1,
+            "constraints_total": 1,
+            "valid": true
+          }
+        },
+        "reconstruction": {
+          "actual_count": 12,
+          "exact": true,
+          "expected_count": 12,
+          "sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2"
+        },
+        "schema_valid": true,
+        "structure": {
+          "correct": 5,
+          "differences": [],
+          "total": 5
+        }
+      }
+    },
+    {
+      "format": "octuple-midi-task-profile",
+      "input_tokens_per_bar": 808.4615384615385,
+      "input_tokens_per_lexeme": 17.693602693602692,
+      "input_tokens_per_note": 68.69281045751634,
+      "latency_ms": 6439.802249999957,
+      "prompt_bytes": 20529,
+      "prompt_lexemes": 594,
+      "prompt_sha256": "1241f0e0797f3c09424fea5f1b4250a94520d210a90f528a477b25d890b54264",
+      "raw_response_sha256": "c3a32f27247bb7928a7a3b54edc2d77d86c02d466e098d190fa1fc17bb878112",
+      "repair": {
+        "latency_ms": 2152.964665999889,
+        "prompt_sha256": "c933c5fe135c6b307b96dc11ff194d5796e873457a525e68545232304ebd4dec",
+        "raw_response_sha256": "74ff7d022e8fa706eb1915dc925cd4fd9c9db8dc3411bb0338a3e954b7901268",
+        "response": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "13/3"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 11949,
+          "output_tokens": 102
+        },
+        "validation": {
+          "correct": true,
+          "differences": [],
+          "errors": [],
+          "valid": true
+        }
+      },
+      "request_id": null,
+      "response": {
+        "continuation_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "2/3",
+                  "id": "new-c1",
+                  "pitch": 68,
+                  "start": "16",
+                  "track": "lead",
+                  "velocity": 88
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c2",
+                  "pitch": 65,
+                  "start": "50/3",
+                  "track": "lead",
+                  "velocity": 84
+                },
+                {
+                  "duration": "2/3",
+                  "id": "new-c3",
+                  "pitch": 59,
+                  "start": "17",
+                  "track": "lead",
+                  "velocity": 90
+                },
+                {
+                  "duration": "1/3",
+                  "id": "new-c4",
+                  "pitch": 55,
+                  "start": "53/3",
+                  "track": "lead",
+                  "velocity": 86
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "explanation": "Octuple-midi encodes multi-track symbolic music as compound token tuples that bundle musical attributes alongside bar and position markers.",
+        "invalid_patch_echo": {
+          "base_sha256": "stale",
+          "ops": [
+            {
+              "note_id": "not-a-note",
+              "op": "move",
+              "start": "1/3"
+            },
+            {
+              "note_id": "l-05",
+              "op": "move",
+              "start": "-1"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "label_control": {
+          "status": "unavailable"
+        },
+        "native_answer": {
+          "duration": "2/3",
+          "note_id": "x",
+          "pitch": 60,
+          "start": "1/3",
+          "velocity": 80
+        },
+        "reconstruction": [
+          {
+            "duration": "4",
+            "id": "b-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "bass",
+            "velocity": 82
+          },
+          {
+            "duration": "1/8",
+            "id": "d-01",
+            "pitch": 36,
+            "start": "0",
+            "track": "drums",
+            "velocity": 108
+          },
+          {
+            "duration": "4",
+            "id": "k1-1",
+            "pitch": 48,
+            "start": "0",
+            "track": "keys",
+            "velocity": 68
+          },
+          {
+            "duration": "4",
+            "id": "k1-2",
+            "pitch": 55,
+            "start": "0",
+            "track": "keys",
+            "velocity": 69
+          },
+          {
+            "duration": "4",
+            "id": "k1-3",
+            "pitch": 59,
+            "start": "0",
+            "track": "keys",
+            "velocity": 70
+          },
+          {
+            "duration": "4",
+            "id": "k1-4",
+            "pitch": 62,
+            "start": "0",
+            "track": "keys",
+            "velocity": 71
+          },
+          {
+            "duration": "4",
+            "id": "k1-5",
+            "pitch": 66,
+            "start": "0",
+            "track": "keys",
+            "velocity": 72
+          },
+          {
+            "duration": "1",
+            "id": "l-01",
+            "pitch": 67,
+            "start": "0",
+            "track": "lead",
+            "velocity": 92
+          },
+          {
+            "duration": "919/960",
+            "id": "l-02",
+            "pitch": 71,
+            "start": "1001/960",
+            "track": "lead",
+            "velocity": 86
+          },
+          {
+            "duration": "2/3",
+            "id": "l-03",
+            "pitch": 74,
+            "start": "2",
+            "track": "lead",
+            "velocity": 90
+          },
+          {
+            "duration": "1/8",
+            "id": "d-02",
+            "pitch": 38,
+            "start": "49/24",
+            "track": "drums",
+            "velocity": 102
+          },
+          {
+            "duration": "1/3",
+            "id": "l-04",
+            "pitch": 76,
+            "start": "8/3",
+            "track": "lead",
+            "velocity": 94
+          }
+        ],
+        "structural": {
+          "bar2_keys_pitches": [
+            52,
+            56,
+            62,
+            65,
+            70
+          ],
+          "descending_bar2_lead_ids": [
+            "l-05",
+            "l-06",
+            "l-07",
+            "l-08"
+          ],
+          "harmony_sequence": [
+            "Cmaj9#11",
+            "E7alt",
+            "Am11",
+            "D-quartal"
+          ],
+          "meter_sequence": [
+            "4/4",
+            "4/4",
+            "3/4",
+            "5/4"
+          ],
+          "performed_offsets": {
+            "d-02": "49/24",
+            "l-02": "1001/960"
+          }
+        },
+        "transfer_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "default_policy": "track-neutral-v0",
+              "notes": [
+                {
+                  "duration": "1",
+                  "id": "new-r1",
+                  "pitch": 44,
+                  "start": "4",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r2",
+                  "pitch": 46,
+                  "start": "5",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r3",
+                  "pitch": 50,
+                  "start": "6",
+                  "track": "bass",
+                  "velocity": 82
+                },
+                {
+                  "duration": "1",
+                  "id": "new-r4",
+                  "pitch": 56,
+                  "start": "7",
+                  "track": "bass",
+                  "velocity": 82
+                }
+              ],
+              "op": "insert"
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        },
+        "transform_patch": {
+          "base_sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "ops": [
+            {
+              "note_ids": [
+                "l-05",
+                "l-06",
+                "l-07",
+                "l-08"
+              ],
+              "op": "transpose",
+              "semitones": 1
+            }
+          ],
+          "schema": "ghostnote-note-patch-v0"
+        }
+      },
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "usage": {
+        "cached_input_tokens": 8115,
+        "input_tokens": 10510,
+        "output_tokens": 2135
+      },
+      "validation": {
+        "invalid_patch_errors": [
+          "base_sha256 must be c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5",
+          "op 0 unknown note ID not-a-note",
+          "op 1 start is below 0"
+        ],
+        "invalid_patch_exposed_all_errors": true,
+        "label_control_pass": true,
+        "missing_keys": [],
+        "native": {
+          "correct": true,
+          "differences": []
+        },
+        "objective_passed": 22,
+        "objective_total": 22,
+        "patches": {
+          "continuation_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 7,
+            "constraints_total": 7,
+            "valid": true
+          },
+          "transfer_patch": {
+            "checks": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "constraints_passed": 6,
+            "constraints_total": 6,
+            "valid": true
+          },
+          "transform_patch": {
+            "checks": [
+              true
+            ],
+            "constraints_passed": 1,
+            "constraints_total": 1,
+            "valid": true
+          }
+        },
+        "reconstruction": {
+          "actual_count": 12,
+          "exact": true,
+          "expected_count": 12,
+          "sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2"
+        },
+        "schema_valid": true,
+        "structure": {
+          "correct": 5,
+          "differences": [],
+          "total": 5
+        }
+      }
+    },
+    {
+      "format": "strudel-mini-notation",
+      "input_tokens_per_bar": null,
+      "input_tokens_per_lexeme": 1.8823529411764706,
+      "input_tokens_per_note": null,
+      "latency_ms": 1389.0372500000012,
+      "prompt_bytes": 657,
+      "prompt_lexemes": 85,
+      "prompt_sha256": "cca461dedbc9b5d48c983932cea65227fe9b6e45d74d2a4fbe5bf83e5d66bc98",
+      "raw_response_sha256": "8c29a78fea55c921a62f750660a4bb01555f8bd3b3e766e8c47d01ff6d6679bd",
+      "repair": null,
+      "request_id": null,
+      "response": {
+        "native_answer": {
+          "counts": {
+            "bd": 1,
+            "hh": 4,
+            "sd": 1
+          },
+          "onsets": {
+            "bd": [
+              "0"
+            ],
+            "hh": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4"
+            ],
+            "sd": [
+              "1/2"
+            ]
+          }
+        }
+      },
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 160,
+        "output_tokens": 49
+      },
+      "validation": {
+        "native": {
+          "correct": true,
+          "differences": []
+        },
+        "objective_passed": 1,
+        "objective_total": 1,
+        "schema_valid": true
+      }
+    }
+  ],
+  "run_kind": "provider-dependent",
+  "schema": "ghostnote-compact-bar-benchmark-v0",
+  "screen_sha256": "7cdf924baf543af835632ee99a083d4acbbfe9c92eeec1dc6f64de2696efa2bb",
+  "settings": {
+    "max_initial_output_tokens": 12000,
+    "max_repair_output_tokens": 2000,
+    "reasoning_or_thinking": "low",
+    "response": "JSON object",
+    "retry_delays_seconds": [
+      2,
+      4,
+      8
+    ],
+    "temperature": 0
+  },
+  "tasks": {
+    "native_tasks": {
+      "abc-2.1-side-ledger": {
+        "expected": {
+          "chord_midi": [
+            60,
+            64,
+            67
+          ],
+          "triplet_midi": [
+            60,
+            62,
+            64
+          ]
+        },
+        "instruction": "Read this ABC fragment. Return triplet_midi and chord_midi in written order.",
+        "shape": {
+          "chord_midi": [
+            "integer"
+          ],
+          "triplet_midi": [
+            "integer"
+          ]
+        },
+        "source": "X:1\nL:1/8\nM:4/4\nK:C\n(3CDE [CEG]2 |"
+      },
+      "alda-side-ledger": {
+        "expected": {
+          "midi": [
+            60,
+            64,
+            67,
+            72
+          ]
+        },
+        "instruction": "Read this Alda phrase. Return its four MIDI pitches in written order.",
+        "shape": {
+          "midi": [
+            "integer"
+          ]
+        },
+        "source": "piano: o4 c8 e g > c4"
+      },
+      "compact-bar": {
+        "expected": {
+          "note_id": "l-02",
+          "start": "1001/960",
+          "track": "lead"
+        },
+        "instruction": "Use the compact event view. Return note_id, track, and start for the event at 1001/960 beat.",
+        "shape": {
+          "note_id": "string",
+          "start": "rational string",
+          "track": "string"
+        },
+        "source": "Use the supplied MEDIUM view."
+      },
+      "exact-json": {
+        "expected": {
+          "articulation": "legato",
+          "note_id": "l-02",
+          "start": "1001/960"
+        },
+        "instruction": "Use the exact object. Return note_id, start, and articulation for the lead note with the non-grid start 1001/960.",
+        "shape": {
+          "articulation": "string",
+          "note_id": "string",
+          "start": "rational string"
+        },
+        "source": "Use the supplied MEDIUM object."
+      },
+      "midi-like-task-profile": {
+        "expected": {
+          "duration": "2/3",
+          "note_id": "x",
+          "pitch": 60,
+          "start": "1/3",
+          "velocity": 80
+        },
+        "instruction": "Decode this native event fragment into note_id, start, duration, pitch, and velocity.",
+        "shape": {
+          "duration": "rational string",
+          "note_id": "string",
+          "pitch": "integer",
+          "start": "rational string",
+          "velocity": "integer"
+        },
+        "source": "TIME_SHIFT_1/3 NOTE_ID_x VELOCITY_80 NOTE_ON_60\nTIME_SHIFT_2/3 NOTE_ID_x NOTE_OFF_60"
+      },
+      "octuple-midi-task-profile": {
+        "expected": {
+          "duration": "2/3",
+          "note_id": "x",
+          "pitch": 60,
+          "start": "1/3",
+          "velocity": 80
+        },
+        "instruction": "Decode this native compound event into note_id, start, duration, pitch, and velocity.",
+        "shape": {
+          "duration": "rational string",
+          "note_id": "string",
+          "pitch": "integer",
+          "start": "rational string",
+          "velocity": "integer"
+        },
+        "source": "NOTE(BAR=1,POSITION=1/3,TRACK=lead,ID=x,PITCH=60,DURATION=2/3,VELOCITY=80,TIMESIG=4/4,TEMPO=120)"
+      },
+      "remi-plus-task-profile": {
+        "expected": {
+          "duration": "2/3",
+          "note_id": "x",
+          "pitch": 60,
+          "start": "1/3",
+          "velocity": 80
+        },
+        "instruction": "Decode this native compound event into note_id, start, duration, pitch, and velocity.",
+        "shape": {
+          "duration": "rational string",
+          "note_id": "string",
+          "pitch": "integer",
+          "start": "rational string",
+          "velocity": "integer"
+        },
+        "source": "<Bar=1> <Position=1/3> <Track=lead> <NoteID=x> <Pitch=60> <Velocity=80> <Duration=2/3>"
+      },
+      "strudel-mini-notation": {
+        "expected": {
+          "counts": {
+            "bd": 1,
+            "hh": 4,
+            "sd": 1
+          },
+          "onsets": {
+            "bd": [
+              "0"
+            ],
+            "hh": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4"
+            ],
+            "sd": [
+              "1/2"
+            ]
+          }
+        },
+        "instruction": "Expand one cycle of the Strudel mini-notation. Return counts by value and exact onsets by value as rational strings.",
+        "shape": {
+          "counts": {
+            "bd": "integer",
+            "hh": "integer",
+            "sd": "integer"
+          },
+          "onsets": {
+            "bd": [
+              "rational string"
+            ],
+            "hh": [
+              "rational string"
+            ],
+            "sd": [
+              "rational string"
+            ]
+          }
+        },
+        "source": "[bd sd, hh*4]"
+      }
+    },
+    "prompt_sha256": {
+      "abc-2.1-side-ledger": "b11a8e5ccbd3ee2d15a7253d9b5c7c2c2106f582320503610f736c63c8b01014",
+      "alda-side-ledger": "cfbfa7b2a6b7d65414a18e7169ae228a2d2f147adc10894a56d3c2530527cc7f",
+      "compact-bar": "09e5596a6c24f1eb8fca6ec66bd9df8beb4ebf2fa59a3619a24740b5537bd5dc",
+      "exact-json": "19bc3b40df754f1c4dbc142eb18243290e7cf4e0345605e8216d7a415bd4335e",
+      "midi-like-task-profile": "cfefb7be69b87c3a70142a402d9bba3aea96c4b6080985cbed886f6076683400",
+      "octuple-midi-task-profile": "1241f0e0797f3c09424fea5f1b4250a94520d210a90f528a477b25d890b54264",
+      "remi-plus-task-profile": "c2481080724fd3da7aa6e4eac1953b4be4c324becb64479f09f30e5e76ffa178",
+      "strudel-mini-notation": "cca461dedbc9b5d48c983932cea65227fe9b6e45d74d2a4fbe5bf83e5d66bc98"
+    },
+    "schema": "ghostnote-compact-bar-benchmark-v0",
+    "sha256": "8e297528c333481c6d390deb65f51017510b4ff33ada1f268f58e2882de0da10",
+    "tasks": [
+      "format-native",
+      "structural questions",
+      "represented-core reconstruction",
+      "local transformation",
+      "structural transfer",
+      "continuation",
+      "repair",
+      "sparse identity edit",
+      "masked-value refusal"
+    ]
+  }
+}

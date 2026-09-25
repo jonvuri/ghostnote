@@ -1,0 +1,669 @@
+{
+  "run_kind": "deterministic",
+  "schema": "ghostnote-compact-bar-benchmark-v0",
+  "screen": {
+    "all_retained_screens_pass": true,
+    "corpus": {
+      "fixtures": {
+        "long": {
+          "bars": 8,
+          "bytes": 21940,
+          "notes": 94,
+          "sha256": "320a98004bab148fbf49c8bebbdce4d95ee55094e492b3950c3a6ff2a93b2fe6"
+        },
+        "medium": {
+          "bars": 4,
+          "bytes": 11173,
+          "notes": 47,
+          "sha256": "c284bc87f98dca39975a348a08b9895700a6ab26693df4aa8f3082984c551ba5"
+        },
+        "short": {
+          "bars": 1,
+          "bytes": 3289,
+          "notes": 12,
+          "sha256": "1c25dee60c4e0abefe3ab5d2c8899381c6b50cc5fc88b3e722a70dc37de9ba19"
+        }
+      },
+      "license": "MIT",
+      "schema": "ghostnote-compact-bar-corpus-v0",
+      "sha256": "bf17a441b4d69c7e80616dc56755904e65adf9f1fc863f5a9ba75dfed9f9791e"
+    },
+    "format_profiles": {
+      "abc-2.1-side-ledger": {
+        "defaults": [],
+        "family": "score notation",
+        "ghostnote_round_trip": true,
+        "loss": [
+          "host-only fields",
+          "sub-1/192 timing in the ABC score view"
+        ],
+        "native_purpose": "Portable human-readable notation and tune exchange.",
+        "represented_fields": [
+          "id",
+          "track",
+          "start",
+          "duration",
+          "pitch",
+          "velocity",
+          "meter",
+          "harmony",
+          "role"
+        ],
+        "side_planes": [
+          "% GN exact identity and performance ledger"
+        ]
+      },
+      "alda-side-ledger": {
+        "defaults": [],
+        "family": "textual sequencer",
+        "ghostnote_round_trip": true,
+        "loss": [
+          "host-only fields",
+          "performed timing and polyphony in the Alda pitch sketch"
+        ],
+        "native_purpose": "Text-based composition, playback, and interactive sequencing.",
+        "represented_fields": [
+          "id",
+          "track",
+          "start",
+          "duration",
+          "pitch",
+          "velocity",
+          "role"
+        ],
+        "side_planes": [
+          "# GN exact identity and performance ledger"
+        ]
+      },
+      "compact-bar": {
+        "defaults": [],
+        "family": "Ghostnote task view",
+        "ghostnote_round_trip": true,
+        "loss": [
+          "channel",
+          "mute",
+          "release velocity",
+          "articulation",
+          "note expression"
+        ],
+        "native_purpose": "Compact agent reading and identity-grounded note edits.",
+        "represented_fields": [
+          "id",
+          "track",
+          "start",
+          "duration",
+          "pitch",
+          "velocity",
+          "meter",
+          "harmony",
+          "role",
+          "region"
+        ],
+        "side_planes": []
+      },
+      "exact-json": {
+        "defaults": [],
+        "family": "complete control",
+        "ghostnote_round_trip": true,
+        "loss": [],
+        "native_purpose": "Exact object exchange and reconstruction.",
+        "represented_fields": [
+          "id",
+          "track",
+          "start",
+          "duration",
+          "pitch",
+          "velocity",
+          "channel",
+          "muted",
+          "release_velocity",
+          "articulation",
+          "expression"
+        ],
+        "side_planes": []
+      },
+      "midi-like-task-profile": {
+        "defaults": [],
+        "family": "model token stream",
+        "ghostnote_round_trip": true,
+        "loss": [
+          "host-only fields"
+        ],
+        "native_purpose": "Autoregressive event modeling with note-on, note-off, and time shifts.",
+        "represented_fields": [
+          "id",
+          "track",
+          "start",
+          "duration",
+          "pitch",
+          "velocity",
+          "meter",
+          "harmony",
+          "role"
+        ],
+        "side_planes": [
+          "task extensions for opaque IDs and musical metadata"
+        ]
+      },
+      "octuple-midi-task-profile": {
+        "defaults": [],
+        "family": "model token stream",
+        "ghostnote_round_trip": true,
+        "loss": [
+          "host-only fields"
+        ],
+        "native_purpose": "Compound-event symbolic pretraining and understanding.",
+        "represented_fields": [
+          "id",
+          "track",
+          "start",
+          "duration",
+          "pitch",
+          "velocity",
+          "meter",
+          "role"
+        ],
+        "side_planes": [
+          "task extensions for opaque IDs, harmony, and exact rational time"
+        ]
+      },
+      "remi-plus-task-profile": {
+        "defaults": [],
+        "family": "model token stream",
+        "ghostnote_round_trip": true,
+        "loss": [
+          "host-only fields"
+        ],
+        "native_purpose": "Bar-aware symbolic modeling and generation.",
+        "represented_fields": [
+          "id",
+          "track",
+          "start",
+          "duration",
+          "pitch",
+          "velocity",
+          "meter",
+          "harmony",
+          "role"
+        ],
+        "side_planes": [
+          "task extensions for opaque IDs and roles"
+        ]
+      },
+      "strudel-mini-notation": {
+        "defaults": [
+          "one cycle of coverage for the fixed native task"
+        ],
+        "family": "pattern language",
+        "ghostnote_round_trip": false,
+        "loss": [
+          "finite note identity",
+          "independent performed duration",
+          "host performance fields"
+        ],
+        "native_purpose": "Terse live pattern construction and transformation.",
+        "represented_fields": [
+          "cyclic event value",
+          "relative onset",
+          "relative span"
+        ],
+        "side_planes": []
+      }
+    },
+    "native_rows": [
+      {
+        "coverage_cycles": 1,
+        "events": [
+          {
+            "end": "1/2",
+            "start": "0",
+            "value": "bd"
+          },
+          {
+            "end": "1/4",
+            "start": "0",
+            "value": "hh"
+          },
+          {
+            "end": "1/2",
+            "start": "1/4",
+            "value": "hh"
+          },
+          {
+            "end": "1",
+            "start": "1/2",
+            "value": "sd"
+          },
+          {
+            "end": "3/4",
+            "start": "1/2",
+            "value": "hh"
+          },
+          {
+            "end": "1",
+            "start": "3/4",
+            "value": "hh"
+          }
+        ],
+        "events_sha256": "da83ad09ee1326a95af1d3153e622987f0375f131611d318c23917701274859e",
+        "format": "strudel-mini-notation",
+        "pass": true,
+        "source": "[bd sd, hh*4]"
+      }
+    ],
+    "rejected_before_model_calls": [
+      {
+        "format": "lilypond",
+        "reason": "The repository does not pin or package a LilyPond compiler for this cohort.",
+        "stage": "deterministic capability screen"
+      }
+    ],
+    "round_trip_rows": [
+      {
+        "bytes": 3289,
+        "exact_represented_core_round_trip": true,
+        "fixture": "short",
+        "format": "exact-json",
+        "lexemes": 8,
+        "notes": 12,
+        "parsed_sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2",
+        "text_sha256": "e4b0d1eaee1599ceaa080e4ec7af0cd06782fa349f74e14c0060983ab8895c3b"
+      },
+      {
+        "bytes": 11173,
+        "exact_represented_core_round_trip": true,
+        "fixture": "medium",
+        "format": "exact-json",
+        "lexemes": 8,
+        "notes": 47,
+        "parsed_sha256": "e06296d9adb48f0fa6db04119245f816a4e5d321dd856561921df746a4be4756",
+        "text_sha256": "b9506324f4c48bbe80aa37f9050590462f6d900452a5b25954f5f226a1f02dc3"
+      },
+      {
+        "bytes": 21940,
+        "exact_represented_core_round_trip": true,
+        "fixture": "long",
+        "format": "exact-json",
+        "lexemes": 8,
+        "notes": 94,
+        "parsed_sha256": "382c5d00561cbad0a87e9783c8f5d5a4a8c20f81d252b1cdb22c7d5c021aed5c",
+        "text_sha256": "3fe26d5a54a68e764d2bc9b91c422792eef89170aa2958a765d050353c4c37d9"
+      },
+      {
+        "bytes": 1265,
+        "exact_represented_core_round_trip": true,
+        "fixture": "short",
+        "format": "compact-bar",
+        "lexemes": 209,
+        "notes": 12,
+        "parsed_sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2",
+        "text_sha256": "cd4f8e6826a2b13e4a465cdfc8182c58a7f74b3b3f8edd0a6b89bb23a6aae20e"
+      },
+      {
+        "bytes": 3710,
+        "exact_represented_core_round_trip": true,
+        "fixture": "medium",
+        "format": "compact-bar",
+        "lexemes": 659,
+        "notes": 47,
+        "parsed_sha256": "e06296d9adb48f0fa6db04119245f816a4e5d321dd856561921df746a4be4756",
+        "text_sha256": "abc30914a0783ab65a0c65263ad67c2682a480d2ad053da16e9ca443eb14a3f6"
+      },
+      {
+        "bytes": 7173,
+        "exact_represented_core_round_trip": true,
+        "fixture": "long",
+        "format": "compact-bar",
+        "lexemes": 1263,
+        "notes": 94,
+        "parsed_sha256": "382c5d00561cbad0a87e9783c8f5d5a4a8c20f81d252b1cdb22c7d5c021aed5c",
+        "text_sha256": "1a5f88dfa27de8431fcfa65ede7ce1ca2354586f972ed2824640cafca3281fa2"
+      },
+      {
+        "bytes": 1114,
+        "exact_represented_core_round_trip": true,
+        "fixture": "short",
+        "format": "abc-2.1-side-ledger",
+        "lexemes": 132,
+        "notes": 12,
+        "parsed_sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2",
+        "text_sha256": "04c70ec1ca2b9a6a5a1409360f7506fda3d40b528be0e237d200c7808093297e"
+      },
+      {
+        "bytes": 3860,
+        "exact_represented_core_round_trip": true,
+        "fixture": "medium",
+        "format": "abc-2.1-side-ledger",
+        "lexemes": 465,
+        "notes": 47,
+        "parsed_sha256": "e06296d9adb48f0fa6db04119245f816a4e5d321dd856561921df746a4be4756",
+        "text_sha256": "7b3f1a9fb2080b7df3bfa037174738aea3eba9b3f9e85e990d3ccf38b3f26782"
+      },
+      {
+        "bytes": 7729,
+        "exact_represented_core_round_trip": true,
+        "fixture": "long",
+        "format": "abc-2.1-side-ledger",
+        "lexemes": 912,
+        "notes": 94,
+        "parsed_sha256": "382c5d00561cbad0a87e9783c8f5d5a4a8c20f81d252b1cdb22c7d5c021aed5c",
+        "text_sha256": "c27e9339039aa42d967b9f4256024940a5ce3b530397ca71b2e8a2900e8ccb87"
+      },
+      {
+        "bytes": 1228,
+        "exact_represented_core_round_trip": true,
+        "fixture": "short",
+        "format": "alda-side-ledger",
+        "lexemes": 160,
+        "notes": 12,
+        "parsed_sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2",
+        "text_sha256": "196c63a8d95f5ca454193c73e3c2dafa580670102aafbba0015c01a9ce220d93"
+      },
+      {
+        "bytes": 3864,
+        "exact_represented_core_round_trip": true,
+        "fixture": "medium",
+        "format": "alda-side-ledger",
+        "lexemes": 528,
+        "notes": 47,
+        "parsed_sha256": "e06296d9adb48f0fa6db04119245f816a4e5d321dd856561921df746a4be4756",
+        "text_sha256": "a09b7d84996379af3f2cf8f898b4c62329b5e2810ed54193d68740fef6bab2df"
+      },
+      {
+        "bytes": 7589,
+        "exact_represented_core_round_trip": true,
+        "fixture": "long",
+        "format": "alda-side-ledger",
+        "lexemes": 1022,
+        "notes": 94,
+        "parsed_sha256": "382c5d00561cbad0a87e9783c8f5d5a4a8c20f81d252b1cdb22c7d5c021aed5c",
+        "text_sha256": "a56039d7324bdb1c524b5264603325887c053be5a1c8d7030c46852951ce976e"
+      },
+      {
+        "bytes": 1371,
+        "exact_represented_core_round_trip": true,
+        "fixture": "short",
+        "format": "midi-like-task-profile",
+        "lexemes": 103,
+        "notes": 12,
+        "parsed_sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2",
+        "text_sha256": "65a52d77a0122219d38e507044db41d3815ce2830351995867c71a12abc159b1"
+      },
+      {
+        "bytes": 4613,
+        "exact_represented_core_round_trip": true,
+        "fixture": "medium",
+        "format": "midi-like-task-profile",
+        "lexemes": 360,
+        "notes": 47,
+        "parsed_sha256": "e06296d9adb48f0fa6db04119245f816a4e5d321dd856561921df746a4be4756",
+        "text_sha256": "77c405492d1ec13808dec25f561e272a3dc33abfb0b16739ce2ed2eff91b53ed"
+      },
+      {
+        "bytes": 9262,
+        "exact_represented_core_round_trip": true,
+        "fixture": "long",
+        "format": "midi-like-task-profile",
+        "lexemes": 705,
+        "notes": 94,
+        "parsed_sha256": "382c5d00561cbad0a87e9783c8f5d5a4a8c20f81d252b1cdb22c7d5c021aed5c",
+        "text_sha256": "aa7fa3039a1dc611b69b1c51b8c1b66b8b69287bd873c8a7fbab66109ec9b97b"
+      },
+      {
+        "bytes": 1391,
+        "exact_represented_core_round_trip": true,
+        "fixture": "short",
+        "format": "remi-plus-task-profile",
+        "lexemes": 103,
+        "notes": 12,
+        "parsed_sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2",
+        "text_sha256": "a692b5d36ce17b138cec8bec02932876cdadf1568377b9400a573be62541ffdf"
+      },
+      {
+        "bytes": 4585,
+        "exact_represented_core_round_trip": true,
+        "fixture": "medium",
+        "format": "remi-plus-task-profile",
+        "lexemes": 360,
+        "notes": 47,
+        "parsed_sha256": "e06296d9adb48f0fa6db04119245f816a4e5d321dd856561921df746a4be4756",
+        "text_sha256": "fecf40811bd1f774499e2f05b04b58c613502eebc73ca15734420bbf848e5a49"
+      },
+      {
+        "bytes": 9032,
+        "exact_represented_core_round_trip": true,
+        "fixture": "long",
+        "format": "remi-plus-task-profile",
+        "lexemes": 705,
+        "notes": 94,
+        "parsed_sha256": "382c5d00561cbad0a87e9783c8f5d5a4a8c20f81d252b1cdb22c7d5c021aed5c",
+        "text_sha256": "1e23dc10658416974b608cd0c86e3246f1230b9315b04f4f21af91131c311c24"
+      },
+      {
+        "bytes": 1531,
+        "exact_represented_core_round_trip": true,
+        "fixture": "short",
+        "format": "octuple-midi-task-profile",
+        "lexemes": 21,
+        "notes": 12,
+        "parsed_sha256": "10c6ac3ef172ea3f3d5999ba1ed2ce94c87e2bf8288fb7d97aafe72c5649a3f2",
+        "text_sha256": "fcc7b6f7d3a725c98725e23594763d13b7c5cc8687281974124376b4d31256c1"
+      },
+      {
+        "bytes": 5111,
+        "exact_represented_core_round_trip": true,
+        "fixture": "medium",
+        "format": "octuple-midi-task-profile",
+        "lexemes": 59,
+        "notes": 47,
+        "parsed_sha256": "e06296d9adb48f0fa6db04119245f816a4e5d321dd856561921df746a4be4756",
+        "text_sha256": "1a302164291626547dfc68a2524f56a8cabfa71931807399248c20ef53c6ea34"
+      },
+      {
+        "bytes": 10076,
+        "exact_represented_core_round_trip": true,
+        "fixture": "long",
+        "format": "octuple-midi-task-profile",
+        "lexemes": 110,
+        "notes": 94,
+        "parsed_sha256": "382c5d00561cbad0a87e9783c8f5d5a4a8c20f81d252b1cdb22c7d5c021aed5c",
+        "text_sha256": "6c72a7c99c623c0b4fb002c7265b4227c473a897bb272a05ca54825324a61231"
+      }
+    ],
+    "schema": "ghostnote-compact-bar-benchmark-v0"
+  },
+  "sha256": "837b4f4a50891e9abee665c06d2e0fd559313320f79c9f9f3672bfd64bab9fbd",
+  "tasks": {
+    "native_tasks": {
+      "abc-2.1-side-ledger": {
+        "expected": {
+          "chord_midi": [
+            60,
+            64,
+            67
+          ],
+          "triplet_midi": [
+            60,
+            62,
+            64
+          ]
+        },
+        "instruction": "Read this ABC fragment. Return triplet_midi and chord_midi in written order.",
+        "shape": {
+          "chord_midi": [
+            "integer"
+          ],
+          "triplet_midi": [
+            "integer"
+          ]
+        },
+        "source": "X:1\nL:1/8\nM:4/4\nK:C\n(3CDE [CEG]2 |"
+      },
+      "alda-side-ledger": {
+        "expected": {
+          "midi": [
+            60,
+            64,
+            67,
+            72
+          ]
+        },
+        "instruction": "Read this Alda phrase. Return its four MIDI pitches in written order.",
+        "shape": {
+          "midi": [
+            "integer"
+          ]
+        },
+        "source": "piano: o4 c8 e g > c4"
+      },
+      "compact-bar": {
+        "expected": {
+          "note_id": "l-02",
+          "start": "1001/960",
+          "track": "lead"
+        },
+        "instruction": "Use the compact event view. Return note_id, track, and start for the event at 1001/960 beat.",
+        "shape": {
+          "note_id": "string",
+          "start": "rational string",
+          "track": "string"
+        },
+        "source": "Use the supplied MEDIUM view."
+      },
+      "exact-json": {
+        "expected": {
+          "articulation": "legato",
+          "note_id": "l-02",
+          "start": "1001/960"
+        },
+        "instruction": "Use the exact object. Return note_id, start, and articulation for the lead note with the non-grid start 1001/960.",
+        "shape": {
+          "articulation": "string",
+          "note_id": "string",
+          "start": "rational string"
+        },
+        "source": "Use the supplied MEDIUM object."
+      },
+      "midi-like-task-profile": {
+        "expected": {
+          "duration": "2/3",
+          "note_id": "x",
+          "pitch": 60,
+          "start": "1/3",
+          "velocity": 80
+        },
+        "instruction": "Decode this native event fragment into note_id, start, duration, pitch, and velocity.",
+        "shape": {
+          "duration": "rational string",
+          "note_id": "string",
+          "pitch": "integer",
+          "start": "rational string",
+          "velocity": "integer"
+        },
+        "source": "TIME_SHIFT_1/3 NOTE_ID_x VELOCITY_80 NOTE_ON_60\nTIME_SHIFT_2/3 NOTE_ID_x NOTE_OFF_60"
+      },
+      "octuple-midi-task-profile": {
+        "expected": {
+          "duration": "2/3",
+          "note_id": "x",
+          "pitch": 60,
+          "start": "1/3",
+          "velocity": 80
+        },
+        "instruction": "Decode this native compound event into note_id, start, duration, pitch, and velocity.",
+        "shape": {
+          "duration": "rational string",
+          "note_id": "string",
+          "pitch": "integer",
+          "start": "rational string",
+          "velocity": "integer"
+        },
+        "source": "NOTE(BAR=1,POSITION=1/3,TRACK=lead,ID=x,PITCH=60,DURATION=2/3,VELOCITY=80,TIMESIG=4/4,TEMPO=120)"
+      },
+      "remi-plus-task-profile": {
+        "expected": {
+          "duration": "2/3",
+          "note_id": "x",
+          "pitch": 60,
+          "start": "1/3",
+          "velocity": 80
+        },
+        "instruction": "Decode this native compound event into note_id, start, duration, pitch, and velocity.",
+        "shape": {
+          "duration": "rational string",
+          "note_id": "string",
+          "pitch": "integer",
+          "start": "rational string",
+          "velocity": "integer"
+        },
+        "source": "<Bar=1> <Position=1/3> <Track=lead> <NoteID=x> <Pitch=60> <Velocity=80> <Duration=2/3>"
+      },
+      "strudel-mini-notation": {
+        "expected": {
+          "counts": {
+            "bd": 1,
+            "hh": 4,
+            "sd": 1
+          },
+          "onsets": {
+            "bd": [
+              "0"
+            ],
+            "hh": [
+              "0",
+              "1/4",
+              "1/2",
+              "3/4"
+            ],
+            "sd": [
+              "1/2"
+            ]
+          }
+        },
+        "instruction": "Expand one cycle of the Strudel mini-notation. Return counts by value and exact onsets by value as rational strings.",
+        "shape": {
+          "counts": {
+            "bd": "integer",
+            "hh": "integer",
+            "sd": "integer"
+          },
+          "onsets": {
+            "bd": [
+              "rational string"
+            ],
+            "hh": [
+              "rational string"
+            ],
+            "sd": [
+              "rational string"
+            ]
+          }
+        },
+        "source": "[bd sd, hh*4]"
+      }
+    },
+    "prompt_sha256": {
+      "abc-2.1-side-ledger": "b11a8e5ccbd3ee2d15a7253d9b5c7c2c2106f582320503610f736c63c8b01014",
+      "alda-side-ledger": "cfbfa7b2a6b7d65414a18e7169ae228a2d2f147adc10894a56d3c2530527cc7f",
+      "compact-bar": "09e5596a6c24f1eb8fca6ec66bd9df8beb4ebf2fa59a3619a24740b5537bd5dc",
+      "exact-json": "19bc3b40df754f1c4dbc142eb18243290e7cf4e0345605e8216d7a415bd4335e",
+      "midi-like-task-profile": "cfefb7be69b87c3a70142a402d9bba3aea96c4b6080985cbed886f6076683400",
+      "octuple-midi-task-profile": "1241f0e0797f3c09424fea5f1b4250a94520d210a90f528a477b25d890b54264",
+      "remi-plus-task-profile": "c2481080724fd3da7aa6e4eac1953b4be4c324becb64479f09f30e5e76ffa178",
+      "strudel-mini-notation": "cca461dedbc9b5d48c983932cea65227fe9b6e45d74d2a4fbe5bf83e5d66bc98"
+    },
+    "schema": "ghostnote-compact-bar-benchmark-v0",
+    "sha256": "8e297528c333481c6d390deb65f51017510b4ff33ada1f268f58e2882de0da10",
+    "tasks": [
+      "format-native",
+      "structural questions",
+      "represented-core reconstruction",
+      "local transformation",
+      "structural transfer",
+      "continuation",
+      "repair",
+      "sparse identity edit",
+      "masked-value refusal"
+    ]
+  }
+}

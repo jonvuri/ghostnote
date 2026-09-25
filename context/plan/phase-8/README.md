@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: The lean runtime foundation is complete. Begin the compact-bar benchmark.
+status: The compact-bar benchmark is complete. Begin cache identity and lifecycle work.
 updated: 2026-09-25
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -76,8 +76,9 @@ owns the migration details.
    records the normal, capture, and probe identities and the lean runtime
    baseline.
 3. [8c — Compact-bar prior art and reproducible benchmark](8c-compact-bar-prior-art-and-benchmark.md).
-   Turn E114 and E115 into durable comparison documents and a reusable task
-   corpus for common textual music formats.
+   Complete. [E137](../../evidence/experiments/e137-compact-bar-prior-art-and-benchmark.md)
+   records the fixed comparison package, deterministic gate, and two-provider
+   run.
 4. [8d — Cache identity and lifecycle](8d-cache-identity-and-lifecycle.md).
    Resolve stale addresses, structural compaction, project changes, restart,
    replacement, and observer recovery.

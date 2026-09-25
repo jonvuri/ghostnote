@@ -1,0 +1,52 @@
+{
+  "schema": "ghostnote-compact-bar-legacy-baselines-v0",
+  "e114": {
+    "evidence": "context/evidence/experiments/e114-bar-context-and-guarded-note-patches-pass-two-models.md",
+    "fixture_and_scorer": "brain/src/probes/phase6f-symbolic-representation.py",
+    "cohort_sha256": "8265abd03f3b3d24377ecaa1dd8be9a722cb8381e8007d99891b92374ad9ae62",
+    "representation_sha256": "0232da68a38d17a51999cf8bc39725deded762fab2d5f391ab58c3efcc415794",
+    "openai_raw_run_sha256": "065caadb8239f7834a22a5d03b69a74dcb52b99695ca6aaca536670007efa51e",
+    "gemini_raw_run_sha256": "edc45b9f1ca2ed57c017abf98e73ad7f7074819cc377bbc9ae860c8db28b80f4",
+    "claims": {
+      "bar_input_tokens": {
+        "openai": 3828,
+        "gemini": 4625
+      },
+      "bar_patch_constraints": "20/20 on both providers",
+      "exact_json_input_tokens": {
+        "openai": 8761,
+        "gemini": 9519
+      },
+      "valid_patches": "6/6 for compact-bar and exact JSON"
+    }
+  },
+  "e115": {
+    "evidence": "context/evidence/experiments/e115-established-syntax-does-not-beat-compact-bar-context.md",
+    "fixture_and_scorer": "brain/src/probes/phase6f1-symbolic-familiarity.py",
+    "cohort_sha256": "ed90ac5de4056feac1756d30888a20a20dcbd59ce511352a155fe430010a9e49",
+    "representation_sha256": "7e00f3ecd9fff5bd342eff2b5d6b8f210dce03e1c7bdb869980fc7a677bd1fa1",
+    "openai_raw_run_sha256": "29f446de0214f6666713468c93691f43d98348ad841f3126cf295f5c23e31a86",
+    "gemini_raw_run_sha256": "332bab20d75656e35650faacbeae4b89634331342b0712f7a9dd4ea627abb494",
+    "claims": {
+      "published_grammar_scores": {
+        "openai": {
+          "compact-bar": "21/21",
+          "midi-like": "19/21",
+          "remi-plus": "18/21",
+          "octuple-midi": "18/21",
+          "synchronized-abc": "18/21"
+        },
+        "gemini": {
+          "compact-bar": "21/21",
+          "midi-like": "21/21",
+          "remi-plus": "21/21",
+          "octuple-midi": "21/21",
+          "synchronized-abc": "19/21"
+        }
+      },
+      "schema_valid_initial_patches": "120/120",
+      "repairs": "10/10",
+      "familiarity_result": "No established arm met the cross-model behavioral rule."
+    }
+  }
+}

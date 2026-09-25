@@ -1,16 +1,32 @@
 ---
 title: Phase 8c — Compact-bar prior art and reproducible benchmark
 kind: plan
-state: planned
-status: Review existing evidence and build the durable comparison package before the consolidated contract is frozen.
+state: complete
+status: The fixed corpus, fair prior-art documents, deterministic gate, and two-provider run are complete.
 updated: 2026-09-25
 parent: README.md
 prev: 8b-runtime-and-surface-cleanup.md
 next: 8d-cache-identity-and-lifecycle.md
-evidence: E109, E114-E121, E129; D21, D23
+evidence: E109, E114-E121, E129, E137; D21, D23
 ---
 
 # Phase 8c — Compact-bar prior art and reproducible benchmark
+
+## Result
+
+[E137](../../evidence/experiments/e137-compact-bar-prior-art-and-benchmark.md)
+records the fixed corpus, deterministic screen, two-provider run, and cause
+separation. The documentation package includes the
+[rationale](../../evidence/format/COMPACT_BAR_RATIONALE.md),
+[prior-art matrix](../../evidence/format/SYMBOLIC_MUSIC_PRIOR_ART.md),
+[limitations](../../evidence/format/COMPACT_BAR_LIMITATIONS.md),
+[protocol](../../evidence/format/COMPACT_BAR_BENCHMARK_PROTOCOL.md), and
+[reproducibility guide](../../evidence/format/COMPACT_BAR_REPRODUCIBILITY.md).
+
+The current compact profile uses 33.4% of exact JSON bytes. It uses 56.0% fewer
+GPT input tokens and 52.8% fewer Gemini input tokens. The run does not show a
+syntax-only accuracy win. Explicit task fields, edit IDs, and compiler behavior
+remain separate causes.
 
 ## Purpose
 

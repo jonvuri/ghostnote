@@ -280,6 +280,9 @@ implements the cache in shadow mode before promotion.
 
 ## Evidence carried forward
 
+- E137 fixes the prior-art rationale, limitations, task corpus, scoring rules,
+  deterministic results, and dated two-provider comparison. It does not freeze
+  the future syntax.
 - E114 and E115 select compact bar events and guarded patches over exact JSON
   and established notation controls for the tested agent tasks.
 - E116 proves fine binary and triplet host timing and records the dual-grid
