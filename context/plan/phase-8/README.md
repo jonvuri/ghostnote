@@ -1,8 +1,8 @@
 ---
 title: Phase 8 — Agent-native live engine
 kind: plan
-state: planned
-status: Start after the played-range consolidation live gate. Begin with the product posture and interface audit.
+state: active
+status: The played-range live gate passed. Begin with the product posture and interface audit.
 updated: 2026-09-25
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md

@@ -17,8 +17,8 @@ updated: 2026-09-25
 | [5 — authoring](phase-5/README.md) | active | Accepted public result; generalized closeout remains while the new direction starts |
 | [First dogfood loop](dogfooding/README.md) | deferred | Historical results remain; Phase 7 owns the next dogfood loop |
 | [6 — music workstation exploration](phase-6/README.md) | done | Contracts and verification costs audited; Phase 7 implementation followed |
-| [7 — workstation dogfood](phase-7/README.md) | done | Focused modules and hybrid real-project dogfood pass; one played-range follow-up remains |
-| [8 — agent-native live engine](phase-8/README.md) | planned | Simplify the posture and surface, settle compact-bar, and build the project cache |
+| [7 — workstation dogfood](phase-7/README.md) | done | Focused modules, hybrid dogfood, and the played-range follow-up pass |
+| [8 — agent-native live engine](phase-8/README.md) | active | Simplify the posture and surface, settle compact-bar, and build the project cache |
 | [9 — breadth and release](phase-9/README.md) | planned | Review publication and add useful breadth after the agent-native core settles |
 
 ## Cross-phase work

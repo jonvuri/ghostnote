@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-24
+updated: 2026-09-25
 ---
 
 # Evidence index
@@ -16,7 +16,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 | E132 | Flush boundaries do not prove clip settlement [K] (2026-09-24) | [open](experiments/e132-flush-boundary-clip-settlement.md) |
 | E131 | Complete dual-grid acquisition remains authoritative; the experimental guarded route is live [K] (2026-09-24) | [open](experiments/e131-consolidated-clip-acquisition.md) |
 | E130 | Step-data replay supplies a sparse launcher-clip occupancy index [K] (2026-09-24) | [open](experiments/e130-constant-time-launcher-clip-read-search.md) |
-| E129 | Played-range consolidation guidance passes offline; the live interface gate remains [K] (2026-09-24) | [open](experiments/e129-played-range-consolidation-guidance.md) |
+| E129 | Played-range consolidation guidance passes offline and live [K] (2026-09-25) | [open](experiments/e129-played-range-consolidation-guidance.md) |
 | E128 | Targeted note insertion reversal is live [K] (2026-09-24) | [open](experiments/e128-targeted-note-inverse-is-live.md) |
 | E127 | Hybrid audio-guided sound-design dogfood passes [K] (2026-09-23) | [open](experiments/e127-phase7f-hybrid-audio-guided-dogfood.md) |
 | E126 | Warning, response, and discovery reduction passes [K] (2026-09-23) | [open](experiments/e126-warning-response-and-discovery-reduction.md) |

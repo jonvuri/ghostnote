@@ -1,8 +1,8 @@
 ---
 title: Phase 7b follow-up — Played-range consolidation guidance
 kind: plan
-state: active
-status: Ready for the fresh live trial. E134 supports a later cache design, but the stable route remains E131.
+state: complete
+status: The independent hybrid live gate passed. E129 records refusal, visible consolidation, guarded write, reversal, and cleanup.
 updated: 2026-09-25
 parent: 7b-agent-patch-execution-and-reference-dogfood.md
 prev: 7b-follow-up-project-observer-scale-sweep.md
@@ -178,7 +178,12 @@ and treat the trial as failed evidence, not as permission to weaken the guard.
 
 ## Completion and return route
 
-The offline implementation is complete. The independent live gate is paused.
+The offline implementation and independent live gate are complete. The fresh
+agent followed the actionable refusal, consolidated only the owned duplicate
+through visible computer use, reacquired complete E131 state, and completed a
+guarded insertion and exact reversal. Cleanup removed the duplicate and
+restored the entry selection. E129 records the exact run.
+
 The interface discussion selected a
 [consolidated compact-bar direction](../../evidence/format/CONSOLIDATED_COMPACT_BAR.md)
 instead of adding a narrow exact-source tool only for this trial.
@@ -208,8 +213,7 @@ route unless E134 authorizes a different experimental route.
 E134 supports a later project-wide persistent occupancy-cache design after the
 corrected width, capacity, and invalidation tests passed. Keep the complete
 E131 acquisition route authoritative until that separate cache session. Start
-the independent live agent trial in a fresh chat with
-`GHOSTNOTE_TOOL_PROFILE=phase-7b-agent-note-patch-v0`.
+[Phase 8a](../phase-8/8a-agent-native-product-and-interface-audit.md).
 
 ## Retrospective target
 
