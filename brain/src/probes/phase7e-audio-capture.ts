@@ -14,7 +14,8 @@ import { Session } from '../session.js';
 import { WORKSTATION_REQUEST_SCHEMA, WorkstationModuleRegistry } from '../workstation/index.js';
 import { client, pollUntil } from './lib.js';
 
-const METHODS_HASH = '78368fe47ea0e814';
+const METHODS_HASH = '677718209312bd96';
+const RUNTIME_PROFILE = 'capture-v1';
 const TRACK_NAME = 'gn-7e-audio-capture-source';
 const POLYSYNTH = 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef';
 const SLOT = 0;
@@ -128,7 +129,11 @@ const projectDirectory = dirname(projectFile);
 const projectName = basename(projectFile, '.bwproject');
 const projectBytes = await readFile(projectFile);
 const projectFileSha256 = createHash('sha256').update(projectBytes).digest('hex');
-const session = new Session({ client, expectMethodsHash: METHODS_HASH });
+const session = new Session({
+  client,
+  expectMethodsHash: METHODS_HASH,
+  expectRuntimeProfile: RUNTIME_PROFILE,
+});
 let entryTracks: readonly TrackRow[] = [];
 let ownedTrackId: string | undefined;
 let capturedPath: string | undefined;

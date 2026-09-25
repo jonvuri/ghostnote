@@ -129,7 +129,7 @@ public final class NoteHandlers extends HandlerGroup {
         rig.clip(ref).setStepSize(stepSize);
         if ("observer".equals(ref)) {
             rig.noteObserver.setGrid(stepSize);
-            rig.stepDataObserver.setGrid(stepSize);
+            if (rig.stepDataObserver != null) rig.stepDataObserver.setGrid(stepSize);
         }
         return ok();
     }
@@ -141,7 +141,7 @@ public final class NoteHandlers extends HandlerGroup {
         rig.clip(ref).scrollToStep(step);
         if ("observer".equals(ref)) {
             rig.noteObserver.setPage(step);
-            rig.stepDataObserver.setPage(step);
+            if (rig.stepDataObserver != null) rig.stepDataObserver.setPage(step);
         }
         return ok();
     }

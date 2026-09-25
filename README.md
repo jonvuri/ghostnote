@@ -35,16 +35,19 @@ and [evidence index](context/evidence/INDEX.md) as needed.
 
 ```sh
 cd extension
-./gradlew build          # -> build/libs/ghostnote-0.0.1.bwextension
-./gradlew copyExtension  # -> ~/Documents/Bitwig Studio/Extensions/
+./gradlew build                 # Normal archive
+./gradlew copyExtension         # Deploy normal-v1
+./gradlew copyCaptureExtension  # Deploy capture-v1 when audio capture is needed
+./gradlew copyProbeExtension    # Deploy phase-8-probe-v1 for named regressions
 ```
 
 Then enable it in Bitwig under **Settings → Controllers → Add → ghostnote**. It
 declares zero MIDI ports; all communication is over TCP.
 
-Bitwig hot-reloads the extension when the deployed file's **content** changes, so
-`./gradlew copyExtension` re-runs `init()` without restarting the DAW. Note that
-`touch` alone does *not* trigger it.
+The deploy tasks replace the configured archive with an atomic rename. Reload
+the controller in Bitwig after each deploy. Run `npm run probe:hello` to verify
+the active profile and method hash. A file timestamp change alone does not load
+new code.
 
 ## Connect Codex
 

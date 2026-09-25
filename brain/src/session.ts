@@ -52,7 +52,7 @@ import type { ObservationStore } from './observation/index.js';
 
 export interface SessionOptions {
   /**
-   * The wire hash to demand, from `extension/methods.golden.json`.
+   * The wire hash to demand, from the selected active extension golden.
    *
    * ⚠ Optional, and the omission is a real choice rather than laziness: the
    * probes deliberately run against a rig whose method table is ahead of the
@@ -60,6 +60,8 @@ export interface SessionOptions {
    * passes it.
    */
   readonly expectMethodsHash?: string;
+  /** Exact extension profile identity to require during the handshake. */
+  readonly expectRuntimeProfile?: string;
   /** Substituted in tests; see `BridgeLike`. Defaults to a real TCP client. */
   readonly client?: BridgeLike;
   /**
@@ -120,6 +122,9 @@ export class Session {
       ...(this.options.expectMethodsHash === undefined
         ? {}
         : { expectMethodsHash: this.options.expectMethodsHash }),
+      ...(this.options.expectRuntimeProfile === undefined
+        ? {}
+        : { expectRuntimeProfile: this.options.expectRuntimeProfile }),
     });
   }
 

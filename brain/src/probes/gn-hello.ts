@@ -7,8 +7,8 @@
  * A silent `ping` timeout after a deploy means the extension is DEAD, not slow,
  * and nothing else is worth running until this passes.
  *
- * It then diffs the live method table against extension/methods.golden.json,
- * which is what proves the Phase-0 handler split changed no wire behaviour.
+ * It then selects the active golden from the runtime profile and diffs the
+ * live method table against it.
  *
  *   npm run probe:hello
  */
@@ -17,10 +17,6 @@ import { join } from 'node:path';
 
 import { compareDeployment, deployedAtMs } from '../deploy.js';
 import { client, check, note, failureCount } from './lib.js';
-
-const golden = JSON.parse(
-  readFileSync(join(import.meta.dirname, '..', '..', '..', 'extension', 'methods.golden.json'), 'utf8'),
-) as { count: number; methodsHash: string; methods: string[] };
 
 console.log('-- A. the extension is alive (init() did not throw)');
 const ping = (await client.request('ping')) as { pong: boolean; thread: string };
@@ -34,14 +30,30 @@ check('the rig constructed (so no marked handle threw at init — E7-0)', typeof
 console.log('\n-- B. the contract handshake');
 const hello = (await client.request('contract.hello')) as {
   contractVersion: number; extensionVersion: string; hostApiVersion: number;
-  methodCount: number; methodsHash: string;
+  runtimeProfile: string; methodCount: number; methodsHash: string;
 };
 note(`contract.hello -> ${JSON.stringify(hello)}`);
 check('contract version is v0', hello.contractVersion === 0, hello);
 check('host API version is 25 (Bitwig 6.0.6)', hello.hostApiVersion === 25, hello);
 
-console.log('\n-- C. the wire method table matches the golden (the split was a no-op)');
-const live = (await client.request('rig.methods')) as { methods: string[]; count: number; methodsHash: string };
+const goldenFiles: Record<string, string> = {
+  'normal-v1': 'methods.golden.json',
+  'capture-v1': 'methods.capture.golden.json',
+  'phase-8-probe-v1': 'methods.probe.golden.json',
+};
+const goldenFile = goldenFiles[hello.runtimeProfile];
+check('runtime profile has an active golden', goldenFile !== undefined, hello);
+if (goldenFile === undefined) throw new Error(`unknown runtime profile: ${hello.runtimeProfile}`);
+const golden = JSON.parse(
+  readFileSync(join(import.meta.dirname, '..', '..', '..', 'extension', goldenFile), 'utf8'),
+) as { identity: string; count: number; methodsHash: string; methods: string[] };
+check('handshake identity matches the selected golden', hello.runtimeProfile === golden.identity,
+  { live: hello.runtimeProfile, golden: golden.identity });
+
+console.log('\n-- C. the wire method table matches its active golden');
+const live = (await client.request('rig.methods')) as {
+  runtimeProfile: string; methods: string[]; count: number; methodsHash: string;
+};
 const missing = golden.methods.filter((m) => !live.methods.includes(m));
 const extra = live.methods.filter((m) => !golden.methods.includes(m));
 note(`live: ${live.count} methods, hash ${live.methodsHash}`);
@@ -53,6 +65,8 @@ check('live registers nothing the golden does not know about', extra.length === 
 check('methodsHash agrees between brain and extension', live.methodsHash === golden.methodsHash,
   { live: live.methodsHash, golden: golden.methodsHash });
 check('contract.hello and rig.methods agree', hello.methodsHash === live.methodsHash, { hello, live });
+check('contract.hello and rig.methods identify the same runtime profile',
+  hello.runtimeProfile === live.runtimeProfile, { hello, live });
 
 console.log('\n-- D. bank-window overflow is observable (standing rule 5)');
 const tracks = (await client.request('track.list')) as { count: number; itemCount?: number; bankSize?: number };

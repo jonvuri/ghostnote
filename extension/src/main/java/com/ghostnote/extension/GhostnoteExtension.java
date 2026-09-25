@@ -24,11 +24,14 @@ public class GhostnoteExtension extends ControllerExtension {
     // Spike: hardcoded. Becomes config-driven post-spike.
     private static final int PORT = 8686;
 
+    private final RuntimeProfile profile;
     private Bridge bridge;
     protected GhostnoteExtension(
             final GhostnoteExtensionDefinition definition,
-            final ControllerHost host) {
+            final ControllerHost host,
+            final RuntimeProfile profile) {
         super(definition, host);
+        this.profile = profile;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class GhostnoteExtension extends ControllerExtension {
 
         final long initStart = System.nanoTime();
         final RigConfig config = RigConfig.load();
-        final Rig rig = new Rig(host, config);
+        final Rig rig = new Rig(host, config, profile);
 
         // The panel contains product status and the hidden observation record.
         // Keep its undocumented Setting downcast away from bridge construction.
@@ -54,7 +57,7 @@ public class GhostnoteExtension extends ControllerExtension {
         // before any of them have registered. Registration happens at construction
         // time, dispatch at request time — no cycle.
         final ExecState state = new ExecState();
-        final HandlerRegistry registry = new HandlerRegistry();
+        final HandlerRegistry registry = new HandlerRegistry(profile);
         registry.register(
             new CoreHandlers(host, rig, state, registry),
             new TrackHandlers(host, rig, state),
@@ -76,8 +79,10 @@ public class GhostnoteExtension extends ControllerExtension {
             bridge = new Bridge(PORT, host, registry);
             bridge.start();
             state.setInitStats(System.nanoTime() - initStart, System.currentTimeMillis());
-            host.showPopupNotification("ghostnote bridge listening on 127.0.0.1:" + PORT);
+            host.showPopupNotification("ghostnote " + profile.identity()
+                + " listening on 127.0.0.1:" + PORT);
             host.println("[ghostnote] init complete, port " + PORT
+                + ", profile=" + profile.identity()
                 + ", rig=" + config.stamp
                 + " tracks=" + config.tracks + " scenes=" + config.scenes
                 + " rigConstructMs=" + (rig.constructNanos / 1_000_000)

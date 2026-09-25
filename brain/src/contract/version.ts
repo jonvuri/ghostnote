@@ -45,10 +45,12 @@ export interface AdapterInfo {
   };
   /**
    * sha256 of the sorted wire method names, first 16 hex chars — see
-   * extension/methods.golden.json. A drifted extension is caught here rather
+   * the selected active extension golden. A drifted extension is caught here rather
    * than at the first failing write. Absent on the fake, which has no wire.
    */
   readonly methodsHash?: string;
+  /** Exact normal, capture, or probe extension identity. */
+  readonly runtimeProfile?: string;
   readonly limits: BankLimits;
   readonly capabilities: AdapterCapabilities;
 }

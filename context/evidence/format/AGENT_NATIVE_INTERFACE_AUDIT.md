@@ -227,8 +227,10 @@ it has a versioned grammar, loss model, and conformance corpus.
 
 ## Wire disposition
 
-The deployed extension registers 157 methods at hash `905bc2531512025b`.
-The product wire map can emit 90. The remaining 67 are not product-reachable.
+The pre-8b extension registered 157 methods at hash `905bc2531512025b`.
+The product wire map can emit 90. The audit therefore classified 67 methods as
+not product-reachable. E136 records the implemented 85-method normal,
+90-method capture, and 95-method probe runtimes.
 
 ### Product-reachable methods
 
@@ -407,6 +409,10 @@ Phase 8 uses these measurable goals:
 ## Ordered migration
 
 ### 8b
+
+Completed in [E136](../experiments/e136-runtime-and-surface-cleanup.md). The
+normal, capture, and probe runtimes have distinct embedded identities and active
+goldens. D13 now permits its six banned methods only in the probe runtime.
 
 1. Create distinct normal and probe extension identities.
 2. Remove the 57 historical non-product methods and their unowned host objects

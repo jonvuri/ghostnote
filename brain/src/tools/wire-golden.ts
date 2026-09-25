@@ -13,9 +13,25 @@ import { join } from 'node:path';
 
 export const REPO_ROOT = join(import.meta.dirname, '..', '..', '..');
 export const GOLDEN_PATH = join(REPO_ROOT, 'extension', 'methods.golden.json');
+export const CAPTURE_GOLDEN_PATH = join(REPO_ROOT, 'extension', 'methods.capture.golden.json');
+export const PROBE_GOLDEN_PATH = join(REPO_ROOT, 'extension', 'methods.probe.golden.json');
+export const HISTORICAL_GOLDEN_PATH = join(REPO_ROOT, 'extension', 'methods.historical.json');
 export const HANDLERS_DIR = join(
   REPO_ROOT, 'extension', 'src', 'main', 'java', 'com', 'ghostnote', 'extension', 'handlers',
 );
+export const RUNTIME_PROFILE_PATH = join(
+  REPO_ROOT, 'extension', 'src', 'main', 'java', 'com', 'ghostnote', 'extension',
+  'RuntimeProfile.java',
+);
+
+export interface ActiveGolden {
+  $comment: string[];
+  profile: 'normal' | 'capture' | 'probe';
+  identity: string;
+  count: number;
+  methodsHash: string;
+  methods: string[];
+}
 
 export interface Golden {
   $comment: string[];
@@ -111,4 +127,48 @@ export function scrapeRegistrations(dir = HANDLERS_DIR): string[] {
 export const methodsHash = (names: readonly string[]): string =>
   createHash('sha256').update([...names].join('\n'), 'utf8').digest('hex').slice(0, 16);
 
-export const readGolden = (): Golden => JSON.parse(readFileSync(GOLDEN_PATH, 'utf8')) as Golden;
+const readActiveGolden = (path: string): ActiveGolden =>
+  JSON.parse(readFileSync(path, 'utf8')) as ActiveGolden;
+
+export const readGolden = (): ActiveGolden => readActiveGolden(GOLDEN_PATH);
+export const readCaptureGolden = (): ActiveGolden => readActiveGolden(CAPTURE_GOLDEN_PATH);
+export const readProbeGolden = (): ActiveGolden => readActiveGolden(PROBE_GOLDEN_PATH);
+export const readHistoricalGolden = (): Golden =>
+  JSON.parse(readFileSync(HISTORICAL_GOLDEN_PATH, 'utf8')) as Golden;
+
+export interface MethodClassification {
+  readonly product: readonly string[];
+  readonly optionalCapture: readonly string[];
+  readonly activeProbe: readonly string[];
+  readonly historical: readonly string[];
+}
+
+/** Read the fail-closed method classification used by the Java registry. */
+export function scrapeMethodClassification(path = RUNTIME_PROFILE_PATH): MethodClassification {
+  const source = readFileSync(path, 'utf8');
+  const block = (name: string): string[] => {
+    const match = source.match(new RegExp(
+      `Set<String> ${name} = methods\\(([\\s\\S]*?)\\n        \\);`,
+    ));
+    if (match === null) throw new Error(`RuntimeProfile.java: missing ${name} method block`);
+    return [...match[1]!.matchAll(/"([^"]+)"/g)].map((item) => item[1]!).sort();
+  };
+  return {
+    product: block('PRODUCT'),
+    optionalCapture: block('OPTIONAL_CAPTURE'),
+    activeProbe: block('ACTIVE_PROBE'),
+    historical: block('HISTORICAL'),
+  };
+}
+
+export function classifiedProfileMethods(
+  classification: MethodClassification,
+): Record<ActiveGolden['profile'], string[]> {
+  const optionalCapture = new Set(classification.optionalCapture);
+  const normal = classification.product.filter((method) => !optionalCapture.has(method)).sort();
+  return {
+    normal,
+    capture: [...classification.product].sort(),
+    probe: [...new Set([...normal, ...classification.activeProbe])].sort(),
+  };
+}

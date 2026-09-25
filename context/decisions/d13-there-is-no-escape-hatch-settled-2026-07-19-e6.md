@@ -74,10 +74,11 @@ The typed API plus D1's file surgery is the entire toolbox. The residual gap
 (track Group/Ungroup, wrap/unwrap) is an accepted minor omission.
 
 **`app.invokeAction`, `app.actions`, `app.undo`, `app.redo`, `app.undoState`, and
-`branch.groupTrack`
-stay REGISTERED but banned** — `WIRE_METHODS_BANNED`, asserted unreachable from
-the contract — because the probes that established the bans are the live
-regression suite.
+`branch.groupTrack` stay banned.** Session 8b moved them to the explicit
+`phase-8-probe-v1` runtime. They are absent from the normal and capture
+runtimes. `WIRE_METHODS_BANNED` keeps them unreachable from the product
+contract. The probe runtime keeps the live regressions available without
+loading their handles in the product runtime.
 
 ⚠ **A second, harsher class exists: `WIRE_METHODS_FORBIDDEN`, which must not be
 registered at all.** `ui.signalFire` is its only member: it crashes Bitwig

@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: The agent-native interface audit is complete. Begin the lean runtime and surface foundation.
+status: The lean runtime foundation is complete. Begin the compact-bar benchmark.
 updated: 2026-09-25
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -72,8 +72,9 @@ owns the migration details.
    target architecture, risk tiers, and migration order. [E135](../../evidence/experiments/e135-agent-native-product-and-interface-audit.md)
    records the independent comparison and settled follow-up decisions.
 2. [8b — Runtime and surface cleanup foundation](8b-runtime-and-surface-cleanup.md).
-   Separate product and probe runtime, retire unowned apparatus, and establish
-   the lean baseline used by later measurements.
+   Complete. [E136](../../evidence/experiments/e136-runtime-and-surface-cleanup.md)
+   records the normal, capture, and probe identities and the lean runtime
+   baseline.
 3. [8c — Compact-bar prior art and reproducible benchmark](8c-compact-bar-prior-art-and-benchmark.md).
    Turn E114 and E115 into durable comparison documents and a reusable task
    corpus for common textual music formats.

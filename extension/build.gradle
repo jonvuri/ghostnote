@@ -71,20 +71,63 @@ tasks.register('bitwigApiSourcePath') {
     }
 }
 
-jar {
-    archiveBaseName = 'ghostnote'
-    archiveExtension = 'bwextension'
+def registerRuntimeProfileResource = { taskName, identity ->
+    def output = layout.buildDirectory.file(
+        "generated/runtime-profiles/${taskName}/ghostnote-runtime-profile.txt")
+    return tasks.register(taskName) {
+        inputs.property('runtimeProfile', identity)
+        outputs.file(output)
+        doLast {
+            def outputFile = output.get().asFile
+            outputFile.parentFile.mkdirs()
+            outputFile.setText("${identity}\n", 'UTF-8')
+        }
+    }
+}
 
-    from {
+def normalProfileResource = registerRuntimeProfileResource(
+    'normalRuntimeProfileResource', 'normal-v1')
+def captureProfileResource = registerRuntimeProfileResource(
+    'captureRuntimeProfileResource', 'capture-v1')
+def probeProfileResource = registerRuntimeProfileResource(
+    'probeRuntimeProfileResource', 'phase-8-probe-v1')
+
+def configureExtensionArchive = { task, extensionClass, profileResource ->
+    task.archiveBaseName = 'ghostnote'
+    task.archiveExtension = 'bwextension'
+    task.from(profileResource)
+    task.from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    manifest {
-        attributes(
-            'Extension-Class': 'com.ghostnote.extension.GhostnoteExtensionDefinition'
-        )
+    task.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    task.manifest {
+        attributes('Extension-Class': extensionClass)
     }
+}
+
+configureExtensionArchive(
+    jar,
+    'com.ghostnote.extension.GhostnoteExtensionDefinition',
+    normalProfileResource)
+
+tasks.register('captureJar', Jar) {
+    dependsOn classes
+    archiveClassifier = 'capture'
+    from sourceSets.main.output
+    configureExtensionArchive(
+        delegate,
+        'com.ghostnote.extension.GhostnoteCaptureExtensionDefinition',
+        captureProfileResource)
+}
+
+tasks.register('probeJar', Jar) {
+    dependsOn classes
+    archiveClassifier = 'probe'
+    from sourceSets.main.output
+    configureExtensionArchive(
+        delegate,
+        'com.ghostnote.extension.GhostnoteProbeExtensionDefinition',
+        probeProfileResource)
 }
 
 def bitwigExtensionsDir = "${System.getProperty('user.home')}/Documents/Bitwig Studio/Extensions"
@@ -114,3 +157,25 @@ tasks.register('copyExtension') {
         println "Deployed (atomic rename) to: ${target}"
     }
 }
+
+def registerProfileDeploy = { taskName, archiveTaskName ->
+    tasks.register(taskName) {
+        dependsOn archiveTaskName
+        doLast {
+            def archiveTask = tasks.named(archiveTaskName).get()
+            def deployedName = jar.archiveFileName.get()
+            def target = file("${bitwigExtensionsDir}/${deployedName}")
+            def staging = file("${bitwigExtensionsDir}/.${deployedName}.staged")
+            staging.parentFile.mkdirs()
+            staging.bytes = archiveTask.archiveFile.get().asFile.bytes
+            java.nio.file.Files.move(
+                staging.toPath(), target.toPath(),
+                java.nio.file.StandardCopyOption.REPLACE_EXISTING,
+                java.nio.file.StandardCopyOption.ATOMIC_MOVE)
+            println "Deployed ${archiveTaskName} (atomic rename) to: ${target}"
+        }
+    }
+}
+
+registerProfileDeploy('copyCaptureExtension', 'captureJar')
+registerProfileDeploy('copyProbeExtension', 'probeJar')

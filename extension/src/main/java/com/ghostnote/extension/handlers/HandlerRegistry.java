@@ -1,10 +1,12 @@
 package com.ghostnote.extension.handlers;
 
 import com.ghostnote.extension.Bridge;
+import com.ghostnote.extension.RuntimeProfile;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,12 @@ import java.util.Map;
  */
 public final class HandlerRegistry implements Bridge.Dispatcher {
     private final Map<String, Handler> handlers = new HashMap<>();
+    private final HashSet<String> offered = new HashSet<>();
+    private final RuntimeProfile profile;
+
+    public HandlerRegistry(RuntimeProfile profile) {
+        this.profile = profile;
+    }
 
     /**
      * ⚠ The duplicate check is not defensive padding — it closes a regression the
@@ -25,6 +33,12 @@ public final class HandlerRegistry implements Bridge.Dispatcher {
      * from two groups must be as loud as the compile error used to be.
      */
     public void on(String method, Handler handler) {
+        if (!offered.add(method)) {
+            throw new IllegalStateException("duplicate handler declaration: " + method);
+        }
+        if (!profile.includes(method)) {
+            return;
+        }
         if (handlers.put(method, handler) != null) {
             throw new IllegalStateException("duplicate handler registration: " + method);
         }
@@ -34,6 +48,7 @@ public final class HandlerRegistry implements Bridge.Dispatcher {
         for (HandlerGroup group : groups) {
             group.register(this);
         }
+        profile.verifyRegistrations(offered);
     }
 
     @Override
@@ -48,5 +63,9 @@ public final class HandlerRegistry implements Bridge.Dispatcher {
     /** Every registered method, sorted — the input to the `methodsHash` handshake. */
     public List<String> methodNames() {
         return handlers.keySet().stream().sorted().toList();
+    }
+
+    public RuntimeProfile profile() {
+        return profile;
     }
 }

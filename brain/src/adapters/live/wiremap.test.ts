@@ -2,14 +2,14 @@
  * The wire-surface guard — the offline half of "the Phase-0 handler split changed
  * nothing".
  *
- * `extension/methods.golden.json` was extracted from ProbeHandlers' dispatch
- * switch BEFORE the split, and the split's own generator refused to rewrite it
+ * `extension/methods.historical.json` preserves ProbeHandlers' dispatch
+ * switch from before the split, and the checker refuses to rewrite it
  * unless every pre-split name survived. These tests re-check that from the other
  * side, by parsing the registrations out of the Java source — so a fat-fingered
  * rename fails here, offline, the moment it happens, rather than at the first
  * probe run against a live DAW.
  *
- * The live confirmation is `rig.methods` during the Phase-0 sitting.
+ * The active goldens separately describe normal, capture, and probe runtime.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -20,16 +20,116 @@ import { WIRE_METHODS_BANNED, WIRE_METHODS_FORBIDDEN, WIRE_METHODS_USED } from '
 // Shared with `npm run wire:golden`, which is what regenerates the file these
 // tests check. Two copies of the scraper would let the generator and the checker
 // drift into agreeing on something wrong.
-import { methodsHash, readGolden, scrapeRegistrations } from '../../tools/wire-golden.js';
+import {
+  classifiedProfileMethods,
+  methodsHash,
+  readCaptureGolden,
+  readGolden,
+  readHistoricalGolden,
+  readProbeGolden,
+  scrapeMethodClassification,
+  scrapeRegistrations,
+} from '../../tools/wire-golden.js';
 
-const golden = readGolden();
+const golden = readHistoricalGolden();
+const normalGolden = readGolden();
+const captureGolden = readCaptureGolden();
+const probeGolden = readProbeGolden();
 const registeredMethods = (): string[] => scrapeRegistrations();
 
-test('W-registry: every registration in the Java source is in the golden, and vice versa', () => {
+test('W-registry: every source declaration remains in the historical inventory', () => {
   const registered = registeredMethods().sort();
   assert.deepEqual(registered, [...golden.methods].sort(),
-    'the extension registers a different method set than extension/methods.golden.json records');
+    'the handler sources differ from extension/methods.historical.json');
   assert.equal(registered.length, golden.count);
+});
+
+test('8b: active profiles match the fail-closed Java classification', () => {
+  const classification = scrapeMethodClassification();
+  const profiles = classifiedProfileMethods(classification);
+  assert.deepEqual(normalGolden.methods, profiles.normal);
+  assert.deepEqual(captureGolden.methods, profiles.capture);
+  assert.deepEqual(probeGolden.methods, profiles.probe);
+  assert.equal(normalGolden.identity, 'normal-v1');
+  assert.equal(captureGolden.identity, 'capture-v1');
+  assert.equal(probeGolden.identity, 'phase-8-probe-v1');
+  assert.equal(classification.historical.length, 57);
+});
+
+test('8b: normal, capture, and probe profiles have only their owned methods', () => {
+  const captureMethods = new Set([
+    'masterRecorder.start', 'masterRecorder.status', 'masterRecorder.stop',
+    'transport.status', 'transport.stop',
+  ]);
+  assert.deepEqual(
+    normalGolden.methods,
+    WIRE_METHODS_USED.filter((method) => !captureMethods.has(method)),
+  );
+  assert.deepEqual(captureGolden.methods, WIRE_METHODS_USED);
+  const probeOnly = [
+    'api.runtimeMethods',
+    ...Object.keys(WIRE_METHODS_BANNED),
+    'stepdata.observer.enrich',
+    'stepdata.observer.prepare',
+    'stepdata.observer.read',
+  ];
+  assert.deepEqual(
+    probeGolden.methods,
+    [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
+  );
+  assert.equal(normalGolden.count, 85);
+  assert.equal(captureGolden.count, 90);
+  assert.equal(probeGolden.count, 95);
+});
+
+test('8b: historical host objects are absent from active Rig construction', () => {
+  const rigSource = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'Rig.java'),
+    'utf8',
+  );
+  assert.doesNotMatch(rigSource, /sendBanks\[i\]\s*=\s*track\.sendBank\(\)/);
+  assert.doesNotMatch(rigSource, /track\.addVuMeterObserver\(/);
+  assert.doesNotMatch(rigSource, /createCursorTrack\("GN_CT_BARE"/);
+  assert.doesNotMatch(rigSource, /createCursorLayer\(\)/);
+  assert.doesNotMatch(rigSource, /createChainSelector\(\)/);
+  assert.doesNotMatch(rigSource, /=\s*[^;]*\.deleteObjectAction\(\)/);
+  assert.doesNotMatch(rigSource, /=\s*[^;]*\.duplicateObjectAction\(\)/);
+  assert.match(rigSource,
+    /if \(profile\.hasProbeResources\(\)\) \{[\s\S]*new StepDataObserverProbe/);
+  assert.match(rigSource,
+    /if \(profile\.hasCaptureResources\(\)\) \{[\s\S]*host\.createMasterRecorder\(\)/);
+  assert.match(rigSource, /equalsStatus = buildDeviceEqualsProbes\(\)/);
+
+  const noteSource = readFileSync(
+    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
+      'extension', 'handlers', 'NoteHandlers.java'),
+    'utf8',
+  );
+  assert.match(noteSource, /if \(rig\.stepDataObserver != null\) rig\.stepDataObserver\.setGrid/);
+  assert.match(noteSource, /if \(rig\.stepDataObserver != null\) rig\.stepDataObserver\.setPage/);
+});
+
+test('8b: advertised probe commands do not call the historical wire', () => {
+  const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8')) as {
+    readonly scripts: Readonly<Record<string, string>>;
+  };
+  const historical = scrapeMethodClassification().historical;
+  const offenders: string[] = [];
+  for (const [name, command] of Object.entries(packageJson.scripts)) {
+    for (const match of command.matchAll(/src\/probes\/[A-Za-z0-9._-]+\.ts/g)) {
+      const sourcePath = match[0];
+      const source = readFileSync(join(process.cwd(), sourcePath), 'utf8');
+      for (const method of historical) {
+        if (source.includes(`'${method}'`) || source.includes(`"${method}"`)
+            || source.includes(`\`${method}\``)) {
+          offenders.push(`${name}: ${sourcePath} mentions ${method}`);
+        }
+      }
+    }
+  }
+  assert.deepEqual(offenders, [],
+    'an advertised probe command depends on a method no active profile registers');
 });
 
 test('W-registry: no method is registered twice', () => {
@@ -819,11 +919,14 @@ test('W-hash: the golden hash matches its own method list', () => {
   // The extension computes this same value in handlers/Contract.java and returns
   // it from contract.hello, so a drifted deployment is caught at connect.
   assert.equal(methodsHash([...golden.methods].sort()), golden.methodsHash);
+  for (const active of [normalGolden, captureGolden, probeGolden]) {
+    assert.equal(methodsHash([...active.methods].sort()), active.methodsHash);
+  }
 });
 
-test('W-contract: every method the encoder can emit exists in the extension', () => {
-  const unknown = WIRE_METHODS_USED.filter((m) => !golden.methods.includes(m));
-  assert.deepEqual(unknown, [], 'the encoder would call a method the extension does not register');
+test('W-contract: every method the encoder can emit exists in the capture profile', () => {
+  const unknown = WIRE_METHODS_USED.filter((m) => !captureGolden.methods.includes(m));
+  assert.deepEqual(unknown, [], 'the encoder would call a method no product profile registers');
 });
 
 test('E42: raw duration bits stay on the existing probe-only route', () => {
@@ -839,12 +942,12 @@ test('W-contract: the contract reaches only a deliberate subset of the wire', ()
     `contract reaches ${WIRE_METHODS_USED.length} of ${golden.methods.length} wire methods`);
 });
 
-test('W-banned: no banned method is reachable from the contract (E6, E3)', () => {
+test('W-banned: banned methods exist only in the unreachable probe profile', () => {
   for (const [method, why] of Object.entries(WIRE_METHODS_BANNED)) {
     assert.ok(!WIRE_METHODS_USED.includes(method), `${method} must stay unreachable: ${why}`);
-    // It must still be REGISTERED, because the probes that established the ban
-    // run against it and they are the live regression suite.
-    assert.ok(golden.methods.includes(method), `${method} should remain on the wire for the probes`);
+    assert.ok(!normalGolden.methods.includes(method), `${method} must not be in normal runtime`);
+    assert.ok(!captureGolden.methods.includes(method), `${method} must not be in capture runtime`);
+    assert.ok(probeGolden.methods.includes(method), `${method} must remain in the D13 probe runtime`);
   }
 });
 
@@ -858,6 +961,9 @@ test('W-forbidden: a method that CRASHES Bitwig is not registered at all (E14-A1
   // someone reading the E14 plan and wondering why row A looks unfinished.
   for (const [method, why] of Object.entries(WIRE_METHODS_FORBIDDEN)) {
     assert.ok(!golden.methods.includes(method), `${method} must NOT be registered: ${why}`);
+    assert.ok(!normalGolden.methods.includes(method), `${method} must not be in normal runtime: ${why}`);
+    assert.ok(!captureGolden.methods.includes(method), `${method} must not be in capture runtime: ${why}`);
+    assert.ok(!probeGolden.methods.includes(method), `${method} must not be in probe runtime: ${why}`);
     assert.ok(!WIRE_METHODS_USED.includes(method), `${method} must not be reachable either: ${why}`);
     assert.ok(!Object.keys(WIRE_METHODS_BANNED).includes(method),
       `${method} is forbidden, not banned — the banned list requires it to stay registered`);
@@ -874,7 +980,7 @@ test('W-forbidden: no handler source registers a forbidden method (E14-A1)', () 
 });
 
 test('W-banned: no source outside src/probes/ mentions a banned wire method', () => {
-  // The only real enforcement of a "never" rule is a test that greps for it.
+  // The only real enforcement of a "never" rule is a source scan.
   const srcRoot = join(import.meta.dirname, '..', '..');
   const offenders: string[] = [];
   const walk = (dir: string) => {

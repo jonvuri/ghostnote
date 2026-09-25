@@ -1,11 +1,12 @@
 /**
  * The wire vocabulary — THE ONLY PLACE `category.action` strings live.
  *
- * The extension registers 150 methods (extension/methods.golden.json). The
- * product can emit 82 of them. The remaining gap is deliberate:
+ * The product encoder can emit 90 methods. The normal extension registers 85;
+ * the optional capture extension registers all 90. The Phase 8 probe extension
+ * registers 95 methods. The historical source inventory has 157 declarations.
  *
- *   - many are exploration surface for historical live probes. Phase 6b owns
- *     their classification and retirement boundary;
+ *   - historical exploration methods stay in source evidence but no active
+ *     runtime registers them;
  *   - some are BANNED and must stay unreachable. `app.invokeAction` is standing
  *     rule 6 (E6: foreground-and-focus gated, zero readback, and it fires against
  *     the UI selection our own addressing sets — it silently created seven orphan
@@ -222,8 +223,8 @@ export const WIRE_METHODS_USED: readonly string[] = [...new Set(Object.values(WI
 
 /**
  * Methods that must NEVER appear in `WIRE`, with the rule that bans them.
- * They remain registered in the extension so the probes that established the
- * findings keep running.
+ * They exist only in the explicit probe profile so the owning regressions can
+ * run without loading them in a product runtime.
  */
 export const WIRE_METHODS_BANNED: Readonly<Record<string, string>> = {
   'app.invokeAction': 'standing rule 6 / E6 — named actions are unusable AND hazardous',
@@ -237,11 +238,10 @@ export const WIRE_METHODS_BANNED: Readonly<Record<string, string>> = {
 /**
  * Methods that must not merely be unreachable — they must NOT EXIST.
  *
- * A different and harsher class than `WIRE_METHODS_BANNED` above. Those stay
- * registered on purpose, because the probes that established their bans are the
- * live regression suite and re-running one is merely unwise. These cannot be
- * re-run at all: invoking them takes Bitwig down, so a registration is a loaded
- * gun regardless of whether the contract reaches it.
+ * A different and harsher class than `WIRE_METHODS_BANNED` above. Banned
+ * methods stay in the probe profile because the owning regressions are useful.
+ * Forbidden methods cannot be re-run at all. Invoking one takes Bitwig down, so
+ * a registration is hazardous even when the product contract cannot reach it.
  *
  * `wiremap.test.ts` asserts the golden does NOT contain any of these, which is
  * the inverse of what it asserts for the banned list.

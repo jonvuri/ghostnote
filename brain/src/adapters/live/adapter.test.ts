@@ -17,7 +17,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, addressKey, chain as chainAt, clip, clipMetadata, device as deviceAt, deviceEnabled,
+  AddressUnresolvedError, CONTRACT_VERSION, InvalidOpError, RuntimeProfileMismatchError, addressKey, chain as chainAt, clip, clipMetadata, device as deviceAt, deviceEnabled,
   deviceIn as deviceInAt, deviceSlot,
   drumPad, notes as notesAt, param, remote, remotes, scene, slot, track,
   type ClipAddress, type NoteRecord, type RevisionMark, type TrackAddress,
@@ -116,7 +116,13 @@ class CursorModelTransport implements Transport {
 
     switch (frame.method) {
       case WIRE.hello:
-        return { contractVersion: CONTRACT_VERSION, extensionVersion: 'test', hostApiVersion: 18, methodsHash: 'test' };
+        return {
+          contractVersion: CONTRACT_VERSION,
+          extensionVersion: 'test',
+          runtimeProfile: 'normal-v1',
+          hostApiVersion: 18,
+          methodsHash: 'test',
+        };
 
       case WIRE.hostInfo:
         return { hostApiVersion: 18, hostProduct: 'Bitwig Studio', hostVersion: 'test' };
@@ -339,6 +345,15 @@ class ObserverAdapter extends LiveAdapter {
     if (budget === 'noteWrite') return super.settle(budget);
   }
 }
+
+test('8b: the handshake refuses a different runtime profile', async () => {
+  const transport = new CursorModelTransport(new Map());
+  const adapter = new UntimedAdapter({
+    transport,
+    expectRuntimeProfile: 'phase-8-probe-v1',
+  });
+  await assert.rejects(adapter.hello(), RuntimeProfileMismatchError);
+});
 
 test('2h: the production fine cursor preserves a triplet start across exact readback', async () => {
   const transport = new CursorModelTransport(new Map([

@@ -48,7 +48,7 @@ export class ContractVersionError extends ContractError {
 
 /**
  * The extension's registered wire surface no longer matches
- * extension/methods.golden.json. Caught at connect rather than at the first
+ * the selected active wire golden. Caught at connect rather than at the first
  * failing write.
  */
 export class WireDriftError extends ContractError {
@@ -58,9 +58,19 @@ export class WireDriftError extends ContractError {
   ) {
     super(
       `wire method table drifted: expected methodsHash ${expected}, extension reports ${actual}. ` +
-        'Either the extension is stale, or extension/methods.golden.json was not regenerated ' +
+        'Either the extension is stale, or the active wire golden was not regenerated ' +
         'after adding or renaming a handler.',
     );
+  }
+}
+
+/** The loaded extension is a different normal, capture, or probe runtime. */
+export class RuntimeProfileMismatchError extends ContractError {
+  constructor(
+    readonly expected: string,
+    readonly actual: string,
+  ) {
+    super(`runtime profile mismatch: expected ${expected}, extension reports ${actual}`);
   }
 }
 

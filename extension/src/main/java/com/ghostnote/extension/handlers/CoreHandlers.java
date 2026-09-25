@@ -69,6 +69,7 @@ public final class CoreHandlers extends HandlerGroup {
 
     private JsonElement rigInfo() {
         JsonObject result = new JsonObject();
+        result.addProperty("runtimeProfile", rig.profile.identity());
         result.addProperty("tracks", rig.config.tracks);
         result.addProperty("scenes", rig.config.scenes);
         result.addProperty("gridSteps", rig.config.gridSteps);
@@ -96,6 +97,7 @@ public final class CoreHandlers extends HandlerGroup {
      */
     private JsonElement rigStats() {
         JsonObject result = new JsonObject();
+        result.addProperty("runtimeProfile", rig.profile.identity());
         result.add("config", rig.config.toJson());
         result.addProperty("rigConstructMicros", rig.constructNanos / 1000);
         result.addProperty("initMicros", state.initNanos < 0 ? -1 : state.initNanos / 1000);
@@ -111,7 +113,8 @@ public final class CoreHandlers extends HandlerGroup {
         // volume — 768 more values at the default rig — and `initMicros` beside
         // this number is what says whether it cost anything (E5's measurement,
         // which is only interpretable if this count stays honest).
-        result.addProperty("markedValues", slots * 6 + (long) rig.config.tracks * 5);
+        result.addProperty("markedValues", slots * 6 + (long) rig.config.tracks
+            * (rig.profile.hasProbeResources() ? 7 : 5));
 
         // Session 4a: report the device and parameter scaffold explicitly. These
         // values let the scale probe separate project density from resources that
@@ -162,6 +165,52 @@ public final class CoreHandlers extends HandlerGroup {
             rig.config.directObservers ? 4 : 0);
         resources.addProperty("noteObserverCursors", 1);
         resources.addProperty("noteStepObservers", 1);
+        resources.addProperty("stepDataObservers", rig.profile.hasProbeResources() ? 1 : 0);
+        resources.addProperty("trackSendBanks", 0);
+        resources.addProperty("trackSendHandles", 0);
+        resources.addProperty("trackVuObservers", 0);
+        resources.addProperty("historicalActionHandles", 0);
+        resources.addProperty("historicalSelectionObservers", 0);
+        resources.addProperty("equalsProxies", rig.equalsProxyCount);
+        resources.addProperty("transportProxies", 1);
+        resources.addProperty("masterRecorderProxies",
+            rig.profile.hasCaptureResources() ? 1 : 0);
+
+        int layerSendBanks = 0;
+        for (var bank : rig.layerSendBanks) {
+            if (bank != null) layerSendBanks++;
+        }
+        long cursorTracks = rig.config.cursorPool + 2L;
+        long cursorClips = rig.config.cursorPool + 2L
+            + (rig.profile.hasProbeResources() ? 2L : 0L);
+        long layerBanks = 1L + Rig.SLOT_SCOPES;
+        long layerHandles = Rig.LAYER_BANK + (long) Rig.SLOT_SCOPES * Rig.SLOT_LAYER_BANK;
+        long explicitHostObjects = 4L
+            + rig.config.tracks + slots
+            + cursorTracks + cursorClips
+            + resources.get("deviceBanks").getAsLong()
+            + resources.get("deviceSlots").getAsLong()
+            + 3L + layerBanks + layerHandles
+            + 1L + Rig.DRUM_PAD_BANK
+            + rig.config.remotePages + (long) rig.config.remotePages * Rig.REMOTE_BANK
+            + 4L + resources.get("typedParameterHandles").getAsLong()
+            + layerSendBanks + (long) layerSendBanks * Rig.LAYER_SEND_BANK
+            + rig.equalsProxyCount
+            + 1L
+            + (rig.profile.hasCaptureResources() ? 1L : 0L);
+        resources.addProperty("cursorTracks", cursorTracks);
+        resources.addProperty("cursorClips", cursorClips);
+        resources.addProperty("layerBanks", layerBanks);
+        resources.addProperty("layerHandles", layerHandles);
+        resources.addProperty("layerSendBanks", layerSendBanks);
+        resources.addProperty("layerSendHandles", (long) layerSendBanks * Rig.LAYER_SEND_BANK);
+        resources.addProperty("explicitHostObjects", explicitHostObjects);
+        resources.addProperty("observerCallbacks",
+            1L + (long) rig.config.tracks * 3
+                + (long) rig.config.remotePages * 2
+                + (rig.config.directObservers ? 4 : 0)
+                + 1L + (rig.profile.hasProbeResources() ? 1L : 0L)
+                + rig.equalsProxyCount);
         result.add("resources", resources);
 
         // Whole-JVM heap (shared with Bitwig): a coarse trend signal only.
@@ -219,12 +268,13 @@ public final class CoreHandlers extends HandlerGroup {
      *
      * `methodsHash` lets a silently drifted wire surface be caught at connect
      * rather than at the first failing write; it is checked against
-     * extension/methods.golden.json.
+     * the active normal, capture, or probe golden.
      */
     private JsonElement contractHello() {
         JsonObject r = new JsonObject();
         r.addProperty("contractVersion", Contract.VERSION);
         r.addProperty("extensionVersion", Contract.EXTENSION_VERSION);
+        r.addProperty("runtimeProfile", registry.profile().identity());
         r.addProperty("hostApiVersion", host.getHostApiVersion());
         r.addProperty("methodCount", registry.methodNames().size());
         r.addProperty("methodsHash", Contract.methodsHash(registry.methodNames()));
@@ -239,6 +289,7 @@ public final class CoreHandlers extends HandlerGroup {
         }
         JsonObject r = new JsonObject();
         r.add("methods", methods);
+        r.addProperty("runtimeProfile", registry.profile().identity());
         r.addProperty("count", methods.size());
         r.addProperty("methodsHash", Contract.methodsHash(registry.methodNames()));
         return r;

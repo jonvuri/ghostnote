@@ -67,6 +67,10 @@ public class GhostnoteExtensionDefinition extends ControllerExtensionDefinition 
 
     @Override
     public GhostnoteExtension createInstance(final ControllerHost host) {
-        return new GhostnoteExtension(this, host);
+        return new GhostnoteExtension(this, host, runtimeProfile());
+    }
+
+    protected RuntimeProfile runtimeProfile() {
+        return RuntimeProfile.bundled();
     }
 }

@@ -1,157 +1,95 @@
-/**
- * Rewrite `extension/methods.golden.json` from the Java source.
- *
- *   npm run wire:golden          # show the diff, write nothing
- *   npm run wire:golden -- --write
- *
- * Adding a wire method is a two-step act on purpose: the golden is the record of
- * what the extension exposes, and regenerating it silently as a build step would
- * make the drift check self-fulfilling. So this prints what would change and
- * only writes when told to, and `wiremap.test.ts` fails until it has been run.
- *
- * ⚠ It NEVER touches `preSplitMethods`. That list is the frozen pre-split
- * surface — the evidence that the Phase-0 handler split dropped nothing — and
- * regenerating it would erase the very thing it proves.
- *
- * After writing: rebuild and redeploy the extension, then run
- * `npm run probe:hello`. The hash here and the one `contract.hello` returns must
- * agree, or `LiveAdapter.hello()` refuses the session with a `WireDriftError`.
- */
+/** Check or write the three active wire goldens from RuntimeProfile.java. */
 import { writeFileSync } from 'node:fs';
 
-import { GOLDEN_PATH, methodsHash, readGolden, scrapeRegistrations } from './wire-golden.js';
+import {
+  CAPTURE_GOLDEN_PATH,
+  GOLDEN_PATH,
+  PROBE_GOLDEN_PATH,
+  classifiedProfileMethods,
+  methodsHash,
+  readCaptureGolden,
+  readGolden,
+  readHistoricalGolden,
+  readProbeGolden,
+  scrapeMethodClassification,
+  scrapeRegistrations,
+  type ActiveGolden,
+} from './wire-golden.js';
 
 const write = process.argv.includes('--write');
+const declarations = [...new Set(scrapeRegistrations())].sort();
+const historical = readHistoricalGolden();
+const missingHistorical = historical.methods.filter((method) => !declarations.includes(method));
+const newDeclarations = declarations.filter((method) => !historical.methods.includes(method));
 
-const golden = readGolden();
-const methods = [...new Set(scrapeRegistrations())].sort();
-const preSplit = new Set(golden.preSplitMethods);
+if (missingHistorical.length > 0 || newDeclarations.length > 0) {
+  console.log(`historical source inventory drifted (${historical.count} -> ${declarations.length})`);
+  if (missingHistorical.length > 0) console.log(`missing   ${missingHistorical.join(', ')}`);
+  if (newDeclarations.length > 0) console.log(`new       ${newDeclarations.join(', ')}`);
+  console.log('Update methods.historical.json and its owning session bucket explicitly.');
+  process.exitCode = 1;
+} else {
+  console.log(`historical ${historical.count} methods, hash ${historical.methodsHash}`);
+}
 
-const added = methods.filter((m) => !preSplit.has(m));
-const removed = golden.methods.filter((m) => !methods.includes(m));
-const brandNew = methods.filter((m) => !golden.methods.includes(m));
-
-// Phase-0 sessions 1 and 2 are frozen history — each is the record of what ONE
-// sitting put on the wire, and letting a later sitting's methods fall into an
-// earlier bucket would quietly destroy that. So all closed buckets are read back
-// from the golden and only the CURRENT sitting's bucket accumulates.
-//
-// ⚠ E16 joined them when session 3b opened: it is finished, and its list is the
-// record of what the branching mini-spike put on the wire. E20, the session-3e
-// probe, E22, session 3f, sessions 3g-b through 4b, and Phase 2 session 2e are
-// frozen too. Phase 2 session 2i and Phase 4 session 4b are also frozen. New
-// D03 is closed. Its retired probe-only bucket stays as historical evidence.
-const addedInSession1 = golden.addedInSession1 ?? ['contract.hello', 'rig.methods'];
-const addedInSession2 = golden.addedInSession2 ?? [];
-const addedInE16 = golden.addedInE16 ?? [];
-const addedInE20 = golden.addedInE20 ?? [];
-const addedInSession3eProbe = golden.addedInSession3eProbe ?? [];
-const addedInE22Probe = golden.addedInE22Probe ?? [];
-const addedInSession3f = golden.addedInSession3f ?? [];
-const addedInSession3gB = golden.addedInSession3gB ?? [];
-const addedInSession4a = golden.addedInSession4a ?? [];
-const addedInSession4b = golden.addedInSession4b ?? [];
-const addedInPhase2Session2e = golden.addedInPhase2Session2e ?? [];
-const addedInPhase2Session2i = golden.addedInPhase2Session2i ?? [];
-const addedInPhase4Session4b = golden.addedInPhase4Session4b ?? [];
-const addedInPhase4Session4f = golden.addedInPhase4Session4f ?? [];
-const addedInPhase4Session4g = golden.addedInPhase4Session4g ?? [];
-const addedInPhase4Session4h1 = golden.addedInPhase4Session4h1 ?? [];
-const addedInPhase5Session5o = golden.addedInPhase5Session5o ?? [];
-const d03Prefix = 'spike.preset.';
-const addedInPhase5Session5r = (golden.addedInPhase5Session5r ?? [])
-  .filter((method) => !method.startsWith(d03Prefix));
-const e130Methods = new Set([
-  'api.runtimeMethods',
-  'stepdata.observer.prepare',
-  'stepdata.observer.read',
+const classification = scrapeMethodClassification();
+const classified = new Set([
+  ...classification.product,
+  ...classification.activeProbe,
+  ...classification.historical,
 ]);
-const addedInPhase6Session6a = (golden.addedInPhase6Session6a ?? [])
-  .filter((method) => !e130Methods.has(method));
-const addedInPhase7bE130 = golden.addedInPhase7bE130 ?? [];
-const addedInPhase7bE131 = golden.addedInPhase7bE131 ?? [];
-const earlier = new Set([
-  ...addedInSession1, ...addedInSession2, ...addedInE16, ...addedInE20,
-  ...addedInSession3eProbe, ...addedInE22Probe, ...addedInSession3f, ...addedInSession3gB,
-  ...addedInSession4a, ...addedInSession4b, ...addedInPhase2Session2e,
-  ...addedInPhase2Session2i, ...addedInPhase4Session4b,
-  ...addedInPhase4Session4f, ...addedInPhase4Session4g, ...addedInPhase4Session4h1,
-  ...addedInPhase5Session5o, ...addedInPhase5Session5r, ...addedInPhase6Session6a,
-  ...addedInPhase7bE130,
-  ...addedInPhase7bE131,
-]);
-const addedInD03 = [...new Set([
-  ...(golden.addedInD03 ?? []),
-  ...added.filter((method) => !earlier.has(method) && method.startsWith(d03Prefix)),
-])].sort();
-const currentAddedInPhase7bE130 = [...new Set([
-  ...addedInPhase7bE130,
-  ...added.filter((method) => !earlier.has(method) && e130Methods.has(method)),
-])].sort();
-const currentAddedInPhase7bE131 = [...new Set([
-  ...addedInPhase7bE131,
-  ...added.filter((method) => !earlier.has(method)),
-])].sort();
-
-const next = {
-  ...golden,
-  extractedAt: new Date().toISOString().slice(0, 10),
-  extractedFrom: 'handlers/*Handlers.java register() blocks (post-split)',
-  count: methods.length,
-  methodsHash: methodsHash(methods),
-  addedInPhase0: added,
-  addedInSession1,
-  addedInSession2,
-  addedInE16,
-  addedInE20,
-  addedInSession3eProbe,
-  addedInE22Probe,
-  addedInSession3f,
-  addedInSession3gB,
-  addedInSession4a,
-  addedInSession4b,
-  addedInPhase2Session2e,
-  addedInPhase2Session2i,
-  addedInPhase4Session4b,
-  addedInPhase4Session4f,
-  addedInPhase4Session4g,
-  addedInPhase4Session4h1,
-  addedInPhase5Session5o,
-  addedInPhase5Session5r,
-  addedInD03,
-  addedInPhase6Session6a,
-  addedInPhase7bE130: currentAddedInPhase7bE130,
-  addedInPhase7bE131: currentAddedInPhase7bE131,
-  methods,
-};
-
-console.log(`scraped   ${methods.length} methods (golden has ${golden.methods.length})`);
-console.log(`hash      ${golden.methodsHash} -> ${next.methodsHash}`);
-if (brandNew.length > 0) console.log(`added     ${brandNew.join(', ')}`);
-if (removed.length > 0) {
-  console.log(`REMOVED   ${removed.join(', ')}`);
-  console.log('⚠ removing a wire method breaks the archived probes that established the findings.');
-}
-const bucketChanged = JSON.stringify(golden.addedInPhase5Session5r ?? [])
-    !== JSON.stringify(addedInPhase5Session5r)
-  || JSON.stringify(golden.addedInD03 ?? []) !== JSON.stringify(addedInD03)
-  || JSON.stringify(golden.addedInPhase6Session6a ?? [])
-    !== JSON.stringify(addedInPhase6Session6a)
-  || JSON.stringify(golden.addedInPhase7bE130 ?? [])
-    !== JSON.stringify(currentAddedInPhase7bE130)
-  || JSON.stringify(golden.addedInPhase7bE131 ?? [])
-    !== JSON.stringify(currentAddedInPhase7bE131);
-if (brandNew.length === 0 && removed.length === 0 && golden.methodsHash === next.methodsHash
-    && !bucketChanged) {
-  console.log('golden is already current; nothing to do.');
-  process.exit(0);
+const unknown = declarations.filter((method) => !classified.has(method));
+const stale = [...classified].filter((method) => !declarations.includes(method));
+if (unknown.length > 0 || stale.length > 0) {
+  if (unknown.length > 0) console.log(`unowned   ${unknown.join(', ')}`);
+  if (stale.length > 0) console.log(`stale     ${stale.join(', ')}`);
+  process.exitCode = 1;
 }
 
-if (!write) {
-  console.log('\ndry run — pass --write to update extension/methods.golden.json');
-  process.exit(0);
+const profiles = classifiedProfileMethods(classification);
+const current = {
+  normal: readGolden(),
+  capture: readCaptureGolden(),
+  probe: readProbeGolden(),
+} satisfies Record<ActiveGolden['profile'], ActiveGolden>;
+const paths = {
+  normal: GOLDEN_PATH,
+  capture: CAPTURE_GOLDEN_PATH,
+  probe: PROBE_GOLDEN_PATH,
+} satisfies Record<ActiveGolden['profile'], string>;
+const identities = {
+  normal: 'normal-v1',
+  capture: 'capture-v1',
+  probe: 'phase-8-probe-v1',
+} satisfies Record<ActiveGolden['profile'], string>;
+
+let changed = false;
+for (const profile of ['normal', 'capture', 'probe'] as const) {
+  const methods = profiles[profile];
+  const next: ActiveGolden = {
+    $comment: [
+      `Active wire golden for the ${profile} extension build.`,
+      'Historical declarations are in methods.historical.json.',
+    ],
+    profile,
+    identity: identities[profile],
+    count: methods.length,
+    methodsHash: methodsHash(methods),
+    methods,
+  };
+  const same = JSON.stringify(current[profile]) === JSON.stringify(next);
+  const suffix = same ? '' : ' (changed)';
+  console.log(`${profile.padEnd(7)} ${next.count} methods, hash ${next.methodsHash}${suffix}`);
+  if (same) continue;
+  changed = true;
+  if (write) writeFileSync(paths[profile], `${JSON.stringify(next, null, 2)}\n`, 'utf8');
 }
 
-writeFileSync(GOLDEN_PATH, `${JSON.stringify(next, null, 2)}\n`, 'utf8');
-console.log(`\nwrote ${GOLDEN_PATH}`);
-console.log('next: rebuild + redeploy the extension, then `npm run probe:hello`');
+if (!changed) {
+  console.log('active goldens are current; nothing to do.');
+} else if (!write) {
+  console.log('dry run — pass --write to update active goldens');
+  process.exitCode = 1;
+} else {
+  console.log('wrote active wire goldens');
+}

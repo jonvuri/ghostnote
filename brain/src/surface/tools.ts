@@ -3352,9 +3352,10 @@ export const TOOLS: readonly ToolSpec[] = [
       + 'exactly what it left: a place a person edited since, or a slot that has had a clip moved '
       + 'into or out of it — even an identical one — is left untouched and reported. Nothing is '
       + 'overwritten to make an undo tidy.\n'
-      + 'What it cannot put back is reported rather than approximated: a rebuilt clip comes back '
-      + 'without its name, colour, loop points, launch settings or automation, and a value that '
-      + 'cannot be written exactly is reported and left alone.\n'
+      + 'What it cannot put back is reported rather than approximated: a rebuilt clip restores '
+      + 'its recorded notes, length, name, colour, loop properties and launch settings. Its '
+      + 'play-stop marker and automation lanes do not come back. A value that cannot be written '
+      + 'exactly is reported and left alone.\n'
       + 'check_revert answers the same question without writing.',
     inputSchema: {
       changeId: z.string().describe('From list_changes.'),
@@ -4109,10 +4110,9 @@ export const TOOLS: readonly ToolSpec[] = [
     title: 'Delete clips',
     description:
       'Remove clips from launcher slots. The slot is left empty; the row stays.\n'
-      + 'Each clip\'s notes and length are read and recorded first, so this can be undone — but '
-      + 'a clip put back is a new clip carrying the same notes. Its name, colour, loop start and '
-      + 'end as distinct from its length, its launch settings and its automation are not '
-      + 'recorded by anything here and do not come back.',
+      + 'Each clip\'s notes, length, name, colour, loop properties and launch settings are read '
+      + 'and recorded first, so this can be undone. A clip put back is a new clip with that '
+      + 'recorded state. Its separate play-stop marker and automation lanes do not come back.',
     inputSchema: {
       clips: z.array(z.object({ trackId, row })).min(1),
     },

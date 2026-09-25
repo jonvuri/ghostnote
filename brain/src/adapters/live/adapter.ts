@@ -29,7 +29,7 @@ import { randomUUID } from 'node:crypto';
 
 import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, InvalidOpError,
-  ContractVersionError, StaleAddressError, WireDriftError,
+  ContractVersionError, RuntimeProfileMismatchError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
   assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
   chainPath, chooseStepSize, clip as clipAt, clipMetadata as clipMetadataAt, clipPlay as clipPlayAt,
@@ -551,8 +551,10 @@ export interface LiveOptions {
    * is why it can be cached at all.
    */
   readonly sceneBankSize?: number;
-  /** Expected wire methodsHash from extension/methods.golden.json, if checking. */
+  /** Expected methods hash from the selected active extension golden. */
   readonly expectMethodsHash?: string;
+  /** Expected normal, capture, or probe handshake identity, if checking. */
+  readonly expectRuntimeProfile?: string;
   /** Optional phase timing for focused performance probes. */
   readonly onTiming?: (event: LiveTimingEvent) => void;
   /** Optional ordered trace for selection and target diagnostics. */
@@ -698,6 +700,7 @@ const addressBorrowsSelection = (address: Address): boolean =>
 export class LiveAdapter implements BitwigAdapter {
   private readonly transport: Transport;
   private readonly expectMethodsHash: string | undefined;
+  private readonly expectRuntimeProfile: string | undefined;
   private readonly onTiming: ((event: LiveTimingEvent) => void) | undefined;
   private readonly onTrace: ((event: LiveTraceEvent) => void) | undefined;
   /** Allocated at `hello()` from the rig's real pool size; see `pool.ts`. */
@@ -832,6 +835,7 @@ export class LiveAdapter implements BitwigAdapter {
   constructor(options: LiveOptions = {}) {
     this.transport = options.transport ?? new BridgeTransport();
     this.expectMethodsHash = options.expectMethodsHash;
+    this.expectRuntimeProfile = options.expectRuntimeProfile;
     this.onTiming = options.onTiming;
     this.onTrace = options.onTrace;
     // A pool of one until `hello()` learns the rig's real size — which is the
@@ -1244,6 +1248,7 @@ export class LiveAdapter implements BitwigAdapter {
       contractVersion: number;
       extensionVersion: string;
       hostApiVersion: number;
+      runtimeProfile: string;
       methodsHash: string;
     };
 
@@ -1254,6 +1259,13 @@ export class LiveAdapter implements BitwigAdapter {
     }
     if (this.expectMethodsHash !== undefined && hello.methodsHash !== this.expectMethodsHash) {
       throw new WireDriftError(this.expectMethodsHash, hello.methodsHash);
+    }
+    if (this.expectRuntimeProfile !== undefined
+        && hello.runtimeProfile !== this.expectRuntimeProfile) {
+      throw new RuntimeProfileMismatchError(
+        this.expectRuntimeProfile,
+        hello.runtimeProfile,
+      );
     }
 
     const host = (await this.transport.send({ method: WIRE.hostInfo })) as {
@@ -1306,6 +1318,7 @@ export class LiveAdapter implements BitwigAdapter {
         extensionVersion: hello.extensionVersion,
       },
       methodsHash: hello.methodsHash,
+      runtimeProfile: hello.runtimeProfile,
       limits: {
         trackBankSize: list.bankSize ?? list.count,
         // ⚠ Was hardcoded `0` through Phase 0 — harmless while nothing read it

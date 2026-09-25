@@ -1,13 +1,13 @@
 ---
 title: Phase 8b — Runtime and surface cleanup foundation
 kind: plan
-state: planned
-status: Apply the 8a runtime disposition before cache limit measurements.
+state: complete
+status: The lean normal, capture, and probe runtime profiles are live and measured.
 updated: 2026-09-25
 parent: README.md
 prev: 8a-agent-native-product-and-interface-audit.md
 next: 8c-compact-bar-prior-art-and-benchmark.md
-evidence: E7, E119, E126, E127, E134; agent-native interface audit; D13
+evidence: E7, E119, E126, E127, E134, E136; agent-native interface audit; D13
 ---
 
 # Phase 8b — Runtime and surface cleanup foundation
@@ -80,8 +80,33 @@ do not require the complete probe runtime in a normal product build.
 - Performing the full public-tool redesign selected by 8a.
 - Removing a hazardous route without first updating its owning decision.
 
-## Retrospective target
+## Result
 
-Record how many normal-runtime methods and host objects existed only for
-historical experiments. Keep a probe boundary only when a named future test
-needs it.
+[E136](../../evidence/experiments/e136-runtime-and-surface-cleanup.md) records
+the completed partition. Normal has 85 methods, capture has 90, and probe has
+95. The 157-method source inventory remains available as historical evidence.
+Normal removes 57 historical methods, five capture methods, ten probe methods,
+3,672 explicit host proxies, and 265 observer callbacks from the old shared
+runtime.
+
+The three archives embed distinct handshake identities. D13's six methods and
+the four Phase 8 methods exist only in the probe runtime. The capture runtime
+alone owns MasterRecorder. The normal runtime is the baseline for 8d and 8e.
+
+The stable public behavior changed only in the approved result cleanup. The
+`delete_clip` description now states the exact reversal boundary. Observation
+compatibility remains.
+
+## Verification
+
+Extension builds, the full brain suite, all three wire goldens, normal and probe
+live handshakes, the read-only probe-boundary check, the context checker, and
+the diff check pass. The live project remained at its entry track and scene
+counts.
+
+## Retrospective
+
+The first alternate archive changed only its manifest. Bitwig restarted the
+configured normal definition and did not select the probe profile. Each archive
+now embeds its identity, and the configured definition reads it. Test the live
+identity before an alternate-profile probe.

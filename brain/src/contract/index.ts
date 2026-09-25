@@ -82,7 +82,7 @@ export {
   AddressUnresolvedError, BankWindowOverflowError, BlindSpotError, ContractError,
   ContractVersionError, InvalidOpError, NoteTimingUnrepresentableError, SlotOccupiedError,
   ParameterValueUnrepresentableError, StaleAddressError, UnsupportedOpError, WireDriftError,
-  blindSpotError,
+  RuntimeProfileMismatchError, blindSpotError,
 } from './errors.js';
 export type { BankDimension, OccupiedSlotHazard } from './errors.js';
 

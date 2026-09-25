@@ -27,7 +27,7 @@ public final class Contract {
 
     /**
      * sha256 of the sorted method names joined by newline, first 16 hex chars.
-     * The brain computes the same value from extension/methods.golden.json, so a
+     * The brain computes the same value from the selected active golden, so a
      * wire surface that drifted from the golden is caught at connect rather than
      * at the first failing write.
      */

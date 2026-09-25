@@ -50,6 +50,8 @@ public class Rig {
 
     /** Live scaffold sizes for this init. */
     public final RigConfig config;
+    /** Exact method and allocation profile for this init. */
+    public final RuntimeProfile profile;
 
     /** Nanos spent inside this constructor — the E5 init-cost measurement. */
     public final long constructNanos;
@@ -75,7 +77,7 @@ public class Rig {
      * agreeing with itself is not evidence.
      */
     public NotificationSettings notifications;
-    public String notificationsStatus = "not-attempted";
+    public String notificationsStatus = "not-allocated:historical";
     public final com.bitwig.extension.controller.api.Project project;
     public final TrackBank trackBank;
     public final SceneBank sceneBank;
@@ -271,8 +273,7 @@ public class Rig {
     private final String[] remotePagePendingTrackId;
     private final String[] remotePagePendingDeviceName;
 
-    /** E7e: transport, so probes can hold a note playing (per-voice modulators
-     * output nothing while the project is silent). */
+    /** Product play-state clock and capture transport control. */
     public final Transport transport;
 
     /** Phase 6a: bounded access to Bitwig's project master recording. */
@@ -576,6 +577,8 @@ public class Rig {
         equalsProbes = new java.util.LinkedHashMap<>();
     /** Where the equals build got to — a status string, never a throw (see below). */
     public String equalsStatus = "not-attempted";
+    /** Active equality proxies. Normal operation needs only device-position guards. */
+    public int equalsProxyCount = 0;
     /** Ditto for the DeviceLayer mixer handles: E16 §3.4 lead, `Channel` on a layer. */
     public String layerMixerStatus = "not-attempted";
 
@@ -633,13 +636,14 @@ public class Rig {
     /** ⚠ The sibling CONTROL: the same inherited call on a Track. */
     public HardwareActionBindable[] trackDeleteAction;
     public String trackDeleteActionStatus = "not-attempted";
-    public String layerSelectionStatus = "not-attempted";
+    public String layerSelectionStatus = "not-allocated:historical";
     /** ⚠ Reported separately so a @Deprecated failure cannot be read as the current one failing. */
-    public String layerSelectionLegacyStatus = "not-attempted";
+    public String layerSelectionLegacyStatus = "not-allocated:historical";
 
-    public Rig(ControllerHost host, RigConfig config) {
+    public Rig(ControllerHost host, RigConfig config, RuntimeProfile profile) {
         long start = System.nanoTime();
         this.config = config;
+        this.profile = profile;
 
         cursorTracks = new CursorTrack[config.cursorPool];
         cursorClips = new PinnableCursorClip[config.cursorPool];
@@ -662,9 +666,10 @@ public class Rig {
         vuIdentity = new String[config.tracks];
 
         application = host.createApplication();
-        application.canUndo().markInterested();
-        application.canRedo().markInterested();
-        application.panelLayout().markInterested();
+        if (profile.hasProbeResources()) {
+            application.canUndo().markInterested();
+            application.canRedo().markInterested();
+        }
 
         // ⚠ Own try block, own status — see the field. A throw in this
         // constructor is the whole extension, before the bridge binds.
@@ -676,15 +681,8 @@ public class Rig {
             projectStatus = "FAILED:" + t.getClass().getSimpleName() + ":" + t.getMessage();
         }
 
-        // ⚠ Rule 13: allocated at init, never mid-probe. Guarded because a throw in
-        // this constructor takes the whole extension down before the bridge binds.
-        // ⚠ Marked in its OWN try block — the lesson this session paid for twice.
-        try {
-            notifications = host.getNotificationSettings();
-            notificationsStatus = notifications == null ? "null" : "ok";
-        } catch (Throwable t) {
-            notificationsStatus = "FAILED:" + t.getClass().getSimpleName() + ":" + t.getMessage();
-        }
+        // Historical selection-notification probes are not in an active profile.
+        notifications = null;
         project = host.getProject();
 
         // Flat track list so tracks nested in groups are addressable.
@@ -756,23 +754,12 @@ public class Rig {
             track.trackType().markInterested();
             track.channelId().markInterested();
 
-            // E16 row B5: the mixer state a duplicate either carries or does not.
-            // All of these are the MODERN accessors — the `getVolume()`/`getMute()`
-            // family is @Deprecated at v25 and standing rule 9 says a deprecated
-            // handle marked at init can take the whole extension down.
-            track.volume().value().markInterested();
-            track.volume().value().displayedValue().markInterested();
-            track.pan().value().markInterested();
-            track.mute().markInterested();
-            track.solo().markInterested();
-            track.isMutedBySolo().markInterested();
-            track.isActivated().markInterested();
-            track.color().markInterested();
-            track.isGroup().markInterested();
-            // Rows E3/E4/F2: a group's expanded state is the one group control
-            // that IS settable from here, so it is the candidate answer to
-            // "can the branches be collapsed out of the human's way".
-            track.isGroupExpanded().markInterested();
+            // D13's Group regression reads these two values. The normal and
+            // capture runtimes do not allocate the regression-only observers.
+            if (profile.hasProbeResources()) {
+                track.isGroup().markInterested();
+                track.isGroupExpanded().markInterested();
+            }
 
             // E22 probe instrumentation: this observer records the selected
             // mixer channel, which the experiment proved is not the invisible
@@ -782,33 +769,9 @@ public class Rig {
                 if (selected) observeMixerSelection(mixerTrackIdx);
             });
 
-            // Guarded on config.sends because sendBank() THROWS at size 0, and a
-            // throw here is the whole extension (E16, above).
-            if (config.sends > 0) {
-                sendBanks[i] = track.sendBank();
-                sendBanks[i].itemCount().markInterested();
-                for (int s = 0; s < config.sends; s++) {
-                    Send send = sendBanks[i].getItemAt(s);
-                    send.exists().markInterested();
-                    send.name().markInterested();
-                    send.value().markInterested();
-                    send.isEnabled().markInterested();
-                    send.isPreFader().markInterested();
-                    // Row E2 needs to DRIVE pre/post, not just observe it: whether
-                    // mute cuts a send is a different question in each mode, and
-                    // `isPreFader()` is read-only. `sendMode()` is the settable
-                    // side (AUTO/PRE/POST, API v10, not deprecated — rule 9).
-                    send.sendMode().markInterested();
-                }
-            }
-
-            final int vuIdx = i;
-            track.addVuMeterObserver(VU_RANGE, -1, true, level -> {
-                vuNow[vuIdx] = level;
-                if (level > vuHold[vuIdx]) {
-                    vuHold[vuIdx] = level;
-                }
-            });
+            // The E16 mixer, send, and VU probes are historical. Their arrays
+            // remain empty so archived source still compiles without allocating
+            // normal-runtime host objects.
 
             ClipLauncherSlotBank slots = track.clipLauncherSlotBank();
             for (int j = 0; j < config.scenes; j++) {
@@ -898,12 +861,17 @@ public class Rig {
             }
         }
 
-        followerClip = host.createLauncherCursorClip(config.gridSteps, config.gridKeys);
-        markClip(followerClip);
+        if (profile.hasProbeResources()) {
+            followerClip = host.createLauncherCursorClip(config.gridSteps, config.gridKeys);
+            markClip(followerClip);
+        } else {
+            followerClip = null;
+        }
 
-        // E2: deliberately NO markInterested / setStepSize on the bare pair
-        bareTrack = host.createCursorTrack("GN_CT_BARE", "ghostnote bare cursor", 0, config.scenes, false);
-        bareClip = bareTrack.createLauncherCursorClip(config.gridSteps, config.gridKeys);
+        // The unmarked E2 cursor is historical evidence. No active profile
+        // allocates it.
+        bareTrack = null;
+        bareClip = null;
 
         fineTrack = host.createCursorTrack("GN_CT_FINE", "ghostnote fine cursor", 0, config.scenes, false);
         fineTrack.position().markInterested();
@@ -921,14 +889,18 @@ public class Rig {
         noteObserverTrack.isPinned().markInterested();
         noteObserverClip = noteObserverTrack.createLauncherCursorClip(
             config.noteReadSteps, config.gridKeys);
-        stepDataObserver = new StepDataObserverProbe(config.noteReadSteps, config.gridKeys);
         markClip(noteObserverClip);
         noteObserverClip.isPinned().markInterested();
         noteObserver.attach(noteObserverClip);
-        stepDataObserver.attach(noteObserverClip);
-
-        arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
-        markClip(arrangerClip);
+        if (profile.hasProbeResources()) {
+            stepDataObserver = new StepDataObserverProbe(config.noteReadSteps, config.gridKeys);
+            stepDataObserver.attach(noteObserverClip);
+            arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
+            markClip(arrangerClip);
+        } else {
+            stepDataObserver = null;
+            arrangerClip = null;
+        }
 
         // E4: device cursor on pool cursor track 0, auto-following the first
         // instrument of whatever track cursorTracks[0] is pointed at.
@@ -1145,112 +1117,14 @@ public class Rig {
                 + t.getClass().getSimpleName() + ":" + t.getMessage();
         }
 
-        // ⚠⚠ E17 — IS THIS LAYER THE UI SELECTION? The readback whose ABSENCE cost
-        // this session two inconclusive rows and a human-assisted probe.
-        //
-        // `e17k` fired `Duplicate`, `Copy`+`Paste` and `Delete` at a layer we had
-        // "selected" via `DeviceChain.selectInEditor()` and got nothing, four
-        // routes. That ○ was UNINTERPRETABLE, because two different worlds produce
-        // it — the actions ignore layers, or our selection never landed — and
-        // **nothing in the API reported which.** `e17l` had to put a human in the
-        // loop to split them, and the answer was the second: with a HUMAN-set
-        // selection the very same actions worked (Copy+Paste 4→5, Delete 4→3).
-        //
-        // `DeviceChain` carries two selection observers and neither had ever been
-        // allocated. Rule 13 is why they could not simply be added mid-probe: they
-        // are init-only, so the missing readback cost a whole extra restart. Both
-        // are marked here so a probe can assert "the layer IS selected" as a
-        // PRECONDITION, separately from its question — which is the discipline
-        // E16o established and the thing `e17k` could not do.
-        //
-        // ⚠ Guarded for the same reason as the mixer block above: a throw in this
-        // constructor is the whole extension, before the bridge binds.
-        //
-        // ⚠⚠ FIXED 2026-08-01 — the two observers were marked inside ONE try block,
-        // and it cost the good one. `addIsSelectedObserver` IS @Deprecated and threw
-        // ("deprecated since API version 2") on the very first layer, so the catch
-        // fired before `addIsSelectedInEditorObserver` — documented CURRENT — was
-        // ever reached for layers 1..N, and the status read `FAILED@0`. Rule 9 says
-        // check @Deprecated before wiring; the subtler lesson is that **a guard
-        // around two calls reports on neither**. They are split so one can fail
-        // without taking the other, and each reports its own status.
-        //
-        // ⚠ This is no longer load-bearing. `cursorLayer0.name()` turned out to
-        // track the chain selection already (5/5 against human eyes in `e17u`,
-        // non-disturbing per `e17v` PART 0), so the readback exists without this.
-        // It is kept as an INDEPENDENT second instrument — two disagreeing readbacks
-        // is a finding, one readback agreeing with itself is not.
-        int layerSelMarked = 0;
-        try {
-            for (int l = 0; l < LAYER_BANK; l++) {
-                final int idx = l;
-                layerBank0.getItemAt(l).addIsSelectedInEditorObserver(v -> layerSelectedInEditor[idx] = v);
-                layerSelMarked++;
-            }
-            layerSelectionStatus = "observing:" + layerSelMarked;
-        } catch (Throwable t) {
-            layerSelectionStatus = "FAILED@" + layerSelMarked + ":"
-                + t.getClass().getSimpleName() + ":" + t.getMessage();
-        }
-
-        // ⚠ Separately, and expected to fail: @Deprecated since API v2. Marked only
-        // so its failure is RECORDED rather than inferred, and so it can never again
-        // take the current observer down with it.
-        int layerSelLegacyMarked = 0;
-        try {
-            for (int l = 0; l < LAYER_BANK; l++) {
-                final int idx = l;
-                layerBank0.getItemAt(l).addIsSelectedObserver(v -> layerSelected[idx] = v);
-                layerSelLegacyMarked++;
-            }
-            layerSelectionLegacyStatus = "observing:" + layerSelLegacyMarked;
-        } catch (Throwable t) {
-            layerSelectionLegacyStatus = "FAILED@" + layerSelLegacyMarked + ":"
-                + t.getClass().getSimpleName() + ":" + t.getMessage();
-        }
-
-        // ⚠⚠ Rule 13: obtain the `*Action()` handles HERE. Bitwig throws
-        // "This can only be called during driver initialization" anywhere else.
-        // ⚠ Three separate try blocks — one failure must not cost the others, the
-        // lesson the selection observers taught earlier this session.
-        int ldMarked = 0;
-        try {
-            for (int l = 0; l < LAYER_BANK; l++) {
-                layerDeleteAction[l] = layerBank0.getItemAt(l).deleteObjectAction();
-                ldMarked++;
-            }
-            layerDeleteActionStatus = "held:" + ldMarked;
-        } catch (Throwable t) {
-            layerDeleteActionStatus = "FAILED@" + ldMarked + ":"
-                + t.getClass().getSimpleName() + ":" + t.getMessage();
-        }
-        int luMarked = 0;
-        try {
-            for (int l = 0; l < LAYER_BANK; l++) {
-                layerDuplicateAction[l] = layerBank0.getItemAt(l).duplicateObjectAction();
-                luMarked++;
-            }
-            layerDuplicateActionStatus = "held:" + luMarked;
-        } catch (Throwable t) {
-            layerDuplicateActionStatus = "FAILED@" + luMarked + ":"
-                + t.getClass().getSimpleName() + ":" + t.getMessage();
-        }
-        int tdMarked = 0;
-        try {
-            trackDeleteAction = new HardwareActionBindable[config.tracks];
-            for (int i = 0; i < config.tracks; i++) {
-                trackDeleteAction[i] = trackBank.getItemAt(i).deleteObjectAction();
-                tdMarked++;
-            }
-            trackDeleteActionStatus = "held:" + tdMarked;
-        } catch (Throwable t) {
-            trackDeleteActionStatus = "FAILED@" + tdMarked + ":"
-                + t.getClass().getSimpleName() + ":" + t.getMessage();
-        }
-
-        cursorLayer0 = cursorDevice0.createCursorLayer();
-        cursorLayer0.exists().markInterested();
-        cursorLayer0.name().markInterested();
+        // Layer selection observers, action handles, and the cursor layer served
+        // only closed E17 probes. Keep their source fields empty for archived
+        // handlers, but allocate no active-runtime host objects.
+        layerDeleteActionStatus = "not-allocated:historical";
+        layerDuplicateActionStatus = "not-allocated:historical";
+        trackDeleteActionStatus = "not-allocated:historical";
+        trackDeleteAction = null;
+        cursorLayer0 = null;
 
         drumPadBank0 = cursorDevice0.createDrumPadBank(DRUM_PAD_BANK);
         drumPadBank0.itemCount().markInterested();
@@ -1267,10 +1141,8 @@ public class Rig {
             }
         }
 
-        chainSelector0 = cursorDevice0.createChainSelector();
-        chainSelector0.exists().markInterested();
-        chainSelector0.activeChainIndex().markInterested();
-        chainSelector0.chainCount().markInterested();
+        // The selector probes are historical and have no active owner.
+        chainSelector0 = null;
 
         // E61: one independent cursor per bounded remote page. Each cursor keeps
         // its page index while cursorDevice0 moves. One handler can therefore
@@ -1378,14 +1250,15 @@ public class Rig {
 
         transport = host.createTransport();
         transport.isPlaying().markInterested();
-        // ⚠ E20a — the corroborating half of the quantisation measurement. Wall
-        // clock says a launch was DELAYED; only the play position says it landed on
-        // a BAR, which is the property `launchWithOptions("1", …)` actually claims.
         transport.playPosition().markInterested();
 
-        masterRecorder = host.createMasterRecorder();
-        masterRecorder.isActive().markInterested();
-        masterRecorder.duration().markInterested();
+        if (profile.hasCaptureResources()) {
+            masterRecorder = host.createMasterRecorder();
+            masterRecorder.isActive().markInterested();
+            masterRecorder.duration().markInterested();
+        } else {
+            masterRecorder = null;
+        }
 
         // Format-agnostic DirectParameter observers (E4b — CLAP access test).
         // Callbacks fire on the control-surface thread.
@@ -1416,10 +1289,9 @@ public class Rig {
             });
         }
 
-        // ⚠ E16 §3.4g — the equals matrix. Last in the constructor deliberately:
-        // every proxy it pairs must already exist, and being last means a failure
-        // here costs nothing that came before it.
-        equalsStatus = buildEqualsProbes();
+        // Current parameter settlement needs only the device-position equality
+        // proxies. The former track and clip matrix had no active owner.
+        equalsStatus = buildDeviceEqualsProbes();
 
         constructNanos = System.nanoTime() - start;
     }
@@ -1594,63 +1466,10 @@ public class Rig {
         return found;
     }
 
-    /**
-     * Pre-allocate every `createEqualsValue` pair we could want, and mark them.
-     *
-     * ⚠ Returns a status string and never throws, for the reason standing rule 13
-     * exists: this is a `create*` at init and the failure mode it guards against
-     * is the extension not starting at all. A bricked init is indistinguishable
-     * from a bricked deploy from the probe's side, and we would spend a restart
-     * finding that out. `not-attempted` / `built:N` / `FAILED@N:…` says which.
-     *
-     * The five families, and what each is a guard FOR:
-     *
-     *   ct{i}=bank{n}   ⚠ the one D6 would actually use — "is pinned cursor i
-     *                   still the track at bank position n?". Name-and-position
-     *                   verification is what D6 does today; this is identity, and
-     *                   it should survive a rename (which the name check fails)
-     *                   and go false on a position shift (which nothing catches).
-     *   ct{i}=ct{j}     cursor aliasing. E2c's fixture contamination was two
-     *                   cursors on one track, diagnosed after the fact from
-     *                   symptoms; this would have said so directly. E16r sharpened
-     *                   it: a cursor past the pool THROWS, but two cursors pointed
-     *                   at one track is silent and still wrong.
-     *   clip{i}=clip{j} the same, one level down — and the honest test of whether
-     *   clip{i}=follower this helps CLIPS at all. E16l proved clips have no
-     *                   identity; if these read true only when two cursors are
-     *                   pointed at the same slot, that is a cursor guard wearing a
-     *                   clip's clothes, not the clip identity D6 wants.
-     *   dev0=chain{d}   "is the device cursor still the device at chain index d?",
-     *                   which is the E3 hazard — deleting device[0] slides the
-     *                   survivor from 1 to 0 under any index we were holding.
-     *   dev0=sibling{d} the same identity check inside the current nested chain.
-     *                   Nested Device.position() reports -1, so this family
-     *                   supplies the confirmed current-chain position.
-     */
-    private String buildEqualsProbes() {
+    /** Build only the equality proxies used by current device guards. */
+    private String buildDeviceEqualsProbes() {
         int built = 0;
         try {
-            for (int i = 0; i < config.cursorPool; i++) {
-                for (int n = 0; n < config.tracks; n++) {
-                    equalsProbes.put("ct" + i + "=bank" + n,
-                        cursorTracks[i].createEqualsValue(trackBank.getItemAt(n)));
-                    built++;
-                }
-            }
-            for (int i = 0; i < config.cursorPool; i++) {
-                for (int j = i + 1; j < config.cursorPool; j++) {
-                    equalsProbes.put("ct" + i + "=ct" + j,
-                        cursorTracks[i].createEqualsValue(cursorTracks[j]));
-                    equalsProbes.put("clip" + i + "=clip" + j,
-                        cursorClips[i].createEqualsValue(cursorClips[j]));
-                    built += 2;
-                }
-            }
-            for (int i = 0; i < config.cursorPool; i++) {
-                equalsProbes.put("clip" + i + "=follower",
-                    cursorClips[i].createEqualsValue(followerClip));
-                built++;
-            }
             for (int d = 0; d < config.deviceBank; d++) {
                 var chainEqual = cursorDevice0.createEqualsValue(cursorDeviceBanks[0].getDevice(d));
                 var siblingEqual = cursorDevice0.createEqualsValue(cursorDeviceSiblings0.getDevice(d));
@@ -1668,15 +1487,13 @@ public class Rig {
                 equalsProbes.put("dev0=sibling" + d, siblingEqual);
                 built += 2;
             }
-            // ⚠ Marked in a second pass, not inline. Creating and marking are two
-            // separate hazards (E2's observer gotcha is about reading an unmarked
-            // value; rule 13 is about creating at the wrong time), and separating
-            // them means the status string says which one failed.
             for (com.bitwig.extension.controller.api.BooleanValue v : equalsProbes.values()) {
                 v.markInterested();
             }
+            equalsProxyCount = built;
             return "built:" + built;
         } catch (Throwable t) {
+            equalsProxyCount = built;
             return "FAILED@" + built + ":" + t.getClass().getSimpleName() + ":" + t.getMessage();
         }
     }
@@ -1721,11 +1538,11 @@ public class Rig {
     /** Resolve the fixed clip cursor references. */
     public Clip clip(String ref) {
         switch (ref) {
-            case "follower": return followerClip;
-            case "bare": return bareClip;
+            case "follower": return requireAllocated(ref, followerClip);
+            case "bare": return requireAllocated(ref, bareClip);
             case "fine": return fineClip;
             case "observer": return noteObserverClip;
-            case "arranger": return arrangerClip;
+            case "arranger": return requireAllocated(ref, arrangerClip);
             default:
                 int i = Integer.parseInt(ref);
                 if (i < 0 || i >= config.cursorPool) {
@@ -1738,12 +1555,20 @@ public class Rig {
     /** Resolve the cursor track that owns a pointable clip cursor. */
     public CursorTrack cursorTrack(String ref) {
         switch (ref) {
-            case "bare": return bareTrack;
+            case "bare": return requireAllocated(ref, bareTrack);
             case "fine": return fineTrack;
             case "observer": return noteObserverTrack;
             default:
                 return cursorTracks[Integer.parseInt(ref)];
         }
+    }
+
+    private <T> T requireAllocated(String ref, T value) {
+        if (value == null) {
+            throw new IllegalArgumentException(
+                "cursor reference " + ref + " is unavailable in " + profile.identity());
+        }
+        return value;
     }
 
     /** Grid width of a clip cursor. Writers and the note reader use separate widths. */

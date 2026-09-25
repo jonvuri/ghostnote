@@ -30,7 +30,8 @@ import {
   WORKSTATION_REQUEST_SCHEMA, WorkstationModuleRegistry,
 } from '../workstation/index.js';
 
-const METHODS_HASH = '78368fe47ea0e814';
+const METHODS_HASH = '677718209312bd96';
+const RUNTIME_PROFILE = 'capture-v1';
 const TRACK_NAME = 'perc a';
 const TRACK_ID = '2598ed2d-9e8c-40f4-8435-33609aad552a';
 const ROW = 6;
@@ -174,7 +175,10 @@ async function main(): Promise<void> {
   const startedAt = new Date().toISOString();
   const projectBytes = await readFile(projectFile);
   const projectFileSha256 = createHash('sha256').update(projectBytes).digest('hex');
-  const session = new Session({ expectMethodsHash: METHODS_HASH });
+  const session = new Session({
+    expectMethodsHash: METHODS_HASH,
+    expectRuntimeProfile: RUNTIME_PROFILE,
+  });
   const captures: AudioCaptureResult[] = [];
   let candidateChangeId: string | undefined;
   let recoveryChangeId: string | undefined;

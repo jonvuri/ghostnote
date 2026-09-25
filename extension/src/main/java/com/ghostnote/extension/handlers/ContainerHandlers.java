@@ -123,13 +123,6 @@ public final class ContainerHandlers extends HandlerGroup {
                 obj.addProperty("sendsError", t.getClass().getSimpleName() + ":" + t.getMessage());
             }
             obj.add("sends", sends);
-            // ⚠⚠ E17 — the readback whose absence made `e17k` uninterpretable and
-            // forced a human-assisted probe. A row firing a named action at a
-            // layer can now assert "it IS selected" as a PRECONDITION, separately
-            // from its question (the e16o discipline).
-            obj.addProperty("selectedInEditor", rig.layerSelectedInEditor[l]);
-            obj.addProperty("selected", rig.layerSelected[l]);
-
             JsonArray devices = new JsonArray();
             for (int d = 0; d < Rig.LAYER_DEVICE_BANK; d++) {
                 Device nested = rig.layerDeviceBanks[l].getDevice(d);
@@ -160,20 +153,6 @@ public final class ContainerHandlers extends HandlerGroup {
         // sends" means something different depending on whether these ever marked.
         result.addProperty("layerColorStatus", rig.layerColorStatus);
         result.addProperty("layerSendsStatus", rig.layerSendsStatus);
-        // Whether the selection observers survived init — same reasoning as the
-        // mixer status: "every layer reads selected=false" means something
-        // different depending on whether the observers were ever attached.
-        result.addProperty("layerSelectionStatus", rig.layerSelectionStatus);
-        result.addProperty("layerSelectionLegacyStatus", rig.layerSelectionLegacyStatus);
-        // ⚠ E17 row 3 — the CONTAINER-SCOPED cursor, reported alongside the
-        // indexed bank so `layer.insertViaCursor` can be read against it. E4e's
-        // architectural negative is that an InsertionPoint must bind to a
-        // referent and "layer 3" has none until it exists; that argument is about
-        // INDEXED addressing, and this is the non-indexed alternative. Whether
-        // the cursor has a referent when the container has zero chains is half of
-        // row 3's answer, and nothing has ever read it.
-        putGuarded(result, "cursorLayerExists", () -> rig.cursorLayer0.exists().get());
-        putGuarded(result, "cursorLayerName", () -> rig.cursorLayer0.name().get());
         // Named, not counted (e16t): which device the bank is actually scoped to.
         // Every layer call reaches its target through this cursor, so a row that
         // does not report it cannot tell a refusal from a mis-aimed read.
