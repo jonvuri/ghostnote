@@ -1,8 +1,8 @@
 ---
 title: Phase 8d — Cache identity and lifecycle
 kind: plan
-state: planned
-status: Resolve operational identity and recovery before selecting the cache contract.
+state: complete
+status: Cache identity, invalidation, repair, and rebuild rules are explicit and live-tested.
 updated: 2026-09-25
 parent: README.md
 prev: 8c-compact-bar-prior-art-and-benchmark.md
@@ -101,7 +101,35 @@ channels.
 - Making cached reads authoritative.
 - Permanent cross-project clip identity.
 
+## Outcome
+
+[E138](../../evidence/experiments/e138-cache-identity-and-lifecycle.md)
+records the probe-only lifecycle model, autonomous live matrix, UI-assisted
+project lifecycle, measured repair costs, and cleanup. The
+[cache identity and lifecycle rules](../../evidence/format/CACHE_IDENTITY_AND_LIFECYCLE.md)
+define the 8f inputs.
+
+A logical clip ID is session-local. It follows content edits and only a proved
+unambiguous move. Create, duplicate, replacement, ambiguous equality, project
+change, reopen, and controller reload mint or invalidate identities. Project
+generation, logical clip identity, current address, slot identity, and content
+fingerprint are separate values.
+
+Known exact scene and address events permit incremental repair. Event gaps,
+group topology changes, ambiguity, interrupted work, lifecycle changes, and
+authority mismatch require an atomic complete rebuild. Late callbacks must
+match project, structural, binding, and rebuild generations.
+
+Incremental scene repair measured 1,155.078 ms. Complete group-topology rebuild
+measured 4,388.368 ms in the small fixture. Phase 8e owns scale limits and
+budgets.
+
 ## Retrospective target
 
 Record the smallest event set that can keep the registry correct. If no event
 set is sufficient, prefer an explicit rebuild over additional identity guesses.
+
+## Retrospective
+
+Classify each lifecycle arm as live, model-only, or unavailable before a probe
+run. This would have exposed the missing track-reorder route earlier.

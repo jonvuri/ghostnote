@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: The compact-bar benchmark is complete. Begin cache identity and lifecycle work.
+status: Cache lifecycle rules are complete. Begin scale limits and degradation work.
 updated: 2026-09-25
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -80,8 +80,9 @@ owns the migration details.
    records the fixed comparison package, deterministic gate, and two-provider
    run.
 4. [8d — Cache identity and lifecycle](8d-cache-identity-and-lifecycle.md).
-   Resolve stale addresses, structural compaction, project changes, restart,
-   replacement, and observer recovery.
+   Complete. [E138](../../evidence/experiments/e138-cache-identity-and-lifecycle.md)
+   resolves stale addresses, structural compaction, project changes, restart,
+   replacement, ambiguity, and observer recovery.
 5. [8e — Cache scale limits and degradation policy](8e-cache-scale-limits-and-degradation.md).
    Find practical performance knees and select product limits, budgets, and
    explicit overflow behavior.

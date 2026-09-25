@@ -13,6 +13,8 @@
     "probe:list": "node -e \"const s=require('./package.json').scripts;for(const k of Object.keys(s))if(k.startsWith('probe:'))console.log(k.slice(6).padEnd(14),s[k].replace('tsx src/probes/',''))\"",
     "probe:hello": "tsx src/probes/gn-hello.ts",
     "probe:phase8b-boundary": "node --import tsx src/probes/phase8b-runtime-boundary.ts",
+    "probe:phase8d-lifecycle": "node --import tsx src/probes/phase8d-cache-lifecycle.ts",
+    "probe:phase8d-project": "node --import tsx src/probes/phase8d-project-lifecycle.ts",
     "benchmark:compact-bar": "python3 benchmarks/compact-bar-v0/benchmark.py --check benchmarks/compact-bar-v0/expected-deterministic.json",
     "probe:d01-selection": "tsx src/probes/d01-stale-selection.ts",
     "probe:d02-drum-machine": "tsx src/probes/d02-drum-machine-composition.ts",

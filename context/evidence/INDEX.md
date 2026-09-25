@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E138 | Cache identity and lifecycle rules pass live recovery [K] (2026-09-25) | [open](experiments/e138-cache-identity-and-lifecycle.md) |
+| E137 | Compact-bar prior art and benchmark are reproducible [K] (2026-09-25) | [open](experiments/e137-compact-bar-prior-art-and-benchmark.md) |
 | E136 | Runtime and surface cleanup establishes lean profiles [K] (2026-09-25) | [open](experiments/e136-runtime-and-surface-cleanup.md) |
 | E135 | Independent agent-native interface comparison settles layer-chain and composer targets [K] (2026-09-25) | [open](experiments/e135-agent-native-product-and-interface-audit.md) |
 | E134 | Project observer scale sweep supports a later persistent cache [K] (2026-09-25) | [open](experiments/e134-project-observer-scale-sweep.md) |
