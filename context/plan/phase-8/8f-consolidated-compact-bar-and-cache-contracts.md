@@ -31,6 +31,8 @@ Resolve the open questions in the
 - normalized start and duration rules;
 - declared D23 loss and unsupported shapes;
 - complete-document and sparse-patch forms;
+- final public Launcher-clip read name and single-clip or bounded-batch
+  cardinality; select `read_launcher_clip` or `read_launcher_clips`;
 - absent-field, default, and preservation semantics;
 - clip references and logical event IDs;
 - event remapping after human edits;
@@ -99,6 +101,8 @@ part of language conformance.
 - Clip and event identities have session, restart, and ambiguity rules.
 - Cache coverage and health cannot be mistaken for complete state.
 - The public document contains no internal observer or proxy mechanics.
+- The public Launcher-clip read name and request cardinality have one documented
+  choice. The name does not imply Arranger-clip support.
 - The existing v0 formats have an explicit retain, migrate, or retire decision.
 - The conformance corpus, canonical hashes, context check, and diff check pass.
 - The result is publication-ready documentation, not an external publication.

@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: The played-range live gate passed. Begin with the product posture and interface audit.
+status: The agent-native interface audit is complete. Begin the lean runtime and surface foundation.
 updated: 2026-09-25
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -41,7 +41,8 @@ until the new cache reaches its promotion gate.
 
 ## Product direction
 
-Phase 8 uses these working principles. Session 8a can revise them with evidence.
+Phase 8 uses these working principles. The completed 8a audit refines them and
+owns the migration details.
 
 - Ghostnote supplies fast structured observation where generic vision is weak.
 - Ghostnote supplies precise bounded actions where generic clicking is slow or
@@ -52,6 +53,13 @@ Phase 8 uses these working principles. Session 8a can revise them with evidence.
 - A tool returns the smallest result that lets an agent continue safely.
 - Experimental machinery does not stay in the normal runtime without a current
   product or regression owner.
+- Layer chains are ordinary device structure. A/B audition is a recipe over
+  generic layer-chain limbs, not a separate managed-alternate lifecycle.
+- One public device composer can select a private offline fast path or a staged
+  general path.
+- Public names use Bitwig object nouns and state a narrower proved scope. A
+  Launcher-only or instrument-only operation does not claim a general clip or
+  track capability.
 - Internal cache records do not become a public music format by accident.
 - The stable reader remains a comparison authority until promotion evidence is
   complete.
@@ -59,8 +67,10 @@ Phase 8 uses these working principles. Session 8a can revise them with evidence.
 ## Session order
 
 1. [8a — Agent-native product posture and interface audit](8a-agent-native-product-and-interface-audit.md).
-   Review the complete surface, verification posture, computer-use boundary,
-   and interface coherence. Select a target architecture and risk tiers.
+   Complete. The
+   [audit](../../evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md) selects the
+   target architecture, risk tiers, and migration order. [E135](../../evidence/experiments/e135-agent-native-product-and-interface-audit.md)
+   records the independent comparison and settled follow-up decisions.
 2. [8b — Runtime and surface cleanup foundation](8b-runtime-and-surface-cleanup.md).
    Separate product and probe runtime, retire unowned apparatus, and establish
    the lean baseline used by later measurements.

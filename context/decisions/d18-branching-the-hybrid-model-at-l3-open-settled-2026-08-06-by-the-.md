@@ -3,200 +3,164 @@ id: D18
 kind: decision
 state: active
 source: DECISIONS.md
-updated: 2026-08-14
+updated: 2026-09-25
 ---
 
-# D18 — Managed takes use layer chains and clip blocks; track copying is ordinary CRUD **[REVISED 2026-08-14]**
+# D18 — Layer chains are composable structure, not managed device alternates **[REVISED 2026-09-25]**
 
-**There are two managed take representations: layer chains for device-chain
-alternates and launcher clip blocks for clip-content alternates. Track duplication
-remains a direct, typed track CRUD capability, but a copied track is not a take in
-ghostnote's model and receives no lineage, switching, or take-lifecycle
-bookkeeping.**
+Ghostnote does not have a first-class device-alternate object or lifecycle.
+Instrument Layer and FX Layer are ordinary container devices. Their named
+parallel children are `layer_chain` objects. Agents can compose these objects
+for A/B work and for other device-routing tasks.
 
-This revises the three-mechanism hybrid settled on 2026-08-06. The earlier choice
-was reasonable on the evidence available: layers were strong for device-scoped
-work but could never carry clips, while tracks carried the whole channel and
-provided a visible collapsed lineage container. E22 then proved that the only way
-to create that container, the Editing action `Group`, follows unobservable primary
-focus and can silently edit a device chain instead. Any capability that requires
-operator assistance for mechanical execution is outside the product contract.
+This revision changes the device side of the 2026-08-14 decision. Launcher clip
+blocks remain the current clip-content representation until the Phase 8 clip
+interface work reviews them. Track duplication remains ordinary typed CRUD. It
+does not create take lineage or lifecycle state.
 
-The original investigation remains in
-[E18-VERDICT](../archive/spike/E18-VERDICT.md) and
-[HYBRID-AUTONOMY-LEVELS](../archive/spike/HYBRID-AUTONOMY-LEVELS.md). E22's
-destruction matrix is the decisive new evidence.
+## Reason
 
-## a. What survives from the hybrid, and why
+Rapid audition is the useful behavior from the former device-alternate model.
+Normal layer chains already provide it:
 
-The two managed representations divide by the Bitwig object whose alternate is
-being preserved:
+- each chain holds ordered devices and device state;
+- container-local solo can make one chain audible;
+- Bitwig Shift-click gives the user exclusive solo;
+- a typed operation can set and verify exact solo state; and
+- normal structure operations can build and collapse the same layout.
 
-| representation | owns | switching | distinctive reach |
-|---|---|---|---|
-| layer chain | devices and device state | container-local exclusive solo | Master/FX-return devices, silent move-based rebuild, no track-bank row |
-| clip block | launcher clip content and launch settings | per-slot launch | beat-aligned switching and position-continuous clip A/B |
+The managed lifecycle added six public names, automatic observation capture,
+special creation and filling rules, and two destructive rebuild workflows. It
+did not add a distinct host object. E80 inspected this machinery but did not use
+it. E127 completed a newer A/B task with ordinary parameter changes, audio
+capture, and audition. The lifecycle cost is no longer justified.
 
-Layers alone were never sufficient because a layer has no clips and cannot express
-a melodic or rhythmic clip alternate. Clip blocks alone cannot carry a device
-chain. Both remain necessary.
+## Unchanged clip and track boundaries
 
-The track-fork proposal added whole-track snapshots, sends, immediate visibility,
-and a collapsed lineage view. On review after E22, its uniquely useful product
-advantages reduce to visual lineage and organization: ordinary ungrouped sibling
-tracks can already be compared with track mute/solo, track solo is project-wide
-rather than group-scoped, and mutes are still toggled individually. Those visual
-advantages do not justify an unobservable, operator-dependent, misdispatching
-constructor.
+Launcher clip blocks remain the current scoped representation for launcher-clip
+content and launch settings. They do not include arrangement clips, sends,
+track-mixer state, routing, or project state. A mixed instruction can create
+separate clip and device structures, but they are not one atomic alternate.
+Session 8f can revise the public clip boundary after it reviews the complete
+compact document and cache contract.
 
-## b. Independent alternates within one instruction
+The current `copy_track` capability remains typed CRUD. Rename it to
+`duplicate_instrument_track` while E16 is the only live proof. E16 tested an
+instrument track; it did not prove that audio-track duplication fails. Broaden
+the name to `duplicate_track` only after each supported track kind passes the
+same live identity, content, cost, and readback checks.
 
-A turn may create several independent managed takes. A request that changes a
-track's instrument and its melody can create a layer-chain alternate and a clip
-alternate concurrently, but they are not promised to be linked. The same is true
-when one instruction changes several tracks: each alternate is its own event.
+A duplicate returns a durable identity and uses normal guards and readback, but
+it creates no take, lineage, or cleanup obligation. It can be audible
+immediately, can add engine load, consumes one track-bank row, and is not
+automatically reversible. These costs do not turn it into an alternate
+workflow.
 
-They may share ordinary provenance such as a turn or instruction identifier. That
-correlation is not a compound take, an atomic project state, or a guarantee that
-switching one switches the others.
+## Vocabulary
 
-⚠ **What neither representation covers, stated so it is not discovered later.** A
-layer chain carries devices and device state and has **no clips, no sends and no
-track-mixer state**; a clip block carries launcher clip content and launch settings
-and nothing else. So these are explicitly OUTSIDE both managed representations
-until designed:
+Use `container` for the parent device. Its kind identifies Instrument Layer or
+FX Layer. Use `layer_chain` for one named parallel child. In a result already
+scoped to one container, the field can be `chains`.
 
-- **arrangement clips** — the clip block is launcher-only;
-- **per-alternate sends, track-mixer state, or routing** — a layer channel has no
-  sends, and routing is not object-scoped;
-- **cross-track and project-level alternates** — tempo, scenes, several tracks at
-  once;
-- **a mixed change as one linked object** — it decomposes into independent events
-  per §b, or it is unsupported.
+Do not use bare `chain` in a public tool name. Bitwig also has track device
+chains, fixed nested chains, selector chains, drum chains, and a device named
+Chain. Do not use `entry` as the canonical child noun. It is clear, but it is
+not Bitwig's object term.
 
-`copy_track` may be directed at such work and will do it, because it copies the
-whole channel. ⚠ It does not thereby acquire take semantics, and an agent reaching
-for it in place of a scoped alternate is a measurement the 3g record must see
-(§e), not a silent fallback that reinstates the retired hybrid by convention.
+## Target capabilities
 
-## c. Track copying is typed CRUD, not an unrecorded write
+| Capability | Target |
+|---|---|
+| Read | `read_devices` returns top-level devices and addressed layer chains, including order, solo and mixer state, capacity, coverage, and completeness. |
+| Compose | `compose_devices` creates complete supported containers. One public tool selects a private offline or staged backend. |
+| Branch | `duplicate_layer_chain` copies one complete chain to a new unique name. |
+| Name | `rename_layer_chain` changes the durable chain name. |
+| Move | `move_devices` moves ordered devices between the track and chains, between chains, and through proved top-level positioning routes. |
+| Copy | `copy_devices` creates new device instances on proved layer-chain routes. |
+| Audition | `set_layer_chain_solo` uses idempotent `exclusive`, `on`, or `off` modes. |
+| Remove container | The existing destructive `delete_device` tool removes an emptied layer container. |
 
-`copy_track` duplicates one addressed track using the measured typed
-`Channel.duplicate()` route. It is available whenever the operator directs an
-agent to copy a track, including workflows that resemble informal takes.
+Every limb checks complete source and destination structure and reads back its
+own effect. A route that is unavailable or cannot be proved refuses before a
+write.
 
-The copy:
+## Recipes
 
-- goes through the normal executor, preconditions, readback, and session change
-  reporting;
-- returns the fresh durable track identity;
-- is subject to the observable bank-window budget, one row per copy;
-- remains after automatic reversal, with that limitation reported and a separately
-  authorized `delete_track` as the directed cleanup path;
-- creates no take record, lineage relation, managed A/B pair, or automatic
-  collapse/cleanup obligation.
+For A/B audition:
 
-This is intentionally between the discarded alternatives: it is neither promoted
-to a take model nor allowed to become an invisible side write.
+1. Compose named chains or duplicate one chain.
+2. Apply ordinary device edits to each chain.
+3. Set one chain to exclusive solo.
+4. Repeat step 3 while the user auditions.
 
-⚠ Its costs are mechanical facts the description states plainly rather than
-warnings the agent has to infer:
+For winner collapse:
 
-- **it is immediately audible** if the source was audible — a copy is not a quiet
-  staging area, and nothing mutes it on the agent's behalf;
-- **instantiating the copied device chain can glitch the audio and adds engine
-  load** — E16 row C5's blind placebo-controlled ear test heard it 5/5 on real
-  duplications against 0/3 on placebo, and heavy plugins are what make it audible.
-  ⚠ Not to be confused with disk cost, which E16u measured as immaterial;
-- **it consumes one track-bank row**, and the Master and FX returns cross the
-  ceiling first (E16r);
-- **only the regular track types actually measured are supported.** Other types
-  refuse until proven rather than being attempted on the assumption that
-  `Channel.duplicate()` behaves the same everywhere.
+1. Read the complete container and top-level device order.
+2. Move the winning chain's devices to the track.
+3. Verify that all requested devices moved and the winning chain is empty.
+4. Delete the container through `delete_device`.
+5. Restore the extracted devices to the former container position.
+6. Read the complete final order.
 
-None of that requires confirmation or a human gesture before the call. It does
-mean creation is not safely auto-reversible, so persistence and the cleanup
-boundary are the prominent part of the description, not a footnote.
+The collapse is not atomic. Each step uses fresh structure. Layer-chain name,
+mute, solo, volume, pan, and colour do not become top-level device state.
+Cross-device modulation preservation is not claimed beyond measured routes.
 
-## d. Autonomy is a hard capability boundary
+Do not add a specialized collapse tool unless dogfood shows that agents cannot
+execute this guarded recipe reliably.
 
-Mechanical functionality must be provisioned and executable without runtime
-operator setup. In particular:
+## Unavailable deletion
 
-- the layer seed asset is bundled or provisioned at build time; an operator never
-  authors a preset shell to enable the feature;
-- nested layer addressing, creation, filling, switching, reduction, and collapse
-  use typed, observable operations;
-- named actions do not re-enter the product through a prompt or focus ritual;
-- a difficult autonomous operation may be cumbersome, but it may not depend on a
-  human click.
+Bitwig's typed operations cannot delete one layer chain. A duplicate chain has
+no typed inverse. Removing one chain while retaining its container therefore
+refuses before a write. The refusal tells the agent to use computer control.
 
-The common layer collapse is winner extraction: move the surviving chain's devices
-out of the container, then delete the container and its remaining chains. Removing
-one of three-or-more chains while preserving several alternates may use a rebuild.
-Neither route needs focus priming.
+This UI remediation is allowed under the Phase 8 sensor-and-limb posture. The
+agent confirms focus and target, performs the visible deletion, and reacquires
+structured device state. Ghostnote does not record or reverse that UI action.
 
-Open correctness work remains explicit: preserve multi-device order; decide how
-to preserve the container's original signal-chain position rather than always
-moving to `chainEnd`; account for chain-level gain/pan state that does not travel
-with devices; measure the on-track audible gap; and do not claim cross-device
-modulation survives until its indexed path is tested.
+## Composition backend
 
-## e. Tool descriptions and observation
+Keep the offline preset composer as a private `compose_devices` fast path. It
+builds a complete supported native structure before one project insertion.
+E18a measured a filled four-chain preset insertion at 463-465 ms and a plain
+device insertion at 469-500 ms in the same probe. A staged four-chain request
+normally needs a container insertion, chain renames, four device insertions,
+and four relocations before verification.
 
-The original L3-open principle survives, but the old three-way dispatch classifier
-does not. There is no longer a choice among three equivalent take mechanisms:
-device alternates and clip alternates have one managed representation each, while
-track copying is a separate general capability.
+The offline path also creates the first chain of an Instrument Layer, which
+ships empty, and authors supported native device-local modulators that have no
+typed live creation route. Its validation happens before one project write.
+Its owned reversal removes one container.
 
-Descriptions begin light and factual. They name object scope, mechanical
-preconditions, costs, destructive seams, and correct procedures. They do not need
-to hide the now-settled object boundary, and they should not market `copy_track`
-as a take tool. Naming and wording are versioned because they may determine
-whether agents choose the right scoped operation or reach for a coarse track copy.
+The staged backend remains the general path. It supports VST3, CLAP, presets,
+existing-device moves and copies, several devices per chain, caller positions,
+and shapes outside the offline template. Phase 8h must benchmark identical
+two-chain and four-chain requests. The current evidence proves the operation
+count and insertion-cost advantage, not an end-to-end speed ratio.
 
-⚠ The surface's lexical ban list (`brain/src/surface/naming.ts`) is what holds
-that line mechanically, and this revision changes what it should forbid: the
-retired mechanism's vocabulary stays banned permanently, while the words a
-correctly scoped device-alternate or copy tool may need are marked relaxation
-candidates. Reopen them one entry at a time with the reason rewritten in place.
-A deletion with no replacement reason is the leak arriving quietly.
+## Observation and destruction
 
-Observation records enough to revisit those descriptions:
+Remove the device-alternate observation event with the public observation
+workflow. The agent conversation owns its A/B intent and user verdict. Project
+state remains available through `read_devices`.
 
-- raw requested/write-set scope: device-only, launcher-clip-only, mixed, or
-  unsupported;
-- each independent managed alternate actually created, correlated to its turn;
-- actual structure used: layer chain, clip block, both independently, track copy,
-  or none;
-- agent rationale when available, operator response, result identity, and tool-
-  description version.
+D20 is unchanged. `delete_device` keeps a separate destructive name and zero
+initiative. Moving or copying devices does not authorize container deletion.
+D16 and D19 continue to own exact effects and guarded reversal. A layer-chain
+A/B layout is not general loss protection for unrelated edits.
 
-Do not overfit one ordinary session. Adapt when a failure pattern repeats across
-distinct sessions. Stay open to failure modes not named in advance. A single
-strong controlled result may still justify immediate containment when safety or
-correctness is at stake, as E22 did.
+## Superseded history
 
-## f. The record and the other axes
+The 2026-08-06 decision selected a three-mechanism hybrid. The 2026-08-14
+revision removed managed track forks after E22 proved that Group follows hidden
+primary focus. It retained managed device alternates and clip blocks. The 8a
+audit and its independent rerun initially assumed that the remaining device
+lifecycle should stay. The follow-up review deconstructed it into the ordinary
+layer operations above.
 
-The observation record remains per-project in the hidden-at-`init()` document
-setting proven by E20d. Raw write-set is retained so later analyses can be replayed;
-accepted, vetoed, and silent operator responses remain distinct; tool-description
-version is mandatory.
-
-This decision governs representation, not whether every edit gets a take. Axis B
-stays deliberate and coarse: most writes use the stash without creating an
-alternate. Axis C remains zero initiative under D20: destruction occurs only at
-operator direction through the annotated tool seam.
-
-## g. Fidelity protection remains explicit
-
-The D16 floor is unchanged in purpose: a write whose prior state cannot be stashed
-at `exact` fidelity, or whose damage occurs before a safe stash can exist, refuses
-unless the affected object is already protected by its appropriate managed take
-representation. The system never responds by automatically copying a track.
-
-The protection must match the object at risk: a device write is protected by the
-layer alternate it targets; a launcher-clip write is protected by the clip block
-it targets. Mixed work satisfies each side independently or refuses the
-unprotected side before anything is applied.
+The capability evidence remains valid. E17 and E18a-h establish chain creation,
+naming, solo, movement, state, deletion limits, and rebuild cost. E34 proves
+exclusive-solo audition. E63 records one managed dogfood use and its setup gap.
+E80 and E127 show later agent behavior. E135 records the Phase 8 comparison and
+the selected target.

@@ -7,7 +7,7 @@ updated: 2026-09-25
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E119-E134; D23
+evidence: E119-E135; D18, D23
 ---
 
 # Phase 8h — Cache promotion and interface simplification
@@ -47,6 +47,63 @@ Apply the 8a disposition after the replacement path exists:
   and
 - retire experimental formats according to the 8f migration decision.
 
+## Public naming migration
+
+Apply the E135 Bitwig-aligned names:
+
+- `check_connection` → `check_bitwig_connection`;
+- `read_clip` and `acquire_clip_note_source` → the Launcher-clip read selected
+  in 8f;
+- `add_clip` → `add_launcher_clip`;
+- `copy_clip_down` → `copy_launcher_clips`;
+- `move_clip_block` → `move_launcher_clips`;
+- `delete_clip` → `delete_launcher_clip`;
+- `set_clip_launch` → `set_launcher_clip_launch_settings`;
+- `set_clip_metadata` → `set_launcher_clip_properties`;
+- `show_changed_clip` → `show_launcher_clip_in_detail_editor`;
+- `add_track` → `add_instrument_tracks` while the operation creates only that
+  track kind;
+- `copy_track` → `duplicate_instrument_track` under current evidence;
+- `inspect_device_parameters` and `set_parameter` → `read_device_controls` and
+  `set_device_controls`; and
+- `inspect_preset_modulation` and `author_modulators` →
+  `read_preset_modulation` and `edit_preset_modulation`.
+
+Keep `launch_clip`, `add_scenes`, `delete_scene`, `add_devices`, and
+`set_device_enabled`. Use `scene` in titles and descriptions. Use `row` only in
+addresses.
+
+E16 proved track duplication only on an instrument track. It did not test an
+audio track. Run focused live audio-track creation and Audio/Hybrid duplication
+arms. Check fresh identity, type, content, routing, mixer state,
+audibility, cost, and bounded readback. Use the broader `add_tracks` or
+`duplicate_track` name only for the kinds that pass. Do not interpret the
+current proof gap as a host refusal.
+
+## Device structure migration
+
+Apply the D18 amendment and E135 target:
+
+1. Merge `inspect_devices` and `inspect_device_alternates` into `read_devices`.
+2. Expose one `compose_devices` operation. Keep the offline preset composer as
+   a private fast path. Use guarded staged operations for unsupported sources
+   and shapes.
+3. Replace alternate creation, fill, switch, remove, and keep operations with
+   `duplicate_layer_chain`, `rename_layer_chain`, `move_devices`,
+   `copy_devices`, and `set_layer_chain_solo`.
+4. Give `set_layer_chain_solo` idempotent `exclusive`, `on`, and `off` modes.
+5. Keep `delete_device` as a separate destructive operation.
+6. Refuse typed deletion of one layer chain before a write. Direct the agent to
+   computer control, then require a fresh `read_devices` result.
+7. Remove the device-alternate observation event with the public observation
+   workflow.
+
+Document A/B audition and winner collapse as recipes over these elemental
+operations. Do not add a special collapse operation unless dogfood shows that
+agents cannot execute the guarded recipe reliably. Benchmark equivalent
+two-chain and four-chain requests through both composition backends before the
+offline fast path is retained on latency alone.
+
 ## Verification and reversal reductions
 
 Implement the risk tiers selected by 8a and specified in 8f. Measure each
@@ -65,6 +122,12 @@ failure it covered, the replacement evidence, and the measured saved work.
 - Consolidated compact-bar reads and patches use the 8f contract and corpus.
 - Every retired tool, format, method, and check has a migration or explicit
   incompatibility record.
+- Device A/B audition and collapse use the documented generic layer-chain
+  operations. No managed device-alternate lifecycle remains in normal discovery.
+- Equivalent two-chain and four-chain composition benchmarks state the selected
+  backend boundary.
+- Public clip operations name Launcher scope. Instrument-only track operations
+  name that scope unless wider live proof passes.
 - Destructive and ambiguous operations retain the selected stronger policy.
 - Result size, tool calls, and wall time improve on representative workflows.
 - The surface has one coherent address, health, result, and error vocabulary.

@@ -9,6 +9,8 @@ scope: Formats that cross the implemented Phase 7 boundary
 # Workstation interface inventory
 
 This inventory applies the [shared contract fields](WORKSTATION_CONTRACTS.md).
+The [Phase 8 audit](AGENT_NATIVE_INTERFACE_AUDIT.md) supplies the current
+product disposition for these Phase 7 interfaces.
 The IDs below are audit references, not runtime schemas. Each row covers the
 listed formats as one family only when they share an owner and boundary.
 The [seam map](WORKSTATION_SEAMS.md) names the required translation or blocker.
@@ -56,7 +58,7 @@ explicit local JSON. None of these files is a hidden shared source of live state
 | I18 | `ghostnote-documentation-request-v0`, `documentation-v0`, and disposable `ghostnote-documentation-index-v0`; [provider](../../../brain/src/documentation/documentation-provider.ts) | Documentation retrieval; verified sources → bounded cited matches; evidence selection | Retain the experimental 7c result. Tie each index to source, extractor, provider, SQLite and tokenizer identity. LSA is not in the product route. |
 | I19 | Native catalog/resolution JSON schema 1; [catalog](../../../brain/src/native-catalog/catalog.ts) | Native catalog; installed presets and resolved IDs → supported insertion; installed native identity | Retain. Catalog identity is not workflow documentation or parameter-state evidence. |
 | I20 | Donor manifest schema 1, raw modulator objects, witness/footprint records; [donors](../../../brain/src/bwmod/donors.ts), [manifest](../../../brain/assets/modulators/manifest.json) | bwmod donor catalog; human-saved sources → authoring compiler; supported donor bytes and measured footprint | Retain current asset contract. Cross-module export needs an explicit hash/provenance wrapper; do not claim the current manifest hashes each donor. |
-| I21 | Composition manifests schema 1, owned layer/FX seeds, device-alternate assets; [assets](../../../brain/src/composition/assets.ts), [alternate assets](../../../brain/src/device-alternates/assets.ts) | Composition/alternate engine; owned preset assets → checked composition; seed identity and bounded topology | Retain separate seed roles. Do not merge a seed manifest with an observed live device state. |
+| I21 | Composition manifests schema 1, owned layer/FX seeds, legacy device-alternate assets; [assets](../../../brain/src/composition/assets.ts), [alternate assets](../../../brain/src/device-alternates/assets.ts) | Composition engine and temporary alternate compatibility; owned preset assets → checked composition; seed identity and bounded topology | Retain composition and seed roles behind one public composer. Keep alternate assets only through the 8h migration. Do not merge an asset manifest with observed live device state. |
 | I22 | `.bwpreset` META/CONT bytes, bwmod parsed structures and source-composition requests; host-format qualified, parser checkout-bound; [spec](BWFORMAT_SPEC.md), [design](BWMOD_DESIGN.md) | bwmod/Bitwig adapter; file bytes → parser/composer → guarded load/readback; byte structure within supported scope | Retain existing supported route. No new vendor-preset loader; D22 remains. Saved bytes do not prove unsaved live state. |
 | I23 | Eval/response/ballot-key/summary schemas from 6d–6h, including sensory/reference response v0; probe files | Experiment runner/operator; responses and blind artifacts → frozen evidence; benchmark and explicit verdict | Retire from product imports. Retain evidence/reproduction sources. Models cannot fill the operator-verdict record. |
 | I24 | Module descriptor `ghostnote-workstation-module-v0`, correlated request/result, `ghostnote-hybrid-run-record-v0` | Module coordinator; configured modules ↔ host/run log; discovery, correlation, and run provenance | The 7a registry implements lazy discovery, deadlines and correlation. Later modules add source and dependency checks. E127 proves the strict composed run record. Revise its verbose seam text and manual final-state update after more dogfood. |
@@ -113,7 +115,7 @@ tests; product code must not import a whole probe and its optional dependencies.
 | `phase6g-reference-transfer.py`, `phase6g-reference-followup.py` | Extraction/coverage and independent copy/trait formulas in 7b | Seed/raw/extracted controls and literal patch examples | Notochord and remote model runners remain evidence only. |
 | `phase6h-sensory-packets.py` | The 7d audio sensory v1 router; MIDI remains conditional | Same-source, silence, undefined-property, paired-delta and level controls | Raw-inventory arms, model responses and ballot machinery remain evidence only. |
 
-The extension currently registers 153 methods; the product wire map uses 82.
+The extension currently registers 157 methods; the product wire map uses 90.
 This count is not a removal list. [8b](../../plan/phase-8/8b-runtime-and-surface-cleanup.md)
 must classify each method and its allocated host objects. Preserve D13's required
 registered diagnostic boundary and keep forbidden routes unreachable. Do not

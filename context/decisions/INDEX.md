@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-09-24
+updated: 2026-09-25
 ---
 
 # Decision index
@@ -29,7 +29,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D15 | Verification discipline **[SETTLED 2026-07-25]** | [open](d15-verification-discipline-settled-2026-07-25.md) |
 | D16 | The executor: write-set, stash, revert **[SETTLED 2026-07-26, PHASE-1 session 1]** | [open](d16-the-executor-write-set-stash-revert-settled-2026-07-26-phase-1-s.md) |
 | D17 | Take store retired; project-native scoped takes and stash survive **[REVISED 2026-08-14]** | [open](d17-the-take-store-persistence-branching-partial-revert-settled-2026.md) |
-| D18 | Managed takes use layer chains and clip blocks; track copying is ordinary CRUD **[REVISED 2026-08-14]** | [open](d18-branching-the-hybrid-model-at-l3-open-settled-2026-08-06-by-the-.md) |
+| D18 | Layer chains are composable structure, not managed device alternates **[REVISED 2026-09-25]** | [open](d18-branching-the-hybrid-model-at-l3-open-settled-2026-08-06-by-the-.md) |
 | D19 | Undo: Bitwig's stack is the human's; agent-edit reversal is ours **[SETTLED 2026-08-06; separated out 2026-08-07]** | [open](d19-undo-bitwig-s-stack-is-the-human-s-agent-edit-reversal-is-ours-s.md) |
 | D20 | Destruction: zero initiative, directed execution behind an annotated seam **[SETTLED 2026-08-07]** | [open](d20-destruction-zero-initiative-directed-execution-behind-an-annotat.md) |
 | D21 | One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16, AMENDED 2026-08-18]** | [open](d21-musical-patch-and-public-tool-grain.md) |
@@ -40,8 +40,9 @@ with the original decision heading and preserves its amendments and rationale.
 
 E64 requires no new decision or amendment. D8 already owns scalar, enabled-
 state, inserted-device, and existing-device-delete fidelity. D16 owns guarded
-execution and reversal. D20 owns directed device deletion. E63's candidate A/B
-selection policy remains evidence only under D18's repeated-use rule.
+execution and reversal. D20 owns directed device deletion. E63 remains
+historical evidence. D18's 2026-09-25 revision retires its managed
+device-alternate selection policy.
 
 ## Phase 5 decision audit
 
@@ -50,3 +51,9 @@ template, provenance, generation, capacity, and publication policy. D7 now
 records the five-slot observer bank needed to prove a four-entry result
 complete. D1, D2, D15, and D16 continue to own the authoring model, host tiers,
 live proof, recorded writes, and reversal.
+
+## Phase 8 interface audit
+
+E135 amends D18. Layer chains are ordinary composable device structure. The
+target interface removes the managed device-alternate lifecycle and keeps
+generic layer-chain limbs. Clip blocks remain outside this amendment until 8f.

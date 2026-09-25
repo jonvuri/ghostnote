@@ -18,6 +18,10 @@ provider, schema, or settlement budget. The
 completion. [Reduction briefs](../../plan/phase-7/VERIFICATION_REDUCTIONS.md)
 name the later work and its proof requirements.
 
+The [Phase 8 interface audit](AGENT_NATIVE_INTERFACE_AUDIT.md) selects the
+future risk tiers and reduction direction. This reference remains the measured
+Phase 7 cost record.
+
 - **Essential:** A stated defect or invariant requires the evidence. Its cost
   can still have an unknown duration.
 - **Reducible:** Repeated work can use specified equivalent evidence. This is a
@@ -174,7 +178,7 @@ verdict remains a product evidence boundary; its ballot generator is not a
 required runtime service. Optional timing callbacks are audit instrumentation.
 
 Some probe code still allocates host objects at extension startup. Its product
-runtime cost is real but unmeasured here. The 153 registered/82 used method
+runtime cost is real but unmeasured here. The 157 registered/90 used method
 counts do not quantify time or memory saved. [8b](../../plan/phase-8/8b-runtime-and-surface-cleanup.md)
 owns method/allocation retirement and D13's retained diagnostics. Do not remove
 an object or method based only on a missing product import.

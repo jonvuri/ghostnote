@@ -1,16 +1,40 @@
 ---
 title: Phase 8a — Agent-native product posture and interface audit
 kind: plan
-state: planned
-status: First Phase 8 session after the played-range consolidation live gate.
+state: complete
+status: Complete. The agent-native interface audit sets the Phase 8 product, risk, and migration posture.
 updated: 2026-09-25
 parent: README.md
 prev: ../phase-7/7b-follow-up-played-range-consolidation.md
 next: 8b-runtime-and-surface-cleanup.md
-evidence: E119-E129, E134; D4, D8, D16, D19, D20, D23
+evidence: E119-E129, E134-E135; D4, D8, D16, D18-D20, D23
 ---
 
 # Phase 8a — Agent-native product posture and interface audit
+
+## Result
+
+The [agent-native interface audit](../../evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md)
+records the completed doctrine, full tool and wire disposition, runtime and
+format disposition, risk tiers, target conventions, measured baselines, Phase 8
+goals, migration order, and decision-review list.
+
+The selected concrete simplification is to retire the public observation
+workflow. The agent conversation already owns instruction, reasoning, and
+response context. Ghostnote keeps semantic state, precise actions, effect
+records, and owned reversal.
+
+[E135](../../evidence/experiments/e135-agent-native-product-and-interface-audit.md)
+records the independent rerun and comparison with `8a-first`. The follow-up
+review also retires the managed device-alternate lifecycle, keeps ordinary
+layer-chain limbs, and puts the offline and staged composition routes behind one
+public `compose_devices` operation. D18 records this amendment. The final clip
+read cardinality remains an 8f decision, but its name must state Launcher scope.
+E135 also records the agreed Bitwig-aligned names for clip, track, device-control,
+navigation, connection, and preset-modulation tools.
+
+`ruby context/check.rb` and `git diff --check` pass. No production code or
+behavior changed.
 
 ## Purpose
 
@@ -91,7 +115,8 @@ rule only because the current code implements it.
 - Removing methods before their product or probe owner is resolved.
 - External publication.
 
-## Retrospective target
+## Retrospective
 
-Record the largest mismatch between the current architecture and actual agent
-use. Prefer one concrete simplification over a general call for less ceremony.
+Both independent runs found the duplicate observation workflow. Both also
+inherited the assumption that managed device alternates should remain. Future
+audits must challenge each product concept, not only its tool names and grain.

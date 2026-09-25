@@ -2,7 +2,7 @@
 title: ghostnote context guide
 kind: index
 state: active
-updated: 2026-09-21
+updated: 2026-09-25
 ---
 
 # ghostnote context
@@ -17,6 +17,7 @@ history so an agent does not have to reconstruct authority from chronology.
 | Continue implementation | [NOW](NOW.md) → active session brief → cited decisions |
 | Continue dogfooding | [NOW](NOW.md) → [dogfooding loop](plan/dogfooding/README.md) → latest run record |
 | Understand the product or architecture | [PROJECT](PROJECT.md) → [decision index](decisions/INDEX.md) |
+| Apply the Phase 8 product posture | [agent-native interface audit](evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md) → relevant Phase 8 brief |
 | Investigate a Bitwig capability | [capability index](evidence/capability/INDEX.md) → subject page → cited experiment |
 | Find what one experiment measured | [evidence index](evidence/INDEX.md) → named experiment |
 | Work on the agent musical language | [language reference](evidence/format/AGENT_MUSICAL_LANGUAGE.md) → cited evidence → Phase 7 plan |

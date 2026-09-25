@@ -7,7 +7,7 @@ updated: 2026-09-25
 parent: README.md
 prev: 8a-agent-native-product-and-interface-audit.md
 next: 8c-compact-bar-prior-art-and-benchmark.md
-evidence: E7, E119, E126, E127, E134; D13
+evidence: E7, E119, E126, E127, E134; agent-native interface audit; D13
 ---
 
 # Phase 8b — Runtime and surface cleanup foundation
@@ -26,9 +26,10 @@ compact document exist.
 ## Scope
 
 Use the [6i probe disposition](../../evidence/format/WORKSTATION_INTERFACES.md)
-as the starting inventory. Reconcile it with the 8a disposition and all Phase 7
-methods. Extraction and retained regression status do not require the complete
-probe runtime in a normal product build.
+as the starting inventory. Apply the
+[8a disposition](../../evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md) and
+reconcile it with all Phase 7 methods. Extraction and retained regression status
+do not require the complete probe runtime in a normal product build.
 
 1. Inventory every registered extension method against `WIRE_METHODS_USED`.
 2. Map every preallocated cursor, bank, observer, and proxy to its registered
@@ -48,8 +49,11 @@ probe runtime in a normal product build.
    active probe build its own explicit method identity when needed. Keep historical
    method lists separate from the active registry.
 9. Apply only 8a-selected result or discovery reductions that do not require
-   the replacement cache or compact-bar contract.
-10. Record normal and probe construction time, initialization time, host-object
+   the replacement cache or compact-bar contract. Correct the stale
+   `delete_clip` reversal description.
+10. Keep `observation.read` and `observation.replace` until the five automatic
+    capture users and stored-record compatibility have an explicit migration.
+11. Record normal and probe construction time, initialization time, host-object
     counts, memory trend, method count, and live handshake identity.
 
 ## Acceptance criteria
