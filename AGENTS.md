@@ -5,6 +5,25 @@ comments. Keep sentences concise, direct, and easy to read. When you already
 change a document or comment, correct unclear prose in the part that you touch.
 Do not start an unrelated rewrite.
 
+## Reload the Bitwig controller extension
+
+Use this sequence to deploy and reload a new `.bwextension` file:
+
+1. Run `./gradlew copyExtension` from `extension/`.
+2. Open Bitwig Settings and select Controllers.
+3. Fully remove the current `ghostnote bridge` controller. Do not only disable
+   it. A power toggle can restart an instance with cached Java classes.
+4. Expand Add Controller and select `ghostnote` as the hardware vendor.
+5. Scroll the Product list to its absolute bottom. The list can extend below
+   the visible area. The last visible row is not necessarily the last row. If
+   you select an earlier duplicate, Bitwig can load an older cached extension.
+6. Select the final `ghostnote` product in the full list and click Add.
+7. Run `npm run probe:hello` from `brain/`. Confirm that all checks pass. If the
+   build has a deliberate identity marker, confirm that the marker changed.
+
+Do not use the orange circular-arrow button for this procedure. It adds
+detected controllers automatically. It does not reload the extension.
+
 ## Implementation sessions
 
 1. Read `context/NOW.md`, then read the linked plans, evidence, decisions, and
