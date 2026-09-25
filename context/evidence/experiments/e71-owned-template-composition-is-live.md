@@ -93,7 +93,7 @@ unrestored state. Final cleanup restored the exact seven-track entry list.
 
 This is an internal workflow. Session 5h owns the public tool and must hide the
 asset path, UUIDs, spans, list indexes, donor ids, routes, and offsets.
-Redistribution review remains in Phase 8.
+Redistribution review remains in Phase 9.
 
 ## Retrospective
 

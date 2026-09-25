@@ -1,122 +1,128 @@
 ---
-title: Phase 8 — Breadth & release
+title: Phase 8 — Agent-native live engine
 kind: plan
 state: planned
-status: Phase 7 is complete. Start 8a publication review and extraction.
-updated: 2026-09-23
+status: Start after the played-range consolidation live gate. Begin with the product posture and interface audit.
+updated: 2026-09-25
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
+next: ../phase-9/README.md
 ---
 
-# Phase 8 — Breadth & release
+# Phase 8 — Agent-native live engine
 
-> **Purpose.** Everything that is genuinely useful but does not gate anything else.
-> Unlike Phases 0–7 this is **not a sequenced phase** — it is a backlog of
-> independently schedulable items, several of which will be pulled forward
-> opportunistically when a real session makes one of them the obvious next thing.
+## Purpose
 
-## Why it is structured as a bag
+Recast Ghostnote as a fast set of specialized sensors and limbs for a frontier
+agent working in Bitwig. Use structured tools where they improve on visual
+inspection, clicking, and typing. Let agent reasoning and computer use handle
+open-ended work that does not need a dedicated typed operation.
 
-INITIAL_PROMPT §1 sets the goal as *"expand to as much live DAW control as the
-Controller API permits, in rough order of feasibility and personal usefulness."* Once
-Phases 0–5 are in, feasibility is largely settled — the API sweep found typed
-primitives for nearly all of this — so the ordering criterion collapses to **personal
-usefulness**, which cannot be predicted in advance and should not be pre-committed.
+Reduce verification, output, and rollback ceremony when it does not prevent a
+measured failure. Keep stronger safeguards for destructive, ambiguous, or
+hard-to-observe changes. Prefer a small coherent surface, low latency, and low
+token use over a self-contained workstation abstraction.
 
-## Next selected item
+Build one normalized compact musical document and a fast project-wide clip
+cache. Keep their boundaries separate: the cache is internal observed state;
+the compact-bar document is the agent-facing musical language.
 
-[8a — `bwmod` publication review and extraction](8a-bwmod-publication-review.md)
-is the first selected backlog item after the Phase 7 dogfood loop closes. The
-first Phase 5 closeout settled the internal asset policy and deferred external
-redistribution review. Session 8a checks that boundary before it prepares the
-standalone package. It does not publish externally without explicit approval.
+## Entry condition
 
-## Candidate items
+First complete the independent
+[played-range consolidation live trial](../phase-7/7b-follow-up-played-range-consolidation.md).
+That trial is a small example of the intended hybrid posture. Ghostnote detects
+a semantic boundary, computer use performs the UI-only operation, and
+Ghostnote reacquires structured state.
 
-### Session structure (§4's feature matrix)
+Use the trial's latency, tool calls, ceremony, and failure handling as input to
+8a. Keep the current E131 reader and experimental note-patch profile unchanged
+until the new cache reaches its promotion gate.
 
-- **Mixer state** — volume, pan, mute, solo, arm, activated, colour, name. High
-  checkpoint fidelity (scalar readback), so cheap and safe.
-- **Sends** — level, enabled, pre/post. Same fidelity story.
-- **Transport** — tempo, time signature, play/stop, loop, metronome, position. Handles
-  already exist from E7's rig work.
-- **Scenes** — create, delete, name, colour. ⚠ Scene deletion **compacts rows
-  upward** and a held pin's `sceneIndex` goes permanently stale (E3) — this is the
-  one structural op with a known addressing trap.
-- **Track creation and typing** — instrument/audio/effect/group. Note
-  `createInstrumentTrack(position)` does **not** honour position; identify a new
-  track by `channelId` set-difference, never positionally (E2f).
-- **Group-track navigation** — `Track.createTrackBank`/`createMainTrackBank` for
-  nested tracks. Our flat bank is the default; revisit only if groups matter.
+## Product direction
 
-### Musical breadth
+Phase 8 uses these working principles. Session 8a can revise them with evidence.
 
-- **The arrangement timeline.** Deliberately deferred throughout — launcher clips are
-  materially more reliable than arrangement clips (§11, E2). Worth a real evaluation
-  rather than a permanent exclusion, but with eyes open.
-- **MPE / per-note expression at scale.** The channel is carried explicitly from
-  Phase 2 precisely so this is not a retrofit (SPIKE_PLAN §2.5).
-- **Groove engine** — capability noted in the API sweep, unexplored.
-- **The browser** — keep typed Bitwig browser work only where the adapter can
-  address and verify it. Computer use owns open-ended visual discovery.
+- Ghostnote supplies fast structured observation where generic vision is weak.
+- Ghostnote supplies precise bounded actions where generic clicking is slow or
+  unreliable.
+- Computer use owns visual discovery, focus-dependent actions, and ordinary UI
+  work when a typed route adds little value.
+- Verification cost is proportional to risk and observability.
+- A tool returns the smallest result that lets an agent continue safely.
+- Experimental machinery does not stay in the normal runtime without a current
+  product or regression owner.
+- Internal cache records do not become a public music format by accident.
+- The stable reader remains a comparison authority until promotion evidence is
+  complete.
 
-### Publishable artifacts
+## Session order
 
-Per the "personal but releasable" decision — each is a cheap extraction, not a
-product commitment:
+1. [8a — Agent-native product posture and interface audit](8a-agent-native-product-and-interface-audit.md).
+   Review the complete surface, verification posture, computer-use boundary,
+   and interface coherence. Select a target architecture and risk tiers.
+2. [8b — Runtime and surface cleanup foundation](8b-runtime-and-surface-cleanup.md).
+   Separate product and probe runtime, retire unowned apparatus, and establish
+   the lean baseline used by later measurements.
+3. [8c — Compact-bar prior art and reproducible benchmark](8c-compact-bar-prior-art-and-benchmark.md).
+   Turn E114 and E115 into durable comparison documents and a reusable task
+   corpus for common textual music formats.
+4. [8d — Cache identity and lifecycle](8d-cache-identity-and-lifecycle.md).
+   Resolve stale addresses, structural compaction, project changes, restart,
+   replacement, and observer recovery.
+5. [8e — Cache scale limits and degradation policy](8e-cache-scale-limits-and-degradation.md).
+   Find practical performance knees and select product limits, budgets, and
+   explicit overflow behavior.
+6. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+   Settle the public musical document and the separate internal cache boundary.
+7. [8g — Shadow project cache](8g-shadow-project-cache.md).
+   Implement the cache behind an experimental boundary while E131 remains
+   authoritative.
+8. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
+   Promote proved cache reads in stages and apply the selected tool and
+   verification reductions.
+9. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+   Test ordinary work in fresh agent sessions and decide whether the engine,
+   format, and surface are ready for Phase 9 publication review.
 
-- **`bwmod`** as a standalone library. Self-contained, tested, and it solves a
-  problem the Bitwig community has documented as unsolved. The most obviously
-  valuable thing this project could give away.
-- **`BWFORMAT_SPEC.md`** — the `.bwpreset` format working spec, including the
-  readings that turned out to be **wrong** and why. The negative results are worth as
-  much as the positive ones to anyone else attempting this.
-- **The device / param-ID catalog** — mechanically generated from the app bundle,
-  and the exact gap WigAI issue #15 describes.
-- **The extension itself**, if the daemon and MCP surface prove stable.
+## Cross-session rules
 
-### Packaging & hygiene
-
-- **Probe runtime retirement.** [Session 8b](8b-probe-runtime-retirement.md)
-  will classify the extension methods that production cannot emit, remove
-  retired runtime apparatus, and preserve necessary live regression tools
-  behind an explicit probe boundary.
-- Install documentation, including the one-time manual step nobody can automate:
-  Settings → Controllers → Add Controller → vendor "ghostnote".
-- Cross-platform paths. The extension already reads `RigConfig` from
-  `~/.ghostnote/rig.json`, and the API exposes `platformIsMac/Windows/Linux` — but
-  nothing has been tested off macOS.
-- Licensing and attribution. `NOTICE` already credits daw-mcp (MIT); any lifted code
-  must keep its attribution, and template assets derived from Bitwig's bundled
-  content need a decision before publication (see PHASE-5-AUTHORING).
-- Bitwig version-compatibility policy. The API version tracks the Bitwig version
-  (§11) and the bundled javadoc's version annotations **lag** the host — trust
-  `getHostApiVersion()`, not doc archaeology (E0).
-
-## Continuing exclusions
-
-Phase 6 supersedes the earlier permanent exclusions for local audition,
-audio feedback, documentation search, and a broader workstation architecture.
-The following proved Bitwig-adapter boundaries remain:
-
-- A custom chat harness (D4).
-- Grid patch synthesis or building on DrivenByMoss or OSC (§9).
-- Named Bitwig actions, in any form (E6 — unusable and hazardous).
-- Runtime Bitwig modulator creation or routing (E7 ○, exhaustive).
+- Preserve one stable comparison path until 8h explicitly retires or demotes
+  it.
+- Do not infer an upper limit from the largest passing E134 arm. Its 131,072
+  steps, 256 observers, and 1,000 occupied coordinates are healthy lower
+  bounds.
+- Do not silently omit clips, notes, channels, or fields outside a cache limit.
+- Keep normalized `1/512` loss explicit under D23.
+- Label UI observations, structured observations, agent interpretations, and
+  operator verdicts by their actual authority.
+- Measure wall time, host work, tool calls, and result tokens before and after
+  a material simplification.
+- Use generated, public-domain, or permissively licensed music in publishable
+  format fixtures.
+- Do not publish a package, specification, asset, or release in Phase 8.
 
 ## Exit criteria
 
-There are none, by design. This document is a backlog. The honest completion test for
-the project as a whole is the Phase 7 dogfood gate, applied continuously: **does it
-get used?**
+- The product posture names what Ghostnote owns and what computer use owns.
+- Every retained normal-runtime method and public tool has a current purpose.
+- Compact-bar comparisons are documented and can be rerun with fixed fixtures
+  and scoring rules.
+- Clip identity, invalidation, structural rebuild, project-change, and restart
+  behavior are explicit.
+- Product cache limits and degradation behavior are explicit and tested.
+- The consolidated compact-bar contract has a versioned grammar, loss model,
+  conformance corpus, and migration decision.
+- The cache passes shadow comparison and is promoted only within proved health
+  and coverage states.
+- The simplified surface improves measured latency, calls, or tokens without
+  hiding material effects or failures.
+- Fresh hybrid dogfood confirms that an agent can use the surface without
+  repository-specific coaching.
+- Phase 9 receives explicit publication candidates and remaining limits.
 
-## Risks
+## Phase 9 handoff
 
-- **Breadth as procrastination.** Adding mixer controls is easier and more visibly
-  productive than curating templates or measuring footprints. Watch for items being
-  pulled forward because they are pleasant rather than because they are needed.
-- **Publishing pulls the project's centre of gravity.** Extracting `bwmod` is cheap;
-  supporting it is not. Extract, document honestly, and set expectations low.
-- **The arrangement timeline is the largest hidden scope in the list** and the one
-  with the weakest API guarantees. If it is attempted, it deserves its own spike in
-  the style of the original — question, method, verdict, evidence.
+[Phase 9](../phase-9/README.md) owns breadth and external publication review.
+The existing `bwmod` review moves there. A compact-bar publication review can
+start only after 8i accepts the specification and conformance package.

@@ -1,9 +1,9 @@
 ---
 title: Phase 7b follow-up — Project-wide observer scale sweep
 kind: plan
-state: planned
-status: Planned. Measure wide single-grid observer capacity before designing a persistent cache.
-updated: 2026-09-24
+state: complete
+status: Complete. Corrected E134 supports a later project-wide persistent occupancy-cache design.
+updated: 2026-09-25
 parent: 7b-follow-up-consolidated-clip-acquisition.md
 prev: 7b-follow-up-hybrid-observer-acquisition.md
 next: 7b-follow-up-played-range-consolidation.md
@@ -51,10 +51,12 @@ Give each observed clip one fixed `1/512` view. Keep target, grid, page, and
 width unchanged after warm-up. Do not allocate a `1/768` view or reconcile a
 second grid.
 
-Store only sparse occupied coordinates and generation state. Do not allocate a
-`width * 128` byte array for each observer. On a read, snapshot the coordinates,
-call targeted `getStep` for all 16 channels, and return the D23 cell projection.
-Fetch note fields on demand. Do not keep a full note object cache in this
+Store only sparse occupied coordinates, dirty coordinates, and generation
+state. Do not allocate a `width * 128` byte array for each observer. Treat each
+callback as an invalidation for its channel-free coordinate. After callback
+quiet, call `getStep` for all 16 channels at every dirty coordinate. Keep the
+coordinate if any channel contains a note. Remove it only when all channels are
+empty. Fetch note fields on demand. Do not keep a full note object cache in this
 experiment.
 
 First prove the required cursor topology. Determine the smallest isolated
@@ -82,9 +84,11 @@ computer control for controller reloads.
 
 ## Sweep A — View width
 
-Use one fixed `1/512` observer and test widths progressively:
+Use paired fixed `1/512` observers and test widths progressively. Keep a
+2,048-step control beside every candidate in the same controller load:
 
 - 2,048 as the measured baseline;
+- 2,049 as the exact first boundary candidate;
 - 4,096, 8,192, 16,384, and 32,768;
 - 65,536 and 131,072 only if the prior width remains healthy.
 
@@ -93,15 +97,27 @@ construction, effective coverage, initial replay, read latency, memory trend,
 and controller responsiveness. Do not infer an upper bound from the Java `int`
 parameter.
 
+Before each target, bind both observers to a populated clip on another track.
+Require that replay to settle. Then bind both observers to the width fixture.
+Directly read the occupied boundary coordinates to prove that the target is
+available through each clip proxy.
+
 Select the widest healthy value that covers a useful clip range. If a width
-fails, bracket the boundary only when the failure is safe and repeatable. Do
-not run a blind search near a failure.
+appears to fail, sample at 2, 8, 30, and 60 seconds. Confirm the target through
+direct reads, bind through the canary again, and repeat the arm after a fresh
+controller load. Do not set a boundary from one silent replay.
 
 ## Sweep B — Observer count
 
-At the selected width, test 1, 16, 64, 128, and 256 observed clips. Each clip
-has one observer. Treat 128 clips as the required large-project target and 256
-as a stretch target.
+At the selected width, test 1, 8, 16, 24, 32, 48, 64, 96, and 128 observed
+clips. Each clip has one observer. Test 256 only if 128 is healthy.
+
+Before each count arm, bind every observer to the same populated canary on
+another track. Require each observer to replay and reconcile it. Then bind each
+observer to its unique low-density target. This forced transition is mandatory.
+If an arm appears to fail, inspect smaller subsets, use the width arm's direct
+read control, rebind failed observers through the canary, use the extended
+measurement windows, and repeat the controller load before a conclusion.
 
 Measure low-density handle scale first. Then apply the callback-density fixture
 to a representative subset. Run a combined high-density case only after the
@@ -200,6 +216,23 @@ If a cache design is justified, plan it in a later session. Do not implement it
 inside the scale probe. Then resume the independent
 [played-range consolidation trial](7b-follow-up-played-range-consolidation.md)
 in a fresh chat.
+
+## Completion and return route
+
+[E134](../../evidence/experiments/e134-project-observer-scale-sweep.md)
+supports a later project-wide persistent occupancy-cache design. Fixed
+`1/512` views passed through 131,072 steps. The required 128-clip load and the
+256-clip stretch load passed. The earlier 2,048-step and 64-observer failures
+were experiment artifacts.
+
+Treat callbacks as coordinate invalidations and reconcile all 16 channels.
+Use structural epochs to re-resolve clip addresses after compaction. Keep E131
+as the stable reader until a separate cache-design and implementation session
+meets the remaining saved-project reopen check.
+
+Resume the independent
+[played-range consolidation trial](7b-follow-up-played-range-consolidation.md)
+in a fresh chat with `GHOSTNOTE_TOOL_PROFILE=phase-7b-agent-note-patch-v0`.
 
 ## Acceptance criteria
 

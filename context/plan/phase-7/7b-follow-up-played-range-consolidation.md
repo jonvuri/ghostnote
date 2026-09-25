@@ -2,12 +2,12 @@
 title: Phase 7b follow-up — Played-range consolidation guidance
 kind: plan
 state: active
-status: Offline gate passes. Pause the live trial until the project observer scale sweep completes.
-updated: 2026-09-24
+status: Ready for the fresh live trial. E134 supports a later cache design, but the stable route remains E131.
+updated: 2026-09-25
 parent: 7b-agent-patch-execution-and-reference-dogfood.md
 prev: 7b-follow-up-project-observer-scale-sweep.md
 next: 7b-follow-up-consolidated-clip-acquisition.md
-evidence: E6, E43, E120, E121, E128-E133
+evidence: E6, E43, E120, E121, E128-E134
 ---
 
 # Phase 7b follow-up — Played-range consolidation guidance
@@ -196,7 +196,7 @@ experiment next. After E133, start the fresh agent's server with
 to reach the existing played-range refusal and reacquire state after visible
 consolidation. After the live gate passes, mark this plan complete and route
 back to
-[Phase 8a](../phase-8/8a-bwmod-publication-review.md).
+[Phase 8a](../phase-8/8a-agent-native-product-and-interface-audit.md).
 
 E133 rejects every requested dirty-and-quiet hybrid candidate after early grid
 completions. The complete E131 acquisition route remains authoritative. First
@@ -204,6 +204,12 @@ run the
 [project-wide observer scale sweep](7b-follow-up-project-observer-scale-sweep.md)
 in a fresh chat. Then start the independent live agent trial with the complete
 route unless E134 authorizes a different experimental route.
+
+E134 supports a later project-wide persistent occupancy-cache design after the
+corrected width, capacity, and invalidation tests passed. Keep the complete
+E131 acquisition route authoritative until that separate cache session. Start
+the independent live agent trial in a fresh chat with
+`GHOSTNOTE_TOOL_PROFILE=phase-7b-agent-note-patch-v0`.
 
 ## Retrospective target
 

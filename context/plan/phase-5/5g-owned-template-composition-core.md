@@ -3,7 +3,7 @@ title: Phase 5g — owned-template composition core
 kind: plan
 state: complete
 status: Complete. E71 proves the owned-template composition path offline and live.
-updated: 2026-08-23
+updated: 2026-09-25
 parent: README.md
 evidence: D1, D2, D3, E4f, E4g, E4h, E10d, E13, E65-E71
 ---
@@ -39,7 +39,7 @@ the candidate fails a required manifest check.
    binding, and external-reference status.
 3. Do not generate the required asset on first run. Runtime work reads the
    immutable asset and writes only a temporary composed preset.
-4. Keep external redistribution review in Phase 8. Do not expand the template
+4. Keep external redistribution review in Phase 9. Do not expand the template
    library before that review.
 
 ## Scope

@@ -2,7 +2,7 @@
 title: Workstation interface inventory
 kind: reference
 state: active
-updated: 2026-09-23
+updated: 2026-09-25
 scope: Formats that cross the implemented Phase 7 boundary
 ---
 
@@ -114,7 +114,7 @@ tests; product code must not import a whole probe and its optional dependencies.
 | `phase6h-sensory-packets.py` | The 7d audio sensory v1 router; MIDI remains conditional | Same-source, silence, undefined-property, paired-delta and level controls | Raw-inventory arms, model responses and ballot machinery remain evidence only. |
 
 The extension currently registers 153 methods; the product wire map uses 82.
-This count is not a removal list. [8b](../../plan/phase-8/8b-probe-runtime-retirement.md)
+This count is not a removal list. [8b](../../plan/phase-8/8b-runtime-and-surface-cleanup.md)
 must classify each method and its allocated host objects. Preserve D13's required
 registered diagnostic boundary and keep forbidden routes unreachable. Do not
 remove old probes merely because a module no longer imports them.

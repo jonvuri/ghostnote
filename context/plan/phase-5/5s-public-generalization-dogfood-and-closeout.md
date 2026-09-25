@@ -3,7 +3,7 @@ title: Phase 5s — public generalization dogfood and closeout
 kind: plan
 state: complete
 status: Complete as dogfood investigation. Session 5t owns the discovered repairs and final closeout.
-updated: 2026-09-01
+updated: 2026-09-25
 parent: README.md
 evidence: D1, D2, D3, D7, D15, D16, E65-E73, E94, E95, dogfood sessions 01a03744-e6c4-7be0-b210-e999c8f17081, 01a06052-39bc-71a3-a155-278872cdfac3, 01a06065-f052-79e2-9f4a-19c07231869e, and 01a0607f-fc2a-7042-bfdd-0175a19986c1
 ---
@@ -112,7 +112,7 @@ the complete compact donor matrix, and final closeout.
 [5t](5t-grid-generalization-and-colourcopy-closeout.md) now has passing grid,
 page, catalog, and observer repairs. Start its final projectless ColourCopy task
 next. The operator later accepted that result and moved current work to Phase
-6. Phase 8a owns the publication review after the new exploration path.
+6. Phase 9a owns the publication review after the agent-native engine work.
 
 ## Retrospective
 

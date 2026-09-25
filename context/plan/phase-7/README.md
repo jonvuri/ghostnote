@@ -3,7 +3,7 @@ title: Phase 7 — Workstation dogfood iteration
 kind: plan
 state: complete
 status: Phase 7 is complete. E127 closes the hybrid workstation dogfood loop and S16.
-updated: 2026-09-23
+updated: 2026-09-25
 parent: ../ROADMAP.md
 prev: ../phase-6/README.md
 next: ../phase-8/README.md
@@ -125,5 +125,5 @@ next proof. Keep read-only and risk-bearing implementation scopes separate.
 
 Close the loop only on an explicit operator request. Graduate experimental
 interfaces one at a time after real-task and failure evidence. Hand selected
-release or breadth work to Phase 8. Do not graduate an interface until its
+agent-native engine work to Phase 8. Do not graduate an interface until its
 producer and consumer pass the documented seam contract.

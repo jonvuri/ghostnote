@@ -3,7 +3,7 @@ title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
 state: active
 status: Final ColourCopy dogfood accepted. Closeout remains while Phase 6 exploration proceeds.
-updated: 2026-09-12
+updated: 2026-09-25
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -177,7 +177,7 @@ now owns only the generalized closeout matrix and final records.
 
 Direct parameter-base writes are already general through `set_parameter` and
 stay separate. Runtime modulator creation and routing remain host-API
-impossibilities. External publication and redistribution remain Phase 8 work.
+impossibilities. External publication and redistribution remain Phase 9 work.
 
 ## Scope
 
@@ -227,10 +227,10 @@ impossibilities. External publication and redistribution remain Phase 8 work.
   Do not expand the library before the external review.
 - **Redistribution — current scope settled by 5g.** The one asset is
   user-authored. No bundled Bitwig content is copied. Keep external
-  redistribution review in Phase 8.
+  redistribution review in Phase 9.
 - **Shipped vs. first-run generation — settled by 5g.** Ship the one required
   asset. Do not require runtime operator setup.
-- **Standalone `bwmod` publication — deferred to Phase 8.** It does not gate
+- **Standalone `bwmod` publication — deferred to Phase 9.** It does not gate
   composition or Phase 5 closeout.
 - **Public target identity — reopened for 5j.** General DirectParameter
   identities replace the fixed recipe requirement. Raw routes stay hidden.

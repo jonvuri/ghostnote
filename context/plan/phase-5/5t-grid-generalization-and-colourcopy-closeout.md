@@ -3,7 +3,7 @@ title: Phase 5t — modulator-grid generalization and ColourCopy closeout
 kind: plan
 state: active
 status: Final ColourCopy dogfood accepted. The complete closeout matrix remains.
-updated: 2026-09-12
+updated: 2026-09-25
 parent: README.md
 evidence: D1, D2, D3, E11f, E65, E88, E94-E100, dogfood sessions 01a0607f-fc2a-7042-bfdd-0175a19986c1, 01a0690e-1761-76b1-9e8e-635bfa35e583, and 01a07268-8b4e-73f1-b307-3f5fb565d1eb
 ---
@@ -138,7 +138,7 @@ ColourCopy result can remain only when the operator asks to keep it.
 Update E88 and E95, the format specification, decisions D1 and D3, Phase 5
 overview, capability evidence, outcome archive, roadmap, dogfood ledger, and
 `context/NOW.md` from the measured result. The operator moved current work to
-Phase 6. Phase 8a owns the later publication handoff.
+Phase 6. Phase 9a owns the later publication handoff.
 
 ## Acceptance criteria
 
@@ -171,7 +171,7 @@ Phase 6. Phase 8a owns the later publication handoff.
 
 The final ColourCopy dogfood passed with an explicit operator acceptance. The
 complete closeout matrix and final Phase 5 records remain. The operator moved
-current work to Phase 6. Phase 8a owns the later publication review.
+current work to Phase 6. Phase 9a owns the later publication review.
 
 ## Session result to date
 

@@ -2,7 +2,7 @@
 title: Verification reduction briefs
 kind: plan
 state: planned
-updated: 2026-09-21
+updated: 2026-09-25
 parent: README.md
 ---
 
@@ -118,5 +118,5 @@ No brief removes target guards, source verification at a new trust boundary,
 complete candidate validation, independent post-write readback, reversal
 ownership checks, or the measured grid wait. Existing E78/E97 sharing is already
 implemented. A larger fine reader needs a new controlled experiment if 7a finds
-it necessary; its benefit is unknown. [8b](../phase-8/8b-probe-runtime-retirement.md)
+it necessary; its benefit is unknown. [8b](../phase-8/8b-runtime-and-surface-cleanup.md)
 owns historical runtime allocation, with initialization and observer-load proof.

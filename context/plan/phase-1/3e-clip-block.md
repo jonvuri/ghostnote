@@ -87,7 +87,7 @@ deliberately, before this design was made.
   driving the musician's listening. Recorded so a later reopening inherits the
   reasoning rather than rediscovering it.
 - ⚠ **Arrangement clips.** LAUNCHER ONLY. *"Launcher clips > arrangement clips in
-  API reliability"* (INITIAL_PROMPT §285); arrangement is Phase 8, and **this
+  API reliability"* (INITIAL_PROMPT §285); arrangement is Phase 9, and **this
   mechanism has no analogue there** — a tripwire recorded now rather than
   rediscovered.
 - **Mid-grid scene inserts.** `nextSceneInsertionPoint()` exists and shifts every

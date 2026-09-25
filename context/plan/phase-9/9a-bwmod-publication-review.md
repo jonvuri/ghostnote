@@ -1,14 +1,14 @@
 ---
-title: Phase 8a — bwmod publication review and extraction
+title: Phase 9a — bwmod publication review and extraction
 kind: plan
 state: planned
-status: First Phase 8 item after Phase 7. Review redistribution before extraction.
-updated: 2026-09-12
+status: First selected Phase 9 item after Phase 8. Review redistribution before extraction.
+updated: 2026-09-25
 parent: README.md
 evidence: D1-D3, E10-E13, E65-E73
 ---
 
-# Phase 8a — `bwmod` publication review and extraction
+# Phase 9a — `bwmod` publication review and extraction
 
 ## Purpose
 

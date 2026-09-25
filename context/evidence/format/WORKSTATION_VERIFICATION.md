@@ -2,7 +2,7 @@
 title: Workstation verification costs and operation rules
 kind: reference
 state: active
-updated: 2026-09-23
+updated: 2026-09-25
 scope: Phase 6j audit and Phase 7 verification rules
 ---
 
@@ -175,7 +175,7 @@ required runtime service. Optional timing callbacks are audit instrumentation.
 
 Some probe code still allocates host objects at extension startup. Its product
 runtime cost is real but unmeasured here. The 153 registered/82 used method
-counts do not quantify time or memory saved. [8b](../../plan/phase-8/8b-probe-runtime-retirement.md)
+counts do not quantify time or memory saved. [8b](../../plan/phase-8/8b-runtime-and-surface-cleanup.md)
 owns method/allocation retirement and D13's retained diagnostics. Do not remove
 an object or method based only on a missing product import.
 

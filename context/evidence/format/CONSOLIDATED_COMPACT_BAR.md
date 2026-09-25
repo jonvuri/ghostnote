@@ -2,9 +2,9 @@
 title: Consolidated compact-bar direction
 kind: design exploration
 state: active
-updated: 2026-09-24
+updated: 2026-09-25
 scope: one normalized agent-facing clip representation for analysis, reads, and writes
-evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E133; D23
+evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E134; D23
 ---
 
 # Consolidated compact-bar direction
@@ -267,10 +267,16 @@ The remaining reductions are cache and write-path optimizations:
   proved; and
 - use targeted differences instead of full reconstruction.
 
-The next session measures one fixed, persistent `1/512` observer per clip at
-large view widths and across at least 128 observed clips. A settled complete
-`1/512` scan is truth. The session does not implement a cache. The independent
-played-range consolidation trial follows that measurement.
+E134 proves the fixed observer route through 131,072 steps, 128 required clips,
+and a separate 256-clip stretch arm. It also proves that callbacks are
+channel-free coordinate invalidations and that structural compaction can leave
+a pinned proxy's reported scene index stale. The result supports a later cache;
+it does not implement one or set the final product limits.
+
+[Phase 8](../../plan/phase-8/README.md) now separates the remaining work. It
+reviews the product posture and compact-bar prior art, resolves cache identity
+and limits, settles the public document and internal cache contracts, then
+implements the cache in shadow mode before promotion.
 
 ## Evidence carried forward
 
@@ -297,6 +303,9 @@ played-range consolidation trial follows that measurement.
   experimental acquisition boundary over the complete dual-grid reader.
 - E133 rejects requested quiet observer acquisition. It leaves the E131 route
   unchanged.
+- E134 supports a project-wide persistent cache after corrected width, observer,
+  invalidation, density, and structural tests. It leaves product identity,
+  restart behavior, and limits for Phase 8.
 - D23 later accepts `1/512` cell identity for consolidated acquisition. It
   removes the second grid from the planned scale experiment without rewriting
   E131's exact historical result.
