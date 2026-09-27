@@ -1,0 +1,369 @@
+{
+  "actual_cost_usd": {
+    "gemini": 0.441198,
+    "openai": 0.837567,
+    "total": 1.278765
+  },
+  "decision": "require-claude",
+  "json_candidates": [],
+  "native_limited_candidate": false,
+  "protocol_sha256": "b5bb279574d958ccaa3abab49f636087bdde4b1b068567e18307024641216d7f",
+  "providers": [
+    {
+      "actual_cost_usd": 0.837567,
+      "contrasts": {
+        "interaction": -0.3,
+        "native": {
+          "exact-object-json-midi": {
+            "approximate_95_interval": [
+              -0.069793,
+              0.469793
+            ],
+            "baseline_only": 2,
+            "baseline_successes": 4,
+            "candidate_only": 6,
+            "candidate_successes": 8,
+            "effect": 0.2,
+            "pairs": 20,
+            "ties": 12
+          },
+          "exact-object-json-pc-register": {
+            "approximate_95_interval": [
+              -0.348301,
+              0.348301
+            ],
+            "baseline_only": 6,
+            "baseline_successes": 8,
+            "candidate_only": 6,
+            "candidate_successes": 8,
+            "effect": 0.0,
+            "pairs": 20,
+            "ties": 8
+          },
+          "tuple-json-midi": {
+            "approximate_95_interval": [
+              -0.317954,
+              0.317954
+            ],
+            "baseline_only": 5,
+            "baseline_successes": 8,
+            "candidate_only": 5,
+            "candidate_successes": 8,
+            "effect": 0.0,
+            "pairs": 20,
+            "ties": 10
+          },
+          "tuple-json-pc-register": {
+            "approximate_95_interval": [
+              -0.214758,
+              0.414758
+            ],
+            "baseline_only": 4,
+            "baseline_successes": 6,
+            "candidate_only": 6,
+            "candidate_successes": 8,
+            "effect": 0.1,
+            "pairs": 20,
+            "ties": 10
+          }
+        },
+        "pitch_in_objects_critical": {
+          "approximate_95_interval": [
+            -0.069793,
+            0.469793
+          ],
+          "baseline_only": 2,
+          "baseline_successes": 4,
+          "candidate_only": 6,
+          "candidate_successes": 8,
+          "effect": 0.2,
+          "pairs": 20,
+          "ties": 12
+        },
+        "pitch_in_objects_primary": {
+          "approximate_95_interval": [
+            -0.069793,
+            0.469793
+          ],
+          "baseline_only": 2,
+          "baseline_successes": 4,
+          "candidate_only": 6,
+          "candidate_successes": 8,
+          "effect": 0.2,
+          "pairs": 20,
+          "ties": 12
+        },
+        "pitch_in_tuples_critical": {
+          "approximate_95_interval": [
+            -0.350799,
+            0.250799
+          ],
+          "baseline_only": 5,
+          "baseline_successes": 8,
+          "candidate_only": 4,
+          "candidate_successes": 7,
+          "effect": -0.05,
+          "pairs": 20,
+          "ties": 11
+        },
+        "pitch_in_tuples_primary": {
+          "approximate_95_interval": [
+            -0.414758,
+            0.214758
+          ],
+          "baseline_only": 6,
+          "baseline_successes": 8,
+          "candidate_only": 4,
+          "candidate_successes": 6,
+          "effect": -0.1,
+          "pairs": 20,
+          "ties": 10
+        },
+        "tuple_shape_at_midi": {
+          "approximate_95_interval": [
+            -0.069793,
+            0.469793
+          ],
+          "baseline_only": 2,
+          "baseline_successes": 4,
+          "candidate_only": 6,
+          "candidate_successes": 8,
+          "effect": 0.2,
+          "pairs": 20,
+          "ties": 12
+        },
+        "tuple_shape_at_pc_register": {
+          "approximate_95_interval": [
+            -0.414758,
+            0.214758
+          ],
+          "baseline_only": 6,
+          "baseline_successes": 8,
+          "candidate_only": 4,
+          "candidate_successes": 6,
+          "effect": -0.1,
+          "pairs": 20,
+          "ties": 10
+        }
+      },
+      "efficiency": {
+        "exact-object-json-midi": {
+          "input_tokens": 18939,
+          "median_latency_ms": 7638.155,
+          "output_bytes": 56846
+        },
+        "exact-object-json-pc-register": {
+          "input_tokens": 19479,
+          "median_latency_ms": 9097.067,
+          "output_bytes": 58482
+        },
+        "midi-like-native": {
+          "input_tokens": 6850,
+          "median_latency_ms": 7238.858,
+          "output_bytes": 19148
+        },
+        "tuple-json-midi": {
+          "input_tokens": 15499,
+          "median_latency_ms": 6784.834,
+          "output_bytes": 28148
+        },
+        "tuple-json-pc-register": {
+          "input_tokens": 16039,
+          "median_latency_ms": 6703.038,
+          "output_bytes": 28782
+        }
+      },
+      "provider": "openai",
+      "support": {
+        "native_vs_exact-object-json-midi": true,
+        "native_vs_exact-object-json-pc-register": false,
+        "native_vs_tuple-json-midi": false,
+        "native_vs_tuple-json-pc-register": true,
+        "pitch_object": true,
+        "pitch_tuple": false,
+        "shape_midi": true,
+        "shape_pc_register": false
+      }
+    },
+    {
+      "actual_cost_usd": 0.441198,
+      "contrasts": {
+        "interaction": 0.15,
+        "native": {
+          "exact-object-json-midi": {
+            "approximate_95_interval": [
+              -0.104971,
+              0.504971
+            ],
+            "baseline_only": 3,
+            "baseline_successes": 8,
+            "candidate_only": 7,
+            "candidate_successes": 12,
+            "effect": 0.2,
+            "pairs": 20,
+            "ties": 10
+          },
+          "exact-object-json-pc-register": {
+            "approximate_95_interval": [
+              -0.563954,
+              0.063954
+            ],
+            "baseline_only": 8,
+            "baseline_successes": 17,
+            "candidate_only": 3,
+            "candidate_successes": 12,
+            "effect": -0.25,
+            "pairs": 20,
+            "ties": 9
+          },
+          "tuple-json-midi": {
+            "approximate_95_interval": [
+              0.184932,
+              0.715068
+            ],
+            "baseline_only": 1,
+            "baseline_successes": 3,
+            "candidate_only": 10,
+            "candidate_successes": 12,
+            "effect": 0.45,
+            "pairs": 20,
+            "ties": 9
+          },
+          "tuple-json-pc-register": {
+            "approximate_95_interval": [
+              -0.506194,
+              0.206194
+            ],
+            "baseline_only": 8,
+            "baseline_successes": 15,
+            "candidate_only": 5,
+            "candidate_successes": 12,
+            "effect": -0.15,
+            "pairs": 20,
+            "ties": 7
+          }
+        },
+        "pitch_in_objects_critical": {
+          "approximate_95_interval": [
+            0.149201,
+            0.750799
+          ],
+          "baseline_only": 2,
+          "baseline_successes": 8,
+          "candidate_only": 11,
+          "candidate_successes": 17,
+          "effect": 0.45,
+          "pairs": 20,
+          "ties": 7
+        },
+        "pitch_in_objects_primary": {
+          "approximate_95_interval": [
+            0.149201,
+            0.750799
+          ],
+          "baseline_only": 2,
+          "baseline_successes": 8,
+          "candidate_only": 11,
+          "candidate_successes": 17,
+          "effect": 0.45,
+          "pairs": 20,
+          "ties": 7
+        },
+        "pitch_in_tuples_critical": {
+          "approximate_95_interval": [
+            0.337808,
+            0.862192
+          ],
+          "baseline_only": 1,
+          "baseline_successes": 3,
+          "candidate_only": 13,
+          "candidate_successes": 15,
+          "effect": 0.6,
+          "pairs": 20,
+          "ties": 6
+        },
+        "pitch_in_tuples_primary": {
+          "approximate_95_interval": [
+            0.337808,
+            0.862192
+          ],
+          "baseline_only": 1,
+          "baseline_successes": 3,
+          "candidate_only": 13,
+          "candidate_successes": 15,
+          "effect": 0.6,
+          "pairs": 20,
+          "ties": 6
+        },
+        "tuple_shape_at_midi": {
+          "approximate_95_interval": [
+            -0.491101,
+            -0.008899
+          ],
+          "baseline_only": 6,
+          "baseline_successes": 8,
+          "candidate_only": 1,
+          "candidate_successes": 3,
+          "effect": -0.25,
+          "pairs": 20,
+          "ties": 13
+        },
+        "tuple_shape_at_pc_register": {
+          "approximate_95_interval": [
+            -0.234896,
+            0.034896
+          ],
+          "baseline_only": 2,
+          "baseline_successes": 17,
+          "candidate_only": 0,
+          "candidate_successes": 15,
+          "effect": -0.1,
+          "pairs": 20,
+          "ties": 18
+        }
+      },
+      "efficiency": {
+        "exact-object-json-midi": {
+          "input_tokens": 20026,
+          "median_latency_ms": 4192.518,
+          "output_bytes": 57998
+        },
+        "exact-object-json-pc-register": {
+          "input_tokens": 20546,
+          "median_latency_ms": 4268.739,
+          "output_bytes": 59111
+        },
+        "midi-like-native": {
+          "input_tokens": 6835,
+          "median_latency_ms": 2645.94,
+          "output_bytes": 19148
+        },
+        "tuple-json-midi": {
+          "input_tokens": 16466,
+          "median_latency_ms": 3452.118,
+          "output_bytes": 30002
+        },
+        "tuple-json-pc-register": {
+          "input_tokens": 16986,
+          "median_latency_ms": 3538.782,
+          "output_bytes": 31508
+        }
+      },
+      "provider": "gemini",
+      "support": {
+        "native_vs_exact-object-json-midi": true,
+        "native_vs_exact-object-json-pc-register": false,
+        "native_vs_tuple-json-midi": true,
+        "native_vs_tuple-json-pc-register": false,
+        "pitch_object": true,
+        "pitch_tuple": true,
+        "shape_midi": false,
+        "shape_pc_register": false
+      }
+    }
+  ],
+  "run_id": "phase8c2-3-compact-json-development-r1",
+  "schema": "ghostnote-compact-json-development-v1",
+  "selection_authority": "Development can only freeze candidates for holdout or stop compact JSON.",
+  "sha256": "60dfe84b19b68c499d15871933abd886e73f9816d36df3974d4752aa4496f5cf"
+}

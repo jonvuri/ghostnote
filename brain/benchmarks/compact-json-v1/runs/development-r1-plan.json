@@ -1,0 +1,101 @@
+{
+  "allowed_follow_up": "Summarize this fixed development run. Do not start holdout without a new frozen plan and explicit approval.",
+  "approval": {
+    "requirement": "Get explicit operator approval for this exact conditional development run before any provider call.",
+    "status": "pending"
+  },
+  "cohort_manifest_sha256": "1447fd269fcd9a725531cadb8c90075521b61d961f2254b52e3449e43b9c7e56",
+  "cost_estimate": {
+    "basis": {
+      "contingency": 0.25,
+      "mean_call_cost_usd": {
+        "claude": 0.02758842857142857,
+        "gemini": 0.005111333333333333,
+        "openai": 0.008140533333333333
+      },
+      "method": "Use the latest observed mean call cost and add 25 percent.",
+      "price_sources": {
+        "claude": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "gemini": "https://ai.google.dev/gemini-api/docs/pricing",
+        "openai": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+      },
+      "price_verification_date": "2026-09-27",
+      "source": "Phase 8c2.3 r3 OpenAI and Gemini manifests, plus the r1 Claude manifest"
+    },
+    "cheap_stage_usd": 1.656484,
+    "maximum_usd": 5.105038,
+    "providers": {
+      "claude": {
+        "calls": 100,
+        "estimated_cost_usd": 3.448554
+      },
+      "gemini": {
+        "calls": 100,
+        "estimated_cost_usd": 0.638917
+      },
+      "openai": {
+        "calls": 100,
+        "estimated_cost_usd": 1.017567
+      }
+    }
+  },
+  "development_corpus_sha256": "31659363fa0b4789fbbf87da0be60961c08b0e17569d8c4e83cf3299aae41236",
+  "expected_calls": {
+    "cheap_stage": 200,
+    "claude_if_required": 100,
+    "gemini": 100,
+    "maximum": 300,
+    "openai": 100
+  },
+  "models": {
+    "claude": "claude-sonnet-5",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "b5bb279574d958ccaa3abab49f636087bdde4b1b068567e18307024641216d7f",
+  "reserved_holdout_corpus_sha256": "80cdabe1dfb08767e9f68acf0999be85b35c42660a6d5380246eee4b6cf4d1a8",
+  "run_id": "phase8c2-3-compact-json-development-r1",
+  "run_kind": "paired-factorial-development-plan",
+  "schema": "ghostnote-compact-json-development-v1",
+  "scope": {
+    "arms": [
+      "exact-object-json-midi",
+      "exact-object-json-pc-register",
+      "tuple-json-midi",
+      "tuple-json-pc-register",
+      "midi-like-native"
+    ],
+    "family": "generation-progression",
+    "fixtures": 20,
+    "provider_order": [
+      "openai",
+      "gemini",
+      "claude-if-required"
+    ],
+    "providers": [
+      "openai",
+      "gemini",
+      "claude"
+    ],
+    "repeats": 1
+  },
+  "scorer_sha256": "2d6ea56cd427b1539e0451641028630987967b34216d33b9b9a1226556b147d3",
+  "settings": {
+    "claude": {
+      "effort": "low",
+      "max_tokens": 5000
+    },
+    "gemini": {
+      "max_output_tokens": 5000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 5000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "f856b4ad48abfc9928a364d87b2b510e5bac6ebafee61356f986a111773bdfd4",
+  "stopping_rule": "Run OpenAI and Gemini first. Run Claude only when their frozen decision signals disagree.",
+  "transport_audit_sha256": "29dd0213652ba3b69898c4388dd2d15ca52cf3423c96941a81e858e7899322fa"
+}

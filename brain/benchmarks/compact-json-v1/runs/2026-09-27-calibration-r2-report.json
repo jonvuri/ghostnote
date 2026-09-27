@@ -1,0 +1,369 @@
+{
+  "actual_cost_usd": 0.324077,
+  "allowed_follow_up": "Repair the transport offline and freeze a new progression-only calibration. Do not run another provider or start development without explicit approval.",
+  "claude_allowed": false,
+  "decision": "repair-measurement",
+  "diagnosis": {
+    "continuation_roles": "Demote this family because both controls passed 6/6 on both providers.",
+    "generation_progression": "Retain this family. OpenAI was eligible at 4/6 and Gemini was below the band at 1/6.",
+    "transport": "The provider helper used a 3,000-token limit while the frozen r2 plan declared 4,000 tokens."
+  },
+  "eligibility": [
+    {
+      "eligible_providers": 1,
+      "family": "generation-progression",
+      "providers": [
+        {
+          "family": "generation-progression",
+          "inside_band": true,
+          "provider": "openai",
+          "rate": 0.666667,
+          "successes": 4,
+          "trials": 6
+        },
+        {
+          "family": "generation-progression",
+          "inside_band": false,
+          "provider": "gemini",
+          "rate": 0.166667,
+          "successes": 1,
+          "trials": 6
+        }
+      ]
+    },
+    {
+      "eligible_providers": 0,
+      "family": "continuation-roles",
+      "providers": [
+        {
+          "family": "continuation-roles",
+          "inside_band": false,
+          "provider": "openai",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        },
+        {
+          "family": "continuation-roles",
+          "inside_band": false,
+          "provider": "gemini",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        }
+      ]
+    }
+  ],
+  "prompt_contract_repair": {
+    "canonical_order_failures": 1,
+    "exact_metadata_failures": 0
+  },
+  "providers": {
+    "gemini": {
+      "actual_cost_usd": 0.110506,
+      "arm_results": [
+        {
+          "arm": "exact-object-json-midi",
+          "errors": {},
+          "failed_checks": {
+            "harmony_and_bass_inversion": 2
+          },
+          "family": "generation-progression",
+          "successes": 1,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "exact-object-json-pc-register",
+          "errors": {},
+          "failed_checks": {
+            "voice_ranges_and_crossing": 1
+          },
+          "family": "generation-progression",
+          "successes": 2,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-midi",
+          "errors": {},
+          "failed_checks": {
+            "harmony_and_bass_inversion": 3
+          },
+          "family": "generation-progression",
+          "successes": 0,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-pc-register",
+          "errors": {},
+          "failed_checks": {
+            "voice_ranges_and_crossing": 2
+          },
+          "family": "generation-progression",
+          "successes": 1,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "midi-like-native",
+          "errors": {},
+          "failed_checks": {
+            "harmony_and_bass_inversion": 3
+          },
+          "family": "generation-progression",
+          "successes": 0,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "exact-object-json-midi",
+          "errors": {},
+          "failed_checks": {},
+          "family": "continuation-roles",
+          "successes": 3,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "exact-object-json-pc-register",
+          "errors": {},
+          "failed_checks": {},
+          "family": "continuation-roles",
+          "successes": 3,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-midi",
+          "errors": {},
+          "failed_checks": {
+            "harmony": 1
+          },
+          "family": "continuation-roles",
+          "successes": 2,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-pc-register",
+          "errors": {},
+          "failed_checks": {},
+          "family": "continuation-roles",
+          "successes": 3,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "midi-like-native",
+          "errors": {},
+          "failed_checks": {},
+          "family": "continuation-roles",
+          "successes": 3,
+          "syntax_failures": 0,
+          "trials": 3
+        }
+      ],
+      "calls": 30,
+      "complete": true,
+      "manifest_sha256": "3d48d040e490912d8421aa57f0ea3d60adf4c950aab13cbf417b8c61cec670b5",
+      "raw_run_sha256": "2f68b5e5723105c9c8fbad17007611e491b961b9deab1b20775b49aae9a0f85e",
+      "requested_model": "gemini-3.8-flash"
+    },
+    "openai": {
+      "actual_cost_usd": 0.213571,
+      "arm_results": [
+        {
+          "arm": "exact-object-json-midi",
+          "errors": {},
+          "failed_checks": {
+            "harmony_and_bass_inversion": 2,
+            "voice_ranges_and_crossing": 1
+          },
+          "family": "generation-progression",
+          "successes": 1,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "exact-object-json-pc-register",
+          "errors": {
+            "JSONDecodeError: Expecting value: line 1 column 1 (char 0)": 1
+          },
+          "failed_checks": {
+            "harmony_and_bass_inversion": 1,
+            "total_voice_leading": 1
+          },
+          "family": "generation-progression",
+          "successes": 1,
+          "syntax_failures": 1,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-midi",
+          "errors": {
+            "JSONDecodeError: Expecting value: line 1 column 1 (char 0)": 1,
+            "ValueError: Notes are not in canonical order": 1
+          },
+          "failed_checks": {},
+          "family": "generation-progression",
+          "successes": 1,
+          "syntax_failures": 2,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-pc-register",
+          "errors": {},
+          "failed_checks": {},
+          "family": "generation-progression",
+          "successes": 3,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "midi-like-native",
+          "errors": {},
+          "failed_checks": {},
+          "family": "generation-progression",
+          "successes": 3,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "exact-object-json-midi",
+          "errors": {},
+          "failed_checks": {},
+          "family": "continuation-roles",
+          "successes": 3,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "exact-object-json-pc-register",
+          "errors": {},
+          "failed_checks": {
+            "voice_leading": 1
+          },
+          "family": "continuation-roles",
+          "successes": 2,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-midi",
+          "errors": {},
+          "failed_checks": {
+            "harmony": 1
+          },
+          "family": "continuation-roles",
+          "successes": 2,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-pc-register",
+          "errors": {},
+          "failed_checks": {
+            "harmony": 1,
+            "ranges": 1
+          },
+          "family": "continuation-roles",
+          "successes": 2,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "midi-like-native",
+          "errors": {},
+          "failed_checks": {},
+          "family": "continuation-roles",
+          "successes": 3,
+          "syntax_failures": 0,
+          "trials": 3
+        }
+      ],
+      "calls": 30,
+      "complete": true,
+      "manifest_sha256": "e2be7e7721f93b7a90a42e830cc55185c5434dc080ac8811a65a907a41ee24ea",
+      "raw_run_sha256": "e32aef2e353a0ab51e7625251a3489b5bb1dcd4b1319e5718af2f10f2b826d82",
+      "requested_model": "gpt-5.4-mini-2026-03-17"
+    }
+  },
+  "run_id": "phase8c2-3-json-grammar-repair-calibration-r2",
+  "schema": "ghostnote-compact-json-calibration-r2-report-v1",
+  "settings_audit": {
+    "declared": {
+      "claude": {
+        "effort": "low",
+        "max_tokens": 4000
+      },
+      "gemini": {
+        "max_output_tokens": 4000,
+        "thinking_level": "low"
+      },
+      "openai": {
+        "max_completion_tokens": 4000,
+        "reasoning_effort": "low"
+      },
+      "temperature": "provider default"
+    },
+    "exact_match": false,
+    "limit_affected_results": [
+      {
+        "arm": "exact-object-json-pc-register",
+        "family": "generation-progression",
+        "output_tokens": 3000,
+        "provider": "openai",
+        "stop_reason": "length",
+        "variant": 1
+      },
+      {
+        "arm": "tuple-json-midi",
+        "family": "generation-progression",
+        "output_tokens": 3000,
+        "provider": "openai",
+        "stop_reason": "length",
+        "variant": 1
+      }
+    ],
+    "mismatches": [
+      {
+        "declared": 4000,
+        "field": "max_completion_tokens",
+        "provider": "openai",
+        "transport": 3000
+      },
+      {
+        "declared": 4000,
+        "field": "max_output_tokens",
+        "provider": "gemini",
+        "transport": 3000
+      },
+      {
+        "declared": 4000,
+        "field": "max_tokens",
+        "provider": "claude",
+        "transport": 3000
+      }
+    ],
+    "transport": {
+      "claude": {
+        "effort": "low",
+        "max_tokens": 3000
+      },
+      "gemini": {
+        "max_output_tokens": 3000,
+        "thinking_level": "low"
+      },
+      "openai": {
+        "max_completion_tokens": 3000,
+        "reasoning_effort": "low"
+      },
+      "temperature": "provider default"
+    },
+    "transport_model_call_sha256": "dfed387f90825029c7acc9adbf29eaf11f1b9ec9b271d1cb72dbc78cf2a7fc4b"
+  },
+  "sha256": "03f0c8462e236eb88bb8ff49d4bac3ab79033640fed1b07e3eda0feb35a3b917",
+  "summary_sha256": "c4d8b4cb18f4f6bca598a9db4298c2e5ff68c7a7a89538275785d192d6b38c4a"
+}

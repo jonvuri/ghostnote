@@ -1,0 +1,15 @@
+{
+  "approved_scope": {
+    "cheap_stage_calls": 200,
+    "cheap_stage_estimated_cost_usd": 1.656484,
+    "claude_calls_if_required": 100,
+    "maximum_calls": 300,
+    "maximum_estimated_cost_usd": 5.105038
+  },
+  "approved_at": "2026-09-27",
+  "operator_statement": "Yes, I approve Development R1. Proceed.",
+  "protocol_sha256": "b5bb279574d958ccaa3abab49f636087bdde4b1b068567e18307024641216d7f",
+  "run_id": "phase8c2-3-compact-json-development-r1",
+  "run_plan_sha256": "f856b4ad48abfc9928a364d87b2b510e5bac6ebafee61356f986a111773bdfd4",
+  "status": "approved"
+}

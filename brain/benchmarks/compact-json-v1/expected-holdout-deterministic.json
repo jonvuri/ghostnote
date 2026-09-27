@@ -1,0 +1,10 @@
+{
+  "cohort_audit_sha256": "1447fd269fcd9a725531cadb8c90075521b61d961f2254b52e3449e43b9c7e56",
+  "holdout_corpus_sha256": "80cdabe1dfb08767e9f68acf0999be85b35c42660a6d5380246eee4b6cf4d1a8",
+  "protocol_sha256": "c6811ab63021d0415c92533bb600c944da17db5056a498616109369d5d644b69",
+  "run_plan_sha256": "22a146acfca352da437825526592764f61216fb6a517ad385baeac7db43fdf9e",
+  "schema": "ghostnote-compact-json-holdout-v1",
+  "screen_sha256": "3845106d7f303156390a828646d59a3b444a12b2bc799c0af7ea2ed510435e5b",
+  "sha256": "a9b6d6c006d945fef1c18152c19cb342f2b1f65ad2b19b9684d46f3eb356e73c",
+  "transport_audit_sha256": "a1e6cd017e2ba6d093c7a00cd5326528c64aa95b9e5bf782e0dd5fd51642c8c3"
+}

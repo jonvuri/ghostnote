@@ -1,0 +1,54 @@
+{
+  "actual_cost_usd": 0.324077,
+  "decision": "repair-measurement",
+  "eligibility": [
+    {
+      "eligible_providers": 1,
+      "family": "generation-progression",
+      "providers": [
+        {
+          "family": "generation-progression",
+          "inside_band": true,
+          "provider": "openai",
+          "rate": 0.666667,
+          "successes": 4,
+          "trials": 6
+        },
+        {
+          "family": "generation-progression",
+          "inside_band": false,
+          "provider": "gemini",
+          "rate": 0.166667,
+          "successes": 1,
+          "trials": 6
+        }
+      ]
+    },
+    {
+      "eligible_providers": 0,
+      "family": "continuation-roles",
+      "providers": [
+        {
+          "family": "continuation-roles",
+          "inside_band": false,
+          "provider": "openai",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        },
+        {
+          "family": "continuation-roles",
+          "inside_band": false,
+          "provider": "gemini",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        }
+      ]
+    }
+  ],
+  "run_id": "phase8c2-3-json-grammar-repair-calibration-r2",
+  "schema": "ghostnote-compact-json-calibration-r2",
+  "selection_authority": "None. This calibration can only approve a development freeze.",
+  "sha256": "c4d8b4cb18f4f6bca598a9db4298c2e5ff68c7a7a89538275785d192d6b38c4a"
+}

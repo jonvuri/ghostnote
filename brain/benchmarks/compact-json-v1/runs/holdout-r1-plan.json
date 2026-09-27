@@ -1,0 +1,94 @@
+{
+  "allowed_follow_up": "Summarize this fixed holdout. Do not rerun or revise a candidate from its result.",
+  "approval": {
+    "requirement": "Get separate explicit operator approval for this exact holdout before any provider call.",
+    "status": "pending"
+  },
+  "cohort_audit_sha256": "1447fd269fcd9a725531cadb8c90075521b61d961f2254b52e3449e43b9c7e56",
+  "cost_estimate": {
+    "basis": {
+      "claude_limit_note": "The estimate includes contingency for the higher 7,000-token holdout limit.",
+      "contingency": 0.25,
+      "mean_call_cost_usd": {
+        "claude": 0.04674081,
+        "gemini": 0.004411979999999999,
+        "openai": 0.00837567
+      },
+      "method": "Use the observed development mean call cost and add 25 percent.",
+      "price_sources": {
+        "claude": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "gemini": "https://ai.google.dev/gemini-api/docs/pricing",
+        "openai": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+      },
+      "price_verification_date": "2026-09-27",
+      "source": "Phase 8c2.3 development r1 provider manifests"
+    },
+    "providers": {
+      "claude": {
+        "calls": 60,
+        "estimated_cost_usd": 3.505561
+      },
+      "gemini": {
+        "calls": 60,
+        "estimated_cost_usd": 0.330898
+      },
+      "openai": {
+        "calls": 60,
+        "estimated_cost_usd": 0.628175
+      }
+    },
+    "total_usd": 4.464634
+  },
+  "development_report_sha256": "f16e67ea80070140431e6225211fe8cd4672b117bc0dc9af7f017e69cdf49866",
+  "development_summary_sha256": "ffdfa0b21a87aee2465b6d0ff8c4473de59a861662a818d456eaa65b7c65f559",
+  "expected_calls": {
+    "claude": 60,
+    "gemini": 60,
+    "openai": 60,
+    "total": 180
+  },
+  "holdout_corpus_sha256": "80cdabe1dfb08767e9f68acf0999be85b35c42660a6d5380246eee4b6cf4d1a8",
+  "models": {
+    "claude": "claude-sonnet-5",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "c6811ab63021d0415c92533bb600c944da17db5056a498616109369d5d644b69",
+  "run_id": "phase8c2-3-compact-json-holdout-r1",
+  "run_kind": "targeted-holdout-plan",
+  "schema": "ghostnote-compact-json-holdout-v1",
+  "scope": {
+    "arms": [
+      "exact-object-json-midi",
+      "exact-object-json-pc-register",
+      "tuple-json-midi"
+    ],
+    "family": "generation-progression",
+    "fixtures": 20,
+    "providers": [
+      "openai",
+      "gemini",
+      "claude"
+    ],
+    "repeats": 1
+  },
+  "scorer_sha256": "2d6ea56cd427b1539e0451641028630987967b34216d33b9b9a1226556b147d3",
+  "settings": {
+    "claude": {
+      "effort": "low",
+      "max_tokens": 7000
+    },
+    "gemini": {
+      "max_output_tokens": 5000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 5000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "22a146acfca352da437825526592764f61216fb6a517ad385baeac7db43fdf9e",
+  "stopping_rule": "Run the fixed 60 calls on each provider. Do not revise a candidate from the result.",
+  "transport_audit_sha256": "a1e6cd017e2ba6d093c7a00cd5326528c64aa95b9e5bf782e0dd5fd51642c8c3"
+}

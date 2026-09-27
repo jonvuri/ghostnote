@@ -1,13 +1,13 @@
 ---
 title: Phase 8c2.3 — Compact JSON factorial and native product decision
 kind: plan
-state: active
-status: Prototype the four JSON cells and native anchor offline. No provider run is approved.
+state: complete
+status: Targeted holdout selected tuple JSON with MIDI integers for Phase 8c3.
 updated: 2026-09-27
 parent: README.md
 prev: 8c2-2-measurement-repair-and-grouped-compact-iteration.md
 next: 8c3-full-symbolic-format-matrix.md
-evidence: E140, E142, E146; D21, D23
+evidence: E140, E142, E146, E147, E148, E149, E150, E151, E152; D21, D23
 ---
 
 # Phase 8c2.3 — Compact JSON factorial and native product decision
@@ -22,6 +22,39 @@ required.
 Phase 8c2.2 closed the custom compact-text search. This session does not
 repair compact-bar, label-only compact, or grouped-label compact. It tests a
 new structured-object direction.
+
+## Current checkpoint
+
+[E147](../../evidence/experiments/e147-compact-json-calibration-awaits-approval.md)
+records the complete offline prototype and the frozen calibration plan. The
+plan has 210 calls and an estimated cost of USD 2.090578. No provider call is
+approved. Stop at the approval boundary.
+
+[E148](../../evidence/experiments/e148-compact-json-calibration-requires-measurement-repair.md)
+records the completed r1 result. Progression was at a floor, revoicing was at
+a ceiling, and the JSON prompt omitted exact multi-voice order and task
+metadata.
+
+[E149](../../evidence/experiments/e149-compact-json-r2-stops-at-settings-repair.md)
+records the completed r2 cheap stage. Role continuation reached a ceiling,
+and the inherited provider helper did not apply the declared output limit.
+
+[E150](../../evidence/experiments/e150-compact-json-r3-passes-and-development-freezes.md)
+records the passing r3 settings repair and frozen development plan. The plan
+has 200 cheap-provider calls and up to 100 conditional Claude calls.
+
+[E151](../../evidence/experiments/e151-compact-json-development-freezes-targeted-holdout.md)
+records the completed 300-call development run and its `freeze-holdout`
+decision. Exact-object MIDI is the control and fallback. Exact-object
+pitch-class/register and tuple MIDI are experimental holdout cells. Native
+MIDI-like did not qualify. The 180-call targeted holdout had separate
+approval.
+
+[E152](../../evidence/experiments/e152-tuple-json-midi-passes-targeted-holdout.md)
+records `select-for-phase8c3`. Tuple JSON with MIDI integers passed on OpenAI
+and Claude. Exact-object pitch-class/register passed only on Gemini and is
+rejected. Exact-object MIDI remains the full-capability fallback. Phase 8c2.3
+is complete.
 
 ## Experimental design
 

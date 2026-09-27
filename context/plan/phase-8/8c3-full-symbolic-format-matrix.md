@@ -1,13 +1,13 @@
 ---
 title: Phase 8c3 — Full symbolic-format matrix
 kind: plan
-state: planned
-status: Run a fresh full matrix with the representation or representations selected by Phase 8c2.3.
+state: active
+status: Freeze a fresh full matrix with tuple JSON and MIDI integers before provider calls.
 updated: 2026-09-27
 parent: README.md
 prev: 8c2-3-compact-json-factorial-and-native-decision.md
 next: 8f-consolidated-compact-bar-and-cache-contracts.md
-evidence: E137, E140; D21, D23
+evidence: E137, E140, E152; D21, D23
 ---
 
 # Phase 8c3 — Full symbolic-format matrix
@@ -21,6 +21,13 @@ Phase 8f.
 
 Do not use a Phase 8c2, 8c2.2, or 8c2.3 calibration, development, or holdout
 fixture. Do not tune a candidate during this session.
+
+## Current checkpoint
+
+[E152](../../evidence/experiments/e152-tuple-json-midi-passes-targeted-holdout.md)
+satisfies the entry condition. Use `tuple-json-midi` as the selected complete
+representation. Keep its grammar, renderer, parser, prompts, and scorer
+unchanged. No Phase 8c3 provider run is planned or approved yet.
 
 ## Entry conditions
 

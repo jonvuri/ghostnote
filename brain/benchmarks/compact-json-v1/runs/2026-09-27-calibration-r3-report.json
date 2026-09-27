@@ -1,0 +1,176 @@
+{
+  "actual_cost_usd": 0.198778,
+  "allowed_follow_up": "Freeze a new development plan. Do not make a development provider call without explicit approval.",
+  "claude_allowed": false,
+  "decision": "proceed-development",
+  "development_requirements": {
+    "decision_family": "generation-progression",
+    "fixtures": 20,
+    "minimum_output_tokens": 5000,
+    "smallest_primary_macro_step": 0.05
+  },
+  "eligibility": {
+    "eligible_providers": 2,
+    "family": "generation-progression",
+    "providers": [
+      {
+        "family": "generation-progression",
+        "inside_band": true,
+        "provider": "openai",
+        "rate": 0.5,
+        "successes": 3,
+        "trials": 6
+      },
+      {
+        "family": "generation-progression",
+        "inside_band": true,
+        "provider": "gemini",
+        "rate": 0.333333,
+        "successes": 2,
+        "trials": 6
+      }
+    ]
+  },
+  "providers": {
+    "gemini": {
+      "actual_cost_usd": 0.07667,
+      "arm_results": [
+        {
+          "arm": "exact-object-json-midi",
+          "errors": {
+            "JSONDecodeError: Unterminated string starting at: line 1 column 12 (char 11)": 1
+          },
+          "failed_checks": {
+            "harmony_and_bass_inversion": 2
+          },
+          "successes": 0,
+          "syntax_failures": 1,
+          "trials": 3
+        },
+        {
+          "arm": "exact-object-json-pc-register",
+          "errors": {},
+          "failed_checks": {
+            "voice_ranges_and_crossing": 1
+          },
+          "successes": 2,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-midi",
+          "errors": {},
+          "failed_checks": {
+            "harmony_and_bass_inversion": 2
+          },
+          "successes": 1,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-pc-register",
+          "errors": {},
+          "failed_checks": {},
+          "successes": 3,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "midi-like-native",
+          "errors": {},
+          "failed_checks": {
+            "harmony_and_bass_inversion": 1
+          },
+          "successes": 2,
+          "syntax_failures": 0,
+          "trials": 3
+        }
+      ],
+      "calls": 15,
+      "complete": true,
+      "manifest_sha256": "85946293767dad77ddd975dcf65a0ba80ba02586e98fc6845a549f9bd7c98d9b",
+      "raw_run_sha256": "d0c30eacb0e32c6600ac77bad6086ede6c04d8ce3773fb6bc17b0cd827d7cd98",
+      "requested_model": "gemini-3.8-flash"
+    },
+    "openai": {
+      "actual_cost_usd": 0.122108,
+      "arm_results": [
+        {
+          "arm": "exact-object-json-midi",
+          "errors": {},
+          "failed_checks": {
+            "voice_ranges_and_crossing": 2
+          },
+          "successes": 1,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "exact-object-json-pc-register",
+          "errors": {},
+          "failed_checks": {
+            "voice_ranges_and_crossing": 1
+          },
+          "successes": 2,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-midi",
+          "errors": {},
+          "failed_checks": {
+            "harmony_and_bass_inversion": 1,
+            "voice_ranges_and_crossing": 1
+          },
+          "successes": 1,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "tuple-json-pc-register",
+          "errors": {},
+          "failed_checks": {
+            "harmony_and_bass_inversion": 1,
+            "voice_ranges_and_crossing": 2
+          },
+          "successes": 0,
+          "syntax_failures": 0,
+          "trials": 3
+        },
+        {
+          "arm": "midi-like-native",
+          "errors": {},
+          "failed_checks": {
+            "harmony_and_bass_inversion": 1
+          },
+          "successes": 2,
+          "syntax_failures": 0,
+          "trials": 3
+        }
+      ],
+      "calls": 15,
+      "complete": true,
+      "manifest_sha256": "1ec43b12dfa30ba34c6779955991ac96c976b8f7f85ec3015159542729989172",
+      "raw_run_sha256": "4adb93d638b43822eee8a362a6549a5b3506fd46069bba36c770537c7eaf94e1",
+      "requested_model": "gpt-5.4-mini-2026-03-17"
+    }
+  },
+  "run_id": "phase8c2-3-json-settings-repair-calibration-r3",
+  "schema": "ghostnote-compact-json-calibration-r3-report-v1",
+  "settings_audit": {
+    "declared_and_sent_match": true,
+    "limit_affected_results": [
+      {
+        "arm": "exact-object-json-midi",
+        "output_tokens": 3986,
+        "provider": "gemini",
+        "stop_reason": "MAX_TOKENS",
+        "thinking_tokens": 3358,
+        "variant": 1
+      }
+    ],
+    "transport_audit_sha256": "bf1ab0a87773a550852b7e45a07f64733e6249d7729e8d2b963c4e47b4877fb4"
+  },
+  "sha256": "b400c4157649b676b34cab1ecdaa59bfd8649d580949a084de6a139ec796edf9",
+  "summary_sha256": "ba10560f428549468b9e9d9403766e287eb9075e1a02c47f76e6f5eaca82f1c4"
+}

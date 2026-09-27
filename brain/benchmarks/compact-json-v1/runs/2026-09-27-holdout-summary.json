@@ -1,0 +1,286 @@
+{
+  "actual_cost_usd": {
+    "claude": 3.353274,
+    "gemini": 0.278308,
+    "openai": 0.542147,
+    "total": 4.173729
+  },
+  "candidate_gates": {
+    "exact-object-json-pc-register": false,
+    "tuple-json-midi": true
+  },
+  "capabilities": {
+    "json": {
+      "exact-object-json-midi": {
+        "conflict_handling": "base hash and target validation",
+        "exact_preservation": true,
+        "factorial_cell": true,
+        "full_document_fidelity": true,
+        "native_anchor": false,
+        "one_canonical_pitch_encoding": true,
+        "sparse_patch": true,
+        "stable_identity": true
+      },
+      "exact-object-json-pc-register": {
+        "conflict_handling": "base hash and target validation",
+        "exact_preservation": true,
+        "factorial_cell": true,
+        "full_document_fidelity": true,
+        "native_anchor": false,
+        "one_canonical_pitch_encoding": true,
+        "sparse_patch": true,
+        "stable_identity": true
+      },
+      "tuple-json-midi": {
+        "conflict_handling": "base hash and target validation",
+        "exact_preservation": true,
+        "factorial_cell": true,
+        "full_document_fidelity": true,
+        "native_anchor": false,
+        "one_canonical_pitch_encoding": true,
+        "sparse_patch": true,
+        "stable_identity": true
+      },
+      "tuple-json-pc-register": {
+        "conflict_handling": "base hash and target validation",
+        "exact_preservation": true,
+        "factorial_cell": true,
+        "full_document_fidelity": true,
+        "native_anchor": false,
+        "one_canonical_pitch_encoding": true,
+        "sparse_patch": true,
+        "stable_identity": true
+      }
+    },
+    "json_gate": true,
+    "native": {
+      "conflict_handling": "not supplied",
+      "exact_preservation": false,
+      "factorial_cell": false,
+      "full_document_fidelity": false,
+      "native_anchor": true,
+      "one_canonical_pitch_encoding": true,
+      "sparse_patch": false,
+      "stable_identity": false
+    }
+  },
+  "compactness": {
+    "gate": true,
+    "midi": {
+      "canonical_output_byte_ratio": 0.520555,
+      "gate": true,
+      "prompt_byte_ratio": 0.795903
+    },
+    "pc-register": {
+      "canonical_output_byte_ratio": 0.530019,
+      "gate": true,
+      "prompt_byte_ratio": 0.800015
+    }
+  },
+  "decision": "select-for-phase8c3",
+  "full_capability_fallback": "exact-object-json-midi",
+  "protocol_sha256": "c6811ab63021d0415c92533bb600c944da17db5056a498616109369d5d644b69",
+  "providers": [
+    {
+      "actual_cost_usd": 0.542147,
+      "contrasts": {
+        "object_pc_register_pitch_critical": {
+          "approximate_95_interval": [
+            -0.342147,
+            0.142147
+          ],
+          "baseline_only": 4,
+          "baseline_successes": 6,
+          "candidate_only": 2,
+          "candidate_successes": 4,
+          "effect": -0.1,
+          "pairs": 20,
+          "ties": 14
+        },
+        "object_pc_register_primary": {
+          "approximate_95_interval": [
+            -0.342147,
+            0.142147
+          ],
+          "baseline_only": 4,
+          "baseline_successes": 6,
+          "candidate_only": 2,
+          "candidate_successes": 4,
+          "effect": -0.1,
+          "pairs": 20,
+          "ties": 14
+        },
+        "tuple_midi_primary": {
+          "approximate_95_interval": [
+            -0.104971,
+            0.504971
+          ],
+          "baseline_only": 3,
+          "baseline_successes": 6,
+          "candidate_only": 7,
+          "candidate_successes": 10,
+          "effect": 0.2,
+          "pairs": 20,
+          "ties": 10
+        }
+      },
+      "efficiency": {
+        "exact-object-json-midi": {
+          "input_tokens": 18973,
+          "output_bytes": 57096
+        },
+        "exact-object-json-pc-register": {
+          "input_tokens": 19513,
+          "output_bytes": 58342
+        },
+        "tuple-json-midi": {
+          "input_tokens": 15533,
+          "output_bytes": 28212
+        }
+      },
+      "provider": "openai",
+      "support": {
+        "object_pc_register": false,
+        "tuple_midi": true
+      }
+    },
+    {
+      "actual_cost_usd": 0.278308,
+      "contrasts": {
+        "object_pc_register_pitch_critical": {
+          "approximate_95_interval": [
+            0.049643,
+            0.550357
+          ],
+          "baseline_only": 1,
+          "baseline_successes": 9,
+          "candidate_only": 7,
+          "candidate_successes": 15,
+          "effect": 0.3,
+          "pairs": 20,
+          "ties": 12
+        },
+        "object_pc_register_primary": {
+          "approximate_95_interval": [
+            0.049643,
+            0.550357
+          ],
+          "baseline_only": 1,
+          "baseline_successes": 9,
+          "candidate_only": 7,
+          "candidate_successes": 15,
+          "effect": 0.3,
+          "pairs": 20,
+          "ties": 12
+        },
+        "tuple_midi_primary": {
+          "approximate_95_interval": [
+            -0.407327,
+            0.107327
+          ],
+          "baseline_only": 5,
+          "baseline_successes": 9,
+          "candidate_only": 2,
+          "candidate_successes": 6,
+          "effect": -0.15,
+          "pairs": 20,
+          "ties": 13
+        }
+      },
+      "efficiency": {
+        "exact-object-json-midi": {
+          "input_tokens": 20094,
+          "output_bytes": 58094
+        },
+        "exact-object-json-pc-register": {
+          "input_tokens": 20614,
+          "output_bytes": 59360
+        },
+        "tuple-json-midi": {
+          "input_tokens": 16534,
+          "output_bytes": 30162
+        }
+      },
+      "provider": "gemini",
+      "support": {
+        "object_pc_register": true,
+        "tuple_midi": false
+      }
+    },
+    {
+      "actual_cost_usd": 3.353274,
+      "contrasts": {
+        "object_pc_register_pitch_critical": {
+          "approximate_95_interval": [
+            -0.246286,
+            0.246286
+          ],
+          "baseline_only": 3,
+          "baseline_successes": 8,
+          "candidate_only": 3,
+          "candidate_successes": 8,
+          "effect": 0.0,
+          "pairs": 20,
+          "ties": 14
+        },
+        "object_pc_register_primary": {
+          "approximate_95_interval": [
+            -0.246286,
+            0.246286
+          ],
+          "baseline_only": 3,
+          "baseline_successes": 8,
+          "candidate_only": 3,
+          "candidate_successes": 8,
+          "effect": 0.0,
+          "pairs": 20,
+          "ties": 14
+        },
+        "tuple_midi_primary": {
+          "approximate_95_interval": [
+            -0.069793,
+            0.469793
+          ],
+          "baseline_only": 2,
+          "baseline_successes": 8,
+          "candidate_only": 6,
+          "candidate_successes": 12,
+          "effect": 0.2,
+          "pairs": 20,
+          "ties": 12
+        }
+      },
+      "efficiency": {
+        "exact-object-json-midi": {
+          "input_tokens": 32131,
+          "output_bytes": 56908
+        },
+        "exact-object-json-pc-register": {
+          "input_tokens": 32811,
+          "output_bytes": 57964
+        },
+        "tuple-json-midi": {
+          "input_tokens": 25571,
+          "output_bytes": 29436
+        }
+      },
+      "provider": "claude",
+      "support": {
+        "object_pc_register": false,
+        "tuple_midi": true
+      }
+    }
+  ],
+  "repairs": [],
+  "run_id": "phase8c2-3-compact-json-holdout-r1",
+  "schema": "ghostnote-compact-json-holdout-v1",
+  "selected_candidates": [
+    "tuple-json-midi"
+  ],
+  "selection_authority": "Holdout can select frozen experimental cells for Phase 8c3 or reject them.",
+  "sha256": "cda478c9339c9af95e9bb8b08a101bbf73198777558671e44b1f69f4f823ba79",
+  "supporting_providers": {
+    "object_pc_register": 1,
+    "tuple_midi": 2
+  }
+}

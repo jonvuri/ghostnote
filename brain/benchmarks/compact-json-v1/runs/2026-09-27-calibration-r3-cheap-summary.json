@@ -1,0 +1,30 @@
+{
+  "actual_cost_usd": 0.198778,
+  "decision": "proceed-development",
+  "eligibility": {
+    "eligible_providers": 2,
+    "family": "generation-progression",
+    "providers": [
+      {
+        "family": "generation-progression",
+        "inside_band": true,
+        "provider": "openai",
+        "rate": 0.5,
+        "successes": 3,
+        "trials": 6
+      },
+      {
+        "family": "generation-progression",
+        "inside_band": true,
+        "provider": "gemini",
+        "rate": 0.333333,
+        "successes": 2,
+        "trials": 6
+      }
+    ]
+  },
+  "run_id": "phase8c2-3-json-settings-repair-calibration-r3",
+  "schema": "ghostnote-compact-json-calibration-r3",
+  "selection_authority": "None. This calibration can only approve a development freeze.",
+  "sha256": "ba10560f428549468b9e9d9403766e287eb9075e1a02c47f76e6f5eaca82f1c4"
+}

@@ -1,0 +1,13 @@
+{
+  "approved_scope": {
+    "calls_per_provider": 60,
+    "estimated_cost_usd": 4.464634,
+    "total_calls": 180
+  },
+  "approved_at": "2026-09-27",
+  "operator_statement": "Yes, I approve that targeted holdout R1. Proceed.",
+  "protocol_sha256": "c6811ab63021d0415c92533bb600c944da17db5056a498616109369d5d644b69",
+  "run_id": "phase8c2-3-compact-json-holdout-r1",
+  "run_plan_sha256": "22a146acfca352da437825526592764f61216fb6a517ad385baeac7db43fdf9e",
+  "status": "approved"
+}

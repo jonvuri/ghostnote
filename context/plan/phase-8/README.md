@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Close custom text development, compare compact JSON with a concurrent native anchor, then run a fresh full matrix.
+status: Run the fresh full matrix with tuple JSON and MIDI integers.
 updated: 2026-09-27
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -106,13 +106,18 @@ owns the migration details.
    records the stop before Claude and the unreachable development gate. The
    accepted result is `stop-custom-compact`.
 9. [8c2.3 — Compact JSON factorial and native product decision](8c2-3-compact-json-factorial-and-native-decision.md).
-   Active. Test exact-object and tuple JSON with MIDI and
-   pitch-class/register values. Run native MIDI-like concurrently as a
-   separate anchor, not as a factorial cell.
+   Complete. [E147](../../evidence/experiments/e147-compact-json-calibration-awaits-approval.md)
+   records the offline prototype. [E148](../../evidence/experiments/e148-compact-json-calibration-requires-measurement-repair.md)
+   records the r1 `repair-measurement` result. [E149](../../evidence/experiments/e149-compact-json-r2-stops-at-settings-repair.md)
+   records the r2 stop. [E150](../../evidence/experiments/e150-compact-json-r3-passes-and-development-freezes.md)
+   records the passing r3 calibration and frozen development plan.
+   [E151](../../evidence/experiments/e151-compact-json-development-freezes-targeted-holdout.md)
+   records the development `freeze-holdout` result. Native MIDI-like did not
+   qualify. [E152](../../evidence/experiments/e152-tuple-json-midi-passes-targeted-holdout.md)
+   records `select-for-phase8c3` for tuple JSON with MIDI integers.
 10. [8c3 — Full symbolic-format matrix](8c3-full-symbolic-format-matrix.md).
-   Run a fresh full matrix with the representation or representations selected
-   by 8c2.3. Keep Phase 8f blocked until this session gives a `proceed`
-   decision.
+   Active. Run a fresh full matrix with tuple JSON and MIDI integers. Keep
+   Phase 8f blocked until this session gives a `proceed` decision.
 11. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
 12. [8g — Shadow project cache](8g-shadow-project-cache.md).

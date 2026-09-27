@@ -1,0 +1,741 @@
+{
+  "allowed_follow_up": "Repair the prompts offline. Use fresh progression and role fixtures. Get separate approval before any provider call.",
+  "cost": {
+    "approved_estimate_usd": 2.090578,
+    "dashboard_authority": "The operator provider dashboards are the external spend authority.",
+    "providers": {
+      "claude": 1.93119,
+      "gemini": 0.215447,
+      "openai": 0.41698
+    },
+    "total_usd": 2.563617
+  },
+  "decision": "repair-measurement",
+  "diagnosis": {
+    "output_limit": "Three Claude exact-object progression responses ended as unterminated nested JSON. Use exact metadata and a larger output limit in a separately approved repair run.",
+    "progression": {
+      "control_result": {
+        "eligible": false,
+        "eligible_providers": 1,
+        "family": "generation-progression",
+        "providers": [
+          {
+            "inside_band": false,
+            "provider": "openai",
+            "rate": 0.0,
+            "successes": 0,
+            "trials": 6
+          },
+          {
+            "inside_band": false,
+            "provider": "gemini",
+            "rate": 0.166667,
+            "successes": 1,
+            "trials": 6
+          },
+          {
+            "inside_band": true,
+            "provider": "claude",
+            "rate": 0.333333,
+            "successes": 2,
+            "trials": 6
+          }
+        ]
+      },
+      "finding": "The progression controls are at a floor. JSON outputs also expose an incomplete canonical-order and metadata prompt.",
+      "json_syntax_passes": 3,
+      "json_trials": 36
+    },
+    "prompt_defect": "The prompt did not give task-specific metadata or the exact multi-voice collection order. The one-note example could not show those rules.",
+    "revoice": {
+      "control_successes": 18,
+      "control_trials": 18,
+      "finding": "Revoicing is at a complete control ceiling. Demote it from the decision set."
+    },
+    "roles": {
+      "control_result": {
+        "eligible": true,
+        "eligible_providers": 2,
+        "family": "continuation-roles",
+        "providers": [
+          {
+            "inside_band": false,
+            "provider": "openai",
+            "rate": 0.166667,
+            "successes": 1,
+            "trials": 6
+          },
+          {
+            "inside_band": true,
+            "provider": "gemini",
+            "rate": 0.5,
+            "successes": 3,
+            "trials": 6
+          },
+          {
+            "inside_band": true,
+            "provider": "claude",
+            "rate": 0.333333,
+            "successes": 2,
+            "trials": 6
+          }
+        ]
+      },
+      "finding": "Role continuation is eligible, but JSON order failures make its format comparison invalid for reuse.",
+      "json_syntax_passes": 3,
+      "json_trials": 36
+    }
+  },
+  "eligibility": [
+    {
+      "eligible": false,
+      "eligible_providers": 1,
+      "family": "generation-progression",
+      "providers": [
+        {
+          "inside_band": false,
+          "provider": "openai",
+          "rate": 0.0,
+          "successes": 0,
+          "trials": 6
+        },
+        {
+          "inside_band": false,
+          "provider": "gemini",
+          "rate": 0.166667,
+          "successes": 1,
+          "trials": 6
+        },
+        {
+          "inside_band": true,
+          "provider": "claude",
+          "rate": 0.333333,
+          "successes": 2,
+          "trials": 6
+        }
+      ]
+    },
+    {
+      "eligible": true,
+      "eligible_providers": 2,
+      "family": "continuation-roles",
+      "providers": [
+        {
+          "inside_band": false,
+          "provider": "openai",
+          "rate": 0.166667,
+          "successes": 1,
+          "trials": 6
+        },
+        {
+          "inside_band": true,
+          "provider": "gemini",
+          "rate": 0.5,
+          "successes": 3,
+          "trials": 6
+        },
+        {
+          "inside_band": true,
+          "provider": "claude",
+          "rate": 0.333333,
+          "successes": 2,
+          "trials": 6
+        }
+      ]
+    },
+    {
+      "eligible": false,
+      "eligible_providers": 0,
+      "family": "transformation-revoice",
+      "providers": [
+        {
+          "inside_band": false,
+          "provider": "openai",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        },
+        {
+          "inside_band": false,
+          "provider": "gemini",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        },
+        {
+          "inside_band": false,
+          "provider": "claude",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        }
+      ]
+    }
+  ],
+  "failures": {
+    "claude": [
+      {
+        "arm": "exact-object-json-midi",
+        "errors": {
+          "JSONDecodeError: Unterminated string starting at: line 1 column 12 (char 11)": 3
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-pc-register",
+        "errors": {
+          "JSONDecodeError: Expecting value: line 1 column 1 (char 0)": 1,
+          "JSONDecodeError: Unterminated string starting at: line 1 column 12 (char 11)": 2
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-midi",
+        "errors": {
+          "ValueError: Tracks are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-pc-register",
+        "errors": {
+          "JSONDecodeError: Expecting value: line 1 column 1 (char 0)": 1,
+          "ValueError: Tracks are not in canonical order": 1
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 1,
+        "syntax_passes": 1,
+        "trials": 3
+      },
+      {
+        "arm": "midi-like-native",
+        "errors": {},
+        "failed_checks": {
+          "total_voice_leading": 1
+        },
+        "family": "generation-progression",
+        "primary_passes": 2,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-midi",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-pc-register",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-midi",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-pc-register",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "midi-like-native",
+        "errors": {},
+        "failed_checks": {
+          "harmony": 1
+        },
+        "family": "continuation-roles",
+        "primary_passes": 2,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-midi",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-pc-register",
+        "errors": {
+          "JSONDecodeError: Unterminated string starting at: line 1 column 12 (char 11)": 2
+        },
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 1,
+        "syntax_passes": 1,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-midi",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-pc-register",
+        "errors": {},
+        "failed_checks": {
+          "operation": 1
+        },
+        "family": "transformation-revoice",
+        "primary_passes": 2,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "midi-like-native",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      }
+    ],
+    "gemini": [
+      {
+        "arm": "exact-object-json-midi",
+        "errors": {
+          "ValueError: Tracks are not in canonical order": 2
+        },
+        "failed_checks": {
+          "harmony_and_bass_inversion": 1
+        },
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 1,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-pc-register",
+        "errors": {
+          "ValueError: Tracks are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-midi",
+        "errors": {
+          "ValueError: Tracks are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-pc-register",
+        "errors": {
+          "ValueError: Tracks are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "midi-like-native",
+        "errors": {},
+        "failed_checks": {
+          "harmony_and_bass_inversion": 2
+        },
+        "family": "generation-progression",
+        "primary_passes": 1,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-midi",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-pc-register",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 2
+        },
+        "failed_checks": {
+          "ranges": 1
+        },
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 1,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-midi",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-pc-register",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "midi-like-native",
+        "errors": {},
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-midi",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-pc-register",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-midi",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-pc-register",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "midi-like-native",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      }
+    ],
+    "openai": [
+      {
+        "arm": "exact-object-json-midi",
+        "errors": {
+          "ValueError: Tracks are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-pc-register",
+        "errors": {
+          "JSONDecodeError: Expecting value: line 1 column 1 (char 0)": 1,
+          "ValueError: Tracks are not in canonical order": 2
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-midi",
+        "errors": {
+          "ValueError: Tracks are not in canonical order": 2
+        },
+        "failed_checks": {
+          "chord_starts_and_named_voices": 1
+        },
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 1,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-pc-register",
+        "errors": {
+          "JSONDecodeError: Expecting value: line 1 column 1 (char 0)": 1,
+          "ValueError: Tracks are not in canonical order": 2
+        },
+        "failed_checks": {},
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "midi-like-native",
+        "errors": {},
+        "failed_checks": {
+          "harmony_and_bass_inversion": 3,
+          "voice_ranges_and_crossing": 1
+        },
+        "family": "generation-progression",
+        "primary_passes": 0,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-midi",
+        "errors": {
+          "ValueError: Bars must use canonical order and metadata": 1,
+          "ValueError: Notes are not in canonical order": 2
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-pc-register",
+        "errors": {
+          "ValueError: Bar has incorrect fields": 1,
+          "ValueError: Notes are not in canonical order": 2
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-midi",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 3
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 0,
+        "syntax_passes": 0,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-pc-register",
+        "errors": {
+          "ValueError: Notes are not in canonical order": 1
+        },
+        "failed_checks": {},
+        "family": "continuation-roles",
+        "primary_passes": 2,
+        "syntax_passes": 2,
+        "trials": 3
+      },
+      {
+        "arm": "midi-like-native",
+        "errors": {},
+        "failed_checks": {
+          "cadence": 1,
+          "harmony": 1
+        },
+        "family": "continuation-roles",
+        "primary_passes": 1,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-midi",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "exact-object-json-pc-register",
+        "errors": {},
+        "failed_checks": {
+          "chord_pitch_classes": 1
+        },
+        "family": "transformation-revoice",
+        "primary_passes": 2,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-midi",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "tuple-json-pc-register",
+        "errors": {},
+        "failed_checks": {
+          "range_limits": 1
+        },
+        "family": "transformation-revoice",
+        "primary_passes": 2,
+        "syntax_passes": 3,
+        "trials": 3
+      },
+      {
+        "arm": "midi-like-native",
+        "errors": {},
+        "failed_checks": {},
+        "family": "transformation-revoice",
+        "primary_passes": 3,
+        "syntax_passes": 3,
+        "trials": 3
+      }
+    ]
+  },
+  "integrity": [
+    {
+      "actual_cost_usd": 0.41698,
+      "calls": 70,
+      "checks": {
+        "approval": true,
+        "call_count": true,
+        "complete": true,
+        "manifest_sha256": true,
+        "prompt_set": true,
+        "protocol": true,
+        "provider": true,
+        "raw_run_sha256": true,
+        "requested_model": true,
+        "returned_model": true,
+        "run_id": true,
+        "transport": true
+      },
+      "manifest_sha256": "026df5fe320ea1fbded1a82ec94b2916277db3d237db1ac3986f3d9dafe99e19",
+      "pass": true,
+      "provider": "openai",
+      "raw_run_sha256": "12b86908f4fc2ec01c46f32800b5b34b7e30eaac6c66899bf975eff697b5fbc6"
+    },
+    {
+      "actual_cost_usd": 0.215447,
+      "calls": 70,
+      "checks": {
+        "approval": true,
+        "call_count": true,
+        "complete": true,
+        "manifest_sha256": true,
+        "prompt_set": true,
+        "protocol": true,
+        "provider": true,
+        "raw_run_sha256": true,
+        "requested_model": true,
+        "returned_model": true,
+        "run_id": true,
+        "transport": true
+      },
+      "manifest_sha256": "abd42a470757ce70fda534b49c087867b265217ae5fa029636a1a77630e66c55",
+      "pass": true,
+      "provider": "gemini",
+      "raw_run_sha256": "3e4362ebb9c47996c64dbc4c24722a119d23743820d138f408fb9cd4c97748ce"
+    },
+    {
+      "actual_cost_usd": 1.93119,
+      "calls": 70,
+      "checks": {
+        "approval": true,
+        "call_count": true,
+        "complete": true,
+        "manifest_sha256": true,
+        "prompt_set": true,
+        "protocol": true,
+        "provider": true,
+        "raw_run_sha256": true,
+        "requested_model": true,
+        "returned_model": true,
+        "run_id": true,
+        "transport": true
+      },
+      "manifest_sha256": "8012c806888baa4ac7250b048f13b70215e2e226a289fb21fbddb2ed6d77e4c8",
+      "pass": true,
+      "provider": "claude",
+      "raw_run_sha256": "f597f801b8d5ea474cbaa3b7df22a5574fc574ea73612706fbbe1f3b7505a0cb"
+    }
+  ],
+  "retained_summary_equal": true,
+  "retained_summary_sha256": "9a295ff55df68447f84aacfb2d10aa29e39ea2d8116293d0a6b9aa6bbc593a6a",
+  "run_id": "phase8c2-3-compact-json-calibration-r1",
+  "schema": "ghostnote-compact-json-calibration-report-v1",
+  "sha256": "6919a45e6995c4101fd92530c181db6269d008a3801e20d03270198ad683ce40"
+}

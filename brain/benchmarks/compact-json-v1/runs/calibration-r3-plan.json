@@ -1,0 +1,100 @@
+{
+  "allowed_follow_up": "Summarize the settings repair. Do not start development without a new frozen plan and explicit approval.",
+  "approval": {
+    "requirement": "Get explicit operator approval for this exact conditional calibration before any provider call.",
+    "status": "pending"
+  },
+  "cohort_manifest_sha256": "7e533c1c95b44851ef33288bd2a9bb1a4006b5df0090f23ea01cb59f885fc288",
+  "corpus_sha256": "92bed1dac86bc6fd92db724fa82403cf40c61c98656193fbd3c203462aa76037",
+  "cost_estimate": {
+    "basis": {
+      "contingency": 0.25,
+      "mean_call_cost_usd": {
+        "claude": 0.02758842857142857,
+        "gemini": 0.0036835333333333333,
+        "openai": 0.0071190333333333335
+      },
+      "method": "Use the latest observed mean call cost and add 25 percent.",
+      "price_sources": {
+        "claude": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "gemini": "https://ai.google.dev/gemini-api/docs/pricing",
+        "openai": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+      },
+      "price_verification_date": "2026-09-27",
+      "source": "Phase 8c2.3 r2 OpenAI and Gemini manifests, plus the r1 Claude manifest"
+    },
+    "cheap_stage_usd": 0.202548,
+    "maximum_usd": 0.719831,
+    "providers": {
+      "claude": {
+        "calls": 15,
+        "estimated_cost_usd": 0.517283
+      },
+      "gemini": {
+        "calls": 15,
+        "estimated_cost_usd": 0.069066
+      },
+      "openai": {
+        "calls": 15,
+        "estimated_cost_usd": 0.133482
+      }
+    }
+  },
+  "expected_calls": {
+    "cheap_stage": 30,
+    "claude_if_required": 15,
+    "gemini": 15,
+    "maximum": 45,
+    "openai": 15
+  },
+  "models": {
+    "claude": "claude-sonnet-5",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "repair_protocol_sha256": "424bcf3e2889424c0b0f5752fc33d98ca4391bba41a714f93543da46d1f7e6ff",
+  "run_id": "phase8c2-3-json-settings-repair-calibration-r3",
+  "run_kind": "settings-repair-calibration-plan",
+  "schema": "ghostnote-compact-json-calibration-r3",
+  "scope": {
+    "arms": [
+      "exact-object-json-midi",
+      "exact-object-json-pc-register",
+      "tuple-json-midi",
+      "tuple-json-pc-register",
+      "midi-like-native"
+    ],
+    "family": "generation-progression",
+    "fixtures": 3,
+    "provider_order": [
+      "openai",
+      "gemini",
+      "claude-if-required"
+    ],
+    "providers": [
+      "openai",
+      "gemini",
+      "claude"
+    ],
+    "repeats": 1
+  },
+  "scorer_sha256": "2d6ea56cd427b1539e0451641028630987967b34216d33b9b9a1226556b147d3",
+  "settings": {
+    "claude": {
+      "effort": "low",
+      "max_tokens": 4000
+    },
+    "gemini": {
+      "max_output_tokens": 4000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 4000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "15c5e47a1484645bb16e88c15926fcb649203cd44376d7035958a090ea835c22",
+  "stopping_rule": "Run OpenAI and Gemini first. If both are eligible, stop with proceed-development. If neither is eligible, stop with repair-measurement. Otherwise, Claude is allowed to resolve the second-provider rule.",
+  "transport_audit_sha256": "bf1ab0a87773a550852b7e45a07f64733e6249d7729e8d2b963c4e47b4877fb4"
+}

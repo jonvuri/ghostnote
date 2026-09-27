@@ -1,0 +1,11 @@
+{
+  "cohort_manifest_sha256": "1447fd269fcd9a725531cadb8c90075521b61d961f2254b52e3449e43b9c7e56",
+  "development_corpus_sha256": "31659363fa0b4789fbbf87da0be60961c08b0e17569d8c4e83cf3299aae41236",
+  "protocol_sha256": "b5bb279574d958ccaa3abab49f636087bdde4b1b068567e18307024641216d7f",
+  "reserved_holdout_corpus_sha256": "80cdabe1dfb08767e9f68acf0999be85b35c42660a6d5380246eee4b6cf4d1a8",
+  "run_plan_sha256": "f856b4ad48abfc9928a364d87b2b510e5bac6ebafee61356f986a111773bdfd4",
+  "schema": "ghostnote-compact-json-development-v1",
+  "screen_sha256": "3cd5a2cf2df64991da97e30178c6c48fbd18566b1ea284d56b5ba571eb75ddec",
+  "sha256": "987aaa1b0f95cf230acce149300a14199434fd8f3cfb6c9de912e29bafcffa54",
+  "transport_audit_sha256": "29dd0213652ba3b69898c4388dd2d15ca52cf3423c96941a81e858e7899322fa"
+}

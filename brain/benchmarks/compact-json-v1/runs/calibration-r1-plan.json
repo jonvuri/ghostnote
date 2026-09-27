@@ -1,0 +1,104 @@
+{
+  "allowed_follow_up": "Summarize the fixed calibration. Do not start development without a new frozen plan and explicit approval.",
+  "approval": {
+    "requirement": "Get explicit operator approval for this exact calibration before any provider call.",
+    "status": "pending"
+  },
+  "cohort_manifest_sha256": "b9da13e9663ba3d1c60fc04581e39c4d4b8b044098d90ddf5d5598e68f46fd2b",
+  "corpus_sha256": "b7b43ef309af6af20aaef0982d60ad73f97ef8ddf73e391e608a3672f8b11fb5",
+  "cost_estimate": {
+    "basis": {
+      "contingency": 0.25,
+      "mean_call_cost_usd": {
+        "claude": 0.01633838888888889,
+        "gemini": 0.002934876739562624,
+        "openai": 0.004619055555555556
+      },
+      "method": "Use the larger recent observed mean call cost for each provider and add 25 percent.",
+      "price_sources": {
+        "claude": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "gemini": "https://ai.google.dev/gemini-api/docs/pricing",
+        "openai": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+      },
+      "price_verification_date": "2026-09-27",
+      "source": "Phase 8c2 and Phase 8c2.2 provider manifests"
+    },
+    "providers": {
+      "claude": {
+        "calls": 70,
+        "estimated_cost_usd": 1.429609
+      },
+      "gemini": {
+        "calls": 70,
+        "estimated_cost_usd": 0.256802
+      },
+      "openai": {
+        "calls": 70,
+        "estimated_cost_usd": 0.404167
+      }
+    },
+    "total_usd": 2.090578
+  },
+  "expected_calls": {
+    "claude": 70,
+    "gemini": 70,
+    "openai": 70,
+    "total": 210
+  },
+  "models": {
+    "claude": "claude-sonnet-5",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "6ca7985ac2fe24658f30ffb6cb59bc2957766190434a2ae84e1cb5567e2881f1",
+  "run_id": "phase8c2-3-compact-json-calibration-r1",
+  "run_kind": "calibration-run-plan",
+  "schema": "ghostnote-compact-json-calibration-v1",
+  "schema_manifest_sha256": "7f2d3e53d85416de88572192528bac9d6d8dae745a8cd55e20c0f4a5be34c46f",
+  "scope": {
+    "arms": [
+      "exact-object-json-midi",
+      "exact-object-json-pc-register",
+      "tuple-json-midi",
+      "tuple-json-pc-register",
+      "midi-like-native"
+    ],
+    "decision_variants": 3,
+    "families": [
+      "generation-progression",
+      "continuation-roles",
+      "transformation-revoice",
+      "generation-melody",
+      "comprehension-structure",
+      "transformation-local",
+      "transformation-rhythm",
+      "continuation-motif"
+    ],
+    "guard_variants": 1,
+    "providers": [
+      "openai",
+      "gemini",
+      "claude"
+    ],
+    "regression_variants": 1,
+    "repeats": 1
+  },
+  "scorer_sha256": "f02e6d77d9d7a9d68475a2020051a2c4f32753db91cafea6952e952075bd67f4",
+  "settings": {
+    "claude": {
+      "effort": "low",
+      "max_tokens": 3000
+    },
+    "gemini": {
+      "max_output_tokens": 3000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 3000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "c2f2d90725e0f07881efa3b7504ebde71b587a309ec17d5de809f95ad655472e",
+  "stopping_rule": "If progression, role continuation, or revoicing is outside the 0.20 through 0.90 control pass-rate band on two or more providers, return repair-measurement and stop provider work. Otherwise, freeze a separate development plan."
+}

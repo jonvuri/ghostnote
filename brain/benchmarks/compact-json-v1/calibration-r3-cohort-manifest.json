@@ -1,0 +1,18 @@
+{
+  "corpus_sha256": "92bed1dac86bc6fd92db724fa82403cf40c61c98656193fbd3c203462aa76037",
+  "fixture_count": 3,
+  "fixture_sha256": [
+    "78146ab9b145735dfc085dc7b827ff6620fc64dcacb6169a5f98139f4b152912",
+    "803c7fc99623c76665eec1ae14a40877266efa0eb8f30dc891d2370c08cad09c",
+    "989d5208f7ca2e86cfd287331de0f34159027a86a9101d786ccc71b1d7c1239d"
+  ],
+  "internal_semantic_duplicates": 0,
+  "prior_semantic_overlap": 0,
+  "schema": "ghostnote-compact-json-calibration-r3-corpus",
+  "semantic_sha256": [
+    "892164f7ace779388e8d0e9236f135b1cb53597bf1c334c6b1559a00c8536dfa",
+    "8f00c3168169aeee9c5a4a85887562a7235177e00f9b98b1f9fc3f2839ac6393",
+    "b6a26837b52cf7ce881ef213e3765701ee017b82436e750aa6f78575b9b7b118"
+  ],
+  "sha256": "7e533c1c95b44851ef33288bd2a9bb1a4006b5df0090f23ea01cb59f885fc288"
+}

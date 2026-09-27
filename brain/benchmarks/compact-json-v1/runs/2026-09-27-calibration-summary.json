@@ -1,0 +1,1893 @@
+{
+  "capability_table": {
+    "exact-object-json-midi": {
+      "conflict_handling": "base hash and target validation",
+      "exact_preservation": true,
+      "factorial_cell": true,
+      "full_document_fidelity": true,
+      "native_anchor": false,
+      "one_canonical_pitch_encoding": true,
+      "sparse_patch": true,
+      "stable_identity": true
+    },
+    "exact-object-json-pc-register": {
+      "conflict_handling": "base hash and target validation",
+      "exact_preservation": true,
+      "factorial_cell": true,
+      "full_document_fidelity": true,
+      "native_anchor": false,
+      "one_canonical_pitch_encoding": true,
+      "sparse_patch": true,
+      "stable_identity": true
+    },
+    "midi-like-native": {
+      "conflict_handling": "not supplied",
+      "exact_preservation": false,
+      "factorial_cell": false,
+      "full_document_fidelity": false,
+      "native_anchor": true,
+      "one_canonical_pitch_encoding": true,
+      "sparse_patch": false,
+      "stable_identity": false
+    },
+    "tuple-json-midi": {
+      "conflict_handling": "base hash and target validation",
+      "exact_preservation": true,
+      "factorial_cell": true,
+      "full_document_fidelity": true,
+      "native_anchor": false,
+      "one_canonical_pitch_encoding": true,
+      "sparse_patch": true,
+      "stable_identity": true
+    },
+    "tuple-json-pc-register": {
+      "conflict_handling": "base hash and target validation",
+      "exact_preservation": true,
+      "factorial_cell": true,
+      "full_document_fidelity": true,
+      "native_anchor": false,
+      "one_canonical_pitch_encoding": true,
+      "sparse_patch": true,
+      "stable_identity": true
+    }
+  },
+  "decision": "repair-measurement",
+  "eligibility": [
+    {
+      "eligible": false,
+      "eligible_providers": 1,
+      "family": "generation-progression",
+      "providers": [
+        {
+          "inside_band": false,
+          "provider": "openai",
+          "rate": 0.0,
+          "successes": 0,
+          "trials": 6
+        },
+        {
+          "inside_band": false,
+          "provider": "gemini",
+          "rate": 0.166667,
+          "successes": 1,
+          "trials": 6
+        },
+        {
+          "inside_band": true,
+          "provider": "claude",
+          "rate": 0.333333,
+          "successes": 2,
+          "trials": 6
+        }
+      ]
+    },
+    {
+      "eligible": true,
+      "eligible_providers": 2,
+      "family": "continuation-roles",
+      "providers": [
+        {
+          "inside_band": false,
+          "provider": "openai",
+          "rate": 0.166667,
+          "successes": 1,
+          "trials": 6
+        },
+        {
+          "inside_band": true,
+          "provider": "gemini",
+          "rate": 0.5,
+          "successes": 3,
+          "trials": 6
+        },
+        {
+          "inside_band": true,
+          "provider": "claude",
+          "rate": 0.333333,
+          "successes": 2,
+          "trials": 6
+        }
+      ]
+    },
+    {
+      "eligible": false,
+      "eligible_providers": 0,
+      "family": "transformation-revoice",
+      "providers": [
+        {
+          "inside_band": false,
+          "provider": "openai",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        },
+        {
+          "inside_band": false,
+          "provider": "gemini",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        },
+        {
+          "inside_band": false,
+          "provider": "claude",
+          "rate": 1.0,
+          "successes": 6,
+          "trials": 6
+        }
+      ]
+    }
+  ],
+  "providers": [
+    {
+      "actual_cost_usd": 0.41698,
+      "common_metrics": [
+        {
+          "arm": "exact-object-json-midi",
+          "input_tokens": 10634,
+          "mean_latency_ms": 6062.84,
+          "musical_successes": 7,
+          "output_bytes": 28579,
+          "trials": 14
+        },
+        {
+          "arm": "exact-object-json-pc-register",
+          "input_tokens": 11120,
+          "mean_latency_ms": 6094.343,
+          "musical_successes": 7,
+          "output_bytes": 25880,
+          "trials": 14
+        },
+        {
+          "arm": "tuple-json-midi",
+          "input_tokens": 8399,
+          "mean_latency_ms": 4964.482,
+          "musical_successes": 8,
+          "output_bytes": 13798,
+          "trials": 14
+        },
+        {
+          "arm": "tuple-json-pc-register",
+          "input_tokens": 8885,
+          "mean_latency_ms": 6045.003,
+          "musical_successes": 8,
+          "output_bytes": 13476,
+          "trials": 14
+        },
+        {
+          "arm": "midi-like-native",
+          "input_tokens": 5585,
+          "mean_latency_ms": 3798.971,
+          "musical_successes": 8,
+          "output_bytes": 9168,
+          "trials": 14
+        }
+      ],
+      "factorial": {
+        "by_family": {
+          "comprehension-structure": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "continuation-motif": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "continuation-roles": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.666667,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 2,
+              "effect": 0.666667,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.133222,
+                1.200111
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 2,
+              "effect": 0.666667,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.133222,
+                1.200111
+              ]
+            }
+          },
+          "generation-melody": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "generation-progression": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "transformation-local": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "transformation-revoice": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 1,
+              "candidate_only_wins": 0,
+              "effect": -0.333333,
+              "paired_denominator": 3,
+              "wald_95": [
+                -0.866778,
+                0.200111
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 1,
+              "candidate_only_wins": 0,
+              "effect": -0.333333,
+              "paired_denominator": 3,
+              "wald_95": [
+                -0.866778,
+                0.200111
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "transformation-rhythm": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": -2.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 1,
+              "effect": 1.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                1.0,
+                1.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 1,
+              "candidate_only_wins": 0,
+              "effect": -1.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                -1.0,
+                -1.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 1,
+              "effect": 1.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                1.0,
+                1.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 1,
+              "candidate_only_wins": 0,
+              "effect": -1.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                -1.0,
+                -1.0
+              ]
+            }
+          }
+        },
+        "overall": {
+          "excluded_arm": "midi-like-native",
+          "factorial_arms": [
+            "exact-object-json-midi",
+            "exact-object-json-pc-register",
+            "tuple-json-midi",
+            "tuple-json-pc-register"
+          ],
+          "interaction": 0.0,
+          "pitch_encoding_in_objects": {
+            "baseline": "exact-object-json-midi",
+            "candidate": "exact-object-json-pc-register",
+            "candidate_only_losses": 1,
+            "candidate_only_wins": 1,
+            "effect": 0.0,
+            "paired_denominator": 14,
+            "wald_95": [
+              -0.19799,
+              0.19799
+            ]
+          },
+          "pitch_encoding_in_tuples": {
+            "baseline": "tuple-json-midi",
+            "candidate": "tuple-json-pc-register",
+            "candidate_only_losses": 2,
+            "candidate_only_wins": 2,
+            "effect": 0.0,
+            "paired_denominator": 14,
+            "wald_95": [
+              -0.28,
+              0.28
+            ]
+          },
+          "tuple_shape_at_midi": {
+            "baseline": "exact-object-json-midi",
+            "candidate": "tuple-json-midi",
+            "candidate_only_losses": 0,
+            "candidate_only_wins": 1,
+            "effect": 0.071429,
+            "paired_denominator": 14,
+            "wald_95": [
+              -0.063479,
+              0.206336
+            ]
+          },
+          "tuple_shape_at_pc_register": {
+            "baseline": "exact-object-json-pc-register",
+            "candidate": "tuple-json-pc-register",
+            "candidate_only_losses": 1,
+            "candidate_only_wins": 2,
+            "effect": 0.071429,
+            "paired_denominator": 14,
+            "wald_95": [
+              -0.168154,
+              0.311012
+            ]
+          }
+        }
+      },
+      "native_capabilities": {
+        "conflict_handling": "not supplied",
+        "exact_preservation": false,
+        "factorial_cell": false,
+        "full_document_fidelity": false,
+        "native_anchor": true,
+        "one_canonical_pitch_encoding": true,
+        "sparse_patch": false,
+        "stable_identity": false
+      },
+      "provider": "openai"
+    },
+    {
+      "actual_cost_usd": 0.215447,
+      "common_metrics": [
+        {
+          "arm": "exact-object-json-midi",
+          "input_tokens": 11334,
+          "mean_latency_ms": 3696.379,
+          "musical_successes": 8,
+          "output_bytes": 26814,
+          "trials": 14
+        },
+        {
+          "arm": "exact-object-json-pc-register",
+          "input_tokens": 11760,
+          "mean_latency_ms": 3599.646,
+          "musical_successes": 8,
+          "output_bytes": 28447,
+          "trials": 14
+        },
+        {
+          "arm": "tuple-json-midi",
+          "input_tokens": 9005,
+          "mean_latency_ms": 3173.14,
+          "musical_successes": 8,
+          "output_bytes": 13592,
+          "trials": 14
+        },
+        {
+          "arm": "tuple-json-pc-register",
+          "input_tokens": 9431,
+          "mean_latency_ms": 3870.294,
+          "musical_successes": 8,
+          "output_bytes": 14244,
+          "trials": 14
+        },
+        {
+          "arm": "midi-like-native",
+          "input_tokens": 5678,
+          "mean_latency_ms": 2646.994,
+          "musical_successes": 11,
+          "output_bytes": 9168,
+          "trials": 14
+        }
+      ],
+      "factorial": {
+        "by_family": {
+          "comprehension-structure": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "continuation-motif": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "continuation-roles": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "generation-melody": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "generation-progression": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "transformation-local": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "transformation-revoice": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "transformation-rhythm": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          }
+        },
+        "overall": {
+          "excluded_arm": "midi-like-native",
+          "factorial_arms": [
+            "exact-object-json-midi",
+            "exact-object-json-pc-register",
+            "tuple-json-midi",
+            "tuple-json-pc-register"
+          ],
+          "interaction": 0.0,
+          "pitch_encoding_in_objects": {
+            "baseline": "exact-object-json-midi",
+            "candidate": "exact-object-json-pc-register",
+            "candidate_only_losses": 0,
+            "candidate_only_wins": 0,
+            "effect": 0.0,
+            "paired_denominator": 14,
+            "wald_95": [
+              0.0,
+              0.0
+            ]
+          },
+          "pitch_encoding_in_tuples": {
+            "baseline": "tuple-json-midi",
+            "candidate": "tuple-json-pc-register",
+            "candidate_only_losses": 0,
+            "candidate_only_wins": 0,
+            "effect": 0.0,
+            "paired_denominator": 14,
+            "wald_95": [
+              0.0,
+              0.0
+            ]
+          },
+          "tuple_shape_at_midi": {
+            "baseline": "exact-object-json-midi",
+            "candidate": "tuple-json-midi",
+            "candidate_only_losses": 0,
+            "candidate_only_wins": 0,
+            "effect": 0.0,
+            "paired_denominator": 14,
+            "wald_95": [
+              0.0,
+              0.0
+            ]
+          },
+          "tuple_shape_at_pc_register": {
+            "baseline": "exact-object-json-pc-register",
+            "candidate": "tuple-json-pc-register",
+            "candidate_only_losses": 0,
+            "candidate_only_wins": 0,
+            "effect": 0.0,
+            "paired_denominator": 14,
+            "wald_95": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "native_capabilities": {
+        "conflict_handling": "not supplied",
+        "exact_preservation": false,
+        "factorial_cell": false,
+        "full_document_fidelity": false,
+        "native_anchor": true,
+        "one_canonical_pitch_encoding": true,
+        "sparse_patch": false,
+        "stable_identity": false
+      },
+      "provider": "gemini"
+    },
+    {
+      "actual_cost_usd": 1.93119,
+      "common_metrics": [
+        {
+          "arm": "exact-object-json-midi",
+          "input_tokens": 18675,
+          "mean_latency_ms": 16545.229,
+          "musical_successes": 8,
+          "output_bytes": 26979,
+          "trials": 14
+        },
+        {
+          "arm": "exact-object-json-pc-register",
+          "input_tokens": 19320,
+          "mean_latency_ms": 18369.474,
+          "musical_successes": 5,
+          "output_bytes": 21196,
+          "trials": 14
+        },
+        {
+          "arm": "tuple-json-midi",
+          "input_tokens": 14174,
+          "mean_latency_ms": 11567.401,
+          "musical_successes": 8,
+          "output_bytes": 13644,
+          "trials": 14
+        },
+        {
+          "arm": "tuple-json-pc-register",
+          "input_tokens": 14819,
+          "mean_latency_ms": 14602.749,
+          "musical_successes": 8,
+          "output_bytes": 12851,
+          "trials": 14
+        },
+        {
+          "arm": "midi-like-native",
+          "input_tokens": 11432,
+          "mean_latency_ms": 8432.09,
+          "musical_successes": 12,
+          "output_bytes": 9168,
+          "trials": 14
+        }
+      ],
+      "factorial": {
+        "by_family": {
+          "comprehension-structure": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "continuation-motif": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 1.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 1,
+              "candidate_only_wins": 0,
+              "effect": -1.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                -1.0,
+                -1.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 1,
+              "effect": 1.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                1.0,
+                1.0
+              ]
+            }
+          },
+          "continuation-roles": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "generation-melody": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "generation-progression": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.333333,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 1,
+              "effect": 0.333333,
+              "paired_denominator": 3,
+              "wald_95": [
+                -0.200111,
+                0.866778
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 1,
+              "effect": 0.333333,
+              "paired_denominator": 3,
+              "wald_95": [
+                -0.200111,
+                0.866778
+              ]
+            }
+          },
+          "transformation-local": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "transformation-revoice": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.333334,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 2,
+              "candidate_only_wins": 0,
+              "effect": -0.666667,
+              "paired_denominator": 3,
+              "wald_95": [
+                -1.200111,
+                -0.133222
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 1,
+              "candidate_only_wins": 0,
+              "effect": -0.333333,
+              "paired_denominator": 3,
+              "wald_95": [
+                -0.866778,
+                0.200111
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 3,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 1,
+              "effect": 0.333333,
+              "paired_denominator": 3,
+              "wald_95": [
+                -0.200111,
+                0.866778
+              ]
+            }
+          },
+          "transformation-rhythm": {
+            "excluded_arm": "midi-like-native",
+            "factorial_arms": [
+              "exact-object-json-midi",
+              "exact-object-json-pc-register",
+              "tuple-json-midi",
+              "tuple-json-pc-register"
+            ],
+            "interaction": 0.0,
+            "pitch_encoding_in_objects": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "exact-object-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "pitch_encoding_in_tuples": {
+              "baseline": "tuple-json-midi",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_midi": {
+              "baseline": "exact-object-json-midi",
+              "candidate": "tuple-json-midi",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            },
+            "tuple_shape_at_pc_register": {
+              "baseline": "exact-object-json-pc-register",
+              "candidate": "tuple-json-pc-register",
+              "candidate_only_losses": 0,
+              "candidate_only_wins": 0,
+              "effect": 0.0,
+              "paired_denominator": 1,
+              "wald_95": [
+                0.0,
+                0.0
+              ]
+            }
+          }
+        },
+        "overall": {
+          "excluded_arm": "midi-like-native",
+          "factorial_arms": [
+            "exact-object-json-midi",
+            "exact-object-json-pc-register",
+            "tuple-json-midi",
+            "tuple-json-pc-register"
+          ],
+          "interaction": 0.214286,
+          "pitch_encoding_in_objects": {
+            "baseline": "exact-object-json-midi",
+            "candidate": "exact-object-json-pc-register",
+            "candidate_only_losses": 3,
+            "candidate_only_wins": 0,
+            "effect": -0.214286,
+            "paired_denominator": 14,
+            "wald_95": [
+              -0.429228,
+              0.000656
+            ]
+          },
+          "pitch_encoding_in_tuples": {
+            "baseline": "tuple-json-midi",
+            "candidate": "tuple-json-pc-register",
+            "candidate_only_losses": 1,
+            "candidate_only_wins": 1,
+            "effect": 0.0,
+            "paired_denominator": 14,
+            "wald_95": [
+              -0.19799,
+              0.19799
+            ]
+          },
+          "tuple_shape_at_midi": {
+            "baseline": "exact-object-json-midi",
+            "candidate": "tuple-json-midi",
+            "candidate_only_losses": 0,
+            "candidate_only_wins": 0,
+            "effect": 0.0,
+            "paired_denominator": 14,
+            "wald_95": [
+              0.0,
+              0.0
+            ]
+          },
+          "tuple_shape_at_pc_register": {
+            "baseline": "exact-object-json-pc-register",
+            "candidate": "tuple-json-pc-register",
+            "candidate_only_losses": 0,
+            "candidate_only_wins": 3,
+            "effect": 0.214286,
+            "paired_denominator": 14,
+            "wald_95": [
+              -0.000656,
+              0.429228
+            ]
+          }
+        }
+      },
+      "native_capabilities": {
+        "conflict_handling": "not supplied",
+        "exact_preservation": false,
+        "factorial_cell": false,
+        "full_document_fidelity": false,
+        "native_anchor": true,
+        "one_canonical_pitch_encoding": true,
+        "sparse_patch": false,
+        "stable_identity": false
+      },
+      "provider": "claude"
+    }
+  ],
+  "run_id": "phase8c2-3-compact-json-calibration-r1",
+  "schema": "ghostnote-compact-json-calibration-v1",
+  "selection_authority": "None. Calibration can only detect measurement defects.",
+  "sha256": "9a295ff55df68447f84aacfb2d10aa29e39ea2d8116293d0a6b9aa6bbc593a6a"
+}

@@ -1,0 +1,127 @@
+{
+  "arms": {
+    "exact-object-json-midi": {
+      "document_schema": "ghostnote-exact-object-json-midi-document-v1",
+      "patch_schema": "ghostnote-exact-object-json-midi-patch-v1",
+      "pitch": "midi",
+      "shape": "object"
+    },
+    "exact-object-json-pc-register": {
+      "document_schema": "ghostnote-exact-object-json-pc-register-document-v1",
+      "patch_schema": "ghostnote-exact-object-json-pc-register-patch-v1",
+      "pitch": "pc-register",
+      "shape": "object"
+    },
+    "tuple-json-midi": {
+      "document_schema": "ghostnote-tuple-json-midi-document-v1",
+      "patch_schema": "ghostnote-tuple-json-midi-patch-v1",
+      "pitch": "midi",
+      "shape": "tuple"
+    },
+    "tuple-json-pc-register": {
+      "document_schema": "ghostnote-tuple-json-pc-register-document-v1",
+      "patch_schema": "ghostnote-tuple-json-pc-register-patch-v1",
+      "pitch": "pc-register",
+      "shape": "tuple"
+    }
+  },
+  "object_document": {
+    "bar_fields": [
+      "id",
+      "number",
+      "start",
+      "duration",
+      "meter",
+      "harmony"
+    ],
+    "note_fields": [
+      "id",
+      "region_id",
+      "voice",
+      "start",
+      "duration",
+      "pitch",
+      "velocity"
+    ],
+    "region_fields": [
+      "id",
+      "track_id",
+      "start",
+      "duration"
+    ],
+    "score_fields": [
+      "id",
+      "source_sha256",
+      "tempo_bpm"
+    ],
+    "track_fields": [
+      "id",
+      "name",
+      "role",
+      "midi_channel"
+    ]
+  },
+  "patch": {
+    "change_fields": [
+      "voice",
+      "start",
+      "duration",
+      "pitch",
+      "velocity"
+    ],
+    "conflict_rule": "Reject a stale base, unknown ID, or repeated target ID.",
+    "object_operation_fields": [
+      "op",
+      "id",
+      "changes"
+    ],
+    "operation": "set-note",
+    "tuple_operation_positions": [
+      "op",
+      "id",
+      "changes"
+    ]
+  },
+  "pitch": {
+    "midi": "One integer from 0 through 127.",
+    "pc_register": "One [pitch_class,octave] pair. MIDI is 12 * (octave + 1) + pitch_class and must be from 0 through 127."
+  },
+  "schema": "ghostnote-compact-json-v1",
+  "sha256": "7f2d3e53d85416de88572192528bac9d6d8dae745a8cd55e20c0f4a5be34c46f",
+  "tuple_document": {
+    "bar_positions": [
+      "id",
+      "number",
+      "start",
+      "duration",
+      "meter",
+      "harmony"
+    ],
+    "note_positions": [
+      "id",
+      "region_id",
+      "voice",
+      "start",
+      "duration",
+      "pitch",
+      "velocity"
+    ],
+    "region_positions": [
+      "id",
+      "track_id",
+      "start",
+      "duration"
+    ],
+    "score_positions": [
+      "id",
+      "source_sha256",
+      "tempo_bpm"
+    ],
+    "track_positions": [
+      "id",
+      "name",
+      "role",
+      "midi_channel"
+    ]
+  }
+}

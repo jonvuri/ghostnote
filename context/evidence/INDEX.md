@@ -12,6 +12,12 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E152 | Tuple JSON with MIDI integers passes targeted holdout [K] (2026-09-27) | [open](experiments/e152-tuple-json-midi-passes-targeted-holdout.md) |
+| E151 | Compact JSON development freezes a targeted holdout [K] (2026-09-27) | [open](experiments/e151-compact-json-development-freezes-targeted-holdout.md) |
+| E150 | Compact JSON r3 passes and development freezes [K] (2026-09-27) | [open](experiments/e150-compact-json-r3-passes-and-development-freezes.md) |
+| E149 | Compact JSON r2 stops at settings repair [K] (2026-09-27) | [open](experiments/e149-compact-json-r2-stops-at-settings-repair.md) |
+| E148 | Compact JSON calibration requires measurement repair [K] (2026-09-27) | [open](experiments/e148-compact-json-calibration-requires-measurement-repair.md) |
+| E147 | Compact JSON calibration awaits approval [K] (2026-09-27) | [open](experiments/e147-compact-json-calibration-awaits-approval.md) |
 | E142 | Label-only compact fails the targeted holdout [K] (2026-09-27) | [open](experiments/e142-label-only-compact-fails-targeted-holdout.md) |
 | E141 | Label-only compact enters the targeted holdout [K] (2026-09-27) | [open](experiments/e141-label-only-compact-enters-targeted-holdout.md) |
 | E140 | Expanded symbolic-format comparison requires a compact grammar revision [K] (2026-09-27) | [open](experiments/e140-expanded-symbolic-format-comparison-requires-revision.md) |

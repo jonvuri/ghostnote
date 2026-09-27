@@ -1,0 +1,15 @@
+{
+  "approved_scope": {
+    "cheap_stage_calls": 30,
+    "cheap_stage_estimated_cost_usd": 0.202548,
+    "claude_calls_if_required": 15,
+    "maximum_calls": 45,
+    "maximum_estimated_cost_usd": 0.719831
+  },
+  "approved_at": "2026-09-27",
+  "operator_statement": "Yes, I approve this R3. Proceed.",
+  "repair_protocol_sha256": "424bcf3e2889424c0b0f5752fc33d98ca4391bba41a714f93543da46d1f7e6ff",
+  "run_id": "phase8c2-3-json-settings-repair-calibration-r3",
+  "run_plan_sha256": "15c5e47a1484645bb16e88c15926fcb649203cd44376d7035958a090ea835c22",
+  "status": "approved"
+}

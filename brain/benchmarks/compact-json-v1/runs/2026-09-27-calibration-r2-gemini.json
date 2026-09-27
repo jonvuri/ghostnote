@@ -1,0 +1,1427 @@
+{
+  "actual_cost_usd": 0.110506,
+  "approval": {
+    "approved_at": "2026-09-27",
+    "approved_scope": {
+      "cheap_stage_calls": 60,
+      "cheap_stage_estimated_cost_usd": 0.3388,
+      "claude_calls_if_required": 30,
+      "maximum_calls": 90,
+      "maximum_estimated_cost_usd": 1.373366
+    },
+    "operator_statement": "I approve, proceed with R2.",
+    "repair_protocol_sha256": "88827047bed644a810d3a09fb8b07c111be37c79badbc9ba1f37842471345aad",
+    "run_id": "phase8c2-3-json-grammar-repair-calibration-r2",
+    "run_plan_sha256": "85bbd74b344fa9986cd852f043ae70f4e248be14151a4665c7b8136eec0d5715",
+    "status": "approved"
+  },
+  "complete": true,
+  "manifest_sha256": "3d48d040e490912d8421aa57f0ea3d60adf4c950aab13cbf417b8c61cec670b5",
+  "platform": "Darwin 24.6.0 arm64",
+  "privacy": "Send generated MIT symbolic text only. Do not send live project data, MIDI files, audio, or API keys.",
+  "protocol_sha256": "88827047bed644a810d3a09fb8b07c111be37c79badbc9ba1f37842471345aad",
+  "provider": "gemini",
+  "python": "3.14.6",
+  "raw_run_sha256": "2f68b5e5723105c9c8fbad17007611e491b961b9deab1b20775b49aae9a0f85e",
+  "repairs": [],
+  "requested_model": "gemini-3.8-flash",
+  "results": [
+    {
+      "arm": "exact-object-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0029175,
+        "total": 0.003606,
+        "uncached_input": 0.0006885
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3675.946,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2997,
+      "prompt_sha256": "3a20ae22bc867c47d1256a8426c4eb7a8f237f136c771319429a5c5ef8db6555",
+      "raw_response_sha256": "955d8f803f305d95b0ba0e6fcf9f6e3767c6ce0620c777ff6e0c4bc1c6843ea6",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-2\",\"meter\":\"4/4\",\"number\":2,\"start\":\"4\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-3\",\"meter\":\"4/4\",\"number\":3,\"start\":\"8\"}],\"notes\":[{\"duration\":\"5/6\",\"id\":\"note-bass-1\",\"pitch\":44,\"region_id\":\"region-bass\",\"start\":\"35/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-1\",\"pitch\":61,\"region_id\":\"region-lead\",\"start\":\"35/6\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-2\",\"pitch\":45,\"region_id\":\"region-bass\",\"start\":\"20/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-2\",\"pitch\":61,\"region_id\":\"region-lead\",\"start\":\"20/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-3\",\"pitch\":46,\"region_id\":\"region-bass\",\"start\":\"15/2\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-3\",\"pitch\":63,\"region_id\":\"region-lead\",\"start\":\"15/2\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-4\",\"pitch\":47,\"region_id\":\"region-bass\",\"start\":\"25/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-4\",\"pitch\":63,\"region_id\":\"region-lead\",\"start\":\"25/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-5\",\"pitch\":44,\"region_id\":\"region-bass\",\"start\":\"55/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-5\",\"pitch\":61,\"region_id\":\"region-lead\",\"start\":\"55/6\",\"velocity\":84,\"voice\":\"lead\"}],\"regions\":[{\"duration\":\"10\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"10\",\"id\":\"region-lead\",\"start\":\"0\",\"track_id\":\"track-lead\"}],\"schema\":\"ghostnote-exact-object-json-midi-document-v1\",\"score\":{\"id\":\"calibration-r2-continuation-roles-v0\",\"source_sha256\":\"812353c968f55e0993254e6becf2908bba84c24532f76393dd639ec37d8f8885\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-bass\",\"midi_channel\":0,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-lead\",\"midi_channel\":1,\"name\":\"lead\",\"role\":\"lead\"}]}",
+      "response_payload_bytes": 1997,
+      "response_payload_sha256": "29e551e0f36dc533fbac711043408610647e4a4716c947aaf56194338ca4911e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "19eba07a5e12a66688c0014491b1de384ad7c51f6d07f54b79f7f1b2c264b328",
+      "stop_reason": "STOP",
+      "task_sha256": "812353c968f55e0993254e6becf2908bba84c24532f76393dd639ec37d8f8885",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 918,
+        "output_tokens": 778,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-object-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00291375,
+        "total": 0.00360225,
+        "uncached_input": 0.0006885
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3757.568,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2999,
+      "prompt_sha256": "10eb56e797a674ce3db3c5f4b0193647824a05a2ddeebc6a44a62b6d60dce116",
+      "raw_response_sha256": "692957695db6b97a98fcefc1be6714b88fefc408470834d9c5231a397b72f5a7",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-2\",\"meter\":\"4/4\",\"number\":2,\"start\":\"4\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-3\",\"meter\":\"4/4\",\"number\":3,\"start\":\"8\"}],\"notes\":[{\"duration\":\"5/6\",\"id\":\"note-bass-1\",\"pitch\":44,\"region_id\":\"region-bass\",\"start\":\"35/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-1\",\"pitch\":71,\"region_id\":\"region-lead\",\"start\":\"35/6\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-2\",\"pitch\":40,\"region_id\":\"region-bass\",\"start\":\"20/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-2\",\"pitch\":68,\"region_id\":\"region-lead\",\"start\":\"20/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-3\",\"pitch\":41,\"region_id\":\"region-bass\",\"start\":\"15/2\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-3\",\"pitch\":70,\"region_id\":\"region-lead\",\"start\":\"15/2\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-4\",\"pitch\":39,\"region_id\":\"region-bass\",\"start\":\"25/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-4\",\"pitch\":66,\"region_id\":\"region-lead\",\"start\":\"25/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-5\",\"pitch\":44,\"region_id\":\"region-bass\",\"start\":\"55/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-5\",\"pitch\":68,\"region_id\":\"region-lead\",\"start\":\"55/6\",\"velocity\":84,\"voice\":\"lead\"}],\"regions\":[{\"duration\":\"10\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"10\",\"id\":\"region-lead\",\"start\":\"0\",\"track_id\":\"track-lead\"}],\"schema\":\"ghostnote-exact-object-json-midi-document-v1\",\"score\":{\"id\":\"calibration-r2-continuation-roles-v1\",\"source_sha256\":\"3ad5ad9db53055979427bb31a1f5c0c1d641a7bce136f12bd694b93965f8c9ed\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-bass\",\"midi_channel\":0,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-lead\",\"midi_channel\":1,\"name\":\"lead\",\"role\":\"lead\"}]}",
+      "response_payload_bytes": 1997,
+      "response_payload_sha256": "675bdf342a42790de67dde5d66d1120779f6bae602e58f5c08863fffe7c50f81",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "f2001ba6e1de91620fd1f00801563a494d16f9d9d2d65b2e7626b96e353ee8ef",
+      "stop_reason": "STOP",
+      "task_sha256": "3ad5ad9db53055979427bb31a1f5c0c1d641a7bce136f12bd694b93965f8c9ed",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 918,
+        "output_tokens": 777,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-object-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0029025,
+        "total": 0.00359325,
+        "uncached_input": 0.00069075
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3764.421,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2999,
+      "prompt_sha256": "2ab5f89e39a318e5772f04210890e93f61f68fd94bbdb30d925423ec23f3fb3b",
+      "raw_response_sha256": "0c0945c29fdec244a7574581a6a6d53b362d95afaf592f76b5bf5e763266727b",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-2\",\"meter\":\"4/4\",\"number\":2,\"start\":\"4\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-3\",\"meter\":\"4/4\",\"number\":3,\"start\":\"8\"}],\"notes\":[{\"duration\":\"5/6\",\"id\":\"note-bass-1\",\"pitch\":46,\"region_id\":\"region-bass\",\"start\":\"35/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-1\",\"pitch\":70,\"region_id\":\"region-lead\",\"start\":\"35/6\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-2\",\"pitch\":47,\"region_id\":\"region-bass\",\"start\":\"20/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-2\",\"pitch\":71,\"region_id\":\"region-lead\",\"start\":\"20/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-3\",\"pitch\":48,\"region_id\":\"region-bass\",\"start\":\"15/2\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-3\",\"pitch\":72,\"region_id\":\"region-lead\",\"start\":\"15/2\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-4\",\"pitch\":46,\"region_id\":\"region-bass\",\"start\":\"25/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-4\",\"pitch\":70,\"region_id\":\"region-lead\",\"start\":\"25/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-5\",\"pitch\":42,\"region_id\":\"region-bass\",\"start\":\"55/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-5\",\"pitch\":75,\"region_id\":\"region-lead\",\"start\":\"55/6\",\"velocity\":84,\"voice\":\"lead\"}],\"regions\":[{\"duration\":\"10\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"10\",\"id\":\"region-lead\",\"start\":\"0\",\"track_id\":\"track-lead\"}],\"schema\":\"ghostnote-exact-object-json-midi-document-v1\",\"score\":{\"id\":\"calibration-r2-continuation-roles-v2\",\"source_sha256\":\"702dd723d0e1a3b609878fb93ef3c9c0940fcb3e5f133947406934b7284f6b45\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-bass\",\"midi_channel\":0,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-lead\",\"midi_channel\":1,\"name\":\"lead\",\"role\":\"lead\"}]}",
+      "response_payload_bytes": 1997,
+      "response_payload_sha256": "dc502397a9fa8658aa97b550199b8a6050078c7556203317d8a88760002ba3be",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "23601f6862d38a4545bb21a7b4f939791cfd6c575f3027143ff7781dd2669b8c",
+      "stop_reason": "STOP",
+      "task_sha256": "702dd723d0e1a3b609878fb93ef3c9c0940fcb3e5f133947406934b7284f6b45",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 921,
+        "output_tokens": 774,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-object-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00411375,
+        "total": 0.004863,
+        "uncached_input": 0.00074925
+      },
+      "family": "generation-progression",
+      "latency_ms": 4391.978,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3252,
+      "prompt_sha256": "bbe2485b886a6b3ffc36c8d1814829b02e159a0c20be24e33029eca9008db2a2",
+      "raw_response_sha256": "5778e51341748591dfa72853bf7832103200b52ac557509f01f8c22358d5913d",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"notes\":[{\"duration\":\"4/5\",\"id\":\"note-0-bass\",\"pitch\":37,\"region_id\":\"region-bass\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-0-tenor\",\"pitch\":56,\"region_id\":\"region-tenor\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-0-alto\",\"pitch\":61,\"region_id\":\"region-alto\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-0-soprano\",\"pitch\":68,\"region_id\":\"region-soprano\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-1-bass\",\"pitch\":42,\"region_id\":\"region-bass\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-1-tenor\",\"pitch\":54,\"region_id\":\"region-tenor\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-1-alto\",\"pitch\":61,\"region_id\":\"region-alto\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-1-soprano\",\"pitch\":69,\"region_id\":\"region-soprano\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-2-bass\",\"pitch\":39,\"region_id\":\"region-bass\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-2-tenor\",\"pitch\":54,\"region_id\":\"region-tenor\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-2-alto\",\"pitch\":58,\"region_id\":\"region-alto\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-2-soprano\",\"pitch\":61,\"region_id\":\"region-soprano\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-3-bass\",\"pitch\":37,\"region_id\":\"region-bass\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-3-tenor\",\"pitch\":56,\"region_id\":\"region-tenor\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-3-alto\",\"pitch\":61,\"region_id\":\"region-alto\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-3-soprano\",\"pitch\":64,\"region_id\":\"region-soprano\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"soprano\"}],\"regions\":[{\"duration\":\"4\",\"id\":\"region-alto\",\"start\":\"0\",\"track_id\":\"track-alto\"},{\"duration\":\"4\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"4\",\"id\":\"region-soprano\",\"start\":\"0\",\"track_id\":\"track-soprano\"},{\"duration\":\"4\",\"id\":\"region-tenor\",\"start\":\"0\",\"track_id\":\"track-tenor\"}],\"schema\":\"ghostnote-exact-object-json-midi-document-v1\",\"score\":{\"id\":\"calibration-r2-generation-progression-v0\",\"source_sha256\":\"365f16f0cd6e736d7d2eb5c3e901dc0a83677d53a49e31b8f8804686c21e1e1a\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-alto\",\"midi_channel\":0,\"name\":\"alto\",\"role\":\"alto\"},{\"id\":\"track-bass\",\"midi_channel\":1,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-soprano\",\"midi_channel\":2,\"name\":\"soprano\",\"role\":\"soprano\"},{\"id\":\"track-tenor\",\"midi_channel\":3,\"name\":\"tenor\",\"role\":\"tenor\"}]}",
+      "response_payload_bytes": 2861,
+      "response_payload_sha256": "ae2542efeda1d0e563f0d31bcaf8fd9339c68d52ce04241d2c72540c8a0cc74f",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "badd2ec31a4a49470e4257df38ed6a032646922d9a789b03c63957e2d6182303",
+      "stop_reason": "STOP",
+      "task_sha256": "365f16f0cd6e736d7d2eb5c3e901dc0a83677d53a49e31b8f8804686c21e1e1a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 999,
+        "output_tokens": 1097,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-object-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0041025,
+        "total": 0.00485175,
+        "uncached_input": 0.00074925
+      },
+      "family": "generation-progression",
+      "latency_ms": 25425.928,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3255,
+      "prompt_sha256": "a6c8b8ef3b89e76ca5ea417605546db9524eb60a3332ea1f7e569eb37f3e9856",
+      "raw_response_sha256": "ed4eb5a40081af0898c276e4562b2e142f9b55e198cde7e83f514165eebfaec4",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"notes\":[{\"duration\":\"4/5\",\"id\":\"note-0-bass\",\"pitch\":44,\"region_id\":\"region-bass\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-0-tenor\",\"pitch\":56,\"region_id\":\"region-tenor\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-0-alto\",\"pitch\":59,\"region_id\":\"region-alto\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-0-soprano\",\"pitch\":63,\"region_id\":\"region-soprano\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-1-bass\",\"pitch\":37,\"region_id\":\"region-bass\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-1-tenor\",\"pitch\":56,\"region_id\":\"region-tenor\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-1-alto\",\"pitch\":61,\"region_id\":\"region-alto\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-1-soprano\",\"pitch\":64,\"region_id\":\"region-soprano\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-2-bass\",\"pitch\":46,\"region_id\":\"region-bass\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-2-tenor\",\"pitch\":53,\"region_id\":\"region-tenor\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-2-alto\",\"pitch\":61,\"region_id\":\"region-alto\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-2-soprano\",\"pitch\":68,\"region_id\":\"region-soprano\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-3-bass\",\"pitch\":44,\"region_id\":\"region-bass\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-3-tenor\",\"pitch\":51,\"region_id\":\"region-tenor\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-3-alto\",\"pitch\":59,\"region_id\":\"region-alto\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-3-soprano\",\"pitch\":68,\"region_id\":\"region-soprano\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"soprano\"}],\"regions\":[{\"duration\":\"4\",\"id\":\"region-alto\",\"start\":\"0\",\"track_id\":\"track-alto\"},{\"duration\":\"4\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"4\",\"id\":\"region-soprano\",\"start\":\"0\",\"track_id\":\"track-soprano\"},{\"duration\":\"4\",\"id\":\"region-tenor\",\"start\":\"0\",\"track_id\":\"track-tenor\"}],\"schema\":\"ghostnote-exact-object-json-midi-document-v1\",\"score\":{\"id\":\"calibration-r2-generation-progression-v1\",\"source_sha256\":\"81c7b5db0b4720eb6966235b150e6488fdf20405fbdef76e0e13a623e1f8d255\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-alto\",\"midi_channel\":0,\"name\":\"alto\",\"role\":\"alto\"},{\"id\":\"track-bass\",\"midi_channel\":1,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-soprano\",\"midi_channel\":2,\"name\":\"soprano\",\"role\":\"soprano\"},{\"id\":\"track-tenor\",\"midi_channel\":3,\"name\":\"tenor\",\"role\":\"tenor\"}]}",
+      "response_payload_bytes": 2861,
+      "response_payload_sha256": "85fcf88eb63e9f9692025d9f3dea0227892ea2c6cd85fff89fffe8de1449194f",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "c25ac400ed7fec353b0ee93a4d4e455f263e5cfdf21efe74977701f07605fa52",
+      "stop_reason": "STOP",
+      "task_sha256": "81c7b5db0b4720eb6966235b150e6488fdf20405fbdef76e0e13a623e1f8d255",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 999,
+        "output_tokens": 1094,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-object-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0041025,
+        "total": 0.00484725,
+        "uncached_input": 0.00074475
+      },
+      "family": "generation-progression",
+      "latency_ms": 4420.38,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3254,
+      "prompt_sha256": "6795a27bd133c07d65140f009a2f40e3a3d3e031da06d015843cf53fbc0e4502",
+      "raw_response_sha256": "3f9a337b48b53074d82c7bd02c61dfde1f9d9a54ef3a99ce5965b1ee608a03b8",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"notes\":[{\"duration\":\"4/5\",\"id\":\"note-1-bass\",\"pitch\":51,\"region_id\":\"region-bass\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-1-tenor\",\"pitch\":58,\"region_id\":\"region-tenor\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-1-alto\",\"pitch\":63,\"region_id\":\"region-alto\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-1-soprano\",\"pitch\":66,\"region_id\":\"region-soprano\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-2-bass\",\"pitch\":44,\"region_id\":\"region-bass\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-2-tenor\",\"pitch\":56,\"region_id\":\"region-tenor\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-2-alto\",\"pitch\":63,\"region_id\":\"region-alto\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-2-soprano\",\"pitch\":71,\"region_id\":\"region-soprano\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-3-bass\",\"pitch\":41,\"region_id\":\"region-bass\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-3-tenor\",\"pitch\":53,\"region_id\":\"region-tenor\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-3-alto\",\"pitch\":60,\"region_id\":\"region-alto\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-3-soprano\",\"pitch\":68,\"region_id\":\"region-soprano\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-4-bass\",\"pitch\":51,\"region_id\":\"region-bass\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-4-tenor\",\"pitch\":58,\"region_id\":\"region-tenor\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-4-alto\",\"pitch\":63,\"region_id\":\"region-alto\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-4-soprano\",\"pitch\":66,\"region_id\":\"region-soprano\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"soprano\"}],\"regions\":[{\"duration\":\"4\",\"id\":\"region-alto\",\"start\":\"0\",\"track_id\":\"track-alto\"},{\"duration\":\"4\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"4\",\"id\":\"region-soprano\",\"start\":\"0\",\"track_id\":\"track-soprano\"},{\"duration\":\"4\",\"id\":\"region-tenor\",\"start\":\"0\",\"track_id\":\"track-tenor\"}],\"schema\":\"ghostnote-exact-object-json-midi-document-v1\",\"score\":{\"id\":\"calibration-r2-generation-progression-v2\",\"source_sha256\":\"a731d2fa5c21c240ccdb3d0f679218e6faa92ccead8ce3bb30d4db721310bf08\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-alto\",\"midi_channel\":0,\"name\":\"alto\",\"role\":\"alto\"},{\"id\":\"track-bass\",\"midi_channel\":1,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-soprano\",\"midi_channel\":2,\"name\":\"soprano\",\"role\":\"soprano\"},{\"id\":\"track-tenor\",\"midi_channel\":3,\"name\":\"tenor\",\"role\":\"tenor\"}]}",
+      "response_payload_bytes": 2861,
+      "response_payload_sha256": "2791d226e147ccc593b2f9fbd65a886d3abbb905d7264d420574e3cc7dff7c39",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "3a1e1ae137081c82851a358f20c467aefa33df3c85a483c6b797fb797eb8a48c",
+      "stop_reason": "STOP",
+      "task_sha256": "a731d2fa5c21c240ccdb3d0f679218e6faa92ccead8ce3bb30d4db721310bf08",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 993,
+        "output_tokens": 1094,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-object-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.003045,
+        "total": 0.003753,
+        "uncached_input": 0.000708
+      },
+      "family": "continuation-roles",
+      "latency_ms": 4034.693,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3064,
+      "prompt_sha256": "63e7cefc7902eb1200e276836d94f6ba4ea02b480d77aebfc9f017cdf73623d0",
+      "raw_response_sha256": "6b5eb4593321f708756249256b4684bdf172e3adf116cb5e2c73447b1c25c188",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-2\",\"meter\":\"4/4\",\"number\":2,\"start\":\"4\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-3\",\"meter\":\"4/4\",\"number\":3,\"start\":\"8\"}],\"notes\":[{\"duration\":\"5/6\",\"id\":\"note-bass-0\",\"pitch\":[1,2],\"region_id\":\"region-bass\",\"start\":\"35/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-0\",\"pitch\":[8,4],\"region_id\":\"region-lead\",\"start\":\"35/6\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-1\",\"pitch\":[6,2],\"region_id\":\"region-bass\",\"start\":\"20/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-1\",\"pitch\":[9,4],\"region_id\":\"region-lead\",\"start\":\"20/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-2\",\"pitch\":[3,2],\"region_id\":\"region-bass\",\"start\":\"15/2\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-2\",\"pitch\":[10,4],\"region_id\":\"region-lead\",\"start\":\"15/2\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-3\",\"pitch\":[8,2],\"region_id\":\"region-bass\",\"start\":\"25/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-3\",\"pitch\":[11,4],\"region_id\":\"region-lead\",\"start\":\"25/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-4\",\"pitch\":[4,2],\"region_id\":\"region-bass\",\"start\":\"55/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-4\",\"pitch\":[1,5],\"region_id\":\"region-lead\",\"start\":\"55/6\",\"velocity\":84,\"voice\":\"lead\"}],\"regions\":[{\"duration\":\"10\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"10\",\"id\":\"region-lead\",\"start\":\"0\",\"track_id\":\"track-lead\"}],\"schema\":\"ghostnote-exact-object-json-pc-register-document-v1\",\"score\":{\"id\":\"calibration-r2-continuation-roles-v0\",\"source_sha256\":\"812353c968f55e0993254e6becf2908bba84c24532f76393dd639ec37d8f8885\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-bass\",\"midi_channel\":0,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-lead\",\"midi_channel\":1,\"name\":\"lead\",\"role\":\"lead\"}]}",
+      "response_payload_bytes": 2036,
+      "response_payload_sha256": "0295afec778acba26c704dac2221d009f59062f94c51c3f7a27d1aa5ab2ca111",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "19eba07a5e12a66688c0014491b1de384ad7c51f6d07f54b79f7f1b2c264b328",
+      "stop_reason": "STOP",
+      "task_sha256": "812353c968f55e0993254e6becf2908bba84c24532f76393dd639ec37d8f8885",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 944,
+        "output_tokens": 812,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-object-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00301875,
+        "total": 0.00372675,
+        "uncached_input": 0.000708
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3467.773,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3066,
+      "prompt_sha256": "167b5d0d4e46b2926c55e1f05053be15b3ca38873632b90623102f1ee11967be",
+      "raw_response_sha256": "7782014df0b2a3b70c6215b089230f39f7895421b206bb2896bb8452e1bbed11",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-2\",\"meter\":\"4/4\",\"number\":2,\"start\":\"4\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-3\",\"meter\":\"4/4\",\"number\":3,\"start\":\"8\"}],\"notes\":[{\"duration\":\"5/6\",\"id\":\"note-bass-1\",\"pitch\":[8,2],\"region_id\":\"region-bass\",\"start\":\"35/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-1\",\"pitch\":[11,4],\"region_id\":\"region-lead\",\"start\":\"35/6\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-2\",\"pitch\":[1,3],\"region_id\":\"region-bass\",\"start\":\"20/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-2\",\"pitch\":[8,4],\"region_id\":\"region-lead\",\"start\":\"20/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-3\",\"pitch\":[5,2],\"region_id\":\"region-bass\",\"start\":\"15/2\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-3\",\"pitch\":[1,5],\"region_id\":\"region-lead\",\"start\":\"15/2\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-4\",\"pitch\":[10,2],\"region_id\":\"region-bass\",\"start\":\"25/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-4\",\"pitch\":[6,4],\"region_id\":\"region-lead\",\"start\":\"25/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-5\",\"pitch\":[3,3],\"region_id\":\"region-bass\",\"start\":\"55/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-5\",\"pitch\":[8,4],\"region_id\":\"region-lead\",\"start\":\"55/6\",\"velocity\":84,\"voice\":\"lead\"}],\"regions\":[{\"duration\":\"10\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"10\",\"id\":\"region-lead\",\"start\":\"0\",\"track_id\":\"track-lead\"}],\"schema\":\"ghostnote-exact-object-json-pc-register-document-v1\",\"score\":{\"id\":\"calibration-r2-continuation-roles-v1\",\"source_sha256\":\"3ad5ad9db53055979427bb31a1f5c0c1d641a7bce136f12bd694b93965f8c9ed\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-bass\",\"midi_channel\":0,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-lead\",\"midi_channel\":1,\"name\":\"lead\",\"role\":\"lead\"}]}",
+      "response_payload_bytes": 2036,
+      "response_payload_sha256": "0fc3d632437ab1299af5bda27359da872cc60dddda1463a762481975bf456663",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "f2001ba6e1de91620fd1f00801563a494d16f9d9d2d65b2e7626b96e353ee8ef",
+      "stop_reason": "STOP",
+      "task_sha256": "3ad5ad9db53055979427bb31a1f5c0c1d641a7bce136f12bd694b93965f8c9ed",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 944,
+        "output_tokens": 805,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-object-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00304875,
+        "total": 0.003759,
+        "uncached_input": 0.00071025
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3660.888,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3066,
+      "prompt_sha256": "1174e82f418fac608826f494fbdde53db7747883cdb844f661c1d9b8171a9bdb",
+      "raw_response_sha256": "8a3d7302125161acafcfee3e2e872044209faa9e12b4648a0730c1b53bdef067",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-2\",\"meter\":\"4/4\",\"number\":2,\"start\":\"4\"},{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-3\",\"meter\":\"4/4\",\"number\":3,\"start\":\"8\"}],\"notes\":[{\"duration\":\"5/6\",\"id\":\"note-bass-1\",\"pitch\":[10,2],\"region_id\":\"region-bass\",\"start\":\"35/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-1\",\"pitch\":[6,4],\"region_id\":\"region-lead\",\"start\":\"35/6\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-2\",\"pitch\":[11,2],\"region_id\":\"region-bass\",\"start\":\"20/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-2\",\"pitch\":[8,4],\"region_id\":\"region-lead\",\"start\":\"20/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-3\",\"pitch\":[0,3],\"region_id\":\"region-bass\",\"start\":\"15/2\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-3\",\"pitch\":[8,4],\"region_id\":\"region-lead\",\"start\":\"15/2\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-4\",\"pitch\":[1,3],\"region_id\":\"region-bass\",\"start\":\"25/3\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-4\",\"pitch\":[5,4],\"region_id\":\"region-lead\",\"start\":\"25/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"5/6\",\"id\":\"note-bass-5\",\"pitch\":[6,2],\"region_id\":\"region-bass\",\"start\":\"55/6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"5/6\",\"id\":\"note-lead-5\",\"pitch\":[3,4],\"region_id\":\"region-lead\",\"start\":\"55/6\",\"velocity\":84,\"voice\":\"lead\"}],\"regions\":[{\"duration\":\"10\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"10\",\"id\":\"region-lead\",\"start\":\"0\",\"track_id\":\"track-lead\"}],\"schema\":\"ghostnote-exact-object-json-pc-register-document-v1\",\"score\":{\"id\":\"calibration-r2-continuation-roles-v2\",\"source_sha256\":\"702dd723d0e1a3b609878fb93ef3c9c0940fcb3e5f133947406934b7284f6b45\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-bass\",\"midi_channel\":0,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-lead\",\"midi_channel\":1,\"name\":\"lead\",\"role\":\"lead\"}]}",
+      "response_payload_bytes": 2036,
+      "response_payload_sha256": "716f2e7ccb2ace846606a39591f292346d7d646699eaf952747bb4036f2094fd",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "23601f6862d38a4545bb21a7b4f939791cfd6c575f3027143ff7781dd2669b8c",
+      "stop_reason": "STOP",
+      "task_sha256": "702dd723d0e1a3b609878fb93ef3c9c0940fcb3e5f133947406934b7284f6b45",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 947,
+        "output_tokens": 813,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-object-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00432375,
+        "total": 0.0050925,
+        "uncached_input": 0.00076875
+      },
+      "family": "generation-progression",
+      "latency_ms": 4545.991,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3319,
+      "prompt_sha256": "37b6e206ac094be96013905c17494a3c3b3e97af436c0de74ac429107ef68744",
+      "raw_response_sha256": "2c23ed11a570d6403e38a8d6b9ae9ef221216f1ce23a1fabcd01f7a7ab2987ca",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"notes\":[{\"duration\":\"4/5\",\"id\":\"note-1-bass\",\"pitch\":[1,2],\"region_id\":\"region-bass\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-1-tenor\",\"pitch\":[8,3],\"region_id\":\"region-tenor\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-1-alto\",\"pitch\":[1,4],\"region_id\":\"region-alto\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-1-soprano\",\"pitch\":[4,4],\"region_id\":\"region-soprano\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-2-bass\",\"pitch\":[6,2],\"region_id\":\"region-bass\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-2-tenor\",\"pitch\":[9,3],\"region_id\":\"region-tenor\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-2-alto\",\"pitch\":[1,4],\"region_id\":\"region-alto\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-2-soprano\",\"pitch\":[6,4],\"region_id\":\"region-soprano\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-3-bass\",\"pitch\":[3,2],\"region_id\":\"region-bass\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-3-tenor\",\"pitch\":[10,3],\"region_id\":\"region-tenor\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-3-alto\",\"pitch\":[1,4],\"region_id\":\"region-alto\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-3-soprano\",\"pitch\":[6,4],\"region_id\":\"region-soprano\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-4-bass\",\"pitch\":[1,2],\"region_id\":\"region-bass\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-4-tenor\",\"pitch\":[8,3],\"region_id\":\"region-tenor\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-4-alto\",\"pitch\":[1,4],\"region_id\":\"region-alto\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-4-soprano\",\"pitch\":[4,4],\"region_id\":\"region-soprano\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"soprano\"}],\"regions\":[{\"duration\":\"4\",\"id\":\"region-alto\",\"start\":\"0\",\"track_id\":\"track-alto\"},{\"duration\":\"4\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"4\",\"id\":\"region-soprano\",\"start\":\"0\",\"track_id\":\"track-soprano\"},{\"duration\":\"4\",\"id\":\"region-tenor\",\"start\":\"0\",\"track_id\":\"track-tenor\"}],\"schema\":\"ghostnote-exact-object-json-pc-register-document-v1\",\"score\":{\"id\":\"calibration-r2-generation-progression-v0\",\"source_sha256\":\"365f16f0cd6e736d7d2eb5c3e901dc0a83677d53a49e31b8f8804686c21e1e1a\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-alto\",\"midi_channel\":0,\"name\":\"alto\",\"role\":\"alto\"},{\"id\":\"track-bass\",\"midi_channel\":1,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-soprano\",\"midi_channel\":2,\"name\":\"soprano\",\"role\":\"soprano\"},{\"id\":\"track-tenor\",\"midi_channel\":3,\"name\":\"tenor\",\"role\":\"tenor\"}]}",
+      "response_payload_bytes": 2917,
+      "response_payload_sha256": "fa7771efa4bc5e544a11fec202b84840b0c8d511d1697220a129a5c3190ab77e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "badd2ec31a4a49470e4257df38ed6a032646922d9a789b03c63957e2d6182303",
+      "stop_reason": "STOP",
+      "task_sha256": "365f16f0cd6e736d7d2eb5c3e901dc0a83677d53a49e31b8f8804686c21e1e1a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 1025,
+        "output_tokens": 1153,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-object-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00417375,
+        "total": 0.0049425,
+        "uncached_input": 0.00076875
+      },
+      "family": "generation-progression",
+      "latency_ms": 4501.703,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3322,
+      "prompt_sha256": "76970aa1fc2b59cd7b185336c1454b6e2745d5719667b963ba83ac31e5b1301c",
+      "raw_response_sha256": "0ef1164dad893cf6eb3933ea841aa10dc4d08ab3885feca64d09112f83b16cd8",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"notes\":[{\"duration\":\"4/5\",\"id\":\"note-0\",\"pitch\":[8,2],\"region_id\":\"region-bass\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-1\",\"pitch\":[3,3],\"region_id\":\"region-tenor\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-2\",\"pitch\":[8,3],\"region_id\":\"region-alto\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-3\",\"pitch\":[11,4],\"region_id\":\"region-soprano\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-4\",\"pitch\":[1,2],\"region_id\":\"region-bass\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-5\",\"pitch\":[4,3],\"region_id\":\"region-tenor\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-6\",\"pitch\":[8,3],\"region_id\":\"region-alto\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-7\",\"pitch\":[1,4],\"region_id\":\"region-soprano\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-8\",\"pitch\":[10,2],\"region_id\":\"region-bass\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-9\",\"pitch\":[5,3],\"region_id\":\"region-tenor\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-10\",\"pitch\":[8,3],\"region_id\":\"region-alto\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-11\",\"pitch\":[1,4],\"region_id\":\"region-soprano\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-12\",\"pitch\":[8,2],\"region_id\":\"region-bass\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-13\",\"pitch\":[3,3],\"region_id\":\"region-tenor\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-14\",\"pitch\":[8,3],\"region_id\":\"region-alto\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-15\",\"pitch\":[11,4],\"region_id\":\"region-soprano\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"soprano\"}],\"regions\":[{\"duration\":\"4\",\"id\":\"region-alto\",\"start\":\"0\",\"track_id\":\"track-alto\"},{\"duration\":\"4\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"4\",\"id\":\"region-soprano\",\"start\":\"0\",\"track_id\":\"track-soprano\"},{\"duration\":\"4\",\"id\":\"region-tenor\",\"start\":\"0\",\"track_id\":\"track-tenor\"}],\"schema\":\"ghostnote-exact-object-json-pc-register-document-v1\",\"score\":{\"id\":\"calibration-r2-generation-progression-v1\",\"source_sha256\":\"81c7b5db0b4720eb6966235b150e6488fdf20405fbdef76e0e13a623e1f8d255\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-alto\",\"midi_channel\":0,\"name\":\"alto\",\"role\":\"alto\"},{\"id\":\"track-bass\",\"midi_channel\":1,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-soprano\",\"midi_channel\":2,\"name\":\"soprano\",\"role\":\"soprano\"},{\"id\":\"track-tenor\",\"midi_channel\":3,\"name\":\"tenor\",\"role\":\"tenor\"}]}",
+      "response_payload_bytes": 2829,
+      "response_payload_sha256": "5ab9b925fdb09682feb6b5c9ddb309b0f8541ec17f7ec69133e07477d98c13eb",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "c25ac400ed7fec353b0ee93a4d4e455f263e5cfdf21efe74977701f07605fa52",
+      "stop_reason": "STOP",
+      "task_sha256": "81c7b5db0b4720eb6966235b150e6488fdf20405fbdef76e0e13a623e1f8d255",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 1025,
+        "output_tokens": 1113,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-object-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0042825,
+        "total": 0.00504675,
+        "uncached_input": 0.00076425
+      },
+      "family": "generation-progression",
+      "latency_ms": 4159.93,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3321,
+      "prompt_sha256": "0c5f7f0246a2e731ea7cf9ce4e9fcefffbda1e894937cc403fe5178a649b4971",
+      "raw_response_sha256": "df89cd4b364235fc2a494cd39e179590714a72fe980e66c4d0660131b3f9fa2d",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"duration\":\"4\",\"harmony\":\"task-contract\",\"id\":\"bar-1\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"notes\":[{\"duration\":\"4/5\",\"id\":\"note-0-bass\",\"pitch\":[3,2],\"region_id\":\"region-bass\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-0-tenor\",\"pitch\":[10,3],\"region_id\":\"region-tenor\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-0-alto\",\"pitch\":[3,4],\"region_id\":\"region-alto\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-0-soprano\",\"pitch\":[6,4],\"region_id\":\"region-soprano\",\"start\":\"1/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-1-bass\",\"pitch\":[8,2],\"region_id\":\"region-bass\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-1-tenor\",\"pitch\":[11,3],\"region_id\":\"region-tenor\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-1-alto\",\"pitch\":[3,4],\"region_id\":\"region-alto\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-1-soprano\",\"pitch\":[8,4],\"region_id\":\"region-soprano\",\"start\":\"6/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-2-bass\",\"pitch\":[5,2],\"region_id\":\"region-bass\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-2-tenor\",\"pitch\":[0,4],\"region_id\":\"region-tenor\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-2-alto\",\"pitch\":[3,4],\"region_id\":\"region-alto\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-2-soprano\",\"pitch\":[8,4],\"region_id\":\"region-soprano\",\"start\":\"11/5\",\"velocity\":80,\"voice\":\"soprano\"},{\"duration\":\"4/5\",\"id\":\"note-3-bass\",\"pitch\":[3,2],\"region_id\":\"region-bass\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"4/5\",\"id\":\"note-3-tenor\",\"pitch\":[10,3],\"region_id\":\"region-tenor\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"tenor\"},{\"duration\":\"4/5\",\"id\":\"note-3-alto\",\"pitch\":[6,4],\"region_id\":\"region-alto\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"4/5\",\"id\":\"note-3-soprano\",\"pitch\":[3,4],\"region_id\":\"region-soprano\",\"start\":\"16/5\",\"velocity\":80,\"voice\":\"soprano\"}],\"regions\":[{\"duration\":\"4\",\"id\":\"region-alto\",\"start\":\"0\",\"track_id\":\"track-alto\"},{\"duration\":\"4\",\"id\":\"region-bass\",\"start\":\"0\",\"track_id\":\"track-bass\"},{\"duration\":\"4\",\"id\":\"region-soprano\",\"start\":\"0\",\"track_id\":\"track-soprano\"},{\"duration\":\"4\",\"id\":\"region-tenor\",\"start\":\"0\",\"track_id\":\"track-tenor\"}],\"schema\":\"ghostnote-exact-object-json-pc-register-document-v1\",\"score\":{\"id\":\"calibration-r2-generation-progression-v2\",\"source_sha256\":\"a731d2fa5c21c240ccdb3d0f679218e6faa92ccead8ce3bb30d4db721310bf08\",\"tempo_bpm\":104},\"tracks\":[{\"id\":\"track-alto\",\"midi_channel\":0,\"name\":\"alto\",\"role\":\"alto\"},{\"id\":\"track-bass\",\"midi_channel\":1,\"name\":\"bass\",\"role\":\"bass\"},{\"id\":\"track-soprano\",\"midi_channel\":2,\"name\":\"soprano\",\"role\":\"soprano\"},{\"id\":\"track-tenor\",\"midi_channel\":3,\"name\":\"tenor\",\"role\":\"tenor\"}]}",
+      "response_payload_bytes": 2919,
+      "response_payload_sha256": "5a7e1fa4fcb6d1dac7c99454e32a7b092b41d3e333152fcea8c1ad34b3b0a867",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "3a1e1ae137081c82851a358f20c467aefa33df3c85a483c6b797fb797eb8a48c",
+      "stop_reason": "STOP",
+      "task_sha256": "a731d2fa5c21c240ccdb3d0f679218e6faa92ccead8ce3bb30d4db721310bf08",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 1019,
+        "output_tokens": 1142,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00108,
+        "total": 0.00129675,
+        "uncached_input": 0.00021675
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2440.702,
+      "outer_schema_valid": true,
+      "prompt_bytes": 962,
+      "prompt_sha256": "23f1e45d4dd9b9e6dfb1912a263b3c4a45d9b43699974570d2376c0e820d27c6",
+      "raw_response_sha256": "18abb3fb5a9e8cea8993b21bb4c95ffa02ff8f1c5716f99521c1155740ee959b",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_35/6 NOTE_ON_40 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_35/6 NOTE_ON_68 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_20/3 NOTE_ON_45 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_20/3 NOTE_ON_69 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_15/2 NOTE_ON_46 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_15/2 NOTE_ON_70 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_25/3 NOTE_ON_47 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_25/3 NOTE_ON_71 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_55/6 NOTE_ON_40 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_55/6 NOTE_ON_73 DURATION_5/6 VELOCITY_80",
+      "response_payload_bytes": 569,
+      "response_payload_sha256": "98adb6d818074191d722f7e548edea61f78cf53cac160f2b460ecd57dac59784",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "19eba07a5e12a66688c0014491b1de384ad7c51f6d07f54b79f7f1b2c264b328",
+      "stop_reason": "STOP",
+      "task_sha256": "812353c968f55e0993254e6becf2908bba84c24532f76393dd639ec37d8f8885",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 289,
+        "output_tokens": 288,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00544125,
+        "total": 0.0056595,
+        "uncached_input": 0.00021825
+      },
+      "family": "continuation-roles",
+      "latency_ms": 5479.957,
+      "outer_schema_valid": true,
+      "prompt_bytes": 964,
+      "prompt_sha256": "87a482d2530e4335773882731129a806e5728c1fa91d7f050f891645c5dd170d",
+      "raw_response_sha256": "e1b6d3db47b63ed327e1660f9c3b41894612cf3baacc35620cd1df1eaa61a8b3",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_35/6 NOTE_ON_44 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_35/6 NOTE_ON_71 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_20/3 NOTE_ON_40 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_20/3 NOTE_ON_68 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_15/2 NOTE_ON_41 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_15/2 NOTE_ON_70 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_25/3 NOTE_ON_42 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_25/3 NOTE_ON_66 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_55/6 NOTE_ON_44 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_55/6 NOTE_ON_68 DURATION_5/6 VELOCITY_80",
+      "response_payload_bytes": 569,
+      "response_payload_sha256": "bb39bfc8ecc6f29c32fd82272c4a71217f56820115db8ced9eb6107550763b5e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "f2001ba6e1de91620fd1f00801563a494d16f9d9d2d65b2e7626b96e353ee8ef",
+      "stop_reason": "STOP",
+      "task_sha256": "3ad5ad9db53055979427bb31a1f5c0c1d641a7bce136f12bd694b93965f8c9ed",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 291,
+        "output_tokens": 1451,
+        "thinking_tokens": 1169
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00108,
+        "total": 0.00129825,
+        "uncached_input": 0.00021825
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2092.931,
+      "outer_schema_valid": true,
+      "prompt_bytes": 964,
+      "prompt_sha256": "ae1d0c0caecf34069f65a509236d98444644d6ccd3a0ba6d8aede864a6e69458",
+      "raw_response_sha256": "d3e07b8d1fb6598de214dd6a7b4ad609275c68e884a201397006213fce50c02a",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_35/6 NOTE_ON_42 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_35/6 NOTE_ON_70 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_20/3 NOTE_ON_44 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_20/3 NOTE_ON_71 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_15/2 NOTE_ON_41 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_15/2 NOTE_ON_68 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_25/3 NOTE_ON_46 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_25/3 NOTE_ON_65 DURATION_5/6 VELOCITY_80\nTRACK_bass TIME_55/6 NOTE_ON_42 DURATION_5/6 VELOCITY_80\nTRACK_lead TIME_55/6 NOTE_ON_63 DURATION_5/6 VELOCITY_80",
+      "response_payload_bytes": 569,
+      "response_payload_sha256": "f7a5077cac8ed5788a54a921741e79d414c292533554ed47cab8acbf632b8c22",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "23601f6862d38a4545bb21a7b4f939791cfd6c575f3027143ff7781dd2669b8c",
+      "stop_reason": "STOP",
+      "task_sha256": "702dd723d0e1a3b609878fb93ef3c9c0940fcb3e5f133947406934b7284f6b45",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 291,
+        "output_tokens": 288,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.010215,
+        "total": 0.010467,
+        "uncached_input": 0.000252
+      },
+      "family": "generation-progression",
+      "latency_ms": 9619.272,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1107,
+      "prompt_sha256": "7325fc5f1144b623cd45138a325e85d1dc05488e1077a4b67c25b1ed846d84b7",
+      "raw_response_sha256": "661ed17ba5c6c8e15b6f310641c3e581f4de41a34078919bc48852341fc3958d",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_1/5 NOTE_ON_49 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_1/5 NOTE_ON_56 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_1/5 NOTE_ON_61 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_1/5 NOTE_ON_65 DURATION_4/5 VELOCITY_80\nTRACK_bass TIME_6/5 NOTE_ON_42 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_6/5 NOTE_ON_57 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_6/5 NOTE_ON_61 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_6/5 NOTE_ON_66 DURATION_4/5 VELOCITY_80\nTRACK_bass TIME_11/5 NOTE_ON_39 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_11/5 NOTE_ON_58 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_11/5 NOTE_ON_61 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_11/5 NOTE_ON_66 DURATION_4/5 VELOCITY_80\nTRACK_bass TIME_16/5 NOTE_ON_49 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_16/5 NOTE_ON_56 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_16/5 NOTE_ON_65 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_16/5 NOTE_ON_73 DURATION_4/5 VELOCITY_80",
+      "response_payload_bytes": 919,
+      "response_payload_sha256": "18dd25c3e59de8355d37d17ba0089e33dd5b8062f808d431eb4bb680d59fd5b7",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "badd2ec31a4a49470e4257df38ed6a032646922d9a789b03c63957e2d6182303",
+      "stop_reason": "STOP",
+      "task_sha256": "365f16f0cd6e736d7d2eb5c3e901dc0a83677d53a49e31b8f8804686c21e1e1a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 336,
+        "output_tokens": 2724,
+        "thinking_tokens": 2274
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00171,
+        "total": 0.00196425,
+        "uncached_input": 0.00025425
+      },
+      "family": "generation-progression",
+      "latency_ms": 2825.8,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1110,
+      "prompt_sha256": "5b25dafff0aa528dc1bc8557385e3f8dba4cf27bcbc93afcc651a65392f53ba8",
+      "raw_response_sha256": "d7db35d7dc658796d075bb3808a3247b3a8e235f4443250a642ae136d802b91d",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_1/5 NOTE_ON_44 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_1/5 NOTE_ON_56 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_1/5 NOTE_ON_59 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_1/5 NOTE_ON_63 DURATION_4/5 VELOCITY_80\nTRACK_bass TIME_6/5 NOTE_ON_49 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_6/5 NOTE_ON_56 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_6/5 NOTE_ON_61 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_6/5 NOTE_ON_64 DURATION_4/5 VELOCITY_80\nTRACK_bass TIME_11/5 NOTE_ON_46 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_11/5 NOTE_ON_53 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_11/5 NOTE_ON_61 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_11/5 NOTE_ON_68 DURATION_4/5 VELOCITY_80\nTRACK_bass TIME_16/5 NOTE_ON_44 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_16/5 NOTE_ON_56 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_16/5 NOTE_ON_59 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_16/5 NOTE_ON_68 DURATION_4/5 VELOCITY_80",
+      "response_payload_bytes": 919,
+      "response_payload_sha256": "1ec7a20b0d019e36b3de7fe29befac53eae0c431e2eaac6550aecc7a444a4b48",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "c25ac400ed7fec353b0ee93a4d4e455f263e5cfdf21efe74977701f07605fa52",
+      "stop_reason": "STOP",
+      "task_sha256": "81c7b5db0b4720eb6966235b150e6488fdf20405fbdef76e0e13a623e1f8d255",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 339,
+        "output_tokens": 456,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00171,
+        "total": 0.0019635,
+        "uncached_input": 0.0002535
+      },
+      "family": "generation-progression",
+      "latency_ms": 2409.767,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1109,
+      "prompt_sha256": "5fce0bca52ead28c83dcbb42e2fe4478806fe830cce3c1431508cf2edd71343f",
+      "raw_response_sha256": "fe50733621aae9a4a22d871fecd1d4102eb648d0311c92f2af909f26c8ae3ff8",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_1/5 NOTE_ON_39 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_1/5 NOTE_ON_51 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_1/5 NOTE_ON_58 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_1/5 NOTE_ON_66 DURATION_4/5 VELOCITY_80\nTRACK_bass TIME_6/5 NOTE_ON_44 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_6/5 NOTE_ON_51 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_6/5 NOTE_ON_59 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_6/5 NOTE_ON_68 DURATION_4/5 VELOCITY_80\nTRACK_bass TIME_11/5 NOTE_ON_41 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_11/5 NOTE_ON_48 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_11/5 NOTE_ON_56 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_11/5 NOTE_ON_63 DURATION_4/5 VELOCITY_80\nTRACK_bass TIME_16/5 NOTE_ON_39 DURATION_4/5 VELOCITY_80\nTRACK_tenor TIME_16/5 NOTE_ON_51 DURATION_4/5 VELOCITY_80\nTRACK_alto TIME_16/5 NOTE_ON_58 DURATION_4/5 VELOCITY_80\nTRACK_soprano TIME_16/5 NOTE_ON_63 DURATION_4/5 VELOCITY_80",
+      "response_payload_bytes": 919,
+      "response_payload_sha256": "3976f7245c78898574a7a987816ed2d272e81641c25528f62bcae31ff13efd2b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "3a1e1ae137081c82851a358f20c467aefa33df3c85a483c6b797fb797eb8a48c",
+      "stop_reason": "STOP",
+      "task_sha256": "a731d2fa5c21c240ccdb3d0f679218e6faa92ccead8ce3bb30d4db721310bf08",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 338,
+        "output_tokens": 456,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "tuple-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00198,
+        "total": 0.0025455,
+        "uncached_input": 0.0005655
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3351.727,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2368,
+      "prompt_sha256": "203b662e0a7d27f765c085400d4e4d4294691285d88add18496e73339ffb7fa3",
+      "raw_response_sha256": "d5431da2cd1e096064b99ad52f2b2599bc689f707b9961f05562a7e7e9b71549",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"],[\"bar-2\",2,\"4\",\"4\",\"4/4\",\"task-contract\"],[\"bar-3\",3,\"8\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-bass-1\",\"region-bass\",\"bass\",\"35/6\",\"5/6\",37,80],[\"note-lead-1\",\"region-lead\",\"lead\",\"35/6\",\"5/6\",61,80],[\"note-bass-2\",\"region-bass\",\"bass\",\"20/3\",\"5/6\",42,80],[\"note-lead-2\",\"region-lead\",\"lead\",\"20/3\",\"5/6\",61,80],[\"note-bass-3\",\"region-bass\",\"bass\",\"15/2\",\"5/6\",46,80],[\"note-lead-3\",\"region-lead\",\"lead\",\"15/2\",\"5/6\",63,80],[\"note-bass-4\",\"region-bass\",\"bass\",\"25/3\",\"5/6\",44,80],[\"note-lead-4\",\"region-lead\",\"lead\",\"25/3\",\"5/6\",63,80],[\"note-bass-5\",\"region-bass\",\"bass\",\"55/6\",\"5/6\",44,80],[\"note-lead-5\",\"region-lead\",\"lead\",\"55/6\",\"5/6\",61,80]],\"regions\":[[\"region-bass\",\"track-bass\",\"0\",\"10\"],[\"region-lead\",\"track-lead\",\"0\",\"10\"]],\"schema\":\"ghostnote-tuple-json-midi-document-v1\",\"score\":[\"calibration-r2-continuation-roles-v0\",\"812353c968f55e0993254e6becf2908bba84c24532f76393dd639ec37d8f8885\",104],\"tracks\":[[\"track-bass\",\"bass\",\"bass\",0],[\"track-lead\",\"lead\",\"lead\",1]]}",
+      "response_payload_bytes": 1036,
+      "response_payload_sha256": "58c85c83996f787526bdcdaeacbb2593ad4779494c92a0e6f5a7423514590592",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "19eba07a5e12a66688c0014491b1de384ad7c51f6d07f54b79f7f1b2c264b328",
+      "stop_reason": "STOP",
+      "task_sha256": "812353c968f55e0993254e6becf2908bba84c24532f76393dd639ec37d8f8885",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 754,
+        "output_tokens": 528,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "tuple-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00199125,
+        "total": 0.00255675,
+        "uncached_input": 0.0005655
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3310.612,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2370,
+      "prompt_sha256": "46de889267e94304dbcf8f452682affcc263dac4f40c1e93cab3d10f970ff554",
+      "raw_response_sha256": "55de048c25aa9380d1d21b600eab52f96fb391cf24331026969e3a134b70b230",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"],[\"bar-2\",2,\"4\",\"4\",\"4/4\",\"task-contract\"],[\"bar-3\",3,\"8\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-bass-1\",\"region-bass\",\"bass\",\"35/6\",\"5/6\",44,80],[\"note-lead-1\",\"region-lead\",\"lead\",\"35/6\",\"5/6\",68,80],[\"note-bass-2\",\"region-bass\",\"bass\",\"20/3\",\"5/6\",41,80],[\"note-lead-2\",\"region-lead\",\"lead\",\"20/3\",\"5/6\",68,80],[\"note-bass-3\",\"region-bass\",\"bass\",\"15/2\",\"5/6\",46,80],[\"note-lead-3\",\"region-lead\",\"lead\",\"15/2\",\"5/6\",65,80],[\"note-bass-4\",\"region-bass\",\"bass\",\"25/3\",\"5/6\",46,80],[\"note-lead-4\",\"region-lead\",\"lead\",\"25/3\",\"5/6\",66,80],[\"note-bass-5\",\"region-bass\",\"bass\",\"55/6\",\"5/6\",47,80],[\"note-lead-5\",\"region-lead\",\"lead\",\"55/6\",\"5/6\",68,80]],\"regions\":[[\"region-bass\",\"track-bass\",\"0\",\"10\"],[\"region-lead\",\"track-lead\",\"0\",\"10\"]],\"schema\":\"ghostnote-tuple-json-midi-document-v1\",\"score\":[\"calibration-r2-continuation-roles-v1\",\"3ad5ad9db53055979427bb31a1f5c0c1d641a7bce136f12bd694b93965f8c9ed\",104],\"tracks\":[[\"track-bass\",\"bass\",\"bass\",0],[\"track-lead\",\"lead\",\"lead\",1]]}",
+      "response_payload_bytes": 1036,
+      "response_payload_sha256": "5f5e5ae5fe50c0c1d7a3f084e267088934bd844c66b22b523124990b39acc250",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "f2001ba6e1de91620fd1f00801563a494d16f9d9d2d65b2e7626b96e353ee8ef",
+      "stop_reason": "STOP",
+      "task_sha256": "3ad5ad9db53055979427bb31a1f5c0c1d641a7bce136f12bd694b93965f8c9ed",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 754,
+        "output_tokens": 531,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": false,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "tuple-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00194625,
+        "total": 0.002514,
+        "uncached_input": 0.00056775
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3356.464,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2370,
+      "prompt_sha256": "b923a1bbe4ce7c1b2533ac559230bab983949e4065e24eb59c9ae3300e432cad",
+      "raw_response_sha256": "df2ddf887cda16d8ed25f885d86c6c103eb8f466b8376e4d79b64adb95fd9f0c",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"],[\"bar-2\",2,\"4\",\"4\",\"4/4\",\"task-contract\"],[\"bar-3\",3,\"8\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-b0\",\"region-bass\",\"bass\",\"35/6\",\"5/6\",46,80],[\"note-l0\",\"region-lead\",\"lead\",\"35/6\",\"5/6\",70,84],[\"note-b1\",\"region-bass\",\"bass\",\"20/3\",\"5/6\",47,80],[\"note-l1\",\"region-lead\",\"lead\",\"20/3\",\"5/6\",71,84],[\"note-b2\",\"region-bass\",\"bass\",\"15/2\",\"5/6\",44,80],[\"note-l2\",\"region-lead\",\"lead\",\"15/2\",\"5/6\",68,84],[\"note-b3\",\"region-bass\",\"bass\",\"25/3\",\"5/6\",46,80],[\"note-l3\",\"region-lead\",\"lead\",\"25/3\",\"5/6\",65,84],[\"note-b4\",\"region-bass\",\"bass\",\"55/6\",\"5/6\",42,80],[\"note-l4\",\"region-lead\",\"lead\",\"55/6\",\"5/6\",63,84]],\"regions\":[[\"region-bass\",\"track-bass\",\"0\",\"10\"],[\"region-lead\",\"track-lead\",\"0\",\"10\"]],\"schema\":\"ghostnote-tuple-json-midi-document-v1\",\"score\":[\"calibration-r2-continuation-roles-v2\",\"702dd723d0e1a3b609878fb93ef3c9c0940fcb3e5f133947406934b7284f6b45\",104],\"tracks\":[[\"track-bass\",\"bass\",\"bass\",0],[\"track-lead\",\"lead\",\"lead\",1]]}",
+      "response_payload_bytes": 996,
+      "response_payload_sha256": "3e4659a1fe74bfd16a45f95a6c73600882131a2a1cb4b60e733c28f68757889d",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "23601f6862d38a4545bb21a7b4f939791cfd6c575f3027143ff7781dd2669b8c",
+      "stop_reason": "STOP",
+      "task_sha256": "702dd723d0e1a3b609878fb93ef3c9c0940fcb3e5f133947406934b7284f6b45",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 757,
+        "output_tokens": 519,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "tuple-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002775,
+        "total": 0.00339075,
+        "uncached_input": 0.00061575
+      },
+      "family": "generation-progression",
+      "latency_ms": 4506.122,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2587,
+      "prompt_sha256": "e6a61d13f36c7dc0f808f0e86355c6b8e4cd88927b0f378774c13e29712d229a",
+      "raw_response_sha256": "5ae3071e426305cebf58225ae8f97da4b1e2cbafc88f9abeb8efd0e84e3a2b9a",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-bass-1\",\"region-bass\",\"bass\",\"1/5\",\"4/5\",49,80],[\"note-tenor-1\",\"region-tenor\",\"tenor\",\"1/5\",\"4/5\",56,80],[\"note-alto-1\",\"region-alto\",\"alto\",\"1/5\",\"4/5\",61,80],[\"note-soprano-1\",\"region-soprano\",\"soprano\",\"1/5\",\"4/5\",64,80],[\"note-bass-2\",\"region-bass\",\"bass\",\"6/5\",\"4/5\",42,80],[\"note-tenor-2\",\"region-tenor\",\"tenor\",\"6/5\",\"4/5\",54,80],[\"note-alto-2\",\"region-alto\",\"alto\",\"6/5\",\"4/5\",61,80],[\"note-soprano-2\",\"region-soprano\",\"soprano\",\"6/5\",\"4/5\",66,80],[\"note-bass-3\",\"region-bass\",\"bass\",\"11/5\",\"4/5\",51,80],[\"note-tenor-3\",\"region-tenor\",\"tenor\",\"11/5\",\"4/5\",58,80],[\"note-alto-3\",\"region-alto\",\"alto\",\"11/5\",\"4/5\",61,80],[\"note-soprano-3\",\"region-soprano\",\"soprano\",\"11/5\",\"4/5\",66,80],[\"note-bass-4\",\"region-bass\",\"bass\",\"16/5\",\"4/5\",49,80],[\"note-tenor-4\",\"region-tenor\",\"tenor\",\"16/5\",\"4/5\",56,80],[\"note-alto-4\",\"region-alto\",\"alto\",\"16/5\",\"4/5\",61,80],[\"note-soprano-4\",\"region-soprano\",\"soprano\",\"16/5\",\"4/5\",64,80]],\"regions\":[[\"region-alto\",\"track-alto\",\"0\",\"4\"],[\"region-bass\",\"track-bass\",\"0\",\"4\"],[\"region-soprano\",\"track-soprano\",\"0\",\"4\"],[\"region-tenor\",\"track-tenor\",\"0\",\"4\"]],\"schema\":\"ghostnote-tuple-json-midi-document-v1\",\"score\":[\"calibration-r2-generation-progression-v0\",\"365f16f0cd6e736d7d2eb5c3e901dc0a83677d53a49e31b8f8804686c21e1e1a\",104],\"tracks\":[[\"track-alto\",\"alto\",\"alto\",0],[\"track-bass\",\"bass\",\"bass\",1],[\"track-soprano\",\"soprano\",\"soprano\",2],[\"track-tenor\",\"tenor\",\"tenor\",3]]}",
+      "response_payload_bytes": 1486,
+      "response_payload_sha256": "81f50fd9d0309a1b7b30bb1b42170a47d9f42e6d3e1922b23f8b0db5e974338b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "badd2ec31a4a49470e4257df38ed6a032646922d9a789b03c63957e2d6182303",
+      "stop_reason": "STOP",
+      "task_sha256": "365f16f0cd6e736d7d2eb5c3e901dc0a83677d53a49e31b8f8804686c21e1e1a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 821,
+        "output_tokens": 740,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "tuple-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00276375,
+        "total": 0.0033795,
+        "uncached_input": 0.00061575
+      },
+      "family": "generation-progression",
+      "latency_ms": 9088.27,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2590,
+      "prompt_sha256": "71421f1c5db8e0431c8b414e45604f57e2834e1893d865579143a8afc567e02f",
+      "raw_response_sha256": "b5b90c94e52426356fe5baed76d4b496d41ea195fd693bc2124059f084c9db4e",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-bass-0\",\"region-bass\",\"bass\",\"1/5\",\"4/5\",44,80],[\"note-tenor-0\",\"region-tenor\",\"tenor\",\"1/5\",\"4/5\",56,80],[\"note-alto-0\",\"region-alto\",\"alto\",\"1/5\",\"4/5\",59,80],[\"note-soprano-0\",\"region-soprano\",\"soprano\",\"1/5\",\"4/5\",63,80],[\"note-bass-1\",\"region-bass\",\"bass\",\"6/5\",\"4/5\",49,80],[\"note-tenor-1\",\"region-tenor\",\"tenor\",\"6/5\",\"4/5\",56,80],[\"note-alto-1\",\"region-alto\",\"alto\",\"6/5\",\"4/5\",61,80],[\"note-soprano-1\",\"region-soprano\",\"soprano\",\"6/5\",\"4/5\",64,80],[\"note-bass-2\",\"region-bass\",\"bass\",\"11/5\",\"4/5\",46,80],[\"note-tenor-2\",\"region-tenor\",\"tenor\",\"11/5\",\"4/5\",53,80],[\"note-alto-2\",\"region-alto\",\"alto\",\"11/5\",\"4/5\",58,80],[\"note-soprano-2\",\"region-soprano\",\"soprano\",\"11/5\",\"4/5\",61,80],[\"note-bass-3\",\"region-bass\",\"bass\",\"16/5\",\"4/5\",44,80],[\"note-tenor-3\",\"region-tenor\",\"tenor\",\"16/5\",\"4/5\",56,80],[\"note-alto-3\",\"region-alto\",\"alto\",\"16/5\",\"4/5\",59,80],[\"note-soprano-3\",\"region-soprano\",\"soprano\",\"16/5\",\"4/5\",68,80]],\"regions\":[[\"region-alto\",\"track-alto\",\"0\",\"4\"],[\"region-bass\",\"track-bass\",\"0\",\"4\"],[\"region-soprano\",\"track-soprano\",\"0\",\"4\"],[\"region-tenor\",\"track-tenor\",\"0\",\"4\"]],\"schema\":\"ghostnote-tuple-json-midi-document-v1\",\"score\":[\"calibration-r2-generation-progression-v1\",\"81c7b5db0b4720eb6966235b150e6488fdf20405fbdef76e0e13a623e1f8d255\",104],\"tracks\":[[\"track-alto\",\"alto\",\"alto\",0],[\"track-bass\",\"bass\",\"bass\",1],[\"track-soprano\",\"soprano\",\"soprano\",2],[\"track-tenor\",\"tenor\",\"tenor\",3]]}",
+      "response_payload_bytes": 1486,
+      "response_payload_sha256": "838ff6f5450eb25509eb78adb1a888d0cc0521272380c426fa67b54bf122d77a",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "c25ac400ed7fec353b0ee93a4d4e455f263e5cfdf21efe74977701f07605fa52",
+      "stop_reason": "STOP",
+      "task_sha256": "81c7b5db0b4720eb6966235b150e6488fdf20405fbdef76e0e13a623e1f8d255",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 821,
+        "output_tokens": 737,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "tuple-json-midi",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002745,
+        "total": 0.00335625,
+        "uncached_input": 0.00061125
+      },
+      "family": "generation-progression",
+      "latency_ms": 6633.248,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2589,
+      "prompt_sha256": "745717fec253ebbbace2786410d68cc36346fb876011af652d5eb2a1bb0ebabb",
+      "raw_response_sha256": "3042ee7f19a1b5c9ea78da071622b1645e4dd3341f5d6a65dcf4b60e5cb6a09d",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-bass-1\",\"region-bass\",\"bass\",\"1/5\",\"4/5\",51,80],[\"note-tenor-1\",\"region-tenor\",\"tenor\",\"1/5\",\"4/5\",58,80],[\"note-alto-1\",\"region-alto\",\"alto\",\"1/5\",\"4/5\",63,80],[\"note-soprano-1\",\"region-soprano\",\"soprano\",\"1/5\",\"4/5\",66,80],[\"note-bass-2\",\"region-bass\",\"bass\",\"6/5\",\"4/5\",44,80],[\"note-tenor-2\",\"region-tenor\",\"tenor\",\"6/5\",\"4/5\",56,80],[\"note-alto-2\",\"region-alto\",\"alto\",\"6/5\",\"4/5\",59,80],[\"note-soprano-2\",\"region-soprano\",\"soprano\",\"6/5\",\"4/5\",63,80],[\"note-bass-3\",\"region-bass\",\"bass\",\"11/5\",\"4/5\",41,80],[\"note-tenor-3\",\"region-tenor\",\"tenor\",\"11/5\",\"4/5\",53,80],[\"note-alto-3\",\"region-alto\",\"alto\",\"11/5\",\"4/5\",60,80],[\"note-soprano-3\",\"region-soprano\",\"soprano\",\"11/5\",\"4/5\",68,80],[\"note-bass-4\",\"region-bass\",\"bass\",\"16/5\",\"4/5\",39,80],[\"note-tenor-4\",\"region-tenor\",\"tenor\",\"16/5\",\"4/5\",54,80],[\"note-alto-4\",\"region-alto\",\"alto\",\"16/5\",\"4/5\",58,80],[\"note-soprano-4\",\"region-soprano\",\"soprano\",\"16/5\",\"4/5\",63,80]],\"regions\":[[\"region-alto\",\"track-alto\",\"0\",\"4\"],[\"region-bass\",\"track-bass\",\"0\",\"4\"],[\"region-soprano\",\"track-soprano\",\"0\",\"4\"],[\"region-tenor\",\"track-tenor\",\"0\",\"4\"]],\"schema\":\"ghostnote-tuple-json-midi-document-v1\",\"score\":[\"calibration-r2-generation-progression-v2\",\"a731d2fa5c21c240ccdb3d0f679218e6faa92ccead8ce3bb30d4db721310bf08\",104],\"tracks\":[[\"track-alto\",\"alto\",\"alto\",0],[\"track-bass\",\"bass\",\"bass\",1],[\"track-soprano\",\"soprano\",\"soprano\",2],[\"track-tenor\",\"tenor\",\"tenor\",3]]}",
+      "response_payload_bytes": 1486,
+      "response_payload_sha256": "f54d7bb1af24ffeb04411fa57fcdf879c9506a9c5b92ca0af89e8993ecc3b7df",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "3a1e1ae137081c82851a358f20c467aefa33df3c85a483c6b797fb797eb8a48c",
+      "stop_reason": "STOP",
+      "task_sha256": "a731d2fa5c21c240ccdb3d0f679218e6faa92ccead8ce3bb30d4db721310bf08",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 815,
+        "output_tokens": 732,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "tuple-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00207,
+        "total": 0.002655,
+        "uncached_input": 0.000585
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3505.974,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2435,
+      "prompt_sha256": "41d2919ed22094b412964bd26e2ea068fd79b2b95216b85710fa27f6541a74a7",
+      "raw_response_sha256": "0eae69e8e156a0317b4900b2c26188ef20b2c94b2fa2cdb3568d1421893b48be",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"],[\"bar-2\",2,\"4\",\"4\",\"4/4\",\"task-contract\"],[\"bar-3\",3,\"8\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-bass-0\",\"region-bass\",\"bass\",\"35/6\",\"5/6\",[8,2],80],[\"note-lead-0\",\"region-lead\",\"lead\",\"35/6\",\"5/6\",[1,5],80],[\"note-bass-1\",\"region-bass\",\"bass\",\"20/3\",\"5/6\",[9,2],80],[\"note-lead-1\",\"region-lead\",\"lead\",\"20/3\",\"5/6\",[6,5],80],[\"note-bass-2\",\"region-bass\",\"bass\",\"15/2\",\"5/6\",[10,2],80],[\"note-lead-2\",\"region-lead\",\"lead\",\"15/2\",\"5/6\",[3,5],80],[\"note-bass-3\",\"region-bass\",\"bass\",\"25/3\",\"5/6\",[11,2],80],[\"note-lead-3\",\"region-lead\",\"lead\",\"25/3\",\"5/6\",[8,4],80],[\"note-bass-4\",\"region-bass\",\"bass\",\"55/6\",\"5/6\",[8,2],80],[\"note-lead-4\",\"region-lead\",\"lead\",\"55/6\",\"5/6\",[1,5],80]],\"regions\":[[\"region-bass\",\"track-bass\",\"0\",\"10\"],[\"region-lead\",\"track-lead\",\"0\",\"10\"]],\"schema\":\"ghostnote-tuple-json-pc-register-document-v1\",\"score\":[\"calibration-r2-continuation-roles-v0\",\"812353c968f55e0993254e6becf2908bba84c24532f76393dd639ec37d8f8885\",104],\"tracks\":[[\"track-bass\",\"bass\",\"bass\",0],[\"track-lead\",\"lead\",\"lead\",1]]}",
+      "response_payload_bytes": 1075,
+      "response_payload_sha256": "b239c55b41623f2780416bd96453758fdc29ef3e1a364b4a92fc24d6d5712099",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "19eba07a5e12a66688c0014491b1de384ad7c51f6d07f54b79f7f1b2c264b328",
+      "stop_reason": "STOP",
+      "task_sha256": "812353c968f55e0993254e6becf2908bba84c24532f76393dd639ec37d8f8885",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 780,
+        "output_tokens": 552,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "tuple-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0020625,
+        "total": 0.0026475,
+        "uncached_input": 0.000585
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3053.057,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2437,
+      "prompt_sha256": "6f2db0c78ca0fd4ec1231ee82d215194dd788e55319758040a96655711255a17",
+      "raw_response_sha256": "607bdde72e7650b0937162050c2a3bc3db6a4d0014c01a5b40c936ef864b569b",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"],[\"bar-2\",2,\"4\",\"4\",\"4/4\",\"task-contract\"],[\"bar-3\",3,\"8\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-bass-0\",\"region-bass\",\"bass\",\"35/6\",\"5/6\",[11,2],80],[\"note-lead-0\",\"region-lead\",\"lead\",\"35/6\",\"5/6\",[8,4],80],[\"note-bass-1\",\"region-bass\",\"bass\",\"20/3\",\"5/6\",[1,3],80],[\"note-lead-1\",\"region-lead\",\"lead\",\"20/3\",\"5/6\",[4,4],80],[\"note-bass-2\",\"region-bass\",\"bass\",\"15/2\",\"5/6\",[1,3],80],[\"note-lead-2\",\"region-lead\",\"lead\",\"15/2\",\"5/6\",[5,4],80],[\"note-bass-3\",\"region-bass\",\"bass\",\"25/3\",\"5/6\",[6,2],80],[\"note-lead-3\",\"region-lead\",\"lead\",\"25/3\",\"5/6\",[3,4],80],[\"note-bass-4\",\"region-bass\",\"bass\",\"55/6\",\"5/6\",[11,2],80],[\"note-lead-4\",\"region-lead\",\"lead\",\"55/6\",\"5/6\",[8,4],80]],\"regions\":[[\"region-bass\",\"track-bass\",\"0\",\"10\"],[\"region-lead\",\"track-lead\",\"0\",\"10\"]],\"schema\":\"ghostnote-tuple-json-pc-register-document-v1\",\"score\":[\"calibration-r2-continuation-roles-v1\",\"3ad5ad9db53055979427bb31a1f5c0c1d641a7bce136f12bd694b93965f8c9ed\",104],\"tracks\":[[\"track-bass\",\"bass\",\"bass\",0],[\"track-lead\",\"lead\",\"lead\",1]]}",
+      "response_payload_bytes": 1075,
+      "response_payload_sha256": "22bf78da24f1bf7083a9a0cad323d17ea055695872fe331f35012d9074f364ad",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "f2001ba6e1de91620fd1f00801563a494d16f9d9d2d65b2e7626b96e353ee8ef",
+      "stop_reason": "STOP",
+      "task_sha256": "3ad5ad9db53055979427bb31a1f5c0c1d641a7bce136f12bd694b93965f8c9ed",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 780,
+        "output_tokens": 550,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "tuple-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0020325,
+        "total": 0.00261975,
+        "uncached_input": 0.00058725
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2779.926,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2437,
+      "prompt_sha256": "14c7dc178d5c1f9a9f9378fb97e37eabfc577708c85676a7b09694a0f0869d63",
+      "raw_response_sha256": "a2d7fc3e0601c092de2fdcaf9b4564536db01145a96a33344b83faaf0c410bde",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"],[\"bar-2\",2,\"4\",\"4\",\"4/4\",\"task-contract\"],[\"bar-3\",3,\"8\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-b0\",\"region-bass\",\"bass\",\"35/6\",\"5/6\",[3,2],80],[\"note-l0\",\"region-lead\",\"lead\",\"35/6\",\"5/6\",[6,4],80],[\"note-b1\",\"region-bass\",\"bass\",\"20/3\",\"5/6\",[3,2],80],[\"note-l1\",\"region-lead\",\"lead\",\"20/3\",\"5/6\",[8,4],80],[\"note-b2\",\"region-bass\",\"bass\",\"15/2\",\"5/6\",[0,2],80],[\"note-l2\",\"region-lead\",\"lead\",\"15/2\",\"5/6\",[5,4],80],[\"note-b3\",\"region-bass\",\"bass\",\"25/3\",\"5/6\",[1,2],80],[\"note-l3\",\"region-lead\",\"lead\",\"25/3\",\"5/6\",[5,4],80],[\"note-b4\",\"region-bass\",\"bass\",\"55/6\",\"5/6\",[10,2],80],[\"note-l4\",\"region-lead\",\"lead\",\"55/6\",\"5/6\",[3,4],80]],\"regions\":[[\"region-bass\",\"track-bass\",\"0\",\"10\"],[\"region-lead\",\"track-lead\",\"0\",\"10\"]],\"schema\":\"ghostnote-tuple-json-pc-register-document-v1\",\"score\":[\"calibration-r2-continuation-roles-v2\",\"702dd723d0e1a3b609878fb93ef3c9c0940fcb3e5f133947406934b7284f6b45\",104],\"tracks\":[[\"track-bass\",\"bass\",\"bass\",0],[\"track-lead\",\"lead\",\"lead\",1]]}",
+      "response_payload_bytes": 1034,
+      "response_payload_sha256": "03d0cd5180213340ef502298ea80f22e682dabd44a860449ef6aea1889e87f9d",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "23601f6862d38a4545bb21a7b4f939791cfd6c575f3027143ff7781dd2669b8c",
+      "stop_reason": "STOP",
+      "task_sha256": "702dd723d0e1a3b609878fb93ef3c9c0940fcb3e5f133947406934b7284f6b45",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 783,
+        "output_tokens": 542,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "exact_metadata": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "tuple-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00282,
+        "total": 0.00345525,
+        "uncached_input": 0.00063525
+      },
+      "family": "generation-progression",
+      "latency_ms": 3687.204,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2654,
+      "prompt_sha256": "25f33c571abfeac57397cf1e9f3a38aa5a101c9f3201888f466f6a93f7a24529",
+      "raw_response_sha256": "fcc8219b79ec82a6ee55d3dfbd41c416ddbcfe9a6da094896d194f24764b7e8d",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-b0\",\"region-bass\",\"bass\",\"1/5\",\"4/5\",[1,2],80],[\"note-t0\",\"region-tenor\",\"tenor\",\"1/5\",\"4/5\",[8,3],80],[\"note-a0\",\"region-alto\",\"alto\",\"1/5\",\"4/5\",[1,4],80],[\"note-s0\",\"region-soprano\",\"soprano\",\"1/5\",\"4/5\",[4,4],80],[\"note-b1\",\"region-bass\",\"bass\",\"6/5\",\"4/5\",[6,2],80],[\"note-t1\",\"region-tenor\",\"tenor\",\"6/5\",\"4/5\",[9,3],80],[\"note-a1\",\"region-alto\",\"alto\",\"6/5\",\"4/5\",[1,4],80],[\"note-s1\",\"region-soprano\",\"soprano\",\"6/5\",\"4/5\",[6,4],80],[\"note-b2\",\"region-bass\",\"bass\",\"11/5\",\"4/5\",[3,2],80],[\"note-t2\",\"region-tenor\",\"tenor\",\"11/5\",\"4/5\",[10,3],80],[\"note-a2\",\"region-alto\",\"alto\",\"11/5\",\"4/5\",[1,4],80],[\"note-s2\",\"region-soprano\",\"soprano\",\"11/5\",\"4/5\",[6,4],80],[\"note-b3\",\"region-bass\",\"bass\",\"16/5\",\"4/5\",[1,2],80],[\"note-t3\",\"region-tenor\",\"tenor\",\"16/5\",\"4/5\",[8,3],80],[\"note-a3\",\"region-alto\",\"alto\",\"16/5\",\"4/5\",[1,4],80],[\"note-s3\",\"region-soprano\",\"soprano\",\"16/5\",\"4/5\",[4,4],80]],\"regions\":[[\"region-alto\",\"track-alto\",\"0\",\"4\"],[\"region-bass\",\"track-bass\",\"0\",\"4\"],[\"region-soprano\",\"track-soprano\",\"0\",\"4\"],[\"region-tenor\",\"track-tenor\",\"0\",\"4\"]],\"schema\":\"ghostnote-tuple-json-pc-register-document-v1\",\"score\":[\"calibration-r2-generation-progression-v0\",\"365f16f0cd6e736d7d2eb5c3e901dc0a83677d53a49e31b8f8804686c21e1e1a\",104],\"tracks\":[[\"track-alto\",\"alto\",\"alto\",0],[\"track-bass\",\"bass\",\"bass\",1],[\"track-soprano\",\"soprano\",\"soprano\",2],[\"track-tenor\",\"tenor\",\"tenor\",3]]}",
+      "response_payload_bytes": 1462,
+      "response_payload_sha256": "6078880fca852db87204580055f3da5ee639fdccdac2219c143854a91de69fed",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "badd2ec31a4a49470e4257df38ed6a032646922d9a789b03c63957e2d6182303",
+      "stop_reason": "STOP",
+      "task_sha256": "365f16f0cd6e736d7d2eb5c3e901dc0a83677d53a49e31b8f8804686c21e1e1a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 847,
+        "output_tokens": 752,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "tuple-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0029025,
+        "total": 0.00353775,
+        "uncached_input": 0.00063525
+      },
+      "family": "generation-progression",
+      "latency_ms": 3589.73,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2657,
+      "prompt_sha256": "130c02ff0c7e83741b42b7527e1049437db88262859abdc77f4d74eda7de9cc9",
+      "raw_response_sha256": "c86e13d2799655fb6d5bbd7560dd120147cfb2cbc180a6e1f75eeda4863ef041",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"note-bass-1\",\"region-bass\",\"bass\",\"1/5\",\"4/5\",[8,2],80],[\"note-tenor-1\",\"region-tenor\",\"tenor\",\"1/5\",\"4/5\",[3,3],80],[\"note-alto-1\",\"region-alto\",\"alto\",\"1/5\",\"4/5\",[8,3],80],[\"note-soprano-1\",\"region-soprano\",\"soprano\",\"1/5\",\"4/5\",[11,3],80],[\"note-bass-2\",\"region-bass\",\"bass\",\"6/5\",\"4/5\",[1,2],80],[\"note-tenor-2\",\"region-tenor\",\"tenor\",\"6/5\",\"4/5\",[4,3],80],[\"note-alto-2\",\"region-alto\",\"alto\",\"6/5\",\"4/5\",[8,3],80],[\"note-soprano-2\",\"region-soprano\",\"soprano\",\"6/5\",\"4/5\",[1,4],80],[\"note-bass-3\",\"region-bass\",\"bass\",\"11/5\",\"4/5\",[10,2],80],[\"note-tenor-3\",\"region-tenor\",\"tenor\",\"11/5\",\"4/5\",[5,3],80],[\"note-alto-3\",\"region-alto\",\"alto\",\"11/5\",\"4/5\",[8,3],80],[\"note-soprano-3\",\"region-soprano\",\"soprano\",\"11/5\",\"4/5\",[1,4],80],[\"note-bass-4\",\"region-bass\",\"bass\",\"16/5\",\"4/5\",[8,2],80],[\"note-tenor-4\",\"region-tenor\",\"tenor\",\"16/5\",\"4/5\",[3,3],80],[\"note-alto-4\",\"region-alto\",\"alto\",\"16/5\",\"4/5\",[8,3],80],[\"note-soprano-4\",\"region-soprano\",\"soprano\",\"16/5\",\"4/5\",[11,3],80]],\"regions\":[[\"region-alto\",\"track-alto\",\"0\",\"4\"],[\"region-bass\",\"track-bass\",\"0\",\"4\"],[\"region-soprano\",\"track-soprano\",\"0\",\"4\"],[\"region-tenor\",\"track-tenor\",\"0\",\"4\"]],\"schema\":\"ghostnote-tuple-json-pc-register-document-v1\",\"score\":[\"calibration-r2-generation-progression-v1\",\"81c7b5db0b4720eb6966235b150e6488fdf20405fbdef76e0e13a623e1f8d255\",104],\"tracks\":[[\"track-alto\",\"alto\",\"alto\",0],[\"track-bass\",\"bass\",\"bass\",1],[\"track-soprano\",\"soprano\",\"soprano\",2],[\"track-tenor\",\"tenor\",\"tenor\",3]]}",
+      "response_payload_bytes": 1544,
+      "response_payload_sha256": "cfdc3d49f59cf81e622adab40c427614160c08919d73fd2db21ba57083c4ef02",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "c25ac400ed7fec353b0ee93a4d4e455f263e5cfdf21efe74977701f07605fa52",
+      "stop_reason": "STOP",
+      "task_sha256": "81c7b5db0b4720eb6966235b150e6488fdf20405fbdef76e0e13a623e1f8d255",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 847,
+        "output_tokens": 774,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "tuple-json-pc-register",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00288375,
+        "total": 0.0035145,
+        "uncached_input": 0.00063075
+      },
+      "family": "generation-progression",
+      "latency_ms": 5187.535,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2656,
+      "prompt_sha256": "81c7df0c0b1a1a8dd939de82228f2fc0c5eb3245a0b0a0bc41b3bcd5a2693c51",
+      "raw_response_sha256": "61c510922259f0c892dbea174c058e1a600abd21add490df57910f5e7e6a6dba",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[[\"bar-1\",1,\"0\",\"4\",\"4/4\",\"task-contract\"]],\"notes\":[[\"chord-1-bass\",\"region-bass\",\"bass\",\"1/5\",\"4/5\",[3,2],80],[\"chord-1-tenor\",\"region-tenor\",\"tenor\",\"1/5\",\"4/5\",[10,3],80],[\"chord-1-alto\",\"region-alto\",\"alto\",\"1/5\",\"4/5\",[6,4],80],[\"chord-1-soprano\",\"region-soprano\",\"soprano\",\"1/5\",\"4/5\",[3,4],80],[\"chord-2-bass\",\"region-bass\",\"bass\",\"6/5\",\"4/5\",[8,2],80],[\"chord-2-tenor\",\"region-tenor\",\"tenor\",\"6/5\",\"4/5\",[11,3],80],[\"chord-2-alto\",\"region-alto\",\"alto\",\"6/5\",\"4/5\",[8,4],80],[\"chord-2-soprano\",\"region-soprano\",\"soprano\",\"6/5\",\"4/5\",[3,4],80],[\"chord-3-bass\",\"region-bass\",\"bass\",\"11/5\",\"4/5\",[5,2],80],[\"chord-3-tenor\",\"region-tenor\",\"tenor\",\"11/5\",\"4/5\",[0,4],80],[\"chord-3-alto\",\"region-alto\",\"alto\",\"11/5\",\"4/5\",[8,4],80],[\"chord-3-soprano\",\"region-soprano\",\"soprano\",\"11/5\",\"4/5\",[3,4],80],[\"chord-4-bass\",\"region-bass\",\"bass\",\"16/5\",\"4/5\",[3,2],80],[\"chord-4-tenor\",\"region-tenor\",\"tenor\",\"16/5\",\"4/5\",[10,3],80],[\"chord-4-alto\",\"region-alto\",\"alto\",\"16/5\",\"4/5\",[6,4],80],[\"chord-4-soprano\",\"region-soprano\",\"soprano\",\"16/5\",\"4/5\",[3,4],80]],\"regions\":[[\"region-alto\",\"track-alto\",\"0\",\"4\"],[\"region-bass\",\"track-bass\",\"0\",\"4\"],[\"region-soprano\",\"track-soprano\",\"0\",\"4\"],[\"region-tenor\",\"track-tenor\",\"0\",\"4\"]],\"schema\":\"ghostnote-tuple-json-pc-register-document-v1\",\"score\":[\"calibration-r2-generation-progression-v2\",\"a731d2fa5c21c240ccdb3d0f679218e6faa92ccead8ce3bb30d4db721310bf08\",104],\"tracks\":[[\"track-alto\",\"alto\",\"alto\",0],[\"track-bass\",\"bass\",\"bass\",1],[\"track-soprano\",\"soprano\",\"soprano\",2],[\"track-tenor\",\"tenor\",\"tenor\",3]]}",
+      "response_payload_bytes": 1560,
+      "response_payload_sha256": "9ef459429a2fc4987fae713e349509bf9c92d595eb3f501c6f11718a248ceda6",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "3a1e1ae137081c82851a358f20c467aefa33df3c85a483c6b797fb797eb8a48c",
+      "stop_reason": "STOP",
+      "task_sha256": "a731d2fa5c21c240ccdb3d0f679218e6faa92ccead8ce3bb30d4db721310bf08",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 841,
+        "output_tokens": 769,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "exact_metadata": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    }
+  ],
+  "run_id": "phase8c2-3-json-grammar-repair-calibration-r2",
+  "run_kind": "measurement-repair-provider",
+  "schema": "ghostnote-compact-json-calibration-r2",
+  "screen_sha256": "1c80a0c755bbbb01cec87990f3b4107455bd005371ce37edbbbff9e1d0b7bf8a",
+  "settings": {
+    "max_output_tokens": 4000,
+    "thinking_level": "low"
+  }
+}
