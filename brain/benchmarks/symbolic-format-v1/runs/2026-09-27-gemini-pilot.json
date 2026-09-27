@@ -1,0 +1,1215 @@
+{
+  "actual_cost_usd": 0.064304,
+  "protocol_sha256": "eae49b356692fc75f4c1733f9b3426ce60e0bdd8f3b0b62bdf6d374b3e4097c9",
+  "provider": "gemini",
+  "requested_model": "gemini-3.8-flash",
+  "results": [
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00129,
+        "total": 0.00161025,
+        "uncached_input": 0.00032025
+      },
+      "family": "comprehension-analysis",
+      "kind": "development",
+      "latency_ms": 2538.333,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1312,
+      "prompt_sha256": "aedf4ffa19c729f74bf0d83e2556c3ca6ed8103e978f9d9d6b53e16c9d9e0867",
+      "raw_response_sha256": "07df4625bc8f36c92c3a5123ccfc7690d6b7fd387863bd0dc09decc350eebe09",
+      "request_id": null,
+      "response_payload": "ANALYSIS root_pc=0 bass_pc=4 quality=major inversion=1 function=I6 motif_relation=transposition rhythm=sustained",
+      "response_payload_bytes": 112,
+      "response_payload_sha256": "604bb5dc973b6425a334e72fec0cee9ba1538bab830645ae987a7ddb9df5f67e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 427,
+        "output_tokens": 344,
+        "thinking_tokens": 302
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "bass_pc": true,
+          "function": true,
+          "inversion": true,
+          "motif_relation": true,
+          "quality": true,
+          "rhythm": true,
+          "root_pc": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001485,
+        "total": 0.001908,
+        "uncached_input": 0.000423
+      },
+      "family": "comprehension-structure",
+      "kind": "development",
+      "latency_ms": 2810.97,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1210,
+      "prompt_sha256": "32617b6f73d35b09f2034997f58a02e59d08f6063783d670b01f38fc16acab56",
+      "raw_response_sha256": "94ab34bb61718d0bec7828166ccc88130f1f1ce682f386642c08cabd19f42496",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:bass.1\nC,,48 F,,48 |\nV:keys.1\nC48 F48 |\nV:keys.2\nE48 A48 |\nV:keys.3\nG48 c48 |\nV:lead.1\nC4 z4 D4 z4 E4 z4 G4 |\n--- GN SIDE LEDGER ---\nGN s0-bass-1 bass 0 4 36 78\nGN s0-keys-1-1 keys 0 4 60 71\nGN s0-keys-1-2 keys 0 4 64 72\nGN s0-keys-1-3 keys 0 4 67 73\nGN s0-lead-1 lead 0 1/3 60 87\nGN s0-lead-2 lead 2/3 1/3 62 88\nGN s0-lead-3 lead 4/3 1/3 64 89\nGN s0-lead-4 lead 2 1/3 67 90\nGN s0-bass-2 bass 4 4 41 80\nGN s0-keys-2-1 keys 4 4 65 71\nGN s0-keys-2-2 keys 4 4 69 72\nGN s0-keys-2-3 keys 4 4 72 73",
+      "response_payload_bytes": 556,
+      "response_payload_sha256": "d4c2db70c8b6b8167c44d6406c55d1b3c52767a6609b3f2fd6d3339a09e65380",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 564,
+        "output_tokens": 396,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": true
+        },
+        "checks": {
+          "represented_reconstruction": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.01119375,
+        "total": 0.0114405,
+        "uncached_input": 0.00024675
+      },
+      "family": "continuation-motif",
+      "kind": "development",
+      "latency_ms": 13884.917,
+      "outer_schema_valid": false,
+      "prompt_bytes": 869,
+      "prompt_sha256": "1040ba506a10b338a3b64c68106a4d5fea126bc1a753a5754a3c4c4156708141",
+      "raw_response_sha256": "e62d09fb1089a0b62c25ed89b1eda6a85c9d5a378a4bbbed7d02f32fcddeb08d",
+      "request_id": null,
+      "response_payload": "{\"payload\": \"%abc-2.1\\nX:1\\nT:Ghostnote generated benchmark\\nL:1/48\\nM:4/4\\nK:C\\nV:lead.1\\n_E12 F12 _A12 G12 |\\n--- GN SIDE LEDGER ---\\nGN m1-0 lead 4 1 63 88\\nGN m1-1 lead 5 1 65 88\\nGN m",
+      "response_payload_bytes": 188,
+      "response_payload_sha256": "78f5bb6a65d1b19a9c0889ee7b860ba6c024d5bf31941570acfb4d101b23f895",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "MAX_TOKENS",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 329,
+        "output_tokens": 2985,
+        "thinking_tokens": 2876
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": false
+        },
+        "checks": {},
+        "error": "ABC payload has no notes",
+        "musical_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00084,
+        "total": 0.0010365,
+        "uncached_input": 0.0001965
+      },
+      "family": "continuation-roles",
+      "kind": "development",
+      "latency_ms": 2523.92,
+      "outer_schema_valid": true,
+      "prompt_bytes": 788,
+      "prompt_sha256": "95fd5a94846a0c7d401cbad506d8a8087556fe4247c0ccd97c5b2fef79fc86cc",
+      "raw_response_sha256": "51f197e1e4386ace7ef94121ed2ffc7cf72991dbdc0829f9d452404d6defad38",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:lead.1\nC48 | F48 | D48 | C48 |\nV:bass.1\nC,48 | F,48 | G,,48 | C,48 |\n--- GN SIDE LEDGER ---\nGN n1 lead 4 1 60 80\nGN n2 lead 5 1 65 80\nGN n3 lead 6 1 62 80\nGN n4 lead 7 1 60 80\nGN n5 bass 4 1 48 80\nGN n6 bass 5 1 41 80\nGN n7 bass 6 1 43 80\nGN n8 bass 7 1 48 80",
+      "response_payload_bytes": 291,
+      "response_payload_sha256": "294ec58f27ca1a4867333aee80d8fc67a0f9b0e8c7bc3f09a3fff25de5de1854",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 262,
+        "output_tokens": 224,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": false
+        },
+        "checks": {},
+        "error": "Score and side ledger disagree",
+        "musical_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00081,
+        "total": 0.00106275,
+        "uncached_input": 0.00025275
+      },
+      "family": "generation-melody",
+      "kind": "development",
+      "latency_ms": 2272.397,
+      "outer_schema_valid": true,
+      "prompt_bytes": 993,
+      "prompt_sha256": "22514e769a27fe5437e137b42883a3a8b211f6eb7eacb9478db41487b038e703",
+      "raw_response_sha256": "71a0279aeb8cec27171002d5d510bcfc9096491dacb8ba223fc2b9325bfde5ea",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nL:1/8\nM:4/4\nK:C\nV:lead.1\nC _E G F | F _B c c |\n--- GN SIDE LEDGER ---\nGN n1 lead 0 1/2 60 80\nGN n2 lead 1/2 1/2 63 80\nGN n3 lead 1 1/2 67 80\nGN n4 lead 3/2 1/2 65 80\nGN n5 lead 2 1/2 65 80\nGN n6 lead 5/2 1/2 70 80\nGN n7 lead 3 1/2 72 80\nGN n8 lead 7/2 1/2 72 80",
+      "response_payload_bytes": 274,
+      "response_payload_sha256": "d87f4db81d5c96cfc1fd8813e31a05fad3d9605072552fd79fea8321c5a32b39",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 337,
+        "output_tokens": 216,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": true
+        },
+        "checks": {
+          "cadence": true,
+          "mode": true,
+          "motif": false,
+          "note_count": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": false
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00141,
+        "total": 0.00165375,
+        "uncached_input": 0.00024375
+      },
+      "family": "generation-progression",
+      "kind": "development",
+      "latency_ms": 2686.765,
+      "outer_schema_valid": true,
+      "prompt_bytes": 960,
+      "prompt_sha256": "b2337ea1cee97f85457e3d30e193a9fc3bdfae5bc6b93ea16f64bf9e9b8d2e09",
+      "raw_response_sha256": "6f3a055d4e271e9e863cb29944a89ad9eea56e6710b7e1113195f885d59cda76",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nL:1/4\nM:4/4\nK:C\nV:soprano\n[V:soprano] c' a b c' |\nV:alto\n[V:alto] g f f e |\nV:tenor\n[V:tenor] e d d c |\nV:bass\n[V:bass] E D D, C, |\n--- GN SIDE LEDGER ---\nGN n1 soprano 0 1 72 80\nGN n2 soprano 1 1 69 80\nGN n3 soprano 2 1 71 80\nGN n4 soprano 3 1 72 80\nGN n5 alto 0 1 67 80\nGN n6 alto 1 1 65 80\nGN n7 alto 2 1 65 80\nGN n8 alto 3 1 64 80\nGN n9 tenor 0 1 64 80\nGN n10 tenor 1 1 62 80\nGN n11 tenor 2 1 62 80\nGN n12 tenor 3 1 60 80\nGN n13 bass 0 1 52 80\nGN n14 bass 1 1 50 80\nGN n15 bass 2 1 38 80\nGN n16 bass 3 1 48 80",
+      "response_payload_bytes": 526,
+      "response_payload_sha256": "b260b87f1757a3ab58707dfadc1229ab11e40a4abd6b7bac6c806b790a1264f8",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 325,
+        "output_tokens": 376,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": false
+        },
+        "checks": {},
+        "error": "Score and side ledger disagree",
+        "musical_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00030375,
+        "total": 0.00074175,
+        "uncached_input": 0.000438
+      },
+      "family": "transformation-local",
+      "kind": "development",
+      "latency_ms": 1928.396,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1221,
+      "prompt_sha256": "ca53b2974674fcc363a4f6fa71dfaeb133fce1d52fc93cff0f7264beee61fd5a",
+      "raw_response_sha256": "a9a9dcc7fa6f23387e8c2b22d509b2763b44d8c671feffe2c9fc191ef97cb9bd",
+      "request_id": null,
+      "response_payload": "PATCH 72d31501aeb66e237234f2aa31ffa616adc8b156f99425a3a5a1db4f1196ee8e\nSET s0-bass-1 pitch=38",
+      "response_payload_bytes": 93,
+      "response_payload_sha256": "877897884e7b060e15130e2a6e11e56184afa2828f29bcda3d37bc43c441e3f9",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 584,
+        "output_tokens": 81,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": true
+        },
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00171375,
+        "total": 0.002199,
+        "uncached_input": 0.00048525
+      },
+      "family": "transformation-revoice",
+      "kind": "development",
+      "latency_ms": 2624.641,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1279,
+      "prompt_sha256": "542ca451eb992d7db78ed3b41923f80844c2398d765f1b74543e0f8b48f34aa5",
+      "raw_response_sha256": "a43e3ca101c051927d8a4240b5a08091b6168066c3d10a71dd53abd616b5ef2a",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:keys.1\n[G,,12C,12E,12B,12] [A,,12D,12^F,12^C12] [B,,12E,12_A,12_E12] [^C,12^F,12_B,12F12] |\n--- GN SIDE LEDGER ---\nGN rv0-0-3 keys 0 1 43 78\nGN rv0-0-1 keys 0 1 48 78\nGN rv0-0-2 keys 0 1 52 78\nGN rv0-0-4 keys 0 1 59 78\nGN rv0-1-3 keys 1 1 45 78\nGN rv0-1-1 keys 1 1 50 78\nGN rv0-1-2 keys 1 1 54 78\nGN rv0-1-4 keys 1 1 61 78\nGN rv0-2-3 keys 2 1 47 78\nGN rv0-2-1 keys 2 1 52 78\nGN rv0-2-2 keys 2 1 56 78\nGN rv0-2-4 keys 2 1 63 78\nGN rv0-3-3 keys 3 1 49 78\nGN rv0-3-1 keys 3 1 54 78\nGN rv0-3-2 keys 3 1 58 78\nGN rv0-3-4 keys 3 1 65 78",
+      "response_payload_bytes": 594,
+      "response_payload_sha256": "48eecdb340220fb85f022a941ccef0130971f65a4a9a89c775251f41b21d0789",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 647,
+        "output_tokens": 457,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": false
+        },
+        "checks": {},
+        "error": "Score and side ledger disagree",
+        "musical_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0007125,
+        "total": 0.0009915,
+        "uncached_input": 0.000279
+      },
+      "family": "transformation-rhythm",
+      "kind": "development",
+      "latency_ms": 2261.12,
+      "outer_schema_valid": true,
+      "prompt_bytes": 920,
+      "prompt_sha256": "197690e22293e269afcaa6dc0dc84e27a270082484cd5ce90cd27089f376cf1b",
+      "raw_response_sha256": "5bb204a2acff1d52951568e371ec54a0a169edbbf24eb92e8da6b32f62fc4bbb",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:lead.1\nC12 ^C12 D12 _E12 | E12 F12 |\n--- GN SIDE LEDGER ---\nGN rh0-0 lead 0 1 60 82\nGN rh0-1 lead 1 1 61 82\nGN rh0-2 lead 2 1 62 82\nGN rh0-3 lead 3 1 63 82\nGN rh0-4 lead 4 1 64 82\nGN rh0-5 lead 5 1 65 82",
+      "response_payload_bytes": 267,
+      "response_payload_sha256": "80f364131a38db092b321127efd3f46bb52540ac09ab10fbd29f03068810f968",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 372,
+        "output_tokens": 190,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": true
+        },
+        "checks": {
+          "exact_rhythm_relation": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00128625,
+        "total": 0.001563,
+        "uncached_input": 0.00027675
+      },
+      "family": "comprehension-analysis",
+      "kind": "development",
+      "latency_ms": 2708.68,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1217,
+      "prompt_sha256": "630bbd9089d2c598f84680a359d3e0fae74898c5f07231f3e8e0903e6556f614",
+      "raw_response_sha256": "aa080d8da0477a137a419cdf446e2dccb2c25bb41718d20039d611236d509aa5",
+      "request_id": null,
+      "response_payload": "ANALYSIS root_pc=0 bass_pc=4 quality=major inversion=1 function=I6 motif_relation=transposition rhythm=sustained",
+      "response_payload_bytes": 112,
+      "response_payload_sha256": "604bb5dc973b6425a334e72fec0cee9ba1538bab830645ae987a7ddb9df5f67e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 369,
+        "output_tokens": 343,
+        "thinking_tokens": 301
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "bass_pc": true,
+          "function": true,
+          "inversion": true,
+          "motif_relation": true,
+          "quality": true,
+          "rhythm": true,
+          "root_pc": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00046875,
+        "total": 0.0006765,
+        "uncached_input": 0.00020775
+      },
+      "family": "comprehension-structure",
+      "kind": "development",
+      "latency_ms": 2176.043,
+      "outer_schema_valid": true,
+      "prompt_bytes": 757,
+      "prompt_sha256": "5a2c43cb949f04d33a30467713cf08d64877fcb7109122a712b96e38ab267c25",
+      "raw_response_sha256": "285243ef5455f2b6be1d28342e79757b18daa213fce0ac5991562c03fdfa0dee",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:bass.1\nC,,48 F,,48 |\nV:keys.1\nC48 F48 |\nV:keys.2\nE48 A48 |\nV:keys.3\nG48 c48 |\nV:lead.1\nC4 z4 D4 z4 E4 z4 G4 |",
+      "response_payload_bytes": 173,
+      "response_payload_sha256": "e9dcd26fa1492c0eb9b9a79e823603683dd8ce27b28c25616139273b70cded9e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 277,
+        "output_tokens": 125,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "represented_reconstruction": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.01102125,
+        "total": 0.01119075,
+        "uncached_input": 0.0001695
+      },
+      "family": "continuation-motif",
+      "kind": "development",
+      "latency_ms": 14087.358,
+      "outer_schema_valid": true,
+      "prompt_bytes": 684,
+      "prompt_sha256": "e114d7cb5c1a661a07199e31c141faa6a74629357ac1e4d245749d5a043eb5e2",
+      "raw_response_sha256": "6b56b8dfe58a4e4d50c1f9bf56b0127a844f79b39b08c2235b3c03522571797a",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:lead.1\nz4 _E12 F12 _A12 G12 |",
+      "response_payload_bytes": 61,
+      "response_payload_sha256": "feb6ec324e13fefb282168282c93ca3f31eeefdc2045b81f5a34b38c4ab0420f",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 226,
+        "output_tokens": 2939,
+        "thinking_tokens": 2877
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "exact_relation": false
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00034875,
+        "total": 0.00052425,
+        "uncached_input": 0.0001755
+      },
+      "family": "continuation-roles",
+      "kind": "development",
+      "latency_ms": 1843.768,
+      "outer_schema_valid": true,
+      "prompt_bytes": 718,
+      "prompt_sha256": "66ec3b29efb36c190e94639351599f900ec42ccf7c25a88b1f51e668680f9192",
+      "raw_response_sha256": "e15d60597c1773054161206e2d9f96b00844a2b0e32b25a7d89bf59a6af7e275",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:lead.1\n| z192 | c48 c48 d48 c48 |\nV:bass.1\n| z192 | C48 F,48 G,48 C48 |",
+      "response_payload_bytes": 103,
+      "response_payload_sha256": "7871cfd18980beedb5822e8b0358b336497d7b9c9d1a42d9d918a188cc72617a",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 234,
+        "output_tokens": 93,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "cadence": true,
+          "no_collisions": true,
+          "ranges": false,
+          "role_density": true,
+          "starts": false,
+          "strong_beat_harmony": true,
+          "voice_leading": true
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.000285,
+        "total": 0.00051675,
+        "uncached_input": 0.00023175
+      },
+      "family": "generation-melody",
+      "kind": "development",
+      "latency_ms": 2113.861,
+      "outer_schema_valid": true,
+      "prompt_bytes": 923,
+      "prompt_sha256": "a83f050d85f3f4b31be77955af27bda754076feed308c0080415e21ea7491d31",
+      "raw_response_sha256": "1abaf511a5b040f22ebcac897c439264e77d48337b36d9b218f8649f8b7f8c72",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:lead.1\n_E24 C24 G24 _E24 | _A24 F24 c24 _A24 |]",
+      "response_payload_bytes": 79,
+      "response_payload_sha256": "1529e5a27240a8fd6b8edfc4a7d369def0cfe535565dddd8cd315662f1496554",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 309,
+        "output_tokens": 76,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "cadence": false,
+          "mode": false,
+          "motif": true,
+          "note_count": true,
+          "range": true,
+          "rhythm": false,
+          "strong_beat_harmony": false
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0004575,
+        "total": 0.00068025,
+        "uncached_input": 0.00022275
+      },
+      "family": "generation-progression",
+      "kind": "development",
+      "latency_ms": 2174.253,
+      "outer_schema_valid": true,
+      "prompt_bytes": 890,
+      "prompt_sha256": "fc649e50d2573f4063c6e5fcf00e0ab1bd32d46ae73d31976b566abaf3c7661e",
+      "raw_response_sha256": "d61507e6e767512036722a61da0698ad604e43460ab67eb0ae63a190df1904d7",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:bass\nE,48 D,48 D,48 C,48 |\nV:tenor\nG,48 F,48 G,48 E,48 |\nV:alto\nC48 D48 B,48 G,48 |\nV:soprano\nE48 A48 F48 C48 |",
+      "response_payload_bytes": 143,
+      "response_payload_sha256": "8cbb279d8d73bd986fcf6a8a5d17f6bbfc5429fae3f26a33255d95410bde203f",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 297,
+        "output_tokens": 122,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "authentic_cadence": false,
+          "four_chords": false,
+          "four_named_voices": false,
+          "harmony": false,
+          "inversions": false,
+          "no_voice_crossing": false,
+          "ranges": false,
+          "voice_leading": false
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.000465,
+        "total": 0.000729,
+        "uncached_input": 0.000264
+      },
+      "family": "transformation-local",
+      "kind": "development",
+      "latency_ms": 1754.817,
+      "outer_schema_valid": true,
+      "prompt_bytes": 850,
+      "prompt_sha256": "219b8e1ad50a45e8664a4e91e9426235fd3de7948594c298d2df3d8ead69e631",
+      "raw_response_sha256": "4f9a730f4cac81735249577e03569507ca9322155d07d3f5a606c697ee2da7b7",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:bass.1\nD,48 F,,48 |\nV:keys.1\nC48 F48 |\nV:keys.2\nE48 A48 |\nV:keys.3\nG48 c48 |\nV:lead.1\nC4 z4 D4 z4 E4 z4 G4 |",
+      "response_payload_bytes": 172,
+      "response_payload_sha256": "890fd4168318c5c18279b196572c71e6d843a0807656dbcca8b95b05ff6b24d4",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 352,
+        "output_tokens": 124,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "canonical_result": false
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00845625,
+        "total": 0.00868725,
+        "uncached_input": 0.000231
+      },
+      "family": "transformation-revoice",
+      "kind": "development",
+      "latency_ms": 8152.565,
+      "outer_schema_valid": true,
+      "prompt_bytes": 770,
+      "prompt_sha256": "6c9ee85b6d205dcc09d684b62505d5d837ffd564938b78db8649ef6d18709345",
+      "raw_response_sha256": "8307665ec7565bd0b153c48921cc75e9d26da588618754bed7eb88c6ebee7c0c",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:keys.1\nG,,12 A,,12 B,,12 ^C,12 |\nV:keys.2\nC,12 D,12 E,12 ^F,12 |\nV:keys.3\nE,12 ^F,12 _A,12 _B,12 |\nV:keys.4\nB,12 ^C12 _E12 F12 |",
+      "response_payload_bytes": 160,
+      "response_payload_sha256": "f1ec06a44be69d81ef6b119b73423fb1b89f914ca1a3e0b8643cb5c6edee264b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 308,
+        "output_tokens": 2255,
+        "thinking_tokens": 2122
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": true,
+          "range": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0002775,
+        "total": 0.00044025,
+        "uncached_input": 0.00016275
+      },
+      "family": "transformation-rhythm",
+      "kind": "development",
+      "latency_ms": 2073.048,
+      "outer_schema_valid": true,
+      "prompt_bytes": 665,
+      "prompt_sha256": "d5c6083ae375d9925a185f32ea04940ec7822e190598b16cd254d149da693e58",
+      "raw_response_sha256": "14626c68ec86e590da31f12dfef094fc14ff9d65c8fba99b77891dc1304bbf53",
+      "request_id": null,
+      "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:lead.1\nC12 ^C12 D12 _E12 E12 F12 |",
+      "response_payload_bytes": 98,
+      "response_payload_sha256": "bd8935ed7b353be9fda3f21bfa061e89e86bcffc14337a54d40f46c32dea2969",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 217,
+        "output_tokens": 74,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "exact_rhythm_relation": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00106125,
+        "total": 0.00132225,
+        "uncached_input": 0.000261
+      },
+      "family": "comprehension-analysis",
+      "kind": "development",
+      "latency_ms": 2432.546,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1173,
+      "prompt_sha256": "15174b1368df233d22ece6358351f3aff99136f564c5f59eee6ce1aa5f5556be",
+      "raw_response_sha256": "5e92d34142ffbf844a33d196e053ed6310c7d3576c4d95cc4b18dcaedc122733",
+      "request_id": null,
+      "response_payload": "ANALYSIS root_pc=0 bass_pc=4 quality=major inversion=1 function=I6 motif_relation=transposition rhythm=sustained",
+      "response_payload_bytes": 112,
+      "response_payload_sha256": "604bb5dc973b6425a334e72fec0cee9ba1538bab830645ae987a7ddb9df5f67e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 348,
+        "output_tokens": 283,
+        "thinking_tokens": 241
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "bass_pc": true,
+          "function": true,
+          "inversion": true,
+          "motif_relation": true,
+          "quality": true,
+          "rhythm": true,
+          "root_pc": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00102,
+        "total": 0.0013065,
+        "uncached_input": 0.0002865
+      },
+      "family": "comprehension-structure",
+      "kind": "development",
+      "latency_ms": 2545.489,
+      "outer_schema_valid": true,
+      "prompt_bytes": 881,
+      "prompt_sha256": "f8ea325cd164f80e7ac08f070c1e663e3babf486e1c23f570934efc51c471470",
+      "raw_response_sha256": "b7856e30f6d1bc67c07dfa5801e5a6d5a1edf7762d28d9ae157630a9ecc0a280",
+      "request_id": null,
+      "response_payload": "N s0-bass-1 bass 0 4 36 78\nN s0-keys-1-1 keys 0 4 60 71\nN s0-keys-1-2 keys 0 4 64 72\nN s0-keys-1-3 keys 0 4 67 73\nN s0-lead-1 lead 0 1/3 60 87\nN s0-lead-2 lead 2/3 1/3 62 88\nN s0-lead-3 lead 4/3 1/3 64 89\nN s0-lead-4 lead 2 1/3 67 90\nN s0-bass-2 bass 4 4 41 80\nN s0-keys-2-1 keys 4 4 65 71\nN s0-keys-2-2 keys 4 4 69 72\nN s0-keys-2-3 keys 4 4 72 73",
+      "response_payload_bytes": 347,
+      "response_payload_sha256": "5a1d7dc0f736adcb077805f7a55c6f110527f8240e088007de95daf2d6c566db",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 382,
+        "output_tokens": 272,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "represented_reconstruction": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00432,
+        "total": 0.00447525,
+        "uncached_input": 0.00015525
+      },
+      "family": "continuation-motif",
+      "kind": "development",
+      "latency_ms": 5507.199,
+      "outer_schema_valid": true,
+      "prompt_bytes": 633,
+      "prompt_sha256": "a21f04a713313eecdb983a754f89691188208ea1d905c25a15d96a535f55c47d",
+      "raw_response_sha256": "dd5cd79275ea643120c20224019c3759340f077e5792f844992d10e2589c5332",
+      "request_id": null,
+      "response_payload": "N m1-0 lead 4 1 63 88\nN m1-1 lead 5 1 65 88\nN m1-2 lead 6 1 68 88\nN m1-3 lead 7 1 67 88",
+      "response_payload_bytes": 87,
+      "response_payload_sha256": "94f165512806a21156ce95939eafdbb4fa6f5e1e39997b0a691aafcd03b7a416",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 207,
+        "output_tokens": 1152,
+        "thinking_tokens": 1072
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "exact_relation": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00051,
+        "total": 0.0006615,
+        "uncached_input": 0.0001515
+      },
+      "family": "continuation-roles",
+      "kind": "development",
+      "latency_ms": 1838.737,
+      "outer_schema_valid": true,
+      "prompt_bytes": 668,
+      "prompt_sha256": "50ed637b4078cfceebdfbccd4e4bba295746cf2713eaa3737ab4aeb8a7811f26",
+      "raw_response_sha256": "25f7f0b99713fa8799891c204f29917b03385b1c26f39fa9f27d21ada9627960",
+      "request_id": null,
+      "response_payload": "N n1 bass 4 1 48 80\nN n2 bass 5 1 45 80\nN n3 bass 6 1 43 80\nN n4 bass 7 1 48 80\nN n5 lead 4 1 67 85\nN n6 lead 5 1 69 85\nN n7 lead 6 1 70 85\nN n8 lead 7 1 72 85",
+      "response_payload_bytes": 159,
+      "response_payload_sha256": "5afcf067171e38ced9766a0ffb9ff6fdc33f4ab9532503db6a4e490af2750ced",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 202,
+        "output_tokens": 136,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "cadence": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "strong_beat_harmony": true,
+          "voice_leading": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0006,
+        "total": 0.00080775,
+        "uncached_input": 0.00020775
+      },
+      "family": "generation-melody",
+      "kind": "development",
+      "latency_ms": 1747.472,
+      "outer_schema_valid": true,
+      "prompt_bytes": 873,
+      "prompt_sha256": "963a4c6b41bf3a2f8f689dd25ae79dd6de2190eda0776ca48c29b6dc269f78a8",
+      "raw_response_sha256": "ba99e3a937576ef513812bacebd3007410465d585f83ec543b9f142547f5757a",
+      "request_id": null,
+      "response_payload": "N n1 lead 0 1/2 60 80\nN n2 lead 1/2 1/2 62 80\nN n3 lead 1 1/2 63 80\nN n4 lead 3/2 1/2 67 80\nN n5 lead 2 1/2 65 80\nN n6 lead 5/2 1/2 67 80\nN n7 lead 3 1/2 68 80\nN n8 lead 7/2 1/2 72 80",
+      "response_payload_bytes": 183,
+      "response_payload_sha256": "2988d623ad4ad7e853e210c9d7e468fd978becde434fc29f0d580523419d92dc",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 277,
+        "output_tokens": 160,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "cadence": true,
+          "mode": false,
+          "motif": true,
+          "note_count": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": false
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00101625,
+        "total": 0.001215,
+        "uncached_input": 0.00019875
+      },
+      "family": "generation-progression",
+      "kind": "development",
+      "latency_ms": 2424.995,
+      "outer_schema_valid": true,
+      "prompt_bytes": 840,
+      "prompt_sha256": "3ba1b6b94fc857371560f8f38c9cd2346aa189115e74caab5b19e5aa39d75fa2",
+      "raw_response_sha256": "141ae0f9c99694bd7b1bc3a76987e268c940676267c2b752b259542a8118d222",
+      "request_id": null,
+      "response_payload": "N n1 bass 0 1 40 80\nN n2 tenor 0 1 60 80\nN n3 alto 0 1 64 80\nN n4 soprano 0 1 67 80\nN n5 bass 1 1 50 80\nN n6 tenor 1 1 57 80\nN n7 alto 1 1 65 80\nN n8 soprano 1 1 69 80\nN n9 bass 2 1 50 80\nN n10 tenor 2 1 59 80\nN n11 alto 2 1 65 80\nN n12 soprano 2 1 67 80\nN n13 bass 3 1 48 80\nN n14 tenor 3 1 60 80\nN n15 alto 3 1 64 80\nN n16 soprano 3 1 72 80",
+      "response_payload_bytes": 342,
+      "response_payload_sha256": "825af887e10ecd1045bbf237bab00857c0c25104cebc68c1678ebf8ef253a570",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 265,
+        "output_tokens": 271,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "authentic_cadence": false,
+          "four_chords": true,
+          "four_named_voices": true,
+          "harmony": false,
+          "inversions": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00030375,
+        "total": 0.00064725,
+        "uncached_input": 0.0003435
+      },
+      "family": "transformation-local",
+      "kind": "development",
+      "latency_ms": 1838.777,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1006,
+      "prompt_sha256": "006f614bf526cff11c42a3435431758c032b31e1c737eb175bf287f57c502d8e",
+      "raw_response_sha256": "a5c752f591330baca90629f0d21d4bf3ba15dc3079c0d930c0c117100d7a31ab",
+      "request_id": null,
+      "response_payload": "PATCH 72d31501aeb66e237234f2aa31ffa616adc8b156f99425a3a5a1db4f1196ee8e\nSET s0-bass-1 pitch=38",
+      "response_payload_bytes": 93,
+      "response_payload_sha256": "877897884e7b060e15130e2a6e11e56184afa2828f29bcda3d37bc43c441e3f9",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 458,
+        "output_tokens": 81,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00435,
+        "total": 0.0046845,
+        "uncached_input": 0.0003345
+      },
+      "family": "transformation-revoice",
+      "kind": "development",
+      "latency_ms": 5679.387,
+      "outer_schema_valid": true,
+      "prompt_bytes": 931,
+      "prompt_sha256": "f868eedb95517bc6cc3ac596baf7fcc9a7466b3f9f132d73e17dd96d70f03836",
+      "raw_response_sha256": "3050ea3cab3cd279258a025b1634e135e825e3b1b0fb5c9578d2d5fc0a30bf37",
+      "request_id": null,
+      "response_payload": "N rv0-0-1 keys 0 1 43 78\nN rv0-0-2 keys 0 1 48 78\nN rv0-0-3 keys 0 1 52 78\nN rv0-0-4 keys 0 1 59 78\nN rv0-1-1 keys 1 1 45 78\nN rv0-1-2 keys 1 1 50 78\nN rv0-1-3 keys 1 1 54 78\nN rv0-1-4 keys 1 1 61 78\nN rv0-2-1 keys 2 1 47 78\nN rv0-2-2 keys 2 1 52 78\nN rv0-2-3 keys 2 1 56 78\nN rv0-2-4 keys 2 1 63 78\nN rv0-3-1 keys 3 1 49 78\nN rv0-3-2 keys 3 1 54 78\nN rv0-3-3 keys 3 1 58 78\nN rv0-3-4 keys 3 1 65 78",
+      "response_payload_bytes": 399,
+      "response_payload_sha256": "fad5d291cad491c62f4806bd6fbccac86ea239cbba355d0e62df19a3d64592f9",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 446,
+        "output_tokens": 1160,
+        "thinking_tokens": 832
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": true,
+          "range": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00134625,
+        "total": 0.00153225,
+        "uncached_input": 0.000186
+      },
+      "family": "transformation-rhythm",
+      "kind": "development",
+      "latency_ms": 2199.419,
+      "outer_schema_valid": true,
+      "prompt_bytes": 678,
+      "prompt_sha256": "ee49765647dd44e12f6a47eecd73dc6b91835eb26dbbb356114712f46ce83e49",
+      "raw_response_sha256": "8245a81c0b603188db887b6a1d85e5502e52ba232c3517ffa5f544a9efd29149",
+      "request_id": null,
+      "response_payload": "N rh0-0 lead 0 1 60 82\nN rh0-1 lead 1 1 61 82\nN rh0-2 lead 2 1 62 82\nN rh0-3 lead 3 1 63 82\nN rh0-4 lead 4 1 64 82\nN rh0-5 lead 5 1 65 82",
+      "response_payload_bytes": 137,
+      "response_payload_sha256": "0848542052a5f687cd67b7cd7ae399b4f98fd6240168c620a3b2a3322562529b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 248,
+        "output_tokens": 359,
+        "thinking_tokens": 243
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "exact_rhythm_relation": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    }
+  ],
+  "run_kind": "pilot",
+  "schema": "ghostnote-symbolic-format-benchmark-v1",
+  "screen_sha256": "e3be63c1a901aaaaea06255354bbf08aa313534a3b5882534a752ef25d01a4ec",
+  "sha256": "2f258f8729bcec91c246bd16774b67b82d4419a38c7648b00f221988a133da65",
+  "valid_calls": 27
+}

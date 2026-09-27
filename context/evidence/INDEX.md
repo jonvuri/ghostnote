@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-25
+updated: 2026-09-27
 ---
 
 # Evidence index
@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E140 | Expanded symbolic-format comparison requires a compact grammar revision [K] (2026-09-27) | [open](experiments/e140-expanded-symbolic-format-comparison-requires-revision.md) |
+| E139 | Cache scale limits and degradation policy are fixed [K] (2026-09-27) | [open](experiments/e139-cache-scale-limits-and-degradation.md) |
 | E138 | Cache identity and lifecycle rules pass live recovery [K] (2026-09-25) | [open](experiments/e138-cache-identity-and-lifecycle.md) |
 | E137 | Compact-bar prior art and benchmark are reproducible [K] (2026-09-25) | [open](experiments/e137-compact-bar-prior-art-and-benchmark.md) |
 | E136 | Runtime and surface cleanup establishes lean profiles [K] (2026-09-25) | [open](experiments/e136-runtime-and-surface-cleanup.md) |

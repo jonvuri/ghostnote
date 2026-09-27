@@ -2,7 +2,7 @@
 title: Compact-bar limitations and publication gaps
 kind: reference
 state: active
-updated: 2026-09-25
+updated: 2026-09-27
 parent: COMPACT_BAR_RATIONALE.md
 ---
 
@@ -66,6 +66,24 @@ The current compact prompt is 56.0% smaller than exact JSON on GPT input tokens
 and 52.8% smaller on Gemini input tokens. This result applies only to the fixed
 cohort and prompt.
 
+In the expanded v1 run, compact used 21% to 26% fewer paired input tokens than
+exact JSON and about 70% fewer output bytes. The v1 compact arm used an
+unlabeled shorthand instead of the v0 labeled events and structural headers.
+Recheck these results for each candidate that reaches the fresh full matrix.
+
+## Expanded task result
+
+Compact v1 stayed inside the 12.5 percentage-point paired rate margin for every
+eligible comparator. It still failed the separate repeated-loss rule. OpenAI,
+Gemini, and Claude each had at least one task family with repeated
+compact-only losses.
+
+This does not show a general parser failure. Compact syntax passed every
+retained OpenAI and Claude call and 41 of 43 retained Gemini calls. The failed
+rows were musical constraints. [E140](../experiments/e140-expanded-symbolic-format-comparison-requires-revision.md)
+separates these failures from syntax, native identity limits, side-ledger
+alignment, and provider variation.
+
 ## Round-trip editing
 
 The finite arms round-trip only their declared represented core. Exact JSON is
@@ -79,7 +97,9 @@ patch boundary, not full-format interchange.
 
 ## Required changes before a public specification
 
-Phase 8f must complete this list:
+Phase 8c2 must develop compact candidates and select them on a fresh targeted
+holdout. Phase 8c3 must test the selected candidates on a fresh full matrix.
+Phase 8f must then complete this list:
 
 1. Select one versioned grammar or object schema and canonical renderer.
 2. Apply the D23 `1/512` identity and loss rules to live normalized state.

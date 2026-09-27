@@ -2,7 +2,7 @@
 title: Compact-bar benchmark reproducibility
 kind: reference
 state: active
-updated: 2026-09-25
+updated: 2026-09-27
 parent: COMPACT_BAR_BENCHMARK_PROTOCOL.md
 ---
 
@@ -51,6 +51,44 @@ python3 benchmarks/compact-bar-v0/benchmark.py --summarize \
 
 The client sends generated symbolic text only. It sends no live project data,
 audio, MIDI file, or repository source.
+
+## Expanded v1 checks
+
+Run the Phase 8c1 deterministic checks from `brain`:
+
+```sh
+python3 benchmarks/symbolic-format-v1/benchmark.py --self-test
+python3 benchmarks/symbolic-format-v1/benchmark.py \
+  --check benchmarks/symbolic-format-v1/expected-deterministic.json
+node benchmarks/symbolic-format-v1/tonal-verifier.mjs
+```
+
+Use the pinned temporary verifier dependencies for Music21 and Musicpy:
+
+```sh
+python3 -m venv /tmp/ghostnote-symbolic-v1-venv
+/tmp/ghostnote-symbolic-v1-venv/bin/pip install \
+  -r benchmarks/symbolic-format-v1/requirements-verifiers.txt
+/tmp/ghostnote-symbolic-v1-venv/bin/python \
+  benchmarks/symbolic-format-v1/benchmark.py --verifier-self-test
+```
+
+Remove the temporary environment after the check. The v1 deterministic
+SHA-256 is
+`1018c31c5cc2f2777794d6ab9db5d89f475f421b8b34de9ddbec888337a662a0`.
+
+The v1 provider harness also reads `CLAUDE_API_KEY`. It records OpenAI, Gemini,
+and Claude model identities, usage, cost, retries, hashes, and scored results.
+The fixed retained package is in
+[symbolic-format v1](../../../brain/benchmarks/symbolic-format-v1/README.md).
+Do not rerun it into the retained filenames. Use a new protocol and cohort for
+each Phase 8c2 development iteration and its targeted holdout. Use another new
+protocol and cohort for the Phase 8c3 full matrix.
+
+Before each provider-bearing Phase 8c2 or 8c3 run, record its exact scope,
+expected calls, model settings, and estimated cost by provider and in total.
+Get explicit operator approval for that named run. The former USD 5 soft
+ceiling does not apply.
 
 ## Result classes
 

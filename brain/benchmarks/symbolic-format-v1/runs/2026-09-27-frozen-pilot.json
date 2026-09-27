@@ -1,0 +1,39 @@
+{
+  "compact_specific_repeat_rule": "Two compact-only failures in one task family and provider prevent a proceed decision.",
+  "cost_projection": {
+    "claude": {
+      "average_cost_per_call_usd": 0.01035785,
+      "exceeds_soft_ceiling": false,
+      "minimum_retained_calls": 369,
+      "pilot_calls": 27,
+      "projected_minimum_cost_usd": 3.822
+    },
+    "gemini": {
+      "average_cost_per_call_usd": 0.00238164,
+      "exceeds_soft_ceiling": false,
+      "minimum_retained_calls": 369,
+      "pilot_calls": 27,
+      "projected_minimum_cost_usd": 0.8788
+    },
+    "openai": {
+      "average_cost_per_call_usd": 0.00421297,
+      "exceeds_soft_ceiling": false,
+      "minimum_retained_calls": 369,
+      "pilot_calls": 27,
+      "projected_minimum_cost_usd": 1.5546
+    }
+  },
+  "margin_kind": "descriptive paired success-rate difference",
+  "non_inferiority_margin": 0.125,
+  "pilot_sha256": {
+    "claude": "a4c5a99cca126a1a35549e63e72a22fe67457b033bec89373080d196ba470346",
+    "gemini": "2f258f8729bcec91c246bd16774b67b82d4419a38c7648b00f221988a133da65",
+    "openai": "fbf6119857b4d5379b2d372870f8196e93d7e832926277f0d00c1548ae1d0d0c"
+  },
+  "protocol_sha256": "eae49b356692fc75f4c1733f9b3426ce60e0bdd8f3b0b62bdf6d374b3e4097c9",
+  "run_kind": "frozen-pilot-decision",
+  "sample_support": "Twenty-seven minimum paired observations per full arm and provider resolve 3.7 percentage points. The result does not establish population equivalence.",
+  "schema": "ghostnote-symbolic-format-benchmark-v1",
+  "sha256": "525a4a91be8616cd432d1e7867c68b4ec8970f1bba27a8f5244972e6ea1665d3",
+  "stopping_rule": "Stop a cell at three when all outcomes agree. Add variants 4 and 5 when mixed. Add 6 and 7 only when still mixed."
+}

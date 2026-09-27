@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Cache scale limits are complete. Run the expanded format comparison before the consolidated contracts.
+status: Develop compact candidates, then run a fresh full matrix before the consolidated contracts.
 updated: 2026-09-27
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -87,18 +87,27 @@ owns the migration details.
    Complete. [E139](../../evidence/experiments/e139-cache-scale-limits-and-degradation.md)
    selects product limits, budgets, and explicit exact-read degradation.
 6. [8c1 — Expanded symbolic-format comparison](8c1-expanded-symbolic-format-comparison.md).
-   Compare native and composite format arms on deterministic comprehension,
-   generation, continuation, and transformation tasks across GPT, Gemini, and
-   Claude. Use adaptive repeats and a soft provider budget.
-7. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+   Complete. [E140](../../evidence/experiments/e140-expanded-symbolic-format-comparison-requires-revision.md)
+   records the fixed three-provider comparison. Its result is `revise` because
+   the compact arm failed the repeated-loss rule and changed the v0 labeled
+   grammar.
+7. [8c2 — Compact-format development loop](8c2-compact-grammar-correction.md).
+   Compare six initial arms on focused stress tests. Iterate on bounded format
+   hypotheses, then select candidates with a fresh targeted holdout. Get
+   explicit operator approval for the estimated cost of every provider-bearing
+   run.
+8. [8c3 — Full symbolic-format matrix](8c3-full-symbolic-format-matrix.md).
+   Run a fresh full matrix with the compact candidates selected by 8c2. Keep
+   Phase 8f blocked until this session gives a `proceed` decision.
+9. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
-8. [8g — Shadow project cache](8g-shadow-project-cache.md).
+10. [8g — Shadow project cache](8g-shadow-project-cache.md).
    Implement the cache behind an experimental boundary while E131 remains
    authoritative.
-9. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
+11. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Promote proved cache reads in stages and apply the selected tool and
    verification reductions.
-10. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+12. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

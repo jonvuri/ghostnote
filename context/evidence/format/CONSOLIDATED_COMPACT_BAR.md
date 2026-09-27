@@ -2,9 +2,9 @@
 title: Consolidated compact-bar direction
 kind: design exploration
 state: active
-updated: 2026-09-25
+updated: 2026-09-27
 scope: one normalized agent-facing clip representation for analysis, reads, and writes
-evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E134; D23
+evidence: E16s, E19, E24, E51-E54, E114-E121, E128-E140; D23
 ---
 
 # Consolidated compact-bar direction
@@ -13,6 +13,10 @@ evidence: E16s, E19, E24, E51-E54, E114-E116, E119-E121, E128-E134; D23
 
 This document records the current design direction. It is not an implemented
 contract. Details can change as practical host work supplies new evidence.
+
+E140 keeps this contract blocked. Phase 8c2 must develop and hold out compact
+candidates. Phase 8c3 must then test them on a fresh full matrix before Phase
+8f can freeze a public syntax.
 
 The main direction is selected:
 
@@ -280,6 +284,14 @@ implements the cache in shadow mode before promotion.
 
 ## Evidence carried forward
 
+- E140 records the expanded three-provider comparison. Compact stayed inside
+  the paired rate margin but failed the provider-specific repeated-loss rule.
+  Its v1 shorthand also changed the labeled v0 events and structural headers.
+  Phase 8c2 owns focused development and a fresh targeted holdout. Phase 8c3
+  owns the fresh full matrix.
+- E138 and E139 fix cache identity, lifecycle, product limits, budgets, and
+  explicit exact-read degradation. They remain separate from the public music
+  document.
 - E137 fixes the prior-art rationale, limitations, task corpus, scoring rules,
   deterministic results, and dated two-provider comparison. It does not freeze
   the future syntax.

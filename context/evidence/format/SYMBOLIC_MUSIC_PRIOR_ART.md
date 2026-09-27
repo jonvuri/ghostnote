@@ -2,7 +2,7 @@
 title: Symbolic music prior-art comparison
 kind: reference
 state: active
-updated: 2026-09-25
+updated: 2026-09-27
 parent: COMPACT_BAR_RATIONALE.md
 ---
 
@@ -23,14 +23,14 @@ provider input tokens.
 | Family | Native purpose | Native strength | Ghostnote comparison treatment |
 |---|---|---|---|
 | Exact JSON | Complete object exchange | Explicit fields and exact reconstruction | Complete control. It retains every benchmark note field. |
-| Compact-bar | Agent task view | Bar structure, opaque IDs, rational time, and sparse edits | Current project baseline. It omits host-only fields and relies on the compiler. |
-| ABC 2.1 | Human-readable notation, tune exchange, typesetting, and playback | Conventional pitch, rhythm, tuplets, voices, and metadata | The score view uses ABC labels. A counted `% GN` side ledger adds exact IDs and task fields. |
+| Compact-bar | Agent task view | Bar structure, opaque IDs, rational time, and sparse edits | Current project baseline. The v1 shorthand needs a fresh-cohort correction to the labeled v0 spelling. |
+| ABC 2.1 | Human-readable notation, tune exchange, typesetting, and playback | Conventional pitch, rhythm, tuplets, voices, and metadata | The native arm uses ABC only. The composite arm adds a counted `% GN` side ledger. |
 | LilyPond | High-quality music engraving from text input | Detailed notated music and layout | Screened out before model calls. The repository does not pin a LilyPond compiler for this cohort. |
-| Tidal or Strudel mini-notation | Cyclic pattern construction and transformation | Terse subdivision, repetition, superposition, polymeter, and variation | Strudel runs one native pattern-expansion task. It is not scored on finite Ghostnote round-trip editing. |
-| Alda | Text-based composition, playback, and interactive sequencing | Readable parts, notes, chords, voices, and programmatic composition | A valid Alda-style pitch sketch is paired with a counted `# GN` exact side ledger. |
-| MIDI-Like | Autoregressive performance-event modeling | Ordered time shifts, note-on, note-off, and velocity events | A task profile adds opaque IDs, bars, harmony, and roles. |
-| REMI+ | Bar-aware multi-track model input | Explicit bar, position, duration, and instrument structure | A task profile adds exact rational values, opaque IDs, and roles. |
-| OctupleMIDI | Compound-event symbolic pretraining and understanding | One multi-field token per note | A task profile adds exact rational values, opaque IDs, harmony, and roles. |
+| Tidal or Strudel mini-notation | Cyclic pattern construction and transformation | Terse subdivision, repetition, superposition, polymeter, and variation | The v1 mini arm expands one declared cycle. It has no stable finite identity claim. |
+| Alda | Text-based composition, playback, and interactive sequencing | Readable parts, notes, chords, voices, and programmatic composition | The native arm uses an Alda-style score. The composite arm adds a counted `# GN` side ledger. |
+| MIDI-Like | Autoregressive performance-event modeling | Ordered time shifts, note-on, note-off, and velocity events | The native arm uses musical events only. The composite arm adds exact Ghostnote task fields. |
+| REMI+ | Bar-aware multi-track model input | Explicit bar, position, duration, and instrument structure | The native arm uses the model-token structure. The composite arm adds exact Ghostnote task fields. |
+| OctupleMIDI | Compound-event symbolic pretraining and understanding | One multi-field token per note | The native arm uses compound note tokens. The composite arm adds exact Ghostnote task fields. |
 
 ## Direct sources
 
@@ -62,6 +62,13 @@ not show that base ABC or Alda carries opaque live note identity. The model
 token profiles also contain task extensions that are not part of the cited base
 representations.
 
-All eight retained families passed their native task on both dated providers.
-This includes the Strudel arm. Report native-purpose and Ghostnote round-trip
-results separately.
+The Phase 8c v0 run found that all eight retained families passed their native
+task on its two dated providers. This includes the Strudel arm. The expanded
+v1 run uses separate native and composite arms across three providers and nine
+task families. Native musical success varied by provider and task.
+
+[E140](../experiments/e140-expanded-symbolic-format-comparison-requires-revision.md)
+shows that side ledgers added input tokens, output bytes, and alignment
+failures. Their identity capability did not turn a native musical result into a
+product-contract result. Report native-purpose, side-ledger, stable-identity,
+and preservation results separately.

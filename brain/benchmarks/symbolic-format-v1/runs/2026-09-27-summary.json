@@ -1,0 +1,2020 @@
+{
+  "claim": "material observed deficit",
+  "comparisons": [
+    {
+      "compact_successes": 22,
+      "comparator_successes": 8,
+      "comparison": "compact-bar vs abc-2.1-native",
+      "delta": 0.5185,
+      "margin": 0.125,
+      "paired_trials": 27,
+      "passes": true,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 22,
+      "comparator_successes": 8,
+      "comparison": "compact-bar vs abc-2.1-composite",
+      "delta": 0.5185,
+      "margin": 0.125,
+      "paired_trials": 27,
+      "passes": true,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 22,
+      "comparator_successes": 8,
+      "comparison": "compact-bar vs alda-native",
+      "delta": 0.4516,
+      "margin": 0.125,
+      "paired_trials": 31,
+      "passes": true,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 22,
+      "comparator_successes": 11,
+      "comparison": "compact-bar vs alda-composite",
+      "delta": 0.4074,
+      "margin": 0.125,
+      "paired_trials": 27,
+      "passes": true,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 28,
+      "comparator_successes": 25,
+      "comparison": "compact-bar vs midi-like-native",
+      "delta": 0.0698,
+      "margin": 0.125,
+      "paired_trials": 43,
+      "passes": false,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": [
+        "generation-melody",
+        "generation-progression"
+      ]
+    },
+    {
+      "compact_successes": 28,
+      "comparator_successes": 24,
+      "comparison": "compact-bar vs midi-like-composite",
+      "delta": 0.1026,
+      "margin": 0.125,
+      "paired_trials": 39,
+      "passes": true,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 26,
+      "comparator_successes": 20,
+      "comparison": "compact-bar vs remi-plus-native",
+      "delta": 0.1714,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": true,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 26,
+      "comparator_successes": 20,
+      "comparison": "compact-bar vs remi-plus-composite",
+      "delta": 0.1714,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": true,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 26,
+      "comparator_successes": 18,
+      "comparison": "compact-bar vs octuple-midi-native",
+      "delta": 0.2286,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": true,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 28,
+      "comparator_successes": 21,
+      "comparison": "compact-bar vs octuple-midi-composite",
+      "delta": 0.1795,
+      "margin": 0.125,
+      "paired_trials": 39,
+      "passes": false,
+      "provider": "openai",
+      "repeated_compact_only_failure_families": [
+        "generation-melody"
+      ]
+    },
+    {
+      "compact_successes": 21,
+      "comparator_successes": 9,
+      "comparison": "compact-bar vs abc-2.1-native",
+      "delta": 0.3871,
+      "margin": 0.125,
+      "paired_trials": 31,
+      "passes": true,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 23,
+      "comparator_successes": 16,
+      "comparison": "compact-bar vs abc-2.1-composite",
+      "delta": 0.2258,
+      "margin": 0.125,
+      "paired_trials": 31,
+      "passes": false,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": [
+        "transformation-revoice"
+      ]
+    },
+    {
+      "compact_successes": 23,
+      "comparator_successes": 13,
+      "comparison": "compact-bar vs alda-native",
+      "delta": 0.3226,
+      "margin": 0.125,
+      "paired_trials": 31,
+      "passes": false,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": [
+        "transformation-revoice"
+      ]
+    },
+    {
+      "compact_successes": 23,
+      "comparator_successes": 14,
+      "comparison": "compact-bar vs alda-composite",
+      "delta": 0.2903,
+      "margin": 0.125,
+      "paired_trials": 31,
+      "passes": true,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 24,
+      "comparison": "compact-bar vs midi-like-native",
+      "delta": 0.0286,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": false,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": [
+        "transformation-revoice"
+      ]
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 23,
+      "comparison": "compact-bar vs midi-like-composite",
+      "delta": 0.0571,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": false,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": [
+        "transformation-revoice"
+      ]
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 20,
+      "comparison": "compact-bar vs remi-plus-native",
+      "delta": 0.1282,
+      "margin": 0.125,
+      "paired_trials": 39,
+      "passes": false,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": [
+        "transformation-revoice"
+      ]
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 22,
+      "comparison": "compact-bar vs remi-plus-composite",
+      "delta": 0.0769,
+      "margin": 0.125,
+      "paired_trials": 39,
+      "passes": false,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": [
+        "transformation-revoice"
+      ]
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 22,
+      "comparison": "compact-bar vs octuple-midi-native",
+      "delta": 0.0769,
+      "margin": 0.125,
+      "paired_trials": 39,
+      "passes": false,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": [
+        "transformation-revoice"
+      ]
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 24,
+      "comparison": "compact-bar vs octuple-midi-composite",
+      "delta": 0.0286,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": false,
+      "provider": "gemini",
+      "repeated_compact_only_failure_families": [
+        "transformation-revoice"
+      ]
+    },
+    {
+      "compact_successes": 19,
+      "comparator_successes": 7,
+      "comparison": "compact-bar vs abc-2.1-native",
+      "delta": 0.4444,
+      "margin": 0.125,
+      "paired_trials": 27,
+      "passes": true,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 22,
+      "comparator_successes": 13,
+      "comparison": "compact-bar vs abc-2.1-composite",
+      "delta": 0.2903,
+      "margin": 0.125,
+      "paired_trials": 31,
+      "passes": true,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 19,
+      "comparator_successes": 7,
+      "comparison": "compact-bar vs alda-native",
+      "delta": 0.4444,
+      "margin": 0.125,
+      "paired_trials": 27,
+      "passes": true,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 19,
+      "comparator_successes": 10,
+      "comparison": "compact-bar vs alda-composite",
+      "delta": 0.3333,
+      "margin": 0.125,
+      "paired_trials": 27,
+      "passes": true,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 24,
+      "comparison": "compact-bar vs midi-like-native",
+      "delta": 0.0286,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": false,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": [
+        "continuation-roles"
+      ]
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 25,
+      "comparison": "compact-bar vs midi-like-composite",
+      "delta": 0.0,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": false,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": [
+        "continuation-roles",
+        "generation-progression"
+      ]
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 19,
+      "comparison": "compact-bar vs remi-plus-native",
+      "delta": 0.1714,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": true,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 23,
+      "comparison": "compact-bar vs remi-plus-composite",
+      "delta": 0.0571,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": true,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 25,
+      "comparison": "compact-bar vs octuple-midi-native",
+      "delta": 0.0,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": true,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": []
+    },
+    {
+      "compact_successes": 25,
+      "comparator_successes": 21,
+      "comparison": "compact-bar vs octuple-midi-composite",
+      "delta": 0.1143,
+      "margin": 0.125,
+      "paired_trials": 35,
+      "passes": true,
+      "provider": "claude",
+      "repeated_compact_only_failure_families": []
+    }
+  ],
+  "decision": "revise",
+  "frozen_margin": 0.125,
+  "population_equivalence": "not claimed",
+  "providers": [
+    {
+      "actual_cost_usd": 2.08353,
+      "arms": [
+        {
+          "alignment_failures": 0,
+          "arm": "exact-json",
+          "cost_usd": 0.168001,
+          "input_tokens": 17121,
+          "output_bytes": 31713,
+          "output_tokens": 34480,
+          "successes": 27,
+          "syntax_successes": 42,
+          "trials": 43
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "compact-bar",
+          "cost_usd": 0.141629,
+          "input_tokens": 13525,
+          "output_bytes": 9675,
+          "output_tokens": 29219,
+          "successes": 28,
+          "syntax_successes": 43,
+          "trials": 43
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "abc-2.1-native",
+          "cost_usd": 0.159091,
+          "input_tokens": 8877,
+          "output_bytes": 3285,
+          "output_tokens": 33874,
+          "successes": 11,
+          "syntax_successes": 27,
+          "trials": 31
+        },
+        {
+          "alignment_failures": 19,
+          "arm": "abc-2.1-composite",
+          "cost_usd": 0.135381,
+          "input_tokens": 13552,
+          "output_bytes": 9028,
+          "output_tokens": 27826,
+          "successes": 11,
+          "syntax_successes": 12,
+          "trials": 31
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "alda-native",
+          "cost_usd": 0.155636,
+          "input_tokens": 8981,
+          "output_bytes": 3681,
+          "output_tokens": 33089,
+          "successes": 10,
+          "syntax_successes": 25,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 18,
+          "arm": "alda-composite",
+          "cost_usd": 0.135496,
+          "input_tokens": 11749,
+          "output_bytes": 9296,
+          "output_tokens": 28152,
+          "successes": 13,
+          "syntax_successes": 13,
+          "trials": 31
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "midi-like-native",
+          "cost_usd": 0.168026,
+          "input_tokens": 16663,
+          "output_bytes": 25589,
+          "output_tokens": 34562,
+          "successes": 31,
+          "syntax_successes": 51,
+          "trials": 51
+        },
+        {
+          "alignment_failures": 1,
+          "arm": "midi-like-composite",
+          "cost_usd": 0.190051,
+          "input_tokens": 20758,
+          "output_bytes": 29650,
+          "output_tokens": 38774,
+          "successes": 32,
+          "syntax_successes": 46,
+          "trials": 47
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "remi-plus-native",
+          "cost_usd": 0.139162,
+          "input_tokens": 18990,
+          "output_bytes": 28023,
+          "output_tokens": 27760,
+          "successes": 27,
+          "syntax_successes": 42,
+          "trials": 43
+        },
+        {
+          "alignment_failures": 5,
+          "arm": "remi-plus-composite",
+          "cost_usd": 0.159139,
+          "input_tokens": 23546,
+          "output_bytes": 32749,
+          "output_tokens": 31440,
+          "successes": 27,
+          "syntax_successes": 38,
+          "trials": 43
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "octuple-midi-native",
+          "cost_usd": 0.138528,
+          "input_tokens": 15726,
+          "output_bytes": 12277,
+          "output_tokens": 28163,
+          "successes": 26,
+          "syntax_successes": 47,
+          "trials": 47
+        },
+        {
+          "alignment_failures": 9,
+          "arm": "octuple-midi-composite",
+          "cost_usd": 0.203347,
+          "input_tokens": 23431,
+          "output_bytes": 21907,
+          "output_tokens": 41283,
+          "successes": 29,
+          "syntax_successes": 42,
+          "trials": 51
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "one-cycle-mini",
+          "cost_usd": 0.05812,
+          "input_tokens": 5608,
+          "output_bytes": 2497,
+          "output_tokens": 11981,
+          "successes": 11,
+          "syntax_successes": 21,
+          "trials": 24
+        }
+      ],
+      "provider": "openai",
+      "repair_pass": true,
+      "requested_model": "gpt-5.4-mini-2026-03-17",
+      "returned_models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "secondary_initial_passes": 5,
+      "secondary_initial_total": 5,
+      "sentinel_variation": [
+        [
+          "abc-2.1-composite",
+          "transformation-local"
+        ],
+        [
+          "abc-2.1-composite",
+          "transformation-rhythm"
+        ],
+        [
+          "abc-2.1-native",
+          "comprehension-analysis"
+        ],
+        [
+          "compact-bar",
+          "continuation-motif"
+        ],
+        [
+          "compact-bar",
+          "generation-melody"
+        ]
+      ],
+      "stopping": {
+        "mixed_after_five": [
+          [
+            "abc-2.1-composite",
+            "transformation-local"
+          ],
+          [
+            "abc-2.1-native",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-native",
+            "generation-progression"
+          ],
+          [
+            "alda-native",
+            "transformation-rhythm"
+          ],
+          [
+            "compact-bar",
+            "continuation-motif"
+          ],
+          [
+            "compact-bar",
+            "generation-melody"
+          ],
+          [
+            "compact-bar",
+            "generation-progression"
+          ],
+          [
+            "compact-bar",
+            "transformation-revoice"
+          ],
+          [
+            "exact-json",
+            "continuation-motif"
+          ],
+          [
+            "exact-json",
+            "generation-melody"
+          ],
+          [
+            "exact-json",
+            "generation-progression"
+          ],
+          [
+            "exact-json",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-composite",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-composite",
+            "continuation-roles"
+          ],
+          [
+            "midi-like-composite",
+            "generation-melody"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "midi-like-native",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-native",
+            "continuation-roles"
+          ],
+          [
+            "midi-like-native",
+            "generation-melody"
+          ],
+          [
+            "midi-like-native",
+            "generation-progression"
+          ],
+          [
+            "midi-like-native",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-native",
+            "transformation-rhythm"
+          ],
+          [
+            "octuple-midi-composite",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-composite",
+            "continuation-roles"
+          ],
+          [
+            "octuple-midi-composite",
+            "generation-melody"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-local"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "octuple-midi-native",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-native",
+            "continuation-roles"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-local"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-rhythm"
+          ],
+          [
+            "one-cycle-mini",
+            "continuation-motif"
+          ],
+          [
+            "one-cycle-mini",
+            "generation-melody"
+          ],
+          [
+            "one-cycle-mini",
+            "transformation-rhythm"
+          ],
+          [
+            "remi-plus-composite",
+            "comprehension-analysis"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-revoice"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "remi-plus-native",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-local"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-revoice"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-rhythm"
+          ]
+        ],
+        "mixed_after_three": [
+          [
+            "abc-2.1-composite",
+            "transformation-local"
+          ],
+          [
+            "abc-2.1-native",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-native",
+            "generation-progression"
+          ],
+          [
+            "alda-native",
+            "transformation-rhythm"
+          ],
+          [
+            "compact-bar",
+            "continuation-motif"
+          ],
+          [
+            "compact-bar",
+            "generation-melody"
+          ],
+          [
+            "compact-bar",
+            "generation-progression"
+          ],
+          [
+            "compact-bar",
+            "transformation-revoice"
+          ],
+          [
+            "exact-json",
+            "continuation-motif"
+          ],
+          [
+            "exact-json",
+            "generation-melody"
+          ],
+          [
+            "exact-json",
+            "generation-progression"
+          ],
+          [
+            "exact-json",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-composite",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-composite",
+            "continuation-roles"
+          ],
+          [
+            "midi-like-composite",
+            "generation-melody"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "midi-like-native",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-native",
+            "continuation-roles"
+          ],
+          [
+            "midi-like-native",
+            "generation-melody"
+          ],
+          [
+            "midi-like-native",
+            "generation-progression"
+          ],
+          [
+            "midi-like-native",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-native",
+            "transformation-rhythm"
+          ],
+          [
+            "octuple-midi-composite",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-composite",
+            "continuation-roles"
+          ],
+          [
+            "octuple-midi-composite",
+            "generation-melody"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-local"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "octuple-midi-native",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-native",
+            "continuation-roles"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-local"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-rhythm"
+          ],
+          [
+            "one-cycle-mini",
+            "continuation-motif"
+          ],
+          [
+            "one-cycle-mini",
+            "generation-melody"
+          ],
+          [
+            "one-cycle-mini",
+            "transformation-rhythm"
+          ],
+          [
+            "remi-plus-composite",
+            "comprehension-analysis"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-revoice"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "remi-plus-native",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-local"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-revoice"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-rhythm"
+          ]
+        ]
+      }
+    },
+    {
+      "actual_cost_usd": 1.476243,
+      "arms": [
+        {
+          "alignment_failures": 0,
+          "arm": "exact-json",
+          "cost_usd": 0.077068,
+          "input_tokens": 13528,
+          "output_bytes": 23795,
+          "output_tokens": 17846,
+          "successes": 23,
+          "syntax_successes": 31,
+          "trials": 31
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "compact-bar",
+          "cost_usd": 0.107058,
+          "input_tokens": 13344,
+          "output_bytes": 9425,
+          "output_tokens": 25880,
+          "successes": 26,
+          "syntax_successes": 41,
+          "trials": 43
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "abc-2.1-native",
+          "cost_usd": 0.126488,
+          "input_tokens": 9930,
+          "output_bytes": 4052,
+          "output_tokens": 31744,
+          "successes": 12,
+          "syntax_successes": 30,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 14,
+          "arm": "abc-2.1-composite",
+          "cost_usd": 0.064584,
+          "input_tokens": 15692,
+          "output_bytes": 12611,
+          "output_tokens": 14084,
+          "successes": 19,
+          "syntax_successes": 21,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "alda-native",
+          "cost_usd": 0.115138,
+          "input_tokens": 8267,
+          "output_bytes": 3931,
+          "output_tokens": 29050,
+          "successes": 16,
+          "syntax_successes": 23,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 16,
+          "arm": "alda-composite",
+          "cost_usd": 0.091896,
+          "input_tokens": 13908,
+          "output_bytes": 11242,
+          "output_tokens": 21724,
+          "successes": 17,
+          "syntax_successes": 19,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "midi-like-native",
+          "cost_usd": 0.122999,
+          "input_tokens": 14309,
+          "output_bytes": 18775,
+          "output_tokens": 29938,
+          "successes": 28,
+          "syntax_successes": 36,
+          "trials": 39
+        },
+        {
+          "alignment_failures": 3,
+          "arm": "midi-like-composite",
+          "cost_usd": 0.111185,
+          "input_tokens": 17531,
+          "output_bytes": 22641,
+          "output_tokens": 26143,
+          "successes": 23,
+          "syntax_successes": 32,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "remi-plus-native",
+          "cost_usd": 0.187923,
+          "input_tokens": 19359,
+          "output_bytes": 26744,
+          "output_tokens": 46241,
+          "successes": 22,
+          "syntax_successes": 31,
+          "trials": 43
+        },
+        {
+          "alignment_failures": 15,
+          "arm": "remi-plus-composite",
+          "cost_usd": 0.133438,
+          "input_tokens": 22748,
+          "output_bytes": 35265,
+          "output_tokens": 31034,
+          "successes": 22,
+          "syntax_successes": 28,
+          "trials": 43
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "octuple-midi-native",
+          "cost_usd": 0.118255,
+          "input_tokens": 17094,
+          "output_bytes": 12127,
+          "output_tokens": 28116,
+          "successes": 28,
+          "syntax_successes": 45,
+          "trials": 47
+        },
+        {
+          "alignment_failures": 4,
+          "arm": "octuple-midi-composite",
+          "cost_usd": 0.086114,
+          "input_tokens": 18104,
+          "output_bytes": 16544,
+          "output_tokens": 19343,
+          "successes": 24,
+          "syntax_successes": 31,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "one-cycle-mini",
+          "cost_usd": 0.085519,
+          "input_tokens": 4526,
+          "output_bytes": 2100,
+          "output_tokens": 21900,
+          "successes": 15,
+          "syntax_successes": 17,
+          "trials": 20
+        }
+      ],
+      "provider": "gemini",
+      "repair_pass": true,
+      "requested_model": "gemini-3.8-flash",
+      "returned_models": [
+        "gemini-3.8-flash"
+      ],
+      "secondary_initial_passes": 5,
+      "secondary_initial_total": 5,
+      "sentinel_variation": [
+        [
+          "abc-2.1-native",
+          "transformation-revoice"
+        ]
+      ],
+      "stopping": {
+        "mixed_after_five": [
+          [
+            "abc-2.1-composite",
+            "transformation-revoice"
+          ],
+          [
+            "abc-2.1-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "abc-2.1-native",
+            "generation-melody"
+          ],
+          [
+            "abc-2.1-native",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-composite",
+            "transformation-revoice"
+          ],
+          [
+            "alda-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-native",
+            "transformation-revoice"
+          ],
+          [
+            "alda-native",
+            "transformation-rhythm"
+          ],
+          [
+            "compact-bar",
+            "continuation-motif"
+          ],
+          [
+            "compact-bar",
+            "generation-melody"
+          ],
+          [
+            "compact-bar",
+            "generation-progression"
+          ],
+          [
+            "compact-bar",
+            "transformation-revoice"
+          ],
+          [
+            "exact-json",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-composite",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-native",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-native",
+            "transformation-local"
+          ],
+          [
+            "midi-like-native",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-composite",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-native",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-native",
+            "generation-melody"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-local"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-rhythm"
+          ],
+          [
+            "one-cycle-mini",
+            "continuation-motif"
+          ],
+          [
+            "one-cycle-mini",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-roles"
+          ],
+          [
+            "remi-plus-composite",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-revoice"
+          ],
+          [
+            "remi-plus-native",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-native",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-local"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-revoice"
+          ]
+        ],
+        "mixed_after_three": [
+          [
+            "abc-2.1-composite",
+            "transformation-revoice"
+          ],
+          [
+            "abc-2.1-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "abc-2.1-native",
+            "generation-melody"
+          ],
+          [
+            "abc-2.1-native",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-composite",
+            "transformation-revoice"
+          ],
+          [
+            "alda-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-native",
+            "transformation-revoice"
+          ],
+          [
+            "alda-native",
+            "transformation-rhythm"
+          ],
+          [
+            "compact-bar",
+            "continuation-motif"
+          ],
+          [
+            "compact-bar",
+            "generation-melody"
+          ],
+          [
+            "compact-bar",
+            "generation-progression"
+          ],
+          [
+            "compact-bar",
+            "transformation-revoice"
+          ],
+          [
+            "exact-json",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-composite",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-native",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-native",
+            "transformation-local"
+          ],
+          [
+            "midi-like-native",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-composite",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-native",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-native",
+            "generation-melody"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-local"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-rhythm"
+          ],
+          [
+            "one-cycle-mini",
+            "continuation-motif"
+          ],
+          [
+            "one-cycle-mini",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-roles"
+          ],
+          [
+            "remi-plus-composite",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-revoice"
+          ],
+          [
+            "remi-plus-native",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-native",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-local"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-revoice"
+          ]
+        ]
+      }
+    },
+    {
+      "actual_cost_usd": 4.75957,
+      "arms": [
+        {
+          "alignment_failures": 0,
+          "arm": "exact-json",
+          "cost_usd": 0.36344,
+          "input_tokens": 30310,
+          "output_bytes": 27465,
+          "output_tokens": 30282,
+          "successes": 26,
+          "syntax_successes": 38,
+          "trials": 39
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "compact-bar",
+          "cost_usd": 0.173174,
+          "input_tokens": 20842,
+          "output_bytes": 7516,
+          "output_tokens": 13149,
+          "successes": 25,
+          "syntax_successes": 35,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "abc-2.1-native",
+          "cost_usd": 0.297892,
+          "input_tokens": 20496,
+          "output_bytes": 3550,
+          "output_tokens": 25690,
+          "successes": 14,
+          "syntax_successes": 33,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 22,
+          "arm": "abc-2.1-composite",
+          "cost_usd": 0.545376,
+          "input_tokens": 29483,
+          "output_bytes": 12830,
+          "output_tokens": 48641,
+          "successes": 16,
+          "syntax_successes": 17,
+          "trials": 39
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "alda-native",
+          "cost_usd": 0.210194,
+          "input_tokens": 21617,
+          "output_bytes": 4221,
+          "output_tokens": 16696,
+          "successes": 15,
+          "syntax_successes": 29,
+          "trials": 39
+        },
+        {
+          "alignment_failures": 17,
+          "arm": "alda-composite",
+          "cost_usd": 0.35275,
+          "input_tokens": 24750,
+          "output_bytes": 8773,
+          "output_tokens": 30325,
+          "successes": 17,
+          "syntax_successes": 18,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "midi-like-native",
+          "cost_usd": 0.308248,
+          "input_tokens": 32969,
+          "output_bytes": 21615,
+          "output_tokens": 24231,
+          "successes": 30,
+          "syntax_successes": 43,
+          "trials": 43
+        },
+        {
+          "alignment_failures": 3,
+          "arm": "midi-like-composite",
+          "cost_usd": 0.539074,
+          "input_tokens": 42667,
+          "output_bytes": 29345,
+          "output_tokens": 45374,
+          "successes": 33,
+          "syntax_successes": 44,
+          "trials": 47
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "remi-plus-native",
+          "cost_usd": 0.335654,
+          "input_tokens": 35392,
+          "output_bytes": 27936,
+          "output_tokens": 26487,
+          "successes": 26,
+          "syntax_successes": 37,
+          "trials": 43
+        },
+        {
+          "alignment_failures": 11,
+          "arm": "remi-plus-composite",
+          "cost_usd": 0.595732,
+          "input_tokens": 46441,
+          "output_bytes": 43182,
+          "output_tokens": 50285,
+          "successes": 30,
+          "syntax_successes": 40,
+          "trials": 51
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "octuple-midi-native",
+          "cost_usd": 0.203378,
+          "input_tokens": 21354,
+          "output_bytes": 9435,
+          "output_tokens": 16067,
+          "successes": 25,
+          "syntax_successes": 35,
+          "trials": 35
+        },
+        {
+          "alignment_failures": 12,
+          "arm": "octuple-midi-composite",
+          "cost_usd": 0.44476,
+          "input_tokens": 37695,
+          "output_bytes": 18490,
+          "output_tokens": 36937,
+          "successes": 28,
+          "syntax_successes": 35,
+          "trials": 47
+        },
+        {
+          "alignment_failures": 0,
+          "arm": "one-cycle-mini",
+          "cost_usd": 0.137818,
+          "input_tokens": 9989,
+          "output_bytes": 2108,
+          "output_tokens": 11784,
+          "successes": 12,
+          "syntax_successes": 17,
+          "trials": 20
+        }
+      ],
+      "provider": "claude",
+      "repair_pass": true,
+      "requested_model": "claude-sonnet-5",
+      "returned_models": [
+        "claude-sonnet-5"
+      ],
+      "secondary_initial_passes": 5,
+      "secondary_initial_total": 5,
+      "sentinel_variation": [
+        [
+          "abc-2.1-composite",
+          "comprehension-analysis"
+        ],
+        [
+          "abc-2.1-composite",
+          "transformation-revoice"
+        ],
+        [
+          "abc-2.1-native",
+          "transformation-revoice"
+        ],
+        [
+          "compact-bar",
+          "continuation-motif"
+        ]
+      ],
+      "stopping": {
+        "mixed_after_five": [
+          [
+            "abc-2.1-composite",
+            "generation-melody"
+          ],
+          [
+            "abc-2.1-composite",
+            "transformation-revoice"
+          ],
+          [
+            "abc-2.1-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "abc-2.1-native",
+            "comprehension-analysis"
+          ],
+          [
+            "abc-2.1-native",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-composite",
+            "comprehension-analysis"
+          ],
+          [
+            "alda-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-native",
+            "comprehension-analysis"
+          ],
+          [
+            "alda-native",
+            "transformation-local"
+          ],
+          [
+            "alda-native",
+            "transformation-rhythm"
+          ],
+          [
+            "compact-bar",
+            "continuation-motif"
+          ],
+          [
+            "compact-bar",
+            "transformation-revoice"
+          ],
+          [
+            "exact-json",
+            "continuation-motif"
+          ],
+          [
+            "exact-json",
+            "continuation-roles"
+          ],
+          [
+            "exact-json",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-composite",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-composite",
+            "generation-melody"
+          ],
+          [
+            "midi-like-composite",
+            "generation-progression"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-local"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-native",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-native",
+            "continuation-roles"
+          ],
+          [
+            "midi-like-native",
+            "transformation-local"
+          ],
+          [
+            "midi-like-native",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-composite",
+            "comprehension-analysis"
+          ],
+          [
+            "octuple-midi-composite",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-composite",
+            "generation-melody"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-local"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-native",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-revoice"
+          ],
+          [
+            "one-cycle-mini",
+            "continuation-motif"
+          ],
+          [
+            "one-cycle-mini",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-roles"
+          ],
+          [
+            "remi-plus-composite",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-composite",
+            "generation-progression"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-local"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-revoice"
+          ],
+          [
+            "remi-plus-native",
+            "comprehension-analysis"
+          ],
+          [
+            "remi-plus-native",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-local"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-revoice"
+          ]
+        ],
+        "mixed_after_three": [
+          [
+            "abc-2.1-composite",
+            "generation-melody"
+          ],
+          [
+            "abc-2.1-composite",
+            "transformation-revoice"
+          ],
+          [
+            "abc-2.1-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "abc-2.1-native",
+            "comprehension-analysis"
+          ],
+          [
+            "abc-2.1-native",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-composite",
+            "comprehension-analysis"
+          ],
+          [
+            "alda-composite",
+            "transformation-rhythm"
+          ],
+          [
+            "alda-native",
+            "comprehension-analysis"
+          ],
+          [
+            "alda-native",
+            "transformation-local"
+          ],
+          [
+            "alda-native",
+            "transformation-rhythm"
+          ],
+          [
+            "compact-bar",
+            "continuation-motif"
+          ],
+          [
+            "compact-bar",
+            "transformation-revoice"
+          ],
+          [
+            "exact-json",
+            "continuation-motif"
+          ],
+          [
+            "exact-json",
+            "continuation-roles"
+          ],
+          [
+            "exact-json",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-composite",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-composite",
+            "generation-melody"
+          ],
+          [
+            "midi-like-composite",
+            "generation-progression"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-local"
+          ],
+          [
+            "midi-like-composite",
+            "transformation-revoice"
+          ],
+          [
+            "midi-like-native",
+            "continuation-motif"
+          ],
+          [
+            "midi-like-native",
+            "continuation-roles"
+          ],
+          [
+            "midi-like-native",
+            "transformation-local"
+          ],
+          [
+            "midi-like-native",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-composite",
+            "comprehension-analysis"
+          ],
+          [
+            "octuple-midi-composite",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-composite",
+            "generation-melody"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-local"
+          ],
+          [
+            "octuple-midi-composite",
+            "transformation-revoice"
+          ],
+          [
+            "octuple-midi-native",
+            "continuation-motif"
+          ],
+          [
+            "octuple-midi-native",
+            "transformation-revoice"
+          ],
+          [
+            "one-cycle-mini",
+            "continuation-motif"
+          ],
+          [
+            "one-cycle-mini",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-composite",
+            "continuation-roles"
+          ],
+          [
+            "remi-plus-composite",
+            "generation-melody"
+          ],
+          [
+            "remi-plus-composite",
+            "generation-progression"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-local"
+          ],
+          [
+            "remi-plus-composite",
+            "transformation-revoice"
+          ],
+          [
+            "remi-plus-native",
+            "comprehension-analysis"
+          ],
+          [
+            "remi-plus-native",
+            "continuation-motif"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-local"
+          ],
+          [
+            "remi-plus-native",
+            "transformation-revoice"
+          ]
+        ]
+      }
+    }
+  ],
+  "raw_run_sha256": {
+    "claude": "874e3fa27f846266c9babacb13865b56c59d589126f95bc87b7918026a28d3f6",
+    "gemini": "7601c12dab106ac172b9f8f491faedfada552456d650c33f6cba824936a7950e",
+    "openai": "ce4ab84e8f089dcdd131ca242aefb27ea0e8a4df17edcc696ae0ccb8ce1bbc6f"
+  },
+  "run_kind": "retained-summary",
+  "schema": "ghostnote-symbolic-format-benchmark-v1",
+  "sha256": "d29cf4f80c592908d532171a4620336b437548323fbcb4d525e4a1f402c54ddc",
+  "side_ledger": [
+    {
+      "alignment_failures": 19,
+      "family": "abc-2.1",
+      "input_token_overhead": 4675,
+      "output_byte_overhead": 5743,
+      "provider": "openai",
+      "success_delta": 0.0
+    },
+    {
+      "alignment_failures": 18,
+      "family": "alda",
+      "input_token_overhead": 2768,
+      "output_byte_overhead": 5615,
+      "provider": "openai",
+      "success_delta": 0.1336
+    },
+    {
+      "alignment_failures": 1,
+      "family": "midi-like",
+      "input_token_overhead": 4095,
+      "output_byte_overhead": 4061,
+      "provider": "openai",
+      "success_delta": 0.073
+    },
+    {
+      "alignment_failures": 5,
+      "family": "remi-plus",
+      "input_token_overhead": 4556,
+      "output_byte_overhead": 4726,
+      "provider": "openai",
+      "success_delta": 0.0
+    },
+    {
+      "alignment_failures": 9,
+      "family": "octuple-midi",
+      "input_token_overhead": 7705,
+      "output_byte_overhead": 9630,
+      "provider": "openai",
+      "success_delta": 0.0154
+    },
+    {
+      "alignment_failures": 14,
+      "family": "abc-2.1",
+      "input_token_overhead": 5762,
+      "output_byte_overhead": 8559,
+      "provider": "gemini",
+      "success_delta": 0.2
+    },
+    {
+      "alignment_failures": 16,
+      "family": "alda",
+      "input_token_overhead": 5641,
+      "output_byte_overhead": 7311,
+      "provider": "gemini",
+      "success_delta": 0.0286
+    },
+    {
+      "alignment_failures": 3,
+      "family": "midi-like",
+      "input_token_overhead": 3222,
+      "output_byte_overhead": 3866,
+      "provider": "gemini",
+      "success_delta": -0.0608
+    },
+    {
+      "alignment_failures": 15,
+      "family": "remi-plus",
+      "input_token_overhead": 3389,
+      "output_byte_overhead": 8521,
+      "provider": "gemini",
+      "success_delta": 0.0
+    },
+    {
+      "alignment_failures": 4,
+      "family": "octuple-midi",
+      "input_token_overhead": 1010,
+      "output_byte_overhead": 4417,
+      "provider": "gemini",
+      "success_delta": 0.09
+    },
+    {
+      "alignment_failures": 22,
+      "family": "abc-2.1",
+      "input_token_overhead": 8987,
+      "output_byte_overhead": 9280,
+      "provider": "claude",
+      "success_delta": 0.0103
+    },
+    {
+      "alignment_failures": 17,
+      "family": "alda",
+      "input_token_overhead": 3133,
+      "output_byte_overhead": 4552,
+      "provider": "claude",
+      "success_delta": 0.1011
+    },
+    {
+      "alignment_failures": 3,
+      "family": "midi-like",
+      "input_token_overhead": 9698,
+      "output_byte_overhead": 7730,
+      "provider": "claude",
+      "success_delta": 0.0045
+    },
+    {
+      "alignment_failures": 11,
+      "family": "remi-plus",
+      "input_token_overhead": 11049,
+      "output_byte_overhead": 15246,
+      "provider": "claude",
+      "success_delta": -0.0164
+    },
+    {
+      "alignment_failures": 12,
+      "family": "octuple-midi",
+      "input_token_overhead": 16341,
+      "output_byte_overhead": 9055,
+      "provider": "claude",
+      "success_delta": -0.1185
+    }
+  ]
+}

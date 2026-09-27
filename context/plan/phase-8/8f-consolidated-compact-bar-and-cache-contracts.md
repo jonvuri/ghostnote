@@ -5,12 +5,17 @@ state: planned
 status: Settle the public musical document and internal cache boundary from the measured evidence.
 updated: 2026-09-27
 parent: README.md
-prev: 8c1-expanded-symbolic-format-comparison.md
+prev: 8c3-full-symbolic-format-matrix.md
 next: 8g-shadow-project-cache.md
-evidence: E109, E114-E121, E128-E134, E137-E139; D21, D23
+evidence: E109, E114-E121, E128-E140; D21, D23
 ---
 
 # Phase 8f — Consolidated compact-bar and cache contracts
+
+Phase 8f is blocked until Phase 8c3 gives a `proceed` decision from the fresh
+full symbolic-format matrix. A Phase 8c2 development or holdout result is not
+sufficient to freeze a public syntax. E140's `revise` result is also not
+sufficient.
 
 ## Purpose
 

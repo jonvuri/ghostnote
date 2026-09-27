@@ -1,0 +1,1208 @@
+{
+  "actual_cost_usd": 0.279662,
+  "protocol_sha256": "eae49b356692fc75f4c1733f9b3426ce60e0bdd8f3b0b62bdf6d374b3e4097c9",
+  "provider": "claude",
+  "requested_model": "claude-sonnet-5",
+  "results": [
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0019,
+        "total": 0.003496,
+        "uncached_input": 0.001596
+      },
+      "family": "comprehension-analysis",
+      "kind": "development",
+      "latency_ms": 3501.231,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1312,
+      "prompt_sha256": "aedf4ffa19c729f74bf0d83e2556c3ca6ed8103e978f9d9d6b53e16c9d9e0867",
+      "raw_response_sha256": "dca67fb40ffd421dacffc53e5ce0041a59872c12e4f16e920ed2ca21e03fbbeb",
+      "request_id": "msg_011CfTKHjNhdrbkGsxozN1RB",
+      "response_payload": "ANALYSIS root_pc=0 bass_pc=4 quality=major inversion=1 function=I6 motif_relation=transposition rhythm=sustained",
+      "response_payload_bytes": 112,
+      "response_payload_sha256": "604bb5dc973b6425a334e72fec0cee9ba1538bab830645ae987a7ddb9df5f67e",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 798,
+        "output_tokens": 190,
+        "thinking_tokens": 126
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "bass_pc": true,
+          "function": true,
+          "inversion": true,
+          "motif_relation": true,
+          "quality": true,
+          "rhythm": true,
+          "root_pc": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0045,
+        "total": 0.00629,
+        "uncached_input": 0.00179
+      },
+      "family": "comprehension-structure",
+      "kind": "development",
+      "latency_ms": 3948.159,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1210,
+      "prompt_sha256": "32617b6f73d35b09f2034997f58a02e59d08f6063783d670b01f38fc16acab56",
+      "raw_response_sha256": "29603db66538c3d5ef98121d7b71bea952b4b73d6c3c477464d4c6e1d797b1a1",
+      "request_id": "msg_011CfTKHGvUqAji36KtXbxeD",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:bass.1\nC,,48 F,,48 |\nV:keys.1\nC48 F48 |\nV:keys.2\nE48 A48 |\nV:keys.3\nG48 c48 |\nV:lead.1\nC4 z4 D4 z4 E4 z4 G4 |\n--- GN SIDE LEDGER ---\nGN s0-bass-1 bass 0 4 36 78\nGN s0-keys-1-1 keys 0 4 60 71\nGN s0-keys-1-2 keys 0 4 64 72\nGN s0-keys-1-3 keys 0 4 67 73\nGN s0-lead-1 lead 0 1/3 60 87\nGN s0-lead-2 lead 2/3 1/3 62 88\nGN s0-lead-3 lead 4/3 1/3 64 89\nGN s0-lead-4 lead 2 1/3 67 90\nGN s0-bass-2 bass 4 4 41 80\nGN s0-keys-2-1 keys 4 4 65 71\nGN s0-keys-2-2 keys 4 4 69 72\nGN s0-keys-2-3 keys 4 4 72 73",
+      "response_payload_bytes": 524,
+      "response_payload_sha256": "aefeb6565d087f10c07435813e2bdbad1da62fb4337eaed17d99490204b35b7a",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 895,
+        "output_tokens": 450,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": true
+        },
+        "checks": {
+          "represented_reconstruction": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002,
+        "total": 0.003254,
+        "uncached_input": 0.001254
+      },
+      "family": "continuation-motif",
+      "kind": "development",
+      "latency_ms": 3405.115,
+      "outer_schema_valid": true,
+      "prompt_bytes": 869,
+      "prompt_sha256": "1040ba506a10b338a3b64c68106a4d5fea126bc1a753a5754a3c4c4156708141",
+      "raw_response_sha256": "f047b61b304fbe4c695044820b2779ba630433f9089c4e1c43c608a409172dc7",
+      "request_id": "msg_011CfTKFBsZ2A4t4v4knE19T",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:lead.1\nD12 F12 G#12 G12 |\n--- GN SIDE LEDGER ---\nGN m0-0 lead 4 1 63 88\nGN m0-1 lead 5 1 65 88\nGN m0-2 lead 6 1 68 88\nGN m0-3 lead 7 1 67 88",
+      "response_payload_bytes": 172,
+      "response_payload_sha256": "4647f1a4caaf7de1662e5cdf788be6ce59e99d0b483d037a797940c54597339f",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 627,
+        "output_tokens": 200,
+        "thinking_tokens": 42
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": false
+        },
+        "checks": {},
+        "error": "Invalid ABC token: G#12",
+        "musical_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0247,
+        "total": 0.025822,
+        "uncached_input": 0.001122
+      },
+      "family": "continuation-roles",
+      "kind": "development",
+      "latency_ms": 28397.726,
+      "outer_schema_valid": true,
+      "prompt_bytes": 788,
+      "prompt_sha256": "95fd5a94846a0c7d401cbad506d8a8087556fe4247c0ccd97c5b2fef79fc86cc",
+      "raw_response_sha256": "6df046253ac6e697118af9f6857381b4420422f40d3e67bac6b5fc6be2898822",
+      "request_id": "msg_011CfTKGjeYCKfD11BPXym8C",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:bass\nz12 z12 z12 z12 | C,12 A,,12 ^A,,12 C,12 |\nV:lead\nz12 z12 z12 z12 | c12 A12 ^A12 c12 |\n--- GN SIDE LEDGER ---\nGN n1 bass 48 1/4 48 80\nGN n2 bass 60 1/4 45 80\nGN n3 bass 72 1/4 46 80\nGN n4 bass 84 1/4 48 80\nGN n5 lead 48 1/4 72 80\nGN n6 lead 60 1/4 69 80\nGN n7 lead 72 1/4 70 80\nGN n8 lead 84 1/4 72 80",
+      "response_payload_bytes": 338,
+      "response_payload_sha256": "091a6a7b7f6d712ae88302ba9c09b835015c4ce755465ebfc1165bd90f2d283f",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 561,
+        "output_tokens": 2470,
+        "thinking_tokens": 2181
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": false
+        },
+        "checks": {},
+        "error": "Score and side ledger disagree",
+        "musical_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.02881,
+        "total": 0.030098,
+        "uncached_input": 0.001288
+      },
+      "family": "generation-melody",
+      "kind": "development",
+      "latency_ms": 28673.584,
+      "outer_schema_valid": true,
+      "prompt_bytes": 993,
+      "prompt_sha256": "22514e769a27fe5437e137b42883a3a8b211f6eb7eacb9478db41487b038e703",
+      "raw_response_sha256": "94bb8f00c0b36b0339f5e9529a8b56951ffc6a7440318994175888c957112382",
+      "request_id": "msg_011CfTKDV47uEquNnXdXQ3jQ",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:lead.1\nG24 A24 G24 G24 c24 d24 c24 c24 |\n--- GN SIDE LEDGER ---\nGN n1 lead 0 1/2 67 80\nGN n2 lead 1/2 1/2 69 80\nGN n3 lead 1 1/2 67 80\nGN n4 lead 3/2 1/2 67 80\nGN n5 lead 2 1/2 72 80\nGN n6 lead 5/2 1/2 74 80\nGN n7 lead 3 1/2 72 80\nGN n8 lead 7/2 1/2 72 80",
+      "response_payload_bytes": 287,
+      "response_payload_sha256": "7f3112ebe760b5e1eeaff6e97e023c6e553897210b0fe8016112af398b15e8e9",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 644,
+        "output_tokens": 2881,
+        "thinking_tokens": 2626
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": false
+        },
+        "checks": {},
+        "error": "Score and side ledger disagree",
+        "musical_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.02242,
+        "total": 0.023702,
+        "uncached_input": 0.001282
+      },
+      "family": "generation-progression",
+      "kind": "development",
+      "latency_ms": 23248.455,
+      "outer_schema_valid": true,
+      "prompt_bytes": 960,
+      "prompt_sha256": "b2337ea1cee97f85457e3d30e193a9fc3bdfae5bc6b93ea16f64bf9e9b8d2e09",
+      "raw_response_sha256": "bf463d5a6762c5f40f8385ef052be8aa0cddfce2dd04a99e8ac481741abfdbf5",
+      "request_id": "msg_011CfTKDKUQERYKSmsy7qNxa",
+      "response_payload": "%abc-2.1\nX:1\nL:1/4\nM:4/4\nK:C\nV:bass\nE,4 D,4 D,4 C,4 |\nV:tenor\nC4 F,4 F,4 E,4 |\nV:alto\nG4 A4 G4 G4 |\nV:soprano\nc4 d4 B4 c4 |\n--- GN SIDE LEDGER ---\nGN n1 bass 0 1 52 80\nGN n2 tenor 0 1 60 80\nGN n3 alto 0 1 67 80\nGN n4 soprano 0 1 72 80\nGN n5 bass 1 1 50 80\nGN n6 tenor 1 1 53 80\nGN n7 alto 1 1 69 80\nGN n8 soprano 1 1 74 80\nGN n9 bass 2 1 50 80\nGN n10 tenor 2 1 53 80\nGN n11 alto 2 1 67 80\nGN n12 soprano 2 1 71 80\nGN n13 bass 3 1 48 80\nGN n14 tenor 3 1 52 80\nGN n15 alto 3 1 67 80\nGN n16 soprano 3 1 72 80",
+      "response_payload_bytes": 505,
+      "response_payload_sha256": "e1f610112811dd0f1044754d18e307c67db3fdfd05609a324022fbc5b7beed6e",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 641,
+        "output_tokens": 2242,
+        "thinking_tokens": 1810
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": false
+        },
+        "checks": {},
+        "error": "Score and side ledger disagree",
+        "musical_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00075,
+        "total": 0.00255,
+        "uncached_input": 0.0018
+      },
+      "family": "transformation-local",
+      "kind": "development",
+      "latency_ms": 2217.183,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1221,
+      "prompt_sha256": "ca53b2974674fcc363a4f6fa71dfaeb133fce1d52fc93cff0f7264beee61fd5a",
+      "raw_response_sha256": "a807860aabc33899137677547354b9b9e8a28c52a59b193c40903cefb744e8a2",
+      "request_id": "msg_011CfTKHZmFaSSdHiKcwXRU1",
+      "response_payload": "PATCH 72d31501aeb66e237234f2aa31ffa616adc8b156f99425a3a5a1db4f1196ee8e\nSET s0-bass-1 pitch=38",
+      "response_payload_bytes": 93,
+      "response_payload_sha256": "877897884e7b060e15130e2a6e11e56184afa2828f29bcda3d37bc43c441e3f9",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 900,
+        "output_tokens": 75,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": true
+        },
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.02822,
+        "total": 0.03017,
+        "uncached_input": 0.00195
+      },
+      "family": "transformation-revoice",
+      "kind": "development",
+      "latency_ms": 24886.914,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1279,
+      "prompt_sha256": "542ca451eb992d7db78ed3b41923f80844c2398d765f1b74543e0f8b48f34aa5",
+      "raw_response_sha256": "6f388749a3a7df0a5b19c80e81af965c676fc33872127d792e0cc28580f327eb",
+      "request_id": "msg_011CfTKE1D61cPdYDfmDHL2n",
+      "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:keys.1\nG,,12 A,,12 B,,12 ^C,12 |\nV:keys.2\nC,12 D,12 E,12 ^F,12 |\nV:keys.3\nE,12 ^F,12 ^G,12 ^A,12 |\nV:keys.4\nB,12 ^C12 ^D12 F12 |\n--- GN SIDE LEDGER ---\nGN rv0-0-1 keys 0 1 43 78\nGN rv0-0-2 keys 0 1 48 78\nGN rv0-0-3 keys 0 1 52 78\nGN rv0-0-4 keys 0 1 59 78\nGN rv0-1-1 keys 1 1 45 78\nGN rv0-1-2 keys 1 1 50 78\nGN rv0-1-3 keys 1 1 54 78\nGN rv0-1-4 keys 1 1 61 78\nGN rv0-2-1 keys 2 1 47 78\nGN rv0-2-2 keys 2 1 52 78\nGN rv0-2-3 keys 2 1 56 78\nGN rv0-2-4 keys 2 1 63 78\nGN rv0-3-1 keys 3 1 49 78\nGN rv0-3-2 keys 3 1 54 78\nGN rv0-3-3 keys 3 1 58 78\nGN rv0-3-4 keys 3 1 65 78",
+      "response_payload_bytes": 631,
+      "response_payload_sha256": "912f1f59f77f64c94802761881fdb69cc679bf60b976445ad95b2a90f3a32795",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 975,
+        "output_tokens": 2822,
+        "thinking_tokens": 2275
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": true
+        },
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": true,
+          "range": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00745,
+        "total": 0.008826,
+        "uncached_input": 0.001376
+      },
+      "family": "transformation-rhythm",
+      "kind": "development",
+      "latency_ms": 8935.299,
+      "outer_schema_valid": true,
+      "prompt_bytes": 920,
+      "prompt_sha256": "197690e22293e269afcaa6dc0dc84e27a270082484cd5ce90cd27089f376cf1b",
+      "raw_response_sha256": "3f284e0fcd199b9c7121480613bc2f1e9c5fdbec5e93aa0b71c9e747fd065f18",
+      "request_id": "msg_011CfTKGfr5nQrRFCA999fgJ",
+      "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:lead.1\nC12 ^C12 D12 _E12 E12 F12 |\n--- GN SIDE LEDGER ---\nGN rh0-0 lead 0 1 60 82\nGN rh0-1 lead 1 1 61 82\nGN rh0-2 lead 2 1 62 82\nGN rh0-3 lead 3 1 63 82\nGN rh0-4 lead 4 1 64 82\nGN rh0-5 lead 5 1 65 82",
+      "response_payload_bytes": 265,
+      "response_payload_sha256": "cf4bb6fee714a07dc1ce03d2d10eb5781731f891ca5f797b666293799fd3fbc1",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 688,
+        "output_tokens": 745,
+        "thinking_tokens": 519
+      },
+      "validation": {
+        "alignment": {
+          "checked": true,
+          "pass": true
+        },
+        "checks": {
+          "exact_rhythm_relation": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00197,
+        "total": 0.003424,
+        "uncached_input": 0.001454
+      },
+      "family": "comprehension-analysis",
+      "kind": "development",
+      "latency_ms": 3437.457,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1217,
+      "prompt_sha256": "630bbd9089d2c598f84680a359d3e0fae74898c5f07231f3e8e0903e6556f614",
+      "raw_response_sha256": "277aa5fdcbc96c185a1e5aed395b0eafadf553c2e7072e9348dce5c8dee59ee5",
+      "request_id": "msg_011CfTKGFEz4cSruibPMrLjB",
+      "response_payload": "ANALYSIS root_pc=0 bass_pc=4 quality=major inversion=1 function=I6 motif_relation=transposition rhythm=sustained",
+      "response_payload_bytes": 112,
+      "response_payload_sha256": "604bb5dc973b6425a334e72fec0cee9ba1538bab830645ae987a7ddb9df5f67e",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 727,
+        "output_tokens": 197,
+        "thinking_tokens": 133
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "bass_pc": true,
+          "function": true,
+          "inversion": true,
+          "motif_relation": true,
+          "quality": true,
+          "rhythm": true,
+          "root_pc": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00145,
+        "total": 0.002564,
+        "uncached_input": 0.001114
+      },
+      "family": "comprehension-structure",
+      "kind": "development",
+      "latency_ms": 2469.662,
+      "outer_schema_valid": true,
+      "prompt_bytes": 757,
+      "prompt_sha256": "5a2c43cb949f04d33a30467713cf08d64877fcb7109122a712b96e38ab267c25",
+      "raw_response_sha256": "00b39489c373721219cca57f5ab7a4f2b08cd04e7e310e7849a0e6dea2d45ea1",
+      "request_id": "msg_011CfTKG4c2tFaiBXay896Tp",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:bass.1\nC,,48 F,,48 |\nV:keys.1\nC48 F48 |\nV:keys.2\nE48 A48 |\nV:keys.3\nG48 c48 |\nV:lead.1\nC4 z4 D4 z4 E4 z4 G4 |",
+      "response_payload_bytes": 141,
+      "response_payload_sha256": "a291fb53a484fccacb3a949296374cbd63aaa81d45b7f970f24861be6cd0cb1e",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 557,
+        "output_tokens": 145,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "represented_reconstruction": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00422,
+        "total": 0.005206,
+        "uncached_input": 0.000986
+      },
+      "family": "continuation-motif",
+      "kind": "development",
+      "latency_ms": 6022.234,
+      "outer_schema_valid": true,
+      "prompt_bytes": 684,
+      "prompt_sha256": "e114d7cb5c1a661a07199e31c141faa6a74629357ac1e4d245749d5a043eb5e2",
+      "raw_response_sha256": "3be036d01c8b3e1299176e099e9152416d9da9e7bd6109c3fa0bd0a1363044c0",
+      "request_id": "msg_011CfTKG4oBWuw1ivJf1LRsh",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:lead.1\n_E12 F12 _A12 G12 |",
+      "response_payload_bytes": 58,
+      "response_payload_sha256": "32e7553976e86ff0b37473ed706d8f1b2f2443b391d69ac0a3714ab124918867",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 493,
+        "output_tokens": 422,
+        "thinking_tokens": 356
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "exact_relation": false
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0063,
+        "total": 0.00733,
+        "uncached_input": 0.00103
+      },
+      "family": "continuation-roles",
+      "kind": "development",
+      "latency_ms": 8891.747,
+      "outer_schema_valid": true,
+      "prompt_bytes": 718,
+      "prompt_sha256": "66ec3b29efb36c190e94639351599f900ec42ccf7c25a88b1f51e668680f9192",
+      "raw_response_sha256": "e4f50bd93ff26c5180c8217140ffadc48eddca081015ce9b3a55197ca516098b",
+      "request_id": "msg_011CfTKHDrB3w4xNHj6yDzsH",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:bass\nC,12 F,12 D,12 C,12 |\nV:lead\nG12 A12 _B12 c12 |",
+      "response_payload_bytes": 84,
+      "response_payload_sha256": "5a04769b89f2fd6461989294ad2291cfc3fe19aebd0d65a97543a56591a37350",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 515,
+        "output_tokens": 630,
+        "thinking_tokens": 541
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "cadence": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": false,
+          "strong_beat_harmony": true,
+          "voice_leading": true
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.01725,
+        "total": 0.018446,
+        "uncached_input": 0.001196
+      },
+      "family": "generation-melody",
+      "kind": "development",
+      "latency_ms": 20119.779,
+      "outer_schema_valid": true,
+      "prompt_bytes": 923,
+      "prompt_sha256": "a83f050d85f3f4b31be77955af27bda754076feed308c0080415e21ea7491d31",
+      "raw_response_sha256": "b17e1c63642d8be4ef308e65f97fc5f896f0c97bb307faf3c56c41e4edc82a47",
+      "request_id": "msg_011CfTKFbqCytF8e2CYVRfhA",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:lead.1\nG6 A6 G6 G6 c6 d6 c6 c6 |",
+      "response_payload_bytes": 64,
+      "response_payload_sha256": "1bca418e3d1ce59144931245f183c3ff81d7d2bed6cfeea9c248b2b578b2da77",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 598,
+        "output_tokens": 1725,
+        "thinking_tokens": 1649
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "cadence": true,
+          "mode": true,
+          "motif": true,
+          "note_count": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.01668,
+        "total": 0.01787,
+        "uncached_input": 0.00119
+      },
+      "family": "generation-progression",
+      "kind": "development",
+      "latency_ms": 18728.162,
+      "outer_schema_valid": true,
+      "prompt_bytes": 890,
+      "prompt_sha256": "fc649e50d2573f4063c6e5fcf00e0ab1bd32d46ae73d31976b566abaf3c7661e",
+      "raw_response_sha256": "dfe9e80e568daa90d7129aaf82655f0195703ac68cceb974616cd2c99444715c",
+      "request_id": "msg_011CfTKFqdfshfao7Zd8jjDi",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:bass\nE,12 D,12 D,12 C,12 |\nV:tenor\nC12 F,12 B,,12 E,12 |\nV:alto\nE12 A,12 F12 G,12 |\nV:soprano\nG12 D12 G12 c12 |\n",
+      "response_payload_bytes": 144,
+      "response_payload_sha256": "94823ed78223ab9113b9687388ded25a4b06b873490f1903ce5a9aebee1e295c",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 595,
+        "output_tokens": 1668,
+        "thinking_tokens": 1528
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "authentic_cadence": true,
+          "four_chords": true,
+          "four_named_voices": true,
+          "harmony": true,
+          "inversions": true,
+          "no_voice_crossing": false,
+          "ranges": false,
+          "voice_leading": false
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00195,
+        "total": 0.003202,
+        "uncached_input": 0.001252
+      },
+      "family": "transformation-local",
+      "kind": "development",
+      "latency_ms": 2792.999,
+      "outer_schema_valid": true,
+      "prompt_bytes": 850,
+      "prompt_sha256": "219b8e1ad50a45e8664a4e91e9426235fd3de7948594c298d2df3d8ead69e631",
+      "raw_response_sha256": "de671a1e82ae0a4b80090748a907692715523d31fd2f40be7ba5fd474b28ce17",
+      "request_id": "msg_011CfTKDVuD3ZTvKigA5htNg",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:bass.1\nD,,48 F,,48 |\nV:keys.1\nC48 F48 |\nV:keys.2\nE48 A48 |\nV:keys.3\nG48 c48 |\nV:lead.1\nC4 z4 D4 z4 E4 z4 G4 |\n",
+      "response_payload_bytes": 142,
+      "response_payload_sha256": "661de8ffd28415b45216e8717d085bed9f1e8858b54a922f972560fe2d322091",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 626,
+        "output_tokens": 195,
+        "thinking_tokens": 48
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "canonical_result": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.03,
+        "total": 0.031154,
+        "uncached_input": 0.001154
+      },
+      "family": "transformation-revoice",
+      "kind": "development",
+      "latency_ms": 32028.534,
+      "outer_schema_valid": false,
+      "prompt_bytes": 770,
+      "prompt_sha256": "6c9ee85b6d205dcc09d684b62505d5d837ffd564938b78db8649ef6d18709345",
+      "raw_response_sha256": "624d1d5f1326cc559830f3c9e6475290a74eb75d0cc6d7377bf5c611dc50cfa0",
+      "request_id": "msg_011CfTKDhtncv23CdUSkAwEX",
+      "response_payload": "",
+      "response_payload_bytes": 0,
+      "response_payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "max_tokens",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 577,
+        "output_tokens": 3000,
+        "thinking_tokens": 2999
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {},
+        "error": "ABC payload has no notes",
+        "musical_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "abc-2.1-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00092,
+        "total": 0.001908,
+        "uncached_input": 0.000988
+      },
+      "family": "transformation-rhythm",
+      "kind": "development",
+      "latency_ms": 2704.415,
+      "outer_schema_valid": true,
+      "prompt_bytes": 665,
+      "prompt_sha256": "d5c6083ae375d9925a185f32ea04940ec7822e190598b16cd254d149da693e58",
+      "raw_response_sha256": "3689a0f8792fd31fc8f85c36a8dd246d0c5afcaf533dffcecb460bc3bf5275d9",
+      "request_id": "msg_011CfTKDKRgPk5urGycW5ieS",
+      "response_payload": "%abc-2.1\nX:1\nL:1/48\nM:4/4\nK:C\nV:lead.1\nC12 ^C12 D12 _E12 E12 F12 |",
+      "response_payload_bytes": 66,
+      "response_payload_sha256": "91bf384e1df7193700801eb759b76d1ffa662f3a437abd7d46a721e6b6ac2efb",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 494,
+        "output_tokens": 92,
+        "thinking_tokens": 19
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "exact_rhythm_relation": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00189,
+        "total": 0.003282,
+        "uncached_input": 0.001392
+      },
+      "family": "comprehension-analysis",
+      "kind": "development",
+      "latency_ms": 3241.452,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1173,
+      "prompt_sha256": "15174b1368df233d22ece6358351f3aff99136f564c5f59eee6ce1aa5f5556be",
+      "raw_response_sha256": "d02744ac55405df5f74e7f54d915e857e14205ca14c157041306a98f43913e10",
+      "request_id": "msg_011CfTKFpnLKnG444u8KZoaa",
+      "response_payload": "ANALYSIS root_pc=0 bass_pc=4 quality=major inversion=1 function=I6 motif_relation=transposition rhythm=sustained",
+      "response_payload_bytes": 112,
+      "response_payload_sha256": "604bb5dc973b6425a334e72fec0cee9ba1538bab830645ae987a7ddb9df5f67e",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 696,
+        "output_tokens": 189,
+        "thinking_tokens": 125
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "bass_pc": true,
+          "function": true,
+          "inversion": true,
+          "motif_relation": true,
+          "quality": true,
+          "rhythm": true,
+          "root_pc": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00284,
+        "total": 0.004138,
+        "uncached_input": 0.001298
+      },
+      "family": "comprehension-structure",
+      "kind": "development",
+      "latency_ms": 3223.645,
+      "outer_schema_valid": true,
+      "prompt_bytes": 881,
+      "prompt_sha256": "f8ea325cd164f80e7ac08f070c1e663e3babf486e1c23f570934efc51c471470",
+      "raw_response_sha256": "c43f8007f17cb839182004944890d29b39d24c9b7793b98f14f36f9c5aca0ded",
+      "request_id": "msg_011CfTKGVtonHg2iWCEvaeZr",
+      "response_payload": "N s0-bass-1 bass 0 4 36 78\nN s0-keys-1-1 keys 0 4 60 71\nN s0-keys-1-2 keys 0 4 64 72\nN s0-keys-1-3 keys 0 4 67 73\nN s0-lead-1 lead 0 1/3 60 87\nN s0-lead-2 lead 2/3 1/3 62 88\nN s0-lead-3 lead 4/3 1/3 64 89\nN s0-lead-4 lead 2 1/3 67 90\nN s0-bass-2 bass 4 4 41 80\nN s0-keys-2-1 keys 4 4 65 71\nN s0-keys-2-2 keys 4 4 69 72\nN s0-keys-2-3 keys 4 4 72 73",
+      "response_payload_bytes": 347,
+      "response_payload_sha256": "5a1d7dc0f736adcb077805f7a55c6f110527f8240e088007de95daf2d6c566db",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 649,
+        "output_tokens": 284,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "represented_reconstruction": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00072,
+        "total": 0.001644,
+        "uncached_input": 0.000924
+      },
+      "family": "continuation-motif",
+      "kind": "development",
+      "latency_ms": 2518.651,
+      "outer_schema_valid": true,
+      "prompt_bytes": 633,
+      "prompt_sha256": "a21f04a713313eecdb983a754f89691188208ea1d905c25a15d96a535f55c47d",
+      "raw_response_sha256": "394aac13a9d7bc6d30c2e8b4b1d6af75c9748b38a26ef26b81ea6e7bcb915da5",
+      "request_id": "msg_011CfTKDKUQoCaJhpBFEPVTF",
+      "response_payload": "N n1 lead 4 1 63 88\nN n2 lead 5 1 65 88\nN n3 lead 6 1 68 88\nN n4 lead 7 1 67 88",
+      "response_payload_bytes": 79,
+      "response_payload_sha256": "040e86d50996b2694664578af3b37254abf0cd266fbba909f2d0cf66fec242d8",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 462,
+        "output_tokens": 72,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "exact_relation": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00136,
+        "total": 0.00232,
+        "uncached_input": 0.00096
+      },
+      "family": "continuation-roles",
+      "kind": "development",
+      "latency_ms": 2619.053,
+      "outer_schema_valid": true,
+      "prompt_bytes": 668,
+      "prompt_sha256": "50ed637b4078cfceebdfbccd4e4bba295746cf2713eaa3737ab4aeb8a7811f26",
+      "raw_response_sha256": "e94604186af39b19814896058656cc5b6de11a547c711a11d0cd2e7f5a1c59eb",
+      "request_id": "msg_011CfTKH5iXSuxh4sSQBuaN1",
+      "response_payload": "N n1 bass 4 1 36 80\nN n2 bass 5 1 41 80\nN n3 bass 6 1 38 80\nN n4 bass 7 1 36 80\nN n5 lead 4 1 72 80\nN n6 lead 5 1 69 80\nN n7 lead 6 1 74 80\nN n8 lead 7 1 72 80",
+      "response_payload_bytes": 159,
+      "response_payload_sha256": "4acc1c9135d69024043eb20618423c2f1b81111a7334dff91b336c661bfb18ed",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 480,
+        "output_tokens": 136,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "cadence": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "strong_beat_harmony": true,
+          "voice_leading": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.02086,
+        "total": 0.021986,
+        "uncached_input": 0.001126
+      },
+      "family": "generation-melody",
+      "kind": "development",
+      "latency_ms": 20264.974,
+      "outer_schema_valid": true,
+      "prompt_bytes": 873,
+      "prompt_sha256": "963a4c6b41bf3a2f8f689dd25ae79dd6de2190eda0776ca48c29b6dc269f78a8",
+      "raw_response_sha256": "ab479cc9bf85d1afae0743fe4a17fba458075a6f8bb9c098610f9d19612e4864",
+      "request_id": "msg_011CfTKHL9T9i1B8JA2LUHg4",
+      "response_payload": "N n1 lead 0 1/2 67 80\nN n2 lead 1/2 1/2 69 80\nN n3 lead 1 1/2 67 80\nN n4 lead 3/2 1/2 67 80\nN n5 lead 2 1/2 72 80\nN n6 lead 5/2 1/2 74 80\nN n7 lead 3 1/2 72 80\nN n8 lead 7/2 1/2 72 80",
+      "response_payload_bytes": 183,
+      "response_payload_sha256": "eef745ae45fe6f34cecfaa2d4221789bc120af076b14b9197ae3d218a37728aa",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 563,
+        "output_tokens": 2086,
+        "thinking_tokens": 1924
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "cadence": true,
+          "mode": true,
+          "motif": true,
+          "note_count": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00866,
+        "total": 0.00978,
+        "uncached_input": 0.00112
+      },
+      "family": "generation-progression",
+      "kind": "development",
+      "latency_ms": 9568.539,
+      "outer_schema_valid": true,
+      "prompt_bytes": 840,
+      "prompt_sha256": "3ba1b6b94fc857371560f8f38c9cd2346aa189115e74caab5b19e5aa39d75fa2",
+      "raw_response_sha256": "4eeda035c45497509b707605720872c8361026678496fda867efcab1b57b5854",
+      "request_id": "msg_011CfTKDKX914aFU1R9hCHDt",
+      "response_payload": "N n1 bass 0 1 52 80\nN n2 tenor 0 1 48 78\nN n3 alto 0 1 55 76\nN n4 soprano 0 1 64 82\nN n5 bass 1 1 50 80\nN n6 tenor 1 1 57 78\nN n7 alto 1 1 65 76\nN n8 soprano 1 1 69 82\nN n9 bass 2 1 50 80\nN n10 tenor 2 1 59 78\nN n11 alto 2 1 62 76\nN n12 soprano 2 1 71 82\nN n13 bass 3 1 48 80\nN n14 tenor 3 1 55 78\nN n15 alto 3 1 60 76\nN n16 soprano 3 1 67 82",
+      "response_payload_bytes": 342,
+      "response_payload_sha256": "67b09925259ac6c92a87de05fea0991a3a7eb84d646dbd9f1cac401a41bde103",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 560,
+        "output_tokens": 866,
+        "thinking_tokens": 595
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "authentic_cadence": false,
+          "four_chords": true,
+          "four_named_voices": true,
+          "harmony": false,
+          "inversions": true,
+          "no_voice_crossing": false,
+          "ranges": true,
+          "voice_leading": false
+        },
+        "musical_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00075,
+        "total": 0.002212,
+        "uncached_input": 0.001462
+      },
+      "family": "transformation-local",
+      "kind": "development",
+      "latency_ms": 2191.595,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1006,
+      "prompt_sha256": "006f614bf526cff11c42a3435431758c032b31e1c737eb175bf287f57c502d8e",
+      "raw_response_sha256": "5bbee3a1eabfb60574e90b472e2d2ba605a4e17610e69f3e3cf2cd0e082e6ff5",
+      "request_id": "msg_011CfTKGWZEnrm75DKKrK9Gu",
+      "response_payload": "PATCH 72d31501aeb66e237234f2aa31ffa616adc8b156f99425a3a5a1db4f1196ee8e\nSET s0-bass-1 pitch=38",
+      "response_payload_bytes": 93,
+      "response_payload_sha256": "877897884e7b060e15130e2a6e11e56184afa2828f29bcda3d37bc43c441e3f9",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 731,
+        "output_tokens": 75,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00532,
+        "total": 0.006744,
+        "uncached_input": 0.001424
+      },
+      "family": "transformation-revoice",
+      "kind": "development",
+      "latency_ms": 5226.529,
+      "outer_schema_valid": true,
+      "prompt_bytes": 931,
+      "prompt_sha256": "f868eedb95517bc6cc3ac596baf7fcc9a7466b3f9f132d73e17dd96d70f03836",
+      "raw_response_sha256": "6e744b24e9d8aac6a2d126e703b46d5f0e7330bcc3087ddde791283439559a54",
+      "request_id": "msg_011CfTKFSUPu9dmvTXZxNffj",
+      "response_payload": "N rv0-0-1 keys 0 1 43 78\nN rv0-0-2 keys 0 1 48 78\nN rv0-0-3 keys 0 1 52 78\nN rv0-0-4 keys 0 1 59 78\nN rv0-1-1 keys 1 1 45 78\nN rv0-1-2 keys 1 1 50 78\nN rv0-1-3 keys 1 1 54 78\nN rv0-1-4 keys 1 1 61 78\nN rv0-2-1 keys 2 1 47 78\nN rv0-2-2 keys 2 1 52 78\nN rv0-2-3 keys 2 1 56 78\nN rv0-2-4 keys 2 1 63 78\nN rv0-3-1 keys 3 1 49 78\nN rv0-3-2 keys 3 1 54 78\nN rv0-3-3 keys 3 1 58 78\nN rv0-3-4 keys 3 1 65 78",
+      "response_payload_bytes": 399,
+      "response_payload_sha256": "fad5d291cad491c62f4806bd6fbccac86ea239cbba355d0e62df19a3d64592f9",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 712,
+        "output_tokens": 532,
+        "thinking_tokens": 188
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": true,
+          "range": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00122,
+        "total": 0.002244,
+        "uncached_input": 0.001024
+      },
+      "family": "transformation-rhythm",
+      "kind": "development",
+      "latency_ms": 2365.163,
+      "outer_schema_valid": true,
+      "prompt_bytes": 678,
+      "prompt_sha256": "ee49765647dd44e12f6a47eecd73dc6b91835eb26dbbb356114712f46ce83e49",
+      "raw_response_sha256": "bb5a1ece9895842ca8198ae1446f2e4e343ddeac6fa83f1ce60a067fa40509c2",
+      "request_id": "msg_011CfTKF1optZ5Unr3niY9kn",
+      "response_payload": "N rh0-0 lead 0 1 60 82\nN rh0-1 lead 1 1 61 82\nN rh0-2 lead 2 1 62 82\nN rh0-3 lead 3 1 63 82\nN rh0-4 lead 4 1 64 82\nN rh0-5 lead 5 1 65 82",
+      "response_payload_bytes": 137,
+      "response_payload_sha256": "0848542052a5f687cd67b7cd7ae399b4f98fd6240168c620a3b2a3322562529b",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "sentinel": false,
+      "stop_reason": "end_turn",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 512,
+        "output_tokens": 122,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "alignment": {
+          "checked": false,
+          "pass": null
+        },
+        "checks": {
+          "exact_rhythm_relation": true
+        },
+        "musical_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    }
+  ],
+  "run_kind": "pilot",
+  "schema": "ghostnote-symbolic-format-benchmark-v1",
+  "screen_sha256": "e3be63c1a901aaaaea06255354bbf08aa313534a3b5882534a752ef25d01a4ec",
+  "sha256": "a4c5a99cca126a1a35549e63e72a22fe67457b033bec89373080d196ba470346",
+  "valid_calls": 27
+}

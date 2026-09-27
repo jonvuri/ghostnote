@@ -1,16 +1,33 @@
 ---
 title: Phase 8c1 — Expanded symbolic-format comparison
 kind: plan
-state: planned
-status: Compare compact-bar with native and composite notation arms across deterministic musical tasks and three providers.
+state: complete
+status: The expanded comparison is complete. Develop compact candidates, then run a fresh full matrix.
 updated: 2026-09-27
 parent: README.md
 prev: 8e-cache-scale-limits-and-degradation.md
-next: 8f-consolidated-compact-bar-and-cache-contracts.md
-evidence: E109, E110, E115, E117, E137; D21, D23
+next: 8c2-compact-grammar-correction.md
+evidence: E109, E110, E115, E117, E137, E140; D21, D23
 ---
 
 # Phase 8c1 — Expanded symbolic-format comparison
+
+## Result
+
+Complete. [E140](../../evidence/experiments/e140-expanded-symbolic-format-comparison-requires-revision.md)
+records the fixed package, three-provider run, and `revise` decision.
+
+Compact-bar stayed inside the frozen 12.5 percentage-point paired margin
+against every eligible comparator. It did not pass the separate repeated-loss
+rule. Each provider had at least one task family with two or more compact-only
+losses against a comparator.
+
+The v1 compact arm also changed the retained labeled v0 spelling to an
+unlabeled development shorthand. [Phase 8c2](8c2-compact-grammar-correction.md)
+now owns a focused, multi-iteration compact-format development loop and fresh
+targeted holdout. [Phase 8c3](8c3-full-symbolic-format-matrix.md) then owns the
+fresh full retained matrix. Phase 8f remains blocked until 8c3 gives a
+`proceed` decision.
 
 ## Purpose
 

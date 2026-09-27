@@ -2,7 +2,7 @@
 title: Compact-bar rationale
 kind: reference
 state: active
-updated: 2026-09-25
+updated: 2026-09-27
 parent: CONSOLIDATED_COMPACT_BAR.md
 ---
 
@@ -60,15 +60,31 @@ observed behavior only. It makes no claim about private training corpora.
 
 ## Current status
 
-The Phase 8c text is a benchmark profile. It does not freeze the later public
-syntax. [Phase 8f](../../plan/phase-8/8f-consolidated-compact-bar-and-cache-contracts.md)
-must select the grammar, D23 timing boundary, defaults, identity rules, and
-complete-document semantics.
+The Phase 8c and 8c1 texts are benchmark profiles. They do not freeze the later
+public syntax. [E140](../experiments/e140-expanded-symbolic-format-comparison-requires-revision.md)
+requires focused compact-format development.
+[Phase 8c2](../../plan/phase-8/8c2-compact-grammar-correction.md) compares a
+label-only arm, a full v0-style arm, and later bounded hypotheses. It ends with
+a fresh targeted holdout.
+[Phase 8c3](../../plan/phase-8/8c3-full-symbolic-format-matrix.md) then runs the
+fresh full matrix. Phase 8f stays blocked until 8c3 gives a `proceed` decision.
+
+The expanded v1 run kept compact inside its frozen paired rate margin. It did
+not pass the separate provider-specific repeated-loss rule. On paired compact
+and exact calls, compact used 21% to 26% fewer input tokens and about 70% fewer
+output bytes. The v1 arm used an unlabeled shorthand instead of the v0 labeled
+events and structural headers. Recheck size and task success as the development
+loop restores and tests those elements.
+
+Phase 8f must later select the grammar, D23 timing boundary, defaults, identity
+rules, and complete-document semantics.
 
 The reusable package is in the
 [compact-bar v0 benchmark](../../../brain/benchmarks/compact-bar-v0/README.md).
 [E137](../experiments/e137-compact-bar-prior-art-and-benchmark.md) records the
-result.
+first result. The
+[symbolic-format v1 package](../../../brain/benchmarks/symbolic-format-v1/README.md)
+and E140 record the expanded result.
 
 ## Evidence boundary
 
