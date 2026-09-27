@@ -2,24 +2,29 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-09-25
+updated: 2026-09-27
 phase: phase-8-agent-native-live-engine
-session: phase8f-consolidated-compact-bar-and-cache-contracts
+session: phase8c1-expanded-symbolic-format-comparison
 ---
 
 # Now
 
-Run
-[Phase 8f — Consolidated compact-bar and cache contracts](plan/phase-8/8f-consolidated-compact-bar-and-cache-contracts.md).
-Settle one versioned agent-facing clip document and one separate internal cache
-contract. Do not expose observer, proxy, dirty-queue, or rebuild mechanics as
-musical syntax.
+Run the
+[Phase 8c1 expanded symbolic-format comparison](plan/phase-8/8c1-expanded-symbolic-format-comparison.md).
+This is a side investigation before the original Phase 8f contract session.
+Do not begin Phase 8f until 8c1 gives a proceed, revise, or block decision.
 
 [E137](evidence/experiments/e137-compact-bar-prior-art-and-benchmark.md) fixes
-the comparison corpus and shows that compact-bar uses about half the model input
-tokens of exact JSON. It does not show a syntax-only accuracy win. The
-[publication gaps](evidence/format/COMPACT_BAR_LIMITATIONS.md) remain open for
-8f.
+the first comparison corpus. It shows that compact-bar uses about half the
+model input tokens of exact JSON. It does not show a syntax-only accuracy win.
+8c1 must add native no-ledger arms, deterministic comprehension, generation,
+continuation, and transformation tasks, repeated trials, and Claude Sonnet 5.
+The environment contains `CLAUDE_API_KEY`; do not expose or retain its value.
+
+Treat USD 5 per provider as a soft ceiling. Stop earlier when the frozen
+nondeterminism rule settles the result. Notify the operator before a run that
+is projected to exceed it. Keep native musical-task success separate from
+stable identity and preservation requirements.
 
 [E138](evidence/experiments/e138-cache-identity-and-lifecycle.md) defines
 session-local clip identity, structural repair, project generations, and atomic
@@ -37,7 +42,13 @@ The stable runtime is restored at `normal-v1`, with 85 methods and hash
 `bba7383dce25c0f0`. The scratch project is back at its four original track IDs,
 eight scenes, and zero launcher clips.
 
+After 8c1, return to
+[Phase 8f — Consolidated compact-bar and cache contracts](plan/phase-8/8f-consolidated-compact-bar-and-cache-contracts.md)
+only if the evidence supports it. E138 and E139 remain the cache authorities;
+8c1 must not change the cache or a live Bitwig project.
+
 ## Retrospective
 
-Phase-based binding amortizes track and scene settlement. Cache-bank
-construction, not replay or ping, sets the selected observer limit.
+The first benchmark bundled many tasks and used one retained response per cell.
+Focused calls, native/composite pairs, and adaptive repeats isolate the missing
+evidence without freezing the final syntax.

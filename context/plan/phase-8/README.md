@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Cache scale limits are complete. Begin the consolidated format and cache contracts.
-updated: 2026-09-25
+status: Cache scale limits are complete. Run the expanded format comparison before the consolidated contracts.
+updated: 2026-09-27
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -86,15 +86,19 @@ owns the migration details.
 5. [8e — Cache scale limits and degradation policy](8e-cache-scale-limits-and-degradation.md).
    Complete. [E139](../../evidence/experiments/e139-cache-scale-limits-and-degradation.md)
    selects product limits, budgets, and explicit exact-read degradation.
-6. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+6. [8c1 — Expanded symbolic-format comparison](8c1-expanded-symbolic-format-comparison.md).
+   Compare native and composite format arms on deterministic comprehension,
+   generation, continuation, and transformation tasks across GPT, Gemini, and
+   Claude. Use adaptive repeats and a soft provider budget.
+7. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
-7. [8g — Shadow project cache](8g-shadow-project-cache.md).
+8. [8g — Shadow project cache](8g-shadow-project-cache.md).
    Implement the cache behind an experimental boundary while E131 remains
    authoritative.
-8. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
+9. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Promote proved cache reads in stages and apply the selected tool and
    verification reductions.
-9. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+10. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 
@@ -119,8 +123,8 @@ owns the migration details.
 
 - The product posture names what Ghostnote owns and what computer use owns.
 - Every retained normal-runtime method and public tool has a current purpose.
-- Compact-bar comparisons are documented and can be rerun with fixed fixtures
-  and scoring rules.
+- Compact-bar comparisons include native and composite arms, three providers,
+  deterministic musical tasks, repeated trials, and fixed scoring rules.
 - Clip identity, invalidation, structural rebuild, project-change, and restart
   behavior are explicit.
 - Product cache limits and degradation behavior are explicit and tested.

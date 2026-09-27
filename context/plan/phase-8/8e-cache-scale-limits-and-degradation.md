@@ -3,10 +3,10 @@ title: Phase 8e — Cache scale limits and degradation policy
 kind: plan
 state: complete
 status: Selected bounded cache limits and explicit exact-read degradation from E139.
-updated: 2026-09-25
+updated: 2026-09-27
 parent: README.md
 prev: 8d-cache-identity-and-lifecycle.md
-next: 8f-consolidated-compact-bar-and-cache-contracts.md
+next: 8c1-expanded-symbolic-format-comparison.md
 evidence: E51-E54, E119, E130-E134, E139; D23
 ---
 

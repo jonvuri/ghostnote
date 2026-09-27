@@ -3,9 +3,9 @@ title: Phase 8f — Consolidated compact-bar and cache contracts
 kind: plan
 state: planned
 status: Settle the public musical document and internal cache boundary from the measured evidence.
-updated: 2026-09-25
+updated: 2026-09-27
 parent: README.md
-prev: 8e-cache-scale-limits-and-degradation.md
+prev: 8c1-expanded-symbolic-format-comparison.md
 next: 8g-shadow-project-cache.md
 evidence: E109, E114-E121, E128-E134, E137-E139; D21, D23
 ---
