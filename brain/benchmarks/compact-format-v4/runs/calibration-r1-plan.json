@@ -1,0 +1,67 @@
+{
+  "approval": "pending",
+  "calls": {
+    "initial_per_provider": 69,
+    "maximum_repair_per_provider": 69,
+    "maximum_total_per_provider": 138,
+    "named_sentinel_initial_per_provider": 9,
+    "unique_initial_per_provider": 60
+  },
+  "cohort_manifest_sha256": "75fda2a1205b5a6d2ac074fa47a7db054f73b911dbe1c1d6b438a4301ab887fe",
+  "cost_basis": {
+    "contingency": 0.25,
+    "mean_call_cost_usd": {
+      "claude": 0.01633838888888889,
+      "gemini": 0.003487282722513089,
+      "openai": 0.004619055555555556
+    },
+    "method": "Multiply the mean by the maximum call count and add 25 percent.",
+    "price_verification_date": "2026-09-27",
+    "source": "The larger recent mean call cost from Phase 8c2.2 or Phase 8c3 retained manifests."
+  },
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "estimated_maximum_cost_usd": {
+    "claude": 2.818372,
+    "gemini": 0.601556,
+    "openai": 0.796787,
+    "total": 4.216715
+  },
+  "maximum_calls_all_providers": 414,
+  "models": {
+    "claude": "claude-sonnet-5",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "468f734100ccccc2333d022cde2c509279c244d5eb9331c25ed696ba01604ae6",
+  "repair_policy": {
+    "eligible": "Every available initial parse or musical-contract failure, including a named sentinel.",
+    "feedback": "Return only the structured parse or failed-check diagnostic.",
+    "maximum_turns": 1,
+    "primary_result": "Initial musical success only. A repair never replaces an initial result.",
+    "unavailable_or_failed": "Do not repair and do not add to a scored denominator."
+  },
+  "run_id": "phase8c4b-focused-compact-calibration-r1",
+  "run_kind": "calibration-plan",
+  "schema": "ghostnote-compact-format-calibration-v4",
+  "settings": {
+    "claude": {
+      "effort": "low",
+      "max_tokens": 5000
+    },
+    "gemini": {
+      "max_output_tokens": 5000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 5000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "9d4506a390eb67b9c98884c31a432b73ffac0c5a7925eaa81b894fd301e2b4f3",
+  "stopping_rule": "Return proceed-development only when every decision family is inside the exact-object band on at least two providers and every unique initial result is scored. Otherwise return repair-measurement. Calibration cannot select a format."
+}

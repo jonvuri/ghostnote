@@ -1,0 +1,9 @@
+{
+  "schema": "ghostnote-compact-format-calibration-v4",
+  "sha256": "064e442ae18c6b68fab7e060fc690be85f9aa7abbeebe10483443ed4c2da2920",
+  "screen_sha256": "2ad3a8cb44ea99dcf628f66aa123fff92161e09375bcda8b77297837f6316ddf",
+  "protocol_sha256": "468f734100ccccc2333d022cde2c509279c244d5eb9331c25ed696ba01604ae6",
+  "calibration_corpus_sha256": "cbe88d4e75f7fd53267cd7c0ab891e82ce1d75cae2a6810f9a3ca60961ea0d41",
+  "cohort_manifest_sha256": "75fda2a1205b5a6d2ac074fa47a7db054f73b911dbe1c1d6b438a4301ab887fe",
+  "run_plan_sha256": "9d4506a390eb67b9c98884c31a432b73ffac0c5a7925eaa81b894fd301e2b4f3"
+}

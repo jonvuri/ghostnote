@@ -1,8 +1,8 @@
 ---
 title: Phase 8c4a — Benchmark contract repair
 kind: plan
-state: active
-status: Repair the affected task contracts and freeze a new offline compact-bar package.
+state: complete
+status: Complete. E156 records the repaired contracts and frozen calibration package.
 updated: 2026-09-27
 parent: README.md
 prev: 8c3-full-symbolic-format-matrix.md
@@ -11,6 +11,9 @@ evidence: E137, E140-E146, E155; D21, D23
 ---
 
 # Phase 8c4a — Benchmark contract repair
+
+Complete. [E156](../../evidence/experiments/e156-compact-bar-contract-repair-freezes-calibration.md)
+records the passing offline package and the pending Phase 8c4b approval gate.
 
 ## Purpose
 

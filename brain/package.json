@@ -26,6 +26,7 @@
     "benchmark:compact-format-progression-repair": "python3 benchmarks/compact-format-v3/calibration_r2.py --check benchmarks/compact-format-v3/expected-r2-deterministic.json",
     "benchmark:compact-format-development": "python3 benchmarks/compact-format-v3/development.py --check benchmarks/compact-format-v3/expected-development-deterministic.json",
     "benchmark:compact-format-development-partial-report": "python3 benchmarks/compact-format-v3/development_partial_report.py benchmarks/compact-format-v3/runs/2026-09-27-development-openai.json benchmarks/compact-format-v3/runs/2026-09-27-development-gemini.json --self-test",
+    "benchmark:compact-format-v4": "python3 -B benchmarks/compact-format-v4/benchmark.py --check benchmarks/compact-format-v4/expected-deterministic.json",
     "benchmark:compact-json": "python3 -B benchmarks/compact-json-v1/benchmark.py --check benchmarks/compact-json-v1/expected-deterministic.json",
     "benchmark:compact-json-calibration-report": "python3 -B benchmarks/compact-json-v1/calibration_report.py --self-test",
     "benchmark:compact-json-r2-report": "python3 -B benchmarks/compact-json-v1/calibration_r2_report.py --self-test",

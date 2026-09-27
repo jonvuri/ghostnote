@@ -1,13 +1,13 @@
 ---
 title: Phase 8c4b — Focused compact-bar calibration
 kind: plan
-state: planned
-status: Use fresh diagnostic calls to prove that the repaired tasks can measure format effects.
+state: active
+status: Await operator approval for the frozen Phase 8c4b calibration plan.
 updated: 2026-09-27
 parent: README.md
 prev: 8c4a-benchmark-contract-repair.md
 next: 8c4c-compact-bar-paired-development.md
-evidence: E140-E146, E155; D21, D23
+evidence: E140-E146, E155-E156; D21, D23
 ---
 
 # Phase 8c4b — Focused compact-bar calibration

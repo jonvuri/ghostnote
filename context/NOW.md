@@ -4,49 +4,43 @@ kind: status
 state: active
 updated: 2026-09-27
 phase: phase-8-agent-native-live-engine
-session: phase8c4a-benchmark-contract-repair
+session: phase8c4b-focused-compact-calibration
 ---
 
 # Now
 
-Complete
-[Phase 8c4a](plan/phase-8/8c4a-benchmark-contract-repair.md). Repair the
-affected benchmark contracts and freeze the new compact-bar recovery package.
-Make no provider call in this session.
+Await operator approval for
+[Phase 8c4b](plan/phase-8/8c4b-focused-compact-calibration.md). Do not call a
+provider before approval.
 
 ## Starting point
 
-[E155](evidence/experiments/e155-full-symbolic-matrix-blocks-phase-8f.md)
-records the Phase 8c3 `block`. A post-run review finds that positional
-compact-bar v1 is the strongest musical direction, but analysis, motif, and
-progression have benchmark contract defects. The retained cohort is diagnostic
-only. Do not tune against it or reuse its fixtures.
+[E156](evidence/experiments/e156-compact-bar-contract-repair-freezes-calibration.md)
+records the passing Phase 8c4a offline gate. The new
+[`compact-format-v4`](../brain/benchmarks/compact-format-v4/README.md) package
+freezes positional compact-bar v1, the one-header `FIELDS` candidate, and the
+exact-object control.
 
-The recovery sequence keeps positional compact-bar v1 as a control. It tests
-one minimal candidate that adds `FIELDS id voice start duration pitch
-velocity`. Exact-object JSON remains the structured task control. Full
-hierarchy, repeated labels, grouping, pitch-class/register, and side ledgers
-stay closed.
+The named run is `phase8c4b-focused-compact-calibration-r1`. The protocol
+SHA-256 is
+`468f734100ccccc2333d022cde2c509279c244d5eb9331c25ed696ba01604ae6`.
+The run-plan SHA-256 is
+`9d4506a390eb67b9c98884c31a432b73ffac0c5a7925eaa81b894fd301e2b4f3`.
+The maximum is 414 calls and USD 4.216715. The approval record is pending.
 
 ## Immediate work
 
-1. Create a new versioned benchmark package. Keep all earlier packages and
-   provider responses frozen.
-2. Repair the analysis, motif, progression, multiline-output, and unavailable-
-   result contracts. Add task-to-scorer and mutation tests.
-3. Implement positional v1, the one-header `FIELDS` candidate, and the
-   exact-object control.
-4. Prove deterministic document and patch capabilities. Keep structural
-   metadata optional and keep one note plane.
-5. Generate disjoint calibration, development, and holdout cohorts. Freeze the
-   calibration protocol, hashes, gates, calls, and provider costs.
-6. Stop at the Phase 8c4b approval boundary.
+1. Get explicit operator approval for the exact frozen plan.
+2. Update only `runs/calibration-r1-approval.json`.
+3. Run OpenAI, Gemini, and Claude one at a time.
+4. Reconcile actual cost and produce the calibration report.
+5. Stop on `repair-measurement`. Freeze a separate development plan only on
+   `proceed-development`.
 
-Phase 8f remains blocked. Do not call a provider, change the cache, change the
-stable `normal-v1` runtime, or mutate a live Bitwig project.
+Phase 8f remains blocked. Do not change the package, cohort, protocol, run
+plan, cache, stable `normal-v1` runtime, or a live Bitwig project.
 
 ## Retrospective
 
-Define every task operation with only its relevant parameters. Hidden scorer
-rules and irrelevant fields caused several apparent format losses in Phase
-8c3.
+Keep the contract-to-scorer table and output-state denominator tests mandatory.
+They directly prevent the defects found after Phase 8c3.

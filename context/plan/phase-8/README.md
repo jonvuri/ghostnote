@@ -120,11 +120,12 @@ owns the migration details.
    records `block`. Neither full-capability candidate passes the frozen gates.
    No candidate enters Phase 8f.
 11. [8c4a — Benchmark contract repair](8c4a-benchmark-contract-repair.md).
-   Repair the affected analysis, motif, progression, framing, and output-state
-   contracts. Build the new offline package and freeze calibration.
+   Complete. [E156](../../evidence/experiments/e156-compact-bar-contract-repair-freezes-calibration.md)
+   records the repaired analysis, motif, progression, framing, and output-state
+   contracts and the frozen calibration package.
 12. [8c4b — Focused compact-bar calibration](8c4b-focused-compact-calibration.md).
-   Prove that the repaired tasks can resolve format effects. Calibration cannot
-   select a format.
+   Await operator approval for the frozen plan. Prove that the repaired tasks
+   can resolve format effects. Calibration cannot select a format.
 13. [8c4c — Compact-bar paired development](8c4c-compact-bar-paired-development.md).
    Compare positional compact-bar v1 with one minimal `FIELDS` candidate on
    fresh paired fixtures.
