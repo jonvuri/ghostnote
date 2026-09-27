@@ -166,6 +166,12 @@ public final class CoreHandlers extends HandlerGroup {
         resources.addProperty("noteObserverCursors", 1);
         resources.addProperty("noteStepObservers", 1);
         resources.addProperty("stepDataObservers", rig.profile.hasProbeResources() ? 1 : 0);
+        int cacheScaleViews = rig.profile.hasProbeResources()
+            ? rig.config.cacheScaleObservers + (rig.config.cacheScaleWidthSteps > 0 ? 2 : 0)
+            : 0;
+        resources.addProperty("cacheScaleCursorTracks", cacheScaleViews);
+        resources.addProperty("cacheScaleClipProxies", cacheScaleViews);
+        resources.addProperty("cacheScaleStepDataObservers", cacheScaleViews);
         resources.addProperty("trackSendBanks", 0);
         resources.addProperty("trackSendHandles", 0);
         resources.addProperty("trackVuObservers", 0);
@@ -180,9 +186,9 @@ public final class CoreHandlers extends HandlerGroup {
         for (var bank : rig.layerSendBanks) {
             if (bank != null) layerSendBanks++;
         }
-        long cursorTracks = rig.config.cursorPool + 2L;
+        long cursorTracks = rig.config.cursorPool + 2L + cacheScaleViews;
         long cursorClips = rig.config.cursorPool + 2L
-            + (rig.profile.hasProbeResources() ? 2L : 0L);
+            + (rig.profile.hasProbeResources() ? 2L : 0L) + cacheScaleViews;
         long layerBanks = 1L + Rig.SLOT_SCOPES;
         long layerHandles = Rig.LAYER_BANK + (long) Rig.SLOT_SCOPES * Rig.SLOT_LAYER_BANK;
         long explicitHostObjects = 4L
@@ -210,6 +216,7 @@ public final class CoreHandlers extends HandlerGroup {
                 + (long) rig.config.remotePages * 2
                 + (rig.config.directObservers ? 4 : 0)
                 + 1L + (rig.profile.hasProbeResources() ? 1L : 0L)
+                + cacheScaleViews
                 + rig.equalsProxyCount);
         result.add("resources", resources);
 

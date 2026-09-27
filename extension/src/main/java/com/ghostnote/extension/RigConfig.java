@@ -43,6 +43,12 @@ public class RigConfig {
     public int paramHandles = 64; // typed createParameter handles (E4/E50)
     public int remotePages = 16; // independent complete-page cursors (E61)
     public boolean directObservers = true; // DirectParameter observers (E4b)
+    /** Phase 8e probe-only persistent observer handles. Zero disables them. */
+    public int cacheScaleObservers = 0;
+    /** Fixed `1/512` width for each Phase 8e count observer. */
+    public int cacheScaleSteps = 131072;
+    /** Phase 8e paired width candidate. Zero disables both width views. */
+    public int cacheScaleWidthSteps = 0;
     /**
      * ⚠ E16: what the flat track bank is allowed to SEE.
      *
@@ -89,6 +95,12 @@ public class RigConfig {
             config.noteReadSteps = intOr(obj, "noteReadSteps", config.noteReadSteps);
             config.paramHandles = intOr(obj, "paramHandles", config.paramHandles);
             config.remotePages = Math.max(1, intOr(obj, "remotePages", config.remotePages));
+            config.cacheScaleObservers = Math.max(
+                0, intOr(obj, "cacheScaleObservers", config.cacheScaleObservers));
+            config.cacheScaleSteps = Math.max(
+                1, intOr(obj, "cacheScaleSteps", config.cacheScaleSteps));
+            config.cacheScaleWidthSteps = Math.max(
+                0, intOr(obj, "cacheScaleWidthSteps", config.cacheScaleWidthSteps));
             if (obj.has("contentFilter")) {
                 config.contentFilter = obj.get("contentFilter").getAsString();
             }
@@ -123,6 +135,9 @@ public class RigConfig {
         obj.addProperty("noteReadSteps", noteReadSteps);
         obj.addProperty("paramHandles", paramHandles);
         obj.addProperty("remotePages", remotePages);
+        obj.addProperty("cacheScaleObservers", cacheScaleObservers);
+        obj.addProperty("cacheScaleSteps", cacheScaleSteps);
+        obj.addProperty("cacheScaleWidthSteps", cacheScaleWidthSteps);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);
         obj.addProperty("stamp", stamp);

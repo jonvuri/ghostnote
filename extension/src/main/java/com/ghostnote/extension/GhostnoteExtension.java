@@ -6,6 +6,7 @@ import com.ghostnote.extension.handlers.AppHandlers;
 import com.ghostnote.extension.handlers.ApiInventoryHandlers;
 import com.ghostnote.extension.handlers.BatchHandlers;
 import com.ghostnote.extension.handlers.BranchHandlers;
+import com.ghostnote.extension.handlers.CacheScaleHandlers;
 import com.ghostnote.extension.handlers.ContainerHandlers;
 import com.ghostnote.extension.handlers.CoreHandlers;
 import com.ghostnote.extension.handlers.CursorHandlers;
@@ -70,6 +71,7 @@ public class GhostnoteExtension extends ControllerExtension {
             new AppHandlers(host, rig, state),
             new ApiInventoryHandlers(host, rig, state),
             new BranchHandlers(host, rig, state),
+            new CacheScaleHandlers(host, rig, state),
             new ObservationHandlers(host, rig, state, panel, panelError),
             new StatusHandlers(host, rig, state, panel, panelError),
             new NavigationHandlers(host, rig, state),

@@ -87,6 +87,8 @@ export interface Golden {
   addedInPhase7bE130?: string[];
   /** Phase 7b E131 sparse note-enrichment proof. */
   addedInPhase7bE131?: string[];
+  /** Phase 8e cache-scale probe surface. */
+  addedInPhase8e?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;

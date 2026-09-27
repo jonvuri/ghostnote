@@ -1,13 +1,13 @@
 ---
 title: Phase 8e — Cache scale limits and degradation policy
 kind: plan
-state: planned
-status: Find practical performance knees on the lean runtime and select explicit product limits.
+state: complete
+status: Selected bounded cache limits and explicit exact-read degradation from E139.
 updated: 2026-09-25
 parent: README.md
 prev: 8d-cache-identity-and-lifecycle.md
 next: 8f-consolidated-compact-bar-and-cache-contracts.md
-evidence: E51-E54, E119, E130-E134; D23
+evidence: E51-E54, E119, E130-E134, E139; D23
 ---
 
 # Phase 8e — Cache scale limits and degradation policy
@@ -111,3 +111,26 @@ incomplete project state.
 Record the resource that sets the first useful product limit. Do not use the
 largest numeric input as the conclusion when latency, memory, or rebuild time
 sets an earlier limit.
+
+## Result
+
+[E139](../../evidence/experiments/e139-cache-scale-limits-and-degradation.md)
+selects a working set of 512 active observers. A pipelined count sweep stayed
+exact through 768 observers. It found no replay or ping knee. The 512-observer
+cache bank constructed in 38.949 ms. The 768-observer bank took 59.057 ms and
+crossed the 50 ms budget. The product view is 131,072 steps, or 64 bars of 4/4
+at the D23 grid. Each cached clip can hold 2,048 occupied coordinates. Pending
+dirty work is limited to 2,048 coordinates.
+
+The
+[degradation policy](../../evidence/format/CACHE_SCALE_AND_DEGRADATION.md)
+sets memory, cache-construction, replay, rebuild, and tail-latency budgets. Each
+overflow uses an exact authority read or refuses when authority is unavailable.
+The executable policy is tested. The product cache remains out of scope.
+
+## Retrospective
+
+Phase-based binding amortizes track and scene settlement. Cache-bank
+construction, not replay or ping, sets the selected observer limit. A future
+probe reload must also confirm an empty bridge listener and no old controller
+card before it adds the next instance.

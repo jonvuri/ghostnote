@@ -34,6 +34,11 @@ export type {
 export { SETTLE_MS, TICK_MS, budgetTicks } from './budgets.js';
 export type { SettleBudget } from './budgets.js';
 
+export { CACHE_SCALE_LIMITS, evaluateCachePolicy } from './cache-policy.js';
+export type {
+  CacheHealth, CachePolicyDecision, CachePolicyInput, CachePolicyReason, CacheReadMode,
+} from './cache-policy.js';
+
 export { EXACT_CLIP_COLORS, exactClipColor, supportedClipColors } from './clip-color.js';
 export type { ClipColorBytes, ExactClipColor } from './clip-color.js';
 

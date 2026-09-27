@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Cache lifecycle rules are complete. Begin scale limits and degradation work.
+status: Cache scale limits are complete. Begin the consolidated format and cache contracts.
 updated: 2026-09-25
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -84,8 +84,8 @@ owns the migration details.
    resolves stale addresses, structural compaction, project changes, restart,
    replacement, ambiguity, and observer recovery.
 5. [8e — Cache scale limits and degradation policy](8e-cache-scale-limits-and-degradation.md).
-   Find practical performance knees and select product limits, budgets, and
-   explicit overflow behavior.
+   Complete. [E139](../../evidence/experiments/e139-cache-scale-limits-and-degradation.md)
+   selects product limits, budgets, and explicit exact-read degradation.
 6. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
 7. [8g — Shadow project cache](8g-shadow-project-cache.md).

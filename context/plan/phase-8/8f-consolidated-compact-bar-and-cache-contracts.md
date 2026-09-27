@@ -7,7 +7,7 @@ updated: 2026-09-25
 parent: README.md
 prev: 8e-cache-scale-limits-and-degradation.md
 next: 8g-shadow-project-cache.md
-evidence: E109, E114-E121, E128-E134; D21, D23
+evidence: E109, E114-E121, E128-E134, E137-E139; D21, D23
 ---
 
 # Phase 8f — Consolidated compact-bar and cache contracts

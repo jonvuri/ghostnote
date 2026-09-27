@@ -110,6 +110,8 @@ public class Rig {
     public final PinnableCursorClip noteObserverClip;
     public final NoteObserverProbe noteObserver = new NoteObserverProbe();
     public final StepDataObserverProbe stepDataObserver;
+    /** Configuration-gated Phase 8e scale bank. Null outside the probe profile. */
+    public final CacheScaleProbe cacheScaleProbe;
 
     /** Arrangement cursor clip (follows arranger clip selection). */
     public final Clip arrangerClip;
@@ -895,10 +897,12 @@ public class Rig {
         if (profile.hasProbeResources()) {
             stepDataObserver = new StepDataObserverProbe(config.noteReadSteps, config.gridKeys);
             stepDataObserver.attach(noteObserverClip);
+            cacheScaleProbe = new CacheScaleProbe(host, config);
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);
         } else {
             stepDataObserver = null;
+            cacheScaleProbe = null;
             arrangerClip = null;
         }
 
