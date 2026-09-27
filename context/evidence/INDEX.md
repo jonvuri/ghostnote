@@ -12,6 +12,8 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E142 | Label-only compact fails the targeted holdout [K] (2026-09-27) | [open](experiments/e142-label-only-compact-fails-targeted-holdout.md) |
+| E141 | Label-only compact enters the targeted holdout [K] (2026-09-27) | [open](experiments/e141-label-only-compact-enters-targeted-holdout.md) |
 | E140 | Expanded symbolic-format comparison requires a compact grammar revision [K] (2026-09-27) | [open](experiments/e140-expanded-symbolic-format-comparison-requires-revision.md) |
 | E139 | Cache scale limits and degradation policy are fixed [K] (2026-09-27) | [open](experiments/e139-cache-scale-limits-and-degradation.md) |
 | E138 | Cache identity and lifecycle rules pass live recovery [K] (2026-09-25) | [open](experiments/e138-cache-identity-and-lifecycle.md) |

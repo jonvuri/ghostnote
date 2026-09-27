@@ -1,13 +1,13 @@
 ---
 title: Phase 8c2 — Compact-format development loop
 kind: plan
-state: planned
-status: Develop and select compact-format candidates with focused stress tests and a fresh holdout.
+state: completed
+status: Label-only compact failed the targeted holdout. No candidate enters Phase 8c3.
 updated: 2026-09-27
 parent: README.md
 prev: 8c1-expanded-symbolic-format-comparison.md
-next: 8c3-full-symbolic-format-matrix.md
-evidence: E137, E140; D21, D23
+next: 8c2-2-measurement-repair-and-grouped-compact-iteration.md
+evidence: E137, E140, E141, E142; D21, D23
 ---
 
 # Phase 8c2 — Compact-format development loop
@@ -45,6 +45,16 @@ must pass renderer parity against the fixed v0 grammar. The parity check must
 fail if a renderer replaces labeled events or required structure with the v1
 positional shorthand.
 
+The initial development package is
+[compact-format v2](../../../brain/benchmarks/compact-format-v2/README.md).
+Its run ID is `phase8c2-initial-six-arm-r1`. The protocol SHA-256 is
+`b29699fc48f002fd7130cacf543405cbc768feb79f7a9f1d29cf2e6b59643a2d`.
+The approved run plan is
+[initial-six-arm-r1-plan.json](../../../brain/benchmarks/compact-format-v2/runs/initial-six-arm-r1-plan.json).
+All 324 calls completed. [E141](../../evidence/experiments/e141-label-only-compact-enters-targeted-holdout.md)
+selects label-only compact for the fresh targeted holdout. Full v0-style
+compact did not pass the development gate.
+
 ## Focused suite
 
 The initial suite must include the 8c1 stress families:
@@ -63,6 +73,34 @@ Run OpenAI, Gemini, and Claude with matched low-effort settings. Use the same
 semantic fixture, task wording, and scoring rule for every eligible arm. Keep
 native musical success separate from stable identity, exact preservation, and
 sparse-edit capability.
+
+## Targeted holdout
+
+The frozen holdout package is
+[documented here](../../../brain/benchmarks/compact-format-v2/HOLDOUT.md).
+Its run ID is `phase8c2-targeted-holdout-r1`. Its protocol SHA-256 is
+`1d3787c4230d8c50f2f261a6c9a975bc03e9d79b574c2ca735dab3eb5ca615b5`.
+The exact
+[run plan](../../../brain/benchmarks/compact-format-v2/runs/targeted-holdout-r1-plan.json)
+received separate operator approval before provider calls.
+
+The arms are label-only compact, compact-bar v1, exact JSON, and native
+MIDI-Like. Each provider gets 72 calls. The total scope is 216 calls. The
+fixtures have no hash overlap with the initial development or retained v1
+cohorts. The motif prompt gives the required new-note IDs. Do not revise the
+candidate from the holdout result.
+
+All 216 calls completed. [E142](../../evidence/experiments/e142-label-only-compact-fails-targeted-holdout.md)
+records `do-not-select`. Label-only compact passed the provider gate only on
+Claude. It had no hard-family macro improvement over compact-bar v1 on OpenAI
+or Gemini. No compact candidate enters Phase 8c3, and Phase 8f stays blocked.
+
+The recorded holdout cost was USD 1.756934 against the approved USD 2.150309
+estimate. The corrected report SHA-256 is
+`18c3a6fd8e5235e23c9ddc3682dacb818e8585620a9e67e382d32bcde759fd87`.
+The frozen protocol had a reporting-only missing import. The separate reporter
+verified the run identities and applied the unchanged gate without changing
+the provider-bearing protocol.
 
 ## Iteration rules
 
@@ -183,6 +221,6 @@ or more compact candidates for Phase 8c3. It does not unblock Phase 8f.
 
 ## Retrospective target
 
-Record which representation change caused a repeatable improvement. Record
-whether the focused suite predicted the targeted holdout without encouraging
-fixture-specific tuning.
+The label-only change did not cause a repeatable hard-family improvement. The
+focused suite passed on all providers, but the fresh holdout passed only on
+Claude. Exercise the final aggregation path before future paid calls.

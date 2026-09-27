@@ -1,0 +1,15 @@
+{
+  "approved_at": "2026-09-27",
+  "approved_scope": {
+    "claude_calls": 108,
+    "estimated_total_cost_usd": 2.843448,
+    "gemini_calls": 108,
+    "openai_calls": 108,
+    "total_calls": 324
+  },
+  "operator_statement": "Yes, I approve. Proceed.",
+  "protocol_sha256": "b29699fc48f002fd7130cacf543405cbc768feb79f7a9f1d29cf2e6b59643a2d",
+  "run_id": "phase8c2-initial-six-arm-r1",
+  "run_plan_sha256": "b89b25821c4ab80b5b843cc46346617eb2ad4e5411c6cd23a2e77fd97c3ce5d6",
+  "status": "approved"
+}

@@ -1,0 +1,96 @@
+{
+  "approval": {
+    "requirement": "Get separate explicit operator approval for this exact holdout before any provider call.",
+    "status": "pending"
+  },
+  "cost_estimate": {
+    "basis": {
+      "contingency": 0.25,
+      "mean_call_cost_usd": {
+        "claude": 0.01633838888888889,
+        "gemini": 0.002934876739562624,
+        "openai": 0.004619055555555556
+      },
+      "method": "Use the larger recent observed mean call cost for each provider and add 25 percent.",
+      "price_sources": {
+        "claude": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "gemini": "https://ai.google.dev/gemini-api/docs/pricing",
+        "openai": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+      },
+      "price_verification_date": "2026-09-27",
+      "source": "Phase 8c2 initial run and symbolic-format v1 Gemini result"
+    },
+    "providers": {
+      "claude": {
+        "calls": 72,
+        "estimated_cost_usd": 1.470455
+      },
+      "gemini": {
+        "calls": 72,
+        "estimated_cost_usd": 0.264139
+      },
+      "openai": {
+        "calls": 72,
+        "estimated_cost_usd": 0.415715
+      }
+    },
+    "total_usd": 2.150309
+  },
+  "expected_calls": {
+    "claude": 72,
+    "gemini": 72,
+    "openai": 72,
+    "total": 216
+  },
+  "models": {
+    "claude": "claude-sonnet-5",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "1d3787c4230d8c50f2f261a6c9a975bc03e9d79b574c2ca735dab3eb5ca615b5",
+  "run_id": "phase8c2-targeted-holdout-r1",
+  "run_kind": "holdout-run-plan",
+  "schema": "ghostnote-compact-format-targeted-holdout-v2",
+  "scope": {
+    "candidate": "label-only-compact",
+    "controls": [
+      "compact-bar-v1",
+      "exact-json",
+      "midi-like-native"
+    ],
+    "families": [
+      "generation-progression",
+      "generation-melody",
+      "continuation-roles",
+      "transformation-revoice",
+      "continuation-motif",
+      "comprehension-structure",
+      "transformation-local",
+      "transformation-rhythm"
+    ],
+    "guard_variants": 1,
+    "hard_variants": 3,
+    "motif_repetitions": 3,
+    "providers": [
+      "openai",
+      "gemini",
+      "claude"
+    ]
+  },
+  "settings": {
+    "claude": {
+      "effort": "low",
+      "max_tokens": 3000
+    },
+    "gemini": {
+      "max_output_tokens": 3000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 3000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "a8a5f71effcbd0c0e683d5b826e39b5d3d48a696f53e47283da0c8c4e0a85d3f"
+}

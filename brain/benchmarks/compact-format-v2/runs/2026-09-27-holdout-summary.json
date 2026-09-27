@@ -1,0 +1,317 @@
+{
+  "actual_cost_usd": {
+    "claude": 1.236459,
+    "gemini": 0.202205,
+    "openai": 0.31827,
+    "total": 1.756934
+  },
+  "candidate_comparisons": [
+    {
+      "both_fail": 6,
+      "both_pass": 9,
+      "candidate": "label-only-compact",
+      "candidate_only_losses": 1,
+      "candidate_only_losses_by_family": {
+        "generation-progression": 1
+      },
+      "candidate_only_wins": 2,
+      "guard_macro_delta": 0.333333,
+      "hard_macro_delta": 0.0,
+      "input_token_ratio_to_exact": 0.736135,
+      "output_byte_ratio_to_exact": 0.622874,
+      "paired_denominator": 18,
+      "provider": "openai",
+      "provider_gate": {
+        "candidate_only_losses": true,
+        "guard_regression": true,
+        "hard_improvement": false,
+        "input_size": true,
+        "output_size": true,
+        "pass": false
+      }
+    },
+    {
+      "both_fail": 6,
+      "both_pass": 11,
+      "candidate": "label-only-compact",
+      "candidate_only_losses": 0,
+      "candidate_only_losses_by_family": {},
+      "candidate_only_wins": 1,
+      "guard_macro_delta": 0.0,
+      "hard_macro_delta": 0.0,
+      "input_token_ratio_to_exact": 0.703446,
+      "output_byte_ratio_to_exact": 0.586021,
+      "paired_denominator": 18,
+      "provider": "gemini",
+      "provider_gate": {
+        "candidate_only_losses": true,
+        "guard_regression": true,
+        "hard_improvement": false,
+        "input_size": true,
+        "output_size": true,
+        "pass": false
+      }
+    },
+    {
+      "both_fail": 7,
+      "both_pass": 7,
+      "candidate": "label-only-compact",
+      "candidate_only_losses": 1,
+      "candidate_only_losses_by_family": {
+        "continuation-roles": 1
+      },
+      "candidate_only_wins": 3,
+      "guard_macro_delta": 0.333333,
+      "hard_macro_delta": 0.083333,
+      "input_token_ratio_to_exact": 0.767722,
+      "output_byte_ratio_to_exact": 0.587449,
+      "paired_denominator": 18,
+      "provider": "claude",
+      "provider_gate": {
+        "candidate_only_losses": true,
+        "guard_regression": true,
+        "hard_improvement": true,
+        "input_size": true,
+        "output_size": true,
+        "pass": true
+      }
+    }
+  ],
+  "decision": "do-not-select",
+  "holdout_gate": {
+    "claim": "Development selection only. This is not population equivalence.",
+    "hard_family_macro_improvement": 0.05,
+    "maximum_candidate_only_losses_per_provider_family": 1,
+    "maximum_guard_macro_regression": 0.05,
+    "maximum_input_token_ratio_to_exact_json": 0.9,
+    "maximum_output_byte_ratio_to_exact_json": 0.8,
+    "provider_rule": "Pass the hard and guard gates on at least two providers. Do not lose the hard macro by more than 0.05 on another provider."
+  },
+  "protocol_sha256": "1d3787c4230d8c50f2f261a6c9a975bc03e9d79b574c2ca735dab3eb5ca615b5",
+  "provider_passes": 1,
+  "providers": [
+    {
+      "actual_cost_usd": 0.31827,
+      "arms": [
+        {
+          "arm": "compact-bar-v1",
+          "guard_macro": 0.666667,
+          "hard_macro": 0.416667,
+          "input_tokens": 6231,
+          "output_bytes": 5967,
+          "output_tokens": 14283,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "label-only-compact",
+          "guard_macro": 1.0,
+          "hard_macro": 0.416667,
+          "input_tokens": 7672,
+          "output_bytes": 14906,
+          "output_tokens": 15494,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "exact-json",
+          "guard_macro": 0.666667,
+          "hard_macro": 0.25,
+          "input_tokens": 10422,
+          "output_bytes": 23931,
+          "output_tokens": 20554,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 16,
+          "trials": 18
+        },
+        {
+          "arm": "midi-like-native",
+          "guard_macro": 0.333333,
+          "hard_macro": 0.5,
+          "input_tokens": 6561,
+          "output_bytes": 13087,
+          "output_tokens": 15248,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 18,
+          "trials": 18
+        }
+      ],
+      "complete": true,
+      "manifest_sha256": "7f0eb7c657192960401135a929f0503eddffe3934e242b4087ef4b6bb36387c2",
+      "provider": "openai",
+      "requested_model": "gpt-5.4-mini-2026-03-17",
+      "returned_models": [
+        "gpt-5.4-mini-2026-03-17"
+      ]
+    },
+    {
+      "actual_cost_usd": 0.202205,
+      "arms": [
+        {
+          "arm": "compact-bar-v1",
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 6330,
+          "output_bytes": 5201,
+          "output_tokens": 12573,
+          "sentinel_outcomes": [
+            true,
+            false,
+            true
+          ],
+          "syntax_passes": 15,
+          "trials": 18
+        },
+        {
+          "arm": "label-only-compact",
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 7491,
+          "output_bytes": 14010,
+          "output_tokens": 10453,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 17,
+          "trials": 18
+        },
+        {
+          "arm": "exact-json",
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 10649,
+          "output_bytes": 23907,
+          "output_tokens": 13380,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 17,
+          "trials": 18
+        },
+        {
+          "arm": "midi-like-native",
+          "guard_macro": 0.666667,
+          "hard_macro": 0.416667,
+          "input_tokens": 6666,
+          "output_bytes": 12446,
+          "output_tokens": 11288,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 16,
+          "trials": 18
+        }
+      ],
+      "complete": true,
+      "manifest_sha256": "81464ae1989f498c392cc58e0225f0179bd98fa6a1ef8e5bcf320f31ffb60377",
+      "provider": "gemini",
+      "requested_model": "gemini-3.8-flash",
+      "returned_models": [
+        "gemini-3.8-flash"
+      ]
+    },
+    {
+      "actual_cost_usd": 1.236459,
+      "arms": [
+        {
+          "arm": "compact-bar-v1",
+          "guard_macro": 0.666667,
+          "hard_macro": 0.25,
+          "input_tokens": 11228,
+          "output_bytes": 5971,
+          "output_tokens": 10533,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "label-only-compact",
+          "guard_macro": 1.0,
+          "hard_macro": 0.333333,
+          "input_tokens": 14285,
+          "output_bytes": 14903,
+          "output_tokens": 16883,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "exact-json",
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 18607,
+          "output_bytes": 25369,
+          "output_tokens": 25609,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 17,
+          "trials": 18
+        },
+        {
+          "arm": "midi-like-native",
+          "guard_macro": 0.666667,
+          "hard_macro": 0.5,
+          "input_tokens": 13698,
+          "output_bytes": 11818,
+          "output_tokens": 17842,
+          "sentinel_outcomes": [
+            true,
+            true,
+            true
+          ],
+          "syntax_passes": 17,
+          "trials": 18
+        }
+      ],
+      "complete": true,
+      "manifest_sha256": "4aaf0d8345187d553df34c91817a285bee8116181bb55dc6154bd9b7cf8962d1",
+      "provider": "claude",
+      "requested_model": "claude-sonnet-5",
+      "returned_models": [
+        "claude-sonnet-5"
+      ]
+    }
+  ],
+  "repairs": [],
+  "reporting_correction": "The frozen protocol omitted the collections.defaultdict import from its local summary path. This reporter supplies the import without changing the provider-bearing protocol.",
+  "run_id": "phase8c2-targeted-holdout-r1",
+  "run_kind": "targeted-holdout-summary",
+  "schema": "ghostnote-compact-format-targeted-holdout-report-v2",
+  "selected_candidates": [],
+  "sha256": "18c3a6fd8e5235e23c9ddc3682dacb818e8585620a9e67e382d32bcde759fd87"
+}

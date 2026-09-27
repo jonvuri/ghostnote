@@ -1,0 +1,8 @@
+{
+  "schema": "ghostnote-compact-format-targeted-holdout-v2",
+  "sha256": "273b3cbc1099abc2fbf15f2fa5a7854a78a12916ebbea94177bd55f4616f1225",
+  "screen_sha256": "bf5487bc9efb42fe3592af8584d2a143a7cf1d19837f7270e431735063615b92",
+  "protocol_sha256": "1d3787c4230d8c50f2f261a6c9a975bc03e9d79b574c2ca735dab3eb5ca615b5",
+  "corpus_sha256": "c85e511dbcc05aad7f5cd70c64447aa44e9948dd9372f9dbf741fbde52b82b76",
+  "run_plan_sha256": "a8a5f71effcbd0c0e683d5b826e39b5d3d48a696f53e47283da0c8c4e0a85d3f"
+}

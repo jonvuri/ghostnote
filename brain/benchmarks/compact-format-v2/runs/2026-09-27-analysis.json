@@ -1,0 +1,1631 @@
+{
+  "actual_cost_usd": {
+    "claude": 1.764546,
+    "gemini": 0.296907,
+    "openai": 0.498858,
+    "total": 2.560311
+  },
+  "candidate_comparisons": [
+    {
+      "both_fail": 9,
+      "both_pass": 6,
+      "candidate": "label-only-compact",
+      "candidate_only_losses": 0,
+      "candidate_only_losses_by_family": {},
+      "candidate_only_wins": 3,
+      "guard_macro_delta": 0.0,
+      "hard_macro_delta": 0.25,
+      "input_token_ratio_to_exact": 0.718662,
+      "output_byte_ratio_to_exact": 0.643071,
+      "paired_denominator": 18,
+      "provider": "openai",
+      "provider_gate": {
+        "candidate_only_losses": true,
+        "guard_regression": true,
+        "hard_improvement": true,
+        "input_size": true,
+        "output_size": true,
+        "pass": true
+      }
+    },
+    {
+      "both_fail": 9,
+      "both_pass": 3,
+      "candidate": "full-v0-style-compact",
+      "candidate_only_losses": 3,
+      "candidate_only_losses_by_family": {
+        "continuation-roles": 1,
+        "generation-melody": 1,
+        "transformation-rhythm": 1
+      },
+      "candidate_only_wins": 3,
+      "guard_macro_delta": -0.333333,
+      "hard_macro_delta": 0.083334,
+      "input_token_ratio_to_exact": 0.924509,
+      "output_byte_ratio_to_exact": 0.812004,
+      "paired_denominator": 18,
+      "provider": "openai",
+      "provider_gate": {
+        "candidate_only_losses": true,
+        "guard_regression": false,
+        "hard_improvement": true,
+        "input_size": false,
+        "output_size": false,
+        "pass": false
+      }
+    },
+    {
+      "both_fail": 8,
+      "both_pass": 9,
+      "candidate": "label-only-compact",
+      "candidate_only_losses": 0,
+      "candidate_only_losses_by_family": {},
+      "candidate_only_wins": 1,
+      "guard_macro_delta": 0.0,
+      "hard_macro_delta": 0.083333,
+      "input_token_ratio_to_exact": 0.684466,
+      "output_byte_ratio_to_exact": 0.536353,
+      "paired_denominator": 18,
+      "provider": "gemini",
+      "provider_gate": {
+        "candidate_only_losses": true,
+        "guard_regression": true,
+        "hard_improvement": true,
+        "input_size": true,
+        "output_size": true,
+        "pass": true
+      }
+    },
+    {
+      "both_fail": 9,
+      "both_pass": 9,
+      "candidate": "full-v0-style-compact",
+      "candidate_only_losses": 0,
+      "candidate_only_losses_by_family": {},
+      "candidate_only_wins": 0,
+      "guard_macro_delta": 0.0,
+      "hard_macro_delta": 0.0,
+      "input_token_ratio_to_exact": 0.928571,
+      "output_byte_ratio_to_exact": 0.775009,
+      "paired_denominator": 18,
+      "provider": "gemini",
+      "provider_gate": {
+        "candidate_only_losses": true,
+        "guard_regression": true,
+        "hard_improvement": false,
+        "input_size": false,
+        "output_size": true,
+        "pass": false
+      }
+    },
+    {
+      "both_fail": 10,
+      "both_pass": 7,
+      "candidate": "label-only-compact",
+      "candidate_only_losses": 0,
+      "candidate_only_losses_by_family": {},
+      "candidate_only_wins": 1,
+      "guard_macro_delta": 0.0,
+      "hard_macro_delta": 0.083334,
+      "input_token_ratio_to_exact": 0.753509,
+      "output_byte_ratio_to_exact": 0.692393,
+      "paired_denominator": 18,
+      "provider": "claude",
+      "provider_gate": {
+        "candidate_only_losses": true,
+        "guard_regression": true,
+        "hard_improvement": true,
+        "input_size": true,
+        "output_size": true,
+        "pass": true
+      }
+    },
+    {
+      "both_fail": 9,
+      "both_pass": 7,
+      "candidate": "full-v0-style-compact",
+      "candidate_only_losses": 0,
+      "candidate_only_losses_by_family": {},
+      "candidate_only_wins": 2,
+      "guard_macro_delta": 0.0,
+      "hard_macro_delta": 0.166667,
+      "input_token_ratio_to_exact": 1.005458,
+      "output_byte_ratio_to_exact": 0.988935,
+      "paired_denominator": 18,
+      "provider": "claude",
+      "provider_gate": {
+        "candidate_only_losses": true,
+        "guard_regression": true,
+        "hard_improvement": true,
+        "input_size": false,
+        "output_size": false,
+        "pass": false
+      }
+    }
+  ],
+  "candidate_gates": [
+    {
+      "candidate": "label-only-compact",
+      "eligible_for_holdout": true,
+      "provider_passes": 3,
+      "providers": 3
+    },
+    {
+      "candidate": "full-v0-style-compact",
+      "eligible_for_holdout": false,
+      "provider_passes": 0,
+      "providers": 3
+    }
+  ],
+  "decision": "freeze-targeted-holdout",
+  "development_gate": {
+    "claim": "Development selection only. This is not population equivalence.",
+    "hard_family_macro_improvement": 0.05,
+    "maximum_candidate_only_losses_per_provider_family": 1,
+    "maximum_guard_macro_regression": 0.05,
+    "maximum_input_token_ratio_to_exact_json": 0.9,
+    "maximum_output_byte_ratio_to_exact_json": 0.8,
+    "provider_rule": "Pass the hard and guard gates on at least two providers. Do not lose the hard macro by more than 0.05 on another provider."
+  },
+  "initial_protocol_sha256": "b29699fc48f002fd7130cacf543405cbc768feb79f7a9f1d29cf2e6b59643a2d",
+  "primary_sentinel_limit": "The primary motif score required exact new-note IDs that the prompt did not specify. Do not use its identity-arm outcomes as a variation result.",
+  "providers": [
+    {
+      "actual_cost_usd": 0.498858,
+      "arms": [
+        {
+          "arm": "compact-bar-v1",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.25,
+          "input_tokens": 5781,
+          "output_bytes": 4409,
+          "output_tokens": 15336,
+          "syntax_passes": 17,
+          "trials": 18
+        },
+        {
+          "arm": "label-only-compact",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 7178,
+          "output_bytes": 12482,
+          "output_tokens": 13139,
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "full-v0-style-compact",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 0.666667,
+          "hard_macro": 0.333334,
+          "input_tokens": 9234,
+          "output_bytes": 15761,
+          "output_tokens": 19643,
+          "syntax_passes": 16,
+          "trials": 18
+        },
+        {
+          "arm": "exact-json",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 0.666667,
+          "hard_macro": 0.25,
+          "input_tokens": 9988,
+          "output_bytes": 19410,
+          "output_tokens": 20824,
+          "syntax_passes": 16,
+          "trials": 18
+        },
+        {
+          "arm": "midi-like-native",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 0.666667,
+          "hard_macro": 0.583333,
+          "input_tokens": 6226,
+          "output_bytes": 9399,
+          "output_tokens": 17059,
+          "syntax_passes": 16,
+          "trials": 18
+        },
+        {
+          "arm": "midi-like-composite",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.416667,
+          "input_tokens": 8647,
+          "output_bytes": 14458,
+          "output_tokens": 17014,
+          "syntax_passes": 17,
+          "trials": 18
+        }
+      ],
+      "failures": {
+        "composite_classes": [
+          {
+            "class": "explicit-score-ledger-disagreement",
+            "eligible_denominator": 16,
+            "numerator": 0
+          },
+          {
+            "class": "missing-or-invalid-side-ledger",
+            "eligible_denominator": 17,
+            "numerator": 1
+          },
+          {
+            "class": "native-score-parse-failure",
+            "eligible_denominator": 17,
+            "numerator": 0
+          },
+          {
+            "class": "other-output-or-patch-parse-failure",
+            "eligible_denominator": 18,
+            "numerator": 0
+          }
+        ],
+        "other_parse_failures_by_arm": [
+          {
+            "arm": "compact-bar-v1",
+            "eligible_denominator": 18,
+            "numerator": 1
+          },
+          {
+            "arm": "label-only-compact",
+            "eligible_denominator": 18,
+            "numerator": 0
+          },
+          {
+            "arm": "full-v0-style-compact",
+            "eligible_denominator": 18,
+            "numerator": 2
+          },
+          {
+            "arm": "exact-json",
+            "eligible_denominator": 18,
+            "numerator": 2
+          },
+          {
+            "arm": "midi-like-native",
+            "eligible_denominator": 18,
+            "numerator": 2
+          },
+          {
+            "arm": "midi-like-composite",
+            "eligible_denominator": 18,
+            "numerator": 0
+          }
+        ]
+      },
+      "manifest_sha256": "2344e0346b3f4a93296c6a78f8de1fe6fb3cfdffb5a3c4262e042f2541531453",
+      "provider": "openai",
+      "requested_model": "gpt-5.4-mini-2026-03-17",
+      "returned_models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "semantic_sentinel_diagnostic": [
+        {
+          "arm": "compact-bar-v1",
+          "outcomes": [
+            true,
+            false,
+            true
+          ],
+          "varied": true
+        },
+        {
+          "arm": "label-only-compact",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "full-v0-style-compact",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "exact-json",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "midi-like-native",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "midi-like-composite",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        }
+      ]
+    },
+    {
+      "actual_cost_usd": 0.296907,
+      "arms": [
+        {
+          "arm": "compact-bar-v1",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 5784,
+          "output_bytes": 4838,
+          "output_tokens": 7784,
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "label-only-compact",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.583333,
+          "input_tokens": 6909,
+          "output_bytes": 12482,
+          "output_tokens": 10037,
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "full-v0-style-compact",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 9373,
+          "output_bytes": 18036,
+          "output_tokens": 20633,
+          "syntax_passes": 15,
+          "trials": 18
+        },
+        {
+          "arm": "exact-json",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 10094,
+          "output_bytes": 23272,
+          "output_tokens": 9048,
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "midi-like-native",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.333334,
+          "input_tokens": 6262,
+          "output_bytes": 11510,
+          "output_tokens": 9977,
+          "syntax_passes": 16,
+          "trials": 18
+        },
+        {
+          "arm": "midi-like-composite",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.583333,
+          "input_tokens": 8939,
+          "output_bytes": 16023,
+          "output_tokens": 12224,
+          "syntax_passes": 18,
+          "trials": 18
+        }
+      ],
+      "failures": {
+        "composite_classes": [
+          {
+            "class": "explicit-score-ledger-disagreement",
+            "eligible_denominator": 17,
+            "numerator": 0
+          },
+          {
+            "class": "missing-or-invalid-side-ledger",
+            "eligible_denominator": 17,
+            "numerator": 0
+          },
+          {
+            "class": "native-score-parse-failure",
+            "eligible_denominator": 17,
+            "numerator": 0
+          },
+          {
+            "class": "other-output-or-patch-parse-failure",
+            "eligible_denominator": 18,
+            "numerator": 0
+          }
+        ],
+        "other_parse_failures_by_arm": [
+          {
+            "arm": "compact-bar-v1",
+            "eligible_denominator": 18,
+            "numerator": 0
+          },
+          {
+            "arm": "label-only-compact",
+            "eligible_denominator": 18,
+            "numerator": 0
+          },
+          {
+            "arm": "full-v0-style-compact",
+            "eligible_denominator": 18,
+            "numerator": 3
+          },
+          {
+            "arm": "exact-json",
+            "eligible_denominator": 18,
+            "numerator": 0
+          },
+          {
+            "arm": "midi-like-native",
+            "eligible_denominator": 18,
+            "numerator": 2
+          },
+          {
+            "arm": "midi-like-composite",
+            "eligible_denominator": 18,
+            "numerator": 0
+          }
+        ]
+      },
+      "manifest_sha256": "6065629ad2c4f8279c3f6a67605c5b8c95811632637865cbbd282413a5c7797c",
+      "provider": "gemini",
+      "requested_model": "gemini-3.8-flash",
+      "returned_models": [
+        "gemini-3.8-flash"
+      ],
+      "semantic_sentinel_diagnostic": [
+        {
+          "arm": "compact-bar-v1",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "label-only-compact",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "full-v0-style-compact",
+          "outcomes": [
+            false,
+            false,
+            false
+          ],
+          "varied": false
+        },
+        {
+          "arm": "exact-json",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "midi-like-native",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "midi-like-composite",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        }
+      ]
+    },
+    {
+      "actual_cost_usd": 1.764546,
+      "arms": [
+        {
+          "arm": "compact-bar-v1",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.333333,
+          "input_tokens": 10569,
+          "output_bytes": 4793,
+          "output_tokens": 6585,
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "label-only-compact",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.416667,
+          "input_tokens": 13530,
+          "output_bytes": 12452,
+          "output_tokens": 13223,
+          "syntax_passes": 18,
+          "trials": 18
+        },
+        {
+          "arm": "full-v0-style-compact",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 18054,
+          "output_bytes": 17785,
+          "output_tokens": 20578,
+          "syntax_passes": 17,
+          "trials": 18
+        },
+        {
+          "arm": "exact-json",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.5,
+          "input_tokens": 17956,
+          "output_bytes": 17984,
+          "output_tokens": 23849,
+          "syntax_passes": 15,
+          "trials": 18
+        },
+        {
+          "arm": "midi-like-native",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 0.666667,
+          "hard_macro": 0.416667,
+          "input_tokens": 13214,
+          "output_bytes": 11404,
+          "output_tokens": 14484,
+          "syntax_passes": 17,
+          "trials": 18
+        },
+        {
+          "arm": "midi-like-composite",
+          "families": [
+            {
+              "family": "generation-progression",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "generation-melody",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "family": "continuation-roles",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "family": "transformation-revoice",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "continuation-motif",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "family": "comprehension-structure",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-local",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "family": "transformation-rhythm",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "guard_macro": 1.0,
+          "hard_macro": 0.416667,
+          "input_tokens": 16169,
+          "output_bytes": 14205,
+          "output_tokens": 21019,
+          "syntax_passes": 16,
+          "trials": 18
+        }
+      ],
+      "failures": {
+        "composite_classes": [
+          {
+            "class": "explicit-score-ledger-disagreement",
+            "eligible_denominator": 15,
+            "numerator": 0
+          },
+          {
+            "class": "missing-or-invalid-side-ledger",
+            "eligible_denominator": 17,
+            "numerator": 1
+          },
+          {
+            "class": "native-score-parse-failure",
+            "eligible_denominator": 17,
+            "numerator": 1
+          },
+          {
+            "class": "other-output-or-patch-parse-failure",
+            "eligible_denominator": 18,
+            "numerator": 0
+          }
+        ],
+        "other_parse_failures_by_arm": [
+          {
+            "arm": "compact-bar-v1",
+            "eligible_denominator": 18,
+            "numerator": 0
+          },
+          {
+            "arm": "label-only-compact",
+            "eligible_denominator": 18,
+            "numerator": 0
+          },
+          {
+            "arm": "full-v0-style-compact",
+            "eligible_denominator": 18,
+            "numerator": 1
+          },
+          {
+            "arm": "exact-json",
+            "eligible_denominator": 18,
+            "numerator": 3
+          },
+          {
+            "arm": "midi-like-native",
+            "eligible_denominator": 18,
+            "numerator": 1
+          },
+          {
+            "arm": "midi-like-composite",
+            "eligible_denominator": 18,
+            "numerator": 0
+          }
+        ]
+      },
+      "manifest_sha256": "123cd035f65a6f6256bc0bf1b60cecd4b29f9701876844ba229e63ced5fdf10e",
+      "provider": "claude",
+      "requested_model": "claude-sonnet-5",
+      "returned_models": [
+        "claude-sonnet-5"
+      ],
+      "semantic_sentinel_diagnostic": [
+        {
+          "arm": "compact-bar-v1",
+          "outcomes": [
+            true,
+            false,
+            false
+          ],
+          "varied": true
+        },
+        {
+          "arm": "label-only-compact",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "full-v0-style-compact",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "exact-json",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "midi-like-native",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        },
+        {
+          "arm": "midi-like-composite",
+          "outcomes": [
+            true,
+            true,
+            true
+          ],
+          "varied": false
+        }
+      ]
+    }
+  ],
+  "reporting_correction": "The frozen summary made the other-parse denominator all 108 responses. This analysis uses all 18 composite responses and reports non-composite parse failures by arm.",
+  "run_id": "phase8c2-initial-six-arm-r1",
+  "schema": "ghostnote-compact-format-initial-analysis-v2",
+  "selected_candidates": [
+    "label-only-compact"
+  ],
+  "semantic_sentinel_limit": "The semantic sentinel diagnostic is post-run and ignores new-note IDs. It classifies variation only; it does not replace a primary score.",
+  "sha256": "6befaa14cb3d5fd51223934557413fc711ad093ea33d37da01cdbb18ad483266"
+}

@@ -2,10 +2,10 @@
 title: Phase 8c3 — Full symbolic-format matrix
 kind: plan
 state: planned
-status: Run a fresh full matrix with the compact candidates selected by Phase 8c2.
+status: Run a fresh full matrix with the compact candidates selected by Phase 8c2.2.
 updated: 2026-09-27
 parent: README.md
-prev: 8c2-compact-grammar-correction.md
+prev: 8c2-2-measurement-repair-and-grouped-compact-iteration.md
 next: 8f-consolidated-compact-bar-and-cache-contracts.md
 evidence: E137, E140; D21, D23
 ---
@@ -14,17 +14,17 @@ evidence: E137, E140; D21, D23
 
 ## Purpose
 
-Run the fresh retained symbolic-format comparison after Phase 8c2 selects one
+Run the fresh retained symbolic-format comparison after Phase 8c2.2 selects one
 or more compact candidates. Use the complete task matrix to decide whether the
 selected compact direction can proceed to the public contract work in Phase
 8f.
 
-Do not use the Phase 8c2 development or holdout fixtures. Do not tune a compact
-candidate during this session.
+Do not use the Phase 8c2 or Phase 8c2.2 calibration, development, or holdout
+fixtures. Do not tune a compact candidate during this session.
 
 ## Entry conditions
 
-- Phase 8c2 records a passing fresh targeted holdout.
+- Phase 8c2.2 records a passing fresh targeted holdout.
 - It names the exact compact candidate versions for the full matrix.
 - All candidate grammars, renderers, parsers, prompts, and scorers are frozen.
 - The full-matrix cohort and decision rule are new and frozen before provider
@@ -34,7 +34,7 @@ candidate during this session.
 
 Use all nine Phase 8c1 task families, repeated-prompt sentinels, exact JSON,
 one-cycle mini-notation, and the native and composite notation and model-token
-controls. Add every compact candidate selected by Phase 8c2. Include
+controls. Add every compact candidate selected by Phase 8c2.2. Include
 compact-bar v1 only when it has a named decision purpose and its cost is
 approved.
 
@@ -88,8 +88,9 @@ against the retained cohort.
 
 ## Acceptance criteria
 
-- No Phase 8c1 retained or Phase 8c2 development or holdout output is a fixture.
-- Every compact candidate is unchanged from the passing Phase 8c2 holdout.
+- No Phase 8c1 retained, Phase 8c2 development or holdout, or Phase 8c2.2
+  calibration, development, or holdout output is a fixture.
+- Every compact candidate is unchanged from the passing Phase 8c2.2 holdout.
 - All retained arms pass deterministic capability checks before provider calls.
 - Every provider-bearing run has a prior named cost estimate and explicit
   operator approval.
@@ -112,6 +113,6 @@ against the retained cohort.
 
 ## Retrospective target
 
-Record whether the focused Phase 8c2 suite predicted the full matrix. Record
+Record whether the focused Phase 8c2.2 suite predicted the full matrix. Record
 whether any decision-critical result depended on one provider or one task
 family.

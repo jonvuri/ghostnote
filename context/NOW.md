@@ -4,35 +4,34 @@ kind: status
 state: active
 updated: 2026-09-27
 phase: phase-8-agent-native-live-engine
-session: phase8c2-compact-format-development-loop
+session: phase8c2-2-measurement-repair-and-grouped-compact-iteration
 ---
 
 # Now
 
-Run the
-[Phase 8c2 compact-format development loop](plan/phase-8/8c2-compact-grammar-correction.md).
-[E140](evidence/experiments/e140-expanded-symbolic-format-comparison-requires-revision.md)
-records the completed 8c1 package and its `revise` decision. Use the retained
-result only to select stress families and controls. Do not tune against its
-outputs.
+Start
+[Phase 8c2.2](plan/phase-8/8c2-2-measurement-repair-and-grouped-compact-iteration.md).
+It is a fresh continuation of the compact-format development loop. Repair the
+task measurement first. Then test one grouped-label compact hypothesis with
+fresh calibration, development, and holdout cohorts.
 
-Start with six arms: compact-bar v1, label-only compact, full v0-style compact,
-exact JSON, MIDI-Like native, and MIDI-Like composite. The full v0-style arm
-must preserve its labeled events and structural headers. Add renderer parity
-against fixed compact-bar v0.
+[E142](evidence/experiments/e142-label-only-compact-fails-targeted-holdout.md)
+records the frozen Phase 8c2 `do-not-select` result. Keep that result and every
+v2 artifact unchanged. It does not prove equivalence between label-only
+compact and compact-bar v1.
 
-Use fresh generated development fixtures for progression generation, melody
-generation, role continuation, and chord revoicing. Use motif continuation as
-the repeated-prompt sentinel. Add small structure, local-transformation, and
-rhythm-transformation guards. Run the same eligible fixtures on OpenAI,
-Gemini, and Claude.
+All 216 approved holdout calls completed. The recorded costs were USD 0.318270
+for OpenAI, USD 0.202205 for Gemini, USD 1.236459 for Claude, and USD 1.756934
+in total. The corrected report SHA-256 is
+`18c3a6fd8e5235e23c9ddc3682dacb818e8585620a9e67e382d32bcde759fd87`.
+The operator should compare these values with the provider dashboards.
 
-Phase 8c2 can contain one or more later iterations. Each iteration must test
-one bounded representation hypothesis. Likely candidates include keyed fields,
-canonical role lanes, explicit hierarchy, and onset or chord-group blocks.
-End with a fresh targeted holdout. A passing holdout selects one or more
-compact candidates for
-[Phase 8c3](plan/phase-8/8c3-full-symbolic-format-matrix.md).
+The old revoice task had a contract defect. Its prompt required preservation
+of the source `5/4` duration, but its canonical scorer answer used `3/2`. It
+also accepted only one exact pitch realization. Across all old holdout arms
+and providers, revoice passed 0/36, progression passed 2/36, melody passed
+33/36, and role continuation passed 26/36. Repair these floor, ceiling, and
+contract limits before another selection run.
 
 Before each provider-bearing pilot, diagnostic, development, or holdout run,
 state the exact scope, expected calls by provider, model settings, and
@@ -41,14 +40,13 @@ that named run. The former USD 5 soft ceiling does not apply. Approval for one
 run does not approve a later iteration. Record API cost after each run; the
 operator will compare it with the provider dashboards.
 
-Correct the composite failure reporting before the first new run. Report an
-explicit score-ledger disagreement separately from a missing or invalid
-ledger, a native-score parse failure, and another output or patch parse
-failure. State each eligible denominator.
+No Phase 8c2.2 provider run is approved. Calibration, development, and holdout
+need separate named scopes, estimates, hashes, and explicit approvals.
 
-Phase 8c3 owns the fresh full retained matrix. Keep
+Phase 8c3 has no candidate that meets its entry conditions. Do not start its
+fresh full retained matrix. Keep
 [Phase 8f](plan/phase-8/8f-consolidated-compact-bar-and-cache-contracts.md)
-blocked until 8c3 gives a `proceed` decision.
+blocked until Phase 8c3 gives a `proceed` decision.
 
 [E138](evidence/experiments/e138-cache-identity-and-lifecycle.md) defines
 session-local clip identity, structural repair, project generations, and atomic
@@ -66,15 +64,16 @@ project.
 
 ## Immediate work
 
-1. Implement the versioned six-arm development protocol and fresh fixture
-   generator.
-2. Add renderer parity and corrected composite failure classes.
-3. Run deterministic checks.
-4. Present the exact first-run call scope and cost estimate.
-5. Wait for explicit operator approval before any provider call.
+1. Create a new versioned package. Do not modify compact-format v2.
+2. Add the task-to-scorer contract audit, property-based revoice scorer,
+   progression components, mutation tests, and aggregation-path test.
+3. Build one grouped-label compact renderer, parser, and capability suite.
+4. Generate disjoint calibration, development, and holdout cohorts.
+5. Freeze the exact calibration scope and cost. Request explicit approval
+   before its first provider call.
 
 ## Retrospective
 
-The focused development stage now has a separate fresh holdout and full-matrix
-stage. This split permits useful iteration without tuning on the final
-decision cohort.
+Test instruction-to-scorer agreement and the final aggregation path before
+paid calls. Deterministic reference generation alone did not find either old
+measurement defect.

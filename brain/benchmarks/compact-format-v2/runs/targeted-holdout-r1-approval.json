@@ -1,0 +1,26 @@
+{
+  "approved_at": "2026-09-27",
+  "approved_scope": {
+    "providers": {
+      "openai": {
+        "calls": 72,
+        "estimated_cost_usd": 0.415715
+      },
+      "gemini": {
+        "calls": 72,
+        "estimated_cost_usd": 0.264139
+      },
+      "claude": {
+        "calls": 72,
+        "estimated_cost_usd": 1.470455
+      }
+    },
+    "total_calls": 216,
+    "total_estimated_cost_usd": 2.150309
+  },
+  "operator_statement": "Yes, I approve. Proceed.",
+  "protocol_sha256": "1d3787c4230d8c50f2f261a6c9a975bc03e9d79b574c2ca735dab3eb5ca615b5",
+  "run_id": "phase8c2-targeted-holdout-r1",
+  "run_plan_sha256": "a8a5f71effcbd0c0e683d5b826e39b5d3d48a696f53e47283da0c8c4e0a85d3f",
+  "status": "approved"
+}

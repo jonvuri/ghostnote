@@ -1,0 +1,3960 @@
+{
+  "actual_cost_usd": 0.202205,
+  "approval": {
+    "approved_at": "2026-09-27",
+    "approved_scope": {
+      "providers": {
+        "claude": {
+          "calls": 72,
+          "estimated_cost_usd": 1.470455
+        },
+        "gemini": {
+          "calls": 72,
+          "estimated_cost_usd": 0.264139
+        },
+        "openai": {
+          "calls": 72,
+          "estimated_cost_usd": 0.415715
+        }
+      },
+      "total_calls": 216,
+      "total_estimated_cost_usd": 2.150309
+    },
+    "operator_statement": "Yes, I approve. Proceed.",
+    "protocol_sha256": "1d3787c4230d8c50f2f261a6c9a975bc03e9d79b574c2ca735dab3eb5ca615b5",
+    "run_id": "phase8c2-targeted-holdout-r1",
+    "run_plan_sha256": "a8a5f71effcbd0c0e683d5b826e39b5d3d48a696f53e47283da0c8c4e0a85d3f",
+    "status": "approved"
+  },
+  "client": "Python urllib.request direct HTTPS",
+  "complete": true,
+  "manifest_sha256": "81464ae1989f498c392cc58e0225f0179bd98fa6a1ef8e5bcf320f31ffb60377",
+  "platform": "Darwin 24.6.0 arm64",
+  "privacy": "Send generated MIT symbolic text only. Do not send live project data, MIDI files, audio, or API keys.",
+  "protocol_sha256": "1d3787c4230d8c50f2f261a6c9a975bc03e9d79b574c2ca735dab3eb5ca615b5",
+  "provider": "gemini",
+  "python": "3.14.6",
+  "raw_run_sha256": "cb8ad2c4d978a5d0113a58cf30ead9bfb89fc33bc26d9aeaaa2d75a07c215edf",
+  "repairs": [],
+  "requested_model": "gemini-3.8-flash",
+  "results": [
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0011475,
+        "total": 0.001464,
+        "uncached_input": 0.0003165
+      },
+      "family": "comprehension-structure",
+      "latency_ms": 2694.532,
+      "outer_schema_valid": true,
+      "prompt_bytes": 942,
+      "prompt_sha256": "e6ab01346083c00d4b8cca7e5ac6a65ab7dd9540576a87aefd11a14994e84fd7",
+      "raw_response_sha256": "12cd74dc178eee1a14cfd8d261c3d296c78fbf419170a41dd09f1442cd9097c4",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ho-st0-bass-1 bass 0 3 31 75\nN ho-st0-lead-1 lead 0 1/3 60 81\nN ho-st0-pad-1 pad 0 4/3 43 71\nN ho-st0-lead-2 lead 1/3 1/3 65 82\nN ho-st0-lead-3 lead 1 1/3 58 83\nN ho-st0-lead-4 lead 5/3 1/3 63 84\nN ho-st0-lead-5 lead 7/3 1/3 56 85\nN ho-st0-bass-2 bass 3 7/3 36 77\nN ho-st0-lead-6 lead 3 1/3 61 86\nN ho-st0-pad-2 pad 3 4/3 47 72\nN ho-st0-lead-7 lead 11/3 1/3 66 87\nN ho-st0-pad-3 pad 13/3 4/3 51 73",
+      "response_payload_bytes": 399,
+      "response_payload_sha256": "6de604ece0d38b2c3b9814e2a3bacadb4debb9c069bc0d7a135d15f50afbddb4",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "fc92282836613aaff97c0e51989391a1e4a586996a536639bbe197bd3b4af2f0",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 422,
+        "output_tokens": 306,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00050625,
+        "total": 0.0007275,
+        "uncached_input": 0.00022125
+      },
+      "family": "continuation-motif",
+      "latency_ms": 1839.158,
+      "outer_schema_valid": true,
+      "prompt_bytes": 754,
+      "prompt_sha256": "e37cab326f9b0e566f04a9153793e7e550119eaf71d90a33a475cbcb1e4008dc",
+      "raw_response_sha256": "a97b77993c1530894a8afd8a44d54dcb6fe9feb47e7fd2abe56c293142bdcb2c",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ho-mo-out-1 lead 23/3 1/3 71 86\nN ho-mo-out-2 lead 25/3 1/3 66 86\nN ho-mo-out-3 lead 9 1/3 69 86\nN ho-mo-out-4 lead 29/3 1/3 64 86\nN ho-mo-out-5 lead 31/3 1/3 68 86",
+      "response_payload_bytes": 166,
+      "response_payload_sha256": "c58c8c5c60c25bc970bc9be30213712decff55a75320eb6d7b01aecae5cefd37",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 295,
+        "output_tokens": 135,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00216,
+        "total": 0.00238125,
+        "uncached_input": 0.00022125
+      },
+      "family": "continuation-motif",
+      "latency_ms": 3397.86,
+      "outer_schema_valid": true,
+      "prompt_bytes": 754,
+      "prompt_sha256": "e37cab326f9b0e566f04a9153793e7e550119eaf71d90a33a475cbcb1e4008dc",
+      "raw_response_sha256": "809eca4aec769853ec5d3133e01cd85b80c65d1791ad9505e3b473f69fc846e0",
+      "repeat": 1,
+      "request_id": null,
+      "response_payload": "N ho-mo-out-1 lead 23/3 1/3 71 86\\nN ho-mo-out-2 lead 25/3 1/3 66 86\\nN ho-mo-out-3 lead 9 1/3 69 86\\nN ho-mo-out-4 lead 29/3 1/3 64 86\\nN ho-mo-out-5 lead 31/3 1/3 68 86",
+      "response_payload_bytes": 170,
+      "response_payload_sha256": "8d77cbf8693c7fed6958ea2a7e5cac6fe32992ef58f9caeff60473d00f789e49",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 295,
+        "output_tokens": 576,
+        "thinking_tokens": 441
+      },
+      "validation": {
+        "checks": {},
+        "error": "Invalid compact-bar v1 row: N ho-mo-out-1 lead 23/3 1/3 71 86\\nN ho-mo-out-2 lead 25/3 1/3 66 86\\nN ho-mo-out-3 lead 9 1/3 69 86\\nN ho-mo-out-4 lead 29/3 1/3 64 86\\nN ho-mo-out-5 lead 31/3 1/3 68 86",
+        "failure_class": "other-output-or-patch-parse-failure",
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00050625,
+        "total": 0.0007275,
+        "uncached_input": 0.00022125
+      },
+      "family": "continuation-motif",
+      "latency_ms": 2188.74,
+      "outer_schema_valid": true,
+      "prompt_bytes": 754,
+      "prompt_sha256": "e37cab326f9b0e566f04a9153793e7e550119eaf71d90a33a475cbcb1e4008dc",
+      "raw_response_sha256": "c77e5fb2216a172fa07e9048f637c9fd22bc2450301f812686ee8adfcbd4ea6d",
+      "repeat": 2,
+      "request_id": null,
+      "response_payload": "N ho-mo-out-1 lead 23/3 1/3 71 86\nN ho-mo-out-2 lead 25/3 1/3 66 86\nN ho-mo-out-3 lead 9 1/3 69 86\nN ho-mo-out-4 lead 29/3 1/3 64 86\nN ho-mo-out-5 lead 31/3 1/3 68 86",
+      "response_payload_bytes": 166,
+      "response_payload_sha256": "c58c8c5c60c25bc970bc9be30213712decff55a75320eb6d7b01aecae5cefd37",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 295,
+        "output_tokens": 135,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00076875,
+        "total": 0.00093825,
+        "uncached_input": 0.0001695
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2100.161,
+      "outer_schema_valid": true,
+      "prompt_bytes": 700,
+      "prompt_sha256": "148ca90257481fd238674c78a576fb4e077d277a18ed9639b15cef573c50f87d",
+      "raw_response_sha256": "c74f2bb5f7aa4adcf2a7bfab2b30d245e5287b499fff8e31f46782d403901d56",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N b1 bass 6 1 39 80\nN b2 bass 7 1 36 80\nN b3 bass 8 1 44 80\nN b4 bass 9 1 41 80\nN b5 bass 10 1 46 80\nN b6 bass 11 1 39 80\nN l1 lead 6 1 67 90\nN l2 lead 7 1 67 90\nN l3 lead 8 1 68 90\nN l4 lead 9 1 68 90\nN l5 lead 10 1 70 90\nN l6 lead 11 1 75 90",
+      "response_payload_bytes": 243,
+      "response_payload_sha256": "e94df79198b556693332fc6cbace33cb7de8bbb4d4a47d38bc75c2a36a39da24",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "863346ca4534340333dc9f1f515fb04721ae9f0a30f3318d08a7e4dd0ac00192",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 226,
+        "output_tokens": 205,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00076875,
+        "total": 0.0009375,
+        "uncached_input": 0.00016875
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2117.071,
+      "outer_schema_valid": true,
+      "prompt_bytes": 699,
+      "prompt_sha256": "57f19f3aba6f81bcab8349986668f3867013af53c57b146a040d574367e9a1bf",
+      "raw_response_sha256": "7c50518c66eeae30999aeb7d9a93607a2193a2988234fccd7075b4f44d04f394",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N b1 bass 6 1 44 80\nN b2 bass 7 1 41 80\nN b3 bass 8 1 41 80\nN b4 bass 9 1 46 80\nN b5 bass 10 1 43 80\nN b6 bass 11 1 44 80\nN l1 lead 6 1 68 90\nN l2 lead 7 1 65 90\nN l3 lead 8 1 68 90\nN l4 lead 9 1 65 90\nN l5 lead 10 1 67 90\nN l6 lead 11 1 68 90",
+      "response_payload_bytes": 243,
+      "response_payload_sha256": "21705651e901fdc135249a34cbed71adcaf8f817c6a348a22c8041ea69587892",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "2df5f0eaa8500e3333a35b8411ca10086e842c0918d0703c0059a340af654d17",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 225,
+        "output_tokens": 205,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00414375,
+        "total": 0.00431175,
+        "uncached_input": 0.000168
+      },
+      "family": "continuation-roles",
+      "latency_ms": 5190.237,
+      "outer_schema_valid": true,
+      "prompt_bytes": 698,
+      "prompt_sha256": "b65cc7500295a1182e65ecf1cd0ad7c3355fbcdc4e06821571b3e301eb92d303",
+      "raw_response_sha256": "5ab250cf44aa440739d5bc25ec2fef97a6ea36d3071c7004df79ce843329a512",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N n1 bass 6 1 48 80\nN n2 lead 6 1 64 80\nN n3 bass 7 1 45 80\nN n4 lead 7 1 64 80\nN n5 bass 8 1 41 80\nN n6 lead 8 1 65 80\nN n7 bass 9 1 50 80\nN n8 lead 9 1 65 80\nN n9 bass 10 1 43 80\nN n10 lead 10 1 67 80\nN n11 bass 11 1 48 80\nN n12 lead 11 1 72 80",
+      "response_payload_bytes": 246,
+      "response_payload_sha256": "ef10a2655d7d54efdd2e232888d9a213c6cf35739d94ca4e8b6882599bc8af40",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "ce05298dc927cbd8bc593bdfc19545b342622a25cc2ffa8d16914161d48d873e",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 224,
+        "output_tokens": 1105,
+        "thinking_tokens": 898
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00093,
+        "total": 0.00119175,
+        "uncached_input": 0.00026175
+      },
+      "family": "generation-melody",
+      "latency_ms": 2016.262,
+      "outer_schema_valid": true,
+      "prompt_bytes": 894,
+      "prompt_sha256": "8f52a1aa01e83d15e60e0d7310483d1ef2b3ec79efa45d12b5c9e631be86062a",
+      "raw_response_sha256": "c9bfaaaac899bdaeeb0e99f0a05c7f8dbcb096fa40e56ef024730ff72d21bf0e",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N n1 lead 0 1/3 66 90\nN n2 lead 2/3 2/3 68 90\nN n3 lead 4/3 1/3 71 90\nN n4 lead 2 2/3 73 90\nN n5 lead 8/3 1/3 70 90\nN n6 lead 10/3 2/3 75 90\nN n7 lead 6 1/3 70 90\nN n8 lead 20/3 2/3 72 90\nN n9 lead 22/3 1/3 75 90\nN n10 lead 8 2/3 77 90\nN n11 lead 26/3 1/3 74 90\nN n12 lead 28/3 2/3 79 90",
+      "response_payload_bytes": 287,
+      "response_payload_sha256": "c3ac4c596a51a4bb932075d2c9d6d5515b1daeee302d2801b6d260d3b8789618",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "016527955da7bfc18e1e5d67787f1133cdbd4c2edfc78af0419fde041d94b1f2",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 349,
+        "output_tokens": 248,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00093,
+        "total": 0.001191,
+        "uncached_input": 0.000261
+      },
+      "family": "generation-melody",
+      "latency_ms": 2289.319,
+      "outer_schema_valid": true,
+      "prompt_bytes": 893,
+      "prompt_sha256": "add4df97821b44f40580fc66564d5e3b415ffdfcc9bf69d5001e96a1a3a1f9a2",
+      "raw_response_sha256": "a0d9666f1d9df4cf2c638e8c00475d101678af027cd3da8d9cb9418f071cee22",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N n1 lead 0 1/3 71 80\nN n2 lead 2/3 2/3 73 80\nN n3 lead 4/3 1/3 76 80\nN n4 lead 2 2/3 78 80\nN n5 lead 8/3 1/3 75 80\nN n6 lead 10/3 2/3 80 80\nN n7 lead 6 1/3 68 80\nN n8 lead 20/3 2/3 70 80\nN n9 lead 22/3 1/3 73 80\nN n10 lead 8 2/3 75 80\nN n11 lead 26/3 1/3 72 80\nN n12 lead 28/3 2/3 77 80",
+      "response_payload_bytes": 287,
+      "response_payload_sha256": "5ac005f548565f73a7b64739b0cb7ca640da034dfa9b38926adaa1a7633ea948",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "d862e3884d72948ede0517c0a568a429d0abfed606f7c4850314be6e6cc12e69",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 348,
+        "output_tokens": 248,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00093,
+        "total": 0.001185,
+        "uncached_input": 0.000255
+      },
+      "family": "generation-melody",
+      "latency_ms": 2552.659,
+      "outer_schema_valid": true,
+      "prompt_bytes": 885,
+      "prompt_sha256": "cbd5439120760e5510a5d0631590f0f2b3fc7822631ffdeb868f0c2446a67e57",
+      "raw_response_sha256": "976df1631e953f21cecad041258f528c042e4522eb01cd22dbd281dd31c2d569",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N n1 lead 0 1/3 63 90\nN n2 lead 2/3 2/3 65 90\nN n3 lead 4/3 1/3 68 90\nN n4 lead 2 2/3 70 90\nN n5 lead 8/3 1/3 67 90\nN n6 lead 10/3 2/3 72 90\nN n7 lead 6 1/3 68 90\nN n8 lead 20/3 2/3 70 90\nN n9 lead 22/3 1/3 73 90\nN n10 lead 8 2/3 75 90\nN n11 lead 26/3 1/3 72 90\nN n12 lead 28/3 2/3 77 90",
+      "response_payload_bytes": 287,
+      "response_payload_sha256": "d895f584a498b81de4fcf78e6fb75f0ce5a2523dc138b6d125e396df243851c9",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "a0baefec23caad8dd4322d1066dbba3942c456ee5a3245680d6270b789f894d4",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 340,
+        "output_tokens": 248,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00150375,
+        "total": 0.00171525,
+        "uncached_input": 0.0002115
+      },
+      "family": "generation-progression",
+      "latency_ms": 3060.242,
+      "outer_schema_valid": true,
+      "prompt_bytes": 815,
+      "prompt_sha256": "bb590cd1e1faccbba4405716d0cbaacb8b066819c8ea82b6a6cbabf6daa13602",
+      "raw_response_sha256": "5be3ce26722c17aceb5be571f4e4de1d2eff4359d3b79eb84918273a8a3ac317",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N n1 bass 0 1 39 80\nN n2 tenor 0 1 55 80\nN n3 alto 0 1 58 80\nN n4 soprano 0 1 67 80\nN n5 bass 1 1 48 80\nN n6 tenor 1 1 55 80\nN n7 alto 1 1 60 80\nN n8 soprano 1 1 67 80\nN n9 bass 2 1 44 80\nN n10 tenor 2 1 56 80\nN n11 alto 2 1 60 80\nN n12 soprano 2 1 68 80\nN n13 bass 3 1 41 80\nN n14 tenor 3 1 53 80\nN n15 alto 3 1 60 80\nN n16 soprano 3 1 68 80\nN n17 bass 4 1 46 80\nN n18 tenor 4 1 53 80\nN n19 alto 4 1 62 80\nN n20 soprano 4 1 65 80\nN n21 bass 5 1 39 80\nN n22 tenor 5 1 55 80\nN n23 alto 5 1 58 80\nN n24 soprano 5 1 67 80",
+      "response_payload_bytes": 518,
+      "response_payload_sha256": "7546fa3d8b6957fa59ddd55817567902eb1edebddee905d5f6ea3102d810a2ed",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "b5732524e435d115ff696e06f7c4afbff7c71084c8104529f9f649c1f8988796",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 282,
+        "output_tokens": 401,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00152625,
+        "total": 0.001737,
+        "uncached_input": 0.00021075
+      },
+      "family": "generation-progression",
+      "latency_ms": 4406.947,
+      "outer_schema_valid": true,
+      "prompt_bytes": 814,
+      "prompt_sha256": "bf6405c0fa3759bfe309119cb157f7b9f41fa0cd218e7b909fc18ad5e19e574b",
+      "raw_response_sha256": "c57b2f3f4a3181b67a9d5adbbf9232ca19aff2c6ec689c1342ccd4390665acbd",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N 1 bass 0 1 44 80\nN 2 tenor 0 1 51 80\nN 3 alto 0 1 60 80\nN 4 soprano 0 1 68 80\nN 5 bass 1 1 41 80\nN 6 tenor 1 1 48 80\nN 7 alto 1 1 60 80\nN 8 soprano 1 1 65 80\nN 9 bass 2 1 37 80\nN 10 tenor 2 1 49 80\nN 11 alto 2 1 56 80\nN 12 soprano 2 1 65 80\nN 13 bass 3 1 46 80\nN 14 tenor 3 1 49 80\nN 15 alto 3 1 58 80\nN 16 soprano 3 1 65 80\nN 17 bass 4 1 39 80\nN 18 tenor 4 1 51 80\nN 19 alto 4 1 58 80\nN 20 soprano 4 1 67 80\nN 21 bass 5 1 44 80\nN 22 tenor 5 1 51 80\nN 23 alto 5 1 60 80\nN 24 soprano 5 1 68 80",
+      "response_payload_bytes": 494,
+      "response_payload_sha256": "59e3e8e58dfdc28c595778fd0252a6a258997401b85d3d4d12ff1d64ad22f896",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "85b75bebfe9bace981b09e69353a49951a2e1f9598caa821d01f16043bb28eb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 281,
+        "output_tokens": 407,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00147375,
+        "total": 0.001683,
+        "uncached_input": 0.00020925
+      },
+      "family": "generation-progression",
+      "latency_ms": 2376.446,
+      "outer_schema_valid": true,
+      "prompt_bytes": 812,
+      "prompt_sha256": "3c67204e83f02dc1f9d310545f2219f69e2acd69bb2cd27b811a7e7d50c44ecc",
+      "raw_response_sha256": "87517abebec1b6a7500c4a0e585ef695aada075446fb856c20094b03effaaa89",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N b0 bass 0 1 48 80\nN t0 tenor 0 1 60 80\nN a0 alto 0 1 64 80\nN s0 soprano 0 1 67 80\nN b1 bass 1 1 45 80\nN t1 tenor 1 1 60 80\nN a1 alto 1 1 64 80\nN s1 soprano 1 1 69 80\nN b2 bass 2 1 41 80\nN t2 tenor 2 1 57 80\nN a2 alto 2 1 65 80\nN s2 soprano 2 1 69 80\nN b3 bass 3 1 38 80\nN t3 tenor 3 1 57 80\nN a3 alto 3 1 65 80\nN s3 soprano 3 1 69 80\nN b4 bass 4 1 43 80\nN t4 tenor 4 1 59 80\nN a4 alto 4 1 62 80\nN s4 soprano 4 1 67 80\nN b5 bass 5 1 48 80\nN t5 tenor 5 1 60 80\nN a5 alto 5 1 64 80\nN s5 soprano 5 1 67 80",
+      "response_payload_bytes": 503,
+      "response_payload_sha256": "e97c6e3eec0abdd72722268778acbaa67d19ddc2f37267b7a1f409eed13e308b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "e7e30b7efa71de6cab482f1e8767d9ec634ad89a0a7a3483ead7ee8e359d2648",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 279,
+        "output_tokens": 393,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.000315,
+        "total": 0.0006825,
+        "uncached_input": 0.0003675
+      },
+      "family": "transformation-local",
+      "latency_ms": 2023.218,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1031,
+      "prompt_sha256": "0c3ddd52cea897216aef8319f98309ba203a87eba155589f9f19068c6c3de4b7",
+      "raw_response_sha256": "87d427cbff7986e0dc73c1f31bbafba8741f88adb4b7ff5e8883ba6fbad7d412",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "PATCH e7f876e5cda95407b6fe404b8766c7e3def1526e735661a4c8c71b3d461dba16\nSET ho-st0-lead-5 pitch=53",
+      "response_payload_bytes": 97,
+      "response_payload_sha256": "9bbf6d6e1a6f66e2c25ffcce2b39329d83cd8276a5c8324bdf049c51b6249532",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "35145f530a0b03ab31bf28363406c2acddf6a0d128e96e069402c97996d619da",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 490,
+        "output_tokens": 84,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0111975,
+        "total": 0.0115995,
+        "uncached_input": 0.000402
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 12852.608,
+      "outer_schema_valid": false,
+      "prompt_bytes": 1035,
+      "prompt_sha256": "70d69ad5d27586593aca5374fe73467a02bb97bd144d4e42914d27bc69498a98",
+      "raw_response_sha256": "25f1be49168ce74086399366294517d09298143756bbccc7766457a3c1f9b9a0",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\n  \"payload\": \"N ho-rv0-1-1 keys 0 5/4 46 75\\nN ho-rv0-1-2 keys 0 5/4 49 76\\nN ho-rv0-1-3 keys 0 5/4 53 77\\nN ho-rv0-1-4 keys 0 5/4 57 78\\n",
+      "response_payload_bytes": 140,
+      "response_payload_sha256": "a594e9191082a93f36d74a116d70f647767eb1c4895f1ccc5deb5ba9fc5a582a",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "MAX_TOKENS",
+      "task_sha256": "1a31cab32ca6f9e85eab4d4ba5ac76e1b1bfa9a3b62f085ce5e49670ce36c320",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 536,
+        "output_tokens": 2986,
+        "thinking_tokens": 2883
+      },
+      "validation": {
+        "checks": {},
+        "error": "Invalid compact-bar v1 row: {",
+        "failure_class": "other-output-or-patch-parse-failure",
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.01119375,
+        "total": 0.01159725,
+        "uncached_input": 0.0004035
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 12742.015,
+      "outer_schema_valid": false,
+      "prompt_bytes": 1034,
+      "prompt_sha256": "16f8efcb3de259a337920d8cd1e85e1c619f9d6872a7bcc566fe6ea733b0a7a9",
+      "raw_response_sha256": "483f828c15f3166b99abcce3c1820cb2f77de35c1039b0a06cd2de545ccae451",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"payload\": \"N ho-rv1-1-3 keys 0 5/4 46 77\\nN ho-rv1-1-1 keys 0 5/4 51 75\\nN ho-rv1-1-2 keys 0 5/4 54 76\\nN ho-rv1-1-4 keys 0 5/4 62 78\\nN ho",
+      "response_payload_bytes": 141,
+      "response_payload_sha256": "82adb84c5c47dd31f96dedf94d1923ef2fdb01b1cf7c6569b9afece244437481",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "MAX_TOKENS",
+      "task_sha256": "e3e9d6f5997716282d5cb96400b2135f689aaef63a80ee6835320c05da3a57c5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 538,
+        "output_tokens": 2985,
+        "thinking_tokens": 2883
+      },
+      "validation": {
+        "checks": {},
+        "error": "Invalid compact-bar v1 row: {\"payload\": \"N ho-rv1-1-3 keys 0 5/4 46 77\\nN ho-rv1-1-1 keys 0 5/4 51 75\\nN ho-rv1-1-2 keys 0 5/4 54 76\\nN ho-rv1-1-4 keys 0 5/4 62 78\\nN ho",
+        "failure_class": "other-output-or-patch-parse-failure",
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": false
+      },
+      "variant": 1
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00418125,
+        "total": 0.0045855,
+        "uncached_input": 0.00040425
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 5003.389,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1043,
+      "prompt_sha256": "3226e9faaec7a3ce02245bc01dc094b2f713b7d37edde1d90086bdeaad2891f5",
+      "raw_response_sha256": "f367d17fc4aafacec54c5b9262781cfe89683fda46522c06c88e9c1f6179bdea",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ho-rv2-1-1 keys 0 5/4 57 75\nN ho-rv2-1-2 keys 0 5/4 61 76\nN ho-rv2-1-3 keys 0 5/4 65 77\nN ho-rv2-1-4 keys 0 5/4 66 78\nN ho-rv2-2-1 keys 5/4 5/4 59 75\nN ho-rv2-2-2 keys 5/4 5/4 63 76\nN ho-rv2-2-3 keys 5/4 5/4 67 77\nN ho-rv2-2-4 keys 5/4 5/4 68 78\nN ho-rv2-3-1 keys 5/2 5/4 61 75\nN ho-rv2-3-2 keys 5/2 5/4 65 76\nN ho-rv2-3-3 keys 5/2 5/4 69 77\nN ho-rv2-3-4 keys 5/2 5/4 70 78\nN ho-rv2-4-1 keys 15/4 5/4 63 75\nN ho-rv2-4-2 keys 15/4 5/4 67 76\nN ho-rv2-4-3 keys 15/4 5/4 71 77\nN ho-rv2-4-4 keys 15/4 5/4 72 78",
+      "response_payload_bytes": 507,
+      "response_payload_sha256": "e40101886b19a1393f86b8b77c9b1095de37022772466c0f5b838934a613ed1a",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "d3053705ba8bc843466d4d3892aea8791d7f8dcaff86289567909cc78c00afea",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 539,
+        "output_tokens": 1115,
+        "thinking_tokens": 695
+      },
+      "validation": {
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": false,
+          "range": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00296625,
+        "total": 0.00324075,
+        "uncached_input": 0.0002745
+      },
+      "family": "transformation-rhythm",
+      "latency_ms": 3693.846,
+      "outer_schema_valid": true,
+      "prompt_bytes": 814,
+      "prompt_sha256": "3d80b530cd2bc5a3507d77052af6dee6b09a78f13f74dfde5f58f093bca29d51",
+      "raw_response_sha256": "ae7deb9f17074c633b31c0be794be2e9326cf1254c8a2dd3cd0754b88c5be9fc",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ho-ry0-0 perc 0 1/5 50 78\nN ho-ry0-1 perc 1/2 1/5 51 79\nN ho-ry0-2 perc 4/5 1/5 52 80\nN ho-ry0-3 perc 13/10 1/5 53 81\nN ho-ry0-4 perc 8/5 1/5 54 82\nN ho-ry0-5 perc 21/10 1/5 50 83\nN ho-ry0-6 perc 12/5 1/5 51 84\nN ho-ry0-7 perc 29/10 1/5 52 85\nN ho-ry0-8 perc 16/5 1/5 53 86\nN ho-ry0-9 perc 37/10 1/5 54 87",
+      "response_payload_bytes": 307,
+      "response_payload_sha256": "f3abfb8386dd9ad2a96b23e6ca0b09b13bc7e400ffbfcc9d2685dd9d3f67d54d",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "c6f55964038e6aeeb4fa7b0366925c65102ef41e78728fbee25644cabae7db0b",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 366,
+        "output_tokens": 791,
+        "thinking_tokens": 535
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00273,
+        "total": 0.003393,
+        "uncached_input": 0.000663
+      },
+      "family": "comprehension-structure",
+      "latency_ms": 3695.183,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2618,
+      "prompt_sha256": "3283fd866ac0656e9aa75d81c8fc3d66252af9ede2711c4855797e9b9d82f29f",
+      "raw_response_sha256": "b9f1c35634bd868d8c4aedb93c5f1422b210499a9605a2c14b9bca159fcaea39",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"hash\":\"fc92282836613aaff97c0e51989391a1e4a586996a536639bbe197bd3b4af2f0\",\"id\":\"holdout-comprehension-structure-v0-source\",\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"tempo\":101},\"bars\":[{\"harmony\":\"G-dorian\",\"length\":\"3\",\"meter\":\"6/8\",\"number\":1,\"start\":\"0\"},{\"harmony\":\"C-mixolydian\",\"length\":\"7/2\",\"meter\":\"7/8\",\"number\":2,\"start\":\"3\"}],\"tracks\":[{\"id\":\"bass\",\"role\":\"bass\",\"voice\":\"bass.1\"},{\"id\":\"lead\",\"role\":\"lead\",\"voice\":\"lead.1\"},{\"id\":\"pad\",\"role\":\"pad\",\"voice\":\"pad.1\"}],\"regions\":[{\"end\":\"17/3\",\"id\":\"task-region\",\"start\":\"0\"}],\"notes\":[{\"duration\":\"3\",\"id\":\"ho-st0-bass-1\",\"pitch\":31,\"start\":\"0\",\"velocity\":75,\"voice\":\"bass\"},{\"duration\":\"1/3\",\"id\":\"ho-st0-lead-1\",\"pitch\":60,\"start\":\"0\",\"velocity\":81,\"voice\":\"lead\"},{\"duration\":\"4/3\",\"id\":\"ho-st0-pad-1\",\"pitch\":43,\"start\":\"0\",\"velocity\":71,\"voice\":\"pad\"},{\"duration\":\"1/3\",\"id\":\"ho-st0-lead-2\",\"pitch\":65,\"start\":\"1/3\",\"velocity\":82,\"voice\":\"lead\"},{\"duration\":\"1/3\",\"id\":\"ho-st0-lead-3\",\"pitch\":58,\"start\":\"1\",\"velocity\":83,\"voice\":\"lead\"},{\"duration\":\"1/3\",\"id\":\"ho-st0-lead-4\",\"pitch\":63,\"start\":\"5/3\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"1/3\",\"id\":\"ho-st0-lead-5\",\"pitch\":56,\"start\":\"7/3\",\"velocity\":85,\"voice\":\"lead\"},{\"duration\":\"7/3\",\"id\":\"ho-st0-bass-2\",\"pitch\":36,\"start\":\"3\",\"velocity\":77,\"voice\":\"bass\"},{\"duration\":\"1/3\",\"id\":\"ho-st0-lead-6\",\"pitch\":61,\"start\":\"3\",\"velocity\":86,\"voice\":\"lead\"},{\"duration\":\"4/3\",\"id\":\"ho-st0-pad-2\",\"pitch\":47,\"start\":\"3\",\"velocity\":72,\"voice\":\"pad\"},{\"duration\":\"1/3\",\"id\":\"ho-st0-lead-7\",\"pitch\":66,\"start\":\"11/3\",\"velocity\":87,\"voice\":\"lead\"},{\"duration\":\"4/3\",\"id\":\"ho-st0-pad-3\",\"pitch\":51,\"start\":\"13/3\",\"velocity\":73,\"voice\":\"pad\"}]}",
+      "response_payload_bytes": 1762,
+      "response_payload_sha256": "c5ef53fd112e71c714802f8763bbbf45a072ab2c3028ad12e2efba5bc41ab233",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "fc92282836613aaff97c0e51989391a1e4a586996a536639bbe197bd3b4af2f0",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 884,
+        "output_tokens": 728,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00147375,
+        "total": 0.0019365,
+        "uncached_input": 0.00046275
+      },
+      "family": "continuation-motif",
+      "latency_ms": 2445.058,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1851,
+      "prompt_sha256": "bfeb682f1ac567cf3b8ceafc289321646647fe6cd106e2a390d0e920b1c094fc",
+      "raw_response_sha256": "3f93d3e018428089f4af5d5b5b646ec45176fc3e4705ce8fb77f842d10bda6b1",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"holdout-continuation-motif-v0-source\",\"hash\":\"5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"]},\"bars\":[{\"harmony\":\"task-contract\",\"length\":\"4\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"tracks\":[{\"id\":\"lead\",\"role\":\"lead\",\"voice\":\"lead.1\"}],\"regions\":[{\"end\":\"11/3\",\"id\":\"task-region\",\"start\":\"0\"}],\"notes\":[{\"id\":\"ho-mo-out-1\",\"voice\":\"lead\",\"start\":\"23/3\",\"duration\":\"1/3\",\"pitch\":71,\"velocity\":86},{\"id\":\"ho-mo-out-2\",\"voice\":\"lead\",\"start\":\"25/3\",\"duration\":\"1/3\",\"pitch\":66,\"velocity\":86},{\"id\":\"ho-mo-out-3\",\"voice\":\"lead\",\"start\":\"9\",\"duration\":\"1/3\",\"pitch\":69,\"velocity\":86},{\"id\":\"ho-mo-out-4\",\"voice\":\"lead\",\"start\":\"29/3\",\"duration\":\"1/3\",\"pitch\":64,\"velocity\":86},{\"id\":\"ho-mo-out-5\",\"voice\":\"lead\",\"start\":\"31/3\",\"duration\":\"1/3\",\"pitch\":68,\"velocity\":86}]}",
+      "response_payload_bytes": 950,
+      "response_payload_sha256": "ddaf292117f40431abeb64a513cfd4dbf39e1a1c78e046b2459a75d20abf6e10",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 617,
+        "output_tokens": 393,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00101625,
+        "total": 0.001479,
+        "uncached_input": 0.00046275
+      },
+      "family": "continuation-motif",
+      "latency_ms": 3219.289,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1851,
+      "prompt_sha256": "bfeb682f1ac567cf3b8ceafc289321646647fe6cd106e2a390d0e920b1c094fc",
+      "raw_response_sha256": "b5a9e9446471106f8f659672989e6505a175f774eabd428d7b0ecf6acf1aaead",
+      "repeat": 1,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"ho-mo-out-1\",\"voice\":\"lead\",\"start\":\"23/3\",\"duration\":\"1/3\",\"pitch\":71,\"velocity\":86},{\"id\":\"ho-mo-out-2\",\"voice\":\"lead\",\"start\":\"25/3\",\"duration\":\"1/3\",\"pitch\":66,\"velocity\":86},{\"id\":\"ho-mo-out-3\",\"voice\":\"lead\",\"start\":\"9\",\"duration\":\"1/3\",\"pitch\":69,\"velocity\":86},{\"id\":\"ho-mo-out-4\",\"voice\":\"lead\",\"start\":\"29/3\",\"duration\":\"1/3\",\"pitch\":64,\"velocity\":86},{\"id\":\"ho-mo-out-5\",\"voice\":\"lead\",\"start\":\"31/3\",\"duration\":\"1/3\",\"pitch\":68,\"velocity\":86}]}",
+      "response_payload_bytes": 671,
+      "response_payload_sha256": "8b0bb21d837debd0fb7d4d72930bd588db6667f4e354bd9ef7d2da46c29ee646",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 617,
+        "output_tokens": 271,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00123375,
+        "total": 0.0016965,
+        "uncached_input": 0.00046275
+      },
+      "family": "continuation-motif",
+      "latency_ms": 2628.251,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1851,
+      "prompt_sha256": "bfeb682f1ac567cf3b8ceafc289321646647fe6cd106e2a390d0e920b1c094fc",
+      "raw_response_sha256": "9d577f42e8e7e66b2ab8631e177e2a4aef7625f1a283853b0a206321c6120ac8",
+      "repeat": 2,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"ho-mo-out-1\",\"voice\":\"lead\",\"start\":\"23/3\",\"duration\":\"1/3\",\"pitch\":71,\"velocity\":86},{\"id\":\"ho-mo-out-2\",\"voice\":\"lead\",\"start\":\"25/3\",\"duration\":\"1/3\",\"pitch\":66,\"velocity\":86},{\"id\":\"ho-mo-out-3\",\"voice\":\"lead\",\"start\":\"9\",\"duration\":\"1/3\",\"pitch\":69,\"velocity\":86},{\"id\":\"ho-mo-out-4\",\"voice\":\"lead\",\"start\":\"29/3\",\"duration\":\"1/3\",\"pitch\":64,\"velocity\":86},{\"id\":\"ho-mo-out-5\",\"voice\":\"lead\",\"start\":\"31/3\",\"duration\":\"1/3\",\"pitch\":68,\"velocity\":86}]}",
+      "response_payload_bytes": 732,
+      "response_payload_sha256": "377baa6b459adfe492423c33de81d06cee6cd94e899ef9307365b8843ea2ca1e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 617,
+        "output_tokens": 329,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00168375,
+        "total": 0.00191175,
+        "uncached_input": 0.000228
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2616.259,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1013,
+      "prompt_sha256": "8adf9ad789eaa189f5369773ed612d1cc4b88c3db5f7536cd73f12a783cf87ab",
+      "raw_response_sha256": "911676c601c0fbcf2be392535aa79d2402face33e48b364503bd1e557e1ef410",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"contract_6_bass_lead\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":46,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"bass\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"bass\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"bass\",\"start\":\"9\",\"duration\":\"1\",\"pitch\":44,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"10\",\"duration\":\"1\",\"pitch\":46,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"bass\",\"start\":\"11\",\"duration\":\"1\",\"pitch\":46,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"lead\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":70,\"velocity\":85},{\"id\":\"n8\",\"voice\":\"lead\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":72,\"velocity\":85},{\"id\":\"n9\",\"voice\":\"lead\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":72,\"velocity\":85},{\"id\":\"n10\",\"voice\":\"lead\",\"start\":\"9\",\"duration\":\"1\",\"pitch\":68,\"velocity\":85},{\"id\":\"n11\",\"voice\":\"lead\",\"start\":\"10\",\"duration\":\"1\",\"pitch\":70,\"velocity\":85},{\"id\":\"n12\",\"voice\":\"lead\",\"start\":\"11\",\"duration\":\"1\",\"pitch\":75,\"velocity\":85}]}",
+      "response_payload_bytes": 1221,
+      "response_payload_sha256": "b240bb92f82d5766ac7025262148de73d4bf616d51df938a3d59bdcff478dc3b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "863346ca4534340333dc9f1f515fb04721ae9f0a30f3318d08a7e4dd0ac00192",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 304,
+        "output_tokens": 449,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00162375,
+        "total": 0.001851,
+        "uncached_input": 0.00022725
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2565.054,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1012,
+      "prompt_sha256": "0c693a84273debb75cd4d5e255e430bbd20287566d34a7d60e34d4aa93706f9b",
+      "raw_response_sha256": "b0e5ebadbcf9f98285ef34a4b2e7e0d7ccc4429810b329aacd91a17f1b3102a2",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":44,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"bass\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":41,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"bass\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":41,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"bass\",\"start\":\"9\",\"duration\":\"1\",\"pitch\":46,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"10\",\"duration\":\"1\",\"pitch\":46,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"bass\",\"start\":\"11\",\"duration\":\"1\",\"pitch\":44,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"lead\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":68,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"lead\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"lead\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":68,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"lead\",\"start\":\"9\",\"duration\":\"1\",\"pitch\":70,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"lead\",\"start\":\"10\",\"duration\":\"1\",\"pitch\":67,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"lead\",\"start\":\"11\",\"duration\":\"1\",\"pitch\":68,\"velocity\":80}]}",
+      "response_payload_bytes": 1178,
+      "response_payload_sha256": "4cbd6cde7516208f5d95974c8ebeb82f12cccc3c9f81f3c3e6c2175d2c22f2b5",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "2df5f0eaa8500e3333a35b8411ca10086e842c0918d0703c0059a340af654d17",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 303,
+        "output_tokens": 433,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00172125,
+        "total": 0.00194775,
+        "uncached_input": 0.0002265
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2426.87,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1011,
+      "prompt_sha256": "5978d6733913d23481c73a6b4dce3d6110f23ae7ac303c502fba866976ff16a7",
+      "raw_response_sha256": "82f770f7317ca9f4542b7fdc9f7435cc067432ea503e1279f8b0a8cd658c4bc2",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"contract-6-bars\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3},{\"number\":4},{\"number\":5},{\"number\":6}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"b1\",\"voice\":\"bass\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"b2\",\"voice\":\"bass\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":45,\"velocity\":80},{\"id\":\"b3\",\"voice\":\"bass\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":45,\"velocity\":80},{\"id\":\"b4\",\"voice\":\"bass\",\"start\":\"9\",\"duration\":\"1\",\"pitch\":41,\"velocity\":80},{\"id\":\"b5\",\"voice\":\"bass\",\"start\":\"10\",\"duration\":\"1\",\"pitch\":43,\"velocity\":80},{\"id\":\"b6\",\"voice\":\"bass\",\"start\":\"11\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"l1\",\"voice\":\"lead\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":64,\"velocity\":90},{\"id\":\"l2\",\"voice\":\"lead\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":64,\"velocity\":90},{\"id\":\"l3\",\"voice\":\"lead\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":65,\"velocity\":90},{\"id\":\"l4\",\"voice\":\"lead\",\"start\":\"9\",\"duration\":\"1\",\"pitch\":65,\"velocity\":90},{\"id\":\"l5\",\"voice\":\"lead\",\"start\":\"10\",\"duration\":\"1\",\"pitch\":71,\"velocity\":90},{\"id\":\"l6\",\"voice\":\"lead\",\"start\":\"11\",\"duration\":\"1\",\"pitch\":72,\"velocity\":90}]}",
+      "response_payload_bytes": 1252,
+      "response_payload_sha256": "e5794c70b0a8b7d1a2eff1c0c13e40c138b6c3defa3c6554975aa61cad56de6c",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "ce05298dc927cbd8bc593bdfc19545b342622a25cc2ffa8d16914161d48d873e",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 302,
+        "output_tokens": 459,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0017925,
+        "total": 0.00211275,
+        "uncached_input": 0.00032025
+      },
+      "family": "generation-melody",
+      "latency_ms": 2474.759,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1207,
+      "prompt_sha256": "dfc483e3445674bf0d0995cb2843414882f71e35060eef95912d3d05241623cf",
+      "raw_response_sha256": "8b97f0844d665e30c848726b043a01464f66cb01e80d00323113630efaa09e8a",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"deterministic\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2}],\"tracks\":[{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"lead\",\"start\":\"0\",\"duration\":\"1/3\",\"pitch\":66,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"lead\",\"start\":\"2/3\",\"duration\":\"2/3\",\"pitch\":68,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"lead\",\"start\":\"4/3\",\"duration\":\"1/3\",\"pitch\":71,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"lead\",\"start\":\"2\",\"duration\":\"2/3\",\"pitch\":73,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"lead\",\"start\":\"8/3\",\"duration\":\"1/3\",\"pitch\":70,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"lead\",\"start\":\"10/3\",\"duration\":\"2/3\",\"pitch\":75,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"lead\",\"start\":\"6\",\"duration\":\"1/3\",\"pitch\":70,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"lead\",\"start\":\"20/3\",\"duration\":\"2/3\",\"pitch\":72,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"lead\",\"start\":\"22/3\",\"duration\":\"1/3\",\"pitch\":75,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"lead\",\"start\":\"8\",\"duration\":\"2/3\",\"pitch\":77,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"lead\",\"start\":\"26/3\",\"duration\":\"1/3\",\"pitch\":74,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"lead\",\"start\":\"28/3\",\"duration\":\"2/3\",\"pitch\":79,\"velocity\":80}]}",
+      "response_payload_bytes": 1228,
+      "response_payload_sha256": "9370f79b4e0c18b9d3e11613271faa67299d4bd4ec51302ccf1f38c46812cd80",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "016527955da7bfc18e1e5d67787f1133cdbd4c2edfc78af0419fde041d94b1f2",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 427,
+        "output_tokens": 478,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00177375,
+        "total": 0.00209325,
+        "uncached_input": 0.0003195
+      },
+      "family": "generation-melody",
+      "latency_ms": 3144.943,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1206,
+      "prompt_sha256": "980ba8cb2db6168847e22c0dbf555b25db04b04f438533031448097eb7645cd2",
+      "raw_response_sha256": "da349f8bdb975ee5f01553b516adf84bd265c9afe40589e4e81723a99b4fa595",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2}],\"tracks\":[{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"lead\",\"start\":\"0\",\"duration\":\"1/3\",\"pitch\":71,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"lead\",\"start\":\"2/3\",\"duration\":\"2/3\",\"pitch\":73,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"lead\",\"start\":\"4/3\",\"duration\":\"1/3\",\"pitch\":76,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"lead\",\"start\":\"2\",\"duration\":\"2/3\",\"pitch\":78,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"lead\",\"start\":\"8/3\",\"duration\":\"1/3\",\"pitch\":75,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"lead\",\"start\":\"10/3\",\"duration\":\"2/3\",\"pitch\":80,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"lead\",\"start\":\"6\",\"duration\":\"1/3\",\"pitch\":68,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"lead\",\"start\":\"20/3\",\"duration\":\"2/3\",\"pitch\":70,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"lead\",\"start\":\"22/3\",\"duration\":\"1/3\",\"pitch\":73,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"lead\",\"start\":\"8\",\"duration\":\"2/3\",\"pitch\":75,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"lead\",\"start\":\"26/3\",\"duration\":\"1/3\",\"pitch\":72,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"lead\",\"start\":\"28/3\",\"duration\":\"2/3\",\"pitch\":77,\"velocity\":80}]}",
+      "response_payload_bytes": 1218,
+      "response_payload_sha256": "6c10ce67d6df7be9d78211eafd3cf1dc9f0c597ba4f9080accefa0f670e93d1b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "d862e3884d72948ede0517c0a568a429d0abfed606f7c4850314be6e6cc12e69",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 426,
+        "output_tokens": 473,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0018075,
+        "total": 0.002121,
+        "uncached_input": 0.0003135
+      },
+      "family": "generation-melody",
+      "latency_ms": 3074.773,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1198,
+      "prompt_sha256": "0ea6c54201b604a239b8cf0a0cc7fe9b7d1c1c41028f1408f8ec79102ea21bc9",
+      "raw_response_sha256": "778b52b67a206a983dfe6707eba3664c92b9579b699c37d7a8870d3af42a9849",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"det-mel-1\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2}],\"tracks\":[{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"lead\",\"start\":\"0\",\"duration\":\"1/3\",\"pitch\":63,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"lead\",\"start\":\"2/3\",\"duration\":\"2/3\",\"pitch\":65,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"lead\",\"start\":\"4/3\",\"duration\":\"1/3\",\"pitch\":68,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"lead\",\"start\":\"2\",\"duration\":\"2/3\",\"pitch\":70,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"lead\",\"start\":\"8/3\",\"duration\":\"1/3\",\"pitch\":67,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"lead\",\"start\":\"10/3\",\"duration\":\"2/3\",\"pitch\":72,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"lead\",\"start\":\"6\",\"duration\":\"1/3\",\"pitch\":68,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"lead\",\"start\":\"20/3\",\"duration\":\"2/3\",\"pitch\":70,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"lead\",\"start\":\"22/3\",\"duration\":\"1/3\",\"pitch\":73,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"lead\",\"start\":\"8\",\"duration\":\"2/3\",\"pitch\":75,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"lead\",\"start\":\"26/3\",\"duration\":\"1/3\",\"pitch\":72,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"lead\",\"start\":\"28/3\",\"duration\":\"2/3\",\"pitch\":77,\"velocity\":80}]}",
+      "response_payload_bytes": 1224,
+      "response_payload_sha256": "0267467edef0bae57e6eb4a6ee028ee5d68043c4767c612c2e6be16f4556f5b4",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "a0baefec23caad8dd4322d1066dbba3942c456ee5a3245680d6270b789f894d4",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 418,
+        "output_tokens": 482,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002985,
+        "total": 0.003255,
+        "uncached_input": 0.00027
+      },
+      "family": "generation-progression",
+      "latency_ms": 3423.704,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1128,
+      "prompt_sha256": "f95c3a29a3fbd72dc3d41fb0bf1b84ae8f39b1f89d6c5c77d599a3a0636af3c3",
+      "raw_response_sha256": "e0131edd3fb8ef643a8409a0e3d293c0bf16f3a1e09a00d3a9e68aa34cc6c2c0",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"c44a7f6e\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":51,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":58,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":63,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":67,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":55,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":63,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":67,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":44,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":56,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":63,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":68,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":41,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":56,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":68,\"velocity\":80},{\"id\":\"n17\",\"voice\":\"bass\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":46,\"velocity\":80},{\"id\":\"n18\",\"voice\":\"tenor\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":56,\"velocity\":80},{\"id\":\"n19\",\"voice\":\"alto\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":62,\"velocity\":80},{\"id\":\"n20\",\"voice\":\"soprano\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":68,\"velocity\":80},{\"id\":\"n21\",\"voice\":\"bass\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":51,\"velocity\":80},{\"id\":\"n22\",\"voice\":\"tenor\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":58,\"velocity\":80},{\"id\":\"n23\",\"voice\":\"alto\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":63,\"velocity\":80},{\"id\":\"n24\",\"voice\":\"soprano\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":67,\"velocity\":80}]}",
+      "response_payload_bytes": 2149,
+      "response_payload_sha256": "5f04668f484f74a442ac13fc985b996b625f51f13d300efa0327bcdee8c4558e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "b5732524e435d115ff696e06f7c4afbff7c71084c8104529f9f649c1f8988796",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 360,
+        "output_tokens": 796,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00306,
+        "total": 0.00332925,
+        "uncached_input": 0.00026925
+      },
+      "family": "generation-progression",
+      "latency_ms": 4119.141,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1127,
+      "prompt_sha256": "964549c4d30b275f7ffb8ab28c5653fa562ab7f7084ae244ea4881312911d423",
+      "raw_response_sha256": "b204718cedc70330767ac24a53554ac0036aedaa307de678feaa9f9f9943ad4a",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"c5d6e7f8\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"soprano\"},{\"id\":\"alto\"},{\"id\":\"tenor\"},{\"id\":\"bass\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":44,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":60,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":63,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":41,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":60,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":49,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":61,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":46,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":53,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":58,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n17\",\"voice\":\"bass\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":51,\"velocity\":80},{\"id\":\"n18\",\"voice\":\"tenor\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":55,\"velocity\":80},{\"id\":\"n19\",\"voice\":\"alto\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":58,\"velocity\":80},{\"id\":\"n20\",\"voice\":\"soprano\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":67,\"velocity\":80},{\"id\":\"n21\",\"voice\":\"bass\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":44,\"velocity\":80},{\"id\":\"n22\",\"voice\":\"tenor\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"n23\",\"voice\":\"alto\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":60,\"velocity\":80},{\"id\":\"n24\",\"voice\":\"soprano\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":63,\"velocity\":80}]}",
+      "response_payload_bytes": 2195,
+      "response_payload_sha256": "14ce2297af16d7245570b11bc99b0eda908f984647b087b92e857834004bd78a",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "85b75bebfe9bace981b09e69353a49951a2e1f9598caa821d01f16043bb28eb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 359,
+        "output_tokens": 816,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": false,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00306375,
+        "total": 0.0033315,
+        "uncached_input": 0.00026775
+      },
+      "family": "generation-progression",
+      "latency_ms": 5539.149,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1125,
+      "prompt_sha256": "b47911eea3a7806a6767a0003b7467d80ab4257b51e5042691fec4be9f6edee2",
+      "raw_response_sha256": "9625bf7d9e4785ce402e1ae8ab88d406e002c6cd15fa1cbd22cb1f2fdb89efb9",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"c_major_progression_6_4\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"soprano\"},{\"id\":\"alto\"},{\"id\":\"tenor\"},{\"id\":\"bass\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":55,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":60,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":64,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":45,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":57,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":60,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":64,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":41,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":57,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":60,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":50,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":57,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":62,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n17\",\"voice\":\"bass\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":43,\"velocity\":80},{\"id\":\"n18\",\"voice\":\"tenor\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":55,\"velocity\":80},{\"id\":\"n19\",\"voice\":\"alto\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":59,\"velocity\":80},{\"id\":\"n20\",\"voice\":\"soprano\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n21\",\"voice\":\"bass\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"n22\",\"voice\":\"tenor\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":55,\"velocity\":80},{\"id\":\"n23\",\"voice\":\"alto\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":60,\"velocity\":80},{\"id\":\"n24\",\"voice\":\"soprano\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":64,\"velocity\":80}]}",
+      "response_payload_bytes": 2210,
+      "response_payload_sha256": "e10ade7c6e39bd051bcc46f74f689a520e2e9143bd647c8d3e69533c7a05106c",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "e7e30b7efa71de6cab482f1e8767d9ec634ad89a0a7a3483ead7ee8e359d2648",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 357,
+        "output_tokens": 817,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00036375,
+        "total": 0.0010275,
+        "uncached_input": 0.00066375
+      },
+      "family": "transformation-local",
+      "latency_ms": 1849.482,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2432,
+      "prompt_sha256": "49a961ee9cdb594457e770ef944e10c0e3d553cc44065a3ec8895ae9a94b8660",
+      "raw_response_sha256": "2a99b81a05f88b4d45b25b3ec73df8a42b1a40baf8d0725e145dcf25cbd70386",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"base_sha256\":\"e7f876e5cda95407b6fe404b8766c7e3def1526e735661a4c8c71b3d461dba16\",\"ops\":[{\"op\":\"set\",\"id\":\"ho-st0-lead-5\",\"pitch\":53}]}",
+      "response_payload_bytes": 135,
+      "response_payload_sha256": "64bb11548d27894105131e06a8198dce88e60bbcb8939d7ef853393276036609",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "35145f530a0b03ab31bf28363406c2acddf6a0d128e96e069402c97996d619da",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 885,
+        "output_tokens": 97,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00310875,
+        "total": 0.003864,
+        "uncached_input": 0.00075525
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 3853.0,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2860,
+      "prompt_sha256": "b2e4b28e93b70741e64d03aceee92d0cbd549f4e6f4d600166c1eb595a682598",
+      "raw_response_sha256": "18655bfa26ea911ad61fd013b78b2fb6b03d834e9f599e9c9032cdbae43d8032",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"holdout-transformation-revoice-v0-source\",\"hash\":\"1a31cab32ca6f9e85eab4d4ba5ac76e1b1bfa9a3b62f085ce5e49670ce36c320\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"]},\"bars\":[{\"number\":1,\"start\":\"0\",\"length\":\"4\",\"meter\":\"4/4\",\"harmony\":\"task-contract\"},{\"number\":2,\"start\":\"4\",\"length\":\"1\",\"meter\":\"4/4\",\"harmony\":\"task-contract\"}],\"tracks\":[{\"id\":\"keys\",\"voice\":\"keys.1\",\"role\":\"keys\"}],\"regions\":[{\"id\":\"task-region\",\"start\":\"0\",\"end\":\"5\"}],\"notes\":[{\"id\":\"ho-rv0-1-1\",\"voice\":\"keys\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":46,\"velocity\":75},{\"id\":\"ho-rv0-1-2\",\"voice\":\"keys\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":49,\"velocity\":76},{\"id\":\"ho-rv0-1-3\",\"voice\":\"keys\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":53,\"velocity\":77},{\"id\":\"ho-rv0-1-4\",\"voice\":\"keys\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":57,\"velocity\":78},{\"id\":\"ho-rv0-2-1\",\"voice\":\"keys\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":48,\"velocity\":75},{\"id\":\"ho-rv0-2-2\",\"voice\":\"keys\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":51,\"velocity\":76},{\"id\":\"ho-rv0-2-3\",\"voice\":\"keys\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":55,\"velocity\":77},{\"id\":\"ho-rv0-2-4\",\"voice\":\"keys\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":59,\"velocity\":78},{\"id\":\"ho-rv0-3-1\",\"voice\":\"keys\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":50,\"velocity\":75},{\"id\":\"ho-rv0-3-2\",\"voice\":\"keys\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":53,\"velocity\":76},{\"id\":\"ho-rv0-3-3\",\"voice\":\"keys\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":57,\"velocity\":77},{\"id\":\"ho-rv0-3-4\",\"voice\":\"keys\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":61,\"velocity\":78},{\"id\":\"ho-rv0-4-1\",\"voice\":\"keys\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":52,\"velocity\":75},{\"id\":\"ho-rv0-4-2\",\"voice\":\"keys\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":55,\"velocity\":76},{\"id\":\"ho-rv0-4-3\",\"voice\":\"keys\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":59,\"velocity\":77},{\"id\":\"ho-rv0-4-4\",\"voice\":\"keys\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":63,\"velocity\":78}]}",
+      "response_payload_bytes": 2019,
+      "response_payload_sha256": "c1ebfd060bb64ed155de7a6b9ef0d9b080d30da0f9903c62d883d1cb49cc9c76",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "1a31cab32ca6f9e85eab4d4ba5ac76e1b1bfa9a3b62f085ce5e49670ce36c320",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 1007,
+        "output_tokens": 829,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": false,
+          "range": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00577125,
+        "total": 0.006531,
+        "uncached_input": 0.00075975
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 6135.013,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2859,
+      "prompt_sha256": "257ceb65b5f3d68889935f1ce8d793579809a1b39f6f8e13828d3efde0b77b58",
+      "raw_response_sha256": "759b924db2bcf10ca68c0e8522c23042995b0cac816071dd151084183cfa2122",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"holdout-transformation-revoice-v1-source\",\"hash\":\"e3e9d6f5997716282d5cb96400b2135f689aaef63a80ee6835320c05da3a57c5\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"]},\"bars\":[{\"harmony\":\"task-contract\",\"length\":\"4\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"},{\"harmony\":\"task-contract\",\"length\":\"1\",\"meter\":\"4/4\",\"number\":2,\"start\":\"4\"}],\"tracks\":[{\"id\":\"keys\",\"role\":\"keys\",\"voice\":\"keys.1\"}],\"regions\":[{\"end\":\"5\",\"id\":\"task-region\",\"start\":\"0\"}],\"notes\":[{\"duration\":\"5/4\",\"id\":\"ho-rv1-1-1\",\"pitch\":51,\"start\":\"0\",\"velocity\":75,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-1-2\",\"pitch\":54,\"start\":\"0\",\"velocity\":76,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-1-3\",\"pitch\":46,\"start\":\"0\",\"velocity\":77,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-1-4\",\"pitch\":62,\"start\":\"0\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-2-1\",\"pitch\":53,\"start\":\"5/4\",\"velocity\":75,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-2-2\",\"pitch\":56,\"start\":\"5/4\",\"velocity\":76,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-2-3\",\"pitch\":48,\"start\":\"5/4\",\"velocity\":77,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-2-4\",\"pitch\":64,\"start\":\"5/4\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-3-1\",\"pitch\":55,\"start\":\"5/2\",\"velocity\":75,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-3-2\",\"pitch\":58,\"start\":\"5/2\",\"velocity\":76,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-3-3\",\"pitch\":50,\"start\":\"5/2\",\"velocity\":77,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-3-4\",\"pitch\":66,\"start\":\"5/2\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-4-1\",\"pitch\":57,\"start\":\"15/4\",\"velocity\":75,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-4-2\",\"pitch\":60,\"start\":\"15/4\",\"velocity\":76,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-4-3\",\"pitch\":52,\"start\":\"15/4\",\"velocity\":77,\"voice\":\"keys\"},{\"duration\":\"5/4\",\"id\":\"ho-rv1-4-4\",\"pitch\":68,\"start\":\"15/4\",\"velocity\":78,\"voice\":\"keys\"}]}",
+      "response_payload_bytes": 2019,
+      "response_payload_sha256": "10f996b2aecbcba5f8192eebb43da87f65cdb49f86c842d5314248baa0683a46",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "e3e9d6f5997716282d5cb96400b2135f689aaef63a80ee6835320c05da3a57c5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 1013,
+        "output_tokens": 1539,
+        "thinking_tokens": 690
+      },
+      "validation": {
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": false,
+          "range": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.01119,
+        "total": 0.01194675,
+        "uncached_input": 0.00075675
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 13113.171,
+      "outer_schema_valid": false,
+      "prompt_bytes": 2868,
+      "prompt_sha256": "74d58fc9c78ed1f912328819009300bacff7829380024fd349079471fe1b7b52",
+      "raw_response_sha256": "d2f0d92a358cfe742c3f275622c4940ddd007bfbe9a3be5e41e0c661e17ec07c",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"payload\":\"{\\\"bars\\\":[{\\\"harmony\\\":\\\"task-contract\\\",\\\"length\\\":\\\"4\\\",\\\"meter\\\":\\\"4/4\\\",\\\"number\\\":1,\\\"start\\\":\\\"0\\\"},{\\\"harmony\\\":\\\"task-contract\\\",\\\"length\\\":\\\"1\\\",\\\"meter\\\":\\\"4/4\\\",\\\"number\\\":2,\\\"start\\\":\\\"4\\\"}],\\\"notes\\\":[{\\\"duration\\\":\\\"5/4\\\",\\\"id\\\":\\\"ho-rv2-1-2\\\",\\\"pitch\\\":57,\\\"start\\\":\\\"0\\\",\\\"velocity\\\":76,\\\"voice\\\":\\\"keys\\\"},{\\\"duration\\\":\\\"5/4",
+      "response_payload_bytes": 355,
+      "response_payload_sha256": "5dce46afbb9ab9ced7f833e3718acea740a4a314ee15572b82989b17b3628dfb",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "MAX_TOKENS",
+      "task_sha256": "d3053705ba8bc843466d4d3892aea8791d7f8dcaff86289567909cc78c00afea",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 1009,
+        "output_tokens": 2984,
+        "thinking_tokens": 2878
+      },
+      "validation": {
+        "checks": {},
+        "error": "Unterminated string starting at: line 1 column 12 (char 11)",
+        "failure_class": "other-output-or-patch-parse-failure",
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": false
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00377625,
+        "total": 0.00433425,
+        "uncached_input": 0.000558
+      },
+      "family": "transformation-rhythm",
+      "latency_ms": 3774.493,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2209,
+      "prompt_sha256": "8884e78f984ecf5baa7f00c6bf965be2ba0c60fafbbc52278290c607125b449b",
+      "raw_response_sha256": "ecf3dc7d7eeac7bb427d081eaad3a409b5227fe6aa01cebc4701dbe2a3e52885",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"bars\":[{\"harmony\":\"task-contract\",\"length\":\"4\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"notes\":[{\"duration\":\"1/5\",\"id\":\"ho-ry0-0\",\"pitch\":50,\"start\":\"0\",\"velocity\":78,\"voice\":\"perc\"},{\"duration\":\"1/5\",\"id\":\"ho-ry0-1\",\"pitch\":51,\"start\":\"1/2\",\"velocity\":79,\"voice\":\"perc\"},{\"duration\":\"1/5\",\"id\":\"ho-ry0-2\",\"pitch\":52,\"start\":\"4/5\",\"velocity\":80,\"voice\":\"perc\"},{\"duration\":\"1/5\",\"id\":\"ho-ry0-3\",\"pitch\":53,\"start\":\"13/10\",\"velocity\":81,\"voice\":\"perc\"},{\"duration\":\"1/5\",\"id\":\"ho-ry0-4\",\"pitch\":54,\"start\":\"8/5\",\"velocity\":82,\"voice\":\"perc\"},{\"duration\":\"1/5\",\"id\":\"ho-ry0-5\",\"pitch\":50,\"start\":\"21/10\",\"velocity\":83,\"voice\":\"perc\"},{\"duration\":\"1/5\",\"id\":\"ho-ry0-6\",\"pitch\":51,\"start\":\"12/5\",\"velocity\":84,\"voice\":\"perc\"},{\"duration\":\"1/5\",\"id\":\"ho-ry0-7\",\"pitch\":52,\"start\":\"29/10\",\"velocity\":85,\"voice\":\"perc\"},{\"duration\":\"1/5\",\"id\":\"ho-ry0-8\",\"pitch\":53,\"start\":\"16/5\",\"velocity\":86,\"voice\":\"perc\"},{\"duration\":\"1/5\",\"id\":\"ho-ry0-9\",\"pitch\":54,\"start\":\"37/10\",\"velocity\":87,\"voice\":\"perc\"}],\"regions\":[{\"end\":\"19/5\",\"id\":\"task-region\",\"start\":\"0\"}],\"score\":{\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"hash\":\"c6f55964038e6aeeb4fa7b0366925c65102ef41e78728fbee25644cabae7db0b\",\"id\":\"holdout-transformation-rhythm-v0-source\",\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"tempo\":104},\"tracks\":[{\"id\":\"perc\",\"role\":\"perc\",\"voice\":\"perc.1\"}]}",
+      "response_payload_bytes": 1389,
+      "response_payload_sha256": "5a2d794c8a11523e425b32281e4a0f2ec513c1bdd290aef29e556e264ead3c2b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "c6f55964038e6aeeb4fa7b0366925c65102ef41e78728fbee25644cabae7db0b",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 744,
+        "output_tokens": 1007,
+        "thinking_tokens": 421
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0015525,
+        "total": 0.00196275,
+        "uncached_input": 0.00041025
+      },
+      "family": "comprehension-structure",
+      "latency_ms": 2813.199,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1492,
+      "prompt_sha256": "9e3c18732c7512e2caac7866dc729b2ff22c5cfb27ecfcc3bc1302a2ed899a7f",
+      "raw_response_sha256": "c4d1dac260d9a231c65b2b791b3b89b562663a605028603db5c9bf65b1cc6c8f",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID ho-st0-bass-1 VOICE bass START 0 DURATION 3 PITCH 31 VELOCITY 75\nN ID ho-st0-lead-1 VOICE lead START 0 DURATION 1/3 PITCH 60 VELOCITY 81\nN ID ho-st0-pad-1 VOICE pad START 0 DURATION 4/3 PITCH 43 VELOCITY 71\nN ID ho-st0-lead-2 VOICE lead START 1/3 DURATION 1/3 PITCH 65 VELOCITY 82\nN ID ho-st0-lead-3 VOICE lead START 1 DURATION 1/3 PITCH 58 VELOCITY 83\nN ID ho-st0-lead-4 VOICE lead START 5/3 DURATION 1/3 PITCH 63 VELOCITY 84\nN ID ho-st0-lead-5 VOICE lead START 7/3 DURATION 1/3 PITCH 56 VELOCITY 85\nN ID ho-st0-bass-2 VOICE bass START 3 DURATION 7/3 PITCH 36 VELOCITY 77\nN ID ho-st0-lead-6 VOICE lead START 3 DURATION 1/3 PITCH 61 VELOCITY 86\nN ID ho-st0-pad-2 VOICE pad START 3 DURATION 4/3 PITCH 47 VELOCITY 72\nN ID ho-st0-lead-7 VOICE lead START 11/3 DURATION 1/3 PITCH 66 VELOCITY 87\nN ID ho-st0-pad-3 VOICE pad START 13/3 DURATION 4/3 PITCH 51 VELOCITY 73",
+      "response_payload_bytes": 867,
+      "response_payload_sha256": "060d826b428c35841ad5ba3bca5a60b56166e206539e43c9cd186810fcce9862",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "fc92282836613aaff97c0e51989391a1e4a586996a536639bbe197bd3b4af2f0",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 547,
+        "output_tokens": 414,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.000675,
+        "total": 0.00094275,
+        "uncached_input": 0.00026775
+      },
+      "family": "continuation-motif",
+      "latency_ms": 2698.67,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1031,
+      "prompt_sha256": "25a8ea0fe4d1ce5a7f90b4e3bf27d296da226322f494b02ff8b70e136a7f7903",
+      "raw_response_sha256": "aa5b1cf3905485429a3760ab46cb083f25e6aa682559fc8c9ce9fbf1c50dbc3b",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID ho-mo-out-1 VOICE lead START 23/3 DURATION 1/3 PITCH 71 VELOCITY 86\nN ID ho-mo-out-2 VOICE lead START 25/3 DURATION 1/3 PITCH 66 VELOCITY 86\nN ID ho-mo-out-3 VOICE lead START 9 DURATION 1/3 PITCH 69 VELOCITY 86\nN ID ho-mo-out-4 VOICE lead START 29/3 DURATION 1/3 PITCH 64 VELOCITY 86\nN ID ho-mo-out-5 VOICE lead START 31/3 DURATION 1/3 PITCH 68 VELOCITY 86",
+      "response_payload_bytes": 361,
+      "response_payload_sha256": "19520bb612356d5fe5b5a64f8bee05abbe3e542138ce50d08502e2a86c38b28b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 357,
+        "output_tokens": 180,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.000675,
+        "total": 0.00094275,
+        "uncached_input": 0.00026775
+      },
+      "family": "continuation-motif",
+      "latency_ms": 1845.62,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1031,
+      "prompt_sha256": "25a8ea0fe4d1ce5a7f90b4e3bf27d296da226322f494b02ff8b70e136a7f7903",
+      "raw_response_sha256": "6397411816f1d5bee5958712b8e129de944f4835582a1f222fbf7f819c8047f5",
+      "repeat": 1,
+      "request_id": null,
+      "response_payload": "N ID ho-mo-out-1 VOICE lead START 23/3 DURATION 1/3 PITCH 71 VELOCITY 86\nN ID ho-mo-out-2 VOICE lead START 25/3 DURATION 1/3 PITCH 66 VELOCITY 86\nN ID ho-mo-out-3 VOICE lead START 9 DURATION 1/3 PITCH 69 VELOCITY 86\nN ID ho-mo-out-4 VOICE lead START 29/3 DURATION 1/3 PITCH 64 VELOCITY 86\nN ID ho-mo-out-5 VOICE lead START 31/3 DURATION 1/3 PITCH 68 VELOCITY 86",
+      "response_payload_bytes": 361,
+      "response_payload_sha256": "19520bb612356d5fe5b5a64f8bee05abbe3e542138ce50d08502e2a86c38b28b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 357,
+        "output_tokens": 180,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00065625,
+        "total": 0.000924,
+        "uncached_input": 0.00026775
+      },
+      "family": "continuation-motif",
+      "latency_ms": 2128.453,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1031,
+      "prompt_sha256": "25a8ea0fe4d1ce5a7f90b4e3bf27d296da226322f494b02ff8b70e136a7f7903",
+      "raw_response_sha256": "143b841bd35d44a1cbd716ec0cb1745bf7b145fb6fdcc23bbcdb5ced37db7720",
+      "repeat": 2,
+      "request_id": null,
+      "response_payload": "N ID ho-mo-out-1 VOICE lead START 23/3 DURATION 1/3 PITCH 71 VELOCITY 86\nN ID ho-mo-out-2 VOICE lead START 25/3 DURATION 1/3 PITCH 66 VELOCITY 86\nN ID ho-mo-out-3 VOICE lead START 9 DURATION 1/3 PITCH 69 VELOCITY 86\nN ID ho-mo-out-4 VOICE lead START 29/3 DURATION 1/3 PITCH 64 VELOCITY 86\nN ID ho-mo-out-5 VOICE lead START 31/3 DURATION 1/3 PITCH 68 VELOCITY 86",
+      "response_payload_bytes": 361,
+      "response_payload_sha256": "19520bb612356d5fe5b5a64f8bee05abbe3e542138ce50d08502e2a86c38b28b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 357,
+        "output_tokens": 175,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00118125,
+        "total": 0.0013635,
+        "uncached_input": 0.00018225
+      },
+      "family": "continuation-roles",
+      "latency_ms": 3057.958,
+      "outer_schema_valid": true,
+      "prompt_bytes": 782,
+      "prompt_sha256": "7bcb4ff286b2b02edd3478289d824cf040b077333530c6700bfaa09713966cc9",
+      "raw_response_sha256": "d8b21c296f551336e4739ac801333ca87cd871447ff93a519c4cb21e5fcf8468",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 6 DURATION 1 PITCH 46 VELOCITY 80\nN ID n2 VOICE bass START 7 DURATION 1 PITCH 43 VELOCITY 80\nN ID n3 VOICE bass START 8 DURATION 1 PITCH 44 VELOCITY 80\nN ID n4 VOICE bass START 9 DURATION 1 PITCH 41 VELOCITY 80\nN ID n5 VOICE bass START 10 DURATION 1 PITCH 46 VELOCITY 80\nN ID n6 VOICE bass START 11 DURATION 1 PITCH 51 VELOCITY 80\nN ID n7 VOICE lead START 6 DURATION 1 PITCH 70 VELOCITY 90\nN ID n8 VOICE lead START 7 DURATION 1 PITCH 67 VELOCITY 90\nN ID n9 VOICE lead START 8 DURATION 1 PITCH 68 VELOCITY 90\nN ID n10 VOICE lead START 9 DURATION 1 PITCH 65 VELOCITY 90\nN ID n11 VOICE lead START 10 DURATION 1 PITCH 65 VELOCITY 90\nN ID n12 VOICE lead START 11 DURATION 1 PITCH 63 VELOCITY 90",
+      "response_payload_bytes": 714,
+      "response_payload_sha256": "05c0ee79966863d88ad68d116d8e360c255b3828b0726f76db36b4d7fb94b43e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "863346ca4534340333dc9f1f515fb04721ae9f0a30f3318d08a7e4dd0ac00192",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 243,
+        "output_tokens": 315,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00115875,
+        "total": 0.00134025,
+        "uncached_input": 0.0001815
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2014.379,
+      "outer_schema_valid": true,
+      "prompt_bytes": 781,
+      "prompt_sha256": "782ad0a4ec67f90586d5890af8751e033155d0f7921785519f1ec9daa7d4ba1d",
+      "raw_response_sha256": "149e08e097aa39ea34c17e23be5cef33176c6227c8c932f5c6b6d2154ee7a556",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 6 DURATION 1 PITCH 44 VELOCITY 78\nN ID n2 VOICE bass START 7 DURATION 1 PITCH 41 VELOCITY 80\nN ID n3 VOICE bass START 8 DURATION 1 PITCH 41 VELOCITY 80\nN ID n4 VOICE bass START 9 DURATION 1 PITCH 46 VELOCITY 82\nN ID n5 VOICE bass START 10 DURATION 1 PITCH 43 VELOCITY 79\nN ID n6 VOICE bass START 11 DURATION 1 PITCH 44 VELOCITY 84\nN ID n7 VOICE lead START 6 DURATION 1 PITCH 68 VELOCITY 88\nN ID n8 VOICE lead START 7 DURATION 1 PITCH 65 VELOCITY 86\nN ID n9 VOICE lead START 8 DURATION 1 PITCH 68 VELOCITY 88\nN ID n10 VOICE lead START 9 DURATION 1 PITCH 70 VELOCITY 90\nN ID n11 VOICE lead START 10 DURATION 1 PITCH 67 VELOCITY 86\nN ID n12 VOICE lead START 11 DURATION 1 PITCH 68 VELOCITY 92",
+      "response_payload_bytes": 714,
+      "response_payload_sha256": "83180c9d33d6a8b33d89e336522b786a2c7c04ee42dee441a23c29c7720c647e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "2df5f0eaa8500e3333a35b8411ca10086e842c0918d0703c0059a340af654d17",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 242,
+        "output_tokens": 309,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00118125,
+        "total": 0.001362,
+        "uncached_input": 0.00018075
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2089.521,
+      "outer_schema_valid": true,
+      "prompt_bytes": 780,
+      "prompt_sha256": "72a10740eb80fcf68426617b6ef6a8f8cc5ce14d89e192802fab6bd614ce041a",
+      "raw_response_sha256": "dbc5012e9d454c03df3c1755c983f5a2ae48b555ff113ab2147400cd4de4c141",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 6 DURATION 1 PITCH 48 VELOCITY 80\nN ID n2 VOICE bass START 7 DURATION 1 PITCH 45 VELOCITY 80\nN ID n3 VOICE bass START 8 DURATION 1 PITCH 41 VELOCITY 80\nN ID n4 VOICE bass START 9 DURATION 1 PITCH 41 VELOCITY 80\nN ID n5 VOICE bass START 10 DURATION 1 PITCH 47 VELOCITY 80\nN ID n6 VOICE bass START 11 DURATION 1 PITCH 48 VELOCITY 80\nN ID n7 VOICE lead START 6 DURATION 1 PITCH 64 VELOCITY 80\nN ID n8 VOICE lead START 7 DURATION 1 PITCH 64 VELOCITY 80\nN ID n9 VOICE lead START 8 DURATION 1 PITCH 65 VELOCITY 80\nN ID n10 VOICE lead START 9 DURATION 1 PITCH 69 VELOCITY 80\nN ID n11 VOICE lead START 10 DURATION 1 PITCH 71 VELOCITY 80\nN ID n12 VOICE lead START 11 DURATION 1 PITCH 72 VELOCITY 80",
+      "response_payload_bytes": 714,
+      "response_payload_sha256": "edc186110337b0bbeb118b445d0f5f80862b6de1d1774d0dfcba09fd4d7cd543",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "ce05298dc927cbd8bc593bdfc19545b342622a25cc2ffa8d16914161d48d873e",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 241,
+        "output_tokens": 315,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001335,
+        "total": 0.0016095,
+        "uncached_input": 0.0002745
+      },
+      "family": "generation-melody",
+      "latency_ms": 2550.708,
+      "outer_schema_valid": true,
+      "prompt_bytes": 976,
+      "prompt_sha256": "1832f3f1a85bd992f06dbc09e0a75a167037cb67d944fdfda3e145597a84ad28",
+      "raw_response_sha256": "8e4b17257a1ea414fe7b52cdb551ced8d3fedf62f285196995b7b26a64489a83",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE lead START 0 DURATION 1/3 PITCH 66 VELOCITY 80\nN ID n2 VOICE lead START 2/3 DURATION 2/3 PITCH 68 VELOCITY 80\nN ID n3 VOICE lead START 4/3 DURATION 1/3 PITCH 71 VELOCITY 80\nN ID n4 VOICE lead START 2 DURATION 2/3 PITCH 73 VELOCITY 80\nN ID n5 VOICE lead START 8/3 DURATION 1/3 PITCH 70 VELOCITY 80\nN ID n6 VOICE lead START 10/3 DURATION 2/3 PITCH 75 VELOCITY 80\nN ID n7 VOICE lead START 6 DURATION 1/3 PITCH 70 VELOCITY 80\nN ID n8 VOICE lead START 20/3 DURATION 2/3 PITCH 72 VELOCITY 80\nN ID n9 VOICE lead START 22/3 DURATION 1/3 PITCH 75 VELOCITY 80\nN ID n10 VOICE lead START 8 DURATION 2/3 PITCH 77 VELOCITY 80\nN ID n11 VOICE lead START 26/3 DURATION 1/3 PITCH 74 VELOCITY 80\nN ID n12 VOICE lead START 28/3 DURATION 2/3 PITCH 79 VELOCITY 80",
+      "response_payload_bytes": 755,
+      "response_payload_sha256": "714c2bf36fc2da62bb4da18dc5c8ebfffc71b8b85c52bbfc97239a24ed844787",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "016527955da7bfc18e1e5d67787f1133cdbd4c2edfc78af0419fde041d94b1f2",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 366,
+        "output_tokens": 356,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001335,
+        "total": 0.00160875,
+        "uncached_input": 0.00027375
+      },
+      "family": "generation-melody",
+      "latency_ms": 2989.146,
+      "outer_schema_valid": true,
+      "prompt_bytes": 975,
+      "prompt_sha256": "6c6320bd8d732935c80a3bcc334514204ae20fc4f7f45e80d9c3333a9295fedb",
+      "raw_response_sha256": "64f310eb2ac737a4a2f3b7cb2064e77fff7270fa8bdb39e449a6e831a1dc4fd9",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE lead START 0 DURATION 1/3 PITCH 71 VELOCITY 80\nN ID n2 VOICE lead START 2/3 DURATION 2/3 PITCH 73 VELOCITY 80\nN ID n3 VOICE lead START 4/3 DURATION 1/3 PITCH 76 VELOCITY 80\nN ID n4 VOICE lead START 2 DURATION 2/3 PITCH 78 VELOCITY 80\nN ID n5 VOICE lead START 8/3 DURATION 1/3 PITCH 75 VELOCITY 80\nN ID n6 VOICE lead START 10/3 DURATION 2/3 PITCH 80 VELOCITY 80\nN ID n7 VOICE lead START 6 DURATION 1/3 PITCH 68 VELOCITY 80\nN ID n8 VOICE lead START 20/3 DURATION 2/3 PITCH 70 VELOCITY 80\nN ID n9 VOICE lead START 22/3 DURATION 1/3 PITCH 73 VELOCITY 80\nN ID n10 VOICE lead START 8 DURATION 2/3 PITCH 75 VELOCITY 80\nN ID n11 VOICE lead START 26/3 DURATION 1/3 PITCH 72 VELOCITY 80\nN ID n12 VOICE lead START 28/3 DURATION 2/3 PITCH 77 VELOCITY 80",
+      "response_payload_bytes": 755,
+      "response_payload_sha256": "0a2fb00d3c1dcfd6c56c760f8a3f7b32b46493e8b2eeb89a46674913f1162b3c",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "d862e3884d72948ede0517c0a568a429d0abfed606f7c4850314be6e6cc12e69",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 365,
+        "output_tokens": 356,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001335,
+        "total": 0.00160275,
+        "uncached_input": 0.00026775
+      },
+      "family": "generation-melody",
+      "latency_ms": 2708.678,
+      "outer_schema_valid": true,
+      "prompt_bytes": 967,
+      "prompt_sha256": "5af577556843369528af4be9b02619080c4af4b8474acd735115ee6833c460dd",
+      "raw_response_sha256": "af896f8c6f705cc39427ebbf9bf5d738117c3eea38d159db846f0db9108c0dd5",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE lead START 0 DURATION 1/3 PITCH 63 VELOCITY 80\nN ID n2 VOICE lead START 2/3 DURATION 2/3 PITCH 65 VELOCITY 80\nN ID n3 VOICE lead START 4/3 DURATION 1/3 PITCH 68 VELOCITY 80\nN ID n4 VOICE lead START 2 DURATION 2/3 PITCH 70 VELOCITY 80\nN ID n5 VOICE lead START 8/3 DURATION 1/3 PITCH 67 VELOCITY 80\nN ID n6 VOICE lead START 10/3 DURATION 2/3 PITCH 72 VELOCITY 80\nN ID n7 VOICE lead START 6 DURATION 1/3 PITCH 68 VELOCITY 80\nN ID n8 VOICE lead START 20/3 DURATION 2/3 PITCH 70 VELOCITY 80\nN ID n9 VOICE lead START 22/3 DURATION 1/3 PITCH 73 VELOCITY 80\nN ID n10 VOICE lead START 8 DURATION 2/3 PITCH 75 VELOCITY 80\nN ID n11 VOICE lead START 26/3 DURATION 1/3 PITCH 72 VELOCITY 80\nN ID n12 VOICE lead START 28/3 DURATION 2/3 PITCH 77 VELOCITY 80",
+      "response_payload_bytes": 755,
+      "response_payload_sha256": "9b3316e75599767f14f4445e2be15d87650fbe312df5aa82ab66120cc261a2ad",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "a0baefec23caad8dd4322d1066dbba3942c456ee5a3245680d6270b789f894d4",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 357,
+        "output_tokens": 356,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00233625,
+        "total": 0.0025605,
+        "uncached_input": 0.00022425
+      },
+      "family": "generation-progression",
+      "latency_ms": 2892.626,
+      "outer_schema_valid": true,
+      "prompt_bytes": 897,
+      "prompt_sha256": "8d2d76f5c1598ac7cd2c82af5726cddcf78ee35d6f91447c7d51096e6a0abe06",
+      "raw_response_sha256": "c4fed7609064d5dbdf3a81dbb62f448ab8f57b9b6dc3defefeb4ca320be2d5f6",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 1 PITCH 51 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 1 PITCH 58 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 1 PITCH 63 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 1 PITCH 67 VELOCITY 80\nN ID n5 VOICE bass START 1 DURATION 1 PITCH 48 VELOCITY 80\nN ID n6 VOICE tenor START 1 DURATION 1 PITCH 55 VELOCITY 80\nN ID n7 VOICE alto START 1 DURATION 1 PITCH 60 VELOCITY 80\nN ID n8 VOICE soprano START 1 DURATION 1 PITCH 67 VELOCITY 80\nN ID n9 VOICE bass START 2 DURATION 1 PITCH 44 VELOCITY 80\nN ID n10 VOICE tenor START 2 DURATION 1 PITCH 56 VELOCITY 80\nN ID n11 VOICE alto START 2 DURATION 1 PITCH 60 VELOCITY 80\nN ID n12 VOICE soprano START 2 DURATION 1 PITCH 68 VELOCITY 80\nN ID n13 VOICE bass START 3 DURATION 1 PITCH 41 VELOCITY 80\nN ID n14 VOICE tenor START 3 DURATION 1 PITCH 53 VELOCITY 80\nN ID n15 VOICE alto START 3 DURATION 1 PITCH 60 VELOCITY 80\nN ID n16 VOICE soprano START 3 DURATION 1 PITCH 68 VELOCITY 80\nN ID n17 VOICE bass START 4 DURATION 1 PITCH 46 VELOCITY 80\nN ID n18 VOICE tenor START 4 DURATION 1 PITCH 53 VELOCITY 80\nN ID n19 VOICE alto START 4 DURATION 1 PITCH 58 VELOCITY 80\nN ID n20 VOICE soprano START 4 DURATION 1 PITCH 65 VELOCITY 80\nN ID n21 VOICE bass START 5 DURATION 1 PITCH 51 VELOCITY 80\nN ID n22 VOICE tenor START 5 DURATION 1 PITCH 55 VELOCITY 80\nN ID n23 VOICE alto START 5 DURATION 1 PITCH 58 VELOCITY 80\nN ID n24 VOICE soprano START 5 DURATION 1 PITCH 67 VELOCITY 80",
+      "response_payload_bytes": 1454,
+      "response_payload_sha256": "d6650d39c6c7111350d6b546f535cc41b41ead11da6779e3706c408953067103",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "b5732524e435d115ff696e06f7c4afbff7c71084c8104529f9f649c1f8988796",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 299,
+        "output_tokens": 623,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00233625,
+        "total": 0.00255975,
+        "uncached_input": 0.0002235
+      },
+      "family": "generation-progression",
+      "latency_ms": 3964.957,
+      "outer_schema_valid": true,
+      "prompt_bytes": 896,
+      "prompt_sha256": "dd99ca7cbf06357d7b19fed0cc47a23c8093cea99b18d939dafb739e5cd6323f",
+      "raw_response_sha256": "63d5049daf2d3215c6973f45c69c3a189915b931184607d9c1c29149b04e65e0",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 1 PITCH 44 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 1 PITCH 56 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 1 PITCH 60 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 1 PITCH 68 VELOCITY 80\nN ID n5 VOICE bass START 1 DURATION 1 PITCH 41 VELOCITY 80\nN ID n6 VOICE tenor START 1 DURATION 1 PITCH 57 VELOCITY 80\nN ID n7 VOICE alto START 1 DURATION 1 PITCH 60 VELOCITY 80\nN ID n8 VOICE soprano START 1 DURATION 1 PITCH 69 VELOCITY 80\nN ID n9 VOICE bass START 2 DURATION 1 PITCH 37 VELOCITY 80\nN ID n10 VOICE tenor START 2 DURATION 1 PITCH 56 VELOCITY 80\nN ID n11 VOICE alto START 2 DURATION 1 PITCH 61 VELOCITY 80\nN ID n12 VOICE soprano START 2 DURATION 1 PITCH 68 VELOCITY 80\nN ID n13 VOICE bass START 3 DURATION 1 PITCH 46 VELOCITY 80\nN ID n14 VOICE tenor START 3 DURATION 1 PITCH 58 VELOCITY 80\nN ID n15 VOICE alto START 3 DURATION 1 PITCH 61 VELOCITY 80\nN ID n16 VOICE soprano START 3 DURATION 1 PITCH 65 VELOCITY 80\nN ID n17 VOICE bass START 4 DURATION 1 PITCH 51 VELOCITY 80\nN ID n18 VOICE tenor START 4 DURATION 1 PITCH 58 VELOCITY 80\nN ID n19 VOICE alto START 4 DURATION 1 PITCH 61 VELOCITY 80\nN ID n20 VOICE soprano START 4 DURATION 1 PITCH 67 VELOCITY 80\nN ID n21 VOICE bass START 5 DURATION 1 PITCH 44 VELOCITY 80\nN ID n22 VOICE tenor START 5 DURATION 1 PITCH 56 VELOCITY 80\nN ID n23 VOICE alto START 5 DURATION 1 PITCH 60 VELOCITY 80\nN ID n24 VOICE soprano START 5 DURATION 1 PITCH 68 VELOCITY 80",
+      "response_payload_bytes": 1454,
+      "response_payload_sha256": "ab501ac48d81af8c16197ba9b651b6651d920d263dd697001c6cea5004253d36",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "85b75bebfe9bace981b09e69353a49951a2e1f9598caa821d01f16043bb28eb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 298,
+        "output_tokens": 623,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00233625,
+        "total": 0.00255825,
+        "uncached_input": 0.000222
+      },
+      "family": "generation-progression",
+      "latency_ms": 2980.141,
+      "outer_schema_valid": true,
+      "prompt_bytes": 894,
+      "prompt_sha256": "b5d9947a833e9e3c02a9529685b4566acbb1c55373b11d30c0bf3018b98ac103",
+      "raw_response_sha256": "b27e66872ab9849ca4b32c231c42e658cd44227402e76225dcb7a2db67035691",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 1 PITCH 48 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 1 PITCH 55 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 1 PITCH 60 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 1 PITCH 64 VELOCITY 80\nN ID n5 VOICE bass START 1 DURATION 1 PITCH 45 VELOCITY 80\nN ID n6 VOICE tenor START 1 DURATION 1 PITCH 57 VELOCITY 80\nN ID n7 VOICE alto START 1 DURATION 1 PITCH 60 VELOCITY 80\nN ID n8 VOICE soprano START 1 DURATION 1 PITCH 64 VELOCITY 80\nN ID n9 VOICE bass START 2 DURATION 1 PITCH 41 VELOCITY 80\nN ID n10 VOICE tenor START 2 DURATION 1 PITCH 57 VELOCITY 80\nN ID n11 VOICE alto START 2 DURATION 1 PITCH 60 VELOCITY 80\nN ID n12 VOICE soprano START 2 DURATION 1 PITCH 65 VELOCITY 80\nN ID n13 VOICE bass START 3 DURATION 1 PITCH 50 VELOCITY 80\nN ID n14 VOICE tenor START 3 DURATION 1 PITCH 57 VELOCITY 80\nN ID n15 VOICE alto START 3 DURATION 1 PITCH 62 VELOCITY 80\nN ID n16 VOICE soprano START 3 DURATION 1 PITCH 65 VELOCITY 80\nN ID n17 VOICE bass START 4 DURATION 1 PITCH 43 VELOCITY 80\nN ID n18 VOICE tenor START 4 DURATION 1 PITCH 55 VELOCITY 80\nN ID n19 VOICE alto START 4 DURATION 1 PITCH 59 VELOCITY 80\nN ID n20 VOICE soprano START 4 DURATION 1 PITCH 65 VELOCITY 80\nN ID n21 VOICE bass START 5 DURATION 1 PITCH 48 VELOCITY 80\nN ID n22 VOICE tenor START 5 DURATION 1 PITCH 55 VELOCITY 80\nN ID n23 VOICE alto START 5 DURATION 1 PITCH 60 VELOCITY 80\nN ID n24 VOICE soprano START 5 DURATION 1 PITCH 64 VELOCITY 80",
+      "response_payload_bytes": 1454,
+      "response_payload_sha256": "cb7fde40881c61f55cf4c787fa70db63fc3b2e3fc2413fafb78ec458f57ac116",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "e7e30b7efa71de6cab482f1e8767d9ec634ad89a0a7a3483ead7ee8e359d2648",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 296,
+        "output_tokens": 623,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.000315,
+        "total": 0.00076275,
+        "uncached_input": 0.00044775
+      },
+      "family": "transformation-local",
+      "latency_ms": 2613.571,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1503,
+      "prompt_sha256": "d5c57531ecc8f5a5fb9625ee014b074245b571453f8b0dac121c275b662d2856",
+      "raw_response_sha256": "6d25c2b6125df2c8aa9ea01968545147b3a1c9e28bcc3e47bffce7aff7b7efcf",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "PATCH e7f876e5cda95407b6fe404b8766c7e3def1526e735661a4c8c71b3d461dba16\nSET ho-st0-lead-5 pitch=53",
+      "response_payload_bytes": 97,
+      "response_payload_sha256": "9bbf6d6e1a6f66e2c25ffcce2b39329d83cd8276a5c8324bdf049c51b6249532",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "35145f530a0b03ab31bf28363406c2acddf6a0d128e96e069402c97996d619da",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 597,
+        "output_tokens": 84,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0111975,
+        "total": 0.01172025,
+        "uncached_input": 0.00052275
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 11083.629,
+      "outer_schema_valid": false,
+      "prompt_bytes": 1741,
+      "prompt_sha256": "b5064de038a94a8f4fc2c887cdde701322dd904b86ea4b2c96d5c43b747c2651",
+      "raw_response_sha256": "6e37f3c7368f8b791a8c38e907170be33e2047ee08360a009552372cf67610d1",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"payload\": \"N ID ho-rv0-1-1 VOICE keys START 0 DURATION 5/4 PITCH 46 VELOCITY 75\\nN ID ho-rv0-1-2 VOICE keys START 0 DURATION 5/4 PITCH 49 VELOCITY 76\\nN ID ho-rv0-1-3 VOICE keys START 0 DURATION 5/4 PITCH 53 VELOCITY 77\\nN ID ho-rv0-",
+      "response_payload_bytes": 235,
+      "response_payload_sha256": "7dc7f01e2d7320c6669d186d3421f8439a2617a445d59b5837b760da1c6c4825",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "MAX_TOKENS",
+      "task_sha256": "1a31cab32ca6f9e85eab4d4ba5ac76e1b1bfa9a3b62f085ce5e49670ce36c320",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 697,
+        "output_tokens": 2986,
+        "thinking_tokens": 2876
+      },
+      "validation": {
+        "checks": {},
+        "error": "Invalid label-only compact row: {\"payload\": \"N ID ho-rv0-1-1 VOICE keys START 0 DURATION 5/4 PITCH 46 VELOCITY 75\\nN ID ho-rv0-1-2 VOICE keys START 0 DURATION 5/4 PITCH 49 VELOCITY 76\\nN ID ho-rv0-1-3 VOICE keys START 0 DURATION 5/4 PITCH 53 VELOCITY 77\\nN ID ho-rv0-",
+        "failure_class": "other-output-or-patch-parse-failure",
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00478875,
+        "total": 0.005313,
+        "uncached_input": 0.00052425
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 5183.054,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1740,
+      "prompt_sha256": "cd614252db3766b001dd615238a45b2049d1c0fc645ce835c9a66312025c3b67",
+      "raw_response_sha256": "93d67e92acbdb1a22ff3778c3d05f256d665cdae79a6375408076dc367914959",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID ho-rv1-1-1 VOICE keys START 0 DURATION 5/4 PITCH 46 VELOCITY 75\nN ID ho-rv1-1-2 VOICE keys START 0 DURATION 5/4 PITCH 51 VELOCITY 76\nN ID ho-rv1-1-3 VOICE keys START 0 DURATION 5/4 PITCH 54 VELOCITY 77\nN ID ho-rv1-1-4 VOICE keys START 0 DURATION 5/4 PITCH 62 VELOCITY 78\nN ID ho-rv1-2-1 VOICE keys START 5/4 DURATION 5/4 PITCH 48 VELOCITY 75\nN ID ho-rv1-2-2 VOICE keys START 5/4 DURATION 5/4 PITCH 53 VELOCITY 76\nN ID ho-rv1-2-3 VOICE keys START 5/4 DURATION 5/4 PITCH 56 VELOCITY 77\nN ID ho-rv1-2-4 VOICE keys START 5/4 DURATION 5/4 PITCH 64 VELOCITY 78\nN ID ho-rv1-3-1 VOICE keys START 5/2 DURATION 5/4 PITCH 50 VELOCITY 75\nN ID ho-rv1-3-2 VOICE keys START 5/2 DURATION 5/4 PITCH 55 VELOCITY 76\nN ID ho-rv1-3-3 VOICE keys START 5/2 DURATION 5/4 PITCH 58 VELOCITY 77\nN ID ho-rv1-3-4 VOICE keys START 5/2 DURATION 5/4 PITCH 66 VELOCITY 78\nN ID ho-rv1-4-1 VOICE keys START 15/4 DURATION 5/4 PITCH 52 VELOCITY 75\nN ID ho-rv1-4-2 VOICE keys START 15/4 DURATION 5/4 PITCH 57 VELOCITY 76\nN ID ho-rv1-4-3 VOICE keys START 15/4 DURATION 5/4 PITCH 60 VELOCITY 77\nN ID ho-rv1-4-4 VOICE keys START 15/4 DURATION 5/4 PITCH 68 VELOCITY 78",
+      "response_payload_bytes": 1131,
+      "response_payload_sha256": "7f51dff34db7e9346af466f0fa952656d5e6a7db0d85327c23cde46b82a30e5e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "e3e9d6f5997716282d5cb96400b2135f689aaef63a80ee6835320c05da3a57c5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 699,
+        "output_tokens": 1277,
+        "thinking_tokens": 713
+      },
+      "validation": {
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": false,
+          "range": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002115,
+        "total": 0.00264,
+        "uncached_input": 0.000525
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 2804.559,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1749,
+      "prompt_sha256": "2f885f2d5ceabf3389e1d85c283e14fed9de5a07316dfbb8f2e4c6f02b2a6ede",
+      "raw_response_sha256": "b522b5ada319b090d58a82f0041c347e9d5bcc226365e99623413da9eef9ed29",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID ho-rv2-1-1 VOICE keys START 0 DURATION 5/4 PITCH 57 VELOCITY 76\nN ID ho-rv2-1-2 VOICE keys START 0 DURATION 5/4 PITCH 61 VELOCITY 77\nN ID ho-rv2-1-3 VOICE keys START 0 DURATION 5/4 PITCH 65 VELOCITY 78\nN ID ho-rv2-1-4 VOICE keys START 0 DURATION 5/4 PITCH 66 VELOCITY 75\nN ID ho-rv2-2-1 VOICE keys START 5/4 DURATION 5/4 PITCH 59 VELOCITY 76\nN ID ho-rv2-2-2 VOICE keys START 5/4 DURATION 5/4 PITCH 63 VELOCITY 77\nN ID ho-rv2-2-3 VOICE keys START 5/4 DURATION 5/4 PITCH 67 VELOCITY 78\nN ID ho-rv2-2-4 VOICE keys START 5/4 DURATION 5/4 PITCH 68 VELOCITY 75\nN ID ho-rv2-3-1 VOICE keys START 5/2 DURATION 5/4 PITCH 61 VELOCITY 76\nN ID ho-rv2-3-2 VOICE keys START 5/2 DURATION 5/4 PITCH 65 VELOCITY 77\nN ID ho-rv2-3-3 VOICE keys START 5/2 DURATION 5/4 PITCH 69 VELOCITY 78\nN ID ho-rv2-3-4 VOICE keys START 5/2 DURATION 5/4 PITCH 70 VELOCITY 75\nN ID ho-rv2-4-1 VOICE keys START 15/4 DURATION 5/4 PITCH 63 VELOCITY 76\nN ID ho-rv2-4-2 VOICE keys START 15/4 DURATION 5/4 PITCH 67 VELOCITY 77\nN ID ho-rv2-4-3 VOICE keys START 15/4 DURATION 5/4 PITCH 71 VELOCITY 78\nN ID ho-rv2-4-4 VOICE keys START 15/4 DURATION 5/4 PITCH 72 VELOCITY 75",
+      "response_payload_bytes": 1131,
+      "response_payload_sha256": "482e7ca4ddd4bc6048c3b98ec297b5bc4dd5611a9d651a85e7f10b996d2a59de",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "d3053705ba8bc843466d4d3892aea8791d7f8dcaff86289567909cc78c00afea",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 700,
+        "output_tokens": 564,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": false,
+          "range": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00268875,
+        "total": 0.0030435,
+        "uncached_input": 0.00035475
+      },
+      "family": "transformation-rhythm",
+      "latency_ms": 3356.281,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1286,
+      "prompt_sha256": "9cf9deb7022fe2aa767f1486f3f8f1b9a8f73e3ee901ec40c1ded5b6423198ca",
+      "raw_response_sha256": "ff6ce42c46deaeab73b0aa47c3da79b9e72e4514440e267a620eeeae5eac935a",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID ho-ry0-0 VOICE perc START 0 DURATION 1/5 PITCH 50 VELOCITY 78\nN ID ho-ry0-1 VOICE perc START 1/2 DURATION 1/5 PITCH 51 VELOCITY 79\nN ID ho-ry0-2 VOICE perc START 4/5 DURATION 1/5 PITCH 52 VELOCITY 80\nN ID ho-ry0-3 VOICE perc START 13/10 DURATION 1/5 PITCH 53 VELOCITY 81\nN ID ho-ry0-4 VOICE perc START 8/5 DURATION 1/5 PITCH 54 VELOCITY 82\nN ID ho-ry0-5 VOICE perc START 21/10 DURATION 1/5 PITCH 50 VELOCITY 83\nN ID ho-ry0-6 VOICE perc START 12/5 DURATION 1/5 PITCH 51 VELOCITY 84\nN ID ho-ry0-7 VOICE perc START 29/10 DURATION 1/5 PITCH 52 VELOCITY 85\nN ID ho-ry0-8 VOICE perc START 16/5 DURATION 1/5 PITCH 53 VELOCITY 86\nN ID ho-ry0-9 VOICE perc START 37/10 DURATION 1/5 PITCH 54 VELOCITY 87",
+      "response_payload_bytes": 697,
+      "response_payload_sha256": "14b3d9434639fdf8b59a47df32c1f2154aaeecf3c1c05cd38f7765f298b2051a",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "c6f55964038e6aeeb4fa7b0366925c65102ef41e78728fbee25644cabae7db0b",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 473,
+        "output_tokens": 717,
+        "thinking_tokens": 371
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0011925,
+        "total": 0.0015255,
+        "uncached_input": 0.000333
+      },
+      "family": "comprehension-structure",
+      "latency_ms": 2463.681,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1260,
+      "prompt_sha256": "96e90fa13662afd6fa9dbd923040df1dd9cf948ff63649ee4962834c8be6ac4a",
+      "raw_response_sha256": "f3f4ff7416431fa6f244e52764c24e3849b04e5623e73aaab01d8a517c1b5151",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_31 DURATION_3 VELOCITY_75\nTRACK_lead TIME_0 NOTE_ON_60 DURATION_1/3 VELOCITY_81\nTRACK_pad TIME_0 NOTE_ON_43 DURATION_4/3 VELOCITY_71\nTRACK_lead TIME_1/3 NOTE_ON_65 DURATION_1/3 VELOCITY_82\nTRACK_lead TIME_1 NOTE_ON_58 DURATION_1/3 VELOCITY_83\nTRACK_lead TIME_5/3 NOTE_ON_63 DURATION_1/3 VELOCITY_84\nTRACK_lead TIME_7/3 NOTE_ON_56 DURATION_1/3 VELOCITY_85\nTRACK_bass TIME_3 NOTE_ON_36 DURATION_7/3 VELOCITY_77\nTRACK_lead TIME_3 NOTE_ON_61 DURATION_1/3 VELOCITY_86\nTRACK_pad TIME_3 NOTE_ON_47 DURATION_4/3 VELOCITY_72\nTRACK_lead TIME_11/3 NOTE_ON_66 DURATION_1/3 VELOCITY_87\nTRACK_pad TIME_13/3 NOTE_ON_51 DURATION_4/3 VELOCITY_73",
+      "response_payload_bytes": 654,
+      "response_payload_sha256": "58c143c0da7394020b77d2eb3de330183233d5fa620bfb479763a6eecd6f8986",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "fc92282836613aaff97c0e51989391a1e4a586996a536639bbe197bd3b4af2f0",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 444,
+        "output_tokens": 318,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00054375,
+        "total": 0.00078375,
+        "uncached_input": 0.00024
+      },
+      "family": "continuation-motif",
+      "latency_ms": 1947.807,
+      "outer_schema_valid": true,
+      "prompt_bytes": 947,
+      "prompt_sha256": "d08915e36c97c128d9cfb825c3b390ce781ab53e2538dfd39ef986446ccca284",
+      "raw_response_sha256": "35e15150d08fee5a2382901262e8d926e71b686785d414a216c23fda4d9cf4e8",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_lead TIME_23/3 NOTE_ON_71 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_25/3 NOTE_ON_66 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_9 NOTE_ON_69 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_29/3 NOTE_ON_64 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_31/3 NOTE_ON_68 DURATION_1/3 VELOCITY_86",
+      "response_payload_bytes": 281,
+      "response_payload_sha256": "db1706a734cb7a94bec0c8b73001f37500edb4a32e0b7f62c6d571df9a507afb",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 320,
+        "output_tokens": 145,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00210375,
+        "total": 0.00234375,
+        "uncached_input": 0.00024
+      },
+      "family": "continuation-motif",
+      "latency_ms": 3663.362,
+      "outer_schema_valid": true,
+      "prompt_bytes": 947,
+      "prompt_sha256": "d08915e36c97c128d9cfb825c3b390ce781ab53e2538dfd39ef986446ccca284",
+      "raw_response_sha256": "5b10b535bf3499788d5b053a0d8622a824964c683f545c0e44f756427a999102",
+      "repeat": 1,
+      "request_id": null,
+      "response_payload": "TRACK_lead TIME_23/3 NOTE_ON_71 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_25/3 NOTE_ON_66 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_9 NOTE_ON_69 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_29/3 NOTE_ON_64 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_31/3 NOTE_ON_68 DURATION_1/3 VELOCITY_86",
+      "response_payload_bytes": 281,
+      "response_payload_sha256": "db1706a734cb7a94bec0c8b73001f37500edb4a32e0b7f62c6d571df9a507afb",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 320,
+        "output_tokens": 561,
+        "thinking_tokens": 421
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00220125,
+        "total": 0.00244125,
+        "uncached_input": 0.00024
+      },
+      "family": "continuation-motif",
+      "latency_ms": 3360.508,
+      "outer_schema_valid": true,
+      "prompt_bytes": 947,
+      "prompt_sha256": "d08915e36c97c128d9cfb825c3b390ce781ab53e2538dfd39ef986446ccca284",
+      "raw_response_sha256": "0f5f576534fa87fdd203394fe20a0489e34a2175e4dcd0d29d99009a871f9cea",
+      "repeat": 2,
+      "request_id": null,
+      "response_payload": "TRACK_lead TIME_23/3 NOTE_ON_71 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_25/3 NOTE_ON_66 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_9 NOTE_ON_69 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_29/3 NOTE_ON_64 DURATION_1/3 VELOCITY_86\nTRACK_lead TIME_31/3 NOTE_ON_68 DURATION_1/3 VELOCITY_86",
+      "response_payload_bytes": 281,
+      "response_payload_sha256": "db1706a734cb7a94bec0c8b73001f37500edb4a32e0b7f62c6d571df9a507afb",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": true,
+      "stop_reason": "STOP",
+      "task_sha256": "5c947c6523f947863e9e035127b1364703cd23bf926f67b9c78341aefeb401ef",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 320,
+        "output_tokens": 587,
+        "thinking_tokens": 447
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00108,
+        "total": 0.001257,
+        "uncached_input": 0.000177
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2831.786,
+      "outer_schema_valid": true,
+      "prompt_bytes": 763,
+      "prompt_sha256": "372d13f2a1de51e9323ec93e2ae6c7cf96cee2a78761a1a83fc792bc480e830b",
+      "raw_response_sha256": "d75fb96ea7054c96af2a95457438b34ad47d0516281c22e278e0a5d78d6ca312",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_6 NOTE_ON_39 DURATION_1 VELOCITY_80\nTRACK_bass TIME_7 NOTE_ON_36 DURATION_1 VELOCITY_80\nTRACK_bass TIME_8 NOTE_ON_44 DURATION_1 VELOCITY_80\nTRACK_bass TIME_9 NOTE_ON_41 DURATION_1 VELOCITY_80\nTRACK_bass TIME_10 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_bass TIME_11 NOTE_ON_39 DURATION_1 VELOCITY_80\nTRACK_lead TIME_6 NOTE_ON_70 DURATION_1 VELOCITY_80\nTRACK_lead TIME_7 NOTE_ON_67 DURATION_1 VELOCITY_80\nTRACK_lead TIME_8 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_lead TIME_9 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_lead TIME_10 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_lead TIME_11 NOTE_ON_63 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 627,
+      "response_payload_sha256": "62d31ae2a51e74f33e54a450d3fac3367e9a00e9f988dd2f7e6c8f34b17306fe",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "863346ca4534340333dc9f1f515fb04721ae9f0a30f3318d08a7e4dd0ac00192",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 236,
+        "output_tokens": 288,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00108,
+        "total": 0.00125625,
+        "uncached_input": 0.00017625
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2535.356,
+      "outer_schema_valid": true,
+      "prompt_bytes": 762,
+      "prompt_sha256": "38263488ed219fba0d1b22e646403f573d86461eb848b7f1962f6b9298246b5c",
+      "raw_response_sha256": "21cb2461b7d3f1765f668d85809d19998cb3c27e5e39df98eb40c4e5fb222814",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_6 NOTE_ON_44 DURATION_1 VELOCITY_80\nTRACK_lead TIME_6 NOTE_ON_68 DURATION_1 VELOCITY_90\nTRACK_bass TIME_7 NOTE_ON_41 DURATION_1 VELOCITY_80\nTRACK_lead TIME_7 NOTE_ON_65 DURATION_1 VELOCITY_90\nTRACK_bass TIME_8 NOTE_ON_41 DURATION_1 VELOCITY_80\nTRACK_lead TIME_8 NOTE_ON_68 DURATION_1 VELOCITY_90\nTRACK_bass TIME_9 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_lead TIME_9 NOTE_ON_65 DURATION_1 VELOCITY_90\nTRACK_bass TIME_10 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_lead TIME_10 NOTE_ON_67 DURATION_1 VELOCITY_90\nTRACK_bass TIME_11 NOTE_ON_44 DURATION_1 VELOCITY_80\nTRACK_lead TIME_11 NOTE_ON_68 DURATION_1 VELOCITY_90",
+      "response_payload_bytes": 627,
+      "response_payload_sha256": "19fe36c1ea38864709e42dd9da08bd3924f673ce3199fabfe841cad8473320a3",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "2df5f0eaa8500e3333a35b8411ca10086e842c0918d0703c0059a340af654d17",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 235,
+        "output_tokens": 288,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0009975,
+        "total": 0.001173,
+        "uncached_input": 0.0001755
+      },
+      "family": "continuation-roles",
+      "latency_ms": 2374.991,
+      "outer_schema_valid": true,
+      "prompt_bytes": 761,
+      "prompt_sha256": "cd195b33ffd4bcb128c5c86c3c1e1a1ff04df7cfd6aabd5e0cf18defb838c9bb",
+      "raw_response_sha256": "3d558abd759fb593d0465df96961bd28249a1b54c0d82ae182bf817285312bc0",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_6 NOTE_ON_48 DURATION_1 VELOCITY_80 TRACK_bass TIME_7 NOTE_ON_45 DURATION_1 VELOCITY_80 TRACK_bass TIME_8 NOTE_ON_41 DURATION_1 VELOCITY_80 TRACK_bass TIME_9 NOTE_ON_41 DURATION_1 VELOCITY_80 TRACK_bass TIME_10 NOTE_ON_43 DURATION_1 VELOCITY_80 TRACK_bass TIME_11 NOTE_ON_36 DURATION_1 VELOCITY_80 TRACK_lead TIME_6 NOTE_ON_67 DURATION_1 VELOCITY_80 TRACK_lead TIME_7 NOTE_ON_69 DURATION_1 VELOCITY_80 TRACK_lead TIME_8 NOTE_ON_69 DURATION_1 VELOCITY_80 TRACK_lead TIME_9 NOTE_ON_74 DURATION_1 VELOCITY_80 TRACK_lead TIME_10 NOTE_ON_71 DURATION_1 VELOCITY_80 TRACK_lead TIME_11 NOTE_ON_72 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 627,
+      "response_payload_sha256": "64c856f83a746b539464ae8540e1aad7419c16a4eec6bd2dad86be61eb8c6a8a",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "ce05298dc927cbd8bc593bdfc19545b342622a25cc2ffa8d16914161d48d873e",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 234,
+        "output_tokens": 266,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {},
+        "error": "Invalid native MIDI-Like row: TRACK_bass TIME_6 NOTE_ON_48 DURATION_1 VELOCITY_80 TRACK_bass TIME_7 NOTE_ON_45 DURATION_1 VELOCITY_80 TRACK_bass TIME_8 NOTE_ON_41 DURATION_1 VELOCITY_80 TRACK_bass TIME_9 NOTE_ON_41 DURATION_1 VELOCITY_80 TRACK_bass TIME_10 NOTE_ON_43 DURATION_1 VELOCITY_80 TRACK_bass TIME_11 NOTE_ON_36 DURATION_1 VELOCITY_80 TRACK_lead TIME_6 NOTE_ON_67 DURATION_1 VELOCITY_80 TRACK_lead TIME_7 NOTE_ON_69 DURATION_1 VELOCITY_80 TRACK_lead TIME_8 NOTE_ON_69 DURATION_1 VELOCITY_80 TRACK_lead TIME_9 NOTE_ON_74 DURATION_1 VELOCITY_80 TRACK_lead TIME_10 NOTE_ON_71 DURATION_1 VELOCITY_80 TRACK_lead TIME_11 NOTE_ON_72 DURATION_1 VELOCITY_80",
+        "failure_class": "other-output-or-patch-parse-failure",
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": false
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00123375,
+        "total": 0.001503,
+        "uncached_input": 0.00026925
+      },
+      "family": "generation-melody",
+      "latency_ms": 2970.879,
+      "outer_schema_valid": true,
+      "prompt_bytes": 957,
+      "prompt_sha256": "8e6551d57bd308512f4b1011561bb6b28cd9fc9e1a31638024a18efe6bab10d2",
+      "raw_response_sha256": "f436668c387f07fbf6a131e18db30247a619815dbb91c9e458d0fc7053a4eb9f",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_lead TIME_0 NOTE_ON_66 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_2/3 NOTE_ON_68 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_4/3 NOTE_ON_71 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_2 NOTE_ON_73 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_8/3 NOTE_ON_70 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_10/3 NOTE_ON_75 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_6 NOTE_ON_70 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_20/3 NOTE_ON_72 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_22/3 NOTE_ON_75 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_8 NOTE_ON_77 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_26/3 NOTE_ON_74 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_28/3 NOTE_ON_79 DURATION_2/3 VELOCITY_80",
+      "response_payload_bytes": 668,
+      "response_payload_sha256": "79f93d8dcd5c46a67c80851e2a42a03cb6089f7d784aaea922066bfd82af8888",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "016527955da7bfc18e1e5d67787f1133cdbd4c2edfc78af0419fde041d94b1f2",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 359,
+        "output_tokens": 329,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00123375,
+        "total": 0.00150225,
+        "uncached_input": 0.0002685
+      },
+      "family": "generation-melody",
+      "latency_ms": 2189.837,
+      "outer_schema_valid": true,
+      "prompt_bytes": 956,
+      "prompt_sha256": "a8e6b3ae4690646ce02da5e5c1df73ea861d58c9e4a5322c408100769d0ca25e",
+      "raw_response_sha256": "476ff170a94abdc216be276814a32432624b9a65d47be55a61807125fe334f80",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_lead TIME_0 NOTE_ON_71 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_2/3 NOTE_ON_73 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_4/3 NOTE_ON_76 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_2 NOTE_ON_78 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_8/3 NOTE_ON_75 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_10/3 NOTE_ON_80 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_6 NOTE_ON_68 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_20/3 NOTE_ON_70 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_22/3 NOTE_ON_73 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_8 NOTE_ON_75 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_26/3 NOTE_ON_72 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_28/3 NOTE_ON_77 DURATION_2/3 VELOCITY_80",
+      "response_payload_bytes": 668,
+      "response_payload_sha256": "8dae70a5016b62b656c00da39b1eba98bc1c15441924ae35b6ecfaebc6e87c5b",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "d862e3884d72948ede0517c0a568a429d0abfed606f7c4850314be6e6cc12e69",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 358,
+        "output_tokens": 329,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00123375,
+        "total": 0.00149625,
+        "uncached_input": 0.0002625
+      },
+      "family": "generation-melody",
+      "latency_ms": 2712.386,
+      "outer_schema_valid": true,
+      "prompt_bytes": 948,
+      "prompt_sha256": "fa6b7e619f54b4e765705a60aa14cee2dda08250eabd7295ccb011611056aee1",
+      "raw_response_sha256": "427067d6c4af79654df471a81fe34067b18927213138773d388bdfdc0f6f5954",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_lead TIME_0 NOTE_ON_63 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_2/3 NOTE_ON_65 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_4/3 NOTE_ON_68 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_2 NOTE_ON_70 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_8/3 NOTE_ON_67 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_10/3 NOTE_ON_72 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_6 NOTE_ON_68 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_20/3 NOTE_ON_70 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_22/3 NOTE_ON_73 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_8 NOTE_ON_75 DURATION_2/3 VELOCITY_80\nTRACK_lead TIME_26/3 NOTE_ON_72 DURATION_1/3 VELOCITY_80\nTRACK_lead TIME_28/3 NOTE_ON_77 DURATION_2/3 VELOCITY_80",
+      "response_payload_bytes": 668,
+      "response_payload_sha256": "c5548484009f6514392d152f948fb1ea915b90937528e898a5182c009164806e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "a0baefec23caad8dd4322d1066dbba3942c456ee5a3245680d6270b789f894d4",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 350,
+        "output_tokens": 329,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002145,
+        "total": 0.002364,
+        "uncached_input": 0.000219
+      },
+      "family": "generation-progression",
+      "latency_ms": 3155.943,
+      "outer_schema_valid": true,
+      "prompt_bytes": 878,
+      "prompt_sha256": "82e44bebd86053ff5c56bf7dd817c8b1e6e3239186259aa89d3bacd8197bd94a",
+      "raw_response_sha256": "082dc51f215da7edcbfcb748efeb274d40d6d22aa94197c25d5b4595be03678b",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_51 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_58 DURATION_1 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_63 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_67 DURATION_1 VELOCITY_80\nTRACK_bass TIME_1 NOTE_ON_48 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_1 NOTE_ON_55 DURATION_1 VELOCITY_80\nTRACK_alto TIME_1 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_1 NOTE_ON_67 DURATION_1 VELOCITY_80\nTRACK_bass TIME_2 NOTE_ON_44 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_2 NOTE_ON_56 DURATION_1 VELOCITY_80\nTRACK_alto TIME_2 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_2 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_3 NOTE_ON_41 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_3 NOTE_ON_53 DURATION_1 VELOCITY_80\nTRACK_alto TIME_3 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_3 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_4 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_4 NOTE_ON_53 DURATION_1 VELOCITY_80\nTRACK_alto TIME_4 NOTE_ON_62 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_4 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_bass TIME_5 NOTE_ON_51 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_5 NOTE_ON_55 DURATION_1 VELOCITY_80\nTRACK_alto TIME_5 NOTE_ON_63 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_5 NOTE_ON_67 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 1271,
+      "response_payload_sha256": "82011c0f3edee11d19523a8ed111be11af06734e2fc65ee74ab98649b367ebff",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "b5732524e435d115ff696e06f7c4afbff7c71084c8104529f9f649c1f8988796",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 292,
+        "output_tokens": 572,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002145,
+        "total": 0.00236325,
+        "uncached_input": 0.00021825
+      },
+      "family": "generation-progression",
+      "latency_ms": 3251.291,
+      "outer_schema_valid": true,
+      "prompt_bytes": 877,
+      "prompt_sha256": "4247acb38061aec20ebdefe3143863302531458058d18166c6383a4cec15ea1a",
+      "raw_response_sha256": "25b0907ded106a698e6ae1f87c6c4bb21f4ec7f7002bda2ddde2f2d214fd81ca",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_44 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_56 DURATION_1 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_1 NOTE_ON_41 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_1 NOTE_ON_53 DURATION_1 VELOCITY_80\nTRACK_alto TIME_1 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_1 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_2 NOTE_ON_37 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_2 NOTE_ON_53 DURATION_1 VELOCITY_80\nTRACK_alto TIME_2 NOTE_ON_61 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_2 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_3 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_3 NOTE_ON_53 DURATION_1 VELOCITY_80\nTRACK_alto TIME_3 NOTE_ON_58 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_3 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_bass TIME_4 NOTE_ON_51 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_4 NOTE_ON_55 DURATION_1 VELOCITY_80\nTRACK_alto TIME_4 NOTE_ON_58 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_4 NOTE_ON_67 DURATION_1 VELOCITY_80\nTRACK_bass TIME_5 NOTE_ON_44 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_5 NOTE_ON_56 DURATION_1 VELOCITY_80\nTRACK_alto TIME_5 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_5 NOTE_ON_68 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 1271,
+      "response_payload_sha256": "328236d195b46674661a2098de64c63462f34d4c0d511166e6dbf71429805804",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "85b75bebfe9bace981b09e69353a49951a2e1f9598caa821d01f16043bb28eb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 291,
+        "output_tokens": 572,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002145,
+        "total": 0.00236175,
+        "uncached_input": 0.00021675
+      },
+      "family": "generation-progression",
+      "latency_ms": 2737.014,
+      "outer_schema_valid": true,
+      "prompt_bytes": 875,
+      "prompt_sha256": "3e29f70b35f66bdf0c1676e662c620b8e592e90068e60af46892eed30344278a",
+      "raw_response_sha256": "559e7bec231de47b690b5d95f2fc6ab29c7803d196417dd7cb3491aefdc4b555",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_48 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_55 DURATION_1 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_64 DURATION_1 VELOCITY_80\nTRACK_bass TIME_1 NOTE_ON_45 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_1 NOTE_ON_57 DURATION_1 VELOCITY_80\nTRACK_alto TIME_1 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_1 NOTE_ON_64 DURATION_1 VELOCITY_80\nTRACK_bass TIME_2 NOTE_ON_41 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_2 NOTE_ON_57 DURATION_1 VELOCITY_80\nTRACK_alto TIME_2 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_2 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_bass TIME_3 NOTE_ON_38 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_3 NOTE_ON_57 DURATION_1 VELOCITY_80\nTRACK_alto TIME_3 NOTE_ON_62 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_3 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_bass TIME_4 NOTE_ON_43 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_4 NOTE_ON_55 DURATION_1 VELOCITY_80\nTRACK_alto TIME_4 NOTE_ON_59 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_4 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_bass TIME_5 NOTE_ON_48 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_5 NOTE_ON_55 DURATION_1 VELOCITY_80\nTRACK_alto TIME_5 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_5 NOTE_ON_64 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 1271,
+      "response_payload_sha256": "438feaa2b2b319616cf88091d83007827e144052b6f0ee2b0706fc2f6bfab77d",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "e7e30b7efa71de6cab482f1e8767d9ec634ad89a0a7a3483ead7ee8e359d2648",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 289,
+        "output_tokens": 572,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts": true,
+          "harmony": false,
+          "inversions": true,
+          "named_voices": true,
+          "no_voice_crossing": true,
+          "ranges": true,
+          "voice_leading": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0011925,
+        "total": 0.00158325,
+        "uncached_input": 0.00039075
+      },
+      "family": "transformation-local",
+      "latency_ms": 2179.678,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1352,
+      "prompt_sha256": "12cb9a4b55fa74d9de7ba4eab203ad8766e9b5e26f3c134a245dffffb517b885",
+      "raw_response_sha256": "caf6daaffb2b19cfb8c2fcddcfaa4ada348a7bc62dd2c41c22987088bf65bfd2",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_31 DURATION_3 VELOCITY_75\nTRACK_lead TIME_0 NOTE_ON_60 DURATION_1/3 VELOCITY_81\nTRACK_pad TIME_0 NOTE_ON_43 DURATION_4/3 VELOCITY_71\nTRACK_lead TIME_1/3 NOTE_ON_65 DURATION_1/3 VELOCITY_82\nTRACK_lead TIME_1 NOTE_ON_58 DURATION_1/3 VELOCITY_83\nTRACK_lead TIME_5/3 NOTE_ON_63 DURATION_1/3 VELOCITY_84\nTRACK_lead TIME_7/3 NOTE_ON_56 DURATION_1/3 VELOCITY_85\nTRACK_bass TIME_3 NOTE_ON_36 DURATION_7/3 VELOCITY_77\nTRACK_lead TIME_3 NOTE_ON_53 DURATION_1/3 VELOCITY_86\nTRACK_pad TIME_3 NOTE_ON_47 DURATION_4/3 VELOCITY_72\nTRACK_lead TIME_11/3 NOTE_ON_66 DURATION_1/3 VELOCITY_87\nTRACK_pad TIME_13/3 NOTE_ON_51 DURATION_4/3 VELOCITY_73",
+      "response_payload_bytes": 654,
+      "response_payload_sha256": "a2407aea5b63a244469ee443789738c30b16564ec30f54310889cf6acd5f9078",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "35145f530a0b03ab31bf28363406c2acddf6a0d128e96e069402c97996d619da",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 521,
+        "output_tokens": 318,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": false
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0111975,
+        "total": 0.011619,
+        "uncached_input": 0.0004215
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 12863.194,
+      "outer_schema_valid": false,
+      "prompt_bytes": 1482,
+      "prompt_sha256": "4a11dad5bfc990a607a296bea75f62269aa3a1f09d5b723b8484334e0b3330b8",
+      "raw_response_sha256": "1a4877cfe11b72746590da8b047712031a88560e7b57c85d12b58f6d9bdb45b0",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"payload\":\"TRACK_keys TIME_0 NOTE_ON_46 DURATION_5/4 VELOCITY_75\\nTRACK_keys TIME_0 NOTE_ON_49 DURATION_5/4 VELOCITY_76\\nTRACK_keys TIME_0 NOTE_ON_53 DURATION_5/4 VELOCITY_77\\nTRACK_keys TIME_0 NOTE_ON_57 DURATION_5/4 VELOCITY_78\\nTRACK_keys TIME_",
+      "response_payload_bytes": 248,
+      "response_payload_sha256": "6278a5e92153dafd75f4e4d98d64f16233c1cea61d7afa74e6b62caaaecc41f5",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "MAX_TOKENS",
+      "task_sha256": "1a31cab32ca6f9e85eab4d4ba5ac76e1b1bfa9a3b62f085ce5e49670ce36c320",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 562,
+        "output_tokens": 2986,
+        "thinking_tokens": 2878
+      },
+      "validation": {
+        "checks": {},
+        "error": "Invalid native MIDI-Like row: {\"payload\":\"TRACK_keys TIME_0 NOTE_ON_46 DURATION_5/4 VELOCITY_75\\nTRACK_keys TIME_0 NOTE_ON_49 DURATION_5/4 VELOCITY_76\\nTRACK_keys TIME_0 NOTE_ON_53 DURATION_5/4 VELOCITY_77\\nTRACK_keys TIME_0 NOTE_ON_57 DURATION_5/4 VELOCITY_78\\nTRACK_keys TIME_",
+        "failure_class": "other-output-or-patch-parse-failure",
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": false,
+          "side_ledger": false
+        },
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00397875,
+        "total": 0.00440175,
+        "uncached_input": 0.000423
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 4151.548,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1481,
+      "prompt_sha256": "06ba84b77ffaf387ca25d04d0429cc99ea054ed809b2e2f6766290afac902192",
+      "raw_response_sha256": "b14182236272610dd146e32c2f1cb67f3d3baac6bed54509bc0a2ebf084b4f66",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_keys TIME_0 NOTE_ON_46 DURATION_5/4 VELOCITY_77\nTRACK_keys TIME_0 NOTE_ON_51 DURATION_5/4 VELOCITY_75\nTRACK_keys TIME_0 NOTE_ON_54 DURATION_5/4 VELOCITY_76\nTRACK_keys TIME_0 NOTE_ON_62 DURATION_5/4 VELOCITY_78\nTRACK_keys TIME_5/4 NOTE_ON_48 DURATION_5/4 VELOCITY_77\nTRACK_keys TIME_5/4 NOTE_ON_53 DURATION_5/4 VELOCITY_75\nTRACK_keys TIME_5/4 NOTE_ON_56 DURATION_5/4 VELOCITY_76\nTRACK_keys TIME_5/4 NOTE_ON_64 DURATION_5/4 VELOCITY_78\nTRACK_keys TIME_5/2 NOTE_ON_50 DURATION_5/4 VELOCITY_77\nTRACK_keys TIME_5/2 NOTE_ON_55 DURATION_5/4 VELOCITY_75\nTRACK_keys TIME_5/2 NOTE_ON_58 DURATION_5/4 VELOCITY_76\nTRACK_keys TIME_5/2 NOTE_ON_66 DURATION_5/4 VELOCITY_78\nTRACK_keys TIME_15/4 NOTE_ON_52 DURATION_5/4 VELOCITY_77\nTRACK_keys TIME_15/4 NOTE_ON_57 DURATION_5/4 VELOCITY_75\nTRACK_keys TIME_15/4 NOTE_ON_60 DURATION_5/4 VELOCITY_76\nTRACK_keys TIME_15/4 NOTE_ON_68 DURATION_5/4 VELOCITY_78",
+      "response_payload_bytes": 891,
+      "response_payload_sha256": "d6d3a1b89141ee3c4c3bc6889ac530e22414c7bb02b8983b7b13a20a23fea40c",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "e3e9d6f5997716282d5cb96400b2135f689aaef63a80ee6835320c05da3a57c5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 564,
+        "output_tokens": 1061,
+        "thinking_tokens": 625
+      },
+      "validation": {
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": false,
+          "range": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00443625,
+        "total": 0.00486,
+        "uncached_input": 0.00042375
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 5100.915,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1490,
+      "prompt_sha256": "23e835e3e3fa51c2a7333cb8c87d058a8374e056e7788493ff743204becaf53c",
+      "raw_response_sha256": "da70ed6d5f64f34318086f27f7fd5099ca4b69538f5290a423579d414f7c44f8",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_keys TIME_0 NOTE_ON_57 DURATION_5/4 VELOCITY_76\nTRACK_keys TIME_0 NOTE_ON_61 DURATION_5/4 VELOCITY_77\nTRACK_keys TIME_0 NOTE_ON_65 DURATION_5/4 VELOCITY_78\nTRACK_keys TIME_0 NOTE_ON_66 DURATION_5/4 VELOCITY_75\nTRACK_keys TIME_5/4 NOTE_ON_59 DURATION_5/4 VELOCITY_76\nTRACK_keys TIME_5/4 NOTE_ON_63 DURATION_5/4 VELOCITY_77\nTRACK_keys TIME_5/4 NOTE_ON_67 DURATION_5/4 VELOCITY_78\nTRACK_keys TIME_5/4 NOTE_ON_68 DURATION_5/4 VELOCITY_75\nTRACK_keys TIME_5/2 NOTE_ON_61 DURATION_5/4 VELOCITY_76\nTRACK_keys TIME_5/2 NOTE_ON_65 DURATION_5/4 VELOCITY_77\nTRACK_keys TIME_5/2 NOTE_ON_69 DURATION_5/4 VELOCITY_78\nTRACK_keys TIME_5/2 NOTE_ON_70 DURATION_5/4 VELOCITY_75\nTRACK_keys TIME_15/4 NOTE_ON_63 DURATION_5/4 VELOCITY_76\nTRACK_keys TIME_15/4 NOTE_ON_67 DURATION_5/4 VELOCITY_77\nTRACK_keys TIME_15/4 NOTE_ON_71 DURATION_5/4 VELOCITY_78\nTRACK_keys TIME_15/4 NOTE_ON_72 DURATION_5/4 VELOCITY_75",
+      "response_payload_bytes": 891,
+      "response_payload_sha256": "f6c1b488cb952918db069a42099350fdc4cb8029b1fed6a1982d58fd3edd8816",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "d3053705ba8bc843466d4d3892aea8791d7f8dcaff86289567909cc78c00afea",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 565,
+        "output_tokens": 1183,
+        "thinking_tokens": 747
+      },
+      "validation": {
+        "checks": {
+          "harmony_preserved": true,
+          "named_voicing": false,
+          "range": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": false,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00219,
+        "total": 0.0024945,
+        "uncached_input": 0.0003045
+      },
+      "family": "transformation-rhythm",
+      "latency_ms": 2816.221,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1137,
+      "prompt_sha256": "319c9b18f67b4e7590607bf0fdf60cbd7eb43a94f426f7638584cea37d95a216",
+      "raw_response_sha256": "7d63a3f3196eae5b4feff5b61c5e88006e00fcaf0854225b612e49cd9b57531f",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_perc TIME_0 NOTE_ON_50 DURATION_1/5 VELOCITY_78\nTRACK_perc TIME_1/2 NOTE_ON_51 DURATION_1/5 VELOCITY_79\nTRACK_perc TIME_4/5 NOTE_ON_52 DURATION_1/5 VELOCITY_80\nTRACK_perc TIME_13/10 NOTE_ON_53 DURATION_1/5 VELOCITY_81\nTRACK_perc TIME_8/5 NOTE_ON_54 DURATION_1/5 VELOCITY_82\nTRACK_perc TIME_21/10 NOTE_ON_50 DURATION_1/5 VELOCITY_83\nTRACK_perc TIME_12/5 NOTE_ON_51 DURATION_1/5 VELOCITY_84\nTRACK_perc TIME_29/10 NOTE_ON_52 DURATION_1/5 VELOCITY_85\nTRACK_perc TIME_16/5 NOTE_ON_53 DURATION_1/5 VELOCITY_86\nTRACK_perc TIME_37/10 NOTE_ON_54 DURATION_1/5 VELOCITY_87",
+      "response_payload_bytes": 567,
+      "response_payload_sha256": "f14678b4558c78e3e1e1c1ed66dfade1f541e3098aabda13311e4cf2b6ce0e85",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "sentinel": false,
+      "stop_reason": "STOP",
+      "task_sha256": "c6f55964038e6aeeb4fa7b0366925c65102ef41e78728fbee25644cabae7db0b",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 406,
+        "output_tokens": 584,
+        "thinking_tokens": 298
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "failure_class": null,
+        "failure_eligibility": {
+          "explicit-score-ledger-disagreement": false,
+          "missing-or-invalid-side-ledger": false,
+          "native-score-parse-failure": false,
+          "other-output-or-patch-parse-failure": true
+        },
+        "musical_pass": true,
+        "parse_stages": {
+          "alignment": false,
+          "native_score": true,
+          "side_ledger": false
+        },
+        "syntax_pass": true
+      },
+      "variant": 0
+    }
+  ],
+  "run_id": "phase8c2-targeted-holdout-r1",
+  "run_kind": "targeted-holdout-provider",
+  "schema": "ghostnote-compact-format-targeted-holdout-v2",
+  "screen_sha256": "bf5487bc9efb42fe3592af8584d2a143a7cf1d19837f7270e431735063615b92",
+  "settings": {
+    "max_output_tokens": 3000,
+    "thinking_level": "low"
+  }
+}
