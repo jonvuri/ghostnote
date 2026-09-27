@@ -1,13 +1,13 @@
 ---
 title: Phase 8c3 — Full symbolic-format matrix
 kind: plan
-state: active
-status: Freeze a fresh full matrix with tuple JSON and MIDI integers before provider calls.
+state: complete
+status: The full matrix blocks both candidates and keeps Phase 8f blocked.
 updated: 2026-09-27
 parent: README.md
 prev: 8c2-3-compact-json-factorial-and-native-decision.md
-next: 8f-consolidated-compact-bar-and-cache-contracts.md
-evidence: E137, E140, E152; D21, D23
+next: 8c4a-benchmark-contract-repair.md
+evidence: E137, E140, E152, E153, E154, E155; D21, D23
 ---
 
 # Phase 8c3 — Full symbolic-format matrix
@@ -24,10 +24,15 @@ fixture. Do not tune a candidate during this session.
 
 ## Current checkpoint
 
-[E152](../../evidence/experiments/e152-tuple-json-midi-passes-targeted-holdout.md)
-satisfies the entry condition. Use `tuple-json-midi` as the selected complete
-representation. Keep its grammar, renderer, parser, prompts, and scorer
-unchanged. No Phase 8c3 provider run is planned or approved yet.
+[E155](../../evidence/experiments/e155-full-symbolic-matrix-blocks-phase-8f.md)
+records the retained full matrix. Exact-object JSON fails 16 paired gates.
+Tuple JSON fails 30. Gemini is incomplete because two responses reached the
+output limit. OpenAI and Claude independently fail both candidates. The frozen
+decision is `block`, no candidate is selected, and Phase 8f stays blocked.
+
+Post-run diagnostics do not change this decision. They motivate the new
+[Phase 8c4 recovery sequence](8c4a-benchmark-contract-repair.md), which uses
+new contracts, packages, and cohorts.
 
 ## Entry conditions
 

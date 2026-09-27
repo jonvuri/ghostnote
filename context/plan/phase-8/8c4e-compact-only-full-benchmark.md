@@ -1,0 +1,83 @@
+---
+title: Phase 8c4e — Compact-only full benchmark
+kind: plan
+state: planned
+status: Run the frozen compact-bar candidate across the full task suite before deciding whether a new full matrix is worth its cost.
+updated: 2026-09-27
+parent: README.md
+prev: 8c4d-compact-bar-targeted-holdout.md
+next: 8c4f-full-matrix-decision.md
+evidence: E137, E140, E155; D21, D23
+---
+
+# Phase 8c4e — Compact-only full benchmark
+
+## Purpose
+
+Measure the frozen compact-bar candidate across the complete benchmark at the
+lowest useful provider cost. Use this result to decide whether a fresh full
+matrix is worth running.
+
+This session does not claim a paired format advantage. The Phase 8c3 matrix
+can provide historical context only because its fixtures and task contracts
+are different.
+
+## Entry conditions
+
+- Phase 8c4d returns `select-compact`.
+- The candidate, prompts, scorers, parser, and repair policy remain frozen.
+- A new full-suite cohort has no semantic overlap with any earlier
+  provider-bearing cohort.
+- Absolute gates and the matrix-value rule are frozen before calls.
+- The operator approves the exact calls and provider cost.
+
+## Run scope
+
+Run only the selected compact candidate on OpenAI, Gemini, and Claude. Cover
+all nine Phase 8c3 task families and the required repeated-prompt sentinels.
+Use the repaired task contracts.
+
+Report initial musical success, component results, syntax, completion,
+repair recovery, output size, token use, latency, nondeterminism, and cost.
+Treat output-limit and unavailable results as unavailable, not musical
+failures.
+
+## Absolute and matrix-value decisions
+
+Freeze absolute provider and family thresholds from calibration, development,
+holdout, and the unmodified Phase 8c3 compact diagnostic. Do not derive a
+threshold after seeing this run.
+
+Return one evidence result:
+
+- `matrix-plausible`: compact passes every absolute gate and has no unresolved
+  recurring provider-family defect;
+- `revise`: compact misses a bounded gate that justifies a new plan and new
+  cohorts; or
+- `stop`: compact does not justify a fresh full matrix or Phase 8f.
+
+For `matrix-plausible`, prepare the exact fresh-matrix scope, calls, model
+settings, expected cost by provider, hashes, paired gates, and stopping rule.
+Do not make matrix calls in this session.
+
+## Historical comparison limit
+
+Compare this run with Phase 8c3 only as a directional diagnostic. Clearly
+identify changes in fixtures, task contracts, arms, and denominators. Do not
+call the historical comparison paired, and do not use it to estimate a causal
+format delta.
+
+## Acceptance criteria
+
+- The full cohort is fresh and frozen before calls.
+- The candidate matches the targeted-holdout hash.
+- Every full-suite family runs on all approved providers.
+- Absolute thresholds and the matrix-value rule were fixed before calls.
+- Initial and repaired results stay separate.
+- The report gives enough cost and effect information for an operator matrix
+  decision without assuming that the matrix will run.
+
+## Retrospective target
+
+Record whether the targeted suite predicted the full compact-only result and
+whether any remaining uncertainty can change the product decision.

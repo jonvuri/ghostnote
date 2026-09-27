@@ -4,46 +4,49 @@ kind: status
 state: active
 updated: 2026-09-27
 phase: phase-8-agent-native-live-engine
-session: phase8c3-full-symbolic-format-matrix
+session: phase8c4a-benchmark-contract-repair
 ---
 
 # Now
 
-Continue
-[Phase 8c3](plan/phase-8/8c3-full-symbolic-format-matrix.md). Phase 8c2.3 is
-complete. No Phase 8c3 provider run is planned or approved.
+Complete
+[Phase 8c4a](plan/phase-8/8c4a-benchmark-contract-repair.md). Repair the
+affected benchmark contracts and freeze the new compact-bar recovery package.
+Make no provider call in this session.
 
 ## Starting point
 
-[E152](evidence/experiments/e152-tuple-json-midi-passes-targeted-holdout.md)
-records the completed 180-call targeted holdout. It returned
-`select-for-phase8c3`. The recorded cost is USD 4.173729, which is USD
-0.290905 below the estimate. No call had a transport error, retry, or
-output-limit stop.
+[E155](evidence/experiments/e155-full-symbolic-matrix-blocks-phase-8f.md)
+records the Phase 8c3 `block`. A post-run review finds that positional
+compact-bar v1 is the strongest musical direction, but analysis, motif, and
+progression have benchmark contract defects. The retained cohort is diagnostic
+only. Do not tune against it or reuse its fixtures.
 
-Tuple JSON with MIDI integers passed on OpenAI and Claude. Exact-object
-pitch-class/register passed only on Gemini and is rejected. Exact-object MIDI
-remains the full-capability fallback. Native MIDI-like did not enter holdout.
-
-The selected tuple representation keeps full document fidelity, stable
-identity, exact omitted-field preservation, sparse patches, base conflict
-checks, and one canonical MIDI pitch encoding. Do not revise it from holdout
-responses.
+The recovery sequence keeps positional compact-bar v1 as a control. It tests
+one minimal candidate that adds `FIELDS id voice start duration pitch
+velocity`. Exact-object JSON remains the structured task control. Full
+hierarchy, repeated labels, grouping, pitch-class/register, and side ledgers
+stay closed.
 
 ## Immediate work
 
-1. Build a fresh Phase 8c3 retained cohort with no overlap with prior
-   provider-bearing fixtures.
-2. Add unchanged tuple JSON with MIDI integers to the full comparison matrix.
-3. Freeze the sample rule, paired decision rule, syntax and capability gates,
-   provider scope, settings, cost estimate, and stopping rule.
-4. Run all deterministic checks before requesting provider approval.
-5. Make no provider call until the exact Phase 8c3 plan is approved.
+1. Create a new versioned benchmark package. Keep all earlier packages and
+   provider responses frozen.
+2. Repair the analysis, motif, progression, multiline-output, and unavailable-
+   result contracts. Add task-to-scorer and mutation tests.
+3. Implement positional v1, the one-header `FIELDS` candidate, and the
+   exact-object control.
+4. Prove deterministic document and patch capabilities. Keep structural
+   metadata optional and keep one note plane.
+5. Generate disjoint calibration, development, and holdout cohorts. Freeze the
+   calibration protocol, hashes, gates, calls, and provider costs.
+6. Stop at the Phase 8c4b approval boundary.
 
-Phase 8f remains blocked. Do not change the cache, the stable `normal-v1`
-runtime, or a live Bitwig project.
+Phase 8f remains blocked. Do not call a provider, change the cache, change the
+stable `normal-v1` runtime, or mutate a live Bitwig project.
 
 ## Retrospective
 
-The two-provider gate rejected a strong pitch result that appeared only on
-Gemini. The higher Claude token limit removed the development truncations.
+Define every task operation with only its relevant parameters. Hidden scorer
+rules and irrelevant fields caused several apparent format losses in Phase
+8c3.

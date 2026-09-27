@@ -85,6 +85,19 @@ Do not rerun it into the retained filenames. Use a new protocol and cohort for
 each Phase 8c2 development iteration and its targeted holdout. Use another new
 protocol and cohort for the Phase 8c3 full matrix.
 
+Run the frozen Phase 8c3 offline checks from `brain`:
+
+```sh
+python3 -B benchmarks/symbolic-format-v2/benchmark.py --self-test
+python3 -B benchmarks/symbolic-format-v2/benchmark.py \
+  --check benchmarks/symbolic-format-v2/expected-deterministic.json
+node benchmarks/symbolic-format-v2/tonal-verifier.mjs
+```
+
+The Phase 8c3 package has a separate retained cohort and protocol. [E155](../experiments/e155-full-symbolic-matrix-blocks-phase-8f.md)
+records the retained result. It is `block`, and it selects no full-capability
+candidate.
+
 Before each provider-bearing Phase 8c2 or 8c3 run, record its exact scope,
 expected calls, model settings, and estimated cost by provider and in total.
 Get explicit operator approval for that named run. The former USD 5 soft

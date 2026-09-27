@@ -2,20 +2,26 @@
 title: Phase 8f — Consolidated compact-bar and cache contracts
 kind: plan
 state: planned
-status: Settle the public musical document and internal cache boundary from the measured evidence.
+status: Blocked until Phase 8c4f records the final compact-bar evidence decision.
 updated: 2026-09-27
 parent: README.md
-prev: 8c3-full-symbolic-format-matrix.md
+prev: 8c4f-full-matrix-decision.md
 next: 8g-shadow-project-cache.md
 evidence: E109, E114-E121, E128-E140; D21, D23
 ---
 
 # Phase 8f — Consolidated compact-bar and cache contracts
 
-Phase 8f is blocked until Phase 8c3 gives a `proceed` decision from the fresh
-full symbolic-format matrix. A Phase 8c2, 8c2.2, or 8c2.3 development or
-holdout result is not sufficient to freeze a public syntax. E140's `revise`
-result is also not sufficient.
+Phase 8f is blocked until
+[Phase 8c4f](8c4f-full-matrix-decision.md) records one of these decisions:
+
+- a fresh full matrix returns `proceed`; or
+- the operator explicitly proceeds without that matrix and accepts the stated
+  evidence limit after a passing compact-only full benchmark.
+
+A Phase 8c4 development or holdout result alone is not sufficient to freeze a
+public syntax. If the matrix is skipped, Phase 8f must not claim that compact
+beat the Phase 8c3 arms on paired fresh evidence.
 
 ## Purpose
 

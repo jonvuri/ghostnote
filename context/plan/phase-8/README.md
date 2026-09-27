@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Run the fresh full matrix with tuple JSON and MIDI integers.
+status: Run the Phase 8c4 compact-bar recovery sequence before public contract work.
 updated: 2026-09-27
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -116,17 +116,36 @@ owns the migration details.
    qualify. [E152](../../evidence/experiments/e152-tuple-json-midi-passes-targeted-holdout.md)
    records `select-for-phase8c3` for tuple JSON with MIDI integers.
 10. [8c3 — Full symbolic-format matrix](8c3-full-symbolic-format-matrix.md).
-   Active. Run a fresh full matrix with tuple JSON and MIDI integers. Keep
-   Phase 8f blocked until this session gives a `proceed` decision.
-11. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+   Complete. [E155](../../evidence/experiments/e155-full-symbolic-matrix-blocks-phase-8f.md)
+   records `block`. Neither full-capability candidate passes the frozen gates.
+   No candidate enters Phase 8f.
+11. [8c4a — Benchmark contract repair](8c4a-benchmark-contract-repair.md).
+   Repair the affected analysis, motif, progression, framing, and output-state
+   contracts. Build the new offline package and freeze calibration.
+12. [8c4b — Focused compact-bar calibration](8c4b-focused-compact-calibration.md).
+   Prove that the repaired tasks can resolve format effects. Calibration cannot
+   select a format.
+13. [8c4c — Compact-bar paired development](8c4c-compact-bar-paired-development.md).
+   Compare positional compact-bar v1 with one minimal `FIELDS` candidate on
+   fresh paired fixtures.
+14. [8c4d — Compact-bar targeted holdout](8c4d-compact-bar-targeted-holdout.md).
+   Test the frozen development candidate on a disjoint affected-family and
+   guard holdout.
+15. [8c4e — Compact-only full benchmark](8c4e-compact-only-full-benchmark.md).
+   Run the selected compact candidate across the full task suite before buying
+   another full matrix.
+16. [8c4f — Full-matrix decision and optional rerun](8c4f-full-matrix-decision.md).
+   Let the operator approve the fresh matrix, proceed with an explicit evidence
+   limit, or stop.
+17. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
-12. [8g — Shadow project cache](8g-shadow-project-cache.md).
+18. [8g — Shadow project cache](8g-shadow-project-cache.md).
    Implement the cache behind an experimental boundary while E131 remains
    authoritative.
-13. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
+19. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Promote proved cache reads in stages and apply the selected tool and
    verification reductions.
-14. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+20. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

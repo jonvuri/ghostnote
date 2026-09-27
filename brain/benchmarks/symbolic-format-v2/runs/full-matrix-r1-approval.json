@@ -1,0 +1,8 @@
+{
+  "approved": false,
+  "note": "The approved run is complete. No further provider calls are authorized.",
+  "operator_statement": null,
+  "run_id": "phase8c3-full-symbolic-format-matrix-r1",
+  "run_plan_sha256": "ce64fa24bf58912d02dada257a0576418b7ec0a22adb031641d4991898ae23eb",
+  "schema": "ghostnote-symbolic-format-approval-v2"
+}
