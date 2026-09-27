@@ -1,0 +1,8 @@
+{
+  "corpus_sha256": "dd87fb7df5aebc4515f2bc5f3ed72ab029914f02d59d95de9cefefd35a0027b1",
+  "protocol_sha256": "b74a1793406bfee7e5143ca9673a7de82e1a7573e429e291f2e3fbc5846a4c26",
+  "run_plan_sha256": "cdd26d8daad166f1329dcf66571ab2aec71804e190b12204d9f173ceca5771e7",
+  "schema": "ghostnote-compact-format-calibration-v3",
+  "screen_sha256": "53e7e6a8a58cf7fbdc2aea6890290b0e4ca64535eebe3a2d5ec931485aab8381",
+  "sha256": "ae57e2ef3b0e326e7ba1ec4313359053e10bdcfdb28d96726358446b6916734b"
+}

@@ -2,10 +2,10 @@
 title: Phase 8c3 — Full symbolic-format matrix
 kind: plan
 state: planned
-status: Run a fresh full matrix with the compact candidates selected by Phase 8c2.2.
+status: Run a fresh full matrix with the representation or representations selected by Phase 8c2.3.
 updated: 2026-09-27
 parent: README.md
-prev: 8c2-2-measurement-repair-and-grouped-compact-iteration.md
+prev: 8c2-3-compact-json-factorial-and-native-decision.md
 next: 8f-consolidated-compact-bar-and-cache-contracts.md
 evidence: E137, E140; D21, D23
 ---
@@ -14,18 +14,18 @@ evidence: E137, E140; D21, D23
 
 ## Purpose
 
-Run the fresh retained symbolic-format comparison after Phase 8c2.2 selects one
-or more compact candidates. Use the complete task matrix to decide whether the
-selected compact direction can proceed to the public contract work in Phase
-8f.
+Run the fresh retained symbolic-format comparison after Phase 8c2.3 selects
+one or more agent-facing representations. Use the complete task matrix to
+decide whether the selected direction can proceed to public contract work in
+Phase 8f.
 
-Do not use the Phase 8c2 or Phase 8c2.2 calibration, development, or holdout
-fixtures. Do not tune a compact candidate during this session.
+Do not use a Phase 8c2, 8c2.2, or 8c2.3 calibration, development, or holdout
+fixture. Do not tune a candidate during this session.
 
 ## Entry conditions
 
-- Phase 8c2.2 records a passing fresh targeted holdout.
-- It names the exact compact candidate versions for the full matrix.
+- Phase 8c2.3 records a passing fresh targeted holdout.
+- It names the exact candidate versions and product roles for the full matrix.
 - All candidate grammars, renderers, parsers, prompts, and scorers are frozen.
 - The full-matrix cohort and decision rule are new and frozen before provider
   calls.
@@ -34,9 +34,8 @@ fixtures. Do not tune a compact candidate during this session.
 
 Use all nine Phase 8c1 task families, repeated-prompt sentinels, exact JSON,
 one-cycle mini-notation, and the native and composite notation and model-token
-controls. Add every compact candidate selected by Phase 8c2.2. Include
-compact-bar v1 only when it has a named decision purpose and its cost is
-approved.
+controls. Add every candidate selected by Phase 8c2.3. Include compact-bar v1
+only when it has a named decision purpose and its cost is approved.
 
 Run OpenAI, Gemini, and Claude with matched settings. Use the same semantic
 fixture for every eligible arm. Keep musical success, syntax, identity,
@@ -67,11 +66,11 @@ before pooled totals.
 
 Return one decision:
 
-- `proceed`: one or more compact candidates pass all frozen gates and can enter
-  Phase 8f;
+- `proceed`: one or more candidates pass all frozen gates and can enter Phase
+  8f;
 - `revise`: the result supports another bounded development session, but the
   retained cohort cannot be reused for tuning; or
-- `block`: no compact candidate supports the current contract direction.
+- `block`: no candidate supports the current contract direction.
 
 If the decision is not `proceed`, keep Phase 8f blocked. Do not revise a format
 against the retained cohort.
@@ -88,9 +87,10 @@ against the retained cohort.
 
 ## Acceptance criteria
 
-- No Phase 8c1 retained, Phase 8c2 development or holdout, or Phase 8c2.2
-  calibration, development, or holdout output is a fixture.
-- Every compact candidate is unchanged from the passing Phase 8c2.2 holdout.
+- No Phase 8c1 retained, Phase 8c2 development or holdout, Phase 8c2.2
+  calibration or development, or Phase 8c2.3 calibration, development, or
+  holdout output is a fixture.
+- Every candidate is unchanged from the passing Phase 8c2.3 holdout.
 - All retained arms pass deterministic capability checks before provider calls.
 - Every provider-bearing run has a prior named cost estimate and explicit
   operator approval.
@@ -105,7 +105,7 @@ against the retained cohort.
 
 ## Out of scope
 
-- Further compact-format development.
+- Further representation development.
 - Freezing the public compact-bar contract.
 - Changing the cache contract or live Bitwig state.
 - Fine-tuning or training a provider model.
@@ -113,6 +113,6 @@ against the retained cohort.
 
 ## Retrospective target
 
-Record whether the focused Phase 8c2.2 suite predicted the full matrix. Record
+Record whether the focused Phase 8c2.3 suite predicted the full matrix. Record
 whether any decision-critical result depended on one provider or one task
 family.

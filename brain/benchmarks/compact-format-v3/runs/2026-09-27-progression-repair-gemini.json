@@ -1,0 +1,918 @@
+{
+  "actual_cost_usd": 0.071462,
+  "approval": {
+    "approved_at": "2026-09-27",
+    "approved_scope": {
+      "providers": {
+        "claude": {
+          "calls": 20,
+          "estimated_cost_usd": 0.40846
+        },
+        "gemini": {
+          "calls": 20,
+          "estimated_cost_usd": 0.073372
+        },
+        "openai": {
+          "calls": 20,
+          "estimated_cost_usd": 0.115476
+        }
+      },
+      "total_calls": 60,
+      "total_estimated_cost_usd": 0.597308
+    },
+    "operator_statement": "Understood. Proceed as planned; I approve this exact run.",
+    "protocol_sha256": "31693cf6c5f4b5d2141bbe22796886be7c036c3461ee4be6a62c2332a83e2327",
+    "run_id": "phase8c2-2-progression-repair-calibration-r2",
+    "run_plan_sha256": "4b96befe3dfd8111aef5d05ec705200284d85a5385551f1f73de00b1c285e6c3",
+    "status": "approved"
+  },
+  "client": "Python urllib.request direct HTTPS",
+  "complete": true,
+  "manifest_sha256": "346e2cbab8f411e0a5127fe0a7bb8a391f54f0742688eb9b1671ac15958a374c",
+  "platform": "Darwin 24.6.0 arm64",
+  "privacy": "Send generated MIT symbolic text only. Do not send live project data, MIDI files, audio, or API keys.",
+  "protocol_sha256": "31693cf6c5f4b5d2141bbe22796886be7c036c3461ee4be6a62c2332a83e2327",
+  "provider": "gemini",
+  "python": "3.14.6",
+  "raw_run_sha256": "c0c67f51ad2fffe25be53e699e24878a3cc8758f2f3888c7dea8cda85e3b6790",
+  "repairs": [],
+  "requested_model": "gemini-3.8-flash",
+  "results": [
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00719625,
+        "total": 0.0074385,
+        "uncached_input": 0.00024225
+      },
+      "family": "generation-progression",
+      "latency_ms": 8295.65,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1053,
+      "prompt_sha256": "df77f17a095d7efa551634365eea325f6837a7557369641fa7265de8a1831a82",
+      "raw_response_sha256": "3bbe41232fe42ecbcb017cca3fe339155898ccc5020e7eca7cb2291e8ec089bd",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N n1 bass 0 5/4 43 80\nN n2 tenor 0 5/4 59 80\nN n3 alto 0 5/4 62 80\nN n4 soprano 0 5/4 67 80\nN n5 bass 5/4 5/4 48 80\nN n6 tenor 5/4 5/4 60 80\nN n7 alto 5/4 5/4 64 80\nN n8 soprano 5/4 5/4 67 80\nN n9 bass 5/2 5/4 50 80\nN n10 tenor 5/2 5/4 57 80\nN n11 alto 5/2 5/4 62 80\nN n12 soprano 5/2 5/4 66 80\nN n13 bass 15/4 5/4 43 80\nN n14 tenor 15/4 5/4 59 80\nN n15 alto 15/4 5/4 62 80\nN n16 soprano 15/4 5/4 67 80",
+      "response_payload_bytes": 402,
+      "response_payload_sha256": "8d5dbe27495972f0da62c1dc63cae2cfea1a99795ddb2783d0dd7cf6fe1fd645",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "STOP",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 323,
+        "output_tokens": 1919,
+        "thinking_tokens": 1594
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00124125,
+        "total": 0.00148275,
+        "uncached_input": 0.0002415
+      },
+      "family": "generation-progression",
+      "latency_ms": 2443.628,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1052,
+      "prompt_sha256": "36d28a5ae9e3cbb0a8740456717204a4dc290bde556d60b39169e9469e97f76a",
+      "raw_response_sha256": "b04c59ef72d5c08b0c36a54a07f6bf827a1d19a319e6efd10139fb46d3a0c9ef",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N n1 bass 0 5/4 48 80\nN n2 tenor 0 5/4 60 80\nN n3 alto 0 5/4 64 80\nN n4 soprano 0 5/4 67 80\nN n5 bass 5/4 5/4 41 80\nN n6 tenor 5/4 5/4 57 80\nN n7 alto 5/4 5/4 60 80\nN n8 soprano 5/4 5/4 69 80\nN n9 bass 5/2 5/4 43 80\nN n10 tenor 5/2 5/4 59 80\nN n11 alto 5/2 5/4 62 80\nN n12 soprano 5/2 5/4 67 80\nN n13 bass 15/4 5/4 36 80\nN n14 tenor 15/4 5/4 60 80\nN n15 alto 15/4 5/4 64 80\nN n16 soprano 15/4 5/4 72 80",
+      "response_payload_bytes": 402,
+      "response_payload_sha256": "684e1e0805a1b1ecffa18d3d47967f0af1a8e07ebc7b3a462b16cb279b354b00",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "STOP",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 322,
+        "output_tokens": 331,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00994875,
+        "total": 0.010191,
+        "uncached_input": 0.00024225
+      },
+      "family": "generation-progression",
+      "latency_ms": 10701.037,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1053,
+      "prompt_sha256": "28c2aa6246867b1952752f704f1ed036803f6af54de4a3a1d4ba2365f1b06c95",
+      "raw_response_sha256": "632598cb38c4fcf13db66ea9222065b813b9cb496f8d34b712ab1b1980059594",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N n1 bass 0 5/4 41 80\nN n2 tenor 0 5/4 57 80\nN n3 alto 0 5/4 60 80\nN n4 soprano 0 5/4 65 80\nN n5 bass 5/4 5/4 46 80\nN n6 tenor 5/4 5/4 58 80\nN n7 alto 5/4 5/4 62 80\nN n8 soprano 5/4 5/4 65 80\nN n9 bass 5/2 5/4 48 80\nN n10 tenor 5/2 5/4 55 80\nN n11 alto 5/2 5/4 64 80\nN n12 soprano 5/2 5/4 67 80\nN n13 bass 15/4 5/4 41 80\nN n14 tenor 15/4 5/4 57 80\nN n15 alto 15/4 5/4 60 80\nN n16 soprano 15/4 5/4 65 80",
+      "response_payload_bytes": 402,
+      "response_payload_sha256": "57f88773c8ff0ef4925e58604fc7fcd0003adf632ab9015c5b3eb93f34be42c0",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "STOP",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 323,
+        "output_tokens": 2653,
+        "thinking_tokens": 2322
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00924,
+        "total": 0.00948525,
+        "uncached_input": 0.00024525
+      },
+      "family": "generation-progression",
+      "latency_ms": 8998.426,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1057,
+      "prompt_sha256": "ea05a2b03e04f720eaedb3feece79732e087f922ce64fc1bd37fd436750ec1a5",
+      "raw_response_sha256": "0a70b9a55a7645f7f8780e6086e007cf397c239eddaf1bfe24bd6d16323298b2",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N n1 bass 0 5/4 46 80\nN n2 tenor 0 5/4 53 80\nN n3 alto 0 5/4 62 80\nN n4 soprano 0 5/4 70 80\nN n5 bass 5/4 5/4 51 80\nN n6 tenor 5/4 5/4 55 80\nN n7 alto 5/4 5/4 63 80\nN n8 soprano 5/4 5/4 70 80\nN n9 bass 5/2 5/4 53 80\nN n10 tenor 5/2 5/4 57 80\nN n11 alto 5/2 5/4 60 80\nN n12 soprano 5/2 5/4 69 80\nN n13 bass 15/4 5/4 46 80\nN n14 tenor 15/4 5/4 53 80\nN n15 alto 15/4 5/4 62 80\nN n16 soprano 15/4 5/4 70 80",
+      "response_payload_bytes": 402,
+      "response_payload_sha256": "85edd6343f1ed2b74552bfb8c738428a23d2ac153c88510b2c107adbb5d139b8",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "STOP",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 327,
+        "output_tokens": 2464,
+        "thinking_tokens": 2139
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 3
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00243375,
+        "total": 0.0027345,
+        "uncached_input": 0.00030075
+      },
+      "family": "generation-progression",
+      "latency_ms": 3361.716,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1366,
+      "prompt_sha256": "3ac497550c2d96b40ad7ca5f5aae3ec3b22d1fa24e756c3f28b08fe7ab499bb1",
+      "raw_response_sha256": "0fd7f46003d22b42ead57921b65da9342526880b4758728420bded3bd89487fa",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"score_realization\",\"hash\":\"cadence_5_4\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3},{\"number\":4}],\"tracks\":[{\"id\":\"soprano\"},{\"id\":\"alto\"},{\"id\":\"tenor\"},{\"id\":\"bass\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":43,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":59,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":67,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":48,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":64,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":67,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":50,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":57,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":66,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":43,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":59,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":67,\"velocity\":80}]}",
+      "response_payload_bytes": 1664,
+      "response_payload_sha256": "f1291c01e9d43df855a528858a0b6ca1360ee094f619b1d46aa2ec4a612642d8",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "STOP",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 401,
+        "output_tokens": 649,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00237375,
+        "total": 0.00267375,
+        "uncached_input": 0.0003
+      },
+      "family": "generation-progression",
+      "latency_ms": 3553.615,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1365,
+      "prompt_sha256": "6b645e6578d62dee44cd73b09313a713ada154f387123a2fab75f9edfdc81f35",
+      "raw_response_sha256": "c56dd2a6e678b5abb6da2729d48037360e91bc94a902f411279eb3ce9daa1009",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"score_realization\",\"tempo\":120,\"timeSignature\":[5,4],\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3},{\"number\":4}],\"tracks\":[{\"id\":\"soprano\"},{\"id\":\"alto\"},{\"id\":\"tenor\"},{\"id\":\"bass\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"b1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":48,\"velocity\":80},{\"id\":\"t1\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":80},{\"id\":\"a1\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":64,\"velocity\":80},{\"id\":\"s1\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":67,\"velocity\":80},{\"id\":\"b2\",\"voice\":\"bass\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":41,\"velocity\":80},{\"id\":\"t2\",\"voice\":\"tenor\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":57,\"velocity\":80},{\"id\":\"a2\",\"voice\":\"alto\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":65,\"velocity\":80},{\"id\":\"s2\",\"voice\":\"soprano\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":69,\"velocity\":80},{\"id\":\"b3\",\"voice\":\"bass\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":43,\"velocity\":80},{\"id\":\"t3\",\"voice\":\"tenor\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":59,\"velocity\":80},{\"id\":\"a3\",\"voice\":\"alto\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":80},{\"id\":\"s3\",\"voice\":\"soprano\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":71,\"velocity\":80},{\"id\":\"b4\",\"voice\":\"bass\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":48,\"velocity\":80},{\"id\":\"t4\",\"voice\":\"tenor\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":80},{\"id\":\"a4\",\"voice\":\"alto\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":64,\"velocity\":80},{\"id\":\"s4\",\"voice\":\"soprano\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":72,\"velocity\":80}]}",
+      "response_payload_bytes": 1638,
+      "response_payload_sha256": "8f6e79cc7696d58d7cd5dc9d7dac29fc503f575e74b200f3889701dae185de91",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "STOP",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 400,
+        "output_tokens": 633,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00244125,
+        "total": 0.002742,
+        "uncached_input": 0.00030075
+      },
+      "family": "generation-progression",
+      "latency_ms": 3646.424,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1366,
+      "prompt_sha256": "e835f19a29b7d47d15ae72f0b12fc1b538d834aaeb64855369137b1f986ad9c5",
+      "raw_response_sha256": "ed596a530596bd0b0fbcb9830a0a601d4bc7a389c1dfe978e02c43677c30339f",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"score_realization\",\"hash\":\"four_chord_progression_1\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3},{\"number\":4}],\"tracks\":[{\"id\":\"soprano\"},{\"id\":\"alto\"},{\"id\":\"tenor\"},{\"id\":\"bass\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":41,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":57,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":69,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":46,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":58,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":65,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":48,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":55,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":64,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":41,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":57,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":65,\"velocity\":80}]}",
+      "response_payload_bytes": 1677,
+      "response_payload_sha256": "984a1966f5fb2479b01e8178abc9bef423008d5d0b8a9906b315e2a375392f01",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "STOP",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 401,
+        "output_tokens": 651,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00250875,
+        "total": 0.0028125,
+        "uncached_input": 0.00030375
+      },
+      "family": "generation-progression",
+      "latency_ms": 3776.433,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1370,
+      "prompt_sha256": "cdcc5268426e84cca098881315d8bb9a952a19c610a26a843a329684f041d9f5",
+      "raw_response_sha256": "fd77ec7a68be201d1c27aa45dbf2bcfba84a0b9a36c05b500b828bd4ed9e1ece",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"e2652b47bda465d648fdfeb4f1ab197b\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3},{\"number\":4}],\"tracks\":[{\"id\":\"soprano\"},{\"id\":\"alto\"},{\"id\":\"tenor\"},{\"id\":\"bass\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":46,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":53,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":70,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":51,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":55,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":58,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":70,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":41,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":53,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":69,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":46,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":53,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":70,\"velocity\":80}]}",
+      "response_payload_bytes": 1670,
+      "response_payload_sha256": "2f5724b727b9e446a6bedbb471a6adea4f4c9ea6738bec11a463b1c0398b3d3e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "STOP",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 405,
+        "output_tokens": 669,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 3
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0013725,
+        "total": 0.001665,
+        "uncached_input": 0.0002925
+      },
+      "family": "generation-progression",
+      "latency_ms": 2918.231,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1315,
+      "prompt_sha256": "e2e83b8f131730be25697cb608705003b7dae3bcaa3b802a493f010846d1ad2f",
+      "raw_response_sha256": "69a57daa3ba06008229a4b26f33352171c6ec7acd88ec014b64216eb6455a078",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "G START 0 DURATION 5/4\nSLOT bass ID n0 PITCH 43 VELOCITY 80\nSLOT tenor ID n1 PITCH 55 VELOCITY 80\nSLOT alto ID n2 PITCH 59 VELOCITY 80\nSLOT soprano ID n3 PITCH 62 VELOCITY 80\nEND\nG START 5/4 DURATION 5/4\nSLOT bass ID n4 PITCH 48 VELOCITY 80\nSLOT tenor ID n5 PITCH 55 VELOCITY 80\nSLOT alto ID n6 PITCH 60 VELOCITY 80\nSLOT soprano ID n7 PITCH 64 VELOCITY 80\nEND\nG START 5/2 DURATION 5/4\nSLOT bass ID n8 PITCH 50 VELOCITY 80\nSLOT tenor ID n9 PITCH 54 VELOCITY 80\nSLOT alto ID n10 PITCH 57 VELOCITY 80\nSLOT soprano ID n11 PITCH 62 VELOCITY 80\nEND\nG START 15/4 DURATION 5/4\nSLOT bass ID n12 PITCH 43 VELOCITY 80\nSLOT tenor ID n13 PITCH 55 VELOCITY 80\nSLOT alto ID n14 PITCH 59 VELOCITY 80\nSLOT soprano ID n15 PITCH 67 VELOCITY 80\nEND",
+      "response_payload_bytes": 728,
+      "response_payload_sha256": "6c4be6900dea5e6285b9d4bec6751cc7bf45553c538888b46e7fb0ce31d833e5",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "STOP",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 390,
+        "output_tokens": 366,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00137625,
+        "total": 0.001668,
+        "uncached_input": 0.00029175
+      },
+      "family": "generation-progression",
+      "latency_ms": 2634.994,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1314,
+      "prompt_sha256": "dcfffbc83ce1e52a1fe3f0b5441109dfa33765337a0d22dab8f0a0b3c0808ff2",
+      "raw_response_sha256": "fc8906e41dcdb1e3046dd897412d738a4605dcf90ddbf2b8547be5414babefdf",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "G START 0 DURATION 5/4\nSLOT bass ID n1 PITCH 48 VELOCITY 80\nSLOT tenor ID n2 PITCH 55 VELOCITY 80\nSLOT alto ID n3 PITCH 60 VELOCITY 80\nSLOT soprano ID n4 PITCH 64 VELOCITY 80\nEND\nG START 5/4 DURATION 5/4\nSLOT bass ID n5 PITCH 41 VELOCITY 80\nSLOT tenor ID n6 PITCH 53 VELOCITY 80\nSLOT alto ID n7 PITCH 57 VELOCITY 80\nSLOT soprano ID n8 PITCH 65 VELOCITY 80\nEND\nG START 5/2 DURATION 5/4\nSLOT bass ID n9 PITCH 43 VELOCITY 80\nSLOT tenor ID n10 PITCH 50 VELOCITY 80\nSLOT alto ID n11 PITCH 59 VELOCITY 80\nSLOT soprano ID n12 PITCH 62 VELOCITY 80\nEND\nG START 15/4 DURATION 5/4\nSLOT bass ID n13 PITCH 48 VELOCITY 80\nSLOT tenor ID n14 PITCH 52 VELOCITY 80\nSLOT alto ID n15 PITCH 60 VELOCITY 80\nSLOT soprano ID n16 PITCH 64 VELOCITY 80\nEND",
+      "response_payload_bytes": 729,
+      "response_payload_sha256": "8e38af8dce819f113444320c046bcf99339ab002f866e9c06be4b601226f6234",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "STOP",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 389,
+        "output_tokens": 367,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00137625,
+        "total": 0.00166875,
+        "uncached_input": 0.0002925
+      },
+      "family": "generation-progression",
+      "latency_ms": 2810.299,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1315,
+      "prompt_sha256": "b561f3fb26770d6c89e1022fe6247e8e3989b56ed633f59ae4bd9498c76717c1",
+      "raw_response_sha256": "3dffd52c6cbca044aa51d31f5d4209a38ea412e775ba87f8f3240eeee122d391",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "G START 0 DURATION 5/4\nSLOT bass ID n1 PITCH 41 VELOCITY 80\nSLOT tenor ID n2 PITCH 57 VELOCITY 80\nSLOT alto ID n3 PITCH 60 VELOCITY 80\nSLOT soprano ID n4 PITCH 69 VELOCITY 80\nEND\nG START 5/4 DURATION 5/4\nSLOT bass ID n5 PITCH 46 VELOCITY 80\nSLOT tenor ID n6 PITCH 58 VELOCITY 80\nSLOT alto ID n7 PITCH 62 VELOCITY 80\nSLOT soprano ID n8 PITCH 70 VELOCITY 80\nEND\nG START 5/2 DURATION 5/4\nSLOT bass ID n9 PITCH 48 VELOCITY 80\nSLOT tenor ID n10 PITCH 55 VELOCITY 80\nSLOT alto ID n11 PITCH 60 VELOCITY 80\nSLOT soprano ID n12 PITCH 67 VELOCITY 80\nEND\nG START 15/4 DURATION 5/4\nSLOT bass ID n13 PITCH 41 VELOCITY 80\nSLOT tenor ID n14 PITCH 57 VELOCITY 80\nSLOT alto ID n15 PITCH 60 VELOCITY 80\nSLOT soprano ID n16 PITCH 69 VELOCITY 80\nEND",
+      "response_payload_bytes": 729,
+      "response_payload_sha256": "ea9f20e1e73f3a82d098aceeb6b5845664f83b0d42ae48767e4f7b1da70b1f26",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "STOP",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 390,
+        "output_tokens": 367,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00137625,
+        "total": 0.00167175,
+        "uncached_input": 0.0002955
+      },
+      "family": "generation-progression",
+      "latency_ms": 2348.37,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1319,
+      "prompt_sha256": "126fd66a6afa63802075825f06ceb6125ea40572c5a4a7e2cc4035337b133fba",
+      "raw_response_sha256": "ba53c7c9e93b306a568ebfdb67912c37fac7c6e345be1a297e383def0852ca21",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "G START 0 DURATION 5/4\nSLOT bass ID n1 PITCH 46 VELOCITY 80\nSLOT tenor ID n2 PITCH 58 VELOCITY 80\nSLOT alto ID n3 PITCH 62 VELOCITY 80\nSLOT soprano ID n4 PITCH 65 VELOCITY 80\nEND\nG START 5/4 DURATION 5/4\nSLOT bass ID n5 PITCH 51 VELOCITY 80\nSLOT tenor ID n6 PITCH 58 VELOCITY 80\nSLOT alto ID n7 PITCH 63 VELOCITY 80\nSLOT soprano ID n8 PITCH 67 VELOCITY 80\nEND\nG START 5/2 DURATION 5/4\nSLOT bass ID n9 PITCH 53 VELOCITY 80\nSLOT tenor ID n10 PITCH 57 VELOCITY 80\nSLOT alto ID n11 PITCH 60 VELOCITY 80\nSLOT soprano ID n12 PITCH 65 VELOCITY 80\nEND\nG START 15/4 DURATION 5/4\nSLOT bass ID n13 PITCH 46 VELOCITY 80\nSLOT tenor ID n14 PITCH 58 VELOCITY 80\nSLOT alto ID n15 PITCH 62 VELOCITY 80\nSLOT soprano ID n16 PITCH 70 VELOCITY 80\nEND",
+      "response_payload_bytes": 729,
+      "response_payload_sha256": "f0a996150a619e9f0e25b53c58e3ae0212c67be11482c81ae8bdfbd808447465",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "STOP",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 394,
+        "output_tokens": 367,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 3
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00178125,
+        "total": 0.00203625,
+        "uncached_input": 0.000255
+      },
+      "family": "generation-progression",
+      "latency_ms": 3778.491,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1135,
+      "prompt_sha256": "c56f0438a82e79c97bd4ff4ebb6ed0e19088a6a9fa00764f52ca8de7bac2b6e2",
+      "raw_response_sha256": "03aba42a51eb69813cc9beae162757f9b4294dfc095ad7012ab6fb6484362739",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 5/4 PITCH 43 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 5/4 PITCH 55 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 5/4 PITCH 59 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 5/4 PITCH 62 VELOCITY 80\nN ID n5 VOICE bass START 5/4 DURATION 5/4 PITCH 48 VELOCITY 80\nN ID n6 VOICE tenor START 5/4 DURATION 5/4 PITCH 55 VELOCITY 80\nN ID n7 VOICE alto START 5/4 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n8 VOICE soprano START 5/4 DURATION 5/4 PITCH 64 VELOCITY 80\nN ID n9 VOICE bass START 5/2 DURATION 5/4 PITCH 50 VELOCITY 80\nN ID n10 VOICE tenor START 5/2 DURATION 5/4 PITCH 54 VELOCITY 80\nN ID n11 VOICE alto START 5/2 DURATION 5/4 PITCH 57 VELOCITY 80\nN ID n12 VOICE soprano START 5/2 DURATION 5/4 PITCH 62 VELOCITY 80\nN ID n13 VOICE bass START 15/4 DURATION 5/4 PITCH 43 VELOCITY 80\nN ID n14 VOICE tenor START 15/4 DURATION 5/4 PITCH 55 VELOCITY 80\nN ID n15 VOICE alto START 15/4 DURATION 5/4 PITCH 59 VELOCITY 80\nN ID n16 VOICE soprano START 15/4 DURATION 5/4 PITCH 67 VELOCITY 80",
+      "response_payload_bytes": 1026,
+      "response_payload_sha256": "ef7561fd0c5716b43250c719de053d368e371111b4238f913d793452f8680d8c",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "STOP",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 340,
+        "output_tokens": 475,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00178125,
+        "total": 0.0020355,
+        "uncached_input": 0.00025425
+      },
+      "family": "generation-progression",
+      "latency_ms": 3399.776,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1134,
+      "prompt_sha256": "c26154e764fdf28849d673118b4f8a1814e588369a682471f54ac8a37fd21d48",
+      "raw_response_sha256": "2762ad49826ae3c25335d05513d113b6e18fbf0bd65dcee78addb6364bd2f583",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 5/4 PITCH 48 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 5/4 PITCH 64 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 5/4 PITCH 67 VELOCITY 80\nN ID n5 VOICE bass START 5/4 DURATION 5/4 PITCH 41 VELOCITY 80\nN ID n6 VOICE tenor START 5/4 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n7 VOICE alto START 5/4 DURATION 5/4 PITCH 65 VELOCITY 80\nN ID n8 VOICE soprano START 5/4 DURATION 5/4 PITCH 69 VELOCITY 80\nN ID n9 VOICE bass START 5/2 DURATION 5/4 PITCH 43 VELOCITY 80\nN ID n10 VOICE tenor START 5/2 DURATION 5/4 PITCH 59 VELOCITY 80\nN ID n11 VOICE alto START 5/2 DURATION 5/4 PITCH 62 VELOCITY 80\nN ID n12 VOICE soprano START 5/2 DURATION 5/4 PITCH 67 VELOCITY 80\nN ID n13 VOICE bass START 15/4 DURATION 5/4 PITCH 48 VELOCITY 80\nN ID n14 VOICE tenor START 15/4 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n15 VOICE alto START 15/4 DURATION 5/4 PITCH 64 VELOCITY 80\nN ID n16 VOICE soprano START 15/4 DURATION 5/4 PITCH 72 VELOCITY 80",
+      "response_payload_bytes": 1026,
+      "response_payload_sha256": "ab107f963be0e535785245d28ad02afec7917d675c7617b6e9e16a7fd434e73e",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "STOP",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 339,
+        "output_tokens": 475,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00178125,
+        "total": 0.00203625,
+        "uncached_input": 0.000255
+      },
+      "family": "generation-progression",
+      "latency_ms": 2625.407,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1135,
+      "prompt_sha256": "b3b66df2c9ec5664c96ae1fdd7ec46359c9de1da80adde556eedda88cb3841ca",
+      "raw_response_sha256": "1014728c4ab0886366db0ed61bc47de7bfbdd18684631a00bdcfe3a9d83fe752",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 5/4 PITCH 41 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 5/4 PITCH 57 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 5/4 PITCH 69 VELOCITY 80\nN ID n5 VOICE bass START 5/4 DURATION 5/4 PITCH 46 VELOCITY 80\nN ID n6 VOICE tenor START 5/4 DURATION 5/4 PITCH 58 VELOCITY 80\nN ID n7 VOICE alto START 5/4 DURATION 5/4 PITCH 62 VELOCITY 80\nN ID n8 VOICE soprano START 5/4 DURATION 5/4 PITCH 65 VELOCITY 80\nN ID n9 VOICE bass START 5/2 DURATION 5/4 PITCH 48 VELOCITY 80\nN ID n10 VOICE tenor START 5/2 DURATION 5/4 PITCH 55 VELOCITY 80\nN ID n11 VOICE alto START 5/2 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n12 VOICE soprano START 5/2 DURATION 5/4 PITCH 64 VELOCITY 80\nN ID n13 VOICE bass START 15/4 DURATION 5/4 PITCH 41 VELOCITY 80\nN ID n14 VOICE tenor START 15/4 DURATION 5/4 PITCH 57 VELOCITY 80\nN ID n15 VOICE alto START 15/4 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n16 VOICE soprano START 15/4 DURATION 5/4 PITCH 65 VELOCITY 80",
+      "response_payload_bytes": 1026,
+      "response_payload_sha256": "b5dba52466454f30080d694021fac303dc53ac3e257c31fcfeefb9967b228272",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "STOP",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 340,
+        "output_tokens": 475,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00178125,
+        "total": 0.00203925,
+        "uncached_input": 0.000258
+      },
+      "family": "generation-progression",
+      "latency_ms": 2710.855,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1139,
+      "prompt_sha256": "9d344ad6382f619c4117edb3fac76d6907df2962f1f556677e31fc6dc74f2cbd",
+      "raw_response_sha256": "7c8f648801fbf09303e9811eb5942a1e877c43b52470a706c7aee468cb72ddb0",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 5/4 PITCH 46 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 5/4 PITCH 53 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 5/4 PITCH 58 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 5/4 PITCH 62 VELOCITY 80\nN ID n5 VOICE bass START 5/4 DURATION 5/4 PITCH 51 VELOCITY 80\nN ID n6 VOICE tenor START 5/4 DURATION 5/4 PITCH 55 VELOCITY 80\nN ID n7 VOICE alto START 5/4 DURATION 5/4 PITCH 58 VELOCITY 80\nN ID n8 VOICE soprano START 5/4 DURATION 5/4 PITCH 63 VELOCITY 80\nN ID n9 VOICE bass START 5/2 DURATION 5/4 PITCH 41 VELOCITY 80\nN ID n10 VOICE tenor START 5/2 DURATION 5/4 PITCH 53 VELOCITY 80\nN ID n11 VOICE alto START 5/2 DURATION 5/4 PITCH 57 VELOCITY 80\nN ID n12 VOICE soprano START 5/2 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n13 VOICE bass START 15/4 DURATION 5/4 PITCH 46 VELOCITY 80\nN ID n14 VOICE tenor START 15/4 DURATION 5/4 PITCH 53 VELOCITY 80\nN ID n15 VOICE alto START 15/4 DURATION 5/4 PITCH 58 VELOCITY 80\nN ID n16 VOICE soprano START 15/4 DURATION 5/4 PITCH 70 VELOCITY 80",
+      "response_payload_bytes": 1026,
+      "response_payload_sha256": "d8835f37868bc89320e04ed9a114b1f91a2b40d2ff07eff71321637fd58ce008",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "STOP",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 344,
+        "output_tokens": 475,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 3
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001665,
+        "total": 0.00191475,
+        "uncached_input": 0.00024975
+      },
+      "family": "generation-progression",
+      "latency_ms": 3468.39,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1116,
+      "prompt_sha256": "4b645a4b0de0be537ba0aa4b2e750e83ab4ac18c070f202704c91046e477c3d6",
+      "raw_response_sha256": "f5252287bd57af0869b35e217a478157555bae0dccc87c66eea917477722ab2e",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_43 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_59 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_62 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_67 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/4 NOTE_ON_48 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/4 NOTE_ON_55 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/4 NOTE_ON_64 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/4 NOTE_ON_67 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/2 NOTE_ON_50 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/2 NOTE_ON_54 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/2 NOTE_ON_62 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/2 NOTE_ON_69 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_15/4 NOTE_ON_43 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_15/4 NOTE_ON_59 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_15/4 NOTE_ON_62 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_15/4 NOTE_ON_67 DURATION_5/4 VELOCITY_80",
+      "response_payload_bytes": 907,
+      "response_payload_sha256": "77686b950bddf97a96e887af5c48ec38075fa36f07ba948c0592c4b861089974",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "STOP",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 333,
+        "output_tokens": 444,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0015525,
+        "total": 0.0018015,
+        "uncached_input": 0.000249
+      },
+      "family": "generation-progression",
+      "latency_ms": 2548.552,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1115,
+      "prompt_sha256": "5b5e9bbcd74a68456c26000bca9a5e4928d9a1ccdfa34534d62a51711d6e0f15",
+      "raw_response_sha256": "fc6180fefcf3c34e36164c2cbe3bc96162153e3e77aac3a973151710bbc1954e",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_48 DURATION_5/4 VELOCITY_80 TRACK_tenor TIME_0 NOTE_ON_60 DURATION_5/4 VELOCITY_80 TRACK_alto TIME_0 NOTE_ON_64 DURATION_5/4 VELOCITY_80 TRACK_soprano TIME_0 NOTE_ON_67 DURATION_5/4 VELOCITY_80 TRACK_bass TIME_5/4 NOTE_ON_41 DURATION_5/4 VELOCITY_80 TRACK_tenor TIME_5/4 NOTE_ON_60 DURATION_5/4 VELOCITY_80 TRACK_alto TIME_5/4 NOTE_ON_65 DURATION_5/4 VELOCITY_80 TRACK_soprano TIME_5/4 NOTE_ON_69 DURATION_5/4 VELOCITY_80 TRACK_bass TIME_5/2 NOTE_ON_43 DURATION_5/4 VELOCITY_80 TRACK_tenor TIME_5/2 NOTE_ON_59 DURATION_5/4 VELOCITY_80 TRACK_alto TIME_5/2 NOTE_ON_62 DURATION_5/4 VELOCITY_80 TRACK_soprano TIME_5/2 NOTE_ON_67 DURATION_5/4 VELOCITY_80 TRACK_bass TIME_15/4 NOTE_ON_48 DURATION_5/4 VELOCITY_80 TRACK_tenor TIME_15/4 NOTE_ON_60 DURATION_5/4 VELOCITY_80 TRACK_alto TIME_15/4 NOTE_ON_64 DURATION_5/4 VELOCITY_80 TRACK_soprano TIME_15/4 NOTE_ON_72 DURATION_5/4 VELOCITY_80",
+      "response_payload_bytes": 907,
+      "response_payload_sha256": "76f47628f91e1b8a0ed6d04b3630693161fe35cd18ba18263a6add39b979a180",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "STOP",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 332,
+        "output_tokens": 414,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {},
+        "error": "ParseFailure: Invalid native MIDI-Like row: TRACK_bass TIME_0 NOTE_ON_48 DURATION_5/4 VELOCITY_80 TRACK_tenor TIME_0 NOTE_ON_60 DURATION_5/4 VELOCITY_80 TRACK_alto TIME_0 NOTE_ON_64 DURATION_5/4 VELOCITY_80 TRACK_soprano TIME_0 NOTE_ON_67 DURATION_5/4 VELOCITY_80 TRACK_bass TIME_5/4 NOTE_ON_41 DURATION_5/4 VELOCITY_80 TRACK_tenor TIME_5/4 NOTE_ON_60 DURATION_5/4 VELOCITY_80 TRACK_alto TIME_5/4 NOTE_ON_65 DURATION_5/4 VELOCITY_80 TRACK_soprano TIME_5/4 NOTE_ON_69 DURATION_5/4 VELOCITY_80 TRACK_bass TIME_5/2 NOTE_ON_43 DURATION_5/4 VELOCITY_80 TRACK_tenor TIME_5/2 NOTE_ON_59 DURATION_5/4 VELOCITY_80 TRACK_alto TIME_5/2 NOTE_ON_62 DURATION_5/4 VELOCITY_80 TRACK_soprano TIME_5/2 NOTE_ON_67 DURATION_5/4 VELOCITY_80 TRACK_bass TIME_15/4 NOTE_ON_48 DURATION_5/4 VELOCITY_80 TRACK_tenor TIME_15/4 NOTE_ON_60 DURATION_5/4 VELOCITY_80 TRACK_alto TIME_15/4 NOTE_ON_64 DURATION_5/4 VELOCITY_80 TRACK_soprano TIME_15/4 NOTE_ON_72 DURATION_5/4 VELOCITY_80",
+        "primary_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001665,
+        "total": 0.00191475,
+        "uncached_input": 0.00024975
+      },
+      "family": "generation-progression",
+      "latency_ms": 2830.808,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1116,
+      "prompt_sha256": "dbaace700d90d1d1766843d35465988073207fe8e2170643c277376a2717f330",
+      "raw_response_sha256": "7f32a566a394cdcaaaecad4eeb3fe4dab02e7593698814f50bc136b4035d7903",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_41 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_57 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_60 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_69 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/4 NOTE_ON_46 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/4 NOTE_ON_58 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/4 NOTE_ON_62 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/4 NOTE_ON_65 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/2 NOTE_ON_48 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/2 NOTE_ON_55 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/2 NOTE_ON_60 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/2 NOTE_ON_64 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_15/4 NOTE_ON_41 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_15/4 NOTE_ON_57 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_15/4 NOTE_ON_60 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_15/4 NOTE_ON_65 DURATION_5/4 VELOCITY_80",
+      "response_payload_bytes": 907,
+      "response_payload_sha256": "0d8a6806aa8de64726d8ae7d214fdbacfc230a0dae1c0097d62009ed47f21a1a",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "STOP",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 333,
+        "output_tokens": 444,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0111975,
+        "total": 0.01145025,
+        "uncached_input": 0.00025275
+      },
+      "family": "generation-progression",
+      "latency_ms": 11231.525,
+      "outer_schema_valid": false,
+      "prompt_bytes": 1120,
+      "prompt_sha256": "ac85cfa30fd45277c8422c344da99a5bdb13bae2fed5b34e7146495f25e72ab3",
+      "raw_response_sha256": "67ea57fb15bc5195a1e681fa98b374fada2a755dde07f13cec6f7bbd13fbfa91",
+      "repeat": 0,
+      "request_id": null,
+      "response_payload": "{\n  \"payload\": \"TRACK_bass TIME_0 NOTE_ON_46 DURATION_5/4 VELOCITY_80\\nTRACK_tenor TIME_0 NOTE_ON_62 DURATION_5/4 VELOCITY_80\\nTRACK_alto TIME_0 NOTE_ON_65 DURATION_5/4 VELOCITY_80\\nTRACK_soprano TIME_0 NOTE_ON_70 DURATION_5/4 VELOCITY_80\\nTRACK_bass TIME_5/4 NOTE_ON_51 DURATION_5/4 VELOCITY_80\\nTRACK_tenor TIME_5/4 NOTE_ON_58 DURATION_5/4 VELOCITY_80\\nTRACK_alto TIME_5/4 NOTE_ON_63 DURATION_5/4 VELOCITY_80\\nTRACK_soprano TIME_5/4 NOTE_ON_67 DURATION_5/4 VELOCITY_80\\nTRACK",
+      "response_payload_bytes": 477,
+      "response_payload_sha256": "7ddf8151f6332aa98643b4473efccf55e457d825f10858cec7ea796369f42b33",
+      "retries": 0,
+      "returned_model": "gemini-3.8-flash",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "MAX_TOKENS",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 337,
+        "output_tokens": 2986,
+        "thinking_tokens": 2766
+      },
+      "validation": {
+        "checks": {},
+        "error": "ParseFailure: Invalid native MIDI-Like row: {",
+        "primary_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 3
+    }
+  ],
+  "run_id": "phase8c2-2-progression-repair-calibration-r2",
+  "run_kind": "progression-repair-calibration-provider",
+  "schema": "ghostnote-compact-format-progression-repair-calibration-v3",
+  "screen_sha256": "6cb099de17f58ba1ddeb7555b2c48b6397c38b2cbd260db618033bfa4f41dbef",
+  "settings": {
+    "max_output_tokens": 3000,
+    "thinking_level": "low"
+  }
+}

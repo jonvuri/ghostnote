@@ -1,0 +1,3152 @@
+{
+  "actual_cost_usd": 0.251653,
+  "approval": {
+    "approved_at": "2026-09-27",
+    "approved_scope": {
+      "providers": {
+        "claude": {
+          "calls": 70,
+          "estimated_cost_usd": 1.429609
+        },
+        "gemini": {
+          "calls": 70,
+          "estimated_cost_usd": 0.256802
+        },
+        "openai": {
+          "calls": 70,
+          "estimated_cost_usd": 0.404167
+        }
+      },
+      "total_calls": 210,
+      "total_estimated_cost_usd": 2.090578
+    },
+    "operator_statement": "Yes, I approve. Proceed.",
+    "protocol_sha256": "b74a1793406bfee7e5143ca9673a7de82e1a7573e429e291f2e3fbc5846a4c26",
+    "run_id": "phase8c2-2-calibration-r1",
+    "run_plan_sha256": "cdd26d8daad166f1329dcf66571ab2aec71804e190b12204d9f173ceca5771e7",
+    "status": "approved"
+  },
+  "client": "Python urllib.request direct HTTPS",
+  "complete": true,
+  "manifest_sha256": "b77a5b8218e74ae1161e9da355194bbac600603e0b2eae3e1b708be97c8cecc9",
+  "platform": "Darwin 24.6.0 arm64",
+  "privacy": "Send generated MIT symbolic text only. Do not send live project data, MIDI files, audio, or API keys.",
+  "protocol_sha256": "b74a1793406bfee7e5143ca9673a7de82e1a7573e429e291f2e3fbc5846a4c26",
+  "provider": "openai",
+  "python": "3.14.6",
+  "raw_run_sha256": "bc5ed7c04606aa9e4282a5879d37d7b59ffbee689f1f55b388712fa015e8ef9e",
+  "repairs": [],
+  "requested_model": "gpt-5.4-mini-2026-03-17",
+  "results": [
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0014625,
+        "total": 0.00179175,
+        "uncached_input": 0.00032925
+      },
+      "family": "comprehension-structure",
+      "latency_ms": 2269.29,
+      "outer_schema_valid": true,
+      "prompt_bytes": 957,
+      "prompt_sha256": "6fac0b71b22fd4b91ff666341c06c1e02dc9c1d9236a0419c1e8b24b1e0d7524",
+      "raw_response_sha256": "6d75174b2f85418470e4b2b53cec23d1f40139db6ddd994debce934979684ca0",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt2uHY1dIarcgug1dmiPSgCAb3q",
+      "response_payload": "N cal-st0-bass-1 bass 0 3/2 31 74\nN cal-st0-lead-1 lead 0 1/2 55 79\nN cal-st0-pad-1-1 pad 0 3/2 43 69\nN cal-st0-pad-1-2 pad 0 3/2 47 70\nN cal-st0-pad-1-3 pad 0 3/2 50 71\nN cal-st0-lead-2 lead 1/2 1/2 60 80\nN cal-st0-lead-3 lead 1 1/2 57 81\nN cal-st0-bass-2 bass 3/2 3/2 36 76\nN cal-st0-lead-4 lead 3/2 1/2 62 82\nN cal-st0-pad-2-1 pad 3/2 3/2 43 69\nN cal-st0-pad-2-2 pad 3/2 3/2 47 70\nN cal-st0-pad-2-3 pad 3/2 3/2 50 71\nN cal-st0-lead-5 lead 2 1/2 59 83\nN cal-st0-lead-6 lead 5/2 1/2 64 84",
+      "response_payload_bytes": 489,
+      "response_payload_sha256": "798756d6b55e8458490a2a67e163a3a6b5f579a28f06e08917b131bbb3dea8b3",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ba054b5c04c628b854756e9acee5980452528a60d1bef3fe34aad4a3c6552044",
+      "stop_reason": "stop",
+      "task_sha256": "58898a8aa9ab9c08fe7f233b5dd0dda2751b968c830bc6c69122a711f2686c00",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 439,
+        "output_tokens": 325,
+        "thinking_tokens": 9
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0005895,
+        "total": 0.00078975,
+        "uncached_input": 0.00020025
+      },
+      "family": "continuation-motif",
+      "latency_ms": 1882.777,
+      "outer_schema_valid": true,
+      "prompt_bytes": 716,
+      "prompt_sha256": "196e407cc259c4e8e855e6db10897579bef29aa6fe07886317889b7a39f96eb0",
+      "raw_response_sha256": "1f4b71429cb16581f3c81cdc33280dfd3d2b4b853113d798e3d28cacbb6c3f8f",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdseW4Y9SuLnIJ64qrCl6DI7Z1nE",
+      "response_payload": "N cal-mo-out-0-1 lead 4 1/2 62 86\nN cal-mo-out-0-2 lead 9/2 1/2 65 86\nN cal-mo-out-0-3 lead 5 1/2 67 86\nN cal-mo-out-0-4 lead 11/2 1/2 64 86",
+      "response_payload_bytes": 140,
+      "response_payload_sha256": "0419975f81e392be2b9315c7800151080a7b0889bf202f4b2a8c65f50e4912b4",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "f4b58e66314e2807535ee05da2626bf83a406e7665d029572d95f86613d5c025",
+      "stop_reason": "stop",
+      "task_sha256": "5b07c564e7648a9ef3fb9cda100da87bb16860601cccde2842313747dbae3c18",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 267,
+        "output_tokens": 131,
+        "thinking_tokens": 31
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0041625,
+        "total": 0.00433125,
+        "uncached_input": 0.00016875
+      },
+      "family": "continuation-roles",
+      "latency_ms": 7729.57,
+      "outer_schema_valid": true,
+      "prompt_bytes": 663,
+      "prompt_sha256": "92876095b9deeb9cf8f997bc744c00a5ce011faa37e0b0de3662abd8934fad65",
+      "raw_response_sha256": "8c656365822d6b49dc612b7d02500c0726fff549621caacbcd710e8a2cf49555",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt0boTuYx8DCRVpRiWjm1MEh6iY",
+      "response_payload": "N n1 bass 4 1 37 80\nN n2 lead 4 1 65 80\nN n3 bass 5 1 46 80\nN n4 lead 5 1 70 80\nN n5 bass 6 1 46 80\nN n6 lead 6 1 66 80\nN n7 bass 7 1 48 80\nN n8 lead 7 1 68 80\nN n9 bass 8 1 41 80\nN n10 lead 8 1 73 80",
+      "response_payload_bytes": 200,
+      "response_payload_sha256": "a4b81884514147caa99b85e2972559b43a4ad6b98db4201f25fb427c26c8b310",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "83c8f5f5c5ff600d9c77e8e7dc0ae1b2b247e6eb42111ea07ef91a443effe5a5",
+      "stop_reason": "stop",
+      "task_sha256": "3056ea282820568dd5c9d3bc78d4f9004b47925ce386ac7b83ec7a9186c209eb",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 225,
+        "output_tokens": 925,
+        "thinking_tokens": 773
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0027315,
+        "total": 0.00290025,
+        "uncached_input": 0.00016875
+      },
+      "family": "continuation-roles",
+      "latency_ms": 4749.241,
+      "outer_schema_valid": true,
+      "prompt_bytes": 665,
+      "prompt_sha256": "ffffc9e73064753fd1f24ef10e407ae50ca471b5fec4ddc1a19090d68113548c",
+      "raw_response_sha256": "e159b3b53b1ca01420b3ed7072413b2ce30405b2cf482bcb218274caf58bf80e",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdstUzbLmnyqIQVmDmIryiojERhl",
+      "response_payload": "N n1 bass 4 1 37 80\nN n2 lead 4 1 70 80\nN n3 bass 5 1 39 80\nN n4 lead 5 1 71 80\nN n5 bass 6 1 47 80\nN n6 lead 6 1 68 80\nN n7 bass 7 1 44 80\nN n8 lead 7 1 65 80\nN n9 bass 8 1 46 80\nN n10 lead 8 1 66 80",
+      "response_payload_bytes": 200,
+      "response_payload_sha256": "81cf85686a9543edfbe66670b92e04f227333abd2cbebf9d59507f7bb4754a0d",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "8e927fab53ae2cfa559b105a43c6556bf3e6e3821d2fa6fc77d7dfddddb89e67",
+      "stop_reason": "stop",
+      "task_sha256": "bc1fcae68258a5d22b537f5e47bf69df9c6faa12c0c5a71a86685884eeaa197e",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 225,
+        "output_tokens": 607,
+        "thinking_tokens": 461
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.007578,
+        "total": 0.00774675,
+        "uncached_input": 0.00016875
+      },
+      "family": "continuation-roles",
+      "latency_ms": 12184.325,
+      "outer_schema_valid": true,
+      "prompt_bytes": 666,
+      "prompt_sha256": "4b010c740be18ae153c2c597ba1641486404f2728bf7cae0181d8a6819d35f2a",
+      "raw_response_sha256": "67ef6d4be8e3d3804f665475407e66d682b538e40099eec658a4df513a3ad0c6",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsc6jFHL8LQmkqEtECSd8bkVi8I",
+      "response_payload": "N n1 bass 4 1 39 80\nN n2 lead 4 1 71 80\nN n3 bass 5 1 44 80\nN n4 lead 5 1 71 80\nN n5 bass 6 1 40 80\nN n6 lead 6 1 61 80\nN n7 bass 7 1 46 80\nN n8 lead 7 1 66 80\nN n9 bass 8 1 39 80\nN n10 lead 8 1 71 80",
+      "response_payload_bytes": 200,
+      "response_payload_sha256": "c730e6164950685c30b88b31425983ca38738b8a3e63e71e34e00a34fa9c326e",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "90775cb9e9d752cba458cef87bdcade6cd8667f7ef69fe41566d281647fdf534",
+      "stop_reason": "stop",
+      "task_sha256": "30453e5dfaedcf4fd6923c5996facb951395a40da0716938124c4106abe6503c",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 225,
+        "output_tokens": 1684,
+        "thinking_tokens": 1526
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0022725,
+        "total": 0.00248475,
+        "uncached_input": 0.00021225
+      },
+      "family": "generation-melody",
+      "latency_ms": 3820.402,
+      "outer_schema_valid": true,
+      "prompt_bytes": 766,
+      "prompt_sha256": "9472ff371aac019e819b19ec109c66a9faae03fbb71f1527092a1c4114bb382d",
+      "raw_response_sha256": "7dd9934bd8594fd9e1c8945eeb3a47af854e67118f3d88ae662be54f00b6b605",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtBDsIunuQ5Vb2ErUsnEaHnP2ol",
+      "response_payload": "N n1 lead 0 1/2 61 80\nN n2 lead 1/2 1/2 63 80\nN n3 lead 1 1/2 65 80\nN n4 lead 3/2 1/2 68 80\nN n5 lead 2 1/2 64 80\nN n6 lead 5/2 1/2 66 80\nN n7 lead 3 1/2 68 80\nN n8 lead 7/2 1/2 71 80",
+      "response_payload_bytes": 183,
+      "response_payload_sha256": "040ede65a4a5e391494341bbf9f257ca5d64b54ab3fe82ef4f8e6f7908b88351",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d871dbb7a2f600fb2ac217fe13d21f186120767ef6bc49bd6599c7d1c257fe71",
+      "stop_reason": "stop",
+      "task_sha256": "2eed083e6d2c1ce2055112363b8ca10ea8845f88d6d68791a834bdc9484cda14",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 283,
+        "output_tokens": 505,
+        "thinking_tokens": 361
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00333,
+        "total": 0.00353025,
+        "uncached_input": 0.00020025
+      },
+      "family": "generation-progression",
+      "latency_ms": 5688.908,
+      "outer_schema_valid": true,
+      "prompt_bytes": 777,
+      "prompt_sha256": "0da98932dedfe0d7fc9f88d9d4370496ca7612a579d85c293e3936c749cff959",
+      "raw_response_sha256": "342bf275d2fade889a8b54c4fa010c2154dda8b1f30787dfe4f7ad3ea8caf920",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdse3rYp66DdQhI7eyLy3yc0wD8N",
+      "response_payload": "N n1 bass 0 1 37 80\nN n2 tenor 0 1 53 80\nN n3 alto 0 1 56 80\nN n4 soprano 0 1 65 80\nN n5 bass 1 1 37 80\nN n6 tenor 1 1 54 80\nN n7 alto 1 1 58 80\nN n8 soprano 1 1 66 80\nN n9 bass 2 1 36 80\nN n10 tenor 2 1 51 80\nN n11 alto 2 1 54 80\nN n12 soprano 2 1 68 80\nN n13 bass 3 1 37 80\nN n14 tenor 3 1 53 80\nN n15 alto 3 1 56 80\nN n16 soprano 3 1 65 80",
+      "response_payload_bytes": 342,
+      "response_payload_sha256": "166fb109476c23aeca633d72b3c8484313d255fe483a52b05ad007394053d6fe",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ccd80dc080dcd6aab549ea490ad350fb870f310a4252fe25aac176ab9a01caa6",
+      "stop_reason": "stop",
+      "task_sha256": "e9fe728008863b32b1adccdc89358037449fa5b54c200967dba6188a44d49fdf",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 267,
+        "output_tokens": 740,
+        "thinking_tokens": 512
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0040455,
+        "total": 0.00424575,
+        "uncached_input": 0.00020025
+      },
+      "family": "generation-progression",
+      "latency_ms": 7139.633,
+      "outer_schema_valid": true,
+      "prompt_bytes": 781,
+      "prompt_sha256": "b49357f4933234efff0e6d9b13cc38a9afc226f853ad31eb4ce7072e37756c26",
+      "raw_response_sha256": "f702eb1e3122f90354d40c82d075cca08ebcf8f7cb9001d4fbb4176f272c0e5e",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtHlIUS0zuHgr9aMR9xKK9f4cH5",
+      "response_payload": "N n1 bass 0 1 42 80\nN n2 tenor 0 1 58 80\nN n3 alto 0 1 61 80\nN n4 soprano 0 1 66 80\nN n5 bass 1 1 47 80\nN n6 tenor 1 1 59 80\nN n7 alto 1 1 63 80\nN n8 soprano 1 1 66 80\nN n9 bass 2 1 49 80\nN n10 tenor 2 1 59 80\nN n11 alto 2 1 65 80\nN n12 soprano 2 1 68 80\nN n13 bass 3 1 54 80\nN n14 tenor 3 1 58 80\nN n15 alto 3 1 61 80\nN n16 soprano 3 1 66 80",
+      "response_payload_bytes": 342,
+      "response_payload_sha256": "070563ff43c652971cc7e80d0b05eb036de60e51955e1464616c6cf945ad3819",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "12aff044bf95a1bd77b3ad241908e686288a991ace77db50f2f421ab0c258b27",
+      "stop_reason": "stop",
+      "task_sha256": "638553776616222618b482a1b45fcb8e6ebdff07b0afc1abb24268c508ff9709",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 267,
+        "output_tokens": 899,
+        "thinking_tokens": 665
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00333,
+        "total": 0.00353025,
+        "uncached_input": 0.00020025
+      },
+      "family": "generation-progression",
+      "latency_ms": 5830.301,
+      "outer_schema_valid": true,
+      "prompt_bytes": 783,
+      "prompt_sha256": "636c358517e37327f2b02d52563291b9c930439f945bb7a45ccc9a3a864482ab",
+      "raw_response_sha256": "e429e46563adab4e365f883ac7dc884f3ce82d74bfa49c1382e246e04b4fe41a",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt81WBaSDSSYckZlmDCgzG1rDvr",
+      "response_payload": "N n1 bass 0 1 47 80\nN n1 tenor 0 1 51 80\nN n1 alto 0 1 66 80\nN n1 soprano 0 1 71 80\nN n1 bass 1 1 52 80\nN n1 tenor 1 1 56 80\nN n1 alto 1 1 59 80\nN n1 soprano 1 1 64 80\nN n1 bass 2 1 49 80\nN n1 tenor 2 1 58 80\nN n1 alto 2 1 66 80\nN n1 soprano 2 1 64 80\nN n1 bass 3 1 47 80\nN n1 tenor 3 1 51 80\nN n1 alto 3 1 66 80\nN n1 soprano 3 1 71 80",
+      "response_payload_bytes": 335,
+      "response_payload_sha256": "c3a59feafd5359b1456895a3eb0bef9704ed8a0d91556535a2e979e6661e04a1",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "21d33cf78d52726b29f0629b21c7c6ea60ddcb01dc617a85742cee0f0fe0e3a3",
+      "stop_reason": "stop",
+      "task_sha256": "3221af50fc58feb172d7aa7f6a84e28c562a38650cc140d93c08518a2f348cf3",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 267,
+        "output_tokens": 740,
+        "thinking_tokens": 512
+      },
+      "validation": {
+        "checks": {},
+        "error": "ParseFailure: Payload has duplicate IDs",
+        "primary_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 2
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0004635,
+        "total": 0.00083325,
+        "uncached_input": 0.00036975
+      },
+      "family": "transformation-local",
+      "latency_ms": 1529.601,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1109,
+      "prompt_sha256": "1539ef14ef3bade17bfb66921af7283444c47f8aeb5f7ce82fa5f06b56128357",
+      "raw_response_sha256": "ec3521e47ba986278664dd0474fbf9607d73f0f10e7031c72061069c3c99ebf3",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdswwSYANmeeJK1NMwsiGmsVfJ1q",
+      "response_payload": "PATCH 6f0a12070f356a01c3282ced75e09e637b15564734486478ca6d24f339bea25f\nSET cal-st0-pad-1-2 velocity=75",
+      "response_payload_bytes": 102,
+      "response_payload_sha256": "f328e75af3981ba2c20800decdb01e7c88bcd47693dc33e64dec61c559609309",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "0d92d0bf93e63116f6c8cc402bb6042f03416a9f25386dfaed55f56348dfb13b",
+      "stop_reason": "stop",
+      "task_sha256": "d9c6d5f8e28e30c3b89c0691bc07bfceee7b9299cfd7c8891e59209227e00a32",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 493,
+        "output_tokens": 103,
+        "thinking_tokens": 37
+      },
+      "validation": {
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.003681,
+        "total": 0.00409875,
+        "uncached_input": 0.00041775
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 6364.39,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1658,
+      "prompt_sha256": "2dbb3354085d42b1882fb0564d9f41dc8b1c0ee0bec1eca998e156ed4dc1fa17",
+      "raw_response_sha256": "abb78a94dc1fac8da9a50f81c8bc5cafd7374b47a32a63f74ef05c2b5c8f9e08",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt5ZMLTOWRCeYI835v0lUwhijia",
+      "response_payload": "N cal-rv0-1-bass bass 0 1 48 76\nN cal-rv0-1-tenor tenor 0 1 52 78\nN cal-rv0-1-alto alto 0 1 55 80\nN cal-rv0-1-soprano soprano 0 1 59 82\nN cal-rv0-2-bass bass 1 1 50 76\nN cal-rv0-2-tenor tenor 1 1 54 78\nN cal-rv0-2-alto alto 1 1 57 80\nN cal-rv0-2-soprano soprano 1 1 61 82\nN cal-rv0-3-bass bass 2 1 52 76\nN cal-rv0-3-tenor tenor 2 1 56 78\nN cal-rv0-3-alto alto 2 1 59 80\nN cal-rv0-3-soprano soprano 2 1 63 82",
+      "response_payload_bytes": 407,
+      "response_payload_sha256": "e06ee58b38a084335fb193d0466dca7dfb56c041790936b002c38bc659c449f9",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d19da08362a7f8714d9f72d7b8e5fd743a3150131dabcef876583f94c55cdf11",
+      "stop_reason": "stop",
+      "task_sha256": "27f75078e3091ae57f0f52a2bfdc9b9bc8a1d8ed110492b30e838455fee6c17a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 557,
+        "output_tokens": 818,
+        "thinking_tokens": 562
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0022635,
+        "total": 0.00268275,
+        "uncached_input": 0.00041925
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 3750.292,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1657,
+      "prompt_sha256": "175c15f64aa1d851d90b386a9d9d2ed87d7bfb80c35787c6175f85ed47b7e1f4",
+      "raw_response_sha256": "234453bd9010c1bf67bf98d143774bd8d1569de9ec7411c7861950bf2724d1b8",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtFWX4Wde1q5EmbwLAHMtRGf7i4",
+      "response_payload": "N cal-rv1-1-bass bass 0 1 45 76\nN cal-rv1-1-tenor tenor 0 1 50 78\nN cal-rv1-1-alto alto 0 1 54 80\nN cal-rv1-1-soprano soprano 0 1 61 82\nN cal-rv1-2-bass bass 1 1 47 76\nN cal-rv1-2-tenor tenor 1 1 52 78\nN cal-rv1-2-alto alto 1 1 56 80\nN cal-rv1-2-soprano soprano 1 1 63 82\nN cal-rv1-3-bass bass 2 1 49 76\nN cal-rv1-3-tenor tenor 2 1 54 78\nN cal-rv1-3-alto alto 2 1 58 80\nN cal-rv1-3-soprano soprano 2 1 65 82",
+      "response_payload_bytes": 407,
+      "response_payload_sha256": "3ce748370270d4b337545f069076e855c055d52b1619191e74166ce7f0a6dcf7",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d4289664f350f508d3a62dfed3116ffa597e20071412d865d2f8a30517e39b18",
+      "stop_reason": "stop",
+      "task_sha256": "740afd522f86ac90ac170474dfcdc37f096ad16857f24d0da6bef49b9fa9a50f",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 559,
+        "output_tokens": 503,
+        "thinking_tokens": 253
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002151,
+        "total": 0.00257025,
+        "uncached_input": 0.00041925
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 3449.221,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1666,
+      "prompt_sha256": "7b1aeb3aaa6ac4d1b007b619ac00c744a88555b5c5a0475d7ca49d5c32b6f286",
+      "raw_response_sha256": "ee67445a44e135b0c4e7eff6827ea0726730876f9355f9fd2ee7b18bad831769",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdstaw2XK1xUG6daLe5pHqDcFnc6",
+      "response_payload": "N cal-rv2-1-alto alto 0 1 59 80\nN cal-rv2-1-bass bass 0 1 52 76\nN cal-rv2-1-soprano soprano 0 1 60 82\nN cal-rv2-1-tenor tenor 0 1 55 78\nN cal-rv2-2-alto alto 1 1 61 80\nN cal-rv2-2-bass bass 1 1 54 76\nN cal-rv2-2-soprano soprano 1 1 62 82\nN cal-rv2-2-tenor tenor 1 1 57 78\nN cal-rv2-3-alto alto 2 1 63 80\nN cal-rv2-3-bass bass 2 1 56 76\nN cal-rv2-3-soprano soprano 2 1 64 82\nN cal-rv2-3-tenor tenor 2 1 59 78",
+      "response_payload_bytes": 407,
+      "response_payload_sha256": "e19089ec22cc60ece8102a516001a3ebc854440c419a35de08db78fe8f576824",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ec691404b477363437ba5c17ed524c0b6881e5e7d0b900d03418f2cc44413461",
+      "stop_reason": "stop",
+      "task_sha256": "c479dddfba038ff801056d2f893d43ca1bbbc5eeedfeb2cc227d8163322a2236",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 559,
+        "output_tokens": 478,
+        "thinking_tokens": 228
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001449,
+        "total": 0.00168,
+        "uncached_input": 0.000231
+      },
+      "family": "transformation-rhythm",
+      "latency_ms": 2537.277,
+      "outer_schema_valid": true,
+      "prompt_bytes": 723,
+      "prompt_sha256": "f15789ae8e2239f35fb1deaa6b1d79f497d716582cc900cc4ae0a438aa60e5ea",
+      "raw_response_sha256": "aa5443fb27667d95f573f780b8574f2b7765e510f1d23b5157a3e434bb0dedc6",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt968PGny2yxTAXyKu18AnzrPWL",
+      "response_payload": "N cal-ry0-0 perc 1/4 1/4 48 80\nN cal-ry0-1 perc 1/2 1/4 49 81\nN cal-ry0-2 perc 5/4 1/4 50 82\nN cal-ry0-3 perc 3/2 1/4 51 83\nN cal-ry0-4 perc 9/4 1/4 48 84\nN cal-ry0-5 perc 5/2 1/4 49 85\nN cal-ry0-6 perc 13/4 1/4 50 86\nN cal-ry0-7 perc 7/2 1/4 51 87",
+      "response_payload_bytes": 248,
+      "response_payload_sha256": "02691bf8553e87f55a5551836f7f7b220931274f2ea1e1c5084d829a9343f967",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "312cdd6505df3acac1fdc5349a197de0a2a857fbf2e1d74a99996e9dd6358879",
+      "stop_reason": "stop",
+      "task_sha256": "47a740c672c16ed6b98f11acd890746406817bc32bd03e15db93720edb45caa8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 308,
+        "output_tokens": 322,
+        "thinking_tokens": 138
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0029295,
+        "total": 0.00358725,
+        "uncached_input": 0.00065775
+      },
+      "family": "comprehension-structure",
+      "latency_ms": 4146.658,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2675,
+      "prompt_sha256": "8b64798752a683a664bb5088e6dadeb2704a3c33de70cee15dc84582cd7e55a8",
+      "raw_response_sha256": "5be8cc3fb014371710f1d592fe090edaed4671b45589416abaed4a274bda5f21",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsy11wmGHuCi2zozUmAzmVTmywr",
+      "response_payload": "{\"score\":{\"id\":\"calibration-comprehension-structure-v0-source\",\"hash\":\"58898a8aa9ab9c08fe7f233b5dd0dda2751b968c830bc6c69122a711f2686c00\",\"tempo\":96,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"lead\"},{\"id\":\"pad\"}],\"regions\":[{\"id\":\"task-region\"}],\"notes\":[{\"id\":\"cal-st0-bass-1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"3/2\",\"pitch\":31,\"velocity\":74},{\"id\":\"cal-st0-lead-1\",\"voice\":\"lead\",\"start\":\"0\",\"duration\":\"1/2\",\"pitch\":55,\"velocity\":79},{\"id\":\"cal-st0-pad-1-1\",\"voice\":\"pad\",\"start\":\"0\",\"duration\":\"3/2\",\"pitch\":43,\"velocity\":69},{\"id\":\"cal-st0-pad-1-2\",\"voice\":\"pad\",\"start\":\"0\",\"duration\":\"3/2\",\"pitch\":47,\"velocity\":70},{\"id\":\"cal-st0-pad-1-3\",\"voice\":\"pad\",\"start\":\"0\",\"duration\":\"3/2\",\"pitch\":50,\"velocity\":71},{\"id\":\"cal-st0-lead-2\",\"voice\":\"lead\",\"start\":\"1/2\",\"duration\":\"1/2\",\"pitch\":60,\"velocity\":80},{\"id\":\"cal-st0-lead-3\",\"voice\":\"lead\",\"start\":\"1\",\"duration\":\"1/2\",\"pitch\":57,\"velocity\":81},{\"id\":\"cal-st0-bass-2\",\"voice\":\"bass\",\"start\":\"3/2\",\"duration\":\"3/2\",\"pitch\":36,\"velocity\":76},{\"id\":\"cal-st0-lead-4\",\"voice\":\"lead\",\"start\":\"3/2\",\"duration\":\"1/2\",\"pitch\":62,\"velocity\":82},{\"id\":\"cal-st0-pad-2-1\",\"voice\":\"pad\",\"start\":\"3/2\",\"duration\":\"3/2\",\"pitch\":43,\"velocity\":69},{\"id\":\"cal-st0-pad-2-2\",\"voice\":\"pad\",\"start\":\"3/2\",\"duration\":\"3/2\",\"pitch\":47,\"velocity\":70},{\"id\":\"cal-st0-pad-2-3\",\"voice\":\"pad\",\"start\":\"3/2\",\"duration\":\"3/2\",\"pitch\":50,\"velocity\":71},{\"id\":\"cal-st0-lead-5\",\"voice\":\"lead\",\"start\":\"2\",\"duration\":\"1/2\",\"pitch\":59,\"velocity\":83},{\"id\":\"cal-st0-lead-6\",\"voice\":\"lead\",\"start\":\"5/2\",\"duration\":\"1/2\",\"pitch\":64,\"velocity\":84}]}",
+      "response_payload_bytes": 1718,
+      "response_payload_sha256": "0e9cc7859b87a532dc496ea4149a79a98a5da7d46ac013678d84ea0feea4769d",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ba054b5c04c628b854756e9acee5980452528a60d1bef3fe34aad4a3c6552044",
+      "stop_reason": "stop",
+      "task_sha256": "58898a8aa9ab9c08fe7f233b5dd0dda2751b968c830bc6c69122a711f2686c00",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 877,
+        "output_tokens": 651,
+        "thinking_tokens": 8
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001791,
+        "total": 0.0022065,
+        "uncached_input": 0.0004155
+      },
+      "family": "continuation-motif",
+      "latency_ms": 3185.507,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1755,
+      "prompt_sha256": "0c62a2b42595df90e6199c78833b496746cd260f611e1dce3424491ef21803ee",
+      "raw_response_sha256": "9858cb6c38d8d08bed26f103441b8326056b15b73ee6aba5bba5dc2d154fc3af",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsoNSX71IpCOfVcmXcTyprkzgqS",
+      "response_payload": "{\"score\":{\"id\":\"calibration-continuation-motif-v0-source\",\"hash\":\"5b07c564e7648a9ef3fb9cda100da87bb16860601cccde2842313747dbae3c18\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"]},\"bars\":[{\"harmony\":\"task-contract\",\"length\":\"4\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"tracks\":[{\"id\":\"lead\",\"role\":\"lead\",\"voice\":\"lead.1\"}],\"regions\":[{\"end\":\"2\",\"id\":\"task-region\",\"start\":\"0\"}],\"notes\":[{\"id\":\"cal-mo-out-0-1\",\"voice\":\"lead\",\"start\":\"4\",\"duration\":\"1/2\",\"pitch\":62,\"velocity\":86},{\"id\":\"cal-mo-out-0-2\",\"voice\":\"lead\",\"start\":\"9/2\",\"duration\":\"1/2\",\"pitch\":65,\"velocity\":86},{\"id\":\"cal-mo-out-0-3\",\"voice\":\"lead\",\"start\":\"5\",\"duration\":\"1/2\",\"pitch\":67,\"velocity\":86},{\"id\":\"cal-mo-out-0-4\",\"voice\":\"lead\",\"start\":\"11/2\",\"duration\":\"1/2\",\"pitch\":64,\"velocity\":86}]}",
+      "response_payload_bytes": 866,
+      "response_payload_sha256": "2fb7ef418f644a37c5ed8b181001f9a6242fc3ec81e074bc18db3ab2b9d6792a",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "f4b58e66314e2807535ee05da2626bf83a406e7665d029572d95f86613d5c025",
+      "stop_reason": "stop",
+      "task_sha256": "5b07c564e7648a9ef3fb9cda100da87bb16860601cccde2842313747dbae3c18",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 554,
+        "output_tokens": 398,
+        "thinking_tokens": 77
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0047025,
+        "total": 0.00493275,
+        "uncached_input": 0.00023025
+      },
+      "family": "continuation-roles",
+      "latency_ms": 7488.297,
+      "outer_schema_valid": true,
+      "prompt_bytes": 976,
+      "prompt_sha256": "f45e06f3dacf58a7beaee014a0ac9a65169c032c31a2676c939d78070469c911",
+      "raw_response_sha256": "53ce13f170813d4de1d070cd905d4564afce9bf9855d54ac390d8718d2aa79e8",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsluuLYx6xG2j7fNhcAxWyvl9qb",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"bass\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"bass\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":46,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"bass\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":48,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":49,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"lead\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":68,\"velocity\":90},{\"id\":\"n7\",\"voice\":\"lead\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":70,\"velocity\":90},{\"id\":\"n8\",\"voice\":\"lead\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":63,\"velocity\":90},{\"id\":\"n9\",\"voice\":\"lead\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":72,\"velocity\":90},{\"id\":\"n10\",\"voice\":\"lead\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":73,\"velocity\":90}]}",
+      "response_payload_bytes": 1014,
+      "response_payload_sha256": "fffe354d47b49ee16a2702ecddf01174f6d98f5fb1cb1368d3181c0a0dd5b69f",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "83c8f5f5c5ff600d9c77e8e7dc0ae1b2b247e6eb42111ea07ef91a443effe5a5",
+      "stop_reason": "stop",
+      "task_sha256": "3056ea282820568dd5c9d3bc78d4f9004b47925ce386ac7b83ec7a9186c209eb",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 307,
+        "output_tokens": 1045,
+        "thinking_tokens": 679
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0039465,
+        "total": 0.00417675,
+        "uncached_input": 0.00023025
+      },
+      "family": "continuation-roles",
+      "latency_ms": 6310.146,
+      "outer_schema_valid": true,
+      "prompt_bytes": 978,
+      "prompt_sha256": "359ae6faee2c8ff412462f38be72f826cde2feb646fc27b0a39f7fcda06adc9f",
+      "raw_response_sha256": "14d938d1813e9c58965927445fae3be895f712eaee8ae45bddf287328ae77b81",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsggJzJkV5x0YK4FzK9Wn4gRvA1",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"lead\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":66,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"bass\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":39,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"lead\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":71,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":39,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"lead\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":68,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"bass\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"lead\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"lead\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":66,\"velocity\":80}]}",
+      "response_payload_bytes": 1027,
+      "response_payload_sha256": "7749583a33c925be68ea5347d2d68e40f226ad9af469e54ed8f56cd7c4ceaefe",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "8e927fab53ae2cfa559b105a43c6556bf3e6e3821d2fa6fc77d7dfddddb89e67",
+      "stop_reason": "stop",
+      "task_sha256": "bc1fcae68258a5d22b537f5e47bf69df9c6faa12c0c5a71a86685884eeaa197e",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 307,
+        "output_tokens": 877,
+        "thinking_tokens": 512
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0055215,
+        "total": 0.00575175,
+        "uncached_input": 0.00023025
+      },
+      "family": "continuation-roles",
+      "latency_ms": 9871.523,
+      "outer_schema_valid": true,
+      "prompt_bytes": 979,
+      "prompt_sha256": "f05bf9bb3f2dee7906df0ada0d843dee2659a832f1cd96214cb5f8bf18fba2a4",
+      "raw_response_sha256": "da39364c14fec3fd71551a470eb449254d7befa38a3d4b13b1794dc2b82e1a83",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtBK3W0aw9QKZIN9LwBHNfEN2ad",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3},{\"number\":4},{\"number\":5}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":39,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"lead\",\"start\":\"4\",\"duration\":\"1\",\"pitch\":71,\"velocity\":84},{\"id\":\"n3\",\"voice\":\"bass\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":40,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"lead\",\"start\":\"5\",\"duration\":\"1\",\"pitch\":68,\"velocity\":84},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"lead\",\"start\":\"6\",\"duration\":\"1\",\"pitch\":64,\"velocity\":84},{\"id\":\"n7\",\"voice\":\"bass\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"lead\",\"start\":\"7\",\"duration\":\"1\",\"pitch\":70,\"velocity\":84},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":47,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"lead\",\"start\":\"8\",\"duration\":\"1\",\"pitch\":71,\"velocity\":84}]}",
+      "response_payload_bytes": 1066,
+      "response_payload_sha256": "d7381c3518aec4a9d2b048bf885a1a7a7962ae305e76f9648f3b760a7624be16",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "90775cb9e9d752cba458cef87bdcade6cd8667f7ef69fe41566d281647fdf534",
+      "stop_reason": "stop",
+      "task_sha256": "30453e5dfaedcf4fd6923c5996facb951395a40da0716938124c4106abe6503c",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 307,
+        "output_tokens": 1227,
+        "thinking_tokens": 841
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.003447,
+        "total": 0.00372075,
+        "uncached_input": 0.00027375
+      },
+      "family": "generation-melody",
+      "latency_ms": 5385.411,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1079,
+      "prompt_sha256": "0d283709c42ad92623def56e071a0fe81c21727346d5d57bccc07be34303014e",
+      "raw_response_sha256": "498d150d40df5d88736b35dc82e11d9e5d17bf5f22be94a79ac24d3e2cb1b46e",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsw1JbKLOc3cyJaB7AmvaNKa4Vb",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3},{\"number\":4}],\"tracks\":[{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"lead\",\"start\":\"0\",\"duration\":\"1/2\",\"pitch\":61,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"lead\",\"start\":\"1/2\",\"duration\":\"1/2\",\"pitch\":63,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"lead\",\"start\":\"1\",\"duration\":\"1/2\",\"pitch\":65,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"lead\",\"start\":\"3/2\",\"duration\":\"1/2\",\"pitch\":68,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"lead\",\"start\":\"2\",\"duration\":\"1/2\",\"pitch\":64,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"lead\",\"start\":\"5/2\",\"duration\":\"1/2\",\"pitch\":66,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"lead\",\"start\":\"3\",\"duration\":\"1/2\",\"pitch\":68,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"lead\",\"start\":\"7/2\",\"duration\":\"1/2\",\"pitch\":71,\"velocity\":80}]}",
+      "response_payload_bytes": 904,
+      "response_payload_sha256": "ae448d06740ce8731d46944bff9f33cd0e459814830193fe8bf6f92f9ba4f204",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d871dbb7a2f600fb2ac217fe13d21f186120767ef6bc49bd6599c7d1c257fe71",
+      "stop_reason": "stop",
+      "task_sha256": "2eed083e6d2c1ce2055112363b8ca10ea8845f88d6d68791a834bdc9484cda14",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 365,
+        "output_tokens": 766,
+        "thinking_tokens": 425
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0086265,
+        "total": 0.00888825,
+        "uncached_input": 0.00026175
+      },
+      "family": "generation-progression",
+      "latency_ms": 12617.765,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1090,
+      "prompt_sha256": "4afbca5298c293520b48c07f26fdfee9f821deccc890d406c1c15ae59cacec76",
+      "raw_response_sha256": "b72e8771c6360229d875bf301e7da1ae505ab34d98bc26e2255be712f976b050",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt48c6XgCNAa8slemOmWgxjFhBz",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"tenor\"},{\"id\":\"alto\"},{\"id\":\"soprano\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":53,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":56,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":42,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":58,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":61,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":66,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":44,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":51,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":54,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":68,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":53,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":56,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80}]}",
+      "response_payload_bytes": 1542,
+      "response_payload_sha256": "b3f3623ca63ae08cc28cd421e603d2fb03eaf0dd29fe69b13bdafdb8b9583eeb",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ccd80dc080dcd6aab549ea490ad350fb870f310a4252fe25aac176ab9a01caa6",
+      "stop_reason": "stop",
+      "task_sha256": "e9fe728008863b32b1adccdc89358037449fa5b54c200967dba6188a44d49fdf",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 349,
+        "output_tokens": 1917,
+        "thinking_tokens": 1363
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0047475,
+        "total": 0.00500925,
+        "uncached_input": 0.00026175
+      },
+      "family": "generation-progression",
+      "latency_ms": 6575.955,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1094,
+      "prompt_sha256": "b047a820638c152ceac769fa60c83ee4ea6391aace9319b682bb87cf1022ac70",
+      "raw_response_sha256": "218f2d3ac42f5f8d21f8bed037ca6a3cbe943f0021997ec82307ace7dd44896f",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt1ybwAGFmaktJT9o3g4kwgk5nV",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"tenor\"},{\"id\":\"alto\"},{\"id\":\"soprano\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":42,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":58,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":61,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":66,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":47,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":54,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":63,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":71,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":37,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":59,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":65,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":68,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":42,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":58,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":61,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":66,\"velocity\":80}]}",
+      "response_payload_bytes": 1542,
+      "response_payload_sha256": "dea381530174b0fbe18c0f2ef3275b17d34833e216c578b39712cb9ec07ab1ee",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "12aff044bf95a1bd77b3ad241908e686288a991ace77db50f2f421ab0c258b27",
+      "stop_reason": "stop",
+      "task_sha256": "638553776616222618b482a1b45fcb8e6ebdff07b0afc1abb24268c508ff9709",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 349,
+        "output_tokens": 1055,
+        "thinking_tokens": 512
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.006318,
+        "total": 0.00657975,
+        "uncached_input": 0.00026175
+      },
+      "family": "generation-progression",
+      "latency_ms": 9660.778,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1096,
+      "prompt_sha256": "0b9701d65952a3eaf2c04230e09b42714c9da85506df797be47674fb64211582",
+      "raw_response_sha256": "39453661304b9dc52e7843784be02ba275dd5f00b9965a5c2e02fcb47bb530df",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt5gT8LOm790XVQdusmc7eYAtOM",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3},{\"number\":4}],\"tracks\":[{\"id\":\"lead\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":47,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":51,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":56,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":71,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":52,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":59,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":56,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":64,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":54,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":58,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":61,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":64,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":47,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":51,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":56,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"3\",\"duration\":\"1\",\"pitch\":71,\"velocity\":80}]}",
+      "response_payload_bytes": 1535,
+      "response_payload_sha256": "da10491de3846984061ad767c5b36236cd61ae4f7fcdc81907cf0a7a40eeef59",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "21d33cf78d52726b29f0629b21c7c6ea60ddcb01dc617a85742cee0f0fe0e3a3",
+      "stop_reason": "stop",
+      "task_sha256": "3221af50fc58feb172d7aa7f6a84e28c562a38650cc140d93c08518a2f348cf3",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 349,
+        "output_tokens": 1404,
+        "thinking_tokens": 861
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0004455,
+        "total": 0.001092,
+        "uncached_input": 0.0006465
+      },
+      "family": "transformation-local",
+      "latency_ms": 1593.407,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2552,
+      "prompt_sha256": "671ee294314eddacc85699ef0fa499a597007043370d17b0b5c7ef00183b46d6",
+      "raw_response_sha256": "95580db32ec8a0a799770107b058a18387d60534859636010ec0922fc3afc620",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt0DUi8UAaEximMHFm9kVPi5pb4",
+      "response_payload": "{\"base_sha256\":\"6f0a12070f356a01c3282ced75e09e637b15564734486478ca6d24f339bea25f\",\"ops\":[{\"op\":\"set\",\"id\":\"cal-st0-pad-1-2\",\"velocity\":75}]}",
+      "response_payload_bytes": 140,
+      "response_payload_sha256": "5a06103afb36bab5d362fb1de2a3e20e68f8cca95f91ede22b9c5612cbbfb49a",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "0d92d0bf93e63116f6c8cc402bb6042f03416a9f25386dfaed55f56348dfb13b",
+      "stop_reason": "stop",
+      "task_sha256": "d9c6d5f8e28e30c3b89c0691bc07bfceee7b9299cfd7c8891e59209227e00a32",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 862,
+        "output_tokens": 99,
+        "thinking_tokens": 18
+      },
+      "validation": {
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.005733,
+        "total": 0.00648375,
+        "uncached_input": 0.00075075
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 8865.185,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3320,
+      "prompt_sha256": "78d13571e4828a325a1c8b0cc4d335d0411fcec86fd5402bc9700c66ef223462",
+      "raw_response_sha256": "8338a9d3f1fe6a92b5e815c5529d2a44604d4556eebd4fc5ca41997bf5dcf97b",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtC8aAHomxuajS4LQ7CD2XRgUr5",
+      "response_payload": "{\"score\":{\"id\":\"calibration-transformation-revoice-v0-source\",\"hash\":\"27f75078e3091ae57f0f52a2bfdc9b9bc8a1d8ed110492b30e838455fee6c17a\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"]},\"bars\":[{\"harmony\":\"task-contract\",\"length\":\"4\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"tracks\":[{\"id\":\"alto\",\"role\":\"alto\",\"voice\":\"alto.1\"},{\"id\":\"bass\",\"role\":\"bass\",\"voice\":\"bass.1\"},{\"id\":\"soprano\",\"role\":\"soprano\",\"voice\":\"soprano.1\"},{\"id\":\"tenor\",\"role\":\"tenor\",\"voice\":\"tenor.1\"}],\"regions\":[{\"end\":\"3\",\"id\":\"task-region\",\"start\":\"0\"}],\"notes\":[{\"id\":\"cal-rv0-1-alto\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":55,\"velocity\":80},{\"id\":\"cal-rv0-1-bass\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":48,\"velocity\":76},{\"id\":\"cal-rv0-1-soprano\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":59,\"velocity\":82},{\"id\":\"cal-rv0-1-tenor\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":52,\"velocity\":78},{\"id\":\"cal-rv0-2-alto\",\"voice\":\"alto\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":57,\"velocity\":80},{\"id\":\"cal-rv0-2-bass\",\"voice\":\"bass\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":50,\"velocity\":76},{\"id\":\"cal-rv0-2-soprano\",\"voice\":\"soprano\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":61,\"velocity\":82},{\"id\":\"cal-rv0-2-tenor\",\"voice\":\"tenor\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":54,\"velocity\":78},{\"id\":\"cal-rv0-3-alto\",\"voice\":\"alto\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":59,\"velocity\":80},{\"id\":\"cal-rv0-3-bass\",\"voice\":\"bass\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":52,\"velocity\":76},{\"id\":\"cal-rv0-3-soprano\",\"voice\":\"soprano\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":63,\"velocity\":82},{\"id\":\"cal-rv0-3-tenor\",\"voice\":\"tenor\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":56,\"velocity\":78}]}",
+      "response_payload_bytes": 1756,
+      "response_payload_sha256": "6e9556902a9365a016f871bb40c86b87c4a10a52adfe87ba6f3d75d50fb755fb",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d19da08362a7f8714d9f72d7b8e5fd743a3150131dabcef876583f94c55cdf11",
+      "stop_reason": "stop",
+      "task_sha256": "27f75078e3091ae57f0f52a2bfdc9b9bc8a1d8ed110492b30e838455fee6c17a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 1001,
+        "output_tokens": 1274,
+        "thinking_tokens": 626
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0044325,
+        "total": 0.00518025,
+        "uncached_input": 0.00074775
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 6464.038,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3319,
+      "prompt_sha256": "20152037106e4264f6794af4a1972c1d03caf427119e452113f55f96d4499cc4",
+      "raw_response_sha256": "412b2fdbff8e25c1c234d02ae6be08c7efa2a9c3785ff25140de730707988161",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsrhlAloaqoNJcPpJcuwDChdppT",
+      "response_payload": "{\"score\":{\"id\":\"calibration-transformation-revoice-v1-source\",\"hash\":\"740afd522f86ac90ac170474dfcdc37f096ad16857f24d0da6bef49b9fa9a50f\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"]},\"bars\":[{\"harmony\":\"task-contract\",\"length\":\"4\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"tracks\":[{\"id\":\"alto\",\"role\":\"alto\",\"voice\":\"alto.1\"},{\"id\":\"bass\",\"role\":\"bass\",\"voice\":\"bass.1\"},{\"id\":\"soprano\",\"role\":\"soprano\",\"voice\":\"soprano.1\"},{\"id\":\"tenor\",\"role\":\"tenor\",\"voice\":\"tenor.1\"}],\"regions\":[{\"end\":\"3\",\"id\":\"task-region\",\"start\":\"0\"}],\"notes\":[{\"duration\":\"1\",\"id\":\"cal-rv1-1-alto\",\"pitch\":54,\"start\":\"0\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"1\",\"id\":\"cal-rv1-1-bass\",\"pitch\":45,\"start\":\"0\",\"velocity\":76,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"cal-rv1-1-soprano\",\"pitch\":61,\"start\":\"0\",\"velocity\":82,\"voice\":\"soprano\"},{\"duration\":\"1\",\"id\":\"cal-rv1-1-tenor\",\"pitch\":50,\"start\":\"0\",\"velocity\":78,\"voice\":\"tenor\"},{\"duration\":\"1\",\"id\":\"cal-rv1-2-alto\",\"pitch\":56,\"start\":\"1\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"1\",\"id\":\"cal-rv1-2-bass\",\"pitch\":47,\"start\":\"1\",\"velocity\":76,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"cal-rv1-2-soprano\",\"pitch\":63,\"start\":\"1\",\"velocity\":82,\"voice\":\"soprano\"},{\"duration\":\"1\",\"id\":\"cal-rv1-2-tenor\",\"pitch\":52,\"start\":\"1\",\"velocity\":78,\"voice\":\"tenor\"},{\"duration\":\"1\",\"id\":\"cal-rv1-3-alto\",\"pitch\":58,\"start\":\"2\",\"velocity\":80,\"voice\":\"alto\"},{\"duration\":\"1\",\"id\":\"cal-rv1-3-bass\",\"pitch\":49,\"start\":\"2\",\"velocity\":76,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"cal-rv1-3-soprano\",\"pitch\":65,\"start\":\"2\",\"velocity\":82,\"voice\":\"soprano\"},{\"duration\":\"1\",\"id\":\"cal-rv1-3-tenor\",\"pitch\":54,\"start\":\"2\",\"velocity\":78,\"voice\":\"tenor\"}]}",
+      "response_payload_bytes": 1756,
+      "response_payload_sha256": "3dd7d7e11fa15d6c1174dfdc04b52fbf7163b21485f6104c257135651d692fcd",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d4289664f350f508d3a62dfed3116ffa597e20071412d865d2f8a30517e39b18",
+      "stop_reason": "stop",
+      "task_sha256": "740afd522f86ac90ac170474dfcdc37f096ad16857f24d0da6bef49b9fa9a50f",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 997,
+        "output_tokens": 985,
+        "thinking_tokens": 337
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0040005,
+        "total": 0.00474825,
+        "uncached_input": 0.00074775
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 6041.339,
+      "outer_schema_valid": true,
+      "prompt_bytes": 3328,
+      "prompt_sha256": "ebcf686854b46a6f20cee9f0790704b934eb69fc33c6361edde6fe27a5f42bf4",
+      "raw_response_sha256": "2596528443acaa609553cfbf25084340885291652c6b62bc9ee45abbf7afc7da",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtBefyEi7ZUZBJyv8V6jx3S55wc",
+      "response_payload": "{\"score\":{\"id\":\"calibration-transformation-revoice-v2-source\",\"hash\":\"c479dddfba038ff801056d2f893d43ca1bbbc5eeedfeb2cc227d8163322a2236\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"alto\"},{\"id\":\"bass\"},{\"id\":\"soprano\"},{\"id\":\"tenor\"}],\"regions\":[{\"id\":\"task-region\"}],\"notes\":[{\"id\":\"cal-rv2-1-alto\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":55,\"velocity\":80},{\"id\":\"cal-rv2-1-bass\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":52,\"velocity\":76},{\"id\":\"cal-rv2-1-soprano\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":59,\"velocity\":82},{\"id\":\"cal-rv2-1-tenor\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"1\",\"pitch\":52,\"velocity\":78},{\"id\":\"cal-rv2-2-alto\",\"voice\":\"alto\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":57,\"velocity\":80},{\"id\":\"cal-rv2-2-bass\",\"voice\":\"bass\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":54,\"velocity\":76},{\"id\":\"cal-rv2-2-soprano\",\"voice\":\"soprano\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":61,\"velocity\":82},{\"id\":\"cal-rv2-2-tenor\",\"voice\":\"tenor\",\"start\":\"1\",\"duration\":\"1\",\"pitch\":54,\"velocity\":78},{\"id\":\"cal-rv2-3-alto\",\"voice\":\"alto\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":59,\"velocity\":80},{\"id\":\"cal-rv2-3-bass\",\"voice\":\"bass\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":56,\"velocity\":76},{\"id\":\"cal-rv2-3-soprano\",\"voice\":\"soprano\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":63,\"velocity\":82},{\"id\":\"cal-rv2-3-tenor\",\"voice\":\"tenor\",\"start\":\"2\",\"duration\":\"1\",\"pitch\":56,\"velocity\":78}]}",
+      "response_payload_bytes": 1537,
+      "response_payload_sha256": "38c87c6a4dc76cbbb9535bef1ae8ccbd771f7947430c945c2af11258a3ac08f5",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ec691404b477363437ba5c17ed524c0b6881e5e7d0b900d03418f2cc44413461",
+      "stop_reason": "stop",
+      "task_sha256": "c479dddfba038ff801056d2f893d43ca1bbbc5eeedfeb2cc227d8163322a2236",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 997,
+        "output_tokens": 889,
+        "thinking_tokens": 328
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": false,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002871,
+        "total": 0.00335325,
+        "uncached_input": 0.00048225
+      },
+      "family": "transformation-rhythm",
+      "latency_ms": 4760.222,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2004,
+      "prompt_sha256": "2469c7b6a0540dbff701e56f6125cedbb1090baae0f3d5aa3154fa90ca31fbbb",
+      "raw_response_sha256": "2b195f19bf54bb21bdbe649979c7ab693f481671ce8aba56cbfc89aba269b401",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt7aVCwCM0YeOPEzoIZxoCC5XMG",
+      "response_payload": "{\"score\":{\"id\":\"calibration-transformation-rhythm-v0-source\",\"hash\":\"47a740c672c16ed6b98f11acd890746406817bc32bd03e15db93720edb45caa8\",\"tempo\":104,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"]},\"bars\":[{\"harmony\":\"task-contract\",\"length\":\"4\",\"meter\":\"4/4\",\"number\":1,\"start\":\"0\"}],\"tracks\":[{\"id\":\"perc\",\"role\":\"perc\",\"voice\":\"perc.1\"}],\"regions\":[{\"end\":\"15/4\",\"id\":\"task-region\",\"start\":\"0\"}],\"notes\":[{\"duration\":\"1/4\",\"id\":\"cal-ry0-0\",\"pitch\":48,\"start\":\"0\",\"velocity\":80,\"voice\":\"perc\"},{\"duration\":\"1/4\",\"id\":\"cal-ry0-1\",\"pitch\":49,\"start\":\"3/4\",\"velocity\":81,\"voice\":\"perc\"},{\"duration\":\"1/4\",\"id\":\"cal-ry0-2\",\"pitch\":50,\"start\":\"1\",\"velocity\":82,\"voice\":\"perc\"},{\"duration\":\"1/4\",\"id\":\"cal-ry0-3\",\"pitch\":51,\"start\":\"7/4\",\"velocity\":83,\"voice\":\"perc\"},{\"duration\":\"1/4\",\"id\":\"cal-ry0-4\",\"pitch\":48,\"start\":\"2\",\"velocity\":84,\"voice\":\"perc\"},{\"duration\":\"1/4\",\"id\":\"cal-ry0-5\",\"pitch\":49,\"start\":\"11/4\",\"velocity\":85,\"voice\":\"perc\"},{\"duration\":\"1/4\",\"id\":\"cal-ry0-6\",\"pitch\":50,\"start\":\"3\",\"velocity\":86,\"voice\":\"perc\"},{\"duration\":\"1/4\",\"id\":\"cal-ry0-7\",\"pitch\":51,\"start\":\"15/4\",\"velocity\":87,\"voice\":\"perc\"}]}",
+      "response_payload_bytes": 1209,
+      "response_payload_sha256": "9e32d3c78d3068898eca4af99d7b5e9789e63f53c2470b4663dddcf7184f879f",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "312cdd6505df3acac1fdc5349a197de0a2a857fbf2e1d74a99996e9dd6358879",
+      "stop_reason": "stop",
+      "task_sha256": "47a740c672c16ed6b98f11acd890746406817bc32bd03e15db93720edb45caa8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 643,
+        "output_tokens": 638,
+        "thinking_tokens": 181
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0026325,
+        "total": 0.00310425,
+        "uncached_input": 0.00047175
+      },
+      "family": "comprehension-structure",
+      "latency_ms": 3756.552,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1675,
+      "prompt_sha256": "9584b2eec41289f1bdb8a02d9a7347c3ba662741d71c1f9b33bd14f01abc8f70",
+      "raw_response_sha256": "4dd3286aee1517d66b715095b8f82150299cc0f0e7c096df68866867bb520ce9",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt29ZoD1ApnLMRPwN1myTEzsdtI",
+      "response_payload": "G START 0\nSLOT bass ID cal-st0-bass-1 DURATION 3/2 PITCH 31 VELOCITY 74\nSLOT lead ID cal-st0-lead-1 DURATION 1/2 PITCH 55 VELOCITY 79\nSLOT pad ID cal-st0-pad-1-1 DURATION 3/2 PITCH 43 VELOCITY 69\nSLOT pad ID cal-st0-pad-1-2 DURATION 3/2 PITCH 47 VELOCITY 70\nSLOT pad ID cal-st0-pad-1-3 DURATION 3/2 PITCH 50 VELOCITY 71\nEND\nN ID cal-st0-lead-2 VOICE lead START 1/2 DURATION 1/2 PITCH 60 VELOCITY 80\nN ID cal-st0-lead-3 VOICE lead START 1 DURATION 1/2 PITCH 57 VELOCITY 81\nG START 3/2\nSLOT bass ID cal-st0-bass-2 DURATION 3/2 PITCH 36 VELOCITY 76\nSLOT lead ID cal-st0-lead-4 DURATION 1/2 PITCH 62 VELOCITY 82\nSLOT pad ID cal-st0-pad-2-1 DURATION 3/2 PITCH 43 VELOCITY 69\nSLOT pad ID cal-st0-pad-2-2 DURATION 3/2 PITCH 47 VELOCITY 70\nSLOT pad ID cal-st0-pad-2-3 DURATION 3/2 PITCH 50 VELOCITY 71\nEND\nN ID cal-st0-lead-5 VOICE lead START 2 DURATION 1/2 PITCH 59 VELOCITY 83\nN ID cal-st0-lead-6 VOICE lead START 5/2 DURATION 1/2 PITCH 64 VELOCITY 84",
+      "response_payload_bytes": 945,
+      "response_payload_sha256": "08faa7eb53a41b256ce587b2510d9ba589dfb28e047eb9c2aaacfc3546ffd7d4",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ba054b5c04c628b854756e9acee5980452528a60d1bef3fe34aad4a3c6552044",
+      "stop_reason": "stop",
+      "task_sha256": "58898a8aa9ab9c08fe7f233b5dd0dda2751b968c830bc6c69122a711f2686c00",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 629,
+        "output_tokens": 585,
+        "thinking_tokens": 149
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0008685,
+        "total": 0.00115425,
+        "uncached_input": 0.00028575
+      },
+      "family": "continuation-motif",
+      "latency_ms": 2034.149,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1134,
+      "prompt_sha256": "d70b1c89bd1011b31bc1b8011156f1348da2783a1ce9fa558641c399ce6e66f8",
+      "raw_response_sha256": "41bc95c9c0355acc38841777f968485393f097b1881492a2eabcef7e1f323113",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsk0j40YratnJUZSzYqVTMZz9HX",
+      "response_payload": "N ID cal-mo-out-0-1 VOICE lead START 4 DURATION 1/2 PITCH 62 VELOCITY 86\nN ID cal-mo-out-0-2 VOICE lead START 9/2 DURATION 1/2 PITCH 65 VELOCITY 86\nN ID cal-mo-out-0-3 VOICE lead START 5 DURATION 1/2 PITCH 67 VELOCITY 86\nN ID cal-mo-out-0-4 VOICE lead START 7/2 DURATION 1/2 PITCH 64 VELOCITY 86",
+      "response_payload_bytes": 295,
+      "response_payload_sha256": "8383280858928e24742e13df9c8c60bf3f6216e3ca225164c47212e94db25959",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "f4b58e66314e2807535ee05da2626bf83a406e7665d029572d95f86613d5c025",
+      "stop_reason": "stop",
+      "task_sha256": "5b07c564e7648a9ef3fb9cda100da87bb16860601cccde2842313747dbae3c18",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 381,
+        "output_tokens": 193,
+        "thinking_tokens": 49
+      },
+      "validation": {
+        "checks": {},
+        "error": "ValueError: The grouped-label payload is not in canonical order",
+        "primary_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002493,
+        "total": 0.00271425,
+        "uncached_input": 0.00022125
+      },
+      "family": "continuation-roles",
+      "latency_ms": 5028.506,
+      "outer_schema_valid": true,
+      "prompt_bytes": 925,
+      "prompt_sha256": "f693b805de60af48571e29153d3d23dd2412b25242d454e90b43932dcc80dfcd",
+      "raw_response_sha256": "d0ad60ff081812fe578c123fdfbce609718f90e23f8c0750c6cf5604f3e77fac",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsaZhsTpCRmPqjufg74J5uQXXFl",
+      "response_payload": "G START 4 DURATION 1\nSLOT bass ID n1 DURATION 1 PITCH 49 VELOCITY 80\nSLOT lead ID n2 DURATION 1 PITCH 68 VELOCITY 84\nEND\nG START 5 DURATION 1\nSLOT bass ID n3 DURATION 1 PITCH 46 VELOCITY 80\nSLOT lead ID n4 DURATION 1 PITCH 61 VELOCITY 84\nEND\nG START 6 DURATION 1\nSLOT bass ID n5 DURATION 1 PITCH 51 VELOCITY 80\nSLOT lead ID n6 DURATION 1 PITCH 70 VELOCITY 84\nEND\nG START 7 DURATION 1\nSLOT bass ID n7 DURATION 1 PITCH 48 VELOCITY 80\nSLOT lead ID n8 DURATION 1 PITCH 63 VELOCITY 84\nEND\nG START 8 DURATION 1\nSLOT bass ID n9 DURATION 1 PITCH 53 VELOCITY 80\nSLOT lead ID n10 DURATION 1 PITCH 68 VELOCITY 84\nEND",
+      "response_payload_bytes": 605,
+      "response_payload_sha256": "eb2fb1c26414a54ee964f521b6ce6e350b572654045eaf96af821b94b618187d",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "83c8f5f5c5ff600d9c77e8e7dc0ae1b2b247e6eb42111ea07ef91a443effe5a5",
+      "stop_reason": "stop",
+      "task_sha256": "3056ea282820568dd5c9d3bc78d4f9004b47925ce386ac7b83ec7a9186c209eb",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 295,
+        "output_tokens": 554,
+        "thinking_tokens": 283
+      },
+      "validation": {
+        "checks": {},
+        "error": "ValueError: A slot must use exactly one duration source",
+        "primary_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0028035,
+        "total": 0.00302475,
+        "uncached_input": 0.00022125
+      },
+      "family": "continuation-roles",
+      "latency_ms": 5684.528,
+      "outer_schema_valid": true,
+      "prompt_bytes": 927,
+      "prompt_sha256": "690053dd50fa02c258c5817c8386ba8f0d119c1faa608bbb485bac9b89b1a7c8",
+      "raw_response_sha256": "14c673c6ecea5faf76086eff3ea148ab4f905f2fb566e90e280997abb2401d37",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsayrzeMJeMKOtLUNUwFvi9YyWl",
+      "response_payload": "G START 4 DURATION 1\nSLOT bass ID n1 PITCH 46 VELOCITY 80\nSLOT lead ID n2 PITCH 61 VELOCITY 84\nEND\nG START 5 DURATION 1\nSLOT bass ID n3 PITCH 47 VELOCITY 80\nSLOT lead ID n4 PITCH 63 VELOCITY 84\nEND\nG START 6 DURATION 1\nSLOT bass ID n5 PITCH 44 VELOCITY 80\nSLOT lead ID n6 PITCH 63 VELOCITY 84\nEND\nG START 7 DURATION 1\nSLOT bass ID n7 PITCH 45 VELOCITY 80\nSLOT lead ID n8 PITCH 61 VELOCITY 84\nEND\nG START 8 DURATION 1\nSLOT bass ID n9 PITCH 48 VELOCITY 80\nSLOT lead ID n10 PITCH 66 VELOCITY 84\nEND",
+      "response_payload_bytes": 495,
+      "response_payload_sha256": "a3502aac78696a8da541e0f9205ac0a31c2de9add675e48086bd0f39b2e9dedd",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "8e927fab53ae2cfa559b105a43c6556bf3e6e3821d2fa6fc77d7dfddddb89e67",
+      "stop_reason": "stop",
+      "task_sha256": "bc1fcae68258a5d22b537f5e47bf69df9c6faa12c0c5a71a86685884eeaa197e",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 295,
+        "output_tokens": 623,
+        "thinking_tokens": 392
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": false,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0043425,
+        "total": 0.00456375,
+        "uncached_input": 0.00022125
+      },
+      "family": "continuation-roles",
+      "latency_ms": 7374.354,
+      "outer_schema_valid": true,
+      "prompt_bytes": 928,
+      "prompt_sha256": "4e99b5ddb5ef6de8f0d743c5b78891761f895118488f9790d4cea240b3a58e21",
+      "raw_response_sha256": "1c2144507c5ae881618982837aca5c3735a867349b620ba78f468df362d42ebb",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt2eh867FtNQHXZV07gzF1d18Wv",
+      "response_payload": "G START 4 DURATION 1\nSLOT bass ID n1 PITCH 51 VELOCITY 80\nSLOT lead ID n2 PITCH 71 VELOCITY 84\nEND\nG START 5 DURATION 1\nSLOT bass ID n3 PITCH 52 VELOCITY 80\nSLOT lead ID n4 PITCH 68 VELOCITY 84\nEND\nG START 6 DURATION 1\nSLOT bass ID n5 PITCH 52 VELOCITY 80\nSLOT lead ID n6 PITCH 61 VELOCITY 84\nEND\nG START 7 DURATION 1\nSLOT bass ID n7 PITCH 46 VELOCITY 80\nSLOT lead ID n8 PITCH 61 VELOCITY 84\nEND\nG START 8 DURATION 1\nSLOT bass ID n9 PITCH 51 VELOCITY 80\nSLOT lead ID n10 PITCH 71 VELOCITY 84\nEND",
+      "response_payload_bytes": 495,
+      "response_payload_sha256": "ee865a7ac4fe946b781d5ae71145c2f3518424976454af7499dcfc74f5396508",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "90775cb9e9d752cba458cef87bdcade6cd8667f7ef69fe41566d281647fdf534",
+      "stop_reason": "stop",
+      "task_sha256": "30453e5dfaedcf4fd6923c5996facb951395a40da0716938124c4106abe6503c",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 295,
+        "output_tokens": 965,
+        "thinking_tokens": 728
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00225,
+        "total": 0.00251475,
+        "uncached_input": 0.00026475
+      },
+      "family": "generation-melody",
+      "latency_ms": 3779.809,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1028,
+      "prompt_sha256": "c0e95048b0859a2138840201761bfa0aba1c3a779c4bf4eb00900fac7eae3ea1",
+      "raw_response_sha256": "790eabb22609ea857e7ed5d36bd145d6497539571e70ca62b7325c2127ee61d7",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsfJZbiYqDH5xsgrI48reHSs905",
+      "response_payload": "N lead ID n1 DURATION 1/2 PITCH 61 VELOCITY 84\nN lead ID n2 DURATION 1/2 PITCH 63 VELOCITY 84\nN lead ID n3 DURATION 1/2 PITCH 65 VELOCITY 84\nN lead ID n4 DURATION 1/2 PITCH 68 VELOCITY 84\nN lead ID n5 DURATION 1/2 PITCH 64 VELOCITY 84\nN lead ID n6 DURATION 1/2 PITCH 66 VELOCITY 84\nN lead ID n7 DURATION 1/2 PITCH 68 VELOCITY 84\nN lead ID n8 DURATION 1/2 PITCH 71 VELOCITY 84",
+      "response_payload_bytes": 375,
+      "response_payload_sha256": "eb8978d4ee5f6ed0b16ce0ed0f4dae1ef7dc0c58cd13877407c6829051e8d4d4",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d871dbb7a2f600fb2ac217fe13d21f186120767ef6bc49bd6599c7d1c257fe71",
+      "stop_reason": "stop",
+      "task_sha256": "2eed083e6d2c1ce2055112363b8ca10ea8845f88d6d68791a834bdc9484cda14",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 353,
+        "output_tokens": 500,
+        "thinking_tokens": 316
+      },
+      "validation": {
+        "checks": {},
+        "error": "ValueError: Invalid grouped-label row: N lead ID n1 DURATION 1/2 PITCH 61 VELOCITY 84",
+        "primary_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.008397,
+        "total": 0.00864975,
+        "uncached_input": 0.00025275
+      },
+      "family": "generation-progression",
+      "latency_ms": 12340.625,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1039,
+      "prompt_sha256": "db5519ab2fc9ada9bc94b626d361a599cfee519ab2f90c53af8e308d241f3333",
+      "raw_response_sha256": "9bd6596323f819a41e810d6fede3bad7012ec7e9cbc98a701d5d309d2b20a295",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdskaFqh1BgfUG3ymhgtsYjB1mvK",
+      "response_payload": "G START 0 DURATION 1\nSLOT bass ID n1 PITCH 49 VELOCITY 80\nSLOT tenor ID n2 PITCH 53 VELOCITY 80\nSLOT alto ID n3 PITCH 56 VELOCITY 80\nSLOT soprano ID n4 PITCH 73 VELOCITY 80\nEND\nG START 1 DURATION 1\nSLOT bass ID n5 PITCH 42 VELOCITY 80\nSLOT tenor ID n6 PITCH 58 VELOCITY 80\nSLOT alto ID n7 PITCH 61 VELOCITY 80\nSLOT soprano ID n8 PITCH 70 VELOCITY 80\nEND\nG START 2 DURATION 1\nSLOT bass ID n9 PITCH 44 VELOCITY 80\nSLOT tenor ID n10 PITCH 51 VELOCITY 80\nSLOT alto ID n11 PITCH 66 VELOCITY 80\nSLOT soprano ID n12 PITCH 72 VELOCITY 80\nEND\nG START 3 DURATION 1\nSLOT bass ID n13 PITCH 49 VELOCITY 80\nSLOT tenor ID n14 PITCH 53 VELOCITY 80\nSLOT alto ID n15 PITCH 68 VELOCITY 80\nSLOT soprano ID n16 PITCH 73 VELOCITY 80\nEND",
+      "response_payload_bytes": 714,
+      "response_payload_sha256": "92b33ee056d53b23434e59249924522355ed70e65bde08da8980163126af8f8d",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ccd80dc080dcd6aab549ea490ad350fb870f310a4252fe25aac176ab9a01caa6",
+      "stop_reason": "stop",
+      "task_sha256": "e9fe728008863b32b1adccdc89358037449fa5b54c200967dba6188a44d49fdf",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 337,
+        "output_tokens": 1866,
+        "thinking_tokens": 1534
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.004275,
+        "total": 0.00452775,
+        "uncached_input": 0.00025275
+      },
+      "family": "generation-progression",
+      "latency_ms": 8032.555,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1043,
+      "prompt_sha256": "503c4387283e36bfa703556c96f4c80e06381d36b812ce3dc69cc115e730effa",
+      "raw_response_sha256": "77eba3c6883bc1f46a00beca9a8f86633f88778486a8b1461e7e80be7cd52524",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsawUSesr8rmmWpRdxXdLJpTWbq",
+      "response_payload": "G START 0 DURATION 1\nSLOT bass ID n1 PITCH 42 VELOCITY 80\nSLOT tenor ID n2 PITCH 58 VELOCITY 80\nSLOT alto ID n3 PITCH 61 VELOCITY 80\nSLOT soprano ID n4 PITCH 70 VELOCITY 80\nEND\nG START 1 DURATION 1\nSLOT bass ID n5 PITCH 47 VELOCITY 80\nSLOT tenor ID n6 PITCH 54 VELOCITY 80\nSLOT alto ID n7 PITCH 59 VELOCITY 80\nSLOT soprano ID n8 PITCH 63 VELOCITY 80\nEND\nG START 2 DURATION 1\nSLOT bass ID n9 PITCH 49 VELOCITY 80\nSLOT tenor ID n10 PITCH 53 VELOCITY 80\nSLOT alto ID n11 PITCH 56 VELOCITY 80\nSLOT soprano ID n12 PITCH 59 VELOCITY 80\nEND\nG START 3 DURATION 1\nSLOT bass ID n13 PITCH 42 VELOCITY 80\nSLOT tenor ID n14 PITCH 58 VELOCITY 80\nSLOT alto ID n15 PITCH 58 VELOCITY 80\nSLOT soprano ID n16 PITCH 62 VELOCITY 80\nEND",
+      "response_payload_bytes": 714,
+      "response_payload_sha256": "e50265d2242e44ce6bb683adda03b33c099ef49ce1a26f31bd4d8363c5ac8af2",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "12aff044bf95a1bd77b3ad241908e686288a991ace77db50f2f421ab0c258b27",
+      "stop_reason": "stop",
+      "task_sha256": "638553776616222618b482a1b45fcb8e6ebdff07b0afc1abb24268c508ff9709",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 337,
+        "output_tokens": 950,
+        "thinking_tokens": 624
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0037125,
+        "total": 0.00396525,
+        "uncached_input": 0.00025275
+      },
+      "family": "generation-progression",
+      "latency_ms": 5770.377,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1045,
+      "prompt_sha256": "e24ac83625fe11ef8f377fb82e329161418c3f53009ba44a370af503ff6974a5",
+      "raw_response_sha256": "8039858875072e211d8c39e3658c119fb58c6c06d7d92fa673eb5476303a94d4",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtExg3CIPfuM1VNsWE4vqqqA9n3",
+      "response_payload": "G START 0 DURATION 1\nSLOT bass ID n1 PITCH 47 VELOCITY 80\nSLOT tenor ID n2 PITCH 54 VELOCITY 80\nSLOT alto ID n3 PITCH 63 VELOCITY 80\nSLOT soprano ID n4 PITCH 71 VELOCITY 80\nEND\nG START 1 DURATION 1\nSLOT bass ID n5 PITCH 52 VELOCITY 80\nSLOT tenor ID n6 PITCH 56 VELOCITY 80\nSLOT alto ID n7 PITCH 59 VELOCITY 80\nSLOT soprano ID n8 PITCH 64 VELOCITY 80\nEND\nG START 2 DURATION 1\nSLOT bass ID n9 PITCH 54 VELOCITY 80\nSLOT tenor ID n10 PITCH 58 VELOCITY 80\nSLOT alto ID n11 PITCH 61 VELOCITY 80\nSLOT soprano ID n12 PITCH 64 VELOCITY 80\nEND\nG START 3 DURATION 1\nSLOT bass ID n13 PITCH 47 VELOCITY 80\nSLOT tenor ID n14 PITCH 54 VELOCITY 80\nSLOT alto ID n15 PITCH 63 VELOCITY 80\nSLOT soprano ID n16 PITCH 71 VELOCITY 80\nEND",
+      "response_payload_bytes": 714,
+      "response_payload_sha256": "c92e908c7a40480952c781356974f6fb05012232a54d9c703e53c673fb7d4b1d",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "21d33cf78d52726b29f0629b21c7c6ea60ddcb01dc617a85742cee0f0fe0e3a3",
+      "stop_reason": "stop",
+      "task_sha256": "3221af50fc58feb172d7aa7f6a84e28c562a38650cc140d93c08518a2f348cf3",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 337,
+        "output_tokens": 825,
+        "thinking_tokens": 505
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.000558,
+        "total": 0.00101775,
+        "uncached_input": 0.00045975
+      },
+      "family": "transformation-local",
+      "latency_ms": 2031.103,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1572,
+      "prompt_sha256": "07880486d3b87d76bb5e846476457b310551a0b1ed4c070aa184f1604fb4be62",
+      "raw_response_sha256": "6ee3e794beb5d01e6560969fe152fb80d6460aad9d7e8ef2a82c12e58dfa873b",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsyaxBp53060HR8IoQCLZ3HBjZy",
+      "response_payload": "PATCH 6f0a12070f356a01c3282ced75e09e637b15564734486478ca6d24f339bea25f\nSET cal-st0-pad-1-2 velocity=75",
+      "response_payload_bytes": 102,
+      "response_payload_sha256": "f328e75af3981ba2c20800decdb01e7c88bcd47693dc33e64dec61c559609309",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "0d92d0bf93e63116f6c8cc402bb6042f03416a9f25386dfaed55f56348dfb13b",
+      "stop_reason": "stop",
+      "task_sha256": "d9c6d5f8e28e30c3b89c0691bc07bfceee7b9299cfd7c8891e59209227e00a32",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 613,
+        "output_tokens": 124,
+        "thinking_tokens": 58
+      },
+      "validation": {
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0024795,
+        "total": 0.0030015,
+        "uncached_input": 0.000522
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 4275.973,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2199,
+      "prompt_sha256": "700c426020a0ae433dd47bd8736de9b7fa86fd2af0f4bb446833b0f337c19cee",
+      "raw_response_sha256": "c4a126549b241f8841b3b01c20c3a6030213179fb7188bbd420aa6dd85a8bfc0",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsp1FYXQTYJApaNtMRvDTVpJG5g",
+      "response_payload": "G START 0 DURATION 1\nSLOT bass ID cal-rv0-1-bass PITCH 48 VELOCITY 76\nSLOT tenor ID cal-rv0-1-tenor PITCH 52 VELOCITY 78\nSLOT alto ID cal-rv0-1-alto PITCH 55 VELOCITY 80\nSLOT soprano ID cal-rv0-1-soprano PITCH 59 VELOCITY 82\nEND\nG START 1 DURATION 1\nSLOT bass ID cal-rv0-2-bass PITCH 50 VELOCITY 76\nSLOT tenor ID cal-rv0-2-tenor PITCH 54 VELOCITY 78\nSLOT alto ID cal-rv0-2-alto PITCH 57 VELOCITY 80\nSLOT soprano ID cal-rv0-2-soprano PITCH 61 VELOCITY 82\nEND\nG START 2 DURATION 1\nSLOT bass ID cal-rv0-3-bass PITCH 52 VELOCITY 76\nSLOT tenor ID cal-rv0-3-tenor PITCH 56 VELOCITY 78\nSLOT alto ID cal-rv0-3-alto PITCH 59 VELOCITY 80\nSLOT soprano ID cal-rv0-3-soprano PITCH 63 VELOCITY 82\nEND",
+      "response_payload_bytes": 686,
+      "response_payload_sha256": "0a14b60a99a6490e33e233dd14367dc9379a2eab164c2240d8d063baa65ad876",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d19da08362a7f8714d9f72d7b8e5fd743a3150131dabcef876583f94c55cdf11",
+      "stop_reason": "stop",
+      "task_sha256": "27f75078e3091ae57f0f52a2bfdc9b9bc8a1d8ed110492b30e838455fee6c17a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 696,
+        "output_tokens": 551,
+        "thinking_tokens": 232
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00207,
+        "total": 0.0025935,
+        "uncached_input": 0.0005235
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 3285.604,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2198,
+      "prompt_sha256": "815e54ef63bf34da18b117e9ffb8e521536ca1fa17188e945364aad77a048f49",
+      "raw_response_sha256": "3a1afa63fc23fc3ed3aea90766fba508974012520f61f886d6d59b5c15c314e0",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdshEymcbeWzG9vdyPP4fMQftvbs",
+      "response_payload": "G START 0 DURATION 1\nSLOT bass ID cal-rv1-1-bass PITCH 45 VELOCITY 76\nSLOT tenor ID cal-rv1-1-tenor PITCH 50 VELOCITY 78\nSLOT alto ID cal-rv1-1-alto PITCH 54 VELOCITY 80\nSLOT soprano ID cal-rv1-1-soprano PITCH 61 VELOCITY 82\nEND\nG START 1 DURATION 1\nSLOT bass ID cal-rv1-2-bass PITCH 47 VELOCITY 76\nSLOT tenor ID cal-rv1-2-tenor PITCH 52 VELOCITY 78\nSLOT alto ID cal-rv1-2-alto PITCH 56 VELOCITY 80\nSLOT soprano ID cal-rv1-2-soprano PITCH 63 VELOCITY 82\nEND\nG START 2 DURATION 1\nSLOT bass ID cal-rv1-3-bass PITCH 49 VELOCITY 76\nSLOT tenor ID cal-rv1-3-tenor PITCH 54 VELOCITY 78\nSLOT alto ID cal-rv1-3-alto PITCH 58 VELOCITY 80\nSLOT soprano ID cal-rv1-3-soprano PITCH 65 VELOCITY 82\nEND",
+      "response_payload_bytes": 686,
+      "response_payload_sha256": "60d4c520a08d09db36d0f2ba286341a266d55184876fe5b906a2665333f88fd5",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d4289664f350f508d3a62dfed3116ffa597e20071412d865d2f8a30517e39b18",
+      "stop_reason": "stop",
+      "task_sha256": "740afd522f86ac90ac170474dfcdc37f096ad16857f24d0da6bef49b9fa9a50f",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 698,
+        "output_tokens": 460,
+        "thinking_tokens": 141
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002385,
+        "total": 0.0029085,
+        "uncached_input": 0.0005235
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 4071.091,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2207,
+      "prompt_sha256": "fe9e2052d719b8050ebca5d2f00d93919962ed4d428335c1e3cfe085c4be0b1d",
+      "raw_response_sha256": "6ad45b1809199675ded9c59447eef7cf9887eb0d807a5051546621ab22ce6961",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsyHSWUj0tTQddzS5BEsdHqLRBi",
+      "response_payload": "G START 0 DURATION 1\nSLOT bass ID cal-rv2-1-bass PITCH 52 VELOCITY 76\nSLOT tenor ID cal-rv2-1-tenor PITCH 55 VELOCITY 78\nSLOT alto ID cal-rv2-1-alto PITCH 59 VELOCITY 80\nSLOT soprano ID cal-rv2-1-soprano PITCH 60 VELOCITY 82\nEND\nG START 1 DURATION 1\nSLOT bass ID cal-rv2-2-bass PITCH 54 VELOCITY 76\nSLOT tenor ID cal-rv2-2-tenor PITCH 57 VELOCITY 78\nSLOT alto ID cal-rv2-2-alto PITCH 61 VELOCITY 80\nSLOT soprano ID cal-rv2-2-soprano PITCH 62 VELOCITY 82\nEND\nG START 2 DURATION 1\nSLOT bass ID cal-rv2-3-bass PITCH 56 VELOCITY 76\nSLOT tenor ID cal-rv2-3-tenor PITCH 59 VELOCITY 78\nSLOT alto ID cal-rv2-3-alto PITCH 63 VELOCITY 80\nSLOT soprano ID cal-rv2-3-soprano PITCH 64 VELOCITY 82\nEND",
+      "response_payload_bytes": 686,
+      "response_payload_sha256": "f60e1330c768ab369d2840049fc326d70ad7c6ac4b897015685d8306a5893514",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ec691404b477363437ba5c17ed524c0b6881e5e7d0b900d03418f2cc44413461",
+      "stop_reason": "stop",
+      "task_sha256": "c479dddfba038ff801056d2f893d43ca1bbbc5eeedfeb2cc227d8163322a2236",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 698,
+        "output_tokens": 530,
+        "thinking_tokens": 211
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0018225,
+        "total": 0.002172,
+        "uncached_input": 0.0003495
+      },
+      "family": "transformation-rhythm",
+      "latency_ms": 2933.717,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1297,
+      "prompt_sha256": "b18b3609eca710aff954da83344ab2a4a9262a21d9092fad9bacd855f3826f84",
+      "raw_response_sha256": "fc6e60bcaba7aba0f604bedef4c75a0489cf231cbdbf243a6a9b4428414d2af5",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt4P44n4fnHlSLyCZvhWoeOF68U",
+      "response_payload": "N ID cal-ry0-0 VOICE perc START 0 DURATION 1/4 PITCH 48 VELOCITY 80\nN ID cal-ry0-1 VOICE perc START 3/4 DURATION 1/4 PITCH 49 VELOCITY 81\nN ID cal-ry0-2 VOICE perc START 1 DURATION 1/4 PITCH 50 VELOCITY 82\nN ID cal-ry0-3 VOICE perc START 7/4 DURATION 1/4 PITCH 51 VELOCITY 83\nN ID cal-ry0-4 VOICE perc START 2 DURATION 1/4 PITCH 48 VELOCITY 84\nN ID cal-ry0-5 VOICE perc START 11/4 DURATION 1/4 PITCH 49 VELOCITY 85\nN ID cal-ry0-6 VOICE perc START 3 DURATION 1/4 PITCH 50 VELOCITY 86\nN ID cal-ry0-7 VOICE perc START 15/4 DURATION 1/4 PITCH 51 VELOCITY 87",
+      "response_payload_bytes": 553,
+      "response_payload_sha256": "8d8ebbdcc80f5392566acc9ca5b763be77ccc84d5fd89166c46eb2ca064a9aa2",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "312cdd6505df3acac1fdc5349a197de0a2a857fbf2e1d74a99996e9dd6358879",
+      "stop_reason": "stop",
+      "task_sha256": "47a740c672c16ed6b98f11acd890746406817bc32bd03e15db93720edb45caa8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 466,
+        "output_tokens": 405,
+        "thinking_tokens": 141
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0021555,
+        "total": 0.00261675,
+        "uncached_input": 0.00046125
+      },
+      "family": "comprehension-structure",
+      "latency_ms": 2999.073,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1585,
+      "prompt_sha256": "c961b7df76b2d24e3b6bf007294c91268555bc730ddf25cac0e9ebbac7124e69",
+      "raw_response_sha256": "84f0a94eef2c3a6919c5fdca2be5660063e7bd34e1d893a62606b22fcb6aa8da",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsxXM0H6EoD7AA6mO6DeQiapTjA",
+      "response_payload": "N ID cal-st0-bass-1 VOICE bass START 0 DURATION 3/2 PITCH 31 VELOCITY 74\nN ID cal-st0-lead-1 VOICE lead START 0 DURATION 1/2 PITCH 55 VELOCITY 79\nN ID cal-st0-pad-1-1 VOICE pad START 0 DURATION 3/2 PITCH 43 VELOCITY 69\nN ID cal-st0-pad-1-2 VOICE pad START 0 DURATION 3/2 PITCH 47 VELOCITY 70\nN ID cal-st0-pad-1-3 VOICE pad START 0 DURATION 3/2 PITCH 50 VELOCITY 71\nN ID cal-st0-lead-2 VOICE lead START 1/2 DURATION 1/2 PITCH 60 VELOCITY 80\nN ID cal-st0-lead-3 VOICE lead START 1 DURATION 1/2 PITCH 57 VELOCITY 81\nN ID cal-st0-bass-2 VOICE bass START 3/2 DURATION 3/2 PITCH 36 VELOCITY 76\nN ID cal-st0-lead-4 VOICE lead START 3/2 DURATION 1/2 PITCH 62 VELOCITY 82\nN ID cal-st0-pad-2-1 VOICE pad START 3/2 DURATION 3/2 PITCH 43 VELOCITY 69\nN ID cal-st0-pad-2-2 VOICE pad START 3/2 DURATION 3/2 PITCH 47 VELOCITY 70\nN ID cal-st0-pad-2-3 VOICE pad START 3/2 DURATION 3/2 PITCH 50 VELOCITY 71\nN ID cal-st0-lead-5 VOICE lead START 2 DURATION 1/2 PITCH 59 VELOCITY 83\nN ID cal-st0-lead-6 VOICE lead START 5/2 DURATION 1/2 PITCH 64 VELOCITY 84",
+      "response_payload_bytes": 1035,
+      "response_payload_sha256": "759733dec1f8e4fe77f5a84bad26c0763ada75369d207c78b128202fe42e06fe",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ba054b5c04c628b854756e9acee5980452528a60d1bef3fe34aad4a3c6552044",
+      "stop_reason": "stop",
+      "task_sha256": "58898a8aa9ab9c08fe7f233b5dd0dda2751b968c830bc6c69122a711f2686c00",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 615,
+        "output_tokens": 479,
+        "thinking_tokens": 9
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.000891,
+        "total": 0.00114075,
+        "uncached_input": 0.00024975
+      },
+      "family": "continuation-motif",
+      "latency_ms": 1988.592,
+      "outer_schema_valid": true,
+      "prompt_bytes": 954,
+      "prompt_sha256": "67de175b3f51fb55b8980966619e52deac68db5cccb3a9147a652c4f0b45bb8f",
+      "raw_response_sha256": "eef0c2df4d5d9edb27a7796d83bd50b132e1741e51939372c9518fdb2f9742ab",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdscIfefBK3XHAr12KQ1SMAMT3p8",
+      "response_payload": "N ID cal-mo-out-0-1 VOICE lead START 4 DURATION 1/2 PITCH 62 VELOCITY 86\nN ID cal-mo-out-0-2 VOICE lead START 9/2 DURATION 1/2 PITCH 65 VELOCITY 86\nN ID cal-mo-out-0-3 VOICE lead START 5 DURATION 1/2 PITCH 67 VELOCITY 86\nN ID cal-mo-out-0-4 VOICE lead START 11/2 DURATION 1/2 PITCH 64 VELOCITY 86",
+      "response_payload_bytes": 296,
+      "response_payload_sha256": "641073210f122c9f1bb98a97b29f85a72710b9fdf68f232cf35ef1079b92b7da",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "f4b58e66314e2807535ee05da2626bf83a406e7665d029572d95f86613d5c025",
+      "stop_reason": "stop",
+      "task_sha256": "5b07c564e7648a9ef3fb9cda100da87bb16860601cccde2842313747dbae3c18",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 333,
+        "output_tokens": 198,
+        "thinking_tokens": 54
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00432,
+        "total": 0.00450525,
+        "uncached_input": 0.00018525
+      },
+      "family": "continuation-roles",
+      "latency_ms": 7183.361,
+      "outer_schema_valid": true,
+      "prompt_bytes": 745,
+      "prompt_sha256": "abe5a54f95bd7613b35aceca86248acd178310075625cd0382d2c0213043797b",
+      "raw_response_sha256": "42ed28f3bad59ba165ee090ad4f4d04ae438dde2bab351f26c14aa6acc7bd2a6",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsy2dUihYJDEvuon18ZArmQUjCD",
+      "response_payload": "N ID n1 VOICE bass START 4 DURATION 1 PITCH 37 VELOCITY 80\nN ID n2 VOICE lead START 4 DURATION 1 PITCH 65 VELOCITY 80\nN ID n3 VOICE bass START 5 DURATION 1 PITCH 46 VELOCITY 80\nN ID n4 VOICE lead START 5 DURATION 1 PITCH 61 VELOCITY 80\nN ID n5 VOICE bass START 6 DURATION 1 PITCH 54 VELOCITY 80\nN ID n6 VOICE lead START 6 DURATION 1 PITCH 63 VELOCITY 80\nN ID n7 VOICE bass START 7 DURATION 1 PITCH 48 VELOCITY 80\nN ID n8 VOICE lead START 7 DURATION 1 PITCH 68 VELOCITY 80\nN ID n9 VOICE bass START 8 DURATION 1 PITCH 49 VELOCITY 80\nN ID n10 VOICE lead START 8 DURATION 1 PITCH 73 VELOCITY 80",
+      "response_payload_bytes": 590,
+      "response_payload_sha256": "bb2d084f4a2ea623f645e8b5747210b11a38db62d4968af23101ca0b23193870",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "83c8f5f5c5ff600d9c77e8e7dc0ae1b2b247e6eb42111ea07ef91a443effe5a5",
+      "stop_reason": "stop",
+      "task_sha256": "3056ea282820568dd5c9d3bc78d4f9004b47925ce386ac7b83ec7a9186c209eb",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 247,
+        "output_tokens": 960,
+        "thinking_tokens": 698
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.003456,
+        "total": 0.00364125,
+        "uncached_input": 0.00018525
+      },
+      "family": "continuation-roles",
+      "latency_ms": 5841.393,
+      "outer_schema_valid": true,
+      "prompt_bytes": 747,
+      "prompt_sha256": "793ff1888875347cec67eadb2c7c935721f192324fea42dbff8dba362d07bf2b",
+      "raw_response_sha256": "a6474b4c480ddaf7a979c34dc182650e862f70dbb513be39f0b7e5c37061c346",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsibkthyycJgSGDoQteMJ9GJKMS",
+      "response_payload": "N ID n1 VOICE bass START 4 DURATION 1 PITCH 37 VELOCITY 80\nN ID n2 VOICE lead START 4 DURATION 1 PITCH 70 VELOCITY 80\nN ID n3 VOICE bass START 5 DURATION 1 PITCH 47 VELOCITY 80\nN ID n4 VOICE lead START 5 DURATION 1 PITCH 71 VELOCITY 80\nN ID n5 VOICE bass START 6 DURATION 1 PITCH 44 VELOCITY 80\nN ID n6 VOICE lead START 6 DURATION 1 PITCH 75 VELOCITY 80\nN ID n7 VOICE bass START 7 DURATION 1 PITCH 41 VELOCITY 80\nN ID n8 VOICE lead START 7 DURATION 1 PITCH 80 VELOCITY 80\nN ID n9 VOICE bass START 8 DURATION 1 PITCH 42 VELOCITY 80\nN ID n10 VOICE lead START 8 DURATION 1 PITCH 78 VELOCITY 80",
+      "response_payload_bytes": 590,
+      "response_payload_sha256": "42f5cc5e3cf5d7388f45622b73a70b1ccc41cb6fa8a24ed99425582c55e5f139",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "8e927fab53ae2cfa559b105a43c6556bf3e6e3821d2fa6fc77d7dfddddb89e67",
+      "stop_reason": "stop",
+      "task_sha256": "bc1fcae68258a5d22b537f5e47bf69df9c6faa12c0c5a71a86685884eeaa197e",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 247,
+        "output_tokens": 768,
+        "thinking_tokens": 512
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.003357,
+        "total": 0.00354225,
+        "uncached_input": 0.00018525
+      },
+      "family": "continuation-roles",
+      "latency_ms": 5557.433,
+      "outer_schema_valid": true,
+      "prompt_bytes": 748,
+      "prompt_sha256": "c0006bfb1cea97cdf7c4180eef402d4d106bdd59d14ddc0dc7e8ad69a8520468",
+      "raw_response_sha256": "262e2e2ce5ebb8c41269c91bbce3d362166a4af76bd7b68ec10b75b30e21ebee",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdssy84fwX5SQ3Dflm6gYTAoWRIJ",
+      "response_payload": "N ID n1 VOICE bass START 4 DURATION 1 PITCH 39 VELOCITY 80\nN ID n2 VOICE lead START 4 DURATION 1 PITCH 71 VELOCITY 80\nN ID n3 VOICE bass START 5 DURATION 1 PITCH 40 VELOCITY 80\nN ID n4 VOICE lead START 5 DURATION 1 PITCH 71 VELOCITY 80\nN ID n5 VOICE bass START 6 DURATION 1 PITCH 37 VELOCITY 80\nN ID n6 VOICE lead START 6 DURATION 1 PITCH 68 VELOCITY 80\nN ID n7 VOICE bass START 7 DURATION 1 PITCH 37 VELOCITY 80\nN ID n8 VOICE lead START 7 DURATION 1 PITCH 70 VELOCITY 80\nN ID n9 VOICE bass START 8 DURATION 1 PITCH 39 VELOCITY 80\nN ID n10 VOICE lead START 8 DURATION 1 PITCH 71 VELOCITY 80",
+      "response_payload_bytes": 590,
+      "response_payload_sha256": "5c08130260dc4941c4cf1cda8aa2b9a09d66797a36fcdb958342faeb6abc9077",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "90775cb9e9d752cba458cef87bdcade6cd8667f7ef69fe41566d281647fdf534",
+      "stop_reason": "stop",
+      "task_sha256": "30453e5dfaedcf4fd6923c5996facb951395a40da0716938124c4106abe6503c",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 247,
+        "output_tokens": 746,
+        "thinking_tokens": 490
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0048555,
+        "total": 0.00508425,
+        "uncached_input": 0.00022875
+      },
+      "family": "generation-melody",
+      "latency_ms": 8090.596,
+      "outer_schema_valid": true,
+      "prompt_bytes": 848,
+      "prompt_sha256": "22b45440d6d871495a80cff62d4329ea1c7a759e4aa12048fb35bbebc2e7e0fa",
+      "raw_response_sha256": "717f2dba4cd3a7bf03d35cd583043b8b464fc6cab0306bedd700d246df1e2905",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtFHvK1PRd63Z1VEN30NUP7XJdc",
+      "response_payload": "N ID n1 VOICE lead START 0 DURATION 1/2 PITCH 61 VELOCITY 80\nN ID n2 VOICE lead START 1/2 DURATION 1/2 PITCH 63 VELOCITY 80\nN ID n3 VOICE lead START 1 DURATION 1/2 PITCH 65 VELOCITY 80\nN ID n4 VOICE lead START 3/2 DURATION 1/2 PITCH 68 VELOCITY 80\nN ID n5 VOICE lead START 2 DURATION 1/2 PITCH 64 VELOCITY 80\nN ID n6 VOICE lead START 5/2 DURATION 1/2 PITCH 66 VELOCITY 80\nN ID n7 VOICE lead START 3 DURATION 1/2 PITCH 68 VELOCITY 80\nN ID n8 VOICE lead START 7/2 DURATION 1/2 PITCH 71 VELOCITY 80",
+      "response_payload_bytes": 495,
+      "response_payload_sha256": "af8030e122eb8a07f515469a163d82fe953ccfba5be3c7771d2ab75fc0d10f99",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d871dbb7a2f600fb2ac217fe13d21f186120767ef6bc49bd6599c7d1c257fe71",
+      "stop_reason": "stop",
+      "task_sha256": "2eed083e6d2c1ce2055112363b8ca10ea8845f88d6d68791a834bdc9484cda14",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 305,
+        "output_tokens": 1079,
+        "thinking_tokens": 841
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0056745,
+        "total": 0.00589125,
+        "uncached_input": 0.00021675
+      },
+      "family": "generation-progression",
+      "latency_ms": 8957.04,
+      "outer_schema_valid": true,
+      "prompt_bytes": 859,
+      "prompt_sha256": "07d96412a7b25795a00972abbf64229f3f264fa356dd4a4420cf22e268f400fa",
+      "raw_response_sha256": "69a5303cb8b1187ebcc1cdecd09bc65a38d80525333eeafd68f7018eb3fa50d8",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtGUk0Z6ZrrkanCOYwJHFoLUoFZ",
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 1 PITCH 37 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 1 PITCH 53 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 1 PITCH 56 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 1 PITCH 73 VELOCITY 80\nN ID n5 VOICE bass START 1 DURATION 1 PITCH 42 VELOCITY 80\nN ID n6 VOICE tenor START 1 DURATION 1 PITCH 49 VELOCITY 80\nN ID n7 VOICE alto START 1 DURATION 1 PITCH 58 VELOCITY 80\nN ID n8 VOICE soprano START 1 DURATION 1 PITCH 70 VELOCITY 80\nN ID n9 VOICE bass START 2 DURATION 1 PITCH 44 VELOCITY 80\nN ID n10 VOICE tenor START 2 DURATION 1 PITCH 51 VELOCITY 80\nN ID n11 VOICE alto START 2 DURATION 1 PITCH 60 VELOCITY 80\nN ID n12 VOICE soprano START 2 DURATION 1 PITCH 63 VELOCITY 80\nN ID n13 VOICE bass START 3 DURATION 1 PITCH 37 VELOCITY 80\nN ID n14 VOICE tenor START 3 DURATION 1 PITCH 53 VELOCITY 80\nN ID n15 VOICE alto START 3 DURATION 1 PITCH 56 VELOCITY 80\nN ID n16 VOICE soprano START 3 DURATION 1 PITCH 73 VELOCITY 80",
+      "response_payload_bytes": 966,
+      "response_payload_sha256": "2ec5d483a3f62338973f656f88df0f60324be86a7693c00199cd38998e6a75f2",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ccd80dc080dcd6aab549ea490ad350fb870f310a4252fe25aac176ab9a01caa6",
+      "stop_reason": "stop",
+      "task_sha256": "e9fe728008863b32b1adccdc89358037449fa5b54c200967dba6188a44d49fdf",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 289,
+        "output_tokens": 1261,
+        "thinking_tokens": 851
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.006453,
+        "total": 0.00666975,
+        "uncached_input": 0.00021675
+      },
+      "family": "generation-progression",
+      "latency_ms": 10829.598,
+      "outer_schema_valid": true,
+      "prompt_bytes": 863,
+      "prompt_sha256": "82b4e40fd0b2896ce68c80db415575feb322338228ce99709c84bce4e32ee4c9",
+      "raw_response_sha256": "c1fa8098c44c18c111d9a695e2b1cd360bbc8b32bfe5baa4aa4cdff69013fea6",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsbK5XDpfFdzdOotF4cbKrjik6U",
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 1 PITCH 42 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 1 PITCH 46 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 1 PITCH 61 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 1 PITCH 66 VELOCITY 80\nN ID n5 VOICE bass START 1 DURATION 1 PITCH 47 VELOCITY 80\nN ID n6 VOICE tenor START 1 DURATION 1 PITCH 51 VELOCITY 80\nN ID n7 VOICE alto START 1 DURATION 1 PITCH 54 VELOCITY 80\nN ID n8 VOICE soprano START 1 DURATION 1 PITCH 71 VELOCITY 80\nN ID n9 VOICE bass START 2 DURATION 1 PITCH 49 VELOCITY 80\nN ID n10 VOICE tenor START 2 DURATION 1 PITCH 53 VELOCITY 80\nN ID n11 VOICE alto START 2 DURATION 1 PITCH 56 VELOCITY 80\nN ID n12 VOICE soprano START 2 DURATION 1 PITCH 71 VELOCITY 80\nN ID n13 VOICE bass START 3 DURATION 1 PITCH 42 VELOCITY 80\nN ID n14 VOICE tenor START 3 DURATION 1 PITCH 58 VELOCITY 80\nN ID n15 VOICE alto START 3 DURATION 1 PITCH 61 VELOCITY 80\nN ID n16 VOICE soprano START 3 DURATION 1 PITCH 66 VELOCITY 80",
+      "response_payload_bytes": 966,
+      "response_payload_sha256": "a0e55efae6392fb92939485dfd90eb2eb4b6608151508767116e252376f61bf2",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "12aff044bf95a1bd77b3ad241908e686288a991ace77db50f2f421ab0c258b27",
+      "stop_reason": "stop",
+      "task_sha256": "638553776616222618b482a1b45fcb8e6ebdff07b0afc1abb24268c508ff9709",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 289,
+        "output_tokens": 1434,
+        "thinking_tokens": 1024
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.004689,
+        "total": 0.00490575,
+        "uncached_input": 0.00021675
+      },
+      "family": "generation-progression",
+      "latency_ms": 8105.927,
+      "outer_schema_valid": true,
+      "prompt_bytes": 865,
+      "prompt_sha256": "a752bfd56d1a8c3b223ab762a7aa8ffb1b50c685e0dfda97b023f4a78b1073e4",
+      "raw_response_sha256": "47f7dda39e24dbc3a8f774d8f406f4290c41d372c86ada2bfdb30f88d663ba5c",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsonxp4YarJnbQsjNkkRuSGAD9F",
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 1 PITCH 47 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 1 PITCH 54 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 1 PITCH 63 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 1 PITCH 63 VELOCITY 80\nN ID n5 VOICE bass START 1 DURATION 1 PITCH 52 VELOCITY 80\nN ID n6 VOICE tenor START 1 DURATION 1 PITCH 56 VELOCITY 80\nN ID n7 VOICE alto START 1 DURATION 1 PITCH 64 VELOCITY 80\nN ID n8 VOICE soprano START 1 DURATION 1 PITCH 68 VELOCITY 80\nN ID n9 VOICE bass START 2 DURATION 1 PITCH 54 VELOCITY 80\nN ID n10 VOICE tenor START 2 DURATION 1 PITCH 58 VELOCITY 80\nN ID n11 VOICE alto START 2 DURATION 1 PITCH 61 VELOCITY 80\nN ID n12 VOICE soprano START 2 DURATION 1 PITCH 70 VELOCITY 80\nN ID n13 VOICE bass START 3 DURATION 1 PITCH 47 VELOCITY 80\nN ID n14 VOICE tenor START 3 DURATION 1 PITCH 54 VELOCITY 80\nN ID n15 VOICE alto START 3 DURATION 1 PITCH 63 VELOCITY 80\nN ID n16 VOICE soprano START 3 DURATION 1 PITCH 75 VELOCITY 80",
+      "response_payload_bytes": 966,
+      "response_payload_sha256": "56b7113883c18b42203d11a6945143af4e16846f2b5cf29f1194986bea9ffcf1",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "21d33cf78d52726b29f0629b21c7c6ea60ddcb01dc617a85742cee0f0fe0e3a3",
+      "stop_reason": "stop",
+      "task_sha256": "3221af50fc58feb172d7aa7f6a84e28c562a38650cc140d93c08518a2f348cf3",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 289,
+        "output_tokens": 1042,
+        "thinking_tokens": 630
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0004275,
+        "total": 0.00091275,
+        "uncached_input": 0.00048525
+      },
+      "family": "transformation-local",
+      "latency_ms": 2572.13,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1659,
+      "prompt_sha256": "f08e79a8df580b447e8fcad47e5ab731573d3b89eb989d91269470fa84220a7f",
+      "raw_response_sha256": "ef29c24872607965c9743d8a86e66d88827fd2ba1543b69286ff52b4f5842373",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsallIYYWZwiSuDnAkaHFl85V0H",
+      "response_payload": "PATCH 6f0a12070f356a01c3282ced75e09e637b15564734486478ca6d24f339bea25f\nSET cal-st0-pad-1-2 velocity=75",
+      "response_payload_bytes": 102,
+      "response_payload_sha256": "f328e75af3981ba2c20800decdb01e7c88bcd47693dc33e64dec61c559609309",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "0d92d0bf93e63116f6c8cc402bb6042f03416a9f25386dfaed55f56348dfb13b",
+      "stop_reason": "stop",
+      "task_sha256": "d9c6d5f8e28e30c3b89c0691bc07bfceee7b9299cfd7c8891e59209227e00a32",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 647,
+        "output_tokens": 95,
+        "thinking_tokens": 29
+      },
+      "validation": {
+        "checks": {
+          "canonical_result": true,
+          "exact_preservation": true,
+          "sparse_change": true,
+          "stable_identity": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002502,
+        "total": 0.00303525,
+        "uncached_input": 0.00053325
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 4024.821,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2208,
+      "prompt_sha256": "5ad7e5d156ff8195f92d3636a96f3a6ff55a726650bb1188b89e96f884d10951",
+      "raw_response_sha256": "51daaa16bb8cc8dd3528bdcb6609d12234e16e521f2b8301fb0020ddb97e2d75",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdseSnIUtauqV6HrWu2BrlO9A5QT",
+      "response_payload": "N ID cal-rv0-1-bass VOICE bass START 0 DURATION 1 PITCH 48 VELOCITY 76\nN ID cal-rv0-1-tenor VOICE tenor START 0 DURATION 1 PITCH 52 VELOCITY 78\nN ID cal-rv0-1-alto VOICE alto START 0 DURATION 1 PITCH 55 VELOCITY 80\nN ID cal-rv0-1-soprano VOICE soprano START 0 DURATION 1 PITCH 59 VELOCITY 82\nN ID cal-rv0-2-bass VOICE bass START 1 DURATION 1 PITCH 50 VELOCITY 76\nN ID cal-rv0-2-tenor VOICE tenor START 1 DURATION 1 PITCH 54 VELOCITY 78\nN ID cal-rv0-2-alto VOICE alto START 1 DURATION 1 PITCH 57 VELOCITY 80\nN ID cal-rv0-2-soprano VOICE soprano START 1 DURATION 1 PITCH 61 VELOCITY 82\nN ID cal-rv0-3-bass VOICE bass START 2 DURATION 1 PITCH 52 VELOCITY 76\nN ID cal-rv0-3-tenor VOICE tenor START 2 DURATION 1 PITCH 56 VELOCITY 78\nN ID cal-rv0-3-alto VOICE alto START 2 DURATION 1 PITCH 59 VELOCITY 80\nN ID cal-rv0-3-soprano VOICE soprano START 2 DURATION 1 PITCH 63 VELOCITY 82",
+      "response_payload_bytes": 875,
+      "response_payload_sha256": "31523ef7e981e9056ac0568f4749c47ef159ba167e2563e55ac2e351d8357b4a",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d19da08362a7f8714d9f72d7b8e5fd743a3150131dabcef876583f94c55cdf11",
+      "stop_reason": "stop",
+      "task_sha256": "27f75078e3091ae57f0f52a2bfdc9b9bc8a1d8ed110492b30e838455fee6c17a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 711,
+        "output_tokens": 556,
+        "thinking_tokens": 174
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0024885,
+        "total": 0.00302325,
+        "uncached_input": 0.00053475
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 4201.972,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2207,
+      "prompt_sha256": "9357f1d322406e6a7eaed1524cd5207fa230130f25d614d3e0d24c63af2ae206",
+      "raw_response_sha256": "5dbd61fa477ab517e9f0426adc0e11a36eba1f7bb1d82fb81a5cdae241152dc8",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsieiZpTbHIvo7nIyHiF5v2rBgI",
+      "response_payload": "N ID cal-rv1-1-bass VOICE bass START 0 DURATION 1 PITCH 45 VELOCITY 76\nN ID cal-rv1-1-tenor VOICE tenor START 0 DURATION 1 PITCH 50 VELOCITY 78\nN ID cal-rv1-1-alto VOICE alto START 0 DURATION 1 PITCH 54 VELOCITY 80\nN ID cal-rv1-1-soprano VOICE soprano START 0 DURATION 1 PITCH 61 VELOCITY 82\nN ID cal-rv1-2-bass VOICE bass START 1 DURATION 1 PITCH 47 VELOCITY 76\nN ID cal-rv1-2-tenor VOICE tenor START 1 DURATION 1 PITCH 52 VELOCITY 78\nN ID cal-rv1-2-alto VOICE alto START 1 DURATION 1 PITCH 56 VELOCITY 80\nN ID cal-rv1-2-soprano VOICE soprano START 1 DURATION 1 PITCH 63 VELOCITY 82\nN ID cal-rv1-3-bass VOICE bass START 2 DURATION 1 PITCH 49 VELOCITY 76\nN ID cal-rv1-3-tenor VOICE tenor START 2 DURATION 1 PITCH 54 VELOCITY 78\nN ID cal-rv1-3-alto VOICE alto START 2 DURATION 1 PITCH 58 VELOCITY 80\nN ID cal-rv1-3-soprano VOICE soprano START 2 DURATION 1 PITCH 65 VELOCITY 82",
+      "response_payload_bytes": 875,
+      "response_payload_sha256": "24fccfea9f66b7b1e473549ec4900b5e5ff21e58a6c899948348fae991d2b659",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d4289664f350f508d3a62dfed3116ffa597e20071412d865d2f8a30517e39b18",
+      "stop_reason": "stop",
+      "task_sha256": "740afd522f86ac90ac170474dfcdc37f096ad16857f24d0da6bef49b9fa9a50f",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 713,
+        "output_tokens": 553,
+        "thinking_tokens": 171
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0022455,
+        "total": 0.00278025,
+        "uncached_input": 0.00053475
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 3575.283,
+      "outer_schema_valid": true,
+      "prompt_bytes": 2216,
+      "prompt_sha256": "a1237430626d6adb8b5c3aece9d8a8fe3abc0e143e21c6759d18f3ece6c179d4",
+      "raw_response_sha256": "a854e75a3528cec9bb9ba5bd16b3882c053a75492b7532b11f2ecefdc100d5eb",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt8H9DiZwwIy53rhbx9pMJ2YZ9Q",
+      "response_payload": "N ID cal-rv2-1-bass VOICE bass START 0 DURATION 1 PITCH 52 VELOCITY 76\nN ID cal-rv2-1-tenor VOICE tenor START 0 DURATION 1 PITCH 55 VELOCITY 78\nN ID cal-rv2-1-alto VOICE alto START 0 DURATION 1 PITCH 59 VELOCITY 80\nN ID cal-rv2-1-soprano VOICE soprano START 0 DURATION 1 PITCH 60 VELOCITY 82\nN ID cal-rv2-2-bass VOICE bass START 1 DURATION 1 PITCH 54 VELOCITY 76\nN ID cal-rv2-2-tenor VOICE tenor START 1 DURATION 1 PITCH 57 VELOCITY 78\nN ID cal-rv2-2-alto VOICE alto START 1 DURATION 1 PITCH 61 VELOCITY 80\nN ID cal-rv2-2-soprano VOICE soprano START 1 DURATION 1 PITCH 62 VELOCITY 82\nN ID cal-rv2-3-bass VOICE bass START 2 DURATION 1 PITCH 56 VELOCITY 76\nN ID cal-rv2-3-tenor VOICE tenor START 2 DURATION 1 PITCH 59 VELOCITY 78\nN ID cal-rv2-3-alto VOICE alto START 2 DURATION 1 PITCH 63 VELOCITY 80\nN ID cal-rv2-3-soprano VOICE soprano START 2 DURATION 1 PITCH 64 VELOCITY 82",
+      "response_payload_bytes": 875,
+      "response_payload_sha256": "ca80adb41aa37e7b46fc155b0545e8019930d8ed5b2e7ae4825eb301e12aaa1a",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ec691404b477363437ba5c17ed524c0b6881e5e7d0b900d03418f2cc44413461",
+      "stop_reason": "stop",
+      "task_sha256": "c479dddfba038ff801056d2f893d43ca1bbbc5eeedfeb2cc227d8163322a2236",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 713,
+        "output_tokens": 499,
+        "thinking_tokens": 117
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0016965,
+        "total": 0.00201,
+        "uncached_input": 0.0003135
+      },
+      "family": "transformation-rhythm",
+      "latency_ms": 3127.946,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1117,
+      "prompt_sha256": "0a1d5d5d3c4d5a65fd0789ae247132bc840ac065f2c78880cbc5e3e38930fb57",
+      "raw_response_sha256": "4d901ef5a651ab00355ed9204031bfca84e2318147d289e412151e121503f035",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt4oT0VlVyW1ZmyJlJnE6oQ4isN",
+      "response_payload": "N ID cal-ry0-0 VOICE perc START 0 DURATION 1/4 PITCH 48 VELOCITY 80\nN ID cal-ry0-1 VOICE perc START 3/4 DURATION 1/4 PITCH 49 VELOCITY 81\nN ID cal-ry0-2 VOICE perc START 1 DURATION 1/4 PITCH 50 VELOCITY 82\nN ID cal-ry0-3 VOICE perc START 7/4 DURATION 1/4 PITCH 51 VELOCITY 83\nN ID cal-ry0-4 VOICE perc START 2 DURATION 1/4 PITCH 48 VELOCITY 84\nN ID cal-ry0-5 VOICE perc START 11/4 DURATION 1/4 PITCH 49 VELOCITY 85\nN ID cal-ry0-6 VOICE perc START 3 DURATION 1/4 PITCH 50 VELOCITY 86\nN ID cal-ry0-7 VOICE perc START 15/4 DURATION 1/4 PITCH 51 VELOCITY 87",
+      "response_payload_bytes": 553,
+      "response_payload_sha256": "8d8ebbdcc80f5392566acc9ca5b763be77ccc84d5fd89166c46eb2ca064a9aa2",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "312cdd6505df3acac1fdc5349a197de0a2a857fbf2e1d74a99996e9dd6358879",
+      "stop_reason": "stop",
+      "task_sha256": "47a740c672c16ed6b98f11acd890746406817bc32bd03e15db93720edb45caa8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 418,
+        "output_tokens": 377,
+        "thinking_tokens": 113
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001566,
+        "total": 0.00191475,
+        "uncached_input": 0.00034875
+      },
+      "family": "comprehension-structure",
+      "latency_ms": 2545.406,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1294,
+      "prompt_sha256": "3f21aa76014cd735c042c73e53b26ce22a71d1ebd7631d6d826e7bf4899a1bd1",
+      "raw_response_sha256": "7d2811c831d5464ca8003faaeead0a437d3cc0c29c0ab4e3398be9b8af95f622",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsmtRacHqfKZWzij4H8C8rFmPyZ",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_31 DURATION_3/2 VELOCITY_74\nTRACK_lead TIME_0 NOTE_ON_55 DURATION_1/2 VELOCITY_79\nTRACK_pad TIME_0 NOTE_ON_43 DURATION_3/2 VELOCITY_69\nTRACK_pad TIME_0 NOTE_ON_47 DURATION_3/2 VELOCITY_70\nTRACK_pad TIME_0 NOTE_ON_50 DURATION_3/2 VELOCITY_71\nTRACK_lead TIME_1/2 NOTE_ON_60 DURATION_1/2 VELOCITY_80\nTRACK_lead TIME_1 NOTE_ON_57 DURATION_1/2 VELOCITY_81\nTRACK_bass TIME_3/2 NOTE_ON_36 DURATION_3/2 VELOCITY_76\nTRACK_lead TIME_3/2 NOTE_ON_62 DURATION_1/2 VELOCITY_82\nTRACK_pad TIME_3/2 NOTE_ON_43 DURATION_3/2 VELOCITY_69\nTRACK_pad TIME_3/2 NOTE_ON_47 DURATION_3/2 VELOCITY_70\nTRACK_pad TIME_3/2 NOTE_ON_50 DURATION_3/2 VELOCITY_71\nTRACK_lead TIME_2 NOTE_ON_59 DURATION_1/2 VELOCITY_83\nTRACK_lead TIME_5/2 NOTE_ON_64 DURATION_1/2 VELOCITY_84",
+      "response_payload_bytes": 763,
+      "response_payload_sha256": "14c036a14417779141f55cd2777a7a79856cccd2a17040e71f13c0d3d7ec2a70",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ba054b5c04c628b854756e9acee5980452528a60d1bef3fe34aad4a3c6552044",
+      "stop_reason": "stop",
+      "task_sha256": "58898a8aa9ab9c08fe7f233b5dd0dda2751b968c830bc6c69122a711f2686c00",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 465,
+        "output_tokens": 348,
+        "thinking_tokens": 16
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0007335,
+        "total": 0.00095325,
+        "uncached_input": 0.00021975
+      },
+      "family": "continuation-motif",
+      "latency_ms": 3141.574,
+      "outer_schema_valid": true,
+      "prompt_bytes": 879,
+      "prompt_sha256": "31e046baf041441bccd35d410cf09c3c6239ee2ceb1278b18987df6ca3ec5345",
+      "raw_response_sha256": "a5d791f3ad95aef661a38e8830a61af9a94f121c7c5dc8e6ec77c1b259b118b5",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsaALVVOdNwL20Iky1gBnda1ue1",
+      "response_payload": "TRACK_lead TIME_4 NOTE_ON_62 DURATION_1/2 VELOCITY_86\nTRACK_lead TIME_9/2 NOTE_ON_65 DURATION_1/2 VELOCITY_86\nTRACK_lead TIME_5 NOTE_ON_67 DURATION_1/2 VELOCITY_86\nTRACK_lead TIME_11/2 NOTE_ON_64 DURATION_1/2 VELOCITY_86",
+      "response_payload_bytes": 220,
+      "response_payload_sha256": "7cd2b57d2793b58f50ded6ee82143e200bbc377ace7d7941d0453223f129da30",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "f4b58e66314e2807535ee05da2626bf83a406e7665d029572d95f86613d5c025",
+      "stop_reason": "stop",
+      "task_sha256": "5b07c564e7648a9ef3fb9cda100da87bb16860601cccde2842313747dbae3c18",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 293,
+        "output_tokens": 163,
+        "thinking_tokens": 55
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0035865,
+        "total": 0.00376275,
+        "uncached_input": 0.00017625
+      },
+      "family": "continuation-roles",
+      "latency_ms": 6415.478,
+      "outer_schema_valid": true,
+      "prompt_bytes": 726,
+      "prompt_sha256": "3282019f6ba157b0c14cdd46a6b74d17ec17570bfd49efd8071bd4cc9eba00f8",
+      "raw_response_sha256": "5d1eb91ab3d5c53f6bc8f14233b6c8010c3e5d700697fcdb866bc1ec1eca8fdf",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsjo5x5LYbqd2LddwAv9Fb0lG8S",
+      "response_payload": "TRACK_bass TIME_4 NOTE_ON_37 DURATION_1 VELOCITY_80\nTRACK_bass TIME_5 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_bass TIME_6 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_bass TIME_7 NOTE_ON_48 DURATION_1 VELOCITY_80\nTRACK_bass TIME_8 NOTE_ON_44 DURATION_1 VELOCITY_80\nTRACK_lead TIME_4 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_lead TIME_5 NOTE_ON_61 DURATION_1 VELOCITY_80\nTRACK_lead TIME_6 NOTE_ON_66 DURATION_1 VELOCITY_80\nTRACK_lead TIME_7 NOTE_ON_63 DURATION_1 VELOCITY_80\nTRACK_lead TIME_8 NOTE_ON_61 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 519,
+      "response_payload_sha256": "053d554b918738d016176c03c52bcfcfe695ddd063f8394634de7b37574153fc",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "83c8f5f5c5ff600d9c77e8e7dc0ae1b2b247e6eb42111ea07ef91a443effe5a5",
+      "stop_reason": "stop",
+      "task_sha256": "3056ea282820568dd5c9d3bc78d4f9004b47925ce386ac7b83ec7a9186c209eb",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 235,
+        "output_tokens": 797,
+        "thinking_tokens": 575
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0031095,
+        "total": 0.00328575,
+        "uncached_input": 0.00017625
+      },
+      "family": "continuation-roles",
+      "latency_ms": 5526.723,
+      "outer_schema_valid": true,
+      "prompt_bytes": 728,
+      "prompt_sha256": "76bc5ee378478a5510dfb5e019c68e8145022606454082b595b83e59ce72490b",
+      "raw_response_sha256": "0d7d2810132922b2797ee8e596ba16e9c64057f73643b2c4f67ece40d2c673db",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsmVjgyV8fhlWB6e6gDcyoviney",
+      "response_payload": "TRACK_bass TIME_4 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_lead TIME_4 NOTE_ON_66 DURATION_1 VELOCITY_80\nTRACK_bass TIME_5 NOTE_ON_47 DURATION_1 VELOCITY_80\nTRACK_lead TIME_5 NOTE_ON_71 DURATION_1 VELOCITY_80\nTRACK_bass TIME_6 NOTE_ON_51 DURATION_1 VELOCITY_80\nTRACK_lead TIME_6 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_7 NOTE_ON_49 DURATION_1 VELOCITY_80\nTRACK_lead TIME_7 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_bass TIME_8 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_lead TIME_8 NOTE_ON_66 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 519,
+      "response_payload_sha256": "36f7d5c5a423c2278b9d3f739c88d099ff2971cfad493f8f5e4ad930dd4f59f9",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "8e927fab53ae2cfa559b105a43c6556bf3e6e3821d2fa6fc77d7dfddddb89e67",
+      "stop_reason": "stop",
+      "task_sha256": "bc1fcae68258a5d22b537f5e47bf69df9c6faa12c0c5a71a86685884eeaa197e",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 235,
+        "output_tokens": 691,
+        "thinking_tokens": 475
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.005319,
+        "total": 0.00549525,
+        "uncached_input": 0.00017625
+      },
+      "family": "continuation-roles",
+      "latency_ms": 8564.259,
+      "outer_schema_valid": true,
+      "prompt_bytes": 729,
+      "prompt_sha256": "a570e019414b7d19e06b503469d0a663a48d0e29454ea0b56e267a95aeb69c92",
+      "raw_response_sha256": "6459c57d8c345703a83fd800531a1ba6ea6646847bac2ab698f1f1644712acc0",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdspzKbqSWgZCE3QaYuOG8MmYWbJ",
+      "response_payload": "TRACK_bass TIME_4 NOTE_ON_39 DURATION_1 VELOCITY_80\nTRACK_lead TIME_4 NOTE_ON_71 DURATION_1 VELOCITY_80\nTRACK_bass TIME_5 NOTE_ON_40 DURATION_1 VELOCITY_80\nTRACK_lead TIME_5 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_6 NOTE_ON_37 DURATION_1 VELOCITY_80\nTRACK_lead TIME_6 NOTE_ON_64 DURATION_1 VELOCITY_80\nTRACK_bass TIME_7 NOTE_ON_37 DURATION_1 VELOCITY_80\nTRACK_lead TIME_7 NOTE_ON_70 DURATION_1 VELOCITY_80\nTRACK_bass TIME_8 NOTE_ON_39 DURATION_1 VELOCITY_80\nTRACK_lead TIME_8 NOTE_ON_71 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 519,
+      "response_payload_sha256": "3b31feae85b347dc06460972898e1c04eefbc37a4b25e78a72bb04c2ea02cbed",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "90775cb9e9d752cba458cef87bdcade6cd8667f7ef69fe41566d281647fdf534",
+      "stop_reason": "stop",
+      "task_sha256": "30453e5dfaedcf4fd6923c5996facb951395a40da0716938124c4106abe6503c",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 235,
+        "output_tokens": 1182,
+        "thinking_tokens": 960
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "duration": true,
+          "harmony": true,
+          "no_collisions": true,
+          "ranges": true,
+          "role_density": true,
+          "starts": true,
+          "voice_leading": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002169,
+        "total": 0.00238875,
+        "uncached_input": 0.00021975
+      },
+      "family": "generation-melody",
+      "latency_ms": 3644.609,
+      "outer_schema_valid": true,
+      "prompt_bytes": 829,
+      "prompt_sha256": "ff782ee2f0fae1885e392f5949cfee51ad37fe7d9ab3dd64176593a939774efa",
+      "raw_response_sha256": "cdabe229461a93aa56e8547a8dfbd3bf8e379c419cd472ecdc14b2f25804f2b6",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt8dDULv05rxDutc19IOYXUjAmQ",
+      "response_payload": "TRACK_lead TIME_0 NOTE_ON_61 DURATION_1/2 VELOCITY_80\nTRACK_lead TIME_1/2 NOTE_ON_63 DURATION_1/2 VELOCITY_80\nTRACK_lead TIME_1 NOTE_ON_65 DURATION_1/2 VELOCITY_80\nTRACK_lead TIME_3/2 NOTE_ON_68 DURATION_1/2 VELOCITY_80\nTRACK_lead TIME_2 NOTE_ON_64 DURATION_1/2 VELOCITY_80\nTRACK_lead TIME_5/2 NOTE_ON_66 DURATION_1/2 VELOCITY_80\nTRACK_lead TIME_3 NOTE_ON_68 DURATION_1/2 VELOCITY_80\nTRACK_lead TIME_7/2 NOTE_ON_71 DURATION_1/2 VELOCITY_80",
+      "response_payload_bytes": 439,
+      "response_payload_sha256": "5b568362dabd3b3e7892058e113c5eda5031c17e7092f67abff465632f46ce80",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d871dbb7a2f600fb2ac217fe13d21f186120767ef6bc49bd6599c7d1c257fe71",
+      "stop_reason": "stop",
+      "task_sha256": "2eed083e6d2c1ce2055112363b8ca10ea8845f88d6d68791a834bdc9484cda14",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 293,
+        "output_tokens": 482,
+        "thinking_tokens": 282
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "motif": true,
+          "note_count": true,
+          "pitch_collection": true,
+          "range": true,
+          "rhythm": true,
+          "strong_beat_harmony": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0054225,
+        "total": 0.00563025,
+        "uncached_input": 0.00020775
+      },
+      "family": "generation-progression",
+      "latency_ms": 8631.604,
+      "outer_schema_valid": true,
+      "prompt_bytes": 840,
+      "prompt_sha256": "42a18b2a68f2f1bb9600fc15e8c882c2d85e4a54c3bb4efc8c93653de532df2f",
+      "raw_response_sha256": "14a5145197700cedad199cbbcb8512abf165b99293ea87948d9697fde8190783",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsvZEzBMHcSzQPSAAsJbrUTvXNG",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_37 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_53 DURATION_1 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_56 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_bass TIME_1 NOTE_ON_42 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_1 NOTE_ON_58 DURATION_1 VELOCITY_80\nTRACK_alto TIME_1 NOTE_ON_61 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_1 NOTE_ON_70 DURATION_1 VELOCITY_80\nTRACK_bass TIME_2 NOTE_ON_44 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_2 NOTE_ON_51 DURATION_1 VELOCITY_80\nTRACK_alto TIME_2 NOTE_ON_60 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_2 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_3 NOTE_ON_49 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_3 NOTE_ON_53 DURATION_1 VELOCITY_80\nTRACK_alto TIME_3 NOTE_ON_56 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_3 NOTE_ON_65 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 847,
+      "response_payload_sha256": "d8b7642575bd8044c25c387c6787c47da7fd1779a77ad470d6906eff82100078",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ccd80dc080dcd6aab549ea490ad350fb870f310a4252fe25aac176ab9a01caa6",
+      "stop_reason": "stop",
+      "task_sha256": "e9fe728008863b32b1adccdc89358037449fa5b54c200967dba6188a44d49fdf",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 277,
+        "output_tokens": 1205,
+        "thinking_tokens": 855
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00702,
+        "total": 0.00722775,
+        "uncached_input": 0.00020775
+      },
+      "family": "generation-progression",
+      "latency_ms": 11135.407,
+      "outer_schema_valid": true,
+      "prompt_bytes": 844,
+      "prompt_sha256": "a59d8321b91926b073abdd4d271e816ef7114c165f9e5189861d4cd702aa9926",
+      "raw_response_sha256": "6780645220645b963ac471cda0bee0792990e85af09f4aa98c194a79a913cbb8",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdskbyDwWNmwpyjRnzlZvb4tTJJW",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_42 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_49 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_73 DURATION_1 VELOCITY_80\nTRACK_bass TIME_1 NOTE_ON_47 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_1 NOTE_ON_51 DURATION_1 VELOCITY_80\nTRACK_alto TIME_1 NOTE_ON_54 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_1 NOTE_ON_63 DURATION_1 VELOCITY_80\nTRACK_bass TIME_2 NOTE_ON_49 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_2 NOTE_ON_53 DURATION_1 VELOCITY_80\nTRACK_alto TIME_2 NOTE_ON_56 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_2 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_3 NOTE_ON_54 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_3 NOTE_ON_58 DURATION_1 VELOCITY_80\nTRACK_alto TIME_3 NOTE_ON_61 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_3 NOTE_ON_70 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 847,
+      "response_payload_sha256": "d1bdb0cfecac2987fc97d8cafb26bcd74defa44afc76974b355a92c109bca708",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "12aff044bf95a1bd77b3ad241908e686288a991ace77db50f2f421ab0c258b27",
+      "stop_reason": "stop",
+      "task_sha256": "638553776616222618b482a1b45fcb8e6ebdff07b0afc1abb24268c508ff9709",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 277,
+        "output_tokens": 1560,
+        "thinking_tokens": 1204
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0042345,
+        "total": 0.00444225,
+        "uncached_input": 0.00020775
+      },
+      "family": "generation-progression",
+      "latency_ms": 7636.936,
+      "outer_schema_valid": true,
+      "prompt_bytes": 846,
+      "prompt_sha256": "0aedcd96f3ac5c4bf49ef5c2aae185161289df86cc8c04fdc7d6bfac5ba01d9f",
+      "raw_response_sha256": "49c4e24d318bd0fbaf7a4b9eefe2d358f59340bad329900da055e0f593a9e91e",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsa3G56Xr0K5vqePS1C25k98A3V",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_47 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_54 DURATION_1 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_63 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_71 DURATION_1 VELOCITY_80\nTRACK_bass TIME_1 NOTE_ON_52 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_1 NOTE_ON_59 DURATION_1 VELOCITY_80\nTRACK_alto TIME_1 NOTE_ON_64 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_1 NOTE_ON_68 DURATION_1 VELOCITY_80\nTRACK_bass TIME_2 NOTE_ON_54 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_2 NOTE_ON_58 DURATION_1 VELOCITY_80\nTRACK_alto TIME_2 NOTE_ON_65 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_2 NOTE_ON_70 DURATION_1 VELOCITY_80\nTRACK_bass TIME_3 NOTE_ON_47 DURATION_1 VELOCITY_80\nTRACK_tenor TIME_3 NOTE_ON_54 DURATION_1 VELOCITY_80\nTRACK_alto TIME_3 NOTE_ON_63 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_3 NOTE_ON_71 DURATION_1 VELOCITY_80",
+      "response_payload_bytes": 847,
+      "response_payload_sha256": "5f490d76ae03ae69b220538d311566b4edc7e7fc7245de7ae6c08aa897688ac2",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "21d33cf78d52726b29f0629b21c7c6ea60ddcb01dc617a85742cee0f0fe0e3a3",
+      "stop_reason": "stop",
+      "task_sha256": "3221af50fc58feb172d7aa7f6a84e28c562a38650cc140d93c08518a2f348cf3",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 277,
+        "output_tokens": 941,
+        "thinking_tokens": 590
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.002475,
+        "total": 0.00287325,
+        "uncached_input": 0.00039825
+      },
+      "family": "transformation-local",
+      "latency_ms": 4903.739,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1449,
+      "prompt_sha256": "1b4f874c1872bd215f2a5d8a3bebdf004eeff3a04ea21c8fb171e1deead9414b",
+      "raw_response_sha256": "822acb718aac3c04fda6ce93b33762ab32c8726ff97651e598e97d60fa502d1f",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdsaYWpms4gTigK42byFX45R0hVS",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_31 DURATION_3/2 VELOCITY_74\nTRACK_lead TIME_0 NOTE_ON_55 DURATION_1/2 VELOCITY_79\nTRACK_pad TIME_0 NOTE_ON_43 DURATION_3/2 VELOCITY_69\nTRACK_pad TIME_0 NOTE_ON_47 DURATION_3/2 VELOCITY_70\nTRACK_pad TIME_0 NOTE_ON_50 DURATION_3/2 VELOCITY_75\nTRACK_lead TIME_1/2 NOTE_ON_60 DURATION_1/2 VELOCITY_80\nTRACK_lead TIME_1 NOTE_ON_57 DURATION_1/2 VELOCITY_81\nTRACK_bass TIME_3/2 NOTE_ON_36 DURATION_3/2 VELOCITY_76\nTRACK_lead TIME_3/2 NOTE_ON_62 DURATION_1/2 VELOCITY_82\nTRACK_pad TIME_3/2 NOTE_ON_43 DURATION_3/2 VELOCITY_69\nTRACK_pad TIME_3/2 NOTE_ON_47 DURATION_3/2 VELOCITY_70\nTRACK_pad TIME_3/2 NOTE_ON_50 DURATION_3/2 VELOCITY_71\nTRACK_lead TIME_2 NOTE_ON_59 DURATION_1/2 VELOCITY_83\nTRACK_lead TIME_5/2 NOTE_ON_64 DURATION_1/2 VELOCITY_84",
+      "response_payload_bytes": 763,
+      "response_payload_sha256": "732a3fd54197897c6cf42de79ae06123544949b81f5881baa8e087844f11b0bb",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "0d92d0bf93e63116f6c8cc402bb6042f03416a9f25386dfaed55f56348dfb13b",
+      "stop_reason": "stop",
+      "task_sha256": "d9c6d5f8e28e30c3b89c0691bc07bfceee7b9299cfd7c8891e59209227e00a32",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 531,
+        "output_tokens": 550,
+        "thinking_tokens": 218
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001917,
+        "total": 0.00235125,
+        "uncached_input": 0.00043425
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 3509.554,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1949,
+      "prompt_sha256": "3b086c235686e75844d366dbe4e410ccaedce1b874b14f9f22fe7a58cb80f566",
+      "raw_response_sha256": "60edc52365c4a9ecaecf87969eb3bcc84d30dc367c5afe2c5d99559e4d81e85e",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtFvEcoFJMxHQuKxTtriz4oUvma",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_48 DURATION_1 VELOCITY_76\nTRACK_tenor TIME_0 NOTE_ON_52 DURATION_1 VELOCITY_78\nTRACK_alto TIME_0 NOTE_ON_55 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_59 DURATION_1 VELOCITY_82\nTRACK_bass TIME_1 NOTE_ON_50 DURATION_1 VELOCITY_76\nTRACK_tenor TIME_1 NOTE_ON_54 DURATION_1 VELOCITY_78\nTRACK_alto TIME_1 NOTE_ON_57 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_1 NOTE_ON_61 DURATION_1 VELOCITY_82\nTRACK_bass TIME_2 NOTE_ON_52 DURATION_1 VELOCITY_76\nTRACK_tenor TIME_2 NOTE_ON_56 DURATION_1 VELOCITY_78\nTRACK_alto TIME_2 NOTE_ON_59 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_2 NOTE_ON_63 DURATION_1 VELOCITY_82",
+      "response_payload_bytes": 635,
+      "response_payload_sha256": "dc7883901238577ab3dc20a50695a447521d6dba6d3dc8a1ba85e004bb788771",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d19da08362a7f8714d9f72d7b8e5fd743a3150131dabcef876583f94c55cdf11",
+      "stop_reason": "stop",
+      "task_sha256": "27f75078e3091ae57f0f52a2bfdc9b9bc8a1d8ed110492b30e838455fee6c17a",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 579,
+        "output_tokens": 426,
+        "thinking_tokens": 164
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001872,
+        "total": 0.00230775,
+        "uncached_input": 0.00043575
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 3185.726,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1948,
+      "prompt_sha256": "4f3423b3e325a7ae98427b5fb4327001f00d07298f7c42fb9adc8e865e844fae",
+      "raw_response_sha256": "bea9a10761b1d43902ec5f62144019074f3aab51ee0183e0d677506a83d966fd",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdt0z5pxE1aEenLccxUS5DNvbYBy",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_45 DURATION_1 VELOCITY_76\nTRACK_tenor TIME_0 NOTE_ON_50 DURATION_1 VELOCITY_78\nTRACK_alto TIME_0 NOTE_ON_54 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_61 DURATION_1 VELOCITY_82\nTRACK_bass TIME_1 NOTE_ON_47 DURATION_1 VELOCITY_76\nTRACK_tenor TIME_1 NOTE_ON_52 DURATION_1 VELOCITY_78\nTRACK_alto TIME_1 NOTE_ON_56 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_1 NOTE_ON_63 DURATION_1 VELOCITY_82\nTRACK_bass TIME_2 NOTE_ON_49 DURATION_1 VELOCITY_76\nTRACK_tenor TIME_2 NOTE_ON_54 DURATION_1 VELOCITY_78\nTRACK_alto TIME_2 NOTE_ON_58 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_2 NOTE_ON_65 DURATION_1 VELOCITY_82",
+      "response_payload_bytes": 635,
+      "response_payload_sha256": "af09e1972174d4d3e4e24859cfb5db15b62ef60ab361560b1de219a9454b3a36",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "d4289664f350f508d3a62dfed3116ffa597e20071412d865d2f8a30517e39b18",
+      "stop_reason": "stop",
+      "task_sha256": "740afd522f86ac90ac170474dfcdc37f096ad16857f24d0da6bef49b9fa9a50f",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 581,
+        "output_tokens": 416,
+        "thinking_tokens": 154
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0022365,
+        "total": 0.00267225,
+        "uncached_input": 0.00043575
+      },
+      "family": "transformation-revoice",
+      "latency_ms": 3905.089,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1957,
+      "prompt_sha256": "8a181069732cafcc411091a39bd8d541a7b1bfafe7e488b93522c1c1bc5222f9",
+      "raw_response_sha256": "59be2a7718a69fce3708a651870dd10fa701ea685b066a0becd1406ddddf54f2",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdswCEAPeVwj4us3M1fEjbHxaHvS",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_52 DURATION_1 VELOCITY_76\nTRACK_tenor TIME_0 NOTE_ON_55 DURATION_1 VELOCITY_78\nTRACK_alto TIME_0 NOTE_ON_59 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_60 DURATION_1 VELOCITY_82\nTRACK_bass TIME_1 NOTE_ON_54 DURATION_1 VELOCITY_76\nTRACK_tenor TIME_1 NOTE_ON_57 DURATION_1 VELOCITY_78\nTRACK_alto TIME_1 NOTE_ON_61 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_1 NOTE_ON_62 DURATION_1 VELOCITY_82\nTRACK_bass TIME_2 NOTE_ON_56 DURATION_1 VELOCITY_76\nTRACK_tenor TIME_2 NOTE_ON_59 DURATION_1 VELOCITY_78\nTRACK_alto TIME_2 NOTE_ON_63 DURATION_1 VELOCITY_80\nTRACK_soprano TIME_2 NOTE_ON_64 DURATION_1 VELOCITY_82",
+      "response_payload_bytes": 635,
+      "response_payload_sha256": "91da620abde8d38dc3b67b2bf6a15a547848d0da9c573ab9a28350b996651341",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "ec691404b477363437ba5c17ed524c0b6881e5e7d0b900d03418f2cc44413461",
+      "stop_reason": "stop",
+      "task_sha256": "c479dddfba038ff801056d2f893d43ca1bbbc5eeedfeb2cc227d8163322a2236",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 581,
+        "output_tokens": 497,
+        "thinking_tokens": 235
+      },
+      "validation": {
+        "checks": {
+          "chord_pitch_classes": true,
+          "note_count_and_chord_starts": true,
+          "operation": true,
+          "preserved_duration": true,
+          "preserved_velocity": true,
+          "preserved_voice": true,
+          "range_limits": true,
+          "stable_identity": true,
+          "voice_order": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.001494,
+        "total": 0.0017505,
+        "uncached_input": 0.0002565
+      },
+      "family": "transformation-rhythm",
+      "latency_ms": 2853.752,
+      "outer_schema_valid": true,
+      "prompt_bytes": 986,
+      "prompt_sha256": "e653ee4488c1d583c9ed0d8c461b30c376641a163ac96ce8afa092adb8f16b82",
+      "raw_response_sha256": "2d148562a486af0a988a66192ca8f3eb2e29671733c49b3264f3b598a4f4b11b",
+      "repeat": 0,
+      "request_id": "chatcmpl-ESdtCmqnHBXh0EDz8dkHBok5OdWfE",
+      "response_payload": "TRACK_perc TIME_1/4 NOTE_ON_48 DURATION_1/4 VELOCITY_80\nTRACK_perc TIME_1/2 NOTE_ON_49 DURATION_1/4 VELOCITY_81\nTRACK_perc TIME_5/4 NOTE_ON_50 DURATION_1/4 VELOCITY_82\nTRACK_perc TIME_3/2 NOTE_ON_51 DURATION_1/4 VELOCITY_83\nTRACK_perc TIME_9/4 NOTE_ON_48 DURATION_1/4 VELOCITY_84\nTRACK_perc TIME_5/2 NOTE_ON_49 DURATION_1/4 VELOCITY_85\nTRACK_perc TIME_13/4 NOTE_ON_50 DURATION_1/4 VELOCITY_86\nTRACK_perc TIME_7/2 NOTE_ON_51 DURATION_1/4 VELOCITY_87",
+      "response_payload_bytes": 448,
+      "response_payload_sha256": "4d3bf131c33f5311c84f01a69a140542dc0dd3c181cd9235ecad52b053fcfc38",
+      "retries": 0,
+      "returned_model": "gpt-5.4-mini-2026-03-17",
+      "semantic_sha256": "312cdd6505df3acac1fdc5349a197de0a2a857fbf2e1d74a99996e9dd6358879",
+      "stop_reason": "stop",
+      "task_sha256": "47a740c672c16ed6b98f11acd890746406817bc32bd03e15db93720edb45caa8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 342,
+        "output_tokens": 332,
+        "thinking_tokens": 124
+      },
+      "validation": {
+        "checks": {
+          "exact_relation": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    }
+  ],
+  "run_id": "phase8c2-2-calibration-r1",
+  "run_kind": "calibration-provider",
+  "schema": "ghostnote-compact-format-calibration-v3",
+  "screen_sha256": "53e7e6a8a58cf7fbdc2aea6890290b0e4ca64535eebe3a2d5ec931485aab8381",
+  "settings": {
+    "max_completion_tokens": 3000,
+    "reasoning_effort": "low"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "allowed_follow_up": "Summarize this fixed development run. Do not start holdout without a new frozen plan and explicit approval.",
+  "approval": {
+    "requirement": "Get explicit operator approval for this exact development run before any provider call.",
+    "status": "pending"
+  },
+  "corpus_sha256": "630fb0f37db601aba8caf5f13a0835a0b082ca3d6bc9ff2a714a5357b1bac69d",
+  "cost_estimate": {
+    "basis": {
+      "contingency": 0.25,
+      "mean_call_cost_usd": {
+        "claude": 0.0243153,
+        "gemini": 0.0035731,
+        "openai": 0.00531895
+      },
+      "method": "Use the recorded mean call cost for each provider and add 25 percent.",
+      "price_sources": {
+        "claude": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "gemini": "https://ai.google.dev/gemini-api/docs/pricing",
+        "openai": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+      },
+      "price_verification_date": "2026-09-27",
+      "source": "Progression-repair calibration r2 provider manifests"
+    },
+    "providers": {
+      "claude": {
+        "calls": 220,
+        "estimated_cost_usd": 6.686708
+      },
+      "gemini": {
+        "calls": 220,
+        "estimated_cost_usd": 0.982603
+      },
+      "openai": {
+        "calls": 220,
+        "estimated_cost_usd": 1.462711
+      }
+    },
+    "total_usd": 9.132022
+  },
+  "expected_calls": {
+    "claude": 220,
+    "gemini": 220,
+    "openai": 220,
+    "total": 660
+  },
+  "models": {
+    "claude": "claude-sonnet-5",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "193148ede3e97e8c8143d48d5944a026517daa3cc227ec3f6725714f7d33ace2",
+  "run_id": "phase8c2-2-grouped-development-r1",
+  "run_kind": "development-run-plan",
+  "schema": "ghostnote-compact-format-development-v3",
+  "scope": {
+    "arms": [
+      "compact-bar-v1",
+      "label-only-compact",
+      "grouped-label-compact",
+      "exact-json",
+      "midi-like-native"
+    ],
+    "decision_variants": 8,
+    "families": [
+      "generation-progression",
+      "continuation-roles",
+      "transformation-revoice",
+      "generation-melody",
+      "comprehension-structure",
+      "transformation-local",
+      "transformation-rhythm",
+      "continuation-motif"
+    ],
+    "guard_variants": 4,
+    "providers": [
+      "openai",
+      "gemini",
+      "claude"
+    ],
+    "regression_variants": 4,
+    "repeats": 1
+  },
+  "settings": {
+    "claude": {
+      "effort": "low",
+      "max_tokens": 3000
+    },
+    "gemini": {
+      "max_output_tokens": 3000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 3000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "07860eb0599542444ee5ae4a8427aa871bf8746b9bbb2504a59ffe2c284fe414",
+  "stopping_rule": {
+    "fail": "stop-custom-compact",
+    "pass": "freeze-holdout"
+  }
+}

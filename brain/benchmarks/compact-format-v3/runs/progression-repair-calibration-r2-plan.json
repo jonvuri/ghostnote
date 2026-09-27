@@ -1,0 +1,90 @@
+{
+  "allowed_follow_up": "Summarize this fixed repair calibration. Do not start development without a new frozen plan and explicit approval.",
+  "approval": {
+    "requirement": "Get explicit operator approval for this exact repair calibration before any provider call.",
+    "status": "pending"
+  },
+  "corpus_sha256": "0515ade7051a8fe82d72bd1425983877c5777e95d1b982a3843e65836269e38c",
+  "cost_estimate": {
+    "basis": {
+      "contingency": 0.25,
+      "mean_call_cost_usd": {
+        "claude": 0.01633838888888889,
+        "gemini": 0.002934876739562624,
+        "openai": 0.004619055555555556
+      },
+      "method": "Use the larger recent observed mean call cost for each provider and add 25 percent.",
+      "price_sources": {
+        "claude": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "gemini": "https://ai.google.dev/gemini-api/docs/pricing",
+        "openai": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+      },
+      "price_verification_date": "2026-09-27",
+      "source": "Phase 8c2 development and holdout provider manifests"
+    },
+    "providers": {
+      "claude": {
+        "calls": 20,
+        "estimated_cost_usd": 0.40846
+      },
+      "gemini": {
+        "calls": 20,
+        "estimated_cost_usd": 0.073372
+      },
+      "openai": {
+        "calls": 20,
+        "estimated_cost_usd": 0.115476
+      }
+    },
+    "total_usd": 0.597308
+  },
+  "expected_calls": {
+    "claude": 20,
+    "gemini": 20,
+    "openai": 20,
+    "total": 60
+  },
+  "models": {
+    "claude": "claude-sonnet-5",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "31693cf6c5f4b5d2141bbe22796886be7c036c3461ee4be6a62c2332a83e2327",
+  "run_id": "phase8c2-2-progression-repair-calibration-r2",
+  "run_kind": "progression-repair-calibration-run-plan",
+  "schema": "ghostnote-compact-format-progression-repair-calibration-v3",
+  "scope": {
+    "arms": [
+      "compact-bar-v1",
+      "label-only-compact",
+      "grouped-label-compact",
+      "exact-json",
+      "midi-like-native"
+    ],
+    "family": "generation-progression",
+    "providers": [
+      "openai",
+      "gemini",
+      "claude"
+    ],
+    "repeats": 1,
+    "unique_fixtures": 4
+  },
+  "settings": {
+    "claude": {
+      "effort": "low",
+      "max_tokens": 3000
+    },
+    "gemini": {
+      "max_output_tokens": 3000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 3000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "4b96befe3dfd8111aef5d05ec705200284d85a5385551f1f73de00b1c285e6c3",
+  "stopping_rule": "Pool exact JSON and native MIDI-Like per provider. Proceed only when progression is from 0.20 through 0.90 on at least two providers. Otherwise return repair-measurement."
+}

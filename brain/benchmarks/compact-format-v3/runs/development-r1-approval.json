@@ -1,0 +1,28 @@
+{
+  "approved_scope": {
+    "providers": {
+      "claude": {
+        "calls": 220,
+        "estimated_cost_usd": 6.686708
+      },
+      "gemini": {
+        "calls": 220,
+        "estimated_cost_usd": 0.982603
+      },
+      "openai": {
+        "calls": 220,
+        "estimated_cost_usd": 1.462711
+      }
+    },
+    "total_calls": 660,
+    "total_estimated_cost_usd": 9.132022
+  },
+  "approved_at": "2026-09-27",
+  "condition_outcome": "New run issues were found after OpenAI and Gemini. Claude is not approved.",
+  "execution_condition": "Run OpenAI and Gemini first. Proceed to Claude only if their review finds no new run issue.",
+  "operator_statement": "I approve the two cheaper providers OpenAI and Gemini. Run those first and evaluate whether there are any new issues with this run; if none are apparent, then I also approve automatically proceeding to run Claude as well.",
+  "protocol_sha256": "193148ede3e97e8c8143d48d5944a026517daa3cc227ec3f6725714f7d33ace2",
+  "run_id": "phase8c2-2-grouped-development-r1",
+  "run_plan_sha256": "07860eb0599542444ee5ae4a8427aa871bf8746b9bbb2504a59ffe2c284fe414",
+  "status": "closed"
+}

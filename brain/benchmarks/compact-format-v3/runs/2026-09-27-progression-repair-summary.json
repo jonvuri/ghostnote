@@ -1,0 +1,151 @@
+{
+  "actual_cost_usd": {
+    "claude": 0.486306,
+    "gemini": 0.071462,
+    "openai": 0.106379,
+    "total": 0.664147
+  },
+  "decision": "proceed-development",
+  "eligibility_band": {
+    "maximum": 0.9,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "eligible_providers": 3,
+  "protocol_sha256": "31693cf6c5f4b5d2141bbe22796886be7c036c3461ee4be6a62c2332a83e2327",
+  "providers": [
+    {
+      "actual_cost_usd": 0.106379,
+      "arms": [
+        {
+          "arm": "compact-bar-v1",
+          "rate": 0.0,
+          "successes": 0,
+          "trials": 4
+        },
+        {
+          "arm": "label-only-compact",
+          "rate": 0.25,
+          "successes": 1,
+          "trials": 4
+        },
+        {
+          "arm": "grouped-label-compact",
+          "rate": 0.5,
+          "successes": 2,
+          "trials": 4
+        },
+        {
+          "arm": "exact-json",
+          "rate": 0.25,
+          "successes": 1,
+          "trials": 4
+        },
+        {
+          "arm": "midi-like-native",
+          "rate": 0.25,
+          "successes": 1,
+          "trials": 4
+        }
+      ],
+      "complete": true,
+      "control_pool": {
+        "eligible": true,
+        "rate": 0.25,
+        "successes": 2,
+        "trials": 8
+      },
+      "provider": "openai"
+    },
+    {
+      "actual_cost_usd": 0.071462,
+      "arms": [
+        {
+          "arm": "compact-bar-v1",
+          "rate": 0.75,
+          "successes": 3,
+          "trials": 4
+        },
+        {
+          "arm": "label-only-compact",
+          "rate": 0.25,
+          "successes": 1,
+          "trials": 4
+        },
+        {
+          "arm": "grouped-label-compact",
+          "rate": 0.0,
+          "successes": 0,
+          "trials": 4
+        },
+        {
+          "arm": "exact-json",
+          "rate": 0.75,
+          "successes": 3,
+          "trials": 4
+        },
+        {
+          "arm": "midi-like-native",
+          "rate": 0.5,
+          "successes": 2,
+          "trials": 4
+        }
+      ],
+      "complete": true,
+      "control_pool": {
+        "eligible": true,
+        "rate": 0.625,
+        "successes": 5,
+        "trials": 8
+      },
+      "provider": "gemini"
+    },
+    {
+      "actual_cost_usd": 0.486306,
+      "arms": [
+        {
+          "arm": "compact-bar-v1",
+          "rate": 0.25,
+          "successes": 1,
+          "trials": 4
+        },
+        {
+          "arm": "label-only-compact",
+          "rate": 0.75,
+          "successes": 3,
+          "trials": 4
+        },
+        {
+          "arm": "grouped-label-compact",
+          "rate": 0.25,
+          "successes": 1,
+          "trials": 4
+        },
+        {
+          "arm": "exact-json",
+          "rate": 0.5,
+          "successes": 2,
+          "trials": 4
+        },
+        {
+          "arm": "midi-like-native",
+          "rate": 0.5,
+          "successes": 2,
+          "trials": 4
+        }
+      ],
+      "complete": true,
+      "control_pool": {
+        "eligible": true,
+        "rate": 0.5,
+        "successes": 4,
+        "trials": 8
+      },
+      "provider": "claude"
+    }
+  ],
+  "run_id": "phase8c2-2-progression-repair-calibration-r2",
+  "run_kind": "progression-repair-calibration-summary",
+  "schema": "ghostnote-compact-format-progression-repair-calibration-v3",
+  "sha256": "bc606011893faef8167d96711c4080e608d052595d298cb1d15a66f00203371f"
+}

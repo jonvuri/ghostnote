@@ -1,0 +1,26 @@
+{
+  "approved_scope": {
+    "providers": {
+      "claude": {
+        "calls": 70,
+        "estimated_cost_usd": 1.429609
+      },
+      "gemini": {
+        "calls": 70,
+        "estimated_cost_usd": 0.256802
+      },
+      "openai": {
+        "calls": 70,
+        "estimated_cost_usd": 0.404167
+      }
+    },
+    "total_calls": 210,
+    "total_estimated_cost_usd": 2.090578
+  },
+  "approved_at": "2026-09-27",
+  "operator_statement": "Yes, I approve. Proceed.",
+  "protocol_sha256": "b74a1793406bfee7e5143ca9673a7de82e1a7573e429e291f2e3fbc5846a4c26",
+  "run_id": "phase8c2-2-calibration-r1",
+  "run_plan_sha256": "cdd26d8daad166f1329dcf66571ab2aec71804e190b12204d9f173ceca5771e7",
+  "status": "approved"
+}

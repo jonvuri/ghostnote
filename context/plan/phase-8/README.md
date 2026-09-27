@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Repair compact measurement, test one grouped candidate, then run a fresh full matrix before the consolidated contracts.
+status: Close custom text development, compare compact JSON with a concurrent native anchor, then run a fresh full matrix.
 updated: 2026-09-27
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -23,9 +23,9 @@ measured failure. Keep stronger safeguards for destructive, ambiguous, or
 hard-to-observe changes. Prefer a small coherent surface, low latency, and low
 token use over a self-contained workstation abstraction.
 
-Build one normalized compact musical document and a fast project-wide clip
-cache. Keep their boundaries separate: the cache is internal observed state;
-the compact-bar document is the agent-facing musical language.
+Build one normalized musical document and a fast project-wide clip cache. Keep
+their boundaries separate: the cache is internal observed state; the selected
+document is the agent-facing musical language.
 
 ## Entry condition
 
@@ -96,21 +96,32 @@ owns the migration details.
    records `do-not-select` under the frozen gate and the measurement limits
    that prevent a broader equivalence claim.
 8. [8c2.2 — Measurement repair and grouped compact iteration](8c2-2-measurement-repair-and-grouped-compact-iteration.md).
-   Repair task measurement, test one grouped-label compact hypothesis, and use
-   a fresh targeted holdout for selection. Get explicit operator approval for
-   every provider-bearing run.
-9. [8c3 — Full symbolic-format matrix](8c3-full-symbolic-format-matrix.md).
-   Run a fresh full matrix with the compact candidates selected by 8c2.2. Keep
-   Phase 8f blocked until this session gives a `proceed` decision.
-10. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+   Complete. [E143](../../evidence/experiments/e143-measurement-repair-and-grouped-calibration-freeze.md)
+   records the offline measurement repair and first calibration freeze.
+   [E144](../../evidence/experiments/e144-calibration-rejects-progression-floor.md)
+   records `repair-measurement` and the frozen progression-repair calibration.
+   [E145](../../evidence/experiments/e145-progression-repair-passes-and-development-freezes.md)
+   records the passing repair and the pending development freeze.
+   [E146](../../evidence/experiments/e146-grouped-development-stops-before-claude.md)
+   records the stop before Claude and the unreachable development gate. The
+   accepted result is `stop-custom-compact`.
+9. [8c2.3 — Compact JSON factorial and native product decision](8c2-3-compact-json-factorial-and-native-decision.md).
+   Active. Test exact-object and tuple JSON with MIDI and
+   pitch-class/register values. Run native MIDI-like concurrently as a
+   separate anchor, not as a factorial cell.
+10. [8c3 — Full symbolic-format matrix](8c3-full-symbolic-format-matrix.md).
+   Run a fresh full matrix with the representation or representations selected
+   by 8c2.3. Keep Phase 8f blocked until this session gives a `proceed`
+   decision.
+11. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
-11. [8g — Shadow project cache](8g-shadow-project-cache.md).
+12. [8g — Shadow project cache](8g-shadow-project-cache.md).
    Implement the cache behind an experimental boundary while E131 remains
    authoritative.
-12. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
+13. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Promote proved cache reads in stages and apply the selected tool and
    verification reductions.
-13. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+14. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 
@@ -135,8 +146,9 @@ owns the migration details.
 
 - The product posture names what Ghostnote owns and what computer use owns.
 - Every retained normal-runtime method and public tool has a current purpose.
-- Compact-bar comparisons include native and composite arms, three providers,
-  deterministic musical tasks, repeated trials, and fixed scoring rules.
+- Musical-representation comparisons include structured and native arms,
+  three providers, deterministic musical tasks, repeated trials, and fixed
+  scoring rules.
 - Clip identity, invalidation, structural rebuild, project-change, and restart
   behavior are explicit.
 - Product cache limits and degradation behavior are explicit and tested.

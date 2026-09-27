@@ -1,0 +1,1076 @@
+{
+  "actual_cost_usd": {
+    "claude": 1.076673,
+    "gemini": 0.15298,
+    "openai": 0.251653,
+    "total": 1.481306
+  },
+  "decision": "repair-measurement",
+  "eligibility_band": {
+    "maximum": 0.9,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "family_eligibility": [
+    {
+      "eligible": false,
+      "eligible_providers": 1,
+      "family": "generation-progression",
+      "role": "decision-critical"
+    },
+    {
+      "eligible": true,
+      "eligible_providers": 2,
+      "family": "continuation-roles",
+      "role": "decision-critical"
+    },
+    {
+      "eligible": true,
+      "eligible_providers": 2,
+      "family": "transformation-revoice",
+      "role": "decision-critical"
+    },
+    {
+      "eligible": false,
+      "eligible_providers": 0,
+      "family": "generation-melody",
+      "role": "regression-or-guard"
+    },
+    {
+      "eligible": false,
+      "eligible_providers": 0,
+      "family": "comprehension-structure",
+      "role": "regression-or-guard"
+    },
+    {
+      "eligible": true,
+      "eligible_providers": 2,
+      "family": "transformation-local",
+      "role": "regression-or-guard"
+    },
+    {
+      "eligible": false,
+      "eligible_providers": 1,
+      "family": "transformation-rhythm",
+      "role": "regression-or-guard"
+    },
+    {
+      "eligible": false,
+      "eligible_providers": 0,
+      "family": "continuation-motif",
+      "role": "regression-or-guard"
+    }
+  ],
+  "protocol_sha256": "b74a1793406bfee7e5143ca9673a7de82e1a7573e429e291f2e3fbc5846a4c26",
+  "providers": [
+    {
+      "actual_cost_usd": 0.251653,
+      "complete": true,
+      "families": [
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "arm": "exact-json",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 0.166667,
+            "successes": 1,
+            "trials": 6
+          },
+          "family": "generation-progression"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 6,
+            "trials": 6
+          },
+          "family": "continuation-roles"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "exact-json",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            }
+          ],
+          "control_pool": {
+            "eligible": true,
+            "rate": 0.833333,
+            "successes": 5,
+            "trials": 6
+          },
+          "family": "transformation-revoice"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "generation-melody"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "comprehension-structure"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": true,
+            "rate": 0.5,
+            "successes": 1,
+            "trials": 2
+          },
+          "family": "transformation-local"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": true,
+            "rate": 0.5,
+            "successes": 1,
+            "trials": 2
+          },
+          "family": "transformation-rhythm"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "continuation-motif"
+        }
+      ],
+      "provider": "openai"
+    },
+    {
+      "actual_cost_usd": 0.15298,
+      "complete": true,
+      "families": [
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "arm": "exact-json",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 0.166667,
+            "successes": 1,
+            "trials": 6
+          },
+          "family": "generation-progression"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            }
+          ],
+          "control_pool": {
+            "eligible": true,
+            "rate": 0.833333,
+            "successes": 5,
+            "trials": 6
+          },
+          "family": "continuation-roles"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 6,
+            "trials": 6
+          },
+          "family": "transformation-revoice"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "generation-melody"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "comprehension-structure"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "transformation-local"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "transformation-rhythm"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "continuation-motif"
+        }
+      ],
+      "provider": "gemini"
+    },
+    {
+      "actual_cost_usd": 1.076673,
+      "complete": true,
+      "families": [
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 3
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            }
+          ],
+          "control_pool": {
+            "eligible": true,
+            "rate": 0.666667,
+            "successes": 4,
+            "trials": 6
+          },
+          "family": "generation-progression"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 0.333333,
+              "successes": 1,
+              "trials": 3
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "exact-json",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            }
+          ],
+          "control_pool": {
+            "eligible": true,
+            "rate": 0.833333,
+            "successes": 5,
+            "trials": 6
+          },
+          "family": "continuation-roles"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 3,
+              "trials": 3
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 0.666667,
+              "successes": 2,
+              "trials": 3
+            }
+          ],
+          "control_pool": {
+            "eligible": true,
+            "rate": 0.833333,
+            "successes": 5,
+            "trials": 6
+          },
+          "family": "transformation-revoice"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "generation-melody"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "comprehension-structure"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 0.0,
+              "successes": 0,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": true,
+            "rate": 0.5,
+            "successes": 1,
+            "trials": 2
+          },
+          "family": "transformation-local"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "transformation-rhythm"
+        },
+        {
+          "arms": [
+            {
+              "arm": "compact-bar-v1",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "label-only-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "grouped-label-compact",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "exact-json",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            },
+            {
+              "arm": "midi-like-native",
+              "rate": 1.0,
+              "successes": 1,
+              "trials": 1
+            }
+          ],
+          "control_pool": {
+            "eligible": false,
+            "rate": 1.0,
+            "successes": 2,
+            "trials": 2
+          },
+          "family": "continuation-motif"
+        }
+      ],
+      "provider": "claude"
+    }
+  ],
+  "run_id": "phase8c2-2-calibration-r1",
+  "run_kind": "calibration-summary",
+  "schema": "ghostnote-compact-format-calibration-v3",
+  "sha256": "739b1a4fb2de14eb2e0272cd97f81e2d586c44c89fe0438a6fa104d80b5854c4"
+}

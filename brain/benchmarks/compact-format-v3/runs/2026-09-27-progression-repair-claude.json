@@ -1,0 +1,924 @@
+{
+  "actual_cost_usd": 0.486306,
+  "approval": {
+    "approved_at": "2026-09-27",
+    "approved_scope": {
+      "providers": {
+        "claude": {
+          "calls": 20,
+          "estimated_cost_usd": 0.40846
+        },
+        "gemini": {
+          "calls": 20,
+          "estimated_cost_usd": 0.073372
+        },
+        "openai": {
+          "calls": 20,
+          "estimated_cost_usd": 0.115476
+        }
+      },
+      "total_calls": 60,
+      "total_estimated_cost_usd": 0.597308
+    },
+    "operator_statement": "Understood. Proceed as planned; I approve this exact run.",
+    "protocol_sha256": "31693cf6c5f4b5d2141bbe22796886be7c036c3461ee4be6a62c2332a83e2327",
+    "run_id": "phase8c2-2-progression-repair-calibration-r2",
+    "run_plan_sha256": "4b96befe3dfd8111aef5d05ec705200284d85a5385551f1f73de00b1c285e6c3",
+    "status": "approved"
+  },
+  "client": "Python urllib.request direct HTTPS",
+  "complete": true,
+  "manifest_sha256": "170544854498ebf6bc81894b286c18f3462489c6f7f75f21bc3563e3db19d5a3",
+  "platform": "Darwin 24.6.0 arm64",
+  "privacy": "Send generated MIT symbolic text only. Do not send live project data, MIDI files, audio, or API keys.",
+  "protocol_sha256": "31693cf6c5f4b5d2141bbe22796886be7c036c3461ee4be6a62c2332a83e2327",
+  "provider": "claude",
+  "python": "3.14.6",
+  "raw_run_sha256": "c3121951b9a5d79bee5dd624282efbc9afc939d484ca0f4e667a8f4b0321e731",
+  "repairs": [],
+  "requested_model": "claude-sonnet-5",
+  "results": [
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.015375,
+        "total": 0.017256,
+        "uncached_input": 0.001881
+      },
+      "family": "generation-progression",
+      "latency_ms": 11208.804,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1053,
+      "prompt_sha256": "df77f17a095d7efa551634365eea325f6837a7557369641fa7265de8a1831a82",
+      "raw_response_sha256": "c3ad51067b3bd9b4fa4c937af0860db021cdad20e04ef35e7c951239b0fe20ff",
+      "repeat": 0,
+      "request_id": "msg_011CfTbbyydwmrZRKSmJA3EM",
+      "response_payload": "N n1 bass 0 5/4 43 80\nN n2 tenor 0 5/4 50 80\nN n3 alto 0 5/4 59 80\nN n4 soprano 0 5/4 67 80\nN n5 bass 5/4 5/4 48 80\nN n6 tenor 5/4 5/4 52 80\nN n7 alto 5/4 5/4 67 80\nN n8 soprano 5/4 5/4 72 80\nN n9 bass 5/2 5/4 50 80\nN n10 tenor 5/2 5/4 54 80\nN n11 alto 5/2 5/4 57 80\nN n12 soprano 5/2 5/4 74 80\nN n13 bass 15/4 5/4 43 80\nN n14 tenor 15/4 5/4 50 80\nN n15 alto 15/4 5/4 59 80\nN n16 soprano 15/4 5/4 67 80",
+      "response_payload_bytes": 402,
+      "response_payload_sha256": "21e857569677120ff0a540dd8ffc85357ed23cb7bb8cad45008a3a27f18d09e2",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "end_turn",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 627,
+        "output_tokens": 1025,
+        "thinking_tokens": 698
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": false,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.00492,
+        "total": 0.006801,
+        "uncached_input": 0.001881
+      },
+      "family": "generation-progression",
+      "latency_ms": 3726.782,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1052,
+      "prompt_sha256": "36d28a5ae9e3cbb0a8740456717204a4dc290bde556d60b39169e9469e97f76a",
+      "raw_response_sha256": "7e8492b60353b55ace89de4052d33400ceb31fbbb2437b6fd00bb7d3b3c3eb07",
+      "repeat": 0,
+      "request_id": "msg_011CfTbbTanng4t7X4GhPypQ",
+      "response_payload": "N n1 bass 0 5/4 36 80\nN n2 tenor 0 5/4 55 80\nN n3 alto 0 5/4 60 80\nN n4 soprano 0 5/4 64 80\nN n5 bass 5/4 5/4 41 80\nN n6 tenor 5/4 5/4 57 80\nN n7 alto 5/4 5/4 60 80\nN n8 soprano 5/4 5/4 65 80\nN n9 bass 5/2 5/4 43 80\nN n10 tenor 5/2 5/4 59 80\nN n11 alto 5/2 5/4 62 80\nN n12 soprano 5/2 5/4 67 80\nN n13 bass 15/4 5/4 36 80\nN n14 tenor 15/4 5/4 55 80\nN n15 alto 15/4 5/4 60 80\nN n16 soprano 15/4 5/4 64 80",
+      "response_payload_bytes": 402,
+      "response_payload_sha256": "18d8784dd777eab9636ac3860c8bf6ece27e0f56e0a48f7cd49871f5a06bf0e4",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "end_turn",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 627,
+        "output_tokens": 328,
+        "thinking_tokens": 0
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.01386,
+        "total": 0.015741,
+        "uncached_input": 0.001881
+      },
+      "family": "generation-progression",
+      "latency_ms": 10230.596,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1053,
+      "prompt_sha256": "28c2aa6246867b1952752f704f1ed036803f6af54de4a3a1d4ba2365f1b06c95",
+      "raw_response_sha256": "a8df3fc4a9b068edd498cf172fb7004e1ccaaae5248fc291d250a0c3050fbdd6",
+      "repeat": 0,
+      "request_id": "msg_011CfTbaj5BPeA48gaty8n8A",
+      "response_payload": "N n1 bass 0 5/4 53 80\nN n2 tenor 0 5/4 57 75\nN n3 alto 0 5/4 60 75\nN n4 soprano 0 5/4 69 80\nN n5 bass 5/4 5/4 46 80\nN n6 tenor 5/4 5/4 50 75\nN n7 alto 5/4 5/4 58 75\nN n8 soprano 5/4 5/4 65 80\nN n9 bass 5/2 5/4 48 80\nN n10 tenor 5/2 5/4 52 75\nN n11 alto 5/2 5/4 55 75\nN n12 soprano 5/2 5/4 72 80\nN n13 bass 15/4 5/4 53 80\nN n14 tenor 15/4 5/4 57 75\nN n15 alto 15/4 5/4 60 75\nN n16 soprano 15/4 5/4 65 80",
+      "response_payload_bytes": 402,
+      "response_payload_sha256": "83ae682b2ee308e29f7c470be89c393faf2900d88a3a7ce669eaebda3621df9a",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "end_turn",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 627,
+        "output_tokens": 924,
+        "thinking_tokens": 597
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": false,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "compact-bar-v1",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.020025,
+        "total": 0.021906,
+        "uncached_input": 0.001881
+      },
+      "family": "generation-progression",
+      "latency_ms": 13667.514,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1057,
+      "prompt_sha256": "ea05a2b03e04f720eaedb3feece79732e087f922ce64fc1bd37fd436750ec1a5",
+      "raw_response_sha256": "e696343baf2f86a656a4f100164a4cf58430594db75ce803bee99ad73659dd4f",
+      "repeat": 0,
+      "request_id": "msg_011CfTbcRT5eCiJma39Y32fx",
+      "response_payload": "N n1 bass 0 5/4 46 80\nN n2 tenor 0 5/4 50 78\nN n3 alto 0 5/4 65 76\nN n4 soprano 0 5/4 82 84\nN n5 bass 5/4 5/4 39 80\nN n6 tenor 5/4 5/4 55 78\nN n7 alto 5/4 5/4 58 76\nN n8 soprano 5/4 5/4 79 84\nN n9 bass 5/2 5/4 41 80\nN n10 tenor 5/2 5/4 48 78\nN n11 alto 5/2 5/4 57 76\nN n12 soprano 5/2 5/4 72 84\nN n13 bass 15/4 5/4 46 80\nN n14 tenor 15/4 5/4 50 78\nN n15 alto 15/4 5/4 65 76\nN n16 soprano 15/4 5/4 77 84",
+      "response_payload_bytes": 402,
+      "response_payload_sha256": "41f2508f72f1e98c9664618cb9b1a9d0c8b18f3a7a88aed18c8e50f49879438a",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "end_turn",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 627,
+        "output_tokens": 1335,
+        "thinking_tokens": 1008
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": false,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 3
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.02601,
+        "total": 0.028323,
+        "uncached_input": 0.002313
+      },
+      "family": "generation-progression",
+      "latency_ms": 14865.329,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1366,
+      "prompt_sha256": "3ac497550c2d96b40ad7ca5f5aae3ec3b22d1fa24e756c3f28b08fe7ab499bb1",
+      "raw_response_sha256": "16b907190effd98b482a5f48f27058406725ea798e94be25de65064f3ec8fa13",
+      "repeat": 0,
+      "request_id": "msg_011CfTbbtxWnfUMozdC4ZQsp",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1}],\"tracks\":[{\"id\":\"chorale\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":43,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":50,\"velocity\":80},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":59,\"velocity\":80},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":67,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":48,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":52,\"velocity\":80},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":67,\"velocity\":80},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":72,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":50,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":54,\"velocity\":80},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":69,\"velocity\":80},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":74,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":43,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":59,\"velocity\":80},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":80},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":67,\"velocity\":80}]}",
+      "response_payload_bytes": 1559,
+      "response_payload_sha256": "c05d55039e730ec7056cb1ab6c17f70e8c1045204784d01fc686fdfc03cecd4f",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "end_turn",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 771,
+        "output_tokens": 1734,
+        "thinking_tokens": 486
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0321,
+        "total": 0.034413,
+        "uncached_input": 0.002313
+      },
+      "family": "generation-progression",
+      "latency_ms": 17320.354,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1365,
+      "prompt_sha256": "6b645e6578d62dee44cd73b09313a713ada154f387123a2fab75f9edfdc81f35",
+      "raw_response_sha256": "93fc1b209d42c734d5bf0e627a6dceabed70e3b6e2c8f0b075868aaec0737b47",
+      "repeat": 0,
+      "request_id": "msg_011CfTbaj3SRPNjv2KYrX2ZU",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2},{\"number\":3},{\"number\":4}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"tenor\"},{\"id\":\"alto\"},{\"id\":\"soprano\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":48,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":55,\"velocity\":78},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":64,\"velocity\":76},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":72,\"velocity\":82},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":53,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":78},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":69,\"velocity\":76},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":72,\"velocity\":82},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":55,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":78},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":71,\"velocity\":76},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":79,\"velocity\":82},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":48,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":64,\"velocity\":78},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":67,\"velocity\":76},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":72,\"velocity\":82}]}",
+      "response_payload_bytes": 1641,
+      "response_payload_sha256": "0c5828d4c739a60e88befb2b1cea4e81b096871491fbad6497056c553611d4ce",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "end_turn",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 771,
+        "output_tokens": 2140,
+        "thinking_tokens": 826
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.022545,
+        "total": 0.024858,
+        "uncached_input": 0.002313
+      },
+      "family": "generation-progression",
+      "latency_ms": 11301.232,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1366,
+      "prompt_sha256": "e835f19a29b7d47d15ae72f0b12fc1b538d834aaeb64855369137b1f986ad9c5",
+      "raw_response_sha256": "3c1c63551124f63f1b35e7c2ccaf4ff78c9087fd9426df189a814c778ba738df",
+      "repeat": 0,
+      "request_id": "msg_011CfTbaizU5pi8tWCs4PNPR",
+      "response_payload": "{\"score\":{\"id\":\"s1\",\"hash\":\"abc\",\"tempo\":120,\"fields\":[\"id\",\"voice\",\"start\",\"duration\",\"pitch\",\"velocity\"],\"omits\":[\"channel\"]},\"bars\":[{\"number\":1},{\"number\":2}],\"tracks\":[{\"id\":\"bass\"},{\"id\":\"tenor\"},{\"id\":\"alto\"},{\"id\":\"soprano\"}],\"regions\":[{\"id\":\"r1\"}],\"notes\":[{\"id\":\"n1\",\"voice\":\"bass\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":41,\"velocity\":80},{\"id\":\"n2\",\"voice\":\"tenor\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":57,\"velocity\":75},{\"id\":\"n3\",\"voice\":\"alto\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":75},{\"id\":\"n4\",\"voice\":\"soprano\",\"start\":\"0\",\"duration\":\"5/4\",\"pitch\":69,\"velocity\":80},{\"id\":\"n5\",\"voice\":\"bass\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":46,\"velocity\":80},{\"id\":\"n6\",\"voice\":\"tenor\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":50,\"velocity\":75},{\"id\":\"n7\",\"voice\":\"alto\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":62,\"velocity\":75},{\"id\":\"n8\",\"voice\":\"soprano\",\"start\":\"5/4\",\"duration\":\"5/4\",\"pitch\":65,\"velocity\":80},{\"id\":\"n9\",\"voice\":\"bass\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":48,\"velocity\":80},{\"id\":\"n10\",\"voice\":\"tenor\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":52,\"velocity\":75},{\"id\":\"n11\",\"voice\":\"alto\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":67,\"velocity\":75},{\"id\":\"n12\",\"voice\":\"soprano\",\"start\":\"5/2\",\"duration\":\"5/4\",\"pitch\":72,\"velocity\":80},{\"id\":\"n13\",\"voice\":\"bass\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":41,\"velocity\":80},{\"id\":\"n14\",\"voice\":\"tenor\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":57,\"velocity\":75},{\"id\":\"n15\",\"voice\":\"alto\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":60,\"velocity\":75},{\"id\":\"n16\",\"voice\":\"soprano\",\"start\":\"15/4\",\"duration\":\"5/4\",\"pitch\":69,\"velocity\":80}]}",
+      "response_payload_bytes": 1615,
+      "response_payload_sha256": "5c4fc30a0fdad0fcdcde2d3fb8d71726a6de5308bfc3fb8bca5bce6dd4387740",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "end_turn",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 771,
+        "output_tokens": 1503,
+        "thinking_tokens": 207
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": false,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "exact-json",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.045,
+        "total": 0.047313,
+        "uncached_input": 0.002313
+      },
+      "family": "generation-progression",
+      "latency_ms": 27833.536,
+      "outer_schema_valid": false,
+      "prompt_bytes": 1370,
+      "prompt_sha256": "cdcc5268426e84cca098881315d8bb9a952a19c610a26a843a329684f041d9f5",
+      "raw_response_sha256": "c7aef7b6181da939eb429caad07cf037c1fa4887ba285d0d6ffa261f173b2e11",
+      "repeat": 0,
+      "request_id": "msg_011CfTbaj3gMvc2Sp6jETUZ1",
+      "response_payload": "{\"payload\":\"{\\\"score\\\":{\\\"id\\\":\\\"s1\\\",\\\"hash\\\":\\\"abc\\\",\\\"tempo\\\":120,\\\"fields\\\":[\\\"id\\\",\\\"voice\\\",\\\"start\\\",\\\"duration\\\",\\\"pitch\\\",\\\"velocity\\\"],\\\"omits\\\":[\\\"channel\\\"]},\\\"bars\\\":[{\\\"number\\\":1}],\\\"tracks\\\":[{\\\"id\\\":\\\"bass\\\"},{\\\"id\\\":\\\"tenor\\\"},{\\\"id\\\":\\\"alto\\\"},{\\\"id\\\":\\\"soprano\\\"}],\\\"regions\\\":[{\\\"id\\\":\\\"r1\\\"}],\\\"notes\\\":[{\\\"id\\\":\\\"n1\\\",\\\"voice\\\":\\\"bass\\\",\\\"start\\\":\\\"0\\\",\\\"duration\\\":\\\"5/4\\\",\\\"pitch\\\":46,\\\"velocity\\\":80},{\\\"id\\\":\\\"n2\\\",\\\"voice\\\":\\\"tenor\\\",\\\"start\\\":\\\"0\\\",\\\"duration\\\":\\\"5/4\\\",\\\"pitch\\\":62,\\\"velocity\\\":78},{\\\"id\\\":\\\"n3\\\",\\\"voice\\\":\\\"alto\\\",\\\"start\\\":\\\"0\\\",\\\"duration\\\":\\\"5/4\\\",\\\"pitch\\\":65,\\\"velocity\\\":76},{\\\"id\\\":\\\"n4\\\",\\\"voice\\\":\\\"soprano\\\",\\\"start\\\":\\\"0\\\",\\\"duration\\\":\\\"5/4\\\",\\\"pitch\\\":70,\\\"velocity\\\":82},{\\\"id\\\":\\\"n5\\\",\\\"voice\\\":\\\"bass\\\",\\\"start\\\":\\\"5/4\\\",\\\"duration\\\":\\\"5/4\\\",\\\"pitch\\\":51,\\\"velocity\\\":80},{\\\"id\\\":\\\"n6\\\",\\\"voice\\\":\\\"tenor\\\",\\\"start\\\":\\\"5/4\\\",\\\"duration\\\":\\\"5/4\\\",\\\"pitch\\\":67,\\\"velocity\\\":78},{\\\"id\\\":\\\"n7\\\",\\\"voice\\\":\\\"alto\\\",\\\"start\\\":\\\"5/4\\\",\\\"duration\\\":\\\"5/4\\\",\\\"pitch\\\":70,\\\"velocity\\\":76},{\\\"id\\\":\\\"n8\\\",\\\"voice\\\":\\\"soprano\\\",\\\"start\\\":\\\"5/4\\\",\\\"duration\\\":\\\"5/4\\\",\\\"pitch\\\":75,\\\"velocity\\\":82},{\\\"id\\\":\\\"n9\\\",\\\"voice\\\":\\\"bass\\\",\\\"start\\\":\\\"5/2\\\",\\\"duration\\\":\\\"5/4\\\",\\\"pitch\\\":53,\\\"velocity\\\":80},{\\\"id\\\":\\\"n10\\\",\\\"voice\\\":\\\"tenor\\\",",
+      "response_payload_bytes": 1289,
+      "response_payload_sha256": "0798739d8d19636d8f79b3e308865fb718435afade2d37ac4b390b3140a06b4a",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "max_tokens",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 771,
+        "output_tokens": 3000,
+        "thinking_tokens": 2166
+      },
+      "validation": {
+        "checks": {},
+        "error": "ParseFailure: Unterminated string starting at: line 1 column 12 (char 11)",
+        "primary_pass": false,
+        "syntax_pass": false
+      },
+      "variant": 3
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.03333,
+        "total": 0.035565,
+        "uncached_input": 0.002235
+      },
+      "family": "generation-progression",
+      "latency_ms": 21510.548,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1315,
+      "prompt_sha256": "e2e83b8f131730be25697cb608705003b7dae3bcaa3b802a493f010846d1ad2f",
+      "raw_response_sha256": "2dfe2f079efcfeb5549b7b8726724292d8a719f6bc301e7d2299a1ad2ee7fe02",
+      "repeat": 0,
+      "request_id": "msg_011CfTbaj3BuH9oeapFhFRNQ",
+      "response_payload": "G START 0 DURATION 5/4\nSLOT bass ID n1 PITCH 43 VELOCITY 80\nSLOT tenor ID n2 PITCH 50 VELOCITY 78\nSLOT alto ID n3 PITCH 71 VELOCITY 76\nSLOT soprano ID n4 PITCH 67 VELOCITY 82\nEND\nG START 5/4 DURATION 5/4\nSLOT bass ID n5 PITCH 48 VELOCITY 80\nSLOT tenor ID n6 PITCH 52 VELOCITY 78\nSLOT alto ID n7 PITCH 67 VELOCITY 76\nSLOT soprano ID n8 PITCH 72 VELOCITY 82\nEND\nG START 5/2 DURATION 5/4\nSLOT bass ID n9 PITCH 50 VELOCITY 80\nSLOT tenor ID n10 PITCH 54 VELOCITY 78\nSLOT alto ID n11 PITCH 69 VELOCITY 76\nSLOT soprano ID n12 PITCH 74 VELOCITY 82\nEND\nG START 15/4 DURATION 5/4\nSLOT bass ID n13 PITCH 43 VELOCITY 80\nSLOT tenor ID n14 PITCH 50 VELOCITY 78\nSLOT alto ID n15 PITCH 71 VELOCITY 76\nSLOT soprano ID n16 PITCH 67 VELOCITY 82\nEND",
+      "response_payload_bytes": 729,
+      "response_payload_sha256": "2c468a3d7b77c8870e0a7f71b3ad2ca3aecb3ab4eb61fa5e7ff77d325ce6beda",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "end_turn",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 745,
+        "output_tokens": 2222,
+        "thinking_tokens": 1677
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": false
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.016215,
+        "total": 0.01845,
+        "uncached_input": 0.002235
+      },
+      "family": "generation-progression",
+      "latency_ms": 10072.754,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1314,
+      "prompt_sha256": "dcfffbc83ce1e52a1fe3f0b5441109dfa33765337a0d22dab8f0a0b3c0808ff2",
+      "raw_response_sha256": "6501461b37db763be373caca8d593199e747461623c940e5317ed7d8ea4cd056",
+      "repeat": 0,
+      "request_id": "msg_011CfTbbbTZRdCgwnmfKcF7y",
+      "response_payload": "G START 0 DURATION 5/4\nSLOT bass ID n1 PITCH 36 VELOCITY 80\nSLOT tenor ID n2 PITCH 52 VELOCITY 80\nSLOT alto ID n3 PITCH 67 VELOCITY 80\nSLOT soprano ID n4 PITCH 72 VELOCITY 80\nEND\nG START 5/4 DURATION 5/4\nSLOT bass ID n5 PITCH 41 VELOCITY 80\nSLOT tenor ID n6 PITCH 48 VELOCITY 80\nSLOT alto ID n7 PITCH 57 VELOCITY 80\nSLOT soprano ID n8 PITCH 69 VELOCITY 80\nEND\nG START 5/2 DURATION 5/4\nSLOT bass ID n9 PITCH 43 VELOCITY 80\nSLOT tenor ID n10 PITCH 50 VELOCITY 80\nSLOT alto ID n11 PITCH 59 VELOCITY 80\nSLOT soprano ID n12 PITCH 71 VELOCITY 80\nEND\nG START 15/4 DURATION 5/4\nSLOT bass ID n13 PITCH 36 VELOCITY 80\nSLOT tenor ID n14 PITCH 52 VELOCITY 80\nSLOT alto ID n15 PITCH 55 VELOCITY 80\nSLOT soprano ID n16 PITCH 72 VELOCITY 80\nEND",
+      "response_payload_bytes": 729,
+      "response_payload_sha256": "0be87973803ac66248ce5e3681f532551956e13f9730b90e1dc920a5beac2ca5",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "end_turn",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 745,
+        "output_tokens": 1081,
+        "thinking_tokens": 536
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.02367,
+        "total": 0.025905,
+        "uncached_input": 0.002235
+      },
+      "family": "generation-progression",
+      "latency_ms": 15255.023,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1315,
+      "prompt_sha256": "b561f3fb26770d6c89e1022fe6247e8e3989b56ed633f59ae4bd9498c76717c1",
+      "raw_response_sha256": "027471616af62482de3df7a3bf697aa8985bc058530d2deb36c48da54700b5de",
+      "repeat": 0,
+      "request_id": "msg_011CfTbbjV1gCVBjmGkRdAEf",
+      "response_payload": "G START 0 DURATION 5/4\nSLOT bass ID n1 PITCH 41 VELOCITY 80\nSLOT tenor ID n2 PITCH 48 VELOCITY 76\nSLOT alto ID n3 PITCH 69 VELOCITY 76\nSLOT soprano ID n4 PITCH 72 VELOCITY 80\nEND\nG START 5/4 DURATION 5/4\nSLOT bass ID n5 PITCH 46 VELOCITY 80\nSLOT tenor ID n6 PITCH 53 VELOCITY 76\nSLOT alto ID n7 PITCH 70 VELOCITY 76\nSLOT soprano ID n8 PITCH 74 VELOCITY 80\nEND\nG START 5/2 DURATION 5/4\nSLOT bass ID n9 PITCH 48 VELOCITY 80\nSLOT tenor ID n10 PITCH 52 VELOCITY 76\nSLOT alto ID n11 PITCH 62 VELOCITY 76\nSLOT soprano ID n12 PITCH 72 VELOCITY 80\nEND\nG START 15/4 DURATION 5/4\nSLOT bass ID n13 PITCH 53 VELOCITY 82\nSLOT tenor ID n14 PITCH 60 VELOCITY 76\nSLOT alto ID n15 PITCH 69 VELOCITY 76\nSLOT soprano ID n16 PITCH 72 VELOCITY 80\nEND",
+      "response_payload_bytes": 729,
+      "response_payload_sha256": "dd7b7cba8d30712ba9d1d405bcc7f452c02c4e6805caa4019f4a740ee28359f9",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "end_turn",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 745,
+        "output_tokens": 1578,
+        "thinking_tokens": 1033
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": false,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "grouped-label-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0207,
+        "total": 0.022935,
+        "uncached_input": 0.002235
+      },
+      "family": "generation-progression",
+      "latency_ms": 14383.641,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1319,
+      "prompt_sha256": "126fd66a6afa63802075825f06ceb6125ea40572c5a4a7e2cc4035337b133fba",
+      "raw_response_sha256": "5950f1b1472324a4db053f6cda3f14dd06c4307f600d92d47d245fcbb9afd211",
+      "repeat": 0,
+      "request_id": "msg_011CfTbbMadZ9gUHvhTdBQ1A",
+      "response_payload": "G START 0 DURATION 5/4\nSLOT bass ID n1 PITCH 46 VELOCITY 80\nSLOT tenor ID n2 PITCH 53 VELOCITY 80\nSLOT alto ID n3 PITCH 62 VELOCITY 80\nSLOT soprano ID n4 PITCH 70 VELOCITY 80\nEND\nG START 5/4 DURATION 5/4\nSLOT bass ID n5 PITCH 51 VELOCITY 80\nSLOT tenor ID n6 PITCH 55 VELOCITY 80\nSLOT alto ID n7 PITCH 58 VELOCITY 80\nSLOT soprano ID n8 PITCH 75 VELOCITY 80\nEND\nG START 5/2 DURATION 5/4\nSLOT bass ID n9 PITCH 53 VELOCITY 80\nSLOT tenor ID n10 PITCH 57 VELOCITY 80\nSLOT alto ID n11 PITCH 60 VELOCITY 80\nSLOT soprano ID n12 PITCH 65 VELOCITY 80\nEND\nG START 15/4 DURATION 5/4\nSLOT bass ID n13 PITCH 46 VELOCITY 80\nSLOT tenor ID n14 PITCH 50 VELOCITY 80\nSLOT alto ID n15 PITCH 65 VELOCITY 80\nSLOT soprano ID n16 PITCH 70 VELOCITY 80\nEND",
+      "response_payload_bytes": 729,
+      "response_payload_sha256": "a86ef1831496a29c01347d19c33bc95f205dafecddb0396843d7a2d4fa559da2",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "end_turn",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 745,
+        "output_tokens": 1380,
+        "thinking_tokens": 835
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": false,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 3
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.0297,
+        "total": 0.03171,
+        "uncached_input": 0.00201
+      },
+      "family": "generation-progression",
+      "latency_ms": 17084.858,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1135,
+      "prompt_sha256": "c56f0438a82e79c97bd4ff4ebb6ed0e19088a6a9fa00764f52ca8de7bac2b6e2",
+      "raw_response_sha256": "4ba603f7c89f9f1d32db8e8d8c42986cfc808f919679a0e065850d7e034cb50f",
+      "repeat": 0,
+      "request_id": "msg_011CfTbaj2SSc1JKuieskpAz",
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 5/4 PITCH 43 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 5/4 PITCH 59 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 5/4 PITCH 62 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 5/4 PITCH 67 VELOCITY 80\nN ID n5 VOICE bass START 5/4 DURATION 5/4 PITCH 48 VELOCITY 80\nN ID n6 VOICE tenor START 5/4 DURATION 5/4 PITCH 52 VELOCITY 80\nN ID n7 VOICE alto START 5/4 DURATION 5/4 PITCH 67 VELOCITY 80\nN ID n8 VOICE soprano START 5/4 DURATION 5/4 PITCH 72 VELOCITY 80\nN ID n9 VOICE bass START 5/2 DURATION 5/4 PITCH 50 VELOCITY 80\nN ID n10 VOICE tenor START 5/2 DURATION 5/4 PITCH 57 VELOCITY 80\nN ID n11 VOICE alto START 5/2 DURATION 5/4 PITCH 66 VELOCITY 80\nN ID n12 VOICE soprano START 5/2 DURATION 5/4 PITCH 74 VELOCITY 80\nN ID n13 VOICE bass START 15/4 DURATION 5/4 PITCH 43 VELOCITY 80\nN ID n14 VOICE tenor START 15/4 DURATION 5/4 PITCH 59 VELOCITY 80\nN ID n15 VOICE alto START 15/4 DURATION 5/4 PITCH 62 VELOCITY 80\nN ID n16 VOICE soprano START 15/4 DURATION 5/4 PITCH 79 VELOCITY 80",
+      "response_payload_bytes": 1026,
+      "response_payload_sha256": "bf0bad8d7ca16649be93b4b2096cbca30aa43cfff8bd0361b4c3a900c649e8cd",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "end_turn",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 670,
+        "output_tokens": 1980,
+        "thinking_tokens": 1269
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.01758,
+        "total": 0.01959,
+        "uncached_input": 0.00201
+      },
+      "family": "generation-progression",
+      "latency_ms": 9889.206,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1134,
+      "prompt_sha256": "c26154e764fdf28849d673118b4f8a1814e588369a682471f54ac8a37fd21d48",
+      "raw_response_sha256": "6cdce294b6c8641ebefc1f72061dde2e49ad87b446d951ac78e49df39aa50508",
+      "repeat": 0,
+      "request_id": "msg_011CfTbcowApASaBsfmKzFqY",
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 5/4 PITCH 36 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 5/4 PITCH 52 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 5/4 PITCH 55 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 5/4 PITCH 72 VELOCITY 80\nN ID n5 VOICE bass START 5/4 DURATION 5/4 PITCH 41 VELOCITY 80\nN ID n6 VOICE tenor START 5/4 DURATION 5/4 PITCH 57 VELOCITY 80\nN ID n7 VOICE alto START 5/4 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n8 VOICE soprano START 5/4 DURATION 5/4 PITCH 65 VELOCITY 80\nN ID n9 VOICE bass START 5/2 DURATION 5/4 PITCH 43 VELOCITY 80\nN ID n10 VOICE tenor START 5/2 DURATION 5/4 PITCH 59 VELOCITY 80\nN ID n11 VOICE alto START 5/2 DURATION 5/4 PITCH 62 VELOCITY 80\nN ID n12 VOICE soprano START 5/2 DURATION 5/4 PITCH 71 VELOCITY 80\nN ID n13 VOICE bass START 15/4 DURATION 5/4 PITCH 36 VELOCITY 80\nN ID n14 VOICE tenor START 15/4 DURATION 5/4 PITCH 52 VELOCITY 80\nN ID n15 VOICE alto START 15/4 DURATION 5/4 PITCH 55 VELOCITY 80\nN ID n16 VOICE soprano START 15/4 DURATION 5/4 PITCH 72 VELOCITY 80",
+      "response_payload_bytes": 1026,
+      "response_payload_sha256": "1ee12a834be451dd560a5c1e152ade6ea5e15e271bfbadb3a7c6e992948af07c",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "end_turn",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 670,
+        "output_tokens": 1172,
+        "thinking_tokens": 461
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": false,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.017235,
+        "total": 0.019245,
+        "uncached_input": 0.00201
+      },
+      "family": "generation-progression",
+      "latency_ms": 10103.598,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1135,
+      "prompt_sha256": "b3b66df2c9ec5664c96ae1fdd7ec46359c9de1da80adde556eedda88cb3841ca",
+      "raw_response_sha256": "caece40d76e8cde32023255d8de66d3504383048677e93d8bc24704eb123c8f0",
+      "repeat": 0,
+      "request_id": "msg_011CfTbckst2BiQ8pR4kxGTE",
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 5/4 PITCH 41 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 5/4 PITCH 57 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 5/4 PITCH 69 VELOCITY 80\nN ID n5 VOICE bass START 5/4 DURATION 5/4 PITCH 46 VELOCITY 80\nN ID n6 VOICE tenor START 5/4 DURATION 5/4 PITCH 53 VELOCITY 80\nN ID n7 VOICE alto START 5/4 DURATION 5/4 PITCH 62 VELOCITY 80\nN ID n8 VOICE soprano START 5/4 DURATION 5/4 PITCH 70 VELOCITY 80\nN ID n9 VOICE bass START 5/2 DURATION 5/4 PITCH 48 VELOCITY 80\nN ID n10 VOICE tenor START 5/2 DURATION 5/4 PITCH 55 VELOCITY 80\nN ID n11 VOICE alto START 5/2 DURATION 5/4 PITCH 64 VELOCITY 80\nN ID n12 VOICE soprano START 5/2 DURATION 5/4 PITCH 72 VELOCITY 80\nN ID n13 VOICE bass START 15/4 DURATION 5/4 PITCH 41 VELOCITY 80\nN ID n14 VOICE tenor START 15/4 DURATION 5/4 PITCH 57 VELOCITY 80\nN ID n15 VOICE alto START 15/4 DURATION 5/4 PITCH 60 VELOCITY 80\nN ID n16 VOICE soprano START 15/4 DURATION 5/4 PITCH 69 VELOCITY 80",
+      "response_payload_bytes": 1026,
+      "response_payload_sha256": "ed4dc62826174f5fa6b4238baff189cbf9c7141feeb1493ab3a87c9dc990e8ba",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "end_turn",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 670,
+        "output_tokens": 1149,
+        "thinking_tokens": 438
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "label-only-compact",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.02559,
+        "total": 0.0276,
+        "uncached_input": 0.00201
+      },
+      "family": "generation-progression",
+      "latency_ms": 15919.902,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1139,
+      "prompt_sha256": "9d344ad6382f619c4117edb3fac76d6907df2962f1f556677e31fc6dc74f2cbd",
+      "raw_response_sha256": "032861003ab67a75180a4133950192d20512e80aaf0a4438f157f6abdef66dab",
+      "repeat": 0,
+      "request_id": "msg_011CfTbcHowxhJYqtn2QGTKv",
+      "response_payload": "N ID n1 VOICE bass START 0 DURATION 5/4 PITCH 46 VELOCITY 80\nN ID n2 VOICE tenor START 0 DURATION 5/4 PITCH 50 VELOCITY 80\nN ID n3 VOICE alto START 0 DURATION 5/4 PITCH 65 VELOCITY 80\nN ID n4 VOICE soprano START 0 DURATION 5/4 PITCH 70 VELOCITY 80\nN ID n5 VOICE bass START 5/4 DURATION 5/4 PITCH 39 VELOCITY 80\nN ID n6 VOICE tenor START 5/4 DURATION 5/4 PITCH 55 VELOCITY 80\nN ID n7 VOICE alto START 5/4 DURATION 5/4 PITCH 58 VELOCITY 80\nN ID n8 VOICE soprano START 5/4 DURATION 5/4 PITCH 70 VELOCITY 80\nN ID n9 VOICE bass START 5/2 DURATION 5/4 PITCH 41 VELOCITY 80\nN ID n10 VOICE tenor START 5/2 DURATION 5/4 PITCH 48 VELOCITY 80\nN ID n11 VOICE alto START 5/2 DURATION 5/4 PITCH 57 VELOCITY 80\nN ID n12 VOICE soprano START 5/2 DURATION 5/4 PITCH 65 VELOCITY 80\nN ID n13 VOICE bass START 15/4 DURATION 5/4 PITCH 46 VELOCITY 80\nN ID n14 VOICE tenor START 15/4 DURATION 5/4 PITCH 50 VELOCITY 80\nN ID n15 VOICE alto START 15/4 DURATION 5/4 PITCH 65 VELOCITY 80\nN ID n16 VOICE soprano START 15/4 DURATION 5/4 PITCH 70 VELOCITY 80",
+      "response_payload_bytes": 1026,
+      "response_payload_sha256": "17fe0c2931e8d40238905e7187b3992813e86c617cce30749d183da56814b77a",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "end_turn",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 670,
+        "output_tokens": 1706,
+        "thinking_tokens": 995
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 3
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.014865,
+        "total": 0.01689,
+        "uncached_input": 0.002025
+      },
+      "family": "generation-progression",
+      "latency_ms": 8831.382,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1116,
+      "prompt_sha256": "4b645a4b0de0be537ba0aa4b2e750e83ab4ac18c070f202704c91046e477c3d6",
+      "raw_response_sha256": "b70caa23200a46e8f7d7c34602e79b3432e51aac45c764729297bd8504fd822a",
+      "repeat": 0,
+      "request_id": "msg_011CfTbaj1i7fEjH4cb5FKjW",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_43 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_59 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_62 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_71 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/4 NOTE_ON_36 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/4 NOTE_ON_52 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/4 NOTE_ON_55 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/4 NOTE_ON_72 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/2 NOTE_ON_38 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/2 NOTE_ON_54 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/2 NOTE_ON_57 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/2 NOTE_ON_74 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_15/4 NOTE_ON_43 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_15/4 NOTE_ON_59 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_15/4 NOTE_ON_62 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_15/4 NOTE_ON_71 DURATION_5/4 VELOCITY_80",
+      "response_payload_bytes": 907,
+      "response_payload_sha256": "7bf3a61b975dc5355d66f8f5585c81d60633ea79077929dd3942d3657a67f0e3",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "a578da65c04e670349c636a6c7120aee0a8c26d94275c752647a2e79b696835b",
+      "stop_reason": "end_turn",
+      "task_sha256": "fa3b7441d160e61bea5034d090e8e2c8cf396ca0e63b3fb0f180467c20d983b5",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 675,
+        "output_tokens": 991,
+        "thinking_tokens": 280
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 0
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.020115,
+        "total": 0.02214,
+        "uncached_input": 0.002025
+      },
+      "family": "generation-progression",
+      "latency_ms": 13064.803,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1115,
+      "prompt_sha256": "5b5e9bbcd74a68456c26000bca9a5e4928d9a1ccdfa34534d62a51711d6e0f15",
+      "raw_response_sha256": "bcd062d9787fc68ae90e9fccd0c01080c4a7da97e33e69dc94193752b6a0d9f2",
+      "repeat": 0,
+      "request_id": "msg_011CfTbcHExi9H7JDWQJnFYa",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_36 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_52 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_55 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_72 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/4 NOTE_ON_41 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/4 NOTE_ON_48 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/4 NOTE_ON_69 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/4 NOTE_ON_81 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/2 NOTE_ON_43 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/2 NOTE_ON_50 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/2 NOTE_ON_59 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/2 NOTE_ON_79 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_15/4 NOTE_ON_36 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_15/4 NOTE_ON_52 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_15/4 NOTE_ON_55 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_15/4 NOTE_ON_72 DURATION_5/4 VELOCITY_80",
+      "response_payload_bytes": 907,
+      "response_payload_sha256": "d2ea2e5ec4a96099c7cdc5d16c7b43916bd40f121e4d892212a59db14cc00237",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "475e6b11654126e0d18f826a06f1566e93dc859801f371da260cb27dc8925bf8",
+      "stop_reason": "end_turn",
+      "task_sha256": "daa601559c16b2c7bb6d50ad9615474038abf5b6498628356e199142df2213e7",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 675,
+        "output_tokens": 1341,
+        "thinking_tokens": 630
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": false,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 1
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.025395,
+        "total": 0.02742,
+        "uncached_input": 0.002025
+      },
+      "family": "generation-progression",
+      "latency_ms": 16183.085,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1116,
+      "prompt_sha256": "dbaace700d90d1d1766843d35465988073207fe8e2170643c277376a2717f330",
+      "raw_response_sha256": "4f013cf58c66a3746393f5b969a843eefba577201c520ba946c45d706fd567b1",
+      "repeat": 0,
+      "request_id": "msg_011CfTbaj1wni5VLw4nP3BvL",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_41 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_60 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_65 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_69 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/4 NOTE_ON_46 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/4 NOTE_ON_50 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/4 NOTE_ON_65 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/4 NOTE_ON_70 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/2 NOTE_ON_48 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/2 NOTE_ON_52 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/2 NOTE_ON_67 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/2 NOTE_ON_72 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_15/4 NOTE_ON_41 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_15/4 NOTE_ON_57 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_15/4 NOTE_ON_60 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_15/4 NOTE_ON_72 DURATION_5/4 VELOCITY_80",
+      "response_payload_bytes": 907,
+      "response_payload_sha256": "0d27cd00a2e00d164c3f1bab14e3ed8b38ffbeb0394a979b7448d4c4d5a82c2b",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "fe7f11275587dd1337c3dbd3fe0cce72fccf8aa990c00b9c7e27e4f697dd00e8",
+      "stop_reason": "end_turn",
+      "task_sha256": "8ee978ad9d5cd5b253b2ec64f27c0590dfdf70483074086da5efb9cbb67f2c46",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 675,
+        "output_tokens": 1693,
+        "thinking_tokens": 982
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": true,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": true,
+        "syntax_pass": true
+      },
+      "variant": 2
+    },
+    {
+      "arm": "midi-like-native",
+      "cost_usd": {
+        "cached_input": 0.0,
+        "output": 0.02022,
+        "total": 0.022245,
+        "uncached_input": 0.002025
+      },
+      "family": "generation-progression",
+      "latency_ms": 12567.904,
+      "outer_schema_valid": true,
+      "prompt_bytes": 1120,
+      "prompt_sha256": "ac85cfa30fd45277c8422c344da99a5bdb13bae2fed5b34e7146495f25e72ab3",
+      "raw_response_sha256": "fbeb3f42f67fcb6e018c84b7494df58ec876e3d2d6cc90e6587681d160f71084",
+      "repeat": 0,
+      "request_id": "msg_011CfTbby2qMFs5xP6G5jC9k",
+      "response_payload": "TRACK_bass TIME_0 NOTE_ON_46 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_0 NOTE_ON_50 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_0 NOTE_ON_65 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_0 NOTE_ON_70 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/4 NOTE_ON_39 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/4 NOTE_ON_55 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/4 NOTE_ON_58 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/4 NOTE_ON_79 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_5/2 NOTE_ON_41 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_5/2 NOTE_ON_60 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_5/2 NOTE_ON_69 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_5/2 NOTE_ON_72 DURATION_5/4 VELOCITY_80\nTRACK_bass TIME_15/4 NOTE_ON_46 DURATION_5/4 VELOCITY_80\nTRACK_tenor TIME_15/4 NOTE_ON_50 DURATION_5/4 VELOCITY_80\nTRACK_alto TIME_15/4 NOTE_ON_65 DURATION_5/4 VELOCITY_80\nTRACK_soprano TIME_15/4 NOTE_ON_70 DURATION_5/4 VELOCITY_80",
+      "response_payload_bytes": 907,
+      "response_payload_sha256": "830df1d13b04f33f5703fc4ecf0fdc42794d738add6b7839c458da06451ac127",
+      "retries": 0,
+      "returned_model": "claude-sonnet-5",
+      "semantic_sha256": "ff86a915fb33bb1cd3cd6d1e3c7a67a2fd9f137784fd74efac38cc34b43fff73",
+      "stop_reason": "end_turn",
+      "task_sha256": "2a80bde6bcb5b35d0a2f20fdaeaffe75af4676944046aacbc0ff60da433a6cb8",
+      "usage": {
+        "cached_input_tokens": 0,
+        "input_tokens": 675,
+        "output_tokens": 1348,
+        "thinking_tokens": 637
+      },
+      "validation": {
+        "checks": {
+          "cadence": true,
+          "chord_starts_and_named_voices": true,
+          "harmony_and_bass_inversion": true,
+          "total_voice_leading": false,
+          "voice_ranges_and_crossing": true
+        },
+        "error": null,
+        "primary_pass": false,
+        "syntax_pass": true
+      },
+      "variant": 3
+    }
+  ],
+  "run_id": "phase8c2-2-progression-repair-calibration-r2",
+  "run_kind": "progression-repair-calibration-provider",
+  "schema": "ghostnote-compact-format-progression-repair-calibration-v3",
+  "screen_sha256": "6cb099de17f58ba1ddeb7555b2c48b6397c38b2cbd260db618033bfa4f41dbef",
+  "settings": {
+    "effort": "low",
+    "max_tokens": 3000
+  }
+}

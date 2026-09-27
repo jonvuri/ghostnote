@@ -1,0 +1,237 @@
+{
+  "actual_cost_usd": {
+    "gemini": 0.484986,
+    "openai": 0.793032,
+    "total": 1.278018
+  },
+  "allowed_follow_up": "Do not run Claude under the conditional approval. Do not repair or resume this frozen run.",
+  "conditional_review": {
+    "grouped_melody_syntax_failures": 8,
+    "grouped_melody_trials": 8,
+    "hard_gate_reachable": false,
+    "issues": [
+      "grouped-single-note-syntax-failure",
+      "grouped-single-note-prompt-omission",
+      "minimum-improving-provider-gate-unreachable",
+      "revoice-control-ceiling-on-observed-providers"
+    ],
+    "minimum_improving_providers": 2,
+    "observed_improving_providers": 0,
+    "remaining_provider_count": 1,
+    "revoice_control_successes": 32,
+    "revoice_control_trials": 32
+  },
+  "decision": "stop-before-claude",
+  "formal_decision_reason": "The frozen three-provider development run is incomplete.",
+  "formal_development_decision": null,
+  "grammar_audit": {
+    "exact_single_row_syntax_stated": false,
+    "parser_requires": "N ID <id> VOICE <voice> START <start> DURATION <duration> PITCH <pitch> VELOCITY <velocity>",
+    "prompt_example": "G START 0 DURATION 1\nSLOT bass ID n1 PITCH 48 VELOCITY 80\nSLOT lead ID n2 PITCH 67 VELOCITY 84\nEND",
+    "prompt_grammar": "Use one G START block for each onset with two or more notes. Put a shared DURATION on G when all slots share it. Use SLOT <voice> ID <id> [DURATION <duration>] PITCH <pitch> VELOCITY <velocity>. End each block with END. Use labeled N rows for single notes."
+  },
+  "observed_calls": 440,
+  "protocol_sha256": "193148ede3e97e8c8143d48d5944a026517daa3cc227ec3f6725714f7d33ace2",
+  "providers": [
+    {
+      "actual_cost_usd": 0.793032,
+      "calls": 220,
+      "complete": true,
+      "decision_macro_grouped_vs_compact": {
+        "baseline_successes": 17,
+        "both_fail": 4,
+        "both_pass": 11,
+        "candidate_only_losses": 6,
+        "candidate_only_wins": 3,
+        "candidate_successes": 14,
+        "denominator": 24,
+        "effect": -0.125,
+        "paired_bootstrap_95_interval": [
+          -0.375,
+          0.125
+        ]
+      },
+      "families": [
+        {
+          "control_pool": {
+            "successes": 3,
+            "trials": 16
+          },
+          "family": "generation-progression",
+          "grouped_vs_compact": {
+            "baseline_successes": 4,
+            "both_fail": 2,
+            "both_pass": 1,
+            "candidate_only_losses": 3,
+            "candidate_only_wins": 2,
+            "candidate_successes": 3,
+            "denominator": 8,
+            "effect": -0.125,
+            "paired_bootstrap_95_interval": [
+              -0.625,
+              0.375
+            ]
+          }
+        },
+        {
+          "control_pool": {
+            "successes": 11,
+            "trials": 16
+          },
+          "family": "continuation-roles",
+          "grouped_vs_compact": {
+            "baseline_successes": 6,
+            "both_fail": 2,
+            "both_pass": 4,
+            "candidate_only_losses": 2,
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "denominator": 8,
+            "effect": -0.25,
+            "paired_bootstrap_95_interval": [
+              -0.625,
+              0.0
+            ]
+          }
+        },
+        {
+          "control_pool": {
+            "successes": 16,
+            "trials": 16
+          },
+          "family": "transformation-revoice",
+          "grouped_vs_compact": {
+            "baseline_successes": 7,
+            "both_fail": 0,
+            "both_pass": 6,
+            "candidate_only_losses": 1,
+            "candidate_only_wins": 1,
+            "candidate_successes": 7,
+            "denominator": 8,
+            "effect": 0.0,
+            "paired_bootstrap_95_interval": [
+              -0.375,
+              0.375
+            ]
+          }
+        }
+      ],
+      "grouped_melody_syntax": {
+        "errors": [
+          "ValueError: Invalid grouped-label row: N 0 VOICE lead ID n1 DURATION 2/5 PITCH 69 VELOCITY 84",
+          "ValueError: Invalid grouped-label row: N START 0 DURATION 2/5 PITCH 64 VELOCITY 80",
+          "ValueError: Invalid grouped-label row: N START 0 DURATION 2/5 PITCH 71 VELOCITY 84",
+          "ValueError: Invalid grouped-label row: N START 0 VOICE lead ID n1 DURATION 2/5 PITCH 62 VELOCITY 84"
+        ],
+        "successes": 0,
+        "trials": 4
+      },
+      "manifest_sha256": "198ae6ec9eb7aa2d6e3769cf73a597ae63b477c94e024713f735c107585290ab",
+      "provider": "openai",
+      "raw_run_sha256": "85c4167f5b7849ad57a82dc6401f9eaae54aa5db40b5ce64e7741fa923c102c3",
+      "requested_model": "gpt-5.4-mini-2026-03-17"
+    },
+    {
+      "actual_cost_usd": 0.484986,
+      "calls": 220,
+      "complete": true,
+      "decision_macro_grouped_vs_compact": {
+        "baseline_successes": 18,
+        "both_fail": 6,
+        "both_pass": 16,
+        "candidate_only_losses": 2,
+        "candidate_only_wins": 0,
+        "candidate_successes": 16,
+        "denominator": 24,
+        "effect": -0.083333,
+        "paired_bootstrap_95_interval": [
+          -0.208333,
+          0.0
+        ]
+      },
+      "families": [
+        {
+          "control_pool": {
+            "successes": 6,
+            "trials": 16
+          },
+          "family": "generation-progression",
+          "grouped_vs_compact": {
+            "baseline_successes": 2,
+            "both_fail": 6,
+            "both_pass": 1,
+            "candidate_only_losses": 1,
+            "candidate_only_wins": 0,
+            "candidate_successes": 1,
+            "denominator": 8,
+            "effect": -0.125,
+            "paired_bootstrap_95_interval": [
+              -0.375,
+              0.0
+            ]
+          }
+        },
+        {
+          "control_pool": {
+            "successes": 16,
+            "trials": 16
+          },
+          "family": "continuation-roles",
+          "grouped_vs_compact": {
+            "baseline_successes": 8,
+            "both_fail": 0,
+            "both_pass": 8,
+            "candidate_only_losses": 0,
+            "candidate_only_wins": 0,
+            "candidate_successes": 8,
+            "denominator": 8,
+            "effect": 0.0,
+            "paired_bootstrap_95_interval": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "control_pool": {
+            "successes": 16,
+            "trials": 16
+          },
+          "family": "transformation-revoice",
+          "grouped_vs_compact": {
+            "baseline_successes": 8,
+            "both_fail": 0,
+            "both_pass": 7,
+            "candidate_only_losses": 1,
+            "candidate_only_wins": 0,
+            "candidate_successes": 7,
+            "denominator": 8,
+            "effect": -0.125,
+            "paired_bootstrap_95_interval": [
+              -0.375,
+              0.0
+            ]
+          }
+        }
+      ],
+      "grouped_melody_syntax": {
+        "errors": [
+          "ValueError: Invalid grouped-label row: N lead ID n1 START 0 DURATION 2/5 PITCH 62 VELOCITY 90",
+          "ValueError: Invalid grouped-label row: N lead ID n1 START 0 DURATION 2/5 PITCH 64 VELOCITY 80",
+          "ValueError: Invalid grouped-label row: N lead ID n1 START 0 DURATION 2/5 PITCH 69 VELOCITY 90",
+          "ValueError: Invalid grouped-label row: N lead START 0 DURATION 2/5 PITCH 71 VELOCITY 80"
+        ],
+        "successes": 0,
+        "trials": 4
+      },
+      "manifest_sha256": "937b5044cba1daa710a764bbc0faf50672aa6c51b6afe2a1f34d1f0bab9a0871",
+      "provider": "gemini",
+      "raw_run_sha256": "bdaaaf59e77bf300f9b0aa685104f6cb53384d70eb1c07b3a60e65b355e5f3bc",
+      "requested_model": "gemini-3.8-flash"
+    }
+  ],
+  "run_id": "phase8c2-2-grouped-development-r1",
+  "run_kind": "conditional-development-partial-report",
+  "schema": "ghostnote-compact-format-development-partial-report-v3",
+  "sha256": "fa6370fa12f42540a0b9ceee9ea7e77ba49519c4eb63b75e9ee0d4f10e34e719"
+}

@@ -1,0 +1,26 @@
+{
+  "approved_scope": {
+    "providers": {
+      "claude": {
+        "calls": 20,
+        "estimated_cost_usd": 0.408460
+      },
+      "gemini": {
+        "calls": 20,
+        "estimated_cost_usd": 0.073372
+      },
+      "openai": {
+        "calls": 20,
+        "estimated_cost_usd": 0.115476
+      }
+    },
+    "total_calls": 60,
+    "total_estimated_cost_usd": 0.597308
+  },
+  "approved_at": "2026-09-27",
+  "operator_statement": "Understood. Proceed as planned; I approve this exact run.",
+  "protocol_sha256": "31693cf6c5f4b5d2141bbe22796886be7c036c3461ee4be6a62c2332a83e2327",
+  "run_id": "phase8c2-2-progression-repair-calibration-r2",
+  "run_plan_sha256": "4b96befe3dfd8111aef5d05ec705200284d85a5385551f1f73de00b1c285e6c3",
+  "status": "approved"
+}

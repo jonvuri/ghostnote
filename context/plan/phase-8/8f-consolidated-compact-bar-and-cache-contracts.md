@@ -13,9 +13,9 @@ evidence: E109, E114-E121, E128-E140; D21, D23
 # Phase 8f — Consolidated compact-bar and cache contracts
 
 Phase 8f is blocked until Phase 8c3 gives a `proceed` decision from the fresh
-full symbolic-format matrix. A Phase 8c2 or Phase 8c2.2 development or holdout
-result is not sufficient to freeze a public syntax. E140's `revise` result is
-also not sufficient.
+full symbolic-format matrix. A Phase 8c2, 8c2.2, or 8c2.3 development or
+holdout result is not sufficient to freeze a public syntax. E140's `revise`
+result is also not sufficient.
 
 ## Purpose
 

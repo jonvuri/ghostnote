@@ -1,13 +1,13 @@
 ---
 title: Phase 8c2.2 — Measurement repair and grouped compact iteration
 kind: plan
-state: planned
-status: Repair the task measurement, test one grouped-label compact hypothesis, and use a fresh holdout for selection.
+state: complete
+status: Stop custom compact. The grouped prompt has a single-note defect, and the two-provider improvement gate is unreachable.
 updated: 2026-09-27
 parent: README.md
 prev: 8c2-compact-grammar-correction.md
-next: 8c3-full-symbolic-format-matrix.md
-evidence: E140, E141, E142; D21, D23
+next: 8c2-3-compact-json-factorial-and-native-decision.md
+evidence: E140, E141, E142, E143, E144, E145, E146; D21, D23
 ---
 
 # Phase 8c2.2 — Measurement repair and grouped compact iteration
@@ -24,8 +24,8 @@ This session does not reopen or revise the frozen Phase 8c2 runs. Their
 prove that label-only compact is equivalent to compact-bar v1 or that explicit
 labels have no value.
 
-Phase 8c3 stays closed until this session selects a candidate with a fresh
-targeted holdout. Phase 8f stays blocked until Phase 8c3 returns `proceed`.
+Phase 8c3 stays closed. Phase 8c2.3 now owns the next structured-object
+comparison. Phase 8f stays blocked until Phase 8c3 returns `proceed`.
 
 ## Starting evidence
 
@@ -310,6 +310,17 @@ The operator dashboards remain the external spend authority.
 - Changing the cache contract or live Bitwig state.
 - Fine-tuning or training a provider model.
 - External publication.
+
+## Closeout
+
+OpenAI and Gemini made the frozen two-provider improvement gate unreachable.
+The operator accepted `stop-custom-compact` without running Claude. The
+three-provider development run remains incomplete and has no formal summary
+decision. Do not repair or resume it.
+
+This result closes incremental compact-bar text development. It does not prove
+that every representation more compact than exact JSON must fail. Phase 8c2.3
+therefore tests compact JSON as a new structured-object direction.
 
 ## Retrospective target
 

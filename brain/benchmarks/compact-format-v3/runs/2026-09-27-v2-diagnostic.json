@@ -1,0 +1,429 @@
+{
+  "authority": "This report does not change the frozen Phase 8c2 decision, responses, or hashes.",
+  "development": {
+    "candidate_comparisons": [
+      {
+        "candidate_only_losses": 0,
+        "candidate_only_losses_by_family": {},
+        "candidate_only_wins": 3,
+        "guard_macro_delta": 0.0,
+        "hard_macro_delta": 0.25,
+        "input_token_ratio_to_exact": 0.718662,
+        "output_byte_ratio_to_exact": 0.643071,
+        "paired_denominator": 18,
+        "provider": "openai",
+        "provider_gate": {
+          "candidate_only_losses": true,
+          "guard_regression": true,
+          "hard_improvement": true,
+          "input_size": true,
+          "output_size": true,
+          "pass": true
+        }
+      },
+      {
+        "candidate_only_losses": 0,
+        "candidate_only_losses_by_family": {},
+        "candidate_only_wins": 2,
+        "guard_macro_delta": 0.0,
+        "hard_macro_delta": 0.166667,
+        "input_token_ratio_to_exact": 0.684466,
+        "output_byte_ratio_to_exact": 0.536353,
+        "paired_denominator": 18,
+        "provider": "gemini",
+        "provider_gate": {
+          "candidate_only_losses": true,
+          "guard_regression": true,
+          "hard_improvement": true,
+          "input_size": true,
+          "output_size": true,
+          "pass": true
+        }
+      },
+      {
+        "candidate_only_losses": 0,
+        "candidate_only_losses_by_family": {},
+        "candidate_only_wins": 1,
+        "guard_macro_delta": 0.0,
+        "hard_macro_delta": 0.083333,
+        "input_token_ratio_to_exact": 0.753509,
+        "output_byte_ratio_to_exact": 0.692393,
+        "paired_denominator": 18,
+        "provider": "claude",
+        "provider_gate": {
+          "candidate_only_losses": true,
+          "guard_regression": true,
+          "hard_improvement": true,
+          "input_size": true,
+          "output_size": true,
+          "pass": true
+        }
+      }
+    ],
+    "cohort": "phase8c2-development",
+    "component_counts": [
+      {
+        "component": "continuation-roles:cadence",
+        "passes": 49,
+        "trials": 54
+      },
+      {
+        "component": "continuation-roles:harmony",
+        "passes": 45,
+        "trials": 54
+      },
+      {
+        "component": "continuation-roles:no_collisions",
+        "passes": 53,
+        "trials": 54
+      },
+      {
+        "component": "continuation-roles:ranges",
+        "passes": 53,
+        "trials": 54
+      },
+      {
+        "component": "continuation-roles:role_density",
+        "passes": 53,
+        "trials": 54
+      },
+      {
+        "component": "continuation-roles:starts",
+        "passes": 53,
+        "trials": 54
+      },
+      {
+        "component": "continuation-roles:voice_leading",
+        "passes": 51,
+        "trials": 54
+      },
+      {
+        "component": "generation-melody:cadence",
+        "passes": 53,
+        "trials": 54
+      },
+      {
+        "component": "generation-melody:motif",
+        "passes": 51,
+        "trials": 54
+      },
+      {
+        "component": "generation-melody:note_count",
+        "passes": 53,
+        "trials": 54
+      },
+      {
+        "component": "generation-melody:pitch_collection",
+        "passes": 53,
+        "trials": 54
+      },
+      {
+        "component": "generation-melody:range",
+        "passes": 53,
+        "trials": 54
+      },
+      {
+        "component": "generation-melody:rhythm",
+        "passes": 52,
+        "trials": 54
+      },
+      {
+        "component": "generation-melody:strong_beat_harmony",
+        "passes": 53,
+        "trials": 54
+      },
+      {
+        "component": "generation-progression:cadence",
+        "passes": 39,
+        "trials": 54
+      },
+      {
+        "component": "generation-progression:chord_starts_and_named_voices",
+        "passes": 39,
+        "trials": 54
+      },
+      {
+        "component": "generation-progression:harmony_and_bass_inversion",
+        "passes": 12,
+        "trials": 54
+      },
+      {
+        "component": "generation-progression:total_voice_leading",
+        "passes": 26,
+        "trials": 54
+      },
+      {
+        "component": "generation-progression:voice_ranges_and_crossing",
+        "passes": 36,
+        "trials": 54
+      },
+      {
+        "component": "transformation-revoice:chord_pitch_classes",
+        "passes": 52,
+        "trials": 54
+      },
+      {
+        "component": "transformation-revoice:note_count_and_chord_starts",
+        "passes": 54,
+        "trials": 54
+      },
+      {
+        "component": "transformation-revoice:operation_counterfactual",
+        "passes": 42,
+        "trials": 54
+      },
+      {
+        "component": "transformation-revoice:preserved_duration",
+        "passes": 54,
+        "trials": 54
+      },
+      {
+        "component": "transformation-revoice:range_limits",
+        "passes": 54,
+        "trials": 54
+      }
+    ],
+    "counterfactual_gate": "pass",
+    "family_counts": [
+      {
+        "family": "generation-progression",
+        "passes": 4,
+        "trials": 54
+      },
+      {
+        "family": "generation-melody",
+        "passes": 50,
+        "trials": 54
+      },
+      {
+        "family": "continuation-roles",
+        "passes": 41,
+        "trials": 54
+      },
+      {
+        "family": "transformation-revoice",
+        "passes": 42,
+        "trials": 54
+      }
+    ],
+    "provider_passes": 3
+  },
+  "frozen_holdout_decision": "do-not-select",
+  "holdout": {
+    "candidate_comparisons": [
+      {
+        "candidate_only_losses": 1,
+        "candidate_only_losses_by_family": {
+          "generation-progression": 1
+        },
+        "candidate_only_wins": 2,
+        "guard_macro_delta": 0.333333,
+        "hard_macro_delta": 0.0,
+        "input_token_ratio_to_exact": 0.736135,
+        "output_byte_ratio_to_exact": 0.622874,
+        "paired_denominator": 18,
+        "provider": "openai",
+        "provider_gate": {
+          "candidate_only_losses": true,
+          "guard_regression": true,
+          "hard_improvement": false,
+          "input_size": true,
+          "output_size": true,
+          "pass": false
+        }
+      },
+      {
+        "candidate_only_losses": 0,
+        "candidate_only_losses_by_family": {},
+        "candidate_only_wins": 2,
+        "guard_macro_delta": 0.0,
+        "hard_macro_delta": 0.083333,
+        "input_token_ratio_to_exact": 0.703446,
+        "output_byte_ratio_to_exact": 0.586021,
+        "paired_denominator": 18,
+        "provider": "gemini",
+        "provider_gate": {
+          "candidate_only_losses": true,
+          "guard_regression": true,
+          "hard_improvement": true,
+          "input_size": true,
+          "output_size": true,
+          "pass": true
+        }
+      },
+      {
+        "candidate_only_losses": 1,
+        "candidate_only_losses_by_family": {
+          "continuation-roles": 1
+        },
+        "candidate_only_wins": 3,
+        "guard_macro_delta": 0.333333,
+        "hard_macro_delta": 0.083333,
+        "input_token_ratio_to_exact": 0.767722,
+        "output_byte_ratio_to_exact": 0.587449,
+        "paired_denominator": 18,
+        "provider": "claude",
+        "provider_gate": {
+          "candidate_only_losses": true,
+          "guard_regression": true,
+          "hard_improvement": true,
+          "input_size": true,
+          "output_size": true,
+          "pass": true
+        }
+      }
+    ],
+    "cohort": "phase8c2-holdout",
+    "component_counts": [
+      {
+        "component": "continuation-roles:cadence",
+        "passes": 31,
+        "trials": 36
+      },
+      {
+        "component": "continuation-roles:harmony",
+        "passes": 32,
+        "trials": 36
+      },
+      {
+        "component": "continuation-roles:no_collisions",
+        "passes": 35,
+        "trials": 36
+      },
+      {
+        "component": "continuation-roles:ranges",
+        "passes": 33,
+        "trials": 36
+      },
+      {
+        "component": "continuation-roles:role_density",
+        "passes": 35,
+        "trials": 36
+      },
+      {
+        "component": "continuation-roles:starts",
+        "passes": 35,
+        "trials": 36
+      },
+      {
+        "component": "continuation-roles:voice_leading",
+        "passes": 31,
+        "trials": 36
+      },
+      {
+        "component": "generation-melody:cadence",
+        "passes": 36,
+        "trials": 36
+      },
+      {
+        "component": "generation-melody:motif",
+        "passes": 35,
+        "trials": 36
+      },
+      {
+        "component": "generation-melody:note_count",
+        "passes": 36,
+        "trials": 36
+      },
+      {
+        "component": "generation-melody:pitch_collection",
+        "passes": 36,
+        "trials": 36
+      },
+      {
+        "component": "generation-melody:range",
+        "passes": 36,
+        "trials": 36
+      },
+      {
+        "component": "generation-melody:rhythm",
+        "passes": 34,
+        "trials": 36
+      },
+      {
+        "component": "generation-melody:strong_beat_harmony",
+        "passes": 35,
+        "trials": 36
+      },
+      {
+        "component": "generation-progression:cadence",
+        "passes": 33,
+        "trials": 36
+      },
+      {
+        "component": "generation-progression:chord_starts_and_named_voices",
+        "passes": 33,
+        "trials": 36
+      },
+      {
+        "component": "generation-progression:harmony_and_bass_inversion",
+        "passes": 10,
+        "trials": 36
+      },
+      {
+        "component": "generation-progression:total_voice_leading",
+        "passes": 24,
+        "trials": 36
+      },
+      {
+        "component": "generation-progression:voice_ranges_and_crossing",
+        "passes": 25,
+        "trials": 36
+      },
+      {
+        "component": "transformation-revoice:chord_pitch_classes",
+        "passes": 30,
+        "trials": 36
+      },
+      {
+        "component": "transformation-revoice:note_count_and_chord_starts",
+        "passes": 31,
+        "trials": 36
+      },
+      {
+        "component": "transformation-revoice:operation_counterfactual",
+        "passes": 20,
+        "trials": 36
+      },
+      {
+        "component": "transformation-revoice:preserved_duration",
+        "passes": 31,
+        "trials": 36
+      },
+      {
+        "component": "transformation-revoice:range_limits",
+        "passes": 31,
+        "trials": 36
+      }
+    ],
+    "counterfactual_gate": "pass",
+    "family_counts": [
+      {
+        "family": "generation-progression",
+        "passes": 2,
+        "trials": 36
+      },
+      {
+        "family": "generation-melody",
+        "passes": 33,
+        "trials": 36
+      },
+      {
+        "family": "continuation-roles",
+        "passes": 26,
+        "trials": 36
+      },
+      {
+        "family": "transformation-revoice",
+        "passes": 20,
+        "trials": 36
+      }
+    ],
+    "provider_passes": 2
+  },
+  "kind": "post-run-diagnostic",
+  "method_limit": "The old revoice prompt did not define its named operations. The operation result is a counterfactual that uses the Phase 8c2.2 definitions. Identity, voice, and velocity are not in the old revoice primary result because the old prompt did not require them.",
+  "old_holdout_gate_would_change": true,
+  "schema": "ghostnote-compact-format-v2-diagnostic-v3",
+  "sha256": "e320a56a45e8edd090c7225b502781f3272659f7caeab6fa4f72196ce971664a"
+}
