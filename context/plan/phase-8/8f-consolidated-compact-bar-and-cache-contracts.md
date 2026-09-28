@@ -3,11 +3,11 @@ title: Phase 8f — Consolidated compact-bar and cache contracts
 kind: plan
 state: planned
 status: Blocked until Phase 8c4f records the final compact-bar evidence decision.
-updated: 2026-09-27
+updated: 2026-09-28
 parent: README.md
 prev: 8c4f-full-matrix-decision.md
 next: 8g-shadow-project-cache.md
-evidence: E109, E114-E121, E128-E140; D21, D23
+evidence: E109, E114-E121, E128-E140, E174-E177; D21, D23-D24
 ---
 
 # Phase 8f — Consolidated compact-bar and cache contracts
@@ -17,7 +17,7 @@ Phase 8f is blocked until
 
 - a fresh full matrix returns `proceed`; or
 - the operator explicitly proceeds without that matrix and accepts the stated
-  evidence limit after a passing compact-only full benchmark.
+  evidence limit after a passing two-candidate full benchmark.
 
 A Phase 8c4 development or holdout result alone is not sufficient to freeze a
 public syntax. If the matrix is skipped, Phase 8f must not claim that compact

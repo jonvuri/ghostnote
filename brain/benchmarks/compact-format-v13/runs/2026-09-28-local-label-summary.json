@@ -1,0 +1,83 @@
+{
+  "actual_cost_usd": 0.057254,
+  "analysis_by_case": {
+    "95": {
+      "compact-bar-fields": {
+        "correct_field_checks": 20,
+        "strict_full_passes": 1
+      },
+      "compact-bar-local-labels": {
+        "correct_field_checks": 32,
+        "strict_full_passes": 4
+      }
+    },
+    "97": {
+      "compact-bar-fields": {
+        "correct_field_checks": 17,
+        "strict_full_passes": 0
+      },
+      "compact-bar-local-labels": {
+        "correct_field_checks": 32,
+        "strict_full_passes": 4
+      }
+    }
+  },
+  "analysis_totals": {
+    "fields_correct_field_checks": 37,
+    "fields_full_passes": 1,
+    "local_correct_field_checks": 64,
+    "local_full_passes": 8
+  },
+  "arms": {
+    "compact-bar-fields": {
+      "rows": 16,
+      "strict_full_passes": 2,
+      "strict_syntax_passes": 16
+    },
+    "compact-bar-local-labels": {
+      "rows": 16,
+      "strict_full_passes": 11,
+      "strict_syntax_passes": 16
+    }
+  },
+  "gate_results": {
+    "analysis_prompt_size": true,
+    "analysis_repeats_by_case": true,
+    "analysis_total_check_advantage": true,
+    "analysis_total_full_pass_advantage": true,
+    "complete_calls": true,
+    "progression_payload_size": true,
+    "progression_syntax": true,
+    "strict_syntax": true
+  },
+  "progression": {
+    "compact-bar-fields": {
+      "diagnostic_full_passes": 1,
+      "strict_syntax_passes": 8
+    },
+    "compact-bar-local-labels": {
+      "diagnostic_full_passes": 3,
+      "strict_syntax_passes": 8
+    }
+  },
+  "protocol_sha256": "9760442c9080f6fb55258cbb3a8aec1fb2b9df3ace83082404e95c168a3162f5",
+  "run_id": "phase8c4c-local-label-gemini-r1",
+  "run_kind": "local-label-diagnostic-summary",
+  "run_manifest_sha256": "cf639b8e7693dc8c82b7ae047d3d4c729c984327ea10a2a3898f9360249e070d",
+  "schema": "ghostnote-compact-format-local-label-v13",
+  "selection": "select-local-labels",
+  "selection_authority": "The diagnostic can choose between the two compact candidates for benchmark hardening. It cannot select a public format or start holdout.",
+  "sha256": "3d8541fdf5264813bbe6ad8fc2111479007b6eb0a3bcaf589d212d88bd13f126",
+  "size_report": {
+    "analysis_prompt_ratio": 1.078625,
+    "mean_analysis_prompt_bytes": {
+      "compact-bar-fields": 4203.5,
+      "compact-bar-local-labels": 4534.0
+    },
+    "mean_perfect_progression_payload_bytes": {
+      "compact-bar-fields": 691.0,
+      "compact-bar-local-labels": 1269.0
+    },
+    "progression_payload_ratio": 1.836469
+  }
+}

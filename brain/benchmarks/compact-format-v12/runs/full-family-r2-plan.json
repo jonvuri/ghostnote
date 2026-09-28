@@ -1,0 +1,72 @@
+{
+  "analysis_output_contract": "Score the eight field assignments. Ignore one optional leading ANALYSIS label for every arm.",
+  "approval": "pending",
+  "arms": [
+    "compact-bar-v1",
+    "compact-bar-fields",
+    "exact-object-json"
+  ],
+  "calls": {
+    "maximum_all_providers": 243,
+    "maximum_haiku_token_count_requests": 81,
+    "maximum_per_provider": 81,
+    "repairs": 0
+  },
+  "cohort_sha256": "3999a7c017aea1d0ec3c3a41b5ba505bdf5f12ac9590ffe630d37d28318f845b",
+  "cost_guard": {
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.072,
+      "gemini": 0.054,
+      "openai": 0.063
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 1.5,
+      "gemini": 0.3,
+      "openai": 0.65
+    },
+    "maximum_total_cost_usd": 2.45,
+    "output_token_ceiling_per_call": 12000,
+    "recent_cost_estimate_total_usd": 2.036394,
+    "recent_cost_estimate_usd": {
+      "claude-haiku": 1.318913,
+      "gemini": 0.163238,
+      "openai": 0.554243
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "families": [
+    "comprehension-analysis",
+    "continuation-motif",
+    "generation-progression"
+  ],
+  "interpretation": "This fresh comparison informs the next format decision. It cannot select a public format or enter holdout by itself.",
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "bfeae5de5963391d1fd751391183c1fe9ed8825abd373edb18af8b3c88f33626",
+  "run_id": "phase8c4c-compact-bar-full-family-r2",
+  "run_kind": "fresh-full-family-plan",
+  "schema": "ghostnote-compact-format-full-family-v12",
+  "settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "879db5b7b88176af0699eae30088c6699a415e376f129e1d605e28a96a3ed405"
+}

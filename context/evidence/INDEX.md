@@ -12,6 +12,16 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E177 | Gemini local-label diagnostic selects local labels [K] (2026-09-28) | [open](experiments/e177-gemini-local-label-diagnostic-selects-local-labels.md) |
+| E176 | Gemini local-label diagnostic awaits approval [K] (2026-09-28) | [open](experiments/e176-gemini-local-label-diagnostic-awaits-approval.md) |
+| E175 | Fresh failure audit finds FIELDS can be good enough [K] (2026-09-28) | [open](experiments/e175-fresh-failure-audit-finds-fields-good-enough.md) |
+| E174 | Fresh full-family comparison favors FIELDS over v1 [K] (2026-09-28) | [open](experiments/e174-fresh-full-family-comparison-favors-fields-over-v1.md) |
+| E173 | Fresh full-family comparison awaits approval [K] (2026-09-28) | [open](experiments/e173-fresh-full-family-comparison-awaits-approval.md) |
+| E172 | Prompt screen validates the FIELDS repair [K] (2026-09-28) | [open](experiments/e172-prompt-screen-validates-fields-repair.md) |
+| E171 | Failure audit and small screen await approval [K] (2026-09-28) | [open](experiments/e171-failure-audit-and-small-screen-awaits-approval.md) |
+| E170 | Paired development returns revise [K] (2026-09-28) | [open](experiments/e170-paired-development-returns-revise.md) |
+| E169 | Paired development cost budget correction [K] (2026-09-28) | [open](experiments/e169-paired-development-cost-budget-correction.md) |
+| E168 | Paired development awaits approval [K] (2026-09-28) | [open](experiments/e168-paired-development-awaits-approval.md) |
 | E167 | OpenAI r6 adds the third analysis provider [K] (2026-09-28) | [open](experiments/e167-openai-r6-adds-the-third-analysis-provider.md) |
 | E166 | OpenAI analysis supplement awaits approval [K] (2026-09-28) | [open](experiments/e166-openai-analysis-supplement-awaits-approval.md) |
 | E165 | Haiku r5 passes and opens paired development [K] (2026-09-28) | [open](experiments/e165-haiku-r5-passes-and-opens-paired-development.md) |

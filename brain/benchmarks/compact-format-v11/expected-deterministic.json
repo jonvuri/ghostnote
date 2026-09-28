@@ -1,0 +1,9 @@
+{
+  "all_checks_pass": true,
+  "job_count": 24,
+  "protocol_sha256": "595e0bb6f150ba1c71df085b045df7ec92939853214824d2ce9e2bd9920981ae",
+  "run_plan_sha256": "93040710a2c7134bbeadeb29312056b28919da446c13b1c754867fee0be47403",
+  "schema": "ghostnote-compact-format-prompt-screen-v11",
+  "screen_sha256": "fa3107daa74857135f7ce14bc5385b04d959f517e85ac77fe64eb50fa1b665c7",
+  "sha256": "bf09e4780603e94f1905a62fb694dc5f396aa2f0cf0e04adaf78624c7ad48e36"
+}

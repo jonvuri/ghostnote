@@ -1,0 +1,547 @@
+{
+  "actual_cost_usd": {
+    "claude-haiku": 0.390789,
+    "gemini": 0.03759,
+    "openai": 0.16422,
+    "total": 0.592599
+  },
+  "decision": "manual-adjudication",
+  "protocol_sha256": "595e0bb6f150ba1c71df085b045df7ec92939853214824d2ce9e2bd9920981ae",
+  "providers": [
+    {
+      "actual_calls": 24,
+      "actual_cost_usd": 0.16422,
+      "complete": true,
+      "modes": {
+        "input-comprehension": {
+          "compact-bar-fields": {
+            "recoverable_full_passes": 0,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 0,
+            "strict_syntax_passes": 4
+          },
+          "compact-bar-v1": {
+            "recoverable_full_passes": 0,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 0,
+            "strict_syntax_passes": 4
+          },
+          "exact-object-json": {
+            "recoverable_full_passes": 1,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 1,
+            "strict_syntax_passes": 4
+          }
+        },
+        "output-serialization": {
+          "compact-bar-fields": {
+            "recoverable_full_passes": 3,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 3,
+            "strict_syntax_passes": 4
+          },
+          "compact-bar-v1": {
+            "recoverable_full_passes": 3,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 3,
+            "strict_syntax_passes": 4
+          },
+          "exact-object-json": {
+            "recoverable_full_passes": 2,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 2,
+            "strict_syntax_passes": 4
+          }
+        }
+      },
+      "provider": "openai",
+      "repeats": [
+        {
+          "arm": "compact-bar-fields",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 29
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 29
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": false,
+          "same_strict_pass": false,
+          "variant": 29
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "continuation-roles",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "continuation-roles",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "continuation-roles",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "generation-progression",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": false,
+          "same_strict_pass": false,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "generation-progression",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": false,
+          "same_strict_pass": false,
+          "variant": 27
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "generation-progression",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        }
+      ]
+    },
+    {
+      "actual_calls": 24,
+      "actual_cost_usd": 0.03759,
+      "complete": true,
+      "modes": {
+        "input-comprehension": {
+          "compact-bar-fields": {
+            "recoverable_full_passes": 2,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 2,
+            "strict_syntax_passes": 4
+          },
+          "compact-bar-v1": {
+            "recoverable_full_passes": 2,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 2,
+            "strict_syntax_passes": 4
+          },
+          "exact-object-json": {
+            "recoverable_full_passes": 2,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 2,
+            "strict_syntax_passes": 4
+          }
+        },
+        "output-serialization": {
+          "compact-bar-fields": {
+            "recoverable_full_passes": 4,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 4,
+            "strict_syntax_passes": 4
+          },
+          "compact-bar-v1": {
+            "recoverable_full_passes": 2,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 2,
+            "strict_syntax_passes": 4
+          },
+          "exact-object-json": {
+            "recoverable_full_passes": 2,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 2,
+            "strict_syntax_passes": 4
+          }
+        }
+      },
+      "provider": "gemini",
+      "repeats": [
+        {
+          "arm": "compact-bar-fields",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": true,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": true,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": true,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 29
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": true,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 29
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": true,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 29
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "continuation-roles",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "continuation-roles",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "continuation-roles",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "generation-progression",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "generation-progression",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "generation-progression",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        }
+      ]
+    },
+    {
+      "actual_calls": 24,
+      "actual_cost_usd": 0.390789,
+      "complete": true,
+      "modes": {
+        "input-comprehension": {
+          "compact-bar-fields": {
+            "recoverable_full_passes": 1,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 1,
+            "strict_syntax_passes": 4
+          },
+          "compact-bar-v1": {
+            "recoverable_full_passes": 2,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 2,
+            "strict_syntax_passes": 4
+          },
+          "exact-object-json": {
+            "recoverable_full_passes": 3,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {
+              "restore-analysis-prefix": 4
+            },
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 0,
+            "strict_syntax_passes": 0
+          }
+        },
+        "output-serialization": {
+          "compact-bar-fields": {
+            "recoverable_full_passes": 2,
+            "recoverable_syntax_passes": 4,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 2,
+            "strict_syntax_passes": 4
+          },
+          "compact-bar-v1": {
+            "recoverable_full_passes": 0,
+            "recoverable_syntax_passes": 1,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 0,
+            "strict_syntax_passes": 1
+          },
+          "exact-object-json": {
+            "recoverable_full_passes": 2,
+            "recoverable_syntax_passes": 2,
+            "recovery_rule_counts": {},
+            "rows": 4,
+            "scored": 4,
+            "strict_full_passes": 2,
+            "strict_syntax_passes": 2
+          }
+        }
+      },
+      "provider": "claude-haiku",
+      "repeats": [
+        {
+          "arm": "compact-bar-fields",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": true,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": false,
+          "same_strict_pass": false,
+          "variant": 27
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": true,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": false,
+          "same_strict_pass": false,
+          "variant": 29
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": false,
+          "same_strict_pass": false,
+          "variant": 29
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "comprehension-analysis",
+          "mode": "input-comprehension",
+          "same_payload": false,
+          "same_recoverable_pass": false,
+          "same_strict_pass": true,
+          "variant": 29
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "continuation-roles",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "continuation-roles",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "continuation-roles",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": false,
+          "same_strict_pass": false,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "generation-progression",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "generation-progression",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": true,
+          "same_strict_pass": true,
+          "variant": 27
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "generation-progression",
+          "mode": "output-serialization",
+          "same_payload": false,
+          "same_recoverable_pass": false,
+          "same_strict_pass": false,
+          "variant": 27
+        }
+      ]
+    }
+  ],
+  "run_id": "phase8c4c-compact-bar-prompt-screen-r1",
+  "run_kind": "prompt-repair-screen-summary",
+  "schema": "ghostnote-compact-format-prompt-screen-v11",
+  "selection_authority": "This screen cannot select a format or enter holdout.",
+  "sha256": "095fdaa7fa448502c6066c1f4022e6ed8220c9761a306bfa397bc0f3d223ea56"
+}

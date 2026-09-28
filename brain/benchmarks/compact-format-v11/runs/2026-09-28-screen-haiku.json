@@ -1,0 +1,2011 @@
+{
+  "actual_calls": 24,
+  "actual_cost_usd": 0.390789,
+  "approval": {
+    "operator_statement": "The operator approved run phase8c4c-compact-bar-prompt-screen-r1 with protocol 595e0bb6f150ba1c71df085b045df7ec92939853214824d2ce9e2bd9920981ae, run plan 93040710a2c7134bbeadeb29312056b28919da446c13b1c754867fee0be47403, at most 72 message requests, at most 24 Haiku token-count requests, no repairs or automatic retries, and a USD 1.250000 hard cost limit on 2026-09-28.",
+    "protocol_sha256": "595e0bb6f150ba1c71df085b045df7ec92939853214824d2ce9e2bd9920981ae",
+    "run_id": "phase8c4c-compact-bar-prompt-screen-r1",
+    "run_plan_sha256": "93040710a2c7134bbeadeb29312056b28919da446c13b1c754867fee0be47403",
+    "status": "approved"
+  },
+  "budget_stops": 0,
+  "client": "Python urllib.request direct HTTPS",
+  "complete": true,
+  "completed_calls": 24,
+  "cost_guard": {
+    "committed_cost_usd": 0.390789,
+    "committed_exact_usd": 0.390789,
+    "failed_reservations": 0,
+    "maximum_cost_usd": 0.75,
+    "message_attempts": 24,
+    "settled_cost_usd": 0.390789,
+    "settled_exact_usd": 0.390789,
+    "token_count_attempts": 24
+  },
+  "manifest_sha256": "df89e7606538fce860c22db4c118c964df47335f93a5c8cda50403853e95b6d7",
+  "platform": "Darwin 24.6.0 arm64",
+  "protocol_sha256": "595e0bb6f150ba1c71df085b045df7ec92939853214824d2ce9e2bd9920981ae",
+  "provider": "claude-haiku",
+  "python": "3.14.6",
+  "raw_run_sha256": "cc15906717f80289323b222cf10ff0053abc3cfca417a1a7d1ae1083f6f139ad",
+  "requested_model": "claude-haiku-4-5-20251001",
+  "results": [
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": false,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "rhythm_class"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.013865,
+          "total": 0.015402,
+          "uncached_input": 0.001537
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1537,
+        "latency_ms": 28694.039,
+        "outer_schema_valid": true,
+        "prompt_bytes": 3979,
+        "prompt_sha256": "56700a6bf521c12303049bff80abab9574fac272925435d364545d48b0cdd6cc",
+        "raw_response_sha256": "0e300ce3e8c0fd31534a1bf6b7dba9235122f091fd8670819b577924d41327b3",
+        "request_bytes": 4452,
+        "request_id": "msg_011CfVSEfFeCPwbZHej1Zz2f",
+        "response_payload": "ANALYSIS chord_ids=chord-27-1,chord-27-2 root_pcs=6,6 bass_pcs=10,1 qualities=dominant-seventh,dominant-seventh inversions=1,2 functions=V65,V43 motif_relations=retrograde-transposition,rhythmic-scale rhythms=sustained,arpeggiated",
+        "response_payload_bytes": 230,
+        "response_payload_sha256": "0c388f47995aa74539a6684e542ee6f8a601222e2ab4984df3ce342a997ad7a4",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1537,
+          "output_tokens": 2773,
+          "thinking_tokens": 2680
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": false,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "rhythm_class"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "99be23b68fe9538160e7804a2c99d98c21a7cefce4bcc2a88d129e6ee47aec79",
+      "task_sha256": "04984ce7fd8a55bf6b1fe8563402f6a1ee7c5a8d8e36593a6b17a058b3cbac50",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": false,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "rhythm_class"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.011925,
+          "total": 0.013462,
+          "uncached_input": 0.001537
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1537,
+        "latency_ms": 25015.866,
+        "outer_schema_valid": true,
+        "prompt_bytes": 3979,
+        "prompt_sha256": "56700a6bf521c12303049bff80abab9574fac272925435d364545d48b0cdd6cc",
+        "raw_response_sha256": "c96d86101570b25c7f8a4e8e58bbf7758241209f416dc4a235e69b01ace3479a",
+        "request_bytes": 4452,
+        "request_id": "msg_011CfVSCmFzBtwq9G3U4tDi2",
+        "response_payload": "ANALYSIS chord_ids=chord-27-1,chord-27-2 root_pcs=6,6 bass_pcs=10,1 qualities=dominant-seventh,dominant-seventh inversions=1,2 functions=V65,V43 motif_relations=retrograde-transposition,rhythmic-scale rhythms=sustained,arpeggiated",
+        "response_payload_bytes": 230,
+        "response_payload_sha256": "0c388f47995aa74539a6684e542ee6f8a601222e2ab4984df3ce342a997ad7a4",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1537,
+          "output_tokens": 2385,
+          "thinking_tokens": 2292
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": false,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "rhythm_class"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "99be23b68fe9538160e7804a2c99d98c21a7cefce4bcc2a88d129e6ee47aec79",
+      "task_sha256": "04984ce7fd8a55bf6b1fe8563402f6a1ee7c5a8d8e36593a6b17a058b3cbac50",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": false,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "motif_relation"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.02096,
+          "total": 0.022491,
+          "uncached_input": 0.001531
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1531,
+        "latency_ms": 34752.029,
+        "outer_schema_valid": true,
+        "prompt_bytes": 3925,
+        "prompt_sha256": "6859cfebe4e72dd3cf1381cd05d30b3a7f712604b02ce9243286b59f1f30fa2d",
+        "raw_response_sha256": "3efd485456d8d9adc549327570860ba829739461a0084972fb03a0aa10770d19",
+        "request_bytes": 4397,
+        "request_id": "msg_011CfVSGqV6MQ4GJqXopTtCv",
+        "response_payload": "ANALYSIS chord_ids=chord-27-1,chord-27-2 root_pcs=6,6 bass_pcs=10,1 qualities=dominant-seventh,dominant-seventh inversions=1,2 functions=V65,V43 motif_relations=retrograde-transposition,none rhythms=shared-onset,arpeggiated",
+        "response_payload_bytes": 223,
+        "response_payload_sha256": "7ecfe5c19afc8568e21f7fc22293c703ab919a0a687583851718896c75c155d1",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1531,
+          "output_tokens": 4192,
+          "thinking_tokens": 4100
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": false,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "motif_relation"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "99be23b68fe9538160e7804a2c99d98c21a7cefce4bcc2a88d129e6ee47aec79",
+      "task_sha256": "04984ce7fd8a55bf6b1fe8563402f6a1ee7c5a8d8e36593a6b17a058b3cbac50",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.037855,
+          "total": 0.039386,
+          "uncached_input": 0.001531
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1531,
+        "latency_ms": 63245.675,
+        "outer_schema_valid": true,
+        "prompt_bytes": 3925,
+        "prompt_sha256": "6859cfebe4e72dd3cf1381cd05d30b3a7f712604b02ce9243286b59f1f30fa2d",
+        "raw_response_sha256": "dfd5662d3bcdfd38d6daee7ed192aad79c796028824a3e1ee4b5436a20a84417",
+        "request_bytes": 4397,
+        "request_id": "msg_011CfVSKUNBcSR2HPJPJy7MC",
+        "response_payload": "ANALYSIS chord_ids=chord-27-1,chord-27-2 root_pcs=6,6 bass_pcs=10,1 qualities=dominant-seventh,dominant-seventh inversions=1,2 functions=V65,V43 motif_relations=retrograde-transposition,rhythmic-scale rhythms=shared-onset,arpeggiated",
+        "response_payload_bytes": 233,
+        "response_payload_sha256": "6fc3bb0723ca095a7145f69c6974d324a6f6a5986152012ce2c300876d0751d0",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1531,
+          "output_tokens": 7571,
+          "thinking_tokens": 7475
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "99be23b68fe9538160e7804a2c99d98c21a7cefce4bcc2a88d129e6ee47aec79",
+      "task_sha256": "04984ce7fd8a55bf6b1fe8563402f6a1ee7c5a8d8e36593a6b17a058b3cbac50",
+      "variant": 27
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "Analysis output must start with ANALYSIS"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.018755,
+          "total": 0.020447,
+          "uncached_input": 0.001692
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1692,
+        "latency_ms": 32695.957,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4586,
+        "prompt_sha256": "f0c15315ffc3bed5d24b7cc7aaf611d19eed7e83f1fe1f47b57c283cc3836a23",
+        "raw_response_sha256": "88d17b88c2f04746966b7c027bf2d23150957f1aa0bad5274da8ca70c2aab0b1",
+        "request_bytes": 5250,
+        "request_id": "msg_011CfVSToEDcHLTBNGVkDxzv",
+        "response_payload": "chord_ids=chord-27-1,chord-27-2 root_pcs=6,6 bass_pcs=10,1 qualities=dominant-seventh,dominant-seventh inversions=1,2 functions=V65,V43 motif_relations=retrograde-transposition,rhythmic-scale rhythms=shared-onset,arpeggiated",
+        "response_payload_bytes": 224,
+        "response_payload_sha256": "4637642f77b164821867609f68175d4b07ac0f77546092b7cea7f75de38e2190",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1692,
+          "output_tokens": 3751,
+          "thinking_tokens": 3658
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [
+          "restore-analysis-prefix"
+        ],
+        "payload_changed": true,
+        "recovered_payload_sha256": "6fc3bb0723ca095a7145f69c6974d324a6f6a5986152012ce2c300876d0751d0",
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "99be23b68fe9538160e7804a2c99d98c21a7cefce4bcc2a88d129e6ee47aec79",
+      "task_sha256": "04984ce7fd8a55bf6b1fe8563402f6a1ee7c5a8d8e36593a6b17a058b3cbac50",
+      "variant": 27
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "Analysis output must start with ANALYSIS"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.01401,
+          "total": 0.015702,
+          "uncached_input": 0.001692
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1692,
+        "latency_ms": 22309.368,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4586,
+        "prompt_sha256": "f0c15315ffc3bed5d24b7cc7aaf611d19eed7e83f1fe1f47b57c283cc3836a23",
+        "raw_response_sha256": "20723302899d5411664a25204c88ca880fc830ee66d0bc1379c5ce853b941132",
+        "request_bytes": 5250,
+        "request_id": "msg_011CfVSWGsgKtFpbRqwCBteT",
+        "response_payload": "chord_ids=chord-27-1,chord-27-2 root_pcs=6,6 bass_pcs=10,1 qualities=dominant-seventh,dominant-seventh inversions=1,2 functions=V65,V43 motif_relations=retrograde-transposition,rhythmic-scale rhythms=shared-onset,arpeggiated",
+        "response_payload_bytes": 224,
+        "response_payload_sha256": "4637642f77b164821867609f68175d4b07ac0f77546092b7cea7f75de38e2190",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1692,
+          "output_tokens": 2802,
+          "thinking_tokens": 2709
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [
+          "restore-analysis-prefix"
+        ],
+        "payload_changed": true,
+        "recovered_payload_sha256": "6fc3bb0723ca095a7145f69c6974d324a6f6a5986152012ce2c300876d0751d0",
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "99be23b68fe9538160e7804a2c99d98c21a7cefce4bcc2a88d129e6ee47aec79",
+      "task_sha256": "04984ce7fd8a55bf6b1fe8563402f6a1ee7c5a8d8e36593a6b17a058b3cbac50",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": false,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "motif_relation"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.012345,
+          "total": 0.014037,
+          "uncached_input": 0.001692
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1692,
+        "latency_ms": 21616.312,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4247,
+        "prompt_sha256": "a7dafee8f88a1a011e08fa798dc20d719b1407971bc02b211dc52a597f5d7e6d",
+        "raw_response_sha256": "d5eea49b16f743b9d443b361b300680ff19a1053e3e8d568821ac13bf7197116",
+        "request_bytes": 4773,
+        "request_id": "msg_011CfVSZ9hANBp1e3b49DrPm",
+        "response_payload": "ANALYSIS chord_ids=chord-29-1,chord-29-2,chord-29-3 root_pcs=9,9,6 bass_pcs=1,4,6 qualities=major,major,minor inversions=1,2,0 functions=I6,I64,vi motif_relations=inversion,none,rhythmic-scale rhythms=shared-onset,arpeggiated,sustained",
+        "response_payload_bytes": 235,
+        "response_payload_sha256": "f459388d67f6431636067484f311807e97b10b0e3c23b135948c74bbf3d89e57",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1692,
+          "output_tokens": 2469,
+          "thinking_tokens": 2362
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": false,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "motif_relation"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "7aaaad6d07e1b65e6dc1aa26f74268957f01c383d45f8200c2ff3be57821911f",
+      "task_sha256": "6ad31ba813631512ee27e5aa765b816fe69da3201fd0d2feeaadcd7dd22f456f",
+      "variant": 29
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.01698,
+          "total": 0.018672,
+          "uncached_input": 0.001692
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1692,
+        "latency_ms": 27905.877,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4247,
+        "prompt_sha256": "a7dafee8f88a1a011e08fa798dc20d719b1407971bc02b211dc52a597f5d7e6d",
+        "raw_response_sha256": "85fdeff00d98c2507548c9a0845f9083f0f8ee41d583327a43c3b5b271f6e3c8",
+        "request_bytes": 4773,
+        "request_id": "msg_011CfVSaoYmX6Ma2Fh7aAS47",
+        "response_payload": "ANALYSIS chord_ids=chord-29-1,chord-29-2,chord-29-3 root_pcs=9,9,6 bass_pcs=1,4,6 qualities=major,major,minor inversions=1,2,0 functions=I6,I64,vi motif_relations=inversion,retrograde-transposition,rhythmic-scale rhythms=shared-onset,arpeggiated,sustained",
+        "response_payload_bytes": 255,
+        "response_payload_sha256": "3f90e7eb62aafec1e6ee0cc5dfa12b723a0a1f4bea187fb1863695982a0912f4",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1692,
+          "output_tokens": 3396,
+          "thinking_tokens": 3285
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "7aaaad6d07e1b65e6dc1aa26f74268957f01c383d45f8200c2ff3be57821911f",
+      "task_sha256": "6ad31ba813631512ee27e5aa765b816fe69da3201fd0d2feeaadcd7dd22f456f",
+      "variant": 29
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.01897,
+          "total": 0.020656,
+          "uncached_input": 0.001686
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1686,
+        "latency_ms": 31248.118,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4193,
+        "prompt_sha256": "4355035ecf04db9bd88f9a3213865593be934ed3f9b9fb0262d62454093ca5bf",
+        "raw_response_sha256": "03771940af7da074a281a10e8ef5e4f3dea3d6d6389d853815a2945bdc243cfc",
+        "request_bytes": 4718,
+        "request_id": "msg_011CfVSQBVK3tH3FkSqYyZto",
+        "response_payload": "ANALYSIS chord_ids=chord-29-1,chord-29-2,chord-29-3 root_pcs=9,9,6 bass_pcs=1,4,6 qualities=major,major,minor inversions=1,2,0 functions=I6,I64,vi motif_relations=inversion,retrograde-transposition,rhythmic-scale rhythms=shared-onset,arpeggiated,sustained",
+        "response_payload_bytes": 255,
+        "response_payload_sha256": "3f90e7eb62aafec1e6ee0cc5dfa12b723a0a1f4bea187fb1863695982a0912f4",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1686,
+          "output_tokens": 3794,
+          "thinking_tokens": 3683
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "7aaaad6d07e1b65e6dc1aa26f74268957f01c383d45f8200c2ff3be57821911f",
+      "task_sha256": "6ad31ba813631512ee27e5aa765b816fe69da3201fd0d2feeaadcd7dd22f456f",
+      "variant": 29
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": false,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "rhythm_class"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.017965,
+          "total": 0.019651,
+          "uncached_input": 0.001686
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1686,
+        "latency_ms": 33007.763,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4193,
+        "prompt_sha256": "4355035ecf04db9bd88f9a3213865593be934ed3f9b9fb0262d62454093ca5bf",
+        "raw_response_sha256": "a24e2f71e1f22714b2ee8e4e052168f20bf4be64d4c396cb5c43e185bfe44726",
+        "request_bytes": 4718,
+        "request_id": "msg_011CfVScuh9yojXN9GiHD2yE",
+        "response_payload": "ANALYSIS chord_ids=chord-29-1,chord-29-2,chord-29-3 root_pcs=9,9,6 bass_pcs=1,4,6 qualities=major,major,minor inversions=1,2,0 functions=I6,I64,vi motif_relations=inversion,retrograde-transposition,rhythmic-scale rhythms=arpeggiated,arpeggiated,sustained",
+        "response_payload_bytes": 254,
+        "response_payload_sha256": "2993c1bf2474410b47a4b50e674d4a6611d646772c0d7f2f23f08b130b75bc65",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1686,
+          "output_tokens": 3593,
+          "thinking_tokens": 3481
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": false,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "rhythm_class"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "7aaaad6d07e1b65e6dc1aa26f74268957f01c383d45f8200c2ff3be57821911f",
+      "task_sha256": "6ad31ba813631512ee27e5aa765b816fe69da3201fd0d2feeaadcd7dd22f456f",
+      "variant": 29
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "Analysis output must start with ANALYSIS"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.02096,
+          "total": 0.022819,
+          "uncached_input": 0.001859
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1859,
+        "latency_ms": 37030.797,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4913,
+        "prompt_sha256": "ec73e64e2e847319c11f0009832a78fe6f83fbb2ffd280363696f84c299adda8",
+        "raw_response_sha256": "8e3641166bdae92d67457bb707b5183aef3d14cdb56676dfe7adbe3bff232693",
+        "request_bytes": 5649,
+        "request_id": "msg_011CfVShDvt7fgSuTTumJfGp",
+        "response_payload": "chord_ids=chord-29-1,chord-29-2,chord-29-3 root_pcs=9,9,6 bass_pcs=1,4,6 qualities=major,major,minor inversions=1,1,0 functions=I6,I6,vi motif_relations=inversion,retrograde-transposition,rhythmic-scale rhythms=shared-onset,arpeggiated,sustained",
+        "response_payload_bytes": 245,
+        "response_payload_sha256": "93d51c8b08015fadea2f1b3e7c3dd43a223f93efbd9dbb692d17dcab67548080",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1859,
+          "output_tokens": 4192,
+          "thinking_tokens": 4083
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [
+          "restore-analysis-prefix"
+        ],
+        "payload_changed": true,
+        "recovered_payload_sha256": "dab5e5bc2c5ba032721645159797a0d8e20563825c1056cb4d2ef34ab5560988",
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": false,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": false,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "chord_function",
+              "inversion_number"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "7aaaad6d07e1b65e6dc1aa26f74268957f01c383d45f8200c2ff3be57821911f",
+      "task_sha256": "6ad31ba813631512ee27e5aa765b816fe69da3201fd0d2feeaadcd7dd22f456f",
+      "variant": 29
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "Analysis output must start with ANALYSIS"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.01319,
+          "total": 0.015049,
+          "uncached_input": 0.001859
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1859,
+        "latency_ms": 23999.183,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4913,
+        "prompt_sha256": "ec73e64e2e847319c11f0009832a78fe6f83fbb2ffd280363696f84c299adda8",
+        "raw_response_sha256": "c40cc050d3d770055852c1b9791cecdead39d34c1f208dc142ff8928312d268f",
+        "request_bytes": 5649,
+        "request_id": "msg_011CfVSfQwrqf2YwgpKH97Ta",
+        "response_payload": "chord_ids=chord-29-1,chord-29-2,chord-29-3 root_pcs=9,9,6 bass_pcs=1,4,6 qualities=major,major,minor inversions=1,2,0 functions=I6,I64,vi motif_relations=inversion,retrograde-transposition,rhythmic-scale rhythms=shared-onset,arpeggiated,sustained",
+        "response_payload_bytes": 246,
+        "response_payload_sha256": "30a1fc04598a69f31e591c5c3919cdbc1ba6b60e0aff7c33636326e731281fb6",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1859,
+          "output_tokens": 2638,
+          "thinking_tokens": 2529
+        }
+      },
+      "mode": "input-comprehension",
+      "recovery": {
+        "applied": [
+          "restore-analysis-prefix"
+        ],
+        "payload_changed": true,
+        "recovered_payload_sha256": "3f90e7eb62aafec1e6ee0cc5dfa12b723a0a1f4bea187fb1863695982a0912f4",
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "7aaaad6d07e1b65e6dc1aa26f74268957f01c383d45f8200c2ff3be57821911f",
+      "task_sha256": "6ad31ba813631512ee27e5aa765b816fe69da3201fd0d2feeaadcd7dd22f456f",
+      "variant": 29
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "cadence": true,
+            "document_context": true,
+            "duration": true,
+            "harmony": true,
+            "no_collisions": true,
+            "ranges": true,
+            "starts_and_density": true,
+            "voice_leading": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00546,
+          "total": 0.006019,
+          "uncached_input": 0.000559
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 559,
+        "latency_ms": 8867.215,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1418,
+        "prompt_sha256": "e7989bacd28377390888c98e0c43547904ceeaeee8500576f5e751d52ef749c0",
+        "raw_response_sha256": "87dbb2fc00be21558abcfd14f312c94e7d4526e478b1f38a85d10238f2347cc8",
+        "request_bytes": 1789,
+        "request_id": "msg_011CfVSk13pmtBEKrYJ7yChg",
+        "response_payload": "BASE none\nSOURCE development-r1-continuation-roles-27\nOMITS channel mute release_velocity articulation expression\nFIELDS id voice start duration pitch velocity\nN b1 bass 4 1 38 80\nN l1 lead 4 1 67 84\nN b2 bass 5 1 48 80\nN l2 lead 5 1 63 84\nN b3 bass 6 1 50 80\nN l3 lead 6 1 69 84\nN b4 bass 7 1 43 80\nN l4 lead 7 1 79 84",
+        "response_payload_bytes": 319,
+        "response_payload_sha256": "c463fc334a81bf39dfc6e0c6c9de3794f2097bc7a785a9743625da2f9899e1ef",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 559,
+          "output_tokens": 1092,
+          "thinking_tokens": 918
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "cadence": true,
+            "document_context": true,
+            "duration": true,
+            "harmony": true,
+            "no_collisions": true,
+            "ranges": true,
+            "starts_and_density": true,
+            "voice_leading": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "49521594ca2c56e3095e7c2a2159afd72a2ed77337d778f3dde9bdff9344cdac",
+      "task_sha256": "4587be0558a6f691c23d84375e6abfb79ec1ef7e4019880d13c8f2c88bb7c488",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "cadence": true,
+            "document_context": true,
+            "duration": true,
+            "harmony": true,
+            "no_collisions": true,
+            "ranges": true,
+            "starts_and_density": true,
+            "voice_leading": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00612,
+          "total": 0.006679,
+          "uncached_input": 0.000559
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 559,
+        "latency_ms": 11627.558,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1418,
+        "prompt_sha256": "e7989bacd28377390888c98e0c43547904ceeaeee8500576f5e751d52ef749c0",
+        "raw_response_sha256": "20aba0394e325975ff9be48a00b17cf9f35fe8354ef7289c350e6a19755905de",
+        "request_bytes": 1789,
+        "request_id": "msg_011CfVSBrGaYLqoh3M7RGbQa",
+        "response_payload": "BASE none\nSOURCE development-r1-continuation-roles-27\nOMITS channel mute release_velocity articulation expression\nFIELDS id voice start duration pitch velocity\nN b1 bass 4 1 50 80\nN l1 lead 4 1 67 84\nN b2 bass 5 1 48 80\nN l2 lead 5 1 63 84\nN b3 bass 6 1 53 80\nN l3 lead 6 1 69 84\nN b4 bass 7 1 43 80\nN l4 lead 7 1 67 84",
+        "response_payload_bytes": 319,
+        "response_payload_sha256": "37787c06b2d77635ea56857dda70e3c0069cf383141c619a6fa6b501683a3df2",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 559,
+          "output_tokens": 1224,
+          "thinking_tokens": 1050
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "cadence": true,
+            "document_context": true,
+            "duration": true,
+            "harmony": true,
+            "no_collisions": true,
+            "ranges": true,
+            "starts_and_density": true,
+            "voice_leading": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "49521594ca2c56e3095e7c2a2159afd72a2ed77337d778f3dde9bdff9344cdac",
+      "task_sha256": "4587be0558a6f691c23d84375e6abfb79ec1ef7e4019880d13c8f2c88bb7c488",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "A document has duplicate note IDs"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.008455,
+          "total": 0.008962,
+          "uncached_input": 0.000507
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 507,
+        "latency_ms": 16867.604,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1184,
+        "prompt_sha256": "3aa8dba244a04bc5455d51c7ecf137f0b86ef1c3b43024f41b140ef7373bb271",
+        "raw_response_sha256": "fb724ea347cd00e3021cf7f30c9e840384fdaf042cc5dd05ecd0cfc7067cdd3b",
+        "request_bytes": 1552,
+        "request_id": "msg_011CfVSmpuvEWzz8nmELm3jo",
+        "response_payload": "BASE none\nSOURCE development-r1-continuation-roles-27\nOMITS channel mute release_velocity articulation expression\nN ex-bass bass 4 1 43 80\nN ex-lead lead 4 1 67 84\nN ex-bass bass 5 1 48 80\nN ex-lead lead 5 1 72 84\nN ex-bass bass 6 1 53 80\nN ex-lead lead 6 1 77 84\nN ex-bass bass 7 1 50 80\nN ex-lead lead 7 1 79 84",
+        "response_payload_bytes": 313,
+        "response_payload_sha256": "780baf5bb71ac17c00c8fe2caec4d3b35197ba6b66dec315dc3bd53c5e578d3b",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 507,
+          "output_tokens": 1691,
+          "thinking_tokens": 1530
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "A document has duplicate note IDs"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "49521594ca2c56e3095e7c2a2159afd72a2ed77337d778f3dde9bdff9344cdac",
+      "task_sha256": "4587be0558a6f691c23d84375e6abfb79ec1ef7e4019880d13c8f2c88bb7c488",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "A document has duplicate note IDs"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00532,
+          "total": 0.005827,
+          "uncached_input": 0.000507
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 507,
+        "latency_ms": 14164.163,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1184,
+        "prompt_sha256": "3aa8dba244a04bc5455d51c7ecf137f0b86ef1c3b43024f41b140ef7373bb271",
+        "raw_response_sha256": "6f9fc44b77506393a56a49864c46584ba11da9fee62619b9212dc7949839d690",
+        "request_bytes": 1552,
+        "request_id": "msg_011CfVRxboLEuhMoDqw134Ze",
+        "response_payload": "BASE none\nSOURCE development-r1-continuation-roles-27\nOMITS channel mute release_velocity articulation expression\nN ex-bass bass 0 4 43 80\nN ex-lead lead 0 4 67 84\nN ex-bass bass 0 5 48 80\nN ex-lead lead 0 5 67 84\nN ex-bass bass 0 6 45 80\nN ex-lead lead 0 6 69 84\nN ex-bass bass 0 7 43 80\nN ex-lead lead 0 7 67 84",
+        "response_payload_bytes": 313,
+        "response_payload_sha256": "8c83ea80ac9f0c1a7dacd924889b7405efc64614d3647d42af16cb03dbd5ad11",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 507,
+          "output_tokens": 1064,
+          "thinking_tokens": 902
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "A document has duplicate note IDs"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "49521594ca2c56e3095e7c2a2159afd72a2ed77337d778f3dde9bdff9344cdac",
+      "task_sha256": "4587be0558a6f691c23d84375e6abfb79ec1ef7e4019880d13c8f2c88bb7c488",
+      "variant": 27
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "cadence": true,
+            "document_context": true,
+            "duration": true,
+            "harmony": true,
+            "no_collisions": true,
+            "ranges": true,
+            "starts_and_density": true,
+            "voice_leading": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.007735,
+          "total": 0.008318,
+          "uncached_input": 0.000583
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 583,
+        "latency_ms": 16428.096,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1396,
+        "prompt_sha256": "71bdbb9e06e8d8c6388f57d8264c154f6abefb823ae0cb2661a05b2bee43e30b",
+        "raw_response_sha256": "aec7f43461b2d0eb8428b96ede06357c55618159411b323cb961ee1a5c7cba4c",
+        "request_bytes": 1842,
+        "request_id": "msg_011CfVSSXkHE1qmUW2K4dpo7",
+        "response_payload": "{\"base_sha256\":\"none\",\"notes\":[{\"duration\":\"1\",\"id\":\"s4-bass\",\"pitch\":43,\"start\":\"4\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"s4-lead\",\"pitch\":67,\"start\":\"4\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"s5-bass\",\"pitch\":43,\"start\":\"5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"s5-lead\",\"pitch\":67,\"start\":\"5\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"s6-bass\",\"pitch\":41,\"start\":\"6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"s6-lead\",\"pitch\":65,\"start\":\"6\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"s7-bass\",\"pitch\":43,\"start\":\"7\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"s7-lead\",\"pitch\":67,\"start\":\"7\",\"velocity\":84,\"voice\":\"lead\"}],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"overlays\":{\"bars\":[],\"grooves\":[],\"harmonies\":[],\"meters\":[],\"regions\":[],\"tempos\":[],\"tracks\":[]},\"schema\":\"ghostnote-compact-format-v6\",\"source_id\":\"development-r1-continuation-roles-27\"}",
+        "response_payload_bytes": 968,
+        "response_payload_sha256": "29110a698a278dfa2894b49d5e8e226a68961e20887f50032b91d6d46f0949d6",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 583,
+          "output_tokens": 1547,
+          "thinking_tokens": 1086
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "cadence": true,
+            "document_context": true,
+            "duration": true,
+            "harmony": true,
+            "no_collisions": true,
+            "ranges": true,
+            "starts_and_density": true,
+            "voice_leading": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "49521594ca2c56e3095e7c2a2159afd72a2ed77337d778f3dde9bdff9344cdac",
+      "task_sha256": "4587be0558a6f691c23d84375e6abfb79ec1ef7e4019880d13c8f2c88bb7c488",
+      "variant": 27
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "Notes are not in canonical order"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.007245,
+          "total": 0.007828,
+          "uncached_input": 0.000583
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 583,
+        "latency_ms": 15433.749,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1396,
+        "prompt_sha256": "71bdbb9e06e8d8c6388f57d8264c154f6abefb823ae0cb2661a05b2bee43e30b",
+        "raw_response_sha256": "98f50019488443d2fa5e005cfa062cf78505b6039e76b43f45d68bdf11c9d323",
+        "request_bytes": 1842,
+        "request_id": "msg_011CfVSXzYE4fs5W6ZZe3ErH",
+        "response_payload": "{\"schema\":\"ghostnote-compact-format-v6\",\"base_sha256\":\"none\",\"source_id\":\"development-r1-continuation-roles-27\",\"notes\":[{\"duration\":\"1\",\"id\":\"bass-4\",\"pitch\":43,\"start\":\"4\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"bass-5\",\"pitch\":39,\"start\":\"5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"bass-6\",\"pitch\":41,\"start\":\"6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"bass-7\",\"pitch\":46,\"start\":\"7\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"lead-4\",\"pitch\":67,\"start\":\"4\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"lead-5\",\"pitch\":63,\"start\":\"5\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"lead-6\",\"pitch\":65,\"start\":\"6\",\"velocity\":84,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"lead-7\",\"pitch\":67,\"start\":\"7\",\"velocity\":84,\"voice\":\"lead\"}],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"overlays\":{\"bars\":[],\"grooves\":[],\"harmonies\":[],\"meters\":[],\"regions\":[],\"tempos\":[],\"tracks\":[]}}",
+        "response_payload_bytes": 960,
+        "response_payload_sha256": "08c3c3bc4203994f09c592ac050ddb4a3cd4cebe3ddd02e77770af9912e4f1c8",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 583,
+          "output_tokens": 1449,
+          "thinking_tokens": 996
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "Notes are not in canonical order"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "49521594ca2c56e3095e7c2a2159afd72a2ed77337d778f3dde9bdff9344cdac",
+      "task_sha256": "4587be0558a6f691c23d84375e6abfb79ec1ef7e4019880d13c8f2c88bb7c488",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_inversions": true,
+            "cadence": true,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": false,
+            "same_voice_movement": false,
+            "strict_voice_order": true,
+            "voice_ranges": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "pitch_class_coverage",
+              "same_voice_movement"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0068,
+          "total": 0.007588,
+          "uncached_input": 0.000788
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 788,
+        "latency_ms": 10966.021,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2242,
+        "prompt_sha256": "910e668d755dd1caf4b3128a70b5b7ed0cb81bbd9d2873971d6029a9b5b6a993",
+        "raw_response_sha256": "a71eb49ea415df2392f6514388316e482ffdb38a286973522c1563f888e3e74d",
+        "request_bytes": 2641,
+        "request_id": "msg_011CfVRwkzT3PJFjLAyEfRt9",
+        "response_payload": "BASE none\nSOURCE development-r1-generation-progression-27\nOMITS channel mute release_velocity articulation expression\nFIELDS id voice start duration pitch velocity\nN c1-bass bass 0 3/2 47 80\nN c1-tenor tenor 0 3/2 51 80\nN c1-alto alto 0 3/2 66 80\nN c1-soprano soprano 0 3/2 71 80\nN c2-bass bass 3/2 3/2 52 80\nN c2-tenor tenor 3/2 3/2 56 80\nN c2-alto alto 3/2 3/2 68 80\nN c2-soprano soprano 3/2 3/2 80 80\nN c3-bass bass 3 3/2 54 80\nN c3-tenor tenor 3 3/2 61 80\nN c3-alto alto 3 3/2 70 80\nN c3-soprano soprano 3 3/2 73 80\nN c4-bass bass 9/2 3/2 47 80\nN c4-tenor tenor 9/2 3/2 51 80\nN c4-alto alto 9/2 3/2 66 80\nN c4-soprano soprano 9/2 3/2 75 80",
+        "response_payload_bytes": 643,
+        "response_payload_sha256": "5bd04d1cf8d9dc15f2dd097d2210de7dde572e4f5e1acd97655bcee186d2f9f7",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 788,
+          "output_tokens": 1360,
+          "thinking_tokens": 1001
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_inversions": true,
+            "cadence": true,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": false,
+            "same_voice_movement": false,
+            "strict_voice_order": true,
+            "voice_ranges": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "pitch_class_coverage",
+              "same_voice_movement"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "a8573956063f4d6f5ed1209ea130fdddc35d88b062283b3ac677e90f6f8ca4a0",
+      "task_sha256": "e2521c525d15e3fb01627ac526307fe7e6ff2bbb51fa8bf3ac8dbb6777d60fdc",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_inversions": true,
+            "cadence": true,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": false,
+            "same_voice_movement": false,
+            "strict_voice_order": true,
+            "voice_ranges": false
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "pitch_class_coverage",
+              "same_voice_movement",
+              "voice_ranges"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.009695,
+          "total": 0.010483,
+          "uncached_input": 0.000788
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 788,
+        "latency_ms": 14146.409,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2242,
+        "prompt_sha256": "910e668d755dd1caf4b3128a70b5b7ed0cb81bbd9d2873971d6029a9b5b6a993",
+        "raw_response_sha256": "36f2790aa3fa9f3ad9648f91995327fbb528fb14f99a27c500679113b217d494",
+        "request_bytes": 2641,
+        "request_id": "msg_011CfVSkig6qAPyBgqqgnVwU",
+        "response_payload": "BASE none\nSOURCE development-r1-generation-progression-27\nOMITS channel mute release_velocity articulation expression\nFIELDS id voice start duration pitch velocity\nN 1-bass bass 0 3/2 47 80\nN 1-tenor tenor 0 3/2 51 80\nN 1-alto alto 0 3/2 54 80\nN 1-soprano soprano 0 3/2 71 80\nN 2-bass bass 3/2 3/2 40 80\nN 2-tenor tenor 3/2 3/2 56 80\nN 2-alto alto 3/2 3/2 59 80\nN 2-soprano soprano 3/2 3/2 62 80\nN 3-bass bass 3 3/2 42 80\nN 3-tenor tenor 3 3/2 49 80\nN 3-alto alto 3 3/2 58 80\nN 3-soprano soprano 3 3/2 70 80\nN 4-bass bass 9/2 3/2 47 80\nN 4-tenor tenor 9/2 3/2 51 80\nN 4-alto alto 9/2 3/2 66 80\nN 4-soprano soprano 9/2 3/2 71 80",
+        "response_payload_bytes": 627,
+        "response_payload_sha256": "703021bf248d7e2e4f2967dfc9c5a7e4461966ac4c3870f6fb98410c4a76fdeb",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 788,
+          "output_tokens": 1939,
+          "thinking_tokens": 1580
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_inversions": true,
+            "cadence": true,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": false,
+            "same_voice_movement": false,
+            "strict_voice_order": true,
+            "voice_ranges": false
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "pitch_class_coverage",
+              "same_voice_movement",
+              "voice_ranges"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "a8573956063f4d6f5ed1209ea130fdddc35d88b062283b3ac677e90f6f8ca4a0",
+      "task_sha256": "e2521c525d15e3fb01627ac526307fe7e6ff2bbb51fa8bf3ac8dbb6777d60fdc",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "note.duration is outside its range"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00848,
+          "total": 0.009216,
+          "uncached_input": 0.000736
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 736,
+        "latency_ms": 16378.859,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2008,
+        "prompt_sha256": "551edd49817dd89f4f93bc877bfae85f47deb60155b90da77b29b70b97993fd5",
+        "raw_response_sha256": "d93d30c0a09a5724c70e98435e3d3a462a25d59812d7b1ab25df8608eab31ac1",
+        "request_bytes": 2404,
+        "request_id": "msg_011CfVRyhbMjb4vaCGfTLqWE",
+        "response_payload": "BASE none\nSOURCE development-r1-generation-progression-27\nOMITS channel mute release_velocity articulation expression\nN c1-bass bass 0 0 47 80\nN c1-tenor tenor 0 0 51 80\nN c1-alto alto 0 0 58 80\nN c1-soprano soprano 0 0 71 80\nN c2-bass bass 0 3/2 52 80\nN c2-tenor tenor 0 3/2 56 80\nN c2-alto alto 0 3/2 63 80\nN c2-soprano soprano 0 3/2 68 80\nN c3-bass bass 0 3 42 80\nN c3-tenor tenor 0 3 49 80\nN c3-alto alto 0 3 58 80\nN c3-soprano soprano 0 3 70 80\nN c4-bass bass 0 9/2 47 80\nN c4-tenor tenor 0 9/2 51 80\nN c4-alto alto 0 9/2 62 80\nN c4-soprano soprano 0 9/2 71 80",
+        "response_payload_bytes": 565,
+        "response_payload_sha256": "bae3d5c9ec1633f5d2969e9abd3203214a6dc79b4361738bb0a1e215abf69b65",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 736,
+          "output_tokens": 1696,
+          "thinking_tokens": 1382
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "note.duration is outside its range"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "a8573956063f4d6f5ed1209ea130fdddc35d88b062283b3ac677e90f6f8ca4a0",
+      "task_sha256": "e2521c525d15e3fb01627ac526307fe7e6ff2bbb51fa8bf3ac8dbb6777d60fdc",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_inversions": true,
+            "cadence": true,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": true,
+            "same_voice_movement": false,
+            "strict_voice_order": false,
+            "voice_ranges": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "same_voice_movement",
+              "strict_voice_order"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.008035,
+          "total": 0.008771,
+          "uncached_input": 0.000736
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 736,
+        "latency_ms": 15460.921,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2008,
+        "prompt_sha256": "551edd49817dd89f4f93bc877bfae85f47deb60155b90da77b29b70b97993fd5",
+        "raw_response_sha256": "d1e08f1869e37e4d08c9c8aef9c1a559f2d0e05dad7f82e1952cb1531f1cd37f",
+        "request_bytes": 2404,
+        "request_id": "msg_011CfVS8uFq7gD33F5ZWtyZh",
+        "response_payload": "BASE none\nSOURCE development-r1-generation-progression-27\nOMITS channel mute release_velocity articulation expression\nN chord1-bass bass 0 3/2 47 80\nN chord1-tenor tenor 0 3/2 54 80\nN chord1-alto alto 0 3/2 59 80\nN chord1-soprano soprano 0 3/2 75 80\nN chord2-bass bass 3/2 3/2 40 80\nN chord2-tenor tenor 3/2 3/2 59 80\nN chord2-alto alto 3/2 3/2 68 80\nN chord2-soprano soprano 3/2 3/2 64 80\nN chord3-bass bass 3 3/2 54 80\nN chord3-tenor tenor 3 3/2 58 80\nN chord3-alto alto 3 3/2 61 80\nN chord3-soprano soprano 3 3/2 78 80\nN chord4-bass bass 9/2 3/2 47 80\nN chord4-tenor tenor 9/2 3/2 54 80\nN chord4-alto alto 9/2 3/2 63 80\nN chord4-soprano soprano 9/2 3/2 71 80",
+        "response_payload_bytes": 661,
+        "response_payload_sha256": "4d811875abaf905848e5c0f85d18a12d611a78d9b22607eb4f7a2ef4fb2a4fbb",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 736,
+          "output_tokens": 1607,
+          "thinking_tokens": 1261
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_inversions": true,
+            "cadence": true,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": true,
+            "same_voice_movement": false,
+            "strict_voice_order": false,
+            "voice_ranges": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "same_voice_movement",
+              "strict_voice_order"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "a8573956063f4d6f5ed1209ea130fdddc35d88b062283b3ac677e90f6f8ca4a0",
+      "task_sha256": "e2521c525d15e3fb01627ac526307fe7e6ff2bbb51fa8bf3ac8dbb6777d60fdc",
+      "variant": 27
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_inversions": true,
+            "cadence": true,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": true,
+            "same_voice_movement": true,
+            "strict_voice_order": true,
+            "voice_ranges": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.059125,
+          "total": 0.059937,
+          "uncached_input": 0.000812
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 812,
+        "latency_ms": 106870.438,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2220,
+        "prompt_sha256": "09b27b5ca8165672000b384792f93f83c8f48632ce7b80fbc154148bedda7edb",
+        "raw_response_sha256": "586538b377922b23f253c37245ad226828c67ab43bebc225a7737ea4ccfea8f4",
+        "request_bytes": 2694,
+        "request_id": "msg_011CfVRzxXa1MXMzZvLyC1vu",
+        "response_payload": "{\"base_sha256\":\"none\",\"notes\":[{\"start\":\"0\",\"duration\":\"3/2\",\"pitch\":47,\"velocity\":80,\"voice\":\"bass\",\"id\":\"note-0-bass\"},{\"start\":\"0\",\"duration\":\"3/2\",\"pitch\":54,\"velocity\":80,\"voice\":\"tenor\",\"id\":\"note-0-tenor\"},{\"start\":\"0\",\"duration\":\"3/2\",\"pitch\":63,\"velocity\":80,\"voice\":\"alto\",\"id\":\"note-0-alto\"},{\"start\":\"0\",\"duration\":\"3/2\",\"pitch\":71,\"velocity\":80,\"voice\":\"soprano\",\"id\":\"note-0-soprano\"},{\"start\":\"3/2\",\"duration\":\"3/2\",\"pitch\":40,\"velocity\":80,\"voice\":\"bass\",\"id\":\"note-1-bass\"},{\"start\":\"3/2\",\"duration\":\"3/2\",\"pitch\":56,\"velocity\":80,\"voice\":\"tenor\",\"id\":\"note-1-tenor\"},{\"start\":\"3/2\",\"duration\":\"3/2\",\"pitch\":68,\"velocity\":80,\"voice\":\"alto\",\"id\":\"note-1-alto\"},{\"start\":\"3/2\",\"duration\":\"3/2\",\"pitch\":71,\"velocity\":80,\"voice\":\"soprano\",\"id\":\"note-1-soprano\"},{\"start\":\"3\",\"duration\":\"3/2\",\"pitch\":42,\"velocity\":80,\"voice\":\"bass\",\"id\":\"note-2-bass\"},{\"start\":\"3\",\"duration\":\"3/2\",\"pitch\":49,\"velocity\":80,\"voice\":\"tenor\",\"id\":\"note-2-tenor\"},{\"start\":\"3\",\"duration\":\"3/2\",\"pitch\":70,\"velocity\":80,\"voice\":\"alto\",\"id\":\"note-2-alto\"},{\"start\":\"3\",\"duration\":\"3/2\",\"pitch\":78,\"velocity\":80,\"voice\":\"soprano\",\"id\":\"note-2-soprano\"},{\"start\":\"9/2\",\"duration\":\"3/2\",\"pitch\":47,\"velocity\":80,\"voice\":\"bass\",\"id\":\"note-3-bass\"},{\"start\":\"9/2\",\"duration\":\"3/2\",\"pitch\":51,\"velocity\":80,\"voice\":\"tenor\",\"id\":\"note-3-tenor\"},{\"start\":\"9/2\",\"duration\":\"3/2\",\"pitch\":66,\"velocity\":80,\"voice\":\"alto\",\"id\":\"note-3-alto\"},{\"start\":\"9/2\",\"duration\":\"3/2\",\"pitch\":83,\"velocity\":80,\"voice\":\"soprano\",\"id\":\"note-3-soprano\"}],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"overlays\":{\"bars\":[],\"grooves\":[],\"harmonies\":[],\"meters\":[],\"regions\":[],\"tempos\":[],\"tracks\":[]},\"schema\":\"ghostnote-compact-format-v6\",\"source_id\":\"development-r1-generation-progression-27\"}",
+        "response_payload_bytes": 1788,
+        "response_payload_sha256": "9f4f5cd5c2898a74e94e04ba26059f0d6063c2b96b5733452109ecfc2a304e89",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 812,
+          "output_tokens": 11825,
+          "thinking_tokens": 10972
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {
+            "bass_inversions": true,
+            "cadence": true,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": true,
+            "same_voice_movement": true,
+            "strict_voice_order": true,
+            "voice_ranges": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        }
+      },
+      "repeat": 1,
+      "semantic_sha256": "a8573956063f4d6f5ed1209ea130fdddc35d88b062283b3ac677e90f6f8ca4a0",
+      "task_sha256": "e2521c525d15e3fb01627ac526307fe7e6ff2bbb51fa8bf3ac8dbb6777d60fdc",
+      "variant": 27
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "A document has the wrong omission declaration"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.012575,
+          "total": 0.013387,
+          "uncached_input": 0.000812
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 812,
+        "latency_ms": 23125.376,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2220,
+        "prompt_sha256": "09b27b5ca8165672000b384792f93f83c8f48632ce7b80fbc154148bedda7edb",
+        "raw_response_sha256": "2ea478e711489bfb72276869de3fc0650a4d1cc84be966ec76b48f5ba12f94fa",
+        "request_bytes": 2694,
+        "request_id": "msg_011CfVSA5hfzikAhZZCJLNHC",
+        "response_payload": "{\"schema\":\"ghostnote-compact-format-v6\",\"base_sha256\":\"none\",\"source_id\":\"development-r1-generation-progression-27\",\"notes\":[{\"id\":\"chord-0-bass\",\"voice\":\"bass\",\"pitch\":47,\"velocity\":80,\"start\":\"0\",\"duration\":\"3/2\"},{\"id\":\"chord-0-tenor\",\"voice\":\"tenor\",\"pitch\":51,\"velocity\":80,\"start\":\"0\",\"duration\":\"3/2\"},{\"id\":\"chord-0-alto\",\"voice\":\"alto\",\"pitch\":66,\"velocity\":80,\"start\":\"0\",\"duration\":\"3/2\"},{\"id\":\"chord-0-soprano\",\"voice\":\"soprano\",\"pitch\":71,\"velocity\":80,\"start\":\"0\",\"duration\":\"3/2\"},{\"id\":\"chord-1-bass\",\"voice\":\"bass\",\"pitch\":52,\"velocity\":80,\"start\":\"3/2\",\"duration\":\"3/2\"},{\"id\":\"chord-1-tenor\",\"voice\":\"tenor\",\"pitch\":56,\"velocity\":80,\"start\":\"3/2\",\"duration\":\"3/2\"},{\"id\":\"chord-1-alto\",\"voice\":\"alto\",\"pitch\":68,\"velocity\":80,\"start\":\"3/2\",\"duration\":\"3/2\"},{\"id\":\"chord-1-soprano\",\"voice\":\"soprano\",\"pitch\":76,\"velocity\":80,\"start\":\"3/2\",\"duration\":\"3/2\"},{\"id\":\"chord-2-bass\",\"voice\":\"bass\",\"pitch\":54,\"velocity\":80,\"start\":\"3\",\"duration\":\"3/2\"},{\"id\":\"chord-2-tenor\",\"voice\":\"tenor\",\"pitch\":58,\"velocity\":80,\"start\":\"3\",\"duration\":\"3/2\"},{\"id\":\"chord-2-alto\",\"voice\":\"alto\",\"pitch\":70,\"velocity\":80,\"start\":\"3\",\"duration\":\"3/2\"},{\"id\":\"chord-2-soprano\",\"voice\":\"soprano\",\"pitch\":73,\"velocity\":80,\"start\":\"3\",\"duration\":\"3/2\"},{\"id\":\"chord-3-bass\",\"voice\":\"bass\",\"pitch\":47,\"velocity\":80,\"start\":\"9/2\",\"duration\":\"3/2\"},{\"id\":\"chord-3-tenor\",\"voice\":\"tenor\",\"pitch\":63,\"velocity\":80,\"start\":\"9/2\",\"duration\":\"3/2\"},{\"id\":\"chord-3-alto\",\"voice\":\"alto\",\"pitch\":66,\"velocity\":80,\"start\":\"9/2\",\"duration\":\"3/2\"},{\"id\":\"chord-3-soprano\",\"voice\":\"soprano\",\"pitch\":71,\"velocity\":80,\"start\":\"9/2\",\"duration\":\"3/2\"}],\"omits\":[\"articulation\",\"channel\",\"expression\",\"mute\",\"release_velocity\"],\"overlays\":{\"bars\":[],\"grooves\":[],\"harmonies\":[],\"meters\":[],\"regions\":[],\"tempos\":[],\"tracks\":[]}}",
+        "response_payload_bytes": 1804,
+        "response_payload_sha256": "65a4ddfbb374736e25e310bbb2e289f7881659dbd00b5fc4aa856d259706164c",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 812,
+          "output_tokens": 2515,
+          "thinking_tokens": 1662
+        }
+      },
+      "mode": "output-serialization",
+      "recovery": {
+        "applied": [],
+        "payload_changed": false,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "A document has the wrong omission declaration"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        }
+      },
+      "repeat": 2,
+      "semantic_sha256": "a8573956063f4d6f5ed1209ea130fdddc35d88b062283b3ac677e90f6f8ca4a0",
+      "task_sha256": "e2521c525d15e3fb01627ac526307fe7e6ff2bbb51fa8bf3ac8dbb6777d60fdc",
+      "variant": 27
+    }
+  ],
+  "run_id": "phase8c4c-compact-bar-prompt-screen-r1",
+  "run_kind": "prompt-repair-screen-provider",
+  "run_plan_sha256": "93040710a2c7134bbeadeb29312056b28919da446c13b1c754867fee0be47403",
+  "schema": "ghostnote-compact-format-prompt-screen-v11",
+  "screen_sha256": "fa3107daa74857135f7ce14bc5385b04d959f517e85ac77fe64eb50fa1b665c7",
+  "settings": {
+    "max_tokens": 12000,
+    "thinking": {
+      "budget_tokens": 1024,
+      "type": "enabled"
+    }
+  },
+  "transport_failures": 0
+}

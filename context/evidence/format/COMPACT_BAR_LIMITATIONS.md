@@ -2,11 +2,16 @@
 title: Compact-bar limitations and publication gaps
 kind: reference
 state: active
-updated: 2026-09-27
+updated: 2026-09-28
 parent: COMPACT_BAR_RATIONALE.md
 ---
 
 # Compact-bar limitations and publication gaps
+
+The
+[symbolic benchmark design backlog](SYMBOLIC_BENCHMARK_DESIGN_BACKLOG.md)
+tracks measurement and experiment-design limits separately from product-format
+limits.
 
 ## Identity
 

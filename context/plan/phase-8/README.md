@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Phase 8c4b is complete; Phase 8c4c is ready for offline preparation.
+status: Phase 8c4c retains FIELDS and local labels; benchmark hardening is next.
 updated: 2026-09-28
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -156,27 +156,56 @@ owns the migration details.
    records the eligible OpenAI result. OpenAI, Gemini, and Haiku are eligible
    on the repaired analysis measurement.
 13. [8c4c — Compact-bar paired development](8c4c-compact-bar-paired-development.md).
-   Ready for offline preparation. Compare positional compact-bar v1 with one
-   minimal `FIELDS` candidate on fresh paired fixtures for OpenAI, Gemini, and
-   Haiku. No provider call is approved.
-14. [8c4d — Compact-bar targeted holdout](8c4d-compact-bar-targeted-holdout.md).
+   [E168](../../evidence/experiments/e168-paired-development-awaits-approval.md)
+   freezes the fresh paired package for OpenAI, Gemini, and Haiku.
+   [E169](../../evidence/experiments/e169-paired-development-cost-budget-correction.md)
+   corrects its hard ceiling to USD 5.000000.
+   [E170](../../evidence/experiments/e170-paired-development-returns-revise.md)
+   records the frozen `revise` result.
+   [E171](../../evidence/experiments/e171-failure-audit-and-small-screen-awaits-approval.md)
+   finds material prompt confounds and freezes a 72-call diagnostic screen.
+   [E172](../../evidence/experiments/e172-prompt-screen-validates-fields-repair.md)
+   validates the prompt repair. `FIELDS` leads output serialization but does
+   not improve input comprehension.
+   [E173](../../evidence/experiments/e173-fresh-full-family-comparison-awaits-approval.md)
+   freezes a fresh analysis, motif, and progression comparison with a neutral
+   analysis output contract.
+   [E174](../../evidence/experiments/e174-fresh-full-family-comparison-favors-fields-over-v1.md)
+   records the completed comparison. `FIELDS` beats positional v1 on every
+   provider, but it does not establish parity with exact JSON. Progression
+   remains at a reasoning floor.
+   [E175](../../evidence/experiments/e175-fresh-failure-audit-finds-fields-good-enough.md)
+   finds no remaining simple `FIELDS` defect. Accepting `FIELDS` is defensible.
+   [E176](../../evidence/experiments/e176-gemini-local-label-diagnostic-awaits-approval.md)
+   freezes the optional 32-call Gemini local-label diagnostic.
+   [E177](../../evidence/experiments/e177-gemini-local-label-diagnostic-selects-local-labels.md)
+   records 8/8 local-label analysis passes against 1/8 for `FIELDS`. All gates
+   pass.
+   [D24](../../decisions/d24-forward-compact-benchmarks-retain-fields-and-local-labels.md)
+   keeps `FIELDS` and local labels for fresh quality and token-size comparison.
+   All other compact variants are historical only.
+   No compact arm advances to holdout yet.
+14. [8c4c follow-up — Symbolic benchmark hardening](8c4c-follow-up-symbolic-benchmark-hardening.md).
+   Audit all format cycles, close the durable experiment-design backlog, and
+   freeze a corrected two-candidate package without provider calls.
+15. [8c4d — Compact-bar targeted holdout](8c4d-compact-bar-targeted-holdout.md).
    Test the frozen development candidate on a disjoint affected-family and
    guard holdout.
-15. [8c4e — Compact-only full benchmark](8c4e-compact-only-full-benchmark.md).
-   Run the selected compact candidate across the full task suite before buying
+16. [8c4e — Compact-candidate full benchmark](8c4e-compact-only-full-benchmark.md).
+   Run `FIELDS` and local labels across the full task suite before buying
    another full matrix.
-16. [8c4f — Full-matrix decision and optional rerun](8c4f-full-matrix-decision.md).
+17. [8c4f — Full-matrix decision and optional rerun](8c4f-full-matrix-decision.md).
    Let the operator approve the fresh matrix, proceed with an explicit evidence
    limit, or stop.
-17. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+18. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
-18. [8g — Shadow project cache](8g-shadow-project-cache.md).
+19. [8g — Shadow project cache](8g-shadow-project-cache.md).
    Implement the cache behind an experimental boundary while E131 remains
    authoritative.
-19. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
+20. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Promote proved cache reads in stages and apply the selected tool and
    verification reductions.
-20. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+21. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

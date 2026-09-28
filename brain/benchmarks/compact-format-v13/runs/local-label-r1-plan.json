@@ -1,0 +1,88 @@
+{
+  "approval": "pending",
+  "arms": [
+    "compact-bar-fields",
+    "compact-bar-local-labels"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "maximum_messages": 32,
+    "repairs": 0,
+    "token_count_requests": 0
+  },
+  "cases": [
+    {
+      "family": "comprehension-analysis",
+      "selection": "v12 Gemini exact pass and FIELDS fail",
+      "task_sha256": "60bbfe2310a81a1d727ab8e16b692dbe10d628f3dd4f51cd3e4b7696509aaa88",
+      "variant": 95
+    },
+    {
+      "family": "comprehension-analysis",
+      "selection": "v12 Gemini exact pass and FIELDS fail",
+      "task_sha256": "f52e4fa29050a613b1d78a9889a64caae100a7bfa626aead8f31ba24d9bc0ba7",
+      "variant": 97
+    },
+    {
+      "family": "generation-progression",
+      "selection": "v12 Gemini exact pass and FIELDS fail",
+      "task_sha256": "6168b38cb1cee9d24c4836940e84c66ee5a51a261383e1c9690779ef0d348eb5",
+      "variant": 92
+    },
+    {
+      "family": "generation-progression",
+      "selection": "v12 Gemini exact pass and FIELDS fail",
+      "task_sha256": "69115cec1d724ba255a361352b7819578d453513342e49a512836df5b4c1c047",
+      "variant": 96
+    }
+  ],
+  "cost_guard": {
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": 0.054,
+    "maximum_cost_usd": 0.15,
+    "output_token_ceiling_per_call": 12000,
+    "recent_cost_estimate_usd": 0.065,
+    "request_byte_ceiling_per_call": 10000
+  },
+  "decision_rule": {
+    "authority": "The diagnostic can choose between the two compact candidates for benchmark hardening. It cannot select a public format or start holdout.",
+    "default": "select-fields",
+    "local_label_selection_gates": {
+      "analysis_minimum_local_advantage_per_case": 2,
+      "analysis_minimum_local_passes_per_case": 3,
+      "analysis_minimum_total_check_advantage": 8,
+      "analysis_minimum_total_full_pass_advantage": 4,
+      "complete_calls": 32,
+      "maximum_analysis_prompt_ratio": 1.5,
+      "maximum_progression_payload_ratio": 2.0,
+      "progression_syntax_losses_allowed": 0,
+      "strict_syntax_per_arm": 16
+    },
+    "progression_musical_pass_use": "Report only. It cannot promote local labels."
+  },
+  "model": "gemini-3.8-flash",
+  "protocol_sha256": "9760442c9080f6fb55258cbb3a8aec1fb2b9df3ace83082404e95c168a3162f5",
+  "provider": "gemini",
+  "repeats_per_arm_case": 4,
+  "run_id": "phase8c4c-local-label-gemini-r1",
+  "run_kind": "local-label-diagnostic-plan",
+  "schema": "ghostnote-compact-format-local-label-v13",
+  "settings": {
+    "max_output_tokens": 12000,
+    "temperature": "provider default",
+    "thinking_level": "low"
+  },
+  "sha256": "cb55063d11d532223e4be1dc5d4a445f9985324b8d0a81b92cf733c869dcf17b",
+  "size_report": {
+    "analysis_prompt_ratio": 1.078625,
+    "mean_analysis_prompt_bytes": {
+      "compact-bar-fields": 4203.5,
+      "compact-bar-local-labels": 4534.0
+    },
+    "mean_perfect_progression_payload_bytes": {
+      "compact-bar-fields": 691.0,
+      "compact-bar-local-labels": 1269.0
+    },
+    "progression_payload_ratio": 1.836469
+  }
+}

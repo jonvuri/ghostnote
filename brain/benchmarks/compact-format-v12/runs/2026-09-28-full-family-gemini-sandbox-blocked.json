@@ -1,0 +1,1261 @@
+{
+  "actual_calls": 5,
+  "actual_cost_usd": 0.0,
+  "approval": {
+    "operator_statement": "The operator approved run phase8c4c-compact-bar-full-family-r2 with protocol bfeae5de5963391d1fd751391183c1fe9ed8825abd373edb18af8b3c88f33626, run plan 879db5b7b88176af0699eae30088c6699a415e376f129e1d605e28a96a3ed405, at most 243 message requests, at most 81 Haiku token-count requests, no repairs or automatic retries, and a USD 2.450000 hard cost limit on 2026-09-28.",
+    "protocol_sha256": "bfeae5de5963391d1fd751391183c1fe9ed8825abd373edb18af8b3c88f33626",
+    "run_id": "phase8c4c-compact-bar-full-family-r2",
+    "run_plan_sha256": "879db5b7b88176af0699eae30088c6699a415e376f129e1d605e28a96a3ed405",
+    "status": "approved"
+  },
+  "budget_stops": 76,
+  "client": "Python urllib.request direct HTTPS",
+  "cohort": "development-r2",
+  "cohort_sha256": "3999a7c017aea1d0ec3c3a41b5ba505bdf5f12ac9590ffe630d37d28318f845b",
+  "complete": false,
+  "completed_calls": 0,
+  "cost_guard": {
+    "committed_cost_usd": 0.27,
+    "committed_exact_usd": 0.27,
+    "failed_reservations": 5,
+    "maximum_cost_usd": 0.3,
+    "message_attempts": 5,
+    "settled_cost_usd": 0.0,
+    "settled_exact_usd": 0.0,
+    "token_count_attempts": 0
+  },
+  "manifest_sha256": "f6f1af08dad645964c35db88df0916b2b21d621c2ea42ec8616756eb9550388d",
+  "platform": "Darwin 24.6.0 arm64",
+  "protocol_sha256": "bfeae5de5963391d1fd751391183c1fe9ed8825abd373edb18af8b3c88f33626",
+  "provider": "gemini",
+  "python": "3.14.6",
+  "raw_run_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "requested_model": "gemini-3.8-flash",
+  "results": [
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "0d126aa8be5e3be5402eaa5bbebd8df2e9a154f1626b2e57d64bc8b7ba651001",
+      "sentinel": false,
+      "task_sha256": "67626e90828ed3397651430919dc5f46143410dc5d16ab710010b14cbe306763",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "0d126aa8be5e3be5402eaa5bbebd8df2e9a154f1626b2e57d64bc8b7ba651001",
+      "sentinel": true,
+      "task_sha256": "67626e90828ed3397651430919dc5f46143410dc5d16ab710010b14cbe306763",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "838e679520894d412fa031e0c2c47c36b683d1e4dfe76fe6642918949e1bf3c5",
+      "sentinel": false,
+      "task_sha256": "12f8479960db6a7b4cf7f47b5aba15e733aeb7c12ab497e53ce4fab5753ba3e6",
+      "variant": 92
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "5627f1bdd09f1e410d4705f0d861df5338125147f1749772b23ac068e31dbb75",
+      "sentinel": false,
+      "task_sha256": "b244c0e24801b5e6f7b651ee5f1f76753bd2e5de7eb2dc2a8bcd775cf0aba1f3",
+      "variant": 93
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "de16ea366d4b9f8abdc15bfabef2967ff514e6904963e36d260a93cb7a7d6b98",
+      "sentinel": false,
+      "task_sha256": "da12a06c576b88f2c281256fb115aa370d983dc5fe202728f94f6264c0ca0d6b",
+      "variant": 94
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "953c625e73473d0c4bb33c8530a5bbc4d6777f129eefca87bf70684456be7fd9",
+      "sentinel": false,
+      "task_sha256": "60bbfe2310a81a1d727ab8e16b692dbe10d628f3dd4f51cd3e4b7696509aaa88",
+      "variant": 95
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "d503c7df36b3085d0b6b493e9980f5fa90159c6dddf0a5482575d831dadfa36e",
+      "sentinel": false,
+      "task_sha256": "afb8150bcc727bb7c91c8ed6a22de3dab6c615919f5ef8263330ea6d1fcb2319",
+      "variant": 96
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "c4aae4eb0a62e4ba6268115c67da3ec043845c6ab98bd9beffb32ce981855aae",
+      "sentinel": false,
+      "task_sha256": "f52e4fa29050a613b1d78a9889a64caae100a7bfa626aead8f31ba24d9bc0ba7",
+      "variant": 97
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "3b89a9b96a7b8768ba6f2422d56be3ac256486c66b7f69661a6c27041b715930",
+      "sentinel": false,
+      "task_sha256": "99c004d303841b56402d485b175fad03317ba34c323ad8a14c519d3e961054c6",
+      "variant": 98
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "803b72de61f5c1e011132c3009bd02ba6891775452a2f7ce14f154a591930d19",
+      "sentinel": false,
+      "task_sha256": "1b1c860846ffad090e1b9836904bec7a6e7bb1c87c8f5915943b96b80f41c940",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "803b72de61f5c1e011132c3009bd02ba6891775452a2f7ce14f154a591930d19",
+      "sentinel": true,
+      "task_sha256": "1b1c860846ffad090e1b9836904bec7a6e7bb1c87c8f5915943b96b80f41c940",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "8b2811430b2c8dba6c56233e158cf25d19c1fa90af5335f19ae5012b8151d612",
+      "sentinel": false,
+      "task_sha256": "aec885df9bcfb42fe5ffe85da2a2cef23c7dfe6d69fb889799ca6f7334726277",
+      "variant": 92
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "e9b5c31495a563011b9d8e018cf115647a5a14321d62df8245ef25a10a8eccf5",
+      "sentinel": false,
+      "task_sha256": "37c5bc06f96f348eb11bcaa7919f9fb04abc0c595e9a1a7e987e49c0e439b415",
+      "variant": 93
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "7ee7922415a3eb1bc8467abc17907b1556368b474e53d4efea5a569219aaa593",
+      "sentinel": false,
+      "task_sha256": "2475e62ab9f341ca535643059d3583c8024a1fcd5a849699a87bbc36914cb1d3",
+      "variant": 94
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "514f3839c402b24601fe9c4c256ece25357e548e8c31a05d85e8d623f4a0c769",
+      "sentinel": false,
+      "task_sha256": "69de572e593bb68bfc13693bed475ec305222b25574650a9bb9a392f117f6eda",
+      "variant": 95
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "56301aee6dd74cdb0b07b4abbdf1c6741280b0664df370be0adc610a94958c33",
+      "sentinel": false,
+      "task_sha256": "5bb6ec2159f05db14d7c7dded93048b337e4fa7a60caf1f721060cef26720edc",
+      "variant": 96
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "36f10c05cada697f4209472caf09aaf8177b2870a19328399ba0d809f8fafd83",
+      "sentinel": false,
+      "task_sha256": "69cb4df83b867188cf486f034ece956fcd545f56e6d736c774476488cf5acb40",
+      "variant": 97
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "ec663e17e5453df298bd84245958b266dd83e9386b4b69c9af54083243bed163",
+      "sentinel": false,
+      "task_sha256": "48ea266b032038c13148b9e0a87bf88f54b9579851682c638e7965439701c3f5",
+      "variant": 98
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "b1d153582ebf42e9963e43494c8139113b30754d968d0df1966fc4153eefe3d7",
+      "sentinel": false,
+      "task_sha256": "ca9f13208df5b5dc9116f7e785ceb25bfdac7fc4b83592bea89841367a840bce",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "b1d153582ebf42e9963e43494c8139113b30754d968d0df1966fc4153eefe3d7",
+      "sentinel": true,
+      "task_sha256": "ca9f13208df5b5dc9116f7e785ceb25bfdac7fc4b83592bea89841367a840bce",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "ecf116c4556d247a646e3f6bc88125f0ca16a03e1f4537026a8d7506c526b7e2",
+      "sentinel": false,
+      "task_sha256": "6168b38cb1cee9d24c4836940e84c66ee5a51a261383e1c9690779ef0d348eb5",
+      "variant": 92
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "9767559a13dce1b11cea22200105a8ec7261efa6930651498392e0636381e74b",
+      "sentinel": false,
+      "task_sha256": "03a000770ef0f5b11bf1b9de42165533a5a76cbbe65f7f75874e8cc53a6144eb",
+      "variant": 93
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "f663421b90184c9771771d58dcce40f9fe667e672baeb3091c75ffe41495ad6b",
+      "sentinel": false,
+      "task_sha256": "e88cc45e05ff95f48c2b66a38f247da5c85d65a1f614cdae9e6e3088e4cd1954",
+      "variant": 94
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "fd5f89050d818766b573795a95fee62ad52d334aed64d5730fb0a9da2c1437e0",
+      "sentinel": false,
+      "task_sha256": "98b882734cb73310c573d5b8be86a0c511620bbdae985a8bff8841280845099c",
+      "variant": 95
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "4250e8a1307f5e4398d52a9a6cbc9a3d11023ab630dc627520526e4f0c770984",
+      "sentinel": false,
+      "task_sha256": "69115cec1d724ba255a361352b7819578d453513342e49a512836df5b4c1c047",
+      "variant": 96
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "8e7350dd6626fc18b23a66e81ef72149784d752ade8fffe25bf854f2f569f7a6",
+      "sentinel": false,
+      "task_sha256": "fba75d8ea4fef395dca04745661abd0ea0f54dec7ddd5d03d0535a4a1ba24c4f",
+      "variant": 97
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "922e5f343b73fbeea05119f8d9cd1ce5e9b877b23b0964b0f3227837e71376bc",
+      "sentinel": false,
+      "task_sha256": "7429846ceffd0452d1a1ec9f6fc685d6a4a09534a2b2a6e728676c915e648f19",
+      "variant": 98
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "0d126aa8be5e3be5402eaa5bbebd8df2e9a154f1626b2e57d64bc8b7ba651001",
+      "sentinel": false,
+      "task_sha256": "67626e90828ed3397651430919dc5f46143410dc5d16ab710010b14cbe306763",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "0d126aa8be5e3be5402eaa5bbebd8df2e9a154f1626b2e57d64bc8b7ba651001",
+      "sentinel": true,
+      "task_sha256": "67626e90828ed3397651430919dc5f46143410dc5d16ab710010b14cbe306763",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "838e679520894d412fa031e0c2c47c36b683d1e4dfe76fe6642918949e1bf3c5",
+      "sentinel": false,
+      "task_sha256": "12f8479960db6a7b4cf7f47b5aba15e733aeb7c12ab497e53ce4fab5753ba3e6",
+      "variant": 92
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "5627f1bdd09f1e410d4705f0d861df5338125147f1749772b23ac068e31dbb75",
+      "sentinel": false,
+      "task_sha256": "b244c0e24801b5e6f7b651ee5f1f76753bd2e5de7eb2dc2a8bcd775cf0aba1f3",
+      "variant": 93
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "de16ea366d4b9f8abdc15bfabef2967ff514e6904963e36d260a93cb7a7d6b98",
+      "sentinel": false,
+      "task_sha256": "da12a06c576b88f2c281256fb115aa370d983dc5fe202728f94f6264c0ca0d6b",
+      "variant": 94
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "953c625e73473d0c4bb33c8530a5bbc4d6777f129eefca87bf70684456be7fd9",
+      "sentinel": false,
+      "task_sha256": "60bbfe2310a81a1d727ab8e16b692dbe10d628f3dd4f51cd3e4b7696509aaa88",
+      "variant": 95
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "d503c7df36b3085d0b6b493e9980f5fa90159c6dddf0a5482575d831dadfa36e",
+      "sentinel": false,
+      "task_sha256": "afb8150bcc727bb7c91c8ed6a22de3dab6c615919f5ef8263330ea6d1fcb2319",
+      "variant": 96
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "c4aae4eb0a62e4ba6268115c67da3ec043845c6ab98bd9beffb32ce981855aae",
+      "sentinel": false,
+      "task_sha256": "f52e4fa29050a613b1d78a9889a64caae100a7bfa626aead8f31ba24d9bc0ba7",
+      "variant": 97
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "3b89a9b96a7b8768ba6f2422d56be3ac256486c66b7f69661a6c27041b715930",
+      "sentinel": false,
+      "task_sha256": "99c004d303841b56402d485b175fad03317ba34c323ad8a14c519d3e961054c6",
+      "variant": 98
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "803b72de61f5c1e011132c3009bd02ba6891775452a2f7ce14f154a591930d19",
+      "sentinel": false,
+      "task_sha256": "1b1c860846ffad090e1b9836904bec7a6e7bb1c87c8f5915943b96b80f41c940",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "803b72de61f5c1e011132c3009bd02ba6891775452a2f7ce14f154a591930d19",
+      "sentinel": true,
+      "task_sha256": "1b1c860846ffad090e1b9836904bec7a6e7bb1c87c8f5915943b96b80f41c940",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "8b2811430b2c8dba6c56233e158cf25d19c1fa90af5335f19ae5012b8151d612",
+      "sentinel": false,
+      "task_sha256": "aec885df9bcfb42fe5ffe85da2a2cef23c7dfe6d69fb889799ca6f7334726277",
+      "variant": 92
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "e9b5c31495a563011b9d8e018cf115647a5a14321d62df8245ef25a10a8eccf5",
+      "sentinel": false,
+      "task_sha256": "37c5bc06f96f348eb11bcaa7919f9fb04abc0c595e9a1a7e987e49c0e439b415",
+      "variant": 93
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "7ee7922415a3eb1bc8467abc17907b1556368b474e53d4efea5a569219aaa593",
+      "sentinel": false,
+      "task_sha256": "2475e62ab9f341ca535643059d3583c8024a1fcd5a849699a87bbc36914cb1d3",
+      "variant": 94
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "514f3839c402b24601fe9c4c256ece25357e548e8c31a05d85e8d623f4a0c769",
+      "sentinel": false,
+      "task_sha256": "69de572e593bb68bfc13693bed475ec305222b25574650a9bb9a392f117f6eda",
+      "variant": 95
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "56301aee6dd74cdb0b07b4abbdf1c6741280b0664df370be0adc610a94958c33",
+      "sentinel": false,
+      "task_sha256": "5bb6ec2159f05db14d7c7dded93048b337e4fa7a60caf1f721060cef26720edc",
+      "variant": 96
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "36f10c05cada697f4209472caf09aaf8177b2870a19328399ba0d809f8fafd83",
+      "sentinel": false,
+      "task_sha256": "69cb4df83b867188cf486f034ece956fcd545f56e6d736c774476488cf5acb40",
+      "variant": 97
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "ec663e17e5453df298bd84245958b266dd83e9386b4b69c9af54083243bed163",
+      "sentinel": false,
+      "task_sha256": "48ea266b032038c13148b9e0a87bf88f54b9579851682c638e7965439701c3f5",
+      "variant": 98
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "b1d153582ebf42e9963e43494c8139113b30754d968d0df1966fc4153eefe3d7",
+      "sentinel": false,
+      "task_sha256": "ca9f13208df5b5dc9116f7e785ceb25bfdac7fc4b83592bea89841367a840bce",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "b1d153582ebf42e9963e43494c8139113b30754d968d0df1966fc4153eefe3d7",
+      "sentinel": true,
+      "task_sha256": "ca9f13208df5b5dc9116f7e785ceb25bfdac7fc4b83592bea89841367a840bce",
+      "variant": 91
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "ecf116c4556d247a646e3f6bc88125f0ca16a03e1f4537026a8d7506c526b7e2",
+      "sentinel": false,
+      "task_sha256": "6168b38cb1cee9d24c4836940e84c66ee5a51a261383e1c9690779ef0d348eb5",
+      "variant": 92
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "9767559a13dce1b11cea22200105a8ec7261efa6930651498392e0636381e74b",
+      "sentinel": false,
+      "task_sha256": "03a000770ef0f5b11bf1b9de42165533a5a76cbbe65f7f75874e8cc53a6144eb",
+      "variant": 93
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "f663421b90184c9771771d58dcce40f9fe667e672baeb3091c75ffe41495ad6b",
+      "sentinel": false,
+      "task_sha256": "e88cc45e05ff95f48c2b66a38f247da5c85d65a1f614cdae9e6e3088e4cd1954",
+      "variant": 94
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "fd5f89050d818766b573795a95fee62ad52d334aed64d5730fb0a9da2c1437e0",
+      "sentinel": false,
+      "task_sha256": "98b882734cb73310c573d5b8be86a0c511620bbdae985a8bff8841280845099c",
+      "variant": 95
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "4250e8a1307f5e4398d52a9a6cbc9a3d11023ab630dc627520526e4f0c770984",
+      "sentinel": false,
+      "task_sha256": "69115cec1d724ba255a361352b7819578d453513342e49a512836df5b4c1c047",
+      "variant": 96
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "8e7350dd6626fc18b23a66e81ef72149784d752ade8fffe25bf854f2f569f7a6",
+      "sentinel": false,
+      "task_sha256": "fba75d8ea4fef395dca04745661abd0ea0f54dec7ddd5d03d0535a4a1ba24c4f",
+      "variant": 97
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "922e5f343b73fbeea05119f8d9cd1ce5e9b877b23b0964b0f3227837e71376bc",
+      "sentinel": false,
+      "task_sha256": "7429846ceffd0452d1a1ec9f6fc685d6a4a09534a2b2a6e728676c915e648f19",
+      "variant": 98
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "0d126aa8be5e3be5402eaa5bbebd8df2e9a154f1626b2e57d64bc8b7ba651001",
+      "sentinel": false,
+      "task_sha256": "67626e90828ed3397651430919dc5f46143410dc5d16ab710010b14cbe306763",
+      "variant": 91
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "0d126aa8be5e3be5402eaa5bbebd8df2e9a154f1626b2e57d64bc8b7ba651001",
+      "sentinel": true,
+      "task_sha256": "67626e90828ed3397651430919dc5f46143410dc5d16ab710010b14cbe306763",
+      "variant": 91
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "838e679520894d412fa031e0c2c47c36b683d1e4dfe76fe6642918949e1bf3c5",
+      "sentinel": false,
+      "task_sha256": "12f8479960db6a7b4cf7f47b5aba15e733aeb7c12ab497e53ce4fab5753ba3e6",
+      "variant": 92
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "5627f1bdd09f1e410d4705f0d861df5338125147f1749772b23ac068e31dbb75",
+      "sentinel": false,
+      "task_sha256": "b244c0e24801b5e6f7b651ee5f1f76753bd2e5de7eb2dc2a8bcd775cf0aba1f3",
+      "variant": 93
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "de16ea366d4b9f8abdc15bfabef2967ff514e6904963e36d260a93cb7a7d6b98",
+      "sentinel": false,
+      "task_sha256": "da12a06c576b88f2c281256fb115aa370d983dc5fe202728f94f6264c0ca0d6b",
+      "variant": 94
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "953c625e73473d0c4bb33c8530a5bbc4d6777f129eefca87bf70684456be7fd9",
+      "sentinel": false,
+      "task_sha256": "60bbfe2310a81a1d727ab8e16b692dbe10d628f3dd4f51cd3e4b7696509aaa88",
+      "variant": 95
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "d503c7df36b3085d0b6b493e9980f5fa90159c6dddf0a5482575d831dadfa36e",
+      "sentinel": false,
+      "task_sha256": "afb8150bcc727bb7c91c8ed6a22de3dab6c615919f5ef8263330ea6d1fcb2319",
+      "variant": 96
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "c4aae4eb0a62e4ba6268115c67da3ec043845c6ab98bd9beffb32ce981855aae",
+      "sentinel": false,
+      "task_sha256": "f52e4fa29050a613b1d78a9889a64caae100a7bfa626aead8f31ba24d9bc0ba7",
+      "variant": 97
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "3b89a9b96a7b8768ba6f2422d56be3ac256486c66b7f69661a6c27041b715930",
+      "sentinel": false,
+      "task_sha256": "99c004d303841b56402d485b175fad03317ba34c323ad8a14c519d3e961054c6",
+      "variant": 98
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "803b72de61f5c1e011132c3009bd02ba6891775452a2f7ce14f154a591930d19",
+      "sentinel": false,
+      "task_sha256": "1b1c860846ffad090e1b9836904bec7a6e7bb1c87c8f5915943b96b80f41c940",
+      "variant": 91
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "803b72de61f5c1e011132c3009bd02ba6891775452a2f7ce14f154a591930d19",
+      "sentinel": true,
+      "task_sha256": "1b1c860846ffad090e1b9836904bec7a6e7bb1c87c8f5915943b96b80f41c940",
+      "variant": 91
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "8b2811430b2c8dba6c56233e158cf25d19c1fa90af5335f19ae5012b8151d612",
+      "sentinel": false,
+      "task_sha256": "aec885df9bcfb42fe5ffe85da2a2cef23c7dfe6d69fb889799ca6f7334726277",
+      "variant": 92
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "e9b5c31495a563011b9d8e018cf115647a5a14321d62df8245ef25a10a8eccf5",
+      "sentinel": false,
+      "task_sha256": "37c5bc06f96f348eb11bcaa7919f9fb04abc0c595e9a1a7e987e49c0e439b415",
+      "variant": 93
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "7ee7922415a3eb1bc8467abc17907b1556368b474e53d4efea5a569219aaa593",
+      "sentinel": false,
+      "task_sha256": "2475e62ab9f341ca535643059d3583c8024a1fcd5a849699a87bbc36914cb1d3",
+      "variant": 94
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "514f3839c402b24601fe9c4c256ece25357e548e8c31a05d85e8d623f4a0c769",
+      "sentinel": false,
+      "task_sha256": "69de572e593bb68bfc13693bed475ec305222b25574650a9bb9a392f117f6eda",
+      "variant": 95
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "56301aee6dd74cdb0b07b4abbdf1c6741280b0664df370be0adc610a94958c33",
+      "sentinel": false,
+      "task_sha256": "5bb6ec2159f05db14d7c7dded93048b337e4fa7a60caf1f721060cef26720edc",
+      "variant": 96
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "36f10c05cada697f4209472caf09aaf8177b2870a19328399ba0d809f8fafd83",
+      "sentinel": false,
+      "task_sha256": "69cb4df83b867188cf486f034ece956fcd545f56e6d736c774476488cf5acb40",
+      "variant": 97
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "ec663e17e5453df298bd84245958b266dd83e9386b4b69c9af54083243bed163",
+      "sentinel": false,
+      "task_sha256": "48ea266b032038c13148b9e0a87bf88f54b9579851682c638e7965439701c3f5",
+      "variant": 98
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "b1d153582ebf42e9963e43494c8139113b30754d968d0df1966fc4153eefe3d7",
+      "sentinel": false,
+      "task_sha256": "ca9f13208df5b5dc9116f7e785ceb25bfdac7fc4b83592bea89841367a840bce",
+      "variant": 91
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "b1d153582ebf42e9963e43494c8139113b30754d968d0df1966fc4153eefe3d7",
+      "sentinel": true,
+      "task_sha256": "ca9f13208df5b5dc9116f7e785ceb25bfdac7fc4b83592bea89841367a840bce",
+      "variant": 91
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "ecf116c4556d247a646e3f6bc88125f0ca16a03e1f4537026a8d7506c526b7e2",
+      "sentinel": false,
+      "task_sha256": "6168b38cb1cee9d24c4836940e84c66ee5a51a261383e1c9690779ef0d348eb5",
+      "variant": 92
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "9767559a13dce1b11cea22200105a8ec7261efa6930651498392e0636381e74b",
+      "sentinel": false,
+      "task_sha256": "03a000770ef0f5b11bf1b9de42165533a5a76cbbe65f7f75874e8cc53a6144eb",
+      "variant": 93
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "f663421b90184c9771771d58dcce40f9fe667e672baeb3091c75ffe41495ad6b",
+      "sentinel": false,
+      "task_sha256": "e88cc45e05ff95f48c2b66a38f247da5c85d65a1f614cdae9e6e3088e4cd1954",
+      "variant": 94
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "fd5f89050d818766b573795a95fee62ad52d334aed64d5730fb0a9da2c1437e0",
+      "sentinel": false,
+      "task_sha256": "98b882734cb73310c573d5b8be86a0c511620bbdae985a8bff8841280845099c",
+      "variant": 95
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "4250e8a1307f5e4398d52a9a6cbc9a3d11023ab630dc627520526e4f0c770984",
+      "sentinel": false,
+      "task_sha256": "69115cec1d724ba255a361352b7819578d453513342e49a512836df5b4c1c047",
+      "variant": 96
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "8e7350dd6626fc18b23a66e81ef72149784d752ade8fffe25bf854f2f569f7a6",
+      "sentinel": false,
+      "task_sha256": "fba75d8ea4fef395dca04745661abd0ea0f54dec7ddd5d03d0535a4a1ba24c4f",
+      "variant": 97
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "failed",
+        "reason": "CostBudgetExceeded: The approved cost ceiling would be exceeded",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "semantic_sha256": "922e5f343b73fbeea05119f8d9cd1ce5e9b877b23b0964b0f3227837e71376bc",
+      "sentinel": false,
+      "task_sha256": "7429846ceffd0452d1a1ec9f6fc685d6a4a09534a2b2a6e728676c915e648f19",
+      "variant": 98
+    }
+  ],
+  "run_id": "phase8c4c-compact-bar-full-family-r2",
+  "run_kind": "fresh-full-family-provider",
+  "run_plan_sha256": "879db5b7b88176af0699eae30088c6699a415e376f129e1d605e28a96a3ed405",
+  "schema": "ghostnote-compact-format-full-family-v12",
+  "screen_sha256": "15338cf80afe7be099a9aafe0715e154259982dc37e720365a3db14e3160c0d7",
+  "settings": {
+    "max_output_tokens": 12000,
+    "thinking_level": "low"
+  },
+  "transport_failures": 81
+}

@@ -1,0 +1,301 @@
+{
+  "actual_cost_usd": 0.045779,
+  "actual_message_requests": 4,
+  "actual_token_count_requests": 4,
+  "approval": {
+    "incremental_cost_limit_usd": 0.288,
+    "maximum_message_requests": 4,
+    "maximum_token_count_requests": 4,
+    "operator_statement": "The operator approved retrying the four Phase 8c4c Haiku initial rows that failed because the internet connection was lost. Do not retry output-limit or HTTP 403 results.",
+    "protocol_sha256": "0cefdc1606921daa8f4d393675c83e09cc46705ceee2b203f91073b7e323c73e",
+    "provider": "claude-haiku",
+    "run_id": "phase8c4c-compact-bar-paired-development-r1",
+    "source_manifest_sha256": "9f6c34ea6f46b7fce9e6f004271820b98891b6a4cd558f679b1ad3a40d44bca9",
+    "status": "approved",
+    "targets": [
+      {
+        "arm": "compact-bar-v1",
+        "family": "generation-progression",
+        "sentinel": false,
+        "variant": 27
+      },
+      {
+        "arm": "compact-bar-v1",
+        "family": "generation-progression",
+        "sentinel": true,
+        "variant": 27
+      },
+      {
+        "arm": "exact-object-json",
+        "family": "comprehension-analysis",
+        "sentinel": false,
+        "variant": 28
+      },
+      {
+        "arm": "exact-object-json",
+        "family": "continuation-motif",
+        "sentinel": false,
+        "variant": 27
+      }
+    ]
+  },
+  "complete": true,
+  "manifest_sha256": "b78e93a1cc52086ee535aa1ed3970003591887132953d85e3dd06316cfbbef90",
+  "protocol_sha256": "0cefdc1606921daa8f4d393675c83e09cc46705ceee2b203f91073b7e323c73e",
+  "provider": "claude-haiku",
+  "results": [
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_inversions": true,
+            "cadence": false,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": false,
+            "same_voice_movement": true,
+            "strict_voice_order": true,
+            "voice_ranges": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "cadence",
+              "pitch_class_coverage"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0063,
+          "total": 0.007036,
+          "uncached_input": 0.000736
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 736,
+        "latency_ms": 10306.607,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1993,
+        "prompt_sha256": "7aee9d17257286070dd3378c6bdec2548aa45e26ab19a67f0661331dc0dad3b5",
+        "raw_response_sha256": "d5e89dcc03e859211ad2536db5d2c2590c2c9def69d9a3060948c43161c0374b",
+        "request_bytes": 2385,
+        "request_id": "msg_011CfVMvS8swZNBZzYfiNXdB",
+        "response_payload": "BASE none\nSOURCE development-r1-generation-progression-27\nOMITS channel mute release_velocity articulation expression\nN c1-bass bass 0 3/2 47 80\nN c1-tenor tenor 0 3/2 51 80\nN c1-alto alto 0 3/2 58 80\nN c1-soprano soprano 0 3/2 71 80\nN c2-bass bass 3/2 3/2 40 80\nN c2-tenor tenor 3/2 3/2 56 80\nN c2-alto alto 3/2 3/2 59 80\nN c2-soprano soprano 3/2 3/2 68 80\nN c3-bass bass 3 3/2 42 80\nN c3-tenor tenor 3 3/2 49 80\nN c3-alto alto 3 3/2 58 80\nN c3-soprano soprano 3 3/2 73 80\nN c4-bass bass 9/2 3/2 47 80\nN c4-tenor tenor 9/2 3/2 51 80\nN c4-alto alto 9/2 3/2 62 80\nN c4-soprano soprano 9/2 3/2 71 80",
+        "response_payload_bytes": 597,
+        "response_payload_sha256": "4a8c12c75816dba6f15b9f4b351fdf6d05e3c5077d8dd32734a802c30cb794dd",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 736,
+          "output_tokens": 1260,
+          "thinking_tokens": 915
+        }
+      },
+      "previous_reason": "URLError: <urlopen error [Errno 60] Operation timed out>",
+      "semantic_sha256": "a8573956063f4d6f5ed1209ea130fdddc35d88b062283b3ac677e90f6f8ca4a0",
+      "sentinel": false,
+      "task_sha256": "e2521c525d15e3fb01627ac526307fe7e6ff2bbb51fa8bf3ac8dbb6777d60fdc",
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_inversions": false,
+            "cadence": false,
+            "chord_starts_and_named_voices": true,
+            "document_context": true,
+            "duration_and_velocity": true,
+            "pitch_class_coverage": false,
+            "same_voice_movement": false,
+            "strict_voice_order": true,
+            "voice_ranges": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "bass_inversions",
+              "cadence",
+              "pitch_class_coverage",
+              "same_voice_movement"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.007925,
+          "total": 0.008661,
+          "uncached_input": 0.000736
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 736,
+        "latency_ms": 11831.131,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1993,
+        "prompt_sha256": "7aee9d17257286070dd3378c6bdec2548aa45e26ab19a67f0661331dc0dad3b5",
+        "raw_response_sha256": "9800099c2c6740ed4a25f754c835052d1b63e6028f122a72e9ad90605816ec4e",
+        "request_bytes": 2385,
+        "request_id": "msg_011CfVMwE5dF1pDfN9XKKNj6",
+        "response_payload": "BASE none\nSOURCE development-r1-generation-progression-27\nOMITS channel mute release_velocity articulation expression\nN c1-bass bass 0 3/2 47 80\nN c1-tenor tenor 0 3/2 51 80\nN c1-alto alto 0 3/2 62 80\nN c1-soprano soprano 0 3/2 71 80\nN c2-bass bass 3/2 3/2 40 80\nN c2-tenor tenor 3/2 3/2 56 80\nN c2-alto alto 3/2 3/2 59 80\nN c2-soprano soprano 3/2 3/2 64 80\nN c3-bass bass 3 3/2 46 80\nN c3-tenor tenor 3 3/2 49 80\nN c3-alto alto 3 3/2 66 80\nN c3-soprano soprano 3 3/2 70 80\nN c4-bass bass 9/2 3/2 47 80\nN c4-tenor tenor 9/2 3/2 54 80\nN c4-alto alto 9/2 3/2 63 80\nN c4-soprano soprano 9/2 3/2 74 80",
+        "response_payload_bytes": 597,
+        "response_payload_sha256": "c2a748a1f3863cba9eeea6c3562c104b27ba6c90f0abb200151a1cfb25015961",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 736,
+          "output_tokens": 1585,
+          "thinking_tokens": 1239
+        }
+      },
+      "previous_reason": "URLError: <urlopen error [Errno 60] Operation timed out>",
+      "semantic_sha256": "a8573956063f4d6f5ed1209ea130fdddc35d88b062283b3ac677e90f6f8ca4a0",
+      "sentinel": true,
+      "task_sha256": "e2521c525d15e3fb01627ac526307fe7e6ff2bbb51fa8bf3ac8dbb6777d60fdc",
+      "variant": 27
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "Analysis output must start with ANALYSIS"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.01851,
+          "total": 0.020408,
+          "uncached_input": 0.001898
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 1898,
+        "latency_ms": 33636.537,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4936,
+        "prompt_sha256": "18d4e10052a2a998ace791956e8698c382f52413dc31669717f521fa84b14a00",
+        "raw_response_sha256": "3db8bd882b947aba43d59ab628539391fe65f82c1821256342497dd56c1c1ef8",
+        "request_bytes": 5716,
+        "request_id": "msg_011CfVMx9pf83RNnQWGGBk6N",
+        "response_payload": "chord_ids=chord-28-1,chord-28-2,chord-28-3 root_pcs=4,3,4 bass_pcs=4,9,4 qualities=major-seventh,half-diminished-seventh,major inversions=0,2,0 functions=I-maj7,vii-half-dim43,I motif_relations=none,transposition,transposition rhythms=shared-onset,arpeggiated,sustained",
+        "response_payload_bytes": 269,
+        "response_payload_sha256": "4ee17703e7747cb9d56e059c94c0a8834831ce61e12496fad9d494c24d4d4c4f",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1898,
+          "output_tokens": 3702,
+          "thinking_tokens": 3585
+        }
+      },
+      "previous_reason": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
+      "semantic_sha256": "b1654d2e4f8fd50b9c33fd97af25dbe4f049d2a2493fc34d8b1c3bdcc0700784",
+      "sentinel": false,
+      "task_sha256": "d6fbc680180fd451d75a0def72cb4cffafb800bdcd292eb0d7eb501d8db807f4",
+      "variant": 28
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "document_context": true,
+            "operation_specific_fields": true,
+            "output_identity": true,
+            "pitch_formula": true,
+            "preserved_properties": true,
+            "timing_formula": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.072,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00868,
+          "total": 0.009674,
+          "uncached_input": 0.000994
+        },
+        "input_token_ceiling": 12000,
+        "input_token_estimate": 994,
+        "latency_ms": 10048.085,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2482,
+        "prompt_sha256": "2b5036a2d810921d2dc95589d2249899dd2f9d2e15000d037b40839bc9c0acfe",
+        "raw_response_sha256": "8156c2f4fca01dcf7fe7da9a15635180747f013c184cbc23011771e54565a1f8",
+        "request_bytes": 3066,
+        "request_id": "msg_011CfVMzh7twgqUapyFeY5bu",
+        "response_payload": "{\"base_sha256\":\"134042fe5d66f2e82da941dc3cad4681359b546e9c8730fe8438ba27e7af77b1\",\"notes\":[{\"duration\":\"1/3\",\"id\":\"mt-out-27-1\",\"pitch\":73,\"start\":\"8\",\"velocity\":87,\"voice\":\"lead\"},{\"duration\":\"1/2\",\"id\":\"mt-out-27-2\",\"pitch\":71,\"start\":\"25/3\",\"velocity\":79,\"voice\":\"lead\"},{\"duration\":\"1/6\",\"id\":\"mt-out-27-3\",\"pitch\":68,\"start\":\"53/6\",\"velocity\":80,\"voice\":\"lead\"},{\"duration\":\"1/3\",\"id\":\"mt-out-27-4\",\"pitch\":69,\"start\":\"28/3\",\"velocity\":81,\"voice\":\"lead\"},{\"duration\":\"1/2\",\"id\":\"mt-out-27-5\",\"pitch\":66,\"start\":\"59/6\",\"velocity\":82,\"voice\":\"lead\"},{\"duration\":\"2/3\",\"id\":\"mt-out-27-6\",\"pitch\":70,\"start\":\"31/3\",\"velocity\":83,\"voice\":\"lead\"}],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"overlays\":{\"bars\":[],\"grooves\":[],\"harmonies\":[],\"meters\":[],\"regions\":[],\"tempos\":[],\"tracks\":[]},\"schema\":\"ghostnote-compact-format-v6\",\"source_id\":\"development-r1-continuation-motif-27-source\"}",
+        "response_payload_bytes": 918,
+        "response_payload_sha256": "a3f07ca6c2e8c644973f61289e894b63c14d03c13311943b740a66508b015a71",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 994,
+          "output_tokens": 1736,
+          "thinking_tokens": 1278
+        }
+      },
+      "previous_reason": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
+      "semantic_sha256": "71f26d3f6b709bd3eb7bb578650a85700fcb5013f5781896ea2e03ca7404478d",
+      "sentinel": false,
+      "task_sha256": "b33640950972d2893c2e4001d58d603587e81d225220aad6532d9839b0185b7b",
+      "variant": 27
+    }
+  ],
+  "run_id": "phase8c4c-compact-bar-paired-development-r1",
+  "run_kind": "paired-development-network-retry",
+  "schema": "ghostnote-compact-format-paired-development-v10",
+  "source_manifest_sha256": "9f6c34ea6f46b7fce9e6f004271820b98891b6a4cd558f679b1ad3a40d44bca9"
+}

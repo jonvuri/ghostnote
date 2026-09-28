@@ -1,0 +1,91 @@
+{
+  "approval": "pending",
+  "arms": [
+    "compact-bar-v1",
+    "compact-bar-fields",
+    "exact-object-json"
+  ],
+  "calls": {
+    "maximum_all_providers": 72,
+    "maximum_haiku_token_count_requests": 24,
+    "maximum_per_provider": 24,
+    "repairs": 0
+  },
+  "cases": [
+    {
+      "family": "comprehension-analysis",
+      "mode": "input-comprehension",
+      "variant": 27
+    },
+    {
+      "family": "comprehension-analysis",
+      "mode": "input-comprehension",
+      "variant": 29
+    },
+    {
+      "family": "generation-progression",
+      "mode": "output-serialization",
+      "variant": 27
+    },
+    {
+      "family": "continuation-roles",
+      "mode": "output-serialization",
+      "variant": 27
+    }
+  ],
+  "cost_guard": {
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.072,
+      "gemini": 0.054,
+      "openai": 0.063
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 0.75,
+      "gemini": 0.2,
+      "openai": 0.3
+    },
+    "maximum_total_cost_usd": 1.25,
+    "output_token_ceiling_per_call": 12000,
+    "request_byte_ceiling_per_call": 10000
+  },
+  "interpretation": "This diagnostic screen cannot select a format or enter a holdout. Inspect strict syntax, strict full-pass, recoverable, and repeat results separately.",
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "595e0bb6f150ba1c71df085b045df7ec92939853214824d2ce9e2bd9920981ae",
+  "recovery_rules": [
+    "remove-invented-line-column",
+    "remove-copied-end-marker",
+    "restore-literal-none-base",
+    "restore-analysis-prefix"
+  ],
+  "repeats": [
+    1,
+    2
+  ],
+  "run_id": "phase8c4c-compact-bar-prompt-screen-r1",
+  "run_kind": "prompt-repair-screen-plan",
+  "schema": "ghostnote-compact-format-prompt-screen-v11",
+  "settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "93040710a2c7134bbeadeb29312056b28919da446c13b1c754867fee0be47403"
+}

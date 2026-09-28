@@ -1,0 +1,29 @@
+{
+  "calibration_result": "proceed-development",
+  "eligible_analysis_providers": {
+    "claude-haiku": "1/5",
+    "gemini": "3/5",
+    "openai": "1/5"
+  },
+  "files": {
+    "compact-format-v5/runs/2026-09-28-calibration-summary.json": "611ee9bbe017af7e52af70a9b4016d3ca9a50794a200dee5a54a7a9003c4c0d4",
+    "compact-format-v6/core.py": "9150edfc2a2d0e873386508d406d9d92c29ca1fcf1ecd352f53fba3702d6280d",
+    "compact-format-v6/expected-deterministic.json": "de97aebbfd1d8d74126cb8c607f4617d104f468a9a6c57416f240e6a222d0549",
+    "compact-format-v6/runs/2026-09-28-analysis-gemini-easy.json": "3f406cd196dd9b8693ee15cd75dccd002a1e83db779021abd98cdf5912eee08b",
+    "compact-format-v6/runs/2026-09-28-analysis-summary.json": "3eaf6f7926a8b73c1585ce2ad15a4d22e12434855817764161bdd7506b352f5f",
+    "compact-format-v8/runs/2026-09-28-analysis-haiku.json": "a8e375638c1ed1e86df74685a94a66dc89f457f0440c4957944a33dfee35d1b3",
+    "compact-format-v8/runs/2026-09-28-analysis-summary.json": "ded617e6070675b0e789c08bbdea3701c1a03df7073dce1a607913892ff82050",
+    "compact-format-v9/runs/2026-09-28-analysis-openai.json": "0077124cf26373812cd4a3ece55b2546f36824fb2c074b0fe991a23cd96f76c4",
+    "compact-format-v9/runs/2026-09-28-analysis-summary.json": "80775b52a90588134dc5ffe7767b774bea7362eb99440662852e803e6817f078"
+  },
+  "files_match": true,
+  "kind": "frozen-dependency-manifest",
+  "repaired_contract_core_sha256": "9150edfc2a2d0e873386508d406d9d92c29ca1fcf1ecd352f53fba3702d6280d",
+  "retained_r2_family_providers": {
+    "continuation-motif": 2,
+    "generation-progression": 3
+  },
+  "reuse_rule": "Reuse the repaired contracts and scorers. Do not reuse a calibration fixture in development or holdout.",
+  "schema": "ghostnote-compact-format-paired-development-v10",
+  "sha256": "fbb31617cbe69e79b56e58207984d447f110f75901bf0981b6d3d56397a40ac8"
+}

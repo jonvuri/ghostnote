@@ -1,0 +1,4712 @@
+{
+  "actual_cost_usd": {
+    "claude-haiku": 1.610608,
+    "gemini": 0.463185,
+    "openai": 0.854677,
+    "total": 2.92847
+  },
+  "decision": "revise",
+  "fields_benefit_repeats": false,
+  "initial_and_repaired_separate": true,
+  "protocol_sha256": "0cefdc1606921daa8f4d393675c83e09cc46705ceee2b203f91073b7e323c73e",
+  "providers": [
+    {
+      "actual_calls": 189,
+      "actual_cost_usd": 0.854677,
+      "exact_control_valid": true,
+      "fields": {
+        "candidate": "compact-bar-fields",
+        "checks": {
+          "absolute_decision_minimum": false,
+          "completion": true,
+          "exact_object_margin": false,
+          "guard_margin": false,
+          "initial_syntax": false,
+          "no_repeated_candidate_only_loss": false,
+          "positional_v1_margin": false
+        },
+        "decision_rate": {
+          "denominator": 24,
+          "expected": 24,
+          "passed": 3,
+          "rate": 0.125
+        },
+        "decision_vs_exact": {
+          "approximate_95_interval": [
+            -0.650152,
+            -0.183181
+          ],
+          "baseline_successes": 13,
+          "candidate_only_loss_rows": [
+            {
+              "family": "continuation-motif",
+              "variant": 27
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 28
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 29
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 31
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 32
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 34
+            },
+            {
+              "family": "generation-progression",
+              "variant": 27
+            },
+            {
+              "family": "generation-progression",
+              "variant": 28
+            },
+            {
+              "family": "generation-progression",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 31
+            },
+            {
+              "family": "generation-progression",
+              "variant": 34
+            }
+          ],
+          "candidate_only_losses": 11,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 33
+            }
+          ],
+          "candidate_only_wins": 1,
+          "candidate_successes": 3,
+          "effect": -0.416667,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 12
+        },
+        "decision_vs_v1": {
+          "approximate_95_interval": [
+            -0.392578,
+            0.059244
+          ],
+          "baseline_successes": 7,
+          "candidate_only_loss_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 27
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 34
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 27
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 28
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 31
+            },
+            {
+              "family": "generation-progression",
+              "variant": 32
+            }
+          ],
+          "candidate_only_losses": 6,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 33
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 30
+            }
+          ],
+          "candidate_only_wins": 2,
+          "candidate_successes": 3,
+          "effect": -0.166667,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 16
+        },
+        "family_stats": {
+          "comprehension-analysis": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 1,
+              "rate": 0.125
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 11157,
+              "median_latency_ms": 8393.605,
+              "output_tokens": 6947,
+              "response_bytes": 2078
+            },
+            "repair_attempts": 4,
+            "repair_eligible": 7,
+            "repair_musical": 0,
+            "repair_scored": 4,
+            "repair_skipped_by_cap": 3,
+            "repair_syntax": 4,
+            "repair_usage": {
+              "calls": 4,
+              "input_tokens": 5751,
+              "median_latency_ms": 12441.486,
+              "output_tokens": 5272,
+              "response_bytes": 1009
+            }
+          },
+          "comprehension-structure": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1694,
+              "median_latency_ms": 2575.385,
+              "output_tokens": 808,
+              "response_bytes": 1260
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "continuation-motif": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 2,
+              "rate": 0.25
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 2,
+              "rate": 0.25
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 4639,
+              "median_latency_ms": 5371.081,
+              "output_tokens": 5420,
+              "response_bytes": 3492
+            },
+            "repair_attempts": 4,
+            "repair_eligible": 6,
+            "repair_musical": 0,
+            "repair_scored": 4,
+            "repair_skipped_by_cap": 2,
+            "repair_syntax": 1,
+            "repair_usage": {
+              "calls": 4,
+              "input_tokens": 2483,
+              "median_latency_ms": 7208.495,
+              "output_tokens": 3539,
+              "response_bytes": 1771
+            }
+          },
+          "continuation-roles": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 0,
+              "rate": 0.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 0,
+              "rate": 0.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1356,
+              "median_latency_ms": 8260.59,
+              "output_tokens": 4142,
+              "response_bytes": 1360
+            },
+            "repair_attempts": 2,
+            "repair_eligible": 4,
+            "repair_musical": 0,
+            "repair_scored": 2,
+            "repair_skipped_by_cap": 2,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 2,
+              "input_tokens": 754,
+              "median_latency_ms": 7887.062,
+              "output_tokens": 1808,
+              "response_bytes": 680
+            }
+          },
+          "generation-progression": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 0,
+              "rate": 0.0
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 0,
+              "rate": 0.0
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 4352,
+              "median_latency_ms": 9460.447,
+              "output_tokens": 11739,
+              "response_bytes": 4735
+            },
+            "repair_attempts": 7,
+            "repair_eligible": 8,
+            "repair_musical": 0,
+            "repair_scored": 7,
+            "repair_skipped_by_cap": 1,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 7,
+              "input_tokens": 4074,
+              "median_latency_ms": 11773.571,
+              "output_tokens": 12097,
+              "response_bytes": 4199
+            }
+          },
+          "transformation-local": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1282,
+              "median_latency_ms": 1917.922,
+              "output_tokens": 384,
+              "response_bytes": 380
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-revoice": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 3,
+              "rate": 0.75
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 3,
+              "rate": 0.75
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2534,
+              "median_latency_ms": 5289.487,
+              "output_tokens": 2594,
+              "response_bytes": 1869
+            },
+            "repair_attempts": 1,
+            "repair_eligible": 1,
+            "repair_musical": 0,
+            "repair_scored": 1,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 1,
+              "input_tokens": 665,
+              "median_latency_ms": 5354.542,
+              "output_tokens": 633,
+              "response_bytes": 515
+            }
+          },
+          "transformation-rhythm": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 2,
+              "rate": 0.5
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 2,
+              "rate": 0.5
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1702,
+              "median_latency_ms": 2850.852,
+              "output_tokens": 1444,
+              "response_bytes": 1279
+            },
+            "repair_attempts": 2,
+            "repair_eligible": 2,
+            "repair_musical": 1,
+            "repair_scored": 2,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 1,
+            "repair_usage": {
+              "calls": 2,
+              "input_tokens": 944,
+              "median_latency_ms": 4963.19,
+              "output_tokens": 1061,
+              "response_bytes": 641
+            }
+          }
+        },
+        "family_vs_exact": {
+          "comprehension-analysis": {
+            "approximate_95_interval": [
+              -0.12,
+              0.37
+            ],
+            "baseline_successes": 0,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 33
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 1,
+            "effect": 0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 7
+          },
+          "comprehension-structure": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "continuation-motif": {
+            "approximate_95_interval": [
+              -1,
+              -0.42922
+            ],
+            "baseline_successes": 8,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 27
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 28
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 29
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 31
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 32
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 34
+              }
+            ],
+            "candidate_only_losses": 6,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 2,
+            "effect": -0.75,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 2
+          },
+          "continuation-roles": {
+            "approximate_95_interval": [
+              -1,
+              -0.26
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-roles",
+                "variant": 27
+              },
+              {
+                "family": "continuation-roles",
+                "variant": 28
+              },
+              {
+                "family": "continuation-roles",
+                "variant": 30
+              }
+            ],
+            "candidate_only_losses": 3,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 0,
+            "effect": -0.75,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 1
+          },
+          "generation-progression": {
+            "approximate_95_interval": [
+              -0.983643,
+              -0.266357
+            ],
+            "baseline_successes": 5,
+            "candidate_only_loss_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 27
+              },
+              {
+                "family": "generation-progression",
+                "variant": 28
+              },
+              {
+                "family": "generation-progression",
+                "variant": 29
+              },
+              {
+                "family": "generation-progression",
+                "variant": 31
+              },
+              {
+                "family": "generation-progression",
+                "variant": 34
+              }
+            ],
+            "candidate_only_losses": 5,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 0,
+            "effect": -0.625,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 3
+          },
+          "transformation-local": {
+            "approximate_95_interval": [
+              -0.065803,
+              1
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "transformation-local",
+                "variant": 27
+              },
+              {
+                "family": "transformation-local",
+                "variant": 30
+              }
+            ],
+            "candidate_only_wins": 2,
+            "candidate_successes": 4,
+            "effect": 0.5,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 2
+          },
+          "transformation-revoice": {
+            "approximate_95_interval": [
+              -0.688279,
+              1
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [
+              {
+                "family": "transformation-revoice",
+                "variant": 28
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [
+              {
+                "family": "transformation-revoice",
+                "variant": 27
+              },
+              {
+                "family": "transformation-revoice",
+                "variant": 30
+              }
+            ],
+            "candidate_only_wins": 2,
+            "candidate_successes": 3,
+            "effect": 0.25,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 1
+          },
+          "transformation-rhythm": {
+            "approximate_95_interval": [
+              -1,
+              0.065803
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [
+              {
+                "family": "transformation-rhythm",
+                "variant": 29
+              },
+              {
+                "family": "transformation-rhythm",
+                "variant": 30
+              }
+            ],
+            "candidate_only_losses": 2,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 2,
+            "effect": -0.5,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 2
+          }
+        },
+        "family_vs_v1": {
+          "comprehension-analysis": {
+            "approximate_95_interval": [
+              -0.5691,
+              0.3191
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 27
+              },
+              {
+                "family": "comprehension-analysis",
+                "variant": 34
+              }
+            ],
+            "candidate_only_losses": 2,
+            "candidate_only_win_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 33
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 1,
+            "effect": -0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 5
+          },
+          "comprehension-structure": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "continuation-motif": {
+            "approximate_95_interval": [
+              -0.74,
+              0.24
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 27
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 28
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 31
+              }
+            ],
+            "candidate_only_losses": 3,
+            "candidate_only_win_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 30
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 2,
+            "effect": -0.25,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 4
+          },
+          "continuation-roles": {
+            "approximate_95_interval": [
+              -1,
+              -0.26
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-roles",
+                "variant": 27
+              },
+              {
+                "family": "continuation-roles",
+                "variant": 29
+              },
+              {
+                "family": "continuation-roles",
+                "variant": 30
+              }
+            ],
+            "candidate_only_losses": 3,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 0,
+            "effect": -0.75,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 1
+          },
+          "generation-progression": {
+            "approximate_95_interval": [
+              -0.37,
+              0.12
+            ],
+            "baseline_successes": 1,
+            "candidate_only_loss_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 32
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 0,
+            "effect": -0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 7
+          },
+          "transformation-local": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-revoice": {
+            "approximate_95_interval": [
+              -0.74,
+              0.24
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [
+              {
+                "family": "transformation-revoice",
+                "variant": 28
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 3,
+            "effect": -0.25,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 3
+          },
+          "transformation-rhythm": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 2,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          }
+        },
+        "pass": false
+      },
+      "fields_benefit": {
+        "analysis_family": {
+          "approximate_95_interval": [
+            -0.5691,
+            0.3191
+          ],
+          "baseline_successes": 2,
+          "candidate_only_loss_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 27
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 34
+            }
+          ],
+          "candidate_only_losses": 2,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 33
+            }
+          ],
+          "candidate_only_wins": 1,
+          "candidate_successes": 1,
+          "effect": -0.125,
+          "expected_pairs": 8,
+          "paired_denominator": 8,
+          "ties": 5
+        },
+        "decision_macro": {
+          "approximate_95_interval": [
+            -0.392578,
+            0.059244
+          ],
+          "baseline_successes": 7,
+          "candidate_only_loss_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 27
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 34
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 27
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 28
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 31
+            },
+            {
+              "family": "generation-progression",
+              "variant": 32
+            }
+          ],
+          "candidate_only_losses": 6,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 33
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 30
+            }
+          ],
+          "candidate_only_wins": 2,
+          "candidate_successes": 3,
+          "effect": -0.166667,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 16
+        },
+        "exact_control_losses": {
+          "fields": 11,
+          "v1": 9
+        },
+        "initial_syntax": {
+          "approximate_95_interval": [
+            -0.693674,
+            -0.222992
+          ],
+          "baseline_successes": 21,
+          "candidate_only_loss_rows": [
+            {
+              "family": "continuation-motif",
+              "variant": 27
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 28
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 31
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 32
+            },
+            {
+              "family": "generation-progression",
+              "variant": 27
+            },
+            {
+              "family": "generation-progression",
+              "variant": 28
+            },
+            {
+              "family": "generation-progression",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 30
+            },
+            {
+              "family": "generation-progression",
+              "variant": 31
+            },
+            {
+              "family": "generation-progression",
+              "variant": 32
+            },
+            {
+              "family": "generation-progression",
+              "variant": 33
+            },
+            {
+              "family": "generation-progression",
+              "variant": 34
+            }
+          ],
+          "candidate_only_losses": 12,
+          "candidate_only_win_rows": [
+            {
+              "family": "continuation-motif",
+              "variant": 30
+            }
+          ],
+          "candidate_only_wins": 1,
+          "candidate_successes": 10,
+          "effect": -0.458333,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 11
+        },
+        "provider": "openai",
+        "signals": {
+          "analysis_family": false,
+          "decision_macro": false,
+          "fewer_exact_control_losses": false,
+          "framing": false
+        }
+      },
+      "positional_v1": {
+        "candidate": "compact-bar-v1",
+        "checks": {
+          "absolute_decision_minimum": false,
+          "completion": true,
+          "exact_object_margin": false,
+          "guard_margin": false,
+          "initial_syntax": false,
+          "no_repeated_candidate_only_loss": false,
+          "positional_v1_margin": true
+        },
+        "decision_rate": {
+          "denominator": 24,
+          "expected": 24,
+          "passed": 7,
+          "rate": 0.291667
+        },
+        "decision_vs_exact": {
+          "approximate_95_interval": [
+            -0.520322,
+            0.020322
+          ],
+          "baseline_successes": 13,
+          "candidate_only_loss_rows": [
+            {
+              "family": "continuation-motif",
+              "variant": 29
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 30
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 32
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 34
+            },
+            {
+              "family": "generation-progression",
+              "variant": 27
+            },
+            {
+              "family": "generation-progression",
+              "variant": 28
+            },
+            {
+              "family": "generation-progression",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 31
+            },
+            {
+              "family": "generation-progression",
+              "variant": 34
+            }
+          ],
+          "candidate_only_losses": 9,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 27
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 34
+            },
+            {
+              "family": "generation-progression",
+              "variant": 32
+            }
+          ],
+          "candidate_only_wins": 3,
+          "candidate_successes": 7,
+          "effect": -0.25,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 12
+        },
+        "decision_vs_v1": null,
+        "family_stats": {
+          "comprehension-analysis": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 2,
+              "rate": 0.25
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 11101,
+              "median_latency_ms": 7148.574,
+              "output_tokens": 7188,
+              "response_bytes": 2046
+            },
+            "repair_attempts": 5,
+            "repair_eligible": 6,
+            "repair_musical": 1,
+            "repair_scored": 5,
+            "repair_skipped_by_cap": 1,
+            "repair_syntax": 5,
+            "repair_usage": {
+              "calls": 5,
+              "input_tokens": 7126,
+              "median_latency_ms": 8705.542,
+              "output_tokens": 4099,
+              "response_bytes": 1298
+            }
+          },
+          "comprehension-structure": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1614,
+              "median_latency_ms": 2181.342,
+              "output_tokens": 688,
+              "response_bytes": 1076
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "continuation-motif": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 4,
+              "rate": 0.5
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 5,
+              "rate": 0.625
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 4479,
+              "median_latency_ms": 4128.843,
+              "output_tokens": 3933,
+              "response_bytes": 3056
+            },
+            "repair_attempts": 3,
+            "repair_eligible": 4,
+            "repair_musical": 1,
+            "repair_scored": 3,
+            "repair_skipped_by_cap": 1,
+            "repair_syntax": 1,
+            "repair_usage": {
+              "calls": 3,
+              "input_tokens": 1785,
+              "median_latency_ms": 4478.119,
+              "output_tokens": 1580,
+              "response_bytes": 1120
+            }
+          },
+          "continuation-roles": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 3,
+              "rate": 0.75
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1308,
+              "median_latency_ms": 7355.171,
+              "output_tokens": 3620,
+              "response_bytes": 1092
+            },
+            "repair_attempts": 1,
+            "repair_eligible": 1,
+            "repair_musical": 1,
+            "repair_scored": 1,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 1,
+            "repair_usage": {
+              "calls": 1,
+              "input_tokens": 355,
+              "median_latency_ms": 12055.796,
+              "output_tokens": 1490,
+              "response_bytes": 273
+            }
+          },
+          "generation-progression": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 1,
+              "rate": 0.125
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 4256,
+              "median_latency_ms": 10904.69,
+              "output_tokens": 13534,
+              "response_bytes": 4064
+            },
+            "repair_attempts": 4,
+            "repair_eligible": 7,
+            "repair_musical": 0,
+            "repair_scored": 4,
+            "repair_skipped_by_cap": 3,
+            "repair_syntax": 3,
+            "repair_usage": {
+              "calls": 4,
+              "input_tokens": 2254,
+              "median_latency_ms": 9703.416,
+              "output_tokens": 7069,
+              "response_bytes": 2203
+            }
+          },
+          "transformation-local": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1254,
+              "median_latency_ms": 1891.245,
+              "output_tokens": 452,
+              "response_bytes": 380
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-revoice": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2454,
+              "median_latency_ms": 4192.697,
+              "output_tokens": 2063,
+              "response_bytes": 1664
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-rhythm": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 2,
+              "rate": 0.5
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1622,
+              "median_latency_ms": 2639.863,
+              "output_tokens": 1176,
+              "response_bytes": 1079
+            },
+            "repair_attempts": 2,
+            "repair_eligible": 2,
+            "repair_musical": 1,
+            "repair_scored": 2,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 2,
+            "repair_usage": {
+              "calls": 2,
+              "input_tokens": 884,
+              "median_latency_ms": 2695.391,
+              "output_tokens": 500,
+              "response_bytes": 538
+            }
+          }
+        },
+        "family_vs_exact": {
+          "comprehension-analysis": {
+            "approximate_95_interval": [
+              -0.07078,
+              0.57078
+            ],
+            "baseline_successes": 0,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 27
+              },
+              {
+                "family": "comprehension-analysis",
+                "variant": 34
+              }
+            ],
+            "candidate_only_wins": 2,
+            "candidate_successes": 2,
+            "effect": 0.25,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 6
+          },
+          "comprehension-structure": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "continuation-motif": {
+            "approximate_95_interval": [
+              -0.870405,
+              -0.129595
+            ],
+            "baseline_successes": 8,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 29
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 30
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 32
+              },
+              {
+                "family": "continuation-motif",
+                "variant": 34
+              }
+            ],
+            "candidate_only_losses": 4,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": -0.5,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 4
+          },
+          "continuation-roles": {
+            "approximate_95_interval": [
+              -0.800167,
+              0.800167
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-roles",
+                "variant": 28
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [
+              {
+                "family": "continuation-roles",
+                "variant": 29
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 3,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 2
+          },
+          "generation-progression": {
+            "approximate_95_interval": [
+              -1,
+              0.023832
+            ],
+            "baseline_successes": 5,
+            "candidate_only_loss_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 27
+              },
+              {
+                "family": "generation-progression",
+                "variant": 28
+              },
+              {
+                "family": "generation-progression",
+                "variant": 29
+              },
+              {
+                "family": "generation-progression",
+                "variant": 31
+              },
+              {
+                "family": "generation-progression",
+                "variant": 34
+              }
+            ],
+            "candidate_only_losses": 5,
+            "candidate_only_win_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 32
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 1,
+            "effect": -0.5,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 2
+          },
+          "transformation-local": {
+            "approximate_95_interval": [
+              -0.065803,
+              1
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "transformation-local",
+                "variant": 27
+              },
+              {
+                "family": "transformation-local",
+                "variant": 30
+              }
+            ],
+            "candidate_only_wins": 2,
+            "candidate_successes": 4,
+            "effect": 0.5,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 2
+          },
+          "transformation-revoice": {
+            "approximate_95_interval": [
+              -0.065803,
+              1
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "transformation-revoice",
+                "variant": 27
+              },
+              {
+                "family": "transformation-revoice",
+                "variant": 30
+              }
+            ],
+            "candidate_only_wins": 2,
+            "candidate_successes": 4,
+            "effect": 0.5,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 2
+          },
+          "transformation-rhythm": {
+            "approximate_95_interval": [
+              -1,
+              0.065803
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [
+              {
+                "family": "transformation-rhythm",
+                "variant": 29
+              },
+              {
+                "family": "transformation-rhythm",
+                "variant": 30
+              }
+            ],
+            "candidate_only_losses": 2,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 2,
+            "effect": -0.5,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 2
+          }
+        },
+        "family_vs_v1": {},
+        "pass": false
+      },
+      "provider": "openai",
+      "sentinels": [
+        {
+          "arm": "compact-bar-v1",
+          "family": "comprehension-analysis",
+          "same_initial_state": false,
+          "same_payload": false
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "continuation-motif",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "generation-progression",
+          "same_initial_state": false,
+          "same_payload": false
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "comprehension-analysis",
+          "same_initial_state": false,
+          "same_payload": false
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "continuation-motif",
+          "same_initial_state": false,
+          "same_payload": false
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "generation-progression",
+          "same_initial_state": true,
+          "same_payload": false
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "comprehension-analysis",
+          "same_initial_state": false,
+          "same_payload": false
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "continuation-motif",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "generation-progression",
+          "same_initial_state": false,
+          "same_payload": false
+        }
+      ]
+    },
+    {
+      "actual_calls": 176,
+      "actual_cost_usd": 0.463185,
+      "exact_control_valid": true,
+      "fields": {
+        "candidate": "compact-bar-fields",
+        "checks": {
+          "absolute_decision_minimum": true,
+          "completion": true,
+          "exact_object_margin": true,
+          "guard_margin": true,
+          "initial_syntax": true,
+          "no_repeated_candidate_only_loss": true,
+          "positional_v1_margin": true
+        },
+        "decision_rate": {
+          "denominator": 24,
+          "expected": 24,
+          "passed": 16,
+          "rate": 0.666667
+        },
+        "decision_vs_exact": {
+          "approximate_95_interval": [
+            -0.054408,
+            0.304408
+          ],
+          "baseline_successes": 13,
+          "candidate_only_loss_rows": [
+            {
+              "family": "generation-progression",
+              "variant": 30
+            }
+          ],
+          "candidate_only_losses": 1,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 28
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 27
+            },
+            {
+              "family": "generation-progression",
+              "variant": 34
+            }
+          ],
+          "candidate_only_wins": 4,
+          "candidate_successes": 16,
+          "effect": 0.125,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 19
+        },
+        "decision_vs_v1": {
+          "approximate_95_interval": [
+            0.0047,
+            0.411967
+          ],
+          "baseline_successes": 11,
+          "candidate_only_loss_rows": [
+            {
+              "family": "generation-progression",
+              "variant": 28
+            }
+          ],
+          "candidate_only_losses": 1,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 28
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 30
+            },
+            {
+              "family": "generation-progression",
+              "variant": 27
+            },
+            {
+              "family": "generation-progression",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 31
+            },
+            {
+              "family": "generation-progression",
+              "variant": 34
+            }
+          ],
+          "candidate_only_wins": 6,
+          "candidate_successes": 16,
+          "effect": 0.208333,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 17
+        },
+        "family_stats": {
+          "comprehension-analysis": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 4,
+              "rate": 0.5
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 11933,
+              "median_latency_ms": 1798.966,
+              "output_tokens": 895,
+              "response_bytes": 2149
+            },
+            "repair_attempts": 4,
+            "repair_eligible": 4,
+            "repair_musical": 1,
+            "repair_scored": 4,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 4,
+            "repair_usage": {
+              "calls": 4,
+              "input_tokens": 6181,
+              "median_latency_ms": 1873.993,
+              "output_tokens": 457,
+              "response_bytes": 1113
+            }
+          },
+          "comprehension-structure": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1882,
+              "median_latency_ms": 2027.109,
+              "output_tokens": 697,
+              "response_bytes": 1260
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "continuation-motif": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 5273,
+              "median_latency_ms": 2865.767,
+              "output_tokens": 2853,
+              "response_bytes": 3429
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "continuation-roles": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1353,
+              "median_latency_ms": 1932.606,
+              "output_tokens": 700,
+              "response_bytes": 1276
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "generation-progression": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 4,
+              "rate": 0.5
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 7,
+              "rate": 0.875
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 4485,
+              "median_latency_ms": 2536.797,
+              "output_tokens": 2884,
+              "response_bytes": 4452
+            },
+            "repair_attempts": 4,
+            "repair_eligible": 4,
+            "repair_musical": 1,
+            "repair_scored": 4,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 4,
+            "repair_usage": {
+              "calls": 4,
+              "input_tokens": 2387,
+              "median_latency_ms": 2501.669,
+              "output_tokens": 3466,
+              "response_bytes": 2222
+            }
+          },
+          "transformation-local": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1450,
+              "median_latency_ms": 1858.825,
+              "output_tokens": 318,
+              "response_bytes": 380
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-revoice": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2783,
+              "median_latency_ms": 2291.532,
+              "output_tokens": 2927,
+              "response_bytes": 1848
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-rhythm": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1899,
+              "median_latency_ms": 2588.522,
+              "output_tokens": 1581,
+              "response_bytes": 1261
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          }
+        },
+        "family_vs_exact": {
+          "comprehension-analysis": {
+            "approximate_95_interval": [
+              -0.12,
+              0.37
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 28
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 4,
+            "effect": 0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 7
+          },
+          "comprehension-structure": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "continuation-motif": {
+            "approximate_95_interval": [
+              -0.12,
+              0.37
+            ],
+            "baseline_successes": 7,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 29
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 8,
+            "effect": 0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 7
+          },
+          "continuation-roles": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "generation-progression": {
+            "approximate_95_interval": [
+              -0.3191,
+              0.5691
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 30
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 27
+              },
+              {
+                "family": "generation-progression",
+                "variant": 34
+              }
+            ],
+            "candidate_only_wins": 2,
+            "candidate_successes": 4,
+            "effect": 0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 5
+          },
+          "transformation-local": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-revoice": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-rhythm": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          }
+        },
+        "family_vs_v1": {
+          "comprehension-analysis": {
+            "approximate_95_interval": [
+              -0.12,
+              0.37
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 28
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 4,
+            "effect": 0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 7
+          },
+          "comprehension-structure": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "continuation-motif": {
+            "approximate_95_interval": [
+              -0.12,
+              0.37
+            ],
+            "baseline_successes": 7,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 30
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 8,
+            "effect": 0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 7
+          },
+          "continuation-roles": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "generation-progression": {
+            "approximate_95_interval": [
+              -0.140582,
+              0.890582
+            ],
+            "baseline_successes": 1,
+            "candidate_only_loss_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 28
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 27
+              },
+              {
+                "family": "generation-progression",
+                "variant": 29
+              },
+              {
+                "family": "generation-progression",
+                "variant": 31
+              },
+              {
+                "family": "generation-progression",
+                "variant": 34
+              }
+            ],
+            "candidate_only_wins": 4,
+            "candidate_successes": 4,
+            "effect": 0.375,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 3
+          },
+          "transformation-local": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-revoice": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-rhythm": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          }
+        },
+        "pass": true
+      },
+      "fields_benefit": {
+        "analysis_family": {
+          "approximate_95_interval": [
+            -0.12,
+            0.37
+          ],
+          "baseline_successes": 3,
+          "candidate_only_loss_rows": [],
+          "candidate_only_losses": 0,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 28
+            }
+          ],
+          "candidate_only_wins": 1,
+          "candidate_successes": 4,
+          "effect": 0.125,
+          "expected_pairs": 8,
+          "paired_denominator": 8,
+          "ties": 7
+        },
+        "decision_macro": {
+          "approximate_95_interval": [
+            0.0047,
+            0.411967
+          ],
+          "baseline_successes": 11,
+          "candidate_only_loss_rows": [
+            {
+              "family": "generation-progression",
+              "variant": 28
+            }
+          ],
+          "candidate_only_losses": 1,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 28
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 30
+            },
+            {
+              "family": "generation-progression",
+              "variant": 27
+            },
+            {
+              "family": "generation-progression",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 31
+            },
+            {
+              "family": "generation-progression",
+              "variant": 34
+            }
+          ],
+          "candidate_only_wins": 6,
+          "candidate_successes": 16,
+          "effect": 0.208333,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 17
+        },
+        "exact_control_losses": {
+          "fields": 1,
+          "v1": 4
+        },
+        "initial_syntax": {
+          "approximate_95_interval": [
+            -0.10182,
+            0.185153
+          ],
+          "baseline_successes": 22,
+          "candidate_only_loss_rows": [
+            {
+              "family": "generation-progression",
+              "variant": 32
+            }
+          ],
+          "candidate_only_losses": 1,
+          "candidate_only_win_rows": [
+            {
+              "family": "generation-progression",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 31
+            }
+          ],
+          "candidate_only_wins": 2,
+          "candidate_successes": 23,
+          "effect": 0.041667,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 21
+        },
+        "provider": "gemini",
+        "signals": {
+          "analysis_family": true,
+          "decision_macro": true,
+          "fewer_exact_control_losses": true,
+          "framing": true
+        }
+      },
+      "positional_v1": {
+        "candidate": "compact-bar-v1",
+        "checks": {
+          "absolute_decision_minimum": false,
+          "completion": true,
+          "exact_object_margin": false,
+          "guard_margin": true,
+          "initial_syntax": false,
+          "no_repeated_candidate_only_loss": false,
+          "positional_v1_margin": true
+        },
+        "decision_rate": {
+          "denominator": 24,
+          "expected": 24,
+          "passed": 11,
+          "rate": 0.458333
+        },
+        "decision_vs_exact": {
+          "approximate_95_interval": [
+            -0.284819,
+            0.118153
+          ],
+          "baseline_successes": 13,
+          "candidate_only_loss_rows": [
+            {
+              "family": "continuation-motif",
+              "variant": 30
+            },
+            {
+              "family": "generation-progression",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 30
+            },
+            {
+              "family": "generation-progression",
+              "variant": 31
+            }
+          ],
+          "candidate_only_losses": 4,
+          "candidate_only_win_rows": [
+            {
+              "family": "continuation-motif",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 28
+            }
+          ],
+          "candidate_only_wins": 2,
+          "candidate_successes": 11,
+          "effect": -0.083333,
+          "expected_pairs": 24,
+          "paired_denominator": 24,
+          "ties": 18
+        },
+        "decision_vs_v1": null,
+        "family_stats": {
+          "comprehension-analysis": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 3,
+              "rate": 0.375
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 11877,
+              "median_latency_ms": 1769.72,
+              "output_tokens": 884,
+              "response_bytes": 2144
+            },
+            "repair_attempts": 5,
+            "repair_eligible": 5,
+            "repair_musical": 3,
+            "repair_scored": 5,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 5,
+            "repair_usage": {
+              "calls": 5,
+              "input_tokens": 7688,
+              "median_latency_ms": 2251.403,
+              "output_tokens": 2591,
+              "response_bytes": 1374
+            }
+          },
+          "comprehension-structure": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1802,
+              "median_latency_ms": 1958.664,
+              "output_tokens": 661,
+              "response_bytes": 1076
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "continuation-motif": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 7,
+              "rate": 0.875
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 5113,
+              "median_latency_ms": 2423.664,
+              "output_tokens": 3661,
+              "response_bytes": 3059
+            },
+            "repair_attempts": 1,
+            "repair_eligible": 1,
+            "repair_musical": 1,
+            "repair_scored": 1,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 1,
+            "repair_usage": {
+              "calls": 1,
+              "input_tokens": 674,
+              "median_latency_ms": 12462.136,
+              "output_tokens": 3403,
+              "response_bytes": 390
+            }
+          },
+          "continuation-roles": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1305,
+              "median_latency_ms": 2042.646,
+              "output_tokens": 664,
+              "response_bytes": 1092
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "generation-progression": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 1,
+              "rate": 0.125
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 6,
+              "rate": 0.75
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 4389,
+              "median_latency_ms": 2510.192,
+              "output_tokens": 2994,
+              "response_bytes": 4538
+            },
+            "repair_attempts": 7,
+            "repair_eligible": 7,
+            "repair_musical": 5,
+            "repair_scored": 7,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 7,
+            "repair_usage": {
+              "calls": 7,
+              "input_tokens": 4083,
+              "median_latency_ms": 9386.875,
+              "output_tokens": 18009,
+              "response_bytes": 3885
+            }
+          },
+          "transformation-local": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1422,
+              "median_latency_ms": 1838.798,
+              "output_tokens": 329,
+              "response_bytes": 380
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-revoice": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2703,
+              "median_latency_ms": 2648.8,
+              "output_tokens": 1981,
+              "response_bytes": 1664
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-rhythm": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1819,
+              "median_latency_ms": 2623.545,
+              "output_tokens": 1349,
+              "response_bytes": 1077
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          }
+        },
+        "family_vs_exact": {
+          "comprehension-analysis": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 3,
+            "effect": 0.0,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 8
+          },
+          "comprehension-structure": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "continuation-motif": {
+            "approximate_95_interval": [
+              -0.370405,
+              0.370405
+            ],
+            "baseline_successes": 7,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 30
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 29
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 7,
+            "effect": 0.0,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 6
+          },
+          "continuation-roles": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "generation-progression": {
+            "approximate_95_interval": [
+              -0.74,
+              0.24
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 29
+              },
+              {
+                "family": "generation-progression",
+                "variant": 30
+              },
+              {
+                "family": "generation-progression",
+                "variant": 31
+              }
+            ],
+            "candidate_only_losses": 3,
+            "candidate_only_win_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 28
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 1,
+            "effect": -0.25,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 4
+          },
+          "transformation-local": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-revoice": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-rhythm": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          }
+        },
+        "family_vs_v1": {},
+        "pass": false
+      },
+      "provider": "gemini",
+      "sentinels": [
+        {
+          "arm": "compact-bar-v1",
+          "family": "comprehension-analysis",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "continuation-motif",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "generation-progression",
+          "same_initial_state": false,
+          "same_payload": false
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "comprehension-analysis",
+          "same_initial_state": true,
+          "same_payload": false
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "continuation-motif",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "generation-progression",
+          "same_initial_state": true,
+          "same_payload": false
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "comprehension-analysis",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "continuation-motif",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "generation-progression",
+          "same_initial_state": false,
+          "same_payload": false
+        }
+      ]
+    },
+    {
+      "actual_calls": 138,
+      "actual_cost_usd": 1.610608,
+      "exact_control_valid": false,
+      "fields": {
+        "candidate": "compact-bar-fields",
+        "checks": {
+          "absolute_decision_minimum": false,
+          "completion": false,
+          "exact_object_margin": false,
+          "guard_margin": false,
+          "initial_syntax": false,
+          "no_repeated_candidate_only_loss": false,
+          "positional_v1_margin": false
+        },
+        "decision_rate": {
+          "denominator": 21,
+          "expected": 24,
+          "passed": 8,
+          "rate": 0.380952
+        },
+        "decision_vs_exact": {
+          "approximate_95_interval": [
+            -0.34734,
+            0.061626
+          ],
+          "baseline_successes": 11,
+          "candidate_only_loss_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 31
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 30
+            }
+          ],
+          "candidate_only_losses": 4,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 27
+            }
+          ],
+          "candidate_only_wins": 1,
+          "candidate_successes": 8,
+          "effect": -0.142857,
+          "expected_pairs": 24,
+          "paired_denominator": 21,
+          "ties": 16
+        },
+        "decision_vs_v1": {
+          "approximate_95_interval": [
+            -0.360276,
+            0.14975
+          ],
+          "baseline_successes": 9,
+          "candidate_only_loss_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 28
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 30
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 32
+            }
+          ],
+          "candidate_only_losses": 4,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 27
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 33
+            }
+          ],
+          "candidate_only_wins": 2,
+          "candidate_successes": 7,
+          "effect": -0.105263,
+          "expected_pairs": 24,
+          "paired_denominator": 19,
+          "ties": 13
+        },
+        "family_stats": {
+          "comprehension-analysis": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 6,
+              "rate": 0.75
+            },
+            "initial_musical": {
+              "denominator": 6,
+              "expected": 8,
+              "passed": 2,
+              "rate": 0.333333
+            },
+            "initial_syntax": {
+              "denominator": 6,
+              "expected": 8,
+              "passed": 4,
+              "rate": 0.666667
+            },
+            "initial_usage": {
+              "calls": 7,
+              "input_tokens": 12067,
+              "median_latency_ms": 28498.235,
+              "output_tokens": 31183,
+              "response_bytes": 1545
+            },
+            "repair_attempts": 4,
+            "repair_eligible": 4,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "comprehension-structure": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 3,
+              "rate": 0.75
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 3,
+              "rate": 0.75
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2440,
+              "median_latency_ms": 6183.793,
+              "output_tokens": 2617,
+              "response_bytes": 1264
+            },
+            "repair_attempts": 1,
+            "repair_eligible": 1,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "continuation-motif": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 7,
+              "rate": 0.875
+            },
+            "initial_musical": {
+              "denominator": 7,
+              "expected": 8,
+              "passed": 6,
+              "rate": 0.857143
+            },
+            "initial_syntax": {
+              "denominator": 7,
+              "expected": 8,
+              "passed": 6,
+              "rate": 0.857143
+            },
+            "initial_usage": {
+              "calls": 7,
+              "input_tokens": 5557,
+              "median_latency_ms": 9538.299,
+              "output_tokens": 9409,
+              "response_bytes": 2993
+            },
+            "repair_attempts": 1,
+            "repair_eligible": 1,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "continuation-roles": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 0,
+              "rate": 0.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 0,
+              "rate": 0.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2080,
+              "median_latency_ms": 13978.873,
+              "output_tokens": 5687,
+              "response_bytes": 1337
+            },
+            "repair_attempts": 4,
+            "repair_eligible": 4,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "generation-progression": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 0,
+              "rate": 0.0
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 7,
+              "rate": 0.875
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 5992,
+              "median_latency_ms": 17700.224,
+              "output_tokens": 15126,
+              "response_bytes": 4569
+            },
+            "repair_attempts": 8,
+            "repair_eligible": 8,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-local": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1989,
+              "median_latency_ms": 4570.351,
+              "output_tokens": 1487,
+              "response_bytes": 380
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-revoice": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 3313,
+              "median_latency_ms": 12139.523,
+              "output_tokens": 4648,
+              "response_bytes": 1848
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-rhythm": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2448,
+              "median_latency_ms": 7683.93,
+              "output_tokens": 3349,
+              "response_bytes": 1261
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          }
+        },
+        "family_vs_exact": {
+          "comprehension-analysis": {
+            "approximate_95_interval": [
+              -0.50607,
+              0.50607
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 31
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 27
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 2,
+            "effect": 0.0,
+            "expected_pairs": 8,
+            "paired_denominator": 6,
+            "ties": 4
+          },
+          "comprehension-structure": {
+            "approximate_95_interval": [
+              -0.74,
+              0.24
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [
+              {
+                "family": "comprehension-structure",
+                "variant": 28
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 3,
+            "effect": -0.25,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 3
+          },
+          "continuation-motif": {
+            "approximate_95_interval": [
+              -0.422857,
+              0.137143
+            ],
+            "baseline_successes": 7,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 29
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 6,
+            "effect": -0.142857,
+            "expected_pairs": 8,
+            "paired_denominator": 7,
+            "ties": 6
+          },
+          "continuation-roles": {
+            "approximate_95_interval": [
+              -1,
+              -0.26
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-roles",
+                "variant": 27
+              },
+              {
+                "family": "continuation-roles",
+                "variant": 28
+              },
+              {
+                "family": "continuation-roles",
+                "variant": 29
+              }
+            ],
+            "candidate_only_losses": 3,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 0,
+            "effect": -0.75,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 1
+          },
+          "generation-progression": {
+            "approximate_95_interval": [
+              -0.57078,
+              0.07078
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 29
+              },
+              {
+                "family": "generation-progression",
+                "variant": 30
+              }
+            ],
+            "candidate_only_losses": 2,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 0,
+            "effect": -0.25,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 6
+          },
+          "transformation-local": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-revoice": {
+            "approximate_95_interval": [
+              -0.24,
+              0.74
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "transformation-revoice",
+                "variant": 27
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 4,
+            "effect": 0.25,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 3
+          },
+          "transformation-rhythm": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          }
+        },
+        "family_vs_v1": {
+          "comprehension-analysis": {
+            "approximate_95_interval": [
+              -0.876539,
+              0.876539
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 28
+              },
+              {
+                "family": "comprehension-analysis",
+                "variant": 30
+              }
+            ],
+            "candidate_only_losses": 2,
+            "candidate_only_win_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 27
+              },
+              {
+                "family": "comprehension-analysis",
+                "variant": 33
+              }
+            ],
+            "candidate_only_wins": 2,
+            "candidate_successes": 2,
+            "effect": 0.0,
+            "expected_pairs": 8,
+            "paired_denominator": 5,
+            "ties": 1
+          },
+          "comprehension-structure": {
+            "approximate_95_interval": [
+              -0.74,
+              0.24
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [
+              {
+                "family": "comprehension-structure",
+                "variant": 28
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 3,
+            "effect": -0.25,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 3
+          },
+          "continuation-motif": {
+            "approximate_95_interval": [
+              -0.493333,
+              0.16
+            ],
+            "baseline_successes": 6,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-motif",
+                "variant": 29
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 5,
+            "effect": -0.166667,
+            "expected_pairs": 8,
+            "paired_denominator": 6,
+            "ties": 5
+          },
+          "continuation-roles": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 0,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 0,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "generation-progression": {
+            "approximate_95_interval": [
+              -0.37,
+              0.12
+            ],
+            "baseline_successes": 1,
+            "candidate_only_loss_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 32
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 0,
+            "effect": -0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 7
+          },
+          "transformation-local": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-revoice": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-rhythm": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          }
+        },
+        "pass": false
+      },
+      "fields_benefit": {
+        "analysis_family": {
+          "approximate_95_interval": [
+            -0.876539,
+            0.876539
+          ],
+          "baseline_successes": 2,
+          "candidate_only_loss_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 28
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 30
+            }
+          ],
+          "candidate_only_losses": 2,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 27
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 33
+            }
+          ],
+          "candidate_only_wins": 2,
+          "candidate_successes": 2,
+          "effect": 0.0,
+          "expected_pairs": 8,
+          "paired_denominator": 5,
+          "ties": 1
+        },
+        "decision_macro": {
+          "approximate_95_interval": [
+            -0.360276,
+            0.14975
+          ],
+          "baseline_successes": 9,
+          "candidate_only_loss_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 28
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 30
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 32
+            }
+          ],
+          "candidate_only_losses": 4,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 27
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 33
+            }
+          ],
+          "candidate_only_wins": 2,
+          "candidate_successes": 7,
+          "effect": -0.105263,
+          "expected_pairs": 24,
+          "paired_denominator": 19,
+          "ties": 13
+        },
+        "exact_control_losses": {
+          "fields": 4,
+          "v1": 3
+        },
+        "initial_syntax": {
+          "approximate_95_interval": [
+            -0.360276,
+            0.14975
+          ],
+          "baseline_successes": 17,
+          "candidate_only_loss_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 29
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 30
+            },
+            {
+              "family": "continuation-motif",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 29
+            }
+          ],
+          "candidate_only_losses": 4,
+          "candidate_only_win_rows": [
+            {
+              "family": "generation-progression",
+              "variant": 31
+            },
+            {
+              "family": "generation-progression",
+              "variant": 34
+            }
+          ],
+          "candidate_only_wins": 2,
+          "candidate_successes": 15,
+          "effect": -0.105263,
+          "expected_pairs": 24,
+          "paired_denominator": 19,
+          "ties": 13
+        },
+        "provider": "claude-haiku",
+        "signals": {
+          "analysis_family": false,
+          "decision_macro": false,
+          "fewer_exact_control_losses": false,
+          "framing": false
+        }
+      },
+      "positional_v1": {
+        "candidate": "compact-bar-v1",
+        "checks": {
+          "absolute_decision_minimum": true,
+          "completion": true,
+          "exact_object_margin": true,
+          "guard_margin": false,
+          "initial_syntax": false,
+          "no_repeated_candidate_only_loss": false,
+          "positional_v1_margin": true
+        },
+        "decision_rate": {
+          "denominator": 22,
+          "expected": 24,
+          "passed": 11,
+          "rate": 0.5
+        },
+        "decision_vs_exact": {
+          "approximate_95_interval": [
+            -0.234265,
+            0.234265
+          ],
+          "baseline_successes": 10,
+          "candidate_only_loss_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 33
+            },
+            {
+              "family": "generation-progression",
+              "variant": 29
+            },
+            {
+              "family": "generation-progression",
+              "variant": 30
+            }
+          ],
+          "candidate_only_losses": 3,
+          "candidate_only_win_rows": [
+            {
+              "family": "comprehension-analysis",
+              "variant": 28
+            },
+            {
+              "family": "comprehension-analysis",
+              "variant": 30
+            },
+            {
+              "family": "generation-progression",
+              "variant": 32
+            }
+          ],
+          "candidate_only_wins": 3,
+          "candidate_successes": 10,
+          "effect": 0.0,
+          "expected_pairs": 24,
+          "paired_denominator": 21,
+          "ties": 15
+        },
+        "decision_vs_v1": null,
+        "family_stats": {
+          "comprehension-analysis": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 7,
+              "rate": 0.875
+            },
+            "initial_musical": {
+              "denominator": 7,
+              "expected": 8,
+              "passed": 3,
+              "rate": 0.428571
+            },
+            "initial_syntax": {
+              "denominator": 7,
+              "expected": 8,
+              "passed": 7,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 13440,
+              "median_latency_ms": 40653.299,
+              "output_tokens": 46793,
+              "response_bytes": 1791
+            },
+            "repair_attempts": 4,
+            "repair_eligible": 4,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "comprehension-structure": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2352,
+              "median_latency_ms": 6904.466,
+              "output_tokens": 2546,
+              "response_bytes": 1076
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "continuation-motif": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 7,
+              "rate": 0.875
+            },
+            "initial_musical": {
+              "denominator": 7,
+              "expected": 8,
+              "passed": 7,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 7,
+              "expected": 8,
+              "passed": 7,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 7,
+              "input_tokens": 5395,
+              "median_latency_ms": 10737.232,
+              "output_tokens": 9451,
+              "response_bytes": 2684
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "continuation-roles": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 0,
+              "rate": 0.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 2,
+              "rate": 0.5
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2028,
+              "median_latency_ms": 13526.088,
+              "output_tokens": 6300,
+              "response_bytes": 1260
+            },
+            "repair_attempts": 4,
+            "repair_eligible": 4,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "generation-progression": {
+            "initial_completion": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 8,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 1,
+              "rate": 0.125
+            },
+            "initial_syntax": {
+              "denominator": 8,
+              "expected": 8,
+              "passed": 6,
+              "rate": 0.75
+            },
+            "initial_usage": {
+              "calls": 8,
+              "input_tokens": 5888,
+              "median_latency_ms": 15930.155,
+              "output_tokens": 13636,
+              "response_bytes": 4952
+            },
+            "repair_attempts": 6,
+            "repair_eligible": 7,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 1,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-local": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 1957,
+              "median_latency_ms": 4343.737,
+              "output_tokens": 1816,
+              "response_bytes": 380
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-revoice": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 3225,
+              "median_latency_ms": 11005.379,
+              "output_tokens": 4588,
+              "response_bytes": 1664
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          },
+          "transformation-rhythm": {
+            "initial_completion": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_musical": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_syntax": {
+              "denominator": 4,
+              "expected": 4,
+              "passed": 4,
+              "rate": 1.0
+            },
+            "initial_usage": {
+              "calls": 4,
+              "input_tokens": 2360,
+              "median_latency_ms": 7292.635,
+              "output_tokens": 2718,
+              "response_bytes": 1077
+            },
+            "repair_attempts": 0,
+            "repair_eligible": 0,
+            "repair_musical": 0,
+            "repair_scored": 0,
+            "repair_skipped_by_cap": 0,
+            "repair_syntax": 0,
+            "repair_usage": {
+              "calls": 0,
+              "input_tokens": 0,
+              "median_latency_ms": null,
+              "output_tokens": 0,
+              "response_bytes": 0
+            }
+          }
+        },
+        "family_vs_exact": {
+          "comprehension-analysis": {
+            "approximate_95_interval": [
+              -0.435677,
+              0.76901
+            ],
+            "baseline_successes": 1,
+            "candidate_only_loss_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 33
+              }
+            ],
+            "candidate_only_losses": 1,
+            "candidate_only_win_rows": [
+              {
+                "family": "comprehension-analysis",
+                "variant": 28
+              },
+              {
+                "family": "comprehension-analysis",
+                "variant": 30
+              }
+            ],
+            "candidate_only_wins": 2,
+            "candidate_successes": 2,
+            "effect": 0.166667,
+            "expected_pairs": 8,
+            "paired_denominator": 6,
+            "ties": 3
+          },
+          "comprehension-structure": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "continuation-motif": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 7,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 7,
+            "effect": 0.0,
+            "expected_pairs": 8,
+            "paired_denominator": 7,
+            "ties": 7
+          },
+          "continuation-roles": {
+            "approximate_95_interval": [
+              -1,
+              -0.26
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [
+              {
+                "family": "continuation-roles",
+                "variant": 27
+              },
+              {
+                "family": "continuation-roles",
+                "variant": 28
+              },
+              {
+                "family": "continuation-roles",
+                "variant": 29
+              }
+            ],
+            "candidate_only_losses": 3,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 0,
+            "effect": -0.75,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 1
+          },
+          "generation-progression": {
+            "approximate_95_interval": [
+              -0.5691,
+              0.3191
+            ],
+            "baseline_successes": 2,
+            "candidate_only_loss_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 29
+              },
+              {
+                "family": "generation-progression",
+                "variant": 30
+              }
+            ],
+            "candidate_only_losses": 2,
+            "candidate_only_win_rows": [
+              {
+                "family": "generation-progression",
+                "variant": 32
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 1,
+            "effect": -0.125,
+            "expected_pairs": 8,
+            "paired_denominator": 8,
+            "ties": 5
+          },
+          "transformation-local": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          },
+          "transformation-revoice": {
+            "approximate_95_interval": [
+              -0.24,
+              0.74
+            ],
+            "baseline_successes": 3,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [
+              {
+                "family": "transformation-revoice",
+                "variant": 27
+              }
+            ],
+            "candidate_only_wins": 1,
+            "candidate_successes": 4,
+            "effect": 0.25,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 3
+          },
+          "transformation-rhythm": {
+            "approximate_95_interval": [
+              0.0,
+              0.0
+            ],
+            "baseline_successes": 4,
+            "candidate_only_loss_rows": [],
+            "candidate_only_losses": 0,
+            "candidate_only_win_rows": [],
+            "candidate_only_wins": 0,
+            "candidate_successes": 4,
+            "effect": 0.0,
+            "expected_pairs": 4,
+            "paired_denominator": 4,
+            "ties": 4
+          }
+        },
+        "family_vs_v1": {},
+        "pass": false
+      },
+      "provider": "claude-haiku",
+      "sentinels": [
+        {
+          "arm": "compact-bar-v1",
+          "family": "comprehension-analysis",
+          "same_initial_state": true,
+          "same_payload": false
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "continuation-motif",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "compact-bar-v1",
+          "family": "generation-progression",
+          "same_initial_state": false,
+          "same_payload": false
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "comprehension-analysis",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "continuation-motif",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "compact-bar-fields",
+          "family": "generation-progression",
+          "same_initial_state": true,
+          "same_payload": false
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "comprehension-analysis",
+          "same_initial_state": true,
+          "same_payload": false
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "continuation-motif",
+          "same_initial_state": true,
+          "same_payload": true
+        },
+        {
+          "arm": "exact-object-json",
+          "family": "generation-progression",
+          "same_initial_state": false,
+          "same_payload": false
+        }
+      ]
+    }
+  ],
+  "run_id": "phase8c4c-compact-bar-paired-development-r1",
+  "run_kind": "paired-development-summary",
+  "schema": "ghostnote-compact-format-paired-development-v10",
+  "selected_candidate": null,
+  "selection_authority": "Development can freeze one compact arm for holdout. It cannot select a public format.",
+  "sha256": "c70b2bb4c35cfd57de54ba5ddf0d23d6f8d881e9cb5076db5d15d5f1025a447f"
+}

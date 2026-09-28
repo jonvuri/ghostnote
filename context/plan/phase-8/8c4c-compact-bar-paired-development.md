@@ -1,25 +1,82 @@
 ---
 title: Phase 8c4c — Compact-bar paired development
 kind: plan
-state: planned
-status: Ready for offline preparation with OpenAI, Gemini, and Haiku.
+state: complete
+status: The operator retains FIELDS and local labels for benchmark hardening.
 updated: 2026-09-28
 parent: README.md
 prev: 8c4b-focused-compact-calibration.md
-next: 8c4d-compact-bar-targeted-holdout.md
-evidence: E137, E140-E146, E155, E165-E167; D21, D23
+next: 8c4c-follow-up-symbolic-benchmark-hardening.md
+evidence: E137, E140-E146, E155, E165-E177; D21, D23-D24
 ---
 
 # Phase 8c4c — Compact-bar paired development
 
+[E177](../../evidence/experiments/e177-gemini-local-label-diagnostic-selects-local-labels.md)
+records the completed 32-call diagnostic. Local labels passed 8/8 analysis
+responses. Current `FIELDS` passed 1/8. All frozen gates passed, so local
+labels passed the diagnostic selection rule. This post-hoc, Gemini-only result
+cannot select a public format or start holdout.
+
+[D24](../../decisions/d24-forward-compact-benchmarks-retain-fields-and-local-labels.md)
+retains both `FIELDS` and local labels for forward work. This avoids selecting
+only on cases chosen against `FIELDS` and preserves a useful token-size
+comparison. Positional v1 and all other earlier compact arms are historical
+only.
+
+[E176](../../evidence/experiments/e176-gemini-local-label-diagnostic-awaits-approval.md)
+freezes the 32-call Gemini diagnostic. It uses two audited analysis cases and
+two audited progression cases, with four repeats for current `FIELDS` and
+local labels. Current `FIELDS` remains the default. Progression musical pass
+cannot promote local labels.
+
+[E175](../../evidence/experiments/e175-fresh-failure-audit-finds-fields-good-enough.md)
+records the direct audit of 75 paired outputs. It finds no remaining simple
+`FIELDS` defect. Current `FIELDS` is a defensible practical choice. The only
+new format hypothesis worth a small test is a compact row with repeated local
+labels.
+
+The
+[symbolic benchmark design backlog](../../evidence/format/SYMBOLIC_BENCHMARK_DESIGN_BACKLOG.md)
+retains all experiment-design findings in current context. After the local-row
+decision, complete the separate benchmark-hardening follow-up before targeted
+holdout.
+
+[E174](../../evidence/experiments/e174-fresh-full-family-comparison-favors-fields-over-v1.md)
+records the completed 243-call comparison. `FIELDS` beat positional v1 on
+every provider and is the only compact candidate worth retaining. It did not
+match exact JSON on OpenAI or Gemini. Progression remained at a reasoning
+floor. Do not start holdout or another provider run yet.
+
+[E173](../../evidence/experiments/e173-fresh-full-family-comparison-awaits-approval.md)
+records the passing offline v12 package and its approval boundary.
+
+[E172](../../evidence/experiments/e172-prompt-screen-validates-fields-repair.md)
+records the completed 72-call screen. `FIELDS` passed strict syntax on all 24
+of its results. It led output serialization, but did not improve input
+comprehension. The diagnostic cannot select a format or start holdout.
+
+[E171](../../evidence/experiments/e171-failure-audit-and-small-screen-awaits-approval.md)
+records the direct failure audit and frozen screen.
+
+[E170](../../evidence/experiments/e170-paired-development-returns-revise.md)
+records the frozen procedural `revise` result. Do not select a compact arm or
+start Phase 8c4d from that result.
+
+[E168](../../evidence/experiments/e168-paired-development-awaits-approval.md)
+records the passing offline package and the original provider approval
+boundary. The operator later approved the exact development r1 plan.
+
+[E169](../../evidence/experiments/e169-paired-development-cost-budget-correction.md)
+replaces the excessive maximum-token multiplication with a USD 5.000000 hard
+cumulative budget and a 48-repair cap per provider.
+
 [E165](../../evidence/experiments/e165-haiku-r5-passes-and-opens-paired-development.md)
-satisfies the Phase 8c4b entry condition. Start only offline package and gate
-preparation. Provider work needs a new run plan and explicit approval.
+satisfied the Phase 8c4b entry condition.
 
 [E167](../../evidence/experiments/e167-openai-r6-adds-the-third-analysis-provider.md)
 records the complete OpenAI supplement. OpenAI, Gemini, and Haiku are eligible
-on the repaired analysis measurement. Resume offline preparation for these
-three provider tiers.
+on the repaired analysis measurement.
 
 ## Purpose
 

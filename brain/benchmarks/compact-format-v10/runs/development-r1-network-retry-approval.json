@@ -1,0 +1,37 @@
+{
+  "incremental_cost_limit_usd": 0.288,
+  "maximum_message_requests": 4,
+  "maximum_token_count_requests": 4,
+  "operator_statement": "The operator approved retrying the four Phase 8c4c Haiku initial rows that failed because the internet connection was lost. Do not retry output-limit or HTTP 403 results.",
+  "protocol_sha256": "0cefdc1606921daa8f4d393675c83e09cc46705ceee2b203f91073b7e323c73e",
+  "provider": "claude-haiku",
+  "run_id": "phase8c4c-compact-bar-paired-development-r1",
+  "source_manifest_sha256": "9f6c34ea6f46b7fce9e6f004271820b98891b6a4cd558f679b1ad3a40d44bca9",
+  "status": "approved",
+  "targets": [
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "sentinel": false,
+      "variant": 27
+    },
+    {
+      "arm": "compact-bar-v1",
+      "family": "generation-progression",
+      "sentinel": true,
+      "variant": 27
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "sentinel": false,
+      "variant": 28
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-motif",
+      "sentinel": false,
+      "variant": 27
+    }
+  ]
+}

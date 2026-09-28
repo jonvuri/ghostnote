@@ -1,22 +1,22 @@
 ---
-title: Phase 8c4e — Compact-only full benchmark
+title: Phase 8c4e — Compact-candidate full benchmark
 kind: plan
 state: planned
-status: Run the frozen compact-bar candidate across the full task suite before deciding whether a new full matrix is worth its cost.
-updated: 2026-09-27
+status: Run FIELDS and local labels across the full task suite before deciding whether a new full matrix is worth its cost.
+updated: 2026-09-28
 parent: README.md
 prev: 8c4d-compact-bar-targeted-holdout.md
 next: 8c4f-full-matrix-decision.md
-evidence: E137, E140, E155; D21, D23
+evidence: E137, E140, E155, E174-E177; D21, D23-D24
 ---
 
-# Phase 8c4e — Compact-only full benchmark
+# Phase 8c4e — Compact-candidate full benchmark
 
 ## Purpose
 
-Measure the frozen compact-bar candidate across the complete benchmark at the
-lowest useful provider cost. Use this result to decide whether a fresh full
-matrix is worth running.
+Measure both frozen compact candidates across the complete benchmark at the
+lowest useful provider cost. Compare their quality and token size. Use this
+result to decide whether a fresh full matrix is worth running.
 
 This session does not claim a paired format advantage. The Phase 8c3 matrix
 can provide historical context only because its fixtures and task contracts
@@ -24,8 +24,8 @@ are different.
 
 ## Entry conditions
 
-- Phase 8c4d returns `select-compact`.
-- The candidate, prompts, scorers, parser, and repair policy remain frozen.
+- Phase 8c4d returns `retain-both`.
+- Both candidates, prompts, scorers, parsers, and repair policy remain frozen.
 - A new full-suite cohort has no semantic overlap with any earlier
   provider-bearing cohort.
 - Absolute gates and the matrix-value rule are frozen before calls.
@@ -33,12 +33,13 @@ are different.
 
 ## Run scope
 
-Run only the selected compact candidate on OpenAI, Gemini, and Claude. Cover
-all nine Phase 8c3 task families and the required repeated-prompt sentinels.
-Use the repaired task contracts.
+Run only `FIELDS` and local labels on OpenAI, Gemini, and Claude. Cover all
+nine Phase 8c3 task families and the required repeated-prompt sentinels. Use
+the repaired task contracts. Do not restore another format arm.
 
 Report initial musical success, component results, syntax, completion,
-repair recovery, output size, token use, latency, nondeterminism, and cost.
+repair recovery, prompt and output size, input and output tokens, latency,
+nondeterminism, and cost for each candidate.
 Treat output-limit and unavailable results as unavailable, not musical
 failures.
 
@@ -50,11 +51,11 @@ threshold after seeing this run.
 
 Return one evidence result:
 
-- `matrix-plausible`: compact passes every absolute gate and has no unresolved
-  recurring provider-family defect;
-- `revise`: compact misses a bounded gate that justifies a new plan and new
-  cohorts; or
-- `stop`: compact does not justify a fresh full matrix or Phase 8f.
+- `matrix-plausible`: both candidates pass every absolute gate and have no
+  unresolved recurring provider-family defect;
+- `revise`: one or both candidates miss a bounded gate that justifies a new
+  plan and new cohorts; or
+- `stop`: the candidates do not justify a fresh full matrix or Phase 8f.
 
 For `matrix-plausible`, prepare the exact fresh-matrix scope, calls, model
 settings, expected cost by provider, hashes, paired gates, and stopping rule.
@@ -70,7 +71,7 @@ format delta.
 ## Acceptance criteria
 
 - The full cohort is fresh and frozen before calls.
-- The candidate matches the targeted-holdout hash.
+- Both candidates match their targeted-holdout hashes.
 - Every full-suite family runs on all approved providers.
 - Absolute thresholds and the matrix-value rule were fixed before calls.
 - Initial and repaired results stay separate.
@@ -79,5 +80,5 @@ format delta.
 
 ## Retrospective target
 
-Record whether the targeted suite predicted the full compact-only result and
+Record whether the targeted suite predicted the full two-candidate result and
 whether any remaining uncertainty can change the product decision.

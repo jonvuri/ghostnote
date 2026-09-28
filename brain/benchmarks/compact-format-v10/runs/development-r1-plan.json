@@ -1,0 +1,114 @@
+{
+  "approval": "pending",
+  "calls": {
+    "initial": 141,
+    "maximum_all_providers": 567,
+    "maximum_per_provider": 189,
+    "maximum_repair": 48,
+    "named_sentinel_initial": 9,
+    "unique_initial": 132
+  },
+  "cohort_manifest_sha256": "ff9a98d46a9d07873eb83a74d5f0f4ac2d4c628753a60ca749f080547d103808",
+  "cost_guard": {
+    "aggregate_rule": "Sum exact cost line items. Round only the final provider and all-provider totals.",
+    "budget_rule": "Before each request, reserve its full token-bound cost against the cumulative provider budget. Refuse the request when the reservation does not fit. Settle successful requests to exact measured cost.",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.072,
+      "gemini": 0.054,
+      "openai": 0.063
+    },
+    "maximum_haiku_token_count_requests": 189,
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 2.75,
+      "gemini": 0.75,
+      "openai": 1.5
+    },
+    "maximum_total_cost_usd": 5,
+    "output_token_ceiling_per_call": 12000,
+    "price_sources": {
+      "claude-haiku": "https://platform.claude.com/docs/en/models/overview",
+      "gemini": "https://ai.google.dev/gemini-api/docs/pricing",
+      "openai": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+    },
+    "price_verification_date": "2026-09-28",
+    "prices_usd_per_million": {
+      "claude-haiku": {
+        "cached_input": "0.10",
+        "input": "1.00",
+        "output": "5.00"
+      },
+      "gemini": {
+        "cached_input": "0.075",
+        "input": "0.75",
+        "output": "3.75"
+      },
+      "openai": {
+        "cached_input": "0.075",
+        "input": "0.75",
+        "output": "4.50"
+      }
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "dependency_manifest_sha256": "fbb31617cbe69e79b56e58207984d447f110f75901bf0981b6d3d56397a40ac8",
+  "development_corpus_sha256": "af2aa7c933ce618b96b882f0f6a2764ab81306247da90b2d2586a6ff7f97e39b",
+  "gates": {
+    "absolute_decision_minimum": 0.5,
+    "deterministic_capabilities": "All document and patch capability checks must pass.",
+    "fields_analysis_benefit_minimum": 0.125,
+    "fields_benefit_minimum_providers": 2,
+    "fields_decision_benefit_minimum": 0.05,
+    "guard_margin": 0.25,
+    "initial_completion_minimum": 0.875,
+    "initial_syntax_minimum": 0.875,
+    "maximum_candidate_only_losses_per_provider_family": 1,
+    "paired_musical_margin": 0.05,
+    "size": {
+      "compact_to_exact_document_bytes_maximum": 0.75,
+      "fields_to_positional_document_bytes_maximum": 1.3,
+      "fields_to_positional_prompt_tokens_maximum": 1.15
+    }
+  },
+  "maximum_calls_all_providers": 567,
+  "maximum_calls_per_provider": 189,
+  "maximum_cost_usd": 5,
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "0cefdc1606921daa8f4d393675c83e09cc46705ceee2b203f91073b7e323c73e",
+  "repair_policy": {
+    "eligible": "At most the first 48 available initial parse or musical-contract failures in the preregistered shuffled job order, including named sentinels.",
+    "feedback": "Return only the structured parse or failed-check diagnostic.",
+    "maximum_turns": 1,
+    "overflow": "Report eligible failures beyond the 48-call repair cap. Do not repair them.",
+    "primary_result": "Initial musical success only. A repair never replaces an initial result.",
+    "unavailable_or_failed": "Do not repair and do not add to a scored denominator."
+  },
+  "reserved_holdout_corpus_sha256": "8a9e5617b79aad8b06e2c9f6f735d87818e14582d9cf3fcbc0261bb642d7bd87",
+  "run_id": "phase8c4c-compact-bar-paired-development-r1",
+  "run_kind": "paired-development-plan",
+  "schema": "ghostnote-compact-format-paired-development-v10",
+  "settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "e471c8f9ddb742efe6c6368e487a82416c5b74fda4c1dcd6c5244b10cf287a7d",
+  "stopping_rule": "Return freeze-fields-holdout only when FIELDS passes every provider gate and one benefit repeats on at least two providers. Otherwise return freeze-v1-holdout when positional v1 passes. Return revise when an exact-object control is invalid. Return stop when valid controls reject both compact arms."
+}

@@ -1,0 +1,7 @@
+{
+  "operator_statement": "The operator approved run phase8c4c-local-label-gemini-r1 with protocol 9760442c9080f6fb55258cbb3a8aec1fb2b9df3ace83082404e95c168a3162f5, run plan cb55063d11d532223e4be1dc5d4a445f9985324b8d0a81b92cf733c869dcf17b, at most 32 Gemini message requests, no repairs or automatic retries, and a USD 0.150000 hard cost limit on 2026-09-28.",
+  "protocol_sha256": "9760442c9080f6fb55258cbb3a8aec1fb2b9df3ace83082404e95c168a3162f5",
+  "run_id": "phase8c4c-local-label-gemini-r1",
+  "run_plan_sha256": "cb55063d11d532223e4be1dc5d4a445f9985324b8d0a81b92cf733c869dcf17b",
+  "status": "approved"
+}

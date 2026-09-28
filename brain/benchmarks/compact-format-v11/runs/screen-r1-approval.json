@@ -1,0 +1,7 @@
+{
+  "operator_statement": "The operator approved run phase8c4c-compact-bar-prompt-screen-r1 with protocol 595e0bb6f150ba1c71df085b045df7ec92939853214824d2ce9e2bd9920981ae, run plan 93040710a2c7134bbeadeb29312056b28919da446c13b1c754867fee0be47403, at most 72 message requests, at most 24 Haiku token-count requests, no repairs or automatic retries, and a USD 1.250000 hard cost limit on 2026-09-28.",
+  "protocol_sha256": "595e0bb6f150ba1c71df085b045df7ec92939853214824d2ce9e2bd9920981ae",
+  "run_id": "phase8c4c-compact-bar-prompt-screen-r1",
+  "run_plan_sha256": "93040710a2c7134bbeadeb29312056b28919da446c13b1c754867fee0be47403",
+  "status": "approved"
+}
