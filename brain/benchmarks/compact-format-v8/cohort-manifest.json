@@ -1,0 +1,76 @@
+{
+  "batch_counts": [
+    1,
+    2,
+    2,
+    3,
+    3
+  ],
+  "case_semantic_sha256": [
+    "4ebb55d88d5c83afd4c2855dd363c94b374aaa4adb81d35c4b4165f83055d057",
+    "cf1099d73a0bb3725fc5dcae286cf5d8321fb2d527b7b27fdc78344c7134ed02",
+    "a4a46403f256ca0b4794f585eb6921108f8a1374f4887084c763221cc55f36a3",
+    "936791cd1a85610bdff8612cbc68fb4ec8432e3c92cdef2e7648e39a20623491",
+    "979d6353daa6c5ceb5c2185a29dece48bcff9aaaac0a9dcdd12a8d152e8e4c0f",
+    "f78c139c26abd57038c1203a87805b19c94baba48ebba5351c619278fa3017c7",
+    "800746f2f206f88237b611495220e568017c99255fadb45b3ca3cae3cf6de15a",
+    "970d3770761f65552c3aafc09286104977e0651b8ca53dbae4af3bec5c4905fc",
+    "5d66ce7f1b6e3ca688cb229f9fc5e54f1d13ab14a08418a74d9d4eaa391c7478",
+    "c16ce29ecea5b1e2c802cdee5345bd297c73382fe7f047670f31062d4c82e23b",
+    "c0d696a3f7d782cc74846bd0dc15b5e932ac72a023e3b3b2d97f30969f79de80"
+  ],
+  "cohort": "calibration-haiku-r5",
+  "corpus_sha256": "1b056340b189b8a5fbef255bed783c1fe4dd706a266593abb12d9fbfdf7b599b",
+  "fixture_sha256": [
+    "5501b96a5dba380d3af04aae67b64fbb37ec6aab150394f83f35ea09efb56b80",
+    "090206773c90ce8d3d5fc1c75ae178c0465b075be90895ceb59da5bbba365ee4",
+    "c8ca8a4c898656aaae14cefa471a4b3513107f62caeecedb1fb4b5a7e12aafe4",
+    "926045fff257ffd49de84c64f61be10a537aebc62d4e59081a5e91db588347d4",
+    "578fc3d376169541d04dce76c98de695d10dc2efc4b35834feada53ed8ea0caf"
+  ],
+  "kind": "fresh-cohort-manifest",
+  "prior_case_semantic_overlap": [],
+  "prior_task_semantic_overlap": [],
+  "prompt_sha256": [
+    {
+      "sentinel": false,
+      "sha256": "0eb7ee74559860c12c1740ee5076fbed6f08b24b05d1220fbc1f4f7b682bf36b",
+      "variant": 1
+    },
+    {
+      "sentinel": false,
+      "sha256": "f65582984650538332666e1467974737cd1a81184b7749c914f0ca8ba0862589",
+      "variant": 2
+    },
+    {
+      "sentinel": false,
+      "sha256": "638a8d46c05a99a07d6384a2d14521d8cc9b236ca12b837830b7e95a829513eb",
+      "variant": 3
+    },
+    {
+      "sentinel": false,
+      "sha256": "30146227f96e86891f1e802955f7038c5ba2ef021d41a3be3b23803ac0cc7fbe",
+      "variant": 4
+    },
+    {
+      "sentinel": false,
+      "sha256": "282b0d116b59aa92cff2383558df11894d5f5ec1740be747e5e8a238dc40e139",
+      "variant": 5
+    },
+    {
+      "sentinel": true,
+      "sha256": "0eb7ee74559860c12c1740ee5076fbed6f08b24b05d1220fbc1f4f7b682bf36b",
+      "variant": 1
+    }
+  ],
+  "schema": "ghostnote-compact-format-haiku-output-repair-v8",
+  "seed": 12000,
+  "semantic_sha256": [
+    "071c97ad24aa1829468da4d80ee04f2e244adc14ab2f9d25baa101645c442637",
+    "b33cd9e4031c1973e03bdd7fdf57f42c198e027d12d0ae1144d67df2d26084cb",
+    "c27a9cdf5b8561347163487032d777777e3354a5128ed941085db57dff615109",
+    "b806ec1ea2514a5b03726d2feca58d6fd8459562bdf2b88c347e9d2a90fb9563",
+    "2ab6b695d1fdb93fe5fd4cf08395c09360d9d2dc384ded9581e83c57230903f2"
+  ],
+  "sha256": "3ffcd022545ace31e6c47a766788ceb6e23b442354925eca111cd7d4461ccbd0"
+}

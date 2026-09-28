@@ -1,0 +1,54 @@
+{
+  "cohort": "calibration-haiku-r5",
+  "comparison_limit": "OpenAI and Haiku use identical fixtures. Gemini uses the matched-difficulty r3 cohort.",
+  "decision": "add-openai-third-provider",
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "format_selection": null,
+  "phase8c4b_decision": "proceed-development",
+  "provider_gates": {
+    "claude-haiku": {
+      "ceiling": false,
+      "complete": true,
+      "denominator": 5,
+      "eligible": true,
+      "floor": false,
+      "passed": 1,
+      "rate": 0.2
+    },
+    "gemini": {
+      "ceiling": false,
+      "complete": true,
+      "denominator": 5,
+      "eligible": true,
+      "floor": false,
+      "passed": 3,
+      "rate": 0.6
+    },
+    "openai": {
+      "ceiling": false,
+      "complete": true,
+      "denominator": 5,
+      "eligible": true,
+      "floor": false,
+      "passed": 1,
+      "rate": 0.2
+    }
+  },
+  "retained": {
+    "gemini_manifest_sha256": "4931455793fa10ff25c7e541354328bbff342003d6fe51d99752e175bc663ef7",
+    "gemini_raw_run_sha256": "b4cf34804b322f7c6c1bbb508e357b291a100850e88797f6eda0761df6a96d4a",
+    "r5_cohort_manifest_sha256": "3ffcd022545ace31e6c47a766788ceb6e23b442354925eca111cd7d4461ccbd0",
+    "r5_corpus_sha256": "1b056340b189b8a5fbef255bed783c1fe4dd706a266593abb12d9fbfdf7b599b",
+    "r5_manifest_sha256": "7b2933d28a54d27635adc85b05839bb987460a46ae92e2dedd8805d26d63f1b1",
+    "r5_raw_run_sha256": "d908d4ca992512ddff139dea179b8739b3572d1f14c6a7dc1fc19f08cda67af1",
+    "r5_summary_sha256": "6849b0cb364fd596a3940ea107dbf54f282b2a1e22a4f138e5ec647b4ab55455"
+  },
+  "run_id": "phase8c4b-analysis-openai-supplement-r6",
+  "run_kind": "openai-analysis-supplement-summary",
+  "schema": "ghostnote-compact-format-openai-supplement-v9",
+  "sha256": "86a23a942b0c943c2308e9c0035be88f85113c7c235c0370a074e0deab6fb0f2"
+}

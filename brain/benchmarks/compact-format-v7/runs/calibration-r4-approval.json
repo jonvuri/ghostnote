@@ -1,0 +1,7 @@
+{
+  "run_id": "phase8c4b-analysis-haiku-calibration-r4",
+  "protocol_sha256": "5d481e5be3975f023c6284bfc76ac31ca88f266c4845e2294d9b42787348a211",
+  "run_plan_sha256": "ab4410d6330f15cf6237467b3f70325bebbc559e1481ff3df54a00bf20ecbcc5",
+  "status": "approved",
+  "operator_statement": "I approve phase8c4b-analysis-haiku-calibration-r4 with protocol SHA-256 5d481e5be3975f023c6284bfc76ac31ca88f266c4845e2294d9b42787348a211 and run-plan SHA-256 ab4410d6330f15cf6237467b3f70325bebbc559e1481ff3df54a00bf20ecbcc5, up to 12 calls and USD 0.188385."
+}

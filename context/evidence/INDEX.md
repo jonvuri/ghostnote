@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-27
+updated: 2026-09-28
 ---
 
 # Evidence index
@@ -12,6 +12,21 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E167 | OpenAI r6 adds the third analysis provider [K] (2026-09-28) | [open](experiments/e167-openai-r6-adds-the-third-analysis-provider.md) |
+| E166 | OpenAI analysis supplement awaits approval [K] (2026-09-28) | [open](experiments/e166-openai-analysis-supplement-awaits-approval.md) |
+| E165 | Haiku r5 passes and opens paired development [K] (2026-09-28) | [open](experiments/e165-haiku-r5-passes-and-opens-paired-development.md) |
+| E164 | Haiku output-limit repair awaits approval [K] (2026-09-28) | [open](experiments/e164-haiku-output-limit-repair-awaits-approval.md) |
+| E163 | Haiku r4 is incomplete under extended thinking [K] (2026-09-28) | [open](experiments/e163-haiku-r4-is-incomplete-under-extended-thinking.md) |
+| E162 | Haiku substitution awaits approval [K] (2026-09-28) | [open](experiments/e162-haiku-substitution-awaits-approval.md) |
+| E161 | Analysis repair r3 leaves Claude at a ceiling [K] (2026-09-28) | [open](experiments/e161-analysis-repair-r3-leaves-claude-at-ceiling.md) |
+| E160 | Analysis repair r3 awaits approval [K] (2026-09-28) | [open](experiments/e160-analysis-repair-r3-awaits-approval.md) |
+| E159 | Compact calibration r2 requires analysis repair [K] (2026-09-28) | [open](experiments/e159-compact-calibration-r2-requires-analysis-repair.md) |
+| E158 | Compact calibration r2 awaits approval [K] (2026-09-28) | [open](experiments/e158-compact-calibration-r2-awaits-approval.md) |
+| E157 | Focused compact calibration requires measurement repair [K] (2026-09-28) | [open](experiments/e157-focused-compact-calibration-requires-measurement-repair.md) |
+| E156 | Compact-bar contract repair freezes calibration [K] (2026-09-28) | [open](experiments/e156-compact-bar-contract-repair-freezes-calibration.md) |
+| E155 | Full symbolic matrix blocks Phase 8f [K] (2026-09-27) | [open](experiments/e155-full-symbolic-matrix-blocks-phase-8f.md) |
+| E154 | Provider run stops at usage-accounting regression [K] (2026-09-27) | [open](experiments/e154-provider-run-stops-at-usage-accounting-regression.md) |
+| E153 | Full symbolic matrix freezes at the approval boundary [K] (2026-09-27) | [open](experiments/e153-full-symbolic-matrix-freezes-at-approval-boundary.md) |
 | E152 | Tuple JSON with MIDI integers passes targeted holdout [K] (2026-09-27) | [open](experiments/e152-tuple-json-midi-passes-targeted-holdout.md) |
 | E151 | Compact JSON development freezes a targeted holdout [K] (2026-09-27) | [open](experiments/e151-compact-json-development-freezes-targeted-holdout.md) |
 | E150 | Compact JSON r3 passes and development freezes [K] (2026-09-27) | [open](experiments/e150-compact-json-r3-passes-and-development-freezes.md) |

@@ -1,0 +1,42 @@
+{
+  "corpus_sha256": "1b056340b189b8a5fbef255bed783c1fe4dd706a266593abb12d9fbfdf7b599b",
+  "exact_r5_fixture_reuse": true,
+  "files": {
+    "compact-format-v6/core.py": "9150edfc2a2d0e873386508d406d9d92c29ca1fcf1ecd352f53fba3702d6280d",
+    "compact-format-v6/runs/2026-09-28-analysis-gemini-easy.json": "3f406cd196dd9b8693ee15cd75dccd002a1e83db779021abd98cdf5912eee08b",
+    "compact-format-v8/benchmark.py": "de8ab36c905fd699f70234f0ae3c399106ff4046ea8d46f1c150e6b31d43ad35",
+    "compact-format-v8/cohort-manifest.json": "9929b4337aa6fa5c52ab7de58129b474b5afc71f6c2a159775d005554f93afc1",
+    "compact-format-v8/expected-deterministic.json": "3085144b466cff0fd214baf825574630e14f385671e9f57eae4210094e384c7e",
+    "compact-format-v8/runs/2026-09-28-analysis-haiku.json": "a8e375638c1ed1e86df74685a94a66dc89f457f0440c4957944a33dfee35d1b3",
+    "compact-format-v8/runs/2026-09-28-analysis-summary.json": "ded617e6070675b0e789c08bbdea3701c1a03df7073dce1a607913892ff82050"
+  },
+  "files_match": true,
+  "fixture_formulas_pass": true,
+  "gemini_gate": {
+    "ceiling": false,
+    "complete": true,
+    "denominator": 5,
+    "eligible": true,
+    "floor": false,
+    "passed": 3,
+    "rate": 0.6
+  },
+  "gemini_manifest_sha256": "4931455793fa10ff25c7e541354328bbff342003d6fe51d99752e175bc663ef7",
+  "haiku_gate": {
+    "ceiling": false,
+    "complete": true,
+    "denominator": 5,
+    "eligible": true,
+    "floor": false,
+    "passed": 1,
+    "rate": 0.2
+  },
+  "haiku_manifest_sha256": "7b2933d28a54d27635adc85b05839bb987460a46ae92e2dedd8805d26d63f1b1",
+  "kind": "frozen-dependency-manifest",
+  "r5_decision": "analysis-repair-pass",
+  "r5_summary_sha256": "6849b0cb364fd596a3940ea107dbf54f282b2a1e22a4f138e5ec647b4ab55455",
+  "reuse_rule": "Run only OpenAI on the exact r5 corpus. Retain Gemini and Haiku without new calls.",
+  "schema": "ghostnote-compact-format-openai-supplement-v9",
+  "sha256": "08410d7726be024cf139d035e83a43dff607cd93cf8f47a403aa33d1f1e4726f",
+  "source_cohort_manifest_sha256": "3ffcd022545ace31e6c47a766788ceb6e23b442354925eca111cd7d4461ccbd0"
+}

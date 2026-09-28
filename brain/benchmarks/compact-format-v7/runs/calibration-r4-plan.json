@@ -1,0 +1,51 @@
+{
+  "approval": "pending",
+  "calls": {
+    "initial": 6,
+    "maximum_repair": 6,
+    "maximum_total": 12,
+    "named_sentinel_initial": 1,
+    "new_gemini": 0,
+    "new_openai": 0,
+    "new_sonnet": 0,
+    "unique_initial": 5
+  },
+  "cost_basis": {
+    "contingency": 0.25,
+    "maximum_observed_repriced_call_usd": 0.012559,
+    "price_source": "https://platform.claude.com/docs/en/about-claude/models/overview",
+    "price_verification_date": "2026-09-28",
+    "source": "Reprice the maximum observed Phase 8c4b r3 Sonnet easy-tier call at Haiku 4.5 rates."
+  },
+  "dependency_manifest_sha256": "82622f1e09c21e67115ac23f4a0f79f739ee3cc045b0d36f01427ff8575ee209",
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "estimated_maximum_cost_usd": 0.188385,
+  "maximum_calls": 12,
+  "model": "claude-haiku-4-5-20251001",
+  "protocol_sha256": "5d481e5be3975f023c6284bfc76ac31ca88f266c4845e2294d9b42787348a211",
+  "provider": "claude-haiku",
+  "repair_policy": {
+    "eligible": "Every available initial parse or musical-contract failure, including the named sentinel.",
+    "feedback": "Return only the structured parse or failed-check diagnostic.",
+    "maximum_turns": 1,
+    "primary_result": "Initial musical success only. A repair never replaces an initial result.",
+    "unavailable_or_failed": "Do not repair and do not add to a scored denominator."
+  },
+  "run_id": "phase8c4b-analysis-haiku-calibration-r4",
+  "run_kind": "provider-substitution-plan",
+  "schema": "ghostnote-compact-format-haiku-substitution-v7",
+  "settings": {
+    "max_tokens": 5000,
+    "temperature": "provider default",
+    "thinking": {
+      "budget_tokens": 1024,
+      "type": "enabled"
+    }
+  },
+  "sha256": "ab4410d6330f15cf6237467b3f70325bebbc559e1481ff3df54a00bf20ecbcc5",
+  "stopping_rule": "Return analysis-repair-pass only when all five unique Haiku initial results are scored and the pass rate is 0.20 through 0.80. Otherwise return repair-measurement. Retain the frozen eligible Gemini r3 result."
+}

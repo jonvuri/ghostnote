@@ -2,15 +2,24 @@
 title: Phase 8c4c — Compact-bar paired development
 kind: plan
 state: planned
-status: Compare positional compact-bar with one minimal self-describing variant on fresh paired fixtures.
-updated: 2026-09-27
+status: Ready for offline preparation with OpenAI, Gemini, and Haiku.
+updated: 2026-09-28
 parent: README.md
 prev: 8c4b-focused-compact-calibration.md
 next: 8c4d-compact-bar-targeted-holdout.md
-evidence: E137, E140-E146, E155; D21, D23
+evidence: E137, E140-E146, E155, E165-E167; D21, D23
 ---
 
 # Phase 8c4c — Compact-bar paired development
+
+[E165](../../evidence/experiments/e165-haiku-r5-passes-and-opens-paired-development.md)
+satisfies the Phase 8c4b entry condition. Start only offline package and gate
+preparation. Provider work needs a new run plan and explicit approval.
+
+[E167](../../evidence/experiments/e167-openai-r6-adds-the-third-analysis-provider.md)
+records the complete OpenAI supplement. OpenAI, Gemini, and Haiku are eligible
+on the repaired analysis measurement. Resume offline preparation for these
+three provider tiers.
 
 ## Purpose
 
@@ -29,7 +38,7 @@ format or unblock Phase 8f.
 
 ## Development scope
 
-Run all three arms on OpenAI, Gemini, and Claude. Use analysis, motif, and
+Run all three arms on OpenAI, Gemini, and Haiku. Use analysis, motif, and
 progression as decision families. Use the frozen guard families to detect a
 regression outside the known failures.
 
@@ -87,3 +96,6 @@ Do not change the selected arm after the result.
 
 Record whether the fixed header changed comprehension or only added tokens.
 Record whether any benefit repeated across providers.
+
+Sum exact provider cost line items before one final aggregate rounding step.
+Assert that the reported aggregate and cost-guard total match.

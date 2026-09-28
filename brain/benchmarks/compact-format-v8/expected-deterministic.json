@@ -1,0 +1,10 @@
+{
+  "schema": "ghostnote-compact-format-haiku-output-repair-v8",
+  "sha256": "f47ef66deec84446396fc71cd21b22a7955abf12bb95de7a0bbe4c24097c1f02",
+  "screen_sha256": "156614c4cafa61a769bbf6ce388ce36e763d31e7ceb79282dacadbcdc5f6cb38",
+  "protocol_sha256": "eb547c673e5603f623c6962015dff3e78bebaabb0a505ca076ce55dd2fa395c9",
+  "cohort_sha256": "1b056340b189b8a5fbef255bed783c1fe4dd706a266593abb12d9fbfdf7b599b",
+  "cohort_manifest_sha256": "3ffcd022545ace31e6c47a766788ceb6e23b442354925eca111cd7d4461ccbd0",
+  "dependency_manifest_sha256": "2f43ca6ef2f22312e47f77202bf11f036ceb8b346cd48f6de313d285fe602990",
+  "run_plan_sha256": "01d95131dd2e22a45d815d42b6e64191eb085f99a90f82ebcb79822e0b5286ad"
+}

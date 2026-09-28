@@ -1,16 +1,53 @@
 ---
 title: Phase 8c4b — Focused compact-bar calibration
 kind: plan
-state: active
-status: Await operator approval for the frozen Phase 8c4b calibration plan.
-updated: 2026-09-27
+state: complete
+status: Complete. R6 adds OpenAI as the third eligible analysis provider.
+updated: 2026-09-28
 parent: README.md
 prev: 8c4a-benchmark-contract-repair.md
 next: 8c4c-compact-bar-paired-development.md
-evidence: E140-E146, E155-E156; D21, D23
+evidence: E140-E146, E155-E167; D21, D23
 ---
 
 # Phase 8c4b — Focused compact-bar calibration
+
+[E157](../../evidence/experiments/e157-focused-compact-calibration-requires-measurement-repair.md)
+records `repair-measurement` for calibration r1. Motif is at an exact-object
+ceiling. Progression is at a floor and has an unstated output-context
+requirement. [E158](../../evidence/experiments/e158-compact-calibration-r2-awaits-approval.md)
+records the offline repair and frozen calibration r2 package.
+[E159](../../evidence/experiments/e159-compact-calibration-r2-requires-analysis-repair.md)
+records `repair-measurement` for r2. Motif and progression are informative.
+Analysis is at a ceiling on two providers.
+[E160](../../evidence/experiments/e160-analysis-repair-r3-awaits-approval.md)
+records the frozen three-tier analysis repair. Run Gemini first. Run Claude
+only when Gemini enters the eligibility band.
+[E161](../../evidence/experiments/e161-analysis-repair-r3-leaves-claude-at-ceiling.md)
+records `repair-measurement` for r3. Gemini is informative on the easy tier,
+but Claude remains at a ceiling. Stop provider work. Do not run a later tier.
+[E162](../../evidence/experiments/e162-haiku-substitution-awaits-approval.md)
+records the frozen Haiku substitution. It retains Gemini and authorizes only
+Haiku on the unchanged easy cohort.
+[E163](../../evidence/experiments/e163-haiku-r4-is-incomplete-under-extended-thinking.md)
+records `repair-measurement` for r4. Haiku scored two of five unique tasks.
+Three tasks reached the output limit without an answer. Stop provider work.
+[E164](../../evidence/experiments/e164-haiku-output-limit-repair-awaits-approval.md)
+records the frozen r5 output-limit repair. It uses a fresh Haiku cohort, a
+12,000-token output limit, and a token-bound live cost guard. No r5 request is
+approved.
+[E165](../../evidence/experiments/e165-haiku-r5-passes-and-opens-paired-development.md)
+records `analysis-repair-pass` for r5. Haiku is complete and informative at
+1/5. Combined with retained r2, every decision family meets the provider rule.
+Return `proceed-development`.
+[E166](../../evidence/experiments/e166-openai-analysis-supplement-awaits-approval.md)
+records the pre-run freeze for an optional OpenAI-only supplement. It reuses
+the exact r5 measurement for a provider that had not seen the cohort. It
+cannot change the completed r5 decision.
+[E167](../../evidence/experiments/e167-openai-r6-adds-the-third-analysis-provider.md)
+records the complete and eligible OpenAI result at 1/5. Gemini, Haiku, and
+OpenAI are eligible on the repaired analysis measurement. Phase 8c4b remains
+complete with `proceed-development`.
 
 ## Purpose
 
@@ -71,7 +108,9 @@ select between the compact arms.
 ## Acceptance criteria
 
 - No calibration fixture appeared in an earlier provider-bearing run.
-- Every provider runs the same eligible semantic fixtures.
+- Every provider runs the same eligible semantic fixtures. A pre-registered
+  provider-specific settings repair can retain a complete provider gate and
+  use a fresh cohort from the unchanged generator and difficulty schedule.
 - Unavailable results stay outside scored denominators.
 - The report cannot select a format from calibration data.
 - The result follows the frozen stopping rule.
@@ -82,3 +121,7 @@ select between the compact arms.
 
 Record whether each repaired contract moved the affected task away from a
 floor, ceiling, or ambiguity without making it trivial.
+
+R4 adds a cost-control requirement. A provider plan must price its maximum
+token path and enforce the approved accumulated cost before each conditional
+call.

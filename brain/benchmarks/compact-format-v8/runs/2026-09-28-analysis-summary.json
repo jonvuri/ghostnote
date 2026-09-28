@@ -1,0 +1,46 @@
+{
+  "cohort": "calibration-haiku-r5",
+  "comparison_limit": "Gemini and Haiku use matched difficulty schedules, not identical fixtures.",
+  "decision": "analysis-repair-pass",
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "format_selection": null,
+  "provider_gates": {
+    "claude-haiku": {
+      "ceiling": false,
+      "complete": true,
+      "denominator": 5,
+      "eligible": true,
+      "floor": false,
+      "passed": 1,
+      "rate": 0.2
+    },
+    "gemini": {
+      "ceiling": false,
+      "complete": true,
+      "denominator": 5,
+      "eligible": true,
+      "floor": false,
+      "passed": 3,
+      "rate": 0.6
+    }
+  },
+  "r2_dependency": "Use the retained r2 motif and progression eligibility only when analysis-repair-pass.",
+  "retained": {
+    "gemini_manifest_sha256": "4931455793fa10ff25c7e541354328bbff342003d6fe51d99752e175bc663ef7",
+    "gemini_raw_run_sha256": "b4cf34804b322f7c6c1bbb508e357b291a100850e88797f6eda0761df6a96d4a",
+    "r2_summary_sha256": "e2b293e9e05c62d58e9c22748d5cdad0d38bfcd5ec456347c7a0f01a3a030017",
+    "r3_summary_sha256": "73f343eb9bb675d688f2fffe118cf795f598b33130df0aab697d75c7372a9c72",
+    "r4_manifest_sha256": "27d3741d079cdaaca792f69d06fa5cd3765c6313445cff74c451192cf01ffb2d",
+    "r4_raw_run_sha256": "c6566aa177c4df12adc78e88a7bc8ba488a22a30d3168702a79b95cbb45aa316",
+    "r4_summary_sha256": "179ce1c88360939c4f015edca634e4a945189701595d5864bf12d17126b45315",
+    "v6_protocol_sha256": "469fa3bf8c0d9c2b66c2fb8132b3bc942b90a4e39b84c2bd784a9395495e0f2c"
+  },
+  "run_id": "phase8c4b-analysis-haiku-calibration-r5",
+  "run_kind": "haiku-output-limit-repair-summary",
+  "schema": "ghostnote-compact-format-haiku-output-repair-v8",
+  "sha256": "6849b0cb364fd596a3940ea107dbf54f282b2a1e22a4f138e5ec647b4ab55455"
+}

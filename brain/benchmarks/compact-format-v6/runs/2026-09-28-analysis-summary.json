@@ -1,0 +1,44 @@
+{
+  "decision": "repair-measurement",
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "format_selection": null,
+  "provider_gates": {
+    "claude": {
+      "ceiling": true,
+      "complete": true,
+      "denominator": 5,
+      "eligible": false,
+      "floor": false,
+      "passed": 5,
+      "rate": 1.0,
+      "tier": "calibration-easy"
+    },
+    "gemini": {
+      "ceiling": false,
+      "complete": true,
+      "denominator": 5,
+      "eligible": true,
+      "floor": false,
+      "passed": 3,
+      "rate": 0.6,
+      "tier": "calibration-easy"
+    }
+  },
+  "r2_dependency": "Use the retained r2 motif and progression eligibility only when analysis-repair-pass.",
+  "repair_policy": {
+    "eligible": "Every available initial parse or musical-contract failure, including a named sentinel.",
+    "feedback": "Return only the structured parse or failed-check diagnostic.",
+    "maximum_turns": 1,
+    "primary_result": "Initial musical success only. A repair never replaces an initial result.",
+    "unavailable_or_failed": "Do not repair and do not add to a scored denominator."
+  },
+  "run_id": "phase8c4b-analysis-repair-calibration-r3",
+  "run_kind": "analysis-repair-summary",
+  "schema": "ghostnote-compact-format-calibration-v6",
+  "sha256": "73f343eb9bb675d688f2fffe118cf795f598b33130df0aab697d75c7372a9c72",
+  "tier": "calibration-easy"
+}

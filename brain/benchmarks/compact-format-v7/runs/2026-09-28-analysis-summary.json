@@ -1,0 +1,43 @@
+{
+  "cohort": "calibration-easy",
+  "decision": "repair-measurement",
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "format_selection": null,
+  "provider_gates": {
+    "claude-haiku": {
+      "ceiling": false,
+      "complete": false,
+      "denominator": 2,
+      "eligible": false,
+      "floor": false,
+      "passed": 0,
+      "rate": 0.0
+    },
+    "gemini": {
+      "ceiling": false,
+      "complete": true,
+      "denominator": 5,
+      "eligible": true,
+      "floor": false,
+      "passed": 3,
+      "rate": 0.6
+    }
+  },
+  "r2_dependency": "Use the retained r2 motif and progression eligibility only when analysis-repair-pass.",
+  "retained": {
+    "easy_corpus_sha256": "edd1f29d71d049d3f9bfda1915a62879d23143abc596053070441015a2607374",
+    "gemini_manifest_sha256": "4931455793fa10ff25c7e541354328bbff342003d6fe51d99752e175bc663ef7",
+    "gemini_raw_run_sha256": "b4cf34804b322f7c6c1bbb508e357b291a100850e88797f6eda0761df6a96d4a",
+    "r2_summary_sha256": "e2b293e9e05c62d58e9c22748d5cdad0d38bfcd5ec456347c7a0f01a3a030017",
+    "r3_summary_sha256": "73f343eb9bb675d688f2fffe118cf795f598b33130df0aab697d75c7372a9c72",
+    "v6_protocol_sha256": "469fa3bf8c0d9c2b66c2fb8132b3bc942b90a4e39b84c2bd784a9395495e0f2c"
+  },
+  "run_id": "phase8c4b-analysis-haiku-calibration-r4",
+  "run_kind": "haiku-substitution-summary",
+  "schema": "ghostnote-compact-format-haiku-substitution-v7",
+  "sha256": "179ce1c88360939c4f015edca634e4a945189701595d5864bf12d17126b45315"
+}

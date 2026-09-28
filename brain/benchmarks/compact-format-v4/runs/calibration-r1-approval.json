@@ -2,6 +2,6 @@
   "run_id": "phase8c4b-focused-compact-calibration-r1",
   "protocol_sha256": "468f734100ccccc2333d022cde2c509279c244d5eb9331c25ed696ba01604ae6",
   "run_plan_sha256": "9d4506a390eb67b9c98884c31a432b73ffac0c5a7925eaa81b894fd301e2b4f3",
-  "status": "pending",
-  "operator_statement": ""
+  "status": "approved",
+  "operator_statement": "I approve phase8c4b-focused-compact-calibration-r1 with the stated protocol and run-plan hashes, up to 414 calls and USD 4.216715."
 }

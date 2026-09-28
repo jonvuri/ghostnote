@@ -1,0 +1,388 @@
+{
+  "actual_calls": 6,
+  "actual_cost_usd": 0.147045,
+  "analysis_gate": {
+    "ceiling": true,
+    "complete": true,
+    "denominator": 5,
+    "eligible": false,
+    "floor": false,
+    "passed": 5,
+    "rate": 1.0,
+    "tier": "calibration-easy"
+  },
+  "approval": {
+    "operator_statement": "I approve phase8c4b-analysis-repair-calibration-r3 with protocol SHA-256 469fa3bf8c0d9c2b66c2fb8132b3bc942b90a4e39b84c2bd784a9395495e0f2c and run-plan SHA-256 e0a97521b4b8790c1b1432adf99f4cd79d315b931db0897a017f5b1941bf890a, up to 48 calls and USD 1.137431.",
+    "protocol_sha256": "469fa3bf8c0d9c2b66c2fb8132b3bc942b90a4e39b84c2bd784a9395495e0f2c",
+    "run_id": "phase8c4b-analysis-repair-calibration-r3",
+    "run_plan_sha256": "e0a97521b4b8790c1b1432adf99f4cd79d315b931db0897a017f5b1941bf890a",
+    "status": "approved"
+  },
+  "client": "Python urllib.request direct HTTPS",
+  "complete": true,
+  "gate_evidence": {
+    "gemini_gate": "4931455793fa10ff25c7e541354328bbff342003d6fe51d99752e175bc663ef7"
+  },
+  "manifest_sha256": "b7aed802738307a51668923a93f3d9c115af6311977b1506c2184c7e097adab4",
+  "platform": "Darwin 24.6.0 arm64",
+  "privacy": "Generated MIT symbolic text only. Do not send live project, audio, or MIDI data.",
+  "protocol_sha256": "469fa3bf8c0d9c2b66c2fb8132b3bc942b90a4e39b84c2bd784a9395495e0f2c",
+  "provider": "claude",
+  "python": "3.14.6",
+  "raw_run_sha256": "81aaf76e074fae27bc5b16418cd16fdc89248e6baa0c86c0d4372d2ebab73333",
+  "requested_model": "claude-sonnet-5",
+  "results": [
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.012195,
+          "total": 0.017619,
+          "uncached_input": 0.005424
+        },
+        "latency_ms": 11494.431,
+        "outer_schema_valid": true,
+        "prompt_bytes": 3769,
+        "prompt_sha256": "e2854febfe3c86a1762992ff2911f0ed2be945fd048718d47ac9249ba719dd5d",
+        "raw_response_sha256": "172fed17a2c9e887735a805d57fa7e28e1a4981554276192ef75cd48bf9f0b50",
+        "request_id": "msg_011CfV2rDTZyS7qGwiZS1NnT",
+        "response_payload": "ANALYSIS chord_ids=chord-1-1 root_pcs=3 bass_pcs=10 qualities=dominant-seventh inversions=2 functions=V43 motif_relations=rhythmic-scale rhythms=arpeggiated",
+        "response_payload_bytes": 156,
+        "response_payload_sha256": "4cb7025397b8f09bf1a30afe89f7918c6e7e2605fdb87ed727541de8b8eefdd4",
+        "retries": 0,
+        "returned_model": "claude-sonnet-5",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1808,
+          "output_tokens": 813,
+          "thinking_tokens": 719
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "40ceadf276926493f6a906014755815dccf92f73e13fa24573453cdd69f22cdd",
+      "sentinel": false,
+      "task_sha256": "d9433c55d430c803e7ed8bfa16b87c7a3d13b0e35de436f3b4c3b9fc147b61a1",
+      "variant": 1
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00972,
+          "total": 0.015144,
+          "uncached_input": 0.005424
+        },
+        "latency_ms": 9348.617,
+        "outer_schema_valid": true,
+        "prompt_bytes": 3769,
+        "prompt_sha256": "e2854febfe3c86a1762992ff2911f0ed2be945fd048718d47ac9249ba719dd5d",
+        "raw_response_sha256": "e6843017fbb8b6452e8fe8f3ef04c3dd5cf7d5102b30de1db975593ed75093e3",
+        "request_id": "msg_011CfV2qTk1tpQHyvdBD7go2",
+        "response_payload": "ANALYSIS chord_ids=chord-1-1 root_pcs=3 bass_pcs=10 qualities=dominant-seventh inversions=2 functions=V43 motif_relations=rhythmic-scale rhythms=arpeggiated",
+        "response_payload_bytes": 156,
+        "response_payload_sha256": "4cb7025397b8f09bf1a30afe89f7918c6e7e2605fdb87ed727541de8b8eefdd4",
+        "retries": 0,
+        "returned_model": "claude-sonnet-5",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1808,
+          "output_tokens": 648,
+          "thinking_tokens": 554
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "40ceadf276926493f6a906014755815dccf92f73e13fa24573453cdd69f22cdd",
+      "sentinel": true,
+      "task_sha256": "d9433c55d430c803e7ed8bfa16b87c7a3d13b0e35de436f3b4c3b9fc147b61a1",
+      "variant": 1
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.014985,
+          "total": 0.021309,
+          "uncached_input": 0.006324
+        },
+        "latency_ms": 11180.622,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4288,
+        "prompt_sha256": "201b37f6259d5c1cea280da8e69fff10fe1b352231f4ad81e2929bd0962965ad",
+        "raw_response_sha256": "845149dd45eb0032af797172700388450fb97d2677b8772f7a29ab5ec1b83cd6",
+        "request_id": "msg_011CfV2rVYwrJZEF6Ga3tRP9",
+        "response_payload": "ANALYSIS chord_ids=chord-2-1,chord-2-2 root_pcs=0,1 bass_pcs=6,1 qualities=half-diminished-seventh,major inversions=2,0 functions=vii-half-dim43,I motif_relations=transposition,transposition rhythms=arpeggiated,sustained",
+        "response_payload_bytes": 220,
+        "response_payload_sha256": "64a00c68c6b243a128a0ed07857d34e9273be891238c662c0d005d80eae94797",
+        "retries": 0,
+        "returned_model": "claude-sonnet-5",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 2108,
+          "output_tokens": 999,
+          "thinking_tokens": 878
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "da0b46155a9dfcba3128049e8b6b9a31403486d523e30a4ffcfd9ffa3029a4d4",
+      "sentinel": false,
+      "task_sha256": "9c2e39db8d4bec9a8953e5c6d57a78e65fc43ba0fee3380d9c8ee549bda0fa99",
+      "variant": 2
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.018285,
+          "total": 0.024456,
+          "uncached_input": 0.006171
+        },
+        "latency_ms": 14064.826,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4193,
+        "prompt_sha256": "063273de5ed54c9b084cad2e305b84e5bab5a5a7cc2a23cb0698ba2d00e3fb44",
+        "raw_response_sha256": "d32c142d6edf73e8f31ebf6d491b7c8a6db845b4ae7d080d34d005e2f0f214dd",
+        "request_id": "msg_011CfV2qTojrsNMaYgMstAFs",
+        "response_payload": "ANALYSIS chord_ids=chord-3-1,chord-3-2 root_pcs=6,3 bass_pcs=1,3 qualities=major,minor inversions=2,0 functions=I64,vi motif_relations=retrograde-transposition,rhythmic-scale rhythms=arpeggiated,sustained",
+        "response_payload_bytes": 204,
+        "response_payload_sha256": "3289c47beb434ca442cb90f6d98682380de49e437119e121e68c4d673d345e8f",
+        "retries": 0,
+        "returned_model": "claude-sonnet-5",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 2057,
+          "output_tokens": 1219,
+          "thinking_tokens": 1100
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "53b56e8b58083b48a058a7d43875fd2e48dee7301e7f7732016ce7511bc2c382",
+      "sentinel": false,
+      "task_sha256": "824690642ea0917f44ef9005d8233bd7c45bb672287d6412171ce2a69c4e5087",
+      "variant": 3
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.023445,
+          "total": 0.03084,
+          "uncached_input": 0.007395
+        },
+        "latency_ms": 17744.298,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4909,
+        "prompt_sha256": "8886d7bd453705013a3694088718e1c3e17cdd3281a5ef8909f7cb826d04dbcf",
+        "raw_response_sha256": "31fa659cfd10ab7ce6904e85ff2977cc2ba816926c92acfd9d0f36a66f02ba74",
+        "request_id": "msg_011CfV2qTmWQyjCSdaoPeBeF",
+        "response_payload": "ANALYSIS chord_ids=chord-4-1,chord-4-2,chord-4-3 root_pcs=4,6,6 bass_pcs=4,6,10 qualities=major,dominant-seventh,dominant-seventh inversions=0,0,1 functions=IV,V7,V65 motif_relations=none,inversion,retrograde-transposition rhythms=arpeggiated,sustained,shared-onset",
+        "response_payload_bytes": 265,
+        "response_payload_sha256": "8aeab5d0f46b123baad9e52af4cd3f270db12e17d7b28c61558264b45bd0dabe",
+        "retries": 0,
+        "returned_model": "claude-sonnet-5",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 2465,
+          "output_tokens": 1563,
+          "thinking_tokens": 1411
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "f53d6d0d5f4572b248e36b831dc513ab98a3b0e449a90a754c287429881929b7",
+      "sentinel": false,
+      "task_sha256": "7f0c363a1ec3b69d57f3c4ec0980caa3c219f112c8945d2ba501c2adf7206928",
+      "variant": 4
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.03027,
+          "total": 0.037677,
+          "uncached_input": 0.007407
+        },
+        "latency_ms": 20651.039,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4913,
+        "prompt_sha256": "28064310bd34b333d0dda474ed76a7f060fc9fe321d124ba0275cb74c49e089c",
+        "raw_response_sha256": "243e19dfe0dd13a78fbb41916f2a49d7e99886367ae9ebc58ac705fe7b270789",
+        "request_id": "msg_011CfV2qTn1QokBwBdUwTXA6",
+        "response_payload": "ANALYSIS chord_ids=chord-5-1,chord-5-2,chord-5-3 root_pcs=11,3,4 bass_pcs=6,6,4 qualities=dominant-seventh,diminished,major-seventh inversions=2,1,0 functions=V43,vii-dim6,I-maj7 motif_relations=rhythmic-scale,rotation,none rhythms=arpeggiated,sustained,shared-onset",
+        "response_payload_bytes": 266,
+        "response_payload_sha256": "140692de3a49f0bf0936342360bbe95a9f52d899bc87abf6c39eccb9b12bf760",
+        "retries": 0,
+        "returned_model": "claude-sonnet-5",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 2469,
+          "output_tokens": 2018,
+          "thinking_tokens": 1859
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "4f357b82a0af7bf62d7745d64ee154d1fac258baf64ead82d1122a1d60a3330d",
+      "sentinel": false,
+      "task_sha256": "ce6fa927ae785ae7340bcdacb37bcc3f9ba5d0038c58a4dae5e18d28032115f3",
+      "variant": 5
+    }
+  ],
+  "run_id": "phase8c4b-analysis-repair-calibration-r3",
+  "run_kind": "analysis-repair-provider",
+  "run_plan_sha256": "e0a97521b4b8790c1b1432adf99f4cd79d315b931db0897a017f5b1941bf890a",
+  "schema": "ghostnote-compact-format-calibration-v6",
+  "screen_sha256": "fbb67a13040d81807f4851db9a9334a6a810619dbe14710259a453cd9e18ff4a",
+  "settings": {
+    "effort": "low",
+    "max_tokens": 5000
+  },
+  "tier": "calibration-easy"
+}

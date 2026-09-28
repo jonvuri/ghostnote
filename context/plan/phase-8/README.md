@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Run the Phase 8c4 compact-bar recovery sequence before public contract work.
-updated: 2026-09-27
+status: Phase 8c4b is complete; Phase 8c4c is ready for offline preparation.
+updated: 2026-09-28
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -124,11 +124,41 @@ owns the migration details.
    records the repaired analysis, motif, progression, framing, and output-state
    contracts and the frozen calibration package.
 12. [8c4b — Focused compact-bar calibration](8c4b-focused-compact-calibration.md).
-   Await operator approval for the frozen plan. Prove that the repaired tasks
-   can resolve format effects. Calibration cannot select a format.
+   Complete. [E157](../../evidence/experiments/e157-focused-compact-calibration-requires-measurement-repair.md)
+   records `repair-measurement` for calibration r1. Motif is at a ceiling, and
+   progression is at a floor with an unstated output-context requirement.
+   [E158](../../evidence/experiments/e158-compact-calibration-r2-awaits-approval.md)
+   records the offline measurement repair and frozen calibration r2 package.
+   [E159](../../evidence/experiments/e159-compact-calibration-r2-requires-analysis-repair.md)
+   records `repair-measurement` for r2. Motif and progression are informative,
+   but analysis is at a ceiling on two providers.
+   [E160](../../evidence/experiments/e160-analysis-repair-r3-awaits-approval.md)
+   records the frozen Gemini-first analysis repair. Claude is conditional on
+   Gemini entering the eligibility band.
+   [E161](../../evidence/experiments/e161-analysis-repair-r3-leaves-claude-at-ceiling.md)
+   records `repair-measurement` for r3. Gemini is informative on the easy tier,
+   but Claude remains at a ceiling.
+   [E162](../../evidence/experiments/e162-haiku-substitution-awaits-approval.md)
+   records the frozen Haiku substitution. It retains Gemini without a rerun.
+   [E163](../../evidence/experiments/e163-haiku-r4-is-incomplete-under-extended-thinking.md)
+   records `repair-measurement` for r4. Haiku is incomplete after three
+   output-limit failures.
+   [E164](../../evidence/experiments/e164-haiku-output-limit-repair-awaits-approval.md)
+   records the frozen r5 repair. It raises the output limit, uses a fresh
+   Haiku cohort, and adds a token-bound live cost guard.
+   [E165](../../evidence/experiments/e165-haiku-r5-passes-and-opens-paired-development.md)
+   records the passing r5 result and the consolidated `proceed-development`
+   decision.
+   [E166](../../evidence/experiments/e166-openai-analysis-supplement-awaits-approval.md)
+   records an optional OpenAI-only supplement on the exact r5 measurement. It
+   is frozen at the approval boundary and cannot change the r5 decision.
+   [E167](../../evidence/experiments/e167-openai-r6-adds-the-third-analysis-provider.md)
+   records the eligible OpenAI result. OpenAI, Gemini, and Haiku are eligible
+   on the repaired analysis measurement.
 13. [8c4c — Compact-bar paired development](8c4c-compact-bar-paired-development.md).
-   Compare positional compact-bar v1 with one minimal `FIELDS` candidate on
-   fresh paired fixtures.
+   Ready for offline preparation. Compare positional compact-bar v1 with one
+   minimal `FIELDS` candidate on fresh paired fixtures for OpenAI, Gemini, and
+   Haiku. No provider call is approved.
 14. [8c4d — Compact-bar targeted holdout](8c4d-compact-bar-targeted-holdout.md).
    Test the frozen development candidate on a disjoint affected-family and
    guard holdout.

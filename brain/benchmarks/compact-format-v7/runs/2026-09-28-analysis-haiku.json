@@ -1,0 +1,423 @@
+{
+  "actual_calls": 8,
+  "actual_cost_usd": 0.148805,
+  "analysis_gate": {
+    "ceiling": false,
+    "complete": false,
+    "denominator": 2,
+    "eligible": false,
+    "floor": false,
+    "passed": 0,
+    "rate": 0.0
+  },
+  "approval": {
+    "operator_statement": "I approve phase8c4b-analysis-haiku-calibration-r4 with protocol SHA-256 5d481e5be3975f023c6284bfc76ac31ca88f266c4845e2294d9b42787348a211 and run-plan SHA-256 ab4410d6330f15cf6237467b3f70325bebbc559e1481ff3df54a00bf20ecbcc5, up to 12 calls and USD 0.188385.",
+    "protocol_sha256": "5d481e5be3975f023c6284bfc76ac31ca88f266c4845e2294d9b42787348a211",
+    "run_id": "phase8c4b-analysis-haiku-calibration-r4",
+    "run_plan_sha256": "ab4410d6330f15cf6237467b3f70325bebbc559e1481ff3df54a00bf20ecbcc5",
+    "status": "approved"
+  },
+  "client": "Python urllib.request direct HTTPS",
+  "cohort": "calibration-easy",
+  "complete": true,
+  "manifest_sha256": "27d3741d079cdaaca792f69d06fa5cd3765c6313445cff74c451192cf01ffb2d",
+  "platform": "Darwin 24.6.0 arm64",
+  "privacy": "Generated MIT symbolic text only. Do not send live project, audio, or MIDI data.",
+  "protocol_sha256": "5d481e5be3975f023c6284bfc76ac31ca88f266c4845e2294d9b42787348a211",
+  "provider": "claude-haiku",
+  "python": "3.14.6",
+  "raw_run_sha256": "c6566aa177c4df12adc78e88a7bc8ba488a22a30d3168702a79b95cbb45aa316",
+  "requested_model": "claude-haiku-4-5-20251001",
+  "results": [
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "unavailable",
+        "reason": "output-limit",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.025,
+          "total": 0.026371,
+          "uncached_input": 0.001371
+        },
+        "latency_ms": 50229.618,
+        "prompt_bytes": 3769,
+        "prompt_sha256": "e2854febfe3c86a1762992ff2911f0ed2be945fd048718d47ac9249ba719dd5d",
+        "raw_response_sha256": "952fe63a2eb91b26152f87bacb57fd38bc5073f224ccddb9c5b9696049683e6e",
+        "request_id": "msg_011CfV5daekwVDDap8zzLDqF",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "max_tokens",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1371,
+          "output_tokens": 5000,
+          "thinking_tokens": 5000
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "40ceadf276926493f6a906014755815dccf92f73e13fa24573453cdd69f22cdd",
+      "sentinel": false,
+      "task_sha256": "d9433c55d430c803e7ed8bfa16b87c7a3d13b0e35de436f3b4c3b9fc147b61a1",
+      "variant": 1
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": null,
+          "musical_pass": true,
+          "primary_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0063,
+          "total": 0.007671,
+          "uncached_input": 0.001371
+        },
+        "latency_ms": 30043.659,
+        "outer_schema_valid": true,
+        "prompt_bytes": 3769,
+        "prompt_sha256": "e2854febfe3c86a1762992ff2911f0ed2be945fd048718d47ac9249ba719dd5d",
+        "raw_response_sha256": "a39dea08f16d9aba00a6696b6a977550223bdcec397884f387a44eff288ca41b",
+        "request_id": "msg_011CfV5bTV7BH9HA1foLbkDU",
+        "response_payload": "ANALYSIS chord_ids=chord-1-1 root_pcs=3 bass_pcs=10 qualities=dominant-seventh inversions=2 functions=V43 motif_relations=rhythmic-scale rhythms=arpeggiated",
+        "response_payload_bytes": 156,
+        "response_payload_sha256": "4cb7025397b8f09bf1a30afe89f7918c6e7e2605fdb87ed727541de8b8eefdd4",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1371,
+          "output_tokens": 1260,
+          "thinking_tokens": 1194
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "40ceadf276926493f6a906014755815dccf92f73e13fa24573453cdd69f22cdd",
+      "sentinel": true,
+      "task_sha256": "d9433c55d430c803e7ed8bfa16b87c7a3d13b0e35de436f3b4c3b9fc147b61a1",
+      "variant": 1
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "Analysis output must start with ANALYSIS"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.008655,
+          "total": 0.010268,
+          "uncached_input": 0.001613
+        },
+        "latency_ms": 20078.474,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4288,
+        "prompt_sha256": "201b37f6259d5c1cea280da8e69fff10fe1b352231f4ad81e2929bd0962965ad",
+        "raw_response_sha256": "e6198f203b0ea03929ef05d1f67393c6afc17227ccef04d5b29c97d3c7c7e990",
+        "request_id": "msg_011CfV5fjHE4mgXKuuwiCKy3",
+        "response_payload": "chord_ids=chord-2-1,chord-2-2 root_pcs=0,1 bass_pcs=6,1 qualities=half-diminished-seventh,major inversions=2,0 functions=vii-half-dim43,I motif_relations=transposition,transposition rhythms=arpeggiated,sustained",
+        "response_payload_bytes": 211,
+        "response_payload_sha256": "de02347f66b0ea453acaf927c4c96e8b7babfcbc9343b0906f759298d539f3fc",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1613,
+          "output_tokens": 1731,
+          "thinking_tokens": 1641
+        }
+      },
+      "repair": {
+        "kind": "repaired",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": false,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": false,
+            "motif_relation": true,
+            "rhythm_class": true,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "chord_function",
+              "inversion_number"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "repair_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0058,
+          "total": 0.007452,
+          "uncached_input": 0.001652
+        },
+        "latency_ms": 15131.057,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4455,
+        "prompt_sha256": "71ef55311be87187b3d2d2feda3d868eb1916a2419293481766e94fafb4e594b",
+        "raw_response_sha256": "b03d40d6654dcf857d53f23a166eb0e5735825aab93d44776932be57ea659347",
+        "request_id": "msg_011CfV5hGftSUSDFFVU8tFiN",
+        "response_payload": "ANALYSIS chord_ids=chord-2-1,chord-2-2 root_pcs=0,1 bass_pcs=6,1 qualities=half-diminished-seventh,major inversions=1,0 functions=vii-half-dim6,I motif_relations=transposition,transposition rhythms=arpeggiated,sustained",
+        "response_payload_bytes": 219,
+        "response_payload_sha256": "86bafba1c749fb3f92e8a04c26d3ea07fe8e660629a1f6d07750cd9e0c00ad3a",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1652,
+          "output_tokens": 1160,
+          "thinking_tokens": 1067
+        }
+      },
+      "semantic_sha256": "da0b46155a9dfcba3128049e8b6b9a31403486d523e30a4ffcfd9ffa3029a4d4",
+      "sentinel": false,
+      "task_sha256": "9c2e39db8d4bec9a8953e5c6d57a78e65fc43ba0fee3380d9c8ee549bda0fa99",
+      "variant": 2
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "unavailable",
+        "reason": "output-limit",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.025,
+          "total": 0.026572,
+          "uncached_input": 0.001572
+        },
+        "latency_ms": 69090.621,
+        "prompt_bytes": 4193,
+        "prompt_sha256": "063273de5ed54c9b084cad2e305b84e5bab5a5a7cc2a23cb0698ba2d00e3fb44",
+        "raw_response_sha256": "3f471b434ea3536097bbbc7606b56ee6ef7a074995a878fbc56aeb6112e1c79d",
+        "request_id": "msg_011CfV5bTYZx63uJ5jkRHZzd",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "max_tokens",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1572,
+          "output_tokens": 5000,
+          "thinking_tokens": 5000
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "53b56e8b58083b48a058a7d43875fd2e48dee7301e7f7732016ce7511bc2c382",
+      "sentinel": false,
+      "task_sha256": "824690642ea0917f44ef9005d8233bd7c45bb672287d6412171ce2a69c4e5087",
+      "variant": 3
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "checks": {
+            "bass_pitch_class": true,
+            "chord_function": true,
+            "chord_identity": true,
+            "chord_quality": true,
+            "inversion_number": true,
+            "motif_relation": true,
+            "rhythm_class": false,
+            "root_pitch_class": true
+          },
+          "diagnostic": {
+            "class": "musical-contract",
+            "failed_checks": [
+              "rhythm_class"
+            ]
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.023935,
+          "total": 0.025829,
+          "uncached_input": 0.001894
+        },
+        "latency_ms": 64773.994,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4909,
+        "prompt_sha256": "8886d7bd453705013a3694088718e1c3e17cdd3281a5ef8909f7cb826d04dbcf",
+        "raw_response_sha256": "2b793c2b48b3b18a7d0f90b27ea86a2fbbef9908e8192a38d729f4cdaf8591bb",
+        "request_id": "msg_011CfV5bTU6x1rGzPEsUYagw",
+        "response_payload": "ANALYSIS chord_ids=chord-4-1,chord-4-2,chord-4-3 root_pcs=4,6,6 bass_pcs=4,6,10 qualities=major,dominant-seventh,dominant-seventh inversions=0,0,1 functions=IV,V7,V65 motif_relations=none,inversion,retrograde-transposition rhythms=arpeggiated,shared-onset,shared-onset",
+        "response_payload_bytes": 268,
+        "response_payload_sha256": "82b8209f7261cdd12c6e0c2615fc138cbf1157dc1af92f0686f93f65ace85f7d",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1894,
+          "output_tokens": 4787,
+          "thinking_tokens": 4670
+        }
+      },
+      "repair": {
+        "kind": "repaired",
+        "reason": null,
+        "score": {
+          "checks": {},
+          "diagnostic": {
+            "class": "parse",
+            "error_type": "ValueError",
+            "message": "Analysis output must start with ANALYSIS"
+          },
+          "musical_pass": false,
+          "primary_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "repair_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.015815,
+          "total": 0.017744,
+          "uncached_input": 0.001929
+        },
+        "latency_ms": 28987.948,
+        "outer_schema_valid": true,
+        "prompt_bytes": 5041,
+        "prompt_sha256": "517c73ab25d32978d307ff8d4c61ede92877971c90af07189bf6f889cb0007c5",
+        "raw_response_sha256": "43db82a12fde36145a85fc69fa063e87a2e393fca2bb8943bf0506030443c3f6",
+        "request_id": "msg_011CfV5g99RQm5or5SpgipJp",
+        "response_payload": "chord_ids=chord-4-1,chord-4-2,chord-4-3 root_pcs=4,6,10 bass_pcs=4,6,10 qualities=major,dominant-seventh,diminished inversions=0,0,0 functions=IV,V7,vii-dim motif_relations=none,inversion,retrograde-transposition rhythms=arpeggiated,sustained,shared-onset",
+        "response_payload_bytes": 255,
+        "response_payload_sha256": "535f540c773b1bde098cec598da5726c58200661fbfaca3f8632904ee84768c1",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1929,
+          "output_tokens": 3163,
+          "thinking_tokens": 3052
+        }
+      },
+      "semantic_sha256": "f53d6d0d5f4572b248e36b831dc513ab98a3b0e449a90a754c287429881929b7",
+      "sentinel": false,
+      "task_sha256": "7f0c363a1ec3b69d57f3c4ec0980caa3c219f112c8945d2ba501c2adf7206928",
+      "variant": 4
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "unavailable",
+        "reason": "output-limit",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": {
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.025,
+          "total": 0.026898,
+          "uncached_input": 0.001898
+        },
+        "latency_ms": 59431.684,
+        "prompt_bytes": 4913,
+        "prompt_sha256": "28064310bd34b333d0dda474ed76a7f060fc9fe321d124ba0275cb74c49e089c",
+        "raw_response_sha256": "da3c9df5851d5b0e0dc7d67787cb8cb23018e2ca6ba26bf20a1dd06a6e8c72f1",
+        "request_id": "msg_011CfV5bTVLrMbeCaKKFawhi",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "max_tokens",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1898,
+          "output_tokens": 5000,
+          "thinking_tokens": 5000
+        }
+      },
+      "repair": null,
+      "repair_call": null,
+      "semantic_sha256": "4f357b82a0af7bf62d7745d64ee154d1fac258baf64ead82d1122a1d60a3330d",
+      "sentinel": false,
+      "task_sha256": "ce6fa927ae785ae7340bcdacb37bcc3f9ba5d0038c58a4dae5e18d28032115f3",
+      "variant": 5
+    }
+  ],
+  "retained_gemini_manifest_sha256": "4931455793fa10ff25c7e541354328bbff342003d6fe51d99752e175bc663ef7",
+  "run_id": "phase8c4b-analysis-haiku-calibration-r4",
+  "run_kind": "haiku-substitution-provider",
+  "run_plan_sha256": "ab4410d6330f15cf6237467b3f70325bebbc559e1481ff3df54a00bf20ecbcc5",
+  "schema": "ghostnote-compact-format-haiku-substitution-v7",
+  "screen_sha256": "dc8d0919743121ae448d48fd78668896ed5a19e1a19d79ff427ed0f6d393fc3b",
+  "settings": {
+    "max_tokens": 5000,
+    "temperature": "provider default",
+    "thinking": {
+      "budget_tokens": 1024,
+      "type": "enabled"
+    }
+  }
+}

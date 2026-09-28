@@ -1,0 +1,54 @@
+{
+  "approval": "pending",
+  "calls": {
+    "initial": 6,
+    "maximum_repair": 6,
+    "maximum_total": 12,
+    "named_sentinel_initial": 1,
+    "new_gemini": 0,
+    "new_haiku": 0,
+    "new_openai": 12,
+    "new_sonnet": 0,
+    "token_count_requests": 0,
+    "unique_initial": 5
+  },
+  "cohort_manifest_sha256": "f0cc5fc47b8943f5cb28af251d72217c5200812d7b2c8f85b0d16bc78955d5a7",
+  "cost_bound": {
+    "input_token_reservation_per_call": 10000,
+    "maximum_calls": 12,
+    "maximum_cost_per_call_usd": 0.0615,
+    "maximum_cost_usd": 0.738,
+    "output_token_ceiling_per_call": 12000,
+    "request_byte_ceiling_per_call": 9000,
+    "token_count_requests": 0
+  },
+  "dependency_manifest_sha256": "08410d7726be024cf139d035e83a43dff607cd93cf8f47a403aa33d1f1e4726f",
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "maximum_calls": 12,
+  "maximum_cost_usd": 0.738,
+  "model": "gpt-5.4-mini-2026-03-17",
+  "protocol_sha256": "f00d4f61275d3832887fc0e9574d4eff2f18092412602780a103fbc0a57e9903",
+  "provider": "openai",
+  "repair_policy": {
+    "eligible": "Every available initial parse or musical-contract failure, including the named sentinel.",
+    "feedback": "Return only the structured parse or failed-check diagnostic.",
+    "maximum_turns": 1,
+    "primary_result": "Initial musical success only. A repair never replaces an initial result.",
+    "unavailable_or_failed": "Do not repair and do not add to a scored denominator."
+  },
+  "run_id": "phase8c4b-analysis-openai-supplement-r6",
+  "run_kind": "openai-analysis-supplement-plan",
+  "schema": "ghostnote-compact-format-openai-supplement-v9",
+  "settings": {
+    "max_completion_tokens": 12000,
+    "reasoning_effort": "low",
+    "temperature": "provider default"
+  },
+  "sha256": "ca7a9510f6e4172137f039a4031b6f07e7dff460c5a07a9a8127ab52635c4ca1",
+  "source_cohort_manifest_sha256": "3ffcd022545ace31e6c47a766788ceb6e23b442354925eca111cd7d4461ccbd0",
+  "stopping_rule": "Record OpenAI as a third eligible analysis provider only when all five unique initial results are scored and the pass rate is 0.20 through 0.80. Otherwise retain the completed two-provider r5 decision without adding OpenAI."
+}

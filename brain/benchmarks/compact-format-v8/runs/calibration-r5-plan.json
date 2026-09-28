@@ -1,0 +1,56 @@
+{
+  "approval": "pending",
+  "calls": {
+    "initial": 6,
+    "maximum_free_token_count_requests": 12,
+    "maximum_repair": 6,
+    "maximum_total": 12,
+    "named_sentinel_initial": 1,
+    "new_gemini": 0,
+    "new_openai": 0,
+    "new_sonnet": 0,
+    "unique_initial": 5
+  },
+  "cohort_manifest_sha256": "3ffcd022545ace31e6c47a766788ceb6e23b442354925eca111cd7d4461ccbd0",
+  "cost_bound": {
+    "input_token_ceiling_per_call": 5000,
+    "maximum_calls": 12,
+    "maximum_cost_per_call_usd": 0.065,
+    "maximum_cost_usd": 0.78,
+    "output_token_ceiling_per_call": 12000,
+    "token_count_endpoint": "https://api.anthropic.com/v1/messages/count_tokens",
+    "token_count_margin": 128,
+    "token_count_price_usd": 0
+  },
+  "dependency_manifest_sha256": "2f43ca6ef2f22312e47f77202bf11f036ceb8b346cd48f6de313d285fe602990",
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "maximum_calls": 12,
+  "maximum_cost_usd": 0.78,
+  "model": "claude-haiku-4-5-20251001",
+  "protocol_sha256": "eb547c673e5603f623c6962015dff3e78bebaabb0a505ca076ce55dd2fa395c9",
+  "provider": "claude-haiku",
+  "repair_policy": {
+    "eligible": "Every available initial parse or musical-contract failure, including the named sentinel.",
+    "feedback": "Return only the structured parse or failed-check diagnostic.",
+    "maximum_turns": 1,
+    "primary_result": "Initial musical success only. A repair never replaces an initial result.",
+    "unavailable_or_failed": "Do not repair and do not add to a scored denominator."
+  },
+  "run_id": "phase8c4b-analysis-haiku-calibration-r5",
+  "run_kind": "haiku-output-limit-repair-plan",
+  "schema": "ghostnote-compact-format-haiku-output-repair-v8",
+  "settings": {
+    "max_tokens": 12000,
+    "temperature": "provider default",
+    "thinking": {
+      "budget_tokens": 1024,
+      "type": "enabled"
+    }
+  },
+  "sha256": "01d95131dd2e22a45d815d42b6e64191eb085f99a90f82ebcb79822e0b5286ad",
+  "stopping_rule": "Return analysis-repair-pass only when all five fresh Haiku initial results are scored and the pass rate is 0.20 through 0.80. Otherwise return repair-measurement. Retain the frozen eligible Gemini r3 result as the second provider gate."
+}

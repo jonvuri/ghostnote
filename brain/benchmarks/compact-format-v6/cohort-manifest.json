@@ -1,0 +1,165 @@
+{
+  "cohorts": {
+    "calibration-easy": {
+      "analysis_case_sha256": [
+        "15c3f033c61a773006f2e41f4c43981df431c1670d2c559be25a01ca27417a9e",
+        "32d301026e36cd66f4b681ba6d29bade89e7195c8baf34d63335e10ab622d2b5",
+        "58b87200c8c63c959fad38ddc3fb1b6ca211a055961f34ca68e09d95b30676d6",
+        "5f55812852f24ea82ad7d797a86a0844a47092fca345a646c80e81e1209b0904",
+        "83c5c66256426debd70b8fcdf6820165cb4fb8f8c687c59988a70f958b6b8b70",
+        "897a4c4f212c033433d9dcacfc9fd5680d0632be41fcbe210acbca93a9c2f56a",
+        "96b0d31ebae7eeec5f8cb0552f8494add7869b6688ea75aeff049c103ed16758",
+        "c73c53f8d6c410d5b110e8990799316f1baee828e98bd6bc82bb9e6b9883feec",
+        "cba4092cac1d84936898d07d12b07731c34de9ed1557417a72001b730f51f206",
+        "df5f4105f360b7a91a18a19d7970bb2be1813fb3f57f3fb0b4a87d556dee51ab",
+        "fc023286fedf713d3db5acee5f75df80b353308c9502647c5eda8cff2c491f25"
+      ],
+      "corpus_sha256": "edd1f29d71d049d3f9bfda1915a62879d23143abc596053070441015a2607374",
+      "fixture_count": 5,
+      "fixture_sha256": [
+        "7f0c363a1ec3b69d57f3c4ec0980caa3c219f112c8945d2ba501c2adf7206928",
+        "824690642ea0917f44ef9005d8233bd7c45bb672287d6412171ce2a69c4e5087",
+        "9c2e39db8d4bec9a8953e5c6d57a78e65fc43ba0fee3380d9c8ee549bda0fa99",
+        "ce6fa927ae785ae7340bcdacb37bcc3f9ba5d0038c58a4dae5e18d28032115f3",
+        "d9433c55d430c803e7ed8bfa16b87c7a3d13b0e35de436f3b4c3b9fc147b61a1"
+      ],
+      "historical_semantic_overlap": 0,
+      "semantic_sha256": [
+        "40ceadf276926493f6a906014755815dccf92f73e13fa24573453cdd69f22cdd",
+        "4f357b82a0af7bf62d7745d64ee154d1fac258baf64ead82d1122a1d60a3330d",
+        "53b56e8b58083b48a058a7d43875fd2e48dee7301e7f7732016ce7511bc2c382",
+        "da0b46155a9dfcba3128049e8b6b9a31403486d523e30a4ffcfd9ffa3029a4d4",
+        "f53d6d0d5f4572b248e36b831dc513ab98a3b0e449a90a754c287429881929b7"
+      ]
+    },
+    "calibration-hard": {
+      "analysis_case_sha256": [
+        "00a84c982a705eb2b53fa4ced21d0b4ccf5cc1c21c6b610bfebfdfecf6563896",
+        "06f712d8b46056355f841f20f16364842ce6ce23b031eb1e5aabafe86f5a6043",
+        "08db9ce95f2d7cb85a0753c4e977d23da2609d0f8c06e5b3eceed904b2e4229d",
+        "0f2d2b5121567be70d2e791627b946162ad3be719d40d3648a5f2c3f5133f181",
+        "261af6ae5d72e666cb27c69778d63a441117b71b39a698ee0f9401cd9ef45c12",
+        "2ac067d7f8282f5160c9e856b6dc967ba14be890bb8a68affd77cd992540fd94",
+        "317b33807594fe830311513a69ae355051be66e4948554bb63f5c769fe5fe331",
+        "31e8f5eba2aa05813e459ea6d272185637661c87d886ba961612e703abc6a3f4",
+        "3c066e5f53d32cb2875656c0b6c479d805f8a321d92a6ed9d5cc93e327085dc2",
+        "4813fb0281a067f66bb4067ece26a2b9e920790786ea0681c548ce9a8ed960ae",
+        "4bb5c1a4d513fe2f946cf0cb29e2034e012768c82bddde2e7f0d6b36274ab8a7",
+        "5119a1f26ed7384a4a3db7154e4a052059bbe8f1b5eaf6869e4a6a974dddba2b",
+        "568b16205d7bc20ceb0804ee19149cb673bbcc4fc2194864761209a161f61673",
+        "5cf4dbfb1721a7072f37be045299fb111f0b010079a7c9d869be095900164f3f",
+        "6a75ca865b482699e8fa3607d436f93f0fc895dfe6193218ccb42c90dadb1466",
+        "6ac45255a29fa8a4fa1dc17acee95e53b19443cbf7eb367e0585e9589ada41d4",
+        "6df2132cd0cdbf9ec3f33ded742fa43278822607e5739fd0d34133d523736cb7",
+        "7e1c26e3906a836cae228a89333aca8face65b18580bc29855a31a474184ff67",
+        "7e3e263d1cf04a320a42a71fe16a7d4973611d4d5b7c5243f1f850ff08293478",
+        "7efbc75b6a4a4080ac5c40341b6fcdd759f43f33e6ee08af3d03eccb3c6d9ccb",
+        "7fb010fbe1fc9ff1ebcad8d7fc77267a542295dd1e7c574fa81d09cba22b3bb6",
+        "9e460d63e346262f8d204b3a52bf9c5e760a72009bf6db47f294f5067355b608",
+        "a14dbb27586e02e472943bfcab1a8e3291472f9e1e138473a17d9e1aebfb0306",
+        "a1efdb3f21d790b7c691c2d8e0a40ab2d3257692f943bba6ee62dbad9a956a15",
+        "ab9e03735754cd45aa36c00c0d1a87d8aebfe97959066c4d893bf47e4fbf3ffc",
+        "aebc55b41e8ba7404f84d1c4329c85dbf3b40546a378f89d6e13383055af33e8",
+        "bd2aa75171b81edf5b42f85cf25f329970fe0fe6bf2c4324827b4c2f7856610f",
+        "bf3e54ab2d0f4f16fef573e9408e5adc4e5c4c6e832735533222f7ff9559574a",
+        "c7133b6cdf2ed9825b168832429bd8e0a1c3ed5059c175133c0db9460199b9c9",
+        "cdef2008d03d27b4fe09b4bd0bacfae205ebe63d7f2a953a3f1a231b336f31e7",
+        "d01f2b7b7f43e01ee165e5d369c2eb47f90dcdf9f0ba978968411d6f849f4f39",
+        "db2ba99e948c99a1ae31b1e7f79569f1bc20eac89c6e31e8ef34aaf3b0ddc277",
+        "e57bb3ba87dc6a397901c4eb048d4e41974d2b012b77640bea7b0db7d2beae87",
+        "e7df576106c342a0a05b12902e0f42f8f7bcf5f064be5347ef14d9e1e660d935",
+        "e898ee796899d1a97ea31141440ee6efafea63857ce284fba86e3a8b41e2b41a",
+        "f0fe5b13ed0d88b4b005f7ec051d7820f7d04a345e545153dcea98d0538d266b",
+        "f4b99991122bb53ec7b8d303aab2a21d8cb3db97f6e4db3ad2bcca269bc098ac",
+        "fc64c2fcd83913a13bf2486a82270eb2440962f44efd7fce367c16ef7f7fa859",
+        "fd23c7798c26d183ce2f2205d121951fc7e18f77bb53084092f93dbd77f448db",
+        "ffc70f44ab9260c8893a53620651aeb95306a614a00cd6c8de2205c9c0e0875f"
+      ],
+      "corpus_sha256": "115160f40299a5bdc2374729e7ac123b6f425a68d559e3fb4ea642598922a4a1",
+      "fixture_count": 5,
+      "fixture_sha256": [
+        "02c1956abb76015b52391b4f70763a5eafc8a0da4cb4f8ea1cafcb2a82e9c79e",
+        "8ba7a3f4d58244639fe0dff03dbf279a1cf6fc7642f3de11c101c3e128069d32",
+        "c8e66cc52ceccba4f6083b45a62859a5d7e53102cf5e98db20c28d813f172cae",
+        "d030fbc73819a24be4a1c7af63231caba464d2335ed5a3402cf3aaafc8884e51",
+        "e44fb618be5c34af26542b678b66f2a8bac9e1d290d605720d03926411e4b17f"
+      ],
+      "historical_semantic_overlap": 0,
+      "semantic_sha256": [
+        "392f5d4ab49875fc7bbc26c5a099dfac8a2c46084c9f0fdd1609be21e0439ed5",
+        "3f5da21d66363f37b2f46ca20d14efa109cf5248b4fad6be39adc6c53464dbb5",
+        "478a7c07ce01dbad51646842b7490a137df6092b6c34bce64afd17b331c0e486",
+        "6db52168b3866890e0fb51c0b09f5d9033bc902923fa9afb5d33b3d698e7c1dc",
+        "8f26787796424290bd44412e343b68546769d57f7e36932e95bc092ba19ace02"
+      ]
+    },
+    "calibration-medium": {
+      "analysis_case_sha256": [
+        "2db08ab5f7a05fb2ad0b5a188f32ee8f9b7de4b260dcfae13266a472e46387df",
+        "2fa42253445d33f767f5790b745bc6362773055b576f207de5ecc88c824c8c80",
+        "462e46154e3a8e0f6ac4d94647bf8038684c2ef1c025829376ff1e642fea4a17",
+        "4bad44befd0e0363c0184cab03970ad7f97f6fa2e8fe1817153700e4dd59d578",
+        "5d3ab4dd07659bdd7da378c5c1ea8011d0961ffcfc0d700b91f341121929e046",
+        "5f1ff8755fc8053f1bc2359559cd2137c675c6e6be471965b5d5cc0756ceb8ea",
+        "63dc384a1b46aacd0797fd29452092e529cb79b124deb8573bcb63b8d6a244f5",
+        "8324345eae8d5727fa267a27eb991b10eaf0abf30c266eceac08cb9100c51f29",
+        "8326c0d79bbbab5952083f0025cca31902eaf343ea9351d4d950d9ee64694b1b",
+        "8bb6b38d069326691894c2a9478ba849af815f9a81051e43a79ab19e9fa05834",
+        "9f0e35f74f8f02911fc748f36d03f262926fafa2601a7995a2ea05c719e9a883",
+        "9f13289357fb675dba658a087ff11b5906924bb16327793b3af209e603e14a97",
+        "bb74a0c44009833f38927f5975e47c27f36e7abe79349e600a3b8c46dc5ac140",
+        "be39b61f512e13c0c0e95cafa880e44d1a346477433f8943ec1d35e900ab51a1",
+        "cc9c8a611aca258e82b9adb5e332684707eaf2cbc08594b461f67b985f1a3807",
+        "cd4b3af9d11930e7795810dba1a7672354426ff68646ccc512ef4554eabeaa5b",
+        "d371c18c7022b78550d2e2f064b64c77340f1c53925d1dd6d0081bc3c69ebc04",
+        "d4077cc7dcff7f08abb2fedec039b049db6bbeba66e9f15119e0a058312dfc44",
+        "f0b3c2d08809d5cb965f84f5081528b49fb53bfad400a1a0763afdcab8e1c638",
+        "f7e25c8ec54fb3ddda2b70ef254b4997d4fcb50cb286e6559d0d2e0e11ebfc71"
+      ],
+      "corpus_sha256": "9b790204d316bbd1f9e4fb16234275b491954a9bd39b7aebbe3127870ba3e592",
+      "fixture_count": 5,
+      "fixture_sha256": [
+        "0f0cc8b380cd82e66fcd26c24eef634699cc5033eec97cd715b66be7fa017247",
+        "a0d9595fa7a1b786adbf3032fa37634ddfb391eedc8ea7746db01b8b179fff2f",
+        "a4ba1f8ab8ca14aef4c1daf83a21506de3fe78bc7b1777d3fd53d8b29001c884",
+        "c1809a84414fa8780f20cb23f39e41de55d62d0bbc0d140ea0fbf99b6b8dbaf7",
+        "ffcca129b43cdaf41282d6f7ec639a01ed928f0c1c426f4ce7cf7949d000d7ee"
+      ],
+      "historical_semantic_overlap": 0,
+      "semantic_sha256": [
+        "3bfd9630f624d496e2f2b5e8701546cf27131e7ac1e2d1a09d6144e977aae0ee",
+        "4c271207e3b77f88c5d28f23f78bda6121dff6aeac15d5c2494521336cc326ab",
+        "501013d5284fedf2816a5cfff0c7bf14a5a198cb11005a424d17221bc1dea2b3",
+        "56505eb64042e8e7e6d61788de36c1de7140c4e9b7ca95b5fc6fb9808c2c6998",
+        "9327040b27b21c3b491ac0a8758bad8d6d5cdc402b9a796ac48d217c2e37e183"
+      ]
+    }
+  },
+  "historical_semantic_count": 584,
+  "kind": "cohort-manifest",
+  "pairwise": [
+    {
+      "analysis_case_hash_overlap": 0,
+      "fixture_hash_overlap": 0,
+      "left": "calibration-easy",
+      "right": "calibration-medium",
+      "semantic_hash_overlap": 0
+    },
+    {
+      "analysis_case_hash_overlap": 0,
+      "fixture_hash_overlap": 0,
+      "left": "calibration-easy",
+      "right": "calibration-hard",
+      "semantic_hash_overlap": 0
+    },
+    {
+      "analysis_case_hash_overlap": 0,
+      "fixture_hash_overlap": 0,
+      "left": "calibration-medium",
+      "right": "calibration-hard",
+      "semantic_hash_overlap": 0
+    }
+  ],
+  "schema": "ghostnote-compact-format-corpus-v6",
+  "sha256": "e2efeec760735e77919467be3b299f7e39a3ce8b5c838bd11389eed63718277d"
+}

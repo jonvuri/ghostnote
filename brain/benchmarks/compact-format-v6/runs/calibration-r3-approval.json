@@ -1,0 +1,7 @@
+{
+  "run_id": "phase8c4b-analysis-repair-calibration-r3",
+  "protocol_sha256": "469fa3bf8c0d9c2b66c2fb8132b3bc942b90a4e39b84c2bd784a9395495e0f2c",
+  "run_plan_sha256": "e0a97521b4b8790c1b1432adf99f4cd79d315b931db0897a017f5b1941bf890a",
+  "status": "approved",
+  "operator_statement": "I approve phase8c4b-analysis-repair-calibration-r3 with protocol SHA-256 469fa3bf8c0d9c2b66c2fb8132b3bc942b90a4e39b84c2bd784a9395495e0f2c and run-plan SHA-256 e0a97521b4b8790c1b1432adf99f4cd79d315b931db0897a017f5b1941bf890a, up to 48 calls and USD 1.137431."
+}

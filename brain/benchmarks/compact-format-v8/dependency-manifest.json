@@ -1,0 +1,40 @@
+{
+  "cohort_manifest_sha256": "3ffcd022545ace31e6c47a766788ceb6e23b442354925eca111cd7d4461ccbd0",
+  "files": {
+    "compact-format-v5/cohort-manifest.json": "d960ec4e9abca4ea2c95fa306cbc5e3914dea70a45857914a1101f1c2855f60b",
+    "compact-format-v6/core.py": "9150edfc2a2d0e873386508d406d9d92c29ca1fcf1ecd352f53fba3702d6280d",
+    "compact-format-v6/runs/2026-09-28-analysis-gemini-easy.json": "3f406cd196dd9b8693ee15cd75dccd002a1e83db779021abd98cdf5912eee08b",
+    "compact-format-v6/runs/2026-09-28-analysis-summary.json": "3eaf6f7926a8b73c1585ce2ad15a4d22e12434855817764161bdd7506b352f5f",
+    "compact-format-v7/runs/2026-09-28-analysis-haiku.json": "c92ff1fa31be9f844c472c474bcbab767ea4c9aaad597c8c99b161816e4bae35",
+    "compact-format-v7/runs/2026-09-28-analysis-summary.json": "dd949f45e6a7b86c08e4b4563a5a58bdaae80c900cc3c916f89b2e3ac7f54d12"
+  },
+  "files_match": true,
+  "fixture_formulas_pass": true,
+  "fresh_case_semantics": true,
+  "fresh_task_semantics": true,
+  "gemini_gate": {
+    "ceiling": false,
+    "complete": true,
+    "denominator": 5,
+    "eligible": true,
+    "floor": false,
+    "passed": 3,
+    "rate": 0.6
+  },
+  "gemini_manifest_sha256": "4931455793fa10ff25c7e541354328bbff342003d6fe51d99752e175bc663ef7",
+  "kind": "frozen-dependency-manifest",
+  "r4_decision": "repair-measurement",
+  "r4_gate": {
+    "ceiling": false,
+    "complete": false,
+    "denominator": 2,
+    "eligible": false,
+    "floor": false,
+    "passed": 0,
+    "rate": 0.0
+  },
+  "r4_manifest_sha256": "27d3741d079cdaaca792f69d06fa5cd3765c6313445cff74c451192cf01ffb2d",
+  "reuse_rule": "Retain Gemini's eligible r3 gate. Run only Haiku on the fresh matched-difficulty r5 cohort.",
+  "schema": "ghostnote-compact-format-haiku-output-repair-v8",
+  "sha256": "2f43ca6ef2f22312e47f77202bf11f036ceb8b346cd48f6de313d285fe602990"
+}

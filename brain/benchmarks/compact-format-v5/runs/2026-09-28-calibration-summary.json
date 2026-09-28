@@ -1,0 +1,571 @@
+{
+  "decision": "repair-measurement",
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "family_eligibility": [
+    {
+      "eligible": false,
+      "eligible_providers": 1,
+      "family": "comprehension-analysis"
+    },
+    {
+      "eligible": true,
+      "eligible_providers": 2,
+      "family": "continuation-motif"
+    },
+    {
+      "eligible": true,
+      "eligible_providers": 3,
+      "family": "generation-progression"
+    }
+  ],
+  "format_selection": null,
+  "incomplete_initial_evidence": false,
+  "providers": [
+    {
+      "initial_failed": 0,
+      "initial_unavailable": 0,
+      "provider": "claude",
+      "rates": [
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 5,
+          "family": "comprehension-analysis",
+          "passed": 5,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 5,
+          "family": "comprehension-analysis",
+          "passed": 5,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 5,
+          "family": "comprehension-analysis",
+          "passed": 5,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 5,
+          "family": "continuation-motif",
+          "passed": 3,
+          "rate": 0.6
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 5,
+          "family": "continuation-motif",
+          "passed": 5,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 5,
+          "family": "continuation-motif",
+          "passed": 4,
+          "rate": 0.8
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 5,
+          "family": "generation-progression",
+          "passed": 3,
+          "rate": 0.6
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 5,
+          "family": "generation-progression",
+          "passed": 2,
+          "rate": 0.4
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 5,
+          "family": "generation-progression",
+          "passed": 4,
+          "rate": 0.8
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "comprehension-structure",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "comprehension-structure",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "comprehension-structure",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "continuation-roles",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "continuation-roles",
+          "passed": 0,
+          "rate": 0.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "continuation-roles",
+          "passed": 0,
+          "rate": 0.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "transformation-revoice",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "transformation-revoice",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "transformation-revoice",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "transformation-local",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "transformation-local",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "transformation-local",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "transformation-rhythm",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "transformation-rhythm",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "transformation-rhythm",
+          "passed": 0,
+          "rate": 0.0
+        }
+      ],
+      "repair_recovered": 7,
+      "repair_scored": 12
+    },
+    {
+      "initial_failed": 0,
+      "initial_unavailable": 0,
+      "provider": "gemini",
+      "rates": [
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 5,
+          "family": "comprehension-analysis",
+          "passed": 5,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 5,
+          "family": "comprehension-analysis",
+          "passed": 5,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 5,
+          "family": "comprehension-analysis",
+          "passed": 5,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 5,
+          "family": "continuation-motif",
+          "passed": 4,
+          "rate": 0.8
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 5,
+          "family": "continuation-motif",
+          "passed": 5,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 5,
+          "family": "continuation-motif",
+          "passed": 5,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 5,
+          "family": "generation-progression",
+          "passed": 1,
+          "rate": 0.2
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 5,
+          "family": "generation-progression",
+          "passed": 2,
+          "rate": 0.4
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 5,
+          "family": "generation-progression",
+          "passed": 1,
+          "rate": 0.2
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "comprehension-structure",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "comprehension-structure",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "comprehension-structure",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "continuation-roles",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "continuation-roles",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "continuation-roles",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "transformation-revoice",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "transformation-revoice",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "transformation-revoice",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "transformation-local",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "transformation-local",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "transformation-local",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "transformation-rhythm",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "transformation-rhythm",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "transformation-rhythm",
+          "passed": 1,
+          "rate": 1.0
+        }
+      ],
+      "repair_recovered": 6,
+      "repair_scored": 12
+    },
+    {
+      "initial_failed": 0,
+      "initial_unavailable": 0,
+      "provider": "openai",
+      "rates": [
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 5,
+          "family": "comprehension-analysis",
+          "passed": 2,
+          "rate": 0.4
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 5,
+          "family": "comprehension-analysis",
+          "passed": 1,
+          "rate": 0.2
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 5,
+          "family": "comprehension-analysis",
+          "passed": 1,
+          "rate": 0.2
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 5,
+          "family": "continuation-motif",
+          "passed": 3,
+          "rate": 0.6
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 5,
+          "family": "continuation-motif",
+          "passed": 2,
+          "rate": 0.4
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 5,
+          "family": "continuation-motif",
+          "passed": 4,
+          "rate": 0.8
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 5,
+          "family": "generation-progression",
+          "passed": 2,
+          "rate": 0.4
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 5,
+          "family": "generation-progression",
+          "passed": 0,
+          "rate": 0.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 5,
+          "family": "generation-progression",
+          "passed": 1,
+          "rate": 0.2
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "comprehension-structure",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "comprehension-structure",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "comprehension-structure",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "continuation-roles",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "continuation-roles",
+          "passed": 0,
+          "rate": 0.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "continuation-roles",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "transformation-revoice",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "transformation-revoice",
+          "passed": 0,
+          "rate": 0.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "transformation-revoice",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "transformation-local",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "transformation-local",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "transformation-local",
+          "passed": 0,
+          "rate": 0.0
+        },
+        {
+          "arm": "compact-bar-v1",
+          "denominator": 1,
+          "family": "transformation-rhythm",
+          "passed": 1,
+          "rate": 1.0
+        },
+        {
+          "arm": "compact-bar-fields",
+          "denominator": 1,
+          "family": "transformation-rhythm",
+          "passed": 0,
+          "rate": 0.0
+        },
+        {
+          "arm": "exact-object-json",
+          "denominator": 1,
+          "family": "transformation-rhythm",
+          "passed": 1,
+          "rate": 1.0
+        }
+      ],
+      "repair_recovered": 11,
+      "repair_scored": 37
+    }
+  ],
+  "repair_policy": {
+    "eligible": "Every available initial parse or musical-contract failure, including a named sentinel.",
+    "feedback": "Return only the structured parse or failed-check diagnostic.",
+    "maximum_turns": 1,
+    "primary_result": "Initial musical success only. A repair never replaces an initial result.",
+    "unavailable_or_failed": "Do not repair and do not add to a scored denominator."
+  },
+  "run_id": "phase8c4b-focused-compact-calibration-r2",
+  "run_kind": "calibration-summary",
+  "schema": "ghostnote-compact-format-calibration-v5",
+  "sha256": "e2b293e9e05c62d58e9c22748d5cdad0d38bfcd5ec456347c7a0f01a3a030017"
+}

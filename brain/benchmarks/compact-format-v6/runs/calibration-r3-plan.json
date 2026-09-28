@@ -1,0 +1,66 @@
+{
+  "approval": "pending",
+  "calls": {
+    "initial_per_run": 6,
+    "maximum_claude_calls": 12,
+    "maximum_claude_runs": 1,
+    "maximum_gemini_calls": 36,
+    "maximum_gemini_tiers": 3,
+    "maximum_repair_per_run": 6,
+    "maximum_total_calls": 48,
+    "maximum_total_per_run": 12,
+    "named_sentinel_initial_per_run": 1,
+    "unique_initial_per_run": 5
+  },
+  "cohort_manifest_sha256": "e2efeec760735e77919467be3b299f7e39a3ce8b5c838bd11389eed63718277d",
+  "cost_basis": {
+    "contingency": 0.25,
+    "maximum_observed_call_cost_usd": {
+      "claude": 0.057858,
+      "gemini": 0.00599025
+    },
+    "method": "Multiply the maximum observed call cost by the gated call limit and add 25 percent.",
+    "price_verification_date": "2026-09-28",
+    "source": "The maximum observed call cost from Phase 8c4b calibration r2."
+  },
+  "eligibility_band": {
+    "maximum": 0.8,
+    "minimum": 0.2,
+    "minimum_providers": 2
+  },
+  "estimated_maximum_cost_usd": {
+    "claude": 0.86787,
+    "gemini": 0.269561,
+    "total": 1.137431
+  },
+  "maximum_calls_all_providers": 48,
+  "models": {
+    "claude": "claude-sonnet-5",
+    "gemini": "gemini-3.8-flash"
+  },
+  "protocol_sha256": "469fa3bf8c0d9c2b66c2fb8132b3bc942b90a4e39b84c2bd784a9395495e0f2c",
+  "repair_policy": {
+    "eligible": "Every available initial parse or musical-contract failure, including a named sentinel.",
+    "feedback": "Return only the structured parse or failed-check diagnostic.",
+    "maximum_turns": 1,
+    "primary_result": "Initial musical success only. A repair never replaces an initial result.",
+    "unavailable_or_failed": "Do not repair and do not add to a scored denominator."
+  },
+  "run_id": "phase8c4b-analysis-repair-calibration-r3",
+  "run_kind": "calibration-plan",
+  "schema": "ghostnote-compact-format-calibration-v6",
+  "sequential_gate": "Run Gemini easy first. Run the next Gemini tier only after a complete ceiling above 0.80. Stop after a Gemini floor, incomplete result, or eligible tier. Run Claude only once, on the first Gemini tier inside 0.20 through 0.80.",
+  "settings": {
+    "claude": {
+      "effort": "low",
+      "max_tokens": 5000
+    },
+    "gemini": {
+      "max_output_tokens": 5000,
+      "thinking_level": "low"
+    },
+    "temperature": "provider default"
+  },
+  "sha256": "e0a97521b4b8790c1b1432adf99f4cd79d315b931db0897a017f5b1941bf890a",
+  "stopping_rule": "Return analysis-repair-pass only when Gemini and Claude are both complete and inside 0.20 through 0.80 on the same first eligible Gemini tier. Otherwise return repair-measurement. This targeted run cannot select a format."
+}

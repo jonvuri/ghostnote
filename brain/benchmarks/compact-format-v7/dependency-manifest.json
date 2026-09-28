@@ -1,0 +1,28 @@
+{
+  "easy_corpus_match": true,
+  "easy_corpus_sha256": "edd1f29d71d049d3f9bfda1915a62879d23143abc596053070441015a2607374",
+  "files": {
+    "compact-format-v6/cohort-manifest.json": "1c927d2957f9ca3249146d729debf69ff46d00e6a507b23c94063028ca3c9427",
+    "compact-format-v6/core.py": "9150edfc2a2d0e873386508d406d9d92c29ca1fcf1ecd352f53fba3702d6280d",
+    "compact-format-v6/expected-deterministic.json": "de97aebbfd1d8d74126cb8c607f4617d104f468a9a6c57416f240e6a222d0549",
+    "compact-format-v6/runs/2026-09-28-analysis-gemini-easy.json": "3f406cd196dd9b8693ee15cd75dccd002a1e83db779021abd98cdf5912eee08b",
+    "compact-format-v6/runs/2026-09-28-analysis-summary.json": "3eaf6f7926a8b73c1585ce2ad15a4d22e12434855817764161bdd7506b352f5f"
+  },
+  "files_match": true,
+  "fixture_formulas_pass": true,
+  "gemini_gate": {
+    "ceiling": false,
+    "complete": true,
+    "denominator": 5,
+    "eligible": true,
+    "floor": false,
+    "passed": 3,
+    "rate": 0.6
+  },
+  "gemini_manifest_sha256": "4931455793fa10ff25c7e541354328bbff342003d6fe51d99752e175bc663ef7",
+  "kind": "frozen-dependency-manifest",
+  "prompt_hashes_match": true,
+  "reuse_rule": "Reuse the unchanged easy cohort only for a new model that has not received it. Do not rerun Gemini or Sonnet.",
+  "schema": "ghostnote-compact-format-haiku-substitution-v7",
+  "sha256": "82622f1e09c21e67115ac23f4a0f79f739ee3cc045b0d36f01427ff8575ee209"
+}
