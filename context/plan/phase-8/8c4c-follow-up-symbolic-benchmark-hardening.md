@@ -1,8 +1,8 @@
 ---
 title: Phase 8c4c follow-up — Symbolic benchmark hardening
 kind: plan
-state: planned
-status: Ready to harden a paired FIELDS and local-label benchmark.
+state: complete
+status: V14 freezes the corrected benchmark and fresh targeted holdout.
 updated: 2026-09-28
 parent: README.md
 prev: 8c4c-compact-bar-paired-development.md
@@ -11,6 +11,10 @@ evidence: E137-E177; D21, D23-D24
 ---
 
 # Phase 8c4c follow-up — Symbolic benchmark hardening
+
+[E178](../../evidence/experiments/e178-symbolic-benchmark-hardening-freezes-v14.md)
+records the completed audit and the passing offline v14 package. No provider
+request occurred.
 
 ## Purpose
 
@@ -32,6 +36,19 @@ as the issue authority. This session makes no provider call.
 - Phase 8c4c retains `FIELDS` and local labels after the Gemini diagnostic.
 - The two candidate definitions and the evidence limit of E177 are explicit.
 - Historical packages, manifests, and decisions remain unchanged.
+
+## Completion
+
+The audit and v14 offline package satisfy the acceptance criteria. V14 freezes
+three arm hashes, a fresh 20-fixture cohort, 108 balanced messages per
+provider, two decision repeats, effective provider settings, byte and token
+reporting, a USD 3.050000 total hard limit, and explicit stop rules.
+
+The old reserved v10 holdout is retired. The v14 protocol SHA-256 is
+`749f890e5093ebfafdcedd435f8d9c87039b6ee28815bef7b72f73b723937123`.
+The run-plan SHA-256 is
+`33062e821d4d1679c680e340e8637d57c3fa12f686ab4bfe3fc90064851646df`.
+No provider or token-count request occurred.
 
 ## Audit scope
 
@@ -88,3 +105,8 @@ changed in a way that can affect the holdout result.
 
 Record which earlier cycle could have ended sooner with the corrected design.
 Keep only controls that can change the product decision.
+
+The v10 cycle could have ended before paid development if it had required
+prompt-to-scorer visibility, repeat coverage, and retained realized order.
+Those controls now run before approval. No additional process change is
+needed.

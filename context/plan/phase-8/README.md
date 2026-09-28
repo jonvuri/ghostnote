@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Phase 8c4c retains FIELDS and local labels; benchmark hardening is next.
+status: Benchmark hardening is complete; v14 awaits targeted-holdout approval.
 updated: 2026-09-28
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -186,8 +186,10 @@ owns the migration details.
    All other compact variants are historical only.
    No compact arm advances to holdout yet.
 14. [8c4c follow-up — Symbolic benchmark hardening](8c4c-follow-up-symbolic-benchmark-hardening.md).
-   Audit all format cycles, close the durable experiment-design backlog, and
-   freeze a corrected two-candidate package without provider calls.
+   Complete. [E178](../../evidence/experiments/e178-symbolic-benchmark-hardening-freezes-v14.md)
+   records the full audit and the passing v14 offline package. V14 freezes
+   `FIELDS`, local labels, exact-object JSON, a fresh cohort, and the targeted-
+   holdout plan. No provider call occurred.
 15. [8c4d — Compact-bar targeted holdout](8c4d-compact-bar-targeted-holdout.md).
    Test the frozen development candidate on a disjoint affected-family and
    guard holdout.

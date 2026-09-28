@@ -12,6 +12,7 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E178 | Symbolic benchmark hardening freezes v14 [K] (2026-09-28) | [open](experiments/e178-symbolic-benchmark-hardening-freezes-v14.md) |
 | E177 | Gemini local-label diagnostic selects local labels [K] (2026-09-28) | [open](experiments/e177-gemini-local-label-diagnostic-selects-local-labels.md) |
 | E176 | Gemini local-label diagnostic awaits approval [K] (2026-09-28) | [open](experiments/e176-gemini-local-label-diagnostic-awaits-approval.md) |
 | E175 | Fresh failure audit finds FIELDS can be good enough [K] (2026-09-28) | [open](experiments/e175-fresh-failure-audit-finds-fields-good-enough.md) |

@@ -1,0 +1,242 @@
+{
+  "approval": "pending",
+  "arms": [
+    "compact-bar-fields",
+    "compact-bar-local-labels",
+    "exact-object-json"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "maximum_all_providers": 324,
+    "maximum_haiku_token_count_requests": 108,
+    "maximum_per_provider": 108,
+    "repairs": 0
+  },
+  "candidate_sha256": {
+    "compact-bar-fields": "de5c64a3746e4b555a9b9ef0ad37e1763caef696d3ea3722ccc3422c9ee07b0f",
+    "compact-bar-local-labels": "5f3e5ae56f77d78d985887938cd5f91399c48d351385fa79c7a431a8c8ea89db",
+    "exact-object-json": "3de94454d58e1bd631ff3f73acb1d59dfa98ec2e479c67e7af86ed2c2f0c8844"
+  },
+  "cohort_sha256": "5979ba82fd271bda2a0f2eef3eaafbc987d9d7da0634d69267c1761ab7ee3f64",
+  "cost_guard": {
+    "aggregation": "Sum exact provider line items and round once.",
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.072,
+      "gemini": 0.054,
+      "openai": 0.063
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 1.85,
+      "gemini": 0.35,
+      "openai": 0.85
+    },
+    "maximum_total_cost_usd": 3.05,
+    "output_token_ceiling_per_call": 12000,
+    "recent_cost_estimate_total_usd": 2.715,
+    "recent_cost_estimate_usd": {
+      "claude-haiku": 1.758,
+      "gemini": 0.218,
+      "openai": 0.739
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "decision_rule": {
+    "exact_noninferiority_loss_margin_rows": 2,
+    "family_authority": "A decision family needs exact JSON in its informative band and at least one compact arm in its informative band. Otherwise, it is a guard result and cannot establish a format effect.",
+    "informative_compact_band": {
+      "exclusive_maximum": 0.875,
+      "exclusive_minimum": 0.25
+    },
+    "informative_exact_band": {
+      "exclusive_maximum": 0.95,
+      "inclusive_minimum": 0.75
+    },
+    "maximum_repeated_candidate_only_losses": 0,
+    "minimum_compact_syntax": 0.875,
+    "minimum_exact_control_pass": 0.75,
+    "minimum_provider_completion": 0.95,
+    "outcomes": [
+      "retain-both",
+      "revise",
+      "stop"
+    ],
+    "selection_authority": "The holdout can retain both candidates or require revision or stop. It cannot remove one D24 candidate or select a public format.",
+    "size_gates": {
+      "api_token_use": "Report by provider and arm. It is not a musical score.",
+      "maximum_compact_to_exact_response_ratio": 0.8,
+      "maximum_local_to_fields_prompt_ratio": 1.2,
+      "maximum_local_to_fields_response_ratio": 2.0
+    },
+    "smallest_useful_effect": 0.125,
+    "smallest_useful_paired_rows": 2
+  },
+  "declared_settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low",
+      "temperature": "provider default; omitted from request"
+    }
+  },
+  "effective_request_settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low"
+    }
+  },
+  "families": {
+    "comprehension-analysis": {
+      "repeats": 2,
+      "role": "decision",
+      "unique_fixtures": 8
+    },
+    "continuation-affine": {
+      "repeats": 2,
+      "role": "decision",
+      "unique_fixtures": 8
+    },
+    "document-serialization": {
+      "repeats": 1,
+      "role": "guard",
+      "unique_fixtures": 4
+    }
+  },
+  "historical_snapshot": {
+    "analysis_case_count": 130,
+    "full_count": 16563,
+    "semantic_count": 716,
+    "sha256": "312405bd1a66193299ee61c3c844a4800c2076a34b1e23f226cc37cc3022fad6"
+  },
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "749f890e5093ebfafdcedd435f8d9c87039b6ee28815bef7b72f73b723937123",
+  "run_id": "phase8c4d-targeted-holdout-r2",
+  "run_kind": "hardened-targeted-holdout-plan",
+  "schedule_sha256": {
+    "claude-haiku": "68d33d28489e7ca6613dc6041bd3df95414b0274f4aeddf3ee7c4691f4283eef",
+    "gemini": "ceb08c6af18794b66f25d29abc68ceca69f59382428c4450e99385c7598a01b9",
+    "openai": "674d7b2a19a124f34d348610c541623118bce90c60a0ede4fe80766651eb2fc6"
+  },
+  "schema": "ghostnote-compact-format-hardened-v14",
+  "sha256": "33062e821d4d1679c680e340e8637d57c3fa12f686ab4bfe3fc90064851646df",
+  "size_report": {
+    "offline_bytes": [
+      {
+        "arm": "compact-bar-fields",
+        "family": "comprehension-analysis",
+        "fixture_count": 8,
+        "mean_perfect_response_bytes": 325.0,
+        "mean_prompt_bytes": 4718.875
+      },
+      {
+        "arm": "compact-bar-local-labels",
+        "family": "comprehension-analysis",
+        "fixture_count": 8,
+        "mean_perfect_response_bytes": 325.0,
+        "mean_prompt_bytes": 5215.125
+      },
+      {
+        "arm": "exact-object-json",
+        "family": "comprehension-analysis",
+        "fixture_count": 8,
+        "mean_perfect_response_bytes": 325.0,
+        "mean_prompt_bytes": 5666.125
+      },
+      {
+        "arm": "compact-bar-fields",
+        "family": "continuation-affine",
+        "fixture_count": 8,
+        "mean_perfect_response_bytes": 435.125,
+        "mean_prompt_bytes": 2054.5
+      },
+      {
+        "arm": "compact-bar-local-labels",
+        "family": "continuation-affine",
+        "fixture_count": 8,
+        "mean_perfect_response_bytes": 623.125,
+        "mean_prompt_bytes": 2281.5
+      },
+      {
+        "arm": "exact-object-json",
+        "family": "continuation-affine",
+        "fixture_count": 8,
+        "mean_perfect_response_bytes": 926.125,
+        "mean_prompt_bytes": 2790.5
+      },
+      {
+        "arm": "compact-bar-fields",
+        "family": "document-serialization",
+        "fixture_count": 4,
+        "mean_perfect_response_bytes": 380.25,
+        "mean_prompt_bytes": 1747.25
+      },
+      {
+        "arm": "compact-bar-local-labels",
+        "family": "document-serialization",
+        "fixture_count": 4,
+        "mean_perfect_response_bytes": 568.25,
+        "mean_prompt_bytes": 1786.25
+      },
+      {
+        "arm": "exact-object-json",
+        "family": "document-serialization",
+        "fixture_count": 4,
+        "mean_perfect_response_bytes": 871.25,
+        "mean_prompt_bytes": 1992.25
+      }
+    ],
+    "rule": "Report runtime size by provider, family, and arm. Keep it separate from strict conformance and semantic quality.",
+    "runtime_metrics": [
+      "prompt_bytes",
+      "response_bytes",
+      "api_input_tokens",
+      "api_output_tokens"
+    ]
+  },
+  "stopping_rule": {
+    "automatic_retries": 0,
+    "before_calls": [
+      "identity mismatch",
+      "freshness failure",
+      "deterministic failure",
+      "missing credential",
+      "network preflight failure",
+      "cost capacity failure"
+    ],
+    "during_provider": {
+      "budget_stops": 1,
+      "transport_failures": 1,
+      "unavailable_responses": 3
+    },
+    "repairs": 0,
+    "value_of_information": "Stop the sequence after revise or stop. Do not buy another compact provider cycle until a new design changes a product decision."
+  }
+}
