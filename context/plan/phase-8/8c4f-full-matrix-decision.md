@@ -3,11 +3,11 @@ title: Phase 8c4f — Full-matrix decision and optional rerun
 kind: plan
 state: planned
 status: Decide whether to buy one fresh paired full matrix, then record the final Phase 8f gate.
-updated: 2026-09-28
+updated: 2026-09-29
 parent: README.md
 prev: 8c4e-compact-only-full-benchmark.md
 next: 8f-consolidated-compact-bar-and-cache-contracts.md
-evidence: E137, E140, E155, E174-E177; D21, D23-D24
+evidence: E137, E140, E155, E174-E177, E196; D21, D23-D24
 ---
 
 # Phase 8c4f — Full-matrix decision and optional rerun
@@ -21,7 +21,10 @@ value justifies its cost.
 ## Entry conditions
 
 - Phase 8c4e returns `matrix-plausible`.
-- Both compact candidates and the measurement package remain frozen.
+- Both compact candidates and the provider request package remain stable.
+- Fixtures, provider responses, scoring, diagnostics, and decision policy have
+  separate versions. A deterministic scoring or policy repair can reuse a
+  retained provider response.
 - The proposed matrix has a fresh frozen cohort, exact arms, hashes, models,
   settings, calls, provider costs, paired gates, and stopping rule.
 - Corrected-run and stopped-attempt costs from Phase 8c3 are available for the
@@ -74,7 +77,8 @@ allowed retry policy. Stop if the approved scope changes materially.
 - A matrix, when approved, uses fresh paired fixtures and both frozen
   candidates.
 - An incomplete result does not enter a scored denominator as a failure.
-- No result is tuned or retried outside the frozen policy.
+- Provider request changes remain explicit. Deterministic rescoring can reuse
+  retained responses when it does not change the task or model output.
 - Phase 8f is unblocked only by a matrix `proceed` result or an explicit
   operator decision to proceed with the stated evidence limit.
 - The final report reconciles cost with API records and provider dashboards.

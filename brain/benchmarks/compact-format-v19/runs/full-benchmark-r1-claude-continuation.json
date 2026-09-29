@@ -1,0 +1,28 @@
+{
+  "continuation_code_sha256": "006145a48c70d6559cf0c891945d0e299fa391bdf40a6353aa64fe4d066e4c82",
+  "excluded_family": "comprehension-analysis",
+  "maximum_cumulative_cost_usd": 4.0,
+  "maximum_cumulative_message_attempts": 137,
+  "operator_statement": "Adjust the expectations for this plan in place to focus on component accuracy for the gates, and then continue the run from where we left off.",
+  "provider": "claude-haiku",
+  "recovery_settings": {
+    "max_tokens": 12000,
+    "temperature": "provider default; omitted from request",
+    "thinking": {
+      "budget_tokens": 1024,
+      "type": "enabled"
+    }
+  },
+  "retained_planned_sequences": [
+    3,
+    4
+  ],
+  "run_id": "phase8c4e-full-compact-benchmark-r1",
+  "schema": "ghostnote-compact-format-v19-claude-continuation-v1",
+  "sha256": "35e8780c8a159e39947ef1f10bd8a37180f8f5f8ee88950f1748b6a526576feb",
+  "source_file_sha256": "a6a63567738a38490cf5605736c37620aae7a6a9d63a514b38c32f59c92bf15b",
+  "source_manifest_sha256": "b26d7a99b48effe9178fb713beac6a20918ce2487ec3dc09f4dc7b006f751b4c",
+  "status": "approved",
+  "unretained_recovery_attempts": 2,
+  "unretained_recovery_reservation_usd": 0.264
+}

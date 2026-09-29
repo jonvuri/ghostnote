@@ -37,6 +37,7 @@
     "benchmark:compact-format-v16-other": "python3 -B benchmarks/compact-format-v16/other_providers.py --check benchmarks/compact-format-v16/expected-other-providers.json",
     "benchmark:compact-format-v17": "python3 -B benchmarks/compact-format-v17/benchmark.py --check benchmarks/compact-format-v17/expected-deterministic.json",
     "benchmark:compact-format-v18": "python3 -B benchmarks/compact-format-v18/benchmark.py --check benchmarks/compact-format-v18/expected-deterministic.json",
+    "benchmark:compact-format-v19": "python3 -B benchmarks/compact-format-v19/benchmark.py --check benchmarks/compact-format-v19/expected-deterministic.json",
     "benchmark:compact-json": "python3 -B benchmarks/compact-json-v1/benchmark.py --check benchmarks/compact-json-v1/expected-deterministic.json",
     "benchmark:compact-json-calibration-report": "python3 -B benchmarks/compact-json-v1/calibration_report.py --self-test",
     "benchmark:compact-json-r2-report": "python3 -B benchmarks/compact-json-v1/calibration_r2_report.py --self-test",

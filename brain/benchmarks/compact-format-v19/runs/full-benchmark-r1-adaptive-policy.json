@@ -1,0 +1,37 @@
+{
+  "decision_gates": {
+    "decision_family_minimum_component_accuracy": 0.7,
+    "minimum_provider_completion": 0.95,
+    "minimum_scored_cell_coverage": 0.8,
+    "serialization_minimum_component_accuracy": 0.9
+  },
+  "decision_rule": "Return matrix-plausible when every measured cell passes, at least two providers cover every family, and each unavailable cell remains explicit. Do not convert an unavailable cell into a musical failure.",
+  "diagnostics_only": [
+    "average_per_case_component_accuracy",
+    "canonical_form_rate",
+    "structural_parse_rate"
+  ],
+  "analysis_measurement": {
+    "excluded_component": "functions",
+    "reason": "The v19 generator transposed chord content without transposing key_tonic_pc. Score the seven independent components that remain valid."
+  },
+  "operator_statement": "Adjust the expectations for this plan in place to focus on component accuracy for the gates, and then continue the run from where we left off.",
+  "provider_execution": {
+    "approval_file": "full-benchmark-r1-approval.json",
+    "openai": "reuse-completed-manifest",
+    "remaining_providers": [
+      "gemini",
+      "claude-haiku"
+    ],
+    "rerun_completed_provider": false
+  },
+  "provider_notes": {
+    "claude-haiku": "After repeated analysis output limits, exclude Claude analysis and complete the other eight families. Apply completion and coverage gates to that eligible scope."
+  },
+  "revoice_measurement": {
+    "id_is_diagnostic_only": true,
+    "rule": "Align notes within each onset by the assignment that preserves the most independently correct fields. Score voice, start, duration, pitch, velocity, and exact note count. Do not require an undisclosed output ID."
+  },
+  "run_id": "phase8c4e-full-compact-benchmark-r1",
+  "schema": "ghostnote-compact-format-adaptive-policy-v1"
+}

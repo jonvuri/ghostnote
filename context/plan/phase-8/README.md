@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: V18 is valid development evidence. Phase 8c4e needs one affine freshness repair before its cohort freezes.
+status: Phase 8c4e is matrix-plausible under component-focused product gates.
 updated: 2026-09-29
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -241,7 +241,21 @@ owns the migration details.
    finds no run defect. It finds that affine freshness must ignore synthetic
    IDs and vary musical content across cohorts before 8c4e freezes.
 20. [8c4e — Compact-candidate full benchmark](8c4e-compact-only-full-benchmark.md).
-   Blocked pending the v18 rehearsal and an operator decision.
+   [E194](../../evidence/experiments/e194-8c4e-full-benchmark-awaits-approval.md)
+   freezes the repaired full-suite package, 444-call schedule, and USD 5.550000
+   hard limit.
+   [E195](../../evidence/experiments/e195-v19-openai-makes-stop-irreversible.md)
+   records 148/148 OpenAI completions at USD 0.713277. Five valid failed cells
+   make `stop` irreversible, so Gemini and Claude Haiku were not run. The audit
+   also excludes defective revoice scores from candidate interpretation.
+   The operator later replaced strict canonical gates with component-focused
+   product gates. The completed OpenAI results remain in scope. Gemini and
+   Claude Haiku continued on the unchanged fresh fixtures.
+   [E196](../../evidence/experiments/e196-v19-adaptive-component-assessment-is-matrix-plausible.md)
+   records `matrix-plausible`. All 58 measured cells pass. Claude analysis is
+   unavailable. A sampled audit removed one invalid analysis component and
+   hardened ID-neutral revoice alignment without new provider calls. `FIELDS`
+   is smaller and more accurate across the combined provider aggregates.
 21. [8c4f — Full-matrix decision and optional rerun](8c4f-full-matrix-decision.md).
    Let the operator approve the fresh matrix, proceed with an explicit evidence
    limit, or stop.

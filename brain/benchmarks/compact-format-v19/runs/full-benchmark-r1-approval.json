@@ -1,0 +1,24 @@
+{
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349"
+  },
+  "cohort_sha256": "a3a96a392c67c9ecbcbda21b980f6700b700c2a8c368f3f2a28899ecc788a0c1",
+  "maximum_provider_cost_usd": {
+    "claude-haiku": 4.0,
+    "gemini": 0.6,
+    "openai": 0.95
+  },
+  "maximum_total_cost_usd": 5.55,
+  "operator_statement": "I approve this plan. Proceed.",
+  "protocol_sha256": "b4b8e798544b63a309c6fa7c3a528c72be1b4f8f936bb9298896b89e3544a90a",
+  "run_id": "phase8c4e-full-compact-benchmark-r1",
+  "run_plan_sha256": "b5ed80eb9ebcfd9010cbeb0e64eef6c0557aa725c7e594648c8a3e381d2335fa",
+  "runner_sha256": "a49614c193223ed4a9eb134df36a7d8aec57e0b23fbade72c58d37dfed877f2a",
+  "schedule_sha256": {
+    "claude-haiku": "77e0e1db053827b50baaf3c24b4c80ba07c6423e839e7443df7218b1b3bf16ff",
+    "gemini": "9a2d9fd58c467fd438fd86db08633dbdd7b1dda8ea0fbadeeed0ea3bf7b638b4",
+    "openai": "3579be1a35cdde37ab3d332e1e32424e985c7afba40c0fe7c91c8681a0d9ce64"
+  },
+  "status": "approved"
+}

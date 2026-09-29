@@ -1,0 +1,209 @@
+{
+  "approval": "pending",
+  "arms": [
+    "compact-bar-fields",
+    "compact-bar-local-labels"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "messages_per_provider": 148,
+    "messages_total": 444,
+    "repairs": 0,
+    "sentinel_repeats_per_provider": 9,
+    "unique_prompts_per_provider": 65
+  },
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349"
+  },
+  "cohort_audit_sha256": "a43fd44ba580974c3768462e528deaa64b5dd628bbf0446a4508df881a261473",
+  "cohort_sha256": "a3a96a392c67c9ecbcbda21b980f6700b700c2a8c368f3f2a28899ecc788a0c1",
+  "cost_guard": {
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.072,
+      "gemini": 0.054,
+      "openai": 0.063
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 4.0,
+      "gemini": 0.6,
+      "openai": 0.95
+    },
+    "maximum_total_cost_usd": 5.55,
+    "output_token_ceiling_per_call": {
+      "claude-haiku": 12000,
+      "gemini": 12000,
+      "openai": 12000
+    },
+    "recent_cost_estimate_total_usd": 4.27,
+    "recent_cost_estimate_usd": {
+      "claude-haiku": 3.1,
+      "gemini": 0.42,
+      "openai": 0.75
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "decision_rule": {
+    "calibration_basis": "The 70 percent component floor follows the Phase 8c3 compact diagnostic. The 80 percent structural floor follows the hardened holdout syntax gate at seven-prompt resolution. Ninety percent is a maximum calibration target, not a minimum validity threshold.",
+    "cases_and_components": "outcomes within a prompt; not independent trials",
+    "experimental_unit": "prompt",
+    "maximum_failed_cells_for_revise": 3,
+    "maximum_providers_with_same_failed_family_for_revise": 1,
+    "maximum_recurring_defects_for_matrix_plausible": 0,
+    "minimum_average_case_accuracy_per_provider_family_candidate": 0.7,
+    "minimum_canonical_rate_per_provider_family_candidate": 0.7,
+    "minimum_component_accuracy_per_provider_family_candidate": 0.7,
+    "minimum_provider_completion": 0.95,
+    "minimum_scored_cell_coverage": 0.8,
+    "minimum_structural_rate_per_provider_family_candidate": 0.8,
+    "outcomes": [
+      "matrix-plausible",
+      "revise",
+      "stop"
+    ],
+    "recurring_defect": "Both repeats of a sentinel score below 50 percent components or both fail structural parsing for one provider, family, and candidate.",
+    "selection_authority": "This run decides whether a fresh full matrix is plausible. It does not select a public format or authorize matrix calls.",
+    "serialization_minimum_component_accuracy": 0.9,
+    "serialization_minimum_conformance_rate": 0.9
+  },
+  "declared_settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low",
+      "temperature": "provider default; omitted from request"
+    }
+  },
+  "effective_request_settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low"
+    }
+  },
+  "families": {
+    "comprehension-analysis": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "comprehension-structure": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "continuation-motif": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "continuation-roles": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "document-serialization": {
+      "role": "validity-guard",
+      "sentinel_repeat": false,
+      "unique_fixtures": 2
+    },
+    "generation-melody": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "generation-progression": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "transformation-local": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "transformation-revoice": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "transformation-rhythm": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    }
+  },
+  "historical_snapshot": {
+    "analysis_case_count": 130,
+    "full_count": 18318,
+    "semantic_count": 822,
+    "sha256": "e9d15323203b94a2a25078c06a80168b51f062dfab763a425d56aaf8f4795dc5"
+  },
+  "measurement": {
+    "experimental_unit": "prompt",
+    "musical_units": [
+      "case",
+      "component"
+    ],
+    "provider_pooling": false,
+    "repair_recovery": "disabled; report zero repair calls",
+    "required": [
+      "global component accuracy",
+      "average per-case component accuracy",
+      "perfect case count and rate",
+      "structural and canonical conformance",
+      "prompt and response bytes",
+      "input and output tokens",
+      "latency, nondeterminism, and cost"
+    ],
+    "structural_and_canonical_failures": "benchmark outcomes",
+    "unavailable_and_output_limit": "excluded from scored musical denominators",
+    "whole_response_musical_score": false
+  },
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "b4b8e798544b63a309c6fa7c3a528c72be1b4f8f936bb9298896b89e3544a90a",
+  "run_id": "phase8c4e-full-compact-benchmark-r1",
+  "run_kind": "full-compact-benchmark-plan",
+  "runner_sha256": "a49614c193223ed4a9eb134df36a7d8aec57e0b23fbade72c58d37dfed877f2a",
+  "schedule_sha256": {
+    "claude-haiku": "77e0e1db053827b50baaf3c24b4c80ba07c6423e839e7443df7218b1b3bf16ff",
+    "gemini": "9a2d9fd58c467fd438fd86db08633dbdd7b1dda8ea0fbadeeed0ea3bf7b638b4",
+    "openai": "3579be1a35cdde37ab3d332e1e32424e985c7afba40c0fe7c91c8681a0d9ce64"
+  },
+  "schema": "ghostnote-compact-format-full-benchmark-v19",
+  "sha256": "b5ed80eb9ebcfd9010cbeb0e64eef6c0557aa725c7e594648c8a3e381d2335fa",
+  "stopping_rule": {
+    "after_run": "Do not make fresh full-matrix calls in Phase 8c4e. A later matrix needs its own scope, cohort, cost, and approval.",
+    "before_calls": "Stop on candidate identity, freshness, reference, mutation, credential, network, approval, or cost-screen failure.",
+    "between_providers": "Do not infer a scientific decision until all approved provider runs finish or a frozen stop makes the final result irreversible.",
+    "during_provider": "Stop one provider on the first transport or budget failure or after three unavailable responses. Make no retry or repair call."
+  }
+}

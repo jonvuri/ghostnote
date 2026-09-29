@@ -1,0 +1,74 @@
+{
+  "actual_cost_usd": 0.713277,
+  "approved_provider_cost_limit_usd": 0.95,
+  "decision": "stop",
+  "decision_reason": "Five non-revoice cells fail frozen gates. This exceeds the maximum of three failed cells for revise, even if every unrun provider passes.",
+  "experimental_defect": {
+    "affected_cells": 2,
+    "affected_family": "transformation-revoice",
+    "description": "The exact scorer requires 16 synthetic rv-out IDs that the prompt does not provide. All 16 retained responses used visible source IDs. The frozen scores therefore cannot measure revoice quality.",
+    "expected_ids_visible_per_prompt": 0,
+    "expected_ids_total_per_prompt": 16,
+    "id_free_exact_musical_responses": 10,
+    "retained_responses": 16
+  },
+  "failed_cells": [
+    {
+      "arm": "compact-bar-fields",
+      "canonical_form_rate": 0.375,
+      "family": "generation-progression",
+      "global_component_accuracy": 0.901786
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "canonical_form_rate": 0.625,
+      "family": "generation-progression",
+      "global_component_accuracy": 0.892857
+    },
+    {
+      "arm": "compact-bar-fields",
+      "canonical_form_rate": 0.25,
+      "family": "continuation-motif",
+      "global_component_accuracy": 0.970455
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "canonical_form_rate": 0.375,
+      "family": "continuation-motif",
+      "global_component_accuracy": 0.797727
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "canonical_form_rate": 0.5,
+      "family": "document-serialization",
+      "global_component_accuracy": 1.0
+    }
+  ],
+  "manifest_file_sha256": "7b0aae88037b26e7f6c1cb7b7b7e6b2f8b5a38e0ee97a6707682c2f81bc672c3",
+  "manifest_sha256": "b0619cede356d5818a33062a0d631643fe99344ef40910a52f77c3b43e5582e3",
+  "official_frozen_evaluation": {
+    "failed_cells": 7,
+    "recurring_defects": 2
+  },
+  "other_providers": {
+    "avoided_estimated_cost_usd": 3.52,
+    "avoided_messages": 296,
+    "claude_haiku_messages": 0,
+    "gemini_messages": 0,
+    "reason": "The frozen stop result is irreversible after OpenAI."
+  },
+  "progress": {
+    "attempted": 148,
+    "available": 148,
+    "budget_stopped": 0,
+    "failed": 0,
+    "planned": 148,
+    "provider_completed": 148,
+    "scored": 148,
+    "unavailable": 0
+  },
+  "protocol_sha256": "b4b8e798544b63a309c6fa7c3a528c72be1b4f8f936bb9298896b89e3544a90a",
+  "run_id": "phase8c4e-full-compact-benchmark-r1",
+  "run_plan_sha256": "b5ed80eb9ebcfd9010cbeb0e64eef6c0557aa725c7e594648c8a3e381d2335fa",
+  "schema": "ghostnote-compact-format-full-benchmark-v19-assessment"
+}

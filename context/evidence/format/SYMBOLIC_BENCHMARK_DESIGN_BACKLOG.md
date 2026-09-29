@@ -19,9 +19,9 @@ Historical run artifacts and decisions remain immutable. A resolved issue
 becomes a regression requirement for the next benchmark package. Do not erase
 it from this register.
 
-The current entries cover E137 through E193 and every symbolic benchmark
-package from compact-bar v0 through compact-format v18. V15 completes the
-validity ladder. V18 prepares the final low-effort rehearsal before 8c4e.
+The current entries cover E137 through E196 and every symbolic benchmark
+package from compact-bar v0 through compact-format v19. V15 completes the
+validity ladder. V19 records the adaptive Phase 8c4e result.
 Historical packages stay immutable.
 
 E138 and E139 concern cache lifecycle and scale. They add no symbolic
@@ -64,7 +64,7 @@ benchmark-design finding.
 | T9 | design-choice | The approved v16 plan included OpenAI and Haiku, but a later operator instruction stopped Haiku when OpenAI stayed at the ceiling. | V17 predeclares an OpenAI-only stage. Haiku needs a promising result, a new supplement, and explicit approval. Record avoided calls and cost. | E186-E188 |
 | T10 | resolved-regression | V17 inferred its chord mix from a seed expression. The seed base shifted every intended template index by four. | Assert the exact generated chord distribution. Keep frozen historical artifacts unchanged and correct their interpretation in later evidence. | E188-E191; v18 suite screen |
 | T11 | resolved-regression | V18 encoded 90 percent structural validity as a minimum and made model conformance invalidate the experiment. The operator intended 90 percent as a maximum task-performance target. | Use execution, identity, completion, and scorer integrity for experiment validity. Report structural and canonical conformance as outcomes. | E191-E193 |
-| T12 | open | V18 stress-affine musical content does not depend on cohort seed or variant offset. Synthetic IDs change its semantic hash and can hide task reuse. | Make affine content seed-dependent. Add an ID-free content hash and use it for internal and historical freshness before 8c4e. | E193 |
+| T12 | closed | V18 stress-affine musical content does not depend on cohort seed or variant offset. Synthetic IDs change its semantic hash and can hide task reuse. | V19 makes affine values and voice rules seed-dependent. Its ID-free content audit has no internal, v18, or stored historical overlap. | E193-E194 |
 
 ## Parsing and scoring
 
@@ -119,6 +119,7 @@ benchmark-design finding.
 | X8 | resolved-regression | The v15 total estimate fit, but the USD 0.550000 Gemini allocation stopped medium reasoning at 69/108. | The approved continuation resumed at sequence 70 under a USD 1.000000 cumulative limit. It retained completed rows and reserved each new call. Use measured cost for future provider allocations. | E181-E182 |
 | X9 | resolved-regression | The v16 transport retained HTTP 400 but discarded the provider error body. The stopped manifest could not distinguish request, account, or credential rejection. | The approved recovery retained a redacted provider status, reason, message, body size, and body hash. Future runners must keep this evidence. | E184-E185 |
 | X10 | open | TCP preflight passed, but Gemini rejected the execution location before provider completion. | Check provider eligibility before a benchmark run. Treat regional eligibility as separate from network reachability. Freeze any added provider request in the run plan. | E185 |
+| X11 | design-choice | Coupling provider requests, scorers, diagnostics, and decision gates caused repairable measurement issues to trigger full-cohort resets. | Preserve provider artifacts. Version scoring and decision policy separately. Refresh fixture parameters or prompts only for new provider work that needs fresh tasks. | E195-E196 |
 
 ## Additional historical regressions
 
@@ -127,7 +128,7 @@ benchmark-design finding.
 | H1 | historical-limit | compact-bar v0, symbolic v1 | Positional v1 removed v0 labels and structural headers. The two results are not a direct grammar replication. | Preserve both packages. Positional v1 is an offline regression source only. |
 | H2 | resolved-regression | symbolic v1, compact v2 | Broad composite failure classes and an all-arm denominator hid eligibility differences. | V14 uses one capability set, explicit states, and planned and scored denominators. |
 | H3 | resolved-regression | compact v2 | Motif identity scoring required output IDs that the prompt did not state. | V14 makes every output ID visible and tests visibility. |
-| H4 | resolved-regression | compact v2 | Revoice prompt, duration rule, and canonical answer disagreed. The scorer accepted only one valid realization. | The family is retired from paid v14 work. Historical failures stay mutation fixtures. |
+| H4 | resolved-regression | compact v2, compact v19 | Revoice prompt and exact scorer disagree. V19 restored the family and required synthetic output IDs that the prompt did not provide. | The v19 adaptive scorer aligns within each onset, prevents coupled field errors, requires the expected note count, and ignores undisclosed IDs. A future prompt must disclose required IDs or use this ID-neutral scorer. |
 | H5 | resolved-regression | compact v3 | Progression omitted plain-text full pitch-class coverage and reached a floor. | V14 progression is not a decision family. |
 | H6 | historical-limit | compact v3 | A reserved melody cohort named strong beats incorrectly. | V14 executes all fresh reference answers offline and does not reuse that cohort. |
 | H7 | resolved-regression | compact v3 | Grouped single-note output omitted exact field order and an example. | Every v14 row form has an exact template and complete example. |
@@ -137,6 +138,7 @@ benchmark-design finding.
 | H11 | resolved-regression | symbolic v2, compact v12 | Freshness scans included later packages. Later artifacts changed earlier deterministic identity. | V14 freezes the exact historical package source list and snapshot hash. Future packages cannot enter its scan. |
 | H12 | historical-limit | symbolic v1, compact v2-v6, compact-json v1, symbolic v2, compact v10-v12 | Threaded or shuffled runs later sorted their retained rows. Scheduled, started, and completed order is not recoverable. | V14 runs a frozen balanced sequence and retains all three ordinals. |
 | H13 | historical-limit | compact-bar v0 through compact v7; selected later recovery supplements | Automatic retry, overwrite, soft cost notices, or missing failed reservations changed or weakened execution authority. | V14 has no retry or repair, refuses overwrite, reserves before calls, and needs a new supplement for recovery. |
+| H14 | resolved-regression | compact v19 | The analysis freshness transform transposed chord content without transposing `key_tonic_pc`. All 21 function references conflicted with their prompts. | The corrected assessment excludes only the invalid function component. Restore the analysis reference-contract assertion and update every dependent musical field in the next generator. |
 
 ## Affected-version index
 
@@ -186,6 +188,7 @@ This index gives every current issue an explicit package scope.
 | X8 | compact v15 |
 | X9 | compact v16 |
 | X10 | compact v16 and future provider runs |
+| X11 | compact v19 and future modular benchmarks |
 
 ## Package audit and remaining authority
 
@@ -212,6 +215,7 @@ This index gives every current issue an explicit package scope.
 | compact-format v16 | active-evidence | Gemini was operationally blocked. OpenAI reached 99.6644 percent component accuracy and returned `revise-harder`. The early stop prevented a Haiku run. |
 | compact-format v17 | active-evidence | OpenAI stopped at 58/66 on the cost guard, so the formal result is `invalid`. Complete analysis reached 95.8333 percent median accuracy. Its actual chord mix differs from the frozen protocol description. Recovery cannot open expansion. |
 | compact-format v18 | active-evidence | OpenAI completed 66/66 at USD 0.261846. The run is operationally valid after correcting the 90-percent interpretation. Stress analysis reached the maximum target. Stress affine remained at 99.5349 percent. Its generator needs a freshness repair before 8c4e reuse. |
+| compact-format v19 | active-evidence | The corrected adaptive component result is `matrix-plausible`. OpenAI and Gemini pass all cells. Claude passes all 18 measured cells; analysis is unavailable. The assessment excludes one invalid analysis component and uses non-cascading ID-neutral revoice scoring. |
 
 ## Completed hardening audit
 

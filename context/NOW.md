@@ -4,66 +4,53 @@ kind: status
 state: active
 updated: 2026-09-29
 phase: phase-8-agent-native-live-engine
-session: phase8c4d-v18-sampled-audit-complete
+session: phase8c4e-v19-adaptive-complete
 ---
 
 # Now
 
-[The v18 low-effort rehearsal](plan/phase-8/8c4d-follow-up-v18-low-effort-rehearsal.md)
+[The Phase 8c4e full benchmark](plan/phase-8/8c4e-compact-only-full-benchmark.md)
 is complete.
-[E192](evidence/experiments/e192-v18-low-effort-rehearsal-is-operationally-complete.md)
-records the run and its bounded interpretation.
-[E193](evidence/experiments/e193-v18-sampled-audit-validates-run-and-finds-transfer-flaw.md)
-records three independent end-to-end sample audits.
+[E196](evidence/experiments/e196-v19-adaptive-component-assessment-is-matrix-plausible.md)
+records the component-focused `matrix-plausible` result.
 
-V18 keeps the v15 formats and component scorer. It separates five elemental
-format-isolation fixtures from five real-use stress fixtures in each decision
-family. It also has two literal serialization controls. OpenAI completed all
-66 messages with no failed, unavailable, or budget-stopped row. The run cost
-USD 0.261846 against the USD 0.650000 hard limit.
+OpenAI and Gemini completed 148/148 messages each. Claude scored 130 messages
+across eight families. Its analysis prompts exhausted their response limits,
+and two melody responses were unavailable. Every measured cell passes its
+component gate. Claude analysis remains an explicit gap.
 
-`suite.py` owns the v18 tasks and assertions. Phase 8c4e can reuse its task
-schemas, scorers, and applicable assertions. It must fork the stress-affine
-generator and freshness logic. Reports keep elemental and stress results
-separate. The prompt is the experimental unit. Cases and components are
-outcomes within a prompt. Stress analysis reached 90 percent median component
-accuracy. Stress affine reached 99.5349 percent and remained above the ceiling.
+A sampled audit found that analysis chord content was transposed without its
+key. The corrected assessment excludes the invalid function component and
+retains the other seven analysis components. It also aligns revoice notes
+within each onset, avoids coupled field errors, requires the expected note
+count, and ignores undisclosed output IDs. No provider rerun was necessary.
 
-The frozen summary contains `decision: invalid` because the protocol encoded
-90 percent as a minimum validity threshold. The operator clarified that 90
-percent was a maximum task-performance target and lower performance was
-acceptable. The omitted field is a measured model outcome. V18 is
-operationally valid development evidence. Keep the frozen artifact unchanged.
+Updated component accuracy is 97.4128 and 94.9158 percent for OpenAI, 98.2551
+and 98.3454 percent for Gemini, and 97.7728 and 96.0229 percent for Claude.
+Each pair lists `FIELDS` first and local labels second. Canonical form,
+structural parse, and case accuracy remain diagnostics, not separate gates.
 
-The sampled audits found no prompt, reference, scorer, parser, aggregation,
-provider, schedule, or cost flaw. They found one transfer issue: stress-affine
-musical content does not depend on the cohort seed or variant offset, and the
-semantic hash includes synthetic IDs. Do not reuse `suite.py` unchanged for
-8c4e.
-
-[E190](evidence/experiments/e190-v17-analysis-composition-correction.md)
-corrects the v17 analysis description. V17 intended hard seventh and
-diminished chords, but its seed offset produced 18 major, 4 minor, 5
-half-diminished-seventh, and 3 major-seventh cases. The frozen package and run
-artifacts remain unchanged.
+Known cost is USD 2.838976250. Maximum exposure is USD 3.102976250 after a
+conservative reservation for two unretained Claude recovery requests.
 
 ## Immediate work
 
-1. Begin 8c4e preparation only after repairing affine seed dependence and
-   adding an ID-free content freshness hash.
-2. Treat structural and canonical failures as benchmark outcomes, not
-   experiment-invalidating events.
-3. Use 90 percent as a maximum calibration target. Lower performance is valid.
-4. Keep elemental affine labeled as lower-complexity work. Literal
-   serialization is the pure format control.
-5. Do not run a provider until the new 8c4e package and cost have explicit
-   approval.
-6. Do not change the cache, `normal-v1`, or a live Bitwig project.
+1. Use the corrected adaptive assessment as the Phase 8c4e product result.
+2. Do not rerun v19 or recover Claude analysis on this cohort.
+3. In Phase 8c4f, decide whether to run a fresh matrix or select a direction
+   from the current evidence limit.
+4. Keep `FIELDS` as the leading compact candidate. It is smaller and at least
+   as accurate in aggregate.
+5. Do not change the cache, `normal-v1`, or a live Bitwig project.
 
-Phase 8c4e remains blocked pending the affine freshness repair and a frozen run
-plan. Phase 8f remains blocked pending the 8c4e result.
+Phase 8f remains blocked pending the completed Phase 8c4e result and the Phase
+8c4f operator decision.
 
 ## Retrospective
 
-Freshness hashes must exclude synthetic IDs and include the actual musical
-content. A new cohort name is not evidence of a new task.
+Keep fixtures, responses, scoring, diagnostics, and policy modular. Replace
+only the invalid layer. Refresh parameters and prompts only for new provider
+work that needs fresh tasks.
+
+Restore the analysis reference-contract assertion in the next generator. A
+freshness transform must update each dependent musical field.
