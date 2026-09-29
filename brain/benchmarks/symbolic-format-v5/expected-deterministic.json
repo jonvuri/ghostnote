@@ -1,0 +1,21 @@
+{
+  "all_checks_pass": true,
+  "candidate_sha256": {
+    "abc-2.1-composite": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+    "compact-bar-fields": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+    "compact-bar-local-labels": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+    "exact-object-json": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+    "lilypond-2.24.4-composite": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+    "midi-like-ghostnote-profile": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+    "musicxml-4.0-composite": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+    "strudel-v1.2-composite": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336"
+  },
+  "cohort_sha256": "c1e4e26ddf8ded4f1afc38931021df713988282943d1b63bb577bf7f2720187b",
+  "job_count_per_provider": 592,
+  "job_count_total": 1776,
+  "protocol_sha256": "17ed42e3448438a05cfb56d05ce31008bcdbfe0864eb022d70909d8244641751",
+  "run_plan_sha256": "a6e04b757c9c260309e0d92830ad9bc86e0f25591f8c195c41900c7f69e7b7cf",
+  "schema": "ghostnote-symbolic-format-benchmark-v5",
+  "screen_sha256": "862bd5ced348618f83b0a141268f166d785956bc345d8b70e3325bb0e2e27f88",
+  "sha256": "04ddc1e588912bb3d6d4f89f71ec61d63bd192b7ae8a1a23d65d874479584cda"
+}

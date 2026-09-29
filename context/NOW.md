@@ -4,53 +4,58 @@ kind: status
 state: active
 updated: 2026-09-29
 phase: phase-8-agent-native-live-engine
-session: phase8c4e-v19-adaptive-complete
+session: phase8c4f-eight-arm-matrix-frozen
 ---
 
 # Now
 
-[The Phase 8c4e full benchmark](plan/phase-8/8c4e-compact-only-full-benchmark.md)
-is complete.
-[E196](evidence/experiments/e196-v19-adaptive-component-assessment-is-matrix-plausible.md)
-records the component-focused `matrix-plausible` result.
+[The fresh eight-arm matrix](plan/phase-8/8c4f-follow-up-eight-arm-full-matrix.md)
+is frozen and awaits explicit approval.
+[E201](evidence/experiments/e201-eight-arm-full-matrix-awaits-approval.md)
+records the passing offline package and approval boundary.
 
-OpenAI and Gemini completed 148/148 messages each. Claude scored 130 messages
-across eight families. Its analysis prompts exhausted their response limits,
-and two melody responses were unavailable. Every measured cell passes its
-component gate. Claude analysis remains an explicit gap.
+`symbolic-format-v5` compares compact bar `FIELDS`, compact bar local labels,
+exact object JSON, ABC, Strudel, LilyPond, MusicXML, and the Ghostnote MIDI-like
+profile. The composite public-format arms keep their public notation and side
+ledger independent.
 
-A sampled audit found that analysis chord content was transposed without its
-key. The corrected assessment excludes the invalid function component and
-retains the other seven analysis components. It also aligns revoice notes
-within each onset, avoids coupled field errors, requires the expected note
-count, and ignores undisclosed output IDs. No provider rerun was necessary.
+The package has 65 unique base tasks and nine exact prompt repeats per arm. It
+has 74 messages per arm, 592 messages per provider, and 1,776 messages in
+total. It runs OpenAI, Gemini, and Claude Haiku at low effort. It makes no
+automatic retry or repair call.
 
-Updated component accuracy is 97.4128 and 94.9158 percent for OpenAI, 98.2551
-and 98.3454 percent for Gemini, and 97.7728 and 96.0229 percent for Claude.
-Each pair lists `FIELDS` first and local labels second. Canonical form,
-structural parse, and case accuracy remain diagnostics, not separate gates.
+The freshness layer changes fixture parameters only. It transposes three open-
+generation contracts by one semitone, revoice fixtures by one octave, and
+rhythm fixtures by two octaves. The ID-free content audit finds no duplicate
+base task and no overlap with v19, symbolic v3, or symbolic v4.
 
-Known cost is USD 2.838976250. Maximum exposure is USD 3.102976250 after a
-conservative reservation for two unretained Claude recovery requests.
+Estimated cost is USD 3.400000 for OpenAI, USD 1.650000 for Gemini, and USD
+10.500000 for Claude Haiku. The total estimate is USD 15.550000. The provider
+hard limits are USD 4.500000, USD 2.250000, and USD 13.500000. The total hard
+limit is USD 20.250000.
+
+## After the full matrix
+
+Run a separate native-versus-composite paired diagnostic. Include only ABC,
+Strudel, LilyPond, and MusicXML tasks whose required fields exist in the native
+notation. Use comprehension, generation, and continuation tasks as eligible.
+Score only native-representable fields. Keep identity-sensitive reconstruction,
+local edit, and literal serialization composite-only. Do not pool this result
+with the full matrix. Freeze fresh tasks and cost, then get explicit approval
+before any call.
 
 ## Immediate work
 
-1. Use the corrected adaptive assessment as the Phase 8c4e product result.
-2. Do not rerun v19 or recover Claude analysis on this cohort.
-3. In Phase 8c4f, decide whether to run a fresh matrix or select a direction
-   from the current evidence limit.
-4. Keep `FIELDS` as the leading compact candidate. It is smaller and at least
-   as accurate in aggregate.
+1. Get explicit approval for the exact 1,776-call plan and USD 20.250000 hard
+   limit.
+2. After approval, run each provider within its separate cost limit.
+3. Report providers and task families before pooled totals.
+4. Do not start the native-versus-composite diagnostic before matrix analysis.
 5. Do not change the cache, `normal-v1`, or a live Bitwig project.
 
-Phase 8f remains blocked pending the completed Phase 8c4e result and the Phase
-8c4f operator decision.
+Phase 8f remains blocked pending the full-matrix result and operator decision.
 
 ## Retrospective
 
-Keep fixtures, responses, scoring, diagnostics, and policy modular. Replace
-only the invalid layer. Refresh parameters and prompts only for new provider
-work that needs fresh tasks.
-
-Restore the analysis reference-contract assertion in the next generator. A
-freshness transform must update each dependent musical field.
+Small inherited generators can repeat musical content under a new seed. Keep
+the explicit musical transform and ID-free freshness screen in later cohorts.

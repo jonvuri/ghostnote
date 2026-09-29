@@ -1,0 +1,114 @@
+{
+  "approval": "pending",
+  "arms": [
+    "abc-2.1-composite",
+    "strudel-v1.2-composite",
+    "lilypond-2.24.4-composite"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "messages_per_provider": 57,
+    "messages_total": 57,
+    "repairs": 0
+  },
+  "candidate_sha256": {
+    "abc-2.1-composite": "e0d5707b209bd2e42618ec3baa0198ce73f7b219158c19a4e1af45e0c727a190",
+    "lilypond-2.24.4-composite": "ee014809a332dbd20ff55a40cbe552de31c660d641dfbc3a89a8d7c224254cc8",
+    "strudel-v1.2-composite": "366a11c93e4f5719545856f514cf9841c26de9692f67e3413d2e7ebd31959b39"
+  },
+  "cohort_sha256": "918f8d190cd8e5b661633c5818b4582308caa3e557a706e4bcab8e122dd21bf8",
+  "cost_guard": {
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "gemini": 0.054
+    },
+    "maximum_provider_cost_usd": {
+      "gemini": 0.35
+    },
+    "maximum_total_cost_usd": 0.35,
+    "output_token_ceiling_per_call": {
+      "gemini": 12000
+    },
+    "recent_cost_estimate_total_usd": 0.18,
+    "recent_cost_estimate_usd": {
+      "gemini": 0.18
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "declared_settings": {
+    "gemini": {
+      "max_output_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking_level": "low"
+    }
+  },
+  "effective_request_settings": {
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "low"
+    }
+  },
+  "families": {
+    "comprehension-analysis": {
+      "fixtures": 2,
+      "role": "decision"
+    },
+    "comprehension-structure": {
+      "fixtures": 2,
+      "role": "decision"
+    },
+    "continuation-motif": {
+      "fixtures": 2,
+      "role": "decision"
+    },
+    "continuation-roles": {
+      "fixtures": 2,
+      "role": "decision"
+    },
+    "document-serialization": {
+      "fixtures": 1,
+      "role": "guard"
+    },
+    "generation-melody": {
+      "fixtures": 2,
+      "role": "decision"
+    },
+    "generation-progression": {
+      "fixtures": 2,
+      "role": "decision"
+    },
+    "transformation-local": {
+      "fixtures": 2,
+      "role": "decision"
+    },
+    "transformation-revoice": {
+      "fixtures": 2,
+      "role": "decision"
+    },
+    "transformation-rhythm": {
+      "fixtures": 2,
+      "role": "decision"
+    }
+  },
+  "measurement": {
+    "exact_note_count": "required for reference-answer tasks",
+    "experimental_unit": "prompt",
+    "manual_review": "one full prompt and response from every family-format cell",
+    "primary": "component accuracy by provider, family, and format",
+    "revoice_alignment": "maximum field agreement within exact onset",
+    "revoice_identity": "synthetic IDs excluded from musical scoring",
+    "structural_and_canonical": "diagnostics, not gates"
+  },
+  "models": {
+    "gemini": "gemini-3.8-flash"
+  },
+  "protocol_sha256": "eceb070e84c63d95310ef885b09efebd68cd27354c178b1218b9eb17495603ec",
+  "run_id": "phase8c4f-external-format-probe-r1",
+  "run_kind": "external-format-probe-plan",
+  "schedule_sha256": {
+    "gemini": "334eab0750f5f4e264880cec54f5cce4ba3357be25dce1f593eb31ccd1d9624c"
+  },
+  "schema": "ghostnote-symbolic-format-benchmark-v3",
+  "sha256": "7d6e15e35f6af30d34b59d89d2ba21c1999bc1c980ecc76c4ede7d7735f8c466"
+}

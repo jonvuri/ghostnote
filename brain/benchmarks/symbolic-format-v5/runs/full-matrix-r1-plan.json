@@ -1,0 +1,184 @@
+{
+  "approval": "pending",
+  "arms": [
+    "compact-bar-fields",
+    "compact-bar-local-labels",
+    "exact-object-json",
+    "abc-2.1-composite",
+    "strudel-v1.2-composite",
+    "lilypond-2.24.4-composite",
+    "musicxml-4.0-composite",
+    "midi-like-ghostnote-profile"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "messages_per_arm_per_provider": 74,
+    "messages_per_provider": 592,
+    "messages_total": 1776,
+    "repairs": 0,
+    "sentinel_repeats_per_arm": 9
+  },
+  "candidate_sha256": {
+    "abc-2.1-composite": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+    "compact-bar-fields": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+    "compact-bar-local-labels": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+    "exact-object-json": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+    "lilypond-2.24.4-composite": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+    "midi-like-ghostnote-profile": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+    "musicxml-4.0-composite": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+    "strudel-v1.2-composite": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336"
+  },
+  "cohort_sha256": "c1e4e26ddf8ded4f1afc38931021df713988282943d1b63bb577bf7f2720187b",
+  "cost_guard": {
+    "basis": {
+      "method": "Scale retained v19 full-suite costs by arm count and adjust with the measured Gemini format-cost ratios from symbolic v3 and v4.",
+      "price_verification_date": "2026-09-29",
+      "retained_claude_cost_usd": 1.781972,
+      "retained_gemini_compact_cost_usd": 0.34372725,
+      "retained_gemini_external_cost_usd": 0.1164435,
+      "retained_gemini_musicxml_midi_cost_usd": 0.13523475,
+      "retained_openai_cost_usd": 0.713277,
+      "uncertainty": "Claude has the widest interval because its retained full run had unavailable analysis rows and high output-token variance."
+    },
+    "estimate_total_usd": 15.55,
+    "estimate_usd": {
+      "claude-haiku": 10.5,
+      "gemini": 1.65,
+      "openai": 3.4
+    },
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.072,
+      "gemini": 0.054,
+      "openai": 0.063
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 13.5,
+      "gemini": 2.25,
+      "openai": 4.5
+    },
+    "maximum_total_cost_usd": 20.25,
+    "output_token_ceiling_per_call": {
+      "claude-haiku": 12000,
+      "gemini": 12000,
+      "openai": 12000
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "declared_settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low",
+      "temperature": "provider default; omitted from request"
+    }
+  },
+  "effective_request_settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low"
+    }
+  },
+  "families": {
+    "comprehension-analysis": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "comprehension-structure": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "continuation-motif": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "continuation-roles": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "document-serialization": {
+      "role": "guard",
+      "sentinel_repeat": false,
+      "unique_fixtures": 2
+    },
+    "generation-melody": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "generation-progression": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "transformation-local": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "transformation-revoice": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    },
+    "transformation-rhythm": {
+      "role": "decision",
+      "sentinel_repeat": true,
+      "unique_fixtures": 7
+    }
+  },
+  "measurement": {
+    "cases_and_components": "outcomes within a prompt",
+    "exact_note_count": "required for reference-answer tasks",
+    "experimental_unit": "prompt",
+    "primary": "musical component accuracy by provider, family, and format",
+    "provider_pooling": "report providers separately before any aggregate",
+    "response_components": "separate secondary results",
+    "revoice_identity": "synthetic IDs excluded from musical scoring",
+    "sentinels": "exact prompt repeats for nondeterminism measurement",
+    "structural_alignment_and_canonical": "diagnostics, not gates"
+  },
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "17ed42e3448438a05cfb56d05ce31008bcdbfe0864eb022d70909d8244641751",
+  "run_id": "phase8c4f-eight-arm-full-matrix-r1",
+  "run_kind": "eight-arm-full-matrix-plan",
+  "schedule_sha256": {
+    "claude-haiku": "b066d7e1f7de3ef216dbc3e06aacd0a9512adfb193272be2fa17918fcfde442d",
+    "gemini": "f531f99fbc6887d5a87a8e61664e29e36e1c1409249a7318bf117f4bd9ac4264",
+    "openai": "824badb37f49257ed280b2209b585211ff484e53e36a1a6f660c116c48eb91b7"
+  },
+  "schema": "ghostnote-symbolic-format-benchmark-v5",
+  "sha256": "a6e04b757c9c260309e0d92830ad9bc86e0f25591f8c195c41900c7f69e7b7cf"
+}

@@ -1,0 +1,15 @@
+{
+  "all_checks_pass": true,
+  "candidate_sha256": {
+    "abc-2.1-composite": "e0d5707b209bd2e42618ec3baa0198ce73f7b219158c19a4e1af45e0c727a190",
+    "lilypond-2.24.4-composite": "ee014809a332dbd20ff55a40cbe552de31c660d641dfbc3a89a8d7c224254cc8",
+    "strudel-v1.2-composite": "366a11c93e4f5719545856f514cf9841c26de9692f67e3413d2e7ebd31959b39"
+  },
+  "cohort_sha256": "918f8d190cd8e5b661633c5818b4582308caa3e557a706e4bcab8e122dd21bf8",
+  "job_count_per_provider": 57,
+  "protocol_sha256": "eceb070e84c63d95310ef885b09efebd68cd27354c178b1218b9eb17495603ec",
+  "run_plan_sha256": "7d6e15e35f6af30d34b59d89d2ba21c1999bc1c980ecc76c4ede7d7735f8c466",
+  "schema": "ghostnote-symbolic-format-benchmark-v3",
+  "screen_sha256": "0e94cb540c27c42f97867e2ac718902fb1cda722a06ebe06e2a0eb2c4c086c4f",
+  "sha256": "ebbdf9ca7626013e0e6c6869631a363910a513f9fdc7639691f53c8378f25fac"
+}

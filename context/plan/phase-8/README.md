@@ -259,15 +259,36 @@ owns the migration details.
 21. [8c4f — Full-matrix decision and optional rerun](8c4f-full-matrix-decision.md).
    Let the operator approve the fresh matrix, proceed with an explicit evidence
    limit, or stop.
-22. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+22. [8c4f follow-up — Extensible matrix and external-format probe](8c4f-extensible-matrix-and-external-probe.md).
+   [E197](../../evidence/experiments/e197-extensible-matrix-and-external-probe-await-approval.md)
+   records the reusable adapter package, external-notation review, passing
+   offline screen, and the pending 57-call Gemini probe.
+   [E198](../../evidence/experiments/e198-external-format-probe-is-valid-directional-evidence.md)
+   records 57/57 completions at USD 0.1164435. The corrected musical component
+   rates are 96.800 percent for ABC, 97.200 percent for Strudel, and 97.067
+   percent for LilyPond. The result is valid directional evidence, not a format
+   selection.
+23. [8c4f follow-up — MusicXML and MIDI-like probe](8c4f-follow-up-musicxml-midi-probe.md).
+   [E199](../../evidence/experiments/e199-musicxml-midi-probe-awaits-approval.md)
+   records the passing offline package and pending 38-call Gemini probe. The
+   final matrix template has the eight selected arms.
+   [E200](../../evidence/experiments/e200-musicxml-midi-probe-validates-final-matrix-arms.md)
+   records 38/38 completions at USD 0.13523475. MusicXML reaches 97.487
+   percent musical component accuracy. The MIDI-like profile reaches 98.942
+   percent. Both arms advance to the fresh full-matrix plan.
+24. [8c4f follow-up — Fresh eight-arm full matrix](8c4f-follow-up-eight-arm-full-matrix.md).
+   [E201](../../evidence/experiments/e201-eight-arm-full-matrix-awaits-approval.md)
+   records the passing offline package, 1,776-call plan, USD 20.250000 hard
+   limit, and pending approval boundary.
+25. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
-23. [8g — Shadow project cache](8g-shadow-project-cache.md).
+26. [8g — Shadow project cache](8g-shadow-project-cache.md).
    Implement the cache behind an experimental boundary while E131 remains
    authoritative.
-24. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
+27. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Promote proved cache reads in stages and apply the selected tool and
    verification reductions.
-25. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+28. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

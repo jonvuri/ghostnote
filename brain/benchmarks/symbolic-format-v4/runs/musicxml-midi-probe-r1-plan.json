@@ -1,0 +1,83 @@
+{
+  "approval": "pending",
+  "arms": [
+    "musicxml-4.0-composite",
+    "midi-like-ghostnote-profile"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "messages_per_provider": 38,
+    "messages_total": 38,
+    "repairs": 0
+  },
+  "candidate_sha256": {
+    "midi-like-ghostnote-profile": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+    "musicxml-4.0-composite": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b"
+  },
+  "cohort_sha256": "75ed82d8d91af5841436c29e7c3683fbd631f7f3f787415f491e6240ed4e37e2",
+  "cost_guard": {
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "gemini": 0.054
+    },
+    "maximum_provider_cost_usd": {
+      "gemini": 0.2
+    },
+    "maximum_total_cost_usd": 0.2,
+    "output_token_ceiling_per_call": {
+      "gemini": 12000
+    },
+    "recent_cost_estimate_total_usd": 0.09,
+    "recent_cost_estimate_usd": {
+      "gemini": 0.09
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "declared_settings": {
+    "gemini": {
+      "max_output_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking_level": "low"
+    }
+  },
+  "effective_request_settings": {
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "low"
+    }
+  },
+  "families": {
+    "comprehension-analysis": {"fixtures": 2, "role": "decision"},
+    "comprehension-structure": {"fixtures": 2, "role": "decision"},
+    "continuation-motif": {"fixtures": 2, "role": "decision"},
+    "continuation-roles": {"fixtures": 2, "role": "decision"},
+    "document-serialization": {"fixtures": 1, "role": "guard"},
+    "generation-melody": {"fixtures": 2, "role": "decision"},
+    "generation-progression": {"fixtures": 2, "role": "decision"},
+    "transformation-local": {"fixtures": 2, "role": "decision"},
+    "transformation-revoice": {"fixtures": 2, "role": "decision"},
+    "transformation-rhythm": {"fixtures": 2, "role": "decision"}
+  },
+  "measurement": {
+    "exact_note_count": "required for reference-answer tasks",
+    "experimental_unit": "prompt",
+    "manual_review": "one full prompt and response from every family-format cell",
+    "primary": "component accuracy by provider, family, and format",
+    "public_notation": "Parse notation and side ledger independently. Keep notation structure, alignment, and canonical form as diagnostics.",
+    "revoice_alignment": "maximum field agreement within exact onset",
+    "revoice_identity": "synthetic IDs excluded from musical scoring",
+    "structural_and_canonical": "diagnostics, not gates"
+  },
+  "models": {
+    "gemini": "gemini-3.8-flash"
+  },
+  "protocol_sha256": "73987ce70c0b2864b728ebe41b53fc605b56433e04ea4850f6e40951d998e8bf",
+  "run_id": "phase8c4f-musicxml-midi-probe-r1",
+  "run_kind": "external-format-probe-plan",
+  "schedule_sha256": {
+    "gemini": "167b657fb7d2ded51b3d431980ea59e2ac4e38f9e2b1a0792dbdc62e2d98089a"
+  },
+  "schema": "ghostnote-symbolic-format-benchmark-v4",
+  "sha256": "46de6fc3bac85a3508a8c698a2f26109229170783d7381c8d6653f3cb4d62408"
+}

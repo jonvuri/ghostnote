@@ -1,0 +1,13 @@
+{
+  "candidate_sha256": {
+    "midi-like-ghostnote-profile": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+    "musicxml-4.0-composite": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b"
+  },
+  "cohort_sha256": "75ed82d8d91af5841436c29e7c3683fbd631f7f3f787415f491e6240ed4e37e2",
+  "maximum_total_cost_usd": 0.2,
+  "operator_statement": "I approve this exact 38-call Gemini plan and the USD 0.200000 hard limit.",
+  "protocol_sha256": "73987ce70c0b2864b728ebe41b53fc605b56433e04ea4850f6e40951d998e8bf",
+  "run_id": "phase8c4f-musicxml-midi-probe-r1",
+  "run_plan_sha256": "46de6fc3bac85a3508a8c698a2f26109229170783d7381c8d6653f3cb4d62408",
+  "status": "approved"
+}
