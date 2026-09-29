@@ -1,0 +1,144 @@
+{
+  "approval": "pending",
+  "arms": [
+    "compact-bar-fields",
+    "compact-bar-local-labels",
+    "exact-object-json"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "maximum_all_providers": 66,
+    "maximum_haiku_token_count_requests": 0,
+    "maximum_per_provider": 66,
+    "repairs": 0
+  },
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349",
+    "exact-object-json": "facd901ef30d98dec39f6023a779ce8ee3b3d3cab35e156ba0d6dffc05a99833"
+  },
+  "cohort_sha256": "d5514ddb07d705b00c66c7d58c6310f58e40724e269d867728d3e5a16154dfc4",
+  "cost_guard": {
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "gemini": 0.054
+    },
+    "maximum_provider_cost_usd": {
+      "gemini": 0.65
+    },
+    "maximum_total_cost_usd": 0.65,
+    "output_token_ceiling_per_call": {
+      "gemini": 12000
+    },
+    "recent_cost_estimate_total_usd": 0.5,
+    "recent_cost_estimate_usd": {
+      "gemini": 0.5
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "decision_rule": {
+    "directional_resolution": "Ten unique prompts per arm and family give a 10-point prompt-level step. Case and component reports remain primary; this stage makes no population-effect claim.",
+    "exact_json_role": "A valid format. It has no capability-control gate.",
+    "expand_rule": "Expand only when both decision families have median arm accuracy from 0.60 through 0.95, all arms remain structurally valid on at least 90 percent of scored rows, and no operational gate fails.",
+    "floor_guard": 0.6,
+    "minimum_provider_completion": 0.95,
+    "minimum_scored_cell_coverage": 0.75,
+    "musical_thresholds": null,
+    "operator_criterion": "Use the frozen directional rule only.",
+    "outcomes": [
+      "expand-confirmation",
+      "revise-harder",
+      "revise-easier",
+      "invalid"
+    ],
+    "primary_measure": "global component accuracy by family and arm",
+    "selection_authority": "This calibration can tune task difficulty only. It cannot select a format or authorize Phase 8c4e.",
+    "target_accuracy": 0.9,
+    "upper_directional_bound": 0.95
+  },
+  "declared_settings": {
+    "gemini": {
+      "max_output_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking_level": "medium"
+    }
+  },
+  "difficulty_ladder": {
+    "affine": "Six interleaved multi-voice notes with nontrivial rational timing. The repaired affine formula is unchanged.",
+    "analysis": "One hard chord and eight-value motif case per prompt, with eight represented distractor notes.",
+    "baseline": "V15 medium-effort validity ladder.",
+    "change_scope": "Increase semantic and arithmetic task complexity only. Keep formats, scoring, provider setting, schedules, and failure policy stable.",
+    "serialization": "Literal serialization remains a positive control."
+  },
+  "effective_request_settings": {
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "medium"
+    }
+  },
+  "families": {
+    "comprehension-analysis": {
+      "repeats": 1,
+      "role": "measurement",
+      "unique_fixtures": 10
+    },
+    "continuation-affine": {
+      "repeats": 1,
+      "role": "measurement",
+      "unique_fixtures": 10
+    },
+    "document-serialization": {
+      "repeats": 1,
+      "role": "validity-guard",
+      "unique_fixtures": 2
+    }
+  },
+  "historical_snapshot": {
+    "analysis_case_count": 130,
+    "full_count": 17608,
+    "semantic_count": 756,
+    "sha256": "7106c8481e5aee26b962161345f09b95283e1e3ada62073203c76885cb0eb2b7"
+  },
+  "measurement": {
+    "musical_unit": "independent case",
+    "parse_failure_policy": "Retain every planned case and component. Mark unavailable parsed components incorrect.",
+    "provider_pooling": false,
+    "required_aggregates": [
+      "global component accuracy",
+      "average per-case component accuracy",
+      "perfect case count and rate"
+    ],
+    "response_level_metrics": [
+      "structural parse conformance",
+      "canonical form conformance"
+    ],
+    "whole_response_musical_score": false
+  },
+  "models": {
+    "gemini": "gemini-3.8-flash"
+  },
+  "protocol_sha256": "10a3eb283494557707319ced55566783bb94b8908f62c0e84be927d98fc74a13",
+  "run_id": "phase8c4d-medium-difficulty-direction-r1",
+  "run_kind": "medium-difficulty-direction-plan",
+  "schedule_sha256": {
+    "gemini": "43175348d58e32d2b189e7e4c3c28be964ab120d0cc5d36e7132a155a7aafeed"
+  },
+  "schema": "ghostnote-compact-format-difficulty-v16",
+  "sha256": "ce2e4f3cd7dd2035bcfa76a738f7c86f6aa86a33f84ea024504c7419b470eaa2",
+  "stage": {
+    "confirmation": "Requires a new frozen cohort and explicit approval.",
+    "maximum_messages": 66,
+    "name": "Gemini directional screen",
+    "providers": [
+      "gemini"
+    ],
+    "repeats": 1,
+    "unique_prompts_per_arm_and_decision_family": 10
+  },
+  "stopping_rule": {
+    "after_directional_stage": "Do not run another provider or a confirmation cohort automatically.",
+    "before_calls": "Stop on identity, freshness, reference, mutation, credential, network, approval, or cost-screen failure.",
+    "during_provider": "Stop on the first transport or budget failure or after three unavailable responses. Make no retry or repair call."
+  }
+}

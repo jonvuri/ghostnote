@@ -1,0 +1,25 @@
+{
+  "amended_cumulative_provider_cost_limit_usd": 1.0,
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349",
+    "exact-object-json": "facd901ef30d98dec39f6023a779ce8ee3b3d3cab35e156ba0d6dffc05a99833"
+  },
+  "cohort_sha256": "43f2c7e598fe51481e8a9c84819d6bb9d75aafbbcfc4b078ee308ed5c2325601",
+  "maximum_total_cost_usd": 6.35,
+  "mode": "append-only continuation of the same frozen run",
+  "operator_statement": "I authorize continuing the Gemini run until it's complete. Proceed with that - in-place if you can (no need to generate a new run, we can just expand the allowed cost for this one)",
+  "partial_file_sha256": "3fbd4ec03f2b8c5a252b7f824984f05f34d7e37c2a53b2aa2042ec4361c30e99",
+  "partial_manifest_sha256": "2e96858b12bd42bc193b6f8a8df182a24797f850e81d017821705726b43adc3c",
+  "previous_provider_cost_limit_usd": 0.55,
+  "protocol_sha256": "d4088228cfb80ebd2eeae3bb5efe60fea1165375c8fa17e117aa0890e12f684d",
+  "provider": "gemini",
+  "remaining_call_count": 39,
+  "remaining_sequence_end": 108,
+  "remaining_sequence_start": 70,
+  "run_id": "phase8c4d-validity-ladder-r1",
+  "run_plan_sha256": "ac92e30192153c476f8b19bc81f7acfbd8919576be95c94962d4736511b490bf",
+  "schema": "ghostnote-compact-format-validity-cost-amendment-v1",
+  "sha256": "5e4fde7597033f987ccd4b9c1fb4c1eecfde9dc9540779c3cd45f342c7b63eb3",
+  "status": "approved"
+}

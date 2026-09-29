@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Benchmark hardening is complete; v14 awaits targeted-holdout approval.
-updated: 2026-09-28
+status: V18 is valid development evidence. Phase 8c4e needs one affine freshness repair before its cohort freezes.
+updated: 2026-09-29
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -191,23 +191,69 @@ owns the migration details.
    `FIELDS`, local labels, exact-object JSON, a fresh cohort, and the targeted-
    holdout plan. No provider call occurred.
 15. [8c4d — Compact-bar targeted holdout](8c4d-compact-bar-targeted-holdout.md).
-   Test the frozen development candidate on a disjoint affected-family and
-   guard holdout.
-16. [8c4e — Compact-candidate full benchmark](8c4e-compact-only-full-benchmark.md).
-   Run `FIELDS` and local labels across the full task suite before buying
-   another full matrix.
-17. [8c4f — Full-matrix decision and optional rerun](8c4f-full-matrix-decision.md).
+   Complete. [E179](../../evidence/experiments/e179-v14-targeted-holdout-stops.md)
+   records `stop`. OpenAI and Gemini completed. Haiku stopped after three
+   output-limit responses. The exact control and informativeness gates failed.
+16. [8c4d follow-up — V15 validity ladder](8c4d-follow-up-v15-validity-ladder.md).
+   [E180](../../evidence/experiments/e180-v15-validity-ladder-awaits-approval.md)
+   records the passing offline package. V15 uses case and component musical
+   scoring, a 1/2/4-case ladder, higher reasoning settings, and no exact-control
+   musical gate. [E181](../../evidence/experiments/e181-v15-validity-ladder-is-incomplete.md)
+   records the safe Gemini stop after 69/108 messages.
+   [E182](../../evidence/experiments/e182-v15-validity-ladder-completes.md)
+   records the approved continuation. All providers completed 108/108 with no
+   failed or unavailable response. The result is `operator-review`.
+17. [8c4d follow-up — V16 medium-difficulty tuning](8c4d-follow-up-v16-medium-difficulty-tuning.md).
+   [E183](../../evidence/experiments/e183-v16-medium-difficulty-direction-awaits-approval.md)
+   freezes a 66-call Gemini directional screen. It preserves v15 and increases
+   task complexity only.
+   [E184](../../evidence/experiments/e184-v16-medium-difficulty-direction-stops.md)
+   records an HTTP 400 stop on the first request. A one-attempt recovery
+   supplement was approved.
+   [E185](../../evidence/experiments/e185-v16-gemini-recovery-confirms-region-stop.md)
+   records the repeated HTTP 400. Gemini reports that the execution location is
+   unsupported. No scientific row completed.
+   [E186](../../evidence/experiments/e186-v16-other-provider-direction-awaits-approval.md)
+   freezes the same directional workload for OpenAI and Haiku.
+   [E187](../../evidence/experiments/e187-v16-openai-direction-requires-harder-tasks.md)
+   records `revise-harder` after OpenAI reached 99.6644 percent component
+   accuracy. The approved early stop prevented a Haiku run.
+18. [8c4d follow-up — V17 harder medium-difficulty tuning](8c4d-follow-up-v17-harder-medium-difficulty.md).
+   [E188](../../evidence/experiments/e188-v17-harder-direction-awaits-approval.md)
+   freezes an OpenAI-only 66-message screen. Analysis has three interleaved
+   hard cases. Affine continuation uses voice-conditioned parameters. The
+   offline package passed. [E189](../../evidence/experiments/e189-v17-openai-stops-at-budget-and-remains-too-easy.md)
+   records the live cost stop after 58/66 completions. The formal result is
+   `invalid`, but the complete analysis family remains above the frozen upper
+   bound. Recovery cannot open expansion, and Haiku remains unrun.
+   [E190](../../evidence/experiments/e190-v17-analysis-composition-correction.md)
+   corrects the claimed chord composition without changing frozen artifacts.
+19. [8c4d follow-up — V18 low-effort rehearsal](8c4d-follow-up-v18-low-effort-rehearsal.md).
+   [E191](../../evidence/experiments/e191-v18-low-effort-rehearsal-awaits-approval.md)
+   freezes a 66-message OpenAI-low rehearsal. It separates elemental format
+   isolation from real-use stress and provides a reusable suite for 8c4e.
+   [E192](../../evidence/experiments/e192-v18-low-effort-rehearsal-is-operationally-complete.md)
+   records 66/66 completions at USD 0.261846. The frozen automated label is
+   `invalid`, but the operator clarified that 90 percent was a maximum task
+   target. The run is operationally valid. Stress analysis met its target, but
+   stress affine remained too easy.
+   [E193](../../evidence/experiments/e193-v18-sampled-audit-validates-run-and-finds-transfer-flaw.md)
+   finds no run defect. It finds that affine freshness must ignore synthetic
+   IDs and vary musical content across cohorts before 8c4e freezes.
+20. [8c4e — Compact-candidate full benchmark](8c4e-compact-only-full-benchmark.md).
+   Blocked pending the v18 rehearsal and an operator decision.
+21. [8c4f — Full-matrix decision and optional rerun](8c4f-full-matrix-decision.md).
    Let the operator approve the fresh matrix, proceed with an explicit evidence
    limit, or stop.
-18. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+22. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
-19. [8g — Shadow project cache](8g-shadow-project-cache.md).
+23. [8g — Shadow project cache](8g-shadow-project-cache.md).
    Implement the cache behind an experimental boundary while E131 remains
    authoritative.
-20. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
+24. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Promote proved cache reads in stages and apply the selected tool and
    verification reductions.
-21. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+25. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

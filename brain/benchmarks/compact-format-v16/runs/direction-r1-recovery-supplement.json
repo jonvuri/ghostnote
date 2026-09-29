@@ -1,0 +1,27 @@
+{
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349",
+    "exact-object-json": "facd901ef30d98dec39f6023a779ce8ee3b3d3cab35e156ba0d6dffc05a99833"
+  },
+  "approved_pending_supplement_sha256": "bbdb93978980882102f9d13870f99cddcd99103744469945576c1e7df71675ec",
+  "carried_failed_reservation_usd": 0.054,
+  "cohort_sha256": "d5514ddb07d705b00c66c7d58c6310f58e40724e269d867728d3e5a16154dfc4",
+  "maximum_added_message_attempts": 1,
+  "maximum_cumulative_cost_usd": 0.65,
+  "maximum_cumulative_message_attempts": 67,
+  "operator_statement": "I approve the Phase 8c4d v16 Gemini recovery supplement with these exact hashes, one added attempt, 67 cumulative attempts, the carried USD 0.054 reservation, and the unchanged USD 0.650 cumulative hard limit. Proceed.",
+  "protocol_sha256": "10a3eb283494557707319ced55566783bb94b8908f62c0e84be927d98fc74a13",
+  "provider": "gemini",
+  "recovery_code_sha256": "7831224a938172e02260d5374edfff1199e877c5a82bf1409765d51dc9ca098c",
+  "repeated_candidate_sha256": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+  "repeated_planned_sequence": 1,
+  "repeated_task_sha256": "5bd87a47f987ac7dcc548a1d03f03cedada262d5045b7e35c28192af877a0ded",
+  "run_id": "phase8c4d-medium-difficulty-direction-r1",
+  "run_plan_sha256": "ce2e4f3cd7dd2035bcfa76a738f7c86f6aa86a33f84ea024504c7419b470eaa2",
+  "schema": "ghostnote-compact-format-v16-recovery-supplement-v1",
+  "sha256": "487b9b7f2ff441e9364a1483fc6a910a4c1d071cb6d036dbfc3260c96fc1aae5",
+  "source_file_sha256": "6edcec79ac8a365bb6829fddd55602a491a66e23a96d193d084a83144cec5fdd",
+  "source_manifest_sha256": "524c824a0660ccf56b8db52c5c64487d92259744ee419497291224fc42ee00a5",
+  "status": "approved"
+}

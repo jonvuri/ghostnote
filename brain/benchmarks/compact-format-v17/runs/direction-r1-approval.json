@@ -1,0 +1,18 @@
+{
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349",
+    "exact-object-json": "facd901ef30d98dec39f6023a779ce8ee3b3d3cab35e156ba0d6dffc05a99833"
+  },
+  "cohort_sha256": "1f2027a3afc44bafd2aea6052f2034bb43256b951d43e926576cfb443da0364d",
+  "maximum_provider_cost_usd": {
+    "openai": 0.65
+  },
+  "maximum_total_cost_usd": 0.65,
+  "operator_statement": "I approve this plan, proceed.",
+  "protocol_sha256": "e2a2d3690eadab325419fe0ef7b86dc3b2977361b173b04fa8622720f09d342e",
+  "run_id": "phase8c4d-harder-medium-direction-r1",
+  "run_plan_sha256": "8902b320f86c19f1f3e9f7d1543cc24edadb46337edad41a97bc7eeea7166636",
+  "runner_sha256": "9a0f328a036195d51b2fdade272331ae29385850c8e87ab901c65c1a69a8657a",
+  "status": "approved"
+}

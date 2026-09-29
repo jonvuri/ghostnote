@@ -1,0 +1,140 @@
+{
+  "by_family_arm": [
+    {
+      "arm": "compact-bar-fields",
+      "canonical_form_rate": 1.0,
+      "family": "comprehension-analysis",
+      "global_component_accuracy": 1.0,
+      "perfect_case_rate": 1.0,
+      "perfect_cases": 10,
+      "planned_cases": 10,
+      "structural_parse_rate": 1.0
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "canonical_form_rate": 1.0,
+      "family": "comprehension-analysis",
+      "global_component_accuracy": 1.0,
+      "perfect_case_rate": 1.0,
+      "perfect_cases": 10,
+      "planned_cases": 10,
+      "structural_parse_rate": 1.0
+    },
+    {
+      "arm": "exact-object-json",
+      "canonical_form_rate": 1.0,
+      "family": "comprehension-analysis",
+      "global_component_accuracy": 0.9625,
+      "perfect_case_rate": 0.9,
+      "perfect_cases": 9,
+      "planned_cases": 10,
+      "structural_parse_rate": 1.0
+    },
+    {
+      "arm": "compact-bar-fields",
+      "canonical_form_rate": 0.9,
+      "family": "continuation-affine",
+      "global_component_accuracy": 0.993023,
+      "perfect_case_rate": 0.966667,
+      "perfect_cases": 58,
+      "planned_cases": 60,
+      "structural_parse_rate": 1.0
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "canonical_form_rate": 1.0,
+      "family": "continuation-affine",
+      "global_component_accuracy": 1.0,
+      "perfect_case_rate": 1.0,
+      "perfect_cases": 60,
+      "planned_cases": 60,
+      "structural_parse_rate": 1.0
+    },
+    {
+      "arm": "exact-object-json",
+      "canonical_form_rate": 1.0,
+      "family": "continuation-affine",
+      "global_component_accuracy": 1.0,
+      "perfect_case_rate": 1.0,
+      "perfect_cases": 60,
+      "planned_cases": 60,
+      "structural_parse_rate": 1.0
+    },
+    {
+      "arm": "compact-bar-fields",
+      "canonical_form_rate": 1.0,
+      "family": "document-serialization",
+      "global_component_accuracy": 1.0,
+      "perfect_case_rate": 1.0,
+      "perfect_cases": 12,
+      "planned_cases": 12,
+      "structural_parse_rate": 1.0
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "canonical_form_rate": 1.0,
+      "family": "document-serialization",
+      "global_component_accuracy": 1.0,
+      "perfect_case_rate": 1.0,
+      "perfect_cases": 12,
+      "planned_cases": 12,
+      "structural_parse_rate": 1.0
+    },
+    {
+      "arm": "exact-object-json",
+      "canonical_form_rate": 1.0,
+      "family": "document-serialization",
+      "global_component_accuracy": 1.0,
+      "perfect_case_rate": 1.0,
+      "perfect_cases": 12,
+      "planned_cases": 12,
+      "structural_parse_rate": 1.0
+    }
+  ],
+  "cohort_sha256": "d5514ddb07d705b00c66c7d58c6310f58e40724e269d867728d3e5a16154dfc4",
+  "decision": "revise-harder",
+  "family_diagnostics": [
+    {
+      "family": "comprehension-analysis",
+      "median_arm_global_component_accuracy": 1.0,
+      "minimum_structural_parse_rate": 1.0
+    },
+    {
+      "family": "continuation-affine",
+      "median_arm_global_component_accuracy": 1.0,
+      "minimum_structural_parse_rate": 1.0
+    }
+  ],
+  "haiku": {
+    "avoided_hard_limit_usd": 1.75,
+    "avoided_measured_cost_estimate_usd": 1.25,
+    "messages_attempted": 0,
+    "reason": "OpenAI did not clear the frozen directional bar.",
+    "status": "not-run"
+  },
+  "openai": {
+    "actual_cost_usd": 0.382806,
+    "global_component_accuracy": 0.996644,
+    "global_component_correct": 1782,
+    "global_component_planned": 1788,
+    "manifest_sha256": "8a1fd6ea38e6a381ea2bcaca0da67b0742583ca40b60842b7a1991cc5146dc36",
+    "perfect_case_rate": 0.987805,
+    "perfect_cases": 243,
+    "planned_cases": 246,
+    "progress": {
+      "attempted": 66,
+      "available": 66,
+      "budget_stopped": 0,
+      "failed": 0,
+      "planned": 66,
+      "provider_completed": 66,
+      "scored": 66,
+      "unavailable": 0
+    }
+  },
+  "protocol_sha256": "814481bb9d27c9d31ba35f410c1f2620c22a0973bb510a4758bac6b25fa45cd9",
+  "run_id": "phase8c4d-medium-difficulty-direction-other-providers-r1",
+  "run_plan_sha256": "c2941e548249758161f26940be6714decce76d357ae78f4415a953d8562e6092",
+  "schema": "ghostnote-compact-format-v16-openai-direction-assessment-v1",
+  "sha256": "f0f16c2d3d4255aa80c5c6ed13bb0f3bffcb4cc5e0836ded5f1bff8ccba86f03"
+}

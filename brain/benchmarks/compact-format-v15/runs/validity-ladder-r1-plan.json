@@ -1,0 +1,180 @@
+{
+  "approval": "pending",
+  "arms": [
+    "compact-bar-fields",
+    "compact-bar-local-labels",
+    "exact-object-json"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "maximum_all_providers": 324,
+    "maximum_haiku_token_count_requests": 108,
+    "maximum_per_provider": 108,
+    "repairs": 0
+  },
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349",
+    "exact-object-json": "facd901ef30d98dec39f6023a779ce8ee3b3d3cab35e156ba0d6dffc05a99833"
+  },
+  "cohort_sha256": "43f2c7e598fe51481e8a9c84819d6bb9d75aafbbcfc4b078ee308ed5c2325601",
+  "cost_guard": {
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.132,
+      "gemini": 0.054,
+      "openai": 0.063
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 4.6,
+      "gemini": 0.55,
+      "openai": 1.2
+    },
+    "maximum_total_cost_usd": 6.35,
+    "output_token_ceiling_per_call": {
+      "claude-haiku": 24000,
+      "gemini": 12000,
+      "openai": 12000
+    },
+    "recent_cost_estimate_total_usd": 4.75,
+    "recent_cost_estimate_usd": {
+      "claude-haiku": 3.5,
+      "gemini": 0.35,
+      "openai": 0.9
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "decision_rule": {
+    "exact_json_role": "A valid serialization arm. It has no capability-control gate.",
+    "minimum_provider_completion": 0.95,
+    "minimum_scored_cell_coverage": 0.75,
+    "musical_thresholds": null,
+    "operator_criterion": "The operator decides whether every format has decent but not flawless case-level performance and whether the benchmark is valid.",
+    "outcomes": [
+      "operator-review",
+      "invalid"
+    ],
+    "selection_authority": "The summary reports validity and measurements. Only the operator can approve a full benchmark or change the retained formats."
+  },
+  "declared_settings": {
+    "claude-haiku": {
+      "max_tokens": 24000,
+      "temperature": "provider default; omitted from request",
+      "thinking": {
+        "budget_tokens": 4096,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking_level": "medium"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "medium",
+      "temperature": "provider default; omitted from request"
+    }
+  },
+  "difficulty_ladder": {
+    "analysis_fixture_counts": {
+      "light": 3,
+      "moderate": 3,
+      "stress": 2
+    },
+    "interleaving": "Shuffle task groups, then run all three arms as one block.",
+    "light": "One independent analysis case.",
+    "moderate": "Two independent analysis cases or six-note affine work.",
+    "positive-control": "Literal six-note serialization with no calculation.",
+    "stress": "Four independent analysis cases."
+  },
+  "effective_request_settings": {
+    "claude-haiku": {
+      "max_tokens": 24000,
+      "thinking": {
+        "budget_tokens": 4096,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "medium"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "medium"
+    }
+  },
+  "families": {
+    "comprehension-analysis": {
+      "repeats": 2,
+      "role": "measurement",
+      "unique_fixtures": 8
+    },
+    "continuation-affine": {
+      "repeats": 2,
+      "role": "measurement",
+      "unique_fixtures": 8
+    },
+    "document-serialization": {
+      "repeats": 1,
+      "role": "validity-guard",
+      "unique_fixtures": 4
+    }
+  },
+  "historical_snapshot": {
+    "analysis_case_count": 130,
+    "full_count": 17081,
+    "semantic_count": 736,
+    "sha256": "887321c6c3a028b1af01434cffb56af912961fc64b5417925ac8e756643e1cd7"
+  },
+  "measurement": {
+    "musical_unit": "independent case",
+    "parse_failure_policy": "Retain every planned case and component. Mark unavailable parsed components incorrect.",
+    "provider_pooling": false,
+    "required_aggregates": [
+      "global component accuracy",
+      "average per-case component accuracy",
+      "perfect case count and rate"
+    ],
+    "response_level_metrics": [
+      "structural parse conformance",
+      "canonical form conformance"
+    ],
+    "whole_response_musical_score": false
+  },
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "d4088228cfb80ebd2eeae3bb5efe60fea1165375c8fa17e117aa0890e12f684d",
+  "run_id": "phase8c4d-validity-ladder-r1",
+  "run_kind": "validity-ladder-plan",
+  "schedule_sha256": {
+    "claude-haiku": "4a1c36c1c839085cb235b893d73df9a7c006d0450abf59c09cc440af44994cd7",
+    "gemini": "afc05d4eac2c55a1b535aac9a83189eb736a36bdf6796f47a512e9a921e1a567",
+    "openai": "62b481a0836d67e41ff7cae9d4e6023a65f9563b6a78b380a5d101de7b4e867f"
+  },
+  "schema": "ghostnote-compact-format-validity-v15",
+  "sha256": "ac92e30192153c476f8b19bc81f7acfbd8919576be95c94962d4736511b490bf",
+  "stopping_rule": {
+    "automatic_retries": 0,
+    "before_calls": [
+      "identity mismatch",
+      "freshness failure",
+      "deterministic failure",
+      "missing credential",
+      "network preflight failure",
+      "cost capacity failure"
+    ],
+    "during_provider": {
+      "budget_stops": 1,
+      "transport_failures": 1,
+      "unavailable_responses": 3
+    },
+    "repairs": 0,
+    "value_of_information": "Finish all providers unless a frozen operational stop applies. Then wait for the operator's benchmark decision."
+  }
+}

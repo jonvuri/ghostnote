@@ -1,0 +1,13 @@
+{
+  "candidate_sha256": {
+    "compact-bar-fields": "de5c64a3746e4b555a9b9ef0ad37e1763caef696d3ea3722ccc3422c9ee07b0f",
+    "compact-bar-local-labels": "5f3e5ae56f77d78d985887938cd5f91399c48d351385fa79c7a431a8c8ea89db",
+    "exact-object-json": "3de94454d58e1bd631ff3f73acb1d59dfa98ec2e479c67e7af86ed2c2f0c8844"
+  },
+  "cohort_sha256": "5979ba82fd271bda2a0f2eef3eaafbc987d9d7da0634d69267c1761ab7ee3f64",
+  "operator_statement": "I approve the Phase 8c4d targeted holdout r2 with these exact hashes and the USD 3.050 hard limit.",
+  "protocol_sha256": "749f890e5093ebfafdcedd435f8d9c87039b6ee28815bef7b72f73b723937123",
+  "run_id": "phase8c4d-targeted-holdout-r2",
+  "run_plan_sha256": "33062e821d4d1679c680e340e8637d57c3fa12f686ab4bfe3fc90064851646df",
+  "status": "approved"
+}

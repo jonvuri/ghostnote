@@ -1,0 +1,19 @@
+{
+  "all_checks_pass": true,
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349",
+    "exact-object-json": "facd901ef30d98dec39f6023a779ce8ee3b3d3cab35e156ba0d6dffc05a99833"
+  },
+  "cohort_sha256": "5b06d1d586f468cc6063ba858de8a7b936af0131a11f4928a0f2be66c0e08785",
+  "job_count_per_provider": 66,
+  "protocol_sha256": "9da27d27fc9ee0e8b4c116595fecb4f99ecc62caadcb3fe47ffa229c58101b12",
+  "providers": [
+    "openai"
+  ],
+  "run_plan_sha256": "dda9cc39bab4c5a85efa06a3f67bdf951cf480ec78dddbfed7898bfaf597baad",
+  "runner_sha256": "11786acf2045dbd431cc5255924d0d054b2736add88f8865d0c34a04049ce7c9",
+  "schema": "ghostnote-compact-format-rehearsal-v18",
+  "screen_sha256": "f57f9d2c3d36560b84a058b4e6674c77f29c78933a2b8deab5d76ac73a0674f4",
+  "sha256": "36c7c59795ac762bc5a0d9599257969aca7a1981cece896a7b7a797a4689089e"
+}

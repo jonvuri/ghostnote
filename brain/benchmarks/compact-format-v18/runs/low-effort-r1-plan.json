@@ -1,0 +1,120 @@
+{
+  "analysis_quality_distribution": {
+    "elemental-format-isolation": {"major": 3, "minor": 2},
+    "real-use-stress": {
+      "diminished": 2,
+      "dominant-seventh": 5,
+      "half-diminished-seventh": 2,
+      "major": 2,
+      "major-seventh": 2,
+      "minor": 2
+    }
+  },
+  "approval": "pending",
+  "arms": ["compact-bar-fields", "compact-bar-local-labels", "exact-object-json"],
+  "calls": {
+    "automatic_retries": 0,
+    "gemini_messages": 0,
+    "haiku_messages": 0,
+    "maximum_all_providers": 66,
+    "maximum_openai_messages": 66,
+    "medium_effort_messages": 0,
+    "repairs": 0
+  },
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349",
+    "exact-object-json": "facd901ef30d98dec39f6023a779ce8ee3b3d3cab35e156ba0d6dffc05a99833"
+  },
+  "cohort_sha256": "5b06d1d586f468cc6063ba858de8a7b936af0131a11f4928a0f2be66c0e08785",
+  "cost_guard": {
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {"openai": 0.063},
+    "maximum_provider_cost_usd": {"openai": 0.65},
+    "maximum_total_cost_usd": 0.65,
+    "output_token_ceiling_per_call": {"openai": 12000},
+    "recent_cost_estimate_total_usd": 0.4,
+    "recent_cost_estimate_usd": {"openai": 0.4},
+    "request_byte_ceiling_per_call": 10000
+  },
+  "decision_rule": {
+    "cases_and_components": "outcomes within a prompt; not independent trials",
+    "elemental_minimum_component_accuracy_per_arm": 0.8,
+    "exact_json_role": "A valid format. It has no capability-control gate.",
+    "experimental_unit": "prompt",
+    "minimum_provider_completion": 0.95,
+    "minimum_scored_cell_coverage": 0.8,
+    "minimum_structural_rate": 0.9,
+    "outcomes": ["freeze-for-8c4e", "revise", "invalid"],
+    "pooling": "Report elemental and stress strata separately.",
+    "resolution": "Five prompts per family and stratum give a 20-point prompt-level step. This rehearsal makes no effect-size claim.",
+    "selection_authority": "This rehearsal can freeze the task design for 8c4e. It cannot select a format or authorize live 8c4e calls.",
+    "serialization_minimum_component_accuracy_per_arm": 0.9,
+    "stress_median_component_accuracy_range": [0.5, 0.95],
+    "stress_minimum_component_accuracy_per_arm": 0.4
+  },
+  "declared_settings": {
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low",
+      "temperature": "provider default; omitted from request"
+    }
+  },
+  "effective_request_settings": {
+    "openai": {"max_completion_tokens": 12000, "reasoning_effort": "low"}
+  },
+  "families": {
+    "comprehension-analysis": {"repeats": 1, "role": "measurement", "unique_fixtures": 10},
+    "continuation-affine": {"repeats": 1, "role": "measurement", "unique_fixtures": 10},
+    "document-serialization": {"repeats": 1, "role": "validity-guard", "unique_fixtures": 2}
+  },
+  "historical_snapshot": {
+    "analysis_case_count": 130,
+    "full_count": 18072,
+    "semantic_count": 800,
+    "sha256": "a4aa8ebaa8b303f6d84482f754626c34932665de98e709d728ea73daf2acd961"
+  },
+  "measurement": {
+    "experimental_unit": "prompt",
+    "musical_unit": "case and component within prompt",
+    "provider_pooling": false,
+    "required_aggregates": ["global component accuracy", "average per-case component accuracy", "perfect case count and rate"],
+    "response_level_metrics": ["structural parse conformance", "canonical form conformance"],
+    "stratum_pooling": false,
+    "whole_response_musical_score": false
+  },
+  "models": {"openai": "gpt-5.4-mini-2026-03-17"},
+  "protocol_sha256": "9da27d27fc9ee0e8b4c116595fecb4f99ecc62caadcb3fe47ffa229c58101b12",
+  "run_id": "phase8c4d-low-effort-rehearsal-r1",
+  "run_kind": "low-effort-rehearsal-plan",
+  "runner_sha256": "11786acf2045dbd431cc5255924d0d054b2736add88f8865d0c34a04049ce7c9",
+  "schedule_sha256": {"openai": "5153f8c9297b30301b17d9d414e4e765d03670d2de09cc4b888496932d4fb443"},
+  "schema": "ghostnote-compact-format-rehearsal-v18",
+  "sha256": "dda9cc39bab4c5a85efa06a3f67bdf951cf480ec78dddbfed7898bfaf597baad",
+  "stopping_rule": {
+    "after_openai": "Stop after OpenAI. Do not run Gemini, Haiku, medium effort, or Phase 8c4e under this approval.",
+    "before_calls": "Stop on identity, freshness, reference, mutation, credential, network, approval, or cost-screen failure.",
+    "during_provider": "Stop on the first transport or budget failure or after three unavailable responses. Make no retry or repair call."
+  },
+  "strata": {
+    "elemental-format-isolation": {
+      "affine": "Six notes use one global affine rule.",
+      "analysis": "One chord and motif case with no distractor notes.",
+      "fixtures_per_family": 5
+    },
+    "literal-serialization-control": {
+      "fixtures": 2,
+      "serialization": "Copy six target notes without calculation."
+    },
+    "real-use-stress": {
+      "affine": "Six multi-voice notes use voice-conditioned rules, source-bound output IDs, and canonical output sorting.",
+      "analysis": "Three interleaved chord and eight-value motif cases use four distractor notes and a declared mixed chord distribution.",
+      "fixtures_per_family": 5
+    }
+  },
+  "transfer_to_8c4e": {
+    "must_be_fresh": ["fixture instances", "cohort seed and hashes", "provider schedule", "approval and cost limits", "provider responses"],
+    "reuse_unchanged": ["candidate definitions and hashes", "task schemas and generator logic", "parsers and component scorers", "report schema and offline assertions", "cost and approval guards"]
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "actual_cost_usd": 0.588167,
+  "analysis_is_complete": true,
+  "analysis_median_arm_accuracy": 0.958333,
+  "analysis_upper_bound": 0.95,
+  "decision": "invalid",
+  "decision_reason": "The run stopped below the provider-completion and cell-coverage gates.",
+  "expansion_is_reachable_by_recovery": false,
+  "expansion_reason": "The complete analysis family is already above the frozen upper bound.",
+  "family_cells": [
+    {
+      "arm": "compact-bar-fields",
+      "family": "comprehension-analysis",
+      "global_component_accuracy": 0.95,
+      "global_component_correct": 228,
+      "global_component_planned": 240,
+      "perfect_case_rate": 0.866667,
+      "perfect_cases": 26,
+      "planned_cases": 30,
+      "scored_messages": 10
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "family": "comprehension-analysis",
+      "global_component_accuracy": 0.958333,
+      "global_component_correct": 230,
+      "global_component_planned": 240,
+      "perfect_case_rate": 0.766667,
+      "perfect_cases": 23,
+      "planned_cases": 30,
+      "scored_messages": 10
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "comprehension-analysis",
+      "global_component_accuracy": 0.970833,
+      "global_component_correct": 233,
+      "global_component_planned": 240,
+      "perfect_case_rate": 0.833333,
+      "perfect_cases": 25,
+      "planned_cases": 30,
+      "scored_messages": 10
+    },
+    {
+      "arm": "compact-bar-fields",
+      "family": "continuation-affine",
+      "global_component_accuracy": 1.0,
+      "global_component_correct": 344,
+      "global_component_planned": 344,
+      "perfect_case_rate": 1.0,
+      "perfect_cases": 48,
+      "planned_cases": 48,
+      "scored_messages": 8
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "family": "continuation-affine",
+      "global_component_accuracy": 0.940568,
+      "global_component_correct": 364,
+      "global_component_planned": 387,
+      "perfect_case_rate": 0.907407,
+      "perfect_cases": 49,
+      "planned_cases": 54,
+      "scored_messages": 9
+    },
+    {
+      "arm": "exact-object-json",
+      "family": "continuation-affine",
+      "global_component_accuracy": 1.0,
+      "global_component_correct": 344,
+      "global_component_planned": 344,
+      "perfect_case_rate": 1.0,
+      "perfect_cases": 48,
+      "planned_cases": 48,
+      "scored_messages": 8
+    }
+  ],
+  "haiku_messages": 0,
+  "manifest_file_sha256": "92c97346d95e9e7cbc314483656e18da34083747c8a01dedf93c87554f9605db",
+  "manifest_sha256": "90d8b1c2c8e7144fb9ac362431195bfb0f49972790c8e92a5e6ef51c85ba89b5",
+  "overall": {
+    "average_per_case_component_accuracy": 0.971092,
+    "canonical_form_rate": 0.931034,
+    "global_component_accuracy": 0.972973,
+    "global_component_correct": 1872,
+    "global_component_planned": 1924,
+    "perfect_case_rate": 0.918605,
+    "perfect_cases": 237,
+    "scored_cases": 258,
+    "structural_parse_rate": 1.0
+  },
+  "progress": {
+    "attempted": 58,
+    "budget_stopped": 1,
+    "failed": 1,
+    "planned": 66,
+    "provider_completed": 58,
+    "scored": 58,
+    "unavailable": 0
+  },
+  "protocol_sha256": "e2a2d3690eadab325419fe0ef7b86dc3b2977361b173b04fa8622720f09d342e",
+  "recovery_recommendation": "Do not recover this cohort. Increase task difficulty again.",
+  "run_id": "phase8c4d-harder-medium-direction-r1",
+  "run_plan_sha256": "8902b320f86c19f1f3e9f7d1543cc24edadb46337edad41a97bc7eeea7166636",
+  "schema": "ghostnote-compact-format-difficulty-v17-assessment"
+}

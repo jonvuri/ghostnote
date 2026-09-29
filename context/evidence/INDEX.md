@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-28
+updated: 2026-09-29
 ---
 
 # Evidence index
@@ -12,6 +12,21 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E193 | V18 sampled audit validates the run and finds a transfer flaw [K] (2026-09-29) | [open](experiments/e193-v18-sampled-audit-validates-run-and-finds-transfer-flaw.md) |
+| E192 | V18 low-effort rehearsal is operationally complete [K] (2026-09-29) | [open](experiments/e192-v18-low-effort-rehearsal-is-operationally-complete.md) |
+| E191 | V18 low-effort rehearsal awaits approval [K] (2026-09-29) | [open](experiments/e191-v18-low-effort-rehearsal-awaits-approval.md) |
+| E190 | V17 analysis composition correction [K] (2026-09-29) | [open](experiments/e190-v17-analysis-composition-correction.md) |
+| E189 | V17 OpenAI stops at budget and remains too easy [K] (2026-09-29) | [open](experiments/e189-v17-openai-stops-at-budget-and-remains-too-easy.md) |
+| E188 | V17 harder direction awaits approval [K] (2026-09-29) | [open](experiments/e188-v17-harder-direction-awaits-approval.md) |
+| E187 | V16 OpenAI direction requires harder tasks [K] (2026-09-29) | [open](experiments/e187-v16-openai-direction-requires-harder-tasks.md) |
+| E186 | V16 other-provider direction awaits approval [K] (2026-09-29) | [open](experiments/e186-v16-other-provider-direction-awaits-approval.md) |
+| E185 | V16 Gemini recovery confirms region stop [K] (2026-09-29) | [open](experiments/e185-v16-gemini-recovery-confirms-region-stop.md) |
+| E184 | V16 medium-difficulty direction stops [K] (2026-09-29) | [open](experiments/e184-v16-medium-difficulty-direction-stops.md) |
+| E183 | V16 medium-difficulty direction awaits approval [K] (2026-09-29) | [open](experiments/e183-v16-medium-difficulty-direction-awaits-approval.md) |
+| E182 | V15 validity ladder completes [K] (2026-09-28) | [open](experiments/e182-v15-validity-ladder-completes.md) |
+| E181 | V15 validity ladder is incomplete [K] (2026-09-28) | [open](experiments/e181-v15-validity-ladder-is-incomplete.md) |
+| E180 | V15 validity ladder awaits approval [K] (2026-09-28) | [open](experiments/e180-v15-validity-ladder-awaits-approval.md) |
+| E179 | V14 targeted holdout stops [K] (2026-09-28) | [open](experiments/e179-v14-targeted-holdout-stops.md) |
 | E178 | Symbolic benchmark hardening freezes v14 [K] (2026-09-28) | [open](experiments/e178-symbolic-benchmark-hardening-freezes-v14.md) |
 | E177 | Gemini local-label diagnostic selects local labels [K] (2026-09-28) | [open](experiments/e177-gemini-local-label-diagnostic-selects-local-labels.md) |
 | E176 | Gemini local-label diagnostic awaits approval [K] (2026-09-28) | [open](experiments/e176-gemini-local-label-diagnostic-awaits-approval.md) |

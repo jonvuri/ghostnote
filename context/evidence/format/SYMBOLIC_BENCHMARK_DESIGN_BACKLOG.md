@@ -2,7 +2,7 @@
 title: Symbolic benchmark design backlog
 kind: reference
 state: active
-updated: 2026-09-28
+updated: 2026-09-29
 scope: Cross-version experiment-design findings and repair requirements
 parent: COMPACT_BAR_BENCHMARK_PROTOCOL.md
 ---
@@ -19,9 +19,10 @@ Historical run artifacts and decisions remain immutable. A resolved issue
 becomes a regression requirement for the next benchmark package. Do not erase
 it from this register.
 
-The current entries cover E137 through E177 and every symbolic benchmark
-package from compact-bar v0 through compact-format v13. V14 closes the current
-open repair set. Historical packages stay immutable.
+The current entries cover E137 through E193 and every symbolic benchmark
+package from compact-bar v0 through compact-format v18. V15 completes the
+validity ladder. V18 prepares the final low-effort rehearsal before 8c4e.
+Historical packages stay immutable.
 
 E138 and E139 concern cache lifecycle and scale. They add no symbolic
 benchmark-design finding.
@@ -45,7 +46,7 @@ benchmark-design finding.
 | P5 | resolved-regression | The analysis prompt mixed the input-arm label with a different output grammar. A required `ANALYSIS` prefix created false failures. | Name input and output representations separately. Ignore the optional legacy prefix during semantic scoring. | E171-E174 |
 | P6 | resolved-regression | Rational spelling is underspecified. Exact JSON lost one valid musical answer because it used a mixed fraction such as `32 5/8`. | V14 requires integers or reduced improper `a/b` fractions. It separates structurally valid noncanonical text and rejects mixed fractions. | E175; v14 mutation screen |
 | P7 | resolved-regression | The task does not always state that note IDs must be globally unique. | V14 states the rule in every document-output prompt and rejects duplicate-ID mutations. | E175; v14 visibility and mutation screens |
-| P8 | resolved-regression | The motif formula permits a parenthesis error. | V14 uses `2*axis-source_pitch+semitones` and tests formula visibility. | E175; v14 visibility screen |
+| P8 | resolved-regression | The affine formula permitted a precedence error in model answers. | V15 uses `pitch=(2*axis)-source_pitch+semitones`, states the operation order, gives a neutral numeric example, and tests visibility. | E175, E179-E180; v15 visibility screen |
 | P9 | design-choice | Only the `FIELDS` candidate receives explicit six-value row-arity prose. This is valid for a deployable candidate but does not isolate the declaration alone. | State whether a run compares complete prompt packages or one syntax feature. Give controls equal non-feature guidance for a causal feature test. | E175 |
 
 ## Task calibration and validity
@@ -55,9 +56,15 @@ benchmark-design finding.
 | T1 | resolved-regression | Motif reached a ceiling and progression reached a floor in the first focused calibration. | A V14 decision family needs exact JSON from 75 percent inclusive to 95 percent exclusive and one compact arm strictly between 25 and 87.5 percent. | E157-E159; v14 aggregation screen |
 | T2 | resolved-regression | Analysis reached a ceiling on stronger providers. A model-tier mismatch made the cross-provider gate uninformative and expensive. | Require at least one informative decision family for each provider. Treat other families as guards. | E159-E165; v14 decision rule |
 | T3 | resolved-regression | Current progression is at a reasoning floor. It has no input document and does not isolate input-format effects. | V14 removes progression from decision work. It uses input-bearing affine continuation and a separate serialization guard. | E174-E175; v14 protocol |
-| T4 | resolved-regression | Dense analysis batches have different case counts, but each batch has equal headline weight. | V14 uses four cases in every analysis batch. It reports strict batch and component denominators separately. | E175; v14 aggregation screen |
-| T5 | design-choice | A strict whole-task pass is useful for product conformance but hides one-value near misses during format development. | Keep strict pass. Add diagnostic severity, failed-value counts, and per-note or per-case results. | E171, E175 |
+| T4 | resolved-regression | Dense analysis batches had different case counts but equal headline weight. V14 normalized every batch to four cases without an empirical density reason. | V15 uses a declared 1/2/4-case difficulty ladder and makes cases and components the musical denominators. | E175, E179-E180; v15 protocol |
+| T5 | resolved-regression | A strict whole-task pass hid one-value near misses and made independent cases fail together. | V15 removes whole-response musical scoring. It reports global components, average per-case components, and perfect cases. | E171, E175, E179-E180; v15 scoring screen |
 | T6 | resolved-regression | Earlier format cycles used floors, ceilings, guard families, repairs, and changing task contracts. Their retained decision authority needs one consolidated audit. | The package audit below covers E137-E177 and every package through v13. | E137-E177; v14 hardening audit |
+| T7 | design-choice | The v14 exact-object control fell below 75 percent on at least one decision family for every provider. No provider had an effect-eligible family. | V15 treats exact JSON as a format that must be valid. It removes the capability-control gate and leaves the full-benchmark decision to the operator. | E179-E180 |
+| T8 | open | V15 medium reasoning saturated every Gemini format. V16 OpenAI reached 99.6644 percent. V17 analysis reached a 95.8333 percent median. V18 low effort brought stress analysis to the 90 percent maximum target, but stress affine remained at 99.5349 percent. | Keep elemental and stress results separate. Retain stress affine as an easier conformance stratum or add harder affine work in 8c4e. | E182-E193 |
+| T9 | design-choice | The approved v16 plan included OpenAI and Haiku, but a later operator instruction stopped Haiku when OpenAI stayed at the ceiling. | V17 predeclares an OpenAI-only stage. Haiku needs a promising result, a new supplement, and explicit approval. Record avoided calls and cost. | E186-E188 |
+| T10 | resolved-regression | V17 inferred its chord mix from a seed expression. The seed base shifted every intended template index by four. | Assert the exact generated chord distribution. Keep frozen historical artifacts unchanged and correct their interpretation in later evidence. | E188-E191; v18 suite screen |
+| T11 | resolved-regression | V18 encoded 90 percent structural validity as a minimum and made model conformance invalidate the experiment. The operator intended 90 percent as a maximum task-performance target. | Use execution, identity, completion, and scorer integrity for experiment validity. Report structural and canonical conformance as outcomes. | E191-E193 |
+| T12 | open | V18 stress-affine musical content does not depend on cohort seed or variant offset. Synthetic IDs change its semantic hash and can hide task reuse. | Make affine content seed-dependent. Add an ID-free content hash and use it for internal and historical freshness before 8c4e. | E193 |
 
 ## Parsing and scoring
 
@@ -85,7 +92,7 @@ benchmark-design finding.
 |---|---|---|---|---|
 | R1 | resolved-regression | Positional v1 lets models shift values, add columns, or reuse IDs. `FIELDS` prevents most of these errors. | Keep positional v1 as historical evidence and an offline regression source. Do not use it in new provider calls. | E171-E175, D24 |
 | R2 | design-choice | The v13 Gemini stress diagnostic found a repeated local-label benefit, but its post-hoc cases do not estimate a fresh family effect. | Retain both `FIELDS` and local labels. Compare quality and token size on fresh paired fixtures. | E175-E177, D24 |
-| R3 | design-choice | Exact JSON is a structured task control and complete-state fallback. It is not automatically the product format. | Keep capability, accuracy, compactness, and product-choice claims separate. | E137-E175 |
+| R3 | design-choice | Exact JSON is a complete-state fallback and comparison format. It is not automatically the product format or a capability control. | Require valid schema output. Keep accuracy, compactness, and product-choice claims separate. | E137-E180 |
 | R4 | design-choice | Format effects, task-reasoning effects, and prompt-package effects are not always isolated. | V14 declares complete-prompt-package estimands. It identifies input-only, combined input-output, and output-only families. | E171-E175; v14 protocol |
 
 ## Provider settings and completion
@@ -96,6 +103,7 @@ benchmark-design finding.
 | V2 | resolved-regression | Provider credentials and settings were not always checked before the run. | Validate all required credential names and effective settings before the first paid call. | E157-E165 |
 | V3 | design-choice | Provider-specific cohorts or settings repairs can be valid but do not form one paired three-provider cohort. | State retained providers, cohort differences, and comparison limits. | E162-E167 |
 | V4 | design-choice | Provider-default temperature and unsupported seeds differ by provider. | V14 records declared and effective request settings. Provider and family results stay primary. | E166-E175; v14 protocol |
+| V5 | resolved-regression | Three v14 Haiku analysis calls used the full 12,000 output tokens without an answer. | V15 raises thinking to 4,096 and the total ceiling to 24,000. Haiku completes 108/108 with no unavailable response. | E179-E181 |
 
 ## Execution, cost, and auditability
 
@@ -107,6 +115,10 @@ benchmark-design finding.
 | X4 | resolved-regression | A sandbox-blocked run printed processed failures as completed work. | V14 performs credential and network preflight. It reports planned, attempted, provider-completed, available, scored, failed, unavailable, and budget-stopped counts. A received malformed response retains its raw hash, usage, and cost. | E174; v14 preflight, provider-accounting, and aggregation screens |
 | X5 | design-choice | Network retries change the approved request set. | Make no automatic retry. Record and approve any recovery supplement separately. | E170, E173-E174 |
 | X6 | resolved-regression | Old results could be mistaken for a new run without exact run identity and immutable outputs. | Bind approval, manifests, and summaries to run, protocol, plan, cohort, prompt, and raw-response hashes. Refuse output overwrite. | E158-E174 |
+| X7 | resolved-regression | The final v14 decision was irreversible after OpenAI and Gemini, but the protocol had no cross-provider early-stop rule. | V15 has no automatic musical decision. Complete diagnostic work unless an operational stop applies, then defer the full-benchmark decision to the operator. | E179-E180 |
+| X8 | resolved-regression | The v15 total estimate fit, but the USD 0.550000 Gemini allocation stopped medium reasoning at 69/108. | The approved continuation resumed at sequence 70 under a USD 1.000000 cumulative limit. It retained completed rows and reserved each new call. Use measured cost for future provider allocations. | E181-E182 |
+| X9 | resolved-regression | The v16 transport retained HTTP 400 but discarded the provider error body. The stopped manifest could not distinguish request, account, or credential rejection. | The approved recovery retained a redacted provider status, reason, message, body size, and body hash. Future runners must keep this evidence. | E184-E185 |
+| X10 | open | TCP preflight passed, but Gemini rejected the execution location before provider completion. | Check provider eligibility before a benchmark run. Treat regional eligibility as separate from network reachability. Freeze any added provider request in the run plan. | E185 |
 
 ## Additional historical regressions
 
@@ -134,14 +146,21 @@ This index gives every current issue an explicit package scope.
 |---|---|
 | P1 | compact v4 |
 | P2-P5 | compact v10; repaired in v11-v12 |
-| P6-P8 | compact v12-v13 and earlier document prompts where applicable |
+| P6-P7 | compact v12-v14 and earlier document prompts where applicable |
+| P8 | compact v12-v15 |
 | P9 | compact v11-v14 |
 | T1 | compact v4-v5 |
 | T2 | compact v5-v9 |
 | T3 | compact v2-v5, compact-json v1, compact v10-v13 |
-| T4 | compact v6-v13 |
-| T5 | compact v10-v14 |
+| T4 | compact v6-v15 |
+| T5 | compact v10-v15 |
 | T6 | compact-bar v0, symbolic v1-v2, compact v2-v13, compact-json v1 |
+| T7 | compact v14-v15 |
+| T8 | compact v15-v18 |
+| T9 | compact v16-v17 and later multi-provider tuning |
+| T10 | compact v17-v18 |
+| T11 | compact v18 and later small rehearsals |
+| T12 | compact v18 and Phase 8c4e |
 | S1 | compact v12-v13 and every canonical document scorer |
 | S2-S4 | symbolic v2, compact v4-v14 |
 | S5 | compact-bar v0, symbolic v1-v2, compact v2-v14, compact-json v1 |
@@ -152,16 +171,21 @@ This index gives every current issue an explicit package scope.
 | C5 | compact v2-v13, compact-json v1, symbolic v1-v2 |
 | R1 | symbolic v1, compact v4-v12 |
 | R2 | compact v12-v14 |
-| R3 | compact-bar v0 through compact v14, compact-json v1, symbolic v1-v2 |
+| R3 | compact-bar v0 through compact v15, compact-json v1, symbolic v1-v2 |
 | R4 | compact-bar v0 through compact v13, compact-json v1, symbolic v1-v2 |
 | V1-V3 | compact-json v1, symbolic v2, compact v4-v9 |
 | V4 | all provider-bearing packages |
+| V5 | compact v14-v15 |
 | X1 | compact v10 draft |
 | X2 | compact-json v1, compact v7-v14 |
 | X3 | compact v9-v14 |
 | X4 | compact v12 |
 | X5 | compact-bar v0, symbolic v1-v2, compact v2-v6, compact v10 recovery |
 | X6 | symbolic v2, compact v4-v14, compact-json v1 |
+| X7 | compact v14-v15 |
+| X8 | compact v15 |
+| X9 | compact v16 |
+| X10 | compact v16 and future provider runs |
 
 ## Package audit and remaining authority
 
@@ -183,7 +207,11 @@ This index gives every current issue an explicit package scope.
 | compact-format v11 | historical-limit | Reused-case prompt diagnostic only. It validates repairs but is not a fresh effect estimate. |
 | compact-format v12 | historical-limit | Supports `FIELDS` over positional v1 and reliable serialization. It does not prove exact parity. Progression is not a discriminator. Its freshness self-test now includes v13 descendants. |
 | compact-format v13 | historical-limit | Strong repeated local-binding evidence on four post-hoc Gemini cases. It is not cross-provider or fresh-family evidence. |
-| compact-format v14 | design-choice | Frozen corrected package and fresh holdout plan. It has no provider result until separately approved and run. |
+| compact-format v14 | historical-limit | The fresh holdout returned `stop`. It preserves operationally valid partial evidence, but control validity, informativeness, and Haiku completion failures prevent a format effect or public selection. |
+| compact-format v15 | active-evidence | All providers complete 108/108. OpenAI and Haiku show strong, non-perfect case-level evidence. Gemini is at the ceiling. The result awaits the operator's full-benchmark decision. |
+| compact-format v16 | active-evidence | Gemini was operationally blocked. OpenAI reached 99.6644 percent component accuracy and returned `revise-harder`. The early stop prevented a Haiku run. |
+| compact-format v17 | active-evidence | OpenAI stopped at 58/66 on the cost guard, so the formal result is `invalid`. Complete analysis reached 95.8333 percent median accuracy. Its actual chord mix differs from the frozen protocol description. Recovery cannot open expansion. |
+| compact-format v18 | active-evidence | OpenAI completed 66/66 at USD 0.261846. The run is operationally valid after correcting the 90-percent interpretation. Stress analysis reached the maximum target. Stress affine remained at 99.5349 percent. Its generator needs a freshness repair before 8c4e reuse. |
 
 ## Completed hardening audit
 

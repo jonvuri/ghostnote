@@ -1,13 +1,13 @@
 ---
 title: Phase 8c4e — Compact-candidate full benchmark
 kind: plan
-state: planned
-status: Run FIELDS and local labels across the full task suite before deciding whether a new full matrix is worth its cost.
-updated: 2026-09-28
+state: blocked
+status: Blocked pending affine seed-dependence and ID-free freshness repair.
+updated: 2026-09-29
 parent: README.md
-prev: 8c4d-compact-bar-targeted-holdout.md
+prev: 8c4d-follow-up-v18-low-effort-rehearsal.md
 next: 8c4f-full-matrix-decision.md
-evidence: E137, E140, E155, E174-E177; D21, D23-D24
+evidence: E137, E140, E155, E174-E193; D21, D23-D24
 ---
 
 # Phase 8c4e — Compact-candidate full benchmark
@@ -24,12 +24,25 @@ are different.
 
 ## Entry conditions
 
-- Phase 8c4d returns `retain-both`.
+- The v18 rehearsal is accepted as valid development evidence.
+- Affine musical content depends on the fresh cohort seed.
+- Affine and serialization freshness use an ID-free content hash.
 - Both candidates, prompts, scorers, parsers, and repair policy remain frozen.
 - A new full-suite cohort has no semantic overlap with any earlier
   provider-bearing cohort.
 - Absolute gates and the matrix-value rule are frozen before calls.
 - The operator approves the exact calls and provider cost.
+
+The entry condition is not open. E192 records the completed v18 rehearsal.
+E193 validates the run and finds a cross-cohort affine freshness flaw. Repair
+that flaw before freezing the 8c4e cohort. No additional v18 provider run is
+needed.
+
+Reuse the v18 task schemas, scorers, and applicable assertions. Do not import
+the stress-affine generator unchanged. Make its musical values and rules depend
+on the new seed. Add an ID-free content hash and check its internal and
+historical overlap. Create new fixture instances, cohort hashes, provider
+schedule, cost plan and approval, and responses.
 
 ## Run scope
 
@@ -37,7 +50,7 @@ Run only `FIELDS` and local labels on OpenAI, Gemini, and Claude. Cover all
 nine Phase 8c3 task families and the required repeated-prompt sentinels. Use
 the repaired task contracts. Do not restore another format arm.
 
-Report initial musical success, component results, syntax, completion,
+Report case and component musical accuracy, syntax, completion,
 repair recovery, prompt and output size, input and output tokens, latency,
 nondeterminism, and cost for each candidate.
 Treat output-limit and unavailable results as unavailable, not musical
@@ -74,7 +87,8 @@ format delta.
 - Both candidates match their targeted-holdout hashes.
 - Every full-suite family runs on all approved providers.
 - Absolute thresholds and the matrix-value rule were fixed before calls.
-- Initial and repaired results stay separate.
+- Musical results use independent cases and components, not a whole-response
+  pass.
 - The report gives enough cost and effect information for an operator matrix
   decision without assuming that the matrix will run.
 

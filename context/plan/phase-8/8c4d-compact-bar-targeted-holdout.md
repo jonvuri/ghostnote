@@ -1,13 +1,13 @@
 ---
 title: Phase 8c4d — Compact-bar targeted holdout
 kind: plan
-state: planned
-status: V14 is frozen and awaits exact provider approval.
+state: complete
+status: V14 returned stop after control-validity and completion failures.
 updated: 2026-09-28
 parent: README.md
 prev: 8c4c-follow-up-symbolic-benchmark-hardening.md
 next: 8c4e-compact-only-full-benchmark.md
-evidence: E137-E178; D21, D23-D24
+evidence: E137-E179; D21, D23-D24
 ---
 
 # Phase 8c4d — Compact-bar targeted holdout
@@ -80,6 +80,17 @@ estimate is USD 2.715000. The provider hard limits total USD 3.050000.
 Stop before calls on identity, freshness, deterministic, credential, network,
 or cost-capacity failure. Stop a provider on the first transport or budget
 failure, or after three unavailable responses.
+
+## Result
+
+[E179](../../evidence/experiments/e179-v14-targeted-holdout-stops.md)
+records the frozen `stop` result. OpenAI and Gemini completed 108/108 messages.
+Haiku stopped at 35/108 after three output-limit responses. The exact control
+failed its minimum gate, no provider had an effect-eligible family, and Haiku
+failed the completion gate.
+
+The rounded total cost was USD 1.610971. Do not start Phase 8c4e or tune from
+the holdout responses.
 
 ## Acceptance criteria
 

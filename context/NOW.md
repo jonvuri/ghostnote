@@ -2,55 +2,68 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-09-28
+updated: 2026-09-29
 phase: phase-8-agent-native-live-engine
-session: phase8c4d-targeted-holdout-approval
+session: phase8c4d-v18-sampled-audit-complete
 ---
 
 # Now
 
-The
-[symbolic benchmark hardening follow-up](plan/phase-8/8c4c-follow-up-symbolic-benchmark-hardening.md)
-is complete. [E178](evidence/experiments/e178-symbolic-benchmark-hardening-freezes-v14.md)
-records the full E137-E177 and compact-bar v0 through compact-format v13
-audit. No provider or token-count request occurred.
+[The v18 low-effort rehearsal](plan/phase-8/8c4d-follow-up-v18-low-effort-rehearsal.md)
+is complete.
+[E192](evidence/experiments/e192-v18-low-effort-rehearsal-is-operationally-complete.md)
+records the run and its bounded interpretation.
+[E193](evidence/experiments/e193-v18-sampled-audit-validates-run-and-finds-transfer-flaw.md)
+records three independent end-to-end sample audits.
 
-[`compact-format-v14`](../brain/benchmarks/compact-format-v14/README.md)
-passes its pinned offline check. It retains only `FIELDS`, local labels, and
-exact-object JSON. Positional v1 and all other earlier formats are offline
-regression sources only.
+V18 keeps the v15 formats and component scorer. It separates five elemental
+format-isolation fixtures from five real-use stress fixtures in each decision
+family. It also has two literal serialization controls. OpenAI completed all
+66 messages with no failed, unavailable, or budget-stopped row. The run cost
+USD 0.261846 against the USD 0.650000 hard limit.
 
-The corrected package separates structural parse, canonical form, semantic
-accuracy, component accuracy, result state, and planned and scored
-denominators. It freezes prompt-visibility, mutation, aggregation, cost,
-preflight, and failure-state tests.
+`suite.py` owns the v18 tasks and assertions. Phase 8c4e can reuse its task
+schemas, scorers, and applicable assertions. It must fork the stress-affine
+generator and freshness logic. Reports keep elemental and stress results
+separate. The prompt is the experimental unit. Cases and components are
+outcomes within a prompt. Stress analysis reached 90 percent median component
+accuracy. Stress affine reached 99.5349 percent and remained above the ceiling.
 
-The old reserved v10 holdout is invalid. V14 freezes 20 fresh fixtures with no
-full, semantic, or analysis-case overlap against its explicit historical
-snapshot. The cohort SHA-256 is
-`5979ba82fd271bda2a0f2eef3eaafbc987d9d7da0634d69267c1761ab7ee3f64`.
+The frozen summary contains `decision: invalid` because the protocol encoded
+90 percent as a minimum validity threshold. The operator clarified that 90
+percent was a maximum task-performance target and lower performance was
+acceptable. The omitted field is a measured model outcome. V18 is
+operationally valid development evidence. Keep the frozen artifact unchanged.
 
-Each provider has 108 balanced messages. Every decision fixture has two
-repeats. The plan makes 324 messages in total, with no repair or automatic
-retry. The recent-cost estimate is USD 2.715000. The total hard limit is USD
-3.050000.
+The sampled audits found no prompt, reference, scorer, parser, aggregation,
+provider, schedule, or cost flaw. They found one transfer issue: stress-affine
+musical content does not depend on the cohort seed or variant offset, and the
+semantic hash includes synthetic IDs. Do not reuse `suite.py` unchanged for
+8c4e.
 
-The protocol SHA-256 is
-`749f890e5093ebfafdcedd435f8d9c87039b6ee28815bef7b72f73b723937123`.
-The run-plan SHA-256 is
-`33062e821d4d1679c680e340e8637d57c3fa12f686ab4bfe3fc90064851646df`.
+[E190](evidence/experiments/e190-v17-analysis-composition-correction.md)
+corrects the v17 analysis description. V17 intended hard seventh and
+diminished chords, but its seed offset produced 18 major, 4 minor, 5
+half-diminished-seventh, and 3 major-seventh cases. The frozen package and run
+artifacts remain unchanged.
 
 ## Immediate work
 
-1. Review the v14 protocol, frozen run plan, calls, and cost.
-2. Obtain exact operator approval before Phase 8c4d provider work.
-3. After approval, run the three provider manifests without changing the
-   package or cohort.
-4. Do not change the cache, `normal-v1`, or a live Bitwig project.
+1. Begin 8c4e preparation only after repairing affine seed dependence and
+   adding an ID-free content freshness hash.
+2. Treat structural and canonical failures as benchmark outcomes, not
+   experiment-invalidating events.
+3. Use 90 percent as a maximum calibration target. Lower performance is valid.
+4. Keep elemental affine labeled as lower-complexity work. Literal
+   serialization is the pure format control.
+5. Do not run a provider until the new 8c4e package and cost have explicit
+   approval.
+6. Do not change the cache, `normal-v1`, or a live Bitwig project.
 
-Phase 8f remains blocked.
+Phase 8c4e remains blocked pending the affine freshness repair and a frozen run
+plan. Phase 8f remains blocked pending the 8c4e result.
 
 ## Retrospective
 
-Freeze freshness sources and realized request ordinals. Do not let later
-artifacts change an earlier deterministic identity.
+Freshness hashes must exclude synthetic IDs and include the actual musical
+content. A new cohort name is not evidence of a new task.

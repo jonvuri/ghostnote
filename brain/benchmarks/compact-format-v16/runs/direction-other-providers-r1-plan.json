@@ -1,0 +1,168 @@
+{
+  "approval": "pending",
+  "arms": [
+    "compact-bar-fields",
+    "compact-bar-local-labels",
+    "exact-object-json"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "maximum_all_providers": 132,
+    "maximum_haiku_token_count_requests": 66,
+    "maximum_per_provider": 66,
+    "repairs": 0
+  },
+  "candidate_sha256": {
+    "compact-bar-fields": "5125c847ad08dc795a82c235b3fcdf42dede5392805db36a3df2a0941c11a30a",
+    "compact-bar-local-labels": "3fcb182bfa6cfa4935a8e4b5c6ef876407fcd27e5bb2e6ac7df3177b2789c349",
+    "exact-object-json": "facd901ef30d98dec39f6023a779ce8ee3b3d3cab35e156ba0d6dffc05a99833"
+  },
+  "cohort_sha256": "d5514ddb07d705b00c66c7d58c6310f58e40724e269d867728d3e5a16154dfc4",
+  "cost_guard": {
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.132,
+      "openai": 0.063
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 1.75,
+      "openai": 0.65
+    },
+    "maximum_total_cost_usd": 2.4,
+    "output_token_ceiling_per_call": {
+      "claude-haiku": 24000,
+      "openai": 12000
+    },
+    "recent_cost_estimate_total_usd": 1.7,
+    "recent_cost_estimate_usd": {
+      "claude-haiku": 1.25,
+      "openai": 0.45
+    },
+    "request_byte_ceiling_per_call": 10000
+  },
+  "decision_rule": {
+    "directional_resolution": "Ten unique prompts per arm and family give a 10-point prompt-level step. Case and component reports remain primary; this stage makes no population-effect claim.",
+    "exact_json_role": "A valid format. It has no capability-control gate.",
+    "expand_rule": "Expand only when both decision families have median arm accuracy from 0.60 through 0.95, all arms remain structurally valid on at least 90 percent of scored rows, and no operational gate fails.",
+    "floor_guard": 0.6,
+    "minimum_provider_completion": 0.95,
+    "minimum_scored_cell_coverage": 0.75,
+    "musical_thresholds": null,
+    "operator_criterion": "Use the frozen directional rule only.",
+    "outcomes": [
+      "expand-confirmation",
+      "revise-harder",
+      "revise-easier",
+      "invalid"
+    ],
+    "primary_measure": "global component accuracy by family and arm",
+    "selection_authority": "This calibration can tune task difficulty only. It cannot select a format or authorize Phase 8c4e.",
+    "target_accuracy": 0.9,
+    "upper_directional_bound": 0.95
+  },
+  "declared_settings": {
+    "claude-haiku": {
+      "max_tokens": 24000,
+      "temperature": "provider default; omitted from request",
+      "thinking": {
+        "budget_tokens": 4096,
+        "type": "enabled"
+      }
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "medium",
+      "temperature": "provider default; omitted from request"
+    }
+  },
+  "difficulty_ladder": {
+    "affine": "Six interleaved multi-voice notes with nontrivial rational timing. The repaired affine formula is unchanged.",
+    "analysis": "One hard chord and eight-value motif case per prompt, with eight represented distractor notes.",
+    "baseline": "V15 medium-effort validity ladder.",
+    "change_scope": "Increase semantic and arithmetic task complexity only. Keep formats, scoring, provider setting, schedules, and failure policy stable.",
+    "serialization": "Literal serialization remains a positive control."
+  },
+  "effective_request_settings": {
+    "claude-haiku": {
+      "max_tokens": 24000,
+      "thinking": {
+        "budget_tokens": 4096,
+        "type": "enabled"
+      }
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "medium"
+    }
+  },
+  "families": {
+    "comprehension-analysis": {
+      "repeats": 1,
+      "role": "measurement",
+      "unique_fixtures": 10
+    },
+    "continuation-affine": {
+      "repeats": 1,
+      "role": "measurement",
+      "unique_fixtures": 10
+    },
+    "document-serialization": {
+      "repeats": 1,
+      "role": "validity-guard",
+      "unique_fixtures": 2
+    }
+  },
+  "historical_snapshot": {
+    "analysis_case_count": 130,
+    "full_count": 17608,
+    "semantic_count": 756,
+    "sha256": "7106c8481e5aee26b962161345f09b95283e1e3ada62073203c76885cb0eb2b7"
+  },
+  "measurement": {
+    "musical_unit": "independent case",
+    "parse_failure_policy": "Retain every planned case and component. Mark unavailable parsed components incorrect.",
+    "provider_pooling": false,
+    "required_aggregates": [
+      "global component accuracy",
+      "average per-case component accuracy",
+      "perfect case count and rate"
+    ],
+    "response_level_metrics": [
+      "structural parse conformance",
+      "canonical form conformance"
+    ],
+    "whole_response_musical_score": false
+  },
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "814481bb9d27c9d31ba35f410c1f2620c22a0973bb510a4758bac6b25fa45cd9",
+  "run_id": "phase8c4d-medium-difficulty-direction-other-providers-r1",
+  "run_kind": "medium-difficulty-direction-other-providers-plan",
+  "runner_sha256": "1986fb384409619fc894dab2e6f928e8836fb821bc362f03c6d1826414aaa033",
+  "schedule_sha256": {
+    "claude-haiku": "6cd6da618db65b8dda23f7b68ddf7d388e27fb4acffba10c600569d5b19221b2",
+    "openai": "43175348d58e32d2b189e7e4c3c28be964ab120d0cc5d36e7132a155a7aafeed"
+  },
+  "schema": "ghostnote-compact-format-difficulty-v16",
+  "sha256": "c2941e548249758161f26940be6714decce76d357ae78f4415a953d8562e6092",
+  "stage": {
+    "confirmation": "Requires a new frozen cohort and explicit approval.",
+    "maximum_messages_per_provider": 66,
+    "maximum_messages_total": 132,
+    "name": "OpenAI and Haiku directional screen",
+    "providers": [
+      "openai",
+      "claude-haiku"
+    ],
+    "repeats": 1,
+    "unique_prompts_per_arm_and_decision_family": 10
+  },
+  "stopping_rule": {
+    "after_directional_stage": "Do not run another provider or a confirmation cohort automatically.",
+    "before_calls": "Stop on identity, freshness, reference, mutation, credential, network, approval, or cost-screen failure.",
+    "during_provider": "Stop on the first transport or budget failure or after three unavailable responses. Make no retry or repair call."
+  }
+}
