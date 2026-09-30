@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Phase 8c4e is matrix-plausible under component-focused product gates.
-updated: 2026-09-29
+status: Phase 8c4f matrix has a corrected offline assessment; format choice is pending.
+updated: 2026-09-30
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -280,15 +280,41 @@ owns the migration details.
    [E201](../../evidence/experiments/e201-eight-arm-full-matrix-awaits-approval.md)
    records the passing offline package, 1,776-call plan, USD 20.250000 hard
    limit, and pending approval boundary.
-25. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+   [E202](../../evidence/experiments/e202-eight-arm-matrix-retains-valid-partials-and-awaits-continuation.md)
+   records one complete and two valid partial provider runs. The frozen 482-
+   call continuation awaits approval.
+   [E203](../../evidence/experiments/e203-eight-arm-matrix-completes-gemini-and-retains-claude-partial.md)
+   records complete OpenAI and Gemini results, 192 scored Claude rows, and the
+   repeated Claude HTTP 503 block.
+25. [8c4f follow-up — Eight-arm matrix continuation](8c4f-follow-up-eight-arm-matrix-continuation.md).
+   Continue only unattempted Gemini and Claude rows. Keep all retained responses
+   and scores.
+   [E204](../../evidence/experiments/e204-claude-retry-recovers-outage-rows-and-stops-at-cost.md)
+   records 553 scored Claude rows after the approved retry. All outage-failed
+   rows recovered. The final supplement stopped at its cost ceiling with one
+   budget-stop row and 35 later rows unattempted.
+   [E205](../../evidence/experiments/e205-final-claude-matrix-continuation-awaits-approval.md)
+   freezes the last 36 calls under a USD 1.000000 hard limit. No provider call
+   has occurred.
+   [E206](../../evidence/experiments/e206-final-claude-run-stops-on-incomplete-read.md)
+   records two completions and an incomplete response body at sequence 559. A
+   frozen 34-call recovery awaits approval.
+   [E207](../../evidence/experiments/e207-final-claude-recovery-completes-matrix.md)
+   records 34/34 recovery completions. All providers now have complete
+   scheduled outcomes. Claude has 589 scored rows and three unavailable rows.
+   [E208](../../evidence/experiments/e208-complete-matrix-audit-finds-reusable-measurement-repairs.md)
+   records the sampled audit and measurement defects.
+   [E209](../../evidence/experiments/e209-offline-score-repair-updates-eight-arm-matrix.md)
+   records the corrected offline aggregate. The format choice remains open.
+26. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
-26. [8g — Shadow project cache](8g-shadow-project-cache.md).
+27. [8g — Shadow project cache](8g-shadow-project-cache.md).
    Implement the cache behind an experimental boundary while E131 remains
    authoritative.
-27. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
+28. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Promote proved cache reads in stages and apply the selected tool and
    verification reductions.
-28. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
+29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.
 

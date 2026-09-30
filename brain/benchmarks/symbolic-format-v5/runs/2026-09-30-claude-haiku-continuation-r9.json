@@ -1,0 +1,1062 @@
+{
+  "actual_cost_exact_usd": 0.083737,
+  "actual_cost_usd": 0.083737,
+  "all_available": true,
+  "approval": {
+    "maximum_total_cost_usd": 1.0,
+    "operator_statement": "I explicitly approve this run. Proceed.",
+    "protocol_sha256": "79a845fc56f385180205fe7adee7579b4230bc5e3f0af4775d9b4917de65d299",
+    "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r9",
+    "run_plan_sha256": "36e18743ae9786e27ffa0eb295e358abcc97a1c8b5c9410162b26404e20a6974",
+    "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+    "source_manifest_sha256": {
+      "claude-haiku": "a6fb8364d43e66db50e732b729b07a9e2c27064ad88484aef9f4fc910272b5e4"
+    },
+    "status": "approved"
+  },
+  "candidate_sha256": {
+    "abc-2.1-composite": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+    "compact-bar-fields": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+    "compact-bar-local-labels": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+    "exact-object-json": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+    "lilypond-2.24.4-composite": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+    "midi-like-ghostnote-profile": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+    "musicxml-4.0-composite": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+    "strudel-v1.2-composite": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336"
+  },
+  "client": "Python urllib.request direct HTTPS",
+  "cohort": "eight-arm-full-matrix-r1",
+  "cohort_sha256": "c1e4e26ddf8ded4f1afc38931021df713988282943d1b63bb577bf7f2720187b",
+  "cost_guard": {
+    "committed_cost_usd": 0.215737,
+    "committed_exact_usd": 0.215737,
+    "failed_reservations": 1,
+    "maximum_cost_usd": 1.0,
+    "message_attempts": 3,
+    "settled_cost_usd": 0.083737,
+    "settled_exact_usd": 0.083737,
+    "token_count_attempts": 3
+  },
+  "effective_request_settings": {
+    "max_tokens": 24000,
+    "thinking": {
+      "budget_tokens": 1024,
+      "type": "enabled"
+    }
+  },
+  "manifest_sha256": "d8cfe955dd7488db94db9a4d941a0bcfd9d4ed960c630bb19e89d95ae9483d33",
+  "network_preflight": {
+    "host": "api.anthropic.com",
+    "latency_ms": 399.845,
+    "port": 443
+  },
+  "original_run_id": "phase8c4f-eight-arm-full-matrix-r1",
+  "platform": "Darwin 24.6.0 arm64",
+  "progress": {
+    "attempted": 3,
+    "available": 2,
+    "budget_stopped": 0,
+    "failed": 1,
+    "planned": 36,
+    "provider_completed": 2,
+    "scored": 2,
+    "unavailable": 0
+  },
+  "protocol_sha256": "79a845fc56f385180205fe7adee7579b4230bc5e3f0af4775d9b4917de65d299",
+  "provider": "claude-haiku",
+  "python": "3.14.6",
+  "raw_run_sha256": "397ba8fb8f327953b26ac6ccd568530d4caddcd8326db5c48a067ea96778f240",
+  "requested_model": "claude-haiku-4-5-20251001",
+  "results": [
+    {
+      "arm": "abc-2.1-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+      "completed_sequence": 1,
+      "continuation_sequence": 1,
+      "family": "generation-melody",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 0.571429,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "mode": true,
+                "motif": false,
+                "note_count": true,
+                "range": true,
+                "rhythm": false,
+                "strong_beat_harmony": false
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 4,
+            "case_planned": 7,
+            "correct": 5,
+            "planned": 9,
+            "response_correct": 1,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": "The notation and side ledger disagree",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.132,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.01254,
+          "total": 0.01311,
+          "uncached_input": 0.00057
+        },
+        "effective_request_settings": {
+          "max_tokens": 24000,
+          "thinking": {
+            "budget_tokens": 1024,
+            "type": "enabled"
+          }
+        },
+        "input_token_estimate": 570,
+        "latency_ms": 21992.245,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1197,
+        "prompt_sha256": "55044b01afc733d693ac248667d05e697f4b51b63d77a61d0c927a1b0f59dd89",
+        "raw_response_sha256": "0ced446855830cce38c78fff7693bde6baa50afcbcb4c7a84d643cfd4d57dcd9",
+        "request_bytes": 1592,
+        "request_id": "msg_011CfZ5Ff3aojbaGCNQec5ry",
+        "response_bytes": 318,
+        "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:lead\n^C24 ^d24 ^f24 ^g24 ^f24 ^g24 b48 ^C24 |\n--- GN SIDE LEDGER ---\nGN n1 lead 0 24 61 84\nGN n2 lead 24 24 63 84\nGN n3 lead 48 24 66 84\nGN n4 lead 72 24 68 84\nGN n5 lead 96 24 66 84\nGN n6 lead 120 24 68 84\nGN n7 lead 144 48 71 84\nGN n8 lead 168 24 61 84",
+        "response_payload_sha256": "48b883a410bac42b3995691befa606740c32d7e228cc2cc5bbea20ac4747cabb",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 570,
+          "output_tokens": 2508,
+          "thinking_tokens": 2281
+        }
+      },
+      "planned_sequence": 557,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "345cef4b805bb4dc0f2bbe8634e42b51157a5b15da3364f911902b65b5770b67",
+      "started_sequence": 1,
+      "task_sha256": "8052378293f92e23db3232f4e862731b5f22da22a7d10e4274e79cac36ea4243",
+      "variant": 4006
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336",
+      "completed_sequence": 2,
+      "continuation_sequence": 2,
+      "family": "generation-melody",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 0.857143,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "mode": true,
+                "motif": false,
+                "note_count": true,
+                "range": true,
+                "rhythm": true,
+                "strong_beat_harmony": true
+              },
+              "correct": 6,
+              "perfect": false,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 6,
+            "case_planned": 7,
+            "correct": 7,
+            "planned": 9,
+            "response_correct": 1,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": "The notation and side ledger disagree",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.132,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.07003,
+          "total": 0.070627,
+          "uncached_input": 0.000597
+        },
+        "effective_request_settings": {
+          "max_tokens": 24000,
+          "thinking": {
+            "budget_tokens": 1024,
+            "type": "enabled"
+          }
+        },
+        "input_token_estimate": 597,
+        "latency_ms": 97609.165,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1302,
+        "prompt_sha256": "ba7c30923659020df085da525d797faca8369f4dedef3f050c579a4e11305e94",
+        "raw_response_sha256": "74b26cc39255a7ea2b20a00c12db0095301eb5a94ab50e2c2fb735fd557ed84e",
+        "request_bytes": 1698,
+        "request_id": "msg_011CfZ5HKAoH3cmx4PzAhM28",
+        "response_bytes": 395,
+        "response_payload": "// Strudel v1.2.0 deterministic mini-notation subset\nsetcpm(60)\n$: note(\"gs4@84 ds4@84 e4@84 gs4@84 cs5@84 as4@84 e5@84 cs5@84\").slow(1/2).sound(\"piano\") // GN voice=lead lane=lead.1\n--- GN SIDE LEDGER ---\nGN n1 lead 0 1/2 68 84\nGN n2 lead 1/2 1/2 63 84\nGN n3 lead 1 1/2 64 84\nGN n4 lead 3/2 1/2 68 84\nGN n5 lead 2 1/2 73 84\nGN n6 lead 5/2 1/2 70 84\nGN n7 lead 3 1 76 84\nGN n8 lead 7/2 1/2 73 84",
+        "response_payload_sha256": "c57832ebef6825530bf4ce8c6fe9788851f6830a1969dba4d6b6c2c361371544",
+        "retries": 0,
+        "returned_model": "claude-haiku-4-5-20251001",
+        "stop_reason": "end_turn",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 597,
+          "output_tokens": 14006,
+          "thinking_tokens": 13740
+        }
+      },
+      "planned_sequence": 558,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "345cef4b805bb4dc0f2bbe8634e42b51157a5b15da3364f911902b65b5770b67",
+      "started_sequence": 2,
+      "task_sha256": "8052378293f92e23db3232f4e862731b5f22da22a7d10e4274e79cac36ea4243",
+      "variant": 4006
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+      "completed_sequence": null,
+      "continuation_sequence": 3,
+      "family": "generation-melody",
+      "initial": {
+        "kind": "failed",
+        "reason": "IncompleteRead: IncompleteRead(87269 bytes read)",
+        "score": null,
+        "scored": false
+      },
+      "initial_call": null,
+      "planned_sequence": 559,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "345cef4b805bb4dc0f2bbe8634e42b51157a5b15da3364f911902b65b5770b67",
+      "started_sequence": 3,
+      "task_sha256": "8052378293f92e23db3232f4e862731b5f22da22a7d10e4274e79cac36ea4243",
+      "variant": 4006
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+      "completed_sequence": null,
+      "continuation_sequence": 4,
+      "family": "generation-melody",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 560,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "345cef4b805bb4dc0f2bbe8634e42b51157a5b15da3364f911902b65b5770b67",
+      "started_sequence": null,
+      "task_sha256": "8052378293f92e23db3232f4e862731b5f22da22a7d10e4274e79cac36ea4243",
+      "variant": 4006
+    },
+    {
+      "arm": "compact-bar-fields",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+      "completed_sequence": null,
+      "continuation_sequence": 5,
+      "family": "transformation-local",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 561,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "f72919cd9d3ccbe477ab5c1d793763950cbaf63b12c34a75b44eb73804e97742",
+      "started_sequence": null,
+      "task_sha256": "de14b2f2fd2f2682cd5e7e4279caffcdd9bb738c7bf46b34851ece67887ee83c",
+      "variant": 4005
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+      "completed_sequence": null,
+      "continuation_sequence": 6,
+      "family": "transformation-local",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 562,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "f72919cd9d3ccbe477ab5c1d793763950cbaf63b12c34a75b44eb73804e97742",
+      "started_sequence": null,
+      "task_sha256": "de14b2f2fd2f2682cd5e7e4279caffcdd9bb738c7bf46b34851ece67887ee83c",
+      "variant": 4005
+    },
+    {
+      "arm": "exact-object-json",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+      "completed_sequence": null,
+      "continuation_sequence": 7,
+      "family": "transformation-local",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 563,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "f72919cd9d3ccbe477ab5c1d793763950cbaf63b12c34a75b44eb73804e97742",
+      "started_sequence": null,
+      "task_sha256": "de14b2f2fd2f2682cd5e7e4279caffcdd9bb738c7bf46b34851ece67887ee83c",
+      "variant": 4005
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+      "completed_sequence": null,
+      "continuation_sequence": 8,
+      "family": "transformation-local",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 564,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "f72919cd9d3ccbe477ab5c1d793763950cbaf63b12c34a75b44eb73804e97742",
+      "started_sequence": null,
+      "task_sha256": "de14b2f2fd2f2682cd5e7e4279caffcdd9bb738c7bf46b34851ece67887ee83c",
+      "variant": 4005
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336",
+      "completed_sequence": null,
+      "continuation_sequence": 9,
+      "family": "transformation-local",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 565,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "f72919cd9d3ccbe477ab5c1d793763950cbaf63b12c34a75b44eb73804e97742",
+      "started_sequence": null,
+      "task_sha256": "de14b2f2fd2f2682cd5e7e4279caffcdd9bb738c7bf46b34851ece67887ee83c",
+      "variant": 4005
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+      "completed_sequence": null,
+      "continuation_sequence": 10,
+      "family": "transformation-local",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 566,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "f72919cd9d3ccbe477ab5c1d793763950cbaf63b12c34a75b44eb73804e97742",
+      "started_sequence": null,
+      "task_sha256": "de14b2f2fd2f2682cd5e7e4279caffcdd9bb738c7bf46b34851ece67887ee83c",
+      "variant": 4005
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+      "completed_sequence": null,
+      "continuation_sequence": 11,
+      "family": "transformation-local",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 567,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "f72919cd9d3ccbe477ab5c1d793763950cbaf63b12c34a75b44eb73804e97742",
+      "started_sequence": null,
+      "task_sha256": "de14b2f2fd2f2682cd5e7e4279caffcdd9bb738c7bf46b34851ece67887ee83c",
+      "variant": 4005
+    },
+    {
+      "arm": "midi-like-ghostnote-profile",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+      "completed_sequence": null,
+      "continuation_sequence": 12,
+      "family": "transformation-local",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 568,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "f72919cd9d3ccbe477ab5c1d793763950cbaf63b12c34a75b44eb73804e97742",
+      "started_sequence": null,
+      "task_sha256": "de14b2f2fd2f2682cd5e7e4279caffcdd9bb738c7bf46b34851ece67887ee83c",
+      "variant": 4005
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+      "completed_sequence": null,
+      "continuation_sequence": 13,
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 569,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "91350786157e3feeafa323de60f5a88cb503fec87fd429d78a503738dd21cc1a",
+      "started_sequence": null,
+      "task_sha256": "16ded175486b7e8b20d42985248bcbf11118ada5306ec3194ba6203f199c38c4",
+      "variant": 4001
+    },
+    {
+      "arm": "exact-object-json",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+      "completed_sequence": null,
+      "continuation_sequence": 14,
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 570,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "91350786157e3feeafa323de60f5a88cb503fec87fd429d78a503738dd21cc1a",
+      "started_sequence": null,
+      "task_sha256": "16ded175486b7e8b20d42985248bcbf11118ada5306ec3194ba6203f199c38c4",
+      "variant": 4001
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+      "completed_sequence": null,
+      "continuation_sequence": 15,
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 571,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "91350786157e3feeafa323de60f5a88cb503fec87fd429d78a503738dd21cc1a",
+      "started_sequence": null,
+      "task_sha256": "16ded175486b7e8b20d42985248bcbf11118ada5306ec3194ba6203f199c38c4",
+      "variant": 4001
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336",
+      "completed_sequence": null,
+      "continuation_sequence": 16,
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 572,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "91350786157e3feeafa323de60f5a88cb503fec87fd429d78a503738dd21cc1a",
+      "started_sequence": null,
+      "task_sha256": "16ded175486b7e8b20d42985248bcbf11118ada5306ec3194ba6203f199c38c4",
+      "variant": 4001
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+      "completed_sequence": null,
+      "continuation_sequence": 17,
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 573,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "91350786157e3feeafa323de60f5a88cb503fec87fd429d78a503738dd21cc1a",
+      "started_sequence": null,
+      "task_sha256": "16ded175486b7e8b20d42985248bcbf11118ada5306ec3194ba6203f199c38c4",
+      "variant": 4001
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+      "completed_sequence": null,
+      "continuation_sequence": 18,
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 574,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "91350786157e3feeafa323de60f5a88cb503fec87fd429d78a503738dd21cc1a",
+      "started_sequence": null,
+      "task_sha256": "16ded175486b7e8b20d42985248bcbf11118ada5306ec3194ba6203f199c38c4",
+      "variant": 4001
+    },
+    {
+      "arm": "midi-like-ghostnote-profile",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+      "completed_sequence": null,
+      "continuation_sequence": 19,
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 575,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "91350786157e3feeafa323de60f5a88cb503fec87fd429d78a503738dd21cc1a",
+      "started_sequence": null,
+      "task_sha256": "16ded175486b7e8b20d42985248bcbf11118ada5306ec3194ba6203f199c38c4",
+      "variant": 4001
+    },
+    {
+      "arm": "compact-bar-fields",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+      "completed_sequence": null,
+      "continuation_sequence": 20,
+      "family": "comprehension-analysis",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 576,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "91350786157e3feeafa323de60f5a88cb503fec87fd429d78a503738dd21cc1a",
+      "started_sequence": null,
+      "task_sha256": "16ded175486b7e8b20d42985248bcbf11118ada5306ec3194ba6203f199c38c4",
+      "variant": 4001
+    },
+    {
+      "arm": "exact-object-json",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+      "completed_sequence": null,
+      "continuation_sequence": 21,
+      "family": "document-serialization",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 577,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "ba6c3568d93492c461794baee3a34b3a16a7fd0b7c6a81201ed5e30f206e77fb",
+      "started_sequence": null,
+      "task_sha256": "73b585c24e51176c01b661da5de1fc8e37ddf5d2ef784fe24b08ec78f63b6d1b",
+      "variant": 4080
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+      "completed_sequence": null,
+      "continuation_sequence": 22,
+      "family": "document-serialization",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 578,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "ba6c3568d93492c461794baee3a34b3a16a7fd0b7c6a81201ed5e30f206e77fb",
+      "started_sequence": null,
+      "task_sha256": "73b585c24e51176c01b661da5de1fc8e37ddf5d2ef784fe24b08ec78f63b6d1b",
+      "variant": 4080
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336",
+      "completed_sequence": null,
+      "continuation_sequence": 23,
+      "family": "document-serialization",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 579,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "ba6c3568d93492c461794baee3a34b3a16a7fd0b7c6a81201ed5e30f206e77fb",
+      "started_sequence": null,
+      "task_sha256": "73b585c24e51176c01b661da5de1fc8e37ddf5d2ef784fe24b08ec78f63b6d1b",
+      "variant": 4080
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+      "completed_sequence": null,
+      "continuation_sequence": 24,
+      "family": "document-serialization",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 580,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "ba6c3568d93492c461794baee3a34b3a16a7fd0b7c6a81201ed5e30f206e77fb",
+      "started_sequence": null,
+      "task_sha256": "73b585c24e51176c01b661da5de1fc8e37ddf5d2ef784fe24b08ec78f63b6d1b",
+      "variant": 4080
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+      "completed_sequence": null,
+      "continuation_sequence": 25,
+      "family": "document-serialization",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 581,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "ba6c3568d93492c461794baee3a34b3a16a7fd0b7c6a81201ed5e30f206e77fb",
+      "started_sequence": null,
+      "task_sha256": "73b585c24e51176c01b661da5de1fc8e37ddf5d2ef784fe24b08ec78f63b6d1b",
+      "variant": 4080
+    },
+    {
+      "arm": "midi-like-ghostnote-profile",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+      "completed_sequence": null,
+      "continuation_sequence": 26,
+      "family": "document-serialization",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 582,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "ba6c3568d93492c461794baee3a34b3a16a7fd0b7c6a81201ed5e30f206e77fb",
+      "started_sequence": null,
+      "task_sha256": "73b585c24e51176c01b661da5de1fc8e37ddf5d2ef784fe24b08ec78f63b6d1b",
+      "variant": 4080
+    },
+    {
+      "arm": "compact-bar-fields",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+      "completed_sequence": null,
+      "continuation_sequence": 27,
+      "family": "document-serialization",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 583,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "ba6c3568d93492c461794baee3a34b3a16a7fd0b7c6a81201ed5e30f206e77fb",
+      "started_sequence": null,
+      "task_sha256": "73b585c24e51176c01b661da5de1fc8e37ddf5d2ef784fe24b08ec78f63b6d1b",
+      "variant": 4080
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+      "completed_sequence": null,
+      "continuation_sequence": 28,
+      "family": "document-serialization",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 584,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "ba6c3568d93492c461794baee3a34b3a16a7fd0b7c6a81201ed5e30f206e77fb",
+      "started_sequence": null,
+      "task_sha256": "73b585c24e51176c01b661da5de1fc8e37ddf5d2ef784fe24b08ec78f63b6d1b",
+      "variant": 4080
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+      "completed_sequence": null,
+      "continuation_sequence": 29,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 585,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "680872a75ca300bf0811d23d72816ff0975195c4df3f32d1c7dd0a6d1aad80b5",
+      "started_sequence": null,
+      "task_sha256": "f3d404f081d274d4d94bd2371046205edd2e6d0ce03276af7adc69c3bb18d8f5",
+      "variant": 4005
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336",
+      "completed_sequence": null,
+      "continuation_sequence": 30,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 586,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "680872a75ca300bf0811d23d72816ff0975195c4df3f32d1c7dd0a6d1aad80b5",
+      "started_sequence": null,
+      "task_sha256": "f3d404f081d274d4d94bd2371046205edd2e6d0ce03276af7adc69c3bb18d8f5",
+      "variant": 4005
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+      "completed_sequence": null,
+      "continuation_sequence": 31,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 587,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "680872a75ca300bf0811d23d72816ff0975195c4df3f32d1c7dd0a6d1aad80b5",
+      "started_sequence": null,
+      "task_sha256": "f3d404f081d274d4d94bd2371046205edd2e6d0ce03276af7adc69c3bb18d8f5",
+      "variant": 4005
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+      "completed_sequence": null,
+      "continuation_sequence": 32,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 588,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "680872a75ca300bf0811d23d72816ff0975195c4df3f32d1c7dd0a6d1aad80b5",
+      "started_sequence": null,
+      "task_sha256": "f3d404f081d274d4d94bd2371046205edd2e6d0ce03276af7adc69c3bb18d8f5",
+      "variant": 4005
+    },
+    {
+      "arm": "midi-like-ghostnote-profile",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+      "completed_sequence": null,
+      "continuation_sequence": 33,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 589,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "680872a75ca300bf0811d23d72816ff0975195c4df3f32d1c7dd0a6d1aad80b5",
+      "started_sequence": null,
+      "task_sha256": "f3d404f081d274d4d94bd2371046205edd2e6d0ce03276af7adc69c3bb18d8f5",
+      "variant": 4005
+    },
+    {
+      "arm": "compact-bar-fields",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+      "completed_sequence": null,
+      "continuation_sequence": 34,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 590,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "680872a75ca300bf0811d23d72816ff0975195c4df3f32d1c7dd0a6d1aad80b5",
+      "started_sequence": null,
+      "task_sha256": "f3d404f081d274d4d94bd2371046205edd2e6d0ce03276af7adc69c3bb18d8f5",
+      "variant": 4005
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+      "completed_sequence": null,
+      "continuation_sequence": 35,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 591,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "680872a75ca300bf0811d23d72816ff0975195c4df3f32d1c7dd0a6d1aad80b5",
+      "started_sequence": null,
+      "task_sha256": "f3d404f081d274d4d94bd2371046205edd2e6d0ce03276af7adc69c3bb18d8f5",
+      "variant": 4005
+    },
+    {
+      "arm": "exact-object-json",
+      "attempted": false,
+      "budget_stopped": false,
+      "candidate_sha256": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+      "completed_sequence": null,
+      "continuation_sequence": 36,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "not-attempted",
+        "reason": "transport-failure"
+      },
+      "initial_call": null,
+      "planned_sequence": 592,
+      "provider_completed": false,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "680872a75ca300bf0811d23d72816ff0975195c4df3f32d1c7dd0a6d1aad80b5",
+      "started_sequence": null,
+      "task_sha256": "f3d404f081d274d4d94bd2371046205edd2e6d0ce03276af7adc69c3bb18d8f5",
+      "variant": 4005
+    }
+  ],
+  "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r9",
+  "run_kind": "eight-arm-full-matrix-continuation-provider",
+  "run_plan_sha256": "36e18743ae9786e27ffa0eb295e358abcc97a1c8b5c9410162b26404e20a6974",
+  "schedule_complete": false,
+  "schedule_sha256": "24b7b8c29505d82c9d3350d4491990a80067a3ba36931f5128d36016a4e26a35",
+  "schema": "ghostnote-symbolic-format-v5-continuation-v9",
+  "screen_sha256": "8a5f71544bcdd76409033c52c74909d70aa86a1801c9b7227c88cba4f18801f5",
+  "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+  "source_manifest_sha256": "a6fb8364d43e66db50e732b729b07a9e2c27064ad88484aef9f4fc910272b5e4",
+  "transport_retry_events": []
+}

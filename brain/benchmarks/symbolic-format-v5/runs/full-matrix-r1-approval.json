@@ -11,9 +11,9 @@
   },
   "cohort_sha256": "c1e4e26ddf8ded4f1afc38931021df713988282943d1b63bb577bf7f2720187b",
   "maximum_total_cost_usd": 20.25,
-  "operator_statement": "",
+  "operator_statement": "I approve this run as planned. Proceed.",
   "protocol_sha256": "17ed42e3448438a05cfb56d05ce31008bcdbfe0864eb022d70909d8244641751",
   "run_id": "phase8c4f-eight-arm-full-matrix-r1",
   "run_plan_sha256": "a6e04b757c9c260309e0d92830ad9bc86e0f25591f8c195c41900c7f69e7b7cf",
-  "status": "pending"
+  "status": "approved"
 }

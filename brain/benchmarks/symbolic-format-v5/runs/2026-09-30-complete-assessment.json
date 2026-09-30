@@ -1,0 +1,429 @@
+{
+  "actual_cost_exact_usd": 15.72944325,
+  "aggregates": {
+    "claude-haiku": {
+      "ALL": {
+        "canonical_passes": 293,
+        "canonical_rate": 0.497453,
+        "musical_component_accuracy": 0.929678,
+        "musical_component_correct": 21668,
+        "musical_component_planned": 23307,
+        "prompts": 589,
+        "response_component_accuracy": 0.856421,
+        "response_component_correct": 1187,
+        "response_component_planned": 1386,
+        "structural_passes": 504,
+        "structural_rate": 0.855688
+      },
+      "arms": {
+        "abc-2.1-composite": {
+          "canonical_passes": 19,
+          "canonical_rate": 0.260274,
+          "musical_component_accuracy": 0.904435,
+          "musical_component_correct": 2631,
+          "musical_component_planned": 2909,
+          "prompts": 73,
+          "response_component_accuracy": 0.697674,
+          "response_component_correct": 120,
+          "response_component_planned": 172,
+          "structural_passes": 59,
+          "structural_rate": 0.808219
+        },
+        "compact-bar-fields": {
+          "canonical_passes": 54,
+          "canonical_rate": 0.72973,
+          "musical_component_accuracy": 0.979081,
+          "musical_component_correct": 2855,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 1.0,
+          "response_component_correct": 174,
+          "response_component_planned": 174,
+          "structural_passes": 74,
+          "structural_rate": 1.0
+        },
+        "compact-bar-local-labels": {
+          "canonical_passes": 49,
+          "canonical_rate": 0.662162,
+          "musical_component_accuracy": 0.955418,
+          "musical_component_correct": 2786,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.994253,
+          "response_component_correct": 173,
+          "response_component_planned": 174,
+          "structural_passes": 68,
+          "structural_rate": 0.918919
+        },
+        "exact-object-json": {
+          "canonical_passes": 54,
+          "canonical_rate": 0.72973,
+          "musical_component_accuracy": 0.966049,
+          "musical_component_correct": 2817,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 1.0,
+          "response_component_correct": 174,
+          "response_component_planned": 174,
+          "structural_passes": 74,
+          "structural_rate": 1.0
+        },
+        "lilypond-2.24.4-composite": {
+          "canonical_passes": 28,
+          "canonical_rate": 0.383562,
+          "musical_component_accuracy": 0.857683,
+          "musical_component_correct": 2495,
+          "musical_component_planned": 2909,
+          "prompts": 73,
+          "response_component_accuracy": 0.732558,
+          "response_component_correct": 126,
+          "response_component_planned": 172,
+          "structural_passes": 46,
+          "structural_rate": 0.630137
+        },
+        "midi-like-ghostnote-profile": {
+          "canonical_passes": 50,
+          "canonical_rate": 0.675676,
+          "musical_component_accuracy": 0.907064,
+          "musical_component_correct": 2645,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 1.0,
+          "response_component_correct": 174,
+          "response_component_planned": 174,
+          "structural_passes": 74,
+          "structural_rate": 1.0
+        },
+        "musicxml-4.0-composite": {
+          "canonical_passes": 21,
+          "canonical_rate": 0.287671,
+          "musical_component_accuracy": 0.889653,
+          "musical_component_correct": 2588,
+          "musical_component_planned": 2909,
+          "prompts": 73,
+          "response_component_accuracy": 0.732558,
+          "response_component_correct": 126,
+          "response_component_planned": 172,
+          "structural_passes": 64,
+          "structural_rate": 0.876712
+        },
+        "strudel-v1.2-composite": {
+          "canonical_passes": 18,
+          "canonical_rate": 0.243243,
+          "musical_component_accuracy": 0.977709,
+          "musical_component_correct": 2851,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.689655,
+          "response_component_correct": 120,
+          "response_component_planned": 174,
+          "structural_passes": 45,
+          "structural_rate": 0.608108
+        }
+      }
+    },
+    "gemini": {
+      "ALL": {
+        "canonical_passes": 330,
+        "canonical_rate": 0.557432,
+        "musical_component_accuracy": 0.977838,
+        "musical_component_correct": 22811,
+        "musical_component_planned": 23328,
+        "prompts": 592,
+        "response_component_accuracy": 0.89296,
+        "response_component_correct": 1243,
+        "response_component_planned": 1392,
+        "structural_passes": 512,
+        "structural_rate": 0.864865
+      },
+      "arms": {
+        "abc-2.1-composite": {
+          "canonical_passes": 25,
+          "canonical_rate": 0.337838,
+          "musical_component_accuracy": 0.977709,
+          "musical_component_correct": 2851,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.764368,
+          "response_component_correct": 133,
+          "response_component_planned": 174,
+          "structural_passes": 68,
+          "structural_rate": 0.918919
+        },
+        "compact-bar-fields": {
+          "canonical_passes": 53,
+          "canonical_rate": 0.716216,
+          "musical_component_accuracy": 0.981824,
+          "musical_component_correct": 2863,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 1.0,
+          "response_component_correct": 174,
+          "response_component_planned": 174,
+          "structural_passes": 74,
+          "structural_rate": 1.0
+        },
+        "compact-bar-local-labels": {
+          "canonical_passes": 53,
+          "canonical_rate": 0.716216,
+          "musical_component_accuracy": 0.963992,
+          "musical_component_correct": 2811,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.994253,
+          "response_component_correct": 173,
+          "response_component_planned": 174,
+          "structural_passes": 72,
+          "structural_rate": 0.972973
+        },
+        "exact-object-json": {
+          "canonical_passes": 53,
+          "canonical_rate": 0.716216,
+          "musical_component_accuracy": 0.986968,
+          "musical_component_correct": 2878,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 1.0,
+          "response_component_correct": 174,
+          "response_component_planned": 174,
+          "structural_passes": 72,
+          "structural_rate": 0.972973
+        },
+        "lilypond-2.24.4-composite": {
+          "canonical_passes": 34,
+          "canonical_rate": 0.459459,
+          "musical_component_accuracy": 0.980453,
+          "musical_component_correct": 2859,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.804598,
+          "response_component_correct": 140,
+          "response_component_planned": 174,
+          "structural_passes": 44,
+          "structural_rate": 0.594595
+        },
+        "midi-like-ghostnote-profile": {
+          "canonical_passes": 51,
+          "canonical_rate": 0.689189,
+          "musical_component_accuracy": 0.984568,
+          "musical_component_correct": 2871,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.91954,
+          "response_component_correct": 160,
+          "response_component_planned": 174,
+          "structural_passes": 60,
+          "structural_rate": 0.810811
+        },
+        "musicxml-4.0-composite": {
+          "canonical_passes": 32,
+          "canonical_rate": 0.432432,
+          "musical_component_accuracy": 0.972908,
+          "musical_component_correct": 2837,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.902299,
+          "response_component_correct": 157,
+          "response_component_planned": 174,
+          "structural_passes": 74,
+          "structural_rate": 1.0
+        },
+        "strudel-v1.2-composite": {
+          "canonical_passes": 29,
+          "canonical_rate": 0.391892,
+          "musical_component_accuracy": 0.97428,
+          "musical_component_correct": 2841,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.758621,
+          "response_component_correct": 132,
+          "response_component_planned": 174,
+          "structural_passes": 48,
+          "structural_rate": 0.648649
+        }
+      }
+    },
+    "openai": {
+      "ALL": {
+        "canonical_passes": 313,
+        "canonical_rate": 0.528716,
+        "musical_component_accuracy": 0.946931,
+        "musical_component_correct": 22090,
+        "musical_component_planned": 23328,
+        "prompts": 592,
+        "response_component_accuracy": 0.868534,
+        "response_component_correct": 1209,
+        "response_component_planned": 1392,
+        "structural_passes": 526,
+        "structural_rate": 0.888514
+      },
+      "arms": {
+        "abc-2.1-composite": {
+          "canonical_passes": 25,
+          "canonical_rate": 0.337838,
+          "musical_component_accuracy": 0.958505,
+          "musical_component_correct": 2795,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.741379,
+          "response_component_correct": 129,
+          "response_component_planned": 174,
+          "structural_passes": 72,
+          "structural_rate": 0.972973
+        },
+        "compact-bar-fields": {
+          "canonical_passes": 53,
+          "canonical_rate": 0.716216,
+          "musical_component_accuracy": 0.97085,
+          "musical_component_correct": 2831,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 1.0,
+          "response_component_correct": 174,
+          "response_component_planned": 174,
+          "structural_passes": 72,
+          "structural_rate": 0.972973
+        },
+        "compact-bar-local-labels": {
+          "canonical_passes": 56,
+          "canonical_rate": 0.756757,
+          "musical_component_accuracy": 0.947874,
+          "musical_component_correct": 2764,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.994253,
+          "response_component_correct": 173,
+          "response_component_planned": 174,
+          "structural_passes": 72,
+          "structural_rate": 0.972973
+        },
+        "exact-object-json": {
+          "canonical_passes": 53,
+          "canonical_rate": 0.716216,
+          "musical_component_accuracy": 0.979767,
+          "musical_component_correct": 2857,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 1.0,
+          "response_component_correct": 174,
+          "response_component_planned": 174,
+          "structural_passes": 72,
+          "structural_rate": 0.972973
+        },
+        "lilypond-2.24.4-composite": {
+          "canonical_passes": 30,
+          "canonical_rate": 0.405405,
+          "musical_component_accuracy": 0.930041,
+          "musical_component_correct": 2712,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.747126,
+          "response_component_correct": 130,
+          "response_component_planned": 174,
+          "structural_passes": 48,
+          "structural_rate": 0.648649
+        },
+        "midi-like-ghostnote-profile": {
+          "canonical_passes": 58,
+          "canonical_rate": 0.783784,
+          "musical_component_accuracy": 0.947874,
+          "musical_component_correct": 2764,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.994253,
+          "response_component_correct": 173,
+          "response_component_planned": 174,
+          "structural_passes": 73,
+          "structural_rate": 0.986486
+        },
+        "musicxml-4.0-composite": {
+          "canonical_passes": 20,
+          "canonical_rate": 0.27027,
+          "musical_component_accuracy": 0.900549,
+          "musical_component_correct": 2626,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.793103,
+          "response_component_correct": 138,
+          "response_component_planned": 174,
+          "structural_passes": 73,
+          "structural_rate": 0.986486
+        },
+        "strudel-v1.2-composite": {
+          "canonical_passes": 18,
+          "canonical_rate": 0.243243,
+          "musical_component_accuracy": 0.939986,
+          "musical_component_correct": 2741,
+          "musical_component_planned": 2916,
+          "prompts": 74,
+          "response_component_accuracy": 0.678161,
+          "response_component_correct": 118,
+          "response_component_planned": 174,
+          "structural_passes": 44,
+          "structural_rate": 0.594595
+        }
+      }
+    }
+  },
+  "all_retained_rows_valid": true,
+  "checks": {
+    "candidate-identity": true,
+    "claude-complete-outcomes": true,
+    "gemini-complete": true,
+    "openai-complete": true,
+    "prompt-identity": true,
+    "scores-reproduce": true,
+    "task-identity": true
+  },
+  "interpretation": "All providers have complete scheduled outcomes. Claude has 589 scored rows and three unavailable model outcomes. All retained identities and scores reproduce.",
+  "progress": {
+    "claude-haiku": {
+      "available": 589,
+      "failed": 0,
+      "not_attempted": 0,
+      "planned": 592,
+      "scored": 589,
+      "unavailable": 3
+    },
+    "gemini": {
+      "available": 592,
+      "failed": 0,
+      "not_attempted": 0,
+      "planned": 592,
+      "scored": 592,
+      "unavailable": 0
+    },
+    "openai": {
+      "available": 592,
+      "failed": 0,
+      "not_attempted": 0,
+      "planned": 592,
+      "scored": 592,
+      "unavailable": 0
+    }
+  },
+  "run_id": "phase8c4f-eight-arm-full-matrix-r1",
+  "schema": "ghostnote-symbolic-format-v5-final-assessment-v1",
+  "sha256": "afcff5eca3d1938c2e34c2a5b5a5d79bb18390b284d44b9fe0f970a7a7ce1d5e",
+  "source_manifest_sha256": {
+    "claude-haiku": [
+      "d57ae49891a05482b03df242b4ce530d440e5db1888e4dec849a7ba4d669f020",
+      "ad34e71018688d5b79b35b9caedfdf7ddc86cf2963618ef4dd74fb3fd971c1a9",
+      "6153ca5b728412c59310459ee15213919f684682ba6041b0696f51d4e6ec050f",
+      "4e6d316d5c2d488150c52bc5243760313bf364230e4a87da2067ac396237f5f0",
+      "8b46882127a50de6f8bc949954f57f1dd2f31efe4fb404d33fa5a6c10a71a1b6",
+      "168a8000079da0fba259344b89953e4beca0652b1a8dbb46fa2943ed70a66cb7",
+      "b7a28f1dfb9e884f5dd6eedbcab4dcee24b96e22bf647e5defbfd44244405eea",
+      "a6fb8364d43e66db50e732b729b07a9e2c27064ad88484aef9f4fc910272b5e4",
+      "d8cfe955dd7488db94db9a4d941a0bcfd9d4ed960c630bb19e89d95ae9483d33",
+      "b56c79a1dc512e4ee120d75e06f10b8ac0f251b3ac46071816cb6fc9bf5c0fa2"
+    ],
+    "gemini": [
+      "4163fe4530e74ec7b99f8b70e2fef33db98bbe517d339493ffa2941fab3bdec0",
+      "62b546e46a4382df2221b1183e2c0e47ef2852beaaefa00b686622ee202783d7"
+    ],
+    "openai": [
+      "24534a0fc6521598e660dbbaa9cd261cd843c2d6937cbbf41617107ae6aa8ece"
+    ]
+  }
+}

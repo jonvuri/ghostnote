@@ -1,0 +1,53 @@
+{
+  "approval": "pending",
+  "cost_guard": {
+    "cumulative_continuation_hard_limit_usd": 8.2,
+    "estimate_total_usd": 3.3,
+    "estimate_usd": {"claude-haiku": 3.3},
+    "maximum_call_cost_usd": {"claude-haiku": 0.132},
+    "maximum_provider_cost_usd": {"claude-haiku": 4.475808},
+    "maximum_total_cost_usd": 4.475808,
+    "retained_continuation_cost_usd": {
+      "claude-haiku": 3.499348,
+      "gemini": 0.1151175
+    }
+  },
+  "effective_request_settings": {
+    "claude-haiku": {
+      "max_tokens": 24000,
+      "thinking": {"budget_tokens": 1024, "type": "enabled"}
+    }
+  },
+  "explicit_repeat": {
+    "original_planned_sequence": 341,
+    "source_reason": "TimeoutError: The read operation timed out"
+  },
+  "models": {"claude-haiku": "claude-haiku-4-5-20251001"},
+  "pending": {
+    "claude-haiku": {
+      "calls": 252,
+      "original_planned_sequence_range": [341, 592],
+      "original_planned_sequences_sha256": "cacb942c11518c38c079521c479b8b71355f770e9f56aa5404d196b1d5071992",
+      "schedule_sha256": "0f4763fd1d93e8d643e893fce26fa200359764f2cf6e94c89d7bd8113e6d49e1"
+    }
+  },
+  "protocol_sha256": "45de25446fac354b1c02d357fa20f557278e28eb7ccdaa0c90b90e11a53c2157",
+  "providers": ["claude-haiku"],
+  "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r8",
+  "run_kind": "eight-arm-full-matrix-continuation-plan",
+  "schema": "ghostnote-symbolic-format-v5-continuation-v8",
+  "sha256": "a5fc42728bff6a886b77f4a18a65cf0519d04e044588dd86873a4e6e449282fc",
+  "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+  "source_manifest_sha256": {
+    "claude-haiku": "b7a28f1dfb9e884f5dd6eedbcab4dcee24b96e22bf647e5defbfd44244405eea"
+  },
+  "stopping_rule": {
+    "budget_stop": 1,
+    "repairs": 0,
+    "retry_delays_seconds": [2, 4],
+    "transient_failures": ["HTTP 503", "TimeoutError"],
+    "transient_retries_per_request": 2,
+    "transport_failure": "Stop on the third transient failure for one endpoint request or on the first other transport failure.",
+    "unavailable_response": "retain and continue"
+  }
+}

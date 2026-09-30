@@ -1,0 +1,12 @@
+{
+  "maximum_total_cost_usd": 6.8,
+  "operator_statement": "Set the limit to 24k, leave the thinking budget at 1024, re-run the three unavailable responses, continue with that limit for the rest, and re-run the Gemini 503.",
+  "protocol_sha256": "678ff46f946b3f3ff4a213018cc84e455f49ec47ded64a354b925fd093aa82ab",
+  "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r5",
+  "run_plan_sha256": "8225bcc76095cdf3b46a9149a6fd41523d1c98db7b4b491476002eeb4427f989",
+  "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+  "source_manifest_sha256": {
+    "claude-haiku": "6153ca5b728412c59310459ee15213919f684682ba6041b0696f51d4e6ec050f"
+  },
+  "status": "approved"
+}

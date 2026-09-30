@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-29
+updated: 2026-09-30
 ---
 
 # Evidence index
@@ -12,6 +12,14 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E209 | Offline score repair updates the eight-arm matrix [K] (2026-09-30) | [open](experiments/e209-offline-score-repair-updates-eight-arm-matrix.md) |
+| E208 | Complete matrix audit finds reusable measurement repairs [K] (2026-09-30) | [open](experiments/e208-complete-matrix-audit-finds-reusable-measurement-repairs.md) |
+| E207 | Final Claude recovery completes the matrix [K] (2026-09-30) | [open](experiments/e207-final-claude-recovery-completes-matrix.md) |
+| E206 | Final Claude run stops on an incomplete read [K] (2026-09-30) | [open](experiments/e206-final-claude-run-stops-on-incomplete-read.md) |
+| E205 | Final Claude matrix continuation awaits approval [K] (2026-09-30) | [open](experiments/e205-final-claude-matrix-continuation-awaits-approval.md) |
+| E204 | Claude retry recovers outage rows and stops at cost [K] (2026-09-30) | [open](experiments/e204-claude-retry-recovers-outage-rows-and-stops-at-cost.md) |
+| E203 | Eight-arm matrix completes Gemini and retains Claude partial [K] (2026-09-29) | [open](experiments/e203-eight-arm-matrix-completes-gemini-and-retains-claude-partial.md) |
+| E202 | Eight-arm matrix retains valid partials and awaits continuation [K] (2026-09-29) | [open](experiments/e202-eight-arm-matrix-retains-valid-partials-and-awaits-continuation.md) |
 | E193 | V18 sampled audit validates the run and finds a transfer flaw [K] (2026-09-29) | [open](experiments/e193-v18-sampled-audit-validates-run-and-finds-transfer-flaw.md) |
 | E192 | V18 low-effort rehearsal is operationally complete [K] (2026-09-29) | [open](experiments/e192-v18-low-effort-rehearsal-is-operationally-complete.md) |
 | E191 | V18 low-effort rehearsal awaits approval [K] (2026-09-29) | [open](experiments/e191-v18-low-effort-rehearsal-awaits-approval.md) |

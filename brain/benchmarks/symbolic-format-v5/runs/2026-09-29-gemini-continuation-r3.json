@@ -1,0 +1,5013 @@
+{
+  "actual_cost_exact_usd": 0.1151175,
+  "actual_cost_usd": 0.115118,
+  "all_available": true,
+  "approval": {
+    "maximum_total_cost_usd": 8.2,
+    "operator_statement": "Set the limit to 24k, leave the thinking budget at 1024, re-run the three unavailable responses, continue with that limit, and re-run the Gemini 503.",
+    "protocol_sha256": "94cd66d37f2609f1121890420d6ba96a8eb1e8df1665d62583615b95822b2fe0",
+    "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r3",
+    "run_plan_sha256": "716ed92d76f46683af1219baa4764e81f2383a62c428d05f8a7b9f5b91f0ea0f",
+    "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+    "source_manifest_sha256": {
+      "claude-haiku": "d57ae49891a05482b03df242b4ce530d440e5db1888e4dec849a7ba4d669f020",
+      "gemini": "4163fe4530e74ec7b99f8b70e2fef33db98bbe517d339493ffa2941fab3bdec0"
+    },
+    "status": "approved"
+  },
+  "candidate_sha256": {
+    "abc-2.1-composite": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+    "compact-bar-fields": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+    "compact-bar-local-labels": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+    "exact-object-json": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+    "lilypond-2.24.4-composite": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+    "midi-like-ghostnote-profile": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+    "musicxml-4.0-composite": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+    "strudel-v1.2-composite": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336"
+  },
+  "client": "Python urllib.request direct HTTPS",
+  "cohort": "eight-arm-full-matrix-r1",
+  "cohort_sha256": "c1e4e26ddf8ded4f1afc38931021df713988282943d1b63bb577bf7f2720187b",
+  "cost_guard": {
+    "committed_cost_usd": 0.115118,
+    "committed_exact_usd": 0.1151175,
+    "failed_reservations": 0,
+    "maximum_cost_usd": 0.2,
+    "message_attempts": 29,
+    "settled_cost_usd": 0.115118,
+    "settled_exact_usd": 0.1151175,
+    "token_count_attempts": 0
+  },
+  "effective_request_settings": {
+    "max_output_tokens": 12000,
+    "thinking_level": "low"
+  },
+  "manifest_sha256": "62b546e46a4382df2221b1183e2c0e47ef2852beaaefa00b686622ee202783d7",
+  "network_preflight": {
+    "host": "generativelanguage.googleapis.com",
+    "latency_ms": 147.227,
+    "port": 443
+  },
+  "original_run_id": "phase8c4f-eight-arm-full-matrix-r1",
+  "platform": "Darwin 24.6.0 arm64",
+  "progress": {
+    "attempted": 29,
+    "available": 29,
+    "budget_stopped": 0,
+    "failed": 0,
+    "planned": 29,
+    "provider_completed": 29,
+    "scored": 29,
+    "unavailable": 0
+  },
+  "protocol_sha256": "94cd66d37f2609f1121890420d6ba96a8eb1e8df1665d62583615b95822b2fe0",
+  "provider": "gemini",
+  "python": "3.14.6",
+  "raw_run_sha256": "f9e11a16f7ca45942f1dc8e7b43b4065c15d673aca30a75aacc1a010388ec59e",
+  "requested_model": "gemini-3.8-flash",
+  "results": [
+    {
+      "arm": "exact-object-json",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+      "completed_sequence": 1,
+      "continuation_sequence": 1,
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": true,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-4",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-3",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-8",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-5",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-1",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-7",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-2",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-6",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            }
+          ],
+          "component": {
+            "case_correct": 48,
+            "case_planned": 48,
+            "correct": 51,
+            "planned": 51,
+            "response_correct": 3,
+            "response_planned": 3
+          },
+          "diagnostic": null,
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00182625,
+          "total": 0.00252075,
+          "uncached_input": 0.0006945
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2844.55,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2687,
+        "prompt_sha256": "b4f4b0ed5759181d93bc3fcf5d895fbed2a1ea480f260a03117081431a345c18",
+        "raw_response_sha256": "6237596abb0152810b1a2d977992ffabfd78af211bcec4ef7bacf2d06f6d09cc",
+        "request_bytes": 3280,
+        "request_id": null,
+        "response_bytes": 1118,
+        "response_payload": "{\"base_sha256\":\"485bb8ee7a3d0ff3d0b72f1a3bec3d94e2de9669831f831c6ab10f2070b2b9c5\",\"notes\":[{\"duration\":\"1/2\",\"id\":\"af-out-4020-4\",\"pitch\":70,\"start\":\"8\",\"velocity\":81,\"voice\":\"inner\"},{\"duration\":\"1/4\",\"id\":\"af-out-4020-3\",\"pitch\":84,\"start\":\"9\",\"velocity\":76,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"af-out-4020-8\",\"pitch\":68,\"start\":\"10\",\"velocity\":76,\"voice\":\"inner\"},{\"duration\":\"1\",\"id\":\"af-out-4020-5\",\"pitch\":79,\"start\":\"10\",\"velocity\":80,\"voice\":\"lead\"},{\"duration\":\"9/8\",\"id\":\"af-out-4020-1\",\"pitch\":54,\"start\":\"11\",\"velocity\":89,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"af-out-4020-7\",\"pitch\":79,\"start\":\"11\",\"velocity\":77,\"voice\":\"lead\"},{\"duration\":\"3/2\",\"id\":\"af-out-4020-2\",\"pitch\":52,\"start\":\"47/4\",\"velocity\":92,\"voice\":\"bass\"},{\"duration\":\"3/8\",\"id\":\"af-out-4020-6\",\"pitch\":57,\"start\":\"59/4\",\"velocity\":77,\"voice\":\"bass\"}],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"overlays\":{\"bars\":[],\"grooves\":[],\"harmonies\":[],\"meters\":[],\"regions\":[],\"tempos\":[],\"tracks\":[]},\"schema\":\"ghostnote-compact-format-v6\",\"source_id\":\"eight-arm-full-matrix-r1-continuation-motif-v4020-source\"}",
+        "response_payload_sha256": "96932ab11ffefdb46fde972e3d08a907ff58b8117142b2d2cd011a6c07cd4a52",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 926,
+          "output_tokens": 487,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 564,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "28f6e230c8de01d629b265051879cbfa0e9115c81c1ffd758b0d5dfc8eb9125d",
+      "started_sequence": 1,
+      "task_sha256": "b431cc657406faae95c2429ea05dc1baed0b8c587640549313b042c0ba9fd1dc",
+      "variant": 4020
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+      "completed_sequence": 2,
+      "continuation_sequence": 2,
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-4",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-3",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-8",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-5",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-1",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-7",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-2",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-6",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            }
+          ],
+          "component": {
+            "case_correct": 48,
+            "case_planned": 48,
+            "correct": 50,
+            "planned": 51,
+            "response_correct": 2,
+            "response_planned": 3
+          },
+          "diagnostic": {
+            "canonical_error": "The notation and side ledger disagree",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.001245,
+          "total": 0.0018555,
+          "uncached_input": 0.0006105
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2783.742,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2032,
+        "prompt_sha256": "8c5e7816f65e6794a66686d9d03de8c489a93dd2af65aa4582a75cd247edcab8",
+        "raw_response_sha256": "a9c560a529bbf1bfc251f1b764e8bc2865f7f1d412ac28db0295d3e2269988e2",
+        "request_bytes": 2392,
+        "request_id": null,
+        "response_bytes": 456,
+        "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:inner.1\nz96 _E6 z18 =F12 |\nV:lead.1\nz108 _B3 z9 =F12 F12 |\nV:bass.1\nz132 =F18 z6 ^F18 =F3 |\n--- GN SIDE LEDGER ---\nGN af-out-4020-4 inner 8 1/2 70 81\nGN af-out-4020-3 lead 9 1/4 84 76\nGN af-out-4020-5 lead 10 1 79 80\nGN af-out-4020-8 inner 10 1 68 76\nGN af-out-4020-1 bass 11 9/8 54 89\nGN af-out-4020-7 lead 11 1 79 77\nGN af-out-4020-2 bass 47/4 3/2 52 92\nGN af-out-4020-6 bass 59/4 3/8 57 77",
+        "response_payload_sha256": "34bbcdc2965a1b5059ce41536479bce146136896e1d492dc47e22702bf13d1f7",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 814,
+          "output_tokens": 332,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 565,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "28f6e230c8de01d629b265051879cbfa0e9115c81c1ffd758b0d5dfc8eb9125d",
+      "started_sequence": 2,
+      "task_sha256": "b431cc657406faae95c2429ea05dc1baed0b8c587640549313b042c0ba9fd1dc",
+      "variant": 4020
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336",
+      "completed_sequence": 3,
+      "continuation_sequence": 3,
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 0.833333,
+              "case_id": "af-out-4020-4",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": false,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-3",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 0.833333,
+              "case_id": "af-out-4020-8",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": false,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-5",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-1",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-7",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-2",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-6",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            }
+          ],
+          "component": {
+            "case_correct": 46,
+            "case_planned": 48,
+            "correct": 48,
+            "planned": 51,
+            "response_correct": 2,
+            "response_planned": 3
+          },
+          "diagnostic": {
+            "canonical_error": "Invalid pitch name: d#6",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00176625,
+          "total": 0.0024555,
+          "uncached_input": 0.00068925
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 3144.487,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2386,
+        "prompt_sha256": "753ed472df6c481c9ca3e6b819536d9f17be5ba6326ebb29e25ede7526bc5a0d",
+        "raw_response_sha256": "1fbc66ab92ce4d8d2925e3b7a559ac7ce9535ed73e7598bbc96b9e7f8e662a5e",
+        "request_bytes": 2755,
+        "request_id": null,
+        "response_bytes": 788,
+        "response_payload": "// Strudel v1.2.0 deterministic mini-notation subset\nsetcpm(60)\n$: note(\"~@8 g4@2 ~@22\").slow(16/3).sound(\"piano\") // GN voice=inner lane=inner.1\n$: note(\"~@16 f4@4 ~@12\").slow(16/3).sound(\"piano\") // GN voice=inner lane=inner.2\n$: note(\"~@9 d#6@1 ~@3 f5@4 f5@4 ~@11\").slow(16/3).sound(\"piano\") // GN voice=lead lane=lead.1\n$: note(\"~@44 f3@9 ~@1\").slow(8).sound(\"piano\") // GN voice=bass lane=bass.1\n$: note(\"~@47 d#3@6 ~@1 d3@1 ~@1\").slow(8).sound(\"piano\") // GN voice=bass lane=bass.2\n--- GN SIDE LEDGER ---\nGN af-out-4020-4 inner 8 1/2 67 81\nGN af-out-4020-3 lead 9 1/4 84 76\nGN af-out-4020-5 lead 10 1 79 80\nGN af-out-4020-8 inner 10 1 65 76\nGN af-out-4020-1 bass 11 9/8 54 89\nGN af-out-4020-7 lead 11 1 79 77\nGN af-out-4020-2 bass 47/4 3/2 52 92\nGN af-out-4020-6 bass 59/4 3/8 57 77",
+        "response_payload_sha256": "83372d8e30fa5ce57c19aa8a59ad96f754e81f6d4f2d53baa2026096db4900a6",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 919,
+          "output_tokens": 471,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 566,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "28f6e230c8de01d629b265051879cbfa0e9115c81c1ffd758b0d5dfc8eb9125d",
+      "started_sequence": 3,
+      "task_sha256": "b431cc657406faae95c2429ea05dc1baed0b8c587640549313b042c0ba9fd1dc",
+      "variant": 4020
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+      "completed_sequence": 4,
+      "continuation_sequence": 4,
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 0.833333,
+              "case_id": "af-out-4020-4",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": false,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-3",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 0.833333,
+              "case_id": "af-out-4020-8",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": false,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-5",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-1",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-7",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-2",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-6",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            }
+          ],
+          "component": {
+            "case_correct": 46,
+            "case_planned": 48,
+            "correct": 48,
+            "planned": 51,
+            "response_correct": 2,
+            "response_planned": 3
+          },
+          "diagnostic": {
+            "canonical_error": "Invalid LilyPond subset token: aes4*1",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00144375,
+          "total": 0.00209025,
+          "uncached_input": 0.0006465
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2959.301,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2150,
+        "prompt_sha256": "79ee2fce811e1fc00d3b6ecbab476e7138026135d52e1edc177b21b0f08d5bdb",
+        "raw_response_sha256": "8bafe3e4d1e8f5346f893a7289cf13a3cf617366fcd4aa3aaf0156625385220c",
+        "request_bytes": 2526,
+        "request_id": null,
+        "response_bytes": 566,
+        "response_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"inner.1\" { r4*8 c'4*1/2 r4*3/2 aes4*1 }\n    \\new Voice = \"lead.1\" { r4*9 f''4*1/4 r4*3/4 b'4*1 b'4*1 }\n    \\new Voice = \"bass.1\" { r4*11 f4*9/8 r4*21/8 bes,4*3/8 }\n    \\new Voice = \"bass.2\" { r4*47/4 d4*3/2 }\n  >>\n}\n--- GN SIDE LEDGER ---\nGN af-out-4020-4 inner 8 1/2 60 81\nGN af-out-4020-3 lead 9 1/4 84 76\nGN af-out-4020-5 lead 10 1 79 80\nGN af-out-4020-8 inner 10 1 56 76\nGN af-out-4020-1 bass 11 9/8 54 89\nGN af-out-4020-7 lead 11 1 79 77\nGN af-out-4020-2 bass 47/4 3/2 52 92\nGN af-out-4020-6 bass 59/4 3/8 57 77",
+        "response_payload_sha256": "3503ac2d800dabaff65a479a4a3e475fc52a2fc7c024f2b43b3755152c00ca22",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 862,
+          "output_tokens": 385,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 567,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "28f6e230c8de01d629b265051879cbfa0e9115c81c1ffd758b0d5dfc8eb9125d",
+      "started_sequence": 4,
+      "task_sha256": "b431cc657406faae95c2429ea05dc1baed0b8c587640549313b042c0ba9fd1dc",
+      "variant": 4020
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+      "completed_sequence": 5,
+      "continuation_sequence": 5,
+      "family": "continuation-motif",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-4",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 0.833333,
+              "case_id": "af-out-4020-3",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": false,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-8",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-5",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-1",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-7",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-2",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "af-out-4020-6",
+              "components": {
+                "duration": true,
+                "id": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 6,
+              "perfect": true,
+              "planned": 6
+            }
+          ],
+          "component": {
+            "case_correct": 47,
+            "case_planned": 48,
+            "correct": 49,
+            "planned": 51,
+            "response_correct": 2,
+            "response_planned": 3
+          },
+          "diagnostic": {
+            "canonical_error": "The notation and side ledger disagree",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0033075,
+          "total": 0.0043635,
+          "uncached_input": 0.001056
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 3849.691,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4154,
+        "prompt_sha256": "9c337f9060182d89f9692bb9db7de23e542398775840ea3f9414d681a2247ed8",
+        "raw_response_sha256": "828b9d2ba0a489230fe684993962dc6e403146cb32e3b94b9151aede87f1a30d",
+        "request_bytes": 4538,
+        "request_id": null,
+        "response_bytes": 2284,
+        "response_payload": "<score-partwise version=\"4.0\"><part-list><score-part id=\"P1\"><part-name>inner.1</part-name></score-part><score-part id=\"P2\"><part-name>lead.1</part-name></score-part><score-part id=\"P3\"><part-name>bass.1</part-name></score-part><score-part id=\"P4\"><part-name>bass.2</part-name></score-part></part-list><part id=\"P1\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>8</divisions></attributes><note><rest /><duration>64</duration><voice>1</voice></note><note><pitch><step>F</step><octave>5</octave></pitch><duration>4</duration><voice>1</voice></note><note><rest /><duration>12</duration><voice>1</voice></note><note><pitch><step>D</step><octave>5</octave></pitch><duration>8</duration><voice>1</voice></note></measure></part><part id=\"P2\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>8</divisions></attributes><note><rest /><duration>72</duration><voice>1</voice></note><note><pitch><step>B</step><octave>5</octave></pitch><duration>2</duration><voice>1</voice></note><note><rest /><duration>6</duration><voice>1</voice></note><note><pitch><step>G</step><octave>5</octave></pitch><duration>8</duration><voice>1</voice></note><note><pitch><step>G</step><octave>5</octave></pitch><duration>8</duration><voice>1</voice></note></measure></part><part id=\"P3\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>8</divisions></attributes><note><rest /><duration>88</duration><voice>1</voice></note><note><pitch><step>F</step><octave>4</octave></pitch><duration>9</duration><voice>1</voice></note><note><rest /><duration>21</duration><voice>1</voice></note><note><pitch><step>A</step><octave>4</octave></pitch><duration>3</duration><voice>1</voice></note></measure></part><part id=\"P4\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>8</divisions></attributes><note><rest /><duration>94</duration><voice>1</voice></note><note><pitch><step>E</step><octave>4</octave></pitch><duration>12</duration><voice>1</voice></note></measure></part></score-partwise>\n--- GN SIDE LEDGER ---\nGN af-out-4020-4 inner 8 1/2 70 81\nGN af-out-4020-3 lead 9 1/4 83 76\nGN af-out-4020-5 lead 10 1 79 80\nGN af-out-4020-8 inner 10 1 68 76\nGN af-out-4020-1 bass 11 9/8 54 89\nGN af-out-4020-7 lead 11 1 79 77\nGN af-out-4020-2 bass 47/4 3/2 52 92\nGN af-out-4020-6 bass 59/4 3/8 57 77",
+        "response_payload_sha256": "09977770ea6191f0e4701c79253bd5200923453fd148493a130447ea3512e5e6",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1408,
+          "output_tokens": 882,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 568,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "28f6e230c8de01d629b265051879cbfa0e9115c81c1ffd758b0d5dfc8eb9125d",
+      "started_sequence": 5,
+      "task_sha256": "b431cc657406faae95c2429ea05dc1baed0b8c587640549313b042c0ba9fd1dc",
+      "variant": 4020
+    },
+    {
+      "arm": "compact-bar-fields",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+      "completed_sequence": 6,
+      "continuation_sequence": 6,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": true,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            }
+          ],
+          "component": {
+            "case_correct": 80,
+            "case_planned": 80,
+            "correct": 83,
+            "planned": 83,
+            "response_correct": 3,
+            "response_planned": 3
+          },
+          "diagnostic": null,
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0104475,
+          "total": 0.01097925,
+          "uncached_input": 0.00053175
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 10545.994,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1877,
+        "prompt_sha256": "b938afea4b91e72f1f068c3a5d38e72c895363b5c325acf16e79e90d7c525426",
+        "raw_response_sha256": "06f8cb08922c2544b9d9b62f3e87555839bbc0428e5355a0bb14245950a84322",
+        "request_bytes": 2229,
+        "request_id": null,
+        "response_bytes": 691,
+        "response_payload": "BASE 7c045b0536e7cd6e06032556d4f0792bc8949e4fbca8f5a0d10a9b36e1ea7b88\nSOURCE eight-arm-full-matrix-r1-transformation-revoice-v4003-source\nOMITS channel mute release_velocity articulation expression\nFIELDS id voice start duration pitch velocity\nN rv-out-1-1 keys 0 1 62 78\nN rv-out-1-2 keys 0 1 66 78\nN rv-out-1-3 keys 0 1 69 78\nN rv-out-1-4 keys 0 1 73 78\nN rv-out-2-1 keys 1 1 63 78\nN rv-out-2-2 keys 1 1 64 78\nN rv-out-2-3 keys 1 1 68 78\nN rv-out-2-4 keys 1 1 71 78\nN rv-out-3-1 keys 2 1 61 78\nN rv-out-3-2 keys 2 1 65 78\nN rv-out-3-3 keys 2 1 66 78\nN rv-out-3-4 keys 2 1 70 78\nN rv-out-4-1 keys 3 1 60 78\nN rv-out-4-2 keys 3 1 63 78\nN rv-out-4-3 keys 3 1 67 78\nN rv-out-4-4 keys 3 1 68 78",
+        "response_payload_sha256": "0735c6b4b850a6b584bc6c609558179b78316a07549b7905c999cdad41d40dea",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 709,
+          "output_tokens": 2786,
+          "thinking_tokens": 2333
+        }
+      },
+      "planned_sequence": 569,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "bc7e2dfca6c13576b28d155933ed920ae42ec7afb5b4c3b4233dce350de32fdc",
+      "started_sequence": 6,
+      "task_sha256": "8874122036cd93dc0c83f0c37502b10a1819d0282f5a5225475f78565605f168",
+      "variant": 4003
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+      "completed_sequence": 7,
+      "continuation_sequence": 7,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": true,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-1-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-2-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-2-position-2",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-2",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-3",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            }
+          ],
+          "component": {
+            "case_correct": 74,
+            "case_planned": 80,
+            "correct": 77,
+            "planned": 83,
+            "response_correct": 3,
+            "response_planned": 3
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.002145,
+          "total": 0.00276525,
+          "uncached_input": 0.00062025
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 3133.218,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2452,
+        "prompt_sha256": "6ae9f2f2fe0ae68034b50f2b1b254fb6b06cfdb532dd5ab78429e57bf2d9e026",
+        "raw_response_sha256": "68a2b2d0f0ef327d449203e099c871649617ee140c64437d9237f5923d1e4c09",
+        "request_bytes": 2802,
+        "request_id": null,
+        "response_bytes": 1269,
+        "response_payload": "BASE 7c045b0536e7cd6e06032556d4f0792bc8949e4fbca8f5a0d10a9b36e1ea7b88\nSOURCE eight-arm-full-matrix-r1-transformation-revoice-v4003-source\nOMITS channel mute release_velocity articulation expression\nN id=rv-out-1-1 voice=keys start=0 duration=1 pitch=62 velocity=78\nN id=rv-out-1-2 voice=keys start=0 duration=1 pitch=66 velocity=78\nN id=rv-out-1-3 voice=keys start=0 duration=1 pitch=69 velocity=78\nN id=rv-out-1-4 voice=keys start=0 duration=1 pitch=73 velocity=78\nN id=rv-out-2-1 voice=keys start=1 duration=1 pitch=64 velocity=78\nN id=rv-out-2-2 voice=keys start=1 duration=1 pitch=68 velocity=78\nN id=rv-out-2-3 voice=keys start=1 duration=1 pitch=71 velocity=78\nN id=rv-out-2-4 voice=keys start=1 duration=1 pitch=75 velocity=78\nN id=rv-out-3-1 voice=keys start=2 duration=1 pitch=66 velocity=78\nN id=rv-out-3-2 voice=keys start=2 duration=1 pitch=70 velocity=78\nN id=rv-out-3-3 voice=keys start=2 duration=1 pitch=73 velocity=78\nN id=rv-out-3-4 voice=keys start=2 duration=1 pitch=77 velocity=78\nN id=rv-out-4-1 voice=keys start=3 duration=1 pitch=68 velocity=78\nN id=rv-out-4-2 voice=keys start=3 duration=1 pitch=72 velocity=78\nN id=rv-out-4-3 voice=keys start=3 duration=1 pitch=75 velocity=78\nN id=rv-out-4-4 voice=keys start=3 duration=1 pitch=79 velocity=78",
+        "response_payload_sha256": "c2555bea107acef5b3b0aaf4093d31068032a7f0961ef8c8abc57dc096e523ab",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 827,
+          "output_tokens": 572,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 570,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "bc7e2dfca6c13576b28d155933ed920ae42ec7afb5b4c3b4233dce350de32fdc",
+      "started_sequence": 7,
+      "task_sha256": "8874122036cd93dc0c83f0c37502b10a1819d0282f5a5225475f78565605f168",
+      "variant": 4003
+    },
+    {
+      "arm": "exact-object-json",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+      "completed_sequence": 8,
+      "continuation_sequence": 8,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": true,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            }
+          ],
+          "component": {
+            "case_correct": 80,
+            "case_planned": 80,
+            "correct": 83,
+            "planned": 83,
+            "response_correct": 3,
+            "response_planned": 3
+          },
+          "diagnostic": null,
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.015615,
+          "total": 0.016374,
+          "uncached_input": 0.000759
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 15228.14,
+        "outer_schema_valid": true,
+        "prompt_bytes": 3160,
+        "prompt_sha256": "92e60b949ba0c2b745ee8ad1ef7e216e19529a96f27fd91e3cdcfc34b5f71f34",
+        "raw_response_sha256": "889efb1be6b47481693945ac32818c06dc8f15db528270cd4f882b4ba4aaab68",
+        "request_bytes": 3913,
+        "request_id": null,
+        "response_bytes": 1772,
+        "response_payload": "{\"base_sha256\":\"7c045b0536e7cd6e06032556d4f0792bc8949e4fbca8f5a0d10a9b36e1ea7b88\",\"notes\":[{\"duration\":\"1\",\"id\":\"rv-out-1-1\",\"pitch\":62,\"start\":\"0\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-1-2\",\"pitch\":66,\"start\":\"0\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-1-3\",\"pitch\":69,\"start\":\"0\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-1-4\",\"pitch\":73,\"start\":\"0\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-2-1\",\"pitch\":63,\"start\":\"1\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-2-2\",\"pitch\":64,\"start\":\"1\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-2-3\",\"pitch\":68,\"start\":\"1\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-2-4\",\"pitch\":71,\"start\":\"1\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-3-1\",\"pitch\":61,\"start\":\"2\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-3-2\",\"pitch\":65,\"start\":\"2\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-3-3\",\"pitch\":66,\"start\":\"2\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-3-4\",\"pitch\":70,\"start\":\"2\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-4-1\",\"pitch\":60,\"start\":\"3\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-4-2\",\"pitch\":63,\"start\":\"3\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-4-3\",\"pitch\":67,\"start\":\"3\",\"velocity\":78,\"voice\":\"keys\"},{\"duration\":\"1\",\"id\":\"rv-out-4-4\",\"pitch\":68,\"start\":\"3\",\"velocity\":78,\"voice\":\"keys\"}],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"overlays\":{\"bars\":[],\"grooves\":[],\"harmonies\":[],\"meters\":[],\"regions\":[],\"tempos\":[],\"tracks\":[]},\"schema\":\"ghostnote-compact-format-v6\",\"source_id\":\"eight-arm-full-matrix-r1-transformation-revoice-v4003-source\"}",
+        "response_payload_sha256": "d7f02c637a6bbbc445545e8437abeb766f55251985bea16b29dd8c4d01b981d5",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1012,
+          "output_tokens": 4164,
+          "thinking_tokens": 3447
+        }
+      },
+      "planned_sequence": 571,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "bc7e2dfca6c13576b28d155933ed920ae42ec7afb5b4c3b4233dce350de32fdc",
+      "started_sequence": 8,
+      "task_sha256": "8874122036cd93dc0c83f0c37502b10a1819d0282f5a5225475f78565605f168",
+      "variant": 4003
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+      "completed_sequence": 9,
+      "continuation_sequence": 9,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-1-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-2-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-2-position-2",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-2",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-3",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            }
+          ],
+          "component": {
+            "case_correct": 74,
+            "case_planned": 80,
+            "correct": 76,
+            "planned": 83,
+            "response_correct": 2,
+            "response_planned": 3
+          },
+          "diagnostic": {
+            "canonical_error": "The notation and side ledger disagree",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.001995,
+          "total": 0.0026085,
+          "uncached_input": 0.0006135
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2955.975,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2053,
+        "prompt_sha256": "fb4a8cc850ae738fbaade4efa8fde7ba7b7ee86e472892d07f4208548cc0660c",
+        "raw_response_sha256": "53312832cc7fd485762b6a0bac3b70d0677d50f602d187c3d6d6e2fce1adaa65",
+        "request_bytes": 2421,
+        "request_id": null,
+        "response_bytes": 725,
+        "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:keys.1\nD1/48 E1/48 ^F1/48 _A1/48 z44/48 |\nV:keys.2\n^F1/48 _A1/48 _B1/48 c1/48 z44/48 |\nV:keys.3\nA1/48 B1/48 ^c1/48 _e1/48 z44/48 |\nV:keys.4\n^c1/48 _e1/48 f1/48 g1/48 z44/48 |\n--- GN SIDE LEDGER ---\nGN rv-out-1-1 keys 0 1 62 78\nGN rv-out-1-2 keys 0 1 66 78\nGN rv-out-1-3 keys 0 1 69 78\nGN rv-out-1-4 keys 0 1 73 78\nGN rv-out-2-1 keys 1 1 64 78\nGN rv-out-2-2 keys 1 1 68 78\nGN rv-out-2-3 keys 1 1 71 78\nGN rv-out-2-4 keys 1 1 75 78\nGN rv-out-3-1 keys 2 1 66 78\nGN rv-out-3-2 keys 2 1 70 78\nGN rv-out-3-3 keys 2 1 73 78\nGN rv-out-3-4 keys 2 1 77 78\nGN rv-out-4-1 keys 3 1 68 78\nGN rv-out-4-2 keys 3 1 72 78\nGN rv-out-4-3 keys 3 1 75 78\nGN rv-out-4-4 keys 3 1 79 78",
+        "response_payload_sha256": "74c29c296db1bfb0973ab677d62ec897ef8981a0ea2ba339583c32383160d5ba",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 818,
+          "output_tokens": 532,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 572,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "bc7e2dfca6c13576b28d155933ed920ae42ec7afb5b4c3b4233dce350de32fdc",
+      "started_sequence": 9,
+      "task_sha256": "8874122036cd93dc0c83f0c37502b10a1819d0282f5a5225475f78565605f168",
+      "variant": 4003
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336",
+      "completed_sequence": 10,
+      "continuation_sequence": 10,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": true,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-1-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-2-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-2-position-2",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-2",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-3",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            }
+          ],
+          "component": {
+            "case_correct": 74,
+            "case_planned": 80,
+            "correct": 77,
+            "planned": 83,
+            "response_correct": 3,
+            "response_planned": 3
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00211125,
+          "total": 0.00279375,
+          "uncached_input": 0.0006825
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 3889.889,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2400,
+        "prompt_sha256": "379c1745360ea1ffdcf3972c83cfa3223185af9e3ad39d75f9cd245d40b500ed",
+        "raw_response_sha256": "07a9fc979f1b42bbc9c40bcbca8730e4b0ccbcc9ab5d7219779528bda35d58cd",
+        "request_bytes": 2777,
+        "request_id": null,
+        "response_bytes": 907,
+        "response_payload": "// Strudel v1.2.0 deterministic mini-notation subset\nsetcpm(60)\n$: note(\"d4@12 e4@12 fs4@12 gs4@12\").slow(1).sound(\"piano\") // GN voice=keys lane=keys.1\n$: note(\"fs4@12 gs4@12 as4@12 c5@12\").slow(1).sound(\"piano\") // GN voice=keys lane=keys.2\n$: note(\"a4@12 b4@12 cs5@12 ds5@12\").slow(1).sound(\"piano\") // GN voice=keys lane=keys.3\n$: note(\"cs5@12 ds5@12 f5@12 g5@12\").slow(1).sound(\"piano\") // GN voice=keys lane=keys.4\n--- GN SIDE LEDGER ---\nGN rv-out-1-1 keys 0 1 62 78\nGN rv-out-1-2 keys 0 1 66 78\nGN rv-out-1-3 keys 0 1 69 78\nGN rv-out-1-4 keys 0 1 73 78\nGN rv-out-2-1 keys 1 1 64 78\nGN rv-out-2-2 keys 1 1 68 78\nGN rv-out-2-3 keys 1 1 71 78\nGN rv-out-2-4 keys 1 1 75 78\nGN rv-out-3-1 keys 2 1 66 78\nGN rv-out-3-2 keys 2 1 70 78\nGN rv-out-3-3 keys 2 1 73 78\nGN rv-out-3-4 keys 2 1 77 78\nGN rv-out-4-1 keys 3 1 68 78\nGN rv-out-4-2 keys 3 1 72 78\nGN rv-out-4-3 keys 3 1 75 78\nGN rv-out-4-4 keys 3 1 79 78",
+        "response_payload_sha256": "81d5fa1f94c3e69962ed46713daf7320a642e8fc2ae229be0ebb9037077b7127",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 910,
+          "output_tokens": 563,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 573,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "bc7e2dfca6c13576b28d155933ed920ae42ec7afb5b4c3b4233dce350de32fdc",
+      "started_sequence": 10,
+      "task_sha256": "8874122036cd93dc0c83f0c37502b10a1819d0282f5a5225475f78565605f168",
+      "variant": 4003
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+      "completed_sequence": 11,
+      "continuation_sequence": 11,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": true,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            }
+          ],
+          "component": {
+            "case_correct": 80,
+            "case_planned": 80,
+            "correct": 83,
+            "planned": 83,
+            "response_correct": 3,
+            "response_planned": 3
+          },
+          "diagnostic": null,
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.021885,
+          "total": 0.022524,
+          "uncached_input": 0.000639
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 23518.502,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2181,
+        "prompt_sha256": "ef75f2fbd185447c573a9759f263382ebeb7b9a2a5cc956c2d2968fe4161e28e",
+        "raw_response_sha256": "8d1772aefb10c74b347f02f636171a36e5e0f54a8b13843857de5f5a079c8600",
+        "request_bytes": 2565,
+        "request_id": null,
+        "response_bytes": 760,
+        "response_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"keys.1\" { d'4*1 dis'4*1 cis'4*1 c'4*1 }\n    \\new Voice = \"keys.2\" { fis'4*1 e'4*1 f'4*1 dis'4*1 }\n    \\new Voice = \"keys.3\" { a'4*1 gis'4*1 fis'4*1 g'4*1 }\n    \\new Voice = \"keys.4\" { cis''4*1 b'4*1 ais'4*1 gis'4*1 }\n  >>\n}\n--- GN SIDE LEDGER ---\nGN rv-out-1-1 keys 0 1 62 78\nGN rv-out-1-2 keys 0 1 66 78\nGN rv-out-1-3 keys 0 1 69 78\nGN rv-out-1-4 keys 0 1 73 78\nGN rv-out-2-1 keys 1 1 63 78\nGN rv-out-2-2 keys 1 1 64 78\nGN rv-out-2-3 keys 1 1 68 78\nGN rv-out-2-4 keys 1 1 71 78\nGN rv-out-3-1 keys 2 1 61 78\nGN rv-out-3-2 keys 2 1 65 78\nGN rv-out-3-3 keys 2 1 66 78\nGN rv-out-3-4 keys 2 1 70 78\nGN rv-out-4-1 keys 3 1 60 78\nGN rv-out-4-2 keys 3 1 63 78\nGN rv-out-4-3 keys 3 1 67 78\nGN rv-out-4-4 keys 3 1 68 78",
+        "response_payload_sha256": "81e19488f4eaad3545c2a5ba050b17823b7811f0e6287ec90a185b7d616f383f",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 852,
+          "output_tokens": 5836,
+          "thinking_tokens": 5328
+        }
+      },
+      "planned_sequence": 574,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "bc7e2dfca6c13576b28d155933ed920ae42ec7afb5b4c3b4233dce350de32fdc",
+      "started_sequence": 11,
+      "task_sha256": "8874122036cd93dc0c83f0c37502b10a1819d0282f5a5225475f78565605f168",
+      "variant": 4003
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+      "completed_sequence": 12,
+      "continuation_sequence": 12,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": true,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-1-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-2-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-2-position-2",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-1",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-2",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 0.8,
+              "case_id": "onset-3-position-3",
+              "components": {
+                "duration": true,
+                "pitch": false,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 4,
+              "perfect": false,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            }
+          ],
+          "component": {
+            "case_correct": 74,
+            "case_planned": 80,
+            "correct": 77,
+            "planned": 83,
+            "response_correct": 3,
+            "response_planned": 3
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0044775,
+          "total": 0.005688,
+          "uncached_input": 0.0012105
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 5991.865,
+        "outer_schema_valid": true,
+        "prompt_bytes": 4732,
+        "prompt_sha256": "5f1b9b9045cc3bbfefe261393eab407c56b558f843ba4104c7ab03b66d45d347",
+        "raw_response_sha256": "d51f270d6216aacd797476e59d3a7027d031dde4bc01cd29e8d217fbe8053cb7",
+        "request_bytes": 5124,
+        "request_id": null,
+        "response_bytes": 2977,
+        "response_payload": "<score-partwise version=\"4.0\"><part-list><score-part id=\"P1\"><part-name>keys.1</part-name></score-part><score-part id=\"P2\"><part-name>keys.2</part-name></score-part><score-part id=\"P3\"><part-name>keys.3</part-name></score-part><score-part id=\"P4\"><part-name>keys.4</part-name></score-part></part-list><part id=\"P1\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>1</divisions></attributes><note><pitch><step>D</step><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>E</step><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>F</step><alter>1</alter><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>G</step><alter>1</alter><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note></measure></part><part id=\"P2\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>1</divisions></attributes><note><pitch><step>F</step><alter>1</alter><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>G</step><alter>1</alter><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>A</step><alter>1</alter><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>C</step><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note></measure></part><part id=\"P3\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>1</divisions></attributes><note><pitch><step>A</step><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>B</step><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>C</step><alter>1</alter><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>D</step><alter>1</alter><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note></measure></part><part id=\"P4\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>1</divisions></attributes><note><pitch><step>C</step><alter>1</alter><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>D</step><alter>1</alter><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>F</step><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>G</step><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note></measure></part></score-partwise>\n--- GN SIDE LEDGER ---\nGN rv-out-1-1 keys 0 1 62 78\nGN rv-out-1-2 keys 0 1 66 78\nGN rv-out-1-3 keys 0 1 69 78\nGN rv-out-1-4 keys 0 1 73 78\nGN rv-out-2-1 keys 1 1 64 78\nGN rv-out-2-2 keys 1 1 68 78\nGN rv-out-2-3 keys 1 1 71 78\nGN rv-out-2-4 keys 1 1 75 78\nGN rv-out-3-1 keys 2 1 66 78\nGN rv-out-3-2 keys 2 1 70 78\nGN rv-out-3-3 keys 2 1 73 78\nGN rv-out-3-4 keys 2 1 77 78\nGN rv-out-4-1 keys 3 1 68 78\nGN rv-out-4-2 keys 3 1 72 78\nGN rv-out-4-3 keys 3 1 75 78\nGN rv-out-4-4 keys 3 1 79 78",
+        "response_payload_sha256": "ad85f6d17ce3fbc0ad60026101b40cc7abdb2f1d19a5b5973cb973e2c7cdeed3",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1614,
+          "output_tokens": 1194,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 575,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "bc7e2dfca6c13576b28d155933ed920ae42ec7afb5b4c3b4233dce350de32fdc",
+      "started_sequence": 12,
+      "task_sha256": "8874122036cd93dc0c83f0c37502b10a1819d0282f5a5225475f78565605f168",
+      "variant": 4003
+    },
+    {
+      "arm": "midi-like-ghostnote-profile",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+      "completed_sequence": 13,
+      "continuation_sequence": 13,
+      "family": "transformation-revoice",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": true,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-0-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-1-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-2-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-1",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-2",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-3",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            },
+            {
+              "accuracy": 1.0,
+              "case_id": "onset-3-position-4",
+              "components": {
+                "duration": true,
+                "pitch": true,
+                "start": true,
+                "velocity": true,
+                "voice": true
+              },
+              "correct": 5,
+              "perfect": true,
+              "planned": 5
+            }
+          ],
+          "component": {
+            "case_correct": 80,
+            "case_planned": 80,
+            "correct": 83,
+            "planned": 83,
+            "response_correct": 3,
+            "response_planned": 3
+          },
+          "diagnostic": null,
+          "response_components": {
+            "exact-note-count": true,
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.01485,
+          "total": 0.015603,
+          "uncached_input": 0.000753
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 14596.125,
+        "outer_schema_valid": true,
+        "prompt_bytes": 2654,
+        "prompt_sha256": "455ebc12b8ea2ba0ab466a74cdf58398c1e09d3662ad40b25141fc192691f5ab",
+        "raw_response_sha256": "520ddb95e7e0db50b77f5291a5d7c2cfa7646808e5e2a91aace4b0be1b90ce33",
+        "request_bytes": 3017,
+        "request_id": null,
+        "response_bytes": 1318,
+        "response_payload": "TRACK_keys TIME_0 NOTE_ON_62 DURATION_1 VELOCITY_78\nTRACK_keys TIME_0 NOTE_ON_66 DURATION_1 VELOCITY_78\nTRACK_keys TIME_0 NOTE_ON_69 DURATION_1 VELOCITY_78\nTRACK_keys TIME_0 NOTE_ON_73 DURATION_1 VELOCITY_78\nTRACK_keys TIME_1 NOTE_ON_63 DURATION_1 VELOCITY_78\nTRACK_keys TIME_1 NOTE_ON_64 DURATION_1 VELOCITY_78\nTRACK_keys TIME_1 NOTE_ON_68 DURATION_1 VELOCITY_78\nTRACK_keys TIME_1 NOTE_ON_71 DURATION_1 VELOCITY_78\nTRACK_keys TIME_2 NOTE_ON_61 DURATION_1 VELOCITY_78\nTRACK_keys TIME_2 NOTE_ON_65 DURATION_1 VELOCITY_78\nTRACK_keys TIME_2 NOTE_ON_66 DURATION_1 VELOCITY_78\nTRACK_keys TIME_2 NOTE_ON_70 DURATION_1 VELOCITY_78\nTRACK_keys TIME_3 NOTE_ON_60 DURATION_1 VELOCITY_78\nTRACK_keys TIME_3 NOTE_ON_63 DURATION_1 VELOCITY_78\nTRACK_keys TIME_3 NOTE_ON_67 DURATION_1 VELOCITY_78\nTRACK_keys TIME_3 NOTE_ON_68 DURATION_1 VELOCITY_78\n--- GN SIDE LEDGER ---\nGN rv-out-1-1 keys 0 1 62 78\nGN rv-out-1-2 keys 0 1 66 78\nGN rv-out-1-3 keys 0 1 69 78\nGN rv-out-1-4 keys 0 1 73 78\nGN rv-out-2-1 keys 1 1 63 78\nGN rv-out-2-2 keys 1 1 64 78\nGN rv-out-2-3 keys 1 1 68 78\nGN rv-out-2-4 keys 1 1 71 78\nGN rv-out-3-1 keys 2 1 61 78\nGN rv-out-3-2 keys 2 1 65 78\nGN rv-out-3-3 keys 2 1 66 78\nGN rv-out-3-4 keys 2 1 70 78\nGN rv-out-4-1 keys 3 1 60 78\nGN rv-out-4-2 keys 3 1 63 78\nGN rv-out-4-3 keys 3 1 67 78\nGN rv-out-4-4 keys 3 1 68 78",
+        "response_payload_sha256": "d000a592120f1db3ca5dedaa6de26f9e146761072c350d9b848bbeaf5b9b9f53",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 1004,
+          "output_tokens": 3960,
+          "thinking_tokens": 3240
+        }
+      },
+      "planned_sequence": 576,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "bc7e2dfca6c13576b28d155933ed920ae42ec7afb5b4c3b4233dce350de32fdc",
+      "started_sequence": 13,
+      "task_sha256": "8874122036cd93dc0c83f0c37502b10a1819d0282f5a5225475f78565605f168",
+      "variant": 4003
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+      "completed_sequence": 14,
+      "continuation_sequence": 14,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 9,
+            "planned": 9,
+            "response_correct": 2,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00082875,
+          "total": 0.001002,
+          "uncached_input": 0.00017325
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2127.337,
+        "outer_schema_valid": true,
+        "prompt_bytes": 855,
+        "prompt_sha256": "0b5ac7d8fcba02f4ef1dd2d33a83e1e365bf46f0f2d64078a95bb41a42e48c9d",
+        "raw_response_sha256": "f7209089c1fd849cacaaf9faaad3686547316de030199f70430c4545400b191a",
+        "request_bytes": 1203,
+        "request_id": null,
+        "response_bytes": 572,
+        "response_payload": "BASE task\nSOURCE deterministic-generator\nOMITS channel mute release_velocity articulation expression\nN id=b1 voice=bass start=4 duration=1 pitch=46 velocity=80\nN id=b2 voice=bass start=5 duration=1 pitch=48 velocity=80\nN id=b3 voice=bass start=6 duration=1 pitch=46 velocity=80\nN id=b4 voice=bass start=7 duration=1 pitch=51 velocity=80\nN id=l1 voice=lead start=4 duration=1 pitch=70 velocity=84\nN id=l2 voice=lead start=5 duration=1 pitch=68 velocity=84\nN id=l3 voice=lead start=6 duration=1 pitch=65 velocity=84\nN id=l4 voice=lead start=7 duration=1 pitch=63 velocity=84",
+        "response_payload_sha256": "2dab0a60e168528d2f10e850c7a7d5416f0abd89dade2099f7deeb551dd63465",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 231,
+          "output_tokens": 221,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 577,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 2,
+      "semantic_sha256": "02bc52ff256a0c91e6b62a4f7b5144d7bc54f136606f5e5bf3b35f1bb6bc94c6",
+      "started_sequence": 14,
+      "task_sha256": "e9ac38db8e2413319f950c9963da16969206d33e227fb312322c3022cb31dbb1",
+      "variant": 4000
+    },
+    {
+      "arm": "exact-object-json",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+      "completed_sequence": 15,
+      "continuation_sequence": 15,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 9,
+            "planned": 9,
+            "response_correct": 2,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0014775,
+          "total": 0.00169725,
+          "uncached_input": 0.00021975
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2800.02,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1060,
+        "prompt_sha256": "67de40d14b281aa6b80093eecd842ae5a85676d4b790ae937a69529183020115",
+        "raw_response_sha256": "4c1958368cf68b113cb9512e85ac64cc09df5df42349fac34e48a76e13fe34bc",
+        "request_bytes": 1467,
+        "request_id": null,
+        "response_bytes": 977,
+        "response_payload": "{\"base_sha256\":\"4f8b9e6c2d1a7b3e5f0c9a8b7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e\",\"notes\":[{\"duration\":\"1\",\"id\":\"b1\",\"pitch\":39,\"start\":\"4\",\"velocity\":78,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"b2\",\"pitch\":44,\"start\":\"5\",\"velocity\":78,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"b3\",\"pitch\":46,\"start\":\"6\",\"velocity\":78,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"b4\",\"pitch\":51,\"start\":\"7\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"l1\",\"pitch\":66,\"start\":\"4\",\"velocity\":88,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"l2\",\"pitch\":68,\"start\":\"5\",\"velocity\":88,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"l3\",\"pitch\":70,\"start\":\"6\",\"velocity\":88,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"l4\",\"pitch\":75,\"start\":\"7\",\"velocity\":90,\"voice\":\"lead\"}],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"overlays\":{\"bars\":[],\"grooves\":[],\"harmonies\":[],\"meters\":[],\"regions\":[],\"tempos\":[],\"tracks\":[]},\"schema\":\"ghostnote-compact-format-v6\",\"source_id\":\"deterministic-harmony-v19\"}",
+        "response_payload_sha256": "7d73fd6aff8bc7ba1e735792f682d6ff963238365711af1e1a36f8ca891def91",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 293,
+          "output_tokens": 394,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 578,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 2,
+      "semantic_sha256": "02bc52ff256a0c91e6b62a4f7b5144d7bc54f136606f5e5bf3b35f1bb6bc94c6",
+      "started_sequence": 15,
+      "task_sha256": "e9ac38db8e2413319f950c9963da16969206d33e227fb312322c3022cb31dbb1",
+      "variant": 4000
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+      "completed_sequence": 16,
+      "continuation_sequence": 16,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 8,
+            "planned": 9,
+            "response_correct": 1,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": "The notation and side ledger disagree",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.000885,
+          "total": 0.001122,
+          "uncached_input": 0.000237
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2300.484,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1060,
+        "prompt_sha256": "292ceac94e8fdead4436068084e5058899d3ad077d045319e67bcf0e9af134f1",
+        "raw_response_sha256": "25e61727774cd295efb36d3cb7c624f9a51f33fe0f61df32a2d3cabfc55871f7",
+        "request_bytes": 1414,
+        "request_id": null,
+        "response_bytes": 325,
+        "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:lead.1\nz192 _e48 c48 _B48 _e48 |\nV:bass.1\nz192 _E48 _A,48 F,48 _E,48 |\n--- GN SIDE LEDGER ---\nGN n1 lead 4 1 75 80\nGN n2 lead 5 1 72 80\nGN n3 lead 6 1 70 80\nGN n4 lead 7 1 75 80\nGN n5 bass 4 1 51 80\nGN n6 bass 5 1 44 80\nGN n7 bass 6 1 41 80\nGN n8 bass 7 1 39 80",
+        "response_payload_sha256": "d446cfcbbbad7b01852b8d5a5c3c0861585b283c77ed922947328344aa0b0408",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 316,
+          "output_tokens": 236,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 579,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 2,
+      "semantic_sha256": "02bc52ff256a0c91e6b62a4f7b5144d7bc54f136606f5e5bf3b35f1bb6bc94c6",
+      "started_sequence": 16,
+      "task_sha256": "e9ac38db8e2413319f950c9963da16969206d33e227fb312322c3022cb31dbb1",
+      "variant": 4000
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336",
+      "completed_sequence": 17,
+      "continuation_sequence": 17,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 0.857143,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": false,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 6,
+              "perfect": false,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 6,
+            "case_planned": 7,
+            "correct": 7,
+            "planned": 9,
+            "response_correct": 1,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": "The Strudel payload has no notes",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.000975,
+          "total": 0.00122775,
+          "uncached_input": 0.00025275
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2365.865,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1165,
+        "prompt_sha256": "acb7c441fd6a5eaa005308343560f2ce7320f26751798536ce696ee23c6fd6bb",
+        "raw_response_sha256": "3c602ece6821d858fdc56b58ecd92ba544773a57356a8e23b2206f2f1f8d1835",
+        "request_bytes": 1520,
+        "request_id": null,
+        "response_bytes": 434,
+        "response_payload": "// Strudel v1.2.0 deterministic mini-notation subset\nsetcpm(60)\nstack(\n  note(\"eb2@1 g#2@1 bb2@1 eb2@1\").slow(4).sound(\"piano\"), // GN voice=bass lane=bass.1\n  note(\"eb4@1 c4@1 f4@1 eb4@1\").slow(4).sound(\"piano\") // GN voice=lead lane=lead.1\n)\n--- GN SIDE LEDGER ---\nGN n1 bass 4 1 39 76\nGN n2 bass 5 1 44 76\nGN n3 bass 6 1 46 76\nGN n4 bass 7 1 39 76\nGN n5 lead 4 1 63 84\nGN n6 lead 5 1 60 84\nGN n7 lead 6 1 65 84\nGN n8 lead 7 1 63 84",
+        "response_payload_sha256": "9ffb64c9869f8292f8fc65433d4384fb9ea832dabe99466d2a08b01baa780873",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 337,
+          "output_tokens": 260,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 580,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 2,
+      "semantic_sha256": "02bc52ff256a0c91e6b62a4f7b5144d7bc54f136606f5e5bf3b35f1bb6bc94c6",
+      "started_sequence": 17,
+      "task_sha256": "e9ac38db8e2413319f950c9963da16969206d33e227fb312322c3022cb31dbb1",
+      "variant": 4000
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+      "completed_sequence": 18,
+      "continuation_sequence": 18,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 8,
+            "planned": 9,
+            "response_correct": 1,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": "The LilyPond payload has no notes",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00108,
+          "total": 0.00131925,
+          "uncached_input": 0.00023925
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2533.386,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1087,
+        "prompt_sha256": "bb4b62fdce8a413b2bcfd7bcb80fabeaaea0ceb661d3c83b2125979dc4ccf706",
+        "raw_response_sha256": "e06f8afd7beffbdb5b9b5d6d6a2d7aa74bb871e67560d5428b3fa725f54270ed",
+        "request_bytes": 1446,
+        "request_id": null,
+        "response_bytes": 453,
+        "response_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"lead.1\" {\n      \\clef treble\n      \\time 4/4\n      r4*4\n      es'4*1 es'4*1 f'4*1 es'4*1\n    }\n    \\new Voice = \"bass.1\" {\n      \\clef bass\n      \\time 4/4\n      r4*4\n      ees4*1 c4*1 bes,4*1 ees4*1\n    }\n  >>\n}\n--- GN SIDE LEDGER ---\nGN n1 lead 4 1 63 84\nGN n2 lead 5 1 63 84\nGN n3 lead 6 1 65 84\nGN n4 lead 7 1 63 84\nGN n5 bass 4 1 51 84\nGN n6 bass 5 1 48 84\nGN n7 bass 6 1 46 84\nGN n8 bass 7 1 51 84",
+        "response_payload_sha256": "d786c2b1df645d94944c5fe9be628d7fb33e6a408c0b1d276783b0b4b27ccfc2",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 319,
+          "output_tokens": 288,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 581,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 2,
+      "semantic_sha256": "02bc52ff256a0c91e6b62a4f7b5144d7bc54f136606f5e5bf3b35f1bb6bc94c6",
+      "started_sequence": 18,
+      "task_sha256": "e9ac38db8e2413319f950c9963da16969206d33e227fb312322c3022cb31dbb1",
+      "variant": 4000
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+      "completed_sequence": 19,
+      "continuation_sequence": 19,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 9,
+            "planned": 9,
+            "response_correct": 2,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00234375,
+          "total": 0.0026445,
+          "uncached_input": 0.00030075
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 3013.969,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1427,
+        "prompt_sha256": "4997a899aea2a8ddefef5060465bd2732dd7cb4ab42b607de71e5a6b8b68d842",
+        "raw_response_sha256": "564282ff04516b2cdbd624dc06f29899dbc4f40b21ed21498d24db7ba88aad97",
+        "request_bytes": 1784,
+        "request_id": null,
+        "response_bytes": 1617,
+        "response_payload": "<score-partwise version=\"4.0\"><part-list><score-part id=\"P1\"><part-name>lead.1</part-name></score-part><score-part id=\"P2\"><part-name>bass.1</part-name></score-part></part-list><part id=\"P1\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>1</divisions></attributes><note><rest/><duration>4</duration><voice>1</voice></note><note><pitch><step>E</step><alter>-1</alter><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>E</step><alter>-1</alter><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>F</step><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>E</step><alter>-1</alter><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note></measure></part><part id=\"P2\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>1</divisions></attributes><note><rest/><duration>4</duration><voice>1</voice></note><note><pitch><step>E</step><alter>-1</alter><octave>3</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>C</step><octave>3</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>B</step><alter>-1</alter><octave>2</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>E</step><alter>-1</alter><octave>3</octave></pitch><duration>1</duration><voice>1</voice></note></measure></part></score-partwise>\n--- GN SIDE LEDGER ---\nGN n1 lead 4 1 75 84\nGN n2 lead 5 1 75 84\nGN n3 lead 6 1 77 84\nGN n4 lead 7 1 75 84\nGN n5 bass 4 1 51 84\nGN n6 bass 5 1 48 84\nGN n7 bass 6 1 46 84\nGN n8 bass 7 1 51 84",
+        "response_payload_sha256": "2eeac59f780170c8d7e7e67c4cf00669c30ce6fcc3e757f76d34909ce6775c6d",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 401,
+          "output_tokens": 625,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 582,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 2,
+      "semantic_sha256": "02bc52ff256a0c91e6b62a4f7b5144d7bc54f136606f5e5bf3b35f1bb6bc94c6",
+      "started_sequence": 19,
+      "task_sha256": "e9ac38db8e2413319f950c9963da16969206d33e227fb312322c3022cb31dbb1",
+      "variant": 4000
+    },
+    {
+      "arm": "midi-like-ghostnote-profile",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+      "completed_sequence": 20,
+      "continuation_sequence": 20,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": true,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 9,
+            "planned": 9,
+            "response_correct": 2,
+            "response_planned": 2
+          },
+          "diagnostic": null,
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": true
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00123,
+          "total": 0.0014355,
+          "uncached_input": 0.0002055
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2601.429,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1008,
+        "prompt_sha256": "711ef132d46b4e52d6f8854ba8dddafe4c718f3347834b6eb02bcbdede1b6b01",
+        "raw_response_sha256": "666b4661c9b93468582b5df896ddc6b2ece96d4f138e03fb0b042e44aecd42e8",
+        "request_bytes": 1355,
+        "request_id": null,
+        "response_bytes": 606,
+        "response_payload": "TRACK_bass TIME_4 NOTE_ON_51 DURATION_1 VELOCITY_80\nTRACK_lead TIME_4 NOTE_ON_75 DURATION_1 VELOCITY_84\nTRACK_bass TIME_5 NOTE_ON_48 DURATION_1 VELOCITY_80\nTRACK_lead TIME_5 NOTE_ON_72 DURATION_1 VELOCITY_84\nTRACK_bass TIME_6 NOTE_ON_46 DURATION_1 VELOCITY_80\nTRACK_lead TIME_6 NOTE_ON_70 DURATION_1 VELOCITY_84\nTRACK_bass TIME_7 NOTE_ON_51 DURATION_1 VELOCITY_80\nTRACK_lead TIME_7 NOTE_ON_75 DURATION_1 VELOCITY_84\n--- GN SIDE LEDGER ---\nGN n1 bass 4 1 51 80\nGN n2 lead 4 1 75 84\nGN n3 bass 5 1 48 80\nGN n4 lead 5 1 72 84\nGN n5 bass 6 1 46 80\nGN n6 lead 6 1 70 84\nGN n7 bass 7 1 51 80\nGN n8 lead 7 1 75 84",
+        "response_payload_sha256": "cb6343a0135b0284059cb752e4563f3e033d48a97df0912dc6bd990c23831e61",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 274,
+          "output_tokens": 328,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 583,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 2,
+      "semantic_sha256": "02bc52ff256a0c91e6b62a4f7b5144d7bc54f136606f5e5bf3b35f1bb6bc94c6",
+      "started_sequence": 20,
+      "task_sha256": "e9ac38db8e2413319f950c9963da16969206d33e227fb312322c3022cb31dbb1",
+      "variant": 4000
+    },
+    {
+      "arm": "compact-bar-fields",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+      "completed_sequence": 21,
+      "continuation_sequence": 21,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 9,
+            "planned": 9,
+            "response_correct": 2,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00063,
+          "total": 0.00080475,
+          "uncached_input": 0.00017475
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 1927.102,
+        "outer_schema_valid": true,
+        "prompt_bytes": 858,
+        "prompt_sha256": "2dadb8fec8b2117c9587d46f3a27391be5ae3ebbc582c5eadcdc3b70f3b94bff",
+        "raw_response_sha256": "5818ec15c7c2c85b37176839879a7cbef33ed413f1aa0452a411894a3d04c781",
+        "request_bytes": 1207,
+        "request_id": null,
+        "response_bytes": 314,
+        "response_payload": "BASE contract\nSOURCE deterministic-fixed-harmony\nOMITS channel mute release_velocity articulation expression\nFIELDS id voice start duration pitch velocity\nN n1 bass 4 1 51 80\nN n2 bass 5 1 48 80\nN n3 bass 6 1 46 80\nN n4 bass 7 1 51 80\nN n5 lead 4 1 70 85\nN n6 lead 5 1 72 85\nN n7 lead 6 1 70 85\nN n8 lead 7 1 75 85",
+        "response_payload_sha256": "3104c27f2c86705938d43e2977786e2bcb372821768ebed45d8fe4aafb46ea2f",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 233,
+          "output_tokens": 168,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 584,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 2,
+      "semantic_sha256": "02bc52ff256a0c91e6b62a4f7b5144d7bc54f136606f5e5bf3b35f1bb6bc94c6",
+      "started_sequence": 21,
+      "task_sha256": "e9ac38db8e2413319f950c9963da16969206d33e227fb312322c3022cb31dbb1",
+      "variant": 4000
+    },
+    {
+      "arm": "exact-object-json",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "5c849e5e24a42e3df71de94a225fec6f13a5274cad68baad71ad10660ddf0afd",
+      "completed_sequence": 22,
+      "continuation_sequence": 22,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 9,
+            "planned": 9,
+            "response_correct": 2,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00147375,
+          "total": 0.00169275,
+          "uncached_input": 0.000219
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2854.117,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1059,
+        "prompt_sha256": "4908d70ab10581a0a683cab3a586abc0d5457c62015a466432353c704ba9c611",
+        "raw_response_sha256": "9bae109896cd62208cc4500c9d5a7fdbb155bad8bfa7675433eaa032056677ab",
+        "request_bytes": 1466,
+        "request_id": null,
+        "response_bytes": 977,
+        "response_payload": "{\"base_sha256\":\"4b7d19c3ae7d1c68e146ef3e215fa1d4e41d8e1548a39bfa4501a35dc4ea25d1\",\"notes\":[{\"duration\":\"1\",\"id\":\"n1\",\"pitch\":49,\"start\":\"4\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"n2\",\"pitch\":46,\"start\":\"5\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"n3\",\"pitch\":47,\"start\":\"6\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"n4\",\"pitch\":49,\"start\":\"7\",\"velocity\":80,\"voice\":\"bass\"},{\"duration\":\"1\",\"id\":\"n5\",\"pitch\":68,\"start\":\"4\",\"velocity\":88,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"n6\",\"pitch\":70,\"start\":\"5\",\"velocity\":88,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"n7\",\"pitch\":71,\"start\":\"6\",\"velocity\":88,\"voice\":\"lead\"},{\"duration\":\"1\",\"id\":\"n8\",\"pitch\":73,\"start\":\"7\",\"velocity\":88,\"voice\":\"lead\"}],\"omits\":[\"channel\",\"mute\",\"release_velocity\",\"articulation\",\"expression\"],\"overlays\":{\"bars\":[],\"grooves\":[],\"harmonies\":[],\"meters\":[],\"regions\":[],\"tempos\":[],\"tracks\":[]},\"schema\":\"ghostnote-compact-format-v6\",\"source_id\":\"deterministic-harmony-v19\"}",
+        "response_payload_sha256": "fe27de9aee43fe71583b61f4f1bb2c158d13ff2b3d466a0b01c511d6697b2a64",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 292,
+          "output_tokens": 393,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 585,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "b6f99cb90d33b388afc7c4310d2da27e2afd9228bdb3c423f072e89fbdf70dab",
+      "started_sequence": 22,
+      "task_sha256": "05ca16cc7d1e0ab04712e816014a5f8449858e48bbfdf851fa26e1a9c3901a43",
+      "variant": 4001
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "340a31a0f1c1ead5311fb550cc150d26d9dd8413ae0c44aa5b8c9efc206719ea",
+      "completed_sequence": 23,
+      "continuation_sequence": 23,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 0.714286,
+              "case_id": "requirements",
+              "components": {
+                "cadence": false,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": false,
+                "voice_leading": true
+              },
+              "correct": 5,
+              "perfect": false,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 5,
+            "case_planned": 7,
+            "correct": 6,
+            "planned": 9,
+            "response_correct": 1,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": "The notation and side ledger disagree",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.000915,
+          "total": 0.00115125,
+          "uncached_input": 0.00023625
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2230.181,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1059,
+        "prompt_sha256": "d86d4c0dc3bc505a5486357382f8fe8362ec5674bb2ed41da47ff24b91632db2",
+        "raw_response_sha256": "1746360b7dc78c43881c536255dee88599f6528248fe374e5f2356a1309ce9d8",
+        "request_bytes": 1413,
+        "request_id": null,
+        "response_bytes": 336,
+        "response_payload": "%abc-2.1\nX:1\nT:Ghostnote generated benchmark\nL:1/48\nM:4/4\nK:C\nV:bass.1\n| z192 | _D48 _B,,48 _E,48 _D,48 |\nV:lead.1\n| z192 | _A48 _B48 _B48 _A48 |\n--- GN SIDE LEDGER ---\nGN n1 bass 4 1 49 80\nGN n2 bass 5 1 46 80\nGN n3 bass 6 1 39 80\nGN n4 bass 7 1 37 80\nGN n5 lead 4 1 68 84\nGN n6 lead 5 1 70 84\nGN n7 lead 6 1 70 84\nGN n8 lead 7 1 68 84",
+        "response_payload_sha256": "7b96c09cb4ce99597ad8d4e107b80e3ee802e0513db9d6972fa848a585a11a7f",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 315,
+          "output_tokens": 244,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 586,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "b6f99cb90d33b388afc7c4310d2da27e2afd9228bdb3c423f072e89fbdf70dab",
+      "started_sequence": 23,
+      "task_sha256": "05ca16cc7d1e0ab04712e816014a5f8449858e48bbfdf851fa26e1a9c3901a43",
+      "variant": 4001
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "174fc022859dc4c38307bb07bc5855b58498ced4485b59201dc83cc9972e1336",
+      "completed_sequence": 24,
+      "continuation_sequence": 24,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 0.714286,
+              "case_id": "requirements",
+              "components": {
+                "cadence": false,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": false,
+                "voice_leading": true
+              },
+              "correct": 5,
+              "perfect": false,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 5,
+            "case_planned": 7,
+            "correct": 6,
+            "planned": 9,
+            "response_correct": 1,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": "The notation and side ledger disagree",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00097125,
+          "total": 0.00122325,
+          "uncached_input": 0.000252
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2200.898,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1164,
+        "prompt_sha256": "d1696ac4ffe8aa19194690c7fae3892a63337abb3b7dbe1a362af8bf77d1f899",
+        "raw_response_sha256": "84832146f80d230665940d6246865b90383c5114a3bf36ff71fa7a2d566dcbed",
+        "request_bytes": 1519,
+        "request_id": null,
+        "response_bytes": 434,
+        "response_payload": "// Strudel v1.2.0 deterministic mini-notation subset\nsetcpm(60)\n$: note(\"~@4 cs2@1 fs2@1 gs2@1 cs2@1\").slow(8).sound(\"piano\") // GN voice=bass lane=bass.1\n$: note(\"~@4 f4@1 as4@1 b4@1 gs4@1\").slow(8).sound(\"piano\") // GN voice=lead lane=lead.1\n--- GN SIDE LEDGER ---\nGN n1 bass 4 1 37 84\nGN n2 bass 5 1 42 84\nGN n3 bass 6 1 44 84\nGN n4 bass 7 1 37 84\nGN n5 lead 4 1 65 84\nGN n6 lead 5 1 70 84\nGN n7 lead 6 1 71 84\nGN n8 lead 7 1 68 84",
+        "response_payload_sha256": "84772363ff62a870f12fba4610d20a985a0f3da098b14adc6364aa402355e077",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 336,
+          "output_tokens": 259,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 587,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "b6f99cb90d33b388afc7c4310d2da27e2afd9228bdb3c423f072e89fbdf70dab",
+      "started_sequence": 24,
+      "task_sha256": "05ca16cc7d1e0ab04712e816014a5f8449858e48bbfdf851fa26e1a9c3901a43",
+      "variant": 4001
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "9b2d8cbc368c0f1cfc8a514ed3e3f93303002962c66ba01f79fbcfd36105ea22",
+      "completed_sequence": 25,
+      "continuation_sequence": 25,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 0.714286,
+              "case_id": "requirements",
+              "components": {
+                "cadence": false,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": false,
+                "voice_leading": true
+              },
+              "correct": 5,
+              "perfect": false,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 5,
+            "case_planned": 7,
+            "correct": 6,
+            "planned": 9,
+            "response_correct": 1,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": "The LilyPond payload has no notes",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0010275,
+          "total": 0.001266,
+          "uncached_input": 0.0002385
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2202.542,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1086,
+        "prompt_sha256": "b719269f635640ef7c80562fd522ba2bd07595661d72d7ea8d6cec2e78b18fd3",
+        "raw_response_sha256": "72e3466a23e3e47800fae597efe831e9bf1c9d444d977c7fabf17c760c4dbbcc",
+        "request_bytes": 1445,
+        "request_id": null,
+        "response_bytes": 430,
+        "response_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" {\n      \\clef bass\n      \\skip 4*4\n      des4*1 bes,4*1 b,4*1 des4*1\n    }\n    \\new Voice = \"lead.1\" {\n      \\clef treble\n      \\skip 4*4\n      f'4*1 es'4*1 e'4*1 f'4*1\n    }\n  >>\n}\n--- GN SIDE LEDGER ---\nGN n1 bass 4 1 49 84\nGN n2 bass 5 1 46 84\nGN n3 bass 6 1 47 84\nGN n4 bass 7 1 49 84\nGN n5 lead 4 1 65 84\nGN n6 lead 5 1 63 84\nGN n7 lead 6 1 64 84\nGN n8 lead 7 1 65 84",
+        "response_payload_sha256": "26d760a9cd6ff0914c01f0b341301990625ee62af1d765a9857b6d61eb27f684",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 318,
+          "output_tokens": 274,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 588,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "b6f99cb90d33b388afc7c4310d2da27e2afd9228bdb3c423f072e89fbdf70dab",
+      "started_sequence": 25,
+      "task_sha256": "05ca16cc7d1e0ab04712e816014a5f8449858e48bbfdf851fa26e1a9c3901a43",
+      "variant": 4001
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "8b981db345c6bcdc586127e9a23594793a78e9c6ea4efae6ca418e23d5e01e1b",
+      "completed_sequence": 26,
+      "continuation_sequence": 26,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 9,
+            "planned": 9,
+            "response_correct": 2,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00236625,
+          "total": 0.00266625,
+          "uncached_input": 0.0003
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 4564.894,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1426,
+        "prompt_sha256": "ba2f177f64a535ac2bcba24c6afc917bd4ac483c8b1d133c259af71a6362ce2c",
+        "raw_response_sha256": "ee86e8fd045ebe56df99b04524ef4dfa1869d2d7d3c35d43ec5d603fbee00e7d",
+        "request_bytes": 1783,
+        "request_id": null,
+        "response_bytes": 1627,
+        "response_payload": "<score-partwise version=\"4.0\"><part-list><score-part id=\"P1\"><part-name>lead.1</part-name></score-part><score-part id=\"P2\"><part-name>bass.1</part-name></score-part></part-list><part id=\"P1\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>1</divisions></attributes><note><rest/><duration>4</duration><voice>1</voice></note><note><pitch><step>C</step><alter>1</alter><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>A</step><alter>1</alter><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>B</step><octave>4</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>C</step><alter>1</alter><octave>5</octave></pitch><duration>1</duration><voice>1</voice></note></measure></part><part id=\"P2\"><measure number=\"1\" implicit=\"yes\"><attributes><divisions>1</divisions></attributes><note><rest/><duration>4</duration><voice>1</voice></note><note><pitch><step>C</step><alter>1</alter><octave>3</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>F</step><alter>1</alter><octave>3</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>G</step><alter>1</alter><octave>3</octave></pitch><duration>1</duration><voice>1</voice></note><note><pitch><step>C</step><alter>1</alter><octave>3</octave></pitch><duration>1</duration><voice>1</voice></note></measure></part></score-partwise>\n--- GN SIDE LEDGER ---\nGN n1 lead 4 1 73 80\nGN n2 lead 5 1 70 80\nGN n3 lead 6 1 71 80\nGN n4 lead 7 1 73 80\nGN n5 bass 4 1 49 80\nGN n6 bass 5 1 54 80\nGN n7 bass 6 1 56 80\nGN n8 bass 7 1 49 80",
+        "response_payload_sha256": "00ea4142104280a86e2fb27e4f4ba0faf16e423792a3498c1d235db984ed0a4e",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 400,
+          "output_tokens": 631,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 589,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "b6f99cb90d33b388afc7c4310d2da27e2afd9228bdb3c423f072e89fbdf70dab",
+      "started_sequence": 26,
+      "task_sha256": "05ca16cc7d1e0ab04712e816014a5f8449858e48bbfdf851fa26e1a9c3901a43",
+      "variant": 4001
+    },
+    {
+      "arm": "midi-like-ghostnote-profile",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "e3243f3b4e010cb831c1cc5a97e5f104b1484d835bba8a99178004aa82861c65",
+      "completed_sequence": 27,
+      "continuation_sequence": 27,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 8,
+            "planned": 9,
+            "response_correct": 1,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": "MIDI-Like payload has no notes",
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": false
+          },
+          "structural_parse_pass": false,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.0011775,
+          "total": 0.00138225,
+          "uncached_input": 0.00020475
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2578.212,
+        "outer_schema_valid": true,
+        "prompt_bytes": 1007,
+        "prompt_sha256": "460d19b140dbd4161f457495e6cc150523ad0bd4a2b79d78fa48b49f91189c3a",
+        "raw_response_sha256": "c47d39965ae6ce1b483aea5ab634c3a4f2d955eb2886ed7ae903cf0b4c4df353",
+        "request_bytes": 1354,
+        "request_id": null,
+        "response_bytes": 606,
+        "response_payload": "TRACK_bass TIME_4 NOTE_ON_49 DURATION_1 VELOCITY_78 TRACK_bass TIME_5 NOTE_ON_46 DURATION_1 VELOCITY_78 TRACK_bass TIME_6 NOTE_ON_47 DURATION_1 VELOCITY_78 TRACK_bass TIME_7 NOTE_ON_49 DURATION_1 VELOCITY_78 TRACK_lead TIME_4 NOTE_ON_68 DURATION_1 VELOCITY_86 TRACK_lead TIME_5 NOTE_ON_70 DURATION_1 VELOCITY_86 TRACK_lead TIME_6 NOTE_ON_71 DURATION_1 VELOCITY_86 TRACK_lead TIME_7 NOTE_ON_73 DURATION_1 VELOCITY_86\n--- GN SIDE LEDGER ---\nGN n1 bass 4 1 49 78\nGN n2 bass 5 1 46 78\nGN n3 bass 6 1 47 78\nGN n4 bass 7 1 49 78\nGN n5 lead 4 1 68 86\nGN n6 lead 5 1 70 86\nGN n7 lead 6 1 71 86\nGN n8 lead 7 1 73 86",
+        "response_payload_sha256": "722f10164d6de6b9e481008ba889889b69d3b166bc25bac2a17aec4afde893db",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 273,
+          "output_tokens": 314,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 590,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "b6f99cb90d33b388afc7c4310d2da27e2afd9228bdb3c423f072e89fbdf70dab",
+      "started_sequence": 27,
+      "task_sha256": "05ca16cc7d1e0ab04712e816014a5f8449858e48bbfdf851fa26e1a9c3901a43",
+      "variant": 4001
+    },
+    {
+      "arm": "compact-bar-fields",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "266fdf654630bc672b5a7543c3928918cbc39eb8f4178a1f4c7002bab192a524",
+      "completed_sequence": 28,
+      "continuation_sequence": 28,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 9,
+            "planned": 9,
+            "response_correct": 2,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00064125,
+          "total": 0.00081525,
+          "uncached_input": 0.000174
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 2392.589,
+        "outer_schema_valid": true,
+        "prompt_bytes": 857,
+        "prompt_sha256": "77f79b19f31f74713492a357b7facd9d76a2d9466f7ea4d129c9cfc4438f227c",
+        "raw_response_sha256": "840067d517f3b46c7471f51410871e6cd3dfdc49facc9302c638f2ab625a1084",
+        "request_bytes": 1206,
+        "request_id": null,
+        "response_bytes": 315,
+        "response_payload": "BASE complete-symbolic-suite\nSOURCE fixed-harmony\nOMITS channel mute release_velocity articulation expression\nFIELDS id voice start duration pitch velocity\nN n1 bass 4 1 49 80\nN n2 bass 5 1 46 80\nN n3 bass 6 1 44 80\nN n4 bass 7 1 49 80\nN n5 lead 4 1 68 84\nN n6 lead 5 1 70 84\nN n7 lead 6 1 71 84\nN n8 lead 7 1 73 84",
+        "response_payload_sha256": "b570a4bee0655dfc16cbeea09210bd278336517307746648964385442ea127b0",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 232,
+          "output_tokens": 171,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 591,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "b6f99cb90d33b388afc7c4310d2da27e2afd9228bdb3c423f072e89fbdf70dab",
+      "started_sequence": 28,
+      "task_sha256": "05ca16cc7d1e0ab04712e816014a5f8449858e48bbfdf851fa26e1a9c3901a43",
+      "variant": 4001
+    },
+    {
+      "arm": "compact-bar-local-labels",
+      "attempted": true,
+      "budget_stopped": false,
+      "candidate_sha256": "7cb6c314525d31838b3b9bd1696f6482a2ac87896da4a392b9cd5813f5c7c19a",
+      "completed_sequence": 29,
+      "continuation_sequence": 29,
+      "family": "continuation-roles",
+      "initial": {
+        "kind": "initial",
+        "reason": null,
+        "score": {
+          "canonical_form_pass": false,
+          "cases": [
+            {
+              "accuracy": 1.0,
+              "case_id": "requirements",
+              "components": {
+                "cadence": true,
+                "no_collisions": true,
+                "ranges": true,
+                "role_density": true,
+                "starts": true,
+                "strong_beat_harmony": true,
+                "voice_leading": true
+              },
+              "correct": 7,
+              "perfect": true,
+              "planned": 7
+            }
+          ],
+          "component": {
+            "case_correct": 7,
+            "case_planned": 7,
+            "correct": 9,
+            "planned": 9,
+            "response_correct": 2,
+            "response_planned": 2
+          },
+          "diagnostic": {
+            "canonical_error": null,
+            "class": "component-or-conformance"
+          },
+          "response_components": {
+            "globally-unique-ids": true,
+            "notation-ledger-alignment": true
+          },
+          "structural_parse_pass": true,
+          "syntax_pass": false
+        },
+        "scored": true
+      },
+      "initial_call": {
+        "cost_reservation_usd": 0.054,
+        "cost_usd": {
+          "cached_input": 0.0,
+          "output": 0.00087375,
+          "total": 0.00104625,
+          "uncached_input": 0.0001725
+        },
+        "effective_request_settings": {
+          "max_output_tokens": 12000,
+          "thinking_level": "low"
+        },
+        "input_token_estimate": null,
+        "latency_ms": 3977.625,
+        "outer_schema_valid": true,
+        "prompt_bytes": 854,
+        "prompt_sha256": "06dcf3b7d2f21bf8e4dd443a30d1062ef0f1abecf3e81407250eb5973a9fe27b",
+        "raw_response_sha256": "c2afa15f25372bfbcb638efa3b98d0a28b1e9acf47d43b3d6ebc8c084b503053",
+        "request_bytes": 1202,
+        "request_id": null,
+        "response_bytes": 588,
+        "response_payload": "BASE lead-bass-suite\nSOURCE compact-bar-local-labels-v19\nOMITS channel mute release_velocity articulation expression\nN id=n1 voice=bass start=4 duration=1 pitch=37 velocity=80\nN id=n2 voice=bass start=5 duration=1 pitch=42 velocity=80\nN id=n3 voice=bass start=6 duration=1 pitch=47 velocity=80\nN id=n4 voice=bass start=7 duration=1 pitch=49 velocity=80\nN id=n5 voice=lead start=4 duration=1 pitch=68 velocity=84\nN id=n6 voice=lead start=5 duration=1 pitch=70 velocity=84\nN id=n7 voice=lead start=6 duration=1 pitch=71 velocity=84\nN id=n8 voice=lead start=7 duration=1 pitch=73 velocity=84",
+        "response_payload_sha256": "651e7ece5593a38ab81a52b0e916f00107d6cd8a2eb833d1b71dec21321fb4e2",
+        "retries": 0,
+        "returned_model": "gemini-3.8-flash",
+        "stop_reason": "STOP",
+        "usage": {
+          "cached_input_tokens": 0,
+          "input_tokens": 230,
+          "output_tokens": 233,
+          "thinking_tokens": 0
+        }
+      },
+      "planned_sequence": 592,
+      "provider_completed": true,
+      "repair": null,
+      "repair_call": null,
+      "repeat": 1,
+      "semantic_sha256": "b6f99cb90d33b388afc7c4310d2da27e2afd9228bdb3c423f072e89fbdf70dab",
+      "started_sequence": 29,
+      "task_sha256": "05ca16cc7d1e0ab04712e816014a5f8449858e48bbfdf851fa26e1a9c3901a43",
+      "variant": 4001
+    }
+  ],
+  "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r3",
+  "run_kind": "eight-arm-full-matrix-continuation-provider",
+  "run_plan_sha256": "716ed92d76f46683af1219baa4764e81f2383a62c428d05f8a7b9f5b91f0ea0f",
+  "schedule_complete": true,
+  "schedule_sha256": "aae00c91e2c990757f1bc5524b39672e0bd93e324d20e6a908b638ea1e8a48bf",
+  "schema": "ghostnote-symbolic-format-v5-continuation-v3",
+  "screen_sha256": "6687aff81fa6dcbdc017de2d2dd28d8571d8a36f651011ea22df81b880405b46",
+  "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+  "source_manifest_sha256": "4163fe4530e74ec7b99f8b70e2fef33db98bbe517d339493ffa2941fab3bdec0"
+}

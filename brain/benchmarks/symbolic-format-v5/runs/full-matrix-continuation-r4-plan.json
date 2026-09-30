@@ -1,0 +1,62 @@
+{
+  "approval": "pending",
+  "cost_guard": {
+    "cumulative_continuation_hard_limit_usd": 8.2,
+    "estimate_total_usd": 5.1,
+    "estimate_usd": {
+      "claude-haiku": 5.1
+    },
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.132
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 6.8
+    },
+    "maximum_total_cost_usd": 6.8,
+    "retained_continuation_cost_usd": {
+      "claude-haiku": 1.175156,
+      "gemini": 0.1151175
+    }
+  },
+  "effective_request_settings": {
+    "claude-haiku": {
+      "max_tokens": 24000,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    }
+  },
+  "explicit_repeat": {
+    "original_planned_sequence": 195,
+    "source_reason": "HTTPError: HTTP Error 503: Service Unavailable"
+  },
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001"
+  },
+  "pending": {
+    "claude-haiku": {
+      "calls": 398,
+      "original_planned_sequence_range": [195, 592],
+      "original_planned_sequences_sha256": "223d79d8503949c72409212dfa7b2794a9d0c79338d2709ac756f8005fe44387",
+      "schedule_sha256": "25676e40350be3b2f9060ead41cd700ab6dd20ee34d75b90f2e87a5c3e77f167"
+    }
+  },
+  "protocol_sha256": "a17afc37563da431a0dbe31d486f0cc8be983339ae8f26c54ea593b9330892d4",
+  "providers": ["claude-haiku"],
+  "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r4",
+  "run_kind": "eight-arm-full-matrix-continuation-plan",
+  "schema": "ghostnote-symbolic-format-v5-continuation-v4",
+  "sha256": "5fe41940c5a76d42cc1de74c2892c19062fe2e434d070fcb7fb68bc41a6c55ca",
+  "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+  "source_manifest_sha256": {
+    "claude-haiku": "ad34e71018688d5b79b35b9caedfdf7ddc86cf2963618ef4dd74fb3fd971c1a9"
+  },
+  "stopping_rule": {
+    "automatic_retries": 0,
+    "budget_stop": 1,
+    "repairs": 0,
+    "transport_failure": 1,
+    "unavailable_response": "retain and continue"
+  }
+}

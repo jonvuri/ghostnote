@@ -1,0 +1,12 @@
+{
+  "maximum_total_cost_usd": 0.916263,
+  "operator_statement": "I approve this run. Proceed.",
+  "protocol_sha256": "17efbf1441324e4f98ef542c10b1dae849d003784d1133ae49418c9deb3cbcd8",
+  "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r10",
+  "run_plan_sha256": "b5eb0c52e0aab800a6793ad75413915ad2a1935da57223710851a5f1bdf8921d",
+  "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+  "source_manifest_sha256": {
+    "claude-haiku": "d8cfe955dd7488db94db9a4d941a0bcfd9d4ed960c630bb19e89d95ae9483d33"
+  },
+  "status": "approved"
+}

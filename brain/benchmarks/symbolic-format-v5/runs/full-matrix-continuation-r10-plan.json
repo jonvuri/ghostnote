@@ -1,0 +1,55 @@
+{
+  "approval": "pending",
+  "cost_guard": {
+    "cumulative_continuation_hard_limit_usd": 8.9584205,
+    "cumulative_matrix_hard_limit_usd": 16.04678425,
+    "estimate_total_usd": 0.65,
+    "estimate_usd": {"claude-haiku": 0.65},
+    "maximum_call_cost_usd": {"claude-haiku": 0.132},
+    "maximum_provider_cost_usd": {"claude-haiku": 0.916263},
+    "maximum_total_cost_usd": 0.916263,
+    "retained_continuation_cost_usd": {
+      "claude-haiku": 7.92704,
+      "gemini": 0.1151175
+    },
+    "retained_matrix_cost_usd": 15.13052125
+  },
+  "effective_request_settings": {
+    "claude-haiku": {
+      "max_tokens": 24000,
+      "thinking": {"budget_tokens": 1024, "type": "enabled"}
+    }
+  },
+  "explicit_repeat": {
+    "original_planned_sequence": 559,
+    "source_reason": "IncompleteRead: IncompleteRead(87269 bytes read)"
+  },
+  "models": {"claude-haiku": "claude-haiku-4-5-20251001"},
+  "pending": {
+    "claude-haiku": {
+      "calls": 34,
+      "original_planned_sequence_range": [559, 592],
+      "original_planned_sequences_sha256": "eb48e27ebf2acecae24e3772053400da102a6a18157c0c995750efe60b730bd5",
+      "schedule_sha256": "48523988b742014403ecc3dca8ac4d615796981807d87e1df76186224d5a2658"
+    }
+  },
+  "protocol_sha256": "17efbf1441324e4f98ef542c10b1dae849d003784d1133ae49418c9deb3cbcd8",
+  "providers": ["claude-haiku"],
+  "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r10",
+  "run_kind": "eight-arm-full-matrix-continuation-plan",
+  "schema": "ghostnote-symbolic-format-v5-continuation-v10",
+  "sha256": "b5eb0c52e0aab800a6793ad75413915ad2a1935da57223710851a5f1bdf8921d",
+  "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+  "source_manifest_sha256": {
+    "claude-haiku": "d8cfe955dd7488db94db9a4d941a0bcfd9d4ed960c630bb19e89d95ae9483d33"
+  },
+  "stopping_rule": {
+    "budget_stop": 1,
+    "repairs": 0,
+    "retry_delays_seconds": [2, 4],
+    "transient_failures": ["HTTP 503", "TimeoutError"],
+    "transient_retries_per_request": 2,
+    "transport_failure": "Stop on the third transient failure for one endpoint request or on the first other transport failure.",
+    "unavailable_response": "retain and continue"
+  }
+}

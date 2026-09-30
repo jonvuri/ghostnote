@@ -1,0 +1,12 @@
+{
+  "maximum_total_cost_usd": 4.475808,
+  "operator_statement": "It has been more than 8 hours since the Claude availability issues and their status page shows green now. Go ahead and retry Claude, including the rows that failed due to the outage. I explicitly approve the retry run with this message, so proceed immediately; you do not need to get approval again when you are done preparing the retry.",
+  "protocol_sha256": "45de25446fac354b1c02d357fa20f557278e28eb7ccdaa0c90b90e11a53c2157",
+  "run_id": "phase8c4f-eight-arm-full-matrix-continuation-r8",
+  "run_plan_sha256": "a5fc42728bff6a886b77f4a18a65cf0519d04e044588dd86873a4e6e449282fc",
+  "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+  "source_manifest_sha256": {
+    "claude-haiku": "b7a28f1dfb9e884f5dd6eedbcab4dcee24b96e22bf647e5defbfd44244405eea"
+  },
+  "status": "approved"
+}

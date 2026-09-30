@@ -1,0 +1,15 @@
+{
+  "all_checks_pass": true,
+  "pending_calls": {
+    "claude-haiku": 398
+  },
+  "protocol_sha256": "678ff46f946b3f3ff4a213018cc84e455f49ec47ded64a354b925fd093aa82ab",
+  "run_plan_sha256": "8225bcc76095cdf3b46a9149a6fd41523d1c98db7b4b491476002eeb4427f989",
+  "schema": "ghostnote-symbolic-format-v5-continuation-v5",
+  "screen_sha256": "58a019ad0d74a124ea7459e8a410c9bce559bd0bf58724508f9f4ed8c11aa2a0",
+  "sha256": "bc06e89a03e7119deb2ff1a1e985cfbd88c91734e5e2ce2ed49fbe94d97e0ace",
+  "source_assessment_sha256": "2566c09c9025c953921286789303fc9cc70e67d9b8c22df2aefb548c4ee74095",
+  "source_manifest_sha256": {
+    "claude-haiku": "6153ca5b728412c59310459ee15213919f684682ba6041b0696f51d4e6ec050f"
+  }
+}
