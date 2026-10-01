@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-09-28
+updated: 2026-10-01
 ---
 
 # Decision index
@@ -35,7 +35,8 @@ with the original decision heading and preserves its amendments and rationale.
 | D21 | One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16, AMENDED 2026-08-18]** | [open](d21-musical-patch-and-public-tool-grain.md) |
 | D22 | Non-native plug-in preset loading is out of scope **[SETTLED 2026-09-12]** | [open](d22-non-native-plugin-preset-loading-is-out-of-scope.md) |
 | D23 | Normalized clip acquisition uses one `1/512` view **[SETTLED 2026-09-24]** | [open](d23-normalized-clip-acquisition-uses-one-1-512-view.md) |
-| D24 | Forward compact benchmarks retain `FIELDS` and local labels **[SETTLED 2026-09-28]** | [open](d24-forward-compact-benchmarks-retain-fields-and-local-labels.md) |
+| D24 | Forward compact benchmark candidates **[SUPERSEDED FOR FORWARD SELECTION BY D25]** | [open](d24-forward-compact-benchmarks-retain-fields-and-local-labels.md) |
+| D25 | FIELDS and JSON document format, rational timing, overlays, and publication **[SETTLED 2026-10-01]** | [open](d25-fields-json-document-format-and-publication.md) |
 
 ## Phase 4 closeout audit
 

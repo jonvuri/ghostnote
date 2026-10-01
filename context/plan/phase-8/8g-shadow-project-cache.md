@@ -3,9 +3,9 @@ title: Phase 8g — Shadow project cache
 kind: plan
 state: planned
 status: Implement the measured cache behind an experimental boundary while E131 remains authoritative.
-updated: 2026-09-25
+updated: 2026-10-01
 parent: README.md
-prev: 8f-consolidated-compact-bar-and-cache-contracts.md
+prev: 8f3-ghostnote-bindings-and-cache-contracts.md
 next: 8h-cache-promotion-and-interface-simplification.md
 evidence: E130-E134; D23
 ---
@@ -18,6 +18,14 @@ Implement the project-wide persistent occupancy cache without changing stable
 read or write authority. Compare every eligible cache result with the existing
 reader and exercise the lifecycle, limits, and fallback rules selected in
 8d through 8f.
+
+## Entry
+
+Start after [8f3](8f3-ghostnote-bindings-and-cache-contracts.md) accepts the
+host binding, normalized timing rules, cache contract, and shadow corpus.
+The [8f2 codec](8f2-reference-codec-and-model-format-reference.md) supplies
+I/O projection when needed. Internal cache storage uses domain types.
+Overlay content dependencies must not survive a changed source as current facts.
 
 ## Implementation boundary
 

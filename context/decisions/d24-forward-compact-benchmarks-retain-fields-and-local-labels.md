@@ -1,11 +1,23 @@
 ---
 id: D24
 kind: decision
-state: active
+state: superseded
 source: phase-8c4c-operator-selection
+updated: 2026-10-01
+superseded_by: D25
 ---
 
 # D24 — Forward compact benchmarks retain `FIELDS` and local labels **[SETTLED 2026-09-28]**
+
+## Amendment on 2026-10-01
+
+[D25](d25-fields-json-document-format-and-publication.md) selects FIELDS and
+JSON and opens Phase 8f. It supersedes this forward candidate policy. The
+selection history below remains the evidence basis for the earlier runs.
+The fresh matrix JSON arm uses the same omitted fields as compact; the
+historical complete-state description below does not apply to that arm.
+
+## Original selection
 
 Retain two compact music-document candidates in forward Phase 8c work:
 

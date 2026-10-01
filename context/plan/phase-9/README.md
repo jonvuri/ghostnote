@@ -3,7 +3,7 @@ title: Phase 9 — Breadth and release
 kind: plan
 state: planned
 status: Start after Phase 8 accepts the agent-native engine and publication candidates.
-updated: 2026-09-25
+updated: 2026-10-01
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
 ---
@@ -74,10 +74,14 @@ product commitment:
 - **The device / param-ID catalog** — mechanically generated from the app bundle,
   and the exact gap WigAI issue #15 describes.
 - **The extension itself**, if the daemon and MCP surface prove stable.
-- **The compact-bar specification**, if Phase 8 accepts its conformance corpus,
-  comparison package, live behavior, and declared loss. Publication needs a
-  separate [publication review](9b-compact-bar-publication-review.md) and
-  explicit approval.
+- **The version 1.0 FIELDS/JSON format package**, selected by
+  [D25](../../decisions/d25-fields-json-document-format-and-publication.md).
+  [9b](9b-compact-bar-publication-review.md) owns the specification, reference
+  codec, model format reference, conformance corpus, examples, and benchmark
+  results and reproduction. The
+  [product review](../../evidence/format/FORMAT_BENCHMARK_PRODUCT_REVIEW.md)
+  starts its README. Phase 8i must accept the live use and exact publication
+  candidates. External release needs approval of the prepared package.
 
 ### Packaging & hygiene
 

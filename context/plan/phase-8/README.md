@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: The diagnostic and adjudicated assessment are complete; format choice is pending.
-updated: 2026-09-30
+status: D25 selects FIELDS and JSON. Phase 8f1 is ready; 8f2 and 8f3 follow.
+updated: 2026-10-01
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -23,9 +23,11 @@ measured failure. Keep stronger safeguards for destructive, ambiguous, or
 hard-to-observe changes. Prefer a small coherent surface, low latency, and low
 token use over a self-contained workstation abstraction.
 
-Build one normalized musical document and a fast project-wide clip cache. Keep
-their boundaries separate: the cache is internal observed state; the selected
-document is the agent-facing musical language.
+Build one normalized musical document and a fast project-wide clip cache.
+[D25](../../decisions/d25-fields-json-document-format-and-publication.md)
+selects FIELDS for model I/O and JSON or equivalent objects near that boundary.
+Other internal types suit their domains. The cache holds observed state. The
+document supplies the model language, with rational timing and optional overlays.
 
 ## Entry condition
 
@@ -256,9 +258,10 @@ owns the migration details.
    unavailable. A sampled audit removed one invalid analysis component and
    hardened ID-neutral revoice alignment without new provider calls. `FIELDS`
    is smaller and more accurate across the combined provider aggregates.
-21. [8c4f — Full-matrix decision and optional rerun](8c4f-full-matrix-decision.md).
-   Let the operator approve the fresh matrix, proceed with an explicit evidence
-   limit, or stop.
+21. [8c4f — Format selection closeout](8c4f-full-matrix-decision.md).
+   Complete. The full matrix and adjudicated addendum informed the operator
+   selection in D25. The archived outcome preserves the earlier gate policy.
+   This explicit product decision opens 8f without changing frozen verdicts.
 22. [8c4f follow-up — Extensible matrix and external-format probe](8c4f-extensible-matrix-and-external-probe.md).
    [E197](../../evidence/experiments/e197-extensible-matrix-and-external-probe-await-approval.md)
    records the reusable adapter package, external-notation review, passing
@@ -305,7 +308,7 @@ owns the migration details.
    [E208](../../evidence/experiments/e208-complete-matrix-audit-finds-reusable-measurement-repairs.md)
    records the sampled audit and measurement defects.
    [E209](../../evidence/experiments/e209-offline-score-repair-updates-eight-arm-matrix.md)
-   records the corrected offline aggregate. The format choice remains open.
+   records the corrected offline aggregate. Format choice was still open at that point.
    [The native versus composite diagnostic](8c4f-native-versus-composite-diagnostic.md)
    freezes 576 calls with a USD 7.332722 estimate and USD 10.75 hard limit.
    [E210](../../evidence/experiments/e210-native-composite-diagnostic-awaits-approval.md)
@@ -313,7 +316,7 @@ owns the migration details.
    [E211](../../evidence/experiments/e211-native-composite-diagnostic-closes-with-two-providers.md)
    records the diagnostic and operator decision to close with two providers.
    OpenAI and Gemini completed all 192 calls. Claude results were removed.
-   No Claude recovery is planned. Format choice remains pending.
+   No Claude recovery is planned. The later D25 records format selection.
    [E212](../../evidence/experiments/e212-full-grammar-audit-measures-native-composite-asymmetries.md)
    records eight public grammar audits of all 240 unique note outputs.
    Native profile failures recover partial credit. Composite ledger scores
@@ -322,8 +325,12 @@ owns the migration details.
    integrates the adjudications into all 48 paired cells. Both note conditions
    use notation scores. Analysis scores remain unchanged; repeats are excluded.
    The original assessment and separate ledger scores remain available.
-26. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
-   Settle the public musical document and the separate internal cache boundary.
+26. [8f — Document format and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
+   Opened by D25. Complete [8f1](8f1-document-model-and-v1-specification.md)
+   for the version 1.0 specification, [8f2](8f2-reference-codec-and-model-format-reference.md)
+   for the codec, corpus, and model format reference, then
+   [8f3](8f3-ghostnote-bindings-and-cache-contracts.md) for the host binding,
+   overlay lifecycle, migration, and cache contracts. Stable integration stays in 8h.
 27. [8g — Shadow project cache](8g-shadow-project-cache.md).
    Implement the cache behind an experimental boundary while E131 remains
    authoritative.
@@ -361,8 +368,11 @@ owns the migration details.
 - Clip identity, invalidation, structural rebuild, project-change, and restart
   behavior are explicit.
 - Product cache limits and degradation behavior are explicit and tested.
-- The consolidated compact-bar contract has a versioned grammar, loss model,
-  conformance corpus, and migration decision.
+- The version 1.0 document contract has FIELDS and JSON encodings, a grammar,
+  schema, reference codec, model format reference, conformance corpus, and
+  migration decision. Both encodings preserve supported patches and overlays.
+- Rational timing, normalized acquisition loss, and overlay provenance and
+  invalidation rules are explicit. Codec conversion adds no acquisition loss.
 - The cache passes shadow comparison and is promoted only within proved health
   and coverage states.
 - The simplified surface improves measured latency, calls, or tokens without
@@ -374,5 +384,8 @@ owns the migration details.
 ## Phase 9 handoff
 
 [Phase 9](../phase-9/README.md) owns breadth and external publication review.
-The existing `bwmod` review moves there. A compact-bar publication review can
-start only after 8i accepts the specification and conformance package.
+The existing `bwmod` review remains there.
+[9b](../phase-9/9b-compact-bar-publication-review.md) packages the accepted
+format, tooling, model reference, and benchmark reproduction evidence after
+8i. The product review is the starting point for its README. The 8i handoff
+names exact artifact versions, hashes, licenses, and remaining limits.

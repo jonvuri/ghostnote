@@ -2,11 +2,18 @@
 title: Compact-bar limitations and publication gaps
 kind: reference
 state: active
-updated: 2026-09-28
+updated: 2026-10-01
 parent: COMPACT_BAR_RATIONALE.md
 ---
 
 # Compact-bar limitations and publication gaps
+
+[D25](../../decisions/d25-fields-json-document-format-and-publication.md)
+selects FIELDS and JSON and opens the version 1.0 work in
+[Phase 8f](../../plan/phase-8/8f-consolidated-compact-bar-and-cache-contracts.md).
+The historical exact-JSON complete-state claims below concern earlier arms.
+The fresh matrix JSON arm omits the same five fields as compact. Phase 8f1
+will settle the product coverage.
 
 The
 [symbolic benchmark design backlog](SYMBOLIC_BENCHMARK_DESIGN_BACKLOG.md)
@@ -102,11 +109,11 @@ patch boundary, not full-format interchange.
 
 ## Required changes before a public specification
 
-Phase 8c2 must develop compact candidates and select them on a fresh targeted
-holdout. Phase 8c3 must test the selected candidates on a fresh full matrix.
-Phase 8f must then complete this list:
+The operator has reviewed the completed benchmark sequence and selected the
+direction in D25. Phase 8f must complete this list through its specification,
+codec, and host-binding sessions:
 
-1. Select one versioned grammar or object schema and canonical renderer.
+1. Define one model with a FIELDS grammar, JSON schema, and canonical serializers.
 2. Apply the D23 `1/512` identity and loss rules to live normalized state.
 3. Define complete-document and sparse-patch forms in one language.
 4. Define every field, unit, default, omission, and preservation rule.
@@ -117,5 +124,6 @@ Phase 8f must then complete this list:
 9. Recheck byte and provider-token targets on the selected syntax.
 10. Keep the internal project cache outside the public music document.
 
-Phase 9b must later review sources, fixture rights, versioning, compatibility,
-and the complete publication package. Phase 8c publishes nothing.
+[Phase 9b](../../plan/phase-9/9b-compact-bar-publication-review.md) reviews
+sources, fixture rights, versioning, compatibility, and the complete public
+package after 8i accepts its live use. Phase 8 prepares artifacts for that review.

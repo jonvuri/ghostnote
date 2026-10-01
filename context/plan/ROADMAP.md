@@ -2,7 +2,7 @@
 title: ghostnote roadmap
 kind: plan
 state: active
-updated: 2026-09-25
+updated: 2026-10-01
 ---
 
 # Roadmap
@@ -18,8 +18,8 @@ updated: 2026-09-25
 | [First dogfood loop](dogfooding/README.md) | deferred | Historical results remain; Phase 7 owns the next dogfood loop |
 | [6 — music workstation exploration](phase-6/README.md) | done | Contracts and verification costs audited; Phase 7 implementation followed |
 | [7 — workstation dogfood](phase-7/README.md) | done | Focused modules, hybrid dogfood, and the played-range follow-up pass |
-| [8 — agent-native live engine](phase-8/README.md) | active | Simplify the posture and surface, settle compact-bar, and build the project cache |
-| [9 — breadth and release](phase-9/README.md) | planned | Review publication and add useful breadth after the agent-native core settles |
+| [8 — agent-native live engine](phase-8/README.md) | active | Build the FIELDS/JSON 1.0 contract, codec, model reference, and host/cache integration |
+| [9 — breadth and release](phase-9/README.md) | planned | Package the selected format and benchmark evidence; add useful breadth after Phase 8 |
 
 ## Cross-phase work
 

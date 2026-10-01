@@ -1,131 +1,97 @@
 ---
-title: Phase 8f — Consolidated compact-bar and cache contracts
+title: Phase 8f — Document format and cache contracts
 kind: plan
 state: planned
-status: Blocked until Phase 8c4f records the final compact-bar evidence decision.
-updated: 2026-09-28
+status: Opened by D25. Complete 8f1, 8f2, and 8f3 before shadow cache implementation.
+updated: 2026-10-01
 parent: README.md
 prev: 8c4f-full-matrix-decision.md
 next: 8g-shadow-project-cache.md
-evidence: E109, E114-E121, E128-E140, E174-E177; D21, D23-D24
+evidence: E109, E114-E121, E128-E139, E209, E212-E213; D21, D23, D25
 ---
 
-# Phase 8f — Consolidated compact-bar and cache contracts
+# Phase 8f — Document format and cache contracts
 
-Phase 8f is blocked until
-[Phase 8c4f](8c4f-full-matrix-decision.md) records one of these decisions:
+## Entry and purpose
 
-- a fresh full matrix returns `proceed`; or
-- the operator explicitly proceeds without that matrix and accepts the stated
-  evidence limit after a passing two-candidate full benchmark.
+[D25](../../decisions/d25-fields-json-document-format-and-publication.md)
+selects FIELDS and JSON after operator review of the completed benchmark work.
+It opens this phase through an explicit product decision with evidence limits.
+The [8c4f closeout](8c4f-full-matrix-decision.md) retains the history.
+Do not infer a new frozen benchmark pass from this decision.
 
-A Phase 8c4 development or holdout result alone is not sufficient to freeze a
-public syntax. If the matrix is skipped, Phase 8f must not claim that compact
-beat the Phase 8c3 arms on paired fresh evidence.
+Create one version 1.0 document model with lossless FIELDS and JSON encodings
+for exact model note and rhythm communication. Prefer FIELDS for model I/O.
+Use JSON or equivalent native objects near that boundary. Other internal types
+must suit their domains. Settle the separate host binding and cache contract.
 
-## Purpose
+## Session order
 
-Settle one normalized agent-facing clip document for reads, theory, complete
-desired state, and sparse patches. Separately settle the internal cache
-contract that supplies observed state.
+| Session | Work | Required handoff |
+|---|---|---|
+| [8f1](8f1-document-model-and-v1-specification.md) | Shared semantics, grammar, JSON schema, rational timing, and overlays | Version 1.0 specification and conformance case inventory |
+| [8f2](8f2-reference-codec-and-model-format-reference.md) | Reference codec, canonicalization, tests, and model format reference | Tested library, corpus, examples, format card, and size measurements |
+| [8f3](8f3-ghostnote-bindings-and-cache-contracts.md) | Host mappings, identity, overlay lifecycle, migration, verification, and cache contracts | Explicit contracts and cases for 8g, 8h, and 8i |
 
-Do not expose observer handles, dirty queues, stale proxy indices, or rebuild
-mechanics as musical syntax. Do not let agent-facing text become authoritative
-host state.
+Start each child after the preceding handoff meets its acceptance criteria.
+Revise specification and implementation together when a later child exposes
+a concrete defect. Version 1.0 is the target specification; external release
+and standalone packaging remain in Phase 9b.
 
-## Compact-bar decisions
+## Common requirements
 
-Resolve the open questions in the
-[consolidated compact-bar direction](../../evidence/format/CONSOLIDATED_COMPACT_BAR.md):
+- One event identity set owns realized note state. Complete documents and
+  sparse patches have deterministic default, clearing, and preservation rules.
+- Both encodings preserve all supported notes, metadata, coverage, patches,
+  and overlays. Empty clips are supported.
+- Timing uses exact rational strings. Realized note timing is normalized to
+  the accepted `1/512` plane at acquisition/import. Codec conversion is lossless
+  after that boundary. Nominal rhythmic intent can retain unrestricted rationals.
+- D23 remains accepted. Duration rounding and minimum-duration behavior must
+  be specified. Existing low-level D9 behavior changes only through an explicit
+  migration and live acceptance gate.
+- Optional overlays cover nominal rhythm, groove, harmony, roles and motifs,
+  meter, tempo, and regions. They have stable references, dependencies, and
+  provenance. Removing an overlay leaves notes unchanged. Edits must preserve,
+  recompute, invalidate, or remove interpretations under defined rules.
+- The model format reference is versioned and checked against the specification.
+  Its examples pass the reference codec. Include overlay vocabulary only when
+  needed by the task.
+- All fields have declared authority, coverage, defaults, and writability.
+  The benchmark's omissions do not decide the product's field coverage.
+- The public document keeps internal observer, queue, and proxy mechanics out
+  of musical syntax. Useful coverage and health facts remain visible.
 
-- final text or object syntax and version identifier;
-- normalized start and duration rules;
-- declared D23 loss and unsupported shapes;
-- complete-document and sparse-patch forms;
-- final public Launcher-clip read name and single-clip or bounded-batch
-  cardinality; select `read_launcher_clip` or `read_launcher_clips`;
-- absent-field, default, and preservation semantics;
-- clip references and logical event IDs;
-- event remapping after human edits;
-- supported metadata and all MIDI channels;
-- expression, pressure, recurrence, and read-only fields;
-- conflict and ambiguity reports;
-- independent observation and readback projection; and
-- migration from the current exact-source, context-v0, and note-patch-v0 split.
+## Verification and evidence
 
-Use the 8c comparison to explain each unusual syntax or semantic choice. Use
-the 8d lifecycle evidence for identity and restart behavior. Use the 8e limits
-for coverage declarations and fallback.
+Map every normative rule to a conformance fixture. Check both encodings,
+canonical hashes, patch behavior, timing normalization, overlay lifecycle,
+invalid inputs, and relevant historical failure cases. Adapt retained cases
+explicitly; do not rewrite frozen benchmark packages.
 
-## Cache contract decisions
+Keep provider-dependent music results separate from language conformance.
+Measure the new model reference and examples for size. Any paid model check
+requires a new bounded plan and approval. No new selection matrix is required.
 
-Define internal types and invariants for:
+Use 8d and 8e evidence for lifecycle and limits. Focused live checks in 8f3
+may settle an unresolved binding rule. Restore their fixtures to baseline.
+Implementation and promotion of the cache remain in 8g and 8h.
 
-- project generation and structural epochs;
-- logical clip reference, current address, content generation, and fingerprint;
-- observer binding and normalized coverage;
-- occupied and dirty coordinates;
-- channel reconciliation and enriched fields;
-- healthy, warming, rebuilding, partial, overflow, and invalid states;
-- incremental repair and complete rebuild;
-- immutable read snapshots; and
-- exact fallback and diagnostic comparison.
+## Exit criteria
 
-The cache contract must expose enough health and coverage for callers to avoid
-using incomplete state. It must not expose probe-only timing details to agents.
+All three child sessions meet their criteria. The specification, codec,
+conformance corpus, model reference, host mappings, migration decisions, and
+cache contracts have explicit owners. Pure checks, context links, and diff
+checks pass. Any necessary live evidence includes cleanup.
 
-## Verification posture
-
-Apply the risk tiers selected by 8a. Define the minimum evidence for:
-
-- read-only normalized state;
-- a sparse patch against a fresh base;
-- an observable bounded edit;
-- a destructive or structurally ambiguous change; and
-- a computer-use mutation followed by reacquisition.
-
-State whether directed reversal remains required for each supported write
-class. Do not retain a complete-candidate, stash, or readback step without a
-named risk and consumer.
-
-## Publication-preparation outputs
-
-- A versioned compact-bar specification draft.
-- A grammar or strict schema and canonical rendering rules.
-- A conformance corpus with valid and invalid examples.
-- A loss, defaults, conflict, and identity reference.
-- A prior-art comparison linked to the 8c benchmark.
-- A cache contract and state-machine reference.
-- A compatibility and migration note for existing experimental formats.
-- Updated decisions for any superseded identity, fidelity, or reversal rule.
-
-Rerun the deterministic 8c corpus against the selected contract. Run the remote
-model comparison again when access is available. Do not make provider results
-part of language conformance.
-
-## Acceptance criteria
-
-- One agent-facing event identity set owns realized musical state.
-- Complete and sparse forms have deterministic preservation semantics.
-- All represented fields have explicit authority, default, and writability.
-- Normalization loss and ambiguous host state are visible.
-- Clip and event identities have session, restart, and ambiguity rules.
-- Cache coverage and health cannot be mistaken for complete state.
-- The public document contains no internal observer or proxy mechanics.
-- The public Launcher-clip read name and request cardinality have one documented
-  choice. The name does not imply Arranger-clip support.
-- The existing v0 formats have an explicit retain, migrate, or retire decision.
-- The conformance corpus, canonical hashes, context check, and diff check pass.
-- The result is publication-ready documentation, not an external publication.
-
-## Out of scope
-
-- Product cache implementation.
-- Stable public-tool migration.
-- External publication or compatibility promises.
+Hand [8g](8g-shadow-project-cache.md) its shadow contract,
+[8h](8h-cache-promotion-and-interface-simplification.md) its integration and
+migration contract, and [8i](8i-agent-native-hybrid-dogfood.md) its fresh agent
+trials. Earmark accepted artifacts for
+[9b](../phase-9/9b-compact-bar-publication-review.md).
 
 ## Retrospective target
 
-Record which contract decision required live host evidence and which was only a
-language-design choice. Do not use cache implementation convenience as the sole
-reason for public syntax.
+Record which requirement needed host evidence and which was a language-design
+choice. Keep acquisition loss, codec conformance, and musical task errors
+separate in the handoff.

@@ -3,11 +3,11 @@ title: Phase 8h — Cache promotion and interface simplification
 kind: plan
 state: planned
 status: Promote only proved cache states and apply the 8a product reductions over the replacement route.
-updated: 2026-09-25
+updated: 2026-10-01
 parent: README.md
 prev: 8g-shadow-project-cache.md
 next: 8i-agent-native-hybrid-dogfood.md
-evidence: E119-E135; D18, D23
+evidence: E119-E135, E209, E213; D18, D23, D25
 ---
 
 # Phase 8h — Cache promotion and interface simplification
@@ -17,6 +17,21 @@ evidence: E119-E135; D18, D23
 Make proved cache reads part of the live engine, connect the consolidated
 compact-bar document, and simplify the agent surface according to the 8a
 posture. Keep explicit fallback for states that the cache cannot cover.
+
+## Document integration prerequisites
+
+Use the [8f1 specification](8f1-document-model-and-v1-specification.md),
+[8f2 codec and model reference](8f2-reference-codec-and-model-format-reference.md),
+and [8f3 host and migration contracts](8f3-ghostnote-bindings-and-cache-contracts.md).
+Prefer FIELDS for exact model note/rhythm reads and proposals. Use the shared
+JSON-equivalent model near I/O; other internal types suit their domains.
+
+Integrate complete documents, sparse patches, and optional overlays through
+the reference codec. Apply normalization only at declared boundaries. Test
+field preservation, source guards, overlay invalidation, and independent
+normalized readback. Include the versioned model reference through the prompt
+or skill entry point selected for the surface. The agent must not need a
+repository tutorial.
 
 ## Promotion stages
 
@@ -119,7 +134,11 @@ failure it covered, the replacement evidence, and the measured saved work.
 - Cache authority is limited to explicit healthy and complete states.
 - Every unhealthy, partial, or over-limit state takes the documented fallback
   or refuses clearly.
-- Consolidated compact-bar reads and patches use the 8f contract and corpus.
+- Exact model note/rhythm I/O uses the selected FIELDS/JSON contract and
+  reference codec. Complete documents, patches, and overlays pass its corpus.
+- Field preservation and overlay lifecycle match 8f3 under accepted live edits.
+- The model reference version matches the codec and examples. Timing is rational
+  at the document boundary; conversion does not add normalization loss.
 - Every retired tool, format, method, and check has a migration or explicit
   incompatibility record.
 - Device A/B audition and collapse use the documented generic layer-chain

@@ -2,7 +2,7 @@
 title: Consolidated compact-bar direction
 kind: design exploration
 state: active
-updated: 2026-09-27
+updated: 2026-10-01
 scope: one normalized agent-facing clip representation for analysis, reads, and writes
 evidence: E16s, E19, E24, E51-E54, E114-E121, E128-E140; D23
 ---
@@ -11,12 +11,12 @@ evidence: E16s, E19, E24, E51-E54, E114-E121, E128-E140; D23
 
 ## Status
 
-This document records the current design direction. It is not an implemented
-contract. Details can change as practical host work supplies new evidence.
-
-E140 keeps this contract blocked. Phase 8c2 must develop and hold out compact
-candidates. Phase 8c3 must then test them on a fresh full matrix before Phase
-8f can freeze a public syntax.
+This document records the design exploration and host evidence.
+[D25](../../decisions/d25-fields-json-document-format-and-publication.md) now
+selects FIELDS and JSON, rational-only timing, and optional stable overlays.
+The current work is [8f1](../../plan/phase-8/8f1-document-model-and-v1-specification.md),
+then the reference codec and host bindings. The earlier E140 block is historical.
+The illustrative syntax and open questions below are not a version 1.0 contract.
 
 The main direction is selected:
 
@@ -327,7 +327,9 @@ implements the cache in shadow mode before promotion.
 
 ## Unsettled questions
 
-- The final text or object syntax.
+- The version 1.0 FIELDS grammar and equivalent JSON schema details.
+- Duration normalization and minimum-duration rules under the rational-only contract.
+- Stable overlay identity, dependencies, and invalidation in both encodings.
 - The exact sparse-default and preservation rules.
 - The complete patch vocabulary and conflict report.
 - Event identity behavior after human note edits.

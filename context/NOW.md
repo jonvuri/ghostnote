@@ -2,54 +2,50 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-09-30
+updated: 2026-10-01
 phase: phase-8-agent-native-live-engine
-session: phase8c4f-adjudicated-score-integration
+session: phase8f-plan-freeze
 ---
 
 # Now
 
-[The adjudicated assessment](evidence/experiments/e213-audit-adjudications-update-native-composite-scoring.md)
-is complete. It integrates the 240 unique note-output adjudications into
-notation scores for both conditions. It keeps 48 unique analysis scores
-unchanged and excludes 96 sentinel repeats. All 48 paired cells were recomputed.
-Across all six families, component accuracy is 75.22 percent native and 73.11
-percent composite. Prompt means are 69.83 and 67.86 percent. Strict successes
-are 31/144 and 33/144. The new assessment hash is
-`bc4f59c80ce41c2aa25dc1901f009cea67b5e2a87a7b8e075731d1c6b8263b14`.
+[D25](decisions/d25-fields-json-document-format-and-publication.md) records the
+operator selection: one document model with FIELDS and JSON encodings for exact
+model note/rhythm I/O. Prefer FIELDS for model communication and equivalent
+objects near I/O. Other internal types suit their domains.
 
-[The full grammar audit](evidence/experiments/e212-full-grammar-audit-measures-native-composite-asymmetries.md)
-remains the judgment source. Detailed manual reviews were targeted; cohort
-decoding also used tools. It excludes analysis and sentinel repeats. Its
-note-only ratios are 76.54 percent native and 71.36 percent composite notation.
-Composite ledgers give 91.33 percent. Only 38/120 notation bodies agree with
-their ledgers. Agent grammar judgments are score inputs, not a new full parser.
+The operator approved rational-only external timing and the D23 `1/512`
+acquisition boundary. Nominal rhythm remains exact in optional overlays.
+Overlay identity, provenance, dependencies, and edit invalidation are required.
+Duration rounding and minimum-duration rules still need specification.
 
-[The diagnostic](plan/phase-8/8c4f-native-versus-composite-diagnostic.md)
-remains complete with OpenAI and Gemini. Each has 192 scored calls. Claude
-results were removed by operator decision. No recovery is planned.
-[E211](evidence/experiments/e211-native-composite-diagnostic-closes-with-two-providers.md)
-retains the frozen assessment and expense accounting. Its assessment hash
-remains `e473b5a556cbfab22a48ae3c2abb806cfdf28ee112f40411beb06ecae0b608ba`.
-Retained results cost USD 2.52608325. Total incurred cost is USD 2.87742225,
-including the discarded Claude attempt. The audit made no provider call.
+[Phase 8f](plan/phase-8/8f-consolidated-compact-bar-and-cache-contracts.md) now has
+three approved session plans. Start
+[8f1](plan/phase-8/8f1-document-model-and-v1-specification.md) next. It defines
+version 1.0 semantics, grammar, schema, timing, and overlays. Then
+[8f2](plan/phase-8/8f2-reference-codec-and-model-format-reference.md) implements
+the codec, tests, and model format reference. Finally
+[8f3](plan/phase-8/8f3-ghostnote-bindings-and-cache-contracts.md) settles the host
+binding, identity, migration, verification, and cache contracts.
+The new specification and implementation are not built yet.
 
-[The corrected eight-arm matrix](evidence/experiments/e209-offline-score-repair-updates-eight-arm-matrix.md)
-remains baseline context. Do not pool its different component denominators
-with the diagnostic or the manual audit.
+[8c4f is closed](plan/phase-8/8c4f-full-matrix-decision.md) by operator decision.
+The [product review](evidence/format/FORMAT_BENCHMARK_PRODUCT_REVIEW.md) retains
+the comparison and score limits. Frozen matrix and adjudicated artifacts remain
+unchanged. Their different denominators must stay separate.
+
+[9b](plan/phase-9/9b-compact-bar-publication-review.md) earmarks the specification,
+tooling, corpus, format card, and benchmark evidence for publication after 8i.
+The product review starts its README. Phase 8g implements the shadow cache;
+8h integrates the selected document and 8i tests fresh agent use.
 
 ## Immediate work
 
-1. Review the matrix, adjudicated report, and original profile results. Make
-   the product format decision. Keep judgment limits visible. Report notation
-   accuracy, ledger accuracy, profile compliance, and agreement separately.
-2. Use that decision to prepare Phase 8f contracts and acceptance criteria.
-3. Keep the cache, `normal-v1`, and live Bitwig projects unchanged.
-
-The product format choice and Phase 8f remain pending operator review.
+1. Implement 8f1 from its approved scope and acceptance criteria.
+2. Keep the cache, `normal-v1`, and live Bitwig projects unchanged in pure work.
+3. Hand exact artifact paths and unresolved host rules to 8f2 and 8f3.
 
 ## Retrospective
 
-Store adjudicated note values as score inputs. Version the revised policy
-and assessment separately from frozen observations. A later parser can check
-the judgments without another provider run.
+Keep settled selection in a decision and implementation details in child plans.
+Use separate criteria for codec loss, acquisition loss, and musical errors.
