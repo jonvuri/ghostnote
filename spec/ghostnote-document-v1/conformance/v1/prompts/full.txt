@@ -1,0 +1,143 @@
+# Model format reference
+
+Format: `ghostnote-document/1.0`. Reference revision: `1`.
+The [identity file](MODEL-REFERENCE.identity.json) gives the SHA-256 of this
+maintained source. Select the Core section and the optional sections needed
+for the task. Examples use generated MIT fixture music.
+
+## Core
+
+Return one FIELDS document. The first nonblank line is
+`DOC ghostnote-document 1.0 snapshot|desired|patch`. IDs start with an ASCII
+letter and use letters, digits, `_ . : -`. IDs are case-sensitive, at most
+128 bytes. Keep supplied IDs. Reject unknown fields and versions.
+[R01](SPEC.md#r01--identity-version-and-extensions),
+[R10](SPEC.md#r10--fields-records)
+
+Write CLIP and COVERAGE JSON records before one FIELDS binding. EVENT rows
+follow the binding. Bind `id clip at duration pitch velocity channel mute`.
+Each row has eight values. Use WITH plus a JSON object for other event fields.
+JSON timing values are strings. Objects occupy one physical line. No comments,
+code fences, duplicate keys, or extra prose belong in the returned document.
+[R10](SPEC.md#r10--fields-records), [R11](SPEC.md#r11--accepted-layout-and-json-syntax)
+
+One beat is a quarter note. Use exact fractions or integers for beat values:
+`85/256`, `1`, `0`. Realized at and duration use multiples of `1/512` beat;
+duration is at least one cell. A realized proposal at `1/3` is invalid. Import
+floors onsets and rounds durations to nearest, with ties up and a one-cell
+minimum. Import reports both deltas. Conversion does not quantize.
+[R02](SPEC.md#r02--envelope-and-coordinate-system),
+[R05](SPEC.md#r05--exact-timing-text), [R06](SPEC.md#r06--realized-plane-and-proposals),
+[R07](SPEC.md#r07--acquisition-and-import-normalization)
+
+Pitch and velocity are integers 0..127. Channel is 1..16. Defaults are channel
+1, mute false, releaseVelocity 0.5, and articulation `normal`. Expression is
+atomic, with defaults `{velocitySpread:0,gain:1,pan:0,pressure:0,timbre:0.5,transpose:0}`.
+Playback defaults are chance `{enabled:false,value:1}`, occurrence
+`{enabled:false,condition:"always"}`, recurrence `{enabled:false,length:1,mask:1}`,
+and repeat `{enabled:false,count:1,curve:0,velocityCurve:0,velocityEnd:1}`.
+Preserve disabled nondefault values. Preserve pressure. Compound input supplies
+all keys. [R04](SPEC.md#r04--event-values-and-defaults), [field ranges](FIELDS.md)
+
+Desired means complete state: each clip has complete coverage from 0 to length,
+all 16 channels, and all fields. Omitted optional properties mean defaults.
+Snapshot coverage can be partial or unavailable; each needs a nonempty reason.
+Uncovered properties are unknown. Events must start inside the clip and its
+coverage. Duration can extend beyond clip length. Empty state is explicit.
+No document gives permission to edit a host.
+[R03](SPEC.md#r03--clips-and-coverage), [R30](SPEC.md#r30--authority-and-host-boundary)
+
+```fields
+DOC ghostnote-document 1.0 desired
+CLIP {"id":"part","length":"4"}
+COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"part","fields":"all","from":"0","status":"complete","to":"4"}
+FIELDS id clip at duration pitch velocity channel mute
+EVENT n1 part 0 1 60 100 1 false
+```
+
+Common failures: decimal timing, off-grid realized fractions, missing bindings,
+surplus slots, duplicate IDs or note addresses, uncovered values, and dangling
+references. Overlap at different onsets is allowed. Distinct event IDs remain
+distinct. Validate syntax and musical task requirements separately.
+[R04](SPEC.md#r04--event-values-and-defaults), [R29](SPEC.md#r29--errors-and-unsupported-input)
+
+## Patch
+
+A sparse patch requires BASE with the supplied content SHA-256. REMOVE names
+an event ID. UPDATE has an ID and a nonempty JSON set. ADD uses the FIELDS
+binding. CLIP_UPDATE edits length, name, loop, or playRange. It cannot change
+the clip inventory. JSON patches require all six change arrays, even when empty.
+[R08](SPEC.md#r08--sparse-patch-structure)
+
+Unmentioned fields and events remain unchanged. Null resets a defaulted field;
+null cannot reset at, duration, pitch, velocity, or length. Compound updates
+replace the whole object. An equal update or empty patch is a no-op. Missing
+IDs, conflicting changes, and a mismatched base fail. Pure application needs
+full base coverage. Desired replacement removes omitted notes and overlays.
+[R09](SPEC.md#r09--preservation-clearing-references-and-order)
+
+This patch changes the pitch in the Core example:
+
+```fields
+DOC ghostnote-document 1.0 patch
+BASE {"sha256":"e4bb32bbf0b02cdc2f51909e0d0f044416f66b7119b53323ab01a156bbba7dc0"}
+FIELDS id clip at duration pitch velocity channel mute
+UPDATE n1 {"pitch":62}
+```
+
+## Timing overlays
+
+OVERLAY carries a full JSON envelope: id, type, state, provenance, depends,
+basis, and data. Provenance declares kind (`declared`, `measured`, `inferred`),
+source, and method. Depends declares event fields, clip fields, whole overlays,
+and clip membership. Use the supplied dependency-basis utility for a new claim.
+Current bases must match. Changed dependencies make retained claims stale.
+Remove or replace every claim with a deleted reference. Stale data is previous
+context. OVERLAY_PUT replaces a full claim; OVERLAY_REMOVE removes only the claim.
+[R12](SPEC.md#r12--initial-overlay-envelope),
+[R21](SPEC.md#r21--references-and-dependency-graph),
+[R22](SPEC.md#r22--dependency-basis), [R23](SPEC.md#r23--edit-lifecycle),
+[R24](SPEC.md#r24--stale-data-use)
+
+Nominal data has event, at, duration, and division. Exact nominal values can use
+`1/3`, `1/5`, and `1/7`. Nominal at lies on its division. Depend on the subject's
+clip, at, and duration. At most one current nominal claim exists per event.
+[R13](SPEC.md#r13--nominal-rhythm)
+
+Groove names event and nominal, with intent, phase, template, cross, local,
+unassigned, durationIntent, durationUnassigned, atDelta, and durationDelta.
+Depend on subject clip/at/duration and its nominal overlay. An anchor also needs
+clip/at dependencies and the same clip. Optional swing weights, templateRef,
+and point/span shape describe intent; they do not generate notes.
+[R14](SPEC.md#r14--groove-and-timing-intent)
+
+Known sourceAt/sourceDuration form a pair. Source onset equals nominal at plus
+phase + template + cross + local + unassigned. Core onset adds atDelta. Source
+duration equals nominal duration + durationIntent + durationUnassigned; core
+duration adds durationDelta. Import must reproduce the core and both deltas.
+Resolved intent has zero unassigned terms. Measured provenance assigns no causes.
+Without source timing, deltas are null, intent is unresolved, intentional terms
+are zero, and residuals are core minus nominal. Acquisition displacement must
+remain separate from swing. Tempo-qualified display uses tempo at nominal onset;
+a claim derived from tempo declares its tempo dependency.
+[R15](SPEC.md#r15--known-source-groove-equations),
+[R16](SPEC.md#r16--unknown-source-timing-and-time-display)
+
+## Groups
+
+Harmony has clip, from/to, events, and a nonempty chord or key label. Role and
+motif have clip, label, events, and optional interpreted articulation. Region
+has clip, label, from/to, and events. Members are explicit ID sets. Span members
+start inside that clip and span. Depend on clip length and membership; member
+fields are clip/pitch/at/duration, or clip/at for regions. Adding a note makes
+membership claims stale; it does not add the note to their group. Labels do not
+edit or expand notes. [R17](SPEC.md#r17--harmony),
+[R18](SPEC.md#r18--roles-and-motifs), [R20](SPEC.md#r20--regions)
+
+## Meter and tempo
+
+Meter has clip, at, numerator 1..64, and denominator 1,2,4,8,16,32,64. Tempo
+has clip, at, and BPM in (0,1000]. Depend on clip length. A point starts context
+until the next current point. One current point per type, clip, and position is
+allowed. Context before the first point is unknown. Meter does not change beat
+units. [R19](SPEC.md#r19--meter-and-tempo)

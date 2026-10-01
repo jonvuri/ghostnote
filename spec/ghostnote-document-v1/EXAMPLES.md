@@ -9,8 +9,8 @@ updated: 2026-10-01
 
 These are authored specification inputs. They contain generated fixture music
 under the repository [MIT license](../../LICENSE). Their owner is 8f1.
-8f2 must verify these inputs with its reference codec and regenerate canonical
-outputs. JSON files use readable layout. FIELDS files use the canonical record
+8f2 verifies these inputs with the [reference codec](CODEC.md). It writes
+canonical outputs to the [versioned corpus](conformance/v1/canonical/). JSON files use readable layout. FIELDS files use the canonical record
 layout. [expected.json](examples/expected.json) records independently calculated
 content hashes. A schema pass does not prove all semantic rules.
 
@@ -66,7 +66,6 @@ copying the overlay does not edit a note. R14-R16 and C14-C16 govern this case.
 ## Limits of this verification
 
 8f1 checks JSON structure, paired example agreement, hashes, timing equations,
-and current dependency bases with independent local calculations. Full
-grammar conformance, error locality, general patch application, normalization
-APIs, and reference serializers remain 8f2 work. These checks need no Bitwig
+and current dependency bases with independent local calculations. The [8f2 conformance corpus](conformance/v1/README.md) checks grammar, error
+locations, patch application, normalization APIs, and reference serializers. These checks need no Bitwig
 project, cache, provider, or paid call.

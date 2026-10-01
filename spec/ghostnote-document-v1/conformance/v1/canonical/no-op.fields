@@ -1,0 +1,3 @@
+DOC ghostnote-document 1.0 patch
+BASE {"ref":"fixture:complete","sha256":"ce4ddc6bc28b30795a606472c57ba6e36be0b9abaab81334a5385e8172f385ec"}
+FIELDS id clip at duration pitch velocity channel mute

@@ -211,10 +211,15 @@
     "probe:4i-device-surface": "tsx src/probes/phase4i-device-surface.ts",
     "probe:4j-dogfood": "tsx src/probes/phase4j-dogfood.ts",
     "probe:e17ad": "tsx src/probes/e17ad-idintegrity.ts",
-    "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify"
+    "probe:e17ad-verify": "tsx src/probes/e17ad-idintegrity.ts verify",
+    "document": "node --import tsx src/document/cli.ts",
+    "document:conformance": "node --import tsx --test src/document/*.test.ts && node --import tsx src/tools/document-artifacts.ts --check",
+    "document:artifacts": "node --import tsx src/tools/document-artifacts.ts",
+    "document:standalone": "node --import tsx src/tools/document-standalone-check.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "ajv": "^8.20.0",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0"
   },

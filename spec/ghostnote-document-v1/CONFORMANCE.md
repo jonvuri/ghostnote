@@ -7,12 +7,13 @@ updated: 2026-10-01
 
 # Conformance case inventory
 
-8f2 owns implementation of this inventory. Each `Cnn` family maps to `Rnn`
+8f2 owns implementation of this inventory. The [executed index](conformance/v1/README.md)
+links these families to the reference-codec tests. Each `Cnn` family maps to `Rnn`
 in [SPEC.md](SPEC.md). Add separate tests for each semicolon-separated case.
 Valid fixtures must enter through both encodings, compare native values, cross
 convert without loss, stabilize canonical output, and have equal content hashes.
 Invalid cases must fail with their rule and location. Schema validation alone
-does not complete a case. No executed reference-codec result is claimed here.
+does not complete a case. The session outcome records executed results.
 
 | Family | Rule | Required independent expected cases |
 |---|---|---|
@@ -43,7 +44,7 @@ does not complete a case. No executed reference-codec result is claimed here.
 | C25 | R25 | Optional explicit defaults equal omission; unknown different from default; empty root meta/extensions normalize to omission; coverage listing all fields equals `"all"`; all declared sets and arrays normalize as specified; swing weights and extension arrays retain order; locale does not affect ID order. |
 | C26 | R26 | Golden canonical JSON and FIELDS bytes for every paired example; numeric exponent/decimal spellings converge; negative zero -> zero; Unicode/control escaping; nondefault WITH fields; final-LF policy; canonical parse/render idempotence. |
 | C27 | R27 | Golden content digest with prefix; both encodings and permuted bindings/layouts agree; rename ID, change coverage/provenance/base/extension/kind changes digest; no-op materialized result equals unguarded desired base; exact-source/content/dependency hashes remain distinct; reject self-hash core key. |
-| C28 | R28 | Verify each threshold and rejection at limit+1 for bytes, counts, IDs, strings, depth, rational digits, arithmetic bits, overlay dependencies, total field refs, and patch total; test accepted boundaries where other limits permit; huge fractions fail before costly arithmetic; no partial success; source binary64 subnormal conversion follows the declared output digit limit. |
+| C28 | R28 | Verify each threshold and rejection at limit+1 for bytes, counts, IDs, strings, depth, rational digits, arithmetic bits, overlay dependencies, total field refs, and patch total; test accepted boundaries where other limits permit; huge fractions fail before costly arithmetic; no partial success; source binary64 subnormal conversion follows the declared output digit limit; canonical encoding sizes use a common 8 MiB bound; import overlap-pair report bounds fail without partial output. |
 | C29 | R29 | Rule/path or line/column for each invalid family; unsupported event/pattern/curve/extension behavior fails; no recovery pass; wrong header, extra/missing note, and empty-output regressions adapted from retained benchmarks. |
 | C30 | R30 | Pure proposal never invokes a host; unwritable host pressure is retained or binding refuses, not dropped; portable defaults remain independent of host defaults; snapshot authority restricted to coverage. Binding execution belongs to 8f3. |
 | C31 | R31 | Rule index covers R01-R32; every fixture has source, adaptation, expected values, and owner; codec failures, acquisition reports, and musical verdicts are reported separately; frozen benchmark artifacts unchanged. |
@@ -66,7 +67,8 @@ the exact source path and the adaptation for each selected case. At minimum:
 ## Ownership and verification boundary
 
 The [paired examples](EXAMPLES.md) are specification inputs owned by 8f1.
-They are not generated reference-codec outputs. 8f2 must regenerate canonical
+The authored files remain specification inputs. The [canonical corpus](conformance/v1/canonical/)
+contains generated reference-codec outputs. 8f2 must regenerate canonical
 examples and hashes with the codec, compare them with independent expectations,
 and record any specification correction. Extend these case families when a
 later binding exposes a concrete defect; do not silently weaken a rule.

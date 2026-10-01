@@ -1,0 +1,331 @@
+{
+  "version": "1.0",
+  "owner": "8f2 reference codec",
+  "baseline": "Generated MIT music. Canonical bytes must match the codec and independent 8f1 hashes. Tests own valid and invalid mutations. No live state.",
+  "inputOwner": "8f1 specification inputs",
+  "rules": [
+    {
+      "rule": "R01",
+      "family": "C01",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C01",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R02",
+      "family": "C02",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C02",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R03",
+      "family": "C03",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C03",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R04",
+      "family": "C04",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C04",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R05",
+      "family": "C05",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C05",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R06",
+      "family": "C06",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C06",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R07",
+      "family": "C07",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C07",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R08",
+      "family": "C08",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C08",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R09",
+      "family": "C09",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C09",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R10",
+      "family": "C10",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C10",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R11",
+      "family": "C11",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C11",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R12",
+      "family": "C12",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C12",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R13",
+      "family": "C13",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C13",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R14",
+      "family": "C14",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C14",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R15",
+      "family": "C15",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C15",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R16",
+      "family": "C16",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C16",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R17",
+      "family": "C17",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C17",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R18",
+      "family": "C18",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C18",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R19",
+      "family": "C19",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C19",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R20",
+      "family": "C20",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C20",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R21",
+      "family": "C21",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C21",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R22",
+      "family": "C22",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C22",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R23",
+      "family": "C23",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C23",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R24",
+      "family": "C24",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C24",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R25",
+      "family": "C25",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C25",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R26",
+      "family": "C26",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C26",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": [
+        "complete",
+        "patch",
+        "patch-result",
+        "no-op",
+        "empty",
+        "empty-clip",
+        "partial",
+        "unknown-source"
+      ]
+    },
+    {
+      "rule": "R27",
+      "family": "C27",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C27",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": [
+        "complete",
+        "patch",
+        "patch-result",
+        "no-op",
+        "empty",
+        "empty-clip",
+        "partial",
+        "unknown-source"
+      ]
+    },
+    {
+      "rule": "R28",
+      "family": "C28",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C28",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R29",
+      "family": "C29",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C29",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R30",
+      "family": "C30",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C30",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": []
+    },
+    {
+      "rule": "R31",
+      "family": "C31",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C31",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": [
+        "complete",
+        "patch",
+        "patch-result",
+        "no-op",
+        "empty",
+        "empty-clip",
+        "partial",
+        "unknown-source"
+      ]
+    },
+    {
+      "rule": "R32",
+      "family": "C32",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C32",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": [
+        "complete",
+        "patch",
+        "patch-result",
+        "no-op",
+        "empty",
+        "empty-clip",
+        "partial",
+        "unknown-source"
+      ]
+    }
+  ],
+  "regressions": [
+    {
+      "name": "header",
+      "source": "brain/benchmarks/compact-format-v14/benchmark.py",
+      "symbol": "strict_document",
+      "adaptation": "Replace historical BASE/SOURCE/OMITS envelope with DOC/FIELDS. Remove one header token. Expect R10."
+    },
+    {
+      "name": "renamed IDs",
+      "source": "brain/benchmarks/compact-format-v14/benchmark.py",
+      "symbol": "strict_document and transformation-local scoring",
+      "adaptation": "Use n1 in a 1.0 base and renamed in its sparse update. Expect R09. A new complete ID changes content hash."
+    },
+    {
+      "name": "extra notes",
+      "source": "brain/benchmarks/compact-format-v19/benchmark.py",
+      "symbol": "parse_document and score paths",
+      "adaptation": "Add a valid note with a new ID to a complete 1.0 input. Conformance passes. Exact inventory comparison fails; the hash changes."
+    },
+    {
+      "name": "empty output",
+      "source": "brain/benchmarks/compact-format-v14/benchmark.py",
+      "symbol": "strict_document",
+      "adaptation": "Blank FIELDS output fails R10. An explicit complete zero-event clip passes. Unavailable coverage is a different observation."
+    }
+  ],
+  "reports": {
+    "codec": "Hashes and canonical values. No codec loss in accepted conversion.",
+    "acquisition": "Import deltas, promotion, collisions, and changed overlap intervals.",
+    "musical": "Exact-note inventory is a separate task verdict. No new provider validation."
+  }
+}

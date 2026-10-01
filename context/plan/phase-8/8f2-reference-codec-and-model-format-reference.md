@@ -1,8 +1,8 @@
 ---
 title: Phase 8f2 — Reference codec and model format reference
 kind: plan
-state: planned
-status: Ready. 8f1 supplies the specification, schema, paired examples, and case inventory.
+state: complete
+status: Complete. Codec, corpus, canonical examples, model reference, and offline checks pass.
 updated: 2026-10-01
 parent: 8f-consolidated-compact-bar-and-cache-contracts.md
 prev: ../../archive/outcomes/PHASE-8F1-DOCUMENT-SPECIFICATION.md
@@ -11,6 +11,8 @@ evidence: E109, E116, E196, E209, E213; D25
 ---
 
 # Phase 8f2 — Reference codec and model format reference
+
+[Completed outcome](../../archive/outcomes/PHASE-8F2-REFERENCE-CODEC.md).
 
 ## Purpose
 

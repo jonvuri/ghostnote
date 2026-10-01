@@ -1,0 +1,103 @@
+{
+  "owner": "8f2 reference codec",
+  "formatVersion": "1.0",
+  "referenceSha256": "e86f08a070621c46f4678fb2d4cfb598a440f72a956f2f2e888a8efbe2acd4d7",
+  "scope": "Complete selected reference plus its examples and source identity preface. No task, input document, or provider wrapper.",
+  "providerTokensReason": "No tokenizer for these provider models is bundled. No token-count or generation request was made. Bytes are not tokens.",
+  "baseline": {
+    "source": "brain/benchmarks/compact-format-v19/benchmark.py",
+    "symbols": [
+      "v14.document_grammar",
+      "v14.example_for"
+    ],
+    "family": "comprehension-structure",
+    "scope": "Retained format instruction plus complete output example. No task or source.",
+    "bytes": 729,
+    "sha256": "a1590f9df34ea7b8c08bf4aecad687fab4d70eb1639dd3dad35efa048eb36734",
+    "providerTokens": null,
+    "providerTokensReason": "Retained usage covers full task prompts, not this reference slice.",
+    "retainedFullPromptUsage": [
+      {
+        "provider": "openai",
+        "source": "brain/benchmarks/compact-format-v19/runs/2026-09-29-full-openai.json",
+        "family": "comprehension-analysis",
+        "variant": 900,
+        "model": "gpt-5.4-mini-2026-03-17",
+        "promptBytes": 4892,
+        "promptSha256": "4d97bdda9a5d2174321bae52b04047b23de86b5204da8782e83677a0d6acd708",
+        "inputTokens": 1784,
+        "scope": "One historical full prompt. This count is not a reference-only comparison."
+      },
+      {
+        "provider": "gemini",
+        "source": "brain/benchmarks/compact-format-v19/runs/2026-09-29-full-gemini.json",
+        "family": "generation-melody",
+        "variant": 906,
+        "model": "gemini-3.8-flash",
+        "promptBytes": 1555,
+        "promptSha256": "0dd37df99e81f8a625cd843955bf284fde5d0112e01dc4ae99d8deac9d8a0456",
+        "inputTokens": 425,
+        "scope": "One historical full prompt. This count is not a reference-only comparison."
+      },
+      {
+        "provider": "claude-haiku",
+        "source": "brain/benchmarks/compact-format-v19/runs/2026-09-29-full-claude-haiku.json",
+        "family": "comprehension-analysis",
+        "variant": 904,
+        "model": "claude-haiku-4-5-20251001",
+        "promptBytes": 4845,
+        "promptSha256": "ebc635cb95965fa78558b2e29561d395336457a2060e8e6cb699fc9710aba915",
+        "inputTokens": 2063,
+        "scope": "One historical full prompt. This count is not a reference-only comparison."
+      }
+    ]
+  },
+  "measurements": [
+    {
+      "name": "core",
+      "sections": [
+        "Core"
+      ],
+      "bytes": 3575,
+      "sha256": "3ebb8f55bbc3125aad4cd49939be82fc54fb9a6db5d34d9fd06e3e1bb66e9833",
+      "ratioToRetainedReference": 4.904,
+      "providerTokens": null
+    },
+    {
+      "name": "patch",
+      "sections": [
+        "Core",
+        "Patch"
+      ],
+      "bytes": 4650,
+      "sha256": "9ee4f6029a41ae932dcf3daaa0f9d0fd8fd20761941b14dc240965fc8d77f4c1",
+      "ratioToRetainedReference": 6.3786,
+      "providerTokens": null
+    },
+    {
+      "name": "timing",
+      "sections": [
+        "Core",
+        "Timing overlays"
+      ],
+      "bytes": 5856,
+      "sha256": "888a27ec9d21443f3092deb7a60ab46ca802748398856bfd5e20efc4775d4090",
+      "ratioToRetainedReference": 8.0329,
+      "providerTokens": null
+    },
+    {
+      "name": "full",
+      "sections": [
+        "Core",
+        "Patch",
+        "Timing overlays",
+        "Groups",
+        "Meter and tempo"
+      ],
+      "bytes": 7916,
+      "sha256": "e86f08a070621c46f4678fb2d4cfb598a440f72a956f2f2e888a8efbe2acd4d7",
+      "ratioToRetainedReference": 10.8587,
+      "providerTokens": null
+    }
+  ]
+}

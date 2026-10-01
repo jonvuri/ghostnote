@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: D25 selects FIELDS and JSON. Phase 8f1 is ready; 8f2 and 8f3 follow.
+status: D25 selects FIELDS and JSON. 8f1 and 8f2 are complete; start 8f3.
 updated: 2026-10-01
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -328,8 +328,8 @@ owns the migration details.
 26. [8f — Document format and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Opened by D25. [8f1 is complete](../../archive/outcomes/PHASE-8F1-DOCUMENT-SPECIFICATION.md).
    The [version 1.0 specification](../../../spec/ghostnote-document-v1/SPEC.md)
-   supplies the contract for [8f2](8f2-reference-codec-and-model-format-reference.md)
-   for the codec, corpus, and model format reference, then
+   and the [8f2 outcome](../../archive/outcomes/PHASE-8F2-REFERENCE-CODEC.md)
+   supply the codec, corpus, and model format reference. Start
    [8f3](8f3-ghostnote-bindings-and-cache-contracts.md) for the host binding,
    overlay lifecycle, migration, and cache contracts. Stable integration stays in 8h.
 27. [8g — Shadow project cache](8g-shadow-project-cache.md).

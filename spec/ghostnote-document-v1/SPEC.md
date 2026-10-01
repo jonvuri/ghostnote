@@ -9,7 +9,7 @@ source: ../../context/decisions/d25-fields-json-document-format-and-publication.
 # Ghostnote Document 1.0
 
 This is the Phase 8f1 target contract. It is not an external release. The
-reference codec is planned in [8f2](../../context/plan/phase-8/8f2-reference-codec-and-model-format-reference.md).
+[reference codec](CODEC.md) implements this contract in 8f2.
 The [field reference](FIELDS.md), [grammar](fields.ebnf), and
 [JSON schema](schema.json) are normative parts of this contract. The
 [case inventory](CONFORMANCE.md) assigns cases to every rule below.
@@ -157,8 +157,10 @@ Host duration quantization, such as D9's `2^-20`, precedes this operation.
 
 An import report contains each supplied source ID, source timing, normalized
 timing, both signed deltas, minimum-duration promotion, changed overlap pairs,
-and collision groups. If explicit imported source notes share one normalized
-address, reject materialization and report all source IDs. Do not pick a
+and collision groups. Compare overlap intervals within each clip, including
+pairs on different channels or pitches. Report a changed interval even when
+the pair overlaps before and after import. If imported source notes share a
+normalized address, reject materialization and report all source IDs. Do not pick a
 winner. A D23 host cell observation can already contain an unknown survivor.
 Label that acquisition boundary; do not claim that its scan recovered lost
 source IDs or that its collision count is known. Rounding rules do not select
@@ -501,8 +503,12 @@ Do not put a document's own content hash inside that document.
 
 ## R28 — Bounds
 
-Require these limits before expensive work: UTF-8 input at most 8 MiB; at most
-256 clips, 131072 events, 32768 overlays, and 131072 total patch entries.
+Require these limits before expensive work: UTF-8 input at most 8 MiB. Both
+canonical encodings of an accepted semantic document must also fit within
+8 MiB. This common bound permits cross-encoding round trips. Native I/O input
+is bounded by its JSON size; decoded FIELDS records use the input and canonical
+encoding bounds. Require at most 256 clips, 131072 events, 32768 overlays, and
+131072 total patch entries.
 JSON nesting is at most 32 containers, with the root container at depth 1.
 A string is at most 4096 Unicode
 scalars, except IDs (R01) and rational text. Each unreduced rational numerator
@@ -517,6 +523,11 @@ across all overlays are allowed. Each explicit overlay group has at most
 131072 members, subject to input and reference limits. Extension data shares
 all input, string, and depth limits. Do not interpret these as host cache limits.
 Reject the first detected limit breach without constructing a partial document.
+
+Import analysis can retain at most 131072 overlap pairs in each source or
+normalized plane. Reject a larger pair set with a resource error. Do not return
+a partial import report. This report bound does not restrict codec overlap
+representation.
 
 ## R29 — Errors and unsupported input
 
@@ -543,9 +554,9 @@ API limit. Host defaults or capabilities cannot alter portable defaults.
 
 8f2 must implement every case family in [CONFORMANCE.md](CONFORMANCE.md), with
 rule-to-test links, independent expected values, both encodings, canonical
-stability, and hash equality. No codec conformance or live capability is claimed
-by this session. Retained benchmark fixtures require explicit adaptation to
-1.0; frozen artifacts remain unchanged. Separate acquisition loss, codec loss,
+stability, and hash equality. The [executed corpus](conformance/v1/README.md)
+records codec conformance. Codec conformance does not establish live capability.
+Retained benchmark fixtures require explicit adaptation to 1.0; frozen artifacts remain unchanged. Separate acquisition loss, codec loss,
 and musical task failure in every report.
 
 ## R32 — Specification dependencies
@@ -554,5 +565,5 @@ The [JSON schema](schema.json) uses the
 [JSON Schema 2020-12 dialect](https://json-schema.org/draft/2020-12/json-schema-core).
 It is local and has no network references other than its dialect identifier.
 The normative grammar uses the EBNF conventions stated in its header. R01-R31
-and FIELDS.md govern conditions that the schema cannot express. A later codec
+and FIELDS.md govern conditions that the schema cannot express. The codec
 must validate both structure and semantics; a schema-only pass is insufficient.

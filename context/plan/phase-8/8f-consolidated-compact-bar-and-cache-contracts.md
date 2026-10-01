@@ -2,7 +2,7 @@
 title: Phase 8f — Document format and cache contracts
 kind: plan
 state: planned
-status: 8f1 is complete. Start 8f2, then 8f3, before shadow cache implementation.
+status: 8f1 and 8f2 are complete. Start 8f3 before shadow cache implementation.
 updated: 2026-10-01
 parent: README.md
 prev: 8c4f-full-matrix-decision.md
@@ -30,7 +30,7 @@ must suit their domains. Settle the separate host binding and cache contract.
 | Session | Work | Required handoff |
 |---|---|---|
 | [8f1 outcome](../../archive/outcomes/PHASE-8F1-DOCUMENT-SPECIFICATION.md) | Complete: shared semantics, grammar, JSON schema, rational timing, and overlays | [Specification and case inventory](../../../spec/ghostnote-document-v1/SPEC.md) |
-| [8f2](8f2-reference-codec-and-model-format-reference.md) | Reference codec, canonicalization, tests, and model format reference | Tested library, corpus, examples, format card, and size measurements |
+| [8f2](8f2-reference-codec-and-model-format-reference.md) | Complete: reference codec, canonicalization, tests, and model format reference | [Tested library, corpus, examples, format card, and measurements](../../archive/outcomes/PHASE-8F2-REFERENCE-CODEC.md) |
 | [8f3](8f3-ghostnote-bindings-and-cache-contracts.md) | Host mappings, identity, overlay lifecycle, migration, verification, and cache contracts | Explicit contracts and cases for 8g, 8h, and 8i |
 
 Start each child after the preceding handoff meets its acceptance criteria.

@@ -2,7 +2,7 @@
 title: Phase 8f3 — Ghostnote bindings and cache contracts
 kind: plan
 state: planned
-status: Start after the 8f2 reference codec and conformance corpus pass.
+status: Ready. 8f2 codec, corpus, model reference, and standalone checks pass.
 updated: 2026-10-01
 parent: 8f-consolidated-compact-bar-and-cache-contracts.md
 prev: 8f2-reference-codec-and-model-format-reference.md
@@ -24,7 +24,10 @@ at the I/O boundary. Let internal host and cache types suit their domains.
 - [D25](../../decisions/d25-fields-json-document-format-and-publication.md),
   the [8f1 specification](../../../spec/ghostnote-document-v1/SPEC.md), its
   [host handoff](../../../spec/ghostnote-document-v1/HOST-HANDOFF.md), and the
-  8f2 corpus and model reference.
+  [8f2 outcome](../../archive/outcomes/PHASE-8F2-REFERENCE-CODEC.md),
+  [codec guide](../../../spec/ghostnote-document-v1/CODEC.md),
+  [corpus](../../../spec/ghostnote-document-v1/conformance/v1/README.md), and
+  [model reference](../../../spec/ghostnote-document-v1/MODEL-REFERENCE.md).
 - [Cache identity and lifecycle](../../evidence/format/CACHE_IDENTITY_AND_LIFECYCLE.md).
 - [Cache scale and degradation](../../evidence/format/CACHE_SCALE_AND_DEGRADATION.md).
 - [Interface audit](../../evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md).
