@@ -1,0 +1,443 @@
+{
+  "conclusion": "No scorer defect was found in the selected sample. Subset rejection, musical errors, and notation/ledger disagreement are separate findings. This audit does not establish full public-format validity.",
+  "independent_full_pass_disagreements": 0,
+  "method": "Read the selected task, source values, contract, returned fields, parsed notes, and parse failures. Check representative errors directly. This defect sample does not estimate an error rate.",
+  "packet_artifact_sha256": "6a6f2a49be4ecaa282709d0ad3f4385d584d0dcb05b2d393158eee48f6126179",
+  "reviewed_cells": [
+    {
+      "family": "comprehension-structure",
+      "format": "abc-2.1",
+      "provider": "gemini",
+      "review": "Both outputs reproduce all 12 source notes, including the rational onset and overlapping lanes.",
+      "scorer_issue_found": false,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-structure",
+      "format": "strudel-v1.2",
+      "provider": "gemini",
+      "review": "Both outputs reproduce all 12 source notes, including the rational onset and overlapping lanes.",
+      "scorer_issue_found": false,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-structure",
+      "format": "lilypond-2.24.4",
+      "provider": "gemini",
+      "review": "Both outputs reproduce all 12 source notes, including the rational onset and overlapping lanes.",
+      "scorer_issue_found": false,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-structure",
+      "format": "musicxml-4.0",
+      "provider": "gemini",
+      "review": "Both outputs reproduce all 12 source notes, including the rational onset and overlapping lanes.",
+      "scorer_issue_found": false,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-analysis",
+      "format": "abc-2.1",
+      "provider": "gemini",
+      "review": "Source pitch classes confirm roots 10, 3, 6. Native misidentifies the first two chords and third rhythm. Composite has four wrong chord fields.",
+      "scorer_issue_found": false,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680",
+      "variant": 6002
+    },
+    {
+      "family": "comprehension-analysis",
+      "format": "strudel-v1.2",
+      "provider": "gemini",
+      "review": "Native misidentifies the second chord and calls each group sustained. Composite matches all 21 source and motif fields.",
+      "scorer_issue_found": false,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680",
+      "variant": 6002
+    },
+    {
+      "family": "comprehension-analysis",
+      "format": "lilypond-2.24.4",
+      "provider": "gemini",
+      "review": "Source classes confirm diminished root 8, major-seventh root 9, and half-diminished root 8. Native mistakes the third chord and rhythm. Composite has one wrong root.",
+      "scorer_issue_found": false,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b",
+      "variant": 6001
+    },
+    {
+      "family": "comprehension-analysis",
+      "format": "musicxml-4.0",
+      "provider": "gemini",
+      "review": "Native omits the seventh quality and function in case 2 and mistakes the third rhythm. Composite matches all 21 fields.",
+      "scorer_issue_found": false,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b",
+      "variant": 6001
+    },
+    {
+      "family": "generation-progression",
+      "format": "abc-2.1",
+      "provider": "gemini",
+      "review": "Native durations are four beats instead of one, with a wrong initial rest. Composite meets timing and harmony but puts bass and tenor below their ranges. Its notation also has invalid tokens.",
+      "scorer_issue_found": false,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+      "variant": 6001
+    },
+    {
+      "family": "generation-progression",
+      "format": "strudel-v1.2",
+      "provider": "gemini",
+      "review": "Native uses a flat note name outside the sharp-only subset. Composite has range and movement errors. Its slow factor also gives wrong notation timing.",
+      "scorer_issue_found": false,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+      "variant": 6001
+    },
+    {
+      "family": "generation-progression",
+      "format": "lilypond-2.24.4",
+      "provider": "gemini",
+      "review": "Native timing is correct, but pitches violate harmony, ranges, and voice order. Composite violates harmony, voice order, and movement; its notation has invalid sharp spelling.",
+      "scorer_issue_found": false,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+      "variant": 6001
+    },
+    {
+      "family": "generation-progression",
+      "format": "musicxml-4.0",
+      "provider": "gemini",
+      "review": "Native has correct timing and harmony but one bass pitch is below range. Composite violates range and harmony.",
+      "scorer_issue_found": false,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+      "variant": 6001
+    },
+    {
+      "family": "generation-melody",
+      "format": "abc-2.1",
+      "provider": "gemini",
+      "review": "Native has wrong timing and motif intervals. Composite meets the complete ledger contract; its notation has wrong timing.",
+      "scorer_issue_found": false,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+      "variant": 6001
+    },
+    {
+      "family": "generation-melody",
+      "format": "strudel-v1.2",
+      "provider": "gemini",
+      "review": "Native has wrong timing, scale, motif, and cadence. Composite preserves timing and the five-semitone motif but includes a pitch outside the scale.",
+      "scorer_issue_found": false,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+      "variant": 6000
+    },
+    {
+      "family": "generation-melody",
+      "format": "lilypond-2.24.4",
+      "provider": "gemini",
+      "review": "Native accumulates wrong rests and misses the cadence. Composite meets the complete ledger contract; its notation has wrong timing.",
+      "scorer_issue_found": false,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+      "variant": 6002
+    },
+    {
+      "family": "generation-melody",
+      "format": "musicxml-4.0",
+      "provider": "gemini",
+      "review": "Native has wrong onsets and a non-scale pitch. Composite preserves timing and motif, but a pitch exceeds the range and the scale also fails.",
+      "scorer_issue_found": false,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+      "variant": 6000
+    },
+    {
+      "family": "continuation-motif",
+      "format": "abc-2.1",
+      "provider": "gemini",
+      "review": "Affine rules confirm the expected origins. Native has wrong timing and pitch values. Composite has two wrong lead onsets.",
+      "scorer_issue_found": false,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+      "variant": 6022
+    },
+    {
+      "family": "continuation-motif",
+      "format": "strudel-v1.2",
+      "provider": "gemini",
+      "review": "Native includes zero rest weights, outside the positive-integer subset. Composite has wrong lead, inner, and final bass onsets.",
+      "scorer_issue_found": false,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+      "variant": 6021
+    },
+    {
+      "family": "continuation-motif",
+      "format": "lilypond-2.24.4",
+      "provider": "gemini",
+      "review": "Native starts all voices at zero and has wrong pitches. Composite has wrong affine pitches and onsets.",
+      "scorer_issue_found": false,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+      "variant": 6020
+    },
+    {
+      "family": "continuation-motif",
+      "format": "musicxml-4.0",
+      "provider": "gemini",
+      "review": "Native rounds rational durations and applies wrong pitch transforms. Composite has two wrong inner pitches.",
+      "scorer_issue_found": false,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+      "variant": 6021
+    },
+    {
+      "family": "continuation-roles",
+      "format": "abc-2.1",
+      "provider": "gemini",
+      "review": "Native scales starts and durations by four and changes two bass pitches. Composite meets the complete ledger contract, but notation timing fails.",
+      "scorer_issue_found": false,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+      "variant": 6001
+    },
+    {
+      "family": "continuation-roles",
+      "format": "strudel-v1.2",
+      "provider": "gemini",
+      "review": "Native includes zero rest weights. Composite meets the complete ledger contract, but notation timing fails.",
+      "scorer_issue_found": false,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+      "variant": 6001
+    },
+    {
+      "family": "continuation-roles",
+      "format": "lilypond-2.24.4",
+      "provider": "gemini",
+      "review": "Native uses flat names outside the sharp-only subset and omits the required leading rests. Composite notation and ledger both meet the contract.",
+      "scorer_issue_found": false,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+      "variant": 6001
+    },
+    {
+      "family": "continuation-roles",
+      "format": "musicxml-4.0",
+      "provider": "gemini",
+      "review": "Native starts at zero instead of 29/7. Composite has correct timing but one bass pitch is outside the third harmony.",
+      "scorer_issue_found": false,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-structure",
+      "format": "abc-2.1",
+      "provider": "openai",
+      "review": "Both outputs reproduce all 12 source notes, including rational timing and overlapping lanes.",
+      "scorer_issue_found": false,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-structure",
+      "format": "strudel-v1.2",
+      "provider": "openai",
+      "review": "Both outputs reproduce all 12 source notes, including rational timing and overlapping lanes.",
+      "scorer_issue_found": false,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-structure",
+      "format": "lilypond-2.24.4",
+      "provider": "openai",
+      "review": "Both outputs reproduce all 12 source notes, including rational timing and overlapping lanes.",
+      "scorer_issue_found": false,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-structure",
+      "format": "musicxml-4.0",
+      "provider": "openai",
+      "review": "Native puts parts inside repeated part-list elements, outside the required document structure. Composite ledger reproduces the 12 source notes, but its XML has mismatched tags.",
+      "scorer_issue_found": false,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+      "variant": 6002
+    },
+    {
+      "family": "comprehension-analysis",
+      "format": "abc-2.1",
+      "provider": "openai",
+      "review": "Source chords have root 4, dominant-seventh quality, and inversions 0, 1, 2. Native misidentifies the chord groups. Composite has the correct chord fields but calls all groups sustained.",
+      "scorer_issue_found": false,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-analysis",
+      "format": "strudel-v1.2",
+      "provider": "openai",
+      "review": "Native misidentifies the second bass and inversion and the third chord. Composite has correct chord fields. Both mistake the second and third rhythm labels.",
+      "scorer_issue_found": false,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d",
+      "variant": 6000
+    },
+    {
+      "family": "comprehension-analysis",
+      "format": "lilypond-2.24.4",
+      "provider": "openai",
+      "review": "Source groups confirm roots 10, 3, 6. Native identifies the roots but mistakes quality, bass, function, and rhythm fields. Composite mistakes the second chord and two rhythm labels.",
+      "scorer_issue_found": false,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680",
+      "variant": 6002
+    },
+    {
+      "family": "comprehension-analysis",
+      "format": "musicxml-4.0",
+      "provider": "openai",
+      "review": "Native mistakes the second chord and third rhythm. Composite also mistakes the first chord. Correct motif labels are shared numerical analysis fields.",
+      "scorer_issue_found": false,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680",
+      "variant": 6002
+    },
+    {
+      "family": "generation-progression",
+      "format": "abc-2.1",
+      "provider": "openai",
+      "review": "Native scales timing by four and pitches by an octave. Composite meets timing, range, order, movement, and bass requirements, but its third chord omits pitch class 10.",
+      "scorer_issue_found": false,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+      "variant": 6000
+    },
+    {
+      "family": "generation-progression",
+      "format": "strudel-v1.2",
+      "provider": "openai",
+      "review": "Native uses flat note names outside the sharp-only subset. Composite notation and ledger agree, but the second and third chords omit required pitch classes.",
+      "scorer_issue_found": false,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+      "variant": 6000
+    },
+    {
+      "family": "generation-progression",
+      "format": "lilypond-2.24.4",
+      "provider": "openai",
+      "review": "Native meets timing but violates harmony, bass inversions, and cadence. Composite meets the complete ledger contract; its notation violates range and voice order.",
+      "scorer_issue_found": false,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+      "variant": 6000
+    },
+    {
+      "family": "generation-progression",
+      "format": "musicxml-4.0",
+      "provider": "openai",
+      "review": "Native XML has mismatched tags. Composite meets the complete ledger contract; its notation has a harmony error.",
+      "scorer_issue_found": false,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+      "variant": 6000
+    },
+    {
+      "family": "generation-melody",
+      "format": "abc-2.1",
+      "provider": "openai",
+      "review": "Native has wrong timing, pitches, range, motif, scale, and cadence. Composite meets the ledger contract; its notation has wrong timing.",
+      "scorer_issue_found": false,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+      "variant": 6001
+    },
+    {
+      "family": "generation-melody",
+      "format": "strudel-v1.2",
+      "provider": "openai",
+      "review": "Native includes a zero trailing rest weight. Composite notation and ledger agree and meet the complete contract.",
+      "scorer_issue_found": false,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+      "variant": 6001
+    },
+    {
+      "family": "generation-melody",
+      "format": "lilypond-2.24.4",
+      "provider": "openai",
+      "review": "Native has wrong timing and motif intervals. Composite preserves motif and cadence but has three wrong durations.",
+      "scorer_issue_found": false,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+      "variant": 6001
+    },
+    {
+      "family": "generation-melody",
+      "format": "musicxml-4.0",
+      "provider": "openai",
+      "review": "Native omits leading and internal rests, with wrong pitches and cadence. Composite meets timing, scale, range, and motif but misses the cadence; its notation has incomplete pitch data.",
+      "scorer_issue_found": false,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+      "variant": 6000
+    },
+    {
+      "family": "continuation-motif",
+      "format": "abc-2.1",
+      "provider": "openai",
+      "review": "Native has the correct transformed pitches and durations but wrong absolute origins. Composite copies the untransformed source instead of applying the affine rules.",
+      "scorer_issue_found": false,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+      "variant": 6020
+    },
+    {
+      "family": "continuation-motif",
+      "format": "strudel-v1.2",
+      "provider": "openai",
+      "review": "Native uses numeric note tokens outside the note-name subset. Composite has seven notes instead of eight, with wrong durations and lead timing.",
+      "scorer_issue_found": false,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+      "variant": 6020
+    },
+    {
+      "family": "continuation-motif",
+      "format": "lilypond-2.24.4",
+      "provider": "openai",
+      "review": "Native uses flat names outside the sharp-only subset and retains source origins. Composite omits one lead note and has other pitch, onset, and duration errors.",
+      "scorer_issue_found": false,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+      "variant": 6022
+    },
+    {
+      "family": "continuation-motif",
+      "format": "musicxml-4.0",
+      "provider": "openai",
+      "review": "Native computes some transformed pitches but uses wrong origins and lead durations. Composite uses integer timing values and extra notes that do not match the affine contract.",
+      "scorer_issue_found": false,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+      "variant": 6021
+    },
+    {
+      "family": "continuation-roles",
+      "format": "abc-2.1",
+      "provider": "openai",
+      "review": "Native omits an explicit accidental and has wrong timing values. Composite meets the ledger contract, but its notation also fails the explicit-accidental subset.",
+      "scorer_issue_found": false,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+      "variant": 6000
+    },
+    {
+      "family": "continuation-roles",
+      "format": "strudel-v1.2",
+      "provider": "openai",
+      "review": "Native starts at zero and gives 7/4-beat durations. Composite meets timing and harmony but puts one lead pitch below range.",
+      "scorer_issue_found": false,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+      "variant": 6000
+    },
+    {
+      "family": "continuation-roles",
+      "format": "lilypond-2.24.4",
+      "provider": "openai",
+      "review": "Native uses flat names outside the sharp-only subset. Composite has correct timing but violates harmony; its notation also uses flat names.",
+      "scorer_issue_found": false,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+      "variant": 6002
+    },
+    {
+      "family": "continuation-roles",
+      "format": "musicxml-4.0",
+      "provider": "openai",
+      "review": "Native inserts one extra beat between each note. Composite meets timing and harmony but exceeds the maximum bass leap.",
+      "scorer_issue_found": false,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+      "variant": 6001
+    }
+  ],
+  "schema": "ghostnote-native-composite-manual-audit-v1",
+  "sha256": "db1a951f63a1fbb4cc999dbd9bbadb16bcb5d1641125edfc550510bf42907f0a",
+  "unreviewable_primary_cells": 0
+}

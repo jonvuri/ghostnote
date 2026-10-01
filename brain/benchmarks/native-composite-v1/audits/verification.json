@@ -1,0 +1,286 @@
+{
+  "audit_artifacts": 8,
+  "cases": 240,
+  "checks": [
+    {
+      "artifact": "abc-native-full-grammar.json",
+      "condition": "native",
+      "format": "abc-2.1",
+      "sha256": "9db4c6d5d020e596620261dc3893412185b9a1d1e08cd39027a478e7fbcabcb0",
+      "totals": {
+        "gemini": {
+          "cases": 15,
+          "correct": 229,
+          "frozen_correct": 229,
+          "full_passes": 3,
+          "incomplete_or_invalid_decodes": 0,
+          "planned": 333,
+          "prompt_mean": 0.5921067821067819
+        },
+        "openai": {
+          "cases": 15,
+          "correct": 238,
+          "frozen_correct": 226,
+          "full_passes": 3,
+          "incomplete_or_invalid_decodes": 1,
+          "planned": 333,
+          "profile_rejections": 3,
+          "prompt_mean": 0.5252380952380952,
+          "rejected_complete_decodes": 2,
+          "rejected_full_passes": 0
+        }
+      }
+    },
+    {
+      "artifact": "lilypond-native-full-grammar.json",
+      "condition": "native",
+      "format": "lilypond-2.24.4",
+      "sha256": "9a5a2de7c5935d5ef15b291a2d91641ca004589661e289e236f9aba63145ef7f",
+      "totals": {
+        "gemini": {
+          "cases": 15,
+          "correct": 283,
+          "frozen_correct": 275,
+          "full_passes": 3,
+          "incomplete_or_invalid_decodes": 0,
+          "planned": 333,
+          "profile_rejections": 1,
+          "prompt_mean": 0.8035642135642135,
+          "rejected_complete_decodes": 1,
+          "rejected_full_passes": 0
+        },
+        "openai": {
+          "cases": 15,
+          "correct": 275,
+          "frozen_correct": 246,
+          "full_passes": 4,
+          "incomplete_or_invalid_decodes": 0,
+          "planned": 333,
+          "profile_rejections": 2,
+          "prompt_mean": 0.7970851370851371,
+          "rejected_complete_decodes": 2,
+          "rejected_full_passes": 0
+        }
+      }
+    },
+    {
+      "artifact": "musicxml-native-full-grammar.json",
+      "condition": "native",
+      "format": "musicxml-4.0",
+      "sha256": "76417fd294ae87d55d34f0a6d84ca516016f8b90442c719f00c8457421e6f73c",
+      "totals": {
+        "gemini": {
+          "cases": 15,
+          "correct": 294,
+          "frozen_correct": 294,
+          "full_passes": 6,
+          "incomplete_or_invalid_decodes": 0,
+          "planned": 333,
+          "prompt_mean": 0.8602597402597404
+        },
+        "openai": {
+          "cases": 15,
+          "correct": 227,
+          "frozen_correct": 216,
+          "full_passes": 5,
+          "incomplete_or_invalid_decodes": 2,
+          "planned": 333,
+          "profile_rejections": 3,
+          "prompt_mean": 0.6907503607503608,
+          "rejected_complete_decodes": 1,
+          "rejected_full_passes": 0
+        }
+      }
+    },
+    {
+      "artifact": "strudel-native-full-grammar.json",
+      "condition": "native",
+      "format": "strudel-v1.2",
+      "sha256": "f7339fd1fcd001da643d50ce6345f9f5ac8f43169e9d5db459563d84a2c59531",
+      "totals": {
+        "gemini": {
+          "cases": 15,
+          "correct": 224,
+          "frozen_correct": 198,
+          "full_passes": 3,
+          "incomplete_or_invalid_decodes": 0,
+          "planned": 333,
+          "profile_rejections": 3,
+          "prompt_mean": 0.5780952380952381,
+          "rejected_complete_decodes": 3,
+          "rejected_full_passes": 0
+        },
+        "openai": {
+          "cases": 15,
+          "correct": 269,
+          "frozen_correct": 219,
+          "full_passes": 4,
+          "incomplete_or_invalid_decodes": 0,
+          "planned": 333,
+          "profile_rejections": 5,
+          "prompt_mean": 0.7648773448773448,
+          "rejected_complete_decodes": 5,
+          "rejected_full_passes": 0
+        }
+      }
+    },
+    {
+      "artifact": "abc-composite-ledger-credit.json",
+      "condition": "composite",
+      "format": "abc-2.1",
+      "sha256": "26bd0fd8b336407ac199084479a98ed280feb0b1acf4b14561e87eb9185cc841",
+      "totals": {
+        "gemini": {
+          "aligned": 3,
+          "cases": 15,
+          "coherent_full_passes": 3,
+          "correct": 214,
+          "frozen_correct": 214,
+          "full_passes": 3,
+          "incomplete_or_invalid_decodes": 2,
+          "ledger_correct": 310,
+          "ledger_full_passes": 6,
+          "ledger_perfect_notation_fails": 3,
+          "notation_perfect_ledger_fails": 0,
+          "planned": 333,
+          "prompt_mean": 0.5554112554112554
+        },
+        "openai": {
+          "aligned": 2,
+          "cases": 15,
+          "coherent_full_passes": 2,
+          "correct": 218,
+          "frozen_correct": 200,
+          "full_passes": 2,
+          "incomplete_or_invalid_decodes": 2,
+          "ledger_correct": 303,
+          "ledger_full_passes": 9,
+          "ledger_perfect_notation_fails": 7,
+          "notation_perfect_ledger_fails": 0,
+          "planned": 333,
+          "prompt_mean": 0.5230117501546072
+        }
+      }
+    },
+    {
+      "artifact": "lilypond-composite-ledger-credit.json",
+      "condition": "composite",
+      "format": "lilypond-2.24.4",
+      "sha256": "1a4f461cc550dd4f09dde9ec6390de29f86fb6efd43f0a7a019383a8e8a7c6e3",
+      "totals": {
+        "gemini": {
+          "aligned": 8,
+          "cases": 15,
+          "coherent_full_passes": 4,
+          "correct": 286,
+          "frozen_correct": 277,
+          "full_passes": 4,
+          "incomplete_or_invalid_decodes": 1,
+          "ledger_correct": 301,
+          "ledger_full_passes": 5,
+          "ledger_perfect_notation_fails": 1,
+          "notation_perfect_ledger_fails": 0,
+          "planned": 333,
+          "prompt_mean": 0.7981385281385283
+        },
+        "openai": {
+          "aligned": 4,
+          "cases": 15,
+          "coherent_full_passes": 2,
+          "correct": 274,
+          "frozen_correct": 266,
+          "full_passes": 3,
+          "incomplete_or_invalid_decodes": 0,
+          "ledger_correct": 292,
+          "ledger_full_passes": 6,
+          "ledger_perfect_notation_fails": 3,
+          "notation_perfect_ledger_fails": 0,
+          "planned": 333,
+          "prompt_mean": 0.7984003298289011
+        }
+      }
+    },
+    {
+      "artifact": "musicxml-composite-ledger-credit.json",
+      "condition": "composite",
+      "format": "musicxml-4.0",
+      "sha256": "d4551a8f8a2b426c0f8efaa0ddc9ac4ba0b269eccd98142fa7ba4af67bb7362d",
+      "totals": {
+        "gemini": {
+          "aligned": 9,
+          "cases": 15,
+          "coherent_full_passes": 5,
+          "correct": 288,
+          "frozen_correct": 288,
+          "full_passes": 5,
+          "incomplete_or_invalid_decodes": 0,
+          "ledger_correct": 311,
+          "ledger_full_passes": 5,
+          "ledger_perfect_notation_fails": 0,
+          "notation_perfect_ledger_fails": 0,
+          "planned": 333,
+          "prompt_mean": 0.816132756132756
+        },
+        "openai": {
+          "aligned": 3,
+          "cases": 15,
+          "coherent_full_passes": 1,
+          "correct": 143,
+          "frozen_correct": 143,
+          "full_passes": 1,
+          "incomplete_or_invalid_decodes": 6,
+          "ledger_correct": 298,
+          "ledger_full_passes": 6,
+          "ledger_perfect_notation_fails": 5,
+          "notation_perfect_ledger_fails": 0,
+          "planned": 333,
+          "prompt_mean": 0.43558441558441563
+        }
+      }
+    },
+    {
+      "artifact": "strudel-composite-ledger-credit.json",
+      "condition": "composite",
+      "format": "strudel-v1.2",
+      "sha256": "df2e9ce5776c9af786085d21ce3b49cf41403463ebfba5b09fc5b6328c038da2",
+      "totals": {
+        "gemini": {
+          "aligned": 3,
+          "cases": 15,
+          "coherent_full_passes": 3,
+          "correct": 223,
+          "frozen_correct": 211,
+          "full_passes": 3,
+          "incomplete_or_invalid_decodes": 0,
+          "ledger_correct": 311,
+          "ledger_full_passes": 6,
+          "ledger_perfect_notation_fails": 3,
+          "notation_perfect_ledger_fails": 0,
+          "planned": 333,
+          "prompt_mean": 0.562121212121212
+        },
+        "openai": {
+          "aligned": 6,
+          "cases": 15,
+          "coherent_full_passes": 4,
+          "correct": 255,
+          "frozen_correct": 244,
+          "full_passes": 4,
+          "incomplete_or_invalid_decodes": 0,
+          "ledger_correct": 307,
+          "ledger_full_passes": 7,
+          "ledger_perfect_notation_fails": 3,
+          "notation_perfect_ledger_fails": 0,
+          "planned": 333,
+          "prompt_mean": 0.7078354978354979
+        }
+      }
+    }
+  ],
+  "inventory_sha256": "6277677aa5c25d84a3e8768df0471fa168bce6cbc21c985a6d6a12a797f5903c",
+  "limit": "These checks verify provenance and component arithmetic. They do not prove the manual grammar judgments.",
+  "schema": "ghostnote-native-composite-full-grammar-verification-v1",
+  "sha256": "a29216697e94d6f0e8710d02b62f9f75d0ba53019d004746f6c4328552601e3a",
+  "unchanged_assessment_sha256": "e473b5a556cbfab22a48ae3c2abb806cfdf28ee112f40411beb06ecae0b608ba",
+  "verifier_sha256": "a6e7996caf017a6051b8e5882760558a63b06883fa0e8438bac1838105b1113e"
+}

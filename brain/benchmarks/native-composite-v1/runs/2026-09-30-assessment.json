@@ -1,0 +1,3952 @@
+{
+  "baseline_sha256": "b2bcacdb567e0575f2983aea3e7d3ed914163a6115235f1c6e9c21761493ecad",
+  "interpretation": "Report each provider, family, and format pair. Sentinels are separate. Do not pool with v5 or infer full native-format capability or training familiarity. No product selection is automatic.",
+  "measured_cost_exact_usd": "2.52608325",
+  "providers": {
+    "gemini": {
+      "cost_exact_usd": 0.42887325,
+      "pairs": {
+        "abc-2.1": {
+          "comprehension-analysis": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 6150,
+                "mean_latency_ms": 2087.2053333333333,
+                "measured_cost_usd": "0.00575250",
+                "output_tokens": 304,
+                "planned": 3,
+                "response_bytes": 732,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 5041,
+                "mean_latency_ms": 1902.9016666666666,
+                "measured_cost_usd": "0.00485325",
+                "output_tokens": 286,
+                "planned": 3,
+                "response_bytes": 710,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.8888888888888888,
+              "component_correct": 56,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.8888888888888888,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.7301587301587301,
+              "component_correct": 46,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.7301587301587301,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.15873015873015875,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.23809523809523814,
+              -0.04761904761904767
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "comprehension-structure": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2278,
+                "mean_latency_ms": 3169.295,
+                "measured_cost_usd": "0.00635100",
+                "output_tokens": 1238,
+                "planned": 3,
+                "response_bytes": 1778,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1231,
+                "mean_latency_ms": 1878.5600000000002,
+                "measured_cost_usd": "0.00267450",
+                "output_tokens": 467,
+                "planned": 3,
+                "response_bytes": 641,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 147,
+              "notation_component_planned": 147,
+              "notation_ledger_alignment_passes": 3,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.0,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              0.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-motif": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2494,
+                "mean_latency_ms": 2639.835333333333,
+                "measured_cost_usd": "0.0056955",
+                "output_tokens": 1020,
+                "planned": 3,
+                "response_bytes": 1439,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1657,
+                "mean_latency_ms": 2127.286,
+                "measured_cost_usd": "0.00288525",
+                "output_tokens": 438,
+                "planned": 3,
+                "response_bytes": 584,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.8888888888888888,
+              "component_correct": 88,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.888888888888889,
+              "notation_component_correct": 29,
+              "notation_component_planned": 99,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.43434343434343436,
+              "component_correct": 43,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.4343434343434343,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.4545454545454546,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.6363636363636365,
+              -0.3636363636363636
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-roles": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1417,
+                "mean_latency_ms": 2486.1839999999997,
+                "measured_cost_usd": "0.0046515",
+                "output_tokens": 957,
+                "planned": 3,
+                "response_bytes": 1308,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1099,
+                "mean_latency_ms": 2140.967666666667,
+                "measured_cost_usd": "0.00236925",
+                "output_tokens": 412,
+                "planned": 3,
+                "response_bytes": 527,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9333333333333333,
+              "component_correct": 28,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.9333333333333332,
+              "notation_component_correct": 20,
+              "notation_component_planned": 30,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.6333333333333333,
+              "component_correct": 19,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.6333333333333333,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.30000000000000004,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.4000000000000001,
+              -0.20000000000000007
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-melody": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1525,
+                "mean_latency_ms": 2434.01,
+                "measured_cost_usd": "0.004545",
+                "output_tokens": 907,
+                "planned": 3,
+                "response_bytes": 1180,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1207,
+                "mean_latency_ms": 11967.369,
+                "measured_cost_usd": "0.03336525",
+                "output_tokens": 8656,
+                "planned": 3,
+                "response_bytes": 486,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9047619047619048,
+              "component_correct": 19,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.9047619047619048,
+              "notation_component_correct": 16,
+              "notation_component_planned": 21,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 2,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 1,
+              "component_accuracy": 0.8095238095238095,
+              "component_correct": 17,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.8095238095238094,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.09523809523809527,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.2857142857142857,
+              0.1428571428571428
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-progression": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1635,
+                "mean_latency_ms": 3241.6136666666666,
+                "measured_cost_usd": "0.00727125",
+                "output_tokens": 1612,
+                "planned": 3,
+                "response_bytes": 2223,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1317,
+                "mean_latency_ms": 2089.3386666666665,
+                "measured_cost_usd": "0.00347025",
+                "output_tokens": 662,
+                "planned": 3,
+                "response_bytes": 845,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.7777777777777778,
+              "component_correct": 28,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.7777777777777777,
+              "notation_component_correct": 2,
+              "notation_component_planned": 36,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.08333333333333333,
+              "component_correct": 3,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.08333333333333333,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.6944444444444443,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.8333333333333334,
+              -0.5833333333333333
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          }
+        },
+        "lilypond-2.24.4": {
+          "comprehension-analysis": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 6318,
+                "mean_latency_ms": 2329.478333333333,
+                "measured_cost_usd": "0.00590850",
+                "output_tokens": 312,
+                "planned": 3,
+                "response_bytes": 750,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 5209,
+                "mean_latency_ms": 1706.8993333333335,
+                "measured_cost_usd": "0.00501300",
+                "output_tokens": 295,
+                "planned": 3,
+                "response_bytes": 714,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.9841269841269841,
+              "component_correct": 62,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.9841269841269842,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 2,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.8888888888888888,
+              "component_correct": 56,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.8888888888888888,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.09523809523809527,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.19047619047619047,
+              -0.04761904761904767
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "comprehension-structure": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2415,
+                "mean_latency_ms": 3113.173666666667,
+                "measured_cost_usd": "0.00703125",
+                "output_tokens": 1392,
+                "planned": 3,
+                "response_bytes": 2131,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1368,
+                "mean_latency_ms": 2076.33,
+                "measured_cost_usd": "0.0033660",
+                "output_tokens": 624,
+                "planned": 3,
+                "response_bytes": 994,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 147,
+              "notation_component_planned": 147,
+              "notation_ledger_alignment_passes": 3,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.0,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              0.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-motif": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2621,
+                "mean_latency_ms": 3071.4329999999995,
+                "measured_cost_usd": "0.00634950",
+                "output_tokens": 1169,
+                "planned": 3,
+                "response_bytes": 1757,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1784,
+                "mean_latency_ms": 4065.269333333333,
+                "measured_cost_usd": "0.00343425",
+                "output_tokens": 559,
+                "planned": 3,
+                "response_bytes": 875,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.797979797979798,
+              "component_correct": 79,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.797979797979798,
+              "notation_component_correct": 76,
+              "notation_component_planned": 99,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 1,
+              "component_accuracy": 0.6868686868686869,
+              "component_correct": 68,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.6868686868686869,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.11111111111111109,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.2727272727272727,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-roles": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1411,
+                "mean_latency_ms": 2213.3726666666666,
+                "measured_cost_usd": "0.00408075",
+                "output_tokens": 806,
+                "planned": 3,
+                "response_bytes": 1161,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1093,
+                "mean_latency_ms": 1772.0593333333334,
+                "measured_cost_usd": "0.00200100",
+                "output_tokens": 315,
+                "planned": 3,
+                "response_bytes": 496,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9333333333333333,
+              "component_correct": 28,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.9333333333333332,
+              "notation_component_correct": 28,
+              "notation_component_planned": 30,
+              "notation_ledger_alignment_passes": 3,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.6,
+              "component_correct": 18,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.6,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.3333333333333333,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -1.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-melody": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1519,
+                "mean_latency_ms": 2761.038,
+                "measured_cost_usd": "0.00478425",
+                "output_tokens": 972,
+                "planned": 3,
+                "response_bytes": 1301,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1201,
+                "mean_latency_ms": 2178.036333333333,
+                "measured_cost_usd": "0.00258825",
+                "output_tokens": 450,
+                "planned": 3,
+                "response_bytes": 619,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9047619047619048,
+              "component_correct": 19,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.9047619047619048,
+              "notation_component_correct": 16,
+              "notation_component_planned": 21,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.7142857142857143,
+              "component_correct": 15,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.7142857142857143,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.19047619047619044,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.2857142857142857,
+              -0.1428571428571428
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-progression": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1629,
+                "mean_latency_ms": 2848.853333333333,
+                "measured_cost_usd": "0.00689550",
+                "output_tokens": 1513,
+                "planned": 3,
+                "response_bytes": 2236,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1311,
+                "mean_latency_ms": 2213.6503333333335,
+                "measured_cost_usd": "0.00303825",
+                "output_tokens": 548,
+                "planned": 3,
+                "response_bytes": 874,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.7777777777777778,
+              "component_correct": 28,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.7777777777777778,
+              "notation_component_correct": 10,
+              "notation_component_planned": 36,
+              "notation_ledger_alignment_passes": 1,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 1
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.75,
+              "component_correct": 27,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.75,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.02777777777777779,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.08333333333333337,
+              0.08333333333333337
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          }
+        },
+        "musicxml-4.0": {
+          "comprehension-analysis": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 9129,
+                "mean_latency_ms": 2421.087,
+                "measured_cost_usd": "0.008013",
+                "output_tokens": 311,
+                "planned": 3,
+                "response_bytes": 749,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 8020,
+                "mean_latency_ms": 1941.3566666666666,
+                "measured_cost_usd": "0.00714375",
+                "output_tokens": 301,
+                "planned": 3,
+                "response_bytes": 730,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 63,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 3,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.9206349206349206,
+              "component_correct": 58,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.9206349206349206,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.07936507936507942,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.1428571428571429,
+              -0.04761904761904767
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "comprehension-structure": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 5013,
+                "mean_latency_ms": 4071.671,
+                "measured_cost_usd": "0.01676475",
+                "output_tokens": 3468,
+                "planned": 3,
+                "response_bytes": 9119,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 3966,
+                "mean_latency_ms": 3836.781666666667,
+                "measured_cost_usd": "0.0130845",
+                "output_tokens": 2696,
+                "planned": 3,
+                "response_bytes": 7982,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 147,
+              "notation_component_planned": 147,
+              "notation_ledger_alignment_passes": 3,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.0,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              0.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-motif": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 4715,
+                "mean_latency_ms": 3887.7746666666667,
+                "measured_cost_usd": "0.01357500",
+                "output_tokens": 2677,
+                "planned": 3,
+                "response_bytes": 7027,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 3878,
+                "mean_latency_ms": 4077.4896666666664,
+                "measured_cost_usd": "0.01082850",
+                "output_tokens": 2112,
+                "planned": 3,
+                "response_bytes": 6265,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9191919191919192,
+              "component_correct": 91,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.9191919191919192,
+              "notation_component_correct": 71,
+              "notation_component_planned": 99,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.7171717171717171,
+              "component_correct": 71,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.7171717171717171,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.20202020202020207,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.3030303030303031,
+              -0.12121212121212122
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-roles": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1975,
+                "mean_latency_ms": 3392.5730000000003,
+                "measured_cost_usd": "0.0087825",
+                "output_tokens": 1947,
+                "planned": 3,
+                "response_bytes": 4913,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1657,
+                "mean_latency_ms": 2733.2659999999996,
+                "measured_cost_usd": "0.006624",
+                "output_tokens": 1435,
+                "planned": 3,
+                "response_bytes": 4164,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9666666666666667,
+              "component_correct": 29,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.9666666666666667,
+              "notation_component_correct": 29,
+              "notation_component_planned": 30,
+              "notation_ledger_alignment_passes": 3,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9333333333333333,
+              "component_correct": 28,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.9333333333333332,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.033333333333333326,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.09999999999999998,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-melody": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2083,
+                "mean_latency_ms": 3318.241666666667,
+                "measured_cost_usd": "0.00932850",
+                "output_tokens": 2071,
+                "planned": 3,
+                "response_bytes": 5155,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1765,
+                "mean_latency_ms": 3293.1389999999997,
+                "measured_cost_usd": "0.00722625",
+                "output_tokens": 1574,
+                "planned": 3,
+                "response_bytes": 4568,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.7619047619047619,
+              "component_correct": 16,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.7619047619047619,
+              "notation_component_correct": 13,
+              "notation_component_planned": 21,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 1,
+              "component_accuracy": 0.7619047619047619,
+              "component_correct": 16,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.7619047619047619,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.0,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              0.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-progression": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2193,
+                "mean_latency_ms": 4657.638666666667,
+                "measured_cost_usd": "0.01546725",
+                "output_tokens": 3686,
+                "planned": 3,
+                "response_bytes": 9408,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1875,
+                "mean_latency_ms": 4083.6749999999997,
+                "measured_cost_usd": "0.01161000",
+                "output_tokens": 2721,
+                "planned": 3,
+                "response_bytes": 8058,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.7777777777777778,
+              "component_correct": 28,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.7777777777777778,
+              "notation_component_correct": 28,
+              "notation_component_planned": 36,
+              "notation_ledger_alignment_passes": 3,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.8888888888888888,
+              "component_correct": 32,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.8888888888888888,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.11111111111111109,
+            "native_only_strict_wins": 1,
+            "paired_prompt_bootstrap_95_interval": [
+              0.0,
+              0.16666666666666663
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          }
+        },
+        "strudel-v1.2": {
+          "comprehension-analysis": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 6547,
+                "mean_latency_ms": 1842.2939999999999,
+                "measured_cost_usd": "0.00605775",
+                "output_tokens": 306,
+                "planned": 3,
+                "response_bytes": 743,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 5438,
+                "mean_latency_ms": 1874.4686666666666,
+                "measured_cost_usd": "0.00515850",
+                "output_tokens": 288,
+                "planned": 3,
+                "response_bytes": 702,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.9523809523809523,
+              "component_correct": 60,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.9523809523809524,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 2,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.7619047619047619,
+              "component_correct": 48,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.7619047619047619,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.19047619047619047,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.2857142857142857,
+              -0.09523809523809523
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "comprehension-structure": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2535,
+                "mean_latency_ms": 2410.771,
+                "measured_cost_usd": "0.00729375",
+                "output_tokens": 1438,
+                "planned": 3,
+                "response_bytes": 2134,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1488,
+                "mean_latency_ms": 1885.6236666666666,
+                "measured_cost_usd": "0.00362475",
+                "output_tokens": 669,
+                "planned": 3,
+                "response_bytes": 997,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 147,
+              "notation_component_planned": 147,
+              "notation_ledger_alignment_passes": 3,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.0,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              0.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-motif": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2766,
+                "mean_latency_ms": 3608.1176666666665,
+                "measured_cost_usd": "0.0066045",
+                "output_tokens": 1208,
+                "planned": 3,
+                "response_bytes": 1762,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1929,
+                "mean_latency_ms": 2737.3223333333335,
+                "measured_cost_usd": "0.0039405",
+                "output_tokens": 665,
+                "planned": 3,
+                "response_bytes": 953,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9090909090909091,
+              "component_correct": 90,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.9090909090909092,
+              "notation_component_correct": 39,
+              "notation_component_planned": 99,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.23232323232323232,
+              "component_correct": 23,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.23232323232323235,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.6767676767676768,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.9090909090909091,
+              -0.4545454545454546
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-roles": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1543,
+                "mean_latency_ms": 2397.446,
+                "measured_cost_usd": "0.00502350",
+                "output_tokens": 1031,
+                "planned": 3,
+                "response_bytes": 1464,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1225,
+                "mean_latency_ms": 2248.7386666666666,
+                "measured_cost_usd": "0.00229500",
+                "output_tokens": 367,
+                "planned": 3,
+                "response_bytes": 505,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9666666666666667,
+              "component_correct": 29,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.9666666666666667,
+              "notation_component_correct": 13,
+              "notation_component_planned": 30,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 2
+            },
+            "composite_only_strict_wins": 2,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 1,
+              "component_accuracy": 0.5,
+              "component_correct": 15,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.5,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.4666666666666666,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -1.0,
+              -0.09999999999999998
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-melody": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1651,
+                "mean_latency_ms": 2448.324,
+                "measured_cost_usd": "0.00453825",
+                "output_tokens": 880,
+                "planned": 3,
+                "response_bytes": 1159,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1333,
+                "mean_latency_ms": 1977.369,
+                "measured_cost_usd": "0.00219975",
+                "output_tokens": 320,
+                "planned": 3,
+                "response_bytes": 413,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.8571428571428571,
+              "component_correct": 18,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.8571428571428571,
+              "notation_component_correct": 9,
+              "notation_component_planned": 21,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.5238095238095238,
+              "component_correct": 11,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.5238095238095238,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.3333333333333333,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.42857142857142855,
+              -0.2857142857142857
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-progression": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1761,
+                "mean_latency_ms": 3933.5776666666666,
+                "measured_cost_usd": "0.0070770",
+                "output_tokens": 1535,
+                "planned": 3,
+                "response_bytes": 2159,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1443,
+                "mean_latency_ms": 2610.6536666666666,
+                "measured_cost_usd": "0.00334725",
+                "output_tokens": 604,
+                "planned": 3,
+                "response_bytes": 897,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.75,
+              "component_correct": 27,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.75,
+              "notation_component_correct": 3,
+              "notation_component_planned": 36,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.05555555555555555,
+              "component_correct": 2,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.05555555555555555,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.6944444444444443,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.8333333333333334,
+              -0.5833333333333333
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          }
+        }
+      },
+      "progress": {
+        "attempted": 192,
+        "available": 192,
+        "budget_stopped": 0,
+        "failed": 0,
+        "planned": 192,
+        "provider_completed": 192,
+        "scored": 192,
+        "unavailable": 0
+      },
+      "sentinels": [
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "comprehension-analysis",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-analysis",
+          "payload_equal": true
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-analysis",
+          "payload_equal": true
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-analysis",
+          "payload_equal": true
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-analysis",
+          "payload_equal": true
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-analysis",
+          "payload_equal": true
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-analysis",
+          "payload_equal": true
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-analysis",
+          "payload_equal": true
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "continuation-roles",
+          "payload_equal": true
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        }
+      ]
+    },
+    "openai": {
+      "cost_exact_usd": 2.09721,
+      "pairs": {
+        "abc-2.1": {
+          "comprehension-analysis": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 5646,
+                "mean_latency_ms": 21778.27633333333,
+                "measured_cost_usd": "0.0473040",
+                "output_tokens": 9571,
+                "planned": 3,
+                "response_bytes": 3075,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 4707,
+                "mean_latency_ms": 23139.649333333335,
+                "measured_cost_usd": "0.04501125",
+                "output_tokens": 9218,
+                "planned": 3,
+                "response_bytes": 679,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.8095238095238095,
+              "component_correct": 51,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.8095238095238096,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.36507936507936506,
+              "component_correct": 23,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.36507936507936506,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.4444444444444445,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.5238095238095238,
+              -0.28571428571428575
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "comprehension-structure": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2131,
+                "mean_latency_ms": 20287.847999999998,
+                "measured_cost_usd": "0.03831825",
+                "output_tokens": 8160,
+                "planned": 3,
+                "response_bytes": 1784,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1210,
+                "mean_latency_ms": 8480.576,
+                "measured_cost_usd": "0.014295",
+                "output_tokens": 2975,
+                "planned": 3,
+                "response_bytes": 641,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 1,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 146,
+              "notation_component_planned": 147,
+              "notation_ledger_alignment_passes": 2,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.0,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              0.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-motif": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2320,
+                "mean_latency_ms": 30613.049333333332,
+                "measured_cost_usd": "0.06065850",
+                "output_tokens": 13093,
+                "planned": 3,
+                "response_bytes": 1537,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1579,
+                "mean_latency_ms": 26805.13266666667,
+                "measured_cost_usd": "0.05040525",
+                "output_tokens": 10938,
+                "planned": 3,
+                "response_bytes": 606,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.7272727272727273,
+              "component_correct": 72,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.7272727272727272,
+              "notation_component_correct": 26,
+              "notation_component_planned": 99,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 1
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.6666666666666666,
+              "component_correct": 66,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.6666666666666666,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.06060606060606061,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.3333333333333333,
+              0.45454545454545453
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-roles": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1416,
+                "mean_latency_ms": 13402.053,
+                "measured_cost_usd": "0.027630",
+                "output_tokens": 5904,
+                "planned": 3,
+                "response_bytes": 1224,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1113,
+                "mean_latency_ms": 13028.175333333333,
+                "measured_cost_usd": "0.02356875",
+                "output_tokens": 5052,
+                "planned": 3,
+                "response_bytes": 436,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 1.0,
+              "component_correct": 30,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 12,
+              "notation_component_planned": 30,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 2
+            },
+            "composite_only_strict_wins": 3,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.0,
+              "component_correct": 0,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.0,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 0
+            },
+            "native_minus_composite_mean_prompt_accuracy": -1.0,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -1.0,
+              -1.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-melody": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1512,
+                "mean_latency_ms": 19314.956000000002,
+                "measured_cost_usd": "0.0398700",
+                "output_tokens": 8608,
+                "planned": 3,
+                "response_bytes": 1332,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1209,
+                "mean_latency_ms": 15360.772333333332,
+                "measured_cost_usd": "0.03132675",
+                "output_tokens": 6760,
+                "planned": 3,
+                "response_bytes": 662,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 1.0,
+              "component_correct": 21,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 15,
+              "notation_component_planned": 21,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 3,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.47619047619047616,
+              "component_correct": 10,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.4761904761904762,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.5238095238095238,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.7142857142857143,
+              -0.2857142857142857
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-progression": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1629,
+                "mean_latency_ms": 19878.381666666668,
+                "measured_cost_usd": "0.04010175",
+                "output_tokens": 8640,
+                "planned": 3,
+                "response_bytes": 2177,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1326,
+                "mean_latency_ms": 20557.412666666667,
+                "measured_cost_usd": "0.0421965",
+                "output_tokens": 9156,
+                "planned": 3,
+                "response_bytes": 659,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9166666666666666,
+              "component_correct": 33,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.9166666666666666,
+              "notation_component_correct": 1,
+              "notation_component_planned": 36,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 1
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.08333333333333333,
+              "component_correct": 3,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.08333333333333333,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.8333333333333334,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.8333333333333334,
+              -0.8333333333333334
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          }
+        },
+        "lilypond-2.24.4": {
+          "comprehension-analysis": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 5869,
+                "mean_latency_ms": 21793.603,
+                "measured_cost_usd": "0.04129275",
+                "output_tokens": 8198,
+                "planned": 3,
+                "response_bytes": 2380,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 4930,
+                "mean_latency_ms": 25564.31033333333,
+                "measured_cost_usd": "0.04858050",
+                "output_tokens": 9974,
+                "planned": 3,
+                "response_bytes": 1130,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 1,
+              "component_accuracy": 0.5873015873015873,
+              "component_correct": 37,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.5873015873015873,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.5396825396825397,
+              "component_correct": 34,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.5396825396825397,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.04761904761904765,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.1428571428571429,
+              0.04761904761904756
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "comprehension-structure": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2283,
+                "mean_latency_ms": 7977.377,
+                "measured_cost_usd": "0.01718325",
+                "output_tokens": 3438,
+                "planned": 3,
+                "response_bytes": 2138,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1362,
+                "mean_latency_ms": 3354.5056666666665,
+                "measured_cost_usd": "0.00529200",
+                "output_tokens": 949,
+                "planned": 3,
+                "response_bytes": 994,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 1,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 144,
+              "notation_component_planned": 147,
+              "notation_ledger_alignment_passes": 2,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.0,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              0.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-motif": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2440,
+                "mean_latency_ms": 10813.243666666667,
+                "measured_cost_usd": "0.02433900",
+                "output_tokens": 5002,
+                "planned": 3,
+                "response_bytes": 1632,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1699,
+                "mean_latency_ms": 14862.016000000001,
+                "measured_cost_usd": "0.02659125",
+                "output_tokens": 5626,
+                "planned": 3,
+                "response_bytes": 874,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.6767676767676768,
+              "component_correct": 67,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.6767676767676768,
+              "notation_component_correct": 60,
+              "notation_component_planned": 99,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 1,
+              "component_accuracy": 0.40404040404040403,
+              "component_correct": 40,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.404040404040404,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.27272727272727276,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.7878787878787877,
+              0.24242424242424235
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-roles": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1398,
+                "mean_latency_ms": 7900.365999999999,
+                "measured_cost_usd": "0.0156690",
+                "output_tokens": 3249,
+                "planned": 3,
+                "response_bytes": 1240,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1095,
+                "mean_latency_ms": 6449.216333333334,
+                "measured_cost_usd": "0.01209375",
+                "output_tokens": 2505,
+                "planned": 3,
+                "response_bytes": 477,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9333333333333333,
+              "component_correct": 28,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.9333333333333332,
+              "notation_component_correct": 18,
+              "notation_component_planned": 30,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 2
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.5,
+              "component_correct": 15,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.5,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.43333333333333335,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.9,
+              -0.09999999999999998
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-melody": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1494,
+                "mean_latency_ms": 13442.063,
+                "measured_cost_usd": "0.0298395",
+                "output_tokens": 6382,
+                "planned": 3,
+                "response_bytes": 1429,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1191,
+                "mean_latency_ms": 13114.568,
+                "measured_cost_usd": "0.02737575",
+                "output_tokens": 5885,
+                "planned": 3,
+                "response_bytes": 816,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9047619047619048,
+              "component_correct": 19,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.9047619047619048,
+              "notation_component_correct": 16,
+              "notation_component_planned": 21,
+              "notation_ledger_alignment_passes": 1,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.8571428571428571,
+              "component_correct": 18,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.8571428571428571,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.047619047619047596,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.1428571428571428,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-progression": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1611,
+                "mean_latency_ms": 18653.734,
+                "measured_cost_usd": "0.04023225",
+                "output_tokens": 8672,
+                "planned": 3,
+                "response_bytes": 2386,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1308,
+                "mean_latency_ms": 23562.417666666664,
+                "measured_cost_usd": "0.043038",
+                "output_tokens": 9346,
+                "planned": 3,
+                "response_bytes": 878,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.8611111111111112,
+              "component_correct": 31,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.861111111111111,
+              "notation_component_correct": 28,
+              "notation_component_planned": 36,
+              "notation_ledger_alignment_passes": 1,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.7222222222222222,
+              "component_correct": 26,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.7222222222222222,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.13888888888888887,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.3333333333333333,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          }
+        },
+        "musicxml-4.0": {
+          "comprehension-analysis": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 8540,
+                "mean_latency_ms": 20421.43133333333,
+                "measured_cost_usd": "0.0447405",
+                "output_tokens": 8519,
+                "planned": 3,
+                "response_bytes": 4814,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 7601,
+                "mean_latency_ms": 14719.968666666668,
+                "measured_cost_usd": "0.03003675",
+                "output_tokens": 5408,
+                "planned": 3,
+                "response_bytes": 678,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.5714285714285714,
+              "component_correct": 36,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.5714285714285715,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.6031746031746031,
+              "component_correct": 38,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.6031746031746031,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.031746031746031744,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.09523809523809523,
+              0.19047619047619047
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "comprehension-structure": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 4779,
+                "mean_latency_ms": 8965.324999999999,
+                "measured_cost_usd": "0.02460825",
+                "output_tokens": 4672,
+                "planned": 3,
+                "response_bytes": 9142,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 3858,
+                "mean_latency_ms": 5254.6286666666665,
+                "measured_cost_usd": "0.01529550",
+                "output_tokens": 2756,
+                "planned": 3,
+                "response_bytes": 8074,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 49,
+              "notation_component_planned": 147,
+              "notation_ledger_alignment_passes": 1,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 1
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.6666666666666666,
+              "component_correct": 98,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 0.6666666666666666,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 2
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.3333333333333333,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -1.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-motif": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 4459,
+                "mean_latency_ms": 17214.854333333333,
+                "measured_cost_usd": "0.03654525",
+                "output_tokens": 7378,
+                "planned": 3,
+                "response_bytes": 6750,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 3718,
+                "mean_latency_ms": 9856.800666666668,
+                "measured_cost_usd": "0.02422200",
+                "output_tokens": 4763,
+                "planned": 3,
+                "response_bytes": 6333,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.7070707070707071,
+              "component_correct": 70,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.7070707070707071,
+              "notation_component_correct": 58,
+              "notation_component_planned": 99,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.6767676767676768,
+              "component_correct": 67,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.6767676767676768,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.030303030303030314,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.18181818181818177,
+              0.18181818181818177
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-roles": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1947,
+                "mean_latency_ms": 10078.235666666666,
+                "measured_cost_usd": "0.02437875",
+                "output_tokens": 5093,
+                "planned": 3,
+                "response_bytes": 4991,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1644,
+                "mean_latency_ms": 9776.146666666667,
+                "measured_cost_usd": "0.0223695",
+                "output_tokens": 4697,
+                "planned": 3,
+                "response_bytes": 4623,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 1,
+              "component_accuracy": 0.9333333333333333,
+              "component_correct": 28,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.9333333333333332,
+              "notation_component_correct": 18,
+              "notation_component_planned": 30,
+              "notation_ledger_alignment_passes": 2,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 2
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9,
+              "component_correct": 27,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.9,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.03333333333333336,
+            "native_only_strict_wins": 1,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.20000000000000007,
+              0.09999999999999998
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-melody": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2043,
+                "mean_latency_ms": 12163.681666666665,
+                "measured_cost_usd": "0.02661525",
+                "output_tokens": 5574,
+                "planned": 3,
+                "response_bytes": 4653,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1740,
+                "mean_latency_ms": 13989.536999999998,
+                "measured_cost_usd": "0.0289530",
+                "output_tokens": 6144,
+                "planned": 3,
+                "response_bytes": 3359,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.8571428571428571,
+              "component_correct": 18,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.8571428571428571,
+              "notation_component_correct": 8,
+              "notation_component_planned": 21,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.5714285714285714,
+              "component_correct": 12,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.5714285714285714,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.28571428571428564,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.42857142857142855,
+              -0.1428571428571428
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-progression": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2160,
+                "mean_latency_ms": 17677.42033333333,
+                "measured_cost_usd": "0.0450495",
+                "output_tokens": 9651,
+                "planned": 3,
+                "response_bytes": 9353,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1857,
+                "mean_latency_ms": 23525.136333333332,
+                "measured_cost_usd": "0.05080275",
+                "output_tokens": 10980,
+                "planned": 3,
+                "response_bytes": 8227,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9722222222222222,
+              "component_correct": 35,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.9722222222222222,
+              "notation_component_correct": 10,
+              "notation_component_planned": 36,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 1
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.3333333333333333,
+              "component_correct": 12,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.3333333333333333,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 1
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.6388888888888888,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -1.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          }
+        },
+        "strudel-v1.2": {
+          "comprehension-analysis": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 5977,
+                "mean_latency_ms": 18099.218333333334,
+                "measured_cost_usd": "0.03560025",
+                "output_tokens": 6915,
+                "planned": 3,
+                "response_bytes": 2664,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 5038,
+                "mean_latency_ms": 23646.388666666666,
+                "measured_cost_usd": "0.04525500",
+                "output_tokens": 9217,
+                "planned": 3,
+                "response_bytes": 721,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 1,
+              "component_accuracy": 0.7936507936507936,
+              "component_correct": 50,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.7936507936507936,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 0.6507936507936508,
+              "component_correct": 41,
+              "component_planned": 63,
+              "mean_prompt_accuracy": 0.6507936507936508,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.14285714285714282,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.38095238095238093,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "comprehension-structure": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2379,
+                "mean_latency_ms": 10065.145333333332,
+                "measured_cost_usd": "0.01822275",
+                "output_tokens": 3653,
+                "planned": 3,
+                "response_bytes": 2134,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1458,
+                "mean_latency_ms": 2973.056666666667,
+                "measured_cost_usd": "0.00444600",
+                "output_tokens": 745,
+                "planned": 3,
+                "response_bytes": 997,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 147,
+              "notation_component_planned": 147,
+              "notation_ledger_alignment_passes": 3,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 3,
+              "component_accuracy": 1.0,
+              "component_correct": 147,
+              "component_planned": 147,
+              "mean_prompt_accuracy": 1.0,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 3,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": 0.0,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              0.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-motif": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 2548,
+                "mean_latency_ms": 15719.215333333334,
+                "measured_cost_usd": "0.0304365",
+                "output_tokens": 6339,
+                "planned": 3,
+                "response_bytes": 1537,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1807,
+                "mean_latency_ms": 8293.820666666667,
+                "measured_cost_usd": "0.01354575",
+                "output_tokens": 2709,
+                "planned": 3,
+                "response_bytes": 897,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.7878787878787878,
+              "component_correct": 78,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.787878787878788,
+              "notation_component_correct": 50,
+              "notation_component_planned": 99,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.3434343434343434,
+              "component_correct": 34,
+              "component_planned": 99,
+              "mean_prompt_accuracy": 0.3434343434343434,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.4444444444444445,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.6969696969696969,
+              -0.24242424242424243
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "continuation-roles": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1536,
+                "mean_latency_ms": 12647.181333333334,
+                "measured_cost_usd": "0.0260190",
+                "output_tokens": 5526,
+                "planned": 3,
+                "response_bytes": 1546,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1233,
+                "mean_latency_ms": 13340.683333333334,
+                "measured_cost_usd": "0.02495475",
+                "output_tokens": 5340,
+                "planned": 3,
+                "response_bytes": 403,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9666666666666667,
+              "component_correct": 29,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.9666666666666667,
+              "notation_component_correct": 19,
+              "notation_component_planned": 30,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 2,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 2,
+              "component_accuracy": 0.7666666666666667,
+              "component_correct": 23,
+              "component_planned": 30,
+              "mean_prompt_accuracy": 0.7666666666666666,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 3
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.19999999999999998,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.20000000000000007,
+              -0.19999999999999996
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-melody": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1632,
+                "mean_latency_ms": 23735.542333333335,
+                "measured_cost_usd": "0.0477900",
+                "output_tokens": 10348,
+                "planned": 3,
+                "response_bytes": 1655,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1329,
+                "mean_latency_ms": 25127.476333333336,
+                "measured_cost_usd": "0.05266125",
+                "output_tokens": 11481,
+                "planned": 3,
+                "response_bytes": 1449,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9523809523809523,
+              "component_correct": 20,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.9523809523809524,
+              "notation_component_correct": 16,
+              "notation_component_planned": 21,
+              "notation_ledger_alignment_passes": 1,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 2,
+              "structural_passes": 3
+            },
+            "composite_only_strict_wins": 1,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.3333333333333333,
+              "component_correct": 7,
+              "component_planned": 21,
+              "mean_prompt_accuracy": 0.3333333333333333,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 1,
+              "structural_passes": 1
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.6190476190476191,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -1.0,
+              0.0
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          },
+          "generation-progression": {
+            "call_outcomes": {
+              "composite": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1749,
+                "mean_latency_ms": 24663.500666666663,
+                "measured_cost_usd": "0.04983075",
+                "output_tokens": 10782,
+                "planned": 3,
+                "response_bytes": 2400,
+                "scored": 3,
+                "unavailable": 0
+              },
+              "native": {
+                "attempted": 3,
+                "failed": 0,
+                "input_tokens": 1446,
+                "mean_latency_ms": 24692.081000000002,
+                "measured_cost_usd": "0.0469575",
+                "output_tokens": 10194,
+                "planned": 3,
+                "response_bytes": 847,
+                "scored": 3,
+                "unavailable": 0
+              }
+            },
+            "complete_pairs": 3,
+            "composite": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.9166666666666666,
+              "component_correct": 33,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.9166666666666666,
+              "notation_component_correct": 12,
+              "notation_component_planned": 36,
+              "notation_ledger_alignment_passes": 1,
+              "notation_ledger_alignment_prompts": 3,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 2
+            },
+            "composite_only_strict_wins": 0,
+            "incomplete_pairs": 0,
+            "native": {
+              "canonical_passes": 0,
+              "component_accuracy": 0.2222222222222222,
+              "component_correct": 8,
+              "component_planned": 36,
+              "mean_prompt_accuracy": 0.2222222222222222,
+              "notation_component_correct": 0,
+              "notation_component_planned": 0,
+              "notation_ledger_alignment_passes": 0,
+              "notation_ledger_alignment_prompts": 0,
+              "prompts": 3,
+              "strict_musical_passes": 0,
+              "structural_passes": 1
+            },
+            "native_minus_composite_mean_prompt_accuracy": -0.6944444444444443,
+            "native_only_strict_wins": 0,
+            "paired_prompt_bootstrap_95_interval": [
+              -0.9166666666666666,
+              -0.25
+            ],
+            "planned_unique_pairs": 3,
+            "uncertainty_warning": "Three unique prompts give coarse uncertainty. A zero-width interval does not establish equivalence."
+          }
+        }
+      },
+      "progress": {
+        "attempted": 192,
+        "available": 192,
+        "budget_stopped": 0,
+        "failed": 0,
+        "planned": 192,
+        "provider_completed": 192,
+        "scored": 192,
+        "unavailable": 0
+      },
+      "sentinels": [
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "generation-melody",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "comprehension-structure",
+          "payload_equal": true
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-roles",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": true,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "generation-progression",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "comprehension-analysis",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "comprehension-analysis",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "comprehension-analysis",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "comprehension-analysis",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "comprehension-analysis",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "comprehension-analysis",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "comprehension-analysis",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "comprehension-analysis",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "musicxml-4.0-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "abc-2.1-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "strudel-v1.2-composite",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        },
+        {
+          "arm": "lilypond-2.24.4-native",
+          "complete_pair": true,
+          "component_outcome_equal": false,
+          "family": "continuation-motif",
+          "payload_equal": false
+        }
+      ]
+    }
+  },
+  "run_id": "phase8c4f-native-composite-diagnostic-r1",
+  "schema": "ghostnote-native-composite-assessment-v1",
+  "sha256": "e473b5a556cbfab22a48ae3c2abb806cfdf28ee112f40411beb06ecae0b608ba",
+  "source_manifest_sha256": [
+    "742f428bb5539c1a53f4c1c3ec62ffe827dc121e1cc1a95ce819bee45d8c14fe",
+    "990038af3365f7831bb3a9c97bb50ccf39f01a5fbcba57cf9a6708d891b35937"
+  ]
+}

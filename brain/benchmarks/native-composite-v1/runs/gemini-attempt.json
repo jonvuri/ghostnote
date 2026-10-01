@@ -1,0 +1,58 @@
+{
+  "approval": {
+    "approved_at_utc": "2026-09-30T11:30:05.083771+00:00",
+    "candidate_sha256": {
+      "abc-2.1-composite": "43edb2c3af2086c5e41e50050c36ba48a95573783d0c941950e7eeb9017de18d",
+      "abc-2.1-native": "8042e2c24f7327e00dafa2c0643b52afaa5d7772e637a437e2202db0f6af21fa",
+      "lilypond-2.24.4-composite": "8518c0f4beba64f5c10d7f53c4f8e99d470b8ceac061f4859f5c01679c030852",
+      "lilypond-2.24.4-native": "318998d2f3a4fe3039d071aec61eae36eab266d35c8ac624d7b3c4a2591a1d27",
+      "musicxml-4.0-composite": "ce11ee3cdf7348fd6de84cf2e8ba72e221e4b3662a8005c0233970d6cadd0031",
+      "musicxml-4.0-native": "9548bcceb62582b483ea8b21d7770dc24226c9dd049ee3bbe7f56cec051090d5",
+      "strudel-v1.2-composite": "9675764401a29da66770283264e647cd5c63070f4ec2698083dc858e666be648",
+      "strudel-v1.2-native": "3d106cf1debddcad52dae2c4b98640f4bfe005edb14e07af608862590a898ed2"
+    },
+    "cohort_sha256": "3f9b68822a4c1b919babc051f08df5d3ee83223e6dfd24f9ebbaf74a003019fe",
+    "effective_request_settings": {
+      "claude-haiku": {
+        "max_tokens": 12000,
+        "thinking": {
+          "budget_tokens": 1024,
+          "type": "enabled"
+        }
+      },
+      "gemini": {
+        "max_output_tokens": 12000,
+        "thinking_level": "low"
+      },
+      "openai": {
+        "max_completion_tokens": 12000,
+        "reasoning_effort": "low"
+      }
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 7.0,
+      "gemini": 1.0,
+      "openai": 2.75
+    },
+    "maximum_total_cost_usd": 10.75,
+    "models": {
+      "claude-haiku": "claude-haiku-4-5-20251001",
+      "gemini": "gemini-3.8-flash",
+      "openai": "gpt-5.4-mini-2026-03-17"
+    },
+    "operator_statement": "I approve this run. Proceed.",
+    "protocol_sha256": "47d07dd571d1885a37c8d246dfa7ebb448709def33ec9b5acc6daf7f1402043f",
+    "run_id": "phase8c4f-native-composite-diagnostic-r1",
+    "run_plan_sha256": "7c51f49328c0392cabb36b41fe68b7f739427afdabe547f69cb64d63d8858dfe",
+    "schedule_sha256": {
+      "claude-haiku": "d7fe7b728779a85dd8b073d5e0d37dfe2aeb20c2e82295eaf49e1c59662a82d4",
+      "gemini": "4972735a1ed9ded5e3c9615b7db4661fd95c94b65d7236d264dcfc666d9edc87",
+      "openai": "bc32dc43ab646228e0d2a2fc589f82725c052c59863ea134e4a5483dc8f2c054"
+    },
+    "status": "approved"
+  },
+  "output_path": "/Users/jonvuri/Development/ghostnote/brain/benchmarks/native-composite-v1/runs/gemini.json",
+  "provider": "gemini",
+  "run_id": "phase8c4f-native-composite-diagnostic-r1",
+  "run_plan_sha256": "7c51f49328c0392cabb36b41fe68b7f739427afdabe547f69cb64d63d8858dfe"
+}

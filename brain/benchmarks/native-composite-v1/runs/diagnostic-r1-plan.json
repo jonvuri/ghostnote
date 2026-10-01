@@ -1,0 +1,499 @@
+{
+  "approval": "pending",
+  "arms": [
+    "abc-2.1-native",
+    "abc-2.1-composite",
+    "strudel-v1.2-native",
+    "strudel-v1.2-composite",
+    "lilypond-2.24.4-native",
+    "lilypond-2.24.4-composite",
+    "musicxml-4.0-native",
+    "musicxml-4.0-composite"
+  ],
+  "calls": {
+    "automatic_retries": 0,
+    "claude_token_count_requests_maximum": 192,
+    "messages_per_arm_per_provider": 24,
+    "messages_per_provider": 192,
+    "messages_total": 576,
+    "repairs": 0,
+    "sentinels_per_arm": 6,
+    "unique_tasks": 18
+  },
+  "candidate_sha256": {
+    "abc-2.1-composite": "43edb2c3af2086c5e41e50050c36ba48a95573783d0c941950e7eeb9017de18d",
+    "abc-2.1-native": "8042e2c24f7327e00dafa2c0643b52afaa5d7772e637a437e2202db0f6af21fa",
+    "lilypond-2.24.4-composite": "8518c0f4beba64f5c10d7f53c4f8e99d470b8ceac061f4859f5c01679c030852",
+    "lilypond-2.24.4-native": "318998d2f3a4fe3039d071aec61eae36eab266d35c8ac624d7b3c4a2591a1d27",
+    "musicxml-4.0-composite": "ce11ee3cdf7348fd6de84cf2e8ba72e221e4b3662a8005c0233970d6cadd0031",
+    "musicxml-4.0-native": "9548bcceb62582b483ea8b21d7770dc24226c9dd049ee3bbe7f56cec051090d5",
+    "strudel-v1.2-composite": "9675764401a29da66770283264e647cd5c63070f4ec2698083dc858e666be648",
+    "strudel-v1.2-native": "3d106cf1debddcad52dae2c4b98640f4bfe005edb14e07af608862590a898ed2"
+  },
+  "cohort_sha256": "3f9b68822a4c1b919babc051f08df5d3ee83223e6dfd24f9ebbaf74a003019fe",
+  "cost_guard": {
+    "automatic_retries": 0,
+    "basis": {
+      "cells": {
+        "claude-haiku": {
+          "abc-2.1-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.029861625",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.009618625",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.01507125",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.02046075",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.06188925",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.013160625",
+              "measured_calls": 8
+            }
+          },
+          "lilypond-2.24.4-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.03474775",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.0093735",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.0368415",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.010243125",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.050016625",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.01640675",
+              "measured_calls": 8
+            }
+          },
+          "musicxml-4.0-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.0244960",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.011492875",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.029673625",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.01055475",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.0642420",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.0215390",
+              "measured_calls": 8
+            }
+          },
+          "strudel-v1.2-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.039287125",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.012402875",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.02235375",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.00888275",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.064488125",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.01264575",
+              "measured_calls": 8
+            }
+          }
+        },
+        "gemini": {
+          "abc-2.1-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.001970625",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.00205828125",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.001995375",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.00116109375",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.001266750",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.00186553125",
+              "measured_calls": 8
+            }
+          },
+          "lilypond-2.24.4-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.00202190625",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.002272125",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.003243375",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.0012706875",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.0014536875",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.003417000",
+              "measured_calls": 8
+            }
+          },
+          "musicxml-4.0-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.0026866875",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.0058231875",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.00433640625",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.00265453125",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.00274471875",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.004942875",
+              "measured_calls": 8
+            }
+          },
+          "strudel-v1.2-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.002085750",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.002536125",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.002316375",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.00122653125",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.00135046875",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.00213534375",
+              "measured_calls": 8
+            }
+          }
+        },
+        "openai": {
+          "abc-2.1-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.00693421875",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.00442903125",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.01576678125",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.0099039375",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.0129815625",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.012289125",
+              "measured_calls": 8
+            }
+          },
+          "lilypond-2.24.4-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.006594000",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.0027598125",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.011349375",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.0069729375",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.013790625",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.0087388125",
+              "measured_calls": 8
+            }
+          },
+          "musicxml-4.0-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.00769959375",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.0071555625",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.01360434375",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.0094764375",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.012810000",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.014937375",
+              "measured_calls": 8
+            }
+          },
+          "strudel-v1.2-composite": {
+            "comprehension-analysis": {
+              "mean_exact_usd": "0.00714121875",
+              "measured_calls": 8
+            },
+            "comprehension-structure": {
+              "mean_exact_usd": "0.00454621875",
+              "measured_calls": 8
+            },
+            "continuation-motif": {
+              "mean_exact_usd": "0.00826696875",
+              "measured_calls": 8
+            },
+            "continuation-roles": {
+              "mean_exact_usd": "0.007780125",
+              "measured_calls": 8
+            },
+            "generation-melody": {
+              "mean_exact_usd": "0.0102800625",
+              "measured_calls": 8
+            },
+            "generation-progression": {
+              "mean_exact_usd": "0.0117965625",
+              "measured_calls": 8
+            }
+          }
+        }
+      },
+      "source_manifest_sha256": {
+        "claude-haiku": [
+          "d57ae49891a05482b03df242b4ce530d440e5db1888e4dec849a7ba4d669f020",
+          "ad34e71018688d5b79b35b9caedfdf7ddc86cf2963618ef4dd74fb3fd971c1a9",
+          "6153ca5b728412c59310459ee15213919f684682ba6041b0696f51d4e6ec050f",
+          "4e6d316d5c2d488150c52bc5243760313bf364230e4a87da2067ac396237f5f0",
+          "8b46882127a50de6f8bc949954f57f1dd2f31efe4fb404d33fa5a6c10a71a1b6",
+          "168a8000079da0fba259344b89953e4beca0652b1a8dbb46fa2943ed70a66cb7",
+          "b7a28f1dfb9e884f5dd6eedbcab4dcee24b96e22bf647e5defbfd44244405eea",
+          "a6fb8364d43e66db50e732b729b07a9e2c27064ad88484aef9f4fc910272b5e4",
+          "d8cfe955dd7488db94db9a4d941a0bcfd9d4ed960c630bb19e89d95ae9483d33",
+          "b56c79a1dc512e4ee120d75e06f10b8ac0f251b3ac46071816cb6fc9bf5c0fa2"
+        ],
+        "gemini": [
+          "4163fe4530e74ec7b99f8b70e2fef33db98bbe517d339493ffa2941fab3bdec0",
+          "62b546e46a4382df2221b1183e2c0e47ef2852beaaefa00b686622ee202783d7"
+        ],
+        "openai": [
+          "24534a0fc6521598e660dbbaa9cd261cd843c2d6937cbbf41617107ae6aa8ece"
+        ]
+      }
+    },
+    "estimate_method": "Use each retained v5 provider/format/family mean token cost for four fresh calls in each condition. Assume no native cost reduction. The new prompt and output sizes can differ.",
+    "estimate_total_usd": 7.332722,
+    "estimate_usd": {
+      "claude-haiku": 5.038,
+      "gemini": 0.470684,
+      "openai": 1.824038
+    },
+    "failed_reservation": "retained",
+    "input_token_ceiling_per_call": 12000,
+    "maximum_call_cost_usd": {
+      "claude-haiku": 0.072,
+      "gemini": 0.054,
+      "openai": 0.063
+    },
+    "maximum_provider_cost_usd": {
+      "claude-haiku": 7.0,
+      "gemini": 1.0,
+      "openai": 2.75
+    },
+    "maximum_total_cost_usd": 10.75,
+    "output_token_ceiling_per_call": {
+      "claude-haiku": 12000,
+      "gemini": 12000,
+      "openai": 12000
+    },
+    "price_sources": {
+      "claude-haiku": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "gemini": "https://ai.google.dev/gemini-api/docs/pricing",
+      "openai": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+    },
+    "price_valid_through": "2026-12-31",
+    "price_verification_date": "2026-09-30",
+    "prices_usd_per_million": {
+      "claude-haiku": {
+        "cached_input": "0.10",
+        "input": "1.00",
+        "output": "5.00"
+      },
+      "gemini": {
+        "cached_input": "0.075",
+        "input": "0.75",
+        "output": "3.75"
+      },
+      "openai": {
+        "cached_input": "0.075",
+        "input": "0.75",
+        "output": "4.50"
+      }
+    },
+    "repairs": 0,
+    "request_byte_ceiling_per_call": 10000
+  },
+  "declared_settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "temperature": "provider default; omitted from request",
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low",
+      "temperature": "provider default; omitted from request"
+    }
+  },
+  "effective_request_settings": {
+    "claude-haiku": {
+      "max_tokens": 12000,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "gemini": {
+      "max_output_tokens": 12000,
+      "thinking_level": "low"
+    },
+    "openai": {
+      "max_completion_tokens": 12000,
+      "reasoning_effort": "low"
+    }
+  },
+  "families": [
+    "comprehension-structure",
+    "comprehension-analysis",
+    "generation-progression",
+    "generation-melody",
+    "continuation-motif",
+    "continuation-roles"
+  ],
+  "measurement": {
+    "contrast": "Native minus composite on complete pairs; prompt mean accuracy and strict musical success",
+    "missing": "Exclude failed and unavailable outputs from musical denominators; exclude an incomplete pair from paired contrasts",
+    "notation": "Score the composite ledger as primary and its notation independently as a diagnostic",
+    "primary": "Common musical components by provider, family, and format",
+    "selection": "Diagnostic only. No product selection or Phase 8f authorization.",
+    "sentinels": "Report separately; exclude repeat=2 from primary estimates",
+    "uncertainty": "Paired prompt bootstrap within provider/family/format; three unique prompts give coarse uncertainty"
+  },
+  "models": {
+    "claude-haiku": "claude-haiku-4-5-20251001",
+    "gemini": "gemini-3.8-flash",
+    "openai": "gpt-5.4-mini-2026-03-17"
+  },
+  "protocol_sha256": "47d07dd571d1885a37c8d246dfa7ebb448709def33ec9b5acc6daf7f1402043f",
+  "run_id": "phase8c4f-native-composite-diagnostic-r1",
+  "schedule_sha256": {
+    "claude-haiku": "d7fe7b728779a85dd8b073d5e0d37dfe2aeb20c2e82295eaf49e1c59662a82d4",
+    "gemini": "4972735a1ed9ded5e3c9615b7db4661fd95c94b65d7236d264dcfc666d9edc87",
+    "openai": "bc32dc43ab646228e0d2a2fc589f82725c052c59863ea134e4a5483dc8f2c054"
+  },
+  "schema": "ghostnote-native-composite-benchmark-v1",
+  "sha256": "7c51f49328c0392cabb36b41fe68b7f739427afdabe547f69cb64d63d8858dfe"
+}

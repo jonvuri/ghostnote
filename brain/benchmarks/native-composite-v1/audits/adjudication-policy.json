@@ -1,0 +1,27 @@
+{
+  "aggregation": "Recompute all 48 provider/family/format paired cells. Use exact rational prompt differences with the frozen bootstrap sampling method. Keep note-only and six-family aggregates separate.",
+  "analysis": "Reuse the original deterministic score. Analysis answers were not part of the full grammar audit.",
+  "audit_verification_sha256": "a29216697e94d6f0e8710d02b62f9f75d0ba53019d004746f6c4328552601e3a",
+  "coverage": {
+    "audited_unique_note_outputs": 240,
+    "excluded_sentinel_outputs": 96,
+    "unchanged_unique_analysis_answers": 48
+  },
+  "grammar_methods": {
+    "abc-2.1": "Agent interpretation of public grammar; no compiler.",
+    "lilypond-2.24.4": "Agent interpretation of public grammar and source rules; no compiler.",
+    "musicxml-4.0": "Official 4.0 XSD validation and independent event decoding, with agent review.",
+    "strudel-v1.2": "Official pinned 1.2 runtime event decoding, with agent review."
+  },
+  "implementation_sha256": "dc573ae8db0d168466305bb9a13c09078249ebf807dc93de6a9711d985dbe12d",
+  "invalid_or_incomplete_decode": "Use an empty note set and zero musical credit for the complete document. Known fragments remain only in the source audit.",
+  "limits": "Post hoc agent adjudication is evidence for these retained responses. It is not a full grammar parser for new outputs. Bootstrap intervals do not include judgment error.",
+  "musical_rubric": "Keep the frozen four-field matcher and task requirements, including the role partial-credit caveat. No response repair or new task requirement.",
+  "primary_note_score": "Score native and composite notation from the retained independent decoded notes. Report the composite ledger separately.",
+  "profile_compliance": "Retain the original subset structural and canonical results as separate fields. A public-grammar adjudication does not override the prompt contract.",
+  "run_id": "phase8c4f-native-composite-diagnostic-r1",
+  "schema": "ghostnote-native-composite-adjudication-policy-v1",
+  "sentinels": "Exclude second observations from this assessment. The original sentinel report remains available; no adjudicated repeat-stability claim.",
+  "sha256": "0343c517f5e4750eb6ac13f4689f05ef328c36544d0e88d36becdcf4563829cf",
+  "source_assessment_sha256": "e473b5a556cbfab22a48ae3c2abb806cfdf28ee112f40411beb06ecae0b608ba"
+}

@@ -64,6 +64,8 @@
     "benchmark:symbolic-format-v5-final-assessment": "python3 -B benchmarks/symbolic-format-v5/final_assessment.py",
     "benchmark:symbolic-format-v5-corrected": "python3 -B benchmarks/symbolic-format-v5/corrected_assessment.py --check benchmarks/symbolic-format-v5/runs/2026-09-30-corrected-assessment.json",
     "benchmark:symbolic-format-v5-corrected-test": "python3 -B benchmarks/symbolic-format-v5/test_corrected_assessment.py",
+    "benchmark:native-composite": "python3 -B benchmarks/native-composite-v1/benchmark.py --check",
+    "benchmark:native-composite-test": "python3 -B benchmarks/native-composite-v1/test_diagnostic.py",
     "probe:d01-selection": "tsx src/probes/d01-stale-selection.ts",
     "probe:d02-drum-machine": "tsx src/probes/d02-drum-machine-composition.ts",
     "probe:d02-parameter-domain": "tsx src/probes/d02-parameter-domain.ts",

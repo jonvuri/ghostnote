@@ -1,0 +1,2003 @@
+{
+  "interpretation": "Frozen subset scores are descriptive inputs to manual full-grammar audits. Rejected component denominator is a maximum possible recovery bound, not an estimated correction.",
+  "inventory": [
+    {
+      "conditions": {
+        "composite": {
+          "component_correct": 303,
+          "component_planned": 333,
+          "notation_component_correct": 200,
+          "notation_component_planned": 333,
+          "notation_ledger_agreement": 2,
+          "rows": [
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "9c3323bbb20d789f00eb356dcdee40a27ba0d202afddd5e8fdd6ab1097487b77",
+              "sequence": 2,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "61910136794581b258349e2120f3f7c3ac6bec3c7d2780291fd557b583aa435e",
+              "sequence": 38,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "8f82bad433a28d39add93bcbcc59ee32eec97eac4857cef87ded6dfb374a7b1e",
+              "sequence": 45,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "7c19ea026d0f15699a8aa8da47e3595ac5f1c5ba4334d68c971aa3451c1fbfbc",
+              "sequence": 59,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "88921a68b5c83d87ec170b3fc53da1e09a46f523c83de6c01ab4d5f505608ed1",
+              "sequence": 73,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "0590ea6bae4f8b6c0ce30c0a983213ac7992b5c94a994b5fcfc28a37204d1835",
+              "sequence": 88,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "f78451b7e001c22836c00dad319d77dc07415fb8b1add8ad8be80c85c63a7ffe",
+              "sequence": 95,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "eed77008a71044022306ddddc8e9e87a3ded3fafc914b7036e366efb3fca6324",
+              "sequence": 102,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "7afafe24cc9a98ea9938c4acb26896801033b3ba6f002d1ccfd0a544c65bbb43",
+              "sequence": 109,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "a5082be4a03f9e7a7fb6f71dcb10b0c641ce852fdb96454cf69f3383b80b74d2",
+              "sequence": 116,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "949b37e3c07422407d71bbb29e951227bd290125871b2a4d3b7e30e12f32b55e",
+              "sequence": 130,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "9e42708af29e6cf95b389857680a0ebe9b263cedb89c2d1be455f51072df6616",
+              "sequence": 137,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "209f3610ecfdc0302a5c83df42e7b5de7c3f8515574575beaf6b43146bed97c1",
+              "sequence": 159,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "a8e9a546028018080d72cef70a96275810e58071a4365a75a9ee389cd0a1f105",
+              "sequence": 180,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "e58ab69294fca53ccc6257b1c1fed0a8c9f11e7e24d190a30df1c846d9833429",
+              "sequence": 187,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            }
+          ],
+          "strict_musical_passes": 9,
+          "subset_rejected_component_denominator": 100,
+          "subset_rejected_sequences": [
+            38,
+            59,
+            130,
+            159,
+            187
+          ],
+          "unique_note_outputs": 15
+        },
+        "native": {
+          "component_correct": 226,
+          "component_planned": 333,
+          "notation_component_correct": 0,
+          "notation_component_planned": 0,
+          "notation_ledger_agreement": 0,
+          "rows": [
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "a3a014afad61fab1385870d67e20ff641f15fd72f313688aa289b09e70c12cf9",
+              "sequence": 1,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "2fb3e916a133870849c0041bfe523492091619efe9241f25e6e0134361c2ad19",
+              "sequence": 37,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "8e79cee8b35565c6be13053d0964d11df01b54f9c19c7064ef2f7d290ef53d0f",
+              "sequence": 44,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "25c767b4f34ddff08666038ce2e6fc43136f947449c4d6fdce0c0947e13ab3ea",
+              "sequence": 58,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "b5843ead1f09d5b75af00da471e689b6baca54a3ed8b56589fda025dc3a13e36",
+              "sequence": 80,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "ab2c95dd75cc26511be8e6f656fe8d82660edb6ead2bae30dd02135c47a8e2a0",
+              "sequence": 87,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "79129b144b0ca79b854aacfaf76ac7cc7bcdd2321f57ded388060cce7feb8f33",
+              "sequence": 94,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "bfdb0876e7edc143b2372dfc2c3eb366f9d3ca0d35ce480d01cd49c7c32ca60b",
+              "sequence": 101,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "a5d3b6e8e6b20a97bbd85a185de2d00f73fe8d8840d2757dce5479f10193e11c",
+              "sequence": 108,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "33d70915daf9d84ee3d60f9e5df1a3511e36f9b169d2845cc0906c5295400f7d",
+              "sequence": 115,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "a795d967422869954bf4051e22313d06b5a1450d9cf0bb645d5090f48b58ea0d",
+              "sequence": 129,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "48e49c70f58658f20de98103fe08ea49fb7e39a4da4894d11a6b1fc7fc3e38c0",
+              "sequence": 144,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "7d8929f8bcc4b061f46c54a096fbdfe2739077e49288c28d328283d31d8e9d19",
+              "sequence": 158,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "fa8a0b8c6841fbfd512b2ade6e825b000fd9475e5e2a506e19c78bd4538b4fb1",
+              "sequence": 179,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "9e8df22382c82169a9042bf97a733a4db5e0d6679e4b3c956074245d047ab83a",
+              "sequence": 186,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            }
+          ],
+          "strict_musical_passes": 3,
+          "subset_rejected_component_denominator": 30,
+          "subset_rejected_sequences": [
+            87,
+            101,
+            158
+          ],
+          "unique_note_outputs": 15
+        }
+      },
+      "format": "abc-2.1",
+      "provider": "openai"
+    },
+    {
+      "conditions": {
+        "composite": {
+          "component_correct": 307,
+          "component_planned": 333,
+          "notation_component_correct": 244,
+          "notation_component_planned": 333,
+          "notation_ledger_agreement": 5,
+          "rows": [
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "bc24780c28778311da2f18de55a81bd7dde027be9bfc1b648101f5eeb98c23c9",
+              "sequence": 4,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "bf667f4d11da3be4827069b0cdcd227ae5453b9a7e999561b4b8a9b60b770f15",
+              "sequence": 40,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "d9aa6d3ab722cda07512632353e70486200f5b7d65b1e2d12c14e233e4dc8ee0",
+              "sequence": 47,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "e377df0150b4803eaba5682e48a078a3b9df93fcd84c33268b0c86d07de75a6a",
+              "sequence": 61,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "46314fec8b028b203a39eeabdac9272b692144c079187be740ae4ff0010b2119",
+              "sequence": 75,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "b272c0d83c8d56921fdb51ab67d76427bd2c728436c4b6fd67df1018b4a61722",
+              "sequence": 82,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "3fcecf71b03e71145cadb3084f5bcaaade55075f16020ca6aec9ba143ddd677e",
+              "sequence": 89,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "892ab562b1a1684e1acc084f6a613f351e35e24e4228f25510336a6a4df8d999",
+              "sequence": 104,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "fdd8ae73fe200aa9f705b57faff2a07c5e465663a91e715c6505f8d795846f79",
+              "sequence": 111,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "1711a9ebb8030157f8f455f6af1d49ece04b100cee623173c217462aa1811ae0",
+              "sequence": 118,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "b758cc14efb94a92cfafd765bb5947937cb4678ddfe948fe0fab5b994b9f9fe1",
+              "sequence": 132,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "6909810a2ff64a88ea7d1a607d9328fe17f52eff18a742f907aa900762824bb9",
+              "sequence": 139,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "f09b270cf659e81b46ed8b51da5c30159bb354042b8a81af0104c02660f1bc48",
+              "sequence": 153,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "6df726e0b738ce1ebb61b4df5e900afb8d2cb3f880702f90ad54f9a8869f62e3",
+              "sequence": 182,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "7f1c34921f265ca20a2985ed8bf007c22f97bf16b52026455062182c12f58dc7",
+              "sequence": 189,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            }
+          ],
+          "strict_musical_passes": 7,
+          "subset_rejected_component_denominator": 12,
+          "subset_rejected_sequences": [
+            61
+          ],
+          "unique_note_outputs": 15
+        },
+        "native": {
+          "component_correct": 219,
+          "component_planned": 333,
+          "notation_component_correct": 0,
+          "notation_component_planned": 0,
+          "notation_ledger_agreement": 0,
+          "rows": [
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "1aa5c9319af4ee3984cd0118f0457aeedc483f412f7e3e35681cb15e0f7b56fd",
+              "sequence": 3,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "a24ccf5dcbac87326da87daf1761833d7ccc782b3babef4c5c9e5f430ed34aa4",
+              "sequence": 39,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "82cc626fdd948d8e86c542ae70dd6eb18a5c68fce41ca5580ec869391a370f92",
+              "sequence": 46,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "b4209ab24495f6d1b0a25e3dd5db8ed73b9462d5544f96c1bd68869826d29fd1",
+              "sequence": 60,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "46675a303b3d5c629551fb41f43cd75f863aa755752b648ce0d0c795d8487e40",
+              "sequence": 74,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "2ea4916ceee9439edb52fdb23145e7633c2e75a503a06a52ad1c91de696a8f1a",
+              "sequence": 81,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "e7a21c28ee5bf3623b097f561b3ba26d2053d545590e169604c41609aaba5427",
+              "sequence": 96,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "84a83c4f5cd0f6693c6e18ca2e73667044eb46f7f3ec5371e0f05c545a331e98",
+              "sequence": 103,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "aa7d4913cef06222320e45882227976f80fa5b93184a4b654e1d20580290b32e",
+              "sequence": 110,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "06d98784f047e9b71529b9a299a90c99554c9d9feee04cb9c51044969bcb86e6",
+              "sequence": 117,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "484160ae8ee7bbe802c99b4d40099930f5aefc8d4c246d2421a48029799854af",
+              "sequence": 131,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "e36f9c9486f6e04125f82775a32750df8a0240d4aea331bda07436138cf0db47",
+              "sequence": 138,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "8e7c8829d94f34c852103c58e9a686b93727d23f5deae882ae70dea4d11fbf67",
+              "sequence": 160,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "411ef1fbac4c5d30409b0a1de209a6e8b7c887899769af61722db462ecc853aa",
+              "sequence": 181,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "645583c58d3cf0dd27b7863f0a307874f52b9f4fd39cdae32970725d30207ad4",
+              "sequence": 188,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            }
+          ],
+          "strict_musical_passes": 4,
+          "subset_rejected_component_denominator": 71,
+          "subset_rejected_sequences": [
+            3,
+            46,
+            60,
+            96,
+            110
+          ],
+          "unique_note_outputs": 15
+        }
+      },
+      "format": "strudel-v1.2",
+      "provider": "openai"
+    },
+    {
+      "conditions": {
+        "composite": {
+          "component_correct": 292,
+          "component_planned": 333,
+          "notation_component_correct": 266,
+          "notation_component_planned": 333,
+          "notation_ledger_agreement": 4,
+          "rows": [
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "b682216433160068c412c9f296791aa781d954ace1f9f7e1461887326ae7a96e",
+              "sequence": 6,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "3f25ae9ac45b9d0620b8507c915d401d1e7470cb659a661db132f797b431c088",
+              "sequence": 34,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "3bec5667d61cbf6139fb6b037d47b680b7077bd422f03f0758f8c245c1231014",
+              "sequence": 41,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "e6041e193f11c20d6ecf8818e4047d404d79dc13b241637aef82a1f529628e1e",
+              "sequence": 63,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "fb8c4f6fc443a6c4670d41a10d6035038024b2d52276b07c2848452f2b8a29e6",
+              "sequence": 77,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "a2e415ce409c7b43269228bff93650cae8a0b21614e566cd8271c6f4a2f358bc",
+              "sequence": 84,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "d0c03cfc9f73548c8f33d6ffda2770313b317545e32bc63d45798ef2e2e5777f",
+              "sequence": 91,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "9c31fcc8deeb783c0a6c9438abed800040ba5927c23097382d652c723581d8da",
+              "sequence": 98,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "00a64b379e8031de0424c194d15f276a118cb3ec0ced6486aab97c7c3acbe821",
+              "sequence": 105,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "b64273bdf63e97e2dee81f986fadb09ffb5507da6cc9e7226597779439e9b27c",
+              "sequence": 120,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "e69e2c2f02ae68fa811066d892f4fd067902ee0bfb4e379d09456362bb06fe1a",
+              "sequence": 134,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "885bc929fe9159017c45163df722bafb32024ffc4b510eb59780c79742dda123",
+              "sequence": 141,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "5776fe26d087e3494c1fb97478f6997c76f40c4101518d3e135d6099f548e847",
+              "sequence": 155,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "8f9455673766b6e2a993ee36b1cfedf26d89b5394cac2535751089ec65d6afcc",
+              "sequence": 184,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "89087dd7d1e1aa548f885004eda09bcf0c5b1b96b37f47eef67e311d884342d5",
+              "sequence": 191,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            }
+          ],
+          "strict_musical_passes": 6,
+          "subset_rejected_component_denominator": 10,
+          "subset_rejected_sequences": [
+            84
+          ],
+          "unique_note_outputs": 15
+        },
+        "native": {
+          "component_correct": 246,
+          "component_planned": 333,
+          "notation_component_correct": 0,
+          "notation_component_planned": 0,
+          "notation_ledger_agreement": 0,
+          "rows": [
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "09d49c9553ca6e1b79fccaad73d4ac8c75eccd6d27e61fb224c6b6a7c5e5ef3d",
+              "sequence": 5,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "140458f1286c26f53da9464e8d67b7ba35304b7814c87b1b9d6ce460a2111ef6",
+              "sequence": 33,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "8521cf0876280f016fc96fc34ea37dccb23dcfac87e300bc1801853c82e0e5a0",
+              "sequence": 48,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "c4822d6bf6921ef9a1d628b2872a7e385b6e663a57e6facd81f05c886f444110",
+              "sequence": 62,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "4b2dcd13d654a61d150575b396401e4a2e572dcc34edad66bcedd22a5a7977f0",
+              "sequence": 76,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "a8b5e27fcd892678187ffde4ff576a3a11bdd13dc538d9e82e095840f135b49e",
+              "sequence": 83,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "91d49dfac5753cee4571911329fbec13810a79a4830465b19218b8fd4c484d2d",
+              "sequence": 90,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "f4d143f14cb4c60874b7f9075d5329e5e35d58f3ad2385920bc88e809431ba06",
+              "sequence": 97,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "e844302fdcca0cea9b29073fc89b90980a4ad0f5185e8722a2bc503be0af8240",
+              "sequence": 112,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "f3248cf08209062d90c4d44b1119b8a3897b90d68c2dc3270f5c03633d9d01aa",
+              "sequence": 119,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "7c137fab3d3a11a4f866e8a753dcc549481315d788e3005ccc5714e823039c9a",
+              "sequence": 133,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "97103ca01ddeee6fb9aeb3cb66b284aa7e2608f0a554b813f6b6f92701ff25cc",
+              "sequence": 140,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "720ad633a45c6fd70970da76184269c629c85f3cb1ed73be8a568010033d69aa",
+              "sequence": 154,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "3dfa3ddd2a744b2bb2eb7dc6452506b6bffadf38b0b3dd12deeafd23e5adff0c",
+              "sequence": 183,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "c9cdf169547998a849e5ad34db73fe3a5a1d2a01a52b2a705b015fdf51db0a04",
+              "sequence": 190,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            }
+          ],
+          "strict_musical_passes": 4,
+          "subset_rejected_component_denominator": 43,
+          "subset_rejected_sequences": [
+            83,
+            190
+          ],
+          "unique_note_outputs": 15
+        }
+      },
+      "format": "lilypond-2.24.4",
+      "provider": "openai"
+    },
+    {
+      "conditions": {
+        "composite": {
+          "component_correct": 298,
+          "component_planned": 333,
+          "notation_component_correct": 143,
+          "notation_component_planned": 333,
+          "notation_ledger_agreement": 3,
+          "rows": [
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "baec5b301c315f8d8051efb544f6f794a5f0f5d6034e0685a1ae51e3ae8b811f",
+              "sequence": 8,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "7d7a1fb1c6419463095d62b93676c7a7ef491b3639b1d172bb38965406b425f7",
+              "sequence": 36,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "19457c1061c4542be260d1617666d4bf5685f1afc22db0fbe57b7b3633578051",
+              "sequence": 43,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "0397c3bafbc8417488a3008ebda5439b0191bcafc4906903c95fd5e77aac47b0",
+              "sequence": 57,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "a4cc5fb99f1c6c9e0d5492068b113d7c1474d60e599dca4804ed53445547bf1f",
+              "sequence": 79,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "07606b96c1440e6a2858e58f7e87003c7977e9f2904d2107602637d0a459185a",
+              "sequence": 86,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "55e910ea9ff90ea96ffb214da7bd33b96e4e58b8bcce37e6bec061b6432e405d",
+              "sequence": 93,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "e874afb4c0452936c57378014a1c3303d7ac26804f7fdd248f95ad7c53e327bc",
+              "sequence": 100,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "a89699ac7145de3a863ffd8860581289ba6b193d75b1c58f0f86b85e45f69559",
+              "sequence": 107,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "fe21540083428b27b2ee234b6484608650b852d61dcbe01bd3df6273995164e4",
+              "sequence": 114,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "958a3205a02693d3a246f5d4a8a0b15e211231de391197408d5d4521a116a70c",
+              "sequence": 136,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "bfccadc317fd5fefdf1538cdeee4d8389c910c5d90211c0754e99b804d63b89c",
+              "sequence": 143,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "c760b8d5e617cf2bda69e475ce4f3d1fcef24e3ce0cbc2c79bf17d3feb0459e2",
+              "sequence": 157,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "298dc630e42dc821a77142483ed22f8ce13640718254aad07cb98c91bfcb8d62",
+              "sequence": 178,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "af2f27b651af677feefaf4865c7d6b4305c84302a2defd8ed1b4a3595900a462",
+              "sequence": 185,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            }
+          ],
+          "strict_musical_passes": 6,
+          "subset_rejected_component_denominator": 139,
+          "subset_rejected_sequences": [
+            57,
+            79,
+            86,
+            93,
+            114,
+            136
+          ],
+          "unique_note_outputs": 15
+        },
+        "native": {
+          "component_correct": 216,
+          "component_planned": 333,
+          "notation_component_correct": 0,
+          "notation_component_planned": 0,
+          "notation_ledger_agreement": 0,
+          "rows": [
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "a5c4fdbdea5d49329fafb77f1648a0201be710f5095d522a3107130c2e7b9b9e",
+              "sequence": 7,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "da9a46cb49643802e385bd8c513fcfe418ffc869e4235e1a4c97627e2930174b",
+              "sequence": 35,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "46717391782024accca355d70567205594f4fac04177ac1a59c6802d0d9d897c",
+              "sequence": 42,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "c5385091c06c4e4c3e4de01db07f667c26d7648679ebf7c36151a893bffebf02",
+              "sequence": 64,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "81fde2cbe50d8fd268399020dc37286ac494c7ced2b5bb3639fa40538958f8bc",
+              "sequence": 78,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "637c92dd70985899327372ec99a650b2cacfd6f58c524bdc7f5e0a3c4459d0be",
+              "sequence": 85,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "52f94407731f76171744702bf34aa89fbf4c13bd566c88c62effaf4d17db4038",
+              "sequence": 92,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "c97383f1b039a5dc44ca4f80c465ced9781b417b1e7928aea77ab87c7b13540a",
+              "sequence": 99,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "c601186010ba156b4f00e2a069e955aae0466f70c7fd5cee77da53f8e22ae602",
+              "sequence": 106,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "dadf078afa104a4a38c1ca5bbd2b525642d5ce09839009aa52a6fbc08f9b5792",
+              "sequence": 113,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "bcf440be32c5069c106950ebdcc62cc3cec578187f90c9197cd8a367d3b25c20",
+              "sequence": 135,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "52a81477e1e93cca773b328e0f58152071edf7a16b4d793564e87538721b22fe",
+              "sequence": 142,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "428d483da019157e4317c74de2008b68fcb18a8d0fcdb10ae5a6ff66aa960a81",
+              "sequence": 156,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "9fbc891f1a0df6ea1df2c5855fdb36b3d34614d7bee92fed7bbd9b3e105f7966",
+              "sequence": 177,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "ff8a0c0602654258e6a7a46b8115c93fe41e109a95877a2f391577fb79ff8499",
+              "sequence": 192,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            }
+          ],
+          "strict_musical_passes": 5,
+          "subset_rejected_component_denominator": 73,
+          "subset_rejected_sequences": [
+            106,
+            113,
+            135
+          ],
+          "unique_note_outputs": 15
+        }
+      },
+      "format": "musicxml-4.0",
+      "provider": "openai"
+    },
+    {
+      "conditions": {
+        "composite": {
+          "component_correct": 310,
+          "component_planned": 333,
+          "notation_component_correct": 214,
+          "notation_component_planned": 333,
+          "notation_ledger_agreement": 3,
+          "rows": [
+            {
+              "family": "generation-melody",
+              "payload_sha256": "dbc0d1a281d25c7dea027d55028b7916f8fc04e8c0201862a64b9dda54f25873",
+              "sequence": 1,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "2263fb79edb95ed0a2adefa2a176af981412a63e9c5f337ceebf5eab8a05d533",
+              "sequence": 23,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "88921a68b5c83d87ec170b3fc53da1e09a46f523c83de6c01ab4d5f505608ed1",
+              "sequence": 30,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "a0c3db209b1770919494d86f450bc768a997bba854d36785606fc9d716135432",
+              "sequence": 37,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "a955c0496f2ce3e1e9303103d299b33a3242c4ef77000b12bf378fff706efeed",
+              "sequence": 44,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "0f64a205fe7ebdc441ab24d0c7dbe582589c93489fb8d65d4ee86f11d4676706",
+              "sequence": 51,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "b45ab8c1f9f0b3a57db491fd923a4d9779529d5f04d75c64755575f24235116c",
+              "sequence": 58,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "972ad5633a54301af707edfd05ccff5378d6d33638ef7ca96d11833c4620cac1",
+              "sequence": 65,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "ba9cb70dcab6ad44a465415a4fc27e760dc01ca40b56216dda6c07850faaf2a8",
+              "sequence": 80,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "7e606e9ecaa6e03a139a815fd2d349ae68e79da54357a7f9d955ae4d73fb56ed",
+              "sequence": 94,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "3749eebcf5abf556a22b12773eb9c102206e8a8ec45318ff6d7b62f3b616f52c",
+              "sequence": 115,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "701d6a584242bc46b77ebc0f0abda989f786dc9973349113b406b21616ab4653",
+              "sequence": 151,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "df6b2990a50cf5f63e94f484e6550ee38e979787e7d7e64d053c5df467fda892",
+              "sequence": 158,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "5d7b2aae7d03d328c13df6d07d3e41974c95020151c949e495b1f1e3b77a06b0",
+              "sequence": 165,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "39d8d843f9eb70fe501c73445458ed9c80a1c8aad8f90bcd8829b3fbf1e81b2e",
+              "sequence": 179,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            }
+          ],
+          "strict_musical_passes": 6,
+          "subset_rejected_component_denominator": 45,
+          "subset_rejected_sequences": [
+            58,
+            165
+          ],
+          "unique_note_outputs": 15
+        },
+        "native": {
+          "component_correct": 229,
+          "component_planned": 333,
+          "notation_component_correct": 0,
+          "notation_component_planned": 0,
+          "notation_ledger_agreement": 0,
+          "rows": [
+            {
+              "family": "generation-melody",
+              "payload_sha256": "0745e2c9e2f7aca775ea441e13c4d8522814ba3b9f227790d85ea2011bdacf90",
+              "sequence": 8,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "33d70915daf9d84ee3d60f9e5df1a3511e36f9b169d2845cc0906c5295400f7d",
+              "sequence": 22,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "b5843ead1f09d5b75af00da471e689b6baca54a3ed8b56589fda025dc3a13e36",
+              "sequence": 29,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "df87a50df4670dfeda60961dce5c7e37330db256c962b8b241e86515fd139517",
+              "sequence": 36,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "0d55bae32efbcb198ef2fa514780ded29e05cc21d99a7b2a290df5a96cb83643",
+              "sequence": 43,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "88b19cb97207676687b2eae51884ebc05fddf6104f2331a906a709306581829b",
+              "sequence": 50,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "0681c67229ee74d22873639d35fd367d96b13f296676c13b3b880fb34b3dae49",
+              "sequence": 57,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "64b491a7e659c329f9d640df0085155232630e4e18c89a1143e5a9c9186c1fb9",
+              "sequence": 72,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "1ae323792deab74fa4cda89b8093e031b94fcca8dd0d3283639f4f2ef8e222ee",
+              "sequence": 79,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "352547ad29e72fd0d1ce0e079a284bd07048858e95f187662b841be7a4d93f0b",
+              "sequence": 93,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "eeda8a87b77f6634687196a6788dae751a8ef6ec5db276004c5121bf5a68c578",
+              "sequence": 114,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "c948cef499ff4b612a8713d1fc4a3642554d40eaa96b5303f18455bb41b088b1",
+              "sequence": 150,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "fa8a0b8c6841fbfd512b2ade6e825b000fd9475e5e2a506e19c78bd4538b4fb1",
+              "sequence": 157,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "3d0011bb7cd5a2dcc409709bb87b3e1322e0cf299a08e077848d5705fb48f65a",
+              "sequence": 164,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "dddc2aafe956462c49d665eea135ec08a9a3fd2442e635df7099b16c362d7cf3",
+              "sequence": 178,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            }
+          ],
+          "strict_musical_passes": 3,
+          "subset_rejected_component_denominator": 0,
+          "subset_rejected_sequences": [],
+          "unique_note_outputs": 15
+        }
+      },
+      "format": "abc-2.1",
+      "provider": "gemini"
+    },
+    {
+      "conditions": {
+        "composite": {
+          "component_correct": 311,
+          "component_planned": 333,
+          "notation_component_correct": 211,
+          "notation_component_planned": 333,
+          "notation_ledger_agreement": 3,
+          "rows": [
+            {
+              "family": "generation-melody",
+              "payload_sha256": "55f3fe0b042f0ad5b50e7d9afd9e824b202e281c24bdc1eb605883baa7c3004a",
+              "sequence": 3,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "1711a9ebb8030157f8f455f6af1d49ece04b100cee623173c217462aa1811ae0",
+              "sequence": 17,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "46314fec8b028b203a39eeabdac9272b692144c079187be740ae4ff0010b2119",
+              "sequence": 32,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "521517adfb10b84709d97e42f38b71d85b54a5ce04e58adaae0b547a45e489e8",
+              "sequence": 39,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "68e36817c234b64e45093cec67d50823305aa1f6598214a140bc3c42ad6deabe",
+              "sequence": 46,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "4d2bb18790f4baf079decb835b1ab912e6af0f9dbc66d804de1bda760947c783",
+              "sequence": 53,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "8c1edfa3790a613103938b728a5133f44a2dec6d476eeec8e27645ff41fb76ee",
+              "sequence": 60,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "17e49f23862fb3769a1fe82009ab0704d9a82216b83414c9f4532ea3a7c4cce7",
+              "sequence": 67,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "a7ead2830305d62a0f3d744ec29d3fc311fbd556c97618a7176a5f92d1ae401b",
+              "sequence": 74,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "8a8904d649f9d6e485617cb77187e7526f191aaa0489744dfb31878e8991e037",
+              "sequence": 96,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "a5fa775eb7611aefe2cb8f60c54a40ba450da06cdfb2c450c79e5fa854cac015",
+              "sequence": 117,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "e6134bd8d783da8601fd09f55af06579110f1b0e8f89322ba18a103b853b05a4",
+              "sequence": 145,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "6df726e0b738ce1ebb61b4df5e900afb8d2cb3f880702f90ad54f9a8869f62e3",
+              "sequence": 160,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "7cf69b7ececfbee5f7f80bf0d3ab3a1dcc488e6a6bc1fa06c6162f03f19b1bb9",
+              "sequence": 167,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "014ea4c9d14a7eabe69ef1f1868d66b42030cb1e0851431de544e66c3c1d2f8b",
+              "sequence": 181,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            }
+          ],
+          "strict_musical_passes": 6,
+          "subset_rejected_component_denominator": 17,
+          "subset_rejected_sequences": [
+            53,
+            181
+          ],
+          "unique_note_outputs": 15
+        },
+        "native": {
+          "component_correct": 198,
+          "component_planned": 333,
+          "notation_component_correct": 0,
+          "notation_component_planned": 0,
+          "notation_ledger_agreement": 0,
+          "rows": [
+            {
+              "family": "generation-melody",
+              "payload_sha256": "d28e7de0affce80c39acbd6953c656f2a647957835ab524d9229cc7b0026925e",
+              "sequence": 2,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "06d98784f047e9b71529b9a299a90c99554c9d9feee04cb9c51044969bcb86e6",
+              "sequence": 24,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "46675a303b3d5c629551fb41f43cd75f863aa755752b648ce0d0c795d8487e40",
+              "sequence": 31,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "ea689c9095ef50a5e9ee59849c5ccd33f6b6d59901fad08c5482fe542408102d",
+              "sequence": 38,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "ad2089d16282e0ba44d26365633918e4e45c011ecaf74e5564e69c69e3d6e285",
+              "sequence": 45,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "c62b376a32f980a7e967db9e30e2368f9c744230d06466dec1849ce97092cd9c",
+              "sequence": 52,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "43c5f1de200ff40778c6725f3ecdf3f668ebe319d41dca32c973f7c345a55ac9",
+              "sequence": 59,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "730091e2978226b3a41a0470e1d89179b83302845974affd5374cc6686b9ff50",
+              "sequence": 66,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "bcb97adae9e11d9f8023965fe276f7d4b47d1d3feb71b0ad5c3454ea36dc0330",
+              "sequence": 73,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "2c51869ffab451163cf693406ac6cbafb3bae60df96aa18ab4e4efcd0d74add2",
+              "sequence": 95,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "302c838c6eed3a34b2f017593732787a95c48edb99cb4a3b68315c1ed0e071c1",
+              "sequence": 116,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "644436b2e569122143237ae1c5ef64da5ef16587b4077a6fa1af47c8fdbabc3c",
+              "sequence": 152,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "411ef1fbac4c5d30409b0a1de209a6e8b7c887899769af61722db462ecc853aa",
+              "sequence": 159,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "d097035f2150cd4b2b60133da5361809d325236edb2f4b89a4d6e493eb7c3c55",
+              "sequence": 166,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "f3e211eec0245c50659060bef780dd07f3ce468364b30359371fcc899872330e",
+              "sequence": 180,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            }
+          ],
+          "strict_musical_passes": 3,
+          "subset_rejected_component_denominator": 55,
+          "subset_rejected_sequences": [
+            38,
+            59,
+            166
+          ],
+          "unique_note_outputs": 15
+        }
+      },
+      "format": "strudel-v1.2",
+      "provider": "gemini"
+    },
+    {
+      "conditions": {
+        "composite": {
+          "component_correct": 301,
+          "component_planned": 333,
+          "notation_component_correct": 277,
+          "notation_component_planned": 333,
+          "notation_ledger_agreement": 7,
+          "rows": [
+            {
+              "family": "generation-melody",
+              "payload_sha256": "de58f0d032dcb8ec103a850ff7d28a614da6207ffc066ee75309250f63889d4c",
+              "sequence": 5,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "d83bf3e5cf8a7cdc90e146a47d87603cc75d82310f134b61d1cc3b0201c7a550",
+              "sequence": 19,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "fb8c4f6fc443a6c4670d41a10d6035038024b2d52276b07c2848452f2b8a29e6",
+              "sequence": 26,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "e388c63781d971b598a889456f1b14d413998db1725559ba56a8948fd20ccdfd",
+              "sequence": 33,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "0918364615433242064e788b62cbf9beee459342b4d94770cf178cd39f6d8738",
+              "sequence": 48,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "828d5e3b04a49c48993448a1cf7e612de6b5780d3fecb5b6f24c8413bd7c3903",
+              "sequence": 55,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "f5c7d22d7ed23ef8ac34d1c9c733ad2563857a930fc059ef91ef1733fdc389a0",
+              "sequence": 62,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "2b198ebcbaeabd112618e1ead5476757afa599e4565708eb69a8bfb0ef25801a",
+              "sequence": 69,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "c0f9e6fe83a9d65636d5b17dc472fcaa63aa61e2b4963bd371c3cc0b795445b0",
+              "sequence": 76,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "758129307caee61f7315c5a34a5260112e0025c9e246f162a34627748998fca0",
+              "sequence": 90,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "16c675f3947e06327bbb6401c614d241042234f60984400a8fad3764d1474add",
+              "sequence": 119,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "385084d43e1e4747a96eb17c047dc977664ebe587a5ff64b2fab57cedbd7c86e",
+              "sequence": 147,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "ff207182679ca5e91d54f8308d513585acedd5e16ca5baa27de453701589c205",
+              "sequence": 154,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "a7a83a8c30374d32a8c8e67d4c871af2785d197f71091e95c881856c527517a4",
+              "sequence": 161,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "f50c8445141ffb8f977b452174b2a911ebc3837199d6d4035af56910d2a508ad",
+              "sequence": 183,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            }
+          ],
+          "strict_musical_passes": 5,
+          "subset_rejected_component_denominator": 24,
+          "subset_rejected_sequences": [
+            62,
+            69
+          ],
+          "unique_note_outputs": 15
+        },
+        "native": {
+          "component_correct": 275,
+          "component_planned": 333,
+          "notation_component_correct": 0,
+          "notation_component_planned": 0,
+          "notation_ledger_agreement": 0,
+          "rows": [
+            {
+              "family": "generation-melody",
+              "payload_sha256": "068e13eb843318d890c529885fcc8b36393f65fb15d92350138428f97dd4878e",
+              "sequence": 4,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "f3248cf08209062d90c4d44b1119b8a3897b90d68c2dc3270f5c03633d9d01aa",
+              "sequence": 18,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "4b2dcd13d654a61d150575b396401e4a2e572dcc34edad66bcedd22a5a7977f0",
+              "sequence": 25,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "ee1ad5d43d8d3cd1c2d2576e2f37c371162bd7c4fe98254e26cb38feba2601a0",
+              "sequence": 40,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "a7008106c50724ef50631f53a722efe17d6d6bde2652323ec17a4e71ec6be3f7",
+              "sequence": 47,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "425612d70cec86da30eb8d3391266876cf6ea28ff0224fd4ab9da98a8c15943b",
+              "sequence": 54,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "1c71c76d5cba7dd9f9f87ffa3a717ee6838d8218611548da138be6d64e436725",
+              "sequence": 61,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "4b2fad838e29720ec7d52adcf9647c546bf888a0531bc5aaf1f7b34214fa234c",
+              "sequence": 68,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "f11abce7ad40cd958a2bf27e6c8f86da7c1c76241e02cee65549280203224dd9",
+              "sequence": 75,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "acc2aafdb071c9c1a236d47fed91e1b409f64962823fddfea579fc8bf97acd90",
+              "sequence": 89,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "1d9aad3e254fda78cbe1ad3a4122b4b395f6605a029c88488549cd22312bdc4a",
+              "sequence": 118,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "4b24cbc96ca779f6121b0dc915646ee5de886a4296bad3f74caa559dc60e0289",
+              "sequence": 146,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "3dfa3ddd2a744b2bb2eb7dc6452506b6bffadf38b0b3dd12deeafd23e5adff0c",
+              "sequence": 153,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "39805f0674a643fef86aad58125f17640412a081418b8eb2f60ddbb744edf637",
+              "sequence": 168,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "c37b37624a0ccf53cddc594e1251b95c8ae142966993f5e7392d65bb576e0554",
+              "sequence": 182,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            }
+          ],
+          "strict_musical_passes": 3,
+          "subset_rejected_component_denominator": 10,
+          "subset_rejected_sequences": [
+            40
+          ],
+          "unique_note_outputs": 15
+        }
+      },
+      "format": "lilypond-2.24.4",
+      "provider": "gemini"
+    },
+    {
+      "conditions": {
+        "composite": {
+          "component_correct": 311,
+          "component_planned": 333,
+          "notation_component_correct": 288,
+          "notation_component_planned": 333,
+          "notation_ledger_agreement": 9,
+          "rows": [
+            {
+              "family": "generation-melody",
+              "payload_sha256": "4b8d58f9ff19ff0c5cd3a740b5f2e3aa46bd1d669f7976cdedc3c583f51347d6",
+              "sequence": 7,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "00cabe1f08bd1deb6da4842864d00501a98339f4b2ec7a059a482643dee69e00",
+              "sequence": 21,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "ba3d6aa775fb78b4e285c8b879c109b00801d38527970577beb7e73e98e75474",
+              "sequence": 28,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "025b6f03f24283a5f51ace72795db4cb5077155140bddf4d283d674e6a1dfa12",
+              "sequence": 35,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "dd1387675a89ca8125507d5343bfda7814b31866f09cf8eb69f2b71af6334896",
+              "sequence": 42,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "fc1d2fbd67e3488b7106e3b8f072fec4736dc48453dd0704b9a9dd5e1c9a4336",
+              "sequence": 49,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "dff6a174829104bcc3f38b8db6366ace599dd5149aebb99d02f363b69c30cbf7",
+              "sequence": 64,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "0ae519f065bc4f899f8ab21612ffa794a578e5bd984a2ce7a6c7a6cfc5152564",
+              "sequence": 71,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "ca74aadef8696054e41272620e77ba064b612709888d08b1c249aab8801e3087",
+              "sequence": 78,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "e5a8e236e2b72d93c67ec3aa92bf9e442a31a5f20ce49ba6cc88859e982208e6",
+              "sequence": 92,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "d910e69ea148a1e04a7807e5968f60e4ce49db0c55dd4ca09defd15420f39fa7",
+              "sequence": 113,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "a0ae740bc0081761c8496af9ed4d96ddb6558d2ecba9df269bb6eb57b860ac72",
+              "sequence": 149,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "2c986bf382a0dc40817cd224f3d817ef852143aa0079d1da43756376a96e64f3",
+              "sequence": 156,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "dc65d13ec147d6d5a1ad281a2afb9193e6ef297fa99d88cdf677c9cecb0d9d4f",
+              "sequence": 163,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "08839470c0b7a5e2dc19b68d95f06e9fb632cc56a60d7cbc6572d6dedaab5f53",
+              "sequence": 177,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            }
+          ],
+          "strict_musical_passes": 5,
+          "subset_rejected_component_denominator": 0,
+          "subset_rejected_sequences": [],
+          "unique_note_outputs": 15
+        },
+        "native": {
+          "component_correct": 294,
+          "component_planned": 333,
+          "notation_component_correct": 0,
+          "notation_component_planned": 0,
+          "notation_ledger_agreement": 0,
+          "rows": [
+            {
+              "family": "generation-melody",
+              "payload_sha256": "e707d3cecf082dba10359e4c6fdd051f7d71825f59eccde56df3800225641c83",
+              "sequence": 6,
+              "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+              "variant": 6000
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "21e89b57a499886a2b28391c7fb36c67430bd145b6fee85d983343933544cc1b",
+              "sequence": 20,
+              "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "81fde2cbe50d8fd268399020dc37286ac494c7ced2b5bb3639fa40538958f8bc",
+              "sequence": 27,
+              "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "27509e2ba7c65a29705461d6330203e06acf887ecaa4bcc854f19fa0cd20478d",
+              "sequence": 34,
+              "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "7155a25d301472a5a0a9d08a0e42dc416ded4d600a6cfb01a188f389b37847c5",
+              "sequence": 41,
+              "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+              "variant": 6022
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "14e8dac76dd61bb0e1fa26bffd9c96d518b702afc5b13b6d509896a9bbf79e26",
+              "sequence": 56,
+              "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+              "variant": 6002
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "49a288a9ec3e8a85c5d6f5574e729411ee75735b9d986369f8219647b0162a82",
+              "sequence": 63,
+              "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+              "variant": 6001
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "e9392a17c1c4f796d54c5587e1cf0905182bb7002348b074cc72a4940ec62958",
+              "sequence": 70,
+              "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+              "variant": 6000
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "d94d6f1f29dd3909153984c5f4576a6e479e65eb4eff0d6fd95d143537a82dd3",
+              "sequence": 77,
+              "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+              "variant": 6020
+            },
+            {
+              "family": "continuation-roles",
+              "payload_sha256": "d655f6cafd0e58b7e5616a3018b79c0fd8827047ae7e40b1c63cfef38c885d39",
+              "sequence": 91,
+              "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+              "variant": 6000
+            },
+            {
+              "family": "generation-progression",
+              "payload_sha256": "e9590898e1311d37fd04c3515826ffd2bbe99a487951cabc5358b35dccc6a48d",
+              "sequence": 120,
+              "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+              "variant": 6002
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "f9f2ba224f356efc4bb248e5ffa0b667f2fb8cabc7f434d9aef081906acd5ff9",
+              "sequence": 148,
+              "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+              "variant": 6002
+            },
+            {
+              "family": "comprehension-structure",
+              "payload_sha256": "9fbc891f1a0df6ea1df2c5855fdb36b3d34614d7bee92fed7bbd9b3e105f7966",
+              "sequence": 155,
+              "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+              "variant": 6001
+            },
+            {
+              "family": "continuation-motif",
+              "payload_sha256": "85aedb9226882f00b21b0d083d3975aac9257ec16bb2833f8581d5e13fcd4c2b",
+              "sequence": 162,
+              "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+              "variant": 6021
+            },
+            {
+              "family": "generation-melody",
+              "payload_sha256": "047ef2f0b6ac083f5f5aea7a2a559a4a45c6ea7d4d4d2b07722ef8b99edbc933",
+              "sequence": 184,
+              "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+              "variant": 6001
+            }
+          ],
+          "strict_musical_passes": 6,
+          "subset_rejected_component_denominator": 0,
+          "subset_rejected_sequences": [],
+          "unique_note_outputs": 15
+        }
+      },
+      "format": "musicxml-4.0",
+      "provider": "gemini"
+    }
+  ],
+  "population": "Unique repeat=1 note-output tasks only. Analysis returns common answer fields and is excluded. Fifteen note outputs per provider/format/condition.",
+  "schema": "ghostnote-asymmetry-audit-inventory-v1",
+  "sha256": "6277677aa5c25d84a3e8768df0471fa168bce6cbc21c985a6d6a12a797f5903c",
+  "source_manifests": [
+    {
+      "manifest_sha256": "742f428bb5539c1a53f4c1c3ec62ffe827dc121e1cc1a95ce819bee45d8c14fe",
+      "provider": "openai"
+    },
+    {
+      "manifest_sha256": "990038af3365f7831bb3a9c97bb50ccf39f01a5fbcba57cf9a6708d891b35937",
+      "provider": "gemini"
+    }
+  ]
+}

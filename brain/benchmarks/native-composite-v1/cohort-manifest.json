@@ -1,0 +1,2895 @@
+{
+  "cohort": "native-composite-diagnostic-r1",
+  "fixtures": {
+    "comprehension-analysis": [
+      {
+        "case_semantic_sha256": [
+          "ad4905dd386a868a4c14e38aad7afcf45cfca4dd9944d2a99d5123bfb063e35a",
+          "71dc99ed962795f0107e0e9ef300128f77758e49d058e4cea64a08d94d8545d9",
+          "31fcdb5bc58e357099f4c88359ef464eb9e8c04a864635b4a61c2942f7967d03"
+        ],
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "ff3ce367567905dd67ff2f2d9a96ce232f75304114c5cf89ee78854a25ee4834",
+        "contract": {
+          "case_count": 3,
+          "chord_groups": [
+            {
+              "case": 1,
+              "start_max": "1/7",
+              "start_min": "1/7",
+              "voice": "keys"
+            },
+            {
+              "case": 2,
+              "start_max": "29/7",
+              "start_min": "29/7",
+              "voice": "keys"
+            },
+            {
+              "case": 3,
+              "start_max": "249/28",
+              "start_min": "57/7",
+              "voice": "keys"
+            }
+          ],
+          "key_tonic_pc": 9,
+          "motif_pairs": [
+            {
+              "a_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "a_pitches": [
+                65,
+                70,
+                68,
+                75,
+                73,
+                80,
+                76,
+                82
+              ],
+              "a_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ],
+              "b_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "b_pitches": [
+                85,
+                80,
+                82,
+                75,
+                77,
+                70,
+                74,
+                68
+              ],
+              "b_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ]
+            },
+            {
+              "a_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "a_pitches": [
+                62,
+                67,
+                65,
+                72,
+                70,
+                77,
+                73,
+                79
+              ],
+              "a_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ],
+              "b_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "b_pitches": [
+                82,
+                76,
+                80,
+                73,
+                75,
+                68,
+                70,
+                65
+              ],
+              "b_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ]
+            },
+            {
+              "a_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "a_pitches": [
+                63,
+                68,
+                66,
+                73,
+                71,
+                78,
+                74,
+                80
+              ],
+              "a_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ],
+              "b_durations": [
+                "3/4",
+                "3/8",
+                "9/8",
+                "3/4",
+                "3/2",
+                "3/4",
+                "3/8",
+                "9/8"
+              ],
+              "b_pitches": [
+                63,
+                68,
+                66,
+                73,
+                71,
+                78,
+                74,
+                80
+              ],
+              "b_starts": [
+                "0",
+                "3/4",
+                "3/2",
+                "9/4",
+                "3",
+                "15/4",
+                "9/2",
+                "21/4"
+              ]
+            }
+          ]
+        },
+        "difficulty": "full-suite",
+        "expected": {
+          "bass_pcs": [
+            4,
+            8,
+            11
+          ],
+          "chord_ids": [
+            "case-1",
+            "case-2",
+            "case-3"
+          ],
+          "functions": [
+            "V7",
+            "V65",
+            "V43"
+          ],
+          "inversions": [
+            0,
+            1,
+            2
+          ],
+          "motif_relations": [
+            "inversion",
+            "retrograde-transposition",
+            "rhythmic-scale"
+          ],
+          "qualities": [
+            "dominant-seventh",
+            "dominant-seventh",
+            "dominant-seventh"
+          ],
+          "rhythms": [
+            "sustained",
+            "shared-onset",
+            "arpeggiated"
+          ],
+          "root_pcs": [
+            4,
+            4,
+            4
+          ]
+        },
+        "family": "comprehension-analysis",
+        "id": "native-composite-diagnostic-r1-comprehension-analysis-v6000",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "Generated by Ghostnote for an MIT-licensed benchmark.",
+        "schema": "ghostnote-compact-format-corpus-v6",
+        "semantic_sha256": "ff3ce367567905dd67ff2f2d9a96ce232f75304114c5cf89ee78854a25ee4834",
+        "sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d",
+        "source": [
+          {
+            "duration": "2",
+            "id": "event-1",
+            "pitch": 64,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-2",
+            "pitch": 68,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-3",
+            "pitch": 71,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-4",
+            "pitch": 74,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 51,
+            "start": "11/28",
+            "velocity": 84,
+            "voice": "guide"
+          },
+          {
+            "duration": "1",
+            "id": "event-6",
+            "pitch": 62,
+            "start": "15/7",
+            "velocity": 84,
+            "voice": "pad"
+          },
+          {
+            "duration": "3/2",
+            "id": "event-7",
+            "pitch": 73,
+            "start": "109/28",
+            "velocity": 84,
+            "voice": "guide"
+          },
+          {
+            "duration": "1",
+            "id": "event-8",
+            "pitch": 68,
+            "start": "29/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3/2",
+            "id": "event-9",
+            "pitch": 71,
+            "start": "29/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-10",
+            "pitch": 74,
+            "start": "29/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5/2",
+            "id": "event-11",
+            "pitch": 76,
+            "start": "29/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-12",
+            "pitch": 50,
+            "start": "79/14",
+            "velocity": 84,
+            "voice": "pad"
+          },
+          {
+            "duration": "2",
+            "id": "event-13",
+            "pitch": 71,
+            "start": "57/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-14",
+            "pitch": 74,
+            "start": "235/28",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-15",
+            "pitch": 76,
+            "start": "121/14",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-16",
+            "pitch": 80,
+            "start": "249/28",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "variant": 6000
+      },
+      {
+        "case_semantic_sha256": [
+          "4eb3f3c479b4b13811c5321291058624fa7c8311d2085ab79b8b03dc445b4582",
+          "fd013588846165b6476780591d883c4fd653f248104ab403acd5c61e9f07ed1d",
+          "1cddd3e40da4c5c6fc1cf973fe1488e533dcc7c9881f4a36ac9c1d764268200b"
+        ],
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "8fb4afe5388d873e937ea2d5c986d1ba70a748f33cdd1175a80b9a0a0ae320cc",
+        "contract": {
+          "case_count": 3,
+          "chord_groups": [
+            {
+              "case": 1,
+              "start_max": "2/7",
+              "start_min": "2/7",
+              "voice": "keys"
+            },
+            {
+              "case": 2,
+              "start_max": "30/7",
+              "start_min": "30/7",
+              "voice": "keys"
+            },
+            {
+              "case": 3,
+              "start_max": "253/28",
+              "start_min": "58/7",
+              "voice": "keys"
+            }
+          ],
+          "key_tonic_pc": 9,
+          "motif_pairs": [
+            {
+              "a_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "a_pitches": [
+                69,
+                74,
+                72,
+                79,
+                77,
+                84,
+                80,
+                86
+              ],
+              "a_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ],
+              "b_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "b_pitches": [
+                74,
+                72,
+                79,
+                77,
+                84,
+                80,
+                86,
+                69
+              ],
+              "b_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ]
+            },
+            {
+              "a_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "a_pitches": [
+                70,
+                75,
+                73,
+                80,
+                78,
+                85,
+                81,
+                87
+              ],
+              "a_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ],
+              "b_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "b_pitches": [
+                70,
+                76,
+                73,
+                80,
+                78,
+                83,
+                81,
+                87
+              ],
+              "b_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "13/4",
+                "7/2"
+              ]
+            },
+            {
+              "a_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "a_pitches": [
+                67,
+                72,
+                70,
+                77,
+                75,
+                82,
+                78,
+                84
+              ],
+              "a_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ],
+              "b_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "b_pitches": [
+                72,
+                77,
+                75,
+                82,
+                80,
+                87,
+                83,
+                89
+              ],
+              "b_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ]
+            }
+          ]
+        },
+        "difficulty": "full-suite",
+        "expected": {
+          "bass_pcs": [
+            11,
+            9,
+            2
+          ],
+          "chord_ids": [
+            "case-1",
+            "case-2",
+            "case-3"
+          ],
+          "functions": [
+            "vii-dim6",
+            "I-maj7",
+            "vii-half-dim43"
+          ],
+          "inversions": [
+            1,
+            0,
+            2
+          ],
+          "motif_relations": [
+            "rotation",
+            "none",
+            "transposition"
+          ],
+          "qualities": [
+            "diminished",
+            "major-seventh",
+            "half-diminished-seventh"
+          ],
+          "rhythms": [
+            "sustained",
+            "shared-onset",
+            "arpeggiated"
+          ],
+          "root_pcs": [
+            8,
+            9,
+            8
+          ]
+        },
+        "family": "comprehension-analysis",
+        "id": "native-composite-diagnostic-r1-comprehension-analysis-v6001",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "Generated by Ghostnote for an MIT-licensed benchmark.",
+        "schema": "ghostnote-compact-format-corpus-v6",
+        "semantic_sha256": "8fb4afe5388d873e937ea2d5c986d1ba70a748f33cdd1175a80b9a0a0ae320cc",
+        "sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b",
+        "source": [
+          {
+            "duration": "2",
+            "id": "event-1",
+            "pitch": 71,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-2",
+            "pitch": 74,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-3",
+            "pitch": 80,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-4",
+            "pitch": 63,
+            "start": "15/28",
+            "velocity": 84,
+            "voice": "guide"
+          },
+          {
+            "duration": "1",
+            "id": "event-5",
+            "pitch": 74,
+            "start": "16/7",
+            "velocity": 84,
+            "voice": "pad"
+          },
+          {
+            "duration": "3/2",
+            "id": "event-6",
+            "pitch": 85,
+            "start": "113/28",
+            "velocity": 84,
+            "voice": "guide"
+          },
+          {
+            "duration": "1",
+            "id": "event-7",
+            "pitch": 69,
+            "start": "30/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3/2",
+            "id": "event-8",
+            "pitch": 73,
+            "start": "30/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-9",
+            "pitch": 76,
+            "start": "30/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5/2",
+            "id": "event-10",
+            "pitch": 80,
+            "start": "30/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-11",
+            "pitch": 62,
+            "start": "81/14",
+            "velocity": 84,
+            "voice": "pad"
+          },
+          {
+            "duration": "2",
+            "id": "event-12",
+            "pitch": 74,
+            "start": "58/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-13",
+            "pitch": 78,
+            "start": "239/28",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-14",
+            "pitch": 80,
+            "start": "123/14",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-15",
+            "pitch": 83,
+            "start": "253/28",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "variant": 6001
+      },
+      {
+        "case_semantic_sha256": [
+          "e0979b6d097d41168782aefcf92adcec22848b45012b085071ed4c8aad5aa934",
+          "09994deebafb96e86c9fb8ef070fb2c499df3ba21ca4bc35a7491b434d71253c",
+          "ee41bd423719ccaaa9b00924f52e16cd6ac190949dc44e0718b6f7e8c80d4d45"
+        ],
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "6f17b2771463fc852bb00a324a9e02896d1a1b5d715ec812f173ec383a0caaf8",
+        "contract": {
+          "case_count": 3,
+          "chord_groups": [
+            {
+              "case": 1,
+              "start_max": "3/7",
+              "start_min": "3/7",
+              "voice": "keys"
+            },
+            {
+              "case": 2,
+              "start_max": "31/7",
+              "start_min": "31/7",
+              "voice": "keys"
+            },
+            {
+              "case": 3,
+              "start_max": "125/14",
+              "start_min": "59/7",
+              "voice": "keys"
+            }
+          ],
+          "key_tonic_pc": 1,
+          "motif_pairs": [
+            {
+              "a_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "a_pitches": [
+                62,
+                67,
+                65,
+                72,
+                70,
+                77,
+                73,
+                79
+              ],
+              "a_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ],
+              "b_durations": [
+                "3/4",
+                "3/8",
+                "9/8",
+                "3/4",
+                "3/2",
+                "3/4",
+                "3/8",
+                "9/8"
+              ],
+              "b_pitches": [
+                62,
+                67,
+                65,
+                72,
+                70,
+                77,
+                73,
+                79
+              ],
+              "b_starts": [
+                "0",
+                "3/4",
+                "3/2",
+                "9/4",
+                "3",
+                "15/4",
+                "9/2",
+                "21/4"
+              ]
+            },
+            {
+              "a_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "a_pitches": [
+                63,
+                68,
+                66,
+                73,
+                71,
+                78,
+                74,
+                80
+              ],
+              "a_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ],
+              "b_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "b_pitches": [
+                68,
+                66,
+                73,
+                71,
+                78,
+                74,
+                80,
+                63
+              ],
+              "b_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ]
+            },
+            {
+              "a_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "a_pitches": [
+                64,
+                69,
+                67,
+                74,
+                72,
+                79,
+                75,
+                81
+              ],
+              "a_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "3",
+                "7/2"
+              ],
+              "b_durations": [
+                "1/2",
+                "1/4",
+                "3/4",
+                "1/2",
+                "1",
+                "1/2",
+                "1/4",
+                "3/4"
+              ],
+              "b_pitches": [
+                64,
+                70,
+                67,
+                74,
+                72,
+                77,
+                75,
+                81
+              ],
+              "b_starts": [
+                "0",
+                "1/2",
+                "1",
+                "3/2",
+                "2",
+                "5/2",
+                "13/4",
+                "7/2"
+              ]
+            }
+          ]
+        },
+        "difficulty": "full-suite",
+        "expected": {
+          "bass_pcs": [
+            10,
+            6,
+            6
+          ],
+          "chord_ids": [
+            "case-1",
+            "case-2",
+            "case-3"
+          ],
+          "functions": [
+            "vi",
+            "ii6",
+            "IV"
+          ],
+          "inversions": [
+            0,
+            1,
+            0
+          ],
+          "motif_relations": [
+            "rhythmic-scale",
+            "rotation",
+            "none"
+          ],
+          "qualities": [
+            "minor",
+            "minor",
+            "major"
+          ],
+          "rhythms": [
+            "sustained",
+            "shared-onset",
+            "arpeggiated"
+          ],
+          "root_pcs": [
+            10,
+            3,
+            6
+          ]
+        },
+        "family": "comprehension-analysis",
+        "id": "native-composite-diagnostic-r1-comprehension-analysis-v6002",
+        "license": "MIT",
+        "native_offset": "3/7",
+        "origin": "Generated by Ghostnote for an MIT-licensed benchmark.",
+        "schema": "ghostnote-compact-format-corpus-v6",
+        "semantic_sha256": "6f17b2771463fc852bb00a324a9e02896d1a1b5d715ec812f173ec383a0caaf8",
+        "sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680",
+        "source": [
+          {
+            "duration": "2",
+            "id": "event-1",
+            "pitch": 58,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-2",
+            "pitch": 61,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-3",
+            "pitch": 65,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-4",
+            "pitch": 64,
+            "start": "19/28",
+            "velocity": 84,
+            "voice": "guide"
+          },
+          {
+            "duration": "1",
+            "id": "event-5",
+            "pitch": 75,
+            "start": "17/7",
+            "velocity": 84,
+            "voice": "pad"
+          },
+          {
+            "duration": "3/2",
+            "id": "event-6",
+            "pitch": 52,
+            "start": "117/28",
+            "velocity": 84,
+            "voice": "guide"
+          },
+          {
+            "duration": "1",
+            "id": "event-7",
+            "pitch": 66,
+            "start": "31/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3/2",
+            "id": "event-8",
+            "pitch": 70,
+            "start": "31/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-9",
+            "pitch": 75,
+            "start": "31/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-10",
+            "pitch": 63,
+            "start": "83/14",
+            "velocity": 84,
+            "voice": "pad"
+          },
+          {
+            "duration": "2",
+            "id": "event-11",
+            "pitch": 54,
+            "start": "59/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-12",
+            "pitch": 58,
+            "start": "243/28",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "2",
+            "id": "event-13",
+            "pitch": 61,
+            "start": "125/14",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "variant": 6002
+      }
+    ],
+    "comprehension-structure": [
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "cc5b935ce2b0932936b3a271f544567ce10dd35fd26f7169c6efcd0e65297bcb",
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "5",
+            "id": "event-1",
+            "pitch": 35,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-2",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-3",
+            "pitch": 63,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-4",
+            "pitch": 66,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-6",
+            "pitch": 61,
+            "start": "25/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-7",
+            "pitch": 63,
+            "start": "23/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-8",
+            "pitch": 66,
+            "start": "67/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "5",
+            "id": "event-9",
+            "pitch": 40,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-10",
+            "pitch": 64,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-11",
+            "pitch": 68,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-12",
+            "pitch": 71,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "family": "comprehension-structure",
+        "id": "native-composite-diagnostic-r1-comprehension-structure-v6000",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "cc5b935ce2b0932936b3a271f544567ce10dd35fd26f7169c6efcd0e65297bcb",
+        "sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+        "source": [
+          {
+            "duration": "5",
+            "id": "event-1",
+            "pitch": 35,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-2",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-3",
+            "pitch": 63,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-4",
+            "pitch": 66,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-6",
+            "pitch": 61,
+            "start": "25/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-7",
+            "pitch": 63,
+            "start": "23/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-8",
+            "pitch": 66,
+            "start": "67/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "5",
+            "id": "event-9",
+            "pitch": 40,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-10",
+            "pitch": 64,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-11",
+            "pitch": 68,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-12",
+            "pitch": 71,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "variant": 6000
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "94401667142dfd096da8d5919bd1744861c7e8db80035b70b3a79f36605e9c94",
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "3",
+            "id": "event-1",
+            "pitch": 44,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3",
+            "id": "event-2",
+            "pitch": 68,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-3",
+            "pitch": 72,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-4",
+            "pitch": 75,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-5",
+            "pitch": 68,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-6",
+            "pitch": 70,
+            "start": "13/21",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-7",
+            "pitch": 72,
+            "start": "9/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-8",
+            "pitch": 75,
+            "start": "41/21",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3",
+            "id": "event-9",
+            "pitch": 49,
+            "start": "23/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3",
+            "id": "event-10",
+            "pitch": 73,
+            "start": "23/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-11",
+            "pitch": 77,
+            "start": "23/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-12",
+            "pitch": 80,
+            "start": "23/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "family": "comprehension-structure",
+        "id": "native-composite-diagnostic-r1-comprehension-structure-v6001",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "94401667142dfd096da8d5919bd1744861c7e8db80035b70b3a79f36605e9c94",
+        "sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+        "source": [
+          {
+            "duration": "3",
+            "id": "event-1",
+            "pitch": 44,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3",
+            "id": "event-2",
+            "pitch": 68,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-3",
+            "pitch": 72,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-4",
+            "pitch": 75,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-5",
+            "pitch": 68,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-6",
+            "pitch": 70,
+            "start": "13/21",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-7",
+            "pitch": 72,
+            "start": "9/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-8",
+            "pitch": 75,
+            "start": "41/21",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3",
+            "id": "event-9",
+            "pitch": 49,
+            "start": "23/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3",
+            "id": "event-10",
+            "pitch": 73,
+            "start": "23/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-11",
+            "pitch": 77,
+            "start": "23/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-12",
+            "pitch": 80,
+            "start": "23/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "variant": 6001
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "2722cec234426572eaffdc16bebed7c4b2a12772223051d07667c0c37ff82eb9",
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "3",
+            "id": "event-1",
+            "pitch": 36,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3",
+            "id": "event-2",
+            "pitch": 60,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-3",
+            "pitch": 64,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-4",
+            "pitch": 67,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-5",
+            "pitch": 60,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-6",
+            "pitch": 62,
+            "start": "16/21",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-7",
+            "pitch": 64,
+            "start": "10/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-8",
+            "pitch": 67,
+            "start": "44/21",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3",
+            "id": "event-9",
+            "pitch": 41,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3",
+            "id": "event-10",
+            "pitch": 65,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-11",
+            "pitch": 69,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-12",
+            "pitch": 72,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "family": "comprehension-structure",
+        "id": "native-composite-diagnostic-r1-comprehension-structure-v6002",
+        "license": "MIT",
+        "native_offset": "3/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "2722cec234426572eaffdc16bebed7c4b2a12772223051d07667c0c37ff82eb9",
+        "sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+        "source": [
+          {
+            "duration": "3",
+            "id": "event-1",
+            "pitch": 36,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3",
+            "id": "event-2",
+            "pitch": 60,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-3",
+            "pitch": 64,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-4",
+            "pitch": 67,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-5",
+            "pitch": 60,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-6",
+            "pitch": 62,
+            "start": "16/21",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-7",
+            "pitch": 64,
+            "start": "10/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/3",
+            "id": "event-8",
+            "pitch": 67,
+            "start": "44/21",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3",
+            "id": "event-9",
+            "pitch": 41,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3",
+            "id": "event-10",
+            "pitch": 65,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-11",
+            "pitch": 69,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "3",
+            "id": "event-12",
+            "pitch": 72,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "variant": 6002
+      }
+    ],
+    "continuation-motif": [
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "970f3953bffdd4fd6bd03be18fd061af4fc4501fc098aa23e5d20b90fad0ee50",
+        "contract": {
+          "operation": "voice-conditioned-affine",
+          "voice_rules": {
+            "bass": {
+              "axis": 50,
+              "output_start": "78/7",
+              "rhythmic_factor": "1/2",
+              "semitones": -2
+            },
+            "inner": {
+              "axis": 66,
+              "output_start": "50/7",
+              "rhythmic_factor": "1/2",
+              "semitones": 5
+            },
+            "lead": {
+              "axis": 76,
+              "output_start": "107/14",
+              "rhythmic_factor": "3/2",
+              "semitones": 5
+            }
+          }
+        },
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "1/2",
+            "id": "event-1",
+            "pitch": 80,
+            "start": "50/7",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/8",
+            "id": "event-2",
+            "pitch": 80,
+            "start": "107/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/8",
+            "id": "event-3",
+            "pitch": 73,
+            "start": "57/7",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-4",
+            "pitch": 88,
+            "start": "235/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3/2",
+            "id": "event-5",
+            "pitch": 87,
+            "start": "64/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-6",
+            "pitch": 44,
+            "start": "78/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/8",
+            "id": "event-7",
+            "pitch": 53,
+            "start": "177/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-8",
+            "pitch": 52,
+            "start": "361/28",
+            "velocity": 84,
+            "voice": "bass"
+          }
+        ],
+        "family": "continuation-motif",
+        "id": "native-composite-diagnostic-r1-continuation-motif-v6020",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "Generated by Ghostnote for an MIT-licensed benchmark.",
+        "schema": "ghostnote-compact-format-v6",
+        "semantic_sha256": "970f3953bffdd4fd6bd03be18fd061af4fc4501fc098aa23e5d20b90fad0ee50",
+        "sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+        "source": [
+          {
+            "duration": "1/2",
+            "id": "event-1",
+            "pitch": 54,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-2",
+            "pitch": 57,
+            "start": "9/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-3",
+            "pitch": 77,
+            "start": "8/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-4",
+            "pitch": 69,
+            "start": "23/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1",
+            "id": "event-5",
+            "pitch": 70,
+            "start": "15/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-6",
+            "pitch": 64,
+            "start": "37/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-7",
+            "pitch": 45,
+            "start": "22/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-8",
+            "pitch": 46,
+            "start": "51/14",
+            "velocity": 84,
+            "voice": "bass"
+          }
+        ],
+        "variant": 6020
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "a87d0f9b2cfd0d058947f3d0fc90e2b79d50701504ddf1ae8e9fc5b7dfdd4738",
+        "contract": {
+          "operation": "voice-conditioned-affine",
+          "voice_rules": {
+            "bass": {
+              "axis": 52,
+              "output_start": "151/14",
+              "rhythmic_factor": "5/4",
+              "semitones": 2
+            },
+            "inner": {
+              "axis": 63,
+              "output_start": "165/14",
+              "rhythmic_factor": "1/2",
+              "semitones": 5
+            },
+            "lead": {
+              "axis": 72,
+              "output_start": "137/14",
+              "rhythmic_factor": "1/2",
+              "semitones": -3
+            }
+          }
+        },
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "1/4",
+            "id": "event-1",
+            "pitch": 67,
+            "start": "137/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-2",
+            "pitch": 70,
+            "start": "281/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3/8",
+            "id": "event-3",
+            "pitch": 64,
+            "start": "72/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "5/16",
+            "id": "event-4",
+            "pitch": 53,
+            "start": "151/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3/8",
+            "id": "event-5",
+            "pitch": 69,
+            "start": "165/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "1/8",
+            "id": "event-6",
+            "pitch": 65,
+            "start": "337/28",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "5/4",
+            "id": "event-7",
+            "pitch": 50,
+            "start": "93/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5/4",
+            "id": "event-8",
+            "pitch": 53,
+            "start": "779/56",
+            "velocity": 84,
+            "voice": "bass"
+          }
+        ],
+        "family": "continuation-motif",
+        "id": "native-composite-diagnostic-r1-continuation-motif-v6021",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "Generated by Ghostnote for an MIT-licensed benchmark.",
+        "schema": "ghostnote-compact-format-v6",
+        "semantic_sha256": "a87d0f9b2cfd0d058947f3d0fc90e2b79d50701504ddf1ae8e9fc5b7dfdd4738",
+        "sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+        "source": [
+          {
+            "duration": "3/4",
+            "id": "event-1",
+            "pitch": 62,
+            "start": "2/7",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-2",
+            "pitch": 66,
+            "start": "11/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-3",
+            "pitch": 53,
+            "start": "9/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-4",
+            "pitch": 74,
+            "start": "25/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 71,
+            "start": "16/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-6",
+            "pitch": 77,
+            "start": "39/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1",
+            "id": "event-7",
+            "pitch": 56,
+            "start": "23/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-8",
+            "pitch": 53,
+            "start": "53/14",
+            "velocity": 84,
+            "voice": "bass"
+          }
+        ],
+        "variant": 6021
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "d5be233a75219c0eae63e762fef10e6e703567dc97511d2dc6e009ea31be4287",
+        "contract": {
+          "operation": "voice-conditioned-affine",
+          "voice_rules": {
+            "bass": {
+              "axis": 52,
+              "output_start": "97/14",
+              "rhythmic_factor": "1",
+              "semitones": 3
+            },
+            "inner": {
+              "axis": 63,
+              "output_start": "167/14",
+              "rhythmic_factor": "1",
+              "semitones": 5
+            },
+            "lead": {
+              "axis": 74,
+              "output_start": "66/7",
+              "rhythmic_factor": "1",
+              "semitones": 5
+            }
+          }
+        },
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "1/4",
+            "id": "event-1",
+            "pitch": 58,
+            "start": "97/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-2",
+            "pitch": 59,
+            "start": "52/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-3",
+            "pitch": 60,
+            "start": "111/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-4",
+            "pitch": 77,
+            "start": "66/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 75,
+            "start": "139/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-6",
+            "pitch": 80,
+            "start": "153/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-7",
+            "pitch": 71,
+            "start": "167/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-8",
+            "pitch": 72,
+            "start": "94/7",
+            "velocity": 84,
+            "voice": "inner"
+          }
+        ],
+        "family": "continuation-motif",
+        "id": "native-composite-diagnostic-r1-continuation-motif-v6022",
+        "license": "MIT",
+        "native_offset": "3/7",
+        "origin": "Generated by Ghostnote for an MIT-licensed benchmark.",
+        "schema": "ghostnote-compact-format-v6",
+        "semantic_sha256": "d5be233a75219c0eae63e762fef10e6e703567dc97511d2dc6e009ea31be4287",
+        "sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+        "source": [
+          {
+            "duration": "1/4",
+            "id": "event-1",
+            "pitch": 49,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-2",
+            "pitch": 48,
+            "start": "13/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-3",
+            "pitch": 47,
+            "start": "10/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-4",
+            "pitch": 60,
+            "start": "27/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-5",
+            "pitch": 76,
+            "start": "17/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-6",
+            "pitch": 78,
+            "start": "41/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-7",
+            "pitch": 59,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-8",
+            "pitch": 73,
+            "start": "55/14",
+            "velocity": 84,
+            "voice": "lead"
+          }
+        ],
+        "variant": 6022
+      }
+    ],
+    "continuation-roles": [
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "788ed509e3831bac536ceef363b8449c31e9029746635207a93ae20c030c1db4",
+        "contract": {
+          "cadence_pitch_class": 6,
+          "duration": "1",
+          "harmony_pitch_classes": [
+            [
+              1,
+              6,
+              9
+            ],
+            [
+              3,
+              6,
+              11
+            ],
+            [
+              1,
+              4,
+              8
+            ],
+            [
+              1,
+              6,
+              9
+            ]
+          ],
+          "maximum_role_leap": 7,
+          "ranges": {
+            "bass": [
+              42,
+              61
+            ],
+            "lead": [
+              66,
+              85
+            ]
+          },
+          "starts": [
+            "29/7",
+            "36/7",
+            "43/7",
+            "50/7"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "continuation-roles",
+        "id": "native-composite-diagnostic-r1-continuation-roles-v6000",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "788ed509e3831bac536ceef363b8449c31e9029746635207a93ae20c030c1db4",
+        "sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+        "source": [],
+        "variant": 6000
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "40748335861435353217e465c6481a8cc554d3975d6dddd2b97aae9cc5ea8eab",
+        "contract": {
+          "cadence_pitch_class": 3,
+          "duration": "1",
+          "harmony_pitch_classes": [
+            [
+              3,
+              6,
+              10
+            ],
+            [
+              0,
+              3,
+              8
+            ],
+            [
+              1,
+              5,
+              10
+            ],
+            [
+              3,
+              6,
+              10
+            ]
+          ],
+          "maximum_role_leap": 8,
+          "ranges": {
+            "bass": [
+              39,
+              58
+            ],
+            "lead": [
+              63,
+              82
+            ]
+          },
+          "starts": [
+            "30/7",
+            "37/7",
+            "44/7",
+            "51/7"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "continuation-roles",
+        "id": "native-composite-diagnostic-r1-continuation-roles-v6001",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "40748335861435353217e465c6481a8cc554d3975d6dddd2b97aae9cc5ea8eab",
+        "sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+        "source": [],
+        "variant": 6001
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "3b1e0d7e4114a20d8861ecb7da953c828e75cb6de393fd87ab23e77911e12832",
+        "contract": {
+          "cadence_pitch_class": 3,
+          "duration": "1",
+          "harmony_pitch_classes": [
+            [
+              3,
+              6,
+              10
+            ],
+            [
+              0,
+              3,
+              8
+            ],
+            [
+              1,
+              5,
+              10
+            ],
+            [
+              3,
+              6,
+              10
+            ]
+          ],
+          "maximum_role_leap": 9,
+          "ranges": {
+            "bass": [
+              39,
+              58
+            ],
+            "lead": [
+              63,
+              82
+            ]
+          },
+          "starts": [
+            "31/7",
+            "38/7",
+            "45/7",
+            "52/7"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "continuation-roles",
+        "id": "native-composite-diagnostic-r1-continuation-roles-v6002",
+        "license": "MIT",
+        "native_offset": "3/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "3b1e0d7e4114a20d8861ecb7da953c828e75cb6de393fd87ab23e77911e12832",
+        "sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+        "source": [],
+        "variant": 6002
+      }
+    ],
+    "generation-melody": [
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "2df0d4ba7efbf793e0ceeff678c60449ec127b858176c020848b26bab2dd46ad",
+        "contract": {
+          "cadence_pitch_class": 6,
+          "durations": [
+            "1/4",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2"
+          ],
+          "meter": "4/4",
+          "motif_transposition": 5,
+          "note_count": 8,
+          "range": [
+            66,
+            85
+          ],
+          "scale_pitch_classes": [
+            1,
+            3,
+            4,
+            6,
+            8,
+            9,
+            11
+          ],
+          "starts": [
+            "1/7",
+            "10/21",
+            "8/7",
+            "31/21",
+            "15/7",
+            "52/21",
+            "22/7",
+            "73/21"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "generation-melody",
+        "id": "native-composite-diagnostic-r1-generation-melody-v6000",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "2df0d4ba7efbf793e0ceeff678c60449ec127b858176c020848b26bab2dd46ad",
+        "sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+        "source": [],
+        "variant": 6000
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "72c9bb52f701da238e16d1051d808fd20ee3ee40f77a05735aba77f2bacc009e",
+        "contract": {
+          "cadence_pitch_class": 3,
+          "durations": [
+            "1/2",
+            "3/8",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2"
+          ],
+          "meter": "4/4",
+          "motif_transposition": 5,
+          "note_count": 8,
+          "range": [
+            63,
+            82
+          ],
+          "scale_pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            6,
+            8,
+            10
+          ],
+          "starts": [
+            "2/7",
+            "20/21",
+            "9/7",
+            "41/21",
+            "16/7",
+            "62/21",
+            "23/7",
+            "83/21"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "generation-melody",
+        "id": "native-composite-diagnostic-r1-generation-melody-v6001",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "72c9bb52f701da238e16d1051d808fd20ee3ee40f77a05735aba77f2bacc009e",
+        "sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+        "source": [],
+        "variant": 6001
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "2620737837de06c0b49467793f48ced375fd9d1ad55200c209f3c256bb668285",
+        "contract": {
+          "cadence_pitch_class": 3,
+          "durations": [
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2"
+          ],
+          "meter": "4/4",
+          "motif_transposition": 5,
+          "note_count": 8,
+          "range": [
+            63,
+            82
+          ],
+          "scale_pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            6,
+            8,
+            10
+          ],
+          "starts": [
+            "3/7",
+            "23/21",
+            "10/7",
+            "44/21",
+            "17/7",
+            "65/21",
+            "24/7",
+            "86/21"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "generation-melody",
+        "id": "native-composite-diagnostic-r1-generation-melody-v6002",
+        "license": "MIT",
+        "native_offset": "3/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "2620737837de06c0b49467793f48ced375fd9d1ad55200c209f3c256bb668285",
+        "sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+        "source": [],
+        "variant": 6002
+      }
+    ],
+    "generation-progression": [
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "d2d367a65625cb9f1f07349b571a5ebcfe11b73e1b68c1774adc793534850150",
+        "contract": {
+          "bass_pitch_classes": [
+            7,
+            5,
+            2,
+            3
+          ],
+          "cadence": "authentic",
+          "chord_starts": [
+            "1/7",
+            "8/7",
+            "15/7",
+            "22/7"
+          ],
+          "duration": "1",
+          "key_tonic_pc": 3,
+          "maximum_total_voice_leading": 32,
+          "meter": "4/4",
+          "pitch_classes": [
+            [
+              3,
+              7,
+              10
+            ],
+            [
+              0,
+              5,
+              8
+            ],
+            [
+              2,
+              5,
+              8,
+              10
+            ],
+            [
+              3,
+              7,
+              10
+            ]
+          ],
+          "voice_ranges": {
+            "alto": [
+              56,
+              75
+            ],
+            "bass": [
+              41,
+              60
+            ],
+            "soprano": [
+              61,
+              82
+            ],
+            "tenor": [
+              49,
+              68
+            ]
+          }
+        },
+        "difficulty": "full-suite",
+        "family": "generation-progression",
+        "id": "native-composite-diagnostic-r1-generation-progression-v6000",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "d2d367a65625cb9f1f07349b571a5ebcfe11b73e1b68c1774adc793534850150",
+        "sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+        "source": [],
+        "variant": 6000
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "3d53283b24211c109c1eecaab04d455ca389c9851667efc20077a013df708149",
+        "contract": {
+          "bass_pitch_classes": [
+            9,
+            7,
+            4,
+            5
+          ],
+          "cadence": "authentic",
+          "chord_starts": [
+            "2/7",
+            "9/7",
+            "16/7",
+            "23/7"
+          ],
+          "duration": "1",
+          "key_tonic_pc": 5,
+          "maximum_total_voice_leading": 33,
+          "meter": "4/4",
+          "pitch_classes": [
+            [
+              0,
+              5,
+              9
+            ],
+            [
+              2,
+              7,
+              10
+            ],
+            [
+              0,
+              4,
+              7,
+              10
+            ],
+            [
+              0,
+              5,
+              9
+            ]
+          ],
+          "voice_ranges": {
+            "alto": [
+              56,
+              75
+            ],
+            "bass": [
+              41,
+              60
+            ],
+            "soprano": [
+              61,
+              82
+            ],
+            "tenor": [
+              49,
+              68
+            ]
+          }
+        },
+        "difficulty": "full-suite",
+        "family": "generation-progression",
+        "id": "native-composite-diagnostic-r1-generation-progression-v6001",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "3d53283b24211c109c1eecaab04d455ca389c9851667efc20077a013df708149",
+        "sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+        "source": [],
+        "variant": 6001
+      },
+      {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "e0fe107d8efa74c32ef1ed1c22bdd4e1219a74bf40cad2919dacd907e791852e",
+        "contract": {
+          "bass_pitch_classes": [
+            8,
+            6,
+            3,
+            4
+          ],
+          "cadence": "authentic",
+          "chord_starts": [
+            "3/7",
+            "10/7",
+            "17/7",
+            "24/7"
+          ],
+          "duration": "1",
+          "key_tonic_pc": 4,
+          "maximum_total_voice_leading": 34,
+          "meter": "4/4",
+          "pitch_classes": [
+            [
+              4,
+              8,
+              11
+            ],
+            [
+              1,
+              6,
+              9
+            ],
+            [
+              3,
+              6,
+              9,
+              11
+            ],
+            [
+              4,
+              8,
+              11
+            ]
+          ],
+          "voice_ranges": {
+            "alto": [
+              56,
+              75
+            ],
+            "bass": [
+              41,
+              60
+            ],
+            "soprano": [
+              61,
+              82
+            ],
+            "tenor": [
+              49,
+              68
+            ]
+          }
+        },
+        "difficulty": "full-suite",
+        "family": "generation-progression",
+        "id": "native-composite-diagnostic-r1-generation-progression-v6002",
+        "license": "MIT",
+        "native_offset": "3/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "e0fe107d8efa74c32ef1ed1c22bdd4e1219a74bf40cad2919dacd907e791852e",
+        "sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+        "source": [],
+        "variant": 6002
+      }
+    ]
+  },
+  "license": "MIT",
+  "schema": "ghostnote-native-composite-corpus-v1",
+  "sha256": "3f9b68822a4c1b919babc051f08df5d3ee83223e6dfd24f9ebbaf74a003019fe"
+}

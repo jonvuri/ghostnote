@@ -2,7 +2,7 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: Phase 8c4f matrix has a corrected offline assessment; format choice is pending.
+status: The diagnostic and adjudicated assessment are complete; format choice is pending.
 updated: 2026-09-30
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
@@ -306,6 +306,22 @@ owns the migration details.
    records the sampled audit and measurement defects.
    [E209](../../evidence/experiments/e209-offline-score-repair-updates-eight-arm-matrix.md)
    records the corrected offline aggregate. The format choice remains open.
+   [The native versus composite diagnostic](8c4f-native-versus-composite-diagnostic.md)
+   freezes 576 calls with a USD 7.332722 estimate and USD 10.75 hard limit.
+   [E210](../../evidence/experiments/e210-native-composite-diagnostic-awaits-approval.md)
+   records the offline preparation.
+   [E211](../../evidence/experiments/e211-native-composite-diagnostic-closes-with-two-providers.md)
+   records the diagnostic and operator decision to close with two providers.
+   OpenAI and Gemini completed all 192 calls. Claude results were removed.
+   No Claude recovery is planned. Format choice remains pending.
+   [E212](../../evidence/experiments/e212-full-grammar-audit-measures-native-composite-asymmetries.md)
+   records eight public grammar audits of all 240 unique note outputs.
+   Native profile failures recover partial credit. Composite ledger scores
+   often hide wrong notation. Frozen scores remain unchanged.
+   [E213](../../evidence/experiments/e213-audit-adjudications-update-native-composite-scoring.md)
+   integrates the adjudications into all 48 paired cells. Both note conditions
+   use notation scores. Analysis scores remain unchanged; repeats are excluded.
+   The original assessment and separate ledger scores remain available.
 26. [8f — Consolidated compact-bar and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
    Settle the public musical document and the separate internal cache boundary.
 27. [8g — Shadow project cache](8g-shadow-project-cache.md).

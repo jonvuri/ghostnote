@@ -1,0 +1,62 @@
+{
+  "providers": {
+    "gemini": {
+      "composite": {
+        "attempted": 96,
+        "failed": 0,
+        "input_tokens": 97888,
+        "mean_latency_ms": 2978.621010416667,
+        "measured_cost_usd": "0.23780475",
+        "output_tokens": 43837,
+        "planned": 96,
+        "response_bytes": 85372,
+        "scored": 96,
+        "unavailable": 0
+      },
+      "native": {
+        "attempted": 96,
+        "failed": 0,
+        "input_tokens": 76728,
+        "mean_latency_ms": 2842.7205729166667,
+        "measured_cost_usd": "0.19106850",
+        "output_tokens": 35606,
+        "planned": 96,
+        "response_bytes": 59193,
+        "scored": 96,
+        "unavailable": 0
+      }
+    },
+    "openai": {
+      "composite": {
+        "attempted": 96,
+        "failed": 0,
+        "input_tokens": 92779,
+        "mean_latency_ms": 17072.068885416666,
+        "measured_cost_usd": "1.12128825",
+        "output_tokens": 233712,
+        "planned": 96,
+        "response_bytes": 97113,
+        "scored": 96,
+        "unavailable": 0
+      },
+      "native": {
+        "attempted": 96,
+        "failed": 0,
+        "input_tokens": 73971,
+        "mean_latency_ms": 15880.782802083333,
+        "measured_cost_usd": "0.97592175",
+        "output_tokens": 204543,
+        "planned": 96,
+        "response_bytes": 59899,
+        "scored": 96,
+        "unavailable": 0
+      }
+    }
+  },
+  "schema": "ghostnote-native-composite-usage-v1",
+  "sha256": "109d6a76109d16281c3d4d563ec957f3fb2485018f4398633825a7c24a552ecf",
+  "source_manifest_sha256": [
+    "742f428bb5539c1a53f4c1c3ec62ffe827dc121e1cc1a95ce819bee45d8c14fe",
+    "990038af3365f7831bb3a9c97bb50ccf39f01a5fbcba57cf9a6708d891b35937"
+  ]
+}

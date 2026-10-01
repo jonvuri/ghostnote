@@ -1,0 +1,1904 @@
+{
+  "analysis_groups": "Select keys notes by inclusive start intervals. Case labels are response labels. No input note IDs select a group.",
+  "analysis_motifs": "Retain the shared numeric motif-pair data. The notation condition changes only chord input.",
+  "excluded_families": {
+    "document-serialization": "Full metadata and identity are outside the native field contract",
+    "transformation-local": "Outside the planned diagnostic; identity and exact preservation are outside the shared contract",
+    "transformation-revoice": "Outside the planned comprehension, generation, and continuation scope",
+    "transformation-rhythm": "Outside the planned comprehension, generation, and continuation scope"
+  },
+  "excluded_fields": [
+    "id",
+    "velocity",
+    "document metadata"
+  ],
+  "fields": [
+    "voice",
+    "start",
+    "duration",
+    "pitch"
+  ],
+  "native_defaults": {
+    "id": "Parser event index; never preserved or scored",
+    "velocity": "Parser placeholder 84; never scored"
+  },
+  "output_mode": "Complete output note set; no sparse edit or stable identity claim",
+  "parsers": "Repository subset parsers. No external engine or full public-standard conformance claim.",
+  "sha256": "5a276a07474906f5d14bca98f5ab900b1c51dc543eba33147b4f3890420720c6",
+  "task_cells": [
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-structure",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "13f9f079d07e91b3336410f3b3f235faf0a97464214e29ddcbd2d4a5e28e7e8d"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7665d65c308b81f780ec90db505ca28d88ac6dea7e06e61b764368e5dda54d9b"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "comprehension-analysis",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "344ae1e4e4cc49d2c5d0add0fca6e2fd9ffc4ddfdc4ebe639a2a59d0d29cd680"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-progression",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "generation-melody",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-motif",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812"
+    },
+    {
+      "arm": "abc-2.1-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda"
+    },
+    {
+      "arm": "abc-2.1-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda"
+    },
+    {
+      "arm": "strudel-v1.2-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda"
+    },
+    {
+      "arm": "strudel-v1.2-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda"
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda"
+    },
+    {
+      "arm": "lilypond-2.24.4-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda"
+    },
+    {
+      "arm": "musicxml-4.0-native",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda"
+    },
+    {
+      "arm": "musicxml-4.0-composite",
+      "common_fields": [
+        "voice",
+        "start",
+        "duration",
+        "pitch"
+      ],
+      "family": "continuation-roles",
+      "input_eligible": true,
+      "output_eligible": true,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda"
+    }
+  ],
+  "timing": "Exact rational quarter-note beats; positive durations and nonnegative starts",
+  "voice_names": "Native ABC voices, Strudel labels, LilyPond Voice names, or MusicXML part names. The lane suffix is a local convention, not note identity."
+}

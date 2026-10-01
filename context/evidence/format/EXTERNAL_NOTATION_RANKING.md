@@ -1,3 +1,12 @@
+---
+title: External notation ranking for Phase 8c4f
+kind: evidence
+state: complete
+updated: 2026-09-30
+phase: phase-8-agent-native-live-engine
+session: phase8c4f-extensible-matrix-and-external-probe
+---
+
 # External notation ranking for Phase 8c4f
 
 This ranking weighs general notability and practical use. It does not rank

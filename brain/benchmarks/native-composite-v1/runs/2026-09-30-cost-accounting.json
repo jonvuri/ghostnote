@@ -1,0 +1,18 @@
+{
+  "excluded_provider": "claude-haiku",
+  "excluded_provider_incurred_cost_exact_usd": "0.35133900",
+  "excluded_provider_message_attempts": 9,
+  "excluded_provider_token_count_requests": 9,
+  "operator_decision": "Skip Claude. Remove its diagnostic responses and results. Do not recover its missing rows.",
+  "retained_providers": [
+    "openai",
+    "gemini"
+  ],
+  "retained_results_cost_exact_usd": "2.52608325",
+  "run_id": "phase8c4f-native-composite-diagnostic-r1",
+  "run_plan_sha256": "7c51f49328c0392cabb36b41fe68b7f739427afdabe547f69cb64d63d8858dfe",
+  "schema": "ghostnote-native-composite-cost-accounting-v1",
+  "scope": "This decision closes the diagnostic with OpenAI and Gemini. The original approval and attempt records remain historical controls.",
+  "sha256": "647622adb36d2fbcf71a17d3581baa9a4b4e88d1606118ca0a8a08189bff7082",
+  "total_incurred_cost_exact_usd": "2.87742225"
+}

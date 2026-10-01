@@ -12,6 +12,10 @@ needed by a plan or decision. Content is preserved from the original findings lo
 
 | ID | Finding | Detail |
 |---|---|---|
+| E213 | Audit adjudications update native and composite scoring [K] (2026-09-30) | [open](experiments/e213-audit-adjudications-update-native-composite-scoring.md) |
+| E212 | Full grammar audit measures native and composite scoring asymmetries [K] (2026-09-30) | [open](experiments/e212-full-grammar-audit-measures-native-composite-asymmetries.md) |
+| E211 | Native versus composite diagnostic closes with two providers [K] (2026-09-30) | [open](experiments/e211-native-composite-diagnostic-closes-with-two-providers.md) |
+| E210 | Native versus composite diagnostic awaits approval [K] (2026-09-30) | [open](experiments/e210-native-composite-diagnostic-awaits-approval.md) |
 | E209 | Offline score repair updates the eight-arm matrix [K] (2026-09-30) | [open](experiments/e209-offline-score-repair-updates-eight-arm-matrix.md) |
 | E208 | Complete matrix audit finds reusable measurement repairs [K] (2026-09-30) | [open](experiments/e208-complete-matrix-audit-finds-reusable-measurement-repairs.md) |
 | E207 | Final Claude recovery completes the matrix [K] (2026-09-30) | [open](experiments/e207-final-claude-recovery-completes-matrix.md) |

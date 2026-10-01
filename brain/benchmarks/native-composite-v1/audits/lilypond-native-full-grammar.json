@@ -1,0 +1,5442 @@
+{
+  "cohort_sha256": "3f9b68822a4c1b919babc051f08df5d3ee83223e6dfd24f9ebbaf74a003019fe",
+  "compiler": "command -v lilypond returned no executable. Syntax and musical content are manual judgments, not claims of successful engraving.",
+  "coverage": {
+    "compiler_verified_cases": 0,
+    "deep_manual_review": 12,
+    "invalid_full_language_syntax_found": 0,
+    "inventory": 30,
+    "rejections_in_inventory": 3,
+    "rejections_reviewed": 3,
+    "unresolved_note_decodes": 0
+  },
+  "created_date": "2026-09-30",
+  "inventory": [
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "valid full grammar with real musical errors",
+      "completed_sequence": 5,
+      "counterfactual_components": {
+        "case_correct": 18,
+        "case_planned": 33,
+        "correct": 18,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "start",
+        "pitch",
+        "start",
+        "pitch"
+      ],
+      "deep_manual_review": true,
+      "family": "continuation-motif",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*1/14 gis,4*1/4 r4*5/4 gis,4*1/8 r4*1/8 g4*1/4 }\n    \\new Voice = \"inner.1\" { r4*9/28 gis'4*1/2 r4*1/2 cis'4*1/8 }\n    \\new Voice = \"lead.1\" { r4*12/7 gis'4*3/8 r4*3/8 e''4*3/4 dis''4*3/2 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nApply the voice rules to every source note. For each voice, first_voice_start is its earliest source start. Calculate pitch=2*axis-source_pitch+semitones, start=output_start+(source_start-first_voice_start)*rhythmic_factor, and duration=source_duration*rhythmic_factor. Preserve voice. Return only the calculated notes, with exactly the source note count. Rules: {\"bass\":{\"axis\":50,\"output_start\":\"78/7\",\"rhythmic_factor\":\"1/2\",\"semitones\":-2},\"inner\":{\"axis\":66,\"output_start\":\"50/7\",\"rhythmic_factor\":\"1/2\",\"semitones\":5},\"lead\":{\"axis\":76,\"output_start\":\"107/14\",\"rhythmic_factor\":\"3/2\",\"semitones\":5}}\n\n<input_document>\n\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*1/7 fis4*1/2 r4*5/2 a,4*1/4 r4*1/4 ais,4*1/2 }\n    \\new Voice = \"inner.1\" { r4*9/14 a4*1 r4*1 e'4*1/4 }\n    \\new Voice = \"lead.1\" { r4*8/7 f''4*1/4 r4*1/4 a'4*1/2 ais'4*1 }\n  >>\n}\n\n</input_document>",
+      "independent_contract_checks": {
+        "exact_note_multiset": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/4",
+          "id": "audit-1",
+          "pitch": 44,
+          "start": "1/14",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1/8",
+          "id": "audit-2",
+          "pitch": 44,
+          "start": "11/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1/4",
+          "id": "audit-3",
+          "pitch": 55,
+          "start": "51/28",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-4",
+          "pitch": 68,
+          "start": "9/28",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "1/8",
+          "id": "audit-5",
+          "pitch": 61,
+          "start": "37/28",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "3/8",
+          "id": "audit-6",
+          "pitch": 68,
+          "start": "12/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/4",
+          "id": "audit-7",
+          "pitch": 76,
+          "start": "69/28",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/2",
+          "id": "audit-8",
+          "pitch": 75,
+          "start": "45/14",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Valid grammar. Inner gis-prime is MIDI 68, but affine rule requires 80. Bass begins 1/14 instead of 78/7. All eight onsets and seven pitches fail matched components. Durations and voices are correct. 18/33 is a real musical error score.",
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 18,
+        "case_planned": 33,
+        "correct": 18,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "09d49c9553ca6e1b79fccaad73d4ac8c75eccd6d27e61fb224c6b6a7c5e5ef3d",
+      "planned_sequence": 5,
+      "profile_violation": null,
+      "prompt_sha256": "af24786daf2ece95db8d002591babb8502f892e05cd835fafd8f0fcfb49c5c40",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 5,
+      "subset_diagnostic": null,
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "970f3953bffdd4fd6bd03be18fd061af4fc4501fc098aa23e5d20b90fad0ee50",
+        "contract": {
+          "operation": "voice-conditioned-affine",
+          "voice_rules": {
+            "bass": {
+              "axis": 50,
+              "output_start": "78/7",
+              "rhythmic_factor": "1/2",
+              "semitones": -2
+            },
+            "inner": {
+              "axis": 66,
+              "output_start": "50/7",
+              "rhythmic_factor": "1/2",
+              "semitones": 5
+            },
+            "lead": {
+              "axis": 76,
+              "output_start": "107/14",
+              "rhythmic_factor": "3/2",
+              "semitones": 5
+            }
+          }
+        },
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "1/2",
+            "id": "event-1",
+            "pitch": 80,
+            "start": "50/7",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/8",
+            "id": "event-2",
+            "pitch": 80,
+            "start": "107/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/8",
+            "id": "event-3",
+            "pitch": 73,
+            "start": "57/7",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-4",
+            "pitch": 88,
+            "start": "235/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3/2",
+            "id": "event-5",
+            "pitch": 87,
+            "start": "64/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-6",
+            "pitch": 44,
+            "start": "78/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/8",
+            "id": "event-7",
+            "pitch": 53,
+            "start": "177/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-8",
+            "pitch": 52,
+            "start": "361/28",
+            "velocity": 84,
+            "voice": "bass"
+          }
+        ],
+        "family": "continuation-motif",
+        "id": "native-composite-diagnostic-r1-continuation-motif-v6020",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "Generated by Ghostnote for an MIT-licensed benchmark.",
+        "schema": "ghostnote-compact-format-v6",
+        "semantic_sha256": "970f3953bffdd4fd6bd03be18fd061af4fc4501fc098aa23e5d20b90fad0ee50",
+        "sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+        "source": [
+          {
+            "duration": "1/2",
+            "id": "event-1",
+            "pitch": 54,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-2",
+            "pitch": 57,
+            "start": "9/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-3",
+            "pitch": 77,
+            "start": "8/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-4",
+            "pitch": 69,
+            "start": "23/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1",
+            "id": "event-5",
+            "pitch": 70,
+            "start": "15/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-6",
+            "pitch": 64,
+            "start": "37/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-7",
+            "pitch": 45,
+            "start": "22/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-8",
+            "pitch": 46,
+            "start": "51/14",
+            "velocity": 84,
+            "voice": "bass"
+          }
+        ],
+        "variant": 6020
+      },
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+      "variant": 6020
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 33,
+      "counterfactual_components": {
+        "case_correct": 22,
+        "case_planned": 33,
+        "correct": 22,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "start",
+        "pitch",
+        "start",
+        "start",
+        "pitch",
+        "start",
+        "start",
+        "start",
+        "pitch",
+        "start",
+        "start"
+      ],
+      "deep_manual_review": false,
+      "family": "continuation-motif",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"inner.1\" { r4*1/7 a'4*3/8 }\n    \\new Voice = \"inner.2\" { r4*11/28 f4*1/8 }\n    \\new Voice = \"bass.1\" { r4*45/28 f4*5/16 r4*35/16 d4*5/4 }\n    \\new Voice = \"bass.2\" { r4*265/56 f4*5/4 }\n    \\new Voice = \"lead.1\" { r4*25/28 g4*1/4 ais'4*1/4 e4*3/8 }\n  >>\n}",
+      "independent_contract_checks": {
+        "exact_note_multiset": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "3/8",
+          "id": "audit-1",
+          "pitch": 69,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "1/8",
+          "id": "audit-2",
+          "pitch": 53,
+          "start": "11/28",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "5/16",
+          "id": "audit-3",
+          "pitch": 53,
+          "start": "45/28",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "5/4",
+          "id": "audit-4",
+          "pitch": 50,
+          "start": "115/28",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "5/4",
+          "id": "audit-5",
+          "pitch": 53,
+          "start": "265/56",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1/4",
+          "id": "audit-6",
+          "pitch": 55,
+          "start": "25/28",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/4",
+          "id": "audit-7",
+          "pitch": 70,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/8",
+          "id": "audit-8",
+          "pitch": 52,
+          "start": "39/28",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 22,
+        "case_planned": 33,
+        "correct": 22,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "140458f1286c26f53da9464e8d67b7ba35304b7814c87b1b9d6ce460a2111ef6",
+      "planned_sequence": 33,
+      "profile_violation": null,
+      "prompt_sha256": "b204e4b30e389afb26ca05e2b96252c811e4f3a8065fe9e3b7e6c2219d2b143a",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 33,
+      "subset_diagnostic": null,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+      "variant": 6021
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "valid full grammar with real musical errors",
+      "completed_sequence": 48,
+      "counterfactual_components": {
+        "case_correct": 5,
+        "case_planned": 7,
+        "correct": 5,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "rhythm",
+        "motif"
+      ],
+      "deep_manual_review": true,
+      "family": "generation-melody",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"lead.1\" { r4*2/7 c''4*1/2 r4*1/12 f''4*3/8 r4*1/12 gis'4*1/2 r4*1/42 ais'4*1/2 f''4*1/2 ais'4*1/2 cis''4*1/2 dis''4*1/2 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nCreate exactly eight lead notes. Use the exact starts and durations. Meet the range, scale, cadence, and motif requirements. The last four pitches equal the first four plus motif_transposition. Contract: {\"cadence_pitch_class\":3,\"durations\":[\"1/2\",\"3/8\",\"1/2\",\"1/2\",\"1/2\",\"1/2\",\"1/2\",\"1/2\"],\"meter\":\"4/4\",\"motif_transposition\":5,\"note_count\":8,\"range\":[63,82],\"scale_pitch_classes\":[0,1,3,5,6,8,10],\"starts\":[\"2/7\",\"20/21\",\"9/7\",\"41/21\",\"16/7\",\"62/21\",\"23/7\",\"83/21\"]}",
+      "independent_contract_checks": {
+        "cadence": true,
+        "count_and_voice": true,
+        "motif": false,
+        "range": true,
+        "rhythm": false,
+        "scale": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/2",
+          "id": "audit-1",
+          "pitch": 72,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/8",
+          "id": "audit-2",
+          "pitch": 77,
+          "start": "73/84",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-3",
+          "pitch": 68,
+          "start": "223/168",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-4",
+          "pitch": 70,
+          "start": "311/168",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-5",
+          "pitch": 77,
+          "start": "395/168",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-6",
+          "pitch": 70,
+          "start": "479/168",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-7",
+          "pitch": 73,
+          "start": "563/168",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-8",
+          "pitch": 75,
+          "start": "647/168",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Valid grammar. Second note onset is 2/7+1/2+1/12=73/84, not 20/21. Pitches [72,77,68,70,77,70,73,75]; second motif pair should transpose 77 to 82, but gives 70. Rhythm and motif fail. 5/7 is correct.",
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 5,
+        "case_planned": 7,
+        "correct": 5,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "8521cf0876280f016fc96fc34ea37dccb23dcfac87e300bc1801853c82e0e5a0",
+      "planned_sequence": 48,
+      "profile_violation": null,
+      "prompt_sha256": "781058c1e4f4590c6d3b3c5ebc627b83f28abcf4e78f9865a31bb255b869d0d2",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 48,
+      "subset_diagnostic": null,
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "72c9bb52f701da238e16d1051d808fd20ee3ee40f77a05735aba77f2bacc009e",
+        "contract": {
+          "cadence_pitch_class": 3,
+          "durations": [
+            "1/2",
+            "3/8",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2"
+          ],
+          "meter": "4/4",
+          "motif_transposition": 5,
+          "note_count": 8,
+          "range": [
+            63,
+            82
+          ],
+          "scale_pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            6,
+            8,
+            10
+          ],
+          "starts": [
+            "2/7",
+            "20/21",
+            "9/7",
+            "41/21",
+            "16/7",
+            "62/21",
+            "23/7",
+            "83/21"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "generation-melody",
+        "id": "native-composite-diagnostic-r1-generation-melody-v6001",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "72c9bb52f701da238e16d1051d808fd20ee3ee40f77a05735aba77f2bacc009e",
+        "sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+        "source": [],
+        "variant": 6001
+      },
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+      "variant": 6001
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "valid full grammar with real musical errors",
+      "completed_sequence": 62,
+      "counterfactual_components": {
+        "case_correct": 8,
+        "case_planned": 12,
+        "correct": 8,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "harmony",
+        "no_voice_crossing",
+        "voice_leading",
+        "listed_pitch_classes_only"
+      ],
+      "deep_manual_review": true,
+      "family": "generation-progression",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*2/7 a4*1 g4*1 e4*1 f4*1 }\n    \\new Voice = \"tenor.1\" { r4*2/7 c'4*1 d'4*1 c'4*1 a4*1 }\n    \\new Voice = \"alto.1\" { r4*2/7 f'4*1 a4*1 e'4*1 c'4*1 }\n    \\new Voice = \"soprano.1\" { r4*2/7 a'4*1 g'4*1 g'4*1 f'4*1 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nCreate exactly 16 notes: one bass, tenor, alto, and soprano at each chord start. Use only the listed pitch classes and cover every listed class. Keep bass < tenor < alto < soprano. Use the stated bass pitch class, ranges, duration, and total same-voice movement limit. Multiple valid voicings are allowed. Contract: {\"bass_pitch_classes\":[9,7,4,5],\"cadence\":\"authentic\",\"chord_starts\":[\"2/7\",\"9/7\",\"16/7\",\"23/7\"],\"duration\":\"1\",\"key_tonic_pc\":5,\"maximum_total_voice_leading\":33,\"meter\":\"4/4\",\"pitch_classes\":[[0,5,9],[2,7,10],[0,4,7,10],[0,5,9]],\"voice_ranges\":{\"alto\":[56,75],\"bass\":[41,60],\"soprano\":[61,82],\"tenor\":[49,68]}}",
+      "independent_contract_checks": {
+        "bass_inversions": true,
+        "cadence": true,
+        "density_and_starts": true,
+        "duration": true,
+        "harmony": false,
+        "movement": false,
+        "ranges": true,
+        "strict_voice_order": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 57,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 55,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 52,
+          "start": "16/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 53,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 60,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 62,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 60,
+          "start": "16/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 57,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-9",
+          "pitch": 65,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-10",
+          "pitch": 57,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-11",
+          "pitch": 64,
+          "start": "16/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-12",
+          "pitch": 60,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-13",
+          "pitch": 69,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-14",
+          "pitch": 67,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-15",
+          "pitch": 67,
+          "start": "16/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-16",
+          "pitch": 65,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "soprano"
+        }
+      ],
+      "manual_judgment": "Valid grammar. Chord two gives bass/tenor/alto/soprano [55,62,57,67], pitch classes {2,7,9} instead of {2,7,10}; tenor is above alto. Same-voice movement totals 36, above 33. Chord three also omits pitch class 10. 8/12 is correct.",
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 8,
+        "case_planned": 12,
+        "correct": 8,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "c4822d6bf6921ef9a1d628b2872a7e385b6e663a57e6facd81f05c886f444110",
+      "planned_sequence": 62,
+      "profile_violation": null,
+      "prompt_sha256": "87d7dc4db9f3d739730d9a44dbf44938fce6cabb069550387f2214eabf4c272a",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 62,
+      "subset_diagnostic": null,
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "3d53283b24211c109c1eecaab04d455ca389c9851667efc20077a013df708149",
+        "contract": {
+          "bass_pitch_classes": [
+            9,
+            7,
+            4,
+            5
+          ],
+          "cadence": "authentic",
+          "chord_starts": [
+            "2/7",
+            "9/7",
+            "16/7",
+            "23/7"
+          ],
+          "duration": "1",
+          "key_tonic_pc": 5,
+          "maximum_total_voice_leading": 33,
+          "meter": "4/4",
+          "pitch_classes": [
+            [
+              0,
+              5,
+              9
+            ],
+            [
+              2,
+              7,
+              10
+            ],
+            [
+              0,
+              4,
+              7,
+              10
+            ],
+            [
+              0,
+              5,
+              9
+            ]
+          ],
+          "voice_ranges": {
+            "alto": [
+              56,
+              75
+            ],
+            "bass": [
+              41,
+              60
+            ],
+            "soprano": [
+              61,
+              82
+            ],
+            "tenor": [
+              49,
+              68
+            ]
+          }
+        },
+        "difficulty": "full-suite",
+        "family": "generation-progression",
+        "id": "native-composite-diagnostic-r1-generation-progression-v6001",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "3d53283b24211c109c1eecaab04d455ca389c9851667efc20077a013df708149",
+        "sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+        "source": [],
+        "variant": 6001
+      },
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+      "variant": 6001
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "correct control",
+      "completed_sequence": 76,
+      "counterfactual_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [],
+      "deep_manual_review": true,
+      "family": "comprehension-structure",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*1/7 b,,4*5 e,4*5 }\n    \\new Voice = \"keys.1\" { r4*1/7 b4*5 e'4*5 }\n    \\new Voice = \"keys.2\" { r4*1/7 dis'4*5 gis'4*5 }\n    \\new Voice = \"keys.3\" { r4*1/7 fis'4*5 b'4*5 }\n    \\new Voice = \"lead.1\" { r4*1/7 b4*1/2 r4*1/4 cis'4*1/2 r4*1/4 dis'4*1/2 r4*1/4 fis'4*1/2 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nReconstruct every source note. Preserve voice, start, duration, and pitch. Return exactly the source note count.\n\n<input_document>\n\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*1/7 b,,4*5 e,4*5 }\n    \\new Voice = \"keys.1\" { r4*1/7 b4*5 e'4*5 }\n    \\new Voice = \"keys.2\" { r4*1/7 dis'4*5 gis'4*5 }\n    \\new Voice = \"keys.3\" { r4*1/7 fis'4*5 b'4*5 }\n    \\new Voice = \"lead.1\" { r4*1/7 b4*1/2 r4*1/4 cis'4*1/2 r4*1/4 dis'4*1/2 r4*1/4 fis'4*1/2 }\n  >>\n}\n\n</input_document>",
+      "independent_contract_checks": {
+        "exact_note_multiset": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "5",
+          "id": "audit-1",
+          "pitch": 35,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "5",
+          "id": "audit-2",
+          "pitch": 40,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "5",
+          "id": "audit-3",
+          "pitch": 59,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-4",
+          "pitch": 64,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-5",
+          "pitch": 63,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-6",
+          "pitch": 68,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-7",
+          "pitch": 66,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-8",
+          "pitch": 71,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-9",
+          "pitch": 59,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-10",
+          "pitch": 61,
+          "start": "25/28",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-11",
+          "pitch": 63,
+          "start": "23/14",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-12",
+          "pitch": 66,
+          "start": "67/28",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Correct control. Every source note is copied. b-double-comma is MIDI 35; r4*1/7 gives the required origin. Twelve notes, exact voice/start/duration/pitch multiset. 49/49.",
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "4b2dcd13d654a61d150575b396401e4a2e572dcc34edad66bcedd22a5a7977f0",
+      "planned_sequence": 76,
+      "profile_violation": null,
+      "prompt_sha256": "db2f45de56a2fe80376f13a4814508077c3d760bde4b3da9ddd0decd7816258b",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 76,
+      "subset_diagnostic": null,
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "cc5b935ce2b0932936b3a271f544567ce10dd35fd26f7169c6efcd0e65297bcb",
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "5",
+            "id": "event-1",
+            "pitch": 35,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-2",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-3",
+            "pitch": 63,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-4",
+            "pitch": 66,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-6",
+            "pitch": 61,
+            "start": "25/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-7",
+            "pitch": 63,
+            "start": "23/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-8",
+            "pitch": 66,
+            "start": "67/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "5",
+            "id": "event-9",
+            "pitch": 40,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-10",
+            "pitch": 64,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-11",
+            "pitch": 68,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-12",
+            "pitch": 71,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "family": "comprehension-structure",
+        "id": "native-composite-diagnostic-r1-comprehension-structure-v6000",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "cc5b935ce2b0932936b3a271f544567ce10dd35fd26f7169c6efcd0e65297bcb",
+        "sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+        "source": [
+          {
+            "duration": "5",
+            "id": "event-1",
+            "pitch": 35,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-2",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-3",
+            "pitch": 63,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-4",
+            "pitch": 66,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-6",
+            "pitch": 61,
+            "start": "25/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-7",
+            "pitch": 63,
+            "start": "23/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-8",
+            "pitch": 66,
+            "start": "67/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "5",
+            "id": "event-9",
+            "pitch": 40,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-10",
+            "pitch": 64,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-11",
+            "pitch": 68,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-12",
+            "pitch": 71,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "variant": 6000
+      },
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+      "variant": 6000
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "valid full grammar rejected by profile, with real musical errors",
+      "completed_sequence": 83,
+      "counterfactual_components": {
+        "case_correct": 9,
+        "case_planned": 10,
+        "correct": 9,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "voice_leading"
+      ],
+      "deep_manual_review": true,
+      "family": "continuation-roles",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*31/7 bes4*1 c4*1 cis4*1 bes4*1 }\n    \\new Voice = \"lead.1\" { r4*31/7 ees'4*1 ees'4*1 bes'4*1 ees'4*1 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nContinue with exactly four bass and four lead notes. Use one note per role at each start and the exact duration. Meet all harmony, range, leap, collision, and lead cadence requirements. Return only the continuation. Contract: {\"cadence_pitch_class\":3,\"duration\":\"1\",\"harmony_pitch_classes\":[[3,6,10],[0,3,8],[1,5,10],[3,6,10]],\"maximum_role_leap\":9,\"ranges\":{\"bass\":[39,58],\"lead\":[63,82]},\"starts\":[\"31/7\",\"38/7\",\"45/7\",\"52/7\"]}",
+      "independent_contract_checks": {
+        "cadence": true,
+        "collisions": true,
+        "density_and_starts": true,
+        "duration": true,
+        "harmony": true,
+        "ranges": true,
+        "role_leaps": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 58,
+          "start": "31/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 48,
+          "start": "38/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 49,
+          "start": "45/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 58,
+          "start": "52/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 63,
+          "start": "31/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 63,
+          "start": "38/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 70,
+          "start": "45/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 63,
+          "start": "52/7",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Valid bes and ees. All onsets, durations, pitches, ranges, harmony, cadence, and voice count pass. Bass 58 to 48 leaps 10 semitones; maximum is 9. Recover 9/10 components. No full success.",
+      "native_subset_accepted": false,
+      "original_components": {
+        "case_correct": 0,
+        "case_planned": 10,
+        "correct": 0,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "a8b5e27fcd892678187ffde4ff576a3a11bdd13dc538d9e82e095840f135b49e",
+      "planned_sequence": 83,
+      "profile_violation": "Flat pitch spelling violates the requested sharp-only profile.",
+      "prompt_sha256": "f2db7e7019277a994fa986e418f441bd5201722240cd93609c1231f21b46de2f",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 83,
+      "subset_diagnostic": {
+        "error": "Invalid LilyPond subset token: bes4*1"
+      },
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "3b1e0d7e4114a20d8861ecb7da953c828e75cb6de393fd87ab23e77911e12832",
+        "contract": {
+          "cadence_pitch_class": 3,
+          "duration": "1",
+          "harmony_pitch_classes": [
+            [
+              3,
+              6,
+              10
+            ],
+            [
+              0,
+              3,
+              8
+            ],
+            [
+              1,
+              5,
+              10
+            ],
+            [
+              3,
+              6,
+              10
+            ]
+          ],
+          "maximum_role_leap": 9,
+          "ranges": {
+            "bass": [
+              39,
+              58
+            ],
+            "lead": [
+              63,
+              82
+            ]
+          },
+          "starts": [
+            "31/7",
+            "38/7",
+            "45/7",
+            "52/7"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "continuation-roles",
+        "id": "native-composite-diagnostic-r1-continuation-roles-v6002",
+        "license": "MIT",
+        "native_offset": "3/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "3b1e0d7e4114a20d8861ecb7da953c828e75cb6de393fd87ab23e77911e12832",
+        "sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+        "source": [],
+        "variant": 6002
+      },
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+      "variant": 6002
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 90,
+      "counterfactual_components": {
+        "case_correct": 6,
+        "case_planned": 7,
+        "correct": 6,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "rhythm"
+      ],
+      "deep_manual_review": false,
+      "family": "generation-melody",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"lead.1\" { r4*1/7 cis''4*1/4 r4*1/12 dis''4*1/2 r4*1/6 e''4*1/2 r4*1/12 cis''4*1/2 r4*1/2 fis''4*1/2 r4*1/2 gis''4*1/2 r4*1/2 a''4*1/2 r4*1/2 fis''4*1/2 }\n  >>\n}",
+      "independent_contract_checks": {
+        "cadence": true,
+        "count_and_voice": true,
+        "motif": true,
+        "range": true,
+        "rhythm": false,
+        "scale": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/4",
+          "id": "audit-1",
+          "pitch": 73,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-2",
+          "pitch": 75,
+          "start": "10/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-3",
+          "pitch": 76,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-4",
+          "pitch": 73,
+          "start": "145/84",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-5",
+          "pitch": 78,
+          "start": "229/84",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-6",
+          "pitch": 80,
+          "start": "313/84",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-7",
+          "pitch": 81,
+          "start": "397/84",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-8",
+          "pitch": 78,
+          "start": "481/84",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 6,
+        "case_planned": 7,
+        "correct": 6,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "91d49dfac5753cee4571911329fbec13810a79a4830465b19218b8fd4c484d2d",
+      "planned_sequence": 90,
+      "profile_violation": null,
+      "prompt_sha256": "b8ac06ac903a1c3c090eb587ec644a6ad03ffe8476bb145a037e6f3393664e70",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 90,
+      "subset_diagnostic": null,
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+      "variant": 6000
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 97,
+      "counterfactual_components": {
+        "case_correct": 7,
+        "case_planned": 10,
+        "correct": 7,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "starts",
+        "voice_leading",
+        "exact_role_rhythm"
+      ],
+      "deep_manual_review": false,
+      "family": "continuation-roles",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { ais4*1 c4*1 f4*1 ais4*1 }\n    \\new Voice = \"lead.1\" { dis'4*1 dis'4*1 ais'4*1 dis''4*1 }\n  >>\n}",
+      "independent_contract_checks": {
+        "complete_role_contract": false,
+        "density_and_starts": false,
+        "duration": true,
+        "ranges": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 58,
+          "start": "0",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 48,
+          "start": "1",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 53,
+          "start": "2",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 58,
+          "start": "3",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 63,
+          "start": "0",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 63,
+          "start": "1",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 70,
+          "start": "2",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 75,
+          "start": "3",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 7,
+        "case_planned": 10,
+        "correct": 7,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "f4d143f14cb4c60874b7f9075d5329e5e35d58f3ad2385920bc88e809431ba06",
+      "planned_sequence": 97,
+      "profile_violation": null,
+      "prompt_sha256": "3de057f8fef28becf934f90a0afa6d77e743a9d1e30033e11ced87b477f4639e",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 97,
+      "subset_diagnostic": null,
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+      "variant": 6001
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 112,
+      "counterfactual_components": {
+        "case_correct": 8,
+        "case_planned": 12,
+        "correct": 8,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "harmony",
+        "inversions",
+        "authentic_cadence",
+        "listed_pitch_classes_only"
+      ],
+      "deep_manual_review": false,
+      "family": "generation-progression",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*1/7 gis4*1 fis4*1 d4*1 dis4*1 }\n    \\new Voice = \"tenor.1\" { r4*1/7 dis'4*1 c'4*1 d'4*1 gis4*1 }\n    \\new Voice = \"alto.1\" { r4*1/7 gis'4*1 fis'4*1 fis'4*1 dis'4*1 }\n    \\new Voice = \"soprano.1\" { r4*1/7 ais'4*1 a'4*1 a'4*1 ais'4*1 }\n  >>\n}",
+      "independent_contract_checks": {
+        "bass_inversions": false,
+        "cadence": false,
+        "density_and_starts": true,
+        "duration": true,
+        "harmony": false,
+        "movement": true,
+        "ranges": true,
+        "strict_voice_order": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 56,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 54,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 50,
+          "start": "15/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 51,
+          "start": "22/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 63,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 60,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 62,
+          "start": "15/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 56,
+          "start": "22/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-9",
+          "pitch": 68,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-10",
+          "pitch": 66,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-11",
+          "pitch": 66,
+          "start": "15/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-12",
+          "pitch": 63,
+          "start": "22/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-13",
+          "pitch": 70,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-14",
+          "pitch": 69,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-15",
+          "pitch": 69,
+          "start": "15/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-16",
+          "pitch": 70,
+          "start": "22/7",
+          "velocity": 84,
+          "voice": "soprano"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 8,
+        "case_planned": 12,
+        "correct": 8,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "e844302fdcca0cea9b29073fc89b90980a4ad0f5185e8722a2bc503be0af8240",
+      "planned_sequence": 112,
+      "profile_violation": null,
+      "prompt_sha256": "20d7033d964ef3056f5261ca0e1c4365a9805791000cde8d7099b60d0af05bbf",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 112,
+      "subset_diagnostic": null,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+      "variant": 6000
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 119,
+      "counterfactual_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [],
+      "deep_manual_review": false,
+      "family": "comprehension-structure",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*3/7 c,4*3 f,4*3 }\n    \\new Voice = \"keys.1\" { r4*3/7 c'4*3 f'4*3 }\n    \\new Voice = \"keys.2\" { r4*3/7 e'4*3 a'4*3 }\n    \\new Voice = \"keys.3\" { r4*3/7 g'4*3 c''4*3 }\n    \\new Voice = \"lead.1\" { r4*3/7 c'4*1/3 d'4*1/3 r4*1/3 e'4*1/3 r4*1/3 g'4*1/3 }\n  >>\n}",
+      "independent_contract_checks": {
+        "exact_note_multiset": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "3",
+          "id": "audit-1",
+          "pitch": 36,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "3",
+          "id": "audit-2",
+          "pitch": 41,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "3",
+          "id": "audit-3",
+          "pitch": 60,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-4",
+          "pitch": 65,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-5",
+          "pitch": 64,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-6",
+          "pitch": 69,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-7",
+          "pitch": 67,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-8",
+          "pitch": 72,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-9",
+          "pitch": 60,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-10",
+          "pitch": 62,
+          "start": "16/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-11",
+          "pitch": 64,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-12",
+          "pitch": 67,
+          "start": "44/21",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "f3248cf08209062d90c4d44b1119b8a3897b90d68c2dc3270f5c03633d9d01aa",
+      "planned_sequence": 119,
+      "profile_violation": null,
+      "prompt_sha256": "0b457afca919976642526879a2cd24e0fca66773e14108cc3b608ddb8db582c9",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 119,
+      "subset_diagnostic": null,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+      "variant": 6002
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 133,
+      "counterfactual_components": {
+        "case_correct": 10,
+        "case_planned": 12,
+        "correct": 10,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "harmony",
+        "voice_leading"
+      ],
+      "deep_manual_review": false,
+      "family": "generation-progression",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*3/7 gis4*1 fis4*1 dis4*1 e4*1 }\n    \\new Voice = \"tenor.1\" { r4*3/7 b4*1 cis'4*1 a4*1 b4*1 }\n    \\new Voice = \"alto.1\" { r4*3/7 e'4*1 a'4*1 fis'4*1 gis'4*1 }\n    \\new Voice = \"soprano.1\" { r4*3/7 b'4*1 cis''4*1 a'4*1 e''4*1 }\n  >>\n}",
+      "independent_contract_checks": {
+        "bass_inversions": true,
+        "cadence": true,
+        "density_and_starts": true,
+        "duration": true,
+        "harmony": false,
+        "movement": false,
+        "ranges": true,
+        "strict_voice_order": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 56,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 54,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 51,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 52,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 59,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 61,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 57,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 59,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-9",
+          "pitch": 64,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-10",
+          "pitch": 69,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-11",
+          "pitch": 66,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-12",
+          "pitch": 68,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-13",
+          "pitch": 71,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-14",
+          "pitch": 73,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-15",
+          "pitch": 69,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-16",
+          "pitch": 76,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "soprano"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 10,
+        "case_planned": 12,
+        "correct": 10,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "7c137fab3d3a11a4f866e8a753dcc549481315d788e3005ccc5714e823039c9a",
+      "planned_sequence": 133,
+      "profile_violation": null,
+      "prompt_sha256": "77045add7e92974e3a2a05987955294c0dc471d2b7b88e9c2d23a8738884bbf8",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 133,
+      "subset_diagnostic": null,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+      "variant": 6002
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "correct control",
+      "completed_sequence": 140,
+      "counterfactual_components": {
+        "case_correct": 7,
+        "case_planned": 7,
+        "correct": 7,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [],
+      "deep_manual_review": true,
+      "family": "generation-melody",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"lead.1\" { r4*3/7 c''4*1/2 }\n    \\new Voice = \"lead.2\" { r4*23/21 cis''4*1/2 }\n    \\new Voice = \"lead.3\" { r4*10/7 dis''4*1/2 }\n    \\new Voice = \"lead.4\" { r4*44/21 ais'4*1/2 }\n    \\new Voice = \"lead.5\" { r4*17/7 f''4*1/2 }\n    \\new Voice = \"lead.6\" { r4*65/21 fis''4*1/2 }\n    \\new Voice = \"lead.7\" { r4*24/7 gis''4*1/2 }\n    \\new Voice = \"lead.8\" { r4*86/21 dis''4*1/2 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nCreate exactly eight lead notes. Use the exact starts and durations. Meet the range, scale, cadence, and motif requirements. The last four pitches equal the first four plus motif_transposition. Contract: {\"cadence_pitch_class\":3,\"durations\":[\"1/2\",\"1/2\",\"1/2\",\"1/2\",\"1/2\",\"1/2\",\"1/2\",\"1/2\"],\"meter\":\"4/4\",\"motif_transposition\":5,\"note_count\":8,\"range\":[63,82],\"scale_pitch_classes\":[0,1,3,5,6,8,10],\"starts\":[\"3/7\",\"23/21\",\"10/7\",\"44/21\",\"17/7\",\"65/21\",\"24/7\",\"86/21\"]}",
+      "independent_contract_checks": {
+        "cadence": true,
+        "count_and_voice": true,
+        "motif": true,
+        "range": true,
+        "rhythm": true,
+        "scale": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/2",
+          "id": "audit-1",
+          "pitch": 72,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-2",
+          "pitch": 73,
+          "start": "23/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-3",
+          "pitch": 75,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-4",
+          "pitch": 70,
+          "start": "44/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-5",
+          "pitch": 77,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-6",
+          "pitch": 78,
+          "start": "65/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-7",
+          "pitch": 80,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-8",
+          "pitch": 75,
+          "start": "86/21",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Correct generation control. Eight parallel lead lanes have exact rational starts, each duration 1/2. Pitches [72,73,75,70,77,78,80,75] form four +5 pairs; cadence class 3, scale, and range pass. Overlapping lanes correctly represent the requested rhythm. 7/7.",
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 7,
+        "case_planned": 7,
+        "correct": 7,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "97103ca01ddeee6fb9aeb3cb66b284aa7e2608f0a554b813f6b6f92701ff25cc",
+      "planned_sequence": 140,
+      "profile_violation": null,
+      "prompt_sha256": "dac8fa706b60d6e8fd63ea875d1630c2aee2d6c79ada76d51e4a4224e8b99295",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 140,
+      "subset_diagnostic": null,
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "2620737837de06c0b49467793f48ced375fd9d1ad55200c209f3c256bb668285",
+        "contract": {
+          "cadence_pitch_class": 3,
+          "durations": [
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2"
+          ],
+          "meter": "4/4",
+          "motif_transposition": 5,
+          "note_count": 8,
+          "range": [
+            63,
+            82
+          ],
+          "scale_pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            6,
+            8,
+            10
+          ],
+          "starts": [
+            "3/7",
+            "23/21",
+            "10/7",
+            "44/21",
+            "17/7",
+            "65/21",
+            "24/7",
+            "86/21"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "generation-melody",
+        "id": "native-composite-diagnostic-r1-generation-melody-v6002",
+        "license": "MIT",
+        "native_offset": "3/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "2620737837de06c0b49467793f48ced375fd9d1ad55200c209f3c256bb668285",
+        "sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+        "source": [],
+        "variant": 6002
+      },
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+      "variant": 6002
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 154,
+      "counterfactual_components": {
+        "case_correct": 8,
+        "case_planned": 10,
+        "correct": 8,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "starts",
+        "exact_role_rhythm"
+      ],
+      "deep_manual_review": false,
+      "family": "continuation-roles",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { a4*1 b4*1 c'4*1 c'4*1 }\n    \\new Voice = \"lead.1\" { fis'4*1 b'4*1 gis'4*1 fis'4*1 }\n  >>\n}",
+      "independent_contract_checks": {
+        "complete_role_contract": false,
+        "density_and_starts": false,
+        "duration": true,
+        "ranges": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 57,
+          "start": "0",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 59,
+          "start": "1",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 60,
+          "start": "2",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 60,
+          "start": "3",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 66,
+          "start": "0",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 71,
+          "start": "1",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 68,
+          "start": "2",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 66,
+          "start": "3",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 8,
+        "case_planned": 10,
+        "correct": 8,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "720ad633a45c6fd70970da76184269c629c85f3cb1ed73be8a568010033d69aa",
+      "planned_sequence": 154,
+      "profile_violation": null,
+      "prompt_sha256": "48d9c7ff1652b9f92a93b49c471a909b46e956a4b8830f560e7ba5e34ad10fdb",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 154,
+      "subset_diagnostic": null,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+      "variant": 6000
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 183,
+      "counterfactual_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [],
+      "deep_manual_review": false,
+      "family": "comprehension-structure",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*2/7 gis,4*3 cis4*3 }\n    \\new Voice = \"keys.1\" { r4*2/7 gis'4*3 cis''4*3 }\n    \\new Voice = \"keys.2\" { r4*2/7 c''4*3 f''4*3 }\n    \\new Voice = \"keys.3\" { r4*2/7 dis''4*3 gis''4*3 }\n    \\new Voice = \"lead.1\" { r4*2/7 gis'4*1/3 ais'4*1/3 r4*1/3 c''4*1/3 r4*1/3 dis''4*1/3 }\n  >>\n}",
+      "independent_contract_checks": {
+        "exact_note_multiset": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "3",
+          "id": "audit-1",
+          "pitch": 44,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "3",
+          "id": "audit-2",
+          "pitch": 49,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "3",
+          "id": "audit-3",
+          "pitch": 68,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-4",
+          "pitch": 73,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-5",
+          "pitch": 72,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-6",
+          "pitch": 77,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-7",
+          "pitch": 75,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-8",
+          "pitch": 80,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-9",
+          "pitch": 68,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-10",
+          "pitch": 70,
+          "start": "13/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-11",
+          "pitch": 72,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-12",
+          "pitch": 75,
+          "start": "41/21",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "3dfa3ddd2a744b2bb2eb7dc6452506b6bffadf38b0b3dd12deeafd23e5adff0c",
+      "planned_sequence": 183,
+      "profile_violation": null,
+      "prompt_sha256": "9cf0837f3586ad9ee718e949016690c094c04f91c810d55f84d3094f72d05bde",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 183,
+      "subset_diagnostic": null,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+      "variant": 6001
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "valid full grammar rejected by profile, with real musical errors",
+      "completed_sequence": 190,
+      "counterfactual_components": {
+        "case_correct": 20,
+        "case_planned": 33,
+        "correct": 20,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "start",
+        "start",
+        "start",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch"
+      ],
+      "deep_manual_review": true,
+      "family": "continuation-motif",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*3/7 bes4*1/4 r4*1/4 b4*1 }\n    \\new Voice = \"bass.2\" { r4*10/7 c'4*1 }\n    \\new Voice = \"inner.1\" { r4*27/14 b4*1/4 r4*5/4 c'4*3/4 }\n    \\new Voice = \"lead.1\" { r4*17/7 f'4*3/4 r4*3/4 gis'4*3/4 }\n    \\new Voice = \"lead.2\" { r4*41/14 d'4*1/2 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nApply the voice rules to every source note. For each voice, first_voice_start is its earliest source start. Calculate pitch=2*axis-source_pitch+semitones, start=output_start+(source_start-first_voice_start)*rhythmic_factor, and duration=source_duration*rhythmic_factor. Preserve voice. Return only the calculated notes, with exactly the source note count. Rules: {\"bass\":{\"axis\":52,\"output_start\":\"97/14\",\"rhythmic_factor\":\"1\",\"semitones\":3},\"inner\":{\"axis\":63,\"output_start\":\"167/14\",\"rhythmic_factor\":\"1\",\"semitones\":5},\"lead\":{\"axis\":74,\"output_start\":\"66/7\",\"rhythmic_factor\":\"1\",\"semitones\":5}}\n\n<input_document>\n\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*3/7 cis4*1/4 r4*1/4 c4*1 }\n    \\new Voice = \"bass.2\" { r4*10/7 b,4*1 }\n    \\new Voice = \"inner.1\" { r4*27/14 c'4*1/4 r4*5/4 b4*3/4 }\n    \\new Voice = \"lead.1\" { r4*17/7 e''4*3/4 r4*3/4 cis''4*3/4 }\n    \\new Voice = \"lead.2\" { r4*41/14 fis''4*1/2 }\n  >>\n}\n\n</input_document>",
+      "independent_contract_checks": {
+        "exact_note_multiset": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/4",
+          "id": "audit-1",
+          "pitch": 58,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 59,
+          "start": "13/14",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 60,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1/4",
+          "id": "audit-4",
+          "pitch": 59,
+          "start": "27/14",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "3/4",
+          "id": "audit-5",
+          "pitch": 60,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "3/4",
+          "id": "audit-6",
+          "pitch": 65,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/4",
+          "id": "audit-7",
+          "pitch": 68,
+          "start": "55/14",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-8",
+          "pitch": 62,
+          "start": "41/14",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Valid Dutch flats. bes = B-flat, MIDI 58. All eight onsets retain source positions, not the required output origins. Bass pitches are correct; inner and lead pitches are wrong. For inner source MIDI 60: 2*63-60+5=71, but b is 59. Recover 20/33 components, not a full success.",
+      "native_subset_accepted": false,
+      "original_components": {
+        "case_correct": 0,
+        "case_planned": 33,
+        "correct": 0,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "c9cdf169547998a849e5ad34db73fe3a5a1d2a01a52b2a705b015fdf51db0a04",
+      "planned_sequence": 190,
+      "profile_violation": "Flat pitch spelling violates the requested sharp-only profile.",
+      "prompt_sha256": "29a0dbfa27455a77ac456ea6a529c03d2b459209b84ba308c04f17b9535d510a",
+      "provider": "openai",
+      "repeat": 1,
+      "started_sequence": 190,
+      "subset_diagnostic": {
+        "error": "Invalid LilyPond subset token: bes4*1/4"
+      },
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "d5be233a75219c0eae63e762fef10e6e703567dc97511d2dc6e009ea31be4287",
+        "contract": {
+          "operation": "voice-conditioned-affine",
+          "voice_rules": {
+            "bass": {
+              "axis": 52,
+              "output_start": "97/14",
+              "rhythmic_factor": "1",
+              "semitones": 3
+            },
+            "inner": {
+              "axis": 63,
+              "output_start": "167/14",
+              "rhythmic_factor": "1",
+              "semitones": 5
+            },
+            "lead": {
+              "axis": 74,
+              "output_start": "66/7",
+              "rhythmic_factor": "1",
+              "semitones": 5
+            }
+          }
+        },
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "1/4",
+            "id": "event-1",
+            "pitch": 58,
+            "start": "97/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-2",
+            "pitch": 59,
+            "start": "52/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-3",
+            "pitch": 60,
+            "start": "111/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-4",
+            "pitch": 77,
+            "start": "66/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 75,
+            "start": "139/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-6",
+            "pitch": 80,
+            "start": "153/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-7",
+            "pitch": 71,
+            "start": "167/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-8",
+            "pitch": 72,
+            "start": "94/7",
+            "velocity": 84,
+            "voice": "inner"
+          }
+        ],
+        "family": "continuation-motif",
+        "id": "native-composite-diagnostic-r1-continuation-motif-v6022",
+        "license": "MIT",
+        "native_offset": "3/7",
+        "origin": "Generated by Ghostnote for an MIT-licensed benchmark.",
+        "schema": "ghostnote-compact-format-v6",
+        "semantic_sha256": "d5be233a75219c0eae63e762fef10e6e703567dc97511d2dc6e009ea31be4287",
+        "sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+        "source": [
+          {
+            "duration": "1/4",
+            "id": "event-1",
+            "pitch": 49,
+            "start": "3/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-2",
+            "pitch": 48,
+            "start": "13/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-3",
+            "pitch": 47,
+            "start": "10/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-4",
+            "pitch": 60,
+            "start": "27/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-5",
+            "pitch": 76,
+            "start": "17/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-6",
+            "pitch": 78,
+            "start": "41/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-7",
+            "pitch": 59,
+            "start": "24/7",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-8",
+            "pitch": 73,
+            "start": "55/14",
+            "velocity": 84,
+            "voice": "lead"
+          }
+        ],
+        "variant": 6022
+      },
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+      "variant": 6022
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "valid full grammar with real musical errors",
+      "completed_sequence": 4,
+      "counterfactual_components": {
+        "case_correct": 5,
+        "case_planned": 7,
+        "correct": 5,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "rhythm",
+        "mode"
+      ],
+      "deep_manual_review": true,
+      "family": "generation-melody",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"lead.1\" { r4*1/7 fis'4*1/4 r4*1/6 gis'4*1/2 r4*1/6 ais'4*1/2 r4*1/6 cis''4*1/2 r4*1/6 b'4*1/2 r4*1/6 cis''4*1/2 r4*1/6 dis''4*1/2 r4*1/6 fis''4*1/2 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nCreate exactly eight lead notes. Use the exact starts and durations. Meet the range, scale, cadence, and motif requirements. The last four pitches equal the first four plus motif_transposition. Contract: {\"cadence_pitch_class\":6,\"durations\":[\"1/4\",\"1/2\",\"1/2\",\"1/2\",\"1/2\",\"1/2\",\"1/2\",\"1/2\"],\"meter\":\"4/4\",\"motif_transposition\":5,\"note_count\":8,\"range\":[66,85],\"scale_pitch_classes\":[1,3,4,6,8,9,11],\"starts\":[\"1/7\",\"10/21\",\"8/7\",\"31/21\",\"15/7\",\"52/21\",\"22/7\",\"73/21\"]}",
+      "independent_contract_checks": {
+        "cadence": true,
+        "count_and_voice": true,
+        "motif": true,
+        "range": true,
+        "rhythm": false,
+        "scale": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/4",
+          "id": "audit-1",
+          "pitch": 66,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-2",
+          "pitch": 68,
+          "start": "47/84",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-3",
+          "pitch": 70,
+          "start": "103/84",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-4",
+          "pitch": 73,
+          "start": "53/28",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-5",
+          "pitch": 71,
+          "start": "215/84",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-6",
+          "pitch": 73,
+          "start": "271/84",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-7",
+          "pitch": 75,
+          "start": "109/28",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-8",
+          "pitch": 78,
+          "start": "383/84",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Valid grammar. Second onset is 1/7+1/4+1/6=47/84, not 10/21. ais-prime is MIDI 70, pitch class 10, which is outside the scale. Rhythm and mode fail. All four motif pairs transpose by 5. 5/7 is correct.",
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 5,
+        "case_planned": 7,
+        "correct": 5,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "068e13eb843318d890c529885fcc8b36393f65fb15d92350138428f97dd4878e",
+      "planned_sequence": 4,
+      "profile_violation": null,
+      "prompt_sha256": "b8ac06ac903a1c3c090eb587ec644a6ad03ffe8476bb145a037e6f3393664e70",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 4,
+      "subset_diagnostic": null,
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "2df0d4ba7efbf793e0ceeff678c60449ec127b858176c020848b26bab2dd46ad",
+        "contract": {
+          "cadence_pitch_class": 6,
+          "durations": [
+            "1/4",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2",
+            "1/2"
+          ],
+          "meter": "4/4",
+          "motif_transposition": 5,
+          "note_count": 8,
+          "range": [
+            66,
+            85
+          ],
+          "scale_pitch_classes": [
+            1,
+            3,
+            4,
+            6,
+            8,
+            9,
+            11
+          ],
+          "starts": [
+            "1/7",
+            "10/21",
+            "8/7",
+            "31/21",
+            "15/7",
+            "52/21",
+            "22/7",
+            "73/21"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "generation-melody",
+        "id": "native-composite-diagnostic-r1-generation-melody-v6000",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "2df0d4ba7efbf793e0ceeff678c60449ec127b858176c020848b26bab2dd46ad",
+        "sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+        "source": [],
+        "variant": 6000
+      },
+      "task_sha256": "6a9856f9692ec65f3aac41a5273f8d9f821e8fe5a9685731c6c0183e6110242e",
+      "variant": 6000
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 18,
+      "counterfactual_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [],
+      "deep_manual_review": false,
+      "family": "comprehension-structure",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*3/7 c,4*3 f,4*3 }\n    \\new Voice = \"keys.1\" { r4*3/7 c'4*3 f'4*3 }\n    \\new Voice = \"keys.2\" { r4*3/7 e'4*3 a'4*3 }\n    \\new Voice = \"keys.3\" { r4*3/7 g'4*3 c''4*3 }\n    \\new Voice = \"lead.1\" { r4*3/7 c'4*1/3 d'4*1/3 r4*1/3 e'4*1/3 r4*1/3 g'4*1/3 }\n  >>\n}",
+      "independent_contract_checks": {
+        "exact_note_multiset": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "3",
+          "id": "audit-1",
+          "pitch": 36,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "3",
+          "id": "audit-2",
+          "pitch": 41,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "3",
+          "id": "audit-3",
+          "pitch": 60,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-4",
+          "pitch": 65,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-5",
+          "pitch": 64,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-6",
+          "pitch": 69,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-7",
+          "pitch": 67,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-8",
+          "pitch": 72,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-9",
+          "pitch": 60,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-10",
+          "pitch": 62,
+          "start": "16/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-11",
+          "pitch": 64,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-12",
+          "pitch": 67,
+          "start": "44/21",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "f3248cf08209062d90c4d44b1119b8a3897b90d68c2dc3270f5c03633d9d01aa",
+      "planned_sequence": 18,
+      "profile_violation": null,
+      "prompt_sha256": "0b457afca919976642526879a2cd24e0fca66773e14108cc3b608ddb8db582c9",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 18,
+      "subset_diagnostic": null,
+      "task_sha256": "b91221e83809d80f80925e722e813624e18a03886e4454d22233982d4bb6a882",
+      "variant": 6002
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "correct control",
+      "completed_sequence": 25,
+      "counterfactual_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [],
+      "deep_manual_review": true,
+      "family": "comprehension-structure",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*1/7 b,,4*5 e,4*5 }\n    \\new Voice = \"keys.1\" { r4*1/7 b4*5 e'4*5 }\n    \\new Voice = \"keys.2\" { r4*1/7 dis'4*5 gis'4*5 }\n    \\new Voice = \"keys.3\" { r4*1/7 fis'4*5 b'4*5 }\n    \\new Voice = \"lead.1\" { r4*1/7 b4*1/2 r4*1/4 cis'4*1/2 r4*1/4 dis'4*1/2 r4*1/4 fis'4*1/2 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nReconstruct every source note. Preserve voice, start, duration, and pitch. Return exactly the source note count.\n\n<input_document>\n\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*1/7 b,,4*5 e,4*5 }\n    \\new Voice = \"keys.1\" { r4*1/7 b4*5 e'4*5 }\n    \\new Voice = \"keys.2\" { r4*1/7 dis'4*5 gis'4*5 }\n    \\new Voice = \"keys.3\" { r4*1/7 fis'4*5 b'4*5 }\n    \\new Voice = \"lead.1\" { r4*1/7 b4*1/2 r4*1/4 cis'4*1/2 r4*1/4 dis'4*1/2 r4*1/4 fis'4*1/2 }\n  >>\n}\n\n</input_document>",
+      "independent_contract_checks": {
+        "exact_note_multiset": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "5",
+          "id": "audit-1",
+          "pitch": 35,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "5",
+          "id": "audit-2",
+          "pitch": 40,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "5",
+          "id": "audit-3",
+          "pitch": 59,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-4",
+          "pitch": 64,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-5",
+          "pitch": 63,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-6",
+          "pitch": 68,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-7",
+          "pitch": 66,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "5",
+          "id": "audit-8",
+          "pitch": 71,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-9",
+          "pitch": 59,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-10",
+          "pitch": 61,
+          "start": "25/28",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-11",
+          "pitch": 63,
+          "start": "23/14",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-12",
+          "pitch": 66,
+          "start": "67/28",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Correct control. The complete payload is identical to the OpenAI structure control. Twelve source notes and all musical values match. 49/49.",
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "4b2dcd13d654a61d150575b396401e4a2e572dcc34edad66bcedd22a5a7977f0",
+      "planned_sequence": 25,
+      "profile_violation": null,
+      "prompt_sha256": "db2f45de56a2fe80376f13a4814508077c3d760bde4b3da9ddd0decd7816258b",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 25,
+      "subset_diagnostic": null,
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "cc5b935ce2b0932936b3a271f544567ce10dd35fd26f7169c6efcd0e65297bcb",
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "5",
+            "id": "event-1",
+            "pitch": 35,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-2",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-3",
+            "pitch": 63,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-4",
+            "pitch": 66,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-6",
+            "pitch": 61,
+            "start": "25/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-7",
+            "pitch": 63,
+            "start": "23/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-8",
+            "pitch": 66,
+            "start": "67/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "5",
+            "id": "event-9",
+            "pitch": 40,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-10",
+            "pitch": 64,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-11",
+            "pitch": 68,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-12",
+            "pitch": 71,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "family": "comprehension-structure",
+        "id": "native-composite-diagnostic-r1-comprehension-structure-v6000",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "cc5b935ce2b0932936b3a271f544567ce10dd35fd26f7169c6efcd0e65297bcb",
+        "sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+        "source": [
+          {
+            "duration": "5",
+            "id": "event-1",
+            "pitch": 35,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-2",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-3",
+            "pitch": 63,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-4",
+            "pitch": 66,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-5",
+            "pitch": 59,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-6",
+            "pitch": 61,
+            "start": "25/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-7",
+            "pitch": 63,
+            "start": "23/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-8",
+            "pitch": 66,
+            "start": "67/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "5",
+            "id": "event-9",
+            "pitch": 40,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "5",
+            "id": "event-10",
+            "pitch": 64,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-11",
+            "pitch": 68,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          },
+          {
+            "duration": "5",
+            "id": "event-12",
+            "pitch": 71,
+            "start": "36/7",
+            "velocity": 84,
+            "voice": "keys"
+          }
+        ],
+        "variant": 6000
+      },
+      "task_sha256": "00c14be3706e2ea46ac30aacf1a2f05838e9cb35a7f8bae72338183f34b7bbd8",
+      "variant": 6000
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "valid full grammar rejected by profile, with real musical errors",
+      "completed_sequence": 40,
+      "counterfactual_components": {
+        "case_correct": 8,
+        "case_planned": 10,
+        "correct": 8,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "starts",
+        "exact_role_rhythm"
+      ],
+      "deep_manual_review": true,
+      "family": "continuation-roles",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { ees4*1 c4*1 f4*1 ees4*1 }\n    \\new Voice = \"lead.1\" { bes'4*1 aes'4*1 f'4*1 ees'4*1 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nContinue with exactly four bass and four lead notes. Use one note per role at each start and the exact duration. Meet all harmony, range, leap, collision, and lead cadence requirements. Return only the continuation. Contract: {\"cadence_pitch_class\":3,\"duration\":\"1\",\"harmony_pitch_classes\":[[3,6,10],[0,3,8],[1,5,10],[3,6,10]],\"maximum_role_leap\":8,\"ranges\":{\"bass\":[39,58],\"lead\":[63,82]},\"starts\":[\"30/7\",\"37/7\",\"44/7\",\"51/7\"]}",
+      "independent_contract_checks": {
+        "complete_role_contract": false,
+        "density_and_starts": false,
+        "duration": true,
+        "ranges": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 51,
+          "start": "0",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 48,
+          "start": "1",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 53,
+          "start": "2",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 51,
+          "start": "3",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 70,
+          "start": "0",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 68,
+          "start": "1",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 65,
+          "start": "2",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 63,
+          "start": "3",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Valid ees, bes, and aes. Bass pitches [51,48,53,51], lead [70,68,65,63]. Every voice starts at 0,1,2,3 rather than 30/7,37/7,44/7,51/7. The ordinal harmony, ranges, leap, collision, and cadence checks pass. Recover 8/10 components under the frozen rubric; the full contract fails.",
+      "native_subset_accepted": false,
+      "original_components": {
+        "case_correct": 0,
+        "case_planned": 10,
+        "correct": 0,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "ee1ad5d43d8d3cd1c2d2576e2f37c371162bd7c4fe98254e26cb38feba2601a0",
+      "planned_sequence": 40,
+      "profile_violation": "Flat pitch spelling violates the requested sharp-only profile.",
+      "prompt_sha256": "3de057f8fef28becf934f90a0afa6d77e743a9d1e30033e11ced87b477f4639e",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 40,
+      "subset_diagnostic": {
+        "error": "Invalid LilyPond subset token: ees4*1"
+      },
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "40748335861435353217e465c6481a8cc554d3975d6dddd2b97aae9cc5ea8eab",
+        "contract": {
+          "cadence_pitch_class": 3,
+          "duration": "1",
+          "harmony_pitch_classes": [
+            [
+              3,
+              6,
+              10
+            ],
+            [
+              0,
+              3,
+              8
+            ],
+            [
+              1,
+              5,
+              10
+            ],
+            [
+              3,
+              6,
+              10
+            ]
+          ],
+          "maximum_role_leap": 8,
+          "ranges": {
+            "bass": [
+              39,
+              58
+            ],
+            "lead": [
+              63,
+              82
+            ]
+          },
+          "starts": [
+            "30/7",
+            "37/7",
+            "44/7",
+            "51/7"
+          ]
+        },
+        "difficulty": "full-suite",
+        "family": "continuation-roles",
+        "id": "native-composite-diagnostic-r1-continuation-roles-v6001",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "40748335861435353217e465c6481a8cc554d3975d6dddd2b97aae9cc5ea8eab",
+        "sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+        "source": [],
+        "variant": 6001
+      },
+      "task_sha256": "3f478b9d248072fed49dfa42e2a8d276ae064a1a8987cb11e37678450969b812",
+      "variant": 6001
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 47,
+      "counterfactual_components": {
+        "case_correct": 27,
+        "case_planned": 33,
+        "correct": 27,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "pitch",
+        "start",
+        "pitch",
+        "pitch",
+        "pitch",
+        "pitch"
+      ],
+      "deep_manual_review": false,
+      "family": "continuation-motif",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*97/14 ais4*1/4 r4*1/4 b4*1 }\n    \\new Voice = \"bass.2\" { r4*111/14 c'4*1 }\n    \\new Voice = \"inner.1\" { r4*167/14 ais'4*1/4 r4*5/4 b'4*3/4 }\n    \\new Voice = \"lead.1\" { r4*66/7 ais''4*3/4 r4*3/4 cis'''4*3/4 }\n    \\new Voice = \"lead.2\" { r4*145/14 gis''4*1/2 }\n  >>\n}",
+      "independent_contract_checks": {
+        "exact_note_multiset": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/4",
+          "id": "audit-1",
+          "pitch": 58,
+          "start": "97/14",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 59,
+          "start": "52/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 60,
+          "start": "111/14",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1/4",
+          "id": "audit-4",
+          "pitch": 70,
+          "start": "167/14",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "3/4",
+          "id": "audit-5",
+          "pitch": 71,
+          "start": "94/7",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "3/4",
+          "id": "audit-6",
+          "pitch": 82,
+          "start": "66/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/4",
+          "id": "audit-7",
+          "pitch": 85,
+          "start": "153/14",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-8",
+          "pitch": 80,
+          "start": "145/14",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 27,
+        "case_planned": 33,
+        "correct": 27,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "a7008106c50724ef50631f53a722efe17d6d6bde2652323ec17a4e71ec6be3f7",
+      "planned_sequence": 47,
+      "profile_violation": null,
+      "prompt_sha256": "29a0dbfa27455a77ac456ea6a529c03d2b459209b84ba308c04f17b9535d510a",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 47,
+      "subset_diagnostic": null,
+      "task_sha256": "10780d3ee11f24cce6fe7ffec24a75fe1dea5b36d498d0fb6ad3ba9668f50524",
+      "variant": 6022
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 54,
+      "counterfactual_components": {
+        "case_correct": 9,
+        "case_planned": 10,
+        "correct": 9,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "voice_leading"
+      ],
+      "deep_manual_review": false,
+      "family": "continuation-roles",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*31/7 dis4*1 gis,4*1 ais,4*1 dis4*1 }\n    \\new Voice = \"lead.1\" { r4*31/7 ais'4*1 c''4*1 f'4*1 dis''4*1 }\n  >>\n}",
+      "independent_contract_checks": {
+        "cadence": true,
+        "collisions": true,
+        "density_and_starts": true,
+        "duration": true,
+        "harmony": true,
+        "ranges": true,
+        "role_leaps": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 51,
+          "start": "31/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 44,
+          "start": "38/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 46,
+          "start": "45/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 51,
+          "start": "52/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 70,
+          "start": "31/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 72,
+          "start": "38/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 65,
+          "start": "45/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 75,
+          "start": "52/7",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 9,
+        "case_planned": 10,
+        "correct": 9,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "425612d70cec86da30eb8d3391266876cf6ea28ff0224fd4ab9da98a8c15943b",
+      "planned_sequence": 54,
+      "profile_violation": null,
+      "prompt_sha256": "f2db7e7019277a994fa986e418f441bd5201722240cd93609c1231f21b46de2f",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 54,
+      "subset_diagnostic": null,
+      "task_sha256": "18fffcce3733a22c1777c2b5036802e82269b0098a9d8878223ff39b386caeda",
+      "variant": 6002
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "valid full grammar with real musical errors",
+      "completed_sequence": 61,
+      "counterfactual_components": {
+        "case_correct": 8,
+        "case_planned": 12,
+        "correct": 8,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "harmony",
+        "ranges",
+        "no_voice_crossing",
+        "listed_pitch_classes_only"
+      ],
+      "deep_manual_review": true,
+      "family": "generation-progression",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*2/7 a,4*1 g,4*1 e4*1 f4*1 }\n    \\new Voice = \"tenor.1\" { r4*2/7 e4*1 d4*1 c4*1 c4*1 }\n    \\new Voice = \"alto.1\" { r4*2/7 c'4*1 b4*1 g4*1 a4*1 }\n    \\new Voice = \"soprano.1\" { r4*2/7 f'4*1 f'4*1 e'4*1 f'4*1 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nCreate exactly 16 notes: one bass, tenor, alto, and soprano at each chord start. Use only the listed pitch classes and cover every listed class. Keep bass < tenor < alto < soprano. Use the stated bass pitch class, ranges, duration, and total same-voice movement limit. Multiple valid voicings are allowed. Contract: {\"bass_pitch_classes\":[9,7,4,5],\"cadence\":\"authentic\",\"chord_starts\":[\"2/7\",\"9/7\",\"16/7\",\"23/7\"],\"duration\":\"1\",\"key_tonic_pc\":5,\"maximum_total_voice_leading\":33,\"meter\":\"4/4\",\"pitch_classes\":[[0,5,9],[2,7,10],[0,4,7,10],[0,5,9]],\"voice_ranges\":{\"alto\":[56,75],\"bass\":[41,60],\"soprano\":[61,82],\"tenor\":[49,68]}}",
+      "independent_contract_checks": {
+        "bass_inversions": true,
+        "cadence": true,
+        "density_and_starts": true,
+        "duration": true,
+        "harmony": false,
+        "movement": true,
+        "ranges": false,
+        "strict_voice_order": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 45,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 43,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 52,
+          "start": "16/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 53,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 52,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 50,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 48,
+          "start": "16/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 48,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-9",
+          "pitch": 60,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-10",
+          "pitch": 59,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-11",
+          "pitch": 55,
+          "start": "16/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-12",
+          "pitch": 57,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-13",
+          "pitch": 65,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-14",
+          "pitch": 65,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-15",
+          "pitch": 64,
+          "start": "16/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-16",
+          "pitch": 65,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "soprano"
+        }
+      ],
+      "manual_judgment": "Valid grammar. Chord one [45,52,60,65] contains E (class 4) instead of only F-major classes {0,5,9}. Chord two [43,50,59,65] has classes {2,5,7,11}, not {2,7,10}. Last tenor c is MIDI 48 below minimum 49; chord three crosses bass 52 above tenor 48. 8/12 is correct.",
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 8,
+        "case_planned": 12,
+        "correct": 8,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "1c71c76d5cba7dd9f9f87ffa3a717ee6838d8218611548da138be6d64e436725",
+      "planned_sequence": 61,
+      "profile_violation": null,
+      "prompt_sha256": "87d7dc4db9f3d739730d9a44dbf44938fce6cabb069550387f2214eabf4c272a",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 61,
+      "subset_diagnostic": null,
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "3d53283b24211c109c1eecaab04d455ca389c9851667efc20077a013df708149",
+        "contract": {
+          "bass_pitch_classes": [
+            9,
+            7,
+            4,
+            5
+          ],
+          "cadence": "authentic",
+          "chord_starts": [
+            "2/7",
+            "9/7",
+            "16/7",
+            "23/7"
+          ],
+          "duration": "1",
+          "key_tonic_pc": 5,
+          "maximum_total_voice_leading": 33,
+          "meter": "4/4",
+          "pitch_classes": [
+            [
+              0,
+              5,
+              9
+            ],
+            [
+              2,
+              7,
+              10
+            ],
+            [
+              0,
+              4,
+              7,
+              10
+            ],
+            [
+              0,
+              5,
+              9
+            ]
+          ],
+          "voice_ranges": {
+            "alto": [
+              56,
+              75
+            ],
+            "bass": [
+              41,
+              60
+            ],
+            "soprano": [
+              61,
+              82
+            ],
+            "tenor": [
+              49,
+              68
+            ]
+          }
+        },
+        "difficulty": "full-suite",
+        "family": "generation-progression",
+        "id": "native-composite-diagnostic-r1-generation-progression-v6001",
+        "license": "MIT",
+        "native_offset": "2/7",
+        "origin": "generated for Ghostnote under the repository MIT license",
+        "schema": "ghostnote-symbolic-format-corpus-v1",
+        "semantic_sha256": "3d53283b24211c109c1eecaab04d455ca389c9851667efc20077a013df708149",
+        "sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+        "source": [],
+        "variant": 6001
+      },
+      "task_sha256": "372c3a5e8b6a5fe00829c15162ee5a42804c123d29c7c52e7ef3f89260239d53",
+      "variant": 6001
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 68,
+      "counterfactual_components": {
+        "case_correct": 10,
+        "case_planned": 12,
+        "correct": 10,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "harmony",
+        "listed_pitch_classes_only"
+      ],
+      "deep_manual_review": false,
+      "family": "generation-progression",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*1/7 g4*1 f4*1 d4*1 dis4*1 }\n    \\new Voice = \"tenor.1\" { r4*1/7 ais4*1 c'4*1 c'4*1 ais4*1 }\n    \\new Voice = \"alto.1\" { r4*1/7 dis'4*1 f'4*1 f'4*1 g'4*1 }\n    \\new Voice = \"soprano.1\" { r4*1/7 g'4*1 gis'4*1 gis'4*1 dis''4*1 }\n  >>\n}",
+      "independent_contract_checks": {
+        "bass_inversions": true,
+        "cadence": true,
+        "density_and_starts": true,
+        "duration": true,
+        "harmony": false,
+        "movement": true,
+        "ranges": true,
+        "strict_voice_order": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 55,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 53,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 50,
+          "start": "15/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 51,
+          "start": "22/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 58,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 60,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 60,
+          "start": "15/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 58,
+          "start": "22/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-9",
+          "pitch": 63,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-10",
+          "pitch": 65,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-11",
+          "pitch": 65,
+          "start": "15/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-12",
+          "pitch": 67,
+          "start": "22/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-13",
+          "pitch": 67,
+          "start": "1/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-14",
+          "pitch": 68,
+          "start": "8/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-15",
+          "pitch": 68,
+          "start": "15/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-16",
+          "pitch": 75,
+          "start": "22/7",
+          "velocity": 84,
+          "voice": "soprano"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 10,
+        "case_planned": 12,
+        "correct": 10,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "4b2fad838e29720ec7d52adcf9647c546bf888a0531bc5aaf1f7b34214fa234c",
+      "planned_sequence": 68,
+      "profile_violation": null,
+      "prompt_sha256": "20d7033d964ef3056f5261ca0e1c4365a9805791000cde8d7099b60d0af05bbf",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 68,
+      "subset_diagnostic": null,
+      "task_sha256": "aeb50bc7c508c8279146cd7835e7dff836b3b8f50eb928e5d471b117e0503b71",
+      "variant": 6000
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "classification": "valid full grammar with real musical errors",
+      "completed_sequence": 75,
+      "counterfactual_components": {
+        "case_correct": 17,
+        "case_planned": 33,
+        "correct": 17,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch",
+        "start",
+        "pitch"
+      ],
+      "deep_manual_review": true,
+      "family": "continuation-motif",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { dis4*1/4 r4*5/4 ais4*1/8 r4*1/8 a4*1/4 }\n    \\new Voice = \"inner.1\" { f'4*1/2 r4*1/2 ais4*1/8 }\n    \\new Voice = \"lead.1\" { dis''4*3/8 r4*3/8 gis''4*3/4 g''4*3/2 }\n  >>\n}",
+      "full_prompt": "Complete one symbolic-music task.\n\nReturn one JSON object with exactly one string field named payload. Put the requested output in that string. Do not add prose.\n\nThe shared musical fields are voice, start in quarter-note beats, duration in beats, and MIDI pitch. All outputs are full note sets. Stable note identity and attack velocity are outside this task.\n\nRepresentation: lilypond-2.24.4-native.\n\nUse the exact version and score wrapper in the example. Use one \\new Voice = \"<voice>.<lane>\" per line. Use absolute lowercase sharp pitches with octave marks. Use 4*<positive rational> on every note and rest. Use r for gaps.\n\nComplete output example; use the task values:\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { c4*1 }\n    \\new Voice = \"lead.1\" { r4*1/2 cis'4*3/4 }\n  >>\n}\n\nApply the voice rules to every source note. For each voice, first_voice_start is its earliest source start. Calculate pitch=2*axis-source_pitch+semitones, start=output_start+(source_start-first_voice_start)*rhythmic_factor, and duration=source_duration*rhythmic_factor. Preserve voice. Return only the calculated notes, with exactly the source note count. Rules: {\"bass\":{\"axis\":50,\"output_start\":\"78/7\",\"rhythmic_factor\":\"1/2\",\"semitones\":-2},\"inner\":{\"axis\":66,\"output_start\":\"50/7\",\"rhythmic_factor\":\"1/2\",\"semitones\":5},\"lead\":{\"axis\":76,\"output_start\":\"107/14\",\"rhythmic_factor\":\"3/2\",\"semitones\":5}}\n\n<input_document>\n\n\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*1/7 fis4*1/2 r4*5/2 a,4*1/4 r4*1/4 ais,4*1/2 }\n    \\new Voice = \"inner.1\" { r4*9/14 a4*1 r4*1 e'4*1/4 }\n    \\new Voice = \"lead.1\" { r4*8/7 f''4*1/4 r4*1/4 a'4*1/2 ais'4*1 }\n  >>\n}\n\n</input_document>",
+      "independent_contract_checks": {
+        "exact_note_multiset": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/4",
+          "id": "audit-1",
+          "pitch": 51,
+          "start": "0",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1/8",
+          "id": "audit-2",
+          "pitch": 58,
+          "start": "3/2",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1/4",
+          "id": "audit-3",
+          "pitch": 57,
+          "start": "7/4",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-4",
+          "pitch": 65,
+          "start": "0",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "1/8",
+          "id": "audit-5",
+          "pitch": 58,
+          "start": "1",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "3/8",
+          "id": "audit-6",
+          "pitch": 75,
+          "start": "0",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/4",
+          "id": "audit-7",
+          "pitch": 80,
+          "start": "3/4",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/2",
+          "id": "audit-8",
+          "pitch": 79,
+          "start": "3/2",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "manual_judgment": "Valid grammar. All three voices begin at beat 0; required origins are 78/7,50/7,107/14. All durations and voice fields pass. Most pitches fail. 17/33 is a real musical error score.",
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 17,
+        "case_planned": 33,
+        "correct": 17,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "f11abce7ad40cd958a2bf27e6c8f86da7c1c76241e02cee65549280203224dd9",
+      "planned_sequence": 75,
+      "profile_violation": null,
+      "prompt_sha256": "af24786daf2ece95db8d002591babb8502f892e05cd835fafd8f0fcfb49c5c40",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 75,
+      "subset_diagnostic": null,
+      "task": {
+        "cohort": "native-composite-diagnostic-r1",
+        "content_sha256": "970f3953bffdd4fd6bd03be18fd061af4fc4501fc098aa23e5d20b90fad0ee50",
+        "contract": {
+          "operation": "voice-conditioned-affine",
+          "voice_rules": {
+            "bass": {
+              "axis": 50,
+              "output_start": "78/7",
+              "rhythmic_factor": "1/2",
+              "semitones": -2
+            },
+            "inner": {
+              "axis": 66,
+              "output_start": "50/7",
+              "rhythmic_factor": "1/2",
+              "semitones": 5
+            },
+            "lead": {
+              "axis": 76,
+              "output_start": "107/14",
+              "rhythmic_factor": "3/2",
+              "semitones": 5
+            }
+          }
+        },
+        "difficulty": "full-suite",
+        "expected": [
+          {
+            "duration": "1/2",
+            "id": "event-1",
+            "pitch": 80,
+            "start": "50/7",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/8",
+            "id": "event-2",
+            "pitch": 80,
+            "start": "107/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/8",
+            "id": "event-3",
+            "pitch": 73,
+            "start": "57/7",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "3/4",
+            "id": "event-4",
+            "pitch": 88,
+            "start": "235/28",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "3/2",
+            "id": "event-5",
+            "pitch": 87,
+            "start": "64/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-6",
+            "pitch": 44,
+            "start": "78/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/8",
+            "id": "event-7",
+            "pitch": 53,
+            "start": "177/14",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-8",
+            "pitch": 52,
+            "start": "361/28",
+            "velocity": 84,
+            "voice": "bass"
+          }
+        ],
+        "family": "continuation-motif",
+        "id": "native-composite-diagnostic-r1-continuation-motif-v6020",
+        "license": "MIT",
+        "native_offset": "1/7",
+        "origin": "Generated by Ghostnote for an MIT-licensed benchmark.",
+        "schema": "ghostnote-compact-format-v6",
+        "semantic_sha256": "970f3953bffdd4fd6bd03be18fd061af4fc4501fc098aa23e5d20b90fad0ee50",
+        "sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+        "source": [
+          {
+            "duration": "1/2",
+            "id": "event-1",
+            "pitch": 54,
+            "start": "1/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1",
+            "id": "event-2",
+            "pitch": 57,
+            "start": "9/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-3",
+            "pitch": 77,
+            "start": "8/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-4",
+            "pitch": 69,
+            "start": "23/14",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1",
+            "id": "event-5",
+            "pitch": 70,
+            "start": "15/7",
+            "velocity": 84,
+            "voice": "lead"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-6",
+            "pitch": 64,
+            "start": "37/14",
+            "velocity": 84,
+            "voice": "inner"
+          },
+          {
+            "duration": "1/4",
+            "id": "event-7",
+            "pitch": 45,
+            "start": "22/7",
+            "velocity": 84,
+            "voice": "bass"
+          },
+          {
+            "duration": "1/2",
+            "id": "event-8",
+            "pitch": 46,
+            "start": "51/14",
+            "velocity": 84,
+            "voice": "bass"
+          }
+        ],
+        "variant": 6020
+      },
+      "task_sha256": "7e1cc1b56671909d5e94801571b506443467a9175413b51f3237e78d8a2efb9a",
+      "variant": 6020
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 89,
+      "counterfactual_components": {
+        "case_correct": 9,
+        "case_planned": 10,
+        "correct": 9,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "strong_beat_harmony"
+      ],
+      "deep_manual_review": false,
+      "family": "continuation-roles",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*29/7 fis4*1 dis4*1 f4*1 fis4*1 }\n    \\new Voice = \"lead.1\" { r4*29/7 ais'4*1 b'4*1 gis'4*1 fis'4*1 }\n  >>\n}",
+      "independent_contract_checks": {
+        "cadence": true,
+        "collisions": true,
+        "density_and_starts": true,
+        "duration": true,
+        "harmony": false,
+        "ranges": true,
+        "role_leaps": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 54,
+          "start": "29/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 51,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 53,
+          "start": "43/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 54,
+          "start": "50/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 70,
+          "start": "29/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 71,
+          "start": "36/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 68,
+          "start": "43/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 66,
+          "start": "50/7",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 9,
+        "case_planned": 10,
+        "correct": 9,
+        "planned": 10,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "acc2aafdb071c9c1a236d47fed91e1b409f64962823fddfea579fc8bf97acd90",
+      "planned_sequence": 89,
+      "profile_violation": null,
+      "prompt_sha256": "48d9c7ff1652b9f92a93b49c471a909b46e956a4b8830f560e7ba5e34ad10fdb",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 89,
+      "subset_diagnostic": null,
+      "task_sha256": "f17855168e80a8ce136b81873a09bae1bad711325972adf8aa01f9d8f27cf363",
+      "variant": 6000
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 118,
+      "counterfactual_components": {
+        "case_correct": 9,
+        "case_planned": 12,
+        "correct": 9,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "harmony",
+        "inversions",
+        "listed_pitch_classes_only"
+      ],
+      "deep_manual_review": false,
+      "family": "generation-progression",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*3/7 gis4*1 ais4*1 dis4*1 e4*1 }\n    \\new Voice = \"tenor.1\" { r4*3/7 b4*1 cis'4*1 ais4*1 b4*1 }\n    \\new Voice = \"alto.1\" { r4*3/7 e'4*1 fis'4*1 fis'4*1 gis'4*1 }\n    \\new Voice = \"soprano.1\" { r4*3/7 gis'4*1 ais'4*1 cis''4*1 b'4*1 }\n  >>\n}",
+      "independent_contract_checks": {
+        "bass_inversions": false,
+        "cadence": true,
+        "density_and_starts": true,
+        "duration": true,
+        "harmony": false,
+        "movement": true,
+        "ranges": true,
+        "strict_voice_order": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1",
+          "id": "audit-1",
+          "pitch": 56,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-2",
+          "pitch": 58,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-3",
+          "pitch": 51,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-4",
+          "pitch": 52,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "1",
+          "id": "audit-5",
+          "pitch": 59,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-6",
+          "pitch": 61,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-7",
+          "pitch": 58,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-8",
+          "pitch": 59,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "tenor"
+        },
+        {
+          "duration": "1",
+          "id": "audit-9",
+          "pitch": 64,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-10",
+          "pitch": 66,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-11",
+          "pitch": 66,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-12",
+          "pitch": 68,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "alto"
+        },
+        {
+          "duration": "1",
+          "id": "audit-13",
+          "pitch": 68,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-14",
+          "pitch": 70,
+          "start": "10/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-15",
+          "pitch": 73,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "soprano"
+        },
+        {
+          "duration": "1",
+          "id": "audit-16",
+          "pitch": 71,
+          "start": "24/7",
+          "velocity": 84,
+          "voice": "soprano"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 9,
+        "case_planned": 12,
+        "correct": 9,
+        "planned": 12,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "1d9aad3e254fda78cbe1ad3a4122b4b395f6605a029c88488549cd22312bdc4a",
+      "planned_sequence": 118,
+      "profile_violation": null,
+      "prompt_sha256": "77045add7e92974e3a2a05987955294c0dc471d2b7b88e9c2d23a8738884bbf8",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 118,
+      "subset_diagnostic": null,
+      "task_sha256": "bdebfe7e6bb6ab7ba0ea263395013bb5f21f8bff3f4de4d31e256131f5c78011",
+      "variant": 6002
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 146,
+      "counterfactual_components": {
+        "case_correct": 5,
+        "case_planned": 7,
+        "correct": 5,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "rhythm",
+        "cadence"
+      ],
+      "deep_manual_review": false,
+      "family": "generation-melody",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"lead.1\" { r4*3/7 dis'4*1/2 r4*1/6 f'4*1/2 r4*1/6 ais'4*1/2 r4*1/6 dis''4*1/2 r4*1/6 gis'4*1/2 r4*1/6 ais'4*1/2 r4*1/6 dis''4*1/2 r4*1/6 gis''4*1/2 }\n  >>\n}",
+      "independent_contract_checks": {
+        "cadence": false,
+        "count_and_voice": true,
+        "motif": true,
+        "range": true,
+        "rhythm": false,
+        "scale": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/2",
+          "id": "audit-1",
+          "pitch": 63,
+          "start": "3/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-2",
+          "pitch": 65,
+          "start": "23/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-3",
+          "pitch": 70,
+          "start": "37/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-4",
+          "pitch": 75,
+          "start": "17/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-5",
+          "pitch": 68,
+          "start": "65/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-6",
+          "pitch": 70,
+          "start": "79/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-7",
+          "pitch": 75,
+          "start": "31/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-8",
+          "pitch": 80,
+          "start": "107/21",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 5,
+        "case_planned": 7,
+        "correct": 5,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "4b24cbc96ca779f6121b0dc915646ee5de886a4296bad3f74caa559dc60e0289",
+      "planned_sequence": 146,
+      "profile_violation": null,
+      "prompt_sha256": "dac8fa706b60d6e8fd63ea875d1630c2aee2d6c79ada76d51e4a4224e8b99295",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 146,
+      "subset_diagnostic": null,
+      "task_sha256": "58427f81ae668d45ab63a761f1b9ca8eb40e4c218c01499cb92de6dbfe0271d1",
+      "variant": 6002
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 153,
+      "counterfactual_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [],
+      "deep_manual_review": false,
+      "family": "comprehension-structure",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*2/7 gis,4*3 cis4*3 }\n    \\new Voice = \"keys.1\" { r4*2/7 gis'4*3 cis''4*3 }\n    \\new Voice = \"keys.2\" { r4*2/7 c''4*3 f''4*3 }\n    \\new Voice = \"keys.3\" { r4*2/7 dis''4*3 gis''4*3 }\n    \\new Voice = \"lead.1\" { r4*2/7 gis'4*1/3 ais'4*1/3 r4*1/3 c''4*1/3 r4*1/3 dis''4*1/3 }\n  >>\n}",
+      "independent_contract_checks": {
+        "exact_note_multiset": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "3",
+          "id": "audit-1",
+          "pitch": 44,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "3",
+          "id": "audit-2",
+          "pitch": 49,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "3",
+          "id": "audit-3",
+          "pitch": 68,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-4",
+          "pitch": 73,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-5",
+          "pitch": 72,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-6",
+          "pitch": 77,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-7",
+          "pitch": 75,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "3",
+          "id": "audit-8",
+          "pitch": 80,
+          "start": "23/7",
+          "velocity": 84,
+          "voice": "keys"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-9",
+          "pitch": 68,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-10",
+          "pitch": 70,
+          "start": "13/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-11",
+          "pitch": 72,
+          "start": "9/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/3",
+          "id": "audit-12",
+          "pitch": 75,
+          "start": "41/21",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 49,
+        "case_planned": 49,
+        "correct": 49,
+        "planned": 49,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "3dfa3ddd2a744b2bb2eb7dc6452506b6bffadf38b0b3dd12deeafd23e5adff0c",
+      "planned_sequence": 153,
+      "profile_violation": null,
+      "prompt_sha256": "9cf0837f3586ad9ee718e949016690c094c04f91c810d55f84d3094f72d05bde",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 153,
+      "subset_diagnostic": null,
+      "task_sha256": "438c07f6748ab2fa127c755d543b337846461b1d06c0259ee0db6526bdce579e",
+      "variant": 6001
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 168,
+      "counterfactual_components": {
+        "case_correct": 24,
+        "case_planned": 33,
+        "correct": 24,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "pitch",
+        "pitch",
+        "pitch",
+        "pitch",
+        "pitch",
+        "pitch",
+        "pitch",
+        "start",
+        "pitch"
+      ],
+      "deep_manual_review": false,
+      "family": "continuation-motif",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"bass.1\" { r4*151/14 e4*5/16 r4*35/16 c4*5/4 }\n    \\new Voice = \"bass.2\" { r4*487/28 e4*5/4 }\n    \\new Voice = \"inner.1\" { r4*165/14 g'4*3/8 }\n    \\new Voice = \"inner.2\" { r4*337/28 e'4*1/8 }\n    \\new Voice = \"lead.1\" { r4*137/14 e''4*1/4 g''4*1/4 cis''4*3/8 }\n  >>\n}",
+      "independent_contract_checks": {
+        "exact_note_multiset": false
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "5/16",
+          "id": "audit-1",
+          "pitch": 52,
+          "start": "151/14",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "5/4",
+          "id": "audit-2",
+          "pitch": 48,
+          "start": "93/7",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "5/4",
+          "id": "audit-3",
+          "pitch": 52,
+          "start": "487/28",
+          "velocity": 84,
+          "voice": "bass"
+        },
+        {
+          "duration": "3/8",
+          "id": "audit-4",
+          "pitch": 67,
+          "start": "165/14",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "1/8",
+          "id": "audit-5",
+          "pitch": 64,
+          "start": "337/28",
+          "velocity": 84,
+          "voice": "inner"
+        },
+        {
+          "duration": "1/4",
+          "id": "audit-6",
+          "pitch": 76,
+          "start": "137/14",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/4",
+          "id": "audit-7",
+          "pitch": 79,
+          "start": "281/28",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/8",
+          "id": "audit-8",
+          "pitch": 73,
+          "start": "72/7",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 24,
+        "case_planned": 33,
+        "correct": 24,
+        "planned": 33,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "39805f0674a643fef86aad58125f17640412a081418b8eb2f60ddbb744edf637",
+      "planned_sequence": 168,
+      "profile_violation": null,
+      "prompt_sha256": "b204e4b30e389afb26ca05e2b96252c811e4f3a8065fe9e3b7e6c2219d2b143a",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 168,
+      "subset_diagnostic": null,
+      "task_sha256": "dedc4b8fd251f2342688cc4a6b39c10c9c9dfea91ac83969956fd881b4458c89",
+      "variant": 6021
+    },
+    {
+      "arm": "lilypond-2.24.4-native",
+      "completed_sequence": 182,
+      "counterfactual_components": {
+        "case_correct": 5,
+        "case_planned": 7,
+        "correct": 5,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "counterfactual_failed_components": [
+        "rhythm",
+        "cadence"
+      ],
+      "deep_manual_review": false,
+      "family": "generation-melody",
+      "full_grammar_judgment": "valid document syntax by manual official-grammar inspection; compiler not available",
+      "full_payload": "\\version \"2.24.4\"\n\\score {\n  <<\n    \\new Voice = \"lead.1\" { r4*2/7 dis'4*1/2 r4*1/6 f'4*3/8 r4*1/28 ais'4*1/2 r4*1/7 dis''4*1/2 r4*5/21 gis'4*1/2 r4*1/6 ais'4*1/2 r4*1/28 dis''4*1/2 r4*1/7 gis''4*1/2 }\n  >>\n}",
+      "independent_contract_checks": {
+        "cadence": false,
+        "count_and_voice": true,
+        "motif": true,
+        "range": true,
+        "rhythm": false,
+        "scale": true
+      },
+      "independently_decoded_notes": [
+        {
+          "duration": "1/2",
+          "id": "audit-1",
+          "pitch": 63,
+          "start": "2/7",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "3/8",
+          "id": "audit-2",
+          "pitch": 65,
+          "start": "20/21",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-3",
+          "pitch": 70,
+          "start": "229/168",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-4",
+          "pitch": 75,
+          "start": "337/168",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-5",
+          "pitch": 68,
+          "start": "461/168",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-6",
+          "pitch": 70,
+          "start": "191/56",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-7",
+          "pitch": 75,
+          "start": "221/56",
+          "velocity": 84,
+          "voice": "lead"
+        },
+        {
+          "duration": "1/2",
+          "id": "audit-8",
+          "pitch": 80,
+          "start": "257/56",
+          "velocity": 84,
+          "voice": "lead"
+        }
+      ],
+      "native_subset_accepted": true,
+      "original_components": {
+        "case_correct": 5,
+        "case_planned": 7,
+        "correct": 5,
+        "planned": 7,
+        "response_correct": 0,
+        "response_planned": 0
+      },
+      "payload_sha256": "c37b37624a0ccf53cddc594e1251b95c8ae142966993f5e7392d65bb576e0554",
+      "planned_sequence": 182,
+      "profile_violation": null,
+      "prompt_sha256": "781058c1e4f4590c6d3b3c5ebc627b83f28abcf4e78f9865a31bb255b869d0d2",
+      "provider": "gemini",
+      "repeat": 1,
+      "started_sequence": 182,
+      "subset_diagnostic": null,
+      "task_sha256": "82a383589fa99198a2f8e87c68adf45e16e91d9d601a988a72f391b8594e6707",
+      "variant": 6001
+    }
+  ],
+  "limits": [
+    "The observed outputs use simple absolute Voice sequences. This audit does not implement or test all LilyPond grammar.",
+    "Native prompts explicitly asked for sharp-only spellings. Valid flats break that request, even though full LilyPond supports them.",
+    "Component recovery is a counterfactual sensitivity result. It does not replace the frozen assessment.",
+    "This audit covers only one format and one asymmetry. Composite notation is not independently judged here.",
+    "No rejected case becomes a strict full musical success. Runtime engraving and context layout were not compiler tested."
+  ],
+  "method": "Official LilyPond 2.24.4 manual establishes full-language note spellings, absolute octave semantics, rational duration scaling, parallel music, and named contexts. Each full payload was inspected. A separate transcriber used those rules for the simple grammar actually emitted; it did not call the repository LilyPond parser. It computed MIDI=48+natural_pitch_class+accidental+12*(apostrophes-commas), a fresh rational cursor per Voice, and quarter-duration*multiplier. The existing component scorer was then used only to tally the independently decoded notes under the original rubric. Independent full-contract checks and manual calculations verify the deep sample. All accepted cases preserve their component counts. No frozen score or observation was edited.",
+  "provider_summaries": {
+    "gemini": {
+      "composite_ledger_correct_context_only": 301,
+      "composite_ledger_planned_context_only": 333,
+      "counterfactual_correct": 283,
+      "counterfactual_prompt_mean": 0.8035642135642136,
+      "counterfactual_ratio": 0.8498498498498499,
+      "original_correct": 275,
+      "original_prompt_mean": 0.7502308802308802,
+      "original_ratio": 0.8258258258258259,
+      "planned_components": 333,
+      "recovered_components": 8,
+      "strict_full_success_unchanged": 3,
+      "unique_note_outputs": 15
+    },
+    "openai": {
+      "composite_ledger_correct_context_only": 292,
+      "composite_ledger_planned_context_only": 333,
+      "counterfactual_correct": 275,
+      "counterfactual_prompt_mean": 0.7970851370851371,
+      "counterfactual_ratio": 0.8258258258258259,
+      "original_correct": 246,
+      "original_prompt_mean": 0.6966810966810967,
+      "original_ratio": 0.7387387387387387,
+      "planned_components": 333,
+      "recovered_components": 29,
+      "strict_full_success_unchanged": 4,
+      "unique_note_outputs": 15
+    }
+  },
+  "schema": "ghostnote-lilypond-native-full-grammar-audit-v1",
+  "scope": "LilyPond native narrow-parser asymmetry only",
+  "selection": "Inventory all 30 repeat=1 native note-output cases. Deep manual review of all 3 rejected cases, 6 accepted error cases, and 3 correct controls. This is a targeted audit, not a random sample.",
+  "sha256": "9a5a2de7c5935d5ef15b291a2d91641ca004589661e289e236f9aba63145ef7f",
+  "source_manifests": {
+    "gemini": "990038af3365f7831bb3a9c97bb50ccf39f01a5fbcba57cf9a6708d891b35937",
+    "openai": "742f428bb5539c1a53f4c1c3ec62ffe827dc121e1cc1a95ce819bee45d8c14fe"
+  },
+  "sources": [
+    {
+      "supports": "Absolute octave entry, Dutch accidentals, and note languages.",
+      "title": "LilyPond 2.24.4: Writing pitches",
+      "url": "https://lilypond.org/doc/v2.24/Documentation/notation/writing-pitches"
+    },
+    {
+      "supports": "Quarter durations and exact rational scaling.",
+      "title": "LilyPond 2.24.4: Writing rhythms",
+      "url": "https://lilypond.org/doc/v2.24/Documentation/notation/writing-rhythms"
+    },
+    {
+      "supports": "Named Voice creation and contexts.",
+      "title": "LilyPond 2.24.4: Creating and referencing contexts",
+      "url": "https://lilypond.org/doc/v2.24/Documentation/notation/creating-and-referencing-contexts"
+    },
+    {
+      "supports": "Simultaneous expressions.",
+      "title": "LilyPond 2.24.4: Single voice",
+      "url": "https://lilypond.org/doc/v2.24/Documentation/notation/single-voice"
+    },
+    {
+      "supports": "Rest events.",
+      "title": "LilyPond 2.24.4: Writing rests",
+      "url": "https://lilypond.org/doc/v2.24/Documentation/notation/writing-rests"
+    }
+  ]
+}
