@@ -1,0 +1,5 @@
+DOC ghostnote-document 1.0 snapshot
+CLIP {"id":"part","length":"4"}
+COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"part","fields":["at","channel","clip","duration","id","mute","pitch","velocity"],"from":"0","reason":"Only the selected event was supplied.","status":"partial","to":"4"}
+FIELDS id clip at duration pitch velocity channel mute
+EVENT n2 part 85/256 85/512 64 90 1 false

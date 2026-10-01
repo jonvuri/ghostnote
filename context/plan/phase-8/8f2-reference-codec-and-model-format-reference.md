@@ -2,10 +2,10 @@
 title: Phase 8f2 — Reference codec and model format reference
 kind: plan
 state: planned
-status: Start after 8f1 defines the document model, grammar, and semantic rules.
+status: Ready. 8f1 supplies the specification, schema, paired examples, and case inventory.
 updated: 2026-10-01
 parent: 8f-consolidated-compact-bar-and-cache-contracts.md
-prev: 8f1-document-model-and-v1-specification.md
+prev: ../../archive/outcomes/PHASE-8F1-DOCUMENT-SPECIFICATION.md
 next: 8f3-ghostnote-bindings-and-cache-contracts.md
 evidence: E109, E116, E196, E209, E213; D25
 ---
@@ -14,15 +14,21 @@ evidence: E109, E116, E196, E209, E213; D25
 
 ## Purpose
 
-Implement the [8f1](8f1-document-model-and-v1-specification.md) contract.
+Implement the [8f1 specification](../../../spec/ghostnote-document-v1/SPEC.md).
 Provide a reference parser and canonical serializer for each encoding, one
 semantic validator, and lossless conversion. Provide a compact versioned
 Model format reference for model prompts and skills.
 
 ## Entry and implementation boundary
 
-Read the 8f1 specification, grammar, schema, field rules, and conformance
-inventory. Review existing pure musical modules and the retained benchmark
+Read the specification and its [field rules](../../../spec/ghostnote-document-v1/FIELDS.md),
+[grammar](../../../spec/ghostnote-document-v1/fields.ebnf),
+[schema](../../../spec/ghostnote-document-v1/schema.json),
+[paired examples](../../../spec/ghostnote-document-v1/EXAMPLES.md), and
+[case inventory](../../../spec/ghostnote-document-v1/CONFORMANCE.md).
+The examples are authored inputs with independent expected hashes. Verify and
+regenerate them through the codec. The 8f1 checks are not codec conformance.
+Review existing pure musical modules and the retained benchmark
 adapters for regression cases. Keep the frozen adapters and results unchanged.
 
 Use a pure library boundary that the TypeScript brain can consume and Phase

@@ -2,7 +2,7 @@
 title: Phase 8c4f format selection closeout
 kind: reference
 state: complete
-status: Closed by D25. Phase 8f1 is the next implementation session.
+status: Closed by D25. Phase 8f1 is complete; 8f2 is next.
 updated: 2026-10-01
 parent: README.md
 prev: 8c4e-compact-only-full-benchmark.md
@@ -22,4 +22,6 @@ for the comparison. The [archived outcome and original plan](../../archive/outco
 retain the earlier gate policy and the final operator closeout.
 Frozen observations and benchmark verdicts remain historical records.
 
-Next: [8f1 document model and version 1.0 specification](8f1-document-model-and-v1-specification.md).
+[8f1](../../archive/outcomes/PHASE-8F1-DOCUMENT-SPECIFICATION.md) supplies the
+[document specification](../../../spec/ghostnote-document-v1/SPEC.md).
+Next: [8f2 reference codec](8f2-reference-codec-and-model-format-reference.md).

@@ -1,0 +1,51 @@
+(* Ghostnote Document 1.0. R10-R11 and schema.json constrain these productions.
+   EBNF: comma is concatenation; | is choice; {} repeats; [] is optional.
+   Quoted terminals are case-sensitive. Productions consume a physical line.
+   json-object and json-value use strict JSON syntax and balanced scanning.
+   S is one or more spaces or tabs. Leading/trailing horizontal space is allowed.
+   Empty lines are allowed between records. LF and CRLF are accepted. *)
+
+document = header, newline, envelope, binding, [ newline, body ], EOF ;
+header = "DOC", S, "ghostnote-document", S, "1.0", S, kind ;
+kind = "snapshot" | "desired" | "patch" ;
+envelope = { envelope-record, newline } ;
+envelope-record = "META", S, json-object
+                | "BASE", S, json-object
+                | "EXTENSIONS", S, json-object
+                | "CLIP", S, json-object
+                | "COVERAGE", S, json-object ;
+binding = "FIELDS", S, field-name, { S, field-name } ;
+body = { body-record, newline }, [ body-record ] ;
+body-record = "EVENT", S, row
+            | "ADD", S, row
+            | "REMOVE", S, id
+            | "UPDATE", S, id, S, json-object
+            | "CLIP_UPDATE", S, id, S, json-object
+            | "OVERLAY", S, json-object
+            | "OVERLAY_PUT", S, json-object
+            | "OVERLAY_REMOVE", S, id ;
+row = slot, { S, slot }, [ S, "WITH", S, json-object ] ;
+slot = "_" | rational | id | json-value ;
+field-name = "id" | "clip" | "at" | "duration" | "pitch" | "velocity"
+           | "channel" | "mute" | "releaseVelocity" | "articulation"
+           | "expression" | "chance" | "occurrence" | "recurrence" | "repeat" ;
+id = letter, { letter | digit | "_" | "." | ":" | "-" } ;
+rational = [ "-" ], unsigned, [ "/", positive ] ;
+unsigned = "0" | positive ;
+positive = nonzero, { digit } ;
+digit = "0" | nonzero ;
+nonzero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+letter = "A".."Z" | "a".."z" ;
+newline = LF | CR, LF ;
+
+(* Lexical rules:
+   Select slot types from the declared field, not from lexical precedence.
+   Bare at/duration slots are timing strings, even when spelled as integers.
+   Bare channel/pitch/velocity slots are numbers. Bare IDs are strings.
+   Other scalar slots can use strict JSON or bare ID strings where permitted.
+   WITH is reserved as a row delimiter after the exact bound slot count.
+   An ID named WITH is permitted in an ID slot. No implicit comment syntax.
+   Strip allowed blank lines and outer horizontal space before this grammar.
+   For an empty body, the binding can end at EOF without a newline.
+   At most one META, BASE, EXTENSIONS, and binding record is allowed.
+   Record kinds, required keys, row width, and references are semantic checks. *)

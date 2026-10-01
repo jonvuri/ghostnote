@@ -22,7 +22,9 @@ at the I/O boundary. Let internal host and cache types suit their domains.
 ## Read first
 
 - [D25](../../decisions/d25-fields-json-document-format-and-publication.md),
-  the 8f1 specification, and the 8f2 corpus and model reference.
+  the [8f1 specification](../../../spec/ghostnote-document-v1/SPEC.md), its
+  [host handoff](../../../spec/ghostnote-document-v1/HOST-HANDOFF.md), and the
+  8f2 corpus and model reference.
 - [Cache identity and lifecycle](../../evidence/format/CACHE_IDENTITY_AND_LIFECYCLE.md).
 - [Cache scale and degradation](../../evidence/format/CACHE_SCALE_AND_DEGRADATION.md).
 - [Interface audit](../../evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md).

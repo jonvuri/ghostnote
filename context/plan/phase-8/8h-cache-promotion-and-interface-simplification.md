@@ -20,7 +20,7 @@ posture. Keep explicit fallback for states that the cache cannot cover.
 
 ## Document integration prerequisites
 
-Use the [8f1 specification](8f1-document-model-and-v1-specification.md),
+Use the [8f1 specification](../../../spec/ghostnote-document-v1/SPEC.md),
 [8f2 codec and model reference](8f2-reference-codec-and-model-format-reference.md),
 and [8f3 host and migration contracts](8f3-ghostnote-bindings-and-cache-contracts.md).
 Prefer FIELDS for exact model note/rhythm reads and proposals. Use the shared

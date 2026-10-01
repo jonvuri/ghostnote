@@ -1,0 +1,30 @@
+{
+  "domain": "ghostnote-document/1.0",
+  "owner": "8f1 specification inputs; verify and regenerate with the 8f2 codec",
+  "documents": {
+    "complete": {
+      "sha256": "ce4ddc6bc28b30795a606472c57ba6e36be0b9abaab81334a5385e8172f385ec"
+    },
+    "patch": {
+      "sha256": "c7802bc24d2b41731a09710745a4bdaa1bfe08d60adbb5466c0cd5bfd1ea19e4"
+    },
+    "patch-result": {
+      "sha256": "423dcfa03e40141a19a861d34727bd91870a77f80ed94f306d7bcf6380367b2e"
+    },
+    "no-op": {
+      "sha256": "bc936b30c17d275f85013f06074c2d2397dc360c808d47c64b3b387d59c5d6f7"
+    },
+    "empty": {
+      "sha256": "bce588d0c5703f81f07f618276082d2d4982d82dd4c4c5c8bb7e5fc4eb6c5b52"
+    },
+    "empty-clip": {
+      "sha256": "855f945bc2f1609313a55908cf019e0cffb21ea41cfdd0540e0a0cfb8214fa08"
+    },
+    "partial": {
+      "sha256": "0d92cdc675e510204eaacf6e89d660523af9a4b33496eeb19291b80177c01ea2"
+    },
+    "unknown-source": {
+      "sha256": "8fee765f8371064e3cc612e2a66a4917ff322bda49ed5911888f230a86ece545"
+    }
+  }
+}

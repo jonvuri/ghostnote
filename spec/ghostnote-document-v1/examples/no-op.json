@@ -1,0 +1,15 @@
+{
+  "format": "ghostnote-document",
+  "version": "1.0",
+  "kind": "patch",
+  "base": {
+    "sha256": "ce4ddc6bc28b30795a606472c57ba6e36be0b9abaab81334a5385e8172f385ec",
+    "ref": "fixture:complete"
+  },
+  "add": [],
+  "remove": [],
+  "update": [],
+  "clipUpdate": [],
+  "overlayPut": [],
+  "overlayRemove": []
+}

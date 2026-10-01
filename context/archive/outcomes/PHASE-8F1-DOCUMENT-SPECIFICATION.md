@@ -1,14 +1,61 @@
 ---
-title: Phase 8f1 — Document model and version 1.0 specification
-kind: plan
-state: planned
-status: Ready after D25. Define the shared document contract before implementing its codec.
+title: Phase 8f1 document specification outcome
+kind: outcome
+state: complete
 updated: 2026-10-01
-parent: 8f-consolidated-compact-bar-and-cache-contracts.md
-prev: 8c4f-full-matrix-decision.md
-next: 8f2-reference-codec-and-model-format-reference.md
-evidence: E109, E114-E121, E138-E139, E209, E212-E213; D21, D23, D25
+next: ../../plan/phase-8/8f2-reference-codec-and-model-format-reference.md
 ---
+
+# Phase 8f1 outcome
+
+## Result
+
+[Ghostnote Document 1.0](../../../spec/ghostnote-document-v1/SPEC.md) defines one
+portable model with FIELDS and JSON encodings. The target is not externally
+released. The session adds the [field/default reference](../../../spec/ghostnote-document-v1/FIELDS.md),
+[FIELDS grammar](../../../spec/ghostnote-document-v1/fields.ebnf),
+[JSON schema](../../../spec/ghostnote-document-v1/schema.json),
+[paired examples and expected hashes](../../../spec/ghostnote-document-v1/EXAMPLES.md),
+[32-family conformance inventory](../../../spec/ghostnote-document-v1/CONFORMANCE.md),
+and [host handoff](../../../spec/ghostnote-document-v1/HOST-HANDOFF.md).
+
+Realized onsets floor to a `1/512` cell. Durations round to nearest with ties
+up and a one-cell minimum. Normalization is a separate import operation.
+The codec must reject off-grid realized proposals. Nominal rationals and
+acquisition displacement remain separate. The initial overlays have stable
+IDs, dependency bases, provenance, stale state, and explicit removal rules.
+
+Complete desired state uses all fields and all channels. Snapshot coverage
+can report partial membership and unknown fields. Sparse patches preserve
+unnamed values. Host mappings, pressure reconstruction, D9/D21 migration,
+partial-base application, identity recovery, and cache rules remain 8f3 work.
+The current code, cache, stable tool profile, and live projects did not change.
+
+## Verification
+
+- JSON Schema 2020-12 meta-schema validation and local Ajv compilation pass.
+  All eight JSON example documents pass structural validation. Eight focused
+  structural negatives are rejected. Off-grid rational syntax passes the schema
+  and remains a required semantic refusal.
+- Independent local calculations confirm all eight paired inputs, expected
+  content hashes, current dependency bases, nominal/groove equations, sample
+  normalization, and the stated patch-result preservation checks.
+- The conformance index covers R01-R32. Full codec parsing, general patch
+  application, and canonical serializer tests are required in 8f2.
+- Context link checks and staged diff whitespace checks pass.
+
+The example checks use temporary authoring and calculation scripts. They do
+not supply a reference codec or claim general grammar conformance. 8f2 owns
+regeneration of canonical fixtures through its implementation.
+
+## Retrospective
+
+Keep the field/default table and rule-to-case index together. Check onset and
+duration deltas separately; a triplet can have different displacement values.
+Store primary specifications in top-level `spec/`. Keep working memory and
+session outcomes in `context/`. The context guide records this directory rule.
+
+## Historical approved plan
 
 # Phase 8f1 — Document model and version 1.0 specification
 

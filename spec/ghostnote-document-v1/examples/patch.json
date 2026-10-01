@@ -1,0 +1,111 @@
+{
+  "format": "ghostnote-document",
+  "version": "1.0",
+  "kind": "patch",
+  "base": {
+    "sha256": "ce4ddc6bc28b30795a606472c57ba6e36be0b9abaab81334a5385e8172f385ec",
+    "ref": "fixture:complete"
+  },
+  "add": [
+    {
+      "id": "n4",
+      "clip": "part",
+      "at": "2",
+      "duration": "1/2",
+      "pitch": 72,
+      "velocity": 88
+    }
+  ],
+  "remove": [
+    "n3"
+  ],
+  "update": [
+    {
+      "id": "n1",
+      "set": {
+        "pitch": 62,
+        "expression": null
+      }
+    }
+  ],
+  "clipUpdate": [
+    {
+      "id": "part",
+      "set": {
+        "name": "after"
+      }
+    }
+  ],
+  "overlayPut": [
+    {
+      "id": "harmony1",
+      "type": "harmony",
+      "state": "current",
+      "provenance": {
+        "kind": "inferred",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-revised-chord-label"
+      },
+      "depends": {
+        "events": [
+          {
+            "id": "n1",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          },
+          {
+            "id": "n2",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          },
+          {
+            "id": "n4",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          }
+        ],
+        "clips": [
+          {
+            "id": "part",
+            "fields": [
+              "length"
+            ]
+          }
+        ],
+        "overlays": [],
+        "membership": [
+          "part"
+        ]
+      },
+      "basis": "f5ebb3dacfcf12f4cae3c0f12ad05efa9ca36a8ddeeaae4e9e776ed29288d61b",
+      "data": {
+        "clip": "part",
+        "from": "0",
+        "to": "4",
+        "events": [
+          "n1",
+          "n2",
+          "n4"
+        ],
+        "chord": "Dm7",
+        "key": "C major"
+      }
+    }
+  ],
+  "overlayRemove": [
+    "motif1",
+    "region1"
+  ]
+}

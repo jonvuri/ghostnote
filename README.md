@@ -11,6 +11,9 @@ Two halves:
 | `extension/` | A Bitwig controller extension (Java). Exposes the API over newline-delimited JSON-RPC 2.0 on TCP `127.0.0.1:8686`. |
 | `brain/` | The TypeScript side: the adapter contract, the fake adapter, `bwmod`, and the MCP server. |
 
+The [document specification](spec/ghostnote-document-v1/SPEC.md), schema, and
+examples live in `spec/`.
+
 Planning and evidence live in [`context/`](context/). Start with the current
 [`NOW`](context/NOW.md) handoff, then use the
 [`PROJECT`](context/PROJECT.md), [decision index](context/decisions/INDEX.md),

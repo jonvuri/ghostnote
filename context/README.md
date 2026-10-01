@@ -52,6 +52,8 @@ references. They route to the canonical indexes and are not ledgers anymore.
 
 ## Maintenance rules
 
+- Keep primary specifications, schemas, and examples in the top-level `spec/`
+  directory. Use `context/` for working memory, plans, decisions, and evidence.
 - Keep `NOW.md` short and update it when a session starts or closes.
 - A plan describes unfinished work. On completion, move it to `archive/outcomes/`
   and promote durable facts into a decision or evidence file.

@@ -1,0 +1,59 @@
+{
+  "format": "ghostnote-document",
+  "version": "1.0",
+  "kind": "snapshot",
+  "clips": [
+    {
+      "id": "part",
+      "length": "4"
+    }
+  ],
+  "coverage": [
+    {
+      "clip": "part",
+      "from": "0",
+      "to": "4",
+      "channels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "fields": [
+        "at",
+        "channel",
+        "clip",
+        "duration",
+        "id",
+        "mute",
+        "pitch",
+        "velocity"
+      ],
+      "status": "partial",
+      "reason": "Only the selected event was supplied."
+    }
+  ],
+  "events": [
+    {
+      "id": "n2",
+      "clip": "part",
+      "at": "85/256",
+      "duration": "85/512",
+      "pitch": 64,
+      "velocity": 90
+    }
+  ],
+  "overlays": []
+}

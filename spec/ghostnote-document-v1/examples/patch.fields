@@ -1,0 +1,10 @@
+DOC ghostnote-document 1.0 patch
+BASE {"ref":"fixture:complete","sha256":"ce4ddc6bc28b30795a606472c57ba6e36be0b9abaab81334a5385e8172f385ec"}
+FIELDS id clip at duration pitch velocity channel mute
+REMOVE n3
+UPDATE n1 {"expression":null,"pitch":62}
+ADD n4 part 2 1/2 72 88 1 false
+CLIP_UPDATE part {"name":"after"}
+OVERLAY_REMOVE motif1
+OVERLAY_REMOVE region1
+OVERLAY_PUT {"basis":"f5ebb3dacfcf12f4cae3c0f12ad05efa9ca36a8ddeeaae4e9e776ed29288d61b","data":{"chord":"Dm7","clip":"part","events":["n1","n2","n4"],"from":"0","key":"C major","to":"4"},"depends":{"clips":[{"fields":["length"],"id":"part"}],"events":[{"fields":["at","clip","duration","pitch"],"id":"n1"},{"fields":["at","clip","duration","pitch"],"id":"n2"},{"fields":["at","clip","duration","pitch"],"id":"n4"}],"membership":["part"],"overlays":[]},"id":"harmony1","provenance":{"kind":"inferred","method":"fixture-revised-chord-label","source":"8f1-MIT-fixture"},"state":"current","type":"harmony"}

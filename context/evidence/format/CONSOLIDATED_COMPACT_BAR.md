@@ -14,8 +14,9 @@ evidence: E16s, E19, E24, E51-E54, E114-E121, E128-E140; D23
 This document records the design exploration and host evidence.
 [D25](../../decisions/d25-fields-json-document-format-and-publication.md) now
 selects FIELDS and JSON, rational-only timing, and optional stable overlays.
-The current work is [8f1](../../plan/phase-8/8f1-document-model-and-v1-specification.md),
-then the reference codec and host bindings. The earlier E140 block is historical.
+The [8f1 specification](../../../spec/ghostnote-document-v1/SPEC.md) now defines
+the portable contract. The reference codec and host bindings are next.
+The earlier E140 block is historical.
 The illustrative syntax and open questions below are not a version 1.0 contract.
 
 The main direction is selected:
@@ -78,14 +79,12 @@ The current E131 reader still scans `1/512` and `1/768` and reconciles them.
 That implementation remains available as a diagnostic control. Its exact
 triplet differences are not failures for the normalized D23 contract.
 
-Open timing details:
-
-- Confirm the duration normalization rule against the host's measured
-  `2^-20`-beat duration values.
-- Define duration behavior for a value outside the accepted lattice rule.
-- Confirm same-pitch adjacency and overlap behavior after normalization.
-- Decide whether a task can request a coarser displayed rhythmic spelling while
-  the underlying realized lattice stays unchanged.
+The portable specification selects nearest duration rounding, ties up, with a
+one-cell minimum. Off-grid proposals fail validation. Import normalization
+reports displacement and overlap changes. It does not shorten overlapping
+notes. Exact nominal overlays provide other rhythmic divisions. The
+[host handoff](../../../spec/ghostnote-document-v1/HOST-HANDOFF.md) assigns the
+measured `2^-20` duration mapping and adjacency/overlap writes to 8f3.
 
 ## One compact clip document
 
@@ -327,11 +326,9 @@ implements the cache in shadow mode before promotion.
 
 ## Unsettled questions
 
-- The version 1.0 FIELDS grammar and equivalent JSON schema details.
-- Duration normalization and minimum-duration rules under the rational-only contract.
-- Stable overlay identity, dependencies, and invalidation in both encodings.
-- The exact sparse-default and preservation rules.
-- The complete patch vocabulary and conflict report.
+- Reference-codec validation of the 8f1 grammar, schema, defaults, timing, and
+  overlay rules.
+- Host application of complete and sparse proposals, including conflict reports.
 - Event identity behavior after human note edits.
 - Clip-reference recovery after a host restart.
 - Whether normalized full documents can preserve every supported expression

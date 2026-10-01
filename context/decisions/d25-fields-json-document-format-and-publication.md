@@ -98,7 +98,7 @@ validation needs its own scope and approval.
 ## Work and publication
 
 The approved sequence is
-[8f1](../plan/phase-8/8f1-document-model-and-v1-specification.md),
+[8f1](../archive/outcomes/PHASE-8F1-DOCUMENT-SPECIFICATION.md),
 [8f2](../plan/phase-8/8f2-reference-codec-and-model-format-reference.md),
 and [8f3](../plan/phase-8/8f3-ghostnote-bindings-and-cache-contracts.md).
 Cache implementation, live surface integration, and fresh agent trials remain

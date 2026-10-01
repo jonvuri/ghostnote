@@ -29,7 +29,7 @@ versions, hashes, dependencies, and licensing in the 8i handoff.
 | Artifact | Source and publication use |
 |---|---|
 | README and rationale | Start from [the product review](../../evidence/format/FORMAT_BENCHMARK_PRODUCT_REVIEW.md). Explain the format purpose, selection, results, and limits for a reader outside Ghostnote. |
-| Version 1.0 specification | [8f1](../phase-8/8f1-document-model-and-v1-specification.md): semantic model, FIELDS grammar, JSON schema, timing, defaults, complete documents, patches, and overlays. |
+| Version 1.0 specification | [8f1](../../../spec/ghostnote-document-v1/SPEC.md): semantic model, FIELDS grammar, JSON schema, timing, defaults, complete documents, patches, and overlays. |
 | Reference tooling | [8f2](../phase-8/8f2-reference-codec-and-model-format-reference.md): pure parser, validator, serializers, converters, normalization utilities, and offline entry point. |
 | Model format reference | 8f2: compact versioned format card, optional overlay sections, and tested prompt/skill examples. |
 | Conformance corpus | 8f1 and 8f2: valid and invalid cases, rule-to-test index, canonical examples, semantic hashes, and cross-encoding round trips. |

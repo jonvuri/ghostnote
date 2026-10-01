@@ -1,0 +1,573 @@
+{
+  "format": "ghostnote-document",
+  "version": "1.0",
+  "kind": "desired",
+  "meta": {
+    "title": "Timing and groups",
+    "description": "",
+    "permission": "Generated MIT fixture"
+  },
+  "extensions": {
+    "example:annotation": {
+      "label": "retained",
+      "flags": [
+        true,
+        null,
+        1
+      ]
+    }
+  },
+  "clips": [
+    {
+      "id": "part",
+      "length": "4",
+      "name": "before",
+      "loop": {
+        "from": "0",
+        "to": "4"
+      },
+      "playRange": {
+        "from": "0",
+        "to": "4"
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "clip": "part",
+      "from": "0",
+      "to": "4",
+      "channels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "fields": "all",
+      "status": "complete"
+    }
+  ],
+  "events": [
+    {
+      "id": "n1",
+      "clip": "part",
+      "at": "17/64",
+      "duration": "1/4",
+      "pitch": 60,
+      "velocity": 96,
+      "channel": 2,
+      "mute": true,
+      "releaseVelocity": 0.25,
+      "articulation": "staccato",
+      "expression": {
+        "velocitySpread": 0.2,
+        "gain": 0.75,
+        "pan": -0.25,
+        "pressure": 0.6,
+        "timbre": 0.4,
+        "transpose": 0.5
+      },
+      "chance": {
+        "enabled": true,
+        "value": 0.75
+      },
+      "occurrence": {
+        "enabled": true,
+        "condition": "first"
+      },
+      "recurrence": {
+        "enabled": true,
+        "length": 4,
+        "mask": 5
+      },
+      "repeat": {
+        "enabled": true,
+        "count": 3,
+        "curve": 0.25,
+        "velocityCurve": -0.25,
+        "velocityEnd": 0.5
+      }
+    },
+    {
+      "id": "n2",
+      "clip": "part",
+      "at": "85/256",
+      "duration": "85/512",
+      "pitch": 64,
+      "velocity": 90
+    },
+    {
+      "id": "n3",
+      "clip": "part",
+      "at": "1",
+      "duration": "1/2",
+      "pitch": 67,
+      "velocity": 80,
+      "channel": 16
+    }
+  ],
+  "overlays": [
+    {
+      "id": "groove1",
+      "type": "groove",
+      "state": "current",
+      "provenance": {
+        "kind": "declared",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-author"
+      },
+      "depends": {
+        "events": [
+          {
+            "id": "n1",
+            "fields": [
+              "at",
+              "clip",
+              "duration"
+            ]
+          }
+        ],
+        "clips": [],
+        "overlays": [
+          "nominal1"
+        ],
+        "membership": []
+      },
+      "basis": "98558a9a55e67df430394ae4ccf4780174da6b56ffd173a61f58c939811c6046",
+      "data": {
+        "intent": "resolved",
+        "phase": "0",
+        "template": "1/64",
+        "cross": "0",
+        "local": "0",
+        "unassigned": "0",
+        "durationIntent": "0",
+        "durationUnassigned": "0",
+        "atDelta": "0",
+        "durationDelta": "0",
+        "event": "n1",
+        "nominal": "nominal1",
+        "sourceAt": "17/64",
+        "sourceDuration": "1/4",
+        "templateRef": "swing-17-15",
+        "swing": [
+          17,
+          15
+        ],
+        "shape": {
+          "kind": "span",
+          "width": "1/128"
+        }
+      }
+    },
+    {
+      "id": "groove2",
+      "type": "groove",
+      "state": "current",
+      "provenance": {
+        "kind": "measured",
+        "source": "8f1-MIT-fixture",
+        "method": "cell-only-observation"
+      },
+      "depends": {
+        "events": [
+          {
+            "id": "n2",
+            "fields": [
+              "at",
+              "clip",
+              "duration"
+            ]
+          }
+        ],
+        "clips": [],
+        "overlays": [
+          "nominal2"
+        ],
+        "membership": []
+      },
+      "basis": "1aa81ffda754f2315a58f1c083d316d5122532507abdb9243b0963d99008cf4c",
+      "data": {
+        "intent": "unresolved",
+        "phase": "0",
+        "template": "0",
+        "cross": "0",
+        "local": "0",
+        "unassigned": "-1/768",
+        "durationIntent": "0",
+        "durationUnassigned": "-1/1536",
+        "atDelta": null,
+        "durationDelta": null,
+        "event": "n2",
+        "nominal": "nominal2"
+      }
+    },
+    {
+      "id": "harmony1",
+      "type": "harmony",
+      "state": "current",
+      "provenance": {
+        "kind": "inferred",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-chord-label"
+      },
+      "depends": {
+        "events": [
+          {
+            "id": "n1",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          },
+          {
+            "id": "n2",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          },
+          {
+            "id": "n3",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          }
+        ],
+        "clips": [
+          {
+            "id": "part",
+            "fields": [
+              "length"
+            ]
+          }
+        ],
+        "overlays": [],
+        "membership": [
+          "part"
+        ]
+      },
+      "basis": "a1a0bddc4c2381fceb31d9cf5bf1b7a9b5af5ecf6779dc8e9103b9b1a4832468",
+      "data": {
+        "clip": "part",
+        "from": "0",
+        "to": "4",
+        "events": [
+          "n1",
+          "n2",
+          "n3"
+        ],
+        "chord": "C",
+        "key": "C major"
+      }
+    },
+    {
+      "id": "meter1",
+      "type": "meter",
+      "state": "current",
+      "provenance": {
+        "kind": "declared",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-author"
+      },
+      "depends": {
+        "events": [],
+        "clips": [
+          {
+            "id": "part",
+            "fields": [
+              "length"
+            ]
+          }
+        ],
+        "overlays": [],
+        "membership": []
+      },
+      "basis": "07742d10a2a5be59470fb059d70a6d9d1f9f0594fd3494227f0a1ce9a9f6f1bb",
+      "data": {
+        "clip": "part",
+        "at": "0",
+        "numerator": 4,
+        "denominator": 4
+      }
+    },
+    {
+      "id": "motif1",
+      "type": "motif",
+      "state": "current",
+      "provenance": {
+        "kind": "declared",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-author"
+      },
+      "depends": {
+        "events": [
+          {
+            "id": "n2",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          },
+          {
+            "id": "n3",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          }
+        ],
+        "clips": [
+          {
+            "id": "part",
+            "fields": [
+              "length"
+            ]
+          }
+        ],
+        "overlays": [],
+        "membership": [
+          "part"
+        ]
+      },
+      "basis": "487c70cbbd681880b4938742439dabf9b9217d9e02a381ef7c78bcd575137900",
+      "data": {
+        "clip": "part",
+        "label": "rise",
+        "events": [
+          "n2",
+          "n3"
+        ]
+      }
+    },
+    {
+      "id": "nominal1",
+      "type": "nominal",
+      "state": "current",
+      "provenance": {
+        "kind": "declared",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-author"
+      },
+      "depends": {
+        "events": [
+          {
+            "id": "n1",
+            "fields": [
+              "at",
+              "clip",
+              "duration"
+            ]
+          }
+        ],
+        "clips": [],
+        "overlays": [],
+        "membership": []
+      },
+      "basis": "d6cda2121594dd2193812236a0452fda7ef720077c31f4cf44751f6364f27a6d",
+      "data": {
+        "event": "n1",
+        "at": "1/4",
+        "duration": "1/4",
+        "division": "1/4"
+      }
+    },
+    {
+      "id": "nominal2",
+      "type": "nominal",
+      "state": "current",
+      "provenance": {
+        "kind": "declared",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-author"
+      },
+      "depends": {
+        "events": [
+          {
+            "id": "n2",
+            "fields": [
+              "at",
+              "clip",
+              "duration"
+            ]
+          }
+        ],
+        "clips": [],
+        "overlays": [],
+        "membership": []
+      },
+      "basis": "b3d368d11b536832b547b6b85df95028eb53b13bb0e107d7347ea2f41209a61f",
+      "data": {
+        "event": "n2",
+        "at": "1/3",
+        "duration": "1/6",
+        "division": "1/3"
+      }
+    },
+    {
+      "id": "region1",
+      "type": "region",
+      "state": "current",
+      "provenance": {
+        "kind": "declared",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-author"
+      },
+      "depends": {
+        "events": [
+          {
+            "id": "n1",
+            "fields": [
+              "at",
+              "clip"
+            ]
+          },
+          {
+            "id": "n2",
+            "fields": [
+              "at",
+              "clip"
+            ]
+          },
+          {
+            "id": "n3",
+            "fields": [
+              "at",
+              "clip"
+            ]
+          }
+        ],
+        "clips": [
+          {
+            "id": "part",
+            "fields": [
+              "length"
+            ]
+          }
+        ],
+        "overlays": [],
+        "membership": [
+          "part"
+        ]
+      },
+      "basis": "40c200783d49812573daf744dad4db1c0f2f4fd6f39f1c001981146821bcab0f",
+      "data": {
+        "clip": "part",
+        "label": "main",
+        "from": "0",
+        "to": "4",
+        "events": [
+          "n1",
+          "n2",
+          "n3"
+        ]
+      }
+    },
+    {
+      "id": "role1",
+      "type": "role",
+      "state": "current",
+      "provenance": {
+        "kind": "declared",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-author"
+      },
+      "depends": {
+        "events": [
+          {
+            "id": "n1",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          },
+          {
+            "id": "n2",
+            "fields": [
+              "at",
+              "clip",
+              "duration",
+              "pitch"
+            ]
+          }
+        ],
+        "clips": [
+          {
+            "id": "part",
+            "fields": [
+              "length"
+            ]
+          }
+        ],
+        "overlays": [],
+        "membership": [
+          "part"
+        ]
+      },
+      "basis": "bb334646db7854a516a122565f424525189dee1d25f763c576bb2238e017d88b",
+      "data": {
+        "clip": "part",
+        "label": "melody",
+        "events": [
+          "n1",
+          "n2"
+        ],
+        "articulation": "short phrase"
+      }
+    },
+    {
+      "id": "tempo1",
+      "type": "tempo",
+      "state": "current",
+      "provenance": {
+        "kind": "declared",
+        "source": "8f1-MIT-fixture",
+        "method": "fixture-author"
+      },
+      "depends": {
+        "events": [],
+        "clips": [
+          {
+            "id": "part",
+            "fields": [
+              "length"
+            ]
+          }
+        ],
+        "overlays": [],
+        "membership": []
+      },
+      "basis": "07742d10a2a5be59470fb059d70a6d9d1f9f0594fd3494227f0a1ce9a9f6f1bb",
+      "data": {
+        "clip": "part",
+        "at": "0",
+        "bpm": 120
+      }
+    }
+  ]
+}

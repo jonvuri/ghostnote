@@ -326,8 +326,9 @@ owns the migration details.
    use notation scores. Analysis scores remain unchanged; repeats are excluded.
    The original assessment and separate ledger scores remain available.
 26. [8f — Document format and cache contracts](8f-consolidated-compact-bar-and-cache-contracts.md).
-   Opened by D25. Complete [8f1](8f1-document-model-and-v1-specification.md)
-   for the version 1.0 specification, [8f2](8f2-reference-codec-and-model-format-reference.md)
+   Opened by D25. [8f1 is complete](../../archive/outcomes/PHASE-8F1-DOCUMENT-SPECIFICATION.md).
+   The [version 1.0 specification](../../../spec/ghostnote-document-v1/SPEC.md)
+   supplies the contract for [8f2](8f2-reference-codec-and-model-format-reference.md)
    for the codec, corpus, and model format reference, then
    [8f3](8f3-ghostnote-bindings-and-cache-contracts.md) for the host binding,
    overlay lifecycle, migration, and cache contracts. Stable integration stays in 8h.

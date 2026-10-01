@@ -1,0 +1,40 @@
+{
+  "format": "ghostnote-document",
+  "version": "1.0",
+  "kind": "desired",
+  "clips": [
+    {
+      "id": "empty",
+      "length": "0"
+    }
+  ],
+  "coverage": [
+    {
+      "clip": "empty",
+      "from": "0",
+      "to": "0",
+      "channels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "fields": "all",
+      "status": "complete"
+    }
+  ],
+  "events": [],
+  "overlays": []
+}
