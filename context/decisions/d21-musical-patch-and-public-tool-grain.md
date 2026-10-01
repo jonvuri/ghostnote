@@ -2,7 +2,7 @@
 id: D21
 kind: decision
 state: active
-updated: 2026-08-20
+updated: 2026-10-01
 source: phase-2-session-2a
 ---
 
@@ -128,3 +128,24 @@ tools and has SHA-256
 `0289ae1611a7c8c6c13b296a0749bd11dc8969df586859e10903b5e6d08d1ca4`.
 Version 4 identifies the operation-status timing result. The public artifact is
 otherwise byte-identical to the frozen version-3 cohort.
+
+## Phase 8f3 target amendment — 2026-10-01
+
+[D25](d25-fields-json-document-format-and-publication.md) and the
+[host binding](../../spec/ghostnote-document-v1/HOST-BINDING.md) select one guarded
+document edit limb for the target musical surface. It accepts complete desired
+state or a sparse patch in the same semantic model. `read_launcher_clip` reads
+one addressed Launcher clip. Generation and transformation remain agent choices.
+Container creation and destructive removal retain their separate boundaries.
+
+The current v1 tools and grammar remain compatibility paths through 8h. Their
+ordered operations, random seeds, variations, and reported overlap shortening
+keep their current meaning. Document 1.0 does not shorten overlapping notes.
+The initial host profile refuses unproved same-channel, same-pitch overlap
+before mutation. It must not lower a document through the old shortening rule.
+
+[8f3 binding cases](../../spec/ghostnote-document-v1/bindings/v1/README.md) establish
+pure mappings and refusals. 8h must pass compatibility, live readback, reversal,
+and partial-effect gates before changing discovery or stable behavior. The
+[migration policy](../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md) defines
+the order and rollback. This amendment changes no current encoder or golden.

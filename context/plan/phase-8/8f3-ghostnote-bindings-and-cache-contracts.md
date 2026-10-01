@@ -1,8 +1,8 @@
 ---
 title: Phase 8f3 — Ghostnote bindings and cache contracts
 kind: plan
-state: planned
-status: Ready. 8f2 codec, corpus, model reference, and standalone checks pass.
+state: complete
+status: Complete. Host bindings, identity, cache, migration, and pure binding checks pass.
 updated: 2026-10-01
 parent: 8f-consolidated-compact-bar-and-cache-contracts.md
 prev: 8f2-reference-codec-and-model-format-reference.md
@@ -11,6 +11,8 @@ evidence: E24, E109, E114-E121, E128-E139; D8-D9, D15-D16, D21, D23, D25
 ---
 
 # Phase 8f3 — Ghostnote bindings and cache contracts
+
+[Completed outcome](../../archive/outcomes/PHASE-8F3-BINDINGS-AND-CACHE-CONTRACTS.md).
 
 ## Purpose
 

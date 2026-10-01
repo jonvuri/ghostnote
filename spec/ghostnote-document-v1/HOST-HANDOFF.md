@@ -33,6 +33,28 @@ A host that cannot apply them must preserve them through supported edits or
 refuse. A partial snapshot remains useful model context; a host binding must
 not treat its omissions as a complete replacement.
 
+## 8f3 resolution
+
+[Host field bindings](HOST-BINDING.md), [identity and overlays](IDENTITY-AND-OVERLAYS.md),
+and the [binding corpus](bindings/v1/README.md) now settle these target rules.
+`read_launcher_clip` addresses one Launcher clip. Raw acquisition must retain
+disabled properties. Timbre maps host -1..1 to portable 0..1; gain keeps its
+measured inverse. Recurrence writes stop at eight cycles. Articulation and
+portable repeat remain uncovered on host-only reads. Repeat has no proved
+semantic converter. Pressure remains unwritable.
+
+A sparse edit preserves unnamed state; a desired document supplies defaults.
+Partial bases need a retained guard, fresh equivalent projection, full resolved
+state, explicit declarations for unknown fields, and proved host preservation.
+The pure fixtures check this boundary. They do not implement a live resolver.
+
+The [cache contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md) gives
+8g its state machine, limits, and shadow cases. The
+[migration and risk policy](../../context/contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md)
+gives 8h its decision gates and rollback. 8i tests fresh agent use; 9b reviews
+publication candidates. Host integration remains unbuilt. Existing runtime,
+checkpoint fidelity, and frozen benchmark forms are unchanged.
+
 ## Benchmark conventions retained and changed
 
 Retain declared positional fields, one event identity set, exact rational

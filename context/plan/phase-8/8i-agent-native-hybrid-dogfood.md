@@ -12,6 +12,16 @@ evidence: E120, E121, E127-E134, E209, E213; D25
 
 # Phase 8i — Agent-native hybrid dogfood
 
+## Accepted 8f3 inputs
+
+Use the checked [Model format reference](../../../spec/ghostnote-document-v1/MODEL-REFERENCE.md)
+with the [host binding](../../../spec/ghostnote-document-v1/HOST-BINDING.md),
+[identity and overlay rules](../../../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md),
+and [risk policy](../../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md).
+Include bounded desired/sparse edits, stale claims, ambiguous identity, a cache
+read, a structure change, and a fresh proposal after computer-use reacquisition.
+Use 8h's proved capabilities; pure binding fixtures do not supply live permission.
+
 ## Purpose
 
 Test whether the revised Ghostnote works as fast specialized senses and limbs

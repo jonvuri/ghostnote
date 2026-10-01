@@ -59,3 +59,12 @@ live proof, recorded writes, and reversal.
 E135 amends D18. Layer chains are ordinary composable device structure. The
 target interface removes the managed device-alternate lifecycle and keeps
 generic layer-chain limbs. Clip blocks remain outside this amendment until 8f.
+
+## Phase 8f3 contract amendments
+
+D21 selects the target document edit grain and keeps overlap shortening on the
+legacy v1 route. D16 permits revocable session clip references and qualifies
+all-channel protection with the proved E128 targeted inverse. D8 separates
+normalized model reads from exact checkpoint protection. D19 states effect
+ownership for reads, ephemeral actions, and computer use. D9 and D15 remain
+unchanged. Cache promotion and stable tool migration still require 8g/8h gates.

@@ -1,0 +1,1362 @@
+{
+  "schema": "ghostnote-publication-candidates/1",
+  "updated": "2026-10-01",
+  "status": "8f3 review inventory; 8i acceptance and 9b publication review remain required",
+  "hashRules": {
+    "exact-file-bytes": "SHA-256 over retained file bytes. This is not the document semantic hash.",
+    "sorted-tree-file-hashes-v1": "Sort relative POSIX file paths. SHA-256 over UTF-8 rows: path, NUL, lowercase file-byte SHA-256, LF. Exclude __pycache__ and .pyc. Paths are relative to the candidate root."
+  },
+  "semanticHashReferences": [
+    "spec/ghostnote-document-v1/examples/expected.json",
+    "spec/ghostnote-document-v1/MODEL-REFERENCE.identity.json"
+  ],
+  "exclusions": [
+    "This inventory excludes itself to avoid a self-hash.",
+    "No vendor documentation/presets, paid provider reruns, or live project files are approved for redistribution.",
+    "8h/8i live acceptance evidence is not available yet."
+  ],
+  "candidates": [
+    {
+      "path": "spec/ghostnote-document-v1/CODEC.md",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "d4aa7a0c56bc7c966c5177aa489dd212d8469f205d14aba8821f7a1b7f45c24f"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "1c4e17d6db88b74230f5c140976337de7acf586a032ced8605384b68f62cde04"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/EXAMPLES.md",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "9db41879d4ff4c12881ff3df4c1e6a607d60532b104694c722c1ce4d69dcf346"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/FIELDS.md",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "eaf7adcb8e1e939135bca6c0a030e391b91a6ed1a6105694b49260002490dc67"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/HOST-BINDING.md",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "465e4c7b31d856c6dd4a25efb82a088c78f887333e5403733a728431617f4fd3"
+      },
+      "dependencies": [
+        "brain/src/bindings/ghostnote-document.ts",
+        "spec/ghostnote-document-v1/SPEC.md"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/HOST-HANDOFF.md",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "9d271cd185bf8b574f74be6962f83775cc6bda2d50243dc05605259ea8c96a76"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "5480c66954949f938f9e14b111a74fecd1840c3f38774ed3f58e7f901c847272"
+      },
+      "dependencies": [
+        "brain/src/bindings/ghostnote-document.ts",
+        "spec/ghostnote-document-v1/SPEC.md"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/MODEL-REFERENCE.identity.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "26c7d678c7c52b274fccc19699b0c1bc4201afae4f734b2ca218c5d1bcd13c49"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/MODEL-REFERENCE.md",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "e86f08a070621c46f4678fb2d4cfb598a440f72a956f2f2e888a8efbe2acd4d7"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/SPEC.md",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "865cfd34eaffabd78298b8477198ab6557a20d3d95122f1bc5100835de703cac"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/bindings/v1/README.md",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "30f3352627a527bf61ded9202e93a6f5d5dabe1e0e7758f4accfefbc849efc71"
+      },
+      "dependencies": [
+        "brain/src/bindings/ghostnote-document.ts",
+        "spec/ghostnote-document-v1/SPEC.md"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/bindings/v1/fixtures.json",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "ad770a344d726be59c231fa76851cd1ccd854fa7a88dae579d861ddff0bc1b64"
+      },
+      "dependencies": [
+        "brain/src/bindings/ghostnote-document.ts",
+        "spec/ghostnote-document-v1/SPEC.md"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/bindings/v1/manifest.json",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "14aefcecce12ce125d4ed3caa3ff391f62ecb402a8b9e8780fea5e2221ed3cf6"
+      },
+      "dependencies": [
+        "brain/src/bindings/ghostnote-document.ts",
+        "spec/ghostnote-document-v1/SPEC.md"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/README.md",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "f79c514d34b5fee92aaeaae673b7c077731be638fc66330a08d5f850489b07ad"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/complete.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "8a26c4c5e0f0d839d7166d662adf25e8810188ed5bdd4e17cea93cd26561e54c"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/complete.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "3bf7b478580f66efc0fa115fdaace017adaabfff7a5f155fea5b1b4a30eec075"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/empty-clip.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "637ccdc583f51f1569b1d01ab718b937e6fb46f10ad44c20f8244412c59c9ea5"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/empty-clip.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "bc9b4737c1e9e5abd6392198802653cdbf2b571a80031bea50036a35b80c6206"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/empty.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "51c010668f6f69e1b51e752ea35b61a464e5d9e7fbf99eaf3d05452b3ce612f2"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/empty.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "9bf872c24cd4f15db7f4d10fe2e8c1da4f8a16e80fac5b2a87228df4c5ad6136"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/no-op.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "56913c1865e4e8b29348c20d4b99b4250bedb3176718d522884b85b12a61d53d"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/no-op.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "494187b95116303983316d29fe20887f39df2f3fcebfbea480a756bded881cf3"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/partial.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "8c9a1497a7a05166874c6fb5ac73b41a742a8f8c86c694028ba82962152a4f60"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/partial.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "d4860a9276aeadc91095d18fdbe914a5c64ebb3a51195a52b5e45dd4f5462c58"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/patch-result.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "c0889191064191eb090cb3c0eb7b603deaed8ca09108101451ce35d296bf9107"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/patch-result.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "1c060b3cc5f5538d0cc2264167b8ebe5475d50450fe12f0a211873eebd61a763"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/patch.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "23197e097103e425175a2676c921b0b2bdb9f5f119f80f6e12539f0a9a60d4a1"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/patch.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "3b56761532f78fa719e9b25df3940863f3afa85b30c2d1210ae112bcb9f0dc67"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/unknown-source.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "9949992032cab9061b7ac3683d9c4f09bbb6feaa177603eccd56a50b2a381539"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/unknown-source.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "b75d07f59a068f0dfb09dd6d5db7e6abb20cea082159d4eec1c9e528176f3b8a"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/manifest.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "304ab4327e93442a36078b14b0780e00c6c30b473eb0f153c9e781a590154916"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/measure-baseline.py",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "5cbf283d9134646c26adb89eecea3cafb79333280425e5ccee1116984b0d9459"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/measurements.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "7827326bd20e72ebecf23439d582ea0c55d9d094b4c2252445b27c0e78808d42"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/prompts/core.txt",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "3ebb8f55bbc3125aad4cd49939be82fc54fb9a6db5d34d9fd06e3e1bb66e9833"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/prompts/full.txt",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "e86f08a070621c46f4678fb2d4cfb598a440f72a956f2f2e888a8efbe2acd4d7"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/prompts/patch.txt",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "9ee4f6029a41ae932dcf3daaa0f9d0fd8fd20761941b14dc240965fc8d77f4c1"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/prompts/timing.txt",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "888a27ec9d21443f3092deb7a60ab46ca802748398856bfd5e20efc4775d4090"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/complete.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "8a26c4c5e0f0d839d7166d662adf25e8810188ed5bdd4e17cea93cd26561e54c"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/complete.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "dd23aa638ebb35ddc60a796249cfafd606ae6adef58112993d45f30595844f3f"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/empty-clip.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "637ccdc583f51f1569b1d01ab718b937e6fb46f10ad44c20f8244412c59c9ea5"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/empty-clip.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "2826388dd2142f9d21fdd0507507344e248942465f586859b4258c17886fd079"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/empty.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "51c010668f6f69e1b51e752ea35b61a464e5d9e7fbf99eaf3d05452b3ce612f2"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/empty.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "e2a63fc600f2c1a13736c5d116c6f4d0a0121d7dde49a51a7dd2922905bacf74"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/expected.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "e45ac1d941cbf9d3f3954bf9caf16ce9d5c363129984bcd2308f6f4748e56d0e"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/no-op.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "56913c1865e4e8b29348c20d4b99b4250bedb3176718d522884b85b12a61d53d"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/no-op.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "f3dcea087a451524ce8c55f52c1736b00274daaee1ed4614ffbbd6c475436fd1"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/partial.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "8c9a1497a7a05166874c6fb5ac73b41a742a8f8c86c694028ba82962152a4f60"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/partial.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "7d0640c8a978d9da6923b9e8209d85c4ac0574d3c11b47f98156440d2791f626"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/patch-result.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "c0889191064191eb090cb3c0eb7b603deaed8ca09108101451ce35d296bf9107"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/patch-result.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "bff7b6ae7f9b74ac253696cae49f2cc5275239d90eafa8ba705313739c834d2f"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/patch.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "23197e097103e425175a2676c921b0b2bdb9f5f119f80f6e12539f0a9a60d4a1"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/patch.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "794403fcda37731286b10305e0bd34d9429c6ff4fdc4e54dab048bf50c5b79ed"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/unknown-source.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "9949992032cab9061b7ac3683d9c4f09bbb6feaa177603eccd56a50b2a381539"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/unknown-source.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "752ca2597ab49fd52a1f9518ec848cf42b4a3a96811af9bc2e6daeccd568c6b9"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/fields.ebnf",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "d59bc47dc9bfff8c988df9bb11e28fa9bd87c469f772231ce548b34675a2fb69"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/schema.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "c2ec084f7d7d29c50272fcdaf0ca08afdf0581b9497b42b8ac4779e1cfd109b8"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/cli.test.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "18714694fe0bf3008b082af65571af88fa287fe5ecfadfb9340eb3e3a7199b99"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/cli.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "2e8c04fd41b8c54700a18611c0f20abf7d991dbfcb972cd1625c60c9d994910a"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/codec.test.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "865d3da9e1c52f99a983b422cd5344052cb1736bfae3614f351c70e3f12101f6"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/display.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "17271d2a7dbcc6f3866724f13a2482049d3ed33eca863f594d7fae7755125c1d"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/error.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "269e108bff7f53878b6e4890a57feb25d239052dd9cbd5df1663140e927ddfa9"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/fields.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "d67e5792163cf52b603532ab32e7a546922529e41fdfe89368dd441608c07e4e"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/import.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "0b51d84e72b1c683aed1d7367f7d60925b9b4d9bcc9024edf88fad528c39dc30"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/index.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "872b68491c42bd5ef7919a36294a4d1c385a808a5266d87b80f53c8a81c712b8"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/json.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "f42c723f245a66e57a37f754bb4f82a47d95a524b19c6287f820449b889669d0"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/materialize.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "f9f80c6e2e7b6f6673b75b20000eb386b6b0f7cf4b7c0a7dff85d8ead18081ec"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/model.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "8af2dc8db2a7cd7835eb72adafc9c1974fc99cf572da32dfcf864867e27092de"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/rational.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "3cb25e01ebd754e55e967f2b1277b9915fddb13b9a313b505b9adea2a3fde451"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/reference.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "371f8c50bdbaa8707d9c7264e7135492fc90670feedf9670d8bff3c78af26e3c"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/schema-data.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "cbbc9ac03ad996d3a4dba905b73bf575d074dd3178ad473a8b486ce95edb408e"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/semantic.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "a6593f59dedfa57914e58d96b75ad2903cf738ea283b83fe0ccb9cefa2d90d19"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/document/structure.ts",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "657e07701c056a5979659966efd8025cf54e8d04b8fed9f1f028d7529754dffa"
+      },
+      "dependencies": [
+        "ES2022 or later",
+        "Node module support",
+        "brain/package-lock.json"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/bindings/ghostnote-document.test.ts",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "6b4b980876f6e129d21facd8d993bf446a255c14d729b88d1ad174b24f69f5d2"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "brain/src/contract/"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/bindings/ghostnote-document.ts",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "3fcebfe90df600022bc7dc11444cb33c8f059e9e38e7fc7b3d690112fc7a6106"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "brain/src/contract/"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "context/contracts/GHOSTNOTE_CACHE_CONTRACT.md",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "df636c6ea7bacbe5bfae74241b28723aa553a2002e75dc1ed262cc174f9aa044"
+      },
+      "dependencies": [
+        "spec/ghostnote-document-v1/HOST-BINDING.md",
+        "spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md",
+        "context/plan/phase-8/8g-shadow-project-cache.md",
+        "context/plan/phase-8/8h-cache-promotion-and-interface-simplification.md"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "context/contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md",
+      "version": "ghostnote-binding/1",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "6d1bd301921a3c4c98ea17e93ef7df9b813685e3a6f615a8532052a59bb99986"
+      },
+      "dependencies": [
+        "spec/ghostnote-document-v1/HOST-BINDING.md",
+        "spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md",
+        "context/plan/phase-8/8g-shadow-project-cache.md",
+        "context/plan/phase-8/8h-cache-promotion-and-interface-simplification.md"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "LICENSE",
+      "version": "repository snapshot 2026-10-01",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "74021e26b6e4e32482b19a10cd30ad77187f7155831caa6385dc2233a20aa257"
+      },
+      "dependencies": [
+        "9b package dependency/notice review"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/package.json",
+      "version": "repository snapshot 2026-10-01",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "960f502c77dd11cc86ef05ef8d82d3609c19ace35788b4eee212ae9f2f5c0fd4"
+      },
+      "dependencies": [
+        "9b package dependency/notice review"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/package-lock.json",
+      "version": "repository snapshot 2026-10-01",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "f244dda9703dbc1072eea87aa95a21c50179475779d233d97582ec626da9fb1a"
+      },
+      "dependencies": [
+        "9b package dependency/notice review"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/tools/document-artifacts.ts",
+      "version": "repository snapshot 2026-10-01",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "87b94ec7a4e5735801c4f00a636bd318750fd9ba756507d39dc0c72206378386"
+      },
+      "dependencies": [
+        "9b package dependency/notice review"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "brain/src/tools/document-standalone-check.ts",
+      "version": "repository snapshot 2026-10-01",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "050e9609acdabdfd0916db4eea8a7b70151ef6a2f1c0ff83bdbd046ac360119b"
+      },
+      "dependencies": [
+        "9b package dependency/notice review"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "context/contracts/check-publication-candidates.py",
+      "version": "repository snapshot 2026-10-01",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "e920e19d55b9733330a92ebdd18999b5fd1d0e4541a8c990a22c7091d393cf01"
+      },
+      "dependencies": [
+        "9b package dependency/notice review"
+      ],
+      "redistribution": "Repository MIT notice required; 9b confirms final package scope."
+    },
+    {
+      "path": "context/evidence/format/FORMAT_BENCHMARK_PRODUCT_REVIEW.md",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "305f2d2cd88f623b56218316de368072da1a5d3ba3906f749ae53757977c3f24"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "893295b165943eb0e0b32303ffbde9f3b6fc525337186cd7a21a72c8a1a13157"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "context/evidence/experiments/e209-offline-score-repair-updates-eight-arm-matrix.md",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "abb0caecf0341700dcb5930791f2a635ebd3cb5dacf1a446bc8063fd913e3ff8"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "context/evidence/experiments/e213-audit-adjudications-update-native-composite-scoring.md",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "d2cb88d179ae6850621bd64785fe5da46e3ec00cb569e588867e64d7ea1f90ef"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "brain/benchmarks/symbolic-format-v5/runs/2026-09-30-corrected-assessment.json",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "72eb40f158cbed78ee78d9cc63a3ce347df8479201edaf6c9e5eb9e8bd089681"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "brain/benchmarks/symbolic-format-v5/corrected_assessment.py",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "92fd6487821fd6d81b8378a469dfacfbe73cc88a1c0cd54afd9cf0788a888cc1"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "brain/benchmarks/native-composite-v1/audits/adjudicated-assessment.json",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "07ee20ad9c5b53d5d8a6df8bd633c3fbf3bc469ceb566e0047e89232109e6775"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "brain/benchmarks/native-composite-v1/audits/adjudication-policy.json",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "d8b7c8f42313a1a42ef7886daae3f017a19fabb6798457b9a9d5940697623145"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "brain/benchmarks/native-composite-v1/audits/adjudicated-report.md",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "f124439cccf6547652288e8acff1c3289506d4340eefc773351a27be5ba8b11b"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "brain/benchmarks/native-composite-v1/audits/adjudicated_assessment.py",
+      "version": "frozen evidence; keep matrix and addendum separate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "dc573ae8db0d168466305bb9a13c09078249ebf807dc93de6a9711d985dbe12d"
+      },
+      "dependencies": [
+        "brain/benchmarks/symbolic-format-v5/",
+        "brain/benchmarks/native-composite-v1/",
+        "context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md"
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "brain/benchmarks/symbolic-format-v5/",
+      "version": "frozen reproduction candidate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "sorted-tree-file-hashes-v1",
+        "value": "c4e205d032118adff4bb1a36ba8209dbf342d6e42eafc492eddadfed403715d2"
+      },
+      "fileCount": 59,
+      "dependencies": [
+        "Resolve imported benchmark dependencies under 9b; these two roots alone are not a proven reproduction closure.",
+        "Python version and optional format executables from each package protocol."
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    },
+    {
+      "path": "brain/benchmarks/native-composite-v1/",
+      "version": "frozen reproduction candidate",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "sorted-tree-file-hashes-v1",
+        "value": "d10ea4ef02c38ec4f2584427e285f7dd4600311eb8c9536e33289d46f73ff548"
+      },
+      "fileCount": 53,
+      "dependencies": [
+        "Resolve imported benchmark dependencies under 9b; these two roots alone are not a proven reproduction closure.",
+        "Python version and optional format executables from each package protocol."
+      ],
+      "redistribution": "Contains third-party/provider evidence. 9b must review redistribution before release."
+    }
+  ]
+}

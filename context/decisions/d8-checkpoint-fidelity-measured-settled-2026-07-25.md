@@ -2,6 +2,7 @@
 id: D8
 kind: decision
 state: active
+updated: 2026-10-01
 source: DECISIONS.md
 ---
 
@@ -49,3 +50,23 @@ mint provenance for ownership and derives the current address from each last
 accepted complete name-and-enabled chain. It deletes owned devices from the
 highest current position to the lowest. This is exact under that observable
 boundary. It is not device identity. An existing-device delete remains `none`.
+
+## Phase 8f3 normalized boundary amendment — 2026-10-01
+
+The [Document 1.0 binding](../../spec/ghostnote-document-v1/HOST-BINDING.md) exposes
+normalized D23 notes to the model. Complete means complete under the acquired
+cell contract and stated field coverage. It does not mean source-lossless
+below `1/512`, complete automation, or exact replay of the prior clip.
+
+Exact checkpoint protection keeps the measured writable-grid and property
+fidelity rules above. Unknown fields cannot become default values in a stash.
+Pressure remains unwritable. A whole-clip replacement needs complete prior
+state and the existing fidelity floor. A normalized cache alone cannot supply
+that proof. [E128](../evidence/experiments/e128-targeted-note-inverse-is-live.md)
+provides the narrower owned insertion/removal inverse without replay of
+unrelated notes. D16 defines its boundary and concurrent-change refusal.
+
+8g is shadow-only. 8h can promote cache evidence for eligible preflight or
+preparation only after the [cache contract](../contracts/GHOSTNOTE_CACHE_CONTRACT.md)
+and live verification gates pass. This amendment does not reduce recorded
+reversal fidelity or change the current low-level encoder.

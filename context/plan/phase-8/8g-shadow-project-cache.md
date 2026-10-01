@@ -27,6 +27,16 @@ The [8f2 codec](8f2-reference-codec-and-model-format-reference.md) supplies
 I/O projection when needed. Internal cache storage uses domain types.
 Overlay content dependencies must not survive a changed source as current facts.
 
+## Accepted 8f3 inputs
+
+Use the [cache contract](../../contracts/GHOSTNOTE_CACHE_CONTRACT.md) for types,
+health, limits, zero-dirty eligibility, repair, rebuild, and shadow cases.
+The [host binding](../../../spec/ghostnote-document-v1/HOST-BINDING.md) and
+[identity rules](../../../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md)
+define projection and references. The [binding corpus](../../../spec/ghostnote-document-v1/bindings/v1/README.md)
+is pure evidence; it does not establish a live resolver. Retain raw disabled
+properties. Do not cast host repeat controls into portable repeat.
+
 ## Implementation boundary
 
 - Use one fixed `1/512` observer for each active cached clip.

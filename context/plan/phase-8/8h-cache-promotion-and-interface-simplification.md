@@ -12,6 +12,18 @@ evidence: E119-E135, E209, E213; D18, D23, D25
 
 # Phase 8h — Cache promotion and interface simplification
 
+## Accepted 8f3 inputs
+
+Use the [host binding](../../../spec/ghostnote-document-v1/HOST-BINDING.md),
+[identity and overlays](../../../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md),
+[cache contract](../../contracts/GHOSTNOTE_CACHE_CONTRACT.md), and
+[migration and risk policy](../../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md).
+`read_launcher_clip` has single Launcher-clip scope. Its field coverage can be
+complete for identities while articulation/repeat remain unknown. Partial-base
+resolution, signed timbre conversion, raw disabled properties, and pressure/repeat
+preservation need guarded host integration. Decisions D8/D16/D19/D21 contain
+the target amendments; their live implementation gates still apply.
+
 ## Purpose
 
 Make proved cache reads part of the live engine, connect the consolidated

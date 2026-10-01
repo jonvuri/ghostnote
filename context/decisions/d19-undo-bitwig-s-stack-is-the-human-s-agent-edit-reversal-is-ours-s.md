@@ -2,6 +2,7 @@
 id: D19
 kind: decision
 state: active
+updated: 2026-10-01
 source: DECISIONS.md
 ---
 
@@ -40,3 +41,15 @@ expected to mutate as the model refines.
   reused, never reinvented.
 
 ---
+
+## Phase 8f3 effect ownership amendment — 2026-10-01
+
+Read-only operations and ephemeral navigation, launch, or transport actions
+have no Ghostnote reversal record. External computer-use actions also have no
+Ghostnote ownership. Reacquire structured state after a UI change before the
+next semantic write. A later durable owned edit starts from that new base.
+
+Durable bounded effects retain their change IDs, actual observed effects, and
+D8/D16 reversal evidence. A failed readback or partial write cannot erase this
+record. 8h result migration and 8i hybrid trials must verify these boundaries
+under the [risk policy](../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md).

@@ -2,6 +2,7 @@
 id: D16
 kind: decision
 state: active
+updated: 2026-10-01
 source: DECISIONS.md
 ---
 
@@ -167,3 +168,32 @@ refuses unless it has the complete set.
 > handles each guarded apply, stash, receipt, and report.
 
 ---
+
+## Phase 8f3 identity and protection amendment — 2026-10-01
+
+Section a still rejects a synthetic durable host identity. An internal session
+clip reference is permitted as a revocable binding/cache handle under the
+[8f3 identity rules](../../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md).
+It needs project generation, structural epoch, current address, and proved
+continuity. It retires after replacement, restart, a lost event window, or
+ambiguity. Content equality cannot recover it. It cannot authorize a write
+without fresh host guards. E133/E134 and the
+[cache lifecycle rules](../evidence/format/CACHE_IDENTITY_AND_LIFECYCLE.md) supply
+the evidence; 8g must verify the implementation in shadow mode.
+
+Section e retains all-channel protection for note clear, replacement, property
+replay, and mixed routes. [E128](../evidence/experiments/e128-targeted-note-inverse-is-live.md)
+permits the separate targeted insertion/removal inverse: protect the affected
+owned cells and their complete current boundary without replaying unrelated
+source notes. Its reversal fingerprint remains channel-wide. A concurrent
+change refuses reversal. Mixing in write/clear/props restores the complete
+all-channel replay boundary. No other protection reduction follows from this
+amendment.
+
+[D23](d23-normalized-clip-acquisition-uses-one-1-512-view.md) normalized model reads
+are separate from exact stash authority. A normalized cache snapshot cannot
+restore finer source timing or unknown fields. 8h can share proved immutable
+preflight evidence only after 8g comparison and the relevant live inverse gates.
+Independent post-write evidence and all partial-effect records remain required.
+The [risk policy](../contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md) states the
+consumer and evidence required for each class.

@@ -215,7 +215,8 @@
     "document": "node --import tsx src/document/cli.ts",
     "document:conformance": "node --import tsx --test src/document/*.test.ts && node --import tsx src/tools/document-artifacts.ts --check",
     "document:artifacts": "node --import tsx src/tools/document-artifacts.ts",
-    "document:standalone": "node --import tsx src/tools/document-standalone-check.ts"
+    "document:standalone": "node --import tsx src/tools/document-standalone-check.ts",
+    "document:bindings": "node --import tsx --test src/bindings/*.test.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

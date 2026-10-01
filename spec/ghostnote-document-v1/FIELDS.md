@@ -61,7 +61,7 @@ are unknown and must be absent. A sparse update omission always preserves.
 
 Expression is a scalar object. Automation curves are outside 1.0. Pressure is
 fully supported as a document value. The measured Ghostnote write path cannot
-write pressure. [8f3](HOST-HANDOFF.md) must resolve preservation and refusal.
+write pressure. The [host binding](HOST-BINDING.md) defines preservation and refusal.
 The gain value is a portable amplitude ratio. It is not a raw setter input.
 Host scaling belongs to the binding. Expression updates replace the complete
 object; callers must copy the unchanged members when updating one member.
@@ -110,7 +110,7 @@ It does not require a host to expose or write every supported value.
 Host track IDs, launcher rows, project generations, exact-source hashes,
 address recovery, property read tolerances, gain setter scaling, supported
 occurrence labels, pressure writability, note-address movement, and reversal
-fidelity belong to [8f3](HOST-HANDOFF.md). Do not put them into core positional
+fidelity are defined by the [host binding](HOST-BINDING.md). Do not put them into core positional
 rows. An opaque base ref can identify a binding object without exposing its
 mechanics. A coverage reason can describe a useful limitation.
 

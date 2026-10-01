@@ -13,8 +13,8 @@ This is the Phase 8f1 target contract. It is not an external release. The
 The [field reference](FIELDS.md), [grammar](fields.ebnf), and
 [JSON schema](schema.json) are normative parts of this contract. The
 [case inventory](CONFORMANCE.md) assigns cases to every rule below.
-[Examples](EXAMPLES.md) supply paired inputs. [Host questions](HOST-HANDOFF.md)
-belong to 8f3. These artifacts do not change `normal-v1` or a live tool.
+[Examples](EXAMPLES.md) supply paired inputs. The [host handoff](HOST-HANDOFF.md)
+links the 8f3 binding rules. These artifacts do not change `normal-v1` or a live tool.
 
 `must`, `must not`, and `reject` state requirements. Each numbered rule governs
 its complete section, including tables. Examples and rationale do not add rules.

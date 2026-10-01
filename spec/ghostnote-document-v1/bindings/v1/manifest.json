@@ -1,0 +1,8 @@
+{
+  "format": "ghostnote-binding-corpus",
+  "version": "1",
+  "fixture": "fixtures.json",
+  "sha256": "ad770a344d726be59c231fa76851cd1ccd854fa7a88dae579d861ddff0bc1b64",
+  "runner": "brain/src/bindings/ghostnote-document.test.ts",
+  "cases": ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "B13", "B14"]
+}
