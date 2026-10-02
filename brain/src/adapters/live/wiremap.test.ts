@@ -70,6 +70,7 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     'api.runtimeMethods',
     ...Object.keys(WIRE_METHODS_BANNED),
     'cache.scale',
+    'cache.shadow',
     'stepdata.observer.enrich',
     'stepdata.observer.prepare',
     'stepdata.observer.read',
@@ -80,7 +81,7 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   );
   assert.equal(normalGolden.count, 85);
   assert.equal(captureGolden.count, 90);
-  assert.equal(probeGolden.count, 96);
+  assert.equal(probeGolden.count, 97);
 });
 
 test('8b: historical host objects are absent from active Rig construction', () => {
@@ -177,7 +178,7 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase5Session5o ?? []), ...(golden.addedInPhase5Session5r ?? []),
       ...(golden.addedInD03 ?? []), ...(golden.addedInPhase6Session6a ?? []),
       ...(golden.addedInPhase7bE130 ?? []), ...(golden.addedInPhase7bE131 ?? []),
-      ...(golden.addedInPhase8e ?? [])];
+      ...(golden.addedInPhase8e ?? []), ...(golden.addedInPhase8g ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),
@@ -202,6 +203,14 @@ test('Phase 7b E131: sparse enrichment stays probe-only', () => {
 test('Phase 8e: cache scale measurement stays probe-only', () => {
   assert.deepEqual(golden.addedInPhase8e, ['cache.scale']);
   assert.ok(golden.addedInPhase8e?.every((method) => !WIRE_METHODS_USED.includes(method)));
+});
+
+test('Phase 8g: shadow cache has no stable wire owner', () => {
+  assert.deepEqual(golden.addedInPhase8g, ['cache.shadow']);
+  assert.ok(!WIRE_METHODS_USED.includes('cache.shadow'));
+  assert.ok(!normalGolden.methods.includes('cache.shadow'));
+  assert.ok(!captureGolden.methods.includes('cache.shadow'));
+  assert.ok(probeGolden.methods.includes('cache.shadow'));
 });
 
 test('Phase 7 session 7e: MasterRecorder is promoted through the typed capture adapter', () => {

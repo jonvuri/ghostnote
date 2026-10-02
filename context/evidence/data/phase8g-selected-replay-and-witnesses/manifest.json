@@ -1,0 +1,64 @@
+{
+  "state": "active",
+  "session": "8g",
+  "wholeSessionComplete": false,
+  "eligibilityProved": false,
+  "denominators": {
+    "stepdataReplayV3": 26,
+    "shadowReuseV2": 18,
+    "shadowReuseV3": 18,
+    "shadowCancellationV3": 2
+  },
+  "pending": [
+    "automatic-instance-witness-live-integration",
+    "remaining-8g-live-corpus",
+    "normal-runtime-and-final-cleanup"
+  ],
+  "files": {
+    "replay": {
+      "file": "stepdata-replay-v3.json.gz",
+      "uncompressedBytes": 6382581,
+      "uncompressedSha256": "d94f54302419eca5a62e756417220edceda9b1d5351636bb869dacbb5bcf4c13"
+    },
+    "shadowV2": {
+      "file": "shadow-reuse-v2.json.gz",
+      "uncompressedBytes": 4240269,
+      "uncompressedSha256": "57056eaa433e25b18b280e47f25f9f83795a0a2666c37a86ba42d218bacde6d2"
+    },
+    "chains": {
+      "file": "chain-witnesses.json.gz",
+      "uncompressedBytes": 1970779,
+      "uncompressedSha256": "f3b13c3edeeff213e20b059e5845b5ac5b6763a7efdba6334a9e8309d8fbdc3e"
+    },
+    "copyProof": {
+      "file": "copy-proof.json.gz",
+      "uncompressedBytes": 500,
+      "uncompressedSha256": "c648de07c4c85fe07032336f395858de4d9f60597e456f3c58a854a7d3bf381a"
+    },
+    "fixtureState": {
+      "file": "fixture-state.json.gz",
+      "uncompressedBytes": 1081,
+      "uncompressedSha256": "2f6f089da9aac1a2028cf1a36f09a63d6c024770137a756cb471cbcdb3965ee3"
+    },
+    "cleanupBeforeIdentity": {
+      "file": "cleanup-before-identity.json.gz",
+      "uncompressedBytes": 1438,
+      "uncompressedSha256": "034924e62c2ffa89c888f5b44afe4946d60a51f0c853f5888d74c303cd4784df"
+    },
+    "shadowV3": {
+      "file": "shadow-reuse-v3.json.gz",
+      "uncompressedBytes": 4865346,
+      "uncompressedSha256": "307cda8797a367e262da121146d8a66b9c3c30f952bc8f993fb6b4f54d785e5e"
+    },
+    "fixtureStateV3": {
+      "file": "fixture-state-v3.json.gz",
+      "uncompressedBytes": 1081,
+      "uncompressedSha256": "24522b0345ede22e3088dc940c7cd87810ea81cf780f7d710c77a1c2aff13755"
+    },
+    "mutationWitness": {
+      "file": "mutation-witness.json.gz",
+      "uncompressedBytes": 334890,
+      "uncompressedSha256": "89f99763ce6b50caee8edb6ac167c7cef16cab7e372af7c795f8dbc5ddf4fc14"
+    }
+  }
+}

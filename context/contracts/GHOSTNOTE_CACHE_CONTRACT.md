@@ -2,7 +2,7 @@
 title: Ghostnote internal cache contract
 kind: reference
 state: active
-updated: 2026-10-01
+updated: 2026-10-02
 parent: ../plan/phase-8/8f3-ghostnote-bindings-and-cache-contracts.md
 evidence: E131, E134, E138-E139; D23
 ---
@@ -17,6 +17,30 @@ and [scale rules](../evidence/format/CACHE_SCALE_AND_DEGRADATION.md).
 It does not implement a cache. The stable E131 reader remains authoritative.
 8g must not use cache state for stable responses, write guards, or writes.
 
+[E214](../evidence/experiments/e214-shadow-cache-content-and-lifecycle-gates.md)
+records the partial 8g implementation. Content comparisons pass.
+[E215](../evidence/experiments/e215-root-identity-and-observer-reuse.md) shows
+physical observer reuse under tested protocols. Selected StepData replay passes
+26 cases. Bounded adapter reuse passes two separate 18-case runs; the corrected
+run also passes two scan cancellation controls with recovery. Existing chain
+UUIDs distinguish loaded copies and reopen, and survive a matched controller
+reload. Automatic loaded-instance detection remains unproved. Earlier cold-start
+and canary-transition replay evidence remains valid. No live snapshot is eligible.
+V5 also passes fixed pool, independent exact fallback, mutation, delivered
+identity fence, and occupied-coordinate limit controls. E214 keeps their counts
+separate. The 2,048-coordinate result measures enriched storage separately from
+the sparse recorder estimate. Missing-event continuity and host input ordering
+remain gates. The corrected followup passes 14 structural fences and recovery
+comparisons, three private inventory interruption controls, and one native
+Group/Ungroup control. Group membership remains unproved. Separate native scene and note controls
+pass. One native project command during acquisition passes retirement with no
+current output. This is a bounded ordering control. At 4,096 notes, enriched
+snapshot payload is 8,431,780 estimated bytes. At 8,192 notes, enrichment time
+refuses before the selected 16 MiB snapshot boundary. That boundary and combined
+selected budgets remain unmeasured. Estimates do not measure heap memory.
+Final API baseline, exact config restoration, and fresh normal hello pass.
+The implementation does not change this target contract.
+
 Each resident clip uses one fixed `1/512`-beat observer. The internal cache
 stores domain values, not serialized FIELDS or JSON. Host handles, proxy
 indices, callback tokens, queues, and recorder estimates stay internal.
@@ -26,6 +50,7 @@ Public reads expose useful scope, field coverage, freshness, and fallback facts.
 
 | Type | Value and invariant |
 |---|---|
+| InitializationDomain | Unique extension-owned nonce for one cache initialization. Include it in references, callback tokens, rebuild tokens, and snapshots. Equal numeric counters from another initialization cannot prove freshness. |
 | ProjectGeneration | Monotonic local generation. Change on foreground project change, switch back, reopen, or extension reload. A project name is not an identity witness. |
 | StructuralEpoch | Monotonic revision of the current address domain. Change before structural repair or rebuild. |
 | LogicalClipRef | Opaque clip ID plus project generation. Mint independently of content equality. Retire on deletion, replacement, or identity loss. |
@@ -35,7 +60,7 @@ Public reads expose useful scope, field coverage, freshness, and fallback facts.
 | Fingerprint | Versioned digest of normalized clip values and declared coverage. Equality is a content witness, never an identity proof. |
 | BindingGeneration | Monotonic token for an observer binding. Change before every rebind, eviction, or callback shedding operation. |
 | RebuildGeneration | Monotonic token for private rebuild staging. Change before every rebuild attempt and on abort. |
-| CallbackToken | Project generation, structural epoch, binding generation, and rebuild generation captured when the binding was created. |
+| CallbackToken | Initialization domain, project generation, structural epoch, binding generation, and rebuild generation captured when the binding was created. |
 | Coordinate | Absolute `1/512` cell plus MIDI pitch, without a channel. A coordinate is one recorder membership, even if several channels have notes there. |
 | NoteAddress | Logical clip, host MIDI channel `0..15`, pitch `0..127`, and cell. Public projection converts channel to `1..16`. |
 | Coverage | Onset span, all-channel membership coverage, acquired field set, and normalized timing basis. A complete span does not imply that every portable property is observable. |
@@ -135,10 +160,45 @@ and unchanged callback counts for ten successive polls at intervals of at least
 50 ms. Quiet time alone does not prove replay. The canary and fresh authority
 checks are also required. 8g must verify this rule for its implementation.
 
+### Preserve cold replay evidence
+
+[E130](../evidence/experiments/e130-constant-time-launcher-clip-read-search.md),
+[E134](../evidence/experiments/e134-project-observer-scale-sweep.md), and E139
+establish initial occupancy replay under their measured protocols. E134
+repeatedly verified initial replay after controller load. This evidence remains
+valid. Do not reopen this result because a local recorder was cleared after
+replay without a new target transition.
+
+Use `addStepDataObserver` for the selected occupancy index. `addNoteStepObserver`
+is a different callback family. E130 found no initial replay and missed
+four enable-field changes with that family. E215's first three reuse runs used
+that family. Their independent full scans establish proxy content matches;
+they do not establish selected step-data replay.
+
+Preserve a recorder on an unchanged, confirmed current binding. If the recorder
+must reset, reset before a populated-canary-to-target transition. The canary
+must differ from the target. If it is already selected, force a different
+selection first. Check sparse membership before a full scan can replace it.
+An empty hint queue and quiet time alone cannot prove that a reset completed.
+A complete scan remains independent comparison or exact fallback evidence.
+Do not require a full scan to seed every startup solely because a recorder
+reset discarded replay.
+
 Reject a callback if any token differs, its binding is retired, or its coordinate
 is outside declared coverage. Count and diagnose rejection. A structural epoch
 change invalidates old bindings, including bindings whose clip did not move.
 Rebind them with current tokens before accepting new callbacks.
+
+Apply this token rule to domain events with known tokens. A physical StepData
+callback supplies no source token. Treat it only as a bounded coordinate hint.
+It cannot supply note values or prove current membership. Read those values
+from the confirmed current target under the guarded read protocol. An old hint
+can cause extra reconciliation or refusal. Do not require universal callback
+source attribution when this rule prevents old payload from entering the cache.
+The subscribed-change delivery rule is an API operating assumption. The open
+question is whether project updates, target values, and observer delivery make
+the guarded current-target window valid. No measured result proves that the
+host silently loses callbacks.
 
 An immutable snapshot remains a historical observation after invalidation.
 Do not mutate it or present it as current. Consumers must recheck its tokens

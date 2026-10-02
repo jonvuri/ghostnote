@@ -112,6 +112,11 @@ public class Rig {
     public final StepDataObserverProbe stepDataObserver;
     /** Configuration-gated Phase 8e scale bank. Null outside the probe profile. */
     public final CacheScaleProbe cacheScaleProbe;
+    /** Experimental shadow cache. Null outside the probe profile. */
+    public final ShadowCacheProbe shadowCacheProbe;
+    public final RootIdentityProbe rootIdentityProbe;
+    public final ObserverReuseProbe observerReuseProbe;
+    public final ShadowSceneControl shadowSceneControl;
 
     /** Arrangement cursor clip (follows arranger clip selection). */
     public final Clip arrangerClip;
@@ -669,6 +674,7 @@ public class Rig {
 
         application = host.createApplication();
         if (profile.hasProbeResources()) {
+            config.experimentalStepDataObservers();
             application.canUndo().markInterested();
             application.canRedo().markInterested();
         }
@@ -898,11 +904,22 @@ public class Rig {
             stepDataObserver = new StepDataObserverProbe(config.noteReadSteps, config.gridKeys);
             stepDataObserver.attach(noteObserverClip);
             cacheScaleProbe = new CacheScaleProbe(host, config);
+            shadowCacheProbe = new ShadowCacheProbe(host, config);
+            shadowCacheProbe.setTotalExperimentalStepDataObservers(config.experimentalStepDataObservers());
+            rootIdentityProbe = config.cacheLifecycleResearch ? new RootIdentityProbe(host, this) : null;
+            if (rootIdentityProbe != null) shadowCacheProbe.attachIdentityProbe(rootIdentityProbe);
+            observerReuseProbe = config.cacheLifecycleResearch ? new ObserverReuseProbe(host, config) : null;
+            shadowSceneControl = config.cacheLifecycleResearch ? new ShadowSceneControl(sceneBank, config.scenes) : null;
+            if (config.cacheLifecycleResearch) trackBank.scrollPosition().markInterested();
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
             markClip(arrangerClip);
         } else {
             stepDataObserver = null;
             cacheScaleProbe = null;
+            shadowCacheProbe = null;
+            rootIdentityProbe = null;
+            observerReuseProbe = null;
+            shadowSceneControl = null;
             arrangerClip = null;
         }
 

@@ -1,0 +1,212 @@
+{
+  "schema": "phase8g-shadow-evidence-v1",
+  "sessionState": "active",
+  "promotion": "hold-lifecycle-unverified",
+  "eligibleResults": 0,
+  "retainedComparisons": 15,
+  "files": {
+    "main-workflow": {
+      "file": "main-workflow.json.gz",
+      "uncompressedSha256": "71a6b2437354fa3b5bf0a9c8e6e10e522431228df2f19d0197581661d8fcafbd",
+      "uncompressedBytes": 1371986
+    },
+    "final-dense": {
+      "file": "final-dense.json.gz",
+      "uncompressedSha256": "88981bbc821341b172284e74e88b962840f452e4567f223c913942b8e5e255d2",
+      "uncompressedBytes": 1064158
+    },
+    "cleanup": {
+      "file": "cleanup.json.gz",
+      "uncompressedSha256": "15d406b5d55c3e7724a655ededa264db110997a3e62747d003ab7c245e86bf71",
+      "uncompressedBytes": 1393
+    }
+  },
+  "epochs": [
+    {
+      "file": "main-workflow",
+      "hello": {
+        "contractVersion": 0,
+        "extensionVersion": "0.0.1",
+        "runtimeProfile": "phase-8-probe-v1",
+        "hostApiVersion": 25,
+        "methodCount": 97,
+        "methodsHash": "f03f19414f40e3d3"
+      },
+      "cases": [
+        {
+          "label": "initialization-all-16-channels",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 16,
+          "pendingCoordinates": 0,
+          "wallMs": 12058.855167,
+          "responseBytes": 276421,
+          "bridgeRequests": 127
+        },
+        {
+          "label": "warm-read",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 16,
+          "pendingCoordinates": 0,
+          "wallMs": 12081.300374999999,
+          "responseBytes": 275219,
+          "bridgeRequests": 127
+        },
+        {
+          "label": "field-only-disabled-property-channel-15",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 16,
+          "pendingCoordinates": 0,
+          "wallMs": 12151.798875,
+          "responseBytes": 277465,
+          "bridgeRequests": 128
+        },
+        {
+          "label": "note-add-and-sustain-invalidation",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 17,
+          "pendingCoordinates": 0,
+          "wallMs": 12293.712917000004,
+          "responseBytes": 281344,
+          "bridgeRequests": 129
+        },
+        {
+          "label": "sparse-note-move",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 17,
+          "pendingCoordinates": 0,
+          "wallMs": 12251.571000000004,
+          "responseBytes": 280374,
+          "bridgeRequests": 129
+        },
+        {
+          "label": "note-remove",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 16,
+          "pendingCoordinates": 0,
+          "wallMs": 12152.938500000004,
+          "responseBytes": 277163,
+          "bridgeRequests": 128
+        },
+        {
+          "label": "existing-empty-clip",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 0,
+          "pendingCoordinates": 0,
+          "wallMs": 12039.169708999994,
+          "responseBytes": 257878,
+          "bridgeRequests": 127
+        },
+        {
+          "label": "final-boundary-cell",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 1,
+          "pendingCoordinates": 0,
+          "wallMs": 12158.270374999993,
+          "responseBytes": 261760,
+          "bridgeRequests": 128
+        },
+        {
+          "label": "256-coordinate-payload",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 256,
+          "pendingCoordinates": 0,
+          "wallMs": 12282.887833,
+          "responseBytes": 545182,
+          "bridgeRequests": 129
+        },
+        {
+          "label": "reacquire-with-unused-handle",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 16,
+          "pendingCoordinates": 0,
+          "wallMs": 12040.660166999995,
+          "responseBytes": 284440,
+          "bridgeRequests": 127
+        },
+        {
+          "label": "real-agent-note-patch-insert",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 2,
+          "pendingCoordinates": 0,
+          "wallMs": 12234.797916,
+          "responseBytes": 275807,
+          "bridgeRequests": 130
+        },
+        {
+          "label": "real-agent-note-patch-cleanup",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 0,
+          "pendingCoordinates": 0,
+          "wallMs": 13250.832999999999,
+          "responseBytes": 277739,
+          "bridgeRequests": 132
+        },
+        {
+          "label": "duplicate-new-identity-rebuild",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 256,
+          "pendingCoordinates": 0,
+          "wallMs": 13672.448957999994,
+          "responseBytes": 563902,
+          "bridgeRequests": 135
+        }
+      ],
+      "eligible": false,
+      "notes": "Counts are retained cases, not cumulative adapter scans."
+    },
+    {
+      "file": "final-dense",
+      "hello": {
+        "contractVersion": 0,
+        "extensionVersion": "0.0.1",
+        "runtimeProfile": "phase-8-probe-v1",
+        "hostApiVersion": 25,
+        "methodCount": 97,
+        "methodsHash": "f03f19414f40e3d3"
+      },
+      "cases": [
+        {
+          "label": "final-build-dense-replay",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 256,
+          "pendingCoordinates": 0,
+          "wallMs": 12612.467292000001,
+          "responseBytes": 592416,
+          "bridgeRequests": 132
+        },
+        {
+          "label": "final-build-dense-warm",
+          "comparison": "match",
+          "eligible": false,
+          "authorityNoteCount": 256,
+          "pendingCoordinates": 0,
+          "wallMs": 12437.935417,
+          "responseBytes": 597126,
+          "bridgeRequests": 131
+        }
+      ],
+      "eligible": false,
+      "notes": "Counts are retained cases, not cumulative adapter scans."
+    }
+  ],
+  "measurementLimits": [
+    "Final-dense pingP95Ms=0 was not measured. Its budgetAdmitted diagnostic does not establish all budget predicates.",
+    "The final probe script now measures ping before admission and rejects nonnumeric measurements.",
+    "Sparse recorder and snapshot bytes are separate estimates, not total JVM or host heap.",
+    "Late-window refusal corrections are model/build checked; deliberate live race trials remain pending."
+  ]
+}

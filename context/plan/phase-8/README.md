@@ -2,8 +2,8 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: active
-status: D25 selects FIELDS and JSON. 8f is complete; start the 8g shadow cache.
-updated: 2026-10-01
+status: D25 selects FIELDS and JSON. 8g is active; 8g1 is complete. Start 8g2.
+updated: 2026-10-02
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
@@ -332,13 +332,21 @@ owns the migration details.
    supply the codec, corpus, and model format reference.
    [8f3 is complete](../../archive/outcomes/PHASE-8F3-BINDINGS-AND-CACHE-CONTRACTS.md)
    with host binding, identity, overlay, migration, and cache contracts.
-   Start 8g. Stable integration stays in 8h.
+   8g is active. Stable integration stays in 8h.
 27. [8g — Shadow project cache](8g-shadow-project-cache.md).
-   Implement the cache behind an experimental boundary while E131 remains
-   authoritative.
+   Active. [E214](../../evidence/experiments/e214-shadow-cache-content-and-lifecycle-gates.md)
+   records fifteen retained content matches and zero eligible cache results.
+   The domain model is implemented. Current bounded replay, reuse, and live
+   controls are recorded in E214 and E215. Remaining acceptance gates stay open.
+   The [intermediate review](../../evidence/format/PHASE8G_INTERMEDIATE_REVIEW.md)
+   found two P2 issues and no P0 or P1 finding. No checkpoint commit is made.
+   [8g1](8g1-review-fixes.md) closes both findings offline. Start
+   [8g2](8g2-project-continuity.md), then snapshot/global budgets, native
+   topology/ordering, and final shadow acceptance in 8g3–8g5.
+   E131 remains authoritative.
 28. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
-   Promote proved cache reads in stages and apply the selected tool and
-   verification reductions.
+   Not entered. Complete the 8g gates before cache promotion or the selected
+   tool and verification reductions.
 29. [8i — Agent-native hybrid dogfood](8i-agent-native-hybrid-dogfood.md).
    Test ordinary work in fresh agent sessions and decide whether the engine,
    format, and surface are ready for Phase 9 publication review.

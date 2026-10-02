@@ -1,0 +1,164 @@
+{
+  "schema": "phase8g-lifecycle-reuse-evidence-v1",
+  "sessionState": "active",
+  "researchOnly": true,
+  "identityDetectionProved": false,
+  "files": {
+    "root-signals": {
+      "file": "root-signals.json.gz",
+      "uncompressedSha256": "860bc43ccc8d9c10444997ff871a03189af750c0140f579b6ee531ddb3332552",
+      "uncompressedBytes": 208251
+    },
+    "observer-reuse": {
+      "file": "observer-reuse.json.gz",
+      "uncompressedSha256": "acb175151256418282155c83f4dd8598ee0cb35c71d20d570766ad489ea3f430",
+      "uncompressedBytes": 16561936
+    },
+    "cleanup": {
+      "file": "cleanup.json.gz",
+      "uncompressedSha256": "fabaaff3c06d4be4d2db0d458c5f3516aa0b4b763ba0303199703a72fe08b548",
+      "uncompressedBytes": 3147
+    }
+  },
+  "rootSignals": {
+    "captureCount": 15,
+    "extensionInitNonce": "47657d1d-668a-45e5-865e-9a28ef05a1d6",
+    "probeInstanceNonce": "cc1febb3-444b-46a4-afbd-acf3b9c79b4f",
+    "controllerReloadOnAObserved": false,
+    "exitTraceRetained": false,
+    "savedProjectFiles": [
+      {
+        "label": "A",
+        "sourcePath": "/tmp/ghostnote-8g-lifecycle-projects/A/identity/identity.bwproject",
+        "bytes": 26616,
+        "sha256": "5922dc15a47c31c3ea1b10bf96206460dfa6c05445f95738acd9accab697bce7"
+      },
+      {
+        "label": "B",
+        "sourcePath": "/tmp/ghostnote-8g-lifecycle-projects/B/identity/identity.bwproject",
+        "bytes": 26616,
+        "sha256": "60e5195e7d516829cf37e0f29e0823e023b37dca0f9c520a74c2c12ac762f1ac"
+      },
+      {
+        "label": "Copy",
+        "sourcePath": "/tmp/ghostnote-8g-lifecycle-projects/Copy/identity/identity.bwproject",
+        "bytes": 26616,
+        "sha256": "5922dc15a47c31c3ea1b10bf96206460dfa6c05445f95738acd9accab697bce7"
+      }
+    ],
+    "epochs": [
+      {
+        "captureCount": 13,
+        "extensionInitNonce": "47657d1d-668a-45e5-865e-9a28ef05a1d6",
+        "probeInstanceNonce": "cc1febb3-444b-46a4-afbd-acf3b9c79b4f"
+      },
+      {
+        "captureCount": 2,
+        "extensionInitNonce": "4d4d78ae-3ec7-400b-8e44-0f80077a8c45",
+        "probeInstanceNonce": "c8aaf1fc-5ea4-4bf0-94eb-3bed236237de",
+        "baselineRootUnchangedAfterControllerReload": true,
+        "finalBaselineAfterFixtureCleanup": true
+      }
+    ]
+  },
+  "measurementLimits": [
+    "The viewed A and Copy signal tuples are equal with B as the engine project. No loaded-instance identity is proved.",
+    "The after-owned-tab-closes capture still reports A. Only the next capture reports the baseline. Close actions were asynchronous.",
+    "The root experiment has no paired controller reload on A and no retained exit trace.",
+    "The initial reuse run lacks the actualSubscribedAtArrival field and an instrumentation revision. Actual callback-arrival subscription behavior is not established.",
+    "Same-target reset can leave sparse observations empty and pending hints zero while independent full scans find sixteen notes.",
+    "Marked before-point and after-point controls use the same instrumentation revision; the before-point control also adds actual-state polls and a 200 ms delay.",
+    "Marked actual-unsubscribed arrivals are Empty notifications. Their source identity and occupied-note replay completeness remain unproved.",
+    "Owned fixture and temporary project packages are removed. Exact rig configuration, normal runtime, inventory, selection, and cursor pins match the entry baseline."
+  ],
+  "observerReuseInitial": {
+    "caseCount": 56,
+    "contentAndFixtureMatches": 45,
+    "bindingOrUnavailableRefusals": 11,
+    "completedComparisonMismatches": 0,
+    "continuouslySubscribedMatches": 25,
+    "continuouslySubscribedCases": 25,
+    "resumeAfterPointMatches": 15,
+    "resumeAfterPointCases": 25,
+    "callbacksWithRequestedUnsubscribedState": 832,
+    "requestedUnsubscribedCallbackStates": {
+      "Empty": 832
+    },
+    "arrivalActualSubscriptionFieldPresent": false,
+    "instrumentationRevisionPresent": false,
+    "runningArchiveIdentityConfirmed": false,
+    "alternateResumeBeforePointControl": "retained-as-separate-marked-run",
+    "fixtureRestoredByDriver": true
+  },
+  "observerReuseRuns": [
+    {
+      "runIndex": 0,
+      "subscriptionMode": "resume-after-point",
+      "instrumentationRevision": null,
+      "caseCount": 56,
+      "contentAndFixtureMatches": 45,
+      "bindingOrUnavailableRefusals": 11,
+      "completedComparisonMismatches": 0,
+      "continuousCycleMatches": 25,
+      "continuousCycleCases": 25,
+      "resumedCycleMatches": 15,
+      "resumedCycleCases": 25,
+      "traceEventCount": 3238,
+      "actualUnsubscribedArrivalEvents": null,
+      "requestedUnsubscribedArrivalEvents": 832,
+      "actualUnsubscribedArrivalStates": null,
+      "fixtureRestoredByDriver": true
+    },
+    {
+      "runIndex": 1,
+      "subscriptionMode": "resume-before-point",
+      "instrumentationRevision": "8g-reuse-actual-subscription-v2",
+      "caseCount": 26,
+      "contentAndFixtureMatches": 25,
+      "bindingOrUnavailableRefusals": 1,
+      "completedComparisonMismatches": 0,
+      "continuousCycleMatches": 10,
+      "continuousCycleCases": 10,
+      "resumedCycleMatches": 10,
+      "resumedCycleCases": 10,
+      "traceEventCount": 1702,
+      "actualUnsubscribedArrivalEvents": 232,
+      "requestedUnsubscribedArrivalEvents": 232,
+      "actualUnsubscribedArrivalStates": {
+        "Empty": 232
+      },
+      "fixtureRestoredByDriver": true
+    },
+    {
+      "runIndex": 2,
+      "subscriptionMode": "resume-after-point",
+      "instrumentationRevision": "8g-reuse-actual-subscription-v2",
+      "caseCount": 16,
+      "contentAndFixtureMatches": 13,
+      "bindingOrUnavailableRefusals": 3,
+      "completedComparisonMismatches": 0,
+      "continuousCycleMatches": 5,
+      "continuousCycleCases": 5,
+      "resumedCycleMatches": 3,
+      "resumedCycleCases": 5,
+      "traceEventCount": 806,
+      "actualUnsubscribedArrivalEvents": 192,
+      "requestedUnsubscribedArrivalEvents": 192,
+      "actualUnsubscribedArrivalStates": {
+        "Empty": 192
+      },
+      "fixtureRestoredByDriver": true
+    }
+  ],
+  "researchExperimentsComplete": true,
+  "cleanupVerified": true,
+  "normalRuntimeRestored": {
+    "contractVersion": 0,
+    "extensionVersion": "0.0.1",
+    "runtimeProfile": "normal-v1",
+    "hostApiVersion": 25,
+    "methodCount": 85,
+    "methodsHash": "bba7383dce25c0f0"
+  },
+  "observerFamilyLimit": "The three retained reuse runs use addNoteStepObserver. Their independent full scans verify proxy content and fixture agreement. They do not establish replay or enable-only invalidation for the selected addStepDataObserver occupancy index."
+}

@@ -11,6 +11,7 @@
  * live method table against it.
  *
  *   npm run probe:hello
+ *   npm run probe:hello -- --shadow-marker 8g-shadow-physical-hints-v5
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -94,6 +95,24 @@ check('the running extension is not older than the deployed file',
   deployment.state !== 'stale', deployment);
 if (deployment.state === 'unknown') {
   note('⚠ UNCHECKED — see above. Absence of the file is not evidence of freshness.');
+}
+
+// A cached class can start after deployment. Check each requested marker.
+const markerChecks = [
+  ['--shadow-marker', 'info', 'instrumentationRevision'],
+  ['--inventory-marker', 'info', 'inventoryControlRevision'],
+  ['--authority-marker', 'info', 'authorityBindingRevision'],
+  ['--scene-marker', 'sceneSnapshot', 'sceneControlRevision'],
+  ['--group-marker', 'trackGroups', 'groupControlRevision'],
+] as const;
+for (const [argument, operation, field] of markerChecks) {
+  const markerArgument = process.argv.indexOf(argument);
+  if (markerArgument === -1) continue;
+  const expectedMarker = process.argv[markerArgument + 1];
+  if (!expectedMarker || expectedMarker.startsWith('--')) throw new Error(`${argument} requires a value`);
+  const result = await client.request('cache.shadow', { operation }) as Record<string, unknown>;
+  check(`the running build has the requested ${field}`, result[field] === expectedMarker,
+    { expected: expectedMarker, actual: result[field] });
 }
 
 client.disconnect();

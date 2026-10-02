@@ -82,6 +82,13 @@ reloaded the controller when requested. The probe then observed the extension
 generation change from `0ed7...` to `e159...` and rebuilt in local project
 generation 5.
 
+The probe received each lifecycle event as a command argument. It then advanced
+its local project generation. These runs prove recovery after a declared event.
+They do not prove automatic project-switch or reopen detection. The switch-away
+arm also checked the changed project name and absence of the old track UUID.
+It did not test two projects with the same name. The controller-reload arm did
+observe a new extension generation.
+
 ## Costs
 
 The measured scene-row repair, track re-resolution, observer rebind, and

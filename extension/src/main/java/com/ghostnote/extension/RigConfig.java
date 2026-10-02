@@ -49,6 +49,24 @@ public class RigConfig {
     public int cacheScaleSteps = 131072;
     /** Phase 8e paired width candidate. Zero disables both width views. */
     public int cacheScaleWidthSteps = 0;
+    /** Experimental shadow observer pool. Zero disables the pool. */
+    public int cacheShadowObservers = 0;
+
+    /** Count all step-data observers allocated by the experimental profile. */
+    public int experimentalStepDataObservers() {
+        if (cacheScaleObservers < 0 || cacheScaleWidthSteps < 0 || cacheShadowObservers < 0)
+            throw new IllegalArgumentException("negative experimental observer configuration");
+        long total = 1L + cacheScaleObservers + (cacheScaleWidthSteps > 0 ? 2 : 0)
+            + cacheShadowObservers + (cacheShadowObservers > 0 ? 1 : 0)
+            + (cacheLifecycleResearch ? 2 : 0);
+        if (total < 0 || total > ShadowProjectCache.MAX_OBSERVERS)
+            throw new IllegalArgumentException("experimental step-data observer budget exceeded");
+        return (int) total;
+    }
+    /** Fixed 1/512 coverage for each shadow observer. */
+    public int cacheShadowSteps = 131072;
+    /** Allocate the experimental lifecycle and observer reuse probes. */
+    public boolean cacheLifecycleResearch = false;
     /**
      * ⚠ E16: what the flat track bank is allowed to SEE.
      *
@@ -101,6 +119,11 @@ public class RigConfig {
                 1, intOr(obj, "cacheScaleSteps", config.cacheScaleSteps));
             config.cacheScaleWidthSteps = Math.max(
                 0, intOr(obj, "cacheScaleWidthSteps", config.cacheScaleWidthSteps));
+            config.cacheShadowObservers = intOr(obj, "cacheShadowObservers", config.cacheShadowObservers);
+            config.cacheShadowSteps = intOr(obj, "cacheShadowSteps", config.cacheShadowSteps);
+            if (obj.has("cacheLifecycleResearch")) {
+                config.cacheLifecycleResearch = obj.get("cacheLifecycleResearch").getAsBoolean();
+            }
             if (obj.has("contentFilter")) {
                 config.contentFilter = obj.get("contentFilter").getAsString();
             }
@@ -138,6 +161,9 @@ public class RigConfig {
         obj.addProperty("cacheScaleObservers", cacheScaleObservers);
         obj.addProperty("cacheScaleSteps", cacheScaleSteps);
         obj.addProperty("cacheScaleWidthSteps", cacheScaleWidthSteps);
+        obj.addProperty("cacheShadowObservers", cacheShadowObservers);
+        obj.addProperty("cacheShadowSteps", cacheShadowSteps);
+        obj.addProperty("cacheLifecycleResearch", cacheLifecycleResearch);
         obj.addProperty("contentFilter", contentFilter);
         obj.addProperty("directObservers", directObservers);
         obj.addProperty("stamp", stamp);

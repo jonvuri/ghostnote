@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-09-30
+updated: 2026-10-02
 ---
 
 # Evidence index
@@ -10,8 +10,14 @@ updated: 2026-09-30
 Experimental evidence is split by E-number so agents can load only the result
 needed by a plan or decision. Content is preserved from the original findings log.
 
+The [8g intermediate review](format/PHASE8G_INTERMEDIATE_REVIEW.md) records
+component acceptance, two P2 findings, the full staged inventory, and five
+follow-up sessions. It does not add live experiment results or close 8g.
+
 | ID | Finding | Detail |
 |---|---|---|
+| E215 | Root identity and observer reuse research [K] (2026-10-01) | [open](experiments/e215-root-identity-and-observer-reuse.md) |
+| E214 | Shadow cache content matches; lifecycle and binding gates remain [K] (2026-10-01) | [open](experiments/e214-shadow-cache-content-and-lifecycle-gates.md) |
 | E213 | Audit adjudications update native and composite scoring [K] (2026-09-30) | [open](experiments/e213-audit-adjudications-update-native-composite-scoring.md) |
 | E212 | Full grammar audit measures native and composite scoring asymmetries [K] (2026-09-30) | [open](experiments/e212-full-grammar-audit-measures-native-composite-asymmetries.md) |
 | E211 | Native versus composite diagnostic closes with two providers [K] (2026-09-30) | [open](experiments/e211-native-composite-diagnostic-closes-with-two-providers.md) |

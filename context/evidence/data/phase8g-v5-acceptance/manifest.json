@@ -1,0 +1,139 @@
+{
+  "schema": "phase8g-v5-acceptance-evidence-v1",
+  "session": "8g",
+  "state": "active",
+  "researchOnly": true,
+  "wholeSessionComplete": false,
+  "eligibilityProved": false,
+  "identityDetectionProved": false,
+  "complete": false,
+  "eligible": false,
+  "instrumentationRevision": "8g-shadow-physical-hints-v5",
+  "pending": [
+    "structure",
+    "cleanup",
+    "implementation-capacity-corpus",
+    "remaining-8g-acceptance"
+  ],
+  "files": {
+    "cache-acceptance": {
+      "role": "cache-acceptance",
+      "file": "cache-acceptance.json.gz",
+      "uncompressedSha256": "eb6ec6b5d08d7a6b259a98fcdbf484681f7ae509529ba928c97bec3c639035c2",
+      "uncompressedBytes": 518909,
+      "compressedSha256": "3186e5d02c13bad25f06546cebea0c3cdc69a5b578339570a4b27aa12ed8cf5d",
+      "compressedBytes": 26889
+    },
+    "mutations": {
+      "role": "mutations",
+      "file": "mutations.json.gz",
+      "uncompressedSha256": "709ca2a1162396902db237fe872332df9b2116391f2f1fcf7163a697ad1311ba",
+      "uncompressedBytes": 5195396,
+      "compressedSha256": "7c4618a6d809c5eacca0b0dfb04ffa5a36ba45cdfac4da5069ba443ad9522471",
+      "compressedBytes": 199725
+    },
+    "identity-fence-v5-distinct-root-return": {
+      "role": "identity-fence",
+      "file": "identity-fence-v5-distinct-root-return.json.gz",
+      "uncompressedSha256": "0f7d6198ba7164bef3a63cac002ce79cb1cf2bd5969d900f69866754260e7349",
+      "uncompressedBytes": 539273,
+      "compressedSha256": "e87866316698f62caec127513f50b21036a64cdbe56664126db83b36c4fe0675",
+      "compressedBytes": 36254
+    },
+    "diagnostic-error-v5-between-polls-return": {
+      "role": "diagnostic-error",
+      "file": "diagnostic-error-v5-between-polls-return.json.gz",
+      "uncompressedSha256": "feac861368cec6587421278f8b6c428ce2f20d7a498659d6711bddfa461ab23a",
+      "uncompressedBytes": 467584,
+      "compressedSha256": "da23dbf229db94b526b7ad5c765510c8a73b9cccd14775edf00f137d3fe30714",
+      "compressedBytes": 32706
+    },
+    "identity-fence-v5-between-polls-return-settled": {
+      "role": "identity-fence",
+      "file": "identity-fence-v5-between-polls-return-settled.json.gz",
+      "uncompressedSha256": "34a019ec314767c7093671ba8e1b1cbbfb037bf64749725d7fab8dd215abe526",
+      "uncompressedBytes": 539747,
+      "compressedSha256": "96c7cf7d4a12d8a514c8881375c5ac87d8d07bdbcbf371d409feeebd8eda6a7b",
+      "compressedBytes": 36495
+    },
+    "diagnostic-structure-setup-error": {
+      "role": "diagnostic-structure-setup-error",
+      "file": "diagnostic-structure-setup-error.json.gz",
+      "uncompressedSha256": "19afe1840cd40a89b175f0cbb1aa16b3f31253bc81fc51e6972724ccd02db9fe",
+      "uncompressedBytes": 179994,
+      "compressedSha256": "5b94553686ed06a75b7d417f87f3dc3db9791baf6c5c37b092871518be3b64c9",
+      "compressedBytes": 13926
+    },
+    "no-chain": {
+      "role": "no-chain",
+      "file": "no-chain.json.gz",
+      "uncompressedSha256": "a1c112d5e212747dd53c23cb95e94c83c0aa2ebad4edb64954c14e0a423e1093",
+      "uncompressedBytes": 408492,
+      "compressedSha256": "5f6c2e721154b6c2ff9ffb038ecb563accec5b65cfea7b3f6279ef11d6d5a3b9",
+      "compressedBytes": 23284
+    },
+    "no-chain-save": {
+      "role": "no-chain-save",
+      "file": "no-chain-save.json.gz",
+      "uncompressedSha256": "598799af36e1a9c1706adcf42ff10fac62cc1e6b6c85813f09fcf435bb41361a",
+      "uncompressedBytes": 309990,
+      "compressedSha256": "7b2703d356db2e6dc1e98b34fe3c8285a159decb8fa166b44d28986602808b8d",
+      "compressedBytes": 19865
+    },
+    "diagnostic-structure-historical-label-error": {
+      "role": "diagnostic-structure-historical-label-error",
+      "file": "diagnostic-structure-historical-label-error.json.gz",
+      "uncompressedSha256": "7bbc075a90acb75214ae6f20d882adfd242773c160f8b96d1877785e91a18af7",
+      "uncompressedBytes": 287251,
+      "compressedSha256": "3e9bd0aab908a4ff4ef5595d6154f34bda28f7fe635a1ec220cce20ba1ad2337",
+      "compressedBytes": 20022
+    },
+    "diagnostic-structure-authority-refusal": {
+      "role": "diagnostic-structure-authority-refusal",
+      "file": "diagnostic-structure-authority-refusal.json.gz",
+      "uncompressedSha256": "97d0e0e1245789dccdd1452d8b844360c8a02001dcbecf8270dfc8b13b2950b3",
+      "uncompressedBytes": 403301,
+      "compressedSha256": "3b04b8d6e88aa888fb50a451115eab7c07aaaf1a5b91a799fb18d22e439a67c9",
+      "compressedBytes": 25414
+    },
+    "capacity": {
+      "role": "capacity",
+      "file": "capacity.json.gz",
+      "uncompressedSha256": "78d1c078906ec7b6d768e7f611d7ccb29be1501eb50cc1d49e47503132bb88a1",
+      "uncompressedBytes": 15540250,
+      "compressedSha256": "a75b8fa88b7f9cdf1ea06ecb3ae7f023bd81a207b8249924ed083343bcc925c4",
+      "compressedBytes": 176015
+    },
+    "diagnostic-group-preflight-error": {
+      "role": "diagnostic-group-preflight-error",
+      "file": "diagnostic-group-preflight-error.json.gz",
+      "uncompressedSha256": "65324fb9e4ab99e1aad0440570b71903e34e06d5338ab13a111fc5b0152e77ab",
+      "uncompressedBytes": 85913,
+      "compressedSha256": "fce740498ac244f54b3d1659b3ac6a34e9f6156f5139702741a2f528dba646b8",
+      "compressedBytes": 7690
+    },
+    "diagnostic-group-preflight-cleanup": {
+      "role": "diagnostic-group-preflight-cleanup",
+      "file": "diagnostic-group-preflight-cleanup.json.gz",
+      "uncompressedSha256": "7ef2adb8f55e33825a3b3196d0abfe1c11c231cb7c9814d9153f62a69281dc8a",
+      "uncompressedBytes": 3174,
+      "compressedSha256": "acab209551bfc1df183f5f195084701a2695c763776169daec553644d8cb4941",
+      "compressedBytes": 620
+    }
+  },
+  "retainedReportCounts": {
+    "cache-acceptance": 1,
+    "mutations": 1,
+    "identity-fence": 2,
+    "structure": 0,
+    "diagnostic-error": 1,
+    "diagnostic-structure-setup-error": 1,
+    "no-chain": 1,
+    "no-chain-save": 1,
+    "diagnostic-structure-historical-label-error": 1,
+    "diagnostic-structure-authority-refusal": 1,
+    "capacity": 1,
+    "diagnostic-group-preflight-error": 1,
+    "diagnostic-group-preflight-cleanup": 1
+  }
+}

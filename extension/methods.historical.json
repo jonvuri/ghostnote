@@ -12,10 +12,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-09-25",
+  "extractedAt": "2026-10-01",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 158,
-  "methodsHash": "57c1fab487eb6a6c",
+  "count": 159,
+  "methodsHash": "d0aa3bdfc5105efa",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -28,6 +28,7 @@
     "branch.setMixer",
     "branch.vu",
     "cache.scale",
+    "cache.shadow",
     "chain.activate",
     "chain.duplicate",
     "chain.inventory",
@@ -136,6 +137,7 @@
     "branch.setMixer",
     "branch.vu",
     "cache.scale",
+    "cache.shadow",
     "chain.activate",
     "chain.duplicate",
     "chain.inventory",
@@ -490,5 +492,8 @@
   ],
   "addedInPhase8e": [
     "cache.scale"
+  ],
+  "addedInPhase8g": [
+    "cache.shadow"
   ]
 }

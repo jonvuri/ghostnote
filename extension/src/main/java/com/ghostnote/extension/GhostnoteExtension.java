@@ -7,6 +7,7 @@ import com.ghostnote.extension.handlers.ApiInventoryHandlers;
 import com.ghostnote.extension.handlers.BatchHandlers;
 import com.ghostnote.extension.handlers.BranchHandlers;
 import com.ghostnote.extension.handlers.CacheScaleHandlers;
+import com.ghostnote.extension.handlers.ShadowCacheHandlers;
 import com.ghostnote.extension.handlers.ContainerHandlers;
 import com.ghostnote.extension.handlers.CoreHandlers;
 import com.ghostnote.extension.handlers.CursorHandlers;
@@ -27,6 +28,7 @@ public class GhostnoteExtension extends ControllerExtension {
 
     private final RuntimeProfile profile;
     private Bridge bridge;
+    private RootIdentityProbe rootIdentityProbe;
     protected GhostnoteExtension(
             final GhostnoteExtensionDefinition definition,
             final ControllerHost host,
@@ -42,6 +44,7 @@ public class GhostnoteExtension extends ControllerExtension {
         final long initStart = System.nanoTime();
         final RigConfig config = RigConfig.load();
         final Rig rig = new Rig(host, config, profile);
+        rootIdentityProbe = rig.rootIdentityProbe;
 
         // The panel contains product status and the hidden observation record.
         // Keep its undocumented Setting downcast away from bridge construction.
@@ -72,6 +75,7 @@ public class GhostnoteExtension extends ControllerExtension {
             new ApiInventoryHandlers(host, rig, state),
             new BranchHandlers(host, rig, state),
             new CacheScaleHandlers(host, rig, state),
+            new ShadowCacheHandlers(host, rig, state),
             new ObservationHandlers(host, rig, state, panel, panelError),
             new StatusHandlers(host, rig, state, panel, panelError),
             new NavigationHandlers(host, rig, state),
@@ -97,6 +101,9 @@ public class GhostnoteExtension extends ControllerExtension {
 
     @Override
     public void exit() {
+        if (rootIdentityProbe != null) {
+            getHost().println("[ghostnote-root-research-exit] " + rootIdentityProbe.onExit());
+        }
         if (bridge != null) {
             bridge.stop();
         }
@@ -104,5 +111,7 @@ public class GhostnoteExtension extends ControllerExtension {
     }
 
     @Override
-    public void flush() {}
+    public void flush() {
+        if (rootIdentityProbe != null) rootIdentityProbe.onFlush();
+    }
 }

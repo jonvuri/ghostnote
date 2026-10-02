@@ -100,6 +100,10 @@ def configureExtensionArchive = { task, extensionClass, profileResource ->
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     task.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    task.inputs.property('extensionDefinition', extensionClass)
+    task.filesMatching('META-INF/services/com.bitwig.extension.ExtensionDefinition') {
+        filter { String line -> extensionClass }
+    }
     task.manifest {
         attributes('Extension-Class': extensionClass)
     }
@@ -129,6 +133,45 @@ tasks.register('probeJar', Jar) {
         'com.ghostnote.extension.GhostnoteProbeExtensionDefinition',
         probeProfileResource)
 }
+
+tasks.register('shadowProbeJar', Jar) {
+    dependsOn classes
+    archiveClassifier = 'shadow-8g-controls'
+    from sourceSets.main.output
+    configureExtensionArchive(
+        delegate,
+        'com.ghostnote.extension.GhostnoteShadowCacheExtensionDefinition',
+        probeProfileResource)
+}
+
+tasks.register('verifyExtensionArchives') {
+    dependsOn jar, captureJar, probeJar, shadowProbeJar
+    doLast {
+        ['jar': 'normal-v1', 'captureJar': 'capture-v1',
+         'probeJar': 'phase-8-probe-v1', 'shadowProbeJar': 'phase-8-probe-v1'].each { taskName, profile ->
+            def archive = tasks.named(taskName).get().archiveFile.get().asFile
+            new java.util.jar.JarFile(archive).withCloseable { contents ->
+                def definition = contents.manifest.mainAttributes.getValue('Extension-Class')
+                def registration = contents.getInputStream(contents.getJarEntry(
+                    'META-INF/services/com.bitwig.extension.ExtensionDefinition')).getText('UTF-8').trim()
+                if (registration != definition) {
+                    throw new GradleException("${taskName}: service registration differs from the manifest")
+                }
+                if (contents.getJarEntry(definition.replace('.', '/') + '.class') == null) {
+                    throw new GradleException("${taskName}: registered definition class is absent")
+                }
+                def bundledProfile = contents.getInputStream(contents.getJarEntry(
+                    'ghostnote-runtime-profile.txt')).getText('UTF-8').trim()
+                if (bundledProfile != profile) {
+                    throw new GradleException("${taskName}: bundled runtime profile differs")
+                }
+            }
+        }
+        println 'Extension archive registrations and runtime profiles agree.'
+    }
+}
+
+tasks.named('check') { dependsOn verifyExtensionArchives }
 
 def bitwigExtensionsDir = "${System.getProperty('user.home')}/Documents/Bitwig Studio/Extensions"
 
@@ -179,3 +222,83 @@ def registerProfileDeploy = { taskName, archiveTaskName ->
 
 registerProfileDeploy('copyCaptureExtension', 'captureJar')
 registerProfileDeploy('copyProbeExtension', 'probeJar')
+
+tasks.register('copyShadowProbeExtension') {
+    dependsOn shadowProbeJar
+    doLast {
+        def archiveTask = tasks.named('shadowProbeJar').get()
+        def target = file("${bitwigExtensionsDir}/ghostnote-shadow-8g-controls.bwextension")
+        def staging = file("${bitwigExtensionsDir}/.ghostnote-shadow-8g-controls.bwextension.staged")
+        staging.bytes = archiveTask.archiveFile.get().asFile.bytes
+        java.nio.file.Files.move(
+            staging.toPath(), target.toPath(),
+            java.nio.file.StandardCopyOption.REPLACE_EXISTING,
+            java.nio.file.StandardCopyOption.ATOMIC_MOVE)
+        println "Deployed distinct 8g controls (atomic rename) to: ${target}"
+    }
+}
+
+// The cache harness runs as a Java program and needs no running Bitwig instance.
+sourceSets {
+    shadowCacheTest {
+        java.srcDir 'src/shadowCacheTest/java'
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    shadowCacheTestImplementation.extendsFrom implementation
+    shadowCacheTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+dependencies {
+    // Adapter tests use host proxies. The API stays outside extension archives.
+    shadowCacheTestRuntimeOnly 'com.bitwig:extension-api:25'
+}
+
+tasks.register('shadowCacheTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ShadowProjectCacheTest'
+}
+
+tasks.register('shadowCacheProbeTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ShadowCacheProbeTest'
+}
+
+tasks.register('shadowInventoryRebuildTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ShadowInventoryRebuildTest'
+}
+
+tasks.register('shadowObserverBudgetTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ShadowObserverBudgetTest'
+}
+
+tasks.register('shadowHandlePoolTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ShadowHandlePoolTest'
+}
+
+tasks.register('shadowAuthorityFallbackTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ShadowAuthorityFallbackTest'
+}
+
+tasks.register('shadowSceneControlTest', JavaExec) {
+    dependsOn shadowCacheTestClasses
+    classpath = sourceSets.shadowCacheTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ShadowSceneControlTest'
+}
+
+tasks.named('check') {
+    dependsOn 'shadowCacheTest', 'shadowCacheProbeTest', 'shadowInventoryRebuildTest', 'shadowObserverBudgetTest', 'shadowHandlePoolTest', 'shadowAuthorityFallbackTest', 'shadowSceneControlTest'
+}

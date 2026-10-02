@@ -1,0 +1,164 @@
+{
+  "schema": "phase8g-followup-evidence-v1",
+  "session": "8g",
+  "state": "active",
+  "instrumentationRevision": "8g-shadow-physical-hints-v5",
+  "researchOnly": true,
+  "complete": false,
+  "eligible": false,
+  "wholeSessionComplete": false,
+  "identityDetectionProved": false,
+  "projectContinuityProved": false,
+  "hostInputFenceProved": false,
+  "pending": [
+    "remaining-8g-acceptance"
+  ],
+  "files": {
+    "reload-before": {
+      "file": "reload-before.json.gz",
+      "uncompressedSha256": "6e1281d855c5e49fb9128d7da339de861d97b9aee04f21c2fed759b0fb81f031",
+      "uncompressedBytes": 146033,
+      "compressedSha256": "7dcea809d8703a6e2ee4ad8097ea9700bca04671c5ab710ec3a584fd3061b82d",
+      "compressedBytes": 10929
+    },
+    "reload-after": {
+      "file": "reload-after.json.gz",
+      "uncompressedSha256": "1f47eb9ce6b39d0ac5647a876a7f3c0d48676bf4c608295993e3fd82448d8576",
+      "uncompressedBytes": 142592,
+      "compressedSha256": "5e22f39b03e6766f2166bfbf5196a1430665a4906de98db4d82bc6cc69e1d0b0",
+      "compressedBytes": 10212
+    },
+    "structure": {
+      "file": "structure.json.gz",
+      "uncompressedSha256": "f98cd7fa92975fe216ab88da52b79e154adf6a077a2bfd413e1eefc853b34342",
+      "uncompressedBytes": 1694385,
+      "compressedSha256": "25b41697b3c6a9b73e69cf17695ec8357f361a57c8127df42a473fdd9065278d",
+      "compressedBytes": 81803
+    },
+    "inventory-controls": {
+      "file": "inventory-controls.json.gz",
+      "uncompressedSha256": "20f37db4c487f04cd2741b982361c5c378c315d6316efc3e5ec03a474fb0434e",
+      "uncompressedBytes": 929960,
+      "compressedSha256": "a52ea4c6ee8b39901b2a7506b6e404a88ba06c539f04e660cca2a7b10494bf62",
+      "compressedBytes": 41210
+    },
+    "native-group-controls": {
+      "file": "native-group-controls.json.gz",
+      "uncompressedSha256": "c9fcbdbd379337cad8dbcc49bdeee758996a98224e62e9143732fe7c522f1d1c",
+      "uncompressedBytes": 441992,
+      "compressedSha256": "4de3a56f15f1e7e976c0c627ce199e632e29ce1dcee0d08b4e08b61e8cef447f",
+      "compressedBytes": 33402
+    },
+    "native-scene-add-move": {
+      "file": "native-scene-add-move.json.gz",
+      "uncompressedSha256": "f3f0d130e222768ebcbc5d3ca19b37080808da0ede67ec43184aba50ecfe2fc0",
+      "uncompressedBytes": 541626,
+      "compressedSha256": "9de45cbdcdd9848420c2f9fc01fedcdfc16a2da8336a5fa24423d561f0af27b7",
+      "compressedBytes": 38915
+    },
+    "native-scene-controls": {
+      "file": "native-scene-controls.json.gz",
+      "uncompressedSha256": "0721b8c22f02f061b85c8bbbfdbefe0f0033b7c7199a28b293b49711d3c17a3d",
+      "uncompressedBytes": 541887,
+      "compressedSha256": "64a5b8a1f7cdeacdc93d72f4cd9b81fa1c2fffccf96ed9c29dc245a9957f846c",
+      "compressedBytes": 38987
+    },
+    "native-note-preparation-diagnostic": {
+      "file": "native-note-preparation-diagnostic.json.gz",
+      "uncompressedSha256": "d1633e9b2821cb4fa5f42ba6ae5f0958fecef087e61060bbda763a063b446527",
+      "uncompressedBytes": 322490,
+      "compressedSha256": "7d384d8aa7efc456999784ad9147309ab21cdb5c31ec37448d07f62bcea11b52",
+      "compressedBytes": 25199
+    },
+    "native-note-controls": {
+      "file": "native-note-controls.json.gz",
+      "uncompressedSha256": "7e5b1e85bee214901ea19824eb792880cd9c52225efa2c045732b278c360b109",
+      "uncompressedBytes": 610157,
+      "compressedSha256": "61fd8f34a8026554b737f813cc700be53384a770ffe17866d538789a8ece3c90",
+      "compressedBytes": 39704
+    },
+    "snapshot-memory": {
+      "file": "snapshot-memory.json.gz",
+      "uncompressedSha256": "dfd2e9667350daca6bae8fa0971094e2bc751dd10d7343ca9c12eed19b9549a0",
+      "uncompressedBytes": 128530122,
+      "compressedSha256": "2eca1d881f5c7c7777e59c0f39c1732a034b5351010043597533e509be139128",
+      "compressedBytes": 1099598
+    },
+    "ordering-timing-diagnostic": {
+      "file": "ordering-timing-diagnostic.json.gz",
+      "uncompressedSha256": "e9e6840367a9346d56b57c730f9766e6971b6677590ca0dcd29279656e94f73e",
+      "uncompressedBytes": 60007001,
+      "compressedSha256": "9e6fa068687a22449534635c9f0c6bbe84151ede629b3f6a3ef60b7f386666c0",
+      "compressedBytes": 3319353
+    },
+    "ordering-controls": {
+      "file": "ordering-controls.json.gz",
+      "uncompressedSha256": "1f1bb6171888dc3eddf7c42e0c23216485bba05059a9201df0d5916e12c91683",
+      "uncompressedBytes": 60950045,
+      "compressedSha256": "801dbe6ddaf139caad04785845d6879e5b5409455ee3919f18712c57f8ce28a5",
+      "compressedBytes": 3411088
+    },
+    "cleanup-verified": {
+      "file": "cleanup-verified.json.gz",
+      "uncompressedSha256": "e9cc2adf16c5dd0f4b026c4fcd3c1dcbad368594a4c43588e80d5c8b7b39deab",
+      "uncompressedBytes": 2501,
+      "compressedSha256": "22b8fcabebdfafaf213c155e9ed18275d83454830045949d99e8a738134534d3",
+      "compressedBytes": 676
+    },
+    "cleanup": {
+      "file": "cleanup.json.gz",
+      "uncompressedSha256": "7d4c401a8caa8a77daa1e68a845f91165c7f389309ba0b5ebb41a1309357b243",
+      "uncompressedBytes": 2709,
+      "compressedSha256": "98244f468d1e0f3c81ff9fb87d5b16cef3a2bfc395a7cb65cf711cc45d6bdefa",
+      "compressedBytes": 671
+    },
+    "final-baseline": {
+      "file": "final-baseline.json.gz",
+      "uncompressedSha256": "5b5b5868c8c76b17b84a63e3c6a6af01e5959ec99d1a9756a8851fcde8ea24eb",
+      "uncompressedBytes": 9518,
+      "compressedSha256": "1379163706f1817a9304170f35d2a6ec49ed26e1365037a5af74e3710ec3a669",
+      "compressedBytes": 1596
+    },
+    "config-original": {
+      "file": "config-original.json.gz",
+      "uncompressedSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+      "uncompressedBytes": 41,
+      "compressedSha256": "d09ef8701958671c588f4be86218b0d7f3c9df688067fd5e234956b76b6976e0",
+      "compressedBytes": 61
+    },
+    "config-research": {
+      "file": "config-research.json.gz",
+      "uncompressedSha256": "68679302183241b573058a2670fe9a9f9af81da1fa32a5b2b3b42a11de5aa0b3",
+      "uncompressedBytes": 173,
+      "compressedSha256": "fa2b1c4ce2c4cdf6470a2970eaaf4b36d7a32a59f0efb0b4dfd97451eabb9cbd",
+      "compressedBytes": 148
+    },
+    "config-restored": {
+      "file": "config-restored.json.gz",
+      "uncompressedSha256": "256bbf07094cd654c372d0e5e050e494ef7783c9a0001a0a2a688331bcf643b0",
+      "uncompressedBytes": 41,
+      "compressedSha256": "d09ef8701958671c588f4be86218b0d7f3c9df688067fd5e234956b76b6976e0",
+      "compressedBytes": 61
+    }
+  },
+  "retainedReportCounts": {
+    "reload-before": 1,
+    "reload-after": 1,
+    "structure": 1,
+    "inventory-controls": 1,
+    "native-group-controls": 1,
+    "native-scene-controls": 1,
+    "native-note-controls": 1,
+    "snapshot-memory": 1,
+    "cleanup": 1,
+    "cleanup-verified": 1,
+    "final-baseline": 1,
+    "config-original": 1,
+    "config-research": 1,
+    "config-restored": 1,
+    "native-scene-add-move": 1,
+    "ordering-controls": 1,
+    "native-note-preparation-diagnostic": 1,
+    "ordering-timing-diagnostic": 1
+  }
+}
