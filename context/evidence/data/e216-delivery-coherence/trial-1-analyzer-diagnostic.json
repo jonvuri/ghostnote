@@ -1,0 +1,1004 @@
+{
+ "marker": "e216-delivery-coherence-v1",
+ "researchOnly": true,
+ "complete": false,
+ "eligible": false,
+ "hostFenceProved": false,
+ "started": "2026-10-02T14:00:47.506Z",
+ "identities": {
+  "P": {
+   "name": "New 6",
+   "root": "dae5438e-3500-4024-aaca-84db7799b3f5",
+   "cursor": "d4f66b38-7a6a-4d4f-b775-868ccdddcf31"
+  },
+  "Q": {
+   "name": "New 7",
+   "root": "d440bbb6-98b9-4f07-968d-84c8a75a5dd7",
+   "cursor": "66b934a7-e4c3-4a06-aab9-6a88a7b70a92"
+  }
+ },
+ "actions": {
+  "next": "Select Next Project",
+  "prev": "Select Previous Project"
+ },
+ "dwellsMs": [
+  -1,
+  0,
+  1,
+  2,
+  5,
+  10,
+  20,
+  50,
+  100,
+  250,
+  500
+ ],
+ "reps": 5,
+ "settleMs": 1500,
+ "initialSignature": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|.",
+ "controls": [
+  {
+   "leg": "P->Q",
+   "n": 0,
+   "final": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|.",
+   "finalSide": "Q",
+   "projectNameEvents": 1,
+   "firstDeliveryUs": 25218,
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 77,
+    "nowUs": 99026018,
+    "tickerActive": false,
+    "tickCount": 297,
+    "tickCallbacks": 71,
+    "inTickChanges": 0,
+    "stepCallbacks": 8,
+    "eventsRetained": 11,
+    "ticksRetained": 2,
+    "commandsRetained": 1,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 5,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|.",
+    "events": [
+     {
+      "seq": 66,
+      "us": 97510774,
+      "tick": 234,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 67,
+      "us": 97510780,
+      "tick": 234,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 68,
+      "us": 97510781,
+      "tick": 234,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 69,
+      "us": 97510782,
+      "tick": 234,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 70,
+      "us": 97510798,
+      "tick": 234,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 7"
+     },
+     {
+      "seq": 71,
+      "us": 97510827,
+      "tick": 234,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "d440bbb6-98b9-4f07-968d-84c8a75a5dd7"
+     },
+     {
+      "seq": 72,
+      "us": 97510828,
+      "tick": 234,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "66b934a7-e4c3-4a06-aab9-6a88a7b70a92"
+     },
+     {
+      "seq": 73,
+      "us": 97510829,
+      "tick": 234,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 74,
+      "us": 97510830,
+      "tick": 234,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 75,
+      "us": 97510831,
+      "tick": 234,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 76,
+      "us": 97510832,
+      "tick": 234,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 64,
+      "us": 97317917,
+      "tick": 227,
+      "kind": "tick",
+      "start": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|."
+     },
+     {
+      "seq": 77,
+      "us": 97510851,
+      "tick": 235,
+      "kind": "tick",
+      "start": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|."
+     }
+    ],
+    "commands": [
+     {
+      "seq": 65,
+      "us": 97485580,
+      "tick": 234,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project"
+      },
+      "returnedUs": 97485604
+     }
+    ]
+   }
+  },
+  {
+   "leg": "Q->P",
+   "n": 0,
+   "final": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|.",
+   "finalSide": "P",
+   "projectNameEvents": 1,
+   "firstDeliveryUs": 22786,
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 91,
+    "nowUs": 100801224,
+    "tickerActive": false,
+    "tickCount": 368,
+    "tickCallbacks": 71,
+    "inTickChanges": 0,
+    "stepCallbacks": 8,
+    "eventsRetained": 11,
+    "ticksRetained": 2,
+    "commandsRetained": 1,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 6,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|.",
+    "events": [
+     {
+      "seq": 80,
+      "us": 99292458,
+      "tick": 306,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 81,
+      "us": 99292465,
+      "tick": 306,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 82,
+      "us": 99292467,
+      "tick": 306,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 83,
+      "us": 99292469,
+      "tick": 306,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 84,
+      "us": 99292478,
+      "tick": 306,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 6"
+     },
+     {
+      "seq": 85,
+      "us": 99292509,
+      "tick": 306,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "dae5438e-3500-4024-aaca-84db7799b3f5"
+     },
+     {
+      "seq": 86,
+      "us": 99292511,
+      "tick": 306,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "d4f66b38-7a6a-4d4f-b775-868ccdddcf31"
+     },
+     {
+      "seq": 87,
+      "us": 99292513,
+      "tick": 306,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 88,
+      "us": 99292515,
+      "tick": 306,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 89,
+      "us": 99292517,
+      "tick": 306,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 90,
+      "us": 99292518,
+      "tick": 306,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 78,
+      "us": 99097767,
+      "tick": 298,
+      "kind": "tick",
+      "start": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|."
+     },
+     {
+      "seq": 91,
+      "us": 99317024,
+      "tick": 307,
+      "kind": "tick",
+      "start": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|."
+     }
+    ],
+    "commands": [
+     {
+      "seq": 79,
+      "us": 99269692,
+      "tick": 305,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project"
+      },
+      "returnedUs": 99269717
+     }
+    ]
+   }
+  },
+  {
+   "leg": "P->Q",
+   "n": 1,
+   "final": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|.",
+   "finalSide": "Q",
+   "projectNameEvents": 1,
+   "firstDeliveryUs": 23194,
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 105,
+    "nowUs": 102571210,
+    "tickerActive": false,
+    "tickCount": 439,
+    "tickCallbacks": 71,
+    "inTickChanges": 0,
+    "stepCallbacks": 8,
+    "eventsRetained": 11,
+    "ticksRetained": 2,
+    "commandsRetained": 1,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 7,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|.",
+    "events": [
+     {
+      "seq": 94,
+      "us": 101065127,
+      "tick": 376,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 95,
+      "us": 101065137,
+      "tick": 376,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 96,
+      "us": 101065140,
+      "tick": 376,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 97,
+      "us": 101065142,
+      "tick": 376,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 98,
+      "us": 101065169,
+      "tick": 376,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 7"
+     },
+     {
+      "seq": 99,
+      "us": 101065712,
+      "tick": 376,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "d440bbb6-98b9-4f07-968d-84c8a75a5dd7"
+     },
+     {
+      "seq": 100,
+      "us": 101065718,
+      "tick": 376,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "66b934a7-e4c3-4a06-aab9-6a88a7b70a92"
+     },
+     {
+      "seq": 101,
+      "us": 101065726,
+      "tick": 376,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 102,
+      "us": 101065729,
+      "tick": 376,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 103,
+      "us": 101065731,
+      "tick": 376,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 104,
+      "us": 101065732,
+      "tick": 376,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 92,
+      "us": 100874325,
+      "tick": 369,
+      "kind": "tick",
+      "start": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|."
+     },
+     {
+      "seq": 105,
+      "us": 101065776,
+      "tick": 377,
+      "kind": "tick",
+      "start": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|."
+     }
+    ],
+    "commands": [
+     {
+      "seq": 93,
+      "us": 101041975,
+      "tick": 376,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project"
+      },
+      "returnedUs": 101042005
+     }
+    ]
+   }
+  },
+  {
+   "leg": "Q->P",
+   "n": 1,
+   "final": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|.",
+   "finalSide": "P",
+   "projectNameEvents": 1,
+   "firstDeliveryUs": 24489,
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 119,
+    "nowUs": 104343468,
+    "tickerActive": false,
+    "tickCount": 510,
+    "tickCallbacks": 71,
+    "inTickChanges": 0,
+    "stepCallbacks": 8,
+    "eventsRetained": 11,
+    "ticksRetained": 2,
+    "commandsRetained": 1,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 8,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|.",
+    "events": [
+     {
+      "seq": 108,
+      "us": 102835959,
+      "tick": 448,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 109,
+      "us": 102835970,
+      "tick": 448,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 110,
+      "us": 102835972,
+      "tick": 448,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 111,
+      "us": 102835973,
+      "tick": 448,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 112,
+      "us": 102835981,
+      "tick": 448,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 6"
+     },
+     {
+      "seq": 113,
+      "us": 102836010,
+      "tick": 448,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "dae5438e-3500-4024-aaca-84db7799b3f5"
+     },
+     {
+      "seq": 114,
+      "us": 102836011,
+      "tick": 448,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "d4f66b38-7a6a-4d4f-b775-868ccdddcf31"
+     },
+     {
+      "seq": 115,
+      "us": 102836013,
+      "tick": 448,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 116,
+      "us": 102836015,
+      "tick": 448,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 117,
+      "us": 102836016,
+      "tick": 448,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 118,
+      "us": 102836025,
+      "tick": 448,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 106,
+      "us": 102645817,
+      "tick": 440,
+      "kind": "tick",
+      "start": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|."
+     },
+     {
+      "seq": 119,
+      "us": 102860005,
+      "tick": 449,
+      "kind": "tick",
+      "start": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|."
+     }
+    ],
+    "commands": [
+     {
+      "seq": 107,
+      "us": 102811492,
+      "tick": 447,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project"
+      },
+      "returnedUs": 102811519
+     }
+    ]
+   }
+  },
+  {
+   "leg": "P->Q",
+   "n": 2,
+   "final": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|.",
+   "finalSide": "Q",
+   "projectNameEvents": 1,
+   "firstDeliveryUs": 25105,
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 133,
+    "nowUs": 106127472,
+    "tickerActive": false,
+    "tickCount": 581,
+    "tickCallbacks": 71,
+    "inTickChanges": 0,
+    "stepCallbacks": 8,
+    "eventsRetained": 11,
+    "ticksRetained": 2,
+    "commandsRetained": 1,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 9,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|.",
+    "events": [
+     {
+      "seq": 122,
+      "us": 104609800,
+      "tick": 518,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 123,
+      "us": 104609839,
+      "tick": 518,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 124,
+      "us": 104609842,
+      "tick": 518,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 125,
+      "us": 104609845,
+      "tick": 518,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 0
+     },
+     {
+      "seq": 126,
+      "us": 104609862,
+      "tick": 518,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 7"
+     },
+     {
+      "seq": 127,
+      "us": 104609926,
+      "tick": 518,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "d440bbb6-98b9-4f07-968d-84c8a75a5dd7"
+     },
+     {
+      "seq": 128,
+      "us": 104609929,
+      "tick": 518,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "66b934a7-e4c3-4a06-aab9-6a88a7b70a92"
+     },
+     {
+      "seq": 129,
+      "us": 104609934,
+      "tick": 518,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 130,
+      "us": 104609936,
+      "tick": 518,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 131,
+      "us": 104609938,
+      "tick": 518,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 2
+     },
+     {
+      "seq": 132,
+      "us": 104609939,
+      "tick": 518,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 2
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 120,
+      "us": 104416220,
+      "tick": 511,
+      "kind": "tick",
+      "start": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|."
+     },
+     {
+      "seq": 133,
+      "us": 104610113,
+      "tick": 519,
+      "kind": "tick",
+      "start": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|."
+     }
+    ],
+    "commands": [
+     {
+      "seq": 121,
+      "us": 104584757,
+      "tick": 518,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Next Project"
+      },
+      "returnedUs": 104584806
+     }
+    ]
+   }
+  },
+  {
+   "leg": "Q->P",
+   "n": 2,
+   "final": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|.",
+   "finalSide": "P",
+   "projectNameEvents": 1,
+   "firstDeliveryUs": 25216,
+   "trace": {
+    "marker": "e216-delivery-coherence-v1",
+    "researchOnly": true,
+    "complete": false,
+    "eligible": false,
+    "sequence": 147,
+    "nowUs": 107895169,
+    "tickerActive": false,
+    "tickCount": 652,
+    "tickCallbacks": 71,
+    "inTickChanges": 0,
+    "stepCallbacks": 8,
+    "eventsRetained": 11,
+    "ticksRetained": 2,
+    "commandsRetained": 1,
+    "eventsDropped": 0,
+    "ticksDropped": 0,
+    "commandsDropped": 0,
+    "runGeneration": 10,
+    "runRemaining": 0,
+    "runError": "",
+    "signature": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|.",
+    "events": [
+     {
+      "seq": 136,
+      "us": 106392901,
+      "tick": 590,
+      "kind": "stepData",
+      "x": 8,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 137,
+      "us": 106392960,
+      "tick": 590,
+      "kind": "stepData",
+      "x": 9,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 138,
+      "us": 106392965,
+      "tick": 590,
+      "kind": "stepData",
+      "x": 10,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 139,
+      "us": 106392966,
+      "tick": 590,
+      "kind": "stepData",
+      "x": 11,
+      "y": 12,
+      "state": 0
+     },
+     {
+      "seq": 140,
+      "us": 106393005,
+      "tick": 590,
+      "kind": "value",
+      "name": "projectName",
+      "value": "New 6"
+     },
+     {
+      "seq": 141,
+      "us": 106393122,
+      "tick": 590,
+      "kind": "value",
+      "name": "rootChannelId",
+      "value": "dae5438e-3500-4024-aaca-84db7799b3f5"
+     },
+     {
+      "seq": 142,
+      "us": 106393125,
+      "tick": 590,
+      "kind": "value",
+      "name": "cursorChannelId",
+      "value": "d4f66b38-7a6a-4d4f-b775-868ccdddcf31"
+     },
+     {
+      "seq": 143,
+      "us": 106393130,
+      "tick": 590,
+      "kind": "stepData",
+      "x": 0,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 144,
+      "us": 106393132,
+      "tick": 590,
+      "kind": "stepData",
+      "x": 1,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 145,
+      "us": 106393134,
+      "tick": 590,
+      "kind": "stepData",
+      "x": 2,
+      "y": 0,
+      "state": 2
+     },
+     {
+      "seq": 146,
+      "us": 106393135,
+      "tick": 590,
+      "kind": "stepData",
+      "x": 3,
+      "y": 0,
+      "state": 2
+     }
+    ],
+    "ticks": [
+     {
+      "seq": 134,
+      "us": 106199483,
+      "tick": 582,
+      "kind": "tick",
+      "start": "New 7|d440bbb6-98b9-4f07-968d-84c8a75a5dd7|66b934a7-e4c3-4a06-aab9-6a88a7b70a92|C|....|NNNN|-|."
+     },
+     {
+      "seq": 147,
+      "us": 106416403,
+      "tick": 591,
+      "kind": "tick",
+      "start": "New 6|dae5438e-3500-4024-aaca-84db7799b3f5|d4f66b38-7a6a-4d4f-b775-868ccdddcf31|C|NNNN|....|-|."
+     }
+    ],
+    "commands": [
+     {
+      "seq": 135,
+      "us": 106367789,
+      "tick": 589,
+      "kind": "command",
+      "op": "invoked",
+      "step": {
+       "op": "invoke",
+       "id": "Select Previous Project"
+      },
+      "returnedUs": 106367884
+     }
+    ]
+   }
+  }
+ ],
+ "detours": [],
+ "spins": [],
+ "toggles": [],
+ "limitations": [
+  "commands come from the same controller process as the observers; the command log is separate but not external",
+  "a P endpoint after two invocations does not prove that Q became current when no Q value is delivered",
+  "signatures read the delivered controller-side state, not the host model"
+ ]
+}

@@ -116,6 +116,7 @@ public class Rig {
     public final ShadowCacheProbe shadowCacheProbe;
     public final RootIdentityProbe rootIdentityProbe;
     public final ObserverReuseProbe observerReuseProbe;
+    public final DeliveryCoherenceProbe deliveryProbe;
     public final ShadowSceneControl shadowSceneControl;
 
     /** Arrangement cursor clip (follows arranger clip selection). */
@@ -909,6 +910,7 @@ public class Rig {
             rootIdentityProbe = config.cacheLifecycleResearch ? new RootIdentityProbe(host, this) : null;
             if (rootIdentityProbe != null) shadowCacheProbe.attachIdentityProbe(rootIdentityProbe);
             observerReuseProbe = config.cacheLifecycleResearch ? new ObserverReuseProbe(host, config) : null;
+            deliveryProbe = config.deliveryResearch ? new DeliveryCoherenceProbe(host, application, project) : null;
             shadowSceneControl = config.cacheLifecycleResearch ? new ShadowSceneControl(sceneBank, config.scenes) : null;
             if (config.cacheLifecycleResearch) trackBank.scrollPosition().markInterested();
             arrangerClip = host.createArrangerCursorClip(config.gridSteps, config.gridKeys);
@@ -919,6 +921,7 @@ public class Rig {
             shadowCacheProbe = null;
             rootIdentityProbe = null;
             observerReuseProbe = null;
+            deliveryProbe = null;
             shadowSceneControl = null;
             arrangerClip = null;
         }

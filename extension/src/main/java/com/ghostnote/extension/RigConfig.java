@@ -58,7 +58,7 @@ public class RigConfig {
             throw new IllegalArgumentException("negative experimental observer configuration");
         long total = 1L + cacheScaleObservers + (cacheScaleWidthSteps > 0 ? 2 : 0)
             + cacheShadowObservers + (cacheShadowObservers > 0 ? 1 : 0)
-            + (cacheLifecycleResearch ? 2 : 0);
+            + (cacheLifecycleResearch ? 2 : 0) + (deliveryResearch ? 1 : 0);
         if (total < 0 || total > ShadowProjectCache.MAX_OBSERVERS)
             throw new IllegalArgumentException("experimental step-data observer budget exceeded");
         return (int) total;
@@ -67,6 +67,8 @@ public class RigConfig {
     public int cacheShadowSteps = 131072;
     /** Allocate the experimental lifecycle and observer reuse probes. */
     public boolean cacheLifecycleResearch = false;
+    /** Allocate the E216 delivery and coherence recorder in a probe profile. */
+    public boolean deliveryResearch = false;
     /**
      * ⚠ E16: what the flat track bank is allowed to SEE.
      *
@@ -123,6 +125,9 @@ public class RigConfig {
             config.cacheShadowSteps = intOr(obj, "cacheShadowSteps", config.cacheShadowSteps);
             if (obj.has("cacheLifecycleResearch")) {
                 config.cacheLifecycleResearch = obj.get("cacheLifecycleResearch").getAsBoolean();
+            }
+            if (obj.has("deliveryResearch")) {
+                config.deliveryResearch = obj.get("deliveryResearch").getAsBoolean();
             }
             if (obj.has("contentFilter")) {
                 config.contentFilter = obj.get("contentFilter").getAsString();

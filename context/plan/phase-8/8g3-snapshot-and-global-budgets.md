@@ -2,10 +2,10 @@
 title: Phase 8g3 — Snapshot acquisition and global budgets
 kind: plan
 state: active
-status: Pending guard decision. Offline preparation can follow 8g1.
+status: Ready offline. Live acquisitions wait for the 8g2b step-delta window.
 updated: 2026-10-02
 parent: 8g-shadow-project-cache.md
-prev: 8g2-project-continuity.md
+prev: 8g2b-step-delta-read-window.md
 next: 8g4-native-topology-and-ordering.md
 ---
 
@@ -17,7 +17,11 @@ Complete 8g1. Use the [8g2](8g2-project-continuity.md) guard decision before liv
 acquisition tests. Read the [review ledger](../../evidence/format/PHASE8G_INTERMEDIATE_REVIEW.md),
 E139 selected limits, cache contract, and E214 memory diagnostic. The existing
 4,096-note match is accepted. The 8,192-note time refusal does not test 16 MiB.
-Keep the selected budgets and live eligibility gate unchanged. Do not enter 8h.
+[8g2's protocol](../../evidence/format/PHASE8G_PROJECT_CONTINUITY.md) refuses
+all intended live shadow acquisitions. Start offline. Do not bypass the refusal
+to reach a live budget boundary. Keep each live boundary unverified until the
+[8g2b](8g2b-step-delta-read-window.md) step-delta window passes. Keep the selected budgets and live eligibility
+gate unchanged. Do not enter 8h.
 
 ## Owned files and interfaces
 

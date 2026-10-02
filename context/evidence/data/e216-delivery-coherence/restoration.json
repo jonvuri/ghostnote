@@ -1,0 +1,104 @@
+{
+ "baselineSource": "phase8g-followup-acceptance/final-baseline.json.gz",
+ "checks": {
+  "hello": true,
+  "tracks": true,
+  "scenes": true,
+  "scan": true,
+  "selection": true,
+  "cursors": true
+ },
+ "live": {
+  "captured": "2026-10-02T14:14:27.112Z",
+  "hello": {
+   "contractVersion": 0,
+   "extensionVersion": "0.0.1",
+   "runtimeProfile": "normal-v1",
+   "hostApiVersion": 25,
+   "methodCount": 85,
+   "methodsHash": "bba7383dce25c0f0"
+  },
+  "tracks": {
+   "tracks": [
+    {
+     "index": 0,
+     "name": "Inst 1",
+     "position": 0,
+     "type": "Instrument",
+     "channelId": "1ca0534b-35e0-472b-897d-e3c73de82408"
+    },
+    {
+     "index": 1,
+     "name": "Audio 2",
+     "position": 1,
+     "type": "Audio",
+     "channelId": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc"
+    },
+    {
+     "index": 2,
+     "name": "FX 1",
+     "position": 2,
+     "type": "Effect",
+     "channelId": "4843da50-35dd-4fd0-a508-659370945654"
+    },
+    {
+     "index": 3,
+     "name": "Master",
+     "position": 3,
+     "type": "Master",
+     "channelId": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4"
+    }
+   ],
+   "count": 4,
+   "itemCount": 4,
+   "bankSize": 256
+  },
+  "scenes": {
+   "sceneCount": 8
+  },
+  "scan": {
+   "scanMicros": 341,
+   "existing": 4,
+   "withChannelId": 4,
+   "slotsWithContent": 0,
+   "sceneCount": 8,
+   "itemCount": 4,
+   "bankSize": 256
+  },
+  "selection": {
+   "trackIndex": -1,
+   "slotIndex": -1,
+   "mixerTrackIndex": 0,
+   "changes": 0,
+   "revision": 1
+  },
+  "cursors": {
+   "0": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": 0,
+    "cursorTrackPinned": false
+   },
+   "fine": {
+    "exists": false,
+    "loopLength": 0,
+    "trackExists": false,
+    "trackName": "",
+    "trackPosition": -1,
+    "slotExists": false,
+    "sceneIndex": 0,
+    "slotName": "",
+    "isPinned": false,
+    "cursorTrackPosition": 0,
+    "cursorTrackPinned": false
+   }
+  }
+ }
+}

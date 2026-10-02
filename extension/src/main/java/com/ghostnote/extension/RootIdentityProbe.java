@@ -38,6 +38,7 @@ public final class RootIdentityProbe {
     private static final int WITNESS_LAYERS = 4;
     private static final String WITNESS_PREFIX = "chainWitness.";
     private final String extensionInitNonce;
+    private final Supplier<String> independentWindow;
     private final String probeInstanceNonce = UUID.randomUUID().toString();
     private final long probeInitAtMs = System.currentTimeMillis();
     private final long probeInitAtNanos = System.nanoTime();
@@ -59,8 +60,15 @@ public final class RootIdentityProbe {
 
     /** This guard describes delivered observations. It does not prove a host input fence. */
     public record IdentityGuard(long epoch, String extensionInitNonce, boolean coherent,
-        boolean witnessAvailable, String reason, String sourceFingerprint, List<String> chainIds) {
+        boolean witnessAvailable, String reason, String sourceFingerprint, List<String> chainIds,
+        String continuityWindow) {
         public IdentityGuard { chainIds = List.copyOf(chainIds); }
+        public boolean acquisitionAllowed() {
+            return coherent && witnessAvailable && continuityWindow != null && !continuityWindow.isEmpty();
+        }
+        public String refusalReason() {
+            return !coherent ? reason : !witnessAvailable ? "identity-witness-unavailable" : "project-continuity-unproved";
+        }
     }
 
     /** The caller allocates this probe only during experimental controller initialization. */
@@ -69,7 +77,14 @@ public final class RootIdentityProbe {
     }
 
     RootIdentityProbe(ControllerHost host, String initNonce, Project project, Application application) {
+        this(host, initNonce, project, application, () -> null);
+    }
+
+    /** Model seam. The provider must fence native input and target updates through publication. */
+    RootIdentityProbe(ControllerHost host, String initNonce, Project project, Application application,
+                      Supplier<String> independentWindow) {
         extensionInitNonce = initNonce;
+        this.independentWindow = Objects.requireNonNull(independentWindow);
         booleanSignal("projectExists", project::exists);
         stringSignal("projectName", application::projectName);
         booleanSignal("hasActiveEngine", application::hasActiveEngine);
@@ -162,6 +177,7 @@ public final class RootIdentityProbe {
     /** Read all relevant values and compare them with their delivered observer values. */
     public IdentityGuard identityGuard() {
         long before = identityEpoch;
+        String windowBefore = readInputWindow();
         Map<String, Object> values = new LinkedHashMap<>();
         String failure = identityEpochExhausted ? "identity-epoch-exhausted" : "";
         if (failure.isEmpty()) {
@@ -194,7 +210,9 @@ public final class RootIdentityProbe {
             if (!failure.isEmpty() || !lastGuardFailure.isEmpty()) identityChanged("guard:" + (failure.isEmpty() ? "recovered" : failure));
             lastGuardFailure = failure;
         }
-        boolean coherent = failure.isEmpty() && before == identityEpoch && !identityEpochExhausted;
+        String windowAfter = readInputWindow();
+        boolean coherent = failure.isEmpty() && before == identityEpoch && !identityEpochExhausted
+            && Objects.equals(windowBefore, windowAfter);
         String reason = !failure.isEmpty() ? failure : !coherent ? "identity-read-window-changed"
             : !rootAvailable ? "identity-root-unavailable" : ids.isEmpty() ? "no-existing-chain-witness" : "candidate-unverified-input-order";
         StringBuilder canonical = new StringBuilder();
@@ -204,7 +222,7 @@ public final class RootIdentityProbe {
             canonical.append(value.getKey().length()).append(':').append(value.getKey()).append(text.length()).append(':').append(text);
         }
         return new IdentityGuard(identityEpoch, extensionInitNonce, coherent, coherent && rootAvailable && !ids.isEmpty(),
-            reason, digest(canonical.toString()), ids);
+            reason, digest(canonical.toString()), ids, windowAfter);
     }
 
     /** Child values are required only when their parent and bank position exist. */
@@ -258,8 +276,19 @@ public final class RootIdentityProbe {
     }
 
     public boolean identityGuardCurrent(IdentityGuard guard) {
-        if (guard == null || !guard.coherent() || guard.epoch() != identityEpoch) return false;
+        if (!identityEpochCurrent(guard)) return false;
         return guard.equals(identityGuard());
+    }
+
+    public boolean identityEpochCurrent(IdentityGuard guard) {
+        return guard != null && guard.acquisitionAllowed() && !identityEpochExhausted
+            && extensionInitNonce.equals(guard.extensionInitNonce()) && guard.epoch() == identityEpoch
+            && Objects.equals(guard.continuityWindow(), readInputWindow());
+    }
+
+    private String readInputWindow() {
+        try { return independentWindow.get(); }
+        catch (RuntimeException | LinkageError error) { return null; }
     }
 
     private static boolean nonempty(Object value) { return value instanceof String text && !text.isEmpty(); }
@@ -522,11 +551,12 @@ public final class RootIdentityProbe {
     private JsonObject state() {
         JsonObject result = new JsonObject();
         result.addProperty("purpose", "root-identity-research");
-        result.addProperty("instrumentationRevision", "8g-root-existing-chain-v1");
+        result.addProperty("instrumentationRevision", "8g2-root-continuity-refusal-v1");
         result.addProperty("identityDetectionProved", false);
         result.addProperty("automaticIdentityEpoch", identityEpoch);
         result.addProperty("automaticIdentityChangeReason", identityChangeReason);
         result.addProperty("hostInputFenceProved", false);
+        result.addProperty("continuityProtocol", "refuse-without-independent-input-window");
         result.addProperty("extensionInitNonce", extensionInitNonce);
         result.addProperty("probeInstanceNonce", probeInstanceNonce);
         result.addProperty("probeInitAtMs", probeInitAtMs);

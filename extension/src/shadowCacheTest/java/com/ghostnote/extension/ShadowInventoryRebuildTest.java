@@ -46,6 +46,7 @@ public final class ShadowInventoryRebuildTest {
         Status finish() { Status result = coordinator.start(); while (!result.terminal()) result = coordinator.step(); return result; }
     }
     public static void main(String[] args) {
+        run("retained registry checks the external window", ShadowInventoryRebuildTest::retainedWindow);
         run("private batches and atomic nonresident publication", ShadowInventoryRebuildTest::atomic);
         run("unknown identity stays diagnostic", ShadowInventoryRebuildTest::unknown);
         run("partial banks and changed dimensions refuse publication", ShadowInventoryRebuildTest::partial);
@@ -111,6 +112,20 @@ public final class ShadowInventoryRebuildTest {
             catch (IllegalArgumentException expected) { }
         }
         check(range.provider.reads == 0 && range.coordinator.status().enumeratedCells() == 0, "invalid controls leave the prepared attempt private");
+    }
+
+    private static void retainedWindow() {
+        Fixture f = new Fixture(); check(f.finish().registryPublished(), "stable model window publishes");
+        f.guard = new Guard("chain-a", "topology-a", 2, true, true);
+        Status result = f.coordinator.status();
+        check(!result.registryPublished() && result.reason().equals("inventory-external-window-changed")
+            && f.cache.diagnostics().health() == Health.INVALID, "equal root endpoints cannot retain a changed event window");
+        int reads = f.provider.reads;
+        check(!f.coordinator.step().registryPublished() && f.provider.reads == reads, "terminal registry poll cannot reacquire");
+        check(f.finish().registryPublished(), "recovery requires an explicit new attempt");
+        f.guards = () -> { throw new AssertionError("cancellation must not read the host"); };
+        check(f.coordinator.cancel("callback-cancel").terminal() && !f.coordinator.status().registryPublished(),
+            "callback cancellation retires retained inventory without source reads");
     }
 
     private static void atomic() {

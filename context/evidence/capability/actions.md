@@ -228,3 +228,11 @@ neither has been withdrawn:
 |---|---|
 | 2026-08-15 | Page created. It supersedes the *reading* of E6's foreground and panel-focus blockers, of E16j's "the foreground gate does not exist", and of E17's session-latch model. All three E-files stay frozen; E22's primary-focus rule is the current mechanism. |
 | 2026-08-15 | Recorded that chain create no longer needs this seam at all. §6. |
+
+## Project-tab actions (E216)
+
+API 25 lists `Select Next Project` and `Select Previous Project`. They change
+the shown project and do not activate the engine. The list also has
+`select_project1`–`select_project20` and engine-activating variants. In
+[E216](../experiments/e216-delivery-coalescing-and-callback-coherence.md),
+controller invocations applied in order, also inside one callback.

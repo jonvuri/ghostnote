@@ -37,6 +37,19 @@ public final class ShadowCacheHandlers extends HandlerGroup {
                 default -> throw new IllegalArgumentException("unknown root research operation");
             };
         }
+        if (operation.startsWith("delivery")) {
+            var delivery = rig.deliveryProbe;
+            if (delivery == null) throw new IllegalStateException("delivery research resources are not allocated");
+            return switch (operation) {
+                case "deliveryStatus" -> delivery.status();
+                case "deliveryStart" -> delivery.start();
+                case "deliveryStop" -> delivery.stop();
+                case "deliveryClear" -> delivery.clear();
+                case "deliveryTrace" -> delivery.trace();
+                case "deliveryRun" -> delivery.run(params.getAsJsonArray("script"));
+                default -> throw new IllegalArgumentException("unknown delivery research operation");
+            };
+        }
         if (operation.startsWith("reuse")) {
             var reuse = rig.observerReuseProbe;
             if (reuse == null) throw new IllegalStateException("reuse research resources are not allocated");

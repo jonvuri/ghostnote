@@ -30,6 +30,7 @@ public final class ShadowCacheProbe {
         "recurrenceLength", "recurrenceMask", "isRepeatEnabled", "repeatCount",
         "repeatCurve", "repeatVelocityCurve", "repeatVelocityEnd");
     private static final Set<String> UNKNOWN = Set.of("portableRepeat", "articulation");
+    private final boolean hostModel;
     private final ShadowProjectCache cache = new ShadowProjectCache();
     private final View[] views;
     private final View authority;
@@ -80,15 +81,14 @@ public final class ShadowCacheProbe {
             if (address.equals(new Address(canary.channelId().get(), canaryRow))) return poolRefusal("canary-must-differ-from-target");
         }
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-        if (identityProbe != null && !guard.coherent()) return poolRefusal(guard.reason());
+        if (!acquisitionAllowed(guard)) return poolRefusal(guardRefusal(guard));
         if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return poolRefusal("combined-observer-budget");
-        if (identityProbe != null && !guard.witnessAvailable()) return poolRefusal("identity-witness-unavailable");
         int existing = handlePool.find(address);
         if (existing >= 0) {
             View current = views[existing];
             if (!valid(current) || cache.clipHealth(current.ref) == Health.INVALID || cache.clipHealth(current.ref) == Health.OVERFLOW
                 || cache.clipHealth(current.ref) == Health.AMBIGUOUS || !("settled".equals(current.phase) || "complete".equals(current.phase))
-                || (identityProbe != null && (!guard.witnessAvailable() || !guardCurrent(current.identityGuard))))
+                || (identityProbe != null && !guardCurrent(current.identityGuard)))
                 handlePool.invalidate(existing);
         }
         ShadowHandlePool.Decision choice = handlePool.acquire(address);
@@ -130,6 +130,7 @@ public final class ShadowCacheProbe {
 
     private JsonObject poolRefusal(String reason) {
         JsonObject result = info(); result.addProperty("reason", reason); result.addProperty("poolDecision", "refused");
+        result.addProperty("terminal", true);
         return result;
     }
 
@@ -157,6 +158,8 @@ public final class ShadowCacheProbe {
             String id = target.channelId().get();
             if (id != null && !id.isEmpty()) address = new Address(id, row);
         }
+        RootIdentityProbe.IdentityGuard identity = freshIdentityGuard();
+        if (!acquisitionAllowed(identity)) return exactRefusal(guardRefusal(identity), address, request);
         if (exactFallback == null) return exactRefusal("authority-unavailable", address, request);
         if (scan != null || exactFallback.active()) return exactRefusal("authority-busy", address, request);
         exactFallback.cancel("superseded-authority-request");
@@ -291,7 +294,7 @@ public final class ShadowCacheProbe {
             public long callbacks() { return authority.callbacks; }
             public Object guard() {
                 RootIdentityProbe.IdentityGuard witness = freshIdentityGuard();
-                if (identityProbe != null && !witness.coherent()) return null;
+                if (!acquisitionAllowed(witness)) return null;
                 return new AuthorityGuard(witness, cache.identityDomain());
             }
             public long windowVersion() {
@@ -332,7 +335,7 @@ public final class ShadowCacheProbe {
     private void poisonIdentity(String reason) {
         automaticIdentityReason = reason;
         activeIdentityGuard = null;
-        fallbackReason = "automatic-identity-invalidated";
+        fallbackReason = reason;
         if (identityPoisoned) return;
         identityPoisoned = true;
         automaticIdentityInvalidations++;
@@ -367,11 +370,16 @@ public final class ShadowCacheProbe {
     }
 
     private RootIdentityProbe.IdentityGuard freshIdentityGuard() {
-        if (identityProbe == null) return null;
+        if (identityProbe == null) {
+            if (!hostModel) poisonIdentity("identity-probe-unavailable");
+            return null;
+        }
         long started = System.nanoTime();
         try {
             RootIdentityProbe.IdentityGuard guard = identityProbe.identityGuard();
-            if (!guard.coherent()) { poisonIdentity(guard.reason()); return guard; }
+            if (!guard.acquisitionAllowed()) { poisonIdentity(guardRefusal(guard)); return guard; }
+            if (activeIdentityGuard != null && !activeIdentityGuard.equals(guard))
+                poisonIdentity("identity-guard-window-changed");
             activeIdentityGuard = guard;
             identityPoisoned = false;
             automaticIdentityReason = guard.reason();
@@ -379,8 +387,16 @@ public final class ShadowCacheProbe {
         } finally { identityGuardHostWorkMs += elapsed(started); }
     }
 
+    private boolean acquisitionAllowed(RootIdentityProbe.IdentityGuard guard) {
+        return identityProbe == null ? hostModel : guard != null && guard.acquisitionAllowed();
+    }
+
+    private String guardRefusal(RootIdentityProbe.IdentityGuard guard) {
+        return guard == null ? "identity-probe-unavailable" : guard.refusalReason();
+    }
+
     private boolean guardCurrent(RootIdentityProbe.IdentityGuard guard) {
-        if (identityProbe == null) return true;
+        if (identityProbe == null) return hostModel;
         long started = System.nanoTime();
         try {
             if (guard != null && identityProbe.identityGuardCurrent(guard)) return true;
@@ -390,8 +406,7 @@ public final class ShadowCacheProbe {
     }
 
     private boolean identityEpochCurrent(RootIdentityProbe.IdentityGuard guard) {
-        return identityProbe == null || (guard != null && guard.coherent() && !identityPoisoned
-            && guard.epoch() == identityProbe.identityEpoch());
+        return identityProbe == null ? hostModel : !identityPoisoned && identityProbe.identityEpochCurrent(guard);
     }
 
     private void requireIdentityEpoch(RootIdentityProbe.IdentityGuard guard) {
@@ -399,7 +414,11 @@ public final class ShadowCacheProbe {
     }
 
 
-    public ShadowCacheProbe(ControllerHost host, RigConfig config) {
+    public ShadowCacheProbe(ControllerHost host, RigConfig config) { this(host, config, false); }
+
+    /** Model tests can supply a fixed host domain without a live identity probe. */
+    ShadowCacheProbe(ControllerHost host, RigConfig config, boolean hostModel) {
+        this.hostModel = hostModel;
         if (config.cacheShadowObservers < 0 || config.cacheShadowObservers >= MAX_OBSERVERS
             || config.cacheShadowSteps < 1 || config.cacheShadowSteps > MAX_WIDTH)
             throw new IllegalArgumentException("shadow cache configuration exceeds selected limits");
@@ -422,7 +441,7 @@ public final class ShadowCacheProbe {
     public void observeRig(Rig rig) {
         currentRig = rig;
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-        if (identityProbe != null && !guard.coherent()) return;
+        if (!acquisitionAllowed(guard)) return;
         applyPhysicalOverload();
         StringBuilder ids = new StringBuilder();
         ids.append(rig.trackBank.itemCount().get()).append(':');
@@ -448,7 +467,7 @@ public final class ShadowCacheProbe {
     public JsonObject inventory(Rig rig) {
         observeRig(rig);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-        if (identityProbe != null && !guard.coherent()) return info();
+        if (!acquisitionAllowed(guard)) return info();
         if (inventoryEnumerated) return info();
         if (inventoryRebuild == null || !"enumerating".equals(inventoryRebuild.status().phase())) {
             invalidate("private-inventory-start");
@@ -471,7 +490,7 @@ public final class ShadowCacheProbe {
 
     private boolean prepareInventoryRebuild(Rig rig) {
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-        if (identityProbe != null && !guard.coherent()) return false;
+        if (!acquisitionAllowed(guard)) return false;
         invalidate("explicit-inventory-rebuild");
         inventoryEnumerated = false;
         inventoryEntries = 0;
@@ -518,8 +537,8 @@ public final class ShadowCacheProbe {
             }
         }, () -> {
             RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-            if (identityProbe != null && !guard.coherent()) return null;
-            String source = guard == null ? null : guard.sourceFingerprint() + ":" + guard.chainIds();
+            if (!acquisitionAllowed(guard)) return null;
+            String source = guard == null ? null : guard.extensionInitNonce() + ":" + guard.continuityWindow() + ":" + guard.sourceFingerprint() + ":" + guard.chainIds();
             return new ShadowInventoryRebuild.Guard(source,
                 topology + ":" + rig.launcherContentEpoch + ":" + rig.sceneCountChanges,
                 guard == null ? 0 : guard.epoch(), false, true);
@@ -598,6 +617,9 @@ public final class ShadowCacheProbe {
         result.addProperty("automaticIdentityReason", automaticIdentityReason);
         result.addProperty("identityWitnessAvailable", activeIdentityGuard != null && activeIdentityGuard.witnessAvailable());
         result.addProperty("identityContinuityProved", false);
+        result.addProperty("continuityProtocol", "refuse-without-independent-input-window");
+        result.addProperty("liveAcquisitionSupported", false);
+        result.addProperty("hostModel", hostModel);
         result.addProperty("hostInputFenceProved", false);
         result.addProperty("identityGuardHostWorkMs", identityGuardHostWorkMs);
         result.addProperty("authoritySettlementObservers", authority == null ? 0 : 1);
@@ -614,12 +636,12 @@ public final class ShadowCacheProbe {
         result.addProperty("readMode", "refuse");
         result.addProperty("authorityAvailable", false);
         result.addProperty("fallbackPerformed", false);
-        result.addProperty("reason", "lifecycle-unverified");
+        result.addProperty("reason", identityPoisoned ? automaticIdentityReason : "lifecycle-unverified");
         result.addProperty("lifecycleSignalsSupported", false);
         result.addProperty("projectScopeComplete", false);
         result.addProperty("lifecycleFallback", "project-lifecycle-fence-unproved");
         result.addProperty("optionalLifecycleWitnessSupported", identityProbe != null);
-        result.addProperty("instrumentationRevision", "8g-shadow-physical-hints-v5");
+        result.addProperty("instrumentationRevision", "8g2-shadow-continuity-refusal-v1");
         result.addProperty("observerKind", "addStepDataObserver");
         result.addProperty("rebindPolicy", "preserve-current-or-forced-canary-transition");
         result.addProperty("callbackSourceIdentityKnown", false);
@@ -660,12 +682,12 @@ public final class ShadowCacheProbe {
         View view = view(index);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
         if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return fallback(view, "combined-observer-budget");
-        if (identityProbe != null && !guard.coherent()) return fallback(view, guard.reason());
+        if (!acquisitionAllowed(guard)) return fallback(view, guardRefusal(guard));
         applyPhysicalOverload();
         if (physicalOverload) return fallback(view, "physical-hint-backpressure-rebuild-required");
         if (valid(view) && ("settled".equals(view.phase) || "complete".equals(view.phase))
             && view.expected.equals(new Address(target.channelId().get(), row)) && !view.physicalHintOverflow) {
-            if (identityProbe != null && (!guard.witnessAvailable() || !guardCurrent(view.identityGuard)))
+            if (identityProbe != null && !guardCurrent(view.identityGuard))
                 return fallback(view, "identity-unverified-requires-forced-canary");
             view.recorderPreserved = true;
             view.sameTargetPreserves++;
@@ -680,7 +702,7 @@ public final class ShadowCacheProbe {
         View view = view(index);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
         if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return fallback(view, "combined-observer-budget");
-        if (identityProbe != null && !guard.coherent()) return fallback(view, guard.reason());
+        if (!acquisitionAllowed(guard)) return fallback(view, guardRefusal(guard));
         applyPhysicalOverload();
         if (physicalOverload) return fallback(view, "physical-hint-backpressure-rebuild-required");
         requireAddress(target, row);
@@ -700,12 +722,7 @@ public final class ShadowCacheProbe {
 
     private JsonObject startPoint(View view, Track target, int row, Track canary, int canaryRow) {
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
-        if (identityProbe != null && !guard.coherent()) return fallback(view, guard.reason());
-        if (identityProbe != null && !guard.witnessAvailable() && view.used) {
-            poisonIdentity("no-chain-identity-reuse-refused");
-            guard = freshIdentityGuard();
-            if (!guard.coherent()) return fallback(view, guard.reason());
-        }
+        if (!acquisitionAllowed(guard)) return fallback(view, guardRefusal(guard));
         if (row < 0 || row >= scenes) throw new IllegalArgumentException("row outside configured Launcher bank");
         String id = target.channelId().get();
         if (!target.exists().get() || id == null || id.isEmpty()) return fallback(view, "track-identity-unavailable");
@@ -779,7 +796,7 @@ public final class ShadowCacheProbe {
         View view = view(index);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
         if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return fallback(view, "combined-observer-budget");
-        if (identityProbe != null && !guard.coherent()) return fallback(view, guard.reason());
+        if (!acquisitionAllowed(guard)) return fallback(view, guardRefusal(guard));
         applyPhysicalOverload();
         if (physicalOverload) return fallback(view, "physical-hint-backpressure-rebuild-required");
         if (!"unbound".equals(view.phase) && !"settled".equals(view.phase)
@@ -838,7 +855,7 @@ public final class ShadowCacheProbe {
         View view = view(index);
         RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
         if (totalExperimentalStepDataObservers > MAX_OBSERVERS) return fallback(view, "combined-observer-budget");
-        if (identityProbe != null && !guard.coherent()) return fallback(view, guard.reason());
+        if (!acquisitionAllowed(guard)) return fallback(view, guardRefusal(guard));
         applyPhysicalOverload();
         if (physicalOverload) return fallback(view, "physical-hint-backpressure-rebuild-required");
         if (!valid(view) || !("settled".equals(view.phase) || "complete".equals(view.phase)))
@@ -867,6 +884,8 @@ public final class ShadowCacheProbe {
 
     public JsonObject compareStart(int index) {
         View view = view(index);
+        RootIdentityProbe.IdentityGuard identity = freshIdentityGuard();
+        if (!acquisitionAllowed(identity)) return fallback(view, guardRefusal(identity));
         if (scan != null || (exactFallback != null && exactFallback.active())) return fallback(view, "authority-scan-busy");
         if (exactFallback != null) exactFallback.cancel("authority-reused-for-comparison");
         authorityWindowVersion = Math.incrementExact(authorityWindowVersion);
@@ -1003,6 +1022,7 @@ public final class ShadowCacheProbe {
 
     public JsonObject status(int index) {
         View view = view(index);
+        if (view.lastResult != null) guardCurrent(view.identityGuard);
         JsonObject result = info();
         result.addProperty("index", index);
         result.addProperty("phase", view.phase);
@@ -1028,7 +1048,14 @@ public final class ShadowCacheProbe {
         }
         result.add("tokens", JSON.toJsonTree(view.token));
         if (view.expected != null) result.add("address", JSON.toJsonTree(view.expected));
-        if (view.lastResult != null) result.add("historicalSnapshot", JSON.toJsonTree(view.lastResult.snapshot()));
+        if (view.lastResult != null) {
+            result.add("historicalSnapshot", JSON.toJsonTree(view.lastResult.snapshot()));
+            if (!guardCurrent(view.identityGuard)) {
+                result.remove("historicalSnapshot");
+                result.addProperty("phase", "retired");
+                result.addProperty("health", "invalid");
+            }
+        }
         return result;
     }
 
@@ -1064,7 +1091,11 @@ public final class ShadowCacheProbe {
     }
 
     public JsonObject lifecycle(String kind) {
-        if ("save".equals(kind)) { cache.save(); return info(); }
+        if ("save".equals(kind)) {
+            RootIdentityProbe.IdentityGuard guard = freshIdentityGuard();
+            if (acquisitionAllowed(guard) && guardCurrent(guard)) cache.save();
+            return info();
+        }
         invalidate("explicit-project-lifecycle:" + kind);
         cache.projectChanged();
         inventoryEnumerated = false;

@@ -474,3 +474,12 @@ Require active fixture engines before insertion. Test cancellation between
 bridge calls as well as inside a scan. Require canary, target-address, and
 coverage evidence in artifact verification. No repository instruction change
 is needed.
+
+## 8g2 continuity decision
+
+[8g2's protocol](../format/PHASE8G_PROJECT_CONTINUITY.md) uses conservative
+refusal. The current live build has no independent input window. It refuses
+shadow residence, reuse, comparison, exact acquisition, and inventory.
+Equal roots and chain endpoints cannot preserve a reference. No unseen A–B–A
+live result is added. The retained measurements above keep their scope.
+The live continuity gate remains open. 8g3 starts offline. No live state changed.

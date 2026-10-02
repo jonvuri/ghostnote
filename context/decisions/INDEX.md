@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-01
+updated: 2026-10-02
 ---
 
 # Decision index
@@ -37,6 +37,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D23 | Normalized clip acquisition uses one `1/512` view **[SETTLED 2026-09-24]** | [open](d23-normalized-clip-acquisition-uses-one-1-512-view.md) |
 | D24 | Forward compact benchmark candidates **[SUPERSEDED FOR FORWARD SELECTION BY D25]** | [open](d24-forward-compact-benchmarks-retain-fields-and-local-labels.md) |
 | D25 | FIELDS and JSON document format, rational timing, overlays, and publication **[SETTLED 2026-10-01]** | [open](d25-fields-json-document-format-and-publication.md) |
+| D26 | Complete step-data delivery is a named assumption **[SETTLED 2026-10-02]** | [open](d26-step-data-delivery-is-a-named-assumption.md) |
 
 ## Phase 4 closeout audit
 

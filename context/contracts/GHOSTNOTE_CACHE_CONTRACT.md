@@ -41,6 +41,14 @@ selected budgets remain unmeasured. Estimates do not measure heap memory.
 Final API baseline, exact config restoration, and fresh normal hello pass.
 The implementation does not change this target contract.
 
+[8g2](../evidence/format/PHASE8G_PROJECT_CONTINUITY.md) selects conservative
+refusal. The current live adapter has no independent project-target input
+window. It refuses residence, warm reuse, forced canary acquisition, comparison,
+exact shadow acquisition, and inventory publication. Coherent observations do
+not prove continuity. The stable E131 reader keeps its authority. Earlier
+reports retain their historical scope. The target contract below remains in
+force. Live continuity and 8g3 acquisition gates remain open.
+
 Each resident clip uses one fixed `1/512`-beat observer. The internal cache
 stores domain values, not serialized FIELDS or JSON. Host handles, proxy
 indices, callback tokens, queues, and recorder estimates stay internal.
@@ -195,10 +203,13 @@ It cannot supply note values or prove current membership. Read those values
 from the confirmed current target under the guarded read protocol. An old hint
 can cause extra reconciliation or refusal. Do not require universal callback
 source attribution when this rule prevents old payload from entering the cache.
-The subscribed-change delivery rule is an API operating assumption. The open
-question is whether project updates, target values, and observer delivery make
-the guarded current-target window valid. No measured result proves that the
-host silently loses callbacks.
+The subscribed-change delivery rule is an API operating assumption.
+[D26](../decisions/d26-step-data-delivery-is-a-named-assumption.md) names
+complete step-data delivery for covered cells as an assumption. Identity
+values are not a continuity witness because they coalesce. A read window must
+be confirmed in a later callback, under the ordering rule that
+[8g2b](../plan/phase-8/8g2b-step-delta-read-window.md) measures. No measured
+result proves that the host silently loses callbacks.
 
 An immutable snapshot remains a historical observation after invalidation.
 Do not mutate it or present it as current. Consumers must recheck its tokens

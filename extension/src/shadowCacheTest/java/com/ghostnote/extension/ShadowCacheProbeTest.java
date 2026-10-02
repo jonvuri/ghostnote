@@ -34,6 +34,17 @@ public final class ShadowCacheProbeTest {
     private static final Coordinate CELL = new Coordinate(0, 60);
 
     public static void main(String[] args) throws Exception {
+        run("public adapter refuses an absent input window", ShadowCacheProbeTest::continuityUnavailable);
+        run("unseen equal-endpoint detour refuses by construction", ShadowCacheProbeTest::continuityUnseen);
+        run("independent model revision fences an unseen detour", ShadowCacheProbeTest::continuityRevision);
+        run("independent revision changes during guard construction", ShadowCacheProbeTest::continuityConstruction);
+        run("silent model changes during target settlement", ShadowCacheProbeTest::continuitySettlement);
+        run("silent model changes during reconciliation", ShadowCacheProbeTest::continuityReconciliation);
+        run("silent model changes during enrichment", ShadowCacheProbeTest::continuityEnrichment);
+        run("final metadata cannot publish across a detour", ShadowCacheProbeTest::continuityMetadata);
+        run("retained snapshots cannot cross a detour", ShadowCacheProbeTest::continuityRetained);
+        run("unavailable model window cannot admit acquisition", ShadowCacheProbeTest::continuityProviderFailure);
+        run("changed initialization rejects equal guard counters", ShadowCacheProbeTest::continuityReload);
         run("selected callback family", ShadowCacheProbeTest::family);
         run("same-target read preserves the recorder", ShadowCacheProbeTest::sameTarget);
         run("late physical hints read the current target", ShadowCacheProbeTest::lateHint);
@@ -152,6 +163,134 @@ public final class ShadowCacheProbeTest {
         check(terminal.getAsJsonObject("inventoryRebuild").get("reason").getAsString().equals("partial-cancel-control"), "cancellation keeps its reason");
     }
 
+    private static void continuityUnavailable() throws Exception {
+        Fixture f = new Fixture();
+        ShadowCacheProbe live = new ShadowCacheProbe(f.host.host(), f.config);
+        for (JsonObject result : List.of(live.point(0, f.a, 0), live.point(0, f.a, 0, f.b, 0),
+            live.acquire(f.a, 0), live.exactStart(f.a, 0), live.compareStart(0))) {
+            check(result.get("reason").getAsString().equals("identity-probe-unavailable"), "missing probe refuses every read route");
+            noOutput(result);
+        }
+        noOutput(live.inventory(null)); noOutput(live.beginInventoryRebuild(null)); noOutput(live.pollInventoryRebuild(null));
+        check(!live.info().get("registryPublished").getAsBoolean(), "missing continuity cannot publish inventory");
+        check(f.host.bindingCommands == 0, "refusal cannot move a physical target");
+    }
+
+    private static void continuityUnseen() throws Exception {
+        Fixture f = new Fixture(); f.readyA();
+        String old = f.ref("A", 0); CallbackToken token = f.cache().bindingToken(old);
+        IdentityHost h = new IdentityHost(); RootIdentityProbe root = h.probe(false);
+        var before = root.identityGuard(); long callbacks = root.trace().get("callbackCount").getAsLong();
+        // Model native commands change the root without observer delivery.
+        List<String> nativeCommands = new ArrayList<>();
+        nativeCommands.add("B:engine-on:1"); h.value("root.channelId").current = "root-B";
+        nativeCommands.add("A:engine-on:2"); h.value("root.channelId").current = "root-id";
+        check(nativeCommands.size() == 2 && before.equals(root.identityGuard()), "independent model log has a detour with equal endpoints");
+        check(root.trace().get("callbackCount").getAsLong() == callbacks && !before.acquisitionAllowed(),
+            "equal sampled observations never prove the input window");
+        f.probe.attachIdentityProbe(root);
+        for (int attempt = 0; attempt < 2; attempt++) {
+            for (JsonObject result : List.of(f.probe.point(0, f.a, 0), f.probe.point(0, f.a, 0, f.b, 0),
+                f.probe.acquire(f.a, 0), f.probe.exactStart(f.a, 0), f.probe.compareStart(0))) {
+                check(result.get("reason").getAsString().equals("project-continuity-unproved"), "canary, exact, and fresh attempts cannot assert continuity");
+                noOutput(result);
+            }
+            noOutput(f.probe.comparePoll()); noOutput(f.probe.exactPoll()); noOutput(f.probe.status(0));
+            noOutput(f.probe.inventory(null)); noOutput(f.probe.beginInventoryRebuild(null));
+            check(!f.probe.info().get("registryPublished").getAsBoolean(), "unproved roots cannot publish a registry");
+            f.probe.lifecycle("save");
+        }
+        check(!f.cache().hasClip(old) && !f.cache().callback(old, token, CELL) && f.cache().diagnostics().resident() == 0,
+            "uncertainty retires old references and tokens permanently");
+    }
+
+    private static void continuityRevision() throws Exception {
+        IdentityFixture i = identityFixture(); Fixture f = i.f; f.readyA();
+        String old = f.ref("A", 0); CallbackToken token = f.cache().bindingToken(old);
+        long epoch = i.root.identityEpoch();
+        i.host.inputWindow = "B-generation-1"; i.host.inputWindow = "A-generation-2";
+        noOutput(f.probe.compareStart(0)); noOutput(f.probe.comparePoll());
+        check(i.root.identityEpoch() == epoch && !f.cache().hasClip(old) && !f.cache().callback(old, token, CELL),
+            "independent revision retires equal roots without delivered callbacks");
+        f.rebind("A", 0);
+        check(f.compare().get("comparison").getAsString().equals("match") && !old.equals(f.ref("A", 0)),
+            "explicit recovery has a new ref and fresh independent values");
+        String fresh = f.ref("A", 0); f.probe.lifecycle("save");
+        check(fresh.equals(f.ref("A", 0)), "model save preserves identity inside the fenced generation");
+    }
+
+    private static void continuityConstruction() throws Exception {
+        IdentityFixture i = identityFixture(); i.f.readyA();
+        i.host.value(CHAIN).readHook = () -> i.host.inputWindow = "A-generation-2";
+        check(!i.root.identityGuard().coherent(), "window changes during construction reject the guard");
+        noOutput(i.f.probe.compareStart(0));
+    }
+
+    private static void continuitySettlement() throws Exception {
+        IdentityFixture i = identityFixture(); Fixture f = i.f;
+        f.probe.acquire(f.a, 0);
+        f.host.resident(0).bindingHook = () -> i.host.inputWindow = "A-generation-2";
+        for (int poll = 0; poll < 5; poll++) { fastClock(f.probe); noOutput(f.probe.poll(0)); }
+        ShadowHandlePool pool = (ShadowHandlePool)field(f.probe, "handlePool");
+        check(pool.entries().stream().allMatch(entry -> entry.address() == null && !entry.reserved()),
+            "target confirmation cannot accept a reservation across an unseen transition");
+    }
+
+    private static void continuityReconciliation() throws Exception {
+        IdentityFixture i = identityFixture(); i.f.readyA();
+        Cursor cursor = i.f.host.resident(0); cursor.emit(0, 60, 2);
+        cursor.readHook = () -> i.host.inputWindow = "A-generation-2";
+        noOutput(i.f.probe.reconcile(0));
+        check(i.f.cache().diagnostics().resident() == 0, "silent read revision discards reconciliation");
+    }
+
+    private static void continuityEnrichment() throws Exception {
+        IdentityFixture i = identityFixture(); i.f.readyA();
+        i.f.host.resident(0).fieldHook = () -> i.host.inputWindow = "A-generation-2";
+        noOutput(i.f.compare());
+        check(i.f.cache().diagnostics().resident() == 0, "silent field revision discards candidate and residence");
+    }
+
+    private static void continuityMetadata() throws Exception {
+        IdentityFixture i = identityFixture(); i.f.readyA();
+        i.f.host.authority().reads.clear();
+        i.f.host.authority().metadataHook = () -> i.host.inputWindow = "A-generation-2";
+        JsonObject result = i.f.compare();
+        noOutput(result);
+        check(result.get("comparison").getAsString().equals("window-changed"), "final metadata detour cannot publish");
+    }
+
+    private static void continuityRetained() throws Exception {
+        IdentityFixture i = identityFixture(); i.f.readyA();
+        i.host.inputWindow = "A-generation-2";
+        noOutput(i.f.probe.status(0));
+        check(i.f.probe.status(0).get("phase").getAsString().equals("retired"), "retained output check retires the binding");
+    }
+
+    private static void continuityProviderFailure() {
+        IdentityHost h = new IdentityHost();
+        RootIdentityProbe root = new RootIdentityProbe(h.node(ControllerHost.class, "host"), "model-init",
+            h.node(Project.class, "project"), h.node(Application.class, "application"),
+            () -> { throw new IllegalStateException("window unavailable"); });
+        check(!root.identityGuard().acquisitionAllowed(), "a failed external provider supplies no continuity proof");
+        Fixture f = new Fixture(); f.probe.attachIdentityProbe(root);
+        noOutput(f.probe.point(0, f.a, 0)); noOutput(f.probe.exactStart(f.a, 0));
+    }
+
+    private static void continuityReload() {
+        IdentityHost h = new IdentityHost(); RootIdentityProbe a = h.probe();
+        RootIdentityProbe b = new RootIdentityProbe(h.node(ControllerHost.class, "host"), "different-init",
+            h.node(Project.class, "project"), h.node(Application.class, "application"), () -> h.inputWindow);
+        check(a.identityGuard().epoch() == b.identityGuard().epoch() && !b.identityEpochCurrent(a.identityGuard()),
+            "equal counters, roots, and input windows cannot cross initialization domains");
+    }
+
+    private static void noOutput(JsonObject result) {
+        check(!result.get("complete").getAsBoolean() && !result.get("eligible").getAsBoolean(), "all live gates remain closed");
+        for (String field : List.of("authorityNotes", "authorityMetadata", "authorityCoverage", "diagnosticSnapshot", "historicalSnapshot"))
+            check(!result.has(field), "refused output cannot retain " + field);
+    }
+
     private static final String CHAIN = "tracks.0.devices.0.layers.0.channelId";
     private static final String CHAIN_EXISTS = "tracks.0.devices.0.layers.0.exists";
 
@@ -250,15 +389,16 @@ public final class ShadowCacheProbeTest {
         i.root.clearTrace(); check(i.root.identityEpoch() == epoch + 2200, "trace clear does not clear the identity epoch");
     }
 
-    private static void identityNoChain() throws Exception {
+    private static void identityNoChain() {
         Fixture f = new Fixture(); IdentityHost h = new IdentityHost(); h.value(CHAIN_EXISTS).current = false;
-        RootIdentityProbe root = h.probe(); f.probe.attachIdentityProbe(root); f.readyA();
-        String old = f.ref("A", 0);
+        RootIdentityProbe root = h.probe(); f.probe.attachIdentityProbe(root);
         check(!root.identityGuard().witnessAvailable(), "empty witness window stays unknown");
-        check(f.probe.point(0, f.a, 0).get("reason").getAsString().equals("identity-unverified-requires-forced-canary"),
-            "no-chain cannot preserve the logical recorder through a new request");
-        f.rebind("A", 0); check(!old.equals(f.ref("A", 0)), "forced no-chain replay starts a new local identity domain");
-        check(!f.compare().get("eligible").getAsBoolean(), "content comparison stays ineligible without a witness");
+        for (JsonObject result : List.of(f.probe.point(0, f.a, 0), f.probe.point(0, f.a, 0, f.b, 0),
+            f.probe.acquire(f.a, 0), f.probe.exactStart(f.a, 0))) {
+            check(result.get("reason").getAsString().equals("identity-witness-unavailable")
+                && !result.get("authorityAvailable").getAsBoolean(), "no-chain refuses all acquisition routes");
+        }
+        check(f.cache().diagnostics().resident() == 0, "forced replay cannot create a no-chain residence");
     }
 
     private static void identityAbsentSources() {
@@ -513,6 +653,7 @@ public final class ShadowCacheProbeTest {
     /** A fixed source graph permits callbacks and reads to be changed independently. */
     private static final class IdentityHost {
         final Map<String, IdentityValue> values = new HashMap<>(); long reads;
+        String inputWindow = "model-input-window-0";
         IdentityHost() {
             value("project.exists").current = true; value("root.exists").current = true;
             value("root.channelId").current = "root-id"; value("master.channelId").current = "root-id";
@@ -529,7 +670,13 @@ public final class ShadowCacheProbeTest {
         IdentityValue value(String path) { return values.computeIfAbsent(path, key -> new IdentityValue()); }
         void emit(String path, Object next) { IdentityValue v = value(path); v.current = next; v.notifyObserver(); }
         RootIdentityProbe probe() {
-            return new RootIdentityProbe(node(ControllerHost.class, "host"), "init-identity-test", node(Project.class, "project"), node(Application.class, "application"));
+            return probe(true);
+        }
+        RootIdentityProbe probe(boolean fenced) {
+            if (!fenced) return new RootIdentityProbe(node(ControllerHost.class, "host"), "init-identity-test",
+                node(Project.class, "project"), node(Application.class, "application"));
+            return new RootIdentityProbe(node(ControllerHost.class, "host"), "init-identity-test", node(Project.class, "project"),
+                node(Application.class, "application"), () -> inputWindow);
         }
         <T> T node(Class<T> type, String path) {
             return proxy(type, (object, method, args) -> {
@@ -806,7 +953,7 @@ public final class ShadowCacheProbeTest {
             host.clip("C", 0).notes.put(new Cell(5, 2, 72), fields(.5));
             a = host.track("A"); b = host.track("B"); c = host.track("C");
             config.cacheShadowObservers = 2; config.cacheShadowSteps = WIDTH; config.scenes = 8;
-            probe = new ShadowCacheProbe(host.host(), config);
+            probe = new ShadowCacheProbe(host.host(), config, true);
             cache().inventoryEnumerated();
         }
 
@@ -932,7 +1079,7 @@ public final class ShadowCacheProbeTest {
         boolean holdClipPinRead;
         boolean failPositionRead;
         StepDataChangedCallback callback;
-        Runnable readHook, fieldHook;
+        Runnable readHook, fieldHook, metadataHook, bindingHook;
         final List<String> transitions = new ArrayList<>(), reads = new ArrayList<>();
         Cursor(FakeHost host, String id, boolean cursor) { this.host = host; this.id = id; track = cursor ? "" : id; }
 
@@ -999,6 +1146,12 @@ public final class ShadowCacheProbeTest {
                 return null;
             }
             if (name.equals("get")) {
+                if (property.equals("sceneIndex") && bindingHook != null) {
+                    Runnable hook = bindingHook; bindingHook = null; hook.run();
+                }
+                if (property.equals("getLoopLength") && metadataHook != null && !reads.isEmpty()) {
+                    Runnable hook = metadataHook; metadataHook = null; hook.run();
+                }
                 if (property.equals("position") && failPositionRead) throw new IllegalStateException("diagnostic unavailable");
                 return switch (property) {
                     case "exists" -> clip ? target != null : !track.isEmpty();

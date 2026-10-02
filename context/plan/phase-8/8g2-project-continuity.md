@@ -1,12 +1,12 @@
 ---
 title: Phase 8g2 — Project continuity and guarded target updates
 kind: plan
-state: active
-status: Ready. 8g1 is complete. Resolve project and target guards before live budget work.
+state: complete
+status: Complete with conservative refusal. Live continuity remains open; 8g3 starts offline.
 updated: 2026-10-02
 parent: 8g-shadow-project-cache.md
 prev: 8g1-review-fixes.md
-next: 8g3-snapshot-and-global-budgets.md
+next: 8g2b-step-delta-read-window.md
 ---
 
 # Phase 8g2 — Project continuity and guarded target updates
@@ -97,3 +97,25 @@ Publish the protocol, results, assumptions, and any explicit unsupported states.
 If continuity remains unresolved for an intended cache path, leave that gate
 open. Stage this session's changes without a commit and update NOW.
 Suggested commit message: `feat: fence shadow acquisitions by project and target window`.
+
+## Result and handoff
+
+The [protocol and proof](../../evidence/format/PHASE8G_PROJECT_CONTINUITY.md)
+record conservative refusal for all live shadow acquisitions. Equal roots,
+chain UUIDs, names, hashes, and endpoints cannot admit or preserve a reference.
+No unseen A–B–A live pass is claimed. The public runtime has no positive input
+window provider. No-chain and absent-probe routes also refuse. Model tests cover
+silent changes at the guard boundaries, explicit recovery, and changed init.
+Retained snapshots and inventory recheck their windows before exposure.
+
+All required checks pass. No live state or historical report changed. Only this
+session is staged; entry HEAD already contains the earlier work. No commit is
+made. Start [8g3](8g3-snapshot-and-global-budgets.md) offline. Its intended live
+acquisitions remain blocked by the explicit unsupported continuity window.
+8g and the live continuity gate remain open. Do not enter 8h.
+
+## Retrospective
+
+Keep coherent observations separate from admission. Check retained inventory
+windows without adding host reads to callback cancellation. No instruction
+change is needed.

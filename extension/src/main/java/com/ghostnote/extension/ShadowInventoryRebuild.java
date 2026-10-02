@@ -155,7 +155,7 @@ public final class ShadowInventoryRebuild {
 
     public Status cancel(String cause) {
         if (cause == null || cause.isEmpty()) throw new IllegalArgumentException("invalid cancellation reason");
-        return active() ? abort(cause) : status();
+        return active() || published ? abort(cause) : status();
     }
 
     public Status status() {
@@ -166,6 +166,7 @@ public final class ShadowInventoryRebuild {
             metadataBytes = 0;
             ended = nanoTime.getAsLong();
         }
+        if (published) checkExternalWindow();
         boolean terminal = "published".equals(phase) || "aborted".equals(phase);
         return new Status(phase, reason, attempt, token, captured, next, total, present, terminal, published, published,
             captured != null && captured.verified(), false, false, false, "aborted".equals(phase),

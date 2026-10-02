@@ -2,12 +2,12 @@
 title: Phase 8g — Shadow project cache
 kind: plan
 state: active
-status: Active. 8g1 closes both P2 findings. Start 8g2 project continuity.
+status: Active. D26 accepts step-data completeness. Run 8g2b next; 8g3 stays offline until it passes.
 updated: 2026-10-02
 parent: README.md
 prev: 8f3-ghostnote-bindings-and-cache-contracts.md
 next: 8h-cache-promotion-and-interface-simplification.md
-evidence: E130-E134; E138-E139; E214-E215; D23
+evidence: E130-E134; E138-E139; E214-E216; D23; D26
 ---
 
 # Phase 8g — Shadow project cache
@@ -21,15 +21,27 @@ The bounded pure model, pool, coordinator, replay, and packaging rules pass
 within their stated assumptions. Live continuity, selected global budgets,
 group membership, broader ordering, and final consumer acceptance remain open.
 
-Start [8g2](8g2-project-continuity.md), then
-[8g3](8g3-snapshot-and-global-budgets.md),
-[8g4](8g4-native-topology-and-ordering.md), and
-[8g5](8g5-final-shadow-acceptance.md). Do not enter 8h.
+[8g2](8g2-project-continuity.md) is complete with
+[conservative refusal](../../evidence/format/PHASE8G_PROJECT_CONTINUITY.md).
+The live adapter has no independent input window. It refuses all shadow
+acquisition routes. Equal endpoints cannot preserve a logical reference.
+Retained snapshots and inventory recheck the window before exposure.
+Model boundary tests pass. No new live continuity result is claimed.
 
-All work remains staged. No checkpoint commit is made. Brain `check` passes
-typecheck and 1,692 tests. Extension `check`, four archive checks, five artifact
-verifiers, active wire checks, context links, and diff checks pass. The fixes
-change no retained evidence or live host state.
+[E216](../../evidence/experiments/e216-delivery-coalescing-and-callback-coherence.md)
+measures project detours. Identity values coalesce, and a callback can read
+foreign notes in the middle of a delivery batch. Step-data deltas arrive in every
+measured detour. [D26](../../decisions/d26-step-data-delivery-is-a-named-assumption.md)
+accepts complete step-data delivery as a named assumption.
+
+Run [8g2b](8g2b-step-delta-read-window.md) next. It measures the later-callback
+ordering rule, then adds a confirmed step-delta read window. Then run
+[8g3](8g3-snapshot-and-global-budgets.md), [8g4](8g4-native-topology-and-ordering.md),
+and [8g5](8g5-final-shadow-acceptance.md). 8g3 can start offline at any time.
+Its live work waits for 8g2b. Do not enter 8h.
+
+The 8g2 and E216 changes are staged. Entry HEAD `1a0f9c6` already contains
+prior work. No commit is made.
 
 ## Current result
 
@@ -104,13 +116,13 @@ The seven verified files in the owned project packages are removed. All 1,688
 brain tests and all five artifact bundles pass. Context and diff checks pass.
 Model checks and these live controls do not close the promotion gates.
 
-Continue through the five focused follow-up plans linked above.
+Continue with the remaining focused plans linked above.
 Use the E214 acceptance gap table as an input. Keep 8h unentered.
 Use the completed root identity and observer reuse experiments in
 [E215](../../evidence/experiments/e215-root-identity-and-observer-reuse.md).
 Copied roots do not distinguish loaded instances. The NoteStep probe supports
 proxy reuse under continuous subscription and resume before point. Verify the
-selected StepData observer separately. Define safe
+selected StepData observer separately. The current live adapter refuses these unproved paths. Define safe
 initialization, binding, and loaded-instance detection before cache promotion.
 Earlier cold-start and canary-to-target replay evidence remains valid. Verify
 replay preservation or a forced canary transition after recorder resets on reused

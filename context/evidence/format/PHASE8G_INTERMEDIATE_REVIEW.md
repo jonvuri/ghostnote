@@ -121,6 +121,29 @@ warns that final-field mutation can be blocked in a future release.
 No live host state changed. All live gates remain closed. Start
 [8g2](../../plan/phase-8/8g2-project-continuity.md). No commit was made.
 
+## Conservative continuity decision in 8g2
+
+[8g2](../../plan/phase-8/8g2-project-continuity.md) is complete with
+[explicit refusal](PHASE8G_PROJECT_CONTINUITY.md). The public live adapter
+has no independent input window. It refuses residence, warm reuse, forced
+canary, comparison, exact shadow acquisition, and inventory publication.
+Equal roots and endpoints cannot preserve a reference. No unseen A–B–A live
+pass is claimed. The live continuity and project-target window gates remain
+unverified. 8g3 starts offline; its intended live acquisitions remain unsupported.
+The ledger's earlier live measurements retain their stated scope.
+
+Model tests cover silent revision changes during guard construction, target
+settlement, reconciliation, enrichment, final metadata, and retained output.
+Nonce checks reject equal counters from a new initialization. Retained inventory
+now checks its external window. Published cancellation reads no provider.
+Explicit recovery mints a new reference and acquires fresh values.
+
+Verification: 52 adapter, 30 core, 16 inventory, ten fallback, and nine pool
+groups pass. Full brain `check` passes typecheck and 1,692 tests. Full extension
+`check`, all four archives, five artifact verifiers, active wire checks,
+context links, and diff checks pass. No live state or historical artifact changed.
+Entry HEAD already contains prior work. Only 8g2 is staged. No commit is made.
+
 ## Acceptance ledger
 
 `Pass` means the stated bounded criterion passes. `Unverified` means required
@@ -285,12 +308,12 @@ Do not add these denominators into one acceptance total.
 ## Follow-up order and active interfaces
 
 1. [8g1 — Review fixes](../../plan/phase-8/8g1-review-fixes.md): complete; R1 and R2 are closed offline.
-2. [8g2 — Project continuity](../../plan/phase-8/8g2-project-continuity.md): resolve the guarded target update window and unseen A–B–A case, or specify an explicit conservative refusal.
+2. [8g2 — Project continuity](../../plan/phase-8/8g2-project-continuity.md): complete with conservative refusal. Live continuity remains unverified.
 3. [8g3 — Snapshot and global budgets](../../plan/phase-8/8g3-snapshot-and-global-budgets.md): verify acquisition and each selected limit, combined storage, recovery, and latency.
 4. [8g4 — Native topology and ordering](../../plan/phase-8/8g4-native-topology-and-ordering.md): extend native transitions and prove group membership or keep the unsupported state explicit.
 5. [8g5 — Final shadow acceptance](../../plan/phase-8/8g5-final-shadow-acceptance.md): verify consumers and the whole 8g gate; decide 8h entry separately.
 
-8g3 can prepare offline after 8g1. Its live tests require the 8g2 guard decision.
+8g3 can start offline. The 8g2 decision refuses its intended live acquisitions.
 8g4 can prepare offline in that interval. All live sessions use one owned fixture
 at a time and restore the baseline before handoff.
 
