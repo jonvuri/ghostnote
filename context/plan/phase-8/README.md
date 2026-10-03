@@ -341,8 +341,11 @@ owns the migration details.
    The [intermediate review](../../evidence/format/PHASE8G_INTERMEDIATE_REVIEW.md)
    found two P2 issues and no P0 or P1 finding. No checkpoint commit is made.
    [8g1](8g1-review-fixes.md) closes both findings offline. Start
-   [8g2](8g2-project-continuity.md), then snapshot/global budgets, native
-   topology/ordering, and final shadow acceptance in 8g3–8g5.
+   [8g2](8g2-project-continuity.md), then snapshot/global budgets and native
+   topology/ordering in 8g3–8g4. Gate scope is project-wide occupancy: run
+   group topology, slot inventory, and combined storage in
+   [8g5a](8g5a-group-topology-support.md)–[8g5c](8g5c-combined-storage-limit.md),
+   then final shadow acceptance in [8g5](8g5-final-shadow-acceptance.md).
    E131 remains authoritative.
 28. [8h — Cache promotion and interface simplification](8h-cache-promotion-and-interface-simplification.md).
    Not entered. Complete the 8g gates before cache promotion or the selected

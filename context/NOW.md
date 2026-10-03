@@ -4,46 +4,43 @@ kind: status
 state: active
 updated: 2026-10-03
 phase: phase-8-agent-native-live-engine
-session: 8g4-native-topology-and-ordering-complete
+session: 8g5-planning-pass-complete
 ---
 
 # Now
 
-Next session: [8g5 — Final shadow acceptance](plan/phase-8/8g5-final-shadow-acceptance.md).
+Next session: [8g5a — Group topology support](plan/phase-8/8g5a-group-topology-support.md).
 
-[8g4](plan/phase-8/8g4-native-topology-and-ordering.md) is complete. See
-[E220](evidence/experiments/e220-native-topology-and-ordering.md):
+The 8g5 planning pass is complete. It replanned the gate and did no live
+acceptance work:
 
-- Six native ordering trials pass: five publication boundaries and one separate
-  return acquisition. Each command is inside active acquisition. One late
-  command remains diagnostic. Earlier denominators stay separate.
-- Native group membership refuses because the child bank includes its wrapper.
-  Cache status retires with no payload. Expanded/collapsed/nested and child-order
-  live arms stop. Native Ungroup restores the exact fixture. Group paths stay
-  unsupported. No API deletes the wrapper.
-- All 13 new reports pass integrity and semantic checks. Brain check passes
-  1,735 tests. Java check, all four archives, all five prior artifact verifiers,
-  active wire goldens, context links, and diff checks pass.
-- Session completion does not close the cache gate. All cache results remain
-  `complete:false` and `eligible:false`. D26/E217 host knowledge remains
-  unproved. Do not enter 8h.
+- The user selected **project-wide occupancy** as the 8g gate scope. Covered
+  clip content alone is not sufficient.
+- [D27](decisions/d27-later-callback-ordering-is-a-named-assumption.md) accepts
+  the E217 later-callback ordering rule as a named assumption. With D26, it
+  closes covered step-content continuity. It does not cover slots or topology.
+- Three required predicates are open. Each has a focused session:
+  [8g5a](plan/phase-8/8g5a-group-topology-support.md) group topology (most
+  important; group projects refuse today),
+  [8g5b](plan/phase-8/8g5b-slot-inventory-delivery.md) slot inventory delivery
+  through `hasContent` observers, and
+  [8g5c](plan/phase-8/8g5c-combined-storage-limit.md) combined storage limit
+  plus heap measurement.
+- [8g5](plan/phase-8/8g5-final-shadow-acceptance.md) runs after them. All cache
+  results remain `complete:false` and `eligible:false`. Do not enter 8h.
 
-The live API state equals the pinned entry capture. Normal hello passes with
-85 methods, hash `bba7383dce25c0f0`, and init `2026-10-03T03:59:29.016Z`.
-Exact config bytes are restored (SHA-256 `256bbf07…43b0`). The research archive
-is removed. Both disposable projects are closed without saving. Original
-`New 1` stays open and unsaved. Never save or close it. Its engine is active,
-transport is stopped at `1.1.1.00`, and viewport is bars 17–25. No identical
-viewport claim is made.
+8g5a starting points: E220 shows the group's direct child bank includes the
+group itself. Measure that self entry by UUID, `createParentTrack` on a flat
+`ALL_CHANNELS` bank, and flat order with `isGroup`/`isGroupExpanded`.
 
-Entry HEAD is `716ffea`. The staged diff contains 8g4 and its controller reload
-policy follow-up. No commit is made.
-Research marker: `8g4-shadow-topology-v1`; definition: `8g4-1`. Deploy research
-with `./gradlew copyShadowProbeExtension`; normal uses `copyExtension`.
+Live state is unchanged since 8g4. Normal hello last passed with 85 methods,
+hash `bba7383dce25c0f0`, and init `2026-10-03T03:59:29.016Z`. Config SHA-256 is
+`256bbf07…43b0`. Original `New 1` stays open and unsaved. Never save or close it.
+
+Entry HEAD is `9580cee`. Only the planning changes are staged. No commit is made.
 
 ## Retrospective
 
-Allow for native UI round trips inside sampling. Save topology before reader
-preparation; flat and child cursor positions can differ. The controller selector
-can lose keyboard focus even for the operator. `AGENTS.md` now requires an
-operator handoff for every controller replacement. Do not retry UI automation.
+Check the declared gate scope against open ledger predicates before you start
+live acceptance. The scope question changed the session from acceptance to
+replanning. Future final-gate plans should state the intended supported scope.

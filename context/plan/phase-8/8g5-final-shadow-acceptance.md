@@ -2,14 +2,31 @@
 title: Phase 8g5 — Final shadow acceptance and consumer workflows
 kind: plan
 state: active
-status: Pending. 8g1–8g4 session outcomes are ready. Decide the 8g gate without starting 8h.
+status: Pending. Run after 8g5a–8g5c. Decide the 8g gate without starting 8h.
 updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
-prev: 8g4-native-topology-and-ordering.md
+prev: 8g5c-combined-storage-limit.md
 next: 8h-cache-promotion-and-interface-simplification.md
 ---
 
 # Phase 8g5 — Final shadow acceptance and consumer workflows
+
+## Gate scope and prerequisites
+
+The 8g5 planning pass on 2026-10-03 selected project-wide occupancy as the gate
+scope. Covered clip content alone is not sufficient. The pass found three open
+required predicates and moved them to focused sessions:
+
+1. [8g5a — Group topology support](8g5a-group-topology-support.md): projects
+   with group tracks refuse today.
+2. [8g5b — Slot inventory delivery](8g5b-slot-inventory-delivery.md): live slot
+   inventory refuses today.
+3. [8g5c — Combined storage limit](8g5c-combined-storage-limit.md): no total
+   limit is selected, and heap memory is not measured.
+
+[D27](../../decisions/d27-later-callback-ordering-is-a-named-assumption.md)
+accepts the E217 ordering rule. With D26, it closes covered step-content
+continuity. Start 8g5 only after all three sessions pass or record a hold.
 
 ## Entry and scope
 

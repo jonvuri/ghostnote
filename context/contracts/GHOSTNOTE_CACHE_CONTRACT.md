@@ -212,7 +212,8 @@ complete step-data delivery for covered cells as an assumption. Identity
 values are not a continuity witness because they coalesce. A read window must
 be confirmed in a later callback.
 [E217](../evidence/experiments/e217-later-callback-ordering-rule.md) measured
-that rule as a named assumption, and
+that rule, [D27](../decisions/d27-later-callback-ordering-is-a-named-assumption.md)
+accepts it as a named assumption, and
 [8g2b](../plan/phase-8/8g2b-step-delta-read-window.md) implements the window.
 Slot inventory is outside step coverage and keeps the refusal. No measured
 result proves that the host silently loses callbacks.

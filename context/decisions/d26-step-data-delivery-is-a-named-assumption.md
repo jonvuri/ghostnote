@@ -48,7 +48,8 @@ callback, or a published foreign read with an unchanged step count.
 ## Later evidence
 
 [E217](../evidence/experiments/e217-later-callback-ordering-rule.md) measured the
-ordering rule: 94 of 94 mid-batch confirmations ran after their batch. It is a
-second named assumption, not part of this decision.
+ordering rule: 94 of 94 mid-batch confirmations ran after their batch.
+[D27](d27-later-callback-ordering-is-a-named-assumption.md) accepts that rule
+as a second named assumption. It is not part of this decision.
 [E218](../evidence/experiments/e218-step-delta-read-window-live-acceptance.md)
 found no revocation condition in 147 live trials.

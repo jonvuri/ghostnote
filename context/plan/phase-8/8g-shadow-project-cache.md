@@ -2,12 +2,12 @@
 title: Phase 8g — Shadow project cache
 kind: plan
 state: active
-status: Active. 8g3 is complete. Run 8g4 next.
+status: Active. 8g4 is complete. Run 8g5a, 8g5b, and 8g5c, then 8g5.
 updated: 2026-10-03
 parent: README.md
 prev: 8f3-ghostnote-bindings-and-cache-contracts.md
 next: 8h-cache-promotion-and-interface-simplification.md
-evidence: E130-E134; E138-E139; E214-E219; D23; D26
+evidence: E130-E134; E138-E139; E214-E220; D23; D26; D27
 ---
 
 # Phase 8g — Shadow project cache
@@ -48,7 +48,16 @@ passes live 16 MiB snapshot equality and excess, combined-storage overlap
 refusal with recovery, and interrupted enrichment. Other boundaries stay
 model-only. Nothing is eligible.
 
-Run [8g4](8g4-native-topology-and-ordering.md) next, then
+[8g4](8g4-native-topology-and-ordering.md) is complete. See
+[E220](../../evidence/experiments/e220-native-topology-and-ordering.md).
+Native ordering passes; group membership refuses.
+
+The 8g5 planning pass selects project-wide occupancy as the gate scope.
+[D27](../../decisions/d27-later-callback-ordering-is-a-named-assumption.md)
+accepts the E217 ordering rule. Three required predicates remain open. Run
+[8g5a](8g5a-group-topology-support.md) (group topology),
+[8g5b](8g5b-slot-inventory-delivery.md) (slot inventory delivery), and
+[8g5c](8g5c-combined-storage-limit.md) (combined storage limit). Then run
 [8g5](8g5-final-shadow-acceptance.md). Do not enter 8h.
 
 ## Current result

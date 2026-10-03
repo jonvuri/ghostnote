@@ -333,7 +333,8 @@ Do not add these denominators into one acceptance total.
 2. [8g2 — Project continuity](../../plan/phase-8/8g2-project-continuity.md): complete with conservative refusal. Live continuity remains unverified.
 3. [8g3 — Snapshot and global budgets](../../plan/phase-8/8g3-snapshot-and-global-budgets.md): complete. See the budget section below.
 4. [8g4 — Native topology and ordering](../../plan/phase-8/8g4-native-topology-and-ordering.md): complete; native ordering passes, group membership stays unsupported, and exact API cleanup/normal reload pass. See [E220](../experiments/e220-native-topology-and-ordering.md).
-5. [8g5 — Final shadow acceptance](../../plan/phase-8/8g5-final-shadow-acceptance.md): verify consumers and the whole 8g gate; decide 8h entry separately.
+5. [8g5a](../../plan/phase-8/8g5a-group-topology-support.md), [8g5b](../../plan/phase-8/8g5b-slot-inventory-delivery.md), and [8g5c](../../plan/phase-8/8g5c-combined-storage-limit.md): group topology, slot inventory delivery, and combined storage limit. The 8g5 planning pass selects project-wide occupancy as the gate scope; these three predicates are open.
+6. [8g5 — Final shadow acceptance](../../plan/phase-8/8g5-final-shadow-acceptance.md): verify consumers and the whole 8g gate; decide 8h entry separately.
 
 8g3 can start offline. The 8g2 decision refuses its intended live acquisitions.
 8g4 can prepare offline in that interval. All live sessions use one owned fixture

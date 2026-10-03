@@ -6,13 +6,13 @@ status: Complete. Native ordering passes. Group membership stays unsupported. Ex
 updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
 prev: 8g3-snapshot-and-global-budgets.md
-next: 8g5-final-shadow-acceptance.md
+next: 8g5a-group-topology-support.md
 ---
 
 # Phase 8g4 — Native topology and ordering coverage
 
 Progress: [E220](../../evidence/experiments/e220-native-topology-and-ordering.md).
-The session is complete. Hand off to 8g5. Native group paths stay unsupported.
+The session is complete. Hand off to [8g5a](8g5a-group-topology-support.md). Native group paths stay unsupported.
 
 ## Entry and scope
 
