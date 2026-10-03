@@ -1,0 +1,8 @@
+{
+  "recordChars": 0,
+  "stamp": "e219-snapshot-budgets",
+  "deliveryResearch": true,
+  "cacheLifecycleResearch": true,
+  "cacheShadowObservers": 2,
+  "cacheShadowSteps": 2048
+}

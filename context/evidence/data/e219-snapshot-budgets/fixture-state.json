@@ -1,0 +1,42 @@
+{
+ "project": "New 10",
+ "trackChannelId": "9a3ee974-93c5-4bb3-898b-58dfcba8bdb0",
+ "trackName": "Inst 1",
+ "created": [
+  0,
+  1,
+  2
+ ],
+ "tracks": [
+  {
+   "index": 0,
+   "name": "Inst 1",
+   "position": 0,
+   "type": "Instrument",
+   "channelId": "9a3ee974-93c5-4bb3-898b-58dfcba8bdb0"
+  },
+  {
+   "index": 1,
+   "name": "Audio 2",
+   "position": 1,
+   "type": "Audio",
+   "channelId": "6b923ac6-67e4-4bad-982c-52dda819153e"
+  },
+  {
+   "index": 2,
+   "name": "FX 1",
+   "position": 2,
+   "type": "Effect",
+   "channelId": "4d1cffe8-6484-483d-83f5-7e94a08798b3"
+  },
+  {
+   "index": 3,
+   "name": "Master",
+   "position": 3,
+   "type": "Master",
+   "channelId": "dc0c3c1a-1a68-4cff-8975-4b63de66e29f"
+  }
+ ],
+ "sceneCount": 8,
+ "at": "2026-10-03T02:11:14.893Z"
+}

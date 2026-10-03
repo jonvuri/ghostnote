@@ -1,8 +1,8 @@
 ---
 title: Phase 8g3 — Snapshot acquisition and global budgets
 kind: plan
-state: active
-status: Ready. 8g2b passed; live acquisitions use the step-delta window.
+state: complete
+status: Complete. E219 passes live 16 MiB snapshot equality and excess; other boundaries stay model-only.
 updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
 prev: 8g2b-step-delta-read-window.md
@@ -10,6 +10,18 @@ next: 8g4-native-topology-and-ordering.md
 ---
 
 # Phase 8g3 — Snapshot acquisition and global budgets
+
+## Result
+
+Complete. [E219](../../evidence/experiments/e219-snapshot-budgets-and-combined-storage.md)
+records the work. Enrichment runs in bounded private-candidate batches with
+guard checks at each batch and at publication. One resource ledger reports all
+domains. Live, the 16 MiB snapshot estimate passes equality and two-byte excess
+with no earlier limit. Combined storage refuses overlap, and eviction plus an
+explicit new attempt recovers. Retirement during enrichment releases the
+candidate. Ping p95 under load is 25.06 ms. Recorder, authority, pending,
+width, and observer boundaries stay model-only or earlier evidence. Heap is
+unmeasured. Nothing is eligible.
 
 ## Entry and scope
 

@@ -64,6 +64,8 @@ public final class ShadowAuthorityFallback {
         } catch (RuntimeException error) { return refuse("authority-unavailable"); }
         return status();
     }
+    /** Staged or retained authority estimate. This makes no provider read. */
+    public long stagedEstimatedBytes() { return bytes; }
     /** Read a bounded batch. Only the terminal result exposes acquired notes. */
     public Result poll() {
         if (!active()) return status();

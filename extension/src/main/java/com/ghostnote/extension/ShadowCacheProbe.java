@@ -22,6 +22,8 @@ public final class ShadowCacheProbe {
     private static final int KEYS = 128;
     private static final double BATCH_MS = 40;
     private static final double HOST_WORK_LIMIT_MS = 45;
+    /** E139 membership estimate. A queued hint uses one sparse set membership. */
+    private static final long PHYSICAL_HINT_BYTES = 56;
     private static final Set<String> FIELDS = Set.of(
         "velocity", "releaseVelocity", "velocitySpread", "duration", "gain", "pan",
         "pressure", "timbre", "rawTimbre", "durationCells", "rawDuration", "rawGain",
@@ -72,6 +74,9 @@ public final class ShadowCacheProbe {
     /** 8g2b: one step counter and later-callback confirmation for all shadow observers. */
     private final StepDeltaWindow stepWindow;
     private long stepWindowRefusals, retainedStepWindowDiscards;
+    /** 8g3: the last ended scan's phase times and candidate status stay as diagnostics only. */
+    private JsonObject lastScanPhaseTimes = new JsonObject(), lastCandidate = new JsonObject();
+    private long enrichmentBatches;
 
     /** Reserve and retire a fixed physical slot before the next binding starts. */
     public JsonObject acquire(Track target, int row) { return acquire(target, row, null, -1); }
@@ -359,7 +364,7 @@ public final class ShadowCacheProbe {
         handlePool.clear();
         for (View view : views) retireWithoutHost(view);
         if (authority != null) retireWithoutHost(authority);
-        if (scan != null) { comparison = "window-changed"; windowChanges++; scan = null; }
+        if (scan != null) { comparison = "window-changed"; windowChanges++; endScan("automatic-identity-invalidated"); }
         cache.projectChanged();
         inventoryEnumerated = false;
         inventoryEntries = 0;
@@ -451,6 +456,7 @@ public final class ShadowCacheProbe {
         authority = views.length == 0 ? null : new View(host, "AUTHORITY");
         exactFallback = authority == null ? null : new ShadowAuthorityFallback(fallbackSource());
         constructionMs = elapsed(started);
+        cache.attachExternalRecorderEstimate(() -> PHYSICAL_HINT_BYTES * physicalPending());
         cache.measureConstruction(constructionMs);
         totalExperimentalStepDataObservers = views.length + (authority == null ? 0 : 1);
     }
@@ -689,7 +695,7 @@ public final class ShadowCacheProbe {
         result.addProperty("projectScopeComplete", false);
         result.addProperty("lifecycleFallback", "project-lifecycle-fence-unproved");
         result.addProperty("optionalLifecycleWitnessSupported", identityProbe != null);
-        result.addProperty("instrumentationRevision", "8g2b-shadow-step-delta-v1");
+        result.addProperty("instrumentationRevision", "8g3-shadow-budgets-v2");
         result.addProperty("observerKind", "addStepDataObserver");
         result.addProperty("rebindPolicy", "preserve-current-or-forced-canary-transition");
         result.addProperty("callbackSourceIdentityKnown", false);
@@ -723,6 +729,37 @@ public final class ShadowCacheProbe {
         result.addProperty("gainDomain", "host-amplitude-ratio-portable-amplitude-ratio");
         result.addProperty("scanStagingNoteObjects", scan == null ? 0 : scan.notes.size());
         result.addProperty("scanStagingPayloadEstimatedBytes", scan == null ? 0 : scan.estimatedBytes);
+        result.add("resourceAccounting", resourceAccounting());
+        result.addProperty("enrichmentBatches", enrichmentBatches);
+        result.add("lastScanPhaseTimesMs", lastScanPhaseTimes.deepCopy());
+        result.add("lastSnapshotCandidate", lastCandidate.deepCopy());
+        return result;
+    }
+
+    /**
+     * One accounting boundary for extension-owned shadow estimates. Each domain has its selected limit.
+     * Authority staging is the independent oracle or exact-fallback buffer; only one can be active.
+     * No combined limit is selected. Estimates are not heap, host, or serialized-byte measurements.
+     */
+    private JsonObject resourceAccounting() {
+        ShadowProjectCache.ResourceAccounting core = cache.resources();
+        JsonObject result = JSON.toJsonTree(core).getAsJsonObject();
+        long comparison = scan == null ? 0 : scan.estimatedBytes;
+        long exact = exactFallback == null ? 0 : exactFallback.stagedEstimatedBytes();
+        result.addProperty("physicalHintQueueEstimatedBytes", PHYSICAL_HINT_BYTES * physicalPending());
+        result.addProperty("comparisonAuthorityStagingEstimatedBytes", comparison);
+        result.addProperty("exactAuthorityStagingEstimatedBytes", exact);
+        result.addProperty("authorityDomainEstimatedBytes", comparison + exact);
+        result.addProperty("authorityLimitBytes", MAX_SNAPSHOT_BYTES);
+        long registry = inventoryRebuild == null ? 0 : inventoryRebuild.status().registryMetadataEstimatedBytes();
+        result.addProperty("registryAttemptEstimatedBytes", registry);
+        result.addProperty("registryAttemptLimitBytes", ShadowInventoryRebuild.DEFAULT_REGISTRY_METADATA_BUDGET_BYTES);
+        result.addProperty("totalEstimatedBytes", core.recorderDomainEstimatedBytes() + core.snapshotDomainEstimatedBytes()
+            + comparison + exact + registry + core.identityAndWitnessEstimatedBytes());
+        result.addProperty("combinedLimitSelected", false);
+        result.addProperty("hostMemoryMeasured", false);
+        result.addProperty("serializedBytesAreMemoryMeasurement", false);
+        result.addProperty("accountingRevision", "8g3-resource-accounting-v1");
         return result;
     }
 
@@ -943,12 +980,18 @@ public final class ShadowCacheProbe {
         return result;
     }
 
-    public JsonObject compareStart(int index) {
+    public JsonObject compareStart(int index) { return compareStart(index, Integer.MAX_VALUE); }
+
+    /** A research control caps enrichment coordinates per poll, so interruption tests can stop partial work. */
+    public JsonObject compareStart(int index, int maximumEnrichmentCoordinates) {
+        if (maximumEnrichmentCoordinates < 1) throw new IllegalArgumentException("enrichment batch must contain at least one coordinate");
         View view = view(index);
         RootIdentityProbe.IdentityGuard identity = freshIdentityGuard();
         if (!acquisitionAllowed(identity)) return fallback(view, guardRefusal(identity));
         if (scan != null || (exactFallback != null && exactFallback.active())) return fallback(view, "authority-scan-busy");
         if (exactFallback != null) exactFallback.cancel("authority-reused-for-comparison");
+        // A fresh read supersedes retained output. The core also drops the retained snapshot before enrichment.
+        view.lastResult = null; view.resultRead = null;
         authorityWindowVersion = Math.incrementExact(authorityWindowVersion);
         if (!valid(view) || !("settled".equals(view.phase) || "complete".equals(view.phase)))
             return fallback(view, "binding-or-replay-incomplete");
@@ -967,6 +1010,7 @@ public final class ShadowCacheProbe {
         }
         if (!stepWindow.unchanged(membership)) return stepWindowChanged(index, view);
         scan = new Scan(view);
+        scan.enrichmentBatchCoordinates = maximumEnrichmentCoordinates;
         scan.membershipRead = membership;
         stepWindow.confirmLater(membership, () -> view.hints.isEmpty() && !view.physicalHintOverflow);
         comparison = "pending";
@@ -986,7 +1030,7 @@ public final class ShadowCacheProbe {
         if (!guardCurrent(work.identityGuard)) return finishWindowChange("window-changed");
         // A known change ends the scan before any later stage can use its reads.
         StepDeltaWindow.Read open = "membership".equals(work.stage) ? work.membershipRead
-            : "result".equals(work.stage) ? work.resultRead : work.authorityRead;
+            : "result".equals(work.stage) || "enrichment".equals(work.stage) ? work.resultRead : work.authorityRead;
         if (open != null && (open.state() == StepDeltaWindow.State.CHANGED || !stepWindow.unchanged(open)))
             return finishStepWindowChange(work);
         if (!valid(view) || view.callbacks != work.callbacks || !work.metadata.equals(metadata(view.clip)))
@@ -999,10 +1043,11 @@ public final class ShadowCacheProbe {
             authority.identityGuard = view.identityGuard;
             try { startAuthorityBinding(view.target, view.expected, control); }
             catch (RuntimeException error) { return finishWindowChange("authority-control-unavailable"); }
-            work.stage = "authority";
+            work.stage = "authority"; work.phase("authority-binding");
             return scanStatus();
         }
         if ("settlement".equals(work.stage)) return settleConfirmed(work);
+        if ("enrichment".equals(work.stage)) return enrichConfirmed(work);
         if ("result".equals(work.stage)) return publishConfirmed(work);
         try { advanceAuthorityBinding(); }
         catch (RuntimeException error) { return finishWindowChange("authority-binding-unavailable"); }
@@ -1017,7 +1062,7 @@ public final class ShadowCacheProbe {
             return scanStatus();
         }
         if (!work.authorityReady) {
-            work.authorityReady = true;
+            work.authorityReady = true; work.phase("authority-reads");
             work.authorityCallbacks = authority.callbacks;
             // The read window opens before the authority target is confirmed.
             work.authorityRead = stepWindow.open();
@@ -1050,7 +1095,7 @@ public final class ShadowCacheProbe {
         if (!finalReadsCurrent(work)) return finishWindowChange("window-changed");
         if (!stepWindow.unchanged(work.authorityRead)) return finishStepWindowChange(work);
         // Settlement waits for a later callback that sees the same window.
-        work.stage = "settlement";
+        work.stage = "settlement"; work.phase("settlement-confirmation");
         stepWindow.confirmLater(work.authorityRead, () -> view.hints.isEmpty() && !view.physicalHintOverflow);
         return scanStatus();
     }
@@ -1085,20 +1130,37 @@ public final class ShadowCacheProbe {
         }
         StepDeltaWindow.Read result = stepWindow.open();
         if (!result.value().equals(work.authorityRead.value())) return finishStepWindowChange(work);
-        Result candidate = cache.snapshot(view.ref, coverage, work.metadata,
-            coordinate -> guardedEnrichment(view, coordinate), true, "settled-independent-1/512-authority");
+        // Enrichment reads stay inside one result window. Each poll runs one bounded batch.
+        work.resultRead = result;
+        work.candidate = cache.beginSnapshot(view.ref, coverage, work.metadata, "settled-independent-1/512-authority",
+            ENRICHMENT_DEADLINE_MS);
+        work.stage = "enrichment"; work.phase("enrichment");
+        return enrichConfirmed(work);
+    }
+
+    /** Run one enrichment batch. Compare and request confirmation only after the final batch. */
+    private JsonObject enrichConfirmed(Scan work) {
+        View view = work.view;
+        if (!stepWindow.unchanged(work.resultRead)) return finishStepWindowChange(work);
+        if (!finalReadsCurrent(work)) return finishWindowChange("window-changed");
+        cache.enrich(work.candidate, coordinate -> guardedEnrichment(view, coordinate), BATCH_MS, work.enrichmentBatchCoordinates);
+        enrichmentBatches++;
         if (!guardCurrent(work.identityGuard)) return finishWindowChange("window-changed");
+        if (view.callbacks != work.callbacks || authority.callbacks != work.authorityCallbacks || !bindingReady(authority))
+            return finishWindowChange("window-changed");
+        if (!stepWindow.unchanged(work.resultRead)) return finishStepWindowChange(work);
+        if ("enriching".equals(work.candidate.phase())) return scanStatus();
+        Result candidate = cache.finishSnapshot(work.candidate, true);
         String outcome = candidate.snapshot() == null ? candidate.reason()
             : cache.compare(candidate.snapshot(), coverage, metadata(authority.clip), work.notes);
         if (view.callbacks != work.callbacks || authority.callbacks != work.authorityCallbacks || !bindingReady(authority))
             outcome = "window-changed";
         if ("window-changed".equals(outcome)) return finishWindowChange("window-changed");
-        if (!stepWindow.unchanged(result)) return finishStepWindowChange(work);
+        if (!stepWindow.unchanged(work.resultRead)) return finishStepWindowChange(work);
         work.pendingComparison = outcome;
         work.pendingResult = candidate;
-        work.resultRead = result;
-        work.stage = "result";
-        stepWindow.confirmLater(result, () -> view.hints.isEmpty() && !view.physicalHintOverflow);
+        work.stage = "result"; work.phase("result-confirmation");
+        stepWindow.confirmLater(work.resultRead, () -> view.hints.isEmpty() && !view.physicalHintOverflow);
         return scanStatus();
     }
 
@@ -1152,7 +1214,9 @@ public final class ShadowCacheProbe {
             lastSnapshotSerializedBytes = JSON.toJson(view.lastResult.snapshot()).getBytes(StandardCharsets.UTF_8).length;
             result.addProperty("lastSnapshotSerializedBytes", lastSnapshotSerializedBytes);
         }
-        scan = null;
+        endScan("published");
+        result.add("scanPhaseTimesMs", lastScanPhaseTimes.deepCopy());
+        result.add("resourceAccounting", resourceAccounting());
         return result;
     }
 
@@ -1233,7 +1297,7 @@ public final class ShadowCacheProbe {
             comparison = "window-changed";
             fallbackReason = "authority-scan-cancelled";
             windowChanges++;
-            scan = null;
+            endScan("authority-scan-cancelled");
         }
         return status(index);
     }
@@ -1245,7 +1309,7 @@ public final class ShadowCacheProbe {
         detachInventoryCoordinator(reason);
         fallbackReason = reason;
         for (int index = 0; index < views.length; index++) if (views[index].used) retire(index);
-        scan = null;
+        endScan(reason);
         canaryPassed = false;
         return info();
     }
@@ -1362,6 +1426,9 @@ public final class ShadowCacheProbe {
             result.addProperty("authorityHostWorkMs", scan.hostWorkMs);
             result.addProperty("authorityPhase", authority.phase);
             result.add("authorityBinding", authorityBindingDiagnostics());
+            result.addProperty("scanStage", scan.stage);
+            result.add("scanPhaseTimesMs", scan.phaseTimes());
+            if (scan.candidate != null) result.add("snapshotCandidate", JSON.toJsonTree(scan.candidate.status()));
         }
         return result;
     }
@@ -1402,8 +1469,21 @@ public final class ShadowCacheProbe {
         result.addProperty("comparison", reason);
         result.addProperty("reason", reason);
         result.addProperty("terminal", true);
-        scan = null;
+        boolean ended = scan != null;
+        endScan(reason);
+        if (ended) result.add("scanPhaseTimesMs", lastScanPhaseTimes.deepCopy());
+        // Report accounting after the scan releases its staging and candidate.
+        result.add("resourceAccounting", resourceAccounting());
         return result;
+    }
+
+    /** End the scan. An unpublished candidate is retired without a provider read. */
+    private void endScan(String cause) {
+        if (scan == null) return;
+        if (scan.candidate != null) { cache.cancelSnapshot(scan.candidate, cause); lastCandidate = JSON.toJsonTree(scan.candidate.status()).getAsJsonObject(); }
+        scan.phase("ended");
+        lastScanPhaseTimes = scan.phaseTimes();
+        scan = null;
     }
 
     /** A changed step window retires the binding and discards pending and output state. */
@@ -1616,6 +1696,22 @@ public final class ShadowCacheProbe {
         boolean pendingPopulated;
         int next;
         double hostWorkMs;
-        Scan(View view) { this.view = view; callbacks = view.callbacks; identityGuard = view.identityGuard; metadata = metadata(view.clip); }
+        ShadowProjectCache.Candidate candidate;
+        int enrichmentBatchCoordinates = Integer.MAX_VALUE;
+        /** Elapsed wall time at each stage start, measured from the scan start. */
+        final LinkedHashMap<String, Double> phases = new LinkedHashMap<>();
+        Scan(View view) {
+            this.view = view; callbacks = view.callbacks; identityGuard = view.identityGuard; metadata = metadata(view.clip);
+            phases.put("membership", 0.0);
+        }
+        void phase(String name) { phases.putIfAbsent(name, elapsed(started)); }
+        JsonObject phaseTimes() {
+            JsonObject result = new JsonObject();
+            phases.forEach(result::addProperty);
+            result.addProperty("authorityHostWorkMs", hostWorkMs);
+            if (candidate != null) result.addProperty("enrichmentHostWorkMs", candidate.status().hostWorkMs());
+            result.addProperty("scope", "elapsed wall time from scan start at each stage start; host work is separate");
+            return result;
+        }
     }
 }

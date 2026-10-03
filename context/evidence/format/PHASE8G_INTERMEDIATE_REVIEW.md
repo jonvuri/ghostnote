@@ -2,7 +2,7 @@
 title: Phase 8g intermediate review
 kind: evidence
 state: active
-updated: 2026-10-02
+updated: 2026-10-03
 owner: phase-8g-intermediate-review
 ---
 
@@ -144,6 +144,27 @@ groups pass. Full brain `check` passes typecheck and 1,692 tests. Full extension
 context links, and diff checks pass. No live state or historical artifact changed.
 Entry HEAD already contains prior work. Only 8g2 is staged. No commit is made.
 
+## Snapshot and global budgets in 8g3
+
+[E219](../experiments/e219-snapshot-budgets-and-combined-storage.md) lists each
+selected limit with its measurement, domain, equality, excess, recovery, and
+evidence. Enrichment now uses a private candidate in bounded batches. Each batch
+and the publication recheck the guard; excess, deadline, cancellation, and
+guard change retire it. Live, the snapshot estimate passes equality at
+16,777,216 bytes and refuses two bytes over. An independent TypeScript oracle
+agrees with the Java estimate. Combined storage refuses each overlap and
+recovers after eviction. Ping p95 under load is 25.06 ms.
+
+Costs per comparison: 2.31–2.96 s wall time, 133–290 ms authority host work,
+up to 69 ms enrichment host work, 94–104 bridge requests, 0.36–9.33 MB
+response bytes. Recorder, authority staging, pending, width, and observer
+boundaries stay model-only or earlier evidence. Heap and host memory are
+unmeasured.
+
+Verification: 37 core and 65 adapter groups, extension `check`, 1,723 brain
+tests including retained-report mutants, five artifact verifiers, the E219
+verifier, active wire checks, context links, and diff checks pass.
+
 ## Acceptance ledger
 
 `Pass` means the stated bounded criterion passes. `Unverified` means required
@@ -165,7 +186,7 @@ identity rules, and the live adapter. Inventory area 1 lists all five files.
 | Init, project, structure, binding, rebuild, content, and invalidation tokens remain distinct | Pass | Core tests repeat numeric counters across reload domains and reject old callbacks, snapshots, and rebuilds. | 8g2 |
 | Callbacks dirty coordinates; reads supply values; acquisition races survive | Pass | Core drain/enrichment race tests and adapter current-target tests pass. Snapshot maps and lists are frozen. | 8g2 |
 | Repair, replacement, deletion, rebuild, and health rules | Pass | Pure scene repair, move/refusal, duplicate, replacement, gap, private staging, and explicit recovery tests pass. | 8g4 |
-| Live snapshot acquisition and combined resource accounting | Unverified | Sparse and snapshot estimates are separate. Selected combined limits and the live 16 MiB boundary remain open. | 8g3 |
+| Live snapshot acquisition and combined resource accounting | Pass (snapshot domain) | E219: bounded candidate enrichment, one resource ledger, live 16 MiB equality and excess, overlap refusal and recovery. Recorder, authority, and pending boundaries are model-only. | 8g3 complete |
 
 Disposition: the pure rules are complete within the tested model scope.
 `ShadowProjectCache` is not a closed file: snapshot acquisition and storage
@@ -205,7 +226,7 @@ the current rig census, current-target getters, root witness, and all channels.
 | Exact fallback uses explicit scope and no sparse membership | Pass | Ten fallback groups and adapter miss/unhealthy cases scan the requested coordinates and all channels. They admit no residence. | 8g5 |
 | Changed acquisition or retained terminal window exposes no values | Pass | During-read, metadata, between-poll, retained-output, and explicit-cancel tests pass. | 8g2 |
 | Registry, sparse recorder, authority, and snapshot measurements are separate | Pass | Coordinator status and adapter diagnostics label each estimate separately. JSON bytes are output bytes. | 8g3 |
-| Combined selected budgets and live guard/provider guarantee | Unverified | Correct guard comparison assumes the host exposes the relevant transition. Live inventory guards declare identity unverified. | 8g2, 8g3 |
+| Combined selected budgets and live guard/provider guarantee | Partial | E219 sums all domains in one ledger; each domain applies its limit and no combined limit is selected. Live inventory still refuses outside step coverage. | 8g3 complete; 8g5 |
 | Complete mismatch diagnostics | Pass | 8g1 closes R1 with all four core causes, retirement, and once-only counters. | 8g1 complete |
 
 Disposition: coordinator control flow is complete under explicit provider and
@@ -252,7 +273,7 @@ depend on areas 1, 3, 4, and 6. The inventory assigns each report and manifest.
 | Malformed warm note comparison must fail retained verification | Pass | 8g1 closes R2 with direct and rehashed retained mutants despite recovery. | 8g1 complete |
 | Accepted native command overlaps active acquisition | Pass | One B command overlaps; A follows retirement. 193 samples, 66 B brackets, no current output, errors, violations, or trace drops. | 8g4 |
 | Broader ordering, group membership, and ambiguous move proof | Unverified | Flat census and Group/Ungroup fences do not prove descendants. One command overlap does not prove all ordering. | 8g2, 8g4 |
-| Selected 16 MiB snapshot and combined resource boundaries | Unverified | 4,096-note match; 8,192-note enrichment-time refusal occurs first. Heap memory is unmeasured. | 8g3 |
+| Selected 16 MiB snapshot and combined resource boundaries | Pass (snapshot) | E219: 16,777,216-byte match, +2-byte refusal, two-resident overlap refusals and recoveries. Heap memory is unmeasured. | 8g3 complete |
 | Compressed/raw integrity and semantic verification | Pass | All 46 reports decode. Every existing manifest size/hash passes. V5/followup check both forms; older manifests pin raw bytes only. Inventory now records both forms without rewriting history. | 8g1, 8g5 |
 | Exact final API baseline and config restoration | Pass | Four ordered tracks, eight scenes, 32 empty slots, selection, cursors, pins, config bytes, and fresh normal runtime are retained. | Every live follow-up |
 | Identical viewport or full group membership restoration proof | Unverified | Viewport is 7–15 versus entry 14–22. API cleanup does not assert identical viewport or descendant membership. | 8g4 |
@@ -303,13 +324,14 @@ Do not add these denominators into one acceptance total.
 | Followup bundle | 18 reports; 14 structural fences/recoveries; three inventory interruptions |
 | Native group/scene/note | One Group/Ungroup control; compound scene control has two declared actions; isolated scene has one; one velocity edit and one separate warm observation |
 | Ordering | One accepted B overlap; return to A after retirement; late-command report has zero accepted trials |
-| Memory | 4,096-note match; 8,192-note time refusal; zero selected snapshot-boundary passes |
+| Memory | 4,096-note match; 8,192-note time refusal; zero selected snapshot-boundary passes (E214 build) |
+| E219 budgets | Calibration; three boundary steps; four combined steps; two interruption steps; one v1 diagnostic run |
 
 ## Follow-up order and active interfaces
 
 1. [8g1 — Review fixes](../../plan/phase-8/8g1-review-fixes.md): complete; R1 and R2 are closed offline.
 2. [8g2 — Project continuity](../../plan/phase-8/8g2-project-continuity.md): complete with conservative refusal. Live continuity remains unverified.
-3. [8g3 — Snapshot and global budgets](../../plan/phase-8/8g3-snapshot-and-global-budgets.md): verify acquisition and each selected limit, combined storage, recovery, and latency.
+3. [8g3 — Snapshot and global budgets](../../plan/phase-8/8g3-snapshot-and-global-budgets.md): complete. See the budget section below.
 4. [8g4 — Native topology and ordering](../../plan/phase-8/8g4-native-topology-and-ordering.md): extend native transitions and prove group membership or keep the unsupported state explicit.
 5. [8g5 — Final shadow acceptance](../../plan/phase-8/8g5-final-shadow-acceptance.md): verify consumers and the whole 8g gate; decide 8h entry separately.
 

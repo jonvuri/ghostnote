@@ -1,0 +1,261 @@
+{
+ "selection": {
+  "trackIndex": -1,
+  "slotIndex": -1,
+  "mixerTrackIndex": 0
+ },
+ "tracks": [
+  {
+   "index": 0,
+   "name": "Inst 1",
+   "position": 0,
+   "type": "Instrument",
+   "channelId": "1ca0534b-35e0-472b-897d-e3c73de82408"
+  },
+  {
+   "index": 1,
+   "name": "Audio 2",
+   "position": 1,
+   "type": "Audio",
+   "channelId": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc"
+  },
+  {
+   "index": 2,
+   "name": "FX 1",
+   "position": 2,
+   "type": "Effect",
+   "channelId": "4843da50-35dd-4fd0-a508-659370945654"
+  },
+  {
+   "index": 3,
+   "name": "Master",
+   "position": 3,
+   "type": "Master",
+   "channelId": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4"
+  }
+ ],
+ "trackCount": 4,
+ "sceneCount": 8,
+ "scan": {
+  "existing": 4,
+  "withChannelId": 4,
+  "slotsWithContent": 0,
+  "sceneCount": 8,
+  "itemCount": 4,
+  "bankSize": 256
+ },
+ "slots": [
+  {
+   "id": "1ca0534b-35e0-472b-897d-e3c73de82408",
+   "row": 0,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "1ca0534b-35e0-472b-897d-e3c73de82408",
+   "row": 1,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "1ca0534b-35e0-472b-897d-e3c73de82408",
+   "row": 2,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "1ca0534b-35e0-472b-897d-e3c73de82408",
+   "row": 3,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "1ca0534b-35e0-472b-897d-e3c73de82408",
+   "row": 4,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "1ca0534b-35e0-472b-897d-e3c73de82408",
+   "row": 5,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "1ca0534b-35e0-472b-897d-e3c73de82408",
+   "row": 6,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "1ca0534b-35e0-472b-897d-e3c73de82408",
+   "row": 7,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc",
+   "row": 0,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc",
+   "row": 1,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc",
+   "row": 2,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc",
+   "row": 3,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc",
+   "row": 4,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc",
+   "row": 5,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc",
+   "row": 6,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "74c8aee2-e313-48ec-aa3b-cdc2aea1b4cc",
+   "row": 7,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "4843da50-35dd-4fd0-a508-659370945654",
+   "row": 0,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "4843da50-35dd-4fd0-a508-659370945654",
+   "row": 1,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "4843da50-35dd-4fd0-a508-659370945654",
+   "row": 2,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "4843da50-35dd-4fd0-a508-659370945654",
+   "row": 3,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "4843da50-35dd-4fd0-a508-659370945654",
+   "row": 4,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "4843da50-35dd-4fd0-a508-659370945654",
+   "row": 5,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "4843da50-35dd-4fd0-a508-659370945654",
+   "row": 6,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "4843da50-35dd-4fd0-a508-659370945654",
+   "row": 7,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4",
+   "row": 0,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4",
+   "row": 1,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4",
+   "row": 2,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4",
+   "row": 3,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4",
+   "row": 4,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4",
+   "row": 5,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4",
+   "row": 6,
+   "exists": true,
+   "hasContent": false
+  },
+  {
+   "id": "9d2a7ac4-0fef-4926-b9e8-ee635d4052e4",
+   "row": 7,
+   "exists": true,
+   "hasContent": false
+  }
+ ],
+ "cursors": {
+  "0": {
+   "trackExists": false,
+   "slotExists": false,
+   "trackPosition": -1,
+   "sceneIndex": 0,
+   "isPinned": false,
+   "cursorTrackPinned": false
+  },
+  "fine": {
+   "trackExists": false,
+   "slotExists": false,
+   "trackPosition": -1,
+   "sceneIndex": 0,
+   "isPinned": false,
+   "cursorTrackPinned": false
+  }
+ },
+ "methodCount": 85,
+ "captured": "2026-10-03T01:55:11.976Z"
+}

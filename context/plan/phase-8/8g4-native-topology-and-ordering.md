@@ -2,8 +2,8 @@
 title: Phase 8g4 — Native topology and ordering coverage
 kind: plan
 state: active
-status: Pending guard decision and budget work. Reuse accepted native controls.
-updated: 2026-10-02
+status: Ready. 8g3 is complete; live acquisitions use the step-delta window and bounded enrichment.
+updated: 2026-10-03
 parent: 8g-shadow-project-cache.md
 prev: 8g3-snapshot-and-global-budgets.md
 next: 8g5-final-shadow-acceptance.md
@@ -13,7 +13,10 @@ next: 8g5-final-shadow-acceptance.md
 
 ## Entry and scope
 
-Use the [8g2](8g2-project-continuity.md) guard decision and 8g3 resource results.
+Use the [8g2](8g2-project-continuity.md) guard decision, the
+[step-delta window](8g2b-step-delta-read-window.md), and the 8g3 resource results
+in [E219](../../evidence/experiments/e219-snapshot-budgets-and-combined-storage.md).
+Comparisons now take 2–3 s; each enrichment poll runs one bounded batch.
 Read the [review ledger](../../evidence/format/PHASE8G_INTERMEDIATE_REVIEW.md),
 8d state machine, identity rules, and later E214 native controls. Reuse 14
 structural fences, three inventory interruptions, Group/Ungroup, isolated Add

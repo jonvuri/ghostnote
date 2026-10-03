@@ -100,7 +100,8 @@ public final class ShadowCacheHandlers extends HandlerGroup {
             case "poll" -> probe.poll(index);
             case "status" -> probe.status(index);
             case "reconcile" -> probe.reconcile(index);
-            case "compareStart" -> probe.compareStart(index);
+            case "compareStart" -> params.has("maxEnrichmentCoordinates")
+                ? probe.compareStart(index, params.get("maxEnrichmentCoordinates").getAsInt()) : probe.compareStart(index);
             case "comparePoll" -> probe.comparePoll();
             case "read" -> probe.readSnapshot(index);
             case "retire" -> probe.retire(index);

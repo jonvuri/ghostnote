@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.UUID;
+import java.util.function.LongSupplier;
 
 /** Domain cache for experimental reads. It has no host handles or write authority. */
 public final class ShadowProjectCache {
@@ -24,6 +25,10 @@ public final class ShadowProjectCache {
     public static final int MAX_PENDING = 2_048;
     public static final long MAX_RECORDER_BYTES = 16L * 1024 * 1024;
     public static final long MAX_SNAPSHOT_BYTES = 16L * 1024 * 1024;
+    /** One enrichment batch has the same host-work limit as reconciliation. */
+    public static final double ENRICHMENT_BATCH_MS = 50;
+    /** A candidate uses the selected one-binding replay limit as its deadline. */
+    public static final double ENRICHMENT_DEADLINE_MS = 5_000;
     public static final String FINGERPRINT_VERSION = "shadow-normalized-v1";
     public static final double GRID = 1.0 / 512;
 
@@ -103,7 +108,55 @@ public final class ShadowProjectCache {
                               int occupiedCoordinates, int pendingCoordinates, long rejectedCallbacks,
                               long recorderEstimatedBytes, long retainedSnapshotEstimatedBytes, long retainedNoteRecords,
                               double constructionMs, double replayMs, double rebuildMs, double pingP95Ms,
-                              long hits, long misses, long evictions, long invalidations, DomainObjectCensus domainObjects) {}
+                              long hits, long misses, long evictions, long invalidations, DomainObjectCensus domainObjects,
+                              ResourceAccounting resources) {}
+    /**
+     * One accounting boundary for cache-owned estimates. The recorder domain holds resident and staged
+     * recorders plus external hint queues. The snapshot domain holds retained snapshots and the private
+     * candidate. Each domain has its selected limit, and equality passes. No combined limit is selected.
+     * These are source estimates. They do not measure JVM heap or host memory.
+     */
+    public record ResourceAccounting(long residentRecorderEstimatedBytes, long stagingRecorderEstimatedBytes,
+                                     long externalRecorderEstimatedBytes, long recorderDomainEstimatedBytes, long recorderLimitBytes,
+                                     long retainedSnapshotEstimatedBytes, long candidateSnapshotEstimatedBytes,
+                                     long snapshotDomainEstimatedBytes, long snapshotLimitBytes, long identityAndWitnessEstimatedBytes,
+                                     String candidatePhase, String candidateReason, boolean heapMeasured) {}
+    public record CandidateStatus(String phase, String reason, int coordinatesDone, int coordinatesTotal, long notes,
+                                  long estimatedBytes, long peakEstimatedBytes, int batches, double lastBatchMs,
+                                  double hostWorkMs, double elapsedMs, double deadlineMs) {}
+    /**
+     * Private snapshot staging. It never serves a read. Each batch and the final publication check the
+     * current binding token, invalidation sequence, zero dirty work, eligibility, deadline, and snapshot budget.
+     */
+    public static final class Candidate {
+        private final Entry entry;
+        private final Coverage request;
+        private final Map<String, Object> metadata;
+        private final String witness;
+        private final CallbackToken token;
+        private final long sequence, started = System.nanoTime();
+        private final double deadlineMs;
+        private final boolean replacedRetained;
+        private final List<Coordinate> coordinates;
+        private final List<Note> notes = new ArrayList<>();
+        private long bytes, peakBytes;
+        private int next, batches;
+        private double lastBatchMs, hostWorkMs, endedMs = -1;
+        private String phase = "enriching", reason = "enrichment-in-progress";
+        private Candidate(Entry entry, Coverage request, Map<String, Object> metadata, String witness, double deadlineMs,
+                          boolean replacedRetained, List<Coordinate> coordinates) {
+            this.entry = entry; this.request = request; this.metadata = metadata; this.witness = witness;
+            this.deadlineMs = deadlineMs; this.replacedRetained = replacedRetained; this.coordinates = coordinates;
+            token = entry.token; sequence = entry.sequence;
+        }
+        public String phase() { return phase; }
+        public String reason() { return reason; }
+        public boolean terminal() { return "retired".equals(phase) || "published".equals(phase); }
+        public CandidateStatus status() {
+            return new CandidateStatus(phase, reason, next, coordinates.size(), notes.size(), bytes, peakBytes, batches,
+                lastBatchMs, hostWorkMs, endedMs >= 0 ? endedMs : elapsed(started), deadlineMs);
+        }
+    }
     /** Count cache-owned records and entries. Exclude transient copies, JVM overhead, and host objects. */
     public record DomainObjectCensus(long clipEntryRecords, long bindingTokenRecords, long occupiedCoordinateEntries,
                                     long dirtyCoordinateEntries, long membershipNoteRecords, long occupiedNoteLists,
@@ -147,6 +200,8 @@ public final class ShadowProjectCache {
     private boolean measurementsValid = true;
     private double constructionMs, replayMs, rebuildMs, pingP95Ms;
     private long rebuildStartedNanos;
+    private Candidate candidate;
+    private LongSupplier externalRecorderBytes = () -> 0;
 
     /** Start a fresh identity domain even if the local counters repeat after reload. */
     public ShadowProjectCache() { this(UUID.randomUUID().toString()); }
@@ -208,7 +263,7 @@ public final class ShadowProjectCache {
         if (candidate.resident) { candidate.lastUsed = increment(clock); clock = candidate.lastUsed; return true; }
         if (eventGap || staging != null || !measurementsValid || pingP95Ms > 50 || constructionMs > 50) return false;
         if (candidate.coverage.width > MAX_WIDTH) { fail(candidate, Health.OVERFLOW, "view-width-limit"); return false; }
-        while (residentCount() >= MAX_OBSERVERS || recorderBytes() + 256 > MAX_RECORDER_BYTES) {
+        while (residentCount() >= MAX_OBSERVERS || recorderTotal() + 256 > MAX_RECORDER_BYTES) {
             Entry victim = entries.values().stream().filter(e -> e.resident)
                 .min(Comparator.comparingLong((Entry e) -> e.lastUsed).thenComparing(e -> e.ref)).orElse(null);
             if (victim == null) return false;
@@ -230,8 +285,9 @@ public final class ShadowProjectCache {
         entry.sequence = increment(entry.sequence); entry.dirty.put(coordinate, entry.sequence); invalidations++;
         if (entry.replay) entry.health = Health.DIRTY;
         entry.reason = "dirty-coordinates";
+        if (candidate != null && candidate.entry == entry) retireCandidate(candidate, "window-changed");
         if (pendingCount() > MAX_PENDING) { requireRebuild("dirty-backpressure"); health = Health.REBUILDING; return false; }
-        if (recorderBytes() + stagingBytes() > MAX_RECORDER_BYTES) { shedAll(Health.OVERFLOW, "memory-budget"); return false; }
+        if (recorderTotal() > MAX_RECORDER_BYTES) { shedAll(Health.OVERFLOW, "memory-budget"); return false; }
         refreshHealth(); return true;
     }
     public boolean settleReplay(String ref, ReplayWitness witness) {
@@ -265,7 +321,7 @@ public final class ShadowProjectCache {
             if (membership.isEmpty()) entry.occupied.remove(work.getKey()); else entry.occupied.put(work.getKey(), membership);
             entry.dirty.remove(work.getKey(), work.getValue()); done++;
             if (entry.occupied.size() > MAX_OCCUPIED) { fail(entry, Health.OVERFLOW, "clip-density-limit"); return done; }
-            if (recorderBytes() + stagingBytes() > MAX_RECORDER_BYTES) { shedAll(Health.OVERFLOW, "memory-budget"); return done; }
+            if (recorderTotal() > MAX_RECORDER_BYTES) { shedAll(Health.OVERFLOW, "memory-budget"); return done; }
         }
         entry.health = entry.dirty.isEmpty() ? (entry.replay ? Health.COMPLETE : Health.WARMING) : (entry.replay ? Health.DIRTY : Health.WARMING);
         entry.reason = entry.health == Health.COMPLETE ? "within-budget" : "replay-or-dirty-incomplete";
@@ -273,57 +329,125 @@ public final class ShadowProjectCache {
         refreshHealth(); return done;
     }
 
-    /** Acquire requested fields only at occupied coordinates. Publication needs zero dirty work. */
+    /**
+     * Acquire requested fields in one batch. A clip that needs more than one batch refuses with
+     * {@code enrichment-budget}. Use the candidate methods for bounded multi-batch enrichment.
+     */
     public Result snapshot(String ref, Coverage request, Map<String, Object> metadata, Authority authority,
                            boolean authorityAvailable, String acquisitionWitness) {
+        Candidate work = beginSnapshot(ref, request, metadata, acquisitionWitness, ENRICHMENT_BATCH_MS);
+        enrich(work, authority, ENRICHMENT_BATCH_MS);
+        if ("enriching".equals(work.phase)) retireCandidate(work, "enrichment-budget");
+        return finishSnapshot(work, authorityAvailable);
+    }
+
+    /**
+     * Start private enrichment at occupied coordinates only. A new candidate replaces the entry's retained
+     * snapshot and any older candidate, so they cannot overlap outside the snapshot domain.
+     */
+    public Candidate beginSnapshot(String ref, Coverage request, Map<String, Object> metadata, String acquisitionWitness,
+                                   double deadlineMs) {
+        measure(deadlineMs);
+        if (deadlineMs > ENRICHMENT_DEADLINE_MS) throw new IllegalArgumentException("enrichment deadline exceeds 5 seconds");
         Entry entry = entry(ref);
+        if (candidate != null) retireCandidate(candidate, "superseded-candidate");
         String refusal = eligibility(entry, request);
-        if (refusal != null) { misses++; return fallback(entry, refusal, authorityAvailable); }
-        CallbackToken captured = entry.token; long sequence = entry.sequence;
         Map<String, Object> frozenMetadata = immutableMap(metadata);
-        long bytes = payloadEstimate(frozenMetadata, List.of(), request);
-        long otherRetainedBytes = retainedBytes() - (entry.retained == null ? 0 : entry.retained.payloadEstimatedBytes);
-        if (bytes > MAX_SNAPSHOT_BYTES || otherRetainedBytes + bytes > MAX_SNAPSHOT_BYTES)
-            return fallback(entry, "snapshot-memory-budget", authorityAvailable);
-        List<Note> notes = new ArrayList<>(); long started = System.nanoTime();
+        boolean replaced = refusal == null && entry.retained != null;
+        if (refusal == null) entry.retained = null;
+        List<Coordinate> coordinates = new ArrayList<>();
+        if (refusal == null) for (Coordinate coordinate : new TreeSet<>(entry.occupied.keySet())) if (request.contains(coordinate)) coordinates.add(coordinate);
+        Candidate work = new Candidate(entry, request, frozenMetadata, acquisitionWitness, deadlineMs, replaced, List.copyOf(coordinates));
+        if (refusal != null) { misses++; retireCandidate(work, refusal); return work; }
+        candidate = work;
+        long base = payloadEstimate(frozenMetadata, List.of(), request);
+        if (!addCandidateBytes(work, base)) retireCandidate(work, "snapshot-memory-budget");
+        return work;
+    }
+
+    /** Run one bounded batch. Each batch reads at least one coordinate and stops at the batch budget. */
+    public CandidateStatus enrich(Candidate work, Authority authority, double batchBudgetMs) {
+        return enrich(work, authority, batchBudgetMs, Integer.MAX_VALUE);
+    }
+    /** A research control can also cap the coordinates in one batch. The cap never widens a limit. */
+    public CandidateStatus enrich(Candidate work, Authority authority, double batchBudgetMs, int maximumCoordinates) {
+        if (maximumCoordinates < 1) throw new IllegalArgumentException("invalid enrichment batch size");
+        measure(batchBudgetMs);
+        if (batchBudgetMs > ENRICHMENT_BATCH_MS) throw new IllegalArgumentException("enrichment batch exceeds 50 ms");
+        if (!"enriching".equals(work.phase)) return work.status();
+        if (!candidateCurrent(work)) { retireCandidate(work, "window-changed"); return work.status(); }
+        if (elapsed(work.started) > work.deadlineMs) { retireCandidate(work, "enrichment-deadline"); return work.status(); }
+        Entry entry = work.entry; long started = System.nanoTime(); int first = work.next;
         try {
-            for (Coordinate coordinate : new TreeSet<>(entry.occupied.keySet())) {
-                if (!request.contains(coordinate)) continue;
-                if (elapsed(started) > 50) return fallback(entry, "enrichment-budget", authorityAvailable);
-                List<Note> enriched = validateNotes(authority.readCoordinate(coordinate), coordinate, request.fields);
+            while (work.next < work.coordinates.size()) {
+                if (work.next > first && (elapsed(started) >= batchBudgetMs || work.next - first >= maximumCoordinates)) break;
+                Coordinate coordinate = work.coordinates.get(work.next);
+                List<Note> enriched = validateNotes(authority.readCoordinate(coordinate), coordinate, work.request.fields);
+                if (!"enriching".equals(work.phase)) return work.status();
+                if (elapsed(started) > ENRICHMENT_BATCH_MS) { retireCandidate(work, "enrichment-budget"); return work.status(); }
+                if (!candidateCurrent(work)) { retireCandidate(work, "window-changed"); return work.status(); }
                 List<Note> membership = enriched.stream().map(n -> new Note(n.channel, n.cell, n.pitch, Map.of())).toList();
                 if (!membership.equals(entry.occupied.get(coordinate))) {
-                    callback(ref, captured, coordinate); return fallback(entry, "authority-membership-mismatch", authorityAvailable);
+                    retireCandidate(work, "authority-membership-mismatch"); callback(entry.ref, work.token, coordinate);
+                    return work.status();
                 }
                 for (Note note : enriched) {
                     Map<String, Object> fields = new TreeMap<>();
-                    for (String field : request.fields) fields.put(field, note.fields.get(field));
-                    long noteBytes = 128L + 2L * canonicalLength(fields);
-                    if (noteBytes > MAX_SNAPSHOT_BYTES - bytes || otherRetainedBytes + bytes + noteBytes > MAX_SNAPSHOT_BYTES)
-                        return fallback(entry, "snapshot-memory-budget", authorityAvailable);
-                    bytes += noteBytes;
-                    notes.add(new Note(note.channel, note.cell, note.pitch, fields));
+                    for (String field : work.request.fields) fields.put(field, note.fields.get(field));
+                    if (!addCandidateBytes(work, 128L + 2L * canonicalLength(fields))) {
+                        retireCandidate(work, "snapshot-memory-budget"); return work.status();
+                    }
+                    work.notes.add(new Note(note.channel, note.cell, note.pitch, fields));
                 }
+                work.next++;
             }
-        } catch (MissingField error) { return new Result(Health.PARTIAL, authorityAvailable ? "exact-fallback" : "refuse", authorityAvailable ? "field-coverage-incomplete" : "authority-unavailable", null); }
-        catch (RuntimeException error) { fail(entry, Health.INVALID, "authority-unavailable"); return fallback(entry, "authority-unavailable", false); }
-        if (elapsed(started) > 50) return fallback(entry, "enrichment-budget", authorityAvailable);
-        if (!captured.equals(entry.token) || !current(captured) || sequence != entry.sequence || !entry.dirty.isEmpty())
-            return fallback(entry, "window-changed", authorityAvailable);
-        notes.sort(NOTE_ORDER);
-        String fingerprint = fingerprint(request, frozenMetadata, notes);
-        if (bytes > MAX_SNAPSHOT_BYTES || retainedBytes() - (entry.retained == null ? 0 : entry.retained.payloadEstimatedBytes) + bytes > MAX_SNAPSHOT_BYTES) {
-            entry.retained = null; return fallback(entry, "snapshot-memory-budget", authorityAvailable);
+        } catch (MissingField error) { retireCandidate(work, "field-coverage-incomplete"); return work.status(); }
+        catch (RuntimeException error) {
+            retireCandidate(work, "authority-unavailable"); fail(entry, Health.INVALID, "authority-unavailable"); return work.status();
+        } finally {
+            work.lastBatchMs = elapsed(started); work.hostWorkMs += work.lastBatchMs; work.batches++;
         }
-        if ((entry.retained != null && acquiredContentChanged(entry.retained, request, frozenMetadata, notes))
-            || (entry.retained == null && entry.snapshotContentGeneration == entry.content && request.equals(entry.snapshotCoverage)
+        if (work.next == work.coordinates.size()) { work.phase = "ready"; work.reason = "enrichment-complete"; }
+        return work.status();
+    }
+
+    /** Explicit cancellation releases the candidate. It makes no provider read. */
+    public void cancelSnapshot(Candidate work, String cause) { if (work != null) retireCandidate(work, cause); }
+
+    /** Publish a ready candidate only if its guard, deadline, and snapshot budget are still current. */
+    public Result finishSnapshot(Candidate work, boolean authorityAvailable) {
+        Entry entry = work.entry;
+        if ("enriching".equals(work.phase)) retireCandidate(work, "enrichment-incomplete");
+        if ("ready".equals(work.phase)) {
+            if (!candidateCurrent(work)) retireCandidate(work, "window-changed");
+            else if (elapsed(work.started) > work.deadlineMs) retireCandidate(work, "enrichment-deadline");
+            else if (work.bytes > MAX_SNAPSHOT_BYTES || retainedBytes() + work.bytes > MAX_SNAPSHOT_BYTES)
+                retireCandidate(work, "snapshot-memory-budget");
+        }
+        if (!"ready".equals(work.phase)) {
+            if ("published".equals(work.phase)) throw new IllegalStateException("candidate already published");
+            if ("field-coverage-incomplete".equals(work.reason))
+                return new Result(Health.PARTIAL, authorityAvailable ? "exact-fallback" : "refuse",
+                    authorityAvailable ? "field-coverage-incomplete" : "authority-unavailable", null);
+            return fallback(entry, work.reason, authorityAvailable && !"authority-unavailable".equals(work.reason));
+        }
+        List<Note> notes = new ArrayList<>(work.notes); notes.sort(NOTE_ORDER);
+        String fingerprint = fingerprint(work.request, work.metadata, notes);
+        // A replaced snapshot with other coverage advances the generation conservatively.
+        if ((work.replacedRetained && !work.request.equals(entry.snapshotCoverage))
+            || (entry.snapshotContentGeneration == entry.content && work.request.equals(entry.snapshotCoverage)
                 && entry.snapshotWitness != null && !entry.snapshotWitness.equals(fingerprint))) entry.content = increment(entry.content);
-        entry.snapshotWitness = fingerprint; entry.snapshotCoverage = request; entry.snapshotContentGeneration = entry.content;
-        Snapshot snapshot = new Snapshot(ref, entry.address, captured, entry.content, sequence, request, frozenMetadata,
-            notes, fingerprint, bytes, acquisitionWitness);
+        entry.snapshotWitness = fingerprint; entry.snapshotCoverage = work.request; entry.snapshotContentGeneration = entry.content;
+        Snapshot snapshot = new Snapshot(entry.ref, entry.address, work.token, entry.content, work.sequence, work.request,
+            work.metadata, notes, fingerprint, work.bytes, work.witness);
         entry.retained = snapshot; entry.lastUsed = increment(clock); clock = entry.lastUsed; hits++;
+        work.phase = "published"; work.reason = "within-budget"; work.endedMs = elapsed(work.started); work.notes.clear();
+        if (candidate == work) candidate = null;
         return new Result(Health.COMPLETE, "shadow-cache", "within-budget", snapshot);
     }
+
+    /** Count external hint queues in the recorder domain. The supplier must not call the host. */
+    public void attachExternalRecorderEstimate(LongSupplier estimate) { externalRecorderBytes = java.util.Objects.requireNonNull(estimate); }
     public boolean isCurrent(Snapshot snapshot) {
         Entry entry = entries.get(snapshot.clipRef);
         return entry != null && eligibility(entry, snapshot.coverage) == null && snapshot.token.equals(entry.token)
@@ -421,7 +545,7 @@ public final class ShadowProjectCache {
         entry.membershipWitness = membership;
         entry.resident = true; entry.replay = true; entry.token = token(); entry.addressAssigned = true; entry.health = Health.COMPLETE; entry.reason = "within-budget";
         staging.put(ref, entry);
-        if (stagingBytes() + recorderBytes() > MAX_RECORDER_BYTES) { staging.remove(ref); throw new IllegalStateException("rebuild memory exceeded"); }
+        if (recorderTotal() > MAX_RECORDER_BYTES) { staging.remove(ref); throw new IllegalStateException("rebuild memory exceeded"); }
         return ref;
     }
     /** Include non-resident clips so inventory enumeration does not truncate the project. */
@@ -433,7 +557,7 @@ public final class ShadowProjectCache {
     public boolean publishRebuild(RebuildToken token, boolean fullInventoryEnumerated, double elapsedMs) {
         measure(elapsedMs); rebuildMs = elapsedMs;
         if (!validRebuild(token) || !fullInventoryEnumerated || !measurementsValid || constructionMs > 50 || pingP95Ms > 50
-            || recorderBytes() + stagingBytes() > MAX_RECORDER_BYTES || pendingCount() > MAX_PENDING
+            || recorderTotal() > MAX_RECORDER_BYTES || pendingCount() > MAX_PENDING
             || staging.values().stream().anyMatch(e -> e.resident && (e.health != Health.COMPLETE || !e.dirty.isEmpty()))
             || elapsedMs > 40_000 || elapsed(rebuildStartedNanos) > 40_000) {
             abortRebuild(token, elapsedMs > 40_000 ? "rebuild-budget" : "rebuild-interrupted"); return false;
@@ -469,7 +593,14 @@ public final class ShadowProjectCache {
             entries.values().stream().mapToInt(e -> e.occupied.size()).sum(), pendingCount(), rejected,
             recorderBytes() + stagingBytes(), retainedBytes(),
             entries.values().stream().filter(e -> e.retained != null).mapToLong(e -> e.retained.notes.size()).sum(),
-            constructionMs, replayMs, rebuildMs, pingP95Ms, hits, misses, evictions, invalidations, domainObjects());
+            constructionMs, replayMs, rebuildMs, pingP95Ms, hits, misses, evictions, invalidations, domainObjects(), resources());
+    }
+    public ResourceAccounting resources() {
+        long resident = recorderBytes(), staged = stagingBytes(), external = externalRecorderBytes.getAsLong();
+        long retained = retainedBytes(), candidateBytes = candidateBytes();
+        return new ResourceAccounting(resident, staged, external, resident + staged + external, MAX_RECORDER_BYTES,
+            retained, candidateBytes, retained + candidateBytes, MAX_SNAPSHOT_BYTES, domainObjects().identityAndWitnessEstimatedBytes(),
+            candidate == null ? "none" : candidate.phase, candidate == null ? "none" : candidate.reason, false);
     }
     /** Use R07 nearest-cell duration rounding. A tie rounds up. Keep at least one cell. */
     public static long normalizeDurationCells(double duration) {
@@ -520,7 +651,7 @@ public final class ShadowProjectCache {
         if (!entry.replay || entry.health == Health.WARMING) return "replay-incomplete";
         if (entry.health != Health.COMPLETE || !entry.dirty.isEmpty()) return "dirty-or-unhealthy";
         if (!entry.coverage.covers(request)) return "coverage-incomplete";
-        if (recorderBytes() > MAX_RECORDER_BYTES || entry.occupied.size() > MAX_OCCUPIED || request.width > MAX_WIDTH
+        if (recorderTotal() > MAX_RECORDER_BYTES || entry.occupied.size() > MAX_OCCUPIED || request.width > MAX_WIDTH
             || residentCount() > MAX_OBSERVERS || pendingCount() > MAX_PENDING || constructionMs > 50 || pingP95Ms > 50)
             return "budget-exceeded";
         return null;
@@ -539,6 +670,7 @@ public final class ShadowProjectCache {
         if (value == null || value.isEmpty()) throw new IllegalArgumentException("invalid init domain");
     }
     private void retire(Entry entry) {
+        if (candidate != null && candidate.entry == entry) retireCandidate(candidate, "window-changed");
         if (entry.replay) entry.membershipWitness = membershipFingerprint(entry);
         binding = increment(binding); entry.token = null; entry.resident = false; entry.replay = false;
         entry.dirty.clear(); entry.occupied.clear(); entry.retained = null;
@@ -552,6 +684,29 @@ public final class ShadowProjectCache {
         }
         entries.values().forEach(entry -> { retire(entry); entry.health = state; entry.reason = cause; });
         health = state; reason = cause;
+    }
+    private boolean candidateCurrent(Candidate work) {
+        Entry entry = work.entry;
+        return entries.get(entry.ref) == entry && work.token != null && work.token.equals(entry.token) && current(work.token)
+            && work.sequence == entry.sequence && entry.dirty.isEmpty() && eligibility(entry, work.request) == null;
+    }
+    /** Check the snapshot domain before growth. Equality with the selected limit passes. */
+    private boolean addCandidateBytes(Candidate work, long bytes) {
+        long others = retainedBytes();
+        if (bytes > MAX_SNAPSHOT_BYTES - work.bytes || others > MAX_SNAPSHOT_BYTES - work.bytes - bytes) return false;
+        work.bytes += bytes; work.peakBytes = Math.max(work.peakBytes, work.bytes); return true;
+    }
+    private void retireCandidate(Candidate work, String cause) {
+        if (work.terminal()) return;
+        work.phase = "retired"; work.reason = cause; work.endedMs = elapsed(work.started);
+        work.notes.clear(); work.bytes = 0;
+        if (candidate == work) candidate = null;
+    }
+    private long candidateBytes() { return candidate == null ? 0 : candidate.bytes; }
+    private long recorderTotal() {
+        long external = externalRecorderBytes.getAsLong();
+        if (external < 0) throw new IllegalStateException("negative external recorder estimate");
+        return Math.addExact(Math.addExact(recorderBytes(), stagingBytes()), external);
     }
     private int residentCount() { return (int) entries.values().stream().filter(e -> e.resident).count(); }
     private int pendingCount() { return entries.values().stream().mapToInt(e -> e.dirty.size()).sum()
@@ -578,21 +733,6 @@ public final class ShadowProjectCache {
     private static String membershipFingerprint(Entry entry) {
         List<Note> notes = entry.occupied.values().stream().flatMap(List::stream).toList();
         return fingerprint(entry.coverage, Map.of(), notes);
-    }
-    /** Compare the acquired overlap when a caller changes field or span coverage. */
-    private static boolean acquiredContentChanged(Snapshot previous, Coverage coverage,
-                                                  Map<String, Object> metadata, List<Note> notes) {
-        if (!previous.metadata.equals(metadata)) return true;
-        long start = Math.max(previous.coverage.startCell, coverage.startCell);
-        long end = Math.min(previous.coverage.startCell + previous.coverage.width, coverage.startCell + coverage.width);
-        Set<String> fields = new TreeSet<>(previous.coverage.fields); fields.retainAll(coverage.fields);
-        Map<String, Note> before = new HashMap<>(), after = new HashMap<>();
-        for (Note note : previous.notes) if (note.cell >= start && note.cell < end) before.put(note.channel + ":" + note.cell + ":" + note.pitch, note);
-        for (Note note : notes) if (note.cell >= start && note.cell < end) after.put(note.channel + ":" + note.cell + ":" + note.pitch, note);
-        if (!before.keySet().equals(after.keySet())) return true;
-        for (String key : before.keySet()) for (String field : fields)
-            if (!java.util.Objects.equals(before.get(key).fields.get(field), after.get(key).fields.get(field))) return true;
-        return false;
     }
     private static final class MissingField extends RuntimeException {}
     private static long increment(long value) { if (value == Long.MAX_VALUE) throw new IllegalStateException("generation exhausted"); return value + 1; }

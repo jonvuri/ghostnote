@@ -2,12 +2,12 @@
 title: Phase 8g — Shadow project cache
 kind: plan
 state: active
-status: Active. 8g2b is complete. Run 8g3 next; its live work can use the step-delta window.
+status: Active. 8g3 is complete. Run 8g4 next.
 updated: 2026-10-03
 parent: README.md
 prev: 8f3-ghostnote-bindings-and-cache-contracts.md
 next: 8h-cache-promotion-and-interface-simplification.md
-evidence: E130-E134; E138-E139; E214-E218; D23; D26
+evidence: E130-E134; E138-E139; E214-E219; D23; D26
 ---
 
 # Phase 8g — Shadow project cache
@@ -42,8 +42,13 @@ confirmed step-delta windows.
 passes 147 live detour trials with zero foreign outputs. Live slot inventory
 still refuses. Nothing is eligible.
 
-Run [8g3](8g3-snapshot-and-global-budgets.md) next. Its live budget work can use
-the step-delta window. Then run [8g4](8g4-native-topology-and-ordering.md) and
+[8g3](8g3-snapshot-and-global-budgets.md) is complete.
+[E219](../../evidence/experiments/e219-snapshot-budgets-and-combined-storage.md)
+passes live 16 MiB snapshot equality and excess, combined-storage overlap
+refusal with recovery, and interrupted enrichment. Other boundaries stay
+model-only. Nothing is eligible.
+
+Run [8g4](8g4-native-topology-and-ordering.md) next, then
 [8g5](8g5-final-shadow-acceptance.md). Do not enter 8h.
 
 ## Current result

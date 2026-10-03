@@ -36,8 +36,11 @@ Group/Ungroup control. Group membership remains unproved. Separate native scene 
 pass. One native project command during acquisition passes retirement with no
 current output. This is a bounded ordering control. At 4,096 notes, enriched
 snapshot payload is 8,431,780 estimated bytes. At 8,192 notes, enrichment time
-refuses before the selected 16 MiB snapshot boundary. That boundary and combined
-selected budgets remain unmeasured. Estimates do not measure heap memory.
+refuses before the selected 16 MiB snapshot boundary in that build.
+[E219](../evidence/experiments/e219-snapshot-budgets-and-combined-storage.md)
+uses bounded enrichment batches. It passes live 16 MiB snapshot equality and
+excess, combined-storage overlap refusal, and recovery. Other boundaries stay
+model-only. Estimates do not measure heap memory.
 Final API baseline, exact config restoration, and fresh normal hello pass.
 The implementation does not change this target contract.
 
@@ -270,6 +273,16 @@ storage separately and keep enrichment and snapshot retention bounded. 8g must
 measure those costs; it must not call the sparse estimate total cache memory.
 Use cooperative reconciliation batches within the measured 50 ms host-work
 budget. Persistent overload cannot trigger unbounded retries or staging growth.
+
+One accounting boundary reports every cache-owned estimate by domain. The
+recorder domain holds resident and staged recorders and physical hint queues.
+The snapshot domain holds retained snapshots and the private candidate, with a
+selected 16 MiB estimate. Authority staging and registry bookkeeping are
+separate domains. Each domain applies its limit; equality passes. No combined
+limit is selected. Snapshot enrichment uses a private candidate in batches of
+at most 50 ms host work, with the 5 s replay limit as its deadline. Each batch
+and the final publication recheck the guard. Excess, deadline, cancellation,
+and guard change retire the candidate and retain no snapshot.
 
 Exact fallback obtains fresh settled authority for the requested normalized
 view. Retain E131 for the existing product path and exact diagnostics. If its

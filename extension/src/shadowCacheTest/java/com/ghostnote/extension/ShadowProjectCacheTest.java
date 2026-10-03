@@ -18,9 +18,10 @@ public final class ShadowProjectCacheTest {
         final Map<Coordinate, List<Note>> notes = new HashMap<>();
         final String ref;
         Fixture() { this(new ShadowProjectCache()); }
-        Fixture(ShadowProjectCache cache) {
+        Fixture(ShadowProjectCache cache) { this(cache, "track-a"); }
+        Fixture(ShadowProjectCache cache, String track) {
             this.cache = cache;
-            ref = cache.create(new Address("track-a", 0), FULL);
+            ref = cache.create(new Address(track, 0), FULL);
             cache.admit(ref); cache.inventoryEnumerated();
         }
         void notes(Coordinate coordinate, List<Note> values) {
@@ -61,6 +62,13 @@ public final class ShadowProjectCacheTest {
         run("structural domain reset", ShadowProjectCacheTest::reset);
         run("incremental enrichment memory budget", ShadowProjectCacheTest::enrichmentMemory);
         run("aggregate sparse memory budget", ShadowProjectCacheTest::memory);
+        run("snapshot estimate equality and excess at 16 MiB", ShadowProjectCacheTest::snapshotBoundary);
+        run("retained and candidate snapshots share one domain", ShadowProjectCacheTest::snapshotDomain);
+        run("candidate enrichment runs bounded batches", ShadowProjectCacheTest::candidateBatches);
+        run("candidate guard changes retire partial work", ShadowProjectCacheTest::candidateGuards);
+        run("ready candidates recheck the final guard", ShadowProjectCacheTest::candidateFinalGuard);
+        run("candidate deadline, host work, and cancellation", ShadowProjectCacheTest::candidateLimits);
+        run("external hint queues count in the recorder domain", ShadowProjectCacheTest::externalRecorder);
         run("domain object census includes membership and staging", ShadowProjectCacheTest::census);
         run("duration normalization boundaries", ShadowProjectCacheTest::duration);
         run("invalid counters and finite measurements", ShadowProjectCacheTest::invalid);
@@ -337,6 +345,201 @@ public final class ShadowProjectCacheTest {
         }
         check(exceeded && cache.diagnostics().recorderEstimatedBytes() <= MAX_RECORDER_BYTES, "aggregate memory limit has no silent overflow");
         cache.abortRebuild(token, "test-cleanup"); check(cache.diagnostics().recorderEstimatedBytes() == 0, "aborted staging released");
+    }
+    /** Independent copy of the payload estimate rules: 128 bytes per note plus two bytes per canonical character. */
+    private static long textCost(String className, String text) { return className.length() + 3L + Integer.toString(text.length()).length() + text.length(); }
+    private static long noteCost(String payload) { return 128 + 2 * (2 + textCost("String", "velocity") + textCost("String", payload)); }
+    /** Build a clip whose snapshot estimate is the base plus the given note payload lengths. */
+    private static Fixture payloadClip(ShadowProjectCache cache, String track, List<Integer> lengths, Map<Coordinate, String> payloads) {
+        Fixture f = new Fixture(cache, track);
+        for (int i = 0; i < lengths.size(); i++) {
+            Coordinate c = new Coordinate(i, 60); payloads.put(c, "x".repeat(lengths.get(i)));
+            f.notes(c, List.of(note(0, c, .5)));
+        }
+        f.ready(); return f;
+    }
+    private static Authority payloadAuthority(Map<Coordinate, String> payloads) {
+        return c -> payloads.containsKey(c) ? List.of(new Note(0, c.cell(), c.pitch(), Map.of("velocity", payloads.get(c)))) : List.of();
+    }
+    private static long baseEstimate(ShadowProjectCache cache, String ref) {
+        Candidate probe = cache.beginSnapshot(ref, FULL, Map.of("name", "clip"), "base", ENRICHMENT_DEADLINE_MS);
+        long base = probe.status().estimatedBytes(); cache.cancelSnapshot(probe, "base-measured"); return base;
+    }
+    /** Payload lengths whose estimate equals the target exactly. Lengths stay inside one digit-count band. */
+    private static List<Integer> lengthsFor(long target) {
+        int large = 2_000_000; long each = noteCost("x".repeat(large)); List<Integer> lengths = new ArrayList<>();
+        while (target - each >= noteCost("x".repeat(1_000_000))) { lengths.add(large); target -= each; }
+        int last = (int) ((target - 128 - 2 * (2 + textCost("String", "velocity") + 6 + 3 + 7)) / 2);
+        check(noteCost("x".repeat(last)) == target, "test payload solves the exact remainder");
+        lengths.add(last); return lengths;
+    }
+    private static void snapshotBoundary() {
+        ShadowProjectCache cache = new ShadowProjectCache(); Map<Coordinate, String> payloads = new HashMap<>();
+        Fixture empty = new Fixture(cache, "track-base"); empty.ready(); long base = baseEstimate(cache, empty.ref);
+        List<Integer> lengths = lengthsFor(MAX_SNAPSHOT_BYTES - base);
+        Fixture f = payloadClip(cache, "track-a", lengths, payloads);
+        Candidate equal = cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "equality", ENRICHMENT_DEADLINE_MS);
+        while ("enriching".equals(equal.phase())) cache.enrich(equal, payloadAuthority(payloads), ENRICHMENT_BATCH_MS);
+        Result passed = cache.finishSnapshot(equal, true);
+        check(passed.snapshot() != null && passed.snapshot().payloadEstimatedBytes() == MAX_SNAPSHOT_BYTES,
+            "an estimate equal to 16 MiB publishes");
+        check(cache.resources().snapshotDomainEstimatedBytes() == MAX_SNAPSHOT_BYTES && cache.resources().candidateSnapshotEstimatedBytes() == 0,
+            "the retained snapshot fills the domain exactly");
+        Coordinate grown = new Coordinate(lengths.size() - 1, 60);
+        payloads.put(grown, payloads.get(grown) + "x"); f.notes(grown, List.of(note(0, grown, .5))); f.drain();
+        Candidate excess = cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "excess", ENRICHMENT_DEADLINE_MS);
+        check(cache.resources().retainedSnapshotEstimatedBytes() == 0, "a new candidate replaces the retained snapshot first");
+        while ("enriching".equals(excess.phase())) cache.enrich(excess, payloadAuthority(payloads), ENRICHMENT_BATCH_MS);
+        Result refused = cache.finishSnapshot(excess, true);
+        check(refused.snapshot() == null && refused.reason().equals("snapshot-memory-budget") && excess.reason().equals("snapshot-memory-budget"),
+            "two bytes over 16 MiB refuse with a stable reason");
+        check(excess.status().peakEstimatedBytes() <= MAX_SNAPSHOT_BYTES && excess.status().coordinatesDone() == lengths.size() - 1,
+            "the excess stops at the last note without growth past the limit");
+        check(cache.resources().snapshotDomainEstimatedBytes() == 0 && cache.diagnostics().domainObjects().retainedSnapshotRecords() == 0,
+            "excess retains no candidate or current snapshot");
+        check(!cache.isCurrent(passed.snapshot()), "the earlier equal snapshot is historical");
+    }
+    private static void snapshotDomain() {
+        ShadowProjectCache cache = new ShadowProjectCache(); Map<Coordinate, String> payloadsA = new HashMap<>(), payloadsB = new HashMap<>();
+        Fixture a = payloadClip(cache, "track-a", List.of(4_000_000), payloadsA);
+        Fixture b = payloadClip(cache, "track-b", List.of(3_000_000, 2_000_000), payloadsB);
+        Result first = cache.snapshot(a.ref, FULL, Map.of("name", "clip"), payloadAuthority(payloadsA), true, "a");
+        check(first.snapshot() != null, "first clip publishes");
+        Candidate second = cache.beginSnapshot(b.ref, FULL, Map.of("name", "clip"), "b", ENRICHMENT_DEADLINE_MS);
+        check(cache.resources().retainedSnapshotEstimatedBytes() == first.snapshot().payloadEstimatedBytes()
+            && cache.resources().candidateSnapshotEstimatedBytes() > 0, "retained and candidate estimates are visible together");
+        while ("enriching".equals(second.phase())) cache.enrich(second, payloadAuthority(payloadsB), ENRICHMENT_BATCH_MS);
+        check(second.reason().equals("snapshot-memory-budget") && cache.finishSnapshot(second, true).snapshot() == null,
+            "another clip's retained snapshot counts against the candidate");
+        check(cache.resources().snapshotDomainEstimatedBytes() == first.snapshot().payloadEstimatedBytes(), "refusal releases only the candidate");
+        cache.evict(a.ref);
+        check(cache.resources().snapshotDomainEstimatedBytes() == 0, "eviction releases the retained snapshot");
+        Candidate recovery = cache.beginSnapshot(b.ref, FULL, Map.of("name", "clip"), "b-recovery", ENRICHMENT_DEADLINE_MS);
+        while ("enriching".equals(recovery.phase())) cache.enrich(recovery, payloadAuthority(payloadsB), ENRICHMENT_BATCH_MS);
+        Result recovered = cache.finishSnapshot(recovery, true);
+        check(recovered.snapshot() != null && recovered.snapshot().notes().size() == 2, "an explicit new attempt recovers after eviction");
+    }
+    private static Fixture wideClip(int coordinates) {
+        Fixture f = new Fixture();
+        for (int i = 0; i < coordinates; i++) { Coordinate c = new Coordinate(i, 60); f.notes(c, List.of(note(0, c, .5))); }
+        f.ready(); return f;
+    }
+    private static Authority slow(Fixture f, long nanos) {
+        return c -> { long end = System.nanoTime() + nanos; while (System.nanoTime() < end) Thread.onSpinWait(); return f.notes.getOrDefault(c, List.of()); };
+    }
+    private static void candidateBatches() {
+        Fixture f = wideClip(12);
+        Result single = f.cache.snapshot(f.ref, FULL, Map.of("name", "clip"), slow(f, 6_000_000L), true, "single");
+        check(single.snapshot() == null && single.reason().equals("enrichment-budget"), "the one-batch wrapper keeps its 50 ms limit");
+        Candidate work = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "batched", ENRICHMENT_DEADLINE_MS);
+        int polls = 0;
+        while ("enriching".equals(work.phase())) {
+            CandidateStatus status = f.cache.enrich(work, slow(f, 6_000_000L), 20); polls++;
+            check(status.lastBatchMs() <= ENRICHMENT_BATCH_MS && status.coordinatesDone() > 0, "each batch progresses inside the host-work limit");
+            if ("enriching".equals(work.phase())) check(f.cache.diagnostics().retainedSnapshotEstimatedBytes() == 0
+                && f.cache.resources().candidateSnapshotEstimatedBytes() > 0 && f.cache.resources().candidatePhase().equals("enriching"),
+                "partial candidates are private and accounted");
+        }
+        Result result = f.cache.finishSnapshot(work, true);
+        check(polls > 1 && work.status().batches() == polls && result.snapshot() != null && result.snapshot().notes().size() == 12,
+            "multiple bounded batches publish one complete snapshot");
+        check(f.cache.resources().candidateSnapshotEstimatedBytes() == 0 && f.cache.resources().candidatePhase().equals("none"),
+            "publication moves the estimate from candidate to retained");
+        expect(IllegalArgumentException.class, () -> f.cache.enrich(work, slow(f, 0), 51));
+        expect(IllegalArgumentException.class, () -> f.cache.enrich(work, slow(f, 0), 10, 0));
+        Candidate capped = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "capped", ENRICHMENT_DEADLINE_MS);
+        check(f.cache.enrich(capped, slow(f, 0), ENRICHMENT_BATCH_MS, 5).coordinatesDone() == 5
+            && f.cache.enrich(capped, slow(f, 0), ENRICHMENT_BATCH_MS, 5).coordinatesDone() == 10
+            && f.cache.enrich(capped, slow(f, 0), ENRICHMENT_BATCH_MS, 5).coordinatesDone() == 12 && "ready".equals(capped.phase()),
+            "a coordinate cap splits batches without changing the result");
+        check(f.cache.finishSnapshot(capped, true).snapshot().notes().size() == 12, "capped batches publish all notes");
+        expect(IllegalArgumentException.class, () -> f.cache.beginSnapshot(f.ref, FULL, Map.of(), "late", 5_001));
+    }
+    private interface CandidateChange { void apply(Fixture f); }
+    private static void candidateGuards() {
+        Map<String, CandidateChange> changes = new java.util.LinkedHashMap<>();
+        changes.put("callback", f -> f.cache.callback(f.ref, f.cache.bindingToken(f.ref), new Coordinate(3, 60)));
+        changes.put("eviction", f -> f.cache.evict(f.ref));
+        changes.put("project", f -> f.cache.projectChanged());
+        changes.put("rebuild", f -> f.cache.beginRebuild());
+        changes.put("ping", f -> f.cache.measurePing(51));
+        changes.put("structure", f -> f.cache.requireRebuild("test-structure"));
+        changes.put("superseded", f -> f.cache.beginSnapshot(f.ref, FULL, Map.of(), "newer", ENRICHMENT_DEADLINE_MS));
+        for (Map.Entry<String, CandidateChange> change : changes.entrySet()) {
+            Fixture f = wideClip(12);
+            Candidate work = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), change.getKey(), ENRICHMENT_DEADLINE_MS);
+            f.cache.enrich(work, slow(f, 6_000_000L), 10);
+            check("enriching".equals(work.phase()), change.getKey() + ": the first batch leaves partial work");
+            change.getValue().apply(f);
+            check(work.terminal() && work.status().estimatedBytes() == 0 && work.status().notes() == 0,
+                change.getKey() + ": the guard change releases the partial candidate");
+            f.cache.enrich(work, slow(f, 0), 10);
+            Result result = f.cache.finishSnapshot(work, true);
+            check(result.snapshot() == null && !work.reason().equals("enrichment-complete"),
+                change.getKey() + ": a retired candidate cannot publish: " + work.reason());
+            check(f.cache.diagnostics().retainedSnapshotEstimatedBytes() == 0 && (change.getKey().equals("superseded")
+                || f.cache.resources().candidatePhase().equals("none")), change.getKey() + ": no retained output remains");
+        }
+    }
+    private static void candidateFinalGuard() {
+        Fixture f = wideClip(3);
+        Candidate work = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "final", ENRICHMENT_DEADLINE_MS);
+        f.cache.enrich(work, slow(f, 0), ENRICHMENT_BATCH_MS);
+        check("ready".equals(work.phase()), "all coordinates are enriched");
+        f.notes(new Coordinate(0, 60), List.of(note(0, new Coordinate(0, 60), .9)));
+        Result stale = f.cache.finishSnapshot(work, true);
+        check(stale.snapshot() == null && work.reason().equals("window-changed"), "a callback after the last batch refuses publication");
+        f.drain();
+        Candidate retry = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "retry", ENRICHMENT_DEADLINE_MS);
+        f.cache.enrich(retry, slow(f, 0), ENRICHMENT_BATCH_MS);
+        Result fresh = f.cache.finishSnapshot(retry, true);
+        check(fresh.snapshot() != null && fresh.snapshot().notes().stream().anyMatch(n -> n.fields().get("velocity").equals(.9)),
+            "an explicit new candidate acquires fresh values");
+        expect(IllegalStateException.class, () -> f.cache.finishSnapshot(retry, true));
+        Snapshot terminal = fresh.snapshot();
+        f.cache.callback(f.ref, f.cache.bindingToken(f.ref), new Coordinate(1, 60));
+        check(!f.cache.isCurrent(terminal) && terminal.notes().size() == 3, "retained terminal output becomes historical and stays immutable");
+    }
+    private static void candidateLimits() {
+        Fixture f = wideClip(12);
+        Candidate deadline = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "deadline", 1);
+        f.cache.enrich(deadline, slow(f, 2_000_000L), 1); pause(2);
+        f.cache.enrich(deadline, slow(f, 0), 1);
+        check(deadline.reason().equals("enrichment-deadline") && f.cache.finishSnapshot(deadline, true).reason().equals("enrichment-deadline"),
+            "an expired candidate retires before its next batch");
+        Candidate ready = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "ready-deadline", 1);
+        f.cache.enrich(ready, slow(f, 0), ENRICHMENT_BATCH_MS); pause(2);
+        check(f.cache.finishSnapshot(ready, true).reason().equals("enrichment-deadline"), "publication rechecks the deadline");
+        Candidate blocking = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "blocking", ENRICHMENT_DEADLINE_MS);
+        f.cache.enrich(blocking, slow(f, 60_000_000L), 10);
+        check(blocking.reason().equals("enrichment-budget"), "one read over 50 ms retires the candidate");
+        Candidate cancelled = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "cancel", ENRICHMENT_DEADLINE_MS);
+        f.cache.enrich(cancelled, slow(f, 6_000_000L), 10); int[] reads = {0};
+        f.cache.cancelSnapshot(cancelled, "explicit-cancel");
+        f.cache.enrich(cancelled, c -> { reads[0]++; return f.notes.get(c); }, 10);
+        check(cancelled.reason().equals("explicit-cancel") && reads[0] == 0 && f.cache.finishSnapshot(cancelled, false).mode().equals("refuse"),
+            "cancellation is terminal, makes no provider read, and refuses without authority");
+        Candidate incomplete = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "incomplete", ENRICHMENT_DEADLINE_MS);
+        check(f.cache.finishSnapshot(incomplete, true).reason().equals("enrichment-incomplete"), "partial work cannot become complete output");
+        f.cache.callback(f.ref, f.cache.bindingToken(f.ref), new Coordinate(0, 60));
+        Candidate dirty = f.cache.beginSnapshot(f.ref, FULL, Map.of("name", "clip"), "dirty", ENRICHMENT_DEADLINE_MS);
+        check(dirty.terminal() && dirty.reason().equals("dirty-or-unhealthy"), "dirty work refuses before enrichment");
+    }
+    private static void pause(long ms) { long end = System.nanoTime() + ms * 1_000_000L; while (System.nanoTime() < end) Thread.onSpinWait(); }
+    private static void externalRecorder() {
+        ShadowProjectCache cache = new ShadowProjectCache(); long[] hints = {0};
+        cache.attachExternalRecorderEstimate(() -> hints[0]);
+        Fixture f = new Fixture(cache); f.notes(CELL, List.of(note(0, CELL, .5))); f.ready();
+        long resident = cache.resources().residentRecorderEstimatedBytes();
+        hints[0] = MAX_RECORDER_BYTES - resident;
+        check(cache.resources().recorderDomainEstimatedBytes() == MAX_RECORDER_BYTES && f.snapshot().snapshot() != null,
+            "recorder equality with external hints passes");
+        hints[0]++;
+        check(f.snapshot().reason().equals("budget-exceeded"), "external hints over the recorder limit refuse publication");
+        check(!cache.callback(f.ref, cache.bindingToken(f.ref), new Coordinate(1, 60)) && cache.diagnostics().resident() == 0
+            && cache.diagnostics().reason().equals("memory-budget"), "the next callback sheds residence");
+        hints[0] = 0;
+        check(cache.resources().recorderDomainEstimatedBytes() == 0 && !cache.resources().heapMeasured(), "shed residence releases recorder estimates");
     }
     private static void census() {
         Fixture f = new Fixture(); List<Note> notes = new ArrayList<>();

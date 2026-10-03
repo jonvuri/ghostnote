@@ -94,7 +94,116 @@ public final class ShadowCacheProbeTest {
         run("step window: identity equality and init changes", ShadowCacheProbeTest::stepIdentity);
         run("step window: uncovered reads refuse", ShadowCacheProbeTest::stepUncovered);
         run("step window: exact authority waits for confirmation", ShadowCacheProbeTest::stepExact);
+        run("8g3: enrichment runs bounded batches across polls", ShadowCacheProbeTest::enrichmentBatches);
+        run("8g3: retirement and step changes release a partial candidate", ShadowCacheProbeTest::enrichmentInterrupted);
+        run("8g3: one resource accounting boundary", ShadowCacheProbeTest::resourceAccounting);
         System.out.println("Shadow cache adapter: " + passed + " test groups passed.");
+    }
+
+    /** Thirty notes and 4 ms per coordinate need several 40 ms enrichment batches. */
+    private static Fixture batchedFixture() throws Exception {
+        Fixture f = new Fixture();
+        for (int x = 1; x <= 30; x++) f.host.clip("A", 0).notes.put(new Cell(x % 16, x, 60), fields(.5));
+        f.readyA();
+        f.host.resident(0).everyRead = () -> { long end = System.nanoTime() + 250_000L; while (System.nanoTime() < end) Thread.onSpinWait(); };
+        return f;
+    }
+
+    /** Poll until the scan reports the enrichment stage with partial candidate work. */
+    private static JsonObject untilEnriching(Fixture f) throws Exception {
+        JsonObject result = f.probe.compareStart(0);
+        for (int attempt = 0; attempt < 80; attempt++) {
+            if (result.has("scanStage") && result.get("scanStage").getAsString().equals("enrichment")
+                && result.getAsJsonObject("snapshotCandidate").get("phase").getAsString().equals("enriching")) return result;
+            check(result.get("comparison").getAsString().equals("pending"), "comparison stays pending before enrichment: " + result);
+            fastClock(f.probe); f.host.runTasks(); result = f.probe.comparePoll();
+        }
+        throw new AssertionError("enrichment stage was not observed");
+    }
+
+    private static void enrichmentBatches() throws Exception {
+        Fixture f = batchedFixture();
+        long before = f.probe.info().get("enrichmentBatches").getAsLong();
+        JsonObject partial = untilEnriching(f);
+        noOutput(partial);
+        check(!partial.has("diagnosticSnapshot") && !partial.has("authorityNotes") && !partial.has("historicalSnapshot"),
+            "partial enrichment exposes no candidate or authority values");
+        JsonObject accounting = partial.getAsJsonObject("resourceAccounting");
+        check(accounting.get("candidateSnapshotEstimatedBytes").getAsLong() > 0 && accounting.get("retainedSnapshotEstimatedBytes").getAsLong() == 0
+            && accounting.get("candidatePhase").getAsString().equals("enriching"), "the candidate is accounted while the old snapshot is replaced");
+        JsonObject candidate = partial.getAsJsonObject("snapshotCandidate");
+        check(candidate.get("lastBatchMs").getAsDouble() <= ENRICHMENT_BATCH_MS && candidate.get("coordinatesDone").getAsInt() < 31,
+            "one poll runs one bounded batch");
+        JsonObject result = partial;
+        for (int attempt = 0; attempt < 80 && result.get("comparison").getAsString().equals("pending"); attempt++) {
+            fastClock(f.probe); f.host.runTasks(); result = f.probe.comparePoll();
+        }
+        check(result.get("comparison").getAsString().equals("match") && f.snapshot(result).notes().size() == 31,
+            "batched enrichment matches independent authority");
+        check(result.get("enrichmentBatches").getAsLong() - before > 1, "enrichment needed more than one batch");
+        JsonObject phases = result.getAsJsonObject("scanPhaseTimesMs");
+        for (String phase : List.of("membership", "authority-binding", "authority-reads", "settlement-confirmation", "enrichment", "result-confirmation", "ended"))
+            check(phases.has(phase), "phase time is reported: " + phase);
+        check(phases.get("enrichmentHostWorkMs").getAsDouble() > 0 && phases.get("authorityHostWorkMs").getAsDouble() > 0,
+            "host work stays separate from wall phase times");
+        JsonObject done = result.getAsJsonObject("resourceAccounting");
+        check(done.get("candidateSnapshotEstimatedBytes").getAsLong() == 0 && done.get("retainedSnapshotEstimatedBytes").getAsLong()
+            == f.snapshot(result).payloadEstimatedBytes(), "publication moves the estimate into the retained snapshot");
+    }
+
+    private static void enrichmentInterrupted() throws Exception {
+        Fixture f = batchedFixture();
+        untilEnriching(f);
+        f.probe.retire(0);
+        JsonObject retired = f.probe.info();
+        check(retired.getAsJsonObject("resourceAccounting").get("candidateSnapshotEstimatedBytes").getAsLong() == 0
+            && retired.getAsJsonObject("resourceAccounting").get("snapshotDomainEstimatedBytes").getAsLong() == 0
+            && retired.getAsJsonObject("lastSnapshotCandidate").get("phase").getAsString().equals("retired"),
+            "retirement releases the partial candidate");
+        noOutput(f.probe.comparePoll());
+        check(field(f.probe, "scan") == null && !f.probe.comparePoll().has("diagnosticSnapshot"), "no scan or output remains");
+        f.host.resident(0).everyRead = null; f.rebind("A", 0); f.host.resident(0).everyRead = () -> {
+            long end = System.nanoTime() + 250_000L; while (System.nanoTime() < end) Thread.onSpinWait(); };
+        untilEnriching(f);
+        f.host.resident(1).emit(0, 60, 2);
+        fastClock(f.probe); f.host.runTasks();
+        JsonObject changed = f.probe.comparePoll();
+        check(changed.get("comparison").getAsString().equals("step-window-changed") && changed.get("terminal").getAsBoolean()
+            && !changed.has("diagnosticSnapshot"), "a step between batches refuses the candidate");
+        check(changed.getAsJsonObject("resourceAccounting").get("snapshotDomainEstimatedBytes").getAsLong() == 0,
+            "a step change retains no candidate or snapshot");
+        f.host.resident(0).everyRead = null; f.rebind("A", 0);
+        check(f.compare().get("comparison").getAsString().equals("match"), "an explicit new attempt recovers with fresh values");
+    }
+
+    private static void resourceAccounting() throws Exception {
+        Fixture f = new Fixture(); f.readyA();
+        Cursor resident = f.host.resident(0);
+        resident.emit(3, 61, 2); resident.emit(4, 61, 2);
+        JsonObject info = f.probe.info(), accounting = info.getAsJsonObject("resourceAccounting");
+        long hints = info.get("physicalPendingHints").getAsLong();
+        check(hints == 2 && accounting.get("physicalHintQueueEstimatedBytes").getAsLong() == 56 * hints
+            && accounting.get("externalRecorderEstimatedBytes").getAsLong() == 56 * hints, "hint queues count in the recorder domain");
+        check(accounting.get("recorderDomainEstimatedBytes").getAsLong() == accounting.get("residentRecorderEstimatedBytes").getAsLong()
+            + accounting.get("stagingRecorderEstimatedBytes").getAsLong() + 56 * hints, "the recorder domain sums its parts");
+        long total = accounting.get("recorderDomainEstimatedBytes").getAsLong() + accounting.get("snapshotDomainEstimatedBytes").getAsLong()
+            + accounting.get("authorityDomainEstimatedBytes").getAsLong() + accounting.get("registryAttemptEstimatedBytes").getAsLong()
+            + accounting.get("identityAndWitnessEstimatedBytes").getAsLong();
+        check(accounting.get("totalEstimatedBytes").getAsLong() == total, "the total adds every domain once");
+        check(!accounting.get("combinedLimitSelected").getAsBoolean() && !accounting.get("heapMeasured").getAsBoolean()
+            && !accounting.get("hostMemoryMeasured").getAsBoolean() && !accounting.get("serializedBytesAreMemoryMeasurement").getAsBoolean()
+            && accounting.get("recorderLimitBytes").getAsLong() == MAX_RECORDER_BYTES && accounting.get("snapshotLimitBytes").getAsLong() == MAX_SNAPSHOT_BYTES,
+            "limits and unmeasured quantities are explicit");
+        f.probe.reconcile(0);
+        JsonObject exact = f.exact(f.a, null);
+        check(exact.get("authorityAvailable").getAsBoolean(), "exact authority acquires");
+        JsonObject staged = f.probe.info().getAsJsonObject("resourceAccounting");
+        check(staged.get("exactAuthorityStagingEstimatedBytes").getAsLong() > 0
+            && staged.get("authorityDomainEstimatedBytes").getAsLong() == staged.get("exactAuthorityStagingEstimatedBytes").getAsLong(),
+            "retained exact output stays in the authority domain");
+        f.probe.exactCancel("accounting-test");
+        check(f.probe.info().getAsJsonObject("resourceAccounting").get("authorityDomainEstimatedBytes").getAsLong() == 0,
+            "cancellation releases authority staging");
     }
 
     private static void authorityControlFailure() throws Exception {
@@ -1315,7 +1424,7 @@ public final class ShadowCacheProbeTest {
         boolean holdClipPinRead;
         boolean failPositionRead;
         StepDataChangedCallback callback;
-        Runnable readHook, fieldHook, metadataHook, bindingHook;
+        Runnable readHook, fieldHook, metadataHook, bindingHook, everyRead;
         final List<String> transitions = new ArrayList<>(), reads = new ArrayList<>();
         Cursor(FakeHost host, String id, boolean cursor) { this.host = host; this.id = id; track = cursor ? "" : id; }
 
@@ -1360,6 +1469,7 @@ public final class ShadowCacheProbeTest {
             if (name.equals("unsubscribe")) { subscribed = false; return null; }
             if (name.equals("getStep")) {
                 if (readHook != null) { Runnable hook = readHook; readHook = null; hook.run(); }
+                if (everyRead != null) everyRead.run();
                 int channel = (Integer)args[0], x = (Integer)args[1], y = (Integer)args[2];
                 reads.add((target == null ? "none" : target.track + ":" + target.row) + ":" + channel + ":" + x + ":" + y);
                 Map<String, Object> values = target == null ? null : target.notes.get(new Cell(channel, x, y));
